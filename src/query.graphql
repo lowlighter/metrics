@@ -1,0 +1,82 @@
+query Metrics {
+  user(login: $login) {
+    name
+    login
+    createdAt
+    avatarUrl
+    repositories(last: 100, isFork: false, ownerAffiliations: OWNER) {
+      totalCount
+      nodes {
+        watchers {
+          totalCount
+        }
+        stargazers {
+          totalCount
+        }
+        languages(first: 4) {
+          edges {
+            size
+            node {
+              color
+              name
+            }
+          }
+        }
+        issues_open: issues(states: OPEN) {
+          totalCount
+        }
+        issues_closed: issues(states: CLOSED) {
+          totalCount
+        }
+        pr_open: pullRequests(states: OPEN) {
+          totalCount
+        }
+        pr_merged: pullRequests(states: MERGED) {
+          totalCount
+        }
+        forkCount
+      }
+    }
+    packages {
+      totalCount
+    }
+    starredRepositories {
+      totalCount
+    }
+    watching {
+      totalCount
+    }
+    sponsorshipsAsSponsor {
+      totalCount
+    }
+    sponsorshipsAsMaintainer {
+      totalCount
+    }
+    contributionsCollection {
+      totalRepositoriesWithContributedCommits
+      totalCommitContributions
+      restrictedContributionsCount
+      totalIssueContributions
+      totalPullRequestContributions
+      totalPullRequestReviewContributions
+    }
+    calendar:contributionsCollection(from: $calendar.from, to: $calendar.to) {
+      contributionCalendar {
+        weeks {
+          contributionDays {
+            color
+          }
+        }
+      }
+    }
+    repositoriesContributedTo {
+      totalCount
+    }
+    followers {
+      totalCount
+    }
+    following {
+      totalCount
+    }
+  }
+}

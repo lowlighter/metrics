@@ -1,0 +1,9 @@
+{
+  "token":"MY GITHUB API TOKEN",  "//":"Your own GitHub API token (required)",
+  "restricted":[],                "//":"List of authorized users, leave empty for unrestricted",
+  "cached":3600000,               "//":"Cached time for generated images, 0 to disable",
+  "maxusers":0,                   "//":"Maximum number of users, 0 for unlimited",
+  "ratelimiter":null,             "//":"Rate limiter (see express-rate-limit documentation for options)",
+  "port":3000,                    "//":"Listening port",
+  "debug":false,                  "//":"Debug mode"
+}

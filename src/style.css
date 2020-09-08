@@ -1,0 +1,86 @@
+svg {
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
+  font-size: 14px;
+  color: #777777;
+}
+svg.bar {
+  margin: 4px 0;
+}
+h1, h2, h3 {
+  margin: 8px 0 2px;
+  padding: 0;
+  color: #0366d6;
+  font-weight: normal;
+}
+h1 {
+  font-size: 20px;
+  font-weight: bold;
+}
+h2 {
+  font-size: 16px;
+}
+h2 svg {
+  fill: #0366d6;
+}
+h3 {
+  font-size: 14px;
+}
+.field {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2px;
+}
+section > .field {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.field svg {
+  margin: 0 8px;
+  fill: #959da5;
+}
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.center {
+  justify-content: center;
+}
+.horizontal {
+  justify-content: space-around;
+}
+.horizontal-wrap {
+  flex-wrap: wrap;
+}
+.horizontal .field {
+  flex: 1 1 0;
+}
+.row {
+  display: flex;
+}
+.row section {
+  flex: 1 1 0;
+}
+.no-wrap {
+  white-space: nowrap;
+}
+.avatar {
+  background-color: #000000;
+  border-radius: 50%;
+  margin: 0 6px;
+}
+.calendar.field {
+  margin: 4px 0;
+  margin-left: 7px;
+}
+.calendar .day {
+  outline: 1px solid rgba(27,31,35,.04);
+  outline-offset: -1px;
+}
+footer {
+  margin-top: 8px;
+  text-align: right;
+  font-size: 8px;
+  font-style: italic;
+  opacity: 0.5;
+}

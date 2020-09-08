@@ -1,0 +1,36 @@
+{
+  "name": "metrics",
+  "version": "1.0.0",
+  "description": "Generate an user's GitHub metrics as SVG image format to embed somewhere else",
+  "main": "index.mjs",
+  "scripts": {
+    "start": "node index.mjs",
+    "build-ncc": "npx ncc build action/index.mjs --out action/dist",
+    "build-post": "node utils/post_build.mjs",
+    "build": "npx run-s build-ncc build-post",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lowlighter/metrics.git"
+  },
+  "author": "lowlighter",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lowlighter/metrics/issues"
+  },
+  "homepage": "https://github.com/lowlighter/metrics#readme",
+  "dependencies": {
+    "@actions/core": "^1.2.5",
+    "@actions/github": "^4.0.0",
+    "@octokit/graphql": "^4.5.4",
+    "express": "^4.17.1",
+    "express-rate-limit": "^5.1.3",
+    "image-to-base64": "^2.1.1",
+    "memory-cache": "^0.2.0"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.24.0",
+    "npm-run-all": "^4.1.5"
+  }
+}

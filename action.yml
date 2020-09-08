@@ -1,0 +1,19 @@
+name: GitHub metrics as SVG image
+author: lowlighter
+description: Generate an user's GitHub metrics as SVG image format to embed somewhere else
+branding:
+  icon: user-check
+  color: gray-dark
+inputs:
+  token:
+    description: GitHub Personal Token (require "public_repo" permissions)
+    required: true
+  user:
+    description: Target GitHub user
+    required: true
+  filename:
+    description: Name of SVG image output
+    default: github-metrics.svg
+runs:
+  using: node12
+  main: action/dist/index.js
