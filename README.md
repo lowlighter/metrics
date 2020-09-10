@@ -46,6 +46,7 @@ Paste the following and don't forget to put your GitHub username.
 name: GitHub metrics as SVG image
 on:
   # Update metrics each 15 minutes. Edit this if you want to increase/decrease frequency
+  # Note that GitHub image cache (5-15 minutes) still apply so it is useless to set less than this, you're image won't be refreshed
   schedule: [{cron: "*/15 * * * *"}]
   # Add this if you want to force update each time you commit on master branch
   push: {branches: "master"}
