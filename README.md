@@ -14,21 +14,16 @@ A GitHub Action which is run periodically at your convenience which generates an
 
 Assuming your username is `my-github-user`, you can embed your metrics in your personal repository's readme like below :
 ```markdown
-![GitHub metrics](github-metrics.svg)
+![GitHub metrics](https://github.com/my-github-user/my-github-user/blob/master/github-metrics.svg)
 # Or with a redirection :  
-[![GitHub metrics](github-metrics.svg)](https://github.com/my-github-user/my-github-user)
+[![GitHub metrics](https://github.com/my-github-user/my-github-user/blob/master/github-metrics.svg)](https://github.com/my-github-user/my-github-user)
 ```
 ```html
 <img src="github-metrics.svg" alt="My GitHub metrics">
 ```
 
-If you want to include it somewhere different from your personal repository, use the full link instead : 
-```markdown
-![GitHub metrics](https://github.com/my-github-user/my-github-user/blob/master/github-metrics.svg)
-```
-
 <details>
-<summary>💬 How to setup in 3 steps</summary>
+<summary>💬 How to setup ?</summary>
 
 ### 1. Create a GitHub token
 
@@ -75,6 +70,14 @@ On each run, a new SVG image will be generated and committed to your repository.
 Note that this will virtually increase your commits stats, so you could use a bot account instead.
 
 ![Action update](https://github.com/lowlighter/metrics/blob/master/docs/imgs/action_update.png)
+
+# 4. Embed the link into your README.md
+
+Edit your README.md on your repository and link it your image :
+
+```markdown
+![GitHub metrics](https://github.com/my-github-user/my-github-user/blob/master/github-metrics.svg)
+```
 
 </details>
 
@@ -245,6 +248,14 @@ systemctl start github_metrics
 Check if your service is up and running :
 ```shell
 systemctl status github_metrics
+```
+
+# 6. Embed the link into your README.md
+
+Edit your README.md on your repository and link it your image :
+
+```markdown
+![GitHub metrics](https://my-personal-domain.com/my-github-user)
 ```
 
 </details>
