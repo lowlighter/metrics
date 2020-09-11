@@ -81,7 +81,7 @@ Edit your README.md on your repository and link it your image :
 
 </details>
 
-### 💕 Using the shared instance (~2 min setup, but with limitations)
+### 💕 Using the shared instance (~1 min setup, but with limitations)
 
 For conveniency, you can use the shared instance available at [metrics.lecoq.io](https://metrics.lecoq.io).
 
@@ -116,7 +116,7 @@ It is also easier to change `query.graphql`, `style.css` and `template.svg` if y
 
 
 <details>
-<summary>💬 How to setup in 5 steps</summary>
+<summary>💬 How to setup ?</summary>
 
 ### 0. Prepare your server
 
