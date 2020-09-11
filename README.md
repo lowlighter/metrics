@@ -12,12 +12,19 @@ Below is what it looks like :
 
 A GitHub Action which is run periodically at your convenience which generates and push an SVG image on your personal repository.
 
-Assuming your username is `my-github-user`, you can embed your metrics like below :
+Assuming your username is `my-github-user`, you can embed your metrics in your personal repository's readme like below :
 ```markdown
-![GitHub metrics](https://github.com/my-github-user/my-github-user/blob/master/github-metrics.svg)
+![GitHub metrics](github-metrics.svg)
+# Or with a redirection :  
+[![GitHub metrics](github-metrics.svg)](https://github.com/my-github-user/my-github-user)
 ```
 ```html
-<img src="https://github.com/my-github-user/my-github-user/blob/master/github-metrics.svg" alt="My GitHub metrics">
+<img src="github-metrics.svg" alt="My GitHub metrics">
+```
+
+If you want to include it somewhere different from your personal repository, use the full link instead : 
+```markdown
+![GitHub metrics](https://github.com/my-github-user/my-github-user/blob/master/github-metrics.svg)
 ```
 
 <details>
@@ -75,12 +82,11 @@ Note that this will virtually increase your commits stats, so you could use a bo
 
 For conveniency, you can use the shared instance available at [metrics.lecoq.io](https://metrics.lecoq.io).
 
-Assuming your username is `my-github-user`, you can embed your metrics like below :
+Assuming your username is `my-github-user`, you can embed your metrics in your personal repository's readme like below :
 ```markdown
 ![GitHub metrics](https://metrics.lecoq.io/my-github-user)
-```
-```html
-<img src="https://metrics.lecoq.io/my-github-user" alt="My GitHub metrics">
+# Or with a redirection :  
+[![GitHub metrics](https://metrics.lecoq.io/my-github-user)](https://github.com/my-github-user/my-github-user)
 ```
 
 <details>
