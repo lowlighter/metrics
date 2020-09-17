@@ -22,6 +22,8 @@ inputs:
     description: Enable repositories lines metrics
   plugin_traffic:
     description: Enable repositories traffic metrics (due to GitHub API limitations, "token" must have "repo" permissions)
+  debug:
+    description: Enable debug logs
 runs:
   using: node12
   main: action/dist/index.js

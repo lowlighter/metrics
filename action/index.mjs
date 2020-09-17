@@ -11,7 +11,6 @@
   //Runner
     try {
       //Initialization
-        console.debug = () => null
         console.log(`GitHub metrics as SVG image`)
         console.log(`========================================================`)
 
@@ -20,7 +19,7 @@
         console.log(`Templates           | loaded`)
 
       //Initialization
-        const [token, user, filename] = [core.getInput("token"), core.getInput("user"), core.getInput("filename", {default:"github-metrics.svg"})]
+        const [token, user, filename, debug] = [core.getInput("token"), core.getInput("user"), core.getInput("filename", {default:"github-metrics.svg"}), core.getInput("debug", {default:false})]
         const output = path.join(filename)
         console.log(`GitHub user         | ${user}`)
         console.log(`Output file         | ${output}`)
@@ -29,6 +28,11 @@
           throw new Error("You must provide a valid GitHub token")
         const graphql = octokit.graphql.defaults({headers:{authorization: `token ${token}`}})
         const rest = github.getOctokit(token)
+
+      //Debug mode
+        if (!debug)
+          console.debug = () => null
+        console.log(`Debug mode          | ${debug ? "enabled" : "disabled"}`)
 
       //Additional plugins
         const plugins = {
