@@ -16,17 +16,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_github__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(9483);
 /* harmony import */ var _actions_github__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_actions_github__WEBPACK_IMPORTED_MODULE_3__);
 //Imports
-
-
-
-
+  
+  
+  
+  
   ((async function () {
   //Hack because ES modules are not correctly transpiled with ncc
     const [core, github, octokit, metrics] = [_actions_core__WEBPACK_IMPORTED_MODULE_2__, _actions_github__WEBPACK_IMPORTED_MODULE_3__, _octokit_graphql__WEBPACK_IMPORTED_MODULE_4__, _src_metrics_mjs__WEBPACK_IMPORTED_MODULE_1__].map(m => (m && m.default) ? m.default : m)
   //Runner
     try {
       //Initialization
-        console.debug = () => null
         console.log(`GitHub metrics as SVG image`)
         console.log(`========================================================`)
 
@@ -531,7 +530,7 @@ __webpack_require__.r(__webpack_exports__);
         console.log(`Templates           | loaded`)
 
       //Initialization
-        const [token, user, filename] = [core.getInput("token"), core.getInput("user"), core.getInput("filename", {default:"github-metrics.svg"})]
+        const [token, user, filename, debug] = [core.getInput("token"), core.getInput("user"), core.getInput("filename", {default:"github-metrics.svg"}), core.getInput("debug", {default:false})]
         const output = path__WEBPACK_IMPORTED_MODULE_0___default().join(filename)
         console.log(`GitHub user         | ${user}`)
         console.log(`Output file         | ${output}`)
@@ -540,6 +539,11 @@ __webpack_require__.r(__webpack_exports__);
           throw new Error("You must provide a valid GitHub token")
         const graphql = octokit.graphql.defaults({headers:{authorization: `token ${token}`}})
         const rest = github.getOctokit(token)
+
+      //Debug mode
+        if (!debug)
+          console.debug = () => null
+        console.log(`Debug mode          | ${debug ? "enabled" : "disabled"}`)
 
       //Additional plugins
         const plugins = {
@@ -9678,8 +9682,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var image_to_base64__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(image_to_base64__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _plugins_index_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5820);
 //Imports
-
-
+  
+  
 
 //Setup
   async function metrics({login, q}, {template, style, query, graphql, rest, plugins}) {
@@ -9799,7 +9803,6 @@ __webpack_require__.d(__webpack_exports__, {
               if (!repository)
                 return
             //Extract author
-            console.log("debug", repository, JSON.stringify(repository))
               const [contributor] = repository.filter(({author}) => author.login === login)
             //Compute editions
               if (contributor)
@@ -9822,7 +9825,7 @@ var E_Users_lecoq_Documents_GitHub_gitstats_node_modules_axios_index_default = /
 
 // CONCATENATED MODULE: E:\Users\lecoq\Documents\GitHub\gitstats\src\plugins\pagespeed\index.mjs
 //Imports
-
+  
 
 //Setup
   /* harmony default export */ function E_Users_lecoq_Documents_GitHub_gitstats_src_plugins_pagespeed_index({login, url, computed, pending, q}, {enabled = false, token = null} = {}) {
@@ -9890,9 +9893,9 @@ var E_Users_lecoq_Documents_GitHub_gitstats_node_modules_axios_index_default = /
   }
 // CONCATENATED MODULE: E:\Users\lecoq\Documents\GitHub\gitstats\src\plugins\index.mjs
 //Imports
-
-
-
+  
+  
+  
 
 //Exports
   /* harmony default export */ const E_Users_lecoq_Documents_GitHub_gitstats_src_plugins_index = ({
@@ -10035,7 +10038,7 @@ module.exports = require("zlib");
 /************************************************************************/
 /******/ 	// The module cache
 /******/ 	var __webpack_module_cache__ = {};
-/******/
+/******/ 	
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
 /******/ 		// Check if module is in cache
@@ -10048,7 +10051,7 @@ module.exports = require("zlib");
 /******/ 			// no module.loaded needed
 /******/ 			exports: {}
 /******/ 		};
-/******/
+/******/ 	
 /******/ 		// Execute the module function
 /******/ 		var threw = true;
 /******/ 		try {
@@ -10057,11 +10060,11 @@ module.exports = require("zlib");
 /******/ 		} finally {
 /******/ 			if(threw) delete __webpack_module_cache__[moduleId];
 /******/ 		}
-/******/
+/******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-/******/
+/******/ 	
 /************************************************************************/
 /******/ 	/* webpack/runtime/compat get default export */
 /******/ 	(() => {
@@ -10074,7 +10077,7 @@ module.exports = require("zlib");
 /******/ 			return getter;
 /******/ 		};
 /******/ 	})();
-/******/
+/******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
@@ -10086,12 +10089,12 @@ module.exports = require("zlib");
 /******/ 			}
 /******/ 		};
 /******/ 	})();
-/******/
+/******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__webpack_require__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop)
 /******/ 	})();
-/******/
+/******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
@@ -10102,9 +10105,9 @@ module.exports = require("zlib");
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
 /******/ 	})();
-/******/
+/******/ 	
 /******/ 	/* webpack/runtime/compat */
-/******/
+/******/ 	
 /******/ 	__webpack_require__.ab = __dirname + "/";/************************************************************************/
 /******/ 	// module exports must be returned from runtime so entry inlining is disabled
 /******/ 	// startup
