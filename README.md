@@ -25,7 +25,7 @@ Assuming your username is `my-github-user`, you can embed your metrics in your p
 <details>
 <summary>💬 How to setup ?</summary>
 
-### 1. Create a GitHub token
+#### 1. Create a GitHub token
 
 In your account settings, go to `Developer settings` and select `Personal access tokens` to create a new token.
 
@@ -33,13 +33,13 @@ You'll need to create a token with the `public_repo` right so this GitHub Action
 
 ![Create a GitHub token](https://github.com/lowlighter/metrics/blob/master/docs/imgs/personal_token.png)
 
-### 2. Put your GitHub token in your personal repository secrets
+#### 2. Put your GitHub token in your personal repository secrets
 
 Go to the `Settings` of your personal repository to create a new secret and paste your GitHub token here with the name `METRICS_TOKEN`.
 
 ![Setup secret](https://github.com/lowlighter/metrics/blob/master/docs/imgs/repo_secrets.png)
 
-### 3. Create a new GitHub Action workflow on your personal repo
+#### 3. Create a new GitHub Action workflow on your personal repo
 
 Go to the `Actions` of your personal repository and create a new workflow.
 
@@ -96,7 +96,7 @@ Note that this will virtually increase your commits stats, so you could use a bo
 
 ![Action update](https://github.com/lowlighter/metrics/blob/master/docs/imgs/action_update.png)
 
-### 4. Embed the link into your README.md
+#### 4. Embed the link into your README.md
 
 Edit your README.md on your repository and link it your image :
 
@@ -144,11 +144,11 @@ It is also easier to change `query.graphql`, `style.css` and `template.svg` if y
 <details>
 <summary>💬 How to setup ?</summary>
 
-### 0. Prepare your server
+#### 0. Prepare your server
 
 You'll need to have a server at your disposal where you can install and configure stuff.
 
-### 1. Create a GitHub token
+#### 1. Create a GitHub token
 
 In your account settings, go to `Developer settings` and select `Personal access tokens` to create a new token.
 
@@ -156,7 +156,7 @@ As explained above, you do not need to grant additional permissions to the token
 
 ![Create a GitHub token](https://github.com/lowlighter/metrics/blob/master/docs/imgs/personal_token_alt.png)
 
-### 2. Install the dependancies
+#### 2. Install the dependancies
 
 Connect to your server.
 
@@ -179,7 +179,7 @@ Copy `settings.example.json` to `settings.json`
 cp settings.example.json settings.json
 ```
 
-### 3. Configure your instance
+#### 3. Configure your instance
 
 Open and edit `settings.json` to configure your instance.
 
@@ -254,7 +254,7 @@ Open and edit `settings.json` to configure your instance.
 }
 ```
 
-### 4. Start your instance
+#### 4. Start your instance
 
 Run the following command to start your instance :
 ```shell
@@ -266,7 +266,7 @@ Open your browser and test your instance :
 http://localhost:3000/my-github-user
 ```
 
-### 5. Setup as service on your instance (optional)
+#### 5. Setup as service on your instance (optional)
 
 You should consider using a service to run your instance.
 It will allow to restart automatically on crash and on boot.
@@ -304,7 +304,7 @@ Check if your service is up and running :
 systemctl status github_metrics
 ```
 
-### 6. Embed the link into your README.md
+#### 6. Embed the link into your README.md
 
 Edit your README.md on your repository and link it your image :
 
@@ -318,7 +318,9 @@ Edit your README.md on your repository and link it your image :
 
 ### 🧩 Plugins
 
-Plugins are additional bits of .
+Plugins are additional features that are disabled by default and which may requires additional configuration.
+
+These can provide more informations into your generated metrics, but it could also make it longer to generate, which may not be suitable with a server instance if you're not using caching.
 
 #### ⏱️ Pagespeed
 
@@ -331,6 +333,7 @@ These are computed through [Google's pagespeed API](https://developers.google.co
 To setup this plugin, you'll need an API key that you can generated in the [pagespeed API presentation](https://developers.google.com/speed/docs/insights/v5/get-started).
 
 The website attached to your GitHub profile will be the one to be audited.
+It will take about 10 to 15 seconds to generate the results, so it is advised to use this plugin alongside caching system or for automated image generation.
 
 <details>
 <summary>💬 Setup with GitHub actions</summary>
