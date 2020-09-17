@@ -60,14 +60,35 @@ jobs:
         # This line will prevent this GitHub action from running when it is updated by itself if you enabled trigger on master branch
         if: "!contains(github.event.head_commit.message, '[Skip GitHub Action]')"
         with:
+
           # Your GitHub token ("public_repo" is required to allow this action to update the metrics SVG image)
           token: ${{ secrets.METRICS_TOKEN }}
+
           # Your GitHub user name
           user: my-github-user
+
+          # Additional options
+          # ==========================================
+
+          # Path/filename to use to store generated SVG
+          filename: github-metrics.svg
+
           # If you own a website and you added it to your GitHub profile,
           # You can provide a PageSpeed token to add your site's performance results on the metrics SVG image
           # See https://developers.google.com/speed/docs/insights/v5/get-started to obtain a key
-          # pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
+          plugin_pagespeed: no
+          pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
+
+          # Enable repositories lines added/removed count
+          plugin_lines: no
+
+          # Enable repositories traffic (pages views) count
+          # The provided GitHub token will require "repo" permissions
+          plugin_traffic: no
+
+          # Enable debug logs
+          debug: no
+
 ```
 
 On each run, a new SVG image will be generated and committed to your repository.
@@ -75,7 +96,7 @@ Note that this will virtually increase your commits stats, so you could use a bo
 
 ![Action update](https://github.com/lowlighter/metrics/blob/master/docs/imgs/action_update.png)
 
-# 4. Embed the link into your README.md
+### 4. Embed the link into your README.md
 
 Edit your README.md on your repository and link it your image :
 
@@ -283,7 +304,7 @@ Check if your service is up and running :
 systemctl status github_metrics
 ```
 
-# 6. Embed the link into your README.md
+### 6. Embed the link into your README.md
 
 Edit your README.md on your repository and link it your image :
 
@@ -293,7 +314,89 @@ Edit your README.md on your repository and link it your image :
 
 </details>
 
-## 🗂️ Project structure
+## 📚 Documentations
+
+### 🧩 Plugins
+
+Plugins are additional bits of .
+
+#### ⏱️ Pagespeed
+
+The *pagespeed* plugin allows you to add your website performances.
+
+![Pagespeed plugin](https://github.com/lowlighter/metrics/blob/master/docs/imgs/plugin_pagespeed.jpg)
+
+These are computed through [Google's pagespeed API](https://developers.google.com/speed/docs/insights/v5/get-started), which returns the same results as [web.dev](https://web.dev).
+
+To setup this plugin, you'll need an API key that you can generated in the [pagespeed API presentation](https://developers.google.com/speed/docs/insights/v5/get-started).
+
+The website attached to your GitHub profile will be the one to be audited.
+
+<details>
+<summary>💬 Setup with GitHub actions</summary>
+
+Add the following to your workflow :
+
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_pagespeed: yes
+    pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
+```
+
+</details>
+
+#### 👨‍💻 Lines
+
+The *lines* plugin allows you to add the number of lines of code you added and removed across your repositories.
+
+![Lines plugin](https://github.com/lowlighter/metrics/blob/master/docs/imgs/plugin_lines.jpg)
+
+It will consume an additional GitHub request per repository.
+
+<details>
+<summary>💬 Setup with GitHub actions</summary>
+
+Add the following to your workflow :
+
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_lines: yes
+```
+
+</details>
+
+#### 🧮 Traffic
+
+The *traffic* plugin allows you to add the number of pages views across your repositories.
+
+![Traffic plugin](https://github.com/lowlighter/metrics/blob/master/docs/imgs/plugin_traffic.jpg)
+
+It will consume an additional GitHub request per repository.
+
+Due to GitHub Rest API limitation, the GitHub token you provide will requires "repo" permissions instead of "public_repo" to allow this plugin accessing traffic informations.
+
+![Token with repo permissions](https://github.com/lowlighter/metrics/blob/master/docs/imgs/token_repo_rights.png)
+
+<details>
+<summary>💬 Setup with GitHub actions</summary>
+
+Add the following to your workflow :
+
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    token: ${{ secrets.METRICS_TOKEN }} # Remember, this must have "repo" permissions for this plugin to work !
+    plugin_traffic: yes
+```
+
+</details>
+
+### 🗂️ Project structure
 
 * `index.mjs` contains the entry points and the settings instance
 * `src/app.mjs` contains the server code which serves renders and apply rate limiting, restrictions, etc.
@@ -306,7 +409,7 @@ Edit your README.md on your repository and link it your image :
 * `action/dist/index.js` contains compiled the GitHub action code
 * `utils/*` contains various utilitaries for build
 
-## ⚠️ HTTP errors code
+### ⚠️ HTTP errors code
 
 The following errors code can be encountered if your using a server instance :
 
@@ -316,15 +419,15 @@ The following errors code can be encountered if your using a server instance :
 * 500 Internal error : An error ocurred while generating metrics images (logs can be seen if you're the owner of the instance)
 * 503 Service unavailable : Maximum user capacity reached, only already cached images can be accessed for now
 
-## 📚 Documentations
+### 📖 Useful references
 
-Below is a list of useful documentations links :
+Below is a list of useful links :
 
 * [GitHub GraphQL API](https://docs.github.com/en/graphql)
 * [GitHub GraphQL Explorer](https://developer.github.com/v4/explorer/)
 * [GitHub Rest API](https://docs.github.com/en/rest)
 
-## 📦 Used packages
+### 📦 Used packages
 
 Below is a list of primary dependencies :
 
@@ -342,7 +445,7 @@ Below is a list of primary dependencies :
 All icons were ripped across GitHub's site, but still remains the intellectual property of GitHub.
 See [GitHub Logos and Usage](https://github.com/logos) for more information.
 
-## ✨ Inspirations
+### ✨ Inspirations
 
 This project was inspired by the following projects :
 
