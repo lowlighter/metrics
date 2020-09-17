@@ -1,0 +1,1 @@
+//Placeholder for https://docs.github.com/en/rest/reference/repos#get-all-contributor-commit-activity

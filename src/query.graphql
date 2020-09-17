@@ -4,6 +4,7 @@ query Metrics {
     login
     createdAt
     avatarUrl
+    websiteUrl
     repositories(last: 100, isFork: false, ownerAffiliations: OWNER) {
       totalCount
       nodes {

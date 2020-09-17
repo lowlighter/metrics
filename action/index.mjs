@@ -29,8 +29,15 @@
         const graphql = octokit.graphql.defaults({headers:{authorization: `token ${token}`}})
         const rest = github.getOctokit(token)
 
+      //Additional plugins
+        const plugins = {}, q = {}
+        if (core.getInput("pagespeed_token")) {
+          plugins.pagespeed = {enabled:true, token:core.getInput("pagespeed_token")}
+          q.pagespeed = true
+        }
+
       //Render metrics
-        const rendered = await metrics({login:user}, {template, style, query, graphql})
+        const rendered = await metrics({login:user, q}, {template, style, query, graphql, plugins})
         console.log(`Render              | complete`)
 
       //Commit to repository

@@ -250,6 +250,7 @@ systemctl status github_metrics
 * `src/query.graphql` is the GraphQL query which is sent to GitHub API
 * `src/style.css` contains the style for the generated svg image metrics
 * `src/template.svg` contains the structure of the generated svg image metrics
+* `src/plugins/*` contains various additional plugins which can add additional informations in generated metrics
 * `action/index.mjs` contains the GitHub action code
 * `action/dist/index.js` contains compiled the GitHub action code
 * `utils/*` contains various utilitaries for build
@@ -295,3 +296,4 @@ This project was inspired by the following projects :
 
 * [anuraghazra/github-readme-stats](https://github.com/anuraghazra/github-readme-stats)
 * [jstrieb/github-stats](https://github.com/jstrieb/github-stats)
+* [ankurparihar/readme-pagespeed-insights](https://github.com/ankurparihar/readme-pagespeed-insights)

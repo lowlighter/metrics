@@ -1,8 +1,9 @@
 //Imports
   import imgb64 from "image-to-base64"
+  import Plugins from "./plugins/index.mjs"
 
 //Setup
-  export default async function metrics({login}, {template, style, query, graphql}) {
+  export default async function metrics({login, q}, {template, style, query, graphql, plugins}) {
     //Compute rendering
       try {
 
@@ -15,8 +16,13 @@
 
         //Init
           const languages = {colors:{}, total:0, stats:{}}
-          const computed = data.computed = {commits:0, languages, repositories:{watchers:0, stargazers:0, issues_open:0, issues_closed:0, pr_open:0, pr_merged:0, forks:0}}
+          const computed = data.computed = {commits:0, languages, repositories:{watchers:0, stargazers:0, issues_open:0, issues_closed:0, pr_open:0, pr_merged:0, forks:0}, plugins:{}}
           const avatar = imgb64(data.user.avatarUrl)
+          const pending = []
+
+        //Plugins
+          if (data.user.websiteUrl)
+            Plugins.pagespeed({url:data.user.websiteUrl, computed, pending, q}, plugins.pagespeed)
 
         //Iterate through user's repositories
           for (const repository of data.user.repositories.nodes) {
@@ -58,6 +64,9 @@
 
         //Avatar (base64)
           computed.avatar = await avatar || "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
+
+        //Wait for pending promises
+          await Promise.all(pending)
 
         //Eval rendering and return
           return eval(`\`${template}\``)

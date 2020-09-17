@@ -17,8 +17,9 @@
 
     //Load settings
       const settings = JSON.parse((await fs.promises.readFile(path.join("settings.json"))).toString())
-      console.log(settings)
-      const {token, maxusers = 0, restricted = [], debug = false, cached = 30*60*1000, port = 3000, ratelimiter = null} = settings
+      const {token, maxusers = 0, restricted = [], debug = false, cached = 30*60*1000, port = 3000, ratelimiter = null, plugins = null} = settings
+      if (debug)
+        console.log(settings)
     //Load svg template, style and query
       let [template, style, query] = await load()
       const graphql = octokit.graphql.defaults({headers:{authorization: `token ${token}`}})
@@ -68,7 +69,7 @@
             //Render
               if (debug)
                 [template, style, query] = await load()
-              const rendered = await metrics({login}, {template, style, query, graphql})
+              const rendered = await metrics({login, q:req.query}, {template, style, query, graphql, plugins})
             //Cache
               if ((!debug)&&(cached))
                 cache.put(login, rendered, cached)

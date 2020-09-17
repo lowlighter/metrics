@@ -5,5 +5,11 @@
   "maxusers":0,                   "//":"Maximum number of users, 0 for unlimited",
   "ratelimiter":null,             "//":"Rate limiter (see express-rate-limit documentation for options)",
   "port":3000,                    "//":"Listening port",
-  "debug":false,                  "//":"Debug mode"
+  "debug":false,                  "//":"Debug mode",
+  "plugins":{                     "//":"Additional plugins (optional)",
+    "pagespeed":{                 "//":"Pagespeed configuration",
+      "enabled":false,            "//":"Enable or disable Pagespeed metrics",
+      "token":"******",           "//":"Pagespeed token"
+    }
+  }
 }

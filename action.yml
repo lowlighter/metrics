@@ -9,11 +9,13 @@ inputs:
     description: GitHub Personal Token (require "public_repo" permissions)
     required: true
   user:
-    description: Target GitHub user
+    description: Target GitHub username
     required: true
   filename:
     description: Name of SVG image output
     default: github-metrics.svg
+  pagespeed_token:
+    description: Pagespeed Personal Token (optional, will generate user's website performances if provided). See https://developers.google.com/speed/docs/insights/v5/get-started for more information.
 runs:
   using: node12
   main: action/dist/index.js
