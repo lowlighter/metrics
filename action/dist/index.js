@@ -9800,10 +9800,8 @@ __webpack_require__.d(__webpack_exports__, {
         //Compute changed lines
           response.map(({data:repository}) => {
             //Check if data are available
-              if (!repository)
+              if (!Array.isArray(repository))
                 return
-              if (!repository.filter)
-                console.log(repository.filter, repository)
             //Extract author
               const [contributor] = repository.filter(({author}) => author.login === login)
             //Compute editions
