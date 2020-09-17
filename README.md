@@ -15,7 +15,7 @@ A GitHub Action which is run periodically at your convenience which generates an
 Assuming your username is `my-github-user`, you can embed your metrics in your personal repository's readme like below :
 ```markdown
 ![GitHub metrics](https://github.com/my-github-user/my-github-user/blob/master/github-metrics.svg)
-# Or with a redirection :  
+# Or with a redirection :
 [![GitHub metrics](https://github.com/my-github-user/my-github-user/blob/master/github-metrics.svg)](https://github.com/my-github-user/my-github-user)
 ```
 ```html
@@ -64,6 +64,10 @@ jobs:
           token: ${{ secrets.METRICS_TOKEN }}
           # Your GitHub user name
           user: my-github-user
+          # If you own a website and you added it to your GitHub profile,
+          # You can provide a PageSpeed token to add your site's performance results on the metrics SVG image
+          # See https://developers.google.com/speed/docs/insights/v5/get-started to obtain a key
+          # pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
 ```
 
 On each run, a new SVG image will be generated and committed to your repository.
@@ -88,7 +92,7 @@ For conveniency, you can use the shared instance available at [metrics.lecoq.io]
 Assuming your username is `my-github-user`, you can embed your metrics in your personal repository's readme like below :
 ```markdown
 ![GitHub metrics](https://metrics.lecoq.io/my-github-user)
-# Or with a redirection :  
+# Or with a redirection :
 [![GitHub metrics](https://metrics.lecoq.io/my-github-user)](https://github.com/my-github-user/my-github-user)
 ```
 
@@ -99,6 +103,7 @@ Since GitHub API has rate limitations and to avoid abuse, the shared instance ha
   * Images are cached for 1 day (meaning that your metrics won't be updated until the next day)
   * A maximum of 1000 users can use this service
   * You're limited to 3 requests per hour (cached metrics are not counted)
+  * Plugins are not available
 
 You should consider deploying your own instance or use GitHub Action if you're planning using this service.
 
@@ -197,6 +202,34 @@ Open and edit `settings.json` to configure your instance.
   //This is intendend for easier development which allows to see your changes quickly
   //Defaults to false
     "debug":false,
+
+  //Plugins configuration
+  //Most of plugins are disabled by default
+  //Enabling them can add additional informations and metrics about you, but increases response time
+    "plugins":{
+      //Pagespeed plugin
+        "pagespeed":{
+          //Enable or disable this plugin
+          //When enabled, pass "?pagespeed=1" in url to generate website's performances
+            "enabled":false,
+          //Pagespeed token
+          //See https://developers.google.com/speed/docs/insights/v5/get-started to obtain a key
+            "token":"****************************************"
+        },
+      //Lines plugin
+        "lines":{
+          //Enable or disable this plugin
+          //When enabled, pass "?lines=1" in url to compute total lines added/removed in your repositories by you
+            "enabled":true
+        },
+      //Traffic plugin
+        "traffic":{
+          //Enable or disable this plugin
+          //When enabled, pass "?traffic=1" in url to compute total page views in your repositories in last two weeks
+          //Note that this requires that the passed GitHub API token requires a push access
+            "enabled":true
+        }
+    }
 }
 ```
 
@@ -289,6 +322,7 @@ Below is a list of useful documentations links :
 
 * [GitHub GraphQL API](https://docs.github.com/en/graphql)
 * [GitHub GraphQL Explorer](https://developer.github.com/v4/explorer/)
+* [GitHub Rest API](https://docs.github.com/en/rest)
 
 ## 📦 Used packages
 

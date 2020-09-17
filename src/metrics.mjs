@@ -3,11 +3,12 @@
   import Plugins from "./plugins/index.mjs"
 
 //Setup
-  export default async function metrics({login, q}, {template, style, query, graphql, plugins}) {
+  export default async function metrics({login, q}, {template, style, query, graphql, rest, plugins}) {
     //Compute rendering
       try {
 
         //Query data from GitHub API
+          console.debug(`metrics/metrics/${login} > query`)
           const data = await graphql(query
             .replace(/[$]login/, `"${login}"`)
             .replace(/[$]calendar.to/, `"${(new Date()).toISOString()}"`)
@@ -23,6 +24,8 @@
         //Plugins
           if (data.user.websiteUrl)
             Plugins.pagespeed({url:data.user.websiteUrl, computed, pending, q}, plugins.pagespeed)
+          Plugins.lines({login, repositories:data.user.repositories.nodes.map(({name}) => name), rest, computed, pending, q}, plugins.lines)
+          Plugins.traffic({login, repositories:data.user.repositories.nodes.map(({name}) => name), rest, computed, pending, q}, plugins.traffic)
 
         //Iterate through user's repositories
           for (const repository of data.user.repositories.nodes) {
@@ -69,6 +72,7 @@
           await Promise.all(pending)
 
         //Eval rendering and return
+          console.debug(`metrics/metrics/${login} > computed`)
           return eval(`\`${template}\``)
       }
     //Internal error

@@ -142,6 +142,12 @@ __webpack_require__.r(__webpack_exports__);
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M8.878.392a1.75 1.75 0 00-1.756 0l-5.25 3.045A1.75 1.75 0 001 4.951v6.098c0 .624.332 1.2.872 1.514l5.25 3.045a1.75 1.75 0 001.756 0l5.25-3.045c.54-.313.872-.89.872-1.514V4.951c0-.624-.332-1.2-.872-1.514L8.878.392zM7.875 1.69a.25.25 0 01.25 0l4.63 2.685L8 7.133 3.245 4.375l4.63-2.685zM2.5 5.677v5.372c0 .09.047.171.125.216l4.625 2.683V8.432L2.5 5.677zm6.25 8.271l4.625-2.683a.25.25 0 00.125-.216V5.677L8.75 8.432v5.516z"></path></svg>
               \${data.user.packages.totalCount} Package\${data.user.packages.totalCount > 1 ? "s" : ""}
             </div>
+            \${computed.plugins.lines ? \`
+              <div class="field">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M4.72 3.22a.75.75 0 011.06 1.06L2.06 8l3.72 3.72a.75.75 0 11-1.06 1.06L.47 8.53a.75.75 0 010-1.06l4.25-4.25zm6.56 0a.75.75 0 10-1.06 1.06L13.94 8l-3.72 3.72a.75.75 0 101.06 1.06l4.25-4.25a.75.75 0 000-1.06l-4.25-4.25z"></path></svg>
+                \${computed.plugins.lines.added} added, \${computed.plugins.lines.deleted} removed
+              </div>\` : ""
+            }
           </section>
 
           <section>
@@ -153,6 +159,12 @@ __webpack_require__.r(__webpack_exports__);
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M1.679 7.932c.412-.621 1.242-1.75 2.366-2.717C5.175 4.242 6.527 3.5 8 3.5c1.473 0 2.824.742 3.955 1.715 1.124.967 1.954 2.096 2.366 2.717a.119.119 0 010 .136c-.412.621-1.242 1.75-2.366 2.717C10.825 11.758 9.473 12.5 8 12.5c-1.473 0-2.824-.742-3.955-1.715C2.92 9.818 2.09 8.69 1.679 8.068a.119.119 0 010-.136zM8 2c-1.981 0-3.67.992-4.933 2.078C1.797 5.169.88 6.423.43 7.1a1.619 1.619 0 000 1.798c.45.678 1.367 1.932 2.637 3.024C4.329 13.008 6.019 14 8 14c1.981 0 3.67-.992 4.933-2.078 1.27-1.091 2.187-2.345 2.637-3.023a1.619 1.619 0 000-1.798c-.45-.678-1.367-1.932-2.637-3.023C11.671 2.992 9.981 2 8 2zm0 8a2 2 0 100-4 2 2 0 000 4z"></path></svg>
               \${data.computed.repositories.watchers} Watcher\${data.computed.repositories.watchers > 1 ? "s" : ""}
             </div>
+            \${computed.plugins.traffic ? \`
+              <div class="field">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.744 3.744 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75V1.75zm8.755 3a2.25 2.25 0 012.25-2.25H14.5v9h-3.757c-.71 0-1.4.201-1.992.572l.004-7.322zm-1.504 7.324l.004-5.073-.002-2.253A2.25 2.25 0 005.003 2.5H1.5v9h3.757a3.75 3.75 0 011.994.574z"></path></svg>
+                \${computed.plugins.traffic.views.count} views in last two weeks
+              </div>\` : ""
+            }
           </section>
         </div>
       </section>
@@ -440,6 +452,7 @@ __webpack_require__.r(__webpack_exports__);
     repositories(last: 100, isFork: false, ownerAffiliations: OWNER) {
       totalCount
       nodes {
+        name
         watchers {
           totalCount
         }
@@ -528,11 +541,13 @@ __webpack_require__.r(__webpack_exports__);
         const rest = github.getOctokit(token)
 
       //Additional plugins
-        const plugins = {}, q = {}
+        const enabled = new Set(core.getInput("plugins", {default:[]}))
+        const plugins = {lines:{enabled:enabled.has("lines")}, traffic:{enabled:enabled.has("traffic")}, pagespeed:{enabled:enabled.has("pagespeed")}}
         if (core.getInput("pagespeed_token")) {
-          plugins.pagespeed = {enabled:true, token:core.getInput("pagespeed_token")}
-          q.pagespeed = true
+          console.log(`Pagespeed token     | provided`)
+          plugins.pagespeed.token = core.getInput("pagespeed_token")
         }
+        const q = Object.fromEntries(Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => [key, true]))
 
       //Render metrics
         const rendered = await metrics({login:user, q}, {template, style, query, graphql, plugins})
@@ -9656,17 +9671,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var image_to_base64__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7192);
 /* harmony import */ var image_to_base64__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(image_to_base64__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _plugins_index_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(9859);
+/* harmony import */ var _plugins_index_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5820);
 //Imports
   
   
 
 //Setup
-  async function metrics({login, q}, {template, style, query, graphql, plugins}) {
+  async function metrics({login, q}, {template, style, query, graphql, rest, plugins}) {
     //Compute rendering
       try {
 
         //Query data from GitHub API
+          console.debug(`metrics/metrics/${login} > query`)
           const data = await graphql(query
             .replace(/[$]login/, `"${login}"`)
             .replace(/[$]calendar.to/, `"${(new Date()).toISOString()}"`)
@@ -9682,6 +9698,8 @@ __webpack_require__.r(__webpack_exports__);
         //Plugins
           if (data.user.websiteUrl)
             _plugins_index_mjs__WEBPACK_IMPORTED_MODULE_1__/* .default.pagespeed */ .Z.pagespeed({url:data.user.websiteUrl, computed, pending, q}, plugins.pagespeed)
+          _plugins_index_mjs__WEBPACK_IMPORTED_MODULE_1__/* .default.lines */ .Z.lines({login, repositories:data.user.repositories.nodes.map(({name}) => name), rest, computed, pending, q}, plugins.lines)
+          _plugins_index_mjs__WEBPACK_IMPORTED_MODULE_1__/* .default.traffic */ .Z.traffic({login, repositories:data.user.repositories.nodes.map(({name}) => name), rest, computed, pending, q}, plugins.traffic)
 
         //Iterate through user's repositories
           for (const repository of data.user.repositories.nodes) {
@@ -9728,6 +9746,7 @@ __webpack_require__.r(__webpack_exports__);
           await Promise.all(pending)
 
         //Eval rendering and return
+          console.debug(`metrics/metrics/${login} > computed`)
           return eval(`\`${template}\``)
       }
     //Internal error
@@ -9736,7 +9755,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 9859:
+/***/ 5820:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -9745,6 +9764,51 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.d(__webpack_exports__, {
   "Z": () => /* default */ E_Users_lecoq_Documents_GitHub_gitstats_src_plugins_index
 });
+
+// CONCATENATED MODULE: E:\Users\lecoq\Documents\GitHub\gitstats\src\plugins\lines\index.mjs
+//Formatter
+  function format(n) {
+    for (const {u, v} of [{u:"b", v:10**9}, {u:"m", v:10**6}, {u:"k", v:10**3}])
+      if (n/v >= 1)
+        return `${(n/v).toFixed(2).substr(0, 4).replace(/[.]0*$/, "")}${u}`
+    return n
+  }
+
+//Setup
+  /* harmony default export */ function E_Users_lecoq_Documents_GitHub_gitstats_src_plugins_lines_index({login, repositories = [], rest, computed, pending, q}, {enabled = false} = {}) {
+    //Check if plugin is enabled and requirements are met
+      if (!enabled)
+        return computed.plugins.lines = null
+      if (!q.lines)
+        return computed.plugins.lines = null
+      console.debug(`metrics/plugins/lines/${login} > started`)
+
+    //Plugin execution
+      pending.push(new Promise(async solve => {
+        //Get contributors stats from repositories
+          const lines = {added:0, deleted:0}
+          const response = await Promise.all(repositories.map(async repo => await rest.repos.getContributorsStats({owner:login, repo})))
+        //Compute changed lines
+          response.map(({data:repository}) => {
+            //Check if data are available
+              if (!repository)
+                return
+            //Extract author
+              const [contributor] = repository.filter(({author}) => author.login === login)
+            //Compute editions
+              if (contributor)
+                contributor.weeks.forEach(({a, d}) => (lines.added += a, lines.deleted += d))
+          })
+        //Format values
+          lines.added = format(lines.added)
+          lines.deleted = format(lines.deleted)
+        //Save results
+          computed.plugins = {lines}
+          console.debug(`metrics/plugins/lines/${login} > ${JSON.stringify(computed.plugins.lines)}`)
+          solve()
+      }))
+  }
+
 
 // EXTERNAL MODULE: E:\Users\lecoq\Documents\GitHub\gitstats\node_modules\axios\index.js
 var E_Users_lecoq_Documents_GitHub_gitstats_node_modules_axios_index = __webpack_require__(2390);
@@ -9755,14 +9819,17 @@ var E_Users_lecoq_Documents_GitHub_gitstats_node_modules_axios_index_default = /
   
 
 //Setup
-  /* harmony default export */ function E_Users_lecoq_Documents_GitHub_gitstats_src_plugins_pagespeed_index({url, computed, pending, q}, {enabled = false, token = null} = {}) {
+  /* harmony default export */ function E_Users_lecoq_Documents_GitHub_gitstats_src_plugins_pagespeed_index({login, url, computed, pending, q}, {enabled = false, token = null} = {}) {
     //Check if plugin is enabled and requirements are met
       if (!enabled)
+        return computed.plugins.pagespeed = null
+      if (!token)
         return computed.plugins.pagespeed = null
       if (!url)
         return computed.plugins.pagespeed = null
       if (!q.pagespeed)
         return computed.plugins.pagespeed = null
+      console.debug(`metrics/plugins/pagespeed/${login} > started`)
 
     //Plugin execution
       pending.push(new Promise(async solve => {
@@ -9777,16 +9844,55 @@ var E_Users_lecoq_Documents_GitHub_gitstats_node_modules_axios_index_default = /
           }))
         //Save results
           computed.plugins.pagespeed = {url, scores:[scores.get("performance"), scores.get("accessibility"), scores.get("best-practices"), scores.get("seo")]}
+          console.debug(`metrics/plugins/pagespeed/${login} > ${JSON.stringify(computed.plugins.pagespeed)}`)
+          solve()
+      }))
+  }
+// CONCATENATED MODULE: E:\Users\lecoq\Documents\GitHub\gitstats\src\plugins\traffic\index.mjs
+//Formatter
+  function E_Users_lecoq_Documents_GitHub_gitstats_src_plugins_traffic_index_format(n) {
+    for (const {u, v} of [{u:"b", v:10**9}, {u:"m", v:10**6}, {u:"k", v:10**3}])
+      if (n/v >= 1)
+        return `${(n/v).toFixed(2).substr(0, 4).replace(/[.]0*$/, "")}${u}`
+    return n
+  }
+
+//Setup
+  /* harmony default export */ function E_Users_lecoq_Documents_GitHub_gitstats_src_plugins_traffic_index({login, repositories = [], rest, computed, pending, q}, {enabled = false} = {}) {
+    //Check if plugin is enabled and requirements are met
+      if (!enabled)
+        return computed.plugins.traffic = null
+      if (!q.traffic)
+        return computed.plugins.traffic = null
+      console.debug(`metrics/plugins/traffic/${login} > started`)
+
+    //Plugin execution
+      pending.push(new Promise(async solve => {
+        //Get views stats from repositories
+          const views = {count:0, uniques:0}
+          const response = await Promise.all(repositories.map(async repo => await rest.repos.getViews({owner:login, repo})))
+        //Compute views
+          response.filter(({data}) => data).map(({data:{count, uniques}}) => (views.count += count, views.uniques += uniques))
+        //Format values
+          views.count = E_Users_lecoq_Documents_GitHub_gitstats_src_plugins_traffic_index_format(views.count)
+          views.uniques = E_Users_lecoq_Documents_GitHub_gitstats_src_plugins_traffic_index_format(views.uniques)
+        //Save results
+          computed.plugins.traffic = {views}
+          console.debug(`metrics/plugins/traffic/${login} > ${JSON.stringify(computed.plugins.traffic)}`)
           solve()
       }))
   }
 // CONCATENATED MODULE: E:\Users\lecoq\Documents\GitHub\gitstats\src\plugins\index.mjs
 //Imports
   
+  
+  
 
 //Exports
   /* harmony default export */ const E_Users_lecoq_Documents_GitHub_gitstats_src_plugins_index = ({
-    pagespeed: E_Users_lecoq_Documents_GitHub_gitstats_src_plugins_pagespeed_index
+    lines: E_Users_lecoq_Documents_GitHub_gitstats_src_plugins_lines_index,
+    pagespeed: E_Users_lecoq_Documents_GitHub_gitstats_src_plugins_pagespeed_index,
+    traffic: E_Users_lecoq_Documents_GitHub_gitstats_src_plugins_traffic_index,
   });
 
 /***/ }),

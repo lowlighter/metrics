@@ -2,14 +2,17 @@
   import axios from "axios"
 
 //Setup
-  export default function ({url, computed, pending, q}, {enabled = false, token = null} = {}) {
+  export default function ({login, url, computed, pending, q}, {enabled = false, token = null} = {}) {
     //Check if plugin is enabled and requirements are met
       if (!enabled)
+        return computed.plugins.pagespeed = null
+      if (!token)
         return computed.plugins.pagespeed = null
       if (!url)
         return computed.plugins.pagespeed = null
       if (!q.pagespeed)
         return computed.plugins.pagespeed = null
+      console.debug(`metrics/plugins/pagespeed/${login} > started`)
 
     //Plugin execution
       pending.push(new Promise(async solve => {
@@ -24,6 +27,7 @@
           }))
         //Save results
           computed.plugins.pagespeed = {url, scores:[scores.get("performance"), scores.get("accessibility"), scores.get("best-practices"), scores.get("seo")]}
+          console.debug(`metrics/plugins/pagespeed/${login} > ${JSON.stringify(computed.plugins.pagespeed)}`)
           solve()
       }))
   }

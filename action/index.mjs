@@ -30,11 +30,13 @@
         const rest = github.getOctokit(token)
 
       //Additional plugins
-        const plugins = {}, q = {}
+        const enabled = new Set(core.getInput("plugins", {default:[]}))
+        const plugins = {lines:{enabled:enabled.has("lines")}, traffic:{enabled:enabled.has("traffic")}, pagespeed:{enabled:enabled.has("pagespeed")}}
         if (core.getInput("pagespeed_token")) {
-          plugins.pagespeed = {enabled:true, token:core.getInput("pagespeed_token")}
-          q.pagespeed = true
+          console.log(`Pagespeed token     | provided`)
+          plugins.pagespeed.token = core.getInput("pagespeed_token")
         }
+        const q = Object.fromEntries(Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => [key, true]))
 
       //Render metrics
         const rendered = await metrics({login:user, q}, {template, style, query, graphql, plugins})

@@ -24,6 +24,7 @@
     "@actions/core": "^1.2.5",
     "@actions/github": "^4.0.0",
     "@octokit/graphql": "^4.5.4",
+    "@octokit/rest": "^18.0.6",
     "axios": "^0.20.0",
     "express": "^4.17.1",
     "express-rate-limit": "^5.1.3",

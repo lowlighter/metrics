@@ -8,6 +8,7 @@ query Metrics {
     repositories(last: 100, isFork: false, ownerAffiliations: OWNER) {
       totalCount
       nodes {
+        name
         watchers {
           totalCount
         }

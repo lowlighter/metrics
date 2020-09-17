@@ -6,10 +6,17 @@
   "ratelimiter":null,             "//":"Rate limiter (see express-rate-limit documentation for options)",
   "port":3000,                    "//":"Listening port",
   "debug":false,                  "//":"Debug mode",
+
   "plugins":{                     "//":"Additional plugins (optional)",
-    "pagespeed":{                 "//":"Pagespeed configuration",
+    "pagespeed":{                 "//":"Pagespeed plugin",
       "enabled":false,            "//":"Enable or disable Pagespeed metrics",
       "token":"******",           "//":"Pagespeed token"
+    },
+    "traffic":{                   "//":"Traffic plugin (GitHub API token must be RW for this to work)",
+      "enabled":true,             "//":"Enable or disable repositories total page views is last two weeks"
+    },
+    "lines":{                     "//":"Lines plugin",
+      "enabled":true,             "//":"Enable or disabled repositories total lines added/removed"
     }
   }
 }

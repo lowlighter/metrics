@@ -3,6 +3,7 @@
   import fs from "fs"
   import path from "path"
   import octokit from "@octokit/graphql"
+  import OctokitRest from "@octokit/rest"
   import cache from "memory-cache"
   import ratelimit from "express-rate-limit"
   import metrics from "./metrics.mjs"
@@ -19,10 +20,11 @@
       const settings = JSON.parse((await fs.promises.readFile(path.join("settings.json"))).toString())
       const {token, maxusers = 0, restricted = [], debug = false, cached = 30*60*1000, port = 3000, ratelimiter = null, plugins = null} = settings
       if (debug)
-        console.log(settings)
+        console.debug(settings)
     //Load svg template, style and query
       let [template, style, query] = await load()
       const graphql = octokit.graphql.defaults({headers:{authorization: `token ${token}`}})
+      const rest = new OctokitRest.Octokit({auth:token})
 
     //Setup server
       const app = express()
@@ -51,8 +53,10 @@
 
         //Request params
           const {login} = req.params
-          if ((restricted.length)&&(!restricted.includes(login)))
+          if ((restricted.length)&&(!restricted.includes(login))) {
+            console.debug(`metrics/app/${login} > 403 (not in whitelisted users)`)
             return res.sendStatus(403)
+          }
 
         //Read cached data if possible
           if ((!debug)&&(cached)&&(cache.get(login))) {
@@ -61,15 +65,17 @@
             return
           }
         //Maximum simultaneous users
-          if ((maxusers)&&(cache.size()+1 > maxusers))
+          if ((maxusers)&&(cache.size()+1 > maxusers)) {
+            console.debug(`metrics/app/${login} > 503 (maximum users reached)`)
             return res.sendStatus(503)
+          }
 
         //Compute rendering
           try {
             //Render
               if (debug)
                 [template, style, query] = await load()
-              const rendered = await metrics({login, q:req.query}, {template, style, query, graphql, plugins})
+              const rendered = await metrics({login, q:req.query}, {template, style, query, graphql, rest, plugins})
             //Cache
               if ((!debug)&&(cached))
                 cache.put(login, rendered, cached)
@@ -80,8 +86,10 @@
         //Internal error
           catch (error) {
             //Not found user
-              if ((error instanceof Error)&&(/^user not found$/.test(error.message)))
+              if ((error instanceof Error)&&(/^user not found$/.test(error.message))) {
+                console.debug(`metrics/app/${login} > 404 (user not found)`)
                 return res.sendStatus(404)
+              }
             //General error
               console.error(error)
               res.sendStatus(500)
@@ -95,6 +103,7 @@
         `Restricted to users    | ${restricted.size ? [...restricted].join(", ") : "(unrestricted)"}`,
         `Cached time            | ${cached} seconds`,
         `Rate limiter           | ${ratelimiter ? JSON.stringify(ratelimiter) : "(enabled)"}`,
-        `Max simultaneous users | ${maxusers ? `${maxusers} users` : "(unrestricted)"}`
+        `Max simultaneous users | ${maxusers ? `${maxusers} users` : "(unrestricted)"}`,
+        `Plugins enabled        | ${Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => key).join(", ")}`
       ].join("\n")))
   }
