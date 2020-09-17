@@ -16,15 +16,12 @@ inputs:
     default: github-metrics.svg
   plugin_pagespeed:
     description: Enable Pagespeed metrics for user's website (requires "pagespeed_token" to be provided)
-    default: no
   pagespeed_token:
     description: Pagespeed Personal Token (optional, see https://developers.google.com/speed/docs/insights/v5/get-started for more information)
   plugin_lines:
     description: Enable repositories lines metrics
-    default: no
   plugin_traffic:
     description: Enable repositories traffic metrics (due to GitHub API limitations, "token" must have "repo" permissions)
-    default: no
 runs:
   using: node12
   main: action/dist/index.js
