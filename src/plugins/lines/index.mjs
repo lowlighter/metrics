@@ -25,6 +25,8 @@
             //Check if data are available
               if (!repository)
                 return
+              if (!repository.filter)
+                console.log(repository.filter, repository)
             //Extract author
               const [contributor] = repository.filter(({author}) => author.login === login)
             //Compute editions
