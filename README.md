@@ -12,16 +12,18 @@ Below is what it looks like :
 
 A GitHub Action which is run periodically at your convenience which generates and push an SVG image on your personal repository.
 
-Assuming your username is `my-github-user`, you can embed your metrics like below :
+Assuming your username is `my-github-user`, you can embed your metrics in your personal repository's readme like below :
 ```markdown
 ![GitHub metrics](https://github.com/my-github-user/my-github-user/blob/master/github-metrics.svg)
+# Or with a redirection :  
+[![GitHub metrics](https://github.com/my-github-user/my-github-user/blob/master/github-metrics.svg)](https://github.com/my-github-user/my-github-user)
 ```
 ```html
-<img src="https://github.com/my-github-user/my-github-user/blob/master/github-metrics.svg" alt="My GitHub metrics">
+<img src="github-metrics.svg" alt="My GitHub metrics">
 ```
 
 <details>
-<summary>💬 How to setup in 3 steps</summary>
+<summary>💬 How to setup ?</summary>
 
 ### 1. Create a GitHub token
 
@@ -46,6 +48,7 @@ Paste the following and don't forget to put your GitHub username.
 name: GitHub metrics as SVG image
 on:
   # Update metrics each 15 minutes. Edit this if you want to increase/decrease frequency
+  # Note that GitHub image cache (5-15 minutes) still apply so it is useless to set less than this, you're image won't be refreshed
   schedule: [{cron: "*/15 * * * *"}]
   # Add this if you want to force update each time you commit on master branch
   push: {branches: "master"}
@@ -68,18 +71,25 @@ Note that this will virtually increase your commits stats, so you could use a bo
 
 ![Action update](https://github.com/lowlighter/metrics/blob/master/docs/imgs/action_update.png)
 
+# 4. Embed the link into your README.md
+
+Edit your README.md on your repository and link it your image :
+
+```markdown
+![GitHub metrics](https://github.com/my-github-user/my-github-user/blob/master/github-metrics.svg)
+```
+
 </details>
 
-### 💕 Using the shared instance (~2 min setup, but with limitations)
+### 💕 Using the shared instance (~1 min setup, but with limitations)
 
 For conveniency, you can use the shared instance available at [metrics.lecoq.io](https://metrics.lecoq.io).
 
-Assuming your username is `my-github-user`, you can embed your metrics like below :
+Assuming your username is `my-github-user`, you can embed your metrics in your personal repository's readme like below :
 ```markdown
 ![GitHub metrics](https://metrics.lecoq.io/my-github-user)
-```
-```html
-<img src="https://metrics.lecoq.io/my-github-user" alt="My GitHub metrics">
+# Or with a redirection :  
+[![GitHub metrics](https://metrics.lecoq.io/my-github-user)](https://github.com/my-github-user/my-github-user)
 ```
 
 <details>
@@ -106,7 +116,7 @@ It is also easier to change `query.graphql`, `style.css` and `template.svg` if y
 
 
 <details>
-<summary>💬 How to setup in 5 steps</summary>
+<summary>💬 How to setup ?</summary>
 
 ### 0. Prepare your server
 
@@ -238,6 +248,14 @@ systemctl start github_metrics
 Check if your service is up and running :
 ```shell
 systemctl status github_metrics
+```
+
+# 6. Embed the link into your README.md
+
+Edit your README.md on your repository and link it your image :
+
+```markdown
+![GitHub metrics](https://my-personal-domain.com/my-github-user)
 ```
 
 </details>
