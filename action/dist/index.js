@@ -26,6 +26,7 @@ __webpack_require__.r(__webpack_exports__);
   //Runner
     try {
       //Initialization
+        console.debug = () => null
         console.log(`GitHub metrics as SVG image`)
         console.log(`========================================================`)
 
@@ -554,7 +555,7 @@ __webpack_require__.r(__webpack_exports__);
         console.log(`Plugins enabled     | ${Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => key).join(", ")}`)
 
       //Render metrics
-        const rendered = await metrics({login:user, q}, {template, style, query, graphql, plugins})
+        const rendered = await metrics({login:user, q}, {template, style, query, graphql, rest, plugins})
         console.log(`Render              | complete`)
 
       //Commit to repository
@@ -9701,7 +9702,7 @@ __webpack_require__.r(__webpack_exports__);
 
         //Plugins
           if (data.user.websiteUrl)
-            _plugins_index_mjs__WEBPACK_IMPORTED_MODULE_1__/* .default.pagespeed */ .Z.pagespeed({url:data.user.websiteUrl, computed, pending, q}, plugins.pagespeed)
+            _plugins_index_mjs__WEBPACK_IMPORTED_MODULE_1__/* .default.pagespeed */ .Z.pagespeed({login, url:data.user.websiteUrl, computed, pending, q}, plugins.pagespeed)
           _plugins_index_mjs__WEBPACK_IMPORTED_MODULE_1__/* .default.lines */ .Z.lines({login, repositories:data.user.repositories.nodes.map(({name}) => name), rest, computed, pending, q}, plugins.lines)
           _plugins_index_mjs__WEBPACK_IMPORTED_MODULE_1__/* .default.traffic */ .Z.traffic({login, repositories:data.user.repositories.nodes.map(({name}) => name), rest, computed, pending, q}, plugins.traffic)
 

@@ -11,6 +11,7 @@
   //Runner
     try {
       //Initialization
+        console.debug = () => null
         console.log(`GitHub metrics as SVG image`)
         console.log(`========================================================`)
 
@@ -43,7 +44,7 @@
         console.log(`Plugins enabled     | ${Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => key).join(", ")}`)
 
       //Render metrics
-        const rendered = await metrics({login:user, q}, {template, style, query, graphql, plugins})
+        const rendered = await metrics({login:user, q}, {template, style, query, graphql, rest, plugins})
         console.log(`Render              | complete`)
 
       //Commit to repository

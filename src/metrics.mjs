@@ -23,7 +23,7 @@
 
         //Plugins
           if (data.user.websiteUrl)
-            Plugins.pagespeed({url:data.user.websiteUrl, computed, pending, q}, plugins.pagespeed)
+            Plugins.pagespeed({login, url:data.user.websiteUrl, computed, pending, q}, plugins.pagespeed)
           Plugins.lines({login, repositories:data.user.repositories.nodes.map(({name}) => name), rest, computed, pending, q}, plugins.lines)
           Plugins.traffic({login, repositories:data.user.repositories.nodes.map(({name}) => name), rest, computed, pending, q}, plugins.traffic)
 
