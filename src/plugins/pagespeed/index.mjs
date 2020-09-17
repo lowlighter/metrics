@@ -13,9 +13,6 @@
 
     //Plugin execution
       pending.push(new Promise(async solve => {
-        computed.plugins.pagespeed = {url, scores:[{score:0.2, title:"x"}, {score:0.4, title:"x"}, {score:0.7, title:"x"}, {score:0.9, title:"x"}]}
-        return
-
         //Format url if needed
           if (!/^https?:[/][/]/.test(url))
             url = `https://${url}`
