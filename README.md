@@ -15,15 +15,25 @@ A GitHub Action which is run periodically at your convenience which generates an
 Assuming your username is `my-github-user`, you can embed your metrics in your personal repository's readme like below :
 ```markdown
 ![GitHub metrics](https://github.com/my-github-user/my-github-user/blob/master/github-metrics.svg)
-# Or with a redirection :
-[![GitHub metrics](https://github.com/my-github-user/my-github-user/blob/master/github-metrics.svg)](https://github.com/my-github-user/my-github-user)
 ```
+
+Or with HTML :
 ```html
 <img src="github-metrics.svg" alt="My GitHub metrics">
 ```
 
 <details>
 <summary>💬 How to setup ?</summary>
+
+#### 0. Prepare your personal repository
+
+If you don't know yet or haven't done it yet, create a repository with the same name as your GitHub username.
+
+![Personal repository](https://github.com/lowlighter/metrics/blob/master/docs/imgs/personal_repo.png)
+
+The `README.md` of this repository will be displayed on your GitHub user profile like below !
+
+![GitHub Profile](https://github.com/lowlighter/metrics/blob/master/docs/imgs/github_profile.png)
 
 #### 1. Create a GitHub token
 
@@ -113,8 +123,6 @@ For conveniency, you can use the shared instance available at [metrics.lecoq.io]
 Assuming your username is `my-github-user`, you can embed your metrics in your personal repository's readme like below :
 ```markdown
 ![GitHub metrics](https://metrics.lecoq.io/my-github-user)
-# Or with a redirection :
-[![GitHub metrics](https://metrics.lecoq.io/my-github-user)](https://github.com/my-github-user/my-github-user)
 ```
 
 <details>
@@ -326,7 +334,7 @@ These can provide more informations into your generated metrics, but it could al
 
 The *pagespeed* plugin allows you to add your website performances.
 
-![Pagespeed plugin](https://github.com/lowlighter/metrics/blob/master/docs/imgs/plugin_pagespeed.jpg)
+![Pagespeed plugin](https://github.com/lowlighter/metrics/blob/master/docs/imgs/plugin_pagespeed.png)
 
 These are computed through [Google's pagespeed API](https://developers.google.com/speed/docs/insights/v5/get-started), which returns the same results as [web.dev](https://web.dev).
 
@@ -354,7 +362,7 @@ Add the following to your workflow :
 
 The *lines* plugin allows you to add the number of lines of code you added and removed across your repositories.
 
-![Lines plugin](https://github.com/lowlighter/metrics/blob/master/docs/imgs/plugin_lines.jpg)
+![Lines plugin](https://github.com/lowlighter/metrics/blob/master/docs/imgs/plugin_lines.png)
 
 It will consume an additional GitHub request per repository.
 
@@ -376,7 +384,7 @@ Add the following to your workflow :
 
 The *traffic* plugin allows you to add the number of pages views across your repositories.
 
-![Traffic plugin](https://github.com/lowlighter/metrics/blob/master/docs/imgs/plugin_traffic.jpg)
+![Traffic plugin](https://github.com/lowlighter/metrics/blob/master/docs/imgs/plugin_traffic.png)
 
 It will consume an additional GitHub request per repository.
 

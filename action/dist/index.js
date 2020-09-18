@@ -28,6 +28,7 @@ __webpack_require__.r(__webpack_exports__);
       //Initialization
         console.log(`GitHub metrics as SVG image`)
         console.log(`========================================================`)
+        process.on("unhandledRejection", error => { throw error })
 
       //Load svg template, style and query
         const template = `<svg xmlns="http://www.w3.org/2000/svg" width="480" height="\${480 + (computed.plugins.pagespeed ? 100 : 0)}">

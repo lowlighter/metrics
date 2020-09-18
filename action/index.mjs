@@ -13,6 +13,7 @@
       //Initialization
         console.log(`GitHub metrics as SVG image`)
         console.log(`========================================================`)
+        process.on("unhandledRejection", error => { throw error })
 
       //Load svg template, style and query
         const template = `<#include template.svg>`, style = `<#include style.css>`, query = `<#include query.graphql>`
