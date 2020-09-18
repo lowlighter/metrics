@@ -341,13 +341,15 @@ The *pagespeed* plugin allows you to add your website performances.
 
 These are computed through [Google's pagespeed API](https://developers.google.com/speed/docs/insights/v5/get-started), which returns the same results as [web.dev](https://web.dev).
 
-To setup this plugin, you'll need an API key that you can generated in the [pagespeed API presentation](https://developers.google.com/speed/docs/insights/v5/get-started).
+<details>
+<summary>💬 About</summary>
+  
+To setup this plugin, you'll need an API key that you can generate in the [pagespeed API presentation](https://developers.google.com/speed/docs/insights/v5/get-started).
 
 The website attached to your GitHub profile will be the one to be audited.
 It will take about 10 to 15 seconds to generate the results, so it is advised to use this plugin alongside caching system or for automated image generation.
 
-<details>
-<summary>💬 Setup with GitHub actions</summary>
+##### Setup with GitHub actions
 
 Add the following to your workflow :
 
@@ -359,6 +361,21 @@ Add the following to your workflow :
     pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
 ```
 
+##### Setup in your own instance
+
+Add the following to your `settings.json`
+
+```json
+  "plugins":{  
+    "pagespeed":{
+      "enabled":true,
+      "token":"****************************************"
+    }
+  }
+```
+
+And pass `?pagespeed=1` in url when generating metrics.
+
 </details>
 
 #### 👨‍💻 Lines
@@ -367,10 +384,12 @@ The *lines* plugin allows you to add the number of lines of code you added and r
 
 ![Lines plugin](https://github.com/lowlighter/metrics/blob/master/docs/imgs/plugin_lines.png)
 
+<details>
+<summary>💬 About</summary>
+
 It will consume an additional GitHub request per repository.
 
-<details>
-<summary>💬 Setup with GitHub actions</summary>
+##### Setup with GitHub actions
 
 Add the following to your workflow :
 
@@ -381,6 +400,20 @@ Add the following to your workflow :
     plugin_lines: yes
 ```
 
+##### Setup in your own instance
+
+Add the following to your `settings.json`
+
+```json
+  "plugins":{  
+    "lines":{
+      "enabled":true,
+    }
+  }
+```
+
+And pass `?lines=1` in url when generating metrics.
+
 </details>
 
 #### 🧮 Traffic
@@ -389,14 +422,16 @@ The *traffic* plugin allows you to add the number of pages views across your rep
 
 ![Traffic plugin](https://github.com/lowlighter/metrics/blob/master/docs/imgs/plugin_traffic.png)
 
+<details>
+<summary>💬 About</summary>
+  
 It will consume an additional GitHub request per repository.
 
 Due to GitHub Rest API limitation, the GitHub token you provide will requires "repo" permissions instead of "public_repo" to allow this plugin accessing traffic informations.
 
 ![Token with repo permissions](https://github.com/lowlighter/metrics/blob/master/docs/imgs/token_repo_rights.png)
 
-<details>
-<summary>💬 Setup with GitHub actions</summary>
+##### Setup with GitHub actions
 
 Add the following to your workflow :
 
@@ -407,6 +442,20 @@ Add the following to your workflow :
     token: ${{ secrets.METRICS_TOKEN }} # Remember, this must have "repo" permissions for this plugin to work !
     plugin_traffic: yes
 ```
+
+##### Setup in your own instance
+
+Add the following to your `settings.json`
+
+```json
+  "plugins":{  
+    "traffic":{
+      "enabled":true,
+    }
+  }
+```
+
+And pass `?traffic=1` in url when generating metrics.
 
 </details>
 
@@ -427,11 +476,11 @@ Add the following to your workflow :
 
 The following errors code can be encountered if your using a server instance :
 
-* 403 Forbidden : User is not whitelisted in `restricted` users list
-* 404 Not found : GitHub API did not found the requested user
-* 429 Too many requests : Thrown when rate limiter is trigerred
-* 500 Internal error : An error ocurred while generating metrics images (logs can be seen if you're the owner of the instance)
-* 503 Service unavailable : Maximum user capacity reached, only already cached images can be accessed for now
+* `403 Forbidden` : User is not whitelisted in `restricted` users list
+* `404 Not found` : GitHub API did not found the requested user
+* `429 Too many requests` : Thrown when rate limiter is trigerred
+* `500 Internal error` : An error ocurred while generating metrics images (logs can be seen if you're the owner of the instance)
+* `503 Service unavailable` : Maximum user capacity reached, only already cached images can be accessed for now
 
 ### 📖 Useful references
 
@@ -452,7 +501,7 @@ Below is a list of primary dependencies :
 * [octokit/graphql.js](https://github.com/octokit/graphql.js/)
   * To perform request to GitHub GraphQL API
 * [ptarjan/node-cache](https://github.com/ptarjan/node-cache)
-  * To cache generated content and reduce
+  * To cache generated content
 * [renanbastos93/image-to-base64](https://github.com/renanbastos93/image-to-base64)
   * To generate base64 representation of users' avatars
 
