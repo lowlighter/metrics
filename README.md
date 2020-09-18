@@ -129,10 +129,13 @@ Assuming your username is `my-github-user`, you can embed your metrics in your p
 <summary>💬 Restrictions and fair use</summary>
 
 Since GitHub API has rate limitations and to avoid abuse, the shared instance has the following limitations :
-  * Images are cached for 1 day (meaning that your metrics won't be updated until the next day)
-  * A maximum of 1000 users can use this service
-  * You're limited to 3 requests per hour (cached metrics are not counted)
-  * Plugins are not available
+  * Images are cached for 2 hours
+    * Your generated metrics **won't** be updated during this amount of time
+    * If you enable or disable plugins by changing the url parameters, you'll need to wait before changes are applied
+  * You're limited to 3 requests per 2 hours
+    * Restriction **does not** apply to already cached users metrics, including your own
+  * Most of plugins are not available
+    * PageSpeed plugin can be enabled by passing `?pagespeed=1`, but metrics generation can take up some time
 
 You should consider deploying your own instance or use GitHub Action if you're planning using this service.
 
