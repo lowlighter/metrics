@@ -73,6 +73,7 @@
 
         //Eval rendering and return
           console.debug(`metrics/metrics/${login} > computed`)
+          console.debug(`metrics/metrics/${login} > ${JSON.stringify(computed)}`)
           return eval(`\`${template}\``)
       }
     //Internal error
