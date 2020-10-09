@@ -11,7 +11,7 @@
   //Runner
     try {
       //Initialization
-        console.log(`GitHub metrics as SVG image`)
+        console.log(`GitHub metrics as SVG image [v1.2]`)
         console.log(`========================================================`)
         process.on("unhandledRejection", error => { throw error })
 
