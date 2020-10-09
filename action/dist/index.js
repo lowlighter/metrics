@@ -1,4 +1,4 @@
-module.exports=(()=>{var __webpack_modules__={6677:(e,t,r)=>{"use strict";r.r(t);var s=r(5622);var o=r.n(s);var n=r(270);var i=r(3584);var a=r(2882);var c=r.n(a);var u=r(9483);var l=r.n(u);(async function(){const[e,t,r,s]=[a,u,i,n].map(e=>e&&e.default?e.default:e);try{console.log(`GitHub metrics as SVG image`);console.log(`========================================================`);process.on("unhandledRejection",e=>{throw e});const n=`<svg xmlns="http://www.w3.org/2000/svg" width="480" height="\${480 + (computed.plugins.pagespeed ? 100 : 0)}">
+module.exports=(()=>{var __webpack_modules__={6677:(e,t,r)=>{"use strict";r.r(t);var s=r(5622);var o=r.n(s);var n=r(270);var i=r(3584);var a=r(2882);var c=r.n(a);var u=r(9483);var l=r.n(u);(async function(){const[e,t,r,s]=[a,u,i,n].map(e=>e&&e.default?e.default:e);try{console.log(`GitHub metrics as SVG image [v1.2]`);console.log(`========================================================`);process.on("unhandledRejection",e=>{throw e});const n=`<svg xmlns="http://www.w3.org/2000/svg" width="480" height="\${480 + (computed.plugins.pagespeed ? 100 : 0)}">
   <style>
     \${style}
   </style>
