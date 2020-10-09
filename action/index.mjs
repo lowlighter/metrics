@@ -29,7 +29,7 @@
         if (!token)
           throw new Error("You must provide a valid GitHub token")
         const graphql = octokit.graphql.defaults({headers:{authorization: `token ${token}`}})
-        const rest = github.getOctokit(committer)
+        const rest = github.getOctokit(token)
 
       //Debug mode
         if (!debug)
@@ -54,21 +54,24 @@
         console.log(`Render              | complete`)
 
       //Commit to repository
-        let sha = undefined
-        try {
-          const {data} = await rest.repos.getContent({
-            owner:user,
-            repo:user,
-            path:filename,
+        {
+          const rest = github.getOctokit(committer)
+          let sha = undefined
+          try {
+            const {data} = await rest.repos.getContent({
+              owner:user,
+              repo:user,
+              path:filename,
+            })
+            sha = data.sha
+          } catch (error) { }
+          console.log(`Previous render sha | ${sha || "none"}`)
+          await rest.repos.createOrUpdateFileContents({
+            owner:user, repo:user, path:filename, sha, message:`Update ${filename} - [Skip GitHub Action]`,
+            content:Buffer.from(rendered).toString("base64"),
           })
-          sha = data.sha
-        } catch (error) { }
-        console.log(`Previous render sha | ${sha || "none"}`)
-        await rest.repos.createOrUpdateFileContents({
-          owner:user, repo:user, path:filename, sha, message:`Update ${filename} - [Skip GitHub Action]`,
-          content:Buffer.from(rendered).toString("base64"),
-        })
-        console.log(`Commit to repo      | ok`)
+          console.log(`Commit to repo      | ok`)
+        }
 
       //Success
         console.log(`Success !`)
