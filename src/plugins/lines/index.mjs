@@ -35,7 +35,7 @@
           lines.added = format(lines.added)
           lines.deleted = format(lines.deleted)
         //Save results
-          computed.plugins = {lines}
+          computed.plugins.lines = {...lines}
           console.debug(`metrics/plugins/lines/${login} > ${JSON.stringify(computed.plugins.lines)}`)
           solve()
       }))
