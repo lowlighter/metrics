@@ -8,6 +8,8 @@ inputs:
   token:
     description: GitHub Personal Token (require "public_repo" permissions)
     required: true
+  committer_token:
+    description: If provided, this token will be used instead of "token" for commit operations. You can specify a bot account to avoid virtually increasing your stats due to this action commits.
   user:
     description: Target GitHub username
     required: true

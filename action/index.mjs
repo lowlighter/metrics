@@ -21,6 +21,7 @@
 
       //Initialization
         const [token, user, filename, debug] = [core.getInput("token"), core.getInput("user"), core.getInput("filename", {default:"github-metrics.svg"}), core.getInput("debug", {default:false})]
+        const committer = core.getInput("committer_token", {default:null}) || token
         const output = path.join(filename)
         console.log(`GitHub user         | ${user}`)
         console.log(`Output file         | ${output}`)
@@ -28,7 +29,7 @@
         if (!token)
           throw new Error("You must provide a valid GitHub token")
         const graphql = octokit.graphql.defaults({headers:{authorization: `token ${token}`}})
-        const rest = github.getOctokit(token)
+        const rest = github.getOctokit(committer)
 
       //Debug mode
         if (!debug)

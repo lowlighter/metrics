@@ -5,10 +5,9 @@
   "main": "index.mjs",
   "scripts": {
     "start": "node index.mjs",
-    "build-ncc": "npx ncc build action/index.mjs --out action/dist",
-    "build-post": "node utils/post_build.mjs",
-    "build": "npx run-s build-ncc build-post",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "node utils/build.mjs",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "upgrade": "npm install @actions/core@latest @actions/github@latest @octokit/graphql@latest @octokit/rest@latest axios@latest express@latest express-rate-limit@latest image-to-base64@latest memory-cache@latest @vercel/ncc@latest"
   },
   "repository": {
     "type": "git",
@@ -21,9 +20,9 @@
   },
   "homepage": "https://github.com/lowlighter/metrics#readme",
   "dependencies": {
-    "@actions/core": "^1.2.5",
+    "@actions/core": "^1.2.6",
     "@actions/github": "^4.0.0",
-    "@octokit/graphql": "^4.5.4",
+    "@octokit/graphql": "^4.5.6",
     "@octokit/rest": "^18.0.6",
     "axios": "^0.20.0",
     "express": "^4.17.1",
@@ -32,7 +31,6 @@
     "memory-cache": "^0.2.0"
   },
   "devDependencies": {
-    "@vercel/ncc": "^0.24.0",
-    "npm-run-all": "^4.1.5"
+    "@vercel/ncc": "^0.24.1"
   }
 }
