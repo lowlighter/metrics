@@ -80,6 +80,11 @@ jobs:
           # Additional options
           # ==========================================
 
+          # The GitHub token used to commit to your repository (defaults to the same value as "token")
+          # This can be used to specify the token of a bot account if you use a personal token with advanced permissions
+          # (which is needed if you want to include metrics of your private repositories, or to enable plugins like traffic)
+          committer_token: ${{ secrets.METRICS_BOT_TOKEN }}
+
           # Path/filename to use to store generated SVG
           filename: github-metrics.svg
 
@@ -102,7 +107,11 @@ jobs:
 ```
 
 On each run, a new SVG image will be generated and committed to your repository.
-Note that this will virtually increase your commits stats, so you could use a bot account instead.
+
+This could virtually increase your commits stats, so it is recommended to pass a bot account token to `token` instead.
+The bot will be able to track metrics of all your public repositories.
+
+If you want to also track your private repositories metrics, you'll need to pass a personal token with `repo` permissions to `token`, and use the `committer_token` parameter to pass the bot account token.
 
 ![Action update](https://github.com/lowlighter/metrics/blob/master/docs/imgs/action_update.png)
 
@@ -343,7 +352,7 @@ These are computed through [Google's pagespeed API](https://developers.google.co
 
 <details>
 <summary>💬 About</summary>
-  
+
 To setup this plugin, you'll need an API key that you can generate in the [pagespeed API presentation](https://developers.google.com/speed/docs/insights/v5/get-started).
 
 The website attached to your GitHub profile will be the one to be audited.
@@ -366,7 +375,7 @@ Add the following to your workflow :
 Add the following to your `settings.json`
 
 ```json
-  "plugins":{  
+  "plugins":{
     "pagespeed":{
       "enabled":true,
       "token":"****************************************"
@@ -405,7 +414,7 @@ Add the following to your workflow :
 Add the following to your `settings.json`
 
 ```json
-  "plugins":{  
+  "plugins":{
     "lines":{
       "enabled":true,
     }
@@ -424,7 +433,7 @@ The *traffic* plugin allows you to add the number of pages views across your rep
 
 <details>
 <summary>💬 About</summary>
-  
+
 It will consume an additional GitHub request per repository.
 
 Due to GitHub Rest API limitation, the GitHub token you provide will requires "repo" permissions instead of "public_repo" to allow this plugin accessing traffic informations.
@@ -448,7 +457,7 @@ Add the following to your workflow :
 Add the following to your `settings.json`
 
 ```json
-  "plugins":{  
+  "plugins":{
     "traffic":{
       "enabled":true,
     }
