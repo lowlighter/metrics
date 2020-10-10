@@ -57,8 +57,7 @@
       //Commit to repository
         {
           const rest = github.getOctokit(committer)
-          const {data:{login:committer}} = await rest.users.getAuthenticated()
-          console.log(`Committer           | ${committer}`)
+          console.log(`Committer           | ${(await rest.users.getAuthenticated()).data.login}`)
           let sha = undefined
           try {
             const {data} = await rest.repos.getContent({
