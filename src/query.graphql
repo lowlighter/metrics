@@ -5,6 +5,9 @@ query Metrics {
     createdAt
     avatarUrl
     websiteUrl
+    gists {
+      totalCount
+    }
     repositories(last: 100, isFork: false, ownerAffiliations: OWNER) {
       totalCount
       nodes {
@@ -37,6 +40,9 @@ query Metrics {
           totalCount
         }
         forkCount
+        licenseInfo {
+          spdxId
+        }
       }
     }
     packages {

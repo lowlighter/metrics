@@ -17,9 +17,13 @@
 //Perform static includes
   for (const match of [...code.match(/(?<=`)<#include (.+?)>(?=`)/g)]) {
     const file = match.match(/<#include (.+?)>/)[1]
-    code = code.replace(`<#include ${file}>`, `${await fs.promises.readFile(path.join("src", file))}`.replace(/([$`])/g, "\\$1"))
+    code = code.replace(`<#include ${file}>`, `${await fs.promises.readFile(path.join(__dirname, "..", "src", file))}`.replace(/([$`])/g, "\\$1"))
     console.log(`Included ${file}`)
   }
+
+//Perform version include
+  const version = JSON.parse(await fs.promises.readFile(path.join(__dirname, "..", "package.json"))).version
+  code = code.replace(`<#version>`, version)
 
 //Save build
   await fs.promises.writeFile(`${__dirname}/dist/index.js`, code)

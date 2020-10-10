@@ -17,7 +17,8 @@
 
         //Init
           const languages = {colors:{}, total:0, stats:{}}
-          const computed = data.computed = {commits:0, languages, repositories:{watchers:0, stargazers:0, issues_open:0, issues_closed:0, pr_open:0, pr_merged:0, forks:0}, plugins:{}}
+          const licenses = {favorite:"", used:{}}
+          const computed = data.computed = {commits:0, languages, licenses, repositories:{watchers:0, stargazers:0, issues_open:0, issues_closed:0, pr_open:0, pr_merged:0, forks:0}, plugins:{}}
           const avatar = imgb64(data.user.avatarUrl)
           const pending = []
 
@@ -40,6 +41,9 @@
                 languages.colors[name] = color || "#ededed"
                 languages.total += size
               }
+            //License
+              if (repository.licenseInfo)
+                licenses.used[repository.licenseInfo.spdxId] = (licenses.used[repository.licenseInfo.spdxId] || 0) + 1
           }
 
         //Compute count for issues and pull requests
@@ -61,6 +65,9 @@
           languages.favorites = Object.entries(languages.stats).sort(([an, a], [bn, b]) => b - a).slice(0, 8).map(([name, value]) => ({name, value, color:languages.colors[name], x:0}))
           for (let i = 1; i < languages.favorites.length; i++)
             languages.favorites[i].x = languages.favorites[i-1].x + languages.favorites[i-1].value
+
+        //Compute licenses stats
+          licenses.favorite = Object.entries(licenses.used).sort(([an, a], [bn, b]) => b - a).slice(0, 1).map(([name, value]) => name) || ""
 
         //Compute calendar
           computed.calendar = data.user.calendar.contributionCalendar.weeks.flatMap(({contributionDays}) => contributionDays).slice(0, 14).reverse()

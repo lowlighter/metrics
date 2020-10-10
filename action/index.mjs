@@ -11,8 +11,9 @@
   //Runner
     try {
       //Initialization
-        console.log(`GitHub metrics as SVG image [v1.2]`)
+        console.log(`GitHub metrics as SVG image`)
         console.log(`========================================================`)
+        console.log(`Version             | <#version>`)
         process.on("unhandledRejection", error => { throw error })
 
       //Load svg template, style and query
@@ -56,6 +57,8 @@
       //Commit to repository
         {
           const rest = github.getOctokit(committer)
+          const {data:{login:committer}} = await rest.users.getAuthenticated()
+          console.log(`Committer           | ${committer}`)
           let sha = undefined
           try {
             const {data} = await rest.repos.getContent({
