@@ -16,28 +16,33 @@
       console.debug(`metrics/plugins/lines/${login} > started`)
 
     //Plugin execution
-      pending.push(new Promise(async solve => {
-        //Get contributors stats from repositories
-          const lines = {added:0, deleted:0}
-          const response = await Promise.all(repositories.map(async repo => await rest.repos.getContributorsStats({owner:login, repo})))
-        //Compute changed lines
-          response.map(({data:repository}) => {
-            //Check if data are available
-              if (!Array.isArray(repository))
-                return
-            //Extract author
-              const [contributor] = repository.filter(({author}) => author.login === login)
-            //Compute editions
-              if (contributor)
-                contributor.weeks.forEach(({a, d}) => (lines.added += a, lines.deleted += d))
-          })
-        //Format values
-          lines.added = format(lines.added)
-          lines.deleted = format(lines.deleted)
-        //Save results
-          computed.plugins.lines = {...lines}
-          console.debug(`metrics/plugins/lines/${login} > ${JSON.stringify(computed.plugins.lines)}`)
-          solve()
+      pending.push(new Promise(async (solve, reject) => {
+        try {
+          //Get contributors stats from repositories
+            const lines = {added:0, deleted:0}
+            const response = await Promise.all(repositories.map(async repo => await rest.repos.getContributorsStats({owner:login, repo})))
+          //Compute changed lines
+            response.map(({data:repository}) => {
+              //Check if data are available
+                if (!Array.isArray(repository))
+                  return
+              //Extract author
+                const [contributor] = repository.filter(({author}) => author.login === login)
+              //Compute editions
+                if (contributor)
+                  contributor.weeks.forEach(({a, d}) => (lines.added += a, lines.deleted += d))
+            })
+          //Format values
+            lines.added = format(lines.added)
+            lines.deleted = format(lines.deleted)
+          //Save results
+            computed.plugins.lines = {...lines}
+            console.debug(`metrics/plugins/lines/${login} > ${JSON.stringify(computed.plugins.lines)}`)
+            solve()
+        }
+        catch (error) {
+          reject(error)
+        }
       }))
   }
 

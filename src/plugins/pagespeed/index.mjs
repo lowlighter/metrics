@@ -15,19 +15,32 @@
       console.debug(`metrics/plugins/pagespeed/${login} > started`)
 
     //Plugin execution
-      pending.push(new Promise(async solve => {
-        //Format url if needed
-          if (!/^https?:[/][/]/.test(url))
-            url = `https://${url}`
-        //Load scores from API
-          const scores = new Map()
-          await Promise.all(["performance", "accessibility", "best-practices", "seo"].map(async category => {
-            const {score, title} = (await axios.get(`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?category=${category}&url=${url}&key=${token}`)).data.lighthouseResult.categories[category]
-            scores.set(category, {score, title})
-          }))
-        //Save results
-          computed.plugins.pagespeed = {url, scores:[scores.get("performance"), scores.get("accessibility"), scores.get("best-practices"), scores.get("seo")]}
-          console.debug(`metrics/plugins/pagespeed/${login} > ${JSON.stringify(computed.plugins.pagespeed)}`)
-          solve()
+      pending.push(new Promise(async (solve, reject) => {
+        try {
+          //Format url if needed
+            if (!/^https?:[/][/]/.test(url))
+              url = `https://${url}`
+          //Load scores from API
+            const scores = new Map()
+            await Promise.all(["performance", "accessibility", "best-practices", "seo"].map(async category => {
+              const {score, title} = (await axios.get(`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?category=${category}&url=${url}&key=${token}`)).data.lighthouseResult.categories[category]
+              scores.set(category, {score, title})
+            }))
+          //Save results
+            computed.plugins.pagespeed = {url, scores:[scores.get("performance"), scores.get("accessibility"), scores.get("best-practices"), scores.get("seo")]}
+            console.debug(`metrics/plugins/pagespeed/${login} > ${JSON.stringify(computed.plugins.pagespeed)}`)
+            solve()
+        }
+        catch (error) {
+          //Thrown when token is incorrect
+            if ((error.response)&&(error.response.status)) {
+              computed.plugins.pagespeed = {url, error:`PageSpeed token error (code ${error.response.status})`}
+              console.debug(`metrics/plugins/traffic/${login} > ${error.response.status}`)
+              solve()
+              return
+            }
+          console.log(error)
+          reject(error)
+        }
       }))
   }

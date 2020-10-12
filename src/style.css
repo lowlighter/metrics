@@ -40,6 +40,13 @@
     margin: 0 8px;
     fill: #959da5;
   }
+  .field.error {
+    color: #cb2431;
+  }
+  .field.error svg {
+    fill: #cb2431;
+
+  }
 
 /* Displays */
   .row {
