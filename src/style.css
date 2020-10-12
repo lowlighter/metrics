@@ -101,6 +101,12 @@
     margin: 4px 0;
   }
 
+/* Language */
+  .field.language {
+    margin: 0 8px;
+    flex-grow: 0;
+  }
+
 /* Footer */
   footer {
     margin-top: 8px;

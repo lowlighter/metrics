@@ -1,0 +1,136 @@
+<html>
+  <head>
+    <title>📊 GitHub metrics</title>
+  </head>
+  <body>
+    
+    <h1><a href="https://github.com/lowlighter/metrics">GitHub metrics</a></h1>
+
+    <label>
+      <input type="text" name="user" placeholder="Your GitHub username" value="">
+    </label>
+
+    <div id="metrics">
+      <img class="placeholder" src="/placeholder.svg">
+      <img class="generated" src="/placeholder.svg">
+    </div>
+
+    <aside>
+      Embed these metrics on your GitHub profile by adding the markdown below in your <i>README.md</i> at <a id="user-repo" href="#"><span class="user"></span>/<span class="user"></span></a>
+      <br>
+      <div class="code">
+        ![<span class="md-alt">GitHub metrics</span>](https://metrics.lecoq.io/my-github-user)
+      </div>  
+    </aside>
+    
+    <script>
+      window.onload = function () {
+        //User updater
+          let timeout = null
+          document.querySelector("input[name=user]").onkeyup = function (event) {
+            //Retrieve user value
+              clearTimeout(timeout)
+              const user = event.target.value
+            //Display placeholder
+              document.querySelector("#metrics .placeholder").style.opacity = 1
+              document.querySelector("#metrics .generated").style.opacity = 0
+              document.querySelector("aside").style.opacity = 0
+            //Update github user
+              document.querySelector(".code").innerText = `![GitHub metrics](https://metrics.lecoq.io/${user})`
+              document.querySelector("#user-repo").href = `https://github.com/${user}/${user}`
+              document.querySelectorAll(".user").forEach(node => node.innerText = user)
+            //Update metrics
+              if (event.key === "Enter") 
+                metrics(user)
+              else
+                timeout = setTimeout(() => metrics(user), 2000)
+          }
+        //Metrics updater
+          let current = null
+          function metrics(user) {
+            if (!user.trim().length)
+              return
+            if (current !== user) {
+              current = user
+              document.querySelector("#metrics .generated").src = `https://metrics.lecoq.io/${user}`
+              document.querySelector("#metrics .generated").onload = function () {
+                document.querySelector("#metrics .placeholder").style.opacity = 0
+                document.querySelector("#metrics .generated").style.opacity = 1
+                document.querySelector("aside").style.opacity = 1
+              }
+            }
+          }
+      }
+    </script>
+
+    <style>
+      body {
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+        background-color: #FFFFFF;
+        color: #1B1F23;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        width: 100vw;
+        padding: 0;
+        margin: 0;
+      }
+      a, a:hover, a:visited {
+        color: #0366D6;
+        text-decoration: none;
+        font-style: normal;
+        outline: none;
+      }
+      a:hover {
+        color: #79B8FF;
+        transition: color .4s;
+        cursor: pointer;
+      }
+      input {
+        border-radius: .5rem;
+        padding: .5rem 1rem;
+        outline: none;
+        border: 1px solid #E1E4E8;
+        background-color: #FAFBFC;
+        color: #1B1F23;
+        font-size: 1.2rem;
+        text-align: center;
+        margin: 0 0 1.5rem;
+      }
+      input:focus {
+        outline: none;
+      }
+      #metrics {
+        position: relative;
+        max-width: 100%;
+        width: 480px;
+        height: 516px;
+      }
+      #metrics img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        transition: opacity .4s;
+      }
+      aside {
+        opacity: 0;
+        padding: .25rem;
+        transition: opacity .4s;
+      }
+      .code {
+        font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+        padding: 1rem;
+        margin: .5rem 0;
+        border-radius: .5rem;
+        background-color: #FAFBFC;
+      }
+      .code .md-alt {
+        color: #6F42C1;
+      }
+    </style>
+
+  </body>
+</html>
