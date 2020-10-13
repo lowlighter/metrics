@@ -32,11 +32,11 @@ Or with HTML :
 
 If you don't know yet or haven't done it yet, create a repository with the same name as your GitHub username.
 
-![Personal repository](https://github.com/lowlighter/metrics/blob/master/docs/imgs/personal_repo.png)
+![Personal repository](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/personal_repo.png)
 
 The `README.md` of this repository will be displayed on your GitHub user profile like below !
 
-![GitHub Profile](https://github.com/lowlighter/metrics/blob/master/docs/imgs/github_profile.png)
+![GitHub Profile](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/github_profile.png)
 
 #### 1. Create a GitHub token
 
@@ -44,13 +44,13 @@ In your account settings, go to `Developer settings` and select `Personal access
 
 You'll need to create a token with the `public_repo` right so this GitHub Action has enough permissions to push the updated SVG metrics on your personal repository.
 
-![Create a GitHub token](https://github.com/lowlighter/metrics/blob/master/docs/imgs/personal_token.png)
+![Create a GitHub token](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/personal_token.png)
 
 #### 2. Put your GitHub token in your personal repository secrets
 
 Go to the `Settings` of your personal repository to create a new secret and paste your GitHub token here with the name `METRICS_TOKEN`.
 
-![Setup secret](https://github.com/lowlighter/metrics/blob/master/docs/imgs/repo_secrets.png)
+![Setup secret](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/repo_secrets.png)
 
 #### 3. Create a new GitHub Action workflow on your personal repo
 
@@ -116,7 +116,7 @@ The bot will be able to track metrics of all your public repositories.
 
 If you want to also track your private repositories metrics, you'll need to pass a personal token with `repo` permissions to `token`, and use the `committer_token` parameter to pass the bot account token.
 
-![Action update](https://github.com/lowlighter/metrics/blob/master/docs/imgs/action_update.png)
+![Action update](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/action_update.png)
 
 #### 4. Embed the link into your README.md
 
@@ -176,7 +176,7 @@ In your account settings, go to `Developer settings` and select `Personal access
 
 As explained above, you do not need to grant additional permissions to the token.
 
-![Create a GitHub token](https://github.com/lowlighter/metrics/blob/master/docs/imgs/personal_token_alt.png)
+![Create a GitHub token](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/personal_token_alt.png)
 
 #### 2. Install the dependancies
 
@@ -336,6 +336,19 @@ Edit your README.md on your repository and link it your image :
 
 </details>
 
+<details>
+<summary>⚠️ HTTP errors code</summary>
+
+The following errors code can be encountered if your using a server instance :
+
+* `403 Forbidden` : User is not whitelisted in `restricted` users list
+* `404 Not found` : GitHub API did not found the requested user
+* `429 Too many requests` : Thrown when rate limiter is trigerred
+* `500 Internal error` : An error ocurred while generating metrics images (logs can be seen if you're the owner of the instance)
+* `503 Service unavailable` : Maximum user capacity reached, only already cached images can be accessed for now
+
+</details>
+
 ## 📚 Documentations
 
 ### 🧩 Plugins
@@ -348,7 +361,7 @@ These can provide more informations into your generated metrics, but it could al
 
 The *pagespeed* plugin allows you to add your website performances.
 
-![Pagespeed plugin](https://github.com/lowlighter/metrics/blob/master/docs/imgs/plugin_pagespeed.png)
+![Pagespeed plugin](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_pagespeed.png)
 
 These are computed through [Google's pagespeed API](https://developers.google.com/speed/docs/insights/v5/get-started), which returns the same results as [web.dev](https://web.dev).
 
@@ -393,7 +406,7 @@ And pass `?pagespeed=1` in url when generating metrics.
 
 The *lines* plugin allows you to add the number of lines of code you added and removed across your repositories.
 
-![Lines plugin](https://github.com/lowlighter/metrics/blob/master/docs/imgs/plugin_lines.png)
+![Lines plugin](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_lines.png)
 
 <details>
 <summary>💬 About</summary>
@@ -431,7 +444,7 @@ And pass `?lines=1` in url when generating metrics.
 
 The *traffic* plugin allows you to add the number of pages views across your repositories.
 
-![Traffic plugin](https://github.com/lowlighter/metrics/blob/master/docs/imgs/plugin_traffic.png)
+![Traffic plugin](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_traffic.png)
 
 <details>
 <summary>💬 About</summary>
@@ -440,7 +453,7 @@ It will consume an additional GitHub request per repository.
 
 Due to GitHub Rest API limitation, the GitHub token you provide will requires "repo" permissions instead of "public_repo" to allow this plugin accessing traffic informations.
 
-![Token with repo permissions](https://github.com/lowlighter/metrics/blob/master/docs/imgs/token_repo_rights.png)
+![Token with repo permissions](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/token_repo_rights.png)
 
 ##### Setup with GitHub actions
 
@@ -521,16 +534,6 @@ To test new features, you'll need to follow the first steps of the `Deploying yo
 Basically you create a `settings.json` containing a test token and `debug` mode enabled.
 
 You can then start the node with `npm start` and you'll be able to test how the SVG renders with your editions by opening the server url in your browser.
-
-### ⚠️ HTTP errors code
-
-The following errors code can be encountered if your using a server instance :
-
-* `403 Forbidden` : User is not whitelisted in `restricted` users list
-* `404 Not found` : GitHub API did not found the requested user
-* `429 Too many requests` : Thrown when rate limiter is trigerred
-* `500 Internal error` : An error ocurred while generating metrics images (logs can be seen if you're the owner of the instance)
-* `503 Service unavailable` : Maximum user capacity reached, only already cached images can be accessed for now
 
 ### 📖 Useful references
 
