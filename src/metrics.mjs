@@ -85,7 +85,7 @@
           console.debug(`metrics/metrics/${login} > templated`)
 
         //Optimize rendering
-          const svgo = new SVGO({plugins:[{cleanupAttrs:true}, {inlineStyles:false}]})
+          const svgo = new SVGO({full:true, plugins:[{cleanupAttrs:true}, {inlineStyles:false}]})
           const {data:optimized} = await svgo.optimize(templated)
           console.debug(`metrics/metrics/${login} > optimized`)
 
