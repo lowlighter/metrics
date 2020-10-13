@@ -195,7 +195,7 @@ git clone https://github.com/lowlighter/metrics.git
 Go inside project and install dependancies :
 ```shell
 cd metrics/
-npm install
+npm install --only=prod
 ```
 
 Copy `settings.example.json` to `settings.json`
