@@ -2,9 +2,12 @@
 
 Generates your own GitHub metrics as an SVG image to put them on your profile page or elsewhere !
 
-Below is what it looks like :
+See what it looks like below :
 
 ![GitHub metrics](https://github.com/lowlighter/lowlighter/blob/master/github-metrics.svg)
+
+##### 🦑 Interested to get your own ? 
+Try it now at [metrics.lecoq.io](https://metrics.lecoq.io/) with your GitHub username !
 
 ## 📜 How to use ?
 
@@ -479,6 +482,45 @@ And pass `?traffic=1` in url when generating metrics.
 * `action/index.mjs` contains the GitHub action code
 * `action/dist/index.js` contains compiled the GitHub action code
 * `utils/*` contains various utilitaries for build
+ 
+### 💪 Contributing
+
+If you would like to suggest a new feature or find a bug, you can fill an [issue](https://github.com/lowlighter/metrics/issues) describing your problem.
+
+If you're motivated enough, you can submit a [pull request](https://github.com/lowlighter/metrics/pulls) to integrate new features or to solve open issues. 
+Read the few sections below to get started with project structure. 
+
+#### Adding new metrics through GraphQL API, REST API or Third-Party service
+
+If you want to gather additional metrics, update the GraphQL query from `src/query.graphql` to get additional data from [GitHub GraphQL API](https://docs.github.com/en/graphql). 
+Add additional computations and formatting in `src/metrics.mjs`.
+Raw queried data should be exposed in `data.user` whereas computed data should be in `data.computed`.
+
+To use [GitHub Rest API](https://docs.github.com/en/rest) or a third-party service instead, create a new plugin in `src/plugins`.
+Plugins should be self-sufficient and re-exported from [src/plugins/index.mjs](https://github.com/lowlighter/metrics/blob/master/src/plugins/index.mjs), to be later included in the `//Plugins` section of `src/metrics.mjs`.
+Data generated should be exposed in `data.computed.plugins[plugin]` where `plugin` is your plugin's name.
+
+#### Updating the SVG template
+
+The SVG template is located in `src/template.svg` and include the CSS from `src/style.css`.
+
+It's actually a long JavaScript template string, so you can actually include variables (e.g. `` `${data.user.name}` ``) and execute inline code, like ternary conditions (e.g. `` `${computed.plugins.plugin ? `<div>${computed.plugins.plugin.data}</div>` : ""}` ``) which are useful for conditional statements.
+
+#### Server and GitHub action editions
+
+Most of the time, you won't need to edit these, unless you're integrating features directly tied to them.
+
+Server code is located in `src/app.mjs` and instantiates an `express` server app, `octokit`s instances, middlewares (like rate-limiter) and routes.
+
+GitHub action code is located in `action/index.mjs` and instantiates `octokit`s instances and retrieves action parameters.
+It then use directly `src/metrics.mjs` to generate the SVG image and commit them to user's repository.
+
+#### Testing new features
+
+To test new features, you'll need to follow the first steps of the `Deploying your own instance` tutorial. 
+Basically you create a `settings.json` containing a test token and `debug` mode enabled.
+
+You can then start the node with `npm start` and you'll be able to test how the SVG renders with your editions by opening the server url in your browser.
 
 ### ⚠️ HTTP errors code
 
