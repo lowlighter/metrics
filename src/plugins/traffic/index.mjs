@@ -30,7 +30,7 @@
             computed.plugins.traffic = {views}
             console.debug(`metrics/plugins/traffic/${login} > ${JSON.stringify(computed.plugins.traffic)}`)
             solve()
-        } 
+        }
         catch (error) {
           //Thrown when token has unsufficient permissions
             if (error.status === 403) {

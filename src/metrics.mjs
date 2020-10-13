@@ -1,5 +1,6 @@
 //Imports
   import imgb64 from "image-to-base64"
+  import SVGO from "svgo"
   import Plugins from "./plugins/index.mjs"
 
 //Setup
@@ -78,9 +79,19 @@
         //Wait for pending promises
           await Promise.all(pending)
 
-        //Eval rendering and return
+        //Eval rendering
           console.debug(`metrics/metrics/${login} > computed`)
-          return eval(`\`${template}\``)
+          const templated = eval(`\`${template}\``)
+          console.debug(`metrics/metrics/${login} > templated`)
+
+        //Optimize rendering
+          const svgo = new SVGO({plugins:[{cleanupAttrs:true}, {inlineStyles:false}]})
+          const {data:optimized} = await svgo.optimize(templated)
+          console.debug(`metrics/metrics/${login} > optimized`)
+
+        //Result
+          const rendered = optimized
+          return rendered
       }
     //Internal error
       catch (error) { throw (((Array.isArray(error.errors))&&(error.errors[0].type === "NOT_FOUND")) ? new Error("user not found") : error) }

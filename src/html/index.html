@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="A SVG image generator which includes activity, community and repositories metrics about your GitHub account that you can includes on your profile">
     <meta name="author" content="lowlighter">
+    <link rel="icon" href="data:,">
   </head>
   <body>
-    
+
     <h1><a href="https://github.com/lowlighter/metrics">GitHub metrics</a></h1>
 
     <label>
@@ -24,9 +25,11 @@
       <br>
       <div class="code">
         ![<span class="md-alt">GitHub metrics</span>](https://metrics.lecoq.io/my-github-user)
-      </div>  
+      </div>
+      <br>
+      And for even more metrics, setup this <a href="https://github.com/marketplace/actions/github-metrics-as-svg-image">GitHub action</a> on your repository !
     </aside>
-    
+
     <script>
       window.onload = function () {
         //User updater
@@ -40,11 +43,11 @@
               document.querySelector("#metrics .generated").style.opacity = 0
               document.querySelector("aside").style.opacity = 0
             //Update github user
-              document.querySelector(".code").innerText = `![GitHub metrics](https://metrics.lecoq.io/${user})`
+              document.querySelector(".code").innerHTML = `![<span class="md-alt">GitHub metrics</span>](https://metrics.lecoq.io/${user})`
               document.querySelector("#user-repo").href = `https://github.com/${user}/${user}`
               document.querySelectorAll(".user").forEach(node => node.innerText = user)
             //Update metrics
-              if (event.key === "Enter") 
+              if (event.key === "Enter")
                 metrics(user)
               else
                 timeout = setTimeout(() => metrics(user), 2000)

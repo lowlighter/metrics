@@ -6,7 +6,7 @@ See what it looks like below :
 
 ![GitHub metrics](https://github.com/lowlighter/lowlighter/blob/master/github-metrics.svg)
 
-##### 🦑 Interested to get your own ? 
+##### 🦑 Interested to get your own ?
 Try it now at [metrics.lecoq.io](https://metrics.lecoq.io/) with your GitHub username !
 
 ## 📜 How to use ?
@@ -482,17 +482,17 @@ And pass `?traffic=1` in url when generating metrics.
 * `action/index.mjs` contains the GitHub action code
 * `action/dist/index.js` contains compiled the GitHub action code
 * `utils/*` contains various utilitaries for build
- 
+
 ### 💪 Contributing
 
 If you would like to suggest a new feature or find a bug, you can fill an [issue](https://github.com/lowlighter/metrics/issues) describing your problem.
 
-If you're motivated enough, you can submit a [pull request](https://github.com/lowlighter/metrics/pulls) to integrate new features or to solve open issues. 
-Read the few sections below to get started with project structure. 
+If you're motivated enough, you can submit a [pull request](https://github.com/lowlighter/metrics/pulls) to integrate new features or to solve open issues.
+Read the few sections below to get started with project structure.
 
 #### Adding new metrics through GraphQL API, REST API or Third-Party service
 
-If you want to gather additional metrics, update the GraphQL query from `src/query.graphql` to get additional data from [GitHub GraphQL API](https://docs.github.com/en/graphql). 
+If you want to gather additional metrics, update the GraphQL query from `src/query.graphql` to get additional data from [GitHub GraphQL API](https://docs.github.com/en/graphql).
 Add additional computations and formatting in `src/metrics.mjs`.
 Raw queried data should be exposed in `data.user` whereas computed data should be in `data.computed`.
 
@@ -517,7 +517,7 @@ It then use directly `src/metrics.mjs` to generate the SVG image and commit them
 
 #### Testing new features
 
-To test new features, you'll need to follow the first steps of the `Deploying your own instance` tutorial. 
+To test new features, you'll need to follow the first steps of the `Deploying your own instance` tutorial.
 Basically you create a `settings.json` containing a test token and `debug` mode enabled.
 
 You can then start the node with `npm start` and you'll be able to test how the SVG renders with your editions by opening the server url in your browser.
@@ -544,16 +544,22 @@ Below is a list of useful links :
 
 Below is a list of primary dependencies :
 
-* [express/express.js](https://github.com/expressjs/express)
+* [express/express.js](https://github.com/expressjs/express) and [expressjs/compression](https://github.com/expressjs/compression)
   * To serve, compute and render a GitHub user's metrics
 * [nfriedly/express-rate-limit](https://github.com/nfriedly/express-rate-limit)
   * To apply rate limiting on server and avoid spams and hitting GitHub API's own rate limit
-* [octokit/graphql.js](https://github.com/octokit/graphql.js/)
-  * To perform request to GitHub GraphQL API
+* [octokit/graphql.js](https://github.com/octokit/graphql.js/) and [octokit/rest.js](https://github.com/octokit/rest.js)
+  * To perform request to GitHub GraphQL API and GitHub REST API
 * [ptarjan/node-cache](https://github.com/ptarjan/node-cache)
   * To cache generated content
 * [renanbastos93/image-to-base64](https://github.com/renanbastos93/image-to-base64)
   * To generate base64 representation of users' avatars
+* [svg/svgo](https://github.com/svg/svgo)
+  * To optimize generated SVG
+* [axios/axios](https://github.com/axios/axios)
+  * To make HTTP/S requests
+* [actions/toolkit](https://github.com/actions/toolkit/tree/master) and [vercel/ncc](https://github.com/vercel/ncc)
+  * To build the GitHub Action
 
 All icons were ripped across GitHub's site, but still remains the intellectual property of GitHub.
 See [GitHub Logos and Usage](https://github.com/logos) for more information.

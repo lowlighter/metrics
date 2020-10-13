@@ -255,7 +255,7 @@
             </div>
           </section>
         </div>
-      ` : ` 
+      ` : `
         <section>
           <div class="row fill-width">
             <section class="categories">

@@ -7,6 +7,7 @@
   import cache from "memory-cache"
   import ratelimit from "express-rate-limit"
   import metrics from "./metrics.mjs"
+  import compression from "compression"
 
 //Load svg template, style and query
   async function load() {
@@ -28,6 +29,7 @@
 
     //Setup server
       const app = express()
+      app.use(compression())
       const middlewares = []
     //Rate limiter middleware
       if (ratelimiter) {
