@@ -16,7 +16,7 @@
       console.debug(`metrics/plugins/traffic/${login} > started`)
 
     //Plugin execution
-      pending.push(new Promise(async (solve, reject) => {
+      pending.push(new Promise(async solve => {
         try {
           //Get views stats from repositories
             const views = {count:0, uniques:0}
@@ -36,10 +36,12 @@
             if (error.status === 403) {
               computed.plugins.traffic = {error:`Insufficient token rights`}
               console.debug(`metrics/plugins/traffic/${login} > ${error.status}`)
-              solve()
-              return
+              return solve()
             }
-          reject(error)
+          //Generic error
+            computed.plugins.traffic = {error:`An error occured`}
+            console.debug(error)
+            solve()
         }
       }))
   }

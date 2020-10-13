@@ -16,7 +16,7 @@
       console.debug(`metrics/plugins/lines/${login} > started`)
 
     //Plugin execution
-      pending.push(new Promise(async (solve, reject) => {
+      pending.push(new Promise(async solve => {
         try {
           //Get contributors stats from repositories
             const lines = {added:0, deleted:0}
@@ -41,7 +41,10 @@
             solve()
         }
         catch (error) {
-          reject(error)
+          //Generic error
+            computed.plugins.pagespeed = {error:`An error occured`}
+            console.debug(error)
+            solve()
         }
       }))
   }

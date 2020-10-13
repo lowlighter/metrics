@@ -15,7 +15,7 @@
       console.debug(`metrics/plugins/pagespeed/${login} > started`)
 
     //Plugin execution
-      pending.push(new Promise(async (solve, reject) => {
+      pending.push(new Promise(async solve => {
         try {
           //Format url if needed
             if (!/^https?:[/][/]/.test(url))
@@ -36,11 +36,12 @@
             if ((error.response)&&(error.response.status)) {
               computed.plugins.pagespeed = {url, error:`PageSpeed token error (code ${error.response.status})`}
               console.debug(`metrics/plugins/traffic/${login} > ${error.response.status}`)
-              solve()
-              return
+              return solve()
             }
-          console.log(error)
-          reject(error)
+          //Generic error
+            computed.plugins.pagespeed = {error:`An error occured`}
+            console.debug(error)
+            solve()
         }
       }))
   }

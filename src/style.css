@@ -107,6 +107,13 @@
     flex-grow: 0;
   }
 
+/* Habits */
+  .habits {
+    margin: 0;
+    list-style-type: none;
+    padding-left: 37px;
+  }
+
 /* Footer */
   footer {
     margin-top: 8px;

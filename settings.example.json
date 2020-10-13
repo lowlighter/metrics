@@ -16,7 +16,11 @@
       "enabled":true,             "//":"Enable or disable repositories total page views is last two weeks"
     },
     "lines":{                     "//":"Lines plugin",
-      "enabled":true,             "//":"Enable or disabled repositories total lines added/removed"
+      "enabled":true,             "//":"Enable or disable repositories total lines added/removed"
+    },
+    "habits":{                    "//":"Habits plugin",
+      "enabled":true,             "//":"Enable or disable coding habits metrics",
+      "from":50,                  "//":"Number of activity events to base habits on (up to 100)"
     }
   }
 }

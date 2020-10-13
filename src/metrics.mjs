@@ -28,6 +28,7 @@
             Plugins.pagespeed({login, url:data.user.websiteUrl, computed, pending, q}, plugins.pagespeed)
           Plugins.lines({login, repositories:data.user.repositories.nodes.map(({name}) => name), rest, computed, pending, q}, plugins.lines)
           Plugins.traffic({login, repositories:data.user.repositories.nodes.map(({name}) => name), rest, computed, pending, q}, plugins.traffic)
+          Plugins.habits({login, rest, computed, pending, q}, plugins.habits)
 
         //Iterate through user's repositories
           for (const repository of data.user.repositories.nodes) {

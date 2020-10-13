@@ -24,6 +24,8 @@ inputs:
     description: Enable repositories lines metrics
   plugin_traffic:
     description: Enable repositories traffic metrics (due to GitHub API limitations, "token" must have "repo" permissions)
+  plugin_habits:
+    description: Enable coding habits metrics
   debug:
     description: Enable debug logs
 runs:

@@ -11,8 +11,12 @@
 
     <h1><a href="https://github.com/lowlighter/metrics">GitHub metrics</a></h1>
 
+    <p>
+      Enter your GitHub username below to generate your metrics.
+    </p>
+
     <label>
-      <input type="text" name="user" placeholder="Your GitHub username" value="">
+      <input type="text" name="user" placeholder="@username" value="">
     </label>
 
     <div id="metrics">
@@ -26,8 +30,8 @@
       <div class="code">
         ![<span class="md-alt">GitHub metrics</span>](https://metrics.lecoq.io/my-github-user)
       </div>
-      <br>
-      And for even more metrics, setup this <a href="https://github.com/marketplace/actions/github-metrics-as-svg-image">GitHub action</a> on your repository !
+      For even more metrics (coding habits, PageSpeed performances, number of line of code you wrote, page views, etc.), setup this as a <a href="https://github.com/marketplace/actions/github-metrics-as-svg-image">GitHub action</a> on your repository !<br>
+      Check out <a href="https://github.com/lowlighter/metrics">lowlighter/metrics</a> for more informations
     </aside>
 
     <script>
@@ -50,14 +54,19 @@
               if (event.key === "Enter")
                 metrics(user)
               else
-                timeout = setTimeout(() => metrics(user), 2000)
+                timeout = setTimeout(() => metrics(user), 1800)
           }
         //Metrics updater
           let current = null
           function metrics(user) {
             if (!user.trim().length)
               return
-            if (current !== user) {
+            if (current === user) {
+              document.querySelector("#metrics .placeholder").style.opacity = 0
+              document.querySelector("#metrics .generated").style.opacity = 1
+              document.querySelector("aside").style.opacity = 1
+            }
+            else {
               current = user
               document.querySelector("#metrics .generated").src = `https://metrics.lecoq.io/${user}`
               document.querySelector("#metrics .generated").onload = function () {
@@ -86,7 +95,7 @@
         overflow-x: hidden;
       }
       h1 {
-        margin-top: 4rem
+        margin: 4rem 0 0;
       }
       a, a:hover, a:visited {
         color: #0366D6;
@@ -117,7 +126,7 @@
         position: relative;
         max-width: 100%;
         width: 480px;
-        height: 516px;
+        height: 485px;
       }
       #metrics img {
         position: absolute;
@@ -131,7 +140,7 @@
         padding: .25rem;
         transition: opacity .4s;
         text-align: center;
-        margin-bottom: 2rem;
+        margin: 1rem 0 2rem;
       }
       .code {
         font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;

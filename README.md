@@ -106,6 +106,9 @@ jobs:
           # The provided GitHub token will require "repo" permissions
           plugin_traffic: no
 
+          # Enable or disable coding habits metrics
+          plugin_habits: no
+
           # Enable debug logs
           debug: no
 
@@ -273,6 +276,17 @@ Open and edit `settings.json` to configure your instance.
           //When enabled, pass "?traffic=1" in url to compute total page views in your repositories in last two weeks
           //Note that this requires that the passed GitHub API token requires a push access
             "enabled":true
+        },
+      //Habits plugin
+        "habits":{
+          //Enable or disable this plugin
+          //When enabled, pass "?habits=1" in url to generate coding habits based on your recent activity
+          //This includes stuff like if you're using tabs or space and the time of the day when you push the most
+          //Note that this requires that the passed GitHub API token requires a push access
+            "enabled":true,
+          //Specify the number of events used to compute coding habits. Capped at 100 by GitHub API
+          //Defaults to 50
+            "from":50,
         }
     }
 }
@@ -482,6 +496,44 @@ Add the following to your `settings.json`
 ```
 
 And pass `?traffic=1` in url when generating metrics.
+
+</details>
+
+#### 💡 Habits
+
+The *habits* plugin allows you to add deduced coding about based on your recent activity.
+
+![Habits plugin](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_habits.png)
+
+<details>
+<summary>💬 About</summary>
+
+It will consume an additional GitHub request per event fetched.
+
+##### Setup with GitHub actions
+
+Add the following to your workflow :
+
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_habits: yes
+```
+
+##### Setup in your own instance
+
+Add the following to your `settings.json`
+
+```json
+  "plugins":{
+    "habits":{
+      "enabled":true
+    }
+  }
+```
+
+And pass `?habits=1` in url when generating metrics.
 
 </details>
 

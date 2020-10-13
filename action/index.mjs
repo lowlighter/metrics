@@ -42,6 +42,7 @@
           lines:{enabled:core.getInput("plugin_lines", {default:false})},
           traffic:{enabled:core.getInput("plugin_traffic", {default:false})},
           pagespeed:{enabled:core.getInput("plugin_pagespeed", {default:false})},
+          habits:{enabled:core.getInput("plugin_habits", {default:false})},
         }
         if (core.getInput("pagespeed_token")) {
           console.log(`Pagespeed token     | provided`)
