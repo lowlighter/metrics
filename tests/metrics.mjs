@@ -24,3 +24,5 @@
   const parsed = libxmljs.parseXml(rendered)
   if (parsed.errors.length)
     throw new Error(`Malformed SVG : \n${parsed.errors.join("\n")}`)
+
+  console.log("Test success !")
