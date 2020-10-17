@@ -32,7 +32,7 @@
         console.log(`Templates           | loaded`)
 
       //Token for data gathering
-        const token = core.getInput("token") || github.token
+        const token = core.getInput("token")
         console.log(`Github token        | ${token ? "provided" : "missing"}`)
         if (!token)
           throw new Error("You must provide a valid GitHub token")
