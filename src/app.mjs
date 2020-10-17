@@ -79,7 +79,7 @@
             //Render
               if (debug)
                 [template, style, query] = await load()
-              const rendered = await metrics({login, q:req.query}, {template, style, query, graphql, rest, plugins})
+              const rendered = await metrics({login, q:req.query}, {template, style, query, graphql, rest, plugins, optimize:settings.optimize})
             //Cache
               if ((!debug)&&(cached))
                 cache.put(login, rendered, cached)

@@ -3,9 +3,7 @@
 ![Build](https://github.com/lowlighter/metrics/workflows/Build/badge.svg)
 
 Generates your own GitHub metrics as an SVG image to put them on your profile page or elsewhere !
-
 See what it looks like below :
-
 ![GitHub metrics](https://github.com/lowlighter/lowlighter/blob/master/github-metrics.svg)
 
 ### 🦑 Interested to get your own ?
@@ -15,16 +13,11 @@ Try it now at [metrics.lecoq.io](https://metrics.lecoq.io/) with your GitHub use
 
 ### ⚙️ Using GitHub Action on your profile repo (~5 min setup)
 
-A GitHub Action which is run periodically at your convenience which generates and push an SVG image on your personal repository.
+Setup a GitHub Action which is run periodically and push a generated SVG image on your repository.
 
 Assuming your username is `my-github-user`, you can embed your metrics in your personal repository's readme like below :
 ```markdown
 ![GitHub metrics](https://github.com/my-github-user/my-github-user/blob/master/github-metrics.svg)
-```
-
-Or with HTML :
-```html
-<img src="github-metrics.svg" alt="My GitHub metrics">
 ```
 
 <details>
@@ -33,100 +26,96 @@ Or with HTML :
 #### 0. Prepare your personal repository
 
 If you don't know yet or haven't done it yet, create a repository with the same name as your GitHub username.
-
 ![Personal repository](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/personal_repo.png)
 
-The `README.md` of this repository will be displayed on your GitHub user profile like below !
-
+The `README.md` of this repository will be displayed on your GitHub user profile like below :
 ![GitHub Profile](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/github_profile.png)
 
-#### 1. Create a GitHub token
+#### 1. Setup a GitHub token
 
-In your account settings, go to `Developer settings` and select `Personal access tokens` to create a new token.
+Go to `Developer settings` from your GitHub account settings and select `Personal access tokens` to create a new token.
 
 You'll need to create a token with the `public_repo` right so this GitHub Action has enough permissions to push the updated SVG metrics on your personal repository.
-
 ![Create a GitHub token](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/personal_token.png)
+
+If you choose to use a bot account, you can put `public_repo` rights to the bot token and invite it as a collaborator on your personal profile repository so it has push access. This way, you can use a personnal token with no rights instead and reduce security issues.
 
 #### 2. Put your GitHub token in your personal repository secrets
 
-Go to the `Settings` of your personal repository to create a new secret and paste your GitHub token here with the name `METRICS_TOKEN`.
-
+Go to the `Settings` of your personal repository to create a new secret and paste your GitHub token here.
 ![Setup secret](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/repo_secrets.png)
 
 #### 3. Create a new GitHub Action workflow on your personal repo
 
-Go to the `Actions` of your personal repository and create a new workflow.
+Create a new workflow from the `Actions` tab of your personal repository and paste the following.
+Don't forget to put your GitHub username !
 
-Paste the following and don't forget to put your GitHub username.
 ```yaml
 name: GitHub metrics as SVG image
 on:
-  # Update metrics each 15 minutes. Edit this if you want to increase/decrease frequency
-  # Note that GitHub image cache (5-15 minutes) still apply so it is useless to set less than this, you're image won't be refreshed
+  # Schedule the metrics update
   schedule: [{cron: "*/15 * * * *"}]
-  # Add this if you want to force update each time you commit on master branch
+  # (optional) Force update a commit occurs on master branch
   push: {branches: "master"}
 jobs:
   github-metrics:
     runs-on: ubuntu-latest
     steps:
       - uses: lowlighter/metrics@latest
-        # This line will prevent this GitHub action from running when it is updated by itself if you enabled trigger on master branch
-        if: "!contains(github.event.head_commit.message, '[Skip GitHub Action]')"
         with:
 
-          # Your GitHub token ("public_repo" is required to allow this action to update the metrics SVG image)
+          # Your GitHub token
           token: ${{ secrets.METRICS_TOKEN }}
-
-          # Your GitHub user name
-          user: my-github-user
 
           # Additional options
           # ==========================================
 
-          # The GitHub token used to commit to your repository (defaults to the same value as "token")
-          # This can be used to specify the token of a bot account if you use a personal token with advanced permissions
-          # (which is needed if you want to include metrics of your private repositories, or to enable plugins like traffic)
+          # GitHub username (defaults to "token" user)
+          user: my-github-user
+
+          # If provided, this token will be used instead of "token" for commit operations
+          # You can specify a bot account to avoid virtually increasing your stats due to this action commits
           committer_token: ${{ secrets.METRICS_BOT_TOKEN }}
 
-          # Path/filename to use to store generated SVG
+          # Name of SVG image output
           filename: github-metrics.svg
 
-          # If you own a website and you added it to your GitHub profile,
-          # You can provide a PageSpeed token to add your site's performance results on the metrics SVG image
-          # See https://developers.google.com/speed/docs/insights/v5/get-started to obtain a key
+          # Enable Google PageSpeed metrics for account attached website
+          # See https://developers.google.com/speed/docs/insights/v5/get-started for more informations
           plugin_pagespeed: no
           pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
 
-          # Enable repositories lines added/removed count
+          # Enable lines of code metrics
           plugin_lines: no
 
-          # Enable repositories traffic (pages views) count
-          # The provided GitHub token will require "repo" permissions
+          # Enable repositories traffic metrics
+          # *Provided GitHub token require full "repo" permissions
           plugin_traffic: no
 
-          # Enable or disable coding habits metrics
+          # Enable coding habits metrics
           plugin_habits: no
+
+          # Skip commits flagged with [Skip GitHub Action] from commits count
+          plugin_selfskip: no
 
           # Enable debug logs
           debug: no
 
 ```
 
-On each run, a new SVG image will be generated and committed to your repository.
+A new SVG image will be generated and committed to your repository on each run.
+Because of this, the amount of your commits could be virtually increased which is probably unwanted.
 
-This could virtually increase your commits stats, so it is recommended to pass a bot account token to `token` instead.
-The bot will be able to track metrics of all your public repositories.
+To avoid this, you can use a bot token instead, which will still be able to track metrics of all your public repositories.
+If you want to also track your private repositories metrics, you'll need to pass a personal token with full `repo` permissions to your personal `token`, and use the `committer_token` parameter to pass the bot account token.
 
-If you want to also track your private repositories metrics, you'll need to pass a personal token with `repo` permissions to `token`, and use the `committer_token` parameter to pass the bot account token.
+If you don't want to use a bot token, you can use the `plugin_selfskip` which will count out all your commits from your personal repository tagged with `[Skip GitHub Action]` made with your account, but these commits will still be linked to your account.
 
 ![Action update](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/action_update.png)
 
 #### 4. Embed the link into your README.md
 
 Edit your README.md on your repository and link it your image :
-
 ```markdown
 ![GitHub metrics](https://github.com/my-github-user/my-github-user/blob/master/github-metrics.svg)
 ```
@@ -135,7 +124,7 @@ Edit your README.md on your repository and link it your image :
 
 ### 💕 Using the shared instance (~1 min setup, but with limitations)
 
-For conveniency, you can use the shared instance available at [metrics.lecoq.io](https://metrics.lecoq.io).
+For conveniency, you can use the shared instance available at [metrics.lecoq.io](https://metrics.lecoq.io) without any additional setup.
 
 Assuming your username is `my-github-user`, you can embed your metrics in your personal repository's readme like below :
 ```markdown
@@ -145,147 +134,116 @@ Assuming your username is `my-github-user`, you can embed your metrics in your p
 <details>
 <summary>💬 Restrictions and fair use</summary>
 
-Since GitHub API has rate limitations and to avoid abuse, the shared instance has the following limitations :
+Since GitHub API has rate limitations, the shared instance has a few limitations :
   * Images are cached for 1 hour
-    * Your generated metrics **won't** be updated during this amount of time
+    * Your generated metrics won't be updated during this amount of time
     * If you enable or disable plugins in url parameters, you'll need to wait for cache expiration before these changes are applied
-  * A rate limiter prevents new metrics generation when reached, but it **does not** affect already cached users metrics, including your own
-  * Most of plugins are not available
-    * PageSpeed plugin can be enabled by passing `?pagespeed=1`, but metrics generation can take up some time
+  * The rate limiter is enabled, although it won't affect already cached users metrics
+  * Plugins are disabled
+    * PageSpeed plugin can still be enabled by passing `?pagespeed=1`, but metrics generation can take up some time when it has not been cached yet
 
-You should consider deploying your own instance or use GitHub Action if you're planning using this service.
+To ensure maximum availability, consider deploying your own instance or use the GitHub Action.
 
 </details>
 
 ### 🏗️ Deploying your own instance (~15 min setup, depending on your sysadmin knowledge)
 
-Using your own instance is useful if you do not want to use GitHub Action or allow others users to use your instance.
+You can setup your own instance if you choose to not use the GitHub Action or you want to allow others users to use your instance.
 
-A GitHub token is required to setup your instance, however since metrics images are not stored on your repositories you do not need to grant any additional permissions to your token, which reduce security issues.
+You'll need to create a GitHub token to setup it, however you do not need to grant any additional permissions to your token since it won't push images to any of your repositories. You may still require additional rights for some plugins if you decide to enable them though.
 
-You can restrict which users can generate metrics on your server and apply rate limiting (which is advised or else you'll hit the GitHub API rate limiter).
-
-It is also easier to change `query.graphql`, `style.css` and `template.svg` if you want to gather additional stats, perform esthetical changes or edit the structure of the SVG image.
-
+If you intend to share your instance, it is advised to setup either an access list to restrict which users can use it, or to configure the rate limiter to avoid reaching the requests limit of GitHub API.
 
 <details>
 <summary>💬 How to setup ?</summary>
 
 #### 0. Prepare your server
 
-You'll need to have a server at your disposal where you can install and configure stuff.
+You'll need a server where you can install and configure apps.
 
 #### 1. Create a GitHub token
 
 In your account settings, go to `Developer settings` and select `Personal access tokens` to create a new token.
-
-As explained above, you do not need to grant additional permissions to the token.
-
+As explained above, you do not need to grant additional permissions to the token unless you want to enable additional plugins.
 ![Create a GitHub token](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/personal_token_alt.png)
 
 #### 2. Install the dependancies
 
-Connect to your server.
+Connect to your server and ensure [NodeJS](https://nodejs.org/en/) is installed (see tested versions in the [build workflows](https://github.com/lowlighter/metrics/blob/master/.github/workflows/build.yml)).
 
-You'll need [NodeJS](https://nodejs.org/en/) (the latter version is better, for reference this was tested on v14.9.0).
-
-Clone the repository
-
+Then run the following commands :
 ```shell
+# Clone this repository (or your fork)
 git clone https://github.com/lowlighter/metrics.git
-```
-
-Go inside project and install dependancies :
-```shell
+# Install dependancies
 cd metrics/
 npm install --only=prod
-```
-
-Copy `settings.example.json` to `settings.json`
-```shell
+# Copy the settings exemple
 cp settings.example.json settings.json
 ```
 
 #### 3. Configure your instance
 
-Open and edit `settings.json` to configure your instance.
-
+Open and edit `settings.json` to configure your instance using a text editor of your choice.
 ```javascript
 {
-  //Your GitHub API token
+  //GitHub API token
     "token":"****************************************",
 
-  //The optionals parameters below allows you to avoid reaching the GitHub API rate limitation
+  //Users who are authorized to generate metrics on your instance
+  //An empty list or an undefined value will be treated as "unrestricted"
+    "restricted":["my-github-user"],
 
-    //A set of whitelisted users which can generate metrics on your instance
-    //Leave empty or undefined to disable
-    //Defaults to unrestricted
-      "restricted":["my-github-user"],
+  //Lifetime of generated metrics (cached version will be served instead during this time window)
+    "cached":3600000,
 
-    //Lifetime of each generated metrics
-    //If an user's metrics are requested while lifetime is still up, a cached version will be served
-    //Defaults to 60 minutes
-      "cached":3600000,
+  //Number of simultaneous users who can use your instance before sending a "503 error"
+  //A zero or an undefined value will be treated as "unlimited"
+    "maxusers":0,
 
-    //Maximum simultaneous number of user which can be cached
-    //When this limit is reached, new users will receive a 503 error
-    //Defaults to 0 (unlimited)
-      "maxusers":0,
+  //Rate limiter (see https://www.npmjs.com/package/express-rate-limit)
+  //A null or undefined value will be treated as "disabled"
+    "ratelimiter":{
+      "windowMs":60000,
+      "max":100
+    },
 
-    //Rate limiter
-    //See https://www.npmjs.com/package/express-rate-limit
-    //Disabled by default
-      "ratelimiter":{
-        "windowMs":60000,
-        "max":100
-      },
-
-  //Port on which your instance listen
-  //Defaults to 3000
+  //Listening port used by your instance
     "port":3000,
 
+  //Optimize SVG image
+    "optimize":true,
+
   //Debug mode
-  //When enabled, "query.graphql", "style.css" and "template.svg" will be reloaded at each request
-  //Cache will be disabled
-  //This is intendend for easier development which allows to see your changes quickly
-  //Defaults to false
+  //When enabled, templates will be reloaded at each request and cache will be disabled
+  //Intended for easier development and disabled by default
     "debug":false,
 
   //Plugins configuration
-  //Most of plugins are disabled by default
-  //Enabling them can add additional informations and metrics about you, but increases response time
     "plugins":{
-      //Pagespeed plugin
+      //Google PageSpeed plugin
         "pagespeed":{
-          //Enable or disable this plugin
-          //When enabled, pass "?pagespeed=1" in url to generate website's performances
+          //Enable or disable this plugin. Pass "?pagespeed=1" in url to generate website's performances
             "enabled":false,
-          //Pagespeed token
-          //See https://developers.google.com/speed/docs/insights/v5/get-started to obtain a key
+          //Pagespeed token (see https://developers.google.com/speed/docs/insights/v5/get-started)
             "token":"****************************************"
         },
       //Lines plugin
         "lines":{
-          //Enable or disable this plugin
-          //When enabled, pass "?lines=1" in url to compute total lines added/removed in your repositories by you
+          //Enable or disable this plugin. Pass "?lines=1" in url to compute total lines you added/removed on your repositories
             "enabled":true
         },
       //Traffic plugin
         "traffic":{
-          //Enable or disable this plugin
-          //When enabled, pass "?traffic=1" in url to compute total page views in your repositories in last two weeks
-          //Note that this requires that the passed GitHub API token requires a push access
+          //Enable or disable this plugin. Pass "?traffic=1" in url to compute page views on your repositories in last two weeks
+          //*This requires a GitHub API token with push access
             "enabled":true
         },
       //Habits plugin
         "habits":{
-          //Enable or disable this plugin
-          //When enabled, pass "?habits=1" in url to generate coding habits based on your recent activity
-          //This includes stuff like if you're using tabs or space and the time of the day when you push the most
-          //Note that this requires that the passed GitHub API token requires a push access
+          //Enable or disable this plugin. Pass "?habits=1" in url to generate coding habits based on your recent activity
             "enabled":true,
-          //Specify the number of events used to compute coding habits. Capped at 100 by GitHub API
-          //Defaults to 50
+          //Number of events used to compute coding habits (capped at 100 by GitHub API)
             "from":50,
         }
     }
@@ -294,24 +252,28 @@ Open and edit `settings.json` to configure your instance.
 
 #### 4. Start your instance
 
-Run the following command to start your instance :
+Start your instance once you've finished configuring it :
 ```shell
 npm start
 ```
 
-Open your browser and test your instance :
-```shell
-http://localhost:3000/my-github-user
+And you should be able to access it on the port you provided !
+
+#### 5. Embed the link into your README.md
+
+Edit your `README.md` on your repository and include your metrics from your server domain :
+```markdown
+![GitHub metrics](https://my-personal-domain.com/my-github-user)
 ```
 
-#### 5. Setup as service on your instance (optional)
+#### 6. (optional) Setup as service on your instance
 
-You should consider using a service to run your instance.
-It will allow to restart automatically on crash and on boot.
+If you want to ensure that your instance will be restarted after reboots or crashes, you should setup it as a service.
+This is described below for linux-like systems with *systemd*.
 
-Create a new file in `/etc/systemd/system` :
+Create a new service file in `/etc/systemd/system` :
 ```shell
-vi /etc/systemd/system/github_metrics.service
+nano /etc/systemd/system/github_metrics.service
 ```
 
 Paste the following and edit it with the correct paths :
@@ -330,24 +292,12 @@ ExecStart=/usr/bin/node /path/to/metrics/index.mjs
 WantedBy=multi-user.target
 ```
 
-Reload services, enable it and start it :
+Reload services, enable it, start it and check it is up and running :
 ```shell
 systemctl daemon-reload
 systemctl enable github_metrics
 systemctl start github_metrics
-```
-
-Check if your service is up and running :
-```shell
 systemctl status github_metrics
-```
-
-#### 6. Embed the link into your README.md
-
-Edit your README.md on your repository and link it your image :
-
-```markdown
-![GitHub metrics](https://my-personal-domain.com/my-github-user)
 ```
 
 </details>
@@ -355,9 +305,8 @@ Edit your README.md on your repository and link it your image :
 <details>
 <summary>⚠️ HTTP errors code</summary>
 
-The following errors code can be encountered if your using a server instance :
-
-* `403 Forbidden` : User is not whitelisted in `restricted` users list
+The following errors code can be encountered if on a server instance :
+* `403 Forbidden` : User is not allowed in `restricted` users list
 * `404 Not found` : GitHub API did not found the requested user
 * `429 Too many requests` : Thrown when rate limiter is trigerred
 * `500 Internal error` : An error ocurred while generating metrics images (logs can be seen if you're the owner of the instance)
@@ -369,30 +318,27 @@ The following errors code can be encountered if your using a server instance :
 
 ### 🧩 Plugins
 
-Plugins are additional features that are disabled by default and which may requires additional configuration.
+Plugins are features which are disabled by default but they can provide additional metrics.
+In return they may require additional configuration and tend to consume additional API requests.
 
-These can provide more informations into your generated metrics, but it could also make it longer to generate, which may not be suitable with a server instance if you're not using caching.
+#### ⏱️ PageSpeed
 
-#### ⏱️ Pagespeed
-
-The *pagespeed* plugin allows you to add your website performances.
-
+The *pagespeed* plugin allows you to add the performances of the website attached to the GitHub user account :
 ![Pagespeed plugin](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_pagespeed.png)
 
-These are computed through [Google's pagespeed API](https://developers.google.com/speed/docs/insights/v5/get-started), which returns the same results as [web.dev](https://web.dev).
+These are computed through [Google's PageSpeed API](https://developers.google.com/speed/docs/insights/v5/get-started), which returns the same results as [web.dev](https://web.dev).
 
 <details>
 <summary>💬 About</summary>
 
-To setup this plugin, you'll need an API key that you can generate in the [pagespeed API presentation](https://developers.google.com/speed/docs/insights/v5/get-started).
+This plugin may require an API key that you can generate [here](https://developers.google.com/speed/docs/insights/v5/get-started) although it does not seem mandatory. It is still advised to provide it to avoid 429 HTTP errors.
 
-The website attached to your GitHub profile will be the one to be audited.
-It will take about 10 to 15 seconds to generate the results, so it is advised to use this plugin alongside caching system or for automated image generation.
+The website attached to the GitHub profile will be the one to be audited.
+Expect 10 to 30 seconds to generate the results.
 
 ##### Setup with GitHub actions
 
 Add the following to your workflow :
-
 ```yaml
 - uses: lowlighter/metrics@latest
   with:
@@ -403,8 +349,7 @@ Add the following to your workflow :
 
 ##### Setup in your own instance
 
-Add the following to your `settings.json`
-
+Add the following to your `settings.json` and pass `?pagespeed=1` in url when generating metrics.
 ```json
   "plugins":{
     "pagespeed":{
@@ -414,14 +359,11 @@ Add the following to your `settings.json`
   }
 ```
 
-And pass `?pagespeed=1` in url when generating metrics.
-
 </details>
 
 #### 👨‍💻 Lines
 
-The *lines* plugin allows you to add the number of lines of code you added and removed across your repositories.
-
+The *lines* of code plugin allows you to compute the number of lines of code you added and removed across all of your repositories.
 ![Lines plugin](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_lines.png)
 
 <details>
@@ -432,7 +374,6 @@ It will consume an additional GitHub request per repository.
 ##### Setup with GitHub actions
 
 Add the following to your workflow :
-
 ```yaml
 - uses: lowlighter/metrics@latest
   with:
@@ -442,8 +383,7 @@ Add the following to your workflow :
 
 ##### Setup in your own instance
 
-Add the following to your `settings.json`
-
+Add the following to your `settings.json` and pass `?lines=1` in url when generating metrics.
 ```json
   "plugins":{
     "lines":{
@@ -452,14 +392,11 @@ Add the following to your `settings.json`
   }
 ```
 
-And pass `?lines=1` in url when generating metrics.
-
 </details>
 
 #### 🧮 Traffic
 
-The *traffic* plugin allows you to add the number of pages views across your repositories.
-
+The repositories *traffic* plugin allows you to compute the number of pages views across your repositories.
 ![Traffic plugin](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_traffic.png)
 
 <details>
@@ -467,27 +404,25 @@ The *traffic* plugin allows you to add the number of pages views across your rep
 
 It will consume an additional GitHub request per repository.
 
-Due to GitHub Rest API limitation, the GitHub token you provide will requires "repo" permissions instead of "public_repo" to allow this plugin accessing traffic informations.
-
+Because of GitHub REST API limitation, the provided token will require full `repo` permissions to access traffic informations.
 ![Token with repo permissions](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/token_repo_rights.png)
 
 ##### Setup with GitHub actions
 
 Add the following to your workflow :
-
 ```yaml
 - uses: lowlighter/metrics@latest
   with:
     # ... other options
-    token: ${{ secrets.METRICS_TOKEN }} # Remember, this must have "repo" permissions for this plugin to work !
+    token: ${{ secrets.METRICS_TOKEN }}
     plugin_traffic: yes
 ```
 
 ##### Setup in your own instance
 
-Add the following to your `settings.json`
-
+Add the following to your `settings.json` and pass `?traffic=1` in url when generating metrics.
 ```json
+  "token":"****************************************",
   "plugins":{
     "traffic":{
       "enabled":true,
@@ -495,14 +430,11 @@ Add the following to your `settings.json`
   }
 ```
 
-And pass `?traffic=1` in url when generating metrics.
-
 </details>
 
 #### 💡 Habits
 
-The *habits* plugin allows you to add deduced coding about based on your recent activity.
-
+The coding *habits* plugin allows you to add deduced coding about based on your recent activity, from up to 100 events.
 ![Habits plugin](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_habits.png)
 
 <details>
@@ -510,10 +442,12 @@ The *habits* plugin allows you to add deduced coding about based on your recent 
 
 It will consume an additional GitHub request per event fetched.
 
+Because of GitHub REST API limitation, the provided token will require full `repo` permissions to access **private** events.
+By default, events that cannot be fetched will be ignored so you can still use this plugin with a public token.
+
 ##### Setup with GitHub actions
 
 Add the following to your workflow :
-
 ```yaml
 - uses: lowlighter/metrics@latest
   with:
@@ -523,8 +457,7 @@ Add the following to your workflow :
 
 ##### Setup in your own instance
 
-Add the following to your `settings.json`
-
+Add the following to your `settings.json` and pass `?habits=1` in url when generating metrics.
 ```json
   "plugins":{
     "habits":{
@@ -533,35 +466,62 @@ Add the following to your `settings.json`
   }
 ```
 
-And pass `?habits=1` in url when generating metrics.
+</details>
+
+#### ⏭️ Selfskip
+
+The *selfskip* plugin allows you to count out all commits tagged with `[Skip GitHub Action]` you authored on your personal repository from your reported commit counts.
+
+<details>
+<summary>💬 About</summary>
+
+It will consume an additional GitHub request per page fetched of your commit activity from your personal repository.
+
+##### Setup with GitHub actions
+
+Add the following to your workflow :
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_selfskip: yes
+```
 
 </details>
 
 ### 🗂️ Project structure
 
-* `index.mjs` contains the entry points and the settings instance
-* `src/app.mjs` contains the server code which serves renders and apply rate limiting, restrictions, etc.
-* `src/metrics.mjs` contains metrics renderer
-* `src/query.graphql` is the GraphQL query which is sent to GitHub API
-* `src/style.css` contains the style for the generated svg image metrics
-* `src/template.svg` contains the structure of the generated svg image metrics
-* `src/plugins/*` contains various additional plugins which can add additional informations in generated metrics
+#### Metrics generator
+
+* `src/metrics.mjs` contains the metrics renderer
+* `src/query.graphql` is the GraphQL query sent to GitHub GraphQL API
+* `src/style.css` contains the style used by the generated SVG image
+* `src/template.svg` contains the template used by the generated SVG image
+* `src/plugins/*` contains the source code of metrics plugins
+
+#### Metrics server instance
+
+* `index.mjs` contains the metrics server entry point
+* `src/app.mjs` contains the metrics server code which serves, renders, restricts/rate limit, etc.
+
+#### GitHub action
+
 * `action/index.mjs` contains the GitHub action code
 * `action/dist/index.js` contains compiled the GitHub action code
-* `utils/*` contains various utilitaries for build
+* `utils/build.mjs` contains the GitHub action builder
 
-### 💪 Contributing
+### 💪 Contributing and customizing
 
-If you would like to suggest a new feature or find a bug, you can fill an [issue](https://github.com/lowlighter/metrics/issues) describing your problem.
+If you would like to suggest a new feature, find a bug or need help, you can fill an [issue](https://github.com/lowlighter/metrics/issues) describing your problem.
 
 If you're motivated enough, you can submit a [pull request](https://github.com/lowlighter/metrics/pulls) to integrate new features or to solve open issues.
+
 Read the few sections below to get started with project structure.
 
 #### Adding new metrics through GraphQL API, REST API or Third-Party service
 
-If you want to gather additional metrics, update the GraphQL query from `src/query.graphql` to get additional data from [GitHub GraphQL API](https://docs.github.com/en/graphql).
-Add additional computations and formatting in `src/metrics.mjs`.
-Raw queried data should be exposed in `data.user` whereas computed data should be in `data.computed`.
+To use [GitHub GraphQL API](https://docs.github.com/en/graphql), update the GraphQL query from `src/query.graphql`.
+Raw queried data should be exposed in `data.user` whereas computed data should be in `data.computed`, and code should be updated through `src/metrics.mjs`.
 
 To use [GitHub Rest API](https://docs.github.com/en/rest) or a third-party service instead, create a new plugin in `src/plugins`.
 Plugins should be self-sufficient and re-exported from [src/plugins/index.mjs](https://github.com/lowlighter/metrics/blob/master/src/plugins/index.mjs), to be later included in the `//Plugins` section of `src/metrics.mjs`.
@@ -573,33 +533,29 @@ The SVG template is located in `src/template.svg` and include the CSS from `src/
 
 It's actually a long JavaScript template string, so you can actually include variables (e.g. `` `${data.user.name}` ``) and execute inline code, like ternary conditions (e.g. `` `${computed.plugins.plugin ? `<div>${computed.plugins.plugin.data}</div>` : ""}` ``) which are useful for conditional statements.
 
-#### Server and GitHub action editions
+#### Metrics server and GitHub action
 
 Most of the time, you won't need to edit these, unless you're integrating features directly tied to them.
+Remember that SVG image is actually generated from `src/metrics.mjs`, independently from metrics server and GitHub action.
 
-Server code is located in `src/app.mjs` and instantiates an `express` server app, `octokit`s instances, middlewares (like rate-limiter) and routes.
+Metrics server code is located in `src/app.mjs` and instantiates an `express` server app, `octokit`s instances, middlewares (like rate-limiter) and routes.
 
 GitHub action code is located in `action/index.mjs` and instantiates `octokit`s instances and retrieves action parameters.
 It then use directly `src/metrics.mjs` to generate the SVG image and commit them to user's repository.
+You must run `npm run build` to rebuild the GitHub action.
 
 #### Testing new features
 
-To test new features, you'll need to follow the first steps of the `Deploying your own instance` tutorial.
-Basically you create a `settings.json` containing a test token and `debug` mode enabled.
-
-You can then start the node with `npm start` and you'll be able to test how the SVG renders with your editions by opening the server url in your browser.
+To test new features, setup a metrics server with a test token and `debug` mode enabled.
+This way you'll be able to rapidly test SVG renders with your browser.
 
 ### 📖 Useful references
-
-Below is a list of useful links :
 
 * [GitHub GraphQL API](https://docs.github.com/en/graphql)
 * [GitHub GraphQL Explorer](https://developer.github.com/v4/explorer/)
 * [GitHub Rest API](https://docs.github.com/en/rest)
 
 ### 📦 Used packages
-
-Below is a list of primary dependencies :
 
 * [express/express.js](https://github.com/expressjs/express) and [expressjs/compression](https://github.com/expressjs/compression)
   * To serve, compute and render a GitHub user's metrics
@@ -622,8 +578,6 @@ All icons were ripped across GitHub's site, but still remains the intellectual p
 See [GitHub Logos and Usage](https://github.com/logos) for more information.
 
 ### ✨ Inspirations
-
-This project was inspired by the following projects :
 
 * [anuraghazra/github-readme-stats](https://github.com/anuraghazra/github-readme-stats)
 * [jstrieb/github-stats](https://github.com/jstrieb/github-stats)

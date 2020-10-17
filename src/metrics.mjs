@@ -4,7 +4,7 @@
   import Plugins from "./plugins/index.mjs"
 
 //Setup
-  export default async function metrics({login, q}, {template, style, query, graphql, rest, plugins}) {
+  export default async function metrics({login, q}, {template, style, query, graphql, rest, plugins, selfless = true, optimize = true}) {
     //Compute rendering
       try {
 
@@ -29,6 +29,7 @@
           Plugins.lines({login, repositories:data.user.repositories.nodes.map(({name}) => name), rest, computed, pending, q}, plugins.lines)
           Plugins.traffic({login, repositories:data.user.repositories.nodes.map(({name}) => name), rest, computed, pending, q}, plugins.traffic)
           Plugins.habits({login, rest, computed, pending, q}, plugins.habits)
+          Plugins.selfskip({login, rest, computed, pending, q}, plugins.selfskip)
 
         //Iterate through user's repositories
           for (const repository of data.user.repositories.nodes) {
@@ -82,16 +83,18 @@
 
         //Eval rendering
           console.debug(`metrics/metrics/${login} > computed`)
-          const templated = eval(`\`${template}\``)
+          let rendered = eval(`\`${template}\``)
           console.debug(`metrics/metrics/${login} > templated`)
 
         //Optimize rendering
-          const svgo = new SVGO({full:true, plugins:[{cleanupAttrs:true}, {inlineStyles:false}]})
-          const {data:optimized} = await svgo.optimize(templated)
-          console.debug(`metrics/metrics/${login} > optimized`)
+          if (optimize) {
+            const svgo = new SVGO({full:true, plugins:[{cleanupAttrs:true}, {inlineStyles:false}]})
+            const {data:optimized} = await svgo.optimize(rendered)
+            console.debug(`metrics/metrics/${login} > optimized`)
+            rendered = optimized
+          }
 
         //Result
-          const rendered = optimized
           return rendered
       }
     //Internal error
