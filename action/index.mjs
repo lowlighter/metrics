@@ -29,6 +29,7 @@
           }
         }
         console.log(github.event)
+        process.exit(0)
 
       //Load svg template, style and query
         const template = `<#include template.svg>`, style = `<#include style.css>`, query = `<#include query.graphql>`
