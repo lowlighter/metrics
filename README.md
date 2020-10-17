@@ -13,7 +13,7 @@ Try it now at [metrics.lecoq.io](https://metrics.lecoq.io/) with your GitHub use
 
 ### ⚙️ Using GitHub Action on your profile repo (~5 min setup)
 
-Setup a GitHub Action which is run periodically at your convenience and which push a generated SVG image on your repository.
+Setup a GitHub Action which is run periodically and push a generated SVG image on your repository.
 
 Assuming your username is `my-github-user`, you can embed your metrics in your personal repository's readme like below :
 ```markdown
@@ -33,38 +33,17 @@ The `README.md` of this repository will be displayed on your GitHub user profile
 
 #### 1. Setup a GitHub token
 
-
-
-
-
-
-
-
-
-
-
-
-
-In your account settings, go to `Developer settings` and select `Personal access tokens` to create a new token.
+Go to `Developer settings` from your GitHub account settings and select `Personal access tokens` to create a new token.
 
 You'll need to create a token with the `public_repo` right so this GitHub Action has enough permissions to push the updated SVG metrics on your personal repository.
-
 ![Create a GitHub token](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/personal_token.png)
+
+If you choose to use a bot account, you can put `public_repo` rights to the bot token and invite it as a collaborator on your personal profile repository so it has push access. This way, you can use a personnal token with no rights instead and reduce security issues.
 
 #### 2. Put your GitHub token in your personal repository secrets
 
-Go to the `Settings` of your personal repository to create a new secret and paste your GitHub token here with the name `METRICS_TOKEN`.
-
+Go to the `Settings` of your personal repository to create a new secret and paste your GitHub token here.
 ![Setup secret](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/repo_secrets.png)
-
-
-
-
-
-
-
-
-
 
 #### 3. Create a new GitHub Action workflow on your personal repo
 
@@ -117,7 +96,7 @@ jobs:
           plugin_habits: no
 
           # Skip commits flagged with [Skip GitHub Action] from commits count
-          plugin_selfskip: yes
+          plugin_selfskip: no
 
           # Enable debug logs
           debug: no
@@ -125,17 +104,12 @@ jobs:
 ```
 
 A new SVG image will be generated and committed to your repository on each run.
+Because of this, the amount of your commits could be virtually increased which is probably unwanted.
 
+To avoid this, you can use a bot token instead, which will still be able to track metrics of all your public repositories.
+If you want to also track your private repositories metrics, you'll need to pass a personal token with full `repo` permissions to your personal `token`, and use the `committer_token` parameter to pass the bot account token.
 
-
-
-
-
-
-This could virtually increase your commits stats, so it is recommended to pass a bot account token to `token` instead.
-The bot will be able to track metrics of all your public repositories.
-
-If you want to also track your private repositories metrics, you'll need to pass a personal token with `repo` permissions to `token`, and use the `committer_token` parameter to pass the bot account token.
+If you don't want to use a bot token, you can use the `plugin_selfskip` which will count out all your commits from your personal repository tagged with `[Skip GitHub Action]` made with your account, but these commits will still be linked to your account.
 
 ![Action update](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/action_update.png)
 
@@ -490,6 +464,27 @@ Add the following to your `settings.json` and pass `?habits=1` in url when gener
       "enabled":true
     }
   }
+```
+
+</details>
+
+#### ⏭️ Selfskip
+
+The *selfskip* plugin allows you to count out all commits tagged with `[Skip GitHub Action]` you authored on your personal repository from your reported commit counts.
+
+<details>
+<summary>💬 About</summary>
+
+It will consume an additional GitHub request per page fetched of your commit activity from your personal repository.
+
+##### Setup with GitHub actions
+
+Add the following to your workflow :
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_selfskip: yes
 ```
 
 </details>

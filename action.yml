@@ -37,7 +37,7 @@ inputs:
     default: no
   plugin_selfskip:
     description: Skip commits flagged with [Skip GitHub Action] from commits count
-    default: yes
+    default: no
   debug:
     description: Enable debug logs
     default: no
