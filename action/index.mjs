@@ -19,12 +19,20 @@
         console.log(`Version             | <#version>`)
         process.on("unhandledRejection", error => { throw error })
 
+      //Skip process if needed
+        if ((github.eventName === "push")&&(github.context.payload)&&(github.context.payload.head_commit)) {
+          if (/\[Skip GitHub Action\]/.test(github.context.payload.head_commit.message)) {
+            console.log(`Skipped because [Skip GitHub Action] is in commit message`)
+            process.exit(0)
+          }
+        }
+
       //Load svg template, style and query
         const template = `<#include template.svg>`, style = `<#include style.css>`, query = `<#include query.graphql>`
         console.log(`Templates           | loaded`)
 
       //Token for data gathering
-        const token = core.getInput("token")
+        const token = core.getInput("token") || github.token
         console.log(`Github token        | ${token ? "provided" : "missing"}`)
         if (!token)
           throw new Error("You must provide a valid GitHub token")
@@ -51,7 +59,6 @@
         if (!debug)
           console.debug = () => null
         console.log(`Debug mode          | ${debug}`)
-        console.debug(github.context)
 
       //Additional plugins
         const plugins = {
@@ -59,6 +66,7 @@
           traffic:{enabled:bool(core.getInput("plugin_traffic"))},
           pagespeed:{enabled:bool(core.getInput("plugin_pagespeed"))},
           habits:{enabled:bool(core.getInput("plugin_habits"))},
+          selfskip:{enabled:bool(core.getInput("plugin_selfskip"), true)},
         }
         const q = Object.fromEntries(Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => [key, true]))
         console.log(`Plugins enabled     | ${Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => key).join(", ")}`)
@@ -68,7 +76,7 @@
         }
 
       //Render metrics
-        const rendered = await metrics({login:user, q, optimize}, {template, style, query, graphql, rest, plugins})
+        const rendered = await metrics({login:user, q}, {template, style, query, graphql, rest, plugins, optimize})
         console.log(`Render              | complete`)
 
       //Commit to repository
@@ -100,11 +108,10 @@
             console.log(`Commit to repo      | ok`)
         }
 
-      //Purge
-        //await axios({method:"PURGE", url:`https://camo.githubusercontent.com`})
-
       //Success
         console.log(`Success !`)
+        process.exit(0)
+
   //Errors
     } catch (error) {
       console.error(error)

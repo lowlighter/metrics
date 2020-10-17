@@ -85,13 +85,13 @@ jobs:
       - uses: lowlighter/metrics@latest
         with:
 
-          # Your GitHub token ("public_repo" is required to allow this action to update the metrics SVG image)
+          # Your GitHub token
           token: ${{ secrets.METRICS_TOKEN }}
 
           # Additional options
           # ==========================================
 
-          # GitHub username
+          # GitHub username (defaults to "token" user)
           user: my-github-user
 
           # If provided, this token will be used instead of "token" for commit operations
@@ -115,6 +115,9 @@ jobs:
 
           # Enable coding habits metrics
           plugin_habits: no
+
+          # Skip commits flagged with [Skip GitHub Action] from commits count
+          plugin_selfskip: yes
 
           # Enable debug logs
           debug: no

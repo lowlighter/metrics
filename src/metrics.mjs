@@ -4,7 +4,7 @@
   import Plugins from "./plugins/index.mjs"
 
 //Setup
-  export default async function metrics({login, q, optimize = true}, {template, style, query, graphql, rest, plugins}) {
+  export default async function metrics({login, q}, {template, style, query, graphql, rest, plugins, selfless = true, optimize = true}) {
     //Compute rendering
       try {
 
@@ -29,6 +29,7 @@
           Plugins.lines({login, repositories:data.user.repositories.nodes.map(({name}) => name), rest, computed, pending, q}, plugins.lines)
           Plugins.traffic({login, repositories:data.user.repositories.nodes.map(({name}) => name), rest, computed, pending, q}, plugins.traffic)
           Plugins.habits({login, rest, computed, pending, q}, plugins.habits)
+          Plugins.selfskip({login, rest, computed, pending, q}, plugins.selfskip)
 
         //Iterate through user's repositories
           for (const repository of data.user.repositories.nodes) {
