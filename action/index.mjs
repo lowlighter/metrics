@@ -20,16 +20,13 @@
         process.on("unhandledRejection", error => { throw error })
 
       //Skip process if needed
-      console.log((github.eventName === "push"), github.context.payload, github.context.payload.head_commit)
-        if ((github.eventName === "push")&&(github.context.payload)&&(github.context.payload.head_commit)) {
+        if ((github.context.eventName === "push")&&(github.context.payload)&&(github.context.payload.head_commit)) {
           console.log(github.context.payload.head_commit.message)
           if (/\[Skip GitHub Action\]/.test(github.context.payload.head_commit.message)) {
             console.log(`Skipped because [Skip GitHub Action] is in commit message`)
             process.exit(0)
           }
         }
-        console.log(github.event)
-        process.exit(0)
 
       //Load svg template, style and query
         const template = `<#include template.svg>`, style = `<#include style.css>`, query = `<#include query.graphql>`
