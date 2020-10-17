@@ -78,7 +78,7 @@
             console.log(`Committer token     | ${token ? "provided" : "missing"}`)
             if (!token)
               throw new Error("You must provide a valid GitHub token")
-            const rest = github.getOctokit(committer)
+            const rest = github.getOctokit(token)
             console.log(`Committer REST API  | ok`)
             console.log(`Committer           | ${(await rest.users.getAuthenticated()).data.login}`)
           //Retrieve previous render SHA to be able to update file content through API
