@@ -4,6 +4,7 @@
 
 Generates your own GitHub metrics as an SVG image to put them on your profile page or elsewhere !
 See what it looks like below :
+
 ![GitHub metrics](https://github.com/lowlighter/lowlighter/blob/master/github-metrics.svg)
 
 ### 🦑 Interested to get your own ?
@@ -16,6 +17,7 @@ Try it now at [metrics.lecoq.io](https://metrics.lecoq.io/) with your GitHub use
 Setup a GitHub Action which is run periodically and push a generated SVG image on your repository.
 
 Assuming your username is `my-github-user`, you can embed your metrics in your personal repository's readme like below :
+
 ```markdown
 ![GitHub metrics](https://github.com/my-github-user/my-github-user/blob/master/github-metrics.svg)
 ```
@@ -26,9 +28,11 @@ Assuming your username is `my-github-user`, you can embed your metrics in your p
 #### 0. Prepare your personal repository
 
 If you don't know yet or haven't done it yet, create a repository with the same name as your GitHub username.
+
 ![Personal repository](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/personal_repo.png)
 
 The `README.md` of this repository will be displayed on your GitHub user profile like below :
+
 ![GitHub Profile](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/github_profile.png)
 
 #### 1. Setup a GitHub token
@@ -36,6 +40,7 @@ The `README.md` of this repository will be displayed on your GitHub user profile
 Go to `Developer settings` from your GitHub account settings and select `Personal access tokens` to create a new token.
 
 You'll need to create a token with the `public_repo` right so this GitHub Action has enough permissions to push the updated SVG metrics on your personal repository.
+
 ![Create a GitHub token](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/personal_token.png)
 
 If you choose to use a bot account, you can put `public_repo` rights to the bot token and invite it as a collaborator on your personal profile repository so it has push access. This way, you can use a personnal token with no rights instead and reduce security issues.
@@ -43,6 +48,7 @@ If you choose to use a bot account, you can put `public_repo` rights to the bot 
 #### 2. Put your GitHub token in your personal repository secrets
 
 Go to the `Settings` of your personal repository to create a new secret and paste your GitHub token here.
+
 ![Setup secret](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/repo_secrets.png)
 
 #### 3. Create a new GitHub Action workflow on your personal repo
@@ -100,7 +106,6 @@ jobs:
 
           # Enable debug logs
           debug: no
-
 ```
 
 A new SVG image will be generated and committed to your repository on each run.
@@ -116,6 +121,7 @@ If you don't want to use a bot token, you can use the `plugin_selfskip` which wi
 #### 4. Embed the link into your README.md
 
 Edit your README.md on your repository and link it your image :
+
 ```markdown
 ![GitHub metrics](https://github.com/my-github-user/my-github-user/blob/master/github-metrics.svg)
 ```
@@ -127,6 +133,7 @@ Edit your README.md on your repository and link it your image :
 For conveniency, you can use the shared instance available at [metrics.lecoq.io](https://metrics.lecoq.io) without any additional setup.
 
 Assuming your username is `my-github-user`, you can embed your metrics in your personal repository's readme like below :
+
 ```markdown
 ![GitHub metrics](https://metrics.lecoq.io/my-github-user)
 ```
@@ -165,6 +172,7 @@ You'll need a server where you can install and configure apps.
 
 In your account settings, go to `Developer settings` and select `Personal access tokens` to create a new token.
 As explained above, you do not need to grant additional permissions to the token unless you want to enable additional plugins.
+
 ![Create a GitHub token](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/personal_token_alt.png)
 
 #### 2. Install the dependancies
@@ -172,6 +180,7 @@ As explained above, you do not need to grant additional permissions to the token
 Connect to your server and ensure [NodeJS](https://nodejs.org/en/) is installed (see tested versions in the [build workflows](https://github.com/lowlighter/metrics/blob/master/.github/workflows/build.yml)).
 
 Then run the following commands :
+
 ```shell
 # Clone this repository (or your fork)
 git clone https://github.com/lowlighter/metrics.git
@@ -185,6 +194,7 @@ cp settings.example.json settings.json
 #### 3. Configure your instance
 
 Open and edit `settings.json` to configure your instance using a text editor of your choice.
+
 ```javascript
 {
   //GitHub API token
@@ -253,6 +263,7 @@ Open and edit `settings.json` to configure your instance using a text editor of 
 #### 4. Start your instance
 
 Start your instance once you've finished configuring it :
+
 ```shell
 npm start
 ```
@@ -262,6 +273,7 @@ And you should be able to access it on the port you provided !
 #### 5. Embed the link into your README.md
 
 Edit your `README.md` on your repository and include your metrics from your server domain :
+
 ```markdown
 ![GitHub metrics](https://my-personal-domain.com/my-github-user)
 ```
@@ -272,11 +284,13 @@ If you want to ensure that your instance will be restarted after reboots or cras
 This is described below for linux-like systems with *systemd*.
 
 Create a new service file in `/etc/systemd/system` :
+
 ```shell
 nano /etc/systemd/system/github_metrics.service
 ```
 
 Paste the following and edit it with the correct paths :
+
 ```
 [Unit]
 Description=GitHub metrics
@@ -293,6 +307,7 @@ WantedBy=multi-user.target
 ```
 
 Reload services, enable it, start it and check it is up and running :
+
 ```shell
 systemctl daemon-reload
 systemctl enable github_metrics
@@ -324,6 +339,7 @@ In return they may require additional configuration and tend to consume addition
 #### ⏱️ PageSpeed
 
 The *pagespeed* plugin allows you to add the performances of the website attached to the GitHub user account :
+
 ![Pagespeed plugin](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_pagespeed.png)
 
 These are computed through [Google's PageSpeed API](https://developers.google.com/speed/docs/insights/v5/get-started), which returns the same results as [web.dev](https://web.dev).
@@ -364,6 +380,7 @@ Add the following to your `settings.json` and pass `?pagespeed=1` in url when ge
 #### 👨‍💻 Lines
 
 The *lines* of code plugin allows you to compute the number of lines of code you added and removed across all of your repositories.
+
 ![Lines plugin](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_lines.png)
 
 <details>
@@ -397,6 +414,7 @@ Add the following to your `settings.json` and pass `?lines=1` in url when genera
 #### 🧮 Traffic
 
 The repositories *traffic* plugin allows you to compute the number of pages views across your repositories.
+
 ![Traffic plugin](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_traffic.png)
 
 <details>
@@ -405,6 +423,7 @@ The repositories *traffic* plugin allows you to compute the number of pages view
 It will consume an additional GitHub request per repository.
 
 Because of GitHub REST API limitation, the provided token will require full `repo` permissions to access traffic informations.
+
 ![Token with repo permissions](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/token_repo_rights.png)
 
 ##### Setup with GitHub actions
@@ -435,6 +454,7 @@ Add the following to your `settings.json` and pass `?traffic=1` in url when gene
 #### 💡 Habits
 
 The coding *habits* plugin allows you to add deduced coding about based on your recent activity, from up to 100 events.
+
 ![Habits plugin](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_habits.png)
 
 <details>
