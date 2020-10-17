@@ -6,8 +6,6 @@
     //Check if plugin is enabled and requirements are met
       if (!enabled)
         return computed.plugins.pagespeed = null
-      if (!token)
-        return computed.plugins.pagespeed = null
       if (!url)
         return computed.plugins.pagespeed = null
       if (!q.pagespeed)

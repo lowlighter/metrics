@@ -5,11 +5,12 @@
   "maxusers":0,                   "//":"Maximum number of users, 0 for unlimited",
   "ratelimiter":null,             "//":"Rate limiter (see express-rate-limit documentation for options)",
   "port":3000,                    "//":"Listening port",
+  "optimize":true,                "//":"Optimize SVG image",
   "debug":false,                  "//":"Debug mode",
 
   "plugins":{                     "//":"Additional plugins (optional)",
     "pagespeed":{                 "//":"Pagespeed plugin",
-      "enabled":false,            "//":"Enable or disable Pagespeed metrics",
+      "enabled":false,            "//":"Enable or disable PageSpeed metrics",
       "token":"******",           "//":"Pagespeed token"
     },
     "traffic":{                   "//":"Traffic plugin (GitHub API token must be RW for this to work)",
