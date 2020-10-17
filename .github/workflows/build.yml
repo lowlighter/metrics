@@ -21,4 +21,4 @@ jobs:
     - name: Build
       run: npm run build
     - name: Test
-      run: npm test -- ${{ secrets.METRICS_TEST_TOKEN }}
+      run: npm test -- ${{ secrets.METRICS_ACTIONS_TOKEN }}
