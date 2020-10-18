@@ -91,7 +91,7 @@
             console.log(`Committer REST API  | ok`)
             console.log(`Committer           | ${(await rest.users.getAuthenticated()).data.login}`)
           //Retrieve previous render SHA to be able to update file content through API
-            let sha = undefined
+            let sha = null
             try {
               const {data} = await rest.repos.getContent({
                 owner:user,
@@ -103,8 +103,9 @@
             console.log(`Previous render sha | ${sha || "none"}`)
           //Update file content through API
             await rest.repos.createOrUpdateFileContents({
-              owner:user, repo:user, path:filename, sha, message:`Update ${filename} - [Skip GitHub Action]`,
+              owner:user, repo:user, path:filename, message:`Update ${filename} - [Skip GitHub Action]`,
               content:Buffer.from(rendered).toString("base64"),
+              ...(sha ? {sha} : {})
             })
             console.log(`Commit to repo      | ok`)
         }
