@@ -48,10 +48,11 @@
 
     //Base routes
       const statics = path.resolve("src/html")
-      app.get("/", (req, res) => res.sendFile(`${statics}/index.html`))
-      app.get("/index.html", (req, res) => res.sendFile(`${statics}/index.html`))
-      app.get("/placeholder.svg", (req, res) => res.sendFile(`${statics}/placeholder.svg`))
-      app.get("/favicon.ico", (req, res) => res.sendStatus(204))
+      const limiter = ratelimit({max:60, windowMs:60*1000})
+      app.get("/", limiter, (req, res) => res.sendFile(`${statics}/index.html`))
+      app.get("/index.html", limiter, (req, res) => res.sendFile(`${statics}/index.html`))
+      app.get("/placeholder.svg", limiter, (req, res) => res.sendFile(`${statics}/placeholder.svg`))
+      app.get("/favicon.ico", limiter, (req, res) => res.sendStatus(204))
 
     //Metrics
       app.get("/:login", ...middlewares, async (req, res) => {
