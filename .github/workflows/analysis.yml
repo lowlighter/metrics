@@ -1,0 +1,22 @@
+name: Analysis
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  schedule:
+    - cron: 0 0 * * *
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest     
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Setup
+      uses: github/codeql-action/init@v1
+      with:
+        languages: javascript
+    - name: Analyze
+      uses: github/codeql-action/analyze@v1
