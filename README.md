@@ -1,6 +1,6 @@
 # 📊 GitHub metrics
 
-![Build](https://github.com/lowlighter/metrics/workflows/Build/badge.svg)
+![Build](https://github.com/lowlighter/metrics/workflows/Build/badge.svg) ![Analysis](https://github.com/lowlighter/metrics/workflows/Analysis/badge.svg)
 
 Generates your own GitHub metrics as an SVG image to put them on your profile page or elsewhere !
 See what it looks like below :

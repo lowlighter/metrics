@@ -4,8 +4,9 @@
   import url from "url"
   import ncc from "@vercel/ncc"
 
-//Dirname
+//Initialization
   const __dirname =  path.join(path.dirname(url.fileURLToPath(import.meta.url)), "..", "action")
+  process.on("unhandledRejection", error => { throw error })
 
 /** Build function */
   export default async function build() {
@@ -35,5 +36,5 @@
   if (/build.mjs/.test(process.argv[1])) {
     //Save build
       await fs.promises.writeFile(`${__dirname}/dist/index.js`, await build())
-      console.log("Build successful !")
+      console.log("Build success !")
   }

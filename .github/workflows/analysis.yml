@@ -18,7 +18,6 @@ jobs:
       uses: github/codeql-action/init@v1
       with:
         languages: javascript
+        config-file: ./.github/config/codeql.yml
     - name: Analyze
       uses: github/codeql-action/analyze@v1
-      with:
-        config-file: ./.github/config/codeql.yml
