@@ -15,7 +15,7 @@
   process.on("unhandledRejection", error => { throw error })
 
 //Load GitHub handlers
-  const token = process.argv.slice(2)[0] ?? "73a71c11ec07d9b114f5e2af26a3cdde1c6fe65a"
+  const token = process.argv.slice(2)[0]
   const graphql = octokit.graphql.defaults({headers:{authorization: `token ${token}`}})
   const rest = new OctokitRest.Octokit({auth:token})
 
