@@ -60,8 +60,9 @@ Don't forget to put your GitHub username !
 name: GitHub metrics as SVG image
 on:
   # Schedule the metrics update
-  schedule: [{cron: "*/15 * * * *"}]
+  schedule: [{cron: "0 * * * *"}]
   # (optional) Force update a commit occurs on master branch
+  # All commits tagged with [Skip GitHub Action] will be ignored by this GitHub action
   push: {branches: "master"}
 jobs:
   github-metrics:
