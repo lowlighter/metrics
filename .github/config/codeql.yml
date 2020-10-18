@@ -1,2 +1,5 @@
+name: CodeQL config
+queries:
+  - uses: security-and-quality
 paths-ignore:
   - action/dist
