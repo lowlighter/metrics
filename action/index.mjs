@@ -4,11 +4,10 @@
   import * as _octokit from "@octokit/graphql"
   import * as _core from "@actions/core"
   import * as _github from "@actions/github"
-  import * as _axios from "axios"
 
 ;((async function () {
   //Hack because ES modules are not correctly transpiled with ncc
-    const [core, github, octokit, axios, metrics] = [_core, _github, _octokit, _axios, _metrics].map(m => (m && m.default) ? m.default : m)
+    const [core, github, octokit, metrics] = [_core, _github, _octokit, _metrics].map(m => (m && m.default) ? m.default : m)
   //Yaml boolean converter
     const bool = (value, defaulted = false) => typeof value === "string" ? /^(?:[Tt]rue|[Oo]n|[Yy]es)$/.test(value) : defaulted
   //Runner
