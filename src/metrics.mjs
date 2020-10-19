@@ -1,6 +1,4 @@
 //Imports
-  import fs from "fs"
-  import path from "path"
   import ejs from "ejs"
   import SVGO from "svgo"
   import imgb64 from "image-to-base64"

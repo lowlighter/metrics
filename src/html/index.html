@@ -47,7 +47,7 @@
               document.querySelector("#metrics .generated").style.opacity = 0
               document.querySelector("aside").style.opacity = 0
             //Update github user
-              document.querySelector(".code").innerHTML = `![<span class="md-alt">GitHub metrics</span>](${location.href}${user})`
+              document.querySelector(".code").innerHTML = `![<span class="md-alt">GitHub metrics</span>](${window.location.href}${user})`
               document.querySelector("#user-repo").href = `https://github.com/${user}/${user}`
               document.querySelectorAll(".user").forEach(node => node.innerText = user)
             //Update metrics
@@ -68,7 +68,7 @@
             }
             else {
               current = user
-              document.querySelector("#metrics .generated").src = `${location.href}${user}`
+              document.querySelector("#metrics .generated").src = `${window.location.href}${user}`
               document.querySelector("#metrics .generated").onload = function () {
                 document.querySelector("#metrics .placeholder").style.opacity = 0
                 document.querySelector("#metrics .generated").style.opacity = 1
