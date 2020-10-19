@@ -28,28 +28,36 @@
         console.debug(conf.settings)
 
     //Load templates
-      for (const name of await fs.promises.readdir(templates)) {
-        //Cache templates
-          console.debug(`metrics/setup > load template [${name}]`)
-          const files = [
-            `${templates}/${name}/query.graphql`,
-            `${templates}/${name}/image.svg`,
-            `${templates}/${name}/style.css`,
-          ]
-          const [query, image, style] = await Promise.all(files.map(async file => `${await fs.promises.readFile(path.resolve(file))}`))
-          conf.templates[name] = {query, image, style}
-          console.debug(`metrics/setup > load template [${name}] > success`)
-        //Debug
-          if (conf.settings.debug) {
-            Object.defineProperty(conf.templates, name, {
-              get() {
-                console.debug(`metrics/setup > reload template [${name}]`)
-                const [query, image, style] = files.map(file => `${fs.readFileSync(path.resolve(file))}`)
-                console.debug(`metrics/setup > reload template [${name}] > success`)
-                return {query, image, style}
-              }
-            })
-          }
+      if (fs.existsSync(path.resolve(templates))) {
+        for (const name of await fs.promises.readdir(templates)) {
+          //Cache templates
+            if (/^index.mjs$/.test(name))
+              continue
+            console.debug(`metrics/setup > load template [${name}]`)
+            const files = [
+              `${templates}/${name}/query.graphql`,
+              `${templates}/${name}/image.svg`,
+              `${templates}/${name}/style.css`,
+            ]
+            const [query, image, style] = await Promise.all(files.map(async file => `${await fs.promises.readFile(path.resolve(file))}`))
+            conf.templates[name] = {query, image, style}
+            console.debug(`metrics/setup > load template [${name}] > success`)
+          //Debug
+            if (conf.settings.debug) {
+              Object.defineProperty(conf.templates, name, {
+                get() {
+                  console.debug(`metrics/setup > reload template [${name}]`)
+                  const [query, image, style] = files.map(file => `${fs.readFileSync(path.resolve(file))}`)
+                  console.debug(`metrics/setup > reload template [${name}] > success`)
+                  return {query, image, style}
+                }
+              })
+            }
+        }
+      }
+      else {
+        console.debug(`metrics/setup > load templates from build`)
+        conf.templates = JSON.parse(`<#assets>`)
       }
 
     //Conf

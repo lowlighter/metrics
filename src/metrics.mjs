@@ -5,6 +5,7 @@
   import SVGO from "svgo"
   import imgb64 from "image-to-base64"
   import Plugins from "./plugins/index.mjs"
+  import Templates from "./templates/index.mjs"
 
 //Setup
   export default async function metrics({login, q}, {graphql, rest, plugins, conf}) {
@@ -15,7 +16,7 @@
           const template = q.template || conf.settings.templates.default
           const pending = []
           const s = (value, end = "") => value > 1 ? {y:"ies", "":"s"}[end] : end
-          if ((!(template in conf.templates))||((conf.settings.templates.enabled.length)&&(!conf.settings.templates.enabled.includes(template))))
+          if ((!(template in Templates))||(!(template in conf.templates))||((conf.settings.templates.enabled.length)&&(!conf.settings.templates.enabled.includes(template))))
             throw new Error("unsupported template")
           const {query, image, style} = conf.templates[template]
 
@@ -30,7 +31,7 @@
 
         //Template
           console.debug(`metrics/compute/${login} > compute`)
-          const {default:computer} = await import(`./templates/${template}/template.mjs`)
+          const computer = Templates[template].default || Templates[template]
           await computer({login, q}, {data, rest, graphql, plugins}, {s, pending, imports:{plugins:Plugins, imgb64}})
           await Promise.all(pending)
           console.debug(`metrics/compute/${login} > compute > success`)
