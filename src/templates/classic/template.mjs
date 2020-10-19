@@ -4,7 +4,7 @@
     //Init
       const languages = {colors:{}, total:0, stats:{}}
       const licenses = {favorite:"", used:{}}
-      const computed = data.computed = {commits:0, languages, licenses, svg:{height:485, width:480}, token:{}, repositories:{watchers:0, stargazers:0, issues_open:0, issues_closed:0, pr_open:0, pr_merged:0, forks:0}, plugins:{}}
+      const computed = data.computed = {commits:0, languages, licenses, svg:{height:505, width:480}, token:{}, repositories:{watchers:0, stargazers:0, issues_open:0, issues_closed:0, pr_open:0, pr_merged:0, forks:0}, plugins:{}}
       const avatar = imports.imgb64(data.user.avatarUrl)
 
     //Plugins

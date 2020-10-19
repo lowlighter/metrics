@@ -228,7 +228,7 @@
           <% for (const {name, value, color} of computed.languages.favorites) { %>
             <div class="field center no-wrap language">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill="<%= color %>" fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8z"></path></svg>
-              <%= name %> <small>(<%= Math.round(100*value) %><small>%</small>)</small>
+              <%= name %>
             </div>
           <% } %>
         </div>
@@ -305,7 +305,8 @@
       <% } %>
 
       <footer>
-        Last updated <%= new Date() %>
+        <span>These metrics <%= !computed.token.scopes.includes("repo") ? "does not include" : "includes" %> private contributions</span>
+        <span>Last updated <%= new Date() %></span>
       </footer>
 
     </div>
