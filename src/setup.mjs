@@ -57,7 +57,7 @@
       }
       else {
         console.debug(`metrics/setup > load templates from build`)
-        conf.templates = JSON.parse(`<#assets>`)
+        conf.templates = JSON.parse(Buffer.from(`<#assets>`, "base64").toString("utf8"))
       }
 
     //Conf
