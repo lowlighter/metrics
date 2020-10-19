@@ -5,7 +5,7 @@
         return computed.plugins.selfskip = null
       if (!q.selfskip)
         return computed.plugins.selfskip = null
-      console.debug(`metrics/plugins/selfskip/${login} > started`)
+      console.debug(`metrics/compute/${login}/plugins > selfskip`)
 
     //Plugin execution
       pending.push(new Promise(async solve => {
@@ -20,12 +20,14 @@
             }
           //Save results
             computed.plugins.selfskip = {commits}
-            console.debug(`metrics/plugins/selfskip/${login} > ${JSON.stringify(computed.plugins.selfskip)}`)
+            console.debug(`metrics/compute/${login}/plugins > selfskip > success`)
+            console.debug(JSON.stringify(computed.plugins.selfskip))
             solve()
         }
         catch (error) {
           //Generic error
             computed.plugins.selfskip = {error:`An error occured`}
+            console.debug(`metrics/compute/${login}/plugins > selfskip > error`)
             console.debug(error)
             solve()
         }

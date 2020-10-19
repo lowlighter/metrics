@@ -17,6 +17,9 @@ inputs:
   filename:
     description: Name of SVG image output
     default: github-metrics.svg
+  template:
+    description: Template to use
+    default: classic
   optimize:
     description: Optimize SVG image
     default: yes

@@ -13,7 +13,8 @@
         return computed.plugins.traffic = null
       if (!q.traffic)
         return computed.plugins.traffic = null
-      console.debug(`metrics/plugins/traffic/${login} > started`)
+      console.debug(`metrics/compute/${login}/plugins > traffic`)
+      computed.svg.height += 20
 
     //Plugin execution
       pending.push(new Promise(async solve => {
@@ -28,18 +29,20 @@
             views.uniques = format(views.uniques)
           //Save results
             computed.plugins.traffic = {views}
-            console.debug(`metrics/plugins/traffic/${login} > ${JSON.stringify(computed.plugins.traffic)}`)
+            console.debug(`metrics/compute/${login}/plugins > traffic > success`)
+            console.debug(JSON.stringify(computed.plugins.traffic))
             solve()
         }
         catch (error) {
           //Thrown when token has unsufficient permissions
             if (error.status === 403) {
               computed.plugins.traffic = {error:`Insufficient token rights`}
-              console.debug(`metrics/plugins/traffic/${login} > ${error.status}`)
+              console.debug(`metrics/compute/${login}/plugins > error > 403 (insufficient token rights)`)
               return solve()
             }
           //Generic error
             computed.plugins.traffic = {error:`An error occured`}
+            console.debug(`metrics/compute/${login}/plugins > error`)
             console.debug(error)
             solve()
         }

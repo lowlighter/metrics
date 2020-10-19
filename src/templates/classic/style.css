@@ -107,6 +107,11 @@
     flex-grow: 0;
   }
 
+  .field.language small {
+    margin-left: 4px;
+    opacity: .7;
+  }
+
 /* Habits */
   .habits {
     margin: 0;

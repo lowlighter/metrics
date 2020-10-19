@@ -5,7 +5,8 @@
         return computed.plugins.habits = null
       if (!q.habits)
         return computed.plugins.habits = null
-      console.debug(`metrics/plugins/habits/${login} > started`)
+      console.debug(`metrics/compute/${login}/plugins > habits`)
+      computed.svg.height += 70
 
     //Plugin execution
       pending.push(new Promise(async solve => {
@@ -44,12 +45,14 @@
             }
           //Save results
             computed.plugins.habits = habits
-            console.debug(`metrics/plugins/habits/${login} > ${JSON.stringify(computed.plugins.habits)}`)
+            console.debug(`metrics/compute/${login}/plugins > habits > success`)
+            console.debug(JSON.stringify(computed.plugins.habits))
             solve()
         }
         catch (error) {
           //Generic error
             computed.plugins.habits = {error:`An error occured`}
+            console.debug(`metrics/compute/${login}/plugins > habits > error`)
             console.debug(error)
             solve()
         }

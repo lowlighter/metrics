@@ -1,29 +1,21 @@
 //Imports
   import express from "express"
-  import fs from "fs"
-  import path from "path"
   import octokit from "@octokit/graphql"
   import OctokitRest from "@octokit/rest"
   import cache from "memory-cache"
   import ratelimit from "express-rate-limit"
-  import metrics from "./metrics.mjs"
   import compression from "compression"
+  import setup from "./setup.mjs"
+  import metrics from "./metrics.mjs"
 
-//Load svg template, style and query
-  async function load() {
-    return await Promise.all(["template.svg", "style.css", "query.graphql"].map(async file => `${await fs.promises.readFile(path.join("src", file))}`))
-  }
+/** App */
+  export default async function () {
 
-//Setup
-  export default async function setup() {
+    //Load configuration settings
+      const conf = await setup()
+      const {token, maxusers = 0, restricted = [], debug = false, cached = 30*60*1000, port = 3000, ratelimiter = null, plugins = null} = conf.settings
 
-    //Load settings
-      const settings = JSON.parse((await fs.promises.readFile(path.join("settings.json"))).toString())
-      const {token, maxusers = 0, restricted = [], debug = false, cached = 30*60*1000, port = 3000, ratelimiter = null, plugins = null} = settings
-      if (debug)
-        console.debug(settings)
-    //Load svg template, style and query
-      let [template, style, query] = await load()
+    //Load octokits
       const graphql = octokit.graphql.defaults({headers:{authorization: `token ${token}`}})
       const rest = new OctokitRest.Octokit({auth:token})
 
@@ -47,11 +39,10 @@
       })
 
     //Base routes
-      const statics = path.resolve("src/html")
       const limiter = ratelimit({max:60, windowMs:60*1000})
-      app.get("/", limiter, (req, res) => res.sendFile(`${statics}/index.html`))
-      app.get("/index.html", limiter, (req, res) => res.sendFile(`${statics}/index.html`))
-      app.get("/placeholder.svg", limiter, (req, res) => res.sendFile(`${statics}/placeholder.svg`))
+      app.get("/", limiter, (req, res) => res.sendFile(`${conf.statics}/index.html`))
+      app.get("/index.html", limiter, (req, res) => res.sendFile(`${conf.statics}/index.html`))
+      app.get("/placeholder.svg", limiter, (req, res) => res.sendFile(`${conf.statics}/placeholder.svg`))
       app.get("/favicon.ico", limiter, (req, res) => res.sendStatus(204))
 
     //Metrics
@@ -63,7 +54,6 @@
             console.debug(`metrics/app/${login} > 403 (not in whitelisted users)`)
             return res.sendStatus(403)
           }
-
         //Read cached data if possible
           if ((!debug)&&(cached)&&(cache.get(login))) {
             res.header("Content-Type", "image/svg+xml")
@@ -79,9 +69,7 @@
         //Compute rendering
           try {
             //Render
-              if (debug)
-                [template, style, query] = await load()
-              const rendered = await metrics({login, q:req.query}, {template, style, query, graphql, rest, plugins, optimize:settings.optimize})
+              const rendered = await metrics({login, q:req.query}, {graphql, rest, plugins, conf})
             //Cache
               if ((!debug)&&(cached))
                 cache.put(login, rendered, cached)
@@ -95,6 +83,11 @@
               if ((error instanceof Error)&&(/^user not found$/.test(error.message))) {
                 console.debug(`metrics/app/${login} > 404 (user not found)`)
                 return res.sendStatus(404)
+              }
+            //Invalid template
+              if ((error instanceof Error)&&(/^unsupported template$/.test(error.message))) {
+                console.debug(`metrics/app/${login} > 400 (bad request)`)
+                return res.sendStatus(400)
               }
             //General error
               console.error(error)
