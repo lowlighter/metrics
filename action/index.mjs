@@ -1,4 +1,5 @@
 //Imports
+  import * as _setup from "./../src/setup.mjs"
   import * as _metrics from "./../src/metrics.mjs"
   import * as _octokit from "@octokit/graphql"
   import * as _core from "@actions/core"
@@ -6,7 +7,7 @@
 
 ;((async function () {
   //Hack because ES modules are not correctly transpiled with ncc
-    const [core, github, octokit, metrics] = [_core, _github, _octokit, _metrics].map(m => (m && m.default) ? m.default : m)
+    const [core, github, octokit, setup, metrics] = [_core, _github, _octokit, _setup, _metrics].map(m => (m && m.default) ? m.default : m)
   //Yaml boolean converter
     const bool = (value, defaulted = false) => typeof value === "string" ? /^(?:[Tt]rue|[Oo]n|[Yy]es)$/.test(value) : defaulted
   //Runner
@@ -25,6 +26,10 @@
             process.exit(0)
           }
         }
+
+      //Load configuration
+        const conf = await setup()
+        console.log(`Configuration       | loaded`)
 
       //Load svg template, style and query
         const template = core.getInput("template") || "classic"
