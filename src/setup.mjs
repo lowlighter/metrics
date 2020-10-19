@@ -15,7 +15,7 @@
 
     //Load settings
       console.debug(`metrics/setup > load settings.json`)
-      if (await fs.promises.exists(path.resolve("settings.json"))) {
+      if (fs.existsSync(path.resolve("settings.json"))) {
         conf.settings = JSON.parse(`${await fs.promises.readFile(path.resolve("settings.json"))}`)
         console.debug(`metrics/setup > load settings.json > success`)
       }
@@ -28,14 +28,27 @@
 
     //Load templates
       for (const name of await fs.promises.readdir("src/templates")) {
-        console.debug(`metrics/setup > load template [${name}]`)
-        const [query, image, style] = await Promise.all([
-          `src/templates/${name}/query.graphql`,
-          `src/templates/${name}/image.svg`,
-          `src/templates/${name}/style.css`,
-        ].map(async file => `${await fs.promises.readFile(path.resolve(file))}`))
-        conf.templates[name] = {query, image, style}
-        console.debug(`metrics/setup > load template [${name}] > success`)
+        //Cache templates
+          console.debug(`metrics/setup > load template [${name}]`)
+          const files = [
+            `src/templates/${name}/query.graphql`,
+            `src/templates/${name}/image.svg`,
+            `src/templates/${name}/style.css`,
+          ]
+          const [query, image, style] = await Promise.all(files.map(async file => `${await fs.promises.readFile(path.resolve(file))}`))
+          conf.templates[name] = {query, image, style}
+          console.debug(`metrics/setup > load template [${name}] > success`)
+        //Debug
+          if (conf.settings.debug) {
+            Object.defineProperty(conf.templates, name, {
+              get() {
+                console.debug(`metrics/setup > reload template [${name}]`)
+                const [query, image, style] = files.map(file => `${fs.readFileSync(path.resolve(file))}`)
+                console.debug(`metrics/setup > reload template [${name}] > success`)
+                return {query, image, style}
+              }
+            })
+          }
       }
 
     //Conf
