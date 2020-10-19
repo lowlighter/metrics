@@ -107,6 +107,11 @@
     flex-grow: 0;
   }
 
+  .field.language small {
+    margin-left: 4px;
+    opacity: .7;
+  }
+
 /* Habits */
   .habits {
     margin: 0;
@@ -117,10 +122,13 @@
 /* Footer */
   footer {
     margin-top: 8px;
-    text-align: right;
-    font-size: 8px;
+    font-size: 10px;
     font-style: italic;
     opacity: 0.5;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
   }
 
 /* Speed test categories */

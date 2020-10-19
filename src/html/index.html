@@ -28,7 +28,7 @@
       Embed these metrics on your GitHub profile by adding the markdown below in your <i>README.md</i> at <a id="user-repo" href="#"><span class="user"></span>/<span class="user"></span></a>
       <br>
       <div class="code">
-        ![<span class="md-alt">GitHub metrics</span>](https://metrics.lecoq.io/my-github-user)
+        ![<span class="md-alt">GitHub metrics</span>](<span class="url">https://metrics.lecoq.io/my-github-user</span>)
       </div>
       For even more metrics (coding habits, PageSpeed performances, number of line of code you wrote, page views, etc.), setup this as a <a href="https://github.com/marketplace/actions/github-metrics-as-svg-image">GitHub action</a> on your repository !<br>
       Check out <a href="https://github.com/lowlighter/metrics">lowlighter/metrics</a> for more informations
@@ -47,7 +47,7 @@
               document.querySelector("#metrics .generated").style.opacity = 0
               document.querySelector("aside").style.opacity = 0
             //Update github user
-              document.querySelector(".code").innerHTML = `![<span class="md-alt">GitHub metrics</span>](https://metrics.lecoq.io/${user})`
+              document.querySelector(".code .url").innerText = `${window.location.href}${user}`
               document.querySelector("#user-repo").href = `https://github.com/${user}/${user}`
               document.querySelectorAll(".user").forEach(node => node.innerText = user)
             //Update metrics
@@ -68,7 +68,7 @@
             }
             else {
               current = user
-              document.querySelector("#metrics .generated").src = `https://metrics.lecoq.io/${user}`
+              document.querySelector("#metrics .generated").src = `${window.location.href}${user}`
               document.querySelector("#metrics .generated").onload = function () {
                 document.querySelector("#metrics .placeholder").style.opacity = 0
                 document.querySelector("#metrics .generated").style.opacity = 1

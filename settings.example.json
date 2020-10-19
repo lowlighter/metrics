@@ -8,6 +8,11 @@
   "optimize":true,                "//":"Optimize SVG image",
   "debug":false,                  "//":"Debug mode",
 
+  "templates":{                   "//":"Template configuration",
+    "default":"classic",          "//":"Default template",
+    "enabled":[],                 "//":"Enabled templates, leave empty to enable all templates"
+  },
+
   "plugins":{                     "//":"Additional plugins (optional)",
     "pagespeed":{                 "//":"Pagespeed plugin",
       "enabled":false,            "//":"Enable or disable PageSpeed metrics",

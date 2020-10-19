@@ -17,12 +17,22 @@
         sourceMapRegister:false,
       })
 
-    //Perform static includes
-      for (const match of [...code.match(/(?<=`)<#include (.+?)>(?=`)/g)]) {
-        const file = match.match(/<#include (.+?)>/)[1]
-        code = code.replace(`<#include ${file}>`, `${await fs.promises.readFile(path.join(__dirname, "..", "src", file))}`.replace(/([$`\\])/g, "\\$1"))
-        console.log(`Included ${file}`)
+    //Perform assets includes
+      const assets = {}
+      const templates = path.join(__dirname, "..", "src/templates")
+      for (const name of await fs.promises.readdir(templates)) {
+        if (/^index.mjs$/.test(name))
+          continue
+        console.log(`Including template ${name}`)
+        const files = [
+          `${templates}/${name}/query.graphql`,
+          `${templates}/${name}/image.svg`,
+          `${templates}/${name}/style.css`,
+        ]
+        const [query, image, style] = await Promise.all(files.map(async file => `${await fs.promises.readFile(path.resolve(file))}`))
+        assets[name] = {query, image, style}
       }
+      code = code.replace(`<#assets>`, Buffer.from(JSON.stringify(assets)).toString("base64"))
 
     //Perform version include
       const version = JSON.parse(await fs.promises.readFile(path.join(__dirname, "..", "package.json"))).version

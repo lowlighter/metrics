@@ -1,5 +1,5 @@
 //Imports
-  import path from "path"
+  import * as _setup from "./../src/setup.mjs"
   import * as _metrics from "./../src/metrics.mjs"
   import * as _octokit from "@octokit/graphql"
   import * as _core from "@actions/core"
@@ -7,7 +7,7 @@
 
 ;((async function () {
   //Hack because ES modules are not correctly transpiled with ncc
-    const [core, github, octokit, metrics] = [_core, _github, _octokit, _metrics].map(m => (m && m.default) ? m.default : m)
+    const [core, github, octokit, setup, metrics] = [_core, _github, _octokit, _setup, _metrics].map(m => (m && m.default) ? m.default : m)
   //Yaml boolean converter
     const bool = (value, defaulted = false) => typeof value === "string" ? /^(?:[Tt]rue|[Oo]n|[Yy]es)$/.test(value) : defaulted
   //Runner
@@ -27,9 +27,13 @@
           }
         }
 
+      //Load configuration
+        const conf = await setup()
+        console.log(`Configuration       | loaded`)
+
       //Load svg template, style and query
-        const template = `<#include template.svg>`, style = `<#include style.css>`, query = `<#include query.graphql>`
-        console.log(`Templates           | loaded`)
+        const template = core.getInput("template") || "classic"
+        console.log(`Template to use     | ${template}`)
 
       //Token for data gathering
         const token = core.getInput("token")
@@ -43,8 +47,7 @@
 
       //SVG output
         const filename = core.getInput("filename") || "github-metrics.svg"
-        const output = path.join(filename)
-        console.log(`SVG output file     | ${output}`)
+        console.log(`SVG output file     | ${filename}`)
 
       //SVG optimization
         const optimize = bool(core.getInput("optimize"), true)
@@ -76,7 +79,7 @@
         }
 
       //Render metrics
-        const rendered = await metrics({login:user, q}, {template, style, query, graphql, rest, plugins, optimize})
+        const rendered = await metrics({login:user, q}, {graphql, rest, plugins, conf})
         console.log(`Render              | complete`)
 
       //Commit to repository

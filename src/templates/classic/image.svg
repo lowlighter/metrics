@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="480" height="${485 + ((computed.plugins.lines||computed.plugins.traffic) ? 20 : 0) + (computed.plugins.pagespeed ? 130 : 0) + (computed.plugins.habits ? 70 : 0)}">
+<svg xmlns="http://www.w3.org/2000/svg" width="<%= computed.svg.width %>" height="<%= computed.svg.height %>">
   <style>
-    ${style}
+    <%= style %>
   </style>
 
   <foreignObject x="0" y="0" width="100%" height="100%">
@@ -8,8 +8,8 @@
 
       <section>
         <h1 class="field">
-          <img class="avatar" src="data:image/png;base64,${data.computed.avatar}" width="20" height="20" />
-          <span>${data.user.name || data.user.login}</span>
+          <img class="avatar" src="data:image/png;base64,<%= computed.avatar %>" width="20" height="20" />
+          <span><%= user.name || user.login %></span>
         </h1>
 
         <div class="row">
@@ -17,27 +17,27 @@
           <section>
             <div class="field">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zM8 0a8 8 0 100 16A8 8 0 008 0zm.5 4.75a.75.75 0 00-1.5 0v3.5a.75.75 0 00.471.696l2.5 1a.75.75 0 00.557-1.392L8.5 7.742V4.75z"></path></svg>
-              Joined GitHub ${data.computed.registration}
+              Joined GitHub <%= computed.registration %>
             </div>
             <div class="field">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M5.5 3.5a2 2 0 100 4 2 2 0 000-4zM2 5.5a3.5 3.5 0 115.898 2.549 5.507 5.507 0 013.034 4.084.75.75 0 11-1.482.235 4.001 4.001 0 00-7.9 0 .75.75 0 01-1.482-.236A5.507 5.507 0 013.102 8.05 3.49 3.49 0 012 5.5zM11 4a.75.75 0 100 1.5 1.5 1.5 0 01.666 2.844.75.75 0 00-.416.672v.352a.75.75 0 00.574.73c1.2.289 2.162 1.2 2.522 2.372a.75.75 0 101.434-.44 5.01 5.01 0 00-2.56-3.012A3 3 0 0011 4z"></path></svg>
-              Followed by ${data.user.followers.totalCount} user${data.user.followers.totalCount > 1 ? "s" : ""}
+              Followed by <%= user.followers.totalCount %> user<%= s(user.followers.totalCount) %>
             </div>
           </section>
 
           <section>
             <div class="field calendar">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${data.computed.calendar.length*15} 11" width="${data.computed.calendar.length*15}" height="16">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 <%= computed.calendar.length*15 %> 11" width="<%= computed.calendar.length*15 %>" height="16">
                 <g>
-                  ${data.computed.calendar.map(({color}, x) => `
-                    <rect class="day" x="${x*15}" y="0" width="11" height="11" fill="${color}" rx="2" ry="2" />
-                  `).join("")}
+                  <% for (const [x, {color}] of Object.entries(computed.calendar)) { %>
+                    <rect class="day" x="<%= x*15 %>" y="0" width="11" height="11" fill="<%= color %>" rx="2" ry="2" />
+                  <% } %>
                 </g>
               </svg>
             </div>
             <div class="field">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M1 2.5A2.5 2.5 0 013.5 0h8.75a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0V1.5h-8a1 1 0 00-1 1v6.708A2.492 2.492 0 013.5 9h3.25a.75.75 0 010 1.5H3.5a1 1 0 100 2h5.75a.75.75 0 010 1.5H3.5A2.5 2.5 0 011 11.5v-9zm13.23 7.79a.75.75 0 001.06-1.06l-2.505-2.505a.75.75 0 00-1.06 0L9.22 9.229a.75.75 0 001.06 1.061l1.225-1.224v6.184a.75.75 0 001.5 0V9.066l1.224 1.224z"></path></svg>
-              Contributed to ${data.user.repositoriesContributedTo.totalCount} repositor${data.user.repositoriesContributedTo.totalCount > 1 ? "ies" : "y"}
+              Contributed to <%= user.repositoriesContributedTo.totalCount %> repositor<%= s(user.repositoriesContributedTo.totalCount, "y") %>
             </div>
           </section>
 
@@ -54,23 +54,23 @@
           </h2>
           <div class="field">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M10.5 7.75a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zm1.43.75a4.002 4.002 0 01-7.86 0H.75a.75.75 0 110-1.5h3.32a4.001 4.001 0 017.86 0h3.32a.75.75 0 110 1.5h-3.32z"></path></svg>
-            ${data.computed.commits - (computed.plugins.selfskip ? computed.plugins.selfskip.commits||0 : 0)} Commit${data.computed.commits - (computed.plugins.selfskip ? computed.plugins.selfskip.commits||0 : 0) > 1 ? "s" : ""}
+            <%= computed.commits - (computed.plugins.selfskip ? computed.plugins.selfskip.commits||0 : 0) %> Commit<% s(computed.commits - (computed.plugins.selfskip ? computed.plugins.selfskip.commits||0 : 0)) %>
           </div>
           <div class="field">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M2.5 1.75a.25.25 0 01.25-.25h8.5a.25.25 0 01.25.25v7.736a.75.75 0 101.5 0V1.75A1.75 1.75 0 0011.25 0h-8.5A1.75 1.75 0 001 1.75v11.5c0 .966.784 1.75 1.75 1.75h3.17a.75.75 0 000-1.5H2.75a.25.25 0 01-.25-.25V1.75zM4.75 4a.75.75 0 000 1.5h4.5a.75.75 0 000-1.5h-4.5zM4 7.75A.75.75 0 014.75 7h2a.75.75 0 010 1.5h-2A.75.75 0 014 7.75zm11.774 3.537a.75.75 0 00-1.048-1.074L10.7 14.145 9.281 12.72a.75.75 0 00-1.062 1.058l1.943 1.95a.75.75 0 001.055.008l4.557-4.45z"></path></svg>
-            ${data.user.contributionsCollection.totalPullRequestReviewContributions} Pull request${data.user.contributionsCollection.totalPullRequestReviewContributions > 1 ? "s" : ""} reviewed
+            <%= user.contributionsCollection.totalPullRequestReviewContributions %> Pull request<%= s(user.contributionsCollection.totalPullRequestReviewContributions) %> reviewed
           </div>
           <div class="field">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"></path></svg>
-            ${data.user.contributionsCollection.totalPullRequestContributions} Pull request${data.user.contributionsCollection.totalPullRequestContributions > 1 ? "s" : ""} opened
+            <%= user.contributionsCollection.totalPullRequestContributions %> Pull request<%= s(user.contributionsCollection.totalPullRequestContributions) %> opened
           </div>
           <div class="field">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm9 3a1 1 0 11-2 0 1 1 0 012 0zm-.25-6.25a.75.75 0 00-1.5 0v3.5a.75.75 0 001.5 0v-3.5z"></path></svg>
-            ${data.user.contributionsCollection.totalIssueContributions} Issue${data.user.contributionsCollection.totalIssueContributions > 1 ? "s" : ""} opened
+            <%= user.contributionsCollection.totalIssueContributions %> Issue<%= s(user.contributionsCollection.totalIssueContributions) %> opened
           </div>
           <div class="field">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M2.75 2.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h2a.75.75 0 01.75.75v2.19l2.72-2.72a.75.75 0 01.53-.22h4.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25H2.75zM1 2.75C1 1.784 1.784 1 2.75 1h10.5c.966 0 1.75.784 1.75 1.75v7.5A1.75 1.75 0 0113.25 12H9.06l-2.573 2.573A1.457 1.457 0 014 13.543V12H2.75A1.75 1.75 0 011 10.25v-7.5z"></path></svg>
-            ${data.user.issueComments.totalCount} issue comment${data.user.issueComments.totalCount > 1 ? "s" : ""}
+            <%= user.issueComments.totalCount %> issue comment<%= s(user.issueComments.totalCount) %>
           </div>
         </section>
 
@@ -81,23 +81,23 @@
           </h2>
           <div class="field">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M5.5 3.5a2 2 0 100 4 2 2 0 000-4zM2 5.5a3.5 3.5 0 115.898 2.549 5.507 5.507 0 013.034 4.084.75.75 0 11-1.482.235 4.001 4.001 0 00-7.9 0 .75.75 0 01-1.482-.236A5.507 5.507 0 013.102 8.05 3.49 3.49 0 012 5.5zM11 4a.75.75 0 100 1.5 1.5 1.5 0 01.666 2.844.75.75 0 00-.416.672v.352a.75.75 0 00.574.73c1.2.289 2.162 1.2 2.522 2.372a.75.75 0 101.434-.44 5.01 5.01 0 00-2.56-3.012A3 3 0 0011 4z"></path></svg>
-            Following ${data.user.following.totalCount} user${data.user.followers.totalCount > 1 ? "s" : ""}
+            Following <%= user.following.totalCount %> user<% s(user.followers.totalCount) %>
           </div>
           <div class="field">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M4.25 2.5c-1.336 0-2.75 1.164-2.75 3 0 2.15 1.58 4.144 3.365 5.682A20.565 20.565 0 008 13.393a20.561 20.561 0 003.135-2.211C12.92 9.644 14.5 7.65 14.5 5.5c0-1.836-1.414-3-2.75-3-1.373 0-2.609.986-3.029 2.456a.75.75 0 01-1.442 0C6.859 3.486 5.623 2.5 4.25 2.5zM8 14.25l-.345.666-.002-.001-.006-.003-.018-.01a7.643 7.643 0 01-.31-.17 22.075 22.075 0 01-3.434-2.414C2.045 10.731 0 8.35 0 5.5 0 2.836 2.086 1 4.25 1 5.797 1 7.153 1.802 8 3.02 8.847 1.802 10.203 1 11.75 1 13.914 1 16 2.836 16 5.5c0 2.85-2.045 5.231-3.885 6.818a22.08 22.08 0 01-3.744 2.584l-.018.01-.006.003h-.002L8 14.25zm0 0l.345.666a.752.752 0 01-.69 0L8 14.25z"></path></svg>
-            Sponsoring ${data.computed.sponsorships} repositor${data.computed.sponsorships > 1 ? "ies" : "y"}
+            Sponsoring <%= computed.sponsorships %> repositor<%= s(computed.sponsorships, "y") %>
           </div>
           <div class="field">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"></path></svg>
-            Starred ${data.user.starredRepositories.totalCount} repositor${data.user.starredRepositories.totalCount > 1 ? "ies" : "y"}
+            Starred <%= user.starredRepositories.totalCount %> repositor<%= s(user.starredRepositories.totalCount, "y") %>
           </div>
           <div class="field">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M1.679 7.932c.412-.621 1.242-1.75 2.366-2.717C5.175 4.242 6.527 3.5 8 3.5c1.473 0 2.824.742 3.955 1.715 1.124.967 1.954 2.096 2.366 2.717a.119.119 0 010 .136c-.412.621-1.242 1.75-2.366 2.717C10.825 11.758 9.473 12.5 8 12.5c-1.473 0-2.824-.742-3.955-1.715C2.92 9.818 2.09 8.69 1.679 8.068a.119.119 0 010-.136zM8 2c-1.981 0-3.67.992-4.933 2.078C1.797 5.169.88 6.423.43 7.1a1.619 1.619 0 000 1.798c.45.678 1.367 1.932 2.637 3.024C4.329 13.008 6.019 14 8 14c1.981 0 3.67-.992 4.933-2.078 1.27-1.091 2.187-2.345 2.637-3.023a1.619 1.619 0 000-1.798c-.45-.678-1.367-1.932-2.637-3.023C11.671 2.992 9.981 2 8 2zm0 8a2 2 0 100-4 2 2 0 000 4z"></path></svg>
-            Watching ${data.user.watching.totalCount} repositor${data.user.watching.totalCount > 1 ? "ies" : "y"}
+            Watching <%= user.watching.totalCount %> repositor <%= s(user.watching.totalCount, "y") %>
           </div>
           <div class="field">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M1.5 14.25c0 .138.112.25.25.25H4v-1.25a.75.75 0 01.75-.75h2.5a.75.75 0 01.75.75v1.25h2.25a.25.25 0 00.25-.25V1.75a.25.25 0 00-.25-.25h-8.5a.25.25 0 00-.25.25v12.5zM1.75 16A1.75 1.75 0 010 14.25V1.75C0 .784.784 0 1.75 0h8.5C11.216 0 12 .784 12 1.75v12.5c0 .085-.006.168-.018.25h2.268a.25.25 0 00.25-.25V8.285a.25.25 0 00-.111-.208l-1.055-.703a.75.75 0 11.832-1.248l1.055.703c.487.325.779.871.779 1.456v5.965A1.75 1.75 0 0114.25 16h-3.5a.75.75 0 01-.197-.026c-.099.017-.2.026-.303.026h-3a.75.75 0 01-.75-.75V14h-1v1.25a.75.75 0 01-.75.75h-3zM3 3.75A.75.75 0 013.75 3h.5a.75.75 0 010 1.5h-.5A.75.75 0 013 3.75zM3.75 6a.75.75 0 000 1.5h.5a.75.75 0 000-1.5h-.5zM3 9.75A.75.75 0 013.75 9h.5a.75.75 0 010 1.5h-.5A.75.75 0 013 9.75zM7.75 9a.75.75 0 000 1.5h.5a.75.75 0 000-1.5h-.5zM7 6.75A.75.75 0 017.75 6h.5a.75.75 0 010 1.5h-.5A.75.75 0 017 6.75zM7.75 3a.75.75 0 000 1.5h.5a.75.75 0 000-1.5h-.5z"></path></svg>
-            Member of ${data.user.organizations.totalCount} organization${data.user.organizations.totalCount > 1 ? "s" : ""}
+            Member of <%= user.organizations.totalCount %> organization <%= s(user.organizations.totalCount) %>
           </div>
         </section>
 
@@ -106,59 +106,61 @@
        <section>
         <h2 class="field">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path></svg>
-          ${data.user.repositories.totalCount} Repositor${data.user.repositories.totalCount > 1 ? "ies" : "y"}
+          <%= user.repositories.totalCount %> Repositor<%= s(user.repositories.totalCount, "y") %>
         </h2>
         <div class="row">
           <section>
            <div class="field">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M8.75.75a.75.75 0 00-1.5 0V2h-.984c-.305 0-.604.08-.869.23l-1.288.737A.25.25 0 013.984 3H1.75a.75.75 0 000 1.5h.428L.066 9.192a.75.75 0 00.154.838l.53-.53-.53.53v.001l.002.002.002.002.006.006.016.015.045.04a3.514 3.514 0 00.686.45A4.492 4.492 0 003 11c.88 0 1.556-.22 2.023-.454a3.515 3.515 0 00.686-.45l.045-.04.016-.015.006-.006.002-.002.001-.002L5.25 9.5l.53.53a.75.75 0 00.154-.838L3.822 4.5h.162c.305 0 .604-.08.869-.23l1.289-.737a.25.25 0 01.124-.033h.984V13h-2.5a.75.75 0 000 1.5h6.5a.75.75 0 000-1.5h-2.5V3.5h.984a.25.25 0 01.124.033l1.29.736c.264.152.563.231.868.231h.162l-2.112 4.692a.75.75 0 00.154.838l.53-.53-.53.53v.001l.002.002.002.002.006.006.016.015.045.04a3.517 3.517 0 00.686.45A4.492 4.492 0 0013 11c.88 0 1.556-.22 2.023-.454a3.512 3.512 0 00.686-.45l.045-.04.01-.01.006-.005.006-.006.002-.002.001-.002-.529-.531.53.53a.75.75 0 00.154-.838L13.823 4.5h.427a.75.75 0 000-1.5h-2.234a.25.25 0 01-.124-.033l-1.29-.736A1.75 1.75 0 009.735 2H8.75V.75zM1.695 9.227c.285.135.718.273 1.305.273s1.02-.138 1.305-.273L3 6.327l-1.305 2.9zm10 0c.285.135.718.273 1.305.273s1.02-.138 1.305-.273L13 6.327l-1.305 2.9z"></path></svg>
-              ${data.computed.licenses.favorite.length ? `Prefer ${data.computed.licenses.favorite} license` : "No license preference" }
+              <% if (computed.licenses.favorite.length) { %>
+                Prefer <%= computed.licenses.favorite %> license
+              <% } else { %>
+                No license preference
+              <% } %>
             </div>
             <div class="field">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M8.878.392a1.75 1.75 0 00-1.756 0l-5.25 3.045A1.75 1.75 0 001 4.951v6.098c0 .624.332 1.2.872 1.514l5.25 3.045a1.75 1.75 0 001.756 0l5.25-3.045c.54-.313.872-.89.872-1.514V4.951c0-.624-.332-1.2-.872-1.514L8.878.392zM7.875 1.69a.25.25 0 01.25 0l4.63 2.685L8 7.133 3.245 4.375l4.63-2.685zM2.5 5.677v5.372c0 .09.047.171.125.216l4.625 2.683V8.432L2.5 5.677zm6.25 8.271l4.625-2.683a.25.25 0 00.125-.216V5.677L8.75 8.432v5.516z"></path></svg>
-              ${data.user.packages.totalCount} Package${data.user.packages.totalCount > 1 ? "s" : ""}
+              <%= user.packages.totalCount %> Package <%= s(user.packages.totalCount) %>
             </div>
             <div class="field">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"  ><path fill-rule="evenodd" d="M1.75 1.5a.25.25 0 00-.25.25v12.5c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V1.75a.25.25 0 00-.25-.25H1.75zM0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v12.5A1.75 1.75 0 0114.25 16H1.75A1.75 1.75 0 010 14.25V1.75zm9.22 3.72a.75.75 0 000 1.06L10.69 8 9.22 9.47a.75.75 0 101.06 1.06l2-2a.75.75 0 000-1.06l-2-2a.75.75 0 00-1.06 0zM6.78 6.53a.75.75 0 00-1.06-1.06l-2 2a.75.75 0 000 1.06l2 2a.75.75 0 101.06-1.06L5.31 8l1.47-1.47z"></path></svg>
-              ${data.user.gists.totalCount} Gist${data.user.gists.totalCount > 1 ? "s" : ""}
+              <%= user.gists.totalCount %> Gist <%= s(user.gists.totalCount) %>
             </div>
-            ${computed.plugins.lines ? computed.plugins.lines.error ? `
-              <div class="field error">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M4.72 3.22a.75.75 0 011.06 1.06L2.06 8l3.72 3.72a.75.75 0 11-1.06 1.06L.47 8.53a.75.75 0 010-1.06l4.25-4.25zm6.56 0a.75.75 0 10-1.06 1.06L13.94 8l-3.72 3.72a.75.75 0 101.06 1.06l4.25-4.25a.75.75 0 000-1.06l-4.25-4.25z"></path></svg>
-                ${computed.plugins.lines.error}
-              </div>
-            ` : `
-              <div class="field">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M4.72 3.22a.75.75 0 011.06 1.06L2.06 8l3.72 3.72a.75.75 0 11-1.06 1.06L.47 8.53a.75.75 0 010-1.06l4.25-4.25zm6.56 0a.75.75 0 10-1.06 1.06L13.94 8l-3.72 3.72a.75.75 0 101.06 1.06l4.25-4.25a.75.75 0 000-1.06l-4.25-4.25z"></path></svg>
-                ${computed.plugins.lines.added} added, ${computed.plugins.lines.deleted} removed
-              </div>` : ""
-            }
+            <% if (computed.plugins.lines) { %>
+                <div class="field <%= computed.plugins.lines.error ? 'error' : '' %>">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M4.72 3.22a.75.75 0 011.06 1.06L2.06 8l3.72 3.72a.75.75 0 11-1.06 1.06L.47 8.53a.75.75 0 010-1.06l4.25-4.25zm6.56 0a.75.75 0 10-1.06 1.06L13.94 8l-3.72 3.72a.75.75 0 101.06 1.06l4.25-4.25a.75.75 0 000-1.06l-4.25-4.25z"></path></svg>
+                  <% if (computed.plugins.lines.error) { %>
+                    <%= computed.plugins.lines.error %>
+                  <% } else { %>
+                    <%= computed.plugins.lines.added %> added, <%= computed.plugins.lines.deleted %> removed
+                  <% } %>
+                </div>
+            <% } %>
           </section>
 
           <section>
             <div class="field">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"></path></svg>
-              ${data.computed.repositories.stargazers} Stargazer${data.computed.repositories.stargazers > 1 ? "s" : ""}
+              <%= computed.repositories.stargazers %> Stargazer<%= s(computed.repositories.stargazers) %>
             </div>
             <div class="field">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z"></path></svg>
-              ${data.computed.repositories.forks} Fork${data.computed.repositories.forks > 1 ? "s" : ""}
+              <%= computed.repositories.forks %> Fork<%= s(computed.repositories.forks) %>
             </div>
             <div class="field">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M1.679 7.932c.412-.621 1.242-1.75 2.366-2.717C5.175 4.242 6.527 3.5 8 3.5c1.473 0 2.824.742 3.955 1.715 1.124.967 1.954 2.096 2.366 2.717a.119.119 0 010 .136c-.412.621-1.242 1.75-2.366 2.717C10.825 11.758 9.473 12.5 8 12.5c-1.473 0-2.824-.742-3.955-1.715C2.92 9.818 2.09 8.69 1.679 8.068a.119.119 0 010-.136zM8 2c-1.981 0-3.67.992-4.933 2.078C1.797 5.169.88 6.423.43 7.1a1.619 1.619 0 000 1.798c.45.678 1.367 1.932 2.637 3.024C4.329 13.008 6.019 14 8 14c1.981 0 3.67-.992 4.933-2.078 1.27-1.091 2.187-2.345 2.637-3.023a1.619 1.619 0 000-1.798c-.45-.678-1.367-1.932-2.637-3.023C11.671 2.992 9.981 2 8 2zm0 8a2 2 0 100-4 2 2 0 000 4z"></path></svg>
-              ${data.computed.repositories.watchers} Watcher${data.computed.repositories.watchers > 1 ? "s" : ""}
+              <%= computed.repositories.watchers %> Watcher<%= s(computed.repositories.watchers) %>
             </div>
-            ${computed.plugins.traffic ? computed.plugins.traffic.error ? `
-              <div class="field error">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.744 3.744 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75V1.75zm8.755 3a2.25 2.25 0 012.25-2.25H14.5v9h-3.757c-.71 0-1.4.201-1.992.572l.004-7.322zm-1.504 7.324l.004-5.073-.002-2.253A2.25 2.25 0 005.003 2.5H1.5v9h3.757a3.75 3.75 0 011.994.574z"></path></svg>
-                ${computed.plugins.traffic.error}
-              </div>
-            ` : `
-              <div class="field">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.744 3.744 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75V1.75zm8.755 3a2.25 2.25 0 012.25-2.25H14.5v9h-3.757c-.71 0-1.4.201-1.992.572l.004-7.322zm-1.504 7.324l.004-5.073-.002-2.253A2.25 2.25 0 005.003 2.5H1.5v9h3.757a3.75 3.75 0 011.994.574z"></path></svg>
-                ${computed.plugins.traffic.views.count} views in last two weeks
-              </div>` : ""
-            }
+            <% if (computed.plugins.traffic) { %>
+                <div class="field <%= computed.plugins.traffic.error ? 'error' : '' %>">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.744 3.744 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75V1.75zm8.755 3a2.25 2.25 0 012.25-2.25H14.5v9h-3.757c-.71 0-1.4.201-1.992.572l.004-7.322zm-1.504 7.324l.004-5.073-.002-2.253A2.25 2.25 0 005.003 2.5H1.5v9h3.757a3.75 3.75 0 011.994.574z"></path></svg>
+                  <% if (computed.plugins.traffic.error) { %>
+                    <%= computed.plugins.traffic.error %>
+                  <% } else { %>
+                    <%= computed.plugins.traffic.views.count %> view<%= s(computed.plugins.traffic.views.count) %> in last two weeks
+                  <% } %>
+                </div>
+            <% } %>
           </section>
         </div>
       </section>
@@ -171,18 +173,18 @@
             <mask id="issues-bar">
               <rect x="0" y="0" width="220" height="8" fill="white" rx="5"/>
             </mask>
-            <rect mask="url(#issues-bar)" x="0" y="0" width="${data.computed.repositories.issues_count ? 0 : 220}" height="8" fill="#d1d5da"/>
-            <rect mask="url(#issues-bar)" x="0" y="0" width="${(data.computed.repositories.issues_closed/data.computed.repositories.issues_count)*220 || 0}" height="8" fill="#d73a49"/>
-            <rect mask="url(#issues-bar)" x="${(data.computed.repositories.issues_closed/data.computed.repositories.issues_count)*220 || 0}" y="0" width="${(1-data.computed.repositories.issues_closed/data.computed.repositories.issues_count)*220 || 0}" height="8" fill="#28a745"/>
+            <rect mask="url(#issues-bar)" x="0" y="0" width="<%= computed.repositories.issues_count ? 0 : 220 %>" height="8" fill="#d1d5da"/>
+            <rect mask="url(#issues-bar)" x="0" y="0" width="<%= (computed.repositories.issues_closed/computed.repositories.issues_count)*220 || 0 %>" height="8" fill="#d73a49"/>
+            <rect mask="url(#issues-bar)" x="<%= (computed.repositories.issues_closed/computed.repositories.issues_count)*220 || 0 %>" y="0" width="<%= (1-computed.repositories.issues_closed/computed.repositories.issues_count)*220 || 0 %>" height="8" fill="#28a745"/>
           </svg>
           <div class="field horizontal fill-width">
             <div class="field center">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill="#d73a49" fill-rule="evenodd" d="M1.5 8a6.5 6.5 0 0110.65-5.003.75.75 0 00.959-1.153 8 8 0 102.592 8.33.75.75 0 10-1.444-.407A6.5 6.5 0 011.5 8zM8 12a1 1 0 100-2 1 1 0 000 2zm0-8a.75.75 0 01.75.75v3.5a.75.75 0 11-1.5 0v-3.5A.75.75 0 018 4zm4.78 4.28l3-3a.75.75 0 00-1.06-1.06l-2.47 2.47-.97-.97a.749.749 0 10-1.06 1.06l1.5 1.5a.75.75 0 001.06 0z"></path></svg>
-              <span class="no-wrap">${data.computed.repositories.issues_closed} Closed</span>
+              <span class="no-wrap"><%= computed.repositories.issues_closed %> Closed</span>
             </div>
             <div class="field center">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill="#28a745" fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm9 3a1 1 0 11-2 0 1 1 0 012 0zm-.25-6.25a.75.75 0 00-1.5 0v3.5a.75.75 0 001.5 0v-3.5z"></path></svg>
-              <span class="no-wrap">${data.computed.repositories.issues_open} Open</span>
+              <span class="no-wrap"><%= computed.repositories.issues_open %> Open</span>
             </div>
           </div>
         </section>
@@ -193,18 +195,18 @@
             <mask id="pr-bar">
               <rect x="0" y="0" width="220" height="8" fill="white" rx="5"/>
             </mask>
-            <rect mask="url(#pr-bar)" x="0" y="0" width="${data.computed.repositories.pr_count ? 0 : 220}" height="8" fill="#d1d5da"/>
-            <rect mask="url(#pr-bar)" x="0" y="0" width="${(data.computed.repositories.pr_merged/data.computed.repositories.pr_count)*220 || 0}" height="8" fill="#6f42c1"/>
-            <rect mask="url(#pr-bar)" x="${(data.computed.repositories.pr_merged/data.computed.repositories.pr_count)*220 || 0}" y="0" width="${(1-data.computed.repositories.pr_merged/data.computed.repositories.pr_count)*220 || 0}" height="8" fill="#28a745"/>
+            <rect mask="url(#pr-bar)" x="0" y="0" width="<%= computed.repositories.pr_count ? 0 : 220 %>" height="8" fill="#d1d5da"/>
+            <rect mask="url(#pr-bar)" x="0" y="0" width="<%= (computed.repositories.pr_merged/computed.repositories.pr_count)*220 || 0 %>" height="8" fill="#6f42c1"/>
+            <rect mask="url(#pr-bar)" x="<%= (computed.repositories.pr_merged/computed.repositories.pr_count)*220 || 0 %>" y="0" width="<%= (1-computed.repositories.pr_merged/computed.repositories.pr_count)*220 || 0 %>" height="8" fill="#28a745"/>
           </svg>
           <div class="field horizontal fill-width">
             <div class="field center">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill="#6f42c1" fill-rule="evenodd" d="M5 3.254V3.25v.005a.75.75 0 110-.005v.004zm.45 1.9a2.25 2.25 0 10-1.95.218v5.256a2.25 2.25 0 101.5 0V7.123A5.735 5.735 0 009.25 9h1.378a2.251 2.251 0 100-1.5H9.25a4.25 4.25 0 01-3.8-2.346zM12.75 9a.75.75 0 100-1.5.75.75 0 000 1.5zm-8.5 4.5a.75.75 0 100-1.5.75.75 0 000 1.5z"></path></svg>
-              <span class="no-wrap">${data.computed.repositories.pr_merged} Merged</span>
+              <span class="no-wrap"><%= computed.repositories.pr_merged %> Merged</span>
             </div>
             <div class="field center">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill="#28a745" fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"></path></svg>
-              <span class="no-wrap">${data.computed.repositories.pr_open} Open</span>
+              <span class="no-wrap"><%= computed.repositories.pr_open %> Open</span>
             </div>
           </div>
         </section>
@@ -217,22 +219,22 @@
           <mask id="languages-bar">
             <rect x="0" y="0" width="460" height="8" fill="white" rx="5"/>
           </mask>
-          <rect mask="url(#languages-bar)" x="0" y="0" width="${data.computed.languages.favorites.length ? 0 : 460}" height="8" fill="#d1d5da"/>
-          ${data.computed.languages.favorites.map(({name, value, color, x}) => `
-            <rect mask="url(#languages-bar)" x="${x*460}" y="0" width="${value*460}" height="8" fill="${color}"/>
-          `).join("")}
+          <rect mask="url(#languages-bar)" x="0" y="0" width="<%= computed.languages.favorites.length ? 0 : 460 %>" height="8" fill="#d1d5da"/>
+          <% for (const {name, value, color, x} of computed.languages.favorites) { %>
+            <rect mask="url(#languages-bar)" x="<%= x*460 %>" y="0" width="<%= value*460 %>" height="8" fill="<%= color %>"/>
+          <% } %>
         </svg>
         <div class="field center horizontal-wrap fill-width">
-          ${data.computed.languages.favorites.map(({name, color}) => `
+          <% for (const {name, value, color} of computed.languages.favorites) { %>
             <div class="field center no-wrap language">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill="${color}" fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8z"></path></svg>
-              ${name}
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill="<%= color %>" fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8z"></path></svg>
+              <%= name %>
             </div>
-          `).join("")}
+          <% } %>
         </div>
       </section>
 
-      ${computed.plugins.pagespeed ? `
+      <% if (computed.plugins.pagespeed) { %>
         <div class="row">
           <section>
             <h2 class="field">
@@ -241,65 +243,70 @@
             </h2>
             <div class="field">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg>
-              ${computed.plugins.pagespeed.url}
-            </div>
-          </section>
-        </div>` : ""
-      }
-      ${computed.plugins.pagespeed ? computed.plugins.pagespeed.error ? `
-        <div class="row">
-          <section>
-            <div class="field error">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M4.47.22A.75.75 0 015 0h6a.75.75 0 01.53.22l4.25 4.25c.141.14.22.331.22.53v6a.75.75 0 01-.22.53l-4.25 4.25A.75.75 0 0111 16H5a.75.75 0 01-.53-.22L.22 11.53A.75.75 0 010 11V5a.75.75 0 01.22-.53L4.47.22zm.84 1.28L1.5 5.31v5.38l3.81 3.81h5.38l3.81-3.81V5.31L10.69 1.5H5.31zM8 4a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 018 4zm0 8a1 1 0 100-2 1 1 0 000 2z"></path></svg>
-              ${computed.plugins.pagespeed.error}
+              <%= user.websiteUrl %>
             </div>
           </section>
         </div>
-      ` : `
-        <section>
-          <div class="row fill-width">
-            <section class="categories">
-              ${computed.plugins.pagespeed.scores.map(({score, title}) => `
-                <div class="categorie column">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="50" height="50" class="gauge ${score >= 0.9 ? 'high' : score >= 0.5 ? 'average' : 'low'}">
-                    <circle class="gauge-base" r="53" cx="60" cy="60"></circle>
-                    <circle class="gauge-arc" transform="rotate(-90 60 60)" r="53" cx="60" cy="60" stroke-dasharray="${score * 329} 329"></circle>
-                    <text x="60" y="60" dominant-baseline="central" >${Math.round(score*100)}</text>
-                  </svg>
-                  <span class="title">${title}</span>
-                </div>
-              `).join("")}
+        <% if (computed.plugins.pagespeed.error) { %>
+          <div class="row">
+            <section>
+              <div class="field error">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M4.47.22A.75.75 0 015 0h6a.75.75 0 01.53.22l4.25 4.25c.141.14.22.331.22.53v6a.75.75 0 01-.22.53l-4.25 4.25A.75.75 0 0111 16H5a.75.75 0 01-.53-.22L.22 11.53A.75.75 0 010 11V5a.75.75 0 01.22-.53L4.47.22zm.84 1.28L1.5 5.31v5.38l3.81 3.81h5.38l3.81-3.81V5.31L10.69 1.5H5.31zM8 4a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 018 4zm0 8a1 1 0 100-2 1 1 0 000 2z"></path></svg>
+                <%= computed.plugins.pagespeed.error %>
+              </div>
             </section>
           </div>
-        </section>` : ""
-      }
+        <% } else { %>
+          <section>
+            <div class="row fill-width">
+              <section class="categories">
+                <% for (const {score, title} of computed.plugins.pagespeed.scores) { %>
+                  <div class="categorie column">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="50" height="50" class="gauge <%= score >= 0.9 ? 'high' : score >= 0.5 ? 'average' : 'low' %>">
+                      <circle class="gauge-base" r="53" cx="60" cy="60"></circle>
+                      <circle class="gauge-arc" transform="rotate(-90 60 60)" r="53" cx="60" cy="60" stroke-dasharray="<%= score * 329 %> 329"></circle>
+                      <text x="60" y="60" dominant-baseline="central" ><%= Math.round(score*100) %></text>
+                    </svg>
+                    <span class="title"><%= title %></span>
+                  </div>
+                <% } %>
+              </section>
+            </div>
+          </section>
+        <% } %>
+      <% } %>
 
-      ${computed.plugins.habits ? `
+      <% if (computed.plugins.habits) { %>
         <section>
           <h2 class="field">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 01-1.484.211c-.04-.282-.163-.547-.37-.847a8.695 8.695 0 00-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.75.75 0 01-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75zM6 15.25a.75.75 0 01.75-.75h2.5a.75.75 0 010 1.5h-2.5a.75.75 0 01-.75-.75zM5.75 12a.75.75 0 000 1.5h4.5a.75.75 0 000-1.5h-4.5z"></path></svg>
             Coding habits
           </h2>
           <div class="row">
-            ${computed.plugins.habits.error ? `
+            <% if (computed.plugins.habits.error) { %>
               <section>
                 <div class="field error">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M4.47.22A.75.75 0 015 0h6a.75.75 0 01.53.22l4.25 4.25c.141.14.22.331.22.53v6a.75.75 0 01-.22.53l-4.25 4.25A.75.75 0 0111 16H5a.75.75 0 01-.53-.22L.22 11.53A.75.75 0 010 11V5a.75.75 0 01.22-.53L4.47.22zm.84 1.28L1.5 5.31v5.38l3.81 3.81h5.38l3.81-3.81V5.31L10.69 1.5H5.31zM8 4a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 018 4zm0 8a1 1 0 100-2 1 1 0 000 2z"></path></svg>
-                  ${computed.plugins.habits.error}
+                  <%= computed.plugins.habits.error %>
                 </div>
               </section>
-            ` : `
+            <% } else { %>
               <ul class="habits">
-                ${computed.plugins.habits.indents.style ? `<li>Use ${computed.plugins.habits.indents.style} for indents</li>` : ""}
-                ${!Number.isNaN(computed.plugins.habits.commits.hour) ? `<li>Mostly push code around ${computed.plugins.habits.commits.hour}:00</li>` : ""}
+                <% if (computed.plugins.habits.indents.style) { %>
+                  <li>Use <%= computed.plugins.habits.indents.style %> for indents</li>
+                <% } %>
+                <% if (!Number.isNaN(computed.plugins.habits.commits.hour)) { %>
+                  <li>Mostly push code around <%= computed.plugins.habits.commits.hour %>:00</li>
+                <% } %>
               </ul>
-            `}
+            <% } %>
           </div>
-        </section>` : ""
-      }
+        </section>
+      <% } %>
 
       <footer>
-        Last updated ${new Date()}
+        <span>These metrics <%= !computed.token.scopes.includes("repo") ? "does not include" : "includes" %> private contributions</span>
+        <span>Last updated <%= new Date() %></span>
       </footer>
 
     </div>

@@ -13,7 +13,8 @@
         return computed.plugins.lines = null
       if (!q.lines)
         return computed.plugins.lines = null
-      console.debug(`metrics/plugins/lines/${login} > started`)
+      console.debug(`metrics/compute/${login}/plugins > lines`)
+      computed.svg.height += 20
 
     //Plugin execution
       pending.push(new Promise(async solve => {
@@ -37,12 +38,14 @@
             lines.deleted = format(lines.deleted)
           //Save results
             computed.plugins.lines = {...lines}
-            console.debug(`metrics/plugins/lines/${login} > ${JSON.stringify(computed.plugins.lines)}`)
+            console.debug(`metrics/compute/${login}/plugins > lines > success`)
+            console.debug(JSON.stringify(computed.plugins.lines))
             solve()
         }
         catch (error) {
           //Generic error
-            computed.plugins.pagespeed = {error:`An error occured`}
+            computed.plugins.lines = {error:`An error occured`}
+            console.debug(`metrics/compute/${login}/plugins > lines > error`)
             console.debug(error)
             solve()
         }
