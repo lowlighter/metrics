@@ -7,6 +7,7 @@
 
     //Init
       console.debug(`metrics/setup > setup`)
+      const templates = "src/templates"
       const conf = {
         templates:{},
         settings:{},
@@ -27,13 +28,13 @@
         console.debug(conf.settings)
 
     //Load templates
-      for (const name of await fs.promises.readdir("src/templates")) {
+      for (const name of await fs.promises.readdir(templates)) {
         //Cache templates
           console.debug(`metrics/setup > load template [${name}]`)
           const files = [
-            `src/templates/${name}/query.graphql`,
-            `src/templates/${name}/image.svg`,
-            `src/templates/${name}/style.css`,
+            `${templates}/${name}/query.graphql`,
+            `${templates}/${name}/image.svg`,
+            `${templates}/${name}/style.css`,
           ]
           const [query, image, style] = await Promise.all(files.map(async file => `${await fs.promises.readFile(path.resolve(file))}`))
           conf.templates[name] = {query, image, style}

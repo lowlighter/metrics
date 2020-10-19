@@ -17,6 +17,9 @@
         sourceMapRegister:false,
       })
 
+    //Relocate assets
+      code = code.replace("src/templates", "../../src/templates")
+
     //Perform version include
       const version = JSON.parse(await fs.promises.readFile(path.join(__dirname, "..", "package.json"))).version
       code = code.replace(`<#version>`, version)
