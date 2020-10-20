@@ -70,6 +70,8 @@
           pagespeed:{enabled:bool(core.getInput("plugin_pagespeed"))},
           habits:{enabled:bool(core.getInput("plugin_habits"))},
           selfskip:{enabled:bool(core.getInput("plugin_selfskip"))},
+          languages:{enabled:bool(core.getInput("plugin_languages"))},
+          followup:{enabled:bool(core.getInput("plugin_followup"))},
         }
         const q = Object.fromEntries(Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => [key, true]))
         console.log(`Plugins enabled     | ${Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => key).join(", ")}`)
