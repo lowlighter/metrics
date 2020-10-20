@@ -122,7 +122,7 @@
             },
             url() {
               const plugins = Object.entries(this.plugins.enabled)
-                .filter(([key, value]) => /^languages|followup$/.test(key) ? !value : value)
+                .filter(([key, value]) => /^(?:languages|followup)$/.test(key) ? !value : value)
                 .map(([key, value]) => `${key}=${+value}`)
                 .join("&")
               return `${window.location.href}${this.user}${plugins.length ? `?${plugins}` : ""}`

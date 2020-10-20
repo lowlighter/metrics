@@ -129,7 +129,7 @@
         if (/^\d+$/.test(value))
           query[key] = Number(value)
       //Parse boolean
-        if (/^true|false$/.test(value))
+        if (/^(?:true|false)$/.test(value))
           query[key] = !!value
       //Parse null
         if (/^null$/.test(value))
