@@ -501,6 +501,74 @@ Add the following to your `settings.json` and pass `?habits=1` in url when gener
 
 </details>
 
+#### ✒️ Follow-up
+
+The *follow-up* plugin allows you to compute the ratio of opened/closed issues and the ratio of opened/merged pull requests on your repositories, which shows whether most of them are maintened or not.
+
+![Follow-up plugin](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_followup.png)
+
+<details>
+<summary>💬 About</summary>
+
+This plugin is enabled by default. To disable it, explicitly opt-out.
+
+##### Setup with GitHub actions
+
+Add the following to your workflow :
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_followup: yes
+```
+
+##### Setup in your own instance
+
+Add the following to your `settings.json` and pass `?followup=1` in url when generating metrics.
+```json
+  "plugins":{
+    "followup":{
+      "enabled":true,
+    }
+  }
+```
+
+</details>
+
+#### 🈷️ Languages
+
+The *languages* plugin allows you to compute which languages you use the most in your repositories.
+
+![Languages plugin](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_languages.png)
+
+<details>
+<summary>💬 About</summary>
+
+This plugin is enabled by default. To disable it, explicitly opt-out.
+
+##### Setup with GitHub actions
+
+Add the following to your workflow :
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_languages: yes
+```
+
+##### Setup in your own instance
+
+Add the following to your `settings.json` and pass `?languages=1` in url when generating metrics.
+```json
+  "plugins":{
+    "languages":{
+      "enabled":true,
+    }
+  }
+```
+
+</details>
+
 #### ⏭️ Selfskip
 
 The *selfskip* plugin allows you to count out all commits tagged with `[Skip GitHub Action]` you authored on your personal repository from your reported commit counts.
@@ -612,6 +680,8 @@ This way you'll be able to rapidly test SVG renders with your browser.
   * To make HTTP/S requests
 * [actions/toolkit](https://github.com/actions/toolkit/tree/master) and [vercel/ncc](https://github.com/vercel/ncc)
   * To build the GitHub Action
+* [vuejs/vue](https://github.com/vuejs/vue)
+  * To display server application
 
 All icons were ripped across GitHub's site, but still remains the intellectual property of GitHub.
 See [GitHub Logos and Usage](https://github.com/logos) for more information.

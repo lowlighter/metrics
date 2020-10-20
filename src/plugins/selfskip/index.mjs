@@ -20,6 +20,7 @@
             }
           //Save results
             computed.plugins.selfskip = {commits}
+            computed.commits -= commits
             console.debug(`metrics/compute/${login}/plugins > selfskip > success`)
             console.debug(JSON.stringify(computed.plugins.selfskip))
             solve()

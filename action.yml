@@ -41,6 +41,12 @@ inputs:
   plugin_selfskip:
     description: Skip commits flagged with [Skip GitHub Action] from commits count
     default: no
+  plugin_languages:
+    description: Enable most used languages metrics
+    default: yes
+  plugin_followup:
+    description: Enable owned repositories issues and pull requests metrics
+    default: yes
   debug:
     description: Enable debug logs
     default: no

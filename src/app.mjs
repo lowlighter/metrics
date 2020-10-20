@@ -7,6 +7,7 @@
   import compression from "compression"
   import setup from "./setup.mjs"
   import metrics from "./metrics.mjs"
+  import Templates from "./templates/index.mjs"
 
 /** App */
   export default async function () {
@@ -40,10 +41,24 @@
 
     //Base routes
       const limiter = ratelimit({max:60, windowMs:60*1000})
+      const templates = [...new Set([conf.settings.templates.default, ...(conf.settings.templates.enabled.length ? Object.keys(Templates).filter(key => conf.settings.templates.enabled.includes(key)) : Object.keys(Templates))])]
+      const enabled = Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => key)
       app.get("/", limiter, (req, res) => res.sendFile(`${conf.statics}/index.html`))
       app.get("/index.html", limiter, (req, res) => res.sendFile(`${conf.statics}/index.html`))
-      app.get("/placeholder.svg", limiter, (req, res) => res.sendFile(`${conf.statics}/placeholder.svg`))
       app.get("/favicon.ico", limiter, (req, res) => res.sendStatus(204))
+      app.get("/plugins.list", limiter, (req, res) => res.status(200).json(enabled))
+      app.get("/templates.list", limiter, (req, res) => res.status(200).json(templates))
+      app.get("/ejs.min.js", limiter, (req, res) => res.sendFile(`${conf.node_modules}/ejs/ejs.min.js`))
+      app.get("/axios.min.js", limiter, (req, res) => res.sendFile(`${conf.node_modules}/axios/dist/axios.min.js`))
+      app.get("/axios.min.map", limiter, (req, res) => res.sendFile(`${conf.node_modules}/axios/dist/axios.min.map`))
+      app.get("/vue.min.js", limiter, (req, res) => res.sendFile(`${conf.node_modules}/vue/dist/vue.min.js`))
+      app.get("/placeholder.svg", limiter, async (req, res) => {
+        const template = req.query.template || conf.settings.templates.default
+        if (!(template in Templates))
+          return res.sendStatus(404)
+        const {style, placeholder} = conf.templates[template]
+        res.status(200).json({style, placeholder})
+      })
 
     //Metrics
       app.get("/:login", ...middlewares, async (req, res) => {
@@ -69,7 +84,7 @@
         //Compute rendering
           try {
             //Render
-              const rendered = await metrics({login, q:req.query}, {graphql, rest, plugins, conf})
+              const rendered = await metrics({login, q:parse(req.query)}, {graphql, rest, plugins, conf})
             //Cache
               if ((!debug)&&(cached))
                 cache.put(login, rendered, cached)
@@ -103,6 +118,22 @@
         `Cached time            | ${cached} seconds`,
         `Rate limiter           | ${ratelimiter ? JSON.stringify(ratelimiter) : "(enabled)"}`,
         `Max simultaneous users | ${maxusers ? `${maxusers} users` : "(unrestricted)"}`,
-        `Plugins enabled        | ${Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => key).join(", ")}`
+        `Plugins enabled        | ${enabled.join(", ")}`
       ].join("\n")))
+  }
+
+/** Query parser */
+  function parse(query) {
+    for (const [key, value] of Object.entries(query)) {
+      //Parse number
+        if (/^\d+$/.test(value))
+          query[key] = Number(value)
+      //Parse boolean
+        if (/^true|false$/.test(value))
+          query[key] = !!value
+      //Parse null
+        if (/^null$/.test(value))
+          query[key] = null
+    }
+    return query
   }

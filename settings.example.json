@@ -27,6 +27,12 @@
     "habits":{                    "//":"Habits plugin",
       "enabled":true,             "//":"Enable or disable coding habits metrics",
       "from":50,                  "//":"Number of activity events to base habits on (up to 100)"
+    },
+    "languages":{                 "//":"Languages plugins",
+      "enabled":true,             "//":"Enable or disable most used languages metrics (*this plugin is enabled by default)"
+    },
+    "followup":{                  "//":"Follow-up plugin",
+      "enabled":true,             "//":"Enable owned repositories issues and pull requests metrics (*this plugin is enabled by default)"
     }
   }
 }

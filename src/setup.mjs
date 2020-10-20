@@ -11,7 +11,8 @@
       const conf = {
         templates:{},
         settings:{},
-        statics:path.resolve("src/html")
+        statics:path.resolve("src/html"),
+        node_modules:path.resolve("node_modules"),
       }
 
     //Load settings
@@ -37,19 +38,20 @@
             const files = [
               `${templates}/${name}/query.graphql`,
               `${templates}/${name}/image.svg`,
+              `${templates}/${name}/placeholder.svg`,
               `${templates}/${name}/style.css`,
             ]
-            const [query, image, style] = await Promise.all(files.map(async file => `${await fs.promises.readFile(path.resolve(file))}`))
-            conf.templates[name] = {query, image, style}
+            const [query, image, placeholder, style] = await Promise.all(files.map(async file => `${await fs.promises.readFile(path.resolve(file))}`))
+            conf.templates[name] = {query, image, placeholder, style}
             console.debug(`metrics/setup > load template [${name}] > success`)
           //Debug
             if (conf.settings.debug) {
               Object.defineProperty(conf.templates, name, {
                 get() {
                   console.debug(`metrics/setup > reload template [${name}]`)
-                  const [query, image, style] = files.map(file => `${fs.readFileSync(path.resolve(file))}`)
+                  const [query, image, placeholder, style] = files.map(file => `${fs.readFileSync(path.resolve(file))}`)
                   console.debug(`metrics/setup > reload template [${name}] > success`)
-                  return {query, image, style}
+                  return {query, image, placeholder, style}
                 }
               })
             }

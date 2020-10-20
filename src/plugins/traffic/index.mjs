@@ -14,7 +14,7 @@
       if (!q.traffic)
         return computed.plugins.traffic = null
       console.debug(`metrics/compute/${login}/plugins > traffic`)
-      computed.svg.height += 20
+      computed.svg.height += !q.lines ? 20 : 0
 
     //Plugin execution
       pending.push(new Promise(async solve => {

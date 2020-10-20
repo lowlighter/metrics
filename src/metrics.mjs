@@ -11,6 +11,8 @@
       try {
 
         //Init
+          console.debug(`metrics/compute/${login} > start`)
+          console.debug(JSON.stringify(q))
           const template = q.template || conf.settings.templates.default
           const pending = []
           const s = (value, end = "") => value > 1 ? {y:"ies", "":"s"}[end] : end
