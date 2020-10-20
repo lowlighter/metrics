@@ -39,7 +39,7 @@
         </div>
         <div class="palette">
           Generated metrics use transparency and colors which matches both light and dark modes
-          <div>
+          <div class="palettes">
             <label>
               <input type="radio" v-model="palette" value="light">
               ☀️ Light mode
@@ -55,10 +55,10 @@
       <div class="step">
         <h2>3. Generate your metrics</h2>
         <template v-if="generated.content">
-          <img :src="generated.content" alt="metrics">
+          <img class="metrics" :src="generated.content" alt="metrics">
         </template>
         <template v-else>
-          <img :src="templates.placeholder" alt="metrics">
+          <img class="metrics" :src="templates.placeholder" alt="metrics">
           <button @click="generate" :disabled="(!user)||(generated.pending)">{{ generated.pending ? "Generating your metrics..." : user ? "Generate your metrics" : "Enter your GitHub username first" }}</button>
         </template>
       </div>
@@ -219,14 +219,14 @@
         text-align: center;
         max-width: 800px;
       }
-      .plugins {
+      .plugins, .palettes {
         margin-top: 1rem;
         display: flex;
         align-items: center;
         justify-content: center;
         flex-wrap: wrap;
       }
-      .plugins label {
+      .plugins label, .palettes label {
         margin: 0 1rem;
       }
       .code {
@@ -243,6 +243,10 @@
         margin-top: .5rem;
         font-size: .9rem;
         opacity: .8;
+      }
+      img.metrics {
+        width: 100%;
+        max-width: 480px;
       }
       .palette {
         margin-top: 1rem;
