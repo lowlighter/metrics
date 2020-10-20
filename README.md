@@ -150,8 +150,9 @@ Since GitHub API has rate limitations, the shared instance has a few limitations
     * Your generated metrics won't be updated during this amount of time
     * If you enable or disable plugins in url parameters, you'll need to wait for cache expiration before these changes are applied
   * The rate limiter is enabled, although it won't affect already cached users metrics
-  * Plugins are disabled
+  * Plugins which consume additional requests or require elevated token rights are disabled
     * PageSpeed plugin can still be enabled by passing `?pagespeed=1`, but metrics generation can take up some time when it has not been cached yet
+    * Languages and Follow-up plugins are enabled by default by can be disabled respectively with `?languages=0` and `?followup=0`
 
 To ensure maximum availability, consider deploying your own instance or use the GitHub Action.
 
