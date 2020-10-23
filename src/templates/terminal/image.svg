@@ -58,8 +58,7 @@ Last generated: <%= new Date().toGMTString() %>
   <b><%= `${user.watching.totalCount}`.padStart(5) %></b> repositor<%= s(user.watching.totalCount, "y") %> watched
 <% if (computed.plugins.lines) { -%><% if (computed.plugins.lines.error) { -%>
 
-<span class="diff error">@@ <%= computed.plugins.lines.error %> @@</span>
-<% } else { -%>
+<span class="diff error">@@ <%= computed.plugins.lines.error %> @@</span><% } else { -%>
 
 <span class="diff">@@ -<%= computed.plugins.lines.deleted %> +<%= computed.plugins.lines.added %> @@</span>
 <% }} -%></div>

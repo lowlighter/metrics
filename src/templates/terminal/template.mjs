@@ -6,19 +6,20 @@
     //Common
       await common(...arguments)
       const computed = data.computed
+      await Promise.all(pending)
 
     //Compute image size
       computed.svg = {height:640, width:480}
       if (computed.plugins.followup)
-        computed.svg.height += 100 + 32
+        computed.svg.height += 100
       if (computed.plugins.lines)
-        computed.svg.height += 30 + 32
+        computed.svg.height += 30
       if (computed.plugins.traffic)
-        computed.svg.height += 16 + 32
+        computed.svg.height += 16
       if (computed.plugins.pagespeed)
-        computed.svg.height += 136 + 32
+        computed.svg.height += 136
       if (computed.plugins.languages)
-        computed.svg.height += 170 + 32
+        computed.svg.height += 170
 
     //Compute registration date
       const diff = (Date.now()-(new Date(data.user.createdAt)).getTime())/(365*24*60*60*1000)
