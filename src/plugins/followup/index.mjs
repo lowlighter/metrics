@@ -3,7 +3,7 @@
     //Check if plugin is enabled and requirements are met
       if (!enabled)
         return computed.plugins.followup = null
-      if (("followup" in q)&&(!q.followup))
+      if (!q.followup)
         return computed.plugins.followup = null
       console.debug(`metrics/compute/${login}/plugins > followup`)
       computed.svg.height += 70

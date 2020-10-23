@@ -3,7 +3,7 @@
     //Check if plugin is enabled and requirements are met
       if (!enabled)
         return computed.plugins.languages = null
-      if (("languages" in q)&&(!q.languages))
+      if (!q.languages)
         return computed.plugins.languages = null
       console.debug(`metrics/compute/${login}/plugins > languages`)
       computed.svg.height += 90
