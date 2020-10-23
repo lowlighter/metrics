@@ -68,7 +68,7 @@
           lines:{enabled:bool(core.getInput("plugin_lines"))},
           traffic:{enabled:bool(core.getInput("plugin_traffic"))},
           pagespeed:{enabled:bool(core.getInput("plugin_pagespeed"))},
-          habits:{enabled:bool(core.getInput("plugin_habits"))},
+          habits:{enabled:bool(core.getInput("plugin_habits")), from:Number(core.getInput("plugin_habits_from")) || 100},
           selfskip:{enabled:bool(core.getInput("plugin_selfskip"))},
           languages:{enabled:bool(core.getInput("plugin_languages"))},
           followup:{enabled:bool(core.getInput("plugin_followup"))},
@@ -81,7 +81,7 @@
         }
 
       //Repositories to use
-        const repositories = Math.max(0, Number(core.getInput("repositories"))) || 100
+        const repositories = Number(core.getInput("repositories")) || 100
         console.log(`Repositories to use | ${repositories}`)
         q.repositories = repositories
 

@@ -41,6 +41,9 @@ inputs:
   plugin_habits:
     description: Enable coding habits metrics
     default: no
+  plugin_habits_from:
+    description: Number of activity events to base habits on (up to 100)
+    default: 100
   plugin_selfskip:
     description: Skip commits flagged with [Skip GitHub Action] from commits count
     default: no
