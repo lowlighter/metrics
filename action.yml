@@ -23,6 +23,9 @@ inputs:
   optimize:
     description: Optimize SVG image
     default: yes
+  repositories:
+    description: Number of repositories to use to compute metrics
+    default: 100
   plugin_pagespeed:
     description: Enable Google PageSpeed metrics for account attached website
     default: no

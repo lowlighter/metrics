@@ -80,6 +80,11 @@
           console.log(`Pagespeed token     | ${plugins.pagespeed.token ? "provided" : "missing"}`)
         }
 
+      //Repositories to use
+        const repositories = Math.max(0, Number(core.getInput("repositories"))) || 100
+        console.log(`Repositories to use | ${repositories}`)
+        q.repositories = repositories
+
       //Render metrics
         const rendered = await metrics({login:user, q}, {graphql, rest, plugins, conf})
         console.log(`Render              | complete`)
