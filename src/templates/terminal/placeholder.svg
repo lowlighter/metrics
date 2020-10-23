@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="<%= 640 + 80 + (!!plugins.followup)*(100+32) + (!!plugins.languages)*(170+32) + (!!plugins.lines)*(30+32) + (!!plugins.traffic)*(16+32) + (!!plugins.pagespeed)*(136+32) %>">
+  <style>
+    <%= style %>
+  </style>
+
+  <foreignObject x="0" y="0" width="100%" height="100%">
+    <div xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+      <div class="header">
+        <span class="title">GitHub metrics</span>
+        <div class="buttons">
+          <div class="button">─</div>
+          <div class="button">□</div>
+          <div class="button exit">✕</div>
+        </div>
+      </div>
+
+      <pre><span class="banner">GitHub metrics generator X.Y.Z
+These generated metrics comes with ABSOLUTELY NO WARRANTY,
+to the extent permitted by applicable law.
+
+Last generated: <%= new Date().toGMTString() %>
+</span>
+<div class="stdin"><span class="ps1-path">▇▇▇▇@metrics</span>:<span class="ps1-location">~</span># whoami</div><!--
+--><div class="stdout"><!--
+--><b>▇▇▇▇</b> registered=▇▇, uid=▇▇, gid=▇▇, followers=▇▇
+  contributed to ▇▇ repositories <b style="color:#ebedf0">##############</b>
+</div>
+<div class="stdin"><span class="ps1-path">▇▇▇▇@metrics</span>:<span class="ps1-location">~</span># git status</div><!--
+--><div class="stdout"><b>Recent activity</b><!--
+--><b><%= `▇▇`.padStart(5) %></b> commits
+  <b><%= `▇▇`.padStart(5) %></b> pull requests reviewed
+  <b><%= `▇▇`.padStart(5) %></b> pull requests opened
+  <b><%= `▇▇`.padStart(5) %></b> issues opened
+  <b><%= `▇▇`.padStart(5) %></b> issue comments
+
+<b>Tracked activity</b>
+  <b><%= `▇▇`.padStart(5) %></b> users followed
+  <b><%= `▇▇`.padStart(5) %></b> repositories sponsored
+  <b><%= `▇▇`.padStart(5) %></b> repositories starred
+  <b><%= `▇▇`.padStart(5) %></b> repositories watched
+<% if (plugins.lines) { -%>
+
+<span class="diff">@@ -▇▇ +▇▇ @@</span>
+<% } -%></div>
+<div class="stdin"><span class="ps1-path">▇▇▇▇@metrics</span>:<span class="ps1-location">~</span># ls -lh github/repositories</div><!--
+--><div class="stdout"><!--
+-->Total ▇▇ repositories
+<% if (plugins.traffic) { -%>
+-r--  <b><%= `▇▇`.padStart(5) %></b>  views
+<% } -%>
+-r--  <b><%= `▇▇`.padStart(5) %></b>  stargazers
+-r--  <b><%= `▇▇`.padStart(5) %></b>  forks
+-r--  <b><%= `▇▇`.padStart(5) %></b>  watchers
+dr-x  <b><%= `▇▇`.padStart(5) %></b>  packages
+dr-x  <b><%= `▇▇`.padStart(5) %></b>  gists
+<% if (plugins.followup) { -%>
+dr-x  <b><%= `▇▇`.padStart(5) %></b>  ISSUES
+-r--  <b><%= `▇▇`.padStart(5) %></b>  ├── open
+-r--  <b><%= `▇▇`.padStart(5) %></b>  └── closed
+dr-x  <b><%= `▇▇`.padStart(5) %></b>  PULL_REQUESTS
+-r--  <b><%= `▇▇`.padStart(5) %></b>  ├── open
+-r--  <b><%= `▇▇`.padStart(5) %></b>  └── merged
+<% } -%>
+dr-x         LICENSE
+-r--         └── ▇▇▇▇
+</div><% if (plugins.languages) { -%>
+
+<div class="stdin"><span class="ps1-path">▇▇▇▇@metrics</span>:<span class="ps1-location">~</span># locale</div><!--
+--><div class="stdout"><!--
+--><% for (const value of [0.6, 0.2, 0.1, 0.05, 0.05, 0, 0, 0]) { -%>
+<b><%= `▇▇▇▇▇▇`.padEnd(12) %></b> [<%= "#".repeat(Math.ceil(100*value/5)).padEnd(20) %>] ▇%
+<% } -%></div><% } -%><% if (plugins.pagespeed) { -%>
+
+<div class="stdin"><span class="ps1-path">▇▇▇▇@metrics</span>:<span class="ps1-location">~</span># curl -I ▇▇▇▇▇▇</div><!--
+--><div class="stdout"><!--
+--><b>User-Agent</b>: Google PageSpeed API
+<b>Location</b>: ▇▇▇▇▇▇
+<b>X-Performance</b>: ▇%
+<b>X-Accessibility</b>: ▇%
+<b>X-Best-Practices</b>: ▇%
+<b>X-SEO</b>: ▇%</div><% } -%>
+
+<footer>Connection reset by 127.0.0.1</footer></pre>
+    </div>
+  </foreignObject>
+</svg>
+

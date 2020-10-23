@@ -31,11 +31,22 @@
       if (conf.settings.debug)
         logger(conf.settings)
 
+    //Load package settings
+      logger(`metrics/setup > load package.json`)
+      if (fs.existsSync(path.resolve("package.json"))) {
+        conf.package = JSON.parse(`${await fs.promises.readFile(path.resolve("package.json"))}`)
+        logger(`metrics/setup > load package.json > success`)
+      }
+      else {
+        logger(`metrics/setup > load package.json > (missing)`)
+        conf.package = {version:"<#version>"}
+      }
+
     //Load templates
       if (fs.existsSync(path.resolve(templates))) {
         for (const name of await fs.promises.readdir(templates)) {
           //Cache templates
-            if (/^index.mjs$/.test(name))
+            if (/.*[.]mjs$/.test(name))
               continue
             logger(`metrics/setup > load template [${name}]`)
             const files = [

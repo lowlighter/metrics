@@ -1,0 +1,107 @@
+/* SVG global context */
+  svg {
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
+    font-size: 14px;
+    color: #777777;
+  }
+
+/* Title bar */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 20px;
+    align-items: center;
+    padding: 0 8px;
+    box-sizing: border-box;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background: linear-gradient(#504b45 0%,#3c3b37 100%);
+  }
+
+  .title {
+    color: #d5d0ce;
+    line-height: 12px;
+  }
+
+  .buttons {
+    display: flex;
+    align-items: center;
+  }
+
+  .button {
+    color: black;
+    display: flex;
+    justify-content: center;
+    margin-right: 5px;
+    font-size: 8px;
+    height: 12px;
+    width: 12px;
+    border-radius: 100%;
+    background: linear-gradient(#7d7871 0%, #595953 100%);
+    text-shadow: 0px 1px 0px rgba(255,255,255,0.2);
+  }
+
+  .button.exit {
+    background: linear-gradient(#f37458 0%, #de4c12 100%);
+  }
+
+/* Terminal */
+  pre {
+    margin: 0;
+    background: #42092B;
+    padding: 12px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    font-family: monospace;
+    color: #DDDDDD;
+  }
+
+  .banner, footer {
+    opacity: .7;
+  }
+
+/* Prompt */
+  .ps1-path {
+    color: #7EDA29;
+  }
+
+  .ps1-location {
+    color: #4878c0;
+  }
+
+/* Diff */
+  .diff {
+    color: #3A96DD;
+  }
+
+/* Error */
+  .error {
+    color: #cb2431;
+  }
+
+/* Animations */
+  .stdin, footer {
+    width: 0%;
+    white-space: nowrap;
+    overflow: hidden;
+    animation-name: stdin-animation;
+    animation-fill-mode: both;
+  }
+
+  .stdout {
+    max-height: 0%;
+    overflow: hidden;
+    animation-name: stdout-animation;
+    animation-fill-mode: both;
+  }
+
+  @keyframes stdin-animation {
+    0% { width: 0%; }
+    100% { width: 100%; }
+  }
+
+  @keyframes stdout-animation {
+    0% { max-height: 0; }
+    100% { max-height: 360px; }
+  }

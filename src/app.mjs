@@ -43,6 +43,7 @@
       const limiter = ratelimit({max:60, windowMs:60*1000})
       const templates = [...new Set([conf.settings.templates.default, ...(conf.settings.templates.enabled.length ? Object.keys(Templates).filter(key => conf.settings.templates.enabled.includes(key)) : Object.keys(Templates))])]
       const enabled = Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => key)
+      const actions = {flush:new Map()}
       app.get("/", limiter, (req, res) => res.sendFile(`${conf.statics}/index.html`))
       app.get("/index.html", limiter, (req, res) => res.sendFile(`${conf.statics}/index.html`))
       app.get("/favicon.ico", limiter, (req, res) => res.sendStatus(204))
@@ -58,6 +59,23 @@
           return res.sendStatus(404)
         const {style, placeholder} = conf.templates[template]
         res.status(200).json({style, placeholder})
+      })
+      app.get("/action.flush", limiter, async (req, res) => {
+        const {token, user} = req.query
+        if (token) {
+          if (actions.flush.has(token)) {
+            console.debug(`metrics/app/${login} > flushed cache`)
+            cache.del(actions.flush.get(token))
+            return res.sendStatus(200)
+          }
+          else
+            return res.sendStatus(404)
+        }
+        else {
+          const token = `${Math.random().toString(16).replace("0.", "")}${Math.random().toString(16).replace("0.", "")}`
+          actions.flush.set(token, user)
+          return res.json({token})
+        }
       })
 
     //Metrics
@@ -84,6 +102,7 @@
         //Compute rendering
           try {
             //Render
+            console.log(req.query)
               const rendered = await metrics({login, q:parse(req.query)}, {graphql, rest, plugins, conf})
             //Cache
               if ((!debug)&&(cached))

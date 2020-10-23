@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="<%= computed.svg.width %>" height="<%= computed.svg.height %>">
+  <style>
+    <%= style %>
+      .stdin, .stdout {
+        animation-duration: .2s;
+      }
+      .stdout {
+        animation-duration: .2s;
+      }
+    <% for (let i = 0; i < 12; i++) { %>
+      .stdin:nth-of-type(<%= i+1 %>) {
+        animation-delay: <%= i*.2 %>s;
+      }
+      .stdout:nth-of-type(<%= i+2 %>) {
+        animation-delay: <%= (i+1)*.2 %>s;
+      }
+    <% } %>
+      footer {
+        animation-delay: <%= 12*.2 %>s;
+      }
+  </style>
+
+  <foreignObject x="0" y="0" width="100%" height="100%">
+    <div xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+      <div class="header">
+        <span class="title">GitHub metrics</span>
+        <div class="buttons">
+          <div class="button">─</div>
+          <div class="button">□</div>
+          <div class="button exit">✕</div>
+        </div>
+      </div>
+
+      <pre><span class="banner">GitHub metrics generator <%= meta.version %>
+These generated metrics comes with ABSOLUTELY NO WARRANTY,
+to the extent permitted by applicable law.
+
+Last generated: <%= new Date().toGMTString() %>
+</span>
+<div class="stdin"><%- meta.$ %> whoami</div><!--
+--><div class="stdout"><!--
+--><b><%= user.name || user.login %></b> registered=<%= computed.registration %>, uid=<%= `${user.databaseId}`.substr(-4) %>, gid=<%= user.organizations.totalCount %>, followers=<%= user.followers.totalCount %>
+  contributed to <%= user.repositoriesContributedTo.totalCount %> repositor<%= s(user.repositoriesContributedTo.totalCount, "y") %> <b><% for (const [x, {color}] of Object.entries(computed.calendar)) { -%><span style="color:<%= color %>">#</span><% } %></b>
+</div>
+<div class="stdin"><%- meta.$ %> git status</div><!--
+--><div class="stdout"><b>Recent activity</b><!--
+--><b><%= `${computed.commits}`.padStart(5) %></b> commit<%= s(computed.commits) %>
+  <b><%= `${user.contributionsCollection.totalPullRequestReviewContributions}`.padStart(5) %></b> pull request<%= s(user.contributionsCollection.totalPullRequestReviewContributions) %> reviewed
+  <b><%= `${user.contributionsCollection.totalPullRequestContributions}`.padStart(5) %></b> pull request<%= s(user.contributionsCollection.totalPullRequestContributions) %> opened
+  <b><%= `${user.contributionsCollection.totalIssueContributions}`.padStart(5) %></b> issue<%= s(user.contributionsCollection.totalIssueContributions) %> opened
+  <b><%= `${user.issueComments.totalCount}`.padStart(5) %></b> issue comment<%= s(user.issueComments.totalCount) %>
+
+<b>Tracked activity</b>
+  <b><%= `${user.following.totalCount}`.padStart(5) %></b> user<%= s(user.followers.totalCount) %> followed
+  <b><%= `${computed.sponsorships}`.padStart(5) %></b> repositor<%= s(computed.sponsorships, "y") %> sponsored
+  <b><%= `${user.starredRepositories.totalCount}`.padStart(5) %></b> repositor<%= s(user.starredRepositories.totalCount, "y") %> starred
+  <b><%= `${user.watching.totalCount}`.padStart(5) %></b> repositor<%= s(user.watching.totalCount, "y") %> watched
+<% if (computed.plugins.lines) { -%><% if (computed.plugins.lines.error) { -%>
+
+<span class="diff error">@@ <%= computed.plugins.lines.error %> @@</span>
+<% } else { -%>
+
+<span class="diff">@@ -<%= computed.plugins.lines.deleted %> +<%= computed.plugins.lines.added %> @@</span>
+<% }} -%></div>
+<div class="stdin"><%- meta.$ %> ls -lh github/repositories</div><!--
+--><div class="stdout"><!--
+-->Total <%= user.repositories.totalCount %> repositor<%= s(user.repositories.totalCount, "y") %>
+<% if (computed.plugins.traffic) { -%><% if (computed.plugins.traffic.error) { -%>
+----  <b>     </b>  views <span class="error">(<%= computed.plugins.traffic.error %>)</span>
+<% } else { -%>
+-r--  <b><%= `${computed.plugins.traffic.views.count}`.padStart(5) %></b>  views
+<% }} -%>
+-r--  <b><%= `${computed.repositories.stargazers}`.padStart(5) %></b>  stargazer<%= s(computed.repositories.stargazers) %>
+-r--  <b><%= `${computed.repositories.forks}`.padStart(5) %></b>  fork<%= s(computed.repositories.forks) %>
+-r--  <b><%= `${computed.repositories.watchers}`.padStart(5) %></b>  watcher<%= s(computed.repositories.watchers) %>
+dr-x  <b><%= `${user.packages.totalCount}`.padStart(5) %></b>  package<%= s(user.packages.totalCount) %>
+dr-x  <b><%= `${user.gists.totalCount}`.padStart(5) %></b>  gist<%= s(user.gists.totalCount) %>
+<% if (computed.plugins.followup) { -%><% if (computed.plugins.followup.error) { -%>
+d---  <b>     </b>  ISSUES <span class="error">(<%= computed.plugins.followup.error %>)</span>
+d---  <b>     </b>  PULL_REQUESTS <span class="error">(<%= computed.plugins.followup.error %>)</span>
+<% } else { -%>
+dr-x  <b><%= `${computed.plugins.followup.issues.count}`.padStart(5) %></b>  ISSUES
+-r--  <b><%= `${computed.plugins.followup.issues.open}`.padStart(5) %></b>  ├── open
+-r--  <b><%= `${computed.plugins.followup.issues.closed}`.padStart(5) %></b>  └── closed
+dr-x  <b><%= `${computed.plugins.followup.issues.count}`.padStart(5) %></b>  PULL_REQUESTS
+-r--  <b><%= `${computed.plugins.followup.pr.open}`.padStart(5) %></b>  ├── open
+-r--  <b><%= `${computed.plugins.followup.pr.merged}`.padStart(5) %></b>  └── merged
+<% }} -%>
+<% if (computed.licenses.favorite.length) { -%>
+dr-x         LICENSE
+-r--         └── <%= computed.licenses.favorite %>
+<% } -%>
+</div><% if (computed.plugins.languages) { -%><% if (computed.plugins.languages.error) { -%>
+
+<div class="stdin"><%- meta.$ %> locale</div><!--
+--><div class="stdout"><!--
+--><span class="error"><%= computed.plugins.languages.error %></span>
+<% } else { -%>
+
+<div class="stdin"><%- meta.$ %> locale</div><!--
+--><div class="stdout"><!--
+--><% for (const {name, value} of computed.plugins.languages.favorites) { -%>
+<b><%= name.toLocaleUpperCase().padEnd(12) %></b> [<%= "#".repeat(Math.ceil(100*value/5)).padEnd(20) %>] <%= (100*value).toFixed(2).padEnd(5) %>%
+<% }} -%></div><% } -%><% if (computed.plugins.pagespeed) { -%><% if (computed.plugins.pagespeed.error) { -%>
+
+<div class="stdin"><%- meta.$ %> curl -I <%= user.websiteUrl %></div><!--
+--><div class="stdout"><!--
+--><span class="error"><%= computed.plugins.pagespeed.error %></span>
+<% } else { -%>
+
+<div class="stdin"><%- meta.$ %> curl -I <%= user.websiteUrl %></div><!--
+--><div class="stdout"><!--
+--><b>User-Agent</b>: Google PageSpeed API
+<b>Location</b>: <%= user.websiteUrl %>
+<% for (const {score, title} of computed.plugins.pagespeed.scores) { -%>
+<b><%= `X-${title.replace(/ /g, "-")}` %></b>: <%= Math.round(score*100) %>%
+<% }} -%></div><% } -%>
+
+<footer>Connection reset by 127.0.0.1</footer></pre>
+    </div>
+  </foreignObject>
+</svg>
+

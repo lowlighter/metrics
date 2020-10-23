@@ -21,7 +21,7 @@
       const assets = {}
       const templates = path.join(__dirname, "..", "src/templates")
       for (const name of await fs.promises.readdir(templates)) {
-        if (/^index.mjs$/.test(name))
+        if (/.*[.]mjs$/.test(name))
           continue
         console.log(`Including template ${name}`)
         const files = [

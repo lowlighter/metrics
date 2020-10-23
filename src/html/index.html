@@ -85,14 +85,15 @@
     <script src="/vue.min.js"></script>
     <script>
       ;(async function() {
+        const url = new URLSearchParams(window.location.search)
         new Vue({
           el:"main",
           async mounted() {
             await this.load()
           },
           data:{
-            user:"",
-            palette:"light",
+            user:url.get("user") || "",
+            palette:url.get("palette") || "light",
             plugins:{
               list:(await axios.get("/plugins.list")).data,
               enabled:{},
@@ -109,10 +110,11 @@
             templates:{
               list:(await axios.get("/templates.list")).data,
               loaded:{},
-              selected:(await axios.get("/templates.list")).data[0],
+              selected:url.get("template") || (await axios.get("/templates.list")).data[0],
               placeholder:"",
               descriptions:{
                 classic:"Classic template",
+                terminal:"Terminal template"
               },
             },
             generated:{
@@ -129,7 +131,7 @@
                 .filter(([key, value]) => value)
                 .map(([key, value]) => `${key}=${+value}`)
                 .join("&")
-              return `${window.location.href}${this.user}${plugins.length ? `?${plugins}` : ""}`
+              return `${window.location.protocol}//${window.location.host}/${this.user}?template=${this.templates.selected}${plugins.length ? `&${plugins}` : ""}`
             },
           },
           methods:{
@@ -144,10 +146,11 @@
             },
             async generate() {
               this.generated.pending = true
+              await axios.get(`/action.flush?&token=${(await axios.get(`/action.flush?user=${this.user}`)).data.token}`)
               this.generated.content = this.serialize((await axios.get(this.url)).data)
             },
             serialize(svg) {
-              return `data:image/svg+xml;base64,${btoa(svg)}`
+              return `data:image/svg+xml;base64,${btoa(unescape(encodeURIComponent(svg)))}`
             },
           },
         })

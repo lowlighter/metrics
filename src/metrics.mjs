@@ -34,7 +34,7 @@
         //Template
           console.debug(`metrics/compute/${login} > compute`)
           const computer = Templates[template].default || Templates[template]
-          await computer({login, q}, {data, rest, graphql, plugins}, {s, pending, imports:{plugins:Plugins, imgb64}})
+          await computer({login, q}, {conf, data, rest, graphql, plugins}, {s, pending, imports:{plugins:Plugins, imgb64}})
           await Promise.all(pending)
           console.debug(`metrics/compute/${login} > compute > success`)
 

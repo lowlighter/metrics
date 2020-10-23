@@ -23,7 +23,8 @@
     //Perform tests
       await test.build()
       for (const template of [
-        "classic"
+        "classic",
+        "terminal",
       ]) {
         for (const q of [
           {},
