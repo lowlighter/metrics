@@ -64,7 +64,7 @@
         const {token, user} = req.query
         if (token) {
           if (actions.flush.has(token)) {
-            console.debug(`metrics/app/${login} > flushed cache`)
+            console.debug(`metrics/app/${user} > flushed cache`)
             cache.del(actions.flush.get(token))
             return res.sendStatus(200)
           }
