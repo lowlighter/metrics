@@ -14,6 +14,7 @@
           console.debug(`metrics/compute/${login} > start`)
           console.debug(JSON.stringify(q))
           const template = q.template || conf.settings.templates.default
+          const repositories = Math.max(0, Number(q.repositories)) || conf.settings.repositories || 100
           const pending = []
           const s = (value, end = "") => value > 1 ? {y:"ies", "":"s"}[end] : end
           if ((!(template in Templates))||(!(template in conf.templates))||((conf.settings.templates.enabled.length)&&(!conf.settings.templates.enabled.includes(template))))
@@ -24,6 +25,7 @@
           console.debug(`metrics/compute/${login} > query`)
           const data = await graphql(query
             .replace(/[$]login/, `"${login}"`)
+            .replace(/[$]repositories/, `${repositories}`)
             .replace(/[$]calendar.to/, `"${(new Date()).toISOString()}"`)
             .replace(/[$]calendar.from/, `"${(new Date(Date.now()-14*24*60*60*1000)).toISOString()}"`)
           )

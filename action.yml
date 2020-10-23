@@ -43,10 +43,10 @@ inputs:
     default: no
   plugin_languages:
     description: Enable most used languages metrics
-    default: yes
+    default: no
   plugin_followup:
     description: Enable owned repositories issues and pull requests metrics
-    default: yes
+    default: no
   debug:
     description: Enable debug logs
     default: no

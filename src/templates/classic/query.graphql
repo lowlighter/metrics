@@ -8,7 +8,7 @@ query Metrics {
     gists {
       totalCount
     }
-    repositories(last: 100, isFork: false, ownerAffiliations: OWNER) {
+    repositories(last: $repositories, isFork: false, ownerAffiliations: OWNER) {
       totalCount
       nodes {
         name

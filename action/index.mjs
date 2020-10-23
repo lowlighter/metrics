@@ -28,7 +28,7 @@
         }
 
       //Load configuration
-        const conf = await setup()
+        const conf = await setup({log:false})
         console.log(`Configuration       | loaded`)
 
       //Load svg template, style and query

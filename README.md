@@ -3,12 +3,18 @@
 ![Build](https://github.com/lowlighter/metrics/workflows/Build/badge.svg) ![Analysis](https://github.com/lowlighter/metrics/workflows/Analysis/badge.svg)
 
 Generates your own GitHub metrics as an SVG image to put them on your profile page or elsewhere !
-See what it looks like below :
+
+![GitHub metrics](https://github.com/lowlighter/lowlighter/blob/master/github-metrics-alt.svg)
+
+Still not enough data for you ? You can enable additional plugins for even more metrics !
 
 ![GitHub metrics](https://github.com/lowlighter/lowlighter/blob/master/github-metrics.svg)
 
 ### 🦑 Interested to get your own ?
+
 Try it now at [metrics.lecoq.io](https://metrics.lecoq.io/) with your GitHub username !
+
+For a fully-featured experience, setup this as a [GitHub Action](https://github.com/marketplace/actions/github-metrics-as-svg-image) !
 
 ## 📜 How to use ?
 
@@ -150,9 +156,10 @@ Since GitHub API has rate limitations, the shared instance has a few limitations
     * Your generated metrics won't be updated during this amount of time
     * If you enable or disable plugins in url parameters, you'll need to wait for cache expiration before these changes are applied
   * The rate limiter is enabled, although it won't affect already cached users metrics
-  * Plugins which consume additional requests or require elevated token rights are disabled
-    * PageSpeed plugin can still be enabled by passing `?pagespeed=1`, but metrics generation can take up some time when it has not been cached yet
-    * Languages and Follow-up plugins are enabled by default by can be disabled respectively with `?languages=0` and `?followup=0`
+  * Plugins which consume additional requests or require elevated token rights are disabled. The following plugins are available :
+    * PageSpeed plugin can be enabled by passing `?pagespeed=1`, but metrics generation can take up some time when it has not been cached yet
+    * Languages plugin can be enabled by passing `?languages=1`
+    * Follow-up plugin can be enabled by passing `?followup=1`
 
 To ensure maximum availability, consider deploying your own instance or use the GitHub Action.
 
@@ -267,7 +274,7 @@ Open and edit `settings.json` to configure your instance using a text editor of 
           //Enable or disable this plugin. Pass "?habits=1" in url to generate coding habits based on your recent activity
             "enabled":true,
           //Number of events used to compute coding habits (capped at 100 by GitHub API)
-            "from":50,
+            "from":100,
         }
     }
 }
@@ -511,8 +518,6 @@ The *follow-up* plugin allows you to compute the ratio of opened/closed issues a
 <details>
 <summary>💬 About</summary>
 
-This plugin is enabled by default. To disable it, explicitly opt-out.
-
 ##### Setup with GitHub actions
 
 Add the following to your workflow :
@@ -544,8 +549,6 @@ The *languages* plugin allows you to compute which languages you use the most in
 
 <details>
 <summary>💬 About</summary>
-
-This plugin is enabled by default. To disable it, explicitly opt-out.
 
 ##### Setup with GitHub actions
 
@@ -591,98 +594,19 @@ Add the following to your workflow :
 
 </details>
 
-### 🗂️ Project structure
-
-#### Metrics generator
-
-* `src/setup.mjs` contains the configuration setup
-* `src/metrics.mjs` contains the metrics renderer
-* `src/templates/*` contains templates files
-* `src/templates/*/image.svg` contains the template used by the generated SVG image
-* `src/templates/*/query.graphql` is the GraphQL query sent to GitHub GraphQL API
-* `src/templates/*/style.css` contains the style used by the generated SVG image
-* `src/templates/*/template.mjs` contains the code which prepares data for rendering
-* `src/plugins/*` contains the source code of metrics plugins
-
-#### Metrics server instance
-
-* `index.mjs` contains the metrics server entry point
-* `src/app.mjs` contains the metrics server code which serves, renders, restricts/rate limit, etc.
-
-#### GitHub action
-
-* `action.yml` contains the GitHub action descriptor
-* `action/index.mjs` contains the GitHub action code
-* `action/dist/index.js` contains compiled the GitHub action code
-* `utils/build.mjs` contains the GitHub action builder
-
 ### 💪 Contributing and customizing
 
 If you would like to suggest a new feature, find a bug or need help, you can fill an [issue](https://github.com/lowlighter/metrics/issues) describing your problem.
 
 If you're motivated enough, you can submit a [pull request](https://github.com/lowlighter/metrics/pulls) to integrate new features or to solve open issues.
 
-Read the few sections below to get started with project structure.
-
-#### Adding new metrics through GraphQL API, REST API or Third-Party service
-
-To use [GitHub GraphQL API](https://docs.github.com/en/graphql), update the GraphQL query from `templates/*/query.graphql`.
-Raw queried data should be exposed in `data.user` whereas computed data should be in `data.computed`, and code should be updated through `templates/*/template.mjs`.
-
-To use [GitHub Rest API](https://docs.github.com/en/rest) or a third-party service instead, create a new plugin in `src/plugins`.
-Plugins should be self-sufficient and re-exported from [src/plugins/index.mjs](https://github.com/lowlighter/metrics/blob/master/src/plugins/index.mjs), to be later included in the `//Plugins` section of `templates/*/template.mjs`.
-Data generated should be exposed in `data.computed.plugins[plugin]` where `plugin` is your plugin's name.
-
-#### Updating the SVG template
-
-The SVG template is located in `templates/*/image.svg` and include the CSS from `templates/*/style.css`.
-
-It is rendered with [EJS](https://github.com/mde/ejs) so you can actually include variables (e.g. `<%= user.name %>`) and execute simple code, like control statements.
-
-#### Metrics server and GitHub action
-
-Most of the time, you won't need to edit these, unless you're integrating features directly tied to them.
-Remember that SVG image is actually generated from `src/metrics.mjs`, independently from metrics server and GitHub action.
-
-Metrics server code is located in `src/app.mjs` and instantiates an `express` server app, `octokit`s instances, middlewares (like rate-limiter) and routes.
-
-GitHub action code is located in `action/index.mjs` and instantiates `octokit`s instances and retrieves action parameters.
-It then use directly `src/metrics.mjs` to generate the SVG image and commit them to user's repository.
-You must run `npm run build` to rebuild the GitHub action.
-
-#### Testing new features
-
-To test new features, setup a metrics server with a test token and `debug` mode enabled.
-This way you'll be able to rapidly test SVG renders with your browser.
+Read [contributing.md](https://github.com/lowlighter/metrics/blob/master/CONTRIBUTING.md) for more information about this.
 
 ### 📖 Useful references
 
 * [GitHub GraphQL API](https://docs.github.com/en/graphql)
 * [GitHub GraphQL Explorer](https://developer.github.com/v4/explorer/)
 * [GitHub Rest API](https://docs.github.com/en/rest)
-
-### 📦 Used packages
-
-* [express/express.js](https://github.com/expressjs/express) and [expressjs/compression](https://github.com/expressjs/compression)
-  * To serve, compute and render a GitHub user's metrics
-* [nfriedly/express-rate-limit](https://github.com/nfriedly/express-rate-limit)
-  * To apply rate limiting on server and avoid spams and hitting GitHub API's own rate limit
-* [octokit/graphql.js](https://github.com/octokit/graphql.js/) and [octokit/rest.js](https://github.com/octokit/rest.js)
-  * To perform request to GitHub GraphQL API and GitHub REST API
-* [mde/ejs](https://github.com/mde/ejs)
-  * To render SVG images
-* [ptarjan/node-cache](https://github.com/ptarjan/node-cache)
-  * To cache generated content
-* [renanbastos93/image-to-base64](https://github.com/renanbastos93/image-to-base64)
-  * To generate base64 representation of users' avatars
-* [svg/svgo](https://github.com/svg/svgo)
-  * To optimize generated SVG
-* [axios/axios](https://github.com/axios/axios)
-  * To make HTTP/S requests
-* [actions/toolkit](https://github.com/actions/toolkit/tree/master) and [vercel/ncc](https://github.com/vercel/ncc)
-  * To build the GitHub Action
-* [vuejs/vue](https://github.com/vuejs/vue)
-  * To display server application
 
 All icons were ripped across GitHub's site, but still remains the intellectual property of GitHub.
 See [GitHub Logos and Usage](https://github.com/logos) for more information.

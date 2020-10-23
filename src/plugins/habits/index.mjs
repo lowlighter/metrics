@@ -1,5 +1,5 @@
 //Setup
-  export default function ({login, rest, computed, pending, q}, {enabled = false, from = 50} = {}) {
+  export default function ({login, rest, computed, pending, q}, {enabled = false, from = 100} = {}) {
     //Check if plugin is enabled and requirements are met
       if (!enabled)
         return computed.plugins.habits = null
@@ -7,6 +7,12 @@
         return computed.plugins.habits = null
       console.debug(`metrics/compute/${login}/plugins > habits`)
       computed.svg.height += 70
+
+    //Parameter override
+      if (typeof q["habits.from"] === "number") {
+        from = Math.max(0, Math.min(from, q["habits.from"]))
+        console.debug(`metrics/compute/${login}/plugins > habits > events = ${from}`)
+      }
 
     //Plugin execution
       pending.push(new Promise(async solve => {

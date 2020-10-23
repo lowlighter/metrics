@@ -13,66 +13,70 @@
 
       <h1><a href="https://github.com/lowlighter/metrics">Generate your metrics !</a></h1>
 
-      <div class="step">
-        <h2>1. Enter your GitHub username</h2>
-        <label>
-          <input type="text" v-model="user" maxlength="39" placeholder="GitHub username" :disabled="generated.pending">
-        </label>
-      </div>
+      <template>
 
-      <div class="step">
-        <h2>2. Select a template and enable additional plugins</h2>
-        <div class="templates">
-          <label v-for="template in templates.list" :key="template">
-            <input type="radio" v-model="templates.selected" :value="template" @change="load" :disabled="generated.pending">
-            {{ templates.descriptions[template] || template }}
+        <div class="step">
+          <h2>1. Enter your GitHub username</h2>
+          <label>
+            <input type="text" v-model="user" maxlength="39" placeholder="GitHub username" :disabled="generated.pending">
           </label>
         </div>
-        <div class="plugins">
-          <label v-for="plugin in plugins.list" :key="plugin">
-            <input type="checkbox" v-model="plugins.enabled[plugin]" @change="load" :disabled="generated.pending">
-            {{ plugins.descriptions[plugin] || plugin }}
-          </label>
-        </div>
-        <div class="cache-notice">
-          *To reduce server overhead, metrics are cached. Changes may not be reflected until cache expiration.
-        </div>
-        <div class="palette">
-          Generated metrics use transparency and colors which matches both light and dark modes
-          <div class="palettes">
-            <label>
-              <input type="radio" v-model="palette" value="light">
-              ☀️ Light mode
-            </label>
-            <label>
-              <input type="radio" v-model="palette" value="dark">
-              🌙 Night mode
+
+        <div class="step">
+          <h2>2. Select a template {{ plugins.list.length ? "and enable additional plugins" : "" }}</h2>
+          <div class="templates">
+            <label v-for="template in templates.list" :key="template">
+              <input type="radio" v-model="templates.selected" :value="template" @change="load" :disabled="generated.pending">
+              {{ templates.descriptions[template] || template }}
             </label>
           </div>
-        </div>
-      </div>
-
-      <div class="step">
-        <h2>3. Generate your metrics</h2>
-        <template v-if="generated.content">
-          <img class="metrics" :src="generated.content" alt="metrics">
-        </template>
-        <template v-else>
-          <img class="metrics" :src="templates.placeholder" alt="metrics">
-          <button @click="generate" :disabled="(!user)||(generated.pending)">{{ generated.pending ? "Generating your metrics..." : user ? "Generate your metrics" : "Enter your GitHub username first" }}</button>
-        </template>
-      </div>
-
-      <div class="step">
-        <h2>4. Embed these metrics on your GitHub profile</h2>
-        <template v-if="user">
-          Add the markdown below in your <i>README.md</i> at <a :href="repo">{{ user }}/{{ user }}</a>
-          <div class="code">
-            ![<span class="md-alt">GitHub metrics</span>]({{ url }})
+          <div class="plugins">
+            <label v-for="plugin in plugins.list" :key="plugin">
+              <input type="checkbox" v-model="plugins.enabled[plugin]" @change="load" :disabled="generated.pending">
+              {{ plugins.descriptions[plugin] || plugin }}
+            </label>
           </div>
-        </template>
-        For even more features, setup <a href="https://github.com/lowlighter/metrics">lowlighter/metrics</a> as a <a href="https://github.com/marketplace/actions/github-metrics-as-svg-image">GitHub action</a> !
-      </div>
+          <div class="cache-notice" v-if="plugins.list.length">
+            *To reduce server overhead, metrics are cached. Changes may not be reflected until cache expiration.
+          </div>
+          <div class="palette">
+            Generated metrics use transparency and colors which matches both light and dark modes
+            <div class="palettes">
+              <label>
+                <input type="radio" v-model="palette" value="light">
+                ☀️ Light mode
+              </label>
+              <label>
+                <input type="radio" v-model="palette" value="dark">
+                🌙 Night mode
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <h2>3. Generate your metrics</h2>
+          <template v-if="generated.content">
+            <img class="metrics" :src="generated.content" alt="metrics">
+          </template>
+          <template v-else>
+            <img class="metrics" :src="templates.placeholder" alt="metrics">
+            <button @click="generate" :disabled="(!user)||(generated.pending)">{{ generated.pending ? "Generating your metrics..." : user ? "Generate your metrics" : "Enter your GitHub username first" }}</button>
+          </template>
+        </div>
+
+        <div class="step">
+          <h2>4. Embed these metrics on your GitHub profile</h2>
+          <template v-if="user">
+            Add the markdown below in your <i>README.md</i> at <a :href="repo">{{ user }}/{{ user }}</a>
+            <div class="code">
+              ![<span class="md-alt">GitHub metrics</span>]({{ url }})
+            </div>
+          </template>
+          For even more features, setup <a href="https://github.com/lowlighter/metrics">lowlighter/metrics</a> as a <a href="https://github.com/marketplace/actions/github-metrics-as-svg-image">GitHub action</a> !
+        </div>
+
+      </template>
 
     </main>
 
@@ -91,7 +95,7 @@
             palette:"light",
             plugins:{
               list:(await axios.get("/plugins.list")).data,
-              enabled:{languages:true, followup:true},
+              enabled:{},
               descriptions:{
                 pagespeed:"Website performances",
                 languages:"Most used languages",
@@ -122,7 +126,7 @@
             },
             url() {
               const plugins = Object.entries(this.plugins.enabled)
-                .filter(([key, value]) => /^(?:languages|followup)$/.test(key) ? !value : value)
+                .filter(([key, value]) => value)
                 .map(([key, value]) => `${key}=${+value}`)
                 .join("&")
               return `${window.location.href}${this.user}${plugins.length ? `?${plugins}` : ""}`

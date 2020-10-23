@@ -7,6 +7,7 @@
   "port":3000,                    "//":"Listening port",
   "optimize":true,                "//":"Optimize SVG image",
   "debug":false,                  "//":"Debug mode",
+  "repositories":100,             "//":"Number of repositories to use to compute metrics",
 
   "templates":{                   "//":"Template configuration",
     "default":"classic",          "//":"Default template",
@@ -15,24 +16,24 @@
 
   "plugins":{                     "//":"Additional plugins (optional)",
     "pagespeed":{                 "//":"Pagespeed plugin",
-      "enabled":false,            "//":"Enable or disable PageSpeed metrics",
-      "token":"******",           "//":"Pagespeed token"
+      "enabled":true,             "//":"Enable or disable PageSpeed metrics",
+      "token":null,               "//":"Pagespeed token"
     },
     "traffic":{                   "//":"Traffic plugin (GitHub API token must be RW for this to work)",
-      "enabled":true,             "//":"Enable or disable repositories total page views is last two weeks"
+      "enabled":false,            "//":"Enable or disable repositories total page views is last two weeks"
     },
     "lines":{                     "//":"Lines plugin",
-      "enabled":true,             "//":"Enable or disable repositories total lines added/removed"
+      "enabled":false,            "//":"Enable or disable repositories total lines added/removed"
     },
     "habits":{                    "//":"Habits plugin",
-      "enabled":true,             "//":"Enable or disable coding habits metrics",
-      "from":50,                  "//":"Number of activity events to base habits on (up to 100)"
+      "enabled":false,            "//":"Enable or disable coding habits metrics",
+      "from":100,                 "//":"Number of activity events to base habits on (up to 100)"
     },
     "languages":{                 "//":"Languages plugins",
-      "enabled":true,             "//":"Enable or disable most used languages metrics (*this plugin is enabled by default)"
+      "enabled":true,             "//":"Enable or disable most used languages metrics"
     },
     "followup":{                  "//":"Follow-up plugin",
-      "enabled":true,             "//":"Enable owned repositories issues and pull requests metrics (*this plugin is enabled by default)"
+      "enabled":true,             "//":"Enable owned repositories issues and pull requests metrics"
     }
   }
 }
