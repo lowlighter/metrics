@@ -6,7 +6,7 @@ Generates your own GitHub metrics as an SVG image to put them on your profile pa
 
 ![GitHub metrics](https://github.com/lowlighter/lowlighter/blob/master/github-metrics-alt.svg)
 
-But there's more with [plugins](https://github.com/lowlighter/metrics/tree/master/src/plugins) and [https://github.com/lowlighter/metrics/tree/master/src/templates](templates) !
+But there's more with [plugins](https://github.com/lowlighter/metrics/tree/master/src/plugins) and [templates](https://github.com/lowlighter/metrics/tree/master/src/templates) !
 
 | Additional plugins | Terminal template |
 | :----------------: | :---------------: |
