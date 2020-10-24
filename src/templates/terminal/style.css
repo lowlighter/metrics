@@ -55,6 +55,7 @@
     border-bottom-right-radius: 5px;
     font-family: monospace;
     color: #DDDDDD;
+    white-space: break-spaces;
   }
 
   .banner, footer {

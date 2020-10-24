@@ -40,7 +40,7 @@
       })
 
     //Base routes
-      const limiter = ratelimit({max:60, windowMs:60*1000})
+      const limiter = ratelimit({max:debug ? Number.MAX_SAFE_INTEGER : 60, windowMs:60*1000})
       const templates = [...new Set([conf.settings.templates.default, ...(conf.settings.templates.enabled.length ? Object.keys(Templates).filter(key => conf.settings.templates.enabled.includes(key)) : Object.keys(Templates))])]
       const enabled = Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => key)
       const actions = {flush:new Map()}

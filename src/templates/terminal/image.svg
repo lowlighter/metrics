@@ -1,14 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="480" height="<%= 48
-  + (!!base.header)*(16*5)
-  + (!!base.metadata)*(16*9)
-  + (!!base.activity)*(16*10)
-  + (!!base.community)*(16*9)
-  + (!!base.repositories)*(16*13)
-  + (!!computed.plugins.traffic)*(16*1)
-  + (!!computed.plugins.followup)*(16*6)
-  + (!!computed.plugins.lines)*(16*3)
-  + (!!computed.plugins.languages)*(16*12)
-  + (!!computed.plugins.pagespeed)*(16*10)
+  + (!!base.header)*64
+  + (!!base.metadata)*122
+  + (!!base.activity)*146
+  + (!!base.community)*120
+  + (!!base.repositories)*188
+  + (Object.entries(base).filter(([key, value]) => value).length)*8
+  + (!!computed.plugins.traffic)*18
+  + (!!computed.plugins.followup)*112
+  + (!!computed.plugins.lines)*36
+  + ((!!computed.plugins.traffic)+(!!computed.plugins.followup)+(!!computed.plugins.lines))*4
+  + (!!computed.plugins.pagespeed)*132
+  + (!!computed.plugins.languages)*172
+  + (Object.entries(computed.plugins).filter(([key, value]) => value).length)*4
 %>">
   <%
     meta.$ = `<span class="ps1-path">${user.login}@metrics</span>:<span class="ps1-location">~</span>${computed.token.scopes.includes("repo") ? "#" : "$"}`
@@ -52,13 +55,13 @@
 
 <pre><div style="margin-top:-16px"></div><%# -%>
 <% if (base.metadata) { %>
-<span class="banner"><%# -%>
+<div class="banner"><%# -%>
 GitHub metrics generator <%= meta.version %>
 These generated metrics comes with ABSOLUTELY NO WARRANTY,
 to the extent permitted by applicable law.
 
 Last generated: <%= new Date().toGMTString() %>
-</span><% } -%>
+</div><% } -%>
 <%# ============================================================= -%>
 <% if (base.header) { %>
 <div class="stdin"><%- meta.$ %> whoami</div><%# -%>

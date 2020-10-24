@@ -1,13 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="480" height="<%= 0
-  + (!!base.header)*(16*6)
-  + (!!base.metadata)*(16*3)
-  + ((!!base.activity)||(!!base.community))*(16*10)
-  + (!!base.repositories)*(16*7)
-  + ((!!computed.plugins.traffic)||(!!computed.plugins.lines))*(16*2)
-  + (!!computed.plugins.followup)*(16*5)
-  + (!!computed.plugins.languages)*(16*6)
-  + (!!computed.plugins.pagespeed)*(16*9)
-  + (!!computed.plugins.habits)*(16*5)
+  + (!!base.header)*86
+  + (!!base.metadata)*42
+  + ((!!base.activity)||(!!base.community))*150
+  + (!!base.repositories)*100
+  + ((!!computed.plugins.traffic)||(!!computed.plugins.lines))*18
+  + (!!computed.plugins.followup)*72
+  + (!!computed.plugins.pagespeed)*128
+  + (!!computed.plugins.habits)*72
+  + (!!computed.plugins.languages)*96
 %>">
   <style>
     <%= style %>
