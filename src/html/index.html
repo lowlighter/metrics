@@ -7,6 +7,7 @@
     <meta name="author" content="lowlighter">
     <link rel="icon" href="data:,">
     <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/style.prism.css" />
   </head>
   <body>
     <!-- Vue app -->
@@ -80,14 +81,15 @@
             </div>
             <div class="step">
               <h2>4. Embed these metrics on your GitHub profile</h2>
+              For even more features, be sure to checkout <a href="https://github.com/lowlighter/metrics">lowlighter/metrics</a> !
               <template v-if="user">
+                <h3>4.1 Using <a href="#">{{ window.location.host }}</a></h3>
                 Add the markdown below in your <i>README.md</i> at <a :href="repo">{{ user }}/{{ user }}</a>
-                <div class="code">
-                  ![<span class="md-alt">GitHub metrics</span>]({{ url }})
-                </div>
+                <div class="code"><Prism language="markdown" :code="embed"></Prism></div>
+                <h3>4. Using <a href="https://github.com/marketplace/actions/github-metrics-as-svg-image">GitHub action</a></h3>
+                Create a new workflow with the following content at <a :href="repo">{{ user }}/{{ user }}</a>
+                <div class="code"><Prism language="yaml" :code="action"></Prism></div>
               </template>
-              For even more features, setup <a href="https://github.com/lowlighter/metrics">lowlighter/metrics</a> as a <a href="https://github.com/marketplace/actions/github-metrics-as-svg-image">GitHub action</a> !<br>
-              Enjoying <a href="https://github.com/lowlighter/metrics">metrics</a> ? Consider starring it, a little bit of support is always appreciated 💖 !
             </div>
           </section>
           <!-- Metrics preview -->
@@ -105,8 +107,12 @@
     </main>
     <!-- Scripts -->
     <script src="/axios.min.js"></script>
+    <script src="/prism.min.js"></script>
+    <script src="/prism.markdown.min.js"></script>
+    <script src="/prism.yaml.min.js"></script>
     <script src="/ejs.min.js"></script>
     <script src="/vue.min.js"></script>
+    <script src="/vue.prism.min.js"></script>
     <script src="/app.js"></script>
   </body>
 </html>

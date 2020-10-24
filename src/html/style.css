@@ -88,15 +88,15 @@
   .generator .step {
     margin-bottom: 1rem;
     text-align: center;
+    width: 100%;
     max-width: 800px;
   }
   .generator .steps {
-    margin: .5rem 1rem 2rem;
     flex-grow: 1;
+    width: 100%;
   }
   .generator .preview {
     display: none;
-    margin: .5rem 1rem 2rem;
     flex-shrink: 0;
   }
   .generator .preview .metrics {
@@ -131,17 +131,27 @@
   .plugins label, .palettes label {
     margin: 0 1rem;
   }
-/* Markdown code */
+/* Code snippets */
   .code {
-    font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
-    padding: 1rem;
-    margin: .5rem 0;
-    border-radius: .5rem;
-    background-color: #FAFBFC;
-    word-wrap: break-word;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 .5rem;
   }
-  .code .md-alt {
-    color: #6F42C1;
+  .code pre {
+    width: 100%;
+    border-radius: .5rem;
+  }
+  .code .language-markdown  {
+    word-break: break-all !important;
+    white-space: pre-wrap !important;
+  }
+  details {
+    width: 100%;
+  }
+  details summary {
+    cursor: pointer;
+    outline: none;
   }
 /* Color palette */
   .palette {

@@ -56,6 +56,12 @@
       app.get("/axios.min.js", limiter, (req, res) => res.sendFile(`${conf.node_modules}/axios/dist/axios.min.js`))
       app.get("/axios.min.map", limiter, (req, res) => res.sendFile(`${conf.node_modules}/axios/dist/axios.min.map`))
       app.get("/vue.min.js", limiter, (req, res) => res.sendFile(`${conf.node_modules}/vue/dist/vue.min.js`))
+      app.get("/vue.prism.min.js", limiter, (req, res) => res.sendFile(`${conf.node_modules}/vue-prism-component/dist/vue-prism-component.min.js`))
+      app.get("/vue-prism-component.min.js.map", limiter, (req, res) => res.sendFile(`${conf.node_modules}/vue-prism-component/dist/vue-prism-component.min.js.map`))
+      app.get("/prism.min.js", limiter, (req, res) => res.sendFile(`${conf.node_modules}/prismjs/prism.js`))
+      app.get("/prism.yaml.min.js", limiter, (req, res) => res.sendFile(`${conf.node_modules}/prismjs/components/prism-yaml.min.js`))
+      app.get("/prism.markdown.min.js", limiter, (req, res) => res.sendFile(`${conf.node_modules}/prismjs/components/prism-markdown.min.js`))
+      app.get("/style.prism.css", limiter, (req, res) => res.sendFile(`${conf.node_modules}/prismjs/themes/prism-tomorrow.css`))
       app.get("/placeholder.svg", limiter, async (req, res) => {
         const template = req.query.template || conf.settings.templates.default
         if (!(template in Templates))

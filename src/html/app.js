@@ -11,6 +11,7 @@
         async mounted() {
           await this.load()
         },
+        components:{Prism:PrismComponent},
       //Data initialization
         data:{
           user:url.get("user") || "",
@@ -65,6 +66,36 @@
               const params = [...(this.templates.selected !== templates[0] ? [`template=${this.templates.selected}`] : []), ...plugins].join("&")
               return `${window.location.protocol}//${window.location.host}/${this.user}${params.length ? `?${params}` : ""}`
             },
+          //Embedded generated code
+            embed() {
+              return `[![GitHub metrics](${this.url})](https://github.com/lowlighter/metrics)`
+            },
+          //GitHub action auto-generated code
+            action() {
+              return [
+                `# Visit https://github.com/lowlighter/metrics for full reference`,
+                `name: GitHub metrics as SVG image`,
+                `on:`,
+                `  schedule: [{cron: "0 * * * *"}]`,
+                `  push: {branches: "master"}`,
+                `jobs:`,
+                `  github-metrics:`,
+                `    runs-on: ubuntu-latest`,
+                `    steps:`,
+                `      - uses: lowlighter/metrics@latest`,
+                `        with:`,
+                `          # Setup a personal token in your secrets.`,
+                `          token: ${"$"}{{ secrets.METRICS_TOKEN }}`,
+                `          # You can also setup a bot token for commits`,
+                `          # committer_token: ${"$"}{{ secrets.METRICS_BOT_TOKEN }}`,
+                ``,
+                `          # Options`,
+                `          user: ${this.user }`,
+                `          template: ${this.templates.selected}`,
+                `          base: ${Object.keys(this.plugins.enabled.base).join(", ") }`,
+                ...Object.entries(this.plugins.enabled).filter(([key, value]) => (key !== "base")&&(value)).map(([key]) => `          plugin_${key}: yes`)
+              ].join("\n")
+            }
         },
       //Methods
         methods:{
