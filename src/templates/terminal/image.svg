@@ -12,7 +12,7 @@
   + Math.max(0, (((!!base.metadata)+(!!base.header)+((!!base.activity)||(!!base.community))+(!!base.repositories)+(!!computed.plugins.pagespeed)+(!!computed.plugins.languages))-1))*20
 %>">
   <%
-    meta.$ = `<span class="ps1-path">${user.login.toLocaleLowerCase()}@metrics</span>:<span class="ps1-location">~</span>${computed.token.scopes.includes("repo") ? "#" : "$"}`
+    meta.$ = `<span class="ps1-path">${`${user.login}`.toLocaleLowerCase()}@metrics</span>:<span class="ps1-location">~</span>${computed.token.scopes.includes("repo") ? "#" : "$"}`
     meta.animations = !meta.placeholder ? {stdin:.16, stdout:.28, length:(2+Object.keys(base).length+Object.keys(computed.plugins).length)} : {stdin:0, stdout:0, length:0}
   %>
 
@@ -45,7 +45,7 @@
     <div xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink">
 
       <div class="header">
-        <span class="title">GitHub metrics v<%= meta.version %></span>
+        <span class="title"></span>
         <div class="buttons">
           <div class="button">─</div>
           <div class="button">□</div>
@@ -53,7 +53,7 @@
         </div>
       </div>
 
-<pre><div style="margin-top:-20px"></div><%# -%>
+<pre><%# -%>
 <% if (base.metadata) { %>
 <div class="banner"><%# -%>
 GitHub metrics generator <%= meta.version %>

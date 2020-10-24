@@ -7,6 +7,8 @@
 
 /* Title bar */
   .header {
+    position: absolute;
+    top: 0;
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -21,7 +23,7 @@
 
   .title {
     color: #d5d0ce;
-    line-height: 12px;
+    font-size: 16px;
   }
 
   .buttons {
@@ -47,7 +49,7 @@
   }
 
 /* Terminal */
-  pre, .banner, .footer {
+  pre, .banner, footer {
     margin: 0;
     font-family: 'Courier Prime';
     color: #DDDDDD;
@@ -56,8 +58,7 @@
   pre {
     background: #42092B;
     padding: 12px;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+    border-radius: 5px;
   }
   .banner, footer {
     opacity: .7;

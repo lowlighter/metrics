@@ -147,14 +147,13 @@
                         pagespeed:{scores:["Performance", "Accessibility", "Best Practices", "SEO"].map(title => ({title, score:NaN}))},
                         followup:{issues:{count:0}, pr:{count:0}},
                         habits:{indents:{style:`########`}},
-                        languages:{favorites:new Array(7).fill(null).map((_, x) => ({x, name:`############`, color:"#ebedf0", value:1/(x+1)}))},
+                        languages:{favorites:new Array(7).fill(null).map((_, x) => ({x, name:`######`, color:"#ebedf0", value:1/(x+1)}))},
                       }[key]||{})]
                     })),
                     token:{scopes:[]},
                   }),
                 }
               //Render placeholder
-              console.log(new Set([...ejs.render(image, data)]))
                 this.templates.placeholder = this.serialize(ejs.render(image, data))
                 this.generated.content = ""
             },
