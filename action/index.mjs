@@ -66,7 +66,7 @@
       //Base elements
         const base = {}
         let parts = (core.getInput("base")||"").split(",").map(part => part.trim())
-        if (!pars.length)
+        if (!parts.length)
           parts = conf.settings.plugins.base.parts
         for (const part of parts)
           base[`base.${part}`] = true
