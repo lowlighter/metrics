@@ -120,6 +120,12 @@ jobs:
 
           # Skip commits flagged with [Skip GitHub Action] from commits count
           plugin_selfskip: no
+          
+          # Optimize SVG image
+          optimize: yes
+          
+          # Number of repositories to use to compute metrics
+          repositories: 100
 
           # Enable debug logs
           debug: no
@@ -155,19 +161,17 @@ Assuming your username is `my-github-user`, you can embed your metrics in your p
 ![GitHub metrics](https://metrics.lecoq.io/my-github-user)
 ```
 
+Visit [metrics.lecoq.io](https://metrics.lecoq.io) for more informations.
+
 <details>
 <summary>💬 Restrictions and fair use</summary>
 
 Since GitHub API has rate limitations, the shared instance has a few limitations :
   * Images are cached for 1 hour
-    * Your generated metrics won't be updated during this amount of time
-    * If you enable or disable plugins in url parameters, you'll need to wait for cache expiration before these changes are applied
+    * Your generated metrics won't be updated during this amount of time when queried
   * The rate limiter is enabled, although it won't affect already cached users metrics
-  * Plugins which consume additional requests or require elevated token rights are disabled. The following plugins are available :
-    * PageSpeed plugin can be enabled by passing `?pagespeed=1`, but metrics generation can take up some time when it has not been cached yet
-    * Languages plugin can be enabled by passing `?languages=1`
-    * Follow-up plugin can be enabled by passing `?followup=1`
-
+  * Plugins which consume additional requests or require elevated token rights are disabled.
+  
 To ensure maximum availability, consider deploying your own instance or use the GitHub Action.
 
 </details>
@@ -359,21 +363,34 @@ The following errors code can be encountered if on a server instance :
 
 ## 📚 Documentations
 
+### 🖼️ Templates
+
+Templates allows you to style your metrics.
+The default is the classic one, but you can change it for something more stylish. 
+
+Some metrics may be displayed differently, and it is possible that not all plugins are supported or behave the same from one template to another.
+
+Consider trying them at [metrics.lecoq.io](https://metrics.lecoq.io) !
+
 ### 🧩 Plugins
 
 Plugins are features which are disabled by default but they can provide additional metrics.
 In return they may require additional configuration and tend to consume additional API requests.
 
-#### Base content
+#### 🗃️ Base content
+
+Generated metrics contains a few sections that are enabled by default, such as recent activity, community stats and repositories stats.
+This can be configured by explicitely opt-out from them.
+
+<details>
+<summary>💬 About</summary>
 
 By default, generated metrics contains the following sections :
 * `header`, which usually contains your username, your two-week commits calendars and a few additional data
-* `activity`, which contains your recent activity (commits, pull requests opened/reviewed, issues opened, comments, etc.)
-* `community`, which contains your community stats (following, sponsors, stars, watching, organizations, etc.)
-* `repositories`, which contains your repositories stats (license, forks, stars, watchers, packages, gists, etc.)
-* `metadata`, which contains informations about generated metrics (last updated date, etc.)
-
-<summary>💬 About</summary>
+* `activity`, which contains your recent activity (commits, pull requests, issues, etc.)
+* `community`, which contains your community stats (following, sponsors, organizations, etc.)
+* `repositories`, which contains your repositories stats (license, forks, stars, etc.)
+* `metadata`, which contains informations about generated metrics
 
 You can explicitely opt-out from them, if you want to keep only a few sections or if you want to use a plugin as standalone.
 
@@ -389,12 +406,9 @@ Choose the parts you want to keep and update your workflow. For exemple, to keep
 
 ##### Setup in your own instance
 
-Pass `?base.activity=0&base.` in url when generating metrics.
+Choose the parts you want to keep and update your url query. For exemple, to keep only `header` and `repositories` sections, pass `?base.activity=0&base.community=0&base.metadata=0` to your url query.
 
 </details>
-
-
-  # Base content to include in metrics (list of comma-separated sections name as string)
 
 
 #### ⏱️ PageSpeed
