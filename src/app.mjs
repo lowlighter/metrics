@@ -66,8 +66,8 @@
         const template = req.query.template || conf.settings.templates.default
         if (!(template in Templates))
           return res.sendStatus(404)
-        const {style, image} = conf.templates[template]
-        res.status(200).json({style, image})
+        const {style, image, fonts} = conf.templates[template]
+        res.status(200).json({style, image, fonts})
       })
       app.get("/action.flush", limiter, async (req, res) => {
         const {token, user} = req.query

@@ -104,10 +104,10 @@
               //Load template
                 const template = this.templates.selected
                 if (!this.templates.loaded[template]) {
-                  const {data:{image, style}} = await axios.get(`/placeholder.svg?template=${template}`)
-                  this.templates.loaded[template] = {image, style}
+                  const {data:{image, style, fonts}} = await axios.get(`/placeholder.svg?template=${template}`)
+                  this.templates.loaded[template] = {image, style, fonts}
                 }
-                const {image = "", style = {}} = this.templates.loaded[this.templates.selected] || {}
+                const {image = "", style = "", fonts = ""} = this.templates.loaded[this.templates.selected] || {}
                 if (!image)
                   return this.templates.placeholder = "#"
               //Proxifier
@@ -115,7 +115,7 @@
                   get(target, property) {
                     //Primitive conversion
                       if (property === Symbol.toPrimitive)
-                        return () => "▇"
+                        return () => "##"
                     //Iterables
                       if (property === Symbol.iterator)
                         return Reflect.get(target, property)
@@ -132,27 +132,29 @@
               //Placeholder data
                 const data = {
                   style,
+                  fonts,
                   s(_, letter) { return letter === "y" ? "ies" : "s" },
                   base:this.plugins.enabled.base,
                   meta:{version:"0.0.0", author:"lowlighter", placeholder:true},
-                  user:proxify({name:`▇▇▇▇`, websiteUrl:`▇▇▇▇▇▇▇▇▇▇▇▇`}),
+                  user:proxify({name:`############`, websiteUrl:`########################`}),
                   computed:proxify({
                     avatar:"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
-                    registration:"▇ years ago",
+                    registration:"## years ago",
                     calendar:new Array(14).fill({color:"#ebedf0"}),
-                    licenses:{favorite:`▇▇▇▇`},
+                    licenses:{favorite:`########`},
                     plugins:Object.fromEntries(Object.entries(this.plugins.enabled).filter(([key, enabled]) => (key !== "base")&&(enabled)).map(([key]) => {
                       return [key, proxify({
                         pagespeed:{scores:["Performance", "Accessibility", "Best Practices", "SEO"].map(title => ({title, score:NaN}))},
                         followup:{issues:{count:0}, pr:{count:0}},
-                        habits:{indents:{style:`▇▇▇`}},
-                        languages:{favorites:new Array(7).fill(null).map((_, x) => ({x, name:`▇▇▇▇`, color:"#ebedf0", value:1/(x+1)}))},
+                        habits:{indents:{style:`########`}},
+                        languages:{favorites:new Array(7).fill(null).map((_, x) => ({x, name:`############`, color:"#ebedf0", value:1/(x+1)}))},
                       }[key]||{})]
                     })),
                     token:{scopes:[]},
                   }),
                 }
               //Render placeholder
+              console.log(new Set([...ejs.render(image, data)]))
                 this.templates.placeholder = this.serialize(ejs.render(image, data))
                 this.generated.content = ""
             },

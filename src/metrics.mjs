@@ -19,7 +19,7 @@
           const s = (value, end = "") => value > 1 ? {y:"ies", "":"s"}[end] : end
           if ((!(template in Templates))||(!(template in conf.templates))||((conf.settings.templates.enabled.length)&&(!conf.settings.templates.enabled.includes(template))))
             throw new Error("unsupported template")
-          const {query, image, style} = conf.templates[template]
+          const {query, image, style, fonts} = conf.templates[template]
 
         //Query data from GitHub API
           console.debug(`metrics/compute/${login} > query`)
@@ -45,7 +45,7 @@
 
         //Eval rendering
           console.debug(`metrics/compute/${login} > render`)
-          let rendered = await ejs.render(image, {...data, s, style}, {async:true})
+          let rendered = await ejs.render(image, {...data, s, style, fonts}, {async:true})
           console.debug(`metrics/compute/${login} > render > success`)
 
         //Optimize rendering

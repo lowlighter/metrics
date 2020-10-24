@@ -54,18 +54,19 @@
               `${templates}/${name}/query.graphql`,
               `${templates}/${name}/image.svg`,
               `${templates}/${name}/style.css`,
+              `${templates}/${name}/fonts.css`,
             ]
-            const [query, image, style] = await Promise.all(files.map(async file => `${await fs.promises.readFile(path.resolve(file))}`))
-            conf.templates[name] = {query, image, style}
+            const [query, image, style, fonts] = await Promise.all(files.map(async file => `${await fs.promises.readFile(path.resolve(file))}`))
+            conf.templates[name] = {query, image, style, fonts}
             logger(`metrics/setup > load template [${name}] > success`)
           //Debug
             if (conf.settings.debug) {
               Object.defineProperty(conf.templates, name, {
                 get() {
                   logger(`metrics/setup > reload template [${name}]`)
-                  const [query, image, style] = files.map(file => `${fs.readFileSync(path.resolve(file))}`)
+                  const [query, image, style, fonts] = files.map(file => `${fs.readFileSync(path.resolve(file))}`)
                   logger(`metrics/setup > reload template [${name}] > success`)
-                  return {query, image, style}
+                  return {query, image, style, fonts}
                 }
               })
             }

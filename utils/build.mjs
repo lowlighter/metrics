@@ -28,9 +28,10 @@
           `${templates}/${name}/query.graphql`,
           `${templates}/${name}/image.svg`,
           `${templates}/${name}/style.css`,
+          `${templates}/${name}/fonts.css`,
         ]
-        const [query, image, style] = await Promise.all(files.map(async file => `${await fs.promises.readFile(path.resolve(file))}`))
-        assets[name] = {query, image, style}
+        const [query, image, style, fonts] = await Promise.all(files.map(async file => `${await fs.promises.readFile(path.resolve(file))}`))
+        assets[name] = {query, image, style, fonts}
       }
       code = code.replace(/<#assets>/g, Buffer.from(JSON.stringify(assets)).toString("base64"))
 
