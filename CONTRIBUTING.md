@@ -85,3 +85,19 @@ This way you'll be able to rapidly test SVG renders with your browser.
   * To build the GitHub Action
 * [vuejs/vue](https://github.com/vuejs/vue)
   * To display server application
+
+### 🗛 Fonts
+
+1. Find a font on [fonts.google.com](https://fonts.google.com/)
+  - Select regular, bold, italic and bold+italic fonts
+  - Open `embed` tab and extract the `href`
+2. Open extracted `href` and append `&text=` params with used characters from SVG
+  - e.g. `&text=%26%27"%7C%60%5E%40°%3F!%23%24%25()*%2B%2C-.%2F0123456789%3A%3B<%3D>ABCDEFGHIJKLMNOPQRSTUVWXYZ%5B%5D_abcdefghijklmnopqrstuvwxyz%7B%7D~─└├▇□✕`
+3. Download each font file from url links from the generated stylesheet
+4. Convert them into base64 with `woff` extension on [transfonter.org]https://transfonter.org/) and download archive
+5. Extract archive and copy the content of the generated stylesheet to `templates/*/fonts.css`
+6. Update your template
+  - Include `<defs><style><%= fonts %></style></defs>` to your `templates/*/image.svg`
+  - Edit your `templates/*/style.css` to use yout new font
+
+

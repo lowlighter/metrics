@@ -30,7 +30,7 @@
         const conf = await setup({log:false})
         console.log(`Configuration       | loaded`)
 
-      //Load svg template, style and query
+      //Load svg template, style, fonts and query
         const template = core.getInput("template") || "classic"
         console.log(`Template to use     | ${template}`)
 
