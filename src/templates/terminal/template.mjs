@@ -3,5 +3,8 @@
 
 /** Template processor */
   export default async function ({login, q}, {conf, data, rest, graphql, plugins}, {s, pending, imports}) {
-    await common(...arguments)
+    //Common
+      await common(...arguments)
+    //Disable optimization to keep white-spaces
+      q.raw = true
   }
