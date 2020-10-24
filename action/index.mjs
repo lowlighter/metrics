@@ -66,7 +66,9 @@
       //Base elements
         const base = {}
         let parts = (core.getInput("base")||"").split(",").map(part => part.trim())
-        for (const part of (parts.length ? parts : conf.settings.plugins.base.parts))
+        if (!parts.length)
+          parts = conf.settings.plugins.base.parts
+        for (const part of conf.settings.plugins.base.parts)
           base[`base.${part}`] = parts.includes(part)
         console.log(`Base parts          | ${parts.join(", ")}`)
 
@@ -114,7 +116,7 @@
                 path:filename,
               })
               sha = data.sha
-            } catch (error) { }
+            } catch (error) { console.debug(error) }
             console.log(`Previous render sha | ${sha || "none"}`)
           //Update file content through API
             await rest.repos.createOrUpdateFileContents({
