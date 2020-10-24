@@ -63,14 +63,6 @@
           console.debug = () => null
         console.log(`Debug mode          | ${debug}`)
 
-      //Base elements
-        let base = (core.getInput("base")||"").split(",").map(part => part.trim())
-        if (!base.length)
-          base = conf.settings.plugins.base.parts
-        for (const part of base)
-          q[`base.${part}`] = true
-        console.log(`Base elements       | ${base.join(", ")}`)
-
       //Additional plugins
         const plugins = {
           lines:{enabled:bool(core.getInput("plugin_lines"))},
@@ -87,6 +79,14 @@
           plugins.pagespeed.token = core.getInput("pagespeed_token")
           console.log(`Pagespeed token     | ${plugins.pagespeed.token ? "provided" : "missing"}`)
         }
+
+      //Base elements
+        let base = (core.getInput("base")||"").split(",").map(part => part.trim())
+        if (!base.length)
+          base = conf.settings.plugins.base.parts
+        for (const part of base)
+          q[`base.${part}`] = true
+        console.log(`Base elements       | ${base.join(", ")}`)
 
       //Repositories to use
         const repositories = Number(core.getInput("repositories")) || 100
