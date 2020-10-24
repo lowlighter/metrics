@@ -53,7 +53,7 @@
         </div>
       </div>
 
-<pre><div style="margin-top:-16px"></div><%# -%>
+<pre><div style="margin-top:-20px"></div><%# -%>
 <% if (base.metadata) { %>
 <div class="banner"><%# -%>
 GitHub metrics generator <%= meta.version %>

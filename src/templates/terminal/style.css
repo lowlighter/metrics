@@ -47,19 +47,21 @@
   }
 
 /* Terminal */
-  pre {
+  pre, .banner, .footer {
     margin: 0;
-    background: #42092B;
-    padding: 12px;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
     font-family: monospace;
     color: #DDDDDD;
     white-space: break-spaces;
   }
-
+  pre {
+    background: #42092B;
+    padding: 12px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
   .banner, footer {
     opacity: .7;
+    font-family: monospace;
   }
 
 /* Prompt */
