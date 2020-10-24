@@ -63,6 +63,15 @@
           console.debug = () => null
         console.log(`Debug mode          | ${debug}`)
 
+      //Base elements
+        const base = {}
+        let parts = (core.getInput("base")||"").split(",").map(part => part.trim())
+        if (!pars.length)
+          parts = conf.settings.plugins.base.parts
+        for (const part of parts)
+          base[`base.${part}`] = true
+        console.log(`Base parts         | ${parts.join(", ")}`)
+
       //Additional plugins
         const plugins = {
           lines:{enabled:bool(core.getInput("plugin_lines"))},
@@ -80,20 +89,12 @@
           console.log(`Pagespeed token     | ${plugins.pagespeed.token ? "provided" : "missing"}`)
         }
 
-      //Base elements
-        let base = (core.getInput("base")||"").split(",").map(part => part.trim())
-        if (!base.length)
-          base = conf.settings.plugins.base.parts
-        for (const part of base)
-          q[`base.${part}`] = true
-        console.log(`Base elements       | ${base.join(", ")}`)
-
       //Repositories to use
         const repositories = Number(core.getInput("repositories")) || 100
         console.log(`Repositories to use | ${repositories}`)
 
       //Render metrics
-        const rendered = await metrics({login:user, q:{...q, repositories, template}}, {graphql, rest, plugins, conf})
+        const rendered = await metrics({login:user, q:{...q, ...base, repositories, template}}, {graphql, rest, plugins, conf})
         console.log(`Render              | complete`)
 
       //Commit to repository
