@@ -66,8 +66,6 @@
       //Base elements
         const base = {}
         let parts = (core.getInput("base")||"").split(",").map(part => part.trim())
-        if (!parts.length)
-          parts = conf.settings.plugins.base.parts
         for (const part of conf.settings.plugins.base.parts)
           base[`base.${part}`] = parts.includes(part)
         console.log(`Base parts          | ${parts.join(", ")}`)

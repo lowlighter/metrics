@@ -12,7 +12,7 @@
   export default async function build() {
     //Build code
       let {code} = await ncc(`${__dirname}/index.mjs`, {
-        //minify:true,
+        minify:true,
         sourceMap:false,
         sourceMapRegister:false,
       })

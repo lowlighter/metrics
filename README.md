@@ -98,6 +98,9 @@ jobs:
           # Template to use (see src/templates to get a list of supported templates)
           template: classic
 
+          # Base content to include in metrics (list of comma-separated sections name as string)
+          base: "header, activity, community, repositories, metadata"
+
           # Enable Google PageSpeed metrics for account attached website
           # See https://developers.google.com/speed/docs/insights/v5/get-started for more informations
           plugin_pagespeed: no
@@ -111,7 +114,9 @@ jobs:
           plugin_traffic: no
 
           # Enable coding habits metrics
+          # You can also configure the number of activity events to base habits on (up to 100)
           plugin_habits: no
+          plugin_habits_from: 100
 
           # Skip commits flagged with [Skip GitHub Action] from commits count
           plugin_selfskip: no
@@ -358,6 +363,39 @@ The following errors code can be encountered if on a server instance :
 
 Plugins are features which are disabled by default but they can provide additional metrics.
 In return they may require additional configuration and tend to consume additional API requests.
+
+#### Base content
+
+By default, generated metrics contains the following sections :
+* `header`, which usually contains your username, your two-week commits calendars and a few additional data
+* `activity`, which contains your recent activity (commits, pull requests opened/reviewed, issues opened, comments, etc.)
+* `community`, which contains your community stats (following, sponsors, stars, watching, organizations, etc.)
+* `repositories`, which contains your repositories stats (license, forks, stars, watchers, packages, gists, etc.)
+* `metadata`, which contains informations about generated metrics (last updated date, etc.)
+
+<summary>💬 About</summary>
+
+You can explicitely opt-out from them, if you want to keep only a few sections or if you want to use a plugin as standalone.
+
+##### Setup with GitHub actions
+
+Choose the parts you want to keep and update your workflow. For exemple, to keep only `header` and `repositories` sections, add the following to your workflow :
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    base: "header, repositories" # opt-out from "activity", "community" and "metadata"
+```
+
+##### Setup in your own instance
+
+Pass `?base.activity=0&base.` in url when generating metrics.
+
+</details>
+
+
+  # Base content to include in metrics (list of comma-separated sections name as string)
+
 
 #### ⏱️ PageSpeed
 

@@ -72,11 +72,11 @@
                 <template v-else>
                   <img class="metrics preview-inline" :src="templates.placeholder" alt="metrics">
                 </template>
+                <div class="error" v-if="generated.error">An error occurred. Please try again later.</div>
               </div>
               <template v-if="user">
                 <button @click="generate" :disabled="generated.pending">{{ generated.pending ? "Working on it :)" : "Generate your metrics !" }}</button>
               </template>
-              <div class="error" v-if="generated.error">An error occurred. Please try again later.</div>
             </div>
             <div class="step">
               <h2>4. Embed these metrics on your GitHub profile</h2>

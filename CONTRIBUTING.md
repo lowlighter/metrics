@@ -54,6 +54,7 @@ This way you'll be able to rapidly test SVG renders with your browser.
 
 * `index.mjs` contains the metrics server entry point
 * `src/app.mjs` contains the metrics server code which serves, renders, restricts/rate limit, etc.
+* `src/html/*` contains the metrics server static files
 
 #### GitHub action
 

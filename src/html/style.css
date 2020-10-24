@@ -104,14 +104,16 @@
   }
   .generator .preview-inliner {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
   }
-  .generator .preview-inline .metrics {
+  .generator .preview-inliner .metrics {
     width: 100%;
     max-width: 480px;
   }
   @media only screen and (min-width: 1180px)  {
-    .generator .preview-inline {
+    .generator .preview-inliner {
       display: none;
     }
     .generator .preview {
