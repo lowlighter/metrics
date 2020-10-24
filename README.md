@@ -4,13 +4,13 @@
 
 Generates your own GitHub metrics as an SVG image to put them on your profile page or elsewhere !
 
-![GitHub metrics](https://github.com/lowlighter/lowlighter/blob/master/github-metrics-alt.svg)
+![GitHub metrics](https://github.com/lowlighter/lowlighter/blob/master/metrics.svg)
 
 But there's more with [plugins](https://github.com/lowlighter/metrics/tree/master/src/plugins) and [templates](https://github.com/lowlighter/metrics/tree/master/src/templates) !
 
 | Additional plugins | Terminal template |
 | :----------------: | :---------------: |
-|[<img src="https://github.com/lowlighter/lowlighter/blob/master/github-metrics.svg" alt="" height="220">](https://github.com/lowlighter/lowlighter/blob/master/github-metrics.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/github-metrics-terminal.svg" alt="" height="220">](https://github.com/lowlighter/lowlighter/blob/master/github-metrics-terminal.svg)|
+|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.demo.svg" alt="" height="220">](https://github.com/lowlighter/lowlighter/blob/master/github-metrics.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.terminal.demo.svg" alt="" height="220">](https://github.com/lowlighter/lowlighter/blob/master/github-metrics-terminal.svg)|
 
 ### 🦑 Interested to get your own ?
 
