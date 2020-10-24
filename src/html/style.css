@@ -14,7 +14,7 @@
     align-items: center;
     width: 100%;
     padding: 1rem 1.5rem;
-    overflow: hidden;
+    overflow-x: hidden;
     transition: background-color .3s;
   }
 /* Headlines */
