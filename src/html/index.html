@@ -6,274 +6,107 @@
     <meta name="description" content="A SVG image generator which includes activity, community and repositories metrics about your GitHub account that you can includes on your profile">
     <meta name="author" content="lowlighter">
     <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="/style.css">
   </head>
   <body>
-
+    <!-- Vue app -->
     <main :class="[palette]">
-
+      <!-- Title -->
       <h1><a href="https://github.com/lowlighter/metrics">Generate your metrics !</a></h1>
-
+      <!-- Content -->
       <template>
-
-        <div class="step">
-          <h2>1. Enter your GitHub username</h2>
-          <label>
-            <input type="text" v-model="user" maxlength="39" placeholder="GitHub username" :disabled="generated.pending">
-          </label>
-        </div>
-
-        <div class="step">
-          <h2>2. Select a template {{ plugins.list.length ? "and enable additional plugins" : "" }}</h2>
-          <div class="templates">
-            <label v-for="template in templates.list" :key="template">
-              <input type="radio" v-model="templates.selected" :value="template" @change="load" :disabled="generated.pending">
-              {{ templates.descriptions[template] || template }}
-            </label>
-          </div>
-          <div class="plugins">
-            <label v-for="plugin in plugins.list" :key="plugin">
-              <input type="checkbox" v-model="plugins.enabled[plugin]" @change="load" :disabled="generated.pending">
-              {{ plugins.descriptions[plugin] || plugin }}
-            </label>
-          </div>
-          <div class="cache-notice" v-if="plugins.list.length">
-            *To reduce server overhead, metrics are cached. Changes may not be reflected until cache expiration.
-          </div>
-          <div class="palette">
-            Generated metrics use transparency and colors which matches both light and dark modes
-            <div class="palettes">
-              <label>
-                <input type="radio" v-model="palette" value="light">
-                ☀️ Light mode
-              </label>
-              <label>
-                <input type="radio" v-model="palette" value="dark">
-                🌙 Night mode
-              </label>
+        <section class="generator">
+          <!-- Steps panel -->
+          <section class="steps">
+            <div class="step">
+              <h2>1. Enter your GitHub username</h2>
+              <input type="text" v-model="user" maxlength="39" placeholder="GitHub username" :disabled="generated.pending">
             </div>
-          </div>
-        </div>
-
-        <div class="step">
-          <h2>3. Generate your metrics</h2>
-          <template v-if="generated.content">
-            <img class="metrics" :src="generated.content" alt="metrics">
-          </template>
-          <template v-else>
-            <img class="metrics" :src="templates.placeholder" alt="metrics">
-            <button @click="generate" :disabled="(!user)||(generated.pending)">{{ generated.pending ? "Generating your metrics..." : user ? "Generate your metrics" : "Enter your GitHub username first" }}</button>
-          </template>
-        </div>
-
-        <div class="step">
-          <h2>4. Embed these metrics on your GitHub profile</h2>
-          <template v-if="user">
-            Add the markdown below in your <i>README.md</i> at <a :href="repo">{{ user }}/{{ user }}</a>
-            <div class="code">
-              ![<span class="md-alt">GitHub metrics</span>]({{ url }})
+            <div class="step">
+              <h2>2. Select a template</h2>
+              <div class="templates">
+                <label v-for="template in templates.list" :key="template">
+                  <input type="radio" v-model="templates.selected" :value="template" @change="load" :disabled="generated.pending">
+                  {{ templates.descriptions[template] || template }}
+                </label>
+              </div>
+              <template v-if="plugins.base.length">
+                <h3>2.1 Configure base content</h3>
+                <div class="plugins">
+                  <label v-for="part in plugins.base" :key="part">
+                    <input type="checkbox" v-model="plugins.enabled.base[part]" @change="load" :disabled="generated.pending">
+                    {{ plugins.descriptions[`base.${part}`] || `base.${part}` }}
+                  </label>
+                </div>
+              </template>
+              <template v-if="plugins.list.length">
+                <h3>2.2 Enable additional plugins</h3>
+                <div class="plugins">
+                  <label v-for="plugin in plugins.list" :key="plugin">
+                    <input type="checkbox" v-model="plugins.enabled[plugin]" @change="load" :disabled="generated.pending">
+                    {{ plugins.descriptions[plugin] || plugin }}
+                  </label>
+                </div>
+              </template>
+              <div class="palette">
+                Generated metrics use transparency and colors which can be read on both light and dark modes, so everyone can see your stats whatever their preferred color scheme !
+                <div class="palettes">
+                  <label>
+                    <input type="radio" v-model="palette" value="light"> ☀️ Light mode
+                  </label>
+                  <label>
+                    <input type="radio" v-model="palette" value="dark"> 🌙 Night mode
+                  </label>
+                </div>
+              </div>
             </div>
-          </template>
-          For even more features, setup <a href="https://github.com/lowlighter/metrics">lowlighter/metrics</a> as a <a href="https://github.com/marketplace/actions/github-metrics-as-svg-image">GitHub action</a> !
-        </div>
-
+            <div class="step">
+              <h2>3. Generate your metrics</h2>
+              <template v-if="!user">
+                Set your username to generate your metrics 🦑
+              </template>
+              <div class="preview-inliner">
+                <template v-if="generated.content">
+                  <img class="metrics preview-inline" :src="generated.content" alt="metrics">
+                </template>
+                <template v-else>
+                  <img class="metrics preview-inline" :src="templates.placeholder" alt="metrics">
+                </template>
+              </div>
+              <template v-if="user">
+                <button @click="generate" :disabled="generated.pending">{{ generated.pending ? "Working on it :)" : "Generate your metrics !" }}</button>
+              </template>
+              <div class="error" v-if="generated.error">An error occurred. Please try again later.</div>
+            </div>
+            <div class="step">
+              <h2>4. Embed these metrics on your GitHub profile</h2>
+              <template v-if="user">
+                Add the markdown below in your <i>README.md</i> at <a :href="repo">{{ user }}/{{ user }}</a>
+                <div class="code">
+                  ![<span class="md-alt">GitHub metrics</span>]({{ url }})
+                </div>
+              </template>
+              For even more features, setup <a href="https://github.com/lowlighter/metrics">lowlighter/metrics</a> as a <a href="https://github.com/marketplace/actions/github-metrics-as-svg-image">GitHub action</a> !<br>
+              Enjoying <a href="https://github.com/lowlighter/metrics">metrics</a> ? Consider starring it, a little bit of support is always appreciated 💖 !
+            </div>
+          </section>
+          <!-- Metrics preview -->
+          <section class="preview">
+            <template v-if="generated.content">
+              <img class="metrics" :src="generated.content" alt="metrics">
+            </template>
+            <template v-else>
+              <img class="metrics" :src="templates.placeholder" alt="metrics">
+            </template>
+            <div class="error" v-if="generated.error">An error occurred. Please try again later.</div>
+          </section>
+        </section>
       </template>
-
     </main>
-
+    <!-- Scripts -->
     <script src="/axios.min.js"></script>
     <script src="/ejs.min.js"></script>
     <script src="/vue.min.js"></script>
-    <script>
-      ;(async function() {
-        const url = new URLSearchParams(window.location.search)
-        new Vue({
-          el:"main",
-          async mounted() {
-            await this.load()
-          },
-          data:{
-            user:url.get("user") || "",
-            palette:url.get("palette") || "light",
-            plugins:{
-              list:(await axios.get("/plugins.list")).data,
-              enabled:{},
-              descriptions:{
-                pagespeed:"Website performances",
-                languages:"Most used languages",
-                followup:"Owned repositories issues and pull requests",
-                traffic:"Pages views",
-                lines:"Lines of code changed",
-                habits:"Coding habits",
-                selfskip:"Skip metrics commits",
-              },
-            },
-            templates:{
-              list:(await axios.get("/templates.list")).data,
-              loaded:{},
-              selected:url.get("template") || (await axios.get("/templates.list")).data[0],
-              placeholder:"",
-              descriptions:{
-                classic:"Classic template",
-                terminal:"Terminal template"
-              },
-            },
-            generated:{
-              pending:false,
-              content:"",
-            },
-          },
-          computed:{
-            repo() {
-              return `https://github.com/${this.user}/${this.user}`
-            },
-            url() {
-              const plugins = Object.entries(this.plugins.enabled)
-                .filter(([key, value]) => value)
-                .map(([key, value]) => `${key}=${+value}`)
-                .join("&")
-              return `${window.location.protocol}//${window.location.host}/${this.user}?template=${this.templates.selected}${plugins.length ? `&${plugins}` : ""}`
-            },
-          },
-          methods:{
-            async load() {
-              const template = this.templates.selected
-              if (!this.templates.loaded[template]) {
-                const {data:{placeholder, style}} = await axios.get(`/placeholder.svg?template=${template}`)
-                this.templates.loaded[template] = {placeholder, style}
-              }
-              const {placeholder = "", style = {}} = this.templates.loaded[this.templates.selected] || {}
-              this.templates.placeholder = placeholder ? this.serialize(ejs.render(placeholder, {plugins:this.plugins.enabled, style})) : "#"
-            },
-            async generate() {
-              this.generated.pending = true
-              await axios.get(`/action.flush?&token=${(await axios.get(`/action.flush?user=${this.user}`)).data.token}`)
-              this.generated.content = this.serialize((await axios.get(this.url)).data)
-            },
-            serialize(svg) {
-              return `data:image/svg+xml;base64,${btoa(unescape(encodeURIComponent(svg)))}`
-            },
-          },
-        })
-      })()
-    </script>
-
-    <style>
-      body {
-        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
-        padding: 0;
-        margin: 0;
-        display: flex;
-        justify-content: center;
-      }
-      main {
-        background-color: #FFFFFF;
-        color: #1B1F23;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding-bottom: 2rem;
-        width: 100%;
-        transition: background-color .3s;
-      }
-      h1 {
-        font-size: 1.6rem;
-        margin: 1rem 0;
-      }
-      h2 {
-        margin: 1.5rem 0 1rem;
-        font-size: 1.3rem;
-      }
-      a, a:hover, a:visited {
-        color: #0366D6;
-        text-decoration: none;
-        font-style: normal;
-        outline: none;
-      }
-      a:hover {
-        color: #79B8FF;
-        transition: color .4s;
-        cursor: pointer;
-      }
-      input, button, select {
-        border-radius: .5rem;
-        padding: .25rem .5rem;
-        outline: none;
-        border: 1px solid #E1E4E8;
-        background-color: #FAFBFC;
-        color: #1B1F23;
-        text-align: center;
-        cursor: pointer;
-      }
-      input:focus {
-        outline: none;
-      }
-      input[type=text], select, button {
-        min-width: 50%;
-        font-size: 1.1rem;
-      }
-      option {
-        text-align: center;
-      }
-      label, button {
-        margin: 1rem;
-      }
-      input[disabled], button[disabled], select[disabled] {
-        opacity: .5;
-        cursor: not-allowed;
-      }
-      .step {
-        margin-bottom: 1rem;
-        text-align: center;
-        max-width: 800px;
-      }
-      .plugins, .palettes {
-        margin-top: 1rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-wrap: wrap;
-      }
-      .plugins label, .palettes label {
-        margin: 0 1rem;
-      }
-      .code {
-        font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
-        padding: 1rem;
-        margin: .5rem 0;
-        border-radius: .5rem;
-        background-color: #FAFBFC;
-      }
-      .code .md-alt {
-        color: #6F42C1;
-      }
-      .cache-notice {
-        margin-top: .5rem;
-        font-size: .9rem;
-        opacity: .8;
-      }
-      img.metrics {
-        width: 100%;
-        max-width: 480px;
-      }
-      .palette {
-        margin-top: 1rem;
-      }
-      main.dark {
-        background-color: #181A1B;
-        color: #D4D1C5;
-      }
-      .dark a, .dark a:visited {
-        color: #4CACEE;
-      }
-      .dark input, .dark button {
-        color: #D4D1C5;
-        background-color: #1A1C1E;
-        border-color: #373C3E;
-      }
-      .dark .code {
-        background-color: #1A1C1E;
-      }
-    </style>
-
+    <script src="/app.js"></script>
   </body>
 </html>

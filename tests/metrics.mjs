@@ -12,6 +12,7 @@
 //Initialization
   const __dirname =  path.join(path.dirname(url.fileURLToPath(import.meta.url)), "..", "action")
   process.on("unhandledRejection", error => { throw error })
+  const templates = (await fs.promises.readdir(path.join(__dirname, "..", "src/templates"))).filter(name => !/.*[.]mjs$/.test(name))
 
 /** Test function */
   export default async function test() {
@@ -22,12 +23,14 @@
 
     //Perform tests
       await test.build()
-      for (const template of [
-        "classic",
-        "terminal",
-      ]) {
+      for (const template of templates) {
         for (const q of [
           {},
+          {"base.header":0},
+          {"base.activity":0},
+          {"base.community":0},
+          {"base.repositories":0},
+          {"base.metadata":0},
           {followup:1},
           {languages:1},
           {followup:1, languages:1},
@@ -36,7 +39,7 @@
           {traffic:1},
           {selfskip:1},
           {pagespeed:1},
-          {followup:1, languages:1, habits:1, "habits.events":1, lines:1, traffic:1, selfskip:1, pagespeed:1}
+          {followup:1, languages:1, habits:1, "habits.events":1, lines:1, traffic:1, selfskip:1, pagespeed:1},
         ]) {
           await test.metrics({graphql, rest, q:{template, repositories:1, ...q}})
         }
@@ -46,7 +49,7 @@
 /** Metrics tests */
   test.metrics = async function ({graphql, rest, q}) {
     //Preparation
-      console.log(`### Checking metrics with plugins [${Object.keys(q).filter(key => /^\w+$/.test(key)).join(", ")}]`)
+      console.log(`### Checking metrics with [${Object.entries(q).map(([key, value]) => `${key}=${value}`).join(", ")}]`)
       const plugins = {
         lines:{enabled:true},
         traffic:{enabled:true},

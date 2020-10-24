@@ -28,6 +28,7 @@
         conf.settings.templates = {default:"classic", enabled:[]}
       if (!conf.settings.plugins)
         conf.settings.plugins = {}
+      conf.settings.plugins.base = {parts:["header", "activity", "community", "repositories", "metadata"]}
       if (conf.settings.debug)
         logger(conf.settings)
 
@@ -39,7 +40,7 @@
       }
       else {
         logger(`metrics/setup > load package.json > (missing)`)
-        conf.package = {version:"<#version>"}
+        conf.package = {version:"<#version>", author:"lowlighter"}
       }
 
     //Load templates
@@ -52,20 +53,19 @@
             const files = [
               `${templates}/${name}/query.graphql`,
               `${templates}/${name}/image.svg`,
-              `${templates}/${name}/placeholder.svg`,
               `${templates}/${name}/style.css`,
             ]
-            const [query, image, placeholder, style] = await Promise.all(files.map(async file => `${await fs.promises.readFile(path.resolve(file))}`))
-            conf.templates[name] = {query, image, placeholder, style}
+            const [query, image, style] = await Promise.all(files.map(async file => `${await fs.promises.readFile(path.resolve(file))}`))
+            conf.templates[name] = {query, image, style}
             logger(`metrics/setup > load template [${name}] > success`)
           //Debug
             if (conf.settings.debug) {
               Object.defineProperty(conf.templates, name, {
                 get() {
                   logger(`metrics/setup > reload template [${name}]`)
-                  const [query, image, placeholder, style] = files.map(file => `${fs.readFileSync(path.resolve(file))}`)
+                  const [query, image, style] = files.map(file => `${fs.readFileSync(path.resolve(file))}`)
                   logger(`metrics/setup > reload template [${name}] > success`)
-                  return {query, image, placeholder, style}
+                  return {query, image, style}
                 }
               })
             }

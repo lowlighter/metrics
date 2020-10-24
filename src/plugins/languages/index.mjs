@@ -6,7 +6,6 @@
       if (!q.languages)
         return computed.plugins.languages = null
       console.debug(`metrics/compute/${login}/plugins > languages`)
-      computed.svg.height += 90
 
     //Plugin execution
       pending.push(new Promise(async solve => {

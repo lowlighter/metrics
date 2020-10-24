@@ -6,7 +6,6 @@
       if (!q.habits)
         return computed.plugins.habits = null
       console.debug(`metrics/compute/${login}/plugins > habits`)
-      computed.svg.height += 70
 
     //Parameter override
       if (typeof q["habits.from"] === "number") {

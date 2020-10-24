@@ -46,9 +46,12 @@
       const actions = {flush:new Map()}
       app.get("/", limiter, (req, res) => res.sendFile(`${conf.statics}/index.html`))
       app.get("/index.html", limiter, (req, res) => res.sendFile(`${conf.statics}/index.html`))
+      app.get("/app.js", limiter, (req, res) => res.sendFile(`${conf.statics}/app.js`))
+      app.get("/style.css", limiter, (req, res) => res.sendFile(`${conf.statics}/style.css`))
       app.get("/favicon.ico", limiter, (req, res) => res.sendStatus(204))
       app.get("/plugins.list", limiter, (req, res) => res.status(200).json(enabled))
       app.get("/templates.list", limiter, (req, res) => res.status(200).json(templates))
+      app.get("/plugins.base.parts.list", limiter, (req, res) => res.status(200).json(conf.settings.plugins.base.parts))
       app.get("/ejs.min.js", limiter, (req, res) => res.sendFile(`${conf.node_modules}/ejs/ejs.min.js`))
       app.get("/axios.min.js", limiter, (req, res) => res.sendFile(`${conf.node_modules}/axios/dist/axios.min.js`))
       app.get("/axios.min.map", limiter, (req, res) => res.sendFile(`${conf.node_modules}/axios/dist/axios.min.map`))
@@ -57,8 +60,8 @@
         const template = req.query.template || conf.settings.templates.default
         if (!(template in Templates))
           return res.sendStatus(404)
-        const {style, placeholder} = conf.templates[template]
-        res.status(200).json({style, placeholder})
+        const {style, image} = conf.templates[template]
+        res.status(200).json({style, image})
       })
       app.get("/action.flush", limiter, async (req, res) => {
         const {token, user} = req.query

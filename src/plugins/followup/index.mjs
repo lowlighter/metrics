@@ -6,7 +6,6 @@
       if (!q.followup)
         return computed.plugins.followup = null
       console.debug(`metrics/compute/${login}/plugins > followup`)
-      computed.svg.height += 70
 
     //Plugin execution
       pending.push(new Promise(async solve => {

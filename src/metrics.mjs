@@ -31,6 +31,11 @@
           )
           console.debug(`metrics/compute/${login} > query > success`)
 
+        //Base parts
+          data.base = {}
+          for (const part of conf.settings.plugins.base.parts)
+            data.base[part] = (`base.${part}` in q) ? !!q[`base.${part}`] : true
+
         //Template
           console.debug(`metrics/compute/${login} > compute`)
           const computer = Templates[template].default || Templates[template]

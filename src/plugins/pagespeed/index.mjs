@@ -11,7 +11,6 @@
       if (!q.pagespeed)
         return computed.plugins.pagespeed = null
       console.debug(`metrics/compute/${login}/plugins > pagespeed`)
-      computed.svg.height += 130
 
     //Plugin execution
       pending.push(new Promise(async solve => {

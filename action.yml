@@ -26,6 +26,9 @@ inputs:
   repositories:
     description: Number of repositories to use to compute metrics
     default: 100
+  base:
+    description: Base content to include in metrics (list of comma-separated sections name as string)
+    default: "header, activity, community, repositories, metadata"
   plugin_pagespeed:
     description: Enable Google PageSpeed metrics for account attached website
     default: no

@@ -14,7 +14,6 @@
       if (!q.lines)
         return computed.plugins.lines = null
       console.debug(`metrics/compute/${login}/plugins > lines`)
-      computed.svg.height += 20
 
     //Plugin execution
       pending.push(new Promise(async solve => {

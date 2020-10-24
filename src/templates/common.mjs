@@ -2,7 +2,7 @@
   export default async function ({login, q}, {conf, data, rest, graphql, plugins}, {s, pending, imports}) {
 
     //Init
-      const computed = data.computed = {commits:0, sponsorships:0, licenses:{favorite:"", used:{}}, svg:{height:355, width:480}, token:{}, repositories:{watchers:0, stargazers:0, issues_open:0, issues_closed:0, pr_open:0, pr_merged:0, forks:0}, plugins:{}}
+      const computed = data.computed = {commits:0, sponsorships:0, licenses:{favorite:"", used:{}}, token:{}, repositories:{watchers:0, stargazers:0, issues_open:0, issues_closed:0, pr_open:0, pr_merged:0, forks:0}, plugins:{}}
       const avatar = imports.imgb64(data.user.avatarUrl)
 
     //Plugins
@@ -48,5 +48,8 @@
 
     //Token scopes
       computed.token.scopes = (await rest.request("HEAD /")).headers["x-oauth-scopes"].split(", ")
+
+    //Meta
+      data.meta = {version:conf.package.version, author:conf.package.author}
 
   }
