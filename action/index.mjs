@@ -20,7 +20,6 @@
 
       //Skip process if needed
         if ((github.context.eventName === "push")&&(github.context.payload)&&(github.context.payload.head_commit)) {
-          console.log(github.context.payload.head_commit.message)
           if (/\[Skip GitHub Action\]/.test(github.context.payload.head_commit.message)) {
             console.log(`Skipped because [Skip GitHub Action] is in commit message`)
             process.exit(0)
@@ -39,7 +38,7 @@
         const token = core.getInput("token")
         console.log(`Github token        | ${token ? "provided" : "missing"}`)
         if (!token)
-          throw new Error("You must provide a valid GitHub token")
+          throw new Error("You must provide a valid GitHub token to gather your metrics")
         const graphql = octokit.graphql.defaults({headers:{authorization: `token ${token}`}})
         console.log(`Github GraphQL API  | ok`)
         const rest = github.getOctokit(token)
@@ -51,6 +50,7 @@
 
       //SVG optimization
         const optimize = bool(core.getInput("optimize"), true)
+        conf.optimize = optimize
         console.log(`SVG optimization    | ${optimize}`)
 
       //GitHub user
@@ -94,7 +94,7 @@
             const token = core.getInput("committer_token") || core.getInput("token")
             console.log(`Committer token     | ${token ? "provided" : "missing"}`)
             if (!token)
-              throw new Error("You must provide a valid GitHub token")
+              throw new Error("You must provide a valid GitHub token to commit your metrics")
             const rest = github.getOctokit(token)
             console.log(`Committer REST API  | ok`)
             console.log(`Committer           | ${(await rest.users.getAuthenticated()).data.login}`)
