@@ -13,6 +13,8 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
+    padding: 1rem 1.5rem;
+    overflow: hidden;
     transition: background-color .3s;
   }
 /* Headlines */
