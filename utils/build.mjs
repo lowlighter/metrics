@@ -12,7 +12,7 @@
   export default async function build() {
     //Build code
       let {code} = await ncc(`${__dirname}/index.mjs`, {
-        minify:true,
+        //minify:true,
         sourceMap:false,
         sourceMapRegister:false,
       })
@@ -32,11 +32,11 @@
         const [query, image, style] = await Promise.all(files.map(async file => `${await fs.promises.readFile(path.resolve(file))}`))
         assets[name] = {query, image, style}
       }
-      code = code.replace(`<#assets>`, Buffer.from(JSON.stringify(assets)).toString("base64"))
+      code = code.replace(/<#assets>/g, Buffer.from(JSON.stringify(assets)).toString("base64"))
 
     //Perform version include
       const version = JSON.parse(await fs.promises.readFile(path.join(__dirname, "..", "package.json"))).version
-      code = code.replace(`<#version>`, version)
+      code = code.replace(/<#version>/g, version)
 
     //Code
       return code
