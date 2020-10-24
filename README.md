@@ -373,6 +373,7 @@ By default, generated metrics contains the following sections :
 * `repositories`, which contains your repositories stats (license, forks, stars, watchers, packages, gists, etc.)
 * `metadata`, which contains informations about generated metrics (last updated date, etc.)
 
+<details>
 <summary>💬 About</summary>
 
 You can explicitely opt-out from them, if you want to keep only a few sections or if you want to use a plugin as standalone.
