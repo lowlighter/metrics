@@ -53,7 +53,6 @@
     margin: 0;
     font-family: 'Courier Prime';
     color: #DDDDDD;
-    white-space: break-spaces;
   }
   pre {
     background: #42092B;
@@ -61,7 +60,7 @@
     border-radius: 5px;
   }
   .banner, footer {
-    opacity: .7;
+    color: #AE9DA7;
   }
 
 /* Prompt */
