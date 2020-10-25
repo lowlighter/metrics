@@ -6,6 +6,7 @@
   import Plugins from "./plugins/index.mjs"
   import Templates from "./templates/index.mjs"
   import puppeteer from "puppeteer"
+  import url from "url"
 
 //Setup
   export default async function metrics({login, q}, {graphql, rest, plugins, conf}) {
@@ -43,7 +44,7 @@
         //Template
           console.debug(`metrics/compute/${login} > compute`)
           const computer = Templates[template].default || Templates[template]
-          await computer({login, q}, {conf, data, rest, graphql, plugins}, {s, pending, imports:{plugins:Plugins, imgb64, axios, puppeteer, format, shuffle}})
+          await computer({login, q}, {conf, data, rest, graphql, plugins}, {s, pending, imports:{plugins:Plugins, url, imgb64, axios, puppeteer, format, shuffle}})
           await Promise.all(pending)
           console.debug(`metrics/compute/${login} > compute > success`)
 
@@ -84,7 +85,9 @@
 
 /** Array shuffler */
   function shuffle(array) {
-    for (let i = array.length-1, j = Math.floor(Math.random()*(i+1)); i > 0; i--)
-      [array[i], array[j]] = [array[j], array[i]]
+    for (let i = array.length-1; i > 0; i--) {
+      const j = Math.floor(Math.random()*(i+1))
+      ;[array[i], array[j]] = [array[j], array[i]]
+    }
     return array
   }

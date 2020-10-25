@@ -120,10 +120,13 @@ jobs:
 
           # Skip commits flagged with [Skip GitHub Action] from commits count
           plugin_selfskip: no
-          
+
+          # Enable music plugin (checkout documentation for option list)
+          plugin_music: no
+
           # Optimize SVG image
           optimize: yes
-          
+
           # Number of repositories to use to compute metrics
           repositories: 100
 
@@ -171,7 +174,7 @@ Since GitHub API has rate limitations, the shared instance has a few limitations
     * Your generated metrics won't be updated during this amount of time when queried
   * The rate limiter is enabled, although it won't affect already cached users metrics
   * Plugins which consume additional requests or require elevated token rights are disabled.
-  
+
 To ensure maximum availability, consider deploying your own instance or use the GitHub Action.
 
 </details>
@@ -286,6 +289,13 @@ Open and edit `settings.json` to configure your instance using a text editor of 
             "enabled":true,
           //Number of events used to compute coding habits (capped at 100 by GitHub API)
             "from":100,
+        },
+      //Music plugin
+        "music":{
+          //Enable or disable this plugin. Pass "?music=1" in url to generate music metrics
+            "enabled":true,
+          //Music provider token, optionally required depending on provider
+            "token":"****************************************"
         }
     }
 }
@@ -366,7 +376,7 @@ The following errors code can be encountered if on a server instance :
 ### 🖼️ Templates
 
 Templates allows you to style your metrics.
-The default is the classic one, but you can change it for something more stylish. 
+The default is the classic one, but you can change it for something more stylish.
 
 Some metrics may be displayed differently, and it is possible that not all plugins are supported or behave the same from one template to another.
 
@@ -410,7 +420,6 @@ Choose the parts you want to keep and update your url query. For exemple, to kee
 
 </details>
 
-
 #### ⏱️ PageSpeed
 
 The *pagespeed* plugin allows you to add the performances of the website attached to the GitHub user account :
@@ -449,6 +458,235 @@ Add the following to your `settings.json` and pass `?pagespeed=1` in url when ge
     }
   }
 ```
+
+</details>
+
+#### 🎼 Music
+
+The *music* plugin can work in the following modes :
+
+##### Playlist mode
+
+Select randomly a few tracks from a given playlist so you can suggest your favorite tracks to your visitors.
+
+![Playlist mode](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_music_playlist.png)
+
+<details>
+<summary>💬 About</summary>
+
+Select a music provider below for instructions.
+
+<details>
+<summary>Apple Music</summary>
+
+You will need to extract the *embed* url of the playlist you want to share.
+
+Connect to [music.apple.com](https://music.apple.com/) and select the playlist you want to share.
+From the `...` menu, select `Share` and `Copy embed code`.
+
+![Image](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_music_playlist_apple.png)
+
+Paste the code in your clipboard and extract the source link from it :
+```html
+<iframe allow="" frameborder="" height="" style="" sandbox="" src="https://embed.music.apple.com/**/playlist/********"></iframe>
+```
+
+Once you've extracted the embed url you can finish the setup :
+
+##### Setup with GitHub actions
+
+Add the following to your workflow :
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_music: yes
+    plugin_music_provider: apple
+    plugin_music_mode: playlist
+    plugin_music_playlist: https://********
+    plugin_music_limit: 4 # Set the number of tracks you want to display
+```
+
+##### Setup in your own instance
+
+Add the following to your `settings.json`.
+```json
+  "plugins":{
+    "music":{
+      "enabled":true
+    }
+  }
+```
+
+Pass `?music=1&music.provider=apple&music.mode=playlist&music.playlist=https%3A%2F%2F********` in url when generating metrics.
+Note that given url must be escaped (you can use `encodeURIComponent` from your browser console if needed).
+
+You can optionally pass `?music.limit=` parameter to configure the number of tracks to display.
+
+</details>
+
+<details>
+<summary>Spotify</summary>
+
+You will need to extract the *embed* url of the playlist you want to share.
+
+Open Spotify and select the playlist you want to share.
+From the `...` menu, select `Share` and `Copy embed code`.
+
+![Image](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_music_playlist_spotify.png)
+
+Paste the code in your clipboard and extract the source link from it :
+```html
+<iframe src="https://open.spotify.com/embed/playlist/********" width="" height="" frameborder="0" allowtransparency="" allow=""></iframe>
+```
+Once you've extracted the embed url you can finish the setup :
+
+##### Setup with GitHub actions
+
+Add the following to your workflow :
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_music: yes
+    plugin_music_provider: spotify
+    plugin_music_mode: playlist
+    plugin_music_playlist: https://********
+    plugin_music_limit: 4 # Set the number of tracks you want to display
+```
+
+##### Setup in your own instance
+
+Add the following to your `settings.json`.
+```json
+  "plugins":{
+    "music":{
+      "enabled":true
+    }
+  }
+```
+
+Pass `?music=1&music.provider=spotify&music.mode=playlist&music.playlist=https%3A%2F%2F********` in url when generating metrics.
+Note that given url must be escaped (you can use `encodeURIComponent` from your browser console if needed).
+
+You can optionally pass `?music.limit=` parameter to configure the number of tracks to display.
+
+</details>
+
+</details>
+
+##### Recently played mode
+
+Display the track you played recently.
+
+![Recently played mode](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_music_recent.png)
+
+<details>
+<summary>💬 About</summary>
+
+Select a music provider below for additional instructions.
+
+<details>
+<summary>Apple Music</summary>
+
+This mode is not supported for now.
+
+I tried to find a way with *smart playlists*, *shortcuts* and other stuff but could not figure a workaround to do it without paying the 99$ fee for developper program.
+
+So unfortunately this isn't available for now.
+
+</details>
+
+<details>
+<summary>Spotify</summary>
+
+Spotify does not have *personal tokens*, so it makes the processus a bit longer because you're required to follow the [authorization workflow](https://developer.spotify.com/documentation/general/guides/authorization-guide/)... Follow the instructions below for *TL;DR* and obtain the `refresh_token`.
+
+Sign-in to the [developer dashboard](https://developer.spotify.com/dashboard/) and create a new app.
+Keep your `client_id` and `client_secret` and keep this tab open for now.
+
+![Image](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_music_recent_spotify_token_0.png)
+
+Then open the settings and add a new *Redirect url*. Normally you use it to setup callbacks for your apps, but since we don't have one and it is mandatory as per the [authorization guide](https://developer.spotify.com/documentation/general/guides/authorization-guide/), just put `https://localhost`.
+
+Next forge the url for authorization with your `client_id` and the encoded `redirect_uri` you whitelisted, and access it from your browser.
+
+```
+https://accounts.spotify.com/authorize?client_id=********&response_type=code&scope=user-read-recently-played&redirect_uri=https%3A%2F%2Flocalhost
+```
+When prompted, authorize your application.
+
+![Image](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_music_recent_spotify_token_1.png)
+
+Next you'll be redirected to `redirect_uri`. Extract the generated authorization `code` from your url bar.
+
+![Image](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_music_recent_spotify_token_2.png)
+
+Then go back to the developer dashboard tab, open the web console of your browser and paste the following JavaScript code, with your own `client_id`, `client_secret`, authorization `code` and `redirect_uri`.
+
+```js
+(async () => {
+  console.log(await (await fetch("https://accounts.spotify.com/api/token", {
+    method:"POST",
+    headers:{"Content-Type":"application/x-www-form-urlencoded"},
+    body:new URLSearchParams({
+      grant_type:"authorization_code",
+      redirect_uri:"https://localhost",
+      client_id:"********",
+      client_secret:"********",
+      code:"********",
+    })
+  })).json())
+})()
+```
+
+It should return a JSON response with the following content :
+```json
+{
+  "access_token":"********",
+  "expires_in": 3600,
+  "scope":"user-read-recently-played",
+  "token_type":"Bearer",
+  "refresh_token":"********"
+}
+```
+
+Now that you've got your `client_id`, `client_secret` and `refresh_token` you can finish the setup :
+​
+##### Setup with GitHub actions
+
+Add the following to your workflow :
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_music: yes
+    plugin_music_provider: spotify
+    plugin_music_token: "${{ secrets.SPOTIFY_CLIENT_ID }}, ${{ secrets.SPOTIFY_CLIENT_SECRET }}, ${{ secrets.SPOTIFY_REFRESH_TOKEN }}"
+    plugin_music_mode: recent
+    plugin_music_limit: 4 # Set the number of tracks you want to display
+```
+
+##### Setup in your own instance
+
+Add the following to your `settings.json`.
+```json
+  "plugins":{
+    "music":{
+      "enabled":true,
+      "token":"****************************************"
+    }
+  }
+```
+
+Pass `?music=1&music.provider=spotify&music.mode=recent` in url when generating metrics.
+Note that given url must be escaped (you can use `encodeURIComponent` from your browser console if needed).
+
+You can optionally pass `?music.limit=` parameter to configure the number of tracks to display.
+
+*Note : As you can see, currently this plugin is only designed for a single user, as you can only put one token. But a feature release may allow multiple users.*
+
+</details>
 
 </details>
 
