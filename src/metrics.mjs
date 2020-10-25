@@ -2,8 +2,10 @@
   import ejs from "ejs"
   import SVGO from "svgo"
   import imgb64 from "image-to-base64"
+  import axios from "axios"
   import Plugins from "./plugins/index.mjs"
   import Templates from "./templates/index.mjs"
+  import puppeteer from "puppeteer"
 
 //Setup
   export default async function metrics({login, q}, {graphql, rest, plugins, conf}) {
@@ -33,13 +35,15 @@
 
         //Base parts
           data.base = {}
+          if (("base" in q)&&(!q.base))
+            conf.settings.plugins.base.parts.map(part => q[`base.${part}`] = false)
           for (const part of conf.settings.plugins.base.parts)
             data.base[part] = (`base.${part}` in q) ? !!q[`base.${part}`] : true
 
         //Template
           console.debug(`metrics/compute/${login} > compute`)
           const computer = Templates[template].default || Templates[template]
-          await computer({login, q}, {conf, data, rest, graphql, plugins}, {s, pending, imports:{plugins:Plugins, imgb64}})
+          await computer({login, q}, {conf, data, rest, graphql, plugins}, {s, pending, imports:{plugins:Plugins, imgb64, axios, puppeteer, format, shuffle}})
           await Promise.all(pending)
           console.debug(`metrics/compute/${login} > compute > success`)
 
@@ -68,4 +72,19 @@
         //Generic error
           throw error
       }
+  }
+
+/** Formatter */
+  function format(n) {
+    for (const {u, v} of [{u:"b", v:10**9}, {u:"m", v:10**6}, {u:"k", v:10**3}])
+      if (n/v >= 1)
+        return `${(n/v).toFixed(2).substr(0, 4).replace(/[.]0*$/, "")}${u}`
+    return n
+  }
+
+/** Array shuffler */
+  function shuffle(array) {
+    for (let i = array.length-1, j = Math.floor(Math.random()*(i+1)); i > 0; i--)
+      [array[i], array[j]] = [array[j], array[i]]
+    return array
   }

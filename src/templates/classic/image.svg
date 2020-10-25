@@ -8,6 +8,7 @@
   + (!!computed.plugins.pagespeed)*126
   + (!!computed.plugins.habits)*68
   + (!!computed.plugins.languages)*96
+  + (!!computed.plugins.music)*64 + (computed.plugins.music ? computed.plugins.music.tracks ? 14+Math.max(0, computed.plugins.music.tracks.length-1)*36 : 0 : 0)
 %>">
 
   <defs><style><%= fonts %></style></defs>
@@ -347,6 +348,50 @@
                 <% } %>
               </ul>
             <% } %>
+          </div>
+        </section>
+      <% } %>
+
+      <% if (computed.plugins.music) { %>
+        <section>
+          <h2 class="field">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zM8 0a8 8 0 100 16A8 8 0 008 0zM6.379 5.227A.25.25 0 006 5.442v5.117a.25.25 0 00.379.214l4.264-2.559a.25.25 0 000-.428L6.379 5.227z"></path></svg>
+            <%= computed.plugins.music.mode %>
+          </h2>
+          <div class="row fill-width">
+            <section>
+              <% if (computed.plugins.music.provider) { %>
+                <div class="field">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M2.002 2.725a.75.75 0 01.797-.699C8.79 2.42 13.58 7.21 13.974 13.201a.75.75 0 11-1.497.098 10.502 10.502 0 00-9.776-9.776.75.75 0 01-.7-.798zM2 13a1 1 0 112 0 1 1 0 01-2 0zm.84-5.95a.75.75 0 00-.179 1.489c2.509.3 4.5 2.291 4.8 4.8a.75.75 0 101.49-.178A7.003 7.003 0 002.838 7.05z"></path></svg>
+                  From <%= computed.plugins.music.provider %>
+                </div>
+              <% } %>
+              <% if (computed.plugins.music.error) { %>
+                <div class="field error">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M4.47.22A.75.75 0 015 0h6a.75.75 0 01.53.22l4.25 4.25c.141.14.22.331.22.53v6a.75.75 0 01-.22.53l-4.25 4.25A.75.75 0 0111 16H5a.75.75 0 01-.53-.22L.22 11.53A.75.75 0 010 11V5a.75.75 0 01.22-.53L4.47.22zm.84 1.28L1.5 5.31v5.38l3.81 3.81h5.38l3.81-3.81V5.31L10.69 1.5H5.31zM8 4a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 018 4zm0 8a1 1 0 100-2 1 1 0 000 2z"></path></svg>
+                  <%= computed.plugins.music.error %>
+                </div>
+              <% } else { %>
+                <% if (computed.plugins.music.tracks.length) { %>
+                  <div class="tracklist">
+                    <% for (const {name = "", artist = "", artwork = ""} of computed.plugins.music.tracks) { %>
+                      <div class="track">
+                        <img src="data:image/png;base64,<%= artwork %>" width="32" height="32" alt=""/>
+                        <div class="infos">
+                          <div class="name"><%= name %></div>
+                          <div class="artist"><%= artist %></div>
+                        </div>
+                      </div>
+                    <% } %>
+                  </div>
+                <% } else { %>
+                  <div class="field">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M1.75 1.5a.25.25 0 00-.25.25v9.5c0 .138.112.25.25.25h2a.75.75 0 01.75.75v2.19l2.72-2.72a.75.75 0 01.53-.22h6.5a.25.25 0 00.25-.25v-9.5a.25.25 0 00-.25-.25H1.75zM0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v9.5A1.75 1.75 0 0114.25 13H8.06l-2.573 2.573A1.457 1.457 0 013 14.543V13H1.75A1.75 1.75 0 010 11.25v-9.5zM9 9a1 1 0 11-2 0 1 1 0 012 0zm-.25-5.25a.75.75 0 00-1.5 0v2.5a.75.75 0 001.5 0v-2.5z"></path></svg>
+                    No music recently listened
+                  </div>
+                <% } %>
+              <% } %>
+            </section>
           </div>
         </section>
       <% } %>

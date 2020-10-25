@@ -1,8 +1,5 @@
-//Imports
-  import axios from "axios"
-
 //Setup
-  export default function ({login, url, computed, pending, q}, {enabled = false, token = null} = {}) {
+  export default function ({login, imports, url, computed, pending, q}, {enabled = false, token = null} = {}) {
     //Check if plugin is enabled and requirements are met
       if (!enabled)
         return computed.plugins.pagespeed = null
@@ -21,7 +18,7 @@
           //Load scores from API
             const scores = new Map()
             await Promise.all(["performance", "accessibility", "best-practices", "seo"].map(async category => {
-              const {score, title} = (await axios.get(`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?category=${category}&url=${url}&key=${token}`)).data.lighthouseResult.categories[category]
+              const {score, title} = (await imports.axios.get(`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?category=${category}&url=${url}&key=${token}`)).data.lighthouseResult.categories[category]
               scores.set(category, {score, title})
             }))
           //Save results

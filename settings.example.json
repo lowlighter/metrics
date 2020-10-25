@@ -29,11 +29,15 @@
       "enabled":false,            "//":"Enable or disable coding habits metrics",
       "from":100,                 "//":"Number of activity events to base habits on (up to 100)"
     },
-    "languages":{                 "//":"Languages plugins",
+    "languages":{                 "//":"Languages plugin",
       "enabled":true,             "//":"Enable or disable most used languages metrics"
     },
     "followup":{                  "//":"Follow-up plugin",
       "enabled":true,             "//":"Enable owned repositories issues and pull requests metrics"
+    },
+    "music":{                     "//":"Music plugin",
+      "enabled":false,            "//":"Enable music plugin",
+      "token":null,               "//":"Music provider token (may be required depending on provider)"
     }
   }
 }

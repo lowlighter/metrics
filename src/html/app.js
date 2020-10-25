@@ -28,12 +28,14 @@
               lines:"Lines of code changed",
               habits:"Coding habits",
               selfskip:"Skip metrics commits",
+              music:"Music plugin",
               "base.header":"Header",
               "base.activity":"Account activity",
               "base.community":"Community stats",
               "base.repositories":"Repositories metrics",
               "base.metadata":"Metadata",
             },
+            options:{},
           },
           templates:{
             list:templates,
@@ -59,13 +61,17 @@
             },
           //Endpoint to use for computed metrics
             url() {
-              const plugins = Object.entries(this.plugins.enabled)
-                .flatMap(([key, value]) => key === "base" ? Object.entries(value).map(([key, value]) => [`base.${key}`, value]) : [[key, value]])
-                .filter(([key, value]) => /^base[.]\w+$/.test(key) ? !value : value)
-                .map(([key, value]) => `${key}=${+value}`)
-              const params = [...(this.templates.selected !== templates[0] ? [`template=${this.templates.selected}`] : []), ...plugins].join("&")
-              return `${window.location.protocol}//${window.location.host}/${this.user}${params.length ? `?${params}` : ""}`
-            },
+              //Plugins enabled
+                const plugins = Object.entries(this.plugins.enabled)
+                  .flatMap(([key, value]) => key === "base" ? Object.entries(value).map(([key, value]) => [`base.${key}`, value]) : [[key, value]])
+                  .filter(([key, value]) => /^base[.]\w+$/.test(key) ? !value : value)
+                  .map(([key, value]) => `${key}=${+value}`)
+              //Template
+                const template = (this.templates.selected !== templates[0]) ? [`template=${this.templates.selected}`] : []
+              //Generated url
+                const params = [...template, ...plugins, ...options].join("&")
+                return `${window.location.protocol}//${window.location.host}/${this.user}${params.length ? `?${params}` : ""}`
+              },
           //Embedded generated code
             embed() {
               return `[![GitHub metrics](${this.url})](https://github.com/lowlighter/metrics)`
@@ -144,6 +150,7 @@
                     licenses:{favorite:`########`},
                     plugins:Object.fromEntries(Object.entries(this.plugins.enabled).filter(([key, enabled]) => (key !== "base")&&(enabled)).map(([key]) => {
                       return [key, proxify({
+                        music:{provider:"########", tracks:new Array(4).fill({name:"##########", artist:"######", artwork:"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg=="})},
                         pagespeed:{scores:["Performance", "Accessibility", "Best Practices", "SEO"].map(title => ({title, score:NaN}))},
                         followup:{issues:{count:0}, pr:{count:0}},
                         habits:{indents:{style:`########`}},

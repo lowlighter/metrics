@@ -79,13 +79,26 @@
           selfskip:{enabled:bool(core.getInput("plugin_selfskip"))},
           languages:{enabled:bool(core.getInput("plugin_languages"))},
           followup:{enabled:bool(core.getInput("plugin_followup"))},
+          music:{enabled:bool(core.getInput("plugin_music"))}
         }
         const q = Object.fromEntries(Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => [key, true]))
         console.log(`Plugins enabled     | ${Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => key).join(", ")}`)
-        if (plugins.pagespeed.enabled) {
-          plugins.pagespeed.token = core.getInput("pagespeed_token")
-          console.log(`Pagespeed token     | ${plugins.pagespeed.token ? "provided" : "missing"}`)
-        }
+      //Additional plugins options
+        //Pagespeed
+          if (plugins.pagespeed.enabled) {
+            plugins.pagespeed.token = core.getInput("pagespeed_token")
+            console.log(`Pagespeed token     | ${plugins.pagespeed.token ? "provided" : "missing"}`)
+          }
+        //Music
+          if (plugins.music.enabled) {
+            for (const option of ["provider", "token", "mode", "playlist", "limit"])
+              q[`music.${option}`] = core.getInput(`plugin_music_${option}`) || ""
+            console.log(`Music provider      | ${q["music.provider"]}`)
+            console.log(`Music token         | ${q["music.token"] ? "provided" : "missing"}`)
+            console.log(`Music plugin mode   | ${q["music.mode"]}`)
+            console.log(`Music playlist      | ${q["music.playlist"]}`)
+            console.log(`Music tracks limit  | ${q["music.limit"]}`)
+          }
 
       //Repositories to use
         const repositories = Number(core.getInput("repositories")) || 100

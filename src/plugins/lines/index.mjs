@@ -1,13 +1,5 @@
-//Formatter
-  function format(n) {
-    for (const {u, v} of [{u:"b", v:10**9}, {u:"m", v:10**6}, {u:"k", v:10**3}])
-      if (n/v >= 1)
-        return `${(n/v).toFixed(2).substr(0, 4).replace(/[.]0*$/, "")}${u}`
-    return n
-  }
-
 //Setup
-  export default function ({login, repositories = [], rest, computed, pending, q}, {enabled = false} = {}) {
+  export default function ({login, imports, repositories = [], rest, computed, pending, q}, {enabled = false} = {}) {
     //Check if plugin is enabled and requirements are met
       if (!enabled)
         return computed.plugins.lines = null
@@ -33,8 +25,8 @@
                   contributor.weeks.forEach(({a, d}) => (lines.added += a, lines.deleted += d))
             })
           //Format values
-            lines.added = format(lines.added)
-            lines.deleted = format(lines.deleted)
+            lines.added = imports.format(lines.added)
+            lines.deleted = imports.format(lines.deleted)
           //Save results
             computed.plugins.lines = {...lines}
             console.debug(`metrics/compute/${login}/plugins > lines > success`)

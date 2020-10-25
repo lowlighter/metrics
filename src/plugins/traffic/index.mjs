@@ -1,13 +1,5 @@
-//Formatter
-  function format(n) {
-    for (const {u, v} of [{u:"b", v:10**9}, {u:"m", v:10**6}, {u:"k", v:10**3}])
-      if (n/v >= 1)
-        return `${(n/v).toFixed(2).substr(0, 4).replace(/[.]0*$/, "")}${u}`
-    return n
-  }
-
 //Setup
-  export default function ({login, repositories = [], rest, computed, pending, q}, {enabled = false} = {}) {
+  export default function ({login, imports, repositories = [], rest, computed, pending, q}, {enabled = false} = {}) {
     //Check if plugin is enabled and requirements are met
       if (!enabled)
         return computed.plugins.traffic = null
@@ -24,8 +16,8 @@
           //Compute views
             response.filter(({data}) => data).map(({data:{count, uniques}}) => (views.count += count, views.uniques += uniques))
           //Format values
-            views.count = format(views.count)
-            views.uniques = format(views.uniques)
+            views.count = imports.format(views.count)
+            views.uniques = imports.format(views.uniques)
           //Save results
             computed.plugins.traffic = {views}
             console.debug(`metrics/compute/${login}/plugins > traffic > success`)

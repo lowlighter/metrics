@@ -1,5 +1,5 @@
 //Setup
-  export default function ({login, data, computed, pending, q}, {enabled = false} = {}) {
+  export default function ({login, imports, data, computed, pending, q}, {enabled = false} = {}) {
     //Check if plugin is enabled and requirements are met
       if (!enabled)
         return computed.plugins.languages = null
