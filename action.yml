@@ -1,82 +1,174 @@
+# Action
 name: GitHub metrics as SVG image
 author: lowlighter
 description: Generate an user's GitHub metrics as SVG image format to embed somewhere else
 branding:
   icon: user-check
   color: gray-dark
-inputs:
-  token:
-    description: GitHub Personal Token
-    required: true
-  committer_token:
-    description: If provided, this token will be used instead of "token" for commit operations (you can specify a bot account to avoid virtually increasing your stats due to this action commits)
-    default: ""
-  user:
-    description: GitHub username
-    default: ""
-  filename:
-    description: Name of SVG image output
-    default: github-metrics.svg
-  template:
-    description: Template to use
-    default: classic
-  optimize:
-    description: Optimize SVG image
-    default: yes
-  repositories:
-    description: Number of repositories to use to compute metrics
-    default: 100
-  base:
-    description: Base content to include in metrics (list of comma-separated sections name as string)
-    default: "header, activity, community, repositories, metadata"
-  plugin_pagespeed:
-    description: Enable Google PageSpeed metrics for account attached website
-    default: no
-  pagespeed_token:
-    description: Google Pagespeed Personal Token (*see https://developers.google.com/speed/docs/insights/v5/get-started for more informations)
-    default: ""
-  plugin_lines:
-    description: Enable lines of code metrics
-    default: no
-  plugin_traffic:
-    description: Enable repositories traffic metrics (*provided GitHub token require full "repo" permissions)
-    default: no
-  plugin_habits:
-    description: Enable coding habits metrics
-    default: no
-  plugin_habits_from:
-    description: Number of activity events to base habits on (up to 100)
-    default: 100
-  plugin_selfskip:
-    description: Skip commits flagged with [Skip GitHub Action] from commits count
-    default: no
-  plugin_languages:
-    description: Enable most used languages metrics
-    default: no
-  plugin_followup:
-    description: Enable owned repositories issues and pull requests metrics
-    default: no
-  plugin_music:
-    description: Enable music
-    default: no
-  plugin_music_provider:
-    description: Name of the music provider you're using (*required if music plugin is enabled)
-    default: ""
-  plugin_music_token:
-    description: Music provider personal token (*may be required depending on used provider)
-    default: ""
-  plugin_music_mode:
-    description: Use "recent" to display recently played music and "playlist" to display tracks randomly from a given playlist (*required if music plugin is enabled)
-    default: ""
-  plugin_music_playlist:
-    description: Embed playlist url (*required if music plugin mode is "playlist")
-    default: ""
-  plugin_music_limit:
-    description: Number of tracks to display
-    default: 4
-  debug:
-    description: Enable debug logs
-    default: no
 runs:
   using: node12
   main: action/dist/index.js
+
+# Inputs
+inputs:
+
+  # Your personal token
+  # Depending on your configurations, the following rights are needed :
+  # - (none) if you're using a "commiter_token"
+  # - "public_repo" if you're using this token to commit and push your metrics
+  # - "repo" for plugins like traffic or to include your private repositories metrics
+  token:
+    description: GitHub Personal Token
+    required: true
+
+  # To avoid this action's commits to be counted in your stats, you can specify a bot token
+  # You must first grant push access on your personal repository to the bot account so it'll be able to push metrics
+  committer_token:
+    description: If provided, use this token for commits
+    default: ""
+
+  # User to compute metrics
+  # Defaults to the owner of "token"
+  user:
+    description: GitHub username
+    default: ""
+
+  # File or path to the generated metrics, relative to your repositories root
+  filename:
+    description: Name of SVG image output
+    default: github-metrics.svg
+
+  # Optimize SVG image with SVGO, to minify, remove useless attributes and spaces
+  # Some templates based on white-spaces will auto-disable this option when used
+  optimize:
+    description: Optimize SVG image
+    default: yes
+
+  # The number of repositories to use to compute metrics
+  # A high number increase your metrics accuracy, but may consume additional requests with plugins which use the REST API
+  repositories:
+    description: Number of repositories to use to compute metrics
+    default: 100
+
+  # The name of the template to use
+  # See https://github.com/lowlighter/metrics/tree/master/src/templates for supported templates
+  template:
+    description: Template to use
+    default: classic
+
+  # Template base content, which are all enabled by default
+  # Pass a string of comma-separated values
+  # To disable everything (like if you want to use a plugin as standalone), pass an empty string as parameters
+  # Supported values are :
+  # - "header" (name, commits calendar, ...)
+  # - "activity" (commits, issues/pull requests opened, ...)
+  # - "community" (following, stars, sponsors, ...)
+  # - "repositories" (license, stars, forks, ...)
+  # - "metadata" (svg generation metadata)
+  base:
+    description: Base content to include in metrics
+    default: "header, activity, community, repositories, metadata"
+
+  # Google PageSpeed plugin
+  # Enable it to compute the performance for the website attached to "user"
+  plugin_pagespeed:
+    description: Enable Google PageSpeed metrics for account attached website
+    default: no
+
+  # When PageSpeed plugin is enabled, it is advised to generate a token to avoid the rate-limiter
+  # See https://developers.google.com/speed/docs/insights/v5/get-started for more informations
+  pagespeed_token:
+    description: Google Pagespeed Personal Token
+    default: ""
+
+  # Lines of code plugin
+  # It'll retrieve your contributors stats and compute added/removed lines for each of your repositories
+  plugin_lines:
+    description: Enable lines of code metrics
+    default: no
+
+  # Traffic plugin
+  # Count views on your repositories
+  # "token" must have "repo" permission
+  plugin_traffic:
+    description: Enable repositories traffic metrics
+    default: no
+
+  # Coding habits plugin
+  # It'll search in your recent activity what've recently did, like if you're using spaces or tabs as indents, etc.
+  plugin_habits:
+    description: Enable coding habits metrics
+    default: no
+
+  # Number of activity events to base habits on
+  # Maximum number of events is capped to 100
+  plugin_habits_from:
+    description: Number of activity events to base habits on
+    default: 100
+
+  # Languages plugins
+  # Compute the coding languages the most used on your repositories
+  plugin_languages:
+    description: Enable most used languages metrics
+    default: no
+
+  # Follow-up plugin
+  # Display the number and the ratio of opened/closed issues and opened/merged pull requests
+  plugin_followup:
+    description: Enable owned repositories issues and pull requests metrics
+    default: no
+
+  # Music plugin
+  # Display tracks you recently listened to or your favorite tracks
+  plugin_music:
+    description: Enable music
+    default: no
+
+  # Music provider
+  # This is required when you enable the music plugin
+  # Supported values are :
+  # - "apple" for Apple Music
+  # - "spotify" for Spotify
+  plugin_music_provider:
+    description: Name of the music provider you're using
+    default: ""
+
+  # Music personal token
+  # This may be required depending on the music provider and the mode you use
+  # - "apple" : not required
+  # - "spotify" : required for "recent" mode, format is "client_id, client_secret, refresh_token"
+  plugin_music_token:
+    description: Music provider personal token
+    default: ""
+
+  # Music plugin mode
+  # Supported values are :
+  # - "playlist" : display tracks from a playlist randomly
+  # - "recent" : display recently played tracks
+  plugin_music_mode:
+    description: Use "recent" to display recently played music and "playlist" to display tracks randomly from a given playlist (*required if music plugin is enabled)
+    default: ""
+
+  # Music playlist
+  # Required when using "plugin_music_mode" as "playlist"
+  # The embed playlist url (the one used for music player iframe)
+  plugin_music_playlist:
+    description: Embed playlist url
+    default: ""
+
+  # Tracks to display for music plugin
+  plugin_music_limit:
+    description: Number of tracks to display
+    default: 4
+
+  # Self-skip plugin
+  # If you're using your personnal account for commits, this will substract all of your commits flagged with [Skip GitHub Action]
+  plugin_selfskip:
+    description: Skip commits flagged with [Skip GitHub Action] from commits count
+    default: no
+
+  # Enable debug mode
+  # Be sure to put all secrets in your repository secrets before to avoid any leaks !
+  debug:
+    description: Enable debug logs
+    default: no
