@@ -900,7 +900,7 @@ var E_Users_lecoq_Documents_GitHub_gitstats_node_modules_actions_github_lib_gith
         console.log(`Repositories to use | ${repositories}`)
 
       //Die on plugins errors
-        const die = core.getInput("plugins_errors_fatal") || false
+        const die = bool(core.getInput("plugins_errors_fatal"))
         console.log(`Plugin errors       | ${die ? "die" : "ignore"}`)
 
       //Built query
@@ -911,7 +911,7 @@ var E_Users_lecoq_Documents_GitHub_gitstats_node_modules_actions_github_lib_gith
         console.log(`Render              | complete`)
 
       //Commit to repository
-        const dryrun = core.getInput("dryrun") || false
+        const dryrun = bool(core.getInput("dryrun"))
         if (dryrun)
           console.log(`Dry-run             | complete`)
         else {
