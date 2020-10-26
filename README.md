@@ -8,17 +8,19 @@ Generates your own GitHub metrics as an SVG image to put them on your profile pa
 
 But there's more with [plugins](https://github.com/lowlighter/metrics/tree/master/src/plugins) and [templates](https://github.com/lowlighter/metrics/tree/master/src/templates) !
 
-| PageSpeed plugin      | Music plugin          | Languages plugin      |
-| :-------------------: | :-------------------: | :-------------------: |
-|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.music.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.music.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.svg)|
-| **Follow-up plugin**  | **Habits plugin**     | **Other plugins**     |
-|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.followup.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.followup.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.svg)| <ul><li>Lines of code</li><li>Traffic</li><li>More coming soon...</li></ul> |
+| Google PageSpeed plugin             | Favorite music tracks plugin        | Recently listened music plugin      |
+| :---------------------------------: | :---------------------------------: | :---------------------------------: |
+|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.music.playlist.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.music.playlist.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.music.recent.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.music.recent.svg)|
+| **Most used languages plugin**      | **Follow-up plugin**                | **Coding Habits plugin**            |
+|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.followup.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.followup.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.svg)|
+| **Repositories traffic plugin**     | **Lines of code plugin**            |                                     |
+|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.traffic.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.traffic.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.lines.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.lines.traffic.svg)| More to come soon ! |
 
 | Classic template   | Terminal template  |
 | :----------------: | :----------------: |
 |[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.classic.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.classic.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.terminal.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.terminal.svg)|
 
-### 🦑 Interested to get your own ?
+## 🦑 Interested to get your own ?
 
 Try it now at [metrics.lecoq.io](https://metrics.lecoq.io/) with your GitHub username !
 
@@ -357,7 +359,7 @@ The *music* plugin can work in the following modes :
 
 Select randomly a few tracks from a given playlist so you can suggest your favorite tracks to your visitors.
 
-![Playlist mode](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_music_playlist.png)
+![Languages plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.music.playlist.svg)
 
 <details>
 <summary>💬 About</summary>
@@ -430,7 +432,7 @@ Once you've extracted the embed url you can finish the setup by adding the follo
 
 Display the track you played recently.
 
-![Recently played mode](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_music_recent.png)
+![Languages plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.music.recent.svg)
 
 <details>
 <summary>💬 About</summary>
@@ -522,7 +524,7 @@ Now that you've got your `client_id`, `client_secret` and `refresh_token` you ca
 
 The *lines* of code plugin allows you to compute the number of lines of code you added and removed across all of your repositories.
 
-![Lines plugin](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_lines.png)
+![Languages plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.lines.svg)
 
 <details>
 <summary>💬 About</summary>
@@ -543,7 +545,7 @@ Add the following to your workflow :
 
 The repositories *traffic* plugin allows you to compute the number of pages views across your repositories.
 
-![Traffic plugin](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_traffic.png)
+![Languages plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.traffic.svg)
 
 <details>
 <summary>💬 About</summary>
