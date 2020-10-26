@@ -77,7 +77,7 @@ inputs:
 
   # When PageSpeed plugin is enabled, it is advised to generate a token to avoid the rate-limiter
   # See https://developers.google.com/speed/docs/insights/v5/get-started for more informations
-  pagespeed_token:
+  plugin_pagespeed_token:
     description: Google Pagespeed Personal Token
     default: ""
 

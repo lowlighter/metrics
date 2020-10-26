@@ -335,13 +335,13 @@ var E_Users_lecoq_Documents_GitHub_gitstats_node_modules_axios_index_default = /
           //Mode
             if (!(mode in modes))
               throw {error:{message:`Unsupported mode "${mode}"`}, ...raw}
-            //Playlist mode
-              if (mode === "playlist") {
-                if (!playlist)
-                  throw {error:{message:`Missing playlist url`}, ...raw}
-                if (!providers[provider].embed.test(playlist))
-                  throw {error:{message:`Unsupported playlist url format`}, ...raw}
-              }
+          //Playlist mode
+            if (mode === "playlist") {
+              if (!playlist)
+                throw {error:{message:`Missing playlist url`}, ...raw}
+              if (!providers[provider].embed.test(playlist))
+                throw {error:{message:`Unsupported playlist url format`}, ...raw}
+            }
           //Limit
             limit = Math.max(1, Math.min(100, Number(limit)))
 
@@ -880,18 +880,19 @@ var E_Users_lecoq_Documents_GitHub_gitstats_node_modules_actions_github_lib_gith
       //Additional plugins options
         //Pagespeed
           if (plugins.pagespeed.enabled) {
-            plugins.pagespeed.token = core.getInput("pagespeed_token")
+            plugins.pagespeed.token = core.getInput("plugin_pagespeed_token")
             console.log(`Pagespeed token     | ${plugins.pagespeed.token ? "provided" : "missing"}`)
           }
         //Music
           if (plugins.music.enabled) {
-            for (const option of ["provider", "token", "mode", "playlist", "limit"])
+            for (const option of ["provider", "mode", "playlist", "limit"])
               q[`music.${option}`] = core.getInput(`plugin_music_${option}`) || ""
             console.log(`Music provider      | ${q["music.provider"]}`)
-            console.log(`Music token         | ${q["music.token"] ? "provided" : "missing"}`)
             console.log(`Music plugin mode   | ${q["music.mode"]}`)
             console.log(`Music playlist      | ${q["music.playlist"]}`)
             console.log(`Music tracks limit  | ${q["music.limit"]}`)
+            plugins.music.token = core.getInput("plugin_music_token") || ""
+            console.log(`Music token         | ${plugins.music.token ? "provided" : "missing"}`)
           }
 
       //Repositories to use
@@ -904,7 +905,6 @@ var E_Users_lecoq_Documents_GitHub_gitstats_node_modules_actions_github_lib_gith
 
       //Built query
         q = {...q, ...base, repositories, template}
-        console.debug(JSON.stringify(q))
 
       //Render metrics
         const rendered = await metrics({login:user, q}, {graphql, rest, plugins, conf, die})

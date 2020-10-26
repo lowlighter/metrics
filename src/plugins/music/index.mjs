@@ -48,13 +48,13 @@
           //Mode
             if (!(mode in modes))
               throw {error:{message:`Unsupported mode "${mode}"`}, ...raw}
-            //Playlist mode
-              if (mode === "playlist") {
-                if (!playlist)
-                  throw {error:{message:`Missing playlist url`}, ...raw}
-                if (!providers[provider].embed.test(playlist))
-                  throw {error:{message:`Unsupported playlist url format`}, ...raw}
-              }
+          //Playlist mode
+            if (mode === "playlist") {
+              if (!playlist)
+                throw {error:{message:`Missing playlist url`}, ...raw}
+              if (!providers[provider].embed.test(playlist))
+                throw {error:{message:`Unsupported playlist url format`}, ...raw}
+            }
           //Limit
             limit = Math.max(1, Math.min(100, Number(limit)))
 

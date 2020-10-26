@@ -8,7 +8,7 @@ Generates your own GitHub metrics as an SVG image to put them on your profile pa
 
 But there's more with [plugins](https://github.com/lowlighter/metrics/tree/master/src/plugins) and [templates](https://github.com/lowlighter/metrics/tree/master/src/templates) !
 
-| PageSpeed plugin      | Music plugin          | Languages plugin      | 
+| PageSpeed plugin      | Music plugin          | Languages plugin      |
 | :-------------------: | :-------------------: | :-------------------: |
 |[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.music.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.music.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.svg)|
 | **Follow-up plugin**  | **Habits plugin**     | **Other plugins**     |
@@ -68,7 +68,7 @@ Go to the `Settings` of your personal repository to create a new secret and past
 
 #### 3. Create a new GitHub Action workflow on your personal repo
 
-Create a new workflow from the `Actions` tab of your personal repository and paste the following : 
+Create a new workflow from the `Actions` tab of your personal repository and paste the following :
 
 ```yaml
 name: GitHub metrics as SVG image
@@ -275,7 +275,7 @@ Plugins are disabled by default, but you can pass `?<plugin>=1` to enable a spec
 For example, to enable `music` plugin, pass `?music=1` to url.
 
 Plugin options can be passed with `?<plugin>.<option>=<value>`.
-For example, to configure `music` plugin, you could add the following to url : `?music=1&music.provider=spotify&music.mode=recent&music.limit=4`. 
+For example, to configure `music` plugin, you could add the following to url : `?music=1&music.provider=spotify&music.mode=recent&music.limit=4`.
 
 </details>
 
@@ -344,7 +344,7 @@ Add the following to your workflow :
   with:
     # ... other options
     plugin_pagespeed: yes
-    pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
+    plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
 ```
 
 </details>
