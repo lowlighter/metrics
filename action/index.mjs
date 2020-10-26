@@ -132,17 +132,13 @@
           //Retrieve previous render SHA to be able to update file content through API
             let sha = null
             try {
-              const {data} = await rest.repos.getContent({
-                owner:user,
-                repo:user,
-                path:filename,
-              })
+              const {data} = await rest.repos.getContent({owner:user, repo:github.context.repo, path:filename})
               sha = data.sha
             } catch (error) { console.debug(error) }
             console.log(`Previous render sha | ${sha || "none"}`)
           //Update file content through API
             await rest.repos.createOrUpdateFileContents({
-              owner:user, repo:user, path:filename, message:`Update ${filename} - [Skip GitHub Action]`,
+              owner:user, repo:github.context.repo, path:filename, message:`Update ${filename} - [Skip GitHub Action]`,
               content:Buffer.from(rendered).toString("base64"),
               ...(sha ? {sha} : {})
             })
