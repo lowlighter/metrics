@@ -117,7 +117,10 @@
         console.log(`Render              | complete`)
 
       //Commit to repository
-        {
+        const dryrun = core.getInput("dryrun") || false
+        if (dryrun)
+          console.log(`Dry-run             | complete`)
+        else {
           //Committer token
             const token = core.getInput("committer_token") || core.getInput("token")
             console.log(`Committer token     | ${token ? "provided" : "missing"}`)
