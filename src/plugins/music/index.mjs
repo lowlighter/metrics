@@ -30,11 +30,11 @@
       }
 
     //Parameters override and checks
-      let {"music.provider":provider = null, "music.mode":mode = null, "music.playlist":playlist = null, "music.limit":limit = 4} = q
+      let {"music.provider":provider = "", "music.mode":mode = "", "music.playlist":playlist = null, "music.limit":limit = 4} = q
       //Auto-guess parameters
-        if ((playlist)&&(mode === null))
+        if ((playlist)&&(!mode))
           mode = "playlist"
-        if ((playlist)&&(provider === null))
+        if ((playlist)&&(!provider))
           for (const [name, {embed}] of Object.entries(providers))
             if (embed.test(playlist))
               provider = name
