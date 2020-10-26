@@ -148,7 +148,7 @@ inputs:
   # - "recent" : display recently played tracks
   plugin_music_mode:
     description: Use "recent" to display recently played music and "playlist" to display tracks randomly from a given playlist (*required if music plugin is enabled)
-    default: "recent"
+    default: ""
 
   # Music playlist
   # The embed playlist url (the one used for music player iframe)
