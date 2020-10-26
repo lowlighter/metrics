@@ -18,7 +18,8 @@ ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
 ENV PUPPETEER_BROWSER_PATH "google-chrome-stable"
 
 # Copy action
-COPY action action
+COPY action/dist/index.js /index.js
+RUN chmod +x /index.js
 
 # Execute action
-ENTRYPOINT node action/dist/index.js
+ENTRYPOINT node /index.js
