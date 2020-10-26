@@ -4,13 +4,19 @@
 
 Generates your own GitHub metrics as an SVG image to put them on your profile page or elsewhere !
 
-[![GitHub metrics](https://github.com/lowlighter/lowlighter/blob/master/metrics.demo.svg)](https://metrics.lecoq.io)
+[![GitHub metrics](https://github.com/lowlighter/lowlighter/blob/master/metrics.classic.svg)](https://metrics.lecoq.io)
 
 But there's more with [plugins](https://github.com/lowlighter/metrics/tree/master/src/plugins) and [templates](https://github.com/lowlighter/metrics/tree/master/src/templates) !
 
-| Additional plugins | Terminal template |
-| :----------------: | :---------------: |
-|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.classic.demo.svg" alt="" height="220">](https://metrics.lecoq.io?template=classic)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.terminal.demo.svg" alt="" height="220">](https://metrics.lecoq.io?template=terminal)|
+| PageSpeed plugin      | Music plugin          | Languages plugin      | 
+| :-------------------: | :-------------------: | :-------------------: |
+|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.music.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.music.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.svg)|
+| **Follow-up plugin**  | **Habits plugin**     | **Other plugins**     |
+|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.followup.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.followup.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.svg)| <ul><li>Lines of code</li><li>Traffic</li><li>More coming soon...</li></ul> |
+
+| Terminal template  |
+| :----------------: |
+|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.terminal.svg" alt="" height="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.terminal.svg)|
 
 ### 🦑 Interested to get your own ?
 
