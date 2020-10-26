@@ -116,6 +116,17 @@
         const rendered = await metrics({login:user, q}, {graphql, rest, plugins, conf, die})
         console.log(`Render              | complete`)
 
+      //Verify svg
+        const verify = bool(core.getInput("verify"))
+        console.log(`Verify SVG          | ${verify}`)
+        if (verify) {
+          const [libxmljs] = [await import("libxmljs")].map(m => (m && m.default) ? m.default : m)
+          const parsed = libxmljs.parseXml(rendered)
+          if (parsed.errors.length)
+            throw new Error(`Malformed SVG : \n${parsed.errors.join("\n")}`)
+          console.log(`SVG valid           | yes`)
+        }
+
       //Commit to repository
         const dryrun = bool(core.getInput("dryrun"))
         if (dryrun)
