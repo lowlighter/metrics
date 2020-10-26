@@ -1,5 +1,5 @@
 //Setup
-  export default function ({login, imports, rest, computed, pending, q}, {enabled = false, from:_from = 100} = {}) {
+  export default function ({login, imports, rest, computed, pending, q}, {enabled = false, from:defaults = 100} = {}) {
     //Check if plugin is enabled and requirements are met
       if (!enabled)
         return computed.plugins.habits = null

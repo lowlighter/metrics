@@ -175,7 +175,7 @@ var E_Users_lecoq_Documents_GitHub_gitstats_node_modules_axios_index_default = /
   }
 // CONCATENATED MODULE: E:\Users\lecoq\Documents\GitHub\gitstats\src\plugins\habits\index.mjs
 //Setup
-  /* harmony default export */ function E_Users_lecoq_Documents_GitHub_gitstats_src_plugins_habits_index({login, imports, rest, computed, pending, q}, {enabled = false, from:_from = 100} = {}) {
+  /* harmony default export */ function E_Users_lecoq_Documents_GitHub_gitstats_src_plugins_habits_index({login, imports, rest, computed, pending, q}, {enabled = false, from:defaults = 100} = {}) {
     //Check if plugin is enabled and requirements are met
       if (!enabled)
         return computed.plugins.habits = null
