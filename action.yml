@@ -6,8 +6,8 @@ branding:
   icon: user-check
   color: gray-dark
 runs:
-  using: node12
-  main: action/dist/index.js
+  using: docker
+  image: Dockerfile
 
 # Inputs
 inputs:

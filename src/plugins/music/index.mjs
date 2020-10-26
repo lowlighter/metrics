@@ -57,7 +57,8 @@
                   case "playlist":{
                     //Start puppeteer and navigate to playlist
                       console.debug(`metrics/compute/${login}/plugins > music > starting browser`)
-                      const browser = await imports.puppeteer.launch()
+                      const browser = await imports.puppeteer.launch({headless:true, executablePath:process.env.PUPPETEER_BROWSER_PATH, args:["--disable-extensions", "--disable-setuid-sandbox", "--disable-dev-shm-usage"]})
+                      console.debug(`metrics/compute/${login}/plugins > music > loaded ${await browser.version()}`)
                       const page = await browser.newPage()
                       console.debug(`metrics/compute/${login}/plugins > music > loading page`)
                       await page.goto(playlist)
