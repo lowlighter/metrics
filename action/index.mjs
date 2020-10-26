@@ -68,7 +68,7 @@
         let parts = (core.getInput("base")||"").split(",").map(part => part.trim())
         for (const part of conf.settings.plugins.base.parts)
           base[`base.${part}`] = parts.includes(part)
-        console.log(`Base parts          | ${parts.join(", ")}`)
+        console.log(`Base parts          | ${parts.join(", ") || "(none)"}`)
 
       //Additional plugins
         const plugins = {
@@ -104,8 +104,16 @@
         const repositories = Number(core.getInput("repositories")) || 100
         console.log(`Repositories to use | ${repositories}`)
 
+      //Die on plugins errors
+        const die = core.getInput("plugins_errors_fatal") || false
+        console.log(`Plugin errors       | ${die ? "die" : "ignore"}`)
+
+      //Built query
+        q = {...q, ...base, repositories, template}
+        console.debug(JSON.stringify(q))
+
       //Render metrics
-        const rendered = await metrics({login:user, q:{...q, ...base, repositories, template}}, {graphql, rest, plugins, conf})
+        const rendered = await metrics({login:user, q}, {graphql, rest, plugins, conf, die})
         console.log(`Render              | complete`)
 
       //Commit to repository

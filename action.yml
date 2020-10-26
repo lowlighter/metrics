@@ -173,3 +173,9 @@ inputs:
   debug:
     description: Enable debug logs
     default: no
+
+  # When enabled, any plugins errors will throw
+  # By default, it will still generates metrics but renders an error message
+  plugins_errors_fatal:
+    description: Die on plugins errors
+    default: no

@@ -694,7 +694,7 @@ var external_url_default = /*#__PURE__*/__webpack_require__.n(external_url_);
   
 
 //Setup
-  async function metrics({login, q}, {graphql, rest, plugins, conf}) {
+  async function metrics({login, q}, {graphql, rest, plugins, conf, die = false}) {
     //Compute rendering
       try {
 
@@ -729,12 +729,16 @@ var external_url_default = /*#__PURE__*/__webpack_require__.n(external_url_);
           console.debug(`metrics/compute/${login} > compute`)
           const computer = E_Users_lecoq_Documents_GitHub_gitstats_src_templates_index[template].default || E_Users_lecoq_Documents_GitHub_gitstats_src_templates_index[template]
           await computer({login, q}, {conf, data, rest, graphql, plugins}, {s, pending, imports:{plugins:E_Users_lecoq_Documents_GitHub_gitstats_src_plugins_index, url: (external_url_default()), imgb64: (E_Users_lecoq_Documents_GitHub_gitstats_node_modules_image_to_base64_image_to_base64_min_default()), axios: (E_Users_lecoq_Documents_GitHub_gitstats_node_modules_axios_index_default()), puppeteer: (E_Users_lecoq_Documents_GitHub_gitstats_node_modules_puppeteer_cjs_entry_default()), format, shuffle}})
-
-        //Promised computed metrics
           const promised = await Promise.all(pending)
+
+        //Check plugins errors
           if (conf.settings.debug)
             for (const {name, result = null} of promised)
               console.debug(`plugin ${name} ${result ? result.error ? "failed" : "success" : "ignored"} : ${JSON.stringify(result).replace(/^(.{888}).+/, "$1...")}`)
+          if (die) {
+            const errors = promised.filter(({result = null}) => !!result?.error).length
+            throw new Error(`${errors} error${s(errors)} found...`)
+          }
 
         //Template rendering
           console.debug(`metrics/compute/${login} > render`)
@@ -857,7 +861,7 @@ var E_Users_lecoq_Documents_GitHub_gitstats_node_modules_actions_github_lib_gith
         let parts = (core.getInput("base")||"").split(",").map(part => part.trim())
         for (const part of conf.settings.plugins.base.parts)
           base[`base.${part}`] = parts.includes(part)
-        console.log(`Base parts          | ${parts.join(", ")}`)
+        console.log(`Base parts          | ${parts.join(", ") || "(none)"}`)
 
       //Additional plugins
         const plugins = {
@@ -893,8 +897,16 @@ var E_Users_lecoq_Documents_GitHub_gitstats_node_modules_actions_github_lib_gith
         const repositories = Number(core.getInput("repositories")) || 100
         console.log(`Repositories to use | ${repositories}`)
 
+      //Die on plugins errors
+        const die = core.getInput("plugins_errors_fatal") || false
+        console.log(`Plugin errors       | ${die ? "die" : "ignore"}`)
+
+      //Built query
+        q = {...q, ...base, repositories, template}
+        console.debug(JSON.stringify(q))
+
       //Render metrics
-        const rendered = await metrics({login:user, q:{...q, ...base, repositories, template}}, {graphql, rest, plugins, conf})
+        const rendered = await metrics({login:user, q}, {graphql, rest, plugins, conf, die})
         console.log(`Render              | complete`)
 
       //Commit to repository
@@ -94005,7 +94017,7 @@ module.exports = eval("require")("utf-8-validate");
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"_from\":\"axios@latest\",\"_id\":\"axios@0.20.0\",\"_inBundle\":false,\"_integrity\":\"sha512-ANA4rr2BDcmmAQLOKft2fufrtuvlqR+cXNNinUmvfeSNCOF98PZL+7M/v1zIdGo7OLjEA9J2gXJL+j4zGsl0bA==\",\"_location\":\"/axios\",\"_phantomChildren\":{},\"_requested\":{\"type\":\"tag\",\"registry\":true,\"raw\":\"axios@latest\",\"name\":\"axios\",\"escapedName\":\"axios\",\"rawSpec\":\"latest\",\"saveSpec\":null,\"fetchSpec\":\"latest\"},\"_requiredBy\":[\"#USER\",\"/\"],\"_resolved\":\"https://registry.npmjs.org/axios/-/axios-0.20.0.tgz\",\"_shasum\":\"057ba30f04884694993a8cd07fa394cff11c50bd\",\"_spec\":\"axios@latest\",\"_where\":\"C:\\\\Users\\\\lecoq\\\\Documents\\\\GitHub\\\\gitstats\",\"author\":{\"name\":\"Matt Zabriskie\"},\"browser\":{\"./lib/adapters/http.js\":\"./lib/adapters/xhr.js\"},\"bugs\":{\"url\":\"https://github.com/axios/axios/issues\"},\"bundleDependencies\":false,\"bundlesize\":[{\"path\":\"./dist/axios.min.js\",\"threshold\":\"5kB\"}],\"dependencies\":{\"follow-redirects\":\"^1.10.0\"},\"deprecated\":false,\"description\":\"Promise based HTTP client for the browser and node.js\",\"devDependencies\":{\"bundlesize\":\"^0.17.0\",\"coveralls\":\"^3.0.0\",\"es6-promise\":\"^4.2.4\",\"grunt\":\"^1.0.2\",\"grunt-banner\":\"^0.6.0\",\"grunt-cli\":\"^1.2.0\",\"grunt-contrib-clean\":\"^1.1.0\",\"grunt-contrib-watch\":\"^1.0.0\",\"grunt-eslint\":\"^20.1.0\",\"grunt-karma\":\"^2.0.0\",\"grunt-mocha-test\":\"^0.13.3\",\"grunt-ts\":\"^6.0.0-beta.19\",\"grunt-webpack\":\"^1.0.18\",\"istanbul-instrumenter-loader\":\"^1.0.0\",\"jasmine-core\":\"^2.4.1\",\"karma\":\"^1.3.0\",\"karma-chrome-launcher\":\"^2.2.0\",\"karma-coverage\":\"^1.1.1\",\"karma-firefox-launcher\":\"^1.1.0\",\"karma-jasmine\":\"^1.1.1\",\"karma-jasmine-ajax\":\"^0.1.13\",\"karma-opera-launcher\":\"^1.0.0\",\"karma-safari-launcher\":\"^1.0.0\",\"karma-sauce-launcher\":\"^1.2.0\",\"karma-sinon\":\"^1.0.5\",\"karma-sourcemap-loader\":\"^0.3.7\",\"karma-webpack\":\"^1.7.0\",\"load-grunt-tasks\":\"^3.5.2\",\"minimist\":\"^1.2.0\",\"mocha\":\"^5.2.0\",\"sinon\":\"^4.5.0\",\"typescript\":\"^2.8.1\",\"url-search-params\":\"^0.10.0\",\"webpack\":\"^1.13.1\",\"webpack-dev-server\":\"^1.14.1\"},\"homepage\":\"https://github.com/axios/axios\",\"jsdelivr\":\"dist/axios.min.js\",\"keywords\":[\"xhr\",\"http\",\"ajax\",\"promise\",\"node\"],\"license\":\"MIT\",\"main\":\"index.js\",\"name\":\"axios\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/axios/axios.git\"},\"scripts\":{\"build\":\"NODE_ENV=production grunt build\",\"coveralls\":\"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"examples\":\"node ./examples/server.js\",\"fix\":\"eslint --fix lib/**/*.js\",\"postversion\":\"git push && git push --tags\",\"preversion\":\"npm test\",\"start\":\"node ./sandbox/server.js\",\"test\":\"grunt test && bundlesize\",\"version\":\"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json\"},\"typings\":\"./index.d.ts\",\"unpkg\":\"dist/axios.min.js\",\"version\":\"0.20.0\"}");
+module.exports = JSON.parse("{\"_from\":\"axios@latest\",\"_id\":\"axios@0.21.0\",\"_inBundle\":false,\"_integrity\":\"sha512-fmkJBknJKoZwem3/IKSSLpkdNXZeBu5Q7GA/aRsr2btgrptmSCxi2oFjZHqGdK9DoTil9PIHlPIZw2EcRJXRvw==\",\"_location\":\"/axios\",\"_phantomChildren\":{},\"_requested\":{\"type\":\"tag\",\"registry\":true,\"raw\":\"axios@latest\",\"name\":\"axios\",\"escapedName\":\"axios\",\"rawSpec\":\"latest\",\"saveSpec\":null,\"fetchSpec\":\"latest\"},\"_requiredBy\":[\"#USER\",\"/\"],\"_resolved\":\"https://registry.npmjs.org/axios/-/axios-0.21.0.tgz\",\"_shasum\":\"26df088803a2350dff2c27f96fef99fe49442aca\",\"_spec\":\"axios@latest\",\"_where\":\"C:\\\\Users\\\\lecoq\\\\Documents\\\\GitHub\\\\gitstats\",\"author\":{\"name\":\"Matt Zabriskie\"},\"browser\":{\"./lib/adapters/http.js\":\"./lib/adapters/xhr.js\"},\"bugs\":{\"url\":\"https://github.com/axios/axios/issues\"},\"bundleDependencies\":false,\"bundlesize\":[{\"path\":\"./dist/axios.min.js\",\"threshold\":\"5kB\"}],\"dependencies\":{\"follow-redirects\":\"^1.10.0\"},\"deprecated\":false,\"description\":\"Promise based HTTP client for the browser and node.js\",\"devDependencies\":{\"bundlesize\":\"^0.17.0\",\"coveralls\":\"^3.0.0\",\"es6-promise\":\"^4.2.4\",\"grunt\":\"^1.0.2\",\"grunt-banner\":\"^0.6.0\",\"grunt-cli\":\"^1.2.0\",\"grunt-contrib-clean\":\"^1.1.0\",\"grunt-contrib-watch\":\"^1.0.0\",\"grunt-eslint\":\"^20.1.0\",\"grunt-karma\":\"^2.0.0\",\"grunt-mocha-test\":\"^0.13.3\",\"grunt-ts\":\"^6.0.0-beta.19\",\"grunt-webpack\":\"^1.0.18\",\"istanbul-instrumenter-loader\":\"^1.0.0\",\"jasmine-core\":\"^2.4.1\",\"karma\":\"^1.3.0\",\"karma-chrome-launcher\":\"^2.2.0\",\"karma-coverage\":\"^1.1.1\",\"karma-firefox-launcher\":\"^1.1.0\",\"karma-jasmine\":\"^1.1.1\",\"karma-jasmine-ajax\":\"^0.1.13\",\"karma-opera-launcher\":\"^1.0.0\",\"karma-safari-launcher\":\"^1.0.0\",\"karma-sauce-launcher\":\"^1.2.0\",\"karma-sinon\":\"^1.0.5\",\"karma-sourcemap-loader\":\"^0.3.7\",\"karma-webpack\":\"^1.7.0\",\"load-grunt-tasks\":\"^3.5.2\",\"minimist\":\"^1.2.0\",\"mocha\":\"^5.2.0\",\"sinon\":\"^4.5.0\",\"typescript\":\"^2.8.1\",\"url-search-params\":\"^0.10.0\",\"webpack\":\"^1.13.1\",\"webpack-dev-server\":\"^1.14.1\"},\"homepage\":\"https://github.com/axios/axios\",\"jsdelivr\":\"dist/axios.min.js\",\"keywords\":[\"xhr\",\"http\",\"ajax\",\"promise\",\"node\"],\"license\":\"MIT\",\"main\":\"index.js\",\"name\":\"axios\",\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/axios/axios.git\"},\"scripts\":{\"build\":\"NODE_ENV=production grunt build\",\"coveralls\":\"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js\",\"examples\":\"node ./examples/server.js\",\"fix\":\"eslint --fix lib/**/*.js\",\"postversion\":\"git push && git push --tags\",\"preversion\":\"npm test\",\"start\":\"node ./sandbox/server.js\",\"test\":\"grunt test && bundlesize\",\"version\":\"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json\"},\"typings\":\"./index.d.ts\",\"unpkg\":\"dist/axios.min.js\",\"version\":\"0.21.0\"}");
 
 /***/ }),
 

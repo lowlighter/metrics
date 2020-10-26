@@ -9,7 +9,7 @@
   import url from "url"
 
 //Setup
-  export default async function metrics({login, q}, {graphql, rest, plugins, conf}) {
+  export default async function metrics({login, q}, {graphql, rest, plugins, conf, die = false}) {
     //Compute rendering
       try {
 
@@ -44,12 +44,16 @@
           console.debug(`metrics/compute/${login} > compute`)
           const computer = Templates[template].default || Templates[template]
           await computer({login, q}, {conf, data, rest, graphql, plugins}, {s, pending, imports:{plugins:Plugins, url, imgb64, axios, puppeteer, format, shuffle}})
-
-        //Promised computed metrics
           const promised = await Promise.all(pending)
+
+        //Check plugins errors
           if (conf.settings.debug)
             for (const {name, result = null} of promised)
               console.debug(`plugin ${name} ${result ? result.error ? "failed" : "success" : "ignored"} : ${JSON.stringify(result).replace(/^(.{888}).+/, "$1...")}`)
+          if (die) {
+            const errors = promised.filter(({result = null}) => !!result?.error).length
+            throw new Error(`${errors} error${s(errors)} found...`)
+          }
 
         //Template rendering
           console.debug(`metrics/compute/${login} > render`)
