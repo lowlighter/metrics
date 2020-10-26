@@ -25,14 +25,13 @@
           const {query, image, style, fonts} = conf.templates[template]
 
         //Query data from GitHub API
-          console.debug(`metrics/compute/${login} > query`)
+          console.debug(`metrics/compute/${login} > graphql query`)
           const data = await graphql(query
             .replace(/[$]login/, `"${login}"`)
             .replace(/[$]repositories/, `${repositories}`)
             .replace(/[$]calendar.to/, `"${(new Date()).toISOString()}"`)
             .replace(/[$]calendar.from/, `"${(new Date(Date.now()-14*24*60*60*1000)).toISOString()}"`)
           )
-          console.debug(`metrics/compute/${login} > query > success`)
 
         //Base parts
           data.base = {}
@@ -41,28 +40,31 @@
           for (const part of conf.settings.plugins.base.parts)
             data.base[part] = (`base.${part}` in q) ? !!q[`base.${part}`] : true
 
-        //Template
+        //Compute metrics
           console.debug(`metrics/compute/${login} > compute`)
           const computer = Templates[template].default || Templates[template]
           await computer({login, q}, {conf, data, rest, graphql, plugins}, {s, pending, imports:{plugins:Plugins, url, imgb64, axios, puppeteer, format, shuffle}})
-          await Promise.all(pending)
-          console.debug(`metrics/compute/${login} > compute > success`)
 
-        //Eval rendering
+        //Promised computed metrics
+          const promised = await Promise.all(pending)
+          if (conf.settings.debug)
+            for (const {name, result = null} of promised)
+              console.debug(`plugin ${name} ${result ? result.error ? "failed" : "success" : "ignored"} : ${JSON.stringify(result).replace(/^(.{888}).+/, "$1...")}`)
+
+        //Template rendering
           console.debug(`metrics/compute/${login} > render`)
           let rendered = await ejs.render(image, {...data, s, style, fonts}, {async:true})
-          console.debug(`metrics/compute/${login} > render > success`)
 
         //Optimize rendering
           if ((conf.optimize)&&(!q.raw)) {
             console.debug(`metrics/compute/${login} > optimize`)
             const svgo = new SVGO({full:true, plugins:[{cleanupAttrs:true}, {inlineStyles:false}]})
             const {data:optimized} = await svgo.optimize(rendered)
-            console.debug(`metrics/compute/${login} > optimize > success`)
             rendered = optimized
           }
 
         //Result
+          console.debug(`metrics/compute/${login} > success`)
           return rendered
       }
     //Internal error

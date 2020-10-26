@@ -99,7 +99,7 @@ Last generated: <%= new Date().toGMTString() %>
 <div class="stdout"><%# -%>
 Total <%= user.repositories.totalCount %> repositor<%= s(user.repositories.totalCount, "y") %>
 <% if (computed.plugins.traffic) { if (computed.plugins.traffic.error) { -%>
-----  <b>     </b>  views <span class="error">(<%= computed.plugins.traffic.error %>)</span>
+----  <b>     </b>  views <span class="error">(<%= computed.plugins.traffic.error.message %>)</span>
 <% } else { -%>
 -r--  <b><%= `${computed.plugins.traffic.views.count}`.padStart(5) %></b>  views
 <% }} -%>
@@ -109,8 +109,8 @@ Total <%= user.repositories.totalCount %> repositor<%= s(user.repositories.total
 dr-x  <b><%= `${user.packages.totalCount}`.padStart(5) %></b>  package<%= s(user.packages.totalCount) %>
 dr-x  <b><%= `${user.gists.totalCount}`.padStart(5) %></b>  gist<%= s(user.gists.totalCount) %>
 <% if (computed.plugins.followup) { if (computed.plugins.followup.error) { -%>
-d---  <b>     </b>  ISSUES <span class="error">(<%= computed.plugins.followup.error %>)</span>
-d---  <b>     </b>  PULL_REQUESTS <span class="error">(<%= computed.plugins.followup.error %>)</span>
+d---  <b>     </b>  ISSUES <span class="error">(<%= computed.plugins.followup.error.message %>)</span>
+d---  <b>     </b>  PULL_REQUESTS <span class="error">(<%= computed.plugins.followup.error.message %>)</span>
 <% } else { -%>
 dr-x  <b><%= `${computed.plugins.followup.issues.count}`.padStart(5) %></b>  ISSUES
 -r--  <b><%= `${computed.plugins.followup.issues.open}`.padStart(5) %></b>  ├── open
@@ -124,7 +124,7 @@ dr-x         LICENSE
 -r--         └── <%= computed.licenses.favorite %>
 <% } -%>
 <% if (computed.plugins.lines) { if (computed.plugins.lines.error) { %>
-<span class="diff error">@@ <%= computed.plugins.lines.error %> @@</span><% } else { %>
+<span class="diff error">@@ <%= computed.plugins.lines.error.message %> @@</span><% } else { %>
 <span class="diff">@@ -<%= computed.plugins.lines.deleted %> +<%= computed.plugins.lines.added %> @@</span>
 <% }} -%>
 </div><% } -%>
@@ -133,7 +133,7 @@ dr-x         LICENSE
 <div class="stdin"><%- meta.$ %> locale</div><%# -%>
 <div class="stdout"><%# -%>
 <% if (computed.plugins.languages.error) { -%>
-<span class="error"><%= computed.plugins.languages.error %></span><%# -%>
+<span class="error"><%= computed.plugins.languages.error.message %></span><%# -%>
 <% } else { for (const {name, value} of computed.plugins.languages.favorites) { -%>
 <b><%= name.toLocaleUpperCase().padEnd(12) %></b> [<%= "#".repeat(Math.ceil(100*value/5)).padEnd(20) %>] <%= (100*value).toFixed(2).padEnd(5) %>%
 <% }} -%>
@@ -143,7 +143,7 @@ dr-x         LICENSE
 <div class="stdin"><%- meta.$ %> curl -I <%= user.websiteUrl %></div><%# -%>
 <div class="stdout"><%# -%>
 <% if (computed.plugins.pagespeed.error) { -%>
-<span class="error"><%= computed.plugins.pagespeed.error %></span><% } else { -%>
+<span class="error"><%= computed.plugins.pagespeed.error.message %></span><% } else { -%>
 <b>User-Agent</b>: Google PageSpeed API
 <b>Location</b>: <%= user.websiteUrl %>
 <% for (const {score, title} of computed.plugins.pagespeed.scores) { -%>

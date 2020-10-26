@@ -6,15 +6,19 @@
       const avatar = imports.imgb64(data.user.avatarUrl)
 
     //Plugins
-      if (data.user.websiteUrl)
-        imports.plugins.pagespeed({login, imports, url:data.user.websiteUrl, computed, pending, q}, plugins.pagespeed)
-      imports.plugins.music({login, imports, data, computed, pending, q}, plugins.music)
-      imports.plugins.lines({login, imports, repositories:data.user.repositories.nodes.map(({name}) => name), rest, computed, pending, q}, plugins.lines)
-      imports.plugins.traffic({login, imports, repositories:data.user.repositories.nodes.map(({name}) => name), rest, computed, pending, q}, plugins.traffic)
-      imports.plugins.habits({login, imports, rest, computed, pending, q}, plugins.habits)
-      imports.plugins.selfskip({login, imports, rest, computed, pending, q}, plugins.selfskip)
-      imports.plugins.languages({login, imports, data, computed, pending, q}, plugins.languages)
-      imports.plugins.followup({login, imports, data, computed, pending, q}, plugins.followup)
+      for (const name of Object.keys(imports.plugins)) {
+        pending.push((async () => {
+          try {
+            computed.plugins[name] = await imports.plugins[name]({login, q, imports, data, computed, rest, graphql}, plugins[name])
+          }
+          catch (error) {
+            computed.plugins[name] = error
+          }
+          finally {
+            return {name, result:computed.plugins[name]}
+          }
+        })())
+      }
 
     //Iterate through user's repositories
       for (const repository of data.user.repositories.nodes) {

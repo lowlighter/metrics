@@ -111,7 +111,7 @@
         //Compute rendering
           try {
             //Render
-            console.log(req.query)
+              console.debug(`metrics/app/${login} > ${JSON.stringify(req.query)}`)
               const rendered = await metrics({login, q:parse(req.query)}, {graphql, rest, plugins, conf})
             //Cache
               if ((!debug)&&(cached))
