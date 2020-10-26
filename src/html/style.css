@@ -56,9 +56,11 @@
   input:focus {
     outline: none;
   }
+  input[name=user] {
+    font-size: 1.1rem;
+  }
   input[type=text], select, button {
     min-width: 50%;
-    font-size: 1.1rem;
   }
   option {
     text-align: center;
@@ -132,6 +134,10 @@
   }
   .plugins label, .palettes label {
     margin: 0 1rem;
+  }
+  .options {
+    display: flex;
+    flex-direction: column;
   }
 /* Code snippets */
   .code {
