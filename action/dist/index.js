@@ -916,8 +916,7 @@ var E_Users_lecoq_Documents_GitHub_gitstats_node_modules_actions_github_lib_gith
           console.log(`Dry-run             | complete`)
         else {
           //Repository
-            const repo = github.context.repo.repo
-            console.log(`Repository          | ${repo}`)
+            console.log(`Repository          | ${github.context.repo.owner}/${github.context.repo.repo}`)
           //Committer token
             const token = core.getInput("committer_token") || core.getInput("token")
             console.log(`Committer token     | ${token ? "provided" : "missing"}`)
@@ -929,13 +928,13 @@ var E_Users_lecoq_Documents_GitHub_gitstats_node_modules_actions_github_lib_gith
           //Retrieve previous render SHA to be able to update file content through API
             let sha = null
             try {
-              const {data} = await rest.repos.getContent({owner:user, repo, path:filename})
+              const {data} = await rest.repos.getContent({...github.context.repo, path:filename})
               sha = data.sha
             } catch (error) { console.debug(error) }
             console.log(`Previous render sha | ${sha || "none"}`)
           //Update file content through API
             await rest.repos.createOrUpdateFileContents({
-              owner:user, repo, path:filename, message:`Update ${filename} - [Skip GitHub Action]`,
+              ...github.context.repo, path:filename, message:`Update ${filename} - [Skip GitHub Action]`,
               content:Buffer.from(rendered).toString("base64"),
               ...(sha ? {sha} : {})
             })
