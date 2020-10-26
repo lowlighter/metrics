@@ -14,9 +14,9 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
 | **Follow-up plugin**  | **Habits plugin**     | **Other plugins**     |
 |[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.followup.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.followup.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.svg)| <ul><li>Lines of code</li><li>Traffic</li><li>More coming soon...</li></ul> |
 
-| Terminal template  |
-| :----------------: |
-|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.terminal.svg" alt="" height="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.terminal.svg)|
+| Classic template   | Terminal template  |
+| :----------------: | :----------------: |
+|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.classic.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.classic.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.terminal.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.terminal.svg)|
 
 ### 🦑 Interested to get your own ?
 
@@ -326,7 +326,7 @@ For example, to keep only `header` and `repositories` sections, add the followin
 
 The *pagespeed* plugin allows you to add the performances of the website attached to the GitHub user account :
 
-![Pagespeed plugin](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_pagespeed.png)
+![Pagespeed plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.svg)
 
 These are computed through [Google's PageSpeed API](https://developers.google.com/speed/docs/insights/v5/get-started), which returns the same results as [web.dev](https://web.dev).
 
@@ -570,7 +570,7 @@ Add the following to your workflow :
 
 The coding *habits* plugin allows you to add deduced coding about based on your recent activity, from up to 100 events.
 
-![Habits plugin](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_habits.png)
+![Habits plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.svg)
 
 <details>
 <summary>💬 About</summary>
@@ -595,7 +595,7 @@ Add the following to your workflow :
 
 The *follow-up* plugin allows you to compute the ratio of opened/closed issues and the ratio of opened/merged pull requests on your repositories, which shows whether most of them are maintened or not.
 
-![Follow-up plugin](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_followup.png)
+![Follow-up plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.followup.svg)
 
 <details>
 <summary>💬 About</summary>
@@ -614,7 +614,7 @@ Add the following to your workflow :
 
 The *languages* plugin allows you to compute which languages you use the most in your repositories.
 
-![Languages plugin](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_languages.png)
+![Languages plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.svg)
 
 <details>
 <summary>💬 About</summary>
