@@ -1,7 +1,13 @@
 //Supported providers
   const providers = {
-    apple:"Apple Music",
-    spotify:"Spotify",
+    apple:{
+      name:"Apple Music",
+      embed:/^https:..embed.music.apple.com.\w+.playlist/,
+    },
+    spotify:{
+      name:"Spotify",
+      embed:/^https:..open.spotify.com.embed.playlist/,
+    },
   }
 
 //Supported modes
@@ -18,32 +24,39 @@
       if (!q.music)
         return computed.plugins.music = null
       console.debug(`metrics/compute/${login}/plugins > music`)
+      const raw = {
+        get provider() { return providers[provider]?.name ?? "" },
+        get mode() { return modes[mode] ?? "Unconfigured music plugin"},
+      }
 
     //Parameters override and checks
+      let {"music.provider":provider = null, "music.mode":mode = null, "music.playlist":playlist = null, "music.limit":limit = 4} = q
+      //Auto-guess parameters
+        if ((playlist)&&(mode === null))
+          mode = "playlist"
+        if ((playlist)&&(provider === null))
+          for (const [name, {embed}] of Object.entries(providers))
+            if (embed.test(playlist))
+              provider = name
+        if (!mode)
+          mode = "recent"
       //Provider
-        const provider = q["music.provider"]||""
         if (!(provider in providers))
-          return computed.plugins.music = {error:provider ? `Unsupported provider "${provider}"` : `Missing provider`, mode:"Unconfigured music plugin"}
-        console.debug(`metrics/compute/${login}/plugins > music > provider "${provider}"`)
+          return computed.plugins.music = {...raw, error:provider ? `Unsupported provider "${provider}"` : `Missing provider`}
       //Mode
-        const mode = q["music.mode"]||""
         if (!(mode in modes))
-          return computed.plugins.music = {error:mode ? `Unsupported mode "${mode}"` : `Missing mode`, provider:providers[provider], mode:"Unconfigured music plugin"}
-        console.debug(`metrics/compute/${login}/plugins > music > mode "${mode}"`)
+          return computed.plugins.music = {...raw, error:`Unsupported mode "${mode}"`}
       //Playlist mode
-        const playlist = q["music.playlist"]||""
         if (mode === "playlist") {
           if (!playlist)
-            return computed.plugins.music = {error:`Missing playlist url`, provider:providers[provider], mode:modes[mode]}
-          if ((provider === "spotify")&&(!/^https:..open.spotify.com.embed.playlist/.test(playlist)))
-            return computed.plugins.music = {error:`Unsupported playlist url format`, provider:providers[provider], mode:modes[mode]}
-          if ((provider === "apple")&&(!/^https:..embed.music.apple.com.\w+.playlist/.test(playlist)))
-            return computed.plugins.music = {error:`Unsupported playlist url format`, provider:providers[provider], mode:modes[mode]}
-          console.debug(`metrics/compute/${login}/plugins > music > playlist = ${playlist}`)
+            return computed.plugins.music = {...raw, error:`Missing playlist url`}
+          if (!providers[provider].embed.test(playlist))
+            return computed.plugins.music = {...raw, error:`Unsupported playlist url format`}
         }
       //Limit
-        const limit = Math.max(1, Math.min(100, "music.limit" in q ? Number(q["music.limit"])||0 : 4))
-        console.debug(`metrics/compute/${login}/plugins > music > limit = ${limit}`)
+        limit = Math.max(1, Math.min(100, Number(limit)))
+      //Debug
+        console.debug(`metrics/compute/${login}/plugins > habits > ${JSON.stringify({provider, mode, playlist, limit})}`)
 
     //Plugin execution
       pending.push(new Promise(async solve => {
@@ -57,7 +70,8 @@
                   case "playlist":{
                     //Start puppeteer and navigate to playlist
                       console.debug(`metrics/compute/${login}/plugins > music > starting browser`)
-                      const browser = await imports.puppeteer.launch()
+                      const browser = await imports.puppeteer.launch({headless:true, executablePath:process.env.PUPPETEER_BROWSER_PATH, args:["--no-sandbox", "--disable-extensions", "--disable-setuid-sandbox", "--disable-dev-shm-usage"]})
+                      console.debug(`metrics/compute/${login}/plugins > music > loaded ${await browser.version()}`)
                       const page = await browser.newPage()
                       console.debug(`metrics/compute/${login}/plugins > music > loading page`)
                       await page.goto(playlist)
@@ -174,7 +188,7 @@
                   }
                 //Save results
                   console.debug(`metrics/compute/${login}/plugins > music > success`)
-                  computed.plugins.music = {provider:providers[provider], mode:modes[mode], tracks}
+                  computed.plugins.music = {...raw, tracks}
                   solve()
                   return
               }
@@ -184,12 +198,12 @@
           catch (error) {
             //Plugin error
               if (error.status) {
-                computed.plugins.music = {provider:providers[provider], mode:modes[mode], error:error.status}
+                computed.plugins.music = {...raw, error:error.status}
                 console.debug(`metrics/compute/${login}/plugins > music > error > ${error.status}`)
                 return solve()
               }
             //Generic error
-              computed.plugins.music = {provider:providers[provider], mode:modes[mode], error:`An error occured`}
+              computed.plugins.music = {...raw, error:`An error occured`}
               console.debug(`metrics/compute/${login}/plugins > music > error`)
               console.debug(error)
               solve()

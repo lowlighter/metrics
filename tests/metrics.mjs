@@ -39,7 +39,12 @@
           {traffic:1},
           {selfskip:1},
           {pagespeed:1},
-          {followup:1, languages:1, habits:1, "habits.events":1, lines:1, traffic:1, selfskip:1, pagespeed:1},
+          {music:1},
+          {music:1, "music.mode":"recent"},
+          {music:1, "music.mode":"recent", "music.provider":"apple"},
+          {music:1, "music.mode":"recent", "music.provider":"spotify"},
+          {music:1, "music.mode":"playlist"},
+          {followup:1, languages:1, habits:1, "habits.events":1, lines:1, traffic:1, selfskip:1, pagespeed:1, music:1},
         ]) {
           await test.metrics({graphql, rest, q:{template, repositories:1, ...q}})
         }
@@ -58,6 +63,7 @@
         selfskip:{enabled:true},
         languages:{enabled:true},
         followup:{enabled:true},
+        musit:{enabled:true},
       }
 
     //Compute render

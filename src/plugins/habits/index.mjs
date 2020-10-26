@@ -1,5 +1,5 @@
 //Setup
-  export default function ({login, imports, rest, computed, pending, q}, {enabled = false, from:_from = 100} = {}) {
+  export default function ({login, imports, rest, computed, pending, q}, {enabled = false, from:defaults = 100} = {}) {
     //Check if plugin is enabled and requirements are met
       if (!enabled)
         return computed.plugins.habits = null
@@ -8,9 +8,11 @@
       console.debug(`metrics/compute/${login}/plugins > habits`)
 
     //Parameters override
+      let {"habits.from":from = defaults.from ?? 100} = q
       //Events
-        const from = Math.max(1, Math.min(100, "habits.from" in q ? Number(q["habits.from"])||0 : _from))
-        console.debug(`metrics/compute/${login}/plugins > habits > events = ${from}`)
+        from = Math.max(1, Math.min(100, Number(from)))
+      //Debug
+        console.debug(`metrics/compute/${login}/plugins > habits > ${JSON.stringify({from})}`)
 
     //Plugin execution
       pending.push(new Promise(async solve => {
@@ -27,7 +29,7 @@
               //Compute commit hours
                 const hours = commits.map(({created_at}) => (new Date(created_at)).getHours())
                 for (const hour of hours)
-                  habits.commits.hours[hour] = (habits.commits.hours[hour] || 0) + 1
+                  habits.commits.hours[hour] = (habits.commits.hours[hour] ?? 0) + 1
               //Compute hour with most commits
                 habits.commits.hour = hours.length ? Object.entries(habits.commits.hours).sort(([an, a], [bn, b]) => b - a).map(([hour, occurence]) => hour)[0] : NaN
             }
@@ -42,7 +44,7 @@
                 edited
                   .filter(({status}) => status === "fulfilled")
                   .map(({value}) => value)
-                  .flatMap(files => files.flatMap(file => (file.patch||"").match(/(?<=^[+])((?:\t)|(?:  )) /gm)||[]))
+                  .flatMap(files => files.flatMap(file => (file.patch ?? "").match(/(?<=^[+])((?:\t)|(?:  )) /gm) ?? []))
                   .forEach(indent => habits.indents[/^\t/.test(indent) ? "tabs" : "spaces"]++)
               //Compute indent style
                 habits.indents.style = habits.indents.spaces > habits.indents.tabs ? "spaces" : habits.indents.tabs > habits.indents.spaces ? "tabs" : ""

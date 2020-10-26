@@ -35,7 +35,11 @@
               "base.repositories":"Repositories metrics",
               "base.metadata":"Metadata",
             },
-            options:{},
+            options:{
+              "habits.from":100,
+              "music.playlist":"",
+              "music.mode":"playlist",
+            },
           },
           templates:{
             list:templates,
@@ -66,6 +70,10 @@
                   .flatMap(([key, value]) => key === "base" ? Object.entries(value).map(([key, value]) => [`base.${key}`, value]) : [[key, value]])
                   .filter(([key, value]) => /^base[.]\w+$/.test(key) ? !value : value)
                   .map(([key, value]) => `${key}=${+value}`)
+              //Plugins options
+                const options = Object.entries(this.plugins.options)
+                  .filter(([key, value]) => `${value}`.length)
+                  .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
               //Template
                 const template = (this.templates.selected !== templates[0]) ? [`template=${this.templates.selected}`] : []
               //Generated url

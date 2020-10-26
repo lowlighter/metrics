@@ -6,8 +6,8 @@ branding:
   icon: user-check
   color: gray-dark
 runs:
-  using: node12
-  main: action/dist/index.js
+  using: docker
+  image: Dockerfile
 
 # Inputs
 inputs:
@@ -125,7 +125,8 @@ inputs:
     default: no
 
   # Music provider
-  # This is required when you enable the music plugin
+  # This is required in "recent" mode
+  # This is optional in "playlist" mode, in this case it will be deduced from "plugin_music_playlist" url
   # Supported values are :
   # - "apple" for Apple Music
   # - "spotify" for Spotify
@@ -147,11 +148,11 @@ inputs:
   # - "recent" : display recently played tracks
   plugin_music_mode:
     description: Use "recent" to display recently played music and "playlist" to display tracks randomly from a given playlist (*required if music plugin is enabled)
-    default: ""
+    default: "recent"
 
   # Music playlist
-  # Required when using "plugin_music_mode" as "playlist"
   # The embed playlist url (the one used for music player iframe)
+  # Will default mode to "playlist" when set
   plugin_music_playlist:
     description: Embed playlist url
     default: ""
