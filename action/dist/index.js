@@ -737,7 +737,8 @@ var external_url_default = /*#__PURE__*/__webpack_require__.n(external_url_);
               console.debug(`plugin ${name} ${result ? result.error ? "failed" : "success" : "ignored"} : ${JSON.stringify(result).replace(/^(.{888}).+/, "$1...")}`)
           if (die) {
             const errors = promised.filter(({result = null}) => !!result?.error).length
-            throw new Error(`${errors} error${s(errors)} found...`)
+            if (errors)
+              throw new Error(`${errors} error${s(errors)} found...`)
           }
 
         //Template rendering
