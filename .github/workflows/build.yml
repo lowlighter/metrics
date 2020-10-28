@@ -22,3 +22,109 @@ jobs:
       run: npm run build
     - name: Test
       run: npm test -- ${{ secrets.METRICS_ACTIONS_TOKEN }}
+      
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      
+      - name: Classic template
+        uses: lowlighter/metrics@master
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          repositories: 1
+          plugins_errors_fatal: yes
+          dryrun: yes
+          
+      - name: Terminal template
+        uses: lowlighter/metrics@master
+        with:
+          template: terminal
+          token: ${{ secrets.METRICS_TOKEN }}
+          repositories: 1
+          plugins_errors_fatal: yes
+          dryrun: yes
+      
+      - name: PageSpeed plugin
+        uses: lowlighter/metrics@master
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
+          base: ""
+          repositories: 1
+          plugin_pagespeed: yes
+          plugins_errors_fatal: yes
+          dryrun: yes  
+          
+      - name: Music plugin (playlist)
+        uses: lowlighter/metrics@master
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          repositories: 1
+          plugin_music: yes
+          plugin_music_playlist: ${{ secrets.MUSIC_PLAYLIST }}
+          plugins_errors_fatal: yes
+          dryrun: yes
+        
+      - name: Music plugin (recent)
+        uses: lowlighter/metrics@master
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          repositories: 1
+          plugin_music: yes
+          plugin_music_provider: spotify
+          plugin_music_token: ${{ secrets.SPOTIFY_TOKENS }}
+          plugins_errors_fatal: yes
+          dryrun: yes
+
+      - name: Habits plugin
+        uses: lowlighter/metrics@master
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          repositories: 1
+          plugin_habits: yes
+          plugins_errors_fatal: yes
+          dryrun: yes
+          
+      - name: Languages plugin
+        uses: lowlighter/metrics@master
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          repositories: 1
+          plugin_languages: yes
+          plugins_errors_fatal: yes
+          dryrun: yes
+
+      - name: Follow-up plugin
+        uses: lowlighter/metrics@master
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          repositories: 1
+          plugin_followup: yes
+          plugins_errors_fatal: yes
+          dryrun: yes
+              
+      - name: Lines plugin
+        uses: lowlighter/metrics@master
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: "repositories"
+          repositories: 1
+          plugin_lines: yes
+          plugins_errors_fatal: yes
+          dryrun: yes
+          
+      - name: Traffic plugin
+        uses: lowlighter/metrics@master
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: "repositories"
+          repositories: 1
+          plugin_traffic: yes
+          plugins_errors_fatal: yes
+          dryrun: yes
+          
