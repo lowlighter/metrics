@@ -23,37 +23,43 @@
           if ((!(template in Templates))||(!(template in conf.templates))||((conf.settings.templates.enabled.length)&&(!conf.settings.templates.enabled.includes(template))))
             throw new Error("unsupported template")
           const {query, image, style, fonts} = conf.templates[template]
-
-        //Query data from GitHub API
-          console.debug(`metrics/compute/${login} > graphql query`)
-          const data = await graphql(query
-            .replace(/[$]login/, `"${login}"`)
-            .replace(/[$]repositories/, `${repositories}`)
-            .replace(/[$]calendar.to/, `"${(new Date()).toISOString()}"`)
-            .replace(/[$]calendar.from/, `"${(new Date(Date.now()-14*24*60*60*1000)).toISOString()}"`)
-          )
+          const data = {base:{}}
 
         //Base parts
-          data.base = {}
           if (("base" in q)&&(!q.base))
             conf.settings.plugins.base.parts.map(part => q[`base.${part}`] = false)
           for (const part of conf.settings.plugins.base.parts)
             data.base[part] = (`base.${part}` in q) ? !!q[`base.${part}`] : true
 
-        //Compute metrics
-          console.debug(`metrics/compute/${login} > compute`)
-          const computer = Templates[template].default || Templates[template]
-          await computer({login, q}, {conf, data, rest, graphql, plugins}, {s, pending, imports:{plugins:Plugins, url, imgb64, axios, puppeteer, format, shuffle}})
-          const promised = await Promise.all(pending)
+        //Placeholder
+          if (login === "placeholder") 
+            placeholder({data, conf, q})
+        //Compute
+          else {
+            //Query data from GitHub API
+              console.debug(`metrics/compute/${login} > graphql query`)
+              Object.assign(data, await graphql(query
+                .replace(/[$]login/, `"${login}"`)
+                .replace(/[$]repositories/, `${repositories}`)
+                .replace(/[$]calendar.to/, `"${(new Date()).toISOString()}"`)
+                .replace(/[$]calendar.from/, `"${(new Date(Date.now()-14*24*60*60*1000)).toISOString()}"`)
+              ))
 
-        //Check plugins errors
-          if (conf.settings.debug)
-            for (const {name, result = null} of promised)
-              console.debug(`plugin ${name} ${result ? result.error ? "failed" : "success" : "ignored"} : ${JSON.stringify(result).replace(/^(.{888}).+/, "$1...")}`)
-          if (die) {
-            const errors = promised.filter(({result = null}) => !!result?.error).length
-            if (errors)
-              throw new Error(`${errors} error${s(errors)} found...`)
+            //Compute metrics
+              console.debug(`metrics/compute/${login} > compute`)
+              const computer = Templates[template].default || Templates[template]
+              await computer({login, q}, {conf, data, rest, graphql, plugins}, {s, pending, imports:{plugins:Plugins, url, imgb64, axios, puppeteer, format, shuffle}})
+              const promised = await Promise.all(pending)
+
+            //Check plugins errors
+              if (conf.settings.debug)
+                for (const {name, result = null} of promised)
+                  console.debug(`plugin ${name} ${result ? result.error ? "failed" : "success" : "ignored"} : ${JSON.stringify(result).replace(/^(.{888}).+/, "$1...")}`)
+              if (die) {
+                const errors = promised.filter(({result = null}) => !!result?.error).length
+                if (errors)
+                  throw new Error(`${errors} error${s(errors)} found...`)
+              }
           }
 
         //Template rendering
@@ -97,4 +103,51 @@
       ;[array[i], array[j]] = [array[j], array[i]]
     }
     return array
+  }
+
+/** Placeholder generator */
+  function placeholder({data, conf, q}) {
+    //Proxifier
+      const proxify = (target) => typeof target === "object" ? new Proxy(target, {
+        get(target, property) {
+          //Primitive conversion
+            if (property === Symbol.toPrimitive)
+              return () => "##"
+          //Iterables
+            if (property === Symbol.iterator)
+              return Reflect.get(target, property)
+          //Plugins should not be proxified by default as they can be toggled by user
+            if (/^plugins$/.test(property))
+              return Reflect.get(target, property)
+          //Consider no errors on plugins
+            if (/^error/.test(property))
+              return undefined
+          //Proxify recursively
+          return proxify(property in target ? Reflect.get(target, property) : {})
+        }
+      }) : target
+    //Enabled plugins
+      const enabled = Object.entries(conf.settings.plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => key).filter(key => (key in q)&&(q[key]))
+    //Placeholder data
+      Object.assign(data, {
+        s(_, letter) { return letter === "y" ? "ies" : "s" },
+        meta:{version:conf.package.version, author:conf.package.author, placeholder:true},
+        user:proxify({name:`############`, websiteUrl:`########################`}),
+        computed:proxify({
+          avatar:"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
+          registration:"## years ago",
+          calendar:new Array(14).fill({color:"#ebedf0"}),
+          licenses:{favorite:`########`},
+          plugins:Object.fromEntries(enabled.map(key => 
+            [key, proxify({
+              music:{provider:"########", tracks:new Array("music.limit" in q ? Math.max(Number(q["music.limit"])||0, 0) : 4).fill({name:"##########", artist:"######", artwork:"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg=="})},
+              pagespeed:{scores:["Performance", "Accessibility", "Best Practices", "SEO"].map(title => ({title, score:NaN}))},
+              followup:{issues:{count:0}, pr:{count:0}},
+              habits:{indents:{style:`########`}},
+              languages:{favorites:new Array(7).fill(null).map((_, x) => ({x, name:`######`, color:"#ebedf0", value:1/(x+1)}))},
+            }[key]??{})]
+          )),
+          token:{scopes:[]},
+        }),
+      })
   }

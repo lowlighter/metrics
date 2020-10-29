@@ -73,6 +73,7 @@
               //Plugins options
                 const options = Object.entries(this.plugins.options)
                   .filter(([key, value]) => `${value}`.length)
+                  .filter(([key, value]) => this.plugins.enabled[key.split(".")[0]])
                   .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
               //Template
                 const template = (this.templates.selected !== templates[0]) ? [`template=${this.templates.selected}`] : []
@@ -115,61 +116,9 @@
         methods:{
           //Load and render image
             async load() {
-              //Load template
-                const template = this.templates.selected
-                if (!this.templates.loaded[template]) {
-                  const {data:{image, style, fonts}} = await axios.get(`/placeholder.svg?template=${template}`)
-                  this.templates.loaded[template] = {image, style, fonts}
-                }
-                const {image = "", style = "", fonts = ""} = this.templates.loaded[this.templates.selected] || {}
-                if (!image)
-                  return this.templates.placeholder = "#"
-              //Proxifier
-                const proxify = (target) => typeof target === "object" ? new Proxy(target, {
-                  get(target, property) {
-                    //Primitive conversion
-                      if (property === Symbol.toPrimitive)
-                        return () => "##"
-                    //Iterables
-                      if (property === Symbol.iterator)
-                        return Reflect.get(target, property)
-                    //Plugins should not be proxified by default as they can be toggled by user
-                      if (/^plugins$/.test(property))
-                        return Reflect.get(target, property)
-                    //Consider no errors on plugins
-                      if (/^error/.test(property))
-                        return undefined
-                    //Proxify recursively
-                    return proxify(property in target ? Reflect.get(target, property) : {})
-                  }
-                }) : target
-              //Placeholder data
-                const data = {
-                  style,
-                  fonts,
-                  s(_, letter) { return letter === "y" ? "ies" : "s" },
-                  base:this.plugins.enabled.base,
-                  meta:{version:"0.0.0", author:"lowlighter", placeholder:true},
-                  user:proxify({name:`############`, websiteUrl:`########################`}),
-                  computed:proxify({
-                    avatar:"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
-                    registration:"## years ago",
-                    calendar:new Array(14).fill({color:"#ebedf0"}),
-                    licenses:{favorite:`########`},
-                    plugins:Object.fromEntries(Object.entries(this.plugins.enabled).filter(([key, enabled]) => (key !== "base")&&(enabled)).map(([key]) => {
-                      return [key, proxify({
-                        music:{provider:"########", tracks:new Array(4).fill({name:"##########", artist:"######", artwork:"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg=="})},
-                        pagespeed:{scores:["Performance", "Accessibility", "Best Practices", "SEO"].map(title => ({title, score:NaN}))},
-                        followup:{issues:{count:0}, pr:{count:0}},
-                        habits:{indents:{style:`########`}},
-                        languages:{favorites:new Array(7).fill(null).map((_, x) => ({x, name:`######`, color:"#ebedf0", value:1/(x+1)}))},
-                      }[key]||{})]
-                    })),
-                    token:{scopes:[]},
-                  }),
-                }
               //Render placeholder
-                this.templates.placeholder = this.serialize(ejs.render(image, data))
+                const url = this.url.replace(new RegExp(`${this.user}(\\?|$)`), "placeholder$1")
+                this.templates.placeholder = this.serialize((await axios.get(url)).data)
                 this.generated.content = ""
             },
           //Generate metrics and flush cache

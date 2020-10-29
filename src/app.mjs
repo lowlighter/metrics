@@ -62,7 +62,7 @@
       app.get("/prism.yaml.min.js", limiter, (req, res) => res.sendFile(`${conf.node_modules}/prismjs/components/prism-yaml.min.js`))
       app.get("/prism.markdown.min.js", limiter, (req, res) => res.sendFile(`${conf.node_modules}/prismjs/components/prism-markdown.min.js`))
       app.get("/style.prism.css", limiter, (req, res) => res.sendFile(`${conf.node_modules}/prismjs/themes/prism-tomorrow.css`))
-      app.get("/placeholder.svg", limiter, async (req, res) => {
+      app.get("/placeholder.json", limiter, async (req, res) => {
         const template = req.query.template || conf.settings.templates.default
         if (!(template in Templates))
           return res.sendStatus(404)
@@ -73,7 +73,7 @@
         const {token, user} = req.query
         if (token) {
           if (actions.flush.has(token)) {
-            console.debug(`metrics/app/${user} > flushed cache`)
+            console.debug(`metrics/app/${actions.flush.get(token)} > flushed cache`)
             cache.del(actions.flush.get(token))
             return res.sendStatus(200)
           }
