@@ -93,7 +93,7 @@
         //Music
           if (plugins.music.enabled) {
             for (const option of ["provider", "mode", "playlist", "limit"])
-              q[`music.${option}`] = core.getInput(`plugin_music_${option}`) || ""
+              q[`music.${option}`] = core.getInput(`plugin_music_${option}`) || null
             console.log(`Music provider      | ${q["music.provider"]}`)
             console.log(`Music plugin mode   | ${q["music.mode"]}`)
             console.log(`Music playlist      | ${q["music.playlist"]}`)
@@ -104,7 +104,7 @@
         //Posts
           if (plugins.posts.enabled) {
             for (const option of ["source", "limit"])
-              q[`posts.${option}`] = core.getInput(`plugin_posts_${option}`) || ""
+              q[`posts.${option}`] = core.getInput(`plugin_posts_${option}`) || null
             console.log(`Posts provider      | ${q["posts.provider"]}`)
             console.log(`Posts limit         | ${q["posts.limit"]}`)
           }

@@ -999,7 +999,7 @@ var E_Users_lecoq_Documents_GitHub_gitstats_node_modules_actions_github_lib_gith
         //Music
           if (plugins.music.enabled) {
             for (const option of ["provider", "mode", "playlist", "limit"])
-              q[`music.${option}`] = core.getInput(`plugin_music_${option}`) || ""
+              q[`music.${option}`] = core.getInput(`plugin_music_${option}`) || null
             console.log(`Music provider      | ${q["music.provider"]}`)
             console.log(`Music plugin mode   | ${q["music.mode"]}`)
             console.log(`Music playlist      | ${q["music.playlist"]}`)
@@ -1010,7 +1010,7 @@ var E_Users_lecoq_Documents_GitHub_gitstats_node_modules_actions_github_lib_gith
         //Posts
           if (plugins.posts.enabled) {
             for (const option of ["source", "limit"])
-              q[`posts.${option}`] = core.getInput(`plugin_posts_${option}`) || ""
+              q[`posts.${option}`] = core.getInput(`plugin_posts_${option}`) || null
             console.log(`Posts provider      | ${q["posts.provider"]}`)
             console.log(`Posts limit         | ${q["posts.limit"]}`)
           }
