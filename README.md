@@ -13,12 +13,14 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
 |[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.music.playlist.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.music.playlist.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.music.recent.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.music.recent.svg)|
 | **Most used languages plugin**      | **Follow-up plugin**                | **Coding Habits plugin**            |
 |[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.followup.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.followup.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.svg)|
-| **Repositories traffic plugin**     | **Lines of code plugin**            |                                     |
-|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.traffic.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.traffic.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.lines.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.lines.traffic.svg)| More to come soon ! |
+| **Repositories traffic plugin**     | **Lines of code plugin**            | **Recent posts plugin**             |
+|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.traffic.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.traffic.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.lines.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.lines.traffic.svg)| [<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.posts.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.lines.posts.svg) |
+|                                     |
+| More to come soon !                 |
 
-| Classic template   | Terminal template  |
-| :----------------: | :----------------: |
-|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.classic.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.classic.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.terminal.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.terminal.svg)|
+| Classic template   | Terminal template  |                    |
+| :----------------: | :----------------: | :----------------: |
+|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.classic.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.classic.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.terminal.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.terminal.svg)| More to come soon ! |
 
 ## 🦑 Interested to get your own ?
 
@@ -593,7 +595,30 @@ Add the following to your workflow :
 
 </details>
 
-#### ✒️ Follow-up
+#### ✒️ Posts
+
+The recent *posts* plugin allows you to display recent articles you wrote on an external source, like [dev.to](https://dev.to).
+
+![Posts plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.posts.svg)
+
+<details>
+<summary>💬 About</summary>
+
+Supported sources are : 
+* [dev.to](https://dev.to)
+
+Add the following to your workflow :
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_posts: yes
+    plugin_posts_source: ********
+```
+
+</details>
+
+#### 🎟️ Follow-up
 
 The *follow-up* plugin allows you to compute the ratio of opened/closed issues and the ratio of opened/merged pull requests on your repositories, which shows whether most of them are maintened or not.
 
