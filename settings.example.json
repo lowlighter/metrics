@@ -33,11 +33,14 @@
       "enabled":true,             "//":"Enable or disable most used languages metrics"
     },
     "followup":{                  "//":"Follow-up plugin",
-      "enabled":true,             "//":"Enable owned repositories issues and pull requests metrics"
+      "enabled":true,             "//":"Enable or disable owned repositories issues and pull requests metrics"
     },
     "music":{                     "//":"Music plugin",
-      "enabled":false,            "//":"Enable music plugin",
+      "enabled":false,            "//":"Enable or disable music recently played / random track from playlist",
       "token":null,               "//":"Music provider token (may be required depending on provider)"
+    },
+    "posts":{                     "//":"posts plugin",
+      "enabled":false,            "//":"Enable or disable recents posts"
     }
   }
 }

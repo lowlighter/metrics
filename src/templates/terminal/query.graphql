@@ -11,6 +11,7 @@ query Metrics {
     }
     repositories(last: $repositories, isFork: false, ownerAffiliations: OWNER) {
       totalCount
+      totalDiskUsage
       nodes {
         name
         watchers {

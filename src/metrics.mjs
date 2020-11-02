@@ -32,7 +32,7 @@
             data.base[part] = (`base.${part}` in q) ? !!q[`base.${part}`] : true
 
         //Placeholder
-          if (login === "placeholder") 
+          if (login === "placeholder")
             placeholder({data, conf, q})
         //Compute
           else {
@@ -48,7 +48,7 @@
             //Compute metrics
               console.debug(`metrics/compute/${login} > compute`)
               const computer = Templates[template].default || Templates[template]
-              await computer({login, q}, {conf, data, rest, graphql, plugins}, {s, pending, imports:{plugins:Plugins, url, imgb64, axios, puppeteer, format, shuffle}})
+              await computer({login, q}, {conf, data, rest, graphql, plugins}, {s, pending, imports:{plugins:Plugins, url, imgb64, axios, puppeteer, format, bytes, shuffle}})
               const promised = await Promise.all(pending)
 
             //Check plugins errors
@@ -96,6 +96,14 @@
     return n
   }
 
+/** Bytes formatter */
+  function bytes(n) {
+    for (const {u, v} of [{u:"E", v:10**18}, {u:"P", v:10**15}, {u:"T", v:10**12}, {u:"G", v:10**9}, {u:"M", v:10**6}, {u:"k", v:10**3}])
+      if (n/v >= 1)
+        return `${(n/v).toFixed(2).substr(0, 4).replace(/[.]0*$/, "")} ${u}B`
+    return `${n} byte${n > 1 ? "s" : ""}`
+  }
+
 /** Array shuffler */
   function shuffle(array) {
     for (let i = array.length-1; i > 0; i--) {
@@ -138,8 +146,9 @@
           registration:"## years ago",
           calendar:new Array(14).fill({color:"#ebedf0"}),
           licenses:{favorite:`########`},
-          plugins:Object.fromEntries(enabled.map(key => 
+          plugins:Object.fromEntries(enabled.map(key =>
             [key, proxify({
+              posts:{source:"########", posts:new Array("posts.limit" in q ? Math.max(Number(q["posts.limit"])||0, 0) : 2).fill({title:"###### ###### ####### ######", date:"####"})},
               music:{provider:"########", tracks:new Array("music.limit" in q ? Math.max(Number(q["music.limit"])||0, 0) : 4).fill({name:"##########", artist:"######", artwork:"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg=="})},
               pagespeed:{scores:["Performance", "Accessibility", "Best Practices", "SEO"].map(title => ({title, score:NaN}))},
               followup:{issues:{count:0}, pr:{count:0}},

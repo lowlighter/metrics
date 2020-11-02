@@ -40,6 +40,7 @@
   .field svg {
     margin: 0 8px;
     fill: #959da5;
+    flex-shrink: 0;
   }
   .field.error {
     color: #cb2431;
@@ -215,6 +216,29 @@
   .track .artist {
     font-size: 12px;
     opacity: .7;
+  }
+
+/* Posts plugin */
+  .post {
+    align-items: flex-start;
+  }
+  .post .infos {
+    display: flex;
+    margin-bottom: 4px;
+  }
+  .post .infos .title {
+    font-size: 14px;
+    width: 400px;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 40px;;
+  }
+  .post .infos .date {
+    flex-shrink: 0;
+    font-size: 12px;
+    opacity: .7;
+    width: 40px;
   }
 
 /* Fade animation */

@@ -32,6 +32,9 @@
             computed.licenses.used[repository.licenseInfo.spdxId] = (computed.licenses.used[repository.licenseInfo.spdxId] || 0) + 1
       }
 
+    //Total disk usage
+      computed.diskUsage = `${imports.bytes(data.user.repositories.totalDiskUsage*1000)}`
+
     //Compute licenses stats
       computed.licenses.favorite = Object.entries(computed.licenses.used).sort(([an, a], [bn, b]) => b - a).slice(0, 1).map(([name, value]) => name) || ""
 

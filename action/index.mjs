@@ -79,7 +79,8 @@
           selfskip:{enabled:bool(core.getInput("plugin_selfskip"))},
           languages:{enabled:bool(core.getInput("plugin_languages"))},
           followup:{enabled:bool(core.getInput("plugin_followup"))},
-          music:{enabled:bool(core.getInput("plugin_music"))}
+          music:{enabled:bool(core.getInput("plugin_music"))},
+          posts:{enabled:bool(core.getInput("plugin_posts"))},
         }
         let q = Object.fromEntries(Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => [key, true]))
         console.log(`Plugins enabled     | ${Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => key).join(", ")}`)
@@ -99,6 +100,13 @@
             console.log(`Music tracks limit  | ${q["music.limit"]}`)
             plugins.music.token = core.getInput("plugin_music_token") || ""
             console.log(`Music token         | ${plugins.music.token ? "provided" : "missing"}`)
+          }
+        //Posts
+          if (plugins.posts.enabled) {
+            for (const option of ["source", "limit"])
+              q[`posts.${option}`] = core.getInput(`plugin_posts_${option}`) || ""
+              console.log(`Posts provider      | ${q["posts.provider"]}`)
+              console.log(`Posts limit         | ${q["posts.limit"]}`)
           }
 
       //Repositories to use

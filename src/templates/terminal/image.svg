@@ -97,7 +97,7 @@ Last generated: <%= new Date().toGMTString() %>
 <% if (base.repositories) { %>
 <div class="stdin"><%- meta.$ %> ls -lh github/repositories</div><%# -%>
 <div class="stdout"><%# -%>
-Total <%= user.repositories.totalCount %> repositor<%= s(user.repositories.totalCount, "y") %>
+Total <%= user.repositories.totalCount %> repositor<%= s(user.repositories.totalCount, "y") %> - <%= computed.diskUsage %>
 <% if (computed.plugins.traffic) { if (computed.plugins.traffic.error) { -%>
 ----  <b>     </b>  views <span class="error">(<%= computed.plugins.traffic.error.message %>)</span>
 <% } else { -%>

@@ -168,6 +168,20 @@ inputs:
     description: Skip commits flagged with [Skip GitHub Action] from commits count
     default: no
 
+  # Posts plugin
+  # Display recent posts from an external source
+  plugin_posts:
+    description: Enable posts posts
+    default: no
+
+  # Posts source
+  # This is required when "plugin_posts" is enabled
+  # Supported values are :
+  # - "dev.to" for dev.to
+  plugin_posts_source:
+    description: Posts source
+    default: ""
+
   # Enable debug mode
   # Be sure to put all secrets in your repository secrets before to avoid any leaks !
   debug:

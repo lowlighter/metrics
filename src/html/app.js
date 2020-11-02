@@ -29,6 +29,7 @@
               habits:"Coding habits",
               selfskip:"Skip metrics commits",
               music:"Music plugin",
+              posts:"Recent posts",
               "base.header":"Header",
               "base.activity":"Account activity",
               "base.community":"Community stats",
@@ -39,6 +40,9 @@
               "habits.from":100,
               "music.playlist":"",
               "music.mode":"playlist",
+              "music.limit":4,
+              "posts.limit":4,
+              "posts.source":"dev.to",
             },
           },
           templates:{

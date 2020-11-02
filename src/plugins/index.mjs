@@ -5,6 +5,7 @@
   import lines from "./lines/index.mjs"
   import music from "./music/index.mjs"
   import pagespeed from "./pagespeed/index.mjs"
+  import posts from "./posts/index.mjs"
   import selfskip from "./selfskip/index.mjs"
   import traffic from "./traffic/index.mjs"
 
@@ -16,6 +17,7 @@
     lines,
     music,
     pagespeed,
+    posts,
     selfskip,
     traffic,
   }
