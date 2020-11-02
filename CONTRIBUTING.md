@@ -15,11 +15,13 @@ To use [GitHub Rest API](https://docs.github.com/en/rest) or a third-party servi
 Plugins should be self-sufficient and re-exported from [src/plugins/index.mjs](https://github.com/lowlighter/metrics/blob/master/src/plugins/index.mjs), to be later included in the `//Plugins` section of `templates/*/template.mjs`.
 Data generated should be exposed in `data.computed.plugins[plugin]` where `plugin` is your plugin's name.
 
-#### Updating the SVG template
+#### Updating SVG templates
 
-The SVG template is located in `templates/*/image.svg` and include the CSS from `templates/*/style.css`.
+The SVG templates are located in `templates/*/image.svg` and include CSS from `templates/*/style.css`.
 
 It is rendered with [EJS](https://github.com/mde/ejs) so you can actually include variables (e.g. `<%= user.name %>`) and execute simple code, like control statements.
+
+It should handle plugins errors gracefully by displaying the error message.
 
 #### Metrics server and GitHub action
 
