@@ -1011,8 +1011,8 @@ var E_Users_lecoq_Documents_GitHub_gitstats_node_modules_actions_github_lib_gith
           if (plugins.posts.enabled) {
             for (const option of ["source", "limit"])
               q[`posts.${option}`] = core.getInput(`plugin_posts_${option}`) || ""
-              console.log(`Posts provider      | ${q["posts.provider"]}`)
-              console.log(`Posts limit         | ${q["posts.limit"]}`)
+            console.log(`Posts provider      | ${q["posts.provider"]}`)
+            console.log(`Posts limit         | ${q["posts.limit"]}`)
           }
 
       //Repositories to use

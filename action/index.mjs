@@ -105,8 +105,8 @@
           if (plugins.posts.enabled) {
             for (const option of ["source", "limit"])
               q[`posts.${option}`] = core.getInput(`plugin_posts_${option}`) || ""
-              console.log(`Posts provider      | ${q["posts.provider"]}`)
-              console.log(`Posts limit         | ${q["posts.limit"]}`)
+            console.log(`Posts provider      | ${q["posts.provider"]}`)
+            console.log(`Posts limit         | ${q["posts.limit"]}`)
           }
 
       //Repositories to use
