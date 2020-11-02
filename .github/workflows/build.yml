@@ -77,7 +77,7 @@ jobs:
           plugins_errors_fatal: yes
           dryrun: yes
         
-      - name: Music plugin (recent)
+      - name: Music plugin (recent - spotify)
         uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
@@ -86,6 +86,17 @@ jobs:
           plugin_music: yes
           plugin_music_provider: spotify
           plugin_music_token: ${{ secrets.SPOTIFY_TOKENS }}
+          plugins_errors_fatal: yes
+          dryrun: yes
+          
+      - name: Posts plugin (dev.to)
+        uses: lowlighter/metrics@master
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          repositories: 1
+          plugin_posts: yes
+          plugin_posts_source: dev.to
           plugins_errors_fatal: yes
           dryrun: yes
 
@@ -139,13 +150,3 @@ jobs:
           plugins_errors_fatal: yes
           dryrun: yes
           
-      - name: Posts plugin
-        uses: lowlighter/metrics@master
-        with:
-          token: ${{ secrets.METRICS_TOKEN }}
-          base: ""
-          repositories: 1
-          plugin_posts: yes
-          plugin_posts_source: dev.to
-          plugins_errors_fatal: yes
-          dryrun: yes
