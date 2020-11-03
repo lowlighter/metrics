@@ -171,7 +171,7 @@ inputs:
   # Posts plugin
   # Display recent posts from an external source
   plugin_posts:
-    description: Enable posts posts
+    description: Enable recent posts display
     default: no
 
   # Posts source
@@ -181,6 +181,12 @@ inputs:
   plugin_posts_source:
     description: Posts source
     default: ""
+
+  # Posts limits
+  # Set number of posts to display
+  plugin_posts_limit:
+    description: Posts limit
+    default: 4
 
   # Isometric calendar plugin
   # Display an isometric view of your commits calendar, along with a few stats like current streak and average commits per day
