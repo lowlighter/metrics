@@ -1,6 +1,7 @@
 //Imports
   import followup from "./followup/index.mjs"
   import habits from "./habits/index.mjs"
+  import isocalendar from "./isocalendar/index.mjs"
   import languages from "./languages/index.mjs"
   import lines from "./lines/index.mjs"
   import music from "./music/index.mjs"
@@ -13,6 +14,7 @@
   export default {
     followup,
     habits,
+    isocalendar,
     languages,
     lines,
     music,

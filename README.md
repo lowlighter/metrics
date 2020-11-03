@@ -14,9 +14,9 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
 | **Most used languages plugin**      | **Follow-up plugin**                | **Coding Habits plugin**            |
 |[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.followup.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.followup.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.svg)|
 | **Repositories traffic plugin**     | **Lines of code plugin**            | **Recent posts plugin**             |
-|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.traffic.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.traffic.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.lines.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.lines.traffic.svg)| [<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.posts.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.lines.posts.svg) |
-|                                     |
-| More to come soon !                 |
+|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.traffic.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.traffic.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.lines.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.lines.svg)| [<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.posts.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.posts.svg) |
+| **Isometric calendar plugin**       |                                     |
+|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.isocalendar.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.isocalendar.svg) | More to come soon !                 |
 
 | Classic template   | Terminal template  |                    |
 | :----------------: | :----------------: | :----------------: |
@@ -522,11 +522,32 @@ Now that you've got your `client_id`, `client_secret` and `refresh_token` you ca
 
 </details>
 
+#### 📅 Isometric calendar
+
+The *isocalendar* plugin allows you to display an isometric view of your commits calendar, along with a few stats like your current streak and your commit average per day.
+
+![Isocalendar plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.isocalendar.svg)
+
+<details>
+<summary>💬 About</summary>
+
+It will consume an additional GitHub request.
+
+Add the following to your workflow :
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_isocalendar: yes
+```
+
+</details>
+
 #### 👨‍💻 Lines
 
 The *lines* of code plugin allows you to compute the number of lines of code you added and removed across all of your repositories.
 
-![Languages plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.lines.svg)
+![Lines plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.lines.svg)
 
 <details>
 <summary>💬 About</summary>
@@ -547,7 +568,7 @@ Add the following to your workflow :
 
 The repositories *traffic* plugin allows you to compute the number of pages views across your repositories.
 
-![Languages plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.traffic.svg)
+![Traffic plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.traffic.svg)
 
 <details>
 <summary>💬 About</summary>
@@ -604,7 +625,7 @@ The recent *posts* plugin allows you to display recent articles you wrote on an 
 <details>
 <summary>💬 About</summary>
 
-Supported sources are : 
+Supported sources are :
 * [dev.to](https://dev.to)
 
 Add the following to your workflow :
@@ -697,3 +718,4 @@ See [GitHub Logos and Usage](https://github.com/logos) for more information.
 * [anuraghazra/github-readme-stats](https://github.com/anuraghazra/github-readme-stats)
 * [jstrieb/github-stats](https://github.com/jstrieb/github-stats)
 * [ankurparihar/readme-pagespeed-insights](https://github.com/ankurparihar/readme-pagespeed-insights)
+* [jasonlong/isometric-contributions](https://github.com/jasonlong/isometric-contributions)

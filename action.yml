@@ -182,6 +182,12 @@ inputs:
     description: Posts source
     default: ""
 
+  # Isometric calendar plugin
+  # Display an isometric view of your commits calendar, along with a few stats like current streak and average commits per day
+  plugin_isocalendar:
+    description:
+    default: no
+
   # Enable debug mode
   # Be sure to put all secrets in your repository secrets before to avoid any leaks !
   debug:

@@ -39,8 +39,11 @@
       "enabled":false,            "//":"Enable or disable music recently played / random track from playlist",
       "token":null,               "//":"Music provider token (may be required depending on provider)"
     },
-    "posts":{                     "//":"posts plugin",
+    "posts":{                     "//":"Posts plugin",
       "enabled":false,            "//":"Enable or disable recents posts"
+    },
+    "isocalendar":{               "//":"Isometric calendar plugin",
+      "enabled":false,            "//":"Enable or disable isometric calendar"
     }
   }
 }

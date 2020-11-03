@@ -81,6 +81,7 @@
           followup:{enabled:bool(core.getInput("plugin_followup"))},
           music:{enabled:bool(core.getInput("plugin_music"))},
           posts:{enabled:bool(core.getInput("plugin_posts"))},
+          isocalendar:{enabled:bool(core.getInput("isocalendar"))},
         }
         let q = Object.fromEntries(Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => [key, true]))
         console.log(`Plugins enabled     | ${Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => key).join(", ")}`)
