@@ -30,6 +30,7 @@
               selfskip:"Skip metrics commits",
               music:"Music plugin",
               posts:"Recent posts",
+              isocalendar:"Isometric commit calendar",
               "base.header":"Header",
               "base.activity":"Account activity",
               "base.community":"Community stats",
