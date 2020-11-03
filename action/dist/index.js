@@ -257,7 +257,7 @@ var E_Users_lecoq_Documents_GitHub_gitstats_node_modules_axios_index_default = /
               streak.max = Math.max(streak.max, streak.current)
             }
           }
-          average = (values.reduce((a, b) => a + b, 0)/values.length).toFixed(2).replace(/.0+$/, "")
+          average = (values.reduce((a, b) => a + b, 0)/values.length).toFixed(2).replace(/[.]0+$/, "")
         //Compute SVG
           const size = 6
           let i = 0, j = 0

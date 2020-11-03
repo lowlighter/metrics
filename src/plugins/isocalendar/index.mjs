@@ -39,7 +39,7 @@
               streak.max = Math.max(streak.max, streak.current)
             }
           }
-          average = (values.reduce((a, b) => a + b, 0)/values.length).toFixed(2).replace(/.0+$/, "")
+          average = (values.reduce((a, b) => a + b, 0)/values.length).toFixed(2).replace(/[.]0+$/, "")
         //Compute SVG
           const size = 6
           let i = 0, j = 0
