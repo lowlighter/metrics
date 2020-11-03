@@ -5,16 +5,16 @@
         //Check if plugin is enabled and requirements are met
           if ((!enabled)||(!q.isocalendar))
             return null
-        //Compute start day (need to )
+        //Compute start day (need to start on monday to ensure last row is complete)
           const from = new Date(Date.now()-180*24*60*60*1000)
           const day = from.getDay()||7
           if (day !== 1)
             from.setHours(-24*(day-1))
-        //Retrieve more data from contribution calendar
+        //Retrieve contribution calendar from graphql api
           const {user:{calendar:{contributionCalendar:calendar}}} = await graphql(`
               query Calendar {
-                user(login: $login) {
-                  calendar:contributionsCollection(from: $calendar.from, to: $calendar.to) {
+                user(login: "${login}") {
+                  calendar:contributionsCollection(from: "${from.toISOString()}", to: "${(new Date()).toISOString()}") {
                     contributionCalendar {
                       weeks {
                         contributionDays {
@@ -28,11 +28,8 @@
                 }
               }
             `
-            .replace(/[$]login/, `"${login}"`)
-            .replace(/[$]calendar.to/, `"${(new Date()).toISOString()}"`)
-            .replace(/[$]calendar.from/, `"${from.toISOString()}"`)
           )
-        //Compute max contribution per day to scale
+        //Compute the highest contributions in a day, streaks and average commits per day
           let max = 0, streak = {max:0, current:0}, values = [], average = 0
           for (const week of calendar.weeks) {
             for (const day of week.contributionDays) {
@@ -48,20 +45,13 @@
           let i = 0, j = 0
           let svg = `
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" style="margin-top: -52px;" viewBox="0,0 480,170">
-              <filter id="brightness1">
-                <feComponentTransfer>
-                  <feFuncR type="linear" slope="0.6" />
-                  <feFuncG type="linear" slope="0.6" />
-                  <feFuncB type="linear" slope="0.6" />
-                </feComponentTransfer>
-              </filter>
-              <filter id="brightness2">
-                <feComponentTransfer>
-                  <feFuncR type="linear" slope="0.2" />
-                  <feFuncG type="linear" slope="0.2" />
-                  <feFuncB type="linear" slope="0.2" />
-                </feComponentTransfer>
-              </filter>
+              ${[1, 2].map(k => `
+                <filter id="brightness${k}">
+                  <feComponentTransfer>
+                    ${[..."RGB"].map(channel => `<feFunc${channel} type="linear" slope="${1-k*0.4}" />`).join("")}
+                  </feComponentTransfer>
+                </filter>`
+              ).join("")}
               <g transform="scale(4) translate(12, 0)">`
           //Iterate through weeks
             for (const week of calendar.weeks) {
