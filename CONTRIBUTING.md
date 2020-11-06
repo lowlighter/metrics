@@ -6,38 +6,38 @@ Nice ! Read the few sections below to understand how this project is structured.
 
 ### 👨‍💻 General informations
 
-#### Adding new metrics through GraphQL API, REST API or Third-Party service
+#### Adding new metrics and plugins through GraphQL API, REST API or Third-Party service
 
-To use [GitHub GraphQL API](https://docs.github.com/en/graphql), update the GraphQL query from `templates/*/query.graphql`.
-Raw queried data should be exposed in `data.user` whereas computed data should be in `data.computed`, and code should be updated through `templates/*/template.mjs`.
+When updating a single template, changes should be made through [GitHub GraphQL API](https://docs.github.com/en/graphql) by editing the GraphQL query from `templates/*/query.graphql`. Computed or formatting can be made in `templates/*/template.mjs`.
+Raw queried data should be exposed directly into `data.user`, whereas computed data should be stored in `data.computed`.
 
-To use [GitHub Rest API](https://docs.github.com/en/rest) or a third-party service instead, create a new plugin in `src/plugins`.
-Plugins should be self-sufficient and re-exported from [src/plugins/index.mjs](https://github.com/lowlighter/metrics/blob/master/src/plugins/index.mjs), to be later included in the `//Plugins` section of `templates/*/template.mjs`.
-Data generated should be exposed in `data.computed.plugins[plugin]` where `plugin` is your plugin's name.
+When making a new plugin, a new folder with its name must be created in `src/plugins`.
+Plugins entry point `src/plugins/*/index.mjs` will have access to `{login, q, imports, data, computed, rest, graphql}`.
+It should be self-sufficient and independant from others plugins and used template.
+Data generated should be exposed in `data.computed.plugins[plugin]` where `plugin` is the plugin's name.
 
 #### Updating SVG templates
 
 The SVG templates are located in `templates/*/image.svg` and include CSS from `templates/*/style.css`.
 
-It is rendered with [EJS](https://github.com/mde/ejs) so you can actually include variables (e.g. `<%= user.name %>`) and execute simple code, like control statements.
+It is rendered with [EJS](https://github.com/mde/ejs) so it is actually possible to include variables (e.g. `<%= user.name %>`) and execute simple code, like control statements.
 
-It should handle plugins errors gracefully by displaying the error message.
+Plugins errors should be handled gracefully by displaying the error message.
 
 #### Metrics server and GitHub action
 
-Most of the time, you won't need to edit these, unless you're integrating features directly tied to them.
-Remember that SVG image is actually generated from `src/metrics.mjs`, independently from metrics server and GitHub action.
+Unless when integrating new features directly tied to these, it is not needed to edit them when creating a new template or plugin.
+Keep in mind that SVG image is actually generated from `src/metrics.mjs`, independently from the metrics server and GitHub action.
 
 Metrics server code is located in `src/app.mjs` and instantiates an `express` server app, `octokit`s instances, middlewares (like rate-limiter) and routes.
 
 GitHub action code is located in `action/index.mjs` and instantiates `octokit`s instances and retrieves action parameters.
 It then use directly `src/metrics.mjs` to generate the SVG image and commit them to user's repository.
-You must run `npm run build` to rebuild the GitHub action.
 
 #### Testing new features
 
 To test new features, setup a metrics server with a test token and `debug` mode enabled.
-This way you'll be able to rapidly test SVG renders with your browser.
+It allows fast prototyping and to rapidly test SVG renders in a browser.
 
 ### 🗂️ Project structure
 
@@ -62,8 +62,13 @@ This way you'll be able to rapidly test SVG renders with your browser.
 
 * `action.yml` contains the GitHub action descriptor
 * `action/index.mjs` contains the GitHub action code
-* `action/dist/index.js` contains compiled the GitHub action code
-* `utils/build.mjs` contains the GitHub action builder
+* `action/dist/index.js` contains compiled the GitHub action code (auto-generated)
+
+#### Others
+
+* `tests/metrics.mjs` contains tests
+* `utils/build.mjs` allows to rebuild plugins and template indexes and GitHub action
+
 
 ### 📦 Used packages
 
@@ -91,6 +96,9 @@ This way you'll be able to rapidly test SVG renders with your browser.
   * To scrap the web
 * [libxmljs/libxmljs](https://github.com/libxmljs/libxmljs)
   * To test and verify SVG validity
+* [Marak/colors.js](https://github.com/Marak/colors.js)
+  * To print colors in console
+
 
 ### 🗛 Fonts
 
@@ -105,5 +113,3 @@ This way you'll be able to rapidly test SVG renders with your browser.
 6. Update your template
   - Include `<defs><style><%= fonts %></style></defs>` to your `templates/*/image.svg`
   - Edit your `templates/*/style.css` to use yout new font
-
-
