@@ -41,6 +41,7 @@
   "devDependencies": {
     "@vercel/ncc": "^0.25.1",
     "babel-minify": "^0.5.1",
-    "libxmljs": "^0.19.7"
+    "libxmljs": "^0.19.7",
+    "yargs-parser": ">=13.1.2"
   }
 }
