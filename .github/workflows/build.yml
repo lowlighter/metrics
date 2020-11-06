@@ -48,10 +48,10 @@ jobs:
         uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
-          pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
           base: ""
           repositories: 1
           plugin_pagespeed: yes
+          plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
           plugins_errors_fatal: yes
           dryrun: yes
 
