@@ -1,3 +1,5 @@
+/* This file is generated automatically with "npm run build" */
+
 //Imports
   import followup from "./followup/index.mjs"
   import habits from "./habits/index.mjs"

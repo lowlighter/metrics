@@ -25,6 +25,7 @@
     "@octokit/graphql": "^4.5.7",
     "@octokit/rest": "^18.0.9",
     "axios": "^0.21.0",
+    "colors": "^1.4.0",
     "compression": "^1.7.4",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
