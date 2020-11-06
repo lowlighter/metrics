@@ -13,7 +13,7 @@
   const __plugins = path.join(__src, "plugins")
   const __templates = path.join(__src, "templates")
   process.on("unhandledRejection", error => { throw error })
-  colors
+  colors.enable()
 
 /** Build function */
   export default async function build({actions = ["build"]} = {}) {

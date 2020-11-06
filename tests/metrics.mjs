@@ -4,7 +4,7 @@
 
 //Initialization
   process.on("unhandledRejection", error => { throw error })
-  colors
+  colors.enable()
 
 /** Test function */
   export default async function test() {
