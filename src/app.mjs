@@ -35,7 +35,8 @@
       }
     //Cache headers middleware
       middlewares.push((req, res, next) => {
-        res.header("Cache-Control", cached ? `public, max-age=${cached}` : "no-store, no-cache")
+        if (!["/placeholder"].includes(req.path))
+          res.header("Cache-Control", cached ? `public, max-age=${cached}` : "no-store, no-cache")
         next()
       })
 
