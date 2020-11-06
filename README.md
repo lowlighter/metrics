@@ -14,9 +14,9 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
 | **Most used languages plugin**      | **Follow-up plugin**                | **Coding Habits plugin**            |
 |[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.followup.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.followup.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.svg)|
 | **Repositories traffic plugin**     | **Lines of code plugin**            | **Recent posts plugin**             |
-|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.traffic.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.traffic.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.lines.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.lines.svg)| [<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.posts.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.posts.svg) |
-| **Isometric calendar plugin**       |                                     |
-|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.isocalendar.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.isocalendar.svg) | More to come soon !                 |
+|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.traffic.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.traffic.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.lines.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.lines.svg)| [<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.posts.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.posts.svg)|
+| **Isometric calendar plugin**       | **Gists metrics**                   |                                     |
+|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.isocalendar.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.isocalendar.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.gists.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.gists.svg)| More to come soon !                 |
 
 | Classic template   | Terminal template  |                    |
 | :----------------: | :----------------: | :----------------: |
@@ -673,6 +673,27 @@ Add the following to your workflow :
   with:
     # ... other options
     plugin_languages: yes
+```
+
+</details>
+
+#### 🎫 Gists
+
+The *gists* plugin allows you to display [gists](https://gist.github.com) metrics.
+
+![Gists plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.gists.svg)
+
+<details>
+<summary>💬 About</summary>
+
+It will consume an additional GitHub request per gist fetched.
+
+Add the following to your workflow :
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_gists: yes
 ```
 
 </details>

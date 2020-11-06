@@ -160,3 +160,12 @@ jobs:
           plugins_errors_fatal: yes
           dryrun: yes
 
+      - name: Gists plugin
+        uses: lowlighter/metrics@master
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          repositories: 1
+          plugin_gists: yes
+          plugins_errors_fatal: yes
+          dryrun: yes

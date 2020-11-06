@@ -39,7 +39,7 @@
     "vue-prism-component": "^1.2.0"
   },
   "devDependencies": {
-    "@vercel/ncc": "^0.24.1",
+    "@vercel/ncc": "^0.25.1",
     "babel-minify": "^0.5.1",
     "libxmljs": "^0.19.7"
   }
