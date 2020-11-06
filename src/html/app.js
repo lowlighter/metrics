@@ -31,6 +31,7 @@
               music:"Music plugin",
               posts:"Recent posts",
               isocalendar:"Isometric commit calendar",
+              gists:"Gists metrics",
               "base.header":"Header",
               "base.activity":"Account activity",
               "base.community":"Community stats",

@@ -41,6 +41,9 @@ query Metrics {
         pr_merged: pullRequests(states: MERGED) {
           totalCount
         }
+        releases {
+          totalCount
+        }
         forkCount
         licenseInfo {
           spdxId

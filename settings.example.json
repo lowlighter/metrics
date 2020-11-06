@@ -44,6 +44,9 @@
     },
     "isocalendar":{               "//":"Isometric calendar plugin",
       "enabled":false,            "//":"Enable or disable isometric calendar"
+    },
+    "gists":{                     "//":"Gists plugin",
+      "enabled":false,            "//":"Enable or disable gists metrics"
     }
   }
 }

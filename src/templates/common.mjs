@@ -2,7 +2,7 @@
   export default async function ({login, q}, {conf, data, rest, graphql, plugins}, {s, pending, imports}) {
 
     //Init
-      const computed = data.computed = {commits:0, sponsorships:0, licenses:{favorite:"", used:{}}, token:{}, repositories:{watchers:0, stargazers:0, issues_open:0, issues_closed:0, pr_open:0, pr_merged:0, forks:0}, plugins:{}}
+      const computed = data.computed = {commits:0, sponsorships:0, licenses:{favorite:"", used:{}}, token:{}, repositories:{watchers:0, stargazers:0, issues_open:0, issues_closed:0, pr_open:0, pr_merged:0, forks:0, releases:0}, plugins:{}}
       const avatar = imports.imgb64(data.user.avatarUrl)
 
     //Plugins
@@ -23,7 +23,7 @@
     //Iterate through user's repositories
       for (const repository of data.user.repositories.nodes) {
         //Simple properties with totalCount
-          for (const property of ["watchers", "stargazers", "issues_open", "issues_closed", "pr_open", "pr_merged"])
+          for (const property of ["watchers", "stargazers", "issues_open", "issues_closed", "pr_open", "pr_merged", "releases"])
             computed.repositories[property] += repository[property].totalCount
         //Forks
           computed.repositories.forks += repository.forkCount
@@ -40,7 +40,6 @@
 
     //Compute total commits and sponsorships
       computed.commits += data.user.contributionsCollection.totalCommitContributions + data.user.contributionsCollection.restrictedContributionsCount
-      computed.sponsorships = data.user.sponsorshipsAsSponsor.totalCount + data.user.sponsorshipsAsMaintainer.totalCount
 
     //Compute registration date
       const diff = (Date.now()-(new Date(data.user.createdAt)).getTime())/(365*24*60*60*1000)

@@ -88,7 +88,7 @@ Last generated: <%= new Date().toGMTString() %>
 <% if (base.community) { -%>
 <b>Tracked activity</b>
   <b><%= `${user.following.totalCount}`.padStart(5) %></b> user<%= s(user.followers.totalCount) %> followed
-  <b><%= `${computed.sponsorships}`.padStart(5) %></b> repositor<%= s(computed.sponsorships, "y") %> sponsored
+  <b><%= `${user.sponsorshipsAsSponsor.totalCount}`.padStart(5) %></b> repositor<%= s(user.sponsorshipsAsSponsor.totalCount, "y") %> sponsored
   <b><%= `${user.starredRepositories.totalCount}`.padStart(5) %></b> repositor<%= s(user.starredRepositories.totalCount, "y") %> starred
   <b><%= `${user.watching.totalCount}`.padStart(5) %></b> repositor<%= s(user.watching.totalCount, "y") %> watched
 <% } -%>
