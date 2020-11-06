@@ -191,7 +191,13 @@ inputs:
   # Isometric calendar plugin
   # Display an isometric view of your commits calendar, along with a few stats like current streak and average commits per day
   plugin_isocalendar:
-    description:
+    description: Display an isometric view of your commits calendar, along with a few additional stats
+    default: no
+
+  # Gists plugins
+  # Display gists metrics
+  plugin_gists:
+    description: Display gists metrics
     default: no
 
   # Enable debug mode

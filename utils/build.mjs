@@ -3,6 +3,7 @@
   import path from "path"
   import url from "url"
   import ncc from "@vercel/ncc"
+  import minify from "babel-minify"
   import colors from "colors"
 
 //Initialization
@@ -58,11 +59,7 @@
     //Action
       {
         //Build
-          let {code} = await ncc(`${__action}/index.mjs`, {
-            minify:true,
-            sourceMap:false,
-            sourceMapRegister:false,
-          })
+          let {code} = await ncc(`${__action}/index.mjs`, {sourceMap:false, sourceMapRegister:false})
           console.log(`Generated action`.grey)
 
         //Perform assets includes
@@ -87,6 +84,12 @@
           code = code.replace(/<#version>/g, version)
           console.log(`Included version number (${version}) to generated action`.grey)
 
+        //Minify
+          code = minify(code).code
+          console.log(`Minified code`.grey)
+          if (!code)
+            throw new Error(`Failed to minify code`)
+
         //Save build
           if (actions.includes("build")) {
             fs.promises.writeFile(path.join(__action, "dist/index.js"), code)
@@ -105,7 +108,7 @@
           }
       }
 
-    //
+    //Throw on errors
       if (errors.length)
         throw new Error(`${errors.length} errors occured :\n${errors.map(error => `  - ${error}`).join("\n")}`)
   }

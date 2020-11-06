@@ -98,7 +98,8 @@ It allows fast prototyping and to rapidly test SVG renders in a browser.
   * To test and verify SVG validity
 * [Marak/colors.js](https://github.com/Marak/colors.js)
   * To print colors in console
-
+* [babel/minify](https://github.com/babel/minify)
+  * To minify code
 
 ### 🗛 Fonts
 
