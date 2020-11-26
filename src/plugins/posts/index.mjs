@@ -5,13 +5,11 @@
         //Check if plugin is enabled and requirements are met
           if ((!enabled)||(!q.posts))
             return null
-
         //Parameters override
           const login = data.user.login
           let {"posts.source":source = "", "posts.limit":limit = 4} = q
           //Limit
             limit = Math.max(1, Math.min(30, Number(limit)))
-
         //Retrieve posts
           let posts = null
           switch (source) {

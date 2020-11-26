@@ -5,7 +5,6 @@
         //Check if plugin is enabled and requirements are met
           if ((!enabled)||(!q.gists))
             return null
-
         //Retrieve contribution calendar from graphql api
           const {user:{gists}} = await graphql(`
               query Gists {
@@ -27,7 +26,6 @@
               }
             `
           )
-
         //Iterate through gists
           let stargazers = 0, forks = 0, comments = 0
           for (const gist of gists.nodes) {
@@ -39,7 +37,6 @@
               forks += gist.forks.totalCount
               comments += gist.comments.totalCount
           }
-
         //Results
           return {totalCount:gists.totalCount, stargazers, forks, comments}
       }
