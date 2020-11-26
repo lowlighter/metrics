@@ -1,6 +1,6 @@
 {
   "name": "metrics",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "description": "Generate an user's GitHub metrics as SVG image format to embed somewhere else",
   "main": "index.mjs",
   "scripts": {
@@ -29,11 +29,11 @@
     "compression": "^1.7.4",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
-    "express-rate-limit": "^5.1.3",
+    "express-rate-limit": "^5.2.3",
     "image-to-base64": "^2.1.1",
     "memory-cache": "^0.2.0",
     "prismjs": "^1.22.0",
-    "puppeteer": "^5.4.1",
+    "puppeteer": "^5.5.0",
     "svgo": "^1.3.2",
     "vue": "^2.6.12",
     "vue-prism-component": "^1.2.0"
