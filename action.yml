@@ -194,6 +194,12 @@ inputs:
     description: Display an isometric view of your commits calendar, along with a few additional stats
     default: no
 
+  # Duration shown by isometric calendar plugin
+  # Supported values are "half-year" and "full-year"
+  plugin_isocalendar_duration:
+    description: Set isometric calendar duration
+    default: half-year
+
   # Gists plugins
   # Display gists metrics
   plugin_gists:
