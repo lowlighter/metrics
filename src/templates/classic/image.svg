@@ -10,7 +10,7 @@
   + (!!computed.plugins.languages)*96
   + (!!computed.plugins.music)*64 + (computed.plugins.music ? computed.plugins.music.tracks ? 14+Math.max(0, computed.plugins.music.tracks.length-1)*36 : 0 : 0)
   + (!!computed.plugins.posts)*64 + (computed.plugins.posts ? computed.plugins.posts.posts ? Math.max(0, computed.plugins.posts.posts.length)*40 : 0 : 0)
-  + (!!computed.plugins.isocalendar)*192
+  + (!!computed.plugins.isocalendar)*192 + (computed.plugins.isocalendar ? computed.plugins.isocalendar.duration === 'full-year' ? 100 : 0 : 0)
   + (!!computed.plugins.gists)*68
   + Math.max(0, (((!!base.metadata)+(!!base.header)+((!!base.activity)||(!!base.community))+(!!base.repositories)+((!!computed.plugins.habits))+(!!computed.plugins.pagespeed)+(!!computed.plugins.languages)+(!!computed.plugins.music)+(!!computed.plugins.posts)+(!!computed.plugins.isocalendar)+(!!computed.plugins.gists))-1))*4
 %>">

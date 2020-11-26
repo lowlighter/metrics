@@ -5,11 +5,14 @@
         //Check if plugin is enabled and requirements are met
           if ((!enabled)||(!q.isocalendar))
             return null
-        //Compute start day (need to start on monday to ensure last row is complete)
-          const from = new Date(Date.now()-180*24*60*60*1000)
-          const day = from.getDay()||7
-          if (day !== 1)
-            from.setHours(-24*(day-1))
+        //Parameters override
+          let {"isocalendar.duration":duration = "half-year"} = q
+        //Duration in days
+          const leap = (new Date(new Date().getYear(), 1, 29).getDate() === 29)
+          const days = {"half-year":180, "full-year":365 + leap}[duration] ?? 180
+        //Compute start day (to ensure last row is complete, we'll retrieve one more week that we'll shift later)
+          const from = new Date(Date.now()-days*24*60*60*1000)
+          from.setHours(-24*7)
         //Retrieve contribution calendar from graphql api
           const {user:{calendar:{contributionCalendar:calendar}}} = await graphql(`
               query Calendar {
@@ -29,6 +32,7 @@
               }
             `
           )
+          calendar.weeks.shift()
         //Compute the highest contributions in a day, streaks and average commits per day
           let max = 0, streak = {max:0, current:0}, values = [], average = 0
           for (const week of calendar.weeks) {
@@ -44,7 +48,7 @@
           const size = 6
           let i = 0, j = 0
           let svg = `
-            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" style="margin-top: -52px;" viewBox="0,0 480,170">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" style="margin-top: -52px;" viewBox="0,0 480,${duration === "full-year" ? 270 : 170}">
               ${[1, 2].map(k => `
                 <filter id="brightness${k}">
                   <feComponentTransfer>
@@ -73,7 +77,7 @@
             }
           svg += `</g></svg>`
         //Results
-          return {streak, max, average, svg}
+          return {streak, max, average, svg, duration}
       }
     //Handle errors
       catch (error) {

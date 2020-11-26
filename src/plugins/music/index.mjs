@@ -23,14 +23,12 @@
         //Check if plugin is enabled and requirements are met
           if ((!enabled)||(!q.music))
             return null
-
         //Initialization
           const raw = {
             get provider() { return providers[provider]?.name ?? "" },
             get mode() { return modes[mode] ?? "Unconfigured music plugin"},
           }
           let tracks = null
-
         //Parameters override
           let {"music.provider":provider = "", "music.mode":mode = "", "music.playlist":playlist = null, "music.limit":limit = 4} = q
           //Auto-guess parameters
@@ -57,7 +55,6 @@
             }
           //Limit
             limit = Math.max(1, Math.min(100, Number(limit)))
-
         //Handle mode
           switch (mode) {
             //Playlist mode

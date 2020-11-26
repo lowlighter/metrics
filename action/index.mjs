@@ -110,6 +110,11 @@
             console.log(`Posts provider      | ${q["posts.provider"]}`)
             console.log(`Posts limit         | ${q["posts.limit"]}`)
           }
+        //Isocalendar
+          if (plugins.isocalendar.enabled) {
+            q["isocalendar.duration"] = core.getInput("plugin_isocalendar_duration") ?? "half-year"
+            console.log(`Isocalendar duration| ${q["isocalendar.duration"]}`)
+          }
 
       //Repositories to use
         const repositories = Number(core.getInput("repositories")) || 100
