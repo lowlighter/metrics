@@ -531,7 +531,7 @@ The *isocalendar* plugin allows you to display an isometric view of your commits
 <details>
 <summary>💬 About</summary>
 
-It will consume an additional GitHub request.
+It will consume two additional GitHub requests.
 
 Add the following to your workflow :
 ```yaml
@@ -540,6 +540,17 @@ Add the following to your workflow :
     # ... other options
     plugin_isocalendar: yes
 ```
+
+It is possible to extend display a full-year by adding the following instead :
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_isocalendar: yes
+    plugin_isocalendar_duration: full-year
+```
+
+![Isocalendar plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.isocalendar.fullyear.svg)
 
 </details>
 
