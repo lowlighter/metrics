@@ -110,6 +110,17 @@ jobs:
           plugins_errors_fatal: yes
           dryrun: yes
 
+      - name: Isocalendar plugin (full year)
+        uses: lowlighter/metrics@master
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          repositories: 1
+          plugin_isocalendar: yes
+          plugin_isocalendar_duration: full-year
+          plugins_errors_fatal: yes
+          dryrun: yes
+
       - name: Habits plugin
         uses: lowlighter/metrics@master
         with:

@@ -8,31 +8,46 @@
         //Parameters override
           let {"isocalendar.duration":duration = "half-year"} = q
         //Duration in days
-          const leap = (new Date(new Date().getYear(), 1, 29).getDate() === 29)
-          const days = {"half-year":180, "full-year":365 + leap}[duration] ?? 180
-        //Compute start day (to ensure last row is complete, we'll retrieve one more week that we'll shift later)
-          const from = new Date(Date.now()-days*24*60*60*1000)
-          from.setHours(-24*7)
+          duration = ["full-year", "half-year"].includes(duration) ? duration : "full-year"
+        //Compute start day
+          const now = new Date()
+          const start = new Date(now)
+          if (duration === "full-year")
+            start.setFullYear(now.getFullYear()-1)
+          else
+            start.setHours(-24*180)
+        //Compute padding to ensure last row is complete
+          const padding = new Date(start)
+          padding.setHours(-14*24)
         //Retrieve contribution calendar from graphql api
-          const {user:{calendar:{contributionCalendar:calendar}}} = await graphql(`
-              query Calendar {
-                user(login: "${login}") {
-                  calendar:contributionsCollection(from: "${from.toISOString()}", to: "${(new Date()).toISOString()}") {
-                    contributionCalendar {
-                      weeks {
-                        contributionDays {
-                          contributionCount
-                          color
-                          date
+          const calendar = {}
+          for (const [name, from, to] of [["padding", padding, start], ["weeks", start, now]]) {
+            console.debug(`metrics/compute/${login}/plugins > isocalendar > loading "${name}" from "${from.toISOString()}" to "${to.toISOString()}"`)
+            const {user:{calendar:{contributionCalendar:{weeks}}}} = await graphql(`
+                query Calendar {
+                  user(login: "${login}") {
+                    calendar:contributionsCollection(from: "${from.toISOString()}", to: "${to.toISOString()}") {
+                      contributionCalendar {
+                        weeks {
+                          contributionDays {
+                            contributionCount
+                            color
+                            date
+                          }
                         }
                       }
                     }
                   }
                 }
-              }
-            `
-          )
-          calendar.weeks.shift()
+              `
+            )
+            calendar[name] = weeks
+          }
+        //Apply padding
+          const firstweek = calendar.weeks[0].contributionDays
+          const padded = calendar.padding.flatMap(({contributionDays}) => contributionDays).filter(({date}) => !firstweek.map(({date}) => date).includes(date))
+          while (firstweek.length < 7)
+            firstweek.unshift(padded.pop())
         //Compute the highest contributions in a day, streaks and average commits per day
           let max = 0, streak = {max:0, current:0}, values = [], average = 0
           for (const week of calendar.weeks) {
