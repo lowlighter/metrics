@@ -29,7 +29,7 @@
           if (("base" in q)&&(!q.base))
             conf.settings.plugins.base.parts.map(part => !(`base.${part}` in q) ? q[`base.${part}`] = false : false)
           for (const part of conf.settings.plugins.base.parts)
-            data.base[part] = !!q[`base.${part}`]
+            data.base[part] = !!(q[`base.${part}`] ?? true)
 
         //Placeholder
           if (login === "placeholder")
