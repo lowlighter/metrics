@@ -115,7 +115,7 @@
               console.debug(`metrics/app/${login} > ${JSON.stringify(req.query)}`)
               const rendered = await metrics({login, q:parse(req.query)}, {graphql, rest, plugins, conf})
             //Cache
-              if ((!debug)&&(cached))
+              if ((!debug)&&(cached)&&(login !== "placeholder"))
                 cache.put(login, rendered, cached)
             //Send response
               res.header("Content-Type", "image/svg+xml")
