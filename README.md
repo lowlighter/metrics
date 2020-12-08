@@ -17,8 +17,8 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
 |[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.traffic.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.traffic.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.lines.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.lines.svg)| [<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.posts.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.posts.svg)|
 | **Isometric calendar plugin**       | **Gists metrics plugin**            | **Starred topics plugin**           |
 |[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.isocalendar.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.isocalendar.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.gists.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.gists.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.svg)|
-|                                     |
-| More to come soon !                 |
+| **Projects plugin**                 |                                     |
+|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.projects.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.projects.svg)| More to come soon !                 |
 
 | Classic template   | Terminal template  |                    |
 | :----------------: | :----------------: | :----------------: |
@@ -711,12 +711,12 @@ Add the following to your workflow :
 
 </details>
 
-### 📌 Topics *(pre-release)*
+### 📌 Topics
 
 The *topics* plugin allows you to display your [starred topics](https://github.com/stars?filter=topics).
 Check out [GitHub topics](https://github.com/topics) to search interesting topics.
 
-![Gists plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.svg)
+![Topics plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.svg)
 
 <details>
 <summary>💬 About</summary>
@@ -738,6 +738,44 @@ Add the following to your workflow :
     plugin_topics_sort: stars
     plugin_topics_limit: 15
 ```
+
+</details>
+
+### 📌 Projects
+
+The *projects* plugin allows you to display your profile projects.
+
+![Projects plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.projects.svg)
+
+<details>
+<summary>💬 About</summary>
+
+It will consume an additional GitHub request.
+
+Add the following to your workflow :
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_projects: yes
+    plugin_projects_limit: 4
+```
+
+Note that by default, projects created have progress tracking disabled.
+To enable it, open the `≡ Menu` and edit the project to check `Track project progress` (this can be confusing because it's actually not in the project settings).
+
+![Image](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_projects_track_progress.png)
+
+<details>
+<summary>💬 Create a personal project on GitHub</summary>
+
+On your profile, select the `Projects` tab :
+![Image](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_projects_create.png)
+
+Fill the informations and set visibility to *public* :
+![Image](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_projects_setup.png)
+  
+</details>
 
 </details>
 
