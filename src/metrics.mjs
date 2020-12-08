@@ -26,10 +26,11 @@
           const data = {base:{}}
 
         //Base parts
-          if (("base" in q)&&(!q.base))
-            conf.settings.plugins.base.parts.map(part => !(`base.${part}` in q) ? q[`base.${part}`] = false : false)
-          for (const part of conf.settings.plugins.base.parts)
-            data.base[part] = !!(q[`base.${part}`] ?? true)
+          {
+            const defaulted = ("base" in q) ? !!q.base : true
+            for (const part of conf.settings.plugins.base.parts)
+              data.base[part] = `base.${part}` in q ? !!q[ `base.${part}`] : defaulted
+          }
 
         //Placeholder
           if (login === "placeholder")
