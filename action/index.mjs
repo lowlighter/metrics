@@ -84,6 +84,7 @@
           isocalendar:{enabled:bool(core.getInput("plugin_isocalendar"))},
           gists:{enabled:bool(core.getInput("plugin_gists"))},
           topics:{enabled:bool(core.getInput("plugin_topics"))},
+          projects:{enabled:bool(core.getInput("projects"))},
         }
         let q = Object.fromEntries(Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => [key, true]))
         console.log(`Plugins enabled     | ${Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => key).join(", ")}`)
@@ -122,6 +123,12 @@
               q[`topics.${option}`] = core.getInput(`plugin_topics_${option}`) || null
             console.log(`Topics sort mode    | ${q["topics.sort"]}`)
             console.log(`Topics limit        | ${q["topics.limit"]}`)
+          }
+        //Projects
+          if (plugins.projects.enabled) {
+            for (const option of ["limit"])
+              q[`projects.${option}`] = core.getInput(`plugin_projects_${option}`) || null
+            console.log(`Projects limit        | ${q["projects.limit"]}`)
           }
 
       //Repositories to use

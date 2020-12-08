@@ -229,6 +229,18 @@ inputs:
     description: Number of starred topics to display
     default: 15
 
+  # Projects plugins
+  # Display active projects
+  plugin_projects:
+    description: Display active projects
+    default: no
+
+  # Limit the number of projects displayed
+  # Between 1 and 100
+  plugin_projects_limit:
+    description: Number of active projects to display
+    default: 4
+
   # Enable debug mode
   # Be sure to put all secrets in your repository secrets before to avoid any leaks !
   debug:
