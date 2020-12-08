@@ -33,6 +33,7 @@ jobs:
           token: ${{ secrets.METRICS_TOKEN }}
           repositories: 1
           plugins_errors_fatal: yes
+          verify: yes
           dryrun: yes
 
       - name: Terminal template
@@ -42,6 +43,7 @@ jobs:
           token: ${{ secrets.METRICS_TOKEN }}
           repositories: 1
           plugins_errors_fatal: yes
+          verify: yes
           dryrun: yes
 
       - name: PageSpeed plugin
@@ -53,6 +55,7 @@ jobs:
           plugin_pagespeed: yes
           plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
           plugins_errors_fatal: yes
+          verify: yes
           dryrun: yes
 
       - name: Music plugin (playlist - apple)
@@ -64,6 +67,7 @@ jobs:
           plugin_music: yes
           plugin_music_playlist: ${{ secrets.MUSIC_PLAYLIST_APPLE }}
           plugins_errors_fatal: yes
+          verify: yes
           dryrun: yes
 
       - name: Music plugin (playlist - spotify)
@@ -75,6 +79,7 @@ jobs:
           plugin_music: yes
           plugin_music_playlist: ${{ secrets.MUSIC_PLAYLIST_SPOTIFY }}
           plugins_errors_fatal: yes
+          verify: yes
           dryrun: yes
 
       - name: Music plugin (recent - spotify)
@@ -87,6 +92,7 @@ jobs:
           plugin_music_provider: spotify
           plugin_music_token: ${{ secrets.SPOTIFY_TOKENS }}
           plugins_errors_fatal: yes
+          verify: yes
           dryrun: yes
 
       - name: Posts plugin (dev.to)
@@ -98,6 +104,7 @@ jobs:
           plugin_posts: yes
           plugin_posts_source: dev.to
           plugins_errors_fatal: yes
+          verify: yes
           dryrun: yes
 
       - name: Isocalendar plugin
@@ -108,6 +115,7 @@ jobs:
           repositories: 1
           plugin_isocalendar: yes
           plugins_errors_fatal: yes
+          verify: yes
           dryrun: yes
 
       - name: Isocalendar plugin (full year)
@@ -119,6 +127,7 @@ jobs:
           plugin_isocalendar: yes
           plugin_isocalendar_duration: full-year
           plugins_errors_fatal: yes
+          verify: yes
           dryrun: yes
 
       - name: Habits plugin
@@ -129,6 +138,7 @@ jobs:
           repositories: 1
           plugin_habits: yes
           plugins_errors_fatal: yes
+          verify: yes
           dryrun: yes
 
       - name: Languages plugin
@@ -139,6 +149,7 @@ jobs:
           repositories: 1
           plugin_languages: yes
           plugins_errors_fatal: yes
+          verify: yes
           dryrun: yes
 
       - name: Follow-up plugin
@@ -149,6 +160,7 @@ jobs:
           repositories: 1
           plugin_followup: yes
           plugins_errors_fatal: yes
+          verify: yes
           dryrun: yes
 
       - name: Lines plugin
@@ -159,6 +171,7 @@ jobs:
           repositories: 1
           plugin_lines: yes
           plugins_errors_fatal: yes
+          verify: yes
           dryrun: yes
 
       - name: Traffic plugin
@@ -169,6 +182,7 @@ jobs:
           repositories: 1
           plugin_traffic: yes
           plugins_errors_fatal: yes
+          verify: yes
           dryrun: yes
 
       - name: Gists plugin
@@ -179,6 +193,7 @@ jobs:
           repositories: 1
           plugin_gists: yes
           plugins_errors_fatal: yes
+          verify: yes
           dryrun: yes
 
       - name: Topics plugin (stars)
@@ -190,6 +205,7 @@ jobs:
           plugin_topics: yes
           plugin_topics_sort: stars
           plugins_errors_fatal: yes
+          verify: yes
           dryrun: yes
 
       - name: Topics plugin (activity)
@@ -201,6 +217,7 @@ jobs:
           plugin_topics: yes
           plugin_topics_sort: activity
           plugins_errors_fatal: yes
+          verify: yes
           dryrun: yes
 
       - name: Topics plugin (starred)
@@ -212,6 +229,7 @@ jobs:
           plugin_topics: yes
           plugin_topics_sort: starred
           plugins_errors_fatal: yes
+          verify: yes
           dryrun: yes
 
       - name: Topics plugin (random)
@@ -223,4 +241,5 @@ jobs:
           plugin_topics: yes
           plugin_topics_sort: random
           plugins_errors_fatal: yes
+          verify: yes
           dryrun: yes
