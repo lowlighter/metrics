@@ -133,7 +133,7 @@
         console.log(`Plugin errors       | ${die ? "die" : "ignore"}`)
 
       //Built query
-        q = {...q, ...base, repositories, template}
+        q = {...q, base:false, ...base, repositories, template}
 
       //Render metrics
         const rendered = await metrics({login:user, q}, {graphql, rest, plugins, conf, die})
