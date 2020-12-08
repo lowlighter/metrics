@@ -33,6 +33,7 @@
               isocalendar:"Isometric commit calendar",
               gists:"Gists metrics",
               topics:"Starred topics",
+              projects:"Projects",
               "base.header":"Header",
               "base.activity":"Account activity",
               "base.community":"Community stats",
