@@ -741,7 +741,7 @@ Add the following to your workflow :
 
 </details>
 
-### 📌 Projects
+### 🗂️ Projects
 
 The *projects* plugin allows you to display your profile projects.
 
