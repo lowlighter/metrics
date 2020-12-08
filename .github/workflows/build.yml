@@ -224,3 +224,14 @@ jobs:
           plugin_topics_sort: random
           plugins_errors_fatal: yes
           dryrun: yes
+
+      - name: Projects plugin
+        uses: lowlighter/metrics@master
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          repositories: 1
+          plugin_projects: yes
+          plugin_projects_limit: 2
+          plugins_errors_fatal: yes
+          dryrun: yes
