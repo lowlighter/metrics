@@ -113,6 +113,24 @@
     opacity: .7;
   }
 
+/* Labels */
+  .label {
+    background-color: #F1F8FF;
+    color: #0366D6;
+    padding: 0 10px;
+    font-weight: 500;
+    line-height: 22px;
+    margin: 2px 5px;
+    white-space: nowrap;
+    border-radius: 32px;
+    font-size: 12px;
+  }
+
+  .label:hover {
+    background-color: #DDEEFF;
+    cursor: pointer;
+  }
+
 /* Habits */
   .habits {
     margin: 0;
@@ -240,6 +258,12 @@
     opacity: .7;
     width: 40px;
     padding-top: 1px;
+  }
+
+/* Topics */
+  .topics {
+    display: flex;
+    flex-wrap: wrap;
   }
 
 /* Fade animation */

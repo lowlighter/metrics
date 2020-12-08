@@ -32,6 +32,7 @@
               posts:"Recent posts",
               isocalendar:"Isometric commit calendar",
               gists:"Gists metrics",
+              topics:"Starred topics",
               "base.header":"Header",
               "base.activity":"Account activity",
               "base.community":"Community stats",

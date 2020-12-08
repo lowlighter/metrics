@@ -83,6 +83,7 @@
           posts:{enabled:bool(core.getInput("plugin_posts"))},
           isocalendar:{enabled:bool(core.getInput("plugin_isocalendar"))},
           gists:{enabled:bool(core.getInput("plugin_gists"))},
+          topics:{enabled:bool(core.getInput("plugin_topics"))},
         }
         let q = Object.fromEntries(Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => [key, true]))
         console.log(`Plugins enabled     | ${Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => key).join(", ")}`)
@@ -114,6 +115,13 @@
           if (plugins.isocalendar.enabled) {
             q["isocalendar.duration"] = core.getInput("plugin_isocalendar_duration") ?? "half-year"
             console.log(`Isocalendar duration| ${q["isocalendar.duration"]}`)
+          }
+        //Topics
+          if (plugins.topics.enabled) {
+            for (const option of ["sort", "limit"])
+              q[`topics.${option}`] = core.getInput(`plugin_topics_${option}`) || null
+            console.log(`Topics sort mode    | ${q["topics.sort"]}`)
+            console.log(`Topics limit        | ${q["topics.limit"]}`)
           }
 
       //Repositories to use

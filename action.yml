@@ -206,6 +206,29 @@ inputs:
     description: Display gists metrics
     default: no
 
+  # Topics plugins
+  # Display starred topics
+  plugin_topics:
+    description: Display starred topics
+    default: no
+
+  # Sorting method of topics
+  # Supported values are :
+  # - "stars" to sort them from most starred to least starred
+  # - "activity" to sort them from most recent activity to least recent activity
+  # - "starred" to sort them from your most recently starred to your least recently starred
+  # - "random" to sort them randomly
+  plugin_topics_sort:
+    description: Sorting method of starred topics
+    default: "stars"
+
+  # Limit the number of topics displayed
+  # Between 1 and 20
+  # If more topics must be displayed, they will be grouped in an ellipsis
+  plugin_topics_limit:
+    description: Number of starred topics to display
+    default: 15
+
   # Enable debug mode
   # Be sure to put all secrets in your repository secrets before to avoid any leaks !
   debug:
