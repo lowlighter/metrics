@@ -50,6 +50,9 @@
     },
     "topics":{                    "//":"Topics plugin",
       "enabled":false,            "//":"Enable or disable starred topics display"
+    },
+    "projects":{                  "//":"Projects plugin",
+      "enabled":false,            "//":"Enable or disable personal projects display"
     }
   }
 }

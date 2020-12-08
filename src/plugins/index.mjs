@@ -10,6 +10,7 @@
   import music from "./music/index.mjs"
   import pagespeed from "./pagespeed/index.mjs"
   import posts from "./posts/index.mjs"
+  import projects from "./projects/index.mjs"
   import selfskip from "./selfskip/index.mjs"
   import topics from "./topics/index.mjs"
   import traffic from "./traffic/index.mjs"
@@ -25,6 +26,7 @@
     music,
     pagespeed,
     posts,
+    projects,
     selfskip,
     topics,
     traffic,
