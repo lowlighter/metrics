@@ -1,6 +1,6 @@
 {
   "name": "metrics",
-  "version": "2.6.0",
+  "version": "2.5.0",
   "description": "Generate an user's GitHub metrics as SVG image format to embed somewhere else",
   "main": "index.mjs",
   "scripts": {
