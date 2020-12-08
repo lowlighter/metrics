@@ -15,8 +15,10 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
 |[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.followup.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.followup.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.svg)|
 | **Repositories traffic plugin**     | **Lines of code plugin**            | **Recent posts plugin**             |
 |[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.traffic.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.traffic.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.lines.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.lines.svg)| [<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.posts.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.posts.svg)|
-| **Isometric calendar plugin**       | **Gists metrics plugin**            |                                     |
-|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.isocalendar.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.isocalendar.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.gists.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.gists.svg)| More to come soon !                 |
+| **Isometric calendar plugin**       | **Gists metrics plugin**            | **Starred topics plugin**           |
+|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.isocalendar.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.isocalendar.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.gists.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.gists.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.svg)|
+|                                     |
+| More to come soon !                 |
 
 | Classic template   | Terminal template  |                    |
 | :----------------: | :----------------: | :----------------: |
@@ -28,9 +30,9 @@ Try it now at [metrics.lecoq.io](https://metrics.lecoq.io/) with your GitHub use
 
 Because some plugins required additional configuration and setup, not all of them are available at [metrics.lecoq.io](https://metrics.lecoq.io/), for a fully-featured experience, consider using this as a [GitHub Action](https://github.com/marketplace/actions/github-metrics-as-svg-image) !
 
-## 📜 How to use ?
+# 📜 How to use ?
 
-### ⚙️ Using GitHub Action on your profile repo (~5 min setup)
+## ⚙️ Using GitHub Action on your profile repo (~5 min setup)
 
 Setup a GitHub Action which is run periodically and push a generated SVG image on your repository.
 See all supported options in [action.yml](https://github.com/lowlighter/metrics/blob/master/action.yml).
@@ -44,7 +46,7 @@ Assuming your username is `my-github-user`, you can then embed your metrics in y
 <details>
 <summary>💬 How to setup ?</summary>
 
-#### 0. Prepare your personal repository
+### 0. Prepare your personal repository
 
 If you don't know yet or haven't done it yet, create a repository with the same name as your GitHub username.
 
@@ -54,7 +56,7 @@ The `README.md` of this repository will be displayed on your GitHub user profile
 
 ![GitHub Profile](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/github_profile.png)
 
-#### 1. Setup a GitHub token
+### 1. Setup a GitHub token
 
 Go to `Developer settings` from your GitHub account settings and select `Personal access tokens` to create a new token.
 
@@ -64,13 +66,13 @@ You'll need to create a token with the `public_repo` right so this GitHub Action
 
 If you choose to use a bot account, you can put `public_repo` rights to the bot token and invite it as a collaborator on your personal profile repository so it has push access. This way, you can use a personnal token with no rights instead and reduce security issues.
 
-#### 2. Put your GitHub token in your personal repository secrets
+### 2. Put your GitHub token in your personal repository secrets
 
 Go to the `Settings` of your personal repository to create a new secret and paste your GitHub token here.
 
 ![Setup secret](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/repo_secrets.png)
 
-#### 3. Create a new GitHub Action workflow on your personal repo
+### 3. Create a new GitHub Action workflow on your personal repo
 
 Create a new workflow from the `Actions` tab of your personal repository and paste the following :
 
@@ -108,7 +110,7 @@ If you don't want to use a bot token, you can use the `plugin_selfskip` which wi
 If you're using a token with additional permissions, it is advised to fork this repository. If it ever gets compromised, you'll be safe.
 But don't forget to check it from time to time for new features !
 
-#### 4. Embed the link into your README.md
+### 4. Embed the link into your README.md
 
 Edit your README.md on your repository and link it your image :
 
@@ -118,7 +120,7 @@ Edit your README.md on your repository and link it your image :
 
 </details>
 
-### 💕 Using the shared instance (~1 min setup, but with limitations)
+## 💕 Using the shared instance (~1 min setup, but with limitations)
 
 For conveniency, you can use the shared instance available at [metrics.lecoq.io](https://metrics.lecoq.io) without any additional setup.
 
@@ -143,7 +145,7 @@ If you're appreciating this project, consider using it as a GitHub Action or dep
 
 </details>
 
-### 🏗️ Deploying your own instance (~15 min setup, depending on your sysadmin knowledge)
+## 🏗️ Deploying your own instance (~15 min setup, depending on your sysadmin knowledge)
 
 You can setup your own instance if you choose to not use the GitHub Action or you want to allow others users to use your instance.
 
@@ -156,18 +158,18 @@ See all supported options in [settings.example.json](https://github.com/lowlight
 <details>
 <summary>💬 How to setup ?</summary>
 
-#### 0. Prepare your server
+### 0. Prepare your server
 
 You'll need a server where you can install and configure apps.
 
-#### 1. Create a GitHub token
+### 1. Create a GitHub token
 
 In your account settings, go to `Developer settings` and select `Personal access tokens` to create a new token.
 As explained above, you do not need to grant additional permissions to the token unless you want to enable additional plugins.
 
 ![Create a GitHub token](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/personal_token_alt.png)
 
-#### 2. Install the dependancies
+### 2. Install the dependancies
 
 Connect to your server and ensure [NodeJS](https://nodejs.org/en/) is installed (see tested versions in the [build workflows](https://github.com/lowlighter/metrics/blob/master/.github/workflows/build.yml)).
 
@@ -183,7 +185,7 @@ npm install --only=prod
 cp settings.example.json settings.json
 ```
 
-#### 3. Configure your instance
+### 3. Configure your instance
 
 Open and edit `settings.json` to configure your instance using a text editor of your choice.
 
@@ -197,7 +199,7 @@ Open and edit `settings.json` to configure your instance using a text editor of 
 
 See all supported options in [settings.example.json](https://github.com/lowlighter/metrics/blob/master/settings.example.json).
 
-#### 4. Start your instance
+### 4. Start your instance
 
 Start your instance once you've finished configuring it :
 
@@ -207,7 +209,7 @@ npm start
 
 And you should be able to access it on the port you provided !
 
-#### 5. Embed the link into your README.md
+### 5. Embed the link into your README.md
 
 Edit your `README.md` on your repository and include your metrics from your server domain :
 
@@ -215,7 +217,7 @@ Edit your `README.md` on your repository and include your metrics from your serv
 ![GitHub metrics](https://my-personal-domain.com/my-github-user)
 ```
 
-#### 6. (optional) Setup as service on your instance
+### 6. (optional) Setup as service on your instance
 
 If you want to ensure that your instance will be restarted after reboots or crashes, you should setup it as a service.
 This is described below for linux-like systems with *systemd*.
@@ -283,9 +285,9 @@ For example, to configure `music` plugin, you could add the following to url : `
 
 </details>
 
-## 📚 Documentations
+# 📚 Documentations
 
-### 🖼️ Templates
+## 🖼️ Templates
 
 Templates allows you to style your metrics.
 The default is the classic one, but you can change it for something more stylish.
@@ -294,12 +296,12 @@ Some metrics may be displayed differently, and it is possible that not all plugi
 
 Consider trying them at [metrics.lecoq.io](https://metrics.lecoq.io) !
 
-### 🧩 Plugins
+## 🧩 Plugins
 
 Plugins are features which are disabled by default but they can provide additional metrics.
 In return they may require additional configuration and tend to consume additional API requests.
 
-#### 🗃️ Base content
+### 🗃️ Base content
 
 Generated metrics contains a few sections that are enabled by default, such as recent activity, community stats and repositories stats.
 This can be configured by explicitely opt-out from them.
@@ -326,7 +328,7 @@ For example, to keep only `header` and `repositories` sections, add the followin
 
 </details>
 
-#### ⏱️ PageSpeed
+### ⏱️ PageSpeed
 
 The *pagespeed* plugin allows you to add the performances of the website attached to the GitHub user account :
 
@@ -353,11 +355,11 @@ Add the following to your workflow :
 
 </details>
 
-#### 🎼 Music
+### 🎼 Music
 
 The *music* plugin can work in the following modes :
 
-##### Playlist mode
+#### Playlist mode
 
 Select randomly a few tracks from a given playlist so you can suggest your favorite tracks to your visitors.
 
@@ -430,7 +432,7 @@ Once you've extracted the embed url you can finish the setup by adding the follo
 
 </details>
 
-##### Recently played mode
+#### Recently played mode
 
 Display the track you played recently.
 
@@ -522,7 +524,7 @@ Now that you've got your `client_id`, `client_secret` and `refresh_token` you ca
 
 </details>
 
-#### 📅 Isometric calendar
+### 📅 Isometric calendar
 
 The *isocalendar* plugin allows you to display an isometric view of your commits calendar, along with a few stats like your current streak and your commit average per day.
 
@@ -554,7 +556,7 @@ It is possible to extend display a full-year by adding the following instead :
 
 </details>
 
-#### 👨‍💻 Lines
+### 👨‍💻 Lines
 
 The *lines* of code plugin allows you to compute the number of lines of code you added and removed across all of your repositories.
 
@@ -575,7 +577,7 @@ Add the following to your workflow :
 
 </details>
 
-#### 🧮 Traffic
+### 🧮 Traffic
 
 The repositories *traffic* plugin allows you to compute the number of pages views across your repositories.
 
@@ -602,7 +604,7 @@ Add the following to your workflow :
 
 </details>
 
-#### 💡 Habits
+### 💡 Habits
 
 The coding *habits* plugin allows you to add deduced coding about based on your recent activity, from up to 100 events.
 
@@ -627,7 +629,7 @@ Add the following to your workflow :
 
 </details>
 
-#### ✒️ Posts
+### ✒️ Posts
 
 The recent *posts* plugin allows you to display recent articles you wrote on an external source, like [dev.to](https://dev.to).
 
@@ -650,7 +652,7 @@ Add the following to your workflow :
 
 </details>
 
-#### 🎟️ Follow-up
+### 🎟️ Follow-up
 
 The *follow-up* plugin allows you to compute the ratio of opened/closed issues and the ratio of opened/merged pull requests on your repositories, which shows whether most of them are maintened or not.
 
@@ -669,7 +671,7 @@ Add the following to your workflow :
 
 </details>
 
-#### 🈷️ Languages
+### 🈷️ Languages
 
 The *languages* plugin allows you to compute which languages you use the most in your repositories.
 
@@ -688,7 +690,7 @@ Add the following to your workflow :
 
 </details>
 
-#### 🎫 Gists
+### 🎫 Gists
 
 The *gists* plugin allows you to display [gists](https://gist.github.com) metrics.
 
@@ -709,7 +711,37 @@ Add the following to your workflow :
 
 </details>
 
-#### ⏭️ Selfskip
+### 📌 Topics *(pre-release)*
+
+The *topics* plugin allows you to display your [starred topics](https://github.com/stars?filter=topics).
+Check out [GitHub topics](https://github.com/topics) to search interesting topics.
+
+![Gists plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.svg)
+
+<details>
+<summary>💬 About</summary>
+
+This uses puppeteer to navigate through your starred topics page.
+
+You can choose to display and order topics by : 
+- Most `stars`
+- Recent `activity`
+- Recently `starred` by you
+- `random`ly
+
+Add the following to your workflow :
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_topics: yes
+    plugin_topics_sort: stars
+    plugin_topics_limit: 15
+```
+
+</details>
+
+### ⏭️ Selfskip
 
 The *selfskip* plugin allows you to count out all commits tagged with `[Skip GitHub Action]` you authored on your personal repository from your reported commit counts.
 
@@ -728,7 +760,7 @@ Add the following to your workflow :
 
 </details>
 
-### 💪 Contributing and customizing
+## 💪 Contributing and customizing
 
 If you would like to suggest a new feature, find a bug or need help, you can fill an [issue](https://github.com/lowlighter/metrics/issues) describing your problem.
 
@@ -736,7 +768,7 @@ If you're motivated enough, you can submit a [pull request](https://github.com/l
 
 Read [contributing.md](https://github.com/lowlighter/metrics/blob/master/CONTRIBUTING.md) for more information about this.
 
-### 📖 Useful references
+## 📖 Useful references
 
 * [GitHub GraphQL API](https://docs.github.com/en/graphql)
 * [GitHub GraphQL Explorer](https://developer.github.com/v4/explorer/)
