@@ -47,6 +47,9 @@
     },
     "gists":{                     "//":"Gists plugin",
       "enabled":false,            "//":"Enable or disable gists metrics"
+    },
+    "topics":{                    "//":"Topics plugin",
+      "enabled":false,            "//":"Enable or disable starred topics display"
     }
   }
 }

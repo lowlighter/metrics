@@ -180,3 +180,47 @@ jobs:
           plugin_gists: yes
           plugins_errors_fatal: yes
           dryrun: yes
+
+      - name: Topics plugin (stars)
+        uses: lowlighter/metrics@master
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          repositories: 1
+          plugin_topics: yes
+          plugin_topics_sort: stars
+          plugins_errors_fatal: yes
+          dryrun: yes
+
+      - name: Topics plugin (activity)
+        uses: lowlighter/metrics@master
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          repositories: 1
+          plugin_topics: yes
+          plugin_topics_sort: activity
+          plugins_errors_fatal: yes
+          dryrun: yes
+
+      - name: Topics plugin (starred)
+        uses: lowlighter/metrics@master
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          repositories: 1
+          plugin_topics: yes
+          plugin_topics_sort: starred
+          plugins_errors_fatal: yes
+          dryrun: yes
+
+      - name: Topics plugin (random)
+        uses: lowlighter/metrics@master
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          repositories: 1
+          plugin_topics: yes
+          plugin_topics_sort: random
+          plugins_errors_fatal: yes
+          dryrun: yes

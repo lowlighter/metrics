@@ -48,7 +48,7 @@
             //Compute metrics
               console.debug(`metrics/compute/${login} > compute`)
               const computer = Templates[template].default || Templates[template]
-              await computer({login, q}, {conf, data, rest, graphql, plugins}, {s, pending, imports:{plugins:Plugins, url, imgb64, axios, puppeteer, format, bytes, shuffle}})
+              await computer({login, q}, {conf, data, rest, graphql, plugins}, {s, pending, imports:{plugins:Plugins, url, imgb64, axios, puppeteer, format, bytes, shuffle, htmlescape}})
               const promised = await Promise.all(pending)
 
             //Check plugins errors
@@ -113,6 +113,16 @@
     return array
   }
 
+/** Escape html */
+  function htmlescape(string) {
+    return string
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;")
+  }
+
 /** Placeholder generator */
   function placeholder({data, conf, q}) {
     //Proxifier
@@ -154,6 +164,7 @@
               followup:{issues:{count:0}, pr:{count:0}},
               habits:{indents:{style:`########`}},
               languages:{favorites:new Array(7).fill(null).map((_, x) => ({x, name:`######`, color:"#ebedf0", value:1/(x+1)}))},
+              topics:{list:[...new Array(12).fill(null).map(() => ({name:`######`, description:`Lorem ipsum dolor sit amet, consectetur adipiscing elit.`, icon:null})), {name:`And ## more...`, description:"", icon:null}]},
             }[key]??{})]
           )),
           token:{scopes:[]},

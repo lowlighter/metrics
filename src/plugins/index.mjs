@@ -11,6 +11,7 @@
   import pagespeed from "./pagespeed/index.mjs"
   import posts from "./posts/index.mjs"
   import selfskip from "./selfskip/index.mjs"
+  import topics from "./topics/index.mjs"
   import traffic from "./traffic/index.mjs"
 
 //Exports
@@ -25,5 +26,6 @@
     pagespeed,
     posts,
     selfskip,
+    topics,
     traffic,
   }
