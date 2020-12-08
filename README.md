@@ -15,8 +15,10 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
 |[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.followup.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.followup.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.svg)|
 | **Repositories traffic plugin**     | **Lines of code plugin**            | **Recent posts plugin**             |
 |[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.traffic.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.traffic.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.lines.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.lines.svg)| [<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.posts.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.posts.svg)|
-| **Isometric calendar plugin**       | **Gists metrics plugin**            |                                     |
-|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.isocalendar.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.isocalendar.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.gists.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.gists.svg)| More to come soon !                 |
+| **Isometric calendar plugin**       | **Gists metrics plugin**            | **Starred topics plugin**           |
+|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.isocalendar.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.isocalendar.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.gists.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.gists.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.svg)|
+|                                     |
+| More to come soon !                 |
 
 | Classic template   | Terminal template  |                    |
 | :----------------: | :----------------: | :----------------: |
@@ -708,6 +710,37 @@ Add the following to your workflow :
 ```
 
 </details>
+
+#### 📌 Topics *Available in pre-release*
+
+The *topics* plugin allows you to display your [starred topics](https://github.com/stars?filter=topics).
+Check out [GitHub topics](https://github.com/topics) to search interesting topics.
+
+![Gists plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.svg)
+
+<details>
+<summary>💬 About</summary>
+
+This uses puppeteer to navigate through your starred topics page.
+
+You can choose to display and order topics by : 
+- Most `stars`
+- Recent `activity`
+- Recently `starred` by you
+- `random`ly
+
+Add the following to your workflow :
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_topics: yes
+    plugin_topics_sort: stars
+    plugin_topics_limit: 15
+```
+
+</details>
+
 
 #### ⏭️ Selfskip
 
