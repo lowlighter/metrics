@@ -15,28 +15,34 @@ jobs:
     - name: Setup
       uses: actions/setup-node@v1
       with:
-        node-version: 14.x
+        node-version: 15.x
     - name: Install
       run: npm ci
     - name: Build
       run: npm run build
     - name: Test
-      run: npm test -- ${{ secrets.METRICS_ACTIONS_TOKEN }}
+      run: npm test
 
   test:
+    needs: build
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        action:
+          - lowlighter/metrics@master
+          - lowlighter/metrics@latest
     steps:
 
-      - name: Classic template
-        uses: lowlighter/metrics@master
+      - name: Template > Classic
+        uses: ${{ matrix.action }}
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           repositories: 1
           plugins_errors_fatal: yes
           dryrun: yes
 
-      - name: Terminal template
-        uses: lowlighter/metrics@master
+      - name: Template > Terminal
+        uses: ${{ matrix.action }}
         with:
           template: terminal
           token: ${{ secrets.METRICS_TOKEN }}
@@ -44,8 +50,8 @@ jobs:
           plugins_errors_fatal: yes
           dryrun: yes
 
-      - name: PageSpeed plugin
-        uses: lowlighter/metrics@master
+      - name: Plugin > PageSpeed
+        uses: ${{ matrix.action }}
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           base: ""
@@ -55,7 +61,7 @@ jobs:
           plugins_errors_fatal: yes
           dryrun: yes
 
-      - name: Music plugin (playlist - apple)
+      - name: Plugin > Music (playlist - apple)
         uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
@@ -66,7 +72,7 @@ jobs:
           plugins_errors_fatal: yes
           dryrun: yes
 
-      - name: Music plugin (playlist - spotify)
+      - name: Plugin > Music (playlist - spotify)
         uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
@@ -77,7 +83,7 @@ jobs:
           plugins_errors_fatal: yes
           dryrun: yes
 
-      - name: Music plugin (recent - spotify)
+      - name: Plugin > Music (recent - spotify)
         uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
@@ -89,7 +95,7 @@ jobs:
           plugins_errors_fatal: yes
           dryrun: yes
 
-      - name: Posts plugin (dev.to)
+      - name: Plugin > Posts (dev.to)
         uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
@@ -100,7 +106,7 @@ jobs:
           plugins_errors_fatal: yes
           dryrun: yes
 
-      - name: Isocalendar plugin
+      - name: Plugin > Isocalendar
         uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
@@ -110,7 +116,7 @@ jobs:
           plugins_errors_fatal: yes
           dryrun: yes
 
-      - name: Isocalendar plugin (full year)
+      - name: Plugin > Isocalendar (full year)
         uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
@@ -121,7 +127,7 @@ jobs:
           plugins_errors_fatal: yes
           dryrun: yes
 
-      - name: Habits plugin
+      - name: Plugin > Habits
         uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
@@ -131,7 +137,7 @@ jobs:
           plugins_errors_fatal: yes
           dryrun: yes
 
-      - name: Languages plugin
+      - name: Plugin > Languages
         uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
@@ -141,7 +147,7 @@ jobs:
           plugins_errors_fatal: yes
           dryrun: yes
 
-      - name: Follow-up plugin
+      - name: Plugin > Follow-up
         uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
@@ -151,7 +157,7 @@ jobs:
           plugins_errors_fatal: yes
           dryrun: yes
 
-      - name: Lines plugin
+      - name: Plugin > Lines
         uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
@@ -161,7 +167,7 @@ jobs:
           plugins_errors_fatal: yes
           dryrun: yes
 
-      - name: Traffic plugin
+      - name: Plugin > Traffic
         uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
@@ -171,7 +177,7 @@ jobs:
           plugins_errors_fatal: yes
           dryrun: yes
 
-      - name: Gists plugin
+      - name: Plugin > Gists
         uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
@@ -181,7 +187,7 @@ jobs:
           plugins_errors_fatal: yes
           dryrun: yes
 
-      - name: Topics plugin (stars)
+      - name: Plugin > Topics (stars)
         uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
@@ -192,7 +198,7 @@ jobs:
           plugins_errors_fatal: yes
           dryrun: yes
 
-      - name: Topics plugin (activity)
+      - name: Plugin > Topics (activity)
         uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
@@ -203,7 +209,7 @@ jobs:
           plugins_errors_fatal: yes
           dryrun: yes
 
-      - name: Topics plugin (starred)
+      - name: Plugin > Topics (starred)
         uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
@@ -214,7 +220,7 @@ jobs:
           plugins_errors_fatal: yes
           dryrun: yes
 
-      - name: Topics plugin (random)
+      - name: Plugin > Topics (random)
         uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
@@ -225,7 +231,7 @@ jobs:
           plugins_errors_fatal: yes
           dryrun: yes
 
-      - name: Projects plugin
+      - name: Plugin > Projects
         uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
