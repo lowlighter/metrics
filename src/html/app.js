@@ -41,6 +41,7 @@
               "base.metadata":"Metadata",
             },
             options:{
+              "pagespeed.detailed":false,
               "habits.from":100,
               "music.playlist":"",
               "music.mode":"playlist",

@@ -48,9 +48,13 @@
                     {{ plugins.descriptions[plugin] || plugin }}
                   </label>
                 </div>
-                <template v-if="(plugins.enabled.habits)||(plugins.enabled.music)||(plugins.enabled.posts)">
+                <template v-if="(plugins.enabled.pagespeed)||(plugins.enabled.habits)||(plugins.enabled.music)||(plugins.enabled.posts)">
                   <h3>2.3 Configure additional plugins</h3>
                   <div class="options">
+                    <label v-if="plugins.enabled.pagespeed">
+                      Detailed PageSpeed report
+                      <input type="checkbox" v-model="plugins.options['pagespeed.detailed']" @change="load">
+                    </label>
                     <label v-if="(plugins.enabled.music)&&(plugins.options['music.mode'] === 'playlist')">
                       Playlist embed link
                       <input type="text" v-model="plugins.options['music.playlist']" placeholder="https://embed.music.apple.com/en/playlist/">
