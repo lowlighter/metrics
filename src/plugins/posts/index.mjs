@@ -30,7 +30,7 @@
                 posts = posts.slice(0, limit)
               }
             //Results
-              return {source, posts}
+              return {source, list:posts}
           }
         //Unhandled error
           throw {error:{message:`An error occured (could not retrieve posts)`}}
