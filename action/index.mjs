@@ -10,6 +10,8 @@
     const [core, github, octokit, setup, metrics] = [_core, _github, _octokit, _setup, _metrics].map(m => (m && m.default) ? m.default : m)
   //Yaml boolean converter
     const bool = (value, defaulted = false) => typeof value === "string" ? /^(?:[Tt]rue|[Oo]n|[Yy]es)$/.test(value) : defaulted
+  //Debug message buffer
+    const debugged = []
   //Runner
     try {
       //Initialization
@@ -60,7 +62,7 @@
       //Debug mode
         const debug = bool(core.getInput("debug"))
         if (!debug)
-          console.debug = () => null
+          console.debug = message => debugged.push(message)
         console.log(`Debug mode          | ${debug}`)
 
       //Base elements
@@ -195,6 +197,8 @@
   //Errors
     } catch (error) {
       console.error(error)
+      if (!bool(core.getInput("debug")))
+        console.debug("An error occured, logging debug message :", ...debugged)
       core.setFailed(error.message)
       process.exit(1)
     }
