@@ -456,19 +456,19 @@
               </section>
               <section>
                 <% for (const {score, suffix = "", threshold} of [
-                  {score:(plugins.pagespeed.metrics.interactive/1000).toFixed(1), suffix:"s", threshold:[3.785, 7.3]},
-                  {score:(plugins.pagespeed.metrics.speedIndex/1000).toFixed(1), suffix:"s", threshold:[3.387, 5.8]},
-                  {score:(plugins.pagespeed.metrics.totalBlockingTime/1000).toFixed(1), suffix:"s", threshold:[.287, .6]},
-                  {score:(plugins.pagespeed.metrics.firstContentfulPaint/1000).toFixed(1), suffix:"s", threshold:[2.336, 4]},
-                  {score:(plugins.pagespeed.metrics.largestContentfulPaint/1000).toFixed(1), suffix:"s", threshold:[2.5, 4]},
+                  {score:plugins.pagespeed.metrics.interactive/1000, suffix:"s", threshold:[3.785, 7.3]},
+                  {score:plugins.pagespeed.metrics.speedIndex/1000, suffix:"s", threshold:[3.387, 5.8]},
+                  {score:plugins.pagespeed.metrics.totalBlockingTime/1000, suffix:"s", threshold:[.287, .6]},
+                  {score:plugins.pagespeed.metrics.firstContentfulPaint/1000, suffix:"s", threshold:[2.336, 4]},
+                  {score:plugins.pagespeed.metrics.largestContentfulPaint/1000, suffix:"s", threshold:[2.5, 4]},
                   {score:+plugins.pagespeed.metrics.cumulativeLayoutShift, threshold:[.1, .25]}
                 ]) { %>
                 <div class="field">
                   <div class="audit text">
                     <% if (!Number.isNaN(score)) { %>
-                      <%=  score %> <%= suffix %>
+                      <%= score.toFixed(2).replace(/[.]0+$/, "") %> <%= suffix %>
                     <% } else { %>
-                      -
+                      N/A
                     <% } %>
                   </div>
                   <% if (Number.isNaN(score)) { %>
