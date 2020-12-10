@@ -159,7 +159,7 @@
           query[key] = Number(value)
       //Parse boolean
         if (/^(?:true|false)$/.test(value))
-          query[key] = !!value
+          query[key] = value === "true"
       //Parse null
         if (/^null$/.test(value))
           query[key] = null
