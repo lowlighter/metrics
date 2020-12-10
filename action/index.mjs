@@ -95,6 +95,9 @@
           if (plugins.pagespeed.enabled) {
             plugins.pagespeed.token = core.getInput("plugin_pagespeed_token")
             console.log(`Pagespeed token     | ${plugins.pagespeed.token ? "provided" : "missing"}`)
+            for (const option of ["detailed"])
+              q[`pagespeed.${option}`] = core.getInput(`plugin_pagespeed_${option}`) || null
+            console.log(`Pagespeed detailed  | ${q["pagespeed.detailed"]}`)
           }
         //Music
           if (plugins.music.enabled) {
