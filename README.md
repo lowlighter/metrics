@@ -1,6 +1,6 @@
 # 📊 GitHub metrics
 
-![Build](https://github.com/lowlighter/metrics/workflows/Build/badge.svg) ![Analysis](https://github.com/lowlighter/metrics/workflows/Analysis/badge.svg)
+![Build](https://github.com/lowlighter/metrics/workflows/Build/badge.svg)
 
 Generates your own GitHub metrics as an SVG image to put them on your profile page or elsewhere !
 
@@ -96,6 +96,12 @@ jobs:
 ```
 
 See all supported options in [action.yml](https://github.com/lowlighter/metrics/blob/master/action.yml).
+
+#### Preview vs release
+
+It is possible to use `lowlighter/metrics@master` instead of `lowlighter/metrics@latest` to get new features before their release, but some breaking changes may occur occasionally which could result in your metrics not being generated.
+
+#### What will happen ?
 
 A new SVG image will be generated and committed to your repository on each run.
 Because of this, the amount of your commits could be virtually increased which is probably unwanted.
@@ -350,6 +356,22 @@ Add the following to your workflow :
   with:
     # ... other options
     plugin_pagespeed: yes
+    plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
+```
+
+It is possible to generate a detailled report along with scores :
+
+![Pagespeed plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.detailed.svg)
+
+See [performance scoring](https://web.dev/performance-scoring/) and [score calculator](https://googlechrome.github.io/lighthouse/scorecalc/) for more information about how PageSpeed compute these metrics.
+
+Add the following to your workflow instead :
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_pagespeed: yes
+    plugin_pagespeed_detailed: yes
     plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
 ```
 
