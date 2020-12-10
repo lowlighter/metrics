@@ -75,6 +75,14 @@ inputs:
     description: Enable Google PageSpeed metrics for account attached website
     default: no
 
+  # Display additional PageSpeed audit metrics
+  # The following are displayed :
+  # First Contentful Paint, Speed Index, Largest Contentful Paint, Time to Interactive, Total Blocking Time, Cumulative Layout Shift
+  # See https://web.dev/performance-scoring/ and https://googlechrome.github.io/lighthouse/scorecalc/ for more informations
+  plugin_pagespeed_detailed:
+    description: Display additional PageSpeed audit metrics
+    default: no
+
   # When PageSpeed plugin is enabled, it is advised to generate a token to avoid the rate-limiter
   # See https://developers.google.com/speed/docs/insights/v5/get-started for more informations
   plugin_pagespeed_token:

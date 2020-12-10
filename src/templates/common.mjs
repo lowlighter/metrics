@@ -2,20 +2,21 @@
   export default async function ({login, q}, {conf, data, rest, graphql, plugins}, {s, pending, imports}) {
 
     //Init
-      const computed = data.computed = {commits:0, sponsorships:0, licenses:{favorite:"", used:{}}, token:{}, repositories:{watchers:0, stargazers:0, issues_open:0, issues_closed:0, pr_open:0, pr_merged:0, forks:0, releases:0}, plugins:{}}
+      const computed = data.computed = {commits:0, sponsorships:0, licenses:{favorite:"", used:{}}, token:{}, repositories:{watchers:0, stargazers:0, issues_open:0, issues_closed:0, pr_open:0, pr_merged:0, forks:0, releases:0}}
       const avatar = imports.imgb64(data.user.avatarUrl)
+      data.plugins = {}
 
     //Plugins
       for (const name of Object.keys(imports.plugins)) {
         pending.push((async () => {
           try {
-            computed.plugins[name] = await imports.plugins[name]({login, q, imports, data, computed, rest, graphql}, plugins[name])
+            data.plugins[name] = await imports.plugins[name]({login, q, imports, data, computed, rest, graphql}, plugins[name])
           }
           catch (error) {
-            computed.plugins[name] = error
+            data.plugins[name] = error
           }
           finally {
-            return {name, result:computed.plugins[name]}
+            return {name, result:data.plugins[name]}
           }
         })())
       }

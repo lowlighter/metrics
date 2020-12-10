@@ -157,18 +157,19 @@
           registration:"## years ago",
           calendar:new Array(14).fill({color:"#ebedf0"}),
           licenses:{favorite:`########`},
-          plugins:Object.fromEntries(enabled.map(key =>
-            [key, proxify({
-              posts:{source:"########", posts:new Array("posts.limit" in q ? Math.max(Number(q["posts.limit"])||0, 0) : 2).fill({title:"###### ###### ####### ######", date:"####"})},
-              music:{provider:"########", tracks:new Array("music.limit" in q ? Math.max(Number(q["music.limit"])||0, 0) : 4).fill({name:"##########", artist:"######", artwork:"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg=="})},
-              pagespeed:{scores:["Performance", "Accessibility", "Best Practices", "SEO"].map(title => ({title, score:NaN}))},
-              followup:{issues:{count:0}, pr:{count:0}},
-              habits:{indents:{style:`########`}},
-              languages:{favorites:new Array(7).fill(null).map((_, x) => ({x, name:`######`, color:"#ebedf0", value:1/(x+1)}))},
-              topics:{list:[...new Array(12).fill(null).map(() => ({name:`######`, description:`Lorem ipsum dolor sit amet, consectetur adipiscing elit.`, icon:null})), {name:`And ## more...`, description:"", icon:null}]},
-            }[key]??{})]
-          )),
           token:{scopes:[]},
         }),
+        plugins:Object.fromEntries(enabled.map(key =>
+          [key, proxify({
+            posts:{source:"########", list:new Array("posts.limit" in q ? Math.max(Number(q["posts.limit"])||0, 0) : 2).fill({title:"###### ###### ####### ######", date:"####"})},
+            music:{provider:"########", tracks:new Array("music.limit" in q ? Math.max(Number(q["music.limit"])||0, 0) : 4).fill({name:"##########", artist:"######", artwork:"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg=="})},
+            pagespeed:{detailed:!!q["pagespeed.detailed"], scores:["Performance", "Accessibility", "Best Practices", "SEO"].map(title => ({title, score:NaN}))},
+            followup:{issues:{count:0}, pr:{count:0}},
+            habits:{indents:{style:`########`}},
+            languages:{favorites:new Array(7).fill(null).map((_, x) => ({x, name:"######", color:"#ebedf0", value:1/(x+1)}))},
+            topics:{list:[...new Array(12).fill(null).map(() => ({name:"######", description:"", icon:null})), {name:`And ## more...`, description:"", icon:null}]},
+            projects:{list:[...new Array(4).fill(null).map(() => ({name:"########", updated:"########", progress:{enabled:true, todo:"##", doing:"##", done:"##", total:"##"}}))]},
+          }[key]??{})]
+        )),
       })
   }

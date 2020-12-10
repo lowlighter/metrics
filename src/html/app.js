@@ -4,6 +4,7 @@
     const {data:templates} = await axios.get("/templates.list")
     const {data:plugins} = await axios.get("/plugins.list")
     const {data:base} = await axios.get("/plugins.base.parts.list")
+    const {data:version} = await axios.get("/.version")
   //App
     return new Vue({
       //Initialization
@@ -14,8 +15,9 @@
         components:{Prism:PrismComponent},
       //Data initialization
         data:{
+          version,
           user:url.get("user") || "",
-          palette:url.get("palette") || "light",
+          palette:url.get("palette") || (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") || "light",
           plugins:{
             base,
             list:plugins,
@@ -41,6 +43,7 @@
               "base.metadata":"Metadata",
             },
             options:{
+              "pagespeed.detailed":false,
               "habits.from":100,
               "music.playlist":"",
               "music.mode":"playlist",
@@ -91,12 +94,12 @@
               },
           //Embedded generated code
             embed() {
-              return `[![GitHub metrics](${this.url})](https://github.com/lowlighter/metrics)`
+              return `![GitHub metrics](${this.url})`
             },
           //GitHub action auto-generated code
             action() {
               return [
-                `# Visit https://github.com/lowlighter/metrics for full reference`,
+                `# Visit https://github.com/lowlighter/metrics/blob/master/action.yml for full reference`,
                 `name: GitHub metrics as SVG image`,
                 `on:`,
                 `  schedule: [{cron: "0 * * * *"}]`,

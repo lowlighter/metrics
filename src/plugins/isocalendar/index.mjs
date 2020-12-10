@@ -7,8 +7,8 @@
             return null
         //Parameters override
           let {"isocalendar.duration":duration = "half-year"} = q
-        //Duration in days
-          duration = ["full-year", "half-year"].includes(duration) ? duration : "full-year"
+          //Duration in days
+            duration = ["full-year", "half-year"].includes(duration) ? duration : "full-year"
         //Compute start day
           const now = new Date()
           const start = new Date(now)

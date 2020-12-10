@@ -35,7 +35,7 @@
           for (const project of projects.nodes) {
             //Format date
               const time = (Date.now()-new Date(project.updatedAt).getTime())/(24*60*60*1000)
-              let updated = project.updatedAt
+              let updated
               if (time < 1)
                 updated = "less than 1 day ago"
               else if (time < 30)

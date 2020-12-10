@@ -49,6 +49,7 @@
       app.get("/index.html", limiter, (req, res) => res.sendFile(`${conf.statics}/index.html`))
       app.get("/app.js", limiter, (req, res) => res.sendFile(`${conf.statics}/app.js`))
       app.get("/style.css", limiter, (req, res) => res.sendFile(`${conf.statics}/style.css`))
+      app.get("/.version", limiter, (req, res) => res.status(200).send(conf.package.version))
       app.get("/favicon.ico", limiter, (req, res) => res.sendStatus(204))
       app.get("/plugins.list", limiter, (req, res) => res.status(200).json(enabled))
       app.get("/templates.list", limiter, (req, res) => res.status(200).json(templates))
@@ -159,7 +160,7 @@
           query[key] = Number(value)
       //Parse boolean
         if (/^(?:true|false)$/.test(value))
-          query[key] = !!value
+          query[key] = value === "true"
       //Parse null
         if (/^null$/.test(value))
           query[key] = null

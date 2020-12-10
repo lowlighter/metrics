@@ -207,6 +207,24 @@
       stroke-dasharray: 0 329;
     }
   }
+  .audits {
+    margin-top: 8px;
+  }
+  .audit.text {
+    min-width: 36px;
+  }
+  .audit svg {
+    margin: 0;
+  }
+  .audit.high {
+    fill: #18b663;
+  }
+  .audit.average {
+    fill: #fb8c00;
+  }
+  .audit.low {
+    fill: #e53935;
+  }
 
 /* Music plugin */
   .tracklist {

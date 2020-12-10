@@ -4,16 +4,16 @@
   + (!!base.activity)*108
   + (!!base.community)*94
   + (!!base.repositories)*142
-  + ((!!base.repositories)*(!!computed.plugins.traffic))*18
-  + ((!!base.repositories)*(!!computed.plugins.followup))*102
-  + ((!!base.repositories)*(!!computed.plugins.lines))*34
-  + (!!computed.plugins.pagespeed)*110
-  + (!!computed.plugins.languages)*124
-  + Math.max(0, (((!!base.metadata)+(!!base.header)+((!!base.activity)||(!!base.community))+(!!base.repositories)+(!!computed.plugins.pagespeed)+(!!computed.plugins.languages))-1))*20
+  + ((!!base.repositories)*(!!plugins.traffic))*18
+  + ((!!base.repositories)*(!!plugins.followup))*102
+  + ((!!base.repositories)*(!!plugins.lines))*34
+  + (!!plugins.pagespeed)*110
+  + (!!plugins.languages)*124
+  + Math.max(0, (((!!base.metadata)+(!!base.header)+((!!base.activity)||(!!base.community))+(!!base.repositories)+(!!plugins.pagespeed)+(!!plugins.languages))-1))*20
 %>">
   <%
     meta.$ = `<span class="ps1-path">${`${user.login}`.toLocaleLowerCase()}@metrics</span>:<span class="ps1-location">~</span>${computed.token.scopes.includes("repo") ? "#" : "$"}`
-    meta.animations = !meta.placeholder ? {stdin:.16, stdout:.28, length:(2+Object.keys(base).length+Object.keys(computed.plugins).length)} : {stdin:0, stdout:0, length:0}
+    meta.animations = !meta.placeholder ? {stdin:.16, stdout:.28, length:(2+Object.keys(base).length+Object.keys(plugins).length)} : {stdin:0, stdout:0, length:0}
   %>
 
   <defs><style><%= fonts %></style></defs>
@@ -98,55 +98,55 @@ Last generated: <%= new Date().toGMTString() %>
 <div class="stdin"><%- meta.$ %> ls -lh github/repositories</div><%# -%>
 <div class="stdout"><%# -%>
 Total <%= user.repositories.totalCount %> repositor<%= s(user.repositories.totalCount, "y") %> - <%= computed.diskUsage %>
-<% if (computed.plugins.traffic) { if (computed.plugins.traffic.error) { -%>
-----  <b>     </b>  views <span class="error">(<%= computed.plugins.traffic.error.message %>)</span>
+<% if (plugins.traffic) { if (plugins.traffic.error) { -%>
+----  <b>     </b>  views <span class="error">(<%= plugins.traffic.error.message %>)</span>
 <% } else { -%>
--r--  <b><%= `${computed.plugins.traffic.views.count}`.padStart(5) %></b>  views
+-r--  <b><%= `${plugins.traffic.views.count}`.padStart(5) %></b>  views
 <% }} -%>
 -r--  <b><%= `${computed.repositories.stargazers}`.padStart(5) %></b>  stargazer<%= s(computed.repositories.stargazers) %>
 -r--  <b><%= `${computed.repositories.forks}`.padStart(5) %></b>  fork<%= s(computed.repositories.forks) %>
 -r--  <b><%= `${computed.repositories.watchers}`.padStart(5) %></b>  watcher<%= s(computed.repositories.watchers) %>
 dr-x  <b><%= `${user.packages.totalCount}`.padStart(5) %></b>  package<%= s(user.packages.totalCount) %>
 dr-x  <b><%= `${user.gists.totalCount}`.padStart(5) %></b>  gist<%= s(user.gists.totalCount) %>
-<% if (computed.plugins.followup) { if (computed.plugins.followup.error) { -%>
-d---  <b>     </b>  ISSUES <span class="error">(<%= computed.plugins.followup.error.message %>)</span>
-d---  <b>     </b>  PULL_REQUESTS <span class="error">(<%= computed.plugins.followup.error.message %>)</span>
+<% if (plugins.followup) { if (plugins.followup.error) { -%>
+d---  <b>     </b>  ISSUES <span class="error">(<%= plugins.followup.error.message %>)</span>
+d---  <b>     </b>  PULL_REQUESTS <span class="error">(<%= plugins.followup.error.message %>)</span>
 <% } else { -%>
-dr-x  <b><%= `${computed.plugins.followup.issues.count}`.padStart(5) %></b>  ISSUES
--r--  <b><%= `${computed.plugins.followup.issues.open}`.padStart(5) %></b>  ├── open
--r--  <b><%= `${computed.plugins.followup.issues.closed}`.padStart(5) %></b>  └── closed
-dr-x  <b><%= `${computed.plugins.followup.issues.count}`.padStart(5) %></b>  PULL_REQUESTS
--r--  <b><%= `${computed.plugins.followup.pr.open}`.padStart(5) %></b>  ├── open
--r--  <b><%= `${computed.plugins.followup.pr.merged}`.padStart(5) %></b>  └── merged
+dr-x  <b><%= `${plugins.followup.issues.count}`.padStart(5) %></b>  ISSUES
+-r--  <b><%= `${plugins.followup.issues.open}`.padStart(5) %></b>  ├── open
+-r--  <b><%= `${plugins.followup.issues.closed}`.padStart(5) %></b>  └── closed
+dr-x  <b><%= `${plugins.followup.issues.count}`.padStart(5) %></b>  PULL_REQUESTS
+-r--  <b><%= `${plugins.followup.pr.open}`.padStart(5) %></b>  ├── open
+-r--  <b><%= `${plugins.followup.pr.merged}`.padStart(5) %></b>  └── merged
 <% }} -%>
 <% if (computed.licenses.favorite.length) { -%>
 dr-x         LICENSE
 -r--         └── <%= computed.licenses.favorite %>
 <% } -%>
-<% if (computed.plugins.lines) { if (computed.plugins.lines.error) { %>
-<span class="diff error">@@ <%= computed.plugins.lines.error.message %> @@</span><% } else { %>
-<span class="diff">@@ -<%= computed.plugins.lines.deleted %> +<%= computed.plugins.lines.added %> @@</span>
+<% if (plugins.lines) { if (plugins.lines.error) { %>
+<span class="diff error">@@ <%= plugins.lines.error.message %> @@</span><% } else { %>
+<span class="diff">@@ -<%= plugins.lines.deleted %> +<%= plugins.lines.added %> @@</span>
 <% }} -%>
 </div><% } -%>
 <%# ============================================================= -%>
-<% if (computed.plugins.languages) { %>
+<% if (plugins.languages) { %>
 <div class="stdin"><%- meta.$ %> locale</div><%# -%>
 <div class="stdout"><%# -%>
-<% if (computed.plugins.languages.error) { -%>
-<span class="error"><%= computed.plugins.languages.error.message %></span><%# -%>
-<% } else { for (const {name, value} of computed.plugins.languages.favorites) { -%>
+<% if (plugins.languages.error) { -%>
+<span class="error"><%= plugins.languages.error.message %></span><%# -%>
+<% } else { for (const {name, value} of plugins.languages.favorites) { -%>
 <b><%= name.toLocaleUpperCase().padEnd(12) %></b> [<%= "#".repeat(Math.ceil(100*value/5)).padEnd(20) %>] <%= (100*value).toFixed(2).padEnd(5) %>%
 <% }} -%>
 </div><% } -%>
 <%# ============================================================= -%>
-<% if (computed.plugins.pagespeed) { %>
+<% if (plugins.pagespeed) { %>
 <div class="stdin"><%- meta.$ %> curl -I <%= user.websiteUrl %></div><%# -%>
 <div class="stdout"><%# -%>
-<% if (computed.plugins.pagespeed.error) { -%>
-<span class="error"><%= computed.plugins.pagespeed.error.message %></span><% } else { -%>
+<% if (plugins.pagespeed.error) { -%>
+<span class="error"><%= plugins.pagespeed.error.message %></span><% } else { -%>
 <b>User-Agent</b>: Google PageSpeed API
 <b>Location</b>: <%= user.websiteUrl %>
-<% for (const {score, title} of computed.plugins.pagespeed.scores) { -%>
+<% for (const {score, title} of plugins.pagespeed.scores) { -%>
 <b><%= `X-${title.replace(/ /g, "-")}` %></b>: <%= !Number.isNaN(score) ? Math.round(score*100) : "-" %>%
 <% }} -%>
 </div><% } -%>
