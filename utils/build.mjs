@@ -5,10 +5,13 @@
   import ncc from "@vercel/ncc"
   import minify from "babel-minify"
   import colors from "colors"
+  import ejs from "ejs"
 
 //Initialization
   const __dirname = path.join(path.dirname(url.fileURLToPath(import.meta.url)), "..")
   const __action = path.join(__dirname, "action")
+  const __workflows = path.join(__dirname, ".github/workflows")
+  const __utils = path.join(__dirname, "utils")
   const __src = path.join(__dirname, "src")
   const __plugins = path.join(__src, "plugins")
   const __templates = path.join(__src, "templates")
@@ -55,6 +58,48 @@
             }
           }
 
+      }
+
+    //Workflow
+      {
+        //Build
+          const code = await ejs.renderFile(path.join(__utils, "workflow.yml"), {
+            releases:["master", "latest"],
+            templates:(await fs.promises.readdir(__templates)).filter(name => !/.*[.]mjs$/.test(name)).sort(),
+            testcase(context = {}) {
+              return [`with:`, ...Object.entries({
+                token:"${{ secrets.METRICS_TOKEN }}",
+                dryrun:true,
+                repositories:1,
+                template:"${{ matrix.template }}",
+                base:"",
+                plugins_errors_fatal:true,
+                ...context
+              }).map(([key, value]) => `${"  ".repeat(5)}${key}: ${
+                typeof value === "boolean" ? (value ? "yes" : "no") :
+                typeof value === "string" ? (!value ? `""` : value) :
+                value
+              }`)].join("\n")
+            },
+          }, {async:true})
+          console.log(`Generated workflow`.grey)
+
+        //Save build
+          if (actions.includes("build")) {
+            fs.promises.writeFile(path.join(__workflows, "workflow.yml"), code)
+            console.log(`Generated workflow saved to ${path.join(__workflows, "dist/index.js")}`.green)
+          }
+
+        //Check build
+          if (actions.includes("check")) {
+            const status = `${await fs.promises.readFile(path.join(__workflows, "workflow.yml"))}` === code
+            if (status)
+              console.log(`Workflow is up-to-date`.grey)
+            else {
+              console.log(`Workflow is outdated`.red)
+              errors.push(`Workflow is outdated, run "npm run build" to fix it`)
+            }
+          }
       }
 
     //Action
