@@ -95,8 +95,7 @@
           if (plugins.pagespeed.enabled) {
             plugins.pagespeed.token = core.getInput("plugin_pagespeed_token")
             console.log(`Pagespeed token     | ${plugins.pagespeed.token ? "provided" : "missing"}`)
-            for (const option of ["detailed"])
-              q[`pagespeed.${option}`] = core.getInput(`plugin_pagespeed_${option}`) || null
+            q[`pagespeed.${option}`] = bool(core.getInput(`plugin_pagespeed_${option}`))
             console.log(`Pagespeed detailed  | ${q["pagespeed.detailed"]}`)
           }
         //Music
@@ -133,7 +132,7 @@
           if (plugins.projects.enabled) {
             for (const option of ["limit"])
               q[`projects.${option}`] = core.getInput(`plugin_projects_${option}`) || null
-            console.log(`Projects limit        | ${q["projects.limit"]}`)
+            console.log(`Projects limit      | ${q["projects.limit"]}`)
           }
 
       //Repositories to use
