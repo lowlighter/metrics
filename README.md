@@ -166,6 +166,8 @@ Try it now at [metrics.lecoq.io](https://metrics.lecoq.io/) with your GitHub use
 Because some plugins require additional configuration and setup, some of them are not available at [metrics.lecoq.io](https://metrics.lecoq.io/).
 For a fully-featured experience, consider using this as a [GitHub Action](https://github.com/marketplace/actions/github-metrics-as-svg-image) instead !
 
+[![Metrics](https://status.lecoq.io/status/metrics.lecoq.io-443.svg)](https://github.com/lowlighter/downtime)
+
 # 📜 How to use ?
 
 ## ⚙️ Using GitHub Action on your profile repository (~5 min setup)
