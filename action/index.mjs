@@ -56,7 +56,14 @@
         console.log(`SVG optimization    | ${optimize}`)
 
       //GitHub user
-        const user = core.getInput("user") || (await rest.users.getAuthenticated()).data.login
+        let authenticated = github.context.repo.owner
+        try {
+          authenticated = (await rest.users.getAuthenticated()).data.login
+        }
+        catch {
+          authenticated = github.context.repo.owner
+        }
+        const user = core.getInput("user") || authenticated
         console.log(`GitHub user         | ${user}`)
 
       //Debug mode
