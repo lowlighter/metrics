@@ -171,7 +171,7 @@ For a fully-featured experience, consider using this as a [GitHub Action](https:
 ## ⚙️ Using GitHub Action on your profile repository (~5 min setup)
 
 Setup a GitHub Action which runs periodically and pushes your generated metrics image on your repository.
-See all supported options in [action.yml](https://github.com/lowlighter/metrics/blob/master/action.yml).
+See all supported options in [action.yml](action.yml).
 
 Assuming your username is `my-github-user`, you can then embed your metrics in your repository readme like below :
 
@@ -186,11 +186,11 @@ Assuming your username is `my-github-user`, you can then embed your metrics in y
 
 Create a repository with the same name as your GitHub username if it's not already done.
 
-![Setup personal repository](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/setup_personal_repository.png)
+![Setup personal repository](.github/readme/imgs/setup_personal_repository.png)
 
 The `README.md` of it will be displayed on your user profile :
 
-![GitHub Profile Example](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/example_github_profile.png)
+![GitHub Profile Example](.github/readme/imgs/example_github_profile.png)
 
 ### 1. Create a GitHub token
 
@@ -198,13 +198,13 @@ From the `Developer settings` of your account settings, select `Personal access 
 
 No additional scopes are needed, unless you want to include your private repositories metrics or if you want to use the `traffic` plugin.
 
-![Setup a GitHub personal token](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/setup_personal_token.png)
+![Setup a GitHub personal token](.github/readme/imgs/setup_personal_token.png)
 
 ### 2. Set your GitHub token in your personal repository secrets
 
 Go to the `Settings` of your personal repository to create a new secret and paste your freshly generated GitHub token there.
 
-![Setup a repository secret](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/setup_repository_secret.png)
+![Setup a repository secret](.github/readme/imgs/setup_repository_secret.png)
 
 ### 3. Create a new GitHub Action workflow on your personal repository
 
@@ -220,7 +220,7 @@ jobs:
   github-metrics:
     runs-on: ubuntu-latest
     steps:
-      # See https://github.com/lowlighter/metrics/blob/master/action.yml for all options
+      # See action.yml for all options
       - uses: lowlighter/metrics@latest
         with:
           # Your GitHub token
@@ -229,7 +229,7 @@ jobs:
           committer_token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-See all supported options in [action.yml](https://github.com/lowlighter/metrics/blob/master/action.yml).
+See all supported options in [action.yml](action.yml).
 
 When using a token with additional permissions, it is advised to fork this repository to minimize risks of security issues :
 ```yaml
@@ -246,7 +246,7 @@ Breaking changes may occur occasionally on `@master`, which could result in your
 
 A new metrics image will be generated and committed to your repository on each run.
 
-![Action update example](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/example_action_update.png)
+![Action update example](.github/readme/imgs/example_action_update.png)
 
 ### 4. Embed the link into your README.md
 
@@ -289,7 +289,7 @@ It is possible to setup your own instance if you don't want to use GitHub Action
 
 When sharing an instance, it is advised to restrict the number of users which can use it through the rate limiter or the access list, to avoid reaching the requests limit of GitHub APIs.
 
-See all supported options in [settings.example.json](https://github.com/lowlighter/metrics/blob/master/settings.example.json).
+See all supported options in [settings.example.json](settings.example.json).
 
 <details>
 <summary>💬 How to setup ?</summary>
@@ -304,11 +304,11 @@ From the `Developer settings` of your account settings, select `Personal access 
 
 No additional scopes are needed, unless you want to include your private repositories metrics or if you want to use the `traffic` plugin.
 
-![Setup a GitHub personal token](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/setup_personal_token.png)
+![Setup a GitHub personal token](.github/readme/imgs/setup_personal_token.png)
 
 ### 2. Install dependencies
 
-Connect to server and ensure [NodeJS](https://nodejs.org/en/) is installed (see tested version in [workflow](https://github.com/lowlighter/metrics/blob/master/.github/workflows/workflow.yml#L18)).
+Connect to server and ensure [NodeJS](https://nodejs.org/en/) is installed (see tested version in [workflow](.github/workflows/workflow.yml#L18)).
 
 Run the following commands to clone this repository, install dependencies and copy configuration example file :
 
@@ -325,13 +325,13 @@ Edit `settings.json` to configure your instance.
 
 ```javascript
 {
-  //See https://github.com/lowlighter/metrics/blob/master/settings.example.json for all options
+  //See settings.example.json for all options
   //GitHub API token
     "token":"****************************************"
 }
 ```
 
-See all supported options in [settings.example.json](https://github.com/lowlighter/metrics/blob/master/settings.example.json).
+See all supported options in [settings.example.json](settings.example.json).
 
 ### 4. Start your instance
 
@@ -419,7 +419,7 @@ Plugin options can be passed with `?<plugin>.<option>=<value>`.
 
 For example, to enable `music` plugin and configure `music` plugin, you could append the following to your metrics url : `?music=1&music.provider=spotify&music.mode=recent&music.limit=4`.
 
-Basically, most of [action.yml](https://github.com/lowlighter/metrics/blob/master/action.yml) options can actually be used by web instance, with `plugin_` prefix dropped, and `.` instead of `_`.
+Basically, most of [action.yml](action.yml) options can actually be used by web instance, with `plugin_` prefix dropped, and `.` instead of `_`.
 
 </details>
 
@@ -564,7 +564,7 @@ Extract the *embed* url of the playlist you want to share.
 To do so, connect to [music.apple.com](https://music.apple.com/) and select the playlist you want to share.
 From `...` menu, select `Share` and `Copy embed code`.
 
-![Copy embed code of playlist](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_music_playlist_apple.png)
+![Copy embed code of playlist](.github/readme/imgs/plugin_music_playlist_apple.png)
 
 Extract the source link from the code pasted in your clipboard :
 ```html
@@ -594,7 +594,7 @@ Extract the *embed* url of the playlist you want to share.
 To do so, Open Spotify and select the playlist you want to share.
 From `...` menu, select `Share` and `Copy embed code`.
 
-![Copy embed code of playlist](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_music_playlist_spotify.png)
+![Copy embed code of playlist](.github/readme/imgs/plugin_music_playlist_spotify.png)
 
 Extract the source link from the code pasted in your clipboard :
 ```html
@@ -648,7 +648,7 @@ Spotify does not have *personal tokens*, so it makes the process a bit longer be
 Sign-in to the [developer dashboard](https://developer.spotify.com/dashboard/) and create a new app.
 Keep your `client_id` and `client_secret` and let this tab open for now.
 
-![Add a redirect url](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_music_recent_spotify_token_0.png)
+![Add a redirect url](.github/readme/imgs/plugin_music_recent_spotify_token_0.png)
 
 Open the settings and add a new *Redirect url*. Normally it is used to setup callbacks for apps, but just put `https://localhost` insteadd (it is mandatory as per the [authorization guide](https://developer.spotify.com/documentation/general/guides/authorization-guide/), even if not used).
 
@@ -660,11 +660,11 @@ https://accounts.spotify.com/authorize?client_id=********&response_type=code&sco
 
 When prompted, authorize your application.
 
-![Authorize application](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_music_recent_spotify_token_1.png)
+![Authorize application](.github/readme/imgs/plugin_music_recent_spotify_token_1.png)
 
 Once redirected to `redirect_uri`, extract the generated authorization `code` from your url bar.
 
-![Extract authorization code from url](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_music_recent_spotify_token_2.png)
+![Extract authorization code from url](.github/readme/imgs/plugin_music_recent_spotify_token_2.png)
 
 Go back to your developer dashboard tab, and open the web console of your browser to paste the following JavaScript code, with your own `client_id`, `client_secret`, authorization `code` and `redirect_uri`.
 
@@ -802,16 +802,16 @@ Add the following to your workflow :
 Note that by default, profile projects have progress tracking disabled.
 To enable it, open the `≡ Menu` and edit the project to opt-in to `Track project progress` (it can be a bit confusing since it's actually not in the project settings).
 
-![Enable "Track project progress"](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_projects_track_progress.png)
+![Enable "Track project progress"](.github/readme/imgs/plugin_projects_track_progress.png)
 
 <details>
 <summary>💬 Create a personal project on GitHub</summary>
 
 On your profile, select the `Projects` tab :
-![Create a new project](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_projects_create.png)
+![Create a new project](.github/readme/imgs/plugin_projects_create.png)
 
 Fill the informations and set visibility to *public* :
-![Configure project](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_projects_setup.png)
+![Configure project](.github/readme/imgs/plugin_projects_setup.png)
 
 </details>
 
@@ -853,7 +853,7 @@ It will consume an additional GitHub request per repository.
 
 Because of GitHub REST API limitation, provided token requires full `repo` scope to access traffic informations.
 
-![Token with repo scope](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/setup_token_repo_scope.png)
+![Token with repo scope](.github/readme/imgs/setup_token_repo_scope.png)
 
 Add the following to your workflow :
 ```yaml
@@ -942,7 +942,7 @@ To suggest a new feature, find a bug or need help, fill an [issue](https://githu
 
 If you're motivated enough, you can submit a [pull request](https://github.com/lowlighter/metrics/pulls) to integrate new features or to solve open issues.
 
-Read [CONTRIBUTING.md](https://github.com/lowlighter/metrics/blob/master/CONTRIBUTING.md) for more information about this.
+Read [CONTRIBUTING.md](CONTRIBUTING.md) for more information about this.
 
 ## 📖 Useful references
 
