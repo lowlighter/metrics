@@ -12,19 +12,15 @@ runs:
 # Inputs
 inputs:
 
-  # Your personal token
-  # Depending on your configurations, the following rights are needed :
-  # - (none) if you're using a "commiter_token"
-  # - "public_repo" if you're using this token to commit and push your metrics
-  # - "repo" for plugins like traffic or to include your private repositories metrics
+  # Personal user token
+  # No additional scopes are needed, unless if you want to include private repositories metrics or use the traffic plugin
   token:
     description: GitHub Personal Token
     required: true
 
-  # To avoid this action's commits to be counted in your stats, you can specify a bot token
-  # You must first grant push access on your personal repository to the bot account so it'll be able to push metrics
+  # Set to "${{ secrets.GITHUB_TOKEN }}"
   committer_token:
-    description: If provided, use this token for commits
+    description: Token used for commits
     default: ""
 
   # User to compute metrics
@@ -33,32 +29,32 @@ inputs:
     description: GitHub username
     default: ""
 
-  # File or path to the generated metrics, relative to your repositories root
+  # Filepath of generated metrics (relative to repository root)
   filename:
-    description: Name of SVG image output
+    description: Path of SVG image output
     default: github-metrics.svg
 
-  # Optimize SVG image with SVGO, to minify, remove useless attributes and spaces
-  # Some templates based on white-spaces will auto-disable this option when used
+  # Optimize SVG image with SVGO  (minify and remove useless attributes and spaces)
+  # Some templates may not support this option
   optimize:
     description: Optimize SVG image
     default: yes
 
-  # The number of repositories to use to compute metrics
-  # A high number increase your metrics accuracy, but may consume additional requests with plugins which use the REST API
+  # Number of repositories to use for metrics
+  # A high number increase metrics accuracy, but will consume additional API requests when using plugins
   repositories:
-    description: Number of repositories to use to compute metrics
+    description: Number of repositories to use
     default: 100
 
-  # The name of the template to use
+  # Template to use
   # See https://github.com/lowlighter/metrics/tree/master/src/templates for supported templates
   template:
     description: Template to use
     default: classic
 
-  # Template base content, which are all enabled by default
+  # Template base content
   # Pass a string of comma-separated values
-  # To disable everything (like if you want to use a plugin as standalone), pass an empty string as parameters
+  # To disable everything (like if you want to use a plugin as standalone), pass an empty string
   # Supported values are :
   # - "header" (name, commits calendar, ...)
   # - "activity" (commits, issues/pull requests opened, ...)
@@ -72,7 +68,7 @@ inputs:
   # Google PageSpeed plugin
   # Enable it to compute the performance for the website attached to "user"
   plugin_pagespeed:
-    description: Enable Google PageSpeed metrics for account attached website
+    description: Enable Google PageSpeed metrics for user's website
     default: no
 
   # Display additional PageSpeed audit metrics
@@ -80,30 +76,29 @@ inputs:
   # First Contentful Paint, Speed Index, Largest Contentful Paint, Time to Interactive, Total Blocking Time, Cumulative Layout Shift
   # See https://web.dev/performance-scoring/ and https://googlechrome.github.io/lighthouse/scorecalc/ for more informations
   plugin_pagespeed_detailed:
-    description: Display additional PageSpeed audit metrics
+    description: Display additional PageSpeed metrics
     default: no
 
-  # When PageSpeed plugin is enabled, it is advised to generate a token to avoid the rate-limiter
+  # PageSpeed API token (optional, avoid hitting requests limit)
   # See https://developers.google.com/speed/docs/insights/v5/get-started for more informations
   plugin_pagespeed_token:
-    description: Google Pagespeed Personal Token
+    description: Pagespeed personal token
     default: ""
 
   # Lines of code plugin
-  # It'll retrieve your contributors stats and compute added/removed lines for each of your repositories
+  # Compute added/removed line for each of you repositories from your contributors stats
   plugin_lines:
     description: Enable lines of code metrics
     default: no
 
-  # Traffic plugin
+  # Traffic plugin ("token" must have "repo" permission)
   # Count views on your repositories
-  # "token" must have "repo" permission
   plugin_traffic:
     description: Enable repositories traffic metrics
     default: no
 
   # Coding habits plugin
-  # It'll search in your recent activity what've recently did, like if you're using spaces or tabs as indents, etc.
+  # Search in your recent activity what've recently did and deduce tidbits like if you're using spaces or tabs as indents, etc.
   plugin_habits:
     description: Enable coding habits metrics
     default: no
@@ -111,30 +106,30 @@ inputs:
   # Number of activity events to base habits on
   # Maximum number of events is capped to 100
   plugin_habits_from:
-    description: Number of activity events to base habits on
+    description: Number of activity events to use
     default: 100
 
   # Languages plugins
-  # Compute the coding languages the most used on your repositories
+  # Compute the most used programming languages on your repositories
   plugin_languages:
     description: Enable most used languages metrics
     default: no
 
   # Follow-up plugin
-  # Display the number and the ratio of opened/closed issues and opened/merged pull requests
+  # Display the number and the ratio of opened/closed issues and opened/merged pull requests on your repositories
   plugin_followup:
     description: Enable owned repositories issues and pull requests metrics
     default: no
 
   # Music plugin
-  # Display tracks you recently listened to or your favorite tracks
+  # Display tracks you recently listened or your favorite tracks from a playlist
   plugin_music:
-    description: Enable music
+    description: Enable music plugin
     default: no
 
   # Music provider
-  # This is required in "recent" mode
-  # This is optional in "playlist" mode, in this case it will be deduced from "plugin_music_playlist" url
+  # Required in "recent" mode
+  # Optional in "playlist" mode (will be deduced from "plugin_music_playlist" url)
   # Supported values are :
   # - "apple" for Apple Music
   # - "spotify" for Spotify
@@ -155,26 +150,20 @@ inputs:
   # - "playlist" : display tracks from a playlist randomly
   # - "recent" : display recently played tracks
   plugin_music_mode:
-    description: Use "recent" to display recently played music and "playlist" to display tracks randomly from a given playlist (*required if music plugin is enabled)
+    description: Use "recent" to display recently played music and "playlist" to display tracks randomly from a given playlist
     default: ""
 
   # Music playlist
-  # The embed playlist url (the one used for music player iframe)
-  # Will default mode to "playlist" when set
+  # The embed playlist url (source which is used for music player iframes)
+  # Will default "plugin_music_mode" to "playlist" when set
   plugin_music_playlist:
     description: Embed playlist url
     default: ""
 
-  # Tracks to display for music plugin
+  # Number of tracks to display for music plugin
   plugin_music_limit:
     description: Number of tracks to display
     default: 4
-
-  # Self-skip plugin
-  # If you're using your personnal account for commits, this will substract all of your commits flagged with [Skip GitHub Action]
-  plugin_selfskip:
-    description: Skip commits flagged with [Skip GitHub Action] from commits count
-    default: no
 
   # Posts plugin
   # Display recent posts from an external source
@@ -187,19 +176,18 @@ inputs:
   # Supported values are :
   # - "dev.to" for dev.to
   plugin_posts_source:
-    description: Posts source
+    description: Posts external source
     default: ""
 
-  # Posts limits
-  # Set number of posts to display
+  # Number of posts to display
   plugin_posts_limit:
-    description: Posts limit
+    description: Number of posts to display
     default: 4
 
   # Isometric calendar plugin
-  # Display an isometric view of your commits calendar, along with a few stats like current streak and average commits per day
+  # Display an isometric view of your commits calendar along with a few stats like current streak and average commits per day
   plugin_isocalendar:
-    description: Display an isometric view of your commits calendar, along with a few additional stats
+    description: Display an isometric view of your commits calendar along with a few additional stats
     default: no
 
   # Duration shown by isometric calendar plugin
@@ -208,19 +196,19 @@ inputs:
     description: Set isometric calendar duration
     default: half-year
 
-  # Gists plugins
+  # Gists plugin
   # Display gists metrics
   plugin_gists:
     description: Display gists metrics
     default: no
 
-  # Topics plugins
+  # Topics plugin
   # Display starred topics
   plugin_topics:
     description: Display starred topics
     default: no
 
-  # Sorting method of topics
+  # Sorting method of displayed topics
   # Supported values are :
   # - "stars" to sort them from most starred to least starred
   # - "activity" to sort them from most recent activity to least recent activity
@@ -230,33 +218,32 @@ inputs:
     description: Sorting method of starred topics
     default: "stars"
 
-  # Limit the number of topics displayed
-  # Between 1 and 20
+  # Number of topics to display (between 1 and 20)
   # If more topics must be displayed, they will be grouped in an ellipsis
   plugin_topics_limit:
     description: Number of starred topics to display
     default: 15
 
-  # Projects plugins
+  # Projects plugin
   # Display active projects
   plugin_projects:
     description: Display active projects
     default: no
 
-  # Limit the number of projects displayed
+  # Number of active projects to display
   # Between 1 and 100
   plugin_projects_limit:
     description: Number of active projects to display
     default: 4
 
   # Enable debug mode
-  # Be sure to put all secrets in your repository secrets before to avoid any leaks !
+  # Ensure you correctly put all sensitive informations in your repository secrets before !
   debug:
     description: Enable debug logs
     default: no
 
   # Verify SVG after generation
-  # It tests whether SVG can be correctly parsed (used for testing)
+  # Test whether SVG can be correctly parsed (used for testing)
   verify:
     description: Verify SVG after genaration
     default: no
@@ -268,7 +255,7 @@ inputs:
     default: no
 
   # When enabled, any plugins errors will throw
-  # By default, it will still generates metrics but renders an error message
+  # By default, metrics are still generated with an error message
   plugins_errors_fatal:
     description: Die on plugins errors
     default: no
