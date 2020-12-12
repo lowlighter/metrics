@@ -18,7 +18,7 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
       <a href="https://github.com/lowlighter/metrics#%EF%B8%8F-pagespeed">
         <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.svg" alt="" width="400">
       </a>
-      <details><summary>Alternative version</summary>
+      <details><summary>Alternate version</summary>
         <a href="https://github.com/lowlighter/metrics#%EF%B8%8F-pagespeed">
           <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.detailed.svg" alt="" width="400">
         </a>
@@ -28,7 +28,7 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
       <a href="https://github.com/lowlighter/metrics#-isometric-calendar">
         <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.isocalendar.svg" alt="" width="400">
       </a>
-      <details><summary>Alternative version</summary>
+      <details><summary>Alternate version</summary>
         <a href="https://github.com/lowlighter/metrics#-isometric-calendar">
           <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.isocalendar.fullyear.svg" alt="" width="400">
         </a>
@@ -196,7 +196,7 @@ The `README.md` of it will be displayed on your user profile :
 
 From the `Developer settings` of your account settings, select `Personal access tokens` to create a new token.
 
-No additional scopes are needed, unless you want to include your private repositories metrics or if you want to use the `traffic` plugin.
+No additional scopes are needed.
 
 ![Setup a GitHub personal token](.github/readme/imgs/setup_personal_token.png)
 
@@ -231,11 +231,13 @@ jobs:
 
 See all supported options in [action.yml](action.yml).
 
-When using a token with additional permissions, it is advised to fork this repository to minimize risks of security issues :
+When using a token with additional permissions, it is advised to fork this repository to minimize security risks :
 ```yaml
       - uses: my-github-username/metrics@latest
 ```
 In this case, consider watching new releases of this repository to stay up-to-date and enjoy latest features !
+
+If you prefer examples rather than theory, check out this [workflow](https://github.com/lowlighter/lowlighter/blob/master/.github/workflows/metrics.yml) file which generates metrics daily.
 
 #### Preview vs release
 
@@ -305,6 +307,11 @@ From the `Developer settings` of your account settings, select `Personal access 
 No additional scopes are needed, unless you want to include your private repositories metrics or if you want to use the `traffic` plugin.
 
 ![Setup a GitHub personal token](.github/readme/imgs/setup_personal_token.png)
+
+Be sure to enable `Include private contributions on my profile` in your account settings to include your private repositories :
+
+![Enable "Include private contributions on my profile`"](.github/readme/imgs/setup_private_contributions.png)
+
 
 ### 2. Install dependencies
 
