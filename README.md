@@ -2,42 +2,178 @@
 
 ![Build](https://github.com/lowlighter/metrics/workflows/Build/badge.svg)
 
-Generates your own GitHub metrics as an SVG image to put them on your profile page or elsewhere !
+Generates your own GitHub metrics image that you can embed on your profile page or elsewhere !
 
 [![GitHub metrics](https://github.com/lowlighter/lowlighter/blob/master/metrics.classic.svg)](https://metrics.lecoq.io)
 
 But there's more with [plugins](https://github.com/lowlighter/metrics/tree/master/src/plugins) and [templates](https://github.com/lowlighter/metrics/tree/master/src/templates) !
 
-| Google PageSpeed plugin             | Favorite music tracks plugin        | Recently listened music plugin      |
-| :---------------------------------: | :---------------------------------: | :---------------------------------: |
-|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.music.playlist.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.music.playlist.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.music.recent.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.music.recent.svg)|
-| **Most used languages plugin**      | **Follow-up plugin**                | **Coding Habits plugin**            |
-|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.followup.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.followup.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.svg)|
-| **Repositories traffic plugin**     | **Lines of code plugin**            | **Recent posts plugin**             |
-|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.traffic.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.traffic.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.lines.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.lines.svg)| [<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.posts.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.posts.svg)|
-| **Isometric calendar plugin**       | **Gists metrics plugin**            | **Starred topics plugin**           |
-|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.isocalendar.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.isocalendar.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.gists.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.gists.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.svg)|
-| **Projects plugin**                 |                                     |
-|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.projects.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.projects.svg)| More to come soon !                 |
+<table>
+  <tr>
+    <th><a href="https://github.com/lowlighter/metrics#%EF%B8%8F-pagespeed">⏱️ Google PageSpeed plugin</a></th>
+    <th><a href="https://github.com/lowlighter/metrics#%EF%B8%8F-pagespeed">📅 Isometric calendar plugin</a></th>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://github.com/lowlighter/metrics#%EF%B8%8F-pagespeed">
+        <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.svg" alt="" width="400">
+      </a>
+      <details><summary>Alternate version</summary>
+        <a href="https://github.com/lowlighter/metrics#%EF%B8%8F-pagespeed">
+          <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.detailed.svg" alt="" width="400">
+        </a>
+      </detail>
+    </td>
+    <td>
+      <a href="https://github.com/lowlighter/metrics#-isometric-calendar">
+        <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.isocalendar.svg" alt="" width="400">
+      </a>
+      <details><summary>Alternate version</summary>
+        <a href="https://github.com/lowlighter/metrics#-isometric-calendar">
+          <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.isocalendar.fullyear.svg" alt="" width="400">
+        </a>
+      </detail>
+    </td>
+  </tr>
+  <tr>
+    <th><a href="https://github.com/lowlighter/metrics#-music">🎼 Favorite music tracks plugin</a></th>
+    <th><a href="https://github.com/lowlighter/metrics#-music">🎧 Recently listened music plugin</a></th>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://github.com/lowlighter/metrics#-music">
+        <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.music.playlist.svg" alt="" width="400">
+      </a>
+    </td>
+    <td>
+      <a href="https://github.com/lowlighter/metrics#-music">
+        <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.music.recent.svg" alt="" width="400">
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <th><a href="https://github.com/lowlighter/metrics#%EF%B8%8F-languages">🈷️ Most used languages plugin</a></th>
+    <th><a href="https://github.com/lowlighter/metrics#%EF%B8%8F-follow-up">🎟️ Follow-up plugin</a></th>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://github.com/lowlighter/metrics#%EF%B8%8F-languages">
+        <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.svg" alt="" width="400">
+      </a>
+    </td>
+    <td>
+      <a href="https://github.com/lowlighter/metrics#%EF%B8%8F-follow-up">
+        <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.followup.svg" alt="" width="400">
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <th><a href="https://github.com/lowlighter/metrics#-lines">📌 Starred topics plugin</a></th>
+    <th><a href="https://github.com/lowlighter/metrics#-traffic">🗂️ Active projects plugin</a></th>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://github.com/lowlighter/metrics#-lines">
+        <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.svg" alt="" width="400">
+      </a>
+    </td>
+    <td>
+      <a href="https://github.com/lowlighter/metrics#-traffic">
+        <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.projects.svg" alt="" width="400">
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <th><a href="https://github.com/lowlighter/metrics#-lines">👨‍💻 Lines of code plugin</a></th>
+    <th><a href="https://github.com/lowlighter/metrics#-traffic">🧮 Repositories traffic plugin</a></th>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://github.com/lowlighter/metrics#-lines">
+        <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.lines.svg" alt="" width="400">
+      </a>
+    </td>
+    <td>
+      <a href="https://github.com/lowlighter/metrics#-traffic">
+        <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.traffic.svg" alt="" width="400">
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <th><a href="https://github.com/lowlighter/metrics#-habits">💡 Coding Habits plugin</a></th>
+    <th><a href="https://github.com/lowlighter/metrics#%EF%B8%8F-posts">✒️ Recent posts plugin</a></th>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://github.com/lowlighter/metrics#-habits">
+        <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.svg" alt="" width="400">
+      </a>
+    </td>
+    <td>
+      <a href="https://github.com/lowlighter/metrics#%EF%B8%8F-posts">
+        <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.posts.svg" alt="" width="400">
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <th><a href="https://github.com/lowlighter/metrics#-gists">🎫 Gists plugin</a></th>
+    <th></th>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://github.com/lowlighter/metrics#-gists">
+        <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.gists.svg" alt="" width="400">
+      </a>
+    </td>
+    <td>
+      <a href="https://github.com/lowlighter/metrics/issues/8">
+        More to come soon !
+      </a>
+    </td>
+  </tr>
+</table>
 
-| Classic template   | Terminal template  |                    |
-| :----------------: | :----------------: | :----------------: |
-|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.classic.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.classic.svg)|[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.terminal.svg" alt="" width="240">](https://github.com/lowlighter/lowlighter/blob/master/metrics.terminal.svg)| More to come soon ! |
+<table>
+  <tr>
+    <th>Classic template</a></th>
+    <th>Terminal template</a></th>
+  </tr>
+  <tr>
+    <td>
+      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.classic.svg" alt="" width="400">
+    </td>
+    <td>
+      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.terminal.svg" alt="" width="400">
+    </td>
+  </tr>
+  <tr>
+    <th></th>
+    <th></th>
+  </tr>
+  <tr>
+    <td>
+      More to come soon !
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>
 
 ## 🦑 Interested to get your own ?
 
 Try it now at [metrics.lecoq.io](https://metrics.lecoq.io/) with your GitHub username !
 
-Because some plugins required additional configuration and setup, not all of them are available at [metrics.lecoq.io](https://metrics.lecoq.io/), for a fully-featured experience, consider using this as a [GitHub Action](https://github.com/marketplace/actions/github-metrics-as-svg-image) !
+Because some plugins require additional configuration and setup, some of them are not available at [metrics.lecoq.io](https://metrics.lecoq.io/).
+For a fully-featured experience, consider using this as a [GitHub Action](https://github.com/marketplace/actions/github-metrics-as-svg-image) instead !
 
 # 📜 How to use ?
 
-## ⚙️ Using GitHub Action on your profile repo (~5 min setup)
+## ⚙️ Using GitHub Action on your profile repository (~5 min setup)
 
-Setup a GitHub Action which is run periodically and push a generated SVG image on your repository.
-See all supported options in [action.yml](https://github.com/lowlighter/metrics/blob/master/action.yml).
+Setup a GitHub Action which runs periodically and pushes your generated metrics image on your repository.
+See all supported options in [action.yml](action.yml).
 
-Assuming your username is `my-github-user`, you can then embed your metrics in your personal repository's readme like below :
+Assuming your username is `my-github-user`, you can then embed your metrics in your repository readme like below :
 
 ```markdown
 ![GitHub metrics](https://github.com/my-github-user/my-github-user/blob/master/github-metrics.svg)
@@ -48,77 +184,75 @@ Assuming your username is `my-github-user`, you can then embed your metrics in y
 
 ### 0. Prepare your personal repository
 
-If you don't know yet or haven't done it yet, create a repository with the same name as your GitHub username.
+Create a repository with the same name as your GitHub username if it's not already done.
 
-![Personal repository](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/personal_repo.png)
+![Setup personal repository](.github/readme/imgs/setup_personal_repository.png)
 
-The `README.md` of this repository will be displayed on your GitHub user profile like below :
+The `README.md` of it will be displayed on your user profile :
 
-![GitHub Profile](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/github_profile.png)
+![GitHub Profile Example](.github/readme/imgs/example_github_profile.png)
 
-### 1. Setup a GitHub token
+### 1. Create a GitHub token
 
-Go to `Developer settings` from your GitHub account settings and select `Personal access tokens` to create a new token.
+From the `Developer settings` of your account settings, select `Personal access tokens` to create a new token.
 
-You'll need to create a token with the `public_repo` right so this GitHub Action has enough permissions to push the updated SVG metrics on your personal repository.
+No additional scopes are needed.
 
-![Create a GitHub token](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/personal_token.png)
+![Setup a GitHub personal token](.github/readme/imgs/setup_personal_token.png)
 
-If you choose to use a bot account, you can put `public_repo` rights to the bot token and invite it as a collaborator on your personal profile repository so it has push access. This way, you can use a personnal token with no rights instead and reduce security issues.
+### 2. Set your GitHub token in your personal repository secrets
 
-### 2. Put your GitHub token in your personal repository secrets
+Go to the `Settings` of your personal repository to create a new secret and paste your freshly generated GitHub token there.
 
-Go to the `Settings` of your personal repository to create a new secret and paste your GitHub token here.
+![Setup a repository secret](.github/readme/imgs/setup_repository_secret.png)
 
-![Setup secret](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/repo_secrets.png)
-
-### 3. Create a new GitHub Action workflow on your personal repo
+### 3. Create a new GitHub Action workflow on your personal repository
 
 Create a new workflow from the `Actions` tab of your personal repository and paste the following :
 
 ```yaml
-name: GitHub metrics as SVG image
+name: GitHub metrics
 on:
-  # Schedule the metrics update
+  # Schedule updates
   schedule: [{cron: "0 * * * *"}]
-  # (optional) Force update a commit occurs on master branch
-  # All commits tagged with [Skip GitHub Action] are automatically ignored by this GitHub action to avoid loops
   push: {branches: "master"}
 jobs:
   github-metrics:
     runs-on: ubuntu-latest
     steps:
+      # See action.yml for all options
       - uses: lowlighter/metrics@latest
         with:
           # Your GitHub token
           token: ${{ secrets.METRICS_TOKEN }}
-          # See https://github.com/lowlighter/metrics/blob/master/action.yml for all options
+          # GITHUB_TOKEN is a special auto-generated token restricted to current repository, which is used to push files in it
+          committer_token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-See all supported options in [action.yml](https://github.com/lowlighter/metrics/blob/master/action.yml).
+See all supported options in [action.yml](action.yml).
+
+When using a token with additional permissions, it is advised to fork this repository to minimize security risks :
+```yaml
+      - uses: my-github-username/metrics@latest
+```
+In this case, consider watching new releases of this repository to stay up-to-date and enjoy latest features !
+
+If you prefer examples rather than theory, check out this [workflow](https://github.com/lowlighter/lowlighter/blob/master/.github/workflows/metrics.yml) file which generates metrics daily.
 
 #### Preview vs release
 
-It is possible to use `lowlighter/metrics@master` instead of `lowlighter/metrics@latest` to get new features before their release, but some breaking changes may occur occasionally which could result in your metrics not being generated.
+It is possible to use `@master` instead of `@latest` to use new features before their official release.
+Breaking changes may occur occasionally on `@master`, which could result in your metrics not being generated temporarily.
 
 #### What will happen ?
 
-A new SVG image will be generated and committed to your repository on each run.
-Because of this, the amount of your commits could be virtually increased which is probably unwanted.
+A new metrics image will be generated and committed to your repository on each run.
 
-To avoid this, you can use a bot token instead, which will still be able to track metrics of all your public repositories.
-If you want to also track your private repositories metrics, you'll need to pass a personal token with full `repo` permissions to your personal `token`, and use the `committer_token` parameter to pass the bot account token.
-
-If you don't want to use a bot token, you can use the `plugin_selfskip` which will count out all your commits from your personal repository tagged with `[Skip GitHub Action]` made with your account, but these commits will still be linked to your account.
-
-![Action update](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/action_update.png)
-
-If you're using a token with additional permissions, it is advised to fork this repository. If it ever gets compromised, you'll be safe.
-But don't forget to check it from time to time for new features !
+![Action update example](.github/readme/imgs/example_action_update.png)
 
 ### 4. Embed the link into your README.md
 
-Edit your README.md on your repository and link it your image :
+Edit your repository readme and add your metrics image :
 
 ```markdown
 ![GitHub metrics](https://github.com/my-github-user/my-github-user/blob/master/github-metrics.svg)
@@ -130,7 +264,7 @@ Edit your README.md on your repository and link it your image :
 
 For conveniency, you can use the shared instance available at [metrics.lecoq.io](https://metrics.lecoq.io) without any additional setup.
 
-Assuming your username is `my-github-user`, you can embed your metrics in your personal repository's readme like below :
+Assuming your username is `my-github-user`, you can embed your metrics in your repository readme like below :
 
 ```markdown
 ![GitHub metrics](https://metrics.lecoq.io/my-github-user)
@@ -144,80 +278,81 @@ Visit [metrics.lecoq.io](https://metrics.lecoq.io) for more informations.
 Since GitHub API has rate limitations, the shared instance has a few limitations :
   * Images are cached for 1 hour
     * Your generated metrics won't be updated during this amount of time when queried
-  * The rate limiter is enabled, although it won't affect already cached users metrics
-  * Plugins which consume additional requests, token rights or other configuration are disabled.
+  * A rate limiter is enabled, although it won't affect already cached users metrics
+  * Plugins which consume additional requests, or require additional token scopes are disabled
 
-If you're appreciating this project, consider using it as a GitHub Action or deploy your own instance.
+If you're appreciating this project, consider using it as a GitHub Action instead.
 
 </details>
 
-## 🏗️ Deploying your own instance (~15 min setup, depending on your sysadmin knowledge)
+## 🏗️ Deploying your own web instance (~15 min setup, depending on your sysadmin knowledge)
 
-You can setup your own instance if you choose to not use the GitHub Action or you want to allow others users to use your instance.
+It is possible to setup your own instance if you don't want to use GitHub Actions or if you want to allow others users on your instance.
 
-You'll need to create a GitHub token to setup it, however you do not need to grant any additional permissions to your token since it won't push images to any of your repositories. You may still require additional rights for some plugins if you decide to enable them though.
+When sharing an instance, it is advised to restrict the number of users which can use it through the rate limiter or the access list, to avoid reaching the requests limit of GitHub APIs.
 
-If you intend to share your instance, it is advised to setup either an access list to restrict which users can use it, or to configure the rate limiter to avoid reaching the requests limit of GitHub API.
-
-See all supported options in [settings.example.json](https://github.com/lowlighter/metrics/blob/master/settings.example.json).
+See all supported options in [settings.example.json](settings.example.json).
 
 <details>
 <summary>💬 How to setup ?</summary>
 
 ### 0. Prepare your server
 
-You'll need a server where you can install and configure apps.
+You will need a server where you can setup and run a NodeJS application.
 
 ### 1. Create a GitHub token
 
-In your account settings, go to `Developer settings` and select `Personal access tokens` to create a new token.
-As explained above, you do not need to grant additional permissions to the token unless you want to enable additional plugins.
+From the `Developer settings` of your account settings, select `Personal access tokens` to create a new token.
 
-![Create a GitHub token](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/personal_token_alt.png)
+No additional scopes are needed, unless you want to include your private repositories metrics or if you want to use the `traffic` plugin.
 
-### 2. Install the dependancies
+![Setup a GitHub personal token](.github/readme/imgs/setup_personal_token.png)
 
-Connect to your server and ensure [NodeJS](https://nodejs.org/en/) is installed (see tested versions in the [build workflows](https://github.com/lowlighter/metrics/blob/master/.github/workflows/build.yml)).
+Be sure to enable `Include private contributions on my profile` in your account settings to include your private repositories :
 
-Then run the following commands :
+![Enable "Include private contributions on my profile`"](.github/readme/imgs/setup_private_contributions.png)
+
+
+### 2. Install dependencies
+
+Connect to server and ensure [NodeJS](https://nodejs.org/en/) is installed (see tested version in [workflow](.github/workflows/workflow.yml#L18)).
+
+Run the following commands to clone this repository, install dependencies and copy configuration example file :
 
 ```shell
-# Clone this repository (or your fork)
 git clone https://github.com/lowlighter/metrics.git
-# Install dependancies
 cd metrics/
 npm install --only=prod
-# Copy the settings exemple
 cp settings.example.json settings.json
 ```
 
 ### 3. Configure your instance
 
-Open and edit `settings.json` to configure your instance using a text editor of your choice.
+Edit `settings.json` to configure your instance.
 
 ```javascript
 {
+  //See settings.example.json for all options
   //GitHub API token
     "token":"****************************************"
-  //See https://github.com/lowlighter/metrics/blob/master/settings.example.json for all options
 }
 ```
 
-See all supported options in [settings.example.json](https://github.com/lowlighter/metrics/blob/master/settings.example.json).
+See all supported options in [settings.example.json](settings.example.json).
 
 ### 4. Start your instance
 
-Start your instance once you've finished configuring it :
+Run the following command to start your instance once you've finished configuring it :
 
 ```shell
 npm start
 ```
 
-And you should be able to access it on the port you provided !
+From your browser, you should be able to access your web instance on the port you provided in `setting.json`.
 
 ### 5. Embed the link into your README.md
 
-Edit your `README.md` on your repository and include your metrics from your server domain :
+Edit your repository readme and add your metrics image from your server domain :
 
 ```markdown
 ![GitHub metrics](https://my-personal-domain.com/my-github-user)
@@ -225,16 +360,10 @@ Edit your `README.md` on your repository and include your metrics from your serv
 
 ### 6. (optional) Setup as service on your instance
 
-If you want to ensure that your instance will be restarted after reboots or crashes, you should setup it as a service.
-This is described below for linux-like systems with *systemd*.
+To ensure that your instance will be restarted in case of reboots or crashs, you should setup it as a service.
+This is described below for linux-like systems which supports *systemd*.
 
-Create a new service file in `/etc/systemd/system` :
-
-```shell
-nano /etc/systemd/system/github_metrics.service
-```
-
-Paste the following and edit it with the correct paths :
+Create a new service file `/etc/systemd/system/github_metrics.service` and paste the following after editing paths inside :
 
 ```
 [Unit]
@@ -251,7 +380,7 @@ ExecStart=/usr/bin/node /path/to/metrics/index.mjs
 WantedBy=multi-user.target
 ```
 
-Reload services, enable it, start it and check it is up and running :
+Reload services, enable it, start it and check if it is up and running :
 
 ```shell
 systemctl daemon-reload
@@ -265,47 +394,57 @@ systemctl status github_metrics
 <details>
 <summary>⚠️ HTTP errors code</summary>
 
-The following errors code can be encountered if on a server instance :
-* `400 Bad request` : Query is invalid (e.g. unsupported template)
-* `403 Forbidden` : User is not allowed in `restricted` users list
-* `404 Not found` : GitHub API did not found the requested user
-* `429 Too many requests` : Thrown when rate limiter is trigerred
-* `500 Internal error` : An error ocurred while generating metrics images (logs can be seen if you're the owner of the instance)
-* `503 Service unavailable` : Maximum user capacity reached, only already cached images can be accessed for now
+The following errors code can be encountered on a web instance :
+
+| Error code                | Description                                                                |
+| ------------------------- | -------------------------------------------------------------------------- |
+| `400 Bad request`         | Invalid query (e.g. unsupported template)                                  |
+| `403 Forbidden`           | User not allowed in `restricted` users list                                |
+| `404 Not found`           | GitHub API did not found the requested user                                |
+| `429 Too many requests`   | Thrown when rate limiter is trigerred                                      |
+| `500 Internal error`      | Server error while generating metrics images (check logs for more details) |
+| `503 Service unavailable` | Maximum user capacity reached, only cached images can be accessed for now  |
 
 </details>
 
 <details>
 <summary>🔗 HTTP parameters</summary>
 
-Generated metrics from a server instance may be configured through url parameters.
+Generated metrics images from a web instance can be configured through url parameters.
 
-Base content is enabled by default, but you can pass `?base=0` to disable all base content or `?base.<section>=0` to disable a specific `<section>`.
-For example, to opt-out from `activity`, `community` and `metadata`, pass `?base.activity=0&base.community=0&base.metadata=0` to url.
+#### Configuring base content
 
-Plugins are disabled by default, but you can pass `?<plugin>=1` to enable a specific `<plugin>`.
-For example, to enable `music` plugin, pass `?music=1` to url.
+Base content is enabled by default, but passing `?base=0` will disable all base content.
+You can choose to selectively enable or disable a specific `<section>` with `?base.<section>=<1|0>`.
 
+For example, to opt-out from `activity`, `community` and `metadata`, append `?base.activity=0&base.community=0&base.metadata=0` to your metrics url.
+
+#### Configuring plugins
+
+Plugins are disabled by default, but passing `?<plugin>=1` will enable a specific `<plugin>`.
 Plugin options can be passed with `?<plugin>.<option>=<value>`.
-For example, to configure `music` plugin, you could add the following to url : `?music=1&music.provider=spotify&music.mode=recent&music.limit=4`.
+
+For example, to enable `music` plugin and configure `music` plugin, you could append the following to your metrics url : `?music=1&music.provider=spotify&music.mode=recent&music.limit=4`.
+
+Basically, most of [action.yml](action.yml) options can actually be used by web instance, with `plugin_` prefix dropped, and `.` instead of `_`.
 
 </details>
 
-# 📚 Documentations
+# 📚 Documentation
 
 ## 🖼️ Templates
 
-Templates allows you to style your metrics.
-The default is the classic one, but you can change it for something more stylish.
-
-Some metrics may be displayed differently, and it is possible that not all plugins are supported or behave the same from one template to another.
+Templates allows you to change the general appearance of your metrics images.
+Some metrics may be displayed differently, and all plugins may not be supported or behave the same from one template to another.
 
 Consider trying them at [metrics.lecoq.io](https://metrics.lecoq.io) !
 
+Used template defaults to the `classic` one.
+
 ## 🧩 Plugins
 
-Plugins are features which are disabled by default but they can provide additional metrics.
-In return they may require additional configuration and tend to consume additional API requests.
+Plugins are features which can provide additional metrics and features.
+In return, they may require additional configuration and consume additional API requests.
 
 ### 🗃️ Base content
 
@@ -322,7 +461,7 @@ By default, generated metrics contains the following sections :
 * `repositories`, which contains your repositories stats (license, forks, stars, etc.)
 * `metadata`, which contains informations about generated metrics
 
-You can explicitely opt-out from them, if you want to keep only a few sections or if you want to use a plugin as standalone.
+You can explicitely opt-out from them, which can be useful if you only want to keep a few sections or to use a plugin as standalone.
 
 For example, to keep only `header` and `repositories` sections, add the following to your workflow :
 ```yaml
@@ -336,16 +475,16 @@ For example, to keep only `header` and `repositories` sections, add the followin
 
 ### ⏱️ PageSpeed
 
-The *pagespeed* plugin allows you to add the performances of the website attached to the GitHub user account :
+The *pagespeed* plugin adds the performances of the website attached mentioned on your account :
 
 ![Pagespeed plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.svg)
 
-These are computed through [Google's PageSpeed API](https://developers.google.com/speed/docs/insights/v5/get-started), which returns the same results as [web.dev](https://web.dev).
+These are computed through [Google's PageSpeed API](https://developers.google.com/speed/docs/insights/v5/get-started), which yields the same results as [web.dev](https://web.dev).
 
 <details>
 <summary>💬 About</summary>
 
-This plugin may require an API key that you can generate [here](https://developers.google.com/speed/docs/insights/v5/get-started) although it does not seem mandatory. It is still advised to provide it to avoid 429 HTTP errors.
+Although not mandatory, you can generate an API key for PageSpeed API [here](https://developers.google.com/speed/docs/insights/v5/get-started) to avoid 429 HTTP errors.
 
 The website attached to the GitHub profile will be the one to be audited.
 Expect 10 to 30 seconds to generate the results.
@@ -359,11 +498,11 @@ Add the following to your workflow :
     plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
 ```
 
-It is possible to generate a detailled report along with scores :
+You can display a detailed report along with scores :
 
-![Pagespeed plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.detailed.svg)
+![Pagespeed plugin (detailed)](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.detailed.svg)
 
-See [performance scoring](https://web.dev/performance-scoring/) and [score calculator](https://googlechrome.github.io/lighthouse/scorecalc/) for more information about how PageSpeed compute these metrics.
+See [performance scoring](https://web.dev/performance-scoring/) and [score calculator](https://googlechrome.github.io/lighthouse/scorecalc/) for more informations about how PageSpeed compute these statistics.
 
 Add the following to your workflow instead :
 ```yaml
@@ -377,15 +516,47 @@ Add the following to your workflow instead :
 
 </details>
 
+### 📅 Isometric calendar
+
+The *isocalendar* plugin displays an isometric view of your commits calendar, along with a few stats like current streak and commit average per day.
+
+![Isocalendar plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.isocalendar.svg)
+
+<details>
+<summary>💬 About</summary>
+
+It will consume two additional GitHub requests.
+
+Add the following to your workflow :
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_isocalendar: yes
+```
+
+Use the following instead to display a full-year instead :
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_isocalendar: yes
+    plugin_isocalendar_duration: full-year
+```
+
+![Isocalendar plugin (full year)](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.isocalendar.fullyear.svg)
+
+</details>
+
 ### 🎼 Music
 
 The *music* plugin can work in the following modes :
 
 #### Playlist mode
 
-Select randomly a few tracks from a given playlist so you can suggest your favorite tracks to your visitors.
+Select randomly a few tracks from a given playlist so you can display your favorite tracks to your visitors.
 
-![Languages plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.music.playlist.svg)
+![Music plugin (playlist)](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.music.playlist.svg)
 
 <details>
 <summary>💬 About</summary>
@@ -395,19 +566,19 @@ Select a music provider below for instructions.
 <details>
 <summary>Apple Music</summary>
 
-You will need to extract the *embed* url of the playlist you want to share.
+Extract the *embed* url of the playlist you want to share.
 
-Connect to [music.apple.com](https://music.apple.com/) and select the playlist you want to share.
-From the `...` menu, select `Share` and `Copy embed code`.
+To do so, connect to [music.apple.com](https://music.apple.com/) and select the playlist you want to share.
+From `...` menu, select `Share` and `Copy embed code`.
 
-![Image](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_music_playlist_apple.png)
+![Copy embed code of playlist](.github/readme/imgs/plugin_music_playlist_apple.png)
 
-Paste the code in your clipboard and extract the source link from it :
+Extract the source link from the code pasted in your clipboard :
 ```html
 <iframe allow="" frameborder="" height="" style="" sandbox="" src="https://embed.music.apple.com/**/playlist/********"></iframe>
 ```
 
-Once you've extracted the embed url you can finish the setup by adding the following to your workflow :
+Finish the plugin setup by adding the following to your workflow :
 
 ```yaml
 - uses: lowlighter/metrics@latest
@@ -416,7 +587,7 @@ Once you've extracted the embed url you can finish the setup by adding the follo
     plugin_music: yes
     plugin_music_provider: apple
     plugin_music_mode: playlist
-    plugin_music_playlist: https://********
+    plugin_music_playlist: https://******** # Extracted source link
     plugin_music_limit: 4 # Set the number of tracks you want to display
 ```
 
@@ -425,19 +596,19 @@ Once you've extracted the embed url you can finish the setup by adding the follo
 <details>
 <summary>Spotify</summary>
 
-You will need to extract the *embed* url of the playlist you want to share.
+Extract the *embed* url of the playlist you want to share.
 
-Open Spotify and select the playlist you want to share.
-From the `...` menu, select `Share` and `Copy embed code`.
+To do so, Open Spotify and select the playlist you want to share.
+From `...` menu, select `Share` and `Copy embed code`.
 
-![Image](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_music_playlist_spotify.png)
+![Copy embed code of playlist](.github/readme/imgs/plugin_music_playlist_spotify.png)
 
-Paste the code in your clipboard and extract the source link from it :
+Extract the source link from the code pasted in your clipboard :
 ```html
 <iframe src="https://open.spotify.com/embed/playlist/********" width="" height="" frameborder="0" allowtransparency="" allow=""></iframe>
 ```
 
-Once you've extracted the embed url you can finish the setup by adding the following to your workflow :
+Finish the plugin setup by adding the following to your workflow :
 
 ```yaml
 - uses: lowlighter/metrics@latest
@@ -446,7 +617,7 @@ Once you've extracted the embed url you can finish the setup by adding the follo
     plugin_music: yes
     plugin_music_provider: spotify
     plugin_music_mode: playlist
-    plugin_music_playlist: https://********
+    plugin_music_playlist: https://******** # Extracted source link
     plugin_music_limit: 4
 ```
 
@@ -456,9 +627,9 @@ Once you've extracted the embed url you can finish the setup by adding the follo
 
 #### Recently played mode
 
-Display the track you played recently.
+Display tracks you played recently.
 
-![Languages plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.music.recent.svg)
+![Music plugin (recently played)](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.music.recent.svg)
 
 <details>
 <summary>💬 About</summary>
@@ -479,29 +650,30 @@ So unfortunately this isn't available for now.
 <details>
 <summary>Spotify</summary>
 
-Spotify does not have *personal tokens*, so it makes the processus a bit longer because you're required to follow the [authorization workflow](https://developer.spotify.com/documentation/general/guides/authorization-guide/)... Follow the instructions below for *TL;DR* and obtain the `refresh_token`.
+Spotify does not have *personal tokens*, so it makes the process a bit longer because you're required to follow the [authorization workflow](https://developer.spotify.com/documentation/general/guides/authorization-guide/)... Follow the instructions below for a  *TL;DR* to obtain a `refresh_token`.
 
 Sign-in to the [developer dashboard](https://developer.spotify.com/dashboard/) and create a new app.
-Keep your `client_id` and `client_secret` and keep this tab open for now.
+Keep your `client_id` and `client_secret` and let this tab open for now.
 
-![Image](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_music_recent_spotify_token_0.png)
+![Add a redirect url](.github/readme/imgs/plugin_music_recent_spotify_token_0.png)
 
-Then open the settings and add a new *Redirect url*. Normally you use it to setup callbacks for your apps, but since we don't have one and it is mandatory as per the [authorization guide](https://developer.spotify.com/documentation/general/guides/authorization-guide/), just put `https://localhost`.
+Open the settings and add a new *Redirect url*. Normally it is used to setup callbacks for apps, but just put `https://localhost` insteadd (it is mandatory as per the [authorization guide](https://developer.spotify.com/documentation/general/guides/authorization-guide/), even if not used).
 
-Next forge the url for authorization with your `client_id` and the encoded `redirect_uri` you whitelisted, and access it from your browser.
+Forge the authorization url with your `client_id` and the encoded `redirect_uri` you whitelisted, and access it from your browser :
 
 ```
 https://accounts.spotify.com/authorize?client_id=********&response_type=code&scope=user-read-recently-played&redirect_uri=https%3A%2F%2Flocalhost
 ```
+
 When prompted, authorize your application.
 
-![Image](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_music_recent_spotify_token_1.png)
+![Authorize application](.github/readme/imgs/plugin_music_recent_spotify_token_1.png)
 
-Next you'll be redirected to `redirect_uri`. Extract the generated authorization `code` from your url bar.
+Once redirected to `redirect_uri`, extract the generated authorization `code` from your url bar.
 
-![Image](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_music_recent_spotify_token_2.png)
+![Extract authorization code from url](.github/readme/imgs/plugin_music_recent_spotify_token_2.png)
 
-Then go back to the developer dashboard tab, open the web console of your browser and paste the following JavaScript code, with your own `client_id`, `client_secret`, authorization `code` and `redirect_uri`.
+Go back to your developer dashboard tab, and open the web console of your browser to paste the following JavaScript code, with your own `client_id`, `client_secret`, authorization `code` and `redirect_uri`.
 
 ```js
 (async () => {
@@ -530,7 +702,7 @@ It should return a JSON response with the following content :
 }
 ```
 
-Now that you've got your `client_id`, `client_secret` and `refresh_token` you can finish the setup by adding the following to your workflow :
+With your `client_id`, `client_secret` and `refresh_token` you can finish the plugin setup by adding the following to your workflow :
 ```yaml
 - uses: lowlighter/metrics@latest
   with:
@@ -546,41 +718,115 @@ Now that you've got your `client_id`, `client_secret` and `refresh_token` you ca
 
 </details>
 
-### 📅 Isometric calendar
+### 🈷️ Languages
 
-The *isocalendar* plugin allows you to display an isometric view of your commits calendar, along with a few stats like your current streak and your commit average per day.
+The *languages* plugin displays which programming languages you use the most across all your repositories.
 
-![Isocalendar plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.isocalendar.svg)
+![Languages plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.svg)
 
 <details>
 <summary>💬 About</summary>
-
-It will consume two additional GitHub requests.
 
 Add the following to your workflow :
 ```yaml
 - uses: lowlighter/metrics@latest
   with:
     # ... other options
-    plugin_isocalendar: yes
+    plugin_languages: yes
 ```
 
-It is possible to extend display a full-year by adding the following instead :
+</details>
+
+### 🎟️ Follow-up
+
+The *follow-up* plugin displays the ratio of opened/closed issues and the ratio of opened/merged pull requests across all your repositories, which shows if they're well-maintened or not.
+
+![Follow-up plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.followup.svg)
+
+<details>
+<summary>💬 About</summary>
+
+Add the following to your workflow :
 ```yaml
 - uses: lowlighter/metrics@latest
   with:
     # ... other options
-    plugin_isocalendar: yes
-    plugin_isocalendar_duration: full-year
+    plugin_followup: yes
 ```
 
-![Isocalendar plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.isocalendar.fullyear.svg)
+</details>
+
+### 📌 Topics
+
+The *topics* plugin displays your [starred topics](https://github.com/stars?filter=topics).
+Check out [GitHub topics](https://github.com/topics) to search interesting topics.
+
+![Topics plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.svg)
+
+<details>
+<summary>💬 About</summary>
+
+This uses puppeteer to navigate through your starred topics page.
+
+You can choose to display and order topics by :
+- Most `stars`
+- Recent `activity`
+- Recently `starred` by you
+- `random`ly
+
+Add the following to your workflow :
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_topics: yes
+    plugin_topics_sort: stars
+    plugin_topics_limit: 15
+```
+
+</details>
+
+### 🗂️ Projects
+
+The *projects* plugin displays the progress of your profile projects.
+
+![Projects plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.projects.svg)
+
+<details>
+<summary>💬 About</summary>
+
+It will consume an additional GitHub request.
+
+Add the following to your workflow :
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_projects: yes
+    plugin_projects_limit: 4
+```
+
+Note that by default, profile projects have progress tracking disabled.
+To enable it, open the `≡ Menu` and edit the project to opt-in to `Track project progress` (it can be a bit confusing since it's actually not in the project settings).
+
+![Enable "Track project progress"](.github/readme/imgs/plugin_projects_track_progress.png)
+
+<details>
+<summary>💬 Create a personal project on GitHub</summary>
+
+On your profile, select the `Projects` tab :
+![Create a new project](.github/readme/imgs/plugin_projects_create.png)
+
+Fill the informations and set visibility to *public* :
+![Configure project](.github/readme/imgs/plugin_projects_setup.png)
+
+</details>
 
 </details>
 
 ### 👨‍💻 Lines
 
-The *lines* of code plugin allows you to compute the number of lines of code you added and removed across all of your repositories.
+The *lines* of code plugin displays the number of lines of code you added and removed across all of your repositories.
 
 ![Lines plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.lines.svg)
 
@@ -601,24 +847,26 @@ Add the following to your workflow :
 
 ### 🧮 Traffic
 
-The repositories *traffic* plugin allows you to compute the number of pages views across your repositories.
+The repositories *traffic* plugin displays the number of pages views across your repositories.
 
 ![Traffic plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.traffic.svg)
+
+    ⚠️ This plugin requires a personal token with full repo scope.
 
 <details>
 <summary>💬 About</summary>
 
 It will consume an additional GitHub request per repository.
 
-Because of GitHub REST API limitation, the provided token will require full `repo` permissions to access traffic informations.
+Because of GitHub REST API limitation, provided token requires full `repo` scope to access traffic informations.
 
-![Token with repo permissions](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/token_repo_rights.png)
+![Token with repo scope](.github/readme/imgs/setup_token_repo_scope.png)
 
 Add the following to your workflow :
 ```yaml
 - uses: lowlighter/metrics@latest
   with:
-    # token with "repo" rights
+    # Token with "repo" scope
     token: ${{ secrets.METRICS_TOKEN }}
     # ... other options
     plugin_traffic: yes
@@ -628,7 +876,7 @@ Add the following to your workflow :
 
 ### 💡 Habits
 
-The coding *habits* plugin allows you to add deduced coding about based on your recent activity, from up to 100 events.
+The coding *habits* add deduced coding habits based on your recent activity, from up to 100 events.
 
 ![Habits plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.svg)
 
@@ -637,8 +885,8 @@ The coding *habits* plugin allows you to add deduced coding about based on your 
 
 It will consume an additional GitHub request per event fetched.
 
-Because of GitHub REST API limitation, the provided token will require full `repo` permissions to access **private** events.
-By default, events that cannot be fetched will be ignored so you can still use this plugin with a public token.
+Because of GitHub REST API limitation, provided token requires full `repo` scope to access **private** events.
+Events that cannot be fetched will be ignored so it is still possible to use this plugin with a scope-less token.
 
 Add the following to your workflow :
 ```yaml
@@ -653,7 +901,7 @@ Add the following to your workflow :
 
 ### ✒️ Posts
 
-The recent *posts* plugin allows you to display recent articles you wrote on an external source, like [dev.to](https://dev.to).
+The recent *posts* plugin displays recent articles you wrote on an external source, like [dev.to](https://dev.to).
 
 ![Posts plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.posts.svg)
 
@@ -674,47 +922,9 @@ Add the following to your workflow :
 
 </details>
 
-### 🎟️ Follow-up
-
-The *follow-up* plugin allows you to compute the ratio of opened/closed issues and the ratio of opened/merged pull requests on your repositories, which shows whether most of them are maintened or not.
-
-![Follow-up plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.followup.svg)
-
-<details>
-<summary>💬 About</summary>
-
-Add the following to your workflow :
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_followup: yes
-```
-
-</details>
-
-### 🈷️ Languages
-
-The *languages* plugin allows you to compute which languages you use the most in your repositories.
-
-![Languages plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.svg)
-
-<details>
-<summary>💬 About</summary>
-
-Add the following to your workflow :
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_languages: yes
-```
-
-</details>
-
 ### 🎫 Gists
 
-The *gists* plugin allows you to display [gists](https://gist.github.com) metrics.
+The *gists* plugin displays your [gists](https://gist.github.com) metrics.
 
 ![Gists plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.gists.svg)
 
@@ -733,109 +943,21 @@ Add the following to your workflow :
 
 </details>
 
-### 📌 Topics
-
-The *topics* plugin allows you to display your [starred topics](https://github.com/stars?filter=topics).
-Check out [GitHub topics](https://github.com/topics) to search interesting topics.
-
-![Topics plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.svg)
-
-<details>
-<summary>💬 About</summary>
-
-This uses puppeteer to navigate through your starred topics page.
-
-You can choose to display and order topics by : 
-- Most `stars`
-- Recent `activity`
-- Recently `starred` by you
-- `random`ly
-
-Add the following to your workflow :
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_topics: yes
-    plugin_topics_sort: stars
-    plugin_topics_limit: 15
-```
-
-</details>
-
-### 🗂️ Projects
-
-The *projects* plugin allows you to display your profile projects.
-
-![Projects plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.projects.svg)
-
-<details>
-<summary>💬 About</summary>
-
-It will consume an additional GitHub request.
-
-Add the following to your workflow :
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_projects: yes
-    plugin_projects_limit: 4
-```
-
-Note that by default, projects created have progress tracking disabled.
-To enable it, open the `≡ Menu` and edit the project to check `Track project progress` (this can be confusing because it's actually not in the project settings).
-
-![Image](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_projects_track_progress.png)
-
-<details>
-<summary>💬 Create a personal project on GitHub</summary>
-
-On your profile, select the `Projects` tab :
-![Image](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_projects_create.png)
-
-Fill the informations and set visibility to *public* :
-![Image](https://github.com/lowlighter/metrics/blob/master/.github/readme/imgs/plugin_projects_setup.png)
-  
-</details>
-
-</details>
-
-### ⏭️ Selfskip
-
-The *selfskip* plugin allows you to count out all commits tagged with `[Skip GitHub Action]` you authored on your personal repository from your reported commit counts.
-
-<details>
-<summary>💬 About</summary>
-
-It will consume an additional GitHub request per page fetched of your commit activity from your personal repository.
-
-Add the following to your workflow :
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_selfskip: yes
-```
-
-</details>
-
 ## 💪 Contributing and customizing
 
-If you would like to suggest a new feature, find a bug or need help, you can fill an [issue](https://github.com/lowlighter/metrics/issues) describing your problem.
+To suggest a new feature, find a bug or need help, fill an [issue](https://github.com/lowlighter/metrics/issues) describing your problem or your needs.
 
 If you're motivated enough, you can submit a [pull request](https://github.com/lowlighter/metrics/pulls) to integrate new features or to solve open issues.
 
-Read [contributing.md](https://github.com/lowlighter/metrics/blob/master/CONTRIBUTING.md) for more information about this.
+Read [CONTRIBUTING.md](CONTRIBUTING.md) for more information about this.
 
 ## 📖 Useful references
 
 * [GitHub GraphQL API](https://docs.github.com/en/graphql)
 * [GitHub GraphQL Explorer](https://developer.github.com/v4/explorer/)
 * [GitHub Rest API](https://docs.github.com/en/rest)
-
-All icons were ripped across GitHub's site, but still remains the intellectual property of GitHub.
-See [GitHub Logos and Usage](https://github.com/logos) for more information.
+* [GitHub Octicons](https://github.com/primer/octicons)
+  * See [GitHub Logos and Usage](https://github.com/logos) for more information.
 
 ### ✨ Inspirations
 

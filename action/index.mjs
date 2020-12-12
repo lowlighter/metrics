@@ -56,7 +56,7 @@
         console.log(`SVG optimization    | ${optimize}`)
 
       //GitHub user
-        let authenticated = github.context.repo.owner
+        let authenticated
         try {
           authenticated = (await rest.users.getAuthenticated()).data.login
         }
@@ -85,7 +85,6 @@
           traffic:{enabled:bool(core.getInput("plugin_traffic"))},
           pagespeed:{enabled:bool(core.getInput("plugin_pagespeed"))},
           habits:{enabled:bool(core.getInput("plugin_habits")), from:Number(core.getInput("plugin_habits_from")) || 100},
-          selfskip:{enabled:bool(core.getInput("plugin_selfskip"))},
           languages:{enabled:bool(core.getInput("plugin_languages"))},
           followup:{enabled:bool(core.getInput("plugin_followup"))},
           music:{enabled:bool(core.getInput("plugin_music"))},

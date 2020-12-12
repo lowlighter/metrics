@@ -29,7 +29,6 @@
               traffic:"Pages views",
               lines:"Lines of code changed",
               habits:"Coding habits",
-              selfskip:"Skip metrics commits",
               music:"Music plugin",
               posts:"Recent posts",
               isocalendar:"Isometric commit calendar",

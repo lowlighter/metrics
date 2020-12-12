@@ -1,6 +1,6 @@
 {
   "name": "metrics",
-  "version": "2.7.0-beta",
+  "version": "2.7.0",
   "description": "Generate an user's GitHub metrics as SVG image format to embed somewhere else",
   "main": "index.mjs",
   "scripts": {
@@ -22,8 +22,8 @@
   "dependencies": {
     "@actions/core": "^1.2.6",
     "@actions/github": "^4.0.0",
-    "@octokit/graphql": "^4.5.7",
-    "@octokit/rest": "^18.0.9",
+    "@octokit/graphql": "^4.5.8",
+    "@octokit/rest": "^18.0.12",
     "axios": "^0.21.0",
     "colors": "^1.4.0",
     "compression": "^1.7.4",
