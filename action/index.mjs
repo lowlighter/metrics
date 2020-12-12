@@ -175,7 +175,12 @@
               throw new Error("You must provide a valid GitHub token to commit your metrics")
             const rest = github.getOctokit(token)
             console.log(`Committer REST API  | ok`)
-            console.log(`Committer           | ${(await rest.users.getAuthenticated()).data.login}`)
+            try {
+              console.log(`Committer           | ${(await rest.users.getAuthenticated()).data.login}`)
+            }
+            catch {
+              console.log(`Committer           | (unknown)`)
+            }
           //Retrieve previous render SHA to be able to update file content through API
             let sha = null
             try {
