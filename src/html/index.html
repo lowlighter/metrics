@@ -6,8 +6,8 @@
     <meta name="description" content="A SVG image generator which includes activity, community and repositories metrics about your GitHub account that you can includes on your profile">
     <meta name="author" content="lowlighter">
     <link rel="icon" href="data:,">
-    <link rel="stylesheet" href="/style.css">
-    <link rel="stylesheet" href="/style.prism.css" />
+    <link rel="stylesheet" href="/.css/style.css">
+    <link rel="stylesheet" href="/.css/style.prism.css" />
   </head>
   <body>
     <!-- Vue app -->
@@ -51,25 +51,80 @@
                   </label>
                 </div>
                 <i>*Additional plugins may be available when used as GitHub Action</i>
-                <template v-if="(plugins.enabled.pagespeed)||(plugins.enabled.habits)||(plugins.enabled.music)||(plugins.enabled.posts)">
+                <template v-if="(plugins.enabled.music)||(plugins.enabled.pagespeed)||(plugins.enabled.habits)||(plugins.enabled.posts)||(plugins.enabled.isocalendar)||(plugins.enabled.projects)||(plugins.enabled.topics)">
                   <h3>2.3 Configure additional plugins</h3>
                   <div class="options">
-                    <label v-if="plugins.enabled.pagespeed">
-                      Detailed PageSpeed report
-                      <input type="checkbox" v-model="plugins.options['pagespeed.detailed']" @change="load">
-                    </label>
-                    <label v-if="(plugins.enabled.music)&&(plugins.options['music.mode'] === 'playlist')">
-                      Playlist embed link
-                      <input type="text" v-model="plugins.options['music.playlist']" placeholder="https://embed.music.apple.com/en/playlist/">
-                    </label>
-                    <label v-if="plugins.enabled.habits">
-                      Number of events for habits
-                      <input type="number" v-model="plugins.options['habits.from']" min="1" max="100">
-                    </label>
-                    <label v-if="plugins.enabled.posts">
-                      Posts source
-                      <input type="text" v-model="plugins.options['posts.source']" disabled>
-                    </label>
+                    <div class="options-group" v-if="plugins.enabled.music">
+                      <h4>{{ plugins.descriptions.music }}</h4>
+                      <label>
+                        Playlist embed link
+                        <input type="text" v-model="plugins.options['music.playlist']" placeholder="https://embed.music.apple.com/en/playlist/">
+                      </label>
+                      <label>
+                        Number of tracks to display
+                        <input type="number" v-model="plugins.options['music.limit']" min="1" @change="load">
+                      </label>
+                    </div>
+                    <div class="options-group" v-if="plugins.enabled.pagespeed">
+                      <h4>{{ plugins.descriptions.pagespeed }}</h4>
+                      <label>
+                        Detailed PageSpeed report
+                        <input type="checkbox" v-model="plugins.options['pagespeed.detailed']" @change="load">
+                      </label>
+                    </div>
+                    <div class="options-group" v-if="plugins.enabled.habits">
+                      <h4>{{ plugins.descriptions.habits }}</h4>
+                      <label>
+                        Number of events for habits
+                        <input type="number" v-model="plugins.options['habits.from']" min="1" max="100">
+                      </label>
+                    </div>
+                    <div class="options-group" v-if="plugins.enabled.posts">
+                      <h4>{{ plugins.descriptions.posts }}</h4>
+                      <label>
+                        Posts source
+                        <select v-model="plugins.options['posts.source']" disabled>
+                          <option value="dev.to">dev.to</option>
+                        </select>
+                      </label>
+                      <label>
+                        Number of posts to display
+                        <input type="number" v-model="plugins.options['posts.limit']" min="1" @change="load">
+                      </label>
+                    </div>
+                    <div class="options-group" v-if="plugins.enabled.isocalendar">
+                      <h4>{{ plugins.descriptions.isocalendar }}</h4>
+                      <label>
+                        Isocalendar duration
+                        <select v-model="plugins.options['isocalendar.duration']">
+                          <option value="half-year">Half year</option>
+                          <option value="full-year">Full year</option>
+                        </select>
+                      </label>
+                    </div>
+                    <div class="options-group" v-if="plugins.enabled.topics">
+                      <h4>{{ plugins.descriptions.topics }}</h4>
+                      <label>
+                        Topics sorting
+                        <select v-model="plugins.options['topics.sort']">
+                          <option value="starred">Recently starred by you</option>
+                          <option value="stars">Most stars</option>
+                          <option value="activity">Recent actity</option>
+                          <option value="random">Random</option>
+                        </select>
+                      </label>
+                      <label>
+                        Number of topics to display
+                        <input type="number" v-model="plugins.options['topics.limit']" @change="load">
+                      </label>
+                    </div>
+                    <div class="options-group" v-if="plugins.enabled.projects">
+                      <h4>{{ plugins.descriptions.projects }}</h4>
+                      <label>
+                        Number of projects to display
+                        <input type="number" v-model="plugins.options['projects.limit']" min="1" max="100" @change="load">
+                      </label>
+                    </div>
                   </div>
                 </template>
               </template>
@@ -128,15 +183,19 @@
           </section>
         </section>
       </template>
+      <!-- GitHub requests tracker -->
+      <template>
+        <div class="gh-requests">{{ requests.remaining }} GitHub request{{ requests.remaining > 1 ? "s" : "" }} remaining</div>
+      </template>
     </main>
     <!-- Scripts -->
-    <script src="/axios.min.js"></script>
-    <script src="/prism.min.js"></script>
-    <script src="/prism.markdown.min.js"></script>
-    <script src="/prism.yaml.min.js"></script>
-    <script src="/ejs.min.js"></script>
-    <script src="/vue.min.js"></script>
-    <script src="/vue.prism.min.js"></script>
-    <script src="/app.js"></script>
+    <script src="/.js/axios.min.js"></script>
+    <script src="/.js/prism.min.js"></script>
+    <script src="/.js/prism.markdown.min.js"></script>
+    <script src="/.js/prism.yaml.min.js"></script>
+    <script src="/.js/ejs.min.js"></script>
+    <script src="/.js/vue.min.js"></script>
+    <script src="/.js/vue.prism.min.js"></script>
+    <script src="/.js/app.js"></script>
   </body>
 </html>

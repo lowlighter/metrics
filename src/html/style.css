@@ -142,6 +142,16 @@
     display: flex;
     flex-direction: column;
   }
+  .options-group {
+    display: flex;
+    flex-direction: column;
+  }
+  .options-group label {
+    margin: 0;
+  }
+  .options-group h4 {
+    margin-bottom: 0;
+  }
 /* Code snippets */
   .code {
     display: flex;
@@ -193,4 +203,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+/* Github requests */
+  .gh-requests {
+    position: fixed;
+    right: .25rem;
+    bottom: .25rem;
+    font-size: .8rem;
   }
