@@ -47,31 +47,25 @@
       const actions = {flush:new Map()}
       app.get("/", limiter, (req, res) => res.sendFile(`${conf.statics}/index.html`))
       app.get("/index.html", limiter, (req, res) => res.sendFile(`${conf.statics}/index.html`))
-      app.get("/app.js", limiter, (req, res) => res.sendFile(`${conf.statics}/app.js`))
-      app.get("/style.css", limiter, (req, res) => res.sendFile(`${conf.statics}/style.css`))
-      app.get("/.version", limiter, (req, res) => res.status(200).send(conf.package.version))
       app.get("/favicon.ico", limiter, (req, res) => res.sendStatus(204))
-      app.get("/plugins.list", limiter, (req, res) => res.status(200).json(enabled))
-      app.get("/templates.list", limiter, (req, res) => res.status(200).json(templates))
-      app.get("/plugins.base.parts.list", limiter, (req, res) => res.status(200).json(conf.settings.plugins.base.parts))
-      app.get("/ejs.min.js", limiter, (req, res) => res.sendFile(`${conf.node_modules}/ejs/ejs.min.js`))
-      app.get("/axios.min.js", limiter, (req, res) => res.sendFile(`${conf.node_modules}/axios/dist/axios.min.js`))
-      app.get("/axios.min.map", limiter, (req, res) => res.sendFile(`${conf.node_modules}/axios/dist/axios.min.map`))
-      app.get("/vue.min.js", limiter, (req, res) => res.sendFile(`${conf.node_modules}/vue/dist/vue.min.js`))
-      app.get("/vue.prism.min.js", limiter, (req, res) => res.sendFile(`${conf.node_modules}/vue-prism-component/dist/vue-prism-component.min.js`))
-      app.get("/vue-prism-component.min.js.map", limiter, (req, res) => res.sendFile(`${conf.node_modules}/vue-prism-component/dist/vue-prism-component.min.js.map`))
-      app.get("/prism.min.js", limiter, (req, res) => res.sendFile(`${conf.node_modules}/prismjs/prism.js`))
-      app.get("/prism.yaml.min.js", limiter, (req, res) => res.sendFile(`${conf.node_modules}/prismjs/components/prism-yaml.min.js`))
-      app.get("/prism.markdown.min.js", limiter, (req, res) => res.sendFile(`${conf.node_modules}/prismjs/components/prism-markdown.min.js`))
-      app.get("/style.prism.css", limiter, (req, res) => res.sendFile(`${conf.node_modules}/prismjs/themes/prism-tomorrow.css`))
-      app.get("/placeholder.json", limiter, async (req, res) => {
-        const template = req.query.template || conf.settings.templates.default
-        if (!(template in Templates))
-          return res.sendStatus(404)
-        const {style, image, fonts} = conf.templates[template]
-        res.status(200).json({style, image, fonts})
-      })
-      app.get("/action.flush", limiter, async (req, res) => {
+      app.get("/.version", limiter, (req, res) => res.status(200).send(conf.package.version))
+      app.get("/.requests", limiter, async (req, res) => res.status(200).json((await rest.rateLimit.get()).data.rate))
+      app.get("/.templates", limiter, (req, res) => res.status(200).json(templates))
+      app.get("/.plugins", limiter, (req, res) => res.status(200).json(enabled))
+      app.get("/.plugins.base", limiter, (req, res) => res.status(200).json(conf.settings.plugins.base.parts))
+      app.get("/.css/style.css", limiter, (req, res) => res.sendFile(`${conf.statics}/style.css`))
+      app.get("/.css/style.prism.css", limiter, (req, res) => res.sendFile(`${conf.node_modules}/prismjs/themes/prism-tomorrow.css`))
+      app.get("/.js/app.js", limiter, (req, res) => res.sendFile(`${conf.statics}/app.js`))
+      app.get("/.js/ejs.min.js", limiter, (req, res) => res.sendFile(`${conf.node_modules}/ejs/ejs.min.js`))
+      app.get("/.js/axios.min.js", limiter, (req, res) => res.sendFile(`${conf.node_modules}/axios/dist/axios.min.js`))
+      app.get("/.js/axios.min.map", limiter, (req, res) => res.sendFile(`${conf.node_modules}/axios/dist/axios.min.map`))
+      app.get("/.js/vue.min.js", limiter, (req, res) => res.sendFile(`${conf.node_modules}/vue/dist/vue.min.js`))
+      app.get("/.js/vue.prism.min.js", limiter, (req, res) => res.sendFile(`${conf.node_modules}/vue-prism-component/dist/vue-prism-component.min.js`))
+      app.get("/.js/vue-prism-component.min.js.map", limiter, (req, res) => res.sendFile(`${conf.node_modules}/vue-prism-component/dist/vue-prism-component.min.js.map`))
+      app.get("/.js/prism.min.js", limiter, (req, res) => res.sendFile(`${conf.node_modules}/prismjs/prism.js`))
+      app.get("/.js/prism.yaml.min.js", limiter, (req, res) => res.sendFile(`${conf.node_modules}/prismjs/components/prism-yaml.min.js`))
+      app.get("/.js/prism.markdown.min.js", limiter, (req, res) => res.sendFile(`${conf.node_modules}/prismjs/components/prism-markdown.min.js`))
+      app.get("/.uncache", limiter, async (req, res) => {
         const {token, user} = req.query
         if (token) {
           if (actions.flush.has(token)) {

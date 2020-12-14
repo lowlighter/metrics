@@ -1,9 +1,9 @@
 ;(async function() {
   //Init
     const url = new URLSearchParams(window.location.search)
-    const {data:templates} = await axios.get("/templates.list")
-    const {data:plugins} = await axios.get("/plugins.list")
-    const {data:base} = await axios.get("/plugins.base.parts.list")
+    const {data:templates} = await axios.get("/.templates")
+    const {data:plugins} = await axios.get("/.plugins")
+    const {data:base} = await axios.get("/.plugins.base")
     const {data:version} = await axios.get("/.version")
   //App
     return new Vue({
@@ -18,6 +18,7 @@
           version,
           user:url.get("user") || "",
           palette:url.get("palette") || (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") || "light",
+          requests:{limit:0, used:0, remaining:0, reset:0},
           plugins:{
             base,
             list:plugins,
@@ -45,10 +46,13 @@
               "pagespeed.detailed":false,
               "habits.from":100,
               "music.playlist":"",
-              "music.mode":"playlist",
               "music.limit":4,
               "posts.limit":4,
               "posts.source":"dev.to",
+              "isocalendar.duration":"half-year",
+              "projects.limit":4,
+              "topics.sort":"stars",
+              "topics.limit":12,
             },
           },
           templates:{
@@ -130,6 +134,8 @@
                 const url = this.url.replace(new RegExp(`${this.user}(\\?|$)`), "placeholder$1")
                 this.templates.placeholder = this.serialize((await axios.get(url)).data)
                 this.generated.content = ""
+              //Start GitHub rate limiter tracker
+                this.ghlimit()
             },
           //Generate metrics and flush cache
             async generate() {
@@ -139,7 +145,7 @@
                 this.generated.pending = true
               //Compute metrics
                 try {
-                  await axios.get(`/action.flush?&token=${(await axios.get(`/action.flush?user=${this.user}`)).data.token}`)
+                  await axios.get(`/.uncache?&token=${(await axios.get(`/.uncache?user=${this.user}`)).data.token}`)
                   this.generated.content = this.serialize((await axios.get(this.url)).data)
                 } catch {
                   this.generated.error = true
@@ -152,6 +158,13 @@
             serialize(svg) {
               return `data:image/svg+xml;base64,${btoa(unescape(encodeURIComponent(svg)))}`
             },
+          //Update reate limit requests
+            async ghlimit() {
+              const {data:requests} = await axios.get("/.requests")
+              this.requests = requests
+              setTimeout(() => this.ghlimit(), 30*1000)
+              console.log("yeh")
+            }
         },
     })
 })()
