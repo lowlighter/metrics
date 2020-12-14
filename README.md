@@ -150,10 +150,6 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
     </td>
   </tr>
   <tr>
-    <th></th>
-    <th></th>
-  </tr>
-  <tr>
     <td colspan="2" align="center">
       More to come soon !
     </td>
