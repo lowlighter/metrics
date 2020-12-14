@@ -956,7 +956,7 @@ Read [CONTRIBUTING.md](CONTRIBUTING.md) for more information about this.
 ## 📖 Useful references
 
 * [GitHub GraphQL API](https://docs.github.com/en/graphql)
-* [GitHub GraphQL Explorer](https://developer.github.com/v4/explorer/)
+* [GitHub GraphQL Explorer](https://docs.github.com/en/free-pro-team@latest/graphql/overview/explorer)
 * [GitHub Rest API](https://docs.github.com/en/rest)
 * [GitHub Octicons](https://github.com/primer/octicons)
   * See [GitHub Logos and Usage](https://github.com/logos) for more information.

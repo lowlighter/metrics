@@ -13,7 +13,9 @@
     <!-- Vue app -->
     <main :class="[palette]">
       <!-- Title -->
-      <h1><a href="https://github.com/lowlighter/metrics">Metrics v{{ version }}</a></h1>
+      <template>
+        <h1><a href="https://github.com/lowlighter/metrics">Metrics v{{ version }}</a></h1>
+      </template>
       <!-- Content -->
       <template>
         <section class="generator">
