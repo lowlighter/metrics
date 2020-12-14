@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="480" height="<%= 12
-  + (!!base.header)*80
+  + (!!base.header)*80 + (user.isHireable)*16
   + (!!base.metadata)*38
   + ((!!base.activity)||(!!base.community))*128
   + (!!base.repositories)*108

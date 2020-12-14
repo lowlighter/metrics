@@ -125,7 +125,10 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
         <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.gists.svg" alt="" width="400">
       </a>
     </td>
-    <td>
+    <td></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
       <a href="https://github.com/lowlighter/metrics/issues/8">
         More to come soon !
       </a>
@@ -151,10 +154,8 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
     <th></th>
   </tr>
   <tr>
-    <td>
+    <td colspan="2" align="center">
       More to come soon !
-    </td>
-    <td>
     </td>
   </tr>
 </table>
