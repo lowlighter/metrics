@@ -153,17 +153,18 @@
                 finally {
                   this.generated.pending = false
                 }
+                this.ghlimit({once:true})
             },
           //Serialize svg
             serialize(svg) {
               return `data:image/svg+xml;base64,${btoa(unescape(encodeURIComponent(svg)))}`
             },
           //Update reate limit requests
-            async ghlimit() {
+            async ghlimit({once = false} = {}) {
               const {data:requests} = await axios.get("/.requests")
               this.requests = requests
-              setTimeout(() => this.ghlimit(), 30*1000)
-              console.log("yeh")
+              if (!once)
+                setTimeout(() => this.ghlimit(), 30*1000)
             }
         },
     })
