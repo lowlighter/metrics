@@ -151,7 +151,7 @@
       Object.assign(data, {
         s(_, letter) { return letter === "y" ? "ies" : "s" },
         meta:{version:conf.package.version, author:conf.package.author, placeholder:true},
-        user:proxify({name:`############`, websiteUrl:`########################`}),
+        user:proxify({name:`############`, websiteUrl:`########################`, isHireable:false}),
         computed:proxify({
           avatar:"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
           registration:"## years ago",
