@@ -180,7 +180,7 @@
           console.log(`Dry-run                   | complete`)
         else {
           //Repository and branch
-            const branch = "master"
+            const branch = github.context.ref.replace(/^refs[/]heads[/]/, "")
             console.log(`Repository                | ${github.context.repo.owner}/${github.context.repo.repo}`)
             console.log(`Branch                    | ${branch}`)
           //Committer token
@@ -198,7 +198,7 @@
             }
           //Retrieve previous render SHA to be able to update file content through API
             let sha = null
-            console.log(github.context)
+            console.log(github.context.repo)
             try {
               const {repository:{object:{oid}}} = await graphql(`
                   query Sha {
