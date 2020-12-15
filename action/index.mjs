@@ -179,8 +179,10 @@
         if (dryrun)
           console.log(`Dry-run                   | complete`)
         else {
-          //Repository
+          //Repository and branch
+            const branch = "master"
             console.log(`Repository                | ${github.context.repo.owner}/${github.context.repo.repo}`)
+            console.log(`Branch                    | ${branch}`)
           //Committer token
             const token = core.getInput("committer_token") || core.getInput("token")
             console.log(`Committer token           | ${token ? "provided" : "missing"}`)
@@ -196,9 +198,17 @@
             }
           //Retrieve previous render SHA to be able to update file content through API
             let sha = null
+            console.log(github.context)
             try {
-              const {data} = await rest.repos.getContent({...github.context.repo, path:filename})
-              sha = data.sha
+              const {repository:{object:{oid}}} = await graphql(`
+                  query Sha {
+                    repository(owner: "${github.context.repo.owner}", name: "${github.context.repo.repo}") {
+                      object(expression: "${branch}:${filename}") { ... on Blob { oid } }
+                    }
+                  }
+                `
+              )
+              sha = oid
             } catch (error) { console.debug(error) }
             console.log(`Previous render sha       | ${sha || "none"}`)
           //Update file content through API
@@ -218,7 +228,7 @@
     } catch (error) {
       console.error(error)
       if (!bool(core.getInput("debug")))
-        console.debug("An error occured, logging debug message :", ...debugged)
+        console.log("An error occured, logging debug message :", ...debugged)
       core.setFailed(error.message)
       process.exit(1)
     }
