@@ -198,7 +198,6 @@
             }
           //Retrieve previous render SHA to be able to update file content through API
             let sha = null
-            console.log(github.context.repo)
             try {
               const {repository:{object:{oid}}} = await graphql(`
                   query Sha {
