@@ -115,6 +115,18 @@ inputs:
     description: Enable most used languages metrics
     default: no
 
+  # List of ignored languages, comma separated
+  # Ignored languages won't count towards your languages metrics
+  plugin_languages_ignored:
+    description: List of ignored languages
+    default: ""
+
+  # List of skipped repositories, comma separated
+  # Skipped repositories won't count towards your languages metrics
+  plugin_languages_skipped:
+    description: List of skipped repositories
+    default: ""
+
   # Follow-up plugin
   # Display the number and the ratio of opened/closed issues and opened/merged pull requests on your repositories
   plugin_followup:
