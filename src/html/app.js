@@ -43,6 +43,8 @@
               "base.metadata":"Metadata",
             },
             options:{
+              "languages.ignored":"",
+              "languages.skipped":"",
               "pagespeed.detailed":false,
               "habits.from":100,
               "music.playlist":"",
@@ -103,8 +105,9 @@
             action() {
               return [
                 `# Visit https://github.com/lowlighter/metrics/blob/master/action.yml for full reference`,
-                `name: GitHub metrics as SVG image`,
+                `name: GitHub metrics`,
                 `on:`,
+                `  # Schedule updates`,
                 `  schedule: [{cron: "0 * * * *"}]`,
                 `  push: {branches: "master"}`,
                 `jobs:`,
@@ -113,16 +116,19 @@
                 `    steps:`,
                 `      - uses: lowlighter/metrics@latest`,
                 `        with:`,
-                `          # Setup a personal token in your secrets.`,
+                `          # You'll need to setup a personal token in your secrets.`,
                 `          token: ${"$"}{{ secrets.METRICS_TOKEN }}`,
-                `          # You can also setup a bot token for commits`,
-                `          # committer_token: ${"$"}{{ secrets.METRICS_BOT_TOKEN }}`,
+                `          # GITHUB_TOKEN is a special auto-generated token used for commits`,
+                `          committer_token: ${"$"}{{ secrets.GITHUB_TOKEN }}`,
                 ``,
                 `          # Options`,
                 `          user: ${this.user }`,
                 `          template: ${this.templates.selected}`,
-                `          base: ${Object.keys(this.plugins.enabled.base).join(", ") }`,
-                ...Object.entries(this.plugins.enabled).filter(([key, value]) => (key !== "base")&&(value)).map(([key]) => `          plugin_${key}: yes`)
+                `          base: ${Object.entries(this.plugins.enabled.base).filter(([key, value]) => value).map(([key]) => key).join(", ")||'""'}`,
+                ...[
+                  ...Object.entries(this.plugins.enabled).filter(([key, value]) => (key !== "base")&&(value)).map(([key]) => `          plugin_${key}: yes`),
+                  ...Object.entries(this.plugins.options).filter(([key, value]) => value).filter(([key, value]) => this.plugins.enabled[key.split(".")[0]]).map(([key, value]) => `          plugin_${key.replace(/[.]/, "_")}: ${typeof value === "boolean" ? {true:"yes", false:"no"}[value] : value}`)
+                ].sort(),
               ].join("\n")
             }
         },

@@ -15,9 +15,9 @@
   //Runner
     try {
       //Initialization
-        console.log(`GitHub metrics as SVG image`)
+        console.log(`GitHub metrics`)
         console.log(`========================================================`)
-        console.log(`Version             | <#version>`)
+        console.log(`Version                   | <#version>`)
         process.on("unhandledRejection", error => { throw error })
 
       //Skip process if needed
@@ -30,30 +30,30 @@
 
       //Load configuration
         const conf = await setup({log:false})
-        console.log(`Configuration       | loaded`)
+        console.log(`Configuration             | loaded`)
 
       //Load svg template, style, fonts and query
         const template = core.getInput("template") || "classic"
-        console.log(`Template to use     | ${template}`)
+        console.log(`Template to use           | ${template}`)
 
       //Token for data gathering
         const token = core.getInput("token")
-        console.log(`Github token        | ${token ? "provided" : "missing"}`)
+        console.log(`Github token              | ${token ? "provided" : "missing"}`)
         if (!token)
           throw new Error("You must provide a valid GitHub token to gather your metrics")
         const graphql = octokit.graphql.defaults({headers:{authorization: `token ${token}`}})
-        console.log(`Github GraphQL API  | ok`)
+        console.log(`Github GraphQL API        | ok`)
         const rest = github.getOctokit(token)
-        console.log(`Github REST API     | ok`)
+        console.log(`Github REST API           | ok`)
 
       //SVG output
         const filename = core.getInput("filename") || "github-metrics.svg"
-        console.log(`SVG output file     | ${filename}`)
+        console.log(`SVG output file           | ${filename}`)
 
       //SVG optimization
         const optimize = bool(core.getInput("optimize"), true)
         conf.optimize = optimize
-        console.log(`SVG optimization    | ${optimize}`)
+        console.log(`SVG optimization          | ${optimize}`)
 
       //GitHub user
         let authenticated
@@ -64,20 +64,20 @@
           authenticated = github.context.repo.owner
         }
         const user = core.getInput("user") || authenticated
-        console.log(`GitHub user         | ${user}`)
+        console.log(`GitHub user               | ${user}`)
 
       //Debug mode
         const debug = bool(core.getInput("debug"))
         if (!debug)
           console.debug = message => debugged.push(message)
-        console.log(`Debug mode          | ${debug}`)
+        console.log(`Debug mode                | ${debug}`)
 
       //Base elements
         const base = {}
         let parts = (core.getInput("base")||"").split(",").map(part => part.trim())
         for (const part of conf.settings.plugins.base.parts)
           base[`base.${part}`] = parts.includes(part)
-        console.log(`Base parts          | ${parts.join(", ") || "(none)"}`)
+        console.log(`Base parts                | ${parts.join(", ") || "(none)"}`)
 
       //Additional plugins
         const plugins = {
@@ -95,112 +95,129 @@
           projects:{enabled:bool(core.getInput("plugin_projects"))},
         }
         let q = Object.fromEntries(Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => [key, true]))
-        console.log(`Plugins enabled     | ${Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => key).join(", ")}`)
+        console.log(`Plugins enabled           | ${Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => key).join(", ")}`)
       //Additional plugins options
         //Pagespeed
           if (plugins.pagespeed.enabled) {
             plugins.pagespeed.token = core.getInput("plugin_pagespeed_token")
-            console.log(`Pagespeed token     | ${plugins.pagespeed.token ? "provided" : "missing"}`)
             q[`pagespeed.detailed`] = bool(core.getInput(`plugin_pagespeed_detailed`))
-            console.log(`Pagespeed detailed  | ${q["pagespeed.detailed"]}`)
+            console.log(`Pagespeed token           | ${plugins.pagespeed.token ? "provided" : "missing"}`)
+            console.log(`Pagespeed detailed        | ${q["pagespeed.detailed"]}`)
+          }
+        //Languages
+          if (plugins.languages.enabled) {
+            for (const option of ["ignored", "skipped"])
+              q[`languages.${option}`] = core.getInput(`plugin_languages_${option}`) || null
+            console.log(`Languages ignored         | ${q["languages.ignored"]}`)
+            console.log(`Languages skipped repos   | ${q["languages.skipped"]}`)
           }
         //Music
           if (plugins.music.enabled) {
+            plugins.music.token = core.getInput("plugin_music_token") || ""
             for (const option of ["provider", "mode", "playlist", "limit"])
               q[`music.${option}`] = core.getInput(`plugin_music_${option}`) || null
-            console.log(`Music provider      | ${q["music.provider"]}`)
-            console.log(`Music plugin mode   | ${q["music.mode"]}`)
-            console.log(`Music playlist      | ${q["music.playlist"]}`)
-            console.log(`Music tracks limit  | ${q["music.limit"]}`)
-            plugins.music.token = core.getInput("plugin_music_token") || ""
-            console.log(`Music token         | ${plugins.music.token ? "provided" : "missing"}`)
+            console.log(`Music provider            | ${q["music.provider"]}`)
+            console.log(`Music plugin mode         | ${q["music.mode"]}`)
+            console.log(`Music playlist            | ${q["music.playlist"]}`)
+            console.log(`Music tracks limit        | ${q["music.limit"]}`)
+            console.log(`Music token               | ${plugins.music.token ? "provided" : "missing"}`)
           }
         //Posts
           if (plugins.posts.enabled) {
             for (const option of ["source", "limit"])
               q[`posts.${option}`] = core.getInput(`plugin_posts_${option}`) || null
-            console.log(`Posts provider      | ${q["posts.provider"]}`)
-            console.log(`Posts limit         | ${q["posts.limit"]}`)
+            console.log(`Posts provider            | ${q["posts.provider"]}`)
+            console.log(`Posts limit               | ${q["posts.limit"]}`)
           }
         //Isocalendar
           if (plugins.isocalendar.enabled) {
             q["isocalendar.duration"] = core.getInput("plugin_isocalendar_duration") ?? "half-year"
-            console.log(`Isocalendar duration| ${q["isocalendar.duration"]}`)
+            console.log(`Isocalendar duration      | ${q["isocalendar.duration"]}`)
           }
         //Topics
           if (plugins.topics.enabled) {
             for (const option of ["sort", "limit"])
               q[`topics.${option}`] = core.getInput(`plugin_topics_${option}`) || null
-            console.log(`Topics sort mode    | ${q["topics.sort"]}`)
-            console.log(`Topics limit        | ${q["topics.limit"]}`)
+            console.log(`Topics sort mode          | ${q["topics.sort"]}`)
+            console.log(`Topics limit              | ${q["topics.limit"]}`)
           }
         //Projects
           if (plugins.projects.enabled) {
             for (const option of ["limit"])
               q[`projects.${option}`] = core.getInput(`plugin_projects_${option}`) || null
-            console.log(`Projects limit      | ${q["projects.limit"]}`)
+            console.log(`Projects limit            | ${q["projects.limit"]}`)
           }
 
       //Repositories to use
         const repositories = Number(core.getInput("repositories")) || 100
-        console.log(`Repositories to use | ${repositories}`)
+        console.log(`Repositories to use       | ${repositories}`)
 
       //Die on plugins errors
         const die = bool(core.getInput("plugins_errors_fatal"))
-        console.log(`Plugin errors       | ${die ? "die" : "ignore"}`)
+        console.log(`Plugin errors             | ${die ? "die" : "ignore"}`)
 
       //Built query
         q = {...q, base:false, ...base, repositories, template}
 
       //Render metrics
         const rendered = await metrics({login:user, q}, {graphql, rest, plugins, conf, die})
-        console.log(`Render              | complete`)
+        console.log(`Render                    | complete`)
 
       //Verify svg
         const verify = bool(core.getInput("verify"))
-        console.log(`Verify SVG          | ${verify}`)
+        console.log(`Verify SVG                | ${verify}`)
         if (verify) {
           const [libxmljs] = [await import("libxmljs")].map(m => (m && m.default) ? m.default : m)
           const parsed = libxmljs.parseXml(rendered)
           if (parsed.errors.length)
             throw new Error(`Malformed SVG : \n${parsed.errors.join("\n")}`)
-          console.log(`SVG valid           | yes`)
+          console.log(`SVG valid                 | yes`)
         }
 
       //Commit to repository
         const dryrun = bool(core.getInput("dryrun"))
         if (dryrun)
-          console.log(`Dry-run             | complete`)
+          console.log(`Dry-run                   | complete`)
         else {
-          //Repository
-            console.log(`Repository          | ${github.context.repo.owner}/${github.context.repo.repo}`)
+          //Repository and branch
+            const branch = github.context.ref.replace(/^refs[/]heads[/]/, "")
+            console.log(`Repository                | ${github.context.repo.owner}/${github.context.repo.repo}`)
+            console.log(`Branch                    | ${branch}`)
           //Committer token
             const token = core.getInput("committer_token") || core.getInput("token")
-            console.log(`Committer token     | ${token ? "provided" : "missing"}`)
+            console.log(`Committer token           | ${token ? "provided" : "missing"}`)
             if (!token)
               throw new Error("You must provide a valid GitHub token to commit your metrics")
             const rest = github.getOctokit(token)
-            console.log(`Committer REST API  | ok`)
+            console.log(`Committer REST API        | ok`)
             try {
-              console.log(`Committer           | ${(await rest.users.getAuthenticated()).data.login}`)
+              console.log(`Committer                 | ${(await rest.users.getAuthenticated()).data.login}`)
             }
             catch {
-              console.log(`Committer           | (unknown)`)
+              console.log(`Committer                 | (unknown)`)
             }
           //Retrieve previous render SHA to be able to update file content through API
             let sha = null
+            console.log(github.context.repo)
             try {
-              const {data} = await rest.repos.getContent({...github.context.repo, path:filename})
-              sha = data.sha
+              const {repository:{object:{oid}}} = await graphql(`
+                  query Sha {
+                    repository(owner: "${github.context.repo.owner}", name: "${github.context.repo.repo}") {
+                      object(expression: "${branch}:${filename}") { ... on Blob { oid } }
+                    }
+                  }
+                `
+              )
+              sha = oid
             } catch (error) { console.debug(error) }
-            console.log(`Previous render sha | ${sha || "none"}`)
+            console.log(`Previous render sha       | ${sha || "none"}`)
           //Update file content through API
             await rest.repos.createOrUpdateFileContents({
               ...github.context.repo, path:filename, message:`Update ${filename} - [Skip GitHub Action]`,
               content:Buffer.from(rendered).toString("base64"),
               ...(sha ? {sha} : {})
             })
-            console.log(`Commit to repo      | ok`)
+            console.log(`Commit to repo            | ok`)
         }
 
       //Success
@@ -211,7 +228,7 @@
     } catch (error) {
       console.error(error)
       if (!bool(core.getInput("debug")))
-        console.debug("An error occured, logging debug message :", ...debugged)
+        console.log("An error occured, logging debug message :", ...debugged)
       core.setFailed(error.message)
       process.exit(1)
     }

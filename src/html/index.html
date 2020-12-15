@@ -51,7 +51,7 @@
                   </label>
                 </div>
                 <i>*Additional plugins may be available when used as GitHub Action</i>
-                <template v-if="(plugins.enabled.music)||(plugins.enabled.pagespeed)||(plugins.enabled.habits)||(plugins.enabled.posts)||(plugins.enabled.isocalendar)||(plugins.enabled.projects)||(plugins.enabled.topics)">
+                <template v-if="(plugins.enabled.music)||(plugins.enabled.pagespeed)||(plugins.enabled.languages)||(plugins.enabled.habits)||(plugins.enabled.posts)||(plugins.enabled.isocalendar)||(plugins.enabled.projects)||(plugins.enabled.topics)">
                   <h3>2.3 Configure additional plugins</h3>
                   <div class="options">
                     <div class="options-group" v-if="plugins.enabled.music">
@@ -70,6 +70,17 @@
                       <label>
                         Detailed PageSpeed report
                         <input type="checkbox" v-model="plugins.options['pagespeed.detailed']" @change="load">
+                      </label>
+                    </div>
+                    <div class="options-group" v-if="plugins.enabled.languages">
+                      <h4>{{ plugins.descriptions.languages }}</h4>
+                      <label>
+                        Ignored languages (comma separated)
+                        <input type="text" v-model="plugins.options['languages.ignored']" @change="load">
+                      </label>
+                      <label>
+                        Skipped repositories (comma separated)
+                        <input type="text" v-model="plugins.options['languages.skipped']" @change="load">
                       </label>
                     </div>
                     <div class="options-group" v-if="plugins.enabled.habits">

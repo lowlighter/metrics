@@ -129,7 +129,6 @@
                                 `${new imports.url.URLSearchParams({grant_type:"refresh_token", refresh_token, client_id, client_secret})}`,
                                 {headers:{"Content-Type":"application/x-www-form-urlencoded"}},
                               )
-                              console.log(access)
                               console.debug(`metrics/compute/${login}/plugins > music > got new access token`)
                             //Retriev tracks
                               tracks = (await imports.axios(`https://api.spotify.com/v1/me/player/recently-played?limit=${limit}&after=${timestamp}`, {headers:{

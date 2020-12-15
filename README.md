@@ -731,6 +731,8 @@ Add the following to your workflow :
   with:
     # ... other options
     plugin_languages: yes
+    plugin_languages_ignored: "" # List of comma separated languages to ignore
+    plugin_languages_skipped: "" # List of comma separated repositories to skip
 ```
 
 </details>
