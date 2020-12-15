@@ -195,9 +195,13 @@ The `README.md` of it will be displayed on your user profile :
 
 From the `Developer settings` of your account settings, select `Personal access tokens` to create a new token.
 
-No additional scopes are needed.
+No additional scopes are needed, unless you want to include your private repositories metrics or if you want to use the `traffic` plugin.
 
 ![Setup a GitHub personal token](.github/readme/imgs/setup_personal_token.png)
+
+Be sure to enable `Include private contributions on my profile` in your account settings if you want to include your private contributions :
+
+![Enable "Include private contributions on my profile`"](.github/readme/imgs/setup_private_contributions.png)
 
 ### 2. Set your GitHub token in your personal repository secrets
 
@@ -303,14 +307,9 @@ You will need a server where you can setup and run a NodeJS application.
 
 From the `Developer settings` of your account settings, select `Personal access tokens` to create a new token.
 
-No additional scopes are needed, unless you want to include your private repositories metrics or if you want to use the `traffic` plugin.
+No additional scopes are needed.
 
 ![Setup a GitHub personal token](.github/readme/imgs/setup_personal_token.png)
-
-Be sure to enable `Include private contributions on my profile` in your account settings to include your private repositories :
-
-![Enable "Include private contributions on my profile`"](.github/readme/imgs/setup_private_contributions.png)
-
 
 ### 2. Install dependencies
 
