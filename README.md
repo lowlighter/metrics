@@ -878,31 +878,6 @@ Add the following to your workflow :
 
 </details>
 
-### 💡 Habits
-
-The coding *habits* add deduced coding habits based on your recent activity, from up to 100 events.
-
-![Habits plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.svg)
-
-<details>
-<summary>💬 About</summary>
-
-It will consume an additional GitHub request per event fetched.
-
-Because of GitHub REST API limitation, provided token requires full `repo` scope to access **private** events.
-Events that cannot be fetched will be ignored so it is still possible to use this plugin with a scope-less token.
-
-Add the following to your workflow :
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_habits: yes
-    plugin_habits_from: 100
-```
-
-</details>
-
 ### 🐤 Tweets
 
     🚧 This plugin is available as pre-release
@@ -956,6 +931,31 @@ Add the following to your workflow :
     # ... other options
     plugin_posts: yes
     plugin_posts_source: ********
+```
+
+</details>
+
+### 💡 Habits
+
+The coding *habits* add deduced coding habits based on your recent activity, from up to 100 events.
+
+![Habits plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.svg)
+
+<details>
+<summary>💬 About</summary>
+
+It will consume an additional GitHub request per event fetched.
+
+Because of GitHub REST API limitation, provided token requires full `repo` scope to access **private** events.
+Events that cannot be fetched will be ignored so it is still possible to use this plugin with a scope-less token.
+
+Add the following to your workflow :
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_habits: yes
+    plugin_habits_from: 100
 ```
 
 </details>

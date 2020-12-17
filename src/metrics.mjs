@@ -115,13 +115,13 @@
   }
 
 /** Escape html */
-  function htmlescape(string) {
+  function htmlescape(string, u = {"&":true, "<":true, ">":true, '"':true, "'":true}) {
     return string
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#39;")
+      .replace(/&(?!(?:amp|lt|gt|quot|apos);)/g, u["&"] ? "&amp;" : "&")
+      .replace(/</g, u["<"] ? "&lt;" : "<")
+      .replace(/>/g, u[">"] ? "&gt;" : ">")
+      .replace(/"/g, u['"'] ? "&quot;" : '"')
+      .replace(/'/g, u["'"] ? "&apos;" : "'")
   }
 
 /** Expand url */
