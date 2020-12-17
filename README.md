@@ -880,7 +880,7 @@ Add the following to your workflow :
 
 ### 🐤 Tweets
 
-    🚧 This plugin is available as pre-release
+    🚧 This plugin is available as pre-release on @master
 
 The recent *tweets* plugin displays your latest tweets of the [twitter](https://twitter.com) attached mentioned on your account :
 
