@@ -1,7 +1,7 @@
 {
   "name": "metrics",
-  "version": "2.8.0",
-  "description": "Generate an user's GitHub metrics as SVG image format to embed somewhere else",
+  "version": "2.9.0-beta",
+  "description": "An image generator with 20+ metrics about your GitHub account such as activity, community, repositories, coding habits, website performances, music played, starred topics, etc. that you can put on your profile or elsewhere !",
   "main": "index.mjs",
   "scripts": {
     "start": "node index.mjs",
