@@ -851,11 +851,11 @@ Add the following to your workflow :
 
 ### 🧮 Traffic
 
+    ⚠️ This plugin requires a personal token with full repo scope.
+
 The repositories *traffic* plugin displays the number of pages views across your repositories.
 
 ![Traffic plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.traffic.svg)
-
-    ⚠️ This plugin requires a personal token with full repo scope.
 
 <details>
 <summary>💬 About</summary>
