@@ -93,6 +93,7 @@
           gists:{enabled:bool(core.getInput("plugin_gists"))},
           topics:{enabled:bool(core.getInput("plugin_topics"))},
           projects:{enabled:bool(core.getInput("plugin_projects"))},
+          tweets:{enabled:bool(core.getInput("plugin_tweets"))},
         }
         let q = Object.fromEntries(Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => [key, true]))
         console.log(`Plugins enabled           | ${Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => key).join(", ")}`)
@@ -146,6 +147,14 @@
             for (const option of ["limit"])
               q[`projects.${option}`] = core.getInput(`plugin_projects_${option}`) || null
             console.log(`Projects limit            | ${q["projects.limit"]}`)
+          }
+        //Tweets
+          if (plugins.tweets.enabled) {
+            plugins.tweets.token = core.getInput("plugin_tweets_token") || null
+            for (const option of ["limit"])
+              q[`tweets.${option}`] = core.getInput(`plugin_tweets_${option}`) || null
+            console.log(`Twitter token             | ${plugins.tweets.token ? "provided" : "missing"}`)
+            console.log(`Tweets limit              | ${q["tweets.limit"]}`)
           }
 
       //Repositories to use
