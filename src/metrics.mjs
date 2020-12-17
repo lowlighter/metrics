@@ -49,7 +49,7 @@
             //Compute metrics
               console.debug(`metrics/compute/${login} > compute`)
               const computer = Templates[template].default || Templates[template]
-              await computer({login, q}, {conf, data, rest, graphql, plugins}, {s, pending, imports:{plugins:Plugins, url, imgb64, axios, puppeteer, format, bytes, shuffle, htmlescape}})
+              await computer({login, q}, {conf, data, rest, graphql, plugins}, {s, pending, imports:{plugins:Plugins, url, imgb64, axios, puppeteer, format, bytes, shuffle, htmlescape, urlexpand}})
               const promised = await Promise.all(pending)
 
             //Check plugins errors
@@ -122,6 +122,15 @@
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#39;")
+  }
+
+/** Expand url */
+  async function urlexpand(url) {
+    try {
+      return (await axios.get(url)).request.res.responseUrl
+    } catch {
+      return url
+    }
   }
 
 /** Placeholder generator */

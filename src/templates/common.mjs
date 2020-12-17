@@ -39,7 +39,7 @@
     //Compute licenses stats
       computed.licenses.favorite = Object.entries(computed.licenses.used).sort(([an, a], [bn, b]) => b - a).slice(0, 1).map(([name, value]) => name) || ""
 
-    //Compute total commits and sponsorships
+    //Compute total commits
       computed.commits += data.user.contributionsCollection.totalCommitContributions + data.user.contributionsCollection.restrictedContributionsCount
 
     //Compute registration date
