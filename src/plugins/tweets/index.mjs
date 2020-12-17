@@ -16,7 +16,6 @@
         //Load tweets
           console.debug(`metrics/compute/${login}/plugins > tweets > loading tweets`)
           const {data:{data:tweets = []}} = await imports.axios.get(`https://api.twitter.com/2/tweets/search/recent?query=from:${username}&tweet.fields=created_at&expansions=entities.mentions.username`, {headers:{Authorization:`Bearer ${token}`}})
-          console.log(await imports.axios.get(`https://api.twitter.com/2/users/by/username/${username}?user.fields=profile_image_url,verified`, {headers:{Authorization:`Bearer ${token}`}}))
         //Load profile image
           if (profile?.profile_image_url) {
             console.debug(`metrics/compute/${login}/plugins > tweets > loading profile image`)
@@ -32,6 +31,7 @@
             //Mentions
               tweet.mentions = tweet.entities?.mentions.map(({username}) => username) ?? []
             //Format text
+              console.debug(`metrics/compute/${login}/plugins > tweets > formatting tweet ${tweet.id}`)
               tweet.text = imports.htmlescape(
               //Escape tags
                 imports.htmlescape(tweet.text, {"<":true, ">":true})
