@@ -36,6 +36,7 @@
               gists:"Gists metrics",
               topics:"Starred topics",
               projects:"Projects",
+              tweets:"Latest tweets",
               "base.header":"Header",
               "base.activity":"Account activity",
               "base.community":"Community stats",
@@ -55,6 +56,7 @@
               "projects.limit":4,
               "topics.sort":"stars",
               "topics.limit":12,
+              "tweets.limit":2,
             },
           },
           templates:{

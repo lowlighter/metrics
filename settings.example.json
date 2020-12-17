@@ -17,7 +17,7 @@
   "plugins":{                     "//":"Additional plugins (optional)",
     "pagespeed":{                 "//":"Pagespeed plugin",
       "enabled":true,             "//":"Enable or disable PageSpeed metrics",
-      "token":null,               "//":"Pagespeed token"
+      "token":null,               "//":"Pagespeed token (optional)"
     },
     "traffic":{                   "//":"Traffic plugin (GitHub API token must be RW for this to work)",
       "enabled":false,            "//":"Enable or disable repositories total page views is last two weeks"
@@ -53,6 +53,10 @@
     },
     "projects":{                  "//":"Projects plugin",
       "enabled":false,            "//":"Enable or disable personal projects display"
+    },
+    "tweets":{                    "//":"Tweets plugin",
+      "enabled":true,             "//":"Enable or disable recent tweets display",
+      "token":null,               "//":"Twitter token (required when enabled)"
     }
   }
 }
