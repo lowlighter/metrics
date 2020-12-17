@@ -182,4 +182,12 @@ jobs:
           plugin_projects_limit: 2,
         }) %>
 
+      - name: ${{ matrix.template }} > Plugin > Tweets
+        uses: lowlighter/metrics@<%- release %>
+        <%- testcase({
+          plugin_tweets: true,
+          plugin_tweets_limit: 2,
+          plugin_tweets_token: "${{ secrets.TWITTER_TOKEN }}",
+        }) %>
+
   <% } -%>
