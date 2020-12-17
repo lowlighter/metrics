@@ -264,7 +264,7 @@ inputs:
   # Between 1 and 10
   plugin_tweets_limit:
     description: Number of tweets to display
-    default: 4
+    default: 2
 
   # Enable debug mode
   # Ensure you correctly put all sensitive informations in your repository secrets before !
