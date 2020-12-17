@@ -64,7 +64,7 @@
       {
         //Build
           const code = await ejs.renderFile(path.join(__utils, "workflow.yml"), {
-            releases:["master", "latest"],
+            releases:["master"],
             templates:(await fs.promises.readdir(__templates)).filter(name => !/.*[.]mjs$/.test(name)).sort(),
             testcase(context = {}) {
               return [`with:`, ...Object.entries({

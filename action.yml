@@ -248,6 +248,24 @@ inputs:
     description: Number of active projects to display
     default: 4
 
+  # Tweets plugin
+  # Enable it to display recent tweets of the twitter username attached to "user"
+  plugin_tweets:
+    description: Display recent tweets
+    default: no
+
+  # Tweets API token (required when tweets plugin is enabled)
+  # See https://apps.twitter.com for more informations
+  plugin_tweets_token:
+    description: Twitter bearer token
+    default: ""
+
+  # Number of tweets to display
+  # Between 1 and 10
+  plugin_tweets_limit:
+    description: Number of tweets to display
+    default: 2
+
   # Enable debug mode
   # Ensure you correctly put all sensitive informations in your repository secrets before !
   debug:

@@ -37,6 +37,9 @@
                 break
               topics.push(...starred)
           }
+        //Close browser
+          console.debug(`metrics/compute/${login}/plugins > music > closing browser`)
+          await browser.close()
         //Shuffle topics
           if (shuffle)
             topics = imports.shuffle(topics)

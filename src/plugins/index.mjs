@@ -13,6 +13,7 @@
   import projects from "./projects/index.mjs"
   import topics from "./topics/index.mjs"
   import traffic from "./traffic/index.mjs"
+  import tweets from "./tweets/index.mjs"
 
 //Exports
   export default {
@@ -28,4 +29,5 @@
     projects,
     topics,
     traffic,
+    tweets,
   }

@@ -100,13 +100,13 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
     </td>
   </tr>
   <tr>
-    <th><a href="https://github.com/lowlighter/metrics#-habits">💡 Coding Habits plugin</a></th>
+    <th><a href="https://github.com/lowlighter/metrics#-tweets">🐤 Tweets plugin</a></th>
     <th><a href="https://github.com/lowlighter/metrics#%EF%B8%8F-posts">✒️ Recent posts plugin</a></th>
   </tr>
   <tr>
     <td>
-      <a href="https://github.com/lowlighter/metrics#-habits">
-        <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.svg" alt="" width="400">
+      <a href="https://github.com/lowlighter/metrics#-tweets">
+        <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.tweets.svg" alt="" width="400">
       </a>
     </td>
     <td>
@@ -116,16 +116,20 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
     </td>
   </tr>
   <tr>
+    <th><a href="https://github.com/lowlighter/metrics#-habits">💡 Coding Habits plugin</a></th>
     <th><a href="https://github.com/lowlighter/metrics#-gists">🎫 Gists plugin</a></th>
-    <th></th>
   </tr>
   <tr>
+    <td>
+      <a href="https://github.com/lowlighter/metrics#-habits">
+        <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.svg" alt="" width="400">
+      </a>
+    </td>
     <td>
       <a href="https://github.com/lowlighter/metrics#-gists">
         <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.gists.svg" alt="" width="400">
       </a>
     </td>
-    <td></td>
   </tr>
   <tr>
     <td colspan="2" align="center">
@@ -847,11 +851,11 @@ Add the following to your workflow :
 
 ### 🧮 Traffic
 
+    ⚠️ This plugin requires a personal token with full repo scope.
+
 The repositories *traffic* plugin displays the number of pages views across your repositories.
 
 ![Traffic plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.traffic.svg)
-
-    ⚠️ This plugin requires a personal token with full repo scope.
 
 <details>
 <summary>💬 About</summary>
@@ -870,6 +874,63 @@ Add the following to your workflow :
     token: ${{ secrets.METRICS_TOKEN }}
     # ... other options
     plugin_traffic: yes
+```
+
+</details>
+
+### 🐤 Tweets
+
+    🚧 This plugin is available as pre-release on @master
+
+The recent *tweets* plugin displays your latest tweets of the [twitter](https://twitter.com) attached mentioned on your account :
+
+![Tweets plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.tweets.svg)
+
+<details>
+<summary>💬 About</summary>
+
+Add the following to your workflow :
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_tweets: yes
+    plugin_tweets_token: ${{ secrets.TWITTER_TOKEN }}
+```
+
+<details>
+<summary>💬 Obtaining a twitter token</summary>
+
+To get a twitter token, you'll need to apply to the [developer program](https://apps.twitter.com).
+It's a bit tedious, but it seems that requests are approved quite quickly.
+
+Create an app from your [developer dashboard](https://developer.twitter.com/en/portal/dashboard) and register your bearer token in your repository secrets.
+
+![Twitter token](.github/readme/imgs/plugin_tweets_secrets.png)
+
+</details>
+
+</details>
+
+### ✒️ Posts
+
+The recent *posts* plugin displays recent articles you wrote on an external source, like [dev.to](https://dev.to).
+
+![Posts plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.posts.svg)
+
+<details>
+<summary>💬 About</summary>
+
+Supported sources are :
+* [dev.to](https://dev.to)
+
+Add the following to your workflow :
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_posts: yes
+    plugin_posts_source: ********
 ```
 
 </details>
@@ -895,29 +956,6 @@ Add the following to your workflow :
     # ... other options
     plugin_habits: yes
     plugin_habits_from: 100
-```
-
-</details>
-
-### ✒️ Posts
-
-The recent *posts* plugin displays recent articles you wrote on an external source, like [dev.to](https://dev.to).
-
-![Posts plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.posts.svg)
-
-<details>
-<summary>💬 About</summary>
-
-Supported sources are :
-* [dev.to](https://dev.to)
-
-Add the following to your workflow :
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_posts: yes
-    plugin_posts_source: ********
 ```
 
 </details>

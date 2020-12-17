@@ -51,9 +51,16 @@
                   </label>
                 </div>
                 <i>*Additional plugins may be available when used as GitHub Action</i>
-                <template v-if="(plugins.enabled.music)||(plugins.enabled.pagespeed)||(plugins.enabled.languages)||(plugins.enabled.habits)||(plugins.enabled.posts)||(plugins.enabled.isocalendar)||(plugins.enabled.projects)||(plugins.enabled.topics)">
+                <template v-if="(plugins.enabled.tweets)||(plugins.enabled.music)||(plugins.enabled.pagespeed)||(plugins.enabled.languages)||(plugins.enabled.habits)||(plugins.enabled.posts)||(plugins.enabled.isocalendar)||(plugins.enabled.projects)||(plugins.enabled.topics)">
                   <h3>2.3 Configure additional plugins</h3>
                   <div class="options">
+                    <div class="options-group" v-if="plugins.enabled.tweets">
+                      <h4>{{ plugins.descriptions.tweets }}</h4>
+                      <label>
+                        Number of tweets to display
+                        <input type="number" v-model="plugins.options['tweets.limit']" min="1" max="10" @change="load">
+                      </label>
+                    </div>
                     <div class="options-group" v-if="plugins.enabled.music">
                       <h4>{{ plugins.descriptions.music }}</h4>
                       <label>

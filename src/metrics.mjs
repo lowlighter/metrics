@@ -49,7 +49,7 @@
             //Compute metrics
               console.debug(`metrics/compute/${login} > compute`)
               const computer = Templates[template].default || Templates[template]
-              await computer({login, q}, {conf, data, rest, graphql, plugins}, {s, pending, imports:{plugins:Plugins, url, imgb64, axios, puppeteer, format, bytes, shuffle, htmlescape}})
+              await computer({login, q}, {conf, data, rest, graphql, plugins}, {s, pending, imports:{plugins:Plugins, url, imgb64, axios, puppeteer, format, bytes, shuffle, htmlescape, urlexpand}})
               const promised = await Promise.all(pending)
 
             //Check plugins errors
@@ -115,13 +115,22 @@
   }
 
 /** Escape html */
-  function htmlescape(string) {
+  function htmlescape(string, u = {"&":true, "<":true, ">":true, '"':true, "'":true}) {
     return string
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#39;")
+      .replace(/&(?!(?:amp|lt|gt|quot|apos);)/g, u["&"] ? "&amp;" : "&")
+      .replace(/</g, u["<"] ? "&lt;" : "<")
+      .replace(/>/g, u[">"] ? "&gt;" : ">")
+      .replace(/"/g, u['"'] ? "&quot;" : '"')
+      .replace(/'/g, u["'"] ? "&apos;" : "'")
+  }
+
+/** Expand url */
+  async function urlexpand(url) {
+    try {
+      return (await axios.get(url)).request.res.responseUrl
+    } catch {
+      return url
+    }
   }
 
 /** Placeholder generator */
@@ -169,6 +178,7 @@
             languages:{favorites:new Array(7).fill(null).map((_, x) => ({x, name:"######", color:"#ebedf0", value:1/(x+1)}))},
             topics:{list:[...new Array("topics.limit" in q ? Math.max(Number(q["topics.limit"])||0, 0) : 12).fill(null).map(() => ({name:"######", description:"", icon:null})), {name:`And ## more...`, description:"", icon:null}]},
             projects:{list:[...new Array("projects.limit" in q ? Math.max(Number(q["projects.limit"])||0, 0) : 4).fill(null).map(() => ({name:"########", updated:"########", progress:{enabled:true, todo:"##", doing:"##", done:"##", total:"##"}}))]},
+            tweets:{profile:{username:"########", verified:false}, list:[...new Array("tweets.limit" in q ? Math.max(Number(q["tweets.limit"])||0, 0) : 2).fill(null).map(() => ({text:"###### ###### ####### ######".repeat(4), created_at:Date.now()}))]},
           }[key]??{})]
         )),
       })
