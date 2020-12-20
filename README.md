@@ -476,15 +476,15 @@ Used template defaults to the `classic` one.
     <td>✔️</td>
     <td>✔️</td>
     <td>✔️</td>
-    <td>✔️</td>
+    <td><span title="Available on @master">✔️<sup>M</sup></span></td>
     <td>✔️</td>
     <td>✔️</td>
     <td>✔️</td>
   </tr>
   <tr>
     <th>Terminal</th>
-    <td><span title="'Available for hire' is currently not displayed">✔️*</span></td>
-    <td>✔️</td>
+    <td><span title="'Available for hire' is currently not displayed">✔️<sup>P</sup></span></td>
+    <td><span title="'Detailed reports' are available on @master">✔️<sup>N</sup></span></td>
     <td>❌</td>
     <td>❌</td>
     <td>✔️</td>
@@ -496,11 +496,14 @@ Used template defaults to the `classic` one.
     <td>❌</td>
     <td>❌</td>
     <td>❌</td>
-    <td>✔️</td>
+    <td><span title="Available on @master">✔️<sup>M</sup></span></td>
   </tr>
 </table>
 
-*Hover a cell for more informations*.
+**Legend** 
+* <sup>P</sup> : Partial support *(Hover cell for more informations)*
+* <sup>M</sup> : Available as pre-release on `@master`
+* <sup>N</sup> : New features are available as pre-release on `@master`
 
 </details>
 
