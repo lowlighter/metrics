@@ -144,7 +144,7 @@
                         //Handle errors
                           catch (error) {
                             if ((error.response?.status))
-                              throw {error:{message:`API returned ${error.response.status}`}, ...raw}
+                              throw {error:{message:`API returned ${error.response.status}${error.response.data?.error_description ? ` (${error.response.data.error_description})` : ""}`}, ...raw}
                             throw error
                           }
                         break

@@ -6,6 +6,8 @@ query Metrics {
     createdAt
     avatarUrl
     websiteUrl
+    isHireable
+    twitterUsername
     gists {
       totalCount
     }
