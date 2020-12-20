@@ -443,6 +443,67 @@ Consider trying them at [metrics.lecoq.io](https://metrics.lecoq.io) !
 
 Used template defaults to the `classic` one.
 
+<details>
+<summary>💬 Template/plugin compatibily matrix</summary>
+
+<table>
+  <tr>
+    <th>Template\Plugin</th>
+    <th><span title="Base content">🗃️</span></th>
+    <th><span title="PageSpeed">⏱️</span></th>
+    <th><span title="Isometric calendar">📅</span></th>
+    <th><span title="Music">🎼</span></th>
+    <th><span title="Languages">🈷️</span></th>
+    <th><span title="Follow-up">🎟️</span></th>
+    <th><span title="Topics">📌</span></th>
+    <th><span title="Projects">🗂️</span></th>
+    <th><span title="Lines">👨‍💻</span></th>
+    <th><span title="Traffic">🧮</span></th>
+    <th><span title="Tweets">🐤</span></th>
+    <th><span title="Posts">✒️</span></th>
+    <th><span title="Habits">💡</span></th>
+    <th><span title="Gists">🎫</span></th>
+  </tr>
+  <tr>
+    <th>Classic</th>
+    <td>✔️</td>
+    <td>✔️</td>
+    <td>✔️</td>
+    <td>✔️</td>
+    <td>✔️</td>
+    <td>✔️</td>
+    <td>✔️</td>
+    <td>✔️</td>
+    <td>✔️</td>
+    <td>✔️</td>
+    <td>✔️</td>
+    <td>✔️</td>
+    <td>✔️</td>
+    <td>✔️</td>
+  </tr>
+  <tr>
+    <th>Terminal</th>
+    <td><span title="'Available for hire' is currently not displayed">✔️*</span></td>
+    <td>✔️</td>
+    <td>❌</td>
+    <td>❌</td>
+    <td>✔️</td>
+    <td>✔️</td>
+    <td>❌</td>
+    <td>❌</td>
+    <td>✔️</td>
+    <td>✔️</td>
+    <td>❌</td>
+    <td>❌</td>
+    <td>❌</td>
+    <td>✔️</td>
+  </tr>
+</table>
+
+*Hover a cell for more informations*.
+
+</details>
+
 ## 🧩 Plugins
 
 Plugins are features which can provide additional metrics and features.
