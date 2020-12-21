@@ -47,6 +47,7 @@
       const years = Math.floor(diff)
       const months = Math.ceil((diff-years)*12)
       computed.registration = years ? `${years} year${s(years)} ago` : `${months} month${s(months)} ago`
+      computed.cakeday = [new Date(), new Date(data.user.createdAt)].map(date => date.toISOString().match(/(?<mmdd>\d{2}-\d{2})(?=T)/)?.groups?.mmdd).every((v, _, a) => v === a[0])
 
     //Compute calendar
       computed.calendar = data.user.calendar.contributionCalendar.weeks.flatMap(({contributionDays}) => contributionDays).slice(0, 14).reverse()

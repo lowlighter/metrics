@@ -164,6 +164,7 @@
         computed:proxify({
           avatar:"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
           registration:"## years ago",
+          cakeday:false,
           calendar:new Array(14).fill({color:"#ebedf0"}),
           licenses:{favorite:`########`},
           token:{scopes:[]},

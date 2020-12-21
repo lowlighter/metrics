@@ -110,7 +110,7 @@
 
   .field.language small {
     margin-left: 4px;
-    opacity: .7;
+    color: #666666;
   }
 
 /* Labels */
@@ -143,7 +143,7 @@
     margin-top: 8px;
     font-size: 10px;
     font-style: italic;
-    opacity: 0.5;
+    color: #666666;
     text-align: right;
     display: flex;
     flex-direction: column;
@@ -251,7 +251,7 @@
   }
   .track .artist {
     font-size: 12px;
-    opacity: .7;
+    color: #666666;
   }
 
 /* Posts plugin */
@@ -273,7 +273,7 @@
   .post .infos .date {
     flex-shrink: 0;
     font-size: 12px;
-    opacity: .7;
+    color: #666666;
     width: 40px;
     padding-top: 1px;
   }
@@ -301,7 +301,7 @@
   .tweet .date {
     margin: 6px 0;
     font-size: 12px;
-    opacity: .7;
+    color: #666666;
   }
 
 /* Fade animation */
@@ -316,6 +316,24 @@
     to {
       opacity: 1;
     }
+  }
+
+/* Cake day */
+  .cakeday, .cakeday svg {
+    animation: animation-rainbow 1.2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: steps(1);
+  }
+
+/* Rainbow animation */
+  @keyframes animation-rainbow {
+    0%, 100%{ color: #7F00FF; fill: #7F00FF; }
+    14% { color: #A933FF; fill: #A933FF; }
+    29%{ color: #007FFF; fill: #007FFF; }
+    43%{ color: #00FF7F; fill: #00FF7F; }
+		57%{ color: #FFFF00; fill: #FFFF00; }
+		71%{ color: #FF7F00; fill: #FF7F00; }
+		86%{ color: #FF0000; fill: #FF0000; }
   }
 
 /* Calendar */
