@@ -110,7 +110,7 @@
 
   .field.language small {
     margin-left: 4px;
-    opacity: .7;
+    color: #A9A9A9;
   }
 
 /* Labels */
@@ -143,7 +143,7 @@
     margin-top: 8px;
     font-size: 10px;
     font-style: italic;
-    opacity: 0.5;
+    color: #A9A9A9;
     text-align: right;
     display: flex;
     flex-direction: column;
@@ -251,7 +251,7 @@
   }
   .track .artist {
     font-size: 12px;
-    opacity: .7;
+    color: #A9A9A9;
   }
 
 /* Posts plugin */
@@ -273,7 +273,7 @@
   .post .infos .date {
     flex-shrink: 0;
     font-size: 12px;
-    opacity: .7;
+    color: #A9A9A9;
     width: 40px;
     padding-top: 1px;
   }
@@ -301,7 +301,7 @@
   .tweet .date {
     margin: 6px 0;
     font-size: 12px;
-    opacity: .7;
+    color: #A9A9A9;
   }
 
 /* Fade animation */
