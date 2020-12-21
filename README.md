@@ -483,7 +483,7 @@ Used template defaults to the `classic` one.
   </tr>
   <tr>
     <th>Terminal</th>
-    <td><span title="'Available for hire' is currently not displayed">✔️<sup>P</sup></span></td>
+    <td><span title="'Available for hire' and 'Cake day' are currently not displayed">✔️<sup>P</sup></span></td>
     <td><span title="'Detailed reports' are available on @master">✔️<sup>N</sup></span></td>
     <td>❌</td>
     <td>❌</td>
@@ -500,10 +500,10 @@ Used template defaults to the `classic` one.
   </tr>
 </table>
 
-**Legend** 
-* <sup>P</sup> : Partial support *(Hover cell for more informations)*
-* <sup>M</sup> : Available as pre-release on `@master`
-* <sup>N</sup> : New features are available as pre-release on `@master`
+**Legend**
+* **P** : Partial support *(Hover cell for more informations)*
+* **M** : Plugin is currently available only on `@master`
+* **N** : Plugin is already available but new features are available on `@master`
 
 </details>
 
