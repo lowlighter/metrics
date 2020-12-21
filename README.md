@@ -133,7 +133,7 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
   </tr>
   <tr>
     <td colspan="2" align="center">
-      <a href="https://github.com/lowlighter/metrics/issues/8">
+      <a href="https://github.com/lowlighter/metrics/projects/1">
         More to come soon !
       </a>
     </td>
@@ -155,7 +155,9 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
   </tr>
   <tr>
     <td colspan="2" align="center">
-      More to come soon !
+      <a href="https://github.com/lowlighter/metrics/projects/1">
+        More to come soon !
+      </a>
     </td>
   </tr>
 </table>
