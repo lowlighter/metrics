@@ -1,5 +1,5 @@
 # Base image
-FROM node:15-slim
+FROM node:15-buster-slim
 
 # Copy GitHub action
 COPY action/dist/index.js /index.js
@@ -18,7 +18,8 @@ RUN chmod +x /index.js \
   && rm -rf /var/lib/apt/lists/* \
   # Install ruby to support linguist
   # Based on https://github.com/github/linguist
-  && apt-get install -y ruby \
+  && apt-get update \
+  && apt-get install -y ruby-full \
   && apt-get install -y cmake pkg-config libicu-dev zlib1g-dev libcurl4-openssl-dev libssl-dev ruby-dev \
   && gem install github-linguist
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
