@@ -7,12 +7,41 @@ on:
     branches: [ master ]
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Setup
+      uses: actions/setup-node@v1
+      with:
+        node-version: 15.x
+    - name: Install
+      run: npm ci
+    - name: Build
+      run: npm run build
+    - name: Test
+      run: npm test
 
+  analyze:
+    runs-on: ubuntu-latest
+    needs: ["test-master"]
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Setup
+      uses: github/codeql-action/init@v1
+      with:
+        languages: javascript
+        config-file: ./.github/config/codeql.yml
+    - name: Analyze
+      uses: github/codeql-action/analyze@v1
 
   # Tests cases below are auto generated through `npm run build`
   # Edit utils/workflow.yml instead if you need to update workflow
   
-  test-feat-habits-charts:
+  test-master:
+    needs: build
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -20,7 +49,7 @@ jobs:
     steps:
 
       - name: ${{ matrix.template }} > Base
-        uses: lowlighter/metrics@feat-habits-charts
+        uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           dryrun: yes
@@ -30,7 +59,7 @@ jobs:
           plugins_errors_fatal: yes
 
       - name: ${{ matrix.template }} > Plugin > PageSpeed
-        uses: lowlighter/metrics@feat-habits-charts
+        uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           dryrun: yes
@@ -42,7 +71,7 @@ jobs:
           plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
 
       - name: ${{ matrix.template }} > Plugin > PageSpeed (detailed)
-        uses: lowlighter/metrics@feat-habits-charts
+        uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           dryrun: yes
@@ -55,7 +84,7 @@ jobs:
           plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
 
       - name: ${{ matrix.template }} > Plugin > Music (playlist - apple)
-        uses: lowlighter/metrics@feat-habits-charts
+        uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           dryrun: yes
@@ -67,7 +96,7 @@ jobs:
           plugin_music_playlist: ${{ secrets.MUSIC_PLAYLIST_APPLE }}
 
       - name: ${{ matrix.template }} > Plugin > Music (playlist - spotify)
-        uses: lowlighter/metrics@feat-habits-charts
+        uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           dryrun: yes
@@ -79,7 +108,7 @@ jobs:
           plugin_music_playlist: ${{ secrets.MUSIC_PLAYLIST_SPOTIFY }}
 
       - name: ${{ matrix.template }} > Plugin > Music (recent - spotify)
-        uses: lowlighter/metrics@feat-habits-charts
+        uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           dryrun: yes
@@ -92,7 +121,7 @@ jobs:
           plugin_music_token: ${{ secrets.SPOTIFY_TOKENS }}
 
       - name: ${{ matrix.template }} > Plugin > Posts (dev.to)
-        uses: lowlighter/metrics@feat-habits-charts
+        uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           dryrun: yes
@@ -104,7 +133,7 @@ jobs:
           plugin_posts_source: dev.to
 
       - name: ${{ matrix.template }} > Plugin > Isocalendar
-        uses: lowlighter/metrics@feat-habits-charts
+        uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           dryrun: yes
@@ -115,7 +144,7 @@ jobs:
           plugin_isocalendar: yes
 
       - name: ${{ matrix.template }} > Plugin > Isocalendar (full year)
-        uses: lowlighter/metrics@feat-habits-charts
+        uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           dryrun: yes
@@ -127,7 +156,7 @@ jobs:
           plugin_isocalendar_duration: full-year
 
       - name: ${{ matrix.template }} > Plugin > Habits
-        uses: lowlighter/metrics@feat-habits-charts
+        uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           dryrun: yes
@@ -139,7 +168,7 @@ jobs:
           plugin_habits_from: 5
 
       - name: ${{ matrix.template }} > Plugin > Habits (charts)
-        uses: lowlighter/metrics@feat-habits-charts
+        uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           dryrun: yes
@@ -153,7 +182,7 @@ jobs:
           plugin_habits_charts: yes
 
       - name: ${{ matrix.template }} > Plugin > Languages
-        uses: lowlighter/metrics@feat-habits-charts
+        uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           dryrun: yes
@@ -164,7 +193,7 @@ jobs:
           plugin_languages: yes
 
       - name: ${{ matrix.template }} > Plugin > Follow-up
-        uses: lowlighter/metrics@feat-habits-charts
+        uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           dryrun: yes
@@ -175,7 +204,7 @@ jobs:
           plugin_followup: yes
 
       - name: ${{ matrix.template }} > Plugin > Lines
-        uses: lowlighter/metrics@feat-habits-charts
+        uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           dryrun: yes
@@ -186,7 +215,7 @@ jobs:
           plugin_lines: yes
 
       - name: ${{ matrix.template }} > Plugin > Traffic
-        uses: lowlighter/metrics@feat-habits-charts
+        uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           dryrun: yes
@@ -197,7 +226,7 @@ jobs:
           plugin_traffic: yes
 
       - name: ${{ matrix.template }} > Plugin > Gists
-        uses: lowlighter/metrics@feat-habits-charts
+        uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           dryrun: yes
@@ -208,7 +237,7 @@ jobs:
           plugin_gists: yes
 
       - name: ${{ matrix.template }} > Plugin > Topics (stars)
-        uses: lowlighter/metrics@feat-habits-charts
+        uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           dryrun: yes
@@ -220,7 +249,7 @@ jobs:
           plugin_topics_sort: stars
 
       - name: ${{ matrix.template }} > Plugin > Topics (activity)
-        uses: lowlighter/metrics@feat-habits-charts
+        uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           dryrun: yes
@@ -232,7 +261,7 @@ jobs:
           plugin_topics_sort: activity
 
       - name: ${{ matrix.template }} > Plugin > Topics (starred)
-        uses: lowlighter/metrics@feat-habits-charts
+        uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           dryrun: yes
@@ -244,7 +273,7 @@ jobs:
           plugin_topics_sort: starred
 
       - name: ${{ matrix.template }} > Plugin > Topics (random)
-        uses: lowlighter/metrics@feat-habits-charts
+        uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           dryrun: yes
@@ -256,7 +285,7 @@ jobs:
           plugin_topics_sort: random
 
       - name: ${{ matrix.template }} > Plugin > Projects
-        uses: lowlighter/metrics@feat-habits-charts
+        uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           dryrun: yes
@@ -268,7 +297,7 @@ jobs:
           plugin_projects_limit: 2
 
       - name: ${{ matrix.template }} > Plugin > Tweets
-        uses: lowlighter/metrics@feat-habits-charts
+        uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           dryrun: yes
