@@ -80,7 +80,7 @@
                     await Promise.all(patches.map(async ({name, patch}, i) => await imports.fs.writeFile(imports.paths.join(path, `${i}${imports.paths.extname(name)}`), patch)))
                     console.debug(`metrics/compute/${login}/plugins > habits > created temp dir ${path} with ${patches.length} files`)
                   //Create temporary git repository
-                    await imports.run(`git init && git add . && git config user.name "linguist" && git commit -m "linguist"`, {cwd:path}).catch(() => null)
+                    await imports.run(`git init && git add . && git config user.name "linguist" && git commit -m "linguist"`, {cwd:path}).catch(console.debug)
                     await imports.run(`git status`, {cwd:path})
                     console.debug(`metrics/compute/${login}/plugins > habits > created temp git repository`)
                 //Spawn linguist process
