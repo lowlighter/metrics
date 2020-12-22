@@ -72,8 +72,7 @@
           console.debug = message => debugged.push(message)
         console.log(`Debug mode                | ${debug}`)
         const dflags = (core.getInput("debug_flags") ?? "").split(" ").filter(flag => flag)
-        if (debug)
-          console.log(`Debug flags               | ${dflags.join(" ")}`)
+        console.log(`Debug flags               | ${dflags.join(" ")}`)
 
       //Base elements
         const base = {}
