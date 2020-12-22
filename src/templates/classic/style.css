@@ -331,7 +331,7 @@
   }
 
   .chart-bars .bar {
-    width: 10px;
+    width: 7px;
     background-color: var(--color-calendar-graph-day-bg);
     border: 1px solid var(--color-calendar-graph-day-border);
     border-radius: 5px;
@@ -356,7 +356,7 @@
   }
 
   .chart-bars.horizontal .bar {
-    height: 10px;
+    height: 7px;
     width: auto;
     margin: 0 6px;
   }

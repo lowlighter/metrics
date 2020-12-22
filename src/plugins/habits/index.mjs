@@ -92,6 +92,8 @@
                     child.on("close", code => solve({success:code === 0, code, stdout, stderr}))
                   })
                 //Parse linguist result
+                  console.debug(`metrics/compute/${login}/plugins > habits > linguist exited with code ${code}`)
+                  console.debug(stdout, stderr)
                   habits.linguist.success = success
                   if (success) {
                     stdout
