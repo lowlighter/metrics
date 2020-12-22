@@ -5,7 +5,7 @@ FROM node:15-slim
 COPY action/dist/index.js /index.js
 
 # Setup
-RUN chmod +x /index.js
+RUN chmod +x /index.js \
   # Install latest chrome dev package, fonts to support major charsets and skip chromium download on puppeteer install
   # Based on https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#running-puppeteer-in-docker
   && apt-get update \
