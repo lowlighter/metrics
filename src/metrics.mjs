@@ -194,7 +194,7 @@
             music:{provider:"########", tracks:new Array("music.limit" in q ? Math.max(Number(q["music.limit"])||0, 0) : 4).fill({name:"##########", artist:"######", artwork:"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg=="})},
             pagespeed:{detailed:!!q["pagespeed.detailed"], scores:["Performance", "Accessibility", "Best Practices", "SEO"].map(title => ({title, score:NaN}))},
             followup:{issues:{count:0}, pr:{count:0}},
-            habits:{indents:{style:`########`}},
+            habits:{facts:!!(q["habits.facts"] ?? 1), charts:!!q["habits.charts"], indents:{style:`########`}, commits:{day:"####"}, linguist:{ordered:[]}},
             languages:{favorites:new Array(7).fill(null).map((_, x) => ({x, name:"######", color:"#ebedf0", value:1/(x+1)}))},
             topics:{list:[...new Array("topics.limit" in q ? Math.max(Number(q["topics.limit"])||0, 0) : 12).fill(null).map(() => ({name:"######", description:"", icon:null})), {name:`And ## more...`, description:"", icon:null}]},
             projects:{list:[...new Array("projects.limit" in q ? Math.max(Number(q["projects.limit"])||0, 0) : 4).fill(null).map(() => ({name:"########", updated:"########", progress:{enabled:true, todo:"##", doing:"##", done:"##", total:"##"}}))]},
