@@ -12,7 +12,7 @@
           //Days
             days = Math.max(1, Math.min(30, Number(from)))
         //Initialization
-          const habits = {facts, charts, commits:{hour:NaN, hours:{}, day:NaN, days:{}}, indents:{style:"", spaces:0, tabs:0}, linguist:{success:false, ordered:[], languages:{}}}
+          const habits = {facts, charts, commits:{hour:NaN, hours:{}, day:NaN, days:{}}, indents:{style:"", spaces:0, tabs:0}, linguist:{available:false, ordered:[], languages:{}}}
           const pages = Math.ceil(from/100)
         //Get user recent activity
           const events = []
@@ -71,36 +71,25 @@
           if (charts) {
             //Check if linguist exists
               const prefix = {win32:"wsl"}[process.platform] ?? ""
-              const exists = await new Promise(solve => imports.processes.exec(`${prefix} which github-linguist`).on("close", code => solve(code === 0)))
-              if (exists) {
+              if (await imports.run(`${prefix} which github-linguist`)) {
                 //Setup for linguist
+                  habits.linguist.available = true
                   const path = imports.paths.join(imports.os.tmpdir(), `${actor}`)
                   //Create temporary directory and save patches
                     await imports.fs.mkdir(path, {recursive:true})
                     await Promise.all(patches.map(async ({name, patch}, i) => await imports.fs.writeFile(imports.paths.join(path, `${i}${imports.paths.extname(name)}`), patch)))
                     console.debug(`metrics/compute/${login}/plugins > habits > created temp dir ${path} with ${patches.length} files`)
                   //Create temporary git repository
-                    await new Promise(solve => imports.processes.exec(`git init && git add . && git config user.name "linguist" && git commit -m "linguist"`, {cwd:path}).on("close", code => solve(code === 0)))
+                    await imports.run(`git init && git add . && git config user.name "linguist" && git commit -m "linguist"`, {cwd:path}).catch(() => null)
+                    await imports.run(`git status`, {cwd:path})
                     console.debug(`metrics/compute/${login}/plugins > habits > created temp git repository`)
                 //Spawn linguist process
                   console.debug(`metrics/compute/${login}/plugins > habits > running linguist`)
-                  const child = imports.processes.exec(`${prefix} github-linguist`, {cwd:path})
-                  const {success, code, stdout, stderr} = await new Promise(solve => {
-                    let [stdout, stderr] = ["", ""]
-                    child.stdout.on("data", data => stdout += data)
-                    child.stderr.on("data", data => stderr += data)
-                    child.on("close", code => solve({success:code === 0, code, stdout, stderr}))
-                  })
-                //Parse linguist result
-                  console.debug(`metrics/compute/${login}/plugins > habits > linguist exited with code ${code}`)
-                  console.debug(stdout, stderr)
-                  habits.linguist.success = success
-                  if (success) {
-                    stdout
-                      .split("\n").map(line => line.match(/(?<value>[\d.]+)%\s+(?<language>\w+)/)?.groups).filter(line => line)
-                      .map(({value, language}) => habits.linguist.languages[language] = (habits.linguist.languages[language] ?? 0) + value/100)
-                    habits.linguist.ordered = Object.entries(habits.linguist.languages).sort(([an, a], [bn, b]) => b - a)
-                  }
+                  ;(await imports.run(`${prefix} github-linguist`, {cwd:path}))
+                  //Parse linguist result
+                    .split("\n").map(line => line.match(/(?<value>[\d.]+)%\s+(?<language>\w+)/)?.groups).filter(line => line)
+                    .map(({value, language}) => habits.linguist.languages[language] = (habits.linguist.languages[language] ?? 0) + value/100)
+                  habits.linguist.ordered = Object.entries(habits.linguist.languages).sort(([an, a], [bn, b]) => b - a)
               }
               else
                 console.debug(`metrics/compute/${login}/plugins > habits > linguist is not available`)

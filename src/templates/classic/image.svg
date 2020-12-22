@@ -563,7 +563,7 @@
                 </div>
               </section>
             <% } %>
-            <% if (plugins.habits.linguist.ordered.length) { %>
+            <% if (plugins.habits.linguist.available) { %>
               <section class="column chart">
                 <h3>Language activity</h3>
                 <div class="chart-bars horizontal">

@@ -53,7 +53,7 @@
             //Compute metrics
               console.debug(`metrics/compute/${login} > compute`)
               const computer = Templates[template].default || Templates[template]
-              await computer({login, q}, {conf, data, rest, graphql, plugins}, {s, pending, imports:{plugins:Plugins, url, imgb64, axios, puppeteer, processes, fs, os, paths, format, bytes, shuffle, htmlescape, urlexpand}})
+              await computer({login, q}, {conf, data, rest, graphql, plugins}, {s, pending, imports:{plugins:Plugins, url, imgb64, axios, puppeteer, run, fs, os, paths, format, bytes, shuffle, htmlescape, urlexpand}})
               const promised = await Promise.all(pending)
 
             //Check plugins errors
@@ -135,6 +135,21 @@
     } catch {
       return url
     }
+  }
+
+/** Run command */
+  async function run(command, options) {
+    return await new Promise((solve, reject) => {
+      console.debug(`metrics/command > ${command}`)
+      const child = processes.exec(command, options)
+      let [stdout, stderr] = ["", ""]
+      child.stdout.on("data", data => stdout += data)
+      child.stderr.on("data", data => stderr += data)
+      child.on("close", code => {
+        console.debug(`metrics/command > ${command} > exited with code ${code}`)
+        return code === 0 ? solve(stdout) : reject(stderr)
+      })
+    })
   }
 
 /** Placeholder generator */
