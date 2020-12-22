@@ -20,7 +20,7 @@ RUN chmod +x /index.js \
   # Based on https://github.com/github/linguist
   && apt-get update \
   && apt-get install -y ruby-full \
-  && apt-get install -y cmake pkg-config libicu-dev zlib1g-dev libcurl4-openssl-dev libssl-dev ruby-dev \
+  && apt-get install -y g++ cmake pkg-config libicu-dev zlib1g-dev libcurl4-openssl-dev libssl-dev ruby-dev \
   && gem install github-linguist
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
 ENV PUPPETEER_BROWSER_PATH "google-chrome-stable"
