@@ -1,5 +1,5 @@
 /** Template common processor */
-  export default async function ({login, q}, {conf, data, rest, graphql, plugins}, {s, pending, imports}) {
+  export default async function ({login, q, dflags}, {conf, data, rest, graphql, plugins}, {s, pending, imports}) {
 
     //Init
       const computed = data.computed = {commits:0, sponsorships:0, licenses:{favorite:"", used:{}}, token:{}, repositories:{watchers:0, stargazers:0, issues_open:0, issues_closed:0, pr_open:0, pr_merged:0, forks:0, releases:0}}
@@ -60,5 +60,15 @@
 
     //Meta
       data.meta = {version:conf.package.version, author:conf.package.author}
+
+    //Debug flags
+      if (dflags.includes("--cakeday")||q["dflag.cakeday"]) {
+        console.debug(`metrics/compute/${login} > applying dflag --cakeday`)
+        computed.cakeday = true
+      }
+      if (dflags.includes("--hireable")||q["dflag.hireable"]) {
+        console.debug(`metrics/compute/${login} > applying dflag --hireable`)
+        data.user.isHireable = true
+      }
 
   }

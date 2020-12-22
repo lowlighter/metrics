@@ -7,9 +7,13 @@
   import Templates from "./templates/index.mjs"
   import puppeteer from "puppeteer"
   import url from "url"
+  import processes from "child_process"
+  import fs from "fs/promises"
+  import os from "os"
+  import paths from "path"
 
 //Setup
-  export default async function metrics({login, q}, {graphql, rest, plugins, conf, die = false}) {
+  export default async function metrics({login, q, dflags = []}, {graphql, rest, plugins, conf, die = false}) {
     //Compute rendering
       try {
 
@@ -49,7 +53,7 @@
             //Compute metrics
               console.debug(`metrics/compute/${login} > compute`)
               const computer = Templates[template].default || Templates[template]
-              await computer({login, q}, {conf, data, rest, graphql, plugins}, {s, pending, imports:{plugins:Plugins, url, imgb64, axios, puppeteer, format, bytes, shuffle, htmlescape, urlexpand}})
+              await computer({login, q, dflags}, {conf, data, rest, graphql, plugins}, {s, pending, imports:{plugins:Plugins, url, imgb64, axios, puppeteer, run, fs, os, paths, format, bytes, shuffle, htmlescape, urlexpand}})
               const promised = await Promise.all(pending)
 
             //Check plugins errors
@@ -133,6 +137,21 @@
     }
   }
 
+/** Run command */
+  async function run(command, options) {
+    return await new Promise((solve, reject) => {
+      console.debug(`metrics/command > ${command}`)
+      const child = processes.exec(command, options)
+      let [stdout, stderr] = ["", ""]
+      child.stdout.on("data", data => stdout += data)
+      child.stderr.on("data", data => stderr += data)
+      child.on("close", code => {
+        console.debug(`metrics/command > ${command} > exited with code ${code}`)
+        return code === 0 ? solve(stdout) : reject(stderr)
+      })
+    })
+  }
+
 /** Placeholder generator */
   function placeholder({data, conf, q}) {
     //Proxifier
@@ -175,7 +194,7 @@
             music:{provider:"########", tracks:new Array("music.limit" in q ? Math.max(Number(q["music.limit"])||0, 0) : 4).fill({name:"##########", artist:"######", artwork:"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg=="})},
             pagespeed:{detailed:!!q["pagespeed.detailed"], scores:["Performance", "Accessibility", "Best Practices", "SEO"].map(title => ({title, score:NaN}))},
             followup:{issues:{count:0}, pr:{count:0}},
-            habits:{indents:{style:`########`}},
+            habits:{facts:!!(q["habits.facts"] ?? 1), charts:!!q["habits.charts"], indents:{style:`########`}, commits:{day:"####"}, linguist:{ordered:[]}},
             languages:{favorites:new Array(7).fill(null).map((_, x) => ({x, name:"######", color:"#ebedf0", value:1/(x+1)}))},
             topics:{list:[...new Array("topics.limit" in q ? Math.max(Number(q["topics.limit"])||0, 0) : 12).fill(null).map(() => ({name:"######", description:"", icon:null})), {name:`And ## more...`, description:"", icon:null}]},
             projects:{list:[...new Array("projects.limit" in q ? Math.max(Number(q["projects.limit"])||0, 0) : 4).fill(null).map(() => ({name:"########", updated:"########", progress:{enabled:true, todo:"##", doing:"##", done:"##", total:"##"}}))]},

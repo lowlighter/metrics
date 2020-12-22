@@ -71,6 +71,8 @@
         if (!debug)
           console.debug = message => debugged.push(message)
         console.log(`Debug mode                | ${debug}`)
+        const dflags = (core.getInput("debug_flags") ?? "").split(" ").filter(flag => flag)
+        console.log(`Debug flags               | ${dflags.join(" ")}`)
 
       //Base elements
         const base = {}
@@ -84,7 +86,7 @@
           lines:{enabled:bool(core.getInput("plugin_lines"))},
           traffic:{enabled:bool(core.getInput("plugin_traffic"))},
           pagespeed:{enabled:bool(core.getInput("plugin_pagespeed"))},
-          habits:{enabled:bool(core.getInput("plugin_habits")), from:Number(core.getInput("plugin_habits_from")) || 100},
+          habits:{enabled:bool(core.getInput("plugin_habits"))},
           languages:{enabled:bool(core.getInput("plugin_languages"))},
           followup:{enabled:bool(core.getInput("plugin_followup"))},
           music:{enabled:bool(core.getInput("plugin_music"))},
@@ -111,6 +113,15 @@
               q[`languages.${option}`] = core.getInput(`plugin_languages_${option}`) || null
             console.log(`Languages ignored         | ${q["languages.ignored"]}`)
             console.log(`Languages skipped repos   | ${q["languages.skipped"]}`)
+          }
+        //Habits
+          if (plugins.habits.enabled) {
+            for (const option of ["from", "days", "facts", "charts"])
+              q[`habits.${option}`] = core.getInput(`plugin_habits_${option}`) || null
+            console.log(`Habits facts              | ${q["habits.facts"]}`)
+            console.log(`Habits charts             | ${q["habits.charts"]}`)
+            console.log(`Habits events to use      | ${q["habits.from"]}`)
+            console.log(`Habits days to keep       | ${q["habits.days"]}`)
           }
         //Music
           if (plugins.music.enabled) {
@@ -169,7 +180,7 @@
         q = {...q, base:false, ...base, repositories, template}
 
       //Render metrics
-        const rendered = await metrics({login:user, q}, {graphql, rest, plugins, conf, die})
+        const rendered = await metrics({login:user, q, dflags}, {graphql, rest, plugins, conf, die})
         console.log(`Render                    | complete`)
 
       //Verify svg

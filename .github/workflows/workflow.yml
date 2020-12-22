@@ -165,6 +165,21 @@ jobs:
           base: ""
           plugins_errors_fatal: yes
           plugin_habits: yes
+          plugin_habits_from: 5
+
+      - name: ${{ matrix.template }} > Plugin > Habits (charts)
+        uses: lowlighter/metrics@master
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          dryrun: yes
+          repositories: 1
+          template: ${{ matrix.template }}
+          base: ""
+          plugins_errors_fatal: yes
+          plugin_habits: yes
+          plugin_habits_from: 5
+          plugin_habits_facts: no
+          plugin_habits_charts: yes
 
       - name: ${{ matrix.template }} > Plugin > Languages
         uses: lowlighter/metrics@master

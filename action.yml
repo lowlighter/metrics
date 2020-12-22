@@ -98,16 +98,32 @@ inputs:
     default: no
 
   # Coding habits plugin
-  # Search in your recent activity what've recently did and deduce tidbits like if you're using spaces or tabs as indents, etc.
+  # Search in your recent activity what've recently did and deduce facts/charts
   plugin_habits:
     description: Enable coding habits metrics
     default: no
 
   # Number of activity events to base habits on
-  # Maximum number of events is capped to 100
+  # Capped to 1000
   plugin_habits_from:
     description: Number of activity events to use
-    default: 100
+    default: 200
+
+  # Number of days to base habits on (older events will be discarded)
+  # Capped to 30
+  plugin_habits_days:
+    description: Number of days to use
+    default: 14
+
+  # Display tidbits about your active hours/days, indent used (spaces/tabs), etc. deduced from recent activity
+  plugin_habits_facts:
+    description: Display habits facts based on recent activity
+    default: yes
+
+  # Display charts of most active time of the day and languages recently used
+  plugin_habits_charts:
+    description: Display recent coding activity charts
+    default: no
 
   # Languages plugins
   # Compute the most used programming languages on your repositories
@@ -266,10 +282,10 @@ inputs:
     description: Number of tweets to display
     default: 2
 
-  # Enable debug mode
-  # Ensure you correctly put all sensitive informations in your repository secrets before !
-  debug:
-    description: Enable debug logs
+  # When enabled, any plugins errors will throw
+  # By default, metrics are still generated with an error message
+  plugins_errors_fatal:
+    description: Die on plugins errors
     default: no
 
   # Verify SVG after generation
@@ -278,14 +294,19 @@ inputs:
     description: Verify SVG after genaration
     default: no
 
+  # Enable debug mode
+  # Ensure you correctly put all sensitive informations in your repository secrets before !
+  debug:
+    description: Enable debug logs
+    default: no
+
+  # Debug flags (used for testing)
+  debug_flags:
+    description: Debug flags
+    default: ""
+
   # Enable dry-run mode
   # Generate image but does not push it (used for testing)
   dryrun:
     description: Enable dry-run
-    default: no
-
-  # When enabled, any plugins errors will throw
-  # By default, metrics are still generated with an error message
-  plugins_errors_fatal:
-    description: Die on plugins errors
     default: no

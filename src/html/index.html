@@ -94,7 +94,19 @@
                       <h4>{{ plugins.descriptions.habits }}</h4>
                       <label>
                         Number of events for habits
-                        <input type="number" v-model="plugins.options['habits.from']" min="1" max="100">
+                        <input type="number" v-model="plugins.options['habits.from']" min="1" max="1000">
+                      </label>
+                      <label>
+                        Number of days for habits
+                        <input type="number" v-model="plugins.options['habits.days']" min="1" max="30">
+                      </label>
+                      <label>
+                        Display tidbits
+                        <input type="checkbox" v-model="plugins.options['habits.facts']" @change="load">
+                      </label>
+                      <label>
+                        Display activity charts
+                        <input type="checkbox" v-model="plugins.options['habits.charts']" @change="load">
                       </label>
                     </div>
                     <div class="options-group" v-if="plugins.enabled.posts">
