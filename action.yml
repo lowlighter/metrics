@@ -282,10 +282,10 @@ inputs:
     description: Number of tweets to display
     default: 2
 
-  # Enable debug mode
-  # Ensure you correctly put all sensitive informations in your repository secrets before !
-  debug:
-    description: Enable debug logs
+  # When enabled, any plugins errors will throw
+  # By default, metrics are still generated with an error message
+  plugins_errors_fatal:
+    description: Die on plugins errors
     default: no
 
   # Verify SVG after generation
@@ -294,14 +294,19 @@ inputs:
     description: Verify SVG after genaration
     default: no
 
+  # Enable debug mode
+  # Ensure you correctly put all sensitive informations in your repository secrets before !
+  debug:
+    description: Enable debug logs
+    default: no
+
+  # Debug flags (used for testing)
+  debug_flags:
+    description: Debug flags
+    default: ""
+
   # Enable dry-run mode
   # Generate image but does not push it (used for testing)
   dryrun:
     description: Enable dry-run
-    default: no
-
-  # When enabled, any plugins errors will throw
-  # By default, metrics are still generated with an error message
-  plugins_errors_fatal:
-    description: Die on plugins errors
     default: no

@@ -71,6 +71,9 @@
         if (!debug)
           console.debug = message => debugged.push(message)
         console.log(`Debug mode                | ${debug}`)
+        const dflags = (core.getInput("debug_flags") ?? "").split(" ").filter(flag => flag)
+        if (debug)
+          console.log(`Debug flags               | ${dflags.join(" ")}`)
 
       //Base elements
         const base = {}
@@ -178,7 +181,7 @@
         q = {...q, base:false, ...base, repositories, template}
 
       //Render metrics
-        const rendered = await metrics({login:user, q}, {graphql, rest, plugins, conf, die})
+        const rendered = await metrics({login:user, q, dflags}, {graphql, rest, plugins, conf, die})
         console.log(`Render                    | complete`)
 
       //Verify svg

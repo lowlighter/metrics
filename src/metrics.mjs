@@ -13,7 +13,7 @@
   import paths from "path"
 
 //Setup
-  export default async function metrics({login, q}, {graphql, rest, plugins, conf, die = false}) {
+  export default async function metrics({login, q, dflags}, {graphql, rest, plugins, conf, die = false}) {
     //Compute rendering
       try {
 
@@ -53,7 +53,7 @@
             //Compute metrics
               console.debug(`metrics/compute/${login} > compute`)
               const computer = Templates[template].default || Templates[template]
-              await computer({login, q}, {conf, data, rest, graphql, plugins}, {s, pending, imports:{plugins:Plugins, url, imgb64, axios, puppeteer, run, fs, os, paths, format, bytes, shuffle, htmlescape, urlexpand}})
+              await computer({login, q, dflags}, {conf, data, rest, graphql, plugins}, {s, pending, imports:{plugins:Plugins, url, imgb64, axios, puppeteer, run, fs, os, paths, format, bytes, shuffle, htmlescape, urlexpand}})
               const promised = await Promise.all(pending)
 
             //Check plugins errors
