@@ -62,11 +62,11 @@
       data.meta = {version:conf.package.version, author:conf.package.author}
 
     //Debug flags
-      if (dflags["--cakeday"]) {
+      if (dflags.includes("--cakeday")||q["dflag.cakeday"]) {
         console.debug(`metrics/compute/${login} > applying dflag --cakeday`)
         computed.cakeday = true
       }
-      if (dflags["--hireable"]) {
+      if (dflags.includes("--hireable")||q["dflag.hireable"]) {
         console.debug(`metrics/compute/${login} > applying dflag --hireable`)
         data.user.isHireable = true
       }

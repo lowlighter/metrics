@@ -13,7 +13,7 @@
   import paths from "path"
 
 //Setup
-  export default async function metrics({login, q, dflags}, {graphql, rest, plugins, conf, die = false}) {
+  export default async function metrics({login, q, dflags = []}, {graphql, rest, plugins, conf, die = false}) {
     //Compute rendering
       try {
 
