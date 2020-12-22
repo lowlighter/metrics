@@ -132,6 +132,18 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
     </td>
   </tr>
   <tr>
+    <th><a href="https://github.com/lowlighter/metrics#%EF%B8%8F-base-content">🗃️ Header special features</a></th>
+    <th></th>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://github.com/lowlighter/metrics#%EF%B8%8F-base-content">
+        <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.header.svg" alt="" width="400">
+      </a>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
     <td colspan="2" align="center">
       <a href="https://github.com/lowlighter/metrics/projects/1">
         More to come soon !
@@ -445,8 +457,7 @@ Consider trying them at [metrics.lecoq.io](https://metrics.lecoq.io) !
 
 Used template defaults to the `classic` one.
 
-<details>
-<summary>💬 Template/plugin compatibily matrix</summary>
+### 🧰 Template/plugin compatibily matrix
 
 <table>
   <tr>
@@ -480,7 +491,7 @@ Used template defaults to the `classic` one.
     <td>✔️</td>
     <td><span title="Available on @master">✔️<sup>M</sup></span></td>
     <td>✔️</td>
-    <td>✔️</td>
+    <td><span title="'Charts' are available on @master">✔️<sup>N</sup></span></td>
     <td>✔️</td>
   </tr>
   <tr>
@@ -504,10 +515,8 @@ Used template defaults to the `classic` one.
 
 **Legend**
 * **P** : Partial support *(Hover cell for more informations)*
-* **M** : Plugin is currently available only on `@master`
-* **N** : Plugin is already available but new features are available on `@master`
-
-</details>
+* **M** : Plugin is not released yet but is available on `@master`
+* **N** : Plugin is already released, but new features are available on `@master`
 
 ## 🧩 Plugins
 
@@ -1003,7 +1012,7 @@ Add the following to your workflow :
 
 ### 💡 Habits
 
-The coding *habits* add deduced coding habits based on your recent activity, from up to 100 events.
+The coding *habits* add deduced coding habits based on your recent activity, from up to 1000 events.
 
 ![Habits plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.svg)
 
@@ -1015,13 +1024,43 @@ It will consume an additional GitHub request per event fetched.
 Because of GitHub REST API limitation, provided token requires full `repo` scope to access **private** events.
 Events that cannot be fetched will be ignored so it is still possible to use this plugin with a scope-less token.
 
+A high value must be provided for `plugin_habits_from` in order for this section to be accurate, although it'll increase the number of GitHub requests sent.
+If you're using GitHub Api in other projects, you could reach the rate limit.
+
+![Habits plugin (facts)](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.facts.svg)
+
+These facts are generated from your recent coding activity.
+The indent style is deduced from the diffs of your recent commits. 
+
 Add the following to your workflow :
 ```yaml
 - uses: lowlighter/metrics@latest
   with:
     # ... other options
     plugin_habits: yes
-    plugin_habits_from: 100
+    plugin_habits_from: 200
+    plugin_habits_days: 14
+```
+
+    🚧 The following feature is available as pre-release on @master
+
+You can display charts in this section :
+
+![Habits plugin (charts)](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.charts.svg)
+
+These charts are generated from your recent coding activity.  
+Languages metrics are computed with [github/linguist](https://github.com/github/linguist) from the diffs of your recent commits. 
+
+Add the following to your workflow instead :
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_habits: yes
+    plugin_habits_from: 200
+    plugin_habits_days: 14
+    plugin_habits_facts: yes
+    plugin_habits_charts: yes
 ```
 
 </details>
