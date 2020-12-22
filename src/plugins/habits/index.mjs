@@ -85,7 +85,7 @@
                 //Spawn linguist process
                   console.debug(`metrics/compute/${login}/plugins > habits > running linguist`)
                   const child = imports.processes.exec(`${prefix} github-linguist`, {cwd:path})
-                  const {success, stdout} = await new Promise(solve => {
+                  const {success, code, stdout} = await new Promise(solve => {
                     let [stdout, stderr] = ["", ""]
                     child.stdout.on("data", data => stdout += data)
                     child.stderr.on("data", data => stderr += data)
