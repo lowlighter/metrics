@@ -115,6 +115,16 @@ jobs:
         uses: lowlighter/metrics@<%- release %>
         <%- testcase({
           plugin_habits: true,
+          plugin_habits_from: 5,
+        }) %>
+
+      - name: ${{ matrix.template }} > Plugin > Habits (charts)
+        uses: lowlighter/metrics@<%- release %>
+        <%- testcase({
+          plugin_habits: true,
+          plugin_habits_from: 5,
+          plugin_habits_facts: false,
+          plugin_habits_charts: true,
         }) %>
 
       - name: ${{ matrix.template }} > Plugin > Languages
