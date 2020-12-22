@@ -116,8 +116,10 @@
           }
         //Habits
           if (plugins.habits.enabled) {
-            for (const option of ["from", "days", "facts", "charts"])
+            for (const option of ["from", "days"])
               q[`habits.${option}`] = core.getInput(`plugin_habits_${option}`) || null
+            q[`habits.facts`] = bool(core.getInput(`plugin_habits_facts`))
+            q[`habits.charts`] = bool(core.getInput(`plugin_habits_charts`))
             console.log(`Habits facts              | ${q["habits.facts"]}`)
             console.log(`Habits charts             | ${q["habits.charts"]}`)
             console.log(`Habits events to use      | ${q["habits.from"]}`)
@@ -247,7 +249,8 @@
     } catch (error) {
       console.error(error)
       if (!bool(core.getInput("debug")))
-        console.log("An error occured, logging debug message :", ...debugged)
+        for (const log of ["_".repeat(64), "An error occured, logging debug message :", ...debugged])
+          console.log(log)
       core.setFailed(error.message)
       process.exit(1)
     }

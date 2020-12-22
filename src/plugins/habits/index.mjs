@@ -71,7 +71,7 @@
           if (charts) {
             //Check if linguist exists
               const prefix = {win32:"wsl"}[process.platform] ?? ""
-              if (await imports.run(`${prefix} which github-linguist`)) {
+              if ((patches.length)&&(await imports.run(`${prefix} which github-linguist`))) {
                 //Setup for linguist
                   habits.linguist.available = true
                   const path = imports.paths.join(imports.os.tmpdir(), `${actor}`)
