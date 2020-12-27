@@ -774,7 +774,7 @@
 
       <% if (base.metadata) { %>
         <footer>
-          <span>These metrics <%= !computed.token.scopes.includes("repo") ? "does not include" : "includes" %> private contributions</span>
+          <span>These metrics <%= !computed.token.scopes.includes("repo") ? "does not include all" : "includes" %> private contributions<% if ((config.timezone?.name)&&(!config.timezone?.error)) { %>, timezone <%= config.timezone.name %><% } %></span>
           <span>Last updated <%= new Date().toGMTString() %> with lowlighter/metrics@<%= meta.version %></span>
         </footer>
       <% } %>

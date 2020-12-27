@@ -7,6 +7,18 @@
       data.plugins = {}
       console.debug(`metrics/compute/${login} > formatting common metrics`)
 
+    //Timezone config
+      if (q["config.timezone"]) {
+        const timezone = data.config.timezone = {name:q["config.timezone"], offset:0}
+        try {
+          timezone.offset = Number(new Date().toLocaleString("fr", {timeZoneName:"short", timeZone:timezone.name}).match(/UTC[+](?<offset>\d+)/)?.groups?.offset*60*60*1000) || 0
+          console.debug(`metrics/compute/${login} > timezone set to ${timezone.name} (${timezone.offset > 0 ? "+" : ""}${Math.round(timezone.offset/(60*60*1000))} hours)`)
+        } catch {
+          timezone.error = `Failed to use timezone "${timezone.name}"`
+          console.debug(`metrics/compute/${login} > failed to use timezone "${timezone.name}"`)
+        }
+      }
+
     //Plugins
       for (const name of Object.keys(imports.plugins)) {
         pending.push((async () => {

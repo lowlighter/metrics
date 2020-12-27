@@ -81,6 +81,12 @@
           base[`base.${part}`] = parts.includes(part)
         console.log(`Base parts                | ${parts.join(", ") || "(none)"}`)
 
+      //Config
+        const config = {
+          "config.timezone":core.getInput("config_timezone") || ""
+        }
+        console.log(`Timezone                  | ${config.timezone || "(none)"}`)
+
       //Additional plugins
         const plugins = {
           lines:{enabled:bool(core.getInput("plugin_lines"))},
@@ -179,7 +185,7 @@
         console.log(`Plugin errors             | ${die ? "die" : "ignore"}`)
 
       //Built query
-        q = {...q, base:false, ...base, repositories, template}
+        q = {...q, base:false, ...base, ...config, repositories, template}
 
       //Render metrics
         const rendered = await metrics({login:user, q, dflags}, {graphql, rest, plugins, conf, die})

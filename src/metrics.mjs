@@ -28,7 +28,7 @@
           if ((!(template in Templates))||(!(template in conf.templates))||((conf.settings.templates.enabled.length)&&(!conf.settings.templates.enabled.includes(template))))
             throw new Error("unsupported template")
           const {query, image, style, fonts} = conf.templates[template]
-          const data = {base:{}}
+          const data = {base:{}, config:{}}
 
         //Base parts
           {

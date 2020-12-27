@@ -1,5 +1,5 @@
 //Setup
-  export default async function ({login, rest, imports, q}, {enabled = false, from:defaults = 100} = {}) {
+  export default async function ({login, rest, imports, data, q}, {enabled = false, from:defaults = 100} = {}) {
     //Plugin execution
       try {
         //Check if plugin is enabled and requirements are met
@@ -14,6 +14,7 @@
         //Initialization
           const habits = {facts, charts, commits:{hour:NaN, hours:{}, day:NaN, days:{}}, indents:{style:"", spaces:0, tabs:0}, linguist:{available:false, ordered:[], languages:{}}}
           const pages = Math.ceil(from/100)
+          const offset = data.config.timezone?.offset ?? 0
         //Get user recent activity
           console.debug(`metrics/compute/${login}/plugins > habits > querying api`)
           const events = []
@@ -44,7 +45,7 @@
           {
             //Compute commit days
               console.debug(`metrics/compute/${login}/plugins > habits > searching most active day of week`)
-              const days = commits.map(({created_at}) => (new Date(created_at)).getDay())
+              const days = commits.map(({created_at}) => (new Date(new Date(created_at).getTime() + offset)).getDay())
               for (const day of days)
                 habits.commits.days[day] = (habits.commits.days[day] ?? 0) + 1
               habits.commits.days.max = Math.max(...Object.values(habits.commits.days))
@@ -55,7 +56,7 @@
           {
             //Compute commit hours
               console.debug(`metrics/compute/${login}/plugins > habits > searching most active time of day`)
-              const hours = commits.map(({created_at}) => (new Date(created_at)).getHours())
+              const hours = commits.map(({created_at}) => (new Date(new Date(created_at).getTime() + offset)).getHours())
               for (const hour of hours)
                 habits.commits.hours[hour] = (habits.commits.hours[hour] ?? 0) + 1
               habits.commits.hours.max = Math.max(...Object.values(habits.commits.hours))
@@ -90,7 +91,7 @@
                     await imports.run(`git status`, {cwd:path})
                 //Spawn linguist process
                   console.debug(`metrics/compute/${login}/plugins > habits > running linguist`)
-                  ;(await imports.run(`${prefix} github-linguist`, {cwd:path}))
+                  ;(await imports.run(`${prefix} github-linguist --breakdown`, {cwd:path}))
                   //Parse linguist result
                     .split("\n").map(line => line.match(/(?<value>[\d.]+)%\s+(?<language>\w+)/)?.groups).filter(line => line)
                     .map(({value, language}) => habits.linguist.languages[language] = (habits.linguist.languages[language] ?? 0) + value/100)
@@ -104,6 +105,8 @@
       }
     //Handle errors
       catch (error) {
+        if (error.error?.message)
+          throw error
         throw {error:{message:"An error occured", instance:error}}
       }
   }
