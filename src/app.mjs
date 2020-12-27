@@ -141,7 +141,7 @@
         `Debug mode             | ${debug}`,
         `Restricted to users    | ${restricted.size ? [...restricted].join(", ") : "(unrestricted)"}`,
         `Cached time            | ${cached} seconds`,
-        `Rate limiter           | ${ratelimiter ? util.inspect(req.query, {depth:Infinity, maxStringLength:256}) : "(enabled)"}`,
+        `Rate limiter           | ${ratelimiter ? util.inspect(ratelimiter, {depth:Infinity, maxStringLength:256}) : "(enabled)"}`,
         `Max simultaneous users | ${maxusers ? `${maxusers} users` : "(unrestricted)"}`,
         `Plugins enabled        | ${enabled.join(", ")}`
       ].join("\n")))
