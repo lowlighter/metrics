@@ -85,7 +85,7 @@
         const config = {
           "config.timezone":core.getInput("config_timezone") || ""
         }
-        console.log(`Timezone                  | ${config.timezone || "(none)"}`)
+        console.log(`Timezone                  | ${config["config.timezone"] || "(none)"}`)
 
       //Additional plugins
         const plugins = {

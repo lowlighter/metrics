@@ -10,7 +10,12 @@
       //Initialization
         el:"main",
         async mounted() {
-          await this.load()
+          //Load instance
+            await this.load()
+          //Interpolate config from browser
+            try {
+              this.config.timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
+            } catch (error) {}
         },
         components:{Prism:PrismComponent},
       //Data initialization
@@ -19,6 +24,9 @@
           user:url.get("user") || "",
           palette:url.get("palette") || (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") || "light",
           requests:{limit:0, used:0, remaining:0, reset:0},
+          config:{
+            timezone:"",
+          },
           plugins:{
             base,
             list:plugins,
@@ -96,10 +104,12 @@
                   .filter(([key, value]) => `${value}`.length)
                   .filter(([key, value]) => this.plugins.enabled[key.split(".")[0]])
                   .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+              //Config
+                const config = Object.entries(this.config).filter(([key, value]) => value).map(([key, value]) => `config.${key}=${encodeURIComponent(value)}`)
               //Template
                 const template = (this.templates.selected !== templates[0]) ? [`template=${this.templates.selected}`] : []
               //Generated url
-                const params = [...template, ...plugins, ...options].join("&")
+                const params = [...template, ...plugins, ...options, ...config].join("&")
                 return `${window.location.protocol}//${window.location.host}/${this.user}${params.length ? `?${params}` : ""}`
               },
           //Embedded generated code
@@ -132,7 +142,8 @@
                 `          base: ${Object.entries(this.plugins.enabled.base).filter(([key, value]) => value).map(([key]) => key).join(", ")||'""'}`,
                 ...[
                   ...Object.entries(this.plugins.enabled).filter(([key, value]) => (key !== "base")&&(value)).map(([key]) => `          plugin_${key}: yes`),
-                  ...Object.entries(this.plugins.options).filter(([key, value]) => value).filter(([key, value]) => this.plugins.enabled[key.split(".")[0]]).map(([key, value]) => `          plugin_${key.replace(/[.]/, "_")}: ${typeof value === "boolean" ? {true:"yes", false:"no"}[value] : value}`)
+                  ...Object.entries(this.plugins.options).filter(([key, value]) => value).filter(([key, value]) => this.plugins.enabled[key.split(".")[0]]).map(([key, value]) => `          plugin_${key.replace(/[.]/, "_")}: ${typeof value === "boolean" ? {true:"yes", false:"no"}[value] : value}`),
+                  ...Object.entries(this.config).filter(([key, value]) => value).map(([key, value]) => `          config_${key.replace(/[.]/, "_")}: ${typeof value === "boolean" ? {true:"yes", false:"no"}[value] : value}`),
                 ].sort(),
               ].join("\n")
             }
