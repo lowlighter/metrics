@@ -6,7 +6,7 @@
           if ((!enabled)||(!q.habits))
             return null
         //Parameters override
-          let {"habits.from":from = defaults.from ?? 500, "habits.days":days = 30, "habits.facts":facts = true, "habits.charts":charts = false} = q
+          let {"habits.from":from = defaults.from ?? 500, "habits.days":days = 14, "habits.facts":facts = true, "habits.charts":charts = false} = q
           //Events
             from = Math.max(1, Math.min(1000, Number(from)))
           //Days

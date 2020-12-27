@@ -72,7 +72,7 @@
           console.debug = message => debugged.push(message)
         console.log(`Debug mode                | ${debug}`)
         const dflags = (core.getInput("debug_flags") || "").split(" ").filter(flag => flag)
-        console.log(`Debug flags               | ${dflags.join(" ")}`)
+        console.log(`Debug flags               | ${dflags.join(" ") || "(none)"}`)
 
       //Base elements
         const base = {}
@@ -85,7 +85,7 @@
         const config = {
           "config.timezone":core.getInput("config_timezone") || ""
         }
-        console.log(`Timezone                  | ${config["config.timezone"] || "(none)"}`)
+        console.log(`Timezone                  | ${config["config.timezone"] || "(system default)"}`)
 
       //Additional plugins
         const plugins = {
@@ -117,8 +117,8 @@
           if (plugins.languages.enabled) {
             for (const option of ["ignored", "skipped"])
               q[`languages.${option}`] = core.getInput(`plugin_languages_${option}`) || null
-            console.log(`Languages ignored         | ${q["languages.ignored"]}`)
-            console.log(`Languages skipped repos   | ${q["languages.skipped"]}`)
+            console.log(`Languages ignored         | ${q["languages.ignored"] || "(none)"}`)
+            console.log(`Languages skipped repos   | ${q["languages.skipped"] || "(none)"}`)
           }
         //Habits
           if (plugins.habits.enabled) {
@@ -128,26 +128,26 @@
             q[`habits.charts`] = bool(core.getInput(`plugin_habits_charts`))
             console.log(`Habits facts              | ${q["habits.facts"]}`)
             console.log(`Habits charts             | ${q["habits.charts"]}`)
-            console.log(`Habits events to use      | ${q["habits.from"]}`)
-            console.log(`Habits days to keep       | ${q["habits.days"]}`)
+            console.log(`Habits events to use      | ${q["habits.from"] || "(default)"}`)
+            console.log(`Habits days to keep       | ${q["habits.days"] || "(default)"}`)
           }
         //Music
           if (plugins.music.enabled) {
             plugins.music.token = core.getInput("plugin_music_token") || ""
             for (const option of ["provider", "mode", "playlist", "limit"])
               q[`music.${option}`] = core.getInput(`plugin_music_${option}`) || null
-            console.log(`Music provider            | ${q["music.provider"]}`)
-            console.log(`Music plugin mode         | ${q["music.mode"]}`)
-            console.log(`Music playlist            | ${q["music.playlist"]}`)
-            console.log(`Music tracks limit        | ${q["music.limit"]}`)
+            console.log(`Music provider            | ${q["music.provider"] || "(none)"}`)
+            console.log(`Music plugin mode         | ${q["music.mode"] || "(none)"}`)
+            console.log(`Music playlist            | ${q["music.playlist"] || "(none)"}`)
+            console.log(`Music tracks limit        | ${q["music.limit"] || "(default)"}`)
             console.log(`Music token               | ${plugins.music.token ? "provided" : "missing"}`)
           }
         //Posts
           if (plugins.posts.enabled) {
             for (const option of ["source", "limit"])
               q[`posts.${option}`] = core.getInput(`plugin_posts_${option}`) || null
-            console.log(`Posts provider            | ${q["posts.provider"]}`)
-            console.log(`Posts limit               | ${q["posts.limit"]}`)
+            console.log(`Posts source              | ${q["posts.source"] || "(none)"}`)
+            console.log(`Posts limit               | ${q["posts.limit"] || "(default)"}`)
           }
         //Isocalendar
           if (plugins.isocalendar.enabled) {
@@ -158,14 +158,14 @@
           if (plugins.topics.enabled) {
             for (const option of ["sort", "limit"])
               q[`topics.${option}`] = core.getInput(`plugin_topics_${option}`) || null
-            console.log(`Topics sort mode          | ${q["topics.sort"]}`)
-            console.log(`Topics limit              | ${q["topics.limit"]}`)
+            console.log(`Topics sort mode          | ${q["topics.sort"] || "(default)"}`)
+            console.log(`Topics limit              | ${q["topics.limit"] || "(default)"}`)
           }
         //Projects
           if (plugins.projects.enabled) {
             for (const option of ["limit"])
               q[`projects.${option}`] = core.getInput(`plugin_projects_${option}`) || null
-            console.log(`Projects limit            | ${q["projects.limit"]}`)
+            console.log(`Projects limit            | ${q["projects.limit"] || "(default)"}`)
           }
         //Tweets
           if (plugins.tweets.enabled) {
@@ -173,7 +173,7 @@
             for (const option of ["limit"])
               q[`tweets.${option}`] = core.getInput(`plugin_tweets_${option}`) || null
             console.log(`Twitter token             | ${plugins.tweets.token ? "provided" : "missing"}`)
-            console.log(`Tweets limit              | ${q["tweets.limit"]}`)
+            console.log(`Tweets limit              | ${q["tweets.limit"] || "(default)"}`)
           }
 
       //Repositories to use
@@ -182,7 +182,7 @@
 
       //Die on plugins errors
         const die = bool(core.getInput("plugins_errors_fatal"))
-        console.log(`Plugin errors             | ${die ? "die" : "ignore"}`)
+        console.log(`Plugin errors             | ${die ? "die" : "warn"}`)
 
       //Built query
         q = {...q, base:false, ...base, ...config, repositories, template}
@@ -222,7 +222,7 @@
               console.log(`Committer                 | ${(await rest.users.getAuthenticated()).data.login}`)
             }
             catch {
-              console.log(`Committer                 | (unknown)`)
+              console.log(`Committer                 | (github-actions)`)
             }
           //Retrieve previous render SHA to be able to update file content through API
             let sha = null
@@ -237,7 +237,7 @@
               )
               sha = oid
             } catch (error) { console.debug(error) }
-            console.log(`Previous render sha       | ${sha ?? "none"}`)
+            console.log(`Previous render sha       | ${sha ?? "(none)"}`)
           //Update file content through API
             await rest.repos.createOrUpdateFileContents({
               ...github.context.repo, path:filename, message:`Update ${filename} - [Skip GitHub Action]`,
@@ -248,7 +248,7 @@
         }
 
       //Success
-        console.log(`Success !`)
+        console.log(`Success, thanks for using metrics !`)
         process.exit(0)
 
     }

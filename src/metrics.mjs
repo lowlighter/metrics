@@ -58,10 +58,16 @@
               const promised = await Promise.all(pending)
 
             //Check plugins errors
-              if (die) {
-                const errors = promised.filter(({result = null}) => !!result?.error).length
-                if (errors)
-                  throw new Error(`${errors} error${s(errors)} found...`)
+              {
+                const errors = promised.filter(({result = null}) => result?.error)
+                if (die) {
+                  if (errors.length)
+                    throw new Error(`${errors.length} error${s(errors.length)} found...`)
+                }
+                else {
+                  console.warn(`${errors.length} error${s(errors.length)} found, ignoring...`)
+                  console.warn(util.inspect(errors, {depth:Infinity, maxStringLength:256}))
+                }
               }
           }
 
