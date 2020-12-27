@@ -11,10 +11,12 @@
           //Limit
             limit = Math.max(1, Math.min(30, Number(limit)))
         //Retrieve posts
+          console.debug(`metrics/compute/${login}/plugins > posts > processing with source ${source}`)
           let posts = null
           switch (source) {
             //Dev.to
               case "dev.to":{
+                console.debug(`metrics/compute/${login}/plugins > posts > querying api`)
                 posts = (await imports.axios.get(`https://dev.to/api/articles?username=${login}&state=fresh`)).data.map(({title, readable_publish_date:date}) => ({title, date}))
                 break
               }
@@ -37,7 +39,6 @@
       }
     //Handle errors
       catch (error) {
-        console.debug(error)
-        throw {error:{message:`An error occured`}}
+        throw {error:{message:"An error occured", instance:error}}
       }
   }

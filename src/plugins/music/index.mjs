@@ -56,13 +56,14 @@
           //Limit
             limit = Math.max(1, Math.min(100, Number(limit)))
         //Handle mode
+          console.debug(`metrics/compute/${login}/plugins > music > processing mode ${mode} with provider ${provider}`)
           switch (mode) {
             //Playlist mode
               case "playlist":{
                 //Start puppeteer and navigate to playlist
                   console.debug(`metrics/compute/${login}/plugins > music > starting browser`)
                   const browser = await imports.puppeteer.launch({headless:true, executablePath:process.env.PUPPETEER_BROWSER_PATH, args:["--no-sandbox", "--disable-extensions", "--disable-setuid-sandbox", "--disable-dev-shm-usage"]})
-                  console.debug(`metrics/compute/${login}/plugins > music > loaded ${await browser.version()}`)
+                  console.debug(`metrics/compute/${login}/plugins > music > started ${await browser.version()}`)
                   const page = await browser.newPage()
                   console.debug(`metrics/compute/${login}/plugins > music > loading page`)
                   await page.goto(playlist)
@@ -103,7 +104,7 @@
                   if (Array.isArray(tracks)) {
                     //Tracks
                       console.debug(`metrics/compute/${login}/plugins > music > found ${tracks.length} tracks`)
-                      console.debug(JSON.stringify(tracks))
+                      console.debug(imports.util.inspect(tracks, {depth:Infinity, maxStringLength:256}))
                     //Shuffle tracks
                       tracks = imports.shuffle(tracks)
                   }
@@ -120,17 +121,18 @@
                         //Prepare credentials
                           const [client_id, client_secret, refresh_token] = token.split(",").map(part => part.trim())
                           if ((!client_id)||(!client_secret)||(!refresh_token))
-                            throw {error:`Spotify token must contain client id/secret and refresh token`}
+                            throw {error:{message:`Spotify token must contain client id/secret and refresh token`}}
                         //API call and parse tracklist
                           try {
                             //Request access token
-                              console.debug(`metrics/compute/${login}/plugins > music > requesting access token with refresh token for spotify`)
+                              console.debug(`metrics/compute/${login}/plugins > music > requesting access token with spotify refresh token`)
                               const {data:{access_token:access}} = await imports.axios.post("https://accounts.spotify.com/api/token",
                                 `${new imports.url.URLSearchParams({grant_type:"refresh_token", refresh_token, client_id, client_secret})}`,
                                 {headers:{"Content-Type":"application/x-www-form-urlencoded"}},
                               )
-                              console.debug(`metrics/compute/${login}/plugins > music > got new access token`)
+                              console.debug(`metrics/compute/${login}/plugins > music > got access token`)
                             //Retriev tracks
+                              console.debug(`metrics/compute/${login}/plugins > music > querying spotify api`)
                               tracks = (await imports.axios(`https://api.spotify.com/v1/me/player/recently-played?limit=${limit}&after=${timestamp}`, {headers:{
                                 "Accept":"application/json",
                                 "Content-Type":"application/json",
@@ -143,8 +145,13 @@
                           }
                         //Handle errors
                           catch (error) {
-                            if ((error.response?.status))
-                              throw {error:{message:`API returned ${error.response.status}${error.response.data?.error_description ? ` (${error.response.data.error_description})` : ""}`}, ...raw}
+                            if (error.isAxiosError) {
+                              const status = error.response?.status
+                              const description = error.response.data?.error_description ?? null
+                              message = `API returned ${status}${description ? ` (${description})` : ""}`
+                              error = error.response?.data ?? null
+                              throw {error:{message, instance:error}, ...raw}
+                            }
                             throw error
                           }
                         break
@@ -173,7 +180,6 @@
                 track.artwork = await imports.imgb64(track.artwork)
               }
             //Save results
-              console.debug(`metrics/compute/${login}/plugins > music > success`)
               return {...raw, tracks}
           }
         //Unhandled error
@@ -183,7 +189,6 @@
       catch (error) {
         if (error.error?.message)
           throw error
-        console.debug(error)
-        throw {error:{message:`An error occured`}}
+        throw {error:{message:"An error occured", instance:error}}
       }
   }

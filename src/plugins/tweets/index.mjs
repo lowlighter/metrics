@@ -14,7 +14,7 @@
           console.debug(`metrics/compute/${login}/plugins > tweets > loading twitter profile (@${username})`)
           const {data:{data:profile = null}} = await imports.axios.get(`https://api.twitter.com/2/users/by/username/${username}?user.fields=profile_image_url,verified`, {headers:{Authorization:`Bearer ${token}`}})
         //Load tweets
-          console.debug(`metrics/compute/${login}/plugins > tweets > loading tweets`)
+          console.debug(`metrics/compute/${login}/plugins > tweets > querying api`)
           const {data:{data:tweets = []}} = await imports.axios.get(`https://api.twitter.com/2/tweets/search/recent?query=from:${username}&tweet.fields=created_at&expansions=entities.mentions.username`, {headers:{Authorization:`Bearer ${token}`}})
         //Load profile image
           if (profile?.profile_image_url) {
@@ -50,7 +50,13 @@
       }
     //Handle errors
       catch (error) {
-        console.debug(error)
-        throw {error:{message:`An error occured`}}
+        let message = "An error occured"
+        if (error.isAxiosError) {
+          const status = error.response?.status
+          const description = error.response?.data?.errors?.[0]?.message ?? null
+          message = `API returned ${status}${description ? ` (${description})` : ""}`
+          error = error.response?.data ?? null
+        }
+        throw {error:{message, instance:error}}
       }
   }

@@ -1,6 +1,7 @@
 //Imports
   import fs from "fs"
   import path from "path"
+  import util from "util"
 
 /** Setup */
   export default async function ({log = true} = {}) {
@@ -30,7 +31,7 @@
         conf.settings.plugins = {}
       conf.settings.plugins.base = {parts:["header", "activity", "community", "repositories", "metadata"]}
       if (conf.settings.debug)
-        logger(conf.settings)
+        logger(util.inspect(conf.settings, {depth:Infinity, maxStringLength:256}))
 
     //Load package settings
       logger(`metrics/setup > load package.json`)

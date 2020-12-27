@@ -20,9 +20,10 @@
           const padding = new Date(start)
           padding.setHours(-14*24)
         //Retrieve contribution calendar from graphql api
+          console.debug(`metrics/compute/${login}/plugins > isocalendar > querying api`)
           const calendar = {}
           for (const [name, from, to] of [["padding", padding, start], ["weeks", start, now]]) {
-            console.debug(`metrics/compute/${login}/plugins > isocalendar > loading "${name}" from "${from.toISOString()}" to "${to.toISOString()}"`)
+            console.debug(`metrics/compute/${login}/plugins > isocalendar > loading ${name} from "${from.toISOString()}" to "${to.toISOString()}"`)
             const {user:{calendar:{contributionCalendar:{weeks}}}} = await graphql(`
                 query Calendar {
                   user(login: "${login}") {
@@ -44,11 +45,13 @@
             calendar[name] = weeks
           }
         //Apply padding
+          console.debug(`metrics/compute/${login}/plugins > isocalendar > applying padding`)
           const firstweek = calendar.weeks[0].contributionDays
           const padded = calendar.padding.flatMap(({contributionDays}) => contributionDays).filter(({date}) => !firstweek.map(({date}) => date).includes(date))
           while (firstweek.length < 7)
             firstweek.unshift(padded.pop())
         //Compute the highest contributions in a day, streaks and average commits per day
+          console.debug(`metrics/compute/${login}/plugins > isocalendar > computing stats`)
           let max = 0, streak = {max:0, current:0}, values = [], average = 0
           for (const week of calendar.weeks) {
             for (const day of week.contributionDays) {
@@ -60,6 +63,7 @@
           }
           average = (values.reduce((a, b) => a + b, 0)/values.length).toFixed(2).replace(/[.]0+$/, "")
         //Compute SVG
+          console.debug(`metrics/compute/${login}/plugins > isocalendar > computing svg render`)
           const size = 6
           let i = 0, j = 0
           let svg = `
@@ -96,7 +100,6 @@
       }
     //Handle errors
       catch (error) {
-        console.debug(error)
-        throw {error:{message:`An error occured`}}
+        throw {error:{message:"An error occured", instance:error}}
       }
   }

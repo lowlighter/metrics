@@ -11,6 +11,7 @@
   import fs from "fs/promises"
   import os from "os"
   import paths from "path"
+  import util from "util"
 
 //Setup
   export default async function metrics({login, q, dflags = []}, {graphql, rest, plugins, conf, die = false}) {
@@ -19,7 +20,7 @@
 
         //Init
           console.debug(`metrics/compute/${login} > start`)
-          console.debug(JSON.stringify(q))
+          console.debug(util.inspect(q, {depth:Infinity, maxStringLength:256}))
           const template = q.template || conf.settings.templates.default
           const repositories = Math.max(0, Number(q.repositories)) || conf.settings.repositories || 100
           const pending = []
@@ -27,7 +28,7 @@
           if ((!(template in Templates))||(!(template in conf.templates))||((conf.settings.templates.enabled.length)&&(!conf.settings.templates.enabled.includes(template))))
             throw new Error("unsupported template")
           const {query, image, style, fonts} = conf.templates[template]
-          const data = {base:{}}
+          const data = {base:{}, config:{}}
 
         //Base parts
           {
@@ -53,13 +54,10 @@
             //Compute metrics
               console.debug(`metrics/compute/${login} > compute`)
               const computer = Templates[template].default || Templates[template]
-              await computer({login, q, dflags}, {conf, data, rest, graphql, plugins}, {s, pending, imports:{plugins:Plugins, url, imgb64, axios, puppeteer, run, fs, os, paths, format, bytes, shuffle, htmlescape, urlexpand}})
+              await computer({login, q, dflags}, {conf, data, rest, graphql, plugins}, {s, pending, imports:{plugins:Plugins, url, imgb64, axios, puppeteer, run, fs, os, paths, util, format, bytes, shuffle, htmlescape, urlexpand}})
               const promised = await Promise.all(pending)
 
             //Check plugins errors
-              if (conf.settings.debug)
-                for (const {name, result = null} of promised)
-                  console.debug(`plugin ${name} ${result ? result.error ? "failed" : "success" : "ignored"} : ${JSON.stringify(result).replace(/^(.{888}).+/, "$1...")}`)
               if (die) {
                 const errors = promised.filter(({result = null}) => !!result?.error).length
                 if (errors)

@@ -40,6 +40,13 @@ inputs:
     description: Optimize SVG image
     default: yes
 
+  # Set timezone used by metrics
+  # See https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  # Some plugins will use this setting to calibrate dates
+  config_timezone:
+    description: Timezone used by metrics
+    default: ""
+
   # Number of repositories to use for metrics
   # A high number increase metrics accuracy, but will consume additional API requests when using plugins
   repositories:

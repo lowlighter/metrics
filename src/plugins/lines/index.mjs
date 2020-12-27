@@ -8,9 +8,11 @@
         //Repositories
           const repositories = data.user.repositories.nodes.map(({name}) => name) ?? []
         //Get contributors stats from repositories
+          console.debug(`metrics/compute/${login}/plugins > lines > querying api`)
           const lines = {added:0, deleted:0}
           const response = await Promise.all(repositories.map(async repo => await rest.repos.getContributorsStats({owner:login, repo})))
         //Compute changed lines
+          console.debug(`metrics/compute/${login}/plugins > lines > computing total diff`)
           response.map(({data:repository}) => {
             //Check if data are available
               if (!Array.isArray(repository))
@@ -29,8 +31,7 @@
       }
   //Handle errors
     catch (error) {
-      console.debug(error)
-      throw {error:{message:`An error occured`}}
+      throw {error:{message:"An error occured", instance:error}}
     }
   }
 

@@ -13,7 +13,7 @@
   + (!!plugins.isocalendar)*192 + (plugins.isocalendar?.duration === 'full-year')*100
   + (!!plugins.gists)*68
   + (!!plugins.topics)*160
-  + (!!plugins.projects)*22 + (plugins.projects?.list?.length ?? 0)*60
+  + (!!plugins.projects)*22 + (plugins.projects?.list?.length ?? 0)*60 + (!!plugins.projects?.error)*22
   + (!!plugins.tweets)*64 + (plugins.tweets?.list?.length ?? 0)*90
   + Math.max(0, (((!!base.metadata)+(!!base.header)+((!!base.activity)||(!!base.community))+(!!base.repositories)+((!!plugins.habits))+(!!plugins.pagespeed)+(!!plugins.languages)+(!!plugins.music)+(!!plugins.posts)+(!!plugins.isocalendar)+(!!plugins.gists)+(!!plugins.topics)+(!!plugins.projects))-1))*4
 %>">
@@ -774,7 +774,7 @@
 
       <% if (base.metadata) { %>
         <footer>
-          <span>These metrics <%= !computed.token.scopes.includes("repo") ? "does not include" : "includes" %> private contributions</span>
+          <span>These metrics <%= !computed.token.scopes.includes("repo") ? "does not include all" : "includes" %> private contributions<% if ((config.timezone?.name)&&(!config.timezone?.error)) { %>, timezone <%= config.timezone.name %><% } %></span>
           <span>Last updated <%= new Date().toGMTString() %> with lowlighter/metrics@<%= meta.version %></span>
         </footer>
       <% } %>

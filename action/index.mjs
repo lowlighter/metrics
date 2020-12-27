@@ -37,7 +37,7 @@
         console.log(`Template to use           | ${template}`)
 
       //Token for data gathering
-        const token = core.getInput("token")
+        const token = core.getInput("token") || ""
         console.log(`Github token              | ${token ? "provided" : "missing"}`)
         if (!token)
           throw new Error("You must provide a valid GitHub token to gather your metrics")
@@ -71,15 +71,21 @@
         if (!debug)
           console.debug = message => debugged.push(message)
         console.log(`Debug mode                | ${debug}`)
-        const dflags = (core.getInput("debug_flags") ?? "").split(" ").filter(flag => flag)
+        const dflags = (core.getInput("debug_flags") || "").split(" ").filter(flag => flag)
         console.log(`Debug flags               | ${dflags.join(" ")}`)
 
       //Base elements
         const base = {}
-        let parts = (core.getInput("base")||"").split(",").map(part => part.trim())
+        let parts = (core.getInput("base") || "").split(",").map(part => part.trim())
         for (const part of conf.settings.plugins.base.parts)
           base[`base.${part}`] = parts.includes(part)
         console.log(`Base parts                | ${parts.join(", ") || "(none)"}`)
+
+      //Config
+        const config = {
+          "config.timezone":core.getInput("config_timezone") || ""
+        }
+        console.log(`Timezone                  | ${config.timezone || "(none)"}`)
 
       //Additional plugins
         const plugins = {
@@ -102,7 +108,7 @@
       //Additional plugins options
         //Pagespeed
           if (plugins.pagespeed.enabled) {
-            plugins.pagespeed.token = core.getInput("plugin_pagespeed_token")
+            plugins.pagespeed.token = core.getInput("plugin_pagespeed_token") || ""
             q[`pagespeed.detailed`] = bool(core.getInput(`plugin_pagespeed_detailed`))
             console.log(`Pagespeed token           | ${plugins.pagespeed.token ? "provided" : "missing"}`)
             console.log(`Pagespeed detailed        | ${q["pagespeed.detailed"]}`)
@@ -145,7 +151,7 @@
           }
         //Isocalendar
           if (plugins.isocalendar.enabled) {
-            q["isocalendar.duration"] = core.getInput("plugin_isocalendar_duration") ?? "half-year"
+            q["isocalendar.duration"] = core.getInput("plugin_isocalendar_duration") || "half-year"
             console.log(`Isocalendar duration      | ${q["isocalendar.duration"]}`)
           }
         //Topics
@@ -179,7 +185,7 @@
         console.log(`Plugin errors             | ${die ? "die" : "ignore"}`)
 
       //Built query
-        q = {...q, base:false, ...base, repositories, template}
+        q = {...q, base:false, ...base, ...config, repositories, template}
 
       //Render metrics
         const rendered = await metrics({login:user, q, dflags}, {graphql, rest, plugins, conf, die})
@@ -206,7 +212,7 @@
             console.log(`Repository                | ${github.context.repo.owner}/${github.context.repo.repo}`)
             console.log(`Branch                    | ${branch}`)
           //Committer token
-            const token = core.getInput("committer_token") || core.getInput("token")
+            const token = core.getInput("committer_token") || core.getInput("token") || ""
             console.log(`Committer token           | ${token ? "provided" : "missing"}`)
             if (!token)
               throw new Error("You must provide a valid GitHub token to commit your metrics")
@@ -231,7 +237,7 @@
               )
               sha = oid
             } catch (error) { console.debug(error) }
-            console.log(`Previous render sha       | ${sha || "none"}`)
+            console.log(`Previous render sha       | ${sha ?? "none"}`)
           //Update file content through API
             await rest.repos.createOrUpdateFileContents({
               ...github.context.repo, path:filename, message:`Update ${filename} - [Skip GitHub Action]`,
@@ -245,8 +251,9 @@
         console.log(`Success !`)
         process.exit(0)
 
+    }
   //Errors
-    } catch (error) {
+    catch (error) {
       console.error(error)
       if (!bool(core.getInput("debug")))
         for (const log of ["_".repeat(64), "An error occured, logging debug message :", ...debugged])

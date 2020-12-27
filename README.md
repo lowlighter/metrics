@@ -213,13 +213,18 @@ The `README.md` of it will be displayed on your user profile :
 
 From the `Developer settings` of your account settings, select `Personal access tokens` to create a new token.
 
-No additional scopes are needed, unless you want to include your private repositories metrics or if you want to use the `traffic` plugin.
+No additional scopes are needed, unless you want to include your private repositories metrics.
 
 ![Setup a GitHub personal token](.github/readme/imgs/setup_personal_token.png)
 
-Be sure to enable `Include private contributions on my profile` in your account settings if you want to include your private contributions :
+With a scope-less token, you can still display private contributions by enabling `Include private contributions on my profile` in your account settings :
 
 ![Enable "Include private contributions on my profile`"](.github/readme/imgs/setup_private_contributions.png)
+
+Some plugins also require additional scopes, which is indicated in their respective documentation.
+In case your token does not have the required scope (and `plugins_errors_fatal` is not enabled), it will be directly notified in the plugin render like below :
+
+![Plugin error example](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.error.svg)
 
 ### 2. Set your GitHub token in your personal repository secrets
 
@@ -258,8 +263,6 @@ When using a token with additional permissions, it is advised to fork this repos
 ```
 In this case, consider watching new releases of this repository to stay up-to-date and enjoy latest features !
 
-If you prefer examples rather than theory, check out this [workflow](https://github.com/lowlighter/lowlighter/blob/master/.github/workflows/metrics.yml) file which generates metrics daily.
-
 #### Preview vs release
 
 It is possible to use `@master` instead of `@latest` to use new features before their official release.
@@ -270,6 +273,12 @@ Breaking changes may occur occasionally on `@master`, which could result in your
 A new metrics image will be generated and committed to your repository on each run.
 
 ![Action update example](.github/readme/imgs/example_action_update.png)
+
+#### Workflow examples
+
+Check out this [workflow](https://github.com/lowlighter/lowlighter/blob/master/.github/workflows/metrics.yml) file which generates metrics daily.
+
+Note that most of steps presented there are illustrative examples for this readme and are actually not needed to generate your own metrics.
 
 ### 4. Embed the link into your README.md
 
@@ -867,6 +876,8 @@ Add the following to your workflow :
 
 ### 🗂️ Projects
 
+    ⚠️ This plugin requires a personal token with public_repo scope.
+
 The *projects* plugin displays the progress of your profile projects.
 
 ![Projects plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.projects.svg)
@@ -875,6 +886,8 @@ The *projects* plugin displays the progress of your profile projects.
 <summary>💬 About</summary>
 
 It will consume an additional GitHub request.
+
+Because of GitHub REST API limitation, provided token requires `public_repo` scope to access projects informations.
 
 Add the following to your workflow :
 ```yaml
@@ -926,7 +939,7 @@ Add the following to your workflow :
 
 ### 🧮 Traffic
 
-    ⚠️ This plugin requires a personal token with full repo scope.
+    ⚠️ This plugin requires a personal token with repo scope.
 
 The repositories *traffic* plugin displays the number of pages views across your repositories.
 
@@ -954,8 +967,6 @@ Add the following to your workflow :
 </details>
 
 ### 🐤 Tweets
-
-    🚧 This plugin is available as pre-release on @master
 
 The recent *tweets* plugin displays your latest tweets of the [twitter](https://twitter.com) attached mentioned on your account :
 
@@ -1030,7 +1041,7 @@ If you're using GitHub Api in other projects, you could reach the rate limit.
 ![Habits plugin (facts)](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.facts.svg)
 
 These facts are generated from your recent coding activity.
-The indent style is deduced from the diffs of your recent commits. 
+The indent style is deduced from the diffs of your recent commits.
 
 Add the following to your workflow :
 ```yaml
@@ -1042,14 +1053,12 @@ Add the following to your workflow :
     plugin_habits_days: 14
 ```
 
-    🚧 The following feature is available as pre-release on @master
-
 You can display charts in this section :
 
 ![Habits plugin (charts)](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.charts.svg)
 
-These charts are generated from your recent coding activity.  
-Languages metrics are computed with [github/linguist](https://github.com/github/linguist) from the diffs of your recent commits. 
+These charts are generated from your recent coding activity.
+Languages metrics are computed with [github/linguist](https://github.com/github/linguist) from the diffs of your recent commits.
 
 Add the following to your workflow instead :
 ```yaml
@@ -1061,6 +1070,15 @@ Add the following to your workflow instead :
     plugin_habits_days: 14
     plugin_habits_facts: yes
     plugin_habits_charts: yes
+```
+
+By default, dates are based on the Greenwich meridian (England time). In order to these metrics to be accurate, be sure to set your timezone (see [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) for a list of supported timezones) :
+
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    config_timezone: Europe/Paris
 ```
 
 </details>

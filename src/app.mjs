@@ -8,6 +8,7 @@
   import setup from "./setup.mjs"
   import metrics from "./metrics.mjs"
   import Templates from "./templates/index.mjs"
+  import util from "util"
 
 /** App */
   export default async function () {
@@ -107,7 +108,7 @@
         //Compute rendering
           try {
             //Render
-              console.debug(`metrics/app/${login} > ${JSON.stringify(req.query)}`)
+              console.debug(`metrics/app/${login} > ${util.inspect(req.query, {depth:Infinity, maxStringLength:256})}`)
               const rendered = await metrics({login, q:parse(req.query)}, {graphql, rest, plugins, conf})
             //Cache
               if ((!debug)&&(cached)&&(login !== "placeholder"))
@@ -140,7 +141,7 @@
         `Debug mode             | ${debug}`,
         `Restricted to users    | ${restricted.size ? [...restricted].join(", ") : "(unrestricted)"}`,
         `Cached time            | ${cached} seconds`,
-        `Rate limiter           | ${ratelimiter ? JSON.stringify(ratelimiter) : "(enabled)"}`,
+        `Rate limiter           | ${ratelimiter ? util.inspect(req.query, {depth:Infinity, maxStringLength:256}) : "(enabled)"}`,
         `Max simultaneous users | ${maxusers ? `${maxusers} users` : "(unrestricted)"}`,
         `Plugins enabled        | ${enabled.join(", ")}`
       ].join("\n")))
