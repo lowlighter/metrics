@@ -498,18 +498,14 @@ Used template defaults to the `classic` one.
     <td>✔️</td>
     <td>✔️</td>
     <td>✔️</td>
-    <td><span title="Available on @master">✔️<sup>M</sup></span></td>
     <td>✔️</td>
-    <td><span title="'Charts' are available on @master">✔️<sup>N</sup></span></td>
+    <td>✔️</td>
+    <td>✔️</td>
     <td>✔️</td>
   </tr>
   <tr>
     <th>Terminal</th>
     <td><span title="'Available for hire' and 'Cake day' are currently not displayed">✔️<sup>P</sup></span></td>
-    <td><span title="'Detailed reports' are available on @master">✔️<sup>N</sup></span></td>
-    <td>❌</td>
-    <td>❌</td>
-    <td>✔️</td>
     <td>✔️</td>
     <td>❌</td>
     <td>❌</td>
@@ -517,8 +513,12 @@ Used template defaults to the `classic` one.
     <td>✔️</td>
     <td>❌</td>
     <td>❌</td>
+    <td>✔️</td>
+    <td>✔️</td>
     <td>❌</td>
-    <td><span title="Available on @master">✔️<sup>M</sup></span></td>
+    <td>❌</td>
+    <td>❌</td>
+    <td>✔️</td>
   </tr>
 </table>
 
