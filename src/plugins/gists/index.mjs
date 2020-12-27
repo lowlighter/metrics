@@ -5,7 +5,8 @@
         //Check if plugin is enabled and requirements are met
           if ((!enabled)||(!q.gists))
             return null
-        //Retrieve contribution calendar from graphql api
+        //Retrieve gists from graphql api
+          console.debug(`metrics/compute/${login}/plugins > gists > querying api`)
           const {user:{gists}} = await graphql(`
               query Gists {
                 user(login: "${login}") {
@@ -27,6 +28,7 @@
             `
           )
         //Iterate through gists
+          console.debug(`metrics/compute/${login}/plugins > gists > processing ${gists.nodes.length} gists`)
           let stargazers = 0, forks = 0, comments = 0
           for (const gist of gists.nodes) {
             //Skip forks
@@ -42,7 +44,6 @@
       }
     //Handle errors
       catch (error) {
-        console.debug(error)
-        throw {error:{message:`An error occured`}}
+        throw {error:{message:"An error occured", instance:error}}
       }
   }

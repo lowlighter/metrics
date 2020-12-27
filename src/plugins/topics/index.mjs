@@ -14,10 +14,11 @@
           //Limit
             limit = Math.max(1, Math.min(20, Number(limit)))
         //Start puppeteer and navigate to topics
+          console.debug(`metrics/compute/${login}/plugins > topics > searching starred topics`)
           let topics = []
           console.debug(`metrics/compute/${login}/plugins > topics > starting browser`)
           const browser = await imports.puppeteer.launch({headless:true, executablePath:process.env.PUPPETEER_BROWSER_PATH, args:["--no-sandbox", "--disable-extensions", "--disable-setuid-sandbox", "--disable-dev-shm-usage"]})
-          console.debug(`metrics/compute/${login}/plugins > topics > loaded ${await browser.version()}`)
+          console.debug(`metrics/compute/${login}/plugins > topics > started ${await browser.version()}`)
           const page = await browser.newPage()
         //Iterate through pages
           for (let i = 1; i <= 100; i++) {
@@ -32,17 +33,22 @@
                 description:li.querySelector(".f5").innerText,
                 icon:li.querySelector("img")?.src ?? null,
               })))
+              console.debug(`metrics/compute/${login}/plugins > topics > extracted ${starred.length} starred topics`)
             //Check if next page exists
-              if (!starred.length)
+              if (!starred.length) {
+                console.debug(`metrics/compute/${login}/plugins > topics > no more page to load`)
                 break
+              }
               topics.push(...starred)
           }
         //Close browser
           console.debug(`metrics/compute/${login}/plugins > music > closing browser`)
           await browser.close()
         //Shuffle topics
-          if (shuffle)
+          if (shuffle) {
+            console.debug(`metrics/compute/${login}/plugins > topics > shuffling topics`)
             topics = imports.shuffle(topics)
+          }
         //Limit topics
           if (limit > 0) {
             console.debug(`metrics/compute/${login}/plugins > topics > keeping only ${limit} topics`)
@@ -51,6 +57,7 @@
             topics.push({name:`And ${removed.length} more...`, description:removed.map(({name}) => name).join(", "), icon:null})
           }
         //Convert icons to base64
+          console.debug(`metrics/compute/${login}/plugins > topics > loading artworks`)
           for (const topic of topics) {
             if (topic.icon) {
               console.debug(`metrics/compute/${login}/plugins > topics > processing ${topic.name}`)
@@ -64,7 +71,6 @@
       }
     //Handle errors
       catch (error) {
-        console.debug(error)
-        throw {error:{message:`An error occured`}}
+        throw {error:{message:"An error occured", instance:error}}
       }
   }

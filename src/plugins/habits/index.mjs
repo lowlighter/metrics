@@ -15,22 +15,23 @@
           const habits = {facts, charts, commits:{hour:NaN, hours:{}, day:NaN, days:{}}, indents:{style:"", spaces:0, tabs:0}, linguist:{available:false, ordered:[], languages:{}}}
           const pages = Math.ceil(from/100)
         //Get user recent activity
+          console.debug(`metrics/compute/${login}/plugins > habits > querying api`)
           const events = []
           try {
             for (let page = 0; page < pages; page++) {
-              console.debug(`metrics/compute/${login}/plugins > habits > loaded page ${page}`)
+              console.debug(`metrics/compute/${login}/plugins > habits > loading page ${page}`)
               events.push(...(await rest.activity.listEventsForAuthenticatedUser({username:login, per_page:100, page})).data)
             }
-          } catch { console.debug(`metrics/compute/${login}/plugins > habits > no more events to load`) }
-          console.debug(`metrics/compute/${login}/plugins > habits > no more events to load (${events.length} loaded)`)
+          } catch { console.debug(`metrics/compute/${login}/plugins > habits > no more page to load`) }
+          console.debug(`metrics/compute/${login}/plugins > habits > ${events.length} events loaded`)
         //Get user recent commits
           const commits = events
             .filter(({type}) => type === "PushEvent")
             .filter(({actor}) => actor.login === login)
             .filter(({created_at}) => new Date(created_at) > new Date(Date.now()-days*24*60*60*1000))
-          console.debug(`metrics/compute/${login}/plugins > habits > filtered out ${commits.length} commits`)
-          const actor = commits[0]?.actor?.id ?? 0
+          console.debug(`metrics/compute/${login}/plugins > habits > filtered out ${commits.length} push events over last ${days} days`)
         //Retrieve edited files and filter edited lines (those starting with +/-) from patches
+          console.debug(`metrics/compute/${login}/plugins > habits > loading patches`)
           const patches = [...await Promise.allSettled(commits
             .flatMap(({payload}) => payload.commits).map(commit => commit.url)
             .map(async commit => (await rest.request(commit)).data.files)
@@ -42,6 +43,7 @@
         //Commit day
           {
             //Compute commit days
+              console.debug(`metrics/compute/${login}/plugins > habits > searching most active day of week`)
               const days = commits.map(({created_at}) => (new Date(created_at)).getDay())
               for (const day of days)
                 habits.commits.days[day] = (habits.commits.days[day] ?? 0) + 1
@@ -52,6 +54,7 @@
         //Commit hour
           {
             //Compute commit hours
+              console.debug(`metrics/compute/${login}/plugins > habits > searching most active time of day`)
               const hours = commits.map(({created_at}) => (new Date(created_at)).getHours())
               for (const hour of hours)
                 habits.commits.hours[hour] = (habits.commits.hours[hour] ?? 0) + 1
@@ -62,6 +65,7 @@
         //Indent style
           {
             //Attempt to guess whether tabs or spaces are used in patches
+              console.debug(`metrics/compute/${login}/plugins > habits > searching indent style`)
               patches
                 .map(({patch}) => patch.match(/((?:\t)|(?:  )) /gm) ?? [])
                 .forEach(indent => habits.indents[/^\t/.test(indent) ? "tabs" : "spaces"]++)
@@ -70,19 +74,20 @@
         //Linguist
           if (charts) {
             //Check if linguist exists
+              console.debug(`metrics/compute/${login}/plugins > habits > searching recently used languages using linguist`)
               const prefix = {win32:"wsl"}[process.platform] ?? ""
               if ((patches.length)&&(await imports.run(`${prefix} which github-linguist`))) {
                 //Setup for linguist
                   habits.linguist.available = true
-                  const path = imports.paths.join(imports.os.tmpdir(), `${actor}`)
+                  const path = imports.paths.join(imports.os.tmpdir(), `${commits[0]?.actor?.id ?? 0}`)
                   //Create temporary directory and save patches
+                    console.debug(`metrics/compute/${login}/plugins > habits > creating temp dir ${path} with ${patches.length} files`)
                     await imports.fs.mkdir(path, {recursive:true})
                     await Promise.all(patches.map(async ({name, patch}, i) => await imports.fs.writeFile(imports.paths.join(path, `${i}${imports.paths.extname(name)}`), patch)))
-                    console.debug(`metrics/compute/${login}/plugins > habits > created temp dir ${path} with ${patches.length} files`)
                   //Create temporary git repository
+                    console.debug(`metrics/compute/${login}/plugins > habits > creating temp git repository`)
                     await imports.run(`git init && git add . && git config user.name "linguist" && git config user.email "null@github.com" && git commit -m "linguist"`, {cwd:path}).catch(console.debug)
                     await imports.run(`git status`, {cwd:path})
-                    console.debug(`metrics/compute/${login}/plugins > habits > created temp git repository`)
                 //Spawn linguist process
                   console.debug(`metrics/compute/${login}/plugins > habits > running linguist`)
                   ;(await imports.run(`${prefix} github-linguist`, {cwd:path}))
@@ -92,14 +97,13 @@
                   habits.linguist.ordered = Object.entries(habits.linguist.languages).sort(([an, a], [bn, b]) => b - a)
               }
               else
-                console.debug(`metrics/compute/${login}/plugins > habits > linguist is not available`)
+                console.debug(`metrics/compute/${login}/plugins > habits > linguist not available`)
           }
         //Results
           return habits
       }
     //Handle errors
       catch (error) {
-        console.debug(error)
-        throw {error:{message:`An error occured`}}
+        throw {error:{message:"An error occured", instance:error}}
       }
   }

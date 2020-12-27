@@ -12,6 +12,7 @@
           //Skipped repositories
             skipped = decodeURIComponent(skipped).split(",").map(x => x.trim().toLocaleLowerCase()).filter(x => x)
         //Iterate through user's repositories and retrieve languages data
+          console.debug(`metrics/compute/${login}/plugins > languages > processing ${data.user.repositories.nodes.length} repositories`)
           const languages = {colors:{}, total:0, stats:{}}
           for (const repository of data.user.repositories.nodes) {
             //Skip repository if asked
@@ -33,6 +34,7 @@
               }
           }
         //Compute languages stats
+          console.debug(`metrics/compute/${login}/plugins > languages > computing stats`)
           Object.keys(languages.stats).map(name => languages.stats[name] /= languages.total)
           languages.favorites = Object.entries(languages.stats).sort(([an, a], [bn, b]) => b - a).slice(0, 8).map(([name, value]) => ({name, value, color:languages.colors[name], x:0}))
           for (let i = 1; i < languages.favorites.length; i++)
@@ -42,7 +44,6 @@
       }
     //Handle errors
       catch (error) {
-        console.debug(error)
-        throw {error:{message:`An error occured`}}
+        throw {error:{message:"An error occured", instance:error}}
       }
   }

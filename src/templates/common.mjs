@@ -5,18 +5,24 @@
       const computed = data.computed = {commits:0, sponsorships:0, licenses:{favorite:"", used:{}}, token:{}, repositories:{watchers:0, stargazers:0, issues_open:0, issues_closed:0, pr_open:0, pr_merged:0, forks:0, releases:0}}
       const avatar = imports.imgb64(data.user.avatarUrl)
       data.plugins = {}
+      console.debug(`metrics/compute/${login} > formatting common metrics`)
 
     //Plugins
       for (const name of Object.keys(imports.plugins)) {
         pending.push((async () => {
           try {
+            console.debug(`metrics/compute/${login}/plugins > ${name} > started`)
             data.plugins[name] = await imports.plugins[name]({login, q, imports, data, computed, rest, graphql}, plugins[name])
+            console.debug(`metrics/compute/${login}/plugins > ${name} > completed (${data.plugins[name] !== null ? "success" : "skipped"})`)
           }
           catch (error) {
+            console.debug(`metrics/compute/${login}/plugins > ${name} > completed (error)`)
             data.plugins[name] = error
           }
           finally {
-            return {name, result:data.plugins[name]}
+            const result = {name, result:data.plugins[name]}
+            console.debug(imports.util.inspect(result, {depth:Infinity, maxStringLength:256}))
+            return result
           }
         })())
       }
@@ -30,14 +36,14 @@
           computed.repositories.forks += repository.forkCount
         //License
           if (repository.licenseInfo)
-            computed.licenses.used[repository.licenseInfo.spdxId] = (computed.licenses.used[repository.licenseInfo.spdxId] || 0) + 1
+            computed.licenses.used[repository.licenseInfo.spdxId] = (computed.licenses.used[repository.licenseInfo.spdxId] ?? 0) + 1
       }
 
     //Total disk usage
       computed.diskUsage = `${imports.bytes(data.user.repositories.totalDiskUsage*1000)}`
 
     //Compute licenses stats
-      computed.licenses.favorite = Object.entries(computed.licenses.used).sort(([an, a], [bn, b]) => b - a).slice(0, 1).map(([name, value]) => name) || ""
+      computed.licenses.favorite = Object.entries(computed.licenses.used).sort(([an, a], [bn, b]) => b - a).slice(0, 1).map(([name, value]) => name) ?? ""
 
     //Compute total commits
       computed.commits += data.user.contributionsCollection.totalCommitContributions + data.user.contributionsCollection.restrictedContributionsCount
@@ -62,11 +68,11 @@
       data.meta = {version:conf.package.version, author:conf.package.author}
 
     //Debug flags
-      if (dflags.includes("--cakeday")||q["dflag.cakeday"]) {
+      if ((dflags.includes("--cakeday"))||(q["dflag.cakeday"])) {
         console.debug(`metrics/compute/${login} > applying dflag --cakeday`)
         computed.cakeday = true
       }
-      if (dflags.includes("--hireable")||q["dflag.hireable"]) {
+      if ((dflags.includes("--hireable"))||(q["dflag.hireable"])) {
         console.debug(`metrics/compute/${login} > applying dflag --hireable`)
         data.user.isHireable = true
       }

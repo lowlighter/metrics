@@ -867,6 +867,8 @@ Add the following to your workflow :
 
 ### 🗂️ Projects
 
+    ⚠️ This plugin requires a personal token with public_repo scope.
+
 The *projects* plugin displays the progress of your profile projects.
 
 ![Projects plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.projects.svg)
@@ -875,6 +877,8 @@ The *projects* plugin displays the progress of your profile projects.
 <summary>💬 About</summary>
 
 It will consume an additional GitHub request.
+
+Because of GitHub REST API limitation, provided token requires `public_repo` scope to access projects informations.
 
 Add the following to your workflow :
 ```yaml
@@ -926,7 +930,7 @@ Add the following to your workflow :
 
 ### 🧮 Traffic
 
-    ⚠️ This plugin requires a personal token with full repo scope.
+    ⚠️ This plugin requires a personal token with repo scope.
 
 The repositories *traffic* plugin displays the number of pages views across your repositories.
 
@@ -954,8 +958,6 @@ Add the following to your workflow :
 </details>
 
 ### 🐤 Tweets
-
-    🚧 This plugin is available as pre-release on @master
 
 The recent *tweets* plugin displays your latest tweets of the [twitter](https://twitter.com) attached mentioned on your account :
 
@@ -1030,7 +1032,7 @@ If you're using GitHub Api in other projects, you could reach the rate limit.
 ![Habits plugin (facts)](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.facts.svg)
 
 These facts are generated from your recent coding activity.
-The indent style is deduced from the diffs of your recent commits. 
+The indent style is deduced from the diffs of your recent commits.
 
 Add the following to your workflow :
 ```yaml
@@ -1042,14 +1044,12 @@ Add the following to your workflow :
     plugin_habits_days: 14
 ```
 
-    🚧 The following feature is available as pre-release on @master
-
 You can display charts in this section :
 
 ![Habits plugin (charts)](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.charts.svg)
 
-These charts are generated from your recent coding activity.  
-Languages metrics are computed with [github/linguist](https://github.com/github/linguist) from the diffs of your recent commits. 
+These charts are generated from your recent coding activity.
+Languages metrics are computed with [github/linguist](https://github.com/github/linguist) from the diffs of your recent commits.
 
 Add the following to your workflow instead :
 ```yaml

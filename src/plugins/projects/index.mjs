@@ -10,6 +10,7 @@
           //Limit
             limit = Math.max(1, Math.min(100, Number(limit)))
         //Retrieve contribution calendar from graphql api
+          console.debug(`metrics/compute/${login}/plugins > projects > querying api`)
           const {user:{projects}} = await graphql(`
               query Projects {
                 user(login: "${login}") {
@@ -31,6 +32,7 @@
             `
           )
         //Iterate through projects and format them
+          console.debug(`metrics/compute/${login}/plugins > posts > processing ${projects.nodes.length} projects`)
           const list = []
           for (const project of projects.nodes) {
             //Format date
@@ -52,7 +54,9 @@
       }
     //Handle errors
       catch (error) {
-        console.debug(error)
-        throw {error:{message:`An error occured`}}
+        let message = "An error occured"
+        if (error.errors?.map(({type}) => type)?.includes("INSUFFICIENT_SCOPES"))
+          message = "Insufficient token rights"
+        throw {error:{message, instance:error}}
       }
   }
