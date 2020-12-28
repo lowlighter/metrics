@@ -6,12 +6,14 @@
           if ((!enabled)||(!q.topics))
             return null
         //Parameters override
-          let {"topics.sort":sort = "stars", "topics.mode":mode = "starred", "topics.limit":limit = (mode === "mastered" ? 0 : 15)} = q
+          let {"topics.sort":sort = "stars", "topics.mode":mode = "starred", "topics.limit":limit} = q
           //Shuffle
             const shuffle = (sort === "random")
           //Sort method
             sort = {starred:"created", activity:"updated", stars:"stars", random:"created"}[sort] ?? "starred"
           //Limit
+            if (!Number.isFinite(limit))
+              limit = (mode === "mastered" ? 0 : 15)
             limit = Math.max(0, Math.min(20, Number(limit)))
           //Mode
             mode = ["starred", "mastered"].includes(mode) ? mode : "starred"
