@@ -60,13 +60,12 @@
             //Check plugins errors
               {
                 const errors = promised.filter(({result = null}) => result?.error)
-                if (die) {
-                  if (errors.length)
-                    throw new Error(`${errors.length} error${s(errors.length)} found...`)
-                }
-                else {
-                  console.warn(`${errors.length} error${s(errors.length)} found, ignoring...`)
-                  console.warn(util.inspect(errors, {depth:Infinity, maxStringLength:256}))
+                if (errors.length) {
+                  console.warn(`${errors.length} plugin error${s(errors.length)}...`)
+                  if (die)
+                    throw new Error(`At least one plugin resulted in an error`)
+                  else
+                    console.warn(util.inspect(errors, {depth:Infinity, maxStringLength:256}))
                 }
               }
           }
