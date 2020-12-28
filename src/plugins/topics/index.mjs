@@ -54,8 +54,7 @@
         //Limit topics (starred mode)
           if ((mode === "starred")&&(limit > 0)) {
             console.debug(`metrics/compute/${login}/plugins > topics > keeping only ${limit} topics`)
-            const removed = topics.slice(limit)
-            topics = topics.slice(0, limit)
+            const removed = topics.splice(limit)
             topics.push({name:`And ${removed.length} more...`, description:removed.map(({name}) => name).join(", "), icon:null})
           }
         //Convert icons to base64
@@ -76,8 +75,7 @@
         //Limit topics (mastered mode)
           if ((mode === "mastered")&&(limit > 0)) {
             console.debug(`metrics/compute/${login}/plugins > topics > keeping only ${limit} topics`)
-            const removed = topics.slice(limit)
-            topics = topics.slice(0, limit)
+            topics.splice(limit)
           }
         //Results
           return {mode, list:topics}

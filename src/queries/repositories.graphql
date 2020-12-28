@@ -12,7 +12,7 @@ query Metrics {
         stargazers {
           totalCount
         }
-        languages(first: 4) {
+        languages(first: 8) {
           edges {
             size
             node {

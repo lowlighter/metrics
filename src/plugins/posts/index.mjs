@@ -29,7 +29,7 @@
             //Limit tracklist
               if (limit > 0) {
                 console.debug(`metrics/compute/${login}/plugins > posts > keeping only ${limit} posts`)
-                posts = posts.slice(0, limit)
+                posts.splice(limit)
               }
             //Results
               return {source, list:posts}

@@ -10,7 +10,7 @@
           //Repositories projects
             repositories = repositories?.split(",").map(repository => repository.trim()).filter(repository => /[-\w]+[/][-\w]+[/]projects[/]\d+/.test(repository)) ?? []
           //Limit
-            limit = Math.max(1+repositories.length, Math.min(100, Number(limit)))
+            limit = Math.max(repositories.length, Math.min(100, Number(limit)))
         //Retrieve user owned projects from graphql api
           console.debug(`metrics/compute/${login}/plugins > projects > querying api`)
           const {user:{projects}} = await graphql(queries.projects({login, limit}))
@@ -45,6 +45,9 @@
             //Append
               list.push({name:project.name, updated, progress:{enabled, todo, doing, done, total:todo+doing+done}})
           }
+        //Limit
+          console.debug(`metrics/compute/${login}/plugins > projects > keeping only ${limit} projects`)
+          list.splice(limit)
         //Results
           return {list, totalCount:projects.totalCount}
       }

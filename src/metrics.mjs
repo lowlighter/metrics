@@ -47,7 +47,13 @@
               console.debug(`metrics/compute/${login} > graphql query`)
               Object.assign(data, await graphql(queries.common({login, "calendar.from":new Date(Date.now()-14*24*60*60*1000).toISOString(), "calendar.to":(new Date()).toISOString()})))
             //Query repositories from GitHub API
-              {
+              if (false) {
+                const repo = "metrics"
+                console.debug(`metrics/compute/${login} > retrieving single repository ${repo}`)
+                const {user:{repository:node}} = await graphql(queries.repository({login, repo}))
+                data.user.repositories.nodes.push(node)
+              }
+              else {
                 //Iterate through repositories
                   let cursor = null
                   let pushed = 0
@@ -60,7 +66,7 @@
                   } while ((pushed)&&(cursor)&&(data.user.repositories.nodes.length < repositories))
                 //Limit repositories
                   console.debug(`metrics/compute/${login} > keeping only ${repositories} repositories`)
-                  data.user.repositories.nodes = data.user.repositories.nodes.slice(0, repositories)
+                  data.user.repositories.nodes.splice(repositories)
                   console.debug(`metrics/compute/${login} > loaded ${data.user.repositories.nodes.length} repositories`)
                   console.log(util.inspect(data.user.repositories.nodes, {depth:Infinity}))
               }

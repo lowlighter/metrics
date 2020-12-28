@@ -171,7 +171,7 @@
             //Limit tracklist
               if (limit > 0) {
                 console.debug(`metrics/compute/${login}/plugins > music > keeping only ${limit} tracks`)
-                tracks = tracks.slice(0, limit)
+                tracks.splice(limit)
               }
             //Convert artworks to base64
               console.debug(`metrics/compute/${login}/plugins > music > loading artworks`)
