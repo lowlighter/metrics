@@ -19,7 +19,7 @@
     //Get commit activity
       console.debug(`metrics/compute/${login}/${repo} > querying api for commits`)
       const commits = []
-      for (let page = 0; page < 1; page++) {
+      for (let page = 0; page < 100; page++) {
         console.debug(`metrics/compute/${login}/${repo} > loading page ${page}`)
         const {data} = await rest.repos.listCommits({owner:login, repo, per_page:100, page})
         if (!data.length) {
@@ -39,11 +39,12 @@
       //Compute relative date for each contribution
         const now = new Date()
         now.setHours(0, 0, 0, 0)
-        const contributions = commits.map(({commit}) => Math.abs(Math.ceil((now - new Date(commit.committer.date))/(24*60*60*1000)))).slice(0, days)
+        const contributions = commits.map(({commit}) => Math.abs(Math.ceil((now - new Date(commit.committer.date))/(24*60*60*1000))))
       //Count contributions per relative day
         const calendar = new Array(days).fill(0)
         for (const day of contributions)
           calendar[day]++
+        calendar.splice(days)
         const max = Math.max(...calendar)
       //Override contributions calendar
         data.user.calendar.contributionCalendar.weeks = calendar.map(commit => ({contributionDays:{color:commit ? `var(--color-calendar-graph-day-L${Math.ceil(commit/max/0.25)}-bg)` : "var(--color-calendar-graph-day-bg)"}}))
