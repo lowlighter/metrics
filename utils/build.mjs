@@ -75,6 +75,7 @@
                 template:"${{ matrix.template }}",
                 base:"",
                 plugins_errors_fatal:true,
+                q:'{"repo":"metrics"}',
                 ...context
               }).map(([key, value]) => `${"  ".repeat(5)}${key}: ${
                 typeof value === "boolean" ? (value ? "yes" : "no") :
