@@ -48,6 +48,13 @@
       //Override contributions calendar
         data.user.calendar.contributionCalendar.weeks = calendar.map(commit => ({contributionDays:{color:commit ? `var(--color-calendar-graph-day-L${Math.ceil(commit/max/0.25)}-bg)` : "var(--color-calendar-graph-day-bg)"}}))
 
+    //Override plugins parameters
+      q["projects.limit"] = 0
+
     //Common
       await common(...arguments)
+      await Promise.all(pending)
+
+    //Reformat projects name
+      data.plugins.projects.list.map(project => project.name = project.name.replace(`(${login}/${repo})`, "").trim())
   }
