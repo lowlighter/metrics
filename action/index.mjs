@@ -166,9 +166,10 @@
           }
         //Projects
           if (plugins.projects.enabled) {
-            for (const option of ["limit"])
+            for (const option of ["limit", "repositories"])
               q[`projects.${option}`] = core.getInput(`plugin_projects_${option}`) || null
             console.log(`Projects limit            | ${q["projects.limit"] || "(default)"}`)
+            console.log(`Projects repositories     | ${q["projects.repositories"] || "(none)"}`)
           }
         //Tweets
           if (plugins.tweets.enabled) {

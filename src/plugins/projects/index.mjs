@@ -6,10 +6,12 @@
           if ((!enabled)||(!q.projects))
             return null
         //Parameters override
-          let {"projects.limit":limit = 4} = q
+          let {"projects.limit":limit = 4, "projects.repositories":repositories = ""} = q
+          //Repositories projects
+            repositories = repositories?.split(",").map(repository => repository.trim()).filter(repository => /[-\w]+[/][-\w]+[/]projects[/]\d+/.test(repository)) ?? []
           //Limit
-            limit = Math.max(1, Math.min(100, Number(limit)))
-        //Retrieve contribution calendar from graphql api
+            limit = Math.max(1+repositories.length, Math.min(100, Number(limit)))
+        //Retrieve user owned projects from graphql api
           console.debug(`metrics/compute/${login}/plugins > projects > querying api`)
           const {user:{projects}} = await graphql(`
               query Projects {
@@ -31,8 +33,39 @@
               }
             `
           )
+        //Retrieve repositories projects from graphql api
+          for (const identifier of repositories) {
+            //Querying repository project
+              console.debug(`metrics/compute/${login}/plugins > projects > querying api for ${identifier}`)
+              const {user, repository, id} = identifier.match(/(?<user>[-\w]+)[/](?<repository>[-\w]+)[/]projects[/](?<id>\d+)/)?.groups
+              const {user:{repository:{project}}} = await graphql(`
+                  query Projects {
+                    user(login: "${user}") {
+                      repository(name: "${repository}") {
+                        project(number: ${id}) {
+                          name
+                          updatedAt
+                          progress {
+                            doneCount
+                            inProgressCount
+                            todoCount
+                            enabled
+                          }
+                        }
+                      }
+                    }
+                  }
+                `
+              )
+            //Adding it to projects list
+              console.debug(`metrics/compute/${login}/plugins > projects > registering ${identifier}`)
+              project.name = `${project.name} (${user}/${repository})`
+              projects.nodes.unshift(project)
+              projects.totalCount++
+          }
+
         //Iterate through projects and format them
-          console.debug(`metrics/compute/${login}/plugins > posts > processing ${projects.nodes.length} projects`)
+          console.debug(`metrics/compute/${login}/plugins > projects > processing ${projects.nodes.length} projects`)
           const list = []
           for (const project of projects.nodes) {
             //Format date

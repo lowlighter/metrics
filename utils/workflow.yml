@@ -197,7 +197,7 @@ jobs:
         uses: lowlighter/metrics@<%- release %>
         <%- testcase({
           plugin_topics: true,
-          plugin_topics_mode: "mastered"
+          plugin_topics_mode: "mastered",
           plugin_topics_sort: "stars",
         }) %>
 

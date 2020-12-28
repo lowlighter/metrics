@@ -279,6 +279,14 @@ inputs:
     description: Display active projects
     default: no
 
+  # Display active repository projects
+  # By default, only user owned projects are displayed, with this option it is possible to display projects from repositories
+  # List of comma-separated projects identifier, in the following format :user/:repo/projects/:project_id
+  # The limit of displayed projects will automatically be updated so listed projects will fit
+  plugin_projects_repositories:
+    description: List of repository project identifiers to disaplay
+    default: ""
+
   # Number of active projects to display
   # Between 1 and 100
   plugin_projects_limit:
