@@ -4,6 +4,7 @@
   + (!!plugins.followup)*68
   + (!!base.metadata)*28
   + (!!plugins.projects)*22 + (plugins.projects?.list?.length ?? 0)*60 + (!!plugins.projects?.error)*22
+  + Math.max(0, ((!!base.header)+(!!base.metadata)+(!!plugins.followup)+(!!plugins.projects))-1))*4
 %>">
 
   <defs><style><%= fonts %></style></defs>

@@ -164,8 +164,8 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
 
 <table>
   <tr>
-    <th>Classic template</a></th>
-    <th>Terminal template</a></th>
+    <th>Classic template</th>
+    <th>Terminal template</th>
   </tr>
   <tr>
     <td>
@@ -173,6 +173,17 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
     </td>
     <td>
       <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.terminal.svg" alt="" width="400">
+    </td>
+  </tr>
+  <tr>
+    <th>Repository template<br><sup>A special template to embed on any repository readme !</sup></th>
+    <th></th>
+  </tr>
+  <tr>
+    <td>
+      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.repository.svg" alt="" width="400">
+    </td>
+    <td>
     </td>
   </tr>
   <tr>
@@ -630,7 +641,7 @@ Add the following to your workflow instead :
 
     🚧 The feature below is only available on @master
 
-You can also display the screenshot taken by PageSpeed API : 
+You can also display the screenshot taken by PageSpeed API :
 
 ![Pagespeed plugin (screenshot)](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.screenshot.svg)
 
@@ -916,7 +927,7 @@ Add the following to your workflow :
 
     🚧 The feature below is only available on @master
 
-It is possible to display starred topics as `Mastered and known technologies` instead : 
+It is possible to display starred topics as `Mastered and known technologies` instead :
 
 ![Topics plugin (mastered)](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.mastered.svg)
 
@@ -975,7 +986,7 @@ Fill the informations and set visibility to *public* :
 
 It is possible to display projects related to repositories along with personal projects.
 
-To do so, open your repository project and retrieve the last url endpoint, in the format `:user/:repository/projects/:project_id` (for example, `lowlighter/metrics/projects/1`) and add it in the `plugin_projects_repositories` option. Enable `Track project progress` in the project settings to display a progress bar in generated metrics. 
+To do so, open your repository project and retrieve the last url endpoint, in the format `:user/:repository/projects/:project_id` (for example, `lowlighter/metrics/projects/1`) and add it in the `plugin_projects_repositories` option. Enable `Track project progress` in the project settings to display a progress bar in generated metrics.
 
 ![Add a repository project](.github/readme/imgs/plugin_projects_repositories.png)
 
