@@ -66,7 +66,7 @@
         //Build
           const code = await ejs.renderFile(path.join(__utils, "workflow.yml"), {
             releases:["master"],
-            templates:(await fs.promises.readdir(__templates)).filter(name => !/.*[.]mjs$/.test(name)).sort(),
+            templates:(await fs.promises.readdir(__templates)).filter(name => !/.*[.]mjs$/.test(name)).filter(name => !["repository"].includes(name)).sort(),
             testcase(context = {}) {
               return [`with:`, ...Object.entries({
                 token:"${{ secrets.METRICS_TOKEN }}",
@@ -75,7 +75,6 @@
                 template:"${{ matrix.template }}",
                 base:"",
                 plugins_errors_fatal:true,
-                query:`'{"repo":"metrics"}'`,
                 ...context
               }).map(([key, value]) => `${"  ".repeat(5)}${key}: ${
                 typeof value === "boolean" ? (value ? "yes" : "no") :

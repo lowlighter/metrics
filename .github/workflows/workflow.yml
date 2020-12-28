@@ -45,7 +45,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        template: ["classic","repository","terminal"]
+        template: ["classic","terminal"]
     steps:
 
       - name: ${{ matrix.template }} > Base
@@ -57,7 +57,6 @@ jobs:
           template: ${{ matrix.template }}
           base: header, activity, community, repositories, metadata
           plugins_errors_fatal: yes
-          query: '{"repo":"metrics"}'
 
       - name: ${{ matrix.template }} > Plugin > PageSpeed
         uses: lowlighter/metrics@master
@@ -68,7 +67,6 @@ jobs:
           template: ${{ matrix.template }}
           base: ""
           plugins_errors_fatal: yes
-          query: '{"repo":"metrics"}'
           plugin_pagespeed: yes
           plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
           plugin_pagespeed_detailed: yes
@@ -83,7 +81,6 @@ jobs:
           template: ${{ matrix.template }}
           base: ""
           plugins_errors_fatal: yes
-          query: '{"repo":"metrics"}'
           plugin_music: yes
           plugin_music_playlist: ${{ secrets.MUSIC_PLAYLIST_APPLE }}
 
@@ -96,7 +93,6 @@ jobs:
           template: ${{ matrix.template }}
           base: ""
           plugins_errors_fatal: yes
-          query: '{"repo":"metrics"}'
           plugin_music: yes
           plugin_music_playlist: ${{ secrets.MUSIC_PLAYLIST_SPOTIFY }}
 
@@ -109,7 +105,6 @@ jobs:
           template: ${{ matrix.template }}
           base: ""
           plugins_errors_fatal: yes
-          query: '{"repo":"metrics"}'
           plugin_music: yes
           plugin_music_provider: spotify
           plugin_music_token: ${{ secrets.SPOTIFY_TOKENS }}
@@ -123,7 +118,6 @@ jobs:
           template: ${{ matrix.template }}
           base: ""
           plugins_errors_fatal: yes
-          query: '{"repo":"metrics"}'
           plugin_posts: yes
           plugin_posts_source: dev.to
 
@@ -136,7 +130,6 @@ jobs:
           template: ${{ matrix.template }}
           base: ""
           plugins_errors_fatal: yes
-          query: '{"repo":"metrics"}'
           plugin_isocalendar: yes
           plugin_isocalendar_duration: full-year
 
@@ -149,7 +142,6 @@ jobs:
           template: ${{ matrix.template }}
           base: ""
           plugins_errors_fatal: yes
-          query: '{"repo":"metrics"}'
           plugin_habits: yes
           plugin_habits_from: 5
           plugin_habits_charts: yes
@@ -163,7 +155,6 @@ jobs:
           template: ${{ matrix.template }}
           base: ""
           plugins_errors_fatal: yes
-          query: '{"repo":"metrics"}'
           plugin_languages: yes
 
       - name: ${{ matrix.template }} > Plugin > Follow-up
@@ -175,7 +166,6 @@ jobs:
           template: ${{ matrix.template }}
           base: ""
           plugins_errors_fatal: yes
-          query: '{"repo":"metrics"}'
           plugin_followup: yes
 
       - name: ${{ matrix.template }} > Plugin > Lines and Traffic
@@ -187,7 +177,6 @@ jobs:
           template: ${{ matrix.template }}
           base: ""
           plugins_errors_fatal: yes
-          query: '{"repo":"metrics"}'
           plugin_lines: yes
           plugin_traffic: yes
 
@@ -200,7 +189,6 @@ jobs:
           template: ${{ matrix.template }}
           base: ""
           plugins_errors_fatal: yes
-          query: '{"repo":"metrics"}'
           plugin_gists: yes
 
       - name: ${{ matrix.template }} > Plugin > Topics (starred)
@@ -212,7 +200,6 @@ jobs:
           template: ${{ matrix.template }}
           base: ""
           plugins_errors_fatal: yes
-          query: '{"repo":"metrics"}'
           plugin_topics: yes
           plugin_topics_mode: starred
           plugin_topics_sort: random
@@ -226,7 +213,6 @@ jobs:
           template: ${{ matrix.template }}
           base: ""
           plugins_errors_fatal: yes
-          query: '{"repo":"metrics"}'
           plugin_topics: yes
           plugin_topics_mode: mastered
           plugin_topics_sort: stars
@@ -240,7 +226,6 @@ jobs:
           template: ${{ matrix.template }}
           base: ""
           plugins_errors_fatal: yes
-          query: '{"repo":"metrics"}'
           plugin_projects: yes
           plugin_projects_repositories: lowlighter/metrics/projects/1
           plugin_projects_limit: 2
@@ -254,7 +239,6 @@ jobs:
           template: ${{ matrix.template }}
           base: ""
           plugins_errors_fatal: yes
-          query: '{"repo":"metrics"}'
           plugin_tweets: yes
           plugin_tweets_limit: 2
           plugin_tweets_token: ${{ secrets.TWITTER_TOKEN }}
