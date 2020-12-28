@@ -131,6 +131,11 @@
           {
             const assets = {}
             const queries = (await fs.promises.readdir(__queries)).sort()
+            for (const query of queries) {
+              const name = query.replace(/[.]graphql$/, "")
+              assets[`_${name.replace()}`] = await fs.promises.readFile(path.resolve(`${__queries}/${query}`))
+              console.log(`Prepared query ${name}`.grey)
+            }
             code = code.replace(/<#queries>/g, Buffer.from(JSON.stringify(assets)).toString("base64"))
             console.log(`Included ${queries.length} queries to generated action`.grey)
           }
