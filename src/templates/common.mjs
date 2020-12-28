@@ -4,7 +4,6 @@
     //Init
       const computed = data.computed = {commits:0, sponsorships:0, licenses:{favorite:"", used:{}}, token:{}, repositories:{watchers:0, stargazers:0, issues_open:0, issues_closed:0, pr_open:0, pr_merged:0, forks:0, releases:0}}
       const avatar = imports.imgb64(data.user.avatarUrl)
-      data.plugins = {}
       console.debug(`metrics/compute/${login} > formatting common metrics`)
 
     //Timezone config

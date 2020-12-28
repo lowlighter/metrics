@@ -71,7 +71,7 @@
               return [`with:`, ...Object.entries({
                 token:"${{ secrets.METRICS_TOKEN }}",
                 dryrun:true,
-                repositories:1,
+                repositories:0,
                 template:"${{ matrix.template }}",
                 base:"",
                 plugins_errors_fatal:true,

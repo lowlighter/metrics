@@ -189,7 +189,9 @@
         console.log(`Plugin errors             | ${die ? "die" : "warn"}`)
 
       //Build query
-        q = {...q, base:false, ...base, ...config, repositories, template}
+        const query = JSON.parse(core.getInput("query") || "{}")
+        console.log(`Query additional params   | ${JSON.stringify(query)}`)
+        q = {...query, ...q, base:false, ...base, ...config, repositories, template}
 
       //Render metrics
         const rendered = await metrics({login:user, q, dflags}, {graphql, rest, plugins, conf, die})

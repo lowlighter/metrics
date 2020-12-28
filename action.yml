@@ -59,6 +59,13 @@ inputs:
     description: Template to use
     default: classic
 
+  # Raw query parameters (JSON string)
+  # Some templates may require additional parameters which you can specify here
+  # Do not use this option to pass plugins parameters as they'll be overwritten by the other options
+  query:
+    description: Additional query parameters
+    default: "{}"
+
   # Template base content
   # Pass a string of comma-separated values
   # To disable everything (like if you want to use a plugin as standalone), pass an empty string

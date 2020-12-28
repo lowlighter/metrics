@@ -81,6 +81,7 @@
             descriptions:{
               classic:"Classic template",
               terminal:"Terminal template",
+              repository:"(hidden)",
             },
           },
           generated:{

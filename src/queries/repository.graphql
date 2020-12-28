@@ -2,6 +2,8 @@ query Metrics {
   user(login: "$login") {
     repository(name: "$repo") {
       name
+      createdAt
+      diskUsage
       watchers {
         totalCount
       }

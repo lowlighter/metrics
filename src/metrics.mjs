@@ -29,7 +29,7 @@
             throw new Error("unsupported template")
           const {image, style, fonts} = conf.templates[template]
           const queries = conf.queries
-          const data = {base:{}, config:{}}
+          const data = {base:{}, config:{}, errors:[], plugins:{}, computed:{}}
 
         //Base parts
           {
@@ -47,13 +47,7 @@
               console.debug(`metrics/compute/${login} > graphql query`)
               Object.assign(data, await graphql(queries.common({login, "calendar.from":new Date(Date.now()-14*24*60*60*1000).toISOString(), "calendar.to":(new Date()).toISOString()})))
             //Query repositories from GitHub API
-              if (false) {
-                const repo = "metrics"
-                console.debug(`metrics/compute/${login} > retrieving single repository ${repo}`)
-                const {user:{repository:node}} = await graphql(queries.repository({login, repo}))
-                data.user.repositories.nodes.push(node)
-              }
-              else {
+              {
                 //Iterate through repositories
                   let cursor = null
                   let pushed = 0
@@ -68,7 +62,6 @@
                   console.debug(`metrics/compute/${login} > keeping only ${repositories} repositories`)
                   data.user.repositories.nodes.splice(repositories)
                   console.debug(`metrics/compute/${login} > loaded ${data.user.repositories.nodes.length} repositories`)
-                  console.log(util.inspect(data.user.repositories.nodes, {depth:Infinity}))
               }
             //Compute metrics
               console.debug(`metrics/compute/${login} > compute`)
@@ -78,11 +71,11 @@
 
             //Check plugins errors
               {
-                const errors = promised.filter(({result = null}) => result?.error)
+                const errors = [...promised.filter(({result = null}) => result?.error), ...data.errors]
                 if (errors.length) {
-                  console.warn(`${errors.length} plugin error${s(errors.length)}...`)
+                  console.warn(`metrics/compute/${login} > ${errors.length} errors !`)
                   if (die)
-                    throw new Error(`At least one plugin resulted in an error`)
+                    throw new Error(`An error occured during rendering, dying`)
                   else
                     console.warn(util.inspect(errors, {depth:Infinity, maxStringLength:256}))
                 }

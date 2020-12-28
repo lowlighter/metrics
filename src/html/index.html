@@ -28,7 +28,7 @@
             <div class="step">
               <h2>2. Select a template</h2>
               <div class="templates">
-                <label v-for="template in templates.list" :key="template">
+                <label v-for="template in templates.list" :key="template" v-show="templates.descriptions[template] !== '(hidden)'">
                   <input type="radio" v-model="templates.selected" :value="template" @change="load" :disabled="generated.pending">
                   {{ templates.descriptions[template] || template }}
                 </label>
