@@ -69,6 +69,14 @@ jobs:
           plugin_pagespeed_token: "${{ secrets.PAGESPEED_TOKEN }}",
         }) %>
 
+      - name: ${{ matrix.template }} > Plugin > PageSpeed (screenshot)
+        uses: lowlighter/metrics@<%- release %>
+        <%- testcase({
+          plugin_pagespeed: true,
+          plugin_pagespeed_screenshot: true,
+          plugin_pagespeed_token: "${{ secrets.PAGESPEED_TOKEN }}",
+        }) %>
+
       - name: ${{ matrix.template }} > Plugin > Music (playlist - apple)
         uses: lowlighter/metrics@<%- release %>
         <%- testcase({
@@ -183,6 +191,14 @@ jobs:
         <%- testcase({
           plugin_topics: true,
           plugin_topics_sort: "random",
+        }) %>
+
+      - name: ${{ matrix.template }} > Plugin > Topics (mastered)
+        uses: lowlighter/metrics@<%- release %>
+        <%- testcase({
+          plugin_topics: true,
+          plugin_topics_mode: "mastered"
+          plugin_topics_sort: "stars",
         }) %>
 
       - name: ${{ matrix.template }} > Plugin > Projects

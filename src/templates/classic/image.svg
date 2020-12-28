@@ -1,11 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="480" height="<%= 12 + 2000
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="<%= 12
   + (!!base.header)*80 + (user.isHireable)*16
   + (!!base.metadata)*38
   + ((!!base.activity)||(!!base.community))*128
   + (!!base.repositories)*108
   + ((!!base.repositories)*((!!plugins.traffic)||(!!plugins.lines)))*16
   + (!!plugins.followup)*68
-  + (!!plugins.pagespeed)*126 + (plugins.pagespeed?.detailed ?? 0)*6*20
+  + (!!plugins.pagespeed)*126 + (plugins.pagespeed?.detailed ?? 0)*6*20 + (!!plugins.pagespeed?.screenshot)*330
   + (!!plugins.habits)*28 + (!!plugins.habits?.facts)*58 + (!!plugins.habits?.charts)*226
   + (!!plugins.languages)*96
   + (!!plugins.music)*64 + (plugins.music?.tracks?.length ? 14+Math.max(0, plugins.music.tracks.length-1)*36 : 0)
@@ -505,10 +505,10 @@
               </section>
             </div>
           <% } %>
-          <% if (true) { %>
+          <% if (plugins.pagespeed.screenshot) { %>
             <div class="row">
               <section>
-                <img src="<%= plugins.pagespeed.screenshot %>" width="480" height="270" />
+                <img class="screenshot" src="<%= plugins.pagespeed.screenshot %>" width="452" height="315"/>
               </section>
             </div>
           <% } %>

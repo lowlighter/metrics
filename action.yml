@@ -86,6 +86,11 @@ inputs:
     description: Display additional PageSpeed metrics
     default: no
 
+  # Display the final screenshot of audited website taken by PageSpeed audit
+  plugin_pagespeed_screenshot:
+    description: Display a screenshot of your website
+    default: no
+
   # PageSpeed API token (optional, avoid hitting requests limit)
   # See https://developers.google.com/speed/docs/insights/v5/get-started for more informations
   plugin_pagespeed_token:

@@ -110,8 +110,10 @@
           if (plugins.pagespeed.enabled) {
             plugins.pagespeed.token = core.getInput("plugin_pagespeed_token") || ""
             q[`pagespeed.detailed`] = bool(core.getInput(`plugin_pagespeed_detailed`))
+            q[`pagespeed.screenshot`] = bool(core.getInput(`plugin_pagespeed_screenshot`))
             console.log(`Pagespeed token           | ${plugins.pagespeed.token ? "provided" : "missing"}`)
             console.log(`Pagespeed detailed        | ${q["pagespeed.detailed"]}`)
+            console.log(`Pagespeed screenshot      | ${q["pagespeed.screenshot"]}`)
           }
         //Languages
           if (plugins.languages.enabled) {
