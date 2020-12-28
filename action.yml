@@ -271,7 +271,7 @@ inputs:
   # If more topics must be displayed, they will be grouped in an ellipsis
   plugin_topics_limit:
     description: Number of starred topics to display
-    default: 15
+    default: 0
 
   # Projects plugin
   # Display active projects

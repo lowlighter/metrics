@@ -78,7 +78,6 @@
             console.debug(`metrics/compute/${login}/plugins > topics > keeping only ${limit} topics`)
             const removed = topics.slice(limit)
             topics = topics.slice(0, limit)
-            topics.push({name:`And ${removed.length} more...`, description:removed.map(({name}) => name).join(", "), icon:null})
           }
         //Results
           return {mode, list:topics}
