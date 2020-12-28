@@ -118,7 +118,7 @@
                 `${__templates}/${name}/image.svg`,
                 `${__templates}/${name}/style.css`,
                 `${__templates}/${name}/fonts.css`,
-              ]
+              ].map(file => fs.existsSync(path.resolve(file)) ? file : file.replace(`${__templates}/${name}/`, `${__templates}/classic/`))
               const [image, style, fonts] = await Promise.all(files.map(async file => `${await fs.promises.readFile(path.resolve(file))}`))
               assets[name] = {image, style, fonts}
               console.log(`Prepared template ${name}`.grey)

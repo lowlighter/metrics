@@ -57,8 +57,8 @@
               `${templates}/${name}/image.svg`,
               `${templates}/${name}/style.css`,
               `${templates}/${name}/fonts.css`,
-            ]
-            const [image, style, fonts] = await Promise.all(files.map(async file => `${await fs.promises.readFile(path.resolve(file))}`))
+            ].map(file => fs.existsSync(path.resolve(file)) ? file : file.replace(`${templates}/${name}/`, `${templates}/classic/`)).map(file => path.resolve(file))
+            const [image, style, fonts] = await Promise.all(files.map(async file => `${await fs.promises.readFile(file)}`))
             conf.templates[name] = {image, style, fonts}
             logger(`metrics/setup > load template [${name}] > success`)
           //Debug
@@ -66,7 +66,7 @@
               Object.defineProperty(conf.templates, name, {
                 get() {
                   logger(`metrics/setup > reload template [${name}]`)
-                  const [image, style, fonts] = files.map(file => `${fs.readFileSync(path.resolve(file))}`)
+                  const [image, style, fonts] = files.map(file => `${fs.readFileSync(file)}`)
                   logger(`metrics/setup > reload template [${name}] > success`)
                   return {image, style, fonts}
                 }
