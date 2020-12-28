@@ -83,6 +83,19 @@ jobs:
           plugin_pagespeed_detailed: yes
           plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
 
+      - name: ${{ matrix.template }} > Plugin > PageSpeed (screenshot)
+        uses: lowlighter/metrics@master
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          dryrun: yes
+          repositories: 1
+          template: ${{ matrix.template }}
+          base: ""
+          plugins_errors_fatal: yes
+          plugin_pagespeed: yes
+          plugin_pagespeed_screenshot: yes
+          plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
+
       - name: ${{ matrix.template }} > Plugin > Music (playlist - apple)
         uses: lowlighter/metrics@master
         with:
@@ -283,6 +296,19 @@ jobs:
           plugins_errors_fatal: yes
           plugin_topics: yes
           plugin_topics_sort: random
+
+      - name: ${{ matrix.template }} > Plugin > Topics (mastered)
+        uses: lowlighter/metrics@master
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          dryrun: yes
+          repositories: 1
+          template: ${{ matrix.template }}
+          base: ""
+          plugins_errors_fatal: yes
+          plugin_topics: yes
+          plugin_topics_mode: mastered
+          plugin_topics_sort: stars
 
       - name: ${{ matrix.template }} > Plugin > Projects
         uses: lowlighter/metrics@master
