@@ -1,5 +1,5 @@
 query Metrics {
-  user(login: $login) {
+  user(login: "$login") {
     databaseId
     name
     login
@@ -78,7 +78,7 @@ query Metrics {
       totalPullRequestContributions
       totalPullRequestReviewContributions
     }
-    calendar:contributionsCollection(from: $calendar.from, to: $calendar.to) {
+    calendar:contributionsCollection(from: "$calendar.from", to: "$calendar.to") {
       contributionCalendar {
         weeks {
           contributionDays {

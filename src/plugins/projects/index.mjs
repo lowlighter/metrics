@@ -1,5 +1,5 @@
 //Setup
-  export default async function ({login, graphql, q}, {enabled = false} = {}) {
+  export default async function ({login, graphql, q, queries}, {enabled = false} = {}) {
     //Plugin execution
       try {
         //Check if plugin is enabled and requirements are met
@@ -13,50 +13,13 @@
             limit = Math.max(1+repositories.length, Math.min(100, Number(limit)))
         //Retrieve user owned projects from graphql api
           console.debug(`metrics/compute/${login}/plugins > projects > querying api`)
-          const {user:{projects}} = await graphql(`
-              query Projects {
-                user(login: "${login}") {
-                  projects(last: ${limit}, states: OPEN, orderBy: {field: UPDATED_AT, direction: DESC}) {
-                    totalCount
-                    nodes {
-                      name
-                      updatedAt
-                      progress {
-                        doneCount
-                        inProgressCount
-                        todoCount
-                        enabled
-                      }
-                    }
-                  }
-                }
-              }
-            `
-          )
+          const {user:{projects}} = await graphql(queries.projects({login, limit}))
         //Retrieve repositories projects from graphql api
           for (const identifier of repositories) {
             //Querying repository project
               console.debug(`metrics/compute/${login}/plugins > projects > querying api for ${identifier}`)
               const {user, repository, id} = identifier.match(/(?<user>[-\w]+)[/](?<repository>[-\w]+)[/]projects[/](?<id>\d+)/)?.groups
-              const {user:{repository:{project}}} = await graphql(`
-                  query Projects {
-                    user(login: "${user}") {
-                      repository(name: "${repository}") {
-                        project(number: ${id}) {
-                          name
-                          updatedAt
-                          progress {
-                            doneCount
-                            inProgressCount
-                            todoCount
-                            enabled
-                          }
-                        }
-                      }
-                    }
-                  }
-                `
-              )
+              const {user:{repository:{project}}} = await graphql(queries["projects.repository"]({user, repository, id}))
             //Adding it to projects list
               console.debug(`metrics/compute/${login}/plugins > projects > registering ${identifier}`)
               project.name = `${project.name} (${user}/${repository})`

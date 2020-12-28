@@ -105,7 +105,7 @@
         conf.queries = JSON.parse(Buffer.from(`<#queries>`, "base64").toString("utf8"))
       }
     //Create queries formatters
-      Object.keys(conf.queries).map(name => conf.queries[name.substring(1)] = vars => {
+      Object.keys(conf.queries).map(name => conf.queries[name.substring(1)] = (vars = {}) => {
         let query = conf.queries[name]
         for (const [key, value] of Object.entries(vars)) {
           console.debug(`metrics/query/graphql > ${name.substring(1)} > replacing $${key} by ${value}`)

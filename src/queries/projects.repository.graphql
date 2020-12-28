@@ -1,0 +1,16 @@
+query Projects {
+  user(login: "$user") {
+    repository(name: "$repository") {
+      project(number: $id) {
+        name
+        updatedAt
+        progress {
+          doneCount
+          inProgressCount
+          todoCount
+          enabled
+        }
+      }
+    }
+  }
+}

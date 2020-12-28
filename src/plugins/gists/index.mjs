@@ -1,5 +1,5 @@
 //Setup
-  export default async function ({login, graphql, q}, {enabled = false} = {}) {
+  export default async function ({login, graphql, q, queries}, {enabled = false} = {}) {
     //Plugin execution
       try {
         //Check if plugin is enabled and requirements are met
@@ -7,29 +7,7 @@
             return null
         //Retrieve gists from graphql api
           console.debug(`metrics/compute/${login}/plugins > gists > querying api`)
-          const {user:{gists}} = await graphql(`
-              query Gists {
-                user(login: "${login}") {
-                  gists(last: 100) {
-                    totalCount
-                    nodes {
-                      stargazerCount
-                      isFork
-                      forks {
-                        totalCount
-                      }
-                      files {
-                        name
-                      }
-                      comments {
-                        totalCount
-                      }
-                    }
-                  }
-                }
-              }
-            `
-          )
+          const {user:{gists}} = await graphql(queries.gists({login}))
         //Iterate through gists
           console.debug(`metrics/compute/${login}/plugins > gists > processing ${gists.nodes.length} gists`)
           let stargazers = 0, forks = 0, comments = 0, files = 0

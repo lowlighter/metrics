@@ -1,0 +1,20 @@
+query Gists {
+  user(login: "$login") {
+    gists(last: 100) {
+      totalCount
+      nodes {
+        stargazerCount
+        isFork
+        forks {
+          totalCount
+        }
+        files {
+          name
+        }
+        comments {
+          totalCount
+        }
+      }
+    }
+  }
+}
