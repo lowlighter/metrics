@@ -105,12 +105,15 @@
         conf.queries = JSON.parse(Buffer.from(`<#queries>`, "base64").toString("utf8"))
       }
     //Create queries formatters
+      console.log(conf.queries)
       Object.keys(conf.queries).map(name => conf.queries[name.substring(1)] = (vars = {}) => {
         let query = conf.queries[name]
+        console.log(name, query)
         for (const [key, value] of Object.entries(vars))
           query = query.replace(new RegExp(`[$]${key}`, "g"), value)
         return query
       })
+      console.log(conf.queries)
 
     //Conf
       logger(`metrics/setup > setup > success`)
