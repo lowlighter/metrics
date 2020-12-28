@@ -87,5 +87,24 @@
         console.debug(`metrics/compute/${login} > applying dflag --hireable`)
         data.user.isHireable = true
       }
-
+      if ((dflags.includes("--halloween"))||(q["dflag.halloween"])) {
+        console.debug(`metrics/compute/${login} > applying dflag --halloween`)
+        //Haloween color replacer
+          const halloween = content => content
+            .replace(/--color-calendar-graph/g, "--color-calendar-halloween-graph")
+            .replace(/#9be9a8/gi, "var(--color-calendar-halloween-graph-day-L1-bg)")
+            .replace(/#40c463/gi, "var(--color-calendar-halloween-graph-day-L2-bg)")
+            .replace(/#30a14e/gi, "var(--color-calendar-halloween-graph-day-L3-bg)")
+            .replace(/#216e39/gi, "var(--color-calendar-halloween-graph-day-L4-bg)")
+        //Update contribution calendar colors
+          computed.calendar.map(day => day.color = halloween(day.color))
+        //Update isocalendar colors
+          const waiting = [...pending]
+          pending.push((async () => {
+            await Promise.all(waiting)
+            if (data.plugins.isocalendar?.svg)
+              data.plugins.isocalendar.svg = halloween(data.plugins.isocalendar.svg)
+            return {name:"dflag.halloween", result:true}
+          })())
+      }
   }
