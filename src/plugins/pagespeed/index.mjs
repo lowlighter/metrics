@@ -6,7 +6,7 @@
           if ((!enabled)||(!q.pagespeed)||(!data.user.websiteUrl))
             return null
         //Parameters override
-          let {"pagespeed.detailed":detailed = false} = q
+          let {"pagespeed.detailed":detailed = false, "pagespeed.screenshot":screenshot = false} = q
           //Duration in days
             detailed = !!detailed
         //Format url if needed
@@ -18,12 +18,18 @@
           console.debug(`metrics/compute/${login}/plugins > pagespeed > querying api for ${url}`)
           const scores = new Map()
           await Promise.all(["performance", "accessibility", "best-practices", "seo"].map(async category => {
-            console.debug(`metrics/compute/${login}/plugins > pagespeed > performing audit ${category}`)
-            const request = await imports.axios.get(`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?category=${category}&url=${url}&key=${token}`)
-            console.debug(request.data)
-            const {score, title} = request.data.lighthouseResult.categories[category]
-            scores.set(category, {score, title})
-            console.debug(`metrics/compute/${login}/plugins > pagespeed > performed audit ${category} (status code ${request.status})`)
+            //Perform audit
+              console.debug(`metrics/compute/${login}/plugins > pagespeed > performing audit ${category}`)
+              const request = await imports.axios.get(`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?category=${category}&url=${url}&key=${token}`)
+              console.debug(request.data)
+              const {score, title} = request.data.lighthouseResult.categories[category]
+              scores.set(category, {score, title})
+              console.debug(`metrics/compute/${login}/plugins > pagespeed > performed audit ${category} (status code ${request.status})`)
+            //Store screenshot
+              if ((screenshot)&&(category === "performance")) {
+                result.screenshot = request.data.lighthouseResult.audits["final-screenshot"].details.data
+                console.debug(`metrics/compute/${login}/plugins > pagespeed > performed audit ${category} (status code ${request.status})`)
+              }
           }))
           result.scores = [scores.get("performance"), scores.get("accessibility"), scores.get("best-practices"), scores.get("seo")]
         //Detailed metrics

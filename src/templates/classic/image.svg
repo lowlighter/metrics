@@ -5,7 +5,7 @@
   + (!!base.repositories)*108
   + ((!!base.repositories)*((!!plugins.traffic)||(!!plugins.lines)))*16
   + (!!plugins.followup)*68
-  + (!!plugins.pagespeed)*126 + (plugins.pagespeed?.detailed ?? 0)*6*20
+  + (!!plugins.pagespeed)*126 + (plugins.pagespeed?.detailed ?? 0)*6*20 + (!!plugins.pagespeed?.screenshot)*330
   + (!!plugins.habits)*28 + (!!plugins.habits?.facts)*58 + (!!plugins.habits?.charts)*226
   + (!!plugins.languages)*96
   + (!!plugins.music)*64 + (plugins.music?.tracks?.length ? 14+Math.max(0, plugins.music.tracks.length-1)*36 : 0)
@@ -380,11 +380,19 @@
             <% } else { %>
               <section>
                 <div class="field">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"></path></svg>
-                  <%= plugins.gists.stargazers %> Stargazer<%= s(plugins.gists.stargazers) %>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M4 1.75C4 .784 4.784 0 5.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v8.586A1.75 1.75 0 0114.25 15h-9a.75.75 0 010-1.5h9a.25.25 0 00.25-.25V6h-2.75A1.75 1.75 0 0110 4.25V1.5H5.75a.25.25 0 00-.25.25v2.5a.75.75 0 01-1.5 0v-2.5zm7.5-.188V4.25c0 .138.112.25.25.25h2.688a.252.252 0 00-.011-.013l-2.914-2.914a.272.272 0 00-.013-.011zM5.72 6.72a.75.75 0 000 1.06l1.47 1.47-1.47 1.47a.75.75 0 101.06 1.06l2-2a.75.75 0 000-1.06l-2-2a.75.75 0 00-1.06 0zM3.28 7.78a.75.75 0 00-1.06-1.06l-2 2a.75.75 0 000 1.06l2 2a.75.75 0 001.06-1.06L1.81 9.25l1.47-1.47z"></path></svg>
+                  <%= plugins.gists.files %> File<%= s(plugins.gists.files) %>
+                </div>
+                <div class="field">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M2.75 2.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h2a.75.75 0 01.75.75v2.19l2.72-2.72a.75.75 0 01.53-.22h4.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25H2.75zM1 2.75C1 1.784 1.784 1 2.75 1h10.5c.966 0 1.75.784 1.75 1.75v7.5A1.75 1.75 0 0113.25 12H9.06l-2.573 2.573A1.457 1.457 0 014 13.543V12H2.75A1.75 1.75 0 011 10.25v-7.5z"></path></svg>
+                  <%= plugins.gists.comments %> Comment<%= s(plugins.gists.comments) %>
                 </div>
               </section>
               <section>
+                <div class="field">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"></path></svg>
+                  <%= plugins.gists.stargazers %> Stargazer<%= s(plugins.gists.stargazers) %>
+                </div>
                 <div class="field">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z"></path></svg>
                   <%= plugins.gists.forks %> Fork<%= s(plugins.gists.forks) %>
@@ -497,6 +505,13 @@
               </section>
             </div>
           <% } %>
+          <% if (plugins.pagespeed.screenshot) { %>
+            <div class="row">
+              <section>
+                <img class="screenshot" src="<%= plugins.pagespeed.screenshot %>" width="452" height="315"/>
+              </section>
+            </div>
+          <% } %>
         <% } %>
       <% } %>
 
@@ -585,7 +600,7 @@
         <section>
           <h2 class="field">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M14.184 1.143a1.75 1.75 0 00-2.502-.57L.912 7.916a1.75 1.75 0 00-.53 2.32l.447.775a1.75 1.75 0 002.275.702l11.745-5.656a1.75 1.75 0 00.757-2.451l-1.422-2.464zm-1.657.669a.25.25 0 01.358.081l1.422 2.464a.25.25 0 01-.108.35l-2.016.97-1.505-2.605 1.85-1.26zM9.436 3.92l1.391 2.41-5.42 2.61-.942-1.63 4.97-3.39zM3.222 8.157l-1.466 1a.25.25 0 00-.075.33l.447.775a.25.25 0 00.325.1l1.598-.769-.83-1.436zm6.253 2.306a.75.75 0 00-.944-.252l-1.809.87a.75.75 0 00-.293.253L4.38 14.326a.75.75 0 101.238.848l1.881-2.75v2.826a.75.75 0 001.5 0v-2.826l1.881 2.75a.75.75 0 001.238-.848l-2.644-3.863z"></path></svg>
-            Starred topics
+            <%= {starred:"Starred topics", mastered:"Mastered technologies and topics"}[plugins.topics.mode] %>
           </h2>
           <div class="row">
             <% if (plugins.topics.error) { %>
@@ -596,13 +611,21 @@
                 </div>
               </section>
             <% } else { %>
-              <section>
-                <div class="topics fill-width">
-                  <% for (const {name, description} of plugins.topics.list) { %>
-                    <div class="label" title="<%= description %>"><%= name.toLocaleLowerCase() %></div>
-                  <% } %>
-                </div>
-              </section>
+                <section>
+                  <div class="topics fill-width">
+                    <% if (plugins.topics.mode === "starred") { %>
+                      <% for (const {name, description} of plugins.topics.list) { %>
+                        <div class="label" title="<%= description %>"><%= name.toLocaleLowerCase() %></div>
+                      <% } %>
+                    <% } else if (plugins.topics.mode === "mastered") { %>
+                      <% for (const {name, icon} of plugins.topics.list) { %>
+                        <% if (icon) { %>
+                          <img src="data:image/png;base64,<%= icon %>" width="24" height="24" alt="<%= name %>" title="<%= name %>"/>
+                        <% } %>
+                      <% } %>
+                    <% } %>
+                  </div>
+                </section>
             <% } %>
           </div>
         </section>

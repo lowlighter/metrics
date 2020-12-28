@@ -18,21 +18,26 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
       <a href="https://github.com/lowlighter/metrics#%EF%B8%8F-pagespeed">
         <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.svg" alt="" width="400">
       </a>
-      <details><summary>Alternate version</summary>
+      <details><summary>Detailed audit version</summary>
         <a href="https://github.com/lowlighter/metrics#%EF%B8%8F-pagespeed">
           <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.detailed.svg" alt="" width="400">
         </a>
-      </detail>
+      </details>
+      <details><summary>With screenshot version</summary>
+        <a href="https://github.com/lowlighter/metrics#%EF%B8%8F-pagespeed">
+          <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.screenshot.svg" alt="" width="400">
+        </a>
+      </details>
     </td>
     <td>
       <a href="https://github.com/lowlighter/metrics#-isometric-calendar">
         <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.isocalendar.svg" alt="" width="400">
       </a>
-      <details><summary>Alternate version</summary>
+      <details><summary>Full year version</summary>
         <a href="https://github.com/lowlighter/metrics#-isometric-calendar">
           <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.isocalendar.fullyear.svg" alt="" width="400">
         </a>
-      </detail>
+      </details>
     </td>
   </tr>
   <tr>
@@ -68,17 +73,22 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
     </td>
   </tr>
   <tr>
-    <th><a href="https://github.com/lowlighter/metrics#-lines">📌 Starred topics plugin</a></th>
-    <th><a href="https://github.com/lowlighter/metrics#-traffic">🗂️ Active projects plugin</a></th>
+    <th><a href="https://github.com/lowlighter/metrics#-topics">📌 Starred topics plugin</a></th>
+    <th><a href="https://github.com/lowlighter/metrics#%EF%B8%8F-projects">🗂️ Active projects plugin</a></th>
   </tr>
   <tr>
     <td>
-      <a href="https://github.com/lowlighter/metrics#-lines">
+      <a href="https://github.com/lowlighter/metrics#-topics">
         <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.svg" alt="" width="400">
       </a>
+      <details open><summary>Mastered and known technologies version</summary>
+        <a href="https://github.com/lowlighter/metrics#-topics">
+          <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.mastered.svg" alt="" width="400">
+        </a>
+      </details>
     </td>
     <td>
-      <a href="https://github.com/lowlighter/metrics#-traffic">
+      <a href="https://github.com/lowlighter/metrics#%EF%B8%8F-projects">
         <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.projects.svg" alt="" width="400">
       </a>
     </td>
@@ -489,23 +499,23 @@ Used template defaults to the `classic` one.
   <tr>
     <th>Classic</th>
     <td>✔️</td>
+    <td><span title="'plugin_pagespeed_screenshot' is available on @master">✔️<sup>N</sup></span></td>
+    <td>✔️</td>
+    <td>✔️</td>
+    <td>✔️</td>
+    <td>✔️</td>
+    <td><span title="'plugin_topics_mode' is available on @master">✔️<sup>N</sup></span></td>
+    <td><span title="'plugin_projects_repositories' is available on @master">✔️<sup>N</sup></span></td>
     <td>✔️</td>
     <td>✔️</td>
     <td>✔️</td>
     <td>✔️</td>
     <td>✔️</td>
-    <td>✔️</td>
-    <td>✔️</td>
-    <td>✔️</td>
-    <td>✔️</td>
-    <td>✔️</td>
-    <td>✔️</td>
-    <td>✔️</td>
-    <td>✔️</td>
+    <td><span title="'Files' and 'Comments' are available on @master">✔️<sup>N</sup></span></td>
   </tr>
   <tr>
     <th>Terminal</th>
-    <td><span title="'Available for hire' and 'Cake day' are currently not displayed">✔️<sup>P</sup></span></td>
+    <td><span title="'Available for hire' and 'Cake day' are not displayed">✔️<sup>P</sup></span></td>
     <td>✔️</td>
     <td>❌</td>
     <td>❌</td>
@@ -519,13 +529,31 @@ Used template defaults to the `classic` one.
     <td>❌</td>
     <td>❌</td>
     <td>✔️</td>
+  </tr>
+  <tr>
+    <th>Repository<sup>MR</sup></th>
+    <td>✔️</td>
+    <td>❌</td>
+    <td>❌</td>
+    <td>❌</td>
+    <td>❌</td>
+    <td>✔️</td>
+    <td>❌</td>
+    <td>✔️</td>
+    <td>✔️</td>
+    <td>✔️</td>
+    <td>❌</td>
+    <td>❌</td>
+    <td>❌</td>
+    <td>❌</td>
   </tr>
 </table>
 
 **Legend**
 * **P** : Partial support *(Hover cell for more informations)*
-* **M** : Plugin is not released yet but is available on `@master`
-* **N** : Plugin is already released, but new features are available on `@master`
+* **M** : Feature is not released yet but is available on `@master`
+* **N** : Feature is already released, but new ones are available on `@master`
+* **R** : Repository template (all plugins content will be restricted to related repository)
 
 ## 🧩 Plugins
 
@@ -598,6 +626,20 @@ Add the following to your workflow instead :
     plugin_pagespeed: yes
     plugin_pagespeed_detailed: yes
     plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
+```
+
+    🚧 The feature below is only available on @master
+
+You can also display the screenshot taken by PageSpeed API : 
+
+![Pagespeed plugin (screenshot)](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.screenshot.svg)
+
+Add the following to your workflow :
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_pagespeed_screenshot: yes
 ```
 
 </details>
@@ -872,6 +914,21 @@ Add the following to your workflow :
     plugin_topics_limit: 15
 ```
 
+    🚧 The feature below is only available on @master
+
+It is possible to display starred topics as `Mastered and known technologies` instead : 
+
+![Topics plugin (mastered)](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.mastered.svg)
+
+Add the following to your workflow instead :
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_topics: yes
+    plugin_topics_mode: mastered
+```
+
 </details>
 
 ### 🗂️ Projects
@@ -913,6 +970,23 @@ Fill the informations and set visibility to *public* :
 ![Configure project](.github/readme/imgs/plugin_projects_setup.png)
 
 </details>
+
+    🚧 The feature below is only available on @master
+
+It is possible to display projects related to repositories along with personal projects.
+
+To do so, open your repository project and retrieve the last url endpoint, in the format `:user/:repository/projects/:project_id` (for example, `lowlighter/metrics/projects/1`) and add it in the `plugin_projects_repositories` option. Enable `Track project progress` in the project settings to display a progress bar in generated metrics. 
+
+![Add a repository project](.github/readme/imgs/plugin_projects_repositories.png)
+
+Add the following to your workflow :
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_projects: yes
+    plugin_projects_repositories: :user/:repository1/projects/:project_id, :user/:repository2/projects/:project_id, ...
+```
 
 </details>
 

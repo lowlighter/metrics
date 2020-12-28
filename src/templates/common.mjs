@@ -1,10 +1,9 @@
 /** Template common processor */
-  export default async function ({login, q, dflags}, {conf, data, rest, graphql, plugins}, {s, pending, imports}) {
+  export default async function ({login, q, dflags}, {conf, data, rest, graphql, plugins, queries}, {s, pending, imports}) {
 
     //Init
       const computed = data.computed = {commits:0, sponsorships:0, licenses:{favorite:"", used:{}}, token:{}, repositories:{watchers:0, stargazers:0, issues_open:0, issues_closed:0, pr_open:0, pr_merged:0, forks:0, releases:0}}
       const avatar = imports.imgb64(data.user.avatarUrl)
-      data.plugins = {}
       console.debug(`metrics/compute/${login} > formatting common metrics`)
 
     //Timezone config
@@ -24,7 +23,7 @@
         pending.push((async () => {
           try {
             console.debug(`metrics/compute/${login}/plugins > ${name} > started`)
-            data.plugins[name] = await imports.plugins[name]({login, q, imports, data, computed, rest, graphql}, plugins[name])
+            data.plugins[name] = await imports.plugins[name]({login, q, imports, data, computed, rest, graphql, queries}, plugins[name])
             console.debug(`metrics/compute/${login}/plugins > ${name} > completed (${data.plugins[name] !== null ? "success" : "skipped"})`)
           }
           catch (error) {

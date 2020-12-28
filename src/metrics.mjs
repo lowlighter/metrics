@@ -27,8 +27,9 @@
           const s = (value, end = "") => value > 1 ? {y:"ies", "":"s"}[end] : end
           if ((!(template in Templates))||(!(template in conf.templates))||((conf.settings.templates.enabled.length)&&(!conf.settings.templates.enabled.includes(template))))
             throw new Error("unsupported template")
-          const {query, image, style, fonts} = conf.templates[template]
-          const data = {base:{}, config:{}}
+          const {image, style, fonts} = conf.templates[template]
+          const queries = conf.queries
+          const data = {base:{}, config:{}, errors:[], plugins:{}, computed:{}}
 
         //Base parts
           {
@@ -44,29 +45,39 @@
           else {
             //Query data from GitHub API
               console.debug(`metrics/compute/${login} > graphql query`)
-              Object.assign(data, await graphql(query
-                .replace(/[$]login/, `"${login}"`)
-                .replace(/[$]repositories/, `${repositories}`)
-                .replace(/[$]calendar.to/, `"${(new Date()).toISOString()}"`)
-                .replace(/[$]calendar.from/, `"${(new Date(Date.now()-14*24*60*60*1000)).toISOString()}"`)
-              ))
-
+              Object.assign(data, await graphql(queries.common({login, "calendar.from":new Date(Date.now()-14*24*60*60*1000).toISOString(), "calendar.to":(new Date()).toISOString()})))
+            //Query repositories from GitHub API
+              {
+                //Iterate through repositories
+                  let cursor = null
+                  let pushed = 0
+                  do {
+                    console.debug(`metrics/compute/${login} > retrieving repositories after ${cursor}`)
+                    const {user:{repositories:{edges, nodes}}} = await graphql(queries.repositories({login, after:cursor ? `after: "${cursor}"` : "", repositories:Math.min(repositories, 100)}))
+                    cursor = edges?.[edges?.length-1]?.cursor
+                    data.user.repositories.nodes.push(...nodes)
+                    pushed = nodes.length
+                  } while ((pushed)&&(cursor)&&(data.user.repositories.nodes.length < repositories))
+                //Limit repositories
+                  console.debug(`metrics/compute/${login} > keeping only ${repositories} repositories`)
+                  data.user.repositories.nodes.splice(repositories)
+                  console.debug(`metrics/compute/${login} > loaded ${data.user.repositories.nodes.length} repositories`)
+              }
             //Compute metrics
               console.debug(`metrics/compute/${login} > compute`)
               const computer = Templates[template].default || Templates[template]
-              await computer({login, q, dflags}, {conf, data, rest, graphql, plugins}, {s, pending, imports:{plugins:Plugins, url, imgb64, axios, puppeteer, run, fs, os, paths, util, format, bytes, shuffle, htmlescape, urlexpand}})
+              await computer({login, q, dflags}, {conf, data, rest, graphql, plugins, queries}, {s, pending, imports:{plugins:Plugins, url, imgb64, axios, puppeteer, run, fs, os, paths, util, format, bytes, shuffle, htmlescape, urlexpand}})
               const promised = await Promise.all(pending)
 
             //Check plugins errors
               {
-                const errors = promised.filter(({result = null}) => result?.error)
-                if (die) {
-                  if (errors.length)
-                    throw new Error(`${errors.length} error${s(errors.length)} found...`)
-                }
-                else {
-                  console.warn(`${errors.length} error${s(errors.length)} found, ignoring...`)
-                  console.warn(util.inspect(errors, {depth:Infinity, maxStringLength:256}))
+                const errors = [...promised.filter(({result = null}) => result?.error), ...data.errors]
+                if (errors.length) {
+                  console.warn(`metrics/compute/${login} > ${errors.length} errors !`)
+                  if (die)
+                    throw new Error(`An error occured during rendering, dying`)
+                  else
+                    console.warn(util.inspect(errors, {depth:Infinity, maxStringLength:256}))
                 }
               }
           }
@@ -159,7 +170,7 @@
 /** Placeholder generator */
   function placeholder({data, conf, q}) {
     //Proxifier
-      const proxify = (target) => typeof target === "object" ? new Proxy(target, {
+      const proxify = (target) => (typeof target === "object")&&(target) ? new Proxy(target, {
         get(target, property) {
           //Primitive conversion
             if (property === Symbol.toPrimitive)
@@ -196,11 +207,11 @@
           [key, proxify({
             posts:{source:"########", list:new Array("posts.limit" in q ? Math.max(Number(q["posts.limit"])||0, 0) : 2).fill({title:"###### ###### ####### ######", date:"####"})},
             music:{provider:"########", tracks:new Array("music.limit" in q ? Math.max(Number(q["music.limit"])||0, 0) : 4).fill({name:"##########", artist:"######", artwork:"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg=="})},
-            pagespeed:{detailed:!!q["pagespeed.detailed"], scores:["Performance", "Accessibility", "Best Practices", "SEO"].map(title => ({title, score:NaN}))},
+            pagespeed:{detailed:!!q["pagespeed.detailed"], screenshot:!!q["pagespeed.screenshot"] ? "data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==" : null,  scores:["Performance", "Accessibility", "Best Practices", "SEO"].map(title => ({title, score:NaN}))},
             followup:{issues:{count:0}, pr:{count:0}},
             habits:{facts:!!(q["habits.facts"] ?? 1), charts:!!q["habits.charts"], indents:{style:`########`}, commits:{day:"####"}, linguist:{ordered:[]}},
             languages:{favorites:new Array(7).fill(null).map((_, x) => ({x, name:"######", color:"#ebedf0", value:1/(x+1)}))},
-            topics:{list:[...new Array("topics.limit" in q ? Math.max(Number(q["topics.limit"])||0, 0) : 12).fill(null).map(() => ({name:"######", description:"", icon:null})), {name:`And ## more...`, description:"", icon:null}]},
+            topics:{mode:"topics.mode" in q ? q["topics.mode"] : "starred", list:[...new Array("topics.limit" in q ? Math.max(Number(q["topics.limit"])||0, 0) : 12).fill(null).map(() => ({name:"######", description:"", icon:null})), {name:`And ## more...`, description:"", icon:null}]},
             projects:{list:[...new Array("projects.limit" in q ? Math.max(Number(q["projects.limit"])||0, 0) : 4).fill(null).map(() => ({name:"########", updated:"########", progress:{enabled:true, todo:"##", doing:"##", done:"##", total:"##"}}))]},
             tweets:{profile:{username:"########", verified:false}, list:[...new Array("tweets.limit" in q ? Math.max(Number(q["tweets.limit"])||0, 0) : 2).fill(null).map(() => ({text:"###### ###### ####### ######".repeat(4), created_at:Date.now()}))]},
           }[key]??{})]

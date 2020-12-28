@@ -6,13 +6,15 @@
           if ((!enabled)||(!q.topics))
             return null
         //Parameters override
-          let {"topics.sort":sort = "stars", "topics.limit":limit = 15} = q
+          let {"topics.sort":sort = "stars", "topics.mode":mode = "starred", "topics.limit":limit = (mode === "mastered" ? 0 : 15)} = q
           //Shuffle
             const shuffle = (sort === "random")
           //Sort method
             sort = {starred:"created", activity:"updated", stars:"stars", random:"created"}[sort] ?? "starred"
           //Limit
-            limit = Math.max(1, Math.min(20, Number(limit)))
+            limit = Math.max(0, Math.min(20, Number(limit)))
+          //Mode
+            mode = ["starred", "mastered"].includes(mode) ? mode : "starred"
         //Start puppeteer and navigate to topics
           console.debug(`metrics/compute/${login}/plugins > topics > searching starred topics`)
           let topics = []
@@ -49,11 +51,10 @@
             console.debug(`metrics/compute/${login}/plugins > topics > shuffling topics`)
             topics = imports.shuffle(topics)
           }
-        //Limit topics
-          if (limit > 0) {
+        //Limit topics (starred mode)
+          if ((mode === "starred")&&(limit > 0)) {
             console.debug(`metrics/compute/${login}/plugins > topics > keeping only ${limit} topics`)
-            const removed = topics.slice(limit)
-            topics = topics.slice(0, limit)
+            const removed = topics.splice(limit)
             topics.push({name:`And ${removed.length} more...`, description:removed.map(({name}) => name).join(", "), icon:null})
           }
         //Convert icons to base64
@@ -66,8 +67,18 @@
             //Escape HTML description
               topic.description = imports.htmlescape(topic.description)
           }
+        //Filter topics with icon (mastered mode)
+          if (mode === "mastered") {
+            console.debug(`metrics/compute/${login}/plugins > topics > filtering topics with icon`)
+            topics = topics.filter(({icon}) => icon)
+          }
+        //Limit topics (mastered mode)
+          if ((mode === "mastered")&&(limit > 0)) {
+            console.debug(`metrics/compute/${login}/plugins > topics > keeping only ${limit} topics`)
+            topics.splice(limit)
+          }
         //Results
-          return {list:topics}
+          return {mode, list:topics}
       }
     //Handle errors
       catch (error) {

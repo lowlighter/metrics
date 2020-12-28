@@ -1,0 +1,17 @@
+query Projects {
+  user(login: "$login") {
+    projects(last: $limit, states: OPEN, orderBy: {field: UPDATED_AT, direction: DESC}) {
+      totalCount
+      nodes {
+        name
+        updatedAt
+        progress {
+          doneCount
+          inProgressCount
+          todoCount
+          enabled
+        }
+      }
+    }
+  }
+}

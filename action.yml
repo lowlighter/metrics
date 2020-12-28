@@ -59,6 +59,13 @@ inputs:
     description: Template to use
     default: classic
 
+  # Raw query parameters (JSON string)
+  # Some templates may require additional parameters which you can specify here
+  # Do not use this option to pass plugins parameters as they'll be overwritten by the other options
+  query:
+    description: Additional query parameters
+    default: "{}"
+
   # Template base content
   # Pass a string of comma-separated values
   # To disable everything (like if you want to use a plugin as standalone), pass an empty string
@@ -84,6 +91,11 @@ inputs:
   # See https://web.dev/performance-scoring/ and https://googlechrome.github.io/lighthouse/scorecalc/ for more informations
   plugin_pagespeed_detailed:
     description: Display additional PageSpeed metrics
+    default: no
+
+  # Display the final screenshot of audited website taken by PageSpeed audit
+  plugin_pagespeed_screenshot:
+    description: Display a screenshot of your website
     default: no
 
   # PageSpeed API token (optional, avoid hitting requests limit)
@@ -243,6 +255,15 @@ inputs:
     description: Display starred topics
     default: no
 
+  # Topics plugin mode
+  # Change the way topics are displayed
+  # Supported values are :
+  # - "starred" to display starred topics as interests labels
+  # - "mastered" to display starred topics as mastered/known technologies icons
+  plugin_topics_mode:
+    description: Display starred topics
+    default: "starred"
+
   # Sorting method of displayed topics
   # Supported values are :
   # - "stars" to sort them from most starred to least starred
@@ -253,17 +274,25 @@ inputs:
     description: Sorting method of starred topics
     default: "stars"
 
-  # Number of topics to display (between 1 and 20)
+  # Number of topics to display (between 0 and 20)
   # If more topics must be displayed, they will be grouped in an ellipsis
   plugin_topics_limit:
     description: Number of starred topics to display
-    default: 15
+    default: 0
 
   # Projects plugin
   # Display active projects
   plugin_projects:
     description: Display active projects
     default: no
+
+  # Display active repository projects
+  # By default, only user owned projects are displayed, with this option it is possible to display projects from repositories
+  # List of comma-separated projects identifier, in the following format :user/:repo/projects/:project_id
+  # The limit of displayed projects will automatically be updated so listed projects will fit
+  plugin_projects_repositories:
+    description: List of repository project identifiers to disaplay
+    default: ""
 
   # Number of active projects to display
   # Between 1 and 100

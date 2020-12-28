@@ -15,6 +15,7 @@
   const __src = path.join(__dirname, "src")
   const __plugins = path.join(__src, "plugins")
   const __templates = path.join(__src, "templates")
+  const __queries = path.join(__src, "queries")
   process.on("unhandledRejection", error => { throw error })
   colors.enable()
 
@@ -70,7 +71,7 @@
               return [`with:`, ...Object.entries({
                 token:"${{ secrets.METRICS_TOKEN }}",
                 dryrun:true,
-                repositories:1,
+                repositories:0,
                 template:"${{ matrix.template }}",
                 base:"",
                 plugins_errors_fatal:true,
@@ -109,26 +110,37 @@
           console.log(`Generated action`.grey)
 
         //Perform assets includes
-          const assets = {}
-          const templates = (await fs.promises.readdir(__templates)).filter(name => !/.*[.]mjs$/.test(name)).sort()
-          for (const name of templates) {
-            const files = [
-              `${__templates}/${name}/query.graphql`,
-              `${__templates}/${name}/image.svg`,
-              `${__templates}/${name}/style.css`,
-              `${__templates}/${name}/fonts.css`,
-            ]
-            const [query, image, style, fonts] = await Promise.all(files.map(async file => `${await fs.promises.readFile(path.resolve(file))}`))
-            assets[name] = {query, image, style, fonts}
-            console.log(`Prepared template ${name}`.grey)
+          {
+            const assets = {}
+            const templates = (await fs.promises.readdir(__templates)).filter(name => !/.*[.]mjs$/.test(name)).sort()
+            for (const name of templates) {
+              const files = [
+                `${__templates}/${name}/image.svg`,
+                `${__templates}/${name}/style.css`,
+                `${__templates}/${name}/fonts.css`,
+              ].map(file => fs.existsSync(path.resolve(file)) ? file : file.replace(`${__templates}/${name}/`, `${__templates}/classic/`))
+              const [image, style, fonts] = await Promise.all(files.map(async file => `${await fs.promises.readFile(path.resolve(file))}`))
+              assets[name] = {image, style, fonts}
+              console.log(`Prepared template ${name}`.grey)
+            }
+            code = code.replace(/<#assets>/g, Buffer.from(JSON.stringify(assets)).toString("base64"))
+            console.log(`Included ${templates.length} templates to generated action`.grey)
           }
-          code = code.replace(/<#assets>/g, Buffer.from(JSON.stringify(assets)).toString("base64"))
-          console.log(`Included ${templates.length} templates to generated action`.grey)
+
+        //Perform queries includes
+          {
+            const assets = {}
+            const queries = (await fs.promises.readdir(__queries)).sort()
+            code = code.replace(/<#queries>/g, Buffer.from(JSON.stringify(assets)).toString("base64"))
+            console.log(`Included ${queries.length} queries to generated action`.grey)
+          }
 
         //Perform version include
-          const version = JSON.parse(await fs.promises.readFile(path.join(__dirname, "package.json"))).version
-          code = code.replace(/<#version>/g, version)
-          console.log(`Included version number (${version}) to generated action`.grey)
+          {
+            const version = JSON.parse(await fs.promises.readFile(path.join(__dirname, "package.json"))).version
+            code = code.replace(/<#version>/g, version)
+            console.log(`Included version number (${version}) to generated action`.grey)
+          }
 
         //Minify
           code = minify(code).code

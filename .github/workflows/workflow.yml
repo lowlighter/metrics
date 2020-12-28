@@ -45,7 +45,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        template: ["classic","terminal"]
+        template: ["classic","repository","terminal"]
     steps:
 
       - name: ${{ matrix.template }} > Base
@@ -53,7 +53,7 @@ jobs:
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           dryrun: yes
-          repositories: 1
+          repositories: 0
           template: ${{ matrix.template }}
           base: header, activity, community, repositories, metadata
           plugins_errors_fatal: yes
@@ -63,32 +63,21 @@ jobs:
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           dryrun: yes
-          repositories: 1
+          repositories: 0
           template: ${{ matrix.template }}
           base: ""
           plugins_errors_fatal: yes
           plugin_pagespeed: yes
           plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
-
-      - name: ${{ matrix.template }} > Plugin > PageSpeed (detailed)
-        uses: lowlighter/metrics@master
-        with:
-          token: ${{ secrets.METRICS_TOKEN }}
-          dryrun: yes
-          repositories: 1
-          template: ${{ matrix.template }}
-          base: ""
-          plugins_errors_fatal: yes
-          plugin_pagespeed: yes
           plugin_pagespeed_detailed: yes
-          plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
+          plugin_pagespeed_screenshot: yes
 
       - name: ${{ matrix.template }} > Plugin > Music (playlist - apple)
         uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           dryrun: yes
-          repositories: 1
+          repositories: 0
           template: ${{ matrix.template }}
           base: ""
           plugins_errors_fatal: yes
@@ -100,7 +89,7 @@ jobs:
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           dryrun: yes
-          repositories: 1
+          repositories: 0
           template: ${{ matrix.template }}
           base: ""
           plugins_errors_fatal: yes
@@ -112,7 +101,7 @@ jobs:
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           dryrun: yes
-          repositories: 1
+          repositories: 0
           template: ${{ matrix.template }}
           base: ""
           plugins_errors_fatal: yes
@@ -125,7 +114,7 @@ jobs:
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           dryrun: yes
-          repositories: 1
+          repositories: 0
           template: ${{ matrix.template }}
           base: ""
           plugins_errors_fatal: yes
@@ -137,18 +126,7 @@ jobs:
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           dryrun: yes
-          repositories: 1
-          template: ${{ matrix.template }}
-          base: ""
-          plugins_errors_fatal: yes
-          plugin_isocalendar: yes
-
-      - name: ${{ matrix.template }} > Plugin > Isocalendar (full year)
-        uses: lowlighter/metrics@master
-        with:
-          token: ${{ secrets.METRICS_TOKEN }}
-          dryrun: yes
-          repositories: 1
+          repositories: 0
           template: ${{ matrix.template }}
           base: ""
           plugins_errors_fatal: yes
@@ -160,25 +138,12 @@ jobs:
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           dryrun: yes
-          repositories: 1
+          repositories: 0
           template: ${{ matrix.template }}
           base: ""
           plugins_errors_fatal: yes
           plugin_habits: yes
           plugin_habits_from: 5
-
-      - name: ${{ matrix.template }} > Plugin > Habits (charts)
-        uses: lowlighter/metrics@master
-        with:
-          token: ${{ secrets.METRICS_TOKEN }}
-          dryrun: yes
-          repositories: 1
-          template: ${{ matrix.template }}
-          base: ""
-          plugins_errors_fatal: yes
-          plugin_habits: yes
-          plugin_habits_from: 5
-          plugin_habits_facts: no
           plugin_habits_charts: yes
 
       - name: ${{ matrix.template }} > Plugin > Languages
@@ -186,7 +151,7 @@ jobs:
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           dryrun: yes
-          repositories: 1
+          repositories: 0
           template: ${{ matrix.template }}
           base: ""
           plugins_errors_fatal: yes
@@ -197,32 +162,22 @@ jobs:
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           dryrun: yes
-          repositories: 1
+          repositories: 0
           template: ${{ matrix.template }}
           base: ""
           plugins_errors_fatal: yes
           plugin_followup: yes
 
-      - name: ${{ matrix.template }} > Plugin > Lines
+      - name: ${{ matrix.template }} > Plugin > Lines and Traffic
         uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           dryrun: yes
-          repositories: 1
+          repositories: 0
           template: ${{ matrix.template }}
           base: ""
           plugins_errors_fatal: yes
           plugin_lines: yes
-
-      - name: ${{ matrix.template }} > Plugin > Traffic
-        uses: lowlighter/metrics@master
-        with:
-          token: ${{ secrets.METRICS_TOKEN }}
-          dryrun: yes
-          repositories: 1
-          template: ${{ matrix.template }}
-          base: ""
-          plugins_errors_fatal: yes
           plugin_traffic: yes
 
       - name: ${{ matrix.template }} > Plugin > Gists
@@ -230,70 +185,49 @@ jobs:
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           dryrun: yes
-          repositories: 1
+          repositories: 0
           template: ${{ matrix.template }}
           base: ""
           plugins_errors_fatal: yes
           plugin_gists: yes
-
-      - name: ${{ matrix.template }} > Plugin > Topics (stars)
-        uses: lowlighter/metrics@master
-        with:
-          token: ${{ secrets.METRICS_TOKEN }}
-          dryrun: yes
-          repositories: 1
-          template: ${{ matrix.template }}
-          base: ""
-          plugins_errors_fatal: yes
-          plugin_topics: yes
-          plugin_topics_sort: stars
-
-      - name: ${{ matrix.template }} > Plugin > Topics (activity)
-        uses: lowlighter/metrics@master
-        with:
-          token: ${{ secrets.METRICS_TOKEN }}
-          dryrun: yes
-          repositories: 1
-          template: ${{ matrix.template }}
-          base: ""
-          plugins_errors_fatal: yes
-          plugin_topics: yes
-          plugin_topics_sort: activity
 
       - name: ${{ matrix.template }} > Plugin > Topics (starred)
         uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           dryrun: yes
-          repositories: 1
+          repositories: 0
           template: ${{ matrix.template }}
           base: ""
           plugins_errors_fatal: yes
           plugin_topics: yes
-          plugin_topics_sort: starred
+          plugin_topics_mode: starred
+          plugin_topics_sort: random
 
-      - name: ${{ matrix.template }} > Plugin > Topics (random)
+      - name: ${{ matrix.template }} > Plugin > Topics (mastered)
         uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           dryrun: yes
-          repositories: 1
+          repositories: 0
           template: ${{ matrix.template }}
           base: ""
           plugins_errors_fatal: yes
           plugin_topics: yes
-          plugin_topics_sort: random
+          plugin_topics_mode: mastered
+          plugin_topics_sort: stars
 
       - name: ${{ matrix.template }} > Plugin > Projects
         uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           dryrun: yes
-          repositories: 1
+          repositories: 0
           template: ${{ matrix.template }}
           base: ""
           plugins_errors_fatal: yes
           plugin_projects: yes
+          plugin_projects_repositories: lowlighter/metrics/projects/1
           plugin_projects_limit: 2
 
       - name: ${{ matrix.template }} > Plugin > Tweets
@@ -301,7 +235,7 @@ jobs:
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           dryrun: yes
-          repositories: 1
+          repositories: 0
           template: ${{ matrix.template }}
           base: ""
           plugins_errors_fatal: yes
