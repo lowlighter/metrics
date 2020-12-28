@@ -284,6 +284,11 @@
     flex-wrap: wrap;
   }
 
+  .topics img {
+    border-radius: 5px;
+    margin: 4px;
+  }
+
 /* Tweets */
   .tweet {
     font-size: 13px;

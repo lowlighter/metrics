@@ -243,6 +243,15 @@ inputs:
     description: Display starred topics
     default: no
 
+  # Topics plugin mode
+  # Change the way topics are displayed
+  # Supported values are :
+  # - "starred" to display starred topics as interests labels
+  # - "mastered" to display starred topics as mastered/known technologies icons
+  plugin_topics_mode:
+    description: Display starred topics
+    default: "starred"
+
   # Sorting method of displayed topics
   # Supported values are :
   # - "stars" to sort them from most starred to least starred
@@ -253,7 +262,7 @@ inputs:
     description: Sorting method of starred topics
     default: "stars"
 
-  # Number of topics to display (between 1 and 20)
+  # Number of topics to display (between 0 and 20)
   # If more topics must be displayed, they will be grouped in an ellipsis
   plugin_topics_limit:
     description: Number of starred topics to display

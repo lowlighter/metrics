@@ -156,8 +156,9 @@
           }
         //Topics
           if (plugins.topics.enabled) {
-            for (const option of ["sort", "limit"])
+            for (const option of ["mode", "sort", "limit"])
               q[`topics.${option}`] = core.getInput(`plugin_topics_${option}`) || null
+            console.log(`Topics mode               | ${q["topics.mode"] || "(default)"}`)
             console.log(`Topics sort mode          | ${q["topics.sort"] || "(default)"}`)
             console.log(`Topics limit              | ${q["topics.limit"] || "(default)"}`)
           }
