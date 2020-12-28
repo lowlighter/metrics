@@ -148,7 +148,7 @@
                             if (error.isAxiosError) {
                               const status = error.response?.status
                               const description = error.response.data?.error_description ?? null
-                              message = `API returned ${status}${description ? ` (${description})` : ""}`
+                              const message = `API returned ${status}${description ? ` (${description})` : ""}`
                               error = error.response?.data ?? null
                               throw {error:{message, instance:error}, ...raw}
                             }
