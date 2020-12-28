@@ -81,7 +81,7 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
       <a href="https://github.com/lowlighter/metrics#-topics">
         <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.svg" alt="" width="400">
       </a>
-      <details><summary>Mastered and known technologies version</summary>
+      <details open><summary>Mastered and known technologies version</summary>
         <a href="https://github.com/lowlighter/metrics#-topics">
           <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.mastered.svg" alt="" width="400">
         </a>
@@ -530,12 +530,30 @@ Used template defaults to the `classic` one.
     <td>❌</td>
     <td>✔️</td>
   </tr>
+  <tr>
+    <th>Repository<sup>MR</sup></th>
+    <td>✔️</td>
+    <td>❌</td>
+    <td>❌</td>
+    <td>❌</td>
+    <td>❌</td>
+    <td>✔️</td>
+    <td>❌</td>
+    <td>✔️</td>
+    <td>✔️</td>
+    <td>✔️</td>
+    <td>❌</td>
+    <td>❌</td>
+    <td>❌</td>
+    <td>❌</td>
+  </tr>
 </table>
 
 **Legend**
 * **P** : Partial support *(Hover cell for more informations)*
-* **M** : Plugin is not released yet but is available on `@master`
-* **N** : Plugin is already released, but new features are available on `@master`
+* **M** : Feature is not released yet but is available on `@master`
+* **N** : Feature is already released, but new ones are available on `@master`
+* **R** : Repository template (all plugins content will be restricted to related repository)
 
 ## 🧩 Plugins
 
