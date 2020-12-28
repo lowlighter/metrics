@@ -107,10 +107,8 @@
     //Create queries formatters
       Object.keys(conf.queries).map(name => conf.queries[name.substring(1)] = (vars = {}) => {
         let query = conf.queries[name]
-        for (const [key, value] of Object.entries(vars)) {
-          console.debug(`metrics/query/graphql > ${name.substring(1)} > replacing $${key} by ${value}`)
+        for (const [key, value] of Object.entries(vars))
           query = query.replace(new RegExp(`[$]${key}`, "g"), value)
-        }
         return query
       })
 

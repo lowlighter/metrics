@@ -11,48 +11,11 @@ query Metrics {
     gists {
       totalCount
     }
-    repositories(last: $repositories, isFork: $forks, ownerAffiliations: OWNER) {
+    repositories(last: 0, isFork: false, ownerAffiliations: OWNER) {
       totalCount
       totalDiskUsage
-      edges {
-        cursor
-      }
       nodes {
         name
-        watchers {
-          totalCount
-        }
-        stargazers {
-          totalCount
-        }
-        languages(first: 4) {
-          edges {
-            size
-            node {
-              color
-              name
-            }
-          }
-        }
-        issues_open: issues(states: OPEN) {
-          totalCount
-        }
-        issues_closed: issues(states: CLOSED) {
-          totalCount
-        }
-        pr_open: pullRequests(states: OPEN) {
-          totalCount
-        }
-        pr_merged: pullRequests(states: MERGED) {
-          totalCount
-        }
-        releases {
-          totalCount
-        }
-        forkCount
-        licenseInfo {
-          spdxId
-        }
       }
     }
     packages {

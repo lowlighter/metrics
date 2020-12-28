@@ -56,7 +56,7 @@
               "languages.skipped":"",
               "pagespeed.detailed":false,
               "pagespeed.screenshot":false,
-              "habits.from":100,
+              "habits.from":200,
               "habits.days":14,
               "habits.facts":true,
               "habits.charts":false,
