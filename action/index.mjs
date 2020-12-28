@@ -188,7 +188,7 @@
         const die = bool(core.getInput("plugins_errors_fatal"))
         console.log(`Plugin errors             | ${die ? "die" : "warn"}`)
 
-      //Built query
+      //Build query
         q = {...q, base:false, ...base, ...config, repositories, template}
 
       //Render metrics

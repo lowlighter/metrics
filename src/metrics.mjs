@@ -27,7 +27,8 @@
           const s = (value, end = "") => value > 1 ? {y:"ies", "":"s"}[end] : end
           if ((!(template in Templates))||(!(template in conf.templates))||((conf.settings.templates.enabled.length)&&(!conf.settings.templates.enabled.includes(template))))
             throw new Error("unsupported template")
-          const {query, image, style, fonts} = conf.templates[template]
+          const {image, style, fonts} = conf.templates[template]
+          const queries = conf.queries
           const data = {base:{}, config:{}}
 
         //Base parts
@@ -44,12 +45,11 @@
           else {
             //Query data from GitHub API
               console.debug(`metrics/compute/${login} > graphql query`)
-              Object.assign(data, await graphql(query
-                .replace(/[$]login/, `"${login}"`)
-                .replace(/[$]repositories/, `${repositories}`)
-                .replace(/[$]calendar.to/, `"${(new Date()).toISOString()}"`)
-                .replace(/[$]calendar.from/, `"${(new Date(Date.now()-14*24*60*60*1000)).toISOString()}"`)
-              ))
+              Object.assign(data, await graphql(queries.common({
+                login:`"${login}"`,
+                repositories, forks:false,
+                "calendar.from":`"${(new Date(Date.now()-14*24*60*60*1000)).toISOString()}"`, "calendar.to": `"${(new Date()).toISOString()}"`,
+              })))
 
             //Compute metrics
               console.debug(`metrics/compute/${login} > compute`)

@@ -11,9 +11,12 @@ query Metrics {
     gists {
       totalCount
     }
-    repositories(last: $repositories, isFork: false, ownerAffiliations: OWNER) {
+    repositories(last: $repositories, isFork: $forks, ownerAffiliations: OWNER) {
       totalCount
       totalDiskUsage
+      edges {
+        cursor
+      }
       nodes {
         name
         watchers {
