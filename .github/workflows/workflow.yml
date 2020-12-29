@@ -1,4 +1,4 @@
-name: Build
+name: Build, tests and analyze
 
 on:
   push:
@@ -10,237 +10,23 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    - name: Setup
-      uses: actions/setup-node@v1
-      with:
-        node-version: 15.x
-    - name: Install
-      run: npm ci
-    - name: Build
-      run: npm run build
-    - name: Test
-      run: npm test
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Build lowlighter/metrics:${{ github.head_ref || github.base_ref }}
+        run: docker build -t lowlighter/metrics:${{ github.head_ref || github.base_ref }} .
+      - name: Run tests
+        run: docker run --workdir=/metrics --entrypoint="" lowlighter/metrics:${{ github.head_ref || github.base_ref }} npm test
 
   analyze:
     runs-on: ubuntu-latest
-    needs: ["test-master"]
+    needs: [ build ]
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    - name: Setup
-      uses: github/codeql-action/init@v1
-      with:
-        languages: javascript
-        config-file: ./.github/config/codeql.yml
-    - name: Analyze
-      uses: github/codeql-action/analyze@v1
-
-  # Tests cases below are auto generated through `npm run build`
-  # Edit utils/workflow.yml instead if you need to update workflow
-  
-  test-master:
-    needs: build
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        template: ["classic","terminal"]
-    steps:
-
-      - name: ${{ matrix.template }} > Base
-        uses: lowlighter/metrics@master
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Setup CodeQL
+        uses: github/codeql-action/init@v1
         with:
-          token: ${{ secrets.METRICS_TOKEN }}
-          dryrun: yes
-          repositories: 0
-          template: ${{ matrix.template }}
-          base: header, activity, community, repositories, metadata
-          plugins_errors_fatal: yes
-
-      - name: ${{ matrix.template }} > Plugin > PageSpeed
-        uses: lowlighter/metrics@master
-        with:
-          token: ${{ secrets.METRICS_TOKEN }}
-          dryrun: yes
-          repositories: 0
-          template: ${{ matrix.template }}
-          base: ""
-          plugins_errors_fatal: yes
-          plugin_pagespeed: yes
-          plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
-          plugin_pagespeed_detailed: yes
-          plugin_pagespeed_screenshot: yes
-
-      - name: ${{ matrix.template }} > Plugin > Music (playlist - apple)
-        uses: lowlighter/metrics@master
-        with:
-          token: ${{ secrets.METRICS_TOKEN }}
-          dryrun: yes
-          repositories: 0
-          template: ${{ matrix.template }}
-          base: ""
-          plugins_errors_fatal: yes
-          plugin_music: yes
-          plugin_music_playlist: ${{ secrets.MUSIC_PLAYLIST_APPLE }}
-
-      - name: ${{ matrix.template }} > Plugin > Music (playlist - spotify)
-        uses: lowlighter/metrics@master
-        with:
-          token: ${{ secrets.METRICS_TOKEN }}
-          dryrun: yes
-          repositories: 0
-          template: ${{ matrix.template }}
-          base: ""
-          plugins_errors_fatal: yes
-          plugin_music: yes
-          plugin_music_playlist: ${{ secrets.MUSIC_PLAYLIST_SPOTIFY }}
-
-      - name: ${{ matrix.template }} > Plugin > Music (recent - spotify)
-        uses: lowlighter/metrics@master
-        with:
-          token: ${{ secrets.METRICS_TOKEN }}
-          dryrun: yes
-          repositories: 0
-          template: ${{ matrix.template }}
-          base: ""
-          plugins_errors_fatal: yes
-          plugin_music: yes
-          plugin_music_provider: spotify
-          plugin_music_token: ${{ secrets.SPOTIFY_TOKENS }}
-
-      - name: ${{ matrix.template }} > Plugin > Posts (dev.to)
-        uses: lowlighter/metrics@master
-        with:
-          token: ${{ secrets.METRICS_TOKEN }}
-          dryrun: yes
-          repositories: 0
-          template: ${{ matrix.template }}
-          base: ""
-          plugins_errors_fatal: yes
-          plugin_posts: yes
-          plugin_posts_source: dev.to
-
-      - name: ${{ matrix.template }} > Plugin > Isocalendar
-        uses: lowlighter/metrics@master
-        with:
-          token: ${{ secrets.METRICS_TOKEN }}
-          dryrun: yes
-          repositories: 0
-          template: ${{ matrix.template }}
-          base: ""
-          plugins_errors_fatal: yes
-          plugin_isocalendar: yes
-          plugin_isocalendar_duration: full-year
-
-      - name: ${{ matrix.template }} > Plugin > Habits
-        uses: lowlighter/metrics@master
-        with:
-          token: ${{ secrets.METRICS_TOKEN }}
-          dryrun: yes
-          repositories: 0
-          template: ${{ matrix.template }}
-          base: ""
-          plugins_errors_fatal: yes
-          plugin_habits: yes
-          plugin_habits_from: 5
-          plugin_habits_charts: yes
-
-      - name: ${{ matrix.template }} > Plugin > Languages
-        uses: lowlighter/metrics@master
-        with:
-          token: ${{ secrets.METRICS_TOKEN }}
-          dryrun: yes
-          repositories: 0
-          template: ${{ matrix.template }}
-          base: ""
-          plugins_errors_fatal: yes
-          plugin_languages: yes
-
-      - name: ${{ matrix.template }} > Plugin > Follow-up
-        uses: lowlighter/metrics@master
-        with:
-          token: ${{ secrets.METRICS_TOKEN }}
-          dryrun: yes
-          repositories: 0
-          template: ${{ matrix.template }}
-          base: ""
-          plugins_errors_fatal: yes
-          plugin_followup: yes
-
-      - name: ${{ matrix.template }} > Plugin > Lines and Traffic
-        uses: lowlighter/metrics@master
-        with:
-          token: ${{ secrets.METRICS_TOKEN }}
-          dryrun: yes
-          repositories: 0
-          template: ${{ matrix.template }}
-          base: ""
-          plugins_errors_fatal: yes
-          plugin_lines: yes
-          plugin_traffic: yes
-
-      - name: ${{ matrix.template }} > Plugin > Gists
-        uses: lowlighter/metrics@master
-        with:
-          token: ${{ secrets.METRICS_TOKEN }}
-          dryrun: yes
-          repositories: 0
-          template: ${{ matrix.template }}
-          base: ""
-          plugins_errors_fatal: yes
-          plugin_gists: yes
-
-      - name: ${{ matrix.template }} > Plugin > Topics (starred)
-        uses: lowlighter/metrics@master
-        with:
-          token: ${{ secrets.METRICS_TOKEN }}
-          dryrun: yes
-          repositories: 0
-          template: ${{ matrix.template }}
-          base: ""
-          plugins_errors_fatal: yes
-          plugin_topics: yes
-          plugin_topics_mode: starred
-          plugin_topics_sort: random
-
-      - name: ${{ matrix.template }} > Plugin > Topics (mastered)
-        uses: lowlighter/metrics@master
-        with:
-          token: ${{ secrets.METRICS_TOKEN }}
-          dryrun: yes
-          repositories: 0
-          template: ${{ matrix.template }}
-          base: ""
-          plugins_errors_fatal: yes
-          plugin_topics: yes
-          plugin_topics_mode: mastered
-          plugin_topics_sort: stars
-
-      - name: ${{ matrix.template }} > Plugin > Projects
-        uses: lowlighter/metrics@master
-        with:
-          token: ${{ secrets.METRICS_TOKEN }}
-          dryrun: yes
-          repositories: 0
-          template: ${{ matrix.template }}
-          base: ""
-          plugins_errors_fatal: yes
-          plugin_projects: yes
-          plugin_projects_repositories: lowlighter/metrics/projects/1
-          plugin_projects_limit: 2
-
-      - name: ${{ matrix.template }} > Plugin > Tweets
-        uses: lowlighter/metrics@master
-        with:
-          token: ${{ secrets.METRICS_TOKEN }}
-          dryrun: yes
-          repositories: 0
-          template: ${{ matrix.template }}
-          base: ""
-          plugins_errors_fatal: yes
-          plugin_tweets: yes
-          plugin_tweets_limit: 2
-          plugin_tweets_token: ${{ secrets.TWITTER_TOKEN }}
-
-  
+          languages: javascript
+          config-file: ./.github/config/codeql.yml
+      - name: Analyze code
+        uses: github/codeql-action/analyze@v1

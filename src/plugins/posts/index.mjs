@@ -39,6 +39,8 @@
       }
     //Handle errors
       catch (error) {
+        if (error.error?.message)
+          throw error
         throw {error:{message:"An error occured", instance:error}}
       }
   }

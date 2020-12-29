@@ -324,16 +324,16 @@ inputs:
     description: Die on plugins errors
     default: no
 
-  # Verify SVG after generation
-  # Test whether SVG can be correctly parsed (used for testing)
-  verify:
-    description: Verify SVG after genaration
-    default: no
-
   # Enable debug mode
   # Ensure you correctly put all sensitive informations in your repository secrets before !
   debug:
     description: Enable debug logs
+    default: no
+
+  # Verify SVG after generation
+  # Test whether SVG can be correctly parsed (used for testing)
+  verify:
+    description: Verify SVG after generation
     default: no
 
   # Debug flags (used for testing)
@@ -345,4 +345,10 @@ inputs:
   # Generate image but does not push it (used for testing)
   dryrun:
     description: Enable dry-run
+    default: no
+
+  # Use mocked data
+  # Bypass external APIs which requires a token and sent mocked data (used for testing)
+  use_mocked_data:
+    description: Use mocked data instead of real APIs
     default: no

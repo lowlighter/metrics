@@ -1,4 +1,4 @@
-query Projects {
+query RepositoryProject {
   user(login: "$user") {
     repository(name: "$repository") {
       project(number: $id) {

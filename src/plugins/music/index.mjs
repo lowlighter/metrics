@@ -131,9 +131,9 @@
                                 {headers:{"Content-Type":"application/x-www-form-urlencoded"}},
                               )
                               console.debug(`metrics/compute/${login}/plugins > music > got access token`)
-                            //Retriev tracks
+                            //Retrieve tracks
                               console.debug(`metrics/compute/${login}/plugins > music > querying spotify api`)
-                              tracks = (await imports.axios(`https://api.spotify.com/v1/me/player/recently-played?limit=${limit}&after=${timestamp}`, {headers:{
+                              tracks = (await imports.axios.get(`https://api.spotify.com/v1/me/player/recently-played?limit=${limit}&after=${timestamp}`, {headers:{
                                 "Accept":"application/json",
                                 "Content-Type":"application/json",
                                 "Authorization":`Bearer ${access}`}
