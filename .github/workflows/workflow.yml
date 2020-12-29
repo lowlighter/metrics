@@ -1,4 +1,4 @@
-name: Build
+name: Build, tests and analyze
 
 on:
   push:
@@ -10,18 +10,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
+    - name: Checkout branch
       uses: actions/checkout@v2
-    - name: Setup
-      uses: actions/setup-node@v1
-      with:
-        node-version: 15.x
-    - name: Install
-      run: npm ci
-    - name: Build
-      run: npm run build
-    - name: Test
-      run: npm test
+    - name: Build lowlighter/metrics:${GITHUB_REF##*/}
+      run: docker build -t lowlighter/metrics:${GITHUB_REF##*/} .
+    - name: Run tests
+      run: docker run -it -v $GITHUB_WORKSPACE:$GITHUB_WORKSPACE -w $GITHUB_WORKSPACE lowlighter/metrics:${GITHUB_REF##*/} npm test
 
   analyze:
     runs-on: ubuntu-latest
