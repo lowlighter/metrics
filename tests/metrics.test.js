@@ -9,7 +9,7 @@
   action.input = vars => Object.fromEntries([...Object.entries(action.defaults), ...Object.entries(vars)].map(([key, value]) => [`INPUT_${key.toLocaleUpperCase()}`, value]))
   action.run =  async (vars) => await new Promise((solve, reject) => {
     let [stdout, stderr] = ["", ""]
-    const env = {...action.input(vars), GITHUB_REPOSITORY:"lowlighter/metrics"}
+    const env = {...process.env, ...action.input(vars), GITHUB_REPOSITORY:"lowlighter/metrics"}
     const child = processes.spawn("node", ["action/index.mjs"], {env})
     child.stdout.on("data", data => stdout += data)
     child.stderr.on("data", data => stderr += data)
