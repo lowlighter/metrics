@@ -1,8 +1,8 @@
 # Base image
 FROM node:15-buster-slim
 
-# Copy GitHub action
-COPY action/dist/index.js /index.js
+# Copy repository
+COPY . /metrics
 
 # Setup
 RUN chmod +x /index.js \
@@ -21,9 +21,12 @@ RUN chmod +x /index.js \
   && apt-get update \
   && apt-get install -y ruby-full \
   && apt-get install -y git g++ cmake pkg-config libicu-dev zlib1g-dev libcurl4-openssl-dev libssl-dev ruby-dev \
-  && gem install github-linguist
+  && gem install github-linguist \
+  # Install node modules
+  && cd /metrics \
+  && npm ci
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
 ENV PUPPETEER_BROWSER_PATH "google-chrome-stable"
 
 # Execute GitHub action
-ENTRYPOINT node /index.js
+ENTRYPOINT node /metrics/action/index.mjs
