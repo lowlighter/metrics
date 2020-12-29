@@ -22,6 +22,9 @@ RUN chmod +x /metrics/action/index.mjs \
   && apt-get install -y ruby-full \
   && apt-get install -y git g++ cmake pkg-config libicu-dev zlib1g-dev libcurl4-openssl-dev libssl-dev ruby-dev \
   && gem install github-linguist \
+  # Install python for node-gyp
+  && apt-get update \
+  && apt-get install -y python3.8 \
   # Install node modules
   && cd /metrics \
   && npm ci
