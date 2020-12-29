@@ -226,6 +226,13 @@
     fill: #e53935;
   }
 
+  .screenshot {
+    width: 452px;
+    height: 315px;
+    margin: 8px 14px 4px;
+    border-radius: 5px;
+  }
+
 /* Music plugin */
   .tracklist {
     display: flex;
@@ -282,6 +289,11 @@
   .topics {
     display: flex;
     flex-wrap: wrap;
+  }
+
+  .topics img {
+    border-radius: 5px;
+    margin: 4px;
   }
 
 /* Tweets */

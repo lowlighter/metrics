@@ -55,7 +55,8 @@
               "languages.ignored":"",
               "languages.skipped":"",
               "pagespeed.detailed":false,
-              "habits.from":100,
+              "pagespeed.screenshot":false,
+              "habits.from":200,
               "habits.days":14,
               "habits.facts":true,
               "habits.charts":false,
@@ -65,6 +66,8 @@
               "posts.source":"dev.to",
               "isocalendar.duration":"half-year",
               "projects.limit":4,
+              "projects.repositories":"",
+              "topics.mode":"starred",
               "topics.sort":"stars",
               "topics.limit":12,
               "tweets.limit":2,
@@ -78,6 +81,7 @@
             descriptions:{
               classic:"Classic template",
               terminal:"Terminal template",
+              repository:"(hidden)",
             },
           },
           generated:{

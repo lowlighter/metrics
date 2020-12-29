@@ -1,10 +1,9 @@
 /** Template common processor */
-  export default async function ({login, q, dflags}, {conf, data, rest, graphql, plugins}, {s, pending, imports}) {
+  export default async function ({login, q, dflags}, {conf, data, rest, graphql, plugins, queries}, {s, pending, imports}) {
 
     //Init
       const computed = data.computed = {commits:0, sponsorships:0, licenses:{favorite:"", used:{}}, token:{}, repositories:{watchers:0, stargazers:0, issues_open:0, issues_closed:0, pr_open:0, pr_merged:0, forks:0, releases:0}}
       const avatar = imports.imgb64(data.user.avatarUrl)
-      data.plugins = {}
       console.debug(`metrics/compute/${login} > formatting common metrics`)
 
     //Timezone config
@@ -24,7 +23,7 @@
         pending.push((async () => {
           try {
             console.debug(`metrics/compute/${login}/plugins > ${name} > started`)
-            data.plugins[name] = await imports.plugins[name]({login, q, imports, data, computed, rest, graphql}, plugins[name])
+            data.plugins[name] = await imports.plugins[name]({login, q, imports, data, computed, rest, graphql, queries}, plugins[name])
             console.debug(`metrics/compute/${login}/plugins > ${name} > completed (${data.plugins[name] !== null ? "success" : "skipped"})`)
           }
           catch (error) {
@@ -88,5 +87,24 @@
         console.debug(`metrics/compute/${login} > applying dflag --hireable`)
         data.user.isHireable = true
       }
-
+      if ((dflags.includes("--halloween"))||(q["dflag.halloween"])) {
+        console.debug(`metrics/compute/${login} > applying dflag --halloween`)
+        //Haloween color replacer
+          const halloween = content => content
+            .replace(/--color-calendar-graph/g, "--color-calendar-halloween-graph")
+            .replace(/#9be9a8/gi, "var(--color-calendar-halloween-graph-day-L1-bg)")
+            .replace(/#40c463/gi, "var(--color-calendar-halloween-graph-day-L2-bg)")
+            .replace(/#30a14e/gi, "var(--color-calendar-halloween-graph-day-L3-bg)")
+            .replace(/#216e39/gi, "var(--color-calendar-halloween-graph-day-L4-bg)")
+        //Update contribution calendar colors
+          computed.calendar.map(day => day.color = halloween(day.color))
+        //Update isocalendar colors
+          const waiting = [...pending]
+          pending.push((async () => {
+            await Promise.all(waiting)
+            if (data.plugins.isocalendar?.svg)
+              data.plugins.isocalendar.svg = halloween(data.plugins.isocalendar.svg)
+            return {name:"dflag.halloween", result:true}
+          })())
+      }
   }

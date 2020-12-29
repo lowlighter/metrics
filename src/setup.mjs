@@ -10,8 +10,10 @@
       const logger = log ? console.debug : () => null
       logger(`metrics/setup > setup`)
       const templates = "src/templates"
+      const queries = "src/queries"
       const conf = {
         templates:{},
+        queries:{},
         settings:{},
         statics:path.resolve("src/html"),
         node_modules:path.resolve("node_modules"),
@@ -52,22 +54,21 @@
               continue
             logger(`metrics/setup > load template [${name}]`)
             const files = [
-              `${templates}/${name}/query.graphql`,
               `${templates}/${name}/image.svg`,
               `${templates}/${name}/style.css`,
               `${templates}/${name}/fonts.css`,
-            ]
-            const [query, image, style, fonts] = await Promise.all(files.map(async file => `${await fs.promises.readFile(path.resolve(file))}`))
-            conf.templates[name] = {query, image, style, fonts}
+            ].map(file => fs.existsSync(path.resolve(file)) ? file : file.replace(`${templates}/${name}/`, `${templates}/classic/`)).map(file => path.resolve(file))
+            const [image, style, fonts] = await Promise.all(files.map(async file => `${await fs.promises.readFile(file)}`))
+            conf.templates[name] = {image, style, fonts}
             logger(`metrics/setup > load template [${name}] > success`)
           //Debug
             if (conf.settings.debug) {
               Object.defineProperty(conf.templates, name, {
                 get() {
                   logger(`metrics/setup > reload template [${name}]`)
-                  const [query, image, style, fonts] = files.map(file => `${fs.readFileSync(path.resolve(file))}`)
+                  const [image, style, fonts] = files.map(file => `${fs.readFileSync(file)}`)
                   logger(`metrics/setup > reload template [${name}] > success`)
-                  return {query, image, style, fonts}
+                  return {image, style, fonts}
                 }
               })
             }
@@ -77,6 +78,39 @@
         logger(`metrics/setup > load templates from build`)
         conf.templates = JSON.parse(Buffer.from(`<#assets>`, "base64").toString("utf8"))
       }
+
+    //Load queries
+      if (fs.existsSync(path.resolve(queries))) {
+        for (const query of await fs.promises.readdir(queries)) {
+          //Cache queries
+            const name = query.replace(/[.]graphql$/, "")
+            logger(`metrics/setup > load query [${name}]`)
+            conf.queries[`_${name}`] = `${await fs.promises.readFile(path.resolve(`${queries}/${query}`))}`
+            logger(`metrics/setup > load query [${name}] > success`)
+          //Debug
+            if (conf.settings.debug) {
+              Object.defineProperty(conf.queries, `_${name}`, {
+                get() {
+                  logger(`metrics/setup > reload query [${name}]`)
+                  const raw = `${fs.readFileSync(path.resolve(`${queries}/${query}`))}`
+                  logger(`metrics/setup > reload query [${name}] > success`)
+                  return raw
+                }
+              })
+            }
+        }
+      }
+      else {
+        logger(`metrics/setup > load queries from build`)
+        conf.queries = JSON.parse(Buffer.from(`<#queries>`, "base64").toString("utf8"))
+      }
+    //Create queries formatters
+      Object.keys(conf.queries).map(name => conf.queries[name.substring(1)] = (vars = {}) => {
+        let query = conf.queries[name]
+        for (const [key, value] of Object.entries(vars))
+          query = query.replace(new RegExp(`[$]${key}`, "g"), value)
+        return query
+      })
 
     //Conf
       logger(`metrics/setup > setup > success`)

@@ -27,7 +27,7 @@
     },
     "habits":{                    "//":"Habits plugin",
       "enabled":false,            "//":"Enable or disable coding habits metrics",
-      "from":100,                 "//":"Number of activity events to base habits on (up to 100)"
+      "from":200,                 "//":"Number of activity events to base habits on (up to 1000)"
     },
     "languages":{                 "//":"Languages plugin",
       "enabled":true,             "//":"Enable or disable most used languages metrics"

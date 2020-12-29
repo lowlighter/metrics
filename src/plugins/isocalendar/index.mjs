@@ -1,5 +1,5 @@
 //Setup
-  export default async function ({login, graphql, q}, {enabled = false} = {}) {
+  export default async function ({login, graphql, q, queries}, {enabled = false} = {}) {
     //Plugin execution
       try {
         //Check if plugin is enabled and requirements are met
@@ -24,24 +24,7 @@
           const calendar = {}
           for (const [name, from, to] of [["padding", padding, start], ["weeks", start, now]]) {
             console.debug(`metrics/compute/${login}/plugins > isocalendar > loading ${name} from "${from.toISOString()}" to "${to.toISOString()}"`)
-            const {user:{calendar:{contributionCalendar:{weeks}}}} = await graphql(`
-                query Calendar {
-                  user(login: "${login}") {
-                    calendar:contributionsCollection(from: "${from.toISOString()}", to: "${to.toISOString()}") {
-                      contributionCalendar {
-                        weeks {
-                          contributionDays {
-                            contributionCount
-                            color
-                            date
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              `
-            )
+            const {user:{calendar:{contributionCalendar:{weeks}}}} = await graphql(queries.calendar({login, from:from.toISOString(), to:to.toISOString()}))
             calendar[name] = weeks
           }
         //Apply padding

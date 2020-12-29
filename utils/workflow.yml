@@ -59,14 +59,8 @@ jobs:
         <%- testcase({
           plugin_pagespeed: true,
           plugin_pagespeed_token: "${{ secrets.PAGESPEED_TOKEN }}",
-        }) %>
-
-      - name: ${{ matrix.template }} > Plugin > PageSpeed (detailed)
-        uses: lowlighter/metrics@<%- release %>
-        <%- testcase({
-          plugin_pagespeed: true,
           plugin_pagespeed_detailed: true,
-          plugin_pagespeed_token: "${{ secrets.PAGESPEED_TOKEN }}",
+          plugin_pagespeed_screenshot: true,
         }) %>
 
       - name: ${{ matrix.template }} > Plugin > Music (playlist - apple)
@@ -102,12 +96,6 @@ jobs:
         uses: lowlighter/metrics@<%- release %>
         <%- testcase({
           plugin_isocalendar: true,
-        }) %>
-
-      - name: ${{ matrix.template }} > Plugin > Isocalendar (full year)
-        uses: lowlighter/metrics@<%- release %>
-        <%- testcase({
-          plugin_isocalendar: true,
           plugin_isocalendar_duration: "full-year",
         }) %>
 
@@ -116,14 +104,6 @@ jobs:
         <%- testcase({
           plugin_habits: true,
           plugin_habits_from: 5,
-        }) %>
-
-      - name: ${{ matrix.template }} > Plugin > Habits (charts)
-        uses: lowlighter/metrics@<%- release %>
-        <%- testcase({
-          plugin_habits: true,
-          plugin_habits_from: 5,
-          plugin_habits_facts: false,
           plugin_habits_charts: true,
         }) %>
 
@@ -139,15 +119,10 @@ jobs:
           plugin_followup: true,
         }) %>
 
-      - name: ${{ matrix.template }} > Plugin > Lines
+      - name: ${{ matrix.template }} > Plugin > Lines and Traffic
         uses: lowlighter/metrics@<%- release %>
         <%- testcase({
           plugin_lines: true,
-        }) %>
-
-      - name: ${{ matrix.template }} > Plugin > Traffic
-        uses: lowlighter/metrics@<%- release %>
-        <%- testcase({
           plugin_traffic: true,
         }) %>
 
@@ -157,38 +132,27 @@ jobs:
           plugin_gists: true,
         }) %>
 
-      - name: ${{ matrix.template }} > Plugin > Topics (stars)
-        uses: lowlighter/metrics@<%- release %>
-        <%- testcase({
-          plugin_topics: true,
-          plugin_topics_sort: "stars",
-        }) %>
-
-      - name: ${{ matrix.template }} > Plugin > Topics (activity)
-        uses: lowlighter/metrics@<%- release %>
-        <%- testcase({
-          plugin_topics: true,
-          plugin_topics_sort: "activity",
-        }) %>
-
       - name: ${{ matrix.template }} > Plugin > Topics (starred)
         uses: lowlighter/metrics@<%- release %>
         <%- testcase({
           plugin_topics: true,
-          plugin_topics_sort: "starred",
+          plugin_topics_mode: "starred",
+          plugin_topics_sort: "random",
         }) %>
 
-      - name: ${{ matrix.template }} > Plugin > Topics (random)
+      - name: ${{ matrix.template }} > Plugin > Topics (mastered)
         uses: lowlighter/metrics@<%- release %>
         <%- testcase({
           plugin_topics: true,
-          plugin_topics_sort: "random",
+          plugin_topics_mode: "mastered",
+          plugin_topics_sort: "stars",
         }) %>
 
       - name: ${{ matrix.template }} > Plugin > Projects
         uses: lowlighter/metrics@<%- release %>
         <%- testcase({
           plugin_projects: true,
+          plugin_projects_repositories: "lowlighter/metrics/projects/1",
           plugin_projects_limit: 2,
         }) %>
 

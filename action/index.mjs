@@ -110,8 +110,10 @@
           if (plugins.pagespeed.enabled) {
             plugins.pagespeed.token = core.getInput("plugin_pagespeed_token") || ""
             q[`pagespeed.detailed`] = bool(core.getInput(`plugin_pagespeed_detailed`))
+            q[`pagespeed.screenshot`] = bool(core.getInput(`plugin_pagespeed_screenshot`))
             console.log(`Pagespeed token           | ${plugins.pagespeed.token ? "provided" : "missing"}`)
             console.log(`Pagespeed detailed        | ${q["pagespeed.detailed"]}`)
+            console.log(`Pagespeed screenshot      | ${q["pagespeed.screenshot"]}`)
           }
         //Languages
           if (plugins.languages.enabled) {
@@ -156,16 +158,18 @@
           }
         //Topics
           if (plugins.topics.enabled) {
-            for (const option of ["sort", "limit"])
+            for (const option of ["mode", "sort", "limit"])
               q[`topics.${option}`] = core.getInput(`plugin_topics_${option}`) || null
+            console.log(`Topics mode               | ${q["topics.mode"] || "(default)"}`)
             console.log(`Topics sort mode          | ${q["topics.sort"] || "(default)"}`)
             console.log(`Topics limit              | ${q["topics.limit"] || "(default)"}`)
           }
         //Projects
           if (plugins.projects.enabled) {
-            for (const option of ["limit"])
+            for (const option of ["limit", "repositories"])
               q[`projects.${option}`] = core.getInput(`plugin_projects_${option}`) || null
             console.log(`Projects limit            | ${q["projects.limit"] || "(default)"}`)
+            console.log(`Projects repositories     | ${q["projects.repositories"] || "(none)"}`)
           }
         //Tweets
           if (plugins.tweets.enabled) {
@@ -184,8 +188,10 @@
         const die = bool(core.getInput("plugins_errors_fatal"))
         console.log(`Plugin errors             | ${die ? "die" : "warn"}`)
 
-      //Built query
-        q = {...q, base:false, ...base, ...config, repositories, template}
+      //Build query
+        const query = JSON.parse(core.getInput("query") || "{}")
+        console.log(`Query additional params   | ${JSON.stringify(query)}`)
+        q = {...query, ...q, base:false, ...base, ...config, repositories, template}
 
       //Render metrics
         const rendered = await metrics({login:user, q, dflags}, {graphql, rest, plugins, conf, die})

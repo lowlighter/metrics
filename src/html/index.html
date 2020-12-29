@@ -28,7 +28,7 @@
             <div class="step">
               <h2>2. Select a template</h2>
               <div class="templates">
-                <label v-for="template in templates.list" :key="template">
+                <label v-for="template in templates.list" :key="template" v-show="templates.descriptions[template] !== '(hidden)'">
                   <input type="radio" v-model="templates.selected" :value="template" @change="load" :disabled="generated.pending">
                   {{ templates.descriptions[template] || template }}
                 </label>
@@ -77,6 +77,10 @@
                       <label>
                         Detailed PageSpeed report
                         <input type="checkbox" v-model="plugins.options['pagespeed.detailed']" @change="load">
+                      </label>
+                      <label>
+                        Include a website screenshot
+                        <input type="checkbox" v-model="plugins.options['pagespeed.screenshot']" @change="load">
                       </label>
                     </div>
                     <div class="options-group" v-if="plugins.enabled.languages">
@@ -135,6 +139,13 @@
                     <div class="options-group" v-if="plugins.enabled.topics">
                       <h4>{{ plugins.descriptions.topics }}</h4>
                       <label>
+                        Topics display mode
+                        <select v-model="plugins.options['topics.mode']" @change="load">
+                          <option value="starred">Starred topics</option>
+                          <option value="mastered">Known and mastered technologies</option>
+                        </select>
+                      </label>
+                      <label>
                         Topics sorting
                         <select v-model="plugins.options['topics.sort']">
                           <option value="starred">Recently starred by you</option>
@@ -153,6 +164,10 @@
                       <label>
                         Number of projects to display
                         <input type="number" v-model="plugins.options['projects.limit']" min="1" max="100" @change="load">
+                      </label>
+                      <label>
+                        Repositories projects to display (comma separated)
+                        <input type="text" v-model="plugins.options['projects.repositories']" @change="load">
                       </label>
                     </div>
                   </div>
