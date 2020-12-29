@@ -15,7 +15,7 @@ jobs:
       - name: Build lowlighter/metrics:${{ github.head_ref || github.base_ref }}
         run: docker build -t lowlighter/metrics:${{ github.head_ref || github.base_ref }} .
       - name: Run tests
-        run: docker run --workdir=/metrics lowlighter/metrics:${{ github.head_ref || github.base_ref }} npm test
+        run: docker run --workdir=/metrics --entrypoint="" lowlighter/metrics:${{ github.head_ref || github.base_ref }} npm test
 
   analyze:
     runs-on: ubuntu-latest
