@@ -12,10 +12,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Build lowlighter/metrics:${{ github.head_ref || github.base_ref }}
-        run: docker build -t lowlighter/metrics:${{ github.head_ref || github.base_ref }} .
+      - name: Build lowlighter/metrics:${{ github.head_ref || 'master' }}
+        run: docker build -t lowlighter/metrics:${{ github.head_ref || 'master' }} .
       - name: Run tests
-        run: docker run --workdir=/metrics --entrypoint="" lowlighter/metrics:${{ github.head_ref || github.base_ref }} npm test
+        run: docker run --workdir=/metrics --entrypoint="" lowlighter/metrics:${{ github.head_ref || 'master' }} npm test
 
   analyze:
     runs-on: ubuntu-latest
