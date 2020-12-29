@@ -12,8 +12,8 @@ jobs:
     steps:
     - name: Checkout branch
       uses: actions/checkout@v2
-    - name: Build lowlighter/metrics:${GITHUB_REF##*/}
-      run: docker build -t lowlighter/metrics:${GITHUB_REF##*/} .
+    - name: Build lowlighter/metrics:${{ github.head_ref || github.base_ref }}
+      run: docker build -t lowlighter/metrics:${{ github.head_ref || github.base_ref }} .
     - name: Run tests
       run: docker run -it -v $GITHUB_WORKSPACE:$GITHUB_WORKSPACE -w $GITHUB_WORKSPACE lowlighter/metrics:${GITHUB_REF##*/} npm test
 
