@@ -199,14 +199,13 @@
         test.skip(name, () => null)
       else
         test(name, async () => expect(await action.run({
-          token:process.env.INPUT_TOKEN ?? "MOCKED_TOKEN",
-          plugin_pagespeed_token:process.env.INPUT_PLUGIN_PAGESPEED_TOKEN ?? "MOCKED_TOKEN",
-          plugin_tweets_token:process.env.INPUT_PLUGIN_TWEETS_TOKEN ?? "MOCKED_TOKEN",
-          plugin_music_token:process.env.INPUT_PLUGIN_MUSIC_TOKEN ?? "MOCKED_CLIENT_ID, MOCKED_CLIENT_SECRET, MOCKED_REFRESH_TOKEN",
-          template, query:JSON.stringify(query),
+          token:"MOCKED_TOKEN",
+          plugin_pagespeed_token:"MOCKED_TOKEN",
+          plugin_tweets_token:"MOCKED_TOKEN",
+          plugin_music_token:"MOCKED_CLIENT_ID, MOCKED_CLIENT_SECRET, MOCKED_REFRESH_TOKEN",
+          template, base:"", query:JSON.stringify(query),
           config_timezone:"Europe/Paris",
           plugins_errors_fatal:true, dryrun:true, use_mocked_data:true, verify:true,
-          base:"", repositories:0,
           ...input
         })).toBe(true), 60*1e3)
   })
