@@ -1,10 +1,10 @@
 //Imports
-  import setup from "./../src/setup.mjs"
-  import metrics from "./../src/metrics.mjs"
-  import octokit from "@octokit/graphql"
   import core from "@actions/core"
   import github from "@actions/github"
-  import mocks from "./../src/mocks.mjs"
+  import octokit from "@octokit/graphql"
+  import setup from "../setup.mjs"
+  import mocks from "../mocks.mjs"
+  import metrics from "../metrics.mjs"
 
 ;((async function () {
   //Yaml boolean converter
@@ -27,7 +27,7 @@
         }
 
       //Load configuration
-        const conf = await setup({log:false})
+        const {conf, Plugins, Templates} = await setup({log:false})
         console.log(`Configuration             │ loaded`)
         console.log(`Version                   │ ${conf.package.version}`)
 
@@ -195,25 +195,18 @@
         const die = bool(core.getInput("plugins_errors_fatal"))
         console.log(`Plugin errors             │ ${die ? "die" : "warn"}`)
 
+      //Verify svg
+        const verify = bool(core.getInput("verify"))
+        console.log(`Verify SVG                │ ${verify}`)
+
       //Build query
         const query = JSON.parse(core.getInput("query") || "{}")
         console.log(`Query additional params   │ ${JSON.stringify(query)}`)
         q = {...query, ...q, base:false, ...base, ...config, repositories, template}
 
       //Render metrics
-        const rendered = await metrics({login:user, q, dflags}, {graphql, rest, plugins, conf, die})
+        const rendered = await metrics({login:user, q, dflags}, {graphql, rest, plugins, conf, die, verify}, {Plugins, Templates})
         console.log(`Render                    │ complete`)
-
-      //Verify svg
-        const verify = bool(core.getInput("verify"))
-        console.log(`Verify SVG                │ ${verify}`)
-        if (verify) {
-          const [libxmljs] = [await import("libxmljs")].map(m => (m && m.default) ? m.default : m)
-          const parsed = libxmljs.parseXml(rendered)
-          if (parsed.errors.length)
-            throw new Error(`Malformed SVG : \n${parsed.errors.join("\n")}`)
-          console.log(`SVG valid                 │ yes`)
-        }
 
       //Commit to repository
         const dryrun = bool(core.getInput("dryrun"))

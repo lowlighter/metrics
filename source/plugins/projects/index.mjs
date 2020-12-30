@@ -33,13 +33,11 @@
           for (const project of projects.nodes) {
             //Format date
               const time = (Date.now()-new Date(project.updatedAt).getTime())/(24*60*60*1000)
-              let updated
+              let updated = new Date(project.updatedAt).toDateString().substring(4)
               if (time < 1)
                 updated = "less than 1 day ago"
               else if (time < 30)
                 updated = `${Math.floor(time)} day${time >= 2 ? "s" : ""} ago`
-              else
-                updated = new Date(project.updatedAt).toDateString().substring(4)
             //Format progress
               const {enabled, todoCount:todo, inProgressCount:doing, doneCount:done} = project.progress
             //Append

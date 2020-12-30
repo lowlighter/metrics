@@ -1,20 +1,18 @@
 //Imports
-  import ejs from "ejs"
-  import SVGO from "svgo"
-  import imgb64 from "image-to-base64"
-  import axios from "axios"
-  import Plugins from "./plugins/index.mjs"
-  import Templates from "./templates/index.mjs"
-  import puppeteer from "puppeteer"
-  import url from "url"
-  import processes from "child_process"
   import fs from "fs/promises"
   import os from "os"
   import paths from "path"
   import util from "util"
+  import axios from "axios"
+  import url from "url"
+  import puppeteer from "puppeteer"
+  import processes from "child_process"
+  import ejs from "ejs"
+  import imgb64 from "image-to-base64"
+  import SVGO from "svgo"
 
 //Setup
-  export default async function metrics({login, q, dflags = []}, {graphql, rest, plugins, conf, die = false}) {
+  export default async function metrics({login, q, dflags = []}, {graphql, rest, plugins, conf, die = false, verify = false}, {Plugins, Templates}) {
     //Compute rendering
       try {
 
@@ -92,6 +90,15 @@
             const svgo = new SVGO({full:true, plugins:[{cleanupAttrs:true}, {inlineStyles:false}]})
             const {data:optimized} = await svgo.optimize(rendered)
             rendered = optimized
+          }
+
+        //Verify svg
+          if (verify) {
+            console.debug(`metrics/compute/${login} > verify SVG`)
+            const libxmljs = (await import("libxmljs")).default
+            const parsed = libxmljs.parseXml(rendered)
+            if (parsed.errors.length)
+              throw new Error(`Malformed SVG : \n${parsed.errors.join("\n")}`)
           }
 
         //Result
