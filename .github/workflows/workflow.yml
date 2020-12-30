@@ -14,14 +14,14 @@ jobs:
   docker-master:
     name: Update GitHub Packages
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master' && contains(github.event.head_commit.message, '[rebuild docker-master]')
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Login to GitHub registry
         run: echo ${{ secrets.CONTAINER_REGISTRY_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
       - name: Build lowlighter/metrics:master
-        run: docker build -t lowlighter/metrics:master .
+        run: docker build -t lowlighter/metrics:master -f source/app/docker/Dockerfile .
       - name: Publish lowlighter/metrics:master
         run: docker push ghcr.io/lowlighter/metrics:master
 
