@@ -1,4 +1,4 @@
-name: Build, tests and analyze
+name: Build, test, analyze and publish
 
 on:
   push:
@@ -11,6 +11,7 @@ on:
 
 jobs:
   build:
+    name: Build and test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -21,6 +22,7 @@ jobs:
         run: docker run --workdir=/metrics --entrypoint="" lowlighter/metrics:${{ github.head_ref || 'master' }} npm test
 
   analyze:
+    name: Analyze code
     runs-on: ubuntu-latest
     needs: [ build ]
     steps:
@@ -35,7 +37,7 @@ jobs:
         uses: github/codeql-action/analyze@v1
 
   publish:
-    name: Publish Docker image to GitHub Packages
+    name: Publish to GitHub Packages
     runs-on: ubuntu-latest
     needs: [ build, analyze ]
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'

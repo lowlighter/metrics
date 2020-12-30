@@ -5,7 +5,7 @@ FROM node:15-buster-slim
 COPY . /metrics
 
 # Setup
-RUN chmod +x /metrics/action/index.mjs \
+RUN chmod +x /metrics/source/app/action/index.mjs \
   # Install latest chrome dev package, fonts to support major charsets and skip chromium download on puppeteer install
   # Based on https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#running-puppeteer-in-docker
   && apt-get update \
@@ -32,4 +32,4 @@ ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
 ENV PUPPETEER_BROWSER_PATH "google-chrome-stable"
 
 # Execute GitHub action
-ENTRYPOINT node /metrics/action/index.mjs
+ENTRYPOINT node /metrics/source/app/action/index.mjs
