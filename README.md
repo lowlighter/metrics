@@ -2,7 +2,7 @@
 
 ![Build](https://github.com/lowlighter/metrics/workflows/Build/badge.svg)
 
-Generates your own GitHub metrics image that you can embed on your profile page or elsewhere !
+Generates your metrics that you can embed everywhere !
 
 [![GitHub metrics](https://github.com/lowlighter/lowlighter/blob/master/metrics.classic.svg)](https://metrics.lecoq.io)
 

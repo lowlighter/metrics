@@ -10,13 +10,13 @@ Nice ! Read the few sections below to understand how this project is structured.
 
 When possible, try to use the [GitHub GraphQL API](https://docs.github.com/en/graphql) by editing queries in `source/queries` or the [GitHub Rest API](https://docs.github.com/en/rest). Use `puppeteer` in last resort.
 
-Data computing and formatting should be made in `templates/*/template.mjs` if it's template specific, or in `templates/common.mjs` if it can be made available for all templates.
+Data computing and formatting should be made in `source/templates/*/template.mjs` if it's template specific, or in `source/templates/common.mjs` if it can be made available for all templates.
 
 Raw queried data should be be exposed directly into `data.user`, whereas computed data should be stored in `data.computed`.
 
 #### Updating SVG templates
 
-SVG templates are located in `templates/*/image.svg` and include CSS from `templates/*/style.css`.
+SVG templates are located in `source/templates/*/image.svg` and include CSS from `source/templates/*/style.css`.
 
 These are rendered through [EJS](https://github.com/mde/ejs), so it is actually possible to include variables (e.g. `<%= user.name %>`) and execute simple code, like control statements.
 
@@ -33,18 +33,18 @@ Plugins should be self-sufficient and independant from others plugins.
 Plugins errors should be handled gracefully by displaying an error message when it fails.
 
 For user's convenience, a placeholder image can be generated to preview metrics without executing queries.
-This use a [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) which "fills" with dummy data, though it has its limit (especially with iterable structures) so you may need to patch the placeholder function. It is located in `source/metrics.mjs`
+This use a [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) which "fills" with dummy data, though it has its limit (especially with iterable structures) so you may need to patch the placeholder function. It is located in `source/app/metrics.mjs`
 
-When adding new options, be sure to patch both `action.yml` and `action/index.mjs` to support them.
+When adding new options, be sure to patch both `action.yml` and `source/app/action/index.mjs` to support them.
 
 #### Metrics web instance
 
-Web instance code is located in `source/app.mjs` and instantiates an `express` server app.
+Web instance code is located in `source/app/web/instance.mjs` and instantiates an `express` server app.
 
 #### GitHub action
 
-GitHub action code is located in `action/index.mjs` and retrieves action parameters, which are converted into `q` parameters.
-Once SVG image is generated through `source/metrics.mjs`, it is committed to user's repository.
+GitHub action code is located in `source/app/action/index.mjs` and retrieves action parameters, which are converted into `q` parameters.
+Once SVG image is generated through `source/app/metrics.mjs`, it is committed to user's repository.
 
 #### Testing new features
 
@@ -63,40 +63,40 @@ It should be avoided when possible as it increases drastically the size of gener
   - e.g. `&text=%26%27"%7C%60%5E%40°%3F!%23%24%25()*%2B%2C-.%2F0123456789%3A%3B<%3D>ABCDEFGHIJKLMNOPQRSTUVWXYZ%5B%5D_abcdefghijklmnopqrstuvwxyz%7B%7D~─└├▇□✕`
 3. Download each font file from url links from the generated stylesheet
 4. Convert them into base64 with `woff` extension on [transfonter.org]https://transfonter.org/) and download archive
-5. Extract archive and copy the content of the generated stylesheet to `templates/*/fonts.css`
+5. Extract archive and copy the content of the generated stylesheet to `source/templates/*/fonts.css`
 6. Update your template
-  - Include `<defs><style><%= fonts %></style></defs>` to your `templates/*/image.svg`
-  - Edit your `templates/*/style.css` to use yout new font
+  - Include `<defs><style><%= fonts %></style></defs>` to your `source/templates/*/image.svg`
+  - Edit your `source/templates/*/style.css` to use yout new font
 
 ### 🗂️ Project structure
 
 #### Metrics generator
 
-* `source/setup.mjs` contains configuration setup
-* `source/metrics.mjs` contains the metrics renderer
+* `source/app/setup.mjs` contains configuration setup
+* `source/app/mocks.mjs` contains mocked data used for tests
+* `source/app/metrics.mjs` contains the metrics renderer
+* `source/plugins/*` contains source code of plugins
+* `source/queries/*` contains GraphQL queries
 * `source/templates/*` contains templates files
 * `source/templates/*/image.svg` contains the image template used to render metrics
 * `source/templates/*/style.css` contains the style used to render metrics
 * `source/templates/*/fonts.css` contains additional fonts used to render metrics
 * `source/templates/*/template.mjs` contains the code used to prepare metrics data before rendering
-* `source/plugins/*` contains source code of plugins
-* `source/queries/*` contains GraphQL queries
 
 #### Web instance
 
-* `index.mjs` contains metrics web instance entry point
-* `source/app.mjs` contains metrics web instance source code
-* `source/web/*` contains metrics web instance static files
+* `source/app/web/index.mjs` contains metrics web instance entry point
+* `source/web/instance.mjs` contains metrics web instance source code
+* `source/app/web/statics/*` contains metrics web instance static files
 
 #### GitHub action
 
 * `action.yml` contains GitHub action descriptor
-* `action/index.mjs` contains GitHub action source code
+* `source/app/action/index.mjs` contains GitHub action source code
 
 #### Others
 
-* `tests/metrics.mjs` contains tests
-* `utils/build.mjs` contains a tool used to rebuild plugins and template indexes
+* `tests/metrics.test.js` contains tests
 
 ### 📦 Used packages
 
