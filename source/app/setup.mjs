@@ -10,13 +10,13 @@
   export default async function ({log = true} = {}) {
 
     //Paths
-      const __metrics = path.join(path.dirname(url.fileURLToPath(import.meta.url)), "..")
-      const __templates = path.join(__metrics, "src/templates")
-      const __plugins = path.join(__metrics, "src/plugins")
-      const __queries = path.join(__metrics, "src/queries")
+      const __metrics = path.join(path.dirname(url.fileURLToPath(import.meta.url)), "../..")
+      const __statics = path.join(__metrics, "source/app/web/statics")
+      const __templates = path.join(__metrics, "source/templates")
+      const __plugins = path.join(__metrics, "source/plugins")
+      const __queries = path.join(__metrics, "source/queries")
       const __package = path.join(__metrics, "package.json")
       const __settings = path.join(__metrics, "settings.json")
-      const __statics = path.join(__metrics, "src/web")
       const __modules = path.join(__metrics, "node_modules")
 
     //Init

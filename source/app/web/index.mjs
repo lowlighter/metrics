@@ -1,5 +1,5 @@
 //Imports
-  import app from "./src/app.mjs"
+  import app from "./instance.mjs"
 
 //Start app
   await app({mock:process.env.USE_MOCKED_DATA})

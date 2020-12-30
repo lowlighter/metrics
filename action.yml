@@ -54,7 +54,7 @@ inputs:
     default: 100
 
   # Template to use
-  # See https://github.com/lowlighter/metrics/tree/master/src/templates for supported templates
+  # See https://github.com/lowlighter/metrics/tree/master/source/templates for supported templates
   template:
     description: Template to use
     default: classic

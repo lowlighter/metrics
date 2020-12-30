@@ -17,7 +17,7 @@
   action.run = async (vars) => await new Promise((solve, reject) => {
     let [stdout, stderr] = ["", ""]
     const env = {...process.env, ...action.input(vars), GITHUB_REPOSITORY:"lowlighter/metrics"}
-    const child = processes.spawn("node", ["action/index.mjs"], {env})
+    const child = processes.spawn("node", ["source/app/action/index.mjs"], {env})
     child.stdout.on("data", data => stdout += data)
     child.stderr.on("data", data => stderr += data)
     child.on("close", code => {
@@ -33,7 +33,7 @@
   web.run = async (vars) => (await axios(`http://localhost:3000/lowlighter?${new url.URLSearchParams(Object.fromEntries(Object.entries(vars).map(([key, value]) => [key.replace(/^plugin_/, "").replace(/_/g, "."), value])))}`)).status === 200
   beforeAll(async () => await new Promise((solve, reject) => {
     let stdout = ""
-    web.instance = processes.spawn("node", ["index.mjs"], {env:{...process.env, USE_MOCKED_DATA:true}})
+    web.instance = processes.spawn("node", ["source/app/web/index.mjs"], {env:{...process.env, USE_MOCKED_DATA:true}})
     web.instance.stdout.on("data", data => (stdout += data, /Server ready !/.test(stdout) ? solve() : null))
     web.instance.stderr.on("data", data => console.error(`${data}`))
   }))

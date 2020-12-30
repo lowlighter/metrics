@@ -1,10 +1,10 @@
 //Imports
-  import setup from "./../src/setup.mjs"
-  import metrics from "./../src/metrics.mjs"
-  import octokit from "@octokit/graphql"
   import core from "@actions/core"
   import github from "@actions/github"
-  import mocks from "./../src/mocks.mjs"
+  import octokit from "@octokit/graphql"
+  import setup from "../setup.mjs"
+  import mocks from "../mocks.mjs"
+  import metrics from "../metrics.mjs"
 
 ;((async function () {
   //Yaml boolean converter

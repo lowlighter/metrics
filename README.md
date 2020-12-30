@@ -596,19 +596,16 @@ For example, to keep only `header` and `repositories` sections, add the followin
     base: "header, repositories" # opt-out from "activity", "community" and "metadata"
 ```
 
-##### Organizations Count
+#### 🏦 Organizations memberships
 
-By default, community section, counts organization for which you've made your membership public. You can publicise your membership in an organisation:
+By default, the `community` section only counts public organizations memberships.
+You can change your membership visibility in the `People` tab of your organization :
 
-1. Go to your team/organisation profile.
-2. Click on the 'People' tab (The URL will be similar to: `https://github.com/orgs/{foo}/people`)
-3. Go to the line with your profile and change `Private` to `Public`
+![Publish organization membership](.github/readme/imgs/setup_public_membership_org.png)
 
-Reference: [New GitHub organization isn't showing on my profile](https://webapps.stackexchange.com/questions/33932/new-github-organization-isnt-showing-on-my-profile)
+To include private organizations memberships, you'll need to add the `read:org` scope to your personal token.
 
-To count organization(s) of which you wish to remain as a private member, you need to provide update personal token with `read:org` previledge.
-
-![](https://user-images.githubusercontent.com/22963968/103213806-14f6fc80-490f-11eb-9fa5-087195843efc.png)
+![Add read:org scope to personal token](.github/readme/imgs/setup_token_org_read_scope.png)
 
 </details>
 

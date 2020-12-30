@@ -1,14 +1,14 @@
 //Imports
-  import express from "express"
   import octokit from "@octokit/graphql"
   import OctokitRest from "@octokit/rest"
-  import cache from "memory-cache"
+  import express from "express"
   import ratelimit from "express-rate-limit"
   import compression from "compression"
+  import cache from "memory-cache"
   import util from "util"
-  import setup from "./setup.mjs"
-  import metrics from "./metrics.mjs"
-  import mocks from "./mocks.mjs"
+  import setup from "../setup.mjs"
+  import mocks from "../mocks.mjs"
+  import metrics from "../metrics.mjs"
 
 /** App */
   export default async function ({mock = false} = {}) {
