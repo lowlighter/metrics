@@ -21,7 +21,7 @@ jobs:
       - name: Login to GitHub registry
         run: echo ${{ secrets.CONTAINER_REGISTRY_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
       - name: Build lowlighter/metrics:master
-        run: docker build -t lowlighter/metrics:master -f source/app/docker/Dockerfile .
+        run: docker build -t lowlighter/metrics:master .
       - name: Publish lowlighter/metrics:master
         run: docker push ghcr.io/lowlighter/metrics:master
 
