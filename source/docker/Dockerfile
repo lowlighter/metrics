@@ -4,7 +4,8 @@
 FROM node:15-buster-slim
 
 # Copy package.json
-COPY . /metrics/package.json
+COPY package.json /metrics/package.json
+COPY package-lock.json /metrics/package-lock.json
 
 # Setup
 RUN cd /metrics \
