@@ -1,4 +1,4 @@
-# Action
+# Action metadata
 name: GitHub metrics as SVG image
 author: lowlighter
 description: Generate an user's GitHub metrics as SVG image format to embed somewhere else
@@ -9,7 +9,7 @@ runs:
   using: docker
   image: Dockerfile
 
-# Inputs
+# Inputs and configuration
 inputs:
 
   # Personal user token

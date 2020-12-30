@@ -1,10 +1,10 @@
 name: Publish Docker image
 on:
-  release:
-    types: [ published ]
+  push:
+    branches: [ master ]
 jobs:
   publish:
-    name: Push Docker image to GitHub Packages
+    name: Publish to GitHub Packages
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -17,4 +17,3 @@ jobs:
           registry: docker.pkg.github.com
           repository: lowlighter/metrics/metrics
           tag_with_ref: true
-

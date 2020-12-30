@@ -1,11 +1,10 @@
+# This is the base image used by metrics, without metrics source files
+
 # Base image
 FROM node:15-buster-slim
 
-# Copy repository
-COPY . /metrics
-
 # Setup
-RUN chmod +x /metrics/source/app/action/index.mjs \
+RUN mkdir /metrics \
   # Install latest chrome dev package, fonts to support major charsets and skip chromium download on puppeteer install
   # Based on https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#running-puppeteer-in-docker
   && apt-get update \
@@ -25,11 +24,5 @@ RUN chmod +x /metrics/source/app/action/index.mjs \
   # Install python for node-gyp
   && apt-get update \
   && apt-get install -y python3 \
-  # Install node modules
-  && cd /metrics \
-  && npm ci
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
 ENV PUPPETEER_BROWSER_PATH "google-chrome-stable"
-
-# Execute GitHub action
-ENTRYPOINT node /metrics/source/app/action/index.mjs
