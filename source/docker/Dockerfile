@@ -3,8 +3,11 @@
 # Base image
 FROM node:15-buster-slim
 
+# Copy package.json
+COPY . /metrics/package.json
+
 # Setup
-RUN mkdir /metrics \
+RUN cd /metrics \
   # Install latest chrome dev package, fonts to support major charsets and skip chromium download on puppeteer install
   # Based on https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#running-puppeteer-in-docker
   && apt-get update \
@@ -23,7 +26,9 @@ RUN mkdir /metrics \
   && gem install github-linguist \
   # Install python for node-gyp
   && apt-get update \
-  && apt-get install -y python3
+  && apt-get install -y python3 \
+  # Install node modules
+  && npm ci
 
 # Environment variables
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true

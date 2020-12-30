@@ -10,6 +10,24 @@ on:
       - '**/*.png'
 
 jobs:
+
+  docker:
+    name: Update GitHub Packages
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master' && contains(github.event.head_commit.message, '[rebuild docker image]')
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Publish image to GitHub Packages
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: lowlighter/metrics/metrics
+          tag_with_ref: true
+          dockerfile: source/docker/Dockerfile
+
   build:
     name: Build and test
     runs-on: ubuntu-latest
