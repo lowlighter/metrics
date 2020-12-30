@@ -297,7 +297,7 @@
                   })
                 }
               //Commit content
-                if (/api.github.com.repos.lowlighter.metrics.commits.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/.test(url)) {
+                if (/^https:..api.github.com.repos.lowlighter.metrics.commits.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/.test(url)) {
                   console.debug(`metrics/compute/mocks > mocking rest api result > rest.request ${url}`)
                   return ({
                     status: 200,
@@ -509,7 +509,7 @@
               //Arguments
                 const [url, body] = args
               //Spotify api
-                if (/accounts.spotify.com.api.token/.test(url)) {
+                if (/^https:..accounts.spotify.com.api.token/.test(url)) {
                   //Access token generator
                     const params = new urls.URLSearchParams(body)
                     if ((params.get("grant_type") === "refresh_token")&&(params.get("client_id") === "MOCKED_CLIENT_ID")&&(params.get("client_secret") === "MOCKED_CLIENT_SECRET")&&(params.get("refresh_token") === "MOCKED_REFRESH_TOKEN")) {
@@ -535,7 +535,7 @@
               //Arguments
                 const [url, options] = args
               //Pagespeed api
-                if (/googleapis.com.pagespeedonline.v5/.test(url)) {
+                if (/^https:..www.googleapis.com.pagespeedonline.v5/.test(url)) {
                   //Pagespeed result
                     if (/v5.runPagespeed.*&key=MOCKED_TOKEN/.test(url)) {
                       console.debug(`metrics/compute/mocks > mocking pagespeed api result > ${url}`)
@@ -635,7 +635,7 @@
                     }
                 }
               //Spotify api
-                if (/api.spotify.com/.test(url)) {
+                if (/^https:..api.spotify.com/.test(url)) {
                   //Get recently played tracks
                     if (/me.player.recently-played/.test(url)&&(options?.headers?.Authorization === "Bearer MOCKED_TOKEN_ACCESS")) {
                       console.debug(`metrics/compute/mocks > mocking spotify api result > ${url}`)
@@ -695,7 +695,7 @@
                     }
                 }
               //Twitter api
-                if (/api.twitter.com/.test(url)) {
+                if (/^https:..api.twitter.com/.test(url)) {
                   //Get user profile
                     if ((/users.by.username/.test(url))&&(options?.headers?.Authorization === "Bearer MOCKED_TOKEN")) {
                       console.debug(`metrics/compute/mocks > mocking twitter api result > ${url}`)

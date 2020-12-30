@@ -202,7 +202,6 @@
       plugin_habits:true,
       plugin_habits_from:5,
       plugin_habits_charts:true,
-      plugin_habits_charts:true,
     }, {skip:["terminal", "repository"]}],
     ["Gists plugin (default)", {
       plugin_gists:true,
@@ -211,7 +210,7 @@
 
 //Tests run
   describe("GitHub Action", () =>
-    describe.skip.each([
+    describe.each([
       ["classic", {}],
       ["terminal", {}],
       ["repository", {repo:"metrics"}],
@@ -235,9 +234,9 @@
 
   describe("Web instance", () =>
     describe.each([
-    //  ["classic", {}],
+      ["classic", {}],
       ["terminal", {}],
-    //  ["repository", {repo:"metrics"}],
+      ["repository", {repo:"metrics"}],
     ])("Template : %s", (template, query) => {
       for (const [name, input, {skip = []} = {}] of tests)
         if (skip.includes(template))
