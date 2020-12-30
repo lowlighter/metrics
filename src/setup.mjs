@@ -16,7 +16,7 @@
       const __queries = path.join(__metrics, "src/queries")
       const __package = path.join(__metrics, "package.json")
       const __settings = path.join(__metrics, "settings.json")
-      const __statics = path.join(__metrics, "src/html")
+      const __statics = path.join(__metrics, "src/web")
       const __modules = path.join(__metrics, "node_modules")
 
     //Init

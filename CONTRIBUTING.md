@@ -86,7 +86,7 @@ It should be avoided when possible as it increases drastically the size of gener
 
 * `index.mjs` contains metrics web instance entry point
 * `source/app.mjs` contains metrics web instance source code
-* `source/html/*` contains metrics web instance static files
+* `source/web/*` contains metrics web instance static files
 
 #### GitHub action
 
