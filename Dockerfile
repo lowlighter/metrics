@@ -1,5 +1,5 @@
 # Base image
-FROM docker.pkg.github.com/lowlighter/metrics/metrics:latest
+FROM ghcr.io/lowlighter/metrics:latest
 
 # Copy repository
 COPY . /metrics
