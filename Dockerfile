@@ -23,6 +23,8 @@ RUN mkdir /metrics \
   && gem install github-linguist \
   # Install python for node-gyp
   && apt-get update \
-  && apt-get install -y python3 \
+  && apt-get install -y python3
+
+# Environment variables
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
 ENV PUPPETEER_BROWSER_PATH "google-chrome-stable"
