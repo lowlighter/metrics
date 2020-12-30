@@ -20,11 +20,16 @@
 
     //Plugins
       for (const name of Object.keys(imports.plugins)) {
+        if (!plugins[name].enabled) {
+          console.log("skipping "+name)
+          continue
+        }
+
         pending.push((async () => {
           try {
             console.debug(`metrics/compute/${login}/plugins > ${name} > started`)
             data.plugins[name] = await imports.plugins[name]({login, q, imports, data, computed, rest, graphql, queries}, plugins[name])
-            console.debug(`metrics/compute/${login}/plugins > ${name} > completed (${data.plugins[name] !== null ? "success" : "skipped"})`)
+            console.debug(`metrics/compute/${login}/plugins > ${name} > completed`)
           }
           catch (error) {
             console.debug(`metrics/compute/${login}/plugins > ${name} > completed (error)`)

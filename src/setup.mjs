@@ -2,27 +2,38 @@
   import fs from "fs"
   import path from "path"
   import util from "util"
+  import url from "url"
+  const Templates = {}
+  const Plugins = {}
 
 /** Setup */
   export default async function ({log = true} = {}) {
 
+    //Paths
+      const __metrics = path.join(path.dirname(url.fileURLToPath(import.meta.url)), "..")
+      const __templates = path.join(__metrics, "src/templates")
+      const __plugins = path.join(__metrics, "src/plugins")
+      const __queries = path.join(__metrics, "src/queries")
+      const __package = path.join(__metrics, "package.json")
+      const __settings = path.join(__metrics, "settings.json")
+      const __statics = path.join(__metrics, "src/html")
+      const __modules = path.join(__metrics, "node_modules")
+
     //Init
       const logger = log ? console.debug : () => null
       logger(`metrics/setup > setup`)
-      const templates = "src/templates"
-      const queries = "src/queries"
       const conf = {
         templates:{},
         queries:{},
         settings:{},
-        statics:path.resolve("src/html"),
-        node_modules:path.resolve("node_modules"),
+        statics:__statics,
+        node_modules:__modules,
       }
 
     //Load settings
       logger(`metrics/setup > load settings.json`)
-      if (fs.existsSync(path.resolve("settings.json"))) {
-        conf.settings = JSON.parse(`${await fs.promises.readFile(path.resolve("settings.json"))}`)
+      if (fs.existsSync(__settings)) {
+        conf.settings = JSON.parse(`${await fs.promises.readFile(__settings)}`)
         logger(`metrics/setup > load settings.json > success`)
       }
       else
@@ -37,22 +48,20 @@
 
     //Load package settings
       logger(`metrics/setup > load package.json`)
-      conf.package = JSON.parse(`${await fs.promises.readFile(path.resolve("package.json"))}`)
+      conf.package = JSON.parse(`${await fs.promises.readFile(__package)}`)
       logger(`metrics/setup > load package.json > success`)
 
     //Load templates
-      for (const name of await fs.promises.readdir(templates)) {
-        //Cache templates
-          if (/.*[.]mjs$/.test(name))
+      for (const name of await fs.promises.readdir(__templates)) {
+        //Cache templates file
+          if (!(await fs.promises.lstat(path.join(__templates, name))).isDirectory())
             continue
           logger(`metrics/setup > load template [${name}]`)
-          const files = [
-            `${templates}/${name}/image.svg`,
-            `${templates}/${name}/style.css`,
-            `${templates}/${name}/fonts.css`,
-          ].map(file => fs.existsSync(path.resolve(file)) ? file : file.replace(`${templates}/${name}/`, `${templates}/classic/`)).map(file => path.resolve(file))
+          const files = ["image.svg", "style.css", "fonts.css"].map(file => path.join(__templates, (fs.existsSync(path.join(__templates, name, file)) ? name : "classic"), file))
           const [image, style, fonts] = await Promise.all(files.map(async file => `${await fs.promises.readFile(file)}`))
           conf.templates[name] = {image, style, fonts}
+        //Cache templates scripts
+          Templates[name] = (await import(url.pathToFileURL(path.join(__templates, name, "template.mjs")).href)).default
           logger(`metrics/setup > load template [${name}] > success`)
         //Debug
           if (conf.settings.debug) {
@@ -67,19 +76,27 @@
           }
       }
 
+    //Load plugins
+      for (const name of await fs.promises.readdir(__plugins)) {
+        //Cache plugins scripts
+          logger(`metrics/setup > load plugin [${name}]`)
+          Plugins[name] = (await import(url.pathToFileURL(path.join(__plugins, name, "index.mjs")).href)).default
+          logger(`metrics/setup > load plugin [${name}] > success`)
+      }
+
     //Load queries
-      for (const query of await fs.promises.readdir(queries)) {
+      for (const query of await fs.promises.readdir(__queries)) {
         //Cache queries
           const name = query.replace(/[.]graphql$/, "")
           logger(`metrics/setup > load query [${name}]`)
-          conf.queries[`_${name}`] = `${await fs.promises.readFile(path.resolve(`${queries}/${query}`))}`
+          conf.queries[`_${name}`] = `${await fs.promises.readFile(path.join(__queries, query))}`
           logger(`metrics/setup > load query [${name}] > success`)
         //Debug
           if (conf.settings.debug) {
             Object.defineProperty(conf.queries, `_${name}`, {
               get() {
                 logger(`metrics/setup > reload query [${name}]`)
-                const raw = `${fs.readFileSync(path.resolve(`${queries}/${query}`))}`
+                const raw = `${fs.readFileSync(path.join(__queries, query))}`
                 logger(`metrics/setup > reload query [${name}] > success`)
                 return raw
               }
@@ -97,6 +114,6 @@
 
     //Conf
       logger(`metrics/setup > setup > success`)
-      return conf
+      return {Templates, Plugins, conf}
 
   }

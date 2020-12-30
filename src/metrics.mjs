@@ -3,8 +3,6 @@
   import SVGO from "svgo"
   import imgb64 from "image-to-base64"
   import axios from "axios"
-  import Plugins from "./plugins/index.mjs"
-  import Templates from "./templates/index.mjs"
   import puppeteer from "puppeteer"
   import url from "url"
   import processes from "child_process"
@@ -14,7 +12,7 @@
   import util from "util"
 
 //Setup
-  export default async function metrics({login, q, dflags = []}, {graphql, rest, plugins, conf, die = false}) {
+  export default async function metrics({login, q, dflags = []}, {graphql, rest, plugins, conf, die = false}, {Plugins, Templates}) {
     //Compute rendering
       try {
 

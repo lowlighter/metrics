@@ -27,7 +27,7 @@
         }
 
       //Load configuration
-        const conf = await setup({log:false})
+        const {conf, Plugins, Templates} = await setup({log:false})
         console.log(`Configuration             │ loaded`)
         console.log(`Version                   │ ${conf.package.version}`)
 
@@ -201,7 +201,7 @@
         q = {...query, ...q, base:false, ...base, ...config, repositories, template}
 
       //Render metrics
-        const rendered = await metrics({login:user, q, dflags}, {graphql, rest, plugins, conf, die})
+        const rendered = await metrics({login:user, q, dflags}, {graphql, rest, plugins, conf, die}, {Plugins, Templates})
         console.log(`Render                    │ complete`)
 
       //Verify svg

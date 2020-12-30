@@ -7,14 +7,13 @@
   import compression from "compression"
   import setup from "./setup.mjs"
   import metrics from "./metrics.mjs"
-  import Templates from "./templates/index.mjs"
   import util from "util"
 
 /** App */
   export default async function () {
 
     //Load configuration settings
-      const conf = await setup()
+      const {conf, Plugins, Templates} = await setup()
       const {token, maxusers = 0, restricted = [], debug = false, cached = 30*60*1000, port = 3000, ratelimiter = null, plugins = null} = conf.settings
 
     //Load octokits
@@ -109,7 +108,7 @@
           try {
             //Render
               console.debug(`metrics/app/${login} > ${util.inspect(req.query, {depth:Infinity, maxStringLength:256})}`)
-              const rendered = await metrics({login, q:parse(req.query)}, {graphql, rest, plugins, conf})
+              const rendered = await metrics({login, q:parse(req.query)}, {graphql, rest, plugins, conf}, {Plugins, Templates})
             //Cache
               if ((!debug)&&(cached)&&(login !== "placeholder"))
                 cache.put(login, rendered, cached)

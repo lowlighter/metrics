@@ -92,12 +92,11 @@ It should be avoided when possible as it increases drastically the size of gener
 
 * `action.yml` contains GitHub action descriptor
 * `action/index.mjs` contains GitHub action source code
-* `action/dist/index.js` contains compiled the GitHub action code (auto-generated)
 
 #### Others
 
 * `tests/metrics.mjs` contains tests
-* `utils/build.mjs` contains a tool used to rebuild plugins and template indexes and GitHub action
+* `utils/build.mjs` contains a tool used to rebuild plugins and template indexes
 
 ### 📦 Used packages
 
