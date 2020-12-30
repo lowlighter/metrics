@@ -12,7 +12,7 @@
   import util from "util"
 
 //Setup
-  export default async function metrics({login, q, dflags = []}, {graphql, rest, plugins, conf, die = false}, {Plugins, Templates}) {
+  export default async function metrics({login, q, dflags = []}, {graphql, rest, plugins, conf, die = false, verify = false}, {Plugins, Templates}) {
     //Compute rendering
       try {
 
@@ -90,6 +90,15 @@
             const svgo = new SVGO({full:true, plugins:[{cleanupAttrs:true}, {inlineStyles:false}]})
             const {data:optimized} = await svgo.optimize(rendered)
             rendered = optimized
+          }
+
+        //Verify svg
+          if (verify) {
+            console.debug(`metrics/compute/${login} > verify SVG`)
+            const libxmljs = (await import("libxmljs")).default
+            const parsed = libxmljs.parseXml(rendered)
+            if (parsed.errors.length)
+              throw new Error(`Malformed SVG : \n${parsed.errors.join("\n")}`)
           }
 
         //Result

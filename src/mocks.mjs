@@ -507,7 +507,7 @@
           axios.post = new Proxy(unmocked.post, {
             apply:function(target, that, args) {
               //Arguments
-                const [url, body, options] = args
+                const [url, body] = args
               //Spotify api
                 if (/accounts.spotify.com.api.token/.test(url)) {
                   //Access token generator

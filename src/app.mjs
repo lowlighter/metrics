@@ -5,20 +5,44 @@
   import cache from "memory-cache"
   import ratelimit from "express-rate-limit"
   import compression from "compression"
+  import util from "util"
   import setup from "./setup.mjs"
   import metrics from "./metrics.mjs"
-  import util from "util"
+  import mocks from "./mocks.mjs"
 
 /** App */
-  export default async function () {
+  export default async function ({mock = false} = {}) {
 
     //Load configuration settings
       const {conf, Plugins, Templates} = await setup()
       const {token, maxusers = 0, restricted = [], debug = false, cached = 30*60*1000, port = 3000, ratelimiter = null, plugins = null} = conf.settings
 
+    //Apply configuration mocking if needed
+      if (mock) {
+        console.debug(`metrics/app > using mocked settings`)
+        const {settings} = conf
+        //Mock token if it's undefined
+          if (!settings.token)
+            settings.token = (console.debug(`metrics/app > using mocked token`), "MOCKED_TOKEN")
+        //Mock plugins state and tokens if they're undefined
+          for (const plugin of Object.keys(Plugins)) {
+            if (!settings.plugins[plugin])
+              settings.plugins[plugin] = {}
+            settings.plugins[plugin].enabled = settings.plugins[plugin].enabled ?? (console.debug(`metrics/app > using mocked token enable state for ${plugin}`), true)
+            if (["tweets", "pagespeed"].includes(plugin))
+              settings.plugins[plugin].token = settings.plugins[plugin].token ?? (console.debug(`metrics/app > using mocked token for ${plugin}`), "MOCKED_TOKEN")
+            if (["music"].includes(plugin))
+              settings.plugins[plugin].token = settings.plugins[plugin].token ?? (console.debug(`metrics/app > using mocked token for ${plugin}`), "MOCKED_CLIENT_ID, MOCKED_CLIENT_SECRET, MOCKED_REFRESH_TOKEN")
+          }
+        console.debug(util.inspect(settings, {depth:Infinity, maxStringLength:256}))
+      }
+
     //Load octokits
-      const graphql = octokit.graphql.defaults({headers:{authorization: `token ${token}`}})
-      const rest = new OctokitRest.Octokit({auth:token})
+      const api = {graphql:octokit.graphql.defaults({headers:{authorization: `token ${token}`}}), rest:new OctokitRest.Octokit({auth:token})}
+    //Apply mocking if needed
+      if (mock)
+        Object.assign(api, await mocks(api))
+      const {graphql, rest} = api
 
     //Setup server
       const app = express()
@@ -108,7 +132,8 @@
           try {
             //Render
               console.debug(`metrics/app/${login} > ${util.inspect(req.query, {depth:Infinity, maxStringLength:256})}`)
-              const rendered = await metrics({login, q:parse(req.query)}, {graphql, rest, plugins, conf}, {Plugins, Templates})
+              const q = parse(req.query)
+              const rendered = await metrics({login, q}, {graphql, rest, plugins, conf, die:q["plugins.errors.fatal"] ?? false, verify:q["verify"] ?? false}, {Plugins, Templates})
             //Cache
               if ((!debug)&&(cached)&&(login !== "placeholder"))
                 cache.put(login, rendered, cached)
@@ -136,13 +161,14 @@
 
     //Listen
       app.listen(port, () => console.log([
-        `Listening on port      | ${port}`,
-        `Debug mode             | ${debug}`,
-        `Restricted to users    | ${restricted.size ? [...restricted].join(", ") : "(unrestricted)"}`,
-        `Cached time            | ${cached} seconds`,
-        `Rate limiter           | ${ratelimiter ? util.inspect(ratelimiter, {depth:Infinity, maxStringLength:256}) : "(enabled)"}`,
-        `Max simultaneous users | ${maxusers ? `${maxusers} users` : "(unrestricted)"}`,
-        `Plugins enabled        | ${enabled.join(", ")}`
+        `Listening on port      │ ${port}`,
+        `Debug mode             │ ${debug}`,
+        `Restricted to users    │ ${restricted.size ? [...restricted].join(", ") : "(unrestricted)"}`,
+        `Cached time            │ ${cached} seconds`,
+        `Rate limiter           │ ${ratelimiter ? util.inspect(ratelimiter, {depth:Infinity, maxStringLength:256}) : "(enabled)"}`,
+        `Max simultaneous users │ ${maxusers ? `${maxusers} users` : "(unrestricted)"}`,
+        `Plugins enabled        │ ${enabled.join(", ")}`,
+        `Server ready !`
       ].join("\n")))
   }
 

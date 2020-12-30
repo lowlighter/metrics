@@ -1,4 +1,7 @@
 {
+  "//":"This is an example of configuration file for web instance",
+  "//":"It is not needed when using metrics as GitHub action",
+
   "token":"MY GITHUB API TOKEN",  "//":"Your own GitHub API token (required)",
   "restricted":[],                "//":"List of authorized users, leave empty for unrestricted",
   "cached":3600000,               "//":"Cached time for generated images, 0 to disable",
@@ -8,15 +11,13 @@
   "optimize":true,                "//":"Optimize SVG image",
   "debug":false,                  "//":"Debug mode",
   "repositories":100,             "//":"Number of repositories to use to compute metrics",
-
   "templates":{                   "//":"Template configuration",
     "default":"classic",          "//":"Default template",
     "enabled":[],                 "//":"Enabled templates, leave empty to enable all templates"
   },
-
   "plugins":{                     "//":"Additional plugins (optional)",
     "pagespeed":{                 "//":"Pagespeed plugin",
-      "enabled":true,             "//":"Enable or disable PageSpeed metrics",
+      "enabled":false,             "//":"Enable or disable PageSpeed metrics",
       "token":null,               "//":"Pagespeed token (optional)"
     },
     "traffic":{                   "//":"Traffic plugin (GitHub API token must be RW for this to work)",
@@ -30,10 +31,10 @@
       "from":200,                 "//":"Number of activity events to base habits on (up to 1000)"
     },
     "languages":{                 "//":"Languages plugin",
-      "enabled":true,             "//":"Enable or disable most used languages metrics"
+      "enabled":false,             "//":"Enable or disable most used languages metrics"
     },
     "followup":{                  "//":"Follow-up plugin",
-      "enabled":true,             "//":"Enable or disable owned repositories issues and pull requests metrics"
+      "enabled":false,             "//":"Enable or disable owned repositories issues and pull requests metrics"
     },
     "music":{                     "//":"Music plugin",
       "enabled":false,            "//":"Enable or disable music recently played / random track from playlist",
@@ -55,7 +56,7 @@
       "enabled":false,            "//":"Enable or disable personal projects display"
     },
     "tweets":{                    "//":"Tweets plugin",
-      "enabled":true,             "//":"Enable or disable recent tweets display",
+      "enabled":false,             "//":"Enable or disable recent tweets display",
       "token":null,               "//":"Twitter token (required when enabled)"
     }
   }
