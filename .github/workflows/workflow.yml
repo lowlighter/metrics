@@ -5,6 +5,9 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.png'
 
 jobs:
   build:
@@ -30,3 +33,20 @@ jobs:
           config-file: ./.github/config/codeql.yml
       - name: Analyze code
         uses: github/codeql-action/analyze@v1
+
+  publish:
+    name: Publish Docker image to GitHub Packages
+    runs-on: ubuntu-latest
+    needs: [ build, analyze ]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Publish image to GitHub Packages
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: lowlighter/metrics/metrics
+          tag_with_ref: true
