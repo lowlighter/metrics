@@ -7,7 +7,7 @@ branding:
   color: gray-dark
 runs:
   using: docker
-  image: Dockerfile
+  image: ghcr.io/lowlighter/metrics:master
 
 # Inputs and configuration
 inputs:
