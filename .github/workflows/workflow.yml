@@ -11,32 +11,27 @@ on:
 
 jobs:
 
-  docker:
+  docker-master:
     name: Update GitHub Packages
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master' && contains(github.event.head_commit.message, '[rebuild docker image]')
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Publish image to GitHub Packages
-        uses: docker/build-push-action@v1
-        with:
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-          registry: ghcr.io
-          repository: lowlighter/metrics
-          tag_with_ref: true
-          dockerfile: source/docker/Dockerfile
-
-  build:
-    name: Build and test
-    runs-on: ubuntu-latest
-    needs: [ docker ]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master' && contains(github.event.head_commit.message, '[rebuild docker-master]')
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Login to GitHub registry
         run: echo ${{ secrets.CONTAINER_REGISTRY_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      - name: Build lowlighter/metrics:master
+        run: docker build -t lowlighter/metrics:master .
+      - name: Publish lowlighter/metrics:master
+        run: docker push ghcr.io/lowlighter/metrics:master
+
+  build:
+    name: Build and test
+    runs-on: ubuntu-latest
+    needs: [ docker-master ]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
       - name: Build lowlighter/metrics:${{ github.head_ref || 'master' }}
         run: docker build -t lowlighter/metrics:${{ github.head_ref || 'master' }} .
       - name: Run tests
