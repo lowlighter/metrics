@@ -1,4 +1,4 @@
-query Metrics {
+query Repository {
   user(login: "$login") {
     repository(name: "$repo") {
       name

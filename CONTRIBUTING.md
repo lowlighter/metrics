@@ -117,7 +117,7 @@ It should be avoided when possible as it increases drastically the size of gener
   * To optimize generated SVG
 * [axios/axios](https://github.com/axios/axios)
   * To make HTTP/S requests
-* [actions/toolkit](https://github.com/actions/toolkit/tree/master) and [vercel/ncc](https://github.com/vercel/ncc)
+* [actions/toolkit](https://github.com/actions/toolkit/tree/master)
   * To build the GitHub Action
 * [vuejs/vue](https://github.com/vuejs/vue) and [egoist/vue-prism-component](https://github.com/egoist/vue-prism-component) + [PrismJS/prism](https://github.com/PrismJS/prism)
   * To display server application
@@ -127,5 +127,5 @@ It should be avoided when possible as it increases drastically the size of gener
   * To test and verify SVG validity
 * [Marak/colors.js](https://github.com/Marak/colors.js)
   * To print colors in console
-* [babel/minify](https://github.com/babel/minify)
-  * To minify code
+* [facebook/jest](https://github.com/facebook/jest) and [nodeca/js-yaml](https://github.com/nodeca/js-yaml)
+  * For unit testing

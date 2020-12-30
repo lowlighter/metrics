@@ -8,9 +8,6 @@ query Metrics {
     websiteUrl
     isHireable
     twitterUsername
-    gists {
-      totalCount
-    }
     repositories(last: 0, isFork: false, ownerAffiliations: OWNER) {
       totalCount
       totalDiskUsage
