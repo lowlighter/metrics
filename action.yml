@@ -1,15 +1,6 @@
-# Action metadata
-name: GitHub metrics as SVG image
-author: lowlighter
-description: Generate an user's GitHub metrics as SVG image format to embed somewhere else
-branding:
-  icon: user-check
-  color: gray-dark
-runs:
-  using: docker
-  image: docker://ghcr.io/lowlighter/metrics:master
-
+# ====================================================================================
 # Inputs and configuration
+
 inputs:
 
   # Personal user token
@@ -318,6 +309,9 @@ inputs:
     description: Number of tweets to display
     default: 2
 
+  # ====================================================================================
+  # Options below are mostly used for testing
+
   # When enabled, any plugins errors will throw
   # By default, metrics are still generated with an error message
   plugins_errors_fatal:
@@ -325,30 +319,82 @@ inputs:
     default: no
 
   # Enable debug mode
-  # Ensure you correctly put all sensitive informations in your repository secrets before !
   debug:
     description: Enable debug logs
     default: no
 
   # Verify SVG after generation
-  # Test whether SVG can be correctly parsed (used for testing)
+  # Test whether SVG can be correctly parsed
   verify:
     description: Verify SVG after generation
     default: no
 
-  # Debug flags (used for testing)
+  # Debug flags
   debug_flags:
     description: Debug flags
     default: ""
 
   # Enable dry-run mode
-  # Generate image but does not push it (used for testing)
+  # Generate image but does not push it
   dryrun:
     description: Enable dry-run
     default: no
 
   # Use mocked data
-  # Bypass external APIs which requires a token and sent mocked data (used for testing)
+  # Bypass external APIs which requires a token and sent mocked data
   use_mocked_data:
     description: Use mocked data instead of real APIs
     default: no
+
+# ====================================================================================
+# Action metadata
+name: Metrics
+author: lowlighter
+description: An image generator with 20+ metrics about your GitHub account such as activity, community, repositories, coding habits, website performances, music played, starred topics, etc. that you can put on your profile or elsewhere !
+branding:
+  icon: user-check
+  color: gray-dark
+
+# The action will parse its name to check if it's the official action or if it's a forked one
+# On the official action, it'll use the docker image published on GitHub registry, allowing faster runs
+# On a forked action, it'll rebuild the docker image from Dockerfile
+runs:
+  using: composite
+  steps:
+    - run: |
+        # Parse source repository and ref
+        cd $METRICS_ACTION_PATH
+        METRICS_SOURCE=$(echo $METRICS_ACTION | sed -E 's/metrics.*?$//g')
+        METRICS_REF=$(echo $METRICS_ACTION | sed -E 's/^.*metrics//g')
+        echo "Running on $METRICS_SOURCE/metrics@$METRICS_REF"
+
+        # If using official action, use docker image from GitHub registry
+        if [[ $METRICS_SOURCE == "lowlighter-test-forks" ]]; then
+          echo "Will use docker image from GitHub registry"
+          METRICS_IMAGE=ghcr.io/lowlighter/metrics:$METRICS_REF
+        # On forked actions, rebuild the docker image instead
+        else
+          echo "This is a forked version, rebuilding docker image from Dockerfile"
+          docker build -t metrics:forked .
+          METRICS_IMAGE=metrics:forked
+        fi
+
+        # Retrieve inputs and GitHub variables and store them in environment file
+        echo "Generating environment file"
+        touch .env
+        for INPUT in $(echo $INPUTS | jq -r 'to_entries|map("INPUT_\(.key|ascii_upcase)=\(.value|@uri)")|.[]'); do
+          echo $INPUT >> .env
+        done
+        env | grep -E '^(GITHUB|ACTIONS|CI)' >> .env
+
+        # Run docker image with current environment
+        echo "Using $METRICS_IMAGE"
+        docker run --env-file .env $METRICS_IMAGE
+
+        # Clean container
+        rm .env
+      shell: bash
+      env:
+        METRICS_ACTION: ${{ github.action }}
+        METRICS_ACTION_PATH: ${{ github.action_path }}
+        INPUTS: ${{ toJson(inputs) }}

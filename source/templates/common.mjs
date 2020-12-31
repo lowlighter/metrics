@@ -20,10 +20,8 @@
 
     //Plugins
       for (const name of Object.keys(imports.plugins)) {
-        if (!plugins[name].enabled) {
-          console.log("skipping "+name)
+        if (!plugins[name].enabled)
           continue
-        }
 
         pending.push((async () => {
           try {

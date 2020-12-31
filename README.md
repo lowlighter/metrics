@@ -1,10 +1,10 @@
-# 📊 GitHub metrics
+# 📊 Metrics
 
 ![Build](https://github.com/lowlighter/metrics/workflows/Build/badge.svg)
 
 Generates your metrics that you can embed everywhere !
 
-[![GitHub metrics](https://github.com/lowlighter/lowlighter/blob/master/metrics.classic.svg)](https://metrics.lecoq.io)
+[![Metrics](https://github.com/lowlighter/lowlighter/blob/master/metrics.classic.svg)](https://metrics.lecoq.io)
 
 But there's more with [plugins](https://github.com/lowlighter/metrics/tree/master/src/plugins) and [templates](https://github.com/lowlighter/metrics/tree/master/src/templates) !
 
@@ -214,7 +214,7 @@ See all supported options in [action.yml](action.yml).
 Assuming your username is `my-github-user`, you can then embed your metrics in your repository readme like below :
 
 ```markdown
-![GitHub metrics](https://github.com/my-github-user/my-github-user/blob/master/github-metrics.svg)
+![Metrics](https://github.com/my-github-user/my-github-user/blob/master/github-metrics.svg)
 ```
 
 <details>
@@ -258,7 +258,7 @@ Go to the `Settings` of your personal repository to create a new secret and past
 Create a new workflow from the `Actions` tab of your personal repository and paste the following :
 
 ```yaml
-name: GitHub metrics
+name: Metrics
 on:
   # Schedule updates
   schedule: [{cron: "0 * * * *"}]
@@ -306,7 +306,7 @@ Note that most of steps presented there are illustrative examples for this readm
 Edit your repository readme and add your metrics image :
 
 ```markdown
-![GitHub metrics](https://github.com/my-github-user/my-github-user/blob/master/github-metrics.svg)
+![Metrics](https://github.com/my-github-user/my-github-user/blob/master/github-metrics.svg)
 ```
 
 </details>
@@ -318,7 +318,7 @@ For conveniency, you can use the shared instance available at [metrics.lecoq.io]
 Assuming your username is `my-github-user`, you can embed your metrics in your repository readme like below :
 
 ```markdown
-![GitHub metrics](https://metrics.lecoq.io/my-github-user)
+![Metrics](https://metrics.lecoq.io/my-github-user)
 ```
 
 Visit [metrics.lecoq.io](https://metrics.lecoq.io) for more informations.
@@ -401,7 +401,7 @@ From your browser, you should be able to access your web instance on the port yo
 Edit your repository readme and add your metrics image from your server domain :
 
 ```markdown
-![GitHub metrics](https://my-personal-domain.com/my-github-user)
+![Metrics](https://my-personal-domain.com/my-github-user)
 ```
 
 ### 6. (optional) Setup as service on your instance
@@ -413,7 +413,7 @@ Create a new service file `/etc/systemd/system/github_metrics.service` and paste
 
 ```
 [Unit]
-Description=GitHub metrics
+Description=Metrics
 After=network-online.target
 Wants=network-online.target
 

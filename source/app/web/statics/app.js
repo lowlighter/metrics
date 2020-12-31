@@ -118,13 +118,13 @@
               },
           //Embedded generated code
             embed() {
-              return `![GitHub metrics](${this.url})`
+              return `![Metrics](${this.url})`
             },
           //GitHub action auto-generated code
             action() {
               return [
                 `# Visit https://github.com/lowlighter/metrics/blob/master/action.yml for full reference`,
-                `name: GitHub metrics`,
+                `name: Metrics`,
                 `on:`,
                 `  # Schedule updates`,
                 `  schedule: [{cron: "0 * * * *"}]`,

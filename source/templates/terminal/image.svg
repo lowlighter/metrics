@@ -57,7 +57,7 @@
 <pre><%# -%>
 <% if (base.metadata) { %>
 <div class="banner"><%# -%>
-GitHub metrics generator <%= meta.version %>
+Metrics generator <%= meta.version %>
 These generated metrics comes with ABSOLUTELY NO
 WARRANTY, to the extent permitted by applicable law.
 
