@@ -367,13 +367,9 @@ runs:
         METRICS_REF=$(echo $METRICS_ACTION | sed -E 's/^.*metrics//g')
         echo "Running on $METRICS_SOURCE/metrics@$METRICS_REF"
 
-        git status || true
-        git branch || true
-        echo "==="
-        env
-        echo "==="
-        env | grep -E '^(INPUT|GITHUB|RUNNER|ACTIONS|HOME|CI)'
-        echo "==="
+        # Debug
+        echo $INPUTS
+        exit 1
 
         # If using official action, use docker image from GitHub registry
         if [[ $METRICS_SOURCE == "lowlighter-test-forks" ]]; then
@@ -395,3 +391,4 @@ runs:
       env:
         METRICS_ACTION: ${{ github.action }}
         METRICS_ACTION_PATH: ${{ github.action_path }}
+        INPUTS: ${{ inputs }}
