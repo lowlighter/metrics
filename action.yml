@@ -368,7 +368,14 @@ runs:
         echo "Running on $METRICS_SOURCE/metrics@$METRICS_REF"
 
         # Debug
-        echo $INPUTS
+        touch .env
+        for INPUT in $(echo $INPUTS | jq -r "to_entries|map(\"\(.key)=\(.value|tostring)\")|.[]" ); do
+          echo $INPUT >> .env
+        done
+        env | grep -E '^(GITHUB|ACTIONS|CI)' >> .env
+
+
+        cat .env
         exit 1
 
         # If using official action, use docker image from GitHub registry
@@ -384,11 +391,10 @@ runs:
 
         # Run docker image with current environment
         echo "Using $METRICS_IMAGE"
-        env | grep -E '^(INPUT|GITHUB|RUNNER|ACTIONS|HOME|CI)' > .env
         docker run --env-file .env $METRICS_IMAGE
         rm .env
       shell: bash
       env:
         METRICS_ACTION: ${{ github.action }}
         METRICS_ACTION_PATH: ${{ github.action_path }}
-        INPUTS: ${{ inputs }}
+        INPUTS: ${{ toJson(inputs) }}
