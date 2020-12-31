@@ -362,17 +362,19 @@ runs:
   steps:
     - run: |
         # Check if action is forked
-        IS_FORK=$(expr $(echo "${{ github.action }}" | sed -E 's/metrics.*?$//g') != "lowlighter")
+        IS_FORK=$(expr $(echo "$GITHUB_ACTION" | sed -E 's/metrics.*?$//g') != "lowlighter")
 
         # If forked, rebuild the docker image
         if [[ $IS_FORK ]]; then
           echo "Running on a forked action, rebuilding docker image from Dockerfile"
-          docker build -t ${{ github.action }}:local .
-          docker run ${{ github.action }}:local
+          docker build -t $GITHUB_ACTION:local .
+          docker run $GITHUB_ACTION:local
         # Else, use docker image from GitHub registry
         else
-          DOCKER_IMAGE=ghcr.io/lowlighter/metrics:$(echo ${{ github.action }} | sed -E 's/.*metrics//g')
+          DOCKER_IMAGE=ghcr.io/lowlighter/metrics:$(echo $GITHUB_ACTION | sed -E 's/.*metrics//g')
           echo "Running $DOCKER_IMAGE from GitHub registry"
           docker run $DOCKER_IMAGE
         fi
       shell: bash
+      env:
+        GITHUB_ACTION: ${{ github.action }}
