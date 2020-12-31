@@ -14,7 +14,8 @@
   //Runner
     try {
       //Initialization
-        console.log(`GitHub metrics`)
+        console.log("─".repeat(64))
+        console.log(`Metrics`)
         console.log("─".repeat(64))
         process.on("unhandledRejection", error => { throw error })
 

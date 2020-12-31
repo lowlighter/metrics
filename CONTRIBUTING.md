@@ -1,4 +1,4 @@
-# 📊 GitHub metrics
+# 📊 Metrics
 
 ## 💪 Interested in contributing ?
 
