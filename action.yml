@@ -362,8 +362,9 @@ runs:
   steps:
     - run: |
         # Parse source repository and ref
+        echo "METRICS_ACTION=$METRICS_ACTION"
         METRICS_SOURCE=$(echo $METRICS_ACTION | sed -E 's/metrics.*?$//g')
-        METRICS_REF=$(echo $METRICS_ACTION | sed -E 's/.*metrics//g')
+        METRICS_REF=$(echo $METRICS_ACTION | sed -E 's/^.*metrics//g')
         echo "Running on $METRICS_SOURCE/metrics@$METRICS_REF"
 
         # If using official action, run docker image from GitHub registry
