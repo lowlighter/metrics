@@ -368,7 +368,7 @@ runs:
         echo "Running on $METRICS_SOURCE/metrics@$METRICS_REF"
 
         # If using official action, run docker image from GitHub registry
-        if [[ $METRICS_SOURCE == "lowlighter" ]]; then
+        if [[ $METRICS_SOURCE == "lowlighter-test-forks" ]]; then
           echo "Running docker image from GitHub registry"
           docker run ghcr.io/lowlighter/metrics:$METRICS_REF
         # On forked actions, rebuild the docker image instead
