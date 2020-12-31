@@ -1,15 +1,6 @@
-# Action metadata
-name: GitHub metrics as SVG image
-author: lowlighter
-description: Generate an user's GitHub metrics as SVG image format to embed somewhere else
-branding:
-  icon: user-check
-  color: gray-dark
-runs:
-  using: docker
-  image: docker://ghcr.io/lowlighter/metrics:master
-
+# ====================================================================================
 # Inputs and configuration
+
 inputs:
 
   # Personal user token
@@ -318,6 +309,9 @@ inputs:
     description: Number of tweets to display
     default: 2
 
+  # ====================================================================================
+  # Options below are mostly used for testing
+
   # When enabled, any plugins errors will throw
   # By default, metrics are still generated with an error message
   plugins_errors_fatal:
@@ -325,30 +319,59 @@ inputs:
     default: no
 
   # Enable debug mode
-  # Ensure you correctly put all sensitive informations in your repository secrets before !
   debug:
     description: Enable debug logs
     default: no
 
   # Verify SVG after generation
-  # Test whether SVG can be correctly parsed (used for testing)
+  # Test whether SVG can be correctly parsed
   verify:
     description: Verify SVG after generation
     default: no
 
-  # Debug flags (used for testing)
+  # Debug flags
   debug_flags:
     description: Debug flags
     default: ""
 
   # Enable dry-run mode
-  # Generate image but does not push it (used for testing)
+  # Generate image but does not push it
   dryrun:
     description: Enable dry-run
     default: no
 
   # Use mocked data
-  # Bypass external APIs which requires a token and sent mocked data (used for testing)
+  # Bypass external APIs which requires a token and sent mocked data
   use_mocked_data:
     description: Use mocked data instead of real APIs
     default: no
+
+# ====================================================================================
+# Action metadata
+name: Metrics
+author: lowlighter
+description: An image generator with 20+ metrics about your GitHub account such as activity, community, repositories, coding habits, website performances, music played, starred topics, etc. that you can put on your profile or elsewhere !
+branding:
+  icon: user-check
+  color: gray-dark
+
+# The action will try to use the docker image published on GitHub registry when using the original action
+# On a forked action, the docker image will be rebuilded from Dockerfile
+runs:
+  using: composite
+  steps:
+    - run: |
+        # Check if action is forked
+        IS_FORK=$(expr $(echo "${{ github.action }}" | sed -E 's/metrics.*?$//g') != "lowlighter")
+
+        # If forked, rebuild the docker image
+        if [[ $IS_FORK ]]; then
+          echo "Running on a forked action, rebuilding docker image from Dockerfile"
+          docker build -t ${{ github.action }}:local .
+          docker run ${{ github.action }}:local
+        # Else, use docker image from GitHub registry
+        else
+          DOCKER_IMAGE=ghcr.io/lowlighter/metrics:$(echo ${{ github.action }} | sed -E 's/.*metrics//g')
+          echo "Running $DOCKER_IMAGE from GitHub registry"
+          docker run $DOCKER_IMAGE
+        fi
