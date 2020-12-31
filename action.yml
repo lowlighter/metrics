@@ -375,3 +375,4 @@ runs:
           echo "Running $DOCKER_IMAGE from GitHub registry"
           docker run $DOCKER_IMAGE
         fi
+      shell: bash
