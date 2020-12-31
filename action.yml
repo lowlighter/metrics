@@ -367,14 +367,15 @@ runs:
         METRICS_REF=$(echo $METRICS_ACTION | sed -E 's/^.*metrics//g')
         echo "Running on $METRICS_SOURCE/metrics@$METRICS_REF"
 
-        # Debug
+        # Retrieve inputs and GitHub environments to pass them later to spawned docker image
+        echo "Generating environment file"
         touch .env
-        for INPUT in $(echo $INPUTS | jq -r "to_entries|map(\"\(.key)=\(.value|tostring)\")|.[]" ); do
+        for INPUT in $(echo $INPUTS | jq -r 'to_entries|map("INPUT_\(.key|ascii_upcase)=\(.value)")|.[]'); do
           echo $INPUT >> .env
         done
         env | grep -E '^(GITHUB|ACTIONS|CI)' >> .env
 
-
+        # Debug
         cat .env
         exit 1
 
