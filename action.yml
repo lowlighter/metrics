@@ -374,9 +374,10 @@ runs:
         # On forked actions, rebuild the docker image instead
         else
           echo "This is a forked version, rebuilding docker image from Dockerfile"
-          docker build -t metrics:forked .
+          docker build -t metrics:forked -f $METRICS_ACTION_PATH/Dockerfile .
           docker run metrics:forked
         fi
       shell: bash
       env:
         METRICS_ACTION: ${{ github.action }}
+        METRICS_ACTION_PATH: ${{ github.action_path }}
