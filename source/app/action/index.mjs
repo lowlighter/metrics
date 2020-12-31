@@ -211,7 +211,6 @@
       //Render metrics
         const rendered = await metrics({login:user, q, dflags}, {graphql, rest, plugins, conf, die, verify}, {Plugins, Templates})
         info("Rendering", "complete")
-        console.log(`Render                    │ complete`)
 
       //Commit to repository
         const dryrun = input.bool("dryrun")
