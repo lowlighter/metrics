@@ -362,10 +362,18 @@ runs:
   steps:
     - run: |
         # Parse source repository and ref
-        echo "METRICS_ACTION=$METRICS_ACTION"
+        cd $METRICS_ACTION_PATH
         METRICS_SOURCE=$(echo $METRICS_ACTION | sed -E 's/metrics.*?$//g')
         METRICS_REF=$(echo $METRICS_ACTION | sed -E 's/^.*metrics//g')
         echo "Running on $METRICS_SOURCE/metrics@$METRICS_REF"
+
+        git status || true
+        git branch || true
+        echo "==="
+        env
+        echo "==="
+        env | grep -E '^(INPUT|GITHUB|RUNNER|ACTIONS|HOME|CI)'
+        echo "==="
 
         # If using official action, use docker image from GitHub registry
         if [[ $METRICS_SOURCE == "lowlighter-test-forks" ]]; then
@@ -374,7 +382,6 @@ runs:
         # On forked actions, rebuild the docker image instead
         else
           echo "This is a forked version, rebuilding docker image from Dockerfile"
-          cd $METRICS_ACTION_PATH
           docker build -t metrics:forked .
           METRICS_IMAGE=metrics:forked
         fi
@@ -383,6 +390,7 @@ runs:
         echo "Using $METRICS_IMAGE"
         env | grep -E '^(INPUT|GITHUB|RUNNER|ACTIONS|HOME|CI)' > .env
         docker run --env-file .env $METRICS_IMAGE
+        rm .env
       shell: bash
       env:
         METRICS_ACTION: ${{ github.action }}
