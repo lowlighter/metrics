@@ -355,8 +355,9 @@ branding:
   icon: user-check
   color: gray-dark
 
-# The action will try to use the docker image published on GitHub registry when using the original action
-# On a forked action, the docker image will be rebuilded from Dockerfile
+# The action will parse its name to check if it's the official action or if it's a forked one
+# On the official action, it'll use the docker image published on GitHub registry, allowing faster runs
+# On a forked action, it'll rebuild the docker image from Dockerfile
 runs:
   using: composite
   steps:
@@ -367,21 +368,9 @@ runs:
         METRICS_REF=$(echo $METRICS_ACTION | sed -E 's/^.*metrics//g')
         echo "Running on $METRICS_SOURCE/metrics@$METRICS_REF"
 
-        # Retrieve inputs and GitHub environments to pass them later to spawned docker image
-        echo "Generating environment file"
-        touch .env
-        for INPUT in $(echo $INPUTS | jq -r 'to_entries|map("INPUT_\(.key|ascii_upcase)=\(.value)")|.[]'); do
-          echo $INPUT >> .env
-        done
-        env | grep -E '^(GITHUB|ACTIONS|CI)' >> .env
-
-        # Debug
-        cat .env
-        exit 1
-
         # If using official action, use docker image from GitHub registry
         if [[ $METRICS_SOURCE == "lowlighter-test-forks" ]]; then
-          echo "Running docker image from GitHub registry"
+          echo "Will use docker image from GitHub registry"
           METRICS_IMAGE=ghcr.io/lowlighter/metrics:$METRICS_REF
         # On forked actions, rebuild the docker image instead
         else
@@ -390,9 +379,19 @@ runs:
           METRICS_IMAGE=metrics:forked
         fi
 
+        # Retrieve inputs and GitHub variables and store them in environment file
+        echo "Generating environment file"
+        touch .env
+        for INPUT in $(echo $INPUTS | jq -r 'to_entries|map("INPUT_\(.key|ascii_upcase)=\(.value)")|.[]'); do
+          echo $INPUT >> .env
+        done
+        env | grep -E '^(GITHUB|ACTIONS|CI)' >> .env
+
         # Run docker image with current environment
         echo "Using $METRICS_IMAGE"
         docker run --env-file .env $METRICS_IMAGE
+
+        # Clean container
         rm .env
       shell: bash
       env:
