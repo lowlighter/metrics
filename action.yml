@@ -382,7 +382,7 @@ runs:
         # Retrieve inputs and GitHub variables and store them in environment file
         echo "Generating environment file"
         touch .env
-        for INPUT in $(echo $INPUTS | jq -r 'to_entries|map("INPUT_\(.key|ascii_upcase)=\(.value)")|.[]'); do
+        for INPUT in $(echo $INPUTS | jq -r 'to_entries|map("INPUT_\(.key|ascii_upcase)=\(.value|@uri)")|.[]'); do
           echo $INPUT >> .env
         done
         env | grep -E '^(GITHUB|ACTIONS|CI)' >> .env
