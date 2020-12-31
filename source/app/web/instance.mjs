@@ -66,8 +66,8 @@
 
     //Base routes
       const limiter = ratelimit({max:debug ? Number.MAX_SAFE_INTEGER : 60, windowMs:60*1000})
-      const templates = [...new Set([conf.settings.templates.default, ...(conf.settings.templates.enabled.length ? Object.keys(Templates).filter(key => conf.settings.templates.enabled.includes(key)) : Object.keys(Templates))])]
-      const enabled = Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => key)
+      const templates =  Object.entries(Templates).map(([name]) => ({name, enabled:(conf.settings.templates.enabled.length ? conf.settings.templates.enabled.includes(name) : true) ?? false}))
+      const enabled = Object.entries(Plugins).map(([name]) => ({name, enabled:plugins[name].enabled ?? false}))
       const actions = {flush:new Map()}
       app.get("/", limiter, (req, res) => res.sendFile(`${conf.statics}/index.html`))
       app.get("/index.html", limiter, (req, res) => res.sendFile(`${conf.statics}/index.html`))
@@ -167,7 +167,7 @@
         `Cached time            │ ${cached} seconds`,
         `Rate limiter           │ ${ratelimiter ? util.inspect(ratelimiter, {depth:Infinity, maxStringLength:256}) : "(enabled)"}`,
         `Max simultaneous users │ ${maxusers ? `${maxusers} users` : "(unrestricted)"}`,
-        `Plugins enabled        │ ${enabled.join(", ")}`,
+        `Plugins enabled        │ ${enabled.map(({name}) => name).join(", ")}`,
         `Server ready !`
       ].join("\n")))
   }
