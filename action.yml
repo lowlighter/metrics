@@ -365,17 +365,19 @@ runs:
         # Parse source repository and version
         cd $METRICS_ACTION_PATH
         METRICS_SOURCE=$(echo $METRICS_ACTION | sed -E 's/metrics.*?$//g')
-        METRICS_VERSION=v$(grep -Po '(?<="version": ")\d+[.]\d+(?=[.]0")' package.json)
+        METRICS_VERSION=v$(grep -Po '(?<="version": ").*(?=")' package.json)
+        METRICS_TAG=v$(echo $METRICS_VERSION | sed -r 's/^([0-9]+[.][0-9]+).*/\1/')
+        METRICS_IS_UNRELEASED=$(expr match $METRICS_VERSION .*-beta)
 
         # If using official action, check if a released version is used
         if [[ $METRICS_SOURCE == "lowlighter" ]]; then
-          if [[ $METRICS_VERSION ]]; then
-            echo "Using released version $METRICS_VERSION, will pull docker image from GitHub registry"
-            METRICS_IMAGE=ghcr.io/lowlighter/metrics:$METRICS_VERSION
-          else
+          if [[ $METRICS_IS_UNRELEASED ]]; then
             echo "This is an unreleased version, rebuilding docker image from Dockerfile"
             docker build -t metrics:unreleased .
             METRICS_IMAGE=metrics:unreleased
+          else
+            echo "Using released version $METRICS_TAG, will pull docker image from GitHub registry"
+            METRICS_IMAGE=ghcr.io/lowlighter/metrics:$METRICS_TAG
           fi
         # On forked actions, always rebuild the docker image
         else
