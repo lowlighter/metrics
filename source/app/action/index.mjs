@@ -7,8 +7,23 @@
   import metrics from "../metrics.mjs"
 
 ;((async function () {
-  //Yaml boolean converter
-    const bool = (value, defaulted = false) => typeof value === "string" ? /^(?:[Tt]rue|[Oo]n|[Yy]es)$/.test(value) : defaulted
+  //Input parser
+    const input = {
+      get:(name) => decodeURIComponent(`${core.getInput(name)}`.trim()),
+      bool:(name, {default:defaulted = undefined} = {}) => /^(?:[Tt]rue|[Oo]n|[Yy]es)$/.test(input.get(name)) ? true : /^(?:[Ff]alse|[Oo]ff|[Nn]o)$/.test(input.get(name)) ? false : defaulted,
+      number:(name, {default:defaulted = undefined} = {}) => Number.isFinite(Number(input.get(name))) ? Number(input.get(name)) : defaulted,
+      string:(name, {default:defaulted = undefined} = {}) => input.get(name) || defaulted,
+      array:(name, {separator = ","} = {}) => input.get(name).split(separator).map(value => value.trim()).filter(value => value),
+      object:(name) => JSON.parse(input.get(name) || "{}"),
+    }
+  //Info logger
+    const info = (left, right, {token = false} = {}) =>  console.log(`${`${left}`.padEnd(48)} │ ${
+      Array.isArray(right) ? right.join(", ") || "(none)" :
+      right === undefined ? "(default)" :
+      token ? /^MOCKED/.test(right) ? "(MOCKED TOKEN)" : (right ? "(provided)" : "(missing)") :
+      typeof right === "object" ? JSON.stringify(right) :
+      right
+    }`)
   //Debug message buffer
     const debugged = []
   //Runner
@@ -29,47 +44,51 @@
 
       //Load configuration
         const {conf, Plugins, Templates} = await setup({log:false})
-        console.log(`Configuration             │ loaded`)
-        console.log(`Version                   │ ${conf.package.version}`)
+        info("Setup", "complete")
+        info("Version", conf.package.version)
 
       //Debug mode
-        const debug = bool(core.getInput("debug"))
+        const debug = input.bool("debug", {default:false})
+        info("Debug mode", debug)
         if (!debug)
           console.debug = message => debugged.push(message)
-        console.log(`Debug mode                │ ${debug}`)
-        const dflags = (core.getInput("debug_flags") || "").split(" ").filter(flag => flag)
-        console.log(`Debug flags               │ ${dflags.join(" ") || "(none)"}`)
+        const dflags = input.array("debug_flags", {separator:" "})
+        info("Debug flags", dflags)
 
       //Load svg template, style, fonts and query
-        const template = core.getInput("template") || "classic"
-        console.log(`Template to use           │ ${template}`)
+        const template = input.string("template", {default:"classic"})
+        info("Template used", template)
 
       //Token for data gathering
-        const token = core.getInput("token") || ""
-        console.log(`Github token              │ ${/^MOCKED/.test(token) ? "(MOCKED)" : token ? "provided" : "missing"}`)
+        const token = input.string("token")
+        info("GitHub token", token, {token:true})
         if (!token)
           throw new Error("You must provide a valid GitHub token to gather your metrics")
         const api = {}
         api.graphql = octokit.graphql.defaults({headers:{authorization: `token ${token}`}})
-        console.log(`Github GraphQL API        │ ok`)
+        info("Github GraphQL API", "ok")
         api.rest = github.getOctokit(token)
-        console.log(`Github REST API           │ ok`)
+        info("Github REST API", "ok")
       //Apply mocking if needed
-        if (bool(core.getInput("use_mocked_data"))) {
+        if (input.bool("use_mocked_data", {default:false})) {
           Object.assign(api, await mocks(api))
-          console.log(`Mocked Github API         │ ok`)
+          info("Use mocked API", true)
         }
       //Extract octokits
         const {graphql, rest} = api
 
       //SVG output
-        const filename = core.getInput("filename") || "github-metrics.svg"
-        console.log(`SVG output file           │ ${filename}`)
+        const filename = input.string("filename", {default:"github-metrics.svg"})
+        info("SVG output", filename)
 
       //SVG optimization
-        const optimize = bool(core.getInput("optimize"), true)
+        const optimize = input.bool("optimize", {default:true})
         conf.optimize = optimize
-        console.log(`SVG optimization          │ ${optimize}`)
+        info("SVG optimization", optimize)
+
+      //Verify svg
+        const verify = input.bool("verify")
+        info("SVG verification after generation", verify)
 
       //GitHub user
         let authenticated
@@ -79,157 +98,142 @@
         catch {
           authenticated = github.context.repo.owner
         }
-        const user = core.getInput("user") || authenticated
-        console.log(`GitHub user               │ ${user}`)
+        const user = input.string("user", {default:authenticated})
+        info("Target GitHub user", user)
 
       //Base elements
         const base = {}
-        let parts = (core.getInput("base") || "").split(",").map(part => part.trim())
+        const parts = input.array("base")
         for (const part of conf.settings.plugins.base.parts)
           base[`base.${part}`] = parts.includes(part)
-        console.log(`Base parts                │ ${parts.join(", ") || "(none)"}`)
+        info("Base parts", parts)
 
       //Config
         const config = {
-          "config.timezone":core.getInput("config_timezone") || ""
+          "config.timezone":input.string("config_timezone")
         }
-        console.log(`Timezone                  │ ${config["config.timezone"] || "(system default)"}`)
+        info("Timezone", config["config.timezone"] ?? "(system default)")
 
       //Additional plugins
         const plugins = {
-          lines:{enabled:bool(core.getInput("plugin_lines"))},
-          traffic:{enabled:bool(core.getInput("plugin_traffic"))},
-          pagespeed:{enabled:bool(core.getInput("plugin_pagespeed"))},
-          habits:{enabled:bool(core.getInput("plugin_habits"))},
-          languages:{enabled:bool(core.getInput("plugin_languages"))},
-          followup:{enabled:bool(core.getInput("plugin_followup"))},
-          music:{enabled:bool(core.getInput("plugin_music"))},
-          posts:{enabled:bool(core.getInput("plugin_posts"))},
-          isocalendar:{enabled:bool(core.getInput("plugin_isocalendar"))},
-          gists:{enabled:bool(core.getInput("plugin_gists"))},
-          topics:{enabled:bool(core.getInput("plugin_topics"))},
-          projects:{enabled:bool(core.getInput("plugin_projects"))},
-          tweets:{enabled:bool(core.getInput("plugin_tweets"))},
+          lines:{enabled:input.bool("plugin_lines")},
+          traffic:{enabled:input.bool("plugin_traffic")},
+          pagespeed:{enabled:input.bool("plugin_pagespeed")},
+          habits:{enabled:input.bool("plugin_habits")},
+          languages:{enabled:input.bool("plugin_languages")},
+          followup:{enabled:input.bool("plugin_followup")},
+          music:{enabled:input.bool("plugin_music")},
+          posts:{enabled:input.bool("plugin_posts")},
+          isocalendar:{enabled:input.bool("plugin_isocalendar")},
+          gists:{enabled:input.bool("plugin_gists")},
+          topics:{enabled:input.bool("plugin_topics")},
+          projects:{enabled:input.bool("plugin_projects")},
+          tweets:{enabled:input.bool("plugin_tweets")},
         }
         let q = Object.fromEntries(Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => [key, true]))
-        console.log(`Plugins enabled           │ ${Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => key).join(", ")}`)
+        info("Plugins enabled", Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => key))
       //Additional plugins options
         //Pagespeed
           if (plugins.pagespeed.enabled) {
-            plugins.pagespeed.token = core.getInput("plugin_pagespeed_token") || ""
-            q[`pagespeed.detailed`] = bool(core.getInput(`plugin_pagespeed_detailed`))
-            q[`pagespeed.screenshot`] = bool(core.getInput(`plugin_pagespeed_screenshot`))
-            console.log(`Pagespeed token           │ ${/^MOCKED/.test(plugins.pagespeed.token) ? "(MOCKED)" : plugins.pagespeed.token ? "provided" : "missing"}`)
-            console.log(`Pagespeed detailed        │ ${q["pagespeed.detailed"]}`)
-            console.log(`Pagespeed screenshot      │ ${q["pagespeed.screenshot"]}`)
+            plugins.pagespeed.token = input.string("plugin_pagespeed_token")
+            info("Pagespeed token", plugins.pagespeed.token, {token:true})
+            for (const option of ["detailed", "screenshot"])
+              info(`Pagespeed ${option}`, q[`pagespeed.${option}`] = input.bool(`plugin_pagespeed_${option}`))
           }
         //Languages
           if (plugins.languages.enabled) {
             for (const option of ["ignored", "skipped"])
-              q[`languages.${option}`] = core.getInput(`plugin_languages_${option}`) || null
-            console.log(`Languages ignored         │ ${q["languages.ignored"] || "(none)"}`)
-            console.log(`Languages skipped repos   │ ${q["languages.skipped"] || "(none)"}`)
+              info(`Languages ${option}`, q[`languages.${option}`] = input.array(`plugin_languages_${option}`))
           }
         //Habits
           if (plugins.habits.enabled) {
+            for (const option of ["facts", "charts"])
+              info(`Habits ${option}`, q[`habits.${option}`] = input.bool(`plugin_habits_${option}`))
             for (const option of ["from", "days"])
-              q[`habits.${option}`] = core.getInput(`plugin_habits_${option}`) || null
-            q[`habits.facts`] = bool(core.getInput(`plugin_habits_facts`))
-            q[`habits.charts`] = bool(core.getInput(`plugin_habits_charts`))
-            console.log(`Habits facts              │ ${q["habits.facts"]}`)
-            console.log(`Habits charts             │ ${q["habits.charts"]}`)
-            console.log(`Habits events to use      │ ${q["habits.from"] || "(default)"}`)
-            console.log(`Habits days to keep       │ ${q["habits.days"] || "(default)"}`)
+              info(`Habits ${option}`, q[`habits.${option}`] = input.number(`plugin_habits_${option}`))
           }
         //Music
           if (plugins.music.enabled) {
-            plugins.music.token = core.getInput("plugin_music_token") || ""
-            for (const option of ["provider", "mode", "playlist", "limit"])
-              q[`music.${option}`] = core.getInput(`plugin_music_${option}`) || null
-            console.log(`Music provider            │ ${q["music.provider"] || "(none)"}`)
-            console.log(`Music plugin mode         │ ${q["music.mode"] || "(none)"}`)
-            console.log(`Music playlist            │ ${q["music.playlist"] || "(none)"}`)
-            console.log(`Music tracks limit        │ ${q["music.limit"] || "(default)"}`)
-            console.log(`Music token               │ ${/^MOCKED/.test(plugins.music.token) ? "(MOCKED)" : plugins.music.token ? "provided" : "missing"}`)
+            plugins.music.token = input.string("plugin_music_token")
+            info("Music token", plugins.music.token, {token:true})
+            for (const option of ["provider", "mode", "playlist"])
+              info(`Music ${option}`, q[`music.${option}`] = input.string(`plugin_music_${option}`))
+            for (const option of ["limit"])
+              info(`Music ${option}`, q[`music.${option}`] = input.number(`plugin_music_${option}`))
           }
         //Posts
           if (plugins.posts.enabled) {
-            for (const option of ["source", "limit"])
-              q[`posts.${option}`] = core.getInput(`plugin_posts_${option}`) || null
-            console.log(`Posts source              │ ${q["posts.source"] || "(none)"}`)
-            console.log(`Posts limit               │ ${q["posts.limit"] || "(default)"}`)
+            for (const option of ["source"])
+              info(`Posts ${option}`, q[`posts.${option}`] = input.string(`plugin_posts_${option}`))
+            for (const option of ["limit"])
+              info(`Posts ${option}`, q[`posts.${option}`] = input.number(`plugin_posts_${option}`))
           }
         //Isocalendar
           if (plugins.isocalendar.enabled) {
-            q["isocalendar.duration"] = core.getInput("plugin_isocalendar_duration") || "half-year"
-            console.log(`Isocalendar duration      │ ${q["isocalendar.duration"]}`)
+            for (const option of ["duration"])
+              info(`Isocalendar ${option}`, q[`isocalendar.${option}`] = input.string(`plugin_isocalendar_${option}`))
           }
         //Topics
           if (plugins.topics.enabled) {
-            for (const option of ["mode", "sort", "limit"])
-              q[`topics.${option}`] = core.getInput(`plugin_topics_${option}`) || null
-            console.log(`Topics mode               │ ${q["topics.mode"] || "(default)"}`)
-            console.log(`Topics sort mode          │ ${q["topics.sort"] || "(default)"}`)
-            console.log(`Topics limit              │ ${q["topics.limit"] || "(default)"}`)
+            for (const option of ["mode", "sort"])
+              info(`Topics ${option}`, q[`topics.${option}`] = input.string(`plugin_topics_${option}`))
+            for (const option of ["limit"])
+              info(`Topics ${option}`, q[`topics.${option}`] = input.number(`plugin_topics_${option}`))
           }
         //Projects
           if (plugins.projects.enabled) {
-            for (const option of ["limit", "repositories"])
-              q[`projects.${option}`] = core.getInput(`plugin_projects_${option}`) || null
-            console.log(`Projects limit            │ ${q["projects.limit"] || "(default)"}`)
-            console.log(`Projects repositories     │ ${q["projects.repositories"] || "(none)"}`)
+            for (const option of ["repositories"])
+              info(`Projects ${option}`, q[`projects.${option}`] = input.string(`plugin_projects_${option}`))
+            for (const option of ["limit"])
+              info(`Projects ${option}`, q[`projects.${option}`] = input.number(`plugin_projects_${option}`))
           }
         //Tweets
           if (plugins.tweets.enabled) {
-            plugins.tweets.token = core.getInput("plugin_tweets_token") || null
+            plugins.tweets.token = input.string("plugin_tweets_token")
+            info("Tweets token", plugins.tweets.token, {token:true})
             for (const option of ["limit"])
-              q[`tweets.${option}`] = core.getInput(`plugin_tweets_${option}`) || null
-            console.log(`Twitter token             │ ${/^MOCKED/.test(plugins.tweets.token) ? "(MOCKED)" : plugins.tweets.token ? "provided" : "missing"}`)
-            console.log(`Tweets limit              │ ${q["tweets.limit"] || "(default)"}`)
+              info(`Tweets ${option}`, q[`tweets.${option}`] = input.number(`plugin_tweets_${option}`))
           }
 
       //Repositories to use
-        const repositories = Number(core.getInput("repositories")) || 100
-        console.log(`Repositories to use       │ ${repositories}`)
+        const repositories = input.number("repositories")
+        info("Repositories to process", repositories)
 
       //Die on plugins errors
-        const die = bool(core.getInput("plugins_errors_fatal"))
-        console.log(`Plugin errors             │ ${die ? "die" : "warn"}`)
-
-      //Verify svg
-        const verify = bool(core.getInput("verify"))
-        console.log(`Verify SVG                │ ${verify}`)
+        const die = input.bool("plugins_errors_fatal")
+        info("Plugin errors", die ? "(exit with error)" : "(displayed in generated SVG)")
 
       //Build query
-        const query = JSON.parse(core.getInput("query") || "{}")
-        console.log(`Query additional params   │ ${JSON.stringify(query)}`)
+        const query = input.object("query")
+        info("Query additional params", query)
         q = {...query, ...q, base:false, ...base, ...config, repositories, template}
 
       //Render metrics
         const rendered = await metrics({login:user, q, dflags}, {graphql, rest, plugins, conf, die, verify}, {Plugins, Templates})
+        info("Rendering", "complete")
         console.log(`Render                    │ complete`)
 
       //Commit to repository
-        const dryrun = bool(core.getInput("dryrun"))
+        const dryrun = input.bool("dryrun")
         if (dryrun)
-          console.log(`Dry-run                   │ complete`)
+          info("Dry-run", "complete")
         else {
           //Repository and branch
             const branch = github.context.ref.replace(/^refs[/]heads[/]/, "")
-            console.log(`Repository                │ ${github.context.repo.owner}/${github.context.repo.repo}`)
-            console.log(`Branch                    │ ${branch}`)
+            info("Current repository", `${github.context.repo.owner}/${github.context.repo.repo}`)
+            info("Current branch", branch)
           //Committer token
-            const token = core.getInput("committer_token") || core.getInput("token") || ""
-            console.log(`Committer token           │ ${/^MOCKED/.test(token) ? "(MOCKED)" : token ? "provided" : "missing"}`)
+            const token = input.string("committer_token", {default:input.string("token")})
+            info("Committer token", token, {token:true})
             if (!token)
               throw new Error("You must provide a valid GitHub token to commit your metrics")
             const rest = github.getOctokit(token)
-            console.log(`Committer REST API        │ ok`)
+            info("Committer REST API", "ok")
             try {
-              console.log(`Committer                 │ ${(await rest.users.getAuthenticated()).data.login}`)
+              info("Committer", (await rest.users.getAuthenticated()).data.login)
             }
             catch {
-              console.log(`Committer                 │ (github-actions)`)
+              info("Committer", "(github-actions)")
             }
           //Retrieve previous render SHA to be able to update file content through API
             let sha = null
@@ -244,25 +248,24 @@
               )
               sha = oid
             } catch (error) { console.debug(error) }
-            console.log(`Previous render sha       │ ${sha ?? "(none)"}`)
+            info("Previous render sha", sha ?? "(none)")
           //Update file content through API
             await rest.repos.createOrUpdateFileContents({
               ...github.context.repo, path:filename, message:`Update ${filename} - [Skip GitHub Action]`,
               content:Buffer.from(rendered).toString("base64"),
               ...(sha ? {sha} : {})
             })
-            console.log(`Commit to repo            │ ok`)
+            info("Commit to current repository", "ok")
         }
 
       //Success
         console.log(`Success, thanks for using metrics !`)
         process.exit(0)
-
     }
   //Errors
     catch (error) {
       console.error(error)
-      if (!bool(core.getInput("debug")))
+      if (!input.bool("debug"))
         for (const log of ["─".repeat(64), "An error occured, logging debug message :", ...debugged])
           console.log(log)
       core.setFailed(error.message)
