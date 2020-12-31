@@ -361,20 +361,21 @@ runs:
   using: composite
   steps:
     - run: |
-        # Check if action is forked
-        IS_FORK=$(expr $(echo "$GITHUB_ACTION" | sed -E 's/metrics.*?$//g') != "lowlighter")
+        # Parse source repository and ref
+        METRICS_SOURCE=$(echo $METRICS_ACTION | sed -E 's/metrics.*?$//g')
+        METRICS_REF=$(echo $METRICS_ACTION | sed -E 's/.*metrics//g')
+        echo "Running on $METRICS_SOURCE/metrics@$METRICS_REF"
 
-        # If forked, rebuild the docker image
-        if [[ $IS_FORK ]]; then
-          echo "Running on a forked action, rebuilding docker image from Dockerfile"
-          docker build -t $GITHUB_ACTION:local .
-          docker run $GITHUB_ACTION:local
-        # Else, use docker image from GitHub registry
+        # If using official action, run docker image from GitHub registry
+        if [[ $METRICS_SOURCE == "lowlighter" ]]; then
+          echo "Running docker image from GitHub registry"
+          docker run ghcr.io/lowlighter/metrics:$METRICS_REF
+        # On forked actions, rebuild the docker image instead
         else
-          DOCKER_IMAGE=ghcr.io/lowlighter/metrics:$(echo $GITHUB_ACTION | sed -E 's/.*metrics//g')
-          echo "Running $DOCKER_IMAGE from GitHub registry"
-          docker run $DOCKER_IMAGE
+          echo "This is a forked version, rebuilding docker image from Dockerfile"
+          docker build -t metrics:forked .
+          docker run metrics:forked
         fi
       shell: bash
       env:
-        GITHUB_ACTION: ${{ github.action }}
+        METRICS_ACTION: ${{ github.action }}
