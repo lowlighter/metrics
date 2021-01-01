@@ -47,6 +47,11 @@ inputs:
     description: Output image type
     default: svg
 
+  # Enable or disable SVG animations
+  config_animations:
+    description: Enable or disable SVG animations
+    default: yes
+
   # Number of repositories to use for metrics
   # A high number increase metrics accuracy, but will consume additional API requests when using plugins
   repositories:

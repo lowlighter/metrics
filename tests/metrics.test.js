@@ -65,6 +65,9 @@
     ["Image output (png)", {
       config_output:"png"
     }],
+    ["Disable animations", {
+      config_animations:"no"
+    }],
     ["PageSpeed plugin (default)", {
       plugin_pagespeed:true,
     }, {skip:["repository"]}],
