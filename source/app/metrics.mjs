@@ -27,7 +27,7 @@
             throw new Error("unsupported template")
           const {image, style, fonts} = conf.templates[template]
           const queries = conf.queries
-          const data = {base:{}, config:{}, errors:[], plugins:{}, computed:{}}
+          const data = {animated:true, base:{}, config:{}, errors:[], plugins:{}, computed:{}}
 
         //Base parts
           {
