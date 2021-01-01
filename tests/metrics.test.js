@@ -33,7 +33,7 @@
   web.run = async (vars) => (await axios(`http://localhost:3000/lowlighter?${new url.URLSearchParams(Object.fromEntries(Object.entries(vars).map(([key, value]) => [key.replace(/^plugin_/, "").replace(/_/g, "."), value])))}`)).status === 200
   beforeAll(async () => await new Promise((solve, reject) => {
     let stdout = ""
-    web.instance = processes.spawn("node", ["source/app/web/index.mjs"], {env:{...process.env, USE_MOCKED_DATA:true}})
+    web.instance = processes.spawn("node", ["source/app/web/index.mjs"], {env:{...process.env, USE_MOCKED_DATA:true, NO_SETTINGS:true}})
     web.instance.stdout.on("data", data => (stdout += data, /Server ready !/.test(stdout) ? solve() : null))
     web.instance.stderr.on("data", data => console.error(`${data}`))
   }))
@@ -70,6 +70,10 @@
     }],
     ["PageSpeed plugin (default)", {
       plugin_pagespeed:true,
+    }, {skip:["repository"]}],
+    ["PageSpeed plugin (different url)", {
+      plugin_pagespeed:true,
+      plugin_pagespeed_url:"github.com",
     }, {skip:["repository"]}],
     ["PageSpeed plugin (detailed)", {
       plugin_pagespeed:true,
@@ -187,6 +191,10 @@
     }],
     ["Tweets plugin (default)", {
       plugin_tweets:true,
+    }, {skip:["terminal", "repository"]}],
+    ["Tweets plugin (different user)", {
+      plugin_tweets:true,
+      plugin_tweets_user:"twitterdev",
     }, {skip:["terminal", "repository"]}],
     ["Posts plugin (dev.to)", {
       user:"lowlighter",

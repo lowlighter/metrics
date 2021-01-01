@@ -11,10 +11,10 @@
   import metrics from "../metrics.mjs"
 
 /** App */
-  export default async function ({mock = false} = {}) {
+  export default async function ({mock = false, nosettings = false} = {}) {
 
     //Load configuration settings
-      const {conf, Plugins, Templates} = await setup()
+      const {conf, Plugins, Templates} = await setup({nosettings})
       const {token, maxusers = 0, restricted = [], debug = false, cached = 30*60*1000, port = 3000, ratelimiter = null, plugins = null} = conf.settings
       cache.placeholder = new Map()
 

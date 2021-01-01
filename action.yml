@@ -85,10 +85,16 @@ inputs:
     default: "header, activity, community, repositories, metadata"
 
   # Google PageSpeed plugin
-  # Enable it to compute the performance for the website attached to "user"
+  # Enable it to compute the performance of provided website
   plugin_pagespeed:
     description: Enable Google PageSpeed metrics for user's website
     default: no
+
+  # Website to audit with PageSpeed
+  # Leave empty to default to the website attached to "user"'s GitHub account
+  plugin_pagespeed_url:
+    description: Website to audit with PageSpeed
+    default: ""
 
   # Display additional PageSpeed audit metrics
   # The following are displayed :
@@ -231,6 +237,12 @@ inputs:
     description: Posts external source
     default: ""
 
+  # Posts source username
+  # Leave empty to default to the login "user"'s GitHub account
+  plugin_posts_user:
+    description: Posts external source username
+    default: ""
+
   # Number of posts to display
   plugin_posts_limit:
     description: Number of posts to display
@@ -310,6 +322,12 @@ inputs:
   plugin_tweets:
     description: Display recent tweets
     default: no
+
+  # Twitter username
+  # Leave empty to default to the twitter account attached to "user"'s GitHub account
+  plugin_tweets_user:
+    description: Twitter username
+    default: ""
 
   # Tweets API token (required when tweets plugin is enabled)
   # See https://apps.twitter.com for more informations

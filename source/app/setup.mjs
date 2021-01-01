@@ -7,7 +7,7 @@
   const Plugins = {}
 
 /** Setup */
-  export default async function ({log = true} = {}) {
+  export default async function ({log = true, nosettings = false} = {}) {
 
     //Paths
       const __metrics = path.join(path.dirname(url.fileURLToPath(import.meta.url)), "../..")
@@ -33,8 +33,12 @@
     //Load settings
       logger(`metrics/setup > load settings.json`)
       if (fs.existsSync(__settings)) {
-        conf.settings = JSON.parse(`${await fs.promises.readFile(__settings)}`)
-        logger(`metrics/setup > load settings.json > success`)
+        if (nosettings)
+          logger(`metrics/setup > load settings.json > skipped because no settings is enabled`)
+        else {
+          conf.settings = JSON.parse(`${await fs.promises.readFile(__settings)}`)
+          logger(`metrics/setup > load settings.json > success`)
+        }
       }
       else
         logger(`metrics/setup > load settings.json > (missing)`)
