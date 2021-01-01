@@ -56,6 +56,7 @@
   }
   pre {
     background: #42092B;
+    margin-top: 16px;
     padding: 12px;
     border-radius: 5px;
   }
@@ -129,4 +130,13 @@
 /* End delimiter */
   #metrics-end {
     width: 100%;
+  }
+
+  .no-animations * {
+    transition-delay: 0s !important;
+    transition-duration: 0s !important;
+    animation-delay: -0.0001s !important;
+    animation-duration: 0s !important;
+    animation-play-state: paused !important;
+    caret-color: transparent !important;
   }

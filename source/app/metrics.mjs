@@ -190,12 +190,22 @@
       const page = await svgresize.browser.newPage()
       await page.setContent(svg, {waitUntil:"load"})
       let mime = "image/svg+xml"
-      let {resized, width, height} = await page.evaluate(() => {
-        let {y:height, width} = document.querySelector("svg #metrics-end").getBoundingClientRect()
-        height = Math.ceil(height)
-        width = Math.ceil(width)
-        document.querySelector("svg").setAttribute("height", height)
-        return {resized:new XMLSerializer().serializeToString(document.querySelector("svg")), height, width}
+      let {resized, width, height} = await page.evaluate(async () => {
+        //Disable animations
+          const animated = !document.querySelector("svg").classList.contains("no-animations")
+          if (animated)
+            document.querySelector("svg").classList.add("no-animations")
+        //Get bounds and resize
+          let {y:height, width} = document.querySelector("svg #metrics-end").getBoundingClientRect()
+          height = Math.ceil(height)
+          width = Math.ceil(width)
+        //Resize svg
+          document.querySelector("svg").setAttribute("height", height)
+        //Enable animations
+          if (animated)
+            document.querySelector("svg").classList.remove("no-animations")
+        //Result
+          return {resized:new XMLSerializer().serializeToString(document.querySelector("svg")), height, width}
       })
     //Convert if required
       if (convert) {
