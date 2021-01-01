@@ -16,6 +16,7 @@
     //Load configuration settings
       const {conf, Plugins, Templates} = await setup()
       const {token, maxusers = 0, restricted = [], debug = false, cached = 30*60*1000, port = 3000, ratelimiter = null, plugins = null} = conf.settings
+      cache.placeholder = new Map()
 
     //Apply configuration mocking if needed
       if (mock) {
@@ -117,11 +118,20 @@
             return res.sendStatus(403)
           }
         //Read cached data if possible
-          if ((!debug)&&(cached)&&(cache.get(login))) {
-            res.header("Content-Type", "image/svg+xml")
-            res.send(cache.get(login))
-            return
-          }
+          //Placeholder
+            if ((login === "placeholder")&&(cache.placeholder.has(Object.keys(req.query).sort().join("-")))) {
+              const {rendered, mime} = cache.placeholder.get(Object.keys(req.query).sort().join("-"))
+              res.header("Content-Type", mime)
+              res.send(rendered)
+              return
+            }
+          //User cached
+            if ((!debug)&&(cached)&&(cache.get(login))) {
+              const {rendered, mime} = cache.get(login)
+              res.header("Content-Type", mime)
+              res.send(rendered)
+              return
+            }
         //Maximum simultaneous users
           if ((maxusers)&&(cache.size()+1 > maxusers)) {
             console.debug(`metrics/app/${login} > 503 (maximum users reached)`)
@@ -133,12 +143,19 @@
             //Render
               console.debug(`metrics/app/${login} > ${util.inspect(req.query, {depth:Infinity, maxStringLength:256})}`)
               const q = parse(req.query)
-              const rendered = await metrics({login, q}, {graphql, rest, plugins, conf, die:q["plugins.errors.fatal"] ?? false, verify:q["verify"] ?? false}, {Plugins, Templates})
+              const {rendered, mime} = await metrics({login, q}, {
+                graphql, rest, plugins, conf,
+                die:q["plugins.errors.fatal"] ?? false,
+                verify:q["verify"] ?? false,
+                convert:["jpeg", "png"].includes(q["config.output"]) ? q["config.output"] : null
+              }, {Plugins, Templates})
             //Cache
-              if ((!debug)&&(cached)&&(login !== "placeholder"))
-                cache.put(login, rendered, cached)
+              if (login === "placeholder")
+                cache.placeholder.set(Object.keys(req.query).sort().join("-"), rendered)
+              if ((!debug)&&(cached))
+                cache.put(login, {rendered, mime}, cached)
             //Send response
-              res.header("Content-Type", "image/svg+xml")
+              res.header("Content-Type", mime)
               res.send(rendered)
           }
         //Internal error

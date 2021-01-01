@@ -38,6 +38,15 @@ inputs:
     description: Timezone used by metrics
     default: ""
 
+  # Specify output type
+  # Supported values are :
+  # - svg (support animations and transparency)
+  # - png (support transparency)
+  # - jpeg
+  config_output:
+    description: Output image type
+    default: svg
+
   # Number of repositories to use for metrics
   # A high number increase metrics accuracy, but will consume additional API requests when using plugins
   repositories:

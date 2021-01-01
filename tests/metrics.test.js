@@ -59,6 +59,12 @@
     ["Base (complete)", {
       base:"header, activity, community, repositories, metadata"
     }],
+    ["Image output (jpeg)", {
+      config_output:"jpeg"
+    }],
+    ["Image output (png)", {
+      config_output:"png"
+    }],
     ["PageSpeed plugin (default)", {
       plugin_pagespeed:true,
     }, {skip:["repository"]}],

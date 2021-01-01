@@ -75,7 +75,7 @@
           },
           templates:{
             list:templates,
-            selected:url.get("template") || templates[0],
+            selected:url.get("template") || templates[0].name,
             loaded:{},
             placeholder:"",
             descriptions:{

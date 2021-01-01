@@ -29,7 +29,7 @@
               <h2>2. Select a template</h2>
               <div class="templates">
                 <label v-for="template in templates.list" :key="template" v-show="templates.descriptions[template.name] !== '(hidden)'" :class="{'not-available':!template.enabled}" :title="!template.enabled ? 'This template is not enabled on web instance, use it with GitHub actions !' : ''">
-                  <input type="radio" v-model="templates.selected" :value="template" @change="load" :disabled="generated.pending">
+                  <input type="radio" v-model="templates.selected" :value="template.name" @change="load" :disabled="generated.pending">
                   {{ templates.descriptions[template.name] || template.name }}
                 </label>
               </div>

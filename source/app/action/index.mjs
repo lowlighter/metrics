@@ -110,9 +110,11 @@
 
       //Config
         const config = {
-          "config.timezone":input.string("config_timezone")
+          "config.timezone":input.string("config_timezone"),
+          "config.output":input.string("config_output")
         }
         info("Timezone", config["config.timezone"] ?? "(system default)")
+        info("Convert SVG", config["config.output"] ?? "(no)")
 
       //Additional plugins
         const plugins = {
@@ -209,7 +211,7 @@
         q = {...query, ...q, base:false, ...base, ...config, repositories, template}
 
       //Render metrics
-        const rendered = await metrics({login:user, q, dflags}, {graphql, rest, plugins, conf, die, verify}, {Plugins, Templates})
+        const {rendered} = await metrics({login:user, q, dflags}, {graphql, rest, plugins, conf, die, verify}, {Plugins, Templates})
         info("Rendering", "complete")
 
       //Commit to repository
