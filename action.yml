@@ -386,9 +386,9 @@ inputs:
 
 # ====================================================================================
 # Action metadata
-name: Metrics
+name: GitHub metrics as SVG image
 author: lowlighter
-description: An image generator with 20+ metrics about your GitHub account such as activity, community, repositories, coding habits, website performances, music played, starred topics, etc. that you can put on your profile or elsewhere !
+description: An SVG generator with 20+ metrics about your GitHub account! Additional plugins are available to display even more!
 branding:
   icon: user-check
   color: gray-dark

@@ -71,20 +71,38 @@ jobs:
           use_mocked_data: yes
           verify: yes
 
-  # TODO
-  # =========================
   # Build docker image from master and publish it to GitHub registry with release tag
-  #docker-release:
-  #  name: Publish release to GitHub registry
-  #  runs-on: ubuntu-latest
-  #  needs: [ build, analyze, action-master-test ]
-  #  if: github.event_name == 'push' && github.ref == 'refs/heads/master' && contains(github.event.head_commit.message, '[release]')
-  #  steps:
-  #    - name: Checkout repository
-  #      uses: actions/checkout@v2
-  #    - name: Login to GitHub registry
-  #      run: echo ${{ secrets.CONTAINER_REGISTRY_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-  #    - name: Build docker image
-  #      run: docker build -t ghcr.io/lowlighter/metrics:master .
-  #    - name: Publish to GitHub registry
-  #      run: docker push ghcr.io/lowlighter/metrics:master
+  docker-release:
+    name: Publish release to GitHub registry
+    runs-on: ubuntu-latest
+    needs: [ build, analyze, action-master-test ]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master' && contains(github.event.head_commit.message, '[release]')
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Login to GitHub registry
+        run: echo ${{ secrets.CONTAINER_REGISTRY_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      - name: Tag docker image (release)
+        run: docker tag ghcr.io/lowlighter/metrics:master ghcr.io/lowlighter/metrics:$(echo '${{ github.event.head_commit.message }}' | grep -Po 'v\d+[.]\d+')
+      - name: Publish release to GitHub registry
+        run: docker push ghcr.io/lowlighter/metrics:$(echo '${{ github.event.head_commit.message }}' | grep -Po 'v\d+[.]\d+')
+      - name: Tag docker image (latest)
+        run: docker tag ghcr.io/lowlighter/metrics:master ghcr.io/lowlighter/metrics:latest
+      - name: Publish latest to GitHub registry
+        run: docker push ghcr.io/lowlighter/metrics:latest
+
+  # Test lowlighter/metrics@latest
+  action-lastest-test:
+    name: Test lowlighter/metrics@latest
+    runs-on: ubuntu-latest
+    needs: [ docker-release ]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master' && contains(github.event.head_commit.message, '[release]')
+    steps:
+      - name: Run tests
+        uses: lowlighter/metrics@latest
+        with:
+          token: MOCKED_TOKEN
+          plugins_errors_fatal: yes
+          dryrun: yes
+          use_mocked_data: yes
+          verify: yes
