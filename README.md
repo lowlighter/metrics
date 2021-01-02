@@ -133,12 +133,12 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
     <td>
       <a href="https://github.com/lowlighter/metrics#-habits">
         <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.facts.svg" alt="" width="400">
-        <details open><summary>With charts version</summary>
-          <a href="https://github.com/lowlighter/metrics#-habits">
-            <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.charts.svg" alt="" width="400">
-          </a>
-        </details>
       </a>
+      <details open><summary>With charts version</summary>
+        <a href="https://github.com/lowlighter/metrics#-habits">
+          <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.charts.svg" alt="" width="400">
+        </a>
+      </details>
     </td>
     <td>
       <a href="https://github.com/lowlighter/metrics#-gists">
