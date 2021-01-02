@@ -439,7 +439,9 @@ runs:
         # Official action
         elif [[ $METRICS_SOURCE == "lowlighter" ]]; then
           # Is unreleased version
-          METRICS_IS_UNRELEASED=$(expr $(expr match $METRICS_VERSION .*-beta) \> 0)
+          set +e
+          METRICS_IS_UNRELEASED=$(expr $(expr match $METRICS_VERSION .*-beta) == 0)
+          set -e
           echo "Unreleased: $METRICS_IS_UNRELEASED"
           # Rebuild image for unreleased version
           if [[ $METRICS_IS_UNRELEASED ]]; then
