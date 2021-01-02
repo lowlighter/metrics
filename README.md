@@ -2,7 +2,7 @@
 
 ![Build](https://github.com/lowlighter/metrics/workflows/Build/badge.svg)
 
-Generates your metrics that you can embed everywhere !
+Generate your metrics that you can embed everywhere, including your GitHub profile readme !
 
 [![Metrics](https://github.com/lowlighter/lowlighter/blob/master/metrics.classic.svg)](https://metrics.lecoq.io)
 
@@ -547,7 +547,7 @@ Used template defaults to the `classic` one.
     <td>✔️</td>
   </tr>
   <tr>
-    <th>Repository<sup>MR</sup></th>
+    <th>Repository<sup>R</sup></th>
     <td>✔️</td>
     <td>❌</td>
     <td>❌</td>
@@ -570,6 +570,25 @@ Used template defaults to the `classic` one.
 * **M** : Feature is not released yet but is available on `@master`
 * **N** : Feature is already released, but new ones are available on `@master`
 * **R** : Repository template (all plugins content will be restricted to related repository)
+
+<details>
+<summary>💬 Using repository template</summary>
+
+To use `repository` template, you'll need to provide a repository name in `query` option.
+
+If repository owner is different from `token` owner, use `user` option to specify it. 
+
+Add the following to your workflow :
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    template: repository
+    user: "repository-owner"
+    query: '{"repo":"repository-name"}'
+```
+
+</details>
 
 ## 🧩 Plugins
 
