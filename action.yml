@@ -420,7 +420,7 @@ runs:
         echo "Source: $METRICS_SOURCE"
 
         # Version (picked from package.json)
-        METRICS_VERSION=v$(grep -Po '(?<="version": ").*(?=")' package.json)
+        METRICS_VERSION=$(grep -Po '(?<="version": ").*(?=")' package.json)
         echo "Version: $METRICS_VERSION"
 
         # Image tag (extracted from version or from env)
