@@ -132,7 +132,12 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
   <tr>
     <td>
       <a href="https://github.com/lowlighter/metrics#-habits">
-        <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.svg" alt="" width="400">
+        <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.facts.svg" alt="" width="400">
+        <details open><summary>With charts version</summary>
+          <a href="https://github.com/lowlighter/metrics#-habits">
+            <img src="  https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.charts.svg" alt="" width="400">
+          </a>
+        </details>
       </a>
     </td>
     <td>
@@ -664,6 +669,16 @@ Add the following to your workflow :
     plugin_pagespeed_screenshot: yes
 ```
 
+It is possible to audit a different website from the one linked to your GitHub account by using `plugin_pagespeed_url` option.
+
+Add the following to your workflow :
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_pagespeed_url: https://********
+```
+
 </details>
 
 ### 📅 Isometric calendar
@@ -949,6 +964,7 @@ Add the following to your workflow instead :
     # ... other options
     plugin_topics: yes
     plugin_topics_mode: mastered
+    plugin_topics_limit: 0
 ```
 
 </details>
@@ -1080,6 +1096,16 @@ Add the following to your workflow :
     plugin_tweets_token: ${{ secrets.TWITTER_TOKEN }}
 ```
 
+It is possible to use a different twitter username from the one linked to your GitHub account by using `plugin_tweets_user` option.
+
+Add the following to your workflow :
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_tweets_user: ********
+```
+
 <details>
 <summary>💬 Obtaining a twitter token</summary>
 
@@ -1113,6 +1139,16 @@ Add the following to your workflow :
     # ... other options
     plugin_posts: yes
     plugin_posts_source: ********
+```
+
+It is possible to use a different username from your GitHub account by using `plugin_posts_user` option.
+
+Add the following to your workflow :
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_posts_user: ********
 ```
 
 </details>
