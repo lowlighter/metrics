@@ -1,4 +1,4 @@
-{
+query Starred {
   user(login: "$login") {
     starredRepositories(first: $limit, orderBy: {field: STARRED_AT, direction: DESC}) {
       edges {
