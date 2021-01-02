@@ -147,16 +147,20 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
     </td>
   </tr>
   <tr>
+    <th><a href="https://github.com/lowlighter/metrics#-stars">🌟 Recently starred repositories</a></th>
     <th><a href="https://github.com/lowlighter/metrics#%EF%B8%8F-base-content">🗃️ Header special features</a></th>
-    <th></th>
   </tr>
   <tr>
+    <td>
+      <a href="https://github.com/lowlighter/metrics#-stars">
+        <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.stars.svg" alt="" width="400">
+      </a>
+    </td>
     <td>
       <a href="https://github.com/lowlighter/metrics#%EF%B8%8F-base-content">
         <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.header.svg" alt="" width="400">
       </a>
     </td>
-    <td></td>
   </tr>
   <tr>
     <td colspan="2" align="center">
@@ -511,6 +515,7 @@ Used template defaults to the `classic` one.
     <th><span title="Posts">✒️</span></th>
     <th><span title="Habits">💡</span></th>
     <th><span title="Gists">🎫</span></th>
+    <th><span title="Stars">🌟</span></th>
   </tr>
   <tr>
     <th>Classic</th>
@@ -528,6 +533,7 @@ Used template defaults to the `classic` one.
     <td>✔️</td>
     <td>✔️</td>
     <td>✔️</td>
+    <td><span title="Available on master">✔️<sup>M</sup></span></td>
   </tr>
   <tr>
     <th>Terminal</th>
@@ -545,6 +551,7 @@ Used template defaults to the `classic` one.
     <td>❌</td>
     <td>❌</td>
     <td>✔️</td>
+    <td>❌</td>
   </tr>
   <tr>
     <th>Repository<sup>R</sup></th>
@@ -558,6 +565,7 @@ Used template defaults to the `classic` one.
     <td>✔️</td>
     <td>✔️</td>
     <td>✔️</td>
+    <td>❌</td>
     <td>❌</td>
     <td>❌</td>
     <td>❌</td>
@@ -1245,6 +1253,30 @@ Add the following to your workflow :
   with:
     # ... other options
     plugin_gists: yes
+```
+
+</details>
+
+### 🌟 Stars
+
+    🚧 This feature is available on @master
+
+The *stars* plugin displays your recently starred repositories.
+
+![Stars plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.stars.svg)
+
+<details>
+<summary>💬 About</summary>
+
+It will consume an additional GitHub request.
+
+Add the following to your workflow :
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_stars: yes
+    plugin_stars_limit: 4
 ```
 
 </details>
