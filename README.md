@@ -135,7 +135,7 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
         <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.facts.svg" alt="" width="400">
         <details open><summary>With charts version</summary>
           <a href="https://github.com/lowlighter/metrics#-habits">
-            <img src="  https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.charts.svg" alt="" width="400">
+            <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.charts.svg" alt="" width="400">
           </a>
         </details>
       </a>
@@ -1235,6 +1235,56 @@ Add the following to your workflow :
 ```
 
 </details>
+
+### 🔧 Other options
+
+A few additional options are available.
+See all supported options in [action.yml](action.yml).
+
+<details>
+<summary>💬 About</summary>
+
+#### 🌐 Set timezone
+
+By default, dates are based on the Greenwich meridian (England time). 
+
+It is possible to set set your timezone (see [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) for a list of supported timezones) by adding the following to your workflow :
+
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    config_timezone: Europe/Paris
+```
+
+#### 🔲 Adjust padding
+
+Generated metrics height is computed after being rendered through an headless browser. As rendering can depends on used fonts and operating system, it may render as cropped or with additional blank space at the bottom. 
+
+It is possible to adjust the padding by adding the following to your workflow :
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    config_padding: 6%
+```
+
+Both positive and negative values are accepted, but you must specify a percentage.
+
+#### 💱 Convert output to PNG/JPEG
+
+It is possible to convert output from SVG to PNG or JPEG images by adding the following to your workflow :
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    config_output: png
+```
+
+Note that `png` does not support animations while `jpeg` does not support both animations and transparency.
+
+</details>
+
 
 ## 💪 Contributing and customizing
 
