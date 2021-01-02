@@ -259,6 +259,43 @@
                   }
                 })
               }
+            //Starred repositories query
+              if (/^query Starred /.test(query)) {
+                console.debug(`metrics/compute/mocks > mocking graphql api result > Starred`)
+                return ({
+                  user:{
+                    starredRepositories:{
+                      edges:[
+                        {
+                          starredAt:"2020-10-16T18:53:16Z",
+                          node:{
+                            description:"📊 An image generator with 20+ metrics about your GitHub account such as activity, community, repositories, coding habits, website performances, music played, starred topics, etc. that you can put on your profile or elsewhere !",
+                            forkCount:12,
+                            isFork:false,
+                            issues:{
+                              totalCount: 12
+                            },
+                            nameWithOwner:"lowlighter/metrics",
+                            openGraphImageUrl:"https://repository-images.githubusercontent.com/293860197/7fd72080-496d-11eb-8fe0-238b38a0746a",
+                            pullRequests:{
+                              totalCount:23
+                            },
+                            stargazerCount:120,
+                            licenseInfo:{
+                              nickname:null,
+                              name:"MIT License"
+                            },
+                            primaryLanguage:{
+                              color:"#f1e05a",
+                              name:"JavaScript"
+                            }
+                          }
+                        },
+                      ]
+                    }
+                  }
+                })
+              }
             //Unmocked call
               return target(...args)
           }

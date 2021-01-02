@@ -56,8 +56,11 @@
       "enabled":false,            "//":"Enable or disable personal projects display"
     },
     "tweets":{                    "//":"Tweets plugin",
-      "enabled":false,             "//":"Enable or disable recent tweets display",
+      "enabled":false,            "//":"Enable or disable recent tweets display",
       "token":null,               "//":"Twitter token (required when enabled)"
+    },
+    "stars":{                     "//":"Stars plugin",
+      "enabled":true,             "//":"Enable or disable recently starred repositories display"
     }
   }
 }

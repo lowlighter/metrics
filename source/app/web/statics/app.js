@@ -45,6 +45,7 @@
               topics:"Starred topics",
               projects:"Projects",
               tweets:"Latest tweets",
+              stars:"Recently starred repositories",
               "base.header":"Header",
               "base.activity":"Account activity",
               "base.community":"Community stats",
@@ -71,6 +72,7 @@
               "topics.sort":"stars",
               "topics.limit":12,
               "tweets.limit":2,
+              "stars.limit":4,
             },
           },
           templates:{

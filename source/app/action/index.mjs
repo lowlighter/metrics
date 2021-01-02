@@ -139,6 +139,7 @@
           topics:{enabled:input.bool("plugin_topics")},
           projects:{enabled:input.bool("plugin_projects")},
           tweets:{enabled:input.bool("plugin_tweets")},
+          stars:{enabled:input.bool("plugin_stars")},
         }
         let q = Object.fromEntries(Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => [key, true]))
         info("Plugins enabled", Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => key))
@@ -207,6 +208,11 @@
               info(`Tweets ${option}`, q[`tweets.${option}`] = input.string(`plugin_tweets_${option}`))
             for (const option of ["limit"])
               info(`Tweets ${option}`, q[`tweets.${option}`] = input.number(`plugin_tweets_${option}`))
+          }
+        //Stars
+          if (plugins.posts.enabled) {
+            for (const option of ["limit"])
+              info(`Stars ${option}`, q[`stars.${option}`] = input.number(`plugin_stars_${option}`))
           }
 
       //Repositories to use
