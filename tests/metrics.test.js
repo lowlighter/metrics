@@ -239,6 +239,9 @@
     ["Gists plugin (default)", {
       plugin_gists:true,
     }, {skip:["terminal"]}],
+    ["Stars plugin (default)", {
+      plugin_stars:true,
+    }, {skip:["terminal"]}],
   ]
 
 //Tests run
