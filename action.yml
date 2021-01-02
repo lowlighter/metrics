@@ -347,6 +347,16 @@ inputs:
     description: Number of tweets to display
     default: 2
 
+  # Display recently starred repositories
+  plugin_stars:
+    description: Display recently starred repositories
+    default: no
+
+  # Number of recently starred repositories to display
+  plugin_stars_limit:
+    description: Number of recently starred repositories to display
+    default: 4
+
   # ====================================================================================
   # Options below are mostly used for testing
 
