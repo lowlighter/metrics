@@ -52,11 +52,11 @@ inputs:
     description: Enable or disable SVG animations
     default: yes
 
-  # Add bottom padding
+  # Add bottom padding (percentage)
   # This can used to add padding if generated image is cropped or on the contrary, remove empty space
   config_padding:
     description: Configure bottom padding
-    default: 20
+    default: 2%
 
   # Number of repositories to use for metrics
   # A high number increase metrics accuracy, but will consume additional API requests when using plugins

@@ -113,7 +113,7 @@
           "config.timezone":input.string("config_timezone"),
           "config.output":input.string("config_output"),
           "config.animations":input.bool("config_animations"),
-          "config.padding":input.number("config_padding"),
+          "config.padding":input.string("config_padding"),
         }
         info("Timezone", config["config.timezone"] ?? "(system default)")
         info("Convert SVG", config["config.output"] ?? "(no)")
