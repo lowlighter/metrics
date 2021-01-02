@@ -84,7 +84,7 @@
           console.debug(`metrics/compute/${login} > render`)
           let rendered = await ejs.render(image, {...data, s, style, fonts}, {async:true})
         //Apply resizing
-          const {resized, mime} = await svgresize(rendered, {convert})
+          const {resized, mime} = await svgresize(rendered, {padding:"config.padding" in q ? Number(q["config.padding"]) : undefined, convert})
           rendered = resized
 
         //Additional SVG transformations
@@ -180,7 +180,7 @@
   }
 
 /** Render svg */
-  async function svgresize(svg, {convert} = {}) {
+  async function svgresize(svg, {padding = 10, convert} = {}) {
     //Instantiate browser if needed
       if (!svgresize.browser) {
         svgresize.browser = await puppeteer.launch({headless:true, executablePath:process.env.PUPPETEER_BROWSER_PATH, args:["--no-sandbox", "--disable-extensions", "--disable-setuid-sandbox", "--disable-dev-shm-usage"]})
@@ -190,14 +190,14 @@
       const page = await svgresize.browser.newPage()
       await page.setContent(svg, {waitUntil:"load"})
       let mime = "image/svg+xml"
-      let {resized, width, height} = await page.evaluate(async () => {
+      let {resized, width, height} = await page.evaluate(async padding => {
         //Disable animations
           const animated = !document.querySelector("svg").classList.contains("no-animations")
           if (animated)
             document.querySelector("svg").classList.add("no-animations")
         //Get bounds and resize
           let {y:height, width} = document.querySelector("svg #metrics-end").getBoundingClientRect()
-          height = Math.ceil(height)
+          height = Math.ceil(height + padding)
           width = Math.ceil(width)
         //Resize svg
           document.querySelector("svg").setAttribute("height", height)
@@ -206,7 +206,7 @@
             document.querySelector("svg").classList.remove("no-animations")
         //Result
           return {resized:new XMLSerializer().serializeToString(document.querySelector("svg")), height, width}
-      })
+      }, padding)
     //Convert if required
       if (convert) {
         console.debug(`metrics/svgresize > convert to ${convert}`)

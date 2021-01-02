@@ -113,10 +113,12 @@
           "config.timezone":input.string("config_timezone"),
           "config.output":input.string("config_output"),
           "config.animations":input.bool("config_animations"),
+          "config.padding":input.number("config_padding"),
         }
         info("Timezone", config["config.timezone"] ?? "(system default)")
         info("Convert SVG", config["config.output"] ?? "(no)")
         info("Enable SVG animations", config["config.animations"])
+        info("SVG bottom padding", config["config.padding"])
 
       //Additional plugins
         const plugins = {
