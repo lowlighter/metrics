@@ -271,7 +271,7 @@
   }
   .post .infos .title {
     font-size: 14px;
-    width: 400px;
+    width: 380px;
     white-space: normal;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -281,7 +281,7 @@
     flex-shrink: 0;
     font-size: 12px;
     color: #666666;
-    width: 40px;
+    width: 60px;
     padding-top: 1px;
   }
 
