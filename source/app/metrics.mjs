@@ -180,7 +180,7 @@
   }
 
 /** Render svg */
-  async function svgresize(svg, {padding = "2%", convert} = {}) {
+  async function svgresize(svg, {padding = "5%", convert} = {}) {
     //Instantiate browser if needed
       if (!svgresize.browser) {
         svgresize.browser = await puppeteer.launch({headless:true, executablePath:process.env.PUPPETEER_BROWSER_PATH, args:["--no-sandbox", "--disable-extensions", "--disable-setuid-sandbox", "--disable-dev-shm-usage"]})

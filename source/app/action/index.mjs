@@ -9,7 +9,11 @@
 ;((async function () {
   //Input parser
     const input = {
-      get:(name) => decodeURIComponent(`${core.getInput(name)}`.trim()),
+      get:(name) => {
+        const value = `${core.getInput(name)}`.trim()
+        try { return decodeURIComponent(value) }
+        catch { return value}
+      },
       bool:(name, {default:defaulted = undefined} = {}) => /^(?:[Tt]rue|[Oo]n|[Yy]es)$/.test(input.get(name)) ? true : /^(?:[Ff]alse|[Oo]ff|[Nn]o)$/.test(input.get(name)) ? false : defaulted,
       number:(name, {default:defaulted = undefined} = {}) => Number.isFinite(Number(input.get(name))) ? Number(input.get(name)) : defaulted,
       string:(name, {default:defaulted = undefined} = {}) => input.get(name) || defaulted,
