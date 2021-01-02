@@ -515,19 +515,19 @@ Used template defaults to the `classic` one.
   <tr>
     <th>Classic</th>
     <td>✔️</td>
-    <td><span title="'plugin_pagespeed_screenshot' is available on @master">✔️<sup>N</sup></span></td>
-    <td>✔️</td>
-    <td>✔️</td>
-    <td>✔️</td>
-    <td>✔️</td>
-    <td><span title="'plugin_topics_mode' is available on @master">✔️<sup>N</sup></span></td>
-    <td><span title="'plugin_projects_repositories' is available on @master">✔️<sup>N</sup></span></td>
     <td>✔️</td>
     <td>✔️</td>
     <td>✔️</td>
     <td>✔️</td>
     <td>✔️</td>
-    <td><span title="'Files' and 'Comments' are available on @master">✔️<sup>N</sup></span></td>
+    <td>✔️</td>
+    <td>✔️</td>
+    <td>✔️</td>
+    <td>✔️</td>
+    <td>✔️</td>
+    <td>✔️</td>
+    <td>✔️</td>
+    <td>✔️</td>
   </tr>
   <tr>
     <th>Terminal</th>
@@ -654,8 +654,6 @@ Add the following to your workflow instead :
     plugin_pagespeed_detailed: yes
     plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
 ```
-
-    🚧 The feature below is only available on @master
 
 You can also display the screenshot taken by PageSpeed API :
 
@@ -951,8 +949,6 @@ Add the following to your workflow :
     plugin_topics_limit: 15
 ```
 
-    🚧 The feature below is only available on @master
-
 It is possible to display starred topics as `Mastered and known technologies` instead :
 
 ![Topics plugin (mastered)](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.mastered.svg)
@@ -1008,8 +1004,6 @@ Fill the informations and set visibility to *public* :
 ![Configure project](.github/readme/imgs/plugin_projects_setup.png)
 
 </details>
-
-    🚧 The feature below is only available on @master
 
 It is possible to display projects related to repositories along with personal projects.
 
@@ -1246,7 +1240,7 @@ See all supported options in [action.yml](action.yml).
 
 #### 🌐 Set timezone
 
-By default, dates are based on the Greenwich meridian (England time). 
+By default, dates are based on the Greenwich meridian (England time).
 
 It is possible to set set your timezone (see [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) for a list of supported timezones) by adding the following to your workflow :
 
@@ -1259,7 +1253,7 @@ It is possible to set set your timezone (see [here](https://en.wikipedia.org/wik
 
 #### 🔲 Adjust padding
 
-Generated metrics height is computed after being rendered through an headless browser. As rendering can depends on used fonts and operating system, it may render as cropped or with additional blank space at the bottom. 
+Generated metrics height is computed after being rendered through an headless browser. As rendering can depends on used fonts and operating system, it may render as cropped or with additional blank space at the bottom.
 
 It is possible to adjust the padding by adding the following to your workflow :
 ```yaml
