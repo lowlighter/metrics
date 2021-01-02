@@ -68,7 +68,7 @@
     //Base routes
       const limiter = ratelimit({max:debug ? Number.MAX_SAFE_INTEGER : 60, windowMs:60*1000})
       const templates =  Object.entries(Templates).map(([name]) => ({name, enabled:(conf.settings.templates.enabled.length ? conf.settings.templates.enabled.includes(name) : true) ?? false}))
-      const enabled = Object.entries(Plugins).map(([name]) => ({name, enabled:plugins[name].enabled ?? false}))
+      const enabled = Object.entries(Plugins).map(([name]) => ({name, enabled:plugins[name]?.enabled ?? false}))
       const actions = {flush:new Map()}
       app.get("/", limiter, (req, res) => res.sendFile(`${conf.statics}/index.html`))
       app.get("/index.html", limiter, (req, res) => res.sendFile(`${conf.statics}/index.html`))
