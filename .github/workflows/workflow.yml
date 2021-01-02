@@ -70,6 +70,7 @@ jobs:
           dryrun: yes
           use_mocked_data: yes
           verify: yes
+          use_prebuilt_image: master
 
   # Build docker image from master and publish it to GitHub registry with release tag
   docker-release:

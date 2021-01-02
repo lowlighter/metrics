@@ -384,6 +384,12 @@ inputs:
     description: Use mocked data instead of real APIs
     default: no
 
+  # Use pre-built image from GitHub registry (experimental)
+  # See https://github.com/users/lowlighter/packages/container/package/metrics for more information
+  use_prebuilt_image:
+    description: Use pre-built image from GitHub registry
+    default: ""
+
 # ====================================================================================
 # Action metadata
 name: GitHub metrics as SVG image
@@ -400,46 +406,65 @@ runs:
   using: composite
   steps:
     - run: |
-        # Parse source repository and version
+        # Create environment file from inputs and GitHub variables
         cd $METRICS_ACTION_PATH
-        METRICS_SOURCE=$(echo $METRICS_ACTION | sed -E 's/metrics.*?$//g')
-        METRICS_VERSION=v$(grep -Po '(?<="version": ").*(?=")' package.json)
-        METRICS_TAG=v$(echo $METRICS_VERSION | sed -r 's/^([0-9]+[.][0-9]+).*/\1/')
-        METRICS_IS_UNRELEASED=$(expr match $METRICS_VERSION .*-beta)
-
-        # If using official action, check if a released version is used
-        if [[ $METRICS_SOURCE == "lowlighter" ]]; then
-          if [[ $METRICS_IS_UNRELEASED ]]; then
-            echo "This is an unreleased version, rebuilding docker image from Dockerfile"
-            docker build -t metrics:unreleased .
-            METRICS_IMAGE=metrics:unreleased
-          else
-            echo "Using released version $METRICS_TAG, will pull docker image from GitHub registry"
-            METRICS_IMAGE=ghcr.io/lowlighter/metrics:$METRICS_TAG
-          fi
-        # On forked actions, always rebuild the docker image
-        else
-          echo "This is a forked version, rebuilding docker image from Dockerfile"
-          docker build -t metrics:forked .
-          METRICS_IMAGE=metrics:forked
-        fi
-
-        # Retrieve inputs and GitHub variables and store them in environment file
-        echo "Generating environment file"
         touch .env
         for INPUT in $(echo $INPUTS | jq -r 'to_entries|map("INPUT_\(.key|ascii_upcase)=\(.value|@uri)")|.[]'); do
           echo $INPUT >> .env
         done
         env | grep -E '^(GITHUB|ACTIONS|CI)' >> .env
+        echo "Environment variable: loaded"
+
+        # Source repository (picked from action name)
+        METRICS_SOURCE=$(echo $METRICS_ACTION | sed -E 's/metrics.*?$//g')
+        echo "Source: $METRICS_SOURCE"
+
+        # Version (picked from package.json)
+        METRICS_VERSION=v$(grep -Po '(?<="version": ").*(?=")' package.json)
+        echo "Version: $METRICS_VERSION"
+
+        # Image tag (extracted from version or from env)
+        METRICS_TAG=v$(echo $METRICS_VERSION | sed -r 's/^([0-9]+[.][0-9]+).*/\1/')
+        if [[ $METRICS_USE_PREBUILT_IMAGE ]]; then
+          METRICS_TAG=$METRICS_USE_PREBUILT_IMAGE
+          echo "Pre-built image: yes"
+        fi
+        echo "Image tag: $METRICS_TAG"
+
+        # Image name
+        # Pre-built image
+        if [[ $METRICS_USE_PREBUILT_IMAGE ]]; then
+          echo "Using pre-built version $METRICS_TAG, will pull docker image from GitHub registry"
+          METRICS_IMAGE=ghcr.io/lowlighter/metrics:$METRICS_TAG
+        # Official action
+        elif [[ $METRICS_SOURCE == "lowlighter" ]]; then
+          # Is unreleased version
+          METRICS_IS_UNRELEASED=$(expr $(expr match $METRICS_VERSION .*-beta) \> 0)
+          echo "Unreleased: $METRICS_IS_UNRELEASED"
+          # Rebuild image for unreleased version
+          if [[ $METRICS_IS_UNRELEASED ]]; then
+            echo "Using an unreleased version, rebuilding docker image from Dockerfile"
+            docker build -t metrics:unreleased .
+            METRICS_IMAGE=metrics:unreleased
+          # Use registry for released version
+          else
+            echo "Using released version $METRICS_TAG, will pull docker image from GitHub registry"
+            METRICS_IMAGE=ghcr.io/lowlighter/metrics:$METRICS_TAG
+          fi
+        # Forked action
+        else
+          echo "Using a forked version, rebuilding docker image from Dockerfile"
+          docker build -t metrics:forked .
+          METRICS_IMAGE=metrics:forked
+        fi
+        echo "Image name: $METRICS_IMAGE"
 
         # Run docker image with current environment
-        echo "Using $METRICS_IMAGE"
-        docker run --env-file .env $METRICS_IMAGE
-
-        # Clean container
+        docker run --volume $GITHUB_EVENT_PATH:$GITHUB_EVENT_PATH --env-file .env $METRICS_IMAGE
         rm .env
       shell: bash
       env:
         METRICS_ACTION: ${{ github.action }}
         METRICS_ACTION_PATH: ${{ github.action_path }}
+        METRICS_USE_PREBUILT_IMAGE: ${{ inputs.use_prebuilt_image }}
         INPUTS: ${{ toJson(inputs) }}
