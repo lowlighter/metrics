@@ -210,7 +210,7 @@
               info(`Tweets ${option}`, q[`tweets.${option}`] = input.number(`plugin_tweets_${option}`))
           }
         //Stars
-          if (plugins.posts.enabled) {
+          if (plugins.stars.enabled) {
             for (const option of ["limit"])
               info(`Stars ${option}`, q[`stars.${option}`] = input.number(`plugin_stars_${option}`))
           }
