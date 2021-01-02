@@ -38,6 +38,20 @@ inputs:
     description: Timezone used by metrics
     default: ""
 
+  # Specify output type
+  # Supported values are :
+  # - svg (support animations and transparency)
+  # - png (support transparency)
+  # - jpeg
+  config_output:
+    description: Output image type
+    default: svg
+
+  # Enable or disable SVG animations
+  config_animations:
+    description: Enable or disable SVG animations
+    default: yes
+
   # Number of repositories to use for metrics
   # A high number increase metrics accuracy, but will consume additional API requests when using plugins
   repositories:
@@ -71,10 +85,16 @@ inputs:
     default: "header, activity, community, repositories, metadata"
 
   # Google PageSpeed plugin
-  # Enable it to compute the performance for the website attached to "user"
+  # Enable it to compute the performance of provided website
   plugin_pagespeed:
     description: Enable Google PageSpeed metrics for user's website
     default: no
+
+  # Website to audit with PageSpeed
+  # Leave empty to default to the website attached to "user"'s GitHub account
+  plugin_pagespeed_url:
+    description: Website to audit with PageSpeed
+    default: ""
 
   # Display additional PageSpeed audit metrics
   # The following are displayed :
@@ -217,6 +237,12 @@ inputs:
     description: Posts external source
     default: ""
 
+  # Posts source username
+  # Leave empty to default to the login "user"'s GitHub account
+  plugin_posts_user:
+    description: Posts external source username
+    default: ""
+
   # Number of posts to display
   plugin_posts_limit:
     description: Number of posts to display
@@ -296,6 +322,12 @@ inputs:
   plugin_tweets:
     description: Display recent tweets
     default: no
+
+  # Twitter username
+  # Leave empty to default to the twitter account attached to "user"'s GitHub account
+  plugin_tweets_user:
+    description: Twitter username
+    default: ""
 
   # Tweets API token (required when tweets plugin is enabled)
   # See https://apps.twitter.com for more informations

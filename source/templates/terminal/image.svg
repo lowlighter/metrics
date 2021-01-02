@@ -1,17 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="480" height="<%= 48
-  + (!!base.header)*62
-  + (!!base.metadata)*108
-  + (!!base.activity)*108
-  + (!!base.community)*94
-  + (!!base.repositories)*142
-  + ((!!base.repositories)*(!!plugins.traffic))*18
-  + ((!!base.repositories)*(!!plugins.followup))*102
-  + ((!!base.repositories)*(!!plugins.lines))*34
-  + (!!plugins.pagespeed)*110 + (plugins.pagespeed?.detailed ?? 0)*6*16
-  + (!!plugins.languages)*124
-  + (!!plugins.gists)*58
-  + Math.max(0, (((!!base.metadata)+(!!base.header)+((!!base.activity)||(!!base.community))+(!!base.repositories)+(!!plugins.pagespeed)+(!!plugins.languages)+(!!plugins.gists))-1))*20
-%>">
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="99999" class="<%= !animated ? 'no-animations' : '' %>">
   <%
     meta.$ = `<span class="ps1-path">${`${user.login}`.toLocaleLowerCase()}@metrics</span>:<span class="ps1-location">~</span>${computed.token.scopes.includes("repo") ? "#" : "$"}`
     meta.animations = !meta.placeholder ? {stdin:.16, stdout:.28, length:(2+Object.keys(base).length+Object.keys(plugins).length)} : {stdin:0, stdout:0, length:0}
@@ -174,6 +161,7 @@ Total <%= plugins.gists.totalCount %> gist<%= s(plugins.gists.totalCount) %>
 <footer>Connection reset by <%= Math.floor(256*Math.random()) %>.<%= Math.floor(256*Math.random()) %>.<%= Math.floor(256*Math.random()) %>.<%= Math.floor(256*Math.random()) %></footer><%# -%>
 <% } -%></pre>
 
+      <div id="metrics-end"></div>
     </div>
   </foreignObject>
 </svg>

@@ -11,11 +11,12 @@
   import metrics from "../metrics.mjs"
 
 /** App */
-  export default async function ({mock = false} = {}) {
+  export default async function ({mock = false, nosettings = false} = {}) {
 
     //Load configuration settings
-      const {conf, Plugins, Templates} = await setup()
+      const {conf, Plugins, Templates} = await setup({nosettings})
       const {token, maxusers = 0, restricted = [], debug = false, cached = 30*60*1000, port = 3000, ratelimiter = null, plugins = null} = conf.settings
+      cache.placeholder = new Map()
 
     //Apply configuration mocking if needed
       if (mock) {
@@ -66,8 +67,8 @@
 
     //Base routes
       const limiter = ratelimit({max:debug ? Number.MAX_SAFE_INTEGER : 60, windowMs:60*1000})
-      const templates = [...new Set([conf.settings.templates.default, ...(conf.settings.templates.enabled.length ? Object.keys(Templates).filter(key => conf.settings.templates.enabled.includes(key)) : Object.keys(Templates))])]
-      const enabled = Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => key)
+      const templates =  Object.entries(Templates).map(([name]) => ({name, enabled:(conf.settings.templates.enabled.length ? conf.settings.templates.enabled.includes(name) : true) ?? false}))
+      const enabled = Object.entries(Plugins).map(([name]) => ({name, enabled:plugins[name].enabled ?? false}))
       const actions = {flush:new Map()}
       app.get("/", limiter, (req, res) => res.sendFile(`${conf.statics}/index.html`))
       app.get("/index.html", limiter, (req, res) => res.sendFile(`${conf.statics}/index.html`))
@@ -117,11 +118,20 @@
             return res.sendStatus(403)
           }
         //Read cached data if possible
-          if ((!debug)&&(cached)&&(cache.get(login))) {
-            res.header("Content-Type", "image/svg+xml")
-            res.send(cache.get(login))
-            return
-          }
+          //Placeholder
+            if ((login === "placeholder")&&(cache.placeholder.has(Object.keys(req.query).sort().join("-")))) {
+              const {rendered, mime} = cache.placeholder.get(Object.keys(req.query).sort().join("-"))
+              res.header("Content-Type", mime)
+              res.send(rendered)
+              return
+            }
+          //User cached
+            if ((!debug)&&(cached)&&(cache.get(login))) {
+              const {rendered, mime} = cache.get(login)
+              res.header("Content-Type", mime)
+              res.send(rendered)
+              return
+            }
         //Maximum simultaneous users
           if ((maxusers)&&(cache.size()+1 > maxusers)) {
             console.debug(`metrics/app/${login} > 503 (maximum users reached)`)
@@ -133,12 +143,19 @@
             //Render
               console.debug(`metrics/app/${login} > ${util.inspect(req.query, {depth:Infinity, maxStringLength:256})}`)
               const q = parse(req.query)
-              const rendered = await metrics({login, q}, {graphql, rest, plugins, conf, die:q["plugins.errors.fatal"] ?? false, verify:q["verify"] ?? false}, {Plugins, Templates})
+              const {rendered, mime} = await metrics({login, q}, {
+                graphql, rest, plugins, conf,
+                die:q["plugins.errors.fatal"] ?? false,
+                verify:q["verify"] ?? false,
+                convert:["jpeg", "png"].includes(q["config.output"]) ? q["config.output"] : null
+              }, {Plugins, Templates})
             //Cache
-              if ((!debug)&&(cached)&&(login !== "placeholder"))
-                cache.put(login, rendered, cached)
+              if (login === "placeholder")
+                cache.placeholder.set(Object.keys(req.query).sort().join("-"), rendered)
+              if ((!debug)&&(cached))
+                cache.put(login, {rendered, mime}, cached)
             //Send response
-              res.header("Content-Type", "image/svg+xml")
+              res.header("Content-Type", mime)
               res.send(rendered)
           }
         //Internal error
@@ -167,7 +184,7 @@
         `Cached time            │ ${cached} seconds`,
         `Rate limiter           │ ${ratelimiter ? util.inspect(ratelimiter, {depth:Infinity, maxStringLength:256}) : "(enabled)"}`,
         `Max simultaneous users │ ${maxusers ? `${maxusers} users` : "(unrestricted)"}`,
-        `Plugins enabled        │ ${enabled.join(", ")}`,
+        `Plugins enabled        │ ${enabled.map(({name}) => name).join(", ")}`,
         `Server ready !`
       ].join("\n")))
   }
