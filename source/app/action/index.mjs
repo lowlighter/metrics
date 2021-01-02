@@ -9,7 +9,11 @@
 ;((async function () {
   //Input parser
     const input = {
-      get:(name) => decodeURIComponent(`${core.getInput(name)}`.trim()),
+      get:(name) => {
+        const value = `${core.getInput(name)}`.trim()
+        try { return decodeURIComponent(value) }
+        catch { return value}
+      },
       bool:(name, {default:defaulted = undefined} = {}) => /^(?:[Tt]rue|[Oo]n|[Yy]es)$/.test(input.get(name)) ? true : /^(?:[Ff]alse|[Oo]ff|[Nn]o)$/.test(input.get(name)) ? false : defaulted,
       number:(name, {default:defaulted = undefined} = {}) => Number.isFinite(Number(input.get(name))) ? Number(input.get(name)) : defaulted,
       string:(name, {default:defaulted = undefined} = {}) => input.get(name) || defaulted,
@@ -113,10 +117,12 @@
           "config.timezone":input.string("config_timezone"),
           "config.output":input.string("config_output"),
           "config.animations":input.bool("config_animations"),
+          "config.padding":input.string("config_padding"),
         }
         info("Timezone", config["config.timezone"] ?? "(system default)")
         info("Convert SVG", config["config.output"] ?? "(no)")
         info("Enable SVG animations", config["config.animations"])
+        info("SVG bottom padding", config["config.padding"])
 
       //Additional plugins
         const plugins = {

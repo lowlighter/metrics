@@ -56,6 +56,9 @@
       await common(...arguments)
       await Promise.all(pending)
 
+    //Set repository name
+      data.user.name = `${data.user.login}/${repo}`
+
     //Reformat projects names
       if (data.plugins.projects)
         data.plugins.projects.list?.map(project => project.name = project.name.replace(`(${login}/${repo})`, "").trim())

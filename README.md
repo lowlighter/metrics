@@ -2,7 +2,7 @@
 
 ![Build](https://github.com/lowlighter/metrics/workflows/Build/badge.svg)
 
-Generates your metrics that you can embed everywhere !
+Generate your metrics that you can embed everywhere, including your GitHub profile readme !
 
 [![Metrics](https://github.com/lowlighter/lowlighter/blob/master/metrics.classic.svg)](https://metrics.lecoq.io)
 
@@ -132,8 +132,13 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
   <tr>
     <td>
       <a href="https://github.com/lowlighter/metrics#-habits">
-        <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.svg" alt="" width="400">
+        <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.facts.svg" alt="" width="400">
       </a>
+      <details open><summary>With charts version</summary>
+        <a href="https://github.com/lowlighter/metrics#-habits">
+          <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.charts.svg" alt="" width="400">
+        </a>
+      </details>
     </td>
     <td>
       <a href="https://github.com/lowlighter/metrics#-gists">
@@ -510,19 +515,19 @@ Used template defaults to the `classic` one.
   <tr>
     <th>Classic</th>
     <td>✔️</td>
-    <td><span title="'plugin_pagespeed_screenshot' is available on @master">✔️<sup>N</sup></span></td>
-    <td>✔️</td>
-    <td>✔️</td>
-    <td>✔️</td>
-    <td>✔️</td>
-    <td><span title="'plugin_topics_mode' is available on @master">✔️<sup>N</sup></span></td>
-    <td><span title="'plugin_projects_repositories' is available on @master">✔️<sup>N</sup></span></td>
     <td>✔️</td>
     <td>✔️</td>
     <td>✔️</td>
     <td>✔️</td>
     <td>✔️</td>
-    <td><span title="'Files' and 'Comments' are available on @master">✔️<sup>N</sup></span></td>
+    <td>✔️</td>
+    <td>✔️</td>
+    <td>✔️</td>
+    <td>✔️</td>
+    <td>✔️</td>
+    <td>✔️</td>
+    <td>✔️</td>
+    <td>✔️</td>
   </tr>
   <tr>
     <th>Terminal</th>
@@ -542,7 +547,7 @@ Used template defaults to the `classic` one.
     <td>✔️</td>
   </tr>
   <tr>
-    <th>Repository<sup>MR</sup></th>
+    <th>Repository<sup>R</sup></th>
     <td>✔️</td>
     <td>❌</td>
     <td>❌</td>
@@ -565,6 +570,25 @@ Used template defaults to the `classic` one.
 * **M** : Feature is not released yet but is available on `@master`
 * **N** : Feature is already released, but new ones are available on `@master`
 * **R** : Repository template (all plugins content will be restricted to related repository)
+
+<details>
+<summary>💬 Using repository template</summary>
+
+To use `repository` template, you'll need to provide a repository name in `query` option.
+
+If repository owner is different from `token` owner, use `user` option to specify it. 
+
+Add the following to your workflow :
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    template: repository
+    user: "repository-owner"
+    query: '{"repo":"repository-name"}'
+```
+
+</details>
 
 ## 🧩 Plugins
 
@@ -650,8 +674,6 @@ Add the following to your workflow instead :
     plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
 ```
 
-    🚧 The feature below is only available on @master
-
 You can also display the screenshot taken by PageSpeed API :
 
 ![Pagespeed plugin (screenshot)](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.screenshot.svg)
@@ -662,6 +684,16 @@ Add the following to your workflow :
   with:
     # ... other options
     plugin_pagespeed_screenshot: yes
+```
+
+It is possible to audit a different website from the one linked to your GitHub account by using `plugin_pagespeed_url` option.
+
+Add the following to your workflow :
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_pagespeed_url: https://********
 ```
 
 </details>
@@ -936,8 +968,6 @@ Add the following to your workflow :
     plugin_topics_limit: 15
 ```
 
-    🚧 The feature below is only available on @master
-
 It is possible to display starred topics as `Mastered and known technologies` instead :
 
 ![Topics plugin (mastered)](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.mastered.svg)
@@ -949,6 +979,7 @@ Add the following to your workflow instead :
     # ... other options
     plugin_topics: yes
     plugin_topics_mode: mastered
+    plugin_topics_limit: 0
 ```
 
 </details>
@@ -992,8 +1023,6 @@ Fill the informations and set visibility to *public* :
 ![Configure project](.github/readme/imgs/plugin_projects_setup.png)
 
 </details>
-
-    🚧 The feature below is only available on @master
 
 It is possible to display projects related to repositories along with personal projects.
 
@@ -1080,6 +1109,16 @@ Add the following to your workflow :
     plugin_tweets_token: ${{ secrets.TWITTER_TOKEN }}
 ```
 
+It is possible to use a different twitter username from the one linked to your GitHub account by using `plugin_tweets_user` option.
+
+Add the following to your workflow :
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_tweets_user: ********
+```
+
 <details>
 <summary>💬 Obtaining a twitter token</summary>
 
@@ -1113,6 +1152,16 @@ Add the following to your workflow :
     # ... other options
     plugin_posts: yes
     plugin_posts_source: ********
+```
+
+It is possible to use a different username from your GitHub account by using `plugin_posts_user` option.
+
+Add the following to your workflow :
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_posts_user: ********
 ```
 
 </details>
@@ -1199,6 +1248,56 @@ Add the following to your workflow :
 ```
 
 </details>
+
+### 🔧 Other options
+
+A few additional options are available.
+See all supported options in [action.yml](action.yml).
+
+<details>
+<summary>💬 About</summary>
+
+#### 🌐 Set timezone
+
+By default, dates are based on the Greenwich meridian (England time).
+
+It is possible to set set your timezone (see [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) for a list of supported timezones) by adding the following to your workflow :
+
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    config_timezone: Europe/Paris
+```
+
+#### 🔲 Adjust padding
+
+Generated metrics height is computed after being rendered through an headless browser. As rendering can depends on used fonts and operating system, it may render as cropped or with additional blank space at the bottom.
+
+It is possible to adjust the padding by adding the following to your workflow :
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    config_padding: 6%
+```
+
+Both positive and negative values are accepted, but you must specify a percentage.
+
+#### 💱 Convert output to PNG/JPEG
+
+It is possible to convert output from SVG to PNG or JPEG images by adding the following to your workflow :
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    config_output: png
+```
+
+Note that `png` does not support animations while `jpeg` does not support both animations and transparency.
+
+</details>
+
 
 ## 💪 Contributing and customizing
 
