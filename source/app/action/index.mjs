@@ -43,7 +43,7 @@
         }
 
       //Load configuration
-        const {conf, Plugins, Templates} = await setup({log:false})
+        const {conf, Plugins, Templates} = await setup({log:false, nosettings:true})
         info("Setup", "complete")
         info("Version", conf.package.version)
 
@@ -110,9 +110,13 @@
 
       //Config
         const config = {
-          "config.timezone":input.string("config_timezone")
+          "config.timezone":input.string("config_timezone"),
+          "config.output":input.string("config_output"),
+          "config.animations":input.bool("config_animations"),
         }
         info("Timezone", config["config.timezone"] ?? "(system default)")
+        info("Convert SVG", config["config.output"] ?? "(no)")
+        info("Enable SVG animations", config["config.animations"])
 
       //Additional plugins
         const plugins = {
@@ -137,6 +141,8 @@
           if (plugins.pagespeed.enabled) {
             plugins.pagespeed.token = input.string("plugin_pagespeed_token")
             info("Pagespeed token", plugins.pagespeed.token, {token:true})
+            for (const option of ["url"])
+              info(`Pagespeed ${option}`, q[`pagespeed.${option}`] = input.string(`plugin_pagespeed_${option}`))
             for (const option of ["detailed", "screenshot"])
               info(`Pagespeed ${option}`, q[`pagespeed.${option}`] = input.bool(`plugin_pagespeed_${option}`))
           }
@@ -163,7 +169,7 @@
           }
         //Posts
           if (plugins.posts.enabled) {
-            for (const option of ["source"])
+            for (const option of ["source", "user"])
               info(`Posts ${option}`, q[`posts.${option}`] = input.string(`plugin_posts_${option}`))
             for (const option of ["limit"])
               info(`Posts ${option}`, q[`posts.${option}`] = input.number(`plugin_posts_${option}`))
@@ -191,6 +197,8 @@
           if (plugins.tweets.enabled) {
             plugins.tweets.token = input.string("plugin_tweets_token")
             info("Tweets token", plugins.tweets.token, {token:true})
+            for (const option of ["user"])
+              info(`Tweets ${option}`, q[`tweets.${option}`] = input.string(`plugin_tweets_${option}`))
             for (const option of ["limit"])
               info(`Tweets ${option}`, q[`tweets.${option}`] = input.number(`plugin_tweets_${option}`))
           }
@@ -209,7 +217,7 @@
         q = {...query, ...q, base:false, ...base, ...config, repositories, template}
 
       //Render metrics
-        const rendered = await metrics({login:user, q, dflags}, {graphql, rest, plugins, conf, die, verify}, {Plugins, Templates})
+        const {rendered} = await metrics({login:user, q, dflags}, {graphql, rest, plugins, conf, die, verify}, {Plugins, Templates})
         info("Rendering", "complete")
 
       //Commit to repository

@@ -1,13 +1,12 @@
 //Setup
-  export default async function ({imports, data, q}, {enabled = false} = {}) {
+  export default async function ({login, imports, q}, {enabled = false} = {}) {
     //Plugin execution
       try {
         //Check if plugin is enabled and requirements are met
           if ((!enabled)||(!q.posts))
             return null
         //Parameters override
-          const login = data.user.login
-          let {"posts.source":source = "", "posts.limit":limit = 4} = q
+          let {"posts.source":source = "", "posts.limit":limit = 4, "posts.user":user = login} = q
           //Limit
             limit = Math.max(1, Math.min(30, Number(limit)))
         //Retrieve posts
@@ -17,7 +16,7 @@
             //Dev.to
               case "dev.to":{
                 console.debug(`metrics/compute/${login}/plugins > posts > querying api`)
-                posts = (await imports.axios.get(`https://dev.to/api/articles?username=${login}&state=fresh`)).data.map(({title, readable_publish_date:date}) => ({title, date}))
+                posts = (await imports.axios.get(`https://dev.to/api/articles?username=${user}&state=fresh`)).data.map(({title, readable_publish_date:date}) => ({title, date}))
                 break
               }
             //Unsupported

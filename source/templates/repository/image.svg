@@ -1,11 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="480" height="<%= 0
-  + (!!base.header)*42
-  + (!!plugins.traffic)*18
-  + (!!plugins.followup)*68
-  + (!!base.metadata)*28
-  + (!!plugins.projects)*22 + (plugins.projects?.list?.length ?? 0)*60 + (!!plugins.projects?.error)*22
-  + Math.max(0, ((!!base.header)+(!!base.metadata)+(!!plugins.followup)+(!!plugins.projects))-1)*4
-%>">
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="99999" class="<%= !animated ? 'no-animations' : '' %>">
 
   <defs><style><%= fonts %></style></defs>
 
@@ -216,6 +209,7 @@
         </footer>
       <% } %>
 
+      <div id="metrics-end"></div>
     </div>
   </foreignObject>
 </svg>

@@ -28,9 +28,9 @@
             <div class="step">
               <h2>2. Select a template</h2>
               <div class="templates">
-                <label v-for="template in templates.list" :key="template" v-show="templates.descriptions[template] !== '(hidden)'">
-                  <input type="radio" v-model="templates.selected" :value="template" @change="load" :disabled="generated.pending">
-                  {{ templates.descriptions[template] || template }}
+                <label v-for="template in templates.list" :key="template" v-show="templates.descriptions[template.name] !== '(hidden)'" :class="{'not-available':!template.enabled}" :title="!template.enabled ? 'This template is not enabled on web instance, use it with GitHub actions !' : ''">
+                  <input type="radio" v-model="templates.selected" :value="template.name" @change="load" :disabled="generated.pending">
+                  {{ templates.descriptions[template.name] || template.name }}
                 </label>
               </div>
               <template v-if="plugins.base.length">
@@ -45,12 +45,11 @@
               <template v-if="plugins.list.length">
                 <h3>2.2 Enable additional plugins</h3>
                 <div class="plugins">
-                  <label v-for="plugin in plugins.list" :key="plugin">
-                    <input type="checkbox" v-model="plugins.enabled[plugin]" @change="load" :disabled="generated.pending">
-                    {{ plugins.descriptions[plugin] || plugin }}
+                  <label v-for="plugin in plugins.list" :key="plugin" :class="{'not-available':!plugin.enabled}" :title="!plugin.enabled ? 'This plugin is not enabled on web instance, use it with GitHub actions !' : ''">
+                    <input type="checkbox" v-model="plugins.enabled[plugin.name]" @change="load" :disabled="(!plugin.enabled)||(generated.pending)">
+                    {{ plugins.descriptions[plugin.name] || plugin.name }}
                   </label>
                 </div>
-                <i>*Additional plugins may be available when used as GitHub Action</i>
                 <template v-if="(plugins.enabled.tweets)||(plugins.enabled.music)||(plugins.enabled.pagespeed)||(plugins.enabled.languages)||(plugins.enabled.habits)||(plugins.enabled.posts)||(plugins.enabled.isocalendar)||(plugins.enabled.projects)||(plugins.enabled.topics)">
                   <h3>2.3 Configure additional plugins</h3>
                   <div class="options">
@@ -58,59 +57,59 @@
                       <h4>{{ plugins.descriptions.tweets }}</h4>
                       <label>
                         Number of tweets to display
-                        <input type="number" v-model="plugins.options['tweets.limit']" min="1" max="10" @change="load">
+                        <input type="number" v-model="plugins.options['tweets.limit']" min="1" max="10" @change="load" :disabled="generated.pending">
                       </label>
                     </div>
                     <div class="options-group" v-if="plugins.enabled.music">
                       <h4>{{ plugins.descriptions.music }}</h4>
                       <label>
                         Playlist embed link
-                        <input type="text" v-model="plugins.options['music.playlist']" placeholder="https://embed.music.apple.com/en/playlist/">
+                        <input type="text" v-model="plugins.options['music.playlist']" placeholder="https://embed.music.apple.com/en/playlist/" :disabled="generated.pending">
                       </label>
                       <label>
                         Number of tracks to display
-                        <input type="number" v-model="plugins.options['music.limit']" min="1" @change="load">
+                        <input type="number" v-model="plugins.options['music.limit']" min="1" @change="load" :disabled="generated.pending">
                       </label>
                     </div>
                     <div class="options-group" v-if="plugins.enabled.pagespeed">
                       <h4>{{ plugins.descriptions.pagespeed }}</h4>
                       <label>
                         Detailed PageSpeed report
-                        <input type="checkbox" v-model="plugins.options['pagespeed.detailed']" @change="load">
+                        <input type="checkbox" v-model="plugins.options['pagespeed.detailed']" @change="load" :disabled="generated.pending">
                       </label>
                       <label>
                         Include a website screenshot
-                        <input type="checkbox" v-model="plugins.options['pagespeed.screenshot']" @change="load">
+                        <input type="checkbox" v-model="plugins.options['pagespeed.screenshot']" @change="load" :disabled="generated.pending">
                       </label>
                     </div>
                     <div class="options-group" v-if="plugins.enabled.languages">
                       <h4>{{ plugins.descriptions.languages }}</h4>
                       <label>
                         Ignored languages (comma separated)
-                        <input type="text" v-model="plugins.options['languages.ignored']" @change="load">
+                        <input type="text" v-model="plugins.options['languages.ignored']" @change="load" :disabled="generated.pending">
                       </label>
                       <label>
                         Skipped repositories (comma separated)
-                        <input type="text" v-model="plugins.options['languages.skipped']" @change="load">
+                        <input type="text" v-model="plugins.options['languages.skipped']" @change="load" :disabled="generated.pending">
                       </label>
                     </div>
                     <div class="options-group" v-if="plugins.enabled.habits">
                       <h4>{{ plugins.descriptions.habits }}</h4>
                       <label>
                         Number of events for habits
-                        <input type="number" v-model="plugins.options['habits.from']" min="1" max="1000">
+                        <input type="number" v-model="plugins.options['habits.from']" min="1" max="1000" :disabled="generated.pending">
                       </label>
                       <label>
                         Number of days for habits
-                        <input type="number" v-model="plugins.options['habits.days']" min="1" max="30">
+                        <input type="number" v-model="plugins.options['habits.days']" min="1" max="30" :disabled="generated.pending">
                       </label>
                       <label>
                         Display tidbits
-                        <input type="checkbox" v-model="plugins.options['habits.facts']" @change="load">
+                        <input type="checkbox" v-model="plugins.options['habits.facts']" @change="load" :disabled="generated.pending">
                       </label>
                       <label>
                         Display activity charts
-                        <input type="checkbox" v-model="plugins.options['habits.charts']" @change="load">
+                        <input type="checkbox" v-model="plugins.options['habits.charts']" @change="load" :disabled="generated.pending">
                       </label>
                     </div>
                     <div class="options-group" v-if="plugins.enabled.posts">
@@ -123,14 +122,14 @@
                       </label>
                       <label>
                         Number of posts to display
-                        <input type="number" v-model="plugins.options['posts.limit']" min="1" @change="load">
+                        <input type="number" v-model="plugins.options['posts.limit']" min="1" @change="load" :disabled="generated.pending">
                       </label>
                     </div>
                     <div class="options-group" v-if="plugins.enabled.isocalendar">
                       <h4>{{ plugins.descriptions.isocalendar }}</h4>
                       <label>
                         Isocalendar duration
-                        <select v-model="plugins.options['isocalendar.duration']">
+                        <select v-model="plugins.options['isocalendar.duration']" :disabled="generated.pending">
                           <option value="half-year">Half year</option>
                           <option value="full-year">Full year</option>
                         </select>
@@ -140,14 +139,14 @@
                       <h4>{{ plugins.descriptions.topics }}</h4>
                       <label>
                         Topics display mode
-                        <select v-model="plugins.options['topics.mode']" @change="load">
+                        <select v-model="plugins.options['topics.mode']" @change="load" :disabled="generated.pending">
                           <option value="starred">Starred topics</option>
                           <option value="mastered">Known and mastered technologies</option>
                         </select>
                       </label>
                       <label>
                         Topics sorting
-                        <select v-model="plugins.options['topics.sort']">
+                        <select v-model="plugins.options['topics.sort']" :disabled="generated.pending">
                           <option value="starred">Recently starred by you</option>
                           <option value="stars">Most stars</option>
                           <option value="activity">Recent actity</option>
@@ -156,18 +155,18 @@
                       </label>
                       <label>
                         Number of topics to display
-                        <input type="number" v-model="plugins.options['topics.limit']" @change="load">
+                        <input type="number" v-model="plugins.options['topics.limit']" @change="load" :disabled="generated.pending">
                       </label>
                     </div>
                     <div class="options-group" v-if="plugins.enabled.projects">
                       <h4>{{ plugins.descriptions.projects }}</h4>
                       <label>
                         Number of projects to display
-                        <input type="number" v-model="plugins.options['projects.limit']" min="1" max="100" @change="load">
+                        <input type="number" v-model="plugins.options['projects.limit']" min="1" max="100" @change="load" :disabled="generated.pending">
                       </label>
                       <label>
                         Repositories projects to display (comma separated)
-                        <input type="text" v-model="plugins.options['projects.repositories']" @change="load">
+                        <input type="text" v-model="plugins.options['projects.repositories']" @change="load" :disabled="generated.pending">
                       </label>
                     </div>
                   </div>

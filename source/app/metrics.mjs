@@ -12,7 +12,7 @@
   import SVGO from "svgo"
 
 //Setup
-  export default async function metrics({login, q, dflags = []}, {graphql, rest, plugins, conf, die = false, verify = false}, {Plugins, Templates}) {
+  export default async function metrics({login, q, dflags = []}, {graphql, rest, plugins, conf, die = false, verify = false, convert = null}, {Plugins, Templates}) {
     //Compute rendering
       try {
 
@@ -27,7 +27,7 @@
             throw new Error("unsupported template")
           const {image, style, fonts} = conf.templates[template]
           const queries = conf.queries
-          const data = {base:{}, config:{}, errors:[], plugins:{}, computed:{}}
+          const data = {animated:true, base:{}, config:{}, errors:[], plugins:{}, computed:{}}
 
         //Base parts
           {
@@ -83,27 +83,32 @@
         //Template rendering
           console.debug(`metrics/compute/${login} > render`)
           let rendered = await ejs.render(image, {...data, s, style, fonts}, {async:true})
+        //Apply resizing
+          const {resized, mime} = await svgresize(rendered, {convert})
+          rendered = resized
 
-        //Optimize rendering
-          if ((conf.optimize)&&(!q.raw)) {
-            console.debug(`metrics/compute/${login} > optimize`)
-            const svgo = new SVGO({full:true, plugins:[{cleanupAttrs:true}, {inlineStyles:false}]})
-            const {data:optimized} = await svgo.optimize(rendered)
-            rendered = optimized
-          }
-
-        //Verify svg
-          if (verify) {
-            console.debug(`metrics/compute/${login} > verify SVG`)
-            const libxmljs = (await import("libxmljs")).default
-            const parsed = libxmljs.parseXml(rendered)
-            if (parsed.errors.length)
-              throw new Error(`Malformed SVG : \n${parsed.errors.join("\n")}`)
+        //Additional SVG transformations
+          if (/svg/.test(mime)) {
+            //Optimize rendering
+              if ((conf.optimize)&&(!q.raw)) {
+                console.debug(`metrics/compute/${login} > optimize`)
+                const svgo = new SVGO({full:true, plugins:[{cleanupAttrs:true}, {inlineStyles:false}]})
+                const {data:optimized} = await svgo.optimize(rendered)
+                rendered = optimized
+              }
+            //Verify svg
+              if (verify) {
+                console.debug(`metrics/compute/${login} > verify SVG`)
+                const libxmljs = (await import("libxmljs")).default
+                const parsed = libxmljs.parseXml(rendered)
+                if (parsed.errors.length)
+                  throw new Error(`Malformed SVG : \n${parsed.errors.join("\n")}`)
+              }
           }
 
         //Result
           console.debug(`metrics/compute/${login} > success`)
-          return rendered
+          return {rendered, mime}
       }
     //Internal error
       catch (error) {
@@ -172,6 +177,45 @@
         return code === 0 ? solve(stdout) : reject(stderr)
       })
     })
+  }
+
+/** Render svg */
+  async function svgresize(svg, {convert} = {}) {
+    //Instantiate browser if needed
+      if (!svgresize.browser) {
+        svgresize.browser = await puppeteer.launch({headless:true, executablePath:process.env.PUPPETEER_BROWSER_PATH, args:["--no-sandbox", "--disable-extensions", "--disable-setuid-sandbox", "--disable-dev-shm-usage"]})
+        console.debug(`metrics/svgresize > started ${await svgresize.browser.version()}`)
+      }
+    //Render through browser and resize height
+      const page = await svgresize.browser.newPage()
+      await page.setContent(svg, {waitUntil:"load"})
+      let mime = "image/svg+xml"
+      let {resized, width, height} = await page.evaluate(async () => {
+        //Disable animations
+          const animated = !document.querySelector("svg").classList.contains("no-animations")
+          if (animated)
+            document.querySelector("svg").classList.add("no-animations")
+        //Get bounds and resize
+          let {y:height, width} = document.querySelector("svg #metrics-end").getBoundingClientRect()
+          height = Math.ceil(height)
+          width = Math.ceil(width)
+        //Resize svg
+          document.querySelector("svg").setAttribute("height", height)
+        //Enable animations
+          if (animated)
+            document.querySelector("svg").classList.remove("no-animations")
+        //Result
+          return {resized:new XMLSerializer().serializeToString(document.querySelector("svg")), height, width}
+      })
+    //Convert if required
+      if (convert) {
+        console.debug(`metrics/svgresize > convert to ${convert}`)
+        resized = await page.screenshot({type:convert, clip:{x:0, y:0, width, height}, omitBackground:true})
+        mime = `image/${convert}`
+      }
+    //Result
+      await page.close()
+      return {resized, mime}
   }
 
 /** Placeholder generator */

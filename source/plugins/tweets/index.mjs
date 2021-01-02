@@ -6,11 +6,10 @@
           if ((!enabled)||(!q.tweets))
             return null
         //Parameters override
-          let {"tweets.limit":limit = 2} = q
+          let {"tweets.limit":limit = 2, "tweets.user":username = data.user.twitterUsername} = q
           //Limit
             limit = Math.max(1, Math.min(10, Number(limit)))
         //Load user profile
-          const username = data.user.twitterUsername
           console.debug(`metrics/compute/${login}/plugins > tweets > loading twitter profile (@${username})`)
           const {data:{data:profile = null}} = await imports.axios.get(`https://api.twitter.com/2/users/by/username/${username}?user.fields=profile_image_url,verified`, {headers:{Authorization:`Bearer ${token}`}})
         //Load tweets

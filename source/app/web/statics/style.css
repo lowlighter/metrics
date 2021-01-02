@@ -82,6 +82,9 @@
     transition: background-color .4s;
     cursor: pointer;
   }
+  .not-available {
+    opacity: .3;
+  }
 /* Generator */
   .generator {
     display: flex;

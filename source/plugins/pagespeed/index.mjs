@@ -6,11 +6,10 @@
           if ((!enabled)||(!q.pagespeed)||(!data.user.websiteUrl))
             return null
         //Parameters override
-          let {"pagespeed.detailed":detailed = false, "pagespeed.screenshot":screenshot = false} = q
+          let {"pagespeed.detailed":detailed = false, "pagespeed.screenshot":screenshot = false, "pagespeed.url":url = data.user.websiteUrl} = q
           //Duration in days
             detailed = !!detailed
         //Format url if needed
-          let url = data.user.websiteUrl
           if (!/^https?:[/][/]/.test(url))
             url = `https://${url}`
           const result = {url, detailed, scores:[], metrics:{}}

@@ -18,6 +18,12 @@
         }
       }
 
+    //Animations
+      if ("config.animations" in q) {
+        data.animated = q["config.animations"]
+        console.debug(`metrics/compute/${login} > animations ${data.animated ? "enabled" : "disabled"}`)
+      }
+
     //Plugins
       for (const name of Object.keys(imports.plugins)) {
         if (!plugins[name].enabled)
