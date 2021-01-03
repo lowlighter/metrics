@@ -16,7 +16,7 @@
     //Load configuration settings
       const {conf, Plugins, Templates} = await setup({nosettings})
       const {token, maxusers = 0, restricted = [], debug = false, cached = 30*60*1000, port = 3000, ratelimiter = null, plugins = null} = conf.settings
-      cache.placeholder = new Map()
+      cache.placeholder = new cache.Cache()
 
     //Apply configuration mocking if needed
       if (mock) {
@@ -60,6 +60,7 @@
       }
     //Cache headers middleware
       middlewares.push((req, res, next) => {
+        console.log(["/placeholder"].includes(req.path))
         if (!["/placeholder"].includes(req.path))
           res.header("Cache-Control", cached ? `public, max-age=${cached}` : "no-store, no-cache")
         next()
@@ -79,6 +80,7 @@
       app.get("/.plugins", limiter, (req, res) => res.status(200).json(enabled))
       app.get("/.plugins.base", limiter, (req, res) => res.status(200).json(conf.settings.plugins.base.parts))
       app.get("/.css/style.css", limiter, (req, res) => res.sendFile(`${conf.statics}/style.css`))
+      app.get("/.css/style.vars.css", limiter, (req, res) => res.sendFile(`${conf.statics}/style.vars.css`))
       app.get("/.css/style.prism.css", limiter, (req, res) => res.sendFile(`${conf.node_modules}/prismjs/themes/prism-tomorrow.css`))
       app.get("/.js/app.js", limiter, (req, res) => res.sendFile(`${conf.statics}/app.js`))
       app.get("/.js/ejs.min.js", limiter, (req, res) => res.sendFile(`${conf.node_modules}/ejs/ejs.min.js`))
@@ -119,7 +121,7 @@
           }
         //Read cached data if possible
           //Placeholder
-            if ((login === "placeholder")&&(cache.placeholder.has(Object.keys(req.query).sort().join("-")))) {
+            if ((login === "placeholder")&&(cache.placeholder.get(Object.keys(req.query).sort().join("-")))) {
               const {rendered, mime} = cache.placeholder.get(Object.keys(req.query).sort().join("-"))
               res.header("Content-Type", mime)
               res.send(rendered)
@@ -151,7 +153,7 @@
               }, {Plugins, Templates})
             //Cache
               if (login === "placeholder")
-                cache.placeholder.set(Object.keys(req.query).sort().join("-"), rendered)
+                cache.placeholder.put(Object.keys(req.query).sort().join("-"), rendered)
               if ((!debug)&&(cached))
                 cache.put(login, {rendered, mime}, cached)
             //Send response
