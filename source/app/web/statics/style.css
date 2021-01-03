@@ -5,8 +5,7 @@
     margin: 0;
   }
   main {
-    height: 100vh;
-    width: 100vw;
+    height: auto;
     color: var(--color-text-primary);
     background-color: var(--color-bg-canvas);
     display: flex;
@@ -65,13 +64,16 @@
     border: none;
     height: 100%;
   }
-
+  nav .left {
+    display: none;
+  }
 /* Readme container */
   .container {
     max-width: 1280px;
     display: flex;
     flex-grow: 1;
     height: 100%;
+    flex-direction: column;
   }
   .left, .right {
     margin: 0 8px;
@@ -80,7 +82,8 @@
   }
   .left {
     flex-shrink: 0;
-    width: 25%;
+    margin: 0;
+    width: 100%;
     min-width: 230px;
     display: flex;
     flex-direction: column;
@@ -102,13 +105,14 @@
     flex-grow: 1;
     border-radius: 6px;
     border: 1px solid var(--color-border-primary);
+    width: auto;
   }
   .right .body {
     margin: 24px;
   }
 /* Avatar */
   .avatar {
-    display: flex;
+    display: none;
     justify-content: center;
     margin-top: -20%;
   }
@@ -262,4 +266,28 @@
 /* Github requests */
   .gh-requests {
     font-size: .8rem;
+  }
+
+/* Media screen */
+  @media only screen and (min-width: 700px)  {
+    .left {
+      width: 25%;
+      margin: 0 8px;
+    }
+    .right {
+      width: 0%;
+    }
+    nav .left {
+      display: block;
+    }
+    .container {
+      flex-direction: row;
+    }
+    main {
+      height: 100vh;
+      width: 100vw;
+    }
+    .avatar {
+      display: flex;
+    }
   }
