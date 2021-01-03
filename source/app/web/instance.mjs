@@ -60,7 +60,6 @@
       }
     //Cache headers middleware
       middlewares.push((req, res, next) => {
-        console.log(["/placeholder"].includes(req.path))
         if (!["/placeholder"].includes(req.path))
           res.header("Cache-Control", cached ? `public, max-age=${cached}` : "no-store, no-cache")
         next()
@@ -112,6 +111,12 @@
 
     //Metrics
       app.get("/:login", ...middlewares, async (req, res) => {
+        //Placeholder hash
+          const placeholder = Object.entries(parse(req.query)).filter(([key, value]) =>
+            ((key in Plugins)&&(!!value))||
+            ((key === "template")&&(value in Templates))||
+            (/base[.](header|activity|community|repositories|metadata)/.test(key))
+          ).map(([key, value]) => `${key}${key === "template" ? `#${value}` : ""}`).sort().join("+")
 
         //Request params
           const {login} = req.params
@@ -121,8 +126,8 @@
           }
         //Read cached data if possible
           //Placeholder
-            if ((login === "placeholder")&&(cache.placeholder.get(Object.keys(req.query).sort().join("-")))) {
-              const {rendered, mime} = cache.placeholder.get(Object.keys(req.query).sort().join("-"))
+            if ((login === "placeholder")&&(cache.placeholder.get(placeholder))) {
+              const {rendered, mime} = cache.placeholder.get(placeholder)
               res.header("Content-Type", mime)
               res.send(rendered)
               return
@@ -153,7 +158,7 @@
               }, {Plugins, Templates})
             //Cache
               if (login === "placeholder")
-                cache.placeholder.put(Object.keys(req.query).sort().join("-"), rendered)
+                cache.placeholder.put(placeholder, {rendered, mime})
               if ((!debug)&&(cached))
                 cache.put(login, {rendered, mime}, cached)
             //Send response

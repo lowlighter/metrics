@@ -22,12 +22,12 @@
     background-color: var(--color-header-bg);
   }
   .title a {
-    color: var(--color-text-primary) !important;
+    color: #fff !important;
     font-weight: normal;
   }
   .title svg {
     margin-right: 2rem;
-    fill: currentColor;
+    fill: #fff !important;
     width: 2rem;
     height: 2rem;
   }
@@ -266,6 +266,11 @@
 /* Github requests */
   .gh-requests {
     font-size: .8rem;
+  }
+/* Metrics */
+  .metrics {
+    width: 100%;
+    max-width: 480px;
   }
 
 /* Media screen */
