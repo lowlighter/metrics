@@ -35,9 +35,10 @@
   nav {
     display: flex;
     border-bottom: 1px solid var(--color-border-secondary);
-    margin: 32px 0 24px;
+    overflow: auto;
   }
   nav .tab {
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     padding: 8px 16px;
@@ -274,13 +275,16 @@
   }
 
 /* Media screen */
-  @media only screen and (min-width: 700px)  {
+  @media only screen and (min-width: 860px)  {
     .left {
       width: 25%;
       margin: 0 8px;
     }
     .right {
       width: 0%;
+    }
+    nav {
+      margin: 32px 0 24px;
     }
     nav .left {
       display: block;

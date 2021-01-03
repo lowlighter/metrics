@@ -115,8 +115,13 @@
           const placeholder = Object.entries(parse(req.query)).filter(([key, value]) =>
             ((key in Plugins)&&(!!value))||
             ((key === "template")&&(value in Templates))||
-            (/base[.](header|activity|community|repositories|metadata)/.test(key))
-          ).map(([key, value]) => `${key}${key === "template" ? `#${value}` : ""}`).sort().join("+")
+            (/base[.](header|activity|community|repositories|metadata)/.test(key))||
+            (["pagespeed.detailed", "pagespeed.screenshot", "habits.charts", "habits.facts", "topics.mode"].includes(key))
+          ).map(([key, value]) => `${key}${
+            key === "template" ? `#${value}` :
+            key === "topics.mode" ? `#${value === "mastered" ? value : "starred"}` :
+            !!value
+          }`).sort().join("+")
 
         //Request params
           const {login} = req.params
@@ -148,8 +153,8 @@
         //Compute rendering
           try {
             //Render
-              console.debug(`metrics/app/${login} > ${util.inspect(req.query, {depth:Infinity, maxStringLength:256})}`)
               const q = parse(req.query)
+              console.debug(`metrics/app/${login} > ${util.inspect(q, {depth:Infinity, maxStringLength:256})}`)
               const {rendered, mime} = await metrics({login, q}, {
                 graphql, rest, plugins, conf,
                 die:q["plugins.errors.fatal"] ?? false,
@@ -204,7 +209,7 @@
           query[key] = Number(value)
       //Parse boolean
         if (/^(?:true|false)$/.test(value))
-          query[key] = value === "true"
+          query[key] = (value === "true")||(value === true)
       //Parse null
         if (/^null$/.test(value))
           query[key] = null

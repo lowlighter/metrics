@@ -269,6 +269,7 @@
             topics:{mode:"topics.mode" in q ? q["topics.mode"] : "starred", list:[...new Array("topics.limit" in q ? Math.max(Number(q["topics.limit"])||0, 0) : 12).fill(null).map(() => ({name:"######", description:"", icon:null})), {name:`And ## more...`, description:"", icon:null}]},
             projects:{list:[...new Array("projects.limit" in q ? Math.max(Number(q["projects.limit"])||0, 0) : 4).fill(null).map(() => ({name:"########", updated:"########", progress:{enabled:true, todo:"##", doing:"##", done:"##", total:"##"}}))]},
             tweets:{profile:{username:"########", verified:false}, list:[...new Array("tweets.limit" in q ? Math.max(Number(q["tweets.limit"])||0, 0) : 2).fill(null).map(() => ({text:"###### ###### ####### ######".repeat(4), created_at:Date.now()}))]},
+            stars:{repositories:[...new Array("stars.limit" in q ? Math.max(Number(q["stars.limit"])||0, 0) : 4).fill({node:{nameWithOwner:"########/########", description:"###### ###### ####### ######".repeat(4)}})]},
           }[key]??{})]
         )),
       })
