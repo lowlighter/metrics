@@ -35,9 +35,10 @@
   nav {
     display: flex;
     border-bottom: 1px solid var(--color-border-secondary);
-    margin: 32px 0 24px;
+    flex-shrink: 0;
   }
   nav .tab {
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     padding: 8px 16px;
@@ -54,6 +55,7 @@
   nav .tab.disabled {
     opacity: .5;
     cursor: not-allowed;
+    pointer-events: none;
   }
   nav .tab svg {
     fill: currentColor;
@@ -76,9 +78,7 @@
     flex-direction: column;
   }
   .left, .right {
-    margin: 0 8px;
-    height: 75%;
-    width: 0%;
+    margin: 0 8px 16px;
   }
   .left {
     flex-shrink: 0;
@@ -100,6 +100,7 @@
   .left .scrollable {
     flex-grow: 1;
     overflow: auto;
+    margin-bottom: 1rem;
   }
   .right {
     flex-grow: 1;
@@ -115,6 +116,7 @@
     display: none;
     justify-content: center;
     margin-top: -20%;
+    z-index: 888;
   }
   .avatar div {
     width: 50%;
@@ -275,12 +277,16 @@
 
 /* Media screen */
   @media only screen and (min-width: 700px)  {
+    .left, .right {
+      height: 75%;
+      width: 0%;
+    }
     .left {
       width: 25%;
       margin: 0 8px;
     }
-    .right {
-      width: 0%;
+    nav {
+      margin: 32px 0 24px;
     }
     nav .left {
       display: block;
