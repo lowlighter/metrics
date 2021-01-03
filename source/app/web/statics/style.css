@@ -78,8 +78,6 @@
   }
   .left, .right {
     margin: 0 8px;
-    height: 75%;
-    width: 0%;
   }
   .left {
     flex-shrink: 0;
@@ -276,12 +274,13 @@
 
 /* Media screen */
   @media only screen and (min-width: 860px)  {
+    .left, .right {
+      height: 75%;
+      width: 0%;
+    }
     .left {
       width: 25%;
       margin: 0 8px;
-    }
-    .right {
-      width: 0%;
     }
     nav {
       margin: 32px 0 24px;
