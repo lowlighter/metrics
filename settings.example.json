@@ -60,7 +60,10 @@
       "token":null,               "//":"Twitter token (required when enabled)"
     },
     "stars":{                     "//":"Stars plugin",
-      "enabled":true,             "//":"Enable or disable recently starred repositories display"
+      "enabled":false,            "//":"Enable or disable recently starred repositories display"
+    },
+    "stargazers":{                "//":"Stargazers plugin",
+      "enabled":false,            "//":"Enable or disable stargazers charts display"
     }
   }
 }

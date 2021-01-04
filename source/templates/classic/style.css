@@ -79,6 +79,9 @@
   .fill-width {
     width: 100%;
   }
+  .margin-bottom {
+    margin-bottom: 16px;
+  }
 
 /* User avatar */
   .avatar {
@@ -365,6 +368,15 @@
     flex-shrink: 0;
     text-align: right;
     min-width: 30%;
+  }
+
+  .chart-bars .entry {
+    position: relative;
+  }
+
+  .chart-bars .entry .bottom {
+    position: absolute;
+    top: 100%;
   }
 
   .chart-bars.horizontal .bar {
