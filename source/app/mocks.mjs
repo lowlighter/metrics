@@ -296,6 +296,26 @@
                   }
                 })
               }
+            //Stargazers query
+              if (/^query Stargazers /.test(query)) {
+                console.debug(`metrics/compute/mocks > mocking graphql api result > Stargazers`)
+                return /after: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"/m.test(query) ? ({
+                  repository:{
+                    stargazers:{
+                      edges:[],
+                    }
+                  }
+                }) : ({
+                  repository:{
+                    stargazers:{
+                      edges:new Array(Math.ceil(20+80*Math.random())).fill(null).map(() => ({
+                        starredAt:new Date(Date.now()-Math.floor(30*Math.random())*24*60*60*1000).toISOString(),
+                        cursor:"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+                      }))
+                    }
+                  }
+                })
+              }
             //Unmocked call
               return target(...args)
           }
