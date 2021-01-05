@@ -10,7 +10,6 @@
     background-color: var(--color-bg-canvas);
     display: flex;
     flex-direction: column;
-    overflow: hidden;
   }
 /* Title */
   .title {
@@ -36,6 +35,7 @@
     display: flex;
     border-bottom: 1px solid var(--color-border-secondary);
     flex-shrink: 0;
+    overflow-x: auto;
   }
   nav .tab {
     flex-shrink: 0;
@@ -287,6 +287,7 @@
     }
     nav {
       margin: 32px 0 24px;
+      overflow: hidden;
     }
     nav .left {
       display: block;
@@ -297,6 +298,7 @@
     main {
       height: 100vh;
       width: 100vw;
+      overflow: hidden;
     }
     .avatar {
       display: flex;

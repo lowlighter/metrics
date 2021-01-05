@@ -140,6 +140,7 @@
           projects:{enabled:input.bool("plugin_projects")},
           tweets:{enabled:input.bool("plugin_tweets")},
           stars:{enabled:input.bool("plugin_stars")},
+          stargazers:{enabled:input.bool("plugin_stargazers")},
         }
         let q = Object.fromEntries(Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => [key, true]))
         info("Plugins enabled", Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => key))
