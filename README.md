@@ -546,8 +546,8 @@ Used template defaults to the `classic` one.
     <td>✔️</td>
     <td>✔️</td>
     <td>✔️</td>
-    <td><span title="Available on master">✔️<sup>M</sup></span></td>
-    <td><span title="Available on master">✔️<sup>M</sup></span></td>
+    <td>✔️</td>
+    <td>✔️</td>
   </tr>
   <tr>
     <th>Terminal</th>
@@ -585,7 +585,7 @@ Used template defaults to the `classic` one.
     <td>❌</td>
     <td>❌</td>
     <td>❌</td>
-    <td><span title="Available on master">✔️<sup>M</sup></span></td>
+    <td>✔️</td>
   </tr>
 </table>
 
@@ -1275,8 +1275,6 @@ Add the following to your workflow :
 
 ### 🌟 Stars
 
-    🚧 This feature is available on @master
-
 The *stars* plugin displays your recently starred repositories.
 
 ![Stars plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.stars.svg)
@@ -1298,8 +1296,6 @@ Add the following to your workflow :
 </details>
 
 ### ✨ Stargazers
-
-    🚧 This feature is available on @master
 
 The *stargazers* plugin displays your stargazers evolution across all of your repositories over the last two weeks.
 
