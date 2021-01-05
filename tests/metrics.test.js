@@ -242,6 +242,9 @@
     ["Stars plugin (default)", {
       plugin_stars:true,
     }, {skip:["terminal"]}],
+    ["Stargazers plugin (default)", {
+      plugin_stargazers:true,
+    }, {skip:["terminal"]}],
   ]
 
 //Tests run

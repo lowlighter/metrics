@@ -357,6 +357,12 @@ inputs:
     description: Number of recently starred repositories to display
     default: 4
 
+  # Display stargazers evolution over the last two weeks
+  # It shows total stargazers along with increase rate per day
+  plugin_stagazers:
+    description: Display stargazers evolution over the last two weeks
+    default: no
+
   # ====================================================================================
   # Options below are mostly used for testing
 
