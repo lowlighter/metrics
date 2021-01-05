@@ -18,7 +18,6 @@
                 console.debug(`metrics/compute/${login}/plugins > stargazers > retrieving stargazers of ${repository} after ${cursor}`)
                 const {repository:{stargazers:{edges}}} = await graphql(queries.stargazers({login, repository, after:cursor ? `after: "${cursor}"` : ""}))
                 cursor = edges?.[edges?.length-1]?.cursor
-                console.log(edges)
                 dates.push(...edges.map(({starredAt}) => new Date(starredAt)))
                 pushed = edges.length
               } while ((pushed)&&(cursor))
