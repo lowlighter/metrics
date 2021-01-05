@@ -859,7 +859,7 @@
               <%= plugins.stargazers.error.message %>
             </div>
           <% } else { %>
-            <div class="row">
+            <div class="row margin-bottom">
               <section class="column chart">
                 <h3>Total stargazers</h3>
                 <div class="chart-bars">
