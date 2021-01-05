@@ -31,7 +31,7 @@
     "express-rate-limit": "^5.2.3",
     "image-to-base64": "^2.1.1",
     "memory-cache": "^0.2.0",
-    "prismjs": "^1.22.0",
+    "prismjs": "^1.23.0",
     "puppeteer": "^5.5.0",
     "svgo": "^1.3.2",
     "vue": "^2.6.12",
@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "jest": "^26.6.3",
-    "js-yaml": "^3.14.1",
+    "js-yaml": "^4.0.0",
     "libxmljs": "^0.19.7"
   }
 }
