@@ -11,7 +11,7 @@
   const axios = require("axios")
 
 //Github action
-  const action = yaml.safeLoad(fs.readFileSync(path.join(__dirname, "../action.yml"), "utf8"))
+  const action = yaml.load(fs.readFileSync(path.join(__dirname, "../action.yml"), "utf8"))
   action.defaults = Object.fromEntries(Object.entries(action.inputs).map(([key, {default:value}]) => [key, /^(yes|no)$/.test(value) ? value === "yes" : value]))
   action.input = vars => Object.fromEntries([...Object.entries(action.defaults), ...Object.entries(vars)].map(([key, value]) => [`INPUT_${key.toLocaleUpperCase()}`, value]))
   action.run = async (vars) => await new Promise((solve, reject) => {

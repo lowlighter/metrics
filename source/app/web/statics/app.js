@@ -18,6 +18,16 @@
             } catch (error) {}
         },
         components:{Prism:PrismComponent},
+      //Watchers
+        watch:{
+          palette:{
+            immediate:true,
+            handler(current, previous) {
+              document.querySelector("body").classList.remove(previous)
+              document.querySelector("body").classList.add(current)
+            }
+          }
+        },
       //Data initialization
         data:{
           version,

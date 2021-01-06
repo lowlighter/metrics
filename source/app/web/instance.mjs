@@ -72,7 +72,8 @@
       const actions = {flush:new Map()}
       app.get("/", limiter, (req, res) => res.sendFile(`${conf.statics}/index.html`))
       app.get("/index.html", limiter, (req, res) => res.sendFile(`${conf.statics}/index.html`))
-      app.get("/favicon.ico", limiter, (req, res) => res.sendStatus(204))
+      app.get("/.favicon.png", limiter, (req, res) => res.sendFile(`${conf.statics}/favicon.png`))
+      app.get("/.opengraph.png", limiter, (req, res) => res.sendFile(`${conf.statics}/opengraph.png`))
       app.get("/.version", limiter, (req, res) => res.status(200).send(conf.package.version))
       app.get("/.requests", limiter, async (req, res) => res.status(200).json((await rest.rateLimit.get()).data.rate))
       app.get("/.templates", limiter, (req, res) => res.status(200).json(templates))

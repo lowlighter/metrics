@@ -370,13 +370,9 @@
     min-width: 30%;
   }
 
-  .chart-bars .entry {
-    position: relative;
-  }
-
   .chart-bars .entry .bottom {
-    position: absolute;
-    top: 100%;
+    margin-bottom: -1rem;
+    line-height: 1rem;
   }
 
   .chart-bars.horizontal .bar {
