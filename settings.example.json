@@ -64,6 +64,9 @@
     },
     "stargazers":{                "//":"Stargazers plugin",
       "enabled":false,            "//":"Enable or disable stargazers charts display"
+    },
+    "activity":{                  "//":"Activity plugin",
+      "enabled":false,            "//":"Enable or disable recent activity display"
     }
   }
 }

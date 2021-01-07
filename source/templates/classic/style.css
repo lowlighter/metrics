@@ -428,6 +428,66 @@
     margin-right: 4px;
   }
 
+/* Activity */
+  .activity .field {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 450px;
+    white-space: nowrap;
+  }
+
+  .activity .repo, .activity .issue, .activity .commit .sha {
+    color: #58a6ff;
+    margin: 0 4px;
+  }
+
+  .activity .code {
+    background-color: #F3F4F4;
+    padding: 1px 5px;
+    font-size: 80%;
+    border-radius: 6px;
+    color: #24294E;
+    font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+    margin: 0 4px -3px;
+  }
+
+  .activity .bold {
+    font-weight: 600;
+    margin: 0 4px;
+  }
+
+  .activity .details {
+    padding-left: 42px;
+    display: flex;
+    flex-direction: column;
+    font-size: 13px;
+    color: #666666;
+  }
+
+  .activity .details > div {
+    display: flex;
+    align-items: center;
+  }
+
+  .activity .commit .sha {
+    font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+  }
+
+  .activity .commit .message {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 360px;
+    white-space: nowrap;
+  }
+
+  .activity .details .comment {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    max-height: 38px;
+    width: 420px;
+  }
+
 /* Fade animation */
   .af {
     opacity: 0;
