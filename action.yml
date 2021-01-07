@@ -458,7 +458,7 @@ runs:
           set +e
           METRICS_IS_RELEASED=$(expr $(expr match $METRICS_VERSION .*-beta) == 0)
           set -e
-          echo "Unreleased: $METRICS_IS_RELEASED"
+          echo "Is released version: $METRICS_IS_RELEASED"
           # Rebuild image for unreleased version
           if [[ $METRICS_IS_RELEASED ]]; then
             echo "Using released version $METRICS_TAG, will pull docker image from GitHub registry"
