@@ -10,7 +10,7 @@
           //Events
             from = Math.max(1, Math.min(1000, Number(from)))
           //Days
-            days = Math.max(1, Math.min(30, Number(from)))
+            days = Math.max(1, Math.min(30, Number(days)))
         //Initialization
           const habits = {facts, charts, commits:{hour:NaN, hours:{}, day:NaN, days:{}}, indents:{style:"", spaces:0, tabs:0}, linguist:{available:false, ordered:[], languages:{}}}
           const pages = Math.ceil(from/100)
