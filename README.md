@@ -283,7 +283,7 @@ name: Metrics
 on:
   # Schedule updates
   schedule: [{cron: "0 * * * *"}]
-  push: {branches: "master"}
+  push: {branches: ["master", "main"]}
 jobs:
   github-metrics:
     runs-on: ubuntu-latest
@@ -655,6 +655,8 @@ To include private organizations memberships, you'll need to add the `read:org` 
 
 ![Add read:org scope to personal token](.github/readme/imgs/setup_token_org_read_scope.png)
 
+You may also need to [authorize your personal token](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/authorizing-a-personal-access-token-for-use-with-saml-single-sign-on) if you're using single sign-on and are encounting errors.
+
 </details>
 
 ### ⏱️ PageSpeed
@@ -863,7 +865,7 @@ Keep your `client_id` and `client_secret` and let this tab open for now.
 
 ![Add a redirect url](.github/readme/imgs/plugin_music_recent_spotify_token_0.png)
 
-Open the settings and add a new *Redirect url*. Normally it is used to setup callbacks for apps, but just put `https://localhost` insteadd (it is mandatory as per the [authorization guide](https://developer.spotify.com/documentation/general/guides/authorization-guide/), even if not used).
+Open the settings and add a new *Redirect url*. Normally it is used to setup callbacks for apps, but just put `https://localhost` instead (it is mandatory as per the [authorization guide](https://developer.spotify.com/documentation/general/guides/authorization-guide/), even if not used).
 
 Forge the authorization url with your `client_id` and the encoded `redirect_uri` you whitelisted, and access it from your browser :
 
