@@ -15,8 +15,14 @@
           console.debug(`metrics/compute/${login}/plugins > activity > querying api`)
           const {data:events} = await rest.activity.listEventsForAuthenticatedUser({username:login, per_page:100})
           console.debug(`metrics/compute/${login}/plugins > activity > ${events.length} events loaded`)
-        //TODO : Remove after debuggin
-          console.log(imports.util.inspect(events, {depth:1/0}))
+        //TODO : Remove after debugging
+        //Search for events not implemented
+          try {
+            for (let page = 0; page < 5; page++) {
+              const {data:events} = await rest.activity.listEventsForAuthenticatedUser({username:login, per_page:100, page})
+              console.log(imports.util.inspect(events.filter(({type}) => ["CommitCommentEvent", "MemberEvent", "PublicEvent", "SponsorshipEvent"].includes(type)), {depth:1/0}))
+            }
+          } catch { }
         //Extract activity events
           const activity = events
             .filter(({actor}) => actor.login === login)
@@ -49,12 +55,15 @@
                 //Commented on an issue
                   case "IssueCommentEvent":{
                     const {issue:{user:{login:user}, title, number}, comment:{body:content, performed_via_github_app:mobile}} = payload
-                    return {type:"comment/issue", repo, content, user, mobile, number, title}
+                    return {type:"comment", on:"issue", repo, content, user, mobile, number, title}
                   }
                 //Issue event
-                  //case "IssuesEvent":{
-                    //return {type, repo}
-                  //}
+                  case "IssuesEvent":{
+                    const {action, issue:{user:{login:user}, title, number}} = payload
+                    if (["opened", "closed", "reopened"].includes(action))
+                      return {type:"issue", repo, action, user, number, title}
+                    return null
+                  }
                 //Activity from repository collaborators
                   //case "MemberEvent":{
                     //return {type, repo}
@@ -67,7 +76,8 @@
                   case "PullRequestEvent":{
                     const {action, pull_request:{title, number, additions:added, deletions:deleted, changed_files:changed}} = payload
                     if (["opened", "closed"].includes(action))
-                    return {type:"pr", repo, action, title, number, lines:{added, deleted}, files:{changed}}
+                      return {type:"pr", repo, action, title, number, lines:{added, deleted}, files:{changed}}
+                    return null
                   }
                 //Reviewed a pull request
                   case "PullRequestReviewEvent":{
@@ -75,9 +85,10 @@
                     return {type:"review", repo, review, user, number, title}
                   }
                 //Commented on a pull request
-                  //case "PullRequestReviewCommentEvent":{
-                  //  return {type:"comment/pr", repo, review, user, number, title}
-                  //}
+                  case "PullRequestReviewCommentEvent":{
+                    const {pull_request:{user:{login:user}, title, number}, comment:{body:content, performed_via_github_app:mobile}} = payload
+                    return {type:"comment", on:"pr", repo, content, user, mobile, number, title}
+                  }
                 //Pushed commits
                   case "PushEvent":{
                     const {size, commits} = payload
