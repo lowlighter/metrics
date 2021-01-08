@@ -1388,3 +1388,4 @@ Read [CONTRIBUTING.md](CONTRIBUTING.md) for more information about this.
 * [jstrieb/github-stats](https://github.com/jstrieb/github-stats)
 * [ankurparihar/readme-pagespeed-insights](https://github.com/ankurparihar/readme-pagespeed-insights)
 * [jasonlong/isometric-contributions](https://github.com/jasonlong/isometric-contributions)
+* [jamesgeorge007/github-activity-readme](https://github.com/jamesgeorge007/github-activity-readme)
