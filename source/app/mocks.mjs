@@ -682,6 +682,7 @@
                     },
                     payload:{
                       size:1,
+                      ref:"refs/heads/master",
                       commits:[
                         {
                           sha:"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",

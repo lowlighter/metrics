@@ -19,7 +19,6 @@
           console.debug(`metrics/compute/${login}/plugins > activity > querying api`)
           const {data:events} = await rest.activity.listEventsForAuthenticatedUser({username:login, per_page:100})
           console.debug(`metrics/compute/${login}/plugins > activity > ${events.length} events loaded`)
-
         //Extract activity events
           const activity = events
             .filter(({actor}) => actor.login === login)
@@ -99,8 +98,8 @@
                     }
                   //Pushed commits
                     case "PushEvent":{
-                      const {size, commits} = payload
-                      return {type:"push", repo, size, commits:commits.map(({sha, message}) => ({sha:sha.substring(0, 7), message}))}
+                      const {size, commits, ref} = payload
+                      return {type:"push", repo, size, branch:ref.match(/refs.heads.(?<branch>.*)/)?.groups?.branch ?? null, commits:commits.map(({sha, message}) => ({sha:sha.substring(0, 7), message}))}
                     }
                   //Released
                     case "ReleaseEvent":{
