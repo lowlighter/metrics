@@ -363,6 +363,40 @@ inputs:
     description: Display stargazers evolution over the last two weeks
     default: no
 
+  # Display recent activity
+  plugin_activity:
+    description: Display recent activity
+    default: no
+
+  # Number of activity events to display
+  # Capped to 100
+  plugin_activity_limit:
+    description: Number of activity events to display
+    default: 5
+
+  # Disacard older events
+  # Use 0 to display activity whatever the date
+  plugin_activity_days:
+    description: Maximum activity event age
+    default: 14
+
+  # Events type to display
+  # Pass a string of comma-separated values
+  # Supported values are
+  # - "comment" for all kind of comments (commits, issue and pr)
+  # - "ref/create" and "ref/delete" for tag and branch creation/deletion
+  # - "release" for new published releases
+  # - "wiki" for wiki edition
+  # - "push" for pushed commits
+  # - "issue" and "pr" for issues and pull requests
+  # - "review" for pull requests review
+  # - "public" for repositories made public
+  # - "fork" and "star" for forked and starred repositories
+  # - "member" for accepted repository invitations
+  plugin_activity_filter:
+    description: Events to display
+    default: all
+
   # ====================================================================================
   # Options below are mostly used for testing
 
@@ -417,7 +451,7 @@ branding:
 
 # The action will parse its name to check if it's the official action or if it's a forked one
 # On the official action, it'll use the docker image published on GitHub registry when using a released version, allowing faster runs
-# On a forked action, it'll rebuild the docker image from Dockerfile
+# On a forked action, it'll rebuild the docker image from Dockerfile to take into account changes you made
 runs:
   using: composite
   steps:
