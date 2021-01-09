@@ -19,7 +19,7 @@
           await Promise.all(["performance", "accessibility", "best-practices", "seo"].map(async category => {
             //Perform audit
               console.debug(`metrics/compute/${login}/plugins > pagespeed > performing audit ${category}`)
-              const request = await imports.axios.get(`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?category=${category}&url=${url}&key=${token}`)
+              const request = await imports.axios.get(`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?category=${category}&url=${url}${token ? `&key=${token}` : ""}`)
               console.debug(request.data)
               const {score, title} = request.data.lighthouseResult.categories[category]
               scores.set(category, {score, title})
@@ -34,7 +34,7 @@
         //Detailed metrics
           if (detailed) {
             console.debug(`metrics/compute/${login}/plugins > pagespeed > performing detailed audit`)
-            const request = await imports.axios.get(`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?&url=${url}&key=${token}`)
+            const request = await imports.axios.get(`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?&url=${url}${token ? `&key=${token}` : ""}`)
             console.debug(request.data)
             Object.assign(result.metrics, ...request.data.lighthouseResult.audits.metrics.details.items)
             console.debug(`metrics/compute/${login}/plugins > pagespeed > performed detailed audit (status code ${request.status})`)

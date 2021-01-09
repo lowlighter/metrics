@@ -112,7 +112,7 @@
               </div>
 
               <!-- Plugins options -->
-              <div class="step" v-if="(plugins.enabled.tweets)||(plugins.enabled.music)||(plugins.enabled.pagespeed)||(plugins.enabled.languages)||(plugins.enabled.habits)||(plugins.enabled.posts)||(plugins.enabled.isocalendar)||(plugins.enabled.projects)||(plugins.enabled.topics)">
+              <div class="step" v-if="(plugins.enabled.tweets)||(plugins.enabled.music)||(plugins.enabled.pagespeed)||(plugins.enabled.languages)||(plugins.enabled.habits)||(plugins.enabled.posts)||(plugins.enabled.isocalendar)||(plugins.enabled.projects)||(plugins.enabled.topics)||(plugins.enabled.activity)">
                 <h2>🔧 Configure plugins</h2>
                 <div class="options">
                   <div class="options-group" v-if="plugins.enabled.tweets">
@@ -229,6 +229,13 @@
                     <label>
                       Repositories projects to display (comma separated)
                       <input type="text" v-model="plugins.options['projects.repositories']" @change="load" :disabled="generated.pending">
+                    </label>
+                  </div>
+                  <div class="options-group" v-if="plugins.enabled.activity">
+                    <h4>{{ plugins.descriptions.activity }}</h4>
+                    <label>
+                      Number of activity events to display
+                      <input type="number" v-model="plugins.options['activity.limit']" min="1" max="10" @change="load" :disabled="generated.pending">
                     </label>
                   </div>
                 </div>
