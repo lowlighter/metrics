@@ -4,58 +4,61 @@
 inputs:
 
   # Personal user token
-  # No additional scopes are needed, unless if you want to include private repositories metrics or use the traffic plugin
+  # No additional scopes are needed unless you want to include private repositories metrics
+  # Some plugins may also require additional scopes
   token:
     description: GitHub Personal Token
     required: true
 
   # Set to "${{ secrets.GITHUB_TOKEN }}"
   committer_token:
-    description: Token used for commits
+    description: GitHub Token used to commit metrics
     default: ""
 
-  # User to compute metrics
-  # Defaults to the owner of "token"
+  # GitHub username
+  # Optional, as it defaults "token"'s owner
   user:
     description: GitHub username
     default: ""
 
-  # Filepath of generated metrics (relative to repository root)
+  # Output path for generated metrics, relative to repository's root
   filename:
     description: Path of SVG image output
     default: github-metrics.svg
 
-  # Optimize SVG image with SVGO  (minify and remove useless attributes and spaces)
+  # Optimize SVG image with SVGO
+  # It minifies and removes useless attributes
   # Some templates may not support this option
   optimize:
-    description: Optimize SVG image
+    description: SVG optimization
     default: yes
 
-  # Set timezone used by metrics
+  # Timezone used by metrics
   # See https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-  # Some plugins will use this setting to calibrate dates
+  # Some plugins will use it to calibrate dates
   config_timezone:
-    description: Timezone used by metrics
+    description: Timezone used
     default: ""
 
-  # Specify output type
+  # Metrics output type
   # Supported values are :
-  # - svg (support animations and transparency)
-  # - png (support transparency)
-  # - jpeg
+  # - svg
+  # - png (does not support animations)
+  # - jpeg (does not support animations and transparency)
   config_output:
     description: Output image type
     default: svg
 
-  # Enable or disable SVG animations
+  # Enable or disable SVG CSS animations
   config_animations:
-    description: Enable or disable SVG animations
+    description: SVG CSS animations
     default: yes
 
-  # Add bottom padding (percentage)
-  # This can used to add padding if generated image is cropped or on the contrary, remove empty space
+  # Configure padding for output image (percentage)
+  # It can be used to add padding to generated metrics if rendering is cropped or has too much empty space
+  # You can specify one value (for both width and height) and two values (one for width and one for height, seperated by a comma)
   config_padding:
-    description: Configure bottom padding
+    description: Image padding
     default: 6%
 
   # Number of repositories to use for metrics
