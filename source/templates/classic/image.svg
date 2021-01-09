@@ -878,7 +878,7 @@
               <section class="column chart">
                 <h3>New stargazers per day</h3>
                 <div class="chart-bars">
-                  <% { let previous = true; for (const [date, value] of Object.entries(plugins.stargazers.increments.dates)) { const p = value/plugins.stargazers.increments.max; const [y, m, d] = date.split("-").map(Number) %>
+                  <% { let previous = null; for (const [date, value] of Object.entries(plugins.stargazers.increments.dates)) { const p = value/plugins.stargazers.increments.max; const [y, m, d] = date.split("-").map(Number) %>
                     <div class="entry">
                       <span class="value"><%= value != 0 ? value : "" %></span>
                       <div class="bar" style="height: <%= p*50 %>px; background-color: var(--color-calendar-graph-day-L<%= Math.ceil(p/0.25) %>-bg)"></div>

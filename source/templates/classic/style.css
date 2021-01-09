@@ -331,6 +331,7 @@
     align-items: flex-end;
     width: 100%;
     margin: 8px 0 4px;
+    flex-grow: 1;
   }
 
   .chart-bars .entry {
