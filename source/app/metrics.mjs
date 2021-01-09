@@ -84,7 +84,7 @@
           console.debug(`metrics/compute/${login} > render`)
           let rendered = await ejs.render(image, {...data, s, style, fonts}, {async:true})
         //Apply resizing
-          const {resized, mime} = await svgresize(rendered, {padding:q["config.padding"], convert})
+          const {resized, mime} = await svgresize(rendered, {paddings:q["config.padding"], convert})
           rendered = resized
 
         //Additional SVG transformations
@@ -180,16 +180,16 @@
   }
 
 /** Render svg */
-  async function svgresize(svg, {padding = "6%", convert} = {}) {
+  async function svgresize(svg, {paddings = "6%", convert} = {}) {
     //Instantiate browser if needed
       if (!svgresize.browser) {
         svgresize.browser = await puppeteer.launch({headless:true, executablePath:process.env.PUPPETEER_BROWSER_PATH, args:["--no-sandbox", "--disable-extensions", "--disable-setuid-sandbox", "--disable-dev-shm-usage"]})
         console.debug(`metrics/svgresize > started ${await svgresize.browser.version()}`)
       }
     //Format padding
-      padding = ((Number(`${padding}`.substring(0, padding.length-1))||0)/100)
-      console.debug(`metrics/svgresize > padding ${(100*padding).toFixed(2)}%`)
-      padding += 1
+      const [pw = 1, ph] = paddings.split(",").map(padding => `${padding}`.substring(0, padding.length-1)).map(value => 1+Number(value)/100)
+      const padding = {width:pw, height:ph ?? pw}
+      console.debug(`metrics/svgresize > padding width*${padding.width}, height*${padding.height}`)
     //Render through browser and resize height
       const page = await svgresize.browser.newPage()
       await page.setContent(svg, {waitUntil:"load"})
@@ -201,8 +201,8 @@
             document.querySelector("svg").classList.add("no-animations")
         //Get bounds and resize
           let {y:height, width} = document.querySelector("svg #metrics-end").getBoundingClientRect()
-          height = Math.ceil(height*padding)
-          width = Math.ceil(width)
+          height = Math.ceil(height*padding.height)
+          width = Math.ceil(width*padding.width)
         //Resize svg
           document.querySelector("svg").setAttribute("height", height)
         //Enable animations
@@ -270,6 +270,7 @@
             projects:{list:[...new Array(2).fill(null).map(() => ({name:"########", updated:"########", progress:{enabled:true, todo:"##", doing:"##", done:"##", total:"##"}}))]},
             tweets:{profile:{username:"########", verified:false}, list:[...new Array(2).fill(null).map(() => ({text:"###### ###### ####### ######".repeat(4), created_at:Date.now()}))]},
             stars:{repositories:[...new Array(2).fill({node:{nameWithOwner:"########/########", description:"###### ###### ####### ######".repeat(4)}})]},
+            activity:{events:[{type:"comment", on:"pr"}, {type:"public"}, {type:"release"}, {type:"issue"}]}
           }[key]??{})]
         )),
       })

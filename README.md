@@ -127,7 +127,7 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
   </tr>
   <tr>
     <th><a href="https://github.com/lowlighter/metrics#-habits">💡 Coding Habits plugin</a></th>
-    <th><a href="https://github.com/lowlighter/metrics#-gists">🎫 Gists plugin</a></th>
+    <th><a href="https://github.com/lowlighter/metrics#-activity">📰 Activity plugin</a></th>
   </tr>
   <tr>
     <td>
@@ -141,8 +141,8 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
       </details>
     </td>
     <td>
-      <a href="https://github.com/lowlighter/metrics#-gists">
-        <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.gists.svg" alt="" width="400">
+      <a href="https://github.com/lowlighter/metrics#-activity">
+        <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.activity.svg" alt="" width="400">
       </a>
     </td>
   </tr>
@@ -163,16 +163,20 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
     </td>
   </tr>
   <tr>
+    <th><a href="https://github.com/lowlighter/metrics#-gists">🎫 Gists plugin</a></th>
     <th><a href="https://github.com/lowlighter/metrics#%EF%B8%8F-base-content">🗃️ Header special features</a></th>
-    <th></th>
   </tr>
   <tr>
+    <td>
+      <a href="https://github.com/lowlighter/metrics#-gists">
+        <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.gists.svg" alt="" width="400">
+      </a>
+    </td>
     <td>
       <a href="https://github.com/lowlighter/metrics#%EF%B8%8F-base-content">
         <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.header.svg" alt="" width="400">
       </a>
     </td>
-    <td></td>
   </tr>
   <tr>
     <td colspan="2" align="center">
@@ -222,8 +226,6 @@ Try it now at [metrics.lecoq.io](https://metrics.lecoq.io/) with your GitHub use
 
 Because some plugins require additional configuration and setup, some of them are not available at [metrics.lecoq.io](https://metrics.lecoq.io/).
 For a fully-featured experience, consider using this as a [GitHub Action](https://github.com/marketplace/actions/github-metrics-as-svg-image) instead!
-
-[![Metrics](https://status.lecoq.io/status/metrics.lecoq.io-443.svg)](https://github.com/lowlighter/downtime)
 
 # 📜 How to use?
 
@@ -526,66 +528,70 @@ Used template defaults to the `classic` one.
     <th><span title="Tweets">🐤</span></th>
     <th><span title="Posts">✒️</span></th>
     <th><span title="Habits">💡</span></th>
-    <th><span title="Gists">🎫</span></th>
+    <th><span title="Activity">📰</span></th>
     <th><span title="Stars">🌟</span></th>
     <th><span title="Stargazers">✨</span></th>
+    <th><span title="Gists">🎫</span></th>
   </tr>
   <tr>
     <th>Classic</th>
-    <td>✔️</td>
-    <td>✔️</td>
-    <td>✔️</td>
-    <td>✔️</td>
-    <td>✔️</td>
-    <td>✔️</td>
-    <td>✔️</td>
-    <td>✔️</td>
-    <td>✔️</td>
-    <td>✔️</td>
-    <td>✔️</td>
-    <td>✔️</td>
-    <td>✔️</td>
-    <td>✔️</td>
-    <td>✔️</td>
-    <td>✔️</td>
+    <td data-for="base">✔️</td>
+    <td data-for="pagespeed">✔️</td>
+    <td data-for="isocalendar">✔️</td>
+    <td data-for="music">✔️</td>
+    <td data-for="languages">✔️</td>
+    <td data-for="followup">✔️</td>
+    <td data-for="topics">✔️</td>
+    <td data-for="projects">✔️</td>
+    <td data-for="lines">✔️</td>
+    <td data-for="traffic">✔️</td>
+    <td data-for="tweets">✔️</td>
+    <td data-for="posts">✔️</td>
+    <td data-for="habits">✔️</td>
+    <th><span title="Available on @master">✔️<sup>M</sup></span></th>
+    <td data-for="stars">✔️</td>
+    <td data-for="stargazers">✔️</td>
+    <td data-for="gists">✔️</td>
   </tr>
   <tr>
     <th>Terminal</th>
-    <td><span title="'Available for hire' and 'Cake day' are not displayed">✔️<sup>P</sup></span></td>
-    <td>✔️</td>
-    <td>❌</td>
-    <td>❌</td>
-    <td>✔️</td>
-    <td>✔️</td>
-    <td>❌</td>
-    <td>❌</td>
-    <td>✔️</td>
-    <td>✔️</td>
-    <td>❌</td>
-    <td>❌</td>
-    <td>❌</td>
-    <td>✔️</td>
-    <td>❌</td>
-    <td>❌</td>
+    <td data-for="base"><span title="'Available for hire' and 'Cake day' are not displayed">✔️<sup>P</sup></span></td>
+    <td data-for="pagespeed">✔️</td>
+    <td data-for="isocalendar">❌</td>
+    <td data-for="music">❌</td>
+    <td data-for="languages">✔️</td>
+    <td data-for="followup">✔️</td>
+    <td data-for="topics">❌</td>
+    <td data-for="projects">❌</td>
+    <td data-for="lines">✔️</td>
+    <td data-for="traffic">✔️</td>
+    <td data-for="tweets">❌</td>
+    <td data-for="posts">❌</td>
+    <td data-for="habits">❌</td>
+    <td data-for="activity">❌</td>
+    <td data-for="stars">❌</td>
+    <td data-for="stargazers">❌</td>
+    <td data-for="gists">✔️</td>
   </tr>
   <tr>
     <th>Repository<sup>R</sup></th>
-    <td>✔️</td>
-    <td>❌</td>
-    <td>❌</td>
-    <td>❌</td>
-    <td>❌</td>
-    <td>✔️</td>
-    <td>❌</td>
-    <td>✔️</td>
-    <td>✔️</td>
-    <td>✔️</td>
-    <td>❌</td>
-    <td>❌</td>
-    <td>❌</td>
-    <td>❌</td>
-    <td>❌</td>
-    <td>✔️</td>
+    <td data-for="base">✔️</td>
+    <td data-for="pagespeed">❌</td>
+    <td data-for="isocalendar">❌</td>
+    <td data-for="music">❌</td>
+    <td data-for="languages">❌</td>
+    <td data-for="followup">✔️</td>
+    <td data-for="topics">❌</td>
+    <td data-for="projects">✔️</td>
+    <td data-for="lines">✔️</td>
+    <td data-for="traffic">✔️</td>
+    <td data-for="tweets">❌</td>
+    <td data-for="posts">❌</td>
+    <td data-for="habits">❌</td>
+    <td data-for="activity">❌</td>
+    <td data-for="stars">❌</td>
+    <td data-for="stargazers">✔️</td>
+    <td data-for="gists">❌</td>
   </tr>
 </table>
 
@@ -1254,23 +1260,57 @@ By default, dates are based on the Greenwich meridian (England time). In order t
 
 </details>
 
-### 🎫 Gists
+### 📰 Activity
 
-The *gists* plugin displays your [gists](https://gist.github.com) metrics.
+    🚧 This plugin is available as pre-release on @master branch (unstable)
 
-![Gists plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.gists.svg)
+The *activity* plugin displays your recent activity in GitHub.
+
+![Activity plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.activity.svg)
 
 <details>
 <summary>💬 About</summary>
 
-It will consume an additional GitHub request per gist fetched.
+It will consume an additional GitHub request.
 
 Add the following to your workflow :
 ```yaml
-- uses: lowlighter/metrics@latest
+- uses: lowlighter/metrics@master
   with:
     # ... other options
-    plugin_gists: yes
+    plugin_activity: yes
+    plugin_activity_limit: 5
+    plugin_activity_days: 14 # Max age for events, set to 0 for unlimited
+```
+
+Metrics use data from [GitHub events](https://docs.github.com/en/free-pro-team@latest/developers/webhooks-and-events/github-event-types) and is able to track the following events :
+
+| Event        | Description                                     |
+| ------------ | ----------------------------------------------- |
+| `push`       | Push of commits                                 |
+| `issue`      | Opening/Reopening/Closing of issues             |
+| `pr`         | Opening/Closing of pull requests                |
+| `ref/create` | Creation of git tags or git branches            |
+| `ref/delete` | Deletion of git tags or git branches            |
+| `release`    | Publication of new releases                     |
+| `review`     | Review of pull requests                         |
+| `comment`    | Comments on commits, issues and pull requests   |
+| `wiki`       | Edition of wiki pages                           |
+| `fork`       | Forking of repositories                         |
+| `star`       | Starring of repositories                        |
+| `public`     | Repositories made public                        |
+| `member`     | Addition of new collaborator in repository      |
+
+It is possible to filter the type of events you want to display by using `plugin_activity_filter` option.
+Use the special value `"all"` (default value) to track all events.
+
+Add the following to your workflow :
+```yaml
+- uses: lowlighter/metrics@master
+  with:
+    # ... other options
+    plugin_activity: yes
+    plugin_activity_filter: issue, pr
 ```
 
 </details>
@@ -1318,6 +1358,27 @@ Add the following to your workflow :
 
 </details>
 
+### 🎫 Gists
+
+The *gists* plugin displays your [gists](https://gist.github.com) metrics.
+
+![Gists plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.gists.svg)
+
+<details>
+<summary>💬 About</summary>
+
+It will consume an additional GitHub request per gist fetched.
+
+Add the following to your workflow :
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_gists: yes
+```
+
+</details>
+
 ### 🔧 Other options
 
 A few additional options are available.
@@ -1352,6 +1413,9 @@ It is possible to adjust the padding by adding the following to your workflow :
 ```
 
 Both positive and negative values are accepted, but you must specify a percentage.
+
+If you specify a single value, it'll be used as for both width and height padding.
+When two values are specified separated by a comma, the first one will be used for width and the second for height.
 
 #### 💱 Convert output to PNG/JPEG
 
@@ -1390,3 +1454,4 @@ Read [CONTRIBUTING.md](CONTRIBUTING.md) for more information about this.
 * [jstrieb/github-stats](https://github.com/jstrieb/github-stats)
 * [ankurparihar/readme-pagespeed-insights](https://github.com/ankurparihar/readme-pagespeed-insights)
 * [jasonlong/isometric-contributions](https://github.com/jasonlong/isometric-contributions)
+* [jamesgeorge007/github-activity-readme](https://github.com/jamesgeorge007/github-activity-readme)

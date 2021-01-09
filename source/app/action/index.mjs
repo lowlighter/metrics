@@ -141,6 +141,7 @@
           tweets:{enabled:input.bool("plugin_tweets")},
           stars:{enabled:input.bool("plugin_stars")},
           stargazers:{enabled:input.bool("plugin_stargazers")},
+          activity:{enabled:input.bool("plugin_activity")},
         }
         let q = Object.fromEntries(Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => [key, true]))
         info("Plugins enabled", Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => key))
@@ -214,6 +215,13 @@
           if (plugins.stars.enabled) {
             for (const option of ["limit"])
               info(`Stars ${option}`, q[`stars.${option}`] = input.number(`plugin_stars_${option}`))
+          }
+        //Activity
+          if (plugins.activity.enabled) {
+            for (const option of ["limit", "days"])
+              info(`Activity ${option}`, q[`activity.${option}`] = input.number(`plugin_activity_${option}`))
+            for (const option of ["filter"])
+              info(`Activity ${option}`, q[`activity.${option}`] = input.array(`plugin_activity_${option}`))
           }
 
       //Repositories to use

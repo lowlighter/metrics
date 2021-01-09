@@ -236,14 +236,24 @@
       plugin_habits_from:5,
       plugin_habits_charts:true,
     }, {skip:["terminal", "repository"]}],
-    ["Gists plugin (default)", {
-      plugin_gists:true,
+    ["Activity  plugin (default)", {
+      plugin_activity:true,
+      plugin_activity_limit:100,
+      plugin_activity_days:14,
+      plugin_activity_filter:"all",
+    }, {skip:["terminal"]}],
+    ["Activity  plugin (filtered)", {
+      plugin_activity:true,
+      plugin_activity_filter:"pr, issue",
     }, {skip:["terminal"]}],
     ["Stars plugin (default)", {
       plugin_stars:true,
     }, {skip:["terminal"]}],
     ["Stargazers plugin (default)", {
       plugin_stargazers:true,
+    }, {skip:["terminal"]}],
+    ["Gists plugin (default)", {
+      plugin_gists:true,
     }, {skip:["terminal"]}],
   ]
 
