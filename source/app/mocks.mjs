@@ -705,6 +705,9 @@
                       action:"opened",
                       number:5,
                       pull_request:{
+                        user:{
+                          login:"lowlighter",
+                        },
                         state:"open",
                         title:"Pull request example",
                         additions:210,

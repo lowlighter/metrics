@@ -127,7 +127,7 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
   </tr>
   <tr>
     <th><a href="https://github.com/lowlighter/metrics#-habits">💡 Coding Habits plugin</a></th>
-    <th><a href="https://github.com/lowlighter/metrics#-activity">📰 Activity plugin</a></th>
+    <th><a href="https://github.com/lowlighter/metrics#-activity">📰 Activity plugin (`🚧 @master`)</a></th>
   </tr>
   <tr>
     <td>
@@ -285,7 +285,9 @@ name: Metrics
 on:
   # Schedule updates
   schedule: [{cron: "0 * * * *"}]
+  # Lines below let you run workflow manually and on each commit
   push: {branches: ["master", "main"]}
+  workflow_dispatch:
 jobs:
   github-metrics:
     runs-on: ubuntu-latest
