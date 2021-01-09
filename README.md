@@ -2,11 +2,11 @@
 
 ![Build](https://github.com/lowlighter/metrics/workflows/Build/badge.svg)
 
-Generate your metrics that you can embed everywhere, including your GitHub profile readme !
+Generate your metrics that you can embed everywhere, including your GitHub profile readme!
 
 [![Metrics](https://github.com/lowlighter/lowlighter/blob/master/metrics.classic.svg)](https://metrics.lecoq.io)
 
-But there's more with [plugins](https://github.com/lowlighter/metrics/tree/master/source/plugins) and [templates](https://github.com/lowlighter/metrics/tree/master/source/templates) !
+But there's more with [plugins](https://github.com/lowlighter/metrics/tree/master/source/plugins) and [templates](https://github.com/lowlighter/metrics/tree/master/source/templates)!
 
 <table>
   <tr>
@@ -177,7 +177,7 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
   <tr>
     <td colspan="2" align="center">
       <a href="https://github.com/lowlighter/metrics/projects/1">
-        More to come soon !
+        More to come soon!
       </a>
     </td>
   </tr>
@@ -197,7 +197,7 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
     </td>
   </tr>
   <tr>
-    <th>Repository template<br><sup>A special template to embed on any repository readme !</sup></th>
+    <th>Repository template<br><sup>A special template to embed on any repository readme!</sup></th>
     <th></th>
   </tr>
   <tr>
@@ -210,22 +210,22 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
   <tr>
     <td colspan="2" align="center">
       <a href="https://github.com/lowlighter/metrics/projects/1">
-        More to come soon !
+        More to come soon!
       </a>
     </td>
   </tr>
 </table>
 
-## 🦑 Interested to get your own ?
+## 🦑 Interested to get your own?
 
-Try it now at [metrics.lecoq.io](https://metrics.lecoq.io/) with your GitHub username !
+Try it now at [metrics.lecoq.io](https://metrics.lecoq.io/) with your GitHub username!
 
 Because some plugins require additional configuration and setup, some of them are not available at [metrics.lecoq.io](https://metrics.lecoq.io/).
-For a fully-featured experience, consider using this as a [GitHub Action](https://github.com/marketplace/actions/github-metrics-as-svg-image) instead !
+For a fully-featured experience, consider using this as a [GitHub Action](https://github.com/marketplace/actions/github-metrics-as-svg-image) instead!
 
 [![Metrics](https://status.lecoq.io/status/metrics.lecoq.io-443.svg)](https://github.com/lowlighter/downtime)
 
-# 📜 How to use ?
+# 📜 How to use?
 
 ## ⚙️ Using GitHub Action on your profile repository (~5 min setup)
 
@@ -239,7 +239,7 @@ Assuming your username is `my-github-user`, you can then embed your metrics in y
 ```
 
 <details>
-<summary>💬 How to setup ?</summary>
+<summary>💬 How to setup?</summary>
 
 ### 0. Prepare your personal repository
 
@@ -303,14 +303,14 @@ When using a token with additional permissions, it is advised to fork this repos
 ```yaml
       - uses: my-github-username/metrics@latest
 ```
-In this case, consider watching new releases of this repository to stay up-to-date and enjoy latest features !
+In this case, consider watching new releases of this repository to stay up-to-date and enjoy latest features!
 
 #### Preview vs release
 
 It is possible to use `@master` instead of `@latest` to use new features before their official release.
 Breaking changes may occur occasionally on `@master`, which could result in your metrics not being generated temporarily.
 
-#### What will happen ?
+#### What will happen?
 
 A new metrics image will be generated and committed to your repository on each run.
 
@@ -366,7 +366,7 @@ When sharing an instance, it is advised to restrict the number of users which ca
 See all supported options in [settings.example.json](settings.example.json).
 
 <details>
-<summary>💬 How to setup ?</summary>
+<summary>💬 How to setup?</summary>
 
 ### 0. Prepare your server
 
@@ -504,7 +504,7 @@ Basically, most of [action.yml](action.yml) options can actually be used by web 
 Templates allows you to change the general appearance of your metrics images.
 Some metrics may be displayed differently, and all plugins may not be supported or behave the same from one template to another.
 
-Consider trying them at [metrics.lecoq.io](https://metrics.lecoq.io) !
+Consider trying them at [metrics.lecoq.io](https://metrics.lecoq.io)!
 
 Used template defaults to the `classic` one.
 
