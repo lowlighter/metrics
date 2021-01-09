@@ -135,12 +135,12 @@ Total <%= plugins.gists.totalCount %> gist<%= s(plugins.gists.totalCount) %>
 </div><% } -%>
 <%# ============================================================= -%>
 <% if (plugins.pagespeed) { %>
-<div class="stdin"><%- meta.$ %> curl -<%= plugins.pagespeed.detailed ? "v" : "" %>I <%= user.websiteUrl %></div><%# -%>
+<div class="stdin"><%- meta.$ %> curl -<%= plugins.pagespeed.detailed ? "v" : "" %>I <%= plugins.pagespeed.url %></div><%# -%>
 <div class="stdout"><%# -%>
 <% if (plugins.pagespeed.error) { -%>
 <span class="error"><%= plugins.pagespeed.error.message %></span><% } else { -%>
 <b>User-Agent</b>: Google PageSpeed API
-<b>Location</b>: <%= user.websiteUrl %>
+<b>Location</b>: <%= plugins.pagespeed.url %>
 <% for (const {score, title} of plugins.pagespeed.scores) { -%>
 <b><%= `X-${title.replace(/ /g, "-")}` %></b>: <%= !Number.isNaN(score) ? Math.round(score*100) : "-" %>%
 <% } -%>
