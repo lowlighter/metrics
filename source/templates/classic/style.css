@@ -449,11 +449,11 @@
   }
 
   .activity .code {
-    background-color: #F3F4F4;
+    background-color: #7777771F;
     padding: 1px 5px;
     font-size: 80%;
     border-radius: 6px;
-    color: #24294E;
+    color: #777777;
     font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
     margin: 0 4px -3px;
   }
