@@ -127,7 +127,7 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
   </tr>
   <tr>
     <th><a href="https://github.com/lowlighter/metrics#-habits">💡 Coding Habits plugin</a></th>
-    <th><a href="https://github.com/lowlighter/metrics#-activity">📰 Activity plugin (`🚧 @master`)</a></th>
+    <th><a href="https://github.com/lowlighter/metrics#-activity">📰 Activity plugin <sup><code>🚧 @master</code></sup></a></th>
   </tr>
   <tr>
     <td>
