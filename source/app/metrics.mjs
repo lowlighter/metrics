@@ -22,7 +22,7 @@
           const template = q.template || conf.settings.templates.default
           const repositories = Math.max(0, Number(q.repositories)) || conf.settings.repositories || 100
           const pending = []
-          const s = (value, end = "") => value > 1 ? {y:"ies", "":"s"}[end] : end
+          const s = (value, end = "") => value !== 1 ? {y:"ies", "":"s"}[end] : end
           if ((!(template in Templates))||(!(template in conf.templates))||((conf.settings.templates.enabled.length)&&(!conf.settings.templates.enabled.includes(template))))
             throw new Error("unsupported template")
           const {image, style, fonts} = conf.templates[template]
