@@ -1351,6 +1351,9 @@ It is possible to adjust the padding by adding the following to your workflow :
 
 Both positive and negative values are accepted, but you must specify a percentage.
 
+If you specify a single value, it'll be used as for both width and height padding.
+When two values are specified separated by a comma, the first one will be used for width and the second for height.
+
 #### 💱 Convert output to PNG/JPEG
 
 It is possible to convert output from SVG to PNG or JPEG images by adding the following to your workflow :
