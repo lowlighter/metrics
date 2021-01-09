@@ -31,6 +31,8 @@
               switch (type) {
                 //Commented on a commit
                   case "CommitCommentEvent":{
+                    if (!["created"].includes(payload.action))
+                      return null
                     const {comment:{user:{login:user}, commit_id:sha, body:content}} = payload
                     return {type:"comment", on:"commit", repo, content, user, mobile:null, number:sha.substring(0, 7), title:""}
                   }
@@ -55,18 +57,22 @@
                   }
                 //Commented on an issue
                   case "IssueCommentEvent":{
+                    if (!["created"].includes(payload.action))
+                      return null
                     const {issue:{user:{login:user}, title, number}, comment:{body:content, performed_via_github_app:mobile}} = payload
                     return {type:"comment", on:"issue", repo, content, user, mobile, number, title}
                   }
                 //Issue event
                   case "IssuesEvent":{
+                    if (!["opened", "closed", "reopened"].includes(action))
+                      return null
                     const {action, issue:{user:{login:user}, title, number}} = payload
-                    if (["opened", "closed", "reopened"].includes(action))
-                      return {type:"issue", repo, action, user, number, title}
-                    return null
+                    return {type:"issue", repo, action, user, number, title}
                   }
                 //Activity from repository collaborators
                   //case "MemberEvent":{
+                    //if (!["added"].includes(payload.action))
+                    //  return null
                     //return {type, repo}
                   //}
                 //Made repository public
@@ -75,10 +81,10 @@
                   }
                 //Pull requests events
                   case "PullRequestEvent":{
+                    if (!["opened", "closed"].includes(payload.action))
+                      return null
                     const {action, pull_request:{title, number, additions:added, deletions:deleted, changed_files:changed}} = payload
-                    if (["opened", "closed"].includes(action))
-                      return {type:"pr", repo, action, title, number, lines:{added, deleted}, files:{changed}}
-                    return null
+                    return {type:"pr", repo, action, title, number, lines:{added, deleted}, files:{changed}}
                   }
                 //Reviewed a pull request
                   case "PullRequestReviewEvent":{
@@ -87,6 +93,8 @@
                   }
                 //Commented on a pull request
                   case "PullRequestReviewCommentEvent":{
+                    if (!["created"].includes(payload.action))
+                      return null
                     const {pull_request:{user:{login:user}, title, number}, comment:{body:content, performed_via_github_app:mobile}} = payload
                     return {type:"comment", on:"pr", repo, content, user, mobile, number, title}
                   }
@@ -97,15 +105,21 @@
                   }
                 //Released
                   case "ReleaseEvent":{
+                    if (!["published"].includes(payload.action))
+                      return null
                     const {action, release:{name, prerelease, draft}} = payload
                     return {type:"release", repo, action, name, prerelease, draft}
                   }
                 //Sponsorships
                   //case "SponsorshipEvent":{
+                    //if (!["created"].includes(payload.action))
+                    //  return null
                     //return {type, repo}
                   //}
                 //Starred a repository
                   case "WatchEvent":{
+                    if (!["started"].includes(payload.action))
+                      return null
                     const {action} = payload
                     return {type:"star", repo, action}
                   }
