@@ -71,7 +71,7 @@
                     }
                   //Issue event
                     case "IssuesEvent":{
-                      if (!["opened", "closed", "reopened"].includes(action))
+                      if (!["opened", "closed", "reopened"].includes(payload.action))
                         return null
                       const {action, issue:{user:{login:user}, title, number}} = payload
                       return {type:"issue", repo, action, user, number, title}

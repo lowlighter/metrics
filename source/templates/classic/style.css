@@ -311,6 +311,7 @@
 
   .tweet .mention, .tweet .link, .tweet .hashtag {
     color: #0366d6;
+    margin: 0 4px;
   }
 
   .tweet .date {
@@ -444,7 +445,7 @@
 
   .activity .repo, .activity .issue, .activity .commit .sha {
     color: #58a6ff;
-    margin-left: 4px;
+    margin: 0 4px;
   }
 
   .activity .code {
@@ -459,7 +460,7 @@
 
   .activity .bold {
     font-weight: 600;
-    margin-left: 4px;
+    margin: 0 4px;
   }
 
   .activity .details {
