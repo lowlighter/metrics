@@ -20,15 +20,6 @@
           const {data:events} = await rest.activity.listEventsForAuthenticatedUser({username:login, per_page:100})
           console.debug(`metrics/compute/${login}/plugins > activity > ${events.length} events loaded`)
 
-        //TODO : Remove after debugging
-        //Search for events not implemented
-          try {
-            for (let page = 0; page < 5; page++) {
-              const {data:events} = await rest.activity.listEventsForAuthenticatedUser({username:login, per_page:100, page})
-              console.log(imports.util.inspect(events.filter(({type}) => ["MemberEvent", "PublicEvent"].includes(type)), {depth:1/0}))
-            }
-          } catch { }
-
         //Extract activity events
           const activity = events
             .filter(({actor}) => actor.login === login)
@@ -77,11 +68,12 @@
                       return {type:"issue", repo, action, user, number, title}
                     }
                   //Activity from repository collaborators
-                    //case "MemberEvent":{
-                      //if (!["added"].includes(payload.action))
-                      //  return null
-                      //return {type, repo}
-                    //}
+                    case "MemberEvent":{
+                      if (!["added"].includes(payload.action))
+                        return null
+                      const {member:{login:user}} = payload
+                      return {type:"member", repo, user}
+                    }
                   //Made repository public
                     case "PublicEvent":{
                       return {type:"public", repo}
@@ -142,3 +134,4 @@
         throw {error:{message:"An error occured", instance:error}}
       }
   }
+

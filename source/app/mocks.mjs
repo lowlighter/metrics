@@ -712,6 +712,35 @@
                       }
                     },
                     created_at:new Date(Date.now()-Math.floor(-Math.random()*14)*Math.floor(-Math.random()*24)*60*60*1000).toISOString(),
+                  },
+                  {
+                    id:"10000000013",
+                    type:"MemberEvent",
+                    actor:{
+                      login:"lowlighter",
+                    },
+                    repo:{
+                      name:"lowlighter/metrics",
+                    },
+                    payload:{
+                      member:{
+                        login:"botlighter",
+                      },
+                      action:"added"
+                    },
+                    created_at:new Date(Date.now()-Math.floor(-Math.random()*14)*Math.floor(-Math.random()*24)*60*60*1000).toISOString(),
+                  },
+                  {
+                    id:"10000000014",
+                    type:"PublicEvent",
+                    actor:{
+                      login:"lowlighter",
+                    },
+                    repo:{
+                      name:"lowlighter/metrics",
+                    },
+                    payload:{},
+                    created_at:new Date(Date.now()-Math.floor(-Math.random()*14)*Math.floor(-Math.random()*24)*60*60*1000).toISOString(),
                   }
                 ]
               })
