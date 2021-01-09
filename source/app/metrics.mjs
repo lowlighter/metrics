@@ -270,6 +270,7 @@
             projects:{list:[...new Array(2).fill(null).map(() => ({name:"########", updated:"########", progress:{enabled:true, todo:"##", doing:"##", done:"##", total:"##"}}))]},
             tweets:{profile:{username:"########", verified:false}, list:[...new Array(2).fill(null).map(() => ({text:"###### ###### ####### ######".repeat(4), created_at:Date.now()}))]},
             stars:{repositories:[...new Array(2).fill({node:{nameWithOwner:"########/########", description:"###### ###### ####### ######".repeat(4)}})]},
+            activity:{events:[{type:"comment", on:"pr"}, {type:"public"}, {type:"release"}, {type:"issue"}]}
           }[key]??{})]
         )),
       })
