@@ -20,7 +20,7 @@
           try {
             for (let page = 0; page < 5; page++) {
               const {data:events} = await rest.activity.listEventsForAuthenticatedUser({username:login, per_page:100, page})
-              console.log(imports.util.inspect(events.filter(({type}) => ["CommitCommentEvent", "MemberEvent", "PublicEvent", "SponsorshipEvent"].includes(type)), {depth:1/0}))
+              console.log(imports.util.inspect(events.filter(({type}) => ["MemberEvent", "PublicEvent", "SponsorshipEvent"].includes(type)), {depth:1/0}))
             }
           } catch { }
         //Extract activity events
@@ -30,9 +30,10 @@
             .map(({type, payload, repo:{name:repo}}) => {
               switch (type) {
                 //Commented on a commit
-                  //case "CommitCommentEvent":{
-                    //return {type, repo}
-                  //}
+                  case "CommitCommentEvent":{
+                    const {comment:{user:{login:user}, commit_id:sha, body:content}} = payload
+                    return {type:"comment", on:"commit", repo, content, user, mobile:null, number:sha.substring(0, 7), title:""}
+                  }
                 //Created a git branch or tag
                   case "CreateEvent":{
                     const {ref:name, ref_type:type} = payload

@@ -429,16 +429,22 @@
   }
 
 /* Activity */
+  .activity {
+    margin-bottom: 12px;
+  }
+
   .activity .field {
+    width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 450px;
     white-space: nowrap;
+    margin-bottom: 0;
   }
 
   .activity .repo, .activity .issue, .activity .commit .sha {
     color: #58a6ff;
-    margin: 0 4px;
+    margin-left: 4px;
   }
 
   .activity .code {
@@ -453,7 +459,7 @@
 
   .activity .bold {
     font-weight: 600;
-    margin: 0 4px;
+    margin-left: 4px;
   }
 
   .activity .details {
@@ -486,6 +492,9 @@
     display: block;
     max-height: 38px;
     width: 420px;
+    margin-top: 6px;
+    border-left: 3px solid #777777B2;
+    padding-left: 6px;
   }
 
 /* Fade animation */
