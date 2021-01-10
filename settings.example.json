@@ -67,6 +67,9 @@
     },
     "activity":{                  "//":"Activity plugin",
       "enabled":false,            "//":"Enable or disable recent activity display"
+    },
+    "people":{                    "//":"People plugin",
+      "enabled":false,            "//":"Enable or disable people display"
     }
   }
 }
