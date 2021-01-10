@@ -4,6 +4,7 @@ query Repository {
       name
       createdAt
       diskUsage
+      homepageUrl
       watchers {
         totalCount
       }

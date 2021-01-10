@@ -30,9 +30,10 @@
       }
       console.debug(`metrics/compute/${login}/${repo} > ${commits.length} commits loaded`)
 
-    //Override creation date and disk usage
+    //Override creation date, disk usage and website url
       data.user.createdAt = repository.createdAt
       data.user.repositories.totalDiskUsage = repository.diskUsage
+      data.user.websiteUrl = repository.homepageUrl
 
     //Override contributions calendar
       const days = 14
