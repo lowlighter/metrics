@@ -1,0 +1,16 @@
+name: Label issue and pull requests
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  label:
+    name: Label issue and pull requests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/labeler@v2
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          configuration-path: .github/config/label.yml
+          sync-labels: yes

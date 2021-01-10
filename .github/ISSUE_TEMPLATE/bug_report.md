@@ -1,5 +1,5 @@
 ---
-name: Bug report
+name: 🐞 Bug report
 about: Create a report to help us improve
 title: ''
 labels: bug
@@ -7,14 +7,30 @@ assignees: ''
 
 ---
 
-**Bug description**
-<!-- A clear and concise description of what the bug is. -->
+<!--
 
-**Expected behavior**
-<!-- A clear and concise description of what you expected to happen. -->
+  👋 Hi there!
+  Thanks for using metrics and helping us to improve!
 
-**To Reproduce**
-<!-- List steps to reproduce the behavior. -->
+  Please check the following before filling a bug report:
+    - It does not duplicate another existing issue
+    - Retry at least once to confirm that it was not some random error
 
-**Additional context and screenshots**
-<!-- Add any other context or screenshots about the problem here. -->
+  For visual issues, mispelled words, etc. ...
+    - Provide a description of what you expected to happen
+    - Optionally add screenshots or additional context
+
+  For runtime errors...
+    impacting action version:
+      - Paste an excerpt of:
+        - workflow step
+        - error logs
+        - direct GitHub links to the above
+
+    impacting web instance version:
+      - Paste used url query
+
+  For other issues...
+    - Just write a clear and concise description of what the bug is
+
+-->
