@@ -1,0 +1,37 @@
+# Repository files
+repository:
+  - .github/**
+  - .gitignore
+  - .gitattributes
+  - README.md
+  - SECURITY.md
+  - LICENSE
+  - CONTRIBUTING.md
+
+# Docker
+docker:
+  - .dockerignore
+  - Dockerfile
+
+# Metrics source code editions
+core:
+  - source/app/metrics.mjs
+  - source/app/setup.mjs
+action:
+  - source/app/action
+  - action.yml
+web:
+  - source/app/web
+  - settings.example.json
+plugin:
+  - source/plugins
+queries:
+  - source/queries
+templates:
+  - source/templates
+tests:
+  - source/app/mocks.mjs
+  - tests/**
+dependencies:
+  - package.json
+  - package-lock.json
