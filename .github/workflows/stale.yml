@@ -3,6 +3,7 @@ name: Stale issue and pull requests
 on:
   schedule:
     - cron: "30 1 * * *"
+  workflow_dispatch:
 
 jobs:
   stale:
