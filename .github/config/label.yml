@@ -18,17 +18,17 @@ core:
   - source/app/metrics.mjs
   - source/app/setup.mjs
 action:
-  - source/app/action
+  - source/app/action/**
   - action.yml
 web:
-  - source/app/web
+  - source/app/web/**
   - settings.example.json
 plugin:
-  - source/plugins
+  - source/plugins/**
 queries:
-  - source/queries
+  - source/queries/**
 templates:
-  - source/templates
+  - source/templates/**
 tests:
   - source/app/mocks.mjs
   - tests/**
