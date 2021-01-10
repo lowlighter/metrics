@@ -116,7 +116,7 @@
                           name:faker.random.words(),
                           watchers:{totalCount:faker.random.number(1000)},
                           stargazers:{totalCount:faker.random.number(10000)},
-                          owner:{login:faker.internet.userName()},
+                          owner:{login},
                           languages:{
                             edges:[
                               {size:faker.random.number(100000), node:{color:faker.internet.color(), name:faker.lorem.word()}},
@@ -148,7 +148,7 @@
                   user:{
                     repository:{
                       name:"metrics",
-                      owner:{login:faker.internet.userName()},
+                      owner:{login},
                       createdAt:new Date().toISOString(),
                       diskUsage:Math.floor(Math.random()*10000),
                       homepageUrl:faker.internet.url(),
