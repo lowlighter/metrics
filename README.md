@@ -551,6 +551,7 @@ Used template defaults to the `classic` one.
     <th><span title="Stars">🌟</span></th>
     <th><span title="Stargazers">✨</span></th>
     <th><span title="Gists">🎫</span></th>
+    <th><span title="People">🧑‍🤝‍🧑</span></th>
   </tr>
   <tr>
     <th>Classic</th>
@@ -567,10 +568,11 @@ Used template defaults to the `classic` one.
     <td data-for="tweets">✔️</td>
     <td data-for="posts">✔️</td>
     <td data-for="habits">✔️</td>
-    <th><span title="Available on @master">✔️<sup>M</sup></span></th>
+    <td data-for="activity"><span title="Available on @master">✔️<sup>M</sup></span></td>
     <td data-for="stars">✔️</td>
     <td data-for="stargazers">✔️</td>
     <td data-for="gists">✔️</td>
+    <td data-for="people"><span title="Available on @master">✔️<sup>M</sup></span></td>
   </tr>
   <tr>
     <th>Terminal</th>
@@ -591,6 +593,7 @@ Used template defaults to the `classic` one.
     <td data-for="stars">❌</td>
     <td data-for="stargazers">❌</td>
     <td data-for="gists">✔️</td>
+    <td data-for="people">❌</td>
   </tr>
   <tr>
     <th>Repository<sup>R</sup></th>
@@ -611,6 +614,7 @@ Used template defaults to the `classic` one.
     <td data-for="stars">❌</td>
     <td data-for="stargazers">✔️</td>
     <td data-for="gists">❌</td>
+    <td data-for="people">❌</td>
   </tr>
 </table>
 
