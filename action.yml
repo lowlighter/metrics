@@ -18,7 +18,7 @@ inputs:
   # Branch to commit
   committer_branch:
     description: The branch used to commit metrics
-    default: main_branch
+    default: ""
 
   # GitHub username
   # Optional, as it defaults "token"'s owner
