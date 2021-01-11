@@ -1,7 +1,8 @@
 name: Label issue and pull requests
 
 on:
-  pull_request:
+  schedule:
+    - cron: "40 * * * *"
   workflow_dispatch:
 
 jobs:
