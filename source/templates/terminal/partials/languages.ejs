@@ -1,0 +1,9 @@
+<% if (plugins.languages) { %>
+<div class="stdin"><%- meta.$ %> locale</div><%# -%>
+<div class="stdout"><%# -%>
+<% if (plugins.languages.error) { -%>
+<span class="error"><%= plugins.languages.error.message %></span><%# -%>
+<% } else { for (const {name, value} of plugins.languages.favorites) { -%>
+<b><%= name.toLocaleUpperCase().padEnd(12) %></b> [<%= "#".repeat(Math.ceil(100*value/5)).padEnd(20) %>] <%= (100*value).toFixed(2).padEnd(5) %>%
+<% }} -%>
+</div><% } -%>
