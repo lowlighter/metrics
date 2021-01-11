@@ -86,24 +86,24 @@
     }],
     ["PageSpeed plugin (default)", {
       plugin_pagespeed:true,
-    }, {skip:["repository"]}],
+    }],
     ["PageSpeed plugin (different url)", {
       plugin_pagespeed:true,
       plugin_pagespeed_url:"github.com",
-    }, {skip:["repository"]}],
+    }],
     ["PageSpeed plugin (detailed)", {
       plugin_pagespeed:true,
       plugin_pagespeed_detailed:true,
-    }, {skip:["repository"]}],
+    }],
     ["PageSpeed plugin (screenshot)", {
       plugin_pagespeed:true,
       plugin_pagespeed_screenshot:true,
-    }, {skip:["repository"]}],
+    }],
     ["PageSpeed plugin (complete)", {
       plugin_pagespeed:true,
       plugin_pagespeed_detailed:true,
       plugin_pagespeed_screenshot:true,
-    }, {skip:["repository"]}],
+    }],
     ["Isocalendar plugin (default)", {
       plugin_isocalendar: true,
     }, {skip:["terminal", "repository"]}],
@@ -129,20 +129,20 @@
     }, {skip:["terminal", "repository"]}],
     ["Language plugin (default)", {
       plugin_languages:true,
-    }, {skip:["repository"]}],
+    }],
     ["Language plugin (ignored languages)", {
       plugin_languages:true,
       plugin_languages_ignored:"html, css, dockerfile",
-    }, {skip:["repository"]}],
+    }],
     ["Language plugin (skipped repositories)", {
       plugin_languages:true,
       plugin_languages_skipped:"metrics",
-    }, {skip:["repository"]}],
+    }],
     ["Language plugin (complete)", {
       plugin_languages:true,
       plugin_languages_ignored:"html, css, dockerfile",
       plugin_languages_skipped:"metrics",
-    }, {skip:["repository"]}],
+    }],
     ["Follow-up plugin (default)", {
       plugin_followup:true,
     }],
@@ -241,20 +241,20 @@
       plugin_activity_limit:100,
       plugin_activity_days:14,
       plugin_activity_filter:"all",
-    }, {skip:["terminal"]}],
+    }, {skip:["terminal", "repository"]}],
     ["Activity  plugin (filtered)", {
       plugin_activity:true,
       plugin_activity_filter:"pr, issue",
-    }, {skip:["terminal"]}],
+    }, {skip:["terminal", "repository"]}],
     ["Stars plugin (default)", {
       plugin_stars:true,
-    }, {skip:["terminal"]}],
+    }, {skip:["terminal", "repository"]}],
     ["Stargazers plugin (default)", {
       plugin_stargazers:true,
     }, {skip:["terminal"]}],
     ["Gists plugin (default)", {
       plugin_gists:true,
-    }, {skip:["terminal"]}],
+    }, {skip:["terminal", "repository"]}],
   ]
 
 //Tests run

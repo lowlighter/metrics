@@ -578,10 +578,10 @@ Used template defaults to the `classic` one.
   <tr>
     <th>Repository<sup>R</sup></th>
     <td data-for="base">✔️</td>
-    <td data-for="pagespeed">❌</td>
+    <td data-for="pagespeed"><span title="Available on @master">✔️<sup>M</sup></span></td>
     <td data-for="isocalendar">❌</td>
     <td data-for="music">❌</td>
-    <td data-for="languages">❌</td>
+    <td data-for="languages"><span title="Available on @master">✔️<sup>M</sup></span></td>
     <td data-for="followup">✔️</td>
     <td data-for="topics">❌</td>
     <td data-for="projects">✔️</td>
