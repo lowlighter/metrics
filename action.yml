@@ -93,6 +93,11 @@ inputs:
     description: Base content to include in metrics
     default: "header, activity, community, repositories, metadata"
 
+  # plugins order
+  plugins_order:
+    description: The order of enabled plugin
+    default: "lines, traffic, pagespeed, habits, languages, followup, music, posts, isocalendar, gists, topics, projects, tweets, stars, stargazers, activity"
+
   # Google PageSpeed plugin
   # Enable it to compute the performance of provided website
   plugin_pagespeed:

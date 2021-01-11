@@ -125,24 +125,13 @@
         info("SVG bottom padding", config["config.padding"])
 
       //Additional plugins
-        const plugins = {
-          lines:{enabled:input.bool("plugin_lines")},
-          traffic:{enabled:input.bool("plugin_traffic")},
-          pagespeed:{enabled:input.bool("plugin_pagespeed")},
-          habits:{enabled:input.bool("plugin_habits")},
-          languages:{enabled:input.bool("plugin_languages")},
-          followup:{enabled:input.bool("plugin_followup")},
-          music:{enabled:input.bool("plugin_music")},
-          posts:{enabled:input.bool("plugin_posts")},
-          isocalendar:{enabled:input.bool("plugin_isocalendar")},
-          gists:{enabled:input.bool("plugin_gists")},
-          topics:{enabled:input.bool("plugin_topics")},
-          projects:{enabled:input.bool("plugin_projects")},
-          tweets:{enabled:input.bool("plugin_tweets")},
-          stars:{enabled:input.bool("plugin_stars")},
-          stargazers:{enabled:input.bool("plugin_stargazers")},
-          activity:{enabled:input.bool("plugin_activity")},
-        }
+		const orders = input.array("plugins_order");
+		const plugins = Object.fromEntries((orders[0] ? orders : [
+			"lines", "traffic", "pagespeed", "habits",
+			"languages", "followup", "music", "posts",
+			"isocalendar", "gists", "topics", "projects",
+			"tweets", "stars", "stargazers", "activity"
+		]).reduce((m, key) => m.set(key, {enabled:input.bool(`plugin_${key}`)}), new Map()));
         let q = Object.fromEntries(Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => [key, true]))
         info("Plugins enabled", Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => key))
       //Additional plugins options
