@@ -257,7 +257,7 @@
           info("Dry-run", "complete")
         else {
           //Repository and branch
-            const branch = github.context.ref.replace(/^refs[/]heads[/]/, "")
+            const branch = input.string("committer_branch", {default:github.context.ref.replace(/^refs[/]heads[/]/, "")})
             info("Current repository", `${github.context.repo.owner}/${github.context.repo.repo}`)
             info("Current branch", branch)
           //Committer token

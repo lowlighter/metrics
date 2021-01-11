@@ -15,6 +15,11 @@ inputs:
     description: GitHub Token used to commit metrics
     default: ""
 
+  # Branch to commit
+  committer_branch:
+    description: The branch used to commit metrics
+    default: ""
+
   # GitHub username
   # Optional, as it defaults "token"'s owner
   user:
