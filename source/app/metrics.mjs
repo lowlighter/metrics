@@ -22,18 +22,26 @@
           const template = q.template || conf.settings.templates.default
           const repositories = Math.max(0, Number(q.repositories)) || conf.settings.repositories || 100
           const pending = []
-          const s = (value, end = "") => value !== 1 ? {y:"ies", "":"s"}[end] : end
           if ((!(template in Templates))||(!(template in conf.templates))||((conf.settings.templates.enabled.length)&&(!conf.settings.templates.enabled.includes(template))))
             throw new Error("unsupported template")
-          const {image, style, fonts} = conf.templates[template]
+          const {image, style, fonts, views, partials} = conf.templates[template]
           const queries = conf.queries
           const data = {animated:true, base:{}, config:{}, errors:[], plugins:{}, computed:{}}
+          const s = (value, end = "") => value !== 1 ? {y:"ies", "":"s"}[end] : end
 
         //Base parts
           {
             const defaulted = ("base" in q) ? !!q.base : true
             for (const part of conf.settings.plugins.base.parts)
               data.base[part] = `base.${part}` in q ? !!q[ `base.${part}`] : defaulted
+          }
+        //Partial parts
+          {
+            data.partials = new Set([
+              ...decodeURIComponent(q["config.order"] ?? "").split(",").map(x => x.trim().toLocaleLowerCase()).filter(partial => partials.includes(partial)),
+              ...partials,
+            ])
+            console.debug(`metrics/compute/${login} > content order : ${[...data.partials]}`)
           }
 
         //Placeholder
@@ -82,7 +90,7 @@
 
         //Template rendering
           console.debug(`metrics/compute/${login} > render`)
-          let rendered = await ejs.render(image, {...data, s, style, fonts}, {async:true})
+          let rendered = await ejs.render(image, {...data, s, style, fonts}, {views, async:true})
         //Apply resizing
           const {resized, mime} = await svgresize(rendered, {paddings:q["config.padding"], convert})
           rendered = resized

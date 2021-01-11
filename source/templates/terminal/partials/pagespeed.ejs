@@ -1,0 +1,21 @@
+<% if (plugins.pagespeed) { %>
+<div class="stdin"><%- meta.$ %> curl -<%= plugins.pagespeed.detailed ? "v" : "" %>I <%= plugins.pagespeed.url %></div><%# -%>
+<div class="stdout"><%# -%>
+<% if (plugins.pagespeed.error) { -%>
+<span class="error"><%= plugins.pagespeed.error.message %></span><% } else { -%>
+<b>User-Agent</b>: Google PageSpeed API
+<b>Location</b>: <%= plugins.pagespeed.url %>
+<% for (const {score, title} of plugins.pagespeed.scores) { -%>
+<b><%= `X-${title.replace(/ /g, "-")}` %></b>: <%= !Number.isNaN(score) ? Math.round(score*100) : "-" %>%
+<% } -%>
+<% if (plugins.pagespeed.detailed) { for (const {name, score, suffix = "", threshold} of [
+  {name:"Time to interactive", score:plugins.pagespeed.metrics.interactive/1000, suffix:"s", threshold:[3.785, 7.3]},
+  {name:"Speed Index", score:plugins.pagespeed.metrics.speedIndex/1000, suffix:"s", threshold:[3.387, 5.8]},
+  {name:"Total Blocking Time", score:plugins.pagespeed.metrics.totalBlockingTime/1000, suffix:"s", threshold:[.287, .6]},
+  {name:"First Contentful Paint", score:plugins.pagespeed.metrics.firstContentfulPaint/1000, suffix:"s", threshold:[2.336, 4]},
+  {name:"Largest Contentful Paint", score:plugins.pagespeed.metrics.largestContentfulPaint/1000, suffix:"s", threshold:[2.5, 4]},
+  {name:"Cumulative Layout Shift", score:+plugins.pagespeed.metrics.cumulativeLayoutShift, threshold:[.1, .25]}
+]) { -%>
+<b>&gt; <%= name %></b>: <%= !Number.isNaN(score) ? score : "-" %><%= suffix %> <% if (Number.isNaN(score)) { %><% } else if (score <= threshold[0]) { %>(ok +)<% } else if (score <= threshold[1]) { %>(ok)<% } else { %>(bad)<% } %>
+<% }}} -%>
+</div><% } -%>

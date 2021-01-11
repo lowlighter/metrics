@@ -1,0 +1,7 @@
+<% if (base.header) { %>
+<div class="stdin"><%- meta.$ %> whoami</div><%# -%>
+<div class="stdout"><%# -%>
+<b><%= user.name || user.login %></b> registered=<%= computed.registration.match(/^.+? [ym]/)[0].replace(/ /g, "") %>, uid=<%= `${user.databaseId}`.substr(-4) %>, gid=<%= user.organizations.totalCount %>
+  contributed to <%= user.repositoriesContributedTo.totalCount %> repositor<%= s(user.repositoriesContributedTo.totalCount, "y") %> <b><% for (const [x, {color}] of Object.entries(computed.calendar)) { -%><span style="color:<%= color %>">#</span><% } %></b>
+  followed by <b><%= user.followers.totalCount %></b> user<%= s(user.followers.totalCount) %>
+</div><% } -%>
