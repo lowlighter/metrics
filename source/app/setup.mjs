@@ -77,7 +77,7 @@
               get() {
                 logger(`metrics/setup > reload template [${name}]`)
                 const [image, style, fonts] = files.map(file => `${fs.readFileSync(file)}`)
-                const partials = JSON.parse(`${await fs.promises.readFile(path.join(directory, "partials/_.json"))}`)
+                const partials = JSON.parse(`${fs.readFileSync(path.join(directory, "partials/_.json"))}`)
                 logger(`metrics/setup > reload template [${name}] > success`)
                 return {image, style, fonts, partials, views:[directory]}
               }
