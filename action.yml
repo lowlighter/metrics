@@ -377,7 +377,7 @@ inputs:
     description: Number of activity events to display
     default: 5
 
-  # Disacard older events
+  # Discard older events
   # Use 0 to display activity whatever the date
   plugin_activity_days:
     description: Maximum activity event age
@@ -399,6 +399,35 @@ inputs:
   plugin_activity_filter:
     description: Events to display
     default: all
+
+  # Display followed and following users
+  plugin_people:
+    description: Display
+    default: no
+
+  # Limit the number of users displayed
+  plugin_people_limit:
+    description: Number of users to display per categorie
+    default: 28
+
+  # Configure image size of users' avatar
+  plugin_people_size:
+    description: Size of users' avatars
+    default: 28
+
+  # List of users categories to display (comma separated)
+  # Supported values are:
+  # - "followers"
+  # - "following"
+  plugin_people_types:
+    description: Categories to display
+    default: followers, following
+
+  # Display GitHub identicons instead of users' real avatar
+  # Mostly for privacy purposes
+  plugin_people_identicons:
+    description: Use identicons instead of real avatars
+    default: no
 
   # ====================================================================================
   # Options below are mostly used for testing
@@ -497,7 +526,7 @@ runs:
           set -e
           echo "Is released version: $METRICS_IS_RELEASED"
           # Rebuild image for unreleased version
-          if [[ $METRICS_IS_RELEASED ]]; then
+          if [[ "$METRICS_IS_RELEASED" -gt "0" ]]; then
             echo "Using released version $METRICS_TAG, will pull docker image from GitHub registry"
             METRICS_IMAGE=ghcr.io/lowlighter/metrics:$METRICS_TAG
           # Use registry for released version

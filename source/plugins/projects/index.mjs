@@ -8,7 +8,7 @@
         //Parameters override
           let {"projects.limit":limit = 4, "projects.repositories":repositories = ""} = q
           //Repositories projects
-            repositories = repositories?.split(",").map(repository => repository.trim()).filter(repository => /[-\w]+[/][-\w]+[/]projects[/]\d+/.test(repository)) ?? []
+            repositories = decodeURIComponent(repositories ?? "").split(",").map(repository => repository.trim()).filter(repository => /[-\w]+[/][-\w]+[/]projects[/]\d+/.test(repository)) ?? []
           //Limit
             limit = Math.max(repositories.length, Math.min(100, Number(limit)))
         //Retrieve user owned projects from graphql api

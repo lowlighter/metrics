@@ -142,6 +142,7 @@
           stars:{enabled:input.bool("plugin_stars")},
           stargazers:{enabled:input.bool("plugin_stargazers")},
           activity:{enabled:input.bool("plugin_activity")},
+          people:{enabled:input.bool("plugin_people")},
         }
         let q = Object.fromEntries(Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => [key, true]))
         info("Plugins enabled", Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => key))
@@ -222,6 +223,15 @@
               info(`Activity ${option}`, q[`activity.${option}`] = input.number(`plugin_activity_${option}`))
             for (const option of ["filter"])
               info(`Activity ${option}`, q[`activity.${option}`] = input.array(`plugin_activity_${option}`))
+          }
+        //People
+          if (plugins.people.enabled) {
+            for (const option of ["limit", "size"])
+              info(`People ${option}`, q[`people.${option}`] = input.number(`plugin_people_${option}`))
+            for (const option of ["types"])
+              info(`People ${option}`, q[`people.${option}`] = input.array(`plugin_people_${option}`))
+            for (const option of ["identicons"])
+              info(`People ${option}`, q[`people.${option}`] = input.bool(`plugin_people_${option}`))
           }
 
       //Repositories to use

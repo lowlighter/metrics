@@ -316,6 +316,30 @@
                   }
                 })
               }
+            //People query
+              if (/^query People /.test(query)) {
+                console.debug(`metrics/compute/mocks > mocking graphql api result > People`)
+                const type = query.match(/(?<type>followers|following)[(]/)?.groups?.type ?? "(unknown type)"
+                return /after: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"/m.test(query) ? ({
+                  user:{
+                    [type]:{
+                      edges:[],
+                    }
+                  }
+                }) : ({
+                  user:{
+                    [type]:{
+                      edges:new Array(Math.ceil(20+80*Math.random())).fill(null).map(() => ({
+                        cursor:"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                        node:{
+                          login:"user",
+                          avatarUrl:"https://github.com/identicons/user.png",
+                        }
+                      }))
+                    }
+                  }
+                })
+              }
             //Unmocked call
               return target(...args)
           }
