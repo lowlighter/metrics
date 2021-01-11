@@ -174,8 +174,13 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
     </td>
     <td>
       <a href="https://github.com/lowlighter/metrics#-people">
-        <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.people.svg" alt="" width="400">
+        <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.people.followers.svg" alt="" width="400">
       </a>
+      <details><summary>Followed people version</summary>
+        <a href="https://github.com/lowlighter/metrics#-habits">
+          <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.people.following.svg" alt="" width="400">
+        </a>
+      </details>
     </td>
   </tr>
   <tr>
