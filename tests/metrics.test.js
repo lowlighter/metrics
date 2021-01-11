@@ -255,6 +255,21 @@
     ["Gists plugin (default)", {
       plugin_gists:true,
     }, {skip:["terminal", "repository"]}],
+    ["People plugin (default)", {
+      plugin_people:true,
+    }, {skip:["terminal", "repository"]}],
+    ["People plugin (followers)", {
+      plugin_people:true,
+      plugin_people_types:"followers",
+    }, {skip:["terminal", "repository"]}],
+    ["People plugin (following)", {
+      plugin_people:true,
+      plugin_people_types:"following",
+    }, {skip:["terminal", "repository"]}],
+    ["People plugin (identicons)", {
+      plugin_people:true,
+      plugin_people_identicons:true,
+    }, {skip:["terminal", "repository"]}],
   ]
 
 //Tests run

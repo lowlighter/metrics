@@ -5,7 +5,8 @@ query People {
       edges {
         cursor
         node {
-          avatarUrl(size: 36)
+          login
+          avatarUrl(size: $size)
         }
       }
     }

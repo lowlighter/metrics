@@ -502,6 +502,15 @@
     -webkit-box-orient: vertical;
   }
 
+/* People */
+  .people {
+    padding: 0 10px;
+  }
+
+  .people .avatar {
+    margin: 0;
+  }
+
 /* Fade animation */
   .af {
     opacity: 0;

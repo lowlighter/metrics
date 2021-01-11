@@ -7,29 +7,36 @@
             return null
 
         //Parameters override
-          let {"people.limit":limit = 100} = q
+          let {"people.limit":limit = 28, "people.types":types = "followers, following", "people.size":size = 28, "people.identicons":identicons = false} = q
           //Limit
-            limit = Math.max(1, Math.min(100, Number(limit)))
+            limit = Math.max(1, limit)
+          //Repositories projects
+            types = decodeURIComponent(types ?? "").split(",").map(type => type.trim()).filter(type => ["followers", "following"].includes(type)) ?? []
 
         //Retrieve followers from graphql api
           console.debug(`metrics/compute/${login}/plugins > people > querying api`)
           const result = {followers:[], following:[]}
-          for (const type of ["followers", "following"]) {
-            //Iterate through followers and following
+          for (const type of types) {
+            //Iterate through people
               console.debug(`metrics/compute/${login}/plugins > people > retrieving ${type}`)
               let cursor = null
               let pushed = 0
               do {
                 console.debug(`metrics/compute/${login}/plugins > people > retrieving ${type} after ${cursor}`)
-                const {user:{[type]:{edges}}} = await graphql(queries.people({login, type, after:cursor ? `after: "${cursor}"` : ""}))
+                const {user:{[type]:{edges}}} = await graphql(queries.people({login, type, size, after:cursor ? `after: "${cursor}"` : ""}))
                 cursor = edges?.[edges?.length-1]?.cursor
                 result[type].push(...edges.map(({node}) => node))
                 pushed = edges.length
               } while ((pushed)&&(cursor))
-            //Limit followers
+            //Limit people
               if (limit > 0) {
                 console.debug(`metrics/compute/${login}/plugins > people > keeping only ${limit} ${type}`)
                 result[type].splice(limit)
+              }
+            //Hide real avator with identicons if enabled
+              if (identicons) {
+                console.debug(`metrics/compute/${login}/plugins > people > using identicons`)
+                result[type].map(user => user.avatarUrl = `https://github.com/identicons/${user.login}.png`)
               }
             //Convert avatars to base64
               console.debug(`metrics/compute/${login}/plugins > people > loading avatars`)
@@ -37,7 +44,7 @@
           }
 
         //Results
-          return result
+          return {types, size, ...result}
       }
     //Handle errors
       catch (error) {

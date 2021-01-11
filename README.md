@@ -164,7 +164,7 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
   </tr>
   <tr>
     <th><a href="https://github.com/lowlighter/metrics#-gists">🎫 Gists plugin</a></th>
-    <th><a href="https://github.com/lowlighter/metrics#%EF%B8%8F-base-content">🗃️ Header special features</a></th>
+    <th><a href="https://github.com/lowlighter/metrics#%EF%B8%8F-base-content">🧑‍🤝‍🧑 People plugin</a></th>
   </tr>
   <tr>
     <td>
@@ -173,10 +173,22 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
       </a>
     </td>
     <td>
+      <a href="https://github.com/lowlighter/metrics#-people">
+        <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.people.svg" alt="" width="400">
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <th><a href="https://github.com/lowlighter/metrics#%EF%B8%8F-base-content">🗃️ Header special features</a></th>
+    <th></th>
+  </tr>
+  <tr>
+    <td>
       <a href="https://github.com/lowlighter/metrics#%EF%B8%8F-base-content">
         <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.header.svg" alt="" width="400">
       </a>
     </td>
+    <td></td>
   </tr>
   <tr>
     <td colspan="2" align="center">
@@ -1377,6 +1389,41 @@ Add the following to your workflow :
   with:
     # ... other options
     plugin_gists: yes
+```
+
+</details>
+
+### 🧑‍🤝‍🧑 People
+
+    🚧 This plugin is available as pre-release on @master branch (unstable)
+
+The *people* plugin displays your followers and followed users' avatars.
+
+![People plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.people.svg)
+
+<details>
+<summary>💬 About</summary>
+
+It will consume an additional GitHub request per group of 100 users fetched.
+
+Add the following to your workflow :
+```yaml
+- uses: lowlighter/metrics@master
+  with:
+    # ... other options
+    plugin_people: yes
+    plugin_people_types: followers, following
+    plugin_people_limit: 28
+    plugin_people_size: 28 # Size of displayed avatars
+```
+
+It is possible to use [identicons](https://github.blog/2013-08-14-identicons/) instead of their avatar for privacy purposes.
+
+```yaml
+- uses: lowlighter/metrics@master
+  with:
+    # ... other options
+    plugin_people_identicons: yes
 ```
 
 </details>
