@@ -90,7 +90,7 @@
         //Additional SVG transformations
           if (/svg/.test(mime)) {
             //Optimize rendering
-              if ((conf.optimize)&&(!q.raw)) {
+              if ((conf.settings?.optimize)&&(!q.raw)) {
                 console.debug(`metrics/compute/${login} > optimize`)
                 const svgo = new SVGO({full:true, plugins:[{cleanupAttrs:true}, {inlineStyles:false}]})
                 const {data:optimized} = await svgo.optimize(rendered)

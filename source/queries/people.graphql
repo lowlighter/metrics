@@ -1,0 +1,14 @@
+query People {
+  user(login: "$login") {
+    login
+    $type($after first: 100) {
+      edges {
+        cursor
+        node {
+          login
+          avatarUrl(size: $size)
+        }
+      }
+    }
+  }
+}

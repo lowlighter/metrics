@@ -85,7 +85,6 @@
 
 /* User avatar */
   .avatar {
-    background-color: #000000;
     border-radius: 50%;
     margin: 0 6px;
   }
@@ -501,6 +500,15 @@
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+  }
+
+/* People */
+  .people {
+    padding: 0 10px;
+  }
+
+  .people .avatar {
+    margin: 0 2px;
   }
 
 /* Fade animation */
