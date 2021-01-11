@@ -41,6 +41,7 @@
               ...decodeURIComponent(q["config.order"] ?? "").split(",").map(x => x.trim().toLocaleLowerCase()).filter(partial => partials.includes(partial)),
               ...partials,
             ])
+            console.debug(`metrics/compute/${login} > content order : ${[...data.partials]}`)
           }
 
         //Placeholder
