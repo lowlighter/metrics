@@ -164,7 +164,7 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
   </tr>
   <tr>
     <th><a href="https://github.com/lowlighter/metrics#-gists">🎫 Gists plugin</a></th>
-    <th><a href="https://github.com/lowlighter/metrics#%EF%B8%8F-base-content">🧑‍🤝‍🧑 People plugin</a></th>
+    <th><a href="https://github.com/lowlighter/metrics#-people">🧑‍🤝‍🧑 People plugin <sup><code>🚧 @master</code></sup></a></th>
   </tr>
   <tr>
     <td>
@@ -1419,7 +1419,7 @@ Add the following to your workflow :
     plugin_people: yes
     plugin_people_types: followers, following
     plugin_people_limit: 28
-    plugin_people_size: 28 # Size of displayed avatars
+    plugin_people_size: 28 # Size in pixels of displayed avatars
 ```
 
 It is possible to use [identicons](https://github.blog/2013-08-14-identicons/) instead of their avatar for privacy purposes.
