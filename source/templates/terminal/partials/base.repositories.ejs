@@ -1,0 +1,33 @@
+<% if (base.repositories) { %>
+<div class="stdin"><%- meta.$ %> ls -lh github/repositories</div><%# -%>
+<div class="stdout"><%# -%>
+Total <%= user.repositories.totalCount %> repositor<%= s(user.repositories.totalCount, "y") %> - <%= computed.diskUsage %>
+<% if (plugins.traffic) { if (plugins.traffic.error) { -%>
+----  <b>     </b>  views <span class="error">(<%= plugins.traffic.error.message %>)</span>
+<% } else { -%>
+-r--  <b><%= `${plugins.traffic.views.count}`.padStart(5) %></b>  views
+<% }} -%>
+-r--  <b><%= `${computed.repositories.stargazers}`.padStart(5) %></b>  stargazer<%= s(computed.repositories.stargazers) %>
+-r--  <b><%= `${computed.repositories.forks}`.padStart(5) %></b>  fork<%= s(computed.repositories.forks) %>
+-r--  <b><%= `${computed.repositories.watchers}`.padStart(5) %></b>  watcher<%= s(computed.repositories.watchers) %>
+dr-x  <b><%= `${user.packages.totalCount}`.padStart(5) %></b>  package<%= s(user.packages.totalCount) %>
+<% if (plugins.followup) { if (plugins.followup.error) { -%>
+d---  <b>     </b>  ISSUES <span class="error">(<%= plugins.followup.error.message %>)</span>
+d---  <b>     </b>  PULL_REQUESTS <span class="error">(<%= plugins.followup.error.message %>)</span>
+<% } else { -%>
+dr-x  <b><%= `${plugins.followup.issues.count}`.padStart(5) %></b>  ISSUES
+-r--  <b><%= `${plugins.followup.issues.open}`.padStart(5) %></b>  ├── open
+-r--  <b><%= `${plugins.followup.issues.closed}`.padStart(5) %></b>  └── closed
+dr-x  <b><%= `${plugins.followup.issues.count}`.padStart(5) %></b>  PULL_REQUESTS
+-r--  <b><%= `${plugins.followup.pr.open}`.padStart(5) %></b>  ├── open
+-r--  <b><%= `${plugins.followup.pr.merged}`.padStart(5) %></b>  └── merged
+<% }} -%>
+<% if (computed.licenses.favorite.length) { -%>
+dr-x         LICENSE
+-r--         └── <%= computed.licenses.favorite %>
+<% } -%>
+<% if (plugins.lines) { if (plugins.lines.error) { %>
+<span class="diff error">@@ <%= plugins.lines.error.message %> @@</span><% } else { %>
+<span class="diff">@@ -<%= plugins.lines.deleted %> +<%= plugins.lines.added %> @@</span>
+<% }} -%>
+</div><% } -%>

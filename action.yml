@@ -66,6 +66,18 @@ inputs:
     description: Image padding
     default: 6%
 
+  # Configure metrics content order (comma-separated values)
+  # Specify in which order base and plugins will be displayed
+  # It is not mandatory to specify all partials when using this option, in this case, remaining parts will be appended
+  #
+  # For example, to display "base.repositories" before "base.activity" and "base.community" in "classic template" you can use:
+  #   config_order: base.header, base.repositories, base.activity+community
+  #
+  # See source/templates/*/partials/_.json for a list of supported partials for each template.
+  config_order:
+    description: Configure metrics content order
+    default: ""
+
   # Number of repositories to use for metrics
   # A high number increase metrics accuracy, but will consume additional API requests when using plugins
   repositories:
