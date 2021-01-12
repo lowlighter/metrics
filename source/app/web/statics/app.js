@@ -16,6 +16,11 @@
             try {
               this.config.timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
             } catch (error) {}
+          //GitHub limit tracker
+            setInterval(async function () {
+              const {data:requests} = await axios.get("/.requests")
+              this.requests = requests
+            }, 15*1000)
         },
         components:{Prism:PrismComponent},
       //Watchers
@@ -31,12 +36,14 @@
       //Data initialization
         data:{
           version,
-          user:url.get("user") || "",
+          user:url.get("user")||"",
           tab:"overview",
-          palette:url.get("palette") || (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") || "light",
+          palette:url.get("palette")||(window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")||"light",
           requests:{limit:0, used:0, remaining:0, reset:0},
+          cached:new Map(),
           config:{
             timezone:"",
+            animated:true,
           },
           plugins:{
             base,
@@ -95,14 +102,14 @@
               "topics.sort":"stars",
               "topics.limit":12,
               "tweets.limit":2,
+              "tweets.user":"",
               "stars.limit":4,
               "activity.limit":5,
             },
           },
           templates:{
             list:templates,
-            selected:url.get("template") || templates[0].name,
-            loaded:{},
+            selected:url.get("template")||templates[0].name,
             placeholder:"",
             descriptions:{
               classic:"Classic template",
@@ -187,11 +194,9 @@
           //Load and render image
             async load() {
               //Render placeholder
-                const url = this.url.replace(new RegExp(`${this.user}(\\?|$)`), "placeholder$1")
-                this.templates.placeholder = this.serialize((await axios.get(url)).data)
+                this.templates.placeholder = await placeholder(this)
                 this.generated.content = ""
-              //Start GitHub rate limiter tracker
-                this.ghlimit()
+                this.generated.error = false
             },
           //Generate metrics and flush cache
             async generate() {
@@ -202,26 +207,14 @@
               //Compute metrics
                 try {
                   await axios.get(`/.uncache?&token=${(await axios.get(`/.uncache?user=${this.user}`)).data.token}`)
-                  this.generated.content = this.serialize((await axios.get(this.url)).data)
+                  this.generated.content = (await axios.get(this.url)).data
                 } catch {
                   this.generated.error = true
                 }
                 finally {
                   this.generated.pending = false
                 }
-                this.ghlimit({once:true})
             },
-          //Serialize svg
-            serialize(svg) {
-              return `data:image/svg+xml;base64,${btoa(unescape(encodeURIComponent(svg)))}`
-            },
-          //Update reate limit requests
-            async ghlimit({once = false} = {}) {
-              const {data:requests} = await axios.get("/.requests")
-              this.requests = requests
-              if (!once)
-                setTimeout(() => this.ghlimit(), 30*1000)
-            }
         },
     })
 })()
