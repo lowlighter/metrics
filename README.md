@@ -11,7 +11,7 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
 <table>
   <tr>
     <th><a href="https://github.com/lowlighter/metrics#%EF%B8%8F-pagespeed">⏱️ Google PageSpeed plugin</a></th>
-    <th><a href="https://github.com/lowlighter/metrics#%EF%B8%8F-pagespeed">📅 Isometric calendar plugin</a></th>
+    <th><a href="https://github.com/lowlighter/metrics#-isometric-calendar">📅 Isometric calendar plugin</a></th>
   </tr>
   <tr>
     <td>
