@@ -49,6 +49,7 @@
           tab:"overview",
           palette:"light",
           requests:{limit:0, used:0, remaining:0, reset:0},
+          cached:new Map(),
           config:{
             timezone:"",
             animated:true,
