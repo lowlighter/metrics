@@ -26,8 +26,11 @@
         templates:{},
         queries:{},
         settings:{},
-        statics:__statics,
-        node_modules:__modules,
+        paths:{
+          statics:__statics,
+          templates:__templates,
+          node_modules:__modules,
+        }
       }
 
     //Load settings
