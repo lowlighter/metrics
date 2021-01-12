@@ -118,11 +118,13 @@
           "config.output":input.string("config_output"),
           "config.animations":input.bool("config_animations"),
           "config.padding":input.string("config_padding"),
+          "config.order":input.array("config_order"),
         }
         info("Timezone", config["config.timezone"] ?? "(system default)")
         info("Convert SVG", config["config.output"] ?? "(no)")
         info("Enable SVG animations", config["config.animations"])
         info("SVG bottom padding", config["config.padding"])
+        info("Content order", config["config.order"])
 
       //Additional plugins
         const plugins = {
@@ -257,7 +259,7 @@
           info("Dry-run", "complete")
         else {
           //Repository and branch
-            const branch = github.context.ref.replace(/^refs[/]heads[/]/, "")
+            const branch = input.string("committer_branch", {default:github.context.ref.replace(/^refs[/]heads[/]/, "")})
             info("Current repository", `${github.context.repo.owner}/${github.context.repo.repo}`)
             info("Current branch", branch)
           //Committer token

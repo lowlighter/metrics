@@ -251,7 +251,7 @@ For a fully-featured experience, consider using this as a [GitHub Action](https:
 Setup a GitHub Action which runs periodically and pushes your generated metrics image on your repository.
 See all supported options in [action.yml](action.yml).
 
-Assuming your username is `my-github-user`, you can then embed your metrics in your repository readme like below :
+Assuming your username is `my-github-user`, you can then embed your metrics in your repository readme like below:
 
 ```markdown
 ![Metrics](https://github.com/my-github-user/my-github-user/blob/master/github-metrics.svg)
@@ -266,7 +266,7 @@ Create a repository with the same name as your GitHub username if it's not alrea
 
 ![Setup personal repository](.github/readme/imgs/setup_personal_repository.png)
 
-The `README.md` of it will be displayed on your user profile :
+The `README.md` of it will be displayed on your user profile:
 
 ![GitHub Profile Example](.github/readme/imgs/example_github_profile.png)
 
@@ -278,12 +278,12 @@ No additional scopes are needed, unless you want to include your private reposit
 
 ![Setup a GitHub personal token](.github/readme/imgs/setup_personal_token.png)
 
-With a scope-less token, you can still display private contributions by enabling `Include private contributions on my profile` in your account settings :
+With a scope-less token, you can still display private contributions by enabling `Include private contributions on my profile` in your account settings:
 
 ![Enable "Include private contributions on my profile`"](.github/readme/imgs/setup_private_contributions.png)
 
 Some plugins also require additional scopes, which is indicated in their respective documentation.
-In case your token does not have the required scope (and `plugins_errors_fatal` is not enabled), it will be directly notified in the plugin render like below :
+In case your token does not have the required scope (and `plugins_errors_fatal` is not enabled), it will be directly notified in the plugin render like below:
 
 ![Plugin error example](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.error.svg)
 
@@ -295,7 +295,7 @@ Go to the `Settings` of your personal repository to create a new secret and past
 
 ### 3. Create a new GitHub Action workflow on your personal repository
 
-Create a new workflow from the `Actions` tab of your personal repository and paste the following :
+Create a new workflow from the `Actions` tab of your personal repository and paste the following:
 
 ```yaml
 name: Metrics
@@ -320,7 +320,7 @@ jobs:
 
 See all supported options in [action.yml](action.yml).
 
-When using a token with additional permissions, it is advised to fork this repository to minimize security risks :
+When using a token with additional permissions, it is advised to fork this repository to minimize security risks:
 ```yaml
       - uses: my-github-username/metrics@latest
 ```
@@ -345,7 +345,7 @@ Note that most of steps presented there are illustrative examples for this readm
 
 ### 4. Embed the link into your README.md
 
-Edit your repository readme and add your metrics image :
+Edit your repository readme and add your metrics image:
 
 ```markdown
 ![Metrics](https://github.com/my-github-user/my-github-user/blob/master/github-metrics.svg)
@@ -357,7 +357,7 @@ Edit your repository readme and add your metrics image :
 
 For conveniency, you can use the shared instance available at [metrics.lecoq.io](https://metrics.lecoq.io) without any additional setup.
 
-Assuming your username is `my-github-user`, you can embed your metrics in your repository readme like below :
+Assuming your username is `my-github-user`, you can embed your metrics in your repository readme like below:
 
 ```markdown
 ![Metrics](https://metrics.lecoq.io/my-github-user)
@@ -368,7 +368,7 @@ Visit [metrics.lecoq.io](https://metrics.lecoq.io) for more informations.
 <details>
 <summary>💬 Restrictions and fair use</summary>
 
-Since GitHub API has rate limitations, the shared instance has a few limitations :
+Since GitHub API has rate limitations, the shared instance has a few limitations:
   * Images are cached for 1 hour
     * Your generated metrics won't be updated during this amount of time when queried
   * A rate limiter is enabled, although it won't affect already cached users metrics
@@ -405,7 +405,7 @@ No additional scopes are needed.
 
 Connect to server and ensure [NodeJS](https://nodejs.org/en/) is installed (see tested version in [workflow](.github/workflows/workflow.yml#L18)).
 
-Run the following commands to clone this repository, install dependencies and copy configuration example file :
+Run the following commands to clone this repository, install dependencies and copy configuration example file:
 
 ```shell
 git clone https://github.com/lowlighter/metrics.git
@@ -430,7 +430,7 @@ See all supported options in [settings.example.json](settings.example.json).
 
 ### 4. Start your instance
 
-Run the following command to start your instance once you've finished configuring it :
+Run the following command to start your instance once you've finished configuring it:
 
 ```shell
 npm start
@@ -440,7 +440,7 @@ From your browser, you should be able to access your web instance on the port yo
 
 ### 5. Embed the link into your README.md
 
-Edit your repository readme and add your metrics image from your server domain :
+Edit your repository readme and add your metrics image from your server domain:
 
 ```markdown
 ![Metrics](https://my-personal-domain.com/my-github-user)
@@ -451,7 +451,7 @@ Edit your repository readme and add your metrics image from your server domain :
 To ensure that your instance will be restarted in case of reboots or crashs, you should setup it as a service.
 This is described below for linux-like systems which supports *systemd*.
 
-Create a new service file `/etc/systemd/system/github_metrics.service` and paste the following after editing paths inside :
+Create a new service file `/etc/systemd/system/github_metrics.service` and paste the following after editing paths inside:
 
 ```
 [Unit]
@@ -468,7 +468,7 @@ ExecStart=/usr/bin/node /path/to/metrics/index.mjs
 WantedBy=multi-user.target
 ```
 
-Reload services, enable it, start it and check if it is up and running :
+Reload services, enable it, start it and check if it is up and running:
 
 ```shell
 systemctl daemon-reload
@@ -482,7 +482,7 @@ systemctl status github_metrics
 <details>
 <summary>⚠️ HTTP errors code</summary>
 
-The following errors code can be encountered on a web instance :
+The following errors code can be encountered on a web instance:
 
 | Error code                | Description                                                                |
 | ------------------------- | -------------------------------------------------------------------------- |
@@ -512,7 +512,7 @@ For example, to opt-out from `activity`, `community` and `metadata`, append `?ba
 Plugins are disabled by default, but passing `?<plugin>=1` will enable a specific `<plugin>`.
 Plugin options can be passed with `?<plugin>.<option>=<value>`.
 
-For example, to enable `music` plugin and configure `music` plugin, you could append the following to your metrics url : `?music=1&music.provider=spotify&music.mode=recent&music.limit=4`.
+For example, to enable `music` plugin and configure `music` plugin, you could append the following to your metrics url: `?music=1&music.provider=spotify&music.mode=recent&music.limit=4`.
 
 Basically, most of [action.yml](action.yml) options can actually be used by web instance, with `plugin_` prefix dropped, and `.` instead of `_`.
 
@@ -619,10 +619,10 @@ Used template defaults to the `classic` one.
 </table>
 
 **Legend**
-* **P** : Partial support *(Hover cell for more informations)*
-* **M** : Feature is not released yet but is available on `@master`
-* **N** : Feature is already released, but new ones are available on `@master`
-* **R** : Repository template (all plugins content will be restricted to related repository)
+* **P**: Partial support *(Hover cell for more informations)*
+* **M**: Feature is not released yet but is available on `@master`
+* **N**: Feature is already released, but new ones are available on `@master`
+* **R**: Repository template (all plugins content will be restricted to related repository)
 
 <details>
 <summary>💬 Using repository template</summary>
@@ -631,7 +631,7 @@ To use `repository` template, you'll need to provide a repository name in `query
 
 If repository owner is different from `token` owner, use `user` option to specify it.
 
-Add the following to your workflow :
+Add the following to your workflow:
 ```yaml
 - uses: lowlighter/metrics@latest
   with:
@@ -656,7 +656,7 @@ This can be configured by explicitely opt-out from them.
 <details>
 <summary>💬 About</summary>
 
-By default, generated metrics contains the following sections :
+By default, generated metrics contains the following sections:
 * `header`, which usually contains your username, your two-week commits calendars and a few additional data
 * `activity`, which contains your recent activity (commits, pull requests, issues, etc.)
 * `community`, which contains your community stats (following, sponsors, organizations, etc.)
@@ -665,7 +665,7 @@ By default, generated metrics contains the following sections :
 
 You can explicitely opt-out from them, which can be useful if you only want to keep a few sections or to use a plugin as standalone.
 
-For example, to keep only `header` and `repositories` sections, add the following to your workflow :
+For example, to keep only `header` and `repositories` sections, add the following to your workflow:
 ```yaml
 - uses: lowlighter/metrics@latest
   with:
@@ -676,7 +676,7 @@ For example, to keep only `header` and `repositories` sections, add the followin
 #### 🏦 Organizations memberships
 
 By default, the `community` section only counts public organizations memberships.
-You can change your membership visibility in the `People` tab of your organization :
+You can change your membership visibility in the `People` tab of your organization:
 
 ![Publish organization membership](.github/readme/imgs/setup_public_membership_org.png)
 
@@ -690,7 +690,7 @@ You may also need to [authorize your personal token](https://docs.github.com/en/
 
 ### ⏱️ PageSpeed
 
-The *pagespeed* plugin adds the performances of the website attached mentioned on your account :
+The *pagespeed* plugin adds the performances of the website attached mentioned on your account:
 
 ![Pagespeed plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.svg)
 
@@ -704,7 +704,7 @@ Although not mandatory, you can generate an API key for PageSpeed API [here](htt
 The website attached to the GitHub profile will be the one to be audited.
 Expect 10 to 30 seconds to generate the results.
 
-Add the following to your workflow :
+Add the following to your workflow:
 ```yaml
 - uses: lowlighter/metrics@latest
   with:
@@ -713,13 +713,13 @@ Add the following to your workflow :
     plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
 ```
 
-You can display a detailed report along with scores :
+You can display a detailed report along with scores:
 
 ![Pagespeed plugin (detailed)](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.detailed.svg)
 
 See [performance scoring](https://web.dev/performance-scoring/) and [score calculator](https://googlechrome.github.io/lighthouse/scorecalc/) for more informations about how PageSpeed compute these statistics.
 
-Add the following to your workflow instead :
+Add the following to your workflow instead:
 ```yaml
 - uses: lowlighter/metrics@latest
   with:
@@ -729,11 +729,11 @@ Add the following to your workflow instead :
     plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
 ```
 
-You can also display the screenshot taken by PageSpeed API :
+You can also display the screenshot taken by PageSpeed API:
 
 ![Pagespeed plugin (screenshot)](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.screenshot.svg)
 
-Add the following to your workflow :
+Add the following to your workflow:
 ```yaml
 - uses: lowlighter/metrics@latest
   with:
@@ -743,7 +743,7 @@ Add the following to your workflow :
 
 It is possible to audit a different website from the one linked to your GitHub account by using `plugin_pagespeed_url` option.
 
-Add the following to your workflow :
+Add the following to your workflow:
 ```yaml
 - uses: lowlighter/metrics@latest
   with:
@@ -764,7 +764,7 @@ The *isocalendar* plugin displays an isometric view of your commits calendar, al
 
 It will consume two additional GitHub requests.
 
-Add the following to your workflow :
+Add the following to your workflow:
 ```yaml
 - uses: lowlighter/metrics@latest
   with:
@@ -772,7 +772,7 @@ Add the following to your workflow :
     plugin_isocalendar: yes
 ```
 
-Use the following instead to display a full-year instead :
+Use the following instead to display a full-year instead:
 ```yaml
 - uses: lowlighter/metrics@latest
   with:
@@ -787,7 +787,7 @@ Use the following instead to display a full-year instead :
 
 ### 🎼 Music
 
-The *music* plugin can work in the following modes :
+The *music* plugin can work in the following modes:
 
 #### Playlist mode
 
@@ -810,12 +810,12 @@ From `...` menu, select `Share` and `Copy embed code`.
 
 ![Copy embed code of playlist](.github/readme/imgs/plugin_music_playlist_apple.png)
 
-Extract the source link from the code pasted in your clipboard :
+Extract the source link from the code pasted in your clipboard:
 ```html
 <iframe allow="" frameborder="" height="" style="" sandbox="" src="https://embed.music.apple.com/**/playlist/********"></iframe>
 ```
 
-Finish the plugin setup by adding the following to your workflow :
+Finish the plugin setup by adding the following to your workflow:
 
 ```yaml
 - uses: lowlighter/metrics@latest
@@ -840,12 +840,12 @@ From `...` menu, select `Share` and `Copy embed code`.
 
 ![Copy embed code of playlist](.github/readme/imgs/plugin_music_playlist_spotify.png)
 
-Extract the source link from the code pasted in your clipboard :
+Extract the source link from the code pasted in your clipboard:
 ```html
 <iframe src="https://open.spotify.com/embed/playlist/********" width="" height="" frameborder="0" allowtransparency="" allow=""></iframe>
 ```
 
-Finish the plugin setup by adding the following to your workflow :
+Finish the plugin setup by adding the following to your workflow:
 
 ```yaml
 - uses: lowlighter/metrics@latest
@@ -896,7 +896,7 @@ Keep your `client_id` and `client_secret` and let this tab open for now.
 
 Open the settings and add a new *Redirect url*. Normally it is used to setup callbacks for apps, but just put `https://localhost` instead (it is mandatory as per the [authorization guide](https://developer.spotify.com/documentation/general/guides/authorization-guide/), even if not used).
 
-Forge the authorization url with your `client_id` and the encoded `redirect_uri` you whitelisted, and access it from your browser :
+Forge the authorization url with your `client_id` and the encoded `redirect_uri` you whitelisted, and access it from your browser:
 
 ```
 https://accounts.spotify.com/authorize?client_id=********&response_type=code&scope=user-read-recently-played&redirect_uri=https%3A%2F%2Flocalhost
@@ -928,7 +928,7 @@ Go back to your developer dashboard tab, and open the web console of your browse
 })()
 ```
 
-It should return a JSON response with the following content :
+It should return a JSON response with the following content:
 ```json
 {
   "access_token":"********",
@@ -939,7 +939,7 @@ It should return a JSON response with the following content :
 }
 ```
 
-With your `client_id`, `client_secret` and `refresh_token` you can finish the plugin setup by adding the following to your workflow :
+With your `client_id`, `client_secret` and `refresh_token` you can finish the plugin setup by adding the following to your workflow:
 ```yaml
 - uses: lowlighter/metrics@latest
   with:
@@ -964,7 +964,7 @@ The *languages* plugin displays which programming languages you use the most acr
 <details>
 <summary>💬 About</summary>
 
-Add the following to your workflow :
+Add the following to your workflow:
 ```yaml
 - uses: lowlighter/metrics@latest
   with:
@@ -985,7 +985,7 @@ The *follow-up* plugin displays the ratio of opened/closed issues and the ratio 
 <details>
 <summary>💬 About</summary>
 
-Add the following to your workflow :
+Add the following to your workflow:
 ```yaml
 - uses: lowlighter/metrics@latest
   with:
@@ -1007,13 +1007,13 @@ Check out [GitHub topics](https://github.com/topics) to search interesting topic
 
 This uses puppeteer to navigate through your starred topics page.
 
-You can choose to display and order topics by :
+You can choose to display and order topics by:
 - Most `stars`
 - Recent `activity`
 - Recently `starred` by you
 - `random`ly
 
-Add the following to your workflow :
+Add the following to your workflow:
 ```yaml
 - uses: lowlighter/metrics@latest
   with:
@@ -1023,11 +1023,11 @@ Add the following to your workflow :
     plugin_topics_limit: 15
 ```
 
-It is possible to display starred topics as `Mastered and known technologies` instead :
+It is possible to display starred topics as `Mastered and known technologies` instead:
 
 ![Topics plugin (mastered)](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.mastered.svg)
 
-Add the following to your workflow instead :
+Add the following to your workflow instead:
 ```yaml
 - uses: lowlighter/metrics@latest
   with:
@@ -1054,7 +1054,7 @@ It will consume an additional GitHub request.
 
 Because of GitHub REST API limitation, provided token requires `public_repo` scope to access projects informations.
 
-Add the following to your workflow :
+Add the following to your workflow:
 ```yaml
 - uses: lowlighter/metrics@latest
   with:
@@ -1071,10 +1071,10 @@ To enable it, open the `≡ Menu` and edit the project to opt-in to `Track proje
 <details>
 <summary>💬 Create a personal project on GitHub</summary>
 
-On your profile, select the `Projects` tab :
+On your profile, select the `Projects` tab:
 ![Create a new project](.github/readme/imgs/plugin_projects_create.png)
 
-Fill the informations and set visibility to *public* :
+Fill the informations and set visibility to *public*:
 ![Configure project](.github/readme/imgs/plugin_projects_setup.png)
 
 </details>
@@ -1085,7 +1085,7 @@ To do so, open your repository project and retrieve the last url endpoint, in th
 
 ![Add a repository project](.github/readme/imgs/plugin_projects_repositories.png)
 
-Add the following to your workflow :
+Add the following to your workflow:
 ```yaml
 - uses: lowlighter/metrics@latest
   with:
@@ -1107,7 +1107,7 @@ The *lines* of code plugin displays the number of lines of code you added and re
 
 It will consume an additional GitHub request per repository.
 
-Add the following to your workflow :
+Add the following to your workflow:
 ```yaml
 - uses: lowlighter/metrics@latest
   with:
@@ -1134,7 +1134,7 @@ Because of GitHub REST API limitation, provided token requires full `repo` scope
 
 ![Token with repo scope](.github/readme/imgs/setup_token_repo_scope.png)
 
-Add the following to your workflow :
+Add the following to your workflow:
 ```yaml
 - uses: lowlighter/metrics@latest
   with:
@@ -1148,14 +1148,14 @@ Add the following to your workflow :
 
 ### 🐤 Tweets
 
-The recent *tweets* plugin displays your latest tweets of the [twitter](https://twitter.com) attached mentioned on your account :
+The recent *tweets* plugin displays your latest tweets of the [twitter](https://twitter.com) attached mentioned on your account:
 
 ![Tweets plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.tweets.svg)
 
 <details>
 <summary>💬 About</summary>
 
-Add the following to your workflow :
+Add the following to your workflow:
 ```yaml
 - uses: lowlighter/metrics@latest
   with:
@@ -1166,7 +1166,7 @@ Add the following to your workflow :
 
 It is possible to use a different twitter username from the one linked to your GitHub account by using `plugin_tweets_user` option.
 
-Add the following to your workflow :
+Add the following to your workflow:
 ```yaml
 - uses: lowlighter/metrics@latest
   with:
@@ -1197,10 +1197,10 @@ The recent *posts* plugin displays recent articles you wrote on an external sour
 <details>
 <summary>💬 About</summary>
 
-Supported sources are :
+Supported sources are:
 * [dev.to](https://dev.to)
 
-Add the following to your workflow :
+Add the following to your workflow:
 ```yaml
 - uses: lowlighter/metrics@latest
   with:
@@ -1211,7 +1211,7 @@ Add the following to your workflow :
 
 It is possible to use a different username from your GitHub account by using `plugin_posts_user` option.
 
-Add the following to your workflow :
+Add the following to your workflow:
 ```yaml
 - uses: lowlighter/metrics@latest
   with:
@@ -1243,7 +1243,7 @@ If you're using GitHub Api in other projects, you could reach the rate limit.
 These facts are generated from your recent coding activity.
 The indent style is deduced from the diffs of your recent commits.
 
-Add the following to your workflow :
+Add the following to your workflow:
 ```yaml
 - uses: lowlighter/metrics@latest
   with:
@@ -1253,14 +1253,14 @@ Add the following to your workflow :
     plugin_habits_days: 14
 ```
 
-You can display charts in this section :
+You can display charts in this section:
 
 ![Habits plugin (charts)](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.charts.svg)
 
 These charts are generated from your recent coding activity.
 Languages metrics are computed with [github/linguist](https://github.com/github/linguist) from the diffs of your recent commits.
 
-Add the following to your workflow instead :
+Add the following to your workflow instead:
 ```yaml
 - uses: lowlighter/metrics@latest
   with:
@@ -1272,7 +1272,7 @@ Add the following to your workflow instead :
     plugin_habits_charts: yes
 ```
 
-By default, dates are based on the Greenwich meridian (England time). In order to these metrics to be accurate, be sure to set your timezone (see [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) for a list of supported timezones) :
+By default, dates are based on the Greenwich meridian (England time). In order to these metrics to be accurate, be sure to set your timezone (see [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) for a list of supported timezones):
 
 ```yaml
 - uses: lowlighter/metrics@latest
@@ -1296,7 +1296,7 @@ The *activity* plugin displays your recent activity in GitHub.
 
 It will consume an additional GitHub request.
 
-Add the following to your workflow :
+Add the following to your workflow:
 ```yaml
 - uses: lowlighter/metrics@master
   with:
@@ -1306,7 +1306,7 @@ Add the following to your workflow :
     plugin_activity_days: 14 # Max age for events, set to 0 for unlimited
 ```
 
-Metrics use data from [GitHub events](https://docs.github.com/en/free-pro-team@latest/developers/webhooks-and-events/github-event-types) and is able to track the following events :
+Metrics use data from [GitHub events](https://docs.github.com/en/free-pro-team@latest/developers/webhooks-and-events/github-event-types) and is able to track the following events:
 
 | Event        | Description                                     |
 | ------------ | ----------------------------------------------- |
@@ -1327,7 +1327,7 @@ Metrics use data from [GitHub events](https://docs.github.com/en/free-pro-team@l
 It is possible to filter the type of events you want to display by using `plugin_activity_filter` option.
 Use the special value `"all"` (default value) to track all events.
 
-Add the following to your workflow :
+Add the following to your workflow:
 ```yaml
 - uses: lowlighter/metrics@master
   with:
@@ -1349,7 +1349,7 @@ The *stars* plugin displays your recently starred repositories.
 
 It will consume an additional GitHub request.
 
-Add the following to your workflow :
+Add the following to your workflow:
 ```yaml
 - uses: lowlighter/metrics@latest
   with:
@@ -1371,7 +1371,7 @@ The *stargazers* plugin displays your stargazers evolution across all of your re
 
 It will consume additional GitHub requests per repository per set of 100 stargazers.
 
-Add the following to your workflow :
+Add the following to your workflow:
 ```yaml
 - uses: lowlighter/metrics@latest
   with:
@@ -1392,7 +1392,7 @@ The *gists* plugin displays your [gists](https://gist.github.com) metrics.
 
 It will consume an additional GitHub request per gist fetched.
 
-Add the following to your workflow :
+Add the following to your workflow:
 ```yaml
 - uses: lowlighter/metrics@latest
   with:
@@ -1415,7 +1415,7 @@ The *people* plugin displays your followers and followed users' avatars.
 
 It will consume an additional GitHub request per group of 100 users fetched.
 
-Add the following to your workflow :
+Add the following to your workflow:
 ```yaml
 - uses: lowlighter/metrics@master
   with:
@@ -1449,7 +1449,7 @@ See all supported options in [action.yml](action.yml).
 
 By default, dates are based on the Greenwich meridian (England time).
 
-It is possible to set set your timezone (see [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) for a list of supported timezones) by adding the following to your workflow :
+It is possible to set set your timezone (see [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) for a list of supported timezones) by adding the following to your workflow:
 
 ```yaml
 - uses: lowlighter/metrics@latest
@@ -1458,11 +1458,31 @@ It is possible to set set your timezone (see [here](https://en.wikipedia.org/wik
     config_timezone: Europe/Paris
 ```
 
+#### 📦 Ordering content
+
+    🚧 This feature is available as pre-release on @master branch (unstable)
+
+It is possible to order metrics content by adding the following to your workflow:
+```yaml
+- uses: lowlighter/metrics@master
+  with:
+    # ... other options
+    base: header
+    plugin_isocalendar: yes
+    plugin_languages: yes
+    plugin_stars: yes
+    config_order: base.header, isocalendar, languages, stars
+```
+
+Content ordering is done through "[partials](https://github.com/lowlighter/metrics/blob/master/source/templates/classic/partials/_.json)", which are actually content chunks of generated metrics, which may vary from one template to another.
+
+It is not mandatory to specify all partials, rest will automatically be appendend in default order.
+
 #### 🔲 Adjust padding
 
 Generated metrics height is computed after being rendered through an headless browser. As rendering can depends on used fonts and operating system, it may render as cropped or with additional blank space at the bottom.
 
-It is possible to adjust the padding by adding the following to your workflow :
+It is possible to adjust the padding by adding the following to your workflow:
 ```yaml
 - uses: lowlighter/metrics@latest
   with:
@@ -1475,9 +1495,21 @@ Both positive and negative values are accepted, but you must specify a percentag
 If you specify a single value, it'll be used as for both width and height padding.
 When two values are specified separated by a comma, the first one will be used for width and the second for height.
 
+#### 🎋 Using a specific branch instead of default
+
+    🚧 This feature is available as pre-release on @master branch (unstable)
+
+Is is possible to commit generated metrics in a specific branch rather than default branch by adding the following to your workflow:
+```yaml
+- uses: lowlighter/metrics@master
+  with:
+    # ... other options
+    committer_branch: my-branch
+```
+
 #### 💱 Convert output to PNG/JPEG
 
-It is possible to convert output from SVG to PNG or JPEG images by adding the following to your workflow :
+It is possible to convert output from SVG to PNG or JPEG images by adding the following to your workflow:
 ```yaml
 - uses: lowlighter/metrics@latest
   with:

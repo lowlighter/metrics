@@ -1,0 +1,20 @@
+[
+  "base.header",
+  "base.activity+community",
+  "base.repositories",
+  "followup",
+  "languages",
+  "projects",
+  "gists",
+  "pagespeed",
+  "habits",
+  "topics",
+  "music",
+  "posts",
+  "tweets",
+  "isocalendar",
+  "stars",
+  "stargazers",
+  "people",
+  "activity"
+]

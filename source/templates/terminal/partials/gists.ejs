@@ -1,0 +1,7 @@
+<% if (plugins.gists) { %>
+<div class="stdin"><%- meta.$ %> ls -lh github/gists</div><%# -%>
+<div class="stdout"><%# -%>
+Total <%= plugins.gists.totalCount %> gist<%= s(plugins.gists.totalCount) %>
+-r--  <b><%= `${plugins.gists.stargazers}`.padStart(5) %></b>  stargazer<%= s(plugins.gists.stargazers) %>
+-r--  <b><%= `${plugins.gists.forks}`.padStart(5) %></b>  fork<%= s(plugins.gists.forks) %>
+</div><% } -%>

@@ -57,15 +57,19 @@
 
     //Load templates
       for (const name of await fs.promises.readdir(__templates)) {
-        //Cache templates file
-          if (!(await fs.promises.lstat(path.join(__templates, name))).isDirectory())
+        //Search for template
+          const directory = path.join(__templates, name)
+          if (!(await fs.promises.lstat(directory)).isDirectory())
             continue
           logger(`metrics/setup > load template [${name}]`)
-          const files = ["image.svg", "style.css", "fonts.css"].map(file => path.join(__templates, (fs.existsSync(path.join(__templates, name, file)) ? name : "classic"), file))
+        //Cache templates files
+          const files = ["image.svg", "style.css", "fonts.css"].map(file => path.join(__templates, (fs.existsSync(path.join(directory, file)) ? name : "classic"), file))
           const [image, style, fonts] = await Promise.all(files.map(async file => `${await fs.promises.readFile(file)}`))
-          conf.templates[name] = {image, style, fonts}
+          const partials = JSON.parse(`${await fs.promises.readFile(path.join(directory, "partials/_.json"))}`)
+          conf.templates[name] = {image, style, fonts, partials, views:[directory]}
+
         //Cache templates scripts
-          Templates[name] = (await import(url.pathToFileURL(path.join(__templates, name, "template.mjs")).href)).default
+          Templates[name] = (await import(url.pathToFileURL(path.join(directory, "template.mjs")).href)).default
           logger(`metrics/setup > load template [${name}] > success`)
         //Debug
           if (conf.settings.debug) {
@@ -73,8 +77,9 @@
               get() {
                 logger(`metrics/setup > reload template [${name}]`)
                 const [image, style, fonts] = files.map(file => `${fs.readFileSync(file)}`)
+                const partials = JSON.parse(`${fs.readFileSync(path.join(directory, "partials/_.json"))}`)
                 logger(`metrics/setup > reload template [${name}] > success`)
-                return {image, style, fonts}
+                return {image, style, fonts, partials, views:[directory]}
               }
             })
           }
