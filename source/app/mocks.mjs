@@ -23,19 +23,21 @@
           apply(target, that, args) {
             //Arguments
               const [query] = args
+              const login = query.match(/login: "(?<login>.*?)"/)?.groups?.login ?? faker.internet.userName()
+
             //Common query
               if (/^query Metrics /.test(query)) {
                 console.debug(`metrics/compute/mocks > mocking graphql api result > Metrics`)
                 return ({
                   user: {
-                    databaseId:22963968,
+                    databaseId:faker.random.number(10000000),
                     name:faker.name.findName(),
-                    login:faker.internet.userName(),
+                    login,
                     createdAt:`${faker.date.past(10)}`,
                     avatarUrl:faker.image.people(),
                     websiteUrl:faker.internet.url(),
                     isHireable:faker.random.boolean(),
-                    twitterUsername:faker.internet.userName(),
+                    twitterUsername:login,
                     repositories:{totalCount:faker.random.number(100), totalDiskUsage:faker.random.number(100000), nodes:[]},
                     packages:{totalCount:faker.random.number(10)},
                     starredRepositories:{totalCount:faker.random.number(1000)},
@@ -87,7 +89,7 @@
                     followers:{totalCount:faker.random.number(1000)},
                     following:{totalCount:faker.random.number(1000)},
                     issueComments:{totalCount:faker.random.number(1000)},
-                    organizations:{totalCount:faker.random.number(1000)}
+                    organizations:{totalCount:faker.random.number(10)}
                   }
                 })
               }
@@ -337,7 +339,7 @@
               if (/^query People /.test(query)) {
                 console.debug(`metrics/compute/mocks > mocking graphql api result > People`)
                 const type = query.match(/(?<type>followers|following)[(]/)?.groups?.type ?? "(unknown type)"
-                return /after: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"/m.test(query) ? ({
+                return /after: "MOCKED_CURSOR"/m.test(query) ? ({
                   user:{
                     [type]:{
                       edges:[],
@@ -346,11 +348,11 @@
                 }) : ({
                   user:{
                     [type]:{
-                      edges:new Array(Math.ceil(20+80*Math.random())).fill(null).map(() => ({
-                        cursor:"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                      edges:new Array(Math.ceil(20+80*Math.random())).fill(undefined).map((login = faker.internet.userName()) => ({
+                        cursor:"MOCKED_CURSOR",
                         node:{
-                          login:"user",
-                          avatarUrl:"https://github.com/identicons/user.png",
+                          login,
+                          avatarUrl:"http://placeimg.com/640/480/people",
                         }
                       }))
                     }
@@ -465,11 +467,11 @@
 
         //Events list
           rest.activity.listEventsForAuthenticatedUser = new Proxy(unmocked.listEventsForAuthenticatedUser, {
-            apply:function(target, that, [{page, per_page}]) {
+            apply:function(target, that, [{username:login, page, per_page}]) {
               console.debug(`metrics/compute/mocks > mocking rest api result > rest.activity.listEventsForAuthenticatedUser`)
               return ({
                 status:200,
-                url:`https://api.github.com/users/lowlighter/events?per_page=${per_page}&page=${page}`,
+                url:`https://api.github.com/users/${login}/events?per_page=${per_page}&page=${page}`,
                 headers:{
                   server:"GitHub.com",
                   status:"200 OK",
@@ -480,160 +482,159 @@
                     id:"10000000000",
                     type:"CommitCommentEvent",
                     actor:{
-                      login:"lowlighter",
+                      login,
                     },
                     repo:{
-                      name:"lowlighter/metrics",
+                      name:`${faker.random.word()}/${faker.random.word()}`,
                     },
                     payload:{
                       comment:{
                         user:{
-                          login:"lowlighter",
+                          login,
                         },
-                        path:"README.md",
-                        commit_id:"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-                        body:"This is a commit comment",
+                        path:faker.system.fileName(),
+                        commit_id:"MOCKED_SHA",
+                        body:faker.lorem.sentence(),
                       }
                     },
-                    created_at:new Date(Date.now()-Math.floor(-Math.random()*14)*Math.floor(-Math.random()*24)*60*60*1000).toISOString(),
+                    created_at:faker.date.recent(7),
                   },
                   {
                     id:"10000000001",
                     type:"PullRequestReviewCommentEvent",
                     actor:{
-                      login:"lowlighter",
+                      login,
                     },
                     repo:{
-                      name:"lowlighter/metrics",
+                      name:`${faker.random.word()}/${faker.random.word()}`,
                     },
                     payload:{
                       action:"created",
                       comment:{
                         user:{
-                          login:"lowlighter",
+                          login,
                         },
-                        body:"This is pull request review comment",
+                        body:faker.lorem.paragraph(),
                       },
                       pull_request:{
-                        title:"Pull request example",
+                        title:faker.lorem.sentence(),
                         number:1,
                         user:{
-                          login:"lowlighter",
+                          login:faker.internet.userName(),
                         },
                         body:"",
                       }
                     },
-                    created_at:new Date(Date.now()-Math.floor(-Math.random()*14)*Math.floor(-Math.random()*24)*60*60*1000).toISOString(),
+                    created_at:faker.date.recent(7),
                   },
                   {
                     id:"10000000002",
                     type:"IssuesEvent",
                     actor:{
-                      login:"lowlighter",
+                      login,
                     },
                     repo:{
-                      name:"lowlighter/metrics",
+                      name:`${faker.random.word()}/${faker.random.word()}`,
                     },
                     payload:{
-                      action:"closed",
+                      action:faker.random.arrayElement(["opened", "closed", "reopened"]),
                       issue:{
                         number:2,
-                        title:"Issue example",
+                        title:faker.lorem.sentence(),
                         user:{
-                          login:"lowlighter",
+                          login,
                         },
-                        body:"Hello this is an example",
-                        performed_via_github_app: null
+                        body:faker.lorem.paragraph(),
+                        performed_via_github_app:null
                       }
                     },
-                    created_at:new Date(Date.now()-Math.floor(-Math.random()*14)*Math.floor(-Math.random()*24)*60*60*1000).toISOString(),
+                    created_at:faker.date.recent(7),
                   },
                   {
                     id:"10000000003",
                     type:"GollumEvent",
                     actor:{
-                      login:"lowlighter",
+                      login,
                     },
                     repo:{
-                      name:"lowlighter/lowlighter",
+                      name:`${faker.random.word()}/${faker.random.word()}`,
                     },
                     payload:{
                       pages:[
                         {
-                          page_name:"Home",
-                          title:"Home",
+                          page_name:faker.lorem.sentence(),
+                          title:faker.lorem.sentence(),
                           summary:null,
                           action:"created",
-                          sha:"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                          sha:"MOCKED_SHA",
                         }
                       ]
                     },
-                    created_at:new Date(Date.now()-Math.floor(-Math.random()*14)*Math.floor(-Math.random()*24)*60*60*1000).toISOString(),
+                    created_at:faker.date.recent(7),
                   },
                   {
                     id:"10000000004",
                     type:"IssueCommentEvent",
                     actor:{
-                      login:"lowlighter",
+                      login,
                     },
                     repo:{
-                      name:"lowlighter/metrics",
+                      name:`${faker.random.word()}/${faker.random.word()}`,
                     },
                     payload:{
                       action:"created",
                       issue:{
                         number:3,
-                        title:"Issue example",
+                        title:faker.lorem.sentence(),
                         user:{
-                          login:"lowlighter",
+                          login,
                         },
                         labels:[
                           {
-                            name:"question",
+                            name:"lorem ipsum",
                             color:"d876e3",
                           }
                         ],
                         state:"open",
                       },
                       comment:{
-                        body:"Hello world !",
-                        performed_via_github_app: null
+                        body:faker.lorem.paragraph(),
+                        performed_via_github_app:null
                       }
                     },
-                    created_at:new Date(Date.now()-Math.floor(-Math.random()*14)*Math.floor(-Math.random()*24)*60*60*1000).toISOString(),
+                    created_at:faker.date.recent(7),
                   },
                   {
                     id:"10000000005",
                     type:"ForkEvent",
                     actor:{
-                      login:"lowlighter",
+                      login,
                     },
                     repo:{
-                      id:327522930,
-                      name:"lowlighter/gracidea",
+                      name:`${faker.random.word()}/${faker.random.word()}`,
                     },
                     payload:{
                       forkee:{
-                        name:"gracidea",
-                        full_name:"lowlighter/gracidea",
+                        name:faker.random.word(),
+                        full_name:`${faker.random.word()}/${faker.random.word()}`,
                       }
                     },
-                    created_at:new Date(Date.now()-Math.floor(-Math.random()*14)*Math.floor(-Math.random()*24)*60*60*1000).toISOString(),
+                    created_at:faker.date.recent(7),
                   },
                   {
                     id:"10000000006",
                     type:"PullRequestReviewEvent",
                     actor:{
-                      login:"lowlighter",
+                      login,
                     },
                     repo:{
-                      name:"lowlighter/metrics",
+                      name:`${faker.random.word()}/${faker.random.word()}`,
                     },
                     payload:{
                       action:"created",
                       review:{
                         user:{
-                          login:"lowlighter",
+                          login,
                         },
                         state:"approved",
                       },
@@ -641,151 +642,151 @@
                         state:"open",
                         number:4,
                         locked:false,
-                        title:"Pull request example",
+                        title:faker.lorem.sentence(),
                         user:{
-                          login:"user",
+                          login:faker.internet.userName(),
                         },
                       }
                     },
-                    created_at:new Date(Date.now()-Math.floor(-Math.random()*14)*Math.floor(-Math.random()*24)*60*60*1000).toISOString(),
+                    created_at:faker.date.recent(7),
                   },
                   {
                     id:"10000000007",
                     type:"ReleaseEvent",
                     actor:{
-                      login:"lowlighter",
+                      login,
                     },
                     repo:{
-                      name:"lowlighter/metrics",
+                      name:`${faker.random.word()}/${faker.random.word()}`,
                     },
                     payload:{
                       action:"published",
                       release:{
-                        tag_name:"v3.1",
-                        name:"Version 3.1",
-                        draft: false,
-                        prerelease: true,
+                        tag_name:`v${faker.random.number()}.${faker.random.number()}`,
+                        name:faker.random.words(4),
+                        draft:faker.random.boolean(),
+                        prerelease:faker.random.boolean(),
                       }
                     },
-                    created_at:new Date(Date.now()-Math.floor(-Math.random()*14)*Math.floor(-Math.random()*24)*60*60*1000).toISOString(),
+                    created_at:faker.date.recent(7),
                   },
                   {
                     id:"10000000008",
                     type:"CreateEvent",
                     actor:{
-                      login:"lowlighter",
+                      login,
                     },
                     repo:{
-                      name:"lowlighter/metrics",
+                      name:`${faker.random.word()}/${faker.random.word()}`,
                     },
                     payload:{
-                      ref:"feat-new-plugin",
+                      ref:faker.lorem.slug(),
                       ref_type:"branch",
                       master_branch:"master",
                     },
-                    created_at:new Date(Date.now()-Math.floor(-Math.random()*14)*Math.floor(-Math.random()*24)*60*60*1000).toISOString(),
+                    created_at:faker.date.recent(7),
                   },
                   {
                     id:"100000000009",
                     type:"WatchEvent",
                     actor:{
-                      login:"lowlighter",
+                      login,
                     },
                     repo:{
-                      name:"lowlighter/gracidea",
+                      name:"lowlighter/metrics",
                     },
                     payload:{action:"started"},
-                    created_at:new Date(Date.now()-Math.floor(-Math.random()*14)*Math.floor(-Math.random()*24)*60*60*1000).toISOString(),
+                    created_at:faker.date.recent(7),
                   },
                   {
                     id:"10000000010",
                     type:"DeleteEvent",
                     actor:{
-                      login:"lowlighter",
+                      login,
                     },
                     repo:{
-                      name:"lowlighter/metrics",
+                      name:`${faker.random.word()}/${faker.random.word()}`,
                     },
                     payload:{
-                      ref:"feat-plugin-merged",
-                      ref_type:"branch",
+                      ref:faker.lorem.slug(),
+                      ref_type:faker.random.arrayElement(["tag", "branch"]),
                     },
-                    created_at:new Date(Date.now()-Math.floor(-Math.random()*14)*Math.floor(-Math.random()*24)*60*60*1000).toISOString(),
+                    created_at:faker.date.recent(7),
                   },
                   {
                     id:"10000000011",
                     type:"PushEvent",
                     actor:{
-                      login:"lowlighter",
+                      login,
                     },
                     repo:{
-                      name:"lowlighter/metrics",
+                      name:`${faker.random.word()}/${faker.random.word()}`,
                     },
                     payload:{
                       size:1,
                       ref:"refs/heads/master",
                       commits:[
                         {
-                          sha:"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-                          message:"Commit example",
+                          sha:"MOCKED_SHA",
+                          message:faker.lorem.sentence(),
                         }
                       ]
                     },
-                    created_at:new Date(Date.now()-Math.floor(-Math.random()*14)*Math.floor(-Math.random()*24)*60*60*1000).toISOString(),
+                    created_at:faker.date.recent(7),
                   },
                   {
                     id:"10000000012",
                     type:"PullRequestEvent",
                     actor:{
-                      login:"lowlighter",
+                      login,
                     },
                     repo:{
-                      name:"lowlighter/metrics",
+                      name:`${faker.random.word()}/${faker.random.word()}`,
                     },
                     payload:{
-                      action:"opened",
+                      action:faker.random.arrayElement(["opened", "closed"]),
                       number:5,
                       pull_request:{
                         user:{
-                          login:"lowlighter",
+                          login,
                         },
                         state:"open",
-                        title:"Pull request example",
-                        additions:210,
-                        deletions:126,
-                        changed_files:10,
+                        title:faker.lorem.sentence(),
+                        additions:faker.random.number(1000),
+                        deletions:faker.random.number(1000),
+                        changed_files:faker.random.number(10),
                       }
                     },
-                    created_at:new Date(Date.now()-Math.floor(-Math.random()*14)*Math.floor(-Math.random()*24)*60*60*1000).toISOString(),
+                    created_at:faker.date.recent(7),
                   },
                   {
                     id:"10000000013",
                     type:"MemberEvent",
                     actor:{
-                      login:"lowlighter",
+                      login,
                     },
                     repo:{
-                      name:"lowlighter/metrics",
+                      name:`${faker.random.word()}/${faker.random.word()}`,
                     },
                     payload:{
                       member:{
-                        login:"botlighter",
+                        login:faker.internet.userName(),
                       },
                       action:"added"
                     },
-                    created_at:new Date(Date.now()-Math.floor(-Math.random()*14)*Math.floor(-Math.random()*24)*60*60*1000).toISOString(),
+                    created_at:faker.date.recent(7),
                   },
                   {
                     id:"10000000014",
                     type:"PublicEvent",
                     actor:{
-                      login:"lowlighter",
+                      login,
                     },
                     repo:{
-                      name:"lowlighter/metrics",
+                      name:`${faker.random.word()}/${faker.random.word()}`,
                     },
                     payload:{},
-                    created_at:new Date(Date.now()-Math.floor(-Math.random()*14)*Math.floor(-Math.random()*24)*60*60*1000).toISOString(),
+                    created_at:faker.date.recent(7),
                   }
                 ]
               })
@@ -794,13 +795,13 @@
 
         //Repository traffic
           rest.repos.getViews = new Proxy(unmocked.getViews, {
-            apply:function(target, that, args) {
+            apply:function(target, that, [{owner, repo}]) {
               console.debug(`metrics/compute/mocks > mocking rest api result > rest.repos.getViews`)
               const count = faker.random.number(10000)*2
               const uniques = faker.random.number(count)*2
               return ({
                 status:200,
-                url:"https://api.github.com/repos/lowlighter/metrics/traffic/views",
+                url:`https://api.github.com/repos/${owner}/${repo}/traffic/views`,
                 headers:{
                   server:"GitHub.com",
                   status:"200 OK",
@@ -820,11 +821,11 @@
 
         //Repository contributions
           rest.repos.getContributorsStats = new Proxy(unmocked.getContributorsStats, {
-            apply:function(target, that, args) {
+            apply:function(target, that, [{owner, repo}]) {
               console.debug(`metrics/compute/mocks > mocking rest api result > rest.repos.getContributorsStats`)
               return ({
                 status:200,
-                url:"https://api.github.com/repos/lowlighter/metrics/stats/contributors",
+                url:`https://api.github.com/repos/${owner}/${repo}/stats/contributors`,
                 headers:{
                   server:"GitHub.com",
                   status:"200 OK",
@@ -840,7 +841,7 @@
                       {w:4, a:faker.random.number(10000), d:faker.random.number(10000), c:faker.random.number(10000)},
                     ],
                     author: {
-                      login:faker.internet.userName(),
+                      login:owner,
                     }
                   }
                 ]
@@ -850,11 +851,11 @@
 
         //Repository contributions
           rest.repos.listCommits = new Proxy(unmocked.listCommits, {
-            apply:function(target, that, [{page, per_page}]) {
+            apply:function(target, that, [{page, per_page, owner, repo}]) {
               console.debug(`metrics/compute/mocks > mocking rest api result > rest.repos.listCommits`)
               return ({
                 status:200,
-                url:`https://api.github.com/repos/lowlighter/metrics/commits?per_page=${per_page}&page=${page}`,
+                url:`https://api.github.com/repos/${owner}/${repo}/commits?per_page=${per_page}&page=${page}`,
                 headers: {
                   server:"GitHub.com",
                   status:"200 OK",
@@ -865,11 +866,11 @@
                     sha:"MOCKED_SHA",
                     commit:{
                       author:{
-                        name:faker.internet.userName(),
+                        name:owner,
                         date:`${faker.date.recent(14)}`
                       },
                       committer:{
-                        name:faker.internet.userName(),
+                        name:owner,
                         date:`${faker.date.recent(14)}`
                       },
                     }
@@ -919,6 +920,7 @@
             apply:function(target, that, args) {
               //Arguments
                 const [url, options] = args
+                const tested = url.match(/&url=(?<tested>.*?)(?:&|$)/)?.groups?.tested ?? faker.internet.url()
               //Pagespeed api
                 if (/^https:..www.googleapis.com.pagespeedonline.v5/.test(url)) {
                   //Pagespeed result
@@ -928,10 +930,10 @@
                         status:200,
                         data:{
                           captchaResult:"CAPTCHA_NOT_NEEDED",
-                          id:faker.internet.url(),
+                          id:tested,
                           lighthouseResult:{
-                            requestedUrl:faker.internet.url(),
-                            finalUrl:faker.internet.url(),
+                            requestedUrl:tested,
+                            finalUrl:tested,
                             lighthouseVersion:"6.3.0",
                             audits:{
                               "final-screenshot":{
@@ -1086,6 +1088,7 @@
                   //Get user profile
                     if ((/users.by.username/.test(url))&&(options?.headers?.Authorization === "Bearer MOCKED_TOKEN")) {
                       console.debug(`metrics/compute/mocks > mocking twitter api result > ${url}`)
+                      const username = url.match(/username[/](?<username>.*?)[?]/)?.groups?.username ?? faker.internet.userName()
                       return ({
                           status:200,
                           data:{
@@ -1094,7 +1097,7 @@
                               name:faker.name.findName(),
                               verified:faker.random.boolean(),
                               id:faker.random.number(1000000).toString(),
-                              username:faker.internet.userName(),
+                              username,
                             },
                           }
                       })
