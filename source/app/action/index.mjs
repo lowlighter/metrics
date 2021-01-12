@@ -293,6 +293,7 @@
             await rest.repos.createOrUpdateFileContents({
               ...github.context.repo, path:filename, message:`Update ${filename} - [Skip GitHub Action]`,
               content:Buffer.from(rendered).toString("base64"),
+              branch,
               ...(sha ? {sha} : {})
             })
             info("Commit to current repository", "ok")
