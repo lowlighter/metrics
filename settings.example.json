@@ -10,6 +10,7 @@
   "port":3000,                    "//":"Listening port",
   "optimize":true,                "//":"Optimize SVG image",
   "debug":false,                  "//":"Debug mode",
+  "mocked":false,                 "//":"Use mocked data",
   "repositories":100,             "//":"Number of repositories to use to compute metrics",
   "templates":{                   "//":"Template configuration",
     "default":"classic",          "//":"Default template",
