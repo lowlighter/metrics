@@ -23,7 +23,7 @@ action:
 web:
   - source/app/web/**
   - settings.example.json
-plugin:
+plugins:
   - source/plugins/**
 queries:
   - source/queries/**
