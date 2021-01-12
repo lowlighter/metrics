@@ -978,7 +978,7 @@ Add the following to your workflow:
 
 ### 🎟️ Follow-up
 
-The *follow-up* plugin displays the ratio of opened/closed issues and the ratio of opened/merged pull requests across all your repositories, which shows if they're well-maintened or not.
+The *follow-up* plugin displays the ratio of opened/closed issues and the ratio of opened/merged pull requests across all your repositories, which shows if they're well-maintained or not.
 
 ![Follow-up plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.followup.svg)
 
