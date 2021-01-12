@@ -150,7 +150,7 @@
     color: var(--color-text-tertiary);
   }
 /* Readme content */
-  .right section {
+  .right > section {
     height: 87%;
     overflow: auto;
   }
@@ -274,8 +274,9 @@
   }
 /* Metrics */
   .metrics {
+    height: 80%;
     width: 100%;
-    max-width: 480px;
+    overflow: auto;
   }
 
 /* Media screen */

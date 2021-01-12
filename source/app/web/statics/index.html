@@ -54,7 +54,7 @@
 
             <!-- User -->
             <div class="user step">
-              <input type="text" name="user" v-model="user" maxlength="39" placeholder="Your GitHub username" :disabled="generated.pending">
+              <input type="text" name="user" v-model="user" maxlength="39" placeholder="Your GitHub username" :disabled="generated.pending" @keyup="load">
               <button @click="generate" :disabled="(!user)||(generated.pending)">{{ generated.pending ? "Working on it :)" : "Generate your metrics !" }}</button>
               <!-- GitHub requests tracker -->
               <div class="gh-requests">{{ requests.remaining }} GitHub request{{ requests.remaining > 1 ? "s" : "" }} remaining</div>
@@ -112,7 +112,7 @@
               </div>
 
               <!-- Plugins options -->
-              <div class="step" v-if="(plugins.enabled.tweets)||(plugins.enabled.music)||(plugins.enabled.pagespeed)||(plugins.enabled.languages)||(plugins.enabled.habits)||(plugins.enabled.posts)||(plugins.enabled.isocalendar)||(plugins.enabled.projects)||(plugins.enabled.topics)||(plugins.enabled.activity)">
+              <div class="step" v-if="(plugins.enabled.tweets)||(plugins.enabled.music)||(plugins.enabled.pagespeed)||(plugins.enabled.languages)||(plugins.enabled.habits)||(plugins.enabled.posts)||(plugins.enabled.isocalendar)||(plugins.enabled.projects)||(plugins.enabled.topics)||(plugins.enabled.stars)||(plugins.enabled.activity)">
                 <h2>🔧 Configure plugins</h2>
                 <div class="options">
                   <div class="options-group" v-if="plugins.enabled.tweets">
@@ -120,6 +120,10 @@
                     <label>
                       Number of tweets to display
                       <input type="number" v-model="plugins.options['tweets.limit']" min="1" max="10" @change="load" :disabled="generated.pending">
+                    </label>
+                    <label>
+                      Twitter username (optional)
+                      <input type="text" v-model="plugins.options['tweets.user']" @keyup="load" :disabled="generated.pending">
                     </label>
                   </div>
                   <div class="options-group" v-if="plugins.enabled.music">
@@ -195,6 +199,13 @@
                         <option value="half-year">Half year</option>
                         <option value="full-year">Full year</option>
                       </select>
+                    </label>
+                  </div>
+                  <div class="options-group" v-if="plugins.enabled.stars">
+                    <h4>{{ plugins.descriptions.stars }}</h4>
+                    <label>
+                      Number of starred repositories
+                      <input type="number" v-model="plugins.options['stars.limit']" min="1" max="100" @change="load" :disabled="generated.pending">
                     </label>
                   </div>
                   <div class="options-group" v-if="plugins.enabled.topics">
@@ -274,12 +285,7 @@
               <!-- Overview -->
               <section class="preview" v-if="tab == 'overview'">
                 Once generated, click on tabs above to see the code to embed them on your real readme !<br>
-                <template v-if="generated.content">
-                  <img class="metrics" :src="generated.content" alt="metrics">
-                </template>
-                <template v-else>
-                  <img class="metrics" :src="templates.placeholder" alt="metrics">
-                </template>
+                <div class="metrics" v-html="generated.content||templates.placeholder"></div>
                 <div class="error" v-if="generated.error">An error occurred. Please try again later.</div>
               </section>
               <!-- Markdown -->
@@ -307,8 +313,10 @@
     <script src="/.js/prism.markdown.min.js"></script>
     <script src="/.js/prism.yaml.min.js"></script>
     <script src="/.js/ejs.min.js"></script>
+    <script src="/.js/faker.min.js"></script>
     <script src="/.js/vue.min.js"></script>
     <script src="/.js/vue.prism.min.js"></script>
+    <script src="/.js/app.placeholder.js"></script>
     <script src="/.js/app.js"></script>
   </body>
 </html>
