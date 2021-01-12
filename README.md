@@ -10,186 +10,186 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
 
 <table>
   <tr>
-    <th><a href="https://github.com/lowlighter/metrics#%EF%B8%8F-pagespeed">⏱️ Google PageSpeed plugin</a></th>
-    <th><a href="https://github.com/lowlighter/metrics#-isometric-calendar">📅 Isometric calendar plugin</a></th>
+    <th><a href="#%EF%B8%8F-pagespeed">⏱️ Google PageSpeed plugin</a></th>
+    <th><a href="#-isometric-calendar">📅 Isometric calendar plugin</a></th>
   </tr>
   <tr>
     <td>
-      <a href="https://github.com/lowlighter/metrics#%EF%B8%8F-pagespeed">
+      <a href="#%EF%B8%8F-pagespeed">
         <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.svg" alt="" width="400">
       </a>
       <details><summary>Detailed audit version</summary>
-        <a href="https://github.com/lowlighter/metrics#%EF%B8%8F-pagespeed">
+        <a href="#%EF%B8%8F-pagespeed">
           <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.detailed.svg" alt="" width="400">
         </a>
       </details>
       <details><summary>With screenshot version</summary>
-        <a href="https://github.com/lowlighter/metrics#%EF%B8%8F-pagespeed">
+        <a href="#%EF%B8%8F-pagespeed">
           <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.screenshot.svg" alt="" width="400">
         </a>
       </details>
     </td>
     <td>
-      <a href="https://github.com/lowlighter/metrics#-isometric-calendar">
+      <a href="#-isometric-calendar">
         <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.isocalendar.svg" alt="" width="400">
       </a>
       <details><summary>Full year version</summary>
-        <a href="https://github.com/lowlighter/metrics#-isometric-calendar">
+        <a href="#-isometric-calendar">
           <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.isocalendar.fullyear.svg" alt="" width="400">
         </a>
       </details>
     </td>
   </tr>
   <tr>
-    <th><a href="https://github.com/lowlighter/metrics#-music">🎼 Favorite music tracks plugin</a></th>
-    <th><a href="https://github.com/lowlighter/metrics#-music">🎧 Recently listened music plugin</a></th>
+    <th><a href="#-music">🎼 Favorite music tracks plugin</a></th>
+    <th><a href="#-music">🎧 Recently listened music plugin</a></th>
   </tr>
   <tr>
     <td>
-      <a href="https://github.com/lowlighter/metrics#-music">
+      <a href="#-music">
         <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.music.playlist.svg" alt="" width="400">
       </a>
     </td>
     <td>
-      <a href="https://github.com/lowlighter/metrics#-music">
+      <a href="#-music">
         <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.music.recent.svg" alt="" width="400">
       </a>
     </td>
   </tr>
   <tr>
-    <th><a href="https://github.com/lowlighter/metrics#%EF%B8%8F-languages">🈷️ Most used languages plugin</a></th>
-    <th><a href="https://github.com/lowlighter/metrics#%EF%B8%8F-follow-up">🎟️ Follow-up plugin</a></th>
+    <th><a href="#%EF%B8%8F-languages">🈷️ Most used languages plugin</a></th>
+    <th><a href="#%EF%B8%8F-follow-up">🎟️ Follow-up plugin</a></th>
   </tr>
   <tr>
     <td>
-      <a href="https://github.com/lowlighter/metrics#%EF%B8%8F-languages">
+      <a href="#%EF%B8%8F-languages">
         <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.svg" alt="" width="400">
       </a>
     </td>
     <td>
-      <a href="https://github.com/lowlighter/metrics#%EF%B8%8F-follow-up">
+      <a href="#%EF%B8%8F-follow-up">
         <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.followup.svg" alt="" width="400">
       </a>
     </td>
   </tr>
   <tr>
-    <th><a href="https://github.com/lowlighter/metrics#-topics">📌 Starred topics plugin</a></th>
-    <th><a href="https://github.com/lowlighter/metrics#%EF%B8%8F-projects">🗂️ Active projects plugin</a></th>
+    <th><a href="#-topics">📌 Starred topics plugin</a></th>
+    <th><a href="#%EF%B8%8F-projects">🗂️ Active projects plugin</a></th>
   </tr>
   <tr>
     <td>
-      <a href="https://github.com/lowlighter/metrics#-topics">
+      <a href="#-topics">
         <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.svg" alt="" width="400">
       </a>
       <details open><summary>Mastered and known technologies version</summary>
-        <a href="https://github.com/lowlighter/metrics#-topics">
+        <a href="#-topics">
           <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.mastered.svg" alt="" width="400">
         </a>
       </details>
     </td>
     <td>
-      <a href="https://github.com/lowlighter/metrics#%EF%B8%8F-projects">
+      <a href="#%EF%B8%8F-projects">
         <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.projects.svg" alt="" width="400">
       </a>
     </td>
   </tr>
   <tr>
-    <th><a href="https://github.com/lowlighter/metrics#-lines">👨‍💻 Lines of code plugin</a></th>
-    <th><a href="https://github.com/lowlighter/metrics#-traffic">🧮 Repositories traffic plugin</a></th>
+    <th><a href="#-lines">👨‍💻 Lines of code plugin</a></th>
+    <th><a href="#-traffic">🧮 Repositories traffic plugin</a></th>
   </tr>
   <tr>
     <td>
-      <a href="https://github.com/lowlighter/metrics#-lines">
+      <a href="#-lines">
         <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.lines.svg" alt="" width="400">
       </a>
     </td>
     <td>
-      <a href="https://github.com/lowlighter/metrics#-traffic">
+      <a href="#-traffic">
         <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.traffic.svg" alt="" width="400">
       </a>
     </td>
   </tr>
   <tr>
-    <th><a href="https://github.com/lowlighter/metrics#-tweets">🐤 Tweets plugin</a></th>
-    <th><a href="https://github.com/lowlighter/metrics#%EF%B8%8F-posts">✒️ Recent posts plugin</a></th>
+    <th><a href="#-tweets">🐤 Tweets plugin</a></th>
+    <th><a href="#%EF%B8%8F-posts">✒️ Recent posts plugin</a></th>
   </tr>
   <tr>
     <td>
-      <a href="https://github.com/lowlighter/metrics#-tweets">
+      <a href="#-tweets">
         <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.tweets.svg" alt="" width="400">
       </a>
     </td>
     <td>
-      <a href="https://github.com/lowlighter/metrics#%EF%B8%8F-posts">
+      <a href="#%EF%B8%8F-posts">
         <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.posts.svg" alt="" width="400">
       </a>
     </td>
   </tr>
   <tr>
-    <th><a href="https://github.com/lowlighter/metrics#-habits">💡 Coding Habits plugin</a></th>
-    <th><a href="https://github.com/lowlighter/metrics#-activity">📰 Activity plugin <sup><code>🚧 @master</code></sup></a></th>
+    <th><a href="#-habits">💡 Coding Habits plugin</a></th>
+    <th><a href="#-activity">📰 Activity plugin <sup><code>🚧 @master</code></sup></a></th>
   </tr>
   <tr>
     <td>
-      <a href="https://github.com/lowlighter/metrics#-habits">
+      <a href="#-habits">
         <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.facts.svg" alt="" width="400">
       </a>
       <details open><summary>With charts version</summary>
-        <a href="https://github.com/lowlighter/metrics#-habits">
+        <a href="#-habits">
           <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.charts.svg" alt="" width="400">
         </a>
       </details>
     </td>
     <td>
-      <a href="https://github.com/lowlighter/metrics#-activity">
+      <a href="#-activity">
         <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.activity.svg" alt="" width="400">
       </a>
     </td>
   </tr>
   <tr>
-    <th><a href="https://github.com/lowlighter/metrics#-stargazers">✨ Stargazers evolution</a></th>
-    <th><a href="https://github.com/lowlighter/metrics#-stars">🌟 Recently starred repositories</a></th>
+    <th><a href="#-stargazers">✨ Stargazers evolution</a></th>
+    <th><a href="#-stars">🌟 Recently starred repositories</a></th>
   </tr>
   <tr>
     <td>
-      <a href="https://github.com/lowlighter/metrics#-stargazers">
+      <a href="#-stargazers">
         <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.stargazers.svg" alt="" width="400">
       </a>
     </td>
     <td>
-      <a href="https://github.com/lowlighter/metrics#-stars">
+      <a href="#-stars">
         <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.stars.svg" alt="" width="400">
       </a>
     </td>
   </tr>
   <tr>
-    <th><a href="https://github.com/lowlighter/metrics#-gists">🎫 Gists plugin</a></th>
-    <th><a href="https://github.com/lowlighter/metrics#-people">🧑‍🤝‍🧑 People plugin <sup><code>🚧 @master</code></sup></a></th>
+    <th><a href="#-gists">🎫 Gists plugin</a></th>
+    <th><a href="#-people">🧑‍🤝‍🧑 People plugin <sup><code>🚧 @master</code></sup></a></th>
   </tr>
   <tr>
     <td>
-      <a href="https://github.com/lowlighter/metrics#-gists">
+      <a href="#-gists">
         <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.gists.svg" alt="" width="400">
       </a>
     </td>
     <td>
-      <a href="https://github.com/lowlighter/metrics#-people">
+      <a href="#-people">
         <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.people.followers.svg" alt="" width="400">
       </a>
       <details><summary>Followed people version</summary>
-        <a href="https://github.com/lowlighter/metrics#-habits">
+        <a href="#-habits">
           <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.people.following.svg" alt="" width="400">
         </a>
       </details>
     </td>
   </tr>
   <tr>
-    <th><a href="https://github.com/lowlighter/metrics#%EF%B8%8F-base-content">🗃️ Header special features</a></th>
+    <th><a href="#%EF%B8%8F-base-content">🗃️ Header special features</a></th>
     <th></th>
   </tr>
   <tr>
     <td>
-      <a href="https://github.com/lowlighter/metrics#%EF%B8%8F-base-content">
+      <a href="#%EF%B8%8F-base-content">
         <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.header.svg" alt="" width="400">
       </a>
     </td>
