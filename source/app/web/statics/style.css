@@ -116,6 +116,11 @@ body {
     border-top: 1px solid var(--color-border-primary);
   }
 
+  .option {
+    display: flex;
+    flex-direction: column;
+  }
+
 /* Preview */
   .preview {
     border: 1px solid var(--color-border-primary);
@@ -123,6 +128,11 @@ body {
     padding: 1rem;
     flex-grow: 1;
     overflow: auto;
+  }
+
+  .preview .image {
+    overflow: auto;
+    max-height: 1200px;
   }
 
   .code pre {
@@ -150,7 +160,15 @@ body {
   }
 
 /* Inputs */
-  input[type=text] {
+  label {
+    cursor: pointer;
+  }
+  label:hover {
+    background-color: var(--color-input-contrast-bg);
+    border-radius: 6px;
+  }
+
+  input[type=text], input[type=number], select {
     background-color: var(--color-input-contrast-bg);
     padding: .4rem .8rem;
     color: var(--color-text-primary);
@@ -161,7 +179,7 @@ body {
     box-shadow: var(--color-shadow-inset);
   }
 
-  input[type=text]:focus {
+  input[type=text]:focus, input[type=number]:focus, select:focus {
     background-color: var(--color-input-bg);
     border-color: var(--color-state-focus-border);
     outline: none;
@@ -169,14 +187,41 @@ body {
   }
 
   button {
-    color: var(--color-btn-primary-disabled-text);
-    background-color: var(--color-btn-primary-disabled-bg);
-    border-color: var(--color-btn-primary-disabled-border);
+    color: var(--color-btn-primary-text);
+    background-color: var(--color-btn-primary-bg);
+    border-color: var(--color-btn-primary-border);
     box-shadow: var(--color-btn-primary-shadow),var(--color-btn-primary-inset-shadow);
     padding: .4rem .8rem;
     border-radius: 6px;
     font-weight: 500;
     margin: .5rem 0;
+    cursor: pointer;
+    transition-duration: all .12s ease-out;
+  }
+
+  button[disabled] {
+    color: var(--color-btn-primary-disabled-text);
+    background-color: var(--color-btn-primary-disabled-bg);
+    border-color: var(--color-btn-primary-disabled-border);
+  }
+
+  button:focus {
+    outline: none;
+  }
+
+/* Links */
+  a, a:hover, a:visited {
+    color: var(--color-text-link);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+/* Requests */
+  small {
+    text-align: center;
   }
 
 /* Media screen */
