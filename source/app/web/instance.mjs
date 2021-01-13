@@ -185,13 +185,13 @@
       app.listen(port, () => console.log([
         `Listening on port      │ ${port}`,
         `Debug mode             │ ${debug}`,
-        `Mocked data            │ ${conf.settings.mocked}`,
+        `Mocked data            │ ${conf.settings.mocked ?? false}`,
         `Restricted to users    │ ${restricted.size ? [...restricted].join(", ") : "(unrestricted)"}`,
         `Cached time            │ ${cached} seconds`,
         `Rate limiter           │ ${ratelimiter ? util.inspect(ratelimiter, {depth:Infinity, maxStringLength:256}) : "(enabled)"}`,
         `Max simultaneous users │ ${maxusers ? `${maxusers} users` : "(unrestricted)"}`,
         `Plugins enabled        │ ${enabled.map(({name}) => name).join(", ")}`,
-        `SVG optimization       │ ${conf.settings.optimize}`,
+        `SVG optimization       │ ${conf.settings.optimize ?? false}`,
         `Server ready !`
       ].join("\n")))
   }

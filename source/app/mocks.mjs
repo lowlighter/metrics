@@ -352,7 +352,7 @@
                         cursor:"MOCKED_CURSOR",
                         node:{
                           login,
-                          avatarUrl:"http://placeimg.com/640/480/people",
+                          avatarUrl:null,
                         }
                       }))
                     }
