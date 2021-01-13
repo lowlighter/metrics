@@ -246,7 +246,7 @@
                     <h4>{{ plugins.descriptions.activity }}</h4>
                     <label>
                       Number of activity events to display
-                      <input type="number" v-model="plugins.options['activity.limit']" min="1" max="10" @change="load" :disabled="generated.pending">
+                      <input type="number" v-model="plugins.options['activity.limit']" min="1" max="100" @change="load" :disabled="generated.pending">
                     </label>
                   </div>
                 </div>

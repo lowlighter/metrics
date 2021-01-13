@@ -679,7 +679,7 @@
                     },
                     payload:{
                       ref:faker.lorem.slug(),
-                      ref_type:"branch",
+                      ref_type:faker.random.arrayElement(["tag", "branch"]),
                       master_branch:"master",
                     },
                     created_at:faker.date.recent(7),
