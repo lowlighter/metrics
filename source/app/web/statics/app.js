@@ -15,10 +15,21 @@
               this.palette = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
             } catch (error) {}
           //GitHub limit tracker
-            setInterval(async function () {
+            const {data:requests} = await axios.get("/.requests")
+            this.requests = requests
+            setInterval(async () => {
               const {data:requests} = await axios.get("/.requests")
               this.requests = requests
-            }, 15*1000)
+            }, 15000)
+          //Generate placeholder
+            this.mock({timeout:200})
+            setInterval(() => {
+              const marker = document.querySelector("#metrics-end")
+              if (marker) {
+                this.mockresize()
+                marker.remove()
+              }
+            }, 1000)
         },
         components:{Prism:PrismComponent},
       //Watchers
@@ -64,16 +75,46 @@
               stargazers:"✨ Stargazers over last weeks",
               activity:"📰 Recent activity",
               people:"🧑‍🤝‍🧑 Followers and followed",
+              base:"🗃️ Base content",
               "base.header":"Header",
               "base.activity":"Account activity",
               "base.community":"Community stats",
               "base.repositories":"Repositories metrics",
               "base.metadata":"Metadata",
-              options:{
-
-              }
             },
             options:{
+              descriptions:{
+                "languages.ignored":{text:"Ignored languages", placeholder:"lang-0, lang-1, ..."},
+                "languages.skipped":{text:"Skipped repositories", placeholder:"repo-0, repo-1, ..."},
+                "pagespeed.detailed":{text:"Detailed audit", type:"boolean"},
+                "pagespeed.screenshot":{text:"Audit screenshot", type:"boolean"},
+                "pagespeed.url":{text:"Url", placeholder:"(default to GitHub attached)"},
+                "habits.from":{text:"Events to use", type:"number", min:1, max:1000},
+                "habits.days":{text:"Max events age", type:"number", min:1, max:30},
+                "habits.facts":{text:"Display facts", type:"boolean"},
+                "habits.charts":{text:"Display charts", type:"boolean"},
+                "music.playlist":{text:"Playlist url", placeholder:"https://embed.music.apple.com/en/playlist/"},
+                "music.limit":{text:"Limit", type:"number", min:1, max:100},
+                "posts.limit":{text:"Limit", type:"number", min:1, max:30},
+                "posts.user":{text:"Username", placeholder:"(default to GitHub login)"},
+                "posts.source":{text:"Source", type:"select", values:["dev.to"]},
+                "isocalendar.duration":{text:"Duration", type:"select", values:["half-year", "full-year"]},
+                "projects.limit":{text:"Limit", type:"number", min:0, max:100},
+                "projects.repositories":{text:"Repositories projects", placeholder:"user/repo/projects/1, ..."},
+                "topics.mode":{text:"Mode", type:"select", values:["starred", "mastered"]},
+                "topics.sort":{text:"Sort by", type:"select", values:["starred", "activity", "stars", "random"]},
+                "topics.limit":{text:"Limit", type:"number", min:0, max:20},
+                "tweets.limit":{text:"Limit", type:"number", min:1, max:10},
+                "tweets.user":{text:"Username", placeholder:"(default to GitHub attached)"},
+                "stars.limit":{text:"Limit", type:"number", min:1, max:100},
+                "activity.limit":{text:"Limit", type:"number", min:1, max:100},
+                "activity.days":{text:"Max events age", type:"number", min:1, max:9999},
+                "activity.filter":{text:"Events type", placeholder:"all"},
+                "people.size":{text:"Limit", type:"number", min:16, max:64},
+                "people.limit":{text:"Limit", type:"number", min:1, max:9999},
+                "people.types":{text:"Types", placeholder:"followers, following"},
+                "people.identicons":{text:"Use identicons", type:"boolean"},
+              },
               "languages.ignored":"",
               "languages.skipped":"",
               "pagespeed.detailed":false,
@@ -108,7 +149,10 @@
           templates:{
             list:templates,
             selected:templates[0]?.name||"classic",
-            placeholder:"",
+            placeholder:{
+              timeout:null,
+              image:""
+            },
             descriptions:{
               classic:"Classic template",
               terminal:"Terminal template",
@@ -125,7 +169,7 @@
         computed:{
           //User's avatar
             avatar() {
-              return `https://github.com/lowlighter.png`
+              return this.generated.content ? `https://github.com/${this.user}.png` : null
             },
           //User's repository
             repo() {
@@ -187,16 +231,40 @@
                   ...Object.entries(this.config).filter(([key, value]) => value).map(([key, value]) => `          config_${key.replace(/[.]/, "_")}: ${typeof value === "boolean" ? {true:"yes", false:"no"}[value] : value}`),
                 ].sort(),
               ].join("\n")
+            },
+          //Configurable plugins
+            configure() {
+              //Check enabled plugins
+                const enabled = Object.entries(this.plugins.enabled).filter(([key, value]) => (value)&&(key !== "base")).map(([key, value]) => key)
+                const filter = new RegExp(`^(?:${enabled.join("|")})[.]`)
+              //Search related options
+                const entries = Object.entries(this.plugins.options.descriptions).filter(([key, value]) => filter.test(key))
+                entries.push(...enabled.map(key => [key, this.plugins.descriptions[key]]))
+                entries.sort((a, b) => a[0].localeCompare(b[0]))
+              //Return object
+                const configure = Object.fromEntries(entries)
+                return Object.keys(configure).length ? configure : null
             }
         },
       //Methods
         methods:{
-          //Load and render placeholdimage
-            async load() {
-              //Render placeholder
-                this.templates.placeholder = ""//await placeholder(this)
+          //Load and render placeholder image
+            async mock({timeout = 600} = {}) {
+              clearTimeout(this.templates.placeholder.timeout)
+              this.templates.placeholder.timeout = setTimeout(async () => {
+                this.templates.placeholder.image = await placeholder(this)
                 this.generated.content = ""
                 this.generated.error = false
+              }, timeout)
+            },
+          //Resize mock image
+            mockresize() {
+              const svg = document.querySelector(".preview .image svg")
+              if (svg) {
+                const height = svg.querySelector("#metrics-end")?.getBoundingClientRect()?.y-svg.getBoundingClientRect()?.y
+                if (Number.isFinite(height))
+                  svg.setAttribute("height", height)
+              }
             },
           //Generate metrics and flush cache
             async generate() {
@@ -208,6 +276,7 @@
                 try {
                   await axios.get(`/.uncache?&token=${(await axios.get(`/.uncache?user=${this.user}`)).data.token}`)
                   this.generated.content = (await axios.get(this.url)).data
+                  this.generated.error = false
                 } catch {
                   this.generated.error = true
                 }
