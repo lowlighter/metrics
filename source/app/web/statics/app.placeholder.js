@@ -5,8 +5,23 @@ async function placeholder(set) {
         set.cached.set(url, (await axios.get(url)).data)
       return set.cached.get(url)
     }
+  //Distribution function
+    function distribution(length) {
+      let probability = 1
+      const values = []
+      for (let i = 0; i < length-1; i++) {
+        const value = Math.random()*probability
+        values.push(value)
+        probability -= value
+      }
+      values.push(probability)
+      return values.sort((a, b) => b - a)
+    }
   //Load templates informations
     let {image, style, fonts, partials} = await load(`/.templates/${set.templates.selected}`)
+    await Promise.all(partials.map(async partial => await load(`/.templates/${set.templates.selected}/partials/${partial}.ejs`)))
+  //Trap includes
+    image = image.replace(/<%-\s*await include[(](`.*?[.]ejs`)[)]\s*%>/g, (m, g) => `<%- await $include(${g}) %>`)
   //Faked data
     const options = set.plugins.options
     const data = {
@@ -50,13 +65,13 @@ async function placeholder(set) {
           registration:`${faker.random.number({min:2, max:10})} years ago`,
           cakeday:false,
           calendar:new Array(14).fill(null).map(_ => ({color:faker.random.arrayElement(["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"])})),
-          avatar:""
+          avatar:"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg=="
         },
       //User data
         user:{
           databaseId:faker.random.number(10000000),
           name:"",
-          login:set.user,
+          login:set.user||"metrics",
           createdAt:`${faker.date.past(10)}`,
           avatarUrl:set.avatar,
           websiteUrl:options["pagespeed.url"]||"(attached website)",
@@ -152,147 +167,146 @@ async function placeholder(set) {
           //Languages
             ...(set.plugins.enabled.languages ? ({
               languages:{
-                colors:{
-                  JavaScript: '#f1e05a',
-                  CSS: '#563d7c',
-                  HTML: '#e34c26',
-                  Dockerfile: '#384d54',
-                  TypeScript: '#2b7489',
-                  Python: '#3572A5',
-                  Vue: '#2c3e50',
-                  PowerShell: '#012456',
-                  Less: '#1d365d',
-                  TeX: '#3D6117',
-                  C: '#555555',
-                  Gnuplot: '#f0a9f0',
-                  Shell: '#89e051',
-                  'C++': '#f34b7d',
-                  Makefile: '#427819',
-                  CMake: '#ededed',
-                  Lex: '#DBCA00',
-                  QMake: '#ededed'
-                },
-                total: 3125821,
-                stats: {
-                  JavaScript: 0.5822419134045104,
-                  CSS: 0.04600615326341464,
-                  HTML: 0.08085331821623823,
-                  Dockerfile: 0.000491710817733965,
-                  TypeScript: 0.015703074488270442,
-                  Python: 0.024137018722441242,
-                  Vue: 0.003580499331215703,
-                  PowerShell: 0.0005758487130261137,
-                  Less: 0.0032311511119798605,
-                  TeX: 0.03526017644644399,
-                  C: 0.004387007445403944,
-                  Gnuplot: 0.00003135176326475508,
-                  Shell: 0.0007684381159381807,
-                  'C++': 0.19736798748232864,
-                  Makefile: 0.000286324776754651,
-                  CMake: 0.0007246096305578598,
-                  Lex: 0.00079275172826595,
-                  QMake: 0.00356066454221147
-                },
-                favorites: [
-                  {
-                    name: 'JavaScript',
-                    value: 0.5822419134045104,
-                    color: '#f1e05a',
-                    x: 0
-                  },
-                  {
-                    name: 'C++',
-                    value: 0.19736798748232864,
-                    color: '#f34b7d',
-                    x: 0.5822419134045104
-                  },
-                  {
-                    name: 'HTML',
-                    value: 0.08085331821623823,
-                    color: '#e34c26',
-                    x: 0.779609900886839
-                  },
-                  {
-                    name: 'CSS',
-                    value: 0.04600615326341464,
-                    color: '#563d7c',
-                    x: 0.8604632191030772
-                  },
-                  {
-                    name: 'TeX',
-                    value: 0.03526017644644399,
-                    color: '#3D6117',
-                    x: 0.9064693723664918
-                  },
-                  {
-                    name: 'Python',
-                    value: 0.024137018722441242,
-                    color: '#3572A5',
-                    x: 0.9417295488129358
-                  },
-                  {
-                    name: 'TypeScript',
-                    value: 0.015703074488270442,
-                    color: '#2b7489',
-                    x: 0.965866567535377
-                  },
-                  {
-                    name: 'C',
-                    value: 0.004387007445403944,
-                    color: '#555555',
-                    x: 0.9815696420236475
-                  }
-                ]
+                get colors() { return Object.fromEntries(Object.entries(this.favorites).map(([key, {color}]) => [key, color])) },
+                total:faker.random.number(10000),
+                get stats() { return Object.fromEntries(Object.entries(this.favorites).map(([key, {value}]) => [key, value])) },
+                favorites:distribution(7).map((value, index, array) => ({name:faker.lorem.word(), color:faker.internet.color(), value, x:array.slice(0, index).reduce((a, b) => a + b, 0)}))
               }
             }) : null),
           //Habits
             ...(set.plugins.enabled.habits ? ({
               habits:{
-                facts:options["habits.fact"],
+                facts:options["habits.facts"],
                 charts:options["habits.charts"],
                 commits:{
-                  hour: "18",
-                  hours: {
-                    "0": 3,
-                    "2": 4,
-                    "8": 4,
-                    "10": 1,
-                    "12": 3,
-                    "13": 2,
-                    "14": 10,
-                    "15": 2,
-                    "17": 1,
-                    "18": 38,
-                    "19": 12,
-                    "20": 9,
-                    "21": 14,
-                    "22": 12,
-                    "23": 7,
-                    max: 38
+                  get hour() { return Object.keys(this.hours).filter(key => /^\d+$/.test(key)).map(key => [key, this.hours[key]]).sort((a, b) => b[1] - a[1]).shift()?.[0] },
+                  hours:{
+                    [faker.random.number(24)]:faker.random.number(10),
+                    [faker.random.number(24)]:faker.random.number(10),
+                    [faker.random.number(24)]:faker.random.number(10),
+                    [faker.random.number(24)]:faker.random.number(10),
+                    [faker.random.number(24)]:faker.random.number(10),
+                    [faker.random.number(24)]:faker.random.number(10),
+                    [faker.random.number(24)]:faker.random.number(10),
+                    get max() { return Object.keys(this).filter(key => /^\d+$/.test(key)).map(key => [key, this[key]]).sort((a, b) => b[1] - a[1]).shift()?.[1] }
                   },
-                  day:"Monday",
-                  days: {
-                    "0": 10,
-                    "1": 42,
-                    "2": 22,
-                    "3": 1,
-                    "4": 4,
-                    "5": 5,
-                    "6": 38,
-                    max: 42
-                  }
+                  get day() { return ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][Object.keys(this.days).filter(key => /^\d+$/.test(key)).map(key => [key, this.days[key]]).sort((a, b) => b[1] - a[1]).shift()?.[0]] },
+                  days:{
+                    "0":faker.random.number(10),
+                    "1":faker.random.number(10),
+                    "2":faker.random.number(10),
+                    "3":faker.random.number(10),
+                    "4":faker.random.number(10),
+                    "5":faker.random.number(10),
+                    "6":faker.random.number(10),
+                    get max() { return Object.keys(this).filter(key => /^\d+$/.test(key)).map(key => [key, this[key]]).sort((a, b) => b[1] - a[1]).shift()?.[1] }
+                  },
                 },
-                indents:{style:"spaces", spaces:0, tabs:0},
+                indents:{style:"spaces", spaces:1, tabs:0},
                 linguist:{
                   available:true,
-                  ordered:[
-                    [faker.lorem.word(), ],
-                    [faker.lorem.word(), ],
-                    [faker.lorem.word(), ],
-                    [faker.lorem.word(), ]
-                  ],
-                  get languages() { return Object.fromEntries(this.ordered) }
+                  get ordered() { return Object.entries(this.languages) },
+                  get languages() { return Object.fromEntries(distribution(4).map(value => [faker.lorem.word(), value])) },
                 }
+              }
+            }) : null),
+          //People
+            ...(set.plugins.enabled.people ? ({
+              people:{
+                types:options["people.types"].split(",").map(x => x.trim()),
+                size:options["pepople.size"],
+                followers:new Array(Number(options["people.limit"])).fill(null).map(_ => ({
+                  login:faker.internet.userName(),
+                  avatar:"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
+                })),
+                following:new Array(Number(options["people.limit"])).fill(null).map(_ => ({
+                  login:faker.internet.userName(),
+                  avatar:"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
+                }))
+              }
+            }) : null),
+          //Music
+            ...(set.plugins.enabled.music ? ({
+              music:{
+                provider:"(music provider)",
+                mode:"Suggested tracks",
+                tracks:new Array(Number(options["music.limit"])).fill(null).map(_ => ({
+                  name:faker.random.words(5),
+                  artist:faker.random.words(),
+                  artwork:"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
+                }))
+              }
+            }) : null),
+          //Pagespeed
+            ...(set.plugins.enabled.pagespeed ? ({
+              pagespeed:{
+                url:options["pagespeed.url"]||"(attached website url)",
+                detailed:options["pagespeed.detailed"]||false,
+                scores: [
+                  {score:faker.random.float({max:1}), title:"Performance"},
+                  {score:faker.random.float({max:1}), title:"Accessibility"},
+                  {score:faker.random.float({max:1}), title:"Best Practices"},
+                  {score:faker.random.float({max:1}), title:"SEO"}
+                ],
+                metrics:{
+                  observedFirstContentfulPaint:faker.random.number(500),
+                  observedFirstVisualChangeTs:faker.time.recent(),
+                  observedFirstContentfulPaintTs:faker.time.recent(),
+                  firstContentfulPaint:faker.random.number(500),
+                  observedDomContentLoaded:faker.random.number(500),
+                  observedFirstMeaningfulPaint:faker.random.number(1000),
+                  maxPotentialFID:faker.random.number(500),
+                  observedLoad:faker.random.number(500),
+                  firstMeaningfulPaint:faker.random.number(500),
+                  observedCumulativeLayoutShift:faker.random.float({max:1}),
+                  observedSpeedIndex:faker.random.number(1000),
+                  observedSpeedIndexTs:faker.time.recent(),
+                  observedTimeOriginTs:faker.time.recent(),
+                  observedLargestContentfulPaint:faker.random.number(1000),
+                  cumulativeLayoutShift:faker.random.float({max:1}),
+                  observedFirstPaintTs:faker.time.recent(),
+                  observedTraceEndTs:faker.time.recent(),
+                  largestContentfulPaint:faker.random.number(2000),
+                  observedTimeOrigin:faker.random.number(10),
+                  speedIndex:faker.random.number(1000),
+                  observedTraceEnd:faker.random.number(2000),
+                  observedDomContentLoadedTs:faker.time.recent(),
+                  observedFirstPaint:faker.random.number(500),
+                  totalBlockingTime:faker.random.number(500),
+                  observedLastVisualChangeTs:faker.time.recent(),
+                  observedFirstVisualChange:faker.random.number(500),
+                  observedLargestContentfulPaintTs:faker.time.recent(),
+                  estimatedInputLatency:faker.random.number(100),
+                  observedLoadTs:faker.time.recent(),
+                  observedLastVisualChange:faker.random.number(1000),
+                  firstCPUIdle:faker.random.number(1000),
+                  interactive:faker.random.number(1000),
+                  observedNavigationStartTs:faker.time.recent(),
+                  observedNavigationStart:faker.random.number(10),
+                  observedFirstMeaningfulPaintTs:faker.time.recent()
+                },
+                screenshot:options["pagespeed.screenshot"] ? "data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==" : null
+              }
+            }) : null),
+          //Projects
+            ...(set.plugins.enabled.projects ? ({
+              projects:{
+                totalCount:options["projects.limit"]+faker.random.number(10),
+                list:new Array(Number(options["projects.limit"])).fill(null).map(_ => ({
+                  name:faker.lorem.sentence(),
+                  updated:`${2+faker.date.recent(8)} days ago`,
+                  progress:{enabled:true, todo:faker.random.number(50), doing:faker.random.number(50), done:faker.random.number(50), get total() { return this.todo + this.doing + this.done } }
+                }))
+              }
+            }) : null),
+          //Posts
+            ...(set.plugins.enabled.posts ? ({
+              posts:{
+                source:options["posts.source"],
+                list:new Array(Number(options["posts.limit"])).fill(null).map(_ => ({
+                  title:faker.lorem.sentence(),
+                  date:faker.date.recent().toString().substring(4, 10).trim()
+                }))
               }
             }) : null),
           //Topics
@@ -399,11 +413,127 @@ async function placeholder(set) {
                 months:["", "Jan.", "Feb.", "Mar.", "Apr.", "May", "June", "July", "Aug.", "Sep.", "Oct.", "Nov.", "Dec."]
               }
             }) : null),
-
+          //Isocalendar
+            ...(set.plugins.enabled.isocalendar ? ({
+              isocalendar:{
+                streak:{max:30+faker.random.number(20), current:faker.random.number(30)},
+                max:10+faker.random.number(40),
+                average:faker.random.float(10),
+                svg:"",
+                duration:options["isocalendar.duration"]
+              }
+            }) : null),
+          //Activity
+            ...(set.plugins.enabled.activity ? ({
+              activity:{
+                events:new Array(Number(options["activity.limit"])).fill(null).map(_ => [
+                  {
+                    type:"push",
+                    repo:`${faker.random.word()}/${faker.random.word()}`,
+                    size:1,
+                    branch:"master",
+                    commits: [ { sha:faker.git.shortSha(), message:faker.lorem.sentence()} ]
+                  },
+                  {
+                    type:"comment",
+                    on:"commit",
+                    repo:`${faker.random.word()}/${faker.random.word()}`,
+                    content:faker.lorem.paragraph(),
+                    user:set.user,
+                    mobile:null,
+                    number:faker.git.shortSha(),
+                    title:"",
+                  },
+                  {
+                    type:"comment",
+                    on:"pr",
+                    repo:`${faker.random.word()}/${faker.random.word()}`,
+                    content:faker.lorem.sentence(),
+                    user:set.user,
+                    mobile:null,
+                    number:faker.random.number(100),
+                    title:faker.lorem.paragraph(),
+                  },
+                  {
+                    type:"comment",
+                    on:"issue",
+                    repo:`${faker.random.word()}/${faker.random.word()}`,
+                    content:faker.lorem.sentence(),
+                    user:set.user,
+                    mobile:null,
+                    number:faker.random.number(100),
+                    title:faker.lorem.paragraph(),
+                  },
+                  {
+                    type:"issue",
+                    repo:`${faker.random.word()}/${faker.random.word()}`,
+                    action:faker.random.arrayElement(["opened", "closed", "reopened"]),
+                    user:set.user,
+                    number:faker.random.number(100),
+                    title:faker.lorem.paragraph(),
+                  },
+                  {
+                    type:"pr",
+                    repo:`${faker.random.word()}/${faker.random.word()}`,
+                    action:faker.random.arrayElement(["opened", "closed"]),
+                    user:set.user,
+                    number:faker.random.number(100),
+                    title:faker.lorem.paragraph(),
+                    lines:{added:faker.random.number(1000), deleted:faker.random.number(1000)}, files:{changed:faker.random.number(10)}
+                  },
+                  {
+                    type:"wiki",
+                    repo:`${faker.random.word()}/${faker.random.word()}`,
+                    pages:[faker.lorem.sentence(), faker.lorem.sentence()]
+                  },
+                  {
+                    type:"fork",
+                    repo:`${faker.random.word()}/${faker.random.word()}`,
+                  },
+                  {
+                    type:"review",
+                    repo:`${faker.random.word()}/${faker.random.word()}`,
+                    user:set.user,
+                    number:faker.random.number(100),
+                    title:faker.lorem.paragraph(),
+                  },
+                  {
+                    type:"release",
+                    repo:`${faker.random.word()}/${faker.random.word()}`,
+                    action:"published",
+                    name:faker.random.words(4),
+                    draft:faker.random.boolean(),
+                    prerelease:faker.random.boolean(),
+                  },
+                  {
+                    type:"ref/create",
+                    repo:`${faker.random.word()}/${faker.random.word()}`,
+                    ref:{name:faker.lorem.slug(), type:faker.random.arrayElement(["tag", "branch"]),}
+                  },
+                  {
+                    type:"ref/delete",
+                    repo:`${faker.random.word()}/${faker.random.word()}`,
+                    ref:{name:faker.lorem.slug(), type:faker.random.arrayElement(["tag", "branch"]),}
+                  },
+                  {
+                    type:"member",
+                    repo:`${faker.random.word()}/${faker.random.word()}`,
+                    user:set.user
+                  },
+                  {
+                    type:"public",
+                    repo:`${faker.random.word()}/${faker.random.word()}`,
+                  },
+                  {
+                    type:"star",
+                    repo:`${faker.random.word()}/${faker.random.word()}`,
+                    action:"started"
+                  },
+                ][Math.floor(Math.random()*15)])
+              }
+            }) : null),
         },
     }
-  //Trap includes
-    image = image.replace(/<%-\s*await include[(](`.*?[.]ejs`)[)]\s*%>/g, (m, g) => `<%- await $include(${g}) %>`)
   //Render
     return await ejs.render(image, data, {async:true, rmWhitespace:true})
 }
