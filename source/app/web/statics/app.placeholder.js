@@ -370,57 +370,47 @@ async function placeholder(set) {
           //Stars
             ...(set.plugins.enabled.stargazers ? ({
               stargazers:{
-                total:{
-                  dates:{
-                    '2020-12-30': '8.99k',
-                    '2020-12-31': '8.99k',
-                    '2021-01-01': '8.99k',
-                    '2021-01-02': '8.99k',
-                    '2021-01-03': '9k',
-                    '2021-01-04': '9k',
-                    '2021-01-05': '9k',
-                    '2021-01-06': '9k',
-                    '2021-01-07': '9k',
-                    '2021-01-08': '9.01k',
-                    '2021-01-09': '9.01k',
-                    '2021-01-10': '9.01k',
-                    '2021-01-11': '9.01k',
-                    '2021-01-12': '9.01k'
+                total: {
+                  dates: {
+                    '2020-12-31': { value: 170, text: 170 },
+                    '2021-01-01': { value: 172, text: 172 },
+                    '2021-01-02': { value: 172, text: 172 },
+                    '2021-01-03': { value: 173, text: 173 },
+                    '2021-01-04': { value: 186, text: 186 },
+                    '2021-01-05': { value: 200, text: 200 },
+                    '2021-01-06': { value: 381, text: 381 },
+                    '2021-01-07': { value: 519, text: 519 },
+                    '2021-01-08': { value: 814, text: 814 },
+                    '2021-01-09': { value: 1196, text: '1.20k' },
+                    '2021-01-10': { value: 1445, text: '1.45k' },
+                    '2021-01-11': { value: 1567, text: '1.57k' },
+                    '2021-01-12': { value: 1749, text: '1.75k' },
+                    '2021-01-13': { value: 1820, text: '1.82k' }
                   },
-                  max: 9011,
-                  min: 8989
+                  max: 1820,
+                  min: 170
                 },
                 increments: {
                   dates: {
-                    '2020-12-30': '+4',
-                    '2020-12-31': '+2',
-                    '2021-01-01': '+2',
-                    '2021-01-02': '+1',
-                    '2021-01-03': '+2',
-                    '2021-01-04': '+2',
-                    '2021-01-05': '+2',
-                    '2021-01-06': '+2',
-                    '2021-01-07': '+2',
-                    '2021-01-08': '+2',
-                    '2021-01-09': '+2',
-                    '2021-01-10': '+1',
-                    '2021-01-11': '+1',
-                    '2021-01-12': '+1'
+                    '2020-12-31': { value: 1, text: '+1' },
+                    '2021-01-01': { value: 2, text: '+2' },
+                    '2021-01-02': { value: 0, text: '0' },
+                    '2021-01-03': { value: 1, text: '+1' },
+                    '2021-01-04': { value: 13, text: '+13' },
+                    '2021-01-05': { value: 14, text: '+14' },
+                    '2021-01-06': { value: 181, text: '+181' },
+                    '2021-01-07': { value: 138, text: '+138' },
+                    '2021-01-08': { value: 295, text: '+295' },
+                    '2021-01-09': { value: 382, text: '+382' },
+                    '2021-01-10': { value: 249, text: '+249' },
+                    '2021-01-11': { value: 122, text: '+122' },
+                    '2021-01-12': { value: 182, text: '+182' },
+                    '2021-01-13': { value: 71, text: '+71' }
                   },
-                  max: 4,
-                  min: 1
+                  max: 382,
+                  min: 0
                 },
                 months:["", "Jan.", "Feb.", "Mar.", "Apr.", "May", "June", "July", "Aug.", "Sep.", "Oct.", "Nov.", "Dec."]
-              }
-            }) : null),
-          //Isocalendar
-            ...(set.plugins.enabled.isocalendar ? ({
-              isocalendar:{
-                streak:{max:30+faker.random.number(20), current:faker.random.number(30)},
-                max:10+faker.random.number(40),
-                average:faker.random.float(10),
-                svg:"",
-                duration:options["isocalendar.duration"]
               }
             }) : null),
           //Activity
@@ -530,6 +520,16 @@ async function placeholder(set) {
                     action:"started"
                   },
                 ][Math.floor(Math.random()*15)])
+              }
+            }) : null),
+           //Isocalendar
+            ...(set.plugins.enabled.isocalendar ? ({
+              isocalendar:{
+                streak:{max:30+faker.random.number(20), current:faker.random.number(30)},
+                max:10+faker.random.number(40),
+                average:faker.random.float(10),
+                svg:"(isometric calendar is not displayed in placeholder)",
+                duration:options["isocalendar.duration"]
               }
             }) : null),
         },
