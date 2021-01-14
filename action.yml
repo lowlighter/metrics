@@ -84,6 +84,11 @@ inputs:
     description: Number of repositories to use
     default: 100
 
+  # Whether to include forked repositories into metrics
+  repositories_forks:
+    description: Include forks in metrics
+    default: no
+
   # Template to use
   # See https://github.com/lowlighter/metrics/tree/master/source/templates for supported templates
   template:

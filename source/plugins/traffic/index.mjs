@@ -6,17 +6,14 @@
           if ((!enabled)||(!q.traffic))
             return null
         //Repositories
-          const repositories = data.user.repositories.nodes.map(({name}) => name) ?? []
+          const repositories = data.user.repositories.nodes.map(({name:repo, owner:{login:owner}}) => ({repo, owner})) ?? []
         //Get views stats from repositories
           console.debug(`metrics/compute/${login}/plugins > traffic > querying api`)
           const views = {count:0, uniques:0}
-          const response = await Promise.all(repositories.map(async repo => await rest.repos.getViews({owner:login, repo})))
+          const response = await Promise.all(repositories.map(async ({repo, owner}) => await rest.repos.getViews({owner, repo})))
         //Compute views
           console.debug(`metrics/compute/${login}/plugins > traffic > computing stats`)
           response.filter(({data}) => data).map(({data:{count, uniques}}) => (views.count += count, views.uniques += uniques))
-        //Format values
-          views.count = imports.format(views.count)
-          views.uniques = imports.format(views.uniques)
         //Results
           return {views}
       }

@@ -1,11 +1,15 @@
 query Repositories {
   user(login: "$login") {
-    repositories($after first: $repositories, isFork: false, ownerAffiliations: OWNER, orderBy: {field: UPDATED_AT, direction: DESC}) {
+    repositories($after first: $repositories $forks, orderBy: {field: UPDATED_AT, direction: DESC}) {
       edges {
         cursor
       }
       nodes {
         name
+        owner {
+          login
+        }
+        isFork
         watchers {
           totalCount
         }

@@ -113,6 +113,7 @@
                           name:"metrics",
                           watchers:{totalCount:Math.floor(Math.random()*100)},
                           stargazers:{totalCount:Math.floor(Math.random()*1000)},
+                          owner:{login:"lowlighter"},
                           languages:{
                             edges:[
                               {size:111733, node:{color:"#f1e05a", name:"JavaScript"}
@@ -141,6 +142,7 @@
                   user:{
                     repository:{
                       name:"metrics",
+                      owner:{login:"lowlighter"},
                       createdAt:new Date().toISOString(),
                       diskUsage:Math.floor(Math.random()*10000),
                       watchers:{totalCount:Math.floor(Math.random()*100)},

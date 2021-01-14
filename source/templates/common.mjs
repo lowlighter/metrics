@@ -2,7 +2,7 @@
   export default async function ({login, q, dflags}, {conf, data, rest, graphql, plugins, queries}, {s, pending, imports}) {
 
     //Init
-      const computed = data.computed = {commits:0, sponsorships:0, licenses:{favorite:"", used:{}}, token:{}, repositories:{watchers:0, stargazers:0, issues_open:0, issues_closed:0, pr_open:0, pr_merged:0, forks:0, releases:0}}
+      const computed = data.computed = {commits:0, sponsorships:0, licenses:{favorite:"", used:{}}, token:{}, repositories:{watchers:0, stargazers:0, issues_open:0, issues_closed:0, pr_open:0, pr_merged:0, forks:0, forked:0, releases:0}}
       const avatar = imports.imgb64(data.user.avatarUrl)
       console.debug(`metrics/compute/${login} > formatting common metrics`)
 
@@ -54,6 +54,8 @@
             computed.repositories[property] += repository[property].totalCount
         //Forks
           computed.repositories.forks += repository.forkCount
+          if (repository.isFork)
+            computed.repositories.forked++
         //License
           if (repository.licenseInfo)
             computed.licenses.used[repository.licenseInfo.spdxId] = (computed.licenses.used[repository.licenseInfo.spdxId] ?? 0) + 1
