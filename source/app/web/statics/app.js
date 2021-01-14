@@ -1,6 +1,5 @@
 ;(async function() {
   //Init
-    const url = new URLSearchParams(window.location.search)
     const {data:templates} = await axios.get("/.templates")
     const {data:plugins} = await axios.get("/.plugins")
     const {data:base} = await axios.get("/.plugins.base")
@@ -10,12 +9,27 @@
       //Initialization
         el:"main",
         async mounted() {
-          //Load instance
-            await this.load()
           //Interpolate config from browser
             try {
               this.config.timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
+              this.palette = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
             } catch (error) {}
+          //GitHub limit tracker
+            const {data:requests} = await axios.get("/.requests")
+            this.requests = requests
+            setInterval(async () => {
+              const {data:requests} = await axios.get("/.requests")
+              this.requests = requests
+            }, 15000)
+          //Generate placeholder
+            this.mock({timeout:200})
+            setInterval(() => {
+              const marker = document.querySelector("#metrics-end")
+              if (marker) {
+                this.mockresize()
+                marker.remove()
+              }
+            }, 100)
         },
         components:{Prism:PrismComponent},
       //Watchers
@@ -31,12 +45,14 @@
       //Data initialization
         data:{
           version,
-          user:url.get("user") || "",
+          user:"",
           tab:"overview",
-          palette:url.get("palette") || (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") || "light",
+          palette:"light",
           requests:{limit:0, used:0, remaining:0, reset:0},
+          cached:new Map(),
           config:{
             timezone:"",
+            animated:true,
           },
           plugins:{
             base,
@@ -59,23 +75,47 @@
               stars:"🌟 Recently starred repositories",
               stargazers:"✨ Stargazers over last weeks",
               activity:"📰 Recent activity",
-              "base.header":`
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M0 8a8 8 0 1116 0v5.25a.75.75 0 01-1.5 0V8a6.5 6.5 0 10-13 0v5.25a.75.75 0 01-1.5 0V8zm5.5 4.25a.75.75 0 01.75-.75h3.5a.75.75 0 010 1.5h-3.5a.75.75 0 01-.75-.75zM3 6.75C3 5.784 3.784 5 4.75 5h6.5c.966 0 1.75.784 1.75 1.75v1.5A1.75 1.75 0 0111.25 10h-6.5A1.75 1.75 0 013 8.25v-1.5zm1.47-.53a.75.75 0 011.06 0l.97.97.97-.97a.75.75 0 011.06 0l.97.97.97-.97a.75.75 0 111.06 1.06l-1.5 1.5a.75.75 0 01-1.06 0L8 7.81l-.97.97a.75.75 0 01-1.06 0l-1.5-1.5a.75.75 0 010-1.06z"></path></svg>
-                Header`,
-              "base.activity":`
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M1.5 1.75a.75.75 0 00-1.5 0v12.5c0 .414.336.75.75.75h14.5a.75.75 0 000-1.5H1.5V1.75zm14.28 2.53a.75.75 0 00-1.06-1.06L10 7.94 7.53 5.47a.75.75 0 00-1.06 0L3.22 8.72a.75.75 0 001.06 1.06L7 7.06l2.47 2.47a.75.75 0 001.06 0l5.25-5.25z"></path></svg>
-                Account activity`,
-              "base.community":`
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M1.326 1.973a1.2 1.2 0 011.49-.832c.387.112.977.307 1.575.602.586.291 1.243.71 1.7 1.296.022.027.042.056.061.084A13.22 13.22 0 018 3c.67 0 1.289.037 1.861.108l.051-.07c.457-.586 1.114-1.004 1.7-1.295a9.654 9.654 0 011.576-.602 1.2 1.2 0 011.49.832c.14.493.356 1.347.479 2.29.079.604.123 1.28.07 1.936.541.977.773 2.11.773 3.301C16 13 14.5 15 8 15s-8-2-8-5.5c0-1.034.238-2.128.795-3.117-.08-.712-.034-1.46.052-2.12.122-.943.34-1.797.479-2.29zM8 13.065c6 0 6.5-2 6-4.27C13.363 5.905 11.25 5 8 5s-5.363.904-6 3.796c-.5 2.27 0 4.27 6 4.27z"></path><path d="M4 8a1 1 0 012 0v1a1 1 0 01-2 0V8zm2.078 2.492c-.083-.264.146-.492.422-.492h3c.276 0 .505.228.422.492C9.67 11.304 8.834 12 8 12c-.834 0-1.669-.696-1.922-1.508zM10 8a1 1 0 112 0v1a1 1 0 11-2 0V8z"></path></svg>
-                Community stats`,
-              "base.repositories":`
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path></svg>
-                Repositories metrics`,
-              "base.metadata":`
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"></path></svg>
-                Metadata`,
+              people:"🧑‍🤝‍🧑 Followers and followed",
+              base:"🗃️ Base content",
+              "base.header":"Header",
+              "base.activity":"Account activity",
+              "base.community":"Community stats",
+              "base.repositories":"Repositories metrics",
+              "base.metadata":"Metadata",
             },
             options:{
+              descriptions:{
+                "languages.ignored":{text:"Ignored languages", placeholder:"lang-0, lang-1, ..."},
+                "languages.skipped":{text:"Skipped repositories", placeholder:"repo-0, repo-1, ..."},
+                "pagespeed.detailed":{text:"Detailed audit", type:"boolean"},
+                "pagespeed.screenshot":{text:"Audit screenshot", type:"boolean"},
+                "pagespeed.url":{text:"Url", placeholder:"(default to GitHub attached)"},
+                "habits.from":{text:"Events to use", type:"number", min:1, max:1000},
+                "habits.days":{text:"Max events age", type:"number", min:1, max:30},
+                "habits.facts":{text:"Display facts", type:"boolean"},
+                "habits.charts":{text:"Display charts", type:"boolean"},
+                "music.playlist":{text:"Playlist url", placeholder:"https://embed.music.apple.com/en/playlist/"},
+                "music.limit":{text:"Limit", type:"number", min:1, max:100},
+                "posts.limit":{text:"Limit", type:"number", min:1, max:30},
+                "posts.user":{text:"Username", placeholder:"(default to GitHub login)"},
+                "posts.source":{text:"Source", type:"select", values:["dev.to"]},
+                "isocalendar.duration":{text:"Duration", type:"select", values:["half-year", "full-year"]},
+                "projects.limit":{text:"Limit", type:"number", min:0, max:100},
+                "projects.repositories":{text:"Repositories projects", placeholder:"user/repo/projects/1, ..."},
+                "topics.mode":{text:"Mode", type:"select", values:["starred", "mastered"]},
+                "topics.sort":{text:"Sort by", type:"select", values:["starred", "activity", "stars", "random"]},
+                "topics.limit":{text:"Limit", type:"number", min:0, max:20},
+                "tweets.limit":{text:"Limit", type:"number", min:1, max:10},
+                "tweets.user":{text:"Username", placeholder:"(default to GitHub attached)"},
+                "stars.limit":{text:"Limit", type:"number", min:1, max:100},
+                "activity.limit":{text:"Limit", type:"number", min:1, max:100},
+                "activity.days":{text:"Max events age", type:"number", min:1, max:9999},
+                "activity.filter":{text:"Events type", placeholder:"all"},
+                "people.size":{text:"Limit", type:"number", min:16, max:64},
+                "people.limit":{text:"Limit", type:"number", min:1, max:9999},
+                "people.types":{text:"Types", placeholder:"followers, following"},
+                "people.identicons":{text:"Use identicons", type:"boolean"},
+              },
               "languages.ignored":"",
               "languages.skipped":"",
               "pagespeed.detailed":false,
@@ -87,6 +127,7 @@
               "music.playlist":"",
               "music.limit":4,
               "posts.limit":4,
+              "posts.user":"",
               "posts.source":"dev.to",
               "isocalendar.duration":"half-year",
               "projects.limit":4,
@@ -95,15 +136,24 @@
               "topics.sort":"stars",
               "topics.limit":12,
               "tweets.limit":2,
+              "tweets.user":"",
               "stars.limit":4,
               "activity.limit":5,
+              "activity.days":14,
+              "activity.filter":"all",
+              "people.size":28,
+              "people.limit":28,
+              "people.types":"followers, following",
+              "people.identicons":false,
             },
           },
           templates:{
             list:templates,
-            selected:url.get("template") || templates[0].name,
-            loaded:{},
-            placeholder:"",
+            selected:templates[0]?.name||"classic",
+            placeholder:{
+              timeout:null,
+              image:""
+            },
             descriptions:{
               classic:"Classic template",
               terminal:"Terminal template",
@@ -120,7 +170,7 @@
         computed:{
           //User's avatar
             avatar() {
-              return `https://github.com/${this.user}.png`
+              return this.generated.content ? `https://github.com/${this.user}.png` : null
             },
           //User's repository
             repo() {
@@ -158,16 +208,18 @@
                 `on:`,
                 `  # Schedule updates`,
                 `  schedule: [{cron: "0 * * * *"}]`,
-                `  push: {branches: "master"}`,
+                `  # Lines below let you run workflow manually and on each commit`,
+                `  push: {branches: ["master", "main"]}`,
+                `  workflow_dispatch:`,
                 `jobs:`,
                 `  github-metrics:`,
                 `    runs-on: ubuntu-latest`,
                 `    steps:`,
                 `      - uses: lowlighter/metrics@latest`,
                 `        with:`,
-                `          # You'll need to setup a personal token in your secrets.`,
+                `          # Your GitHub token`,
                 `          token: ${"$"}{{ secrets.METRICS_TOKEN }}`,
-                `          # GITHUB_TOKEN is a special auto-generated token used for commits`,
+                `          # GITHUB_TOKEN is a special auto-generated token restricted to current repository, which is used to push files in it`,
                 `          committer_token: ${"$"}{{ secrets.GITHUB_TOKEN }}`,
                 ``,
                 `          # Options`,
@@ -180,18 +232,40 @@
                   ...Object.entries(this.config).filter(([key, value]) => value).map(([key, value]) => `          config_${key.replace(/[.]/, "_")}: ${typeof value === "boolean" ? {true:"yes", false:"no"}[value] : value}`),
                 ].sort(),
               ].join("\n")
+            },
+          //Configurable plugins
+            configure() {
+              //Check enabled plugins
+                const enabled = Object.entries(this.plugins.enabled).filter(([key, value]) => (value)&&(key !== "base")).map(([key, value]) => key)
+                const filter = new RegExp(`^(?:${enabled.join("|")})[.]`)
+              //Search related options
+                const entries = Object.entries(this.plugins.options.descriptions).filter(([key, value]) => filter.test(key))
+                entries.push(...enabled.map(key => [key, this.plugins.descriptions[key]]))
+                entries.sort((a, b) => a[0].localeCompare(b[0]))
+              //Return object
+                const configure = Object.fromEntries(entries)
+                return Object.keys(configure).length ? configure : null
             }
         },
       //Methods
         methods:{
-          //Load and render image
-            async load() {
-              //Render placeholder
-                const url = this.url.replace(new RegExp(`${this.user}(\\?|$)`), "placeholder$1")
-                this.templates.placeholder = this.serialize((await axios.get(url)).data)
+          //Load and render placeholder image
+            async mock({timeout = 600} = {}) {
+              clearTimeout(this.templates.placeholder.timeout)
+              this.templates.placeholder.timeout = setTimeout(async () => {
+                this.templates.placeholder.image = await placeholder(this)
                 this.generated.content = ""
-              //Start GitHub rate limiter tracker
-                this.ghlimit()
+                this.generated.error = false
+              }, timeout)
+            },
+          //Resize mock image
+            mockresize() {
+              const svg = document.querySelector(".preview .image svg")
+              if (svg) {
+                const height = svg.querySelector("#metrics-end")?.getBoundingClientRect()?.y-svg.getBoundingClientRect()?.y
+                if (Number.isFinite(height))
+                  svg.setAttribute("height", height)
+              }
             },
           //Generate metrics and flush cache
             async generate() {
@@ -202,26 +276,15 @@
               //Compute metrics
                 try {
                   await axios.get(`/.uncache?&token=${(await axios.get(`/.uncache?user=${this.user}`)).data.token}`)
-                  this.generated.content = this.serialize((await axios.get(this.url)).data)
+                  this.generated.content = (await axios.get(this.url)).data
+                  this.generated.error = false
                 } catch {
                   this.generated.error = true
                 }
                 finally {
                   this.generated.pending = false
                 }
-                this.ghlimit({once:true})
             },
-          //Serialize svg
-            serialize(svg) {
-              return `data:image/svg+xml;base64,${btoa(unescape(encodeURIComponent(svg)))}`
-            },
-          //Update reate limit requests
-            async ghlimit({once = false} = {}) {
-              const {data:requests} = await axios.get("/.requests")
-              this.requests = requests
-              if (!once)
-                setTimeout(() => this.ghlimit(), 30*1000)
-            }
         },
     })
 })()

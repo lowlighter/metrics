@@ -50,7 +50,7 @@ WARRANTY, to the extent permitted by applicable law.
 
 Last generated: <%= new Date().toGMTString() %>
 </div><% } -%>
-<% for (const partial of [...partials]) { %><%- await include(`partials/${partial}.ejs`); %><% } -%>
+<% for (const partial of [...partials]) { %><%- await include(`partials/${partial}.ejs`) %><% } -%>
 <% if (base.metadata) { -%>
 
 <footer>Connection reset by <%= Math.floor(256*Math.random()) %>.<%= Math.floor(256*Math.random()) %>.<%= Math.floor(256*Math.random()) %>.<%= Math.floor(256*Math.random()) %></footer><%# -%>
