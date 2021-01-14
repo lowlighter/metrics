@@ -24,7 +24,7 @@
             .filter(({actor}) => actor.login === login)
             .filter(({created_at}) => Number.isFinite(days) ? new Date(created_at) > new Date(Date.now()-days*24*60*60*1000) : true)
             .map(({type, payload, repo:{name:repo}}) => {
-              //See https://docs.github.com/en/free-pro-team@latest/developers/webhooks-and-events/github-event-types#memberevent
+              //See https://docs.github.com/en/free-pro-team@latest/developers/webhooks-and-events/github-event-types
                 switch (type) {
                   //Commented on a commit
                     case "CommitCommentEvent":{

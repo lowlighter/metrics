@@ -11,12 +11,12 @@
   import metrics from "../metrics.mjs"
 
 /** App */
-  export default async function ({mock = false, nosettings = false} = {}) {
+  export default async function ({mock, nosettings} = {}) {
 
     //Load configuration settings
       const {conf, Plugins, Templates} = await setup({nosettings})
       const {token, maxusers = 0, restricted = [], debug = false, cached = 30*60*1000, port = 3000, ratelimiter = null, plugins = null} = conf.settings
-      cache.placeholder = new cache.Cache()
+      mock = mock || conf.settings.mocked
 
     //Apply configuration mocking if needed
       if (mock) {
@@ -60,8 +60,7 @@
       }
     //Cache headers middleware
       middlewares.push((req, res, next) => {
-        if (!["/placeholder"].includes(req.path))
-          res.header("Cache-Control", cached ? `public, max-age=${cached}` : "no-store, no-cache")
+        res.header("Cache-Control", cached ? `public, max-age=${cached}` : "no-store, no-cache")
         next()
       })
 
@@ -70,61 +69,62 @@
       const templates =  Object.entries(Templates).map(([name]) => ({name, enabled:(conf.settings.templates.enabled.length ? conf.settings.templates.enabled.includes(name) : true) ?? false}))
       const enabled = Object.entries(Plugins).map(([name]) => ({name, enabled:plugins[name]?.enabled ?? false}))
       const actions = {flush:new Map()}
-      app.get("/", limiter, (req, res) => res.sendFile(`${conf.statics}/index.html`))
-      app.get("/index.html", limiter, (req, res) => res.sendFile(`${conf.statics}/index.html`))
-      app.get("/favicon.ico", limiter, (req, res) => res.sendFile(`${conf.statics}/favicon.png`))
-      app.get("/.favicon.png", limiter, (req, res) => res.sendFile(`${conf.statics}/favicon.png`))
-      app.get("/.opengraph.png", limiter, (req, res) => res.sendFile(`${conf.statics}/opengraph.png`))
-      app.get("/.version", limiter, (req, res) => res.status(200).send(conf.package.version))
-      app.get("/.requests", limiter, async (req, res) => res.status(200).json((await rest.rateLimit.get()).data.rate))
-      app.get("/.templates", limiter, (req, res) => res.status(200).json(templates))
-      app.get("/.plugins", limiter, (req, res) => res.status(200).json(enabled))
-      app.get("/.plugins.base", limiter, (req, res) => res.status(200).json(conf.settings.plugins.base.parts))
-      app.get("/.css/style.css", limiter, (req, res) => res.sendFile(`${conf.statics}/style.css`))
-      app.get("/.css/style.vars.css", limiter, (req, res) => res.sendFile(`${conf.statics}/style.vars.css`))
-      app.get("/.css/style.prism.css", limiter, (req, res) => res.sendFile(`${conf.node_modules}/prismjs/themes/prism-tomorrow.css`))
-      app.get("/.js/app.js", limiter, (req, res) => res.sendFile(`${conf.statics}/app.js`))
-      app.get("/.js/ejs.min.js", limiter, (req, res) => res.sendFile(`${conf.node_modules}/ejs/ejs.min.js`))
-      app.get("/.js/axios.min.js", limiter, (req, res) => res.sendFile(`${conf.node_modules}/axios/dist/axios.min.js`))
-      app.get("/.js/axios.min.map", limiter, (req, res) => res.sendFile(`${conf.node_modules}/axios/dist/axios.min.map`))
-      app.get("/.js/vue.min.js", limiter, (req, res) => res.sendFile(`${conf.node_modules}/vue/dist/vue.min.js`))
-      app.get("/.js/vue.prism.min.js", limiter, (req, res) => res.sendFile(`${conf.node_modules}/vue-prism-component/dist/vue-prism-component.min.js`))
-      app.get("/.js/vue-prism-component.min.js.map", limiter, (req, res) => res.sendFile(`${conf.node_modules}/vue-prism-component/dist/vue-prism-component.min.js.map`))
-      app.get("/.js/prism.min.js", limiter, (req, res) => res.sendFile(`${conf.node_modules}/prismjs/prism.js`))
-      app.get("/.js/prism.yaml.min.js", limiter, (req, res) => res.sendFile(`${conf.node_modules}/prismjs/components/prism-yaml.min.js`))
-      app.get("/.js/prism.markdown.min.js", limiter, (req, res) => res.sendFile(`${conf.node_modules}/prismjs/components/prism-markdown.min.js`))
-      app.get("/.uncache", limiter, async (req, res) => {
-        const {token, user} = req.query
-        if (token) {
-          if (actions.flush.has(token)) {
-            console.debug(`metrics/app/${actions.flush.get(token)} > flushed cache`)
-            cache.del(actions.flush.get(token))
-            return res.sendStatus(200)
+      let requests = (await rest.rateLimit.get()).data.rate
+      setInterval(async () => requests = (await rest.rateLimit.get()).data.rate, 30*1000)
+      //Web
+        app.get("/", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/index.html`))
+        app.get("/index.html", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/index.html`))
+        app.get("/favicon.ico", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/favicon.png`))
+        app.get("/.favicon.png", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/favicon.png`))
+        app.get("/.opengraph.png", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/opengraph.png`))
+      //Plugins and templates
+        app.get("/.plugins", limiter, (req, res) => res.status(200).json(enabled))
+        app.get("/.plugins.base", limiter, (req, res) => res.status(200).json(conf.settings.plugins.base.parts))
+        app.get("/.templates", limiter, (req, res) => res.status(200).json(templates))
+        app.get("/.templates/:template", limiter, (req, res) => req.params.template in conf.templates ? res.status(200).json(conf.templates[req.params.template]) : res.sendStatus(404))
+        for (const template in conf.templates)
+          app.use(`/.templates/${template}/partials`, express.static(`${conf.paths.templates}/${template}/partials`))
+      //Styles
+        app.get("/.css/style.css", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/style.css`))
+        app.get("/.css/style.vars.css", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/style.vars.css`))
+        app.get("/.css/style.prism.css", limiter, (req, res) => res.sendFile(`${conf.paths.node_modules}/prismjs/themes/prism-tomorrow.css`))
+      //Scripts
+        app.get("/.js/app.js", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/app.js`))
+        app.get("/.js/app.placeholder.js", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/app.placeholder.js`))
+        app.get("/.js/ejs.min.js", limiter, (req, res) => res.sendFile(`${conf.paths.node_modules}/ejs/ejs.min.js`))
+        app.get("/.js/faker.min.js", limiter, (req, res) => res.sendFile(`${conf.paths.node_modules}/faker/dist/faker.min.js`))
+        app.get("/.js/axios.min.js", limiter, (req, res) => res.sendFile(`${conf.paths.node_modules}/axios/dist/axios.min.js`))
+        app.get("/.js/axios.min.map", limiter, (req, res) => res.sendFile(`${conf.paths.node_modules}/axios/dist/axios.min.map`))
+        app.get("/.js/vue.min.js", limiter, (req, res) => res.sendFile(`${conf.paths.node_modules}/vue/dist/vue.min.js`))
+        app.get("/.js/vue.prism.min.js", limiter, (req, res) => res.sendFile(`${conf.paths.node_modules}/vue-prism-component/dist/vue-prism-component.min.js`))
+        app.get("/.js/vue-prism-component.min.js.map", limiter, (req, res) => res.sendFile(`${conf.paths.node_modules}/vue-prism-component/dist/vue-prism-component.min.js.map`))
+        app.get("/.js/prism.min.js", limiter, (req, res) => res.sendFile(`${conf.paths.node_modules}/prismjs/prism.js`))
+        app.get("/.js/prism.yaml.min.js", limiter, (req, res) => res.sendFile(`${conf.paths.node_modules}/prismjs/components/prism-yaml.min.js`))
+        app.get("/.js/prism.markdown.min.js", limiter, (req, res) => res.sendFile(`${conf.paths.node_modules}/prismjs/components/prism-markdown.min.js`))
+      //Meta
+        app.get("/.version", limiter, (req, res) => res.status(200).send(conf.package.version))
+        app.get("/.requests", limiter, async (req, res) => res.status(200).json(requests))
+      //Cache
+        app.get("/.uncache", limiter, async (req, res) => {
+          const {token, user} = req.query
+          if (token) {
+            if (actions.flush.has(token)) {
+              console.debug(`metrics/app/${actions.flush.get(token)} > flushed cache`)
+              cache.del(actions.flush.get(token))
+              return res.sendStatus(200)
+            }
+            else
+              return res.sendStatus(404)
           }
-          else
-            return res.sendStatus(404)
-        }
-        else {
-          const token = `${Math.random().toString(16).replace("0.", "")}${Math.random().toString(16).replace("0.", "")}`
-          actions.flush.set(token, user)
-          return res.json({token})
-        }
-      })
+          else {
+            const token = `${Math.random().toString(16).replace("0.", "")}${Math.random().toString(16).replace("0.", "")}`
+            actions.flush.set(token, user)
+            return res.json({token})
+          }
+        })
 
     //Metrics
       app.get("/:login", ...middlewares, async (req, res) => {
-        //Placeholder hash
-          const placeholder = Object.entries(parse(req.query)).filter(([key, value]) =>
-            ((key in Plugins)&&(!!value))||
-            ((key === "template")&&(value in Templates))||
-            (/base[.](header|activity|community|repositories|metadata)/.test(key))||
-            (["pagespeed.detailed", "pagespeed.screenshot", "habits.charts", "habits.facts", "topics.mode"].includes(key))
-          ).map(([key, value]) => `${key}${
-            key === "template" ? `#${value}` :
-            key === "topics.mode" ? `#${value === "mastered" ? value : "starred"}` :
-            !!value
-          }`).sort().join("+")
-
         //Request params
           const {login} = req.params
           if ((restricted.length)&&(!restricted.includes(login))) {
@@ -132,13 +132,6 @@
             return res.sendStatus(403)
           }
         //Read cached data if possible
-          //Placeholder
-            if ((login === "placeholder")&&(cache.placeholder.get(placeholder))) {
-              const {rendered, mime} = cache.placeholder.get(placeholder)
-              res.header("Content-Type", mime)
-              res.send(rendered)
-              return
-            }
           //User cached
             if ((!debug)&&(cached)&&(cache.get(login))) {
               const {rendered, mime} = cache.get(login)
@@ -164,8 +157,6 @@
                 convert:["jpeg", "png"].includes(q["config.output"]) ? q["config.output"] : null
               }, {Plugins, Templates})
             //Cache
-              if (login === "placeholder")
-                cache.placeholder.put(placeholder, {rendered, mime})
               if ((!debug)&&(cached))
                 cache.put(login, {rendered, mime}, cached)
             //Send response
@@ -194,11 +185,13 @@
       app.listen(port, () => console.log([
         `Listening on port      │ ${port}`,
         `Debug mode             │ ${debug}`,
+        `Mocked data            │ ${conf.settings.mocked ?? false}`,
         `Restricted to users    │ ${restricted.size ? [...restricted].join(", ") : "(unrestricted)"}`,
         `Cached time            │ ${cached} seconds`,
         `Rate limiter           │ ${ratelimiter ? util.inspect(ratelimiter, {depth:Infinity, maxStringLength:256}) : "(enabled)"}`,
         `Max simultaneous users │ ${maxusers ? `${maxusers} users` : "(unrestricted)"}`,
         `Plugins enabled        │ ${enabled.map(({name}) => name).join(", ")}`,
+        `SVG optimization       │ ${conf.settings.optimize ?? false}`,
         `Server ready !`
       ].join("\n")))
   }
