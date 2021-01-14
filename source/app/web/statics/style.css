@@ -32,7 +32,7 @@ body {
 /* Interface */
   .ui {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
   }
 
   .ui > * {

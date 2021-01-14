@@ -35,6 +35,13 @@
             s(value, end = "") {
               return value !== 1 ? {y:"ies", "":"s"}[end] : end
             },
+          //Formatter helper
+            f(n, {sign = false} = {}) {
+              for (const {u, v} of [{u:"b", v:10**9}, {u:"m", v:10**6}, {u:"k", v:10**3}])
+                if (n/v >= 1)
+                  return `${(sign)&&(n > 0) ? "+" : ""}${(n/v).toFixed(2).substr(0, 4).replace(/[.]0*$/, "")}${u}`
+              return `${(sign)&&(n > 0) ? "+" : ""}${n}`
+            },
           //Trap for includes
             async $include(path) {
               const partial = await load(`/.templates/${set.templates.selected}/${path}`)
@@ -73,7 +80,7 @@
           //User data
             user:{
               databaseId:faker.random.number(10000000),
-              name:"",
+              name:"(placeholder)",
               login:set.user||"metrics",
               createdAt:`${faker.date.past(10)}`,
               avatarUrl:set.avatar,
@@ -372,48 +379,29 @@
                 }) : null),
               //Stars
                 ...(set.plugins.enabled.stargazers ? ({
-                  stargazers:{
-                    total: {
-                      dates: {
-                        '2020-12-31': { value: 170, text: 170 },
-                        '2021-01-01': { value: 172, text: 172 },
-                        '2021-01-02': { value: 172, text: 172 },
-                        '2021-01-03': { value: 173, text: 173 },
-                        '2021-01-04': { value: 186, text: 186 },
-                        '2021-01-05': { value: 200, text: 200 },
-                        '2021-01-06': { value: 381, text: 381 },
-                        '2021-01-07': { value: 519, text: 519 },
-                        '2021-01-08': { value: 814, text: 814 },
-                        '2021-01-09': { value: 1196, text: '1.20k' },
-                        '2021-01-10': { value: 1445, text: '1.45k' },
-                        '2021-01-11': { value: 1567, text: '1.57k' },
-                        '2021-01-12': { value: 1749, text: '1.75k' },
-                        '2021-01-13': { value: 1820, text: '1.82k' }
+                  get stargazers() {
+                    const dates = []
+                    let total = faker.random.number(1000)
+                    const result = {
+                      total:{
+                        dates:{},
+                        get max() { return Math.max(...dates.map(date => this.dates[date])) },
+                        get min() { return Math.min(...dates.map(date => this.dates[date])) },
                       },
-                      max: 1820,
-                      min: 170
-                    },
-                    increments: {
-                      dates: {
-                        '2020-12-31': { value: 1, text: '+1' },
-                        '2021-01-01': { value: 2, text: '+2' },
-                        '2021-01-02': { value: 0, text: '0' },
-                        '2021-01-03': { value: 1, text: '+1' },
-                        '2021-01-04': { value: 13, text: '+13' },
-                        '2021-01-05': { value: 14, text: '+14' },
-                        '2021-01-06': { value: 181, text: '+181' },
-                        '2021-01-07': { value: 138, text: '+138' },
-                        '2021-01-08': { value: 295, text: '+295' },
-                        '2021-01-09': { value: 382, text: '+382' },
-                        '2021-01-10': { value: 249, text: '+249' },
-                        '2021-01-11': { value: 122, text: '+122' },
-                        '2021-01-12': { value: 182, text: '+182' },
-                        '2021-01-13': { value: 71, text: '+71' }
+                      increments:{
+                        dates:{},
+                        get max() { return Math.max(...dates.map(date => this.dates[date])) },
+                        get min() { return Math.min(...dates.map(date => this.dates[date])) },
                       },
-                      max: 382,
-                      min: 0
-                    },
-                    months:["", "Jan.", "Feb.", "Mar.", "Apr.", "May", "June", "July", "Aug.", "Sep.", "Oct.", "Nov.", "Dec."]
+                      months:["", "Jan.", "Feb.", "Mar.", "Apr.", "May", "June", "July", "Aug.", "Sep.", "Oct.", "Nov.", "Dec."]
+                    }
+                    for (let d = -14; d <= 0; d++) {
+                      const date = new Date(Date.now()-d*24*60*60*1000).toISOString().substring(0, 10)
+                      dates.push(date)
+                      result.total.dates[date] = (total += (result.increments.dates[date] = faker.random.number(100)))
+                    }
+                    console.log(result)
+                    return result
                   }
                 }) : null),
               //Activity
