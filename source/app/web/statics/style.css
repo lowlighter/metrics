@@ -132,7 +132,10 @@ body {
 
   .preview .image {
     overflow: auto;
-    max-height: 1200px;
+  }
+
+  .preview .image.pending {
+    opacity: .25;
   }
 
   .code pre {

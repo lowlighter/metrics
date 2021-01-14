@@ -104,7 +104,7 @@
 
             <div v-if="tab == 'overview'">
               <div class="error" v-if="generated.error">An error occurred while generating your metrics :( Please try again later.</div>
-              <div class="image" v-html="generated.content||templates.placeholder.image"></div>
+              <div class="image" :class="{pending:generated.pending}" v-html="generated.content||templates.placeholder.image"></div>
             </div>
             <div v-else-if="tab == 'markdown'">
               Add the markdown below to your <i>README.md</i> at <a :href="repo">{{ user }}/{{ user }}</a>

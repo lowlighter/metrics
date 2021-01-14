@@ -29,7 +29,7 @@
                 this.mockresize()
                 marker.remove()
               }
-            }, 1000)
+            }, 100)
         },
         components:{Prism:PrismComponent},
       //Watchers

@@ -400,7 +400,6 @@
                       dates.push(date)
                       result.total.dates[date] = (total += (result.increments.dates[date] = faker.random.number(100)))
                     }
-                    console.log(result)
                     return result
                   }
                 }) : null),
