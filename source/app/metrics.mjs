@@ -51,7 +51,8 @@
           else {
             //Query data from GitHub API
               console.debug(`metrics/compute/${login} > graphql query`)
-              Object.assign(data, await graphql(queries.common({login, "calendar.from":new Date(Date.now()-14*24*60*60*1000).toISOString(), "calendar.to":(new Date()).toISOString()})))
+              const forks = q["repositories.forks"] || false
+              Object.assign(data, await graphql(queries.common({login, "calendar.from":new Date(Date.now()-14*24*60*60*1000).toISOString(), "calendar.to":(new Date()).toISOString(), forks:forks ? "" : ", isFork: false"})))
             //Query repositories from GitHub API
               {
                 //Iterate through repositories
@@ -59,7 +60,7 @@
                   let pushed = 0
                   do {
                     console.debug(`metrics/compute/${login} > retrieving repositories after ${cursor}`)
-                    const {user:{repositories:{edges, nodes}}} = await graphql(queries.repositories({login, after:cursor ? `after: "${cursor}"` : "", repositories:Math.min(repositories, 100)}))
+                    const {user:{repositories:{edges, nodes}}} = await graphql(queries.repositories({login, after:cursor ? `after: "${cursor}"` : "", repositories:Math.min(repositories, 100), forks:forks ? "" : ", isFork: false"}))
                     cursor = edges?.[edges?.length-1]?.cursor
                     data.user.repositories.nodes.push(...nodes)
                     pushed = nodes.length
@@ -90,7 +91,7 @@
 
         //Template rendering
           console.debug(`metrics/compute/${login} > render`)
-          let rendered = await ejs.render(image, {...data, s, style, fonts}, {views, async:true})
+          let rendered = await ejs.render(image, {...data, s, f:format, style, fonts}, {views, async:true})
         //Apply resizing
           const {resized, mime} = await svgresize(rendered, {paddings:q["config.padding"], convert})
           rendered = resized
@@ -129,11 +130,11 @@
   }
 
 /** Formatter */
-  function format(n) {
+  function format(n, {sign = false} = {}) {
     for (const {u, v} of [{u:"b", v:10**9}, {u:"m", v:10**6}, {u:"k", v:10**3}])
       if (n/v >= 1)
-        return `${(n/v).toFixed(2).substr(0, 4).replace(/[.]0*$/, "")}${u}`
-    return n
+        return `${(sign)&&(n > 0) ? "+" : ""}${(n/v).toFixed(2).substr(0, 4).replace(/[.]0*$/, "")}${u}`
+    return `${(sign)&&(n > 0) ? "+" : ""}${n}`
   }
 
 /** Bytes formatter */

@@ -1508,6 +1508,18 @@ Is is possible to commit generated metrics in a specific branch rather than defa
     committer_branch: my-branch
 ```
 
+#### 🍴 Including forked repositories
+
+    🚧 This feature is available as pre-release on @master branch (unstable)
+
+Is is possible to include forked repositories into generated metrics by adding the following to your workflow:
+```yaml
+- uses: lowlighter/metrics@master
+  with:
+    # ... other options
+    repositories_forks: yes
+```
+
 #### 💱 Convert output to PNG/JPEG
 
 It is possible to convert output from SVG to PNG or JPEG images by adding the following to your workflow:

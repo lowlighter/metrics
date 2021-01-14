@@ -47,11 +47,6 @@
           }
           total.min = Math.min(...Object.values(total.dates))
           total.max = Math.max(...Object.values(total.dates))
-        //Format values
-          for (const date in increments.dates)
-            increments.dates[date] = {value:increments.dates[date], text:`${increments.dates[date] > 0 ? "+" : ""}${imports.format(increments.dates[date])}`}
-          for (const date in total.dates)
-            total.dates[date] = {value:total.dates[date], text:imports.format(total.dates[date])}
         //Months name
           const months = ["", "Jan.", "Feb.", "Mar.", "Apr.", "May", "June", "July", "Aug.", "Sep.", "Oct.", "Nov.", "Dec."]
         //Results

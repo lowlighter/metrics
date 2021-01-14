@@ -238,7 +238,9 @@
 
       //Repositories to use
         const repositories = input.number("repositories")
+        const forks = input.bool("repositories_forks")
         info("Repositories to process", repositories)
+        info("Include forked repositories", forks)
 
       //Die on plugins errors
         const die = input.bool("plugins_errors_fatal")
@@ -247,7 +249,7 @@
       //Build query
         const query = input.object("query")
         info("Query additional params", query)
-        q = {...query, ...q, base:false, ...base, ...config, repositories, template}
+        q = {...query, ...q, base:false, ...base, ...config, repositories, "repositories.forks":forks, template}
 
       //Render metrics
         const {rendered} = await metrics({login:user, q, dflags}, {graphql, rest, plugins, conf, die, verify}, {Plugins, Templates})

@@ -2,6 +2,10 @@ query Repository {
   user(login: "$login") {
     repository(name: "$repo") {
       name
+      owner {
+        login
+      }
+      isFork
       createdAt
       diskUsage
       homepageUrl

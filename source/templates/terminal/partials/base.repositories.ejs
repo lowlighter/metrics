@@ -1,11 +1,11 @@
 <% if (base.repositories) { %>
 <div class="stdin"><%- meta.$ %> ls -lh github/repositories</div><%# -%>
 <div class="stdout"><%# -%>
-Total <%= user.repositories.totalCount %> repositor<%= s(user.repositories.totalCount, "y") %> - <%= computed.diskUsage %>
+Total <%= user.repositories.totalCount %> repositor<%= s(user.repositories.totalCount, "y") %><%= computed.repositories.forked ? ` - ${computed.repositories.forked} fork${s(computed.repositories.forked)}` : "" %> - <%= computed.diskUsage %>
 <% if (plugins.traffic) { if (plugins.traffic.error) { -%>
 ----  <b>     </b>  views <span class="error">(<%= plugins.traffic.error.message %>)</span>
 <% } else { -%>
--r--  <b><%= `${plugins.traffic.views.count}`.padStart(5) %></b>  views
+-r--  <b><%= `${f(plugins.traffic.views.count)}`.padStart(5) %></b>  views
 <% }} -%>
 -r--  <b><%= `${computed.repositories.stargazers}`.padStart(5) %></b>  stargazer<%= s(computed.repositories.stargazers) %>
 -r--  <b><%= `${computed.repositories.forks}`.padStart(5) %></b>  fork<%= s(computed.repositories.forks) %>
@@ -28,6 +28,6 @@ dr-x         LICENSE
 <% } -%>
 <% if (plugins.lines) { if (plugins.lines.error) { %>
 <span class="diff error">@@ <%= plugins.lines.error.message %> @@</span><% } else { %>
-<span class="diff">@@ -<%= plugins.lines.deleted %> +<%= plugins.lines.added %> @@</span>
+<span class="diff">@@ -<%= f(plugins.lines.deleted) %> +<%= f(plugins.lines.added) %> @@</span>
 <% }} -%>
 </div><% } -%>

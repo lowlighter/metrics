@@ -14,9 +14,6 @@
           const {user:{starredRepositories:{edges:repositories}}} = await graphql(queries.starred({login, limit}))
         //Format starred repositories
           for (const edge of repositories) {
-            //Formats values
-              edge.node.stargazers = imports.format(edge.node.stargazerCount)
-              edge.node.forks = imports.format(edge.node.forkCount)
             //Format date
               const time = (Date.now()-new Date(edge.starredAt).getTime())/(24*60*60*1000)
               let updated = new Date(edge.starredAt).toDateString().substring(4)
