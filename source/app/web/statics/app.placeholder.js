@@ -50,7 +50,7 @@
           //Meta-data
             meta:{version:set.version, author:"lowlighter"},
           //Animated
-            animated:set.config.animated,
+            animated:false,
           //Config
             config:set.config,
           //Base elements
@@ -304,7 +304,7 @@
                     totalCount:options["projects.limit"]+faker.random.number(10),
                     list:new Array(Number(options["projects.limit"])).fill(null).map(_ => ({
                       name:faker.lorem.sentence(),
-                      updated:`${2+faker.date.recent(8)} days ago`,
+                      updated:`${2+faker.random.number(8)} days ago`,
                       progress:{enabled:true, todo:faker.random.number(50), doing:faker.random.number(50), done:faker.random.number(50), get total() { return this.todo + this.doing + this.done } }
                     }))
                   }
@@ -432,7 +432,7 @@
                         user:set.user,
                         mobile:null,
                         number:faker.random.number(100),
-                        title:faker.lorem.paragraph(),
+                        title:faker.lorem.sentence(),
                       },
                       {
                         type:"comment",
@@ -442,7 +442,7 @@
                         user:set.user,
                         mobile:null,
                         number:faker.random.number(100),
-                        title:faker.lorem.paragraph(),
+                        title:faker.lorem.sentence(),
                       },
                       {
                         type:"issue",
@@ -450,7 +450,7 @@
                         action:faker.random.arrayElement(["opened", "closed", "reopened"]),
                         user:set.user,
                         number:faker.random.number(100),
-                        title:faker.lorem.paragraph(),
+                        title:faker.lorem.sentence(),
                       },
                       {
                         type:"pr",
@@ -458,7 +458,7 @@
                         action:faker.random.arrayElement(["opened", "closed"]),
                         user:set.user,
                         number:faker.random.number(100),
-                        title:faker.lorem.paragraph(),
+                        title:faker.lorem.sentence(),
                         lines:{added:faker.random.number(1000), deleted:faker.random.number(1000)}, files:{changed:faker.random.number(10)}
                       },
                       {
@@ -475,7 +475,7 @@
                         repo:`${faker.random.word()}/${faker.random.word()}`,
                         user:set.user,
                         number:faker.random.number(100),
-                        title:faker.lorem.paragraph(),
+                        title:faker.lorem.sentence(),
                       },
                       {
                         type:"release",
