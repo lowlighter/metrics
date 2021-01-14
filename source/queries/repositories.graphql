@@ -9,6 +9,7 @@ query Repositories {
         owner {
           login
         }
+        isFork
         watchers {
           totalCount
         }

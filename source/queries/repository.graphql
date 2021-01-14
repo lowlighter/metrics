@@ -5,6 +5,7 @@ query Repository {
       owner {
         login
       }
+      isFork
       createdAt
       diskUsage
       homepageUrl
