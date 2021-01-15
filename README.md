@@ -257,6 +257,12 @@ Assuming your username is `my-github-user`, you can then embed your metrics in y
 ![Metrics](https://github.com/my-github-user/my-github-user/blob/master/github-metrics.svg)
 ```
 
+(or, for a new repository with a default branch of `main`):
+
+```markdown
+![Metrics](https://github.com/my-github-user/my-github-user/blob/main/github-metrics.svg)
+```
+
 <details>
 <summary>💬 How to setup?</summary>
 
