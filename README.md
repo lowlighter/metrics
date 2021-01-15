@@ -127,7 +127,7 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
   </tr>
   <tr>
     <th><a href="#-habits">💡 Coding Habits plugin</a></th>
-    <th><a href="#-activity">📰 Activity plugin <sup><code>🚧 @master</code></sup></a></th>
+    <th><a href="#-activity">📰 Activity plugin</a></th>
   </tr>
   <tr>
     <td>
@@ -164,7 +164,7 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
   </tr>
   <tr>
     <th><a href="#-gists">🎫 Gists plugin</a></th>
-    <th><a href="#-people">🧑‍🤝‍🧑 People plugin <sup><code>🚧 @master</code></sup></a></th>
+    <th><a href="#-people">🧑‍🤝‍🧑 People plugin</a></th>
   </tr>
   <tr>
     <td>
@@ -574,11 +574,11 @@ The default template is `classic`.
     <td data-for="tweets">✔️</td>
     <td data-for="posts">✔️</td>
     <td data-for="habits">✔️</td>
-    <td data-for="activity"><span title="Available on @master">✔️<sup>M</sup></span></td>
+    <td data-for="activity">✔️</td>
     <td data-for="stars">✔️</td>
     <td data-for="stargazers">✔️</td>
     <td data-for="gists">✔️</td>
-    <td data-for="people"><span title="Available on @master">✔️<sup>M</sup></span></td>
+    <td data-for="people">✔️</td>
   </tr>
   <tr>
     <th>Terminal</th>
@@ -604,10 +604,10 @@ The default template is `classic`.
   <tr>
     <th>Repository<sup>R</sup></th>
     <td data-for="base">✔️</td>
-    <td data-for="pagespeed"><span title="Available on @master">✔️<sup>M</sup></span></td>
+    <td data-for="pagespeed">✔️</td>
     <td data-for="isocalendar">❌</td>
     <td data-for="music">❌</td>
-    <td data-for="languages"><span title="Available on @master">✔️<sup>M</sup></span></td>
+    <td data-for="languages">✔️</td>
     <td data-for="followup">✔️</td>
     <td data-for="topics">❌</td>
     <td data-for="projects">✔️</td>
@@ -1291,8 +1291,6 @@ By default, dates are based on the Greenwich meridian (GMT/UTC). In order to the
 
 ### 📰 Activity
 
-    🚧 This plugin is available as pre-release on @master branch (unstable)
-
 The *activity* plugin displays your recent activity on GitHub.
 
 ![Activity plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.activity.svg)
@@ -1304,7 +1302,7 @@ It will consume an additional GitHub request.
 
 Add the following to your workflow:
 ```yaml
-- uses: lowlighter/metrics@master
+- uses: lowlighter/metrics@latest
   with:
     # ... other options
     plugin_activity: yes
@@ -1335,7 +1333,7 @@ Use the special value `"all"` (default value) to track all events.
 
 Add the following to your workflow:
 ```yaml
-- uses: lowlighter/metrics@master
+- uses: lowlighter/metrics@latest
   with:
     # ... other options
     plugin_activity: yes
@@ -1410,8 +1408,6 @@ Add the following to your workflow:
 
 ### 🧑‍🤝‍🧑 People
 
-    🚧 This plugin is available as pre-release on @master branch (unstable)
-
 The *people* plugin displays your followers and followed users' avatars.
 
 ![People plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.people.svg)
@@ -1423,7 +1419,7 @@ It will consume an additional GitHub request per group of 100 users fetched.
 
 Add the following to your workflow:
 ```yaml
-- uses: lowlighter/metrics@master
+- uses: lowlighter/metrics@latest
   with:
     # ... other options
     plugin_people: yes
@@ -1435,7 +1431,7 @@ Add the following to your workflow:
 It is possible to use [identicons](https://github.blog/2013-08-14-identicons/) instead of their avatar for privacy purposes.
 
 ```yaml
-- uses: lowlighter/metrics@master
+- uses: lowlighter/metrics@latest
   with:
     # ... other options
     plugin_people_identicons: yes
@@ -1466,11 +1462,9 @@ It is possible to set set your timezone (see [here](https://en.wikipedia.org/wik
 
 #### 📦 Ordering content
 
-    🚧 This feature is available as pre-release on @master branch (unstable)
-
 It is possible to order metrics content by adding the following to your workflow:
 ```yaml
-- uses: lowlighter/metrics@master
+- uses: lowlighter/metrics@latest
   with:
     # ... other options
     base: header
@@ -1504,11 +1498,9 @@ When two values are specified separated by a comma, the first one will be used f
 
 #### 🎋 Using a specific branch instead of default
 
-    🚧 This feature is available as pre-release on @master branch (unstable)
-
 Is is possible to commit generated metrics in a specific branch rather than default branch by adding the following to your workflow:
 ```yaml
-- uses: lowlighter/metrics@master
+- uses: lowlighter/metrics@latest
   with:
     # ... other options
     committer_branch: my-branch
@@ -1516,11 +1508,9 @@ Is is possible to commit generated metrics in a specific branch rather than defa
 
 #### 🍴 Including forked repositories
 
-    🚧 This feature is available as pre-release on @master branch (unstable)
-
 Is is possible to include forked repositories into generated metrics by adding the following to your workflow:
 ```yaml
-- uses: lowlighter/metrics@master
+- uses: lowlighter/metrics@latest
   with:
     # ... other options
     repositories_forks: yes
