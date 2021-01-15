@@ -1,6 +1,6 @@
 {
   "name": "metrics",
-  "version": "3.2.0-beta",
+  "version": "3.2.0",
   "description": "An image generator with 20+ metrics about your GitHub account such as activity, community, repositories, coding habits, website performances, music played, starred topics, etc. that you can put on your profile or elsewhere !",
   "main": "index.mjs",
   "scripts": {
@@ -35,7 +35,7 @@
     "puppeteer": "^5.5.0",
     "svgo": "^1.3.2",
     "vue": "^2.6.12",
-    "vue-prism-component": "^1.2.0"
+    "vue-prism-component": "^2.0.0"
   },
   "devDependencies": {
     "faker": "^5.1.0",
