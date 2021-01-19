@@ -46,8 +46,14 @@
           }
         }
 
+      //Pre-Setup
+        const community = {
+          templates:input.array("setup_community_templates")
+        }
+        info("Setup - community templates", community.templates)
+
       //Load configuration
-        const {conf, Plugins, Templates} = await setup({log:false, nosettings:true})
+        const {conf, Plugins, Templates} = await setup({log:false, nosettings:true, community})
         info("Setup", "complete")
         info("Version", conf.package.version)
 

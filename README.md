@@ -631,6 +631,41 @@ The default template is `classic`.
 * **R**: Repository template (all plugins content will be restricted to related repository)
 
 <details>
+<summary>💬 Using community templates</summary>
+
+    🚧 This feature is available as pre-release on @master branch (unstable)
+
+It is possible to use official releases along with custom templates from forked repositories (not necessarily your own).
+This can be used to use different layouts, styles colors, etc.
+
+Use `setup_community_templates` option to specify additional external sources in the following format: `user/repo@branch:template`. Templates added this way will be downloaded through git and will be available with the same template name but prefixed with `@`.
+
+For example, to use the `super-metrics` template from `github-user`'s fork, add the following:
+```yaml
+- uses: lowlighter/metrics@master
+  with:
+    # ... other options
+    template: "@super-metrics"
+    setup_community_templates: github-user/metrics@master:classic
+```
+
+By default, community templates have their `template.mjs` removed and fallback to the one used by `classic` template.
+It means that they're restricted to common and plugins data, to prevent malicious code injection and token leaks.
+
+If you really trust a template, it is possible to bypass this behaviour by appending `+trust` at the end of their source like below:
+```yaml
+- uses: lowlighter/metrics@master
+  with:
+    # ... other options
+    setup_community_templates: github-user/metrics@master:classic+trust
+```
+
+To create a new community template, just fork this repository and create a folder in `/source/templates` with the same structure as current templates.
+Then, it's just as simple as HTML and CSS with a bit of JavaScript!
+
+</details>
+
+<details>
 <summary>💬 Using repository template</summary>
 
 To use `repository` template, you'll need to provide a repository name in `query` option.
