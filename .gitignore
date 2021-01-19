@@ -105,3 +105,7 @@ dist
 
 # User settings
 settings.json
+
+# Community templates
+source/templates/.community
+source/templates/@*

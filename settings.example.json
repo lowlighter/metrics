@@ -12,6 +12,9 @@
   "debug":false,                  "//":"Debug mode",
   "mocked":false,                 "//":"Use mocked data",
   "repositories":100,             "//":"Number of repositories to use to compute metrics",
+  "community":{                   "//":"Community settings",
+    "templates":[],               "//":"Community templates"
+  },
   "templates":{                   "//":"Template configuration",
     "default":"classic",          "//":"Default template",
     "enabled":[],                 "//":"Enabled templates, leave empty to enable all templates"
