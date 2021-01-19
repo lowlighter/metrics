@@ -3,11 +3,13 @@
   import path from "path"
   import util from "util"
   import url from "url"
+  import processes from "child_process"
+
   const Templates = {}
   const Plugins = {}
 
 /** Setup */
-  export default async function ({log = true, nosettings = false} = {}) {
+  export default async function ({log = true, nosettings = false, community = {}} = {}) {
 
     //Paths
       const __metrics = path.join(path.dirname(url.fileURLToPath(import.meta.url)), "../..")
@@ -49,6 +51,7 @@
         conf.settings.templates = {default:"classic", enabled:[]}
       if (!conf.settings.plugins)
         conf.settings.plugins = {}
+      conf.settings.community = {...conf.settings.community, ...community}
       conf.settings.plugins.base = {parts:["header", "activity", "community", "repositories", "metadata"]}
       if (conf.settings.debug)
         logger(util.inspect(conf.settings, {depth:Infinity, maxStringLength:256}))
@@ -57,6 +60,47 @@
       logger(`metrics/setup > load package.json`)
       conf.package = JSON.parse(`${await fs.promises.readFile(__package)}`)
       logger(`metrics/setup > load package.json > success`)
+
+    //Load community template
+      if ((Array.isArray(conf.settings.community.templates))&&(conf.settings.community.templates.length)) {
+        //Clean remote repository
+          logger(`metrics/setup > ${conf.settings.community.templates.length} community templates to install`)
+          await fs.promises.rmdir(path.join(__templates, ".community"), {recursive:true})
+        //Download community templates
+          for (const template of conf.settings.community.templates) {
+            try {
+              //Parse community template
+                logger(`metrics/setup > load community template ${template}`)
+                const {repo, branch, name, trust = false} = template.match(/^(?<repo>[\s\S]+?)@(?<branch>[\s\S]+?):(?<name>[\s\S]+?)(?<trust>[+]trust)?$/)?.groups
+                const command = `git clone --single-branch --branch ${branch} https://github.com/${repo}.git ${path.join(__templates, ".community")}`
+                logger(`metrics/setup > run ${command}`)
+              //Clone remote repository
+                processes.execSync(command, {stdio:"ignore"})
+              //Extract template
+                logger(`metrics/setup > extract ${name} from ${repo}@${branch}`)
+                await fs.promises.rmdir(path.join(__templates, `@${name}`), {recursive:true})
+                await fs.promises.rename(path.join(__templates, ".community/source/templates", name), path.join(__templates, `@${name}`))
+              //JavaScript file
+                if (trust)
+                  logger(`metrics/setup > keeping @${name}/template.mjs (unsafe mode is enabled)`)
+                else if (fs.existsSync(path.join(__templates, `@${name}`, "template.mjs"))) {
+                  logger(`metrics/setup > removing @${name}/template.mjs`)
+                  await fs.promises.unlink(path.join(__templates, `@${name}`, "template.mjs"))
+                }
+                else
+                  logger(`metrics/setup > @${name}/template.mjs does not exist`)
+              //Clean remote repository
+                logger(`metrics/setup > clean ${repo}@${branch}`)
+                await fs.promises.rmdir(path.join(__templates, ".community"), {recursive:true})
+                logger(`metrics/setup > loaded community template ${name}`)
+            } catch (error) {
+              logger(`metrics/setup > failed to load community template ${template}`)
+              logger(error)
+            }
+          }
+      }
+      else
+        logger(`metrics/setup > no community templates to install`)
 
     //Load templates
       for (const name of await fs.promises.readdir(__templates)) {
@@ -72,7 +116,7 @@
           conf.templates[name] = {image, style, fonts, partials, views:[directory]}
 
         //Cache templates scripts
-          Templates[name] = (await import(url.pathToFileURL(path.join(directory, "template.mjs")).href)).default
+          Templates[name] = (await import(url.pathToFileURL(path.join(fs.existsSync(path.join(directory, "templates.mjs")) ? directory : path.join(__templates, "classic"), "template.mjs")).href)).default
           logger(`metrics/setup > load template [${name}] > success`)
         //Debug
           if (conf.settings.debug) {

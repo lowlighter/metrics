@@ -38,6 +38,13 @@ inputs:
     description: SVG optimization
     default: yes
 
+  # Setup additional templates from remote repositories (like forks)
+  # Format is : user/repo@branch:template
+  # To use a community template, set "template" option to "@template" (where template is the template name)
+  setup_community_templates:
+    description: Additional community templates to setup
+    default: ""
+
   # Timezone used by metrics
   # See https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   # Some plugins will use it to calibrate dates
