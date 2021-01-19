@@ -71,7 +71,7 @@
             try {
               //Parse community template
                 logger(`metrics/setup > load community template ${template}`)
-                const {repo, branch, name} = template.match(/^(?<repo>[\s\S]+?)@(?<branch>[\s\S]+?):(?<name>[\s\S]+?)$/)?.groups
+                const {repo, branch, name, trust = false} = template.match(/^(?<repo>[\s\S]+?)@(?<branch>[\s\S]+?):(?<name>[\s\S]+?)(?<trust>[+]trust)?$/)?.groups
                 const command = `git clone --single-branch --branch ${branch} https://github.com/${repo}.git ${path.join(__templates, ".community")}`
                 logger(`metrics/setup > run ${command}`)
               //Clone remote repository
@@ -80,6 +80,15 @@
                 logger(`metrics/setup > extract ${name} from ${repo}@${branch}`)
                 await fs.promises.rmdir(path.join(__templates, `@${name}`), {recursive:true})
                 await fs.promises.rename(path.join(__templates, ".community/source/templates", name), path.join(__templates, `@${name}`))
+              //JavaScript file
+                if (trust)
+                  logger(`metrics/setup > keeping @${name}/template.mjs (unsafe mode is enabled)`)
+                else if (fs.existsSync(path.join(__templates, `@${name}`, "template.mjs"))) {
+                  logger(`metrics/setup > removing @${name}/template.mjs`)
+                  await fs.promises.unlink(path.join(__templates, `@${name}`, "template.mjs"))
+                }
+                else
+                  logger(`metrics/setup > @${name}/template.mjs does not exist`)
               //Clean remote repository
                 logger(`metrics/setup > clean ${repo}@${branch}`)
                 await fs.promises.rmdir(path.join(__templates, ".community"), {recursive:true})
@@ -107,7 +116,7 @@
           conf.templates[name] = {image, style, fonts, partials, views:[directory]}
 
         //Cache templates scripts
-          Templates[name] = (await import(url.pathToFileURL(path.join(directory, "template.mjs")).href)).default
+          Templates[name] = (await import(url.pathToFileURL(path.join(fs.existsSync(path.join(directory, "templates.mjs")) ? directory : path.join(__templates, "classic"), "template.mjs")).href)).default
           logger(`metrics/setup > load template [${name}] > success`)
         //Debug
           if (conf.settings.debug) {

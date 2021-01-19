@@ -649,11 +649,19 @@ For example, to use the `super-metrics` template from `github-user`'s fork, add 
     setup_community_templates: github-user/metrics@latest:classic
 ```
 
-To create a community template, just fork this repository and create a new folder in `/source/templates` with the same structure as current templates.
-Then, it's just as simple as HTML and CSS with a bit of JavaScript!
+By default, community templates have their `template.mjs` removed and fallback to the one used by `classic` template.
+It means that they're restricted to common and plugins data, to prevent malicious code injection and token leaks.
 
-    ⚠️ Community templates are restricted to common and plugins data.
-        Their "template.mjs" is automatically removed to prevent malicious code injection. 
+If you really trust a template, it is possible to bypass this behaviour by appending `+trust` at the end of their source like below:
+```yaml
+- uses: lowlighter/metrics@master
+  with:
+    # ... other options
+    setup_community_templates: github-user/metrics@latest:classic+trust
+```
+
+To create a new community template, just fork this repository and create a folder in `/source/templates` with the same structure as current templates.
+Then, it's just as simple as HTML and CSS with a bit of JavaScript!
 
 </details>
 
