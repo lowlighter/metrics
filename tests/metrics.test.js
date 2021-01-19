@@ -314,3 +314,16 @@
           })).toBe(true), 60*1e3)
     })
   )
+
+  describe("Additional options", () => {
+    test("Community templates", async () => expect(await action.run({
+      token:"MOCKED_TOKEN",
+      plugin_pagespeed_token:"MOCKED_TOKEN",
+      plugin_tweets_token:"MOCKED_TOKEN",
+      plugin_music_token:"MOCKED_CLIENT_ID, MOCKED_CLIENT_SECRET, MOCKED_REFRESH_TOKEN",
+      template:"@classic", base:"",
+      config_timezone:"Europe/Paris",
+      plugins_errors_fatal:true, dryrun:true, use_mocked_data:true, verify:true,
+      setup_community_templates:"lowlighter/metrics@master:classic",
+    })).toBe(true), 60*1e3)
+  })

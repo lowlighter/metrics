@@ -62,7 +62,7 @@
       logger(`metrics/setup > load package.json > success`)
 
     //Load community template
-      if (Array.isArray(conf.settings.community.templates)) {
+      if ((Array.isArray(conf.settings.community.templates))&&(conf.settings.community.templates.length)) {
         //Clean remote repository
           logger(`metrics/setup > ${conf.settings.community.templates.length} community templates to install`)
           await fs.promises.rmdir(path.join(__templates, ".community"), {recursive:true})
