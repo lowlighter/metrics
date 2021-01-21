@@ -68,7 +68,7 @@
         //Compute metrics
           console.debug(`metrics/compute/${login} > compute`)
           const computer = Templates[template].default || Templates[template]
-          await computer({login, q, dflags}, {conf, data, rest, graphql, plugins, queries}, {s, pending, imports:{plugins:Plugins, url, imgb64, axios, puppeteer, run, fs, os, paths, util, format, bytes, shuffle, htmlescape, urlexpand}})
+          await computer({login, q, dflags}, {conf, data, rest, graphql, plugins, queries}, {s, pending, imports:{plugins:Plugins, url, imgb64, axios, puppeteer, run, fs, os, paths, util, format, bytes, shuffle, htmlescape, urlexpand, __module}})
           const promised = await Promise.all(pending)
 
         //Check plugins errors
@@ -121,6 +121,11 @@
         //Generic error
           throw error
       }
+  }
+
+/** Returns module __dirname */
+  function __module(module) {
+    return paths.join(paths.dirname(url.fileURLToPath(module)))
   }
 
 /** Formatter */

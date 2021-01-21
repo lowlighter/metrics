@@ -1,0 +1,71 @@
+query($name: String) {
+  User(name: $name) {
+    id
+    name
+    about
+   	statistics {
+      anime {
+        count
+        minutesWatched
+        episodesWatched
+        genres(limit: 4) {
+          genre
+        }
+      }
+      manga {
+        count
+        chaptersRead
+        volumesRead
+        genres(limit: 4) {
+          genre
+        }
+      }
+    }
+  }
+  MediaListCollection(userName: $name, type: ANIME) {
+    lists {
+      name
+      isCustomList
+      entries {
+        ...mediaListEntry
+      }
+    }
+  }
+}
+
+fragment mediaListEntry on MediaList {
+  status
+  progress
+  progressVolumes
+  startedAt {
+    year
+    month
+    day
+  }
+  completedAt {
+    year
+    month
+    day
+  }
+  media {
+    title {
+      romaji
+      english
+      native
+    }
+    type
+    status(version: 2)
+    episodes
+    volumes
+    chapters
+    averageScore
+    countryOfOrigin
+    genres
+    coverImage {
+      medium
+    }
+    startDate {
+      year
+    }
+  }
+}

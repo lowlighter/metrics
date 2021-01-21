@@ -1,0 +1,65 @@
+<% if (plugins.anilist) { %>
+  <section>
+    <h2 class="field">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M4.75 2.5a.25.25 0 00-.25.25v9.91l3.023-2.489a.75.75 0 01.954 0l3.023 2.49V2.75a.25.25 0 00-.25-.25h-6.5zM3 2.75C3 1.784 3.784 1 4.75 1h6.5c.966 0 1.75.784 1.75 1.75v11.5a.75.75 0 01-1.227.579L8 11.722l-3.773 3.107A.75.75 0 013 14.25V2.75z"></path></svg>      Anilist
+    </h2>
+    <div class="row">
+      <% if (plugins.anilist.error) { %>
+        <section>
+          <div class="field error">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M2.343 13.657A8 8 0 1113.657 2.343 8 8 0 012.343 13.657zM6.03 4.97a.75.75 0 00-1.06 1.06L6.94 8 4.97 9.97a.75.75 0 101.06 1.06L8 9.06l1.97 1.97a.75.75 0 101.06-1.06L9.06 8l1.97-1.97a.75.75 0 10-1.06-1.06L8 6.94 6.03 4.97z"></path></svg>
+            <%= plugins.anilist.error.message %>
+          </div>
+        </section>
+      <% } else { %>
+        <section>
+          <div class="field">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M16 3.75a.75.75 0 00-1.136-.643L11 5.425V4.75A1.75 1.75 0 009.25 3h-7.5A1.75 1.75 0 000 4.75v6.5C0 12.216.784 13 1.75 13h7.5A1.75 1.75 0 0011 11.25v-.675l3.864 2.318A.75.75 0 0016 12.25v-8.5zm-5 5.075l3.5 2.1v-5.85l-3.5 2.1v1.65zM9.5 6.75v-2a.25.25 0 00-.25-.25h-7.5a.25.25 0 00-.25.25v6.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-4.5z"></path></svg>
+            <%= f(plugins.anilist.user.stats.anime.minutesWatched) %> minute<%= s(plugins.anilist.user.stats.anime.minutesWatched) %>
+          </div>
+        </section>
+        <section>
+          <div class="field">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.744 3.744 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75V1.75zm8.755 3a2.25 2.25 0 012.25-2.25H14.5v9h-3.757c-.71 0-1.4.201-1.992.572l.004-7.322zm-1.504 7.324l.004-5.073-.002-2.253A2.25 2.25 0 005.003 2.5H1.5v9h3.757a3.75 3.75 0 011.994.574z"></path></svg>
+            <%= f(plugins.anilist.user.stats.manga.chaptersRead) %> chapter<%= s(plugins.anilist.user.stats.manga.chaptersRead) %> read
+          </div>
+        </section>
+      <% } %>
+    </div>
+    <div class="row fill-width">
+      <section>
+        <% for (const list of ["completed"]) { %>
+          <% if (plugins.anilist.lists[list]?.length) { %>
+            <div class="anilist tracklist">
+              <% for (const {name, type, release, status, genres, score, progress, released, artwork} of plugins.anilist.lists[list]) { const translate = {ANIME:"Anime", MANGA:"Manga", FINISHED:"", RELEASING:", currently releasing", NOT_YET_RELEASED:", unreleased", CANCELLED:", cancelled", HIATUS:", in hiatus"} %>
+                <div class="track">
+                  <img src="data:image/png;base64,<%= artwork %>" width="48" height="72" alt=""/>
+                  <div>
+                    <div class="name"><%= name %></div>
+
+                    <div class="infos">
+                      <%= translate[type] %> · <%= status === "NOT_YET_RELEASED" ? "Not yet released" : `Released in ${release}${translate[status]}` %> · <%= (score/10).toFixed(1) %>/10
+                    </div>
+
+
+                    <div class="field center horizontal-wrap ">
+                      <svg class="bar" xmlns="http://www.w3.org/2000/svg" width="460" height="8">
+                        <mask id="progress-bar">
+                          <rect x="0" y="0" width="300" height="8" fill="white" rx="5"/>
+                        </mask>
+                        <rect mask="url(#progress-bar)" x="0" y="0" width="<%= (progress/released)*300 %>" height="8" fill="#28A745"/>
+                        <rect mask="url(#progress-bar)" x="<%= (progress/released)*300 %>" y="0" width="<%= (1-progress/released)*300 %>" height="8" fill="#6F42C1"/>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              <% } %>
+            </div>
+          <% } %>
+        <% } %>
+      </section>
+    </div>
+  </section>
+<% } %>
+
+
