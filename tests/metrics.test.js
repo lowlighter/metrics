@@ -138,10 +138,19 @@
       plugin_languages:true,
       plugin_languages_skipped:"metrics",
     }],
+    ["Language plugin (custom color set)", {
+      plugin_languages:true,
+      plugin_languages_colors:"0:ff0000,1:red",
+    }],
+    ["Language plugin (custom color set)", {
+      plugin_languages:true,
+      plugin_languages_colors:"rainbow",
+    }],
     ["Language plugin (complete)", {
       plugin_languages:true,
       plugin_languages_ignored:"html, css, dockerfile",
       plugin_languages_skipped:"metrics",
+      plugin_languages_colors:"rainbow",
     }],
     ["Follow-up plugin (default)", {
       plugin_followup:true,
