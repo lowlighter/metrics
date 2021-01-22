@@ -1,18 +1,18 @@
 //Supported providers
   const providers = {
-    apple: {
-      name: "Apple Music",
-      embed: /^https:..embed.music.apple.com.\w+.playlist/,
+    apple:{
+      name:"Apple Music",
+      embed:/^https:..embed.music.apple.com.\w+.playlist/,
     },
-    spotify: {
-      name: "Spotify",
-      embed: /^https:..open.spotify.com.embed.playlist/,
+    spotify:{
+      name:"Spotify",
+      embed:/^https:..open.spotify.com.embed.playlist/,
     },
-    lastfm: {
-      name: "Last.fm",
-      embed: /^\b$/,
+    lastfm:{
+      name:"Last.fm",
+      embed:/^\b$/,
     },
-  };
+  }
 
 //Supported modes
   const modes = {
