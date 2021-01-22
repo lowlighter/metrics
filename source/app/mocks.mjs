@@ -1111,7 +1111,7 @@
                                   },
                                   album:{
                                     mbid:"",
-                                    "#text":track,
+                                    "#text":album,
                                   },
                                   image:[
                                     {
