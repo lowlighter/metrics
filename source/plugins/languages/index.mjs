@@ -6,11 +6,16 @@
           if ((!enabled)||(!q.languages))
             return null
         //Parameters override
-          let {"languages.ignored":ignored = "", "languages.skipped":skipped = ""} = q
+          let {"languages.ignored":ignored = "", "languages.skipped":skipped = "", "languages.colors":colors = ""} = q
           //Ignored languages
             ignored = decodeURIComponent(ignored).split(",").map(x => x.trim().toLocaleLowerCase()).filter(x => x)
           //Skipped repositories
             skipped = decodeURIComponent(skipped).split(",").map(x => x.trim().toLocaleLowerCase()).filter(x => x)
+          //Custom colors
+            if (`${colors}` === "rainbow")
+              colors = ["0:#ff0000", "1:#ffa500", "2:#ffff00", "3:#008000", "4:#0000ff", "5:#4b0082", "6:#ee82ee", "7:#162221"]
+            colors = Object.fromEntries(decodeURIComponent(colors).split(",").map(x => x.trim().toLocaleLowerCase()).filter(x => x).map(x => x.split(":").map(x => x.trim())))
+            console.debug(`metrics/compute/${login}/plugins > languages > custom colors ${JSON.stringify(colors)}`)
         //Iterate through user's repositories and retrieve languages data
           console.debug(`metrics/compute/${login}/plugins > languages > processing ${data.user.repositories.nodes.length} repositories`)
           const languages = {colors:{}, total:0, stats:{}}
@@ -29,7 +34,7 @@
                   }
                 //Update language stats
                   languages.stats[name] = (languages.stats[name] ?? 0) + size
-                  languages.colors[name] = color ?? "#ededed"
+                  languages.colors[name] = colors[name.toLocaleLowerCase()] ?? color ?? "#ededed"
                   languages.total += size
               }
           }
@@ -37,8 +42,11 @@
           console.debug(`metrics/compute/${login}/plugins > languages > computing stats`)
           Object.keys(languages.stats).map(name => languages.stats[name] /= languages.total)
           languages.favorites = Object.entries(languages.stats).sort(([an, a], [bn, b]) => b - a).slice(0, 8).map(([name, value]) => ({name, value, color:languages.colors[name], x:0}))
-          for (let i = 1; i < languages.favorites.length; i++)
-            languages.favorites[i].x = languages.favorites[i-1].x + languages.favorites[i-1].value
+          for (let i = 0; i < languages.favorites.length; i++) {
+            languages.favorites[i].x = (languages.favorites[i-1]?.x ?? 0) + (languages.favorites[i-1]?.value ?? 0)
+            if ((colors[i])&&(!colors[languages.favorites[i].name.toLocaleLowerCase()]))
+              languages.favorites[i].color = colors[i]
+          }
         //Results
           return languages
       }

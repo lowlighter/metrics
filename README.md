@@ -565,7 +565,7 @@ The default template is `classic`.
     <td data-for="pagespeed">✔️</td>
     <td data-for="isocalendar">✔️</td>
     <td data-for="music">✔️</td>
-    <td data-for="languages">✔️</td>
+    <td data-for="languages"><span title="Use customs colors on @master">✔️<sup>N</sup></span></td>
     <td data-for="followup">✔️</td>
     <td data-for="topics">✔️</td>
     <td data-for="projects">✔️</td>
@@ -1014,6 +1014,22 @@ Add the following to your workflow:
     plugin_languages_ignored: "" # List of comma separated languages to ignore
     plugin_languages_skipped: "" # List of comma separated repositories to skip
 ```
+
+    🚧 Feature below is available as pre-release on @master branch (unstable)
+
+It is possible to use custom colors for languages if those provided by GitHub do not suit you by adding the following to your workflow:
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_languages: yes
+    plugin_languages_colors: "0:orange, javascript:#ff0000, ..." # Make most used languages orange and JavaScript red
+```
+
+You can specify either an index with a color, or a language name (case insensitive) with a color.
+Colors can be either in hexadecimal format or a [named color](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value).
+
+Use the special value `rainbow` to use rainbow colors.
 
 </details>
 

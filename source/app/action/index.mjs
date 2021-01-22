@@ -166,7 +166,7 @@
           }
         //Languages
           if (plugins.languages.enabled) {
-            for (const option of ["ignored", "skipped"])
+            for (const option of ["ignored", "skipped", "colors"])
               info(`Languages ${option}`, q[`languages.${option}`] = input.array(`plugin_languages_${option}`))
           }
         //Habits
