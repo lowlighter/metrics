@@ -12,7 +12,7 @@
           //Skipped repositories
             skipped = decodeURIComponent(skipped).split(",").map(x => x.trim().toLocaleLowerCase()).filter(x => x)
           //Custom colors
-            if (colors === "rainbow")
+            if (`${colors}` === "rainbow")
               colors = ["0:#ff0000", "1:#ffa500", "2:#ffff00", "3:#008000", "4:#0000ff", "5:#4b0082", "6:#ee82ee", "7:#162221"]
             colors = Object.fromEntries(decodeURIComponent(colors).split(",").map(x => x.trim().toLocaleLowerCase()).filter(x => x).map(x => x.split(":").map(x => x.trim())))
             console.debug(`metrics/compute/${login}/plugins > languages > custom colors ${JSON.stringify(colors)}`)
