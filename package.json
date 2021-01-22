@@ -29,6 +29,7 @@
     "ejs": "^3.1.5",
     "express": "^4.17.1",
     "express-rate-limit": "^5.2.3",
+    "faker": "^5.1.0",
     "image-to-base64": "^2.1.1",
     "memory-cache": "^0.2.0",
     "prismjs": "^1.23.0",
@@ -38,7 +39,6 @@
     "vue-prism-component": "^1.2.0"
   },
   "devDependencies": {
-    "faker": "^5.1.0",
     "jest": "^26.6.3",
     "js-yaml": "^4.0.0",
     "libxmljs": "^0.19.7"
