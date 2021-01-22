@@ -44,7 +44,7 @@
           languages.favorites = Object.entries(languages.stats).sort(([an, a], [bn, b]) => b - a).slice(0, 8).map(([name, value]) => ({name, value, color:languages.colors[name], x:0}))
           for (let i = 0; i < languages.favorites.length; i++) {
             languages.favorites[i].x = (languages.favorites[i-1]?.x ?? 0) + (languages.favorites[i-1]?.value ?? 0)
-            if (colors[i])
+            if ((colors[i])&&(!colors[languages.favorites[i].name.toLocaleLowerCase()]))
               languages.favorites[i].color = colors[i]
           }
         //Results
