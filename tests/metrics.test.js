@@ -127,6 +127,11 @@
       plugin_music:true,
       plugin_music_provider: "spotify",
     }, {skip:["terminal", "repository"]}],
+    ["Music plugin (recent - lastfm)", {
+      plugin_music:true,
+      plugin_music_provider: "lastfm",
+      plugin_music_user: "RJ",
+    }, {skip:["terminal", "repository"]}],
     ["Language plugin (default)", {
       plugin_languages:true,
     }],

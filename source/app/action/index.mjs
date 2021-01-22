@@ -180,7 +180,7 @@
           if (plugins.music.enabled) {
             plugins.music.token = input.string("plugin_music_token")
             info("Music token", plugins.music.token, {token:true})
-            for (const option of ["provider", "mode", "playlist"])
+            for (const option of ["provider", "mode", "playlist", "user"])
               info(`Music ${option}`, q[`music.${option}`] = input.string(`plugin_music_${option}`))
             for (const option of ["limit"])
               info(`Music ${option}`, q[`music.${option}`] = input.number(`plugin_music_${option}`))
