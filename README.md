@@ -1008,6 +1008,7 @@ Obtain a Last.fm API key.
 
 To do so, you can simply [create an API account](https://www.last.fm/api/account/create) or [use an existing one](https://www.last.fm/api/accounts).
 
+Finish the plugin setup by adding the following to your workflow:
 ```yaml
 - uses: lowlighter/metrics@latest
   with:
