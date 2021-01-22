@@ -901,6 +901,13 @@ Finish the plugin setup by adding the following to your workflow:
 
 </details>
 
+<details>
+<summary>Last.fm</summary>
+
+This mode is not supported for now.
+
+</details>
+
 </details>
 
 #### Recently played mode
@@ -990,6 +997,37 @@ With your `client_id`, `client_secret` and `refresh_token` you can finish the pl
     plugin_music_token: "${{ secrets.SPOTIFY_CLIENT_ID }}, ${{ secrets.SPOTIFY_CLIENT_SECRET }}, ${{ secrets.SPOTIFY_REFRESH_TOKEN }}"
     plugin_music_mode: recent
     plugin_music_limit: 4
+```
+
+</details>
+
+<details>
+<summary>Last.fm</summary>
+
+Obtain a Last.fm API key.
+
+To do so, you can simply [create an API account](https://www.last.fm/api/account/create) or [use an existing one](https://www.last.fm/api/accounts).
+
+Finish the plugin setup by adding the following to your workflow:
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_music: yes
+    plugin_music_provider: lastfm
+    plugin_music_token: ${{ secrets.LASTFM_API_KEY }}
+    plugin_music_mode: recent
+    plugin_music_limit: 4
+```
+
+It is possible to use a different Last.fm username from your GitHub account by using `plugin_music_user` option.
+
+Add the following to your workflow:
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_music_user: ********
 ```
 
 </details>

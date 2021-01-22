@@ -8,6 +8,10 @@
       name:"Spotify",
       embed:/^https:..open.spotify.com.embed.playlist/,
     },
+    lastfm:{
+      name:"Last.fm",
+      embed:/^\b$/,
+    },
   }
 
 //Supported modes
@@ -30,7 +34,7 @@
           }
           let tracks = null
         //Parameters override
-          let {"music.provider":provider = "", "music.mode":mode = "", "music.playlist":playlist = null, "music.limit":limit = 4} = q
+          let {"music.provider":provider = "", "music.mode":mode = "", "music.playlist":playlist = null, "music.limit":limit = 4, "music.user":user = login} = q
           //Auto-guess parameters
             if ((playlist)&&(!mode))
               mode = "playlist"
@@ -148,6 +152,33 @@
                             if (error.isAxiosError) {
                               const status = error.response?.status
                               const description = error.response.data?.error_description ?? null
+                              const message = `API returned ${status}${description ? ` (${description})` : ""}`
+                              error = error.response?.data ?? null
+                              throw {error:{message, instance:error}, ...raw}
+                            }
+                            throw error
+                          }
+                        break
+                      }
+                    //Last.fm
+                      case "lastfm":{
+                        //API call and parse tracklist
+                          try {
+                            console.debug(`metrics/compute/${login}/plugins > music > querying lastfm api`)
+                            tracks = (await imports.axios.get(`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${user}&api_key=${token}&limit=${limit}&format=json`, {headers:{
+                              "Accept":"application/json",
+                              "User-Agent":"lowlighter/metrics"}
+                            })).data.recenttracks.track.map((track) => ({
+                              name:track.name,
+                              artist:track.artist["#text"],
+                              artwork:track.image.reverse()[0]["#text"],
+                            }))
+                          }
+                        //Handle errors
+                          catch (error) {
+                            if (error.isAxiosError) {
+                              const status = error.response?.status
+                              const description = error.response.data?.message ?? null
                               const message = `API returned ${status}${description ? ` (${description})` : ""}`
                               error = error.response?.data ?? null
                               throw {error:{message, instance:error}, ...raw}

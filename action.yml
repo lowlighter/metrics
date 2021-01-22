@@ -240,6 +240,7 @@ inputs:
   # Supported values are :
   # - "apple" for Apple Music
   # - "spotify" for Spotify
+  # - "lastfm" for Last.fm
   plugin_music_provider:
     description: Name of the music provider you're using
     default: ""
@@ -248,6 +249,7 @@ inputs:
   # This may be required depending on the music provider and the mode you use
   # - "apple" : not required
   # - "spotify" : required for "recent" mode, format is "client_id, client_secret, refresh_token"
+  # - "lastfm" : required, format is "api_key"
   plugin_music_token:
     description: Music provider personal token
     default: ""
@@ -271,6 +273,12 @@ inputs:
   plugin_music_limit:
     description: Number of tracks to display
     default: 4
+
+  # Music service username
+  # Leave empty to default to the login "user"'s GitHub account
+  plugin_music_user:
+    description: "Music provider username"
+    default: ""
 
   # Posts plugin
   # Display recent posts from an external source
