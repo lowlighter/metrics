@@ -6,7 +6,7 @@
           if ((!enabled)||(!q.projects))
             return null
         //Parameters override
-          let {"projects.limit":limit = 4, "projects.repositories":repositories = ""} = q
+          let {"projects.limit":limit = 4, "projects.repositories":repositories = "", "projects.descriptions":descriptions = false} = q
           //Repositories projects
             repositories = decodeURIComponent(repositories ?? "").split(",").map(repository => repository.trim()).filter(repository => /[-\w]+[/][-\w]+[/]projects[/]\d+/.test(repository)) ?? []
           //Limit
@@ -41,13 +41,13 @@
             //Format progress
               const {enabled, todoCount:todo, inProgressCount:doing, doneCount:done} = project.progress
             //Append
-              list.push({name:project.name, updated, progress:{enabled, todo, doing, done, total:todo+doing+done}})
+              list.push({name:project.name, updated, description:project.body, progress:{enabled, todo, doing, done, total:todo+doing+done}})
           }
         //Limit
           console.debug(`metrics/compute/${login}/plugins > projects > keeping only ${limit} projects`)
           list.splice(limit)
         //Results
-          return {list, totalCount:projects.totalCount}
+          return {list, totalCount:projects.totalCount, descriptions}
       }
     //Handle errors
       catch (error) {
