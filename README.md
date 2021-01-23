@@ -564,7 +564,7 @@ The default template is `classic`.
     <td data-for="base">✔️</td>
     <td data-for="pagespeed">✔️</td>
     <td data-for="isocalendar">✔️</td>
-    <td data-for="music">✔️</td>
+    <td data-for="music"><span title="Last.fm provider on @master">✔️<sup>N</sup></span></td>
     <td data-for="languages"><span title="Use customs colors on @master">✔️<sup>N</sup></span></td>
     <td data-for="followup">✔️</td>
     <td data-for="topics">✔️</td>
@@ -577,7 +577,7 @@ The default template is `classic`.
     <td data-for="activity">✔️</td>
     <td data-for="stars">✔️</td>
     <td data-for="stargazers">✔️</td>
-    <td data-for="gists">✔️</td>
+    <td data-for="gists"><span title="100+ gists support on @master">✔️<sup>N</sup></span></td>
     <td data-for="people">✔️</td>
   </tr>
   <tr>
@@ -598,7 +598,7 @@ The default template is `classic`.
     <td data-for="activity">❌</td>
     <td data-for="stars">❌</td>
     <td data-for="stargazers">❌</td>
-    <td data-for="gists">✔️</td>
+    <td data-for="gists"><span title="100+ gists support on @master">✔️<sup>N</sup></span></td>
     <td data-for="people">❌</td>
   </tr>
   <tr>
@@ -1004,6 +1004,8 @@ With your `client_id`, `client_secret` and `refresh_token` you can finish the pl
 <details>
 <summary>Last.fm</summary>
 
+    🚧 This feature is available as pre-release on @master branch (unstable)
+
 Obtain a Last.fm API key.
 
 To do so, you can simply [create an API account](https://www.last.fm/api/account/create) or [use an existing one](https://www.last.fm/api/accounts).
@@ -1067,7 +1069,7 @@ It is possible to use custom colors for languages if those provided by GitHub do
 You can specify either an index with a color, or a language name (case insensitive) with a color.
 Colors can be either in hexadecimal format or a [named color](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value).
 
-Use the special value `rainbow` to use rainbow colors. Use `complementary` to use [complementary colors](https://en.wikipedia.org/wiki/Complementary_colors).
+Use the special value `rainbow` to use rainbow colors.
 
 </details>
 
@@ -1187,6 +1189,17 @@ Add the following to your workflow:
     # ... other options
     plugin_projects: yes
     plugin_projects_repositories: :user/:repository1/projects/:project_id, :user/:repository2/projects/:project_id, ...
+```
+
+    🚧 This feature is available as pre-release on @master branch (unstable)
+
+It is also possible to display projects descriptions by adding the following to your workflow:
+```yaml
+- uses: lowlighter/metrics@master
+  with:
+    # ... other options
+    plugin_projects: yes
+    plugin_projects_descriptions: yes
 ```
 
 </details>
