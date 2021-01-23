@@ -211,9 +211,21 @@
             //Gists query
               if (/^query Gists /.test(query)) {
                 console.debug(`metrics/compute/mocks > mocking graphql api result > Projects`)
-                return ({
+                return /after: "MOCKED_CURSOR"/m.test(query) ? ({
                   user:{
                     gists:{
+                      edges:[],
+                      nodes:[],
+                    }
+                  }
+                }) : ({
+                  user:{
+                    gists:{
+                      edges:[
+                        {
+                          cursor:"MOCKED_CURSOR"
+                        },
+                      ],
                       totalCount:faker.random.number(100),
                       nodes:[
                         {
