@@ -14,6 +14,9 @@
           //Custom colors
             if (`${colors}` === "rainbow")
               colors = ["0:#ff0000", "1:#ffa500", "2:#ffff00", "3:#008000", "4:#0000ff", "5:#4b0082", "6:#ee82ee", "7:#162221"]
+            if (`${colors}` === "complementary")
+              colors = ["0:#ff0000", "1:#008000", "2:#ffa500", "3:#0000ff", "4:#ffff00", "5:#4b0082", "6:#162221", "7:#ee82ee"]
+             
             colors = Object.fromEntries(decodeURIComponent(colors).split(",").map(x => x.trim().toLocaleLowerCase()).filter(x => x).map(x => x.split(":").map(x => x.trim())))
             console.debug(`metrics/compute/${login}/plugins > languages > custom colors ${JSON.stringify(colors)}`)
         //Iterate through user's repositories and retrieve languages data

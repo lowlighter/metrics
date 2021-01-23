@@ -149,7 +149,7 @@
     }],
     ["Language plugin (custom color set)", {
       plugin_languages:true,
-      plugin_languages_colors:"rainbow",
+      plugin_languages_colors:"complementary",
     }],
     ["Language plugin (complete)", {
       plugin_languages:true,
