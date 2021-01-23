@@ -1098,7 +1098,7 @@
                     }
                 }
               //Last.fm api
-                if (/^https:..ws.audioscrobbler.com/.test(url)) {
+                if (/^https:..ws.audioscrobbler.com.*$/.test(url)) {
                   //Get recently played tracks
                     if (/user.getrecenttracks/.test(url)) {
                       console.debug(`metrics/compute/mocks > mocking lastfm api result > ${url}`)
