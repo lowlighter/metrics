@@ -1,6 +1,9 @@
 query Gists {
   user(login: "$login") {
-    gists(last: 100) {
+    gists($after first: 100, orderBy: {field: UPDATED_AT, direction: DESC}) {
+      edges {
+        cursor
+      }
       totalCount
       nodes {
         stargazerCount
