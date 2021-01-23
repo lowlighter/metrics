@@ -211,6 +211,12 @@
       plugin_projects_repositories:"lowlighter/metrics/projects/1",
       plugin_projects_limit:0,
     }, {skip:["terminal"]}],
+    ["Projects plugin (descriptions)", {
+      plugin_projects:true,
+      plugin_projects_repositories:"lowlighter/metrics/projects/1",
+      plugin_projects_limit:0,
+      plugin_projects_descriptions:true,
+    }, {skip:["terminal"]}],
     ["Lines plugin (default)", {
       base:"repositories",
       plugin_lines:true,

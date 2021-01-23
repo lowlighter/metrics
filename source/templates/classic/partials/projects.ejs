@@ -13,8 +13,8 @@
           </div>
         </section>
       <% } else { %>
-        <section>
-          <% for (const {name, updated, progress} of plugins.projects.list) { %>
+        <section class="project">
+          <% for (const {name, updated, progress, description = ""} of plugins.projects.list) { %>
             <div class="row fill-width">
               <section>
                 <div class="field">
@@ -23,6 +23,15 @@
                 </div>
               </section>
             </div>
+            <% if (plugins.projects.descriptions) { %>
+              <div class="row fill-width">
+                <section>
+                  <div class="field description">
+                    <%= description %>
+                  </div>
+                </section>
+              </div>
+            <% } %>
             <div class="row">
               <section>
                 <div class="field">

@@ -210,6 +210,8 @@
               info(`Projects ${option}`, q[`projects.${option}`] = input.string(`plugin_projects_${option}`))
             for (const option of ["limit"])
               info(`Projects ${option}`, q[`projects.${option}`] = input.number(`plugin_projects_${option}`))
+            for (const option of ["descriptions"])
+              info(`Projects ${option}`, q[`projects.${option}`] = input.bool(`plugin_projects_${option}`))
           }
         //Tweets
           if (plugins.tweets.enabled) {

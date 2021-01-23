@@ -210,7 +210,7 @@
               }
             //Gists query
               if (/^query Gists /.test(query)) {
-                console.debug(`metrics/compute/mocks > mocking graphql api result > Projects`)
+                console.debug(`metrics/compute/mocks > mocking graphql api result > Gists`)
                 return /after: "MOCKED_CURSOR"/m.test(query) ? ({
                   user:{
                     gists:{
@@ -258,6 +258,7 @@
                         {
                           name:"User-owned project",
                           updatedAt:`${faker.date.recent()}`,
+                          body:faker.lorem.paragraph(),
                           progress:{
                             doneCount:faker.random.number(10),
                             inProgressCount:faker.random.number(10),
@@ -279,6 +280,7 @@
                       project:{
                         name:"Repository project example",
                         updatedAt:`${faker.date.recent()}`,
+                        body:faker.lorem.paragraph(),
                         progress:{
                           doneCount:faker.random.number(10),
                           inProgressCount:faker.random.number(10),
