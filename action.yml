@@ -374,6 +374,11 @@ inputs:
     description: Number of active projects to display
     default: 4
 
+  # Display projects descriptions if enabled
+  plugin_projects_descriptions:
+    description: Display projects descriptions
+    default: no
+
   # Tweets plugin
   # Enable it to display recent tweets of the twitter username attached to "user"
   plugin_tweets:

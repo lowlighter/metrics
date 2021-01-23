@@ -4,6 +4,7 @@ query Projects {
       totalCount
       nodes {
         name
+        body
         updatedAt
         progress {
           doneCount
