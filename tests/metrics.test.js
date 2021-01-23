@@ -149,7 +149,6 @@
     }],
     ["Language plugin (custom color set)", {
       plugin_languages:true,
-      plugin_languages_colors:"rainbow",
       plugin_languages_colors:"complementary",
     }],
     ["Language plugin (complete)", {
@@ -157,7 +156,6 @@
       plugin_languages_ignored:"html, css, dockerfile",
       plugin_languages_skipped:"metrics",
       plugin_languages_colors:"rainbow",
-      plugin_languages_colors:"complementary",
     }],
     ["Follow-up plugin (default)", {
       plugin_followup:true,
