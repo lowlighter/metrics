@@ -482,6 +482,46 @@ inputs:
     description: Use identicons instead of real avatars
     default: no
 
+  # Display your favorites animes and mangas from AniList
+  plugin_anilist:
+    description: Display your favorites animes and mangas from AniList
+    default: no
+
+  # Medias to display from AniList (comma-separated list)
+  # Supported values are:
+  # - "anime"
+  # - "manga"
+  plugin_anilist_medias:
+    description: Medias to display from AniList data
+    default: anime, manga
+
+  # Sections to display from AniList data (comma-separated list)
+  # Values in "plugin_anilist_medias" may also impact displayed sections
+  # Supported values are:
+  # - "favorites" for favorites animes/mangas
+  # - "watching" for currently watched animes
+  # - "reading" for currently read mangas
+  # - "characters" for favorites characters
+  plugin_anilist_sections:
+    description: Sections to display from AniList data
+    default: favorites
+
+  # Maximum number of medias to display per section from AniList Data
+  plugin_anilist_limit:
+    description: Medias to display
+    default: 2
+
+  # Shuffle AniList data
+  plugin_anilist_shuffle:
+    description: Shuffle AniList data
+    default: yes
+
+  # Username on AniList
+  # Default to GitHub username
+  plugin_anilist_user:
+    description: AniList login
+    default: ""
+
   # ====================================================================================
   # Options below are mostly used for testing
 

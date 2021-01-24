@@ -6,15 +6,13 @@
           if ((!enabled)||(!q.anilist))
             return null
         //Parameters override
-          let {"anilist.medias":medias = ["anime", "manga"], "anilist.sections":sections = ["favorites", "watching", "reading", "characters"], "anilist.limit":limit = 2, "anilist.limit.characters":limit_characters = 0, "anilist.shuffle":shuffle = true, "anilist.user":user = login} = q
+          let {"anilist.medias":medias = ["anime", "manga"], "anilist.sections":sections = ["favorites"], "anilist.limit":limit = 2, "anilist.shuffle":shuffle = true, "anilist.user":user = login} = q
           //Medias types
             medias = decodeURIComponent(medias).split(",").map(x => x.trim().toLocaleLowerCase()).filter(x => ["anime", "manga"].includes(x))
           //Sections
             sections = decodeURIComponent(sections).split(",").map(x => x.trim().toLocaleLowerCase()).filter(x => ["favorites", "watching", "reading", "characters"].includes(x))
           //Limit medias
             limit = Math.max(0, Number(limit))
-          //Limit characters
-            limit_characters = Math.max(0, Number(limit_characters))
         //GraphQL queries
           const query = {
             statistics:`${await imports.fs.readFile(`${imports.__module(import.meta.url)}/queries/statistics.graphql`)}`,
@@ -93,11 +91,6 @@
               } while (next)
             //Format and save results
               result.characters = shuffle ? imports.shuffle(characters) : characters
-            //Limit results
-              if (limit_characters > 0) {
-                console.debug(`metrics/compute/${login}/plugins > anilist > keeping only ${limit_characters} characters`)
-                result.characters.splice(limit_characters)
-              }
           }
         //Results
           return result
