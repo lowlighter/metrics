@@ -4,6 +4,7 @@
     const {data:plugins} = await axios.get("/.plugins")
     const {data:base} = await axios.get("/.plugins.base")
     const {data:version} = await axios.get("/.version")
+    templates.sort((a, b) => (a.name.startsWith("@") ^ b.name.startsWith("@")) ? (a.name.startsWith("@") ? 1 : -1) : a.name.localeCompare(b.name))
   //App
     return new Vue({
       //Initialization
@@ -76,6 +77,7 @@
               stargazers:"✨ Stargazers over last weeks",
               activity:"📰 Recent activity",
               people:"🧑‍🤝‍🧑 Followers and followed",
+              anilist:"🌸 Anilist",
               base:"🗃️ Base content",
               "base.header":"Header",
               "base.activity":"Account activity",
@@ -87,6 +89,7 @@
               descriptions:{
                 "languages.ignored":{text:"Ignored languages", placeholder:"lang-0, lang-1, ..."},
                 "languages.skipped":{text:"Skipped repositories", placeholder:"repo-0, repo-1, ..."},
+                "languages.colors":{text:"Custom language colors", placeholder:"0:#ff0000, javascript:yellow, ..."},
                 "pagespeed.detailed":{text:"Detailed audit", type:"boolean"},
                 "pagespeed.screenshot":{text:"Audit screenshot", type:"boolean"},
                 "pagespeed.url":{text:"Url", placeholder:"(default to GitHub attached)"},
@@ -104,6 +107,7 @@
                 "isocalendar.duration":{text:"Duration", type:"select", values:["half-year", "full-year"]},
                 "projects.limit":{text:"Limit", type:"number", min:0, max:100},
                 "projects.repositories":{text:"Repositories projects", placeholder:"user/repo/projects/1, ..."},
+                "projects.descriptions":{text:"Projects descriptions", type:"boolean"},
                 "topics.mode":{text:"Mode", type:"select", values:["starred", "mastered"]},
                 "topics.sort":{text:"Sort by", type:"select", values:["starred", "activity", "stars", "random"]},
                 "topics.limit":{text:"Limit", type:"number", min:0, max:20},
@@ -117,6 +121,11 @@
                 "people.limit":{text:"Limit", type:"number", min:1, max:9999},
                 "people.types":{text:"Types", placeholder:"followers, following"},
                 "people.identicons":{text:"Use identicons", type:"boolean"},
+                "anilist.medias":{text:"Medias to display", placeholder:"anime, manga"},
+                "anilist.sections":{text:"Sections to display", placeholder:"favorites, watching, reading, characters"},
+                "anilist.limit":{text:"Limit", type:"number", min:0, max:9999},
+                "anilist.shuffle":{text:"Shuffle data", type:"boolean"},
+                "anilist.user":{text:"Username", placeholder:"(default to GitHub login)"},
               },
               "languages.ignored":"",
               "languages.skipped":"",
@@ -149,6 +158,11 @@
               "people.limit":28,
               "people.types":"followers, following",
               "people.identicons":false,
+              "anilist.medias":"anime, manga",
+              "anilist.sections":"favorites",
+              "anilist.limit":2,
+              "anilist.shuffle":true,
+              "anilist.user":"",
             },
           },
           templates:{

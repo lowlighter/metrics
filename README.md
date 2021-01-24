@@ -184,16 +184,30 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
     </td>
   </tr>
   <tr>
+    <th><a href="#-anilist">🌸 Anilist plugin</a></th>
     <th><a href="#%EF%B8%8F-base-content">🗃️ Header special features</a></th>
-    <th></th>
   </tr>
   <tr>
+    <td>
+      <a href="#-anilist">
+        <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.anilist.svg" alt="" width="400">
+      </a>
+      <details><summary>Manga version</summary>
+        <a href="#-anilist">
+          <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.anilist.manga.svg" alt="" width="400">
+        </a>
+      </details>
+      <details open><summary>Favorites characters version</summary>
+        <a href="#-anilist">
+          <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.anilist.characters.svg" alt="" width="400">
+        </a>
+      </details>
+    </td>
     <td>
       <a href="#%EF%B8%8F-base-content">
         <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.header.svg" alt="" width="400">
       </a>
     </td>
-    <td></td>
   </tr>
   <tr>
     <td colspan="2" align="center">
@@ -558,6 +572,7 @@ The default template is `classic`.
     <th><span title="Stargazers">✨</span></th>
     <th><span title="Gists">🎫</span></th>
     <th><span title="People">🧑‍🤝‍🧑</span></th>
+    <th><span title="Anilist">🌸</span></th>
   </tr>
   <tr>
     <th>Classic</th>
@@ -579,6 +594,7 @@ The default template is `classic`.
     <td data-for="stargazers">✔️</td>
     <td data-for="gists"><span title="100+ gists support on @master">✔️<sup>N</sup></span></td>
     <td data-for="people">✔️</td>
+    <td data-for="anilist"><span title="Available on @master">✔️<sup>M</sup></span></td>
   </tr>
   <tr>
     <th>Terminal</th>
@@ -600,6 +616,7 @@ The default template is `classic`.
     <td data-for="stargazers">❌</td>
     <td data-for="gists"><span title="100+ gists support on @master">✔️<sup>N</sup></span></td>
     <td data-for="people">❌</td>
+    <td data-for="anilist">❌</td>
   </tr>
   <tr>
     <th>Repository<sup>R</sup></th>
@@ -621,6 +638,7 @@ The default template is `classic`.
     <td data-for="stargazers">✔️</td>
     <td data-for="gists">❌</td>
     <td data-for="people">❌</td>
+    <td data-for="anilist">❌</td>
   </tr>
 </table>
 
@@ -1070,7 +1088,7 @@ You can specify either an index with a color, or a language name (case insensiti
 Colors can be either in hexadecimal format or a [named color](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value).
 
 Use the special value `rainbow` to use rainbow colors. Use `complementary` to use [complementary colors](https://en.wikipedia.org/wiki/Complementary_colors).
- 
+
 </details>
 
 ### 🎟️ Follow-up
@@ -1537,6 +1555,53 @@ It is possible to use [identicons](https://github.blog/2013-08-14-identicons/) i
   with:
     # ... other options
     plugin_people_identicons: yes
+```
+
+</details>
+
+### 🌸 Anilist
+
+    🚧 This feature is available as pre-release on @master branch (unstable)
+
+The *anilist* plugin lets you display your favorites animes, mangas and characters from [AniList](https://anilist.co) data.
+
+![Anilist plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.anilist.svg)
+
+    ℹ️ This plugin significantly increase file size, it is advised to run it as standalone
+
+<details>
+<summary>💬 About</summary>
+
+![Anilist plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.anilist.full.svg)
+
+This plugin is composed of the following sections, which can be displayed or hidden through `plugin_anilist_sections` option:
+- `favorites` will display your favorites mangas and animes
+- `watching` will display animes currently in your watching list
+- `reading` will display manga currently in your reading list
+- `characters` will display characters you liked
+
+These sections can also be filtered by media type, which can be either `anime`, `manga` or both.
+
+Add the following to your workflow:
+```yaml
+- uses: lowlighter/metrics@master
+  with:
+    # ... other options
+    plugin_anilist: yes
+    plugin_anilist_medias: anime, manga
+    plugin_anilist_sections: favorites, watching, reading, characters
+    plugin_anilist_limit: 2
+    plugin_anilist_shuffle: yes # Shuffle data from AniList for varied outputs
+```
+
+It is possible to use a different username from your GitHub account by using `plugin_anilist_user` option.
+
+Add the following to your workflow:
+```yaml
+- uses: lowlighter/metrics@master
+  with:
+    # ... other options
+    plugin_anilist_user: ********
 ```
 
 </details>

@@ -1,0 +1,25 @@
+query Statistics ($name: String) {
+  User(name: $name) {
+    id
+    name
+    about
+   	statistics {
+      anime {
+        count
+        minutesWatched
+        episodesWatched
+        genres(limit: 4) {
+          genre
+        }
+      }
+      manga {
+        count
+        chaptersRead
+        volumesRead
+        genres(limit: 4) {
+          genre
+        }
+      }
+    }
+  }
+}

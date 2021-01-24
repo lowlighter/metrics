@@ -302,8 +302,10 @@
                 ...(set.plugins.enabled.projects ? ({
                   projects:{
                     totalCount:options["projects.limit"]+faker.random.number(10),
+                    descriptions:options["projects.descriptions"],
                     list:new Array(Number(options["projects.limit"])).fill(null).map(_ => ({
                       name:faker.lorem.sentence(),
+                      description:faker.lorem.paragraph(),
                       updated:`${2+faker.random.number(8)} days ago`,
                       progress:{enabled:true, todo:faker.random.number(50), doing:faker.random.number(50), done:faker.random.number(50), get total() { return this.todo + this.doing + this.done } }
                     }))
@@ -401,6 +403,59 @@
                       result.total.dates[date] = (total += (result.increments.dates[date] = faker.random.number(100)))
                     }
                     return result
+                  }
+                }) : null),
+              //Anilist
+                ...(set.plugins.enabled.anilist ? ({
+                  anilist:{
+                    user:{
+                      stats:{
+                        anime:{
+                          count:faker.random.number(1000),
+                          minutesWatched:faker.random.number(100000),
+                          episodesWatched:faker.random.number(10000),
+                          genres:new Array(4).fill(null).map(_ => ({genre:faker.lorem.word()})),
+                        },
+                        manga:{
+                          count:faker.random.number(1000),
+                          chaptersRead:faker.random.number(100000),
+                          volumesRead:faker.random.number(10000),
+                          genres:new Array(4).fill(null).map(_ => ({genre:faker.lorem.word()})),
+                        },
+                      },
+                      genres:new Array(4).fill(null).map(_ => ({genre:faker.lorem.word()})),
+                    },
+                    get lists() {
+                      const media = (type) => ({
+                        name:faker.lorem.words(),
+                        type,
+                        status:faker.random.arrayElement(["FINISHED", "RELEASING", "NOT_YET_RELEASED", "CANCELLED", "HIATUS"]),
+                        release:faker.date.past(20).getFullYear(),
+                        genres:new Array(6).fill(null).map(_ => faker.lorem.word()),
+                        progress:faker.random.number(100),
+                        description:faker.lorem.paragraphs(),
+                        scores:{user:faker.random.number(100), community:faker.random.number(100)},
+                        released:100+faker.random.number(1000),
+                        artwork:"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
+                      })
+                      const sections = options["anilist.sections"].split(",").map(x => x.trim()).filter(x => x)
+                      const medias = options["anilist.medias"].split(",").map(x => x.trim()).filter(x => x)
+                      return {
+                        ...(medias.includes("anime") ? {anime:{
+                          ...(sections.includes("watching") ? {watching:new Array(Number(options["anilist.limit"])||4).fill(null).map(_ => media("ANIME"))} : {}),
+                          ...(sections.includes("favorites") ? {favorites:new Array(Number(options["anilist.limit"])||4).fill(null).map(_ => media("ANIME"))} : {}),
+                        }} : {}),
+                        ...(medias.includes("manga") ? {manga:{
+                          ...(sections.includes("reading") ? {reading:new Array(Number(options["anilist.limit"])||4).fill(null).map(_ => media("MANGA"))} : {}),
+                          ...(sections.includes("favorites") ? {favorites:new Array(Number(options["anilist.limit"])||4).fill(null).map(_ => media("MANGA"))} : {}),
+                        }} : {}),
+                      }
+                    },
+                    characters:new Array(11).fill(null).map(_ => ({
+                      name:faker.name.findName(),
+                      artwork:"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
+                    })),
+                    sections:options["anilist.sections"].split(",").map(x => x.trim()).filter(x => x)
                   }
                 }) : null),
               //Activity

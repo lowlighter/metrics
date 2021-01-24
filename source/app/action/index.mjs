@@ -151,6 +151,7 @@
           stargazers:{enabled:input.bool("plugin_stargazers")},
           activity:{enabled:input.bool("plugin_activity")},
           people:{enabled:input.bool("plugin_people")},
+          anilist:{enabled:input.bool("plugin_anilist")},
         }
         let q = Object.fromEntries(Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => [key, true]))
         info("Plugins enabled", Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => key))
@@ -242,6 +243,17 @@
               info(`People ${option}`, q[`people.${option}`] = input.array(`plugin_people_${option}`))
             for (const option of ["identicons"])
               info(`People ${option}`, q[`people.${option}`] = input.bool(`plugin_people_${option}`))
+          }
+        //Anilist
+          if (plugins.anilist.enabled) {
+            for (const option of ["limit"])
+              info(`Anilist ${option}`, q[`anilist.${option}`] = input.number(`plugin_anilist_${option}`))
+            for (const option of ["medias", "sections"])
+              info(`Anilist ${option}`, q[`anilist.${option}`] = input.array(`plugin_anilist_${option}`))
+            for (const option of ["shuffle"])
+              info(`Anilist ${option}`, q[`anilist.${option}`] = input.bool(`plugin_anilist_${option}`))
+            for (const option of ["user"])
+              info(`Anilist ${option}`, q[`anilist.${option}`] = input.string(`plugin_anilist_${option}`))
           }
 
       //Repositories to use
