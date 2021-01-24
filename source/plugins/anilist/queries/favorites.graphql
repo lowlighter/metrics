@@ -1,0 +1,34 @@
+query Favorites ($name: String, $page:Int) {
+  User(name: $name) {
+    favourites {
+      $type(page: $page) {
+        nodes {
+          title {
+            romaji
+            english
+            native
+          }
+          description
+          type
+          status(version: 2)
+          episodes
+          volumes
+          chapters
+          averageScore
+          countryOfOrigin
+          genres
+          coverImage {
+            medium
+          }
+          startDate {
+            year
+          }
+        }
+        pageInfo {
+          currentPage
+          hasNextPage
+        }
+      }
+    }
+  }
+}

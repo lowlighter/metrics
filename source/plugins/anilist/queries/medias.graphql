@@ -1,28 +1,5 @@
-query($name: String) {
-  User(name: $name) {
-    id
-    name
-    about
-   	statistics {
-      anime {
-        count
-        minutesWatched
-        episodesWatched
-        genres(limit: 4) {
-          genre
-        }
-      }
-      manga {
-        count
-        chaptersRead
-        volumesRead
-        genres(limit: 4) {
-          genre
-        }
-      }
-    }
-  }
-  MediaListCollection(userName: $name, type: ANIME) {
+query Medias($name: String, $type: MediaType) {
+  MediaListCollection(userName: $name, type: $type) {
     lists {
       name
       isCustomList
@@ -37,6 +14,7 @@ fragment mediaListEntry on MediaList {
   status
   progress
   progressVolumes
+  score
   startedAt {
     year
     month
@@ -53,6 +31,7 @@ fragment mediaListEntry on MediaList {
       english
       native
     }
+    description
     type
     status(version: 2)
     episodes
