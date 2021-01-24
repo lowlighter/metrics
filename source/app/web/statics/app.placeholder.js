@@ -302,8 +302,10 @@
                 ...(set.plugins.enabled.projects ? ({
                   projects:{
                     totalCount:options["projects.limit"]+faker.random.number(10),
+                    descriptions:options["projects.descriptions"],
                     list:new Array(Number(options["projects.limit"])).fill(null).map(_ => ({
                       name:faker.lorem.sentence(),
+                      description:faker.lorem.paragraph(),
                       updated:`${2+faker.random.number(8)} days ago`,
                       progress:{enabled:true, todo:faker.random.number(50), doing:faker.random.number(50), done:faker.random.number(50), get total() { return this.todo + this.doing + this.done } }
                     }))

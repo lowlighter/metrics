@@ -76,6 +76,7 @@
               stargazers:"✨ Stargazers over last weeks",
               activity:"📰 Recent activity",
               people:"🧑‍🤝‍🧑 Followers and followed",
+              anilist:"🌸 Anilist",
               base:"🗃️ Base content",
               "base.header":"Header",
               "base.activity":"Account activity",
@@ -87,6 +88,7 @@
               descriptions:{
                 "languages.ignored":{text:"Ignored languages", placeholder:"lang-0, lang-1, ..."},
                 "languages.skipped":{text:"Skipped repositories", placeholder:"repo-0, repo-1, ..."},
+                "languages.colors":{text:"Custom language colors", placeholder:"0:#ff0000, javascript:yellow, ..."},
                 "pagespeed.detailed":{text:"Detailed audit", type:"boolean"},
                 "pagespeed.screenshot":{text:"Audit screenshot", type:"boolean"},
                 "pagespeed.url":{text:"Url", placeholder:"(default to GitHub attached)"},
@@ -104,6 +106,7 @@
                 "isocalendar.duration":{text:"Duration", type:"select", values:["half-year", "full-year"]},
                 "projects.limit":{text:"Limit", type:"number", min:0, max:100},
                 "projects.repositories":{text:"Repositories projects", placeholder:"user/repo/projects/1, ..."},
+                "projects.descriptions":{text:"Projects descriptions", type:"boolean"},
                 "topics.mode":{text:"Mode", type:"select", values:["starred", "mastered"]},
                 "topics.sort":{text:"Sort by", type:"select", values:["starred", "activity", "stars", "random"]},
                 "topics.limit":{text:"Limit", type:"number", min:0, max:20},
