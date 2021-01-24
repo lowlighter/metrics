@@ -1033,7 +1033,7 @@
                                     status:faker.random.arrayElement(["CURRENT", "PLANNING", "COMPLETED", "DROPPED", "PAUSED", "REPEATING"]),
                                     progress:faker.random.number(100),
                                     progressVolumes: null,
-                                    score: 0,
+                                    score:0,
                                     startedAt:{year:null, month:null, day:null},
                                     completedAt:{year:null, month:null, day:null},
                                     media:media({type})
