@@ -4,6 +4,7 @@
     const {data:plugins} = await axios.get("/.plugins")
     const {data:base} = await axios.get("/.plugins.base")
     const {data:version} = await axios.get("/.version")
+    templates.sort((a, b) => (a.name.startsWith("@") ^ b.name.startsWith("@")) ? (a.name.startsWith("@") ? 1 : -1) : a.name.localeCompare(b.name))
   //App
     return new Vue({
       //Initialization

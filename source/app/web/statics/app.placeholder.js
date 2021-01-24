@@ -451,7 +451,7 @@
                         }} : {}),
                       }
                     },
-                    characters:new Array(12).fill(null).map(_ => ({
+                    characters:new Array(11).fill(null).map(_ => ({
                       name:faker.name.findName(),
                       artwork:"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
                     })),
