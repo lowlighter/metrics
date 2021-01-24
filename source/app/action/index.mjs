@@ -151,7 +151,7 @@
           stargazers:{enabled:input.bool("plugin_stargazers")},
           activity:{enabled:input.bool("plugin_activity")},
           people:{enabled:input.bool("plugin_people")},
-          anilist:{enabled:input.bool("anilist")},
+          anilist:{enabled:input.bool("plugin_anilist")},
         }
         let q = Object.fromEntries(Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => [key, true]))
         info("Plugins enabled", Object.entries(plugins).filter(([key, plugin]) => plugin.enabled).map(([key]) => key))
