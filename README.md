@@ -1572,6 +1572,8 @@ The *anilist* plugin lets you display your favorites animes, mangas and characte
 <details>
 <summary>💬 About</summary>
 
+![Anilist plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.anilist.full.svg)
+
 This plugin is composed of the following sections, which can be displayed or hidden through `plugin_anilist_sections` option:
 - `favorites` will display your favorites mangas and animes
 - `watching` will display animes currently in your watching list
