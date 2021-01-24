@@ -1088,7 +1088,7 @@ You can specify either an index with a color, or a language name (case insensiti
 Colors can be either in hexadecimal format or a [named color](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value).
 
 Use the special value `rainbow` to use rainbow colors. Use `complementary` to use [complementary colors](https://en.wikipedia.org/wiki/Complementary_colors).
- 
+
 </details>
 
 ### 🎟️ Follow-up
@@ -1568,7 +1568,7 @@ The *anilist* plugin lets you display your favorites animes, mangas and characte
 ![Anilist plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.anilist.svg)
 
     ℹ️ This plugin significantly increase file size, it is advised to run it as standalone
-    
+
 <details>
 <summary>💬 About</summary>
 
