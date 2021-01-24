@@ -87,7 +87,7 @@
                 page = cursor.currentPage
                 next = cursor.hasNextPage
                 for (const {name:{full:name}, image:{medium:artwork}} of nodes)
-                  characters.push({name, artwork:await imports.imgb64(artwork)})
+                  characters.push({name, artwork:artwork ? await imports.imgb64(artwork) : "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg=="})
               } while (next)
             //Format and save results
               result.characters = shuffle ? imports.shuffle(characters) : characters
@@ -117,6 +117,6 @@
       description:description.replace(/<br\s*\\?>/g, " "),
       scores:{user:userScore, community:averageScore},
       released:type === "ANIME" ? episodes : chapters,
-      artwork:await imports.imgb64(artwork)
+      artwork:artwork ? await imports.imgb64(artwork) : "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg=="
     }
   }

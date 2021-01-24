@@ -1,4 +1,4 @@
-query Statistics($name: String) {
+query Statistics ($name: String) {
   User(name: $name) {
     id
     name
