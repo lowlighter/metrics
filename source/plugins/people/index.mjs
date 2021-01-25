@@ -9,7 +9,7 @@
         //Context
           let context = {
             mode:"user",
-            types:["followers", "following", "sponsorshipsAsMaintainer", "sponsorshipsAsSponsor", "thanks"],
+            types:account === "organization" ? ["sponsorshipsAsMaintainer", "sponsorshipsAsSponsor", "thanks"] : ["followers", "following", "sponsorshipsAsMaintainer", "sponsorshipsAsSponsor", "thanks"],
             default:"followers, following",
             alias:{followed:"following", sponsors:"sponsorshipsAsMaintainer", sponsored:"sponsorshipsAsSponsor", sponsoring:"sponsorshipsAsSponsor"},
             sponsorships:{sponsorshipsAsMaintainer:"sponsorEntity", sponsorshipsAsSponsor:"sponsorable"}
@@ -52,7 +52,7 @@
                   do {
                     console.debug(`metrics/compute/${login}/plugins > people > retrieving ${type} after ${cursor}`)
                     const {[type]:{edges}} = (
-                      type in context.sponsorships ? (await graphql(queries["people.sponsors"]({login:context.owner ?? login, type, size, after:cursor ? `after: "${cursor}"` : "", target:context.sponsorships[type]}))).user :
+                      type in context.sponsorships ? (await graphql(queries["people.sponsors"]({login:context.owner ?? login, type, size, after:cursor ? `after: "${cursor}"` : "", target:context.sponsorships[type], account})))[account] :
                       context.mode === "repository" ? (await graphql(queries["people.repository"]({login:context.owner, repository:context.repo, type, size, after:cursor ? `after: "${cursor}"` : "", account})))[account].repository :
                       (await graphql(queries.people({login, type, size, after:cursor ? `after: "${cursor}"` : ""}))).user
                     )
