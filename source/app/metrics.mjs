@@ -49,7 +49,7 @@
         //Compute metrics
           console.debug(`metrics/compute/${login} > compute`)
           const computer = Templates[template].default || Templates[template]
-          await computer({login, q, dflags}, {conf, data, rest, graphql, plugins, queries}, {s, pending, imports:{plugins:Plugins, url, imgb64, axios, puppeteer, run, fs, os, paths, util, format, bytes, shuffle, htmlescape, urlexpand, __module}})
+          await computer({login, q, dflags}, {conf, data, rest, graphql, plugins, queries, account:data.account}, {s, pending, imports:{plugins:Plugins, url, imgb64, axios, puppeteer, run, fs, os, paths, util, format, bytes, shuffle, htmlescape, urlexpand, __module}})
           const promised = await Promise.all(pending)
 
         //Check plugins errors
@@ -106,15 +106,15 @@
 
 /** Common query */
   async function common({login, q, data, queries, repositories, graphql}) {
-    //Iterate through modes
-      for (const mode of ["user", "organization"]) {
+    //Iterate through account types
+      for (const account of ["user", "organization"]) {
         try {
           //Query data from GitHub API
-            console.debug(`metrics/compute/${login}/common > mode ${mode}`)
+            console.debug(`metrics/compute/${login}/common > account ${account}`)
             const forks = q["repositories.forks"] || false
-            const queried = await graphql(queries[{user:"common", organization:"common.organization"}[mode]]({login, "calendar.from":new Date(Date.now()-14*24*60*60*1000).toISOString(), "calendar.to":(new Date()).toISOString(), forks:forks ? "" : ", isFork: false"}))
-            Object.assign(data, {user:queried[mode]})
-            common.post?.[mode]({login, data})
+            const queried = await graphql(queries[{user:"common", organization:"common.organization"}[account]]({login, "calendar.from":new Date(Date.now()-14*24*60*60*1000).toISOString(), "calendar.to":(new Date()).toISOString(), forks:forks ? "" : ", isFork: false"}))
+            Object.assign(data, {user:queried[account]})
+            common.post?.[account]({login, data})
           //Query repositories from GitHub API
             {
               //Iterate through repositories
@@ -122,7 +122,7 @@
                 let pushed = 0
                 do {
                   console.debug(`metrics/compute/${login}/common > retrieving repositories after ${cursor}`)
-                  const {[mode]:{repositories:{edges, nodes}}} = await graphql(queries.repositories({login, mode, after:cursor ? `after: "${cursor}"` : "", repositories:Math.min(repositories, 100), forks:forks ? "" : ", isFork: false"}))
+                  const {[account]:{repositories:{edges, nodes}}} = await graphql(queries.repositories({login, account, after:cursor ? `after: "${cursor}"` : "", repositories:Math.min(repositories, 100), forks:forks ? "" : ", isFork: false"}))
                   cursor = edges?.[edges?.length-1]?.cursor
                   data.user.repositories.nodes.push(...nodes)
                   pushed = nodes.length
@@ -133,33 +133,33 @@
                 console.debug(`metrics/compute/${login}/common > loaded ${data.user.repositories.nodes.length} repositories`)
             }
           //Success
-            console.debug(`metrics/compute/${login}/common > graphql query > mode ${mode} > success`)
+            console.debug(`metrics/compute/${login}/common > graphql query > account ${account} > success`)
             return
         } catch (error) {
-          console.debug(`metrics/compute/${login}/common > mode ${mode} > failed : ${error}`)
-          console.debug(`metrics/compute/${login}/common > checking next mode`)
+          console.debug(`metrics/compute/${login}/common > account ${account} > failed : ${error}`)
+          console.debug(`metrics/compute/${login}/common > checking next account`)
         }
       }
     //Not found
-      console.debug(`metrics/compute/${login}/common > no more mode`)
+      console.debug(`metrics/compute/${login}/common > no more account type`)
       throw new Error("user not found")
   }
 
 /** Common query post-processing */
   common.post = {
     //User
-      user({login, data:{user}}) {
+      user({login, data}) {
         console.debug(`metrics/compute/${login}/common > applying common post`)
-        Object.assign(user, {
-          account:"user",
+        data.account = "user"
+        Object.assign(data.user, {
           isVerified:false,
         })
       },
     //Organization
-      organization({login, data:{user:organization}}) {
+      organization({login, data}) {
         console.debug(`metrics/compute/${login}/common > applying common post`)
-        Object.assign(organization, {
-          account:"organization",
+        data.account = "organization",
+        Object.assign(data.user, {
           isHireable:false,
           starredRepositories:{totalCount:0},
           watching:{totalCount:0},

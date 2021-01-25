@@ -1,5 +1,5 @@
 query PeopleRepository {
-  user(login: "$login") {
+  $account(login: "$login") {
     repository(name: "$repository") {
       $type($after first: 100) {
         edges {

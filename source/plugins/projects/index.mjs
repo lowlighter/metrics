@@ -1,5 +1,5 @@
 //Setup
-  export default async function ({login, graphql, q, queries}, {enabled = false} = {}) {
+  export default async function ({login, graphql, q, queries, account}, {enabled = false} = {}) {
     //Plugin execution
       try {
         //Check if plugin is enabled and requirements are met
@@ -13,13 +13,13 @@
             limit = Math.max(repositories.length, Math.min(100, Number(limit)))
         //Retrieve user owned projects from graphql api
           console.debug(`metrics/compute/${login}/plugins > projects > querying api`)
-          const {user:{projects}} = await graphql(queries.projects({login, limit}))
+          const {[account]:{projects}} = await graphql(queries.projects({login, limit, account}))
         //Retrieve repositories projects from graphql api
           for (const identifier of repositories) {
             //Querying repository project
               console.debug(`metrics/compute/${login}/plugins > projects > querying api for ${identifier}`)
               const {user, repository, id} = identifier.match(/(?<user>[-\w]+)[/](?<repository>[-\w]+)[/]projects[/](?<id>\d+)/)?.groups
-              const {user:{repository:{project}}} = await graphql(queries["projects.repository"]({user, repository, id}))
+              const {[account]:{repository:{project}}} = await graphql(queries["projects.repository"]({user, repository, id, account}))
             //Adding it to projects list
               console.debug(`metrics/compute/${login}/plugins > projects > registering ${identifier}`)
               project.name = `${project.name} (${user}/${repository})`

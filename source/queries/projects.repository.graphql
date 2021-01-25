@@ -1,5 +1,5 @@
 query RepositoryProject {
-  user(login: "$user") {
+  $account(login: "$user") {
     repository(name: "$repository") {
       project(number: $id) {
         name

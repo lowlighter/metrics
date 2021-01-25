@@ -2,7 +2,7 @@
   import common from "./../common.mjs"
 
 /** Template processor */
-  export default async function ({login, q}, {conf, data, rest, graphql, plugins, queries}, {s, pending, imports}) {
+  export default async function ({login, q}, {conf, data, rest, graphql, plugins, queries, account}, {s, pending, imports}) {
     //Check arguments
       const {repo} = q
       if (!repo) {
@@ -10,12 +10,11 @@
         data.errors.push({error:{message:`You must pass a "repo" argument to use this template`}})
         return await common(...arguments)
       }
-      const mode = data.user.account
-      console.debug(`metrics/compute/${login}/${repo} > switching to mode ${mode}`)
+      console.debug(`metrics/compute/${login}/${repo} > switching to mode ${account}`)
 
     //Retrieving single repository
       console.debug(`metrics/compute/${login}/${repo} > retrieving single repository ${repo}`)
-      const {[mode]:{repository}} = await graphql(queries.repository({login, repo, mode}))
+      const {[account]:{repository}} = await graphql(queries.repository({login, repo, account}))
       data.user.repositories.nodes = [repository]
       data.repo = repository
 
