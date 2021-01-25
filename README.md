@@ -181,6 +181,21 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
           <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.people.following.svg" alt="" width="400">
         </a>
       </details>
+      <details><summary>Special thanks version</summary>
+        <a href="#-habits">
+          <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.people.thanks.svg" alt="" width="400">
+        </a>
+      </details>
+      <details><summary>Repository template version</summary>
+        <a href="#-habits">
+          <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.people.repository.svg" alt="" width="400">
+        </a>
+      </details>
+      <details><summary>Sponsorships version</summary>
+        <a href="#-habits">
+          <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.people.sponsorships.svg" alt="" width="400">
+        </a>
+      </details>
     </td>
   </tr>
   <tr>
@@ -1528,7 +1543,8 @@ Add the following to your workflow:
 
 ### 🧑‍🤝‍🧑 People
 
-The *people* plugin displays your followers and followed users' avatars.
+The *people* plugin can display people you're following or sponsoring, and also users who're following or sponsoring you.
+In repository mode, it's possible to display sponsors, stargazers, watchers.
 
 ![People plugin](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.people.svg)
 
@@ -1536,6 +1552,24 @@ The *people* plugin displays your followers and followed users' avatars.
 <summary>💬 About</summary>
 
 It will consume an additional GitHub request per group of 100 users fetched.
+
+The following types are supported:
+
+| Type            | Alias                                | User metrics       | Repository metrics |
+| --------------- | ------------------------------------ | :----------------: | :----------------: |
+| `followers`     |                                      | ✔️                 | ❌                |
+| `following`     | `followed`                           | ✔️                 | ❌                |
+| `sponsoring`*   | `sponsored`, `sponsorshipsAsSponsor` | ✔️                 | ❌                |
+| `sponsors`*     | `sponsorshipsAsMaintainer`           | ✔️                 | ✔️                |
+| `contributors`* |                                      | ❌                 | ✔️                |
+| `stargazers`*   |                                      | ❌                 | ✔️                |
+| `watchers`*     |                                      | ❌                 | ✔️                |
+| `thanks`*       |                                      | ✔️                 | ✔️                |
+
+    🚧 Types marked with * are available as pre-release on @master branch (unstable)
+
+Sections will be ordered the same as specified in `plugin_people_types`.
+`sponsors` for repositories will output the same as the owner's sponsors.
 
 Add the following to your workflow:
 ```yaml
@@ -1555,6 +1589,17 @@ It is possible to use [identicons](https://github.blog/2013-08-14-identicons/) i
   with:
     # ... other options
     plugin_people_identicons: yes
+```
+
+    🚧 This feature is available as pre-release on @master branch (unstable)
+
+It is possible to thanks personally users by adding the following to your workflow:
+```yaml
+- uses: lowlighter/metrics@master
+  with:
+    # ... other options
+    plugin_people_types: thanks
+    plugin_people_thanks: github-user-1, github-user-2, ...
 ```
 
 </details>
