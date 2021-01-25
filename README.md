@@ -177,23 +177,18 @@ But there's more with [plugins](https://github.com/lowlighter/metrics/tree/maste
         <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.people.followers.svg" alt="" width="400">
       </a>
       <details><summary>Followed people version</summary>
-        <a href="#-habits">
+        <a href="#-people">
           <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.people.following.svg" alt="" width="400">
         </a>
       </details>
       <details><summary>Special thanks version</summary>
-        <a href="#-habits">
+        <a href="#-people">
           <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.people.thanks.svg" alt="" width="400">
         </a>
       </details>
       <details><summary>Repository template version</summary>
-        <a href="#-habits">
+        <a href="#-people">
           <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.people.repository.svg" alt="" width="400">
-        </a>
-      </details>
-      <details><summary>Sponsorships version</summary>
-        <a href="#-habits">
-          <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.people.sponsorships.svg" alt="" width="400">
         </a>
       </details>
     </td>
@@ -608,7 +603,7 @@ The default template is `classic`.
     <td data-for="stars">✔️</td>
     <td data-for="stargazers">✔️</td>
     <td data-for="gists"><span title="100+ gists support on @master">✔️<sup>N</sup></span></td>
-    <td data-for="people">✔️</td>
+    <td data-for="people"><span title="'thanks', 'sponsors' and 'sponsoring' available on @master">✔️<sup>N</sup></span></td>
     <td data-for="anilist"><span title="Available on @master">✔️<sup>M</sup></span></td>
   </tr>
   <tr>
@@ -652,7 +647,7 @@ The default template is `classic`.
     <td data-for="stars">❌</td>
     <td data-for="stargazers">✔️</td>
     <td data-for="gists">❌</td>
-    <td data-for="people">❌</td>
+    <td data-for="people"><span title="Available on @master">✔️<sup>M</sup></span></td>
     <td data-for="anilist">❌</td>
   </tr>
 </table>
@@ -1590,8 +1585,6 @@ It is possible to use [identicons](https://github.blog/2013-08-14-identicons/) i
     # ... other options
     plugin_people_identicons: yes
 ```
-
-    🚧 This feature is available as pre-release on @master branch (unstable)
 
 It is possible to thanks personally users by adding the following to your workflow:
 ```yaml
