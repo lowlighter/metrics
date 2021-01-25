@@ -9,7 +9,7 @@
         //Context
           let context = {
             mode:"user",
-            types:["followers", "following", "sponsorshipsAsMaintainer", "sponsorshipsAsSponsor"],
+            types:["followers", "following", "sponsorshipsAsMaintainer", "sponsorshipsAsSponsor", "thanks"],
             default:"followers, following",
             alias:{followed:"following", sponsors:"sponsorshipsAsMaintainer", sponsored:"sponsorshipsAsSponsor", sponsoring:"sponsorshipsAsSponsor"},
             sponsorships:{sponsorshipsAsMaintainer:"sponsorEntity", sponsorshipsAsSponsor:"sponsorable"}
@@ -17,15 +17,17 @@
           if (q.repo) {
             console.debug(`metrics/compute/${login}/plugins > people > switched to repository mode`)
             const {owner, repo} = data.user.repositories.nodes.map(({name:repo, owner:{login:owner}}) => ({repo, owner})).shift()
-            context = {...context, mode:"repo", types:["contributors", "stargazers", "watchers", "sponsorshipsAsMaintainer"], default:"stargazers, watchers", owner, repo}
+            context = {...context, mode:"repo", types:["contributors", "stargazers", "watchers", "sponsorshipsAsMaintainer", "thanks"], default:"stargazers, watchers", owner, repo}
           }
 
         //Parameters override
-          let {"people.limit":limit = 28, "people.types":types = context.default, "people.size":size = 28, "people.identicons":identicons = false} = q
+          let {"people.limit":limit = 28, "people.types":types = context.default, "people.size":size = 28, "people.identicons":identicons = false, "people.thanks":thanks = []} = q
           //Limit
             limit = Math.max(1, limit)
           //Repositories projects
             types = [...new Set(decodeURIComponent(types ?? "").split(",").map(type => type.trim()).map(type => (context.alias[type] ?? type)).filter(type => context.types.includes(type)) ?? [])]
+          //Special thanks
+            thanks = decodeURIComponent(thanks ?? "").split(",").map(user => user.trim()).filter(user => user)
 
         //Retrieve followers from graphql api
           console.debug(`metrics/compute/${login}/plugins > people > querying api`)
@@ -37,6 +39,10 @@
                 if (type === "contributors") {
                   const {owner, repo} = context
                   const {data:nodes} = await rest.repos.listContributors({owner, repo})
+                  result[type].push(...nodes.map(({login, avatar_url}) => ({login, avatarUrl:avatar_url})))
+                }
+                else if (type === "thanks") {
+                  const nodes = await Promise.all(thanks.map(async username => (await rest.users.getByUsername({username})).data))
                   result[type].push(...nodes.map(({login, avatar_url}) => ({login, avatarUrl:avatar_url})))
                 }
               //GraphQL

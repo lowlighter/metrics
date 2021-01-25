@@ -302,6 +302,11 @@
       plugin_people:true,
       plugin_people_types:"watchers",
     }, {skip:["classic", "terminal"]}],
+    ["People plugin (thanks)", {
+      plugin_people:true,
+      plugin_people_types:"thanks",
+      plugin_people_thanks:"lowlighter",
+    }, {skip:["classic", "terminal"]}],
     ["People plugin (identicons)", {
       plugin_people:true,
       plugin_people_identicons:true,
