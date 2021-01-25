@@ -10,10 +10,12 @@
         data.errors.push({error:{message:`You must pass a "repo" argument to use this template`}})
         return await common(...arguments)
       }
+      const mode = data.user.account
+      console.debug(`metrics/compute/${login}/${repo} > switching to mode ${mode}`)
 
     //Retrieving single repository
       console.debug(`metrics/compute/${login}/${repo} > retrieving single repository ${repo}`)
-      const {user:{repository}} = await graphql(queries.repository({login, repo}))
+      const {[mode]:{repository}} = await graphql(queries.repository({login, repo, mode}))
       data.user.repositories.nodes = [repository]
       data.repo = repository
 
@@ -26,12 +28,19 @@
       const commits = []
       for (let page = 0; page < 100; page++) {
         console.debug(`metrics/compute/${login}/${repo} > loading page ${page}`)
-        const {data} = await rest.repos.listCommits({owner:login, repo, per_page:100, page})
-        if (!data.length) {
-          console.debug(`metrics/compute/${login}/${repo} > no more page to load`)
-          break
+        try {
+          const {data} = await rest.repos.listCommits({owner:login, repo, per_page:100, page})
+          if (!data.length) {
+            console.debug(`metrics/compute/${login}/${repo} > no more page to load`)
+            break
+          }
+          commits.push(...data)
         }
-        commits.push(...data)
+        catch (error) {
+          if (/Git Repository is empty/.test(error))
+            break
+          throw error
+        }
       }
       console.debug(`metrics/compute/${login}/${repo} > ${commits.length} commits loaded`)
 

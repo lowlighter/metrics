@@ -106,26 +106,78 @@
 
 /** Common query */
   async function common({login, q, data, queries, repositories, graphql}) {
-    //Query data from GitHub API
-      console.debug(`metrics/compute/${login} > graphql query`)
-      const forks = q["repositories.forks"] || false
-      Object.assign(data, await graphql(queries.common({login, "calendar.from":new Date(Date.now()-14*24*60*60*1000).toISOString(), "calendar.to":(new Date()).toISOString(), forks:forks ? "" : ", isFork: false"})))
-    //Query repositories from GitHub API
-      {
-        //Iterate through repositories
-          let cursor = null
-          let pushed = 0
-          do {
-            console.debug(`metrics/compute/${login} > retrieving repositories after ${cursor}`)
-            const {user:{repositories:{edges, nodes}}} = await graphql(queries.repositories({login, after:cursor ? `after: "${cursor}"` : "", repositories:Math.min(repositories, 100), forks:forks ? "" : ", isFork: false"}))
-            cursor = edges?.[edges?.length-1]?.cursor
-            data.user.repositories.nodes.push(...nodes)
-            pushed = nodes.length
-          } while ((pushed)&&(cursor)&&(data.user.repositories.nodes.length < repositories))
-        //Limit repositories
-          console.debug(`metrics/compute/${login} > keeping only ${repositories} repositories`)
-          data.user.repositories.nodes.splice(repositories)
-          console.debug(`metrics/compute/${login} > loaded ${data.user.repositories.nodes.length} repositories`)
+    //Iterate through modes
+      for (const mode of ["user", "organization"]) {
+        try {
+          //Query data from GitHub API
+            console.debug(`metrics/compute/${login}/common > mode ${mode}`)
+            const forks = q["repositories.forks"] || false
+            const queried = await graphql(queries[{user:"common", organization:"common.organization"}[mode]]({login, "calendar.from":new Date(Date.now()-14*24*60*60*1000).toISOString(), "calendar.to":(new Date()).toISOString(), forks:forks ? "" : ", isFork: false"}))
+            Object.assign(data, {user:queried[mode]})
+            common.post?.[mode]({login, data})
+          //Query repositories from GitHub API
+            {
+              //Iterate through repositories
+                let cursor = null
+                let pushed = 0
+                do {
+                  console.debug(`metrics/compute/${login}/common > retrieving repositories after ${cursor}`)
+                  const {[mode]:{repositories:{edges, nodes}}} = await graphql(queries.repositories({login, mode, after:cursor ? `after: "${cursor}"` : "", repositories:Math.min(repositories, 100), forks:forks ? "" : ", isFork: false"}))
+                  cursor = edges?.[edges?.length-1]?.cursor
+                  data.user.repositories.nodes.push(...nodes)
+                  pushed = nodes.length
+                } while ((pushed)&&(cursor)&&(data.user.repositories.nodes.length < repositories))
+              //Limit repositories
+                console.debug(`metrics/compute/${login}/common > keeping only ${repositories} repositories`)
+                data.user.repositories.nodes.splice(repositories)
+                console.debug(`metrics/compute/${login}/common > loaded ${data.user.repositories.nodes.length} repositories`)
+            }
+          //Success
+            console.debug(`metrics/compute/${login}/common > graphql query > mode ${mode} > success`)
+            return
+        } catch (error) {
+          console.debug(`metrics/compute/${login}/common > mode ${mode} > failed : ${error}`)
+          console.debug(`metrics/compute/${login}/common > checking next mode`)
+        }
+      }
+    //Not found
+      console.debug(`metrics/compute/${login}/common > no more mode`)
+      throw new Error("user not found")
+  }
+
+/** Common query post-processing */
+  common.post = {
+    //User
+      user({login, data:{user}}) {
+        console.debug(`metrics/compute/${login}/common > applying common post`)
+        Object.assign(user, {
+          account:"user",
+          isVerified:false,
+        })
+      },
+    //Organization
+      organization({login, data:{user:organization}}) {
+        console.debug(`metrics/compute/${login}/common > applying common post`)
+        Object.assign(organization, {
+          account:"organization",
+          isHireable:false,
+          starredRepositories:{totalCount:0},
+          watching:{totalCount:0},
+          contributionsCollection:{
+            totalRepositoriesWithContributedCommits:0,
+            totalCommitContributions:0,
+            restrictedContributionsCount:0,
+            totalIssueContributions:0,
+            totalPullRequestContributions:0,
+            totalPullRequestReviewContributions:0,
+          },
+          calendar:{contributionCalendar:{weeks:[]}},
+          repositoriesContributedTo:{totalCount:0},
+          followers:{totalCount:0},
+          following:{totalCount:0},
+          issueComments:{totalCount:0},
+          organizations:{totalCount:0},
+        })
       }
   }
 
