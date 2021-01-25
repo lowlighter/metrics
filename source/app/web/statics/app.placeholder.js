@@ -222,17 +222,25 @@
                 }) : null),
               //People
                 ...(set.plugins.enabled.people ? ({
-                  people:{
-                    types:options["people.types"].split(",").map(x => x.trim()),
-                    size:options["people.size"],
-                    followers:new Array(Number(options["people.limit"])).fill(null).map(_ => ({
-                      login:faker.internet.userName(),
-                      avatar:"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
-                    })),
-                    following:new Array(Number(options["people.limit"])).fill(null).map(_ => ({
-                      login:faker.internet.userName(),
-                      avatar:"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
-                    }))
+                  get people() {
+                    const types = options["people.types"].split(",").map(x => x.trim())
+                      .map(x => ({followed:"following", sponsors:"sponsorshipsAsMaintainer", sponsored:"sponsorshipsAsSponsor", sponsoring:"sponsorshipsAsSponsor"})[x] ?? x)
+                      .filter(x => ["followers", "following", "sponsorshipsAsMaintainer", "sponsorshipsAsSponsor"].includes(x))
+                    return {
+                      types,
+                      size:options["people.size"],
+                      ...(Object.fromEntries(types.map(type => [
+                        type,
+                        new Array(Number(options["people.limit"])).fill(null).map(_ => ({
+                          login:faker.internet.userName(),
+                          avatar:"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
+                        }))
+                      ]))),
+                      thanks:options["people.thanks"].split(",").map(x => x.trim()).map(login => ({
+                        login,
+                        avatar:"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
+                      }))
+                    }
                   }
                 }) : null),
               //Music
