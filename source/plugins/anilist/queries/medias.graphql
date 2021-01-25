@@ -1,0 +1,50 @@
+query Medias ($name: String, $type: MediaType) {
+  MediaListCollection(userName: $name, type: $type) {
+    lists {
+      name
+      isCustomList
+      entries {
+        ...mediaListEntry
+      }
+    }
+  }
+}
+
+fragment mediaListEntry on MediaList {
+  status
+  progress
+  progressVolumes
+  score
+  startedAt {
+    year
+    month
+    day
+  }
+  completedAt {
+    year
+    month
+    day
+  }
+  media {
+    title {
+      romaji
+      english
+      native
+    }
+    description
+    type
+    status(version: 2)
+    episodes
+    volumes
+    chapters
+    averageScore
+    countryOfOrigin
+    genres
+    coverImage {
+      medium
+    }
+    startDate {
+      year
+    }
+  }
+}

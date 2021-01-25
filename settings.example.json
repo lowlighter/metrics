@@ -74,6 +74,9 @@
     },
     "people":{                    "//":"People plugin",
       "enabled":false,            "//":"Enable or disable people display"
+    },
+    "anilist":{                   "//":"Anilist plugin",
+      "enabled":false,            "//":"Enable or disable anilist display"
     }
   }
 }

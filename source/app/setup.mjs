@@ -116,7 +116,11 @@
           conf.templates[name] = {image, style, fonts, partials, views:[directory]}
 
         //Cache templates scripts
-          Templates[name] = (await import(url.pathToFileURL(path.join(fs.existsSync(path.join(directory, "templates.mjs")) ? directory : path.join(__templates, "classic"), "template.mjs")).href)).default
+          Templates[name] = await (async () => {
+            const template = path.join(directory, "template.mjs")
+            const fallback = path.join(__templates, "classic", "template.mjs")
+            return (await import(url.pathToFileURL(fs.existsSync(template) ? template : fallback).href)).default
+          })()
           logger(`metrics/setup > load template [${name}] > success`)
         //Debug
           if (conf.settings.debug) {

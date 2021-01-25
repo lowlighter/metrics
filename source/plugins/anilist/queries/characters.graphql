@@ -1,0 +1,21 @@
+query FavoritesCharacters ($name: String, $page:Int) {
+  User(name: $name) {
+    favourites {
+      characters(page: $page) {
+        nodes {
+          name {
+            full
+            native
+          }
+          image {
+            medium
+          }
+        }
+        pageInfo {
+          currentPage
+          hasNextPage
+        }
+      }
+    }
+  }
+}

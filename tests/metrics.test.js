@@ -290,6 +290,42 @@
       plugin_people:true,
       plugin_people_identicons:true,
     }, {skip:["terminal", "repository"]}],
+    ["Anilist plugin (default)", {
+      plugin_anilist:true,
+    }, {skip:["terminal", "repository"]}],
+    ["Anilist plugin (manga only)", {
+      plugin_anilist:true,
+      plugin_anilist_medias:"manga",
+    }, {skip:["terminal", "repository"]}],
+    ["Anilist plugin (anime only)", {
+      plugin_anilist:true,
+      plugin_anilist_medias:"anime",
+    }, {skip:["terminal", "repository"]}],
+    ["Anilist plugin (favorites section)", {
+      plugin_anilist:true,
+      plugin_anilist_sections:"favorites",
+    }, {skip:["terminal", "repository"]}],
+    ["Anilist plugin (watching/reading section)", {
+      plugin_anilist:true,
+      plugin_anilist_sections:"watching, reading",
+    }, {skip:["terminal", "repository"]}],
+    ["Anilist plugin (characters section)", {
+      plugin_anilist:true,
+      plugin_anilist_sections:"characters",
+    }, {skip:["terminal", "repository"]}],
+    ["Anilist plugin (additional options)", {
+      plugin_anilist:true,
+      plugin_anilist_limit:0,
+      plugin_anilist_shuffle:false,
+      plugin_anilist_user:"anilist",
+    }, {skip:["terminal", "repository"]}],
+    ["Anilist plugin (complete)", {
+      plugin_anilist:true,
+      plugin_anilist_medias:"manga, anime",
+      plugin_anilist_sections:"favorites, watching, reading, characters",
+      plugin_anilist_limit:0,
+      plugin_anilist_shuffle:false,
+    }, {skip:["terminal", "repository"]}],
   ]
 
 //Tests run
