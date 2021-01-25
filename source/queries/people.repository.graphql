@@ -1,4 +1,4 @@
-query Repository {
+query PeopleRepository {
   user(login: "$login") {
     repository(name: "$repository") {
       $type($after first: 100) {

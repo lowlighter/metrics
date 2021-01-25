@@ -286,6 +286,22 @@
       plugin_people:true,
       plugin_people_types:"following",
     }, {skip:["terminal", "repository"]}],
+    ["People plugin (sponsoring)", {
+      plugin_people:true,
+      plugin_people_types:"sponsoring",
+    }, {skip:["terminal", "repository"]}],
+    ["People plugin (sponsors)", {
+      plugin_people:true,
+      plugin_people_types:"sponsors",
+    }, {skip:["terminal"]}],
+    ["People plugin (stargazers)", {
+      plugin_people:true,
+      plugin_people_types:"stargazers",
+    }, {skip:["classic", "terminal"]}],
+    ["People plugin (watchers)", {
+      plugin_people:true,
+      plugin_people_types:"watchers",
+    }, {skip:["classic", "terminal"]}],
     ["People plugin (identicons)", {
       plugin_people:true,
       plugin_people_identicons:true,

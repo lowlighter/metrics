@@ -17,8 +17,9 @@
       data.user.repositories.nodes = [repository]
       data.repo = repository
 
-    //Contributors
+    //Contributors and sponsors
       data.repo.contributors = {totalCount:(await rest.repos.listContributors({owner:data.repo.owner.login, repo})).data.length}
+      data.repo.sponsorshipsAsMaintainer = data.user.sponsorshipsAsMaintainer
 
     //Get commit activity
       console.debug(`metrics/compute/${login}/${repo} > querying api for commits`)

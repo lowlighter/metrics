@@ -7,11 +7,17 @@
             return null
 
         //Context
-          let context = {mode:"user", types:["followers", "following"], default:"followers, following"}
+          let context = {
+            mode:"user",
+            types:["followers", "following", "sponsorshipsAsMaintainer", "sponsorshipsAsSponsor"],
+            default:"followers, following",
+            alias:{followed:"following", sponsors:"sponsorshipsAsMaintainer", sponsored:"sponsorshipsAsSponsor", sponsoring:"sponsorshipsAsSponsor"},
+            sponsorships:{sponsorshipsAsMaintainer:"sponsorEntity", sponsorshipsAsSponsor:"sponsorable"}
+          }
           if (q.repo) {
             console.debug(`metrics/compute/${login}/plugins > people > switched to repository mode`)
             const {owner, repo} = data.user.repositories.nodes.map(({name:repo, owner:{login:owner}}) => ({repo, owner})).shift()
-            context = {mode:"repo", types:["contributors", "stargazers", "watchers"], default:"stargazers, watchers", owner, repo}
+            context = {...context, mode:"repo", types:["contributors", "stargazers", "watchers", "sponsorshipsAsMaintainer"], default:"stargazers, watchers", owner, repo}
           }
 
         //Parameters override
@@ -19,7 +25,7 @@
           //Limit
             limit = Math.max(1, limit)
           //Repositories projects
-            types = [...new Set(decodeURIComponent(types ?? "").split(",").map(type => type.trim()).map(type => type === "followed" ? "following" : type).filter(type => context.types.includes(type)) ?? [])]
+            types = [...new Set(decodeURIComponent(types ?? "").split(",").map(type => type.trim()).map(type => (context.alias[type] ?? type)).filter(type => context.types.includes(type)) ?? [])]
 
         //Retrieve followers from graphql api
           console.debug(`metrics/compute/${login}/plugins > people > querying api`)
@@ -40,13 +46,14 @@
                   do {
                     console.debug(`metrics/compute/${login}/plugins > people > retrieving ${type} after ${cursor}`)
                     const {[type]:{edges}} = (
+                      type in context.sponsorships ? (await graphql(queries["people.sponsors"]({login:context.owner ?? login, type, size, after:cursor ? `after: "${cursor}"` : "", target:context.sponsorships[type]}))).user :
                       context.mode === "repo" ? (await graphql(queries["people.repository"]({login:context.owner, repository:context.repo, type, size, after:cursor ? `after: "${cursor}"` : ""}))).user.repository :
                       (await graphql(queries.people({login, type, size, after:cursor ? `after: "${cursor}"` : ""}))).user
                     )
                     cursor = edges?.[edges?.length-1]?.cursor
-                    result[type].push(...edges.map(({node}) => node))
+                    result[type].push(...edges.map(({node}) => node[context.sponsorships[type]] ?? node))
                     pushed = edges.length
-                  } while ((pushed)&&(cursor))
+                  } while ((pushed)&&(cursor)&&(result[type].length <= limit))
                 }
             //Limit people
               if (limit > 0) {

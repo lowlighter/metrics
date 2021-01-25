@@ -469,9 +469,16 @@ inputs:
     default: 28
 
   # List of users categories to display (comma separated)
-  # Supported values are:
+  # For user's metrics, supported values are:
   # - "followers"
-  # - "following"
+  # - "following"/"followed"
+  # - "sponsors"/"sponsorshipsAsMaintainer"
+  # - "sponsoring"/"sponsored"/"sponsorshipsAsSponsor"
+  # For repositories' metrics, supported values are:
+  # - "contributors"
+  # - "stargazers"
+  # - "watchers"
+  # - "sponsors"/"sponsorshipsAsMaintainer"
   plugin_people_types:
     description: Categories to display
     default: followers, following
