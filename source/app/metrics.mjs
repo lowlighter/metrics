@@ -45,26 +45,7 @@
           }
 
         //Query data from GitHub API
-          console.debug(`metrics/compute/${login} > graphql query`)
-          const forks = q["repositories.forks"] || false
-          Object.assign(data, await graphql(queries.common({login, "calendar.from":new Date(Date.now()-14*24*60*60*1000).toISOString(), "calendar.to":(new Date()).toISOString(), forks:forks ? "" : ", isFork: false"})))
-        //Query repositories from GitHub API
-          {
-            //Iterate through repositories
-              let cursor = null
-              let pushed = 0
-              do {
-                console.debug(`metrics/compute/${login} > retrieving repositories after ${cursor}`)
-                const {user:{repositories:{edges, nodes}}} = await graphql(queries.repositories({login, after:cursor ? `after: "${cursor}"` : "", repositories:Math.min(repositories, 100), forks:forks ? "" : ", isFork: false"}))
-                cursor = edges?.[edges?.length-1]?.cursor
-                data.user.repositories.nodes.push(...nodes)
-                pushed = nodes.length
-              } while ((pushed)&&(cursor)&&(data.user.repositories.nodes.length < repositories))
-            //Limit repositories
-              console.debug(`metrics/compute/${login} > keeping only ${repositories} repositories`)
-              data.user.repositories.nodes.splice(repositories)
-              console.debug(`metrics/compute/${login} > loaded ${data.user.repositories.nodes.length} repositories`)
-          }
+          await common({login, q, data, queries, repositories, graphql})
         //Compute metrics
           console.debug(`metrics/compute/${login} > compute`)
           const computer = Templates[template].default || Templates[template]
@@ -120,6 +101,31 @@
             throw new Error("user not found")
         //Generic error
           throw error
+      }
+  }
+
+/** Common query */
+  async function common({login, q, data, queries, repositories, graphql}) {
+    //Query data from GitHub API
+      console.debug(`metrics/compute/${login} > graphql query`)
+      const forks = q["repositories.forks"] || false
+      Object.assign(data, await graphql(queries.common({login, "calendar.from":new Date(Date.now()-14*24*60*60*1000).toISOString(), "calendar.to":(new Date()).toISOString(), forks:forks ? "" : ", isFork: false"})))
+    //Query repositories from GitHub API
+      {
+        //Iterate through repositories
+          let cursor = null
+          let pushed = 0
+          do {
+            console.debug(`metrics/compute/${login} > retrieving repositories after ${cursor}`)
+            const {user:{repositories:{edges, nodes}}} = await graphql(queries.repositories({login, after:cursor ? `after: "${cursor}"` : "", repositories:Math.min(repositories, 100), forks:forks ? "" : ", isFork: false"}))
+            cursor = edges?.[edges?.length-1]?.cursor
+            data.user.repositories.nodes.push(...nodes)
+            pushed = nodes.length
+          } while ((pushed)&&(cursor)&&(data.user.repositories.nodes.length < repositories))
+        //Limit repositories
+          console.debug(`metrics/compute/${login} > keeping only ${repositories} repositories`)
+          data.user.repositories.nodes.splice(repositories)
+          console.debug(`metrics/compute/${login} > loaded ${data.user.repositories.nodes.length} repositories`)
       }
   }
 
