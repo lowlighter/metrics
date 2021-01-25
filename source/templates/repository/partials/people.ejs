@@ -22,7 +22,7 @@
           <% if (type === "thanks") { %>
             Special thanks
           <% } else { %>
-            <%= user[type].totalCount %> <%= {followers:`follower${s(user[type].totalCount)}`, following:"followed", sponsorshipsAsSponsor:"sponsored", sponsorshipsAsMaintainer:`sponsor${s(user[type].totalCount)}`}[type] %>
+            <%= repo[type].totalCount %> <%= {watchers:`watcher${s(repo[type].totalCount)}`, stargazers:`stargazer${s(repo[type].totalCount)}`, contributors:`contributor${s(repo[type].totalCount)}`, sponsorshipsAsSponsor:"sponsored", sponsorshipsAsMaintainer:`sponsor${s(repo[type].totalCount)}`}[type] %>
           <% } %>
         </h2>
         <div class="row">

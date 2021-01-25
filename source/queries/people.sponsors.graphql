@@ -1,0 +1,18 @@
+query PeopleSponsors {
+  user(login: "$login") {
+    login
+    $type($after first: 100) {
+      edges {
+        cursor
+        node {
+          $target {
+            ... on User {
+              login
+              avatarUrl(size: $size)
+            }
+          }
+        }
+      }
+    }
+  }
+}

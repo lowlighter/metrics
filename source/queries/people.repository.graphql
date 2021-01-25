@@ -1,14 +1,13 @@
-query Repository {
+query PeopleRepository {
   user(login: "$login") {
     repository(name: "$repository") {
-      $type(first: 100) {
-        pageInfo {
-          hasNextPage
-          endCursor
-        }
-        nodes {
-          avatarUrl(size: 24)
-          login
+      $type($after first: 100) {
+        edges {
+          cursor
+          node {
+            login
+            avatarUrl(size: $size)
+          }
         }
       }
     }

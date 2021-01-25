@@ -469,12 +469,28 @@ inputs:
     default: 28
 
   # List of users categories to display (comma separated)
-  # Supported values are:
+  # For user's metrics, supported values are:
   # - "followers"
-  # - "following"
+  # - "following"/"followed"
+  # - "sponsors"/"sponsorshipsAsMaintainer"
+  # - "sponsoring"/"sponsored"/"sponsorshipsAsSponsor"
+  # - "thanks" (see "plugin_people_thanks" below)
+  # For repositories' metrics, supported values are:
+  # - "contributors"
+  # - "stargazers"
+  # - "watchers"
+  # - "sponsors"/"sponsorshipsAsMaintainer"
+  # - "thanks" (see "plugin_people_thanks" below)
   plugin_people_types:
     description: Categories to display
     default: followers, following
+
+  # List of users to thanks (comma seperated)
+  # When using "thanks" as a type, it'll display the users you listed in this option
+  # This can be used to create "Special thanks" badges that you can embed elsewhere
+  plugin_people_thanks:
+    description: Users to thanks in "thanks" section type
+    default: ""
 
   # Display GitHub identicons instead of users' real avatar
   # Mostly for privacy purposes
