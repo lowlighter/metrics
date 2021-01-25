@@ -167,7 +167,7 @@
           catch (error) {
             //Not found user
               if ((error instanceof Error)&&(/^user not found$/.test(error.message))) {
-                console.debug(`metrics/app/${login} > 404 (user not found)`)
+                console.debug(`metrics/app/${login} > 404 (user/organization not found)`)
                 return res.sendStatus(404)
               }
             //Invalid template
