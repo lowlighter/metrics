@@ -1,10 +1,18 @@
 //Setup
-  export default async function ({login, data, imports, rest, q}, {enabled = false} = {}) {
+  export default async function ({login, data, rest, q}, {enabled = false} = {}) {
     //Plugin execution
       try {
         //Check if plugin is enabled and requirements are met
           if ((!enabled)||(!q.lines))
             return null
+
+        //Context
+          let context = {mode:"user"}
+          if (q.repo) {
+            console.debug(`metrics/compute/${login}/plugins > people > switched to repository mode`)
+            context = {...context, mode:"repository"}
+          }
+
         //Repositories
           const repositories = data.user.repositories.nodes.map(({name:repo, owner:{login:owner}}) => ({repo, owner})) ?? []
         //Get contributors stats from repositories
@@ -18,7 +26,7 @@
               if (!Array.isArray(repository))
                 return
             //Extract author
-              const [contributor] = repository.filter(({author}) => author.login === login)
+              const [contributor] = repository.filter(({author}) => context.mode === "repository" ? true : author.login === login)
             //Compute editions
               if (contributor)
                 contributor.weeks.forEach(({a, d}) => (lines.added += a, lines.deleted += d))

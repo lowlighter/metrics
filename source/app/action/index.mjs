@@ -239,7 +239,7 @@
           if (plugins.people.enabled) {
             for (const option of ["limit", "size"])
               info(`People ${option}`, q[`people.${option}`] = input.number(`plugin_people_${option}`))
-            for (const option of ["types"])
+            for (const option of ["types", "thanks"])
               info(`People ${option}`, q[`people.${option}`] = input.array(`plugin_people_${option}`))
             for (const option of ["identicons"])
               info(`People ${option}`, q[`people.${option}`] = input.bool(`plugin_people_${option}`))

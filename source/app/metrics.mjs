@@ -45,30 +45,11 @@
           }
 
         //Query data from GitHub API
-          console.debug(`metrics/compute/${login} > graphql query`)
-          const forks = q["repositories.forks"] || false
-          Object.assign(data, await graphql(queries.common({login, "calendar.from":new Date(Date.now()-14*24*60*60*1000).toISOString(), "calendar.to":(new Date()).toISOString(), forks:forks ? "" : ", isFork: false"})))
-        //Query repositories from GitHub API
-          {
-            //Iterate through repositories
-              let cursor = null
-              let pushed = 0
-              do {
-                console.debug(`metrics/compute/${login} > retrieving repositories after ${cursor}`)
-                const {user:{repositories:{edges, nodes}}} = await graphql(queries.repositories({login, after:cursor ? `after: "${cursor}"` : "", repositories:Math.min(repositories, 100), forks:forks ? "" : ", isFork: false"}))
-                cursor = edges?.[edges?.length-1]?.cursor
-                data.user.repositories.nodes.push(...nodes)
-                pushed = nodes.length
-              } while ((pushed)&&(cursor)&&(data.user.repositories.nodes.length < repositories))
-            //Limit repositories
-              console.debug(`metrics/compute/${login} > keeping only ${repositories} repositories`)
-              data.user.repositories.nodes.splice(repositories)
-              console.debug(`metrics/compute/${login} > loaded ${data.user.repositories.nodes.length} repositories`)
-          }
+          await common({login, q, data, queries, repositories, graphql})
         //Compute metrics
           console.debug(`metrics/compute/${login} > compute`)
           const computer = Templates[template].default || Templates[template]
-          await computer({login, q, dflags}, {conf, data, rest, graphql, plugins, queries}, {s, pending, imports:{plugins:Plugins, url, imgb64, axios, puppeteer, run, fs, os, paths, util, format, bytes, shuffle, htmlescape, urlexpand, __module}})
+          await computer({login, q, dflags}, {conf, data, rest, graphql, plugins, queries, account:data.account}, {s, pending, imports:{plugins:Plugins, url, imgb64, axios, puppeteer, run, fs, os, paths, util, format, bytes, shuffle, htmlescape, urlexpand, __module}})
           const promised = await Promise.all(pending)
 
         //Check plugins errors
@@ -120,6 +101,83 @@
             throw new Error("user not found")
         //Generic error
           throw error
+      }
+  }
+
+/** Common query */
+  async function common({login, q, data, queries, repositories, graphql}) {
+    //Iterate through account types
+      for (const account of ["user", "organization"]) {
+        try {
+          //Query data from GitHub API
+            console.debug(`metrics/compute/${login}/common > account ${account}`)
+            const forks = q["repositories.forks"] || false
+            const queried = await graphql(queries[{user:"common", organization:"common.organization"}[account]]({login, "calendar.from":new Date(Date.now()-14*24*60*60*1000).toISOString(), "calendar.to":(new Date()).toISOString(), forks:forks ? "" : ", isFork: false"}))
+            Object.assign(data, {user:queried[account]})
+            common.post?.[account]({login, data})
+          //Query repositories from GitHub API
+            {
+              //Iterate through repositories
+                let cursor = null
+                let pushed = 0
+                do {
+                  console.debug(`metrics/compute/${login}/common > retrieving repositories after ${cursor}`)
+                  const {[account]:{repositories:{edges, nodes}}} = await graphql(queries.repositories({login, account, after:cursor ? `after: "${cursor}"` : "", repositories:Math.min(repositories, 100), forks:forks ? "" : ", isFork: false"}))
+                  cursor = edges?.[edges?.length-1]?.cursor
+                  data.user.repositories.nodes.push(...nodes)
+                  pushed = nodes.length
+                } while ((pushed)&&(cursor)&&(data.user.repositories.nodes.length < repositories))
+              //Limit repositories
+                console.debug(`metrics/compute/${login}/common > keeping only ${repositories} repositories`)
+                data.user.repositories.nodes.splice(repositories)
+                console.debug(`metrics/compute/${login}/common > loaded ${data.user.repositories.nodes.length} repositories`)
+            }
+          //Success
+            console.debug(`metrics/compute/${login}/common > graphql query > account ${account} > success`)
+            return
+        } catch (error) {
+          console.debug(`metrics/compute/${login}/common > account ${account} > failed : ${error}`)
+          console.debug(`metrics/compute/${login}/common > checking next account`)
+        }
+      }
+    //Not found
+      console.debug(`metrics/compute/${login}/common > no more account type`)
+      throw new Error("user not found")
+  }
+
+/** Common query post-processing */
+  common.post = {
+    //User
+      user({login, data}) {
+        console.debug(`metrics/compute/${login}/common > applying common post`)
+        data.account = "user"
+        Object.assign(data.user, {
+          isVerified:false,
+        })
+      },
+    //Organization
+      organization({login, data}) {
+        console.debug(`metrics/compute/${login}/common > applying common post`)
+        data.account = "organization",
+        Object.assign(data.user, {
+          isHireable:false,
+          starredRepositories:{totalCount:0},
+          watching:{totalCount:0},
+          contributionsCollection:{
+            totalRepositoriesWithContributedCommits:0,
+            totalCommitContributions:0,
+            restrictedContributionsCount:0,
+            totalIssueContributions:0,
+            totalPullRequestContributions:0,
+            totalPullRequestReviewContributions:0,
+          },
+          calendar:{contributionCalendar:{weeks:[]}},
+          repositoriesContributedTo:{totalCount:0},
+          followers:{totalCount:0},
+          following:{totalCount:0},
+          issueComments:{totalCount:0},
+          organizations:{totalCount:0},
+        })
       }
   }
 

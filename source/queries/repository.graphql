@@ -1,5 +1,5 @@
 query Repository {
-  user(login: "$login") {
+  $account(login: "$login") {
     repository(name: "$repo") {
       name
       owner {

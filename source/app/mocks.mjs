@@ -362,11 +362,71 @@
                 }) : ({
                   user:{
                     [type]:{
-                      edges:new Array(Math.ceil(20+80*Math.random())).fill(undefined).map((login = faker.internet.userName()) => ({
+                      edges:new Array(Math.ceil(20+80*Math.random())).fill(null).map((login = faker.internet.userName()) => ({
                         cursor:"MOCKED_CURSOR",
                         node:{
                           login,
                           avatarUrl:null,
+                        }
+                      }))
+                    }
+                  }
+                })
+              }
+            //People query (repositories)
+              if (/^query PeopleRepository /.test(query)) {
+                console.debug(`metrics/compute/mocks > mocking graphql api result > People`)
+                const type = query.match(/(?<type>stargazers|watchers)[(]/)?.groups?.type ?? "(unknown type)"
+                return /after: "MOCKED_CURSOR"/m.test(query) ? ({
+                  user:{
+                    repository:{
+                      [type]:{
+                        edges:[],
+                      }
+                    }
+                  }
+                }) : ({
+                  user:{
+                    repository:{
+                      [type]:{
+                        edges:new Array(Math.ceil(20+80*Math.random())).fill(null).map((login = faker.internet.userName()) => ({
+                          cursor:"MOCKED_CURSOR",
+                          node:{
+                            login,
+                            avatarUrl:null,
+                          }
+                        }))
+                      }
+                    }
+                  }
+                })
+              }
+            //People sponsors query
+              if (/^query PeopleSponsors /.test(query)) {
+                console.debug(`metrics/compute/mocks > mocking graphql api result > People`)
+                const type = query.match(/(?<type>sponsorshipsAsSponsor|sponsorshipsAsMaintainer)[(]/)?.groups?.type ?? "(unknown type)"
+                return /after: "MOCKED_CURSOR"/m.test(query) ? ({
+                  user:{
+                    login,
+                    [type]:{
+                      edges:[]
+                    }
+                  }
+                }) : ({
+                  user:{
+                    login,
+                    [type]:{
+                      edges:new Array(Math.ceil(20+80*Math.random())).fill(null).map((login = faker.internet.userName()) => ({
+                        cursor:"MOCKED_CURSOR",
+                        node:{
+                          sponsorEntity:{
+                            login:faker.internet.userName(),
+                            avatarUrl:null,
+                          },
+                          sponsorable:{
+                            login:faker.internet.userName(),
+                            avatarUrl:null,
+                          }
                         }
                       }))
                     }
@@ -389,6 +449,8 @@
           getViews:rest.repos.getViews,
           getContributorsStats:rest.repos.getContributorsStats,
           listCommits:rest.repos.listCommits,
+          listContributors:rest.repos.listContributors,
+          getByUsername:rest.users.getByUsername,
         }
 
         //Raw request
@@ -893,6 +955,49 @@
               })
             }
           })
+
+        //Repository contributors
+          rest.repos.listContributors = new Proxy(unmocked.listContributors, {
+            apply:function(target, that, [{owner, repo}]) {
+              console.debug(`metrics/compute/mocks > mocking rest api result > rest.repos.listContributors`)
+              return ({
+                status:200,
+                url:`https://api.github.com/repos/${owner}/${repo}/contributors`,
+                headers: {
+                  server:"GitHub.com",
+                  status:"200 OK",
+                  "x-oauth-scopes":"repo",
+                },
+                data:new Array(40+faker.random.number(60)).fill(null).map(() => ({
+                  login:faker.internet.userName(),
+                  avatar_url:null,
+                  contributions:faker.random.number(1000),
+                }))
+              })
+            }
+          })
+
+        //User informations
+          rest.users.getByUsername = new Proxy(unmocked.getByUsername, {
+            apply:function(target, that, [{username}]) {
+              console.debug(`metrics/compute/mocks > mocking rest api result > rest.repos.getByUsername`)
+              return ({
+                status:200,
+                url:`'https://api.github.com/users/${username}/`,
+                headers: {
+                  server:"GitHub.com",
+                  status:"200 OK",
+                  "x-oauth-scopes":"repo",
+                },
+                data:{
+                  login:faker.internet.userName(),
+                  avatar_url:null,
+                  contributions:faker.random.number(1000),
+                }
+              })
+            }
+          })
+
       }
 
     //Axios mocking
