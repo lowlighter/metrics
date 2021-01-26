@@ -4,9 +4,20 @@
 
 Generate your metrics that you can embed everywhere, including your GitHub profile readme! It works for both user and organization accounts!
 
-[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.classic.svg" alt="Metrics (user account)" width="430">](https://metrics.lecoq.io)
-[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.organization.svg" alt="Metrics (organization account)" width="430">](https://metrics.lecoq.io)
-
+<table>
+  <tr>
+    <th>For user accounts</th>
+    <th>For organization accounts</th>
+  </tr>
+  <tr>
+    <td>
+      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.classic.svg" alt="Metrics (user account)" width="400">
+    </td>
+    <td>
+      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.organization.svg" alt="Metrics (organization account)" width="400">
+    </td>
+  </tr>
+</table>
 
 But there's more with [plugins](https://github.com/lowlighter/metrics/tree/master/source/plugins) and [templates](https://github.com/lowlighter/metrics/tree/master/source/templates)!
 
