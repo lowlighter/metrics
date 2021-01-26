@@ -11,7 +11,9 @@
 
       <% if (base.metadata) { %>
         <footer>
-          <span>These metrics <%= !computed.token.scopes.includes("repo") ? "do not include all" : "include" %> private contributions<% if ((config.timezone?.name)&&(!config.timezone?.error)) { %>, timezone <%= config.timezone.name %><% } %></span>
+          <% if (account === "user") { %>
+            <span>These metrics <%= !computed.token.scopes.includes("repo") ? "do not include all" : "include" %> private contributions<% if ((config.timezone?.name)&&(!config.timezone?.error)) { %>, timezone <%= config.timezone.name %><% } %></span>
+          <% } %>
           <span>Last updated <%= new Date().toGMTString() %> with lowlighter/metrics@<%= meta.version %></span>
         </footer>
       <% } %>

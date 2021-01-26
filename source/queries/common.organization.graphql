@@ -24,6 +24,8 @@ query MetricsOrganization {
     sponsorshipsAsMaintainer {
       totalCount
     }
-
+    membersWithRole {
+      totalCount
+    }
   }
 }

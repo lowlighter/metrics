@@ -1,4 +1,4 @@
-<% if ((base.activity)||(base.community)) { %>
+<% if ((account === "user")&&((base.activity)||(base.community))) { %>
 <div class="stdin"><%- meta.$ %> git status</div><%# -%>
 <div class="stdout"><%# -%>
 <% if (base.activity) { -%>

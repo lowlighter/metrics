@@ -563,26 +563,26 @@ The default template is `classic`.
 
 <table>
   <tr>
-    <th>Template\Plugin</th>
-    <th><span title="Base content">🗃️</span></th>
-    <th><span title="PageSpeed">⏱️</span></th>
-    <th><span title="Isometric calendar">📅</span></th>
-    <th><span title="Music">🎼</span></th>
-    <th><span title="Languages">🈷️</span></th>
-    <th><span title="Follow-up">🎟️</span></th>
-    <th><span title="Topics">📌</span></th>
-    <th><span title="Projects">🗂️</span></th>
-    <th><span title="Lines">👨‍💻</span></th>
-    <th><span title="Traffic">🧮</span></th>
-    <th><span title="Tweets">🐤</span></th>
-    <th><span title="Posts">✒️</span></th>
-    <th><span title="Habits">💡</span></th>
-    <th><span title="Activity">📰</span></th>
-    <th><span title="Stars">🌟</span></th>
-    <th><span title="Stargazers">✨</span></th>
-    <th><span title="Gists">🎫</span></th>
-    <th><span title="People">🧑‍🤝‍🧑</span></th>
-    <th><span title="Anilist">🌸</span></th>
+    <th nowrap="nowrap">Template\Plugin</th>
+    <th nowrap="nowrap"><span title="Base content">🗃️<sup>Ø<sup>P</sup></sup></span></th>
+    <th nowrap="nowrap"><span title="PageSpeed">⏱️</span></th>
+    <th nowrap="nowrap"><span title="Isometric calendar">📅<sup>Ø</sup></span></th>
+    <th nowrap="nowrap"><span title="Music">🎼</span></th>
+    <th nowrap="nowrap"><span title="Languages">🈷️</span></th>
+    <th nowrap="nowrap"><span title="Follow-up">🎟️</span></th>
+    <th nowrap="nowrap"><span title="Topics">📌<sup>Ø</sup></span></th>
+    <th nowrap="nowrap"><span title="Projects">🗂️</span></th>
+    <th nowrap="nowrap"><span title="Lines">👨‍💻</span></th>
+    <th nowrap="nowrap"><span title="Traffic">🧮</span></th>
+    <th nowrap="nowrap"><span title="Tweets">🐤</span></th>
+    <th nowrap="nowrap"><span title="Posts">✒️</span></th>
+    <th nowrap="nowrap"><span title="Habits">💡</span></th>
+    <th nowrap="nowrap"><span title="Activity">📰</span></th>
+    <th nowrap="nowrap"><span title="Stars">🌟<sup>Ø</sup></span></th>
+    <th nowrap="nowrap"><span title="Stargazers">✨</span></th>
+    <th nowrap="nowrap"><span title="Gists">🎫<sup>Ø</sup></span></th>
+    <th nowrap="nowrap"><span title="People">🧑‍🤝‍🧑</span></th>
+    <th nowrap="nowrap"><span title="Anilist">🌸</span></th>
   </tr>
   <tr>
     <th>Classic</th>
@@ -656,7 +656,9 @@ The default template is `classic`.
 * **P**: Partial support *(Hover cell for more informations)*
 * **M**: Feature is not released yet but is available on `@master`
 * **N**: Feature is already released, but new ones are available on `@master`
-* **R**: Repository template (all plugins content will be restricted to related repository)
+* **R**: Repository template (all plugins content will be scoped to related repository)
+* **Ø**: Feature is not supported for organization accounts
+* **Ø<sup>P</sup>**: Feature is supported partially for organization accounts
 
 <details>
 <summary>💬 Using community templates</summary>
@@ -709,6 +711,36 @@ Add the following to your workflow:
     user: "repository-owner"
     query: '{"repo":"repository-name"}'
 ```
+
+</details>
+
+<details>
+<summary>💬 Generating metrics for organizations</summary>
+
+    🚧 This feature is available as pre-release on @master branch (unstable)
+
+It is also possible to generate metrics for organization accounts.
+Setup is the same as for user accounts (i.e. a personal token from an user account and use of `GITHUB_TOKEN` for commits) but you'll need to change `user` option to your organization name.
+
+Additionally, you'll need to add the `read:org` scope to your personal token, *whether you're member of target organization or not*.
+
+![Add read:org scope to personal token](.github/readme/imgs/setup_token_org_read_scope.png)
+
+Resulting workflow should look like below:
+```yaml
+- uses: lowlighter/metrics@master
+  with:
+    # ... other options
+    token: ${{ secrets.METRICS_TOKEN }} # A personal token from an user account with read:org scope
+    committer_token: ${{ secrets.GITHUB_TOKEN }}
+    user: "organization-name"
+```
+
+You may also need to [authorize your personal token](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/authorizing-a-personal-access-token-for-use-with-saml-single-sign-on) if you're using single sign-on and are encounting errors.
+
+Note that `repositories` option will be capped to 25 repositories to ensure that GraphQL queries does not timeout, so you may end up using more requests than for user accounts.
+
+Although some plugins may be noted as compatible with an organization account, it may not be actually possible to run them successfully depending of your organization size. As some of plugins use a lot of requests, you'll eventually reach the rate-limiter before all of your metrics are generated for large organizations.
 
 </details>
 
