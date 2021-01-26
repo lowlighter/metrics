@@ -2,9 +2,11 @@
 
 ![Build](https://github.com/lowlighter/metrics/workflows/Build/badge.svg)
 
-Generate your metrics that you can embed everywhere, including your GitHub profile readme!
+Generate your metrics that you can embed everywhere, including your GitHub profile readme! It works for both user and organization accounts!
 
-[![Metrics](https://github.com/lowlighter/lowlighter/blob/master/metrics.classic.svg)](https://metrics.lecoq.io)
+[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.classic.svg" alt="Metrics (user account)" width="430">](https://metrics.lecoq.io)
+[<img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.organization.svg" alt="Metrics (organization account)" width="430">](https://metrics.lecoq.io)
+
 
 But there's more with [plugins](https://github.com/lowlighter/metrics/tree/master/source/plugins) and [templates](https://github.com/lowlighter/metrics/tree/master/source/templates)!
 
@@ -585,70 +587,70 @@ The default template is `classic`.
     <th nowrap="nowrap"><span title="Anilist">🌸</span></th>
   </tr>
   <tr>
-    <th>Classic</th>
-    <td data-for="base">✔️</td>
-    <td data-for="pagespeed">✔️</td>
-    <td data-for="isocalendar">✔️</td>
-    <td data-for="music"><span title="Last.fm provider on @master">✔️<sup>N</sup></span></td>
-    <td data-for="languages"><span title="Use customs colors on @master">✔️<sup>N</sup></span></td>
-    <td data-for="followup">✔️</td>
-    <td data-for="topics">✔️</td>
-    <td data-for="projects">✔️</td>
-    <td data-for="lines">✔️</td>
-    <td data-for="traffic">✔️</td>
-    <td data-for="tweets">✔️</td>
-    <td data-for="posts">✔️</td>
-    <td data-for="habits">✔️</td>
-    <td data-for="activity">✔️</td>
-    <td data-for="stars">✔️</td>
-    <td data-for="stargazers">✔️</td>
-    <td data-for="gists"><span title="100+ gists support on @master">✔️<sup>N</sup></span></td>
-    <td data-for="people"><span title="'thanks', 'sponsors' and 'sponsoring' available on @master">✔️<sup>N</sup></span></td>
-    <td data-for="anilist"><span title="Available on @master">✔️<sup>M</sup></span></td>
+    <th nowrap="nowrap">Classic</th>
+    <td nowrap="nowrap" data-for="base">✔️</td>
+    <td nowrap="nowrap" data-for="pagespeed">✔️</td>
+    <td nowrap="nowrap" data-for="isocalendar">✔️</td>
+    <td nowrap="nowrap" data-for="music"><span title="Last.fm provider on @master">✔️<sup>N</sup></span></td>
+    <td nowrap="nowrap" data-for="languages"><span title="Use customs colors on @master">✔️<sup>N</sup></span></td>
+    <td nowrap="nowrap" data-for="followup">✔️</td>
+    <td nowrap="nowrap" data-for="topics">✔️</td>
+    <td nowrap="nowrap" data-for="projects">✔️</td>
+    <td nowrap="nowrap" data-for="lines">✔️</td>
+    <td nowrap="nowrap" data-for="traffic">✔️</td>
+    <td nowrap="nowrap" data-for="tweets">✔️</td>
+    <td nowrap="nowrap" data-for="posts">✔️</td>
+    <td nowrap="nowrap" data-for="habits">✔️</td>
+    <td nowrap="nowrap" data-for="activity">✔️</td>
+    <td nowrap="nowrap" data-for="stars">✔️</td>
+    <td nowrap="nowrap" data-for="stargazers">✔️</td>
+    <td nowrap="nowrap" data-for="gists"><span title="100+ gists support on @master">✔️<sup>N</sup></span></td>
+    <td nowrap="nowrap" data-for="people"><span title="'thanks', 'sponsors' and 'sponsoring' available on @master">✔️<sup>N</sup></span></td>
+    <td nowrap="nowrap" data-for="anilist"><span title="Available on @master">✔️<sup>M</sup></span></td>
   </tr>
   <tr>
-    <th>Terminal</th>
-    <td data-for="base"><span title="'Available for hire' and 'Cake day' are not displayed">✔️<sup>P</sup></span></td>
-    <td data-for="pagespeed">✔️</td>
-    <td data-for="isocalendar">❌</td>
-    <td data-for="music">❌</td>
-    <td data-for="languages">✔️</td>
-    <td data-for="followup">✔️</td>
-    <td data-for="topics">❌</td>
-    <td data-for="projects">❌</td>
-    <td data-for="lines">✔️</td>
-    <td data-for="traffic">✔️</td>
-    <td data-for="tweets">❌</td>
-    <td data-for="posts">❌</td>
-    <td data-for="habits">❌</td>
-    <td data-for="activity">❌</td>
-    <td data-for="stars">❌</td>
-    <td data-for="stargazers">❌</td>
-    <td data-for="gists"><span title="100+ gists support on @master">✔️<sup>N</sup></span></td>
-    <td data-for="people">❌</td>
-    <td data-for="anilist">❌</td>
+    <th nowrap="nowrap">Terminal</th>
+    <td nowrap="nowrap" data-for="base"><span title="'Available for hire' and 'Cake day' are not displayed">✔️<sup>P</sup></span></td>
+    <td nowrap="nowrap" data-for="pagespeed">✔️</td>
+    <td nowrap="nowrap" data-for="isocalendar">❌</td>
+    <td nowrap="nowrap" data-for="music">❌</td>
+    <td nowrap="nowrap" data-for="languages">✔️</td>
+    <td nowrap="nowrap" data-for="followup">✔️</td>
+    <td nowrap="nowrap" data-for="topics">❌</td>
+    <td nowrap="nowrap" data-for="projects">❌</td>
+    <td nowrap="nowrap" data-for="lines">✔️</td>
+    <td nowrap="nowrap" data-for="traffic">✔️</td>
+    <td nowrap="nowrap" data-for="tweets">❌</td>
+    <td nowrap="nowrap" data-for="posts">❌</td>
+    <td nowrap="nowrap" data-for="habits">❌</td>
+    <td nowrap="nowrap" data-for="activity">❌</td>
+    <td nowrap="nowrap" data-for="stars">❌</td>
+    <td nowrap="nowrap" data-for="stargazers">❌</td>
+    <td nowrap="nowrap" data-for="gists"><span title="100+ gists support on @master">✔️<sup>N</sup></span></td>
+    <td nowrap="nowrap" data-for="people">❌</td>
+    <td nowrap="nowrap" data-for="anilist">❌</td>
   </tr>
   <tr>
-    <th>Repository<sup>R</sup></th>
-    <td data-for="base">✔️</td>
-    <td data-for="pagespeed">✔️</td>
-    <td data-for="isocalendar">❌</td>
-    <td data-for="music">❌</td>
-    <td data-for="languages">✔️</td>
-    <td data-for="followup">✔️</td>
-    <td data-for="topics">❌</td>
-    <td data-for="projects">✔️</td>
-    <td data-for="lines">✔️</td>
-    <td data-for="traffic">✔️</td>
-    <td data-for="tweets">❌</td>
-    <td data-for="posts">❌</td>
-    <td data-for="habits">❌</td>
-    <td data-for="activity">❌</td>
-    <td data-for="stars">❌</td>
-    <td data-for="stargazers">✔️</td>
-    <td data-for="gists">❌</td>
-    <td data-for="people"><span title="Available on @master">✔️<sup>M</sup></span></td>
-    <td data-for="anilist">❌</td>
+    <th nowrap="nowrap">Repository<sup>R</sup></th>
+    <td nowrap="nowrap" data-for="base">✔️</td>
+    <td nowrap="nowrap" data-for="pagespeed">✔️</td>
+    <td nowrap="nowrap" data-for="isocalendar">❌</td>
+    <td nowrap="nowrap" data-for="music">❌</td>
+    <td nowrap="nowrap" data-for="languages">✔️</td>
+    <td nowrap="nowrap" data-for="followup">✔️</td>
+    <td nowrap="nowrap" data-for="topics">❌</td>
+    <td nowrap="nowrap" data-for="projects">✔️</td>
+    <td nowrap="nowrap" data-for="lines">✔️</td>
+    <td nowrap="nowrap" data-for="traffic">✔️</td>
+    <td nowrap="nowrap" data-for="tweets">❌</td>
+    <td nowrap="nowrap" data-for="posts">❌</td>
+    <td nowrap="nowrap" data-for="habits">❌</td>
+    <td nowrap="nowrap" data-for="activity">❌</td>
+    <td nowrap="nowrap" data-for="stars">❌</td>
+    <td nowrap="nowrap" data-for="stargazers">✔️</td>
+    <td nowrap="nowrap" data-for="gists">❌</td>
+    <td nowrap="nowrap" data-for="people"><span title="Available on @master">✔️<sup>M</sup></span></td>
+    <td nowrap="nowrap" data-for="anilist">❌</td>
   </tr>
 </table>
 
@@ -720,6 +722,9 @@ Add the following to your workflow:
     🚧 This feature is available as pre-release on @master branch (unstable)
 
 It is also possible to generate metrics for organization accounts.
+
+![Metrics (organization account)](https://github.com/lowlighter/lowlighter/blob/master/metrics.organization.svg)
+
 Setup is the same as for user accounts (i.e. a personal token from an user account and use of `GITHUB_TOKEN` for commits) but you'll need to change `user` option to your organization name.
 
 Additionally, you'll need to add the `read:org` scope to your personal token, *whether you're member of target organization or not*.
@@ -1767,6 +1772,17 @@ Note that `png` does not support animations while `jpeg` does not support both a
 
 </details>
 
+## 🗓️ Release schedule
+
+New features and fixes are always available first on `@master` branch which acts as development branch.
+You can use this branch if you don't mind having your metrics workflow failing from time to time.
+Fork this repository if you want to manage head commit yourself and ensure you're always on a working version of metrics.
+
+When both [Planned for next release](https://github.com/lowlighter/metrics/projects/1#column-12378679) and [In progress](https://github.com/lowlighter/metrics/projects/1#column-12158618) project columns are empty, a new version of metrics will be released soon after.
+
+`@latest` tag wil be updated to latest release of metrics, which means it doesn't required any action from your side if you're using this tag.
+New releases (even majors versions) never introduce breaking changes from an user point of view, so you can flawlessy follow release cycles without worrying.
+Hot fixes may be applied after releases without changing version number.
 
 ## 💪 Contributing and customizing
 
