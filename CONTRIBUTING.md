@@ -79,7 +79,7 @@ Review below which contributions are accepted:
     <th>Section</th>
     <th>Examples</th>
     <th>Addition</th>
-    <th>Deletion</th>
+    <th>Editions</th>
   </tr>
   <tr>
     <td>🧩 Plugins</td>
