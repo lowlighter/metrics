@@ -689,7 +689,7 @@ For example, to use the `super-metrics` template from `github-user`'s fork, add 
   with:
     # ... other options
     template: "@super-metrics"
-    setup_community_templates: github-user/metrics@master:classic
+    setup_community_templates: github-user/metrics@master:super-metrics
 ```
 
 By default, community templates have their `template.mjs` removed and fallback to the one used by `classic` template.
@@ -700,7 +700,7 @@ If you really trust a template, it is possible to bypass this behaviour by appen
 - uses: lowlighter/metrics@master
   with:
     # ... other options
-    setup_community_templates: github-user/metrics@master:classic+trust
+    setup_community_templates: github-user/metrics@master:super-metrics+trust
 ```
 
 To create a new community template, just fork this repository and create a folder in `/source/templates` with the same structure as current templates.
