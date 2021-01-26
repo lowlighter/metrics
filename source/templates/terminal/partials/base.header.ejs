@@ -1,7 +1,12 @@
-<% if (base.header) { %>
+<% if ((account === "user")&&(base.header)) { %>
 <div class="stdin"><%- meta.$ %> whoami</div><%# -%>
 <div class="stdout"><%# -%>
 <b><%= user.name || user.login %></b> registered=<%= computed.registration.match(/^.+? [ymd]/)?.[0].replace(/ /g, "") %>, uid=<%= `${user.databaseId}`.substr(-4) %>, gid=<%= user.organizations.totalCount %>
   contributed to <%= user.repositoriesContributedTo.totalCount %> repositor<%= s(user.repositoriesContributedTo.totalCount, "y") %> <b><% for (const [x, {color}] of Object.entries(computed.calendar)) { -%><span style="color:<%= color %>">#</span><% } %></b>
   followed by <b><%= user.followers.totalCount %></b> user<%= s(user.followers.totalCount) %>
+</div><% } else if ((account === "organization")&&(base.header)) { %><%# -%>
+<div class="stdin"><%- meta.$ %> whoami</div><%# -%>
+<div class="stdout"><%# -%>
+<b><%= user.name || user.login %></b> registered=<%= computed.registration.match(/^.+? [ymd]/)?.[0].replace(/ /g, "") %>, uid=0, gid=<%= `${user.databaseId}`.substr(-4) %>
+  organization with <b><%= user.membersWithRole.totalCount %></b> member<%= s(user.membersWithRole.totalCount) %>
 </div><% } -%>

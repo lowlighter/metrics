@@ -122,7 +122,7 @@
                 let pushed = 0
                 do {
                   console.debug(`metrics/compute/${login}/common > retrieving repositories after ${cursor}`)
-                  const {[account]:{repositories:{edges, nodes}}} = await graphql(queries.repositories({login, account, after:cursor ? `after: "${cursor}"` : "", repositories:Math.min(repositories, 100), forks:forks ? "" : ", isFork: false"}))
+                  const {[account]:{repositories:{edges, nodes}}} = await graphql(queries.repositories({login, account, after:cursor ? `after: "${cursor}"` : "", repositories:Math.min(repositories, {user:100, organization:25}[account]), forks:forks ? "" : ", isFork: false"}))
                   cursor = edges?.[edges?.length-1]?.cursor
                   data.user.repositories.nodes.push(...nodes)
                   pushed = nodes.length
