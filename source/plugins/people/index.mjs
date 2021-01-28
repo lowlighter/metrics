@@ -20,14 +20,10 @@
             context = {...context, mode:"repository", types:["contributors", "stargazers", "watchers", "sponsorshipsAsMaintainer", "thanks"], default:"stargazers, watchers", owner, repo}
           }
 
-        //Parameters override
-          let {"people.limit":limit = 28, "people.types":types = context.default, "people.size":size = 28, "people.identicons":identicons = false, "people.thanks":thanks = []} = q
-          //Limit
-            limit = Math.max(1, limit)
-          //Repositories projects
-            types = [...new Set(decodeURIComponent(types ?? "").split(",").map(type => type.trim()).map(type => (context.alias[type] ?? type)).filter(type => context.types.includes(type)) ?? [])]
-          //Special thanks
-            thanks = decodeURIComponent(thanks ?? "").split(",").map(user => user.trim()).filter(user => user)
+        //Load inputs
+          let {limit, types, size, identicons, thanks} = imports.metadata.plugins.people.inputs({data, account, q}, {types:context.default})
+        //Filter types
+          types = [...new Set([...types].map(type => (context.alias[type] ?? type)).filter(type => context.types.includes(type)) ?? [])]
 
         //Retrieve followers from graphql api
           console.debug(`metrics/compute/${login}/plugins > people > querying api`)
@@ -52,8 +48,8 @@
                   do {
                     console.debug(`metrics/compute/${login}/plugins > people > retrieving ${type} after ${cursor}`)
                     const {[type]:{edges}} = (
-                      type in context.sponsorships ? (await graphql(queries["people.sponsors"]({login:context.owner ?? login, type, size, after:cursor ? `after: "${cursor}"` : "", target:context.sponsorships[type], account})))[account] :
-                      context.mode === "repository" ? (await graphql(queries["people.repository"]({login:context.owner, repository:context.repo, type, size, after:cursor ? `after: "${cursor}"` : "", account})))[account].repository :
+                      type in context.sponsorships ? (await graphql(queries.people.sponsors({login:context.owner ?? login, type, size, after:cursor ? `after: "${cursor}"` : "", target:context.sponsorships[type], account})))[account] :
+                      context.mode === "repository" ? (await graphql(queries.people.repository({login:context.owner, repository:context.repo, type, size, after:cursor ? `after: "${cursor}"` : "", account})))[account].repository :
                       (await graphql(queries.people({login, type, size, after:cursor ? `after: "${cursor}"` : ""}))).user
                     )
                     cursor = edges?.[edges?.length-1]?.cursor

@@ -78,6 +78,7 @@
               avatar:"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg=="
             },
           //User data
+            account:"user",
             user:{
               databaseId:faker.random.number(10000000),
               name:"(placeholder)",

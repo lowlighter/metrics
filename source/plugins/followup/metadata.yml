@@ -1,0 +1,13 @@
+name: "🎟️ Follow-up of issues and pull requests"
+cost: 0 API request
+supports:
+  - user
+  - organization
+  - repository
+inputs:
+
+  # Enable or disable plugin
+  plugin_followup:
+    description: Display follow-up of repositories issues and pull requests
+    type: boolean
+    default: no

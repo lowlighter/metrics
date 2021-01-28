@@ -1,0 +1,13 @@
+name: "👨‍💻 Lines of code changed"
+cost: 1 REST request per repository
+supports:
+  - user
+  - organization
+  - repository
+inputs:
+
+  # Enable or disable plugin
+  plugin_lines:
+    description: Display lines of code metrics
+    type: boolean
+    default: no

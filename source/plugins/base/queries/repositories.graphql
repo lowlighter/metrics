@@ -1,0 +1,50 @@
+query BaseRepositories {
+  $account(login: "$login") {
+    repositories($after first: $repositories $forks, orderBy: {field: UPDATED_AT, direction: DESC}) {
+      edges {
+        cursor
+      }
+      nodes {
+        name
+        owner {
+          login
+        }
+        isFork
+        watchers {
+          totalCount
+        }
+        stargazers {
+          totalCount
+        }
+        languages(first: 8) {
+          edges {
+            size
+            node {
+              color
+              name
+            }
+          }
+        }
+        issues_open: issues(states: OPEN) {
+          totalCount
+        }
+        issues_closed: issues(states: CLOSED) {
+          totalCount
+        }
+        pr_open: pullRequests(states: OPEN) {
+          totalCount
+        }
+        pr_merged: pullRequests(states: MERGED) {
+          totalCount
+        }
+        releases {
+          totalCount
+        }
+        forkCount
+        licenseInfo {
+          spdxId
+        }
+      }
+    }
+  }
+}

@@ -1,16 +1,14 @@
 //Setup
-  export default async function ({login, graphql, q, queries, account}, {enabled = false} = {}) {
+  export default async function ({login, data, graphql, q, imports, queries, account}, {enabled = false} = {}) {
     //Plugin execution
       try {
         //Check if plugin is enabled and requirements are met
           if ((!enabled)||(!q.isocalendar))
             return null
-          if (account === "organization")
-            throw {error:{message:"Not available for organizations"}}
-        //Parameters override
-          let {"isocalendar.duration":duration = "half-year"} = q
-          //Duration in days
-            duration = ["full-year", "half-year"].includes(duration) ? duration : "full-year"
+
+        //Load inputs
+          let {duration} = imports.metadata.plugins.isocalendar.inputs({data, account, q})
+
         //Compute start day
           const now = new Date()
           const start = new Date(now)
@@ -18,23 +16,27 @@
             start.setFullYear(now.getFullYear()-1)
           else
             start.setHours(-24*180)
+
         //Compute padding to ensure last row is complete
           const padding = new Date(start)
           padding.setHours(-14*24)
+
         //Retrieve contribution calendar from graphql api
           console.debug(`metrics/compute/${login}/plugins > isocalendar > querying api`)
           const calendar = {}
           for (const [name, from, to] of [["padding", padding, start], ["weeks", start, now]]) {
             console.debug(`metrics/compute/${login}/plugins > isocalendar > loading ${name} from "${from.toISOString()}" to "${to.toISOString()}"`)
-            const {user:{calendar:{contributionCalendar:{weeks}}}} = await graphql(queries.calendar({login, from:from.toISOString(), to:to.toISOString()}))
+            const {user:{calendar:{contributionCalendar:{weeks}}}} = await graphql(queries.isocalendar.calendar({login, from:from.toISOString(), to:to.toISOString()}))
             calendar[name] = weeks
           }
+
         //Apply padding
           console.debug(`metrics/compute/${login}/plugins > isocalendar > applying padding`)
           const firstweek = calendar.weeks[0].contributionDays
           const padded = calendar.padding.flatMap(({contributionDays}) => contributionDays).filter(({date}) => !firstweek.map(({date}) => date).includes(date))
           while (firstweek.length < 7)
             firstweek.unshift(padded.pop())
+
         //Compute the highest contributions in a day, streaks and average commits per day
           console.debug(`metrics/compute/${login}/plugins > isocalendar > computing stats`)
           let max = 0, streak = {max:0, current:0}, values = [], average = 0
@@ -47,6 +49,7 @@
             }
           }
           average = (values.reduce((a, b) => a + b, 0)/values.length).toFixed(2).replace(/[.]0+$/, "")
+
         //Compute SVG
           console.debug(`metrics/compute/${login}/plugins > isocalendar > computing svg render`)
           const size = 6
@@ -80,6 +83,7 @@
               i++
             }
           svg += `</g></svg>`
+
         //Results
           return {streak, max, average, svg, duration}
       }

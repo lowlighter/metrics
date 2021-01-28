@@ -1,22 +1,21 @@
 //Setup
-  export default async function ({login, data, imports, q}, {enabled = false} = {}) {
+  export default async function ({login, data, imports, q, account}, {enabled = false} = {}) {
     //Plugin execution
       try {
         //Check if plugin is enabled and requirements are met
           if ((!enabled)||(!q.languages))
             return null
-        //Parameters override
-          let {"languages.ignored":ignored = "", "languages.skipped":skipped = "", "languages.colors":colors = ""} = q
-          //Ignored languages
-            ignored = decodeURIComponent(ignored).split(",").map(x => x.trim().toLocaleLowerCase()).filter(x => x)
-          //Skipped repositories
-            skipped = decodeURIComponent(skipped).split(",").map(x => x.trim().toLocaleLowerCase()).filter(x => x)
-          //Custom colors
-            const colorsets = JSON.parse(`${await imports.fs.readFile(`${imports.__module(import.meta.url)}/colorsets.json`)}`)
-            if (`${colors}` in colorsets)
-              colors = colorsets[`${colors}`]
-            colors = Object.fromEntries(decodeURIComponent(colors).split(",").map(x => x.trim().toLocaleLowerCase()).filter(x => x).map(x => x.split(":").map(x => x.trim())))
-            console.debug(`metrics/compute/${login}/plugins > languages > custom colors ${JSON.stringify(colors)}`)
+
+        //Load inputs
+          let {ignored, skipped, colors} = imports.metadata.plugins.languages.inputs({data, account, q})
+
+        //Custom colors
+          const colorsets = JSON.parse(`${await imports.fs.readFile(`${imports.__module(import.meta.url)}/colorsets.json`)}`)
+          if (`${colors}` in colorsets)
+            colors = colorsets[`${colors}`]
+          colors = Object.fromEntries(decodeURIComponent(colors).split(",").map(x => x.trim().toLocaleLowerCase()).filter(x => x).map(x => x.split(":").map(x => x.trim())))
+          console.debug(`metrics/compute/${login}/plugins > languages > custom colors ${JSON.stringify(colors)}`)
+
         //Iterate through user's repositories and retrieve languages data
           console.debug(`metrics/compute/${login}/plugins > languages > processing ${data.user.repositories.nodes.length} repositories`)
           const languages = {colors:{}, total:0, stats:{}}
@@ -39,6 +38,7 @@
                   languages.total += size
               }
           }
+
         //Compute languages stats
           console.debug(`metrics/compute/${login}/plugins > languages > computing stats`)
           Object.keys(languages.stats).map(name => languages.stats[name] /= languages.total)
@@ -48,6 +48,7 @@
             if ((colors[i])&&(!colors[languages.favorites[i].name.toLocaleLowerCase()]))
               languages.favorites[i].color = colors[i]
           }
+
         //Results
           return languages
       }

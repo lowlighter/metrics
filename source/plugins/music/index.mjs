@@ -21,20 +21,22 @@
   }
 
 //Setup
-  export default async function ({login, imports, q}, {enabled = false, token = ""} = {}) {
+  export default async function ({login, imports, data, q, account}, {enabled = false, token = ""} = {}) {
     //Plugin execution
       try {
         //Check if plugin is enabled and requirements are met
           if ((!enabled)||(!q.music))
             return null
+
         //Initialization
           const raw = {
             get provider() { return providers[provider]?.name ?? "" },
             get mode() { return modes[mode] ?? "Unconfigured music plugin"},
           }
           let tracks = null
-        //Parameters override
-          let {"music.provider":provider = "", "music.mode":mode = "", "music.playlist":playlist = null, "music.limit":limit = 4, "music.user":user = login} = q
+
+        //Load inputs
+          let {provider, mode, playlist, limit, user} = imports.metadata.plugins.music.inputs({data, account, q})
           //Auto-guess parameters
             if ((playlist)&&(!mode))
               mode = "playlist"
@@ -59,6 +61,7 @@
             }
           //Limit
             limit = Math.max(1, Math.min(100, Number(limit)))
+
         //Handle mode
           console.debug(`metrics/compute/${login}/plugins > music > processing mode ${mode} with provider ${provider}`)
           switch (mode) {
@@ -197,6 +200,7 @@
               default:
                 throw {error:{message:`Unsupported mode "${mode}"`}, ...raw}
           }
+
         //Format tracks
           if (Array.isArray(tracks)) {
             //Limit tracklist
@@ -213,6 +217,7 @@
             //Save results
               return {...raw, tracks}
           }
+
         //Unhandled error
           throw {error:{message:`An error occured (could not retrieve tracks)`}}
       }

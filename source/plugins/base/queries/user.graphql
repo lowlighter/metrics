@@ -1,0 +1,66 @@
+query BaseUser {
+  user(login: "$login") {
+    databaseId
+    name
+    login
+    createdAt
+    avatarUrl
+    websiteUrl
+    isHireable
+    twitterUsername
+    repositories(last: 0 $forks) {
+      totalCount
+      totalDiskUsage
+      nodes {
+        name
+      }
+    }
+    packages {
+      totalCount
+    }
+    starredRepositories {
+      totalCount
+    }
+    watching {
+      totalCount
+    }
+    sponsorshipsAsSponsor {
+      totalCount
+    }
+    sponsorshipsAsMaintainer {
+      totalCount
+    }
+    contributionsCollection {
+      totalRepositoriesWithContributedCommits
+      totalCommitContributions
+      restrictedContributionsCount
+      totalIssueContributions
+      totalPullRequestContributions
+      totalPullRequestReviewContributions
+    }
+    calendar:contributionsCollection(from: "$calendar.from", to: "$calendar.to") {
+      contributionCalendar {
+        weeks {
+          contributionDays {
+            color
+          }
+        }
+      }
+    }
+    repositoriesContributedTo {
+      totalCount
+    }
+    followers {
+      totalCount
+    }
+    following {
+      totalCount
+    }
+    issueComments {
+      totalCount
+    }
+    organizations {
+      totalCount
+    }
+  }
+}

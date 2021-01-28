@@ -1,0 +1,34 @@
+name: "🗃️ Base content"
+cost: 1 GraphQL request
+supports:
+  - user
+  - organization
+  - repository
+inputs:
+
+  # Base content
+  base:
+    description: Metrics base content
+    type: array
+    format: comma-separated
+    default: header, activity, community, repositories, metadata
+    values:
+      - header       # name, commits calendar, ...
+      - activity     # commits, issues/pull requests opened, ...
+      - community    # following, stars, sponsors, ...
+      - repositories # license, stars, forks, ...
+      - metadata     # svg generation metadata
+
+  # Number of repositories to use to computes metrics
+  # Using more will result in more accurate metrics, but you may hit GitHub rate-limit more easily if you use a lot of plugins
+  repositories:
+    description: Number of repositories to use
+    type: number
+    default: 100
+    min: 0
+
+  # Include forked repositories into metrics
+  repositories_forks:
+    description: Include forks in metrics
+    type: boolean
+    default: no

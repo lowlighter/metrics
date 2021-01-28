@@ -1,0 +1,43 @@
+name: "💡 Coding habits"
+cost: 1 REST request per 100 events + 1 REST request pet commit
+supports:
+  - user
+  - organization
+inputs:
+
+  # Enable or disable plugin
+  plugin_habits:
+    description: Display coding habits metrics
+    type: boolean
+    default: no
+
+  # Number of events to use to computes habits
+  # Using more will result in more accurate metrics, but you may hit GitHub rate-limit more easily
+  plugin_habits_from:
+    description: Number of events to use
+    type: number
+    default: 200
+    min: 1
+    max: 1000
+
+  # Filter used events to compute habits by age
+  plugin_habits_days:
+    description: Maximum event age
+    type: number
+    default: 14
+    min: 1
+    max: 30
+
+  # Display tidbits about your most active hours/days, indents used (spaces/tabs), etc.
+  # This is deduced from your recent activity
+  plugin_habits_facts:
+    description: Display coding habits collected facts based on recent activity
+    type: boolean
+    default: yes
+
+  # Display charts of most active time of the day and most active day of the week
+  # Also display languages recently used (this is not the same as plugin_languages, as the latter is an all-time stats)
+  plugin_habits_charts:
+    description: Display coding habits charts based on recent activity
+    type: boolean
+    default: no

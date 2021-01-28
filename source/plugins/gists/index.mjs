@@ -1,12 +1,14 @@
 //Setup
-  export default async function ({login, graphql, q, queries, account}, {enabled = false} = {}) {
+  export default async function ({login, data, graphql, q, imports, queries, account}, {enabled = false} = {}) {
     //Plugin execution
       try {
         //Check if plugin is enabled and requirements are met
           if ((!enabled)||(!q.gists))
             return null
-          if (account === "organization")
-            throw {error:{message:"Not available for organizations"}}
+
+        //Load inputs
+          imports.metadata.plugins.gists.inputs({data, account, q})
+
         //Query gists from GitHub API
           const gists = []
           {
@@ -23,6 +25,7 @@
               } while ((pushed)&&(cursor))
               console.debug(`metrics/compute/${login}/plugins > gists > loaded ${gists.length} gists`)
           }
+
         //Iterate through gists
           console.debug(`metrics/compute/${login}/plugins > gists > processing ${gists.length} gists`)
           let stargazers = 0, forks = 0, comments = 0, files = 0
@@ -36,6 +39,7 @@
               comments += gist.comments.totalCount
               files += gist.files.length
           }
+
         //Results
           return {totalCount:gists.totalCount, stargazers, forks, files, comments}
       }

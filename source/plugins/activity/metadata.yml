@@ -1,0 +1,51 @@
+name: "📰 Recent activity"
+cost: 1 REST request per 100 events
+supports:
+  - user
+  - organization
+inputs:
+
+  # Enable or disable plugin
+  plugin_activity:
+    description: Display recent activity
+    type: boolean
+    default: no
+
+  # Number of activity events to display
+  plugin_activity_limit:
+    description: Maximum number of events to display
+    type: number
+    default: 5
+    min: 1
+    max: 100
+
+  # Filter events by age
+  # Set to 0 to disable age filtering
+  plugin_activity_days:
+    description: Maximum event age
+    type: number
+    default: 14
+    min: 0
+    max: 365
+
+  # Filter events by type
+  plugin_activity_filter:
+    description: Events types to keep
+    type: array
+    format: comma-separated
+    default: all
+    values:
+      - all        # Display all types of events
+      - comment    # Display commits, issues and pull requests comments
+      - ref/create # Display tags and branches creations
+      - ref/delete # Display tags and branches deletions
+      - release    # Display published releases
+      - push       # Display commits
+      - issue      # Display issues events
+      - pr         # Display pull requests events
+      - review     # Display pull request reviews
+      - wiki       # Display wiki editions
+      - fork       # Display forked repositories
+      - star       # Display starred repositories
+      - member     # Display collaborators additions
+      - public     # Display repositories made public

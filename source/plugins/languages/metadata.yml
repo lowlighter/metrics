@@ -1,0 +1,40 @@
+name: "🈷️ Most used languages"
+cost: 0 API request
+supports:
+  - user
+  - organization
+  - repository
+inputs:
+
+  # Enable or disable plugin
+  plugin_languages:
+    description: Display most used languages metrics
+    type: boolean
+    default: no
+
+  # List of languages that will be ignored
+  plugin_languages_ignored:
+    description: Languages to ignore
+    type: array
+    format: comma-separated
+    default: ""
+
+  # List of repositories that will be skipped
+  plugin_languages_skipped:
+    description: Repositories to skip
+    type: array
+    format: comma-separated
+    default: ""
+
+  # Overrides
+  # Use `${n}:${color}` to change the color of the n-th most used language (e.g. "0:red" to make your most used language red)
+  # Use `${language}:${color}` to change the color of named language (e.g. "javascript:red" to make JavaScript language red, language case is ignored)
+  # Use a value from `colorsets.json` to use a predefined set of colors
+  # Both hexadecimal and named colors are supported
+  plugin_languages_colors:
+    description: Custom languages colors
+    type: array
+    format:
+      - comma-separated
+      - /((?<index>[0-9])|(?<language>[-+a-z0-9#])):(?<color>#?[-a-z0-9]+)/
+    default: github

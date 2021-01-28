@@ -2,9 +2,9 @@
   import core from "@actions/core"
   import github from "@actions/github"
   import octokit from "@octokit/graphql"
-  import setup from "../setup.mjs"
-  import mocks from "../mocks.mjs"
-  import metrics from "../metrics.mjs"
+  import setup from "../metrics/setup.mjs"
+  import mocks from "../mocks/index.mjs"
+  import metrics from "../metrics/index.mjs"
 
 ;((async function () {
   //Input parser

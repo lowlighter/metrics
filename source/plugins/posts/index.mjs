@@ -1,14 +1,14 @@
 //Setup
-  export default async function ({login, imports, q}, {enabled = false} = {}) {
+  export default async function ({login, data, imports, q, account}, {enabled = false} = {}) {
     //Plugin execution
       try {
         //Check if plugin is enabled and requirements are met
           if ((!enabled)||(!q.posts))
             return null
-        //Parameters override
-          let {"posts.source":source = "", "posts.limit":limit = 4, "posts.user":user = login} = q
-          //Limit
-            limit = Math.max(1, Math.min(30, Number(limit)))
+
+        //Load inputs
+          let {source, limit, user} = imports.metadata.plugins.posts.inputs({data, account, q})
+
         //Retrieve posts
           console.debug(`metrics/compute/${login}/plugins > posts > processing with source ${source}`)
           let posts = null
@@ -23,6 +23,7 @@
               default:
                 throw {error:{message:`Unsupported source "${source}"`}}
           }
+
         //Format posts
           if (Array.isArray(posts)) {
             //Limit tracklist
@@ -33,6 +34,7 @@
             //Results
               return {source, list:posts}
           }
+
         //Unhandled error
           throw {error:{message:`An error occured (could not retrieve posts)`}}
       }

@@ -1,0 +1,35 @@
+name: "✒️ Recent posts"
+cost: N/A
+supports:
+  - user
+  - organization
+inputs:
+
+  # Enable or disable plugin
+  plugin_posts:
+    description: Display recent posts
+    type: boolean
+    default: no
+
+  # Posts external source
+  plugin_posts_source:
+    description: Posts external source
+    type: string
+    default: ""
+    values:
+      - dev.to # Dev.to
+
+  # Number of posts to display
+  plugin_posts_limit:
+    description: Maximum number of posts to display
+    type: number
+    default: 4
+    min: 1
+    max: 30
+
+  # Username on external posts source
+  plugin_posts_user:
+    description: Posts external source username
+    type: string
+    default: .user.login
+
