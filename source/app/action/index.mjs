@@ -11,7 +11,7 @@
   const debugged = []
 
 //Info logger
-  const info = (left, right, {token = false} = {}) =>  console.log(`${`${left}`.padEnd(48 + 9*(/0m$/.test(left)))} │ ${
+  const info = (left, right, {token = false} = {}) =>  console.log(`${`${left}`.padEnd(64 + 9*(/0m$/.test(left)))} │ ${
     Array.isArray(right) ? right.join(", ") || "(none)" :
     right === undefined ? "(default)" :
     token ? /^MOCKED/.test(right) ? "(MOCKED TOKEN)" : (right ? "(provided)" : "(missing)") :
@@ -129,7 +129,7 @@
             const {repository:{object:{oid}}} = await graphql(`
                 query Sha {
                   repository(owner: "${github.context.repo.owner}", name: "${github.context.repo.repo}") {
-                    object(expression: "${branch}:${filename}") { ... on Blob { oid } }
+                    object(expression: "${committer.branch}:${filename}") { ... on Blob { oid } }
                   }
                 }
               `
