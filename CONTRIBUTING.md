@@ -116,7 +116,7 @@ Review below which contributions are accepted:
 **Legend**
 * ✔️: Contributions welcomed!
 * ⭕: Contributions welcomed, but must be discussed first with a maintainer
-* ❌: Only maintainers can edit these files
+* ❌: Only maintainers can manage these files
 
 Before working on something, ensure that it isn't listed in [In progress](https://github.com/lowlighter/metrics/projects/1#column-12158618) and that no open pull requests (including drafts) already implement what you want to do.
 
@@ -240,8 +240,9 @@ It must contain at least the following:
 ### 📕 My custom template
 
 <table>
-  <td>
+  <td align="center">
     <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.terminal.svg">
+    <img width="900" height="1" alt="">
   </td>
 </table>
 
@@ -310,17 +311,17 @@ Basically, you can use JavaScript statements in templating tags (`<% %>`) to dis
 This is actually not recommended because it drastically increases the size of generated metrics, but it should also make your rendering more consistant. The trick is to actually restrict the charset used to keep file size small.
 
 Below is a simplified process on how to generate base64 encoded fonts to use in metrics:
-1. Find a font on [fonts.google.com](https://fonts.google.com/)
-  - Select regular, bold, italic and bold+italic fonts
-  - Open `embed` tab and extract the `href`
-2. Open extracted `href` and append `&text=` params with used characters from SVG
-  - e.g. `&text=%26%27"%7C%60%5E%40°%3F!%23%24%25()*%2B%2C-.%2F0123456789%3A%3B<%3D>ABCDEFGHIJKLMNOPQRSTUVWXYZ%5B%5D_abcdefghijklmnopqrstuvwxyz%7B%7D~─└├▇□✕`
-3. Download each font file from url links from the generated stylesheet
-4. Convert them into base64 with `woff` extension on [transfonter.org]https://transfonter.org/) and download archive
-5. Extract archive and copy the content of the generated stylesheet to `fonts.css`
-6. Update your template
-  - Include `<defs><style><%= fonts %></style></defs>` to your `image.svg`
-  - Edit your `style.css` to use yout new font
+- 1. Find a font on [fonts.google.com](https://fonts.google.com/)
+    - Select regular, bold, italic and bold+italic fonts
+    - Open `embed` tab and extract the `href`
+- 2. Open extracted `href` and append `&text=` params with used characters from SVG
+    - e.g. `&text=%26%27"%7C%60%5E%40°%3F!%23%24%25()*%2B%2C-.%2F0123456789%3A%3B<%3D>ABCDEFGHIJKLMNOPQRSTUVWXYZ%5B%5D_abcdefghijklmnopqrstuvwxyz%7B%7D~─└├▇□✕`
+- 3. Download each font file from url links from the generated stylesheet
+- 4. Convert them into base64 with `woff` extension on [transfonter.org]https://transfonter.org/) and download archive
+- 5. Extract archive and copy the content of the generated stylesheet to `fonts.css`
+- 6. Update your template
+    - Include `<defs><style><%= fonts %></style></defs>` to your `image.svg`
+    - Edit your `style.css` to use yout new font
 
 </details>
 
@@ -565,7 +566,21 @@ json:
 <details>
 <summary>💬 Create mocked data and tests</summary>
 
-    🚧 This section is not available yet
+Creating tests for your plugin ensure that external changes don't break it.
+
+You can define your tests cases in [`testscases.js`](/tests/testscases.js), which will automatically test your plugin with:
+  - Metrics action
+  - Metrics web instance
+  - Metrics web instance placeholder (rendered by browser)
+
+As most of APIs (including GitHub) usually have a rate-limit to ensure quality of their service.
+To bypass these restrictions but still perform tests, you must mock their data which simulates APIs call returns.
+
+Add them in [`source/app/mocks/api/`](/source/app/mocks/api) folder.
+
+If you're using `axios` or GitHub GraphQL API, these files are autoloaded so you just need to create new functions (see other mocked data for examples).
+
+If you're using GitHub REST API, you'll also need to edit [`source/app/mocks/index.mjs`](/source/app/mocks/index.mjs) to add a new proxied method.
 
 </details>
 
@@ -579,8 +594,9 @@ It must contain at least the following:
 ### 🧩 Your plugin name
 
 <table>
-  <td>
+  <td align="center">
     <img src="">
+    <img width="900" height="1" alt="">
   </td>
 </table>
 
@@ -602,5 +618,7 @@ Note that you **must** keep `<table>` tags as these will be extracted to autogen
 </details>
 
 </details>
+
+___
 
 Written by [lowlighter](https://github.com/lowlighter)
