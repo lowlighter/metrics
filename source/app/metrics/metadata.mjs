@@ -260,9 +260,9 @@
 
       //Result
         return {
-          name:raw.match(/^### (?<name>[\s\S]+?)\n/)?.groups?.name?.trim() ?? "",
+          name:raw.match(/^### (?<name>[\s\S]+?)\n/)?.groups?.name?.trim(),
           readme:{
-            demo:raw.match(/(?<demo><table>[\s\S]*?<[/]table>)/)?.groups?.demo?.replace(/<[/]?(?:table|tr)>/g, "")?.trim() ?? "<td></td>",
+            demo:raw.match(/(?<demo><table>[\s\S]*?<[/]table>)/)?.groups?.demo?.replace(/<[/]?(?:table|tr)>/g, "")?.trim() ?? (name === "community" ? `<td>See <a href="/source/templates/community/README.md">See documentation to use community templates 🌍</a></td>` : "<td></td>"),
             compatibility:{...compatibility, base:true},
           },
         }

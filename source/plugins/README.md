@@ -4,7 +4,7 @@ Plugins are features which provide additional content and lets you customize you
 See their respective documentation for more informations about how to setup them:
 
 * [🗃️ Base content](/source/plugins/base/README.md)
-* [📊 Metrics](/source/plugins/core/README.md)
+* [🧱 Core](/source/plugins/core/README.md)
 * [📰 Recent activity](/source/plugins/activity/README.md)
 * [🌸 Anilist](/source/plugins/anilist/README.md)
 * [🎟️ Follow-up of issues and pull requests](/source/plugins/followup/README.md)

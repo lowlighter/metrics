@@ -6,7 +6,7 @@ The coding *habits* plugin display metrics based on your recent activity, such a
   <td align="center">
     <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.svg">
     <details open><summary>Charts version</summary>
-      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.habits.charts.svg">
+      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.charts.svg">
     </details>
     <img width="900" height="1" alt="">
   </td>

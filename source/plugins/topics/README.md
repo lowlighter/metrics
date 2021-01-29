@@ -7,7 +7,7 @@ Check out [GitHub topics](https://github.com/topics) to search interesting topic
   <td align="center">
     <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.svg">
     <details open><summary>Mastered and known technologies version</summary>
-      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.topics.mastered.svg">
+      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.mastered.svg">
     </details>
     <img width="900" height="1" alt="">
   </td>

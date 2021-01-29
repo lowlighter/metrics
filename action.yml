@@ -23,7 +23,7 @@ inputs:
     default: no
   
   # ====================================================================================
-  # 📊 Metrics
+  # 🧱 Core
   
   # User account personal token
   # No additional scopes are needed unless you want to include private repositories metrics

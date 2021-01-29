@@ -69,14 +69,14 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.svg">
       <details open><summary>Charts version</summary>
-        <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.habits.charts.svg">
+        <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.charts.svg">
       </details>
       <img width="900" height="1" alt="">
     </td>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.isocalendar.svg">
       <details><summary>Full year version</summary>
-        <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.isocalendar.fullyear.svg">
+        <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.isocalendar.fullyear.svg">
       </details>
       <img width="900" height="1" alt="">
     </td>
@@ -102,10 +102,10 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
   <tr>
     <td align="center">
       <details open><summary>🎼 Favorite tracks version</summary>
-        <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.music.playlist.svg">
+        <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.music.playlist.svg">
       </details>
       <details open><summary>Recently listened version</summary>
-        <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.music.recent.svg">
+        <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.music.recent.svg">
       </details>
       <img width="900" height="1" alt="">
     </td>
@@ -139,7 +139,7 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
       <img width="900" height="1" alt="">
     </td>
     <td align="center">
-      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.post.svg">
+      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.posts.svg">
       <img width="900" height="1" alt="">
     </td>
   </tr>
@@ -169,7 +169,7 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.svg">
       <details open><summary>Mastered and known technologies version</summary>
-        <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.topics.mastered.svg">
+        <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.mastered.svg">
       </details>
       <img width="900" height="1" alt="">
     </td>
@@ -206,11 +206,13 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
     <th><a href="source/templates/repository/README.md">📘 Repository</a></th>
   </tr>
   <tr>
-    <td>
+    <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.classic.svg">
+      <img width="900" height="1" alt="">
     </td>
-    <td>
+    <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.repository.svg">
+      <img width="900" height="1" alt="">
     </td>
   </tr>
   <tr>
@@ -218,10 +220,11 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
     <th><a href="source/templates/community/README.md">📕 Community templates</a></th>
   </tr>
   <tr>
-    <td>
+    <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.terminal.svg">
+      <img width="900" height="1" alt="">
     </td>
-    <td></td>
+    <td>See <a href="/source/templates/community/README.md">See documentation to use community templates 🌍</a></td>
   </tr>
 </table>
 
@@ -520,7 +523,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
 
 <table>
   <tr>
-    <th nowrap="nowrap" align="center">Template\Plugin</th>    
+    <th nowrap="nowrap">Template\Plugin</th>    
     <th nowrap="nowrap" align="center">🗃️</th>
     <th nowrap="nowrap" align="center">📰</th>
     <th nowrap="nowrap" align="center">🌸</th>
@@ -551,7 +554,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="habits">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="isocalendar">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="languages">✔️</th>
-    <th nowrap="nowrap" align="center" data-plugin="lines">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="lines">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="music">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="people">✔️</th>
@@ -560,7 +563,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="stargazers">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="stars">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="topics">✔️</th>
-    <th nowrap="nowrap" align="center" data-plugin="traffic">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="traffic">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="tweets">✔️</th>
   </tr>
   <tr>
@@ -573,7 +576,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="habits">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="isocalendar">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="languages">✔️</th>
-    <th nowrap="nowrap" align="center" data-plugin="lines">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="lines">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="music">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="people">✔️</th>
@@ -582,7 +585,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="stargazers">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="stars">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="topics">❌</th>
-    <th nowrap="nowrap" align="center" data-plugin="traffic">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="traffic">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="tweets">❌</th>
   </tr>
   <tr>
@@ -595,7 +598,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="habits">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="isocalendar">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="languages">✔️</th>
-    <th nowrap="nowrap" align="center" data-plugin="lines">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="lines">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="music">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="people">❌</th>
@@ -604,7 +607,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="stargazers">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="stars">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="topics">❌</th>
-    <th nowrap="nowrap" align="center" data-plugin="traffic">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="traffic">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="tweets">❌</th>
   </tr>
 </table>
@@ -625,7 +628,7 @@ Plugins are features which provide additional content and lets you customize you
 See their respective documentation for more informations about how to setup them:
 
 * [🗃️ Base content](/source/plugins/base/README.md)
-* [📊 Metrics](/source/plugins/core/README.md)
+* [🧱 Core](/source/plugins/core/README.md)
 * [📰 Recent activity](/source/plugins/activity/README.md)
 * [🌸 Anilist](/source/plugins/anilist/README.md)
 * [🎟️ Follow-up of issues and pull requests](/source/plugins/followup/README.md)

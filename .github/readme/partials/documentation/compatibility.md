@@ -2,7 +2,7 @@
 
 <table>
   <tr>
-    <th nowrap="nowrap" align="center">Template\Plugin</th><%# -%>
+    <th nowrap="nowrap">Template\Plugin</th><%# -%>
     <% for (const [plugin, {icon}] of Object.entries(plugins).filter(([key, value]) => (value)&&(!["core"].includes(key)))) { %>
     <th nowrap="nowrap" align="center"><%= icon %></th><% } %>
   </tr><%# -%>
