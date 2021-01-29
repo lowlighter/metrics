@@ -304,6 +304,6 @@
       ["Community templates", {
         template:"@classic",
         setup_community_templates:"lowlighter/metrics@master:classic",
-      }, {skip:["terminal", "repository"]}]
+      }, {skip:["terminal", "repository"], modes:["action"]}]
     ]
   }

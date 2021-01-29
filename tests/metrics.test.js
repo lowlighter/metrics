@@ -34,6 +34,7 @@
   const web = {}
   web.run = async (vars) => (await axios(`http://localhost:3000/lowlighter?${new url.URLSearchParams(Object.fromEntries(Object.entries(vars).map(([key, value]) => [key.replace(/^plugin_/, "").replace(/_/g, "."), value])))}`)).status === 200
   beforeAll(async done => {
+    await fs.promises.rmdir(path.join(__dirname, "../source/templates/@classic"), {recursive:true})
     await new Promise((solve, reject) => {
       let stdout = ""
       web.instance = processes.spawn("node", ["source/app/web/index.mjs"], {env:{...process.env, USE_MOCKED_DATA:true, NO_SETTINGS:true}})
@@ -44,6 +45,7 @@
   })
   afterAll(async done => {
     await web.instance.kill("SIGKILL")
+    await fs.promises.rmdir(path.join(__dirname, "../source/templates/@classic"), {recursive:true})
     done()
   })
 
@@ -77,8 +79,8 @@
       ["terminal", {}],
       ["repository", {repo:"metrics"}],
     ])("Template : %s", (template, query) => {
-      for (const [name, input, {skip = []} = {}] of tests)
-        if (skip.includes(template))
+      for (const [name, input, {skip = [], modes = []} = {}] of tests)
+        if ((skip.includes(template))||((modes.length)&&(!modes.includes("action"))))
           test.skip(name, () => null)
         else
           test(name, async () => expect(await action.run({
@@ -100,8 +102,8 @@
       ["terminal", {}],
       ["repository", {repo:"metrics"}],
     ])("Template : %s", (template, query) => {
-      for (const [name, input, {skip = []} = {}] of tests)
-        if (skip.includes(template))
+      for (const [name, input, {skip = [], modes = []} = {}] of tests)
+        if ((skip.includes(template))||((modes.length)&&(!modes.includes("web"))))
           test.skip(name, () => null)
         else
           test(name, async () => expect(await web.run({
@@ -118,8 +120,8 @@
       ["classic", {}],
       ["terminal", {}],
     ])("Template : %s", (template, query) => {
-      for (const [name, input, {skip = []} = {}] of tests)
-        if (skip.includes(template))
+      for (const [name, input, {skip = [], modes = []} = {}] of tests)
+        if ((skip.includes(template))||((modes.length)&&(!modes.includes("placeholder"))))
           test.skip(name, () => null)
         else
           test(name, async () => expect(await placeholder.run({
