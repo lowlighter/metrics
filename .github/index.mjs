@@ -16,9 +16,12 @@
   const __web = paths.join(__metrics, "source/app/web")
   const __readme = paths.join(__metrics, ".github/readme")
 
+//Git setup
+  const git = sgit(__metrics)
+  const staged = new Set()
+
 //Load plugins metadata
   const {plugins, templates} = await metadata({log:false})
-  const git = sgit(__metrics)
 
 //Update generated files
   async function update({source, output, options = {}}) {
@@ -29,7 +32,7 @@
       const file = paths.join(__metrics, output)
       await fs.writeFile(file, content)
     //Add to git
-      await git.add(file)
+      staged.add(file)
   }
 
 //Rendering
@@ -44,6 +47,7 @@
     await git
       .addConfig("user.name", "GitHub Action")
       .addConfig("user.email", "<>")
+      .add(...staged)
       .commit("Auto regenerate files - [Skip GitHub Action]")
       .push("origin", "master")
   }
