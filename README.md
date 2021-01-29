@@ -2,7 +2,7 @@
 
 ![Build](https://github.com/lowlighter/metrics/workflows/Build/badge.svg)
 
-Generate your metrics that you can embed everywhere, including your GitHub profile readme! It works for both user and organization accounts!
+Generate your metrics that you can embed everywhere, including your GitHub profile readme! It works for both user and organization accounts, and even for repositories!
 
 <table>
   <tr>
@@ -67,7 +67,7 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
   </tr>
   <tr>
     <td align="center">
-      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.svg">
+      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.facts.svg">
       <details open><summary>Charts version</summary>
         <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.charts.svg">
       </details>
@@ -112,10 +112,10 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.svg">
       <details><summary>Detailed version</summary>
-        <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.pagespeed.detailed.svg">
+        <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.detailed.svg">
       </details>
       <details><summary>With screenshot version</summary>
-        <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.pagespeed.screenshot.svg">
+        <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.screenshot.svg">
       </details>
       <img width="900" height="1" alt="">
     </td>
@@ -224,7 +224,7 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.terminal.svg">
       <img width="900" height="1" alt="">
     </td>
-    <td>See <a href="/source/templates/community/README.md">See documentation to use community templates 🌍</a></td>
+    <td>See <a href="/source/templates/community/README.md">documentation</a>to use community templates 🌍</td>
   </tr>
 </table>
 

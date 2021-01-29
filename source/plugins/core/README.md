@@ -1,4 +1,4 @@
-### 📊 Metrics
+### 🧱 Core
 
 Metrics also have general options that impact global metrics rendering.
 

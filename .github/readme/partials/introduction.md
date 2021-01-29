@@ -1,4 +1,4 @@
-Generate your metrics that you can embed everywhere, including your GitHub profile readme! It works for both user and organization accounts!
+Generate your metrics that you can embed everywhere, including your GitHub profile readme! It works for both user and organization accounts, and even for repositories!
 
 <table>
   <tr>
