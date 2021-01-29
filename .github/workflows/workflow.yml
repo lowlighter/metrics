@@ -73,11 +73,29 @@ jobs:
           verify: yes
           use_prebuilt_image: master
 
+  # Update plugins and template indexes, along with README.md
+  update-indexes:
+    name: Publish rebuilt metrics indexes
+    runs-on: ubuntu-latest
+    needs: [ action-master-test ]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Setup NodeJS
+        uses: actions/setup-node@v2
+        with:
+          node-version: 15
+      - name: Setup metrics
+        run: npm ci
+      - name: Publish rebuild metrics indexes
+        run: npm run index -- publish
+
   # Build docker image from master and publish it to GitHub registry with release tag
   docker-release:
     name: Publish release to GitHub registry
     runs-on: ubuntu-latest
-    needs: [ build, analyze, action-master-test ]
+    needs: [ build, analyze, action-master-test, update-indexes ]
     if: github.event_name == 'push' && github.ref == 'refs/heads/master' && contains(github.event.head_commit.message, '[release]')
     steps:
       - name: Checkout repository

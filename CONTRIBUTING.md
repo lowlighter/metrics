@@ -146,6 +146,10 @@ This section explain how metrics is structured.
     * `app.js` contains web instance client source code
     * `app.placeholder.js` contains web instance placeholder mocked data
 * `source/app/mocks/` contains mocked data files
+  * `api/` contains mocked api data
+    * `axios/` contains external REST APIs mocked data
+    * `github/` contains mocked GitHub api data
+  * `index.mjs` contains mockers
 * `source/plugins/` contains source code of plugins
   * `README.md` contains plugin documentation
   * `metadata.yml` contains plugin metadata
@@ -157,7 +161,9 @@ This section explain how metrics is structured.
   * `style.css` contains style used to render metrics
   * `fonts.css` contains additional fonts used to render metrics
   * `template.mjs` contains template source code
-* `tests/metrics.test.js` contains tests
+* `tests/` contains tests
+  * `testscases.js` contains tests case
+  * `metrics.test.js` contains metrics testers
 * `Dockerfile` contains docker instructions used to build metrics image
 * `package.json` contains dependencies and command line aliases
 
@@ -194,8 +200,10 @@ Below is a list of used packages.
   * To test and verify SVG validity
 * [facebook/jest](https://github.com/facebook/jest) and [nodeca/js-yaml](https://github.com/nodeca/js-yaml)
   * For unit testing
-* [marak/faker.js](https://github.com/marak/Faker.js/)
+* [marak/faker.js](https://github.com/marak/Faker.js)
   * For mocking data
+* [steveukx/git-js](https://github.com/steveukx/git-js)
+  * For simple git operations
 
 </details>
 

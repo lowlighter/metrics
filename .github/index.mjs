@@ -1,46 +1,49 @@
 //Imports
   import ejs from "ejs"
   import fs from "fs/promises"
-  import path from "path"
+  import paths from "path"
   import url from "url"
+  import sgit from "simple-git"
   import metadata from "../source/app/metrics/metadata.mjs"
 
+//Mode
+  const [mode = "dryrun"] = process.argv.slice(2)
+  console.log(`Mode: ${mode}`)
+
 //Paths
-  const __metrics = path.join(path.dirname(url.fileURLToPath(import.meta.url)), "..")
-  const __action = path.join(__metrics, "source/app/action")
-  const __web = path.join(__metrics, "source/app/web")
-  const __readme = path.join(__metrics, ".github/readme")
+  const __metrics = paths.join(paths.dirname(url.fileURLToPath(import.meta.url)), "..")
+  const __action = paths.join(__metrics, "source/app/action")
+  const __web = paths.join(__metrics, "source/app/web")
+  const __readme = paths.join(__metrics, ".github/readme")
 
 //Load plugins metadata
-  const {plugins, templates} = await metadata()
+  const {plugins, templates} = await metadata({log:false})
+  const git = sgit(__metrics)
 
-//Build readmes
-  {
-    //Rendering
-      console.log(`Generating README.md`)
-      const readme = {
-        metrics:await ejs.renderFile(path.join(__readme, "README.md"), {plugins, templates}, {async:true, root:__readme}),
-        plugins:await ejs.renderFile(path.join(__readme, "partials/documentation/plugins.md"), {plugins, templates}, {async:true}),
-        templates:await ejs.renderFile(path.join(__readme, "partials/documentation/templates.md"), {plugins, templates}, {async:true}),
-      }
-
-    //Saving
-      await fs.writeFile(path.join(__metrics, "README.md"), readme.metrics)
-      await fs.writeFile(path.join(__metrics, "source/plugins/README.md"), readme.plugins)
-      await fs.writeFile(path.join(__metrics, "source/templates/README.md"), readme.templates)
+//Update generated files
+  async function update({source, output, options = {}}) {
+    //Regenerate file
+      console.log(`Generating ${output}`)
+      const content = await ejs.renderFile(source, {plugins, templates}, {async:true, ...options})
+    //Save result
+      const file = paths.join(__metrics, output)
+      await fs.writeFile(file, content)
+    //Add to git
+      await git.add(file)
   }
 
-//Build action descriptor
-  {
-    console.log(`Generating action.yml`)
-    const action = await ejs.renderFile(path.join(__action, "action.yml"), {plugins}, {async:true})
-    await fs.writeFile(path.join(__metrics, "action.yml"), action)
-  }
+//Rendering
+  await update({source:paths.join(__readme, "README.md"), output:"README.md", options:{root:__readme}})
+  await update({source:paths.join(__readme, "partials/documentation/plugins.md"), output:"source/plugins/README.md"})
+  await update({source:paths.join(__readme, "partials/documentation/templates.md"), output:"source/templates/README.md"})
+  await update({source:paths.join(__action, "action.yml"), output:"action.yml"})
+  await update({source:paths.join(__web, "settings.example.json"), output:"settings.example.json"})
 
-//Build settings example
-  {
-    console.log(`Generating settings.example.yml`)
-    const settings = await ejs.renderFile(path.join(__web, "settings.example.json"), {plugins}, {async:true})
-    console.log(plugins.pagespeed.inputs[`plugin_${"pagespeed"}`].description)
-    await fs.writeFile(path.join(__metrics, "settings.example.json"), settings)
+//Commit and push
+  if (mode === "publish") {
+    await git
+      .addConfig("user.name", "GitHub Action")
+      .addConfig("user.email", "<>")
+      .commit("Auto regenerate files - [Skip GitHub Action]")
+      .push("origin", "master")
   }

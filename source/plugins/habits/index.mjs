@@ -92,7 +92,7 @@
                     await Promise.all(patches.map(async ({name, patch}, i) => await imports.fs.writeFile(imports.paths.join(path, `${i}${imports.paths.extname(name)}`), patch)))
                   //Create temporary git repository
                     console.debug(`metrics/compute/${login}/plugins > habits > creating temp git repository`)
-                    await imports.run(`git init && git add . && git config user.name "linguist" && git config user.email "null@github.com" && git commit -m "linguist"`, {cwd:path}).catch(console.debug)
+                    await imports.run(`git init && git add . && git config user.name "linguist" && git config user.email "<>" && git commit -m "linguist"`, {cwd:path}).catch(console.debug)
                     await imports.run(`git status`, {cwd:path})
                 //Spawn linguist process
                   console.debug(`metrics/compute/${login}/plugins > habits > running linguist`)

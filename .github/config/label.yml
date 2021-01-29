@@ -19,7 +19,6 @@ action:
   - source/app/action/**
 web:
   - source/app/web/**
-  - settings.example.json
 plugins:
   - source/plugins/**
 templates:
