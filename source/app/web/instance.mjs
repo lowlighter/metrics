@@ -152,7 +152,7 @@
         //Compute rendering
           try {
             //Render
-              const q = parse(req.query)
+              const q = req.query
               console.debug(`metrics/app/${login} > ${util.inspect(q, {depth:Infinity, maxStringLength:256})}`)
               const {rendered, mime} = await metrics({login, q}, {
                 graphql, rest, plugins, conf,
@@ -198,20 +198,4 @@
         `SVG optimization       │ ${conf.settings.optimize ?? false}`,
         `Server ready !`
       ].join("\n")))
-  }
-
-/** Query parser */
-  function parse(query) {
-    for (const [key, value] of Object.entries(query)) {
-      //Parse number
-        if (/^\d+$/.test(value))
-          query[key] = Number(value)
-      //Parse boolean
-        if (/^(?:true|false)$/.test(value))
-          query[key] = (value === "true")||(value === true)
-      //Parse null
-        if (/^null$/.test(value))
-          query[key] = null
-    }
-    return query
   }

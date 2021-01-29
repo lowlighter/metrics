@@ -75,7 +75,7 @@ This is described below for Linux-like systems which support *systemd*.
 
 Create a new service file `/etc/systemd/system/github_metrics.service` and paste the following after editing paths inside:
 
-```
+```ini
 [Unit]
 Description=Metrics
 After=network-online.target

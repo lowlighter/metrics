@@ -5,20 +5,23 @@
   import url from "url"
 
 /** Metadata descriptor parser */
-  export default async function metadata() {
+  export default async function metadata({log = true} = {}) {
     //Paths
       const __metrics = path.join(path.dirname(url.fileURLToPath(import.meta.url)), "../../..")
       const __templates = path.join(__metrics, "source/templates")
       const __plugins = path.join(__metrics, "source/plugins")
 
+    //Init
+      const logger = log ? console.debug : () => null
+
     //Load plugins metadata
       let Plugins = {}
-      console.debug(`metrics/metadata > loading plugins metadata`)
+      logger(`metrics/metadata > loading plugins metadata`)
       for (const name of await fs.promises.readdir(__plugins)) {
         if (!(await fs.promises.lstat(path.join(__plugins, name))).isDirectory())
           continue
-        console.debug(`metrics/metadata > loading plugin metadata [${name}]`)
-        Plugins[name] = await metadata.plugin({__plugins, name})
+        logger(`metrics/metadata > loading plugin metadata [${name}]`)
+        Plugins[name] = await metadata.plugin({__plugins, name, logger})
       }
     //Reorder keys
       const {base, core, ...plugins} = Plugins
@@ -26,14 +29,14 @@
 
     //Load templates metadata
       let Templates = {}
-      console.debug(`metrics/metadata > loading templates metadata`)
+      logger(`metrics/metadata > loading templates metadata`)
       for (const name of await fs.promises.readdir(__templates)) {
         if (!(await fs.promises.lstat(path.join(__templates, name))).isDirectory())
           continue
         if (/^@/.test(name))
           continue
-        console.debug(`metrics/metadata > loading template metadata [${name}]`)
-        Templates[name] = await metadata.template({__templates, name, plugins})
+        logger(`metrics/metadata > loading template metadata [${name}]`)
+        Templates[name] = await metadata.template({__templates, name, plugins, logger})
       }
     //Reorder keys
       const {classic, repository, community, ...templates} = Templates
@@ -44,7 +47,7 @@
   }
 
 /** Metadata extractor for templates */
-  metadata.plugin = async function ({__plugins, name}) {
+  metadata.plugin = async function ({__plugins, name, logger}) {
     try {
       //Load meta descriptor
         const raw = `${await fs.promises.readFile(path.join(__plugins, name, "metadata.yml"), "utf-8")}`
@@ -52,8 +55,10 @@
 
       //Inputs parser
         {
-          meta.inputs = function ({data:{user}, q, account}, defaults = {}) {
+          meta.inputs = function ({data:{user = null} = {}, q, account}, defaults = {}) {
             //Support check
+              if (!account)
+                logger(`metrics/inputs > account type not set for plugin ${name}!`)
               if (account !== "bypass") {
                 if (!meta.supports?.includes(account))
                   throw {error:{message:`Not supported for: ${account}`, instance:new Error()}}
@@ -61,13 +66,13 @@
                   throw {error:{message:`Not supported for: ${account} repositories`, instance:new Error()}}
               }
             //Inputs checks
-              const result = Object.fromEntries(Object.entries(inputs).map(([key, {type, default:defaulted, min, max, values}]) => [
+              const result = Object.fromEntries(Object.entries(inputs).map(([key, {type, format, default:defaulted, min, max, values}]) => [
                 //Format key
-                  key.replace(/^plugin_/, "").replace(/_/g, ".").replace(new RegExp(`^(${name}.)`, "g"), ""),
+                  metadata.to.query(key, {name}),
                 //Format value
                   (defaulted => {
                     //Default value
-                      let value = q[key.replace(/^plugin_/, "").replace(/_/g, ".")] ?? defaulted
+                      let value = q[metadata.to.query(key)] ?? q[key] ?? defaulted
                     //Apply type conversion
                       switch (type) {
                         //Booleans
@@ -95,20 +100,24 @@
                               value = decodeURIComponent(value)
                             }
                             catch {
-                              console.debug(`metrics/inputs > failed to decode uri : ${value}`)
+                              logger(`metrics/inputs > failed to decode uri : ${value}`)
                               value = defaulted
                             }
-                            return value.split(",").map(v => v.trim().toLocaleLowerCase()).filter(v => Array.isArray(values) ? values.includes(v) : true)
+                            const separators = {"comma-separated":",", "space-separated":" "}
+                            const separator = separators[[format].flat().filter(s => s in separators)[0]] ?? ","
+                            return value.split(separator).map(v => v.trim().toLocaleLowerCase()).filter(v => Array.isArray(values) ? values.includes(v) : true).filter(v => v)
                           }
                         //String
                           case "string":{
                             value = value.trim()
-                            if (value === ".user.login")
-                              return user.login
-                            if (value === ".user.twitter")
-                              return user.twitterUsername
-                            if (value === ".user.website")
-                              return user.websiteUrl
+                            if (user) {
+                              if (value === ".user.login")
+                                return user.login
+                              if (value === ".user.twitter")
+                                return user.twitterUsername
+                              if (value === ".user.website")
+                                return user.websiteUrl
+                            }
                             if ((Array.isArray(values))&&(!values.includes(value)))
                               return defaulted
                             return value
@@ -119,7 +128,7 @@
                               value = JSON.parse(value)
                             }
                             catch {
-                              console.debug(`metrics/inputs > failed to parse json : ${value}`)
+                              logger(`metrics/inputs > failed to parse json : ${value}`)
                               value = JSON.parse(defaulted)
                             }
                             return value
@@ -135,9 +144,10 @@
                       }
                   })(defaults[key] ?? defaulted)
               ]))
-              console.debug(`metrics/inputs > ${name} > ${JSON.stringify(result)}`)
+              logger(`metrics/inputs > ${name} > ${JSON.stringify(result)}`)
               return result
           }
+          Object.assign(meta.inputs, inputs, Object.fromEntries(Object.entries(inputs).map(([key, value]) => [metadata.to.query(key, {name}), value])))
         }
 
       //Action metadata
@@ -150,7 +160,7 @@
               .map(x => {
                 const input = x.match(new RegExp(`^\\s*(?<input>${Object.keys(inputs).join("|")}):`, "m"))?.groups?.input ?? null
                 if (input)
-                  comments[input] = x.match(new RegExp(`(?<comment>[\\s\\S]*)(?=(?:${Object.keys(inputs).join("|")}):)`))?.groups?.comment
+                  comments[input] = x.match(new RegExp(`(?<comment>[\\s\\S]*?)(?=(?:${Object.keys(inputs).sort((a, b) => b.length - a.length).join("|")}):)`))?.groups?.comment
               })
 
           //Action descriptor
@@ -158,16 +168,33 @@
               key,
               {
                 comment:comments[key] ?? "",
-                descriptor:yaml.dump({[key]:Object.fromEntries(Object.entries(value).filter(([key]) => ["description", "default", "required"].includes(key)))})
+                descriptor:yaml.dump({[key]:Object.fromEntries(Object.entries(value).filter(([key]) => ["description", "default", "required"].includes(key)))}, {quotingType:'"', noCompatMode:true})
               }
             ]))
+
+          //Action inputs
+            meta.inputs.action = function ({core}) {
+              //Build query object from inputs
+                const q = {}
+                for (const key of Object.keys(inputs)) {
+                  const value = `${core.getInput(key)}`.trim()
+                  try {
+                    q[key] = decodeURIComponent(value)
+                  }
+                  catch {
+                    logger(`metrics/inputs > failed to decode uri : ${value}`)
+                    q[key] = value
+                  }
+                }
+                return meta.inputs({q, account:"bypass"})
+            }
         }
 
       //Web metadata
         {
           meta.web = Object.fromEntries(Object.entries(inputs).map(([key, {type, description:text, example, default:defaulted, min = 0, max = 9999, values}]) => [
             //Format key
-              key.replace(/^plugin_/, "").replace(/_/g, "."),
+              metadata.to.query(key),
             //Value descriptor
               (() => {
                 switch (type) {
@@ -196,7 +223,7 @@
         {
           //Extract demos
             const raw = `${await fs.promises.readFile(path.join(__plugins, name, "README.md"), "utf-8")}`
-            const demo = raw.match(/(?<demo><table>[\s\S]*?<[/]table>)/)?.groups?.demo?.replace(/<[/]?(?:table|tr)>/g, "")?.trim() ?? null
+            const demo = raw.match(/(?<demo><table>[\s\S]*?<[/]table>)/)?.groups?.demo?.replace(/<[/]?(?:table|tr)>/g, "")?.trim() ?? "<td></td>"
 
           //Readme descriptor
             meta.readme = {demo}
@@ -209,13 +236,13 @@
         return meta
     }
     catch (error) {
-      console.debug(`metrics/metadata > failed to load plugin ${name}: ${error}`)
+      logger(`metrics/metadata > failed to load plugin ${name}: ${error}`)
       return null
     }
   }
 
 /** Metadata extractor for templates */
-  metadata.template = async function ({__templates, name, plugins}) {
+  metadata.template = async function ({__templates, name, plugins, logger}) {
     try {
       //Load meta descriptor
         const raw = `${await fs.promises.readFile(path.join(__templates, name, "README.md"), "utf-8")}`
@@ -235,13 +262,21 @@
         return {
           name:raw.match(/^### (?<name>[\s\S]+?)\n/)?.groups?.name?.trim() ?? "",
           readme:{
-            demo:raw.match(/(?<demo><table>[\s\S]*?<[/]table>)/)?.groups?.demo ?? null,
+            demo:raw.match(/(?<demo><table>[\s\S]*?<[/]table>)/)?.groups?.demo?.replace(/<[/]?(?:table|tr)>/g, "")?.trim() ?? "<td></td>",
             compatibility:{...compatibility, base:true},
-          }
+          },
         }
     }
     catch (error) {
-      console.debug(`metrics/metadata > failed to load template ${name}: ${error}`)
+      logger(`metrics/metadata > failed to load template ${name}: ${error}`)
       return null
+    }
+  }
+
+/** Metadata converters */
+  metadata.to = {
+    query(key, {name = null} = {}) {
+      key = key.replace(/^plugin_/, "").replace(/_/g, ".")
+      return name ? key.replace(new RegExp(`^(${name}.)`, "g"), "") : key
     }
   }

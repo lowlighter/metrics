@@ -9,38 +9,72 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
     <%- plugins.base.readme.demo?.replace(/<img src=/g, `<img alt="" width="400" src=`) %>
   </tr>
 </table>
-
+<% {
+  let cell = 0
+  const elements = Object.entries(plugins).filter(([key, value]) => (value)&&(!["base", "core"].includes(key)))
+  if (elements.length%2)
+    elements.push(["", {}])
+%>
 <table>
   <tr>
     <th colspan="2" align="center">
-      <a href="source/plugins">🧩 <%= Object.entries(plugins).length-2 %> plugins</a>
+      <a href="source/plugins/README.md">🧩 <%= elements.length %> plugins</a>
     </th>
   </tr>
-  <% { let cell = 0 %>
-  <% for (const [plugin, {name, readme}] of Object.entries(plugins).filter(([key, value]) => (value)&&(!["base", "core"].includes(key)))) { %>
-    <% if (cell%2 === 0) { %><tr><% } %>
-      <th><a href="source/plugins/<%= plugin %>"><%= name -%></a></th>
-      <%- readme.demo?.replace(/<img src=/g, `<img alt="" width="400" src=`) -%>
-    <% if (cell%2 === 1) { %></tr><% } -%>
-  <% cell++ } } -%>
+<%  for (let i = 0; i < elements.length; i+=2) {
+    const cells = [["even", elements[i]], ["odd", elements[i+1]]]
+      for (const [cell, [plugin, {name, readme}]] of cells) {
+        if (cell === "even") {
+-%>
+  <tr>
+<% } %>    <th><a href="source/plugins/<%= plugin %>/README.md"><%= name -%></a></th>
+<%      if (cell === "odd") {
+-%>  </tr>
+<% }}
+      for (const [cell, [plugin, {name, readme}]] of cells) {
+        if (cell === "even") {
+-%>
+  <tr>
+<% } %>    <%- readme.demo.replace(/<img src=/g, `<img alt="" width="400" src=`)?.split("\n")?.map((x, i) => i ? `  ${x}` : x)?.join("\n") %>
+<%      if (cell === "odd") {
+-%>  </tr>
+<% }}} -%>
   <tr>
     <th colspan="2" align="center">
       <a href="https://github.com/lowlighter/metrics/projects/1">More to come soon!</a>
     </th>
   </tr>
 </table>
-
+<% } %>
+<% {
+  let cell = 0
+  const elements = Object.entries(templates).filter(([key, value]) => value)
+  if (elements.length%2)
+    elements.push(["", {}])
+%>
 <table>
   <tr>
     <th colspan="2" align="center">
-      <a href="source/plugins">🖼️ <%= Object.entries(templates).length-1 %> templates</a>
+      <a href="source/templates/README.md">🖼️ <%= elements.length-1 %> templates</a>
     </th>
   </tr>
-  <% { let cell = 0 %>
-  <% for (const [template, {name, readme}] of Object.entries(templates).filter(([key, value]) => value)) { %>
-    <% if (cell%2 === 0) { %><tr><% } %>
-      <th><a href="source/templates/<%= template %>"><%= name -%></a></th>
-      <%- readme.demo?.replace(/<img src=/g, `<img alt="" width="400" src=`) -%>
-    <% if (cell%2 === 1) { %></tr><% } -%>
-  <% cell++ } } -%>
+<%  for (let i = 0; i < elements.length; i+=2) {
+    const cells = [["even", elements[i]], ["odd", elements[i+1]]]
+      for (const [cell, [template, {name, readme}]] of cells) {
+        if (cell === "even") {
+-%>
+  <tr>
+<% } %>    <th><a href="source/templates/<%= template %>/README.md"><%= name -%></a></th>
+<%      if (cell === "odd") {
+-%>  </tr>
+<% }}
+    for (const [cell, [template, {name, readme}]] of cells) {
+        if (cell === "even") {
+-%>
+  <tr>
+<% } %>    <%- readme.demo.replace(/<img src=/g, `<img alt="" width="400" src=`)?.split("\n")?.map((x, i) => i ? `  ${x}` : x)?.join("\n") %>
+<%      if (cell === "odd") {
+-%>  </tr>
+<% }}} -%>
 </table>
+<% } %>

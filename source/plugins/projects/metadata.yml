@@ -7,7 +7,7 @@ supports:
 inputs:
 
   # Enable or disable plugin
-  plugin_gists:
+  plugin_projects:
     description: Display active projects
     type: boolean
     default: no

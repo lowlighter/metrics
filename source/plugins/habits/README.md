@@ -3,11 +3,12 @@
 The coding *habits* plugin display metrics based on your recent activity, such as active hours or languages recently used.
 
 <table>
-  <td>
+  <td align="center">
     <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.svg">
     <details open><summary>Charts version</summary>
       <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.habits.charts.svg">
     </details>
+    <img width="900" height="1" alt="">
   </td>
 </table>
 

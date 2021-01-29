@@ -81,14 +81,14 @@
   }
 
 /** Render svg */
-  export async function svgresize(svg, {paddings = "6%", convert} = {}) {
+  export async function svgresize(svg, {paddings = ["6%"], convert} = {}) {
     //Instantiate browser if needed
       if (!svgresize.browser) {
         svgresize.browser = await puppeteer.launch({headless:true, executablePath:process.env.PUPPETEER_BROWSER_PATH, args:["--no-sandbox", "--disable-extensions", "--disable-setuid-sandbox", "--disable-dev-shm-usage"]})
         console.debug(`metrics/svgresize > started ${await svgresize.browser.version()}`)
       }
     //Format padding
-      const [pw = 1, ph] = paddings.split(",").map(padding => `${padding}`.substring(0, padding.length-1)).map(value => 1+Number(value)/100)
+      const [pw = 1, ph] = paddings.map(padding => `${padding}`.substring(0, padding.length-1)).map(value => 1+Number(value)/100)
       const padding = {width:pw, height:ph ?? pw}
       console.debug(`metrics/svgresize > padding width*${padding.width}, height*${padding.height}`)
     //Render through browser and resize height

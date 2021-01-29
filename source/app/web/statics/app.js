@@ -136,7 +136,7 @@
                 `# Visit https://github.com/lowlighter/metrics/blob/master/action.yml for full reference`,
                 `name: Metrics`,
                 `on:`,
-                `  # Schedule updates`,
+                `  # Schedule updates (each hour)`,
                 `  schedule: [{cron: "0 * * * *"}]`,
                 `  # Lines below let you run workflow manually and on each commit`,
                 `  push: {branches: ["master", "main"]}`,

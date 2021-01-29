@@ -10,11 +10,13 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
     <th align="center">For organization accounts</th>
   </tr>
   <tr>
-    <td>
+    <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.classic.svg">
+      <img width="900" height="1" alt="">
     </td>
-    <td>
+    <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.organization.svg">
+      <img width="900" height="1" alt="">
     </td>
   </tr>
 </table>
@@ -22,175 +24,207 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
 <table>
   <tr>
     <th colspan="2" align="center">
-      <a href="source/plugins">🧩 18 plugins</a>
+      <a href="source/plugins/README.md">🧩 18 plugins</a>
     </th>
   </tr>
-  
-  
-    <tr>
-      <th><a href="source/plugins/activity">📰 Recent activity</a></th>
-      <td>
-    <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.activity.svg">
-  </td>      
-    
-      <th><a href="source/plugins/anilist">🌸 Anilist</a></th>
-      <td>
-    <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.anilist.svg">
-    <details><summary>Manga version</summary>
-      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.anilist.manga.svg">
-    </details>
-    <details open><summary>Favorites characters version</summary>
-      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.anilist.characters.svg">
-    </details>
-  </td>    </tr>  
-    <tr>
-      <th><a href="source/plugins/followup">🎟️ Follow-up of issues and pull requests</a></th>
-      <td>
-    <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.followup.svg">
-  </td>      
-    
-      <th><a href="source/plugins/gists">🎫 Gists</a></th>
-      <td>
-    <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.gists.svg">
-  </td>    </tr>  
-    <tr>
-      <th><a href="source/plugins/habits">💡 Coding habits</a></th>
-      <td>
-    <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.svg">
-    <details open><summary>Charts version</summary>
-      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.habits.charts.svg">
-    </details>
-  </td>      
-    
-      <th><a href="source/plugins/isocalendar">📅 Isometric commit calendar</a></th>
-      <td>
-    <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.isocalendar.svg">
-    <details><summary>Full year version</summary>
-      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.isocalendar.fullyear.svg">
-    </details>
-  </td>    </tr>  
-    <tr>
-      <th><a href="source/plugins/languages">🈷️ Most used languages</a></th>
-      <td>
-    <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.svg">
-  </td>      
-    
-      <th><a href="source/plugins/lines">👨‍💻 Lines of code changed</a></th>
-      <td>
-    <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.lines.svg">
-  </td>    </tr>  
-    <tr>
-      <th><a href="source/plugins/music">🎼 Music plugin</a></th>
-      <td>
-    <details open><summary>🎼 Favorite tracks version</summary>
-      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.music.playlist.svg">
-    </details>
-    <details open><summary>Recently listened version</summary>
-      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.music.recent.svg">
-    </details>
-  </td>      
-    
-      <th><a href="source/plugins/pagespeed">⏱️ Website performances</a></th>
-      <td>
-    <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.svg">
-    <details><summary>Detailed version</summary>
-      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.pagespeed.detailed.svg">
-    </details>
-    <details><summary>With screenshot version</summary>
-      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.pagespeed.screenshot.svg">
-    </details>
-  </td>    </tr>  
-    <tr>
-      <th><a href="source/plugins/people">🧑‍🤝‍🧑 People plugin</a></th>
-      <td>
-    <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.people.followers.svg">
-    <details><summary>Followed people version</summary>
-      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.people.following.svg">
-    </details>
-    <details><summary>Special thanks version</summary>
-      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.people.thanks.svg">
-    </details>
-    <details><summary>Repository template version</summary>
-      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.people.repository.svg">
-    </details>
-
-  </td>      
-    
-      <th><a href="source/plugins/posts">✒️ Recent posts</a></th>
-      <td>
-    <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.posst.svg">
-  </td>    </tr>  
-    <tr>
-      <th><a href="source/plugins/projects">🗂️ Projects</a></th>
-      <td>
-    <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.projects.svg">
-  </td>      
-    
-      <th><a href="source/plugins/stargazers">✨ Stargazers over last weeks</a></th>
-      <td>
-    <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.stargazers.svg">
-  </td>    </tr>  
-    <tr>
-      <th><a href="source/plugins/stars">🌟 Recently starred repositories</a></th>
-      <td>
-    <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.stars.svg">
-  </td>      
-    
-      <th><a href="source/plugins/topics">📌 Starred topics</a></th>
-      <td>
-    <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.svg">
-    <details open><summary>Mastered and known technologies version</summary>
-      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.topics.mastered.svg">
-    </details>
-  </td>    </tr>  
-    <tr>
-      <th><a href="source/plugins/traffic">🧮 Repositories traffic</a></th>
-      <td>
-    <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.traffic.svg">
-  </td>      
-    
-      <th><a href="source/plugins/tweets">🐤 Latest tweets</a></th>
-      <td>
-    <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.tweets.svg">
-  </td>    </tr>    <tr>
+  <tr>
+    <th><a href="source/plugins/activity/README.md">📰 Recent activity</a></th>
+    <th><a href="source/plugins/anilist/README.md">🌸 Anilist</a></th>
+  </tr>
+  <tr>
+    <td align="center">
+      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.activity.svg">
+      <img width="900" height="1" alt="">
+    </td>
+    <td align="center">
+      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.anilist.svg">
+      <details><summary>Manga version</summary>
+        <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.anilist.manga.svg">
+      </details>
+      <details open><summary>Favorites characters version</summary>
+        <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.anilist.characters.svg">
+      </details>
+      <img width="900" height="1" alt="">
+    </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/followup/README.md">🎟️ Follow-up of issues and pull requests</a></th>
+    <th><a href="source/plugins/gists/README.md">🎫 Gists</a></th>
+  </tr>
+  <tr>
+    <td align="center">
+      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.followup.svg">
+      <img width="900" height="1" alt="">
+    </td>
+    <td align="center">
+      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.gists.svg">
+      <img width="900" height="1" alt="">
+    </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/habits/README.md">💡 Coding habits</a></th>
+    <th><a href="source/plugins/isocalendar/README.md">📅 Isometric commit calendar</a></th>
+  </tr>
+  <tr>
+    <td align="center">
+      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.svg">
+      <details open><summary>Charts version</summary>
+        <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.habits.charts.svg">
+      </details>
+      <img width="900" height="1" alt="">
+    </td>
+    <td align="center">
+      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.isocalendar.svg">
+      <details><summary>Full year version</summary>
+        <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.isocalendar.fullyear.svg">
+      </details>
+      <img width="900" height="1" alt="">
+    </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/languages/README.md">🈷️ Most used languages</a></th>
+    <th><a href="source/plugins/lines/README.md">👨‍💻 Lines of code changed</a></th>
+  </tr>
+  <tr>
+    <td align="center">
+      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.svg">
+      <img width="900" height="1" alt="">
+    </td>
+    <td align="center">
+      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.lines.svg">
+      <img width="900" height="1" alt="">
+    </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/music/README.md">🎼 Music plugin</a></th>
+    <th><a href="source/plugins/pagespeed/README.md">⏱️ Website performances</a></th>
+  </tr>
+  <tr>
+    <td align="center">
+      <details open><summary>🎼 Favorite tracks version</summary>
+        <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.music.playlist.svg">
+      </details>
+      <details open><summary>Recently listened version</summary>
+        <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.music.recent.svg">
+      </details>
+      <img width="900" height="1" alt="">
+    </td>
+    <td align="center">
+      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.svg">
+      <details><summary>Detailed version</summary>
+        <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.pagespeed.detailed.svg">
+      </details>
+      <details><summary>With screenshot version</summary>
+        <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.pagespeed.screenshot.svg">
+      </details>
+      <img width="900" height="1" alt="">
+    </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/people/README.md">🧑‍🤝‍🧑 People plugin</a></th>
+    <th><a href="source/plugins/posts/README.md">✒️ Recent posts</a></th>
+  </tr>
+  <tr>
+    <td align="center">
+      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.people.followers.svg">
+      <details><summary>Followed people version</summary>
+        <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.people.following.svg">
+      </details>
+      <details><summary>Special thanks version</summary>
+        <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.people.thanks.svg">
+      </details>
+      <details><summary>Repository template version</summary>
+        <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.people.repository.svg">
+      </details>
+      <img width="900" height="1" alt="">
+    </td>
+    <td align="center">
+      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.post.svg">
+      <img width="900" height="1" alt="">
+    </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/projects/README.md">🗂️ Projects</a></th>
+    <th><a href="source/plugins/stargazers/README.md">✨ Stargazers over last weeks</a></th>
+  </tr>
+  <tr>
+    <td align="center">
+      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.projects.svg">
+      <img width="900" height="1" alt="">
+    </td>
+    <td align="center">
+      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.stargazers.svg">
+      <img width="900" height="1" alt="">
+    </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/stars/README.md">🌟 Recently starred repositories</a></th>
+    <th><a href="source/plugins/topics/README.md">📌 Starred topics</a></th>
+  </tr>
+  <tr>
+    <td align="center">
+      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.stars.svg">
+      <img width="900" height="1" alt="">
+    </td>
+    <td align="center">
+      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.svg">
+      <details open><summary>Mastered and known technologies version</summary>
+        <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.topics.mastered.svg">
+      </details>
+      <img width="900" height="1" alt="">
+    </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/traffic/README.md">🧮 Repositories traffic</a></th>
+    <th><a href="source/plugins/tweets/README.md">🐤 Latest tweets</a></th>
+  </tr>
+  <tr>
+    <td align="center">
+      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.traffic.svg">
+    </td>
+    <td align="center">
+      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.tweets.svg">
+      <img width="900" height="1" alt="">
+    </td>
+  </tr>
+  <tr>
     <th colspan="2" align="center">
       <a href="https://github.com/lowlighter/metrics/projects/1">More to come soon!</a>
     </th>
   </tr>
 </table>
 
+
 <table>
   <tr>
     <th colspan="2" align="center">
-      <a href="source/plugins">🖼️ 3 templates</a>
+      <a href="source/templates/README.md">🖼️ 3 templates</a>
     </th>
   </tr>
-  
-  
-    <tr>
-      <th><a href="source/templates/classic">📗 Classic</a></th>
-      <table>
-  <td>
-    <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.classic.svg">
-  </td>
-</table>      
-    
-      <th><a href="source/templates/repository">📘 Repository</a></th>
-      <table>
-  <td>
-    <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.repository.svg">
-  </td>
-</table>    </tr>  
-    <tr>
-      <th><a href="source/templates/terminal">📙 Terminal</a></th>
-      <table>
-  <td>
-    <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.terminal.svg">
-  </td>
-</table>      
-    
-      <th><a href="source/templates/community">📕 Community templates</a></th>
-          </tr>  </table>
+  <tr>
+    <th><a href="source/templates/classic/README.md">📗 Classic</a></th>
+    <th><a href="source/templates/repository/README.md">📘 Repository</a></th>
+  </tr>
+  <tr>
+    <td>
+      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.classic.svg">
+    </td>
+    <td>
+      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.repository.svg">
+    </td>
+  </tr>
+  <tr>
+    <th><a href="source/templates/terminal/README.md">📙 Terminal</a></th>
+    <th><a href="source/templates/community/README.md">📕 Community templates</a></th>
+  </tr>
+  <tr>
+    <td>
+      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.terminal.svg">
+    </td>
+    <td></td>
+  </tr>
+</table>
+
 
 ## 🦑 Interested to get your own?
 
@@ -413,7 +447,7 @@ This is described below for Linux-like systems which support *systemd*.
 
 Create a new service file `/etc/systemd/system/github_metrics.service` and paste the following after editing paths inside:
 
-```
+```ini
 [Unit]
 Description=Metrics
 After=network-online.target
@@ -486,97 +520,93 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
 
 <table>
   <tr>
-    <th nowrap="nowrap" align="center">Template\Plugin</th>
-          <th nowrap="nowrap" align="center">🗃️</th>
-          <th nowrap="nowrap" align="center">📰</th>
-          <th nowrap="nowrap" align="center">🌸</th>
-          <th nowrap="nowrap" align="center">🎟️</th>
-          <th nowrap="nowrap" align="center">🎫</th>
-          <th nowrap="nowrap" align="center">💡</th>
-          <th nowrap="nowrap" align="center">📅</th>
-          <th nowrap="nowrap" align="center">🈷️</th>
-          <th nowrap="nowrap" align="center">👨‍💻</th>
-          <th nowrap="nowrap" align="center">🎼</th>
-          <th nowrap="nowrap" align="center">⏱️</th>
-          <th nowrap="nowrap" align="center">🧑‍🤝‍🧑</th>
-          <th nowrap="nowrap" align="center">✒️</th>
-          <th nowrap="nowrap" align="center">🗂️</th>
-          <th nowrap="nowrap" align="center">✨</th>
-          <th nowrap="nowrap" align="center">🌟</th>
-          <th nowrap="nowrap" align="center">📌</th>
-          <th nowrap="nowrap" align="center">🧮</th>
-          <th nowrap="nowrap" align="center">🐤</th>
-      </tr>
-  
-    <tr>
-      <th nowrap="nowrap">📗 Classic</th>
-              <th nowrap="nowrap" align="center" data-plugin="base">✔️</th>
-              <th nowrap="nowrap" align="center" data-plugin="activity">✔️</th>
-              <th nowrap="nowrap" align="center" data-plugin="anilist">✔️</th>
-              <th nowrap="nowrap" align="center" data-plugin="followup">✔️</th>
-              <th nowrap="nowrap" align="center" data-plugin="gists">✔️</th>
-              <th nowrap="nowrap" align="center" data-plugin="habits">✔️</th>
-              <th nowrap="nowrap" align="center" data-plugin="isocalendar">✔️</th>
-              <th nowrap="nowrap" align="center" data-plugin="languages">✔️</th>
-              <th nowrap="nowrap" align="center" data-plugin="lines">❌</th>
-              <th nowrap="nowrap" align="center" data-plugin="music">✔️</th>
-              <th nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</th>
-              <th nowrap="nowrap" align="center" data-plugin="people">✔️</th>
-              <th nowrap="nowrap" align="center" data-plugin="posts">✔️</th>
-              <th nowrap="nowrap" align="center" data-plugin="projects">✔️</th>
-              <th nowrap="nowrap" align="center" data-plugin="stargazers">✔️</th>
-              <th nowrap="nowrap" align="center" data-plugin="stars">✔️</th>
-              <th nowrap="nowrap" align="center" data-plugin="topics">✔️</th>
-              <th nowrap="nowrap" align="center" data-plugin="traffic">❌</th>
-              <th nowrap="nowrap" align="center" data-plugin="tweets">✔️</th>
-          </tr>
-  
-    <tr>
-      <th nowrap="nowrap">📘 Repository</th>
-              <th nowrap="nowrap" align="center" data-plugin="base">✔️</th>
-              <th nowrap="nowrap" align="center" data-plugin="activity">❌</th>
-              <th nowrap="nowrap" align="center" data-plugin="anilist">❌</th>
-              <th nowrap="nowrap" align="center" data-plugin="followup">✔️</th>
-              <th nowrap="nowrap" align="center" data-plugin="gists">❌</th>
-              <th nowrap="nowrap" align="center" data-plugin="habits">❌</th>
-              <th nowrap="nowrap" align="center" data-plugin="isocalendar">❌</th>
-              <th nowrap="nowrap" align="center" data-plugin="languages">✔️</th>
-              <th nowrap="nowrap" align="center" data-plugin="lines">❌</th>
-              <th nowrap="nowrap" align="center" data-plugin="music">❌</th>
-              <th nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</th>
-              <th nowrap="nowrap" align="center" data-plugin="people">✔️</th>
-              <th nowrap="nowrap" align="center" data-plugin="posts">❌</th>
-              <th nowrap="nowrap" align="center" data-plugin="projects">✔️</th>
-              <th nowrap="nowrap" align="center" data-plugin="stargazers">✔️</th>
-              <th nowrap="nowrap" align="center" data-plugin="stars">❌</th>
-              <th nowrap="nowrap" align="center" data-plugin="topics">❌</th>
-              <th nowrap="nowrap" align="center" data-plugin="traffic">❌</th>
-              <th nowrap="nowrap" align="center" data-plugin="tweets">❌</th>
-          </tr>
-  
-    <tr>
-      <th nowrap="nowrap">📙 Terminal</th>
-              <th nowrap="nowrap" align="center" data-plugin="base">✔️</th>
-              <th nowrap="nowrap" align="center" data-plugin="activity">❌</th>
-              <th nowrap="nowrap" align="center" data-plugin="anilist">❌</th>
-              <th nowrap="nowrap" align="center" data-plugin="followup">❌</th>
-              <th nowrap="nowrap" align="center" data-plugin="gists">✔️</th>
-              <th nowrap="nowrap" align="center" data-plugin="habits">❌</th>
-              <th nowrap="nowrap" align="center" data-plugin="isocalendar">❌</th>
-              <th nowrap="nowrap" align="center" data-plugin="languages">✔️</th>
-              <th nowrap="nowrap" align="center" data-plugin="lines">❌</th>
-              <th nowrap="nowrap" align="center" data-plugin="music">❌</th>
-              <th nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</th>
-              <th nowrap="nowrap" align="center" data-plugin="people">❌</th>
-              <th nowrap="nowrap" align="center" data-plugin="posts">❌</th>
-              <th nowrap="nowrap" align="center" data-plugin="projects">❌</th>
-              <th nowrap="nowrap" align="center" data-plugin="stargazers">❌</th>
-              <th nowrap="nowrap" align="center" data-plugin="stars">❌</th>
-              <th nowrap="nowrap" align="center" data-plugin="topics">❌</th>
-              <th nowrap="nowrap" align="center" data-plugin="traffic">❌</th>
-              <th nowrap="nowrap" align="center" data-plugin="tweets">❌</th>
-          </tr>
-  
+    <th nowrap="nowrap" align="center">Template\Plugin</th>    
+    <th nowrap="nowrap" align="center">🗃️</th>
+    <th nowrap="nowrap" align="center">📰</th>
+    <th nowrap="nowrap" align="center">🌸</th>
+    <th nowrap="nowrap" align="center">🎟️</th>
+    <th nowrap="nowrap" align="center">🎫</th>
+    <th nowrap="nowrap" align="center">💡</th>
+    <th nowrap="nowrap" align="center">📅</th>
+    <th nowrap="nowrap" align="center">🈷️</th>
+    <th nowrap="nowrap" align="center">👨‍💻</th>
+    <th nowrap="nowrap" align="center">🎼</th>
+    <th nowrap="nowrap" align="center">⏱️</th>
+    <th nowrap="nowrap" align="center">🧑‍🤝‍🧑</th>
+    <th nowrap="nowrap" align="center">✒️</th>
+    <th nowrap="nowrap" align="center">🗂️</th>
+    <th nowrap="nowrap" align="center">✨</th>
+    <th nowrap="nowrap" align="center">🌟</th>
+    <th nowrap="nowrap" align="center">📌</th>
+    <th nowrap="nowrap" align="center">🧮</th>
+    <th nowrap="nowrap" align="center">🐤</th>
+  </tr>  
+  <tr>
+    <th nowrap="nowrap">📗 Classic</th>    
+    <th nowrap="nowrap" align="center" data-plugin="base">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="activity">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="anilist">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="followup">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="gists">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="habits">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="isocalendar">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="languages">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="lines">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="music">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="people">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="posts">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="projects">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="stargazers">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="stars">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="topics">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="traffic">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="tweets">✔️</th>
+  </tr>
+  <tr>
+    <th nowrap="nowrap">📘 Repository</th>    
+    <th nowrap="nowrap" align="center" data-plugin="base">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="activity">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="anilist">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="followup">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="gists">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="habits">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="isocalendar">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="languages">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="lines">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="music">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="people">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="posts">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="projects">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="stargazers">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="stars">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="topics">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="traffic">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="tweets">❌</th>
+  </tr>
+  <tr>
+    <th nowrap="nowrap">📙 Terminal</th>    
+    <th nowrap="nowrap" align="center" data-plugin="base">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="activity">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="anilist">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="followup">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="gists">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="habits">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="isocalendar">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="languages">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="lines">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="music">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="people">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="posts">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="projects">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="stargazers">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="stars">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="topics">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="traffic">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="tweets">❌</th>
+  </tr>
 </table>
 
 ## 🖼️ Templates
@@ -584,36 +614,36 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
 Templates lets you change general appearance of rendered metrics.
 See their respective documentation for more informations about how to setup them:
 
-* [📗 Classic](source/templates/classic)
-* [📘 Repository](source/templates/repository)
-* [📙 Terminal](source/templates/terminal)
-* [📕 Community templates](source/templates/community)
+* [📗 Classic](/source/templates/classic/README.md)
+* [📘 Repository](/source/templates/repository/README.md)
+* [📙 Terminal](/source/templates/terminal/README.md)
+* [📕 Community templates](/source/templates/community/README.md)
 
 ## 🧩 Plugins
 
 Plugins are features which provide additional content and lets you customize your rendered metrics.
 See their respective documentation for more informations about how to setup them:
 
-* [🗃️ Base content](source/plugins/base)
-* [📊 Metrics](source/plugins/core)
-* [📰 Recent activity](source/plugins/activity)
-* [🌸 Anilist](source/plugins/anilist)
-* [🎟️ Follow-up of issues and pull requests](source/plugins/followup)
-* [🎫 Gists](source/plugins/gists)
-* [💡 Coding habits](source/plugins/habits)
-* [📅 Isometric commit calendar](source/plugins/isocalendar)
-* [🈷️ Most used languages](source/plugins/languages)
-* [👨‍💻 Lines of code changed](source/plugins/lines)
-* [🎼 Music plugin](source/plugins/music)
-* [⏱️ Website performances](source/plugins/pagespeed)
-* [🧑‍🤝‍🧑 People plugin](source/plugins/people)
-* [✒️ Recent posts](source/plugins/posts)
-* [🗂️ Projects](source/plugins/projects)
-* [✨ Stargazers over last weeks](source/plugins/stargazers)
-* [🌟 Recently starred repositories](source/plugins/stars)
-* [📌 Starred topics](source/plugins/topics)
-* [🧮 Repositories traffic](source/plugins/traffic)
-* [🐤 Latest tweets](source/plugins/tweets)
+* [🗃️ Base content](/source/plugins/base/README.md)
+* [📊 Metrics](/source/plugins/core/README.md)
+* [📰 Recent activity](/source/plugins/activity/README.md)
+* [🌸 Anilist](/source/plugins/anilist/README.md)
+* [🎟️ Follow-up of issues and pull requests](/source/plugins/followup/README.md)
+* [🎫 Gists](/source/plugins/gists/README.md)
+* [💡 Coding habits](/source/plugins/habits/README.md)
+* [📅 Isometric commit calendar](/source/plugins/isocalendar/README.md)
+* [🈷️ Most used languages](/source/plugins/languages/README.md)
+* [👨‍💻 Lines of code changed](/source/plugins/lines/README.md)
+* [🎼 Music plugin](/source/plugins/music/README.md)
+* [⏱️ Website performances](/source/plugins/pagespeed/README.md)
+* [🧑‍🤝‍🧑 People plugin](/source/plugins/people/README.md)
+* [✒️ Recent posts](/source/plugins/posts/README.md)
+* [🗂️ Projects](/source/plugins/projects/README.md)
+* [✨ Stargazers over last weeks](/source/plugins/stargazers/README.md)
+* [🌟 Recently starred repositories](/source/plugins/stars/README.md)
+* [📌 Starred topics](/source/plugins/topics/README.md)
+* [🧮 Repositories traffic](/source/plugins/traffic/README.md)
+* [🐤 Latest tweets](/source/plugins/tweets/README.md)
 
 ### 🏦 Organizations metrics
 

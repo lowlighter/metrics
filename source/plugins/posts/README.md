@@ -3,8 +3,9 @@
 The recent *posts* plugin displays recent articles you wrote on an external source, like [dev.to](https://dev.to).
 
 <table>
-  <td>
-    <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.posst.svg">
+  <td align="center">
+    <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.post.svg">
+    <img width="900" height="1" alt="">
   </td>
 </table>
 

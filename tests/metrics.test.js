@@ -9,10 +9,12 @@
   const path = require("path")
   const url = require("url")
   const axios = require("axios")
+  const faker = require("faker")
+  const ejs = require("ejs")
 
 //Github action
   const action = yaml.load(fs.readFileSync(path.join(__dirname, "../action.yml"), "utf8"))
-  action.defaults = Object.fromEntries(Object.entries(action.inputs).map(([key, {default:value}]) => [key, /^(yes|no)$/.test(value) ? value === "yes" : value]))
+  action.defaults = Object.fromEntries(Object.entries(action.inputs).map(([key, {default:value}]) => [key, value]))
   action.input = vars => Object.fromEntries([...Object.entries(action.defaults), ...Object.entries(vars)].map(([key, value]) => [`INPUT_${key.toLocaleUpperCase()}`, value]))
   action.run = async (vars) => await new Promise((solve, reject) => {
     let [stdout, stderr] = ["", ""]
@@ -44,6 +46,26 @@
     await web.instance.kill("SIGKILL")
     done()
   })
+
+//Web instance placeholder
+  require("./../source/app/web/statics/app.placeholder.js")
+  const placeholder = globalThis.placeholder
+  delete globalThis.placeholder
+  placeholder.init({faker, ejs, axios:{async get(url) { return axios(`http://localhost:3000${url}`) }}})
+  placeholder.run = async (vars) => {
+    const options = Object.fromEntries(Object.entries(vars).map(([key, value]) => [key.replace(/^plugin_/, "").replace(/_/g, "."), value]))
+    const enabled = Object.fromEntries(Object.entries(vars).filter(([key]) => /^plugin_[a-z]+$/.test(key)))
+    const config = Object.fromEntries(Object.entries(options).filter(([key]) => /^config[.]/.test(key)))
+    const base = Object.fromEntries(Object.entries(options).filter(([key]) => /^base[.]/.test(key)))
+    return typeof await placeholder({
+      templates:{selected:vars.template},
+      plugins:{enabled:{...enabled, base}, options},
+      config,
+      version:"TEST",
+      user:"lowlighter",
+      avatar:"https://github.com/lowlighter.png",
+    }) === "string"
+  }
 
 //Test cases
   const tests = [
@@ -347,6 +369,10 @@
       plugin_anilist_limit:0,
       plugin_anilist_shuffle:false,
     }, {skip:["terminal", "repository"]}],
+    ["Community templates", {
+      template:"@classic",
+      setup_community_templates:"lowlighter/metrics@master:classic",
+    }, {skip:["terminal", "repository"]}]
   ]
 
 //Tests run
@@ -392,15 +418,22 @@
     })
   )
 
-  describe("Additional options", () => {
-    test("Community templates", async () => expect(await action.run({
-      token:"MOCKED_TOKEN",
-      plugin_pagespeed_token:"MOCKED_TOKEN",
-      plugin_tweets_token:"MOCKED_TOKEN",
-      plugin_music_token:"MOCKED_CLIENT_ID, MOCKED_CLIENT_SECRET, MOCKED_REFRESH_TOKEN",
-      template:"@classic", base:"",
-      config_timezone:"Europe/Paris",
-      plugins_errors_fatal:true, dryrun:true, use_mocked_data:true, verify:true,
-      setup_community_templates:"lowlighter/metrics@master:classic",
-    })).toBe(true), 60*1e3)
-  })
+  describe("Web instance (placeholder)", () =>
+    describe.each([
+      ["classic", {}],
+      ["terminal", {}],
+    ])("Template : %s", (template, query) => {
+      for (const [name, input, {skip = []} = {}] of tests)
+        if (skip.includes(template))
+          test.skip(name, () => null)
+        else
+          test(name, async () => expect(await placeholder.run({
+            template, base:0, ...query,
+            config_timezone:"Europe/Paris",
+            plugins_errors_fatal:true, verify:true,
+            ...input
+          })).toBe(true))
+    })
+  )
+
+

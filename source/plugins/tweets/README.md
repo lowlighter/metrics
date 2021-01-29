@@ -3,8 +3,9 @@
 The recent *tweets* plugin displays your latest tweets from your [Twitter](https://twitter.com) account.
 
 <table>
-  <td>
+  <td align="center">
     <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.tweets.svg">
+    <img width="900" height="1" alt="">
   </td>
 </table>
 
@@ -16,7 +17,7 @@ It's a bit tedious, but it seems that requests are approved quite quickly.
 
 Create an app from your [developer dashboard](https://developer.twitter.com/en/portal/dashboard) and register your bearer token in your repository secrets.
 
-![Twitter token](.github/readme/imgs/plugin_tweets_secrets.png)
+![Twitter token](/.github/readme/imgs/plugin_tweets_secrets.png)
 
 </details>
 

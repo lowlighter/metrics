@@ -97,8 +97,7 @@ inputs:
   config_padding:
     description: Image padding
     type: array
-    format:
-      - comma-separated
+    format: comma-separated
     default: 6%
 
   # Metrics output format
@@ -138,6 +137,7 @@ inputs:
   debug_flags:
     description: Debug flags
     type: array
+    format: space-separated
     default: ""
     values:
       - --cakeday

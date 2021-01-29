@@ -3,13 +3,14 @@
 The *music* plugin lets you display :
 
 <table>
-  <td>
+  <td align="center">
     <details open><summary>🎼 Favorite tracks version</summary>
       <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.music.playlist.svg">
     </details>
     <details open><summary>Recently listened version</summary>
       <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.music.recent.svg">
     </details>
+    <img width="900" height="1" alt="">
   </td>
 </table>
 
@@ -29,7 +30,7 @@ Extract the *embed* URL of the playlist you want to share.
 To do so, connect to [music.apple.com](https://music.apple.com/) and select the playlist you want to share.
 From `...` menu, select `Share` and `Copy embed code`.
 
-![Copy embed code of playlist](.github/readme/imgs/plugin_music_playlist_apple.png)
+![Copy embed code of playlist](/.github/readme/imgs/plugin_music_playlist_apple.png)
 
 Extract the source link from the code pasted in your clipboard:
 ```html
@@ -48,7 +49,7 @@ Extract the *embed* URL of the playlist you want to share.
 To do so, Open Spotify and select the playlist you want to share.
 From `...` menu, select `Share` and `Copy embed code`.
 
-![Copy embed code of playlist](.github/readme/imgs/plugin_music_playlist_spotify.png)
+![Copy embed code of playlist](/.github/readme/imgs/plugin_music_playlist_spotify.png)
 
 Extract the source link from the code pasted in your clipboard:
 ```html
@@ -105,7 +106,7 @@ Spotify does not have *personal tokens*, so it makes the process a bit longer be
 Sign in to the [developer dashboard](https://developer.spotify.com/dashboard/) and create a new app.
 Keep your `client_id` and `client_secret` and let this tab open for now.
 
-![Add a redirect url](.github/readme/imgs/plugin_music_recent_spotify_token_0.png)
+![Add a redirect url](/.github/readme/imgs/plugin_music_recent_spotify_token_0.png)
 
 Open the settings and add a new *Redirect url*. Normally it is used to setup callbacks for apps, but just put `https://localhost` instead (it is mandatory as per the [authorization guide](https://developer.spotify.com/documentation/general/guides/authorization-guide/), even if not used).
 
@@ -117,11 +118,11 @@ https://accounts.spotify.com/authorize?client_id=********&response_type=code&sco
 
 When prompted, authorize your application.
 
-![Authorize application](.github/readme/imgs/plugin_music_recent_spotify_token_1.png)
+![Authorize application](/.github/readme/imgs/plugin_music_recent_spotify_token_1.png)
 
 Once redirected to `redirect_uri`, extract the generated authorization `code` from your url bar.
 
-![Extract authorization code from url](.github/readme/imgs/plugin_music_recent_spotify_token_2.png)
+![Extract authorization code from url](/.github/readme/imgs/plugin_music_recent_spotify_token_2.png)
 
 Go back to your developer dashboard tab, and open the web console of your browser to paste the following JavaScript code, with your own `client_id`, `client_secret`, authorization `code` and `redirect_uri`.
 

@@ -3,8 +3,9 @@
 The *stars* plugin displays your recently starred repositories.
 
 <table>
-  <td>
+  <td align="center">
     <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.stars.svg">
+    <img width="900" height="1" alt="">
   </td>
 </table>
 

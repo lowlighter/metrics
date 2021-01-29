@@ -4,11 +4,12 @@ The *topics* plugin displays your [starred topics](https://github.com/stars?filt
 Check out [GitHub topics](https://github.com/topics) to search interesting topics.
 
 <table>
-  <td>
+  <td align="center">
     <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.svg">
     <details open><summary>Mastered and known technologies version</summary>
       <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.topics.mastered.svg">
     </details>
+    <img width="900" height="1" alt="">
   </td>
 </table>
 

@@ -4,7 +4,7 @@ The *people* plugin can display people you're following or sponsoring, and also 
 In repository mode, it's possible to display sponsors, stargazers, watchers.
 
 <table>
-  <td>
+  <td align="center">
     <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.people.followers.svg">
     <details><summary>Followed people version</summary>
       <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.people.following.svg">
@@ -15,7 +15,7 @@ In repository mode, it's possible to display sponsors, stargazers, watchers.
     <details><summary>Repository template version</summary>
       <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.people.repository.svg">
     </details>
-
+    <img width="900" height="1" alt="">
   </td>
 </table>
 

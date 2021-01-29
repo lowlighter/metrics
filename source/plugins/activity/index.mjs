@@ -7,7 +7,7 @@
             return null
 
         //Load inputs
-          let {limit, days, filter} = imports.metadata.plugins.activity.inputs({data, q})
+          let {limit, days, filter} = imports.metadata.plugins.activity.inputs({data, q, account})
 
         //Get user recent activity
           console.debug(`metrics/compute/${login}/plugins > activity > querying api`)

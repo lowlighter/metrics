@@ -63,7 +63,11 @@
       conf.package = JSON.parse(`${await fs.promises.readFile(__package)}`)
       logger(`metrics/setup > load package.json > success`)
 
-    //Load community template
+    //Load community templates
+      if ((typeof conf.settings.community.templates === "string")&&(conf.settings.community.templates.length)) {
+        logger(`metrics/setup > parsing community templates list`)
+        conf.settings.community.templates = new Set([...decodeURIComponent(conf.settings.community.templates).split(",").map(v => v.trim().toLocaleLowerCase()).filter(v => v)])
+      }
       if ((Array.isArray(conf.settings.community.templates))&&(conf.settings.community.templates.length)) {
         //Clean remote repository
           logger(`metrics/setup > ${conf.settings.community.templates.length} community templates to install`)
@@ -187,7 +191,7 @@
       }
 
     //Load metadata (plugins)
-      conf.metadata = await metadata()
+      conf.metadata = await metadata({log})
 
     //Conf
       logger(`metrics/setup > setup > success`)

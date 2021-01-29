@@ -1,0 +1,29 @@
+{
+  "//": "Example of configuration for metrics web instance",
+  "//": "====================================================================",
+
+  "token": "MY GITHUB API TOKEN",  "//": "GitHub Personal Token (required)",
+  "restricted": [],                "//": "Authorized users (empty to disable)",
+  "maxusers": 0,                   "//": "Maximum users, (0 to disable)",
+  "cached": 3600000,               "//": "Cache time rendered metrics (0 to disable)",
+  "ratelimiter": null,             "//": "Rate limiter (see express-rate-limit documentation)",
+  "port": 3000,                    "//": "Listening port",
+  "optimize": true,                "//": "SVG optimization",
+  "debug": false,                  "//": "Debug logs",
+  "mocked": false,                 "//": "Use mocked data instead of live APIs",
+  "repositories": 100,             "//": "Number of repositories to use",
+  "community": {
+    "templates": [],               "//": "Additional community templates to setup"
+  },
+  "templates": {
+    "default": "classic",          "//": "Default template",
+    "enabled": [],                 "//": "Enabled templates (empty to enable all)"
+  },
+  "plugins": {                     "//": "Global plugin configuration",
+    <% for (const name of Object.keys(plugins).filter(v => !["base", "core"].includes(v))) { -%>
+"<%= name %>":{
+      <%- JSON.stringify(Object.fromEntries(Object.entries(plugins[name].inputs).filter(([key, {type}]) => type === "token").map(([key, {description:value}]) => [key.replace(new RegExp(`^plugin_${name}_`), ""), value])), null, 6).replace(/^[{]/gm, "").replace(/^\s*[}]$/gm, "").replace(/": "/gm, `${'": null,'.padEnd(22)} "//":"`).replace(/"$/gm, '",').trimStart().replace(/\n$/gm, "\n      ") %>"enabled": false,            "//": "<%= plugins[name].inputs[`plugin_${name}`].description %>"
+    },
+    <% } %>"//": ""
+  }
+}

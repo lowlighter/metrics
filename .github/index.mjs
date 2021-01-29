@@ -8,6 +8,7 @@
 //Paths
   const __metrics = path.join(path.dirname(url.fileURLToPath(import.meta.url)), "..")
   const __action = path.join(__metrics, "source/app/action")
+  const __web = path.join(__metrics, "source/app/web")
   const __readme = path.join(__metrics, ".github/readme")
 
 //Load plugins metadata
@@ -27,7 +28,6 @@
       await fs.writeFile(path.join(__metrics, "README.md"), readme.metrics)
       await fs.writeFile(path.join(__metrics, "source/plugins/README.md"), readme.plugins)
       await fs.writeFile(path.join(__metrics, "source/templates/README.md"), readme.templates)
-
   }
 
 //Build action descriptor
@@ -35,4 +35,12 @@
     console.log(`Generating action.yml`)
     const action = await ejs.renderFile(path.join(__action, "action.yml"), {plugins}, {async:true})
     await fs.writeFile(path.join(__metrics, "action.yml"), action)
+  }
+
+//Build settings example
+  {
+    console.log(`Generating settings.example.yml`)
+    const settings = await ejs.renderFile(path.join(__web, "settings.example.json"), {plugins}, {async:true})
+    console.log(plugins.pagespeed.inputs[`plugin_${"pagespeed"}`].description)
+    await fs.writeFile(path.join(__metrics, "settings.example.json"), settings)
   }

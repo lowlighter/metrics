@@ -3,8 +3,9 @@
 The *languages* plugin displays which programming languages you use the most across all your repositories.
 
 <table>
-  <td>
+  <td align="center">
     <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.svg">
+    <img width="900" height="1" alt="">
   </td>
 </table>
 
