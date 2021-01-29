@@ -204,7 +204,7 @@
           ...github.context.repo, path:filename, message:`Update ${filename} - [Skip GitHub Action]`,
           content:Buffer.from(rendered).toString("base64"),
           branch:committer.branch,
-          ...(sha ? {sha} : {})
+          ...(committer.sha ? {sha:committer.sha} : {})
         })
         info("Commit to repository", "success")
       }
