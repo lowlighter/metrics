@@ -10,7 +10,7 @@ By default, community templates use `template.mjs` from official `classic` templ
 If you trust it, append `+trust` after their name.
 
 ```yaml
-- uses: lowlighter/metrics@master
+- uses: lowlighter/metrics@latest
   with:
     # ... other options
     template: "@super-metrics"

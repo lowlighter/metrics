@@ -224,7 +224,7 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.terminal.svg">
       <img width="900" height="1" alt="">
     </td>
-    <td>See <a href="/source/templates/community/README.md">documentation</a> 🌍</td>
+    <td align="center">See <a href="/source/templates/community/README.md">documentation</a> 🌍</td>
   </tr>
 </table>
 
@@ -328,6 +328,7 @@ As the latter is used as a development branch, jobs may fail from time to time (
 When using a token with additional permissions, it is advised to fork this repository and use it instead to minimize security risks:
 ```yaml
       - uses: my-github-username/metrics@master
+      # If you make changes on your fork, be sure not leave @latest as tag!
 ```
 
 In this case, please consider watching new releases to stay up-to-date and enjoy latest features!
