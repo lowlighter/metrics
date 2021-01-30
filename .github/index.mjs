@@ -44,10 +44,13 @@
 
 //Commit and push
   if (mode === "publish") {
-    await git
+    console.log(`Pushing staged changes: \n${staged.map(file => `  - ${file}`).join("\n")}`)
+    const gitted = await git
       .addConfig("user.name", "GitHub Action")
       .addConfig("user.email", "<>")
       .add(...staged)
       .commit("Auto regenerate files - [Skip GitHub Action]")
       .push("origin", "master")
+    console.log(gitted)
   }
+  console.log("Success!")
