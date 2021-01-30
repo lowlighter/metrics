@@ -118,7 +118,7 @@
           committer.rest = github.getOctokit(committer.token)
           info("Committer REST API", "ok")
           try {
-            info("Committer account", (await rest.users.getAuthenticated()).data.login)
+            info("Committer account", (await committer.rest.users.getAuthenticated()).data.login)
           }
           catch {
             info("Committer account", "(github-actions)")
@@ -200,7 +200,7 @@
 
     //Commit metrics
       if (committer.commit) {
-        await rest.repos.createOrUpdateFileContents({
+        await committer.rest.repos.createOrUpdateFileContents({
           ...github.context.repo, path:filename, message:`Update ${filename} - [Skip GitHub Action]`,
           content:Buffer.from(rendered).toString("base64"),
           branch:committer.branch,
