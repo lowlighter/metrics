@@ -56,7 +56,7 @@ runs:
         if [[ $METRICS_USE_PREBUILT_IMAGE ]]; then
           echo "Using pre-built version $METRICS_TAG, will pull docker image from GitHub registry"
           METRICS_IMAGE=ghcr.io/lowlighter/metrics:$METRICS_TAG
-          docker image pull $METRICS_IMAGE
+          docker image pull $METRICS_IMAGE > /dev/null
         # Official action
         elif [[ $METRICS_SOURCE == "lowlighter" ]]; then
           # Is unreleased version
@@ -82,14 +82,14 @@ runs:
 
         # Build image if necessary
         set +e
-        docker image inspect $METRICS_IMAGE
+        docker image inspect $METRICS_IMAGE > /dev/null
         METRICS_IMAGE_NEEDS_BUILD="$?"
         set -e
         if [[ "$METRICS_IMAGE_NEEDS_BUILD" -gt "0" ]]; then
           echo "Image $METRICS_IMAGE is not present locally, rebuilding it from Dockerfile"
-          docker build -t $METRICS_IMAGE .
+          docker build -t $METRICS_IMAGE . > /dev/null
         else
-          echo "Image METRICS_IMAGE is present locally"
+          echo "Image $METRICS_IMAGE is present locally"
         fi
 
         # Run docker image with current environment

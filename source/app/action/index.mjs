@@ -22,7 +22,7 @@
   info.group = ({metadata, name, inputs}) => {
     info.section(metadata.plugins[name]?.name?.match(/(?<section>[\w\s]+)/i)?.groups?.section?.trim(), " ")
     for (const [input, value] of Object.entries(inputs))
-      info(metadata.plugins[name]?.inputs[input]?.description ?? input, value)
+      info(metadata.plugins[name]?.inputs[input]?.description ?? input, value, {token:metadata.plugins[name]?.inputs?.[key]?.type === "token"})
   }
   info.break = () => console.log("─".repeat(88))
 
