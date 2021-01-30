@@ -11,7 +11,7 @@
   const debugged = []
 
 //Info logger
-  const info = (left, right, {token = false} = {}) =>  console.log(`${`${left}`.padEnd(64 + 9*(/0m$/.test(left)))} │ ${
+  const info = (left, right, {token = false} = {}) =>  console.log(`${`${left}`.padEnd(56 + 9*(/0m$/.test(left)))} │ ${
     Array.isArray(right) ? right.join(", ") || "(none)" :
     right === undefined ? "(default)" :
     token ? /^MOCKED/.test(right) ? "(MOCKED TOKEN)" : (right ? "(provided)" : "(missing)") :
@@ -111,11 +111,11 @@
           committer.token = _token || token
           committer.branch = _branch || github.context.ref.replace(/^refs[/]heads[/]/, "")
           info("Committer token", committer.token, {token:true})
-          if (!token)
+          if (!committer.token)
             throw new Error("You must provide a valid GitHub token to commit your metrics")
           info("Committer branch", committer.branch)
         //Instantiate API for committer
-          committer.rest = github.getOctokit(token)
+          committer.rest = github.getOctokit(committer.token)
           info("Committer REST API", "ok")
           try {
             info("Committer account", (await rest.users.getAuthenticated()).data.login)
