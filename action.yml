@@ -584,6 +584,7 @@ runs:
         if [[ $METRICS_USE_PREBUILT_IMAGE ]]; then
           echo "Using pre-built version $METRICS_TAG, will pull docker image from GitHub registry"
           METRICS_IMAGE=ghcr.io/lowlighter/metrics:$METRICS_TAG
+          docker image pull $METRICS_IMAGE
         # Official action
         elif [[ $METRICS_SOURCE == "lowlighter" ]]; then
           # Is unreleased version
@@ -597,17 +598,27 @@ runs:
             METRICS_IMAGE=ghcr.io/lowlighter/metrics:$METRICS_TAG
           # Use registry for released version
           else
-            echo "Using an unreleased version, rebuilding docker image from Dockerfile"
-            docker build -t metrics:unreleased .
-            METRICS_IMAGE=metrics:unreleased
+            echo "Using an unreleased version ($METRICS_VERSION)"
+            METRICS_IMAGE=metrics:$METRICS_VERSION
           fi
         # Forked action
         else
-          echo "Using a forked version, rebuilding docker image from Dockerfile"
-          docker build -t metrics:forked .
-          METRICS_IMAGE=metrics:forked
+          echo "Using a forked version"
+          METRICS_IMAGE=metrics:forked-$METRICS_VERSION
         fi
         echo "Image name: $METRICS_IMAGE"
+
+        # Build image if necessary
+        set +e
+        docker image inspect $METRICS_IMAGE
+        METRICS_IMAGE_NEEDS_BUILD="$?"
+        set -e
+        if [[ "$METRICS_IMAGE_NEEDS_BUILD" -gt "0" ]]; then
+          echo "Image $METRICS_IMAGE is not present locally, rebuilding it from Dockerfile"
+          docker build -t $METRICS_IMAGE .
+        else
+          echo "Image METRICS_IMAGE is present locally"
+        fi
 
         # Run docker image with current environment
         docker run --volume $GITHUB_EVENT_PATH:$GITHUB_EVENT_PATH --env-file .env $METRICS_IMAGE
