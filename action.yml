@@ -28,6 +28,8 @@ inputs:
   # User account personal token
   # No additional scopes are needed unless you want to include private repositories metrics
   # Some plugins may also require additional scopes
+  # ────────────────────────────────────────────────────────────────
+  # If you're only using plugins which don't really require a GitHub token, you may pass "NOT_NEEDED" as value
   token:
     description: GitHub Personal Token
     required: true
