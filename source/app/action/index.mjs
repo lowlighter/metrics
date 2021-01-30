@@ -14,7 +14,7 @@
   const info = (left, right, {token = false} = {}) =>  console.log(`${`${left}`.padEnd(56 + 9*(/0m$/.test(left)))} │ ${
     Array.isArray(right) ? right.join(", ") || "(none)" :
     right === undefined ? "(default)" :
-    token ? /^MOCKED/.test(right) ? "(MOCKED TOKEN)" : (right ? "(provided)" : "(missing)") :
+    token ? /^MOCKED/.test(right) ? "(MOCKED TOKEN)" : /^NOT_NEEDED$/.test(right) ? "(NOT NEEDED)" : (right ? "(provided)" : "(missing)") :
     typeof right === "object" ? JSON.stringify(right) :
     right
   }`)
@@ -62,7 +62,7 @@
 
     //Docker image
       if (_image)
-        info("Using prebuilt image", image)
+        info("Using prebuilt image", _image)
 
     //Debug mode and flags
       info("Debug mode", debug)
@@ -76,6 +76,7 @@
       info("GitHub token", token, {token:true})
       if (!token)
         throw new Error("You must provide a valid GitHub token to gather your metrics")
+      conf.settings.token = token
       const api = {}
       api.graphql = octokit.graphql.defaults({headers:{authorization: `token ${token}`}})
       info("Github GraphQL API", "ok")
@@ -179,7 +180,7 @@
         //Register user inputs
           if (enabled) {
             info.break()
-            info.group({metadata, name, inputs:enabled ? inputs : {}})
+            info.group({metadata, name, inputs})
             q[name] = true
             for (const [key, value] of Object.entries(inputs)) {
               //Store token in plugin configuration

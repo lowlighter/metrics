@@ -193,6 +193,9 @@
     //Load metadata (plugins)
       conf.metadata = await metadata({log})
 
+    //Set no token property
+      Object.defineProperty(conf.settings, "notoken", {get() { return conf.settings.token === "NOT_NEEDED" }})
+
     //Conf
       logger(`metrics/setup > setup > success`)
       return {Templates, Plugins, conf}

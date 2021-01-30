@@ -9,6 +9,10 @@
       console.debug(`metrics/compute/${login}/base > started`)
       let {repositories, repositories_forks:forks} = imports.metadata.plugins.base.inputs({data, q, account:"bypass"}, {repositories:conf.settings.repositories ?? 100})
 
+    //Skip initial data gathering if not needed
+      if (conf.settings.notoken)
+        return (postprocess.skip({login, data}), {})
+
     //Base parts (legacy handling for web instance)
       const defaulted = ("base" in q) ? !!q.base : true
       for (const part of conf.settings.plugins.base.parts)
@@ -84,6 +88,24 @@
           following:{totalCount:0},
           issueComments:{totalCount:0},
           organizations:{totalCount:0},
+        })
+      },
+    //Skip base content query and instantiate an empty user instance
+      skip({login, data}) {
+        data.user = {}
+        for (const account of ["user", "organization"])
+          postprocess?.[account]({login, data})
+        data.account = "bypass"
+        Object.assign(data.user, {
+          databaseId:0,
+          name:login,
+          login,
+          createdAt:new Date(),
+          avatarUrl:`https://github.com/${login}.png`,
+          websiteUrl:null,
+          twitterUsername:login,
+          repositories:{totalCount:0, totalDiskUsage:0, nodes:[]},
+          packages:{totalCount:0},
         })
       }
   }

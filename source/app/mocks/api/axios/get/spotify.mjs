@@ -1,7 +1,7 @@
 /** Mocked data */
   export default function ({faker, url, options, login = faker.internet.userName()}) {
     //Spotify api
-      if (/^https:..api.spotify.com/.test(url)) {
+      if (/^https:..api.spotify.com.*$/.test(url)) {
         //Get recently played tracks
           if (/me.player.recently-played/.test(url)&&(options?.headers?.Authorization === "Bearer MOCKED_TOKEN_ACCESS")) {
             console.debug(`metrics/compute/mocks > mocking spotify api result > ${url}`)

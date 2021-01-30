@@ -1,6 +1,6 @@
 /** Mocked data */
   export default function ({faker, url, body, login = faker.internet.userName()}) {
-    if (/^https:..graphql.anilist.co/.test(url)) {
+    if (/^https:..graphql.anilist.co.*$/.test(url)) {
       //Initialization and media generator
         const query = body.query
         const media = ({type}) => ({
