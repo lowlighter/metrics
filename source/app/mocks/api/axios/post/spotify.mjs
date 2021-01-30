@@ -3,7 +3,7 @@
 
 /** Mocked data */
   export default function ({faker, url, body, login = faker.internet.userName()}) {
-    if (/^https:..accounts.spotify.com.api.token/.test(url)) {
+    if (/^https:..accounts.spotify.com.api.token.*$/.test(url)) {
       //Access token generator
         const params = new urls.URLSearchParams(body)
         if ((params.get("grant_type") === "refresh_token")&&(params.get("client_id") === "MOCKED_CLIENT_ID")&&(params.get("client_secret") === "MOCKED_CLIENT_SECRET")&&(params.get("refresh_token") === "MOCKED_REFRESH_TOKEN")) {

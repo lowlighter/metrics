@@ -3,7 +3,7 @@
     //Tested url
       const tested = url.match(/&url=(?<tested>.*?)(?:&|$)/)?.groups?.tested ?? faker.internet.url()
     //Pagespeed api
-      if (/^https:..www.googleapis.com.pagespeedonline.v5/.test(url)) {
+      if (/^https:..www.googleapis.com.pagespeedonline.v5.*$/.test(url)) {
         //Pagespeed result
           if (/v5.runPagespeed.*&key=MOCKED_TOKEN/.test(url)) {
             console.debug(`metrics/compute/mocks > mocking pagespeed api result > ${url}`)
