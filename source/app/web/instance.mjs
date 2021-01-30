@@ -6,9 +6,9 @@
   import compression from "compression"
   import cache from "memory-cache"
   import util from "util"
-  import setup from "../setup.mjs"
-  import mocks from "../mocks.mjs"
-  import metrics from "../metrics.mjs"
+  import setup from "../metrics/setup.mjs"
+  import mocks from "../mocks/index.mjs"
+  import metrics from "../metrics/index.mjs"
 
 /** App */
   export default async function ({mock, nosettings} = {}) {
@@ -66,8 +66,11 @@
 
     //Base routes
       const limiter = ratelimit({max:debug ? Number.MAX_SAFE_INTEGER : 60, windowMs:60*1000})
+      const metadata = Object.fromEntries(Object.entries(conf.metadata.plugins)
+        .filter(([key]) => !["base", "core"].includes(key))
+        .map(([key, value]) => [key, Object.fromEntries(Object.entries(value).filter(([key]) => ["name", "icon", "web", "supports"].includes(key)))]))
+      const enabled = Object.entries(metadata).map(([name]) => ({name, enabled:plugins[name]?.enabled ?? false}))
       const templates =  Object.entries(Templates).map(([name]) => ({name, enabled:(conf.settings.templates.enabled.length ? conf.settings.templates.enabled.includes(name) : true) ?? false}))
-      const enabled = Object.entries(Plugins).map(([name]) => ({name, enabled:plugins[name]?.enabled ?? false}))
       const actions = {flush:new Map()}
       let requests = (await rest.rateLimit.get()).data.rate
       setInterval(async () => requests = (await rest.rateLimit.get()).data.rate, 30*1000)
@@ -80,6 +83,7 @@
       //Plugins and templates
         app.get("/.plugins", limiter, (req, res) => res.status(200).json(enabled))
         app.get("/.plugins.base", limiter, (req, res) => res.status(200).json(conf.settings.plugins.base.parts))
+        app.get("/.plugins.metadata", limiter, (req, res) => res.status(200).json(metadata))
         app.get("/.templates", limiter, (req, res) => res.status(200).json(templates))
         app.get("/.templates/:template", limiter, (req, res) => req.params.template in conf.templates ? res.status(200).json(conf.templates[req.params.template]) : res.sendStatus(404))
         for (const template in conf.templates)
@@ -148,7 +152,7 @@
         //Compute rendering
           try {
             //Render
-              const q = parse(req.query)
+              const q = req.query
               console.debug(`metrics/app/${login} > ${util.inspect(q, {depth:Infinity, maxStringLength:256})}`)
               const {rendered, mime} = await metrics({login, q}, {
                 graphql, rest, plugins, conf,
@@ -194,20 +198,4 @@
         `SVG optimization       │ ${conf.settings.optimize ?? false}`,
         `Server ready !`
       ].join("\n")))
-  }
-
-/** Query parser */
-  function parse(query) {
-    for (const [key, value] of Object.entries(query)) {
-      //Parse number
-        if (/^\d+$/.test(value))
-          query[key] = Number(value)
-      //Parse boolean
-        if (/^(?:true|false)$/.test(value))
-          query[key] = (value === "true")||(value === true)
-      //Parse null
-        if (/^null$/.test(value))
-          query[key] = null
-    }
-    return query
   }

@@ -1,0 +1,63 @@
+name: "🎼 Music plugin"
+cost: N/A
+supports:
+  - user
+  - organization
+inputs:
+
+  # Enable or disable plugin
+  plugin_music:
+    description: Display your music tracks
+    type: boolean
+    default: no
+
+  # Name of music provider
+  # This is optional for "playlist" mode (it can be deduced automatically from "plugin_music_playlist" url)
+  # This is required in other modes
+  plugin_music_provider:
+    description: Music provider
+    type: string
+    default: ""
+    values:
+      - apple   # Apple Music
+      - spotify # Spotify
+      - lastfm  # Last.fm
+
+  # Music provider token
+  # This may be required depending on music provider used and plugin mode
+  # - "apple"   : not required
+  # - "spotify" : required for "recent" mode, format is "client_id, client_secret, refresh_token"
+  # - "lastfm"  : required, format is "api_key"
+  plugin_music_token:
+    description: Music provider personal token
+    type: token
+    default: ""
+
+  # Plugin mode
+  plugin_music_mode:
+    description: Plugin mode
+    type: string
+    default: ""  # Defaults to "recent" or to "playlist" if "plugin_music_playlist" is specified
+    values:
+      - playlist # Display tracks from an embed playlist randomly
+      - recent   # Display recently listened tracks
+
+  # Embed playlist url (i.e. url used by music player iframes)
+  plugin_music_playlist:
+    description: Embed playlist url
+    type: string
+    default: ""
+
+  # Number of music tracks to display
+  plugin_music_limit:
+    description: Maximum number of tracks to display
+    type: number
+    default: 4
+    min: 1
+    max: 100
+
+  # Username on music provider service
+  plugin_music_user:
+    description: Music provider username
+    type: string
+    default: .user.login

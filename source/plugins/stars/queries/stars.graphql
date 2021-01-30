@@ -1,0 +1,32 @@
+query StarsDefault {
+  user(login: "$login") {
+    starredRepositories(first: $limit, orderBy: {field: STARRED_AT, direction: DESC}) {
+      edges {
+        starredAt
+        node {
+          description
+          forkCount
+          isFork
+          issues {
+            totalCount
+          }
+          nameWithOwner
+          openGraphImageUrl
+          licenseInfo {
+            nickname
+            spdxId
+            name
+          }
+          pullRequests {
+            totalCount
+          }
+          stargazerCount
+          primaryLanguage {
+            color
+            name
+          }
+        }
+      }
+    }
+  }
+}

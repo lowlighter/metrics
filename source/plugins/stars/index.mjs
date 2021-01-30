@@ -1,19 +1,18 @@
 //Setup
-  export default async function ({login, graphql, q, queries, account}, {enabled = false} = {}) {
+  export default async function ({login, data, graphql, q, queries, imports, account}, {enabled = false} = {}) {
     //Plugin execution
       try {
         //Check if plugin is enabled and requirements are met
           if ((!enabled)||(!q.stars))
             return null
-          if (account === "organization")
-            throw {error:{message:"Not available for organizations"}}
-        //Parameters override
-          let {"stars.limit":limit = 4} = q
-          //Limit
-            limit = Math.max(1, Math.min(100, Number(limit)))
+
+        //Load inputs
+          let {limit} = imports.metadata.plugins.stars.inputs({data, account, q})
+
         //Retrieve user stars from graphql api
           console.debug(`metrics/compute/${login}/plugins > stars > querying api`)
-          const {user:{starredRepositories:{edges:repositories}}} = await graphql(queries.starred({login, limit}))
+          const {user:{starredRepositories:{edges:repositories}}} = await graphql(queries.stars({login, limit}))
+
         //Format starred repositories
           for (const edge of repositories) {
             //Format date
@@ -25,6 +24,7 @@
                 updated = `${Math.floor(time)} day${time >= 2 ? "s" : ""} ago`
               edge.starred = updated
           }
+
         //Results
           return {repositories}
       }

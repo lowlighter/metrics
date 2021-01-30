@@ -1,10 +1,14 @@
 //Setup
-  export default async function ({computed, q}, {enabled = false} = {}) {
+  export default async function ({data, computed, imports, q, account}, {enabled = false} = {}) {
     //Plugin execution
       try {
         //Check if plugin is enabled and requirements are met
           if ((!enabled)||(!q.followup))
             return null
+
+        //Load inputs
+          imports.metadata.plugins.followup.inputs({data, account, q})
+
         //Define getters
           const followup = {
             issues:{
@@ -18,6 +22,7 @@
               get merged() { return computed.repositories.pr_merged }
             }
           }
+
         //Results
           return followup
       }

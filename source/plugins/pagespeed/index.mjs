@@ -1,18 +1,18 @@
 //Setup
-  export default async function ({login, imports, data, q}, {enabled = false, token = null} = {}) {
+  export default async function ({login, imports, data, q, account}, {enabled = false, token = null} = {}) {
     //Plugin execution
       try {
         //Check if plugin is enabled and requirements are met
           if ((!enabled)||(!q.pagespeed)||((!data.user.websiteUrl)&&(!q["pagespeed.url"])))
             return null
-        //Parameters override
-          let {"pagespeed.detailed":detailed = false, "pagespeed.screenshot":screenshot = false, "pagespeed.url":url = data.user.websiteUrl} = q
-          //Duration in days
-            detailed = !!detailed
+
+        //Load inputs
+          let {detailed, screenshot, url} = imports.metadata.plugins.pagespeed.inputs({data, account, q})
         //Format url if needed
           if (!/^https?:[/][/]/.test(url))
             url = `https://${url}`
           const result = {url, detailed, scores:[], metrics:{}}
+
         //Load scores from API
           console.debug(`metrics/compute/${login}/plugins > pagespeed > querying api for ${url}`)
           const scores = new Map()
@@ -31,6 +31,7 @@
               }
           }))
           result.scores = [scores.get("performance"), scores.get("accessibility"), scores.get("best-practices"), scores.get("seo")]
+
         //Detailed metrics
           if (detailed) {
             console.debug(`metrics/compute/${login}/plugins > pagespeed > performing detailed audit`)
@@ -39,6 +40,7 @@
             Object.assign(result.metrics, ...request.data.lighthouseResult.audits.metrics.details.items)
             console.debug(`metrics/compute/${login}/plugins > pagespeed > performed detailed audit (status code ${request.status})`)
           }
+
         //Results
           return result
       }

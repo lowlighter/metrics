@@ -1,0 +1,61 @@
+name: "🧑‍🤝‍🧑 People plugin"
+cost: 1 GraphQL request per 100 users + 1 REST request per user in "plugin_people_thanks"
+supports:
+  - user
+  - organization
+  - repository
+inputs:
+
+  # Enable or disable plugin
+  plugin_people:
+    description: Display GitHub users from various affiliations
+    type: boolean
+    default: no
+
+  # Number of users to display per section
+  plugin_people_limit:
+    description: Maximum number of user to display
+    type: number
+    default: 28
+    min: 0
+
+  # Size of displayed user's avatar
+  plugin_people_size:
+    description: Size of displayed GitHub users' avatars
+    type: number
+    default: 28
+    min: 8
+    max: 64
+
+  # List of section to display
+  # Ordering will be kept
+  plugin_people_types:
+    description: Affiliations to display
+    type: array
+    format: comma-separated
+    default: followers, following
+    values:
+      - followers    # For user metrics
+      - following    # For user metrics
+      - followed     # For user metrics, alias for "following"
+      - sponsoring   # For user metrics
+      - sponsored    # Alias for "sponsored"
+      - sponsors     # For both user and repository metrics
+      - contributors # For repository metrics
+      - stargazers   # For repository metrics
+      - watchers     # For repository metrics
+      - thanks       # For both user and repository metrics, see "plugin_people_thanks" below
+
+  # When displaying "thanks" section, specified users list will be displayed
+  # This is useful to craft "Special thanks" badges
+  plugin_people_thanks:
+    description: GitHub users to personally thanks
+    type: array
+    format: comma-separated
+    default: ""
+
+  # Use GitHub identicons instead of users' avatar (for privacy purposes)
+  plugin_people_identicons:
+    description: Use identicons instead of avatars
+    type: boolean
+    default: no

@@ -1,0 +1,55 @@
+name: "🌸 Anilist"
+cost: N/A
+supports:
+  - user
+  - organization
+inputs:
+
+  # Enable or disable plugin
+  plugin_anilist:
+    description: Display data from your AniList account
+    type: boolean
+    default: no
+
+  # Types of medias to display
+  plugin_anilist_medias:
+    description: Medias types to display
+    type: array
+    format: comma-separated
+    default: anime, manga
+    values:
+      - anime
+      - manga
+
+  # Sections to display
+  # Values from "plugin_anilist_medias" may impact displayed sections
+  plugin_anilist_sections:
+    description: Sections to display
+    type: array
+    format: comma-separated
+    default: favorites
+    values:
+      - favorites  # Favorites animes and mangas (depending on plugin_anilist_medias values)
+      - watching   # Animes in your watching list
+      - reading    # Mangas in your reading list
+      - characters # Favorites characters
+
+  # Number of entries to display per section (this does not impacts characters section)
+  # Set to 0 to disable limitations
+  plugin_anilist_limit:
+    description: Maximum number of entries to display per section
+    type: number
+    default: 2
+    min: 0
+
+  # Shuffle AniList data for varied outputs
+  plugin_anilist_shuffle:
+    description: Shuffle AniList data
+    type: boolean
+    default: yes
+
+  # Username on AniList
+  plugin_anilist_user:
+    type: string
+    description: AniList login
+    default: .user.login

@@ -1,42 +1,33 @@
 //Setup
-  export default async function ({login, imports, q}, {enabled = false} = {}) {
+  export default async function ({login, data, queries, imports, q, account}, {enabled = false} = {}) {
     //Plugin execution
       try {
         //Check if plugin is enabled and requirements are met
           if ((!enabled)||(!q.anilist))
             return null
-        //Parameters override
-          let {"anilist.medias":medias = ["anime", "manga"], "anilist.sections":sections = ["favorites"], "anilist.limit":limit = 2, "anilist.shuffle":shuffle = true, "anilist.user":user = login} = q
-          //Medias types
-            medias = decodeURIComponent(medias).split(",").map(x => x.trim().toLocaleLowerCase()).filter(x => ["anime", "manga"].includes(x))
-          //Sections
-            sections = decodeURIComponent(sections).split(",").map(x => x.trim().toLocaleLowerCase()).filter(x => ["favorites", "watching", "reading", "characters"].includes(x))
-          //Limit medias
-            limit = Math.max(0, Number(limit))
-        //GraphQL queries
-          const query = {
-            statistics:`${await imports.fs.readFile(`${imports.__module(import.meta.url)}/queries/statistics.graphql`)}`,
-            characters:`${await imports.fs.readFile(`${imports.__module(import.meta.url)}/queries/characters.graphql`)}`,
-            medias:`${await imports.fs.readFile(`${imports.__module(import.meta.url)}/queries/medias.graphql`)}`,
-            favorites:`${await imports.fs.readFile(`${imports.__module(import.meta.url)}/queries/favorites.graphql`)}`,
-          }
+
+        //Load inputs
+          let {limit, medias, sections, shuffle, user} = imports.metadata.plugins.anilist.inputs({data, account, q})
+
         //Initialization
           const result = {user:{stats:null, genres:[]}, lists:Object.fromEntries(medias.map(type => [type, {}])), characters:[], sections}
+
         //User statistics
           {
             //Query API
               console.debug(`metrics/compute/${login}/plugins > anilist > querying api (user statistics)`)
-              const {data:{data:{User:{statistics:stats}}}} = await imports.axios.post("https://graphql.anilist.co", {variables:{name:user}, query:query.statistics})
+              const {data:{data:{User:{statistics:stats}}}} = await imports.axios.post("https://graphql.anilist.co", {variables:{name:user}, query:queries.anilist.statistics()})
             //Format and save results
               result.user.stats = stats
               result.user.genres = [...new Set([...stats.anime.genres.map(({genre}) => genre), ...stats.manga.genres.map(({genre}) => genre)])]
           }
+
         //Medias lists
           if ((sections.includes("watching"))||(sections.includes("reading"))) {
             for (const type of medias) {
               //Query API
                 console.debug(`metrics/compute/${login}/plugins > anilist > querying api (medias lists - ${type})`)
-                const {data:{data:{MediaListCollection:{lists}}}} = await imports.axios.post("https://graphql.anilist.co", {variables:{name:user, type:type.toLocaleUpperCase()}, query:query.medias})
+                const {data:{data:{MediaListCollection:{lists}}}} = await imports.axios.post("https://graphql.anilist.co", {variables:{name:user, type:type.toLocaleUpperCase()}, query:queries.anilist.medias()})
               //Format and save results
                 for (const {name, entries} of lists) {
                   //Format results
@@ -50,6 +41,7 @@
                 }
             }
           }
+
         //Favorites anime/manga
           if (sections.includes("favorites")) {
             for (const type of medias) {
@@ -60,7 +52,7 @@
                 let next = false
                 do {
                   console.debug(`metrics/compute/${login}/plugins > anilist > querying api (favorites ${type}s - page ${page})`)
-                  const {data:{data:{User:{favourites:{[type]:{nodes, pageInfo:cursor}}}}}} = await imports.axios.post("https://graphql.anilist.co", {variables:{name:user, page}, query:query.favorites.replace(/[$]type/g, type)})
+                  const {data:{data:{User:{favourites:{[type]:{nodes, pageInfo:cursor}}}}}} = await imports.axios.post("https://graphql.anilist.co", {variables:{name:user, page}, query:queries.anilist.favorites({type})})
                   page = cursor.currentPage
                   next = cursor.hasNextPage
                   list.push(...await Promise.all(nodes.map(media => format({media:{progess:null, score:null, media}, imports}))))
@@ -74,6 +66,7 @@
                 }
             }
           }
+
         //Favorites characters
           if (sections.includes("characters")) {
             //Query API
@@ -83,7 +76,7 @@
               let next = false
               do {
                 console.debug(`metrics/compute/${login}/plugins > anilist > querying api (favorites characters - page ${page})`)
-                const {data:{data:{User:{favourites:{characters:{nodes, pageInfo:cursor}}}}}} = await imports.axios.post("https://graphql.anilist.co", {variables:{name:user, page}, query:query.characters})
+                const {data:{data:{User:{favourites:{characters:{nodes, pageInfo:cursor}}}}}} = await imports.axios.post("https://graphql.anilist.co", {variables:{name:user, page}, query:queries.anilist.characters()})
                 page = cursor.currentPage
                 next = cursor.hasNextPage
                 for (const {name:{full:name}, image:{medium:artwork}} of nodes)
@@ -92,6 +85,7 @@
             //Format and save results
               result.characters = shuffle ? imports.shuffle(characters) : characters
           }
+
         //Results
           return result
       }

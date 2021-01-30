@@ -1,0 +1,164 @@
+name: "🧱 Core"
+cost: N/A
+supports:
+  - user
+  - organization
+  - repository
+inputs:
+
+  # User account personal token
+  # No additional scopes are needed unless you want to include private repositories metrics
+  # Some plugins may also require additional scopes
+  token:
+    description: GitHub Personal Token
+    type: token
+    required: true
+
+  # GitHub username
+  user:
+    description: GitHub username
+    type: string
+    default: "" # Defaults to "token" owner
+
+  # Set to "${{ secrets.GITHUB_TOKEN }}"
+  committer_token:
+    description: GitHub Token used to commit metrics
+    type: token
+    default: "" # Defaults to "token"
+
+  # Branch used to commit rendered metrics
+  committer_branch:
+    description: Branch used to commit rendered metrics
+    type: string
+    default: "" # Defaults to your repository default branch
+
+  # Rendered metrics output path, relative to repository's root
+  filename:
+    description: Rendered metrics output path
+    type: string
+    default: github-metrics.svg
+
+  # Optimize SVG image to reduce its filesize
+  # Some templates may not support this option
+  optimize:
+    description: SVG optimization
+    type: boolean
+    default: yes
+
+  # Setup additional templates from remote repositories
+  setup_community_templates:
+    description: Additional community templates to setup
+    type: array
+    format:
+      - comma-separated
+      - /(?<user>[-a-z0-9]+)[/](?<repo>[-a-z0-9]+)@(?<branch>[-a-z0-9]+):(?<template>[-a-z0-9]+)/
+    default: ""
+
+  # Template to use
+  # To use community template, prefix its name with "@"
+  template:
+    description: Template to use
+    type: string
+    default: classic
+
+  # Additional query parameters (JSON string)
+  # Some templates may require additional parameters which you can specify here
+  # Do not use this option to pass plugins parameters as they'll be overwritten by the other options
+  query:
+    description: Additional query parameters
+    type: json
+    default: "{}"
+
+  # Timezone used by metrics
+  # See https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  config_timezone:
+    description: Timezone used
+    type: string
+    default: ""
+
+  # Specify in which order metrics content will be displayed
+  # If you omit some partials, they'll be appended at the end in default order
+  # See "partials/_.json" of each template for a list of supported partials
+  config_order:
+    description: Configure content order
+    type: array
+    format: comma-separated
+    default: ""
+
+  # Enable SVG CSS animations
+  config_animations:
+    description: SVG CSS animations
+    type: boolean
+    default: yes
+
+  # Configure padding for output image (percentage value)
+  # It can be used to add padding to generated metrics if rendering is cropped or has too much empty space
+  # Specify one value (for both width and height) or two values (one for width and one for height)
+  config_padding:
+    description: Image padding
+    type: array
+    format: comma-separated
+    default: 6%
+
+  # Metrics output format
+  config_output:
+    description: Output image format
+    type: string
+    default: svg
+    values:
+      - svg
+      - png  # Does not support animations
+      - jpeg # Does not support animations and transparency
+
+  # ====================================================================================
+  # Options below are mostly used for testing
+
+  # Throw on plugins errors
+  # If disabled, metrics will handle errors gracefully with a message in rendered metrics
+  plugins_errors_fatal:
+    description: Die on plugins errors
+    type: boolean
+    default: no
+
+  # Debug mode
+  # Note that this will automatically be enabled if job fails
+  debug:
+    description: Debug logs
+    type: boolean
+    default: no
+
+  # Ensure SVG can be correctly parsed after generation
+  verify:
+    description: Verify SVG
+    type: boolean
+    default: no
+
+  # Debug flags
+  debug_flags:
+    description: Debug flags
+    type: array
+    format: space-separated
+    default: ""
+    values:
+      - --cakeday
+      - --hireable
+      - --halloween
+
+  # Dry-run mode (perform generation without pushing it)
+  dryrun:
+    description: Enable dry-run
+    type: boolean
+    default: no
+
+  # Use mocked data to bypass external APIs
+  use_mocked_data:
+    description: Use mocked data instead of live APIs
+    type: boolean
+    default: no
+
+  # Use a pre-built image from GitHub registry (experimental)
+  # See https://github.com/users/lowlighter/packages/container/package/metrics for more information
+  use_prebuilt_image:
+    description: Use pre-built image from GitHub registry
+    type: string
+    default: ""

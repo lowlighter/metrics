@@ -1,0 +1,19 @@
+name: "🌟 Recently starred repositories"
+cost: 1 GraphQL request
+supports:
+  - user
+inputs:
+
+  # Enable or disable plugin
+  plugin_stars:
+    description: Display recently starred repositories
+    type: boolean
+    default: no
+
+  # Number of stars to display
+  plugin_stars_limit:
+    description: Maximum number of stars to display
+    type: number
+    default: 4
+    min: 1
+    max: 100

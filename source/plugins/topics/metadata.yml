@@ -1,0 +1,41 @@
+name: "📌 Starred topics"
+cost: N/A
+supports:
+  - user
+inputs:
+
+  # Enable or disable plugin
+  plugin_topics:
+    description: Display starred topics
+    type: boolean
+    default: no
+
+  # Plugin mode
+  plugin_topics_mode:
+    description: Plugin mode
+    type: string
+    default: starred
+    values:
+      - starred  # Display starred topics as labels
+      - mastered # Display starred topics as mastered/known technologies icons
+
+  # Topics sorting order
+  plugin_topics_sort:
+    description: Sorting method of starred topics
+    type: string
+    default: stars
+    values:
+      - stars    # Sort topics by stargazers
+      - activity # Sort topics by recent activity
+      - starred  # Sort topics by the date you starred them
+      - random   # Sort topics randomly
+
+  # Number of topics to display
+  # Set to 0 to disable limitations
+  # When in "starred" mode, additional topics will be grouped into an ellipsis
+  plugin_topics_limit:
+    description: Maximum number of topics to display
+    type: number
+    default: 15
+    min: 0
+    max: 20
