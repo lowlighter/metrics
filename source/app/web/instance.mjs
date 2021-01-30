@@ -72,8 +72,11 @@
       const enabled = Object.entries(metadata).map(([name]) => ({name, enabled:plugins[name]?.enabled ?? false}))
       const templates =  Object.entries(Templates).map(([name]) => ({name, enabled:(conf.settings.templates.enabled.length ? conf.settings.templates.enabled.includes(name) : true) ?? false}))
       const actions = {flush:new Map()}
-      let requests = (await rest.rateLimit.get()).data.rate
-      setInterval(async () => requests = (await rest.rateLimit.get()).data.rate, 30*1000)
+      let requests = {limit:0, used:0, remaining:0, reset:NaN}
+      if (!conf.settings.notoken) {
+        requests = (await rest.rateLimit.get()).data.rate
+        setInterval(async () => requests = (await rest.rateLimit.get()).data.rate, 30*1000)
+      }
       //Web
         app.get("/", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/index.html`))
         app.get("/index.html", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/index.html`))

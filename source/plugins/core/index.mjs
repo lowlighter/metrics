@@ -90,7 +90,7 @@
       computed.avatar = await avatar || "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
 
     //Token scopes
-      computed.token.scopes = (await rest.request("HEAD /")).headers["x-oauth-scopes"].split(", ")
+      computed.token.scopes = conf.settings.notoken ? [] : (await rest.request("HEAD /")).headers["x-oauth-scopes"].split(", ")
 
     //Meta
       data.meta = {version:conf.package.version, author:conf.package.author}
