@@ -180,7 +180,7 @@
         //Register user inputs
           if (enabled) {
             info.break()
-            info.group({metadata, name, inputs:enabled ? inputs : {}})
+            info.group({metadata, name, inputs})
             q[name] = true
             for (const [key, value] of Object.entries(inputs)) {
               //Store token in plugin configuration

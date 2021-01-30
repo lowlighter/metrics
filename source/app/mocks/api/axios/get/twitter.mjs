@@ -1,7 +1,7 @@
 /** Mocked data */
   export default function ({faker, url, options, login = faker.internet.userName()}) {
     //Twitter api
-      if (/^https:..api.twitter.com/.test(url)) {
+      if (/^https:..api.twitter.com.*$/.test(url)) {
         //Get user profile
           if ((/users.by.username/.test(url))&&(options?.headers?.Authorization === "Bearer MOCKED_TOKEN")) {
             console.debug(`metrics/compute/mocks > mocking twitter api result > ${url}`)
