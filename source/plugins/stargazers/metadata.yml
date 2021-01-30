@@ -1,0 +1,13 @@
+name: "✨ Stargazers over last weeks"
+cost: 1 GraphQL request per 100 stargazers
+supports:
+  - user
+  - organization
+  - repository
+inputs:
+
+  # Enable or disable plugin
+  plugin_stargazers:
+    description: Display stargazers metrics
+    type: boolean
+    default: no

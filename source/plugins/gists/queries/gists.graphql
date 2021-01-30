@@ -1,0 +1,23 @@
+query GistsDefault {
+  user(login: "$login") {
+    gists($after first: 100, orderBy: {field: UPDATED_AT, direction: DESC}) {
+      edges {
+        cursor
+      }
+      totalCount
+      nodes {
+        stargazerCount
+        isFork
+        forks {
+          totalCount
+        }
+        files {
+          name
+        }
+        comments {
+          totalCount
+        }
+      }
+    }
+  }
+}

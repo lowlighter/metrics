@@ -1,6 +1,3 @@
-//Imports
-  import common from "./../common.mjs"
-
 /** Template processor */
   export default async function ({login, q}, {conf, data, rest, graphql, plugins, queries, account}, {s, pending, imports}) {
     //Check arguments
@@ -8,13 +5,13 @@
       if (!repo) {
         console.debug(`metrics/compute/${login}/${repo} > error, repo was undefined`)
         data.errors.push({error:{message:`You must pass a "repo" argument to use this template`}})
-        return await common(...arguments)
+        return await imports.plugins.core(...arguments)
       }
       console.debug(`metrics/compute/${login}/${repo} > switching to mode ${account}`)
 
     //Retrieving single repository
       console.debug(`metrics/compute/${login}/${repo} > retrieving single repository ${repo}`)
-      const {[account]:{repository}} = await graphql(queries.repository({login, repo, account}))
+      const {[account]:{repository}} = await graphql(queries.base.repository({login, repo, account}))
       data.user.repositories.nodes = [repository]
       data.repo = repository
 
@@ -66,8 +63,8 @@
     //Override plugins parameters
       q["projects.limit"] = 0
 
-    //Common
-      await common(...arguments)
+    //Core
+      await imports.plugins.core(...arguments)
       await Promise.all(pending)
 
     //Set repository name

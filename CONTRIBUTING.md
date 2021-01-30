@@ -101,13 +101,13 @@ Review below which contributions are accepted:
   </tr>
   <tr>
     <td>🧱 Core</td>
-    <td><code>app/metrics.mjs</code>, <code>app/setup.mjs</code>, <code>Dockerfile</code>, <code>package.json</code> ...</td>
+    <td><code>app/metrics/</code>, <code>Dockerfile</code>, <code>package.json</code> ...</td>
     <td>❌</td>
     <td>⭕</td>
   </tr>
   <tr>
     <td>🗃️ Repository</td>
-    <td><code>.github</code>, <code>LICENSE</code>, <code>CONTRIBUTING.md</code>, ...</td>
+    <td><code>.github/</code>, <code>LICENSE</code>, <code>CONTRIBUTING.md</code>, ...</td>
     <td>❌</td>
     <td>❌</td>
   </tr>
@@ -116,11 +116,11 @@ Review below which contributions are accepted:
 **Legend**
 * ✔️: Contributions welcomed!
 * ⭕: Contributions welcomed, but must be discussed first with a maintainer
-* ❌: Only maintainers can edit these files
+* ❌: Only maintainers can manage these files
 
 Before working on something, ensure that it isn't listed in [In progress](https://github.com/lowlighter/metrics/projects/1#column-12158618) and that no open pull requests (including drafts) already implement what you want to do.
 
-If it's listed in [Roadmap and todos](https://github.com/lowlighter/metrics/projects/1) be sure to let maintainers that you're working on it. As metrics remains a side projects, things being working can change from one day to another.
+If it's listed in [Roadmap and todos](https://github.com/lowlighter/metrics/projects/1) be sure to let maintainers that you're working on it. As metrics remains a side project, things being working on can change from one day to another.
 
 If you're unsure, always open an issue to obtain insights and feedback 🙂
 
@@ -129,42 +129,43 @@ Metrics is designed to be highly customizable, so you can always decide to gener
 
 </details>
 
-
 <details>
 <summary>🗂️ Project structure</summary>
 
 This section explain how metrics is structured.
 
-**Metrics generator**
-
-* `source/app/setup.mjs` contains configuration setup
-* `source/app/mocks.mjs` contains mocked data used for tests
-* `source/app/metrics.mjs` contains the metrics renderer
-* `source/plugins/*` contains source code of plugins
-* `source/queries/*` contains GraphQL queries
-* `source/templates/*` contains templates files
-* `source/templates/*/image.svg` contains the image template used to render metrics
-* `source/templates/*/style.css` contains the style used to render metrics
-* `source/templates/*/fonts.css` contains additional fonts used to render metrics
-* `source/templates/*/template.mjs` contains the code used to prepare metrics data before rendering
-
-**Web instance**
-
-* `source/app/web/index.mjs` contains metrics web instance entry point
-* `source/web/instance.mjs` contains metrics web instance source code
-* `source/app/web/statics/*` contains metrics web instance static files
-* `settings.example.json` contains metrics web instance settings example
-
-**GitHub action**
-
-* `action.yml` contains GitHub action descriptor
-* `source/app/action/index.mjs` contains GitHub action source code
-
-**Others**
-
-* `tests/metrics.test.js` contains tests
-* `Dockerfile` contains the docker instructions to build metrics image
-* `package.json` contains dependencies lists of metrics along with command line aliases
+* `source/app/metrics/` contains core metrics files
+* `source/app/action/` contains GitHub action files
+  * `index.mjs` contains GitHub action entry point
+  * `action.yml` contains GitHub action descriptor
+* `source/app/web/` contains web instance files
+  * `index.mjs` contains web instance entry point
+  * `instance.mjs` contains web instance source code
+  * `settings.example.json` contains web instance settings example
+  * `statics/` contains web instance static files
+    * `app.js` contains web instance client source code
+    * `app.placeholder.js` contains web instance placeholder mocked data
+* `source/app/mocks/` contains mocked data files
+  * `api/` contains mocked api data
+    * `axios/` contains external REST APIs mocked data
+    * `github/` contains mocked GitHub api data
+  * `index.mjs` contains mockers
+* `source/plugins/` contains source code of plugins
+  * `README.md` contains plugin documentation
+  * `metadata.yml` contains plugin metadata
+  * `index.mjs` contains plugin source code
+  * `queries/` contains plugin GraphQL queries
+* `source/templates/` contains templates files
+  * `README.md` contains template documentation
+  * `image.svg` contains template image used to render metrics
+  * `style.css` contains style used to render metrics
+  * `fonts.css` contains additional fonts used to render metrics
+  * `template.mjs` contains template source code
+* `tests/` contains tests
+  * `testscases.js` contains tests case
+  * `metrics.test.js` contains metrics testers
+* `Dockerfile` contains docker instructions used to build metrics image
+* `package.json` contains dependencies and command line aliases
 
 </details>
 
@@ -197,12 +198,12 @@ Below is a list of used packages.
   * To scrap the web
 * [libxmljs/libxmljs](https://github.com/libxmljs/libxmljs)
   * To test and verify SVG validity
-* [marak/colors.js](https://github.com/marak/colors.js)
-  * To print colors in console
 * [facebook/jest](https://github.com/facebook/jest) and [nodeca/js-yaml](https://github.com/nodeca/js-yaml)
   * For unit testing
-* [marak/faker.js](https://github.com/marak/Faker.js/)
+* [marak/faker.js](https://github.com/marak/Faker.js)
   * For mocking data
+* [steveukx/git-js](https://github.com/steveukx/git-js)
+  * For simple git operations
 
 </details>
 
@@ -212,18 +213,9 @@ Below is a list of used packages.
 
 Templates requires you to be comfortable with HTML, CSS and JavaScript ([EJS](https://github.com/mde/ejs) flavored).
 
-Metrics does not really accept contributions on [default templates](https://github.com/lowlighter/metrics/tree/master/source/templates) to keep consistency and avoid bloating main repository with lots of templates, but fear not! It's really easy to create your own template.
+Metrics does not really accept contributions on [default templates](https://github.com/lowlighter/metrics/tree/master/source/templates) in order to avoid bloating main repository with a lot of templates, but fear not! Users will still be able to use your custom templates thanks to [community templates](source/templates/community)!
 
-If you make something awesome, don't hesistate to share it so user can use it!
-
-Assuming you created a new template named `your-custom-template`, other users will be able to use this by using the following in their workflow:
-```yaml
-- uses: lowlighter/metrics@master
-  with:
-    # ... other options
-    template: "@your-custom-template"
-    setup_community_templates: your-github-login/metrics@master:your-custom-template
-```
+If you make something awesome, don't hesistate to share it!
 
 <details>
 <summary>💬 Creating a new template from scratch</summary>
@@ -231,6 +223,7 @@ Assuming you created a new template named `your-custom-template`, other users wi
 Find a cool name for your template and create an eponym folder in [`source/templates`](https://github.com/lowlighter/metrics/tree/master/source/templates).
 
 Then, you'll need to create the following files:
+- `README.md` will contain template description and documentation
 - `image.svg` will contain the base render structure of your template
 - `partials/` is a folder that'll contain parts of your template (called "partials")
   - `partials/_.json` is a JSON array which lists your partials (these will be displayed in the same order as listed, unless if overriden by user with `config_order` option)
@@ -245,6 +238,36 @@ Optional files will fallback to the one defined in [`classic`](https://github.co
 Note that by default, `template.mjs` is skipped when using official release with community templates, to prevent malicious code to leaks token and credentials.
 
 </details>
+
+<details>
+<summary>💬 Creating a <code>README.md</code></summary>
+
+Your `README.md` will document your template and explain how it works.
+It must contain at least the following:
+```markdown
+### 📕 My custom template
+
+<table>
+  <td align="center">
+    <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.terminal.svg">
+    <img width="900" height="1" alt="">
+  </td>
+</table>
+
+#### ℹ️ Examples workflows
+
+'''yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    setup_community_templates: user/metrics@master:template
+    template: "@template"
+'''
+
+```
+
+</details>
+
 
 <details>
 <summary>💬 Creating <code>image.svg</code></summary>
@@ -296,17 +319,17 @@ Basically, you can use JavaScript statements in templating tags (`<% %>`) to dis
 This is actually not recommended because it drastically increases the size of generated metrics, but it should also make your rendering more consistant. The trick is to actually restrict the charset used to keep file size small.
 
 Below is a simplified process on how to generate base64 encoded fonts to use in metrics:
-1. Find a font on [fonts.google.com](https://fonts.google.com/)
-  - Select regular, bold, italic and bold+italic fonts
-  - Open `embed` tab and extract the `href`
-2. Open extracted `href` and append `&text=` params with used characters from SVG
-  - e.g. `&text=%26%27"%7C%60%5E%40°%3F!%23%24%25()*%2B%2C-.%2F0123456789%3A%3B<%3D>ABCDEFGHIJKLMNOPQRSTUVWXYZ%5B%5D_abcdefghijklmnopqrstuvwxyz%7B%7D~─└├▇□✕`
-3. Download each font file from url links from the generated stylesheet
-4. Convert them into base64 with `woff` extension on [transfonter.org]https://transfonter.org/) and download archive
-5. Extract archive and copy the content of the generated stylesheet to `fonts.css`
-6. Update your template
-  - Include `<defs><style><%= fonts %></style></defs>` to your `image.svg`
-  - Edit your `style.css` to use yout new font
+- 1. Find a font on [fonts.google.com](https://fonts.google.com/)
+    - Select regular, bold, italic and bold+italic fonts
+    - Open `embed` tab and extract the `href`
+- 2. Open extracted `href` and append `&text=` params with used characters from SVG
+    - e.g. `&text=%26%27"%7C%60%5E%40°%3F!%23%24%25()*%2B%2C-.%2F0123456789%3A%3B<%3D>ABCDEFGHIJKLMNOPQRSTUVWXYZ%5B%5D_abcdefghijklmnopqrstuvwxyz%7B%7D~─└├▇□✕`
+- 3. Download each font file from url links from the generated stylesheet
+- 4. Convert them into base64 with `woff` extension on [transfonter.org]https://transfonter.org/) and download archive
+- 5. Extract archive and copy the content of the generated stylesheet to `fonts.css`
+- 6. Update your template
+    - Include `<defs><style><%= fonts %></style></defs>` to your `image.svg`
+    - Edit your `style.css` to use yout new font
 
 </details>
 
@@ -393,7 +416,7 @@ Plugins are autoloaded so you do not need to do anything special to register the
 
 For GitHub related data, always try to use their [GraphQL API](https://docs.github.com/en/graphql) or their [REST API](https://docs.github.com/en/rest) when possible. Use `puppeteer` in last resort.
 
-When using GraphQL API, `queries` object autoloads queries from [source/queries](https://github.com/lowlighter/metrics/tree/master/source/queries) and will replace all strings prefixed by a dollar sign (`$`) with eponym variables.
+When using GraphQL API, `queries` object autoloads queries from your plugin `queries` directory and will replace all strings prefixed by a dollar sign (`$`) with eponym variables.
 
 For example:
 ```js
@@ -481,26 +504,129 @@ http://localhost:3000/your-github-login?base=0&your-plugin-name=1
 </details>
 
 <details>
-<summary>💬 Registering plugin options inputs</summary>
+<summary>💬 Registering plugin options in <code>metadata.yml</code></summary>
 
-    🚧 This section is not available yet
+`metadata.yml` is a special file that will be used to parse user inputs and to generate final `action.yml`
+
+```yaml
+name: "🧩 Your plugin name"
+
+# Estimate of how many GitHub requests will be used
+cost: N/A
+
+# Supported modes
+supports:
+  - user
+  - organization
+  - repository
+
+# Inputs list
+inputs:
+
+  # Enable or disable plugin
+  plugin_custom:
+    description: Your custom plugin
+    type: boolean
+    default: no
+```
+
+The following types are supported:
+```yaml
+string:
+  type: string
+
+select:
+  type: string
+  values:
+    - allowed-value-1
+    - allowed-value-2
+    - ...
+
+boolean:
+  type: boolean
+
+number:
+  type: number
+
+ranged:
+  type: number
+  min: 0
+  max: 100
+
+array:
+  type: array
+  format: comma-separated
+
+array_select:
+  type: array
+  format: comma-separated
+  values:
+    - allowed-value-1
+    - allowed-value-2
+    - ...
+
+json:
+  type: json
+```
 
 </details>
 
 <details>
 <summary>💬 Create mocked data and tests</summary>
 
-    🚧 This section is not available yet
+Creating tests for your plugin ensure that external changes don't break it.
+
+You can define your tests cases in [`testscases.js`](/tests/testscases.js), which will automatically test your plugin with:
+  - Metrics action
+  - Metrics web instance
+  - Metrics web instance placeholder (rendered by browser)
+
+As most of APIs (including GitHub) usually have a rate-limit to ensure quality of their service.
+To bypass these restrictions but still perform tests, you must mock their data which simulates APIs call returns.
+
+Add them in [`source/app/mocks/api/`](/source/app/mocks/api) folder.
+
+If you're using `axios` or GitHub GraphQL API, these files are autoloaded so you just need to create new functions (see other mocked data for examples).
+
+If you're using GitHub REST API, you'll also need to edit [`source/app/mocks/index.mjs`](/source/app/mocks/index.mjs) to add a new proxied method.
 
 </details>
 
 <details>
-<summary>💬 Updating README.md</summary>
+<summary>💬 Creating a <code>README.md</code></summary>
 
-    🚧 This section is not available yet
+Your `README.md` will document your plugin and explain how it works.
+It must contain at least the following:
+
+```markdown
+### 🧩 Your plugin name
+
+<table>
+  <td align="center">
+    <img src="">
+    <img width="900" height="1" alt="">
+  </td>
+</table>
+
+#### ℹ️ Examples workflows
+
+[➡️ Available options for this plugin](metadata.yml)
+
+'''yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_gists: yes
+'''
+
+```
+
+Note that you **must** keep `<table>` tags as these will be extracted to autogenerated global `README.md` with your example.
 
 </details>
 
 </details>
+
+___
 
 Written by [lowlighter](https://github.com/lowlighter)

@@ -1,0 +1,103 @@
+# ====================================================================================
+# Inputs and configuration
+
+inputs:
+<% for (const [plugin, {name, action}] of Object.entries(plugins)) { %>
+  # ====================================================================================
+  # <%- name %>
+  <% for (const [input, {comment, descriptor}] of Object.entries(action)) { %>
+  <%- comment.split("\n").map((line, i) => `${i ? "  " : ""}${line}`).join("\n").trim() %>
+  <%- descriptor.split("\n").map((line, i) => `${i ? "  " : ""}${line}`).join("\n") -%>
+<% }} %>
+
+# ====================================================================================
+# Action metadata
+name: GitHub metrics as SVG image
+author: lowlighter
+description: An SVG generator with 20+ metrics about your GitHub account! Additional plugins are available to display even more!
+branding:
+  icon: user-check
+  color: gray-dark
+
+# The action will parse its name to check if it's the official action or if it's a forked one
+# On the official action, it'll use the docker image published on GitHub registry when using a released version, allowing faster runs
+# On a forked action, it'll rebuild the docker image from Dockerfile to take into account changes you made
+runs:
+  using: composite
+  steps:
+    - run: |
+        # Create environment file from inputs and GitHub variables
+        cd $METRICS_ACTION_PATH
+        touch .env
+        for INPUT in $(echo $INPUTS | jq -r 'to_entries|map("INPUT_\(.key|ascii_upcase)=\(.value|@uri)")|.[]'); do
+          echo $INPUT >> .env
+        done
+        env | grep -E '^(GITHUB|ACTIONS|CI)' >> .env
+        echo "Environment variable: loaded"
+
+        # Source repository (picked from action name)
+        METRICS_SOURCE=$(echo $METRICS_ACTION | sed -E 's/metrics.*?$//g')
+        echo "Source: $METRICS_SOURCE"
+
+        # Version (picked from package.json)
+        METRICS_VERSION=$(grep -Po '(?<="version": ").*(?=")' package.json)
+        echo "Version: $METRICS_VERSION"
+
+        # Image tag (extracted from version or from env)
+        METRICS_TAG=v$(echo $METRICS_VERSION | sed -r 's/^([0-9]+[.][0-9]+).*/\1/')
+        if [[ $METRICS_USE_PREBUILT_IMAGE ]]; then
+          METRICS_TAG=$METRICS_USE_PREBUILT_IMAGE
+          echo "Pre-built image: yes"
+        fi
+        echo "Image tag: $METRICS_TAG"
+
+        # Image name
+        # Pre-built image
+        if [[ $METRICS_USE_PREBUILT_IMAGE ]]; then
+          echo "Using pre-built version $METRICS_TAG, will pull docker image from GitHub registry"
+          METRICS_IMAGE=ghcr.io/lowlighter/metrics:$METRICS_TAG
+          docker image pull $METRICS_IMAGE > /dev/null
+        # Official action
+        elif [[ $METRICS_SOURCE == "lowlighter" ]]; then
+          # Is unreleased version
+          set +e
+          METRICS_IS_RELEASED=$(expr $(expr match $METRICS_VERSION .*-beta) == 0)
+          set -e
+          echo "Is released version: $METRICS_IS_RELEASED"
+          # Rebuild image for unreleased version
+          if [[ "$METRICS_IS_RELEASED" -gt "0" ]]; then
+            echo "Using released version $METRICS_TAG, will pull docker image from GitHub registry"
+            METRICS_IMAGE=ghcr.io/lowlighter/metrics:$METRICS_TAG
+          # Use registry for released version
+          else
+            echo "Using an unreleased version ($METRICS_VERSION)"
+            METRICS_IMAGE=metrics:$METRICS_VERSION
+          fi
+        # Forked action
+        else
+          echo "Using a forked version"
+          METRICS_IMAGE=metrics:forked-$METRICS_VERSION
+        fi
+        echo "Image name: $METRICS_IMAGE"
+
+        # Build image if necessary
+        set +e
+        docker image inspect $METRICS_IMAGE > /dev/null
+        METRICS_IMAGE_NEEDS_BUILD="$?"
+        set -e
+        if [[ "$METRICS_IMAGE_NEEDS_BUILD" -gt "0" ]]; then
+          echo "Image $METRICS_IMAGE is not present locally, rebuilding it from Dockerfile"
+          docker build -t $METRICS_IMAGE . > /dev/null
+        else
+          echo "Image $METRICS_IMAGE is present locally"
+        fi
+
+        # Run docker image with current environment
+        docker run --volume $GITHUB_EVENT_PATH:$GITHUB_EVENT_PATH --env-file .env $METRICS_IMAGE
+        rm .env
+      shell: bash
+      env:
+        METRICS_ACTION: ${{ github.action }}
+        METRICS_ACTION_PATH: ${{ github.action_path }}
+        METRICS_USE_PREBUILT_IMAGE: ${{ inputs.use_prebuilt_image }}
+        INPUTS: ${{ toJson(inputs) }}

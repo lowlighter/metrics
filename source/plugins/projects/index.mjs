@@ -1,25 +1,26 @@
 //Setup
-  export default async function ({login, graphql, q, queries, account}, {enabled = false} = {}) {
+  export default async function ({login, data, imports, graphql, q, queries, account}, {enabled = false} = {}) {
     //Plugin execution
       try {
         //Check if plugin is enabled and requirements are met
           if ((!enabled)||(!q.projects))
             return null
-        //Parameters override
-          let {"projects.limit":limit = 4, "projects.repositories":repositories = "", "projects.descriptions":descriptions = false} = q
+
+        //Load inputs
+          let {limit, repositories, descriptions} = imports.metadata.plugins.projects.inputs({data, account, q})
           //Repositories projects
-            repositories = decodeURIComponent(repositories ?? "").split(",").map(repository => repository.trim()).filter(repository => /[-\w]+[/][-\w]+[/]projects[/]\d+/.test(repository)) ?? []
-          //Limit
-            limit = Math.max(repositories.length, Math.min(100, Number(limit)))
+            repositories = repositories.filter(repository => /[-\w]+[/][-\w]+[/]projects[/]\d+/.test(repository))
+
         //Retrieve user owned projects from graphql api
           console.debug(`metrics/compute/${login}/plugins > projects > querying api`)
-          const {[account]:{projects}} = await graphql(queries.projects({login, limit, account}))
+          const {[account]:{projects}} = await graphql(queries.projects.user({login, limit, account}))
+
         //Retrieve repositories projects from graphql api
           for (const identifier of repositories) {
             //Querying repository project
               console.debug(`metrics/compute/${login}/plugins > projects > querying api for ${identifier}`)
               const {user, repository, id} = identifier.match(/(?<user>[-\w]+)[/](?<repository>[-\w]+)[/]projects[/](?<id>\d+)/)?.groups
-              const {[account]:{repository:{project}}} = await graphql(queries["projects.repository"]({user, repository, id, account}))
+              const {[account]:{repository:{project}}} = await graphql(queries.projects.repository({user, repository, id, account}))
             //Adding it to projects list
               console.debug(`metrics/compute/${login}/plugins > projects > registering ${identifier}`)
               project.name = `${project.name} (${user}/${repository})`
@@ -43,9 +44,11 @@
             //Append
               list.push({name:project.name, updated, description:project.body, progress:{enabled, todo, doing, done, total:todo+doing+done}})
           }
+
         //Limit
           console.debug(`metrics/compute/${login}/plugins > projects > keeping only ${limit} projects`)
           list.splice(limit)
+
         //Results
           return {list, totalCount:projects.totalCount, descriptions}
       }

@@ -1,10 +1,14 @@
 //Setup
-  export default async function ({login, graphql, data, q, queries}, {enabled = false} = {}) {
+  export default async function ({login, graphql, data, imports, q, queries, account}, {enabled = false} = {}) {
     //Plugin execution
       try {
         //Check if plugin is enabled and requirements are met
           if ((!enabled)||(!q.stargazers))
             return null
+
+        //Load inputs
+          imports.metadata.plugins.stargazers.inputs({data, account, q})
+
         //Retrieve stargazers from graphql api
           console.debug(`metrics/compute/${login}/plugins > stargazers > querying api`)
           const repositories = data.user.repositories.nodes.map(({name:repository, owner:{login:owner}}) => ({repository, owner})) ?? []
@@ -25,6 +29,7 @@
               console.debug(`metrics/compute/${login}/plugins > stargazers > loaded ${dates.length} stargazers for ${repository}`)
           }
           console.debug(`metrics/compute/${login}/plugins > stargazers > loaded ${dates.length} stargazers in total`)
+
         //Compute stargazers increments
           const days = 14
           const increments = {dates:Object.fromEntries([...new Array(days).fill(null).map((_, i) => [new Date(Date.now()-i*24*60*60*1000).toISOString().slice(0, 10), 0]).reverse()]), max:NaN, min:NaN}
@@ -34,6 +39,7 @@
             .map(date => increments.dates[date]++)
           increments.min = Math.min(...Object.values(increments.dates))
           increments.max = Math.max(...Object.values(increments.dates))
+
         //Compute total stargazers
           let stargazers = data.computed.repositories.stargazers
           const total = {dates:{...increments.dates}, max:NaN, min:NaN}
@@ -47,8 +53,10 @@
           }
           total.min = Math.min(...Object.values(total.dates))
           total.max = Math.max(...Object.values(total.dates))
+
         //Months name
           const months = ["", "Jan.", "Feb.", "Mar.", "Apr.", "May", "June", "July", "Aug.", "Sep.", "Oct.", "Nov.", "Dec."]
+
         //Results
           return {total, increments, months}
       }

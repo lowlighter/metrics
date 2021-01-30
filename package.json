@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node source/app/web/index.mjs",
     "test": "npx jest",
-    "upgrade": "npm install @actions/core@latest @actions/github@latest @octokit/graphql@latest @octokit/rest@latest axios@latest colors@latest compression@latest ejs@latest express@latest express-rate-limit@latest image-to-base64@latest memory-cache@latest prismjs@latest puppeteer@latest svgo@latest vue@latest faker@latest jest@latest js-yaml@latest libxmljs@latest"
+    "index": "node .github/index.mjs",
+    "upgrade": "npm install @actions/core@latest @actions/github@latest @octokit/graphql@latest @octokit/rest@latest axios@latest compression@latest ejs@latest express@latest express-rate-limit@latest faker@latest image-to-base64@latest js-yaml@latest memory-cache@latest prismjs@latest puppeteer@latest svgo@latest vue@latest jest@latest libxmljs@latest"
   },
   "repository": {
     "type": "git",
@@ -21,26 +22,26 @@
   "dependencies": {
     "@actions/core": "^1.2.6",
     "@actions/github": "^4.0.0",
-    "@octokit/graphql": "^4.5.8",
-    "@octokit/rest": "^18.0.12",
+    "@octokit/graphql": "^4.5.9",
+    "@octokit/rest": "^18.0.15",
     "axios": "^0.21.1",
-    "colors": "^1.4.0",
     "compression": "^1.7.4",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
     "express-rate-limit": "^5.2.3",
-    "faker": "^5.1.0",
+    "faker": "^5.2.0",
     "image-to-base64": "^2.1.1",
+    "js-yaml": "^4.0.0",
     "memory-cache": "^0.2.0",
     "prismjs": "^1.23.0",
     "puppeteer": "^5.5.0",
+    "simple-git": "^2.31.0",
     "svgo": "^1.3.2",
     "vue": "^2.6.12",
     "vue-prism-component": "^1.2.0"
   },
   "devDependencies": {
     "jest": "^26.6.3",
-    "js-yaml": "^4.0.0",
     "libxmljs": "^0.19.7"
   }
 }

@@ -27,7 +27,9 @@ RUN chmod +x  /metrics/source/app/action/index.mjs \
   && apt-get install -y python3 \
   # Install node modules
   && cd /metrics \
-  && npm ci
+  && npm ci \
+  # Rebuild indexes
+  && npm run index
 
 # Environment variables
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true

@@ -1,20 +1,19 @@
 //Setup
-  export default async function ({login, rest, imports, data, q, account}, {enabled = false, from:defaults = 100} = {}) {
+  export default async function ({login, data, rest, imports, q, account}, {enabled = false, ...defaults} = {}) {
     //Plugin execution
       try {
         //Check if plugin is enabled and requirements are met
           if ((!enabled)||(!q.habits))
             return null
-        //Parameters override
-          let {"habits.from":from = defaults.from ?? 500, "habits.days":days = 14, "habits.facts":facts = true, "habits.charts":charts = false} = q
-          //Events
-            from = Math.max(1, Math.min(1000, Number(from)))
-          //Days
-            days = Math.max(1, Math.min(30, Number(days)))
+
+        //Load inputs
+          let {from, days, facts, charts} = imports.metadata.plugins.habits.inputs({data, account, q}, defaults)
+
         //Initialization
           const habits = {facts, charts, commits:{hour:NaN, hours:{}, day:NaN, days:{}}, indents:{style:"", spaces:0, tabs:0}, linguist:{available:false, ordered:[], languages:{}}}
           const pages = Math.ceil(from/100)
           const offset = data.config.timezone?.offset ?? 0
+
         //Get user recent activity
           console.debug(`metrics/compute/${login}/plugins > habits > querying api`)
           const events = []
@@ -25,12 +24,14 @@
             }
           } catch { console.debug(`metrics/compute/${login}/plugins > habits > no more page to load`) }
           console.debug(`metrics/compute/${login}/plugins > habits > ${events.length} events loaded`)
+
         //Get user recent commits
           const commits = events
             .filter(({type}) => type === "PushEvent")
             .filter(({actor}) => account === "organization" ? true : actor.login === login)
             .filter(({created_at}) => new Date(created_at) > new Date(Date.now()-days*24*60*60*1000))
           console.debug(`metrics/compute/${login}/plugins > habits > filtered out ${commits.length} push events over last ${days} days`)
+
         //Retrieve edited files and filter edited lines (those starting with +/-) from patches
           console.debug(`metrics/compute/${login}/plugins > habits > loading patches`)
           const patches = [...await Promise.allSettled(commits
@@ -41,6 +42,7 @@
             .map(({value}) => value)
             .flatMap(files => files.map(file => ({name:imports.paths.basename(file.filename), patch:file.patch ?? ""})))
             .map(({name, patch}) => ({name, patch:patch.split("\n").filter(line => /^[-+]/.test(line)).map(line => line.substring(1)).join("\n")}))
+
         //Commit day
           {
             //Compute commit days
@@ -52,6 +54,7 @@
             //Compute day with most commits
               habits.commits.day = days.length ? ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][Object.entries(habits.commits.days).sort(([an, a], [bn, b]) => b - a).map(([day, occurence]) => day)[0]] ?? NaN : NaN
           }
+
         //Commit hour
           {
             //Compute commit hours
@@ -63,6 +66,7 @@
             //Compute hour with most commits
               habits.commits.hour = hours.length ? `${Object.entries(habits.commits.hours).sort(([an, a], [bn, b]) => b - a).map(([hour, occurence]) => hour)[0]}`.padStart(2, "0") : NaN
           }
+
         //Indent style
           {
             //Attempt to guess whether tabs or spaces are used in patches
@@ -72,6 +76,7 @@
                 .forEach(indent => habits.indents[/^\t/.test(indent) ? "tabs" : "spaces"]++)
               habits.indents.style = habits.indents.spaces > habits.indents.tabs ? "spaces" : habits.indents.tabs > habits.indents.spaces ? "tabs" : ""
           }
+
         //Linguist
           if (charts) {
             //Check if linguist exists
@@ -87,7 +92,7 @@
                     await Promise.all(patches.map(async ({name, patch}, i) => await imports.fs.writeFile(imports.paths.join(path, `${i}${imports.paths.extname(name)}`), patch)))
                   //Create temporary git repository
                     console.debug(`metrics/compute/${login}/plugins > habits > creating temp git repository`)
-                    await imports.run(`git init && git add . && git config user.name "linguist" && git config user.email "null@github.com" && git commit -m "linguist"`, {cwd:path}).catch(console.debug)
+                    await imports.run(`git init && git add . && git config user.name "linguist" && git config user.email "<>" && git commit -m "linguist"`, {cwd:path}).catch(console.debug)
                     await imports.run(`git status`, {cwd:path})
                 //Spawn linguist process
                   console.debug(`metrics/compute/${login}/plugins > habits > running linguist`)
@@ -100,6 +105,7 @@
               else
                 console.debug(`metrics/compute/${login}/plugins > habits > linguist not available`)
           }
+
         //Results
           return habits
       }

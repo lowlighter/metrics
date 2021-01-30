@@ -1,0 +1,39 @@
+name: "🗂️ Projects"
+cost: 1 GraphQL request + 1 GraphQL request per repository project
+supports:
+  - user
+  - organization
+  - repository
+inputs:
+
+  # Enable or disable plugin
+  plugin_projects:
+    description: Display active projects
+    type: boolean
+    default: no
+
+  # Number of projects to display
+  # Set to 0 to only display "plugin_projects_repositories" projects
+  # Projects listed in "plugin_projects_repositories" are not affected by this option
+  plugin_projects_limit:
+    description: Maximum number of projects to display
+    type: number
+    default: 4
+    min: 0
+    max: 100
+
+  # List of repository projects to display, using the following format:
+  # :user/:repo/projects/:project_id
+  plugin_projects_repositories:
+    description: List of repository project identifiers to disaplay
+    type: array
+    format:
+      - comma-separated
+      - /(?<user>[-a-z0-9]+)[/](?<repo>[-a-z0-9]+)[/]projects[/](?<id>[0-9]+)/
+    default: ""
+
+  # Display projects descriptions
+  plugin_projects_descriptions:
+    description: Display projects descriptions
+    type: boolean
+    default: no

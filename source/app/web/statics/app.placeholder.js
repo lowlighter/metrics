@@ -1,5 +1,5 @@
-(function () {
-  //Load asset
+(function ({axios, faker, ejs} = {axios:globalThis.axios, faker:globalThis.faker, ejs:globalThis.ejs}) {
+  //Load assets
     const cached = new Map()
     async function load(url) {
       if (!cached.has(url))
@@ -19,7 +19,7 @@
       return values.sort((a, b) => b - a)
     }
   //Placeholder function
-    window.placeholder = async function (set) {
+    globalThis.placeholder = async function (set) {
       //Load templates informations
         let {image, style, fonts, partials} = await load(`/.templates/${set.templates.selected}`)
         await Promise.all(partials.map(async partial => await load(`/.templates/${set.templates.selected}/partials/${partial}.ejs`)))
@@ -78,6 +78,7 @@
               avatar:"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg=="
             },
           //User data
+            account:"user",
             user:{
               databaseId:faker.random.number(10000000),
               name:"(placeholder)",
@@ -127,10 +128,10 @@
                         id:faker.random.number(100000000000000).toString(),
                         created_at:faker.date.recent(),
                         entities: {
-                          mentions: [ { start: 22, end: 33, username: 'lowlighter' } ]
+                          mentions: [ {start:22, end:33, username:"lowlighter"} ]
                         },
                         text: 'Checkout metrics from  <span class="mention">@lowlighter</span>  !  <span class="hashtag">#GitHub</span> ',
-                        mentions: [ 'lowlighter' ]
+                        mentions: ["lowlighter"]
                       },
                       ...new Array(Number(options["tweets.limit"])-1).fill(null).map(_ => ({
                         id:faker.random.number(100000000000000).toString(),
@@ -589,5 +590,11 @@
         }
       //Render
         return await ejs.render(image, data, {async:true, rmWhitespace:true})
+    }
+  //Reset globals contexts
+    globalThis.placeholder.init = function(globals) {
+      axios = globals.axios || axios
+      faker = globals.faker || faker
+      ejs = globals.ejs || ejs
     }
 })()

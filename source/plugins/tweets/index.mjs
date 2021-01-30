@@ -1,30 +1,34 @@
 //Setup
-  export default async function ({login, imports, data, q}, {enabled = false, token = null} = {}) {
+  export default async function ({login, imports, data, q, account}, {enabled = false, token = ""} = {}) {
     //Plugin execution
       try {
         //Check if plugin is enabled and requirements are met
           if ((!enabled)||(!q.tweets))
             return null
-        //Parameters override
-          let {"tweets.limit":limit = 2, "tweets.user":username = data.user.twitterUsername} = q
-          //Limit
-            limit = Math.max(1, Math.min(10, Number(limit)))
+
+        //Load inputs
+          let {limit, user:username} = imports.metadata.plugins.tweets.inputs({data, account, q})
+
         //Load user profile
           console.debug(`metrics/compute/${login}/plugins > tweets > loading twitter profile (@${username})`)
           const {data:{data:profile = null}} = await imports.axios.get(`https://api.twitter.com/2/users/by/username/${username}?user.fields=profile_image_url,verified`, {headers:{Authorization:`Bearer ${token}`}})
-        //Load tweets
-          console.debug(`metrics/compute/${login}/plugins > tweets > querying api`)
-          const {data:{data:tweets = []}} = await imports.axios.get(`https://api.twitter.com/2/tweets/search/recent?query=from:${username}&tweet.fields=created_at&expansions=entities.mentions.username`, {headers:{Authorization:`Bearer ${token}`}})
+
         //Load profile image
           if (profile?.profile_image_url) {
             console.debug(`metrics/compute/${login}/plugins > tweets > loading profile image`)
             profile.profile_image = await imports.imgb64(profile.profile_image_url)
           }
+
+        //Load tweets
+          console.debug(`metrics/compute/${login}/plugins > tweets > querying api`)
+          const {data:{data:tweets = []}} = await imports.axios.get(`https://api.twitter.com/2/tweets/search/recent?query=from:${username}&tweet.fields=created_at&expansions=entities.mentions.username`, {headers:{Authorization:`Bearer ${token}`}})
+
         //Limit tweets
           if (limit > 0) {
             console.debug(`metrics/compute/${login}/plugins > tweets > keeping only ${limit} tweets`)
             tweets.splice(limit)
           }
+
         //Format tweets
           await Promise.all(tweets.map(async tweet => {
             //Mentions
@@ -44,6 +48,7 @@
                 .replace(/https?:[/][/](t.co[/]\w+)/g, ` <span class="link">$1</span> `)
               , {"&":true})
           }))
+
         //Result
           return {username, profile, list:tweets}
       }

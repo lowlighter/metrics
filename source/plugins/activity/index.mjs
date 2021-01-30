@@ -1,24 +1,21 @@
 //Setup
-  export default async function ({login, rest, q, account}, {enabled = false} = {}) {
+  export default async function ({login, data, rest, q, account, imports}, {enabled = false} = {}) {
     //Plugin execution
       try {
         //Check if plugin is enabled and requirements are met
           if ((!enabled)||(!q.activity))
             return null
 
-        //Parameters override
-          let {"activity.limit":limit = 5, "activity.days":days = 7, "activity.filter":filter = "all"} = q
-          //Events
-            limit = Math.max(1, Math.min(100, Number(limit)))
-          //Days
-            days = Number(days) > 0 ? Number(days) : Infinity
-          //Filtered events
-            filter = decodeURIComponent(filter).split(",").map(x => x.trim().toLocaleLowerCase()).filter(x => x)
+        //Load inputs
+          let {limit, days, filter} = imports.metadata.plugins.activity.inputs({data, q, account})
+          if (!days)
+            days = Infinity
 
         //Get user recent activity
           console.debug(`metrics/compute/${login}/plugins > activity > querying api`)
           const {data:events} = await rest.activity.listEventsForAuthenticatedUser({username:login, per_page:100})
           console.debug(`metrics/compute/${login}/plugins > activity > ${events.length} events loaded`)
+
         //Extract activity events
           const activity = events
             .filter(({actor}) => account === "organization" ? true : actor.login === login)
