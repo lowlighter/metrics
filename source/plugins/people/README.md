@@ -1,4 +1,4 @@
-### 🧑‍🤝‍🧑 People plugin <sup>🚧 <code>plugin_people_thanks</code>, repository version and "sponsors" on <code>@master</code></sup>
+### 🧑‍🤝‍🧑 People plugin
 
 The *people* plugin can display people you're following or sponsoring, and also users who're following or sponsoring you.
 In repository mode, it's possible to display sponsors, stargazers, watchers.
