@@ -89,6 +89,7 @@ As the latter is used as a development branch, jobs may fail from time to time (
 When using a token with additional permissions, it is advised to fork this repository and use it instead to minimize security risks:
 ```yaml
       - uses: my-github-username/metrics@master
+      # If you make changes on your fork, be sure not leave @latest as tag!
 ```
 
 In this case, please consider watching new releases to stay up-to-date and enjoy latest features!

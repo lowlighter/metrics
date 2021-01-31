@@ -589,16 +589,17 @@ runs:
           docker image pull $METRICS_IMAGE > /dev/null
         # Official action
         elif [[ $METRICS_SOURCE == "lowlighter" ]]; then
-          # Is unreleased version
+          # Is released version
           set +e
           METRICS_IS_RELEASED=$(expr $(expr match $METRICS_VERSION .*-beta) == 0)
           set -e
           echo "Is released version: $METRICS_IS_RELEASED"
-          # Rebuild image for unreleased version
+          # Use registry for released version
           if [[ "$METRICS_IS_RELEASED" -gt "0" ]]; then
             echo "Using released version $METRICS_TAG, will pull docker image from GitHub registry"
             METRICS_IMAGE=ghcr.io/lowlighter/metrics:$METRICS_TAG
-          # Use registry for released version
+            docker image pull $METRICS_IMAGE > /dev/null
+          # Rebuild image for unreleased version
           else
             echo "Using an unreleased version ($METRICS_VERSION)"
             METRICS_IMAGE=metrics:$METRICS_VERSION

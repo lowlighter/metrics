@@ -5,6 +5,7 @@
   import setup from "../metrics/setup.mjs"
   import mocks from "../mocks/index.mjs"
   import metrics from "../metrics/index.mjs"
+  process.on("unhandledRejection", error => { throw error })
 
 //Debug message buffer
   let DEBUG = true
@@ -31,7 +32,6 @@
     //Initialization
       info.break()
       info.section(`Metrics`)
-      process.on("unhandledRejection", error => { throw error })
 
     //Skip process if needed
       if ((github.context.eventName === "push")&&(github.context.payload?.head_commit)) {
@@ -133,7 +133,8 @@
                     object(expression: "${committer.branch}:${filename}") { ... on Blob { oid } }
                   }
                 }
-              `
+              `,
+              {headers:{authorization:`token ${committer.token}`}}
             )
             committer.sha = oid
           } catch (error) { console.debug(error) }
