@@ -41,7 +41,7 @@ inputs:
 
   # Languages additional details
   plugin_languages_details:
-    description:
+    description: Additional details
     type: array
     format: comma-separated
     values:

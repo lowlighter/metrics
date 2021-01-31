@@ -178,10 +178,11 @@
               //Languages
                 ...(set.plugins.enabled.languages ? ({
                   languages:{
+                    details:options["languages.details"].split(",").map(x => x.trim()).filter(x => x),
                     get colors() { return Object.fromEntries(Object.entries(this.favorites).map(([key, {color}]) => [key, color])) },
                     total:faker.random.number(10000),
                     get stats() { return Object.fromEntries(Object.entries(this.favorites).map(([key, {value}]) => [key, value])) },
-                    favorites:distribution(7).map((value, index, array) => ({name:faker.lorem.word(), color:faker.internet.color(), value, x:array.slice(0, index).reduce((a, b) => a + b, 0)}))
+                    favorites:distribution(7).map((value, index, array) => ({name:faker.lorem.word(), color:faker.internet.color(), value, size:faker.random.number(1000000), x:array.slice(0, index).reduce((a, b) => a + b, 0)}))
                   }
                 }) : null),
               //Habits
@@ -587,6 +588,18 @@
                   }
                 }) : null),
             },
+        }
+      //Formatters
+        data.f.bytes = function (n) {
+          for (const {u, v} of [{u:"E", v:10**18}, {u:"P", v:10**15}, {u:"T", v:10**12}, {u:"G", v:10**9}, {u:"M", v:10**6}, {u:"k", v:10**3}])
+            if (n/v >= 1)
+              return `${(n/v).toFixed(2).substr(0, 4).replace(/[.]0*$/, "")} ${u}B`
+          return `${n} byte${n > 1 ? "s" : ""}`
+        }
+        data.f.percentage = function (n, {rescale = true} = {}) {
+          return `${(n*(rescale ? 100 : 1)).toFixed(2)
+            .replace(/(?<=[.])([1-9]*)(0+)$/, (m, a, b) => a)
+            .replace(/[.]$/, "")}%`
         }
       //Render
         return await ejs.render(image, data, {async:true, rmWhitespace:true})
