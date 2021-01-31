@@ -53,7 +53,7 @@
                 do {
                   console.debug(`metrics/compute/${login}/plugins > anilist > querying api (favorites ${type}s - page ${page})`)
                   const {data:{data:{User:{favourites:{[type]:{nodes, pageInfo:cursor}}}}}} = await imports.axios.post("https://graphql.anilist.co", {variables:{name:user, page}, query:queries.anilist.favorites({type})})
-                  page = cursor.currentPage
+                  page++
                   next = cursor.hasNextPage
                   list.push(...await Promise.all(nodes.map(media => format({media:{progess:null, score:null, media}, imports}))))
                 } while (next)
