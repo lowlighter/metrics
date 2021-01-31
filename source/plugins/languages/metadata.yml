@@ -45,6 +45,6 @@ inputs:
     type: array
     format: comma-separated
     values:
-      - total-size # Languages total size written in bytes
+      - bytes-size # Languages total size written in bytes
       - percentage # Languages proportions in %
     default: ""

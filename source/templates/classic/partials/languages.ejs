@@ -32,7 +32,7 @@
                     <%= name %>
                   </div>
                   <small>
-                    <% if (plugins.languages.details.includes("total-size")) { %> <div><%= f.bytes(size) %></div><% } %>
+                    <% if (plugins.languages.details.includes("bytes-size")) { %> <div><%= f.bytes(size) %></div><% } %>
                     <% if (plugins.languages.details.includes("percentage")) { %> <div><%= f.percentage(value) %></div><% } %>
                   </small>
                 </div>

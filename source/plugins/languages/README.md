@@ -26,4 +26,5 @@ It is also possible to use a predefined set of colors from [colorsets.json](colo
     plugin_languages_ignored: html, css                          # List of languages to ignore
     plugin_languages_skipped: my-test-repo                       # List of repositories to skip
     plugin_languages_colors: "0:orange, javascript:#ff0000, ..." # Make most used languages orange and JavaScript red
+    plugin_languages_details: bytes-size, percentage             # Additionally display total bytes size and percentage
 ```
