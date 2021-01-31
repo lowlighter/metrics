@@ -11,16 +11,15 @@
         //Format url if needed
           if (!/^https?:[/][/]/.test(url))
             url = `https://${url}`
-          const result = {url, detailed, scores:[], metrics:{}}
-
+          const {protocol, host} = imports.url.parse(url)
+          const result = {url:`${protocol}//${host}`, detailed, scores:[], metrics:{}}
         //Load scores from API
-          console.debug(`metrics/compute/${login}/plugins > pagespeed > querying api for ${url}`)
+          console.debug(`metrics/compute/${login}/plugins > pagespeed > querying api for ${result.url}`)
           const scores = new Map()
           await Promise.all(["performance", "accessibility", "best-practices", "seo"].map(async category => {
             //Perform audit
               console.debug(`metrics/compute/${login}/plugins > pagespeed > performing audit ${category}`)
               const request = await imports.axios.get(`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?category=${category}&url=${url}${token ? `&key=${token}` : ""}`)
-              console.debug(request.data)
               const {score, title} = request.data.lighthouseResult.categories[category]
               scores.set(category, {score, title})
               console.debug(`metrics/compute/${login}/plugins > pagespeed > performed audit ${category} (status code ${request.status})`)
@@ -36,7 +35,6 @@
           if (detailed) {
             console.debug(`metrics/compute/${login}/plugins > pagespeed > performing detailed audit`)
             const request = await imports.axios.get(`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?&url=${url}${token ? `&key=${token}` : ""}`)
-            console.debug(request.data)
             Object.assign(result.metrics, ...request.data.lighthouseResult.audits.metrics.details.items)
             console.debug(`metrics/compute/${login}/plugins > pagespeed > performed detailed audit (status code ${request.status})`)
           }
