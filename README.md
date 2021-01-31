@@ -88,6 +88,9 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
   <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.svg">
+      <details><summary>With both total bytes size and percentage version</summary>
+        <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.details.svg">
+      </details>
       <img width="900" height="1" alt="">
     </td>
     <td align="center">
@@ -337,7 +340,9 @@ In this case, please consider watching new releases to stay up-to-date and enjoy
 
 #### Examples workflows
 
-Metrics displayed on this page are rendered from this [workflow](https://github.com/lowlighter/lowlighter/blob/master/.github/workflows/metrics.yml). You can check it for some code examples.
+Metrics displayed on this page are rendered from this [workflow](https://github.com/lowlighter/lowlighter/blob/master/.github/workflows/metrics.yml) so you can check it out for some code examples about plugins usage.
+
+You can also take a look at this [user workflow](https://github.com/lowlighter/lowlighter/blob/master/.github/workflows/personal.yml) if you want.
 
 ### 4. Embed link into your README.md
 
