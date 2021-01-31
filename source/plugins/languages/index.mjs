@@ -7,7 +7,7 @@
             return null
 
         //Load inputs
-          let {ignored, skipped, colors} = imports.metadata.plugins.languages.inputs({data, account, q})
+          let {ignored, skipped, colors, details} = imports.metadata.plugins.languages.inputs({data, account, q})
 
         //Custom colors
           const colorsets = JSON.parse(`${await imports.fs.readFile(`${imports.__module(import.meta.url)}/colorsets.json`)}`)
@@ -18,7 +18,7 @@
 
         //Iterate through user's repositories and retrieve languages data
           console.debug(`metrics/compute/${login}/plugins > languages > processing ${data.user.repositories.nodes.length} repositories`)
-          const languages = {colors:{}, total:0, stats:{}}
+          const languages = {details, colors:{}, total:0, stats:{}}
           for (const repository of data.user.repositories.nodes) {
             //Skip repository if asked
               if (skipped.includes(repository.name.toLocaleLowerCase())) {
@@ -41,9 +41,10 @@
 
         //Compute languages stats
           console.debug(`metrics/compute/${login}/plugins > languages > computing stats`)
-          Object.keys(languages.stats).map(name => languages.stats[name] /= languages.total)
-          languages.favorites = Object.entries(languages.stats).sort(([an, a], [bn, b]) => b - a).slice(0, 8).map(([name, value]) => ({name, value, color:languages.colors[name], x:0}))
+          languages.favorites = Object.entries(languages.stats).sort(([an, a], [bn, b]) => b - a).slice(0, 8).map(([name, value]) => ({name, value, size:value, color:languages.colors[name], x:0}))
+          const visible = {total:Object.values(languages.favorites).map(({size}) => size).reduce((a, b) => a + b, 0)}
           for (let i = 0; i < languages.favorites.length; i++) {
+            languages.favorites[i].value /= visible.total
             languages.favorites[i].x = (languages.favorites[i-1]?.x ?? 0) + (languages.favorites[i-1]?.value ?? 0)
             if ((colors[i])&&(!colors[languages.favorites[i].name.toLocaleLowerCase()]))
               languages.favorites[i].color = colors[i]

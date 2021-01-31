@@ -114,9 +114,20 @@
     flex-grow: 0;
   }
 
-  .field.language small {
-    margin-left: 4px;
+  .field.language.details {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .field.language.details small {
+    display: flex;
+    justify-content: space-between;
     color: #666666;
+    text-align: right;
+  }
+
+  .field.language.details > *, .field.language.details small > * {
+    flex: 1 1 0;
   }
 
 /* Labels */

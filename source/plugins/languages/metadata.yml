@@ -26,7 +26,7 @@ inputs:
     format: comma-separated
     default: ""
 
-  # Overrides
+  # Overrides default languages colors
   # Use `${n}:${color}` to change the color of the n-th most used language (e.g. "0:red" to make your most used language red)
   # Use `${language}:${color}` to change the color of named language (e.g. "javascript:red" to make JavaScript language red, language case is ignored)
   # Use a value from `colorsets.json` to use a predefined set of colors
@@ -38,3 +38,13 @@ inputs:
       - comma-separated
       - /((?<index>[0-9])|(?<language>[-+a-z0-9#])):(?<color>#?[-a-z0-9]+)/
     default: github
+
+  # Languages additional details
+  plugin_languages_details:
+    description:
+    type: array
+    format: comma-separated
+    values:
+      - bytes-size # Languages total size written in bytes
+      - percentage # Languages proportions in %
+    default: ""

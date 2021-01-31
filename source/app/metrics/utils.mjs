@@ -36,6 +36,15 @@
         return `${(n/v).toFixed(2).substr(0, 4).replace(/[.]0*$/, "")} ${u}B`
     return `${n} byte${n > 1 ? "s" : ""}`
   }
+  format.bytes = bytes
+
+/** Percentage formatter */
+  export function percentage(n, {rescale = true} = {}) {
+    return `${(n*(rescale ? 100 : 1)).toFixed(2)
+      .replace(/(?<=[.])([1-9]*)(0+)$/, (m, a, b) => a)
+      .replace(/[.]$/, "")}%`
+  }
+  format.percentage = percentage
 
 /** Array shuffler */
   export function shuffle(array) {
