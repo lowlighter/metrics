@@ -14,9 +14,9 @@
         return (postprocess.skip({login, data}), {})
 
     //Base parts (legacy handling for web instance)
-      const defaulted = ("base" in q) ? !!q.base : true
+      const defaulted = ("base" in q) ? legacy.converter(q.base) ?? true : true
       for (const part of conf.settings.plugins.base.parts)
-        data.base[part] = `base.${part}` in q ? !!q[ `base.${part}`] : defaulted
+        data.base[part] = `base.${part}` in q ? legacy.converter(q[ `base.${part}`]) : defaulted
 
     //Iterate through account types
       for (const account of ["user", "organization"]) {
@@ -108,4 +108,16 @@
           packages:{totalCount:0},
         })
       }
+  }
+
+//Legacy functions
+  const legacy = {
+    converter(value) {
+      if (/^(?:[Tt]rue|[Oo]n|[Yy]es|1)$/.test(value))
+        return true
+      if (/^(?:[Ff]alse|[Oo]ff|[Nn]o|0)$/.test(value))
+        return false
+      if (Number.isFinite(Number(value)))
+        return !!(Number(value))
+    }
   }

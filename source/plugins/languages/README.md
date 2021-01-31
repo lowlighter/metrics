@@ -5,6 +5,9 @@ The *languages* plugin displays which programming languages you use the most acr
 <table>
   <td align="center">
     <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.svg">
+    <details><summary>With both total bytes size and percentage version</summary>
+      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.details.svg">
+    </details>
     <img width="900" height="1" alt="">
   </td>
 </table>
@@ -26,4 +29,5 @@ It is also possible to use a predefined set of colors from [colorsets.json](colo
     plugin_languages_ignored: html, css                          # List of languages to ignore
     plugin_languages_skipped: my-test-repo                       # List of repositories to skip
     plugin_languages_colors: "0:orange, javascript:#ff0000, ..." # Make most used languages orange and JavaScript red
+    plugin_languages_details: bytes-size, percentage             # Additionally display total bytes size and percentage
 ```
