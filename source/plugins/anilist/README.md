@@ -1,4 +1,4 @@
-### 🌸 Anilist <sup>🚧 pre-release on <code>@master</code></sup>
+### 🌸 Anilist
 
 The *anilist* plugin lets you display your favorites animes, mangas and characters from your [AniList](https://anilist.co) account.
 

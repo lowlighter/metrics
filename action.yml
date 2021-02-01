@@ -294,7 +294,7 @@ inputs:
   
   # Languages additional details
   plugin_languages_details:
-    description: null
+    description: Additional details
     default: ""
   
   # ====================================================================================

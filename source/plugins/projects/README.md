@@ -1,4 +1,4 @@
-### 🗂️ Projects <sup>🚧 <code>plugin_projects_descriptions</code> on <code>@master</code></sup>
+### 🗂️ Projects
 
     ⚠️ This plugin requires a personal token with public_repo scope.
 

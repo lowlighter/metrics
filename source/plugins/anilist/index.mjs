@@ -53,7 +53,7 @@
                 do {
                   console.debug(`metrics/compute/${login}/plugins > anilist > querying api (favorites ${type}s - page ${page})`)
                   const {data:{data:{User:{favourites:{[type]:{nodes, pageInfo:cursor}}}}}} = await imports.axios.post("https://graphql.anilist.co", {variables:{name:user, page}, query:queries.anilist.favorites({type})})
-                  page = cursor.currentPage
+                  page++
                   next = cursor.hasNextPage
                   list.push(...await Promise.all(nodes.map(media => format({media:{progess:null, score:null, media}, imports}))))
                 } while (next)
@@ -77,7 +77,7 @@
               do {
                 console.debug(`metrics/compute/${login}/plugins > anilist > querying api (favorites characters - page ${page})`)
                 const {data:{data:{User:{favourites:{characters:{nodes, pageInfo:cursor}}}}}} = await imports.axios.post("https://graphql.anilist.co", {variables:{name:user, page}, query:queries.anilist.characters()})
-                page = cursor.currentPage
+                page++
                 next = cursor.hasNextPage
                 for (const {name:{full:name}, image:{medium:artwork}} of nodes)
                   characters.push({name, artwork:artwork ? await imports.imgb64(artwork) : "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg=="})

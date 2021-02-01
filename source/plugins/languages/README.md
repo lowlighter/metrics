@@ -1,4 +1,4 @@
-### 🈷️ Most used languages <sup>🚧 <code>plugin_languages_colors</code> on <code>@master</code></sup>
+### 🈷️ Most used languages
 
 The *languages* plugin displays which programming languages you use the most across all your repositories.
 

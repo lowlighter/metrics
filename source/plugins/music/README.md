@@ -1,4 +1,4 @@
-### 🎼 Music plugin <sup>🚧 <code>lastfm</code> on <code>@master</code></sup>
+### 🎼 Music plugin
 
 The *music* plugin lets you display :
 
