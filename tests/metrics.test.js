@@ -29,12 +29,12 @@
 //Web instance
   const web = {}
   web.run = async (vars) => (await axios(`http://localhost:3000/lowlighter?${new url.URLSearchParams(Object.fromEntries(Object.entries(vars).map(([key, value]) => [key.replace(/^plugin_/, "").replace(/_/g, "."), value])))}`)).status === 200
-  web.start = async () => {
+  web.start = async () => new Promise(solve => {
     let stdout = ""
     web.instance = processes.spawn("node", ["source/app/web/index.mjs"], {env:{...process.env, USE_MOCKED_DATA:true, NO_SETTINGS:true}})
     web.instance.stdout.on("data", data => (stdout += data, /Server ready !/.test(stdout) ? solve() : null))
     web.instance.stderr.on("data", data => console.error(`${data}`))
-  }
+  })
   web.stop = async () => await web.instance.kill("SIGKILL")
 
 //Web instance placeholder
