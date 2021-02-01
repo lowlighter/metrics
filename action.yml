@@ -195,6 +195,12 @@ inputs:
     description: Maximum number of entries to display per section
     default: 2
   
+  # Number of entries to display in characters section
+  # Set to 0 to disable limitations
+  plugin_anilist_limit_characters:
+    description: Maximum number of entries to display in characters section
+    default: 22
+  
   # Shuffle AniList data for varied outputs
   plugin_anilist_shuffle:
     description: Shuffle AniList data
@@ -296,6 +302,11 @@ inputs:
   plugin_languages_details:
     description: Additional details
     default: ""
+  
+  # Minimum threshold (in percentage) to reach for languages to be displayed
+  plugin_languages_threshold:
+    description: Minimum threshold
+    default: 0%
   
   # ====================================================================================
   # 👨‍💻 Lines of code changed
