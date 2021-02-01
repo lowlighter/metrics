@@ -85,9 +85,11 @@
   for (const name in metadata.plugins) {
     const cases = yaml
       .load(fs.readFileSync(path.join(__dirname, "../source/plugins", name, "tests.yml"), "utf8"))
-      .map(({name, with:inputs, modes = []}) => {
-        const skip = Object.entries(metadata.templates).filter(([_, {readme:{compatibility}}]) => !compatibility[name]).map(([template]) => template)
-        return [name, inputs, {modes}]
+      .map(({name:test, with:inputs, modes = []}) => {
+        const skip = new Set(Object.entries(metadata.templates).filter(([_, {readme:{compatibility}}]) => !compatibility[name]).map(([template]) => template))
+        if (!(metadata.plugins[name].supports.includes("repository")))
+          skip.add("repository")
+        return [test, inputs, {skip:[...skip], modes}]
       })
     tests.push(...cases)
   }
