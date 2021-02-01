@@ -7,7 +7,7 @@
             return null
 
         //Load inputs
-          let {limit, medias, sections, shuffle, user} = imports.metadata.plugins.anilist.inputs({data, account, q})
+          let {limit, "limit.characters":limit_characters, medias, sections, shuffle, user} = imports.metadata.plugins.anilist.inputs({data, account, q})
 
         //Initialization
           const result = {user:{stats:null, genres:[]}, lists:Object.fromEntries(medias.map(type => [type, {}])), characters:[], sections}
@@ -79,11 +79,18 @@
                 const {data:{data:{User:{favourites:{characters:{nodes, pageInfo:cursor}}}}}} = await imports.axios.post("https://graphql.anilist.co", {variables:{name:user, page}, query:queries.anilist.characters()})
                 page++
                 next = cursor.hasNextPage
-                for (const {name:{full:name}, image:{medium:artwork}} of nodes)
+                for (const {name:{full:name}, image:{medium:artwork}} of nodes) {
+                  console.debug(`metrics/compute/${login}/plugins > anilist > processing ${name}`)
                   characters.push({name, artwork:artwork ? await imports.imgb64(artwork) : "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg=="})
+                }
               } while (next)
             //Format and save results
               result.characters = shuffle ? imports.shuffle(characters) : characters
+            //Limit results
+              if (limit_characters > 0) {
+                console.debug(`metrics/compute/${login}/plugins > anilist > keeping only ${limit_characters} characters`)
+                result.characters.splice(limit_characters)
+              }
           }
 
         //Results
