@@ -109,7 +109,7 @@
                           }
                         //String
                           case "string":{
-                            value = value.trim()
+                            value = `${value}`.trim()
                             if (user) {
                               if (value === ".user.login")
                                 return user.login
