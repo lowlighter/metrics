@@ -48,3 +48,9 @@ inputs:
       - bytes-size # Languages total size written in bytes
       - percentage # Languages proportions in %
     default: ""
+
+  # Minimum threshold (in percentage) to reach for languages to be displayed
+  plugin_languages_threshold:
+    description: Minimum threshold
+    type: string
+    default: 0%

@@ -42,6 +42,14 @@ inputs:
     default: 2
     min: 0
 
+  # Number of entries to display in characters section
+  # Set to 0 to disable limitations
+  plugin_anilist_limit_characters:
+    description: Maximum number of entries to display in characters section
+    type: number
+    default: 22
+    min: 0
+
   # Shuffle AniList data for varied outputs
   plugin_anilist_shuffle:
     description: Shuffle AniList data

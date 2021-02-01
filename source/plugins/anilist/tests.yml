@@ -45,6 +45,7 @@
     token: NOT_NEEDED
     plugin_anilist: yes
     plugin_anilist_limit: 0
+    plugin_anilist_limit_characters: 10
     plugin_anilist_shuffle: no
     plugin_anilist_user: user
 
@@ -56,5 +57,6 @@
     plugin_anilist_medias: manga, anime
     plugin_anilist_sections: favorites, watching, reading, characters
     plugin_anilist_limit: 0
+    plugin_anilist_limit_characters: 22
     plugin_anilist_shuffle: no
     plugin_anilist_user: user
