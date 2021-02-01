@@ -162,7 +162,6 @@ This section explain how metrics is structured.
   * `fonts.css` contains additional fonts used to render metrics
   * `template.mjs` contains template source code
 * `tests/` contains tests
-  * `testscases.js` contains tests case
   * `metrics.test.js` contains metrics testers
 * `Dockerfile` contains docker instructions used to build metrics image
 * `package.json` contains dependencies and command line aliases
@@ -576,7 +575,7 @@ json:
 
 Creating tests for your plugin ensure that external changes don't break it.
 
-You can define your tests cases in [`testscases.js`](/tests/testscases.js), which will automatically test your plugin with:
+You can define your tests cases in `tests.yml` in your plugin directory, which will automatically test your plugin with:
   - Metrics action
   - Metrics web instance
   - Metrics web instance placeholder (rendered by browser)

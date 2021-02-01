@@ -1,0 +1,26 @@
+- name: Image output (jpeg)
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    config_output: jpeg
+
+- name: Image output (png)
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    config_output: png
+
+- name: Disable animations
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    config_animations: no
+
+- name: Community templates
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    template: "@classic"
+    setup_community_templates: "lowlighter/metrics@master:classic"
+  modes:
+    - action
