@@ -11,7 +11,7 @@
 
     //Retrieving single repository
       console.debug(`metrics/compute/${login}/${repo} > retrieving single repository ${repo}`)
-      const {[account]:{repository}} = await graphql(queries.base.repository({login, repo, account}))
+      const {[account === "bypass" ? "user" : account]:{repository}} = await graphql(queries.base.repository({login, repo, account}))
       data.user.repositories.nodes = [repository]
       data.repo = repository
 

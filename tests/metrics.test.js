@@ -1,7 +1,3 @@
-/**
- * @jest-environment node
- */
-
 //Imports
   const processes = require("child_process")
   const yaml = require("js-yaml")
@@ -33,21 +29,13 @@
 //Web instance
   const web = {}
   web.run = async (vars) => (await axios(`http://localhost:3000/lowlighter?${new url.URLSearchParams(Object.fromEntries(Object.entries(vars).map(([key, value]) => [key.replace(/^plugin_/, "").replace(/_/g, "."), value])))}`)).status === 200
-  beforeAll(async done => {
-    await fs.promises.rmdir(path.join(__dirname, "../source/templates/@classic"), {recursive:true})
-    await new Promise((solve, reject) => {
-      let stdout = ""
-      web.instance = processes.spawn("node", ["source/app/web/index.mjs"], {env:{...process.env, USE_MOCKED_DATA:true, NO_SETTINGS:true}})
-      web.instance.stdout.on("data", data => (stdout += data, /Server ready !/.test(stdout) ? solve() : null))
-      web.instance.stderr.on("data", data => console.error(`${data}`))
-    })
-    done()
+  web.start = async () => new Promise(solve => {
+    let stdout = ""
+    web.instance = processes.spawn("node", ["source/app/web/index.mjs"], {env:{...process.env, USE_MOCKED_DATA:true, NO_SETTINGS:true}})
+    web.instance.stdout.on("data", data => (stdout += data, /Server ready !/.test(stdout) ? solve() : null))
+    web.instance.stderr.on("data", data => console.error(`${data}`))
   })
-  afterAll(async done => {
-    await web.instance.kill("SIGKILL")
-    await fs.promises.rmdir(path.join(__dirname, "../source/templates/@classic"), {recursive:true})
-    done()
-  })
+  web.stop = async () => await web.instance.kill("SIGKILL")
 
 //Web instance placeholder
   require("./../source/app/web/statics/app.placeholder.js")
@@ -69,8 +57,42 @@
     }) === "string"
   }
 
-//Test cases
-  const tests = require("./testscases")()
+//Setup
+  beforeAll(async done => {
+    //Clean community template
+      await fs.promises.rmdir(path.join(__dirname, "../source/templates/@classic"), {recursive:true})
+    //Start web instance
+      await web.start()
+    done()
+  })
+//Teardown
+  afterAll(async done => {
+    //Stop web instance
+      await web.stop()
+    //Clean community template
+      await fs.promises.rmdir(path.join(__dirname, "../source/templates/@classic"), {recursive:true})
+    done()
+  })
+
+//Load metadata (as jest doesn't support ESM modules, we use this dirty hack)
+  const metadata = JSON.parse(`${processes.spawnSync("node", [
+    "--input-type", "module",
+    "--eval", 'import metadata from "./source/app/metrics/metadata.mjs";console.log(JSON.stringify(await metadata({log:false})))'
+  ]).stdout}`)
+
+//Build tests index
+  const tests = []
+  for (const name in metadata.plugins) {
+    const cases = yaml
+      .load(fs.readFileSync(path.join(__dirname, "../source/plugins", name, "tests.yml"), "utf8"))
+      .map(({name:test, with:inputs, modes = []}) => {
+        const skip = new Set(Object.entries(metadata.templates).filter(([_, {readme:{compatibility}}]) => !compatibility[name]).map(([template]) => template))
+        if (!(metadata.plugins[name].supports.includes("repository")))
+          skip.add("repository")
+        return [test, inputs, {skip:[...skip], modes}]
+      })
+    tests.push(...cases)
+  }
 
 //Tests run
   describe("GitHub Action", () =>
@@ -83,16 +105,7 @@
         if ((skip.includes(template))||((modes.length)&&(!modes.includes("action"))))
           test.skip(name, () => null)
         else
-          test(name, async () => expect(await action.run({
-            token:"MOCKED_TOKEN",
-            plugin_pagespeed_token:"MOCKED_TOKEN",
-            plugin_tweets_token:"MOCKED_TOKEN",
-            plugin_music_token:"MOCKED_CLIENT_ID, MOCKED_CLIENT_SECRET, MOCKED_REFRESH_TOKEN",
-            template, base:"", query:JSON.stringify(query),
-            config_timezone:"Europe/Paris",
-            plugins_errors_fatal:true, dryrun:true, use_mocked_data:true, verify:true,
-            ...input
-          })).toBe(true), 60*1e3)
+          test(name, async () => expect(await action.run({template, base:"", query:JSON.stringify(query), plugins_errors_fatal:true, dryrun:true, use_mocked_data:true, verify:true, ...input})).toBe(true))
     })
   )
 
@@ -106,12 +119,7 @@
         if ((skip.includes(template))||((modes.length)&&(!modes.includes("web"))))
           test.skip(name, () => null)
         else
-          test(name, async () => expect(await web.run({
-            template, base:0, ...query,
-            config_timezone:"Europe/Paris",
-            plugins_errors_fatal:true, verify:true,
-            ...input
-          })).toBe(true), 60*1e3)
+          test(name, async () => expect(await web.run({template, base:0, ...query, plugins_errors_fatal:true, verify:true, ...input})).toBe(true))
     })
   )
 
@@ -124,13 +132,6 @@
         if ((skip.includes(template))||((modes.length)&&(!modes.includes("placeholder"))))
           test.skip(name, () => null)
         else
-          test(name, async () => expect(await placeholder.run({
-            template, base:0, ...query,
-            config_timezone:"Europe/Paris",
-            plugins_errors_fatal:true, verify:true,
-            ...input
-          })).toBe(true))
+          test(name, async () => expect(await placeholder.run({template, base:0, ...query, ...input})).toBe(true))
     })
   )
-
-

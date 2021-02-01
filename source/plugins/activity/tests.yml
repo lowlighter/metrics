@@ -1,0 +1,21 @@
+- name: Activity  plugin (default)
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    plugin_activity: yes
+
+- name: Activity  plugin (filtered)
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    plugin_activity: yes
+    plugin_activity_filter: pr, issue
+
+- name: Activity  plugin (complete)
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    plugin_activity: yes
+    plugin_activity_limit: 100
+    plugin_activity_days: 14
+    plugin_activity_filter: all

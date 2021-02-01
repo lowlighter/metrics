@@ -1,0 +1,5 @@
+- name: Follow-up plugin (default)
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    plugin_followup: yes

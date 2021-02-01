@@ -1,0 +1,20 @@
+- name: Isocalendar plugin (default)
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    plugin_isocalendar: yes
+
+- name: Isocalendar plugin (half-year)
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    plugin_isocalendar: yes
+    plugin_isocalendar_duration: half-year
+
+
+- name: Isocalendar plugin (full-year)
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    plugin_isocalendar: yes
+    plugin_isocalendar_duration: full-year
