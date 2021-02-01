@@ -12,7 +12,11 @@ The *wakatime* plugin displays statistics from your [WakaTime](https://wakatime.
 <details>
 <summary>💬 Obtaining a WakaTime token</summary>
 
-<!-- TODO -->
+Create a [WakaTime account](https://wakatime.com) and retrieve your API key in your [Account settings](https://wakatime.com/settings/account).
+
+![WakaTime API token](/.github/readme/imgs/plugin_wakatime_token.png)
+
+Then setup [WakaTime plugins](https://wakatime.com/plugins) to be ready to go!
 
 </details>
 
