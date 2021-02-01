@@ -1,0 +1,30 @@
+- name: Habits plugin (default)
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    plugin_habits: yes
+
+- name: Habits plugin (charts)
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    plugin_habits: yes
+    plugin_habits_facts: no
+    plugin_habits_charts: yes
+    config_timezone: Europe/Paris
+
+- name: Habits plugin (facts)
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    plugin_habits: yes
+    plugin_habits_facts: yes
+
+- name: Habits plugin (complete)
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    plugin_habits: yes
+    plugin_habits_facts: yes
+    plugin_habits_charts: yes
+    config_timezone: Europe/Paris

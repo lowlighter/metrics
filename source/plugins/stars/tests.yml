@@ -1,0 +1,5 @@
+- name: Stars plugin (default)
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOCKEN
+    plugin_stars: yes

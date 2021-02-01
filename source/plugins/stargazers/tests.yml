@@ -1,0 +1,5 @@
+- name: Stargazers plugin (default)
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOCKEN
+    plugin_stargazers: yes
