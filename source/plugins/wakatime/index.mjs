@@ -1,0 +1,44 @@
+//Setup
+  export default async function ({login, q, imports, data, account}, {enabled = false, token} = {}) {
+    //Plugin execution
+      try {
+        //Check if plugin is enabled and requirements are met
+          if ((!enabled)||(!q.wakatime))
+            return null
+
+        //Load inputs
+          let {sections, days} = imports.metadata.plugins.wakatime.inputs({data, account, q})
+          const range = {"7":"last_7_days", "30":"last_30_days", "180":"last_6_months", "365":"last_year"}[days] ?? "last_7_days"
+
+        //Querying api and format result
+        //https://wakatime.com/developers#stats
+          console.debug(`metrics/compute/${login}/plugins > wakatime > querying api`)
+          const {data:{data:stats}} = await imports.axios.get(`https://wakatime.com/api/v1/users/current/stats/${range}?api_key=${token}`)
+          console.log(stats)
+          const result = {
+            sections,
+            days,
+            time:{
+              total:stats.total_seconds/60,
+              daily:stats.daily_average/60,
+            },
+            projects:stats.projects.map(({name, percent, total_seconds:total}) => ({name, percent, total})),
+            languages:stats.languages.map(({name, percent, total_seconds:total}) => ({name, percent, total})),
+            os:stats.operating_systems.map(({name, percent, total_seconds:total}) => ({name, percent, total})),
+            editors:stats.editors.map(({name, percent, total_seconds:total}) => ({name, percent, total})),
+          }
+
+        //Result
+          return result
+      }
+    //Handle errors
+      catch (error) {
+        let message = "An error occured"
+        if (error.isAxiosError) {
+          const status = error.response?.status
+          message = `API returned ${status}`
+          error = error.response?.data ?? null
+        }
+        throw {error:{message, instance:error}}
+      }
+  }
