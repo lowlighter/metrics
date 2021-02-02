@@ -62,7 +62,7 @@
           console.debug(`metrics/compute/mocks > mocking rest api`)
           const unmocked = {}
         //Mocked
-          const x = ({path = "rest", mocks, mocked}) => {
+          const mocker = ({path = "rest", mocks, mocked}) => {
             for (const [key, value] of Object.entries(mocks)) {
               console.debug(`metrics/compute/mocks > mocking rest api > mocking ${path}.${key}`)
               if (typeof value === "function") {
@@ -70,10 +70,10 @@
                 mocked[key] = new Proxy(unmocked[path], {apply:value.bind(null, {faker})})
               }
               else
-                x({path:`${path}.${key}`, mocks:mocks[key], mocked:mocked[key]})
+                mocker({path:`${path}.${key}`, mocks:mocks[key], mocked:mocked[key]})
             }
           }
-          x({mocks:mocks.github.rest, mocked:rest})
+          mocker({mocks:mocks.github.rest, mocked:rest})
       }
 
     //Axios mocking
