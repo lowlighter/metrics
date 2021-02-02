@@ -60,25 +60,20 @@
       {
         //Unmocked
           console.debug(`metrics/compute/mocks > mocking rest api`)
-          const unmocked = {
-            request:rest.request,
-            rateLimit:rest.rateLimit.get,
-            listEventsForAuthenticatedUser:rest.activity.listEventsForAuthenticatedUser,
-            getViews:rest.repos.getViews,
-            getContributorsStats:rest.repos.getContributorsStats,
-            listCommits:rest.repos.listCommits,
-            listContributors:rest.repos.listContributors,
-            getByUsername:rest.users.getByUsername,
-          }
+          const unmocked = {}
         //Mocked
-          rest.request = new Proxy(unmocked.request, {apply:mocks.github.rest.raw.bind(null, {faker})})
-          rest.rateLimit.get = new Proxy(unmocked.rateLimit, {apply:mocks.github.rest.ratelimit.bind(null, {faker})})
-          rest.activity.listEventsForAuthenticatedUser = new Proxy(unmocked.listEventsForAuthenticatedUser, {apply:mocks.github.rest.events.bind(null, {faker})})
-          rest.repos.getViews = new Proxy(unmocked.getViews, {apply:mocks.github.rest.views.bind(null, {faker})})
-          rest.repos.getContributorsStats = new Proxy(unmocked.getContributorsStats, {apply:mocks.github.rest.stats.bind(null, {faker})})
-          rest.repos.listCommits = new Proxy(unmocked.listCommits, {apply:mocks.github.rest.commits.bind(null, {faker})})
-          rest.repos.listContributors = new Proxy(unmocked.listContributors, {apply:mocks.github.rest.contributors.bind(null, {faker})})
-          rest.users.getByUsername = new Proxy(unmocked.getByUsername, {apply:mocks.github.rest.username.bind(null, {faker})})
+          const mocker = ({path = "rest", mocks, mocked}) => {
+            for (const [key, value] of Object.entries(mocks)) {
+              console.debug(`metrics/compute/mocks > mocking rest api > mocking ${path}.${key}`)
+              if (typeof value === "function") {
+                unmocked[path] = value
+                mocked[key] = new Proxy(unmocked[path], {apply:value.bind(null, {faker})})
+              }
+              else
+                mocker({path:`${path}.${key}`, mocks:mocks[key], mocked:mocked[key]})
+            }
+          }
+          mocker({mocks:mocks.github.rest, mocked:rest})
       }
 
     //Axios mocking

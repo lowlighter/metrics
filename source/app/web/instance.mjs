@@ -18,25 +18,32 @@
       const {token, maxusers = 0, restricted = [], debug = false, cached = 30*60*1000, port = 3000, ratelimiter = null, plugins = null} = conf.settings
       mock = mock || conf.settings.mocked
 
-    //Apply configuration mocking if needed
-      if (mock) {
-        console.debug(`metrics/app > using mocked settings`)
-        const {settings} = conf
-        //Mock token if it's undefined
-          if (!settings.token)
-            settings.token = (console.debug(`metrics/app > using mocked token`), "MOCKED_TOKEN")
+    //Process mocking and default plugin state
+      for (const plugin of Object.keys(Plugins).filter(x => !["base", "core"].includes(x))) {
+        //Initialization
+          const {settings} = conf
+          if (!settings.plugins[plugin])
+            settings.plugins[plugin] = {}
+        //Auto-enable plugin if needed
+          if (conf.settings["plugins.default"])
+            settings.plugins[plugin].enabled = settings.plugins[plugin].enabled ?? (console.debug(`metrics/app > auto-enabling ${plugin}`), true)
         //Mock plugins state and tokens if they're undefined
-          for (const plugin of Object.keys(Plugins)) {
-            if (!settings.plugins[plugin])
-              settings.plugins[plugin] = {}
-            settings.plugins[plugin].enabled = settings.plugins[plugin].enabled ?? (console.debug(`metrics/app > using mocked token enable state for ${plugin}`), true)
-            if (["tweets", "pagespeed"].includes(plugin))
-              settings.plugins[plugin].token = settings.plugins[plugin].token ?? (console.debug(`metrics/app > using mocked token for ${plugin}`), "MOCKED_TOKEN")
-            if (["music"].includes(plugin))
-              settings.plugins[plugin].token = settings.plugins[plugin].token ?? (console.debug(`metrics/app > using mocked token for ${plugin}`), "MOCKED_CLIENT_ID, MOCKED_CLIENT_SECRET, MOCKED_REFRESH_TOKEN")
+          if (mock) {
+            const tokens = Object.entries(conf.metadata.plugins[plugin].inputs).filter(([key, value]) => (!/^plugin_/.test(key))&&(value.type === "token")).map(([key]) => key)
+            for (const token of tokens) {
+              if ((!settings.plugins[plugin][token])||(mock === "force")) {
+                console.debug(`metrics/app > using mocked token for ${plugin}.${token}`)
+                settings.plugins[plugin][token] = "MOCKED_TOKEN"
+              }
+            }
           }
-        console.debug(util.inspect(settings, {depth:Infinity, maxStringLength:256}))
       }
+      if (((mock)&&(!conf.settings.token))||(mock === "force")) {
+        console.debug(`metrics/app > using mocked token`)
+        conf.settings.token = "MOCKED_TOKEN"
+      }
+      if (debug)
+        console.debug(util.inspect(conf.settings, {depth:Infinity, maxStringLength:256}))
 
     //Load octokits
       const api = {graphql:octokit.graphql.defaults({headers:{authorization: `token ${token}`}}), rest:new OctokitRest.Octokit({auth:token})}

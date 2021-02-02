@@ -10,7 +10,7 @@
   "port": 3000,                    "//": "Listening port",
   "optimize": true,                "//": "SVG optimization",
   "debug": false,                  "//": "Debug logs",
-  "mocked": false,                 "//": "Use mocked data instead of live APIs",
+  "mocked": false,                 "//": "Use mocked data instead of live APIs (use 'force' to use mocked token even if real token are defined)",
   "repositories": 100,             "//": "Number of repositories to use",
   "community": {
     "templates": [],               "//": "Additional community templates to setup"
@@ -19,6 +19,7 @@
     "default": "classic",          "//": "Default template",
     "enabled": [],                 "//": "Enabled templates (empty to enable all)"
   },
+  "plugins.default": false,        "//": "Default plugin state (advised to let 'false' unless in debug mode)",
   "plugins": {                     "//": "Global plugin configuration",
     <% for (const name of Object.keys(plugins).filter(v => !["base", "core"].includes(v))) { -%>
 "<%= name %>":{
