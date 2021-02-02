@@ -131,3 +131,8 @@
       await page.close()
       return {resized, mime}
   }
+
+/** Wait */
+  export async function wait(seconds) {
+    await new Promise(solve => setTimeout(solve), seconds*1000)
+  }

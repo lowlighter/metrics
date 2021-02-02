@@ -51,11 +51,22 @@
                 let page = 1
                 let next = false
                 do {
-                  console.debug(`metrics/compute/${login}/plugins > anilist > querying api (favorites ${type}s - page ${page})`)
-                  const {data:{data:{User:{favourites:{[type]:{nodes, pageInfo:cursor}}}}}} = await imports.axios.post("https://graphql.anilist.co", {variables:{name:user, page}, query:queries.anilist.favorites({type})})
-                  page++
-                  next = cursor.hasNextPage
-                  list.push(...await Promise.all(nodes.map(media => format({media:{progess:null, score:null, media}, imports}))))
+                  try {
+                    console.debug(`metrics/compute/${login}/plugins > anilist > querying api (favorites ${type}s - page ${page})`)
+                    const {data:{data:{User:{favourites:{[type]:{nodes, pageInfo:cursor}}}}}} = await imports.axios.post("https://graphql.anilist.co", {variables:{name:user, page}, query:queries.anilist.favorites({type})})
+                    page++
+                    next = cursor.hasNextPage
+                    list.push(...await Promise.all(nodes.map(media => format({media:{progess:null, score:null, media}, imports}))))
+                  }
+                  catch (error) {
+                    if ((error.isAxiosError)&&(error.response.status === 429)) {
+                      const delay = Number(error.response.headers["retry-after"])+5
+                      console.debug(`metrics/compute/${login}/plugins > anilist > reached requests limit, retrying in ${delay}s`)
+                      await imports.wait(delay)
+                      continue
+                    }
+                    throw error
+                  }
                 } while (next)
               //Format and save results
                 result.lists[type].favorites = shuffle ? imports.shuffle(list) : list
@@ -75,13 +86,24 @@
               let page = 1
               let next = false
               do {
-                console.debug(`metrics/compute/${login}/plugins > anilist > querying api (favorites characters - page ${page})`)
-                const {data:{data:{User:{favourites:{characters:{nodes, pageInfo:cursor}}}}}} = await imports.axios.post("https://graphql.anilist.co", {variables:{name:user, page}, query:queries.anilist.characters()})
-                page++
-                next = cursor.hasNextPage
-                for (const {name:{full:name}, image:{medium:artwork}} of nodes) {
-                  console.debug(`metrics/compute/${login}/plugins > anilist > processing ${name}`)
-                  characters.push({name, artwork:artwork ? await imports.imgb64(artwork) : "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg=="})
+                try {
+                  console.debug(`metrics/compute/${login}/plugins > anilist > querying api (favorites characters - page ${page})`)
+                  const {data:{data:{User:{favourites:{characters:{nodes, pageInfo:cursor}}}}}} = await imports.axios.post("https://graphql.anilist.co", {variables:{name:user, page}, query:queries.anilist.characters()})
+                  page++
+                  next = cursor.hasNextPage
+                  for (const {name:{full:name}, image:{medium:artwork}} of nodes) {
+                    console.debug(`metrics/compute/${login}/plugins > anilist > processing ${name}`)
+                    characters.push({name, artwork:artwork ? await imports.imgb64(artwork) : "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg=="})
+                  }
+                }
+                catch (error) {
+                  if ((error.isAxiosError)&&(error.response.status === 429)) {
+                    const delay = Number(error.response.headers["retry-after"])+5
+                    console.debug(`metrics/compute/${login}/plugins > anilist > reached requests limit, retrying in ${delay}s`)
+                    await imports.wait(delay)
+                    continue
+                  }
+                  throw error
                 }
               } while (next)
             //Format and save results
