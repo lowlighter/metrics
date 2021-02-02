@@ -42,7 +42,7 @@ inputs:
       - editors-graphs   # Show code editors graphs
       - os               # Show most used operating system
       - os-graphs        # Show code operating systems graphs
-    default: time, projects, projects-graphs, languages, languages-graphs, editors, editors-graphs, os, os-graphs
+    default: time, projects, projects-graphs, languages, languages-graphs, editors, os
 
   # Number of entries to display per graph
   # Set to 0 to disable limitations
