@@ -587,7 +587,7 @@ Add them in [`source/app/mocks/api/`](/source/app/mocks/api) folder.
 
 If you're using `axios` or GitHub GraphQL API, these files are autoloaded so you just need to create new functions (see other mocked data for examples).
 
-If you're using GitHub REST API, you'll also need to edit [`source/app/mocks/index.mjs`](/source/app/mocks/index.mjs) to add a new proxied method.
+If you're using GitHub REST API, add your mocks in [`source/app/mocks/rest`](/source/app/mocks/rest) with same path as octokit.
 
 </details>
 
