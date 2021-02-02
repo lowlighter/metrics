@@ -11,4 +11,5 @@
     token: NOT_NEEDED
     plugin_wakatime_token: MOCKED_TOKEN
     plugin_wakatime: yes
+    plugin_wakatime_limit: 4
     plugin_wakatime_sections: time, projects, projects-graphs, languages, languages-graphs, editors, editors-graphs, os, os-graphs

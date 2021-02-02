@@ -7,25 +7,26 @@
             return null
 
         //Load inputs
-          let {sections, days} = imports.metadata.plugins.wakatime.inputs({data, account, q})
+          let {sections, days, limit} = imports.metadata.plugins.wakatime.inputs({data, account, q})
+          if (!limit)
+            limit = void(limit)
           const range = {"7":"last_7_days", "30":"last_30_days", "180":"last_6_months", "365":"last_year"}[days] ?? "last_7_days"
 
         //Querying api and format result
         //https://wakatime.com/developers#stats
           console.debug(`metrics/compute/${login}/plugins > wakatime > querying api`)
           const {data:{data:stats}} = await imports.axios.get(`https://wakatime.com/api/v1/users/current/stats/${range}?api_key=${token}`)
-          console.log(stats)
           const result = {
             sections,
             days,
             time:{
-              total:stats.total_seconds/60,
-              daily:stats.daily_average/60,
+              total:stats.total_seconds/(60*60),
+              daily:stats.daily_average/(60*60),
             },
-            projects:stats.projects.map(({name, percent, total_seconds:total}) => ({name, percent, total})),
-            languages:stats.languages.map(({name, percent, total_seconds:total}) => ({name, percent, total})),
-            os:stats.operating_systems.map(({name, percent, total_seconds:total}) => ({name, percent, total})),
-            editors:stats.editors.map(({name, percent, total_seconds:total}) => ({name, percent, total})),
+            projects:stats.projects.map(({name, percent, total_seconds:total}) => ({name, percent:percent/100, total})).sort((a, b) => b.percent - a.percent).slice(0, limit),
+            languages:stats.languages.map(({name, percent, total_seconds:total}) => ({name, percent:percent/100, total})).sort((a, b) => b.percent - a.percent).slice(0, limit),
+            os:stats.operating_systems.map(({name, percent, total_seconds:total}) => ({name, percent:percent/100, total})).sort((a, b) => b.percent - a.percent).slice(0, limit),
+            editors:stats.editors.map(({name, percent, total_seconds:total}) => ({name, percent:percent/100, total})).sort((a, b) => b.percent - a.percent).slice(0, limit),
           }
 
         //Result

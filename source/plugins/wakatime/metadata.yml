@@ -43,3 +43,11 @@ inputs:
       - os               # Show most used operating system
       - os-graphs        # Show code operating systems graphs
     default: time, projects, projects-graphs, languages, languages-graphs, editors, editors-graphs, os, os-graphs
+
+  # Number of entries to display per graph
+  # Set to 0 to disable limitations
+  plugin_wakatime_limit:
+    description: Maximum number of entries to display per graph
+    type: number
+    default: 5
+    min: 0
