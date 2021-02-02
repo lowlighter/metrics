@@ -46,6 +46,15 @@
   }
   format.percentage = percentage
 
+/** Text ellipsis formatter */
+  export function ellipsis(text, {length = 20} = {}) {
+    text = `${text}`
+    if (text.length < length)
+      return text
+    return `${text.substring(0, length)}…`
+  }
+  format.ellipsis = ellipsis
+
 /** Array shuffler */
   export function shuffle(array) {
     for (let i = array.length-1; i > 0; i--) {

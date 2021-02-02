@@ -5,12 +5,16 @@
         //Get user profile
           if (/api_key=MOCKED_TOKEN/.test(url)) {
             console.debug(`metrics/compute/mocks > mocking wakatime api result > ${url}`)
-            const stats = (array) => new Array(4+faker.random.number(2)).fill(null).map(_ => ({
-              get digital() { return `${this.hours}:${this.minutes}` },
-              hours:faker.random.number(1000), minutes:faker.random.number(1000),
-              name:array ? faker.random.arrayElement(array) : faker.lorem.words(),
-              percent:faker.random.number(100), total_seconds:faker.random.number(1000000),
-            }))
+            const stats = (array) => {
+              const elements = []
+              let result = new Array(4+faker.random.number(2)).fill(null).map(_ => ({
+                get digital() { return `${this.hours}:${this.minutes}` },
+                hours:faker.random.number(1000), minutes:faker.random.number(1000),
+                name:array ? faker.random.arrayElement(array) : faker.lorem.words(),
+                percent:faker.random.number(100), total_seconds:faker.random.number(1000000),
+              }))
+              return result.filter(({name}) => elements.includes(name) ? false : (elements.push(name), true))
+            }
             return ({
                 status:200,
                 data:{
