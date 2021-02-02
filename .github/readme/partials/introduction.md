@@ -12,8 +12,6 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
 <% {
   let cell = 0
   const elements = Object.entries(plugins).filter(([key, value]) => (value)&&(!["base", "core"].includes(key)))
-  if (elements.length%2)
-    elements.push(["", {}])
 %>
 <table>
   <tr>
@@ -21,7 +19,9 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
       <a href="source/plugins/README.md">🧩 <%= elements.length %> plugins</a>
     </th>
   </tr>
-<%  for (let i = 0; i < elements.length; i+=2) {
+<%  if (elements.length%2)
+      elements.push(["", {readme:{demo:`<td align="center"><img width="900" height="1" alt=""></td>`}}])
+    for (let i = 0; i < elements.length; i+=2) {
     const cells = [["even", elements[i]], ["odd", elements[i+1]]]
       for (const [cell, [plugin, {name, readme}]] of cells) {
         if (cell === "even") {
@@ -49,8 +49,6 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
 <% {
   let cell = 0
   const elements = Object.entries(templates).filter(([key, value]) => value)
-  if (elements.length%2)
-    elements.push(["", {}])
 %>
 <table>
   <tr>
@@ -58,7 +56,9 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
       <a href="source/templates/README.md">🖼️ <%= elements.length-1 %> templates</a>
     </th>
   </tr>
-<%  for (let i = 0; i < elements.length; i+=2) {
+<%  if (elements.length%2)
+      elements.push(["", {readme:{demo:`<td align="center"><img width="900" height="1" alt=""></td>`}}])
+    for (let i = 0; i < elements.length; i+=2) {
     const cells = [["even", elements[i]], ["odd", elements[i+1]]]
       for (const [cell, [template, {name, readme}]] of cells) {
         if (cell === "even") {
