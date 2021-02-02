@@ -78,6 +78,10 @@
       "token": null,               "//":"Twitter API token",
       "enabled": false,            "//": "Display recent tweets"
     },
+    "wakatime":{
+      "token": null,               "//":"WakaTime API token",
+      "enabled": false,            "//": "Display WakaTime stats"
+    },
     "//": ""
   }
 }

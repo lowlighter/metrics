@@ -27,7 +27,7 @@
         //Auto-enable plugin if needed
           if (conf.settings["plugins.default"])
             settings.plugins[plugin].enabled = settings.plugins[plugin].enabled ?? (console.debug(`metrics/app > auto-enabling ${plugin}`), true)
-        //Mock plugins state and tokens if they're undefined
+        //Mock plugins tokens if they're undefined
           if (mock) {
             const tokens = Object.entries(conf.metadata.plugins[plugin].inputs).filter(([key, value]) => (!/^plugin_/.test(key))&&(value.type === "token")).map(([key]) => key)
             for (const token of tokens) {

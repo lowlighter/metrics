@@ -23,3 +23,4 @@ See their respective documentation for more informations about how to setup them
 * [📌 Starred topics](/source/plugins/topics/README.md)
 * [🧮 Repositories traffic](/source/plugins/traffic/README.md)
 * [🐤 Latest tweets](/source/plugins/tweets/README.md)
+* [⏰ WakaTime plugin](/source/plugins/wakatime/README.md)
