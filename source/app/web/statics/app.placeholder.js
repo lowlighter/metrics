@@ -620,7 +620,7 @@
         }
         data.f.percentage = function (n, {rescale = true} = {}) {
           return `${(n*(rescale ? 100 : 1)).toFixed(2)
-            .replace(/(?<=[.])([1-9]*)(0+)$/, (m, a, b) => a)
+            .replace(/[.]([1-9]*)(0+)$/, (m, a, b) => `.${a}`)
             .replace(/[.]$/, "")}%`
         }
         data.f.ellipsis = function (text, {length = 20} = {}) {
