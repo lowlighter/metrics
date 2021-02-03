@@ -555,6 +555,36 @@ inputs:
     description: Twitter username
     default: .user.twitter
   
+  # ====================================================================================
+  # ⏰ WakaTime plugin
+  
+  # Enable or disable plugin
+  plugin_wakatime:
+    description: Display WakaTime stats
+    default: no
+  
+  # WakaTime API token
+  # See https://wakatime.com/settings/account get your API key
+  plugin_wakatime_token:
+    description: WakaTime API token
+    default: ""
+  
+  # Time range to use for displayed stats
+  plugin_wakatime_days:
+    description: WakaTime time range
+    default: 7
+  
+  # Sections to display
+  plugin_wakatime_sections:
+    description: Sections to display
+    default: time, projects, projects-graphs, languages, languages-graphs, editors, os
+  
+  # Number of entries to display per graph
+  # Set to 0 to disable limitations
+  plugin_wakatime_limit:
+    description: Maximum number of entries to display per graph
+    default: 5
+  
 
 # ====================================================================================
 # Action metadata

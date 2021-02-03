@@ -24,7 +24,7 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
 <table>
   <tr>
     <th colspan="2" align="center">
-      <a href="source/plugins/README.md">🧩 18 plugins</a>
+      <a href="source/plugins/README.md">🧩 19 plugins</a>
     </th>
   </tr>
   <tr>
@@ -189,6 +189,17 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.tweets.svg">
       <img width="900" height="1" alt="">
     </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/wakatime/README.md">⏰ WakaTime plugin</a></th>
+    <th><a href="source/plugins//README.md"></a></th>
+  </tr>
+  <tr>
+    <td align="center">
+      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.wakatime.svg">
+      <img width="900" height="1" alt="">
+    </td>
+    <td align="center"><img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <th colspan="2" align="center">
@@ -549,6 +560,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center">📌</th>
     <th nowrap="nowrap" align="center">🧮</th>
     <th nowrap="nowrap" align="center">🐤</th>
+    <th nowrap="nowrap" align="center">⏰</th>
   </tr>  
   <tr>
     <th nowrap="nowrap">📗 Classic</th>    
@@ -571,6 +583,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="topics">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="traffic">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="tweets">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="wakatime">✔️</th>
   </tr>
   <tr>
     <th nowrap="nowrap">📘 Repository</th>    
@@ -593,6 +606,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="topics">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="traffic">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="tweets">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="wakatime">❌</th>
   </tr>
   <tr>
     <th nowrap="nowrap">📙 Terminal</th>    
@@ -615,6 +629,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="topics">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="traffic">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="tweets">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="wakatime">❌</th>
   </tr>
 </table>
 
@@ -653,6 +668,7 @@ See their respective documentation for more informations about how to setup them
 * [📌 Starred topics](/source/plugins/topics/README.md)
 * [🧮 Repositories traffic](/source/plugins/traffic/README.md)
 * [🐤 Latest tweets](/source/plugins/tweets/README.md)
+* [⏰ WakaTime plugin](/source/plugins/wakatime/README.md)
 
 ### 🏦 Organizations metrics
 

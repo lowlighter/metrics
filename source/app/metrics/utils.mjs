@@ -46,6 +46,15 @@
   }
   format.percentage = percentage
 
+/** Text ellipsis formatter */
+  export function ellipsis(text, {length = 20} = {}) {
+    text = `${text}`
+    if (text.length < length)
+      return text
+    return `${text.substring(0, length)}…`
+  }
+  format.ellipsis = ellipsis
+
 /** Array shuffler */
   export function shuffle(array) {
     for (let i = array.length-1; i > 0; i--) {
@@ -130,4 +139,9 @@
     //Result
       await page.close()
       return {resized, mime}
+  }
+
+/** Wait */
+  export async function wait(seconds) {
+    await new Promise(solve => setTimeout(solve, seconds*1000))
   }

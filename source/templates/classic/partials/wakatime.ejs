@@ -1,0 +1,87 @@
+<% if (plugins.wakatime) { %>
+  <section>
+    <h2 class="field">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M2.75 1a.75.75 0 000 1.5h.75v1.25a4.75 4.75 0 001.9 3.8l.333.25c.134.1.134.3 0 .4l-.333.25a4.75 4.75 0 00-1.9 3.8v1.25h-.75a.75.75 0 000 1.5h10.5a.75.75 0 000-1.5h-.75v-1.25a4.75 4.75 0 00-1.9-3.8l-.333-.25a.25.25 0 010-.4l.333-.25a4.75 4.75 0 001.9-3.8V2.5h.75a.75.75 0 000-1.5H2.75zM11 2.5H5v1.25a3.25 3.25 0 001.3 2.6l.333.25c.934.7.934 2.1 0 2.8l-.333.25a3.25 3.25 0 00-1.3 2.6v1.25h6v-1.25a3.25 3.25 0 00-1.3-2.6l-.333-.25a1.75 1.75 0 010-2.8l.333-.25a3.25 3.25 0 001.3-2.6V2.5z"></path></svg>
+      WakaTime <%= plugins.wakatime?.days ? `(over last ${{7:"week", 30:"month", 180:"6 months", 365:"year"}[plugins.wakatime.days]})` : "" %>
+    </h2>
+    <% if (plugins.wakatime.error) { %>
+      <div class="row fill-width">
+        <section>
+          <div class="field error">
+            <%= plugins.wakatime.error.message %>
+          </div>
+        </section>
+      </div>
+    <% } else { %>
+      <div class="row">
+        <section>
+          <% if (plugins.wakatime.sections.includes("time")) { %>
+            <div class="field">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M1.643 3.143L.427 1.927A.25.25 0 000 2.104V5.75c0 .138.112.25.25.25h3.646a.25.25 0 00.177-.427L2.715 4.215a6.5 6.5 0 11-1.18 4.458.75.75 0 10-1.493.154 8.001 8.001 0 101.6-5.684zM7.75 4a.75.75 0 01.75.75v2.992l2.028.812a.75.75 0 01-.557 1.392l-2.5-1A.75.75 0 017 8.25v-3.5A.75.75 0 017.75 4z"></path></svg>
+              ~<%= f(Math.ceil(plugins.wakatime.time.total)) %> coding hour<%= s(plugins.wakatime.time.total) %> recorded
+            </div>
+          <% } %>
+          <% if ((plugins.wakatime.sections.includes("projects"))&&(plugins.wakatime.projects?.length)) { %>
+            <div class="field">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path></svg>
+              Working on <%= f.ellipsis(plugins.wakatime.projects[0]?.name, {length:16}) %>
+            </div>
+          <% } %>
+          <% if ((plugins.wakatime.sections.includes("languages"))&&(plugins.wakatime.languages?.length)) { %>
+            <div class="field">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M1.5 2.75a.25.25 0 01.25-.25h12.5a.25.25 0 01.25.25v8.5a.25.25 0 01-.25.25h-6.5a.75.75 0 00-.53.22L4.5 14.44v-2.19a.75.75 0 00-.75-.75h-2a.25.25 0 01-.25-.25v-8.5zM1.75 1A1.75 1.75 0 000 2.75v8.5C0 12.216.784 13 1.75 13H3v1.543a1.457 1.457 0 002.487 1.03L8.061 13h6.189A1.75 1.75 0 0016 11.25v-8.5A1.75 1.75 0 0014.25 1H1.75zm5.03 3.47a.75.75 0 010 1.06L5.31 7l1.47 1.47a.75.75 0 01-1.06 1.06l-2-2a.75.75 0 010-1.06l2-2a.75.75 0 011.06 0zm2.44 0a.75.75 0 000 1.06L10.69 7 9.22 8.47a.75.75 0 001.06 1.06l2-2a.75.75 0 000-1.06l-2-2a.75.75 0 00-1.06 0z"></path></svg>
+              Mostly coding in <%= plugins.wakatime.languages[0]?.name %>
+            </div>
+          <% } %>
+        </section>
+        <section>
+          <% if (plugins.wakatime.sections.includes("time")) { %>
+            <div class="field">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M6 2a.75.75 0 01.696.471L10 10.731l1.304-3.26A.75.75 0 0112 7h3.25a.75.75 0 010 1.5h-2.742l-1.812 4.528a.75.75 0 01-1.392 0L6 4.77 4.696 8.03A.75.75 0 014 8.5H.75a.75.75 0 010-1.5h2.742l1.812-4.529A.75.75 0 016 2z"></path></svg>
+              ~<%= f(Math.ceil(plugins.wakatime.time.daily)) %> hour<%= s(plugins.wakatime.time.total) %> of coding per day
+            </div>
+          <% } %>
+          <% if ((plugins.wakatime.sections.includes("editors"))&&(plugins.wakatime.editors?.length)) { %>
+            <div class="field">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M0 2.75C0 1.784.784 1 1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15H1.75A1.75 1.75 0 010 13.25V2.75zm1.75-.25a.25.25 0 00-.25.25v10.5c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V2.75a.25.25 0 00-.25-.25H1.75zM7.25 8a.75.75 0 01-.22.53l-2.25 2.25a.75.75 0 11-1.06-1.06L5.44 8 3.72 6.28a.75.75 0 111.06-1.06l2.25 2.25c.141.14.22.331.22.53zm1.5 1.5a.75.75 0 000 1.5h3a.75.75 0 000-1.5h-3z"></path></svg>
+              Coding with <%= plugins.wakatime.editors[0]?.name %>
+            </div>
+          <% } %>
+          <% if ((plugins.wakatime.sections.includes("os"))&&(plugins.wakatime.os?.length)) { %>
+            <div class="field">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M6.5.75a.75.75 0 00-1.5 0V2H3.75A1.75 1.75 0 002 3.75V5H.75a.75.75 0 000 1.5H2v3H.75a.75.75 0 000 1.5H2v1.25c0 .966.784 1.75 1.75 1.75H5v1.25a.75.75 0 001.5 0V14h3v1.25a.75.75 0 001.5 0V14h1.25A1.75 1.75 0 0014 12.25V11h1.25a.75.75 0 000-1.5H14v-3h1.25a.75.75 0 000-1.5H14V3.75A1.75 1.75 0 0012.25 2H11V.75a.75.75 0 00-1.5 0V2h-3V.75zm5.75 11.75h-8.5a.25.25 0 01-.25-.25v-8.5a.25.25 0 01.25-.25h8.5a.25.25 0 01.25.25v8.5a.25.25 0 01-.25.25zM5.75 5a.75.75 0 00-.75.75v4.5c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-4.5a.75.75 0 00-.75-.75h-4.5zm.75 4.5v-3h3v3h-3z"></path></svg>
+              Using <%= plugins.wakatime.os[0]?.name %>
+            </div>
+          <% } %>
+        </section>
+      </div>
+
+      <% { const sections = plugins.wakatime.sections.filter(x => /-graphs$/.test(x)).map(x => x.replace(/-graphs$/, "")) %>
+      <% for (let i = 0; i < sections.length; i+=2) { %>
+          <div class="row">
+          <% for (let j = 0; j < 2; j++) { const key = sections[i+j] ; const section = plugins.wakatime[key] ; if (!key) continue %>
+            <section class="column chart">
+              <h3><%= {languages:"Language activity", projects:"Projects activity", editors:"Code editors", os:"Operating systems"}[key] %></h3>
+              <div class="chart-bars horizontal">
+                <% if (section?.length) { %>
+                  <% for (const {name, percent, total} of section) { %>
+                    <div class="entry">
+                      <span class="name"><%= name %></span>
+                      <div class="bar" style="width: <%= percent*80 %>%; background-color: var(--color-calendar-graph-day-L<%= Math.ceil(percent/0.25) %>-bg)"></div>
+                      <span class="value"><%= Math.round(100*percent) %>%</span>
+                    </div>
+                  <% } %>
+                <% } else { %>
+                  <div class="entry">
+                    <div class="empty">No activity</div>
+                  </div>
+                <% } %>
+              </div>
+            </section>
+        <% } %>
+        </div>
+      <% }} %>
+
+    <% } %>
+  </section>
+<% } %>

@@ -415,6 +415,28 @@
                     return result
                   }
                 }) : null),
+              //Wakatime
+                ...(set.plugins.enabled.wakatime ? ({
+                  get wakatime() {
+                    const stats = (array) => {
+                      const elements = []
+                      let result = new Array(4+faker.random.number(2)).fill(null).map(_ => ({
+                        name:array ? faker.random.arrayElement(array) : faker.lorem.words(),
+                        percent:faker.random.number(100)/100, total_seconds:faker.random.number(1000000),
+                      }))
+                      return result.filter(({name}) => elements.includes(name) ? false : (elements.push(name), true)).sort((a, b) => b.percent - a.percent)
+                    }
+                    return {
+                      sections:options["wakatime.sections"].split(",").map(x => x.trim()).filter(x => x),
+                      days:Number(options["wakatime.days"])||7,
+                      time:{total:faker.random.number(100000), daily:faker.random.number(24)},
+                      editors:stats(["VS Code", "Chrome", "IntelliJ", "PhpStorm", "WebStorm", "Android Studio", "Visual Studio", "Sublime Text", "PyCharm", "Vim", "Atom", "Xcode"]),
+                      languages:stats(["JavaScript", "TypeScript", "PHP", "Java", "Python", "Vue.js", "HTML", "C#", "JSON", "Dart", "SCSS", "Kotlin", "JSX", "Go", "Ruby", "YAML"]),
+                      projects:stats(),
+                      os:stats(["Mac", "Windows", "Linux"]),
+                    }
+                  }
+                }) : null),
               //Anilist
                 ...(set.plugins.enabled.anilist ? ({
                   anilist:{
@@ -600,6 +622,12 @@
           return `${(n*(rescale ? 100 : 1)).toFixed(2)
             .replace(/(?<=[.])([1-9]*)(0+)$/, (m, a, b) => a)
             .replace(/[.]$/, "")}%`
+        }
+        data.f.ellipsis = function (text, {length = 20} = {}) {
+          text = `${text}`
+          if (text.length < length)
+            return text
+          return `${text.substring(0, length)}…`
         }
       //Render
         return await ejs.render(image, data, {async:true, rmWhitespace:true})
