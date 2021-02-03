@@ -10,6 +10,8 @@
           let {limit, repositories, descriptions} = imports.metadata.plugins.projects.inputs({data, account, q})
           //Repositories projects
             repositories = repositories.filter(repository => /[-\w]+[/][-\w]+[/]projects[/]\d+/.test(repository))
+          //Update limit if repositories projects were specified manually
+            limit = Math.max(repositories.length, limit)
 
         //Retrieve user owned projects from graphql api
           console.debug(`metrics/compute/${login}/plugins > projects > querying api`)
