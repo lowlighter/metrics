@@ -420,11 +420,18 @@
                   get wakatime() {
                     const stats = (array) => {
                       const elements = []
-                      let result = new Array(4+faker.random.number(2)).fill(null).map(_ => ({
-                        name:array ? faker.random.arrayElement(array) : faker.lorem.words(),
-                        percent:faker.random.number(100)/100, total_seconds:faker.random.number(1000000),
+                      let results = new Array(4+faker.random.number(2)).fill(null).map(_ => ({
+                        name:array ? faker.random.arrayElement(array) : faker.random.words(2).replace(/ /g, "-").toLocaleLowerCase(),
+                        percent:0, total_seconds:faker.random.number(1000000),
                       }))
-                      return result.filter(({name}) => elements.includes(name) ? false : (elements.push(name), true)).sort((a, b) => b.percent - a.percent)
+                      let percents = 100
+                      for (const result of results) {
+                        result.percent = 1+faker.random.number(percents-1)
+                        percents -= result.percent
+                        result.percent /= 100
+                      }
+                      results.filter(({name}) => elements.includes(name) ? false : (elements.push(name), true))
+                      return results.sort((a, b) => b.percent - a.percent)
                     }
                     return {
                       sections:options["wakatime.sections"].split(",").map(x => x.trim()).filter(x => x),
