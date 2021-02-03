@@ -10,6 +10,7 @@
       try {
 
         //Debug
+          login = login.replace(/[\n\r]/g, "")
           console.debug(`metrics/compute/${login} > start`)
           console.debug(util.inspect(q, {depth:Infinity, maxStringLength:256}))
 
