@@ -140,7 +140,7 @@
     //Metrics
       app.get("/:login", ...middlewares, async (req, res) => {
         //Request params
-          const {login} = req.params
+          const login = req.params.login?.replace(/[\n\r]/g, "")
           if ((restricted.length)&&(!restricted.includes(login))) {
             console.debug(`metrics/app/${login} > 403 (not in whitelisted users)`)
             return res.sendStatus(403)
