@@ -1,6 +1,9 @@
 query StarsDefault {
   user(login: "$login") {
-    starredRepositories(first: $limit, orderBy: {field: STARRED_AT, direction: DESC}) {
+    starredRepositories(
+      first: $limit
+      orderBy: { field: STARRED_AT, direction: DESC }
+    ) {
       edges {
         starredAt
         node {

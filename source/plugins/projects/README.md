@@ -2,7 +2,7 @@
 
     ⚠️ This plugin requires a personal token with public_repo scope.
 
-The *projects* plugin displays the progress of your profile projects.
+The _projects_ plugin displays the progress of your profile projects.
 
 <table>
   <td align="center">
@@ -24,7 +24,7 @@ To enable it, open the `≡ Menu` and edit the project to opt-in to `Track proje
 On your profile, select the `Projects` tab:
 ![Create a new project](/.github/readme/imgs/plugin_projects_create.png)
 
-Fill the informations and set visibility to *public*:
+Fill the informations and set visibility to _public_:
 ![Configure project](/.github/readme/imgs/plugin_projects_setup.png)
 
 </details>
@@ -50,6 +50,6 @@ To do so, open your repository project and retrieve the last URL endpoint, in th
     # ... other options
     plugin_projects: yes
     plugin_projects_repositories: lowlighter/metrics/projects/1 # Display #1 project of lowlighter/metrics repository
-    plugin_projects_limit: 4                                    # Limit to 4 entries
-    plugin_projects_descriptions: yes                           # Display projects descriptions
+    plugin_projects_limit: 4 # Limit to 4 entries
+    plugin_projects_descriptions: yes # Display projects descriptions
 ```

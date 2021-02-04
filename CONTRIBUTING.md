@@ -47,7 +47,7 @@ In last resort, pupeeter is seldom used to scrap websites, though its use tends 
 
 Historically, metrics used to be only a web service without any customization possible. The single input was a GitHub username, and was composed of what is now `base` content (along with `languages` and `followup` plugin, which is why they can be computed without any additional queries). That's why `base` content is handled a bit differently from plugins.
 
-As it gathered more and more plugins over time, generating a single user's metrics was becoming costly both in terms of resources but also in APIs requests. It was thus decided to switch to GitHub Action. At first, it was just a way to explore possibilities of this GitHub feature, but now it's basically the full-experience of metrics (unless you use your own  self-hosted instance).
+As it gathered more and more plugins over time, generating a single user's metrics was becoming costly both in terms of resources but also in APIs requests. It was thus decided to switch to GitHub Action. At first, it was just a way to explore possibilities of this GitHub feature, but now it's basically the full-experience of metrics (unless you use your own self-hosted instance).
 
 Both web instance and Action actually use the same entrypoint so they basically have the same features.
 Action just format inputs into a query-like object (similarly to when url params are parsed by web instance), from which metrics compute the rendered image. It also makes testing easier, as test cases can be reused since only inputs differs.
@@ -74,6 +74,7 @@ It also lists which contributions on main repository are accepted.
 Thanks for wanting to help metrics growing!
 
 Review below which contributions are accepted:
+
 <table>
   <tr>
     <th>Section</th>
@@ -114,9 +115,10 @@ Review below which contributions are accepted:
 </table>
 
 **Legend**
-* ✔️: Contributions welcomed!
-* ⭕: Contributions welcomed, but must be discussed first with a maintainer
-* ❌: Only maintainers can manage these files
+
+- ✔️: Contributions welcomed!
+- ⭕: Contributions welcomed, but must be discussed first with a maintainer
+- ❌: Only maintainers can manage these files
 
 Before working on something, ensure that it isn't listed in [In progress](https://github.com/lowlighter/metrics/projects/1#column-12158618) and that no open pull requests (including drafts) already implement what you want to do.
 
@@ -134,37 +136,37 @@ Metrics is designed to be highly customizable, so you can always decide to gener
 
 This section explain how metrics is structured.
 
-* `source/app/metrics/` contains core metrics files
-* `source/app/action/` contains GitHub action files
-  * `index.mjs` contains GitHub action entry point
-  * `action.yml` contains GitHub action descriptor
-* `source/app/web/` contains web instance files
-  * `index.mjs` contains web instance entry point
-  * `instance.mjs` contains web instance source code
-  * `settings.example.json` contains web instance settings example
-  * `statics/` contains web instance static files
-    * `app.js` contains web instance client source code
-    * `app.placeholder.js` contains web instance placeholder mocked data
-* `source/app/mocks/` contains mocked data files
-  * `api/` contains mocked api data
-    * `axios/` contains external REST APIs mocked data
-    * `github/` contains mocked GitHub api data
-  * `index.mjs` contains mockers
-* `source/plugins/` contains source code of plugins
-  * `README.md` contains plugin documentation
-  * `metadata.yml` contains plugin metadata
-  * `index.mjs` contains plugin source code
-  * `queries/` contains plugin GraphQL queries
-* `source/templates/` contains templates files
-  * `README.md` contains template documentation
-  * `image.svg` contains template image used to render metrics
-  * `style.css` contains style used to render metrics
-  * `fonts.css` contains additional fonts used to render metrics
-  * `template.mjs` contains template source code
-* `tests/` contains tests
-  * `metrics.test.js` contains metrics testers
-* `Dockerfile` contains docker instructions used to build metrics image
-* `package.json` contains dependencies and command line aliases
+- `source/app/metrics/` contains core metrics files
+- `source/app/action/` contains GitHub action files
+  - `index.mjs` contains GitHub action entry point
+  - `action.yml` contains GitHub action descriptor
+- `source/app/web/` contains web instance files
+  - `index.mjs` contains web instance entry point
+  - `instance.mjs` contains web instance source code
+  - `settings.example.json` contains web instance settings example
+  - `statics/` contains web instance static files
+    - `app.js` contains web instance client source code
+    - `app.placeholder.js` contains web instance placeholder mocked data
+- `source/app/mocks/` contains mocked data files
+  - `api/` contains mocked api data
+    - `axios/` contains external REST APIs mocked data
+    - `github/` contains mocked GitHub api data
+  - `index.mjs` contains mockers
+- `source/plugins/` contains source code of plugins
+  - `README.md` contains plugin documentation
+  - `metadata.yml` contains plugin metadata
+  - `index.mjs` contains plugin source code
+  - `queries/` contains plugin GraphQL queries
+- `source/templates/` contains templates files
+  - `README.md` contains template documentation
+  - `image.svg` contains template image used to render metrics
+  - `style.css` contains style used to render metrics
+  - `fonts.css` contains additional fonts used to render metrics
+  - `template.mjs` contains template source code
+- `tests/` contains tests
+  - `metrics.test.js` contains metrics testers
+- `Dockerfile` contains docker instructions used to build metrics image
+- `package.json` contains dependencies and command line aliases
 
 </details>
 
@@ -173,39 +175,38 @@ This section explain how metrics is structured.
 
 Below is a list of used packages.
 
-* [express/express.js](https://github.com/expressjs/express) and [expressjs/compression](https://github.com/expressjs/compression)
-  * To serve, compute and render a GitHub user's metrics
-* [nfriedly/express-rate-limit](https://github.com/nfriedly/express-rate-limit)
-  * To apply rate limiting on server and avoid spams and hitting GitHub API's own rate limit
-* [octokit/graphql.js](https://github.com/octokit/graphql.js/) and [octokit/rest.js](https://github.com/octokit/rest.js)
-  * To perform request to GitHub GraphQL API and GitHub REST API
-* [mde/ejs](https://github.com/mde/ejs)
-  * To render SVG images
-* [ptarjan/node-cache](https://github.com/ptarjan/node-cache)
-  * To cache generated content
-* [renanbastos93/image-to-base64](https://github.com/renanbastos93/image-to-base64)
-  * To generate base64 representation of users' avatars
-* [svg/svgo](https://github.com/svg/svgo)
-  * To optimize generated SVG
-* [axios/axios](https://github.com/axios/axios)
-  * To make HTTP/S requests
-* [actions/toolkit](https://github.com/actions/toolkit/tree/master)
-  * To build the GitHub Action
-* [vuejs/vue](https://github.com/vuejs/vue) and [egoist/vue-prism-component](https://github.com/egoist/vue-prism-component) + [prismjs/prism](https://github.com/prismjs/prism)
-  * To display server application
-* [puppeteer/puppeteer](https://github.com/puppeteer/puppeteer)
-  * To scrap the web
-* [libxmljs/libxmljs](https://github.com/libxmljs/libxmljs)
-  * To test and verify SVG validity
-* [facebook/jest](https://github.com/facebook/jest) and [nodeca/js-yaml](https://github.com/nodeca/js-yaml)
-  * For unit testing
-* [marak/faker.js](https://github.com/marak/Faker.js)
-  * For mocking data
-* [steveukx/git-js](https://github.com/steveukx/git-js)
-  * For simple git operations
+- [express/express.js](https://github.com/expressjs/express) and [expressjs/compression](https://github.com/expressjs/compression)
+  - To serve, compute and render a GitHub user's metrics
+- [nfriedly/express-rate-limit](https://github.com/nfriedly/express-rate-limit)
+  - To apply rate limiting on server and avoid spams and hitting GitHub API's own rate limit
+- [octokit/graphql.js](https://github.com/octokit/graphql.js/) and [octokit/rest.js](https://github.com/octokit/rest.js)
+  - To perform request to GitHub GraphQL API and GitHub REST API
+- [mde/ejs](https://github.com/mde/ejs)
+  - To render SVG images
+- [ptarjan/node-cache](https://github.com/ptarjan/node-cache)
+  - To cache generated content
+- [renanbastos93/image-to-base64](https://github.com/renanbastos93/image-to-base64)
+  - To generate base64 representation of users' avatars
+- [svg/svgo](https://github.com/svg/svgo)
+  - To optimize generated SVG
+- [axios/axios](https://github.com/axios/axios)
+  - To make HTTP/S requests
+- [actions/toolkit](https://github.com/actions/toolkit/tree/master)
+  - To build the GitHub Action
+- [vuejs/vue](https://github.com/vuejs/vue) and [egoist/vue-prism-component](https://github.com/egoist/vue-prism-component) + [prismjs/prism](https://github.com/prismjs/prism)
+  - To display server application
+- [puppeteer/puppeteer](https://github.com/puppeteer/puppeteer)
+  - To scrap the web
+- [libxmljs/libxmljs](https://github.com/libxmljs/libxmljs)
+  - To test and verify SVG validity
+- [facebook/jest](https://github.com/facebook/jest) and [nodeca/js-yaml](https://github.com/nodeca/js-yaml)
+  - For unit testing
+- [marak/faker.js](https://github.com/marak/Faker.js)
+  - For mocking data
+- [steveukx/git-js](https://github.com/steveukx/git-js)
+  - For simple git operations
 
 </details>
-
 
 <details>
 <summary>🖼️ Templates</summary>
@@ -222,12 +223,14 @@ If you make something awesome, don't hesistate to share it!
 Find a cool name for your template and create an eponym folder in [`source/templates`](https://github.com/lowlighter/metrics/tree/master/source/templates).
 
 Then, you'll need to create the following files:
+
 - `README.md` will contain template description and documentation
 - `image.svg` will contain the base render structure of your template
 - `partials/` is a folder that'll contain parts of your template (called "partials")
   - `partials/_.json` is a JSON array which lists your partials (these will be displayed in the same order as listed, unless if overriden by user with `config_order` option)
 
 The following files are optional:
+
 - `fonts.css` can contain your custom fonts (base64 encoded) if needed
 - `styles.css` can contain your CSS that'll style your template
 - `template.mjs` can contain additional data processing and formatting at template-level
@@ -243,6 +246,7 @@ Note that by default, `template.mjs` is skipped when using official release with
 
 Your `README.md` will document your template and explain how it works.
 It must contain at least the following:
+
 ```markdown
 ### 📕 My custom template
 
@@ -256,38 +260,48 @@ It must contain at least the following:
 #### ℹ️ Examples workflows
 
 '''yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    setup_community_templates: user/metrics@master:template
-    template: "@template"
-'''
 
+- uses: lowlighter/metrics@latest
+  with: # ... other options
+  setup_community_templates: user/metrics@master:template
+  template: "@template"
+  '''
 ```
 
 </details>
-
 
 <details>
 <summary>💬 Creating <code>image.svg</code></summary>
 
 Once you finished setting up template folder structure, paste the following in `image.svg` to get started:
-```html
-<svg xmlns="http://www.w3.org/2000/svg" width="480" height="99999" class="<%= !animated ? 'no-animations' : '' %>">
 
-  <defs><style><%= fonts %></style></defs>
-  <style><%= style %></style>
+```html
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="480"
+  height="99999"
+  class="<%= !animated ? 'no-animations' : '' %>"
+>
+  <defs>
+    <style>
+      <%= fonts %>
+    </style>
+  </defs>
+  <style>
+    <%= style %>
+  </style>
 
   <foreignObject x="0" y="0" width="100%" height="100%">
-    <div xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink">
-      <% for (const partial of [...partials]) { %>
-        <%- await include(`partials/${partial}.ejs`) %>
-      <% } %>
+    <div
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+    >
+      <% for (const partial of [...partials]) { %> <%- await
+      include(`partials/${partial}.ejs`) %> <% } %>
 
       <div id="metrics-end"></div>
     </div>
   </foreignObject>
-
 </svg>
 ```
 
@@ -298,7 +312,7 @@ Like said previously, if these does not exists, it'll contain the same content a
 
 The main loop will iterate on `partials` variable which contains your partials index set in `_.json`.
 
-Finally, you may have noticed that `height` is set to a very high number, and that there is a `#metrics-end` element at the bottom of the SVG template. This is because rendered height is computed dynamically through a [puppeteer](https://github.com/puppeteer/puppeteer) browser instance which locate `#metrics-end` and use its *y-coordinate* and `config_padding` to set final height. So you should leave it like this to ensure your rendered image will be correctly sized.
+Finally, you may have noticed that `height` is set to a very high number, and that there is a `#metrics-end` element at the bottom of the SVG template. This is because rendered height is computed dynamically through a [puppeteer](https://github.com/puppeteer/puppeteer) browser instance which locate `#metrics-end` and use its _y-coordinate_ and `config_padding` to set final height. So you should leave it like this to ensure your rendered image will be correctly sized.
 
 </details>
 
@@ -318,22 +332,22 @@ Basically, you can use JavaScript statements in templating tags (`<% %>`) to dis
 This is actually not recommended because it drastically increases the size of generated metrics, but it should also make your rendering more consistant. The trick is to actually restrict the charset used to keep file size small.
 
 Below is a simplified process on how to generate base64 encoded fonts to use in metrics:
+
 - 1. Find a font on [fonts.google.com](https://fonts.google.com/)
-    - Select regular, bold, italic and bold+italic fonts
-    - Open `embed` tab and extract the `href`
+  - Select regular, bold, italic and bold+italic fonts
+  - Open `embed` tab and extract the `href`
 - 2. Open extracted `href` and append `&text=` params with used characters from SVG
-    - e.g. `&text=%26%27"%7C%60%5E%40°%3F!%23%24%25()*%2B%2C-.%2F0123456789%3A%3B<%3D>ABCDEFGHIJKLMNOPQRSTUVWXYZ%5B%5D_abcdefghijklmnopqrstuvwxyz%7B%7D~─└├▇□✕`
+  - e.g. `&text=%26%27"%7C%60%5E%40°%3F!%23%24%25()*%2B%2C-.%2F0123456789%3A%3B<%3D>ABCDEFGHIJKLMNOPQRSTUVWXYZ%5B%5D_abcdefghijklmnopqrstuvwxyz%7B%7D~─└├▇□✕`
 - 3. Download each font file from url links from the generated stylesheet
 - 4. Convert them into base64 with `woff` extension on [transfonter.org]https://transfonter.org/) and download archive
 - 5. Extract archive and copy the content of the generated stylesheet to `fonts.css`
 - 6. Update your template
-    - Include `<defs><style><%= fonts %></style></defs>` to your `image.svg`
-    - Edit your `style.css` to use yout new font
+  - Include `<defs><style><%= fonts %></style></defs>` to your `image.svg`
+  - Edit your `style.css` to use yout new font
 
 </details>
 
 </details>
-
 
 <details>
 <summary>🧩 Plugins</summary>
@@ -363,25 +377,28 @@ Find a cool word to name your plugin and create an eponym folder in [`source/plu
 You'll also need to find an unused [emoji](https://emojipedia.org) that you'll be able to use as your plugin icon.
 
 Then create an `index.mjs` in your plugin folder and paste the following code:
+
 ```js
 //Setup
-  export default async function ({login, q, imports, data, computed, rest, graphql, queries, account}, {enabled = false} = {}) {
-    //Plugin execution
-      try {
-        //Check if plugin is enabled and requirements are met
-          if ((!enabled)||(!q/* your plugin name */))
-            return null
-        //Results
-          return {}
-      }
+export default async function (
+  { login, q, imports, data, computed, rest, graphql, queries, account },
+  { enabled = false } = {}
+) {
+  //Plugin execution
+  try {
+    //Check if plugin is enabled and requirements are met
+    if (!enabled || !q /* your plugin name */) return null;
+    //Results
+    return {};
+  } catch (error) {
     //Handle errors
-      catch (error) {
-        throw {error:{message:"An error occured", instance:error}}
-      }
+    throw { error: { message: "An error occured", instance: error } };
   }
+}
 ```
 
 The following inputs are available:
+
 - `login` is set to GitHub login
 - `q` contains all query parameters
 - `imports` contains libraries and utilitaries that are shared amongst plugins
@@ -418,6 +435,7 @@ For GitHub related data, always try to use their [GraphQL API](https://docs.gith
 When using GraphQL API, `queries` object autoloads queries from your plugin `queries` directory and will replace all strings prefixed by a dollar sign (`$`) with eponym variables.
 
 For example:
+
 ```js
 //Calling this
   await graphql(queries.myquery({login:"github-user", account:"user"}))
@@ -453,24 +471,33 @@ New external dependencies should be avoided at all costs, especially since most 
 Create new files in `partials` of `source/templates` you want to support with `.ejs` extension.
 
 You can paste the following for a quick start:
+
 ```html
 <% if (plugins./* your plugin name */) { %>
-  <section>
-    <div class="row">
-      <% if (plugins./* your plugin name */.error) { %>
-        <section>
-          <div class="field error">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M2.343 13.657A8 8 0 1113.657 2.343 8 8 0 012.343 13.657zM6.03 4.97a.75.75 0 00-1.06 1.06L6.94 8 4.97 9.97a.75.75 0 101.06 1.06L8 9.06l1.97 1.97a.75.75 0 101.06-1.06L9.06 8l1.97-1.97a.75.75 0 10-1.06-1.06L8 6.94 6.03 4.97z"></path></svg>
-            <%= plugins./* your plugin name */.error.message %>
-          </div>
-        </section>
-      <% } else { %>
-          <section>
-            <%# Do stuff in there -%>
-          </section>
-      <% } %>
-    </div>
-  </section>
+<section>
+  <div class="row">
+    <% if (plugins./* your plugin name */.error) { %>
+    <section>
+      <div class="field error">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 16 16"
+          width="16"
+          height="16"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M2.343 13.657A8 8 0 1113.657 2.343 8 8 0 012.343 13.657zM6.03 4.97a.75.75 0 00-1.06 1.06L6.94 8 4.97 9.97a.75.75 0 101.06 1.06L8 9.06l1.97 1.97a.75.75 0 101.06-1.06L9.06 8l1.97-1.97a.75.75 0 10-1.06-1.06L8 6.94 6.03 4.97z"
+          ></path>
+        </svg>
+        <%= plugins./* your plugin name */.error.message %>
+      </div>
+    </section>
+    <% } else { %>
+    <section><%# Do stuff in there -%></section>
+    <% } %>
+  </div>
+</section>
 <% } %>
 ```
 
@@ -496,6 +523,7 @@ Configure a [settings.json](https://github.com/lowlighter/metrics/blob/master/se
 Then start a web instance with `npm start` (you may have to run `npm install` if that's the first time you use the web instance).
 
 Then try to generate your metrics in your browser with your GitHub user and your plugin enabled, and see if it works as expected:
+
 ```
 http://localhost:3000/your-github-login?base=0&your-plugin-name=1
 ```
@@ -521,7 +549,6 @@ supports:
 
 # Inputs list
 inputs:
-
   # Enable or disable plugin
   plugin_custom:
     description: Your custom plugin
@@ -530,6 +557,7 @@ inputs:
 ```
 
 The following types are supported:
+
 ```yaml
 string:
   type: string
@@ -576,9 +604,10 @@ json:
 Creating tests for your plugin ensure that external changes don't break it.
 
 You can define your tests cases in `tests.yml` in your plugin directory, which will automatically test your plugin with:
-  - Metrics action
-  - Metrics web instance
-  - Metrics web instance placeholder (rendered by browser)
+
+- Metrics action
+- Metrics web instance
+- Metrics web instance placeholder (rendered by browser)
 
 As most of APIs (including GitHub) usually have a rate-limit to ensure quality of their service.
 To bypass these restrictions but still perform tests, you must mock their data which simulates APIs call returns.
@@ -612,12 +641,11 @@ It must contain at least the following:
 [➡️ Available options for this plugin](metadata.yml)
 
 '''yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_gists: yes
-'''
 
+- uses: lowlighter/metrics@latest
+  with: # ... other options
+  plugin_gists: yes
+  '''
 ```
 
 Note that you **must** keep `<table>` tags as these will be extracted to autogenerated global `README.md` with your example.
@@ -626,6 +654,6 @@ Note that you **must** keep `<table>` tags as these will be extracted to autogen
 
 </details>
 
-___
+---
 
 Written by [lowlighter](https://github.com/lowlighter)

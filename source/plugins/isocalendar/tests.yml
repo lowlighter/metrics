@@ -11,7 +11,6 @@
     plugin_isocalendar: yes
     plugin_isocalendar_duration: half-year
 
-
 - name: Isocalendar plugin (full-year)
   uses: lowlighter/metrics@latest
   with:

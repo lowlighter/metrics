@@ -1,6 +1,6 @@
 ### 👨‍💻 Lines of code changed
 
-The *lines* of code plugin displays the number of lines of code you have added and removed across all of your repositories.
+The _lines_ of code plugin displays the number of lines of code you have added and removed across all of your repositories.
 
 <table>
   <td align="center">

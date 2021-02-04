@@ -1,6 +1,6 @@
 ### 📌 Starred topics
 
-The *topics* plugin displays your [starred topics](https://github.com/stars?filter=topics).
+The _topics_ plugin displays your [starred topics](https://github.com/stars?filter=topics).
 Check out [GitHub topics](https://github.com/topics) to search interesting topics.
 
 <table>
@@ -24,7 +24,7 @@ This uses puppeteer to navigate through your starred topics page.
   with:
     # ... other options
     plugin_topics: yes
-    plugin_topics_sort: stars    # Sort by most starred topics
+    plugin_topics_sort: stars # Sort by most starred topics
     plugin_topics_mode: mastered # Display icons instead of labels
-    plugin_topics_limit: 0       # Disable limitations
+    plugin_topics_limit: 0 # Disable limitations
 ```

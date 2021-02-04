@@ -4,7 +4,6 @@ supports:
   - user
   - organization
 inputs:
-
   # Enable or disable plugin
   plugin_posts:
     description: Display recent posts
@@ -32,4 +31,3 @@ inputs:
     description: Posts external source username
     type: string
     default: .user.login
-

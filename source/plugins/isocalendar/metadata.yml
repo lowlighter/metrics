@@ -3,7 +3,6 @@ cost: 2-3 REST requests
 supports:
   - user
 inputs:
-
   # Enable or disable plugin
   plugin_isocalendar:
     description: Display an isometric view of your commits calendar

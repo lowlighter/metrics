@@ -5,7 +5,6 @@ supports:
   - organization
   - repository
 inputs:
-
   # Enable or disable plugin
   plugin_followup:
     description: Display follow-up of repositories issues and pull requests

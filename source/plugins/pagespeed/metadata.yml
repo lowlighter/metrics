@@ -5,7 +5,6 @@ supports:
   - organization
   - repository
 inputs:
-
   # Enable or disable plugin
   plugin_pagespeed:
     description: Display a website Google PageSpeed metrics

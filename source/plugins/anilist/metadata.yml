@@ -4,7 +4,6 @@ supports:
   - user
   - organization
 inputs:
-
   # Enable or disable plugin
   plugin_anilist:
     description: Display data from your AniList account
@@ -29,9 +28,9 @@ inputs:
     format: comma-separated
     default: favorites
     values:
-      - favorites  # Favorites animes and mangas (depending on plugin_anilist_medias values)
-      - watching   # Animes in your watching list
-      - reading    # Mangas in your reading list
+      - favorites # Favorites animes and mangas (depending on plugin_anilist_medias values)
+      - watching # Animes in your watching list
+      - reading # Mangas in your reading list
       - characters # Favorites characters
 
   # Number of entries to display per section (this does not impacts characters section)

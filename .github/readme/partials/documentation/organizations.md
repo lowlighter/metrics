@@ -25,9 +25,9 @@ To support private repositories, add full `repo` scope to your personal token.
 - uses: lowlighter/metrics@latest
   with:
     # ... other options
-    token: ${{ secrets.METRICS_TOKEN }}          # A personal token from an user account with read:org scope
+    token: ${{ secrets.METRICS_TOKEN }} # A personal token from an user account with read:org scope
     committer_token: ${{ secrets.GITHUB_TOKEN }} # GitHub auto-generated token
-    user: organization-name                      # Organization name
+    user: organization-name # Organization name
 ```
 
 </details>
@@ -43,6 +43,5 @@ You can manage your membership visibility in the `People` tab of your organizati
 For organization memberships, add `read:org` scope to your personal token.
 
 ![Add read:org scope to personal token](.github/readme/imgs/setup_token_org_read_scope.png)
-
 
 </details>

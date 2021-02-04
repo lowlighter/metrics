@@ -1,33 +1,46 @@
 //Setup
-  export default async function ({data, computed, imports, q, account}, {enabled = false} = {}) {
-    //Plugin execution
-      try {
-        //Check if plugin is enabled and requirements are met
-          if ((!enabled)||(!q.followup))
-            return null
+export default async function (
+  { data, computed, imports, q, account },
+  { enabled = false } = {}
+) {
+  //Plugin execution
+  try {
+    //Check if plugin is enabled and requirements are met
+    if (!enabled || !q.followup) return null;
 
-        //Load inputs
-          imports.metadata.plugins.followup.inputs({data, account, q})
+    //Load inputs
+    imports.metadata.plugins.followup.inputs({ data, account, q });
 
-        //Define getters
-          const followup = {
-            issues:{
-              get count() { return this.open + this.closed },
-              get open() { return computed.repositories.issues_open },
-              get closed() { return computed.repositories.issues_closed },
-            },
-            pr:{
-              get count() { return this.open + this.merged },
-              get open() { return computed.repositories.pr_open },
-              get merged() { return computed.repositories.pr_merged }
-            }
-          }
+    //Define getters
+    const followup = {
+      issues: {
+        get count() {
+          return this.open + this.closed;
+        },
+        get open() {
+          return computed.repositories.issues_open;
+        },
+        get closed() {
+          return computed.repositories.issues_closed;
+        },
+      },
+      pr: {
+        get count() {
+          return this.open + this.merged;
+        },
+        get open() {
+          return computed.repositories.pr_open;
+        },
+        get merged() {
+          return computed.repositories.pr_merged;
+        },
+      },
+    };
 
-        //Results
-          return followup
-      }
+    //Results
+    return followup;
+  } catch (error) {
     //Handle errors
-      catch (error) {
-        throw {error:{message:"An error occured", instance:error}}
-      }
+    throw { error: { message: "An error occured", instance: error } };
   }
+}

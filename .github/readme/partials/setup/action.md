@@ -7,8 +7,11 @@ Assuming your username is `my-github-user`, you can then embed rendered metrics 
 
 ```markdown
 <!-- If you're using "master" as default branch -->
+
 ![Metrics](https://github.com/my-github-user/my-github-user/blob/master/github-metrics.svg)
+
 <!-- If you're using "main" as default branch -->
+
 ![Metrics](https://github.com/my-github-user/my-github-user/blob/main/github-metrics.svg)
 ```
 
@@ -30,6 +33,7 @@ Its `README.md` will be displayed on your user profile:
 From the `Developer settings` of your account settings, select `Personal access tokens` to create a new token.
 
 No additional scopes are needed for basic metrics, but you may have to grant additional scope depending on what features you're planning to use:
+
 - `public_repo` scope for some plugins
 - `read:org` scope for all organizations related metrics
 - `repo` scope for all private repositories related metrics
@@ -58,9 +62,9 @@ Create a new workflow from the `Actions` tab of your repository and paste the fo
 name: Metrics
 on:
   # Schedule updates (each hour)
-  schedule: [{cron: "0 * * * *"}]
+  schedule: [{ cron: "0 * * * *" }]
   # Lines below let you run workflow manually and on each commit (optional)
-  push: {branches: ["master", "main"]}
+  push: { branches: ["master", "main"] }
   workflow_dispatch:
 jobs:
   github-metrics:
@@ -87,9 +91,10 @@ If you wish to use new features as they're being released, you can switch from `
 As the latter is used as a development branch, jobs may fail from time to time (although we try to mitigate this).
 
 When using a token with additional permissions, it is advised to fork this repository and use it instead to minimize security risks:
+
 ```yaml
-      - uses: my-github-username/metrics@master
-      # If you make changes on your fork, be sure not leave @latest as tag!
+- uses: my-github-username/metrics@master
+# If you make changes on your fork, be sure not leave @latest as tag!
 ```
 
 In this case, please consider watching new releases to stay up-to-date and enjoy latest features!
@@ -108,8 +113,11 @@ Update your README.md to embed your metrics:
 
 ```markdown
 <!-- If you're using "master" as default branch -->
+
 ![Metrics](https://github.com/my-github-user/my-github-user/blob/master/github-metrics.svg)
+
 <!-- If you're using "main" as default branch -->
+
 ![Metrics](https://github.com/my-github-user/my-github-user/blob/main/github-metrics.svg)
 ```
 

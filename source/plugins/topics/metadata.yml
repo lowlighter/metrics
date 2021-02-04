@@ -3,7 +3,6 @@ cost: N/A
 supports:
   - user
 inputs:
-
   # Enable or disable plugin
   plugin_topics:
     description: Display starred topics
@@ -16,7 +15,7 @@ inputs:
     type: string
     default: starred
     values:
-      - starred  # Display starred topics as labels
+      - starred # Display starred topics as labels
       - mastered # Display starred topics as mastered/known technologies icons
 
   # Topics sorting order
@@ -25,10 +24,10 @@ inputs:
     type: string
     default: stars
     values:
-      - stars    # Sort topics by stargazers
+      - stars # Sort topics by stargazers
       - activity # Sort topics by recent activity
-      - starred  # Sort topics by the date you starred them
-      - random   # Sort topics randomly
+      - starred # Sort topics by the date you starred them
+      - random # Sort topics randomly
 
   # Number of topics to display
   # Set to 0 to disable limitations

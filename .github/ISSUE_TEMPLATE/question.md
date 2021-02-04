@@ -1,10 +1,9 @@
 ---
 name: 💬 Question
 about: Ask a question or request help
-title: ''
+title: ""
 labels: question
-assignees: ''
-
+assignees: ""
 ---
 
 <!--

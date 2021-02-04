@@ -18,7 +18,7 @@ query BaseOrganization {
     packages {
       totalCount
     }
-		sponsorshipsAsSponsor {
+    sponsorshipsAsSponsor {
       totalCount
     }
     sponsorshipsAsMaintainer {

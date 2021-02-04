@@ -1,6 +1,6 @@
 ### ✨ Stargazers over last weeks
 
-The *stargazers* plugin displays your stargazers evolution across all of your repositories over the last two weeks.
+The _stargazers_ plugin displays your stargazers evolution across all of your repositories over the last two weeks.
 
 <table>
   <td align="center">

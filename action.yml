@@ -2,29 +2,28 @@
 # Inputs and configuration
 
 inputs:
-
   # ====================================================================================
   # 🗃️ Base content
-  
+
   # Base content
   base:
     description: Metrics base content
     default: header, activity, community, repositories, metadata
-  
+
   # Number of repositories to use to computes metrics
   # Using more will result in more accurate metrics, but you may hit GitHub rate-limit more easily if you use a lot of plugins
   repositories:
     description: Number of repositories to use
     default: 100
-  
+
   # Include forked repositories into metrics
   repositories_forks:
     description: Include forks in metrics
     default: no
-  
+
   # ====================================================================================
   # 🧱 Core
-  
+
   # User account personal token
   # No additional scopes are needed unless you want to include private repositories metrics
   # Some plugins may also require additional scopes
@@ -33,262 +32,262 @@ inputs:
   token:
     description: GitHub Personal Token
     required: true
-  
+
   # GitHub username
   user:
     description: GitHub username
     default: ""
-  
+
   # Set to "${{ secrets.GITHUB_TOKEN }}"
   committer_token:
     description: GitHub Token used to commit metrics
     default: ""
-  
+
   # Branch used to commit rendered metrics
   committer_branch:
     description: Branch used to commit rendered metrics
     default: ""
-  
+
   # Rendered metrics output path, relative to repository's root
   filename:
     description: Rendered metrics output path
     default: github-metrics.svg
-  
+
   # Optimize SVG image to reduce its filesize
   # Some templates may not support this option
   optimize:
     description: SVG optimization
     default: yes
-  
+
   # Setup additional templates from remote repositories
   setup_community_templates:
     description: Additional community templates to setup
     default: ""
-  
+
   # Template to use
   # To use community template, prefix its name with "@"
   template:
     description: Template to use
     default: classic
-  
+
   # Additional query parameters (JSON string)
   # Some templates may require additional parameters which you can specify here
   # Do not use this option to pass plugins parameters as they'll be overwritten by the other options
   query:
     description: Additional query parameters
     default: "{}"
-  
+
   # Timezone used by metrics
   # See https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   config_timezone:
     description: Timezone used
     default: ""
-  
+
   # Specify in which order metrics content will be displayed
   # If you omit some partials, they'll be appended at the end in default order
   # See "partials/_.json" of each template for a list of supported partials
   config_order:
     description: Configure content order
     default: ""
-  
+
   # Enable SVG CSS animations
   config_animations:
     description: SVG CSS animations
     default: yes
-  
+
   # Configure padding for output image (percentage value)
   # It can be used to add padding to generated metrics if rendering is cropped or has too much empty space
   # Specify one value (for both width and height) or two values (one for width and one for height)
   config_padding:
     description: Image padding
     default: 6%
-  
+
   # Metrics output format
   config_output:
     description: Output image format
     default: svg
-  
+
   # Throw on plugins errors
   # If disabled, metrics will handle errors gracefully with a message in rendered metrics
   plugins_errors_fatal:
     description: Die on plugins errors
     default: no
-  
+
   # Debug mode
   # Note that this will automatically be enabled if job fails
   debug:
     description: Debug logs
     default: no
-  
+
   # Ensure SVG can be correctly parsed after generation
   verify:
     description: Verify SVG
     default: no
-  
+
   # Debug flags
   debug_flags:
     description: Debug flags
     default: ""
-  
+
   # Dry-run mode (perform generation without pushing it)
   dryrun:
     description: Enable dry-run
     default: no
-  
+
   # Use mocked data to bypass external APIs
   use_mocked_data:
     description: Use mocked data instead of live APIs
     default: no
-  
+
   # Use a pre-built image from GitHub registry (experimental)
   # See https://github.com/users/lowlighter/packages/container/package/metrics for more information
   use_prebuilt_image:
     description: Use pre-built image from GitHub registry
     default: ""
-  
+
   # ====================================================================================
   # 📰 Recent activity
-  
+
   # Enable or disable plugin
   plugin_activity:
     description: Display recent activity
     default: no
-  
+
   # Number of activity events to display
   plugin_activity_limit:
     description: Maximum number of events to display
     default: 5
-  
+
   # Filter events by age
   # Set to 0 to disable age filtering
   plugin_activity_days:
     description: Maximum event age
     default: 14
-  
+
   # Filter events by type
   plugin_activity_filter:
     description: Events types to keep
     default: all
-  
+
   # ====================================================================================
   # 🌸 Anilist
-  
+
   # Enable or disable plugin
   plugin_anilist:
     description: Display data from your AniList account
     default: no
-  
+
   # Types of medias to display
   plugin_anilist_medias:
     description: Medias types to display
     default: anime, manga
-  
+
   # Sections to display
   # Values from "plugin_anilist_medias" may impact displayed sections
   plugin_anilist_sections:
     description: Sections to display
     default: favorites
-  
+
   # Number of entries to display per section (this does not impacts characters section)
   # Set to 0 to disable limitations
   plugin_anilist_limit:
     description: Maximum number of entries to display per section
     default: 2
-  
+
   # Number of entries to display in characters section
   # Set to 0 to disable limitations
   plugin_anilist_limit_characters:
     description: Maximum number of entries to display in characters section
     default: 22
-  
+
   # Shuffle AniList data for varied outputs
   plugin_anilist_shuffle:
     description: Shuffle AniList data
     default: yes
-  
+
   # Username on AniList
   plugin_anilist_user:
     description: AniList login
     default: .user.login
-  
+
   # ====================================================================================
   # 🎟️ Follow-up of issues and pull requests
-  
+
   # Enable or disable plugin
   plugin_followup:
     description: Display follow-up of repositories issues and pull requests
     default: no
-  
+
   # ====================================================================================
   # 🎫 Gists
-  
+
   # Enable or disable plugin
   plugin_gists:
     description: Display gists metrics
     default: no
-  
+
   # ====================================================================================
   # 💡 Coding habits
-  
+
   # Enable or disable plugin
   plugin_habits:
     description: Display coding habits metrics
     default: no
-  
+
   # Number of events to use to computes habits
   # Using more will result in more accurate metrics, but you may hit GitHub rate-limit more easily
   plugin_habits_from:
     description: Number of events to use
     default: 200
-  
+
   # Filter used events to compute habits by age
   plugin_habits_days:
     description: Maximum event age
     default: 14
-  
+
   # Display tidbits about your most active hours/days, indents used (spaces/tabs), etc.
   # This is deduced from your recent activity
   plugin_habits_facts:
     description: Display coding habits collected facts based on recent activity
     default: yes
-  
+
   # Display charts of most active time of the day and most active day of the week
   # Also display languages recently used (this is not the same as plugin_languages, as the latter is an all-time stats)
   plugin_habits_charts:
     description: Display coding habits charts based on recent activity
     default: no
-  
+
   # ====================================================================================
   # 📅 Isometric commit calendar
-  
+
   # Enable or disable plugin
   plugin_isocalendar:
     description: Display an isometric view of your commits calendar
     default: no
-  
+
   # Set time window shown by isometric calendar
   plugin_isocalendar_duration:
     description: Set time window shown by isometric calendar
     default: half-year
-  
+
   # ====================================================================================
   # 🈷️ Most used languages
-  
+
   # Enable or disable plugin
   plugin_languages:
     description: Display most used languages metrics
     default: no
-  
+
   # List of languages that will be ignored
   plugin_languages_ignored:
     description: Languages to ignore
     default: ""
-  
+
   # List of repositories that will be skipped
   plugin_languages_skipped:
     description: Repositories to skip
     default: ""
-  
+
   # Overrides default languages colors
   # Use `${n}:${color}` to change the color of the n-th most used language (e.g. "0:red" to make your most used language red)
   # Use `${language}:${color}` to change the color of named language (e.g. "javascript:red" to make JavaScript language red, language case is ignored)
@@ -297,40 +296,40 @@ inputs:
   plugin_languages_colors:
     description: Custom languages colors
     default: github
-  
+
   # Languages additional details
   plugin_languages_details:
     description: Additional details
     default: ""
-  
+
   # Minimum threshold (in percentage) to reach for languages to be displayed
   plugin_languages_threshold:
     description: Minimum threshold
     default: 0%
-  
+
   # ====================================================================================
   # 👨‍💻 Lines of code changed
-  
+
   # Enable or disable plugin
   plugin_lines:
     description: Display lines of code metrics
     default: no
-  
+
   # ====================================================================================
   # 🎼 Music plugin
-  
+
   # Enable or disable plugin
   plugin_music:
     description: Display your music tracks
     default: no
-  
+
   # Name of music provider
   # This is optional for "playlist" mode (it can be deduced automatically from "plugin_music_playlist" url)
   # This is required in other modes
   plugin_music_provider:
     description: Music provider
     default: ""
-  
+
   # Music provider token
   # This may be required depending on music provider used and plugin mode
   # - "apple"   : not required
@@ -339,252 +338,251 @@ inputs:
   plugin_music_token:
     description: Music provider personal token
     default: ""
-  
+
   # Plugin mode
   plugin_music_mode:
     description: Plugin mode
     default: ""
-  
+
   # Embed playlist url (i.e. url used by music player iframes)
   plugin_music_playlist:
     description: Embed playlist url
     default: ""
-  
+
   # Number of music tracks to display
   plugin_music_limit:
     description: Maximum number of tracks to display
     default: 4
-  
+
   # Username on music provider service
   plugin_music_user:
     description: Music provider username
     default: .user.login
-  
+
   # ====================================================================================
   # ⏱️ Website performances
-  
+
   # Enable or disable plugin
   plugin_pagespeed:
     description: Display a website Google PageSpeed metrics
     default: no
-  
+
   # Website to audit with PageSpeed
   plugin_pagespeed_url:
     description: Audited website
     default: .user.website
-  
+
   # Display the following additional metrics from audited website:
   # First Contentful Paint, Speed Index, Largest Contentful Paint, Time to Interactive, Total Blocking Time, Cumulative Layout Shift
   # See https://web.dev/performance-scoring/ and https://googlechrome.github.io/lighthouse/scorecalc/ for more informations
   plugin_pagespeed_detailed:
     description: Detailed audit result
     default: no
-  
+
   # Display a screenshot of audited website
   # May increases significantly filesize
   plugin_pagespeed_screenshot:
     description: Display a screenshot of your website
     default: no
-  
+
   # PageSpeed API token
   # This is optional, but providing it will avoid hitting rate-limiter
   # See https://developers.google.com/speed/docs/insights/v5/get-started for more informations
   plugin_pagespeed_token:
     description: PageSpeed token
     default: ""
-  
+
   # ====================================================================================
   # 🧑‍🤝‍🧑 People plugin
-  
+
   # Enable or disable plugin
   plugin_people:
     description: Display GitHub users from various affiliations
     default: no
-  
+
   # Number of users to display per section
   plugin_people_limit:
     description: Maximum number of user to display
     default: 28
-  
+
   # Size of displayed user's avatar
   plugin_people_size:
     description: Size of displayed GitHub users' avatars
     default: 28
-  
+
   # List of section to display
   # Ordering will be kept
   plugin_people_types:
     description: Affiliations to display
     default: followers, following
-  
+
   # When displaying "thanks" section, specified users list will be displayed
   # This is useful to craft "Special thanks" badges
   plugin_people_thanks:
     description: GitHub users to personally thanks
     default: ""
-  
+
   # Use GitHub identicons instead of users' avatar (for privacy purposes)
   plugin_people_identicons:
     description: Use identicons instead of avatars
     default: no
-  
+
   # ====================================================================================
   # ✒️ Recent posts
-  
+
   # Enable or disable plugin
   plugin_posts:
     description: Display recent posts
     default: no
-  
+
   # Posts external source
   plugin_posts_source:
     description: Posts external source
     default: ""
-  
+
   # Number of posts to display
   plugin_posts_limit:
     description: Maximum number of posts to display
     default: 4
-  
+
   # Username on external posts source
   plugin_posts_user:
     description: Posts external source username
     default: .user.login
-  
+
   # ====================================================================================
   # 🗂️ Projects
-  
+
   # Enable or disable plugin
   plugin_projects:
     description: Display active projects
     default: no
-  
+
   # Number of projects to display
   # Set to 0 to only display "plugin_projects_repositories" projects
   # Projects listed in "plugin_projects_repositories" are not affected by this option
   plugin_projects_limit:
     description: Maximum number of projects to display
     default: 4
-  
+
   # List of repository projects to display, using the following format:
   # :user/:repo/projects/:project_id
   plugin_projects_repositories:
     description: List of repository project identifiers to disaplay
     default: ""
-  
+
   # Display projects descriptions
   plugin_projects_descriptions:
     description: Display projects descriptions
     default: no
-  
+
   # ====================================================================================
   # ✨ Stargazers over last weeks
-  
+
   # Enable or disable plugin
   plugin_stargazers:
     description: Display stargazers metrics
     default: no
-  
+
   # ====================================================================================
   # 🌟 Recently starred repositories
-  
+
   # Enable or disable plugin
   plugin_stars:
     description: Display recently starred repositories
     default: no
-  
+
   # Number of stars to display
   plugin_stars_limit:
     description: Maximum number of stars to display
     default: 4
-  
+
   # ====================================================================================
   # 📌 Starred topics
-  
+
   # Enable or disable plugin
   plugin_topics:
     description: Display starred topics
     default: no
-  
+
   # Plugin mode
   plugin_topics_mode:
     description: Plugin mode
     default: starred
-  
+
   # Topics sorting order
   plugin_topics_sort:
     description: Sorting method of starred topics
     default: stars
-  
+
   # Number of topics to display
   # Set to 0 to disable limitations
   # When in "starred" mode, additional topics will be grouped into an ellipsis
   plugin_topics_limit:
     description: Maximum number of topics to display
     default: 15
-  
+
   # ====================================================================================
   # 🧮 Repositories traffic
-  
+
   # Enable or disable plugin
   plugin_traffic:
     description: Display repositories traffic metrics
     default: no
-  
+
   # ====================================================================================
   # 🐤 Latest tweets
-  
+
   # Enable or disable plugin
   plugin_tweets:
     description: Display recent tweets
     default: no
-  
+
   # Twitter API token
   # See https://apps.twitter.com for more informations
   plugin_tweets_token:
     description: Twitter API token
     default: ""
-  
+
   # Number of tweets to display
   plugin_tweets_limit:
     description: Maximum number of tweets to display
     default: 2
-  
+
   # Twitter username
   plugin_tweets_user:
     description: Twitter username
     default: .user.twitter
-  
+
   # ====================================================================================
   # ⏰ WakaTime plugin
-  
+
   # Enable or disable plugin
   plugin_wakatime:
     description: Display WakaTime stats
     default: no
-  
+
   # WakaTime API token
   # See https://wakatime.com/settings/account get your API key
   plugin_wakatime_token:
     description: WakaTime API token
     default: ""
-  
+
   # Time range to use for displayed stats
   plugin_wakatime_days:
     description: WakaTime time range
     default: 7
-  
+
   # Sections to display
   plugin_wakatime_sections:
     description: Sections to display
     default: time, projects, projects-graphs, languages, languages-graphs, editors, os
-  
+
   # Number of entries to display per graph
   # Set to 0 to disable limitations
   plugin_wakatime_limit:
     description: Maximum number of entries to display per graph
     default: 5
-  
 
 # ====================================================================================
 # Action metadata

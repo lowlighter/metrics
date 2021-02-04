@@ -5,7 +5,6 @@ supports:
   - organization
   - repository
 inputs:
-
   # User account personal token
   # No additional scopes are needed unless you want to include private repositories metrics
   # Some plugins may also require additional scopes
@@ -109,7 +108,7 @@ inputs:
     default: svg
     values:
       - svg
-      - png  # Does not support animations
+      - png # Does not support animations
       - jpeg # Does not support animations and transparency
 
   # ====================================================================================

@@ -2,85 +2,123 @@
   "//": "Example of configuration for metrics web instance",
   "//": "====================================================================",
 
-  "token": "MY GITHUB API TOKEN",  "//": "GitHub Personal Token (required)",
-  "restricted": [],                "//": "Authorized users (empty to disable)",
-  "maxusers": 0,                   "//": "Maximum users, (0 to disable)",
-  "cached": 3600000,               "//": "Cache time rendered metrics (0 to disable)",
-  "ratelimiter": null,             "//": "Rate limiter (see express-rate-limit documentation)",
-  "port": 3000,                    "//": "Listening port",
-  "optimize": true,                "//": "SVG optimization",
-  "debug": false,                  "//": "Debug logs",
-  "mocked": false,                 "//": "Use mocked data instead of live APIs (use 'force' to use mocked token even if real token are defined)",
-  "repositories": 100,             "//": "Number of repositories to use",
+  "token": "MY GITHUB API TOKEN",
+  "//": "GitHub Personal Token (required)",
+  "restricted": [],
+  "//": "Authorized users (empty to disable)",
+  "maxusers": 0,
+  "//": "Maximum users, (0 to disable)",
+  "cached": 3600000,
+  "//": "Cache time rendered metrics (0 to disable)",
+  "ratelimiter": null,
+  "//": "Rate limiter (see express-rate-limit documentation)",
+  "port": 3000,
+  "//": "Listening port",
+  "optimize": true,
+  "//": "SVG optimization",
+  "debug": false,
+  "//": "Debug logs",
+  "mocked": false,
+  "//": "Use mocked data instead of live APIs (use 'force' to use mocked token even if real token are defined)",
+  "repositories": 100,
+  "//": "Number of repositories to use",
   "community": {
-    "templates": [],               "//": "Additional community templates to setup"
+    "templates": [],
+    "//": "Additional community templates to setup"
   },
   "templates": {
-    "default": "classic",          "//": "Default template",
-    "enabled": [],                 "//": "Enabled templates (empty to enable all)"
+    "default": "classic",
+    "//": "Default template",
+    "enabled": [],
+    "//": "Enabled templates (empty to enable all)"
   },
-  "plugins.default": false,        "//": "Default plugin state (advised to let 'false' unless in debug mode)",
-  "plugins": {                     "//": "Global plugin configuration",
-    "activity":{
-      "enabled": false,            "//": "Display recent activity"
+  "plugins.default": false,
+  "//": "Default plugin state (advised to let 'false' unless in debug mode)",
+  "plugins": {
+    "//": "Global plugin configuration",
+    "activity": {
+      "enabled": false,
+      "//": "Display recent activity"
     },
-    "anilist":{
-      "enabled": false,            "//": "Display data from your AniList account"
+    "anilist": {
+      "enabled": false,
+      "//": "Display data from your AniList account"
     },
-    "followup":{
-      "enabled": false,            "//": "Display follow-up of repositories issues and pull requests"
+    "followup": {
+      "enabled": false,
+      "//": "Display follow-up of repositories issues and pull requests"
     },
-    "gists":{
-      "enabled": false,            "//": "Display gists metrics"
+    "gists": {
+      "enabled": false,
+      "//": "Display gists metrics"
     },
-    "habits":{
-      "enabled": false,            "//": "Display coding habits metrics"
+    "habits": {
+      "enabled": false,
+      "//": "Display coding habits metrics"
     },
-    "isocalendar":{
-      "enabled": false,            "//": "Display an isometric view of your commits calendar"
+    "isocalendar": {
+      "enabled": false,
+      "//": "Display an isometric view of your commits calendar"
     },
-    "languages":{
-      "enabled": false,            "//": "Display most used languages metrics"
+    "languages": {
+      "enabled": false,
+      "//": "Display most used languages metrics"
     },
-    "lines":{
-      "enabled": false,            "//": "Display lines of code metrics"
+    "lines": {
+      "enabled": false,
+      "//": "Display lines of code metrics"
     },
-    "music":{
-      "token": null,               "//":"Music provider personal token",
-      "enabled": false,            "//": "Display your music tracks"
+    "music": {
+      "token": null,
+      "//": "Music provider personal token",
+      "enabled": false,
+      "//": "Display your music tracks"
     },
-    "pagespeed":{
-      "token": null,               "//":"PageSpeed token",
-      "enabled": false,            "//": "Display a website Google PageSpeed metrics"
+    "pagespeed": {
+      "token": null,
+      "//": "PageSpeed token",
+      "enabled": false,
+      "//": "Display a website Google PageSpeed metrics"
     },
-    "people":{
-      "enabled": false,            "//": "Display GitHub users from various affiliations"
+    "people": {
+      "enabled": false,
+      "//": "Display GitHub users from various affiliations"
     },
-    "posts":{
-      "enabled": false,            "//": "Display recent posts"
+    "posts": {
+      "enabled": false,
+      "//": "Display recent posts"
     },
-    "projects":{
-      "enabled": false,            "//": "Display active projects"
+    "projects": {
+      "enabled": false,
+      "//": "Display active projects"
     },
-    "stargazers":{
-      "enabled": false,            "//": "Display stargazers metrics"
+    "stargazers": {
+      "enabled": false,
+      "//": "Display stargazers metrics"
     },
-    "stars":{
-      "enabled": false,            "//": "Display recently starred repositories"
+    "stars": {
+      "enabled": false,
+      "//": "Display recently starred repositories"
     },
-    "topics":{
-      "enabled": false,            "//": "Display starred topics"
+    "topics": {
+      "enabled": false,
+      "//": "Display starred topics"
     },
-    "traffic":{
-      "enabled": false,            "//": "Display repositories traffic metrics"
+    "traffic": {
+      "enabled": false,
+      "//": "Display repositories traffic metrics"
     },
-    "tweets":{
-      "token": null,               "//":"Twitter API token",
-      "enabled": false,            "//": "Display recent tweets"
+    "tweets": {
+      "token": null,
+      "//": "Twitter API token",
+      "enabled": false,
+      "//": "Display recent tweets"
     },
-    "wakatime":{
-      "token": null,               "//":"WakaTime API token",
-      "enabled": false,            "//": "Display WakaTime stats"
+    "wakatime": {
+      "token": null,
+      "//": "WakaTime API token",
+      "enabled": false,
+      "//": "Display WakaTime stats"
     },
     "//": ""
   }

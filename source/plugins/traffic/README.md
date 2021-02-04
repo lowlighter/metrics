@@ -2,7 +2,7 @@
 
     ⚠️ This plugin requires a personal token with repo scope.
 
-The repositories *traffic* plugin displays the number of page views across your repositories.
+The repositories _traffic_ plugin displays the number of page views across your repositories.
 
 <table>
   <td align="center">

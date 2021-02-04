@@ -1,4 +1,4 @@
-query Medias ($name: String, $type: MediaType) {
+query Medias($name: String, $type: MediaType) {
   MediaListCollection(userName: $name, type: $type) {
     lists {
       name

@@ -1,6 +1,6 @@
 ### 🌟 Recently starred repositories
 
-The *stars* plugin displays your recently starred repositories.
+The _stars_ plugin displays your recently starred repositories.
 
 <table>
   <td align="center">

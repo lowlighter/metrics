@@ -5,7 +5,6 @@ supports:
   - organization
   - repository
 inputs:
-
   # Base content
   base:
     description: Metrics base content
@@ -13,11 +12,11 @@ inputs:
     format: comma-separated
     default: header, activity, community, repositories, metadata
     values:
-      - header       # name, commits calendar, ...
-      - activity     # commits, issues/pull requests opened, ...
-      - community    # following, stars, sponsors, ...
+      - header # name, commits calendar, ...
+      - activity # commits, issues/pull requests opened, ...
+      - community # following, stars, sponsors, ...
       - repositories # license, stars, forks, ...
-      - metadata     # svg generation metadata
+      - metadata # svg generation metadata
 
   # Number of repositories to use to computes metrics
   # Using more will result in more accurate metrics, but you may hit GitHub rate-limit more easily if you use a lot of plugins

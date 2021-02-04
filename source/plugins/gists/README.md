@@ -1,6 +1,6 @@
 ### 🎫 Gists
 
-The *gists* plugin displays your [gists](https://gist.github.com) metrics.
+The _gists_ plugin displays your [gists](https://gist.github.com) metrics.
 
 <table>
   <td align="center">

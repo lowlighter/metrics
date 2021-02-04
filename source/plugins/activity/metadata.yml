@@ -4,7 +4,6 @@ supports:
   - user
   - organization
 inputs:
-
   # Enable or disable plugin
   plugin_activity:
     description: Display recent activity
@@ -35,17 +34,17 @@ inputs:
     format: comma-separated
     default: all
     values:
-      - all        # Display all types of events
-      - comment    # Display commits, issues and pull requests comments
+      - all # Display all types of events
+      - comment # Display commits, issues and pull requests comments
       - ref/create # Display tags and branches creations
       - ref/delete # Display tags and branches deletions
-      - release    # Display published releases
-      - push       # Display commits
-      - issue      # Display issues events
-      - pr         # Display pull requests events
-      - review     # Display pull request reviews
-      - wiki       # Display wiki editions
-      - fork       # Display forked repositories
-      - star       # Display starred repositories
-      - member     # Display collaborators additions
-      - public     # Display repositories made public
+      - release # Display published releases
+      - push # Display commits
+      - issue # Display issues events
+      - pr # Display pull requests events
+      - review # Display pull request reviews
+      - wiki # Display wiki editions
+      - fork # Display forked repositories
+      - star # Display starred repositories
+      - member # Display collaborators additions
+      - public # Display repositories made public

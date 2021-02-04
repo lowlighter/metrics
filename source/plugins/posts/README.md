@@ -1,6 +1,6 @@
 ### ✒️ Recent posts
 
-The recent *posts* plugin displays recent articles you wrote on an external source, like [dev.to](https://dev.to).
+The recent _posts_ plugin displays recent articles you wrote on an external source, like [dev.to](https://dev.to).
 
 <table>
   <td align="center">
@@ -18,6 +18,6 @@ The recent *posts* plugin displays recent articles you wrote on an external sour
   with:
     # ... other options
     plugin_posts: yes
-    plugin_posts_source: dev.to      # External source
+    plugin_posts_source: dev.to # External source
     plugin_people_user: .github.user # Use same username as GitHub login
 ```

@@ -1,6 +1,6 @@
 ### 🧑‍🤝‍🧑 People plugin
 
-The *people* plugin can display people you're following or sponsoring, and also users who're following or sponsoring you.
+The _people_ plugin can display people you're following or sponsoring, and also users who're following or sponsoring you.
 In repository mode, it's possible to display sponsors, stargazers, watchers.
 
 <table>
@@ -21,16 +21,16 @@ In repository mode, it's possible to display sponsors, stargazers, watchers.
 
 The following types are supported:
 
-| Type            | Alias                                | User metrics       | Repository metrics |
-| --------------- | ------------------------------------ | :----------------: | :----------------: |
-| `followers`     |                                      | ✔️                 | ❌                |
-| `following`     | `followed`                           | ✔️                 | ❌                |
-| `sponsoring`    | `sponsored`, `sponsorshipsAsSponsor` | ✔️                 | ❌                |
-| `sponsors`      | `sponsorshipsAsMaintainer`           | ✔️                 | ✔️                |
-| `contributors`  |                                      | ❌                 | ✔️                |
-| `stargazers`    |                                      | ❌                 | ✔️                |
-| `watchers`      |                                      | ❌                 | ✔️                |
-| `thanks`        |                                      | ✔️                 | ✔️                |
+| Type           | Alias                                | User metrics | Repository metrics |
+| -------------- | ------------------------------------ | :----------: | :----------------: |
+| `followers`    |                                      |      ✔️      |         ❌         |
+| `following`    | `followed`                           |      ✔️      |         ❌         |
+| `sponsoring`   | `sponsored`, `sponsorshipsAsSponsor` |      ✔️      |         ❌         |
+| `sponsors`     | `sponsorshipsAsMaintainer`           |      ✔️      |         ✔️         |
+| `contributors` |                                      |      ❌      |         ✔️         |
+| `stargazers`   |                                      |      ❌      |         ✔️         |
+| `watchers`     |                                      |      ❌      |         ✔️         |
+| `thanks`       |                                      |      ✔️      |         ✔️         |
 
 Sections will be ordered the same as specified in `plugin_people_types`.
 `sponsors` for repositories will output the same as the owner's sponsors.
@@ -44,9 +44,9 @@ Sections will be ordered the same as specified in `plugin_people_types`.
   with:
     # ... other options
     plugin_people: yes
-    plugin_people_types: followers, thanks     # Display followers and "thanks" sections
-    plugin_people_limit: 28                    # Limit to 28 entries per section
-    plugin_people_size: 28                     # Size in pixels of displayed avatars
-    plugin_people_identicons: no               # Use avatars (do not use identicons)
-    plugin_people_thanks: lowlighter, octocat  # Users that will be displayed in "thanks" sections
+    plugin_people_types: followers, thanks # Display followers and "thanks" sections
+    plugin_people_limit: 28 # Limit to 28 entries per section
+    plugin_people_size: 28 # Size in pixels of displayed avatars
+    plugin_people_identicons: no # Use avatars (do not use identicons)
+    plugin_people_thanks: lowlighter, octocat # Users that will be displayed in "thanks" sections
 ```

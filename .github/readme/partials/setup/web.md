@@ -1,6 +1,5 @@
 ## 🏗️ Deploying your own web instance (~15 min setup, depending on your sysadmin knowledge)
 
-
 Setup a metrics instance on your server if you don't want to use GitHub Actions and [metrics.lecoq.io](https://metrics.lecoq.io).
 See all supported options in [settings.example.json](settings.example.json).
 
@@ -71,7 +70,7 @@ Edit your repository readme and add your metrics image from your server domain:
 ### 6. (optional) Setup your instance as a service
 
 To ensure that your instance will restart if it reboots or crashes, you should set it up as a service.
-This is described below for Linux-like systems which support *systemd*.
+This is described below for Linux-like systems which support _systemd_.
 
 Create a new service file `/etc/systemd/system/github_metrics.service` and paste the following after editing paths inside:
 
@@ -124,6 +123,7 @@ Most of options from [action.yml](action.yml) are actually supported by web inst
 All underscores (`_`) must be replaced by dots (`.`) and `plugin_` prefixes must be dropped.
 
 For example, to configure pagespeed plugin you'd use the following:
+
 ```
 https://my-personal-domain.com/my-github-user?pagespeed=1&pagespeed.detailed=1&pagespeed.url=https%3A%2F%2Fexample.com
 ```
@@ -133,6 +133,7 @@ Note that url parameters must be [encoded](https://developer.mozilla.org/fr/docs
 As for `base` content, which is enabled by default, sections are available through "`base.<section>`".
 
 For example, to display only `repositories` section, use:
+
 ```
 https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
 ```

@@ -1,4 +1,4 @@
-query FavoritesCharacters ($name: String, $page:Int) {
+query FavoritesCharacters($name: String, $page: Int) {
   User(name: $name) {
     favourites {
       characters(page: $page) {

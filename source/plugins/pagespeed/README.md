@@ -1,7 +1,6 @@
-
 ### ⏱️ Website performances
 
-The *pagespeed* plugin adds the performance statistics of the website attached on your account:
+The _pagespeed_ plugin adds the performance statistics of the website attached on your account:
 
 <table>
   <td align="center">
@@ -34,7 +33,7 @@ Expect 10 to 30 seconds to generate the results.
     # ... other options
     plugin_pagespeed: yes
     plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }} # Optional but recommended
-    plugin_pagespeed_detailed: yes                         # Print detailed audit metrics
-    plugin_pagespeed_screenshot: no                        # Display a screenshot of your website
-    plugin_pagespeed_url: .user.website                    # Website to audit (defaults to your GitHub linked website)
+    plugin_pagespeed_detailed: yes # Print detailed audit metrics
+    plugin_pagespeed_screenshot: no # Display a screenshot of your website
+    plugin_pagespeed_url: .user.website # Website to audit (defaults to your GitHub linked website)
 ```

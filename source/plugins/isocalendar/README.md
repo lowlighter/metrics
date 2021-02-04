@@ -1,6 +1,6 @@
 ### 📅 Isometric commit calendar
 
-The *isocalendar* plugin displays an isometric view of your commits calendar, along with a few additional stats like current streak and commit average per day.
+The _isocalendar_ plugin displays an isometric view of your commits calendar, along with a few additional stats like current streak and commit average per day.
 
 <table>
   <td align="center">

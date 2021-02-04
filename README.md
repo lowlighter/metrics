@@ -208,7 +208,6 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
   </tr>
 </table>
 
-
 <table>
   <tr>
     <th colspan="2" align="center">
@@ -242,7 +241,6 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
   </tr>
 </table>
 
-
 ## 🦑 Interested to get your own?
 
 Try it now at [metrics.lecoq.io](https://metrics.lecoq.io/) with your GitHub username!
@@ -260,8 +258,11 @@ Assuming your username is `my-github-user`, you can then embed rendered metrics 
 
 ```markdown
 <!-- If you're using "master" as default branch -->
+
 ![Metrics](https://github.com/my-github-user/my-github-user/blob/master/github-metrics.svg)
+
 <!-- If you're using "main" as default branch -->
+
 ![Metrics](https://github.com/my-github-user/my-github-user/blob/main/github-metrics.svg)
 ```
 
@@ -283,6 +284,7 @@ Its `README.md` will be displayed on your user profile:
 From the `Developer settings` of your account settings, select `Personal access tokens` to create a new token.
 
 No additional scopes are needed for basic metrics, but you may have to grant additional scope depending on what features you're planning to use:
+
 - `public_repo` scope for some plugins
 - `read:org` scope for all organizations related metrics
 - `repo` scope for all private repositories related metrics
@@ -311,9 +313,9 @@ Create a new workflow from the `Actions` tab of your repository and paste the fo
 name: Metrics
 on:
   # Schedule updates (each hour)
-  schedule: [{cron: "0 * * * *"}]
+  schedule: [{ cron: "0 * * * *" }]
   # Lines below let you run workflow manually and on each commit (optional)
-  push: {branches: ["master", "main"]}
+  push: { branches: ["master", "main"] }
   workflow_dispatch:
 jobs:
   github-metrics:
@@ -340,9 +342,10 @@ If you wish to use new features as they're being released, you can switch from `
 As the latter is used as a development branch, jobs may fail from time to time (although we try to mitigate this).
 
 When using a token with additional permissions, it is advised to fork this repository and use it instead to minimize security risks:
+
 ```yaml
-      - uses: my-github-username/metrics@master
-      # If you make changes on your fork, be sure not leave @latest as tag!
+- uses: my-github-username/metrics@master
+# If you make changes on your fork, be sure not leave @latest as tag!
 ```
 
 In this case, please consider watching new releases to stay up-to-date and enjoy latest features!
@@ -361,8 +364,11 @@ Update your README.md to embed your metrics:
 
 ```markdown
 <!-- If you're using "master" as default branch -->
+
 ![Metrics](https://github.com/my-github-user/my-github-user/blob/master/github-metrics.svg)
+
 <!-- If you're using "main" as default branch -->
+
 ![Metrics](https://github.com/my-github-user/my-github-user/blob/main/github-metrics.svg)
 ```
 
@@ -382,16 +388,16 @@ This is mostly intended for previews, to enjoy all features consider using GitHu
 <summary>💬 Fair use</summary>
 
 To ensure service availability, shared instance has a few limitations:
-  * Images are cached for 1 hour
-    * Rendered metrics **won't be updated** during this time window when queried
-    * You can manually update rendering againg your metrics on [metrics.lecoq.io](https://metrics.lecoq.io)
-  * There is a rate limiter enabled (it doesn't affect already cached metrics)
-  * Several plugins may not be available
+
+- Images are cached for 1 hour
+  - Rendered metrics **won't be updated** during this time window when queried
+  - You can manually update rendering againg your metrics on [metrics.lecoq.io](https://metrics.lecoq.io)
+- There is a rate limiter enabled (it doesn't affect already cached metrics)
+- Several plugins may not be available
 
 </details>
 
 ## 🏗️ Deploying your own web instance (~15 min setup, depending on your sysadmin knowledge)
-
 
 Setup a metrics instance on your server if you don't want to use GitHub Actions and [metrics.lecoq.io](https://metrics.lecoq.io).
 See all supported options in [settings.example.json](settings.example.json).
@@ -463,7 +469,7 @@ Edit your repository readme and add your metrics image from your server domain:
 ### 6. (optional) Setup your instance as a service
 
 To ensure that your instance will restart if it reboots or crashes, you should set it up as a service.
-This is described below for Linux-like systems which support *systemd*.
+This is described below for Linux-like systems which support _systemd_.
 
 Create a new service file `/etc/systemd/system/github_metrics.service` and paste the following after editing paths inside:
 
@@ -516,6 +522,7 @@ Most of options from [action.yml](action.yml) are actually supported by web inst
 All underscores (`_`) must be replaced by dots (`.`) and `plugin_` prefixes must be dropped.
 
 For example, to configure pagespeed plugin you'd use the following:
+
 ```
 https://my-personal-domain.com/my-github-user?pagespeed=1&pagespeed.detailed=1&pagespeed.url=https%3A%2F%2Fexample.com
 ```
@@ -525,16 +532,14 @@ Note that url parameters must be [encoded](https://developer.mozilla.org/fr/docs
 As for `base` content, which is enabled by default, sections are available through "`base.<section>`".
 
 For example, to display only `repositories` section, use:
+
 ```
 https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
 ```
 
 </details>
 
-
-
 # 📚 Documentation
-
 
 ### 🧰 Template/plugin compatibily matrix
 
@@ -638,37 +643,37 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
 Templates lets you change general appearance of rendered metrics.
 See their respective documentation for more informations about how to setup them:
 
-* [📗 Classic](/source/templates/classic/README.md)
-* [📘 Repository](/source/templates/repository/README.md)
-* [📙 Terminal](/source/templates/terminal/README.md)
-* [📕 Community templates](/source/templates/community/README.md)
+- [📗 Classic](/source/templates/classic/README.md)
+- [📘 Repository](/source/templates/repository/README.md)
+- [📙 Terminal](/source/templates/terminal/README.md)
+- [📕 Community templates](/source/templates/community/README.md)
 
 ## 🧩 Plugins
 
 Plugins are features which provide additional content and lets you customize your rendered metrics.
 See their respective documentation for more informations about how to setup them:
 
-* [🗃️ Base content](/source/plugins/base/README.md)
-* [🧱 Core](/source/plugins/core/README.md)
-* [📰 Recent activity](/source/plugins/activity/README.md)
-* [🌸 Anilist](/source/plugins/anilist/README.md)
-* [🎟️ Follow-up of issues and pull requests](/source/plugins/followup/README.md)
-* [🎫 Gists](/source/plugins/gists/README.md)
-* [💡 Coding habits](/source/plugins/habits/README.md)
-* [📅 Isometric commit calendar](/source/plugins/isocalendar/README.md)
-* [🈷️ Most used languages](/source/plugins/languages/README.md)
-* [👨‍💻 Lines of code changed](/source/plugins/lines/README.md)
-* [🎼 Music plugin](/source/plugins/music/README.md)
-* [⏱️ Website performances](/source/plugins/pagespeed/README.md)
-* [🧑‍🤝‍🧑 People plugin](/source/plugins/people/README.md)
-* [✒️ Recent posts](/source/plugins/posts/README.md)
-* [🗂️ Projects](/source/plugins/projects/README.md)
-* [✨ Stargazers over last weeks](/source/plugins/stargazers/README.md)
-* [🌟 Recently starred repositories](/source/plugins/stars/README.md)
-* [📌 Starred topics](/source/plugins/topics/README.md)
-* [🧮 Repositories traffic](/source/plugins/traffic/README.md)
-* [🐤 Latest tweets](/source/plugins/tweets/README.md)
-* [⏰ WakaTime plugin](/source/plugins/wakatime/README.md)
+- [🗃️ Base content](/source/plugins/base/README.md)
+- [🧱 Core](/source/plugins/core/README.md)
+- [📰 Recent activity](/source/plugins/activity/README.md)
+- [🌸 Anilist](/source/plugins/anilist/README.md)
+- [🎟️ Follow-up of issues and pull requests](/source/plugins/followup/README.md)
+- [🎫 Gists](/source/plugins/gists/README.md)
+- [💡 Coding habits](/source/plugins/habits/README.md)
+- [📅 Isometric commit calendar](/source/plugins/isocalendar/README.md)
+- [🈷️ Most used languages](/source/plugins/languages/README.md)
+- [👨‍💻 Lines of code changed](/source/plugins/lines/README.md)
+- [🎼 Music plugin](/source/plugins/music/README.md)
+- [⏱️ Website performances](/source/plugins/pagespeed/README.md)
+- [🧑‍🤝‍🧑 People plugin](/source/plugins/people/README.md)
+- [✒️ Recent posts](/source/plugins/posts/README.md)
+- [🗂️ Projects](/source/plugins/projects/README.md)
+- [✨ Stargazers over last weeks](/source/plugins/stargazers/README.md)
+- [🌟 Recently starred repositories](/source/plugins/stars/README.md)
+- [📌 Starred topics](/source/plugins/topics/README.md)
+- [🧮 Repositories traffic](/source/plugins/traffic/README.md)
+- [🐤 Latest tweets](/source/plugins/tweets/README.md)
+- [⏰ WakaTime plugin](/source/plugins/wakatime/README.md)
 
 ### 🏦 Organizations metrics
 
@@ -697,9 +702,9 @@ To support private repositories, add full `repo` scope to your personal token.
 - uses: lowlighter/metrics@latest
   with:
     # ... other options
-    token: ${{ secrets.METRICS_TOKEN }}          # A personal token from an user account with read:org scope
+    token: ${{ secrets.METRICS_TOKEN }} # A personal token from an user account with read:org scope
     committer_token: ${{ secrets.GITHUB_TOKEN }} # GitHub auto-generated token
-    user: organization-name                      # Organization name
+    user: organization-name # Organization name
 ```
 
 </details>
@@ -716,7 +721,6 @@ For organization memberships, add `read:org` scope to your personal token.
 
 ![Add read:org scope to personal token](.github/readme/imgs/setup_token_org_read_scope.png)
 
-
 </details>
 
 ## 💪 Customizing and contributing
@@ -729,22 +733,21 @@ To suggest a new feature, report a bug or ask for help, fill an [issue](https://
 If you want to contribute, submit a [pull request](https://github.com/lowlighter/metrics/pulls).
 Be sure to read [CONTRIBUTING.md](CONTRIBUTING.md) for more information about this.
 
-
 ## 📖 Useful references
 
-* [GitHub GraphQL API](https://docs.github.com/en/graphql)
-* [GitHub GraphQL Explorer](https://docs.github.com/en/free-pro-team@latest/graphql/overview/explorer)
-* [GitHub Rest API](https://docs.github.com/en/rest)
-* [GitHub Octicons](https://github.com/primer/octicons)
-  * See [GitHub Logos and Usage](https://github.com/logos) for more information.
+- [GitHub GraphQL API](https://docs.github.com/en/graphql)
+- [GitHub GraphQL Explorer](https://docs.github.com/en/free-pro-team@latest/graphql/overview/explorer)
+- [GitHub Rest API](https://docs.github.com/en/rest)
+- [GitHub Octicons](https://github.com/primer/octicons)
+  - See [GitHub Logos and Usage](https://github.com/logos) for more information.
 
 ### ✨ Inspirations
 
-* [anuraghazra/github-readme-stats](https://github.com/anuraghazra/github-readme-stats)
-* [jstrieb/github-stats](https://github.com/jstrieb/github-stats)
-* [ankurparihar/readme-pagespeed-insights](https://github.com/ankurparihar/readme-pagespeed-insights)
-* [jasonlong/isometric-contributions](https://github.com/jasonlong/isometric-contributions)
-* [jamesgeorge007/github-activity-readme](https://github.com/jamesgeorge007/github-activity-readme)
+- [anuraghazra/github-readme-stats](https://github.com/anuraghazra/github-readme-stats)
+- [jstrieb/github-stats](https://github.com/jstrieb/github-stats)
+- [ankurparihar/readme-pagespeed-insights](https://github.com/ankurparihar/readme-pagespeed-insights)
+- [jasonlong/isometric-contributions](https://github.com/jasonlong/isometric-contributions)
+- [jamesgeorge007/github-activity-readme](https://github.com/jamesgeorge007/github-activity-readme)
 
 ## 📜 License
 
@@ -752,5 +755,3 @@ Be sure to read [CONTRIBUTING.md](CONTRIBUTING.md) for more information about th
 MIT License
 Copyright (c) 2020 lowlighter
 ```
-
-

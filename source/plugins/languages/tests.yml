@@ -11,7 +11,6 @@
     plugin_languages: yes
     plugin_languages_ignored: html, css, dockerfile
 
-
 - name: Language plugin (skipped repositories)
   uses: lowlighter/metrics@latest
   with:

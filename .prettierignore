@@ -1,0 +1,4 @@
+**/*.graphql
+**/*.yml
+**/*.yaml
+**/*.json

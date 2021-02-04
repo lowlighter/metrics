@@ -4,7 +4,6 @@ supports:
   - user
   - organization
 inputs:
-
   # Enable or disable plugin
   plugin_habits:
     description: Display coding habits metrics

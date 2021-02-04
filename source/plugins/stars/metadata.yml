@@ -3,7 +3,6 @@ cost: 1 GraphQL request
 supports:
   - user
 inputs:
-
   # Enable or disable plugin
   plugin_stars:
     description: Display recently starred repositories

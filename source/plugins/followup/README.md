@@ -1,6 +1,6 @@
 ### 🎟️ Follow-up of issues and pull requests
 
-The *followup* plugin displays the ratio of open/closed issues and the ratio of open/merged pull requests across all your repositories, which shows if they're well-maintained or not.
+The _followup_ plugin displays the ratio of open/closed issues and the ratio of open/merged pull requests across all your repositories, which shows if they're well-maintained or not.
 
 <table>
   <td align="center">
@@ -19,4 +19,3 @@ The *followup* plugin displays the ratio of open/closed issues and the ratio of 
     # ... other options
     plugin_followup: yes
 ```
-

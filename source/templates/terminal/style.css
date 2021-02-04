@@ -1,142 +1,154 @@
 /* SVG global context */
-  svg {
-    font-family: 'Courier Prime';
-    font-size: 14px;
-    color: #777777;
-  }
+svg {
+  font-family: "Courier Prime";
+  font-size: 14px;
+  color: #777777;
+}
 
 /* Title bar */
-  .header {
-    position: absolute;
-    top: 0;
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    height: 20px;
-    align-items: center;
-    padding: 0 8px;
-    box-sizing: border-box;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    background: linear-gradient(#504b45 0%,#3c3b37 100%);
-  }
+.header {
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 20px;
+  align-items: center;
+  padding: 0 8px;
+  box-sizing: border-box;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  background: linear-gradient(#504b45 0%, #3c3b37 100%);
+}
 
-  .title {
-    color: #d5d0ce;
-    font-size: 16px;
-  }
+.title {
+  color: #d5d0ce;
+  font-size: 16px;
+}
 
-  .buttons {
-    display: flex;
-    align-items: center;
-  }
+.buttons {
+  display: flex;
+  align-items: center;
+}
 
-  .button {
-    color: black;
-    display: flex;
-    justify-content: center;
-    margin-right: 5px;
-    font-size: 8px;
-    height: 12px;
-    width: 12px;
-    border-radius: 100%;
-    background: linear-gradient(#7d7871 0%, #595953 100%);
-    text-shadow: 0px 1px 0px rgba(255,255,255,0.2);
-  }
+.button {
+  color: black;
+  display: flex;
+  justify-content: center;
+  margin-right: 5px;
+  font-size: 8px;
+  height: 12px;
+  width: 12px;
+  border-radius: 100%;
+  background: linear-gradient(#7d7871 0%, #595953 100%);
+  text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.2);
+}
 
-  .button.exit {
-    background: linear-gradient(#f37458 0%, #de4c12 100%);
-  }
+.button.exit {
+  background: linear-gradient(#f37458 0%, #de4c12 100%);
+}
 
 /* Terminal */
-  pre, .banner, footer {
-    margin: 0;
-    font-family: 'Courier Prime';
-    color: #DDDDDD;
-  }
-  pre {
-    background: #42092B;
-    margin-top: 16px;
-    padding: 12px;
-    border-radius: 5px;
-  }
-  .banner, footer {
-    color: #AE9DA7;
-  }
+pre,
+.banner,
+footer {
+  margin: 0;
+  font-family: "Courier Prime";
+  color: #dddddd;
+}
+pre {
+  background: #42092b;
+  margin-top: 16px;
+  padding: 12px;
+  border-radius: 5px;
+}
+.banner,
+footer {
+  color: #ae9da7;
+}
 
 /* Prompt */
-  .ps1-path {
-    color: #7EDA29;
-  }
+.ps1-path {
+  color: #7eda29;
+}
 
-  .ps1-location {
-    color: #4878c0;
-  }
+.ps1-location {
+  color: #4878c0;
+}
 
 /* Diff */
-  .diff {
-    color: #3A96DD;
-  }
+.diff {
+  color: #3a96dd;
+}
 
 /* Error */
-  .error {
-    color: #cb2431;
-  }
+.error {
+  color: #cb2431;
+}
 
 /* Animations */
-  .stdin, footer {
+.stdin,
+footer {
+  width: 0%;
+  white-space: nowrap;
+  overflow: hidden;
+  animation-name: stdin-animation;
+  animation-fill-mode: both;
+}
+
+.stdout {
+  max-height: 0%;
+  overflow: hidden;
+  animation-name: stdout-animation;
+  animation-fill-mode: both;
+}
+
+@keyframes stdin-animation {
+  0% {
     width: 0%;
-    white-space: nowrap;
-    overflow: hidden;
-    animation-name: stdin-animation;
-    animation-fill-mode: both;
   }
-
-  .stdout {
-    max-height: 0%;
-    overflow: hidden;
-    animation-name: stdout-animation;
-    animation-fill-mode: both;
-  }
-
-  @keyframes stdin-animation {
-    0% { width: 0%; }
-    100% { width: 100%; }
-  }
-
-  @keyframes stdout-animation {
-    0% { max-height: 0; }
-    100% { max-height: 360px; }
-  }
-
-/* Calendar */
-  :root {
-    --color-calendar-graph-day-bg: #ebedf0;
-    --color-calendar-graph-day-border: rgba(27,31,35,0.06);
-    --color-calendar-graph-day-L1-bg: #9be9a8;
-    --color-calendar-graph-day-L2-bg: #40c463;
-    --color-calendar-graph-day-L3-bg: #30a14e;
-    --color-calendar-graph-day-L4-bg: #216e39;
-    --color-calendar-halloween-graph-day-L1-bg: #ffee4a;
-    --color-calendar-halloween-graph-day-L2-bg: #ffc501;
-    --color-calendar-halloween-graph-day-L3-bg: #fe9600;
-    --color-calendar-halloween-graph-day-L4-bg: #03001c;
-    --color-calendar-graph-day-L4-border: rgba(27,31,35,0.06);
-    --color-calendar-graph-day-L3-border: rgba(27,31,35,0.06);
-    --color-calendar-graph-day-L2-border: rgba(27,31,35,0.06);
-    --color-calendar-graph-day-L1-border: rgba(27,31,35,0.06);
-  }
-
-/* End delimiter */
-  #metrics-end {
+  100% {
     width: 100%;
   }
+}
 
-  .no-animations * {
-    transition-delay: 0s !important;
-    transition-duration: 0s !important;
-    animation-delay: -0.0001s !important;
-    animation-duration: 0s !important;
-    animation-play-state: paused !important;
-    caret-color: transparent !important;
+@keyframes stdout-animation {
+  0% {
+    max-height: 0;
   }
+  100% {
+    max-height: 360px;
+  }
+}
+
+/* Calendar */
+:root {
+  --color-calendar-graph-day-bg: #ebedf0;
+  --color-calendar-graph-day-border: rgba(27, 31, 35, 0.06);
+  --color-calendar-graph-day-L1-bg: #9be9a8;
+  --color-calendar-graph-day-L2-bg: #40c463;
+  --color-calendar-graph-day-L3-bg: #30a14e;
+  --color-calendar-graph-day-L4-bg: #216e39;
+  --color-calendar-halloween-graph-day-L1-bg: #ffee4a;
+  --color-calendar-halloween-graph-day-L2-bg: #ffc501;
+  --color-calendar-halloween-graph-day-L3-bg: #fe9600;
+  --color-calendar-halloween-graph-day-L4-bg: #03001c;
+  --color-calendar-graph-day-L4-border: rgba(27, 31, 35, 0.06);
+  --color-calendar-graph-day-L3-border: rgba(27, 31, 35, 0.06);
+  --color-calendar-graph-day-L2-border: rgba(27, 31, 35, 0.06);
+  --color-calendar-graph-day-L1-border: rgba(27, 31, 35, 0.06);
+}
+
+/* End delimiter */
+#metrics-end {
+  width: 100%;
+}
+
+.no-animations * {
+  transition-delay: 0s !important;
+  transition-duration: 0s !important;
+  animation-delay: -0.0001s !important;
+  animation-duration: 0s !important;
+  animation-play-state: paused !important;
+  caret-color: transparent !important;
+}

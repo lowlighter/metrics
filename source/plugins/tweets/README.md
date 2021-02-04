@@ -1,6 +1,6 @@
 ### 🐤 Tweets
 
-The recent *tweets* plugin displays your latest tweets from your [Twitter](https://twitter.com) account.
+The recent _tweets_ plugin displays your latest tweets from your [Twitter](https://twitter.com) account.
 
 <table>
   <td align="center">
@@ -31,6 +31,6 @@ Create an app from your [developer dashboard](https://developer.twitter.com/en/p
     # ... other options
     plugin_tweets: yes
     plugin_tweets_token: ${{ secrets.TWITTER_TOKEN }} # Required
-    plugin_tweets_limit: 2                            # Limit to 2 tweets
-    plugin_tweets_user: .user.twitter                 # Defaults to your GitHub linked twitter username
+    plugin_tweets_limit: 2 # Limit to 2 tweets
+    plugin_tweets_user: .user.twitter # Defaults to your GitHub linked twitter username
 ```
