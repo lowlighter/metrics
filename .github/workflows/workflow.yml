@@ -12,10 +12,27 @@ on:
 
 jobs:
 
+  # Run linter to ensure new code respect coding rules
+  lint:
+    name: Lint code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Setup NodeJS
+        uses: actions/setup-node@v2
+        with:
+          node-version: 15
+      - name: Setup metrics
+        run: npm ci
+      - name: Run linter
+        run: npm run linter
+
   # Build docker image from branch and run tests
   build:
     name: Build and test
     runs-on: ubuntu-latest
+    needs: [ lint ]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -23,6 +40,24 @@ jobs:
         run: docker build -t lowlighter/metrics:${{ github.head_ref || 'master' }} .
       - name: Run tests
         run: docker run --workdir=/metrics --entrypoint="" lowlighter/metrics:${{ github.head_ref || 'master' }} npm test
+
+  # Update plugins and template indexes, along with README.md
+  update-indexes:
+    name: Publish rebuilt metrics indexes
+    runs-on: ubuntu-latest
+    needs: [ build ]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Setup NodeJS
+        uses: actions/setup-node@v2
+        with:
+          node-version: 15
+      - name: Setup metrics
+        run: npm ci
+      - name: Publish rebuild metrics indexes
+        run: npm run index -- publish
 
   # Run CodeQL on branch
   analyze:
@@ -44,7 +79,7 @@ jobs:
   docker-master:
     name: Publish master to GitHub registry
     runs-on: ubuntu-latest
-    needs: [ build ]
+    needs: [ update-indexes ]
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     steps:
       - name: Checkout repository
@@ -73,29 +108,11 @@ jobs:
           verify: yes
           use_prebuilt_image: master
 
-  # Update plugins and template indexes, along with README.md
-  update-indexes:
-    name: Publish rebuilt metrics indexes
-    runs-on: ubuntu-latest
-    needs: [ action-master-test ]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Setup NodeJS
-        uses: actions/setup-node@v2
-        with:
-          node-version: 15
-      - name: Setup metrics
-        run: npm ci
-      - name: Publish rebuild metrics indexes
-        run: npm run index -- publish
-
   # Build docker image from master and publish it to GitHub registry with release tag
   docker-release:
     name: Publish release to GitHub registry
     runs-on: ubuntu-latest
-    needs: [ build, analyze, action-master-test, update-indexes ]
+    needs: [ build, analyze, update-indexes, action-master-test ]
     if: github.event_name == 'push' && github.ref == 'refs/heads/master' && contains(github.event.head_commit.message, '[release]')
     steps:
       - name: Checkout repository
@@ -114,7 +131,7 @@ jobs:
         run: docker push ghcr.io/lowlighter/metrics:latest
 
   # Test lowlighter/metrics@latest
-  action-lastest-test:
+  action-latest-test:
     name: Test lowlighter/metrics@latest
     runs-on: ubuntu-latest
     needs: [ docker-release ]
@@ -128,3 +145,13 @@ jobs:
           dryrun: yes
           use_mocked_data: yes
           verify: yes
+
+  # Deploy to metrics.lecoq.io
+  deploy-master:
+    name: Deploy lowlighter/metrics@master
+    runs-on: ubuntu-latest
+    needs: [ build, analyze, update-indexes, action-master-test ]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master' && contains(github.event.head_commit.message, '[deploy]')
+    steps:
+      - name: Deploy web instance
+        run: "curl -H 'Content-Type: application/json' --data '${{ secrets.WEB_DEPLOY_TOKEN }}' -X POST https://deploy.metrics.lecoq.io"
