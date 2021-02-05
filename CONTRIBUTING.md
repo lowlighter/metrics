@@ -216,6 +216,11 @@ Metrics does not really accept contributions on [default templates](https://gith
 
 If you make something awesome, don't hesistate to share it!
 
+For a quick start, use:
+```shell
+npm run quickstart -- template <template_name>
+```
+
 <details>
 <summary>💬 Creating a new template from scratch</summary>
 
@@ -248,7 +253,7 @@ It must contain at least the following:
 
 <table>
   <td align="center">
-    <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.terminal.svg">
+    <img src="">
     <img width="900" height="1" alt="">
   </td>
 </table>
@@ -354,6 +359,11 @@ Plugins are self-sufficient and independant code functions that gather additiona
   - When possible, try to display explicit error messages
 
 </details>
+
+For a quick start, use:
+```shell
+npm run quickstart -- plugin <plugin_name>
+```
 
 <details>
 <summary>💬 Creating a new plugin</summary>
@@ -615,7 +625,7 @@ It must contain at least the following:
 - uses: lowlighter/metrics@latest
   with:
     # ... other options
-    plugin_gists: yes
+    plugin_custom: yes
 '''
 
 ```

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="99999" class="<%%= !animated ? 'no-animations' : '' %>">
+
+  <defs><style><%%= fonts %></style></defs>
+  <style><%%= style %></style>
+
+  <foreignObject x="0" y="0" width="100%" height="100%">
+    <div xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <%% for (const partial of [...partials]) { %>
+        <%%- await include(`partials/${partial}.ejs`) %>
+      <%% } %>
+
+      <div id="metrics-end"></div>
+    </div>
+  </foreignObject>
+
+</svg>
