@@ -257,6 +257,17 @@
                     }))
                   }
                 }) : null),
+              //Nightscout
+              ...(set.plugins.enabled.nightscout ? ({
+                nightscout:{
+                  url: options["nightscout.url"] != null && options["nightscout.url"] != "https://example.herokuapp.com" ? options["nightscout.url"]: "https://testapp.herokuapp.com/",
+                  datapoints: faker.random.number({min: 8, max: 12}),
+                  lowalert: faker.random.number({min: 60, max: 90}),
+                  highalert: faker.random.number({min: 150, max: 200}),
+                  urgentlowalert: faker.random.number({min: 40, max: 59}),
+                  urgenthighalert: faker.random.number({min: 201, max: 300})
+                }
+              }) : null),
               //Pagespeed
                 ...(set.plugins.enabled.pagespeed ? ({
                   pagespeed:{
