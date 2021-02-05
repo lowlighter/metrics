@@ -8,8 +8,11 @@
   import axios from "axios"
   import puppeteer from "puppeteer"
   import imgb64 from "image-to-base64"
+  import dayjs from 'dayjs';
+  import utc from 'dayjs/plugin/utc.js';
+  dayjs.extend(utc);
 
-  export {fs, os, paths, url, util, processes, axios, puppeteer, imgb64}
+  export {fs, os, paths, url, util, processes, axios, puppeteer, imgb64, dayjs};
 
 /** Returns module __dirname */
   export function __module(module) {
