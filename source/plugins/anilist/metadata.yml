@@ -28,6 +28,7 @@ inputs:
     type: array
     format: comma-separated
     default: favorites
+    example: favorites, watching, characters
     values:
       - favorites  # Favorites animes and mangas (depending on plugin_anilist_medias values)
       - watching   # Animes in your watching list

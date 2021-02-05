@@ -18,6 +18,7 @@
     token: NOT_NEEDED
     plugin_music_token: MOCKED_CLIENT_ID, MOCKED_CLIENT_SECRET, MOCKED_REFRESH_TOKEN
     plugin_music: yes
+    plugin_music_played_at: yes
     plugin_music_provider: spotify
 
 - name: Music plugin (recent - lastfm)

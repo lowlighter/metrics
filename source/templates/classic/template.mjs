@@ -1,5 +1,5 @@
-/** Template processor */
-  export default async function ({login, q}, {conf, data, rest, graphql, plugins, queries}, {s, pending, imports}) {
+/**Template processor */
+  export default async function(_, __, {imports}) {
     //Core
       await imports.plugins.core(...arguments)
   }

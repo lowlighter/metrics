@@ -1,4 +1,4 @@
-/** Mocked data */
+/**Mocked data */
   export default function({faker}, target, that, args) {
     return ({
       status:200,
@@ -17,7 +17,7 @@
           source_import:{limit:100, used:0, remaining:100, reset:0},
           code_scanning_upload:{limit:500, used:0, remaining:500, reset:0},
         },
-        rate:{limit:5000, used:0, remaining:"MOCKED", reset:0}
-      }
+        rate:{limit:5000, used:0, remaining:"MOCKED", reset:0},
+      },
     })
   }

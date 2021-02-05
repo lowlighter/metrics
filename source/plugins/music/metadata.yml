@@ -47,6 +47,7 @@ inputs:
     description: Embed playlist url
     type: string
     default: ""
+    example: https://embed.music.apple.com/--/playlist/--------/--------
 
   # Number of music tracks to display
   plugin_music_limit:
@@ -55,6 +56,8 @@ inputs:
     default: 4
     min: 1
     max: 100
+
+  # Display when track was last played
   plugin_music_played_at:
     description: Display when the track was played
     type: boolean

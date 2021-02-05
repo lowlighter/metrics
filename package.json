@@ -8,7 +8,8 @@
     "test": "npx jest",
     "index": "node .github/index.mjs",
     "upgrade": "npm install @actions/core@latest @actions/github@latest @octokit/graphql@latest @octokit/rest@latest axios@latest compression@latest ejs@latest express@latest express-rate-limit@latest faker@latest image-to-base64@latest js-yaml@latest memory-cache@latest prismjs@latest puppeteer@latest svgo@latest vue@latest jest@latest libxmljs@latest",
-    "quickstart": "node .github/quickstart/index.mjs"
+    "quickstart": "node .github/quickstart/index.mjs",
+    "linter": "npx eslint source/**/*.mjs"
   },
   "repository": {
     "type": "git",
@@ -43,6 +44,7 @@
     "vue-prism-component": "^1.2.0"
   },
   "devDependencies": {
+    "eslint": "^7.19.0",
     "jest": "^26.6.3",
     "libxmljs": "^0.19.7"
   },

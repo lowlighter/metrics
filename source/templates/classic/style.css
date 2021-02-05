@@ -272,8 +272,9 @@
   .track .name {
     font-size: 14px;
     line-height: 14px;
+    font-weight: 600;
   }
-  .track .artist {
+  .track .artist, .track .played-at {
     font-size: 12px;
     color: #666666;
   }

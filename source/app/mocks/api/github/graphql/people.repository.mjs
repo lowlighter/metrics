@@ -1,15 +1,15 @@
-/** Mocked data */
-  export default function ({faker, query, login = faker.internet.userName()}) {
-    console.debug(`metrics/compute/mocks > mocking graphql api result > People`)
+/**Mocked data */
+  export default function({faker, query, login = faker.internet.userName()}) {
+    console.debug("metrics/compute/mocks > mocking graphql api result > People")
     const type = query.match(/(?<type>stargazers|watchers)[(]/)?.groups?.type ?? "(unknown type)"
     return /after: "MOCKED_CURSOR"/m.test(query) ? ({
       user:{
         repository:{
           [type]:{
             edges:[],
-          }
-        }
-      }
+          },
+        },
+      },
     }) : ({
       user:{
         repository:{
@@ -19,10 +19,10 @@
               node:{
                 login,
                 avatarUrl:null,
-              }
-            }))
-          }
-        }
-      }
+              },
+            })),
+          },
+        },
+      },
     })
   }

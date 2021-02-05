@@ -1,5 +1,5 @@
-/** Mocked data */
-  export default function ({faker, url, options, login = faker.internet.userName()}) {
+/**Mocked data */
+  export default function({faker, url, options, login = faker.internet.userName()}) {
     //Tested url
       const tested = url.match(/&url=(?<tested>.*?)(?:&|$)/)?.groups?.tested ?? faker.internet.url()
     //Pagespeed api
@@ -20,17 +20,17 @@
                     "final-screenshot":{
                       id:"final-screenshot",
                       title:"Final Screenshot",
-                      score: null,
+                      score:null,
                       details:{
                         data:"data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
                         type:"screenshot",
-                        timestamp:Date.now()
-                      }
+                        timestamp:Date.now(),
+                      },
                     },
                     metrics:{
                       id:"metrics",
                       title:"Metrics",
-                      score: null,
+                      score:null,
                       details:{
                         items:[
                           {
@@ -68,9 +68,9 @@
                             interactive:faker.random.number(1000),
                             observedNavigationStartTs:faker.time.recent(),
                             observedNavigationStart:faker.random.number(10),
-                            observedFirstMeaningfulPaintTs:faker.time.recent()
+                            observedFirstMeaningfulPaintTs:faker.time.recent(),
                           },
-                        ]
+                        ],
                       },
                     },
                   },
@@ -90,15 +90,15 @@
                       title:"Accessibility",
                       score:faker.random.float({max:1}),
                     },
-                    performance: {
+                    performance:{
                       id:"performance",
                       title:"Performance",
                       score:faker.random.float({max:1}),
-                    }
+                    },
                   },
                 },
                 analysisUTCTimestamp:`${faker.date.recent()}`,
-              }
+              },
             })
           }
       }

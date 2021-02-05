@@ -1,5 +1,5 @@
 //Setup
-  export default async function ({login, data, graphql, rest, q, queries, imports, account}, {enabled = false} = {}) {
+  export default async function({login, data, graphql, rest, q, queries, imports, account}, {enabled = false} = {}) {
     //Plugin execution
       try {
         //Check if plugin is enabled and requirements are met
@@ -12,7 +12,7 @@
             types:account === "organization" ? ["sponsorshipsAsMaintainer", "sponsorshipsAsSponsor", "thanks"] : ["followers", "following", "sponsorshipsAsMaintainer", "sponsorshipsAsSponsor", "thanks"],
             default:"followers, following",
             alias:{followed:"following", sponsors:"sponsorshipsAsMaintainer", sponsored:"sponsorshipsAsSponsor", sponsoring:"sponsorshipsAsSponsor"},
-            sponsorships:{sponsorshipsAsMaintainer:"sponsorEntity", sponsorshipsAsSponsor:"sponsorable"}
+            sponsorships:{sponsorshipsAsMaintainer:"sponsorEntity", sponsorshipsAsSponsor:"sponsorable"},
           }
           if (q.repo) {
             console.debug(`metrics/compute/${login}/plugins > people > switched to repository mode`)

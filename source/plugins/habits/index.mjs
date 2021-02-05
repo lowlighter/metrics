@@ -1,5 +1,5 @@
 //Setup
-  export default async function ({login, data, rest, imports, q, account}, {enabled = false, ...defaults} = {}) {
+  export default async function({login, data, rest, imports, q, account}, {enabled = false, ...defaults} = {}) {
     //Plugin execution
       try {
         //Check if plugin is enabled and requirements are met
@@ -22,7 +22,10 @@
               console.debug(`metrics/compute/${login}/plugins > habits > loading page ${page}`)
               events.push(...(await rest.activity.listEventsForAuthenticatedUser({username:login, per_page:100, page})).data)
             }
-          } catch { console.debug(`metrics/compute/${login}/plugins > habits > no more page to load`) }
+          }
+          catch {
+            console.debug(`metrics/compute/${login}/plugins > habits > no more page to load`)
+          }
           console.debug(`metrics/compute/${login}/plugins > habits > ${events.length} events loaded`)
 
         //Get user recent commits
@@ -36,8 +39,7 @@
           console.debug(`metrics/compute/${login}/plugins > habits > loading patches`)
           const patches = [...await Promise.allSettled(commits
             .flatMap(({payload}) => payload.commits).map(commit => commit.url)
-            .map(async commit => (await rest.request(commit)).data.files)
-          )]
+            .map(async commit => (await rest.request(commit)).data.files))]
             .filter(({status}) => status === "fulfilled")
             .map(({value}) => value)
             .flatMap(files => files.map(file => ({name:imports.paths.basename(file.filename), patch:file.patch ?? ""})))
@@ -52,7 +54,7 @@
                 habits.commits.days[day] = (habits.commits.days[day] ?? 0) + 1
               habits.commits.days.max = Math.max(...Object.values(habits.commits.days))
             //Compute day with most commits
-              habits.commits.day = days.length ? ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][Object.entries(habits.commits.days).sort(([an, a], [bn, b]) => b - a).map(([day, occurence]) => day)[0]] ?? NaN : NaN
+              habits.commits.day = days.length ? ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][Object.entries(habits.commits.days).sort(([_an, a], [_bn, b]) => b - a).map(([day, _occurence]) => day)[0]] ?? NaN : NaN
           }
 
         //Commit hour
@@ -64,7 +66,7 @@
                 habits.commits.hours[hour] = (habits.commits.hours[hour] ?? 0) + 1
               habits.commits.hours.max = Math.max(...Object.values(habits.commits.hours))
             //Compute hour with most commits
-              habits.commits.hour = hours.length ? `${Object.entries(habits.commits.hours).sort(([an, a], [bn, b]) => b - a).map(([hour, occurence]) => hour)[0]}`.padStart(2, "0") : NaN
+              habits.commits.hour = hours.length ? `${Object.entries(habits.commits.hours).sort(([_an, a], [_bn, b]) => b - a).map(([hour, _occurence]) => hour)[0]}`.padStart(2, "0") : NaN
           }
 
         //Indent style
@@ -72,7 +74,7 @@
             //Attempt to guess whether tabs or spaces are used in patches
               console.debug(`metrics/compute/${login}/plugins > habits > searching indent style`)
               patches
-                .map(({patch}) => patch.match(/((?:\t)|(?:  )) /gm) ?? [])
+                .map(({patch}) => patch.match(/((?:\t)|(?:[ ]{2})) /gm) ?? []) //eslint-disable-line prefer-named-capture-group
                 .forEach(indent => habits.indents[/^\t/.test(indent) ? "tabs" : "spaces"]++)
               habits.indents.style = habits.indents.spaces > habits.indents.tabs ? "spaces" : habits.indents.tabs > habits.indents.spaces ? "tabs" : ""
           }
@@ -89,18 +91,18 @@
                   //Create temporary directory and save patches
                     console.debug(`metrics/compute/${login}/plugins > habits > creating temp dir ${path} with ${patches.length} files`)
                     await imports.fs.mkdir(path, {recursive:true})
-                    await Promise.all(patches.map(async ({name, patch}, i) => await imports.fs.writeFile(imports.paths.join(path, `${i}${imports.paths.extname(name)}`), patch)))
+                    await Promise.all(patches.map(({name, patch}, i) => imports.fs.writeFile(imports.paths.join(path, `${i}${imports.paths.extname(name)}`), patch)))
                   //Create temporary git repository
                     console.debug(`metrics/compute/${login}/plugins > habits > creating temp git repository`)
-                    await imports.run(`git init && git add . && git config user.name "linguist" && git config user.email "<>" && git commit -m "linguist"`, {cwd:path}).catch(console.debug)
-                    await imports.run(`git status`, {cwd:path})
+                    await imports.run('git init && git add . && git config user.name "linguist" && git config user.email "<>" && git commit -m "linguist"', {cwd:path}).catch(console.debug)
+                    await imports.run("git status", {cwd:path})
                 //Spawn linguist process
                   console.debug(`metrics/compute/${login}/plugins > habits > running linguist`)
                   ;(await imports.run(`${prefix} github-linguist --breakdown`, {cwd:path}))
                   //Parse linguist result
                     .split("\n").map(line => line.match(/(?<value>[\d.]+)%\s+(?<language>\w+)/)?.groups).filter(line => line)
                     .map(({value, language}) => habits.linguist.languages[language] = (habits.linguist.languages[language] ?? 0) + value/100)
-                  habits.linguist.ordered = Object.entries(habits.linguist.languages).sort(([an, a], [bn, b]) => b - a)
+                  habits.linguist.ordered = Object.entries(habits.linguist.languages).sort(([_an, a], [_bn, b]) => b - a)
               }
               else
                 console.debug(`metrics/compute/${login}/plugins > habits > linguist not available`)
