@@ -27,6 +27,7 @@
     "@octokit/rest": "^18.0.15",
     "axios": "^0.21.1",
     "compression": "^1.7.4",
+    "dayjs": "^1.10.4",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
     "express-rate-limit": "^5.2.3",
@@ -46,8 +47,8 @@
     "libxmljs": "^0.19.7"
   },
   "jest": {
-    "testEnvironment":"node",
-    "testTimeout":60000,
-    "transform":{}
+    "testEnvironment": "node",
+    "testTimeout": 60000,
+    "transform": {}
   }
 }

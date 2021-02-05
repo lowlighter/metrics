@@ -181,6 +181,7 @@ Register your API key to finish setup.
     plugin_music_mode: recent      # Set plugin mode
     plugin_music_limit: 4          # Limit to 4 entries
     plugin_music_token: "${{ secrets.SPOTIFY_CLIENT_ID }}, ${{ secrets.SPOTIFY_CLIENT_SECRET }}, ${{ secrets.SPOTIFY_REFRESH_TOKEN }}"
+    plugin_music_played_at: yes # Only works with spotify.
 ```
 
 ```yaml
