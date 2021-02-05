@@ -12,8 +12,7 @@
             limit = void(limit)
           const range = {"7":"last_7_days", "30":"last_30_days", "180":"last_6_months", "365":"last_year"}[days] ?? "last_7_days"
 
-        //Querying api and format result
-        //https://wakatime.com/developers#stats
+        //Querying api and format result (https://wakatime.com/developers#stats)
           console.debug(`metrics/compute/${login}/plugins > wakatime > querying api`)
           const {data:{data:stats}} = await imports.axios.get(`https://wakatime.com/api/v1/users/current/stats/${range}?api_key=${token}`)
           const result = {

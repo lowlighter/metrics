@@ -36,7 +36,7 @@
           }
 
         //Unhandled error
-          throw {error:{message:`An error occured (could not retrieve posts)`}}
+          throw {error:{message:"An error occured (could not retrieve posts)"}}
       }
     //Handle errors
       catch (error) {

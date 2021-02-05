@@ -28,7 +28,7 @@
 
         //Iterate through gists
           console.debug(`metrics/compute/${login}/plugins > gists > processing ${gists.length} gists`)
-          let stargazers = 0, forks = 0, comments = 0, files = 0
+          let comments = 0, files = 0, forks = 0, stargazers = 0
           for (const gist of gists) {
             //Skip forks
               if (gist.isFork)

@@ -16,7 +16,7 @@
     //Base parts (legacy handling for web instance)
       const defaulted = ("base" in q) ? legacy.converter(q.base) ?? true : true
       for (const part of conf.settings.plugins.base.parts)
-        data.base[part] = `base.${part}` in q ? legacy.converter(q[ `base.${part}`]) : defaulted
+        data.base[part] = `base.${part}` in q ? legacy.converter(q[`base.${part}`]) : defaulted
 
     //Iterate through account types
       for (const account of ["user", "organization"]) {
@@ -46,7 +46,8 @@
           //Success
             console.debug(`metrics/compute/${login}/base > graphql query > account ${account} > success`)
             return {}
-        } catch (error) {
+        }
+        catch (error) {
           console.debug(`metrics/compute/${login}/base > account ${account} > failed : ${error}`)
           console.debug(`metrics/compute/${login}/base > checking next account`)
         }
@@ -69,7 +70,7 @@
     //Organization
       organization({login, data}) {
         console.debug(`metrics/compute/${login}/base > applying postprocessing`)
-        data.account = "organization",
+        data.account = "organization"
         Object.assign(data.user, {
           isHireable:false,
           starredRepositories:{totalCount:0},
@@ -107,7 +108,7 @@
           repositories:{totalCount:0, totalDiskUsage:0, nodes:[]},
           packages:{totalCount:0},
         })
-      }
+      },
   }
 
 //Legacy functions
@@ -119,5 +120,5 @@
         return false
       if (Number.isFinite(Number(value)))
         return !!(Number(value))
-    }
+    },
   }

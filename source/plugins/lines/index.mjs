@@ -22,7 +22,7 @@
         //Get contributors stats from repositories
           console.debug(`metrics/compute/${login}/plugins > lines > querying api`)
           const lines = {added:0, deleted:0}
-          const response = await Promise.all(repositories.map(async ({repo, owner}) => await rest.repos.getContributorsStats({owner, repo})))
+          const response = await Promise.all(repositories.map(({repo, owner}) => rest.repos.getContributorsStats({owner, repo})))
 
         //Compute changed lines
           console.debug(`metrics/compute/${login}/plugins > lines > computing total diff`)
