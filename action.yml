@@ -584,7 +584,50 @@ inputs:
   plugin_wakatime_limit:
     description: Maximum number of entries to display per graph
     default: 5
+
+  # ====================================================================================
+  # 💉 Nightscout plugin
   
+  # Enable or disable plugin
+  plugin_nightscout:
+    description: Displays Blood Glucose
+    type: boolean
+    default: no
+
+  # Nightscout site URL
+  plugin_nightscout_url:
+    description: Your Nightscout site URL
+    type: string
+    default: "https://example.herokuapp.com"
+
+  # Controls how big the graph is 
+  plugin_nightscout_datapoints:
+    description: How many datapoints to show on the graph. 0 and 1 disable the graph.
+    type: number
+    default: 12
+    max: 20
+    min: 0
+
+  # Next 4 are all just numbers for color and alert values
+  plugin_nightscout_lowalert:
+    description: When the blood sugar is considered low
+    type: number
+    default: 80 
+
+  plugin_nightscout_highalert:
+    description: When the blood sugar is considered high
+    type: number
+    default: 180
+
+  plugin_nightscout_urgentlowalert:
+    description: When the blood sugar is considered urgently low
+    type: number
+    default: 50
+
+  plugin_nightscout_urgenthighalert:
+    description: When the blood sugar is considered urgently high
+    type: number
+    default: 250  
 
 # ====================================================================================
 # Action metadata
