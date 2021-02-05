@@ -22,7 +22,7 @@
             <div class="tracklist">
               <% for (const {name = "", artist = "", artwork = "", played_at = ""} of plugins.music.tracks) { %>
                 <div class="track">
-                  <img src="data:image/png;base64,<%= artwork %>" width="32" height="32" alt=""/>
+                  <img src="data:image/png;base64,<%= artwork %>" width="<%= !!played_at.length ? 48 : 32 %>" height="<%= !!played_at.length ? 48 : 32 %>" alt=""/>
                   <div class="infos">
                     <div class="name"><b><%= name %><b></div>
                     <div class="artist"><%= artist %></div>
