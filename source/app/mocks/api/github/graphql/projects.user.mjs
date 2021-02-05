@@ -1,6 +1,6 @@
-/** Mocked data */
-  export default function ({faker, query, login = faker.internet.userName()}) {
-    console.debug(`metrics/compute/mocks > mocking graphql api result > projects/user`)
+/**Mocked data */
+  export default function({faker, query, login = faker.internet.userName()}) {
+    console.debug("metrics/compute/mocks > mocking graphql api result > projects/user")
     return ({
       user:{
         projects:{
@@ -14,11 +14,11 @@
                 doneCount:faker.random.number(10),
                 inProgressCount:faker.random.number(10),
                 todoCount:faker.random.number(10),
-                enabled:true
-              }
-            }
-          ]
-        }
-      }
+                enabled:true,
+              },
+            },
+          ],
+        },
+      },
     })
   }

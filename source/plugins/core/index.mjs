@@ -4,22 +4,25 @@
  */
 
 //Setup
-  export default async function ({login, q, dflags}, {conf, data, rest, graphql, plugins, queries, account}, {pending, imports}) {
+  export default async function({login, q, dflags}, {conf, data, rest, graphql, plugins, queries, account}, {pending, imports}) {
     //Load inputs
       imports.metadata.plugins.core.inputs({data, account, q})
 
     //Init
-      const computed = data.computed = {commits:0, sponsorships:0, licenses:{favorite:"", used:{}}, token:{}, repositories:{watchers:0, stargazers:0, issues_open:0, issues_closed:0, pr_open:0, pr_merged:0, forks:0, forked:0, releases:0}}
+      const computed = {commits:0, sponsorships:0, licenses:{favorite:"", used:{}}, token:{}, repositories:{watchers:0, stargazers:0, issues_open:0, issues_closed:0, pr_open:0, pr_merged:0, forks:0, forked:0, releases:0}}
       const avatar = imports.imgb64(data.user.avatarUrl)
+      data.computed = computed
       console.debug(`metrics/compute/${login} > formatting common metrics`)
 
     //Timezone config
       if (q["config.timezone"]) {
-        const timezone = data.config.timezone = {name:q["config.timezone"], offset:0}
+        const timezone = {name:q["config.timezone"], offset:0}
+        data.config.timezone = timezone
         try {
           timezone.offset = Number(new Date().toLocaleString("fr", {timeZoneName:"short", timeZone:timezone.name}).match(/UTC[+](?<offset>\d+)/)?.groups?.offset*60*60*1000) || 0
           console.debug(`metrics/compute/${login} > timezone set to ${timezone.name} (${timezone.offset > 0 ? "+" : ""}${Math.round(timezone.offset/(60*60*1000))} hours)`)
-        } catch {
+        }
+        catch {
           timezone.error = `Failed to use timezone "${timezone.name}"`
           console.debug(`metrics/compute/${login} > failed to use timezone "${timezone.name}"`)
         }
@@ -35,7 +38,7 @@
       for (const name of Object.keys(imports.plugins)) {
         if (!plugins[name]?.enabled)
           continue
-        pending.push((async () => {
+        pending.push((async() => {
           try {
             console.debug(`metrics/compute/${login}/plugins > ${name} > started`)
             data.plugins[name] = await imports.plugins[name]({login, q, imports, data, computed, rest, graphql, queries, account}, plugins[name])
@@ -71,7 +74,7 @@
       computed.diskUsage = `${imports.bytes(data.user.repositories.totalDiskUsage*1000)}`
 
     //Compute licenses stats
-      computed.licenses.favorite = Object.entries(computed.licenses.used).sort(([an, a], [bn, b]) => b - a).slice(0, 1).map(([name, value]) => name) ?? ""
+      computed.licenses.favorite = Object.entries(computed.licenses.used).sort(([_an, a], [_bn, b]) => b - a).slice(0, 1).map(([name, _value]) => name) ?? ""
 
     //Compute total commits
       computed.commits += data.user.contributionsCollection.totalCommitContributions + data.user.contributionsCollection.restrictedContributionsCount
@@ -117,7 +120,7 @@
           computed.calendar.map(day => day.color = halloween(day.color))
         //Update isocalendar colors
           const waiting = [...pending]
-          pending.push((async () => {
+          pending.push((async() => {
             await Promise.all(waiting)
             if (data.plugins.isocalendar?.svg)
               data.plugins.isocalendar.svg = halloween(data.plugins.isocalendar.svg)

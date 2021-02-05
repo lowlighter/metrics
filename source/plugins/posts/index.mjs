@@ -1,5 +1,5 @@
 //Setup
-  export default async function ({login, data, imports, q, account}, {enabled = false} = {}) {
+  export default async function({login, data, imports, q, account}, {enabled = false} = {}) {
     //Plugin execution
       try {
         //Check if plugin is enabled and requirements are met
@@ -36,7 +36,7 @@
           }
 
         //Unhandled error
-          throw {error:{message:`An error occured (could not retrieve posts)`}}
+          throw {error:{message:"An error occured (could not retrieve posts)"}}
       }
     //Handle errors
       catch (error) {

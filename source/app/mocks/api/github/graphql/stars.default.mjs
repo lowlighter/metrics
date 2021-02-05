@@ -1,6 +1,6 @@
-/** Mocked data */
-  export default function ({faker, query, login = faker.internet.userName()}) {
-    console.debug(`metrics/compute/mocks > mocking graphql api result > stars/default`)
+/**Mocked data */
+  export default function({faker, query, login = faker.internet.userName()}) {
+    console.debug("metrics/compute/mocks > mocking graphql api result > stars/default")
     return ({
       user:{
         starredRepositories:{
@@ -22,16 +22,16 @@
                 stargazerCount:faker.random.number(10000),
                 licenseInfo:{
                   nickname:null,
-                  name:"MIT License"
+                  name:"MIT License",
                 },
                 primaryLanguage:{
                   color:"#f1e05a",
-                  name:"JavaScript"
-                }
-              }
+                  name:"JavaScript",
+                },
+              },
             },
-          ]
-        }
-      }
+          ],
+        },
+      },
     })
   }

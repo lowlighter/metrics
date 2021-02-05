@@ -1,5 +1,5 @@
 //Setup
-  export default async function ({login, imports, data, rest, q, account}, {enabled = false} = {}) {
+  export default async function({login, imports, data, rest, q, account}, {enabled = false} = {}) {
     //Plugin execution
       try {
         //Check if plugin is enabled and requirements are met
@@ -15,7 +15,7 @@
         //Get views stats from repositories
           console.debug(`metrics/compute/${login}/plugins > traffic > querying api`)
           const views = {count:0, uniques:0}
-          const response = await Promise.all(repositories.map(async ({repo, owner}) => await rest.repos.getViews({owner, repo})))
+          const response = await Promise.all(repositories.map(({repo, owner}) => rest.repos.getViews({owner, repo})))
 
         //Compute views
           console.debug(`metrics/compute/${login}/plugins > traffic > computing stats`)

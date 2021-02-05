@@ -63,7 +63,7 @@ jobs:
   analyze:
     name: Analyze code
     runs-on: ubuntu-latest
-    needs: [ build ]
+    needs: [ lint ]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2

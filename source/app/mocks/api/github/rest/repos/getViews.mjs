@@ -1,6 +1,6 @@
-/** Mocked data */
+/**Mocked data */
   export default function({faker}, target, that, [{owner, repo}]) {
-    console.debug(`metrics/compute/mocks > mocking rest api result > rest.repos.getViews`)
+    console.debug("metrics/compute/mocks > mocking rest api result > rest.repos.getViews")
     const count = faker.random.number(10000)*2
     const uniques = faker.random.number(count)*2
     return ({
@@ -17,7 +17,7 @@
         views:[
           {timestamp:`${faker.date.recent()}`, count:count/2, uniques:uniques/2},
           {timestamp:`${faker.date.recent()}`, count:count/2, uniques:uniques/2},
-        ]
-      }
+        ],
+      },
     })
   }

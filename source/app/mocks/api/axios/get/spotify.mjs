@@ -1,5 +1,5 @@
-/** Mocked data */
-  export default function ({faker, url, options, login = faker.internet.userName()}) {
+/**Mocked data */
+  export default function({faker, url, options, login = faker.internet.userName()}) {
     //Spotify api
       if (/^https:..api.spotify.com.*$/.test(url)) {
         //Get recently played tracks
@@ -19,24 +19,24 @@
                             {
                               name:artist,
                               type:"artist",
-                            }
+                            },
                           ],
                           images:[
                             {
                               height:640,
                               url:faker.image.abstract(),
-                              width:640
+                              width:640,
                             },
                             {
                               height:300,
                               url:faker.image.abstract(),
-                              width:300
+                              width:300,
                             },
                             {
                               height:64,
                               url:faker.image.abstract(),
-                              width:64
-                            }
+                              width:64,
+                            },
                           ],
                           name:track,
                           release_date:`${faker.date.past()}`.substring(0, 10),
@@ -46,7 +46,7 @@
                           {
                             name:artist,
                             type:"artist",
-                          }
+                          },
                         ],
                         name:track,
                         preview_url:faker.internet.url(),
@@ -55,10 +55,10 @@
                       played_at:`${faker.date.recent()}`,
                       context:{
                         type:"album",
-                      }
+                      },
                     },
                   ],
-                }
+                },
             })
           }
       }

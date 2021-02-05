@@ -1,11 +1,11 @@
-/** Template processor */
-  export default async function ({login, q}, {conf, data, rest, graphql, plugins, queries, account}, {s, pending, imports}) {
+/**Template processor */
+  export default async function({login, q}, {data, rest, graphql, queries, account}, {pending, imports}) {
     //Check arguments
       const {repo} = q
       if (!repo) {
         console.debug(`metrics/compute/${login}/${repo} > error, repo was undefined`)
-        data.errors.push({error:{message:`You must pass a "repo" argument to use this template`}})
-        return await imports.plugins.core(...arguments)
+        data.errors.push({error:{message:"You must pass a \"repo\" argument to use this template"}})
+        return imports.plugins.core(...arguments)
       }
       console.debug(`metrics/compute/${login}/${repo} > switching to mode ${account}`)
 

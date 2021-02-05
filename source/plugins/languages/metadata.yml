@@ -18,6 +18,7 @@ inputs:
     type: array
     format: comma-separated
     default: ""
+    example: html, css, ...
 
   # List of repositories that will be skipped
   plugin_languages_skipped:
@@ -25,6 +26,7 @@ inputs:
     type: array
     format: comma-separated
     default: ""
+    example: my-repo-1, my-repo-2, ...
 
   # Overrides default languages colors
   # Use `${n}:${color}` to change the color of the n-th most used language (e.g. "0:red" to make your most used language red)
@@ -38,6 +40,7 @@ inputs:
       - comma-separated
       - /((?<index>[0-9])|(?<language>[-+a-z0-9#])):(?<color>#?[-a-z0-9]+)/
     default: github
+    example: javascript:red, 0:blue, 1:#ff00aa
 
   # Languages additional details
   plugin_languages_details:
@@ -48,6 +51,7 @@ inputs:
       - bytes-size # Languages total size written in bytes
       - percentage # Languages proportions in %
     default: ""
+    example: bytes-size, percentage
 
   # Minimum threshold (in percentage) to reach for languages to be displayed
   plugin_languages_threshold:
