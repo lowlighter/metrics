@@ -32,22 +32,25 @@ inputs:
     max: 20
     min: 0
 
-  # Next 4 are all just numbers for color and alert values
+  # Low value used for colors and text alerts
   plugin_nightscout_lowalert:
     description: When the blood sugar is considered low
     type: number
-    default: 80 
+    default: 80
 
+  # High value used for colors and text alerts
   plugin_nightscout_highalert:
     description: When the blood sugar is considered high
     type: number
     default: 180
 
+  # Urgent low value used for colors and text alerts
   plugin_nightscout_urgentlowalert:
     description: When the blood sugar is considered urgently low
     type: number
     default: 50
 
+  # Urgent high value used for colors and text alerts
   plugin_nightscout_urgenthighalert:
     description: When the blood sugar is considered urgently high
     type: number
