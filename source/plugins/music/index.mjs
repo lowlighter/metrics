@@ -39,7 +39,7 @@
           let tracks = null
 
         //Load inputs
-          let {provider, mode, playlist, limit, user, played_at} = imports.metadata.plugins.music.inputs({data, account, q})
+          let {provider, mode, playlist, limit, user, "played.at":played_at} = imports.metadata.plugins.music.inputs({data, account, q})
           //Auto-guess parameters
             if ((playlist)&&(!mode))
               mode = "playlist"
@@ -124,8 +124,6 @@
               }
             //Recently played
               case "recent":{
-                //Initialisation
-                  const timestamp = Date.now()-24*60*60*1000
                 //Handle provider
                   switch (provider) {
                     //Spotify
@@ -144,16 +142,29 @@
                               console.debug(`metrics/compute/${login}/plugins > music > got access token`)
                             //Retrieve tracks
                               console.debug(`metrics/compute/${login}/plugins > music > querying spotify api`)
-                              tracks = (await imports.axios.get(`https://api.spotify.com/v1/me/player/recently-played?limit=${limit}&after=${timestamp}`, {headers:{
-                                "Content-Type":"application/json",
-                                Accept:"application/json",
-                                Authorization:`Bearer ${access}`,
-                              }})).data.items.map(({track, played_at}) => ({
-                                name:track.name,
-                                artist:track.artists[0].name,
-                                artwork:track.album.images[0].url,
-                                played_at: played_at ? imports.dayjs(played_at).format('[played at] HH:MM on DD/MM/YYYY') : ''
-                              }))
+                              tracks = []
+                              for (let hours = .5; hours <= 24; hours++) {
+                                //Load track half-hour by half-hour
+                                  const timestamp = Date.now()-hours*60*60*1000
+                                  const loaded = (await imports.axios.get(`https://api.spotify.com/v1/me/player/recently-played?after=${timestamp}`, {headers:{
+                                    "Content-Type":"application/json",
+                                    Accept:"application/json",
+                                    Authorization:`Bearer ${access}`,
+                                  }})).data.items.map(({track, played_at}) => ({
+                                    name:track.name,
+                                    artist:track.artists[0].name,
+                                    artwork:track.album.images[0].url,
+                                    played_at:played_at ? imports.dayjs(played_at).format("[played at] HH:MM on DD/MM/YYYY") : null,
+                                  }))
+                                //Ensure no duplicate are added
+                                  for (const track of loaded) {
+                                    if (!tracks.map(({name}) => name).includes(track.name))
+                                      tracks.push(track)
+                                  }
+                                //Early break
+                                  if (tracks.length >= limit)
+                                    break
+                              }
                           }
                         //Handle errors
                           catch (error) {
@@ -220,7 +231,7 @@
                 track.artwork = await imports.imgb64(track.artwork)
               }
             //Save results
-              return {...raw, tracks}
+              return {...raw, tracks, played_at}
           }
 
         //Unhandled error

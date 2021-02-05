@@ -8,11 +8,11 @@
   import axios from "axios"
   import puppeteer from "puppeteer"
   import imgb64 from "image-to-base64"
-  import dayjs from 'dayjs';
-  import utc from 'dayjs/plugin/utc.js';
-  dayjs.extend(utc);
+  import dayjs from "dayjs"
+  import utc from "dayjs/plugin/utc.js"
+  dayjs.extend(utc)
 
-  export {fs, os, paths, url, util, processes, axios, puppeteer, imgb64, dayjs};
+  export {fs, os, paths, url, util, processes, axios, puppeteer, imgb64, dayjs}
 
 /**Returns module __dirname */
   export function __module(module) {
@@ -27,18 +27,18 @@
 /**Formatter */
   export function format(n, {sign = false} = {}) {
     for (const {u, v} of [{u:"b", v:10**9}, {u:"m", v:10**6}, {u:"k", v:10**3}]) {
- if (n/v >= 1)
+      if (n/v >= 1)
         return `${(sign)&&(n > 0) ? "+" : ""}${(n/v).toFixed(2).substr(0, 4).replace(/[.]0*$/, "")}${u}`
-}
+    }
     return `${(sign)&&(n > 0) ? "+" : ""}${n}`
   }
 
 /**Bytes formatter */
   export function bytes(n) {
     for (const {u, v} of [{u:"E", v:10**18}, {u:"P", v:10**15}, {u:"T", v:10**12}, {u:"G", v:10**9}, {u:"M", v:10**6}, {u:"k", v:10**3}]) {
- if (n/v >= 1)
+      if (n/v >= 1)
         return `${(n/v).toFixed(2).substr(0, 4).replace(/[.]0*$/, "")} ${u}B`
-}
+    }
     return `${n} byte${n > 1 ? "s" : ""}`
   }
   format.bytes = bytes
@@ -84,7 +84,7 @@
     try {
       return (await axios.get(url)).request.res.responseUrl
     }
- catch {
+    catch {
       return url
     }
   }
