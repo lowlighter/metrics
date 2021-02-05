@@ -50,7 +50,7 @@
       "enabled": false,            "//": "Display your music tracks"
     },
     "nightscout":{
-        "enabled": false,           "//":"Display Blood Glucose"
+      "enabled": false,            "//": "Displays Blood Glucose"
     },
     "pagespeed":{
       "token": null,               "//":"PageSpeed token",
