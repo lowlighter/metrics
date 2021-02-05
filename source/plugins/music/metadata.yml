@@ -47,6 +47,7 @@ inputs:
     description: Embed playlist url
     type: string
     default: ""
+    example: https://embed.music.apple.com/--/playlist/--------/--------
 
   # Number of music tracks to display
   plugin_music_limit:

@@ -27,6 +27,7 @@ inputs:
   plugin_projects_repositories:
     description: List of repository project identifiers to disaplay
     type: array
+    example: username/repo/projects/1, username/repo/projects/2, ...
     format:
       - comma-separated
       - /(?<user>[-a-z0-9]+)[/](?<repo>[-a-z0-9]+)[/]projects[/](?<id>[0-9]+)/
