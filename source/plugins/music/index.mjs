@@ -13,7 +13,9 @@
       embed:/^\b$/,
     },
   }
-
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+dayjs.extend(utc);
 //Supported modes
   const modes = {
     playlist:"Suggested tracks",
@@ -144,10 +146,11 @@
                                 "Accept":"application/json",
                                 "Content-Type":"application/json",
                                 "Authorization":`Bearer ${access}`}
-                              })).data.items.map(({track}) => ({
+                              })).data.items.map(({track, played_at}) => ({
                                 name:track.name,
                                 artist:track.artists[0].name,
                                 artwork:track.album.images[0].url,
+                                played_at: dayjs(played_at).format('[played at] HH:MM on DD/MM/YYYY')
                               }))
                           }
                         //Handle errors
