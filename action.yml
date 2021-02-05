@@ -602,31 +602,26 @@ inputs:
   plugin_nightscout_datapoints:
     description: How many datapoints to show on the graph. 0 and 1 disable the graph.
     default: 12
-    min: 0
 
   # Low value used for colors and text alerts
   plugin_nightscout_lowalert:
     description: When the blood sugar is considered low
     default: 80
-    min: 0
 
   # High value used for colors and text alerts
   plugin_nightscout_highalert:
     description: When the blood sugar is considered high
     default: 180
-    min: 0
 
   # Urgent low value used for colors and text alerts
   plugin_nightscout_urgentlowalert:
     description: When the blood sugar is considered urgently low
     default: 50
-    min: 0
 
   # Urgent high value used for colors and text alerts
   plugin_nightscout_urgenthighalert:
     description: When the blood sugar is considered urgently high
     default: 250
-    min: 0
 
 
 # ====================================================================================
