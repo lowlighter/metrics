@@ -1,13 +1,13 @@
-/** Mocked data */
-  export default function ({faker, query, login = faker.internet.userName()}) {
-    console.debug(`metrics/compute/mocks > mocking graphql api result > people/default`)
+/**Mocked data */
+  export default function({faker, query, login = faker.internet.userName()}) {
+    console.debug("metrics/compute/mocks > mocking graphql api result > people/default")
     const type = query.match(/(?<type>followers|following)[(]/)?.groups?.type ?? "(unknown type)"
     return /after: "MOCKED_CURSOR"/m.test(query) ? ({
       user:{
         [type]:{
           edges:[],
-        }
-      }
+        },
+      },
     }) : ({
       user:{
         [type]:{
@@ -16,9 +16,9 @@
             node:{
               login,
               avatarUrl:null,
-            }
-          }))
-        }
-      }
+            },
+          })),
+        },
+      },
     })
   }

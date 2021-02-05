@@ -1,5 +1,5 @@
-/** Mocked data */
-  export default function ({faker, url, options, login = faker.internet.userName()}) {
+/**Mocked data */
+  export default function({faker, url, options, login = faker.internet.userName()}) {
     //Twitter api
       if (/^https:..api.twitter.com.*$/.test(url)) {
         //Get user profile
@@ -16,7 +16,7 @@
                     id:faker.random.number(1000000).toString(),
                     username,
                   },
-                }
+                },
             })
           }
         //Get recent tweets
@@ -40,7 +40,7 @@
                     id:faker.random.number(100000000000000).toString(),
                     created_at:`${faker.date.recent()}`,
                     text:faker.lorem.paragraph(),
-                  }
+                  },
                 ],
                 includes:{
                   users:[
@@ -49,7 +49,7 @@
                       name:"lowlighter",
                       username:"lowlighter",
                     },
-                  ]
+                  ],
                 },
                 meta:{
                   newest_id:faker.random.number(100000000000000).toString(),
@@ -57,7 +57,7 @@
                   result_count:2,
                   next_token:"MOCKED_CURSOR",
                 },
-              }
+              },
             })
           }
       }

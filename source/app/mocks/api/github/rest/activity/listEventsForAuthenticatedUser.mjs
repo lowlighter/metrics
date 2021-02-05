@@ -1,6 +1,6 @@
-/** Mocked data */
-  export default function ({faker}, target, that, [{username:login, page, per_page}]) {
-    console.debug(`metrics/compute/mocks > mocking rest api result > rest.activity.listEventsForAuthenticatedUser`)
+/**Mocked data */
+  export default function({faker}, target, that, [{username:login, page, per_page}]) {
+    console.debug("metrics/compute/mocks > mocking rest api result > rest.activity.listEventsForAuthenticatedUser")
     return ({
       status:200,
       url:`https://api.github.com/users/${login}/events?per_page=${per_page}&page=${page}`,
@@ -27,7 +27,7 @@
               path:faker.system.fileName(),
               commit_id:"MOCKED_SHA",
               body:faker.lorem.sentence(),
-            }
+            },
           },
           created_at:faker.date.recent(7),
         },
@@ -55,7 +55,7 @@
                 login:faker.internet.userName(),
               },
               body:"",
-            }
+            },
           },
           created_at:faker.date.recent(7),
         },
@@ -77,8 +77,8 @@
                 login,
               },
               body:faker.lorem.paragraph(),
-              performed_via_github_app:null
-            }
+              performed_via_github_app:null,
+            },
           },
           created_at:faker.date.recent(7),
         },
@@ -99,8 +99,8 @@
                 summary:null,
                 action:"created",
                 sha:"MOCKED_SHA",
-              }
-            ]
+              },
+            ],
           },
           created_at:faker.date.recent(7),
         },
@@ -125,14 +125,14 @@
                 {
                   name:"lorem ipsum",
                   color:"d876e3",
-                }
+                },
               ],
               state:"open",
             },
             comment:{
               body:faker.lorem.paragraph(),
-              performed_via_github_app:null
-            }
+              performed_via_github_app:null,
+            },
           },
           created_at:faker.date.recent(7),
         },
@@ -149,7 +149,7 @@
             forkee:{
               name:faker.random.word(),
               full_name:`${faker.random.word()}/${faker.random.word()}`,
-            }
+            },
           },
           created_at:faker.date.recent(7),
         },
@@ -178,7 +178,7 @@
               user:{
                 login:faker.internet.userName(),
               },
-            }
+            },
           },
           created_at:faker.date.recent(7),
         },
@@ -198,7 +198,7 @@
               name:faker.random.words(4),
               draft:faker.random.boolean(),
               prerelease:faker.random.boolean(),
-            }
+            },
           },
           created_at:faker.date.recent(7),
         },
@@ -262,8 +262,8 @@
                 sha:"MOCKED_SHA",
                 message:faker.lorem.sentence(),
                 url:"https://api.github.com/repos/lowlighter/metrics/commits/MOCKED_SHA",
-              }
-            ]
+              },
+            ],
           },
           created_at:faker.date.recent(7),
         },
@@ -288,7 +288,7 @@
               additions:faker.random.number(1000),
               deletions:faker.random.number(1000),
               changed_files:faker.random.number(10),
-            }
+            },
           },
           created_at:faker.date.recent(7),
         },
@@ -305,7 +305,7 @@
             member:{
               login:faker.internet.userName(),
             },
-            action:"added"
+            action:"added",
           },
           created_at:faker.date.recent(7),
         },
@@ -320,7 +320,7 @@
           },
           payload:{},
           created_at:faker.date.recent(7),
-        }
-      ]
+        },
+      ],
     })
   }

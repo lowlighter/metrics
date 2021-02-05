@@ -1,8 +1,8 @@
 //Imports
-  import util from "util"
-  import ejs from "ejs"
-  import SVGO from "svgo"
   import * as utils from "./utils.mjs"
+  import ejs from "ejs"
+  import util from "util"
+  import SVGO from "svgo"
 
 //Setup
   export default async function metrics({login, q, dflags = []}, {graphql, rest, plugins, conf, die = false, verify = false, convert = null}, {Plugins, Templates}) {
@@ -23,7 +23,7 @@
 
         //Initialization
           const pending = []
-          const queries = conf.queries
+          const {queries} = conf
           const data = {animated:true, base:{}, config:{}, errors:[], plugins:{}, computed:{}}
           const imports = {plugins:Plugins, templates:Templates, metadata:conf.metadata, ...utils}
 
@@ -47,7 +47,7 @@
           if (errors.length) {
             console.warn(`metrics/compute/${login} > ${errors.length} errors !`)
             if (die)
-              throw new Error(`An error occured during rendering, dying`)
+              throw new Error("An error occured during rendering, dying")
             else
               console.warn(util.inspect(errors, {depth:Infinity, maxStringLength:256}))
           }

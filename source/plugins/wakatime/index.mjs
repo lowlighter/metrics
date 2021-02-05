@@ -1,5 +1,5 @@
 //Setup
-  export default async function ({login, q, imports, data, account}, {enabled = false, token} = {}) {
+  export default async function({login, q, imports, data, account}, {enabled = false, token} = {}) {
     //Plugin execution
       try {
         //Check if plugin is enabled and requirements are met

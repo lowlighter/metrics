@@ -1,8 +1,8 @@
 //Imports
   import urls from "url"
 
-/** Mocked data */
-  export default function ({faker, url, body, login = faker.internet.userName()}) {
+/**Mocked data */
+  export default function({faker, url, body, login = faker.internet.userName()}) {
     if (/^https:..accounts.spotify.com.api.token.*$/.test(url)) {
       //Access token generator
         const params = new urls.URLSearchParams(body)
@@ -15,7 +15,7 @@
                 token_type:"Bearer",
                 expires_in:3600,
                 scope:"user-read-recently-played user-read-private",
-              }
+              },
           })
         }
     }

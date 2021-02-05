@@ -4,7 +4,7 @@
  */
 
 //Setup
-  export default async function ({login, q, dflags}, {conf, data, rest, graphql, plugins, queries, account}, {pending, imports}) {
+  export default async function({login, q, dflags}, {conf, data, rest, graphql, plugins, queries, account}, {pending, imports}) {
     //Load inputs
       imports.metadata.plugins.core.inputs({data, account, q})
 
@@ -38,7 +38,7 @@
       for (const name of Object.keys(imports.plugins)) {
         if (!plugins[name]?.enabled)
           continue
-        pending.push((async () => {
+        pending.push((async() => {
           try {
             console.debug(`metrics/compute/${login}/plugins > ${name} > started`)
             data.plugins[name] = await imports.plugins[name]({login, q, imports, data, computed, rest, graphql, queries, account}, plugins[name])
@@ -120,7 +120,7 @@
           computed.calendar.map(day => day.color = halloween(day.color))
         //Update isocalendar colors
           const waiting = [...pending]
-          pending.push((async () => {
+          pending.push((async() => {
             await Promise.all(waiting)
             if (data.plugins.isocalendar?.svg)
               data.plugins.isocalendar.svg = halloween(data.plugins.isocalendar.svg)

@@ -1,5 +1,5 @@
 //Setup
-  export default async function ({login, data, queries, imports, q, account}, {enabled = false} = {}) {
+  export default async function({login, data, queries, imports, q, account}, {enabled = false} = {}) {
     //Plugin execution
       try {
         //Check if plugin is enabled and requirements are met
@@ -131,7 +131,7 @@
     }
   }
 
-/** Media formatter */
+/**Media formatter */
   async function format({media, imports}) {
     const {progress, score:userScore, media:{title, description, status, startDate:{year:release}, genres, averageScore, episodes, chapters, type, coverImage:{medium:artwork}}} = media
     return {

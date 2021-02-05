@@ -4,7 +4,7 @@
  */
 
 //Setup
-  export default async function ({login, graphql, data, q, queries, imports}, conf) {
+  export default async function({login, graphql, data, q, queries, imports}, conf) {
     //Load inputs
       console.debug(`metrics/compute/${login}/base > started`)
       let {repositories, repositories_forks:forks} = imports.metadata.plugins.base.inputs({data, q, account:"bypass"}, {repositories:conf.settings.repositories ?? 100})

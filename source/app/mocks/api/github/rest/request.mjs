@@ -1,10 +1,10 @@
-/** Mocked data */
+/**Mocked data */
   export default function({faker}, target, that, args) {
     //Arguments
       const [url] = args
     //Head request
       if (/^HEAD .$/.test(url)) {
-        console.debug(`metrics/compute/mocks > mocking rest api result > rest.request HEAD`)
+        console.debug("metrics/compute/mocks > mocking rest api result > rest.request HEAD")
         return ({
           status:200,
           url:"https://api.github.com/",
@@ -13,7 +13,7 @@
             status:"200 OK",
             "x-oauth-scopes":"repo",
           },
-          data:undefined
+          data:undefined,
         })
       }
     //Commit content
@@ -44,14 +44,14 @@
               login:faker.internet.userName(),
               id:faker.random.number(100000000),
             },
-            files: [
+            files:[
               {
                 sha:"MOCKED_SHA",
                 filename:faker.system.fileName(),
-                patch:"@@ -0,0 +1,5 @@\n+//Imports\n+  import app from \"./src/app.mjs\"\n+\n+//Start app\n+  await app()\n\\ No newline at end of file"
+                patch:"@@ -0,0 +1,5 @@\n+//Imports\n+  import app from \"./src/app.mjs\"\n+\n+//Start app\n+  await app()\n\\ No newline at end of file",
               },
-            ]
-          }
+            ],
+          },
         })
       }
 

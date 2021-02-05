@@ -1,8 +1,8 @@
-/** Mocked data */
-  export default function ({faker, query, login = faker.internet.userName()}) {
-    console.debug(`metrics/compute/mocks > mocking graphql api result > base/user`)
+/**Mocked data */
+  export default function({faker, query, login = faker.internet.userName()}) {
+    console.debug("metrics/compute/mocks > mocking graphql api result > base/user")
     return ({
-      user: {
+      user:{
         databaseId:faker.random.number(10000000),
         name:faker.name.findName(),
         login,
@@ -35,7 +35,7 @@
                   {color:faker.random.arrayElement(["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"])},
                   {color:faker.random.arrayElement(["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"])},
                   {color:faker.random.arrayElement(["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"])},
-                ]
+                ],
               },
               {
                 contributionDays:[
@@ -46,23 +46,23 @@
                   {color:faker.random.arrayElement(["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"])},
                   {color:faker.random.arrayElement(["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"])},
                   {color:faker.random.arrayElement(["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"])},
-                ]
+                ],
               },
               {
                 contributionDays:[
                   {color:faker.random.arrayElement(["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"])},
                   {color:faker.random.arrayElement(["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"])},
                   {color:faker.random.arrayElement(["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"])},
-                ]
-              }
-            ]
-          }
+                ],
+              },
+            ],
+          },
         },
         repositoriesContributedTo:{totalCount:faker.random.number(100)},
         followers:{totalCount:faker.random.number(1000)},
         following:{totalCount:faker.random.number(1000)},
         issueComments:{totalCount:faker.random.number(1000)},
-        organizations:{totalCount:faker.random.number(10)}
-      }
+        organizations:{totalCount:faker.random.number(10)},
+      },
     })
   }

@@ -1,17 +1,17 @@
 //Imports
   import fs from "fs"
+  import metadata from "./metadata.mjs"
   import path from "path"
+  import processes from "child_process"
   import util from "util"
   import url from "url"
-  import processes from "child_process"
-  import metadata from "./metadata.mjs"
 
 //Templates and plugins
   const Templates = {}
   const Plugins = {}
 
-/** Setup */
-  export default async function ({log = true, nosettings = false, community = {}} = {}) {
+/**Setup */
+  export default async function({log = true, nosettings = false, community = {}} = {}) {
 
     //Paths
       const __metrics = path.join(path.dirname(url.fileURLToPath(import.meta.url)), "../../..")
@@ -24,7 +24,7 @@
 
     //Init
       const logger = log ? console.debug : () => null
-      logger(`metrics/setup > setup`)
+      logger("metrics/setup > setup")
       const conf = {
         templates:{},
         queries:{},
@@ -34,21 +34,21 @@
           statics:__statics,
           templates:__templates,
           node_modules:__modules,
-        }
+        },
       }
 
     //Load settings
-      logger(`metrics/setup > load settings.json`)
+      logger("metrics/setup > load settings.json")
       if (fs.existsSync(__settings)) {
         if (nosettings)
-          logger(`metrics/setup > load settings.json > skipped because no settings is enabled`)
+          logger("metrics/setup > load settings.json > skipped because no settings is enabled")
         else {
           conf.settings = JSON.parse(`${await fs.promises.readFile(__settings)}`)
-          logger(`metrics/setup > load settings.json > success`)
+          logger("metrics/setup > load settings.json > success")
         }
       }
       else
-        logger(`metrics/setup > load settings.json > (missing)`)
+        logger("metrics/setup > load settings.json > (missing)")
       if (!conf.settings.templates)
         conf.settings.templates = {default:"classic", enabled:[]}
       if (!conf.settings.plugins)
@@ -59,13 +59,13 @@
         logger(util.inspect(conf.settings, {depth:Infinity, maxStringLength:256}))
 
     //Load package settings
-      logger(`metrics/setup > load package.json`)
+      logger("metrics/setup > load package.json")
       conf.package = JSON.parse(`${await fs.promises.readFile(__package)}`)
-      logger(`metrics/setup > load package.json > success`)
+      logger("metrics/setup > load package.json > success")
 
     //Load community templates
       if ((typeof conf.settings.community.templates === "string")&&(conf.settings.community.templates.length)) {
-        logger(`metrics/setup > parsing community templates list`)
+        logger("metrics/setup > parsing community templates list")
         conf.settings.community.templates = [...new Set([...decodeURIComponent(conf.settings.community.templates).split(",").map(v => v.trim().toLocaleLowerCase()).filter(v => v)])]
       }
       if ((Array.isArray(conf.settings.community.templates))&&(conf.settings.community.templates.length)) {
@@ -77,7 +77,7 @@
             try {
               //Parse community template
                 logger(`metrics/setup > load community template ${template}`)
-                const {repo, branch, name, trust = false} = template.match(/^(?<repo>[\s\S]+?)@(?<branch>[\s\S]+?):(?<name>[\s\S]+?)(?<trust>[+]trust)?$/)?.groups
+                const {repo, branch, name, trust = false} = template.match(/^(?<repo>[\s\S]+?)@(?<branch>[\s\S]+?):(?<name>[\s\S]+?)(?<trust>[+]trust)?$/)?.groups ?? null
                 const command = `git clone --single-branch --branch ${branch} https://github.com/${repo}.git ${path.join(__templates, ".community")}`
                 logger(`metrics/setup > run ${command}`)
               //Clone remote repository
@@ -99,14 +99,15 @@
                 logger(`metrics/setup > clean ${repo}@${branch}`)
                 await fs.promises.rmdir(path.join(__templates, ".community"), {recursive:true})
                 logger(`metrics/setup > loaded community template ${name}`)
-            } catch (error) {
+            }
+ catch (error) {
               logger(`metrics/setup > failed to load community template ${template}`)
               logger(error)
             }
           }
       }
       else
-        logger(`metrics/setup > no community templates to install`)
+        logger("metrics/setup > no community templates to install")
 
     //Load templates
       for (const name of await fs.promises.readdir(__templates)) {
@@ -122,7 +123,7 @@
           conf.templates[name] = {image, style, fonts, partials, views:[directory]}
 
         //Cache templates scripts
-          Templates[name] = await (async () => {
+          Templates[name] = await (async() => {
             const template = path.join(directory, "template.mjs")
             const fallback = path.join(__templates, "classic", "template.mjs")
             return (await import(url.pathToFileURL(fs.existsSync(template) ? template : fallback).href)).default
@@ -137,7 +138,7 @@
                 const partials = JSON.parse(`${fs.readFileSync(path.join(directory, "partials/_.json"))}`)
                 logger(`metrics/setup > reload template [${name}] > success`)
                 return {image, style, fonts, partials, views:[directory]}
-              }
+              },
             })
           }
       }
@@ -156,11 +157,12 @@
           const __queries = path.join(directory, "queries")
           if (fs.existsSync(__queries)) {
             //Alias for default query
-              const queries = conf.queries[name] = function () {
+              const queries = function() {
                 if (!queries[name])
                   throw new ReferenceError(`Default query for ${name} undefined`)
                 return queries[name](...arguments)
               }
+              conf.queries[name] = queries
             //Load queries
               for (const file of await fs.promises.readdir(__queries)) {
                 //Cache queries
@@ -176,7 +178,7 @@
                         const raw = `${fs.readFileSync(path.join(__queries, file))}`
                         logger(`metrics/setup > reload query [${name}/${query}] > success`)
                         return raw
-                      }
+                      },
                     })
                   }
               }
@@ -194,10 +196,12 @@
       conf.metadata = await metadata({log})
 
     //Set no token property
-      Object.defineProperty(conf.settings, "notoken", {get() { return conf.settings.token === "NOT_NEEDED" }})
+      Object.defineProperty(conf.settings, "notoken", {get() {
+ return conf.settings.token === "NOT_NEEDED"
+}})
 
     //Conf
-      logger(`metrics/setup > setup > success`)
+      logger("metrics/setup > setup > success")
       return {Templates, Plugins, conf}
 
   }

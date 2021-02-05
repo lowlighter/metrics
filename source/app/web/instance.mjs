@@ -10,8 +10,8 @@
   import mocks from "../mocks/index.mjs"
   import metrics from "../metrics/index.mjs"
 
-/** App */
-  export default async function ({mock, nosettings} = {}) {
+/**App */
+  export default async function({mock, nosettings} = {}) {
 
     //Load configuration settings
       const {conf, Plugins, Templates} = await setup({nosettings})
@@ -39,14 +39,14 @@
           }
       }
       if (((mock)&&(!conf.settings.token))||(mock === "force")) {
-        console.debug(`metrics/app > using mocked token`)
+        console.debug("metrics/app > using mocked token")
         conf.settings.token = "MOCKED_TOKEN"
       }
       if (debug)
         console.debug(util.inspect(conf.settings, {depth:Infinity, maxStringLength:256}))
 
     //Load octokits
-      const api = {graphql:octokit.graphql.defaults({headers:{authorization: `token ${token}`}}), rest:new OctokitRest.Octokit({auth:token})}
+      const api = {graphql:octokit.graphql.defaults({headers:{authorization:`token ${token}`}}), rest:new OctokitRest.Octokit({auth:token})}
     //Apply mocking if needed
       if (mock)
         Object.assign(api, await mocks(api))
@@ -60,9 +60,11 @@
       if (ratelimiter) {
         app.set("trust proxy", 1)
         middlewares.push(ratelimit({
-          skip(req, res) { return !!cache.get(req.params.login) },
+          skip(req, _res) {
+            return !!cache.get(req.params.login)
+          },
           message:"Too many requests",
-          ...ratelimiter
+          ...ratelimiter,
         }))
       }
     //Cache headers middleware
@@ -82,7 +84,7 @@
       let requests = {limit:0, used:0, remaining:0, reset:NaN}
       if (!conf.settings.notoken) {
         requests = (await rest.rateLimit.get()).data.rate
-        setInterval(async () => requests = (await rest.rateLimit.get()).data.rate, 30*1000)
+        setInterval(async() => requests = (await rest.rateLimit.get()).data.rate, 30*1000)
       }
       //Web
         app.get("/", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/index.html`))
@@ -117,9 +119,9 @@
         app.get("/.js/prism.markdown.min.js", limiter, (req, res) => res.sendFile(`${conf.paths.node_modules}/prismjs/components/prism-markdown.min.js`))
       //Meta
         app.get("/.version", limiter, (req, res) => res.status(200).send(conf.package.version))
-        app.get("/.requests", limiter, async (req, res) => res.status(200).json(requests))
+        app.get("/.requests", limiter, async(req, res) => res.status(200).json(requests))
       //Cache
-        app.get("/.uncache", limiter, async (req, res) => {
+        app.get("/.uncache", limiter, async(req, res) => {
           const {token, user} = req.query
           if (token) {
             if (actions.flush.has(token)) {
@@ -127,10 +129,9 @@
               cache.del(actions.flush.get(token))
               return res.sendStatus(200)
             }
-            else
-              return res.sendStatus(404)
+            return res.sendStatus(404)
           }
-          else {
+          {
             const token = `${Math.random().toString(16).replace("0.", "")}${Math.random().toString(16).replace("0.", "")}`
             actions.flush.set(token, user)
             return res.json({token})
@@ -138,7 +139,7 @@
         })
 
     //Metrics
-      app.get("/:login", ...middlewares, async (req, res) => {
+      app.get("/:login", ...middlewares, async(req, res) => {
         //Request params
           const login = req.params.login?.replace(/[\n\r]/g, "")
           if ((restricted.length)&&(!restricted.includes(login))) {
@@ -146,13 +147,12 @@
             return res.sendStatus(403)
           }
         //Read cached data if possible
-          //User cached
-            if ((!debug)&&(cached)&&(cache.get(login))) {
-              const {rendered, mime} = cache.get(login)
-              res.header("Content-Type", mime)
-              res.send(rendered)
-              return
-            }
+          if ((!debug)&&(cached)&&(cache.get(login))) {
+            const {rendered, mime} = cache.get(login)
+            res.header("Content-Type", mime)
+            res.send(rendered)
+            return
+          }
         //Maximum simultaneous users
           if ((maxusers)&&(cache.size()+1 > maxusers)) {
             console.debug(`metrics/app/${login} > 503 (maximum users reached)`)
@@ -167,8 +167,8 @@
               const {rendered, mime} = await metrics({login, q}, {
                 graphql, rest, plugins, conf,
                 die:q["plugins.errors.fatal"] ?? false,
-                verify:q["verify"] ?? false,
-                convert:["jpeg", "png"].includes(q["config.output"]) ? q["config.output"] : null
+                verify:q.verify ?? false,
+                convert:["jpeg", "png"].includes(q["config.output"]) ? q["config.output"] : null,
               }, {Plugins, Templates})
             //Cache
               if ((!debug)&&(cached))
@@ -206,6 +206,6 @@
         `Max simultaneous users │ ${maxusers ? `${maxusers} users` : "(unrestricted)"}`,
         `Plugins enabled        │ ${enabled.map(({name}) => name).join(", ")}`,
         `SVG optimization       │ ${conf.settings.optimize ?? false}`,
-        `Server ready !`
+        "Server ready !",
       ].join("\n")))
   }
