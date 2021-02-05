@@ -55,6 +55,10 @@ inputs:
     default: 4
     min: 1
     max: 100
+  plugin_music_played_at:
+    description: Display when the track was played
+    type: boolean
+    default: no
 
   # Username on music provider service
   plugin_music_user:

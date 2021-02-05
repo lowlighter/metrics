@@ -13,9 +13,6 @@
       embed:/^\b$/,
     },
   }
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc.js';
-dayjs.extend(utc);
 //Supported modes
   const modes = {
     playlist:"Suggested tracks",
@@ -38,7 +35,7 @@ dayjs.extend(utc);
           let tracks = null
 
         //Load inputs
-          let {provider, mode, playlist, limit, user} = imports.metadata.plugins.music.inputs({data, account, q})
+          let {provider, mode, playlist, limit, user, played_at} = imports.metadata.plugins.music.inputs({data, account, q})
           //Auto-guess parameters
             if ((playlist)&&(!mode))
               mode = "playlist"
@@ -150,7 +147,7 @@ dayjs.extend(utc);
                                 name:track.name,
                                 artist:track.artists[0].name,
                                 artwork:track.album.images[0].url,
-                                played_at: dayjs(played_at).format('[played at] HH:MM on DD/MM/YYYY')
+                                played_at: played_at ? imports.dayjs(played_at).format('[played at] HH:MM on DD/MM/YYYY') : ''
                               }))
                           }
                         //Handle errors
