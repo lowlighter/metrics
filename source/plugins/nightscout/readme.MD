@@ -22,5 +22,5 @@ The *Nightscout* plugin lets you display blood sugar values from a [Nightscout](
     plugin_nightscout_urgentlowalert: 50                 # Blood sugars below 50 will be considered urgently low
     plugin_nightscout_lowalert: 80                       # Blood sugars below 80 will be considered low
     plugin_nightscout_highalert: 180                     # Blood sugars above 180 will be considered high
-    plugin_nightscout_highalert: 250                     # Blood sugars above 250 will be considered urgently high
+    plugin_nightscout_urgenthighalert: 250                     # Blood sugars above 250 will be considered urgently high
 ```
