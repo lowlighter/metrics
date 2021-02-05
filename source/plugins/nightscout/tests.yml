@@ -1,0 +1,6 @@
+- name: Nightscout plugin (default)
+  uses: legoandmars/metrics@master
+  with:
+    token: MOCKED_TOKEN
+    plugin_nightscout: yes
+    plugin_nightscout_url: https://testapp.herokuapp.com/
