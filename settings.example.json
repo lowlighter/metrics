@@ -49,6 +49,9 @@
       "token": null,               "//":"Music provider personal token",
       "enabled": false,            "//": "Display your music tracks"
     },
+    "nightscout":{
+      "enabled": false,            "//": "Displays Blood Glucose"
+    },
     "pagespeed":{
       "token": null,               "//":"PageSpeed token",
       "enabled": false,            "//": "Display a website Google PageSpeed metrics"

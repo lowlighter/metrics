@@ -366,6 +366,44 @@ inputs:
     default: .user.login
   
   # ====================================================================================
+  # 💉 Nightscout
+  
+  # Enable or disable plugin
+  plugin_nightscout:
+    description: Displays Blood Glucose
+    default: no
+  
+  # Nightscout site URL
+  plugin_nightscout_url:
+    description: Your Nightscout site URL
+    default: https://example.herokuapp.com
+  
+  # Controls how big the graph is
+  plugin_nightscout_datapoints:
+    description: How many datapoints to show on the graph. 0 and 1 disable the graph.
+    default: 12
+  
+  # Low value used for colors and text alerts
+  plugin_nightscout_lowalert:
+    description: When the blood sugar is considered low
+    default: 80
+  
+  # High value used for colors and text alerts
+  plugin_nightscout_highalert:
+    description: When the blood sugar is considered high
+    default: 180
+  
+  # Urgent low value used for colors and text alerts
+  plugin_nightscout_urgentlowalert:
+    description: When the blood sugar is considered urgently low
+    default: 50
+  
+  # Urgent high value used for colors and text alerts
+  plugin_nightscout_urgenthighalert:
+    description: When the blood sugar is considered urgently high
+    default: 250
+  
+  # ====================================================================================
   # ⏱️ Website performances
   
   # Enable or disable plugin
