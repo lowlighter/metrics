@@ -1,10 +1,10 @@
 //Imports
   import fs from "fs"
   import path from "path"
-  import yaml from "js-yaml"
   import url from "url"
+  import yaml from "js-yaml"
 
-/** Metadata descriptor parser */
+/**Metadata descriptor parser */
   export default async function metadata({log = true} = {}) {
     //Paths
       const __metrics = path.join(path.dirname(url.fileURLToPath(import.meta.url)), "../../..")
@@ -16,7 +16,7 @@
 
     //Load plugins metadata
       let Plugins = {}
-      logger(`metrics/metadata > loading plugins metadata`)
+      logger("metrics/metadata > loading plugins metadata")
       for (const name of await fs.promises.readdir(__plugins)) {
         if (!(await fs.promises.lstat(path.join(__plugins, name))).isDirectory())
           continue
@@ -29,7 +29,7 @@
 
     //Load templates metadata
       let Templates = {}
-      logger(`metrics/metadata > loading templates metadata`)
+      logger("metrics/metadata > loading templates metadata")
       for (const name of await fs.promises.readdir(__templates)) {
         if (!(await fs.promises.lstat(path.join(__templates, name))).isDirectory())
           continue
@@ -46,8 +46,8 @@
       return {plugins:Plugins, templates:Templates}
   }
 
-/** Metadata extractor for templates */
-  metadata.plugin = async function ({__plugins, name, logger}) {
+/**Metadata extractor for templates */
+  metadata.plugin = async function({__plugins, name, logger}) {
     try {
       //Load meta descriptor
         const raw = `${await fs.promises.readFile(path.join(__plugins, name, "metadata.yml"), "utf-8")}`
@@ -55,7 +55,7 @@
 
       //Inputs parser
         {
-          meta.inputs = function ({data:{user = null} = {}, q, account}, defaults = {}) {
+          meta.inputs = function({data:{user = null} = {}, q, account}, defaults = {}) {
             //Support check
               if (!account)
                 logger(`metrics/inputs > account type not set for plugin ${name}!`)
@@ -142,7 +142,7 @@
                             return value
                           }
                       }
-                  })(defaults[key] ?? defaulted)
+                  })(defaults[key] ?? defaulted),
               ]))
               logger(`metrics/inputs > ${name} > ${JSON.stringify(result)}`)
               return result
@@ -154,7 +154,7 @@
         {
           //Extract comments
             const comments = {}
-            raw.split(/(\r?\n){2,}/m)
+            raw.split(/(?:\r?\n){2,}/m)
               .map(x => x.trim()).filter(x => x)
               .map(x => x.split("\n").map(y => y.trim()).join("\n"))
               .map(x => {
@@ -168,12 +168,12 @@
               key,
               {
                 comment:comments[key] ?? "",
-                descriptor:yaml.dump({[key]:Object.fromEntries(Object.entries(value).filter(([key]) => ["description", "default", "required"].includes(key)))}, {quotingType:'"', noCompatMode:true})
-              }
+                descriptor:yaml.dump({[key]:Object.fromEntries(Object.entries(value).filter(([key]) => ["description", "default", "required"].includes(key)))}, {quotingType:'"', noCompatMode:true}),
+              },
             ]))
 
           //Action inputs
-            meta.inputs.action = function ({core}) {
+            meta.inputs.action = function({core}) {
               //Build query object from inputs
                 const q = {}
                 for (const key of Object.keys(inputs)) {
@@ -207,15 +207,14 @@
                   case "string":{
                     if (Array.isArray(values))
                       return {text, type:"select", values}
-                    else
-                      return {text, type:"text", placeholder:example ?? defaulted, defaulted}
+                    return {text, type:"text", placeholder:example ?? defaulted, defaulted}
                   }
                   case "json":
                     return {text, type:"text", placeholder:example ?? defaulted, defaulted}
                   default:
                     return null
                 }
-              })()
+              })(),
           ]).filter(([key, value]) => (value)&&(key !== name)))
         }
 
@@ -241,8 +240,8 @@
     }
   }
 
-/** Metadata extractor for templates */
-  metadata.template = async function ({__templates, name, plugins, logger}) {
+/**Metadata extractor for templates */
+  metadata.template = async function({__templates, name, plugins, logger}) {
     try {
       //Load meta descriptor
         const raw = `${await fs.promises.readFile(path.join(__templates, name, "README.md"), "utf-8")}`
@@ -262,7 +261,7 @@
         return {
           name:raw.match(/^### (?<name>[\s\S]+?)\n/)?.groups?.name?.trim(),
           readme:{
-            demo:raw.match(/(?<demo><table>[\s\S]*?<[/]table>)/)?.groups?.demo?.replace(/<[/]?(?:table|tr)>/g, "")?.trim() ?? (name === "community" ? `<td align="center">See <a href="/source/templates/community/README.md">documentation</a> 🌍</td>` : "<td></td>"),
+            demo:raw.match(/(?<demo><table>[\s\S]*?<[/]table>)/)?.groups?.demo?.replace(/<[/]?(?:table|tr)>/g, "")?.trim() ?? (name === "community" ? "<td align=\"center\">See <a href=\"/source/templates/community/README.md\">documentation</a> 🌍</td>" : "<td></td>"),
             compatibility:{...compatibility, base:true},
           },
         }
@@ -273,10 +272,10 @@
     }
   }
 
-/** Metadata converters */
+/**Metadata converters */
   metadata.to = {
     query(key, {name = null} = {}) {
       key = key.replace(/^plugin_/, "").replace(/_/g, ".")
       return name ? key.replace(new RegExp(`^(${name}.)`, "g"), "") : key
-    }
+    },
   }

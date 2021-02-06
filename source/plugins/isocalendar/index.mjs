@@ -1,5 +1,5 @@
 //Setup
-  export default async function ({login, data, graphql, q, imports, queries, account}, {enabled = false} = {}) {
+  export default async function({login, data, graphql, q, imports, queries, account}, {enabled = false} = {}) {
     //Plugin execution
       try {
         //Check if plugin is enabled and requirements are met
@@ -39,7 +39,7 @@
 
         //Compute the highest contributions in a day, streaks and average commits per day
           console.debug(`metrics/compute/${login}/plugins > isocalendar > computing stats`)
-          let max = 0, streak = {max:0, current:0}, values = [], average = 0
+          let average = 0, max = 0, streak = {max:0, current:0}, values = []
           for (const week of calendar.weeks) {
             for (const day of week.contributionDays) {
               values.push(day.contributionCount)
@@ -61,8 +61,8 @@
                   <feComponentTransfer>
                     ${[..."RGB"].map(channel => `<feFunc${channel} type="linear" slope="${1-k*0.4}" />`).join("")}
                   </feComponentTransfer>
-                </filter>`
-              ).join("")}
+                </filter>`)
+              .join("")}
               <g transform="scale(4) translate(12, 0)">`
           //Iterate through weeks
             for (const week of calendar.weeks) {
@@ -79,10 +79,10 @@
                     </g>`
                   j++
                 }
-              svg += `</g>`
+              svg += "</g>"
               i++
             }
-          svg += `</g></svg>`
+          svg += "</g></svg>"
 
         //Results
           return {streak, max, average, svg, duration}

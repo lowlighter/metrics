@@ -9,17 +9,17 @@
   let mocked = false
 
 //Mocking
-  export default async function ({graphql, rest}) {
+  export default async function({graphql, rest}) {
 
     //Check if already mocked
       if (mocked)
         return {graphql, rest}
       mocked = true
-      console.debug(`metrics/compute/mocks > mocking`)
+      console.debug("metrics/compute/mocks > mocking")
 
     //Load mocks
       const __mocks = paths.join(paths.dirname(urls.fileURLToPath(import.meta.url)))
-      const mock = async ({directory, mocks}) => {
+      const mock = async({directory, mocks}) => {
         for (const entry of await fs.readdir(directory)) {
           if ((await fs.lstat(paths.join(directory, entry))).isDirectory()) {
             if (!mocks[entry])
@@ -36,7 +36,7 @@
     //GraphQL API mocking
       {
         //Unmocked
-          console.debug(`metrics/compute/mocks > mocking graphql api`)
+          console.debug("metrics/compute/mocks > mocking graphql api")
           const unmocked = graphql
         //Mocked
           graphql = new Proxy(unmocked, {
@@ -46,20 +46,21 @@
                 const login = query.match(/login: "(?<login>.*?)"/)?.groups?.login ?? faker.internet.userName()
 
               //Search for mocked query
-                for (const mocked of Object.keys(mocks.github.graphql))
+                for (const mocked of Object.keys(mocks.github.graphql)) {
                   if (new RegExp(`^query ${mocked.replace(/([.]\w)/g, (_, g) => g.toLocaleUpperCase().substring(1)).replace(/^(\w)/g, (_, g) => g.toLocaleUpperCase())} `).test(query))
                     return mocks.github.graphql[mocked]({faker, query, login})
+                }
 
               //Unmocked call
                 return target(...args)
-            }
+            },
           })
       }
 
     //Rest API mocking
       {
         //Unmocked
-          console.debug(`metrics/compute/mocks > mocking rest api`)
+          console.debug("metrics/compute/mocks > mocking rest api")
           const unmocked = {}
         //Mocked
           const mocker = ({path = "rest", mocks, mocked}) => {
@@ -79,12 +80,12 @@
     //Axios mocking
       {
         //Unmocked
-          console.debug(`metrics/compute/mocks > mocking axios`)
+          console.debug("metrics/compute/mocks > mocking axios")
           const unmocked = {get:axios.get, post:axios.post}
 
         //Mocked post requests
           axios.post = new Proxy(unmocked.post, {
-            apply:function(target, that, args) {
+            apply(target, that, args) {
               //Arguments
                 const [url, body] = args
 
@@ -97,12 +98,12 @@
 
               //Unmocked call
                 return target(...args)
-            }
+            },
           })
 
         //Mocked get requests
           axios.get = new Proxy(unmocked.get, {
-            apply:function(target, that, args) {
+            apply(target, that, args) {
               //Arguments
                 const [url, options] = args
 
@@ -115,7 +116,7 @@
 
               //Unmocked call
                 return target(...args)
-            }
+            },
           })
       }
 

@@ -1,5 +1,5 @@
 //Setup
-  export default async function ({login, graphql, data, imports, q, queries, account}, {enabled = false} = {}) {
+  export default async function({login, graphql, data, imports, q, queries, account}, {enabled = false} = {}) {
     //Plugin execution
       try {
         //Check if plugin is enabled and requirements are met
@@ -41,7 +41,7 @@
           increments.max = Math.max(...Object.values(increments.dates))
 
         //Compute total stargazers
-          let stargazers = data.computed.repositories.stargazers
+          let {stargazers} = data.computed.repositories
           const total = {dates:{...increments.dates}, max:NaN, min:NaN}
           {
             const dates = Object.keys(total.dates)

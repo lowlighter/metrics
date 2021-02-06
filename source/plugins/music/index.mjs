@@ -20,7 +20,7 @@
   }
 
 //Setup
-  export default async function ({login, imports, data, q, account}, {enabled = false, token = ""} = {}) {
+  export default async function({login, imports, data, q, account}, {enabled = false, token = ""} = {}) {
     //Plugin execution
       try {
         //Check if plugin is enabled and requirements are met
@@ -29,34 +29,40 @@
 
         //Initialization
           const raw = {
-            get provider() { return providers[provider]?.name ?? "" },
-            get mode() { return modes[mode] ?? "Unconfigured music plugin"},
+            get provider() {
+              return providers[provider]?.name ?? ""
+            },
+            get mode() {
+              return modes[mode] ?? "Unconfigured music plugin"
+            },
           }
           let tracks = null
 
         //Load inputs
-          let {provider, mode, playlist, limit, user, played_at} = imports.metadata.plugins.music.inputs({data, account, q})
+          let {provider, mode, playlist, limit, user, "played.at":played_at} = imports.metadata.plugins.music.inputs({data, account, q})
           //Auto-guess parameters
             if ((playlist)&&(!mode))
               mode = "playlist"
-            if ((playlist)&&(!provider))
-              for (const [name, {embed}] of Object.entries(providers))
+            if ((playlist)&&(!provider)) {
+              for (const [name, {embed}] of Object.entries(providers)) {
                 if (embed.test(playlist))
                   provider = name
+              }
+            }
             if (!mode)
               mode = "recent"
           //Provider
             if (!(provider in providers))
-              throw {error:{message:provider ? `Unsupported provider "${provider}"` : `Missing provider`}, ...raw}
+              throw {error:{message:provider ? `Unsupported provider "${provider}"` : "Missing provider"}, ...raw}
           //Mode
             if (!(mode in modes))
               throw {error:{message:`Unsupported mode "${mode}"`}, ...raw}
           //Playlist mode
             if (mode === "playlist") {
               if (!playlist)
-                throw {error:{message:`Missing playlist url`}, ...raw}
+                throw {error:{message:"Missing playlist url"}, ...raw}
               if (!providers[provider].embed.test(playlist))
-                throw {error:{message:`Unsupported playlist url format`}, ...raw}
+                throw {error:{message:"Unsupported playlist url format"}, ...raw}
             }
           //Limit
             limit = Math.max(1, Math.min(100, Number(limit)))
@@ -83,7 +89,7 @@
                           tracks = [...await frame.evaluate(() => [...document.querySelectorAll(".tracklist li")].map(li => ({
                             name:li.querySelector(".tracklist__track__name").innerText,
                             artist:li.querySelector(".tracklist__track__sub").innerText,
-                            artwork:li.querySelector(".tracklist__track__artwork img").src
+                            artwork:li.querySelector(".tracklist__track__artwork img").src,
                           })))]
                         break
                       }
@@ -95,7 +101,7 @@
                             name:tr.querySelector("td:nth-child(2) div:nth-child(1)").innerText,
                             artist:tr.querySelector("td:nth-child(2) div:nth-child(2)").innerText,
                             //Spotify doesn't provide artworks so we fallback on playlist artwork instead
-                            artwork:window.getComputedStyle(document.querySelector("button[title=Play]").parentNode, null).backgroundImage.match(/^url\("(https:...+)"\)$/)[1]
+                            artwork:window.getComputedStyle(document.querySelector("button[title=Play]").parentNode, null).backgroundImage.match(/^url\("(?<url>https:...+)"\)$/)?.groups?.url ?? null,
                           })))]
                         break
                       }
@@ -118,8 +124,6 @@
               }
             //Recently played
               case "recent":{
-                //Initialisation
-                  const timestamp = Date.now()-24*60*60*1000
                 //Handle provider
                   switch (provider) {
                     //Spotify
@@ -127,28 +131,40 @@
                         //Prepare credentials
                           const [client_id, client_secret, refresh_token] = token.split(",").map(part => part.trim())
                           if ((!client_id)||(!client_secret)||(!refresh_token))
-                            throw {error:{message:`Spotify token must contain client id/secret and refresh token`}}
+                            throw {error:{message:"Spotify token must contain client id/secret and refresh token"}}
                         //API call and parse tracklist
                           try {
                             //Request access token
                               console.debug(`metrics/compute/${login}/plugins > music > requesting access token with spotify refresh token`)
-                              const {data:{access_token:access}} = await imports.axios.post("https://accounts.spotify.com/api/token",
-                                `${new imports.url.URLSearchParams({grant_type:"refresh_token", refresh_token, client_id, client_secret})}`,
-                                {headers:{"Content-Type":"application/x-www-form-urlencoded"}},
-                              )
+                              const {data:{access_token:access}} = await imports.axios.post("https://accounts.spotify.com/api/token", `${new imports.url.URLSearchParams({grant_type:"refresh_token", refresh_token, client_id, client_secret})}`, {headers:{
+                                "Content-Type":"application/x-www-form-urlencoded",
+                              }})
                               console.debug(`metrics/compute/${login}/plugins > music > got access token`)
                             //Retrieve tracks
                               console.debug(`metrics/compute/${login}/plugins > music > querying spotify api`)
-                              tracks = (await imports.axios.get(`https://api.spotify.com/v1/me/player/recently-played?limit=${limit}&after=${timestamp}`, {headers:{
-                                "Accept":"application/json",
-                                "Content-Type":"application/json",
-                                "Authorization":`Bearer ${access}`}
-                              })).data.items.map(({track, played_at}) => ({
-                                name:track.name,
-                                artist:track.artists[0].name,
-                                artwork:track.album.images[0].url,
-                                played_at: played_at ? imports.dayjs(played_at).format('[played at] HH:MM on DD/MM/YYYY') : ''
-                              }))
+                              tracks = []
+                              for (let hours = .5; hours <= 24; hours++) {
+                                //Load track half-hour by half-hour
+                                  const timestamp = Date.now()-hours*60*60*1000
+                                  const loaded = (await imports.axios.get(`https://api.spotify.com/v1/me/player/recently-played?after=${timestamp}`, {headers:{
+                                    "Content-Type":"application/json",
+                                    Accept:"application/json",
+                                    Authorization:`Bearer ${access}`,
+                                  }})).data.items.map(({track, played_at}) => ({
+                                    name:track.name,
+                                    artist:track.artists[0].name,
+                                    artwork:track.album.images[0].url,
+                                    played_at:played_at ? imports.dayjs(played_at).format("[played at] HH:MM on DD/MM/YYYY") : null,
+                                  }))
+                                //Ensure no duplicate are added
+                                  for (const track of loaded) {
+                                    if (!tracks.map(({name}) => name).includes(track.name))
+                                      tracks.push(track)
+                                  }
+                                //Early break
+                                  if (tracks.length >= limit)
+                                    break
+                              }
                           }
                         //Handle errors
                           catch (error) {
@@ -169,9 +185,9 @@
                           try {
                             console.debug(`metrics/compute/${login}/plugins > music > querying lastfm api`)
                             tracks = (await imports.axios.get(`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${user}&api_key=${token}&limit=${limit}&format=json`, {headers:{
-                              "Accept":"application/json",
-                              "User-Agent":"lowlighter/metrics"}
-                            })).data.recenttracks.track.map((track) => ({
+                              "User-Agent":"lowlighter/metrics",
+                              Accept:"application/json",
+                            }})).data.recenttracks.track.map(track => ({
                               name:track.name,
                               artist:track.artist["#text"],
                               artwork:track.image.reverse()[0]["#text"],
@@ -215,11 +231,11 @@
                 track.artwork = await imports.imgb64(track.artwork)
               }
             //Save results
-              return {...raw, tracks}
+              return {...raw, tracks, played_at}
           }
 
         //Unhandled error
-          throw {error:{message:`An error occured (could not retrieve tracks)`}}
+          throw {error:{message:"An error occured (could not retrieve tracks)"}}
       }
     //Handle errors
       catch (error) {

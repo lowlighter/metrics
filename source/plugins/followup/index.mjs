@@ -1,5 +1,5 @@
 //Setup
-  export default async function ({data, computed, imports, q, account}, {enabled = false} = {}) {
+  export default async function({data, computed, imports, q, account}, {enabled = false} = {}) {
     //Plugin execution
       try {
         //Check if plugin is enabled and requirements are met
@@ -12,15 +12,27 @@
         //Define getters
           const followup = {
             issues:{
-              get count() { return this.open + this.closed },
-              get open() { return computed.repositories.issues_open },
-              get closed() { return computed.repositories.issues_closed },
+              get count() {
+                return this.open + this.closed
+              },
+              get open() {
+                return computed.repositories.issues_open
+              },
+              get closed() {
+                return computed.repositories.issues_closed
+              },
             },
             pr:{
-              get count() { return this.open + this.merged },
-              get open() { return computed.repositories.pr_open },
-              get merged() { return computed.repositories.pr_merged }
-            }
+              get count() {
+                return this.open + this.merged
+              },
+              get open() {
+                return computed.repositories.pr_open
+              },
+              get merged() {
+                return computed.repositories.pr_merged
+              },
+            },
           }
 
         //Results

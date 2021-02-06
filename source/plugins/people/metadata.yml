@@ -34,6 +34,7 @@ inputs:
     type: array
     format: comma-separated
     default: followers, following
+    example: follower, following, sponsors, sponsoring
     values:
       - followers    # For user metrics
       - following    # For user metrics

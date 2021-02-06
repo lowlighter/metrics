@@ -355,7 +355,7 @@ inputs:
     description: Maximum number of tracks to display
     default: 4
   
-  
+  # Display when track was last played
   plugin_music_played_at:
     description: Display when the track was played
     default: no

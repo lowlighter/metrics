@@ -1,0 +1,158 @@
+# Use recommended rules
+extends: eslint:recommended
+
+# Environment
+env:
+  node: yes
+  es2021: yes
+parserOptions:
+  ecmaVersion: 2021
+  sourceType: module
+
+# Globally defined variables
+globals:
+  # Puppeteer variables
+  document: readonly
+  window: readonly
+  XMLSerializer: readonly
+
+# Rules
+rules:
+
+  # Avoid useless statements
+  no-unused-vars: [error, {argsIgnorePattern: "^_"}]
+  no-unused-expressions: error
+  no-return-await: error
+  no-empty-function: error
+  no-useless-call: error
+  no-useless-constructor: error
+  no-useless-concat: error
+  no-useless-computed-key: error
+  no-useless-backreference: error
+  no-self-compare: error
+  no-extra-label: error
+  no-undef-init: error
+
+  # Avoid visual pollution
+  semi: [error, never]
+  semi-spacing: error
+  semi-style: [error, first]
+  curly: [error, multi-or-nest]
+  dot-notation: error
+
+  # Avoid confusing code
+  no-label-var: error
+  no-bitwise: error
+  new-cap: error
+  new-parens: error
+  func-name-matching: error
+  no-extend-native: error
+  no-extra-bind: error
+
+  # Avoid deprecated or legacy JavaScript
+  no-var: error
+  no-caller: error
+  no-alert: error
+  no-script-url: error
+  no-eval: error
+  no-implied-eval: error
+  no-implicit-globals: error
+  no-proto: error
+  no-iterator: error
+  no-new-object: error
+
+  # Code integrity
+  no-unsafe-optional-chaining: error
+  no-duplicate-imports: error
+  no-promise-executor-return: error
+  eqeqeq: error
+
+  # Code simplicity
+  max-depth: [error, 10]
+  max-nested-callbacks: error
+  max-params: [error, 3]
+  max-statements-per-line: error
+  newline-per-chained-call: [error, {ignoreChainWithDepth: 6}]
+  object-shorthand: error
+
+  # Code readability
+  default-case-last: error
+  default-param-last: error
+  no-else-return: error
+  no-lonely-if: error
+  no-multiple-empty-lines: error
+  no-multi-str: error
+  no-multi-assign: error
+  no-inline-comments: error
+  yoda: error
+  max-classes-per-file: [error, 1]
+  grouped-accessor-pairs: error
+
+  # Prefer using new syntax and features
+  prefer-regex-literals: error
+  prefer-named-capture-group: error
+  prefer-arrow-callback: error
+  prefer-destructuring: error
+  prefer-numeric-literals: error
+  prefer-exponentiation-operator: error
+  prefer-spread: error
+  prefer-object-spread: error
+  prefer-template: error
+
+  # Allow additional features
+  no-ex-assign: off
+  no-unsafe-finally: off
+
+  # =========================================================================
+  # Rules below are really motivated by
+
+  # Code style (general rules)
+  no-tabs: error
+  no-trailing-spaces: error
+  brace-style: [error, stroustrup]
+  comma-dangle: [error, always-multiline]
+  comma-style: error
+  sort-vars: error
+
+  # Coding style (quoting rules)
+  quote-props: [error, as-needed, {numbers: true}]
+  quotes: [error, double, {avoidEscape: true}]
+  template-curly-spacing: error
+
+  # Coding style (comments rules)
+  line-comment-position: error
+  capitalized-comments: error
+  multiline-comment-style: error
+
+  # Coding style (spacing rules)
+  block-spacing: [error, always]
+  comma-spacing: error
+  func-call-spacing: error
+  arrow-spacing: error
+  generator-star-spacing: error
+  object-curly-spacing: [error, never]
+  rest-spread-spacing: error
+  key-spacing: [error, {afterColon: false}]
+  computed-property-spacing: error
+  switch-colon-spacing: [error, {after: false}]
+  array-bracket-spacing: [error, never]
+  no-whitespace-before-property: error
+  space-before-function-paren: [error, never]
+  space-in-parens: error
+  spaced-comment: [error, never]
+  lines-between-class-members: error
+  keyword-spacing: error
+  array-bracket-newline: [error, consistent]
+  array-element-newline: [error, consistent]
+
+  # Coding style (function rules)
+  no-new: error
+  no-new-func: error
+  no-new-wrappers: error
+  func-names: [error, never]
+  function-call-argument-newline: [error, never]
+  function-paren-newline: [error, never]
+  no-extra-parens: [error, functions]
+  arrow-body-style: [error, as-needed]
+  arrow-parens: [error, as-needed]
+  implicit-arrow-linebreak: error

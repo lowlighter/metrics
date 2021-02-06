@@ -1,6 +1,6 @@
-/** Mocked data */
-  export default function ({faker, query, login = faker.internet.userName()}) {
-    console.debug(`metrics/compute/mocks > mocking graphql api result > base/repository`)
+/**Mocked data */
+  export default function({faker, query, login = faker.internet.userName()}) {
+    console.debug("metrics/compute/mocks > mocking graphql api result > base/repository")
     return ({
       user:{
         repository:{
@@ -20,7 +20,7 @@
               {size:faker.random.number(100000), node:{color:faker.internet.color(), name:faker.lorem.word()}},
               {size:faker.random.number(100000), node:{color:faker.internet.color(), name:faker.lorem.word()}},
               {size:faker.random.number(100000), node:{color:faker.internet.color(), name:faker.lorem.word()}},
-            ]
+            ],
           },
           issues_open:{totalCount:faker.random.number(100)},
           issues_closed:{totalCount:faker.random.number(100)},
@@ -28,8 +28,8 @@
           pr_merged:{totalCount:faker.random.number(100)},
           releases:{totalCount:faker.random.number(100)},
           forkCount:faker.random.number(100),
-          licenseInfo:{spdxId:"MIT"}
+          licenseInfo:{spdxId:"MIT"},
         },
-      }
+      },
     })
   }

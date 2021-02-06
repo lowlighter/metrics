@@ -1,5 +1,5 @@
 //Setup
-  export default async function ({login, data, queries, imports, q, account}, {enabled = false} = {}) {
+  export default async function({login, data, queries, imports, q, account}, {enabled = false} = {}) {
     //Plugin execution
       try {
         //Check if plugin is enabled and requirements are met
@@ -31,7 +31,7 @@
               //Format and save results
                 for (const {name, entries} of lists) {
                   //Format results
-                    const list = await Promise.all(entries.map(async media => await format({media, imports})))
+                    const list = await Promise.all(entries.map(media => format({media, imports})))
                     result.lists[type][name.toLocaleLowerCase()] = shuffle ? imports.shuffle(list) : list
                   //Limit results
                     if (limit > 0) {
@@ -131,7 +131,7 @@
     }
   }
 
-/** Media formatter */
+/**Media formatter */
   async function format({media, imports}) {
     const {progress, score:userScore, media:{title, description, status, startDate:{year:release}, genres, averageScore, episodes, chapters, type, coverImage:{medium:artwork}}} = media
     return {
@@ -140,6 +140,6 @@
       description:description.replace(/<br\s*\\?>/g, " "),
       scores:{user:userScore, community:averageScore},
       released:type === "ANIME" ? episodes : chapters,
-      artwork:artwork ? await imports.imgb64(artwork) : "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg=="
+      artwork:artwork ? await imports.imgb64(artwork) : "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
     }
   }

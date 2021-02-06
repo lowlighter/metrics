@@ -8,48 +8,50 @@
   import axios from "axios"
   import puppeteer from "puppeteer"
   import imgb64 from "image-to-base64"
-  import dayjs from 'dayjs';
-  import utc from 'dayjs/plugin/utc.js';
-  dayjs.extend(utc);
+  import dayjs from "dayjs"
+  import utc from "dayjs/plugin/utc.js"
+  dayjs.extend(utc)
 
-  export {fs, os, paths, url, util, processes, axios, puppeteer, imgb64, dayjs};
+  export {fs, os, paths, url, util, processes, axios, puppeteer, imgb64, dayjs}
 
-/** Returns module __dirname */
+/**Returns module __dirname */
   export function __module(module) {
     return paths.join(paths.dirname(url.fileURLToPath(module)))
   }
 
-/** Plural formatter */
+/**Plural formatter */
   export function s(value, end = "") {
     return value !== 1 ? {y:"ies", "":"s"}[end] : end
   }
 
-/** Formatter */
+/**Formatter */
   export function format(n, {sign = false} = {}) {
-    for (const {u, v} of [{u:"b", v:10**9}, {u:"m", v:10**6}, {u:"k", v:10**3}])
+    for (const {u, v} of [{u:"b", v:10**9}, {u:"m", v:10**6}, {u:"k", v:10**3}]) {
       if (n/v >= 1)
         return `${(sign)&&(n > 0) ? "+" : ""}${(n/v).toFixed(2).substr(0, 4).replace(/[.]0*$/, "")}${u}`
+    }
     return `${(sign)&&(n > 0) ? "+" : ""}${n}`
   }
 
-/** Bytes formatter */
+/**Bytes formatter */
   export function bytes(n) {
-    for (const {u, v} of [{u:"E", v:10**18}, {u:"P", v:10**15}, {u:"T", v:10**12}, {u:"G", v:10**9}, {u:"M", v:10**6}, {u:"k", v:10**3}])
+    for (const {u, v} of [{u:"E", v:10**18}, {u:"P", v:10**15}, {u:"T", v:10**12}, {u:"G", v:10**9}, {u:"M", v:10**6}, {u:"k", v:10**3}]) {
       if (n/v >= 1)
         return `${(n/v).toFixed(2).substr(0, 4).replace(/[.]0*$/, "")} ${u}B`
+    }
     return `${n} byte${n > 1 ? "s" : ""}`
   }
   format.bytes = bytes
 
-/** Percentage formatter */
+/**Percentage formatter */
   export function percentage(n, {rescale = true} = {}) {
     return `${(n*(rescale ? 100 : 1)).toFixed(2)
-      .replace(/(?<=[.])([1-9]*)(0+)$/, (m, a, b) => a)
+      .replace(/(?<=[.])(?<decimal>[1-9]*)0+$/, "$<decimal>")
       .replace(/[.]$/, "")}%`
   }
   format.percentage = percentage
 
-/** Text ellipsis formatter */
+/**Text ellipsis formatter */
   export function ellipsis(text, {length = 20} = {}) {
     text = `${text}`
     if (text.length < length)
@@ -58,7 +60,7 @@
   }
   format.ellipsis = ellipsis
 
-/** Array shuffler */
+/**Array shuffler */
   export function shuffle(array) {
     for (let i = array.length-1; i > 0; i--) {
       const j = Math.floor(Math.random()*(i+1))
@@ -67,7 +69,7 @@
     return array
   }
 
-/** Escape html */
+/**Escape html */
   export function htmlescape(string, u = {"&":true, "<":true, ">":true, '"':true, "'":true}) {
     return string
       .replace(/&(?!(?:amp|lt|gt|quot|apos);)/g, u["&"] ? "&amp;" : "&")
@@ -77,18 +79,19 @@
       .replace(/'/g, u["'"] ? "&apos;" : "'")
   }
 
-/** Expand url */
+/**Expand url */
   export async function urlexpand(url) {
     try {
       return (await axios.get(url)).request.res.responseUrl
-    } catch {
+    }
+    catch {
       return url
     }
   }
 
-/** Run command */
+/**Run command */
   export async function run(command, options) {
-    return await new Promise((solve, reject) => {
+    return new Promise((solve, reject) => {
       console.debug(`metrics/command > ${command}`)
       const child = processes.exec(command, options)
       let [stdout, stderr] = ["", ""]
@@ -101,7 +104,7 @@
     })
   }
 
-/** Render svg */
+/**Render svg */
   export async function svgresize(svg, {paddings = ["6%"], convert} = {}) {
     //Instantiate browser if needed
       if (!svgresize.browser) {
@@ -144,7 +147,7 @@
       return {resized, mime}
   }
 
-/** Wait */
+/**Wait */
   export async function wait(seconds) {
-    await new Promise(solve => setTimeout(solve, seconds*1000))
+    await new Promise(solve => setTimeout(solve, seconds*1000)) //eslint-disable-line no-promise-executor-return
   }
