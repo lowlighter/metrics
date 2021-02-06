@@ -1,0 +1,14 @@
+- name: Nightscout plugin (default)
+  uses: lowlighter/metrics@master
+  with:
+    token: NOT_NEEDED
+    plugin_nightscout: yes
+    plugin_nightscout_url: https://testapp.herokuapp.com/
+
+- name: Nightscout plugin (without graph)
+  uses: lowlighter/metrics@master
+  with:
+    token: NOT_NEEDED
+    plugin_nightscout: yes
+    plugin_nightscout_url: https://testapp.herokuapp.com/
+    plugin_nightscout_datapoints: 0

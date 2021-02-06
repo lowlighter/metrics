@@ -24,7 +24,7 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
 <table>
   <tr>
     <th colspan="2" align="center">
-      <a href="source/plugins/README.md">🧩 19 plugins</a>
+      <a href="source/plugins/README.md">🧩 20 plugins</a>
     </th>
   </tr>
   <tr>
@@ -100,7 +100,7 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
   </tr>
   <tr>
     <th><a href="source/plugins/music/README.md">🎼 Music plugin</a></th>
-    <th><a href="source/plugins/pagespeed/README.md">⏱️ Website performances</a></th>
+    <th><a href="source/plugins/nightscout/README.md">💉 Nightscout</a></th>
   </tr>
   <tr>
     <td align="center">
@@ -113,6 +113,16 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
       <img width="900" height="1" alt="">
     </td>
     <td align="center">
+      <img alt="" width="400" src="https://github.com/legoandmars/legoandmars/blob/master/metrics.plugin.nightscout.svg">
+      <img width="900" height="1" alt="">
+    </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/pagespeed/README.md">⏱️ Website performances</a></th>
+    <th><a href="source/plugins/people/README.md">🧑‍🤝‍🧑 People plugin</a></th>
+  </tr>
+  <tr>
+    <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.svg">
       <details><summary>Detailed version</summary>
         <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.detailed.svg">
@@ -122,12 +132,6 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
       </details>
       <img width="900" height="1" alt="">
     </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/people/README.md">🧑‍🤝‍🧑 People plugin</a></th>
-    <th><a href="source/plugins/posts/README.md">✒️ Recent posts</a></th>
-  </tr>
-  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.people.followers.svg">
       <details><summary>Followed people version</summary>
@@ -141,34 +145,40 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
       </details>
       <img width="900" height="1" alt="">
     </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/posts/README.md">✒️ Recent posts</a></th>
+    <th><a href="source/plugins/projects/README.md">🗂️ Projects</a></th>
+  </tr>
+  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.posts.svg">
       <img width="900" height="1" alt="">
     </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/projects/README.md">🗂️ Projects</a></th>
-    <th><a href="source/plugins/stargazers/README.md">✨ Stargazers over last weeks</a></th>
-  </tr>
-  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.projects.svg">
       <img width="900" height="1" alt="">
     </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/stargazers/README.md">✨ Stargazers over last weeks</a></th>
+    <th><a href="source/plugins/stars/README.md">🌟 Recently starred repositories</a></th>
+  </tr>
+  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.stargazers.svg">
       <img width="900" height="1" alt="">
     </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/stars/README.md">🌟 Recently starred repositories</a></th>
-    <th><a href="source/plugins/topics/README.md">📌 Starred topics</a></th>
-  </tr>
-  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.stars.svg">
       <img width="900" height="1" alt="">
     </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/topics/README.md">📌 Starred topics</a></th>
+    <th><a href="source/plugins/traffic/README.md">🧮 Repositories traffic</a></th>
+  </tr>
+  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.svg">
       <details open><summary>Mastered and known technologies version</summary>
@@ -176,30 +186,23 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
       </details>
       <img width="900" height="1" alt="">
     </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/traffic/README.md">🧮 Repositories traffic</a></th>
-    <th><a href="source/plugins/tweets/README.md">🐤 Latest tweets</a></th>
-  </tr>
-  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.traffic.svg">
     </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/tweets/README.md">🐤 Latest tweets</a></th>
+    <th><a href="source/plugins/wakatime/README.md">⏰ WakaTime plugin</a></th>
+  </tr>
+  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.tweets.svg">
       <img width="900" height="1" alt="">
     </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/wakatime/README.md">⏰ WakaTime plugin</a></th>
-    <th><a href="source/plugins//README.md"></a></th>
-  </tr>
-  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.wakatime.svg">
       <img width="900" height="1" alt="">
     </td>
-    <td align="center"><img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <th colspan="2" align="center">
@@ -551,6 +554,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center">🈷️</th>
     <th nowrap="nowrap" align="center">👨‍💻</th>
     <th nowrap="nowrap" align="center">🎼</th>
+    <th nowrap="nowrap" align="center">💉</th>
     <th nowrap="nowrap" align="center">⏱️</th>
     <th nowrap="nowrap" align="center">🧑‍🤝‍🧑</th>
     <th nowrap="nowrap" align="center">✒️</th>
@@ -574,6 +578,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="languages">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="lines">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="music">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="nightscout">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="people">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="posts">✔️</th>
@@ -597,6 +602,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="languages">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="lines">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="music">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="nightscout">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="people">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="posts">❌</th>
@@ -620,6 +626,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="languages">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="lines">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="music">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="nightscout">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="people">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="posts">❌</th>
@@ -659,6 +666,7 @@ See their respective documentation for more informations about how to setup them
 * [🈷️ Most used languages](/source/plugins/languages/README.md)
 * [👨‍💻 Lines of code changed](/source/plugins/lines/README.md)
 * [🎼 Music plugin](/source/plugins/music/README.md)
+* [💉 Nightscout](/source/plugins/nightscout/README.md)
 * [⏱️ Website performances](/source/plugins/pagespeed/README.md)
 * [🧑‍🤝‍🧑 People plugin](/source/plugins/people/README.md)
 * [✒️ Recent posts](/source/plugins/posts/README.md)

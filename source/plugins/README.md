@@ -14,6 +14,7 @@ See their respective documentation for more informations about how to setup them
 * [🈷️ Most used languages](/source/plugins/languages/README.md)
 * [👨‍💻 Lines of code changed](/source/plugins/lines/README.md)
 * [🎼 Music plugin](/source/plugins/music/README.md)
+* [💉 Nightscout](/source/plugins/nightscout/README.md)
 * [⏱️ Website performances](/source/plugins/pagespeed/README.md)
 * [🧑‍🤝‍🧑 People plugin](/source/plugins/people/README.md)
 * [✒️ Recent posts](/source/plugins/posts/README.md)
