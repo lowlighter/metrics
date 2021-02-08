@@ -1,5 +1,6 @@
 name: "🗃️ Base content"
 cost: 1 GraphQL request
+categorie: core
 supports:
   - user
   - organization
@@ -32,3 +33,13 @@ inputs:
     description: Include forks in metrics
     type: boolean
     default: no
+
+  # Filter repositories by user affiliations
+  repositories_affiliations:
+    description: Repositories affiliations
+    type: string
+    default: ""
+    values:
+      - owner
+      - collaborator
+      - organization_member

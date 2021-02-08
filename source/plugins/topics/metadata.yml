@@ -1,5 +1,6 @@
 name: "📌 Starred topics"
 cost: N/A
+categorie: github
 supports:
   - user
 inputs:

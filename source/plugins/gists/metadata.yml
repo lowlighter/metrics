@@ -1,5 +1,6 @@
 name: "🎫 Gists"
 cost: 1 GraphQL request per 100 gists
+categorie: github
 supports:
   - user
 inputs:

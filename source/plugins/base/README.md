@@ -32,7 +32,8 @@ These are all enabled by default, but you can explicitely opt out from them.
 - uses: lowlighter/metrics@latest
   with:
     # ... other options
-    base: header, repositories # Only display "header" and "repositories" sections
-    repositories: 100          # Query only last 100 repositories
-    repositories_forks: no     # Don't include forks
+    base: header, repositories       # Only display "header" and "repositories" sections
+    repositories: 100                # Query only last 100 repositories
+    repositories_forks: no           # Don't include forks
+    repositories_affiliations: owner # Display only repositories where user is owner
 ```

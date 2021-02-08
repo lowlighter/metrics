@@ -100,7 +100,7 @@
                   console.debug(`metrics/compute/${login}/plugins > habits > running linguist`)
                   ;(await imports.run(`${prefix} github-linguist --breakdown`, {cwd:path}))
                   //Parse linguist result
-                    .split("\n").map(line => line.match(/(?<value>[\d.]+)%\s+(?<language>\w+)/)?.groups).filter(line => line)
+                    .split("\n").map(line => line.match(/(?<value>[\d.]+)%\s+(?<language>[\s\S]+)$/)?.groups).filter(line => line)
                     .map(({value, language}) => habits.linguist.languages[language] = (habits.linguist.languages[language] ?? 0) + value/100)
                   habits.linguist.ordered = Object.entries(habits.linguist.languages).sort(([_an, a], [_bn, b]) => b - a)
               }

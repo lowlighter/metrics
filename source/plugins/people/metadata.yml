@@ -1,5 +1,6 @@
 name: "🧑‍🤝‍🧑 People plugin"
 cost: 1 GraphQL request per 100 users + 1 REST request per user in "plugin_people_thanks"
+categorie: github
 supports:
   - user
   - organization
