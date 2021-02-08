@@ -1,5 +1,6 @@
 name: "🗂️ Projects"
 cost: 1 GraphQL request + 1 GraphQL request per repository project
+categorie: github
 supports:
   - user
   - organization

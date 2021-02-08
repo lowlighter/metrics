@@ -1,5 +1,6 @@
 name: "🗃️ Base content"
 cost: 1 GraphQL request
+categorie: core
 supports:
   - user
   - organization
