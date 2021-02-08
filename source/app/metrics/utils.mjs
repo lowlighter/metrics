@@ -117,7 +117,9 @@
       console.debug(`metrics/svgresize > padding width*${padding.width}, height*${padding.height}`)
     //Render through browser and resize height
       const page = await svgresize.browser.newPage()
-      await page.setContent(svg, {waitUntil:"load"})
+      await page.setContent(svg, {waitUntil:["load", "domcontentloaded", "networkidle2"]})
+      await page.addStyleTag({content:"body { margin: 0; padding: 0; }"})
+      await wait(1)
       let mime = "image/svg+xml"
       let {resized, width, height} = await page.evaluate(async padding => {
         //Disable animations

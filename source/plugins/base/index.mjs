@@ -7,7 +7,7 @@
   export default async function({login, graphql, data, q, queries, imports}, conf) {
     //Load inputs
       console.debug(`metrics/compute/${login}/base > started`)
-      let {repositories, repositories_forks:forks} = imports.metadata.plugins.base.inputs({data, q, account:"bypass"}, {repositories:conf.settings.repositories ?? 100})
+      let {repositories, "repositories.forks":forks, "repositories.affiliations":affiliations} = imports.metadata.plugins.base.inputs({data, q, account:"bypass"}, {repositories:conf.settings.repositories ?? 100})
 
     //Skip initial data gathering if not needed
       if (conf.settings.notoken)
@@ -23,7 +23,7 @@
         try {
           //Query data from GitHub API
             console.debug(`metrics/compute/${login}/base > account ${account}`)
-            const queried = await graphql(queries.base[account]({login, "calendar.from":new Date(Date.now()-14*24*60*60*1000).toISOString(), "calendar.to":(new Date()).toISOString(), forks:forks ? "" : ", isFork: false"}))
+            const queried = await graphql(queries.base[account]({login, "calendar.from":new Date(Date.now()-14*24*60*60*1000).toISOString(), "calendar.to":(new Date()).toISOString(), forks:forks ? "" : ", isFork: false", affiliations:affiliations ? `, ownerAffiliations: ${affiliations.toLocaleUpperCase()}` : ""}))
             Object.assign(data, {user:queried[account]})
             postprocess?.[account]({login, data})
           //Query repositories from GitHub API
@@ -33,7 +33,7 @@
                 let pushed = 0
                 do {
                   console.debug(`metrics/compute/${login}/base > retrieving repositories after ${cursor}`)
-                  const {[account]:{repositories:{edges, nodes}}} = await graphql(queries.base.repositories({login, account, after:cursor ? `after: "${cursor}"` : "", repositories:Math.min(repositories, {user:100, organization:25}[account]), forks:forks ? "" : ", isFork: false"}))
+                  const {[account]:{repositories:{edges, nodes}}} = await graphql(queries.base.repositories({login, account, after:cursor ? `after: "${cursor}"` : "", repositories:Math.min(repositories, {user:100, organization:25}[account]), forks:forks ? "" : ", isFork: false", affiliations:affiliations ? `, ownerAffiliations: ${affiliations.toLocaleUpperCase()}` : ""}))
                   cursor = edges?.[edges?.length-1]?.cursor
                   data.user.repositories.nodes.push(...nodes)
                   pushed = nodes.length

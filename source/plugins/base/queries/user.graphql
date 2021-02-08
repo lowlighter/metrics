@@ -8,7 +8,7 @@ query BaseUser {
     websiteUrl
     isHireable
     twitterUsername
-    repositories(last: 0 $forks) {
+    repositories(last: 0 $forks $affiliations) {
       totalCount
       totalDiskUsage
       nodes {

@@ -1,5 +1,6 @@
 name: "🈷️ Most used languages"
 cost: 0 API request
+categorie: github
 supports:
   - user
   - organization

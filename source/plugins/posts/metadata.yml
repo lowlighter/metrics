@@ -1,5 +1,6 @@
 name: "✒️ Recent posts"
 cost: N/A
+categorie: social
 supports:
   - user
   - organization

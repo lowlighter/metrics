@@ -1,5 +1,6 @@
 name: "💉 Nightscout"
 cost: N/A
+categorie: health
 supports:
   - user
   - organization
@@ -17,7 +18,7 @@ inputs:
     type: string
     default: https://example.herokuapp.com
 
-  # Controls how big the graph is 
+  # Controls how big the graph is
   plugin_nightscout_datapoints:
     description: How many datapoints to show on the graph. 0 and 1 disable the graph.
     type: number
