@@ -17,3 +17,16 @@ inputs:
     type: string
     default: ""
     example: npm ci
+
+  # Display used licenses from both repository license and dependencies licenses ratio
+  plugin_licenses_ratio:
+    description: Display used licenses ratio
+    type: boolean
+    default: no
+
+  # Display permissions, limitations and conditions from both repository license and dependencies licenses
+  # Note that this is NOT legal advice, use at your own risk
+  plugin_licenses_legal:
+    description: Display legal informations about used licenses
+    type: boolean
+    default: yes
