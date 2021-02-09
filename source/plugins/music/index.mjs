@@ -154,7 +154,7 @@
                                     name:track.name,
                                     artist:track.artists[0].name,
                                     artwork:track.album.images[0].url,
-                                    played_at:played_at ? imports.dayjs(played_at).format("[played at] HH:MM on DD/MM/YYYY") : null,
+                                    played_at:played_at ? `${imports.date(played_at, {timeStyle:"short", timeZone:data.config.timezone?.name})} on ${imports.date(played_at, {dateStyle:"short", timeZone:data.config.timezone?.name})}` : null,
                                   }))
                                 //Ensure no duplicate are added
                                   for (const track of loaded) {

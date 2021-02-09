@@ -3,6 +3,7 @@ repository:
   - .github/**
   - .gitignore
   - .gitattributes
+  - .eslintrc.yml
   - SECURITY.md
   - LICENSE
   - CONTRIBUTING.md

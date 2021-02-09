@@ -83,8 +83,7 @@
           if (charts) {
             //Check if linguist exists
               console.debug(`metrics/compute/${login}/plugins > habits > searching recently used languages using linguist`)
-              const prefix = {win32:"wsl"}[process.platform] ?? ""
-              if ((patches.length)&&(await imports.run(`${prefix} which github-linguist`))) {
+              if ((patches.length)&&(await imports.which("github-linguist"))) {
                 //Setup for linguist
                   habits.linguist.available = true
                   const path = imports.paths.join(imports.os.tmpdir(), `${commits[0]?.actor?.id ?? 0}`)
@@ -94,15 +93,18 @@
                     await Promise.all(patches.map(({name, patch}, i) => imports.fs.writeFile(imports.paths.join(path, `${i}${imports.paths.extname(name)}`), patch)))
                   //Create temporary git repository
                     console.debug(`metrics/compute/${login}/plugins > habits > creating temp git repository`)
-                    await imports.run('git init && git add . && git config user.name "linguist" && git config user.email "<>" && git commit -m "linguist"', {cwd:path}).catch(console.debug)
-                    await imports.run("git status", {cwd:path})
+                    const git = await imports.git(path)
+                    await git.init().add(".").addConfig("user.name", "linguist").addConfig("user.email", "<>").commit("linguist").status()
                 //Spawn linguist process
                   console.debug(`metrics/compute/${login}/plugins > habits > running linguist`)
-                  ;(await imports.run(`${prefix} github-linguist --breakdown`, {cwd:path}))
+                  ;(await imports.run("github-linguist --breakdown", {cwd:path}))
                   //Parse linguist result
                     .split("\n").map(line => line.match(/(?<value>[\d.]+)%\s+(?<language>[\s\S]+)$/)?.groups).filter(line => line)
                     .map(({value, language}) => habits.linguist.languages[language] = (habits.linguist.languages[language] ?? 0) + value/100)
                   habits.linguist.ordered = Object.entries(habits.linguist.languages).sort(([_an, a], [_bn, b]) => b - a)
+                //Cleaning
+                  console.debug(`metrics/compute/${login}/plugins > habits > cleaning temp dir ${path}`)
+                  await imports.fs.rmdir(path, {recursive:true})
               }
               else
                 console.debug(`metrics/compute/${login}/plugins > habits > linguist not available`)

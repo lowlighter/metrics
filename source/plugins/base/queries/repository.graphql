@@ -41,6 +41,7 @@ query BaseRepository {
       }
       forkCount
       licenseInfo {
+        name
         spdxId
       }
     }
