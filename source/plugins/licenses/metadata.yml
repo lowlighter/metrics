@@ -1,0 +1,19 @@
+name: "📜 Licenses"
+cost: N/A
+supports:
+  - repository
+inputs:
+
+  # Enable or disable plugin
+  plugin_licenses:
+    description: Display licenses informations
+    type: boolean
+    default: no
+
+  # Command to use to setup target repository
+  # It is required to install all dependencies that will be analyzed with github/licensed
+  plugin_licenses_setup:
+    description: Command to setup target repository
+    type: string
+    default: ""
+    example: npm ci
