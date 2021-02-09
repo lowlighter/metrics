@@ -18,7 +18,7 @@
               No recent activity
             </div>
           <% } %>
-          <% for (const {actor, type, repo, timestamp, ...event} of plugins.activity.events) { const _ = letter => account === "organization" ? `<div class="user">${actor}</div> ${letter.toLocaleLowerCase()}` : letter %>
+          <% for (const {actor, type, repo, timestamp, ...event} of plugins.activity.events) { const _ = letter => `<div class="user">${actor}</div> ${letter.toLocaleLowerCase()}` %>
             <div class="row fill-width">
               <section class="activity">
                 <% if (/^ref/.test(type)) { %>
