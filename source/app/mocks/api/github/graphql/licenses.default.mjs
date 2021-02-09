@@ -25,7 +25,7 @@
             {key:"distribution", label:"Distribution"},
             {key:"patent-use", label:"Patent use"},
             {key:"private-use", label:"Private use"},
-          ]
+          ],
         },
         {
           spdxId:"Apache-2.0",
@@ -47,7 +47,7 @@
             {key:"distribution", label:"Distribution"},
             {key:"patent-use", label:"Patent use"},
             {key:"private-use", label:"Private use"},
-          ]
+          ],
         },
         {
           spdxId:"BSD-2-Clause",
@@ -59,14 +59,14 @@
             {key:"warranty", label:"Warranty"},
           ],
           conditions:[
-            {key:"include-copyright", label:"License and copyright notice"}
+            {key:"include-copyright", label:"License and copyright notice"},
           ],
           permissions:[
             {key:"commercial-use", label:"Commercial use"},
             {key:"modifications", label:"Modification"},
             {key:"distribution", label:"Distribution"},
             {key:"private-use", label:"Private use"},
-          ]
+          ],
         },
         {
           spdxId:"BSD-3-Clause",
@@ -78,14 +78,14 @@
             {key:"warranty", label:"Warranty"},
           ],
           conditions:[
-            {key:"include-copyright", label:"License and copyright notice"}
+            {key:"include-copyright", label:"License and copyright notice"},
           ],
           permissions:[
             {key:"commercial-use", label:"Commercial use"},
             {key:"modifications", label:"Modification"},
             {key:"distribution", label:"Distribution"},
             {key:"private-use", label:"Private use"},
-          ]
+          ],
         },
         {
           spdxId:"BSL-1.0",
@@ -97,14 +97,14 @@
             {key:"warranty", label:"Warranty"},
           ],
           conditions:[
-            {key:"include-copyright--source", label:"License and copyright notice for source"}
+            {key:"include-copyright--source", label:"License and copyright notice for source"},
           ],
           permissions:[
             {key:"commercial-use", label:"Commercial use"},
             {key:"modifications", label:"Modification"},
             {key:"distribution", label:"Distribution"},
             {key:"private-use", label:"Private use"},
-          ]
+          ],
         },
         {
           spdxId:"CC0-1.0",
@@ -123,7 +123,7 @@
             {key:"modifications", label:"Modification"},
             {key:"distribution", label:"Distribution"},
             {key:"private-use", label:"Private use"},
-          ]
+          ],
         },
         {
           spdxId:"EPL-2.0",
@@ -145,7 +145,7 @@
             {key:"modifications", label:"Modification"},
             {key:"patent-use", label:"Patent use"},
             {key:"private-use", label:"Private use"},
-          ]
+          ],
         },
         {
           spdxId:"GPL-2.0",
@@ -167,7 +167,7 @@
             {key:"modifications", label:"Modification"},
             {key:"distribution", label:"Distribution"},
             {key:"private-use", label:"Private use"},
-          ]
+          ],
         },
         {
           spdxId:"GPL-3.0",
@@ -182,7 +182,7 @@
             {key:"include-copyright", label:"License and copyright notice"},
             {key:"document-changes", label:"State changes"},
             {key:"disclose-source", label:"Disclose source"},
-            {key:"same-license", label:"Same license"}
+            {key:"same-license", label:"Same license"},
           ],
           permissions:[
             {key:"commercial-use", label:"Commercial use"},
@@ -190,7 +190,7 @@
             {key:"distribution", label:"Distribution"},
             {key:"patent-use", label:"Patent use"},
             {key:"private-use", label:"Private use"},
-          ]
+          ],
         },
         {
           spdxId:"LGPL-2.1",
@@ -212,7 +212,7 @@
             {key:"modifications", label:"Modification"},
             {key:"distribution", label:"Distribution"},
             {key:"private-use", label:"Private use"},
-          ]
+          ],
         },
         {
           spdxId:"MIT",
@@ -231,7 +231,7 @@
             {key:"modifications", label:"Modification"},
             {key:"distribution", label:"Distribution"},
             {key:"private-use", label:"Private use"},
-          ]
+          ],
         },
         {
           spdxId:"MPL-2.0",
@@ -254,7 +254,7 @@
             {key:"distribution", label:"Distribution"},
             {key:"patent-use", label:"Patent use"},
             {key:"private-use", label:"Private use"},
-          ]
+          ],
         },
         {
           spdxId:"Unlicense",
@@ -271,8 +271,8 @@
             {key:"commercial-use", label:"Commercial use"},
             {key:"modifications", label:"Modification"},
             {key:"distribution", label:"Distribution"},
-          ]
-        }
-      ]
+          ],
+        },
+      ],
     })
   }
