@@ -5,7 +5,7 @@
   import SVGO from "svgo"
 
 //Setup
-  export default async function metrics({login, q, dflags = []}, {graphql, rest, plugins, conf, die = false, verify = false, convert = null}, {Plugins, Templates}) {
+  export default async function metrics({login, q}, {graphql, rest, plugins, conf, die = false, verify = false, convert = null}, {Plugins, Templates}) {
     //Compute rendering
       try {
 
@@ -39,7 +39,7 @@
         //Executing base plugin and compute metrics
           console.debug(`metrics/compute/${login} > compute`)
           await Plugins.base({login, q, data, rest, graphql, plugins, queries, pending, imports}, conf)
-          await computer({login, q, dflags}, {conf, data, rest, graphql, plugins, queries, account:data.account}, {pending, imports})
+          await computer({login, q}, {conf, data, rest, graphql, plugins, queries, account:data.account}, {pending, imports})
           const promised = await Promise.all(pending)
 
         //Check plugins errors
@@ -55,7 +55,7 @@
         //Rendering and resizing
           console.debug(`metrics/compute/${login} > render`)
           let rendered = await ejs.render(image, {...data, s:imports.s, f:imports.format, style, fonts}, {views, async:true})
-          const {resized, mime} = await imports.svgresize(rendered, {paddings:q["config.padding"], convert})
+          const {resized, mime} = await imports.svgresize(rendered, {paddings:q["config.padding"] || conf.settings.padding, convert})
           rendered = resized
 
         //Additional SVG transformations
