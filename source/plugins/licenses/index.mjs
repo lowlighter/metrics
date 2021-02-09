@@ -7,16 +7,16 @@
             return null
 
         //Load inputs
-          let {setup} = imports.metadata.plugins.licenses.inputs({data, account, q})
+          let {setup, ratio, legal} = imports.metadata.plugins.licenses.inputs({data, account, q})
 
         //Initialization
           const {user:{repository}} = await graphql(queries.licenses.repository({owner:data.repo.owner.login, name:data.repo.name, account}))
-          const _result = {licensed:{available:false}}
+          const result = {ratio, legal, default:repository.licenseInfo, licensed:{available:false}, text:{}, list:[], dependencies:0, known:0, unknown:0}
 
-          const {licenses} = await graphql(queries.licenses())
-
-          console.log(repository, imports.util.inspect(licenses, {depth:1/0}))
-
+        //Register existing licenses properties
+          const licenses = Object.fromEntries((await graphql(queries.licenses())).licenses.map(license => [license.key, license]))
+          for (const license of Object.values(licenses))
+            [...license.limitations, ...license.conditions, ...license.permissions].flat().map(({key, label}) => result.text[key] = label)
 
         //Check if licensed exists
           if (await imports.which("licensed")) {
@@ -47,15 +47,28 @@
           else
             console.debug(`metrics/compute/${login}/plugins > licenses > licensed not available`)
 
-        //Results
-          return {
-            total:10,
-            dependencies:24,
-            list:[
-              {name:"MIT", value:0.5, count:10, x:0, color:"#e34c26"},
-              {name:"Other", value:0.5, count:10, x:0.5, color:"#384d54"},
-            ],
+        //List licenses properties
+          const base = {permissions:new Set(), limitations:new Set(), conditions:new Set()}
+          const combined = {permissions:new Set(), limitations:new Set(), conditions:new Set()}
+          for (const properties of Object.keys(base)) {
+            //Base license
+              licenses[repository.licenseInfo.key][properties].map(({key}) => base[properties].add(key))
+            //Combined licenses
+              for (const {key} of result.list)
+                licenses[key][properties].map(({key}) => combined[properties].add(key))
           }
+
+        //Todo
+          //{name:"", key:"", value:NaN, count:NaN, x:NaN, color:""},
+
+        //Merge limitations and conditions
+          for (const properties of ["limitations", "conditions"])
+            result[properties] = [[...base[properties]].map(key => ({key, text:result.text[key], inherited:false})), [...combined[properties]].filter(key => !base[properties].has(key)).map(key => ({key, text:result.text[key], inherited:true}))].flat()
+        //Remove base permissions conflicting with inherited limitations
+          result.permissions = [...base.permissions].filter(key => !combined.limitations.has(key)).map(key => ({key, text:result.text[key]}))
+
+        //Results
+          return result
       }
     //Handle errors
       catch (error) {
