@@ -28,7 +28,6 @@
     "@octokit/rest": "^18.0.15",
     "axios": "^0.21.1",
     "compression": "^1.7.4",
-    "dayjs": "^1.10.4",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
     "express-rate-limit": "^5.2.3",

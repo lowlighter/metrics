@@ -8,11 +8,9 @@
   import axios from "axios"
   import puppeteer from "puppeteer"
   import imgb64 from "image-to-base64"
-  import dayjs from "dayjs"
-  import utc from "dayjs/plugin/utc.js"
-  dayjs.extend(utc)
+  import git from "simple-git"
 
-  export {fs, os, paths, url, util, processes, axios, puppeteer, imgb64, dayjs}
+  export {fs, os, paths, url, util, processes, axios, puppeteer, imgb64, git}
 
 /**Returns module __dirname */
   export function __module(module) {
@@ -60,6 +58,12 @@
   }
   format.ellipsis = ellipsis
 
+/**Date formatter */
+  export function date(string, options) {
+    return new Intl.DateTimeFormat("en-GB", options).format(new Date(string))
+  }
+  format.date = date
+
 /**Array shuffler */
   export function shuffle(array) {
     for (let i = array.length-1; i > 0; i--) {
@@ -90,7 +94,9 @@
   }
 
 /**Run command */
-  export async function run(command, options) {
+  export async function run(command, options, {prefixed = true} = {}) {
+    const prefix = {win32:"wsl"}[process.platform] ?? ""
+    command = `${prefixed ? prefix : ""} ${command}`.trim()
     return new Promise((solve, reject) => {
       console.debug(`metrics/command > ${command}`)
       const child = processes.exec(command, options)
@@ -102,6 +108,19 @@
         return code === 0 ? solve(stdout) : reject(stderr)
       })
     })
+  }
+
+/**Check command existance */
+  export async function which(command) {
+    try {
+      console.debug(`metrics/command > checking existence of ${command}`)
+      await run(`which ${command}`)
+      return true
+    }
+    catch {
+      console.debug(`metrics/command > checking existence of ${command} > failed`)
+    }
+    return false
   }
 
 /**Render svg */

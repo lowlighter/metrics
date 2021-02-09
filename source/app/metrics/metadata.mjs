@@ -60,10 +60,8 @@
               if (!account)
                 logger(`metrics/inputs > account type not set for plugin ${name}!`)
               if (account !== "bypass") {
-                if (!meta.supports?.includes(account))
+                if (!meta.supports?.includes(q.repo ? "repository" : account))
                   throw {error:{message:`Not supported for: ${account}`, instance:new Error()}}
-                if ((q.repo)&&(!meta.supports?.includes("repository")))
-                  throw {error:{message:`Not supported for: ${account} repositories`, instance:new Error()}}
               }
             //Inputs checks
               const result = Object.fromEntries(Object.entries(inputs).map(([key, {type, format, default:defaulted, min, max, values}]) => [
