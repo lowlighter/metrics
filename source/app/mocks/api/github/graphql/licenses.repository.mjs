@@ -4,10 +4,10 @@
     return ({
       user:{
         repository:{
-          licenseInfo:{ name:"MIT License"},
+          licenseInfo:{name:"MIT License"},
           url:"https://github.com/lowlighter/metrics",
-          databaseId:293860197
-        }
-      }
+          databaseId:293860197,
+        },
+      },
     })
   }
