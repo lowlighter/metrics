@@ -23,9 +23,10 @@ inputs:
     default: no
   
   # Filter repositories by user affiliations
+  # Note that it may affect some plugin outputs (broad affiliations will result in less representative metrics)
   repositories_affiliations:
     description: Repositories affiliations
-    default: ""
+    default: owner
   
   # ====================================================================================
   # 🧱 Core
