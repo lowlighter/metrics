@@ -35,11 +35,13 @@ inputs:
     default: no
 
   # Filter repositories by user affiliations
+  # Note that it may affect some plugin outputs (broad affiliations will result in less representative metrics)
   repositories_affiliations:
     description: Repositories affiliations
     type: string
-    default: ""
+    default: owner
     values:
-      - owner
-      - collaborator
-      - organization_member
+      - ""                  # Use all repositories related to you
+      - owner               # Use repositories you own
+      - collaborator        # Use repositories you have contributed too
+      - organization_member # Use repositories where you're an organization member
