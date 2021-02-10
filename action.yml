@@ -97,6 +97,12 @@ inputs:
     description: Configure content order
     default: ""
   
+  # Use twemojis instead of emojis
+  # May increase filesize but emojis will be rendered the same across all platforms
+  config_twemoji:
+    description: Use twemojis instead of emojis
+    default: no
+  
   # Enable SVG CSS animations
   config_animations:
     description: SVG CSS animations
