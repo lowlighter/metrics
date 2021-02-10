@@ -39,6 +39,21 @@ Omitted one will be appended using default order.
     config_order: base.header, isocalendar, languages, stars
 ```
 
+### 🙂 Using twemojis instead of emojis
+
+You can choose to use [twemojis](https://github.com/twitter/twemoji) instead of regular emojis so rendered metrics are more consistent across all platforms.
+
+It may increase filesize since it replace unicode characters by SVG images.
+
+#### ℹ️ Examples workflows
+
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    config_twemoji: yes
+```
+
 ### 🎞️ SVG CSS Animations
 
 As rendered metrics use HTML and CSS, some templates have animations.

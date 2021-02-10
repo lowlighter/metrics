@@ -519,6 +519,8 @@ Below is a list of used packages.
   * For mocking data
 * [steveukx/git-js](https://github.com/steveukx/git-js)
   * For simple git operations
+* [twitter/twemoji-parser](https://github.com/twitter/twemoji-parser)
+  * To parse emojis and replace them by [twemojis](https://github.com/twitter/twemoji)
 
 </details>
 

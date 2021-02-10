@@ -9,6 +9,7 @@
   import puppeteer from "puppeteer"
   import imgb64 from "image-to-base64"
   import git from "simple-git"
+  import twemojis from "twemoji-parser"
 
   export {fs, os, paths, url, util, processes, axios, puppeteer, imgb64, git}
 
@@ -166,6 +167,20 @@
     //Result
       await page.close()
       return {resized, mime}
+  }
+
+/**Render twemojis */
+  export async function svgemojis(svg) {
+    //Load emojis
+      const emojis = new Map()
+      for (const {text:emoji, url} of twemojis.parse(svg)) {
+        if (!emojis.has(emoji))
+          emojis.set(emoji, (await axios.get(url)).data.replace(/^<svg /, '<svg class="twemoji" '))
+      }
+    //Apply replacements
+      for (const [emoji, twemoji] of emojis)
+        svg = svg.replace(new RegExp(emoji, "g"), twemoji)
+    return svg
   }
 
 /**Wait */
