@@ -23,9 +23,10 @@ inputs:
     default: no
   
   # Filter repositories by user affiliations
+  # Note that it may affect some plugin outputs (broad affiliations will result in less representative metrics)
   repositories_affiliations:
     description: Repositories affiliations
-    default: ""
+    default: owner
   
   # ====================================================================================
   # 🧱 Core
@@ -174,6 +175,16 @@ inputs:
   plugin_activity_filter:
     description: Events types to keep
     default: all
+  
+  # Set events visibility (use this to restrict events when using a "repo" token)
+  plugin_activity_visibility:
+    description: Set events visibility
+    default: all
+  
+  # Display events timestamps
+  plugin_activity_timestamps:
+    description: Display events timestamps
+    default: no
   
   # ====================================================================================
   # 🌸 Anilist

@@ -593,7 +593,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
   <tr>
     <th nowrap="nowrap">📘 Repository</th>    
     <th nowrap="nowrap" align="center" data-plugin="base">✔️</th>
-    <th nowrap="nowrap" align="center" data-plugin="activity">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="activity">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="anilist">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="followup">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="gists">❌</th>
