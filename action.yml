@@ -175,6 +175,16 @@ inputs:
     description: Events types to keep
     default: all
   
+  # Set events visibility (use this to restrict events when using a "repo" token)
+  plugin_activity_visibility:
+    description: Set events visibility
+    default: all
+  
+  # Display events timestamps
+  plugin_activity_timestamps:
+    description: Display events timestamps
+    default: no
+  
   # ====================================================================================
   # 🌸 Anilist
   
