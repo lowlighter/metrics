@@ -646,7 +646,7 @@
     flex-shrink: 0;
   }
   .licenses-details {
-    margin: 8px 0 4px;
+    margin-top: 8px;
   }
   .field.license.details {
     display: flex;
