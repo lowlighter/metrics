@@ -4,6 +4,7 @@ categorie: github
 supports:
   - user
   - organization
+  - repository
 inputs:
 
   # Enable or disable plugin
@@ -51,3 +52,18 @@ inputs:
       - star       # Display starred repositories
       - member     # Display collaborators additions
       - public     # Display repositories made public
+
+  # Set events visibility (use this to restrict events when using a "repo" token)
+  plugin_activity_visibility:
+    description: Set events visibility
+    type: string
+    default: all
+    values:
+      - public
+      - all
+
+  # Display events timestamps
+  plugin_activity_timestamps:
+    description: Display events timestamps
+    type: boolean
+    default: no

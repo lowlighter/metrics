@@ -30,6 +30,7 @@
             },
           },
           created_at:faker.date.recent(7),
+          public:true,
         },
         {
           id:"10000000001",
@@ -58,6 +59,7 @@
             },
           },
           created_at:faker.date.recent(7),
+          public:true,
         },
         {
           id:"10000000002",
@@ -81,6 +83,7 @@
             },
           },
           created_at:faker.date.recent(7),
+          public:true,
         },
         {
           id:"10000000003",
@@ -103,6 +106,7 @@
             ],
           },
           created_at:faker.date.recent(7),
+          public:true,
         },
         {
           id:"10000000004",
@@ -135,6 +139,7 @@
             },
           },
           created_at:faker.date.recent(7),
+          public:true,
         },
         {
           id:"10000000005",
@@ -152,6 +157,7 @@
             },
           },
           created_at:faker.date.recent(7),
+          public:true,
         },
         {
           id:"10000000006",
@@ -181,6 +187,7 @@
             },
           },
           created_at:faker.date.recent(7),
+          public:true,
         },
         {
           id:"10000000007",
@@ -201,6 +208,7 @@
             },
           },
           created_at:faker.date.recent(7),
+          public:true,
         },
         {
           id:"10000000008",
@@ -217,6 +225,7 @@
             master_branch:"master",
           },
           created_at:faker.date.recent(7),
+          public:true,
         },
         {
           id:"100000000009",
@@ -229,6 +238,7 @@
           },
           payload:{action:"started"},
           created_at:faker.date.recent(7),
+          public:true,
         },
         {
           id:"10000000010",
@@ -244,6 +254,7 @@
             ref_type:faker.random.arrayElement(["tag", "branch"]),
           },
           created_at:faker.date.recent(7),
+          public:true,
         },
         {
           id:"10000000011",
@@ -266,6 +277,7 @@
             ],
           },
           created_at:faker.date.recent(7),
+          public:true,
         },
         {
           id:"10000000012",
@@ -291,6 +303,7 @@
             },
           },
           created_at:faker.date.recent(7),
+          public:true,
         },
         {
           id:"10000000013",
@@ -308,6 +321,7 @@
             action:"added",
           },
           created_at:faker.date.recent(7),
+          public:true,
         },
         {
           id:"10000000014",
@@ -320,6 +334,7 @@
           },
           payload:{},
           created_at:faker.date.recent(7),
+          public:true,
         },
       ],
     })
