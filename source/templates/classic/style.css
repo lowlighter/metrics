@@ -649,6 +649,13 @@
     }
   }
 
+/* Twemoji */
+  .twemoji {
+    height: 1em;
+    width: 1em;
+    margin-bottom: -.125em;
+  }
+
 /* Cake day */
   .cakeday, .cakeday svg {
     animation: animation-rainbow 1.2s;

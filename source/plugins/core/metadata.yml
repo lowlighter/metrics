@@ -88,6 +88,13 @@ inputs:
     format: comma-separated
     default: ""
 
+  # Use twemojis instead of emojis
+  # May increase filesize but emojis will be rendered the same across all platforms
+  config_twemoji:
+    description: Use twemojis instead of emojis
+    type: boolean
+    default: no
+
   # Enable SVG CSS animations
   config_animations:
     description: SVG CSS animations
