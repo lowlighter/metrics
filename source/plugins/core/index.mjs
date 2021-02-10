@@ -4,9 +4,9 @@
  */
 
 //Setup
-  export default async function({login, q, dflags}, {conf, data, rest, graphql, plugins, queries, account}, {pending, imports}) {
+  export default async function({login, q}, {conf, data, rest, graphql, plugins, queries, account}, {pending, imports}) {
     //Load inputs
-      imports.metadata.plugins.core.inputs({data, account, q})
+      const {"config.animations":animations, "config.timezone":_timezone, "debug.flags":dflags} = imports.metadata.plugins.core.inputs({data, account, q})
 
     //Init
       const computed = {commits:0, sponsorships:0, licenses:{favorite:"", used:{}}, token:{}, repositories:{watchers:0, stargazers:0, issues_open:0, issues_closed:0, pr_open:0, pr_merged:0, forks:0, forked:0, releases:0}}
@@ -15,8 +15,8 @@
       console.debug(`metrics/compute/${login} > formatting common metrics`)
 
     //Timezone config
-      if (q["config.timezone"]) {
-        const timezone = {name:q["config.timezone"], offset:0}
+      if (_timezone) {
+        const timezone = {name:_timezone, offset:0}
         data.config.timezone = timezone
         try {
           timezone.offset = Number(new Date().toLocaleString("fr", {timeZoneName:"short", timeZone:timezone.name}).match(/UTC[+](?<offset>\d+)/)?.groups?.offset*60*60*1000) || 0
@@ -29,10 +29,8 @@
       }
 
     //Animations
-      if ("config.animations" in q) {
-        data.animated = q["config.animations"]
-        console.debug(`metrics/compute/${login} > animations ${data.animated ? "enabled" : "disabled"}`)
-      }
+      data.animated = animations
+      console.debug(`metrics/compute/${login} > animations ${data.animated ? "enabled" : "disabled"}`)
 
     //Plugins
       for (const name of Object.keys(imports.plugins)) {
@@ -99,15 +97,15 @@
       data.meta = {version:conf.package.version, author:conf.package.author}
 
     //Debug flags
-      if ((dflags.includes("--cakeday"))||(q["dflag.cakeday"])) {
+      if ((dflags.includes("--cakeday"))||(dflags.includes("cakeday"))) {
         console.debug(`metrics/compute/${login} > applying dflag --cakeday`)
         computed.cakeday = true
       }
-      if ((dflags.includes("--hireable"))||(q["dflag.hireable"])) {
+      if ((dflags.includes("--hireable"))||(dflags.includes("hireable"))) {
         console.debug(`metrics/compute/${login} > applying dflag --hireable`)
         data.user.isHireable = true
       }
-      if ((dflags.includes("--halloween"))||(q["dflag.halloween"])) {
+      if ((dflags.includes("--halloween"))||(dflags.includes("halloween"))) {
         console.debug(`metrics/compute/${login} > applying dflag --halloween`)
         //Haloween color replacer
           const halloween = content => content

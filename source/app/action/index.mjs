@@ -199,7 +199,7 @@
         //Render metrics
           info.break()
           info.section("Rendering")
-          const {rendered} = await metrics({login:user, q, dflags}, {graphql, rest, plugins, conf, die, verify}, {Plugins, Templates})
+          const {rendered} = await metrics({login:user, q}, {graphql, rest, plugins, conf, die, verify}, {Plugins, Templates})
           info("Status", "complete")
 
         //Commit metrics

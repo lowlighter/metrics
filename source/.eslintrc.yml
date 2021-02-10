@@ -122,7 +122,6 @@ rules:
   # Coding style (comments rules)
   line-comment-position: error
   capitalized-comments: error
-  multiline-comment-style: error
 
   # Coding style (spacing rules)
   block-spacing: [error, always]

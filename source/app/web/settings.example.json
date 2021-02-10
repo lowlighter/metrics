@@ -12,6 +12,7 @@
   "debug": false,                  "//": "Debug logs",
   "mocked": false,                 "//": "Use mocked data instead of live APIs (use 'force' to use mocked token even if real token are defined)",
   "repositories": 100,             "//": "Number of repositories to use",
+  "padding": ["6%", "12%"],        "//": "Image padding (default)",
   "community": {
     "templates": [],               "//": "Additional community templates to setup"
   },
