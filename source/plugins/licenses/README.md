@@ -1,19 +1,23 @@
 ### 📜 Licenses
 
     ⚠️ This is NOT legal advice, use at your own risk
+    💣 Do NOT enable this plugin on public web instances (plugin allows raw commands injection)
 
 The *licenses* plugin lets you display license informations like permissions, limitations and conditions along with additional metrics about dependencies.
 
 <table>
   <td align="center">
-    <img src="">
+    <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.licenses.svg">
+    <details open><summary>With licenses ratio</summary>
+      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.licenses.ratio.svg">
+    </details>
     <img width="900" height="1" alt="">
   </td>
 </table>
 
 Project must be setup with dependencies using `plugin_licenses_setup` option (for example, `npm ci` for a NodeJS project).
 
-Dependencies will be analyzed with [github/licensed](https://github.com/github/licensed) and comparaed against GitHub known licenses.
+Dependencies will be analyzed with [github/licensed](https://github.com/github/licensed) and compared against GitHub known licenses.
 
 #### ℹ️ Examples workflows
 
