@@ -50,12 +50,12 @@
             //Spawn licensed process
               console.debug(`metrics/compute/${login}/plugins > licenses > running licensed`)
               JSON.parse(await imports.run("licensed list --format=json --licenses", {cwd:path})).apps
-                .filter(({name}) => name === ".")?.[0]?.sources?.flatMap(source => source.dependencies.map(({dependency, license}) => {
+                .map(({sources}) => sources?.flatMap(source => source.dependencies.map(({dependency, license}) => {
                   used[license] = (used[license] ?? 0) + 1
                   result.dependencies.push(dependency)
                   result.known += (license in licenses)
                   result.unknown += !(license in licenses)
-                }))
+                })))
             //Cleaning
               console.debug(`metrics/compute/${login}/plugins > licensed > cleaning temp dir ${path}`)
               await imports.fs.rmdir(path, {recursive:true})
