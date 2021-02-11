@@ -12,6 +12,7 @@ See their respective documentation for more informations about how to setup them
 * [💡 Coding habits](/source/plugins/habits/README.md)
 * [📅 Isometric commit calendar](/source/plugins/isocalendar/README.md)
 * [🈷️ Most used languages](/source/plugins/languages/README.md)
+* [📜 Licenses](/source/plugins/licenses/README.md)
 * [👨‍💻 Lines of code changed](/source/plugins/lines/README.md)
 * [🎼 Music plugin](/source/plugins/music/README.md)
 * [💉 Nightscout](/source/plugins/nightscout/README.md)

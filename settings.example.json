@@ -43,6 +43,9 @@
     "languages":{
       "enabled": false,            "//": "Display most used languages metrics"
     },
+    "licenses":{
+      "enabled": false,            "//": "Display licenses informations"
+    },
     "lines":{
       "enabled": false,            "//": "Display lines of code metrics"
     },
