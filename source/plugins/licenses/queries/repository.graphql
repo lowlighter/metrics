@@ -1,0 +1,14 @@
+query LicensesRepository {
+  $account(login: "$owner") {
+    repository(name: "$name") {
+      licenseInfo {
+        spdxId
+        name
+        nickname
+        key
+      }
+      url
+      databaseId
+    }
+  }
+}
