@@ -2,7 +2,7 @@
   export default function({faker, query, login = faker.internet.userName()}) {
     console.debug("metrics/compute/mocks > mocking graphql api result > licenses/default")
     return ({
-      user:[
+      licenses:[
         {
           spdxId:"AGPL-3.0",
           name:"GNU Affero General Public License v3.0",
