@@ -8,6 +8,6 @@
     plugin_licenses_setup: npm ci
     plugin_licenses_ratio: yes
     plugin_licenses_legal: yes
-  timeout: 1200000
+  timeout: 1800000
   modes:
     - action
