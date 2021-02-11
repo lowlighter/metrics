@@ -85,11 +85,11 @@
   for (const name in metadata.plugins) {
     const cases = yaml
       .load(fs.readFileSync(path.join(__dirname, "../source/plugins", name, "tests.yml"), "utf8"))
-      .map(({name:test, with:inputs, modes = []}) => {
+      .map(({name:test, with:inputs, modes = [], timeout}) => {
         const skip = new Set(Object.entries(metadata.templates).filter(([_, {readme:{compatibility}}]) => !compatibility[name]).map(([template]) => template))
         if (!(metadata.plugins[name].supports.includes("repository")))
           skip.add("repository")
-        return [test, inputs, {skip:[...skip], modes}]
+        return [test, inputs, {skip:[...skip], modes, timeout}]
       })
     tests.push(...cases)
   }
@@ -101,11 +101,11 @@
       ["terminal", {}],
       ["repository", {repo:"metrics"}],
     ])("Template : %s", (template, query) => {
-      for (const [name, input, {skip = [], modes = []} = {}] of tests)
+      for (const [name, input, {skip = [], modes = []} = {}, timeout] of tests)
         if ((skip.includes(template))||((modes.length)&&(!modes.includes("action"))))
           test.skip(name, () => null)
         else
-          test(name, async () => expect(await action.run({template, base:"", query:JSON.stringify(query), plugins_errors_fatal:true, dryrun:true, use_mocked_data:true, verify:true, ...input})).toBe(true))
+          test(name, async () => expect(await action.run({template, base:"", query:JSON.stringify(query), plugins_errors_fatal:true, dryrun:true, use_mocked_data:true, verify:true, ...input})).toBe(true), timeout)
     })
   )
 
@@ -115,11 +115,11 @@
       ["terminal", {}],
       ["repository", {repo:"metrics"}],
     ])("Template : %s", (template, query) => {
-      for (const [name, input, {skip = [], modes = []} = {}] of tests)
+      for (const [name, input, {skip = [], modes = []} = {}, timeout] of tests)
         if ((skip.includes(template))||((modes.length)&&(!modes.includes("web"))))
           test.skip(name, () => null)
         else
-          test(name, async () => expect(await web.run({template, base:0, ...query, plugins_errors_fatal:true, verify:true, ...input})).toBe(true))
+          test(name, async () => expect(await web.run({template, base:0, ...query, plugins_errors_fatal:true, verify:true, ...input})).toBe(true), timeout)
     })
   )
 
@@ -128,10 +128,10 @@
       ["classic", {}],
       ["terminal", {}],
     ])("Template : %s", (template, query) => {
-      for (const [name, input, {skip = [], modes = []} = {}] of tests)
+      for (const [name, input, {skip = [], modes = []} = {}, timeout] of tests)
         if ((skip.includes(template))||((modes.length)&&(!modes.includes("placeholder"))))
           test.skip(name, () => null)
         else
-          test(name, async () => expect(await placeholder.run({template, base:0, ...query, ...input})).toBe(true))
+          test(name, async () => expect(await placeholder.run({template, base:0, ...query, ...input})).toBe(true), timeout)
     })
   )
