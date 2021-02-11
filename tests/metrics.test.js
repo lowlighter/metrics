@@ -101,7 +101,7 @@
       ["terminal", {}],
       ["repository", {repo:"metrics"}],
     ])("Template : %s", (template, query) => {
-      for (const [name, input, {skip = [], modes = []} = {}, timeout] of tests)
+      for (const [name, input, {skip = [], modes = [], timeout} = {}] of tests)
         if ((skip.includes(template))||((modes.length)&&(!modes.includes("action"))))
           test.skip(name, () => null)
         else
@@ -115,7 +115,7 @@
       ["terminal", {}],
       ["repository", {repo:"metrics"}],
     ])("Template : %s", (template, query) => {
-      for (const [name, input, {skip = [], modes = []} = {}, timeout] of tests)
+      for (const [name, input, {skip = [], modes = [], timeout} = {}] of tests)
         if ((skip.includes(template))||((modes.length)&&(!modes.includes("web"))))
           test.skip(name, () => null)
         else
@@ -128,7 +128,7 @@
       ["classic", {}],
       ["terminal", {}],
     ])("Template : %s", (template, query) => {
-      for (const [name, input, {skip = [], modes = []} = {}, timeout] of tests)
+      for (const [name, input, {skip = [], modes = [], timeout} = {}] of tests)
         if ((skip.includes(template))||((modes.length)&&(!modes.includes("placeholder"))))
           test.skip(name, () => null)
         else
