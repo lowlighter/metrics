@@ -8,7 +8,7 @@ The *licenses* plugin lets you display license informations like permissions, li
 <table>
   <td align="center">
     <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.licenses.svg">
-    <details open><summary>With licenses ratio</summary>
+    <details><summary>With licenses ratio</summary>
       <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.licenses.ratio.svg">
     </details>
     <img width="900" height="1" alt="">
