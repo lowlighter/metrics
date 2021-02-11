@@ -1,12 +1,3 @@
-- name: Licenses plugin (default)
-  uses: lowlighter/metrics@latest
-  with:
-    token: MOCKED_TOKEN
-    template: repository
-    query: '{"repo":"metrics"}'
-    plugin_licenses: yes
-    plugin_licenses_setup: npm list --json --long
-
 - name: Licenses plugin (complete)
   uses: lowlighter/metrics@latest
   with:
@@ -17,3 +8,6 @@
     plugin_licenses_setup: npm ci
     plugin_licenses_ratio: yes
     plugin_licenses_legal: yes
+  modes:
+    - action
+  timeout: 600000
