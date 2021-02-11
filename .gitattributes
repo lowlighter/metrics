@@ -1,2 +1,7 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Linguist
+source/app/web/statics/style.vars.css linguist-vendored
+.github/* -linguist-detectable
+source/templates/* -linguist-detectable
