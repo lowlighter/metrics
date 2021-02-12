@@ -49,7 +49,7 @@
       .addConfig("user.name", "GitHub Action")
       .addConfig("user.email", "<>")
       .add([...staged])
-      .commit("Auto regenerate files - [Skip GitHub Action]")
+      .commit("Auto-regenerate files")
       .push("origin", "master")
     console.log(gitted)
   }
