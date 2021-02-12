@@ -95,7 +95,7 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
     </td>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.licenses.svg">
-      <details open><summary>With licenses ratio</summary>
+      <details><summary>With licenses ratio</summary>
         <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.licenses.ratio.svg">
       </details>
       <img width="900" height="1" alt="">
@@ -779,5 +779,5 @@ Be sure to read [CONTRIBUTING.md](CONTRIBUTING.md) for more information about th
 MIT License
 Copyright (c) 2020 lowlighter
 ```
-![License details](https://github.com/lowlighter/lowlighter/blob/master/metrics.licenses.svg)
+
 
