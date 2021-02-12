@@ -106,6 +106,8 @@
       child.stderr.on("data", data => stderr += data)
       child.on("close", code => {
         console.debug(`metrics/command > ${command} > exited with code ${code}`)
+        console.debug(stdout)
+        console.debug(stderr)
         return code === 0 ? solve(stdout) : reject(stderr)
       })
     })

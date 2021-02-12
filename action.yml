@@ -331,6 +331,31 @@ inputs:
     default: 0%
   
   # ====================================================================================
+  # 📜 Licenses
+  
+  # Enable or disable plugin
+  plugin_licenses:
+    description: Display licenses informations
+    default: no
+  
+  # Command to use to setup target repository
+  # It is required to install all dependencies that will be analyzed with github/licensed
+  plugin_licenses_setup:
+    description: Command to setup target repository
+    default: ""
+  
+  # Display used licenses from both repository license and dependencies licenses ratio
+  plugin_licenses_ratio:
+    description: Display used licenses ratio
+    default: no
+  
+  # Display permissions, limitations and conditions from both repository license and dependencies licenses
+  # Note that this is NOT legal advice, use at your own risk
+  plugin_licenses_legal:
+    description: Display legal informations about used licenses
+    default: yes
+  
+  # ====================================================================================
   # 👨‍💻 Lines of code changed
   
   # Enable or disable plugin

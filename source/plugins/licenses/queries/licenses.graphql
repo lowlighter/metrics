@@ -1,0 +1,20 @@
+query LicensesDefault {
+  licenses {
+    spdxId
+    name
+    nickname
+    key
+    limitations {
+      key
+      label
+    }
+    conditions {
+      key
+      label
+    }
+    permissions {
+      key
+      label
+    }
+  }
+}
