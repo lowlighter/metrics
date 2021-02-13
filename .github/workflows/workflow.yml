@@ -25,6 +25,8 @@ jobs:
           node-version: 15
       - name: Setup metrics
         run: npm ci
+      - name: Check contributions requirements
+        run: npm test -- ci.test.js
       - name: Run linter
         run: npm run linter
 
@@ -39,7 +41,7 @@ jobs:
       - name: Build lowlighter/metrics:${{ github.head_ref || 'master' }}
         run: docker build -t lowlighter/metrics:${{ github.head_ref || 'master' }} .
       - name: Run tests
-        run: docker run --workdir=/metrics --entrypoint="" lowlighter/metrics:${{ github.head_ref || 'master' }} npm test
+        run: docker run --workdir=/metrics --entrypoint="" lowlighter/metrics:${{ github.head_ref || 'master' }} npm test -- metrics.test.js
 
   # Run CodeQL on branch
   analyze:
