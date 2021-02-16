@@ -25,7 +25,7 @@
               let project = null
               for (const account of ["user", "organization"]) {
                 try {
-                  project = (await graphql(queries.projects.repository({user, repository, id, account})))[account].repository.project
+                  ({project} = (await graphql(queries.projects.repository({user, repository, id, account})))[account].repository)
                 }
                 catch (error) {
                   console.error(error)
