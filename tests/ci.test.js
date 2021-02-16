@@ -2,6 +2,13 @@
   const path = require("path")
   const git = require("simple-git")(path.join(__dirname, ".."))
 
+//Setup
+  beforeAll(async done => {
+    //Fetch master
+      await git.fetch(["origin", "master"])
+    done()
+  })
+
 //Check generated files editions
   const diff = async () => (await git.diff("origin/master...", ["--name-status"])).split("\n").map(x => x.trim()).filter(x => /^M\s+/.test(x)).map(x => x.replace(/^M\s+/, ""))
   describe('Auto-generated files were not modified (use "git checkout @ -- file" if needed)', () => void test.each([
