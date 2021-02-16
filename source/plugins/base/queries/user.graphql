@@ -3,6 +3,7 @@ query BaseUser {
     databaseId
     name
     login
+    location
     createdAt
     avatarUrl
     websiteUrl

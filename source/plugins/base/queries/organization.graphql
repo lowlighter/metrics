@@ -3,6 +3,7 @@ query BaseOrganization {
     databaseId
     name
     login
+    location
     createdAt
     avatarUrl
     websiteUrl

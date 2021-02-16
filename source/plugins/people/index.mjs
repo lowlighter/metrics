@@ -9,9 +9,9 @@
         //Context
           let context = {
             mode:"user",
-            types:account === "organization" ? ["sponsorshipsAsMaintainer", "sponsorshipsAsSponsor", "thanks"] : ["followers", "following", "sponsorshipsAsMaintainer", "sponsorshipsAsSponsor", "thanks"],
+            types:account === "organization" ? ["sponsorshipsAsMaintainer", "sponsorshipsAsSponsor", "membersWithRole", "thanks"] : ["followers", "following", "sponsorshipsAsMaintainer", "sponsorshipsAsSponsor", "thanks"],
             default:"followers, following",
-            alias:{followed:"following", sponsors:"sponsorshipsAsMaintainer", sponsored:"sponsorshipsAsSponsor", sponsoring:"sponsorshipsAsSponsor"},
+            alias:{followed:"following", sponsors:"sponsorshipsAsMaintainer", sponsored:"sponsorshipsAsSponsor", sponsoring:"sponsorshipsAsSponsor", members:"membersWithRole"},
             sponsorships:{sponsorshipsAsMaintainer:"sponsorEntity", sponsorshipsAsSponsor:"sponsorable"},
           }
           if (q.repo) {
@@ -21,7 +21,7 @@
           }
 
         //Load inputs
-          let {limit, types, size, identicons, thanks} = imports.metadata.plugins.people.inputs({data, account, q}, {types:context.default})
+          let {limit, types, size, identicons, thanks, shuffle} = imports.metadata.plugins.people.inputs({data, account, q}, {types:context.default})
         //Filter types
           types = [...new Set([...types].map(type => (context.alias[type] ?? type)).filter(type => context.types.includes(type)) ?? [])]
 
@@ -50,13 +50,18 @@
                     const {[type]:{edges}} = (
                       type in context.sponsorships ? (await graphql(queries.people.sponsors({login:context.owner ?? login, type, size, after:cursor ? `after: "${cursor}"` : "", target:context.sponsorships[type], account})))[account] :
                       context.mode === "repository" ? (await graphql(queries.people.repository({login:context.owner, repository:context.repo, type, size, after:cursor ? `after: "${cursor}"` : "", account})))[account].repository :
-                      (await graphql(queries.people({login, type, size, after:cursor ? `after: "${cursor}"` : ""}))).user
+                      (await graphql(queries.people({login, type, size, after:cursor ? `after: "${cursor}"` : "", account})))[account]
                     )
                     cursor = edges?.[edges?.length-1]?.cursor
                     result[type].push(...edges.map(({node}) => node[context.sponsorships[type]] ?? node))
                     pushed = edges.length
-                  } while ((pushed)&&(cursor)&&(result[type].length <= limit))
+                  } while ((pushed)&&(cursor)&&((limit === 0)||(result[type].length <= (shuffle ? 10*limit : limit))))
                 }
+            //Shuffle
+              if (shuffle) {
+                console.debug(`metrics/compute/${login}/plugins > people > shuffling`)
+                imports.shuffle(result[type])
+              }
             //Limit people
               if (limit > 0) {
                 console.debug(`metrics/compute/${login}/plugins > people > keeping only ${limit} ${type}`)

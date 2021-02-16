@@ -22,7 +22,17 @@
             //Querying repository project
               console.debug(`metrics/compute/${login}/plugins > projects > querying api for ${identifier}`)
               const {user, repository, id} = identifier.match(/(?<user>[-\w]+)[/](?<repository>[-\w]+)[/]projects[/](?<id>\d+)/)?.groups ?? {}
-              const {[account]:{repository:{project}}} = await graphql(queries.projects.repository({user, repository, id, account}))
+              let project = null
+              for (const account of ["user", "organization"]) {
+                try {
+                  ({project} = (await graphql(queries.projects.repository({user, repository, id, account})))[account].repository)
+                }
+                catch (error) {
+                  console.error(error)
+                }
+              }
+              if (!project)
+                throw new Error(`Could not load project ${user}/${repository}`)
             //Adding it to projects list
               console.debug(`metrics/compute/${login}/plugins > projects > registering ${identifier}`)
               project.name = `${project.name} (${user}/${repository})`

@@ -31,6 +31,8 @@ The following types are supported:
 | `stargazers`    |                                      | ❌                 | ✔️                |
 | `watchers`      |                                      | ❌                 | ✔️                |
 | `thanks`        |                                      | ✔️                 | ✔️                |
+| `members`       |                                      | ✔️ (organization)  | ❌                |
+
 
 Sections will be ordered the same as specified in `plugin_people_types`.
 `sponsors` for repositories will output the same as the owner's sponsors.
@@ -49,4 +51,5 @@ Sections will be ordered the same as specified in `plugin_people_types`.
     plugin_people_size: 28                     # Size in pixels of displayed avatars
     plugin_people_identicons: no               # Use avatars (do not use identicons)
     plugin_people_thanks: lowlighter, octocat  # Users that will be displayed in "thanks" sections
+    plugin_people_shuffle: yes                 # Shuffle for varied output
 ```

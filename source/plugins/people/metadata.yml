@@ -41,6 +41,7 @@ inputs:
       - following    # For user metrics
       - followed     # For user metrics, alias for "following"
       - sponsoring   # For user metrics
+      - members      # For organization metrics
       - sponsored    # Alias for "sponsored"
       - sponsors     # For both user and repository metrics
       - contributors # For repository metrics
@@ -59,5 +60,12 @@ inputs:
   # Use GitHub identicons instead of users' avatar (for privacy purposes)
   plugin_people_identicons:
     description: Use identicons instead of avatars
+    type: boolean
+    default: no
+
+  # Shuffle users for varied outputs
+  # If "plugin_people_limit" is set, plugin will fetch up to 10 ten times limit to ensure output is different each time
+  plugin_people_shuffle:
+    description: Shuffle users
     type: boolean
     default: no
