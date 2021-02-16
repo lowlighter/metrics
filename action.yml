@@ -518,6 +518,12 @@ inputs:
     description: Use identicons instead of avatars
     default: no
   
+  # Shuffle users for varied outputs
+  # If "plugin_people_limit" is set, plugin will fetch up to 10 ten times limit to ensure output is different each time
+  plugin_people_shuffle:
+    description: Shuffle users
+    default: no
+  
   # ====================================================================================
   # ✒️ Recent posts
   
