@@ -1,5 +1,5 @@
 //Setup
-  export default async function({login, q, imports, data, computed, rest, graphql, queries, account}, {enabled = false} = {}) {
+  export default async function({login, q, imports, data, rest, graphql, queries, account}, {enabled = false} = {}) {
     //Plugin execution
       try {
         //Check if plugin is enabled and requirements are met
@@ -20,7 +20,7 @@
         //Get commit activity
           console.debug(`metrics/compute/${login}/plugins > contributors > querying api for commits between [${ref.base?.abbreviatedOid ?? null}] and [${ref.head?.abbreviatedOid ?? null}]`)
           const commits = []
-          for (let page = 0;; page++) {
+          for (let page = 0; ; page++) {
             console.debug(`metrics/compute/${login}/plugins > contributors > loading page ${page}`)
             try {
               const {data:loaded} = await rest.repos.listCommits({...repo, per_page:100, page})
