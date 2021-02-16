@@ -1,5 +1,5 @@
 query PeopleDefault {
-  user(login: "$login") {
+  $account(login: "$login") {
     login
     $type($after first: 100) {
       edges {

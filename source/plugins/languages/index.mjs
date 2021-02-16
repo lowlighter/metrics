@@ -22,8 +22,8 @@
           const languages = {details, colors:{}, total:0, stats:{}}
           for (const repository of data.user.repositories.nodes) {
             //Skip repository if asked
-              if (skipped.includes(repository.name.toLocaleLowerCase())) {
-                console.debug(`metrics/compute/${login}/plugins > languages > skipped repository ${repository.name}`)
+              if ((skipped.includes(repository.name.toLocaleLowerCase()))||(skipped.includes(`${repository.owner.login}/${repository.name}`.toLocaleLowerCase()))) {
+                console.debug(`metrics/compute/${login}/plugins > languages > skipped repository ${repository.owner.login}/${repository.name}`)
                 continue
               }
             //Process repository languages
