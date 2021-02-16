@@ -27,7 +27,7 @@ inputs:
     type: array
     format: comma-separated
     default: ""
-    example: my-repo-1, my-repo-2, ...
+    example: my-repo-1, my-repo-2, owner/repo-3 ...
 
   # Overrides default languages colors
   # Use `${n}:${color}` to change the color of the n-th most used language (e.g. "0:red" to make your most used language red)
