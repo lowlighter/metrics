@@ -27,7 +27,7 @@
         Plugins[name] = await metadata.plugin({__plugins, name, logger})
       }
     //Reorder keys
-      const {base, core, ...plugins} = Plugins
+      const {base, core, ...plugins} = Plugins //eslint-disable-line no-unused-vars
       Plugins = Object.fromEntries(Object.entries(Plugins).sort(([_an, a], [_bn, b]) => categories.indexOf(a.categorie) - categories.indexOf(b.categorie)))
 
     //Load templates metadata
