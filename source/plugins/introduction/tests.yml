@@ -1,0 +1,12 @@
+- name: Introduction plugin (default)
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    plugin_introduction: yes
+
+- name: Introduction plugin (complete)
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    plugin_introduction: yes
+    plugin_introduction_title: no
