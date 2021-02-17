@@ -175,6 +175,14 @@
                     comments:faker.random.number(1000)
                   }
                 }) : null),
+              //Introduction
+                ...(set.plugins.enabled.introduction ? ({
+                  introduction:{
+                    mode:"user",
+                    title:options["introduction.title"],
+                    text:faker.lorem.sentences(),
+                  }
+                }) : null),
               //Languages
                 ...(set.plugins.enabled.languages ? ({
                   languages:{

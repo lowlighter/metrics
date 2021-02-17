@@ -1,0 +1,5 @@
+query IntroductionRepository {
+  repository(name: "$repo", owner: "$owner") {
+    description
+  }
+}

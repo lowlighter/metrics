@@ -1,0 +1,20 @@
+name: "🙋 Introduction"
+cost: 1 GraphQL request
+categorie: github
+supports:
+  - user
+  - organization
+  - repository
+inputs:
+
+  # Enable or disable plugin
+  plugin_introduction:
+    description: Display account or repository introduction
+    type: boolean
+    default: no
+
+  # Display introduction section title
+  plugin_introduction_title:
+    description: Display introduction section title
+    type: boolean
+    default: yes

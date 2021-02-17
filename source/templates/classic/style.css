@@ -707,6 +707,12 @@
     right: 100%;
   }
 
+/* Introduction */
+  .introduction {
+    white-space: normal;
+    margin: 0 13px 2px;
+  }
+
 /* Fade animation */
   .af {
     opacity: 0;
