@@ -21,7 +21,7 @@ The [nightscout website](http://www.nightscout.info/) details how to self-host a
 [➡️ Available options for this plugin](metadata.yml)
 
 ```yaml
-- uses: lowlighter/metrics@master
+- uses: lowlighter/metrics@latest
   with:
     # ... other options
     plugin_nightscout: yes

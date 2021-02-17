@@ -1,15 +1,10 @@
 name: "🧩 <%= `${name.charAt(0).toLocaleUpperCase()}${name.substring(1)}` %>"
-
-# Estimate of how many GitHub requests will be used
-cost: N/A
-
-# Supported modes
+cost: Estimates how many GitHub requests is used during plugin execution ("N/A" for Third-Party services)
+categorie: other  # Set plugin categorie ("github", "social", "health" or "other")
 supports:
-  - user
-  - organization
-  - repository
-
-# Inputs list
+  - user          # Support users account
+  - organization  # Support organizations account
+  - repository    # Support repositories metrics
 inputs:
 
   # Enable or disable plugin

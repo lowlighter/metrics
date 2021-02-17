@@ -28,7 +28,7 @@ Then setup [WakaTime plugins](https://wakatime.com/plugins) to be ready to go!
 - uses: lowlighter/metrics@latest
   with:
     # ... other options
-    plugin_wakatime: yes                                      # (🚧 @master feature)
+    plugin_wakatime: yes
     plugin_wakatime_token: ${{ secrets.WAKATIME_TOKEN }}      # Required
     plugin_wakatime_days: 7                                   # Display last week stats
     plugin_wakatime_sections: time, projects, projects-graphs # Display time and projects sections, along with projects graphs
