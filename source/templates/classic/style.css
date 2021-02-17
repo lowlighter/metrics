@@ -686,6 +686,27 @@
     fill: #58a6ff;
   }
 
+/* Contributors */
+  .contributors {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 6px;
+  }
+  .contributors .label {
+    padding-left: 0;
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  .contributors .label img {
+    margin-left: 0;
+  }
+  .contributors .contributions {
+    position: absolute;
+    bottom: 100%;
+    right: 100%;
+  }
+
 /* Fade animation */
   .af {
     opacity: 0;

@@ -11,13 +11,20 @@
       },
       data:page < 2 ? new Array(per_page).fill(null).map(() => ({
           sha:"MOCKED_SHA",
+          get author() {
+            return this.commit.author
+          },
           commit:{
             author:{
               name:owner,
+              login:faker.internet.userName(),
+              avatar_url:null,
               date:`${faker.date.recent(14)}`,
             },
             committer:{
               name:owner,
+              login:faker.internet.userName(),
+              avatar_url:null,
               date:`${faker.date.recent(14)}`,
             },
           },
