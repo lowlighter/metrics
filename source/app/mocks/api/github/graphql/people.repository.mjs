@@ -1,6 +1,6 @@
 /**Mocked data */
   export default function({faker, query, login = faker.internet.userName()}) {
-    console.debug("metrics/compute/mocks > mocking graphql api result > People")
+    console.debug("metrics/compute/mocks > mocking graphql api result > people/repository")
     const type = query.match(/(?<type>stargazers|watchers)[(]/)?.groups?.type ?? "(unknown type)"
     return /after: "MOCKED_CURSOR"/m.test(query) ? ({
       user:{

@@ -1,4 +1,4 @@
-//
+//Imports
   import listEventsForAuthenticatedUser from "./listEventsForAuthenticatedUser.mjs"
 
 /**Mocked data */
