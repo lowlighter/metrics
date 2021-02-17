@@ -12,6 +12,7 @@ See their respective documentation for more informations about how to setup them
   * [🎟️ Follow-up of issues and pull requests](/source/plugins/followup/README.md)
   * [🎫 Gists](/source/plugins/gists/README.md)
   * [💡 Coding habits](/source/plugins/habits/README.md)
+  * [🙋 Introduction](/source/plugins/introduction/README.md)
   * [📅 Isometric commit calendar](/source/plugins/isocalendar/README.md)
   * [🈷️ Most used languages](/source/plugins/languages/README.md)
   * [📜 Licenses](/source/plugins/licenses/README.md)

@@ -258,6 +258,19 @@ inputs:
     default: no
   
   # ====================================================================================
+  # 🙋 Introduction
+  
+  # Enable or disable plugin
+  plugin_introduction:
+    description: Display account or repository introduction
+    default: no
+  
+  # Display introduction section title
+  plugin_introduction_title:
+    description: Display introduction section title
+    default: yes
+  
+  # ====================================================================================
   # 📅 Isometric commit calendar
   
   # Enable or disable plugin
