@@ -8,7 +8,7 @@
             abbreviatedOid:"MOCKED_SHA",
             messageHeadline:faker.lorem.sentence(),
             committedDate:faker.date.recent(),
-        }
-      }
+        },
+      },
     })
   }
