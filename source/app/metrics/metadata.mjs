@@ -205,7 +205,7 @@
               (() => {
                 switch (type) {
                   case "boolean":
-                    return {text, type:"boolean"}
+                    return {text, type:"boolean", defaulted:/^(?:[Tt]rue|[Oo]n|[Yy]es|1)$/.test(defaulted) ? true : /^(?:[Ff]alse|[Oo]ff|[Nn]o|0)$/.test(defaulted) ? false : defaulted}
                   case "number":
                     return {text, type:"number", min, max, defaulted}
                   case "array":
