@@ -53,7 +53,7 @@
             if (!login)
               continue
             if (!(login in contributors))
-              contributors[login] = {avatar:await imports.imgb64(avatar), contributions:0}
+              contributors[login] = {avatar:avatar ? await imports.imgb64(avatar) : "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==", contributions:0}
             else
               contributors[login].contributions++
           }
