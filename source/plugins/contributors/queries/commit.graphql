@@ -1,4 +1,4 @@
-query Contributors {
+query ContributorsCommit {
   repository(owner: "$owner" name: "$repo") {
     object(expression: "$expression") {
       ... on Commit {
