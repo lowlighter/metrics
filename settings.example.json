@@ -25,9 +25,6 @@
     "activity":{
       "enabled": false,            "//": "Display recent activity"
     },
-    "anilist":{
-      "enabled": false,            "//": "Display data from your AniList account"
-    },
     "contributors":{
       "enabled": false,            "//": "Display repository contributors"
     },
@@ -52,22 +49,8 @@
     "lines":{
       "enabled": false,            "//": "Display lines of code metrics"
     },
-    "music":{
-      "token": null,               "//":"Music provider personal token",
-      "enabled": false,            "//": "Display your music tracks"
-    },
-    "nightscout":{
-      "enabled": false,            "//": "Displays Blood Glucose"
-    },
-    "pagespeed":{
-      "token": null,               "//":"PageSpeed token",
-      "enabled": false,            "//": "Display a website Google PageSpeed metrics"
-    },
     "people":{
       "enabled": false,            "//": "Display GitHub users from various affiliations"
-    },
-    "posts":{
-      "enabled": false,            "//": "Display recent posts"
     },
     "projects":{
       "enabled": false,            "//": "Display active projects"
@@ -84,6 +67,20 @@
     "traffic":{
       "enabled": false,            "//": "Display repositories traffic metrics"
     },
+    "anilist":{
+      "enabled": false,            "//": "Display data from your AniList account"
+    },
+    "music":{
+      "token": null,               "//":"Music provider personal token",
+      "enabled": false,            "//": "Display your music tracks"
+    },
+    "pagespeed":{
+      "token": null,               "//":"PageSpeed token",
+      "enabled": false,            "//": "Display a website Google PageSpeed metrics"
+    },
+    "posts":{
+      "enabled": false,            "//": "Display recent posts"
+    },
     "tweets":{
       "token": null,               "//":"Twitter API token",
       "enabled": false,            "//": "Display recent tweets"
@@ -91,6 +88,9 @@
     "wakatime":{
       "token": null,               "//":"WakaTime API token",
       "enabled": false,            "//": "Display WakaTime stats"
+    },
+    "nightscout":{
+      "enabled": false,            "//": "Displays Blood Glucose"
     },
     "//": ""
   }

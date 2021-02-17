@@ -193,47 +193,6 @@ inputs:
     default: no
   
   # ====================================================================================
-  # 🌸 Anilist
-  
-  # Enable or disable plugin
-  plugin_anilist:
-    description: Display data from your AniList account
-    default: no
-  
-  # Types of medias to display
-  plugin_anilist_medias:
-    description: Medias types to display
-    default: anime, manga
-  
-  # Sections to display
-  # Values from "plugin_anilist_medias" may impact displayed sections
-  plugin_anilist_sections:
-    description: Sections to display
-    default: favorites
-  
-  # Number of entries to display per section (this does not impacts characters section)
-  # Set to 0 to disable limitations
-  plugin_anilist_limit:
-    description: Maximum number of entries to display per section
-    default: 2
-  
-  # Number of entries to display in characters section
-  # Set to 0 to disable limitations
-  plugin_anilist_limit_characters:
-    description: Maximum number of entries to display in characters section
-    default: 22
-  
-  # Shuffle AniList data for varied outputs
-  plugin_anilist_shuffle:
-    description: Shuffle AniList data
-    default: yes
-  
-  # Username on AniList
-  plugin_anilist_user:
-    description: AniList login
-    default: .user.login
-  
-  # ====================================================================================
   # 🏅 Contributors
   
   # Enable or disable plugin
@@ -382,126 +341,6 @@ inputs:
     default: no
   
   # ====================================================================================
-  # 🎼 Music plugin
-  
-  # Enable or disable plugin
-  plugin_music:
-    description: Display your music tracks
-    default: no
-  
-  # Name of music provider
-  # This is optional for "playlist" mode (it can be deduced automatically from "plugin_music_playlist" url)
-  # This is required in other modes
-  plugin_music_provider:
-    description: Music provider
-    default: ""
-  
-  # Music provider token
-  # This may be required depending on music provider used and plugin mode
-  # - "apple"   : not required
-  # - "spotify" : required for "recent" mode, format is "client_id, client_secret, refresh_token"
-  # - "lastfm"  : required, format is "api_key"
-  plugin_music_token:
-    description: Music provider personal token
-    default: ""
-  
-  # Plugin mode
-  plugin_music_mode:
-    description: Plugin mode
-    default: ""
-  
-  # Embed playlist url (i.e. url used by music player iframes)
-  plugin_music_playlist:
-    description: Embed playlist url
-    default: ""
-  
-  # Number of music tracks to display
-  plugin_music_limit:
-    description: Maximum number of tracks to display
-    default: 4
-  
-  # Display when track was last played
-  plugin_music_played_at:
-    description: Display when the track was played
-    default: no
-  
-  # Username on music provider service
-  plugin_music_user:
-    description: Music provider username
-    default: .user.login
-  
-  # ====================================================================================
-  # 💉 Nightscout
-  
-  # Enable or disable plugin
-  plugin_nightscout:
-    description: Displays Blood Glucose
-    default: no
-  
-  # Nightscout site URL
-  plugin_nightscout_url:
-    description: Your Nightscout site URL
-    default: https://example.herokuapp.com
-  
-  # Controls how big the graph is
-  plugin_nightscout_datapoints:
-    description: How many datapoints to show on the graph. 0 and 1 disable the graph.
-    default: 12
-  
-  # Low value used for colors and text alerts
-  plugin_nightscout_lowalert:
-    description: When the blood sugar is considered low
-    default: 80
-  
-  # High value used for colors and text alerts
-  plugin_nightscout_highalert:
-    description: When the blood sugar is considered high
-    default: 180
-  
-  # Urgent low value used for colors and text alerts
-  plugin_nightscout_urgentlowalert:
-    description: When the blood sugar is considered urgently low
-    default: 50
-  
-  # Urgent high value used for colors and text alerts
-  plugin_nightscout_urgenthighalert:
-    description: When the blood sugar is considered urgently high
-    default: 250
-  
-  # ====================================================================================
-  # ⏱️ Website performances
-  
-  # Enable or disable plugin
-  plugin_pagespeed:
-    description: Display a website Google PageSpeed metrics
-    default: no
-  
-  # Website to audit with PageSpeed
-  plugin_pagespeed_url:
-    description: Audited website
-    default: .user.website
-  
-  # Display the following additional metrics from audited website:
-  # First Contentful Paint, Speed Index, Largest Contentful Paint, Time to Interactive, Total Blocking Time, Cumulative Layout Shift
-  # See https://web.dev/performance-scoring/ and https://googlechrome.github.io/lighthouse/scorecalc/ for more informations
-  plugin_pagespeed_detailed:
-    description: Detailed audit result
-    default: no
-  
-  # Display a screenshot of audited website
-  # May increases significantly filesize
-  plugin_pagespeed_screenshot:
-    description: Display a screenshot of your website
-    default: no
-  
-  # PageSpeed API token
-  # This is optional, but providing it will avoid hitting rate-limiter
-  # See https://developers.google.com/speed/docs/insights/v5/get-started for more informations
-  plugin_pagespeed_token:
-    description: PageSpeed token
-    default: ""
-  
-  # ====================================================================================
   # 🧑‍🤝‍🧑 People plugin
   
   # Enable or disable plugin
@@ -541,29 +380,6 @@ inputs:
   plugin_people_shuffle:
     description: Shuffle users
     default: no
-  
-  # ====================================================================================
-  # ✒️ Recent posts
-  
-  # Enable or disable plugin
-  plugin_posts:
-    description: Display recent posts
-    default: no
-  
-  # Posts external source
-  plugin_posts_source:
-    description: Posts external source
-    default: ""
-  
-  # Number of posts to display
-  plugin_posts_limit:
-    description: Maximum number of posts to display
-    default: 4
-  
-  # Username on external posts source
-  plugin_posts_user:
-    description: Posts external source username
-    default: .user.login
   
   # ====================================================================================
   # 🗂️ Projects
@@ -646,6 +462,152 @@ inputs:
     default: no
   
   # ====================================================================================
+  # 🌸 Anilist
+  
+  # Enable or disable plugin
+  plugin_anilist:
+    description: Display data from your AniList account
+    default: no
+  
+  # Types of medias to display
+  plugin_anilist_medias:
+    description: Medias types to display
+    default: anime, manga
+  
+  # Sections to display
+  # Values from "plugin_anilist_medias" may impact displayed sections
+  plugin_anilist_sections:
+    description: Sections to display
+    default: favorites
+  
+  # Number of entries to display per section (this does not impacts characters section)
+  # Set to 0 to disable limitations
+  plugin_anilist_limit:
+    description: Maximum number of entries to display per section
+    default: 2
+  
+  # Number of entries to display in characters section
+  # Set to 0 to disable limitations
+  plugin_anilist_limit_characters:
+    description: Maximum number of entries to display in characters section
+    default: 22
+  
+  # Shuffle AniList data for varied outputs
+  plugin_anilist_shuffle:
+    description: Shuffle AniList data
+    default: yes
+  
+  # Username on AniList
+  plugin_anilist_user:
+    description: AniList login
+    default: .user.login
+  
+  # ====================================================================================
+  # 🎼 Music plugin
+  
+  # Enable or disable plugin
+  plugin_music:
+    description: Display your music tracks
+    default: no
+  
+  # Name of music provider
+  # This is optional for "playlist" mode (it can be deduced automatically from "plugin_music_playlist" url)
+  # This is required in other modes
+  plugin_music_provider:
+    description: Music provider
+    default: ""
+  
+  # Music provider token
+  # This may be required depending on music provider used and plugin mode
+  # - "apple"   : not required
+  # - "spotify" : required for "recent" mode, format is "client_id, client_secret, refresh_token"
+  # - "lastfm"  : required, format is "api_key"
+  plugin_music_token:
+    description: Music provider personal token
+    default: ""
+  
+  # Plugin mode
+  plugin_music_mode:
+    description: Plugin mode
+    default: ""
+  
+  # Embed playlist url (i.e. url used by music player iframes)
+  plugin_music_playlist:
+    description: Embed playlist url
+    default: ""
+  
+  # Number of music tracks to display
+  plugin_music_limit:
+    description: Maximum number of tracks to display
+    default: 4
+  
+  # Display when track was last played
+  plugin_music_played_at:
+    description: Display when the track was played
+    default: no
+  
+  # Username on music provider service
+  plugin_music_user:
+    description: Music provider username
+    default: .user.login
+  
+  # ====================================================================================
+  # ⏱️ Website performances
+  
+  # Enable or disable plugin
+  plugin_pagespeed:
+    description: Display a website Google PageSpeed metrics
+    default: no
+  
+  # Website to audit with PageSpeed
+  plugin_pagespeed_url:
+    description: Audited website
+    default: .user.website
+  
+  # Display the following additional metrics from audited website:
+  # First Contentful Paint, Speed Index, Largest Contentful Paint, Time to Interactive, Total Blocking Time, Cumulative Layout Shift
+  # See https://web.dev/performance-scoring/ and https://googlechrome.github.io/lighthouse/scorecalc/ for more informations
+  plugin_pagespeed_detailed:
+    description: Detailed audit result
+    default: no
+  
+  # Display a screenshot of audited website
+  # May increases significantly filesize
+  plugin_pagespeed_screenshot:
+    description: Display a screenshot of your website
+    default: no
+  
+  # PageSpeed API token
+  # This is optional, but providing it will avoid hitting rate-limiter
+  # See https://developers.google.com/speed/docs/insights/v5/get-started for more informations
+  plugin_pagespeed_token:
+    description: PageSpeed token
+    default: ""
+  
+  # ====================================================================================
+  # ✒️ Recent posts
+  
+  # Enable or disable plugin
+  plugin_posts:
+    description: Display recent posts
+    default: no
+  
+  # Posts external source
+  plugin_posts_source:
+    description: Posts external source
+    default: ""
+  
+  # Number of posts to display
+  plugin_posts_limit:
+    description: Maximum number of posts to display
+    default: 4
+  
+  # Username on external posts source
+  plugin_posts_user:
+    description: Posts external source username
+    default: .user.login
+  
+  # ====================================================================================
   # 🐤 Latest tweets
   
   # Enable or disable plugin
@@ -698,6 +660,44 @@ inputs:
   plugin_wakatime_limit:
     description: Maximum number of entries to display per graph
     default: 5
+  
+  # ====================================================================================
+  # 💉 Nightscout
+  
+  # Enable or disable plugin
+  plugin_nightscout:
+    description: Displays Blood Glucose
+    default: no
+  
+  # Nightscout site URL
+  plugin_nightscout_url:
+    description: Your Nightscout site URL
+    default: https://example.herokuapp.com
+  
+  # Controls how big the graph is
+  plugin_nightscout_datapoints:
+    description: How many datapoints to show on the graph. 0 and 1 disable the graph.
+    default: 12
+  
+  # Low value used for colors and text alerts
+  plugin_nightscout_lowalert:
+    description: When the blood sugar is considered low
+    default: 80
+  
+  # High value used for colors and text alerts
+  plugin_nightscout_highalert:
+    description: When the blood sugar is considered high
+    default: 180
+  
+  # Urgent low value used for colors and text alerts
+  plugin_nightscout_urgentlowalert:
+    description: When the blood sugar is considered urgently low
+    default: 50
+  
+  # Urgent high value used for colors and text alerts
+  plugin_nightscout_urgenthighalert:
+    description: When the blood sugar is considered urgently high
+    default: 250
   
 
 # ====================================================================================
