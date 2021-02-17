@@ -1,0 +1,5 @@
+query IntroductionOrganization {
+  organization(login: "$login") {
+    description
+  }
+}
