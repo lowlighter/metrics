@@ -234,6 +234,24 @@ inputs:
     default: .user.login
   
   # ====================================================================================
+  # 🏅 Contributors
+  
+  # Enable or disable plugin
+  plugin_contributors:
+    description: Display repository contributors
+    default: no
+  
+  # Base reference (commit, tag, branch, etc.)
+  plugin_contributors_base:
+    description: Base reference
+    default: ""
+  
+  # Head reference (commit, tag, branch, etc.)
+  plugin_contributors_head:
+    description: Head reference
+    default: master
+  
+  # ====================================================================================
   # 🎟️ Follow-up of issues and pull requests
   
   # Enable or disable plugin

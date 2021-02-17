@@ -28,6 +28,9 @@
     "anilist":{
       "enabled": false,            "//": "Display data from your AniList account"
     },
+    "contributors":{
+      "enabled": false,            "//": "Display repository contributors"
+    },
     "followup":{
       "enabled": false,            "//": "Display follow-up of repositories issues and pull requests"
     },

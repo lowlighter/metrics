@@ -7,6 +7,7 @@ See their respective documentation for more informations about how to setup them
 * [🧱 Core](/source/plugins/core/README.md)
 * [📰 Recent activity](/source/plugins/activity/README.md)
 * [🌸 Anilist](/source/plugins/anilist/README.md)
+* [🏅 Contributors](/source/plugins/contributors/README.md)
 * [🎟️ Follow-up of issues and pull requests](/source/plugins/followup/README.md)
 * [🎫 Gists](/source/plugins/gists/README.md)
 * [💡 Coding habits](/source/plugins/habits/README.md)
