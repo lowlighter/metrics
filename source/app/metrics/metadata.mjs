@@ -4,6 +4,9 @@
   import url from "url"
   import yaml from "js-yaml"
 
+//Defined categories
+  const categories = ["core", "github", "social", "health", "other"]
+
 /**Metadata descriptor parser */
   export default async function metadata({log = true} = {}) {
     //Paths
@@ -25,7 +28,7 @@
       }
     //Reorder keys
       const {base, core, ...plugins} = Plugins
-      Plugins = {base, core, ...plugins}
+      Plugins = Object.fromEntries(Object.entries(Plugins).sort(([_an, a], [_bn, b]) => categories.indexOf(a.categorie) - categories.indexOf(b.categorie)))
 
     //Load templates metadata
       let Templates = {}
@@ -52,6 +55,10 @@
       //Load meta descriptor
         const raw = `${await fs.promises.readFile(path.join(__plugins, name, "metadata.yml"), "utf-8")}`
         const {inputs, ...meta} = yaml.load(raw)
+
+      //Categorie
+        if (!categories.includes(meta.categorie))
+          meta.categorie = "other"
 
       //Inputs parser
         {
@@ -260,7 +267,7 @@
         return {
           name:raw.match(/^### (?<name>[\s\S]+?)\n/)?.groups?.name?.trim(),
           readme:{
-            demo:raw.match(/(?<demo><table>[\s\S]*?<[/]table>)/)?.groups?.demo?.replace(/<[/]?(?:table|tr)>/g, "")?.trim() ?? (name === "community" ? "<td align=\"center\">See <a href=\"/source/templates/community/README.md\">documentation</a> 🌍</td>" : "<td></td>"),
+            demo:raw.match(/(?<demo><table>[\s\S]*?<[/]table>)/)?.groups?.demo?.replace(/<[/]?(?:table|tr)>/g, "")?.trim() ?? (name === "community" ? "<td align=\"center\"><h3>See <a href=\"/source/templates/community/README.md\">documentation</a> 🌍</h3></td>" : "<td></td>"),
             compatibility:{...compatibility, base:true},
           },
         }

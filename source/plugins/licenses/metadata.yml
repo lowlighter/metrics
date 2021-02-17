@@ -1,5 +1,6 @@
 name: "📜 Licenses"
 cost: N/A
+categorie: github
 supports:
   - repository
 inputs:

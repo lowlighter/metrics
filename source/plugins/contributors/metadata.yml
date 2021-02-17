@@ -1,5 +1,6 @@
 name: "🏅 Contributors"
 cost: N/A
+categorie: github
 supports:
   - repository
 inputs:

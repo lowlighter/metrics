@@ -3,8 +3,8 @@
 <table>
   <tr>
     <th nowrap="nowrap">Template\Plugin</th><%# -%>
-    <% for (const [plugin, {icon}] of Object.entries(plugins).filter(([key, value]) => (value)&&(!["core"].includes(key)))) { %>
-    <th nowrap="nowrap" align="center"><%= icon %></th><% } %>
+    <% for (const [plugin, {name, icon}] of Object.entries(plugins).filter(([key, value]) => (value)&&(!["core"].includes(key)))) { %>
+    <th nowrap="nowrap" align="center" title="<%= name %>"><%= icon %></th><% } %>
   </tr><%# -%>
   <% for (const [template, {name, readme}] of Object.entries(templates).filter(([key, value]) => (value)&&(!["community"].includes(key)))) { %>
   <tr>
