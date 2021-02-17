@@ -24,7 +24,7 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
 <table>
   <tr>
     <th colspan="2" align="center">
-      <a href="source/plugins/README.md">🧩 22 plugins</a>
+      <a href="source/plugins/README.md">🧩 23 plugins</a>
     </th>
   </tr>
   <tr>
@@ -57,7 +57,7 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
   </tr>
   <tr>
     <th><a href="source/plugins/habits/README.md">💡 Coding habits</a></th>
-    <th><a href="source/plugins/isocalendar/README.md">📅 Isometric commit calendar</a></th>
+    <th><a href="source/plugins/introduction/README.md">🙋 Introduction</a></th>
   </tr>
   <tr>
     <td align="center">
@@ -68,18 +68,25 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
       <img width="900" height="1" alt="">
     </td>
     <td align="center">
+      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.introduction.svg">
+      <details><summary>Repository version</summary>
+        <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.introduction.repository.svg">
+      </details>
+      <img width="900" height="1" alt="">
+    </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/isocalendar/README.md">📅 Isometric commit calendar</a></th>
+    <th><a href="source/plugins/languages/README.md">🈷️ Most used languages</a></th>
+  </tr>
+  <tr>
+    <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.isocalendar.svg">
       <details><summary>Full year version</summary>
         <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.isocalendar.fullyear.svg">
       </details>
       <img width="900" height="1" alt="">
     </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/languages/README.md">🈷️ Most used languages</a></th>
-    <th><a href="source/plugins/licenses/README.md">📜 Licenses</a></th>
-  </tr>
-  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.svg">
       <details><summary>With both total bytes size and percentage version</summary>
@@ -87,6 +94,12 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
       </details>
       <img width="900" height="1" alt="">
     </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/licenses/README.md">📜 Licenses</a></th>
+    <th><a href="source/plugins/lines/README.md">👨‍💻 Lines of code changed</a></th>
+  </tr>
+  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.licenses.svg">
       <details><summary>With licenses ratio</summary>
@@ -94,16 +107,16 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
       </details>
       <img width="900" height="1" alt="">
     </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/lines/README.md">👨‍💻 Lines of code changed</a></th>
-    <th><a href="source/plugins/people/README.md">🧑‍🤝‍🧑 People plugin</a></th>
-  </tr>
-  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.lines.svg">
       <img width="900" height="1" alt="">
     </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/people/README.md">🧑‍🤝‍🧑 People plugin</a></th>
+    <th><a href="source/plugins/projects/README.md">🗂️ Projects</a></th>
+  </tr>
+  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.people.followers.svg">
       <details><summary>Followed people version</summary>
@@ -117,30 +130,30 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
       </details>
       <img width="900" height="1" alt="">
     </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/projects/README.md">🗂️ Projects</a></th>
-    <th><a href="source/plugins/stargazers/README.md">✨ Stargazers over last weeks</a></th>
-  </tr>
-  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.projects.svg">
       <img width="900" height="1" alt="">
     </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/stargazers/README.md">✨ Stargazers over last weeks</a></th>
+    <th><a href="source/plugins/stars/README.md">🌟 Recently starred repositories</a></th>
+  </tr>
+  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.stargazers.svg">
       <img width="900" height="1" alt="">
     </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/stars/README.md">🌟 Recently starred repositories</a></th>
-    <th><a href="source/plugins/topics/README.md">📌 Starred topics</a></th>
-  </tr>
-  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.stars.svg">
       <img width="900" height="1" alt="">
     </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/topics/README.md">📌 Starred topics</a></th>
+    <th><a href="source/plugins/traffic/README.md">🧮 Repositories traffic</a></th>
+  </tr>
+  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.svg">
       <details open><summary>Mastered and known technologies version</summary>
@@ -148,15 +161,15 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
       </details>
       <img width="900" height="1" alt="">
     </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/traffic/README.md">🧮 Repositories traffic</a></th>
-    <th><a href="source/plugins/anilist/README.md">🌸 Anilist</a></th>
-  </tr>
-  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.traffic.svg">
     </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/anilist/README.md">🌸 Anilist</a></th>
+    <th><a href="source/plugins/music/README.md">🎼 Music plugin</a></th>
+  </tr>
+  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.anilist.svg">
       <details><summary>Manga version</summary>
@@ -167,12 +180,6 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
       </details>
       <img width="900" height="1" alt="">
     </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/music/README.md">🎼 Music plugin</a></th>
-    <th><a href="source/plugins/pagespeed/README.md">⏱️ Website performances</a></th>
-  </tr>
-  <tr>
     <td align="center">
       <details open><summary>🎼 Favorite tracks version</summary>
         <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.music.playlist.svg">
@@ -182,6 +189,12 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
       </details>
       <img width="900" height="1" alt="">
     </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/pagespeed/README.md">⏱️ Website performances</a></th>
+    <th><a href="source/plugins/posts/README.md">✒️ Recent posts</a></th>
+  </tr>
+  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.svg">
       <details><summary>Detailed version</summary>
@@ -192,34 +205,35 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
       </details>
       <img width="900" height="1" alt="">
     </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/posts/README.md">✒️ Recent posts</a></th>
-    <th><a href="source/plugins/tweets/README.md">🐤 Latest tweets</a></th>
-  </tr>
-  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.posts.svg">
       <img width="900" height="1" alt="">
     </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/tweets/README.md">🐤 Latest tweets</a></th>
+    <th><a href="source/plugins/wakatime/README.md">⏰ WakaTime plugin</a></th>
+  </tr>
+  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.tweets.svg">
       <img width="900" height="1" alt="">
     </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/wakatime/README.md">⏰ WakaTime plugin</a></th>
-    <th><a href="source/plugins/nightscout/README.md">💉 Nightscout</a></th>
-  </tr>
-  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.wakatime.svg">
       <img width="900" height="1" alt="">
     </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/nightscout/README.md">💉 Nightscout</a></th>
+    <th><a href="source/plugins//README.md"></a></th>
+  </tr>
+  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/legoandmars/legoandmars/blob/master/metrics.plugin.nightscout.svg">
       <img width="900" height="1" alt="">
     </td>
+    <td align="center"><img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <th colspan="2" align="center">
@@ -567,6 +581,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" title="🎟️ Follow-up of issues and pull requests">🎟️</th>
     <th nowrap="nowrap" align="center" title="🎫 Gists">🎫</th>
     <th nowrap="nowrap" align="center" title="💡 Coding habits">💡</th>
+    <th nowrap="nowrap" align="center" title="🙋 Introduction">🙋</th>
     <th nowrap="nowrap" align="center" title="📅 Isometric commit calendar">📅</th>
     <th nowrap="nowrap" align="center" title="🈷️ Most used languages">🈷️</th>
     <th nowrap="nowrap" align="center" title="📜 Licenses">📜</th>
@@ -593,6 +608,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="followup">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="gists">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="habits">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="introduction">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="isocalendar">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="languages">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="licenses">❌</th>
@@ -619,6 +635,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="followup">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="gists">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="habits">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="introduction">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="isocalendar">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="languages">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="licenses">✔️</th>
@@ -645,6 +662,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="followup">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="gists">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="habits">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="introduction">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="isocalendar">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="languages">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="licenses">❌</th>
@@ -689,6 +707,7 @@ See their respective documentation for more informations about how to setup them
   * [🎟️ Follow-up of issues and pull requests](/source/plugins/followup/README.md)
   * [🎫 Gists](/source/plugins/gists/README.md)
   * [💡 Coding habits](/source/plugins/habits/README.md)
+  * [🙋 Introduction](/source/plugins/introduction/README.md)
   * [📅 Isometric commit calendar](/source/plugins/isocalendar/README.md)
   * [🈷️ Most used languages](/source/plugins/languages/README.md)
   * [📜 Licenses](/source/plugins/licenses/README.md)

@@ -37,6 +37,9 @@
     "habits":{
       "enabled": false,            "//": "Display coding habits metrics"
     },
+    "introduction":{
+      "enabled": false,            "//": "Display account or repository introduction"
+    },
     "isocalendar":{
       "enabled": false,            "//": "Display an isometric view of your commits calendar"
     },
