@@ -69,7 +69,7 @@
       }
     //Cache headers middleware
       middlewares.push((req, res, next) => {
-        res.header("Cache-Control", cached ? `public, max-age=${cached}` : "no-store, no-cache")
+        res.header("Cache-Control", cached ? `public, max-age=${Math.round(cached/1000)}` : "no-store, no-cache")
         next()
       })
 
