@@ -137,6 +137,31 @@ jobs:
       - name: Publish latest to GitHub registry
         run: docker push ghcr.io/lowlighter/metrics:latest
 
+  # Rebase latest branch on master
+  update-latest:
+    name: Rebase latest on master
+    runs-on: ubuntu-latest
+    needs: [ docker-release ]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master' && contains(github.event.head_commit.message, '[release]')
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Setup NodeJS
+        uses: actions/setup-node@v2
+        with:
+          node-version: 15
+      - name: Setup metrics
+        run: npm ci
+      - name: Checkout latest
+        run: git checkout latest
+      - name: Rebase latest on master
+        run: git merge master
+      - name: Push latest
+        run: git push origin latest
+
   # Test lowlighter/metrics@latest
   action-latest-test:
     name: Test lowlighter/metrics@latest
@@ -152,6 +177,27 @@ jobs:
           dryrun: yes
           use_mocked_data: yes
           verify: yes
+
+  # Publish GitHub release
+  publish-release:
+    name:
+    runs-on: ubuntu-latest
+    needs: [ action-latest-test ]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master' && contains(github.event.head_commit.message, '[release]')
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Setup NodeJS
+        uses: actions/setup-node@v2
+        with:
+          node-version: 15
+      - name: Setup metrics
+        run: npm ci
+      - name: Publish release
+        run: node .github/release.mjs
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
 
   # Deploy to metrics.lecoq.io
   deploy-master:
