@@ -65,8 +65,13 @@
             //Optimize rendering
               if ((conf.settings?.optimize)&&(!q.raw)) {
                 console.debug(`metrics/compute/${login} > optimize`)
-                const svgo = new SVGO({full:true, plugins:[{cleanupAttrs:true}, {inlineStyles:false}]})
-                const {data:optimized} = await svgo.optimize(rendered)
+                const {data:optimized} = await SVGO.optimize(rendered, {multipass:true, plugins:SVGO.extendDefaultPlugins([
+                  {name:"cleanupAttrs"},
+                  {name:"inlineStyles", active:false},
+                  {name:"cleanupListOfValues"},
+                  {name:"removeRasterImages"},
+                  {name:"removeScriptElement"},
+                ])})
                 rendered = optimized
               }
             //Verify svg
