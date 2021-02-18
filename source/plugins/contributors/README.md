@@ -22,4 +22,5 @@ It's especially useful to acknowledge contributors on release notes.
     plugin_contributors: yes
     plugin_contributors_base: ""     # Base reference (commit, tag, branch, etc.)
     plugin_contributors_head: master # Head reference (commit, tag, branch, etc.)
+    plugin_contributors_ignored: bot # Ignore "bot" user
 ```

@@ -7,7 +7,7 @@
             return null
 
         //Load inputs
-          let {head, base} = imports.metadata.plugins.contributors.inputs({data, account, q})
+          let {head, base, ignored} = imports.metadata.plugins.contributors.inputs({data, account, q})
           const repo = {owner:data.repo.owner.login, repo:data.repo.name}
 
         //Retrieve head and base commits
@@ -50,8 +50,10 @@
         //Compute contributors and contributions
           let contributors = {}
           for (const {author:{login, avatar_url:avatar}} of commits) {
-            if (!login)
+            if ((!login)||(ignored.includes(login))) {
+              console.debug(`metrics/compute/${login}/plugins > contributors > ignored contributor "${login}"`)
               continue
+            }
             if (!(login in contributors))
               contributors[login] = {avatar:avatar ? await imports.imgb64(avatar) : "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==", contributions:0}
             else
