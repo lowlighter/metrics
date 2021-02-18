@@ -7,7 +7,7 @@
             return null
 
         //Load inputs
-          let {head, base} = imports.metadata.plugins.contributors.inputs({data, account, q})
+          let {head, base, ignored, contributions} = imports.metadata.plugins.contributors.inputs({data, account, q})
           const repo = {owner:data.repo.owner.login, repo:data.repo.name}
 
         //Retrieve head and base commits
@@ -20,7 +20,7 @@
         //Get commit activity
           console.debug(`metrics/compute/${login}/plugins > contributors > querying api for commits between [${ref.base?.abbreviatedOid ?? null}] and [${ref.head?.abbreviatedOid ?? null}]`)
           const commits = []
-          for (let page = 0; ; page++) {
+          for (let page = 1; ; page++) {
             console.debug(`metrics/compute/${login}/plugins > contributors > loading page ${page}`)
             try {
               const {data:loaded} = await rest.repos.listCommits({...repo, per_page:100, page})
@@ -49,18 +49,26 @@
 
         //Compute contributors and contributions
           let contributors = {}
-          for (const {author:{login, avatar_url:avatar}} of commits) {
-            if (!login)
+          for (const {author:{login, avatar_url:avatar}, commit:{message = ""}} of commits) {
+            if ((!login)||(ignored.includes(login))) {
+              console.debug(`metrics/compute/${login}/plugins > contributors > ignored contributor "${login}"`)
               continue
+            }
             if (!(login in contributors))
-              contributors[login] = {avatar:avatar ? await imports.imgb64(avatar) : "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==", contributions:0}
-            else
+              contributors[login] = {avatar:avatar ? await imports.imgb64(avatar) : "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==", contributions:1, pr:[]}
+            else {
               contributors[login].contributions++
+              contributors[login].pr.push(...(message.match(/(?<=[(])#\d+(?=[)])/g) ?? []))
+            }
           }
-          contributors = Object.fromEntries(Object.entries(contributors).sort((a, b) => b.contributions - a.contributions))
+          contributors = Object.fromEntries(Object.entries(contributors).sort(([_an, a], [_bn, b]) => b.contributions - a.contributions))
+
+        //Filter pull requests
+          for (const contributor of Object.values(contributors))
+            contributor.pr = [...new Set(contributor.pr)]
 
         //Results
-          return {head, base, ref, list:contributors}
+          return {head, base, ref, list:contributors, contributions}
       }
     //Handle errors
       catch (error) {

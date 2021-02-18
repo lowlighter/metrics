@@ -7,6 +7,9 @@ It's especially useful to acknowledge contributors on release notes.
 <table>
   <td align="center">
     <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.contributors.svg">
+    <details open><summary>With number of contributions</summary>
+      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.contributors.contributions.svg">
+    </details>
     <img width="900" height="1" alt="">
   </td>
 </table>
@@ -20,6 +23,8 @@ It's especially useful to acknowledge contributors on release notes.
   with:
     # ... other options
     plugin_contributors: yes
-    plugin_contributors_base: ""     # Base reference (commit, tag, branch, etc.)
-    plugin_contributors_head: master # Head reference (commit, tag, branch, etc.)
+    plugin_contributors_base: ""           # Base reference (commit, tag, branch, etc.)
+    plugin_contributors_head: master       # Head reference (commit, tag, branch, etc.)
+    plugin_contributors_ignored: bot       # Ignore "bot" user
+    plugin_contributors_contributions: yes # Display number of contributions for each contributor
 ```
