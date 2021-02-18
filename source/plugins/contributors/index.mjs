@@ -49,17 +49,23 @@
 
         //Compute contributors and contributions
           let contributors = {}
-          for (const {author:{login, avatar_url:avatar}} of commits) {
+          for (const {author:{login, avatar_url:avatar}, commit:{message = ""}} of commits) {
             if ((!login)||(ignored.includes(login))) {
               console.debug(`metrics/compute/${login}/plugins > contributors > ignored contributor "${login}"`)
               continue
             }
             if (!(login in contributors))
-              contributors[login] = {avatar:avatar ? await imports.imgb64(avatar) : "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==", contributions:0}
-            else
+              contributors[login] = {avatar:avatar ? await imports.imgb64(avatar) : "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==", contributions:0, pr:[]}
+            else {
               contributors[login].contributions++
+              contributors[login].pr.push(...(message.match(/(?<=[(])#\d+(?=[)])/g) ?? []))
+            }
           }
-          contributors = Object.fromEntries(Object.entries(contributors).sort((a, b) => b.contributions - a.contributions))
+          contributors = Object.fromEntries(Object.entries(contributors).sort(([_an, a], [_bn, b]) => b.contributions - a.contributions))
+
+        //Filter pull requests
+          for (const contributor of Object.values(contributors))
+            contributor.pr = [...new Set(contributor.pr)]
 
         //Results
           return {head, base, ref, list:contributors}

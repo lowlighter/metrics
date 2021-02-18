@@ -15,6 +15,7 @@
             return this.commit.author
           },
           commit:{
+            message:faker.lorem.sentence(),
             author:{
               name:owner,
               login:faker.internet.userName(),
