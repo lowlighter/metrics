@@ -333,7 +333,7 @@ If a plugin has not enough scopes to operate (and `plugins_errors_fatal` isn't e
 
 ![Plugin error example](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.error.svg)
 
-### 2. Put your GitHub perosnal token in your repository secrets
+### 2. Put your GitHub personal token in your repository secrets
 
 Go to the `Settings` of your repository to create a new secret and paste your freshly generated GitHub token there.
 
