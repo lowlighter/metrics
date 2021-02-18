@@ -5,8 +5,10 @@ It is mostly intended for metrics used outside of GitHub, since these informatio
 
 <table>
   <td align="center">
-    <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.introduction.svg">
-    <details><summary>Repository version</summary>
+    <details><summary open>Account version</summary>
+      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.introduction.svg">
+    </details>
+    <details><summary open>Repository version</summary>
       <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.introduction.repository.svg">
     </details>
     <img width="900" height="1" alt="">
