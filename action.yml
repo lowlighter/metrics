@@ -193,7 +193,7 @@ inputs:
     default: no
   
   # ====================================================================================
-  # 🏅 Contributors
+  # 🏅 Repository contributors
   
   # Enable or disable plugin
   plugin_contributors:
@@ -321,7 +321,7 @@ inputs:
     default: 0%
   
   # ====================================================================================
-  # 📜 Licenses
+  # 📜 Repository licenses
   
   # Enable or disable plugin
   plugin_licenses:
@@ -395,7 +395,7 @@ inputs:
     default: no
   
   # ====================================================================================
-  # 🗂️ Projects
+  # 🗂️ Active projects
   
   # Enable or disable plugin
   plugin_projects:
@@ -475,7 +475,7 @@ inputs:
     default: no
   
   # ====================================================================================
-  # 🌸 Anilist
+  # 🌸 Anilist watch list and reading list
   
   # Enable or disable plugin
   plugin_anilist:
