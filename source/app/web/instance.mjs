@@ -77,7 +77,7 @@
       const limiter = ratelimit({max:debug ? Number.MAX_SAFE_INTEGER : 60, windowMs:60*1000})
       const metadata = Object.fromEntries(Object.entries(conf.metadata.plugins)
         .filter(([key]) => !["base", "core"].includes(key))
-        .map(([key, value]) => [key, Object.fromEntries(Object.entries(value).filter(([key]) => ["name", "icon", "web", "supports"].includes(key)))]))
+        .map(([key, value]) => [key, Object.fromEntries(Object.entries(value).filter(([key]) => ["name", "icon", "categorie", "web", "supports"].includes(key)))]))
       const enabled = Object.entries(metadata).map(([name]) => ({name, enabled:plugins[name]?.enabled ?? false}))
       const templates =  Object.entries(Templates).map(([name]) => ({name, enabled:(conf.settings.templates.enabled.length ? conf.settings.templates.enabled.includes(name) : true) ?? false}))
       const actions = {flush:new Map()}
@@ -91,7 +91,7 @@
         app.get("/index.html", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/index.html`))
         app.get("/favicon.ico", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/favicon.png`))
         app.get("/.favicon.png", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/favicon.png`))
-        app.get("/.opengraph.png", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/opengraph.png`))
+        app.get("/.opengraph.png", limiter, (req, res) => conf.settings.web?.opengraph ? res.redirect(conf.settings.web?.opengraph) : res.sendFile(`${conf.paths.statics}/opengraph.png`))
       //Plugins and templates
         app.get("/.plugins", limiter, (req, res) => res.status(200).json(enabled))
         app.get("/.plugins.base", limiter, (req, res) => res.status(200).json(conf.settings.plugins.base.parts))
