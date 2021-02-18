@@ -68,10 +68,10 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
       <img width="900" height="1" alt="">
     </td>
     <td align="center">
-      <details><summary open>Account version</summary>
+      <details open><summary>Account version</summary>
         <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.introduction.svg">
       </details>
-      <details><summary open>Repository version</summary>
+      <details open><summary>Repository version</summary>
         <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.introduction.repository.svg">
       </details>
       <img width="900" height="1" alt="">
@@ -91,7 +91,7 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
     </td>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.svg">
-      <details><summary>With both total bytes size and percentage version</summary>
+      <details open><summary>With both total bytes size and percentage version</summary>
         <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.details.svg">
       </details>
       <img width="900" height="1" alt="">
