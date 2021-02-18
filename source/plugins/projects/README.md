@@ -1,4 +1,4 @@
-### 🗂️ Projects
+### 🗂️ Active projects
 
     ⚠️ This plugin requires a personal token with public_repo scope.
 

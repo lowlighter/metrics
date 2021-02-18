@@ -1,4 +1,4 @@
-### 🏅 Contributors
+### 🏅 Repository contributors
 
 The *contributors* plugin lets you display repositories contributors from a commit range, that can be specified through either sha, tags, branch, etc.
 

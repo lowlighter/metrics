@@ -1,4 +1,4 @@
-### 📜 Licenses
+### 📜 Repository licenses
 
     ⚠️ This is NOT legal advice, use at your own risk
     💣 Do NOT enable this plugin on public web instances (plugin allows raw commands injection)

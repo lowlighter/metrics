@@ -161,7 +161,8 @@
         //Core config
           info.break()
           info.group({metadata, name:"core", inputs:config})
-          info("Plugin errors", die ? "(exit with error)" : "(displayed in generated SVG)")
+          info("Plugin errors", die ? "(exit with error)" : "(displayed in generated image)")
+          const convert = ["jpeg", "png"].includes(config["config.output"]) ? config["config.output"] : null
           Object.assign(q, config)
 
         //Base content
@@ -199,7 +200,7 @@
         //Render metrics
           info.break()
           info.section("Rendering")
-          const {rendered} = await metrics({login:user, q}, {graphql, rest, plugins, conf, die, verify}, {Plugins, Templates})
+          const {rendered} = await metrics({login:user, q}, {graphql, rest, plugins, conf, die, verify, convert}, {Plugins, Templates})
           info("Status", "complete")
 
         //Commit metrics

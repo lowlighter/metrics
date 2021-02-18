@@ -1,4 +1,4 @@
-### 🌸 Anilist
+### 🌸 Anilist watch list and reading list"
 
 The *anilist* plugin lets you display your favorites animes, mangas and characters from your [AniList](https://anilist.co) account.
 

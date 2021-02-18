@@ -53,7 +53,7 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
 <table>
   <tr>
     <th colspan="2" align="center">
-      <a href="source/templates/README.md">🖼️ <%= elements.length-1 %> templates</a>
+      <a href="source/templates/README.md">🖼️ <%= elements.length-1 %>+ templates</a>
     </th>
   </tr>
 <%  if (elements.length%2)
