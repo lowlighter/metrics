@@ -66,11 +66,13 @@
               if ((conf.settings?.optimize)&&(!q.raw)) {
                 console.debug(`metrics/compute/${login} > optimize`)
                 const {data:optimized} = await SVGO.optimize(rendered, {multipass:true, plugins:SVGO.extendDefaultPlugins([
-                  {name:"cleanupAttrs"},
-                  {name:"inlineStyles", active:false},
-                  {name:"cleanupListOfValues"},
-                  {name:"removeRasterImages"},
-                  {name:"removeScriptElement"},
+                  //Additional cleanup
+                    {name:"cleanupListOfValues"},
+                    {name:"removeRasterImages"},
+                    {name:"removeScriptElement"},
+                  //Force CSS style consistency
+                    {name:"inlineStyles", active:false},
+                    {name:"removeViewBox", active:false},
                 ])})
                 rendered = optimized
               }
