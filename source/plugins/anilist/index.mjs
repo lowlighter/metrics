@@ -13,32 +13,44 @@
           const result = {user:{stats:null, genres:[]}, lists:Object.fromEntries(medias.map(type => [type, {}])), characters:[], sections}
 
         //User statistics
-          {
-            //Query API
-              console.debug(`metrics/compute/${login}/plugins > anilist > querying api (user statistics)`)
-              const {data:{data:{User:{statistics:stats}}}} = await imports.axios.post("https://graphql.anilist.co", {variables:{name:user}, query:queries.anilist.statistics()})
-            //Format and save results
-              result.user.stats = stats
-              result.user.genres = [...new Set([...stats.anime.genres.map(({genre}) => genre), ...stats.manga.genres.map(({genre}) => genre)])]
+          for (let retried = false; !retried; retried = true) {
+            try {
+              //Query API
+                console.debug(`metrics/compute/${login}/plugins > anilist > querying api (user statistics)`)
+                const {data:{data:{User:{statistics:stats}}}} = await imports.axios.post("https://graphql.anilist.co", {variables:{name:user}, query:queries.anilist.statistics()})
+              //Format and save results
+                result.user.stats = stats
+                result.user.genres = [...new Set([...stats.anime.genres.map(({genre}) => genre), ...stats.manga.genres.map(({genre}) => genre)])]
+            }
+            catch (error) {
+              await retry({login, imports, error})
+            }
           }
 
         //Medias lists
           if ((sections.includes("watching"))||(sections.includes("reading"))) {
             for (const type of medias) {
-              //Query API
-                console.debug(`metrics/compute/${login}/plugins > anilist > querying api (medias lists - ${type})`)
-                const {data:{data:{MediaListCollection:{lists}}}} = await imports.axios.post("https://graphql.anilist.co", {variables:{name:user, type:type.toLocaleUpperCase()}, query:queries.anilist.medias()})
-              //Format and save results
-                for (const {name, entries} of lists) {
-                  //Format results
-                    const list = await Promise.all(entries.map(media => format({media, imports})))
-                    result.lists[type][name.toLocaleLowerCase()] = shuffle ? imports.shuffle(list) : list
-                  //Limit results
-                    if (limit > 0) {
-                      console.debug(`metrics/compute/${login}/plugins > anilist > keeping only ${limit} medias`)
-                      result.lists[type][name.toLocaleLowerCase()].splice(limit)
+              for (let retried = false; !retried; retried = true) {
+                try {
+                  //Query API
+                    console.debug(`metrics/compute/${login}/plugins > anilist > querying api (medias lists - ${type})`)
+                    const {data:{data:{MediaListCollection:{lists}}}} = await imports.axios.post("https://graphql.anilist.co", {variables:{name:user, type:type.toLocaleUpperCase()}, query:queries.anilist.medias()})
+                  //Format and save results
+                    for (const {name, entries} of lists) {
+                      //Format results
+                        const list = await Promise.all(entries.map(media => format({media, imports})))
+                        result.lists[type][name.toLocaleLowerCase()] = shuffle ? imports.shuffle(list) : list
+                      //Limit results
+                        if (limit > 0) {
+                          console.debug(`metrics/compute/${login}/plugins > anilist > keeping only ${limit} medias`)
+                          result.lists[type][name.toLocaleLowerCase()].splice(limit)
+                        }
                     }
                 }
+                catch (error) {
+                  await retry({login, imports, error})
+                }
+              }
             }
           }
 
@@ -59,13 +71,8 @@
                     list.push(...await Promise.all(nodes.map(media => format({media:{progess:null, score:null, media}, imports}))))
                   }
                   catch (error) {
-                    if ((error.isAxiosError)&&(error.response.status === 429)) {
-                      const delay = Number(error.response.headers["retry-after"])+5
-                      console.debug(`metrics/compute/${login}/plugins > anilist > reached requests limit, retrying in ${delay}s`)
-                      await imports.wait(delay)
+                    if (await retry({login, imports, error}))
                       continue
-                    }
-                    throw error
                   }
                 } while (next)
               //Format and save results
@@ -97,13 +104,8 @@
                   }
                 }
                 catch (error) {
-                  if ((error.isAxiosError)&&(error.response.status === 429)) {
-                    const delay = Number(error.response.headers["retry-after"])+5
-                    console.debug(`metrics/compute/${login}/plugins > anilist > reached requests limit, retrying in ${delay}s`)
-                    await imports.wait(delay)
+                  if (await retry({login, imports, error}))
                     continue
-                  }
-                  throw error
                 }
               } while (next)
             //Format and save results
@@ -142,4 +144,15 @@
       released:type === "ANIME" ? episodes : chapters,
       artwork:artwork ? await imports.imgb64(artwork) : "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
     }
+  }
+
+/**Rate-limiter handler */
+  async function retry({login, imports, error}) {
+    if ((error.isAxiosError)&&(error.response.status === 429)) {
+      const delay = Number(error.response.headers["retry-after"])+5
+      console.debug(`metrics/compute/${login}/plugins > anilist > reached requests limit, retrying in ${delay}s`)
+      await imports.wait(delay)
+      return true
+    }
+    throw error
   }
