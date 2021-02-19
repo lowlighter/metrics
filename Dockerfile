@@ -25,7 +25,7 @@ RUN chmod +x  /metrics/source/app/action/index.mjs \
   && gem install licensed \
   # Install python for node-gyp
   && apt-get update \
-  && apt-get install -y python3 glibc \
+  && apt-get install -y python3 glibc libpango1.0-dev libjpeg-dev \
   # Install node modules
   && cd /metrics \
   && npm ci \
