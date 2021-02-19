@@ -10,6 +10,7 @@
   import imgb64 from "image-to-base64"
   import git from "simple-git"
   import twemojis from "twemoji-parser"
+  import jimp from "jimp"
 
 //Exports
   export {fs, os, paths, url, util, processes, axios, puppeteer, imgb64, git}
@@ -192,16 +193,17 @@
   }
 
 /**Create gif from puppeteer browser */
-  export async function puppeteergif({page, width, height, frames, x = 0, y = 0, delay = 150}) {
+  export async function puppeteergif({page, width, height, frames, scale = 1, quality = 80, x = 0, y = 0, delay = 150}) {
     //Register images frames
       const images = []
       for (let i = 0; i < frames; i++) {
-        images.push((await page.screenshot({type:"png", clip:{width, height, x, y}})).toString("base64"))
+        images.push(await page.screenshot({type:"png", clip:{width, height, x, y}}))
         await wait(delay/1000)
         if (i%10 === 0)
           console.debug(`metrics/puppeteergif > processed ${i}/${frames} frames`)
       }
       console.debug(`metrics/puppeteergif > processed ${frames}/${frames} frames`)
-    //Close encoder and convert to base64
-      return images
+    //Post-processing
+      console.debug("metrics/puppeteergif > applying post-processing")
+      return Promise.all(images.map(async buffer => (await (await jimp.read(buffer)).scale(scale).quality(quality).getBufferAsync("image/png")).toString("base64")))
   }

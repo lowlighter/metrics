@@ -11,7 +11,7 @@ The *skyline* plugin lets you display your 3D commits calendar from [skyline.git
   </td>
 </table>
 
-This uses puppeteer to generate a GIF image of rendered animation.
+This uses puppeteer to generate collect image frames, and use CSS animations to create an animated rendering (GIF images are not animated in GitHub flavored markdown rendering which is why this design choice was made).
 
 #### ℹ️ Examples workflows
 

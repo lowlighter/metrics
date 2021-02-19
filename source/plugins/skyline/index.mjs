@@ -31,8 +31,8 @@
           await frame.evaluate(() => [...document.querySelectorAll("button, footer, a")].map(element => element.remove()))
 
         //Generate gif
-          console.debug(`metrics/compute/${login}/plugins > skyline > generating framess`)
-          const frames = await imports.puppeteergif({page, width, height, frames:60})
+          console.debug(`metrics/compute/${login}/plugins > skyline > generating frames`)
+          const frames = await imports.puppeteergif({page, width, height, frames:60, scale:0.6})
 
         //Close puppeteer
           await browser.close()

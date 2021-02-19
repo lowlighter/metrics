@@ -33,6 +33,7 @@
     "express-rate-limit": "^5.2.6",
     "faker": "^5.4.0",
     "image-to-base64": "^2.1.1",
+    "jimp": "^0.16.1",
     "js-yaml": "^4.0.0",
     "memory-cache": "^0.2.0",
     "prismjs": "^1.23.0",
