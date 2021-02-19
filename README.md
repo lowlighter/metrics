@@ -38,6 +38,9 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
     </td>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.contributors.svg">
+      <details open><summary>With number of contributions</summary>
+        <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.contributors.contributions.svg">
+      </details>
       <img width="900" height="1" alt="">
     </td>
   </tr>

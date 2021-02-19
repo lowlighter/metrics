@@ -210,6 +210,16 @@ inputs:
     description: Head reference
     default: master
   
+  # Ignored contributors (useful to ignore bots users)
+  plugin_contributors_ignored:
+    description: Contributors to ignore
+    default: github-actions[bot]
+  
+  # Display total contributions for each contributor
+  plugin_contributors_contributions:
+    description: Display contributions
+    default: no
+  
   # ====================================================================================
   # 🎟️ Follow-up of issues and pull requests
   
