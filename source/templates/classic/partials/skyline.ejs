@@ -12,7 +12,44 @@
             <%= plugins.skyline.error.message %>
           </div>
         <% } else { %>
-          <img class="skyline" src="data:image/gif;base64,<%= plugins.skyline.image %>" width="480" height="300" alt=""/>
+          <div class="skyline-animation">
+            <div class="frames">
+              <% for (const frame of plugins.skyline.frames) { %>
+                <div class="frame">
+                  <img class="skyline" src="data:image/png;base64,<%= frame %>" width="480" height="300" alt=""/>
+                </div>
+              <% } %>
+            </div>
+          </div>
+          <style>
+            @keyframes skyline-animation-frame {
+              100% { transform: translateX(-100%); }
+            }
+            .skyline-animation {
+              margin: 2px 13px 6px;
+              border-radius: 5px;
+              width: 454px;
+              height: 284px;
+              background-color: #030D21;
+              overflow: hidden;
+            }
+            .skyline-animation .frames {
+              animation: skyline-animation-frame <%= 150*plugins.skyline.frames.length %>ms infinite;
+              animation-timing-function: steps(<%= plugins.skyline.frames.length %>);
+              display: flex;
+              width: <%= plugins.skyline.frames.length*100 %>%;
+              height: 100%;
+            }
+            .skyline-animation .frames .frame {
+              display: block;
+              width: <%= 100/plugins.skyline.frames.length %>%;
+              max-width: <%= 100/plugins.skyline.frames.length %>%;
+              flex-basis: <%= 100/plugins.skyline.frames.length %>%;
+            }
+            .skyline-animation .frames .frame img {
+              width: 100%;
+            }
+          </style>
         <% } %>
       </section>
     </div>

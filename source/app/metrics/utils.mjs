@@ -1,6 +1,5 @@
 //Imports
   import fs from "fs/promises"
-  import fss from "fs"
   import os from "os"
   import paths from "path"
   import url from "url"
@@ -11,8 +10,6 @@
   import imgb64 from "image-to-base64"
   import git from "simple-git"
   import twemojis from "twemoji-parser"
-  import GIFEncoder from "gifencoder"
-  import PNG from "png-js"
 
 //Exports
   export {fs, os, paths, url, util, processes, axios, puppeteer, imgb64, git}
@@ -195,30 +192,16 @@
   }
 
 /**Create gif from puppeteer browser */
-  export async function puppeteergif({page, width, height, frames, x = 0, y = 0, repeat = true, delay = 150, quality = 10}) {
-    //Create temporary stream
-      const path = paths.join(os.tmpdir(), `${Math.round(Math.random()*1000000000)}.gif`)
-      console.debug(`metrics/puppeteergif > set write stream to "${path}"`)
-      if (fss.existsSync(path))
-        await fs.unlink(path)
-    //Create encoder
-      const encoder = new GIFEncoder(width, height)
-      encoder.createWriteStream().pipe(fss.createWriteStream(path))
-      encoder.start()
-      encoder.setRepeat(repeat ? 0 : -1)
-      encoder.setDelay(delay)
-      encoder.setQuality(quality)
-    //Register frames
+  export async function puppeteergif({page, width, height, frames, x = 0, y = 0, delay = 150}) {
+    //Register images frames
+      const images = []
       for (let i = 0; i < frames; i++) {
-        const buffer = new PNG(await page.screenshot({clip:{width, height, x, y}}))
-        encoder.addFrame(await new Promise(solve => buffer.decode(pixels => solve(pixels)))) //eslint-disable-line no-promise-executor-return
-        if (frames%10 === 0)
+        images.push((await page.screenshot({type:"png", clip:{width, height, x, y}})).toString("base64"))
+        await wait(delay/1000)
+        if (i%10 === 0)
           console.debug(`metrics/puppeteergif > processed ${i}/${frames} frames`)
       }
       console.debug(`metrics/puppeteergif > processed ${frames}/${frames} frames`)
     //Close encoder and convert to base64
-      encoder.finish()
-      const result = await fs.readFile(path, "base64")
-      await fs.unlink(path)
-      return result
+      return images
   }
