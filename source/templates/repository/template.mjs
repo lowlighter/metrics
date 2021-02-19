@@ -22,7 +22,7 @@
     //Get commit activity
       console.debug(`metrics/compute/${login}/${repo} > querying api for commits`)
       const commits = []
-      for (let page = 0; page < 100; page++) {
+      for (let page = 1; page < 100; page++) {
         console.debug(`metrics/compute/${login}/${repo} > loading page ${page}`)
         try {
           const {data} = await rest.repos.listCommits({owner:login, repo, per_page:100, page})

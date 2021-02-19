@@ -146,7 +146,7 @@
             info("Dry-run", true)
 
         //SVG file
-          conf.optimize = optimize
+          conf.settings.optimize = optimize
           info("SVG output", filename)
           info("SVG optimization", optimize)
           info("SVG verification after generation", verify)
