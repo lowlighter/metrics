@@ -1,0 +1,19 @@
+name: "🌇 GitHub Skyline 3D calendar"
+cost: N/A
+categorie: github
+supports:
+  - user
+inputs:
+
+  # Enable or disable plugin
+  plugin_skyline:
+    description: Display GitHub Skyline 3D calendar
+    type: boolean
+    default: no
+
+  # Displayed year
+  plugin_skyline_year:
+    description: Displayed year
+    type: number
+    default: "current-year"
+    min: 2008

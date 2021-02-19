@@ -724,6 +724,14 @@
     margin: 0 13px 2px;
   }
 
+/* Skyline */
+  img.skyline {
+    margin: 2px 13px 6px;
+    border-radius: 5px;
+    width: 454px;
+    height: 284px;
+  }
+
 /* Fade animation */
   .af {
     opacity: 0;
