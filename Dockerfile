@@ -25,7 +25,11 @@ RUN chmod +x  /metrics/source/app/action/index.mjs \
   && gem install licensed \
   # Install python for node-gyp
   && apt-get update \
-  && apt-get install -y python3 glibc libpango1.0-dev libjpeg-dev \
+  && apt-get install -y python3 \
+  # Install dependencies for node-canvas
+  # Based on https://github.com/Automattic/node-canvas/wiki/Installation:-Ubuntu-and-other-Debian-based-systems
+  && apt-get update \
+  && apt-get install -y build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev \
   # Install node modules
   && cd /metrics \
   && npm ci \
