@@ -10,7 +10,9 @@
   import imgb64 from "image-to-base64"
   import git from "simple-git"
   import twemojis from "twemoji-parser"
+  import jimp from "jimp"
 
+//Exports
   export {fs, os, paths, url, util, processes, axios, puppeteer, imgb64, git}
 
 /**Returns module __dirname */
@@ -188,4 +190,20 @@
 /**Wait */
   export async function wait(seconds) {
     await new Promise(solve => setTimeout(solve, seconds*1000)) //eslint-disable-line no-promise-executor-return
+  }
+
+/**Create gif from puppeteer browser */
+  export async function puppeteergif({page, width, height, frames, scale = 1, quality = 80, x = 0, y = 0, delay = 150}) {
+    //Register images frames
+      const images = []
+      for (let i = 0; i < frames; i++) {
+        images.push(await page.screenshot({type:"png", clip:{width, height, x, y}}))
+        await wait(delay/1000)
+        if (i%10 === 0)
+          console.debug(`metrics/puppeteergif > processed ${i}/${frames} frames`)
+      }
+      console.debug(`metrics/puppeteergif > processed ${frames}/${frames} frames`)
+    //Post-processing
+      console.debug("metrics/puppeteergif > applying post-processing")
+      return Promise.all(images.map(async buffer => (await jimp.read(buffer)).scale(scale).quality(quality).getBase64Async("image/png")))
   }
