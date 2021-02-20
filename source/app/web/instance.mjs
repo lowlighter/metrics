@@ -153,7 +153,7 @@
         //Allowed list check
           if ((restricted.length)&&(!restricted.includes(login))) {
             console.debug(`metrics/app/${login} > 403 (not in allowed users)`)
-            return res.status(403).send(`Forbidden: username not in allowed list`)
+            return res.status(403).send("Forbidden: username not in allowed list")
           }
         //Read cached data if possible
           if ((!debug)&&(cached)&&(cache.get(login))) {
@@ -203,7 +203,7 @@
             //Not found user
               if ((error instanceof Error)&&(/^user not found$/.test(error.message))) {
                 console.debug(`metrics/app/${login} > 404 (user/organization not found)`)
-                return res.status(404).send(`Not found: unknown user or organization`)
+                return res.status(404).send("Not found: unknown user or organization")
               }
             //Invalid template
               if ((error instanceof Error)&&(/^unsupported template$/.test(error.message))) {
