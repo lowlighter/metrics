@@ -142,10 +142,15 @@
 
     //Metrics
       const pending = new Set()
-      app.get("/:login/:repository", ...middlewares, (req, res) => res.redirect(`/${req.params.login}?template=repository&repo=${req.params.repository}&${Object.entries(req.query).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join("&")}`))
-      app.get("/:login", ...middlewares, async(req, res) => {
+      app.get("/:login/:repository?", ...middlewares, async(req, res) => {
         //Request params
           const login = req.params.login?.replace(/[\n\r]/g, "")
+          const repository = req.params.repository?.replace(/[\n\r]/g, "")
+          if (!/^[-\w]+$/i.test(login)) {
+            console.debug(`metrics/app/${login} > 400 (invalid username)`)
+            return res.status(400).send("Bad request: username seems invalid")
+          }
+        //Allowed list check
           if ((restricted.length)&&(!restricted.includes(login))) {
             console.debug(`metrics/app/${login} > 403 (not in allowed users)`)
             return res.status(403).send(`Forbidden: "${login}" not in allowed users`)
@@ -167,6 +172,13 @@
             return res.status(409).send(`Conflict: a request for "${login}" is being process, retry later`)
           }
           pending.add(login)
+        //Repository alias
+          if (repository) {
+            console.debug(`metrics/app/${login} > compute repository metrics`)
+            if (!req.query.template)
+              req.query.template = "repository"
+            req.query.repo = repository
+          }
 
         //Compute rendering
           try {
