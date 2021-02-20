@@ -212,7 +212,7 @@
                     return {text, type:"text", placeholder:example ?? defaulted, defaulted}
                   case "string":{
                     if (Array.isArray(values))
-                      return {text, type:"select", values}
+                      return {text, type:"select", values, defaulted}
                     return {text, type:"text", placeholder:example ?? defaulted, defaulted}
                   }
                   case "json":
@@ -267,7 +267,7 @@
         return {
           name:raw.match(/^### (?<name>[\s\S]+?)\n/)?.groups?.name?.trim(),
           readme:{
-            demo:raw.match(/(?<demo><table>[\s\S]*?<[/]table>)/)?.groups?.demo?.replace(/<[/]?(?:table|tr)>/g, "")?.trim() ?? (name === "community" ? "<td align=\"center\"><h3>See <a href=\"/source/templates/community/README.md\">documentation</a> 🌍</h3></td>" : "<td></td>"),
+            demo:raw.match(/(?<demo><table>[\s\S]*?<[/]table>)/)?.groups?.demo?.replace(/<[/]?(?:table|tr)>/g, "")?.trim() ?? (name === "community" ? "<td align=\"center\">See <a href=\"/source/templates/community/README.md\">documentation</a> 🌍</td>" : "<td></td>"),
             compatibility:{...compatibility, base:true},
           },
         }
