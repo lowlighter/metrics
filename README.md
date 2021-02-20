@@ -277,7 +277,7 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.terminal.svg">
       <img width="900" height="1" alt="">
     </td>
-    <td align="center"><h3>See <a href="/source/templates/community/README.md">documentation</a> 🌍</h3></td>
+    <td align="center">See <a href="/source/templates/community/README.md">documentation</a> 🌍</td>
   </tr>
 </table>
 

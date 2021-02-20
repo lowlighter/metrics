@@ -15,10 +15,11 @@ assignees: ''
   Please:
     - Check you're not duplicating an existing issue
     - Provide a clear and concise description
+    - To request help, please use discussions instead of issues
 
   For workflows errors:
     - Retry at least once to confirm that error is reproductible
-    - Paste an excerpt of your workflow step and error logs
+    - Paste an excerpt of workflow job step and/or error logs
 
   For web instance errors:
     - Paste used url query

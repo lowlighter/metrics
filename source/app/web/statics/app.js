@@ -5,7 +5,11 @@
     const {data:metadata} = await axios.get("/.plugins.metadata")
     const {data:base} = await axios.get("/.plugins.base")
     const {data:version} = await axios.get("/.version")
+    const {data:hosted} = await axios.get("/.hosted")
     templates.sort((a, b) => (a.name.startsWith("@") ^ b.name.startsWith("@")) ? (a.name.startsWith("@") ? 1 : -1) : a.name.localeCompare(b.name))
+  //Disable unsupported options
+    delete metadata.core.web.output
+    delete metadata.core.web.twemojis
   //App
     return new Vue({
       //Initialization
@@ -52,10 +56,9 @@
           palette:"light",
           requests:{limit:0, used:0, remaining:0, reset:0},
           cached:new Map(),
-          config:{
-            timezone:"",
-            animated:true,
-          },
+          config:Object.fromEntries(Object.entries(metadata.core.web).map(([key, {defaulted}]) => [key, defaulted])),
+          metadata:Object.fromEntries(Object.entries(metadata).map(([key, {web}]) => [key, web])),
+          hosted,
           plugins:{
             base,
             list:plugins,
@@ -118,12 +121,14 @@
                   .filter(([key, value]) => `${value}`.length)
                   .filter(([key, value]) => this.plugins.enabled[key.split(".")[0]])
                   .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+              //Base options
+                const base = Object.entries(this.plugins.options).filter(([key, value]) => (key in metadata.base.web)&&(value !== metadata.base.web[key]?.defaulted)).map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
               //Config
-                const config = Object.entries(this.config).filter(([key, value]) => value).map(([key, value]) => `config.${key}=${encodeURIComponent(value)}`)
+                const config = Object.entries(this.config).filter(([key, value]) => (value)&&(value !== metadata.core.web[key]?.defaulted)).map(([key, value]) => `config.${key}=${encodeURIComponent(value)}`)
               //Template
                 const template = (this.templates.selected !== templates[0]) ? [`template=${this.templates.selected}`] : []
               //Generated url
-                const params = [...template, ...plugins, ...options, ...config].join("&")
+                const params = [...template, ...base, ...plugins, ...options, ...config].join("&")
                 return `${window.location.protocol}//${window.location.host}/${this.user}${params.length ? `?${params}` : ""}`
               },
           //Embedded generated code
@@ -157,9 +162,10 @@
                 `          template: ${this.templates.selected}`,
                 `          base: ${Object.entries(this.plugins.enabled.base).filter(([key, value]) => value).map(([key]) => key).join(", ")||'""'}`,
                 ...[
+                  ...Object.entries(this.plugins.options).filter(([key, value]) => (key in metadata.base.web)&&(value !== metadata.base.web[key]?.defaulted)).map(([key, value]) => `          ${key.replace(/[.]/, "_")}: ${typeof value === "boolean" ? {true:"yes", false:"no"}[value] : value}`),
                   ...Object.entries(this.plugins.enabled).filter(([key, value]) => (key !== "base")&&(value)).map(([key]) => `          plugin_${key}: yes`),
                   ...Object.entries(this.plugins.options).filter(([key, value]) => value).filter(([key, value]) => this.plugins.enabled[key.split(".")[0]]).map(([key, value]) => `          plugin_${key.replace(/[.]/, "_")}: ${typeof value === "boolean" ? {true:"yes", false:"no"}[value] : value}`),
-                  ...Object.entries(this.config).filter(([key, value]) => value).map(([key, value]) => `          config_${key.replace(/[.]/, "_")}: ${typeof value === "boolean" ? {true:"yes", false:"no"}[value] : value}`),
+                  ...Object.entries(this.config).filter(([key, value]) => (value)&&(value !== metadata.core.web[key]?.defaulted)).map(([key, value]) => `          config_${key.replace(/[.]/, "_")}: ${typeof value === "boolean" ? {true:"yes", false:"no"}[value] : value}`),
                 ].sort(),
               ].join("\n")
             },
@@ -185,7 +191,7 @@
               this.templates.placeholder.timeout = setTimeout(async () => {
                 this.templates.placeholder.image = await placeholder(this)
                 this.generated.content = ""
-                this.generated.error = false
+                this.generated.error = null
               }, timeout)
             },
           //Resize mock image
@@ -207,9 +213,9 @@
                 try {
                   await axios.get(`/.uncache?&token=${(await axios.get(`/.uncache?user=${this.user}`)).data.token}`)
                   this.generated.content = (await axios.get(this.url)).data
-                  this.generated.error = false
-                } catch {
-                  this.generated.error = true
+                  this.generated.error = null
+                } catch (error) {
+                  this.generated.error = {code:error.response.status, message:error.response.data}
                 }
                 finally {
                   this.generated.pending = false
