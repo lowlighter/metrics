@@ -24,7 +24,7 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
 <table>
   <tr>
     <th colspan="2" align="center">
-      <a href="source/plugins/README.md">🧩 23 plugins</a>
+      <a href="source/plugins/README.md">🧩 24 plugins</a>
     </th>
   </tr>
   <tr>
@@ -141,24 +141,28 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
     </td>
   </tr>
   <tr>
+    <th><a href="source/plugins/skyline/README.md">🌇 GitHub Skyline 3D calendar</a></th>
     <th><a href="source/plugins/stargazers/README.md">✨ Stargazers over last weeks</a></th>
-    <th><a href="source/plugins/stars/README.md">🌟 Recently starred repositories</a></th>
   </tr>
   <tr>
+    <td align="center">
+      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.skyline.svg">
+      <img width="900" height="1" alt="">
+    </td>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.stargazers.svg">
       <img width="900" height="1" alt="">
     </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/stars/README.md">🌟 Recently starred repositories</a></th>
+    <th><a href="source/plugins/topics/README.md">📌 Starred topics</a></th>
+  </tr>
+  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.stars.svg">
       <img width="900" height="1" alt="">
     </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/topics/README.md">📌 Starred topics</a></th>
-    <th><a href="source/plugins/traffic/README.md">🧮 Repositories traffic</a></th>
-  </tr>
-  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.svg">
       <details open><summary>Mastered and known technologies version</summary>
@@ -166,15 +170,15 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
       </details>
       <img width="900" height="1" alt="">
     </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/traffic/README.md">🧮 Repositories traffic</a></th>
+    <th><a href="source/plugins/anilist/README.md">🌸 Anilist watch list and reading list</a></th>
+  </tr>
+  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.traffic.svg">
     </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/anilist/README.md">🌸 Anilist watch list and reading list</a></th>
-    <th><a href="source/plugins/music/README.md">🎼 Music plugin</a></th>
-  </tr>
-  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.anilist.svg">
       <details><summary>Manga version</summary>
@@ -185,6 +189,12 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
       </details>
       <img width="900" height="1" alt="">
     </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/music/README.md">🎼 Music plugin</a></th>
+    <th><a href="source/plugins/pagespeed/README.md">⏱️ Website performances</a></th>
+  </tr>
+  <tr>
     <td align="center">
       <details open><summary>🎼 Favorite tracks version</summary>
         <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.music.playlist.svg">
@@ -194,12 +204,6 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
       </details>
       <img width="900" height="1" alt="">
     </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/pagespeed/README.md">⏱️ Website performances</a></th>
-    <th><a href="source/plugins/posts/README.md">✒️ Recent posts</a></th>
-  </tr>
-  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.svg">
       <details><summary>Detailed version</summary>
@@ -210,35 +214,34 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
       </details>
       <img width="900" height="1" alt="">
     </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/posts/README.md">✒️ Recent posts</a></th>
+    <th><a href="source/plugins/tweets/README.md">🐤 Latest tweets</a></th>
+  </tr>
+  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.posts.svg">
       <img width="900" height="1" alt="">
     </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/tweets/README.md">🐤 Latest tweets</a></th>
-    <th><a href="source/plugins/wakatime/README.md">⏰ WakaTime plugin</a></th>
-  </tr>
-  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.tweets.svg">
       <img width="900" height="1" alt="">
     </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/wakatime/README.md">⏰ WakaTime plugin</a></th>
+    <th><a href="source/plugins/nightscout/README.md">💉 Nightscout</a></th>
+  </tr>
+  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.wakatime.svg">
       <img width="900" height="1" alt="">
     </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/nightscout/README.md">💉 Nightscout</a></th>
-    <th><a href="source/plugins//README.md"></a></th>
-  </tr>
-  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/legoandmars/legoandmars/blob/master/metrics.plugin.nightscout.svg">
       <img width="900" height="1" alt="">
     </td>
-    <td align="center"><img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <th colspan="2" align="center">
@@ -535,22 +538,6 @@ systemctl status github_metrics
 </details>
 
 <details>
-<summary>⚠️ HTTP errors code</summary>
-
-Following error codes may be encountered on web instance:
-
-| Error code                | Description                                                                |
-| ------------------------- | -------------------------------------------------------------------------- |
-| `400 Bad request`         | Invalid query (e.g. unsupported template)                                  |
-| `403 Forbidden`           | User not allowed in `restricted` users list                                |
-| `404 Not found`           | GitHub API did not found the requested user                                |
-| `429 Too many requests`   | Thrown when rate limiter is trigerred                                      |
-| `500 Internal error`      | Server error while generating metrics images (check logs for more details) |
-| `503 Service unavailable` | Maximum user capacity reached, only cached images can be accessed for now  |
-
-</details>
-
-<details>
 <summary>🔗 HTTP parameters</summary>
 
 Most of options from [action.yml](action.yml) are actually supported by web instance, though syntax is slightly different.
@@ -595,6 +582,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" title="👨‍💻 Lines of code changed">👨‍💻</th>
     <th nowrap="nowrap" align="center" title="🧑‍🤝‍🧑 People plugin">🧑‍🤝‍🧑</th>
     <th nowrap="nowrap" align="center" title="🗂️ Active projects">🗂️</th>
+    <th nowrap="nowrap" align="center" title="🌇 GitHub Skyline 3D calendar">🌇</th>
     <th nowrap="nowrap" align="center" title="✨ Stargazers over last weeks">✨</th>
     <th nowrap="nowrap" align="center" title="🌟 Recently starred repositories">🌟</th>
     <th nowrap="nowrap" align="center" title="📌 Starred topics">📌</th>
@@ -622,6 +610,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="lines">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="people">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="projects">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="skyline">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="stargazers">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="stars">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="topics">✔️</th>
@@ -649,6 +638,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="lines">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="people">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="projects">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="skyline">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="stargazers">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="stars">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="topics">❌</th>
@@ -676,6 +666,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="lines">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="people">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="projects">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="skyline">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="stargazers">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="stars">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="topics">❌</th>
@@ -721,6 +712,7 @@ See their respective documentation for more informations about how to setup them
   * [👨‍💻 Lines of code changed](/source/plugins/lines/README.md)
   * [🧑‍🤝‍🧑 People plugin](/source/plugins/people/README.md)
   * [🗂️ Active projects](/source/plugins/projects/README.md)
+  * [🌇 GitHub Skyline 3D calendar](/source/plugins/skyline/README.md)
   * [✨ Stargazers over last weeks](/source/plugins/stargazers/README.md)
   * [🌟 Recently starred repositories](/source/plugins/stars/README.md)
   * [📌 Starred topics](/source/plugins/topics/README.md)

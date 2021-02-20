@@ -431,6 +431,25 @@ inputs:
     default: no
   
   # ====================================================================================
+  # 🌇 GitHub Skyline 3D calendar
+  
+  # Enable or disable plugin
+  plugin_skyline:
+    description: Display GitHub Skyline 3D calendar
+    default: no
+  
+  # Displayed year
+  plugin_skyline_year:
+    description: Displayed year
+    default: current-year
+  
+  # Number of frames
+  # Use 120 for a full-loop and 60 for a half-loop
+  plugin_skyline_frames:
+    description: Number of frames
+    default: 60
+  
+  # ====================================================================================
   # ✨ Stargazers over last weeks
   
   # Enable or disable plugin
