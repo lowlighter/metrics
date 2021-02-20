@@ -205,5 +205,5 @@
       console.debug(`metrics/puppeteergif > processed ${frames}/${frames} frames`)
     //Post-processing
       console.debug("metrics/puppeteergif > applying post-processing")
-      return Promise.all(images.map(async buffer => (await (await jimp.read(buffer)).scale(scale).quality(quality).getBufferAsync("image/png")).toString("base64")))
+      return Promise.all(images.map(async buffer => (await jimp.read(buffer)).scale(scale).quality(quality).getBase64Async("image/png")))
   }
