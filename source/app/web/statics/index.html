@@ -16,7 +16,7 @@
     <main :class="[palette]">
       <template>
 
-        <header>
+        <header v-once>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
           <a href="https://github.com/lowlighter/metrics">Metrics v{{ version }}</a>
         </header>
@@ -45,7 +45,7 @@
 
             <div class="ui-avatar" :style="{backgroundImage:avatar ? `url(${avatar})` : 'none'}"></div>
 
-            <input type="text" v-model="user" placeholder="Your GitHub username" @keyup="mock">
+            <input type="text" v-model="user" placeholder="Your GitHub username">
             <button @click="generate" :disabled="(!user)||(generated.pending)">
               {{ generated.pending ? 'Working on it :)' : 'Generate your metrics!' }}
             </button>
@@ -77,7 +77,6 @@
 
             <div class="configuration" v-if="configure">
               <b>🔧 Configure plugins</b>
-
               <template v-for="(input, key) in configure">
                 <b v-if="typeof input === 'string'">{{ input }}</b>
                 <label v-else class="option">
@@ -90,7 +89,25 @@
                   <input type="text" v-else v-model="plugins.options[key]" @change="mock" :placeholder="input.placeholder">
                 </label>
               </template>
+            </div>
 
+            <div class="configuration">
+              <details>
+                <summary><b>⚙️ Additional settings</b></summary>
+                <template v-for="{key, target} in [{key:'base', target:plugins.options}, {key:'core', target:config}]">
+                  <template v-for="(input, key) in metadata[key]">
+                    <label class="option">
+                      <i>{{ input.text }}</i>
+                      <input type="checkbox" v-if="input.type === 'boolean'" v-model="target[key]" @change="mock">
+                      <input type="number" v-else-if="input.type === 'number'" v-model="target[key]" @change="mock" :min="input.min" :max="input.max">
+                      <select v-else-if="input.type === 'select'" v-model="target[key]" @change="mock">
+                        <option v-for="value in input.values" :value="value">{{ value }}</option>
+                      </select>
+                      <input type="text" v-else v-model="target[key]" @change="mock" :placeholder="input.placeholder">
+                    </label>
+                  </template>
+                </template>
+              </details>
             </div>
 
           </aside>
@@ -103,7 +120,10 @@
             </div>
 
             <div v-if="tab == 'overview'">
-              <div class="error" v-if="generated.error">An error occurred while generating your metrics :( Please try again later.</div>
+              <div class="error" v-if="generated.error">
+                An error occurred while generating your metrics :(<br>
+                <small>{{ generated.error.message }}</small>
+              </div>
               <div class="image" :class="{pending:generated.pending}" v-html="generated.content||templates.placeholder.image"></div>
             </div>
             <div v-else-if="tab == 'markdown'">
@@ -121,6 +141,13 @@
           </div>
 
         </div>
+
+        <footer v-once>
+          <a href="https://github.com/lowlighter/metrics">Repository</a>
+          <a href="https://github.com/lowlighter/metrics/blob/master/LICENSE">License</a>
+          <a href="https://github.com/marketplace/actions/github-metrics-as-svg-image">GitHub Action</a>
+          <span v-if="hosted">Hosted with ❤️ by <a :href="hosted.link">{{ hosted.by }}</a></span>
+        </footer>
 
       </template>
     </main>

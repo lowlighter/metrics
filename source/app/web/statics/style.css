@@ -232,6 +232,46 @@ body {
     text-align: center;
   }
 
+/* Details */
+  details summary:hover {
+    background-color: var(--color-input-contrast-bg);
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  details summary:focus {
+    outline: none;
+  }
+
+/* Error */
+  .error {
+    padding: 1.25rem 1rem;
+    background-image: linear-gradient(var(--color-alert-error-bg),var(--color-alert-error-bg));
+    color: var(--color-alert-error-text);
+    border: 1px solid var(--color-alert-error-border);
+    border-radius: 6px;
+  }
+
+/* Footer */
+  main > footer {
+    margin: 1rem;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    font-size: .8rem;
+    color: var(--color-text-secondary);
+    border-top: 1px solid var(--color-border-secondary);
+    font-style: normal;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  main > footer > * {
+    margin: 0 1rem;
+  }
+
 /* Media screen */
   @media only screen and (min-width: 740px)  {
     .ui {
