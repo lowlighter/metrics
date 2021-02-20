@@ -208,7 +208,7 @@
             //Invalid template
               if ((error instanceof Error)&&(/^unsupported template$/.test(error.message))) {
                 console.debug(`metrics/app/${login} > 400 (bad request)`)
-                return res.status(400).send(`Bad request: unsupported template "${req.query.template}"`)
+                return res.status(400).send(`Bad request: unsupported template`)
               }
             //General error
               console.error(error)
