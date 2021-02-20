@@ -30,7 +30,7 @@
         const data = {
           //Template elements
             style, fonts, errors:[],
-            partials:new Set(partials),
+            partials:new Set([...(set.config.order||"").split(",").map(x => x.trim()).filter(x => partials.includes(x)), ...partials]),
           //Plural helper
             s(value, end = "") {
               return value !== 1 ? {y:"ies", "":"s"}[end] : end

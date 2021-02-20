@@ -87,6 +87,7 @@ inputs:
     type: array
     format: comma-separated
     default: ""
+    example: base.header, base.repositories
 
   # Use twemojis instead of emojis
   # May increase filesize but emojis will be rendered the same across all platforms
