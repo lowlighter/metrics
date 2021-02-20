@@ -159,7 +159,7 @@
         //Maximum simultaneous users
           if ((maxusers)&&(cache.size()+1 > maxusers)) {
             console.debug(`metrics/app/${login} > 503 (maximum users reached)`)
-            return res.status(503).send(`Service Unavailable: maximum users reached, only cached metrics are available`)
+            return res.status(503).send("Service Unavailable: maximum users reached, only cached metrics are available")
           }
         //Prevent multiples requests
           if (pending.has(login)) {
@@ -200,7 +200,7 @@
               }
             //General error
               console.error(error)
-              return res.status(500).send(`Internal Server Error: failed to process metrics correctly`)
+              return res.status(500).send("Internal Server Error: failed to process metrics correctly")
           }
         //After rendering
           finally {
