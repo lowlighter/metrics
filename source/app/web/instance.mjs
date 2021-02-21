@@ -142,13 +142,18 @@
 
     //Metrics
       const pending = new Set()
-      app.get("/:login/:repository", ...middlewares, (req, res) => res.redirect(`/${req.params.login}?template=repository&repo=${req.params.repository}&${Object.entries(req.query).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join("&")}`))
-      app.get("/:login", ...middlewares, async(req, res) => {
+      app.get("/:login/:repository?", ...middlewares, async(req, res) => {
         //Request params
           const login = req.params.login?.replace(/[\n\r]/g, "")
+          const repository = req.params.repository?.replace(/[\n\r]/g, "")
+          if (!/^[-\w]+$/i.test(login)) {
+            console.debug(`metrics/app/${login} > 400 (invalid username)`)
+            return res.status(400).send("Bad request: username seems invalid")
+          }
+        //Allowed list check
           if ((restricted.length)&&(!restricted.includes(login))) {
             console.debug(`metrics/app/${login} > 403 (not in allowed users)`)
-            return res.status(403).send(`Forbidden: "${login}" not in allowed users`)
+            return res.status(403).send("Forbidden: username not in allowed list")
           }
         //Read cached data if possible
           if ((!debug)&&(cached)&&(cache.get(login))) {
@@ -159,14 +164,21 @@
         //Maximum simultaneous users
           if ((maxusers)&&(cache.size()+1 > maxusers)) {
             console.debug(`metrics/app/${login} > 503 (maximum users reached)`)
-            return res.status(503).send("Service Unavailable: maximum users reached, only cached metrics are available")
+            return res.status(503).send("Service Unavailable: maximum number of users reached, only cached metrics are available")
           }
         //Prevent multiples requests
           if (pending.has(login)) {
             console.debug(`metrics/app/${login} > 409 (multiple requests)`)
-            return res.status(409).send(`Conflict: a request for "${login}" is being process, retry later`)
+            return res.status(409).send(`Conflict: a request for "${login}" is already being processed, retry later once previous one is finished`)
           }
           pending.add(login)
+        //Repository alias
+          if (repository) {
+            console.debug(`metrics/app/${login} > compute repository metrics`)
+            if (!req.query.template)
+              req.query.template = "repository"
+            req.query.repo = repository
+          }
 
         //Compute rendering
           try {
@@ -191,12 +203,12 @@
             //Not found user
               if ((error instanceof Error)&&(/^user not found$/.test(error.message))) {
                 console.debug(`metrics/app/${login} > 404 (user/organization not found)`)
-                return res.status(404).send(`Not found: unknown user or organization "${login}"`)
+                return res.status(404).send("Not found: unknown user or organization")
               }
             //Invalid template
               if ((error instanceof Error)&&(/^unsupported template$/.test(error.message))) {
                 console.debug(`metrics/app/${login} > 400 (bad request)`)
-                return res.status(400).send(`Bad request: unsupported template "${req.query.template}"`)
+                return res.status(400).send("Bad request: unsupported template")
               }
             //General error
               console.error(error)

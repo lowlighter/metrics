@@ -198,6 +198,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
 
   # Deploy to metrics.lecoq.io
   deploy-master:
