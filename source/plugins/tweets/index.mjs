@@ -35,6 +35,7 @@
               tweet.mentions = tweet.entities?.mentions.map(({username}) => username) ?? []
             //Format text
               console.debug(`metrics/compute/${login}/plugins > tweets > formatting tweet ${tweet.id}`)
+              tweet.createdAt = `${imports.date(tweet.created_at, {timeStyle:"short", timeZone:data.config.timezone?.name})} on ${imports.date(tweet.created_at, {dateStyle:"short", timeZone:data.config.timezone?.name})}`
               tweet.text = imports.htmlescape( //eslint-disable-line function-paren-newline
               //Escape tags
                 imports.htmlescape(tweet.text, {"<":true, ">":true})
