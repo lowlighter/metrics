@@ -9,8 +9,8 @@
               const elements = []
               let results = new Array(4+faker.random.number(2)).fill(null).map(_ => ({
                 get digital() {
- return `${this.hours}:${this.minutes}`
-},
+                  return `${this.hours}:${this.minutes}`
+                },
                 hours:faker.random.number(1000), minutes:faker.random.number(1000),
                 name:array ? faker.random.arrayElement(array) : faker.random.words(2).replace(/ /g, "-").toLocaleLowerCase(),
                 percent:0, total_seconds:faker.random.number(1000000),
