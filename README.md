@@ -24,7 +24,7 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
 <table>
   <tr>
     <th colspan="2" align="center">
-      <a href="source/plugins/README.md">🧩 24 plugins</a>
+      <a href="source/plugins/README.md">🧩 25 plugins</a>
     </th>
   </tr>
   <tr>
@@ -217,7 +217,7 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
   </tr>
   <tr>
     <th><a href="source/plugins/posts/README.md">✒️ Recent posts</a></th>
-    <th><a href="source/plugins/tweets/README.md">🐤 Latest tweets</a></th>
+    <th><a href="source/plugins/stackoverflow/README.md">🗨️ Stackoverflow plugin</a></th>
   </tr>
   <tr>
     <td align="center">
@@ -225,23 +225,34 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
       <img width="900" height="1" alt="">
     </td>
     <td align="center">
-      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.tweets.svg">
+      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.stackoverflow.svg">
       <img width="900" height="1" alt="">
     </td>
   </tr>
   <tr>
+    <th><a href="source/plugins/tweets/README.md">🐤 Latest tweets</a></th>
     <th><a href="source/plugins/wakatime/README.md">⏰ WakaTime plugin</a></th>
-    <th><a href="source/plugins/nightscout/README.md">💉 Nightscout</a></th>
   </tr>
   <tr>
+    <td align="center">
+      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.tweets.svg">
+      <img width="900" height="1" alt="">
+    </td>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.wakatime.svg">
       <img width="900" height="1" alt="">
     </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/nightscout/README.md">💉 Nightscout</a></th>
+    <th><a href="source/plugins//README.md"></a></th>
+  </tr>
+  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/legoandmars/legoandmars/blob/master/metrics.plugin.nightscout.svg">
       <img width="900" height="1" alt="">
     </td>
+    <td align="center"><img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <th colspan="2" align="center">
@@ -591,6 +602,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" title="🎼 Music plugin">🎼</th>
     <th nowrap="nowrap" align="center" title="⏱️ Website performances">⏱️</th>
     <th nowrap="nowrap" align="center" title="✒️ Recent posts">✒️</th>
+    <th nowrap="nowrap" align="center" title="🗨️ Stackoverflow plugin">🗨️</th>
     <th nowrap="nowrap" align="center" title="🐤 Latest tweets">🐤</th>
     <th nowrap="nowrap" align="center" title="⏰ WakaTime plugin">⏰</th>
     <th nowrap="nowrap" align="center" title="💉 Nightscout">💉</th>
@@ -619,6 +631,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="music">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="posts">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="stackoverflow">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="tweets">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="wakatime">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="nightscout">✔️</th>
@@ -647,6 +660,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="music">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="posts">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="stackoverflow">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="tweets">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="wakatime">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="nightscout">❌</th>
@@ -675,6 +689,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="music">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="posts">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="stackoverflow">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="tweets">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="wakatime">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="nightscout">❌</th>
@@ -722,6 +737,7 @@ See their respective documentation for more informations about how to setup them
   * [🎼 Music plugin](/source/plugins/music/README.md)
   * [⏱️ Website performances](/source/plugins/pagespeed/README.md)
   * [✒️ Recent posts](/source/plugins/posts/README.md)
+  * [🗨️ Stackoverflow plugin](/source/plugins/stackoverflow/README.md)
   * [🐤 Latest tweets](/source/plugins/tweets/README.md)
   * [⏰ WakaTime plugin](/source/plugins/wakatime/README.md)
 * **Health**
