@@ -12,7 +12,7 @@
   "debug": false,                  "//": "Debug logs",
   "mocked": false,                 "//": "Use mocked data instead of live APIs (use 'force' to use mocked token even if real token are defined)",
   "repositories": 100,             "//": "Number of repositories to use",
-  "padding": ["6%", "15%"],        "//": "Image padding (default)",
+  "padding": ["6%", "13%"],        "//": "Image padding (default)",
   "hosted": {
     "by": "",                      "//": "Web instance host (displayed in footer)",
     "link": "",                    "//": "Web instance host link (displayed in footer)"
@@ -90,6 +90,9 @@
     },
     "posts":{
       "enabled": false,            "//": "Display recent posts"
+    },
+    "stackoverflow":{
+      "enabled": false,            "//": "Stackoverflow metrics"
     },
     "tweets":{
       "token": null,               "//":"Twitter API token",

@@ -128,7 +128,7 @@ inputs:
   # Specify one value (for both width and height) or two values (one for width and one for height)
   config_padding:
     description: Image padding
-    default: 6%, 15%
+    default: 6%, 13%
   
   # Metrics output format
   config_output:
@@ -669,6 +669,36 @@ inputs:
   plugin_posts_user:
     description: Posts external source username
     default: .user.login
+  
+  # ====================================================================================
+  # 🗨️ Stackoverflow plugin
+  
+  # Enable or disable plugin
+  plugin_stackoverflow:
+    description: Stackoverflow metrics
+    default: no
+  
+  # Stackoverflow user id
+  # To obtain it, extract the identifier on your account page url
+  plugin_stackoverflow_user:
+    description: Stackoverflow user id
+    default: 0
+  
+  # Sections to display
+  plugin_stackoverflow_sections:
+    description: Sections to display
+    default: answers-top, questions-recent
+  
+  # Number of entries to display per section
+  plugin_stackoverflow_limit:
+    description: Maximum number of entries to display per section
+    default: 2
+  
+  # Number of lines to display per question or answer
+  # Set to 0 to disable limitations
+  plugin_stackoverflow_lines:
+    description: Maximum number of lines to display per question or answer
+    default: 4
   
   # ====================================================================================
   # 🐤 Latest tweets

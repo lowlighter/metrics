@@ -29,6 +29,7 @@ See their respective documentation for more informations about how to setup them
   * [🎼 Music plugin](/source/plugins/music/README.md)
   * [⏱️ Website performances](/source/plugins/pagespeed/README.md)
   * [✒️ Recent posts](/source/plugins/posts/README.md)
+  * [🗨️ Stackoverflow plugin](/source/plugins/stackoverflow/README.md)
   * [🐤 Latest tweets](/source/plugins/tweets/README.md)
   * [⏰ WakaTime plugin](/source/plugins/wakatime/README.md)
 * **Health**
