@@ -21,7 +21,6 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-          token: ${{ secrets._GITHUB_TOKEN }}
       - name: Setup NodeJS
         uses: actions/setup-node@v2
         with:
@@ -71,8 +70,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Setup NodeJS
         uses: actions/setup-node@v2
         with:
@@ -148,7 +145,6 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Setup NodeJS
         uses: actions/setup-node@v2
         with:
