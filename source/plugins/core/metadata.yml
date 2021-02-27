@@ -96,6 +96,13 @@ inputs:
     type: boolean
     default: no
 
+  # Render GitHub custom emojis (like ":octocat:", see full list at https://api.github.com/emojis)
+  # May increase filesize
+  config_gemoji:
+    description: Use GitHub custom emojis
+    type: boolean
+    default: yes
+
   # Enable SVG CSS animations
   config_animations:
     description: SVG CSS animations

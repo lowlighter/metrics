@@ -3,7 +3,7 @@
     console.debug("metrics/compute/mocks > mocking rest api result > rest.repos.getByUsername")
     return ({
       status:200,
-      url:`'https://api.github.com/users/${username}/`,
+      url:`https://api.github.com/users/${username}/`,
       headers:{
         server:"GitHub.com",
         status:"200 OK",

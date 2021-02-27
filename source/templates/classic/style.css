@@ -738,8 +738,8 @@
     }
   }
 
-/* Twemoji */
-  .twemoji {
+/* Twemoji and GitHub emoji */
+  .twemoji, .gemoji {
     height: 1em;
     width: 1em;
     margin-bottom: -.125em;

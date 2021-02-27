@@ -57,6 +57,8 @@
           let rendered = await ejs.render(image, {...data, s:imports.s, f:imports.format, style, fonts}, {views, async:true})
           if (q["config.twemoji"])
             rendered = await imports.svg.twemojis(rendered)
+          if (q["config.gemoji"])
+            rendered = await imports.svg.gemojis(rendered, {rest})
           const {resized, mime} = await imports.svg.resize(rendered, {paddings:q["config.padding"] || conf.settings.padding, convert})
           rendered = resized
 
