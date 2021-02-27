@@ -41,14 +41,23 @@ inputs:
     required: true
   
   # GitHub username
+  # Defaults to "token" owner
   user:
     description: GitHub username
     default: ""
   
-  # Set to "${{ secrets.GITHUB_TOKEN }}"
+  # GitHub repository
+  # Compute metrics for a repository instead ("user" being the repository owner)
+  # Check https://github.com/lowlighter/metrics/blob/master/source/templates/repository/README.md for more informations
+  repo:
+    description: GitHub repository
+    default: ""
+  
+  # Set to "${{ github.token }}" or "${{ secrets.GITHUB_TOKEN }}"
+  # GITHUB_TOKEN is a special auto-generated token restricted to current repository, which is used to push files in it
   committer_token:
     description: GitHub Token used to commit metrics
-    default: ""
+    default: ${{ github.token }}
   
   # Branch used to commit rendered metrics
   committer_branch:
