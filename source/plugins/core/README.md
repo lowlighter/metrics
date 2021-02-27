@@ -39,6 +39,22 @@ Omitted one will be appended using default order.
     config_order: base.header, isocalendar, languages, stars
 ```
 
+### 🥳 Render GitHub custom emojis
+
+GitHub provide additional emojis which are not registered in Unicode standard (:octocat:, :shipit:, :trollface:, ...).
+You can choose to render (or not) [GitHub emojis](https://github.com/github/gemoji).
+
+It may increase filesize since it replace special strings by base64 images.
+
+#### ℹ️ Examples workflows
+
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    config_gemoji: yes
+```
+
 ### 🙂 Using twemojis instead of emojis
 
 You can choose to use [twemojis](https://github.com/twitter/twemoji) instead of regular emojis so rendered metrics are more consistent across all platforms.
