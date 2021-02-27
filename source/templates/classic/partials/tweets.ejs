@@ -25,10 +25,10 @@
           </div>
           <% if (plugins.tweets.profile) { %>
             <% if (plugins.tweets.list.length) { %>
-              <% for (const {text, created_at} of plugins.tweets.list) { %>
+              <% for (const {text, createdAt } of plugins.tweets.list) { %>
                 <div class="tweet">
                   <%- text %>
-                  <div class="date"><%= new Date(created_at).toGMTString() %></div>
+                  <div class="date"><%= createdAt %></div>
                 </div>
               <% } %>
             <% } else { %>
