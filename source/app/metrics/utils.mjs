@@ -167,7 +167,7 @@
     /**Render twemojis */
       async twemojis(rendered) {
         //Load emojis
-          console.debug(`metrics/svg/twemojis > rendering twemojis`)
+          console.debug("metrics/svg/twemojis > rendering twemojis")
           const emojis = new Map()
           for (const {text:emoji, url} of twemojis.parse(rendered)) {
             if (!emojis.has(emoji))
@@ -181,7 +181,7 @@
     /**Render github emojis */
       async gemojis(rendered, {rest}) {
         //Load gemojis
-          console.debug(`metrics/svg/gemojis > rendering gemojis`)
+          console.debug("metrics/svg/gemojis > rendering gemojis")
           const emojis = new Map()
           for (const [emoji, url] of Object.entries((await rest.emojis.get()).data).map(([key, value]) => [`:${key}:`, value])) {
             if (((!emojis.has(emoji)))&&(new RegExp(emoji, "g").test(rendered)))
@@ -191,7 +191,7 @@
           for (const [emoji, gemoji] of emojis)
             rendered = rendered.replace(new RegExp(emoji, "g"), gemoji)
         return rendered
-      }
+      },
   }
 
 /**Wait */

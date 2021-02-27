@@ -3,7 +3,7 @@
     console.debug("metrics/compute/mocks > mocking rest api result > rest.emojis.get")
     return ({
       status:200,
-      url:`https://api.github.com/emojis`,
+      url:"https://api.github.com/emojis",
       headers:{
         server:"GitHub.com",
         status:"200 OK",
@@ -1566,7 +1566,7 @@
         synagogue:"https://github.githubassets.com/images/icons/emoji/unicode/1f54d.png?v8",
         syria:"https://github.githubassets.com/images/icons/emoji/unicode/1f1f8-1f1fe.png?v8",
         syringe:"https://github.githubassets.com/images/icons/emoji/unicode/1f489.png?v8",
-        't-rex':"https://github.githubassets.com/images/icons/emoji/unicode/1f996.png?v8",
+        "t-rex":"https://github.githubassets.com/images/icons/emoji/unicode/1f996.png?v8",
         taco:"https://github.githubassets.com/images/icons/emoji/unicode/1f32e.png?v8",
         tada:"https://github.githubassets.com/images/icons/emoji/unicode/1f389.png?v8",
         taiwan:"https://github.githubassets.com/images/icons/emoji/unicode/1f1f9-1f1fc.png?v8",
