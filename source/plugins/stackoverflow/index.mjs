@@ -86,7 +86,7 @@
       },
     /**Format questions */
       question({title, body_markdown:body, score, up_vote_count:upvotes, down_vote_count:downvotes, favorite_count:favorites, tags, is_answered:answered, answer_count:answers, comment_count:comments, view_count:views, creation_date, owner:{display_name:author}, link, question_id:id, accepted_answer_id = null}, {imports, data}) {
-        const formatted = {type:"question", title, body:imports.htmlunescape(body), score, upvotes, downvotes, favorites, tags, answered, answers, comments, views, author, created:imports.date(creation_date*1000, {dateStyle:"short", timeZone:data.config.timezone?.name}), link, id, accepted_answer_id,
+        const formatted = {type:"question", title:imports.htmlunescape(title), body:imports.htmlunescape(body), score, upvotes, downvotes, favorites, tags, answered, answers, comments, views, author, created:imports.date(creation_date*1000, {dateStyle:"short", timeZone:data.config.timezone?.name}), link, id, accepted_answer_id,
           get answer() {
             return format.cached.get(`a${this.accepted_answer_id}`) ?? null
           },
