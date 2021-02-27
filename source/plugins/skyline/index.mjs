@@ -7,7 +7,7 @@
             return null
 
         //Load inputs
-          let {year, frames} = imports.metadata.plugins.skyline.inputs({data, account, q})
+          let {year, frames, quality} = imports.metadata.plugins.skyline.inputs({data, account, q})
           if (Number.isNaN(year)) {
             year = new Date().getFullYear()
             console.debug(`metrics/compute/${login}/plugins > skyline > year set to ${year}`)
@@ -32,7 +32,7 @@
 
         //Generate gif
           console.debug(`metrics/compute/${login}/plugins > skyline > generating frames`)
-          const framed = await imports.puppeteergif({page, width, height, frames, scale:0.5})
+          const framed = await imports.puppeteergif({page, width, height, frames, scale:quality})
 
         //Close puppeteer
           await browser.close()

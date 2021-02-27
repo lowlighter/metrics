@@ -26,3 +26,12 @@ inputs:
     default: 60
     min: 1
     max: 120
+
+  # Image quality
+  # Note that it significantly increases output filesize (up to a few Mb) which can cause render/loading issues
+  plugin_skyline_quality:
+    description: Image quality
+    type: number
+    default: 0.5
+    min: 0.1
+    max: 1
