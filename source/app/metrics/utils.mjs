@@ -183,9 +183,15 @@
         //Load gemojis
           console.debug("metrics/svg/gemojis > rendering gemojis")
           const emojis = new Map()
-          for (const [emoji, url] of Object.entries((await rest.emojis.get()).data).map(([key, value]) => [`:${key}:`, value])) {
-            if (((!emojis.has(emoji)))&&(new RegExp(emoji, "g").test(rendered)))
-              emojis.set(emoji, `<img class="gemoji" src="data:image/png;base64,${await imgb64(url)}" height="16" width="16" alt="">`)
+          try {
+            for (const [emoji, url] of Object.entries((await rest.emojis.get()).data).map(([key, value]) => [`:${key}:`, value])) {
+              if (((!emojis.has(emoji)))&&(new RegExp(emoji, "g").test(rendered)))
+                emojis.set(emoji, `<img class="gemoji" src="data:image/png;base64,${await imgb64(url)}" height="16" width="16" alt="">`)
+            }
+          }
+          catch (error) {
+            console.debug("metrics/svg/gemojis > could not load gemojis")
+            console.debug(error)
           }
         //Apply replacements
           for (const [emoji, gemoji] of emojis)
