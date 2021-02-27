@@ -9,7 +9,7 @@
         //Load inputs
           let {sections, user, limit, lines} = imports.metadata.plugins.stackoverflow.inputs({data, account, q})
           if (!user)
-            throw {error:{message:`You must provide a stackoverflow user id`}}
+            throw {error:{message:"You must provide a stackoverflow user id"}}
 
         //Initialization
         //See https://api.stackexchange.com/docs
