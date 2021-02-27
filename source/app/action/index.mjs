@@ -59,7 +59,7 @@
             "use.prebuilt.image":_image,
             ...config
           } = metadata.plugins.core.inputs.action({core})
-          const q = {...query, repo:_repo, template}
+          const q = {...query, ...(_repo ? {repo:_repo} : null), template}
 
         //Docker image
           if (_image)
