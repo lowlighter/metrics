@@ -32,7 +32,7 @@
 
         //Generate gif
           console.debug(`metrics/compute/${login}/plugins > skyline > generating frames`)
-          const framed = await imports.puppeteergif({page, width, height, frames, scale:quality})
+          const framed = await imports.record({page, width, height, frames, scale:quality})
 
         //Close puppeteer
           await browser.close()

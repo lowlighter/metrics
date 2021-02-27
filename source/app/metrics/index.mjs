@@ -56,8 +56,8 @@
           console.debug(`metrics/compute/${login} > render`)
           let rendered = await ejs.render(image, {...data, s:imports.s, f:imports.format, style, fonts}, {views, async:true})
           if (q["config.twemoji"])
-            rendered = await imports.svgemojis(rendered)
-          const {resized, mime} = await imports.svgresize(rendered, {paddings:q["config.padding"] || conf.settings.padding, convert})
+            rendered = await imports.svg.twemojis(rendered)
+          const {resized, mime} = await imports.svg.resize(rendered, {paddings:q["config.padding"] || conf.settings.padding, convert})
           rendered = resized
 
         //Additional SVG transformations

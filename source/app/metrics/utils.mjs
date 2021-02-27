@@ -86,16 +86,6 @@
       .replace(/'/g, u["'"] ? "&apos;" : "'")
   }
 
-/**Expand url */
-  export async function urlexpand(url) {
-    try {
-      return (await axios.get(url)).request.res.responseUrl
-    }
-    catch {
-      return url
-    }
-  }
-
 /**Run command */
   export async function run(command, options, {prefixed = true} = {}) {
     const prefix = {win32:"wsl"}[process.platform] ?? ""
@@ -128,63 +118,65 @@
     return false
   }
 
-/**Render svg */
-  export async function svgresize(svg, {paddings, convert}) {
-    //Instantiate browser if needed
-      if (!svgresize.browser) {
-        svgresize.browser = await puppeteer.launch({headless:true, executablePath:process.env.PUPPETEER_BROWSER_PATH, args:["--no-sandbox", "--disable-extensions", "--disable-setuid-sandbox", "--disable-dev-shm-usage"]})
-        console.debug(`metrics/svgresize > started ${await svgresize.browser.version()}`)
-      }
-    //Format padding
-      const [pw = 1, ph] = (Array.isArray(paddings) ? paddings : `${paddings}`.split(",").map(x => x.trim())).map(padding => `${padding}`.substring(0, padding.length-1)).map(value => 1+Number(value)/100)
-      const padding = {width:pw, height:ph ?? pw}
-      console.debug(`metrics/svgresize > padding width*${padding.width}, height*${padding.height}`)
-    //Render through browser and resize height
-      const page = await svgresize.browser.newPage()
-      await page.setContent(svg, {waitUntil:["load", "domcontentloaded", "networkidle2"]})
-      await page.addStyleTag({content:"body { margin: 0; padding: 0; }"})
-      await wait(1)
-      let mime = "image/svg+xml"
-      let {resized, width, height} = await page.evaluate(async padding => {
-        //Disable animations
-          const animated = !document.querySelector("svg").classList.contains("no-animations")
-          if (animated)
-            document.querySelector("svg").classList.add("no-animations")
-        //Get bounds and resize
-          let {y:height, width} = document.querySelector("svg #metrics-end").getBoundingClientRect()
-          height = Math.ceil(height*padding.height)
-          width = Math.ceil(width*padding.width)
-        //Resize svg
-          document.querySelector("svg").setAttribute("height", height)
-        //Enable animations
-          if (animated)
-            document.querySelector("svg").classList.remove("no-animations")
+/**SVG utils */
+  export const svg = {
+    /**Render and resize svg */
+      async resize(rendered, {paddings, convert}) {
+        //Instantiate browser if needed
+          if (!svg.resize.browser) {
+            svg.resize.browser = await puppeteer.launch({headless:true, executablePath:process.env.PUPPETEER_BROWSER_PATH, args:["--no-sandbox", "--disable-extensions", "--disable-setuid-sandbox", "--disable-dev-shm-usage"]})
+            console.debug(`metrics/svg/resize > started ${await svg.resize.browser.version()}`)
+          }
+        //Format padding
+          const [pw = 1, ph] = (Array.isArray(paddings) ? paddings : `${paddings}`.split(",").map(x => x.trim())).map(padding => `${padding}`.substring(0, padding.length-1)).map(value => 1+Number(value)/100)
+          const padding = {width:pw, height:ph ?? pw}
+          console.debug(`metrics/svg/resize > padding width*${padding.width}, height*${padding.height}`)
+        //Render through browser and resize height
+          const page = await svg.resize.browser.newPage()
+          await page.setContent(rendered, {waitUntil:["load", "domcontentloaded", "networkidle2"]})
+          await page.addStyleTag({content:"body { margin: 0; padding: 0; }"})
+          await wait(1)
+          let mime = "image/svg+xml"
+          let {resized, width, height} = await page.evaluate(async padding => {
+            //Disable animations
+              const animated = !document.querySelector("svg").classList.contains("no-animations")
+              if (animated)
+                document.querySelector("svg").classList.add("no-animations")
+            //Get bounds and resize
+              let {y:height, width} = document.querySelector("svg #metrics-end").getBoundingClientRect()
+              height = Math.ceil(height*padding.height)
+              width = Math.ceil(width*padding.width)
+            //Resize svg
+              document.querySelector("svg").setAttribute("height", height)
+            //Enable animations
+              if (animated)
+                document.querySelector("svg").classList.remove("no-animations")
+            //Result
+              return {resized:new XMLSerializer().serializeToString(document.querySelector("svg")), height, width}
+          }, padding)
+        //Convert if required
+          if (convert) {
+            console.debug(`metrics/svg/resize > convert to ${convert}`)
+            resized = await page.screenshot({type:convert, clip:{x:0, y:0, width, height}, omitBackground:true})
+            mime = `image/${convert}`
+          }
         //Result
-          return {resized:new XMLSerializer().serializeToString(document.querySelector("svg")), height, width}
-      }, padding)
-    //Convert if required
-      if (convert) {
-        console.debug(`metrics/svgresize > convert to ${convert}`)
-        resized = await page.screenshot({type:convert, clip:{x:0, y:0, width, height}, omitBackground:true})
-        mime = `image/${convert}`
-      }
-    //Result
-      await page.close()
-      return {resized, mime}
-  }
-
-/**Render twemojis */
-  export async function svgemojis(svg) {
-    //Load emojis
-      const emojis = new Map()
-      for (const {text:emoji, url} of twemojis.parse(svg)) {
-        if (!emojis.has(emoji))
-          emojis.set(emoji, (await axios.get(url)).data.replace(/^<svg /, '<svg class="twemoji" '))
-      }
-    //Apply replacements
-      for (const [emoji, twemoji] of emojis)
-        svg = svg.replace(new RegExp(emoji, "g"), twemoji)
-    return svg
+          await page.close()
+          return {resized, mime}
+      },
+    /**Render twemojis */
+      async twemojis(rendered) {
+        //Load emojis
+          const emojis = new Map()
+          for (const {text:emoji, url} of twemojis.parse(rendered)) {
+            if (!emojis.has(emoji))
+              emojis.set(emoji, (await axios.get(url)).data.replace(/^<svg /, '<svg class="twemoji" '))
+          }
+        //Apply replacements
+          for (const [emoji, twemoji] of emojis)
+            rendered = rendered.replace(new RegExp(emoji, "g"), twemoji)
+        return rendered
+      },
   }
 
 /**Wait */
@@ -193,17 +185,17 @@
   }
 
 /**Create gif from puppeteer browser */
-  export async function puppeteergif({page, width, height, frames, scale = 1, quality = 80, x = 0, y = 0, delay = 150}) {
+  export async function record({page, width, height, frames, scale = 1, quality = 80, x = 0, y = 0, delay = 150}) {
     //Register images frames
       const images = []
       for (let i = 0; i < frames; i++) {
         images.push(await page.screenshot({type:"png", clip:{width, height, x, y}}))
         await wait(delay/1000)
         if (i%10 === 0)
-          console.debug(`metrics/puppeteergif > processed ${i}/${frames} frames`)
+          console.debug(`metrics/record > processed ${i}/${frames} frames`)
       }
-      console.debug(`metrics/puppeteergif > processed ${frames}/${frames} frames`)
+      console.debug(`metrics/record > processed ${frames}/${frames} frames`)
     //Post-processing
-      console.debug("metrics/puppeteergif > applying post-processing")
+      console.debug("metrics/record > applying post-processing")
       return Promise.all(images.map(async buffer => (await jimp.read(buffer)).scale(scale).quality(quality).getBase64Async("image/png")))
   }
