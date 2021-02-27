@@ -91,8 +91,8 @@
     return string
       .replace(/&lt;/g, u["<"] ? "<" : "&lt;")
       .replace(/&gt;/g, u[">"] ? ">" : "&gt;")
-      .replace(/&quot;/g, u['"'] ? '"' : '&quot;')
-      .replace(/&apos;/g, u["'"] ? "'" : "&apos;")
+      .replace(/&quot;/g, u['"'] ? '"' : "&quot;")
+      .replace(/&(?:apos|#39);/g, u["'"] ? "'" : "&apos;")
       .replace(/&amp;/g, u["&"] ? "&" : "&amp;")
   }
 
