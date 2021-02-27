@@ -449,6 +449,12 @@ inputs:
     description: Number of frames
     default: 60
   
+  # Image quality
+  # Note that it significantly increases output filesize (up to a few Mb) which can cause render/loading issues
+  plugin_skyline_quality:
+    description: Image quality
+    default: 0.5
+  
   # ====================================================================================
   # ✨ Stargazers over last weeks
   
