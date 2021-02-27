@@ -1,0 +1,48 @@
+name: "🗨️ Stackoverflow plugin"
+cost: N/A
+categorie: social
+supports:
+  - user
+  - organization
+inputs:
+
+  # Enable or disable plugin
+  plugin_stackoverflow:
+    description: Stackoverflow metrics
+    type: boolean
+    default: no
+
+  # Stackoverflow user id
+  # To obtain it, extract the identifier on your account page url
+  plugin_stackoverflow_user:
+    description: Stackoverflow user id
+    type: number
+    default: 0
+
+  # Sections to display
+  plugin_stackoverflow_sections:
+    description: Sections to display
+    type: array
+    format: comma-separated
+    default: answers-top, questions-recent
+    values:
+      - answers-top       # Display top answers
+      - answers-recent    # Display recent answers
+      - questions-top     # Display top questions
+      - questions-recent  # Display recent questions
+
+  # Number of entries to display per section
+  plugin_stackoverflow_limit:
+    description: Maximum number of entries to display per section
+    type: number
+    default: 2
+    min: 1
+    max: 30
+
+  # Number of lines to display per question or answer
+  # Set to 0 to disable limitations
+  plugin_stackoverflow_lines:
+    description: Maximum number of lines to display per question or answer
+    type: number
+    default: 4
+    min: 0
