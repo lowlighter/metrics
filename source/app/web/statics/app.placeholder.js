@@ -651,6 +651,65 @@
                     duration:options["isocalendar.duration"]
                   }
                 }) : null),
+              //Stackoverflow
+                ...(set.plugins.enabled.stackoverflow ? ({
+                  stackoverflow:{
+                    sections:options["stackoverflow.sections"].split(",").map(x => x.trim()).filter(x => x),
+                    lines:options["stackoverflow.lines"],
+                    user:{
+                      reputation:faker.random.number(100000),
+                      badges:faker.random.number(1000),
+                      questions:faker.random.number(1000),
+                      answers:faker.random.number(1000),
+                      comments:faker.random.number(1000),
+                      views:faker.random.number(1000),
+                    },
+                    "answers-top":new Array(options["stackoverflow.limit"]).fill(null).map(_ => ({
+                      type:"answer",
+                      body:faker.lorem.paragraphs(),
+                      score:faker.random.number(1000),
+                      upvotes:faker.random.number(1000),
+                      downvotes:faker.random.number(1000),
+                      accepted:faker.random.boolean(),
+                      comments:faker.random.number(1000),
+                      author:set.user,
+                      created:"01/01/1970",
+                      link:null,
+                      id:faker.random.number(100000),
+                      question_id:faker.random.number(100000),
+                      question:{
+                        title:faker.lorem.sentence(),
+                        tags:[faker.lorem.slug(), faker.lorem.slug()],
+                      }
+                    })),
+                    get ["answers-recent"]() {
+                      return this["answers-top"]
+                    },
+                    "questions-top":new Array(options["stackoverflow.limit"]).fill(null).map(_ => ({
+                      type:"question",
+                      title:faker.lorem.sentence(),
+                      body:faker.lorem.paragraphs(),
+                      score:faker.random.number(1000),
+                      upvotes:faker.random.number(1000),
+                      downvotes:faker.random.number(1000),
+                      favorites:faker.random.number(1000),
+                      tags:[faker.lorem.slug(), faker.lorem.slug()],
+                      answered:faker.random.boolean(),
+                      answers:faker.random.number(1000),
+                      comments:faker.random.number(1000),
+                      views:faker.random.number(1000),
+                      author:set.user,
+                      created:"01/01/1970",
+                      link:null,
+                      id:faker.random.number(100000),
+                      accepted_answer_id:faker.random.number(100000),
+                      answer:null,
+                    })),
+                    get ["questions-recent"]() {
+                      return this["questions-top"]
+                    },
+                  }
+                }) : null),
             },
         }
       //Formatters
