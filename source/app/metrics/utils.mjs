@@ -86,6 +86,16 @@
       .replace(/'/g, u["'"] ? "&apos;" : "'")
   }
 
+/**Unescape html */
+  export function htmlunescape(string, u = {"&":true, "<":true, ">":true, '"':true, "'":true}) {
+    return string
+      .replace(/&lt;/g, u["<"] ? "<" : "&lt;")
+      .replace(/&gt;/g, u[">"] ? ">" : "&gt;")
+      .replace(/&quot;/g, u['"'] ? '"' : '&quot;')
+      .replace(/&apos;/g, u["'"] ? "'" : "&apos;")
+      .replace(/&amp;/g, u["&"] ? "&" : "&amp;")
+  }
+
 /**Run command */
   export async function run(command, options, {prefixed = true} = {}) {
     const prefix = {win32:"wsl"}[process.platform] ?? ""
