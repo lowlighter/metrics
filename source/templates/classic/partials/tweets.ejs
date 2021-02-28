@@ -25,9 +25,16 @@
           </div>
           <% if (plugins.tweets.profile) { %>
             <% if (plugins.tweets.list.length) { %>
-              <% for (const {text, createdAt } of plugins.tweets.list) { %>
+              <% for (const {text, createdAt, attachments} of plugins.tweets.list) { %>
                 <div class="tweet">
                   <%- text %>
+                  <% if (attachments) { %>
+                    <div class="attachments">
+                      <% for (const attachment of attachments) { %>
+                        <div style="background-image: url('<%= attachment %>');"></div>
+                      <% } %>
+                    </div>
+                  <% } %>
                   <div class="date"><%= createdAt %></div>
                 </div>
               <% } %>
