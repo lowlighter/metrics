@@ -21,7 +21,8 @@
 
         //Load tweets
           console.debug(`metrics/compute/${login}/plugins > tweets > querying api`)
-          const {data:{data:tweets = []}} = await imports.axios.get(`https://api.twitter.com/2/tweets/search/recent?query=from:${username}&tweet.fields=created_at&expansions=entities.mentions.username`, {headers:{Authorization:`Bearer ${token}`}})
+          const {data:{data:tweets = [], includes:{media = []}}} = await imports.axios.get(`https://api.twitter.com/2/tweets/search/recent?query=from:${username}&tweet.fields=created_at&media.fields=preview_image_url,url,type&expansions=entities.mentions.username,attachments.media_keys`, {headers:{Authorization:`Bearer ${token}`}})
+          const medias = new Map(media.map(({media_key, type, url, preview_image_url}) => [media_key, (type === "photo")||(type === "animated_gif") ? url : type === "video" ? preview_image_url : null]))
 
         //Limit tweets
           if (limit > 0) {
@@ -33,6 +34,9 @@
           await Promise.all(tweets.map(async tweet => {
             //Mentions
               tweet.mentions = tweet.entities?.mentions.map(({username}) => username) ?? []
+            //Medias
+              if (tweet.attachments)
+                tweet.attachments = await Promise.all(tweet.attachments.media_keys.filter(key => medias.get(key)).map(key => medias.get(key)).map(async url => `data:image/${"jpeg"};base64,${await imports.imgb64(url)}`))
             //Format text
               console.debug(`metrics/compute/${login}/plugins > tweets > formatting tweet ${tweet.id}`)
               tweet.createdAt = `${imports.date(tweet.created_at, {timeStyle:"short", timeZone:data.config.timezone?.name})} on ${imports.date(tweet.created_at, {dateStyle:"short", timeZone:data.config.timezone?.name})}`
@@ -46,7 +50,7 @@
               //Line breaks
                 .replace(/\n/g, "<br/>")
               //Links
-                .replace(/https?:[/][/](?<link>t.co[/]\w+)/g, ' <span class="link">$<link></span> '), {"&":true})
+                .replace(/https?:[/][/](?<link>t.co[/]\w+)/g, '<span class="link">$<link></span>'), {"&":true})
           }))
 
         //Result
