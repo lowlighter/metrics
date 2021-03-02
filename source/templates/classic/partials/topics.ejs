@@ -22,7 +22,7 @@
                 <% } else if (plugins.topics.mode === "mastered") { %>
                   <% for (const {name, icon} of plugins.topics.list) { %>
                     <% if (icon) { %>
-                      <img src="data:image/png;base64,<%= icon %>" width="24" height="24" alt="<%= name %>" title="<%= name %>"/>
+                      <img src="<%= icon %>" width="24" height="24" alt="<%= name %>" title="<%= name %>"/>
                     <% } %>
                   <% } %>
                 <% } %>

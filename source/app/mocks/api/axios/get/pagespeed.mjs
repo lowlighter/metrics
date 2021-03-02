@@ -22,7 +22,7 @@
                       title:"Final Screenshot",
                       score:null,
                       details:{
-                        data:"data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
+                        data:null,
                         type:"screenshot",
                         timestamp:Date.now(),
                       },

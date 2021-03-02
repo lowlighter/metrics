@@ -48,7 +48,7 @@
                     </h2>
                   <% for (const {name, type, description, release, status, genres, scores, progress, released, artwork} of plugins.anilist.lists[media][list]) { %>
                     <div class="media">
-                      <img src="data:image/png;base64,<%= artwork %>" width="48" height="72" alt=""/>
+                      <img src="<%= artwork %>" width="48" height="72" alt=""/>
                       <div class="about">
                         <div class="name">
                           <%= name %>
@@ -116,7 +116,7 @@
               </h2>
               <div class="characters">
                 <% for (const {name, artwork} of plugins.anilist.characters) { %>
-                  <img src="data:image/png;base64,<%= artwork %>" width="36" height="54" alt=""/>
+                  <img src="<%= artwork %>" width="36" height="54" alt=""/>
                 <% } %>
               </div>
             </div>

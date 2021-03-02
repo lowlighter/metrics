@@ -241,11 +241,11 @@ Default exported function in `index.mjs` will receive the following inputs:
   - `imports.fs` for [NodeJS `fs` library](https://nodejs.org/api/fs.html)
   - `imports.paths` for [NodeJS `paths` library](https://nodejs.org/api/paths.html)
   - `imports.util` for [NodeJS `util` library](https://nodejs.org/api/util.html)
-  - `imports.imgb64` for [renanbastos93/image-to-base64](https://github.com/renanbastos93/image-to-base64)
   - `imports.axios` for [axios/axios](https://github.com/axios/axios)
   - `imports.puppeteer` for [puppeteer/puppeteer](https://github.com/puppeteer/puppeteer)
   - `imports.run` is an helper to run raw command
   - `imports.shuffle` is an helper to shuffle array
+  - `imports.imgb64` is an helper to download and resize an image into base64
   - `imports.__module` is an helper to find `__dirname` from a module `import.meta.url`
   - And more...
 - `data` and `computed`, with all data gathered from core and base
@@ -500,8 +500,8 @@ Below is a list of used packages.
   * To render SVG images
 * [ptarjan/node-cache](https://github.com/ptarjan/node-cache)
   * To cache generated content
-* [renanbastos93/image-to-base64](https://github.com/renanbastos93/image-to-base64)
-  * To generate base64 representation of users' avatars
+* [oliver-moran/jimp](https://github.com/oliver-moran/jimp)
+  * To transform and generate base64 images
 * [svg/svgo](https://github.com/svg/svgo)
   * To optimize generated SVG
 * [axios/axios](https://github.com/axios/axios)
@@ -522,6 +522,8 @@ Below is a list of used packages.
   * For simple git operations
 * [twitter/twemoji-parser](https://github.com/twitter/twemoji-parser)
   * To parse emojis and replace them by [twemojis](https://github.com/twitter/twemoji)
+* [jshemas/openGraphScraper](https://github.com/jshemas/openGraphScraper)
+  * To retrieve open graphs metadata
 
 </details>
 
