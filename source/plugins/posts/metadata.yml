@@ -19,6 +19,19 @@ inputs:
     default: ""
     values:
       - dev.to # Dev.to
+      - hashnode
+
+  # Display a few lines about each posts
+  plugin_posts_descriptions:
+    description: Display posts descriptions
+    type: boolean
+    default: no
+
+  # Display posts cover images
+  plugin_posts_covers:
+    description: Display posts cover images
+    type: boolean
+    default: no
 
   # Number of posts to display
   plugin_posts_limit:
