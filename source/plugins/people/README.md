@@ -50,6 +50,7 @@ Sections will be ordered the same as specified in `plugin_people_types`.
     plugin_people_limit: 28                    # Limit to 28 entries per section
     plugin_people_size: 28                     # Size in pixels of displayed avatars
     plugin_people_identicons: no               # Use avatars (do not use identicons)
-    plugin_people_thanks: lowlighter, octocat  # Users that will be displayed in "thanks" sections
+    plugin_people_thanks: lowlighter, octocat  # Users that will be displayed in "thanks" section
+    plugin_people_sponsors_custom: octocat     # Users that will be displayed additionally in "sponsors" section
     plugin_people_shuffle: yes                 # Shuffle for varied output
 ```
