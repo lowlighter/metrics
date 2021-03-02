@@ -1,5 +1,5 @@
 //Setup
-  export default async function({login, data, imports, q, account}, {enabled = false} = {}) {
+  export default async function({login, data, imports, q, queries, account}, {enabled = false} = {}) {
     //Plugin execution
       try {
         //Check if plugin is enabled and requirements are met
@@ -17,6 +17,12 @@
               case "dev.to":{
                 console.debug(`metrics/compute/${login}/plugins > posts > querying api`)
                 posts = (await imports.axios.get(`https://dev.to/api/articles?username=${user}&state=fresh`)).data.map(({title, readable_publish_date:date}) => ({title, date}))
+                break
+              }
+            //Hashnode
+              case "hashnode":{
+                console.log(imports.util.inspect((await imports.axios.post("https://api.hashnode.com", {query:queries.posts.hashnode({user})}, {headers:{"Content-type":"application/json"}})).data, {depth:1/0}))
+                posts = []
                 break
               }
             //Unsupported
