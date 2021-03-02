@@ -19,6 +19,12 @@ inputs:
     type: token
     default: ""
 
+  # Display tweets attachments (images, video previews, etc.)
+  plugin_tweets_attachments:
+    description: Display tweets attchments
+    type: boolean
+    default: no
+
   # Number of tweets to display
   plugin_tweets_limit:
     description: Maximum number of tweets to display
