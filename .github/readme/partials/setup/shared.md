@@ -9,7 +9,7 @@ For convenience, you can use the shared instance available at [metrics.lecoq.io]
 This is mostly intended for previews, to enjoy all features consider using GitHub Action instead.
 
 <details>
-<summary>💬 Fair use</summary>
+<summary><b>💬 Fair use</b> <i>(click to expand)</i></summary>
 
 To ensure service availability, shared instance has a few limitations:
   * Images are cached for 15 minutes

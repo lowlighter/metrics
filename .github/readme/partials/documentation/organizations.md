@@ -5,7 +5,7 @@ While metrics targets mainly user accounts, it's possible to render metrics for 
 ![Metrics (organization account)](https://github.com/lowlighter/lowlighter/blob/master/metrics.organization.svg)
 
 <details>
-<summary>💬 Metrics for organizations</summary>
+<summary><b>💬 Metrics for organizations</b> <i>(click to expand)</i></summary>
 
 Setup is the same as for user accounts, though you'll need to add `read:org` scope, **whether you're member of target organization or not**.
 
@@ -33,7 +33,7 @@ To support private repositories, add full `repo` scope to your personal token.
 </details>
 
 <details>
-<summary>💬 Organizations memberships for user accounts</summary>
+<summary><b>💬 Organizations memberships for user accounts</b> <i>(click to expand)</i></summary>
 
 Only public memberships can be displayed by metrics by default.
 You can manage your membership visibility in the `People` tab of your organization:
