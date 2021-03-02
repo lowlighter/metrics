@@ -3,6 +3,7 @@ query PostsHashnode {
     publication{
       posts(page: 1) {
         title
+        brief
         coverImage
         dateAdded
       }

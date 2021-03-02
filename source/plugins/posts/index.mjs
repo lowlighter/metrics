@@ -16,12 +16,12 @@
             //Dev.to
               case "dev.to":{
                 console.debug(`metrics/compute/${login}/plugins > posts > querying api`)
-                posts = (await imports.axios.get(`https://dev.to/api/articles?username=${user}&state=fresh`)).data.map(({title, readable_publish_date:date}) => ({title, date}))
+                posts = (await imports.axios.get(`https://dev.to/api/articles?username=${user}&state=fresh`)).data.map(({title, description, published_at:date, cover_image:image}) => ({title, description, date, image}))
                 break
               }
             //Hashnode
               case "hashnode":{
-                posts = (await imports.axios.post("https://api.hashnode.com", {query:queries.posts.hashnode({user})}, {headers:{"Content-type":"application/json"}})).data.data.user.publication.posts.map(({title, dateAdded:date, coverImage:image}) => ({title, date, image}))
+                posts = (await imports.axios.post("https://api.hashnode.com", {query:queries.posts.hashnode({user})}, {headers:{"Content-type":"application/json"}})).data.data.user.publication.posts.map(({title, brief:description, dateAdded:date, coverImage:image}) => ({title, description, date, image}))
                 break
               }
             //Unsupported
