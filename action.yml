@@ -408,6 +408,12 @@ inputs:
     description: GitHub users to personally thanks
     default: ""
   
+  # Add specified users to GitHub sponsors ("sponsors" must be specified in "plugin_people_types")
+  # This is useful to list sponsors from unsupported GitHub sponsors sources
+  plugin_people_sponsors_custom:
+    description: Custom GitHub sponsors
+    default: ""
+  
   # Use GitHub identicons instead of users' avatar (for privacy purposes)
   plugin_people_identicons:
     description: Use identicons instead of avatars
