@@ -100,7 +100,7 @@
                   next = cursor.hasNextPage
                   for (const {name:{full:name}, image:{medium:artwork}} of nodes) {
                     console.debug(`metrics/compute/${login}/plugins > anilist > processing ${name}`)
-                    characters.push({name, artwork:artwork ? await imports.imgb64(artwork) : "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg=="})
+                    characters.push({name, artwork:await imports.imgb64(artwork)})
                   }
                 }
                 catch (error) {
@@ -142,7 +142,7 @@
       description:description.replace(/<br\s*\\?>/g, " "),
       scores:{user:userScore, community:averageScore},
       released:type === "ANIME" ? episodes : chapters,
-      artwork:artwork ? await imports.imgb64(artwork) : "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
+      artwork:await imports.imgb64(artwork),
     }
   }
 

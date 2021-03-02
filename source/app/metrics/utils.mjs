@@ -7,13 +7,13 @@
   import processes from "child_process"
   import axios from "axios"
   import puppeteer from "puppeteer"
-  import imgb64 from "image-to-base64"
   import git from "simple-git"
   import twemojis from "twemoji-parser"
   import jimp from "jimp"
+  import opengraph from "open-graph-scraper"
 
 //Exports
-  export {fs, os, paths, url, util, processes, axios, puppeteer, imgb64, git}
+  export {fs, os, paths, url, util, processes, axios, puppeteer, git, opengraph}
 
 /**Returns module __dirname */
   export function __module(module) {
@@ -128,6 +128,19 @@
     return false
   }
 
+/**Image to base64 */
+  export async function imgb64(image, {width, height, fallback = true} = {}) {
+    //Undefined image
+      if (!image)
+        return fallback ? "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==" : null
+    //Load image
+      image = await jimp.read(image)
+    //Resize image
+      if ((width)&&(height))
+        image = image.resize(width, height)
+    return image.getBase64Async(jimp.AUTO)
+  }
+
 /**SVG utils */
   export const svg = {
     /**Render and resize svg */
@@ -196,7 +209,7 @@
           try {
             for (const [emoji, url] of Object.entries((await rest.emojis.get()).data).map(([key, value]) => [`:${key}:`, value])) {
               if (((!emojis.has(emoji)))&&(new RegExp(emoji, "g").test(rendered)))
-                emojis.set(emoji, `<img class="gemoji" src="data:image/png;base64,${await imgb64(url)}" height="16" width="16" alt="">`)
+                emojis.set(emoji, `<img class="gemoji" src="${await imgb64(url)}" height="16" width="16" alt="">`)
             }
           }
           catch (error) {

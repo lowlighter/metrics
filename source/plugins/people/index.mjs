@@ -74,7 +74,7 @@
               }
             //Convert avatars to base64
               console.debug(`metrics/compute/${login}/plugins > people > loading avatars`)
-              await Promise.all(result[type].map(async user => user.avatar = user.avatarUrl ? await imports.imgb64(user.avatarUrl) : "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg=="))
+              await Promise.all(result[type].map(async user => user.avatar = await imports.imgb64(user.avatarUrl)))
           }
 
         //Results

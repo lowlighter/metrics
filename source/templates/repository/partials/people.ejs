@@ -33,7 +33,7 @@
                 <%= plugins.people.error.message %>
               </div>
             <% } else { %>
-              <% for (const user of plugins.people[type]) { %><img class="avatar" src="data:image/png;base64,<%= user.avatar %>" width="<%= plugins.people.size %>" height="<%= plugins.people.size %>" alt="" /><% } %>
+              <% for (const user of plugins.people[type]) { %><img class="avatar" src="<%= user.avatar %>" width="<%= plugins.people.size %>" height="<%= plugins.people.size %>" alt="" /><% } %>
             <% } %>
           </section>
         </div>
