@@ -23,7 +23,7 @@ inputs:
   plugin_tweets_attachments:
     description: Display tweets attchments
     type: boolean
-    default: yes
+    default: no
 
   # Number of tweets to display
   plugin_tweets_limit:
