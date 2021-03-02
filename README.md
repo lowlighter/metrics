@@ -4,6 +4,10 @@
 
 Generate your metrics that you can embed everywhere, including your GitHub profile readme! It works for both user and organization accounts, and even for repositories!
 
+
+<sup>*⚠️ This is the documentation of **v3.5-beta** (`@master` branch) which includes [unreleased features](https://github.com/lowlighter/metrics/compare/latest...master), see documentation of **v3.4** (`@latest` branch) [here](https://github.com/lowlighter/metrics/blob/latest/README.md).*</sup>
+
+
 <table>
   <tr>
     <th align="center">For user accounts</th>
@@ -20,6 +24,9 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
     </td>
   </tr>
 </table>
+
+
+And you can customize these heavily with plugins, templates and hundreds of options!
 
 <table>
   <tr>
@@ -222,6 +229,9 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
   <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.posts.svg">
+      <details><summary>With posts descriptions and cover images version</summary>
+        <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.posts.full.svg">
+      </details>
       <img width="900" height="1" alt="">
     </td>
     <td align="center">
@@ -236,6 +246,9 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
   <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.tweets.svg">
+      <details><summary>With tweets attachments version</summary>
+        <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.tweets.attachments.svg">
+      </details>
       <img width="900" height="1" alt="">
     </td>
     <td align="center">
@@ -319,7 +332,7 @@ Assuming your username is `my-github-user`, you can then embed rendered metrics 
 ```
 
 <details>
-<summary>💬 How to setup?</summary>
+<summary><b>💬 How to setup?</b> <i>(click to expand)</i></summary>
 
 ### 0. Setup your personal repository
 
@@ -432,7 +445,7 @@ For convenience, you can use the shared instance available at [metrics.lecoq.io]
 This is mostly intended for previews, to enjoy all features consider using GitHub Action instead.
 
 <details>
-<summary>💬 Fair use</summary>
+<summary><b>💬 Fair use</b> <i>(click to expand)</i></summary>
 
 To ensure service availability, shared instance has a few limitations:
   * Images are cached for 15 minutes
@@ -458,7 +471,7 @@ Assuming your username is `my-github-user`, you can then embed rendered metrics 
 ```
 
 <details>
-<summary>💬 How to setup?</summary>
+<summary><b>💬 How to setup?</b> <i>(click to expand)</i></summary>
 
 ### 0. Prepare your server
 
@@ -750,7 +763,7 @@ While metrics targets mainly user accounts, it's possible to render metrics for 
 ![Metrics (organization account)](https://github.com/lowlighter/lowlighter/blob/master/metrics.organization.svg)
 
 <details>
-<summary>💬 Metrics for organizations</summary>
+<summary><b>💬 Metrics for organizations</b> <i>(click to expand)</i></summary>
 
 Setup is the same as for user accounts, though you'll need to add `read:org` scope, **whether you're member of target organization or not**.
 
@@ -778,7 +791,7 @@ To support private repositories, add full `repo` scope to your personal token.
 </details>
 
 <details>
-<summary>💬 Organizations memberships for user accounts</summary>
+<summary><b>💬 Organizations memberships for user accounts</b> <i>(click to expand)</i></summary>
 
 Only public memberships can be displayed by metrics by default.
 You can manage your membership visibility in the `People` tab of your organization:
@@ -813,6 +826,8 @@ Copyright (c) 2020 lowlighter
 ```
 
 ![License details](https://github.com/lowlighter/lowlighter/blob/master/metrics.licenses.svg)
+
+![Sponsors](https://github.com/lowlighter/lowlighter/blob/master/metrics.sponsors.svg)
 
 ## 📖 Useful references
 

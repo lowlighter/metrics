@@ -32,6 +32,14 @@
     plugin_people: yes
     plugin_people_types: sponsors
 
+- name: People plugin (custom sponsors)
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    plugin_people: yes
+    plugin_people_types: sponsors
+    plugin_people_sponsors_custom: lowlighter, octocat
+
 - name: People plugin (stargazers)
   uses: lowlighter/metrics@latest
   with:

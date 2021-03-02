@@ -21,9 +21,13 @@
           }
 
         //Load inputs
-          let {limit, types, size, identicons, thanks, shuffle} = imports.metadata.plugins.people.inputs({data, account, q}, {types:context.default})
+          let {limit, types, size, identicons, thanks, shuffle, "sponsors.custom":_sponsors} = imports.metadata.plugins.people.inputs({data, account, q}, {types:context.default})
         //Filter types
           types = [...new Set([...types].map(type => (context.alias[type] ?? type)).filter(type => context.types.includes(type)) ?? [])]
+          if ((types.includes("sponsorshipsAsMaintainer"))&&(_sponsors?.length)) {
+            types.unshift("sponsorshipsCustom")
+            data.user.sponsorshipsAsMaintainer.totalCount += _sponsors.length
+          }
 
         //Retrieve followers from graphql api
           console.debug(`metrics/compute/${login}/plugins > people > querying api`)
@@ -37,9 +41,10 @@
                   const {data:nodes} = await rest.repos.listContributors({owner, repo})
                   result[type].push(...nodes.map(({login, avatar_url}) => ({login, avatarUrl:avatar_url})))
                 }
-                else if (type === "thanks") {
-                  const nodes = await Promise.all(thanks.map(async username => (await rest.users.getByUsername({username})).data))
-                  result[type].push(...nodes.map(({login, avatar_url}) => ({login, avatarUrl:avatar_url})))
+                else if ((type === "thanks")||(type === "sponsorshipsCustom")) {
+                  const users = {thanks, sponsorshipsCustom:_sponsors}[type] ?? []
+                  const nodes = await Promise.all(users.map(async username => (await rest.users.getByUsername({username})).data))
+                  result[{sponsorshipsCustom:"sponsorshipsAsMaintainer"}[type] ?? type].push(...nodes.map(({login, avatar_url}) => ({login, avatarUrl:avatar_url})))
                 }
               //GraphQL
                 else {
@@ -76,6 +81,10 @@
               console.debug(`metrics/compute/${login}/plugins > people > loading avatars`)
               await Promise.all(result[type].map(async user => user.avatar = await imports.imgb64(user.avatarUrl)))
           }
+
+        //Special type handling
+          if (types.includes("sponsorshipsCustom"))
+            types.splice(types.indexOf("sponsorshipsCustom"), 1)
 
         //Results
           return {types, size, ...result}
