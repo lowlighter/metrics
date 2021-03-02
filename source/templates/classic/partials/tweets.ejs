@@ -30,8 +30,15 @@
                   <%- text %>
                   <% if (attachments) { %>
                     <div class="attachments">
-                      <% for (const attachment of attachments) { %>
-                        <div style="background-image: url('<%= attachment %>');"></div>
+                      <% for (const {image, title, description, website} of attachments) { %>
+                        <div style="background-image: url('<%= image %>');">
+                          <% if (title) { %>
+                            <div class="infos">
+                              <div class="title"><%= title %></div>
+                              <div class="description"><%= description %></div>
+                            </div>
+                          <% } %>
+                        </div>
                       <% } %>
                     </div>
                   <% } %>
