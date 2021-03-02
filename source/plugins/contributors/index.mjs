@@ -55,7 +55,7 @@
               continue
             }
             if (!(login in contributors))
-              contributors[login] = {avatar:avatar ? await imports.imgb64(avatar) : "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==", contributions:1, pr:[]}
+              contributors[login] = {avatar:await imports.imgb64(avatar), contributions:1, pr:[]}
             else {
               contributors[login].contributions++
               contributors[login].pr.push(...(message.match(/(?<=[(])#\d+(?=[)])/g) ?? []))

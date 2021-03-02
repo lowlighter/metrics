@@ -2,7 +2,7 @@
   <% if (account === "user") { %>
     <section>
       <h1 class="field">
-        <img class="avatar" src="data:image/png;base64,<%= computed.avatar %>" width="20" height="20" />
+        <img class="avatar" src="<%= computed.avatar %>" width="20" height="20" />
         <span><%= user.name || user.login %></span>
       </h1>
       <div class="row">
@@ -47,7 +47,7 @@
   <% } else if (account === "organization") { %>
     <section>
       <h1 class="field">
-        <img class="avatar organization" src="data:image/png;base64,<%= computed.avatar %>" width="20" height="20" />
+        <img class="avatar organization" src="<%= computed.avatar %>" width="20" height="20" />
         <span><%= user.name || user.login %></span>
       </h1>
       <div class="row">
