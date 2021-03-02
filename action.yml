@@ -660,6 +660,16 @@ inputs:
     description: Posts external source
     default: ""
   
+  # Display a few lines about each posts
+  plugin_posts_descriptions:
+    description: Display posts descriptions
+    default: no
+  
+  # Display posts cover images
+  plugin_posts_covers:
+    description: Display posts cover images
+    default: no
+  
   # Number of posts to display
   plugin_posts_limit:
     description: Maximum number of posts to display
