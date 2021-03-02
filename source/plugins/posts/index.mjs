@@ -39,7 +39,7 @@
             //Cover images
               if (covers) {
                 console.debug(`metrics/compute/${login}/plugins > posts > formatting cover images`)
-                posts = await Promise.all(posts.map(async ({image, ...post}) => ({image:await imports.imgb64(image, {width:144, height:-1}), ...post})))
+                posts = await Promise.all(posts.map(async({image, ...post}) => ({image:await imports.imgb64(image, {width:144, height:-1}), ...post})))
               }
             //Results
               return {source, descriptions, covers, list:posts}

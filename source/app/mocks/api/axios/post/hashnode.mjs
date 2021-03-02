@@ -13,10 +13,10 @@
                     brief:faker.lorem.paragraph(),
                     coverImage:null,
                     dateAdded:faker.date.recent(),
-                  }))
-                }
-              }
-            }
+                  })),
+                },
+              },
+            },
           },
       })
     }
