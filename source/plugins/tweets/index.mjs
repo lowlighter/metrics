@@ -45,10 +45,10 @@
                   }
                 //Medias
                   if (tweet.attachments)
-                    tweet.attachments = await Promise.all(tweet.attachments.media_keys.filter(key => medias.get(key)).map(key => medias.get(key)).map(async url => ({image:await imports.imgb64(url)})))
+                    tweet.attachments = await Promise.all(tweet.attachments.media_keys.filter(key => medias.get(key)).map(key => medias.get(key)).map(async url => ({image:await imports.imgb64(url, {height:-1, width:450})})))
                   else if (linked) {
                     const {result:{ogImage, ogSiteName:website, ogTitle:title, ogDescription:description}} = await imports.opengraph({url:linked})
-                    const image = await imports.imgb64(ogImage?.url, {fallback:false})
+                    const image = await imports.imgb64(ogImage?.url, {height:-1, width:450, fallback:false})
                     if (image)
                       tweet.attachments = [{image, title, description, website}]
                   }
