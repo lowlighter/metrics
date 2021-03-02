@@ -7,7 +7,7 @@
             return null
 
         //Load inputs
-          let {source, limit, user} = imports.metadata.plugins.posts.inputs({data, account, q})
+          let {source, descriptions, covers, limit, user} = imports.metadata.plugins.posts.inputs({data, account, q})
 
         //Retrieve posts
           console.debug(`metrics/compute/${login}/plugins > posts > processing with source ${source}`)
@@ -31,13 +31,18 @@
 
         //Format posts
           if (Array.isArray(posts)) {
-            //Limit tracklist
+            //Limit posts
               if (limit > 0) {
                 console.debug(`metrics/compute/${login}/plugins > posts > keeping only ${limit} posts`)
                 posts.splice(limit)
               }
+            //Cover images
+              if (covers) {
+                console.debug(`metrics/compute/${login}/plugins > posts > formatting cover images`)
+                posts = await Promise.all(posts.map(async ({image, ...post}) => ({image:await imports.imgb64(image, {width:144, height:-1}), ...post})))
+              }
             //Results
-              return {source, list:posts}
+              return {source, descriptions, covers, list:posts}
           }
 
         //Unhandled error

@@ -344,9 +344,13 @@
                 ...(set.plugins.enabled.posts ? ({
                   posts:{
                     source:options["posts.source"],
+                    descriptions:options["posts.descriptions"],
+                    covers:options["posts.covers"],
                     list:new Array(Number(options["posts.limit"])).fill(null).map(_ => ({
                       title:faker.lorem.sentence(),
-                      date:faker.date.recent().toString().substring(4, 10).trim()
+                      description:faker.lorem.paragraph(),
+                      date:faker.date.recent(),
+                      image:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
                     }))
                   }
                 }) : null),
