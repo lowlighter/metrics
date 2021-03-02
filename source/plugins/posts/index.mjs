@@ -21,8 +21,7 @@
               }
             //Hashnode
               case "hashnode":{
-                console.log(imports.util.inspect((await imports.axios.post("https://api.hashnode.com", {query:queries.posts.hashnode({user})}, {headers:{"Content-type":"application/json"}})).data, {depth:1/0}))
-                posts = []
+                posts = (await imports.axios.post("https://api.hashnode.com", {query:queries.posts.hashnode({user})}, {headers:{"Content-type":"application/json"}})).data.data.user.publication.posts.map(({title, dateAdded:date, coverImage:image}) => ({title, date, image}))
                 break
               }
             //Unsupported
