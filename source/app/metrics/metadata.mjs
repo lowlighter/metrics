@@ -13,6 +13,7 @@
       const __metrics = path.join(path.dirname(url.fileURLToPath(import.meta.url)), "../../..")
       const __templates = path.join(__metrics, "source/templates")
       const __plugins = path.join(__metrics, "source/plugins")
+      const __package = path.join(__metrics, "package.json")
 
     //Init
       const logger = log ? console.debug : () => null
@@ -45,8 +46,11 @@
       const {classic, repository, community, ...templates} = Templates
       Templates = {classic, repository, ...templates, community}
 
+    //Packaged metadata
+      const packaged = JSON.parse(`${await fs.promises.readFile(__package)}`)
+
     //Metadata
-      return {plugins:Plugins, templates:Templates}
+      return {plugins:Plugins, templates:Templates, packaged}
   }
 
 /**Metadata extractor for templates */

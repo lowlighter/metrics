@@ -11,7 +11,7 @@ Assuming your username is `my-github-user`, you can then embed rendered metrics 
 ```
 
 <details>
-<summary>💬 How to setup?</summary>
+<summary><b>💬 How to setup?</b> <i>(click to expand)</i></summary>
 
 ### 0. Prepare your server
 
