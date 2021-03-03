@@ -75,7 +75,7 @@
               registration:`${faker.random.number({min:2, max:10})} years ago`,
               cakeday:false,
               calendar:new Array(14).fill(null).map(_ => ({color:faker.random.arrayElement(["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"])})),
-              avatar:"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg=="
+              avatar:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg=="
             },
           //User data
             account:"user",
@@ -121,7 +121,7 @@
                       verified:false,
                       id:faker.random.number(1000000).toString(),
                       username:options["tweets.user"]||"(attached Twitter account)",
-                      profile_image:"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
+                      profile_image:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
                     },
                     list:[
                       {
@@ -243,12 +243,12 @@
                         type,
                         new Array(Number(options["people.limit"])).fill(null).map(_ => ({
                           login:faker.internet.userName(),
-                          avatar:"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
+                          avatar:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
                         }))
                       ]))),
                       thanks:options["people.thanks"].split(",").map(x => x.trim()).map(login => ({
                         login,
-                        avatar:"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
+                        avatar:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
                       }))
                     }
                   }
@@ -261,7 +261,7 @@
                     tracks:new Array(Number(options["music.limit"])).fill(null).map(_ => ({
                       name:faker.random.words(5),
                       artist:faker.random.words(),
-                      artwork:"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
+                      artwork:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
                     }))
                   }
                 }) : null),
@@ -361,7 +361,7 @@
                     list:new Array(Number(options["topics.limit"])||20).fill(null).map(_ => ({
                       name:faker.lorem.words(2),
                       description:faker.lorem.sentence(),
-                      icon:"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg=="
+                      icon:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg=="
                     }))
                   }
                 }) : null),
@@ -498,7 +498,7 @@
                         description:faker.lorem.paragraphs(),
                         scores:{user:faker.random.number(100), community:faker.random.number(100)},
                         released:100+faker.random.number(1000),
-                        artwork:"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
+                        artwork:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
                       })
                       const sections = options["anilist.sections"].split(",").map(x => x.trim()).filter(x => x)
                       const medias = options["anilist.medias"].split(",").map(x => x.trim()).filter(x => x)
@@ -515,7 +515,7 @@
                     },
                     characters:new Array(11).fill(null).map(_ => ({
                       name:faker.name.findName(),
-                      artwork:"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
+                      artwork:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
                     })),
                     sections:options["anilist.sections"].split(",").map(x => x.trim()).filter(x => x)
                   }
