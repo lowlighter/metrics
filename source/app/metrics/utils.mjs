@@ -155,28 +155,43 @@
           const padding = {width:pw, height:ph ?? pw}
           console.debug(`metrics/svg/resize > padding width*${padding.width}, height*${padding.height}`)
         //Render through browser and resize height
+          console.debug(`metrics/svg/resize > loading svg`)
           const page = await svg.resize.browser.newPage()
+          page.on("console", ({_text:text}) => console.debug(`metrics/svg/resize > puppeteer > ${text}`))
           await page.setContent(rendered, {waitUntil:["load", "domcontentloaded", "networkidle2"]})
+          console.debug(`metrics/svg/resize > loaded svg successfully`)
           await page.addStyleTag({content:"body { margin: 0; padding: 0; }"})
-          await wait(1)
           let mime = "image/svg+xml"
-          let {resized, width, height} = await page.evaluate(async padding => {
-            //Disable animations
-              const animated = !document.querySelector("svg").classList.contains("no-animations")
-              if (animated)
-                document.querySelector("svg").classList.add("no-animations")
-            //Get bounds and resize
-              let {y:height, width} = document.querySelector("svg #metrics-end").getBoundingClientRect()
-              height = Math.ceil(height*padding.height)
-              width = Math.ceil(width*padding.width)
-            //Resize svg
-              document.querySelector("svg").setAttribute("height", height)
-            //Enable animations
-              if (animated)
-                document.querySelector("svg").classList.remove("no-animations")
-            //Result
-              return {resized:new XMLSerializer().serializeToString(document.querySelector("svg")), height, width}
-          }, padding)
+          console.debug(`metrics/svg/resize > resizing svg`)
+          let resized, width, height
+          try {
+            ({resized, width, height} = await page.evaluate(async padding => {
+              //Disable animations
+                const animated = !document.querySelector("svg").classList.contains("no-animations")
+                if (animated)
+                  document.querySelector("svg").classList.add("no-animations")
+                console.debug(`animations are ${animated ? "enabled" : "disabled"}`)
+                await new Promise(solve => setTimeout(solve, 2400))
+              //Get bounds and resize
+                let {y:height, width} = document.querySelector("svg #metrics-end").getBoundingClientRect()
+                console.debug(`bounds width=${width}, height=${height}`)
+                height = Math.ceil(height*padding.height)
+                width = Math.ceil(width*padding.width)
+                console.debug(`bounds after applying padding width=${width} (*${padding.width}), height=${height} (*${padding.height})`)
+              //Resize svg
+                document.querySelector("svg").setAttribute("height", height)
+              //Enable animations
+                if (animated)
+                  document.querySelector("svg").classList.remove("no-animations")
+              //Result
+                return {resized:new XMLSerializer().serializeToString(document.querySelector("svg")), height, width}
+            }, padding))
+          }
+          catch (error) {
+            console.error(error)
+            console.debug(`metrics/svg/resize > an error occured: ${error}`)
+            throw error
+          }
         //Convert if required
           if (convert) {
             console.debug(`metrics/svg/resize > convert to ${convert}`)
@@ -185,6 +200,7 @@
           }
         //Result
           await page.close()
+          console.debug(`metrics/svg/resize > rendering complete`)
           return {resized, mime}
       },
     /**Render twemojis */
