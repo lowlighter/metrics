@@ -6,10 +6,10 @@
         if ((!enabled)||(!q.nightscout))
           return null
 
-          //Load inputs
+        //Load inputs
         let {url, datapoints, lowalert, highalert, urgentlowalert, urgenthighalert} = imports.metadata.plugins.nightscout.inputs({data, account, q})
 
-        if (!url || url === "https://example.herokuapp.com") throw "Nightscout site URL isn't set!"
+        if (!url || url === "https://example.herokuapp.com") throw {error:{message:"Nightscout site URL isn't set!"}}
         if (url.substring(url.length - 1) !== "/") url += "/"
         if (url.substring(0, 7) === "http://") url = `https://${url.substring(7)}`
         if (url.substring(0, 8) !== "https://") url = `https://${url}`
@@ -43,6 +43,8 @@
     }
     //Handle errors
       catch (error) {
+        if (error.error?.message)
+          throw error
         throw {error:{message:"An error occured", instance:error}}
       }
   }

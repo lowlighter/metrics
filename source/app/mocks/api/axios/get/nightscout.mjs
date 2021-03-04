@@ -8,7 +8,7 @@ export default function({faker, url}) {
           const directionArray = ["SingleUp", "DoubleUp", "FortyFiveUp", "Flat", "FortyFiveDown", "SingleDown", "DoubleDown"]
           return ({
             status:200,
-            data:[{
+            data:new Array(12).fill(null).map(_ => ({
               _id:faker.git.commitSha().substring(0, 23),
               device:"xDrip-DexcomG5",
               date:lastInterval,
@@ -23,7 +23,7 @@ export default function({faker, url}) {
               noise:1,
               sysTime:new Date(lastInterval).toISOString(),
               utcOffset:faker.random.number({min:-12, max:14})*60,
-            }],
+            })),
           })
       }
   }
