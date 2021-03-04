@@ -26,6 +26,7 @@
           const {queries} = conf
           const data = {animated:true, base:{}, config:{}, errors:[], plugins:{}, computed:{}}
           const imports = {plugins:Plugins, templates:Templates, metadata:conf.metadata, ...utils}
+          const experimental = new Set(decodeURIComponent(q["experimental.features"] ?? "").split(" ").map(x => x.trim().toLocaleLowerCase()).filter(x => x))
 
         //Partial parts
           {
@@ -64,9 +65,7 @@
         //Optimize rendering
           if ((conf.settings?.optimize)&&(!q.raw)) {
             console.debug(`metrics/compute/${login} > optimize`)
-            console.debug(`metrics/compute/${login} > optimize > this feature is currently disabled due to display issues`)
-            const disabled = false
-            if (disabled) {
+            if (experimental.has("--optimize")) {
               const {error, data:optimized} = await SVGO.optimize(rendered, {multipass:true, plugins:SVGO.extendDefaultPlugins([
                 //Additional cleanup
                   {name:"cleanupListOfValues"},
@@ -79,7 +78,10 @@
               if (error)
                 throw new Error(`Could not optimize SVG: \n${error}`)
               rendered = optimized
+              console.debug(`metrics/compute/${login} > optimize > success`)
             }
+            else
+              console.debug(`metrics/compute/${login} > optimize > this feature is currently disabled due to display issues (use --optimize flag in experimental features to force enable it)`)
           }
         //Verify svg
           if (verify) {
