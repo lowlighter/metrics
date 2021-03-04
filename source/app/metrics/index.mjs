@@ -2,7 +2,7 @@
   import * as utils from "./utils.mjs"
   import ejs from "ejs"
   import util from "util"
-  //Import SVGO from "svgo"
+  import SVGO from "svgo"
 
 //Setup
   export default async function metrics({login, q}, {graphql, rest, plugins, conf, die = false, verify = false, convert = null}, {Plugins, Templates}) {
@@ -65,20 +65,21 @@
           if ((conf.settings?.optimize)&&(!q.raw)) {
             console.debug(`metrics/compute/${login} > optimize`)
             console.debug(`metrics/compute/${login} > optimize > this feature is currently disabled due to display issues`)
-            /*
-            const {error, data:optimized} = await SVGO.optimize(rendered, {multipass:true, plugins:SVGO.extendDefaultPlugins([
-              //Additional cleanup
-                {name:"cleanupListOfValues"},
-                {name:"removeRasterImages"},
-                {name:"removeScriptElement"},
-              //Force CSS style consistency
-                {name:"inlineStyles", active:false},
-                {name:"removeViewBox", active:false},
-            ])})
-            if (error)
-              throw new Error(`Could not optimize SVG: \n${error}`)
-            rendered = optimized
-            */
+            const disabled = false
+            if (disabled) {
+              const {error, data:optimized} = await SVGO.optimize(rendered, {multipass:true, plugins:SVGO.extendDefaultPlugins([
+                //Additional cleanup
+                  {name:"cleanupListOfValues"},
+                  {name:"removeRasterImages"},
+                  {name:"removeScriptElement"},
+                //Force CSS style consistency
+                  {name:"inlineStyles", active:false},
+                  {name:"removeViewBox", active:false},
+              ])})
+              if (error)
+                throw new Error(`Could not optimize SVG: \n${error}`)
+              rendered = optimized
+            }
           }
         //Verify svg
           if (verify) {
