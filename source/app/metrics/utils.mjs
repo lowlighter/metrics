@@ -147,7 +147,7 @@
       async resize(rendered, {paddings, convert}) {
         //Instantiate browser if needed
           if (!svg.resize.browser) {
-            svg.resize.browser = await puppeteer.launch({headless:true, executablePath:process.env.PUPPETEER_BROWSER_PATH, args:["--no-sandbox", "--disable-extensions", "--disable-setuid-sandbox", "--disable-dev-shm-usage"]})
+            svg.resize.browser = await puppeteer.launch({headless:true, executablePath:process.env.PUPPETEER_BROWSER_PATH, args:["--no-sandbox", "--disable-extensions", "--disable-setuid-sandbox", "--disable-dev-shm-usage"], ignoreDefaultArgs: ["--disable-extensions"]})
             console.debug(`metrics/svg/resize > started ${await svg.resize.browser.version()}`)
           }
         //Format padding
