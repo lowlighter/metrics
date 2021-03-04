@@ -898,7 +898,7 @@ runs:
         fi
 
         # Run docker image with current environment
-        docker run --volume $GITHUB_EVENT_PATH:$GITHUB_EVENT_PATH --env-file .env $METRICS_IMAGE
+        docker run --init --volume $GITHUB_EVENT_PATH:$GITHUB_EVENT_PATH --env-file .env $METRICS_IMAGE
         rm .env
       shell: bash
       env:
