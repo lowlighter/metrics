@@ -52,41 +52,45 @@
               console.warn(util.inspect(errors, {depth:Infinity, maxStringLength:256}))
           }
 
-        //Rendering and resizing
+        //Rendering
           console.debug(`metrics/compute/${login} > render`)
           let rendered = await ejs.render(image, {...data, s:imports.s, f:imports.format, style, fonts}, {views, async:true})
+
+        //Additional transformations
           if (q["config.twemoji"])
             rendered = await imports.svg.twemojis(rendered)
           if (q["config.gemoji"])
             rendered = await imports.svg.gemojis(rendered, {rest})
+        //Optimize rendering
+          if ((conf.settings?.optimize)&&(!q.raw)) {
+            console.debug(`metrics/compute/${login} > optimize`)
+            console.debug(`metrics/compute/${login} > optimize > this feature is currently disabled due to display issues`)
+            /*
+            const {error, data:optimized} = await SVGO.optimize(rendered, {multipass:true, plugins:SVGO.extendDefaultPlugins([
+              //Additional cleanup
+                {name:"cleanupListOfValues"},
+                {name:"removeRasterImages"},
+                {name:"removeScriptElement"},
+              //Force CSS style consistency
+                {name:"inlineStyles", active:false},
+                {name:"removeViewBox", active:false},
+            ])})
+            if (error)
+              throw new Error(`Could not optimize SVG: \n${error}`)
+            rendered = optimized
+            */
+          }
+        //Verify svg
+          if (verify) {
+            console.debug(`metrics/compute/${login} > verify SVG`)
+            const libxmljs = (await import("libxmljs")).default
+            const parsed = libxmljs.parseXml(rendered)
+            if (parsed.errors.length)
+              throw new Error(`Malformed SVG : \n${parsed.errors.join("\n")}`)
+          }
+        //Resizing
           const {resized, mime} = await imports.svg.resize(rendered, {paddings:q["config.padding"] || conf.settings.padding, convert})
           rendered = resized
-
-        //Additional SVG transformations
-          if (/svg/.test(mime)) {
-            //Optimize rendering
-              if ((conf.settings?.optimize)&&(!q.raw)) {
-                console.debug(`metrics/compute/${login} > optimize`)
-                const {data:optimized} = await SVGO.optimize(rendered, {multipass:true, plugins:SVGO.extendDefaultPlugins([
-                  //Additional cleanup
-                    {name:"cleanupListOfValues"},
-                    {name:"removeRasterImages"},
-                    {name:"removeScriptElement"},
-                  //Force CSS style consistency
-                    {name:"inlineStyles", active:false},
-                    {name:"removeViewBox", active:false},
-                ])})
-                rendered = optimized
-              }
-            //Verify svg
-              if (verify) {
-                console.debug(`metrics/compute/${login} > verify SVG`)
-                const libxmljs = (await import("libxmljs")).default
-                const parsed = libxmljs.parseXml(rendered)
-                if (parsed.errors.length)
-                  throw new Error(`Malformed SVG : \n${parsed.errors.join("\n")}`)
-              }
-          }
 
         //Result
           console.debug(`metrics/compute/${login} > success`)
