@@ -17,7 +17,7 @@
 
         //Start puppeteer and navigate to skyline.github.com
           console.debug(`metrics/compute/${login}/plugins > skyline > starting browser`)
-          const browser = await imports.puppeteer.launch({headless:true, executablePath:process.env.PUPPETEER_BROWSER_PATH, args:["--no-sandbox", "--disable-extensions", "--disable-setuid-sandbox", "--disable-dev-shm-usage"], ignoreDefaultArgs: ["--disable-extensions"]})
+          const browser = await imports.puppeteer.launch({headless:true, executablePath:process.env.PUPPETEER_BROWSER_PATH, args:["--no-sandbox", "--disable-extensions", "--disable-setuid-sandbox", "--disable-dev-shm-usage"], ignoreDefaultArgs:["--disable-extensions"]})
           console.debug(`metrics/compute/${login}/plugins > skyline > started ${await browser.version()}`)
           const page = await browser.newPage()
           await page.setViewport({width, height})
