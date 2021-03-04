@@ -2,7 +2,7 @@
   import * as utils from "./utils.mjs"
   import ejs from "ejs"
   import util from "util"
-  import SVGO from "svgo"
+  //Import SVGO from "svgo"
 
 //Setup
   export default async function metrics({login, q}, {graphql, rest, plugins, conf, die = false, verify = false, convert = null}, {Plugins, Templates}) {
