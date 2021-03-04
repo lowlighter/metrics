@@ -68,7 +68,7 @@
               //Line breaks
                 .replace(/\n/g, "<br/>")
               //Links
-                .replace(new RegExp(`${tweet.urls.size ? "" : "noop^"}(${[...tweet.urls.keys()].map(url => `(?:${url})`).join("|")})`, "gi"), (_, url) => `<span class="link">${tweet.urls.get(url)}<link></span>`), {"&":true})
+                .replace(new RegExp(`${tweet.urls.size ? "" : "noop^"}(${[...tweet.urls.keys()].map(url => `(?:${url})`).join("|")})`, "gi"), (_, url) => `<span class="link">${tweet.urls.get(url)}</span>`), {"&":true})
           }))
 
         //Result
