@@ -76,7 +76,7 @@
         //Token for data gathering
           info("GitHub token", token, {token:true})
           if (!token)
-            throw new Error("You must provide a valid GitHub token to gather your metrics")
+            throw new Error('You must provide a valid GitHub personal token to gather your metrics (see "How to setup?" section at https://github.com/lowlighter/metrics#%EF%B8%8F-using-github-action-on-your-profile-repository-5-min-setup)')
           conf.settings.token = token
           const api = {}
           api.graphql = octokit.graphql.defaults({headers:{authorization:`token ${token}`}})

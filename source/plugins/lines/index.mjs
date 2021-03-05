@@ -31,7 +31,7 @@
               if (!Array.isArray(repository))
                 return
             //Extract author
-              const [contributor] = repository.filter(({author}) => context.mode === "repository" ? true : author.login === login)
+              const [contributor] = repository.filter(({author}) => context.mode === "repository" ? true : author?.login === login)
             //Compute editions
               if (contributor)
                 contributor.weeks.forEach(({a, d}) => (lines.added += a, lines.deleted += d))

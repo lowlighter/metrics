@@ -178,6 +178,15 @@ inputs:
     type: boolean
     default: no
 
+  # Experimental features
+  experimental_features:
+    description: Experimental features
+    type: array
+    format: space-separated
+    default: ""
+    values:
+      - --optimize
+
   # Use mocked data to bypass external APIs
   use_mocked_data:
     description: Use mocked data instead of live APIs
