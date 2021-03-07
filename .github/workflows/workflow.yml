@@ -104,11 +104,11 @@ jobs:
 
           docker pull ghcr.io/lowlighter/metrics:master
           docker push ghcr.io/lowlighter/metrics:v
-
-          docker tag ghcr.io/lowlighter/metrics:master ghcr.io/lowlighter/metrics:$(echo "v$METRICS_VERSION_BETA")
           docker rmi ghcr.io/lowlighter/metrics:v
           docker push ghcr.io/lowlighter/metrics:master
-          docker push ghcr.io/lowlighter/metrics:$(echo "v$METRICS_VERSION_BETA")
+
+          # docker tag ghcr.io/lowlighter/metrics:master ghcr.io/lowlighter/metrics:$(echo "v$METRICS_VERSION_BETA")
+          # docker push ghcr.io/lowlighter/metrics:$(echo "v$METRICS_VERSION_BETA")
 
   # Test lowlighter/metrics@master
   action-master-test:
