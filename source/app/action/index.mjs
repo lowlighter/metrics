@@ -204,7 +204,7 @@
           info.break()
           info.section("Rendering")
           let error = null, rendered = null
-          for (let attempt = 0; attempt < retries; attempt++) {
+          for (let attempt = 1; attempt <= retries; attempt++) {
             try {
               console.debug(`::group::Attempt ${attempt}/${retries}`)
               ;({rendered} = await metrics({login:user, q}, {graphql, rest, plugins, conf, die, verify, convert}, {Plugins, Templates}))
@@ -228,11 +228,15 @@
               const ref = `refs/heads/${committer.branch}`
               const base = `refs/heads/master`
               try {
-                await rest.git.getRef({...github.context.repo, ref})
+                await rest.git.getRef({...github.context.repo, ref:ref.replace(/^refs[/]/, "")})
+                info(`Git ${ref}`, "ok")
               }
               catch (error) {
-                console.log(error)
-                await rest.git.createRef({...github.context.repo, ref, ...(committer.sha ? {sha:committer.sha} : {})})
+                console.debug(error)
+                if (/not found/i.test(`${error}`)) {
+                  await rest.git.createRef({...github.context.repo, ref, ...(committer.sha ? {sha:committer.sha} : {})})
+                  info(`Git ${ref}`, "(created)")
+                }
               }
 
             //Update file
@@ -242,12 +246,11 @@
                 branch:committer.branch,
                 ...(committer.sha ? {sha:committer.sha} : {}),
               })
-              info(`Commit to ${ref}`, "success")
+              info(`Commit to ${ref}`, "ok")
 
             //Create pull request
               const z = await rest.pulls.create({...github.context.repo, head:ref, base, body:`Auto-generated metrics for run #${github.payload.runId}`, maintainer_can_modify:true})
-              info(`Pull request from ${ref} to ${base}`, "success")
-
+              info(`Pull request from ${ref} to ${base}`, "ok")
               console.log(z)
 
   /*
