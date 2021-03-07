@@ -135,6 +135,16 @@ inputs:
     description: Output image format
     default: svg
   
+  # Number of retries in case rendering fail
+  retries:
+    description: Number of retries
+    default: 3
+  
+  # Time to wait (in seconds) before each retry
+  retries_delay:
+    description: Time to wait (in seconds) before each retry
+    default: 300
+  
   # Throw on plugins errors
   # If disabled, metrics will handle errors gracefully with a message in rendered metrics
   plugins_errors_fatal:
