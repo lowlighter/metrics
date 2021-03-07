@@ -40,7 +40,12 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - run: echo $(echo "$(cat package.json | grep -Po 'v\d+[.]\d+')")
+      - name: Extract version name
+        run: |
+          set +e
+          METRICS_VERSION=$(cat package.json | grep -Po '(?<="version": ")\d+[.]\d+(?=[.]0-beta")')
+          METRICS_VERSION_BETA="$METRICS_VERSION-beta"
+          set -e
       - name: Build lowlighter/metrics:${{ github.head_ref || 'master' }}
         run: docker build -t lowlighter/metrics:${{ github.head_ref || 'master' }} .
       - name: Run tests
