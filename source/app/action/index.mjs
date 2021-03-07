@@ -203,11 +203,11 @@
         //Render metrics
           info.break()
           info.section("Rendering")
-          let rendered = null, error = null
+          let error = null, rendered = null
           for (let attempt = 0; attempt < retries; attempt++) {
             try {
               console.debug(`::group::Attempt ${attempt}/${retries}`)
-              rendered = (await metrics({login:user, q}, {graphql, rest, plugins, conf, die, verify, convert}, {Plugins, Templates})).rendered
+              ;({rendered} = await metrics({login:user, q}, {graphql, rest, plugins, conf, die, verify, convert}, {Plugins, Templates}))
               console.debug("::endgroup::")
               break
             }
@@ -215,10 +215,11 @@
               error = _error
               console.debug("::endgroup::")
               console.debug(`::warning::rendering failed (${error.message})`)
+              await new Promise(solve => setTimeout(solve, retries_delay*1000)) //eslint-disable-line no-promise-executor-return
             }
           }
           if (!rendered)
-            throw error ?? new Error(`Could not render metrics`)
+            throw error ?? new Error("Could not render metrics")
           info("Status", "complete")
 
         //Commit metrics
