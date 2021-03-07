@@ -40,14 +40,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Extract version name
-        run: |
-          set +e
-          METRICS_VERSION=$(cat package.json | grep -Po '(?<="version": ")\d+[.]\d+(?=[.]0-beta")')
-          METRICS_VERSION_BETA="$METRICS_VERSION-beta"
-          set -e
-          echo "v$METRICS_VERSION"
-          echo "v$METRICS_VERSION_BETA"
       - name: Build lowlighter/metrics:${{ github.head_ref || 'master' }}
         run: docker build -t lowlighter/metrics:${{ github.head_ref || 'master' }} .
       - name: Run tests
@@ -96,12 +88,18 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+      - name: Extract version name
+        run: |
+          set +e
+          METRICS_VERSION=$(cat package.json | grep -Po '(?<="version": ")\d+[.]\d+(?=[.]0-beta")')
+          METRICS_VERSION_BETA="$METRICS_VERSION-beta"
+          set -e
       - name: Login to GitHub registry
         run: echo ${{ secrets.CONTAINER_REGISTRY_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
       - name: Build docker image
         run: docker build -t ghcr.io/lowlighter/metrics:master .
-      #- name: Tag docker image (beta)
-      #  run: docker tag ghcr.io/lowlighter/metrics:master ghcr.io/lowlighter/metrics:$(echo "$(cat package.json | grep -Po 'v\d+[.]\d+')")
+      - name: Tag docker image (beta)
+        run: docker tag ghcr.io/lowlighter/metrics:master ghcr.io/lowlighter/metrics:$(echo "v$METRICS_VERSION_BETA")
       - name: Publish to GitHub registry
         run: docker push ghcr.io/lowlighter/metrics:master
 
