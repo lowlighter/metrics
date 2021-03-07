@@ -57,6 +57,7 @@
             "plugins.errors.fatal":die,
             "committer.token":_token, "committer.branch":_branch,
             "use.prebuilt.image":_image,
+            retries, "retries.delay":retries_delay,
             ...config
           } = metadata.plugins.core.inputs.action({core})
           const q = {...query, ...(_repo ? {repo:_repo} : null), template}
@@ -202,7 +203,22 @@
         //Render metrics
           info.break()
           info.section("Rendering")
-          const {rendered} = await metrics({login:user, q}, {graphql, rest, plugins, conf, die, verify, convert}, {Plugins, Templates})
+          let rendered = null, error = null
+          for (let attempt = 0; attempt < retries; attempt++) {
+            try {
+              console.debug(`::group::Attempt ${attempt}/${retries}`)
+              rendered = (await metrics({login:user, q}, {graphql, rest, plugins, conf, die, verify, convert}, {Plugins, Templates})).rendered
+              console.debug("::endgroup::")
+              break
+            }
+            catch (_error) {
+              error = _error
+              console.debug("::endgroup::")
+              console.debug(`::warning::rendering failed (${error.message})`)
+            }
+          }
+          if (!rendered)
+            throw error ?? new Error(`Could not render metrics`)
           info("Status", "complete")
 
         //Commit metrics
