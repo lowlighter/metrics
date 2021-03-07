@@ -98,10 +98,12 @@ jobs:
         run: echo ${{ secrets.CONTAINER_REGISTRY_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
       - name: Build docker image
         run: docker build -t ghcr.io/lowlighter/metrics:master .
-      - name: Tag docker image (beta)
-        run: docker tag ghcr.io/lowlighter/metrics:master ghcr.io/lowlighter/metrics:$(echo "v$METRICS_VERSION_BETA")
       - name: Publish to GitHub registry
         run: docker push ghcr.io/lowlighter/metrics:master
+      - name: Tag docker image (beta)
+        run: docker tag ghcr.io/lowlighter/metrics:master ghcr.io/lowlighter/metrics:$(echo "v$METRICS_VERSION_BETA")
+      - name: Publish latest to GitHub registry
+        run: docker push ghcr.io/lowlighter/metrics:$(echo "v$METRICS_VERSION_BETA")
 
   # Test lowlighter/metrics@master
   action-master-test:
