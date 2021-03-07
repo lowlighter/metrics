@@ -97,15 +97,15 @@
       data.meta = {version:conf.package.version, author:conf.package.author}
 
     //Debug flags
-      if ((dflags.includes("--cakeday"))||(dflags.includes("cakeday"))) {
+      if (dflags.includes("--cakeday")) {
         console.debug(`metrics/compute/${login} > applying dflag --cakeday`)
         computed.cakeday = true
       }
-      if ((dflags.includes("--hireable"))||(dflags.includes("hireable"))) {
+      if (dflags.includes("--hireable")) {
         console.debug(`metrics/compute/${login} > applying dflag --hireable`)
         data.user.isHireable = true
       }
-      if ((dflags.includes("--halloween"))||(dflags.includes("halloween"))) {
+      if (dflags.includes("--halloween")) {
         console.debug(`metrics/compute/${login} > applying dflag --halloween`)
         //Haloween color replacer
           const halloween = content => content
@@ -124,6 +124,10 @@
               data.plugins.isocalendar.svg = halloween(data.plugins.isocalendar.svg)
             return {name:"dflag.halloween", result:true}
           })())
+      }
+      if (dflags.includes("--error")) {
+        console.debug(`metrics/compute/${login} > applying dflag --error`)
+        throw new Error("Failed as requested by --error flag")
       }
 
     //Results

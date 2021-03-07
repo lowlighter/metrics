@@ -27,6 +27,7 @@ runs:
   steps:
     - run: |
         # Create environment file from inputs and GitHub variables
+        echo "::group::Metrics docker image setup"
         cd $METRICS_ACTION_PATH
         touch .env
         for INPUT in $(echo $INPUTS | jq -r 'to_entries|map("INPUT_\(.key|ascii_upcase)=\(.value|@uri)")|.[]'); do
@@ -45,20 +46,11 @@ runs:
 
         # Image tag (extracted from version or from env)
         METRICS_TAG=v$(echo $METRICS_VERSION | sed -r 's/^([0-9]+[.][0-9]+).*/\1/')
-        if [[ $METRICS_USE_PREBUILT_IMAGE ]]; then
-          METRICS_TAG=$METRICS_USE_PREBUILT_IMAGE
-          echo "Pre-built image: yes"
-        fi
         echo "Image tag: $METRICS_TAG"
 
         # Image name
-        # Pre-built image
-        if [[ $METRICS_USE_PREBUILT_IMAGE ]]; then
-          echo "Using pre-built version $METRICS_TAG, will pull docker image from GitHub registry"
-          METRICS_IMAGE=ghcr.io/lowlighter/metrics:$METRICS_TAG
-          docker image pull $METRICS_IMAGE > /dev/null
         # Official action
-        elif [[ $METRICS_SOURCE == "lowlighter" ]]; then
+        if [[ $METRICS_SOURCE == "lowlighter" ]]; then
           # Is released version
           set +e
           METRICS_IS_RELEASED=$(expr $(expr match $METRICS_VERSION .*-beta) == 0)
@@ -68,7 +60,14 @@ runs:
           if [[ "$METRICS_IS_RELEASED" -gt "0" ]]; then
             echo "Using released version $METRICS_TAG, will pull docker image from GitHub registry"
             METRICS_IMAGE=ghcr.io/lowlighter/metrics:$METRICS_TAG
-            docker image pull $METRICS_IMAGE > /dev/null
+            docker image pull $METRICS_IMAGE
+          # Use registry for unreleased version with pre-built images
+          elif [[ ! $METRICS_USE_PREBUILT_IMAGE =~ ^([Ff]alse|[Oo]ff|[Nn]o|0)$ ]]; then
+            METRICS_TAG="$METRICS_TAG-beta"
+            echo "Image tag (updated): $METRICS_TAG"
+            echo "Using pre-built version $METRICS_TAG, will pull docker image from GitHub registry"
+            METRICS_IMAGE=ghcr.io/lowlighter/metrics:$METRICS_TAG
+            docker image pull $METRICS_IMAGE
           # Rebuild image for unreleased version
           else
             echo "Using an unreleased version ($METRICS_VERSION)"
@@ -83,15 +82,16 @@ runs:
 
         # Build image if necessary
         set +e
-        docker image inspect $METRICS_IMAGE > /dev/null
+        docker image inspect $METRICS_IMAGE
         METRICS_IMAGE_NEEDS_BUILD="$?"
         set -e
         if [[ "$METRICS_IMAGE_NEEDS_BUILD" -gt "0" ]]; then
           echo "Image $METRICS_IMAGE is not present locally, rebuilding it from Dockerfile"
-          docker build -t $METRICS_IMAGE . > /dev/null
+          docker build -t $METRICS_IMAGE .
         else
           echo "Image $METRICS_IMAGE is present locally"
         fi
+        echo "::endgroup::"
 
         # Run docker image with current environment
         docker run --init --volume $GITHUB_EVENT_PATH:$GITHUB_EVENT_PATH --env-file .env $METRICS_IMAGE
