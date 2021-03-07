@@ -210,9 +210,10 @@ inputs:
     type: boolean
     default: no
 
-  # Use a pre-built image from GitHub registry (experimental)
+  # Use a pre-built image from GitHub registry when using unreleased versions of "lowlighter/metrics"
+  # This option has no effect on forks (images will always be rebuilt from Dockerfile)
   # See https://github.com/users/lowlighter/packages/container/package/metrics for more information
   use_prebuilt_image:
     description: Use pre-built image from GitHub registry
-    type: string
-    default: ""
+    type: boolean
+    default: yes
