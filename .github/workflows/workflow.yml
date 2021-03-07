@@ -103,7 +103,7 @@ jobs:
           echo "Beta version: v$METRICS_VERSION_BETA"
 
           docker pull ghcr.io/lowlighter/metrics:master
-          docker push ghcr.io/lowlighter/metrics:v
+          docker pull ghcr.io/lowlighter/metrics:v
           docker rmi ghcr.io/lowlighter/metrics:v
           docker push ghcr.io/lowlighter/metrics:master
 
