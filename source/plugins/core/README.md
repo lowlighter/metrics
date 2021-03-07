@@ -102,6 +102,21 @@ Specify a single value to apply it to both height and with, and two values to us
     config_padding: 6%, 10% # 6% width padding, 10% height padding
 ```
 
+### ♻️ Retrying automatically failed rendering
+
+Rendering is subject to external factors and can fail from time to time.
+It is possible to mitigate this issue using `retries` and `retries_delay` options to automatically retry later metrics rendering and avoid workflow fails.
+
+#### ℹ️ Examples workflows
+
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    retries: 3
+    retries_delay: 300
+```
+
 ### 💱 Convert output to PNG/JPEG
 
 It is possible to convert output from SVG to PNG or JPEG images by using `config_output` option.
