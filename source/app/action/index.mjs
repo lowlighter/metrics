@@ -231,6 +231,13 @@
               ...(committer.sha ? {sha:committer.sha} : {}),
             })
             info("Commit to repository", "success")
+
+            await rest.pulls.create({
+              ...github.context.repo,
+              head:"test-pr",
+              base:"master",
+            });
+
           }
 
         //Success
