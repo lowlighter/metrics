@@ -46,6 +46,8 @@ jobs:
           METRICS_VERSION=$(cat package.json | grep -Po '(?<="version": ")\d+[.]\d+(?=[.]0-beta")')
           METRICS_VERSION_BETA="$METRICS_VERSION-beta"
           set -e
+          echo "v$METRICS_VERSION"
+          echo "v$METRICS_VERSION_BETA"
       - name: Build lowlighter/metrics:${{ github.head_ref || 'master' }}
         run: docker build -t lowlighter/metrics:${{ github.head_ref || 'master' }} .
       - name: Run tests
