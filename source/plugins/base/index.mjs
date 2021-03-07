@@ -49,7 +49,12 @@
         }
         catch (error) {
           console.debug(`metrics/compute/${login}/base > account ${account} > failed : ${error}`)
-          console.debug(`metrics/compute/${login}/base > checking next account`)
+          if (/Could not resolve to a User with the login of/.test(error.message)) {
+            console.debug(`metrics/compute/${login}/base > got a "user not found" error for account type "${account}" and user "${login}"`)
+            console.debug(`metrics/compute/${login}/base > checking next account type`)
+            continue
+          }
+          throw error
         }
       }
     //Not found
