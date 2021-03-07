@@ -25,12 +25,12 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 15
-      - name: Setup metrics
-        run: npm ci
-      - name: Check contributions requirements
-        run: npm test -- ci.test.js
-      - name: Run linter
-        run: npm run linter
+      #- name: Setup metrics
+      #  run: npm ci
+      #- name: Check contributions requirements
+      #  run: npm test -- ci.test.js
+      #- name: Run linter
+      #  run: npm run linter
 
   # Build docker image from branch and run tests
   build:
@@ -94,6 +94,8 @@ jobs:
       #  run: docker build -t ghcr.io/lowlighter/metrics:master .
       #- name: Publish to GitHub registry
       #  run: docker push ghcr.io/lowlighter/metrics:master
+      - name: Pull docker image (master)
+        run: docker pull ghcr.io/lowlighter/metrics:master
       - name: Tag docker image (beta)
         run: |
           set +e
