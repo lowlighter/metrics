@@ -224,20 +224,39 @@
 
         //Commit metrics
           if (committer.commit) {
-            await committer.rest.repos.createOrUpdateFileContents({
-              ...github.context.repo, path:filename, message:`Update ${filename} - [Skip GitHub Action]`,
-              content:Buffer.from(rendered).toString("base64"),
-              branch:committer.branch,
-              ...(committer.sha ? {sha:committer.sha} : {}),
-            })
-            info("Commit to repository", "success")
+            //Create branch if needed
+              const ref = `refs/heads/${committer.branch}`
+              const base = `refs/heads/master`
+              try {
+                await rest.git.getRef({...github.context.repo, ref})
+              }
+              catch (error) {
+                console.log(error)
+                await rest.git.createRef({...github.context.repo, ref, ...(committer.sha ? {sha:committer.sha} : {})})
+              }
 
-            await rest.pulls.create({
-              ...github.context.repo,
-              head:"test-pr",
-              base:"master",
-            });
+            //Update file
+              await committer.rest.repos.createOrUpdateFileContents({
+                ...github.context.repo, path:filename, message:`Update ${filename} - [Skip GitHub Action]`,
+                content:Buffer.from(rendered).toString("base64"),
+                branch:committer.branch,
+                ...(committer.sha ? {sha:committer.sha} : {}),
+              })
+              info(`Commit to ${ref}`, "success")
 
+            //Create pull request
+              const z = await rest.pulls.create({...github.context.repo, head:ref, base, body:`Auto-generated metrics for run #${github.payload.runId}`, maintainer_can_modify:true})
+              info(`Pull request from ${ref} to ${base}`, "success")
+
+              console.log(z)
+
+  /*
+              octokit.pulls.merge({
+                owner,
+                repo,
+                pull_number,
+              });
+    */
           }
 
         //Success
