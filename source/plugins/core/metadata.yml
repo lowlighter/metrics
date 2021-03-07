@@ -187,6 +187,7 @@ inputs:
       - --cakeday
       - --hireable
       - --halloween
+      - --error
 
   # Dry-run mode (perform generation without pushing it)
   dryrun:
