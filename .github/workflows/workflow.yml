@@ -104,7 +104,7 @@ jobs:
           set -e
           echo "Beta version: v$METRICS_VERSION_BETA"
           docker tag ghcr.io/lowlighter/metrics:master ghcr.io/lowlighter/metrics:$(echo "v$METRICS_VERSION_BETA")
-          docker rmi v
+          docker rmi ghcr.io/lowlighter/metrics:v
           docker push ghcr.io/lowlighter/metrics:$(echo "v$METRICS_VERSION_BETA")
 
   # Test lowlighter/metrics@master
