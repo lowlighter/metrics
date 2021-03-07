@@ -234,7 +234,7 @@
               catch (error) {
                 console.debug(error)
                 if (/not found/i.test(`${error}`)) {
-                  await rest.git.createRef({...github.context.repo, ref, ...(committer.sha ? {sha:committer.sha} : {})})
+                  await rest.git.createRef({...github.context.repo, ref, sha:"ce915b8ed8f05e47e849d214ea9c0849a84a570a"})
                   info(`Git ${ref}`, "(created)")
                 }
               }
