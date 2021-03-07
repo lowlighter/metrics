@@ -94,8 +94,6 @@ jobs:
       #  run: docker build -t ghcr.io/lowlighter/metrics:master .
       #- name: Publish to GitHub registry
       #  run: docker push ghcr.io/lowlighter/metrics:master
-      - name: Pull docker image (master)
-        run: docker pull ghcr.io/lowlighter/metrics:master
       - name: Tag docker image (beta) and publish to GitHub registry
         run: |
           set +e
@@ -103,8 +101,13 @@ jobs:
           METRICS_VERSION_BETA="$METRICS_VERSION-beta"
           set -e
           echo "Beta version: v$METRICS_VERSION_BETA"
+
+          docker pull ghcr.io/lowlighter/metrics:master
+          docker push ghcr.io/lowlighter/metrics:v
+
           docker tag ghcr.io/lowlighter/metrics:master ghcr.io/lowlighter/metrics:$(echo "v$METRICS_VERSION_BETA")
           docker rmi ghcr.io/lowlighter/metrics:v
+          docker push ghcr.io/lowlighter/metrics:master
           docker push ghcr.io/lowlighter/metrics:$(echo "v$METRICS_VERSION_BETA")
 
   # Test lowlighter/metrics@master
