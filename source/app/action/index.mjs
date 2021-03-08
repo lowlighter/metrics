@@ -267,17 +267,22 @@
         //Pull request
           if (committer.pr) {
             //Create pull request
+              let number = null
               try {
-                const {data:{number}} = await committer.rest.pulls.create({...github.context.repo, head:committer.head, base:committer.branch, title:`Auto-generated metrics for run #${github.context.runId}`, body:" ", maintainer_can_modify:true})
+                ({data:{number}} = await committer.rest.pulls.create({...github.context.repo, head:committer.head, base:committer.branch, title:`Auto-generated metrics for run #${github.context.runId}`, body:" ", maintainer_can_modify:true}))
                 info(`Pull request from ${committer.head} to ${committer.branch}`, "(created)")
               }
               catch (error) {
                 console.debug(error)
-                if (/A pull request already exists/.test(error))
+                if (/A pull request already exists/.test(error)) {
                   info(`Pull request from ${committer.head} to ${committer.branch}`, "(already existing)")
+                  const q = `repo:${encodeURIComponent(`${github.context.repo.owner}/${github.context.repo.repo}`)}+type:pr+state:open+Auto-generated metrics for run #${github.context.runId}+in:title`
+                  ;({data:{items:[{number}]}} = await committer.rest.search.issuesAndPullRequests({q}))
+                }
                 else
                   throw error
               }
+              info("Pull request number", number)
             //Merge pull request
               if (committer.merge) {
                 info("Merge method", committer.merge)
