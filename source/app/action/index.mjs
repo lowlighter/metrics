@@ -278,7 +278,9 @@
                   info(`Pull request from ${committer.head} to ${committer.branch}`, "(already existing)")
                   const q = `repo:${github.context.repo.owner}/${github.context.repo.repo}+type:pr+state:open+Auto-generated metrics for run #${github.context.runId}+in:title`
                   const prs = (await committer.rest.search.issuesAndPullRequests({q})).data.items.filter(({user:{login}}) => login === "github-actions[bot]")
-                  if (prs.length)
+                  if (prs.length < 1)
+                    throw new Error("0 matching prs. Cannot preoceed.")
+                  if (prs.length > 1)
                     throw new Error(`Found more than one matching prs: ${prs.map(({number}) => `#${number}`).join(", ")}. Cannot proceed.`)
                   number = prs.shift().number
                 }
