@@ -34,7 +34,12 @@ runs:
           echo $INPUT >> .env
         done
         env | grep -E '^(GITHUB|ACTIONS|CI)' >> .env
-        echo "Environment variable: loaded"
+        echo "Environment variables: loaded"
+
+        # Renders output folder
+        METRICS_RENDERS="/metrics_renders"
+        sudo mkdir -p $METRICS_RENDERS
+        echo "Renders output folder: $METRICS_RENDERS"
 
         # Source repository (picked from action name)
         METRICS_SOURCE=$(echo $METRICS_ACTION | sed -E 's/metrics.*?$//g')
@@ -94,7 +99,7 @@ runs:
         echo "::endgroup::"
 
         # Run docker image with current environment
-        docker run --init --volume $GITHUB_EVENT_PATH:$GITHUB_EVENT_PATH --env-file .env $METRICS_IMAGE
+        docker run --init --volume $GITHUB_EVENT_PATH:$GITHUB_EVENT_PATH --volume $METRICS_RENDERS:/renders --env-file .env $METRICS_IMAGE
         rm .env
       shell: bash
       env:

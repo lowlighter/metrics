@@ -5,6 +5,8 @@
   import setup from "../metrics/setup.mjs"
   import mocks from "../mocks/index.mjs"
   import metrics from "../metrics/index.mjs"
+  import fs from "fs/promises"
+  import paths from "path"
   process.on("unhandledRejection", error => { throw error }) //eslint-disable-line max-statements-per-line, brace-style
 
 //Debug message buffer
@@ -40,6 +42,10 @@
               console.log("Skipped because [Skip GitHub Action] is in commit message")
               process.exit(0)
             }
+            if (/Auto-generated metrics for run #\d+/.test(github.context.payload.head_commit.message)) {
+              console.log("Skipped because this seems to be an automated pull request merge")
+              process.exit(0)
+            }
           }
 
         //Load configuration
@@ -58,6 +64,7 @@
             "committer.token":_token, "committer.branch":_branch,
             "use.prebuilt.image":_image,
             retries, "retries.delay":retries_delay,
+            "output.action":_action,
             ...config
           } = metadata.plugins.core.inputs.action({core})
           const q = {...query, ...(_repo ? {repo:_repo} : null), template}
@@ -73,6 +80,7 @@
             DEBUG = false
           }
           info("Debug flags", dflags)
+          q["debug.flags"] = dflags.join(" ")
 
         //Token for data gathering
           info("GitHub token", token, {token:true})
@@ -112,13 +120,17 @@
           const committer = {}
           if (!dryrun) {
             //Compute committer informations
-              committer.commit = true
               committer.token = _token || token
+              committer.commit = true
+              committer.pr = /^pull-request/.test(_action)
+              committer.merge = _action.match(/^pull-request-(?<method>merge|squash|rebase)$/)?.groups?.method ?? null
               committer.branch = _branch || github.context.ref.replace(/^refs[/]heads[/]/, "")
+              committer.head = committer.pr ? `metrics-run-${github.context.runId}` : committer.branch
               info("Committer token", committer.token, {token:true})
               if (!committer.token)
                 throw new Error("You must provide a valid GitHub token to commit your metrics")
               info("Committer branch", committer.branch)
+              info("Committer head branch", committer.head)
             //Instantiate API for committer
               committer.rest = github.getOctokit(committer.token)
               info("Committer REST API", "ok")
@@ -128,13 +140,29 @@
               catch {
                 info("Committer account", "(github-actions)")
               }
+            //Create head branch if needed
+              try {
+                await committer.rest.git.getRef({...github.context.repo, ref:`heads/${committer.head}`})
+                info("Committer head branch status", "ok")
+              }
+              catch (error) {
+                console.debug(error)
+                if (/not found/i.test(`${error}`)) {
+                  const {data:{object:{sha}}} = await committer.rest.git.getRef({...github.context.repo, ref:`heads/${committer.branch}`})
+                  info("Committer branch current sha", sha)
+                  await committer.rest.git.createRef({...github.context.repo, ref:`refs/heads/${committer.head}`, sha})
+                  info("Committer head branch status", "(created)")
+                }
+                else
+                  throw error
+              }
             //Retrieve previous render SHA to be able to update file content through API
               committer.sha = null
               try {
                 const {repository:{object:{oid}}} = await graphql(`
                     query Sha {
                       repository(owner: "${github.context.repo.owner}", name: "${github.context.repo.repo}") {
-                        object(expression: "${committer.branch}:${filename}") { ... on Blob { oid } }
+                        object(expression: "${committer.head}:${filename}") { ... on Blob { oid } }
                       }
                     }
                   `, {headers:{authorization:`token ${committer.token}`}})
@@ -204,7 +232,7 @@
           info.break()
           info.section("Rendering")
           let error = null, rendered = null
-          for (let attempt = 0; attempt < retries; attempt++) {
+          for (let attempt = 1; attempt <= retries; attempt++) {
             try {
               console.debug(`::group::Attempt ${attempt}/${retries}`)
               ;({rendered} = await metrics({login:user, q}, {graphql, rest, plugins, conf, die, verify, convert}, {Plugins, Templates}))
@@ -222,15 +250,53 @@
             throw error ?? new Error("Could not render metrics")
           info("Status", "complete")
 
+        //Save output to renders output folder
+          info.break()
+          info.section("Saving")
+          await fs.writeFile(paths.join("/renders", filename), Buffer.from(rendered))
+          info(`Save to /metrics_renders/${filename}`, "ok")
+
         //Commit metrics
           if (committer.commit) {
             await committer.rest.repos.createOrUpdateFileContents({
               ...github.context.repo, path:filename, message:`Update ${filename} - [Skip GitHub Action]`,
               content:Buffer.from(rendered).toString("base64"),
-              branch:committer.branch,
+              branch:committer.pr ? committer.head : committer.branch,
               ...(committer.sha ? {sha:committer.sha} : {}),
             })
-            info("Commit to repository", "success")
+            info(`Commit to branch ${committer.branch}`, "ok")
+          }
+
+        //Pull request
+          if (committer.pr) {
+            //Create pull request
+              let number = null
+              try {
+                ({data:{number}} = await committer.rest.pulls.create({...github.context.repo, head:committer.head, base:committer.branch, title:`Auto-generated metrics for run #${github.context.runId}`, body:" ", maintainer_can_modify:true}))
+                info(`Pull request from ${committer.head} to ${committer.branch}`, "(created)")
+              }
+              catch (error) {
+                console.debug(error)
+                if (/A pull request already exists/.test(error)) {
+                  info(`Pull request from ${committer.head} to ${committer.branch}`, "(already existing)")
+                  const q = `repo:${github.context.repo.owner}/${github.context.repo.repo}+type:pr+state:open+Auto-generated metrics for run #${github.context.runId}+in:title`
+                  const prs = (await committer.rest.search.issuesAndPullRequests({q})).data.items.filter(({user:{login}}) => login === "github-actions[bot]")
+                  if (prs.length < 1)
+                    throw new Error("0 matching prs. Cannot preoceed.")
+                  if (prs.length > 1)
+                    throw new Error(`Found more than one matching prs: ${prs.map(({number}) => `#${number}`).join(", ")}. Cannot proceed.`)
+                  ;({number} = prs.shift())
+                }
+                else
+                  throw error
+              }
+              info("Pull request number", number)
+            //Merge pull request
+              if (committer.merge) {
+                info("Merge method", committer.merge)
+                await committer.rest.pulls.merge({...github.context.repo, pull_number:number, merge_method:committer.merge})
+                info(`Merge #${number} to ${committer.branch}`, "ok")
+              }
           }
 
         //Success

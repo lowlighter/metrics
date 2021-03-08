@@ -51,6 +51,19 @@ inputs:
     type: string
     default: github-metrics.svg
 
+  # Output action
+  output_action:
+    description: Output action
+    type: string
+    default: commit
+    values:
+      - none                # Only generate file in "/metrics_renders"
+      - commit              # Commit output to "committer_branch"
+      - pull-request        # Commit output to a new branch and open a pull request to "committer_branch"
+      - pull-request-merge  # Same as "pull-request" and additionaly merge pull request
+      - pull-request-squash # Same as "pull-request" and additionaly squash and merge pull request
+      - pull-request-rebase # Same as "pull-request" and additionaly rebase and merge pull request
+
   # Optimize SVG image to reduce its filesize
   # Some templates may not support this option
   optimize:
@@ -148,11 +161,11 @@ inputs:
 
   # Time to wait (in seconds) before each retry
   retries_delay:
-      description: Time to wait (in seconds) before each retry
-      type: number
-      default: 300
-      min: 0
-      max: 3600
+    description: Time to wait (in seconds) before each retry
+    type: number
+    default: 300
+    min: 0
+    max: 3600
 
   # ====================================================================================
   # Options below are mostly used for testing
@@ -189,7 +202,8 @@ inputs:
       - --halloween
       - --error
 
-  # Dry-run mode (perform generation without pushing it)
+  # Dry-run mode (perform generation without output)
+  # Unlike "output_action" set to "none", output file won't be available in "/metrics_renders"
   dryrun:
     description: Enable dry-run
     type: boolean
