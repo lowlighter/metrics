@@ -264,10 +264,20 @@
             info(`Commit to branch ${committer.branch}`, "ok")
           }
 
-        //Create pull request
+        //Pull request
           if (committer.pr) {
-            const {data:{number}} = await committer.rest.pulls.create({...github.context.repo, head:committer.head, base:committer.branch, title:`Auto-generated metrics for run #${github.context.runId}`, body:" ", maintainer_can_modify:true})
-            info(`Pull request from ${committer.head} to ${committer.branch}`, "ok")
+            //Create pull request
+              try {
+                const {data:{number}} = await committer.rest.pulls.create({...github.context.repo, head:committer.head, base:committer.branch, title:`Auto-generated metrics for run #${github.context.runId}`, body:" ", maintainer_can_modify:true})
+                info(`Pull request from ${committer.head} to ${committer.branch}`, "(created)")
+              }
+              catch (error) {
+                console.debug(eror)
+                if (!/A pull request already exists/.test(error))
+                  info(`Pull request from ${committer.head} to ${committer.branch}`, "(already existing)")
+                else
+                  throw error
+              }
             //Merge pull request
               if (committer.merge) {
                 info("Merge method", committer.merge)
