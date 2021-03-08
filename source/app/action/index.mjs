@@ -256,7 +256,7 @@
               branch:committer.branch,
               ...(committer.sha ? {sha:committer.sha} : {}),
             })
-            info(`Commit to ${ref}`, "ok")
+            info(`Commit to ${committer.branch}`, "ok")
           }
 
         //Create pull request
