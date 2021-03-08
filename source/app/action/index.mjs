@@ -261,7 +261,7 @@
 
         //Create pull request
           if (committer.pr) {
-            const z = await committer.rest.pulls.create({...github.context.repo, head:committer.branch, base:committer.base, body:`Auto-generated metrics for run #${github.context.payload?.runId}`, maintainer_can_modify:true})
+            const z = await committer.rest.pulls.create({...github.context.repo, head:committer.branch, base:committer.base, title:`Auto-generated metrics for run #${github.context.payload?.runId}`, body:" ", maintainer_can_modify:true})
             info(`Pull request from ${committer.branch} to ${committer.base}`, "ok")
             console.log(z)
           }
