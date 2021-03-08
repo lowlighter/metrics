@@ -142,8 +142,8 @@
               catch (error) {
                 console.debug(error)
                 if (/not found/i.test(`${error}`)) {
-                  console.log(await committer.rest.git.getRef({...github.context.repo, ref:`refs/heads/${committer.base}`}))
-                  const {object:{sha}} = await committer.rest.git.getRef({...github.context.repo, ref:`refs/heads/${committer.base}`})
+                  console.log(await committer.rest.git.getRef({...github.context.repo, ref:`heads/${committer.base}`}))
+                  const {object:{sha}} = await committer.rest.git.getRef({...github.context.repo, ref:`heads/${committer.base}`})
                   info("Committer base branch sha", sha)
                   await committer.rest.git.createRef({...github.context.repo, ref:`refs/heads/${committer.branch}`, sha})
                   info("Committer branch status", "(created)")
