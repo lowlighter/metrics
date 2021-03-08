@@ -5,6 +5,8 @@
   import setup from "../metrics/setup.mjs"
   import mocks from "../mocks/index.mjs"
   import metrics from "../metrics/index.mjs"
+  import fs from "fs/promises"
+  import paths from "path"
   process.on("unhandledRejection", error => { throw error }) //eslint-disable-line max-statements-per-line, brace-style
 
 //Debug message buffer
@@ -123,6 +125,15 @@
                 throw new Error("You must provide a valid GitHub token to commit your metrics")
               info("Committer base branch", committer.base)
               info("Committer branch", committer.branch)
+            //Instantiate API for committer
+              committer.rest = github.getOctokit(committer.token)
+              info("Committer REST API", "ok")
+              try {
+                info("Committer account", (await committer.rest.users.getAuthenticated()).data.login)
+              }
+              catch {
+                info("Committer account", "(github-actions)")
+              }
             //Create branch if needed
               try {
                 await committer.rest.git.getRef({...github.context.repo, ref:`heads/${committer.branch}`})
@@ -138,15 +149,6 @@
                 }
                 else
                   throw error
-              }
-            //Instantiate API for committer
-              committer.rest = github.getOctokit(committer.token)
-              info("Committer REST API", "ok")
-              try {
-                info("Committer account", (await committer.rest.users.getAuthenticated()).data.login)
-              }
-              catch {
-                info("Committer account", "(github-actions)")
               }
             //Retrieve previous render SHA to be able to update file content through API
               committer.sha = null
@@ -241,6 +243,10 @@
           if (!rendered)
             throw error ?? new Error("Could not render metrics")
           info("Status", "complete")
+
+        //Save output to renders output folder
+          await fs.writeFile(paths.join("/renders", filename), Buffer.from(rendered))
+          info(`Save to /metrics_renders/${filename}`, "ok")
 
         //Commit metrics
           if (committer.commit) {
