@@ -115,7 +115,6 @@
                             }
                             const separators = {"comma-separated":",", "space-separated":" "}
                             const separator = separators[[format].flat().filter(s => s in separators)[0]] ?? ","
-                            console.log(key, separator, value.split(separator), value.split(separator).map(v => v.trim().toLocaleLowerCase()).filter(v => Array.isArray(values) ? values.includes(v) : true))
                             return value.split(separator).map(v => v.trim().toLocaleLowerCase()).filter(v => Array.isArray(values) ? values.includes(v) : true).filter(v => v)
                           }
                         //String

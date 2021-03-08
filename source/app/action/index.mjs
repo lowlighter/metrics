@@ -250,6 +250,8 @@
           info("Status", "complete")
 
         //Save output to renders output folder
+          info.break()
+          info.section("Saving")
           await fs.writeFile(paths.join("/renders", filename), Buffer.from(rendered))
           info(`Save to /metrics_renders/${filename}`, "ok")
 
