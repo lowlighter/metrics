@@ -256,12 +256,12 @@
               branch:committer.branch,
               ...(committer.sha ? {sha:committer.sha} : {}),
             })
-            info(`Commit to ${committer.branch}`, "ok")
+            info(`Commit to branch ${committer.branch}`, "ok")
           }
 
         //Create pull request
           if (committer.pr) {
-            const z = await committer.rest.pulls.create({...github.context.repo, head:committer.branch, base:committer.base, body:`Auto-generated metrics for run #${github.payload.runId}`, maintainer_can_modify:true})
+            const z = await committer.rest.pulls.create({...github.context.repo, head:committer.branch, base:committer.base, body:`Auto-generated metrics for run #${github.context.payload?.runId}`, maintainer_can_modify:true})
             info(`Pull request from ${committer.branch} to ${committer.base}`, "ok")
             console.log(z)
           }
