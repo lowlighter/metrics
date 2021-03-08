@@ -80,6 +80,7 @@
             DEBUG = false
           }
           info("Debug flags", dflags)
+          Object.assign(q, Object.fromEntries(dflags.map(flag => [flag.replace(/^--/, ""), true])))
 
         //Token for data gathering
           info("GitHub token", token, {token:true})
