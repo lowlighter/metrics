@@ -161,7 +161,7 @@
                 const {repository:{object:{oid}}} = await graphql(`
                     query Sha {
                       repository(owner: "${github.context.repo.owner}", name: "${github.context.repo.repo}") {
-                        object(expression: "${committer.branch}:${filename}") { ... on Blob { oid } }
+                        object(expression: "${committer.head}:${filename}") { ... on Blob { oid } }
                       }
                     }
                   `, {headers:{authorization:`token ${committer.token}`}})
