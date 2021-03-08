@@ -60,6 +60,7 @@
             "committer.token":_token, "committer.branch":_branch,
             "use.prebuilt.image":_image,
             retries, "retries.delay":retries_delay,
+            "output.action":_action,
             ...config
           } = metadata.plugins.core.inputs.action({core})
           const q = {...query, ...(_repo ? {repo:_repo} : null), template}
@@ -114,17 +115,17 @@
           const committer = {}
           if (!dryrun) {
             //Compute committer informations
-              committer.commit = true
               committer.token = _token || token
-              committer.base = github.context.ref.replace(/^refs[/]heads[/]/, "")
-              committer.branch = _branch || committer.base
-              committer.pr = true
-              committer.merge = true
+              committer.commit = true
+              committer.pr = /^pull-request/.test(_action)
+              committer.merge = _action.match(/^pull-request-(?<method>merge|squash|rebase)$/)?.groups?.method ?? null
+              committer.branch = _branch || github.context.ref.replace(/^refs[/]heads[/]/, "")
+              committer.head = committer.pr ? `metrics-run-${github.context.runId}` : committer.branch
               info("Committer token", committer.token, {token:true})
               if (!committer.token)
                 throw new Error("You must provide a valid GitHub token to commit your metrics")
-              info("Committer base branch", committer.base)
               info("Committer branch", committer.branch)
+              info("Committer head branch", committer.head)
             //Instantiate API for committer
               committer.rest = github.getOctokit(committer.token)
               info("Committer REST API", "ok")
@@ -134,18 +135,18 @@
               catch {
                 info("Committer account", "(github-actions)")
               }
-            //Create branch if needed
+            //Create base branch if needed
               try {
-                await committer.rest.git.getRef({...github.context.repo, ref:`heads/${committer.branch}`})
-                info("Committer branch status", "ok")
+                await committer.rest.git.getRef({...github.context.repo, ref:`heads/${committer.head}`})
+                info("Committer head branch status", "ok")
               }
               catch (error) {
                 console.debug(error)
                 if (/not found/i.test(`${error}`)) {
-                  const {data:{object:{sha}}} = await committer.rest.git.getRef({...github.context.repo, ref:`heads/${committer.base}`})
-                  info("Committer base branch sha", sha)
-                  await committer.rest.git.createRef({...github.context.repo, ref:`refs/heads/${committer.branch}`, sha})
-                  info("Committer branch status", "(created)")
+                  const {data:{object:{sha}}} = await committer.rest.git.getRef({...github.context.repo, ref:`heads/${committer.branch}`})
+                  info("Committer branch current sha", sha)
+                  await committer.rest.git.createRef({...github.context.repo, ref:`refs/heads/${committer.head}`, sha})
+                  info("Committer head branch status", "(created)")
                 }
                 else
                   throw error
@@ -261,15 +262,14 @@
 
         //Create pull request
           if (committer.pr) {
-            const z = await committer.rest.pulls.create({...github.context.repo, head:committer.branch, base:committer.base, title:`Auto-generated metrics for run #${github.context.payload?.runId}`, body:" ", maintainer_can_modify:true})
-            info(`Pull request from ${committer.branch} to ${committer.base}`, "ok")
-            console.log(z)
-          }
-
-        //Merge pull request
-          if (committer.merge) {
-            //await committer.rest.pulls.merge({...github.context.repo, pull_number:""})
-            info(`Merge #${NaN} to ${committer.base}`, "ok")
+            const {data:{number}} = await committer.rest.pulls.create({...github.context.repo, head:committer.head, base:committer.branch, title:`Auto-generated metrics for run #${github.context.runId}`, body:" ", maintainer_can_modify:true})
+            info(`Pull request from ${committer.head} to ${committer.branch}`, "ok")
+            //Merge pull request
+              if (committer.merge) {
+                info("Merge method", committer.merge)
+                await committer.rest.pulls.merge({...github.context.repo, pull_number:number, merge_method:committer.merge}) 
+                info(`Merge #${number} to ${committer.branch}`, "ok")
+              }
           }
       
         //Success
