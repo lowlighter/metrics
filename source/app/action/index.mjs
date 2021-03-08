@@ -64,7 +64,7 @@
             ...config
           } = metadata.plugins.core.inputs.action({core})
           const q = {...query, ...(_repo ? {repo:_repo} : null), template}
-          const _action = "pull-request-merge"
+          const _action = "pull-request-squash"
         //Docker image
           if (_image)
             info("Using prebuilt image", _image)
