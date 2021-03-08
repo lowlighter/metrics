@@ -285,7 +285,7 @@
                     throw new Error("0 matching prs. Cannot preoceed.")
                   if (prs.length > 1)
                     throw new Error(`Found more than one matching prs: ${prs.map(({number}) => `#${number}`).join(", ")}. Cannot proceed.`)
-                  number = prs.shift().number
+                  ;({number} = prs.shift())
                 }
                 else
                   throw error
