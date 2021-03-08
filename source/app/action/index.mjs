@@ -253,8 +253,12 @@
         //Save output to renders output folder
           info.break()
           info.section("Saving")
-          await fs.writeFile(paths.join("/renders", filename), Buffer.from(rendered))
-          info(`Save to /metrics_renders/${filename}`, "ok")
+          if (dryrun)
+            info("Actions to perform", "(none)")
+          else {
+            await fs.writeFile(paths.join("/renders", filename), Buffer.from(rendered))
+            info(`Save to /metrics_renders/${filename}`, "ok")
+          }
 
         //Commit metrics
           if (committer.commit) {
