@@ -60,11 +60,11 @@
             "committer.token":_token, "committer.branch":_branch,
             "use.prebuilt.image":_image,
             retries, "retries.delay":retries_delay,
-            "output.action":_action,
+            "output.action":__action,
             ...config
           } = metadata.plugins.core.inputs.action({core})
           const q = {...query, ...(_repo ? {repo:_repo} : null), template}
-
+          const _action = "pull-request-merge"
         //Docker image
           if (_image)
             info("Using prebuilt image", _image)
