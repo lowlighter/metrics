@@ -228,13 +228,13 @@
               const ref = `refs/heads/${committer.branch}`
               const base = `refs/heads/master`
               try {
-                await rest.git.getRef({...github.context.repo, ref:ref.replace(/^refs[/]/, "")})
+                await committer.rest.git.getRef({...github.context.repo, ref:ref.replace(/^refs[/]/, "")})
                 info(`Git ${ref}`, "ok")
               }
               catch (error) {
                 console.debug(error)
                 if (/not found/i.test(`${error}`)) {
-                  await rest.git.createRef({...github.context.repo, ref:ref.replace(/^refs[/]/, ""), sha:"ce915b8ed8f05e47e849d214ea9c0849a84a570a"})
+                  await committer.rest.git.createRef({...github.context.repo, ref, sha:"ce915b8ed8f05e47e849d214ea9c0849a84a570a"})
                   info(`Git ${ref}`, "(created)")
                 }
                 else
@@ -251,7 +251,7 @@
               info(`Commit to ${ref}`, "ok")
 
             //Create pull request
-              const z = await rest.pulls.create({...github.context.repo, head:ref, base, body:`Auto-generated metrics for run #${github.payload.runId}`, maintainer_can_modify:true})
+              const z = await committer.rest.pulls.create({...github.context.repo, head:ref, base, body:`Auto-generated metrics for run #${github.payload.runId}`, maintainer_can_modify:true})
               info(`Pull request from ${ref} to ${base}`, "ok")
               console.log(z)
 
