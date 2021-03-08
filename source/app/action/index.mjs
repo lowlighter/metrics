@@ -42,6 +42,10 @@
               console.log("Skipped because [Skip GitHub Action] is in commit message")
               process.exit(0)
             }
+            if (/Auto-generated metrics for run #\d+/.test(github.context.payload.head_commit.message)) {
+              console.log("Skipped because this seems to be an automated pull request merge")
+              process.exit(0)
+            }
           }
 
         //Load configuration
@@ -64,7 +68,7 @@
             ...config
           } = metadata.plugins.core.inputs.action({core})
           const q = {...query, ...(_repo ? {repo:_repo} : null), template}
-          
+
         //Docker image
           if (_image)
             info("Using prebuilt image", _image)
