@@ -97,6 +97,7 @@
       data.meta = {version:conf.package.version, author:conf.package.author}
 
     //Debug flags
+      console.log(">>>>>", dflags)
       if (dflags.includes("--cakeday")) {
         console.debug(`metrics/compute/${login} > applying dflag --cakeday`)
         computed.cakeday = true

@@ -276,8 +276,11 @@
                 console.debug(error)
                 if (/A pull request already exists/.test(error)) {
                   info(`Pull request from ${committer.head} to ${committer.branch}`, "(already existing)")
-                  const q = `repo:${encodeURIComponent(`${github.context.repo.owner}/${github.context.repo.repo}`)}+type:pr+state:open+Auto-generated metrics for run #${github.context.runId}+in:title`
-                  ;({data:{items:[{number}]}} = await committer.rest.search.issuesAndPullRequests({q}))
+                  const q = `repo:${github.context.repo.owner}/${github.context.repo.repo}+type:pr+state:open+Auto-generated metrics for run #${github.context.runId}+in:title`
+                  const prs = (await committer.rest.search.issuesAndPullRequests({q})).data.items.filter(({user:{login}}) => login === "github-actions[bot]")
+                  if (prs.length)
+                    throw new Error(`Found more than one matching prs: ${prs.map(({number}) => `#${number}`).join(", ")}. Cannot proceed.`)
+                  number = prs.shift().number
                 }
                 else
                   throw error
