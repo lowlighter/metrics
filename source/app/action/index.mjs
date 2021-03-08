@@ -271,11 +271,11 @@
             //Merge pull request
               if (committer.merge) {
                 info("Merge method", committer.merge)
-                await committer.rest.pulls.merge({...github.context.repo, pull_number:number, merge_method:committer.merge}) 
+                await committer.rest.pulls.merge({...github.context.repo, pull_number:number, merge_method:committer.merge})
                 info(`Merge #${number} to ${committer.branch}`, "ok")
               }
           }
-      
+
         //Success
           info.break()
           console.log("Success, thanks for using metrics!")
