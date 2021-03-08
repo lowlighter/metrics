@@ -80,7 +80,7 @@
             DEBUG = false
           }
           info("Debug flags", dflags)
-          q["debug.flags"] = dflags
+          q["debug.flags"] = dflags.join(" ")
 
         //Token for data gathering
           info("GitHub token", token, {token:true})
