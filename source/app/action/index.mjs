@@ -272,7 +272,7 @@
                 info(`Pull request from ${committer.head} to ${committer.branch}`, "(created)")
               }
               catch (error) {
-                console.debug(eror)
+                console.debug(error)
                 if (!/A pull request already exists/.test(error))
                   info(`Pull request from ${committer.head} to ${committer.branch}`, "(already existing)")
                 else
