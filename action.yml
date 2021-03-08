@@ -858,7 +858,7 @@ runs:
 
         # Renders output folder
         METRICS_RENDERS="/metrics_renders"
-        mkdir -p $METRICS_RENDERS
+        sudo mkdir -p $METRICS_RENDERS
         echo "Renders output folder: $METRICS_RENDERS"
 
         # Source repository (picked from action name)
