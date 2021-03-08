@@ -140,7 +140,7 @@
               catch {
                 info("Committer account", "(github-actions)")
               }
-            //Create base branch if needed
+            //Create head branch if needed
               try {
                 await committer.rest.git.getRef({...github.context.repo, ref:`heads/${committer.head}`})
                 info("Committer head branch status", "ok")

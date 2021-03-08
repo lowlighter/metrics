@@ -173,7 +173,7 @@ inputs:
     default: ""
   
   # Dry-run mode (perform generation without output)
-  # Unlike "
+  # Unlike "output_action" set to "none", output file won't be available in "/metrics_renders"
   dryrun:
     description: Enable dry-run
     default: no
