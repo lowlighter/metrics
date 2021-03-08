@@ -254,7 +254,7 @@
             await committer.rest.repos.createOrUpdateFileContents({
               ...github.context.repo, path:filename, message:`Update ${filename} - [Skip GitHub Action]`,
               content:Buffer.from(rendered).toString("base64"),
-              branch:committer.branch,
+              branch:committer.pr ? committer.head : committer.branch,
               ...(committer.sha ? {sha:committer.sha} : {}),
             })
             info(`Commit to branch ${committer.branch}`, "ok")
