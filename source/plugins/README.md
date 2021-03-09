@@ -19,6 +19,7 @@ See their respective documentation for more informations about how to setup them
   * [👨‍💻 Lines of code changed](/source/plugins/lines/README.md)
   * [🧑‍🤝‍🧑 People plugin](/source/plugins/people/README.md)
   * [🗂️ Active projects](/source/plugins/projects/README.md)
+  * [🎭 Comment reactions](/source/plugins/reactions/README.md)
   * [🌇 GitHub Skyline 3D calendar](/source/plugins/skyline/README.md)
   * [✨ Stargazers over last weeks](/source/plugins/stargazers/README.md)
   * [🌟 Recently starred repositories](/source/plugins/stars/README.md)

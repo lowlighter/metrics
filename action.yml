@@ -474,6 +474,31 @@ inputs:
     default: no
   
   # ====================================================================================
+  # 🎭 Comment reactions
+  
+  # Enable or disable plugin
+  plugin_reactions:
+    description: Display average issue comments reactions
+    default: no
+  
+  # Maximum number of issue comments to parse
+  # Issues will be fetched before issues comments
+  plugin_reactions_limit:
+    description: Maximum number of issue comments to parse
+    default: 200
+  
+  # Filter reactions by issue comments age
+  # Set to 0 to disable age filtering
+  plugin_reactions_days:
+    description: Maximum issue comments age
+    default: 0
+  
+  # Additional details
+  plugin_reactions_details:
+    description: Additional details
+    default: none
+  
+  # ====================================================================================
   # 🌇 GitHub Skyline 3D calendar
   
   # Enable or disable plugin
