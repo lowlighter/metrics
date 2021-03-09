@@ -28,6 +28,18 @@ inputs:
     default: 0
     min: 0
 
+  # Reaction display mode.
+  # Use this option to fill gauges using:
+  # - "absolute" to use total reactions count
+  # - "relative" to use highest reaction count
+  plugin_reactions_display:
+    description: Display mode
+    type: string
+    default: absolute
+    values:
+      - absolute
+      - relative
+
   # Additional details
   plugin_reactions_details:
     description: Additional details
