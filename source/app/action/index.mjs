@@ -29,8 +29,13 @@
   }
   info.break = () => console.log("─".repeat(88))
 
+//Waiter
+  async function wait(seconds) {
+    await new Promise(solve => setTimeout(solve, seconds*1000)) //eslint-disable-line no-promise-executor-return
+  }
+
 //Runner
-  ;(async function() {
+  (async function() {
       try {
         //Initialization
           info.break()
@@ -243,7 +248,7 @@
               error = _error
               console.debug("::endgroup::")
               console.debug(`::warning::rendering failed (${error.message})`)
-              await new Promise(solve => setTimeout(solve, retries_delay*1000)) //eslint-disable-line no-promise-executor-return
+              await wait(retries_delay)
             }
           }
           if (!rendered)
@@ -298,8 +303,33 @@
             //Merge pull request
               if (committer.merge) {
                 info("Merge method", committer.merge)
-                await committer.rest.pulls.merge({...github.context.repo, pull_number:number, merge_method:committer.merge})
-                info(`Merge #${number} to ${committer.branch}`, "ok")
+                let attempts = 240
+                do {
+                  //Check pull request mergeability (https://octokit.github.io/rest.js/v18#pulls-get)
+                    const {data:{mergeable, mergeable_state:state}} = await committer.rest.pulls.get({...github.context.repo, pull_number:number})
+                    console.debug(`Pull request #${number} mergeable state is "${state}"`)
+                    if (mergeable === null) {
+                      await wait(15)
+                      continue
+                    }
+                    if (!mergeable)
+                      throw new Error(`Pull request #${number} is not mergeable (state is "${state}")`)
+                  //Merge pull request
+                    await committer.rest.pulls.merge({...github.context.repo, pull_number:number, merge_method:committer.merge})
+                    info(`Merge #${number} to ${committer.branch}`, "ok")
+                  //Delete head branch
+                    try {
+                      await wait(15)
+                      await committer.rest.git.deleteRef({...github.context.repo, ref:`heads/${committer.head}`})
+                    }
+                    catch (error) {
+                      console.debug(error)
+                      if (!/reference does not exist/i.test(`${error}`))
+                        throw error
+                    }
+                    info(`Branch ${committer.head}`, "(deleted)")
+                    break
+                } while (--attempts)
               }
           }
 
