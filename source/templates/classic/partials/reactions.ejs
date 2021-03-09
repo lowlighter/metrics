@@ -13,6 +13,12 @@
           </div>
         <% } else { %>
           <div class="row fill-width">
+            <style>
+              .gauge.info .twemoji {
+                transform: scale(0.5);
+                transform-origin: center;
+              }
+            </style>
             <section class="categories">
               <% for (const [reaction, icon] of Object.entries({HEART:"❤️", THUMBS_UP:"👍", THUMBS_DOWN:"👎", LAUGH:"😄", CONFUSED:"😕", EYES:"👀", ROCKET:"🚀", HOORAY:"🎉"})) { const {score = 0, value:count = 0} = plugins.reactions.list[reaction] ?? {} %>
                 <div class="categorie column">
@@ -20,9 +26,17 @@
                     <circle class="gauge-base" r="53" cx="60" cy="60"></circle>
                     <% if (score > 0) { %>
                       <circle class="gauge-arc" transform="rotate(-90 60 60)" r="53" cx="60" cy="60" stroke-dasharray="<%= score * 329 %> 329"></circle>
-                      <text x="60" y="60" dominant-baseline="central"><%= icon %></text>
+                      <% if (true) { %>
+                        <%= icon %>
+                      <% } else { %>
+                        <text x="60" y="60" dominant-baseline="central"><%= icon %></text>
+                      <% } %>
                     <% } else { %>
-                      <text x="60" y="60" dominant-baseline="central"><%= icon %></text>
+                      <% if (true) { %>
+                        <%= icon %>
+                      <% } else { %>
+                        <text x="60" y="60" dominant-baseline="central"><%= icon %></text>
+                      <% } %>
                     <% } %>
                   </svg>
                   <% if (plugins.reactions.details === "percentage") { %>
