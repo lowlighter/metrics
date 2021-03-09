@@ -7,7 +7,7 @@
             return null
 
         //Load inputs
-          let {limit, days, details} = imports.metadata.plugins.reactions.inputs({data, account, q})
+          let {limit, days, details, display} = imports.metadata.plugins.reactions.inputs({data, account, q})
 
         //Load issue comments
           let cursor = null, pushed = 0
@@ -40,8 +40,9 @@
           const reactions = comments.flatMap(({reactions}) => reactions)
           for (const reaction of reactions)
             list[reaction] = (list[reaction] ?? 0) + 1
+          const max = Math.max(...Object.values(list))
           for (const [key, value] of Object.entries(list))
-            list[key] = {value, score:value/reactions.length}
+            list[key] = {value, score:value/(display === "relative" ? max : reactions.length)}
 
         //Results
           return {list, comments:comments.length, details, days}
