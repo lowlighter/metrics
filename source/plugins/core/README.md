@@ -102,6 +102,38 @@ Specify a single value to apply it to both height and with, and two values to us
     config_padding: 6%, 10% # 6% width padding, 10% height padding
 ```
 
+### 🧶 Using commits, pull requests or manual review to handle metrics output
+
+It is possible to configure output behaviour using `output_action` option, which can be set to:
+- `none`, where output will be generated in `/rendered/${filename}` without being pushed
+  - You can then manually post-process it
+- `commit` (default), where output will directly be committed and pushed to `committer_branch` 
+- `pull-request`, where output will be committed to a new branch with current run id waiting for to be merged in `committer_branch`
+  - By appending either `-merge`, `-squash` or `-rebase`, pull request will be automatically merged with given method
+  - This method is useful to combine all editions of a single run with multiples metrics steps into a single commit on targetted branch
+  - If you choose to manually merge pull requests, be sure to disable `push:` triggers on your workflow, as it'll count as your own commit
+
+#### ℹ️ Examples workflows
+
+```yaml
+# The following will: 
+#   - open a pull request with "my-metrics-0.svg" as first commit
+#   - append "my-metrics-1.svg" as second commit
+#   - merge pull request (as second step is set to "pull-request-merge")
+
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    filename: my-metrics-0.svg
+    output_action: pull-request
+
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    filename: my-metrics-1.svg
+    output_action: pull-request-merge
+```
+
 ### ♻️ Retrying automatically failed rendering
 
 Rendering is subject to external factors and can fail from time to time.
