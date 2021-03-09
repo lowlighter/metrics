@@ -1,0 +1,18 @@
+query ReactionsDefault {
+  user(login: "$login") {
+    login
+    $type($after first: 100, orderBy: {field: UPDATED_AT, direction: DESC}) {
+      edges {
+        cursor
+        node {
+          createdAt
+          reactions(last: 100, orderBy: {field: CREATED_AT, direction: DESC}) {
+            nodes {
+              content
+            }
+          }
+        }
+      }
+    }
+  }
+}

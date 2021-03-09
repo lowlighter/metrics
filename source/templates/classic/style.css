@@ -196,6 +196,9 @@
   .gauge.low {
     color: #e53935;
   }
+  .gauge.info {
+    color: #58A6FF;
+  }
   .gauge-base, .gauge-arc {
     stroke: currentColor;
     stroke-width: 10;
