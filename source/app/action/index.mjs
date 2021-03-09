@@ -298,6 +298,7 @@
             //Merge pull request
               if (committer.merge) {
                 info("Merge method", committer.merge)
+                let attempts = 720
                 do {
                   //Check pull request mergeability (https://octokit.github.io/rest.js/v18#pulls-get)
                     const {data:{mergeable, mergeable_state:state}} = await committer.rest.pulls.get({...github.context.repo, pull_number:number})
@@ -312,7 +313,7 @@
                     await committer.rest.pulls.merge({...github.context.repo, pull_number:number, merge_method:committer.merge})
                     info(`Merge #${number} to ${committer.branch}`, "ok")
                     break
-                } while (true)
+                } while (--attempts)
               }
           }
 
