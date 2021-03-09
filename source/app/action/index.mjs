@@ -302,8 +302,10 @@
                   //Check pull request mergeability (https://octokit.github.io/rest.js/v18#pulls-get)
                     const {data:{mergeable, mergeable_state:state}} = await committer.rest.pulls.get({...github.context.repo, pull_number:number})
                     console.debug(`Pull request #${number} mergeable state is "${state}"`)
-                    if (mergeable === null)
+                    if (mergeable === null) {
+                      await new Promise(solve => setTimeout(solve, 5000)) //eslint-disable-line no-promise-executor-return
                       continue
+                    }
                     if (!mergeable)
                       throw new Error(`Pull request #${number} is not mergeable (state is "${state}")`)
                   //Merge pull request
