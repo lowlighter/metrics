@@ -62,6 +62,9 @@
     "projects":{
       "enabled": false,            "//": "Display active projects"
     },
+    "reactions":{
+      "enabled": false,            "//": "Display average issue comments reactions"
+    },
     "skyline":{
       "enabled": false,            "//": "Display GitHub Skyline 3D calendar"
     },
