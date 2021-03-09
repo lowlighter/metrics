@@ -35,7 +35,7 @@
   }
 
 //Runner
-  ;(async function() {
+  (async function() {
       try {
         //Initialization
           info.break()
