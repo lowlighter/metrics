@@ -1,0 +1,39 @@
+name: "🎭 Comment reactions"
+cost: 1 GraphQL request per 100 issues and issues comments fetched
+categorie: github
+supports:
+  - user
+inputs:
+
+  # Enable or disable plugin
+  plugin_reactions:
+    description: Display average issue comments reactions
+    type: boolean
+    default: no
+
+  # Maximum number of issue comments to parse
+  # Issues will be fetched before issues comments
+  plugin_reactions_limit:
+    description: Maximum number of issue comments to parse
+    type: number
+    default: 200
+    min: 1
+    max: 1000
+
+  # Filter reactions by issue comments age
+  # Set to 0 to disable age filtering
+  plugin_reactions_days:
+    description: Maximum issue comments age
+    type: number
+    default: 0
+    min: 0
+
+  # Additional details
+  plugin_reactions_details:
+    description: Additional details
+    type: string
+    default: none
+    values:
+      - none
+      - count
+      - percentage
