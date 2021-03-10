@@ -45,7 +45,7 @@
             list[key] = {value, score:value/(display === "relative" ? max : reactions.length)}
 
         //Results
-          return {list, comments:comments.length, details, days}
+          return {list, comments:comments.length, details, days, twemoji:q["config.twemoji"]}
       }
     //Handle errors
       catch (error) {
