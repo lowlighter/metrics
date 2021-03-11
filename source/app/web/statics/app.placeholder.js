@@ -179,14 +179,14 @@
                 ...(set.plugins.enabled.reactions ? ({
                   reactions:{
                     list:{
-                      HEART:{value:faker.random.number(100), score:faker.random.number(100)/100},
-                      THUMBS_UP:{value:faker.random.number(100), score:faker.random.number(100)/100},
-                      THUMBS_DOWN:{value:faker.random.number(100), score:faker.random.number(100)/100},
-                      LAUGH:{value:faker.random.number(100), score:faker.random.number(100)/100},
-                      CONFUSED:{value:faker.random.number(100), score:faker.random.number(100)/100},
-                      EYES:{value:faker.random.number(100), score:faker.random.number(100)/100},
-                      ROCKET:{value:faker.random.number(100), score:faker.random.number(100)/100},
-                      HOORAY:{value:faker.random.number(100), score:faker.random.number(100)/100},
+                      HEART:{value:faker.random.number(100), get percentage() { return this.score }, score:faker.random.number(100)/100},
+                      THUMBS_UP:{value:faker.random.number(100), get percentage() { return this.score }, score:faker.random.number(100)/100},
+                      THUMBS_DOWN:{value:faker.random.number(100), get percentage() { return this.score }, score:faker.random.number(100)/100},
+                      LAUGH:{value:faker.random.number(100), get percentage() { return this.score }, score:faker.random.number(100)/100},
+                      CONFUSED:{value:faker.random.number(100), get percentage() { return this.score }, score:faker.random.number(100)/100},
+                      EYES:{value:faker.random.number(100), get percentage() { return this.score }, score:faker.random.number(100)/100},
+                      ROCKET:{value:faker.random.number(100), get percentage() { return this.score }, score:faker.random.number(100)/100},
+                      HOORAY:{value:faker.random.number(100), get percentage() { return this.score }, score:faker.random.number(100)/100},
                     },
                     comments:options["reactions.limit"],
                     details:options["reactions.details"],

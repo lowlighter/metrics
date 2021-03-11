@@ -42,7 +42,7 @@
             list[reaction] = (list[reaction] ?? 0) + 1
           const max = Math.max(...Object.values(list))
           for (const [key, value] of Object.entries(list))
-            list[key] = {value, score:value/(display === "relative" ? max : reactions.length)}
+            list[key] = {value, percentage:value/reactions.length, score:value/(display === "relative" ? max : reactions.length)}
 
         //Results
           return {list, comments:comments.length, details, days, twemoji:q["config.twemoji"]}
