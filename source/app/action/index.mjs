@@ -198,7 +198,7 @@
           info.break()
           info.group({metadata, name:"core", inputs:config})
           info("Plugin errors", die ? "(exit with error)" : "(displayed in generated image)")
-          const convert = ["jpeg", "png"].includes(config["config.output"]) ? config["config.output"] : null
+          const convert = ["jpeg", "png", "json"].includes(config["config.output"]) ? config["config.output"] : null
           Object.assign(q, config)
 
         //Base content

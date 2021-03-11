@@ -150,6 +150,7 @@ inputs:
       - svg
       - png  # Does not support animations
       - jpeg # Does not support animations and transparency
+      - json # Outputs a JSON file instead of an image
 
   # Number of retries in case rendering fail
   retries:

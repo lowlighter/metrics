@@ -107,7 +107,7 @@ Specify a single value to apply it to both height and with, and two values to us
 It is possible to configure output behaviour using `output_action` option, which can be set to:
 - `none`, where output will be generated in `/rendered/${filename}` without being pushed
   - You can then manually post-process it
-- `commit` (default), where output will directly be committed and pushed to `committer_branch` 
+- `commit` (default), where output will directly be committed and pushed to `committer_branch`
 - `pull-request`, where output will be committed to a new branch with current run id waiting for to be merged in `committer_branch`
   - By appending either `-merge`, `-squash` or `-rebase`, pull request will be automatically merged with given method
   - This method is useful to combine all editions of a single run with multiples metrics steps into a single commit on targetted branch
@@ -116,7 +116,7 @@ It is possible to configure output behaviour using `output_action` option, which
 #### ℹ️ Examples workflows
 
 ```yaml
-# The following will: 
+# The following will:
 #   - open a pull request with "my-metrics-0.svg" as first commit
 #   - append "my-metrics-1.svg" as second commit
 #   - merge pull request (as second step is set to "pull-request-merge")
@@ -149,11 +149,14 @@ It is possible to mitigate this issue using `retries` and `retries_delay` option
     retries_delay: 300
 ```
 
-### 💱 Convert output to PNG/JPEG
+### 💱 Convert output to PNG/JPEG or JSON
 
-It is possible to convert output from SVG to PNG or JPEG images by using `config_output` option.
+It is possible to convert output from SVG to PNG or JPEG images and even to JSON by using `config_output` option.
 
 Note that `png` does not support animations while `jpeg` does not support both animations and transparency.
+
+Using `json` output can be useful if you want to retrieve all data computed by metrics without rendering it.
+It could then be processed for other usages.
 
 #### ℹ️ Examples workflows
 

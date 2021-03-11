@@ -10,6 +10,12 @@
     token: MOCKED_TOKEN
     config_output: png
 
+- name: Image output (json)
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    config_output: json
+
 - name: Use twemoji
   uses: lowlighter/metrics@latest
   with:
