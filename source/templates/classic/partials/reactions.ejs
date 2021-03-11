@@ -41,10 +41,23 @@
                       <% } %>
                     <% } %>
                   </svg>
-                  <% if (plugins.reactions.details === "percentage") { %>
-                    <span class="title"><%= Math.round(score*100) %><small>%</small></span>
-                  <% } else if (plugins.reactions.details === "count") { %>
-                    <span class="title"><%= count %></span>
+                  <% if (plugins.reactions.details.length) { const [primary, secondary] = plugins.reactions.details %>
+                    <span class="title">
+                      <% if (primary === "count") { %>
+                        <%= count %>
+                      <% } else if (primary === "percentage") { %>
+                        <%= Math.round(score*100) %><small>%</small>
+                      <% } %>
+                      <% if (secondary) { %>
+                        <small>
+                          <% if (secondary === "count") { %>
+                            (<%= count %>)
+                          <% } else if (secondary === "percentage") { %>
+                            (<%= Math.round(score*100) %><small>%</small>)
+                          <% } %>
+                        </small>
+                      <% } %>
+                    </span>
                   <% } %>
                 </div>
               <% } %>

@@ -41,11 +41,13 @@ inputs:
       - relative
 
   # Additional details
+  # If multiple values are specified, emphasis will be set on first value
   plugin_reactions_details:
     description: Additional details
-    type: string
-    default: none
+    type: array
+    format: comma-separated
+    default: ""
+    example: count, percentage
     values:
-      - none
       - count
       - percentage
