@@ -53,6 +53,12 @@
               console.warn(util.inspect(errors, {depth:Infinity, maxStringLength:256}))
           }
 
+        //JSON output
+          if (convert === "json") {
+            console.debug(`metrics/compute/${login} > json output`)
+            return {rendered:data, mime:"application/json"}
+          }
+
         //Rendering
           console.debug(`metrics/compute/${login} > render`)
           let rendered = await ejs.render(image, {...data, s:imports.s, f:imports.format, style, fonts}, {views, async:true})

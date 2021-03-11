@@ -189,7 +189,7 @@
                 graphql, rest, plugins, conf,
                 die:q["plugins.errors.fatal"] ?? false,
                 verify:q.verify ?? false,
-                convert:["jpeg", "png"].includes(q["config.output"]) ? q["config.output"] : null,
+                convert:["jpeg", "png", "json"].includes(q["config.output"]) ? q["config.output"] : null,
               }, {Plugins, Templates})
             //Cache
               if ((!debug)&&(cached))
