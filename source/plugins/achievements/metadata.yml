@@ -1,0 +1,37 @@
+name: "🏆 Achievements"
+cost: "?"
+categorie: github
+supports:
+  - user
+inputs:
+
+  # Enable or disable plugin
+  plugin_achievements:
+    description: Display achievements
+    type: boolean
+    default: no
+
+  # Achievement ranks to display
+  plugin_achievements_ranks:
+    description: Minimal rank to display
+    type: array
+    format: comma-separated
+    default: S++, S+, S, A++, A+, A, B, $
+    values:
+      - S++ # Top 2.5% of GitHub
+      - S+  # Top 5% of GitHub
+      - S   # Top 10% of GitHub
+      - A++ # Really really impressive
+      - A+  # Really impressive
+      - A   # Impressive
+      - B   # Not bad
+      - C   # Just unlocked
+      - X   # Not unlocked yet
+      - $   # Secret achievements
+
+  # List of unlocked achievements to hide
+  plugin_achievements_hide:
+    description: Unlocked achievements to hide
+    type: array
+    format: comma-separated
+    default: ""
