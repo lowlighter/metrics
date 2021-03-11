@@ -502,9 +502,10 @@ inputs:
     default: absolute
   
   # Additional details
+  # If multiple values are specified, emphasis will be set on first value
   plugin_reactions_details:
     description: Additional details
-    default: none
+    default: ""
   
   # ====================================================================================
   # 🌇 GitHub Skyline 3D calendar
