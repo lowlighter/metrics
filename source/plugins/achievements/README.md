@@ -11,7 +11,7 @@ The *achievements* plugin displays several highlights about what you achieved on
 
 Achievements are mostly related to features offered by GitHub, so by unlocking achivements ranks you'll be mastering GitHub in no time!
 
-Ranks **C** to **A+** are based on fixed thresholds while **S** ranks are dynamically computed to ensure you're at least in the top 10% of GitHub at any time (which also means that it is possible to lose them).
+A few achievements contains actual real ranking (based on [GitHub search](github.com/search) results)!
 
 #### ℹ️ Examples workflows
 
@@ -22,6 +22,7 @@ Ranks **C** to **A+** are based on fixed thresholds while **S** ranks are dynami
   with:
     # ... other options
     plugin_achievements: yes
-    plugin_achievements_ranks: S++, S+, S, A++, A+, A, B, $ # Display achievements with rank B or higher, including secrets achievements
-    plugin_achievements_hide: octonaut                      # Hide octonaut achievement
+    plugin_achievements_threshold: B       # Display achievements with rank B or higher
+    plugin_achievements_secrets: yes       # Display unlocked secrets achievements
+    plugin_achievements_ignored: octonaut  # Hide octonaut achievement
 ```

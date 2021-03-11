@@ -1,0 +1,45 @@
+<% if (plugins.achievements) { %>
+  <section>
+    <h2 class="field">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M8.5.75a.75.75 0 00-1.5 0v5.19L4.391 3.33a.75.75 0 10-1.06 1.061L5.939 7H.75a.75.75 0 000 1.5h5.19l-2.61 2.609a.75.75 0 101.061 1.06L7 9.561v5.189a.75.75 0 001.5 0V9.56l2.609 2.61a.75.75 0 101.06-1.061L9.561 8.5h5.189a.75.75 0 000-1.5H9.56l2.61-2.609a.75.75 0 00-1.061-1.06L8.5 5.939V.75z"></path></svg>
+      Achievements
+    </h2>
+    <div class="row">
+      <section>
+        <% if (plugins.achievements.error) { %>
+          <div class="field error">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M2.343 13.657A8 8 0 1113.657 2.343 8 8 0 012.343 13.657zM6.03 4.97a.75.75 0 00-1.06 1.06L6.94 8 4.97 9.97a.75.75 0 101.06 1.06L8 9.06l1.97 1.97a.75.75 0 101.06-1.06L9.06 8l1.97-1.97a.75.75 0 10-1.06-1.06L8 6.94 6.03 4.97z"></path></svg>
+            <%= plugins.achievements.error.message %>
+          </div>
+        <% } else { %>
+          <% for (const {title, text, icon, rank, gh = NaN, progress = 0, unlock = null} of plugins.achievements.list) { %>
+            <div class="achievement <%= rank === "$" ? "secret" : rank.charAt(0).toLocaleLowerCase() %>">
+              <div class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" width="44" height="44">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="50" height="50" class="gauge info">
+                    <circle class="gauge-base" r="53" cx="60" cy="60"></circle>
+                    <% if ((progress)||(rank !== "X")) { %>
+                      <circle class="gauge-arc" transform="rotate(-90 60 60)" r="53" cx="60" cy="60" stroke-dasharray="<%= progress * 329 %> 329"></circle>
+                    <% } %>
+                  </svg>
+                  <svg width="40" height="40" viewBox="0 0 56 56" x="5" y="5" xmlns="http://www.w3.org/2000/svg"><%- icon %></svg>
+                </svg>
+              </div>
+              <div class="info">
+                <div class="title">
+                  <%= title %>
+                  <% if ((Number.isFinite(gh))&&(gh < 100000)) { %>
+                    <span class="gh">
+                      Top <%= gh %>
+                    </span>
+                  <% } %>
+                </div>
+                <div class="text"><%= text %></div>
+              </div>
+            </div>
+          <% } %>
+        <% } %>
+      </section>
+    </div>
+  </section>
+<% } %>

@@ -1,0 +1,5 @@
+query AchivementsOctocat {
+  user(login: "octocat") {
+    viewerIsFollowing
+  }
+}

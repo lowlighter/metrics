@@ -11,26 +11,28 @@ inputs:
     type: boolean
     default: no
 
-  # Achievement ranks to display
-  plugin_achievements_ranks:
-    description: Minimal rank to display
-    type: array
-    format: comma-separated
-    default: S++, S+, S, A++, A+, A, B, $
+  # Minimal rank to display
+  # "S" ranks is not available on all achievements
+  plugin_achievements_threshold:
+    description: Display rank minimal threshold
+    type: string
+    default: C
     values:
-      - S++ # Top 2.5% of GitHub
-      - S+  # Top 5% of GitHub
-      - S   # Top 10% of GitHub
-      - A++ # Really really impressive
-      - A+  # Really impressive
-      - A   # Impressive
-      - B   # Not bad
-      - C   # Just unlocked
-      - X   # Not unlocked yet
-      - $   # Secret achievements
+      - S   # Top 50,000
+      - A
+      - B
+      - C
+      - X   # Not unlocked
+
+  # Display secrets achievements unlocked
+  plugin_achievements_secrets:
+    description: Display unlocked secrets achievements
+    type: boolean
+    default: yes
 
   # List of unlocked achievements to hide
-  plugin_achievements_hide:
+  # Names must be given in lower case, without rank adjective
+  plugin_achievements_ignored:
     description: Unlocked achievements to hide
     type: array
     format: comma-separated
