@@ -314,9 +314,7 @@ And you can customize these heavily with plugins, templates and hundreds of opti
 
 ## 🦑 Interested to get your own?
 
-Try it now at [metrics.lecoq.io](https://metrics.lecoq.io/) with your GitHub username!
-
-Some plugins are not are not available at [metrics.lecoq.io](https://metrics.lecoq.io/), for a fully-featured experience use it as a [GitHub Action](https://github.com/marketplace/actions/github-metrics-as-svg-image) instead!
+For a fully-featured experience you should use **metrics** as a [GitHub Action](https://github.com/marketplace/actions/github-metrics-as-svg-image), but you can also try it now at [metrics.lecoq.io](https://metrics.lecoq.io/) with your GitHub username!
 
 # 📜 How to use?
 
@@ -446,6 +444,7 @@ For convenience, you can use the shared instance available at [metrics.lecoq.io]
 ```
 
 This is mostly intended for previews, to enjoy all features consider using GitHub Action instead.
+Availability is not guaranteed.
 
 <details>
 <summary><b>💬 Fair use</b> <i>(click to expand)</i></summary>
@@ -837,6 +836,8 @@ Copyright (c) 2020 lowlighter
 
 ![Sponsors](https://github.com/lowlighter/lowlighter/blob/master/metrics.sponsors.svg)
 
+[`♥️ Become a sponsor`](https://www.buymeacoffee.com/lowlighter)
+
 ## 📖 Useful references
 
 * [GitHub GraphQL API](https://docs.github.com/en/graphql)
@@ -853,5 +854,5 @@ Copyright (c) 2020 lowlighter
 * [jasonlong/isometric-contributions](https://github.com/jasonlong/isometric-contributions)
 * [jamesgeorge007/github-activity-readme](https://github.com/jamesgeorge007/github-activity-readme)
 * [vvo/sourcekarma](https://github.com/vvo/sourcekarma)
-
+* [ryo-ma/github-profile-trophy](https://github.com/ryo-ma/github-profile-trophy)
 
