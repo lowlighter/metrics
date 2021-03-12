@@ -77,6 +77,9 @@
     "activity":{
       "enabled": false,            "//": "Display recent activity"
     },
+    "achievements":{
+      "enabled": false,            "//": "Display achievements"
+    },
     "skyline":{
       "enabled": false,            "//": "Display GitHub Skyline 3D calendar"
     },

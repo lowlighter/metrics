@@ -31,7 +31,7 @@ And you can customize these heavily with plugins, templates and hundreds of opti
 <table>
   <tr>
     <th colspan="2" align="center">
-      <a href="source/plugins/README.md">🧩 26 plugins</a>
+      <a href="source/plugins/README.md">🧩 27 plugins</a>
     </th>
   </tr>
   <tr>
@@ -179,7 +179,7 @@ And you can customize these heavily with plugins, templates and hundreds of opti
   </tr>
   <tr>
     <th><a href="source/plugins/activity/README.md">📰 Recent activity</a></th>
-    <th><a href="source/plugins/skyline/README.md">🌇 GitHub Skyline 3D calendar</a></th>
+    <th><a href="source/plugins/achievements/README.md">🏆 Achievements</a></th>
   </tr>
   <tr>
     <td align="center">
@@ -187,15 +187,19 @@ And you can customize these heavily with plugins, templates and hundreds of opti
       <img width="900" height="1" alt="">
     </td>
     <td align="center">
-      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.skyline.svg">
+      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.achievements.svg">
       <img width="900" height="1" alt="">
     </td>
   </tr>
   <tr>
+    <th><a href="source/plugins/skyline/README.md">🌇 GitHub Skyline 3D calendar</a></th>
     <th><a href="source/plugins/pagespeed/README.md">⏱️ Website performances</a></th>
-    <th><a href="source/plugins/music/README.md">🎼 Music plugin</a></th>
   </tr>
   <tr>
+    <td align="center">
+      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.skyline.svg">
+      <img width="900" height="1" alt="">
+    </td>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.svg">
       <details><summary>Detailed version</summary>
@@ -206,6 +210,12 @@ And you can customize these heavily with plugins, templates and hundreds of opti
       </details>
       <img width="900" height="1" alt="">
     </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/music/README.md">🎼 Music plugin</a></th>
+    <th><a href="source/plugins/tweets/README.md">🐤 Latest tweets</a></th>
+  </tr>
+  <tr>
     <td align="center">
       <details open><summary>🎼 Favorite tracks version</summary>
         <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.music.playlist.svg">
@@ -215,12 +225,6 @@ And you can customize these heavily with plugins, templates and hundreds of opti
       </details>
       <img width="900" height="1" alt="">
     </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/tweets/README.md">🐤 Latest tweets</a></th>
-    <th><a href="source/plugins/anilist/README.md">🌸 Anilist watch list and reading list</a></th>
-  </tr>
-  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.tweets.svg">
       <details><summary>With tweets attachments version</summary>
@@ -228,6 +232,12 @@ And you can customize these heavily with plugins, templates and hundreds of opti
       </details>
       <img width="900" height="1" alt="">
     </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/anilist/README.md">🌸 Anilist watch list and reading list</a></th>
+    <th><a href="source/plugins/stackoverflow/README.md">🗨️ Stackoverflow plugin</a></th>
+  </tr>
+  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.anilist.svg">
       <details><summary>Manga version</summary>
@@ -238,16 +248,16 @@ And you can customize these heavily with plugins, templates and hundreds of opti
       </details>
       <img width="900" height="1" alt="">
     </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/stackoverflow/README.md">🗨️ Stackoverflow plugin</a></th>
-    <th><a href="source/plugins/posts/README.md">✒️ Recent posts</a></th>
-  </tr>
-  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.stackoverflow.svg">
       <img width="900" height="1" alt="">
     </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/posts/README.md">✒️ Recent posts</a></th>
+    <th><a href="source/plugins/wakatime/README.md">⏰ WakaTime plugin</a></th>
+  </tr>
+  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.posts.svg">
       <details><summary>With posts descriptions and cover images version</summary>
@@ -255,20 +265,21 @@ And you can customize these heavily with plugins, templates and hundreds of opti
       </details>
       <img width="900" height="1" alt="">
     </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/wakatime/README.md">⏰ WakaTime plugin</a></th>
-    <th><a href="source/plugins/nightscout/README.md">💉 Nightscout</a></th>
-  </tr>
-  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.wakatime.svg">
       <img width="900" height="1" alt="">
     </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/nightscout/README.md">💉 Nightscout</a></th>
+    <th><a href="source/plugins//README.md"></a></th>
+  </tr>
+  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/legoandmars/legoandmars/blob/master/metrics.plugin.nightscout.svg">
       <img width="900" height="1" alt="">
     </td>
+    <td align="center"><img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <th colspan="2" align="center">
@@ -613,6 +624,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" title="✨ Stargazers over last weeks">✨</th>
     <th nowrap="nowrap" align="center" title="🗂️ Active projects">🗂️</th>
     <th nowrap="nowrap" align="center" title="📰 Recent activity">📰</th>
+    <th nowrap="nowrap" align="center" title="🏆 Achievements">🏆</th>
     <th nowrap="nowrap" align="center" title="🌇 GitHub Skyline 3D calendar">🌇</th>
     <th nowrap="nowrap" align="center" title="⏱️ Website performances">⏱️</th>
     <th nowrap="nowrap" align="center" title="🎼 Music plugin">🎼</th>
@@ -643,6 +655,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="stargazers">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="projects">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="activity">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="achievements">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="skyline">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="music">✔️</th>
@@ -673,6 +686,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="stargazers">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="projects">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="activity">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="achievements">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="skyline">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="music">❌</th>
@@ -703,6 +717,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="stargazers">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="projects">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="activity">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="achievements">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="skyline">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="music">❌</th>
@@ -751,6 +766,7 @@ See their respective documentation for more informations about how to setup them
   * [✨ Stargazers over last weeks](/source/plugins/stargazers/README.md)
   * [🗂️ Active projects](/source/plugins/projects/README.md)
   * [📰 Recent activity](/source/plugins/activity/README.md)
+  * [🏆 Achievements](/source/plugins/achievements/README.md)
   * [🌇 GitHub Skyline 3D calendar](/source/plugins/skyline/README.md)
 * **Social**
   * [⏱️ Website performances](/source/plugins/pagespeed/README.md)
