@@ -196,128 +196,6 @@ inputs:
     default: yes
   
   # ====================================================================================
-  # 📰 Recent activity
-  
-  # Enable or disable plugin
-  plugin_activity:
-    description: Display recent activity
-    default: no
-  
-  # Number of activity events to display
-  plugin_activity_limit:
-    description: Maximum number of events to display
-    default: 5
-  
-  # Filter events by age
-  # Set to 0 to disable age filtering
-  plugin_activity_days:
-    description: Maximum event age
-    default: 14
-  
-  # Filter events by type
-  plugin_activity_filter:
-    description: Events types to keep
-    default: all
-  
-  # Set events visibility (use this to restrict events when using a "repo" token)
-  plugin_activity_visibility:
-    description: Set events visibility
-    default: all
-  
-  # Display events timestamps
-  plugin_activity_timestamps:
-    description: Display events timestamps
-    default: no
-  
-  # ====================================================================================
-  # 🏅 Repository contributors
-  
-  # Enable or disable plugin
-  plugin_contributors:
-    description: Display repository contributors
-    default: no
-  
-  # Base reference (commit, tag, branch, etc.)
-  plugin_contributors_base:
-    description: Base reference
-    default: ""
-  
-  # Head reference (commit, tag, branch, etc.)
-  plugin_contributors_head:
-    description: Head reference
-    default: master
-  
-  # Ignored contributors (useful to ignore bots users)
-  plugin_contributors_ignored:
-    description: Contributors to ignore
-    default: github-actions[bot]
-  
-  # Display total contributions for each contributor
-  plugin_contributors_contributions:
-    description: Display contributions
-    default: no
-  
-  # ====================================================================================
-  # 🎟️ Follow-up of issues and pull requests
-  
-  # Enable or disable plugin
-  plugin_followup:
-    description: Display follow-up of repositories issues and pull requests
-    default: no
-  
-  # ====================================================================================
-  # 🎫 Gists
-  
-  # Enable or disable plugin
-  plugin_gists:
-    description: Display gists metrics
-    default: no
-  
-  # ====================================================================================
-  # 💡 Coding habits
-  
-  # Enable or disable plugin
-  plugin_habits:
-    description: Display coding habits metrics
-    default: no
-  
-  # Number of events to use to computes habits
-  # Using more will result in more accurate metrics, but you may hit GitHub rate-limit more easily
-  plugin_habits_from:
-    description: Number of events to use
-    default: 200
-  
-  # Filter used events to compute habits by age
-  plugin_habits_days:
-    description: Maximum event age
-    default: 14
-  
-  # Display tidbits about your most active hours/days, indents used (spaces/tabs), etc.
-  # This is deduced from your recent activity
-  plugin_habits_facts:
-    description: Display coding habits collected facts based on recent activity
-    default: yes
-  
-  # Display charts of most active time of the day and most active day of the week
-  # Also display languages recently used (this is not the same as plugin_languages, as the latter is an all-time stats)
-  plugin_habits_charts:
-    description: Display coding habits charts based on recent activity
-    default: no
-  
-  # ====================================================================================
-  # 🙋 Introduction
-  
-  # Enable or disable plugin
-  plugin_introduction:
-    description: Display account or repository introduction
-    default: no
-  
-  # Display introduction section title
-  plugin_introduction_title:
-    description: Display introduction section title
-    default: yes
-  
-  # ====================================================================================
   # 📅 Isometric commit calendar
   
   # Enable or disable plugin
@@ -368,6 +246,50 @@ inputs:
     default: 0%
   
   # ====================================================================================
+  # 🙋 Introduction
+  
+  # Enable or disable plugin
+  plugin_introduction:
+    description: Display account or repository introduction
+    default: no
+  
+  # Display introduction section title
+  plugin_introduction_title:
+    description: Display introduction section title
+    default: yes
+  
+  # ====================================================================================
+  # 💡 Coding habits
+  
+  # Enable or disable plugin
+  plugin_habits:
+    description: Display coding habits metrics
+    default: no
+  
+  # Number of events to use to computes habits
+  # Using more will result in more accurate metrics, but you may hit GitHub rate-limit more easily
+  plugin_habits_from:
+    description: Number of events to use
+    default: 200
+  
+  # Filter used events to compute habits by age
+  plugin_habits_days:
+    description: Maximum event age
+    default: 14
+  
+  # Display tidbits about your most active hours/days, indents used (spaces/tabs), etc.
+  # This is deduced from your recent activity
+  plugin_habits_facts:
+    description: Display coding habits collected facts based on recent activity
+    default: yes
+  
+  # Display charts of most active time of the day and most active day of the week
+  # Also display languages recently used (this is not the same as plugin_languages, as the latter is an all-time stats)
+  plugin_habits_charts:
+    description: Display coding habits charts based on recent activity
+    default: no
+  
+  # ====================================================================================
   # 📜 Repository licenses
   
   # Enable or disable plugin
@@ -393,12 +315,104 @@ inputs:
     default: yes
   
   # ====================================================================================
-  # 👨‍💻 Lines of code changed
+  # 🏅 Repository contributors
   
   # Enable or disable plugin
-  plugin_lines:
-    description: Display lines of code metrics
+  plugin_contributors:
+    description: Display repository contributors
     default: no
+  
+  # Base reference (commit, tag, branch, etc.)
+  plugin_contributors_base:
+    description: Base reference
+    default: ""
+  
+  # Head reference (commit, tag, branch, etc.)
+  plugin_contributors_head:
+    description: Head reference
+    default: master
+  
+  # Ignored contributors (useful to ignore bots users)
+  plugin_contributors_ignored:
+    description: Contributors to ignore
+    default: github-actions[bot]
+  
+  # Display total contributions for each contributor
+  plugin_contributors_contributions:
+    description: Display contributions
+    default: no
+  
+  # ====================================================================================
+  # 🌟 Recently starred repositories
+  
+  # Enable or disable plugin
+  plugin_stars:
+    description: Display recently starred repositories
+    default: no
+  
+  # Number of stars to display
+  plugin_stars_limit:
+    description: Maximum number of stars to display
+    default: 4
+  
+  # ====================================================================================
+  # 📌 Starred topics
+  
+  # Enable or disable plugin
+  plugin_topics:
+    description: Display starred topics
+    default: no
+  
+  # Plugin mode
+  plugin_topics_mode:
+    description: Plugin mode
+    default: starred
+  
+  # Topics sorting order
+  plugin_topics_sort:
+    description: Sorting method of starred topics
+    default: stars
+  
+  # Number of topics to display
+  # Set to 0 to disable limitations
+  # When in "starred" mode, additional topics will be grouped into an ellipsis
+  plugin_topics_limit:
+    description: Maximum number of topics to display
+    default: 15
+  
+  # ====================================================================================
+  # 🎭 Comment reactions
+  
+  # Enable or disable plugin
+  plugin_reactions:
+    description: Display average issue comments reactions
+    default: no
+  
+  # Maximum number of issue comments to parse
+  # Issues will be fetched before issues comments
+  plugin_reactions_limit:
+    description: Maximum number of issue comments to parse
+    default: 200
+  
+  # Filter reactions by issue comments age
+  # Set to 0 to disable age filtering
+  plugin_reactions_days:
+    description: Maximum issue comments age
+    default: 0
+  
+  # Reaction display mode.
+  # Use this option to fill gauges using:
+  # - "absolute" to use total reactions count
+  # - "relative" to use highest reaction count
+  plugin_reactions_display:
+    description: Display mode
+    default: absolute
+  
+  # Additional details
+  # If multiple values are specified, emphasis will be set on first value
+  plugin_reactions_details:
+    description: Additional details
+    default: ""
   
   # ====================================================================================
   # 🧑‍🤝‍🧑 People plugin
@@ -448,6 +462,46 @@ inputs:
     default: no
   
   # ====================================================================================
+  # 🎫 Gists
+  
+  # Enable or disable plugin
+  plugin_gists:
+    description: Display gists metrics
+    default: no
+  
+  # ====================================================================================
+  # 🎟️ Follow-up of issues and pull requests
+  
+  # Enable or disable plugin
+  plugin_followup:
+    description: Display follow-up of repositories issues and pull requests
+    default: no
+  
+  # ====================================================================================
+  # 👨‍💻 Lines of code changed
+  
+  # Enable or disable plugin
+  plugin_lines:
+    description: Display lines of code metrics
+    default: no
+  
+  # ====================================================================================
+  # 🧮 Repositories traffic
+  
+  # Enable or disable plugin
+  plugin_traffic:
+    description: Display repositories traffic metrics
+    default: no
+  
+  # ====================================================================================
+  # ✨ Stargazers over last weeks
+  
+  # Enable or disable plugin
+  plugin_stargazers:
+    description: Display stargazers metrics
+    default: no
+  
+  # ====================================================================================
   # 🗂️ Active projects
   
   # Enable or disable plugin
@@ -474,38 +528,38 @@ inputs:
     default: no
   
   # ====================================================================================
-  # 🎭 Comment reactions
+  # 📰 Recent activity
   
   # Enable or disable plugin
-  plugin_reactions:
-    description: Display average issue comments reactions
+  plugin_activity:
+    description: Display recent activity
     default: no
   
-  # Maximum number of issue comments to parse
-  # Issues will be fetched before issues comments
-  plugin_reactions_limit:
-    description: Maximum number of issue comments to parse
-    default: 200
+  # Number of activity events to display
+  plugin_activity_limit:
+    description: Maximum number of events to display
+    default: 5
   
-  # Filter reactions by issue comments age
+  # Filter events by age
   # Set to 0 to disable age filtering
-  plugin_reactions_days:
-    description: Maximum issue comments age
-    default: 0
+  plugin_activity_days:
+    description: Maximum event age
+    default: 14
   
-  # Reaction display mode.
-  # Use this option to fill gauges using:
-  # - "absolute" to use total reactions count
-  # - "relative" to use highest reaction count
-  plugin_reactions_display:
-    description: Display mode
-    default: absolute
+  # Filter events by type
+  plugin_activity_filter:
+    description: Events types to keep
+    default: all
   
-  # Additional details
-  # If multiple values are specified, emphasis will be set on first value
-  plugin_reactions_details:
-    description: Additional details
-    default: ""
+  # Set events visibility (use this to restrict events when using a "repo" token)
+  plugin_activity_visibility:
+    description: Set events visibility
+    default: all
+  
+  # Display events timestamps
+  plugin_activity_timestamps:
+    description: Display events timestamps
+    default: no
   
   # ====================================================================================
   # 🌇 GitHub Skyline 3D calendar
@@ -533,99 +587,37 @@ inputs:
     default: 0.5
   
   # ====================================================================================
-  # ✨ Stargazers over last weeks
+  # ⏱️ Website performances
   
   # Enable or disable plugin
-  plugin_stargazers:
-    description: Display stargazers metrics
+  plugin_pagespeed:
+    description: Display a website Google PageSpeed metrics
     default: no
   
-  # ====================================================================================
-  # 🌟 Recently starred repositories
+  # Website to audit with PageSpeed
+  plugin_pagespeed_url:
+    description: Audited website
+    default: .user.website
   
-  # Enable or disable plugin
-  plugin_stars:
-    description: Display recently starred repositories
+  # Display the following additional metrics from audited website:
+  # First Contentful Paint, Speed Index, Largest Contentful Paint, Time to Interactive, Total Blocking Time, Cumulative Layout Shift
+  # See https://web.dev/performance-scoring/ and https://googlechrome.github.io/lighthouse/scorecalc/ for more informations
+  plugin_pagespeed_detailed:
+    description: Detailed audit result
     default: no
   
-  # Number of stars to display
-  plugin_stars_limit:
-    description: Maximum number of stars to display
-    default: 4
-  
-  # ====================================================================================
-  # 📌 Starred topics
-  
-  # Enable or disable plugin
-  plugin_topics:
-    description: Display starred topics
+  # Display a screenshot of audited website
+  # May increases significantly filesize
+  plugin_pagespeed_screenshot:
+    description: Display a screenshot of your website
     default: no
   
-  # Plugin mode
-  plugin_topics_mode:
-    description: Plugin mode
-    default: starred
-  
-  # Topics sorting order
-  plugin_topics_sort:
-    description: Sorting method of starred topics
-    default: stars
-  
-  # Number of topics to display
-  # Set to 0 to disable limitations
-  # When in "starred" mode, additional topics will be grouped into an ellipsis
-  plugin_topics_limit:
-    description: Maximum number of topics to display
-    default: 15
-  
-  # ====================================================================================
-  # 🧮 Repositories traffic
-  
-  # Enable or disable plugin
-  plugin_traffic:
-    description: Display repositories traffic metrics
-    default: no
-  
-  # ====================================================================================
-  # 🌸 Anilist watch list and reading list
-  
-  # Enable or disable plugin
-  plugin_anilist:
-    description: Display data from your AniList account
-    default: no
-  
-  # Types of medias to display
-  plugin_anilist_medias:
-    description: Medias types to display
-    default: anime, manga
-  
-  # Sections to display
-  # Values from "plugin_anilist_medias" may impact displayed sections
-  plugin_anilist_sections:
-    description: Sections to display
-    default: favorites
-  
-  # Number of entries to display per section (this does not impacts characters section)
-  # Set to 0 to disable limitations
-  plugin_anilist_limit:
-    description: Maximum number of entries to display per section
-    default: 2
-  
-  # Number of entries to display in characters section
-  # Set to 0 to disable limitations
-  plugin_anilist_limit_characters:
-    description: Maximum number of entries to display in characters section
-    default: 22
-  
-  # Shuffle AniList data for varied outputs
-  plugin_anilist_shuffle:
-    description: Shuffle AniList data
-    default: yes
-  
-  # Username on AniList
-  plugin_anilist_user:
-    description: AniList login
-    default: .user.login
+  # PageSpeed API token
+  # This is optional, but providing it will avoid hitting rate-limiter
+  # See https://developers.google.com/speed/docs/insights/v5/get-started for more informations
+  plugin_pagespeed_token:
+    description: PageSpeed token
+    default: ""
   
   # ====================================================================================
   # 🎼 Music plugin
@@ -677,69 +669,73 @@ inputs:
     default: .user.login
   
   # ====================================================================================
-  # ⏱️ Website performances
+  # 🐤 Latest tweets
   
   # Enable or disable plugin
-  plugin_pagespeed:
-    description: Display a website Google PageSpeed metrics
+  plugin_tweets:
+    description: Display recent tweets
     default: no
   
-  # Website to audit with PageSpeed
-  plugin_pagespeed_url:
-    description: Audited website
-    default: .user.website
-  
-  # Display the following additional metrics from audited website:
-  # First Contentful Paint, Speed Index, Largest Contentful Paint, Time to Interactive, Total Blocking Time, Cumulative Layout Shift
-  # See https://web.dev/performance-scoring/ and https://googlechrome.github.io/lighthouse/scorecalc/ for more informations
-  plugin_pagespeed_detailed:
-    description: Detailed audit result
-    default: no
-  
-  # Display a screenshot of audited website
-  # May increases significantly filesize
-  plugin_pagespeed_screenshot:
-    description: Display a screenshot of your website
-    default: no
-  
-  # PageSpeed API token
-  # This is optional, but providing it will avoid hitting rate-limiter
-  # See https://developers.google.com/speed/docs/insights/v5/get-started for more informations
-  plugin_pagespeed_token:
-    description: PageSpeed token
+  # Twitter API token
+  # See https://apps.twitter.com for more informations
+  plugin_tweets_token:
+    description: Twitter API token
     default: ""
+  
+  # Display tweets attachments (images, video previews, etc.)
+  plugin_tweets_attachments:
+    description: Display tweets attchments
+    default: no
+  
+  # Number of tweets to display
+  plugin_tweets_limit:
+    description: Maximum number of tweets to display
+    default: 2
+  
+  # Twitter username
+  plugin_tweets_user:
+    description: Twitter username
+    default: .user.twitter
   
   # ====================================================================================
-  # ✒️ Recent posts
+  # 🌸 Anilist watch list and reading list
   
   # Enable or disable plugin
-  plugin_posts:
-    description: Display recent posts
+  plugin_anilist:
+    description: Display data from your AniList account
     default: no
   
-  # Posts external source
-  plugin_posts_source:
-    description: Posts external source
-    default: ""
+  # Types of medias to display
+  plugin_anilist_medias:
+    description: Medias types to display
+    default: anime, manga
   
-  # Display a few lines about each posts
-  plugin_posts_descriptions:
-    description: Display posts descriptions
-    default: no
+  # Sections to display
+  # Values from "plugin_anilist_medias" may impact displayed sections
+  plugin_anilist_sections:
+    description: Sections to display
+    default: favorites
   
-  # Display posts cover images
-  plugin_posts_covers:
-    description: Display posts cover images
-    default: no
+  # Number of entries to display per section (this does not impacts characters section)
+  # Set to 0 to disable limitations
+  plugin_anilist_limit:
+    description: Maximum number of entries to display per section
+    default: 2
   
-  # Number of posts to display
-  plugin_posts_limit:
-    description: Maximum number of posts to display
-    default: 4
+  # Number of entries to display in characters section
+  # Set to 0 to disable limitations
+  plugin_anilist_limit_characters:
+    description: Maximum number of entries to display in characters section
+    default: 22
   
-  # Username on external posts source
-  plugin_posts_user:
-    description: Posts external source username
+  # Shuffle AniList data for varied outputs
+  plugin_anilist_shuffle:
+    description: Shuffle AniList data
+    default: yes
+  
+  # Username on AniList
+  plugin_anilist_user:
+    description: AniList login
     default: .user.login
   
   # ====================================================================================
@@ -773,33 +769,37 @@ inputs:
     default: 4
   
   # ====================================================================================
-  # 🐤 Latest tweets
+  # ✒️ Recent posts
   
   # Enable or disable plugin
-  plugin_tweets:
-    description: Display recent tweets
+  plugin_posts:
+    description: Display recent posts
     default: no
   
-  # Twitter API token
-  # See https://apps.twitter.com for more informations
-  plugin_tweets_token:
-    description: Twitter API token
+  # Posts external source
+  plugin_posts_source:
+    description: Posts external source
     default: ""
   
-  # Display tweets attachments (images, video previews, etc.)
-  plugin_tweets_attachments:
-    description: Display tweets attchments
+  # Display a few lines about each posts
+  plugin_posts_descriptions:
+    description: Display posts descriptions
     default: no
   
-  # Number of tweets to display
-  plugin_tweets_limit:
-    description: Maximum number of tweets to display
-    default: 2
+  # Display posts cover images
+  plugin_posts_covers:
+    description: Display posts cover images
+    default: no
   
-  # Twitter username
-  plugin_tweets_user:
-    description: Twitter username
-    default: .user.twitter
+  # Number of posts to display
+  plugin_posts_limit:
+    description: Maximum number of posts to display
+    default: 4
+  
+  # Username on external posts source
+  plugin_posts_user:
+    description: Posts external source username
+    default: .user.login
   
   # ====================================================================================
   # ⏰ WakaTime plugin

@@ -1,6 +1,7 @@
 name: "⏱️ Website performances"
 cost: N/A
 categorie: social
+index: 1
 supports:
   - user
   - organization

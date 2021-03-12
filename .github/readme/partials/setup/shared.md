@@ -7,6 +7,7 @@ For convenience, you can use the shared instance available at [metrics.lecoq.io]
 ```
 
 This is mostly intended for previews, to enjoy all features consider using GitHub Action instead.
+Availability is not guaranteed.
 
 <details>
 <summary><b>💬 Fair use</b> <i>(click to expand)</i></summary>

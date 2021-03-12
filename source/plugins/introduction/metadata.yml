@@ -1,6 +1,7 @@
 name: "🙋 Introduction"
 cost: 1 GraphQL request
 categorie: github
+index: 2
 supports:
   - user
   - organization

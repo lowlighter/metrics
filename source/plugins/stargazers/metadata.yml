@@ -1,6 +1,7 @@
 name: "✨ Stargazers over last weeks"
 cost: 1 GraphQL request per 100 stargazers
 categorie: github
+index: 14
 supports:
   - user
   - organization

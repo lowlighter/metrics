@@ -14,3 +14,4 @@
 * [jasonlong/isometric-contributions](https://github.com/jasonlong/isometric-contributions)
 * [jamesgeorge007/github-activity-readme](https://github.com/jamesgeorge007/github-activity-readme)
 * [vvo/sourcekarma](https://github.com/vvo/sourcekarma)
+* [ryo-ma/github-profile-trophy](https://github.com/ryo-ma/github-profile-trophy)
