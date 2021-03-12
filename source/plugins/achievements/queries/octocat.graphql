@@ -2,4 +2,7 @@ query AchievementsOctocat {
   user(login: "octocat") {
     viewerIsFollowing
   }
+  viewer {
+    login
+  }
 }

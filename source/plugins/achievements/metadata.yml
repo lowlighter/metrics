@@ -44,3 +44,12 @@ inputs:
     type: array
     format: comma-separated
     default: ""
+
+  # List of unlocked achievements to display
+  # Names must be given in lower case, without rank adjective
+  # Using this option is equivalent of using "plugin_achievements_ignored" with all existing achievements but the ones listed
+  plugin_achievements_only:
+    description: Unlocked achievements to display
+    type: array
+    format: comma-separated
+    default: ""

@@ -7,7 +7,7 @@
             return null
 
         //Load inputs
-          let {threshold, secrets, ignored, limit} = imports.metadata.plugins.achievements.inputs({data, q, account})
+          let {threshold, secrets, only, ignored, limit} = imports.metadata.plugins.achievements.inputs({data, q, account})
 
         //Initinalization
           const list = []
@@ -224,7 +224,7 @@
 
         //Automater
           {
-            const value = process.env.GITHUB_ACTIONS || true
+            const value = process.env.GITHUB_ACTIONS
             const unlock = null
 
             list.push({
@@ -237,36 +237,36 @@
 
         //Infographile
           {
-            const {repository:{viewerHasStarred:value}} = await graphql(queries.achievements.metrics())
+            const {repository:{viewerHasStarred:value}, viewer:{login:_login}} = await graphql(queries.achievements.metrics())
             const unlock = null
 
             list.push({
               title:"Infographile",
               text:"Fervent supporter of metrics",
               icon:"<g stroke-linejoin=\"round\" stroke-width=\"2\" fill=\"none\" fill-rule=\"evenodd\"><g stroke=\"#79B8FF\" stroke-linecap=\"round\"><path d=\"M22 31h20M22 36h10\"/></g><path d=\"M44.05 36.013a8 8 0 110 16 8 8 0 010-16z\" stroke=\"#2088FF\" stroke-linecap=\"round\"/><path d=\"M32 43H7c-1.228 0-2-.84-2-2V7c0-1.16.772-2 2-2h7.075M47 24.04V32\" stroke=\"#79B8FF\" stroke-linecap=\"round\"/><path stroke=\"#2088FF\" stroke-linecap=\"round\" d=\"M47.015 42.017l-4 3.994-2.001-1.995\"/><path stroke=\"#79B8FF\" d=\"M11 31h5v5h-5z\"/><path d=\"M11 14a2 2 0 012-2m28 12a2 2 0 01-2 2h-1m-5 0h-4m-6 0h-4m-5 0h-1a2 2 0 01-2-2m0-4v-2\" stroke=\"#79B8FF\" stroke-linecap=\"round\"/><path d=\"M18 18V7c0-1.246.649-2 1.73-2h28.54C49.351 5 50 5.754 50 7v11c0 1.246-.649 2-1.73 2H19.73c-1.081 0-1.73-.754-1.73-2z\" stroke=\"#2088FF\" stroke-linecap=\"round\"/><path stroke=\"#2088FF\" stroke-linecap=\"round\" d=\"M22 13h4l2-3 3 5 2-2h3.052l2.982-4 3.002 4H46\"/></g>",
-              rank:value ? "$" : "X", progress:1, value, unlock:new Date(unlock?.createdAt),
+              rank:(value)&&(login === _login) ? "$" : "X", progress:1, value, unlock:new Date(unlock?.createdAt),
             })
           }
 
         //Octonaut
           {
-            const {user:{viewerIsFollowing:value}} = await graphql(queries.achievements.octocat())
+            const {user:{viewerIsFollowing:value}, viewer:{login:_login}} = await graphql(queries.achievements.octocat())
             const unlock = null
 
             list.push({
               title:"Octonaut",
               text:"Following octocat",
               icon:"<g fill=\"none\" fill-rule=\"evenodd\"><path d=\"M14.7 8c.316 1.122.572 1.372 1.71 1.678-1.136.314-1.39.566-1.7 1.69-.317-1.121-.573-1.372-1.71-1.679 1.135-.313 1.389-.566 1.7-1.689zm26 0c.316 1.122.572 1.372 1.71 1.678-1.136.314-1.39.566-1.7 1.69-.317-1.121-.573-1.372-1.71-1.679 1.135-.313 1.389-.566 1.7-1.689zM28.021 5c.318 1.122.574 1.372 1.711 1.678-1.136.314-1.389.566-1.7 1.69-.317-1.121-.572-1.372-1.71-1.679 1.135-.313 1.39-.566 1.7-1.689z\" stroke=\"#2088FF\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><g transform=\"translate(4 9)\" fill-rule=\"nonzero\"><path d=\"M14.05 9.195C10.327 7.065 7.46 6 5.453 6 4.92 6 4 6.164 3.5 6.653s-.572.741-.711 1.14c-.734 2.1-1.562 6.317.078 9.286-8.767 25.38 15.513 24.92 21.207 24.92 5.695 0 29.746.456 21.037-24.908 1.112-2.2 1.404-5.119.121-9.284-.863-2.802-4.646-2.341-11.35 1.384a27.38 27.38 0 00-9.802-1.81c-3.358 0-6.701.605-10.03 1.814z\" stroke=\"#79B8FF\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M10.323 40.074c-2.442-1.02-2.93-3.308-2.93-4.834 0-1.527.488-2.45.976-3.92.489-1.47.391-2.281-.976-5.711-1.368-3.43.976-7.535 4.884-7.535 3.908 0 7.088 3.005 11.723 2.956m0 0c4.635.05 7.815-2.956 11.723-2.956 3.908 0 6.252 4.105 4.884 7.535-1.367 3.43-1.465 4.241-.976 5.71.488 1.47.976 2.394.976 3.92 0 1.527-.488 3.816-2.93 4.835\" stroke=\"#79B8FF\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><circle fill=\"#2088FF\" cx=\"12\" cy=\"30\" r=\"1\"/><circle fill=\"#2088FF\" cx=\"13\" cy=\"28\" r=\"1\"/><circle fill=\"#2088FF\" cx=\"15\" cy=\"28\" r=\"1\"/><circle fill=\"#2088FF\" cx=\"23\" cy=\"35\" r=\"1\"/><circle fill=\"#2088FF\" cx=\"25\" cy=\"35\" r=\"1\"/><circle fill=\"#2088FF\" cx=\"17\" cy=\"28\" r=\"1\"/><circle fill=\"#2088FF\" cx=\"31\" cy=\"28\" r=\"1\"/><circle fill=\"#2088FF\" cx=\"33\" cy=\"28\" r=\"1\"/><circle fill=\"#2088FF\" cx=\"35\" cy=\"28\" r=\"1\"/><circle fill=\"#2088FF\" cx=\"12\" cy=\"32\" r=\"1\"/><circle fill=\"#2088FF\" cx=\"19\" cy=\"30\" r=\"1\"/><circle fill=\"#2088FF\" cx=\"19\" cy=\"32\" r=\"1\"/><circle fill=\"#2088FF\" cx=\"29\" cy=\"30\" r=\"1\"/><circle fill=\"#2088FF\" cx=\"29\" cy=\"32\" r=\"1\"/><circle fill=\"#2088FF\" cx=\"36\" cy=\"30\" r=\"1\"/><circle fill=\"#2088FF\" cx=\"36\" cy=\"32\" r=\"1\"/></g></g>",
-              rank:value ? "$" : "X", progress:1, value, unlock:new Date(unlock?.createdAt),
+              rank:(value)&&(login === _login) ? "$" : "X", progress:1, value, unlock:new Date(unlock?.createdAt),
             })
           }
 
         //Results
           const order = {S:5, A:4, B:3, C:2, $:1, X:0}
           const achievements = list
-            .filter(a => order[a.rank] >= order[threshold])
+            .filter(a => (order[a.rank] >= order[threshold])||((a.rank === "$")&&(secrets)))
+            .filter(a => (!only.length)||((only.length)&&(only.includes(a.title.toLocaleLowerCase()))))
             .filter(a => !ignored.includes(a.title.toLocaleLowerCase()))
-            .filter(a => secrets ? true : a.rank !== "$")
             .sort((a, b) => (order[b.rank]+b.progress*0.99) - (order[a.rank]+a.progress*0.99))
             .map(({title, unlock, ...achievement}) => ({title:({S:`Master ${title.toLocaleLowerCase()}`, A:`Super ${title.toLocaleLowerCase()}`, B:`Great ${title.toLocaleLowerCase()}`}[achievement.rank] ?? title), unlock:!/invalid date/i.test(unlock) ? `${imports.date(unlock, {timeStyle:"short", timeZone:data.config.timezone?.name})} on ${imports.date(unlock, {dateStyle:"short", timeZone:data.config.timezone?.name})}` : null, ...achievement}))
             .slice(0, limit || Infinity)
