@@ -1,6 +1,7 @@
 name: "🐤 Latest tweets"
 cost: N/A
 categorie: social
+index: 3
 supports:
   - user
   - organization

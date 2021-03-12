@@ -1,6 +1,7 @@
 name: "🎟️ Follow-up of issues and pull requests"
 cost: 0 API request
 categorie: github
+index: 11
 supports:
   - user
   - organization

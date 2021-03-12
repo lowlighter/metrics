@@ -29,8 +29,8 @@
       }
     //Reorder keys
       const {base, core, ...plugins} = Plugins //eslint-disable-line no-unused-vars
-      Plugins = Object.fromEntries(Object.entries(Plugins).sort(([_an, a], [_bn, b]) => categories.indexOf(a.categorie) - categories.indexOf(b.categorie)))
-
+      Plugins = Object.fromEntries(Object.entries(Plugins).sort(([_an, a], [_bn, b]) => a.categorie === b.categorie ? (a.index ?? Infinity) - (b.index ?? Infinity) : categories.indexOf(a.categorie) - categories.indexOf(b.categorie)))
+      logger(`metrics/metadata > loaded [${Object.keys(Plugins).join(", ")}]`)
     //Load templates metadata
       let Templates = {}
       logger("metrics/metadata > loading templates metadata")

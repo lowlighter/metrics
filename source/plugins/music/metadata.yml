@@ -1,6 +1,7 @@
 name: "🎼 Music plugin"
 cost: N/A
 categorie: social
+index: 2
 supports:
   - user
   - organization

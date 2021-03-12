@@ -1,6 +1,7 @@
 name: "👨‍💻 Lines of code changed"
 cost: 1 REST request per repository
 categorie: github
+index: 12
 supports:
   - user
   - organization

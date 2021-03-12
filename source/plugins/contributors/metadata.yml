@@ -1,6 +1,7 @@
 name: "🏅 Repository contributors"
 cost: N/A
 categorie: github
+index: 5
 supports:
   - repository
 inputs:

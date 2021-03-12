@@ -1,6 +1,7 @@
 name: "📜 Repository licenses"
 cost: N/A
 categorie: github
+index: 4
 supports:
   - repository
 inputs:

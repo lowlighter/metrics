@@ -1,6 +1,7 @@
 name: "🧮 Repositories traffic"
 cost: 1 REST request per repository
 categorie: github
+index: 13
 supports:
   - user
   - organization

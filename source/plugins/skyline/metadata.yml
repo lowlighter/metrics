@@ -1,6 +1,7 @@
 name: "🌇 GitHub Skyline 3D calendar"
 cost: N/A
 categorie: github
+index: 18
 supports:
   - user
 inputs:

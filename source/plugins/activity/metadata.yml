@@ -1,6 +1,7 @@
 name: "📰 Recent activity"
 cost: 1 REST request per 100 events
 categorie: github
+index: 16
 supports:
   - user
   - organization
