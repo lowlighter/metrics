@@ -1,0 +1,14 @@
+query AchievementsRanking {
+  repo_rank:search(query: "stars:>$stars", type: REPOSITORY, first: 0) {
+    repositoryCount
+  }
+  user_rank:search(query: "followers:>$followers", type: USER, first: 0) {
+    userCount
+  }
+  repo_total:search(query: "stars:>-1", type: REPOSITORY, first: 0) {
+    repositoryCount
+  }
+  user_total:search(query: "followers:>-1", type: USER, first: 0) {
+    userCount
+  }
+}
