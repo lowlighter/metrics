@@ -1,0 +1,8 @@
+query AchievementsMetrics {
+ 	repository(owner: "lowlighter", name: "metrics") {
+    viewerHasStarred
+  }
+  viewer {
+    login
+  }
+}

@@ -1,0 +1,55 @@
+name: "🏆 Achievements"
+cost: ~5 GraphQL request
+categorie: github
+index: 17
+supports:
+  - user
+inputs:
+
+  # Enable or disable plugin
+  plugin_achievements:
+    description: Display achievements
+    type: boolean
+    default: no
+
+  # Minimal rank to display
+  plugin_achievements_threshold:
+    description: Display rank minimal threshold
+    type: string
+    default: C
+    values:
+      - A
+      - B
+      - C
+      - X   # Not unlocked
+
+  # Display secrets achievements unlocked
+  plugin_achievements_secrets:
+    description: Display unlocked secrets achievements
+    type: boolean
+    default: yes
+
+  # Number of achievements events to display
+  # Set to 0 to disable limitations
+  plugin_achievements_limit:
+    description: Maximum number of achievements to display
+    type: number
+    default: 0
+    min: 0
+
+  # List of unlocked achievements to hide
+  # Names must be given in lower case, without rank adjective
+  plugin_achievements_ignored:
+    description: Unlocked achievements to hide
+    type: array
+    format: comma-separated
+    default: ""
+
+  # List of unlocked achievements to display
+  # Names must be given in lower case, without rank adjective
+  # Using this option is equivalent of using "plugin_achievements_ignored" with all existing achievements but the ones listed
+  plugin_achievements_only:
+    description: Unlocked achievements to display
+    type: array
+    format: comma-separated
+    default: ""

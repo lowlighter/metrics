@@ -836,6 +836,64 @@
     width: 400px;
   }
 
+/* Achievements */
+  .achievement {
+    display: flex;
+    margin: 4px 0;
+  }
+  .achievement .icon {
+    margin: 0 4px;
+    width: 44px;
+    height: 44px;
+  }
+  .achievement .text {
+    font-size: 12px;
+    color: #666666;
+  }
+  .achievement .unlock {
+    font-size: 9px;
+    color: #666666;
+  }
+  .achievement .title {
+    font-size: 14px;
+    color: #58A6FF;
+  }
+  .achievement.x .title {
+    color: #666666;
+  }
+  .achievement.x .icon {
+    filter: grayscale(1) opacity(.5);
+  }
+  .achievement.b .title {
+    color: #9D8FFF;
+  }
+  .achievement.b .icon {
+    filter: hue-rotate(35deg);
+  }
+  .achievement.a .title {
+    color: #D79533;
+  }
+  .achievement.a .icon {
+    filter: sepia() saturate(2);
+  }
+  .achievement.s .title {
+    color: #FF0000;
+  }
+  .achievement.s .icon {
+    filter: sepia() saturate(100);
+  }
+  .achievement.secret .title{
+    color: #FF76CD;
+  }
+  .achievement.secret .icon {
+    filter: hue-rotate(100deg);
+  }
+  .achievement .gh {
+    border: 1px solid currentColor;
+    border-radius: 16px;
+    font-size: 10px;
+    padding: 0 5px;
+  }
 
 /* Fade animation */
   .af {

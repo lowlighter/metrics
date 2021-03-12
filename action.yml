@@ -562,6 +562,43 @@ inputs:
     default: no
   
   # ====================================================================================
+  # 🏆 Achievements
+  
+  # Enable or disable plugin
+  plugin_achievements:
+    description: Display achievements
+    default: no
+  
+  # Minimal rank to display
+  plugin_achievements_threshold:
+    description: Display rank minimal threshold
+    default: C
+  
+  # Display secrets achievements unlocked
+  plugin_achievements_secrets:
+    description: Display unlocked secrets achievements
+    default: yes
+  
+  # Number of achievements events to display
+  # Set to 0 to disable limitations
+  plugin_achievements_limit:
+    description: Maximum number of achievements to display
+    default: 0
+  
+  # List of unlocked achievements to hide
+  # Names must be given in lower case, without rank adjective
+  plugin_achievements_ignored:
+    description: Unlocked achievements to hide
+    default: ""
+  
+  # List of unlocked achievements to display
+  # Names must be given in lower case, without rank adjective
+  # Using this option is equivalent of using "plugin_achievements_ignored" with all existing achievements but the ones listed
+  plugin_achievements_only:
+    description: Unlocked achievements to display
+    default: ""
+  
+  # ====================================================================================
   # 🌇 GitHub Skyline 3D calendar
   
   # Enable or disable plugin
