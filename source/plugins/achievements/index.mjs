@@ -1,5 +1,5 @@
 //Setup
-  export default async function({login, q, imports, data, graphql, queries, account}, {enabled = false} = {}) {
+  export default async function({login, q, imports, data, computed, graphql, queries, account}, {enabled = false} = {}) {
     //Plugin execution
       try {
         //Check if plugin is enabled and requirements are met
@@ -7,7 +7,7 @@
             return null
 
         //Load inputs
-          let {threshold, secrets, ignored} = imports.metadata.plugins.achievements.inputs({data, q, account})
+          let {threshold, secrets, ignored, limit} = imports.metadata.plugins.achievements.inputs({data, q, account})
 
         //Initinalization
           const list = []
@@ -165,7 +165,7 @@
               title:"Maintainer",
               text:`Maintaining a repository with ${value} star${imports.s(value)}`,
               icon:"<g transform=\"translate(4 4)\" fill=\"none\" fill-rule=\"evenodd\"><path d=\"M39 15h.96l4.038 3-.02-3H45a2 2 0 002-2V3a2 2 0 00-2-2H31a2 2 0 00-2 2v4.035\" stroke=\"#79B8FF\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path stroke=\"#2088FF\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M36 5.014l-3 3 3 3M40 5.014l3 3-3 3\"/><path d=\"M6 37a1 1 0 110 2 1 1 0 010-2m7 0a1 1 0 110 2 1 1 0 010-2m-2.448 1a1 1 0 11-2 0 1 1 0 012 0z\" fill=\"#2088FF\"/><path d=\"M1.724 15.05A23.934 23.934 0 000 24c0 .686.029 1.366.085 2.037m19.92 21.632c1.3.218 2.634.331 3.995.331a23.92 23.92 0 009.036-1.76m13.207-13.21A23.932 23.932 0 0048 24c0-1.363-.114-2.7-.332-4M25.064.022a23.932 23.932 0 00-10.073 1.725\" stroke=\"#79B8FF\" stroke-width=\"2\" stroke-linecap=\"round\"/><path d=\"M19 42.062V43a2 2 0 01-2 2H9.04l-4.038 3 .02-3H3a2 2 0 01-2-2V33a2 2 0 012-2h4.045\" stroke=\"#79B8FF\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M6 0a6 6 0 110 12A6 6 0 016 0z\" stroke=\"#2088FF\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path stroke=\"#2088FF\" stroke-width=\"2\" stroke-linecap=\"round\" d=\"M6 3v6M3 6h6\"/><path d=\"M42 36a6 6 0 110 12 6 6 0 010-12z\" stroke=\"#2088FF\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path stroke=\"#2088FF\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M44.338 40.663l-3.336 3.331-1.692-1.686M31 31c-.716-2.865-3.578-5-7-5-3.423 0-6.287 2.14-7 5\"/><path d=\"M24 16a5 5 0 110 10 5 5 0 010-10z\" stroke=\"#2088FF\" stroke-width=\"2\" stroke-linecap=\"round\"/><circle stroke=\"#2088FF\" stroke-width=\"2\" cx=\"24\" cy=\"24\" r=\"14\"/></g>",
-              ...rank(value, [1, 200, 500, 1000]), value, unlock:new Date(unlock?.createdAt),
+              ...rank(value, [1, 1000, 5000, 10000]), value, unlock:new Date(unlock?.createdAt),
               gh:Number(`1${"0".repeat(Math.ceil(Math.log10(ranks.repo_rank.repositoryCount)))}`),
             })
           }
@@ -185,12 +185,12 @@
 
         //Member
           {
-            const value = new Date().getFullYear() - new Date(data.user.createdAt).getFullYear()
+            const value = computed.registered.diff
             const unlock = null
 
             list.push({
               title:"Member",
-              text:`Registered ${value} year${imports.s(value)} ago`,
+              text:`Registered ${Math.floor(value)} year${imports.s(Math.floor(value))} ago`,
               icon:"<g xmlns=\"http://www.w3.org/2000/svg\" transform=\"translate(5 4)\" fill=\"none\" fill-rule=\"evenodd\"><path d=\"M46 44.557v1a2 2 0 01-2 2H2a2 2 0 01-2-2v-1\" stroke=\"#79B8FF\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M.75 40.993l.701.561a2.323 2.323 0 002.903 0l1.675-1.34a3 3 0 013.748 0l1.282 1.026a3 3 0 003.71.03l1.4-1.085a3 3 0 013.75.061l1.103.913a3 3 0 003.787.031l1.22-.976a3 3 0 013.748 0l1.282 1.026a3 3 0 003.71.03l1.4-1.085a3 3 0 013.75.061l1.429 1.182a2.427 2.427 0 003.103-.008l.832-.695A2 2 0 0046 39.191v-1.634a2 2 0 00-2-2H2a2 2 0 00-2 2v1.875a2 2 0 00.75 1.561z\" stroke=\"#2088FF\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M42 31.609v.948m-38 0v-.992m25.04-15.008H35a2 2 0 012 2v1m-28 0v-1a2 2 0 012-2h6.007\" stroke=\"#79B8FF\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M22 8.557h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6a1 1 0 011-1z\" stroke=\"#2088FF\" stroke-width=\"2\" stroke-linejoin=\"round\"/><path d=\"M4.7 10.557c.316 1.122.572 1.372 1.71 1.678-1.136.314-1.39.566-1.7 1.69-.317-1.121-.573-1.372-1.71-1.679 1.135-.313 1.389-.566 1.7-1.689zm35-8c.316 1.122.572 1.372 1.71 1.678-1.136.314-1.39.566-1.7 1.69-.317-1.121-.573-1.372-1.71-1.679 1.135-.313 1.389-.566 1.7-1.689z\" stroke=\"#2088FF\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M23 5.557a2 2 0 002-2C25 2.452 24.433 0 22.273 0c-.463 0 .21 1.424-.502 1.979A2 2 0 0023 5.557z\" stroke=\"#2088FF\" stroke-width=\"2\"/><path d=\"M4.78 27.982l1.346 1.076a3 3 0 003.748 0l1.252-1.002a3 3 0 013.748 0l1.282 1.026a3 3 0 003.711.03l1.4-1.085a3 3 0 013.75.061l1.102.913a3 3 0 003.787.031l1.22-.976a3 3 0 013.748 0l1.281 1.025a3 3 0 003.712.029l1.358-1.053a2 2 0 00.775-1.58v-.97a1.95 1.95 0 00-1.95-1.95H5.942a1.912 1.912 0 00-1.912 1.912v.951a2 2 0 00.75 1.562z\" stroke=\"#2088FF\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><circle stroke=\"#79B8FF\" cx=\"16.5\" cy=\"2.057\" r=\"1\"/><circle stroke=\"#79B8FF\" cx=\"14.5\" cy=\"12.057\" r=\"1\"/><circle stroke=\"#79B8FF\" cx=\"31.5\" cy=\"9.057\" r=\"1\"/></g>",
               ...rank(value, [1, 3, 5, 10]), value, unlock:new Date(unlock?.createdAt),
             })
@@ -261,19 +261,6 @@
             })
           }
 
-        //Bip-bop
-          /*{
-            const value = false
-            const unlock = null
-
-            list.push({
-              title:"Bip-bop",
-              text:"Not implemented yet",
-              icon:`<g stroke-linecap="round" stroke-width="2" fill="none" fill-rule="evenodd"><path stroke="#2088FF" stroke-linejoin="round" d="M19 29h5l2-2 3 3 2-1h5"/><path d="M15 42c4.142 1.132 7.686 2 13 2 4.382 0 8.874-.859 13-2" stroke="#79B8FF"/><path d="M40 14c-3.562-1.867-7.73-3-12-3-4.54 0-8.543 1.038-12 3m-1 20c.81.203 1.837.374 3.016.514 5.604.665 14.637.631 20.012-.002C39.227 34.371 40.244 34.2 41 34m0-12c-.788.111-1.576 0-2 0-4.96 0-7.848 1-11 1s-6.697-1-11-1c-.424 0-1.212.056-2 0" stroke="#79B8FF" stroke-linejoin="round"/><path d="M16 13s-4.096 13.953-1 30c-.351 0-6.928-1.537-11-4 .041-.296-1.346-18.594 12-26zM40 13s4.096 13.953 1 30c.351 0 6.928-1.537 11-4-.041-.296 1.346-18.594-12-26z" stroke="#79B8FF" stroke-linejoin="round"/><path stroke="#2088FF" stroke-linejoin="round" d="M28.018 7.023v-3M28.018 49.023v3M39.504 48.011l1.99 2M16.525 47.999l-2 2M39.504 9.011l1.99-2M16.525 8.999l-2-2"/></g>`,
-              rank:value ? "$" : "X", progress:0, value, unlock:new Date(unlock?.createdAt)
-            })
-          }*/
-
         //Results
           const order = {S:5, A:4, B:3, C:2, $:1, X:0}
           const achievements = list
@@ -282,6 +269,7 @@
             .filter(a => secrets ? true : a.rank !== "$")
             .sort((a, b) => (order[b.rank]+b.progress*0.99) - (order[a.rank]+a.progress*0.99))
             .map(({title, unlock, ...achievement}) => ({title:({S:`Master ${title.toLocaleLowerCase()}`, A:`Super ${title.toLocaleLowerCase()}`, B:`Great ${title.toLocaleLowerCase()}`}[achievement.rank] ?? title), unlock:!/invalid date/i.test(unlock) ? `${imports.date(unlock, {timeStyle:"short", timeZone:data.config.timezone?.name})} on ${imports.date(unlock, {dateStyle:"short", timeZone:data.config.timezone?.name})}` : null, ...achievement}))
+            .slice(0, limit || Infinity)
           return {list:achievements}
       }
     //Handle errors

@@ -1,5 +1,5 @@
 name: "🏆 Achievements"
-cost: "?"
+cost: ~5 GraphQL request
 categorie: github
 supports:
   - user
@@ -12,13 +12,11 @@ inputs:
     default: no
 
   # Minimal rank to display
-  # "S" ranks is not available on all achievements
   plugin_achievements_threshold:
     description: Display rank minimal threshold
     type: string
     default: C
     values:
-      - S   # Top 50,000
       - A
       - B
       - C
@@ -29,6 +27,14 @@ inputs:
     description: Display unlocked secrets achievements
     type: boolean
     default: yes
+
+  # Number of achievements events to display
+  # Set to 0 to disable limitations
+  plugin_achievements_limit:
+    description: Maximum number of achievements to display
+    type: number
+    default: 0
+    min: 0
 
   # List of unlocked achievements to hide
   # Names must be given in lower case, without rank adjective

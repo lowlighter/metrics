@@ -25,4 +25,5 @@ A few achievements contains actual real ranking (based on [GitHub search](github
     plugin_achievements_threshold: B       # Display achievements with rank B or higher
     plugin_achievements_secrets: yes       # Display unlocked secrets achievements
     plugin_achievements_ignored: octonaut  # Hide octonaut achievement
+    plugin_achievements_limit: 0           # Display all unlocked achievement matching threshold and secrets params
 ```
