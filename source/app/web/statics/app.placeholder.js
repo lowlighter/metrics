@@ -193,6 +193,25 @@
                     days:options["reactions.days"]
                   }
                 }) : null),
+               //Achievements
+                ...(set.plugins.enabled.achievements ? ({
+                  achievements:{
+                    list:new Array(8).fill(null).map(_ => ({
+                      title:faker.lorem.word(),
+                      unlock:null,
+                      text:faker.lorem.sentence(),
+                      icon:`<g xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-width="2" fill="none" fill-rule="evenodd"><g stroke-linejoin="round"><g stroke="#79B8FF"><path d="M8 43a3 3 0 100 6 3 3 0 000-6zm40 0a3.001 3.001 0 10.002 6.002A3.001 3.001 0 0048 43zm-18 3h-4.971m-11.045 0H11M45 46h-4"/></g><path stroke="#2088FF" d="M13 51h28M36.992 45.276l6.375-8.017c1.488.63 3.272.29 4.414-.977a3.883 3.883 0 00.658-4.193l-1.96 2.174-1.936-.151-.406-1.955 1.96-2.173a3.898 3.898 0 00-4.107 1.092 3.886 3.886 0 00-.512 4.485l-7.317 7.169c-1.32 1.314-.807 2.59-.236 3.105.67.601 1.888.845 3.067-.56z"/><g stroke="#2088FF"><path d="M12.652 31.063l9.442 12.578a.512.512 0 01-.087.716l-2.396 1.805a.512.512 0 01-.712-.114L9.46 33.47l-.176-3.557 3.37 1.15zM17.099 43.115l2.395-1.806"/></g></g><path d="M25.68 36.927v-2.54a2.227 2.227 0 01.37-1.265c-.526-.04-3.84-.371-3.84-4.302 0-1.013.305-1.839.915-2.477a4.989 4.989 0 01-.146-1.86c.087-.882.946-.823 2.577.178 1.277-.47 2.852-.47 4.725 0 .248-.303 2.434-1.704 2.658-.268.047.296.016.946-.093 1.95.516.524.776 1.358.78 2.501.007 2.261-1.26 3.687-3.8 4.278.24.436.355.857.346 1.264a117.57 117.57 0 000 2.614c2.43-.744 4.228-2.06 5.395-3.95.837-1.356 1.433-2.932 1.433-4.865 0-2.886-1.175-4.984-2.5-6.388C32.714 19.903 30.266 19 28 19a9.094 9.094 0 00-6.588 2.897C20.028 23.393 19 25.507 19 28.185c0 2.026.701 3.945 1.773 5.38 1.228 1.643 2.864 2.764 4.907 3.362zM52.98 25.002l-3.07 3.065-1.49-1.485M6.98 25.002l-3.07 3.065-1.49-1.485" stroke="#2088FF" stroke-linejoin="round"/><path d="M19.001 11V9a2 2 0 012-2h14a2 2 0 012 2v2m-21 12.028v-10.03a2 2 0 012-1.998h20a2 2 0 012 2v10.028" stroke="#79B8FF" stroke-linejoin="round"/><path stroke="#79B8FF" d="M28.001 7V3M15.039 7.797c-5.297 3.406-9.168 8.837-10.517 15.2m46.737-.936c-1.514-5.949-5.25-11.01-10.273-14.248"/></g>`,
+                      rank:faker.random.arrayElement(["A", "B", "C", "X", "$"]),
+                      progress:faker.random.number(100)/100,
+                      value:faker.random.number(1000),
+                    }))
+                      .filter(({rank}) => options["achievements.secrets"] ? true : rank !== "$")
+                      .filter(({rank}) => ({S:5, A:4, B:3, C:2, $:1, X:0}[rank] >= {S:5, A:4, B:3, C:2, $:1, X:0}[options["achievements.threshold"]]))
+                      .sort((a, b) => ({S:5, A:4, B:3, C:2, $:1, X:0}[b.rank]+b.progress*0.99) - ({S:5, A:4, B:3, C:2, $:1, X:0}[a.rank]+a.progress*0.99))
+                      .slice(0, options["achievements.limit"] || Infinity)
+                    ,
+                  }
+                }) : null),
               //Introduction
                 ...(set.plugins.enabled.introduction ? ({
                   introduction:{
