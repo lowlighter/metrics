@@ -1,4 +1,4 @@
-query AchivementsMetrics {
+query AchievementsMetrics {
  	repository(owner: "lowlighter", name: "metrics") {
     viewerHasStarred
   }

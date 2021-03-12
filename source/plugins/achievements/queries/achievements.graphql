@@ -1,4 +1,4 @@
-query AchivementsDefault {
+query AchievementsDefault {
 
   user(login: "$login") {
     repositories(first: 1, privacy: PUBLIC, affiliations: OWNER, orderBy: {field: CREATED_AT, direction: ASC}) {

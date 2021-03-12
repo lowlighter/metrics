@@ -1,4 +1,4 @@
-query AchivementsRanking {
+query AchievementsRanking {
   repo_rank:search(query: "stars:>$stars", type: REPOSITORY, first: 0) {
     repositoryCount
   }

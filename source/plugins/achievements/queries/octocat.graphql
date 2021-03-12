@@ -1,4 +1,4 @@
-query AchivementsOctocat {
+query AchievementsOctocat {
   user(login: "octocat") {
     viewerIsFollowing
   }
