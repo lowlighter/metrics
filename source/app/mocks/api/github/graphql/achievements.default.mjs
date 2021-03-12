@@ -61,6 +61,6 @@
         following:{totalCount:faker.random.number(10000)},
         bio:faker.lorem.sentence(),
         status:{message:faker.lorem.paragraph()},
-      }
+      },
     })
   }
