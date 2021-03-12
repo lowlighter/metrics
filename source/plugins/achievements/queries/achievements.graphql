@@ -66,9 +66,9 @@ query AchievementsDefault {
       #}
     }
     organizations(first: 1) {
-      nodes {
-        name
-      }
+      #nodes {
+      #  name
+      #}
       totalCount
     }
     gists(first: 1, orderBy: {field: CREATED_AT, direction: ASC}) {
