@@ -11,7 +11,7 @@
     "quickstart": "node .github/quickstart/index.mjs",
     "linter": "eslint source/**/*.mjs",
     "linter:fix": "eslint source/**/*.mjs --fix",
-    "dev": "nodemon source/app/web/index.mjs -e mjs,css,ejs"
+    "dev": "nodemon source/app/web/index.mjs -e mjs,css,ejs,json"
   },
   "repository": {
     "type": "git",
