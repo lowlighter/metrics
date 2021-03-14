@@ -1,6 +1,6 @@
 {
   "name": "metrics",
-  "version": "3.5.0-beta",
+  "version": "3.5.0",
   "description": "An image generator with 20+ metrics about your GitHub account such as activity, community, repositories, coding habits, website performances, music played, starred topics, etc. that you can put on your profile or elsewhere !",
   "main": "index.mjs",
   "scripts": {

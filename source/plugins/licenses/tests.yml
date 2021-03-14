@@ -3,7 +3,7 @@
   with:
     token: MOCKED_TOKEN
     template: repository
-    query: '{"repo":"metrics"}'
+    repo: metrics
     plugin_licenses: yes
     plugin_licenses_setup: npm ci
     plugin_licenses_ratio: yes
