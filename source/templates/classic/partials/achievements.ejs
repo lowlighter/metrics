@@ -15,14 +15,19 @@
           <% for (const {title, text, icon, rank, gh = NaN, progress = 0, unlock = null} of plugins.achievements.list) { %>
             <div class="achievement <%= rank === "$" ? "secret" : rank.charAt(0).toLocaleLowerCase() %>">
               <div class="icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" width="44" height="44">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="50" height="50" class="gauge info">
-                    <circle class="gauge-base" r="53" cx="60" cy="60"></circle>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" height="44" width="44">
+                  <defs>
+                    <mask id="mask">
+                      <circle class="gauge-base" r="25" cx="28" cy="28" fill="white"></circle>
+                    </mask>
+                  </defs>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="gauge info">
+                    <circle class="gauge-base" r="25" cx="28" cy="28"></circle>
                     <% if ((progress)||(rank !== "X")) { %>
-                      <circle class="gauge-arc" transform="rotate(-90 60 60)" r="53" cx="60" cy="60" stroke-dasharray="<%= progress * 329 %> 329"></circle>
+                      <circle class="gauge-arc" transform="rotate(-90 28 28)" r="25" cx="28" cy="28" stroke-dasharray="<%= progress * 329 %> 329"></circle>
                     <% } %>
                   </svg>
-                  <svg width="40" height="40" viewBox="0 0 56 56" x="5" y="5" xmlns="http://www.w3.org/2000/svg"><%- icon %></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" mask="url(#mask)"><%- icon %></svg>
                 </svg>
               </div>
               <div class="info">
