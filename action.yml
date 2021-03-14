@@ -959,24 +959,21 @@ runs:
         # Image name
         # Official action
         if [[ $METRICS_SOURCE == "lowlighter" ]]; then
-          # Is released version
-          set +e
-          METRICS_IS_RELEASED=$(expr $(expr match $METRICS_VERSION .*-beta) == 0)
-          set -e
-          echo "Is released version: $METRICS_IS_RELEASED"
-          # Use registry for released version
-          if [[ "$METRICS_IS_RELEASED" -gt "0" ]]; then
-            echo "Using released version $METRICS_TAG, will pull docker image from GitHub registry"
+          # Use registry with pre-built images
+          if [[ ! $METRICS_USE_PREBUILT_IMAGE =~ ^([Ff]alse|[Oo]ff|[Nn]o|0)$ ]]; then
+            # Is released version
+            set +e
+            METRICS_IS_RELEASED=$(expr $(expr match $METRICS_VERSION .*-beta) == 0)
+            set -e
+            echo "Is released version: $METRICS_IS_RELEASED"
+            if [[ "$METRICS_IS_RELEASED" -eq "0" ]]; then
+              METRICS_TAG="$METRICS_TAG-beta"
+              echo "Image tag (updated): $METRICS_TAG"
+            fi
             METRICS_IMAGE=ghcr.io/lowlighter/metrics:$METRICS_TAG
-            docker image pull $METRICS_IMAGE
-          # Use registry for unreleased version with pre-built images
-          elif [[ ! $METRICS_USE_PREBUILT_IMAGE =~ ^([Ff]alse|[Oo]ff|[Nn]o|0)$ ]]; then
-            METRICS_TAG="$METRICS_TAG-beta"
-            echo "Image tag (updated): $METRICS_TAG"
             echo "Using pre-built version $METRICS_TAG, will pull docker image from GitHub registry"
-            METRICS_IMAGE=ghcr.io/lowlighter/metrics:$METRICS_TAG
             docker image pull $METRICS_IMAGE
-          # Rebuild image for unreleased version
+          # Rebuild image
           else
             echo "Using an unreleased version ($METRICS_VERSION)"
             METRICS_IMAGE=metrics:$METRICS_VERSION
