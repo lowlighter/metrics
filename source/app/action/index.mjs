@@ -7,6 +7,7 @@
   import metrics from "../metrics/index.mjs"
   import fs from "fs/promises"
   import paths from "path"
+  import sgit from "simple-git"
   process.on("unhandledRejection", error => { throw error }) //eslint-disable-line max-statements-per-line, brace-style
 
 //Debug message buffer
@@ -66,7 +67,7 @@
             filename, optimize, verify,
             debug, "debug.flags":dflags, "use.mocked.data":mocked, dryrun,
             "plugins.errors.fatal":die,
-            "committer.token":_token, "committer.branch":_branch,
+            "committer.token":_token, "committer.branch":_branch, "committer.message":_message,
             "use.prebuilt.image":_image,
             retries, "retries.delay":retries_delay,
             "output.action":_action,
@@ -127,6 +128,7 @@
             //Compute committer informations
               committer.token = _token || token
               committer.commit = true
+              committer.message = _message.replace(/[$][{]filename[}]/g, filename)
               committer.pr = /^pull-request/.test(_action)
               committer.merge = _action.match(/^pull-request-(?<method>merge|squash|rebase)$/)?.groups?.method ?? null
               committer.branch = _branch || github.context.ref.replace(/^refs[/]heads[/]/, "")
@@ -265,10 +267,21 @@
             info(`Save to /metrics_renders/${filename}`, "ok")
           }
 
+        //Check editions
+          if ((committer.commit)||(committer.pr)) {
+            const git = sgit()
+            const sha = await git.hashObject(filename)
+            info("Current render sha", sha)
+            if (committer.sha === sha) {
+              info(`Commit to branch ${committer.branch}`, "(no changes)")
+              committer.commit = false
+            }
+          }
+
         //Commit metrics
           if (committer.commit) {
             await committer.rest.repos.createOrUpdateFileContents({
-              ...github.context.repo, path:filename, message:`Update ${filename} - [Skip GitHub Action]`,
+              ...github.context.repo, path:filename, message:committer.message,
               content:Buffer.from(rendered).toString("base64"),
               branch:committer.pr ? committer.head : committer.branch,
               ...(committer.sha ? {sha:committer.sha} : {}),
@@ -291,7 +304,7 @@
                   const q = `repo:${github.context.repo.owner}/${github.context.repo.repo}+type:pr+state:open+Auto-generated metrics for run #${github.context.runId}+in:title`
                   const prs = (await committer.rest.search.issuesAndPullRequests({q})).data.items.filter(({user:{login}}) => login === "github-actions[bot]")
                   if (prs.length < 1)
-                    throw new Error("0 matching prs. Cannot preoceed.")
+                    throw new Error("0 matching prs. Cannot proceed.")
                   if (prs.length > 1)
                     throw new Error(`Found more than one matching prs: ${prs.map(({number}) => `#${number}`).join(", ")}. Cannot proceed.`)
                   ;({number} = prs.shift())
