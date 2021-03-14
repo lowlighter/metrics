@@ -263,6 +263,7 @@
           if (dryrun)
             info("Actions to perform", "(none)")
           else {
+            await fs.mkdir(paths.dirname(paths.join("/renders", filename)), {recursive:true})
             await fs.writeFile(paths.join("/renders", filename), Buffer.from(rendered))
             info(`Save to /metrics_renders/${filename}`, "ok")
           }
