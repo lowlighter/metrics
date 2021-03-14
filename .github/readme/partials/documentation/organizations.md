@@ -26,7 +26,6 @@ To support private repositories, add full `repo` scope to your personal token.
   with:
     # ... other options
     token: ${{ secrets.METRICS_TOKEN }}          # A personal token from an user account with read:org scope
-    committer_token: ${{ secrets.GITHUB_TOKEN }} # GitHub auto-generated token
     user: organization-name                      # Organization name
 ```
 
