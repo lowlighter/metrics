@@ -271,7 +271,7 @@
         //Check editions
           if ((committer.commit)||(committer.pr)) {
             const git = sgit()
-            const sha = await git.hashObject(filename)
+            const sha = await git.hashObject(paths.join("/renders", filename))
             info("Current render sha", sha)
             if (committer.sha === sha) {
               info(`Commit to branch ${committer.branch}`, "(no changes)")
