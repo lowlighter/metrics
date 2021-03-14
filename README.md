@@ -5,8 +5,6 @@
 Generate your metrics that you can embed everywhere, including your GitHub profile readme! It works for both user and organization accounts, and even for repositories!
 
 
-<sup>*⚠️ This is the documentation of **v3.5-beta** (`@master` branch) which includes [unreleased features](https://github.com/lowlighter/metrics/compare/latest...master), see documentation of **v3.4** (`@latest` branch) [here](https://github.com/lowlighter/metrics/blob/latest/README.md).*</sup>
-
 
 <table>
   <tr>
@@ -391,8 +389,8 @@ on:
   # Schedule updates (each hour)
   schedule: [{cron: "0 * * * *"}]
   # Lines below let you run workflow manually and on each commit (optional)
-  push: {branches: ["master", "main"]}
   workflow_dispatch:
+  push: {branches: ["master", "main"]}
 jobs:
   github-metrics:
     runs-on: ubuntu-latest
@@ -402,8 +400,6 @@ jobs:
         with:
           # Your GitHub token
           token: ${{ secrets.METRICS_TOKEN }}
-          # GITHUB_TOKEN is a special auto-generated token restricted to current repository, which is used to push files in it
-          committer_token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 See all supported options in [action.yml](action.yml).
@@ -807,7 +803,6 @@ To support private repositories, add full `repo` scope to your personal token.
   with:
     # ... other options
     token: ${{ secrets.METRICS_TOKEN }}          # A personal token from an user account with read:org scope
-    committer_token: ${{ secrets.GITHUB_TOKEN }} # GitHub auto-generated token
     user: organization-name                      # Organization name
 ```
 
