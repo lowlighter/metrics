@@ -29,7 +29,7 @@ Dependencies will be analyzed with [github/licensed](https://github.com/github/l
     # ... other options
     template: repository
     user: repository-owner
-    query: '{"repo":"repository-name"}'
+    repo: repository-name
     plugin_licenses: yes
     plugin_licenses_setup: npm ci       # Command to setup target repository
     plugin_licenses_ratio: yes          # Display used licenses ratio

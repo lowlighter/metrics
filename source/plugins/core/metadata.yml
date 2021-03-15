@@ -45,6 +45,13 @@ inputs:
     type: string
     default: "" # Defaults to your repository default branch
 
+  # Commit message
+  # Use "${filename}" to display filename
+  committer_message:
+    description: Commit message
+    type: string
+    default: Update ${filename} - [Skip GitHub Action]
+
   # Rendered metrics output path, relative to repository's root
   filename:
     description: Rendered metrics output path

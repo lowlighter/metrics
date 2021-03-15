@@ -213,8 +213,10 @@
               emojis.set(emoji, (await axios.get(url)).data.replace(/^<svg /, '<svg class="twemoji" '))
           }
         //Apply replacements
-          for (const [emoji, twemoji] of emojis)
+          for (const [emoji, twemoji] of emojis) {
+            rendered = rendered.replace(new RegExp(`<metrics[ ]*(?<attributes>[^>]*)>${emoji}</metrics>`, "g"), twemoji.replace('<svg class="twemoji" ', '<svg class="twemoji" $<attributes>'))
             rendered = rendered.replace(new RegExp(emoji, "g"), twemoji)
+          }
         return rendered
       },
     /**Render github emojis */
