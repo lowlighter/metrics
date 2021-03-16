@@ -21,3 +21,19 @@ jobs:
           stale-pr-label: stale
           remove-stale-when-updated: yes
           operations-per-run: 100
+
+  lock:
+    name: Lock inactive closed issues and pull requests
+    needs:
+      - stale
+    runs-on: ubuntu-latest
+    steps:
+      - uses: dessant/lock-threads@v2
+        with:
+          github-token: ${{ github.token }}
+          issue-lock-inactive-days: 14
+          issue-lock-reason: ""
+          issue-lock-labels: archived
+          pr-lock-inactive-days: 14
+          pr-lock-reason: ""
+          pr-lock-labels: archived
