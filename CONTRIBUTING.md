@@ -511,9 +511,7 @@ Below is a list of used packages.
 * [vuejs/vue](https://github.com/vuejs/vue) and [egoist/vue-prism-component](https://github.com/egoist/vue-prism-component) + [prismjs/prism](https://github.com/prismjs/prism)
   * To display server application
 * [puppeteer/puppeteer](https://github.com/puppeteer/puppeteer)
-  * To scrap the web
-* [libxmljs/libxmljs](https://github.com/libxmljs/libxmljs)
-  * To test and verify SVG validity
+  * To scrape the web
 * [facebook/jest](https://github.com/facebook/jest) and [nodeca/js-yaml](https://github.com/nodeca/js-yaml)
   * For unit testing
 * [marak/faker.js](https://github.com/marak/Faker.js)
@@ -524,6 +522,8 @@ Below is a list of used packages.
   * To parse emojis and replace them by [twemojis](https://github.com/twitter/twemoji)
 * [jshemas/openGraphScraper](https://github.com/jshemas/openGraphScraper)
   * To retrieve open graphs metadata
+* [libxmljs/libxmljs](https://github.com/libxmljs/libxmljs)
+  * To test and verify SVG validity
 
 </details>
 

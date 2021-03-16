@@ -4,7 +4,6 @@
   import util from "util"
   import SVGO from "svgo"
 
-//Setup
   export default async function metrics({login, q}, {graphql, rest, plugins, conf, die = false, verify = false, convert = null}, {Plugins, Templates}) {
     //Compute rendering
       try {
@@ -89,7 +88,7 @@
             else
               console.debug(`metrics/compute/${login} > optimize > this feature is currently disabled due to display issues (use --optimize flag in experimental features to force enable it)`)
           }
-        //Verify svg
+          //Verify SVG
           if (verify) {
             console.debug(`metrics/compute/${login} > verify SVG`)
             const libxmljs = (await import("libxmljs")).default

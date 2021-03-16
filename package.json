@@ -5,12 +5,13 @@
   "main": "index.mjs",
   "scripts": {
     "start": "node source/app/web/index.mjs",
-    "test": "npx jest",
+    "test": "jest",
     "index": "node .github/index.mjs",
     "upgrade": "npm install @actions/core@latest @actions/github@latest @octokit/graphql@latest @octokit/rest@latest axios@latest compression@latest ejs@latest express@latest express-rate-limit@latest faker@latest jimp@latest js-yaml@latest memory-cache@latest open-graph-scraper@latest prismjs@latest puppeteer@latest simple-git@latest svgo@latest twemoji-parser@latest vue@latest eslint@latest jest@latest libxmljs@latest",
     "quickstart": "node .github/quickstart/index.mjs",
-    "linter": "npx eslint source/**/*.mjs",
-    "dev": "nodemon source/app/web/index.mjs -e mjs,css,ejs"
+    "linter": "eslint source/**/*.mjs",
+    "dev": "nodemon source/app/web/index.mjs -e mjs,css,ejs,json",
+    "postinstall": "node node_modules/puppeteer/install.js"
   },
   "repository": {
     "type": "git",
@@ -48,8 +49,8 @@
   "devDependencies": {
     "eslint": "^7.21.0",
     "jest": "^26.6.3",
-    "libxmljs": "^0.19.7",
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "libxmljs": "^0.19.7"
   },
   "jest": {
     "testEnvironment": "node",
