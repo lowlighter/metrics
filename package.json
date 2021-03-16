@@ -49,12 +49,14 @@
   "devDependencies": {
     "eslint": "^7.21.0",
     "jest": "^26.6.3",
-    "nodemon": "^2.0.7",
-    "libxmljs": "^0.19.7"
+    "nodemon": "^2.0.7"
   },
   "jest": {
     "testEnvironment": "node",
     "testTimeout": 60000,
     "transform": {}
+  },
+  "optionalDependencies": {
+    "libxmljs": "^0.19.7"
   }
 }
