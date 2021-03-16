@@ -512,7 +512,7 @@ Below is a list of used packages.
   * To display server application
 * [puppeteer/puppeteer](https://github.com/puppeteer/puppeteer)
   * To scrape the web
-* [libxmljs/libxmljs](https://github.com/libxmljs/libxmljs)
+* [marudor/libxmljs2](https://github.com/marudor/libxmljs2)
   * To test and verify SVG validity
 * [facebook/jest](https://github.com/facebook/jest) and [nodeca/js-yaml](https://github.com/nodeca/js-yaml)
   * For unit testing
