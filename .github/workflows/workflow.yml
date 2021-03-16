@@ -28,7 +28,7 @@ jobs:
       - name: Setup metrics
         run: npm ci
       - name: Check contributions requirements
-        run: npm test -- ci.test.js
+        run: npm test -- ci.test.js --noStackTrace
       - name: Run linter
         run: npm run linter
 
