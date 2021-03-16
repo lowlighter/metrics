@@ -522,6 +522,8 @@ Below is a list of used packages.
   * To parse emojis and replace them by [twemojis](https://github.com/twitter/twemoji)
 * [jshemas/openGraphScraper](https://github.com/jshemas/openGraphScraper)
   * To retrieve open graphs metadata
+* [libxmljs/libxmljs](https://github.com/libxmljs/libxmljs)
+  * To test and verify SVG validity
 
 </details>
 

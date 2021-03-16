@@ -4,7 +4,6 @@
   import util from "util"
   import SVGO from "svgo"
 
-/*eslint-disable no-unused-vars*/
   export default async function metrics({login, q}, {graphql, rest, plugins, conf, die = false, verify = false, convert = null}, {Plugins, Templates}) {
     //Compute rendering
       try {
@@ -88,6 +87,14 @@
             }
             else
               console.debug(`metrics/compute/${login} > optimize > this feature is currently disabled due to display issues (use --optimize flag in experimental features to force enable it)`)
+          }
+          // Verify SVG
+          if (verify) {
+            console.debug(`metrics/compute/${login} > verify SVG`)
+            const libxmljs = (await import("libxmljs")).default
+            const parsed = libxmljs.parseXml(rendered)
+            if (parsed.errors.length)
+              throw new Error(`Malformed SVG : \n${parsed.errors.join("\n")}`)
           }
         //Resizing
           const {resized, mime} = await imports.svg.resize(rendered, {paddings:q["config.padding"] || conf.settings.padding, convert})
