@@ -92,10 +92,11 @@
         //Verify svg
           if (verify) {
             console.debug(`metrics/compute/${login} > verify SVG`)
-            const libxmljs = (await import("libxmljs")).default
+            const libxmljs = (await import("libxmljs2")).default
             const parsed = libxmljs.parseXml(rendered)
             if (parsed.errors.length)
               throw new Error(`Malformed SVG : \n${parsed.errors.join("\n")}`)
+            console.debug(`metrics/compute/${login} > verified SVG, no parsing errors found`)
           }
         //Resizing
           const {resized, mime} = await imports.svg.resize(rendered, {paddings:q["config.padding"] || conf.settings.padding, convert})
