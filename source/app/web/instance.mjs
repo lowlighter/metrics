@@ -163,7 +163,7 @@
             await pending.get(login)
           }
           else
-            pending.set(login, new Promise(_solve => solve = _solve))
+            pending.set(login, new Promise(_solve => solve = _solve)) //eslint-disable-line no-promise-executor-return
         //Read cached data if possible
           if ((!debug)&&(cached)&&(cache.get(login))) {
             const {rendered, mime} = cache.get(login)
