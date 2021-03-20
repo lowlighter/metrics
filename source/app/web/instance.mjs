@@ -141,11 +141,13 @@
         })
 
     //Metrics
-      const pending = new Set()
+      const pending = new Map()
       app.get("/:login/:repository?", ...middlewares, async(req, res) => {
         //Request params
           const login = req.params.login?.replace(/[\n\r]/g, "")
           const repository = req.params.repository?.replace(/[\n\r]/g, "")
+          let solve = null
+        //Check username
           if (!/^[-\w]+$/i.test(login)) {
             console.debug(`metrics/app/${login} > 400 (invalid username)`)
             return res.status(400).send("Bad request: username seems invalid")
@@ -155,6 +157,13 @@
             console.debug(`metrics/app/${login} > 403 (not in allowed users)`)
             return res.status(403).send("Forbidden: username not in allowed list")
           }
+        //Prevent multiples requests
+          if (pending.has(login)) {
+            console.debug(`metrics/app/${login} > awaiting pending request`)
+            await pending.get(login)
+          }
+          else
+            pending.set(login, new Promise(_solve => solve = _solve)) //eslint-disable-line no-promise-executor-return
         //Read cached data if possible
           if ((!debug)&&(cached)&&(cache.get(login))) {
             const {rendered, mime} = cache.get(login)
@@ -166,12 +175,6 @@
             console.debug(`metrics/app/${login} > 503 (maximum users reached)`)
             return res.status(503).send("Service Unavailable: maximum number of users reached, only cached metrics are available")
           }
-        //Prevent multiples requests
-          if (pending.has(login)) {
-            console.debug(`metrics/app/${login} > 409 (multiple requests)`)
-            return res.status(409).send(`Conflict: a request for "${login}" is already being processed, retry later once previous one is finished`)
-          }
-          pending.add(login)
         //Repository alias
           if (repository) {
             console.debug(`metrics/app/${login} > compute repository metrics`)
@@ -216,6 +219,7 @@
           }
         //After rendering
           finally {
+            solve?.()
             pending.delete(login)
           }
       })
