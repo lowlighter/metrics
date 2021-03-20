@@ -11,11 +11,11 @@
               link:faker.internet.url(),
               content:faker.lorem.paragraphs(),
               contentSnippet:faker.lorem.paragraph(),
-              isoDate:faker.date.recent()
+              isoDate:faker.date.recent(),
             })),
             title:faker.lorem.sentence(),
             description:faker.lorem.paragraph(),
-            link:url
+            link:url,
           },
         })
       }

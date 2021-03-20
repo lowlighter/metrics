@@ -1,6 +1,6 @@
 
 //Setup
-  export default async function({login, q, imports, data, computed, rest, graphql, queries, account}, {enabled = false} = {}) {
+  export default async function({login, q, imports, data, account}, {enabled = false} = {}) {
     //Plugin execution
       try {
         //Check if plugin is enabled and requirements are met
@@ -13,7 +13,7 @@
             throw {error:{message:"A RSS feed is required"}}
 
         //Load rss feed
-          const {title, description, link, items} = await (new imports.rss()).parseURL(source)
+          const {title, description, link, items} = await (new imports.rss()).parseURL(source) //eslint-disable-line new-cap
           const feed = items.map(({title, isoDate:date}) => ({title, date:new Date(date)}))
 
         //Limit feed
