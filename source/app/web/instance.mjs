@@ -158,7 +158,7 @@
             return res.status(403).send("Forbidden: username not in allowed list")
           }
         //Prevent multiples requests
-          if (pending.has(login)) {
+          if ((!debug)&&(pending.has(login))) {
             console.debug(`metrics/app/${login} > awaiting pending request`)
             await pending.get(login)
           }
