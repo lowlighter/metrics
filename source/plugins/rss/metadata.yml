@@ -1,0 +1,30 @@
+name: "🗼 Rss feed"
+cost: N/A
+categorie: social
+index: 6.5
+supports:
+  - user
+  - organization
+  - repository
+inputs:
+
+  # Enable or disable plugin
+  plugin_rss:
+    description: Display RSS feed
+    type: boolean
+    default: no
+
+  # RSS feed source
+  plugin_rss_source:
+    description: RSS feed source
+    type: string
+    default: ""
+
+  # Number of items to display
+  # Set to 0 to disable limitations
+  plugin_rss_limit:
+    description: Maximum number of items to display
+    type: number
+    default: 4
+    min: 0
+    max: 30
