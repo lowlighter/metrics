@@ -3,6 +3,7 @@
   import faker from "faker"
   import paths from "path"
   import urls from "url"
+  import rss from "rss-parser"
   import fs from "fs/promises"
 
 //Mocked state
@@ -118,6 +119,30 @@
                 return target(...args)
             },
           })
+      }
+
+    //RSS mocking
+      {
+        //Unmocked
+          console.debug("metrics/compute/mocks > mocking rss-parser")
+          const unmocked = {rss}
+
+        //Mock rss feed
+          rss.prototype.parseURL = function (url) {
+            console.debug(`metrics/compute/mocks > mocking rss feed result > ${url}`)
+            return ({
+              items:new Array(30).fill(null).map(_ => ({
+                title:faker.lorem.sentence(),
+                link:faker.internet.url(),
+                content:faker.lorem.paragraphs(),
+                contentSnippet:faker.lorem.paragraph(),
+                isoDate:faker.date.recent()
+              })),
+              title:faker.lorem.words(),
+              description:faker.lorem.paragraph(),
+              link:url
+            })
+          }
       }
 
     //Return mocked elements
