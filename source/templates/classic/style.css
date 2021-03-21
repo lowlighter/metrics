@@ -916,13 +916,20 @@
     color: #666666;
   }
 
-/* Stock charts */
-  .stock-chart .ct-line {
+/* Charts */
+  .ct-line {
     stroke-width: 2px !important;
     stroke: #58A6FF !important;
   }
-  .stock-chart .ct-area {
+  .ct-area {
     fill: #58A6FF !important;
+  }
+  .ct-label {
+    fill: rgba(127, 127, 127, 0.8) !important;
+    color: rgba(127, 127, 127, 0.8) !important;
+  }
+  .ct-grid {
+    stroke: rgba(127, 127, 127, 0.4) !important;
   }
 
 /* Fade animation */
