@@ -104,9 +104,16 @@
     "posts":{
       "enabled": false,            "//": "Display recent posts"
     },
+    "rss":{
+      "enabled": false,            "//": "Display RSS feed"
+    },
     "wakatime":{
       "token": null,               "//":"WakaTime API token",
       "enabled": false,            "//": "Display WakaTime stats"
+    },
+    "stock":{
+      "token": null,               "//":"Yahoo Finance token",
+      "enabled": false,            "//": "Display stock prices of a given company"
     },
     "nightscout":{
       "enabled": false,            "//": "Displays Blood Glucose"

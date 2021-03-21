@@ -31,7 +31,7 @@ And you can customize these heavily with plugins, templates and hundreds of opti
 <table>
   <tr>
     <th colspan="2" align="center">
-      <a href="source/plugins/README.md">🧩 27 plugins</a>
+      <a href="source/plugins/README.md">🧩 29 plugins</a>
     </th>
   </tr>
   <tr>
@@ -255,7 +255,7 @@ And you can customize these heavily with plugins, templates and hundreds of opti
   </tr>
   <tr>
     <th><a href="source/plugins/posts/README.md">✒️ Recent posts</a></th>
-    <th><a href="source/plugins/wakatime/README.md">⏰ WakaTime plugin</a></th>
+    <th><a href="source/plugins/rss/README.md">🗼 Rss feed</a></th>
   </tr>
   <tr>
     <td align="center">
@@ -266,7 +266,21 @@ And you can customize these heavily with plugins, templates and hundreds of opti
       <img width="900" height="1" alt="">
     </td>
     <td align="center">
+      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.rss.svg">
+      <img width="900" height="1" alt="">
+    </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/wakatime/README.md">⏰ WakaTime plugin</a></th>
+    <th><a href="source/plugins/stock/README.md">💹 Stock prices</a></th>
+  </tr>
+  <tr>
+    <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.wakatime.svg">
+      <img width="900" height="1" alt="">
+    </td>
+    <td align="center">
+      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.stock.svg">
       <img width="900" height="1" alt="">
     </td>
   </tr>
@@ -630,7 +644,9 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" title="🌸 Anilist watch list and reading list">🌸</th>
     <th nowrap="nowrap" align="center" title="🗨️ Stackoverflow plugin">🗨️</th>
     <th nowrap="nowrap" align="center" title="✒️ Recent posts">✒️</th>
+    <th nowrap="nowrap" align="center" title="🗼 Rss feed">🗼</th>
     <th nowrap="nowrap" align="center" title="⏰ WakaTime plugin">⏰</th>
+    <th nowrap="nowrap" align="center" title="💹 Stock prices">💹</th>
     <th nowrap="nowrap" align="center" title="💉 Nightscout">💉</th>
   </tr>  
   <tr>
@@ -661,7 +677,9 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="anilist">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="stackoverflow">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="posts">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="rss">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="wakatime">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="stock">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="nightscout">✔️</th>
   </tr>
   <tr>
@@ -692,7 +710,9 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="anilist">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="stackoverflow">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="posts">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="rss">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="wakatime">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="stock">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="nightscout">❌</th>
   </tr>
   <tr>
@@ -723,7 +743,9 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="anilist">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="stackoverflow">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="posts">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="rss">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="wakatime">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="stock">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="nightscout">❌</th>
   </tr>
 </table>
@@ -773,8 +795,10 @@ See their respective documentation for more informations about how to setup them
   * [🌸 Anilist watch list and reading list](/source/plugins/anilist/README.md)
   * [🗨️ Stackoverflow plugin](/source/plugins/stackoverflow/README.md)
   * [✒️ Recent posts](/source/plugins/posts/README.md)
+  * [🗼 Rss feed](/source/plugins/rss/README.md)
   * [⏰ WakaTime plugin](/source/plugins/wakatime/README.md)
-* **Health**
+* **Other**
+  * [💹 Stock prices](/source/plugins/stock/README.md)
   * [💉 Nightscout](/source/plugins/nightscout/README.md)
 
 ### 🏦 Organizations metrics

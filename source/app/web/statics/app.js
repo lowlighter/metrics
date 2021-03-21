@@ -23,10 +23,6 @@
           //GitHub limit tracker
             const {data:requests} = await axios.get("/.requests")
             this.requests = requests
-            setInterval(async () => {
-              const {data:requests} = await axios.get("/.requests")
-              this.requests = requests
-            }, 15000)
           //Generate placeholder
             this.mock({timeout:200})
             setInterval(() => {

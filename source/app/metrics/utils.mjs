@@ -28,12 +28,14 @@
   }
 
 /**Formatter */
-  export function format(n, {sign = false} = {}) {
-    for (const {u, v} of [{u:"b", v:10**9}, {u:"m", v:10**6}, {u:"k", v:10**3}]) {
-      if (n/v >= 1)
-        return `${(sign)&&(n > 0) ? "+" : ""}${(n/v).toFixed(2).substr(0, 4).replace(/[.]0*$/, "")}${u}`
+  export function format(n, {sign = false, unit = true, fixed} = {}) {
+    if (unit) {
+      for (const {u, v} of [{u:"b", v:10**9}, {u:"m", v:10**6}, {u:"k", v:10**3}]) {
+        if (n/v >= 1)
+          return `${(sign)&&(n > 0) ? "+" : ""}${(n/v).toFixed(fixed ?? 2).substr(0, 4).replace(/[.]0*$/, "")}${u}`
+      }
     }
-    return `${(sign)&&(n > 0) ? "+" : ""}${n}`
+    return `${(sign)&&(n > 0) ? "+" : ""}${fixed ? n.toFixed(fixed) : n}`
   }
 
 /**Bytes formatter */
@@ -98,7 +100,7 @@
       .replace(/&amp;/g, u["&"] ? "&" : "&amp;")
   }
 
-/** Chartist */
+/**Chartist */
   export async function chartist() {
     const css = `<style>${await fs.readFile(paths.join(__module(import.meta.url), "../../../node_modules", "node-chartist/dist/main.css")).catch(_ => "")}</style>`
     return (await nodechartist(...arguments))

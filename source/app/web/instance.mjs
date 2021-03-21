@@ -89,7 +89,7 @@
       let requests = {limit:0, used:0, remaining:0, reset:NaN}
       if (!conf.settings.notoken) {
         requests = (await rest.rateLimit.get()).data.rate
-        setInterval(async() => requests = (await rest.rateLimit.get()).data.rate, 30*1000)
+        setInterval(async() => requests = (await rest.rateLimit.get()).data.rate, 5*60*1000)
       }
       //Web
         app.get("/", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/index.html`))

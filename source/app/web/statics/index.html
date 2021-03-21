@@ -49,7 +49,7 @@
             <button @click="generate" :disabled="(!user)||(generated.pending)">
               {{ generated.pending ? 'Working on it :)' : 'Generate your metrics!' }}
             </button>
-            <small>{{ requests.limit }} GitHub requests remaining</small>
+            <small>{{ requests.remaining }} GitHub requests remaining</small>
 
             <div class="configuration">
               <b>🖼️ Template</b>

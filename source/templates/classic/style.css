@@ -132,7 +132,7 @@
 
 /* Labels */
   .label {
-    background-color: #F1F8FF;
+    background-color: #58A6FF30;
     color: #0366D6;
     padding: 0 10px;
     font-weight: 500;
@@ -141,11 +141,6 @@
     white-space: nowrap;
     border-radius: 32px;
     font-size: 12px;
-  }
-
-  .label:hover {
-    background-color: #DDEEFF;
-    cursor: pointer;
   }
 
 /* Habits */
@@ -498,7 +493,7 @@
 
   .repository .name span:last-child {
     color: #666666;
-    font-size: 13px;
+    font-size: 10px;
   }
 
   .repository .description {
@@ -914,6 +909,22 @@
   .rss .infos .date {
     font-size: 10px;
     color: #666666;
+  }
+
+/* Charts */
+  .ct-line {
+    stroke-width: 2px !important;
+    stroke: #58A6FF !important;
+  }
+  .ct-area {
+    fill: #58A6FF !important;
+  }
+  .ct-label {
+    fill: rgba(127, 127, 127, 0.8) !important;
+    color: rgba(127, 127, 127, 0.8) !important;
+  }
+  .ct-grid {
+    stroke: rgba(127, 127, 127, 0.4) !important;
   }
 
 /* Fade animation */
