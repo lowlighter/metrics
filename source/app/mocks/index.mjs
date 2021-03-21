@@ -128,7 +128,7 @@
           const unmocked = {rss}
 
         //Mock rss feed
-          rss.prototype.parseURL = function (url) {
+          rss.prototype.parseURL = function(url) {
             console.debug(`metrics/compute/mocks > mocking rss feed result > ${url}`)
             return ({
               items:new Array(30).fill(null).map(_ => ({
@@ -136,11 +136,11 @@
                 link:faker.internet.url(),
                 content:faker.lorem.paragraphs(),
                 contentSnippet:faker.lorem.paragraph(),
-                isoDate:faker.date.recent()
+                isoDate:faker.date.recent(),
               })),
               title:faker.lorem.words(),
               description:faker.lorem.paragraph(),
-              link:url
+              link:url,
             })
           }
       }
