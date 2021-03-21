@@ -3,4 +3,4 @@
   with:
     token: NOT_NEEDED
     plugin_rss: yes
-    plugin_source: https://example.org/rss
+    plugin_rss_source: https://example.org/rss
