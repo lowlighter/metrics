@@ -33,6 +33,7 @@ See their respective documentation for more informations about how to setup them
   * [🌸 Anilist watch list and reading list](/source/plugins/anilist/README.md)
   * [🗨️ Stackoverflow plugin](/source/plugins/stackoverflow/README.md)
   * [✒️ Recent posts](/source/plugins/posts/README.md)
+  * [🗼 Rss feed](/source/plugins/rss/README.md)
   * [⏰ WakaTime plugin](/source/plugins/wakatime/README.md)
-* **Health**
+* **Other**
   * [💉 Nightscout](/source/plugins/nightscout/README.md)

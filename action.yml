@@ -845,6 +845,25 @@ inputs:
     default: .user.login
   
   # ====================================================================================
+  # 🗼 Rss feed
+  
+  # Enable or disable plugin
+  plugin_rss:
+    description: Display RSS feed
+    default: no
+  
+  # RSS feed source
+  plugin_rss_source:
+    description: RSS feed source
+    default: ""
+  
+  # Number of items to display
+  # Set to 0 to disable limitations
+  plugin_rss_limit:
+    description: Maximum number of items to display
+    default: 4
+  
+  # ====================================================================================
   # ⏰ WakaTime plugin
   
   # Enable or disable plugin

@@ -104,6 +104,9 @@
     "posts":{
       "enabled": false,            "//": "Display recent posts"
     },
+    "rss":{
+      "enabled": false,            "//": "Display RSS feed"
+    },
     "wakatime":{
       "token": null,               "//":"WakaTime API token",
       "enabled": false,            "//": "Display WakaTime stats"
