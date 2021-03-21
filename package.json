@@ -37,6 +37,7 @@
     "jimp": "^0.16.1",
     "js-yaml": "^4.0.0",
     "memory-cache": "^0.2.0",
+    "node-chartist": "^1.0.5",
     "open-graph-scraper": "^4.7.1",
     "prismjs": "^1.23.0",
     "puppeteer": "^8.0.0",
