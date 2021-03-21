@@ -916,6 +916,15 @@
     color: #666666;
   }
 
+/* Stock charts */
+  .stock-chart .ct-line {
+    stroke-width: 2px !important;
+    stroke: #58A6FF !important;
+  }
+  .stock-chart .ct-area {
+    fill: #58A6FF !important;
+  }
+
 /* Fade animation */
   .af {
     opacity: 0;
