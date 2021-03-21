@@ -11,9 +11,10 @@
   import twemojis from "twemoji-parser"
   import jimp from "jimp"
   import opengraph from "open-graph-scraper"
+  import rss from "rss-parser"
 
 //Exports
-  export {fs, os, paths, url, util, processes, axios, puppeteer, git, opengraph}
+  export {fs, os, paths, url, util, processes, axios, puppeteer, git, opengraph, rss}
 
 /**Returns module __dirname */
   export function __module(module) {

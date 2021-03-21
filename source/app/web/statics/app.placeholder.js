@@ -230,6 +230,18 @@
                     favorites:distribution(7).map((value, index, array) => ({name:faker.lorem.word(), color:faker.internet.color(), value, size:faker.random.number(1000000), x:array.slice(0, index).reduce((a, b) => a + b, 0)}))
                   }
                 }) : null),
+              //Languages
+                ...(set.plugins.enabled.rss ? ({
+                  rss:{
+                    source:faker.lorem.words(),
+                    description:faker.lorem.paragraph(),
+                    link:options["rss.source"],
+                    feed:new Array(Number(options["rss.limit"])).fill(null).map(_ => ({
+                      title:faker.lorem.sentence(),
+                      date:faker.date.recent()
+                    })),
+                  }
+                }) : null),
               //Habits
                 ...(set.plugins.enabled.habits ? ({
                   habits:{
