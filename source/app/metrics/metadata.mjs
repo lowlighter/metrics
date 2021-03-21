@@ -5,7 +5,7 @@
   import yaml from "js-yaml"
 
 //Defined categories
-  const categories = ["core", "github", "social", "health", "other"]
+  const categories = ["core", "github", "social", "other"]
 
 /**Metadata descriptor parser */
   export default async function metadata({log = true} = {}) {

@@ -298,7 +298,7 @@ Here's an example:
 ```yaml
 name: "🧩 Plugin name (with emoji icon)"
 cost: Estimates how many GitHub requests is used during plugin execution ("N/A" for Third-Party services)
-categorie: github # Plugin categorie ("github", "social", "health" or "other")
+categorie: github # Plugin categorie ("github", "social" or "other")
 supports:
   - user          # Support users account
   - organization  # Support organizations account
@@ -524,6 +524,8 @@ Below is a list of used packages.
   * To parse emojis and replace them by [twemojis](https://github.com/twitter/twemoji)
 * [jshemas/openGraphScraper](https://github.com/jshemas/openGraphScraper)
   * To retrieve open graphs metadata
+* [panosoft/node-chartist](https://github.com/panosoft/node-chartist) and [gionkunz/chartist-js](https://github.com/gionkunz/chartist-js)
+  * To display embed SVG charts
 
 </details>
 
