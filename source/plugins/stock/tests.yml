@@ -1,0 +1,17 @@
+- name: Stock plugin (default)
+  uses: lowlighter/metrics@latest
+  with:
+    token: NOT_NEEDED
+    plugin_stock: yes
+    plugin_stock_token: MOCKED_TOKEN
+    plugin_stock_symbol: OCTO
+
+- name: Stock plugin (complete)
+  uses: lowlighter/metrics@latest
+  with:
+    token: NOT_NEEDED
+    plugin_stock: yes
+    plugin_stock_token: MOCKED_TOKEN
+    plugin_stock_symbol: OCTO
+    plugin_stock_duration: 5d
+    plugin_stock_interval: 5m
