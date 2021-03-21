@@ -5,3 +5,8 @@
 source/app/web/statics/style.vars.css linguist-vendored
 .github/* -linguist-detectable
 source/templates/* -linguist-detectable
+package-lock.json linguist-generated
+settings.example.json linguist-generated
+action.yml linguist-generated
+CONTRIBUTING.md linguist-documentation
+SECURITY.md linguist-documentation
