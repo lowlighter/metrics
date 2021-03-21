@@ -98,7 +98,7 @@
       .replace(/&amp;/g, u["&"] ? "&" : "&amp;")
   }
 
-/** Chartist */
+/**Chartist */
   export async function chartist() {
     const css = `<style>${await fs.readFile(paths.join(__module(import.meta.url), "../../../node_modules", "node-chartist/dist/main.css")).catch(_ => "")}</style>`
     return (await nodechartist(...arguments))
