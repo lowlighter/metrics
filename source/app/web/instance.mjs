@@ -70,7 +70,11 @@
       }
     //Cache headers middleware
       middlewares.push((req, res, next) => {
-        res.header("Cache-Control", cached ? `public, max-age=${Math.round(cached/1000)}` : "no-store, no-cache")
+        const maxage = Math.round(Number(req.query.cache))
+        if ((cached)||(maxage > 0))
+          res.header("Cache-Control", `public, max-age=${Math.round((maxage > 0 ? maxage : cached)/1000)}`)
+        else
+          res.header("Cache-Control", "no-store, no-cache")
         next()
       })
 
@@ -195,8 +199,10 @@
                 convert:["jpeg", "png", "json"].includes(q["config.output"]) ? q["config.output"] : null,
               }, {Plugins, Templates})
             //Cache
-              if ((!debug)&&(cached))
-                cache.put(login, {rendered, mime}, cached)
+              if ((!debug)&&(cached)) {
+                const maxage = Math.round(Number(req.query.cache))
+                cache.put(login, {rendered, mime}, maxage > 0 ? maxage : cached)
+              }
             //Send response
               res.header("Content-Type", mime)
               return res.send(rendered)

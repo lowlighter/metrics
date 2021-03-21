@@ -904,6 +904,18 @@
     stroke-width: 6;
   }
 
+/* RSS feed */
+  .rss {
+    align-items: flex-start;
+  }
+  .rss .infos {
+    margin-bottom: 3px;
+  }
+  .rss .infos .date {
+    font-size: 10px;
+    color: #666666;
+  }
+
 /* Fade animation */
   .af {
     opacity: 0;

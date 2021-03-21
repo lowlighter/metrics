@@ -11,9 +11,11 @@
   import twemojis from "twemoji-parser"
   import jimp from "jimp"
   import opengraph from "open-graph-scraper"
+  import rss from "rss-parser"
+  import nodechartist from "node-chartist"
 
 //Exports
-  export {fs, os, paths, url, util, processes, axios, puppeteer, git, opengraph}
+  export {fs, os, paths, url, util, processes, axios, puppeteer, git, opengraph, rss}
 
 /**Returns module __dirname */
   export function __module(module) {
@@ -94,6 +96,13 @@
       .replace(/&quot;/g, u['"'] ? '"' : "&quot;")
       .replace(/&(?:apos|#39);/g, u["'"] ? "'" : "&apos;")
       .replace(/&amp;/g, u["&"] ? "&" : "&amp;")
+  }
+
+/** Chartist */
+  export async function chartist() {
+    const css = `<style>${await fs.readFile(paths.join(__module(import.meta.url), "../../../node_modules", "node-chartist/dist/main.css")).catch(_ => "")}</style>`
+    return (await nodechartist(...arguments))
+      .replace(/class="ct-chart-line">/, `class="ct-chart-line">${css}`)
   }
 
 /**Run command */

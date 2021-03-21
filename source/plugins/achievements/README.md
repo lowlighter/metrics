@@ -11,7 +11,7 @@ The *achievements* plugin displays several highlights about what you achieved on
 
 Achievements are mostly related to features offered by GitHub, so by unlocking achivements ranks you'll be mastering GitHub in no time!
 
-A few achievements contains actual real ranking (based on [GitHub search](github.com/search) results)!
+A few achievements contains actual real ranking (based on [GitHub search](https://github.com/search) results)!
 
 #### ℹ️ Examples workflows
 
