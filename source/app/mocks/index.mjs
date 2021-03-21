@@ -125,7 +125,6 @@
       {
         //Unmocked
           console.debug("metrics/compute/mocks > mocking rss-parser")
-          const unmocked = {rss}
 
         //Mock rss feed
           rss.prototype.parseURL = function(url) {
