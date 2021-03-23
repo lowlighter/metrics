@@ -10,6 +10,7 @@
   "port": 3000,                    "//": "Listening port",
   "optimize": true,                "//": "SVG optimization",
   "debug": false,                  "//": "Debug logs",
+  "debug.headless": false,         "//": "Debug puppeteer process",
   "mocked": false,                 "//": "Use mocked data instead of live APIs (use 'force' to use mocked token even if real token are defined)",
   "repositories": 100,             "//": "Number of repositories to use",
   "padding": ["6%", "13%"],        "//": "Image padding (default)",

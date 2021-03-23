@@ -624,10 +624,15 @@ inputs:
     default: 60
   
   # Image quality
-  # Note that it significantly increases output filesize (up to a few Mb) which can cause render/loading issues
   plugin_skyline_quality:
     description: Image quality
     default: 0.5
+  
+  # This uses CSS animations instead of GIF to support a wider range of browser like FireFox and Safari
+  # Using this mode significantly increase file size as each frame is encoded separately
+  plugin_skyline_compatibility:
+    description: Compatibility mode
+    default: no
   
   # ====================================================================================
   # ⏱️ Website performances
