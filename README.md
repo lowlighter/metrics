@@ -866,7 +866,7 @@ Be sure to read [CONTRIBUTING.md](CONTRIBUTING.md) for more information about th
 
 ```
 MIT License
-Copyright (c) 2020 lowlighter
+Copyright (c) 2020-2021 lowlighter
 ```
 
 ![License details](https://github.com/lowlighter/lowlighter/blob/master/metrics.licenses.svg)
