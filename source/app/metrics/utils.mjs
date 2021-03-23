@@ -32,10 +32,10 @@
         headless:this.headless,
         executablePath:process.env.PUPPETEER_BROWSER_PATH,
         args:this.headless ? ["--no-sandbox", "--disable-extensions", "--disable-setuid-sandbox", "--disable-dev-shm-usage"] : [],
-        ignoreDefaultArgs:["--disable-extensions"]
+        ignoreDefaultArgs:["--disable-extensions"],
       })
     },
-    headless:true
+    headless:true,
   }
 
 /**Plural formatter */
