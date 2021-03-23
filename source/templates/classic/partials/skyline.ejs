@@ -12,44 +12,52 @@
             <%= plugins.skyline.error.message %>
           </div>
         <% } else { %>
-          <div class="skyline-animation">
-            <div class="frames">
-              <% for (const frame of plugins.skyline.frames) { %>
-                <div class="frame">
-                  <img class="skyline" src="<%= frame %>" width="454" height="284" alt=""/>
-                </div>
-              <% } %>
+          <% if (plugins.skyline.compatibility) { %>
+            <div class="skyline-animation">
+              <div class="frames">
+                <% for (const frame of plugins.skyline.animation) { %>
+                  <div class="frame">
+                    <img class="skyline" src="<%= frame %>" height="<%= plugins.skyline.height %>" width="<%= plugins.skyline.width %>" alt=""/>
+                  </div>
+                <% } %>
+              </div>
             </div>
-          </div>
-          <% { const n = plugins.skyline.frames.length, width = 454, height = 284 %>
-            <style>
-              @keyframes skyline-animation-frame {
-                100% { transform: translateX(-100%); }
-              }
-              .skyline-animation {
-                margin: 2px 13px 6px;
-                border-radius: 10px;
-                width: <%= width %>px;
-                height: <%= height %>px;
-                background-color: #030D21;
-                overflow: hidden;
-              }
-              .skyline-animation .frames {
-                animation: skyline-animation-frame <%= 150*n %>ms infinite;
-                animation-timing-function: steps(<%= n %>);
-                display: flex;
-                width: <%= n*width %>px;
-                height: <%= height %>px;
-              }
-              .skyline-animation .frames .frame {
-                display: block;
-                width: <%= width %>px;
-                flex-basis: <%= width %>px;
-              }
-              .skyline-animation .frames .frame img {
-                width: <%= width %>px;
-              }
-            </style>
+            <% { const n = plugins.skyline.animation.length, width = plugins.skyline.width, height = plugins.skyline.height %>
+              <style>
+                @keyframes skyline-animation-frame {
+                  100% { transform: translateX(-100%); }
+                }
+                .skyline-animation {
+                  margin: 2px 13px 6px;
+                  border-radius: 10px;
+                  width: <%= width %>px;
+                  height: <%= height %>px;
+                  background-color: #030D21;
+                  overflow: hidden;
+                }
+                .skyline-animation .frames {
+                  animation: skyline-animation-frame <%= 150*n %>ms infinite;
+                  animation-timing-function: steps(<%= n %>);
+                  display: flex;
+                  width: <%= n*width %>px;
+                  height: <%= height %>px;
+                }
+                .skyline-animation .frames .frame {
+                  display: block;
+                  width: <%= width %>px;
+                  flex-basis: <%= width %>px;
+                }
+                .skyline-animation .frames .frame img {
+                  width: <%= width %>px;
+                }
+              </style>
+            <% } %>
+          <% } else { %>
+            <div class="skyline-animation">
+              <svg width="100%" height="<%= plugins.skyline.height %>" xmlns="http://www.w3.org/2000/svg">
+                <image href="<%= plugins.skyline.animation %>" height="<%= plugins.skyline.height %>" width="<%= plugins.skyline.width %>"/>
+              </svg>
+            </div>
           <% } %>
         <% } %>
       </section>

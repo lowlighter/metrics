@@ -911,6 +911,14 @@
     color: #666666;
   }
 
+/* Skyline */
+  .skyline-animation {
+    margin: 2px 13px 6px;
+    border-radius: 10px;
+    background-color: #030D21;
+    overflow: hidden;
+  }
+
 /* Charts */
   .ct-line {
     stroke-width: 2px !important;
