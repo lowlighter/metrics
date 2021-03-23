@@ -6,7 +6,7 @@
   import util from "util"
   import processes from "child_process"
   import axios from "axios"
-  import puppeteer from "puppeteer"
+  import _puppeteer from "puppeteer"
   import git from "simple-git"
   import twemojis from "twemoji-parser"
   import jimp from "jimp"
@@ -15,11 +15,24 @@
   import nodechartist from "node-chartist"
 
 //Exports
-  export {fs, os, paths, url, util, processes, axios, puppeteer, git, opengraph, rss}
+  export {fs, os, paths, url, util, processes, axios, git, opengraph, rss}
 
 /**Returns module __dirname */
   export function __module(module) {
     return paths.join(paths.dirname(url.fileURLToPath(module)))
+  }
+
+/**Puppeteer instantier */
+  export const puppeteer = {
+    async launch() {
+      return _puppeteer.launch({
+        headless:this.headless,
+        executablePath:process.env.PUPPETEER_BROWSER_PATH,
+        args:this.headless ? ["--no-sandbox", "--disable-extensions", "--disable-setuid-sandbox", "--disable-dev-shm-usage"] : [],
+        ignoreDefaultArgs:["--disable-extensions"]
+      })
+    },
+    headless:true
   }
 
 /**Plural formatter */
@@ -158,7 +171,7 @@
       async resize(rendered, {paddings, convert}) {
         //Instantiate browser if needed
           if (!svg.resize.browser) {
-            svg.resize.browser = await puppeteer.launch({headless:true, executablePath:process.env.PUPPETEER_BROWSER_PATH, args:["--no-sandbox", "--disable-extensions", "--disable-setuid-sandbox", "--disable-dev-shm-usage"], ignoreDefaultArgs:["--disable-extensions"]})
+            svg.resize.browser = await puppeteer.launch()
             console.debug(`metrics/svg/resize > started ${await svg.resize.browser.version()}`)
           }
         //Format padding
