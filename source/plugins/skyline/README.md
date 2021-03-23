@@ -22,7 +22,8 @@ This uses puppeteer to generate collect image frames, and use CSS animations to 
   with:
     # ... other options
     plugin_skyline: yes
-    plugin_skyline_year: 0      # Set to 0 to display current year
-    plugin_skyline_frames: 60   # Use 60 frames (half-loop)
-    plugin_skyline_quality: 0.5 # Scale-down quality by half to reduce file-size (⚠️ higher quality increase file size)
+    plugin_skyline_year: 0            # Set to 0 to display current year
+    plugin_skyline_frames: 60         # Use 60 frames (half-loop)
+    plugin_skyline_quality: 0.5       # Set image quality
+    plugin_skyline_compatibility: yes # Support additional browsers (⚠️ increases file size and reduce optimization)
 ```

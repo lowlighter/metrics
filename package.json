@@ -39,6 +39,7 @@
     "memory-cache": "^0.2.0",
     "node-chartist": "^1.0.5",
     "open-graph-scraper": "^4.7.1",
+    "png-js": "^1.0.0",
     "prismjs": "^1.23.0",
     "puppeteer": "^8.0.0",
     "rss-parser": "^3.12.0",
@@ -58,5 +59,8 @@
     "testEnvironment": "node",
     "testTimeout": 60000,
     "transform": {}
+  },
+  "optionalDependencies": {
+    "gifencoder": "^2.0.1"
   }
 }
