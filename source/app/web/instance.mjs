@@ -170,6 +170,7 @@
             pending.set(login, new Promise(_solve => solve = _solve)) //eslint-disable-line no-promise-executor-return
         //Read cached data if possible
           if ((!debug)&&(cached)&&(cache.get(login))) {
+            console.debug(`metrics/app/${login} > using cached image`)
             const {rendered, mime} = cache.get(login)
             res.header("Content-Type", mime)
             return res.send(rendered)
@@ -226,7 +227,6 @@
         //After rendering
           finally {
             solve?.()
-            pending.delete(login)
           }
       })
 

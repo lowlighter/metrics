@@ -34,7 +34,7 @@
 
     //Plugins
       for (const name of Object.keys(imports.plugins)) {
-        if (!plugins[name]?.enabled)
+        if ((!plugins[name]?.enabled)||(!q[name]))
           continue
         pending.push((async() => {
           try {
