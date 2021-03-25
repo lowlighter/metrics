@@ -254,7 +254,7 @@ body {
 
 /* Footer */
   main > footer {
-    margin: 1rem;
+    margin: 1rem 0;
     margin-top: 2rem;
     padding-top: 1rem;
     font-size: .8rem;
