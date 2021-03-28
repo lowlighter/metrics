@@ -98,8 +98,8 @@
                         //Parse tracklist
                           await frame.waitForSelector("table")
                           tracks = [...await frame.evaluate(() => [...document.querySelectorAll("table tr")].map(tr => ({
-                            name:tr.querySelector("td:nth-child(2) div:nth-child(1)").innerText,
-                            artist:tr.querySelector("td:nth-child(2) div:nth-child(2)").innerText,
+                            name:tr.querySelector("td:nth-child(2) div div:nth-child(1)").innerText,
+                            artist:tr.querySelector("td:nth-child(2) div div:nth-child(2)").innerText,
                             //Spotify doesn't provide artworks so we fallback on playlist artwork instead
                             artwork:window.getComputedStyle(document.querySelector("button[title=Play]").parentNode, null).backgroundImage.match(/^url\("(?<url>https:...+)"\)$/)?.groups?.url ?? null,
                           })))]
