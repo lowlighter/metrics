@@ -4,6 +4,57 @@ Metrics also have general options that impact global metrics rendering.
 
 [➡️ Available options](metadata.yml)
 
+### 🛠️ General configuration
+
+A GitHub personal access token is required in `token` option.
+It cannot be `${{ github.token }}` or `${{ secrets.GITHUB_TOKEN }}` as these are special tokens scoped to a single repository, so metrics would not be able to fetch any user related data or external repositories informations.
+
+By default, metrics will be generated for the user who owns the `token`, but it is possible to generate them for another user or an organization using `user` option. Additional scopes may be required to do so.
+
+To generate metrics for a repository, use `user` option to specify the repository owner, and `repo` option to specify its name.
+
+Committer options lets you specify how to rendered metrics should be pushed.
+Usually leaving default values is fine, but you have the possibility to change which user will commit to repository using `committer_token`, on which branch using `committer_branch` and with a specific commit message using `committer_message`.
+
+You may also be interested in using [pull requests](/source/plugins/core#-using-commits-pull-requests-or-manual-review-to-handle-metrics-output) instead of commits.
+
+When generating multiple metrics, you'll need to save them under different `filename`s to avoid them being overwritten at each step.
+
+#### ℹ️ Examples workflows
+
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    token: ${{ secrets.METRICS_TOKEN }}
+    user: lowlighter
+    repo: metrics
+    committer_token: ${{ github.token }}
+    committer_branch: my-branch
+    committer_message: Update metrics
+    filename: metrics.svg
+    # ... other options
+```
+
+### 🖼️ Templates configuration
+
+To use a different template, pass its identifier to `template` option.
+See the [list of supported templates](/source/templates/README.md).
+
+It is possible to use templates from any forked repositories (not necessarly your own) while using official releases  using [community templates](/source/templates/community/README.md).
+
+Some templates may accept additional custom options that you can pass through the `query` option, using a JSON formatted string.
+
+#### ℹ️ Examples workflows
+
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    template: "@super-metrics"
+    setup_community_templates: octocat/metrics@master:super-metrics, octocat/metrics@master:trusted-metrics+trust
+    query: '{"custom_colo r":"#FF0000"}'
+```
+
 ### 🌐 Set timezone
 
 By default, dates are based on Greenwich meridian (GMT/UTC).
@@ -165,4 +216,21 @@ It could then be processed for other usages.
   with:
     # ... other options
     config_output: png
+```
+
+### 🐳 Faster execution with prebuilt docker images
+
+If you're using the official release `lowlighter/metrics` as a GitHub Action (either a specific version, `@latest` or `@master`), it'll pull a prebuilt docker container image from [GitHub Container Registry](https://github.com/users/lowlighter/packages/container/package/metrics) which contains already installed dependencies which will cut execution time from ~5 minutes to ~1 minute.
+
+These are published through this automated [workflow](/.github/workflows/workflow.yml).
+
+As code is frozen on docker container images, this feature is disabled on forks to take into account any changes you've made on it. In case you wish to use official releases along with a custom template present on your fork, check out [community templates](/source/templates/community/README.md).
+
+#### ℹ️ Examples workflows
+
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    use_prebuilt_image: yes
 ```

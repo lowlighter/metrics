@@ -5,7 +5,7 @@
   "main": "index.mjs",
   "scripts": {
     "start": "node source/app/web/index.mjs",
-    "test": "jest",
+    "test": "jest --runInBand",
     "index": "node .github/index.mjs",
     "upgrade": "npm install @actions/core@latest @actions/github@latest @octokit/graphql@latest @octokit/rest@latest axios@latest compression@latest ejs@latest express@latest express-rate-limit@latest faker@latest jimp@latest js-yaml@latest memory-cache@latest open-graph-scraper@latest prismjs@latest puppeteer@latest simple-git@latest svgo@latest twemoji-parser@latest vue@latest eslint@latest jest@latest libxmljs2@latest",
     "quickstart": "node .github/quickstart/index.mjs",
