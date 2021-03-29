@@ -176,7 +176,7 @@ inputs:
     max: 3600
 
   # ====================================================================================
-  # Options below are mostly used for testing
+  # 🚧 Options below are mostly used for testing
 
   # Throw on plugins errors
   # If disabled, metrics will handle errors gracefully with a message in rendered metrics
