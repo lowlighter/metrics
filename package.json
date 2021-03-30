@@ -47,7 +47,8 @@
     "svgo": "^2.2.0",
     "twemoji-parser": "^13.0.0",
     "vue": "^2.6.12",
-    "vue-prism-component": "^1.2.0"
+    "vue-prism-component": "^1.2.0",
+    "xml-formatter": "^2.4.0"
   },
   "devDependencies": {
     "eslint": "^7.21.0",
