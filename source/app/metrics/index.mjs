@@ -3,6 +3,7 @@
   import ejs from "ejs"
   import util from "util"
   import SVGO from "svgo"
+  import xmlformat from "xml-formatter"
 
 //Setup
   export default async function metrics({login, q}, {graphql, rest, plugins, conf, die = false, verify = false, convert = null}, {Plugins, Templates}) {
@@ -71,6 +72,7 @@
           if (q["config.gemoji"])
             rendered = await imports.svg.gemojis(rendered, {rest})
         //Optimize rendering
+          rendered = xmlformat(rendered, {lineSeparator:"\n"})
           if ((conf.settings?.optimize)&&(!q.raw)) {
             console.debug(`metrics/compute/${login} > optimize`)
             if (experimental.has("--optimize")) {
