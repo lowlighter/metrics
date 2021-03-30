@@ -21,7 +21,7 @@
 
         //Load tweets
           console.debug(`metrics/compute/${login}/plugins > tweets > querying api`)
-          const {data:{data:tweets = [], includes:{media = []}}} = await imports.axios.get(`https://api.twitter.com/2/tweets/search/recent?query=from:${username}&tweet.fields=created_at,entities&media.fields=preview_image_url,url,type&expansions=entities.mentions.username,attachments.media_keys`, {headers:{Authorization:`Bearer ${token}`}})
+          const {data:{data:tweets = [], includes:{media = []} = {}}} = await imports.axios.get(`https://api.twitter.com/2/tweets/search/recent?query=from:${username}&tweet.fields=created_at,entities&media.fields=preview_image_url,url,type&expansions=entities.mentions.username,attachments.media_keys`, {headers:{Authorization:`Bearer ${token}`}})
           const medias = new Map(media.map(({media_key, type, url, preview_image_url}) => [media_key, (type === "photo")||(type === "animated_gif") ? url : type === "video" ? preview_image_url : null]))
 
         //Limit tweets
