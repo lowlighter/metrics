@@ -241,7 +241,7 @@
           }
         //Apply replacements
           for (const [emoji, twemoji] of emojis) {
-            rendered = rendered.replace(new RegExp(`<metrics[ ]*(?<attributes>[^>]*)>${emoji}</metrics>`, "g"), twemoji.replace('<svg class="twemoji" ', '<svg class="twemoji" $<attributes>'))
+            rendered = rendered.replace(new RegExp(`<metrics[ ]*(?<attributes>[^>]*)>${emoji}</metrics>`, "g"), twemoji.replace(/(<svg class="twemoji" [\s\S]+?)(>)/, "$1 $<attributes> $2"))
             rendered = rendered.replace(new RegExp(emoji, "g"), twemoji)
           }
         return rendered
