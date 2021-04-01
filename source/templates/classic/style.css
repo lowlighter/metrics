@@ -82,6 +82,9 @@
   .margin-bottom {
     margin-bottom: 16px;
   }
+  .no-margin-top {
+    margin-top: 0px;
+  }
 
 /* User avatar */
   .avatar {

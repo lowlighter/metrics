@@ -7,8 +7,6 @@
 
 /* Title bar */
   .header {
-    position: absolute;
-    top: 0;
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -56,9 +54,10 @@
   }
   pre {
     background: #42092B;
-    margin-top: 16px;
     padding: 12px;
     border-radius: 5px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
   }
   .banner, footer {
     color: #AE9DA7;
