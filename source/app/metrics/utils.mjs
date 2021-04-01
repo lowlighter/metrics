@@ -241,7 +241,7 @@
           }
         //Apply replacements
           for (const [emoji, twemoji] of emojis) {
-            rendered = rendered.replace(new RegExp(`<metrics[ ]*(?<attributes>[^>]*)>${emoji}</metrics>`, "g"), twemoji.replace(/(?<open><svg class="twemoji" [\s\S]+?)(?<close>>)/, "$<open> $<attributes> $<close>"))
+            rendered = rendered.replace(new RegExp(`<metrics[ ]*(?<attributes>[^>]*)>${emoji}</metrics>`, "g"), twemoji.replace(/(<svg class="twemoji" [\s\S]+?)(>)/, "$1 $<attributes> $2")) //eslint-disable-line prefer-named-capture-group
             rendered = rendered.replace(new RegExp(emoji, "g"), twemoji)
           }
         return rendered
