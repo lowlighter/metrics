@@ -48,3 +48,8 @@ inputs:
     type: string
     default: .user.login
 
+  # Custom URL
+  plugin_posts_url:
+    description: Posts custom url
+    type: string
+    default: no

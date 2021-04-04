@@ -7,8 +7,7 @@
             return null
 
         //Load inputs
-          let {source, descriptions, covers, limit, user} = imports.metadata.plugins.posts.inputs({data, account, q})
-
+          let {source, descriptions, covers, limit, user, url} = imports.metadata.plugins.posts.inputs({data, account, q})
         //Retrieve posts
           console.debug(`metrics/compute/${login}/plugins > posts > processing with source ${source}`)
           let posts = null
@@ -21,7 +20,7 @@
               }
             //Hashnode
               case "hashnode":{
-                posts = (await imports.axios.post("https://api.hashnode.com", {query:queries.posts.hashnode({user})}, {headers:{"Content-type":"application/json"}})).data.data.user.publication.posts.map(({title, brief:description, dateAdded:date, coverImage:image}) => ({title, description, date, image}))
+                posts = (await imports.axios.post("https://api.hashnode.com", {query:queries.posts.hashnode({user})}, {headers:{"Content-type":"application/json"}})).data.data.user.publication.posts.map(({title, brief:description, dateAdded:date, coverImage:image, slug:slug}) => ({title, description, date, image, slug}))
                 break
               }
             //Unsupported
@@ -41,8 +40,10 @@
                 console.debug(`metrics/compute/${login}/plugins > posts > formatting cover images`)
                 posts = await Promise.all(posts.map(async({image, ...post}) => ({image:await imports.imgb64(image, {width:144, height:-1}), ...post})))
               }
+            //URL post
+              url === 'no' ? url = `https://${user}.hashnode.dev/` : url = url
             //Results
-              return {source, descriptions, covers, list:posts}
+              return {source, descriptions, covers, list:posts, url}
           }
 
         //Unhandled error
