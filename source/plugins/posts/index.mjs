@@ -41,7 +41,7 @@
                 posts = await Promise.all(posts.map(async({image, ...post}) => ({image:await imports.imgb64(image, {width:144, height:-1}), ...post})))
               }
             //URL post
-              url === 'no' ? url = `https://${user}.hashnode.dev/` : url = url
+              if (url === "no") url = `https://${user}.hashnode.dev/`
             //Results
               return {source, descriptions, covers, list:posts, url}
           }
