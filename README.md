@@ -325,14 +325,24 @@ And you can customize these heavily with plugins, templates and hundreds of opti
   </tr>
   <tr>
     <th><a href="source/templates/terminal/README.md">📙 Terminal</a></th>
-    <th><a href="source/templates/community/README.md">📕 Community templates</a></th>
+    <th><a href="source/templates/markdown/README.md">📒 Markdown (🚧 v3.7)</a></th>
   </tr>
   <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.terminal.svg">
       <img width="900" height="1" alt="">
     </td>
-    <td align="center">See <a href="/source/templates/community/README.md">documentation</a> 🌍</td>
+    <td align="center">
+      <img width="900" height="1" alt="">
+    </td>
+  </tr>
+  <tr>
+    <th colspan="2"><a href="source/templates/community/README.md">📕 Community templates</a></th>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
+      <td align="center">See <a href="/source/templates/community/README.md">documentation</a> 🌍</td>
+    </td>
   </tr>
 </table>
 
@@ -748,6 +758,39 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="stock">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="nightscout">❌</th>
   </tr>
+  <tr>
+    <th nowrap="nowrap">📒 Markdown (🚧 v3.7)</th>    
+    <th nowrap="nowrap" align="center" data-plugin="base">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="isocalendar">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="languages">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="introduction">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="habits">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="licenses">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="contributors">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="stars">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="topics">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="reactions">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="people">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="gists">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="followup">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="lines">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="traffic">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="stargazers">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="projects">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="activity">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="achievements">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="skyline">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="pagespeed">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="music">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="tweets">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="anilist">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="stackoverflow">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="posts">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="rss">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="wakatime">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="stock">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="nightscout">❌</th>
+  </tr>
 </table>
 
 ## 🖼️ Templates
@@ -758,6 +801,7 @@ See their respective documentation for more informations about how to setup them
 * [📗 Classic](/source/templates/classic/README.md)
 * [📘 Repository](/source/templates/repository/README.md)
 * [📙 Terminal](/source/templates/terminal/README.md)
+* [📒 Markdown (🚧 v3.7)](/source/templates/markdown/README.md)
 * [📕 Community templates](/source/templates/community/README.md)
 
 ## 🧩 Plugins
@@ -892,4 +936,5 @@ Copyright (c) 2020-2021 lowlighter
 * [jamesgeorge007/github-activity-readme](https://github.com/jamesgeorge007/github-activity-readme)
 * [vvo/sourcekarma](https://github.com/vvo/sourcekarma)
 * [ryo-ma/github-profile-trophy](https://github.com/ryo-ma/github-profile-trophy)
+* [teoxoy/profile-readme-stats](https://github.com/teoxoy/profile-readme-stats)
 
