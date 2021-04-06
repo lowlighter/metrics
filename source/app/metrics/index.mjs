@@ -62,6 +62,31 @@
             return {rendered:data, mime:"application/json"}
           }
 
+        //Markdown output
+          if (convert === "markdown") {
+            //Retrieving template source
+              console.debug(`metrics/compute/${login} > markdown render`)
+              let source = image
+              try {
+                let template = q.markdown
+                if (!/^https:/.test(template)) {
+                  const {data:{default_branch:branch, full_name:repo}} = await rest.repos.get({owner:login, repo:q.repo||login})
+                  console.debug(`metrics/compute/${login} > on ${repo} with default branch ${branch}`)
+                  template = `https://raw.githubusercontent.com/${repo}/${branch}/${template}`
+                }
+                console.debug(`metrics/compute/${login} > fetching ${template}`)
+                ;({data:source} = await imports.axios.get(template, {headers:{Accept:"text/plain"}}))
+              }
+              catch (error) {
+                console.debug(error)
+              }
+            //Rendering template source
+              let rendered = source.replace(/\{\{ (?<content>[\s\S]*?) \}\}/g, "{%= $<content> %}")
+              for (const delimiters of [{openDelimiter:"<", closeDelimiter:">"}, {openDelimiter:"{", closeDelimiter:"}"}])
+                rendered = await ejs.render(rendered, {...data, s:imports.s, f:imports.format}, {views, async:true, ...delimiters})
+            return {rendered, mime:"text/plain"}
+          }
+
         //Rendering
           console.debug(`metrics/compute/${login} > render`)
           let rendered = await ejs.render(image, {...data, s:imports.s, f:imports.format, style, fonts}, {views, async:true})

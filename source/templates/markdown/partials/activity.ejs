@@ -1,0 +1,44 @@
+<%_ if (plugins.activity) { _%>
+  <%_ if (plugins.activity.error) { _%>
+<%= plugins.activity.error.message _%>
+  <%_ } else if (plugins.activity.events.length) { _%>
+    <%_ for (const {actor, type, repo, timestamp, ...event} of plugins.activity.events) { _%>
+        <%_ if (type === "comment") { _%>
+* 💬 Commented on [#<%= event.number %> <%= event.title %>](https://github.com/<%= repo %>/<%= {issue:"issues", pr:"pulls", commit:"commit"}[event.on] %>/<%= event.number %>) from [<%= repo %>](https://github.com/<%= repo %>)
+        <%_ } else if (type === "member") { _%>
+* 💼 Added [<%= event.user %>](https://github.com/<%= event.user %>) as collaborator in [<%= repo %>](https://github.com/<%= repo %>)
+        <%_ } else if (type === "star") { _%>
+* 🌟 Starred [<%= repo %>](https://github.com/<%= repo %>)
+        <%_ } else if (type === "release") { _%>
+* 📦 <%- event.draft ? "Drafted release" : event.prerelease ? "Pre-released" : "Released" %> **<%= event.name %>** of [<%= repo %>](https://github.com/<%= repo %>)
+        <%_ } else if (type === "fork") { _%>
+* 🍽️ Forked [<%= repo %>](https://github.com/<%= repo %>)
+        <%_ } else if (type === "push") { _%>
+* ➡️ Pushed <%= event.size %> commit<%= s(event.size) %> in [<%= repo %>](https://github.com/<%= repo %>) <%= event.branch ? `on branch \`${event.branch}\`` : "" %>
+          <%_ for (const commit of event.commits) { _%>
+  * [#<%= commit.sha %>](https://github.com/<%= repo %>/commit/<%= commit.sha %>) <%= commit.message %>
+          <%_ } _%>
+        <%_ } else if (type === "issue") { _%>
+* #️⃣ <%- event.action === "opened" ? "Opened" : event.action === "reopened" ? "Reopened" : "Closed" %> [#<%= event.number %> <%= event.title %>](https://github.com/<%= repo %>/issues/<%= event.number %>) in [<%= repo %>](https://github.com/<%= repo %>)
+        <%_ } else if (type === "pr") { _%>
+* 🔃 <%- event.action === "opened" ? "Opened" : "Merged" %> [#<%= event.number %> <%= event.title %>](https://github.com/<%= repo %>/pulls/<%= event.number %>) in [<%= repo %>](https://github.com/<%= repo %>)
+          * <%= event.files.changed %> file<%= s(event.files.changed) %> changed `++<%= event.lines.added %> --<%= event.lines.deleted%>`
+        <%_ } else if (type === "wiki") { _%>
+* 📝 Updated <%= event.pages.length %> wiki page<%= s(event.pages.length) %> in [<%= repo %>](https://github.com/<%= repo %>/wiki)
+          <%_ for (const page of event.pages) { _%>
+  * <%= page %>
+          <%_ } _%>
+        <%_ } else if (type === "public") { _%>
+* 🚀 Made [<%= repo %>](https://github.com/<%= repo %>) public
+        <%_ } else if (type === "review") { _%>
+* 🔍 Reviewed [#<%= event.number %> <%= event.title %>](https://github.com/<%= repo %>/pulls/<%= event.number %>) in [<%= repo %>](https://github.com/<%= repo %>)
+        <%_ } else if (type === "ref/create") { _%>
+* ⏺️ Created new <%= event.ref.type %> `<%= event.ref.name %>` in [<%= repo %>](https://github.com/<%= repo %>)
+        <%_ } else if (type === "ref/create") { _%>
+* 🚮 Deleted <%= event.ref.type %> `<%= event.ref.name %>` from [<%= repo %>](https://github.com/<%= repo %>)
+        <%_ } _%>
+    <%_ } _%>
+  <%_ } else { _%>
+No recent activity
+  <%_ } _%>
+<%_ } _%>

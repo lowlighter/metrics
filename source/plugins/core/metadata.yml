@@ -58,6 +58,19 @@ inputs:
     type: string
     default: github-metrics.svg
 
+  # Rendered markdown output path (when using a markdown template)
+  # It can be either a local path or a link (e.g. raw.githubusercontent.com)
+  markdown:
+    description: Rendered markdown output path
+    type: string
+    default: TEMPLATE.md
+
+  # Rendered markdown file cache (when using a markdown template)
+  markdown_cache:
+    description: Rendered markdown file cache
+    type: string
+    default: .cache
+
   # Output action
   output_action:
     description: Output action
@@ -155,9 +168,10 @@ inputs:
     default: svg
     values:
       - svg
-      - png  # Does not support animations
-      - jpeg # Does not support animations and transparency
-      - json # Outputs a JSON file instead of an image
+      - png      # Does not support animations
+      - jpeg     # Does not support animations and transparency
+      - json     # Outputs a JSON file instead of an image
+      - markdown # Outputs a Markdown file instead of an image
 
   # Number of retries in case rendering fail
   retries:
