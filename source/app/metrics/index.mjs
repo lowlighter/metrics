@@ -81,7 +81,7 @@
                 console.debug(error)
               }
             //Rendering template source
-              let rendered = source.replace(/\{\{ ([\s\S]*?) \}\}/g, "{%= $1 %}")
+              let rendered = source.replace(/\{\{ (?<content>[\s\S]*?) \}\}/g, "{%= $<content> %}")
               for (const delimiters of [{openDelimiter:"<", closeDelimiter:">"}, {openDelimiter:"{", closeDelimiter:"}"}])
                 rendered = await ejs.render(rendered, {...data, s:imports.s, f:imports.format}, {views, async:true, ...delimiters})
             return {rendered, mime:"text/plain"}
