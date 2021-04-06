@@ -767,7 +767,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="licenses">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="contributors">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="stars">❌</th>
-    <th nowrap="nowrap" align="center" data-plugin="topics">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="topics">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="reactions">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="people">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="gists">❌</th>
@@ -785,7 +785,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="anilist">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="stackoverflow">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="posts">❌</th>
-    <th nowrap="nowrap" align="center" data-plugin="rss">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="rss">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="wakatime">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="stock">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="nightscout">❌</th>
