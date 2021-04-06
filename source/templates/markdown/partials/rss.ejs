@@ -1,0 +1,13 @@
+<%_ if (plugins.rss) { _%>
+**[🗼 Rss feed from <%= plugins.rss?.source %>](<%= plugins.rss?.link %>)**
+  <%_ if (plugins.rss.error) { _%>
+<%= plugins.rss.error.message _%>
+  <%_ } else if (plugins.rss.feed.length) { _%>
+    <%_ for (const {title, link, date} of plugins.rss.feed) { _%>
+* [<%= title %>](<%= link %>)
+  * Published on <%= f.date(new Date(date), {dateStyle:"short"}) %>
+    <%_ } _%>
+  <%_ } else { _%>
+Empty RSS feed
+  <%_ } _%>
+<%_ } _%>

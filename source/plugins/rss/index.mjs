@@ -14,7 +14,7 @@
 
         //Load rss feed
           const {title, description, link, items} = await (new imports.rss()).parseURL(source) //eslint-disable-line new-cap
-          const feed = items.map(({title, isoDate:date}) => ({title, date:new Date(date)}))
+          const feed = items.map(({title, link, isoDate:date}) => ({title, link, date:new Date(date)}))
 
         //Limit feed
           if (limit > 0) {
