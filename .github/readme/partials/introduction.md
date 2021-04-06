@@ -87,9 +87,7 @@ And you can customize these heavily with plugins, templates and hundreds of opti
     <th colspan="2"><a href="source/templates/community/README.md"><%= templates.community.name -%></a></th>
   </tr>
   <tr>
-    <td colspan="2" align="center">
-      <%- templates.community.readme.demo.replace(/<img src=/g, `<img alt="" width="400" src=`)?.split("\n")?.map((x, i) => i ? `  ${x}` : x)?.join("\n") %>
-    </td>
+    <%- templates.community.readme.demo %>
   </tr>
 </table>
 <% } %>

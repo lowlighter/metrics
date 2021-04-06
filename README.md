@@ -340,9 +340,7 @@ And you can customize these heavily with plugins, templates and hundreds of opti
     <th colspan="2"><a href="source/templates/community/README.md">📕 Community templates</a></th>
   </tr>
   <tr>
-    <td colspan="2" align="center">
-      <td align="center">See <a href="/source/templates/community/README.md">documentation</a> 🌍</td>
-    </td>
+    <td align="center" colspan="2">See <a href="/source/templates/community/README.md">documentation</a> 🌍</td>
   </tr>
 </table>
 
