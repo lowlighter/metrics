@@ -1,9 +1,12 @@
-### 📒 Markdown (🚧 v3.7)
+### 📒 Markdown <sup>🚧 v3.7</sup>
+
+    ⚠️ This feature is still under active developement and may not be functional yet
 
 Markdown template can render a **markdown template** by interpreting **templating brackets** `{{` and `}}`.
 
 <table>
   <td align="center">
+    ⚠️ This feature is still under active developement and may not be functional yet
     <img width="900" height="1" alt="">
   </td>
 </table>
@@ -14,6 +17,9 @@ Unlike SVG templates, it is possible to include revelant hyperlinks since it'll 
 You can even mix it with SVG plugins for even more customization.
 
 See [example.md](/source/templates/markdown/example.md) for a markdown template example.
+
+> Note that available data still depends on which plugins have been enabled.
+> You may need to handle errors and setup plugins correctly in order to access to their output data.
 
 #### ℹ️ Examples workflows
 
