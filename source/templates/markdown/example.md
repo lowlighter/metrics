@@ -25,3 +25,15 @@ Most of plugins from SVG templates can be reused directly by including image sou
 ### 🗼 Rss feed
 
 *Coming soon*
+
+### 🐤 Latest tweets
+
+*Coming soon*
+
+### 🌇 GitHub Skyline 3D calendar
+
+*Coming soon*
+
+### 📌 Starred topics
+
+*Coming soon*
