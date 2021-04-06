@@ -43,8 +43,8 @@
         Templates[name] = await metadata.template({__templates, name, plugins, logger})
       }
     //Reorder keys
-      const {classic, repository, community, ...templates} = Templates
-      Templates = {classic, repository, ...templates, community}
+      const {classic, repository, markdown, community, ...templates} = Templates
+      Templates = {classic, repository, ...templates, markdown, community}
 
     //Packaged metadata
       const packaged = JSON.parse(`${await fs.promises.readFile(__package)}`)
