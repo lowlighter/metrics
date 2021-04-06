@@ -325,7 +325,7 @@ And you can customize these heavily with plugins, templates and hundreds of opti
   </tr>
   <tr>
     <th><a href="source/templates/terminal/README.md">📙 Terminal</a></th>
-    <th><a href="source/templates/markdown/README.md">📒 Markdown (🚧 v3.7)</a></th>
+    <th><a href="source/templates/markdown/README.md">📒 Markdown &lt;sup&gt;🚧 v3.7&lt;/sup&gt;</a></th>
   </tr>
   <tr>
     <td align="center">
@@ -333,6 +333,7 @@ And you can customize these heavily with plugins, templates and hundreds of opti
       <img width="900" height="1" alt="">
     </td>
     <td align="center">
+      ⚠️ This feature is still under active developement and may not be functional yet
       <img width="900" height="1" alt="">
     </td>
   </tr>
@@ -757,7 +758,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="nightscout">❌</th>
   </tr>
   <tr>
-    <th nowrap="nowrap">📒 Markdown (🚧 v3.7)</th>    
+    <th nowrap="nowrap">📒 Markdown &lt;sup&gt;🚧 v3.7&lt;/sup&gt;</th>    
     <th nowrap="nowrap" align="center" data-plugin="base">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="isocalendar">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="languages">❌</th>
@@ -799,7 +800,7 @@ See their respective documentation for more informations about how to setup them
 * [📗 Classic](/source/templates/classic/README.md)
 * [📘 Repository](/source/templates/repository/README.md)
 * [📙 Terminal](/source/templates/terminal/README.md)
-* [📒 Markdown (🚧 v3.7)](/source/templates/markdown/README.md)
+* [📒 Markdown &lt;sup&gt;🚧 v3.7&lt;/sup&gt;](/source/templates/markdown/README.md)
 * [📕 Community templates](/source/templates/community/README.md)
 
 ## 🧩 Plugins
