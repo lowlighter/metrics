@@ -758,7 +758,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="nightscout">❌</th>
   </tr>
   <tr>
-    <th nowrap="nowrap">📒 Markdown &lt;sup&gt;🚧 v3.7&lt;/sup&gt;</th>    
+    <th nowrap="nowrap">📒 Markdown <sup>🚧 v3.7</sup></th>    
     <th nowrap="nowrap" align="center" data-plugin="base">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="isocalendar">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="languages">❌</th>
