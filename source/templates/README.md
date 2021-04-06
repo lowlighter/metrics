@@ -6,5 +6,5 @@ See their respective documentation for more informations about how to setup them
 * [📗 Classic](/source/templates/classic/README.md)
 * [📘 Repository](/source/templates/repository/README.md)
 * [📙 Terminal](/source/templates/terminal/README.md)
-* [📒 Markdown &lt;sup&gt;🚧 v3.7&lt;/sup&gt;](/source/templates/markdown/README.md)
+* [📒 Markdown <sup>🚧 v3.7</sup>](/source/templates/markdown/README.md)
 * [📕 Community templates](/source/templates/community/README.md)
