@@ -71,7 +71,7 @@ And you can customize these heavily with plugins, templates and hundreds of opti
         if (cell === "even") {
 -%>
   <tr>
-<% } %>    <th><a href="source/templates/<%= template %>/README.md"><%= name -%></a></th>
+<% } %>    <th><a href="source/templates/<%= template %>/README.md"><%- name -%></a></th>
 <%      if (cell === "odd") {
 -%>  </tr>
 <% }}
