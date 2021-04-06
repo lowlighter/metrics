@@ -1,7 +1,5 @@
 ### 📒 Markdown <sup>🚧 v3.7</sup>
 
-    ⚠️ This feature is still under active developement and may not be functional yet
-
 Markdown template can render a **markdown template** by interpreting **templating brackets** `{{` and `}}`.
 
 <table>

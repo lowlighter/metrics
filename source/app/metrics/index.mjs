@@ -82,8 +82,10 @@
               }
             //Rendering template source
               let rendered = source.replace(/\{\{ (?<content>[\s\S]*?) \}\}/g, "{%= $<content> %}")
+              console.debug(rendered)
               for (const delimiters of [{openDelimiter:"<", closeDelimiter:">"}, {openDelimiter:"{", closeDelimiter:"}"}])
                 rendered = await ejs.render(rendered, {...data, s:imports.s, f:imports.format}, {views, async:true, ...delimiters})
+              console.debug(`metrics/compute/${login} > success`)
             return {rendered, mime:"text/plain"}
           }
 
