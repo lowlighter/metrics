@@ -55,7 +55,7 @@ And you can customize these heavily with plugins, templates and hundreds of opti
 <% } %>
 <% {
   let cell = 0
-  const elements = Object.entries(templates).filter(([key, value]) => value)
+  const elements = Object.entries(templates).filter(([key, value]) => (value)&&(!["community"].includes(key)))
 %>
 <table>
   <tr>
@@ -71,7 +71,7 @@ And you can customize these heavily with plugins, templates and hundreds of opti
         if (cell === "even") {
 -%>
   <tr>
-<% } %>    <th><a href="source/templates/<%= template %>/README.md"><%= name -%></a></th>
+<% } %>    <th><a href="source/templates/<%= template %>/README.md"><%- name -%></a></th>
 <%      if (cell === "odd") {
 -%>  </tr>
 <% }}
@@ -83,5 +83,11 @@ And you can customize these heavily with plugins, templates and hundreds of opti
 <%      if (cell === "odd") {
 -%>  </tr>
 <% }}} -%>
+  <tr>
+    <th colspan="2"><a href="source/templates/community/README.md"><%= templates.community.name -%></a></th>
+  </tr>
+  <tr>
+    <%- templates.community.readme.demo %>
+  </tr>
 </table>
 <% } %>

@@ -6,5 +6,5 @@ See their respective documentation for more informations about how to setup them
 <% if (previous !== categorie) { previous = categorie -%>
 * **<%= `${categorie.charAt(0).toLocaleUpperCase()}${categorie.substring(1)}` %>**
 <% } -%>
-  * [<%= name %>](/source/plugins/<%= plugin %>/README.md)<%# -%>
+  * [<%- name %>](/source/plugins/<%= plugin %>/README.md)<%# -%>
 <% }} %>

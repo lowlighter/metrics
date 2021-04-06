@@ -75,6 +75,17 @@ inputs:
     description: Rendered metrics output path
     default: github-metrics.svg
   
+  # Rendered markdown output path (when using a markdown template)
+  # It can be either a local path or a link (e.g. raw.githubusercontent.com)
+  markdown:
+    description: Rendered markdown output path
+    default: TEMPLATE.md
+  
+  # Rendered markdown file cache (when using a markdown template)
+  markdown_cache:
+    description: Rendered markdown file cache
+    default: .cache
+  
   # Output action
   output_action:
     description: Output action

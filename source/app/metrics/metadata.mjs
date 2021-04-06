@@ -43,8 +43,8 @@
         Templates[name] = await metadata.template({__templates, name, plugins, logger})
       }
     //Reorder keys
-      const {classic, repository, community, ...templates} = Templates
-      Templates = {classic, repository, ...templates, community}
+      const {classic, repository, markdown, community, ...templates} = Templates
+      Templates = {classic, repository, ...templates, markdown, community}
 
     //Packaged metadata
       const packaged = JSON.parse(`${await fs.promises.readFile(__package)}`)
@@ -271,7 +271,7 @@
         return {
           name:raw.match(/^### (?<name>[\s\S]+?)\n/)?.groups?.name?.trim(),
           readme:{
-            demo:raw.match(/(?<demo><table>[\s\S]*?<[/]table>)/)?.groups?.demo?.replace(/<[/]?(?:table|tr)>/g, "")?.trim() ?? (name === "community" ? "<td align=\"center\">See <a href=\"/source/templates/community/README.md\">documentation</a> 🌍</td>" : "<td></td>"),
+            demo:raw.match(/(?<demo><table>[\s\S]*?<[/]table>)/)?.groups?.demo?.replace(/<[/]?(?:table|tr)>/g, "")?.trim() ?? (name === "community" ? '<td align="center" colspan="2">See <a href="/source/templates/community/README.md">documentation</a> 🌍</td>' : "<td></td>"),
             compatibility:{...compatibility, base:true},
           },
         }
