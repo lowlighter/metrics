@@ -52,6 +52,14 @@ inputs:
     type: string
     default: Update ${filename} - [Skip GitHub Action]
 
+  # Instead of saving metrics to a repository, it's possible to save them to a gist to avoid "commits pollution"
+  # Gist must be created prior and you must pass its identifier in the following option
+  # Set "gist" in "output_action" to use this option
+  committer_gist:
+    description: Gist used to store metrics
+    type: string
+    default: ""
+
   # Rendered metrics output path, relative to repository's root
   filename:
     description: Rendered metrics output path
@@ -83,6 +91,7 @@ inputs:
       - pull-request-merge  # Same as "pull-request" and additionaly merge pull request
       - pull-request-squash # Same as "pull-request" and additionaly squash and merge pull request
       - pull-request-rebase # Same as "pull-request" and additionaly rebase and merge pull request
+      - gist                # Save output to "committer_gist"
 
   # Optimize SVG image to reduce its filesize
   # Some templates may not support this option
