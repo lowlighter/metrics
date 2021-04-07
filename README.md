@@ -781,10 +781,10 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="skyline">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="pagespeed">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="music">❌</th>
-    <th nowrap="nowrap" align="center" data-plugin="tweets">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="tweets">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="anilist">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="stackoverflow">❌</th>
-    <th nowrap="nowrap" align="center" data-plugin="posts">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="posts">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="rss">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="wakatime">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="stock">❌</th>
