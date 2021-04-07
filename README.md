@@ -333,7 +333,7 @@ And you can customize these heavily with plugins, templates and hundreds of opti
       <img width="900" height="1" alt="">
     </td>
     <td align="center">
-      ⚠️ This feature is still under active developement and may not be functional yet
+      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.markdown.png">
       <img width="900" height="1" alt="">
     </td>
   </tr>
