@@ -20,28 +20,16 @@ I contributed to `{{ REPOSITORIES_CONTRIBUTED_TO }}` repositories and made `{{ C
 
 ## 🧩 Markdown plugins
 
-Most of plugins from SVG templates can be reused directly by including image source in markdown, but some have them have their own **markdown** version which includes hyperlinks.
+Most of plugins from SVG templates can be reused directly by including image source in markdown, but some have them have their own **markdown** version which includes hyperlinks and reduce image overhead.
 
-### 📰 Recent activity
+See [compatibility matrix](https://github.com/lowlighter/metrics#-templateplugin-compatibily-matrix) for more informations.
 
 <%- await include(`partials/activity.ejs`) %>
 
-### ✒️ Recent posts
-
-*Coming soon*
-
-### 🗼 Rss feed
+<%- await include(`partials/posts.ejs`) %>
 
 <%- await include(`partials/rss.ejs`) %>
 
-### 🐤 Latest tweets
-
-*Coming soon*
-
-### 🌇 GitHub Skyline 3D calendar
-
-*Coming soon*
-
-### 📌 Starred topics
+<%- await include(`partials/tweets.ejs`) %>
 
 <%- await include(`partials/topics.ejs`) %>

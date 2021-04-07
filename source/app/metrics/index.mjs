@@ -68,7 +68,7 @@
               console.debug(`metrics/compute/${login} > markdown render`)
               let source = image
               try {
-                let template = q.markdown
+                let template = `${q.markdown}`.replace(/\n/g, "")
                 if (!/^https:/.test(template)) {
                   const {data:{default_branch:branch, full_name:repo}} = await rest.repos.get({owner:login, repo:q.repo||login})
                   console.debug(`metrics/compute/${login} > on ${repo} with default branch ${branch}`)

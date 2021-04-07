@@ -1,0 +1,21 @@
+<%_ if (plugins.tweets) { _%>
+**[🐤 Latest tweets from @<%= plugins.tweets.username %>](https://twitter.com/<%= plugins.tweets.username %>)**
+  <%_ if (plugins.tweets.error) { _%>
+<%= plugins.tweets.error.message _%>
+  <%_ } else if (plugins.tweets.list.length) { _%>
+    <%_ for (const {text, createdAt, attachments} of plugins.tweets.list) { _%>
+> <%- text %>
+<%_ if (attachments) { _%>
+  <%_ for (const {image, title, description, website} of attachments) { _%>
+>
+> <a href="<%= website %>"><img src="<%= image %>" alt="<%= title %>" height="200"></a>
+  <%_ } _%>
+<%_ } _%>
+>
+> *<%= createdAt %>*
+
+    <%_ } _%>
+  <%_ } else { _%>
+No recent tweets
+  <%_ } _%>
+<%_ } _%>
