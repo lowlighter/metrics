@@ -2,7 +2,7 @@
 
 This is a markdown template example which explain the basic usage of this template.
 
-See [rendering of this file here](https://github.com/lowlighter/lowlighter/blob/master/metrics.markdown.full.md).
+See [rendering of this file here](https://github.com/lowlighter/lowlighter/blob/master/metrics.markdown.full.md) and [original template source here](https://github.com/lowlighter/metrics/blob/master/source/templates/markdown/example.md).
 
 ## 🈂️ Templating syntax:
 
@@ -20,28 +20,26 @@ I contributed to `{{ REPOSITORIES_CONTRIBUTED_TO }}` repositories and made `{{ C
 
 ## 🧩 Markdown plugins
 
-Most of plugins from SVG templates can be reused directly by including image source in markdown, but some have them have their own **markdown** version which includes hyperlinks.
+Most of plugins from SVG templates can be reused directly by including image source in markdown, but some have them have their own **markdown** version which includes hyperlinks and reduce image overhead.
 
-### 📰 Recent activity
+See [compatibility matrix](https://github.com/lowlighter/metrics#-templateplugin-compatibily-matrix) for more informations.
+
+___
 
 <%- await include(`partials/activity.ejs`) %>
 
-### ✒️ Recent posts
+___
 
-*Coming soon*
+<%- await include(`partials/posts.ejs`) %>
 
-### 🗼 Rss feed
+___
 
 <%- await include(`partials/rss.ejs`) %>
 
-### 🐤 Latest tweets
+___
 
-*Coming soon*
+<%- await include(`partials/tweets.ejs`) %>
 
-### 🌇 GitHub Skyline 3D calendar
-
-*Coming soon*
-
-### 📌 Starred topics
+___
 
 <%- await include(`partials/topics.ejs`) %>

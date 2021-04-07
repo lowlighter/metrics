@@ -4,7 +4,7 @@ Markdown template can render a **markdown template** by interpreting **templatin
 
 <table>
   <td align="center">
-    ⚠️ This feature is still under active developement and may not be functional yet
+    <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.markdown.png">
     <img width="900" height="1" alt="">
   </td>
 </table>
@@ -18,6 +18,9 @@ See [example.md](/source/templates/markdown/example.md) for a markdown template 
 
 > Note that available data still depends on which plugins have been enabled.
 > You may need to handle errors and setup plugins correctly in order to access to their output data.
+
+To find which data can be used, you can run a workflow with `config_output: json`.
+For convenience, several useful properties are aliased in [/source/templates/markdown/template.mjs](markdown/template.mjs).
 
 #### ℹ️ Examples workflows
 

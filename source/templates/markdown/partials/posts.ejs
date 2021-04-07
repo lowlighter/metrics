@@ -1,0 +1,35 @@
+<%_ if (plugins.posts) { _%>
+**[✒️ Recent posts from <%= plugins.posts?.source %>](<%= plugins.posts?.link %>)**
+  <%_ if (plugins.posts.error) { _%>
+<%= plugins.posts.error.message _%>
+  <%_ } else if ((plugins.posts.list.length)&&(plugins.posts.descriptions)||(plugins.posts.covers)) { _%>
+    <%_ for (const {title, date, link, description = "", image} of plugins.posts.list) { _%>
+<table>
+  <tr>
+    <%_ if (plugins.posts.covers) { _%>
+    <td rowspan="2" width="280">
+      <img src="<%= image %>" alt="" width="280">
+    </td>
+    <%_ } _%>
+    <th>
+      <a href="<%= link %>"><%= title.trim() %></a>
+    </th>
+  </tr>
+  <tr>
+    <td>
+      <%= description %>
+      <br>
+      <i>Published on <%= f.date(new Date(date), {dateStyle:"short"}) %></i>
+    </td>
+  </tr>
+</table>
+    <%_ } _%>
+  <%_ } else if (plugins.posts.list.length) { _%>
+    <%_ for (const {title, date, link} of plugins.posts.list) { _%>
+* [<%= title.trim() %>](<%= link %>)
+  * *Published on <%= f.date(new Date(date), {dateStyle:"short"}) %>*
+    <%_ } _%>
+  <%_ } else { _%>
+No recent posts
+  <%_ } _%>
+<%_ } _%>

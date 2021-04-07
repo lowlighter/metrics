@@ -333,7 +333,7 @@ And you can customize these heavily with plugins, templates and hundreds of opti
       <img width="900" height="1" alt="">
     </td>
     <td align="center">
-      ⚠️ This feature is still under active developement and may not be functional yet
+      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.markdown.png">
       <img width="900" height="1" alt="">
     </td>
   </tr>
@@ -781,10 +781,10 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="skyline">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="pagespeed">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="music">❌</th>
-    <th nowrap="nowrap" align="center" data-plugin="tweets">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="tweets">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="anilist">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="stackoverflow">❌</th>
-    <th nowrap="nowrap" align="center" data-plugin="posts">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="posts">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="rss">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="wakatime">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="stock">❌</th>
