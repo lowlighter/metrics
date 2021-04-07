@@ -67,7 +67,7 @@
             filename, optimize, verify,
             debug, "debug.flags":dflags, "use.mocked.data":mocked, dryrun,
             "plugins.errors.fatal":die,
-            "committer.token":_token, "committer.branch":_branch, "committer.message":_message,
+            "committer.token":_token, "committer.branch":_branch, "committer.message":_message, "committer.gist":_gist,
             "use.prebuilt.image":_image,
             retries, "retries.delay":retries_delay,
             "output.action":_action,
@@ -127,6 +127,7 @@
           if (!dryrun) {
             //Compute committer informations
               committer.token = _token || token
+              committer.gist = _action === "gist" ? _gist : null
               committer.commit = true
               committer.message = _message.replace(/[$][{]filename[}]/g, filename)
               committer.pr = /^pull-request/.test(_action)
@@ -138,6 +139,9 @@
                 throw new Error("You must provide a valid GitHub token to commit your metrics")
               info("Committer branch", committer.branch)
               info("Committer head branch", committer.head)
+            //Gist
+              if (committer.gist)
+                info("Committer Gist id", committer.gist)
             //Instantiate API for committer
               committer.rest = github.getOctokit(committer.token)
               info("Committer REST API", "ok")
@@ -277,6 +281,13 @@
               info(`Commit to branch ${committer.branch}`, "(no changes)")
               committer.commit = false
             }
+          }
+
+        //Upload to gist (this is done as user since committer_token may not have gist rights)
+          if (committer.gist) {
+            await rest.gists.update({gist_id:committer.gist, files:{[filename]:{content:rendered}}})
+            info(`Upload to gist ${committer.gist}`, "ok")
+            committer.commit = false
           }
 
         //Commit metrics
