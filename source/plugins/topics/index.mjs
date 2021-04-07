@@ -63,7 +63,7 @@
           for (const topic of topics) {
             if (topic.icon) {
               console.debug(`metrics/compute/${login}/plugins > topics > processing ${topic.name}`)
-              const icon = topics.icon
+              const {icon} = topics
               topic.icon = await imports.imgb64(icon)
               topic.icon24 = await imports.imgb64(icon, {force:true, width:24, height:24})
             }
