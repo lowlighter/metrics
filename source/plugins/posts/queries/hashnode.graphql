@@ -1,7 +1,8 @@
 query PostsHashnode {
   user(username: "$user"){
     publication{
-      posts(page: 1) {
+      posts(page: 0) {
+        slug
         title
         brief
         coverImage
