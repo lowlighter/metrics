@@ -70,6 +70,13 @@ inputs:
     description: Commit message
     default: Update ${filename} - [Skip GitHub Action]
   
+  # Instead of saving metrics to a repository, it's possible to save them to a gist to avoid "commits pollution"
+  # Gist must be created prior and you must pass its identifier in the following option
+  # Set "gist" in "output_action" to use this option
+  committer_gist:
+    description: Gist used to store metrics
+    default: ""
+  
   # Rendered metrics output path, relative to repository's root
   filename:
     description: Rendered metrics output path
