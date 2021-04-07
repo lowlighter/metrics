@@ -26,7 +26,7 @@
           const pending = []
           const {queries} = conf
           const data = {animated:true, base:{}, config:{}, errors:[], plugins:{}, computed:{}}
-          const imports = {plugins:Plugins, templates:Templates, metadata:conf.metadata, ...utils, ...(convert === "markdown" ? {imgb64:url => url} : null)}
+          const imports = {plugins:Plugins, templates:Templates, metadata:conf.metadata, ...utils, ...(convert === "markdown" ? {imgb64(url, options) { return options?.force ? utils.imgb64(...arguments) : url }} : null)}
           const experimental = new Set(decodeURIComponent(q["experimental.features"] ?? "").split(" ").map(x => x.trim().toLocaleLowerCase()).filter(x => x))
           if (conf.settings["debug.headless"])
             imports.puppeteer.headless = false

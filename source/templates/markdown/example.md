@@ -2,7 +2,7 @@
 
 This is a markdown template example which explain the basic usage of this template.
 
-See [rendering of this file here](https://github.com/lowlighter/lowlighter/blob/master/metrics.markdown.full.md).
+See [rendering of this file here](https://github.com/lowlighter/lowlighter/blob/master/metrics.markdown.full.md) and [original template source here](https://github.com/lowlighter/metrics/blob/master/source/templates/markdown/example.md).
 
 ## 🈂️ Templating syntax:
 
@@ -24,12 +24,22 @@ Most of plugins from SVG templates can be reused directly by including image sou
 
 See [compatibility matrix](https://github.com/lowlighter/metrics#-templateplugin-compatibily-matrix) for more informations.
 
+___
+
 <%- await include(`partials/activity.ejs`) %>
+
+___
 
 <%- await include(`partials/posts.ejs`) %>
 
+___
+
 <%- await include(`partials/rss.ejs`) %>
 
+___
+
 <%- await include(`partials/tweets.ejs`) %>
+
+___
 
 <%- await include(`partials/topics.ejs`) %>
