@@ -32,7 +32,7 @@ Most of plugins from SVG templates can be reused directly by including image sou
 
 ### 🗼 Rss feed
 
-*Coming soon*
+<%- await include(`partials/rss.ejs`) %>
 
 ### 🐤 Latest tweets
 
@@ -44,4 +44,4 @@ Most of plugins from SVG templates can be reused directly by including image sou
 
 ### 📌 Starred topics
 
-*Coming soon*
+<%- await include(`partials/topics.ejs`) %>
