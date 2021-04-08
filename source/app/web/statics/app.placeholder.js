@@ -332,11 +332,15 @@
               ...(set.plugins.enabled.nightscout ? ({
                 nightscout:{
                   url: options["nightscout.url"] != null && options["nightscout.url"] != "https://example.herokuapp.com" ? options["nightscout.url"]: "https://testapp.herokuapp.com/",
-                  datapoints: faker.random.number({min: 8, max: 12}),
-                  lowalert: faker.random.number({min: 60, max: 90}),
-                  highalert: faker.random.number({min: 150, max: 200}),
-                  urgentlowalert: faker.random.number({min: 40, max: 59}),
-                  urgenthighalert: faker.random.number({min: 201, max: 300})
+                  data:new Array(12).fill(null).map(_ => ({
+                    timeUTCHumanReadable:`${new Date().getUTCHours()}:${new Date().getUTCMinutes()}`,
+                    color:faker.random.arrayElement(["#9be9a8", "#40c463", "#30a14e", "#216e39"]),
+                    sgv:faker.random.number({min:40, max:400}),
+                    delta:faker.random.number({min:-10, max:10}),
+                    direction:faker.random.arrayElement(["SingleUp", "DoubleUp", "FortyFiveUp", "Flat", "FortyFiveDown", "SingleDown", "DoubleDown"]),
+                    alert:faker.random.arrayElement(["Normal", "Urgent High", "Urgent Low", "High", "Low"]),
+                    arrowHumanReadable:faker.random.arrayElement(["↑↑", "↑", "↗", "→", "↘", "↓", "↓↓"]),
+                  })),
                 }
               }) : null),
               //Pagespeed

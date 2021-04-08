@@ -5,7 +5,6 @@ export default function({faker, url}) {
         //Get Nightscout Data
           console.debug(`metrics/compute/mocks > mocking nightscout api result > ${url}`)
           const lastInterval = Math.floor(new Date() / 300000) * 300000
-          const directionArray = ["SingleUp", "DoubleUp", "FortyFiveUp", "Flat", "FortyFiveDown", "SingleDown", "DoubleDown"]
           return ({
             status:200,
             data:new Array(12).fill(null).map(_ => ({
@@ -15,7 +14,7 @@ export default function({faker, url}) {
               dateString:new Date(lastInterval).toISOString(),
               sgv:faker.random.number({min:40, max:400}),
               delta:faker.random.number({min:-10, max:10}),
-              direction:directionArray[Math.floor(Math.random() * directionArray.length)],
+              direction:faker.random.arrayElement(["SingleUp", "DoubleUp", "FortyFiveUp", "Flat", "FortyFiveDown", "SingleDown", "DoubleDown"]),
               type:"sgv",
               filtered:0,
               unfiltered:0,

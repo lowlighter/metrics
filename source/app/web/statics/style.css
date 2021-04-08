@@ -117,8 +117,7 @@ body {
   }
 
   .configuration .not-available {
-    cursor: not-allowed;
-    opacity: .5;
+    color: var(--color-text-secondary);
   }
 
   .option {
@@ -250,6 +249,17 @@ body {
     color: var(--color-alert-error-text);
     border: 1px solid var(--color-alert-error-border);
     border-radius: 6px;
+  }
+
+/* Warning */
+  .warning {
+    padding: .5rem .75rem;
+    background-image: linear-gradient(var(--color-alert-warn-bg),var(--color-alert-warn-bg));
+    color: var(--color-alert-warn-text);
+    border: 1px solid var(--color-alert-warn-border);
+    border-radius: 6px;
+    font-size: .8rem;
+    margin-top: .25rem;
   }
 
 /* Footer */
