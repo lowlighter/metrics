@@ -19,6 +19,7 @@ jobs:
           days-before-close: 3
           stale-issue-label: stale
           stale-pr-label: stale
+          exempt-issue-labels: needs fix
           remove-stale-when-updated: yes
           operations-per-run: 100
 
@@ -34,6 +35,7 @@ jobs:
           issue-lock-inactive-days: 14
           issue-lock-reason: ""
           issue-lock-labels: archived
+          issue-exclude-labels: needs fix
           pr-lock-inactive-days: 14
           pr-lock-reason: ""
           pr-lock-labels: archived
