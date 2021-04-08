@@ -274,7 +274,7 @@
   }
 
 /**Create record from puppeteer browser */
-  export async function record({page, width, height, frames, scale = 1, quality = 80, x = 0, y = 0, delay = 150, background = yes}) {
+  export async function record({page, width, height, frames, scale = 1, quality = 80, x = 0, y = 0, delay = 150, background = true}) {
     //Register images frames
       const images = []
       for (let i = 0; i < frames; i++) {
