@@ -9,10 +9,13 @@
         //Load inputs
           let {threshold, secrets, only, ignored, limit} = imports.metadata.plugins.achievements.inputs({data, q, account})
 
-        //Initinalization
+        //Initialization
           const list = []
           const {user} = await graphql(queries.achievements({login}))
-          const ranks = await graphql(queries.achievements.ranking({followers:user.followers.totalCount, stars:user.popular.nodes?.[0]?.stargazers?.totalCount ?? 0}))
+          const scores = {followers:user.followers.totalCount, created:user.repositories.totalCount, stars:user.popular.nodes?.[0]?.stargazers?.totalCount ?? 0, forks:Math.max(0, ...data.user.repositories.nodes.map(({forkCount}) => forkCount))}
+          const ranks = await graphql(queries.achievements.ranking(scores))
+          const requirements = {stars:5, followers:3, forks:1, created:1}
+          await total({imports})
 
         //Developer
           {
@@ -23,6 +26,7 @@
               text:`Published ${value} public repositor${imports.s(value, "y")}`,
               icon:"<g stroke-linecap=\"round\" stroke-width=\"2\" fill=\"none\" fill-rule=\"evenodd\"><g stroke=\"#primary\"><path d=\"M20 24l-3.397 3.398a.85.85 0 000 1.203L20.002 32M37.015 24l3.399 3.398a.85.85 0 010 1.203L37.014 32\" stroke-linejoin=\"round\"/><path d=\"M31.029 21.044L25.976 35.06\"/></g><path stroke=\"#secondary\" stroke-linejoin=\"round\" d=\"M23.018 10h8.984M26 47h5M8 16h16m9 0h15.725M8 41h13\"/><path d=\"M5.027 34.998c.673 2.157 1.726 4.396 2.81 6.02m43.38-19.095C50.7 19.921 49.866 17.796 48.79 16\" stroke=\"#secondary\"/><path stroke=\"#primary\" stroke-linejoin=\"round\" d=\"M26 41h17\"/><path d=\"M7.183 16C5.186 19.582 4 23.619 4 28M42.608 47.02c2.647-1.87 5.642-5.448 7.295-9.18C51.52 34.191 52.071 30.323 52 28\" stroke=\"#primary\"/><path stroke=\"#primary\" stroke-linejoin=\"round\" d=\"M7.226 16H28M13.343 47H21\"/><path d=\"M13.337 47.01a24.364 24.364 0 006.19 3.45 24.527 24.527 0 007.217 1.505c2.145.108 4.672-.05 7.295-.738\" stroke=\"#primary\"/><path stroke=\"#primary\" stroke-linejoin=\"round\" d=\"M36 47h6.647M12 10h6M37 10h6.858\"/><path d=\"M43.852 10c-4.003-3.667-9.984-6.054-16.047-6-2.367.021-4.658.347-6.81 1.045\" stroke=\"#primary\"/><path stroke=\"#secondary\" stroke-linejoin=\"round\" d=\"M5.041 35h4.962M47 22h4.191\"/></g>",
               ...rank(value, [1, 20, 50, 100]), value, unlock:new Date(unlock?.createdAt),
+              leaderboard:leaderboard({user:ranks.created_rank.userCount, requirement:scores.created >= requirements.created, type:"users"}),
             })
           }
 
@@ -152,7 +156,7 @@
               text:`Followed by ${value} user${imports.s(value)}`,
               icon:"<g transform=\"translate(4 4)\" stroke-width=\"2\" fill=\"none\" fill-rule=\"evenodd\"><path d=\"M33.432 1.924A23.922 23.922 0 0024 0c-3.945 0-7.668.952-10.95 2.638m-9.86 9.398A23.89 23.89 0 000 24a23.9 23.9 0 002.274 10.21m3.45 5.347a23.992 23.992 0 0012.929 7.845m13.048-.664c4.43-1.5 8.28-4.258 11.123-7.848m3.16-5.245A23.918 23.918 0 0048 24c0-1.87-.214-3.691-.619-5.439M40.416 6.493a24.139 24.139 0 00-1.574-1.355\" stroke=\"#secondary\" stroke-linecap=\"round\"/><path stroke=\"#secondary\" d=\"M4.582 33.859l1.613-7.946\"/><circle stroke=\"#secondary\" cx=\"6.832\" cy=\"23\" r=\"3\"/><path stroke=\"#primary\" d=\"M17.444 39.854l4.75 3.275\"/><path stroke=\"#secondary\" stroke-linecap=\"round\" d=\"M7.647 14.952l-.433 4.527\"/><circle stroke=\"#primary\" cx=\"15\" cy=\"38\" r=\"3\"/><path stroke=\"#primary\" d=\"M22.216 9.516l.455 4.342\"/><path stroke=\"#secondary\" stroke-linecap=\"round\" d=\"M34.272 6.952l-2.828 5.25\"/><path stroke=\"#primary\" stroke-linecap=\"square\" d=\"M11.873 7.235l6.424-.736\"/><path stroke=\"#secondary\" stroke-linecap=\"round\" d=\"M28.811 5.445l3.718-.671\"/><path stroke=\"#primary\" d=\"M42.392 22.006l.456-5.763M34.349 24.426l4.374.447\"/><path d=\"M20 28c.267-1.727 1.973-3 4-3 2.08 0 3.787 1.318 4 3m-4-9a3 3 0 110 6 3 3 0 010-6z\" stroke=\"#primary\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M24 14c5.523 0 10 4.477 10 10s-4.477 10-10 10-10-4.477-10-10 4.477-10 10-10z\" stroke=\"#primary\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><circle stroke=\"#secondary\" cx=\"35.832\" cy=\"4\" r=\"3\"/><circle stroke=\"#secondary\" cx=\"44\" cy=\"36\" r=\"3\"/><circle stroke=\"#secondary\" cx=\"34.832\" cy=\"37\" r=\"3\"/><circle stroke=\"#primary\" cx=\"21.654\" cy=\"6.437\" r=\"3\"/><path d=\"M25.083 48.102a3 3 0 100-6 3 3 0 000 6z\" stroke=\"#primary\"/><path d=\"M8.832 5a3 3 0 110 6 3 3 0 010-6z\" stroke=\"#primary\" stroke-linecap=\"round\"/><circle stroke=\"#secondary\" cx=\"4\" cy=\"37\" r=\"3\"/><path d=\"M42.832 10a3 3 0 110 6 3 3 0 010-6z\" stroke=\"#primary\" stroke-linecap=\"round\"/><path stroke=\"#secondary\" stroke-linecap=\"round\" d=\"M32.313 38.851l-1.786 1.661\"/><circle stroke=\"#primary\" cx=\"42\" cy=\"25\" r=\"3\"/><path stroke=\"#primary\" stroke-linecap=\"square\" d=\"M18.228 32.388l-1.562 2.66\"/><path stroke=\"#secondary\" d=\"M37.831 36.739l2.951-.112\"/></g>",
               ...rank(value, [1, 200, 500, 1000]), value, unlock:new Date(unlock?.createdAt),
-              gh:Number(`1${"0".repeat(Math.ceil(Math.log10(1+ranks.user_rank.userCount)))}`),
+              leaderboard:leaderboard({user:ranks.user_rank.userCount, requirement:scores.followers >= requirements.followers, type:"users"}),
             })
           }
 
@@ -166,7 +170,20 @@
               text:`Maintaining a repository with ${value} star${imports.s(value)}`,
               icon:"<g transform=\"translate(4 4)\" fill=\"none\" fill-rule=\"evenodd\"><path d=\"M39 15h.96l4.038 3-.02-3H45a2 2 0 002-2V3a2 2 0 00-2-2H31a2 2 0 00-2 2v4.035\" stroke=\"#secondary\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path stroke=\"#primary\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M36 5.014l-3 3 3 3M40 5.014l3 3-3 3\"/><path d=\"M6 37a1 1 0 110 2 1 1 0 010-2m7 0a1 1 0 110 2 1 1 0 010-2m-2.448 1a1 1 0 11-2 0 1 1 0 012 0z\" fill=\"#primary\"/><path d=\"M1.724 15.05A23.934 23.934 0 000 24c0 .686.029 1.366.085 2.037m19.92 21.632c1.3.218 2.634.331 3.995.331a23.92 23.92 0 009.036-1.76m13.207-13.21A23.932 23.932 0 0048 24c0-1.363-.114-2.7-.332-4M25.064.022a23.932 23.932 0 00-10.073 1.725\" stroke=\"#secondary\" stroke-width=\"2\" stroke-linecap=\"round\"/><path d=\"M19 42.062V43a2 2 0 01-2 2H9.04l-4.038 3 .02-3H3a2 2 0 01-2-2V33a2 2 0 012-2h4.045\" stroke=\"#secondary\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M6 0a6 6 0 110 12A6 6 0 016 0z\" stroke=\"#primary\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path stroke=\"#primary\" stroke-width=\"2\" stroke-linecap=\"round\" d=\"M6 3v6M3 6h6\"/><path d=\"M42 36a6 6 0 110 12 6 6 0 010-12z\" stroke=\"#primary\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path stroke=\"#primary\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M44.338 40.663l-3.336 3.331-1.692-1.686M31 31c-.716-2.865-3.578-5-7-5-3.423 0-6.287 2.14-7 5\"/><path d=\"M24 16a5 5 0 110 10 5 5 0 010-10z\" stroke=\"#primary\" stroke-width=\"2\" stroke-linecap=\"round\"/><circle stroke=\"#primary\" stroke-width=\"2\" cx=\"24\" cy=\"24\" r=\"14\"/></g>",
               ...rank(value, [1, 1000, 5000, 10000]), value, unlock:new Date(unlock?.createdAt),
-              gh:Number(`1${"0".repeat(Math.ceil(Math.log10(1+ranks.repo_rank.repositoryCount)))}`),
+              leaderboard:leaderboard({user:ranks.repo_rank.repositoryCount, requirement:scores.stars >= requirements.stars, type:"repositories"}),
+            })
+          }
+
+        //Inspirationer
+          {
+            const value = Math.max(0, ...data.user.repositories.nodes.map(({forkCount}) => forkCount))
+            const unlock = null
+            list.push({
+              title:"Inspirationer",
+              text:`Maintaining a repository which has been forked ${value} time${imports.s(value)}`,
+              icon:"<g transform=\"translate(4 4)\" fill=\"none\" fill-rule=\"evenodd\"><path d=\"M20.065 47.122c.44-.525.58-1.448.58-1.889 0-2.204-1.483-3.967-3.633-4.187.447-1.537.58-2.64.397-3.31-.25-.92-.745-1.646-1.409-2.235m-5.97-7.157c.371-.254.911-.748 1.62-1.48a8.662 8.662 0 001.432-2.366M47 22h-7c-1.538 0-2.749-.357-4-1h-5c-1.789.001-3-1.3-3-2.955 0-1.656 1.211-3.04 3-3.045h2c.027-1.129.513-2.17 1-3m3.082 32.004C34.545 43.028 34.02 40.569 34 39v-1h-1c-2.603-.318-5-2.913-5-5.997S30.397 26 33 26h9c2.384 0 4.326 1.024 5.27 3\" stroke=\"#secondary\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"/><g transform=\"translate(36)\" stroke=\"#primary\" stroke-width=\"2\"><path fill=\"#primary\" stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M5.395 5.352L6.009 4l.598 1.348L8 5.408l-1.067 1.12.425 1.47-1.356-.908-1.35.91.404-1.469L4 5.41z\"/><circle cx=\"6\" cy=\"6\" r=\"6\"/></g><g transform=\"translate(0 31)\" stroke=\"#primary\" stroke-width=\"2\"><circle cx=\"6\" cy=\"6\" r=\"6\"/><g stroke-linecap=\"round\"><path d=\"M6 4v4M4 6h4\"/></g></g><circle stroke=\"#primary\" stroke-width=\"2\" cx=\"10.5\" cy=\"10.5\" r=\"10.5\"/><g stroke-linecap=\"round\"><path d=\"M32.01 1.37A23.96 23.96 0 0024 0c-.999 0-1.983.061-2.95.18M.32 20.072a24.21 24.21 0 00.015 7.948M12.42 45.025A23.892 23.892 0 0024 48c13.255 0 24-10.745 24-24 0-2.811-.483-5.51-1.371-8.016\" stroke=\"#secondary\" stroke-width=\"2\"/><path stroke=\"#primary\" stroke-width=\"2\" d=\"M8.999 7.151v5.865\"/><path d=\"M9 3a2 2 0 110 4 2 2 0 010-4zm0 10.8a2 2 0 11-.001 4 2 2 0 01.001-4z\" stroke=\"#primary\" stroke-width=\"1.8\"/><path d=\"M9.622 11.838c.138-.007.989.119 1.595-.05.607-.169 1.584-.539 1.829-1.337\" stroke=\"#primary\" stroke-width=\"2\"/><path d=\"M14.8 7.202a2 2 0 110 4 2 2 0 010-4z\" stroke=\"#primary\" stroke-width=\"1.8\"/></g></g>",
+              ...rank(value, [1, 100, 500, 1000]), value, unlock:new Date(unlock?.createdAt),
+              leaderboard:leaderboard({user:ranks.forks_rank.repositoryCount, requirement:scores.forks >= requirements.forks, type:"repositories"}),
             })
           }
 
@@ -289,4 +306,51 @@
     else if (x >= c)
       return {rank:"C", progress:(x-c)/(b-c)}
     return {rank:"X", progress:x/c}
+  }
+
+/**Leaderboards */
+  function leaderboard({user, type, requirement}) {
+    return requirement ? {
+      user:1+user,
+      total:total[type],
+      type,
+      get top() {
+        return Number(`1${"0".repeat(Math.ceil(Math.log10(this.user)))}`)
+      },
+      get percentile() {
+        return 100*(this.user/this.top)
+      },
+    } : null
+  }
+
+/**Total extracter */
+  async function total({imports}) {
+    if (!total.promise) {
+      total.promise = new Promise(async(solve, reject) => { //eslint-disable-line no-async-promise-executor
+        //Setup browser
+          console.debug("metrics/compute/plugins > achievements > filling total from github.com/search")
+          const browser = await imports.puppeteer.launch()
+          console.debug(`metrics/compute/plugins > achievements > started ${await browser.version()}`)
+        //Extracting total from github.com/search
+          for (let i = 0; (i < 100)&&((!total.users)||(!total.repositories)); i++) {
+            const page = await browser.newPage()
+            await page.goto("https://github.com/search")
+            const result = await page.evaluate(() => [...document.querySelectorAll("h2")].filter(node => /Search more/.test(node.innerText)).shift()?.innerText.trim().match(/(?<count>\d+)M\s+(?<type>repositories|users|issues)$/)?.groups) ?? null
+            console.log(`metrics/compute/plugins > achievements > setup found ${result?.type ?? "(?)"}`)
+            if ((result?.type)&&(!total[result.type])) {
+              const {count, type} = result
+              total[type] = Number(count)*10e5
+              console.debug(`metrics/compute/plugins > achievements > set total.${type} to ${total[type]}`)
+            }
+            await page.close()
+            await imports.wait(10*Math.random())
+          }
+        //Check setup state
+          if ((!total.users)||(!total.repositories))
+            return reject("Failed to initiate total for achievement plugin")
+          console.debug("metrics/compute/plugins > achievements > total setup complete")
+          return solve()
+      })
+    }
+    return total.promise
   }

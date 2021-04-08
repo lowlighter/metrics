@@ -32,7 +32,7 @@
 
 //Waiter
   async function wait(seconds) {
-    await new Promise(solve => setTimeout(solve, seconds*1000)) //eslint-disable-line no-promise-executor-return
+    await new Promise(solve => setTimeout(solve, seconds*1000))
   }
 
 //Runner
