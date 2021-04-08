@@ -373,11 +373,11 @@ Assuming your username is `my-github-user`, you can then embed rendered metrics 
 
 Create a repository with the same name as your GitHub login (if it's not already done).
 
-![Setup personal repository](.github/readme/imgs/setup_personal_repository.png)
+![Setup personal repository](/.github/readme/imgs/setup_personal_repository.png)
 
 Its `README.md` will be displayed on your user profile:
 
-![GitHub Profile Example](.github/readme/imgs/example_github_profile.png)
+![GitHub Profile Example](/.github/readme/imgs/example_github_profile.png)
 
 ### 1. Create a GitHub personal token
 
@@ -388,11 +388,11 @@ No additional scopes are needed for basic metrics, but you may have to grant add
 - `read:org` scope for all organizations related metrics
 - `repo` scope for all private repositories related metrics
 
-![Setup a GitHub personal token](.github/readme/imgs/setup_personal_token.png)
+![Setup a GitHub personal token](/.github/readme/imgs/setup_personal_token.png)
 
 A scope-less token can still display private contributions by enabling `Include private contributions on my profile` in your account settings:
 
-![Enable "Include private contributions on my profile`"](.github/readme/imgs/setup_private_contributions.png)
+![Enable "Include private contributions on my profile`"](/.github/readme/imgs/setup_private_contributions.png)
 
 If a plugin has not enough scopes to operate (and `plugins_errors_fatal` isn't enabled), it'll be reported in the rendering like below:
 
@@ -402,7 +402,7 @@ If a plugin has not enough scopes to operate (and `plugins_errors_fatal` isn't e
 
 Go to the `Settings` of your repository to create a new secret and paste your freshly generated GitHub token there.
 
-![Setup a repository secret](.github/readme/imgs/setup_repository_secret.png)
+![Setup a repository secret](/.github/readme/imgs/setup_repository_secret.png)
 
 ### 3. Create a GitHub Action workflow in your repository
 
@@ -431,7 +431,7 @@ See all supported options in [action.yml](action.yml).
 
 Rendered metrics will be committed to your repository on each run.
 
-![Action update example](.github/readme/imgs/example_action_update.png)
+![Action update example](/.github/readme/imgs/example_action_update.png)
 
 #### Choosing between `@latest`, `@master` or a fork
 
@@ -517,7 +517,7 @@ From the `Developer settings` of your account settings, select `Personal access 
 
 No additional scopes are needed.
 
-![Setup a GitHub personal token](.github/readme/imgs/setup_personal_token.png)
+![Setup a GitHub personal token](/.github/readme/imgs/setup_personal_token.png)
 
 ### 2. Install dependencies
 
@@ -855,7 +855,7 @@ While metrics targets mainly user accounts, it's possible to render metrics for 
 
 Setup is the same as for user accounts, though you'll need to add `read:org` scope, **whether you're member of target organization or not**.
 
-![Add read:org scope to personal token](.github/readme/imgs/setup_token_org_read_scope.png)
+![Add read:org scope to personal token](/.github/readme/imgs/setup_token_org_read_scope.png)
 
 You'll also need to set `user` option with your organization name.
 
@@ -883,11 +883,11 @@ To support private repositories, add full `repo` scope to your personal token.
 Only public memberships can be displayed by metrics by default.
 You can manage your membership visibility in the `People` tab of your organization:
 
-![Publish organization membership](.github/readme/imgs/setup_public_membership_org.png)
+![Publish organization membership](/.github/readme/imgs/setup_public_membership_org.png)
 
 For organization memberships, add `read:org` scope to your personal token.
 
-![Add read:org scope to personal token](.github/readme/imgs/setup_token_org_read_scope.png)
+![Add read:org scope to personal token](/.github/readme/imgs/setup_token_org_read_scope.png)
 
 
 </details>
@@ -904,6 +904,7 @@ To suggest new features or requesting help to setup metrics, check out [discussi
 If you want to contribute, submit a [pull request](https://github.com/lowlighter/metrics/pulls).
 Be sure to read [CONTRIBUTING.md](CONTRIBUTING.md) for more information about this.
 
+If you don't know where to start, you can also take a look at issues labeled with [help wanted](https://github.com/lowlighter/metrics/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22).
 
 ## 📜 License
 
