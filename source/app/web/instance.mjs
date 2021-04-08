@@ -167,7 +167,7 @@
             await pending.get(login)
           }
           else
-            pending.set(login, new Promise(_solve => solve = _solve)) //eslint-disable-line no-promise-executor-return
+            pending.set(login, new Promise(_solve => solve = _solve))
         //Read cached data if possible
           if ((!debug)&&(cached)&&(cache.get(login))) {
             console.debug(`metrics/app/${login} > using cached image`)

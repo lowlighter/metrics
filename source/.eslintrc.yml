@@ -64,7 +64,6 @@ rules:
   # Code integrity
   no-unsafe-optional-chaining: error
   no-duplicate-imports: error
-  no-promise-executor-return: error
   eqeqeq: error
 
   # Code simplicity
