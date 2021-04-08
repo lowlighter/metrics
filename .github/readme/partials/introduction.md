@@ -60,7 +60,7 @@ And you can customize these heavily with plugins, templates and hundreds of opti
 <table>
   <tr>
     <th colspan="2" align="center">
-      <a href="source/templates/README.md">🖼️ <%= elements.length-1 %>+ templates</a>
+      <a href="source/templates/README.md">🖼️ <%= elements.length %>+ templates</a>
     </th>
   </tr>
 <%  if (elements.length%2)
