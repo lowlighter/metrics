@@ -3,6 +3,7 @@
   with:
     token: MOCKED_TOKEN
     plugin_achievements: yes
+  timeout: 900000
 
 - name: Achievements plugin (complete)
   uses: lowlighter/metrics@latest
@@ -11,3 +12,4 @@
     plugin_achievements_threshold: A
     plugin_achievements_secrets: no
     plugin_achievements_ignored: octonaut
+  timeout: 900000
