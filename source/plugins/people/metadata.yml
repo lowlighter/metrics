@@ -57,6 +57,7 @@ inputs:
     type: array
     format: comma-separated
     default: ""
+    example: octocat, hubot
 
   # Add specified users to GitHub sponsors ("sponsors" must be specified in "plugin_people_types")
   # This is useful to list sponsors from unsupported GitHub sponsors sources
@@ -65,6 +66,7 @@ inputs:
     type: array
     format: comma-separated
     default: ""
+    example: octocat, hubot
 
   # Use GitHub identicons instead of users' avatar (for privacy purposes)
   plugin_people_identicons:
