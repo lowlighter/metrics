@@ -564,7 +564,7 @@ This section explore some topics which explain globally how metrics was designed
 
 Metrics actually exploit the possibility of integrating HTML and CSS into SVGs, so basically creating these images is as simple as designing static web pages. It can even handle animations and transparency.
 
-![Metrics are html](.github/readme/imgs/about_metrics_are_html.png)
+![Metrics are html](/.github/readme/imgs/about_metrics_are_html.png)
 
 SVGs are templated through [EJS framework](https://github.com/mde/ejs) to make the whole rendering process easier thanks to variables, conditional and loop statements. Only drawback is that it tends to make syntax coloration a bit confused because templates are often misinterpreted as HTML tags markers (`<%= "EJS templating syntax" %>`).
 
@@ -574,7 +574,7 @@ Since SVG renders differently depending on OS and browsers (system fonts, CSS su
 
 To solve this, metrics now spawns a [puppeteer](https://github.com/puppeteer/puppeteer) instance and directly render SVG in a browser environment (with all animations disabled). An hidden "marker" element is placed at the end of the image, and is used to resize image through its Y-offset.
 
-![Metrics marker](.github/readme/imgs/about_metrics_marker.png)
+![Metrics marker](/.github/readme/imgs/about_metrics_marker.png)
 
 Additional bonus of using pupeeter is that it can take screenshots, making it easy to convert SVGs to PNG output.
 

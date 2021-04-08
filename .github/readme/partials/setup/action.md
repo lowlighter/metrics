@@ -19,11 +19,11 @@ Assuming your username is `my-github-user`, you can then embed rendered metrics 
 
 Create a repository with the same name as your GitHub login (if it's not already done).
 
-![Setup personal repository](.github/readme/imgs/setup_personal_repository.png)
+![Setup personal repository](/.github/readme/imgs/setup_personal_repository.png)
 
 Its `README.md` will be displayed on your user profile:
 
-![GitHub Profile Example](.github/readme/imgs/example_github_profile.png)
+![GitHub Profile Example](/.github/readme/imgs/example_github_profile.png)
 
 ### 1. Create a GitHub personal token
 
@@ -34,11 +34,11 @@ No additional scopes are needed for basic metrics, but you may have to grant add
 - `read:org` scope for all organizations related metrics
 - `repo` scope for all private repositories related metrics
 
-![Setup a GitHub personal token](.github/readme/imgs/setup_personal_token.png)
+![Setup a GitHub personal token](/.github/readme/imgs/setup_personal_token.png)
 
 A scope-less token can still display private contributions by enabling `Include private contributions on my profile` in your account settings:
 
-![Enable "Include private contributions on my profile`"](.github/readme/imgs/setup_private_contributions.png)
+![Enable "Include private contributions on my profile`"](/.github/readme/imgs/setup_private_contributions.png)
 
 If a plugin has not enough scopes to operate (and `plugins_errors_fatal` isn't enabled), it'll be reported in the rendering like below:
 
@@ -48,7 +48,7 @@ If a plugin has not enough scopes to operate (and `plugins_errors_fatal` isn't e
 
 Go to the `Settings` of your repository to create a new secret and paste your freshly generated GitHub token there.
 
-![Setup a repository secret](.github/readme/imgs/setup_repository_secret.png)
+![Setup a repository secret](/.github/readme/imgs/setup_repository_secret.png)
 
 ### 3. Create a GitHub Action workflow in your repository
 
@@ -77,7 +77,7 @@ See all supported options in [action.yml](action.yml).
 
 Rendered metrics will be committed to your repository on each run.
 
-![Action update example](.github/readme/imgs/example_action_update.png)
+![Action update example](/.github/readme/imgs/example_action_update.png)
 
 #### Choosing between `@latest`, `@master` or a fork
 
