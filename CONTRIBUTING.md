@@ -16,11 +16,12 @@ Review below which contributions are accepted:
 <table>
   <tr>
     <th>Section</th>
-    <th colspan="2">Addition</th>
-    <th colspan="2">Editions</th>
+    <th>Addition</th>
+    <th>Editions</th>
+    <th>Notes</th>
   </tr>
   <tr>
-    <td>🧩 Plugins</td>
+    <td nowrap="nowrap">🧩 Plugins</td>
     <td>✔️</td>
     <td>✔️</td>
     <td>
@@ -31,7 +32,7 @@ Review below which contributions are accepted:
     </td>
   </tr>
   <tr>
-    <td>🖼️ Templates</td>
+    <td nowrap="nowrap">🖼️ Templates</td>
     <td>❌</td>
     <td>⭕</td>
     <td>
@@ -42,7 +43,7 @@ Review below which contributions are accepted:
     </td>
   </tr>
   <tr>
-    <td>🧪 Tests</td>
+    <td nowrap="nowrap">🧪 Tests</td>
     <td>✔️</td>
     <td>✔️</td>
     <td>
@@ -52,7 +53,7 @@ Review below which contributions are accepted:
     </td>
   </tr>
   <tr>
-    <td>🧱 Core</td>
+    <td nowrap="nowrap">🧱 Core</td>
     <td>❌</td>
     <td>⭕</td>
     <td>
@@ -62,7 +63,7 @@ Review below which contributions are accepted:
     </td>
   </tr>
   <tr>
-    <td>🗃️ Repository</td>
+    <td nowrap="nowrap">🗃️ Repository</td>
     <td>❌</td>
     <td>❌</td>
     <td>
@@ -91,7 +92,9 @@ Metrics is designed to be highly customizable, so you can always decide to gener
 
 Templates require you to be comfortable with HTML, CSS and JavaScript ([EJS](https://github.com/mde/ejs) flavored).
 
-Metrics does not really accept contributions on [default templates](https://github.com/lowlighter/metrics/tree/master/source/templates) in order to avoid bloating main repository with a lot of templates and to keep visual consistency across all version, but fear not! Users will still be able to use your custom templates thanks to [community templates](source/templates/community)!
+Metrics does not really accept new [default templates](https://github.com/lowlighter/metrics/tree/master/source/templates) in order to avoid bloating main repository (and it also makes maintaining easier upon new plugins releases).
+
+Redesigns of existing templates are also typically avoided to keep visual consistency across all versions, but fear not! Users will still be able to use your custom templates thanks to [community templates](source/templates/community)!
 
 If you make something awesome, don't hesitate to share it!
 
@@ -145,7 +148,7 @@ The base structure for rendering looks like below:
 ```
 
 - `fonts` and `style` variables will both be populated with the same content as your `fonts.css` and `styles.css` files
-  - (or thos of `classic` template files if inexistent)
+  - (or those of `classic` template files if inexistent)
 - `partials` variable will be populated with `partials/_.json` content
   - Main loop will iterate over this array to include all defined partials
 - `#metrics-end` is a special HTML tag which must remain at the bottom of SVG template
@@ -161,7 +164,7 @@ As you can see, we exploit the fact that SVG images are able to render HTML and 
 <details>
 <summary>💬 Adding custom fonts</summary>
 
-    ⚠️ This significantly increases rendered metrics filesize and thus not recommended
+> ⚠️ This significantly increases rendered metrics filesize and thus not recommended
 
 When using this feature, you should aim to restrict used charset to avoid including useless data.
 
@@ -212,16 +215,18 @@ Here are some guidelines to follow about plugins:
   - Adding new libraries to use only ~5% of its possibilities is just a waste
     - For APIs, most of the time a few HTTP calls instead of installing a full SDK wrapper is more than sufficient
     - `imports` probably already contains a library or a function that can help you achieving what you want
-    - It also add more unstability as it external changes are
-- Use of raw commands should be avoided when (spawning sub-process)
-  - It allows metrics to be platform agnostic (i.e. working on most OS)
+    - It also add more unstability since metrics may break upon external API breaking changes
+- Use of raw commands (spawning sub-process) should be avoided unless needed
   - If mandatory:
     - Use [`which`](https://linux.die.net/man/1/which) detect whether command is available
     - For Windows, wrap command with [WSL](https://docs.microsoft.com/windows/wsl/about)
+    - It should at least work on Linux (action runs on ubuntu) but also on other OS to ease development and maintaining
 - Errors should be handled gracefully with error messages
 - Plugins arguments should **NEVER** be directly edited from inside a plugin
   - These are used by all plugins, including core and base so it would create unattended side effects
-- They should let end user with some customization options (limit entries, detailed output, etc.)
+- They should include customization options (limit entries, detailed output, etc.) for end user
+  - Be sure to follow other options "lexical fields" to keep consistency and a certain abstraction level. For example use `my_plugin_user` and not `my_plugin_username` or `my_plugin_login`
+  - Options should only affect content, not styling
 
 You'll also need to an unused [emoji](https://emojipedia.org) to use as your plugin icon.
 
@@ -247,19 +252,19 @@ Default exported function in `index.mjs` will receive the following inputs:
   - `imports.shuffle` is an helper to shuffle array
   - `imports.imgb64` is an helper to download and resize an image into base64
   - `imports.__module` is an helper to find `__dirname` from a module `import.meta.url`
-  - And more...
+  - [And more...](/source/app/metrics/utils.mjs)
 - `data` and `computed`, with all data gathered from core and base
 - `graphql` and `rest`, with authenticated [octokit clients](https://github.com/octokit) (for GitHub APIs)
 - `queries`, with autoloaded GraphQL queries and replacers
 - `account`, set to account type ("user" or "organization")
 
-Second input contains configuration settings from [settings.json](https://github.com/lowlighter/metrics/blob/master/settings.example.json) (which is mostly used by web instances) and all also user inputs of type `token`.
+Second input contains configuration settings from [settings.json](https://github.com/lowlighter/metrics/blob/master/settings.example.json) (which is mostly used by web instances) and also all user inputs of type `token`.
 
 As said previously, plugins arguments should **NEVER** be directly edited from it, since these are used by all plugins, including core and base so it would create unattended side effects.
 
-As for data gathering:
-  - Related to GitHub, use `graphql` (for [GraphQL API](https://docs.github.com/en/graphql)) or `rest` [REST API](https://docs.github.com/en/rest)
-  - From Third-Party services, use [`imports.axios`](https://github.com/axios/axios) to make APIs calls
+As for data gathering related to:
+  - GitHub, use `graphql` (for [GraphQL API](https://docs.github.com/en/graphql)) or `rest` [REST API](https://docs.github.com/en/rest)
+  - Third-Party services, use [`imports.axios`](https://github.com/axios/axios) to make APIs calls
   - In last resort, use `imports.puppeteer`
 
 For GraphQL queries, use `queries` which will auto-load all queries from `queries` directory and will lets you create custom queries on the fly.
@@ -267,9 +272,9 @@ For GraphQL queries, use `queries` which will auto-load all queries from `querie
 For example:
 ```js
 //Calling this
-  await graphql(queries.myquery({login:"github-user", account:"user"}))
+  await graphql(queries.myplugin.myquery({login:"github-user", account:"user"}))
 
-//With this in source/queries/myquery.graphql
+//With this in source/plugins/myplugin/queries/myquery.graphql
   query MyQuery {
     $account(login: "$login") {
       name
@@ -299,6 +304,7 @@ Here's an example:
 name: "🧩 Plugin name (with emoji icon)"
 cost: Estimates how many GitHub requests is used during plugin execution ("N/A" for Third-Party services)
 categorie: github # Plugin categorie ("github", "social" or "other")
+index: ~          # Leave as it (this is used to order plugins on metrics README.md)
 supports:
   - user          # Support users account
   - organization  # Support organizations account
@@ -318,20 +324,20 @@ Metrics apply additional post-processing to handle inputs.
 
 Supported input types are `boolean`, `string`, `number`, `array` and `json`.
 
-- Allowed values for `string` and `array` may be restricted using `values` attribute
-  - Special default values `.user.login`, `.user.twitter` and `.user.website` will respectively be replaced by user's login, Twitter username and website (not available when `token` is set to `NOT_NEEDED` by user  )
+- Allowed values for `string` and `array` types may be restricted using `values` attribute
+  - Special default values `.user.login`, `.user.twitter` and `.user.website` will respectively be replaced by user's login, Twitter username and website (not available when `token` is set to `NOT_NEEDED` by user)
 - Lower and upper limits for `number` may be set using `min` and `max` attribute
 - Array `format` attribute define how string should be splitted (`comma-separated` or `space-separated`)
 
 You can additionally specify an `example` which will also be used in web instance input placeholder.
 
-Inputs will be available through `imports.metadata.plugins.name.inputs` with correct typing and default values (`plugin_` prefix will be dropped, and all underscored (`_`) will be changed to dots (`.`) instead):
+Inputs will be available through `imports.metadata.plugins.*.inputs` with correct typing and default values (`plugin_` prefix will be dropped, and all underscored (`_`) will be changed to dots (`.`) instead):
 ```javascript
 //Load inputs
-  let {limit, "limit.field":limit_field} = imports.metadata.plugins.name.inputs({data, account, q})
+  let {limit, "limit.field":limit_field} = imports.metadata.plugins.myplugin.inputs({data, account, q})
 ```
 
-Additionally, if `account` isn't supported, this method will automatically prevent your plugin from running by throwing an error.
+Additionally, if `account` type isn't supported, this method will automatically prevent your plugin from running by throwing an error.
 
 </details>
 
@@ -369,6 +375,42 @@ Additional CSS rules may be added to `style.css` of edited template, but ensure 
 
 </details>
 
+<details>
+<summary>💬 Redacting plugin's <code>README.md</code></summary>
+
+`README.md` is a mandatory file which contains basic documentation about your plugin.
+
+It should contain:
+- A brief description of plugin's purpose
+- A table including demos (this is automatically extracted upon metrics `README.md` auto-generation)
+  - Multiple demo are allowed, but if they're too big, please embed them in `<detail></details>` tags
+  - Note that the `<img width="900" height="1" alt="">` must not be deleted, it is used to fill table height
+- Additional documentation on how to setup, token creation, etc.
+- A workflow example, with all available options
+
+```markdown
+### 🧩 Your plugin name
+
+<table>
+  <td align="center">
+    <img src="">
+    <img width="900" height="1" alt="">
+  </td>
+</table>
+
+#### ℹ️ Examples workflows
+
+[➡️ Available options for this plugin](metadata.yml)
+
+'''yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_custom: yes
+'''
+
+```
+</details>
 
 <details>
 <summary>💬 Fast prototyping and testing</summary>
@@ -416,32 +458,14 @@ http://localhost:3000/your-github-login?base=0&your-plugin-name=1&config.output=
 
 And finally open a new [pull request](https://github.com/lowlighter/metrics/pulls) and ensure that all builds succeed.
 
-Global `README.md`, `plugins/README.md`, `templates/README.md`, `action.yml` and `settings.example.json` are automatically rebuild by GitHub action, do not edit them manually.
-
-```markdown
-### 🧩 Your plugin name
-
-<table>
-  <td align="center">
-    <img src="">
-    <img width="900" height="1" alt="">
-  </td>
-</table>
-
-#### ℹ️ Examples workflows
-
-[➡️ Available options for this plugin](metadata.yml)
-
-'''yaml
-- uses: lowlighter/metrics@latest
+Additionally, you can test your changes with GitHub action by using your fork in your workflow:
+```yaml
+- uses: github-login/metrics@feat-my-plugin
   with:
-    # ... other options
-    plugin_custom: yes
-'''
-
+    # options...
 ```
 
-Note that you **must** keep .
+Global `README.md`, `plugins/README.md`, `templates/README.md`, `action.yml` and `settings.example.json` are automatically rebuild by GitHub action, do not edit them manually.
 
 </details>
 
@@ -500,8 +524,8 @@ Below is a list of used packages.
   * To render SVG images
 * [ptarjan/node-cache](https://github.com/ptarjan/node-cache)
   * To cache generated content
-* [oliver-moran/jimp](https://github.com/oliver-moran/jimp)
-  * To transform and generate base64 images
+* [oliver-moran/jimp](https://github.com/oliver-moran/jimp), [foliojs/png.js](https://github.com/foliojs/png.js) and [eugeneware/gifencoder](https://github.com/eugeneware/gifencoder)
+  * To process images transformations
 * [svg/svgo](https://github.com/svg/svgo)
   * To optimize generated SVG
 * [axios/axios](https://github.com/axios/axios)
@@ -512,8 +536,8 @@ Below is a list of used packages.
   * To display server application
 * [puppeteer/puppeteer](https://github.com/puppeteer/puppeteer)
   * To scrape the web
-* [marudor/libxmljs2](https://github.com/marudor/libxmljs2)
-  * To test and verify SVG validity
+* [marudor/libxmljs2](https://github.com/marudor/libxmljs2) and [chrisbottin/xml-formatter](https://github.com/chrisbottin/xml-formatter)
+  * To format, test and verify SVG validity
 * [facebook/jest](https://github.com/facebook/jest) and [nodeca/js-yaml](https://github.com/nodeca/js-yaml)
   * For unit testing
 * [marak/faker.js](https://github.com/marak/Faker.js)
@@ -526,6 +550,8 @@ Below is a list of used packages.
   * To retrieve open graphs metadata
 * [panosoft/node-chartist](https://github.com/panosoft/node-chartist) and [gionkunz/chartist-js](https://github.com/gionkunz/chartist-js)
   * To display embed SVG charts
+* [rbren/rss-parser](https://github.com/rbren/rss-parser)
+  * To parse RSS streams
 
 </details>
 
