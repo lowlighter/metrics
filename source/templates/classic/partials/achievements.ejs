@@ -12,7 +12,7 @@
             <%= plugins.achievements.error.message %>
           </div>
         <% } else { %>
-          <% for (const {title, text, icon, rank, gh = NaN, progress = 0, unlock = null} of plugins.achievements.list) { %>
+          <% for (const {title, text, icon, rank, leaderboard = null, progress = 0, unlock = null} of plugins.achievements.list) { %>
             <div class="achievement <%= rank === "$" ? "secret" : rank.charAt(0).toLocaleLowerCase() %>">
               <div class="icon">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" height="44" width="44">
@@ -33,9 +33,9 @@
               <div class="info">
                 <div class="title">
                   <%= title %>
-                  <% if ((Number.isFinite(gh))&&(gh < 100000)) { %>
+                  <% if (leaderboard) { %>
                     <span class="gh">
-                      Top <%= gh %>
+                      ranked <%= f(leaderboard.user) %> out of <%= f(leaderboard.total) %> <%= leaderboard.type %>
                     </span>
                   <% } %>
                 </div>
