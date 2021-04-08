@@ -20,7 +20,7 @@ See [example.md](/source/templates/markdown/example.md) for a markdown template 
 > You may need to handle errors and setup plugins correctly in order to access to their output data.
 
 To find which data can be used, you can run a workflow with `config_output: json`.
-For convenience, several useful properties are aliased in [/source/templates/markdown/template.mjs](markdown/template.mjs).
+For convenience, several useful properties are aliased in [/source/templates/markdown/template.mjs](/source/templates/markdown/template.mjs).
 
 #### ℹ️ Examples workflows
 
