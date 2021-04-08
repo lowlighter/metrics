@@ -27,7 +27,7 @@
             return {x, y, width, height}
           }, selector)
           const [buffer] = await imports.record({page, ...clip, frames:1, background})
-          const screenshot = await (await imports.jimp.read(Buffer.from(buffer.split(",").pop(), "base64"))).resize(454, imports.jimp.AUTO)
+          const screenshot = await (await imports.jimp.read(Buffer.from(buffer.split(",").pop(), "base64"))).resize(Math.min(454, clip.width), imports.jimp.AUTO)
           await browser.close()
 
         //Results
