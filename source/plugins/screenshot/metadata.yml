@@ -1,0 +1,39 @@
+name: "📸 Website screenshot"
+cost: N/A
+categorie: other
+index: 2
+supports:
+  - user
+  - organization
+  - repository
+inputs:
+
+  # Enable or disable plugin
+  plugin_screenshot:
+    description: Display a screenshot of any website
+    type: boolean
+    default: no
+
+  # Screenshot title caption
+  plugin_screenshot_title:
+    description: Screenshot title caption
+    type: string
+    default: Screenshot
+
+  # Website to take screenshot
+  plugin_screenshot_url:
+    description: Website to take screenshot
+    type: string
+    default: ""
+
+  # Selector to take in screenshot
+  plugin_screenshot_selector:
+    description: Selector to take in screenshot
+    type: string
+    default: body
+
+  # Display or remove default page background
+  plugin_screenshot_background:
+    description: Display or remove default page background
+    type: boolean
+    default: yes

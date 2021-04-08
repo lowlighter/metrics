@@ -17,6 +17,7 @@ inputs:
     description: Base reference
     type: string
     default: ""
+    example: commit, tag or branch
 
   # Head reference (commit, tag, branch, etc.)
   plugin_contributors_head:

@@ -86,6 +86,7 @@
             descriptions:{
               classic:"Classic template",
               terminal:"Terminal template",
+              markdown:"(hidden)",
               repository:"(hidden)",
             },
           },
@@ -97,6 +98,10 @@
         },
       //Computed data
         computed:{
+          //Unusable plugins
+            unusable() {
+              return this.plugins.list.filter(({name}) => this.plugins.enabled[name]).filter(({enabled}) => !enabled).map(({name}) => name)
+            },
           //User's avatar
             avatar() {
               return this.generated.content ? `https://github.com/${this.user}.png` : null

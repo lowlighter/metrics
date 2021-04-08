@@ -9,7 +9,7 @@ While metrics targets mainly user accounts, it's possible to render metrics for 
 
 Setup is the same as for user accounts, though you'll need to add `read:org` scope, **whether you're member of target organization or not**.
 
-![Add read:org scope to personal token](.github/readme/imgs/setup_token_org_read_scope.png)
+![Add read:org scope to personal token](/.github/readme/imgs/setup_token_org_read_scope.png)
 
 You'll also need to set `user` option with your organization name.
 
@@ -37,11 +37,11 @@ To support private repositories, add full `repo` scope to your personal token.
 Only public memberships can be displayed by metrics by default.
 You can manage your membership visibility in the `People` tab of your organization:
 
-![Publish organization membership](.github/readme/imgs/setup_public_membership_org.png)
+![Publish organization membership](/.github/readme/imgs/setup_public_membership_org.png)
 
 For organization memberships, add `read:org` scope to your personal token.
 
-![Add read:org scope to personal token](.github/readme/imgs/setup_token_org_read_scope.png)
+![Add read:org scope to personal token](/.github/readme/imgs/setup_token_org_read_scope.png)
 
 
 </details>

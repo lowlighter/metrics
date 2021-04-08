@@ -19,6 +19,7 @@ inputs:
     description: RSS feed source
     type: string
     default: ""
+    example: https://news.ycombinator.com/rss
 
   # Number of items to display
   # Set to 0 to disable limitations

@@ -23,7 +23,7 @@ From the `Developer settings` of your account settings, select `Personal access 
 
 No additional scopes are needed.
 
-![Setup a GitHub personal token](.github/readme/imgs/setup_personal_token.png)
+![Setup a GitHub personal token](/.github/readme/imgs/setup_personal_token.png)
 
 ### 2. Install dependencies
 

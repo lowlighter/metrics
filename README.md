@@ -31,7 +31,7 @@ And you can customize these heavily with plugins, templates and hundreds of opti
 <table>
   <tr>
     <th colspan="2" align="center">
-      <a href="source/plugins/README.md">🧩 29 plugins</a>
+      <a href="source/plugins/README.md">🧩 30 plugins</a>
     </th>
   </tr>
   <tr>
@@ -285,15 +285,18 @@ And you can customize these heavily with plugins, templates and hundreds of opti
     </td>
   </tr>
   <tr>
+    <th><a href="source/plugins/screenshot/README.md">📸 Website screenshot</a></th>
     <th><a href="source/plugins/nightscout/README.md">💉 Nightscout</a></th>
-    <th><a href="source/plugins//README.md"></a></th>
   </tr>
   <tr>
+    <td align="center">
+      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.screenshot.svg">
+      <img width="900" height="1" alt="">
+    </td>
     <td align="center">
       <img alt="" width="400" src="https://github.com/legoandmars/legoandmars/blob/master/metrics.plugin.nightscout.svg">
       <img width="900" height="1" alt="">
     </td>
-    <td align="center"><img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <th colspan="2" align="center">
@@ -306,7 +309,7 @@ And you can customize these heavily with plugins, templates and hundreds of opti
 <table>
   <tr>
     <th colspan="2" align="center">
-      <a href="source/templates/README.md">🖼️ 3+ templates</a>
+      <a href="source/templates/README.md">🖼️ 4+ templates</a>
     </th>
   </tr>
   <tr>
@@ -373,11 +376,11 @@ Assuming your username is `my-github-user`, you can then embed rendered metrics 
 
 Create a repository with the same name as your GitHub login (if it's not already done).
 
-![Setup personal repository](.github/readme/imgs/setup_personal_repository.png)
+![Setup personal repository](/.github/readme/imgs/setup_personal_repository.png)
 
 Its `README.md` will be displayed on your user profile:
 
-![GitHub Profile Example](.github/readme/imgs/example_github_profile.png)
+![GitHub Profile Example](/.github/readme/imgs/example_github_profile.png)
 
 ### 1. Create a GitHub personal token
 
@@ -388,11 +391,11 @@ No additional scopes are needed for basic metrics, but you may have to grant add
 - `read:org` scope for all organizations related metrics
 - `repo` scope for all private repositories related metrics
 
-![Setup a GitHub personal token](.github/readme/imgs/setup_personal_token.png)
+![Setup a GitHub personal token](/.github/readme/imgs/setup_personal_token.png)
 
 A scope-less token can still display private contributions by enabling `Include private contributions on my profile` in your account settings:
 
-![Enable "Include private contributions on my profile`"](.github/readme/imgs/setup_private_contributions.png)
+![Enable "Include private contributions on my profile`"](/.github/readme/imgs/setup_private_contributions.png)
 
 If a plugin has not enough scopes to operate (and `plugins_errors_fatal` isn't enabled), it'll be reported in the rendering like below:
 
@@ -402,7 +405,7 @@ If a plugin has not enough scopes to operate (and `plugins_errors_fatal` isn't e
 
 Go to the `Settings` of your repository to create a new secret and paste your freshly generated GitHub token there.
 
-![Setup a repository secret](.github/readme/imgs/setup_repository_secret.png)
+![Setup a repository secret](/.github/readme/imgs/setup_repository_secret.png)
 
 ### 3. Create a GitHub Action workflow in your repository
 
@@ -431,7 +434,7 @@ See all supported options in [action.yml](action.yml).
 
 Rendered metrics will be committed to your repository on each run.
 
-![Action update example](.github/readme/imgs/example_action_update.png)
+![Action update example](/.github/readme/imgs/example_action_update.png)
 
 #### Choosing between `@latest`, `@master` or a fork
 
@@ -517,7 +520,7 @@ From the `Developer settings` of your account settings, select `Personal access 
 
 No additional scopes are needed.
 
-![Setup a GitHub personal token](.github/readme/imgs/setup_personal_token.png)
+![Setup a GitHub personal token](/.github/readme/imgs/setup_personal_token.png)
 
 ### 2. Install dependencies
 
@@ -656,6 +659,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" title="🗼 Rss feed">🗼</th>
     <th nowrap="nowrap" align="center" title="⏰ WakaTime plugin">⏰</th>
     <th nowrap="nowrap" align="center" title="💹 Stock prices">💹</th>
+    <th nowrap="nowrap" align="center" title="📸 Website screenshot">📸</th>
     <th nowrap="nowrap" align="center" title="💉 Nightscout">💉</th>
   </tr>  
   <tr>
@@ -689,6 +693,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="rss">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="wakatime">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="stock">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="screenshot">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="nightscout">✔️</th>
   </tr>
   <tr>
@@ -722,6 +727,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="rss">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="wakatime">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="stock">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="screenshot">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="nightscout">❌</th>
   </tr>
   <tr>
@@ -755,6 +761,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="rss">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="wakatime">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="stock">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="screenshot">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="nightscout">❌</th>
   </tr>
   <tr>
@@ -788,6 +795,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="rss">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="wakatime">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="stock">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="screenshot">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="nightscout">❌</th>
   </tr>
 </table>
@@ -842,6 +850,7 @@ See their respective documentation for more informations about how to setup them
   * [⏰ WakaTime plugin](/source/plugins/wakatime/README.md)
 * **Other**
   * [💹 Stock prices](/source/plugins/stock/README.md)
+  * [📸 Website screenshot](/source/plugins/screenshot/README.md)
   * [💉 Nightscout](/source/plugins/nightscout/README.md)
 
 ### 🏦 Organizations metrics
@@ -855,7 +864,7 @@ While metrics targets mainly user accounts, it's possible to render metrics for 
 
 Setup is the same as for user accounts, though you'll need to add `read:org` scope, **whether you're member of target organization or not**.
 
-![Add read:org scope to personal token](.github/readme/imgs/setup_token_org_read_scope.png)
+![Add read:org scope to personal token](/.github/readme/imgs/setup_token_org_read_scope.png)
 
 You'll also need to set `user` option with your organization name.
 
@@ -883,11 +892,11 @@ To support private repositories, add full `repo` scope to your personal token.
 Only public memberships can be displayed by metrics by default.
 You can manage your membership visibility in the `People` tab of your organization:
 
-![Publish organization membership](.github/readme/imgs/setup_public_membership_org.png)
+![Publish organization membership](/.github/readme/imgs/setup_public_membership_org.png)
 
 For organization memberships, add `read:org` scope to your personal token.
 
-![Add read:org scope to personal token](.github/readme/imgs/setup_token_org_read_scope.png)
+![Add read:org scope to personal token](/.github/readme/imgs/setup_token_org_read_scope.png)
 
 
 </details>
@@ -904,6 +913,7 @@ To suggest new features or requesting help to setup metrics, check out [discussi
 If you want to contribute, submit a [pull request](https://github.com/lowlighter/metrics/pulls).
 Be sure to read [CONTRIBUTING.md](CONTRIBUTING.md) for more information about this.
 
+If you don't know where to start, you can also take a look at issues labeled with [help wanted](https://github.com/lowlighter/metrics/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22).
 
 ## 📜 License
 

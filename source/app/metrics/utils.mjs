@@ -18,7 +18,7 @@
   import PNG from "png-js"
 
 //Exports
-  export {fs, os, paths, url, util, processes, axios, git, opengraph, rss}
+  export {fs, os, paths, url, util, processes, axios, git, opengraph, jimp, rss}
 
 /**Returns module __dirname */
   export function __module(module) {
@@ -198,7 +198,7 @@
                 if (animated)
                   document.querySelector("svg").classList.add("no-animations")
                 console.debug(`animations are ${animated ? "enabled" : "disabled"}`)
-                await new Promise(solve => setTimeout(solve, 2400)) //eslint-disable-line no-promise-executor-return
+                await new Promise(solve => setTimeout(solve, 2400))
               //Get bounds and resize
                 let {y:height, width} = document.querySelector("svg #metrics-end").getBoundingClientRect()
                 console.debug(`bounds width=${width}, height=${height}`)
@@ -270,15 +270,15 @@
 
 /**Wait */
   export async function wait(seconds) {
-    await new Promise(solve => setTimeout(solve, seconds*1000)) //eslint-disable-line no-promise-executor-return
+    await new Promise(solve => setTimeout(solve, seconds*1000))
   }
 
 /**Create record from puppeteer browser */
-  export async function record({page, width, height, frames, scale = 1, quality = 80, x = 0, y = 0, delay = 150}) {
+  export async function record({page, width, height, frames, scale = 1, quality = 80, x = 0, y = 0, delay = 150, background = true}) {
     //Register images frames
       const images = []
       for (let i = 0; i < frames; i++) {
-        images.push(await page.screenshot({type:"png", clip:{width, height, x, y}}))
+        images.push(await page.screenshot({type:"png", clip:{width, height, x, y}, omitBackground:background}))
         await wait(delay/1000)
         if (i%10 === 0)
           console.debug(`metrics/record > processed ${i}/${frames} frames`)
@@ -306,7 +306,7 @@
     //Register frames
       for (let i = 0; i < frames; i++) {
         const buffer = new PNG(await page.screenshot({clip:{width, height, x, y}}))
-        encoder.addFrame(await new Promise(solve => buffer.decode(pixels => solve(pixels)))) //eslint-disable-line no-promise-executor-return
+        encoder.addFrame(await new Promise(solve => buffer.decode(pixels => solve(pixels))))
         if (frames%10 === 0)
           console.debug(`metrics/puppeteergif > processed ${i}/${frames} frames`)
       }
