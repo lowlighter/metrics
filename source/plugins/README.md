@@ -37,4 +37,5 @@ See their respective documentation for more informations about how to setup them
   * [⏰ WakaTime plugin](/source/plugins/wakatime/README.md)
 * **Other**
   * [💹 Stock prices](/source/plugins/stock/README.md)
+  * [📸 Website screenshot](/source/plugins/screenshot/README.md)
   * [💉 Nightscout](/source/plugins/nightscout/README.md)

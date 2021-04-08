@@ -116,6 +116,9 @@
       "token": null,               "//":"Yahoo Finance token",
       "enabled": false,            "//": "Display stock prices of a given company"
     },
+    "screenshot":{
+      "enabled": false,            "//": "Display a screenshot of any website"
+    },
     "nightscout":{
       "enabled": false,            "//": "Displays Blood Glucose"
     },
