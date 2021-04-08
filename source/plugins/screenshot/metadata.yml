@@ -1,0 +1,14 @@
+name: "📸 Screenshot"
+cost: N/A
+categorie: other
+supports:
+  - user
+  - organization
+  - repository
+inputs:
+
+  # Enable or disable plugin
+  plugin_screenshot:
+    description: Display a screenshot of any website
+    type: boolean
+    default: no
