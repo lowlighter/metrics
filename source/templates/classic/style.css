@@ -932,6 +932,12 @@
     stroke: rgba(127, 127, 127, 0.4) !important;
   }
 
+/* Autosize */
+  .autosize {
+    width: auto;
+    height: auto;
+  }
+
 /* Fade animation */
   .af {
     opacity: 0;
