@@ -1,0 +1,13 @@
+name: "🎩 Notable contributions"
+cost: 1 GraphQL request per 100 repositories fetched
+categorie: github
+index: 18
+supports:
+  - user
+inputs:
+
+  # Enable or disable plugin
+  plugin_notable:
+    description: Display notable contributions in organizations
+    type: boolean
+    default: no
