@@ -57,22 +57,22 @@
             base:set.plugins.enabled.base,
           //Computed elements
             computed: {
-              commits:faker.random.number(10000),
-              sponsorships:faker.random.number(10),
+              commits:faker.datatype.number(10000),
+              sponsorships:faker.datatype.number(10),
               licenses:{favorite:[""], used:{MIT:1}},
               token:{scopes:[]},
               repositories: {
-                watchers:faker.random.number(1000),
-                stargazers:faker.random.number(10000),
-                issues_open:faker.random.number(1000),
-                issues_closed:faker.random.number(1000),
-                pr_open:faker.random.number(1000),
-                pr_merged:faker.random.number(1000),
-                forks:faker.random.number(1000),
-                releases:faker.random.number(1000),
+                watchers:faker.datatype.number(1000),
+                stargazers:faker.datatype.number(10000),
+                issues_open:faker.datatype.number(1000),
+                issues_closed:faker.datatype.number(1000),
+                pr_open:faker.datatype.number(1000),
+                pr_merged:faker.datatype.number(1000),
+                forks:faker.datatype.number(1000),
+                releases:faker.datatype.number(1000),
               },
-              diskUsage:`${faker.random.float({min:1, max:999}).toFixed(1)}MB`,
-              registration:`${faker.random.number({min:2, max:10})} years ago`,
+              diskUsage:`${faker.datatype.float({min:1, max:999}).toFixed(1)}MB`,
+              registration:`${faker.datatype.number({min:2, max:10})} years ago`,
               cakeday:false,
               calendar:new Array(14).fill(null).map(_ => ({color:faker.random.arrayElement(["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"])})),
               avatar:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg=="
@@ -80,7 +80,7 @@
           //User data
             account:"user",
             user:{
-              databaseId:faker.random.number(10000000),
+              databaseId:faker.datatype.number(10000000),
               name:"(placeholder)",
               login:set.user||"metrics",
               createdAt:`${faker.date.past(10)}`,
@@ -88,26 +88,26 @@
               websiteUrl:options["pagespeed.url"]||"(attached website)",
               isHireable:false,
               twitterUsername:options["tweets.user"]||"(attached Twitter account)",
-              repositories:{totalCount:faker.random.number(100), totalDiskUsage:faker.random.number(100000), nodes:[]},
-              packages:{totalCount:faker.random.number(10)},
-              starredRepositories:{totalCount:faker.random.number(1000)},
-              watching:{totalCount:faker.random.number(100)},
-              sponsorshipsAsSponsor:{totalCount:faker.random.number(10)},
-              sponsorshipsAsMaintainer:{totalCount:faker.random.number(10)},
+              repositories:{totalCount:faker.datatype.number(100), totalDiskUsage:faker.datatype.number(100000), nodes:[]},
+              packages:{totalCount:faker.datatype.number(10)},
+              starredRepositories:{totalCount:faker.datatype.number(1000)},
+              watching:{totalCount:faker.datatype.number(100)},
+              sponsorshipsAsSponsor:{totalCount:faker.datatype.number(10)},
+              sponsorshipsAsMaintainer:{totalCount:faker.datatype.number(10)},
               contributionsCollection:{
-                totalRepositoriesWithContributedCommits:faker.random.number(100),
-                totalCommitContributions:faker.random.number(10000),
-                restrictedContributionsCount:faker.random.number(10000),
-                totalIssueContributions:faker.random.number(100),
-                totalPullRequestContributions:faker.random.number(1000),
-                totalPullRequestReviewContributions:faker.random.number(1000),
+                totalRepositoriesWithContributedCommits:faker.datatype.number(100),
+                totalCommitContributions:faker.datatype.number(10000),
+                restrictedContributionsCount:faker.datatype.number(10000),
+                totalIssueContributions:faker.datatype.number(100),
+                totalPullRequestContributions:faker.datatype.number(1000),
+                totalPullRequestReviewContributions:faker.datatype.number(1000),
               },
               calendar:{contributionCalendar:{weeks:[]}},
-              repositoriesContributedTo:{totalCount:faker.random.number(100)},
-              followers:{totalCount:faker.random.number(1000)},
-              following:{totalCount:faker.random.number(1000)},
-              issueComments:{totalCount:faker.random.number(1000)},
-              organizations:{totalCount:faker.random.number(10)}
+              repositoriesContributedTo:{totalCount:faker.datatype.number(100)},
+              followers:{totalCount:faker.datatype.number(1000)},
+              following:{totalCount:faker.datatype.number(1000)},
+              issueComments:{totalCount:faker.datatype.number(1000)},
+              organizations:{totalCount:faker.datatype.number(10)}
             },
           //Plugins
             plugins:{
@@ -119,13 +119,13 @@
                       profile_image_url:faker.image.people(),
                       name:"",
                       verified:false,
-                      id:faker.random.number(1000000).toString(),
+                      id:faker.datatype.number(1000000).toString(),
                       username:options["tweets.user"]||"(attached Twitter account)",
                       profile_image:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
                     },
                     list:[
                       {
-                        id:faker.random.number(100000000000000).toString(),
+                        id:faker.datatype.number(100000000000000).toString(),
                         created_at:faker.date.recent(),
                         entities: {
                           mentions: [ {start:22, end:33, username:"lowlighter"} ]
@@ -134,7 +134,7 @@
                         mentions: ["lowlighter"]
                       },
                       ...new Array(Number(options["tweets.limit"])-1).fill(null).map(_ => ({
-                        id:faker.random.number(100000000000000).toString(),
+                        id:faker.datatype.number(100000000000000).toString(),
                         created_at:faker.date.recent(),
                         text:faker.lorem.paragraph(),
                         mentions:[]
@@ -145,48 +145,48 @@
               //Lines
                 ...(set.plugins.enabled.lines ? ({
                   lines:{
-                    added:`${faker.random.number(100)}.${faker.random.number(9)}k`,
-                    deleted:`${faker.random.number(100)}.${faker.random.number(9)}k`,
+                    added:`${faker.datatype.number(100)}.${faker.datatype.number(9)}k`,
+                    deleted:`${faker.datatype.number(100)}.${faker.datatype.number(9)}k`,
                   }
                 }) : null),
               //Traffic
                 ...(set.plugins.enabled.traffic ? ({
                   traffic:{
                     views:{
-                      count:`${faker.random.number({min:10, max:100})}.${faker.random.number(9)}k`,
-                      uniques:`${faker.random.number(10)}.${faker.random.number(9)}k`,
+                      count:`${faker.datatype.number({min:10, max:100})}.${faker.datatype.number(9)}k`,
+                      uniques:`${faker.datatype.number(10)}.${faker.datatype.number(9)}k`,
                     }
                   }
                 }) : null),
               //Follow-up
                 ...(set.plugins.enabled.followup ? ({
                   followup:{
-                    issues:{get count() { return this.open + this.closed }, open:faker.random.number(1000), closed:faker.random.number(1000)},
-                    pr:{get count() { return this.open + this.merged }, open:faker.random.number(1000), merged:faker.random.number(1000)},
+                    issues:{get count() { return this.open + this.closed }, open:faker.datatype.number(1000), closed:faker.datatype.number(1000)},
+                    pr:{get count() { return this.open + this.merged }, open:faker.datatype.number(1000), merged:faker.datatype.number(1000)},
                   }
                 }) : null),
               //Gists
                 ...(set.plugins.enabled.gists ? ({
                   gists:{
-                    totalCount:faker.random.number(100),
-                    stargazers:faker.random.number(1000),
-                    forks:faker.random.number(100),
-                    files:faker.random.number(100),
-                    comments:faker.random.number(1000)
+                    totalCount:faker.datatype.number(100),
+                    stargazers:faker.datatype.number(1000),
+                    forks:faker.datatype.number(100),
+                    files:faker.datatype.number(100),
+                    comments:faker.datatype.number(1000)
                   }
                 }) : null),
               //Reactions
                 ...(set.plugins.enabled.reactions ? ({
                   reactions:{
                     list:{
-                      HEART:{value:faker.random.number(100), get percentage() { return this.score }, score:faker.random.number(100)/100},
-                      THUMBS_UP:{value:faker.random.number(100), get percentage() { return this.score }, score:faker.random.number(100)/100},
-                      THUMBS_DOWN:{value:faker.random.number(100), get percentage() { return this.score }, score:faker.random.number(100)/100},
-                      LAUGH:{value:faker.random.number(100), get percentage() { return this.score }, score:faker.random.number(100)/100},
-                      CONFUSED:{value:faker.random.number(100), get percentage() { return this.score }, score:faker.random.number(100)/100},
-                      EYES:{value:faker.random.number(100), get percentage() { return this.score }, score:faker.random.number(100)/100},
-                      ROCKET:{value:faker.random.number(100), get percentage() { return this.score }, score:faker.random.number(100)/100},
-                      HOORAY:{value:faker.random.number(100), get percentage() { return this.score }, score:faker.random.number(100)/100},
+                      HEART:{value:faker.datatype.number(100), get percentage() { return this.score }, score:faker.datatype.number(100)/100},
+                      THUMBS_UP:{value:faker.datatype.number(100), get percentage() { return this.score }, score:faker.datatype.number(100)/100},
+                      THUMBS_DOWN:{value:faker.datatype.number(100), get percentage() { return this.score }, score:faker.datatype.number(100)/100},
+                      LAUGH:{value:faker.datatype.number(100), get percentage() { return this.score }, score:faker.datatype.number(100)/100},
+                      CONFUSED:{value:faker.datatype.number(100), get percentage() { return this.score }, score:faker.datatype.number(100)/100},
+                      EYES:{value:faker.datatype.number(100), get percentage() { return this.score }, score:faker.datatype.number(100)/100},
+                      ROCKET:{value:faker.datatype.number(100), get percentage() { return this.score }, score:faker.datatype.number(100)/100},
+                      HOORAY:{value:faker.datatype.number(100), get percentage() { return this.score }, score:faker.datatype.number(100)/100},
                     },
                     comments:options["reactions.limit"],
                     details:options["reactions.details"],
@@ -202,8 +202,8 @@
                       text:faker.lorem.sentence(),
                       icon:`<g xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-width="2" fill="none" fill-rule="evenodd"><g stroke-linejoin="round"><g stroke="#79B8FF"><path d="M8 43a3 3 0 100 6 3 3 0 000-6zm40 0a3.001 3.001 0 10.002 6.002A3.001 3.001 0 0048 43zm-18 3h-4.971m-11.045 0H11M45 46h-4"/></g><path stroke="#2088FF" d="M13 51h28M36.992 45.276l6.375-8.017c1.488.63 3.272.29 4.414-.977a3.883 3.883 0 00.658-4.193l-1.96 2.174-1.936-.151-.406-1.955 1.96-2.173a3.898 3.898 0 00-4.107 1.092 3.886 3.886 0 00-.512 4.485l-7.317 7.169c-1.32 1.314-.807 2.59-.236 3.105.67.601 1.888.845 3.067-.56z"/><g stroke="#2088FF"><path d="M12.652 31.063l9.442 12.578a.512.512 0 01-.087.716l-2.396 1.805a.512.512 0 01-.712-.114L9.46 33.47l-.176-3.557 3.37 1.15zM17.099 43.115l2.395-1.806"/></g></g><path d="M25.68 36.927v-2.54a2.227 2.227 0 01.37-1.265c-.526-.04-3.84-.371-3.84-4.302 0-1.013.305-1.839.915-2.477a4.989 4.989 0 01-.146-1.86c.087-.882.946-.823 2.577.178 1.277-.47 2.852-.47 4.725 0 .248-.303 2.434-1.704 2.658-.268.047.296.016.946-.093 1.95.516.524.776 1.358.78 2.501.007 2.261-1.26 3.687-3.8 4.278.24.436.355.857.346 1.264a117.57 117.57 0 000 2.614c2.43-.744 4.228-2.06 5.395-3.95.837-1.356 1.433-2.932 1.433-4.865 0-2.886-1.175-4.984-2.5-6.388C32.714 19.903 30.266 19 28 19a9.094 9.094 0 00-6.588 2.897C20.028 23.393 19 25.507 19 28.185c0 2.026.701 3.945 1.773 5.38 1.228 1.643 2.864 2.764 4.907 3.362zM52.98 25.002l-3.07 3.065-1.49-1.485M6.98 25.002l-3.07 3.065-1.49-1.485" stroke="#2088FF" stroke-linejoin="round"/><path d="M19.001 11V9a2 2 0 012-2h14a2 2 0 012 2v2m-21 12.028v-10.03a2 2 0 012-1.998h20a2 2 0 012 2v10.028" stroke="#79B8FF" stroke-linejoin="round"/><path stroke="#79B8FF" d="M28.001 7V3M15.039 7.797c-5.297 3.406-9.168 8.837-10.517 15.2m46.737-.936c-1.514-5.949-5.25-11.01-10.273-14.248"/></g>`,
                       rank:faker.random.arrayElement(["A", "B", "C", "X", "$"]),
-                      progress:faker.random.number(100)/100,
-                      value:faker.random.number(1000),
+                      progress:faker.datatype.number(100)/100,
+                      value:faker.datatype.number(1000),
                     }))
                       .filter(({rank}) => options["achievements.secrets"] ? true : rank !== "$")
                       .filter(({rank}) => ({S:5, A:4, B:3, C:2, $:1, X:0}[rank] >= {S:5, A:4, B:3, C:2, $:1, X:0}[options["achievements.threshold"]]))
@@ -225,9 +225,9 @@
                   languages:{
                     details:options["languages.details"].split(",").map(x => x.trim()).filter(x => x),
                     get colors() { return Object.fromEntries(Object.entries(this.favorites).map(([key, {color}]) => [key, color])) },
-                    total:faker.random.number(10000),
+                    total:faker.datatype.number(10000),
                     get stats() { return Object.fromEntries(Object.entries(this.favorites).map(([key, {value}]) => [key, value])) },
-                    favorites:distribution(7).map((value, index, array) => ({name:faker.lorem.word(), color:faker.internet.color(), value, size:faker.random.number(1000000), x:array.slice(0, index).reduce((a, b) => a + b, 0)}))
+                    favorites:distribution(7).map((value, index, array) => ({name:faker.lorem.word(), color:faker.internet.color(), value, size:faker.datatype.number(1000000), x:array.slice(0, index).reduce((a, b) => a + b, 0)}))
                   }
                 }) : null),
               //RSS
@@ -247,8 +247,8 @@
                   stock:{
                     chart:"(stock chart is not displayed in placeholder)",
                     currency:"USD",
-                    price:faker.random.number(10000)/100,
-                    previous:faker.random.number(10000)/100,
+                    price:faker.datatype.number(10000)/100,
+                    previous:faker.datatype.number(10000)/100,
                     get delta() { return this.price-this.previous },
                     symbol:options["stock.symbol"],
                     company:faker.company.companyName(),
@@ -264,24 +264,24 @@
                     commits:{
                       get hour() { return Object.keys(this.hours).filter(key => /^\d+$/.test(key)).map(key => [key, this.hours[key]]).sort((a, b) => b[1] - a[1]).shift()?.[0] },
                       hours:{
-                        [faker.random.number(24)]:faker.random.number(10),
-                        [faker.random.number(24)]:faker.random.number(10),
-                        [faker.random.number(24)]:faker.random.number(10),
-                        [faker.random.number(24)]:faker.random.number(10),
-                        [faker.random.number(24)]:faker.random.number(10),
-                        [faker.random.number(24)]:faker.random.number(10),
-                        [faker.random.number(24)]:faker.random.number(10),
+                        [faker.datatype.number(24)]:faker.datatype.number(10),
+                        [faker.datatype.number(24)]:faker.datatype.number(10),
+                        [faker.datatype.number(24)]:faker.datatype.number(10),
+                        [faker.datatype.number(24)]:faker.datatype.number(10),
+                        [faker.datatype.number(24)]:faker.datatype.number(10),
+                        [faker.datatype.number(24)]:faker.datatype.number(10),
+                        [faker.datatype.number(24)]:faker.datatype.number(10),
                         get max() { return Object.keys(this).filter(key => /^\d+$/.test(key)).map(key => [key, this[key]]).sort((a, b) => b[1] - a[1]).shift()?.[1] }
                       },
                       get day() { return ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][Object.keys(this.days).filter(key => /^\d+$/.test(key)).map(key => [key, this.days[key]]).sort((a, b) => b[1] - a[1]).shift()?.[0]] },
                       days:{
-                        "0":faker.random.number(10),
-                        "1":faker.random.number(10),
-                        "2":faker.random.number(10),
-                        "3":faker.random.number(10),
-                        "4":faker.random.number(10),
-                        "5":faker.random.number(10),
-                        "6":faker.random.number(10),
+                        "0":faker.datatype.number(10),
+                        "1":faker.datatype.number(10),
+                        "2":faker.datatype.number(10),
+                        "3":faker.datatype.number(10),
+                        "4":faker.datatype.number(10),
+                        "5":faker.datatype.number(10),
+                        "6":faker.datatype.number(10),
                         get max() { return Object.keys(this).filter(key => /^\d+$/.test(key)).map(key => [key, this[key]]).sort((a, b) => b[1] - a[1]).shift()?.[1] }
                       },
                     },
@@ -335,8 +335,8 @@
                   data:new Array(12).fill(null).map(_ => ({
                     timeUTCHumanReadable:`${new Date().getUTCHours()}:${new Date().getUTCMinutes()}`,
                     color:faker.random.arrayElement(["#9be9a8", "#40c463", "#30a14e", "#216e39"]),
-                    sgv:faker.random.number({min:40, max:400}),
-                    delta:faker.random.number({min:-10, max:10}),
+                    sgv:faker.datatype.number({min:40, max:400}),
+                    delta:faker.datatype.number({min:-10, max:10}),
                     direction:faker.random.arrayElement(["SingleUp", "DoubleUp", "FortyFiveUp", "Flat", "FortyFiveDown", "SingleDown", "DoubleDown"]),
                     alert:faker.random.arrayElement(["Normal", "Urgent High", "Urgent Low", "High", "Low"]),
                     arrowHumanReadable:faker.random.arrayElement(["↑↑", "↑", "↗", "→", "↘", "↓", "↓↓"]),
@@ -349,46 +349,46 @@
                     url:options["pagespeed.url"]||"(attached website url)",
                     detailed:options["pagespeed.detailed"]||false,
                     scores: [
-                      {score:faker.random.float({max:1}), title:"Performance"},
-                      {score:faker.random.float({max:1}), title:"Accessibility"},
-                      {score:faker.random.float({max:1}), title:"Best Practices"},
-                      {score:faker.random.float({max:1}), title:"SEO"}
+                      {score:faker.datatype.float({max:1}), title:"Performance"},
+                      {score:faker.datatype.float({max:1}), title:"Accessibility"},
+                      {score:faker.datatype.float({max:1}), title:"Best Practices"},
+                      {score:faker.datatype.float({max:1}), title:"SEO"}
                     ],
                     metrics:{
-                      observedFirstContentfulPaint:faker.random.number(500),
+                      observedFirstContentfulPaint:faker.datatype.number(500),
                       observedFirstVisualChangeTs:faker.time.recent(),
                       observedFirstContentfulPaintTs:faker.time.recent(),
-                      firstContentfulPaint:faker.random.number(500),
-                      observedDomContentLoaded:faker.random.number(500),
-                      observedFirstMeaningfulPaint:faker.random.number(1000),
-                      maxPotentialFID:faker.random.number(500),
-                      observedLoad:faker.random.number(500),
-                      firstMeaningfulPaint:faker.random.number(500),
-                      observedCumulativeLayoutShift:faker.random.float({max:1}),
-                      observedSpeedIndex:faker.random.number(1000),
+                      firstContentfulPaint:faker.datatype.number(500),
+                      observedDomContentLoaded:faker.datatype.number(500),
+                      observedFirstMeaningfulPaint:faker.datatype.number(1000),
+                      maxPotentialFID:faker.datatype.number(500),
+                      observedLoad:faker.datatype.number(500),
+                      firstMeaningfulPaint:faker.datatype.number(500),
+                      observedCumulativeLayoutShift:faker.datatype.float({max:1}),
+                      observedSpeedIndex:faker.datatype.number(1000),
                       observedSpeedIndexTs:faker.time.recent(),
                       observedTimeOriginTs:faker.time.recent(),
-                      observedLargestContentfulPaint:faker.random.number(1000),
-                      cumulativeLayoutShift:faker.random.float({max:1}),
+                      observedLargestContentfulPaint:faker.datatype.number(1000),
+                      cumulativeLayoutShift:faker.datatype.float({max:1}),
                       observedFirstPaintTs:faker.time.recent(),
                       observedTraceEndTs:faker.time.recent(),
-                      largestContentfulPaint:faker.random.number(2000),
-                      observedTimeOrigin:faker.random.number(10),
-                      speedIndex:faker.random.number(1000),
-                      observedTraceEnd:faker.random.number(2000),
+                      largestContentfulPaint:faker.datatype.number(2000),
+                      observedTimeOrigin:faker.datatype.number(10),
+                      speedIndex:faker.datatype.number(1000),
+                      observedTraceEnd:faker.datatype.number(2000),
                       observedDomContentLoadedTs:faker.time.recent(),
-                      observedFirstPaint:faker.random.number(500),
-                      totalBlockingTime:faker.random.number(500),
+                      observedFirstPaint:faker.datatype.number(500),
+                      totalBlockingTime:faker.datatype.number(500),
                       observedLastVisualChangeTs:faker.time.recent(),
-                      observedFirstVisualChange:faker.random.number(500),
+                      observedFirstVisualChange:faker.datatype.number(500),
                       observedLargestContentfulPaintTs:faker.time.recent(),
-                      estimatedInputLatency:faker.random.number(100),
+                      estimatedInputLatency:faker.datatype.number(100),
                       observedLoadTs:faker.time.recent(),
-                      observedLastVisualChange:faker.random.number(1000),
-                      firstCPUIdle:faker.random.number(1000),
-                      interactive:faker.random.number(1000),
+                      observedLastVisualChange:faker.datatype.number(1000),
+                      firstCPUIdle:faker.datatype.number(1000),
+                      interactive:faker.datatype.number(1000),
                       observedNavigationStartTs:faker.time.recent(),
-                      observedNavigationStart:faker.random.number(10),
+                      observedNavigationStart:faker.datatype.number(10),
                       observedFirstMeaningfulPaintTs:faker.time.recent()
                     },
                     screenshot:options["pagespeed.screenshot"] ? "data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==" : null
@@ -397,13 +397,13 @@
               //Projects
                 ...(set.plugins.enabled.projects ? ({
                   projects:{
-                    totalCount:options["projects.limit"]+faker.random.number(10),
+                    totalCount:options["projects.limit"]+faker.datatype.number(10),
                     descriptions:options["projects.descriptions"],
                     list:new Array(Number(options["projects.limit"])).fill(null).map(_ => ({
                       name:faker.lorem.sentence(),
                       description:faker.lorem.paragraph(),
-                      updated:`${2+faker.random.number(8)} days ago`,
-                      progress:{enabled:true, todo:faker.random.number(50), doing:faker.random.number(50), done:faker.random.number(50), get total() { return this.todo + this.doing + this.done } }
+                      updated:`${2+faker.datatype.number(8)} days ago`,
+                      progress:{enabled:true, todo:faker.datatype.number(50), doing:faker.datatype.number(50), done:faker.datatype.number(50), get total() { return this.todo + this.doing + this.done } }
                     }))
                   }
                 }) : null),
@@ -440,17 +440,17 @@
                         starredAt:faker.date.recent(),
                         node: {
                           description:"📊 An image generator with 20+ metrics about your GitHub account such as activity, community, repositories, coding habits, website performances, music played, starred topics, etc. that you can put on your profile or elsewhere !",
-                          forkCount:faker.random.number(100),
+                          forkCount:faker.datatype.number(100),
                           isFork:false,
                           issues:{
-                            totalCount:faker.random.number(100),
+                            totalCount:faker.datatype.number(100),
                           },
                           nameWithOwner:"lowlighter/metrics",
                           openGraphImageUrl:"https://repository-images.githubusercontent.com/293860197/7fd72080-496d-11eb-8fe0-238b38a0746a",
                           pullRequests:{
-                            totalCount:faker.random.number(100),
+                            totalCount:faker.datatype.number(100),
                           },
-                          stargazerCount:faker.random.number(10000),
+                          stargazerCount:faker.datatype.number(10000),
                           licenseInfo:{nickname:null, name:"MIT License"},
                           primaryLanguage:{color:"#f1e05a", name:"JavaScript"}
                         },
@@ -460,17 +460,17 @@
                         starredAt:faker.date.recent(),
                         node: {
                           description:faker.lorem.sentence(),
-                          forkCount:faker.random.number(100),
-                          isFork:faker.random.boolean(),
+                          forkCount:faker.datatype.number(100),
+                          isFork:faker.datatype.boolean(),
                           issues:{
-                            totalCount:faker.random.number(100),
+                            totalCount:faker.datatype.number(100),
                           },
                           nameWithOwner:`${faker.random.word()}/${faker.random.word()}`,
                           openGraphImageUrl:faker.internet.url(),
                           pullRequests:{
-                            totalCount:faker.random.number(100),
+                            totalCount:faker.datatype.number(100),
                           },
-                          stargazerCount:faker.random.number(10000),
+                          stargazerCount:faker.datatype.number(10000),
                           licenseInfo:{nickname:null, name:"License"},
                           primaryLanguage:{color:faker.internet.color(), name:faker.lorem.word()}
                         },
@@ -483,7 +483,7 @@
                 ...(set.plugins.enabled.stargazers ? ({
                   get stargazers() {
                     const dates = []
-                    let total = faker.random.number(1000)
+                    let total = faker.datatype.number(1000)
                     const result = {
                       total:{
                         dates:{},
@@ -500,7 +500,7 @@
                     for (let d = -14; d <= 0; d++) {
                       const date = new Date(Date.now()-d*24*60*60*1000).toISOString().substring(0, 10)
                       dates.push(date)
-                      result.total.dates[date] = (total += (result.increments.dates[date] = faker.random.number(100)))
+                      result.total.dates[date] = (total += (result.increments.dates[date] = faker.datatype.number(100)))
                     }
                     return result
                   }
@@ -510,13 +510,13 @@
                   get wakatime() {
                     const stats = (array) => {
                       const elements = []
-                      let results = new Array(4+faker.random.number(2)).fill(null).map(_ => ({
+                      let results = new Array(4+faker.datatype.number(2)).fill(null).map(_ => ({
                         name:array ? faker.random.arrayElement(array) : faker.random.words(2).replace(/ /g, "-").toLocaleLowerCase(),
-                        percent:0, total_seconds:faker.random.number(1000000),
+                        percent:0, total_seconds:faker.datatype.number(1000000),
                       }))
                       let percents = 100
                       for (const result of results) {
-                        result.percent = 1+faker.random.number(percents-1)
+                        result.percent = 1+faker.datatype.number(percents-1)
                         percents -= result.percent
                         result.percent /= 100
                       }
@@ -526,7 +526,7 @@
                     return {
                       sections:options["wakatime.sections"].split(",").map(x => x.trim()).filter(x => x),
                       days:Number(options["wakatime.days"])||7,
-                      time:{total:faker.random.number(100000), daily:faker.random.number(24)},
+                      time:{total:faker.datatype.number(100000), daily:faker.datatype.number(24)},
                       editors:stats(["VS Code", "Chrome", "IntelliJ", "PhpStorm", "WebStorm", "Android Studio", "Visual Studio", "Sublime Text", "PyCharm", "Vim", "Atom", "Xcode"]),
                       languages:stats(["JavaScript", "TypeScript", "PHP", "Java", "Python", "Vue.js", "HTML", "C#", "JSON", "Dart", "SCSS", "Kotlin", "JSX", "Go", "Ruby", "YAML"]),
                       projects:stats(),
@@ -540,15 +540,15 @@
                     user:{
                       stats:{
                         anime:{
-                          count:faker.random.number(1000),
-                          minutesWatched:faker.random.number(100000),
-                          episodesWatched:faker.random.number(10000),
+                          count:faker.datatype.number(1000),
+                          minutesWatched:faker.datatype.number(100000),
+                          episodesWatched:faker.datatype.number(10000),
                           genres:new Array(4).fill(null).map(_ => ({genre:faker.lorem.word()})),
                         },
                         manga:{
-                          count:faker.random.number(1000),
-                          chaptersRead:faker.random.number(100000),
-                          volumesRead:faker.random.number(10000),
+                          count:faker.datatype.number(1000),
+                          chaptersRead:faker.datatype.number(100000),
+                          volumesRead:faker.datatype.number(10000),
                           genres:new Array(4).fill(null).map(_ => ({genre:faker.lorem.word()})),
                         },
                       },
@@ -561,10 +561,10 @@
                         status:faker.random.arrayElement(["FINISHED", "RELEASING", "NOT_YET_RELEASED", "CANCELLED", "HIATUS"]),
                         release:faker.date.past(20).getFullYear(),
                         genres:new Array(6).fill(null).map(_ => faker.lorem.word()),
-                        progress:faker.random.number(100),
+                        progress:faker.datatype.number(100),
                         description:faker.lorem.paragraphs(),
-                        scores:{user:faker.random.number(100), community:faker.random.number(100)},
-                        released:100+faker.random.number(1000),
+                        scores:{user:faker.datatype.number(100), community:faker.datatype.number(100)},
+                        released:100+faker.datatype.number(1000),
                         artwork:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
                       })
                       const sections = options["anilist.sections"].split(",").map(x => x.trim()).filter(x => x)
@@ -618,7 +618,7 @@
                         content:faker.lorem.sentence(),
                         user:set.user,
                         mobile:null,
-                        number:faker.random.number(100),
+                        number:faker.datatype.number(100),
                         title:faker.lorem.sentence(),
                         timestamp:faker.date.recent(),
                       },
@@ -629,7 +629,7 @@
                         content:faker.lorem.sentence(),
                         user:set.user,
                         mobile:null,
-                        number:faker.random.number(100),
+                        number:faker.datatype.number(100),
                         title:faker.lorem.sentence(),
                         timestamp:faker.date.recent(),
                       },
@@ -638,7 +638,7 @@
                         repo:`${faker.random.word()}/${faker.random.word()}`,
                         action:faker.random.arrayElement(["opened", "closed", "reopened"]),
                         user:set.user,
-                        number:faker.random.number(100),
+                        number:faker.datatype.number(100),
                         title:faker.lorem.sentence(),
                         timestamp:faker.date.recent(),
                       },
@@ -647,9 +647,9 @@
                         repo:`${faker.random.word()}/${faker.random.word()}`,
                         action:faker.random.arrayElement(["opened", "closed"]),
                         user:set.user,
-                        number:faker.random.number(100),
+                        number:faker.datatype.number(100),
                         title:faker.lorem.sentence(),
-                        lines:{added:faker.random.number(1000), deleted:faker.random.number(1000)}, files:{changed:faker.random.number(10)},
+                        lines:{added:faker.datatype.number(1000), deleted:faker.datatype.number(1000)}, files:{changed:faker.datatype.number(10)},
                         timestamp:faker.date.recent(),
                       },
                       {
@@ -667,7 +667,7 @@
                         type:"review",
                         repo:`${faker.random.word()}/${faker.random.word()}`,
                         user:set.user,
-                        number:faker.random.number(100),
+                        number:faker.datatype.number(100),
                         title:faker.lorem.sentence(),
                         timestamp:faker.date.recent(),
                       },
@@ -676,8 +676,8 @@
                         repo:`${faker.random.word()}/${faker.random.word()}`,
                         action:"published",
                         name:faker.random.words(4),
-                        draft:faker.random.boolean(),
-                        prerelease:faker.random.boolean(),
+                        draft:faker.datatype.boolean(),
+                        prerelease:faker.datatype.boolean(),
                         timestamp:faker.date.recent(),
                       },
                       {
@@ -715,9 +715,9 @@
               //Isocalendar
                 ...(set.plugins.enabled.isocalendar ? ({
                   isocalendar:{
-                    streak:{max:30+faker.random.number(20), current:faker.random.number(30)},
-                    max:10+faker.random.number(40),
-                    average:faker.random.float(10),
+                    streak:{max:30+faker.datatype.number(20), current:faker.datatype.number(30)},
+                    max:10+faker.datatype.number(40),
+                    average:faker.datatype.float(10),
                     svg:"(isometric calendar is not displayed in placeholder)",
                     duration:options["isocalendar.duration"]
                   }
@@ -728,26 +728,26 @@
                     sections:options["stackoverflow.sections"].split(",").map(x => x.trim()).filter(x => x),
                     lines:options["stackoverflow.lines"],
                     user:{
-                      reputation:faker.random.number(100000),
-                      badges:faker.random.number(1000),
-                      questions:faker.random.number(1000),
-                      answers:faker.random.number(1000),
-                      comments:faker.random.number(1000),
-                      views:faker.random.number(1000),
+                      reputation:faker.datatype.number(100000),
+                      badges:faker.datatype.number(1000),
+                      questions:faker.datatype.number(1000),
+                      answers:faker.datatype.number(1000),
+                      comments:faker.datatype.number(1000),
+                      views:faker.datatype.number(1000),
                     },
                     "answers-top":new Array(options["stackoverflow.limit"]).fill(null).map(_ => ({
                       type:"answer",
                       body:faker.lorem.paragraphs(),
-                      score:faker.random.number(1000),
-                      upvotes:faker.random.number(1000),
-                      downvotes:faker.random.number(1000),
-                      accepted:faker.random.boolean(),
-                      comments:faker.random.number(1000),
+                      score:faker.datatype.number(1000),
+                      upvotes:faker.datatype.number(1000),
+                      downvotes:faker.datatype.number(1000),
+                      accepted:faker.datatype.boolean(),
+                      comments:faker.datatype.number(1000),
                       author:set.user,
                       created:"01/01/1970",
                       link:null,
-                      id:faker.random.number(100000),
-                      question_id:faker.random.number(100000),
+                      id:faker.datatype.number(100000),
+                      question_id:faker.datatype.number(100000),
                       question:{
                         title:faker.lorem.sentence(),
                         tags:[faker.lorem.slug(), faker.lorem.slug()],
@@ -760,20 +760,20 @@
                       type:"question",
                       title:faker.lorem.sentence(),
                       body:faker.lorem.paragraphs(),
-                      score:faker.random.number(1000),
-                      upvotes:faker.random.number(1000),
-                      downvotes:faker.random.number(1000),
-                      favorites:faker.random.number(1000),
+                      score:faker.datatype.number(1000),
+                      upvotes:faker.datatype.number(1000),
+                      downvotes:faker.datatype.number(1000),
+                      favorites:faker.datatype.number(1000),
                       tags:[faker.lorem.slug(), faker.lorem.slug()],
-                      answered:faker.random.boolean(),
-                      answers:faker.random.number(1000),
-                      comments:faker.random.number(1000),
-                      views:faker.random.number(1000),
+                      answered:faker.datatype.boolean(),
+                      answers:faker.datatype.number(1000),
+                      comments:faker.datatype.number(1000),
+                      views:faker.datatype.number(1000),
                       author:set.user,
                       created:"01/01/1970",
                       link:null,
-                      id:faker.random.number(100000),
-                      accepted_answer_id:faker.random.number(100000),
+                      id:faker.datatype.number(100000),
+                      accepted_answer_id:faker.datatype.number(100000),
                       answer:null,
                     })),
                     get ["questions-recent"]() {

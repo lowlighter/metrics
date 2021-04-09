@@ -38,11 +38,11 @@
             },
             author:{
               login:faker.internet.userName(),
-              id:faker.random.number(100000000),
+              id:faker.datatype.number(100000000),
             },
             committer:{
               login:faker.internet.userName(),
-              id:faker.random.number(100000000),
+              id:faker.datatype.number(100000000),
             },
             files:[
               {

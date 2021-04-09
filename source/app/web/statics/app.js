@@ -196,7 +196,7 @@
           //Resize mock image
             mockresize() {
               const svg = document.querySelector(".preview .image svg")
-              if ((svg)&&(svg.getAttribute("height") === 99999)) {
+              if ((svg)&&(svg.getAttribute("height") == 99999)) {
                 const height = svg.querySelector("#metrics-end")?.getBoundingClientRect()?.y-svg.getBoundingClientRect()?.y
                 if (Number.isFinite(height))
                   svg.setAttribute("height", height)
