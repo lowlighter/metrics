@@ -623,6 +623,14 @@ inputs:
     default: ""
   
   # ====================================================================================
+  # 🎩 Notable contributions
+  
+  # Enable or disable plugin
+  plugin_notable:
+    description: Display notable contributions in organizations
+    default: no
+  
+  # ====================================================================================
   # 🌇 GitHub Skyline 3D calendar
   
   # Enable or disable plugin

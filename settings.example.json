@@ -81,6 +81,9 @@
     "achievements":{
       "enabled": false,            "//": "Display achievements"
     },
+    "notable":{
+      "enabled": false,            "//": "Display notable contributions in organizations"
+    },
     "skyline":{
       "enabled": false,            "//": "Display GitHub Skyline 3D calendar"
     },
