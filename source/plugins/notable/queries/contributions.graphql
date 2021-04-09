@@ -1,4 +1,4 @@
-query BaseContributions {
+query NotableContributions {
   user(login: "$login") {
     repositoriesContributedTo($after first: $repositories, contributionTypes: COMMIT) {
       edges {

@@ -1,0 +1,5 @@
+- name: Notable plugin (default)
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    plugin_notable: yes

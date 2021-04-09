@@ -88,10 +88,8 @@
     //Compute calendar
       computed.calendar = data.user.calendar.contributionCalendar.weeks.flatMap(({contributionDays}) => contributionDays).slice(0, 14).reverse()
 
-    //Avatars (base64)
+    //Avatar (base64)
       computed.avatar = await avatar || "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
-      if (data.user.repositoriesContributedTo?.organizations)
-        computed.contributionsToOrganizations = await Promise.all(data.user.repositoriesContributedTo.organizations.map(async ({name, avatarUrl}) => ({name, avatar:await imports.imgb64(avatarUrl)})))
 
     //Token scopes
       computed.token.scopes = conf.settings.notoken ? [] : (await rest.request("HEAD /")).headers["x-oauth-scopes"].split(", ")

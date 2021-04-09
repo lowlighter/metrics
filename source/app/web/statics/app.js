@@ -62,7 +62,6 @@
             descriptions:{
               base:"🗃️ Base content",
               "base.header":"Header",
-              "base.contributions":"Organization contributions",
               "base.activity":"Account activity",
               "base.community":"Community stats",
               "base.repositories":"Repositories metrics",

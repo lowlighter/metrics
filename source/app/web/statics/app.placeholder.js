@@ -71,6 +71,7 @@
                 forks:faker.datatype.number(1000),
                 releases:faker.datatype.number(1000),
               },
+              contributionsToOrganizations:new Array(2+faker.datatype.number(2)).fill(null).map(_ => ({name:faker.lorem.slug(), avatar:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg=="})),
               diskUsage:`${faker.datatype.float({min:1, max:999}).toFixed(1)}MB`,
               registration:`${faker.datatype.number({min:2, max:10})} years ago`,
               cakeday:false,
