@@ -22,7 +22,7 @@
       <%_ } else if (type === "issue") { _%>
 * #️⃣ <%- event.action === "opened" ? "Opened" : event.action === "reopened" ? "Reopened" : "Closed" %> [#<%= event.number %> <%= event.title %>](https://github.com/<%= repo %>/issues/<%= event.number %>) in [<%= repo %>](https://github.com/<%= repo %>)
       <%_ } else if (type === "pr") { _%>
-* 🔃 <%- event.action === "opened" ? "Opened" : "Merged" %> [#<%= event.number %> <%= event.title %>](https://github.com/<%= repo %>/pull/<%= event.number %>) in [<%= repo %>](https://github.com/<%= repo %>)
+* 🔃 <%- event.action === "opened" ? "Opened" : event.action === "merged" ? "Merged" : "Closed" %> [#<%= event.number %> <%= event.title %>](https://github.com/<%= repo %>/pull/<%= event.number %>) in [<%= repo %>](https://github.com/<%= repo %>)
   * <%= event.files.changed %> file<%= s(event.files.changed) %> changed `++<%= event.lines.added %> --<%= event.lines.deleted%>`
       <%_ } else if (type === "wiki") { _%>
 * 📝 Updated <%= event.pages.length %> wiki page<%= s(event.pages.length) %> in [<%= repo %>](https://github.com/<%= repo %>/wiki)
