@@ -17,7 +17,7 @@
             edges.map(({node}) => node.isInOrganization ? organizations.set(node.owner.login, node.owner.avatarUrl) : null)
             pushed = edges.length
           } while ((pushed)&&(cursor))
-          const contributions = await Promise.all([...organizations.entries()].map(async ([name, avatarUrl]) => ({name, avatar:await imports.imgb64(avatarUrl)})))
+          const contributions = await Promise.all([...organizations.entries()].map(async([name, avatarUrl]) => ({name, avatar:await imports.imgb64(avatarUrl)})))
           console.debug(`metrics/compute/${login}/base > found contributions to ${organizations.length} organizations`)
 
         //Results

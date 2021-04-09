@@ -14,12 +14,12 @@
             {
               cursor:"MOCKED_CURSOR",
               node:{
-                isInOrganization: true,
-                owner: {
+                isInOrganization:true,
+                owner:{
                   login:faker.internet.userName(),
                   avatarUrl:null,
-                }
-              }
+                },
+              },
             },
           ],
         },
