@@ -12,8 +12,8 @@
                   data:{
                     profile_image_url:faker.image.people(),
                     name:faker.name.findName(),
-                    verified:faker.random.boolean(),
-                    id:faker.random.number(1000000).toString(),
+                    verified:faker.datatype.boolean(),
+                    id:faker.datatype.number(1000000).toString(),
                     username,
                   },
                 },
@@ -27,7 +27,7 @@
               data:{
                 data:[
                   {
-                    id:faker.random.number(100000000000000).toString(),
+                    id:faker.datatype.number(100000000000000).toString(),
                     created_at:`${faker.date.recent()}`,
                     entities:{
                       mentions:[
@@ -37,7 +37,7 @@
                     text:"Checkout metrics from @lowlighter ! #GitHub",
                   },
                   {
-                    id:faker.random.number(100000000000000).toString(),
+                    id:faker.datatype.number(100000000000000).toString(),
                     created_at:`${faker.date.recent()}`,
                     text:faker.lorem.paragraph(),
                   },
@@ -45,15 +45,15 @@
                 includes:{
                   users:[
                     {
-                      id:faker.random.number(100000000000000).toString(),
+                      id:faker.datatype.number(100000000000000).toString(),
                       name:"lowlighter",
                       username:"lowlighter",
                     },
                   ],
                 },
                 meta:{
-                  newest_id:faker.random.number(100000000000000).toString(),
-                  oldest_id:faker.random.number(100000000000000).toString(),
+                  newest_id:faker.datatype.number(100000000000000).toString(),
+                  oldest_id:faker.datatype.number(100000000000000).toString(),
                   result_count:2,
                   next_token:"MOCKED_CURSOR",
                 },

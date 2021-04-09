@@ -8,10 +8,10 @@
           description:faker.lorem.paragraphs(),
           type,
           status:faker.random.arrayElement(["FINISHED", "RELEASING", "NOT_YET_RELEASED", "CANCELLED", "HIATUS"]),
-          episodes:100+faker.random.number(100),
-          volumes:faker.random.number(100),
-          chapters:100+faker.random.number(1000),
-          averageScore:faker.random.number(100),
+          episodes:100+faker.datatype.number(100),
+          volumes:faker.datatype.number(100),
+          chapters:100+faker.datatype.number(1000),
+          averageScore:faker.datatype.number(100),
           countryOfOrigin:"JP",
           genres:new Array(6).fill(null).map(_ => faker.lorem.word()),
           coverImage:{medium:null},
@@ -25,20 +25,20 @@
             data:{
               data:{
                 User:{
-                  id:faker.random.number(100000),
+                  id:faker.datatype.number(100000),
                   name:faker.internet.userName(),
                   about:null,
                   statistics:{
                     anime:{
-                      count:faker.random.number(1000),
-                      minutesWatched:faker.random.number(100000),
-                      episodesWatched:faker.random.number(10000),
+                      count:faker.datatype.number(1000),
+                      minutesWatched:faker.datatype.number(100000),
+                      episodesWatched:faker.datatype.number(10000),
                       genres:new Array(4).fill(null).map(_ => ({genre:faker.lorem.word()})),
                     },
                     manga:{
-                      count:faker.random.number(1000),
-                      chaptersRead:faker.random.number(100000),
-                      volumesRead:faker.random.number(10000),
+                      count:faker.datatype.number(1000),
+                      chaptersRead:faker.datatype.number(100000),
+                      volumesRead:faker.datatype.number(10000),
                       genres:new Array(4).fill(null).map(_ => ({genre:faker.lorem.word()})),
                     },
                   },
@@ -57,7 +57,7 @@
                 User:{
                   favourites:{
                     characters:{
-                      nodes:new Array(2+faker.random.number(16)).fill(null).map(_ => ({
+                      nodes:new Array(2+faker.datatype.number(16)).fill(null).map(_ => ({
                           name:{full:faker.name.findName(), native:faker.name.findName()},
                           image:{medium:null},
                         })),
@@ -104,7 +104,7 @@
                       isCustomList:false,
                       entries:new Array(16).fill(null).map(_ => ({
                         status:faker.random.arrayElement(["CURRENT", "PLANNING", "COMPLETED", "DROPPED", "PAUSED", "REPEATING"]),
-                        progress:faker.random.number(100),
+                        progress:faker.datatype.number(100),
                         progressVolumes:null,
                         score:0,
                         startedAt:{year:null, month:null, day:null},

@@ -10,7 +10,7 @@
               data:{
                 price:{
                   marketCap:{
-                    raw:faker.random.number(1000000000),
+                    raw:faker.datatype.number(1000000000),
                   },
                   symbol:"OCTO",
                 },
@@ -24,7 +24,7 @@
                 summaryDetail:{},
                 symbol:"OCTO",
                 assetProfile:{
-                  fullTimeEmployees:faker.random.number(10000),
+                  fullTimeEmployees:faker.datatype.number(10000),
                   city:faker.address.city(),
                   country:faker.address.country(),
                 },
@@ -43,15 +43,15 @@
                       meta:{
                         currency:"USD",
                         symbol:"OCTO",
-                        regularMarketPrice:faker.random.number(10000)/100,
-                        chartPreviousClose:faker.random.number(10000)/100,
-                        previousClose:faker.random.number(10000)/100,
+                        regularMarketPrice:faker.datatype.number(10000)/100,
+                        chartPreviousClose:faker.datatype.number(10000)/100,
+                        previousClose:faker.datatype.number(10000)/100,
                       },
                       timestamp:new Array(1000).fill(Date.now()).map((x, i) => x+i*60000),
                       indicators:{
                         quote:[
                           {
-                            close:new Array(1000).fill(null).map(_ => faker.random.number(10000)/100),
+                            close:new Array(1000).fill(null).map(_ => faker.datatype.number(10000)/100),
                             get low() {
                               return this.close
                             },

@@ -10,7 +10,7 @@
               nameWithOwner:`${faker.internet.userName()}/${faker.lorem.slug()}`,
             },
           ],
-          totalCount:faker.random.number(100),
+          totalCount:faker.datatype.number(100),
         },
         forks:{
           nodes:[
@@ -19,10 +19,10 @@
               nameWithOwner:`${faker.internet.userName()}/${faker.lorem.slug()}`,
             },
           ],
-          totalCount:faker.random.number(100),
+          totalCount:faker.datatype.number(100),
         },
         popular:{
-          nodes:[{stargazers:{totalCount:faker.random.number(50000)}}],
+          nodes:[{stargazers:{totalCount:faker.datatype.number(50000)}}],
         },
         pullRequests:{
           nodes:[
@@ -32,7 +32,7 @@
               repository:{nameWithOwner:`${faker.internet.userName()}/${faker.lorem.slug()}`},
             },
           ],
-          totalCount:faker.random.number(50000),
+          totalCount:faker.datatype.number(50000),
         },
         contributionsCollection:{
           pullRequestReviewContributions:{
@@ -41,24 +41,24 @@
                 occurredAt:faker.date.recent(),
                 pullRequest:{
                   title:faker.lorem.sentence(),
-                  number:faker.random.number(1000),
+                  number:faker.datatype.number(1000),
                   repository:{nameWithOwner:`${faker.internet.userName()}/${faker.lorem.slug()}`},
                 },
               },
             ],
-            totalCount:faker.random.number(1000),
+            totalCount:faker.datatype.number(1000),
           },
         },
-        projects:{totalCount:faker.random.number(100)},
-        packages:{totalCount:faker.random.number(100)},
-        organizations:{nodes:[], totalCount:faker.random.number(5)},
+        projects:{totalCount:faker.datatype.number(100)},
+        packages:{totalCount:faker.datatype.number(100)},
+        organizations:{nodes:[], totalCount:faker.datatype.number(5)},
         gists:{
           nodes:[{createdAt:faker.date.recent(), name:faker.lorem.slug()}],
-          totalCount:faker.random.number(1000),
+          totalCount:faker.datatype.number(1000),
         },
-        starredRepositories:{totalCount:faker.random.number(1000)},
-        followers:{totalCount:faker.random.number(10000)},
-        following:{totalCount:faker.random.number(10000)},
+        starredRepositories:{totalCount:faker.datatype.number(1000)},
+        followers:{totalCount:faker.datatype.number(10000)},
+        following:{totalCount:faker.datatype.number(10000)},
         bio:faker.lorem.sentence(),
         status:{message:faker.lorem.paragraph()},
       },
