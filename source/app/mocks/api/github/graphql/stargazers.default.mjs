@@ -10,7 +10,7 @@
     }) : ({
       repository:{
         stargazers:{
-          edges:new Array(faker.random.number({min:50, max:100})).fill(null).map(() => ({
+          edges:new Array(faker.datatype.number({min:50, max:100})).fill(null).map(() => ({
             starredAt:`${faker.date.recent(30)}`,
             cursor:"MOCKED_CURSOR",
           })),

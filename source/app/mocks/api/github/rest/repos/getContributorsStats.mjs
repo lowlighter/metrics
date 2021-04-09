@@ -11,12 +11,12 @@
       },
       data:[
         {
-          total:faker.random.number(10000),
+          total:faker.datatype.number(10000),
           weeks:[
-            {w:1, a:faker.random.number(10000), d:faker.random.number(10000), c:faker.random.number(10000)},
-            {w:2, a:faker.random.number(10000), d:faker.random.number(10000), c:faker.random.number(10000)},
-            {w:3, a:faker.random.number(10000), d:faker.random.number(10000), c:faker.random.number(10000)},
-            {w:4, a:faker.random.number(10000), d:faker.random.number(10000), c:faker.random.number(10000)},
+            {w:1, a:faker.datatype.number(10000), d:faker.datatype.number(10000), c:faker.datatype.number(10000)},
+            {w:2, a:faker.datatype.number(10000), d:faker.datatype.number(10000), c:faker.datatype.number(10000)},
+            {w:3, a:faker.datatype.number(10000), d:faker.datatype.number(10000), c:faker.datatype.number(10000)},
+            {w:4, a:faker.datatype.number(10000), d:faker.datatype.number(10000), c:faker.datatype.number(10000)},
           ],
           author:{
             login:owner,

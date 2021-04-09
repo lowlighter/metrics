@@ -5,7 +5,7 @@
 <%= plugins.topics.error.message _%>
   <%_ } else if (plugins.topics.list.length) { _%>
     <%_ for (const {name, icon24} of plugins.topics.list.slice(0, plugins.topics.list.length-1)) { _%>
-[![](https://img.shields.io/static/v1?style=flat&label=&message=<%= encodeURIComponent(name) %>&color=222&logo=<%= icon24 %>)](https://github.com/topics/<%= name.toLocaleLowerCase().replace(/ /g, "-") %>)
+[![](https://img.shields.io/static/v1?style=flat&label=&message=<%= encodeURIComponent(name) %>&color=222&logo=<%= icon24 %>)](https://github.com/topics/<%= name.toLocaleLowerCase().replace(/\+/g, "plus").replace(/#/g, "sharp").replace(/\./g, "").replace(/ /g, "-") %>)
     <%_ } _%>
 
 [<%= plugins.topics.list[plugins.topics.list.length-1].name %>](https://github.com/<%= user.login %>?tab=stars)

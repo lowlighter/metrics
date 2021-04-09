@@ -12,7 +12,7 @@
       data:{
         login:faker.internet.userName(),
         avatar_url:null,
-        contributions:faker.random.number(1000),
+        contributions:faker.datatype.number(1000),
       },
     })
   }
