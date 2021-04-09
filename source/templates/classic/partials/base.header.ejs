@@ -43,6 +43,16 @@
           </div>
         </section>
       </div>
+      <% if ((base.contributions)&&(computed.contributionsToOrganizations.length)) { %>
+        <div class="row organization contributions">
+          <% for (const {name, avatar} of computed.contributionsToOrganizations) { %>
+            <div class="organization contribution">
+              <img class="organization avatar" src="<%= avatar %>" width="16" height="16" />
+              @<%= name %>
+            </div>
+          <% } %>
+        </div>
+      <% } %>
     </section>
   <% } else if (account === "organization") { %>
     <section>

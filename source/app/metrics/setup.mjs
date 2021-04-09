@@ -54,7 +54,7 @@
       if (!conf.settings.plugins)
         conf.settings.plugins = {}
       conf.settings.community = {...conf.settings.community, ...community}
-      conf.settings.plugins.base = {parts:["header", "activity", "community", "repositories", "metadata"]}
+      conf.settings.plugins.base = {parts:["header", "contributions", "activity", "community", "repositories", "metadata"]}
       if (conf.settings.debug)
         logger(util.inspect(conf.settings, {depth:Infinity, maxStringLength:256}))
 
