@@ -1,5 +1,5 @@
 name: "🗃️ Base content"
-cost: 1 GraphQL request
+cost: 2 GraphQL requests + 1 GraphQL request per 100 repositories fetched
 categorie: core
 supports:
   - user
