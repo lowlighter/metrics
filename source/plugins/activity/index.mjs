@@ -88,8 +88,8 @@
                     case "PullRequestEvent":{
                       if (!["opened", "closed"].includes(payload.action))
                         return null
-                      const {action, pull_request:{user:{login:user}, title, number, additions:added, deletions:deleted, changed_files:changed}} = payload
-                      return {type:"pr", actor, timestamp, repo, action, user, title, number, lines:{added, deleted}, files:{changed}}
+                      const {action, pull_request:{user:{login:user}, title, number, additions:added, deletions:deleted, changed_files:changed, merged}} = payload
+                      return {type:"pr", actor, timestamp, repo, action:(action === "closed")&&(merged) ? "merged" : action, user, title, number, lines:{added, deleted}, files:{changed}}
                     }
                   //Reviewed a pull request
                     case "PullRequestReviewEvent":{
