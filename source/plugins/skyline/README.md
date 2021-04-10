@@ -1,6 +1,6 @@
 ### 🌇 GitHub Skyline 3D calendar
 
-    ⚠️ This plugin significantly increase file size, prefer using it as standalone.
+> ⚠️ This plugin significantly increase file size, prefer using it as standalone.
 
 The *skyline* plugin lets you display your 3D commits calendar from [skyline.github.com](https://skyline.github.com/).
 
