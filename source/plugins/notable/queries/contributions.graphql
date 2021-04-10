@@ -1,0 +1,16 @@
+query NotableContributions {
+  user(login: "$login") {
+    repositoriesContributedTo($after first: $repositories, contributionTypes: COMMIT) {
+      edges {
+        cursor
+        node {
+          isInOrganization
+          owner {
+            login
+            avatarUrl
+          }
+        }
+      }
+    }
+  }
+}

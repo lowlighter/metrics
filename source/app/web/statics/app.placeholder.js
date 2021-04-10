@@ -165,6 +165,12 @@
                     pr:{get count() { return this.open + this.merged }, open:faker.datatype.number(1000), merged:faker.datatype.number(1000)},
                   }
                 }) : null),
+              //Notable
+                ...(set.plugins.enabled.notable ? ({
+                  notable:{
+                    contributions:new Array(2+faker.datatype.number(2)).fill(null).map(_ => ({name:faker.lorem.slug(), avatar:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg=="})),
+                  }
+                }) : null),
               //Gists
                 ...(set.plugins.enabled.gists ? ({
                   gists:{

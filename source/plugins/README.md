@@ -25,6 +25,7 @@ See their respective documentation for more informations about how to setup them
   * [🗂️ Active projects](/source/plugins/projects/README.md)
   * [📰 Recent activity](/source/plugins/activity/README.md)
   * [🏆 Achievements](/source/plugins/achievements/README.md)
+  * [🎩 Notable contributions](/source/plugins/notable/README.md)
   * [🌇 GitHub Skyline 3D calendar](/source/plugins/skyline/README.md)
 * **Social**
   * [⏱️ Website performances](/source/plugins/pagespeed/README.md)

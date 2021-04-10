@@ -48,7 +48,7 @@ query BaseUser {
         }
       }
     }
-    repositoriesContributedTo {
+    repositoriesContributedTo(includeUserRepositories: true) {
       totalCount
     }
     followers {
