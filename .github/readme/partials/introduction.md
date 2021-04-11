@@ -1,7 +1,7 @@
 Generate your metrics that you can embed everywhere, including your GitHub profile readme! It works for both user and organization accounts, and even for repositories!
 
 <% if (/[.]0-beta$/.test(packaged.version)) { %>
-<sup>*⚠️ This is the documentation of **v<%= packaged.version.replace(/[.]0-beta$/, "") %>-beta** (`@master` branch) which includes [unreleased features](https://github.com/lowlighter/metrics/compare/latest...master), see documentation of **v<%= (Number(packaged.version.replace(/[.]0-beta$/, ""))-0.1).toFixed(1) %>** (`@latest` branch) [here](https://github.com/lowlighter/metrics/blob/latest/README.md).*</sup>
+> <sup>*⚠️ This is the documentation of **v<%= packaged.version.replace(/[.]0-beta$/, "") %>-beta** (`@master` branch) which includes [unreleased features](https://github.com/lowlighter/metrics/compare/latest...master), see documentation of **v<%= (Number(packaged.version.replace(/[.]0-beta$/, ""))-0.1).toFixed(1) %>** (`@latest` branch) [here](https://github.com/lowlighter/metrics/blob/latest/README.md).*</sup>
 <% } %>
 
 <table>
