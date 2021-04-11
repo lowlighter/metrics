@@ -34,7 +34,7 @@ Review below which contributions are accepted:
   <tr>
     <td nowrap="nowrap">🖼️ Templates</td>
     <td>❌</td>
-    <td>⭕</td>
+    <td>〽️</td>
     <td>
       <ul>
         <li>New templates are not allowed (use <a href="https://github.com/lowlighter/metrics/blob/master/source/templates/community/README.md">📕 Community templates</a> instead)</li>
@@ -55,7 +55,7 @@ Review below which contributions are accepted:
   <tr>
     <td nowrap="nowrap">🧱 Core</td>
     <td>❌</td>
-    <td>⭕</td>
+    <td>〽️</td>
     <td>
       <ul>
         <li>Core editions impacts all rendering process and should be avoided unless necessary</li>
@@ -76,7 +76,7 @@ Review below which contributions are accepted:
 
 **Legend**
 * ✔️: Contributions welcomed!
-* ⭕: Contributions welcomed, but must be discussed first
+* 〽️: Contributions welcomed, but must be discussed first
 * ❌: Only maintainers can manage these files
 
 Before working on something, ensure that it isn't already [in progress](https://github.com/lowlighter/metrics/projects/1#column-12158618) and that it will not duplicate any open pull requests (including drafts).
@@ -84,6 +84,98 @@ If you're unsure, always open an issue first to get insights and gather feedback
 
 Even if your changes don't get merged in [lowlighter/metrics](https://github.com/lowlighter/metrics), please don't be too sad.
 Metrics is designed to be highly customizable, so you can always decide to generate metrics on your forked repository 🙂!
+
+<details>
+<summary>📐 Project architecture</summary>
+
+Following diagram explain how **metrics** code is structured:
+
+![Architecture](/.github/architecture.svg)
+
+</details>
+
+<details>
+<summary>🗂️ Project structure</summary>
+
+This section explain how metrics is structured.
+
+* `source/app/metrics/` contains core metrics files
+* `source/app/action/` contains GitHub action files
+  * `index.mjs` contains GitHub action entry point
+  * `action.yml` contains GitHub action descriptor
+* `source/app/web/` contains web instance files
+  * `index.mjs` contains web instance entry point
+  * `instance.mjs` contains web instance source code
+  * `settings.example.json` contains web instance settings example
+  * `statics/` contains web instance static files
+    * `app.js` contains web instance client source code
+    * `app.placeholder.js` contains web instance placeholder mocked data
+* `source/app/mocks/` contains mocked data files
+  * `api/` contains mocked api data
+    * `axios/` contains external REST APIs mocked data
+    * `github/` contains mocked GitHub api data
+  * `index.mjs` contains mockers
+* `source/plugins/` contains source code of plugins
+  * `README.md` contains plugin documentation
+  * `metadata.yml` contains plugin metadata
+  * `index.mjs` contains plugin source code
+  * `queries/` contains plugin GraphQL queries
+* `source/templates/` contains templates files
+  * `README.md` contains template documentation
+  * `image.svg` contains template image used to render metrics
+  * `style.css` contains style used to render metrics
+  * `fonts.css` contains additional fonts used to render metrics
+  * `template.mjs` contains template source code
+* `tests/` contains tests
+  * `metrics.test.js` contains metrics testers
+* `Dockerfile` contains docker instructions used to build metrics image
+* `package.json` contains dependencies and command line aliases
+
+</details>
+
+<details>
+<summary>📦 Packages</summary>
+
+Below is a list of used packages.
+
+* [express/express.js](https://github.com/expressjs/express) and [expressjs/compression](https://github.com/expressjs/compression)
+  * To serve, compute and render a GitHub user's metrics
+* [nfriedly/express-rate-limit](https://github.com/nfriedly/express-rate-limit)
+  * To apply rate limiting on server and avoid spams and hitting GitHub API's own rate limit
+* [octokit/graphql.js](https://github.com/octokit/graphql.js/) and [octokit/rest.js](https://github.com/octokit/rest.js)
+  * To perform request to GitHub GraphQL API and GitHub REST API
+* [mde/ejs](https://github.com/mde/ejs)
+  * To render SVG images
+* [ptarjan/node-cache](https://github.com/ptarjan/node-cache)
+  * To cache generated content
+* [oliver-moran/jimp](https://github.com/oliver-moran/jimp), [foliojs/png.js](https://github.com/foliojs/png.js) and [eugeneware/gifencoder](https://github.com/eugeneware/gifencoder)
+  * To process images transformations
+* [svg/svgo](https://github.com/svg/svgo)
+  * To optimize generated SVG
+* [axios/axios](https://github.com/axios/axios)
+  * To make HTTP/S requests
+* [actions/toolkit](https://github.com/actions/toolkit/tree/master)
+  * To build the GitHub Action
+* [vuejs/vue](https://github.com/vuejs/vue) and [egoist/vue-prism-component](https://github.com/egoist/vue-prism-component) + [prismjs/prism](https://github.com/prismjs/prism)
+  * To display server application
+* [puppeteer/puppeteer](https://github.com/puppeteer/puppeteer)
+  * To scrape the web
+* [marudor/libxmljs2](https://github.com/marudor/libxmljs2) and [chrisbottin/xml-formatter](https://github.com/chrisbottin/xml-formatter)
+  * To format, test and verify SVG validity
+* [facebook/jest](https://github.com/facebook/jest) and [nodeca/js-yaml](https://github.com/nodeca/js-yaml)
+  * For unit testing
+* [marak/faker.js](https://github.com/marak/Faker.js)
+  * For mocking data
+* [steveukx/git-js](https://github.com/steveukx/git-js)
+  * For simple git operations
+* [twitter/twemoji-parser](https://github.com/twitter/twemoji-parser)
+  * To parse emojis and replace them by [twemojis](https://github.com/twitter/twemoji)
+* [jshemas/openGraphScraper](https://github.com/jshemas/openGraphScraper)
+  * To retrieve open graphs metadata
+* [panosoft/node-chartist](https://github.com/panosoft/node-chartist) and [gionkunz/chartist-js](https://github.com/gionkunz/chartist-js)
+  * To display embed SVG charts
+* [rbren/rss-parser](https://github.com/rbren/rss-parser)
+  * To parse RSS streams
 
 </details>
 
@@ -293,7 +385,6 @@ For example:
 
 </details>
 
-
 <details>
 <summary>💬 Filling <code>metadata.yml</code></summary>
 
@@ -468,90 +559,6 @@ Additionally, you can test your changes with GitHub action by using your fork in
 Global `README.md`, `plugins/README.md`, `templates/README.md`, `action.yml` and `settings.example.json` are automatically rebuild by GitHub action, do not edit them manually.
 
 </details>
-
-
-<details>
-<summary>🗂️ Project structure</summary>
-
-This section explain how metrics is structured.
-
-* `source/app/metrics/` contains core metrics files
-* `source/app/action/` contains GitHub action files
-  * `index.mjs` contains GitHub action entry point
-  * `action.yml` contains GitHub action descriptor
-* `source/app/web/` contains web instance files
-  * `index.mjs` contains web instance entry point
-  * `instance.mjs` contains web instance source code
-  * `settings.example.json` contains web instance settings example
-  * `statics/` contains web instance static files
-    * `app.js` contains web instance client source code
-    * `app.placeholder.js` contains web instance placeholder mocked data
-* `source/app/mocks/` contains mocked data files
-  * `api/` contains mocked api data
-    * `axios/` contains external REST APIs mocked data
-    * `github/` contains mocked GitHub api data
-  * `index.mjs` contains mockers
-* `source/plugins/` contains source code of plugins
-  * `README.md` contains plugin documentation
-  * `metadata.yml` contains plugin metadata
-  * `index.mjs` contains plugin source code
-  * `queries/` contains plugin GraphQL queries
-* `source/templates/` contains templates files
-  * `README.md` contains template documentation
-  * `image.svg` contains template image used to render metrics
-  * `style.css` contains style used to render metrics
-  * `fonts.css` contains additional fonts used to render metrics
-  * `template.mjs` contains template source code
-* `tests/` contains tests
-  * `metrics.test.js` contains metrics testers
-* `Dockerfile` contains docker instructions used to build metrics image
-* `package.json` contains dependencies and command line aliases
-
-</details>
-
-<details>
-<summary>📦 Packages</summary>
-
-Below is a list of used packages.
-
-* [express/express.js](https://github.com/expressjs/express) and [expressjs/compression](https://github.com/expressjs/compression)
-  * To serve, compute and render a GitHub user's metrics
-* [nfriedly/express-rate-limit](https://github.com/nfriedly/express-rate-limit)
-  * To apply rate limiting on server and avoid spams and hitting GitHub API's own rate limit
-* [octokit/graphql.js](https://github.com/octokit/graphql.js/) and [octokit/rest.js](https://github.com/octokit/rest.js)
-  * To perform request to GitHub GraphQL API and GitHub REST API
-* [mde/ejs](https://github.com/mde/ejs)
-  * To render SVG images
-* [ptarjan/node-cache](https://github.com/ptarjan/node-cache)
-  * To cache generated content
-* [oliver-moran/jimp](https://github.com/oliver-moran/jimp), [foliojs/png.js](https://github.com/foliojs/png.js) and [eugeneware/gifencoder](https://github.com/eugeneware/gifencoder)
-  * To process images transformations
-* [svg/svgo](https://github.com/svg/svgo)
-  * To optimize generated SVG
-* [axios/axios](https://github.com/axios/axios)
-  * To make HTTP/S requests
-* [actions/toolkit](https://github.com/actions/toolkit/tree/master)
-  * To build the GitHub Action
-* [vuejs/vue](https://github.com/vuejs/vue) and [egoist/vue-prism-component](https://github.com/egoist/vue-prism-component) + [prismjs/prism](https://github.com/prismjs/prism)
-  * To display server application
-* [puppeteer/puppeteer](https://github.com/puppeteer/puppeteer)
-  * To scrape the web
-* [marudor/libxmljs2](https://github.com/marudor/libxmljs2) and [chrisbottin/xml-formatter](https://github.com/chrisbottin/xml-formatter)
-  * To format, test and verify SVG validity
-* [facebook/jest](https://github.com/facebook/jest) and [nodeca/js-yaml](https://github.com/nodeca/js-yaml)
-  * For unit testing
-* [marak/faker.js](https://github.com/marak/Faker.js)
-  * For mocking data
-* [steveukx/git-js](https://github.com/steveukx/git-js)
-  * For simple git operations
-* [twitter/twemoji-parser](https://github.com/twitter/twemoji-parser)
-  * To parse emojis and replace them by [twemojis](https://github.com/twitter/twemoji)
-* [jshemas/openGraphScraper](https://github.com/jshemas/openGraphScraper)
-  * To retrieve open graphs metadata
-* [panosoft/node-chartist](https://github.com/panosoft/node-chartist) and [gionkunz/chartist-js](https://github.com/gionkunz/chartist-js)
-  * To display embed SVG charts
-* [rbren/rss-parser](https://github.com/rbren/rss-parser)
-  * To parse RSS streams
 
 </details>
 
