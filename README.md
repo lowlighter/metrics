@@ -5,7 +5,7 @@
 Generate your metrics that you can embed everywhere, including your GitHub profile readme! It works for both user and organization accounts, and even for repositories!
 
 
-<sup>*⚠️ This is the documentation of **v3.7-beta** (`@master` branch) which includes [unreleased features](https://github.com/lowlighter/metrics/compare/latest...master), see documentation of **v3.6** (`@latest` branch) [here](https://github.com/lowlighter/metrics/blob/latest/README.md).*</sup>
+> <sup>*⚠️ This is the documentation of **v3.7-beta** (`@master` branch) which includes [unreleased features](https://github.com/lowlighter/metrics/compare/latest...master), see documentation of **v3.6** (`@latest` branch) [here](https://github.com/lowlighter/metrics/blob/latest/README.md).*</sup>
 
 
 <table>
@@ -369,7 +369,7 @@ For a fully-featured experience you should use **metrics** as a [GitHub Action](
 ## ⚙️ Using GitHub Action on your profile repository (~5 min setup)
 
 Setup a GitHub Action which runs periodically and pushes your generated metrics image to your repository.
-See all supported options in [action.yml](action.yml).
+See all supported options in [action.yml](/action.yml).
 
 Assuming your username is `my-github-user`, you can then embed rendered metrics in your readme like below:
 
@@ -382,6 +382,8 @@ Assuming your username is `my-github-user`, you can then embed rendered metrics 
 
 <details>
 <summary><b>💬 How to setup?</b> <i>(click to expand)</i></summary>
+
+<!--  -->
 
 ### 0. Setup your personal repository
 
@@ -441,7 +443,7 @@ jobs:
           token: ${{ secrets.METRICS_TOKEN }}
 ```
 
-See all supported options in [action.yml](action.yml).
+See all supported options in [action.yml](/action.yml).
 
 Rendered metrics will be committed to your repository on each run.
 
@@ -478,7 +480,6 @@ Update your README.md to embed your metrics:
 <!-- If you're using "main" as default branch -->
 ![Metrics](https://github.com/my-github-user/my-github-user/blob/main/github-metrics.svg)
 ```
-
 </details>
 
 ## 💕 Using the shared instance (~1 min setup, but with limitations)
@@ -495,22 +496,23 @@ Availability is not guaranteed.
 <details>
 <summary><b>💬 Fair use</b> <i>(click to expand)</i></summary>
 
+<!--  -->
+
 To ensure service availability, shared instance has a few limitations:
-  * Images are cached for 15 minutes
+  * Images are cached for 1 hour
     * Rendered metrics **won't be updated** during this time window when queried
-    * You can manually update rendering againg your metrics on [metrics.lecoq.io](https://metrics.lecoq.io)
+    * You can manually update rendering again your metrics on [metrics.lecoq.io](https://metrics.lecoq.io)
   * A rate limiter is enabled to prevent denial of service (it doesn't affect already cached metrics)
   * Some plugins may not be available
 
 Service is provided free of charge, so please be gentle with it 🙂
-
 </details>
 
 ## 🏗️ Deploying your own web instance (~15 min setup, depending on your sysadmin knowledge)
 
 
 Setup a metrics instance on your server if you don't want to use GitHub Actions and [metrics.lecoq.io](https://metrics.lecoq.io).
-See all supported options in [settings.example.json](settings.example.json).
+See all supported options in [settings.example.json](/settings.example.json).
 
 Assuming your username is `my-github-user`, you can then embed rendered metrics in your readme like below:
 
@@ -521,9 +523,11 @@ Assuming your username is `my-github-user`, you can then embed rendered metrics 
 <details>
 <summary><b>💬 How to setup?</b> <i>(click to expand)</i></summary>
 
+<!--  -->
+
 ### 0. Prepare your server
 
-You'll need a server with a recent version [NodeJS](https://nodejs.org) (see used version in [Dockerfile](Dockerfile#L1-L2)).
+You'll need a server with a recent version [NodeJS](https://nodejs.org) (see used version in [Dockerfile](/Dockerfile#L1-L2)).
 
 ### 1. Create a GitHub personal token
 
@@ -556,7 +560,7 @@ Edit `settings.json` to configure your instance.
 }
 ```
 
-See all supported options in [settings.example.json](settings.example.json).
+See all supported options in [settings.example.json](/settings.example.json).
 
 If you plan to make your web instance public, it is advised to restrict its access thanks to rate limiter and access list.
 
@@ -606,13 +610,14 @@ systemctl enable github_metrics
 systemctl start github_metrics
 systemctl status github_metrics
 ```
-
 </details>
 
 <details>
-<summary>🔗 HTTP parameters</summary>
+<summary><b>🔗 HTTP parameters</b> <i>(click to expand)</i></summary>
 
-Most of options from [action.yml](action.yml) are actually supported by web instance, though syntax is slightly different.
+<!--  -->
+
+Most of options from [action.yml](/action.yml) are actually supported by web instance, though syntax is slightly different.
 All underscores (`_`) must be replaced by dots (`.`) and `plugin_` prefixes must be dropped.
 
 For example, to configure pagespeed plugin you'd use the following:
@@ -628,7 +633,6 @@ For example, to display only `repositories` section, use:
 ```
 https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
 ```
-
 </details>
 
 
@@ -836,39 +840,39 @@ See their respective documentation for more informations about how to setup them
   * [🗃️ Base content](/source/plugins/base/README.md)
   * [🧱 Core](/source/plugins/core/README.md)
 * **Github**
+  * [🏆 Achievements](/source/plugins/achievements/README.md)
+  * [📰 Recent activity](/source/plugins/activity/README.md)
+  * [🏅 Repository contributors](/source/plugins/contributors/README.md)
+  * [🎟️ Follow-up of issues and pull requests](/source/plugins/followup/README.md)
+  * [🎫 Gists](/source/plugins/gists/README.md)
+  * [💡 Coding habits](/source/plugins/habits/README.md)
+  * [🙋 Introduction](/source/plugins/introduction/README.md)
   * [📅 Isometric commit calendar](/source/plugins/isocalendar/README.md)
   * [🈷️ Most used languages](/source/plugins/languages/README.md)
-  * [🙋 Introduction](/source/plugins/introduction/README.md)
-  * [💡 Coding habits](/source/plugins/habits/README.md)
   * [📜 Repository licenses](/source/plugins/licenses/README.md)
-  * [🏅 Repository contributors](/source/plugins/contributors/README.md)
+  * [👨‍💻 Lines of code changed](/source/plugins/lines/README.md)
+  * [🎩 Notable contributions](/source/plugins/notable/README.md)
+  * [🧑‍🤝‍🧑 People plugin](/source/plugins/people/README.md)
+  * [🗂️ Active projects](/source/plugins/projects/README.md)
+  * [🎭 Comment reactions](/source/plugins/reactions/README.md)
+  * [🌇 GitHub Skyline 3D calendar](/source/plugins/skyline/README.md)
+  * [✨ Stargazers over last weeks](/source/plugins/stargazers/README.md)
   * [🌟 Recently starred repositories](/source/plugins/stars/README.md)
   * [📌 Starred topics](/source/plugins/topics/README.md)
-  * [🎭 Comment reactions](/source/plugins/reactions/README.md)
-  * [🧑‍🤝‍🧑 People plugin](/source/plugins/people/README.md)
-  * [🎫 Gists](/source/plugins/gists/README.md)
-  * [🎟️ Follow-up of issues and pull requests](/source/plugins/followup/README.md)
-  * [👨‍💻 Lines of code changed](/source/plugins/lines/README.md)
   * [🧮 Repositories traffic](/source/plugins/traffic/README.md)
-  * [✨ Stargazers over last weeks](/source/plugins/stargazers/README.md)
-  * [🗂️ Active projects](/source/plugins/projects/README.md)
-  * [📰 Recent activity](/source/plugins/activity/README.md)
-  * [🏆 Achievements](/source/plugins/achievements/README.md)
-  * [🎩 Notable contributions](/source/plugins/notable/README.md)
-  * [🌇 GitHub Skyline 3D calendar](/source/plugins/skyline/README.md)
 * **Social**
-  * [⏱️ Website performances](/source/plugins/pagespeed/README.md)
-  * [🎼 Music plugin](/source/plugins/music/README.md)
-  * [🐤 Latest tweets](/source/plugins/tweets/README.md)
   * [🌸 Anilist watch list and reading list](/source/plugins/anilist/README.md)
-  * [🗨️ Stackoverflow plugin](/source/plugins/stackoverflow/README.md)
+  * [🎼 Music plugin](/source/plugins/music/README.md)
+  * [⏱️ Website performances](/source/plugins/pagespeed/README.md)
   * [✒️ Recent posts](/source/plugins/posts/README.md)
   * [🗼 Rss feed](/source/plugins/rss/README.md)
+  * [🗨️ Stackoverflow plugin](/source/plugins/stackoverflow/README.md)
+  * [🐤 Latest tweets](/source/plugins/tweets/README.md)
   * [⏰ WakaTime plugin](/source/plugins/wakatime/README.md)
 * **Other**
-  * [💹 Stock prices](/source/plugins/stock/README.md)
-  * [📸 Website screenshot](/source/plugins/screenshot/README.md)
   * [💉 Nightscout](/source/plugins/nightscout/README.md)
+  * [📸 Website screenshot](/source/plugins/screenshot/README.md)
+  * [💹 Stock prices](/source/plugins/stock/README.md)
 
 ### 🏦 Organizations metrics
 
@@ -878,6 +882,8 @@ While metrics targets mainly user accounts, it's possible to render metrics for 
 
 <details>
 <summary><b>💬 Metrics for organizations</b> <i>(click to expand)</i></summary>
+
+<!--  -->
 
 Setup is the same as for user accounts, though you'll need to add `read:org` scope, **whether you're member of target organization or not**.
 
@@ -900,11 +906,12 @@ To support private repositories, add full `repo` scope to your personal token.
     token: ${{ secrets.METRICS_TOKEN }}          # A personal token from an user account with read:org scope
     user: organization-name                      # Organization name
 ```
-
 </details>
 
 <details>
 <summary><b>💬 Organizations memberships for user accounts</b> <i>(click to expand)</i></summary>
+
+<!--  -->
 
 Only public memberships can be displayed by metrics by default.
 You can manage your membership visibility in the `People` tab of your organization:
@@ -915,7 +922,6 @@ For organization memberships, add `read:org` scope to your personal token.
 
 ![Add read:org scope to personal token](/.github/readme/imgs/setup_token_org_read_scope.png)
 
-
 </details>
 
 ## 💪 Customizing and contributing
@@ -923,23 +929,26 @@ For organization memberships, add `read:org` scope to your personal token.
 Metrics is built to be easily customizable.
 Fork this repository, switch used action from `lowlighter/metrics@latest` to your fork and start coding!
 
-To report a bug fill an [issue](https://github.com/lowlighter/metrics/issues) describing it.
+See [ARCHITECTURE.md](/ARCHITECTURE.md) for more informations about how code is structured.
 
+To report a bug fill an [issue](https://github.com/lowlighter/metrics/issues) describing it.
 To suggest new features or requesting help to setup metrics, check out [discussions](https://github.com/lowlighter/metrics/discussions).
+You can also take a look at issues labeled with [help wanted](https://github.com/lowlighter/metrics/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22).
 
 If you want to contribute, submit a [pull request](https://github.com/lowlighter/metrics/pulls).
-Be sure to read [CONTRIBUTING.md](CONTRIBUTING.md) for more information about this.
+Be sure to read [CONTRIBUTING.md](/CONTRIBUTING.md) for more information about this.
 
-If you don't know where to start, you can also take a look at issues labeled with [help wanted](https://github.com/lowlighter/metrics/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22).
 
 ## 📜 License
 
 ```
 MIT License
-Copyright (c) 2020-2021 lowlighter
+Copyright (c) 2020-present lowlighter
 ```
 
 ![License details](https://github.com/lowlighter/lowlighter/blob/master/metrics.licenses.svg)
+
+See full license in [LICENSE.md](/LICENSE.md)
 
 ![Sponsors](https://github.com/lowlighter/lowlighter/blob/master/metrics.sponsors.svg)
 
