@@ -91,7 +91,7 @@
         //Token for data gathering
           info("GitHub token", token, {token:true})
           if (!token)
-            throw new Error('You must provide a valid GitHub personal token to gather your metrics (see "How to setup?" section at https://github.com/lowlighter/metrics#%EF%B8%8F-using-github-action-on-your-profile-repository-5-min-setup)')
+            throw new Error("You must provide a valid GitHub personal token to gather your metrics (see https://github.com/lowlighter/metrics/blob/master/.github/readme/partials/setup/action/setup.md for more informations)")
           conf.settings.token = token
           const api = {}
           api.graphql = octokit.graphql.defaults({headers:{authorization:`token ${token}`}})
@@ -102,6 +102,13 @@
           if (mocked) {
             Object.assign(api, await mocks(api))
             info("Use mocked API", true)
+          }
+        //Test token validity
+          else if (!/^(?:MOCKED_TOKEN|NOT_NEEDED)$/.test(token)) {
+            const {headers} = await api.rest.request("HEAD /")
+            if (!("x-oauth-scopes" in headers))
+              throw new Error("GitHub API did not send any \"x-oauth-scopes\" header back from provided \"token\". It means that your token may not be valid or you're using GITHUB_TOKEN which cannot be used since metrics will fetch data outside of this repository scope. Use a personal access token instead (see https://github.com/lowlighter/metrics/blob/master/.github/readme/partials/setup/action/setup.md for more informations).")
+            info("Token validity", "seems ok")
           }
         //Extract octokits
           const {graphql, rest} = api
