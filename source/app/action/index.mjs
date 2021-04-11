@@ -108,6 +108,7 @@
             const {headers} = await api.rest.request("HEAD /")
             if (!("x-oauth-scopes" in headers))
               throw new Error("GitHub API did not send any \"x-oauth-scopes\" header back from provided \"token\". It means that your token may not be valid or you're using GITHUB_TOKEN which cannot be used since metrics will fetch data outside of this repository scope. Use a personal access token instead (see https://github.com/lowlighter/metrics/blob/master/.github/readme/partials/setup/action/setup.md for more informations).")
+            info("Token validity", "seems ok")
           }
         //Extract octokits
           const {graphql, rest} = api
