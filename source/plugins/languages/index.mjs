@@ -7,8 +7,10 @@
             return null
 
         //Load inputs
-          let {ignored, skipped, colors, details, threshold} = imports.metadata.plugins.languages.inputs({data, account, q})
+          let {ignored, skipped, colors, details, threshold, limit} = imports.metadata.plugins.languages.inputs({data, account, q})
           threshold = (Number(threshold.replace(/%$/, ""))||0)/100
+          if (!limit)
+            limit = Infinity
 
         //Custom colors
           const colorsets = JSON.parse(`${await imports.fs.readFile(`${imports.__module(import.meta.url)}/colorsets.json`)}`)
@@ -42,7 +44,7 @@
 
         //Compute languages stats
           console.debug(`metrics/compute/${login}/plugins > languages > computing stats`)
-          languages.favorites = Object.entries(languages.stats).sort(([_an, a], [_bn, b]) => b - a).slice(0, 8).map(([name, value]) => ({name, value, size:value, color:languages.colors[name], x:0})).filter(({value}) => value/languages.total > threshold)
+          languages.favorites = Object.entries(languages.stats).sort(([_an, a], [_bn, b]) => b - a).slice(0, limit).map(([name, value]) => ({name, value, size:value, color:languages.colors[name], x:0})).filter(({value}) => value/languages.total > threshold)
           const visible = {total:Object.values(languages.favorites).map(({size}) => size).reduce((a, b) => a + b, 0)}
           for (let i = 0; i < languages.favorites.length; i++) {
             languages.favorites[i].value /= visible.total
