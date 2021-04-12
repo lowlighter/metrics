@@ -48,6 +48,7 @@
         data:{
           version,
           user:"",
+          mode:"metrics",
           tab:"overview",
           palette:"light",
           requests:{limit:0, used:0, remaining:0, reset:0},

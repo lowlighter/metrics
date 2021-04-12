@@ -1,0 +1,316 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Metrics</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="An image generator with 20+ metrics about your GitHub account such as activity, community, repositories, coding habits, website performances, music played, starred topics, etc. that you can put on your profile or elsewhere !">
+    <meta name="author" content="lowlighter">
+    <meta property="og:image" content="/.opengraph.png">
+    <link rel="icon" href="/.favicon.png">
+    <link rel="stylesheet" href="/.css/style.vars.css">
+    <link rel="stylesheet" href="/.css/style.css">
+    <link rel="stylesheet" href="/about/.statics/style.css">
+  </head>
+  <body>
+    <!-- Vue app -->
+    <main :class="[palette]">
+      <template>
+
+        <header v-once v-if="!embed">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+          <a href="https://github.com/lowlighter/metrics">Metrics v{{ version }}</a>
+        </header>
+
+        <section class="container center">
+          <div class="search" v-if="searchable">
+            <div class="about">
+              <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path></svg>
+                Search a GitHub user
+              </h2>
+              <small>{{ requests.remaining }} GitHub requests remaining</small>
+            </div>
+            <div class="inputs">
+              <input type="text" v-model="user" @keyup.enter="search" :disabled="pending">
+              <button @click="search" :disabled="pending">
+                {{ pending ? 'Working on it :)' : 'Search user!' }}
+              </button>
+            </div>
+            <small class="info">
+              Display rankings, highlights, commits calendar, used languages and recent activity from any user account!
+            </small>
+            <small class="info" v-if="metrics">
+              Share this profile using <a :href="url">{{ url }}</a>
+            </small>
+          </div>
+          <div v-else-if="!metrics">
+            <p>
+              Generating insights for {{ user }}...
+            </p>
+          </div>
+          <div class="error" v-if="error">
+            An error occurred while generating metrics :(<br>
+            <small>{{ error.message }}</small>
+          </div>
+        </section>
+
+        <template v-if="metrics">
+
+          <section class="container">
+            <div class="user">
+              <img :src="account.avatar">
+              <div class="info">
+                <div class="name">{{ account.name }}</div>
+                <div class="login">{{ account.login }}</div>
+              </div>
+            </div>
+          </section>
+
+          <div class="rankeds">
+            <div v-for="{icon, title, text, rank, progress, value, leaderboard = null} in ranked" class="ranked" :class="{[rank.charAt(0).toLocaleLowerCase()]:rank !== '$', secret:rank === '$'}">
+              <div class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" height="44" width="44">
+                  <defs>
+                    <mask id="mask">
+                      <circle class="gauge-base" r="25" cx="28" cy="28" fill="white"></circle>
+                    </mask>
+                  </defs>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="gauge">
+                    <circle class="gauge-base" r="25" cx="28" cy="28"></circle>
+                    <circle v-if="(progress)||(rank !== 'X')" class="gauge-arc" transform="rotate(-90 28 28)" r="25" cx="28" cy="28" :stroke-dasharray="`${progress*155} 155`"></circle>
+                  </svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" mask="url(#mask)" v-html="icon"></svg>
+                </svg>
+              </div>
+              <div class="info">
+                <div class="user-rank">{{ format("number", leaderboard.user) }}<sup>{{ {1:"st", 2:"nd", 3:"rd"}[leaderboard.user%10] ?? "th" }}</sup></div>
+                <div class="total-rank">/ {{ format("number", leaderboard.total, {notation:"compact", compactDisplay:"long"}) }} {{ leaderboard.type }}</div>
+                <div class="title">{{ title }}</div>
+                <div class="text">{{ text }}</div>
+              </div>
+            </div>
+          </div>
+
+          <section class="container" v-if="contributions.length">
+            <h2>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M1 2.5A2.5 2.5 0 013.5 0h8.75a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0V1.5h-8a1 1 0 00-1 1v6.708A2.492 2.492 0 013.5 9h3.25a.75.75 0 010 1.5H3.5a1 1 0 100 2h5.75a.75.75 0 010 1.5H3.5A2.5 2.5 0 011 11.5v-9zm13.23 7.79a.75.75 0 001.06-1.06l-2.505-2.505a.75.75 0 00-1.06 0L9.22 9.229a.75.75 0 001.06 1.061l1.225-1.224v6.184a.75.75 0 001.5 0V9.066l1.224 1.224z"></path></svg>
+              Notable contributions
+            </h2>
+            <div class="contributions">
+              <a v-for="{name, avatar} in contributions" class="contribution" :href="`https://github.com/${name}`">
+                <img :src="avatar" alt="">
+                @{{ name }}
+              </a>
+            </div>
+          </section>
+
+          <section class="container">
+            <h2>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M8.5.75a.75.75 0 00-1.5 0v5.19L4.391 3.33a.75.75 0 10-1.06 1.061L5.939 7H.75a.75.75 0 000 1.5h5.19l-2.61 2.609a.75.75 0 101.061 1.06L7 9.561v5.189a.75.75 0 001.5 0V9.56l2.609 2.61a.75.75 0 101.06-1.061L9.561 8.5h5.189a.75.75 0 000-1.5H9.56l2.61-2.609a.75.75 0 00-1.061-1.06L8.5 5.939V.75z"></path></svg>
+              Highlights
+            </h2>
+            <div class="achievements">
+              <div v-for="{icon, title, text, rank, progress, value, leaderboard = null} in achievements" class="achievement" :class="{[rank.charAt(0).toLocaleLowerCase()]:rank !== '$', secret:rank === '$'}">
+                <div class="icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" height="44" width="44">
+                    <defs>
+                      <mask id="mask">
+                        <circle class="gauge-base" r="25" cx="28" cy="28" fill="white"></circle>
+                      </mask>
+                    </defs>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="gauge">
+                      <circle class="gauge-base" r="25" cx="28" cy="28"></circle>
+                      <circle v-if="(progress)||(rank !== 'X')" class="gauge-arc" transform="rotate(-90 28 28)" r="25" cx="28" cy="28" :stroke-dasharray="`${progress*155} 155`"></circle>
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" mask="url(#mask)" v-html="icon"></svg>
+                  </svg>
+                </div>
+                <div class="info">
+                  <div class="title">{{ title }}</div>
+                  <div class="text">{{ text }}</div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="container">
+            <div class="languages">
+              <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M1.5 2.75a.25.25 0 01.25-.25h12.5a.25.25 0 01.25.25v8.5a.25.25 0 01-.25.25h-6.5a.75.75 0 00-.53.22L4.5 14.44v-2.19a.75.75 0 00-.75-.75h-2a.25.25 0 01-.25-.25v-8.5zM1.75 1A1.75 1.75 0 000 2.75v8.5C0 12.216.784 13 1.75 13H3v1.543a1.457 1.457 0 002.487 1.03L8.061 13h6.189A1.75 1.75 0 0016 11.25v-8.5A1.75 1.75 0 0014.25 1H1.75zm5.03 3.47a.75.75 0 010 1.06L5.31 7l1.47 1.47a.75.75 0 01-1.06 1.06l-2-2a.75.75 0 010-1.06l2-2a.75.75 0 011.06 0zm2.44 0a.75.75 0 000 1.06L10.69 7 9.22 8.47a.75.75 0 001.06 1.06l2-2a.75.75 0 000-1.06l-2-2a.75.75 0 00-1.06 0z"></path></svg>
+                Languages used
+              </h2>
+              <div class="list" v-if="languages.length">
+                <div class="language" v-for="{name, value, color, size} of languages">
+                  <div class="progress" :style="{width:`${100*value}%`, backgroundColor:color}"></div>
+                  <div :style="{color}">
+                    <span class="name">{{ name }}</span>
+                    <span class="percent">({{ format("number", value, {style:"percent", maximumFractionDigits:2})}})</span>
+                  </div>
+                  <div class="size">{{ format("number", size) }} byte{{ "s" }}</div>
+                </div>
+              </div>
+              <div v-else>
+                No languages used
+              </div>
+            </div>
+          </section>
+
+          <section class="container">
+            <div class="isocalendar">
+              <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M4.75 0a.75.75 0 01.75.75V2h5V.75a.75.75 0 011.5 0V2h1.25c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0113.25 16H2.75A1.75 1.75 0 011 14.25V3.75C1 2.784 1.784 2 2.75 2H4V.75A.75.75 0 014.75 0zm0 3.5h8.5a.25.25 0 01.25.25V6h-11V3.75a.25.25 0 01.25-.25h2zm-2.25 4v6.75c0 .138.112.25.25.25h10.5a.25.25 0 00.25-.25V7.5h-11z"></path></svg>
+                Commits calendar
+              </h2>
+              <div class="svg" v-html="isocalendar"></div>
+            </div>
+          </section>
+
+          <section class="container">
+            <div class="activity">
+              <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M0 8a8 8 0 1116 0v5.25a.75.75 0 01-1.5 0V8a6.5 6.5 0 10-13 0v5.25a.75.75 0 01-1.5 0V8zm5.5 4.25a.75.75 0 01.75-.75h3.5a.75.75 0 010 1.5h-3.5a.75.75 0 01-.75-.75zM3 6.75C3 5.784 3.784 5 4.75 5h6.5c.966 0 1.75.784 1.75 1.75v1.5A1.75 1.75 0 0111.25 10h-6.5A1.75 1.75 0 013 8.25v-1.5zm1.47-.53a.75.75 0 011.06 0l.97.97.97-.97a.75.75 0 011.06 0l.97.97.97-.97a.75.75 0 111.06 1.06l-1.5 1.5a.75.75 0 01-1.06 0L8 7.81l-.97.97a.75.75 0 01-1.06 0l-1.5-1.5a.75.75 0 010-1.06z"></path></svg>
+                Recent activity
+              </h2>
+              <ul v-if="activity.length">
+                <template v-for="{actor, type, repo, timestamp, ...event} of activity">
+                  <li v-if="type === 'comment'">
+                    <time :datetime="timestamp">{{ format("date", timestamp, {timeStyle:"short", dateStyle:"short"}) }}</time>
+                    <div class="event">
+                      <svg v-if="event.on === 'pr'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M1.5 2.75a.25.25 0 01.25-.25h12.5a.25.25 0 01.25.25v8.5a.25.25 0 01-.25.25h-6.5a.75.75 0 00-.53.22L4.5 14.44v-2.19a.75.75 0 00-.75-.75h-2a.25.25 0 01-.25-.25v-8.5zM1.75 1A1.75 1.75 0 000 2.75v8.5C0 12.216.784 13 1.75 13H3v1.543a1.457 1.457 0 002.487 1.03L8.061 13h6.189A1.75 1.75 0 0016 11.25v-8.5A1.75 1.75 0 0014.25 1H1.75zm5.03 3.47a.75.75 0 010 1.06L5.31 7l1.47 1.47a.75.75 0 01-1.06 1.06l-2-2a.75.75 0 010-1.06l2-2a.75.75 0 011.06 0zm2.44 0a.75.75 0 000 1.06L10.69 7 9.22 8.47a.75.75 0 001.06 1.06l2-2a.75.75 0 000-1.06l-2-2a.75.75 0 00-1.06 0z"></path></svg>
+                      <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M2.75 2.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h2a.75.75 0 01.75.75v2.19l2.72-2.72a.75.75 0 01.53-.22h4.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25H2.75zM1 2.75C1 1.784 1.784 1 2.75 1h10.5c.966 0 1.75.784 1.75 1.75v7.5A1.75 1.75 0 0113.25 12H9.06l-2.573 2.573A1.457 1.457 0 014 13.543V12H2.75A1.75 1.75 0 011 10.25v-7.5z"></path></svg>
+                      <div class="content">Commented on <a :href="`https://github.com/${repo}/${{issue:'issues', pr:'pull', commit:'commit'}[event.on]}/${event.number}`">#{{ event.number }} {{ event.title }}</a> from <a :href="`https://github.com/${repo}`">{{ repo }}</a></div>
+                    </div>
+                  </li>
+                  <li v-if="type === 'member'">
+                    <time :datetime="timestamp">{{ format("date", timestamp, {timeStyle:"short", dateStyle:"short"}) }}</time>
+                    <div class="event">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M10.5 5a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zm.061 3.073a4 4 0 10-5.123 0 6.004 6.004 0 00-3.431 5.142.75.75 0 001.498.07 4.5 4.5 0 018.99 0 .75.75 0 101.498-.07 6.005 6.005 0 00-3.432-5.142z"></path></svg>
+                      <div class="content">Added <a :href="`https://github.com/${event.user}`"></a> as collaborator in <a :href="`https://github.com/${repo}`">{{ repo }}</a></div>
+                    </div>
+                  </li>
+                  <li v-if="type === 'star'">
+                    <time :datetime="timestamp">{{ format("date", timestamp, {timeStyle:"short", dateStyle:"short"}) }}</time>
+                    <div class="event">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"></path></svg>
+                      <div class="content">Starred <a :href="`https://github.com/${repo}`">{{ repo }}</a></div>
+                    </div>
+                  </li>
+                  <li v-if="type === 'release'">
+                    <time :datetime="timestamp">{{ format("date", timestamp, {timeStyle:"short", dateStyle:"short"}) }}</time>
+                    <div class="event">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M8.878.392a1.75 1.75 0 00-1.756 0l-5.25 3.045A1.75 1.75 0 001 4.951v6.098c0 .624.332 1.2.872 1.514l5.25 3.045a1.75 1.75 0 001.756 0l5.25-3.045c.54-.313.872-.89.872-1.514V4.951c0-.624-.332-1.2-.872-1.514L8.878.392zM7.875 1.69a.25.25 0 01.25 0l4.63 2.685L8 7.133 3.245 4.375l4.63-2.685zM2.5 5.677v5.372c0 .09.047.171.125.216l4.625 2.683V8.432L2.5 5.677zm6.25 8.271l4.625-2.683a.25.25 0 00.125-.216V5.677L8.75 8.432v5.516z"></path></svg>
+                      <div class="content">{{ event.draft ? "Drafted release" : event.prerelease ? "Pre-released" : "Released" }} of <a :href="`https://github.com/${repo}`">{{ repo }}</a></div>
+                    </div>
+                  </li>
+                  <li v-if="type === 'fork'">
+                    <time :datetime="timestamp">{{ format("date", timestamp, {timeStyle:"short", dateStyle:"short"}) }}</time>
+                    <div class="event">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z"></path></svg>
+                      <div class="content">Forked <a :href="`https://github.com/${repo}`">{{ repo }}</a></div>
+                    </div>
+                  </li>
+                  <li v-if="type === 'push'">
+                    <time :datetime="timestamp">{{ format("date", timestamp, {timeStyle:"short", dateStyle:"short"}) }}</time>
+                    <div class="event">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M10.5 7.75a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zm1.43.75a4.002 4.002 0 01-7.86 0H.75a.75.75 0 110-1.5h3.32a4.001 4.001 0 017.86 0h3.32a.75.75 0 110 1.5h-3.32z"></path></svg>
+                      <div class="content">
+                        Pushed {{ event.size }} commit{{ "s" }} in <a :href="`https://github.com/${repo}`">{{ repo }}</a> <template v-if="event.branch">on branch <code>{{ event.branch }}</code></template>
+                        <ul>
+                          <li v-for="commit of event.commits">
+                            <a :href="`https://github.com/${repo}/commit/${commit.sha}`">#{{ commit.sha }}</a> {{ commit.message }}
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </li>
+                  <li v-if="type === 'issue'">
+                    <time :datetime="timestamp">{{ format("date", timestamp, {timeStyle:"short", dateStyle:"short"}) }}</time>
+                    <div class="event">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm9 3a1 1 0 11-2 0 1 1 0 012 0zm-.25-6.25a.75.75 0 00-1.5 0v3.5a.75.75 0 001.5 0v-3.5z"></path></svg>
+                      <div class="content">{{ event.action === "opened" ? "Opened" : event.action === "reopened" ? "Reopened" : "Closed" }} <a :href="`https://github.com/${repo}/issues/${event.number}`">#{{ event.number }} {{ event.title }}</a> in <a :href="`https://github.com/${repo}`">{{ repo }}</a></div>
+                    </div>
+                  </li>
+                  <li v-if="type === 'pr'">
+                    <time :datetime="timestamp">{{ format("date", timestamp, {timeStyle:"short", dateStyle:"short"}) }}</time>
+                    <div class="event">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"></path></svg>
+                      <div class="content">
+                        {{ event.action === "opened" ? "Opened" : event.action === "merged" ? "Merged" : "Closed" }} <a :href="`https://github.com/${repo}/pull/${event.number}`">#{{ event.number }} {{ event.title }}</a> in <a :href="`https://github.com/${repo}`">{{ repo }}</a>
+                        <ul>
+                          <li>
+                            {{ event.files.changed }} file{{ "s" }} changed <code>++{{ event.lines.added }} --{{ event.lines.deleted }}</code>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </li>
+                  <li v-if="type === 'wiki'">
+                    <time :datetime="timestamp">{{ format("date", timestamp, {timeStyle:"short", dateStyle:"short"}) }}</time>
+                    <div class="event">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.744 3.744 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75V1.75zm8.755 3a2.25 2.25 0 012.25-2.25H14.5v9h-3.757c-.71 0-1.4.201-1.992.572l.004-7.322zm-1.504 7.324l.004-5.073-.002-2.253A2.25 2.25 0 005.003 2.5H1.5v9h3.757a3.75 3.75 0 011.994.574z"></path></svg>
+                      <div class="content">
+                        Updated {{ event.pages.length }} wiki page{{ "s" }} in <a :href="`https://github.com/${repo}`">{{ repo }}</a>
+                        <ul>
+                          <li v-for="page of event.pages">
+                            {{ page }}
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </li>
+                  <li v-if="type === 'public'">
+                    <time :datetime="timestamp">{{ format("date", timestamp, {timeStyle:"short", dateStyle:"short"}) }}</time>
+                    <div class="event">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path></svg>
+                      <div class="content">Made <a :href="`https://github.com/${repo}`">{{ repo }}</a> public</div>
+                    </div>
+                  </li>
+                  <li v-if="type === 'review'">
+                    <time :datetime="timestamp">{{ format("date", timestamp, {timeStyle:"short", dateStyle:"short"}) }}</time>
+                    <div class="event">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M2.5 1.75a.25.25 0 01.25-.25h8.5a.25.25 0 01.25.25v7.736a.75.75 0 101.5 0V1.75A1.75 1.75 0 0011.25 0h-8.5A1.75 1.75 0 001 1.75v11.5c0 .966.784 1.75 1.75 1.75h3.17a.75.75 0 000-1.5H2.75a.25.25 0 01-.25-.25V1.75zM4.75 4a.75.75 0 000 1.5h4.5a.75.75 0 000-1.5h-4.5zM4 7.75A.75.75 0 014.75 7h2a.75.75 0 010 1.5h-2A.75.75 0 014 7.75zm11.774 3.537a.75.75 0 00-1.048-1.074L10.7 14.145 9.281 12.72a.75.75 0 00-1.062 1.058l1.943 1.95a.75.75 0 001.055.008l4.557-4.45z"></path></svg>
+                      <div class="content">Reviewed <a :href="`https://github.com/${repo}/pull/${event.number}`">#{{ event.number }} {{ event.title }}</a> in <a :href="`https://github.com/${repo}`">{{ repo }}</a></div>
+                    </div>
+                  </li>
+                  <li v-if="type === 'ref/create'">
+                    <time :datetime="timestamp">{{ format("date", timestamp, {timeStyle:"short", dateStyle:"short"}) }}</time>
+                    <div class="event">
+                      <svg v-if="event.ref.type === 'branch'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M11.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122V6A2.5 2.5 0 0110 8.5H6a1 1 0 00-1 1v1.128a2.251 2.251 0 11-1.5 0V5.372a2.25 2.25 0 111.5 0v1.836A2.492 2.492 0 016 7h4a1 1 0 001-1v-.628A2.25 2.25 0 019.5 3.25zM4.25 12a.75.75 0 100 1.5.75.75 0 000-1.5zM3.5 3.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0z"></path></svg>
+                      <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M2.5 7.775V2.75a.25.25 0 01.25-.25h5.025a.25.25 0 01.177.073l6.25 6.25a.25.25 0 010 .354l-5.025 5.025a.25.25 0 01-.354 0l-6.25-6.25a.25.25 0 01-.073-.177zm-1.5 0V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.75 1.75 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z"></path></svg>
+                      <div class="content">Created new {{ event.ref.type }} <code>{{ event.ref.name }}</code> in <a :href="`https://github.com/${repo}`">{{ repo }}</a></div>
+                    </div>
+                  </li>
+                  <li v-if="type === 'ref/delete'">
+                    <time :datetime="timestamp">{{ format("date", timestamp, {timeStyle:"short", dateStyle:"short"}) }}</time>
+                    <div class="event">
+                      <svg v-if="event.ref.type === 'branch'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M11.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122V6A2.5 2.5 0 0110 8.5H6a1 1 0 00-1 1v1.128a2.251 2.251 0 11-1.5 0V5.372a2.25 2.25 0 111.5 0v1.836A2.492 2.492 0 016 7h4a1 1 0 001-1v-.628A2.25 2.25 0 019.5 3.25zM4.25 12a.75.75 0 100 1.5.75.75 0 000-1.5zM3.5 3.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0z"></path></svg>
+                      <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M2.5 7.775V2.75a.25.25 0 01.25-.25h5.025a.25.25 0 01.177.073l6.25 6.25a.25.25 0 010 .354l-5.025 5.025a.25.25 0 01-.354 0l-6.25-6.25a.25.25 0 01-.073-.177zm-1.5 0V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.75 1.75 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z"></path></svg>
+                      <div class="content">Deleted {{ event.ref.type }} <code>{{ event.ref.name }}</code> from <a :href="`https://github.com/${repo}`">{{ repo }}</a></div>
+                    </div>
+                  </li>
+                </template>
+              </ul>
+              <div v-else>
+                No recent activity
+              </div>
+            </div>
+          </section>
+
+        </template>
+
+        <footer v-once v-if="!embed">
+          <a href="https://github.com/lowlighter/metrics">Repository</a>
+          <a href="https://github.com/lowlighter/metrics/blob/master/LICENSE">License</a>
+          <a href="https://github.com/marketplace/actions/github-metrics-as-svg-image">GitHub Action</a>
+          <span v-if="hosted">Hosted with ❤️ by <a :href="hosted.link">{{ hosted.by }}</a></span>
+        </footer>
+
+      </template>
+    </main>
+
+    <!-- Scripts -->
+    <script src="/.js/axios.min.js"></script>
+    <script src="/.js/vue.min.js"></script>
+    <script src="/about/.statics/script.js"></script>
+  </body>
+</html>
