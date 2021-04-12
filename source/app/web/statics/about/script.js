@@ -19,7 +19,7 @@
             if ((user)&&(user !== "about")) {
               this.user = user
               await this.search()
-            }              
+            }
             else
               this.searchable = true
           //Embed
@@ -70,8 +70,13 @@
             return this.metrics?.rendered.plugins.achievements.list.filter(({leaderboard}) => !leaderboard).filter(({title}) => !/(?:automater|octonaut|infographile)/i.test(title))
           },
           isocalendar() {
-            return this.metrics?.rendered.plugins.isocalendar.svg 
-          },
+            return this.metrics?.rendered.plugins.isocalendar.svg
+              .replace(/#ebedf0/gi, "var(--color-calendar-graph-day-bg)")
+              .replace(/#9be9a8/gi, "var(--color-calendar-graph-day-L1-bg)")
+              .replace(/#40c463/gi, "var(--color-calendar-graph-day-L2-bg)")
+              .replace(/#30a14e/gi, "var(--color-calendar-graph-day-L3-bg)")
+              .replace(/#216e39/gi, "var(--color-calendar-graph-day-L4-bg)")
+            },
           languages() {
             return this.metrics?.rendered.plugins.languages.favorites
           },
