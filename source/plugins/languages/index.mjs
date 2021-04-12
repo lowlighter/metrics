@@ -14,7 +14,7 @@
 
         //Custom colors
           const colorsets = JSON.parse(`${await imports.fs.readFile(`${imports.__module(import.meta.url)}/colorsets.json`)}`)
-          if (`${colors}` in colorsets)
+          if ((`${colors}` in colorsets)&&(limit <= 8))
             colors = colorsets[`${colors}`]
           colors = Object.fromEntries(decodeURIComponent(colors).split(",").map(x => x.trim().toLocaleLowerCase()).filter(x => x).map(x => x.split(":").map(x => x.trim())))
           console.debug(`metrics/compute/${login}/plugins > languages > custom colors ${JSON.stringify(colors)}`)
