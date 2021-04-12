@@ -6,6 +6,11 @@ body {
   color: var(--color-text-primary);
 }
 
+iframe {
+  width: 100%;
+  height: 100%;
+}
+
 /* Header */
   header {
     display: flex;
