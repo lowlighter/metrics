@@ -45,7 +45,7 @@
 
             <div class="ui-avatar" :style="{backgroundImage:avatar ? `url(${avatar})` : 'none'}"></div>
 
-            <input type="text" v-model="user" placeholder="Your GitHub username">
+            <input type="text" v-model="user" placeholder="Your GitHub username" :disabled="generated.pending" @keyup.enter="(!user)||(generated.pending)||(unusable.length > 0) ? null : generate()">
             <button @click="generate" :disabled="(!user)||(generated.pending)||(unusable.length > 0)">
               {{ generated.pending ? 'Working on it :)' : 'Generate your metrics!' }}
             </button>
