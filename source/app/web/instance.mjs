@@ -92,9 +92,9 @@
         setInterval(async() => {
           try {
             requests = (await rest.rateLimit.get()).data.rate
-          } 
+          }
           catch {
-            console.debug(`metrics/app > failed to update remaining requests`)
+            console.debug("metrics/app > failed to update remaining requests")
           }
         }, 5*60*1000)
       }
@@ -156,15 +156,15 @@
         app.get("/about/", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/about/index.html`))
         app.get("/about/index.html", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/about/index.html`))
         app.get("/about/:login", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/about/index.html`))
-        app.get("/about/query/:login/", ...middlewares, async (req, res) => {
+        app.get("/about/query/:login/", ...middlewares, async(req, res) => {
+          //Check username
+            const login = req.params.login?.replace(/[\n\r]/g, "")
+            if (!/^[-\w]+$/i.test(login)) {
+              console.debug(`metrics/app/${login}/insights > 400 (invalid username)`)
+              return res.status(400).send("Bad request: username seems invalid")
+            }
           //Compute metrics
             try {
-              //Check username
-                const login = req.params.login?.replace(/[\n\r]/g, "")
-                if (!/^[-\w]+$/i.test(login)) {
-                  console.debug(`metrics/app/${login}/insights > 400 (invalid username)`)
-                  return res.status(400).send("Bad request: username seems invalid")
-                }
               //Read cached data if possible
                 if ((!debug)&&(cached)&&(cache.get(`about.${login}`))) {
                   console.debug(`metrics/app/${login}/insights > using cached results`)
@@ -174,13 +174,13 @@
                 console.debug(`metrics/app/${login}/insights > compute insights`)
                 const json = await metrics({
                   login, q:{
-                    template:"classic", 
+                    template:"classic",
                     achievements:true, "achievements.threshold":"X",
                     isocalendar:true, "isocalendar.duration":"full-year",
                     languages:true, "languages.limit":0,
                     activity:true, "activity.limit":100, "activity.days":0,
-                    notable:true
-                  }
+                    notable:true,
+                  },
                 }, {graphql, rest, plugins:{achievements:{enabled:true}, isocalendar:{enabled:true}, languages:{enabled:true}, activity:{enabled:true}, notable:{enabled:true}}, conf, convert:"json"}, {Plugins, Templates})
               //Cache
                 if ((!debug)&&(cached)) {
