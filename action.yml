@@ -250,11 +250,18 @@ inputs:
     description: Repositories to skip
     default: ""
   
+  # Number of languages to display
+  # Set to 0 to disable limitations
+  plugin_languages_limit:
+    description: Maximum number of languages to display
+    default: 8
+  
   # Overrides default languages colors
   # Use `${n}:${color}` to change the color of the n-th most used language (e.g. "0:red" to make your most used language red)
   # Use `${language}:${color}` to change the color of named language (e.g. "javascript:red" to make JavaScript language red, language case is ignored)
   # Use a value from `colorsets.json` to use a predefined set of colors
   # Both hexadecimal and named colors are supported
+  # This cannot be used when "plugin_languages_limit" is greater than 8
   plugin_languages_colors:
     description: Custom languages colors
     default: github
