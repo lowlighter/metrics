@@ -64,33 +64,33 @@
       //Computed properties
         computed:{
           ranked() {
-            return this.metrics?.rendered.plugins.achievements.list.filter(({leaderboard}) => leaderboard).sort((a, b) => a.leaderboard.type.localeCompare(b.leaderboard.type))
+            return this.metrics?.rendered.plugins.achievements.list?.filter(({leaderboard}) => leaderboard).sort((a, b) => a.leaderboard.type.localeCompare(b.leaderboard.type)) ?? []
           },
           achievements() {
-            return this.metrics?.rendered.plugins.achievements.list.filter(({leaderboard}) => !leaderboard).filter(({title}) => !/(?:automater|octonaut|infographile)/i.test(title))
+            return this.metrics?.rendered.plugins.achievements.list?.filter(({leaderboard}) => !leaderboard).filter(({title}) => !/(?:automater|octonaut|infographile)/i.test(title)) ?? []
           },
           isocalendar() {
-            return this.metrics?.rendered.plugins.isocalendar.svg
+            return (this.metrics?.rendered.plugins.isocalendar.svg ?? "")
               .replace(/#ebedf0/gi, "var(--color-calendar-graph-day-bg)")
               .replace(/#9be9a8/gi, "var(--color-calendar-graph-day-L1-bg)")
               .replace(/#40c463/gi, "var(--color-calendar-graph-day-L2-bg)")
               .replace(/#30a14e/gi, "var(--color-calendar-graph-day-L3-bg)")
               .replace(/#216e39/gi, "var(--color-calendar-graph-day-L4-bg)")
-            },
+          },
           languages() {
-            return this.metrics?.rendered.plugins.languages.favorites
+            return this.metrics?.rendered.plugins.languages.favorites ?? []
           },
           activity() {
-            return this.metrics?.rendered.plugins.activity.events
+            return this.metrics?.rendered.plugins.activity.events ?? []
           },
           contributions() {
-            return this.metrics?.rendered.plugins.notable.contributions
+            return this.metrics?.rendered.plugins.notable.contributions ?? []
           },
           account() {
             if (!this.metrics)
               return null
             const {login, name} = this.metrics.rendered.user
-            return {login, name, avatar:this.metrics.rendered.computed.avatar}
+            return {login, name, avatar:this.metrics.rendered.computed.avatar, type:this.metrics?.rendered.account}
           },
           url() {
             return `${window.location.protocol}//${window.location.host}/about/${this.user}`
