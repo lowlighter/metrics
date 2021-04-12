@@ -89,7 +89,14 @@
       let requests = {limit:0, used:0, remaining:0, reset:NaN}
       if (!conf.settings.notoken) {
         requests = (await rest.rateLimit.get()).data.rate
-        setInterval(async() => requests = (await rest.rateLimit.get()).data.rate, 5*60*1000)
+        setInterval(async() => {
+          try {
+            requests = (await rest.rateLimit.get()).data.rate
+          }
+          catch {
+            console.debug("metrics/app > failed to update remaining requests")
+          }
+        }, 5*60*1000)
       }
       //Web
         app.get("/", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/index.html`))
@@ -142,6 +149,57 @@
             actions.flush.set(token, user)
             return res.json({token})
           }
+        })
+
+      //About routes
+        app.use("/about/.statics/", express.static(`${conf.paths.statics}/about`))
+        app.get("/about/", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/about/index.html`))
+        app.get("/about/index.html", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/about/index.html`))
+        app.get("/about/:login", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/about/index.html`))
+        app.get("/about/query/:login/", ...middlewares, async(req, res) => {
+          //Check username
+            const login = req.params.login?.replace(/[\n\r]/g, "")
+            if (!/^[-\w]+$/i.test(login)) {
+              console.debug(`metrics/app/${login}/insights > 400 (invalid username)`)
+              return res.status(400).send("Bad request: username seems invalid")
+            }
+          //Compute metrics
+            try {
+              //Read cached data if possible
+                if ((!debug)&&(cached)&&(cache.get(`about.${login}`))) {
+                  console.debug(`metrics/app/${login}/insights > using cached results`)
+                  return res.send(cache.get(`about.${login}`))
+                }
+              //Compute metrics
+                console.debug(`metrics/app/${login}/insights > compute insights`)
+                const json = await metrics({
+                  login, q:{
+                    template:"classic",
+                    achievements:true, "achievements.threshold":"X",
+                    isocalendar:true, "isocalendar.duration":"full-year",
+                    languages:true, "languages.limit":0,
+                    activity:true, "activity.limit":100, "activity.days":0,
+                    notable:true,
+                  },
+                }, {graphql, rest, plugins:{achievements:{enabled:true}, isocalendar:{enabled:true}, languages:{enabled:true}, activity:{enabled:true}, notable:{enabled:true}}, conf, convert:"json"}, {Plugins, Templates})
+              //Cache
+                if ((!debug)&&(cached)) {
+                  const maxage = Math.round(Number(req.query.cache))
+                  cache.put(`about.${login}`, json, maxage > 0 ? maxage : cached)
+                }
+                return res.json(json)
+            }
+          //Internal error
+            catch (error) {
+              //Not found user
+                if ((error instanceof Error)&&(/^user not found$/.test(error.message))) {
+                  console.debug(`metrics/app/${login} > 404 (user/organization not found)`)
+                  return res.status(404).send("Not found: unknown user or organization")
+                }
+              //General error
+                console.error(error)
+                return res.status(500).send("Internal Server Error: failed to process metrics correctly")
+            }
         })
 
     //Metrics
