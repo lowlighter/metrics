@@ -84,11 +84,11 @@
     "notable":{
       "enabled": false,            "//": "Display notable contributions in organizations"
     },
-    "skyline":{
-      "enabled": false,            "//": "Display GitHub Skyline 3D calendar"
-    },
     "support":{
       "enabled": false,            "//": "GitHub Community Support metrics"
+    },
+    "skyline":{
+      "enabled": false,            "//": "Display GitHub Skyline 3D calendar"
     },
     "pagespeed":{
       "token": null,               "//":"PageSpeed token",

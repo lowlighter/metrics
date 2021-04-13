@@ -638,6 +638,14 @@ inputs:
     default: no
   
   # ====================================================================================
+  # 🗨️ GitHub Community Support
+  
+  # Enable or disable plugin
+  plugin_support:
+    description: GitHub Community Support metrics
+    default: no
+  
+  # ====================================================================================
   # 🌇 GitHub Skyline 3D calendar
   
   # Enable or disable plugin
@@ -665,14 +673,6 @@ inputs:
   # Using this mode significantly increase file size as each frame is encoded separately
   plugin_skyline_compatibility:
     description: Compatibility mode
-    default: no
-  
-  # ====================================================================================
-  # 🗨️ GitHub Community Support
-  
-  # Enable or disable plugin
-  plugin_support:
-    description: GitHub Community Support metrics
     default: no
   
   # ====================================================================================
