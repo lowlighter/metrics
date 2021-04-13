@@ -193,7 +193,7 @@ And you can customize these heavily with plugins, templates and hundreds of opti
   </tr>
   <tr>
     <th><a href="source/plugins/notable/README.md">🎩 Notable contributions</a></th>
-    <th><a href="source/plugins/support/README.md">🗨️ GitHub Community Support</a></th>
+    <th><a href="source/plugins/support/README.md">💭 GitHub Community Support</a></th>
   </tr>
   <tr>
     <td align="center">
@@ -690,7 +690,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" title="📰 Recent activity">📰</th>
     <th nowrap="nowrap" align="center" title="🏆 Achievements">🏆</th>
     <th nowrap="nowrap" align="center" title="🎩 Notable contributions">🎩</th>
-    <th nowrap="nowrap" align="center" title="🗨️ GitHub Community Support">🗨️</th>
+    <th nowrap="nowrap" align="center" title="💭 GitHub Community Support">💭</th>
     <th nowrap="nowrap" align="center" title="🌇 GitHub Skyline 3D calendar">🌇</th>
     <th nowrap="nowrap" align="center" title="⏱️ Website performances">⏱️</th>
     <th nowrap="nowrap" align="center" title="🎼 Music plugin">🎼</th>
@@ -888,7 +888,7 @@ See their respective documentation for more informations about how to setup them
   * [🌇 GitHub Skyline 3D calendar](/source/plugins/skyline/README.md)
   * [✨ Stargazers over last weeks](/source/plugins/stargazers/README.md)
   * [🌟 Recently starred repositories](/source/plugins/stars/README.md)
-  * [🗨️ GitHub Community Support](/source/plugins/support/README.md)
+  * [💭 GitHub Community Support](/source/plugins/support/README.md)
   * [📌 Starred topics](/source/plugins/topics/README.md)
   * [🧮 Repositories traffic](/source/plugins/traffic/README.md)
 * **Social**

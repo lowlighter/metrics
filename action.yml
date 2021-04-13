@@ -638,7 +638,7 @@ inputs:
     default: no
   
   # ====================================================================================
-  # 🗨️ GitHub Community Support
+  # 💭 GitHub Community Support
   
   # Enable or disable plugin
   plugin_support:

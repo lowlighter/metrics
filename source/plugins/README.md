@@ -25,7 +25,7 @@ See their respective documentation for more informations about how to setup them
   * [🌇 GitHub Skyline 3D calendar](/source/plugins/skyline/README.md)
   * [✨ Stargazers over last weeks](/source/plugins/stargazers/README.md)
   * [🌟 Recently starred repositories](/source/plugins/stars/README.md)
-  * [🗨️ GitHub Community Support](/source/plugins/support/README.md)
+  * [💭 GitHub Community Support](/source/plugins/support/README.md)
   * [📌 Starred topics](/source/plugins/topics/README.md)
   * [🧮 Repositories traffic](/source/plugins/traffic/README.md)
 * **Social**
