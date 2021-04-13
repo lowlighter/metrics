@@ -364,7 +364,7 @@ And you can customize these heavily with plugins, templates and hundreds of opti
 
 For a fully-featured experience you should use **metrics** as a [GitHub Action](https://github.com/marketplace/actions/github-metrics-as-svg-image), but you can also try it now at [metrics.lecoq.io](https://metrics.lecoq.io/) with your GitHub username!
 
-Choose `📊 Metrics embed` if you want to customize your GitHub profile or `✨ Metrics insights` if you want to get a quick overview of your GitHub statistics.
+Choose `📊 Metrics embed` if you want to customize your GitHub profile and `✨ Metrics insights` to get a quick overview of your GitHub statistics:
 
 <table>
   <tr>
