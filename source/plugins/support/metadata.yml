@@ -1,6 +1,7 @@
 name: "🗨️ GitHub Community Support"
 cost: N/A
 categorie: github
+index: 19
 supports:
   - user
 inputs:
