@@ -91,5 +91,8 @@ query AchievementsDefault {
     status {
       message
     }
+    sponsorshipsAsSponsor {
+      totalCount
+    }
   }
 }
