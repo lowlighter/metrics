@@ -31,7 +31,7 @@ And you can customize these heavily with plugins, templates and hundreds of opti
 <table>
   <tr>
     <th colspan="2" align="center">
-      <a href="source/plugins/README.md">🧩 31 plugins</a>
+      <a href="source/plugins/README.md">🧩 32 plugins</a>
     </th>
   </tr>
   <tr>
@@ -206,10 +206,14 @@ And you can customize these heavily with plugins, templates and hundreds of opti
     </td>
   </tr>
   <tr>
+    <th><a href="source/plugins/support/README.md">🗨️ GitHub Community Support</a></th>
     <th><a href="source/plugins/pagespeed/README.md">⏱️ Website performances</a></th>
-    <th><a href="source/plugins/music/README.md">🎼 Music plugin</a></th>
   </tr>
   <tr>
+    <td align="center">
+      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.support.svg">
+      <img width="900" height="1" alt="">
+    </td>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.svg">
       <details><summary>Detailed version</summary>
@@ -220,6 +224,12 @@ And you can customize these heavily with plugins, templates and hundreds of opti
       </details>
       <img width="900" height="1" alt="">
     </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/music/README.md">🎼 Music plugin</a></th>
+    <th><a href="source/plugins/tweets/README.md">🐤 Latest tweets</a></th>
+  </tr>
+  <tr>
     <td align="center">
       <details open><summary>🎼 Favorite tracks version</summary>
         <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.music.playlist.svg">
@@ -229,12 +239,6 @@ And you can customize these heavily with plugins, templates and hundreds of opti
       </details>
       <img width="900" height="1" alt="">
     </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/tweets/README.md">🐤 Latest tweets</a></th>
-    <th><a href="source/plugins/anilist/README.md">🌸 Anilist watch list and reading list</a></th>
-  </tr>
-  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.tweets.svg">
       <details><summary>With tweets attachments version</summary>
@@ -242,6 +246,12 @@ And you can customize these heavily with plugins, templates and hundreds of opti
       </details>
       <img width="900" height="1" alt="">
     </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/anilist/README.md">🌸 Anilist watch list and reading list</a></th>
+    <th><a href="source/plugins/stackoverflow/README.md">🗨️ Stackoverflow plugin</a></th>
+  </tr>
+  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.anilist.svg">
       <details><summary>Manga version</summary>
@@ -252,16 +262,16 @@ And you can customize these heavily with plugins, templates and hundreds of opti
       </details>
       <img width="900" height="1" alt="">
     </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/stackoverflow/README.md">🗨️ Stackoverflow plugin</a></th>
-    <th><a href="source/plugins/posts/README.md">✒️ Recent posts</a></th>
-  </tr>
-  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.stackoverflow.svg">
       <img width="900" height="1" alt="">
     </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/posts/README.md">✒️ Recent posts</a></th>
+    <th><a href="source/plugins/rss/README.md">🗼 Rss feed</a></th>
+  </tr>
+  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.posts.svg">
       <details><summary>With posts descriptions and cover images version</summary>
@@ -269,45 +279,38 @@ And you can customize these heavily with plugins, templates and hundreds of opti
       </details>
       <img width="900" height="1" alt="">
     </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/rss/README.md">🗼 Rss feed</a></th>
-    <th><a href="source/plugins/wakatime/README.md">⏰ WakaTime plugin</a></th>
-  </tr>
-  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.rss.svg">
       <img width="900" height="1" alt="">
     </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/wakatime/README.md">⏰ WakaTime plugin</a></th>
+    <th><a href="source/plugins/stock/README.md">💹 Stock prices</a></th>
+  </tr>
+  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.wakatime.svg">
       <img width="900" height="1" alt="">
     </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/stock/README.md">💹 Stock prices</a></th>
-    <th><a href="source/plugins/screenshot/README.md">📸 Website screenshot</a></th>
-  </tr>
-  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.stock.svg">
       <img width="900" height="1" alt="">
     </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/screenshot/README.md">📸 Website screenshot</a></th>
+    <th><a href="source/plugins/nightscout/README.md">💉 Nightscout</a></th>
+  </tr>
+  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.screenshot.svg">
       <img width="900" height="1" alt="">
     </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/nightscout/README.md">💉 Nightscout</a></th>
-    <th><a href="source/plugins//README.md"></a></th>
-  </tr>
-  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/legoandmars/legoandmars/blob/master/metrics.plugin.nightscout.svg">
       <img width="900" height="1" alt="">
     </td>
-    <td align="center"><img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <th colspan="2" align="center">
@@ -384,6 +387,8 @@ Choose `📊 Metrics embed` if you want to customize your GitHub profile and `�
     </td>
   </tr>
 </table>
+
+
 # 📜 How to use?
 
 ## ⚙️ Using GitHub Action on your profile repository (~5 min setup)
@@ -686,6 +691,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" title="🏆 Achievements">🏆</th>
     <th nowrap="nowrap" align="center" title="🎩 Notable contributions">🎩</th>
     <th nowrap="nowrap" align="center" title="🌇 GitHub Skyline 3D calendar">🌇</th>
+    <th nowrap="nowrap" align="center" title="🗨️ GitHub Community Support">🗨️</th>
     <th nowrap="nowrap" align="center" title="⏱️ Website performances">⏱️</th>
     <th nowrap="nowrap" align="center" title="🎼 Music plugin">🎼</th>
     <th nowrap="nowrap" align="center" title="🐤 Latest tweets">🐤</th>
@@ -721,6 +727,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="achievements">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="notable">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="skyline">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="support">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="music">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="tweets">✔️</th>
@@ -756,6 +763,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="achievements">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="notable">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="skyline">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="support">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="music">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="tweets">❌</th>
@@ -791,6 +799,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="achievements">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="notable">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="skyline">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="support">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="music">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="tweets">❌</th>
@@ -826,6 +835,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="achievements">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="notable">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="skyline">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="support">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="pagespeed">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="music">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="tweets">✔️</th>
@@ -878,6 +888,7 @@ See their respective documentation for more informations about how to setup them
   * [🌇 GitHub Skyline 3D calendar](/source/plugins/skyline/README.md)
   * [✨ Stargazers over last weeks](/source/plugins/stargazers/README.md)
   * [🌟 Recently starred repositories](/source/plugins/stars/README.md)
+  * [🗨️ GitHub Community Support](/source/plugins/support/README.md)
   * [📌 Starred topics](/source/plugins/topics/README.md)
   * [🧮 Repositories traffic](/source/plugins/traffic/README.md)
 * **Social**

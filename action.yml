@@ -668,6 +668,14 @@ inputs:
     default: no
   
   # ====================================================================================
+  # 🗨️ GitHub Community Support
+  
+  # Enable or disable plugin
+  plugin_support:
+    description: GitHub Community Support metrics
+    default: no
+  
+  # ====================================================================================
   # ⏱️ Website performances
   
   # Enable or disable plugin
