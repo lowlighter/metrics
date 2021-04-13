@@ -1,4 +1,4 @@
-### 🗨️ GitHub Community Support
+### 💭 GitHub Community Support
 
 The *support* plugin lets you display your statistics from [GitHub Support Community](https://github.community/).
 
