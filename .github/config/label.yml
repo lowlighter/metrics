@@ -1,12 +1,13 @@
 # Repository files
 repository:
   - .github/**
-  - .gitignore
   - .gitattributes
+  - .gitignore
   - .eslintrc.yml
-  - SECURITY.md
-  - LICENSE
+  - ARCHITECTURE.md
   - CONTRIBUTING.md
+  - LICENSE
+  - SECURITY.md
 
 # Docker
 docker:
@@ -16,14 +17,24 @@ docker:
 # Metrics source code editions
 core:
   - source/app/metrics/**
+  - source/plugins/base/**
+  - source/plugins/core/**
 action:
   - source/app/action/**
 web:
   - source/app/web/**
+metrics-insights:
+  - source/app/web/statics/about/**
 plugins:
   - source/plugins/**
 templates:
   - source/templates/**
+templates-classic:
+  - source/templates/classic/**
+templates-markdown:
+  - source/templates/markdown/**
+templates-repository:
+  - source/templates/repository/**
 tests:
   - source/app/mocks/**
   - tests/**
