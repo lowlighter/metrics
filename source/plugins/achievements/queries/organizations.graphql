@@ -1,0 +1,37 @@
+query AchievementsOrganizations {
+  organization(login: "$login") {
+    repositories(first: 1, privacy: PUBLIC, affiliations: OWNER, orderBy: {field: CREATED_AT, direction: ASC}) {
+      nodes {
+        createdAt
+        nameWithOwner
+      }
+      totalCount
+    }
+    forks:repositories(first: 1, privacy: PUBLIC, isFork: true, orderBy: {field: CREATED_AT, direction: ASC}) {
+      nodes {
+        createdAt
+        nameWithOwner
+      }
+      totalCount
+    }
+    popular:repositories(first:1, orderBy: {field: STARGAZERS, direction: DESC}) {
+      nodes {
+        stargazers {
+          totalCount
+        }
+      }
+    }
+    projects(first: 1, orderBy: {field: CREATED_AT, direction: ASC}) {
+      totalCount
+    }
+    packages(first: 1, orderBy: {direction: ASC, field: CREATED_AT}) {
+      totalCount
+    }
+    membersWithRole {
+      totalCount
+    }
+    sponsorshipsAsSponsor {
+      totalCount
+    }
+  }
+}

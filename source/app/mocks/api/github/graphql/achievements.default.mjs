@@ -61,6 +61,7 @@
         following:{totalCount:faker.datatype.number(10000)},
         bio:faker.lorem.sentence(),
         status:{message:faker.lorem.paragraph()},
+        sponsorshipsAsSponsor:{totalCount:faker.datatype.number(100)},
       },
     })
   }
