@@ -1,0 +1,12 @@
+name: "🗨️ GitHub Community Support"
+cost: N/A
+categorie: github
+supports:
+  - user
+inputs:
+
+  # Enable or disable plugin
+  plugin_support:
+    description: GitHub Community Support metrics
+    type: boolean
+    default: no
