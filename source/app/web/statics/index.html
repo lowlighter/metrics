@@ -16,9 +16,9 @@
     <main :class="[palette]">
       <template>
 
-        <header v-once>
+        <header>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
-          <a href="https://github.com/lowlighter/metrics">Metrics v{{ version }}</a>
+          <a href="https://github.com/lowlighter/metrics">Metrics {{ version }}</a>
         </header>
 
         <div class="ui top">
@@ -51,7 +51,12 @@
 
             <input type="text" v-model="user" placeholder="Your GitHub username" :disabled="generated.pending" @keyup.enter="(!user)||(generated.pending)||(unusable.length > 0) ? null : generate()">
             <button @click="generate" :disabled="(!user)||(generated.pending)||(unusable.length > 0)">
-              {{ generated.pending ? 'Working on it :)' : 'Generate your metrics!' }}
+              <template v-if="generated.pending">
+                Generating metrics<span class="loading"></span>
+              </template>
+              <template v-else>
+                Generate your metrics!
+              </template>
             </button>
             <small>{{ requests.remaining }} GitHub requests remaining</small>
             <div class="warning" v-if="unusable.length">
@@ -121,9 +126,14 @@
 
           <div class="preview">
 
-            <div class="readme">
-              <svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M1.326 1.973a1.2 1.2 0 011.49-.832c.387.112.977.307 1.575.602.586.291 1.243.71 1.7 1.296.022.027.042.056.061.084A13.22 13.22 0 018 3c.67 0 1.289.037 1.861.108l.051-.07c.457-.586 1.114-1.004 1.7-1.295a9.654 9.654 0 011.576-.602 1.2 1.2 0 011.49.832c.14.493.356 1.347.479 2.29.079.604.123 1.28.07 1.936.541.977.773 2.11.773 3.301C16 13 14.5 15 8 15s-8-2-8-5.5c0-1.034.238-2.128.795-3.117-.08-.712-.034-1.46.052-2.12.122-.943.34-1.797.479-2.29zM8 13.065c6 0 6.5-2 6-4.27C13.363 5.905 11.25 5 8 5s-5.363.904-6 3.796c-.5 2.27 0 4.27 6 4.27z"></path><path d="M4 8a1 1 0 012 0v1a1 1 0 01-2 0V8zm2.078 2.492c-.083-.264.146-.492.422-.492h3c.276 0 .505.228.422.492C9.67 11.304 8.834 12 8 12c-.834 0-1.669-.696-1.922-1.508zM10 8a1 1 0 112 0v1a1 1 0 11-2 0V8z"></path></svg>
-              <span>{{ user }}</span><span class="slash">/</span>README<span class="md">.md</span>
+            <div class="readmes">
+              <div class="readme">
+                <svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M1.326 1.973a1.2 1.2 0 011.49-.832c.387.112.977.307 1.575.602.586.291 1.243.71 1.7 1.296.022.027.042.056.061.084A13.22 13.22 0 018 3c.67 0 1.289.037 1.861.108l.051-.07c.457-.586 1.114-1.004 1.7-1.295a9.654 9.654 0 011.576-.602 1.2 1.2 0 011.49.832c.14.493.356 1.347.479 2.29.079.604.123 1.28.07 1.936.541.977.773 2.11.773 3.301C16 13 14.5 15 8 15s-8-2-8-5.5c0-1.034.238-2.128.795-3.117-.08-.712-.034-1.46.052-2.12.122-.943.34-1.797.479-2.29zM8 13.065c6 0 6.5-2 6-4.27C13.363 5.905 11.25 5 8 5s-5.363.904-6 3.796c-.5 2.27 0 4.27 6 4.27z"></path><path d="M4 8a1 1 0 012 0v1a1 1 0 01-2 0V8zm2.078 2.492c-.083-.264.146-.492.422-.492h3c.276 0 .505.228.422.492C9.67 11.304 8.834 12 8 12c-.834 0-1.669-.696-1.922-1.508zM10 8a1 1 0 112 0v1a1 1 0 11-2 0V8z"></path></svg>
+                <span>{{ user }}</span><span class="slash">/</span>README<span class="md">.md</span>
+              </div>
+              <div class="readme">
+                <a href="https://github.com/lowlighter/metrics/discussions">Send feedback</a>
+              </div>
             </div>
 
             <div v-if="tab == 'overview'">
@@ -151,7 +161,7 @@
 
         <iframe v-else src="/about?embed=1" frameborder="0"></iframe>
 
-        <footer v-once>
+        <footer>
           <a href="https://github.com/lowlighter/metrics">Repository</a>
           <a href="https://github.com/lowlighter/metrics/blob/master/LICENSE">License</a>
           <a href="https://github.com/marketplace/actions/github-metrics-as-svg-image">GitHub Action</a>
