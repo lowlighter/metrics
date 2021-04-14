@@ -181,7 +181,7 @@
                 <li v-for="{actor, type, repo, timestamp, ...event} of activity">
                   <time :datetime="timestamp">{{ format("date", timestamp, {timeStyle:"short", dateStyle:"short"}) }}</time>
                   <div class="actor" v-if="account.type === 'organization'">
-                    <img :src="`https://github.com/${actor}.png`">
+                    <img :src="`https://github.com/${/\[bot\]$/.test(actor) ? 'actions' : actor }.png`">
                     <a :href="`https://github.com/${actor}`">{{ actor }}</a>
                   </div>
                   <div class="event">
