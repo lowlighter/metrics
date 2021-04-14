@@ -9,7 +9,7 @@
       console.debug(`metrics/compute/${login}/base > started`)
       let {repositories, "repositories.forks":_forks, "repositories.affiliations":_affiliations} = imports.metadata.plugins.base.inputs({data, q, account:"bypass"}, {repositories:conf.settings.repositories ?? 100})
       const forks = _forks ? "" : ", isFork: false"
-      const affiliations = _affiliations?.length ? `, ownerAffiliations: [${_affiliations.map(x => x.toLocaleUpperCase()).join(", ")}], affiliations: [${_affiliations.map(x => x.toLocaleUpperCase()).join(", ")}]` : ""
+      const affiliations = _affiliations?.length ? `, ownerAffiliations: [${_affiliations.map(x => x.toLocaleUpperCase()).join(", ")}]${conf.authenticated === login ? `, affiliations: [${_affiliations.map(x => x.toLocaleUpperCase()).join(", ")}]` : ""}` : ""
 
     //Skip initial data gathering if not needed
       if (conf.settings.notoken)

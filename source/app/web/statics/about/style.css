@@ -148,6 +148,7 @@
   }
   .activity .content {
     flex-grow: 1;
+    max-width: 95%;
   }
   .activity quote {
     display: block;
@@ -156,12 +157,16 @@
     border-radius: .25rem;
     border: 1px solid var(--color-border-secondary);
     color: var(--color-text-secondary);
+    overflow-x: auto;
   }
   .activity quote p:first-child {
     margin-top: 0;
   }
   .activity quote p:last-child {
     margin-bottom: 0;
+  }
+  .activity img {
+    max-width: 100%;
   }
 
 /* User */

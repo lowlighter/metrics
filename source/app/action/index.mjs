@@ -122,6 +122,7 @@
             authenticated = github.context.repo.owner
           }
           const user = _user || authenticated
+          conf.authenticated = user
           info("GitHub account", user)
           if (q.repo)
             info("GitHub repository", `${user}/${q.repo}`)
