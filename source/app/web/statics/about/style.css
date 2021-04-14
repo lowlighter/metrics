@@ -9,6 +9,7 @@
   }
   .center {
     align-items: center;
+    margin-top: 1rem;
   }
 
 /* Search */
@@ -128,12 +129,39 @@
     margin: .25rem 0;
     margin-right: .5rem;
   }
+  .activity .actor {
+    display: flex;
+    align-items: center;
+  }
+  .activity .actor img {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    margin-right: .5rem;
+  }
   .activity .event {
     display: flex;
     align-items: flex-start;
   }
   .activity .event ul {
     font-size: .8rem;
+  }
+  .activity .content {
+    flex-grow: 1;
+  }
+  .activity quote {
+    display: block;
+    margin: .5rem 0;
+    padding: 1rem;
+    border-radius: .25rem;
+    border: 1px solid var(--color-border-secondary);
+    color: var(--color-text-secondary);
+  }
+  .activity quote p:first-child {
+    margin-top: 0;
+  }
+  .activity quote p:last-child {
+    margin-bottom: 0;
   }
 
 /* User */

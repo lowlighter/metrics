@@ -71,6 +71,11 @@
             finally {
               this.pending = false
             }
+          },
+          markdown(content) {
+            const escaped = document.createElement("textarea")
+            escaped.textContent = content
+            return marked(escaped.innerHTML)
           }
         },
       //Computed properties
