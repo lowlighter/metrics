@@ -1,7 +1,4 @@
 ;(async function() {
-  //Init
-    const {data:version} = await axios.get("/.version")
-    const {data:hosted} = await axios.get("/.hosted")
   //App
     return new Vue({
       //Initialization
@@ -11,10 +8,7 @@
             try {
               this.palette = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
             } catch (error) {}
-          //GitHub limit tracker
-            const {data:requests} = await axios.get("/.requests")
-            this.requests = requests
-          //Initialization
+          //User
             const user = location.pathname.split("/").pop()
             if ((user)&&(user !== "about")) {
               this.user = user
@@ -24,6 +18,24 @@
               this.searchable = true
           //Embed
             this.embed = !!(new URLSearchParams(location.search).get("embed"))
+          //Init
+            await Promise.all([
+              //GitHub limit tracker
+                (async () => {
+                  const {data:requests} = await axios.get("/.requests")
+                  this.requests = requests
+                })(),
+              //Version
+                (async () => {
+                  const {data:version} = await axios.get("/.version")
+                  this.version = `v${version}`
+                })(),
+              //Hosted
+                (async () => {
+                  const {data:hosted} = await axios.get("/.hosted")
+                  this.hosted = hosted
+                })(),
+            ])
         },
       //Watchers
         watch:{
@@ -98,8 +110,8 @@
         },
       //Data initialization
         data:{
-          version,
-          hosted,
+          version:"",
+          hosted:null,
           user:"",
           embed:false,
           searchable:false,

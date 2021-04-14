@@ -1,15 +1,20 @@
-body {
-  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
-  margin: 0;
-  padding: 0;
-  background-color: var(--color-bg-canvas);
-  color: var(--color-text-primary);
-}
+/* General */
+  body {
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-bg-canvas);
+    color: var(--color-text-primary);
+  }
 
-iframe {
-  width: 100%;
-  height: 100%;
-}
+  iframe {
+    width: 100%;
+    height: 100%;
+  }
+
+  a:hover {
+    cursor: pointer;
+  }
 
 /* Header */
   header {
@@ -100,7 +105,7 @@ iframe {
     cursor: not-allowed;
   }
 
-  nav > div:hover {
+  nav > div:not(.active):hover {
     color: var(--color-underlinenav-text-hover);
     border-bottom: 2px solid var(--color-underlinenav-border-hover);
     transition-duration: all .12s ease-out;
@@ -152,12 +157,17 @@ iframe {
   }
 
 /* Readme */
-  .readme {
+  .readmes {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
     font-size: .75rem;
     margin-bottom: 1rem;
+  }
+  .readme {
+    display: flex;
+    align-items: center;
     color: var(--color-text-primary);
   }
   .readme svg {
@@ -215,6 +225,11 @@ iframe {
     color: var(--color-btn-primary-disabled-text);
     background-color: var(--color-btn-primary-disabled-bg);
     border-color: var(--color-btn-primary-disabled-border);
+    cursor: not-allowed;
+  }
+
+  input[disabled] {
+    cursor: wait;
   }
 
   button:focus {
@@ -292,6 +307,10 @@ iframe {
     .ui {
       flex-direction: row;
     }
+    .ui:not(.top) {
+      max-width: 1280px;
+      margin: .5rem auto;
+    }
     .ui.top aside {
       display: block;
     }
@@ -300,5 +319,23 @@ iframe {
     }
     aside {
       max-width: 25%;
+      width: 100%;
     }
+  }
+
+/*Loading animation*/
+  .loading {
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: bottom;
+  }
+  .loading::after {
+    overflow: hidden;
+    display: inline-block;
+    content: "...";
+    animation: loading-dots-keyframes 1.2s steps(4, jump-none) infinite;
+  }
+
+  @keyframes loading-dots-keyframes {
+    0% { transform: translateX(-100%); }
   }
