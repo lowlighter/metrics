@@ -5,6 +5,7 @@
   import processes from "child_process"
   import util from "util"
   import url from "url"
+  import OctokitRest from "@octokit/rest"
 
 //Templates and plugins
   const Templates = {}
@@ -26,6 +27,7 @@
       const logger = log ? console.debug : () => null
       logger("metrics/setup > setup")
       const conf = {
+        authenticated:null,
         templates:{},
         queries:{},
         settings:{},
@@ -100,7 +102,7 @@
                 await fs.promises.rmdir(path.join(__templates, ".community"), {recursive:true})
                 logger(`metrics/setup > loaded community template ${name}`)
             }
- catch (error) {
+            catch (error) {
               logger(`metrics/setup > failed to load community template ${template}`)
               logger(error)
             }
@@ -195,10 +197,21 @@
     //Load metadata (plugins)
       conf.metadata = await metadata({log})
 
+    //Store authenticated user
+      if (conf.settings.token) {
+        try {
+          conf.authenticated = (await (new OctokitRest.Octokit({auth:conf.settings.token})).users.getAuthenticated()).data.login
+          logger(`metrics/setup > setup > authenticated as ${conf.authenticated}`)
+        }
+        catch (error) {
+          logger(`metrics/setup > setup > could not verify authentication : ${error}`)
+        }
+      }
+
     //Set no token property
       Object.defineProperty(conf.settings, "notoken", {get() {
- return conf.settings.token === "NOT_NEEDED"
-}})
+        return conf.settings.token === "NOT_NEEDED"
+      }})
 
     //Conf
       logger("metrics/setup > setup > success")
