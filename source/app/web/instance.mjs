@@ -196,6 +196,12 @@
                   console.debug(`metrics/app/${login} > 404 (user/organization not found)`)
                   return res.status(404).send("Not found: unknown user or organization")
                 }
+              //GitHub failed request
+                if ((error instanceof Error)&&(/this may be the result of a timeout, or it could be a GitHub bug/i.test(error.errors?.[0]?.message))) {
+                  console.debug(`metrics/app/${login} > 502 (bad gateway from GitHub)`)
+                  const {request} = error.errors[0].message.match(/`(?<request>[\w:]+)`/)?.groups ?? null
+                  return res.status(502).send(`Bad Gateway: GitHub failed to execute request ${request} (this may be the result of a timeout, or it could be a GitHub bug)`)
+                }
               //General error
                 console.error(error)
                 return res.status(500).send("Internal Server Error: failed to process metrics correctly")
@@ -277,6 +283,12 @@
               if ((error instanceof Error)&&(/^unsupported template$/.test(error.message))) {
                 console.debug(`metrics/app/${login} > 400 (bad request)`)
                 return res.status(400).send("Bad request: unsupported template")
+              }
+            //GitHub failed request
+              if ((error instanceof Error)&&(/this may be the result of a timeout, or it could be a GitHub bug/i.test(error.errors?.[0]?.message))) {
+                console.debug(`metrics/app/${login} > 502 (bad gateway from GitHub)`)
+                const {request} = error.errors[0].message.match(/`(?<request>[\w:]+)`/)?.groups ?? null
+                return res.status(502).send(`Bad Gateway: GitHub failed to execute request ${request} (this may be the result of a timeout, or it could be a GitHub bug)`)
               }
             //General error
               console.error(error)
