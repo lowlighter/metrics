@@ -129,6 +129,7 @@
         app.get("/.js/prism.min.js", limiter, (req, res) => res.sendFile(`${conf.paths.node_modules}/prismjs/prism.js`))
         app.get("/.js/prism.yaml.min.js", limiter, (req, res) => res.sendFile(`${conf.paths.node_modules}/prismjs/components/prism-yaml.min.js`))
         app.get("/.js/prism.markdown.min.js", limiter, (req, res) => res.sendFile(`${conf.paths.node_modules}/prismjs/components/prism-markdown.min.js`))
+        app.get("/.js/marked.min.js", limiter, (req, res) => res.sendFile(`${conf.paths.node_modules}/marked/marked.min.js`))
       //Meta
         app.get("/.version", limiter, (req, res) => res.status(200).send(conf.package.version))
         app.get("/.requests", limiter, (req, res) => res.status(200).json(requests))
@@ -195,6 +196,12 @@
                 if ((error instanceof Error)&&(/^user not found$/.test(error.message))) {
                   console.debug(`metrics/app/${login} > 404 (user/organization not found)`)
                   return res.status(404).send("Not found: unknown user or organization")
+                }
+              //GitHub failed request
+                if ((error instanceof Error)&&(/this may be the result of a timeout, or it could be a GitHub bug/i.test(error.errors?.[0]?.message))) {
+                  console.debug(`metrics/app/${login} > 502 (bad gateway from GitHub)`)
+                  const {request} = error.errors[0].message.match(/`(?<request>[\w:]+)`/)?.groups ?? null
+                  return res.status(502).send(`Bad Gateway: GitHub failed to execute request ${request} (this may be the result of a timeout, or it could be a GitHub bug)`)
                 }
               //General error
                 console.error(error)
@@ -277,6 +284,12 @@
               if ((error instanceof Error)&&(/^unsupported template$/.test(error.message))) {
                 console.debug(`metrics/app/${login} > 400 (bad request)`)
                 return res.status(400).send("Bad request: unsupported template")
+              }
+            //GitHub failed request
+              if ((error instanceof Error)&&(/this may be the result of a timeout, or it could be a GitHub bug/i.test(error.errors?.[0]?.message))) {
+                console.debug(`metrics/app/${login} > 502 (bad gateway from GitHub)`)
+                const {request} = error.errors[0].message.match(/`(?<request>[\w:]+)`/)?.groups ?? null
+                return res.status(502).send(`Bad Gateway: GitHub failed to execute request ${request} (this may be the result of a timeout, or it could be a GitHub bug)`)
               }
             //General error
               console.error(error)

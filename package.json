@@ -36,6 +36,7 @@
     "faker": "^5.5.2",
     "jimp": "^0.16.1",
     "js-yaml": "^4.0.0",
+    "marked": "^2.0.3",
     "memory-cache": "^0.2.0",
     "node-chartist": "^1.0.5",
     "open-graph-scraper": "^4.8.1",

@@ -70,8 +70,8 @@
                     case "IssuesEvent":{
                       if (!["opened", "closed", "reopened"].includes(payload.action))
                         return null
-                      const {action, issue:{user:{login:user}, title, number}} = payload
-                      return {type:"issue", actor, timestamp, repo, action, user, number, title}
+                      const {action, issue:{user:{login:user}, title, number, body:content}} = payload
+                      return {type:"issue", actor, timestamp, repo, action, user, number, title, content}
                     }
                   //Activity from repository collaborators
                     case "MemberEvent":{
@@ -88,8 +88,8 @@
                     case "PullRequestEvent":{
                       if (!["opened", "closed"].includes(payload.action))
                         return null
-                      const {action, pull_request:{user:{login:user}, title, number, additions:added, deletions:deleted, changed_files:changed, merged}} = payload
-                      return {type:"pr", actor, timestamp, repo, action:(action === "closed")&&(merged) ? "merged" : action, user, title, number, lines:{added, deleted}, files:{changed}}
+                      const {action, pull_request:{user:{login:user}, title, number, body:content, additions:added, deletions:deleted, changed_files:changed, merged}} = payload
+                      return {type:"pr", actor, timestamp, repo, action:(action === "closed")&&(merged) ? "merged" : action, user, title, number, content, lines:{added, deleted}, files:{changed}}
                     }
                   //Reviewed a pull request
                     case "PullRequestReviewEvent":{
@@ -112,8 +112,8 @@
                     case "ReleaseEvent":{
                       if (!["published"].includes(payload.action))
                         return null
-                      const {action, release:{name, prerelease, draft}} = payload
-                      return {type:"release", actor, timestamp, repo, action, name, prerelease, draft}
+                      const {action, release:{name, prerelease, draft, body:content}} = payload
+                      return {type:"release", actor, timestamp, repo, action, name, prerelease, draft, content}
                     }
                   //Starred a repository
                     case "WatchEvent":{

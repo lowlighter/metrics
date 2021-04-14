@@ -66,11 +66,16 @@
               this.metrics = (await axios.get(`/about/query/${this.user}`)).data
             }
             catch (error) {
-              this.error = error
+              this.error = {code:error.response.status, message:error.response.data}
             }
             finally {
               this.pending = false
             }
+          },
+          markdown(content) {
+            const escaped = document.createElement("textarea")
+            escaped.textContent = content
+            return marked(escaped.innerHTML)
           }
         },
       //Computed properties

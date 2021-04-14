@@ -22,7 +22,8 @@ inputs:
     description: Include forks in metrics
     default: no
   
-  # Filter repositories by user affiliations
+  # Filter repositories by user affiliations (you can specify multiple affiliations constraints)
+  # Set to "" to use all repositories related to you
   # Note that it may affect some plugin outputs (broad affiliations will result in less representative metrics)
   repositories_affiliations:
     description: Repositories affiliations
