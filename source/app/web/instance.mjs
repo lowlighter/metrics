@@ -201,7 +201,7 @@
                 if ((error instanceof Error)&&(/this may be the result of a timeout, or it could be a GitHub bug/i.test(error.errors?.[0]?.message))) {
                   console.debug(`metrics/app/${login} > 502 (bad gateway from GitHub)`)
                   const request = encodeURIComponent(error.errors[0].message.match(/`(?<request>[\w:]+)`/)?.groups?.request ?? "").replace(/%3A/g, ":")
-                  return res.status(502).send(`Bad Gateway: GitHub failed to execute request ${request} (this may be the result of a timeout, or it could be a GitHub bug)`)
+                  return res.status(500).send(`Internal Server Error: failed to execute request ${request} (this may be the result of a timeout, or it could be a GitHub bug)`)
                 }
               //General error
                 console.error(error)
@@ -289,7 +289,7 @@
               if ((error instanceof Error)&&(/this may be the result of a timeout, or it could be a GitHub bug/i.test(error.errors?.[0]?.message))) {
                 console.debug(`metrics/app/${login} > 502 (bad gateway from GitHub)`)
                 const request = encodeURIComponent(error.errors[0].message.match(/`(?<request>[\w:]+)`/)?.groups?.request ?? "").replace(/%3A/g, ":")
-                return res.status(502).send(`Bad Gateway: GitHub failed to execute request ${request} (this may be the result of a timeout, or it could be a GitHub bug)`)
+                return res.status(500).send(`Internal Server Error: failed to execute request ${request} (this may be the result of a timeout, or it could be a GitHub bug)`)
               }
             //General error
               console.error(error)
