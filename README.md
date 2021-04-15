@@ -665,7 +665,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
 # 📚 Documentation
 
 
-### 🧰 Template/plugin compatibily matrix
+### 🧰 Template/plugin compatibility matrix
 
 <table>
   <tr>
