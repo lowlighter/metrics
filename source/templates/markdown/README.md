@@ -1,4 +1,4 @@
-### 📒 Markdown <sup>🚧 v3.7</sup>
+### 📒 Markdown
 
 Markdown template can render a **markdown template** by interpreting **templating brackets** `{{` and `}}`.
 
