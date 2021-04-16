@@ -5,8 +5,6 @@
 Generate your metrics that you can embed everywhere, including your GitHub profile readme! It works for both user and organization accounts, and even for repositories!
 
 
-> <sup>*⚠️ This is the documentation of **v3.7-beta** (`@master` branch) which includes [unreleased features](https://github.com/lowlighter/metrics/compare/latest...master), see documentation of [**v3.6** (`@latest` branch) here](https://github.com/lowlighter/metrics/blob/latest/README.md).*</sup>
-
 
 <table>
   <tr>
@@ -342,7 +340,7 @@ And you can customize these heavily with plugins, templates and hundreds of opti
   </tr>
   <tr>
     <th><a href="source/templates/terminal/README.md">📙 Terminal</a></th>
-    <th><a href="source/templates/markdown/README.md">📒 Markdown <sup>🚧 v3.7</sup></a></th>
+    <th><a href="source/templates/markdown/README.md">📒 Markdown</a></th>
   </tr>
   <tr>
     <td align="center">
@@ -814,7 +812,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <td nowrap="nowrap" align="center" data-plugin="nightscout">❌</td>
   </tr>
   <tr>
-    <td nowrap="nowrap">📒 Markdown <sup>🚧 v3.7</sup></td>    
+    <td nowrap="nowrap">📒 Markdown</td>    
     <td nowrap="nowrap" align="center" data-plugin="base">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="isocalendar">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="languages">❌</td>
@@ -1006,7 +1004,7 @@ See their respective documentation for more informations about how to setup them
 * [📗 Classic](/source/templates/classic/README.md)
 * [📘 Repository](/source/templates/repository/README.md)
 * [📙 Terminal](/source/templates/terminal/README.md)
-* [📒 Markdown <sup>🚧 v3.7</sup>](/source/templates/markdown/README.md)
+* [📒 Markdown](/source/templates/markdown/README.md)
 * [📕 Community templates](/source/templates/community/README.md)
 
 ## 🧩 Plugins

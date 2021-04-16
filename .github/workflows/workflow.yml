@@ -131,7 +131,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Login to GitHub registry
-        run: echo ${{ secrets.CONTAINER_REGISTRY_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+        run: echo ${{ github.token }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
       - name: Pull docker image (master)
         run: docker pull ghcr.io/lowlighter/metrics:master
       - name: Tag docker image (release)

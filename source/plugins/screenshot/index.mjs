@@ -16,7 +16,7 @@
           const browser = await imports.puppeteer.launch()
           console.debug(`metrics/compute/${login}/plugins > screenshot > started ${await browser.version()}`)
           const page = await browser.newPage()
-          await page.setViewport({width:600, height:600})
+          await page.setViewport({width:1280, height:1280})
           console.debug(`metrics/compute/${login}/plugins > screenshot > loading ${url}`)
           await page.goto(url)
 
@@ -26,6 +26,7 @@
             const {x, y, width, height} = document.querySelector(selector).getBoundingClientRect()
             return {x, y, width, height}
           }, selector)
+          console.debug(`metrics/compute/${login}/plugins > screenshot > coordinates ${JSON.stringify(clip)}`)
           const [buffer] = await imports.record({page, ...clip, frames:1, background})
           const screenshot = await (await imports.jimp.read(Buffer.from(buffer.split(",").pop(), "base64"))).resize(Math.min(454, clip.width), imports.jimp.AUTO)
           await browser.close()
