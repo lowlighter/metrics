@@ -20,6 +20,7 @@ No additional scopes are needed for basic metrics, but you may have to grant add
 - `public_repo` scope for some plugins
 - `read:org` scope for all organizations related metrics
 - `repo` scope for all private repositories related metrics
+  - `read:user` scope may also be required for some private repositories related metrics
 
 ![Setup a GitHub personal token](/.github/readme/imgs/setup_personal_token.png)
 
