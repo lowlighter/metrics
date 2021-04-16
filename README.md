@@ -428,6 +428,7 @@ No additional scopes are needed for basic metrics, but you may have to grant add
 - `public_repo` scope for some plugins
 - `read:org` scope for all organizations related metrics
 - `repo` scope for all private repositories related metrics
+  - `read:user` scope may also be required for some private repositories related metrics
 
 ![Setup a GitHub personal token](/.github/readme/imgs/setup_personal_token.png)
 
@@ -665,11 +666,11 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
 # 📚 Documentation
 
 
-### 🧰 Template/plugin compatibility matrix
+### 🧰 Plugin compatibility matrix
 
 <table>
   <tr>
-    <th nowrap="nowrap">Template\Plugin</th>    
+    <th nowrap="nowrap">Template/Plugin</th>    
     <th nowrap="nowrap" align="center" title="🗃️ Base content">🗃️</th>
     <th nowrap="nowrap" align="center" title="📅 Isometric commit calendar">📅</th>
     <th nowrap="nowrap" align="center" title="🈷️ Most used languages">🈷️</th>
@@ -846,6 +847,153 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" data-plugin="wakatime">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="stock">❌</th>
     <th nowrap="nowrap" align="center" data-plugin="screenshot">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="nightscout">❌</th>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th nowrap="nowrap">Mode/Plugin</th>    
+    <th nowrap="nowrap" align="center" title="🗃️ Base content">🗃️</th>
+    <th nowrap="nowrap" align="center" title="📅 Isometric commit calendar">📅</th>
+    <th nowrap="nowrap" align="center" title="🈷️ Most used languages">🈷️</th>
+    <th nowrap="nowrap" align="center" title="🙋 Introduction">🙋</th>
+    <th nowrap="nowrap" align="center" title="💡 Coding habits">💡</th>
+    <th nowrap="nowrap" align="center" title="📜 Repository licenses">📜</th>
+    <th nowrap="nowrap" align="center" title="🏅 Repository contributors">🏅</th>
+    <th nowrap="nowrap" align="center" title="🌟 Recently starred repositories">🌟</th>
+    <th nowrap="nowrap" align="center" title="📌 Starred topics">📌</th>
+    <th nowrap="nowrap" align="center" title="🎭 Comment reactions">🎭</th>
+    <th nowrap="nowrap" align="center" title="🧑‍🤝‍🧑 People plugin">🧑‍🤝‍🧑</th>
+    <th nowrap="nowrap" align="center" title="🎫 Gists">🎫</th>
+    <th nowrap="nowrap" align="center" title="🎟️ Follow-up of issues and pull requests">🎟️</th>
+    <th nowrap="nowrap" align="center" title="👨‍💻 Lines of code changed">👨‍💻</th>
+    <th nowrap="nowrap" align="center" title="🧮 Repositories traffic">🧮</th>
+    <th nowrap="nowrap" align="center" title="✨ Stargazers over last weeks">✨</th>
+    <th nowrap="nowrap" align="center" title="🗂️ Active projects">🗂️</th>
+    <th nowrap="nowrap" align="center" title="📰 Recent activity">📰</th>
+    <th nowrap="nowrap" align="center" title="🏆 Achievements">🏆</th>
+    <th nowrap="nowrap" align="center" title="🎩 Notable contributions">🎩</th>
+    <th nowrap="nowrap" align="center" title="💭 GitHub Community Support">💭</th>
+    <th nowrap="nowrap" align="center" title="🌇 GitHub Skyline 3D calendar">🌇</th>
+    <th nowrap="nowrap" align="center" title="⏱️ Website performances">⏱️</th>
+    <th nowrap="nowrap" align="center" title="🎼 Music plugin">🎼</th>
+    <th nowrap="nowrap" align="center" title="🐤 Latest tweets">🐤</th>
+    <th nowrap="nowrap" align="center" title="🌸 Anilist watch list and reading list">🌸</th>
+    <th nowrap="nowrap" align="center" title="🗨️ Stackoverflow plugin">🗨️</th>
+    <th nowrap="nowrap" align="center" title="✒️ Recent posts">✒️</th>
+    <th nowrap="nowrap" align="center" title="🗼 Rss feed">🗼</th>
+    <th nowrap="nowrap" align="center" title="⏰ WakaTime plugin">⏰</th>
+    <th nowrap="nowrap" align="center" title="💹 Stock prices">💹</th>
+    <th nowrap="nowrap" align="center" title="📸 Website screenshot">📸</th>
+    <th nowrap="nowrap" align="center" title="💉 Nightscout">💉</th>
+  </tr>  
+  <tr>
+    <th nowrap="nowrap">User</th>    
+    <th nowrap="nowrap" align="center" data-plugin="base">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="isocalendar">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="languages">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="introduction">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="habits">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="licenses">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="contributors">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="stars">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="topics">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="reactions">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="people">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="gists">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="followup">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="lines">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="traffic">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="stargazers">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="projects">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="activity">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="achievements">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="notable">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="support">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="skyline">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="music">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="tweets">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="anilist">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="stackoverflow">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="posts">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="rss">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="wakatime">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="stock">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="screenshot">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="nightscout">✔️</th>
+  </tr>
+  <tr>
+    <th nowrap="nowrap">Organization</th>    
+    <th nowrap="nowrap" align="center" data-plugin="base">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="isocalendar">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="languages">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="introduction">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="habits">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="licenses">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="contributors">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="stars">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="topics">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="reactions">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="people">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="gists">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="followup">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="lines">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="traffic">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="stargazers">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="projects">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="activity">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="achievements">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="notable">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="support">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="skyline">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="music">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="tweets">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="anilist">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="stackoverflow">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="posts">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="rss">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="wakatime">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="stock">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="screenshot">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="nightscout">✔️</th>
+  </tr>
+  <tr>
+    <th nowrap="nowrap">Repository</th>    
+    <th nowrap="nowrap" align="center" data-plugin="base">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="isocalendar">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="languages">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="introduction">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="habits">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="licenses">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="contributors">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="stars">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="topics">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="reactions">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="people">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="gists">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="followup">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="lines">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="traffic">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="stargazers">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="projects">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="activity">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="achievements">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="notable">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="support">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="skyline">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="music">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="tweets">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="anilist">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="stackoverflow">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="posts">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="rss">✔️</th>
+    <th nowrap="nowrap" align="center" data-plugin="wakatime">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="stock">❌</th>
+    <th nowrap="nowrap" align="center" data-plugin="screenshot">✔️</th>
     <th nowrap="nowrap" align="center" data-plugin="nightscout">❌</th>
   </tr>
 </table>
