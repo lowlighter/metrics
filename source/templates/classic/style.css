@@ -951,10 +951,9 @@
     font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
   }
   code[class^=language-] {
-    display: block;
     white-space: pre-wrap;
     width: 97%;
-    margin-top: 6px;
+    margin-top: 4px;
   }
   .token.comment, .token.prolog, .token.doctype, .token.cdata {
     color: #6a737d;
@@ -985,6 +984,10 @@
   }
   .token.deleted {
     color: red;
+  }
+  .token.trimmed {
+    font-style: italic;
+    color: #77777760
   }
 
 /* Charts */

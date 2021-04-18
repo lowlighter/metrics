@@ -38,7 +38,7 @@
                       if (!["created"].includes(payload.action))
                         return null
                       const {comment:{user:{login:user}, commit_id:sha, body:content}} = payload
-                      return {type:"comment", on:"commit", actor, timestamp, repo, content:await imports.markdown(content, markdown), user, mobile:null, number:sha.substring(0, 7), title:""}
+                      return {type:"comment", on:"commit", actor, timestamp, repo, content:await imports.markdown(content, {mode:markdown}), user, mobile:null, number:sha.substring(0, 7), title:""}
                     }
                   //Created a git branch or tag
                     case "CreateEvent":{
@@ -64,14 +64,14 @@
                       if (!["created"].includes(payload.action))
                         return null
                       const {issue:{user:{login:user}, title, number}, comment:{body:content, performed_via_github_app:mobile}} = payload
-                      return {type:"comment", on:"issue", actor, timestamp, repo, content:await imports.markdown(content, markdown), user, mobile, number, title}
+                      return {type:"comment", on:"issue", actor, timestamp, repo, content:await imports.markdown(content, {mode:markdown}), user, mobile, number, title}
                     }
                   //Issue event
                     case "IssuesEvent":{
                       if (!["opened", "closed", "reopened"].includes(payload.action))
                         return null
                       const {action, issue:{user:{login:user}, title, number, body:content}} = payload
-                      return {type:"issue", actor, timestamp, repo, action, user, number, title, content:await imports.markdown(content, markdown)}
+                      return {type:"issue", actor, timestamp, repo, action, user, number, title, content:await imports.markdown(content, {mode:markdown})}
                     }
                   //Activity from repository collaborators
                     case "MemberEvent":{
@@ -89,7 +89,7 @@
                       if (!["opened", "closed"].includes(payload.action))
                         return null
                       const {action, pull_request:{user:{login:user}, title, number, body:content, additions:added, deletions:deleted, changed_files:changed, merged}} = payload
-                      return {type:"pr", actor, timestamp, repo, action:(action === "closed")&&(merged) ? "merged" : action, user, title, number, content:await imports.markdown(content, markdown), lines:{added, deleted}, files:{changed}}
+                      return {type:"pr", actor, timestamp, repo, action:(action === "closed")&&(merged) ? "merged" : action, user, title, number, content:await imports.markdown(content, {mode:markdown}), lines:{added, deleted}, files:{changed}}
                     }
                   //Reviewed a pull request
                     case "PullRequestReviewEvent":{
@@ -101,7 +101,7 @@
                       if (!["created"].includes(payload.action))
                         return null
                       const {pull_request:{user:{login:user}, title, number}, comment:{body:content, performed_via_github_app:mobile}} = payload
-                      return {type:"comment", on:"pr", actor, timestamp, repo, content:await imports.markdown(content, markdown), user, mobile, number, title}
+                      return {type:"comment", on:"pr", actor, timestamp, repo, content:await imports.markdown(content, {mode:markdown}), user, mobile, number, title}
                     }
                   //Pushed commits
                     case "PushEvent":{
@@ -113,7 +113,7 @@
                       if (!["published"].includes(payload.action))
                         return null
                       const {action, release:{name, prerelease, draft, body:content}} = payload
-                      return {type:"release", actor, timestamp, repo, action, name, prerelease, draft, content:await imports.markdown(content, markdown)}
+                      return {type:"release", actor, timestamp, repo, action, name, prerelease, draft, content:await imports.markdown(content, {mode:markdown})}
                     }
                   //Starred a repository
                     case "WatchEvent":{

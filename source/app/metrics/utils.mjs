@@ -161,11 +161,9 @@
   }
 
 /**Markdown-html sanitizer-interpreter */
-  export async function markdown(text, mode = "inline") {
-    //Special embed code syntax
-      text = text.replace(/<!-- language: lang-(?<lang>[\w]+) -->\s*(?<snippet> {4}[\s\S]+?)<!-- end snippet -->/g, "```$<lang>\n$<snippet>```")
+  export async function markdown(text, {mode = "inline", codelines = Infinity} = {}) {
     //Sanitize once user text and then apply markdown. Depending on mode, reapply stricter sanitization if required
-      return htmlsanitize(marked(htmlsanitize(text), {
+      let rendered = htmlsanitize(await marked(htmlsanitize(text), {
         highlight(code, lang) {
           return lang in prism.languages ? prism.highlight(code, prism.languages[lang]) : code
         },
@@ -174,6 +172,12 @@
       }), {
         inline:{allowedTags:["br", "code", "span"], allowedAttributes:{code:["class"], span:["class"]}},
       }[mode])
+    //Trim code snippets
+      rendered = rendered.replace(/(?<open><code[\s\S]*?>)(?<code>[\s\S]*?)(?<close><\/code>)/g, (m, open, code, close) => { //eslint-disable-line max-params
+        const lines = code.trim().split("\n")
+        return `${open}${lines.slice(0, codelines).join("\n")}${lines.length > codelines ? `\n<span class="token trimmed">(${lines.length-codelines} more ${lines.length-codelines === 1 ? "line was" : "lines were"} trimmed)</span>` : ""}${close}`
+      })
+    return rendered
   }
 
 /**Image to base64 */

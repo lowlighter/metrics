@@ -74,9 +74,13 @@
   const format = {
     /**Cached */
       cached:new Map(),
+    /**Format stackoverflow code snippets */
+      code(text) {
+        return text.replace(/<!-- language: lang-(?<lang>\w+) -->\s*(?<snippet> {4}[\s\S]+?)(?=(?:<!-- end snippet -->)|(?:<!-- language: lang-))/g, "```$<lang>\n$<snippet>```")
+      },
     /**Format answers */
       async answer({body_markdown:body, score, up_vote_count:upvotes, down_vote_count:downvotes, is_accepted:accepted, comment_count:comments = 0, creation_date, owner:{display_name:author}, link, answer_id:id, question_id}, {imports, data})  {
-        const formatted = {type:"answer", body:await imports.markdown(imports.htmlunescape(body)), score, upvotes, downvotes, accepted, comments, author, created:imports.date(creation_date*1000, {dateStyle:"short", timeZone:data.config.timezone?.name}), link, id, question_id,
+        const formatted = {type:"answer", body:await imports.markdown(format.code(imports.htmlunescape(body)), {codelines:3}), score, upvotes, downvotes, accepted, comments, author, created:imports.date(creation_date*1000, {dateStyle:"short", timeZone:data.config.timezone?.name}), link, id, question_id,
           get question() {
             return format.cached.get(`q${this.question_id}`) ?? null
           },
@@ -86,7 +90,7 @@
       },
     /**Format questions */
       async question({title, body_markdown:body, score, up_vote_count:upvotes, down_vote_count:downvotes, favorite_count:favorites, tags, is_answered:answered, answer_count:answers, comment_count:comments, view_count:views, creation_date, owner:{display_name:author}, link, question_id:id, accepted_answer_id = null}, {imports, data}) {
-        const formatted = {type:"question", title:await imports.markdown(title), body:await imports.markdown(imports.htmlunescape(body)), score, upvotes, downvotes, favorites, tags, answered, answers, comments, views, author, created:imports.date(creation_date*1000, {dateStyle:"short", timeZone:data.config.timezone?.name}), link, id, accepted_answer_id,
+        const formatted = {type:"question", title:await imports.markdown(title), body:await imports.markdown(format.code(imports.htmlunescape(body)), {codelines:3}), score, upvotes, downvotes, favorites, tags, answered, answers, comments, views, author, created:imports.date(creation_date*1000, {dateStyle:"short", timeZone:data.config.timezone?.name}), link, id, accepted_answer_id,
           get answer() {
             return format.cached.get(`a${this.accepted_answer_id}`) ?? null
           },
