@@ -198,6 +198,9 @@ And you can customize these heavily with plugins, templates and hundreds of opti
   <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.notable.svg">
+      <details open><summary>With repository name</summary>
+        <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.notable.repositories.svg">
+      </details>
       <img width="900" height="1" alt="">
     </td>
     <td align="center">
