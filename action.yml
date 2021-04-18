@@ -123,6 +123,13 @@ inputs:
     description: Additional query parameters
     default: "{}"
   
+  # Define additional CSS that will be injected in used template
+  # Example:
+  # config_
+  extras_css:
+    description: Extra CSS
+    default: ""
+  
   # Timezone used by metrics
   # See https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   config_timezone:
