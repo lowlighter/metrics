@@ -610,7 +610,7 @@
     white-space: nowrap;
   }
 
-  .activity .details .comment {
+  .activity .details > .comment {
     overflow: hidden;
     text-overflow: ellipsis;
     display: block;
@@ -618,7 +618,6 @@
     margin-top: 6px;
     border-left: 3px solid #777777B2;
     padding-left: 6px;
-    max-height: 38px;
     /* May not work in all browsers */
     display: -webkit-box;
     -webkit-line-clamp: 2;
