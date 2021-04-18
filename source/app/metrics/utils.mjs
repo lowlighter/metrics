@@ -180,6 +180,34 @@
     return rendered
   }
 
+/**Check GitHub filter against object */
+  export function ghfilter(text, object) {
+    console.debug(`metrics/svg/ghquery > checking ${text} against ${JSON.stringify(object)}`)
+    const result = text.split(" ").map(x => x.trim()).filter(x => x).map(criteria => {
+      const [key, filters] = criteria.split(":")
+      const value = object[key]
+      console.debug(`metrics/svg/ghquery > checking ${criteria} against ${value}`)
+      return filters.split(",").map(x => x.trim()).filter(x => x).map(filter => {
+        switch (true) {
+          case /^>\d+$/.test(filter):
+            return value > Number(filter.substring(1))
+          case /^<\d+$/.test(filter):
+            return value < Number(filter.substring(1))
+          case /^\d+$/.test(filter):
+            return value === Number(filter)
+          case /^\d+..\d+$/.test(filter):{
+            const [a, b] = filter.split("..").map(Number)
+            return (value >= a)&&(value <= b)
+          }
+          default:
+            return false
+        }
+      }).reduce((a, b) => a||b, false)
+    }).reduce((a, b) => a&&b, true)
+    console.debug(`metrics/svg/ghquery > ${result ? "matching" : "not matching"}`)
+    return result
+  }
+
 /**Image to base64 */
   export async function imgb64(image, {width, height, fallback = true} = {}) {
     //Undefined image

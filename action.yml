@@ -125,7 +125,10 @@ inputs:
   
   # Define additional CSS that will be injected in used template
   # Example:
-  # config_
+  # config_extras_css꞉ |
+  #   h2 {
+  #     color: red;
+  #   }
   extras_css:
     description: Extra CSS
     default: ""
@@ -643,6 +646,18 @@ inputs:
   # Enable or disable plugin
   plugin_notable:
     description: Display notable contributions in organizations
+    default: no
+  
+  # Query filter
+  # Based on GitHub search notation
+  # Supported fields are "stars", "forks" and "watchers"
+  plugin_notable_filter:
+    description: Query filter
+    default: ""
+  
+  # Also display repository name along with organization name
+  plugin_notable_repositories:
+    description: Also display repository name
     default: no
   
   # ====================================================================================
