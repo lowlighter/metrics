@@ -93,7 +93,7 @@
 
         //Rendering
           console.debug(`metrics/compute/${login} > render`)
-          let rendered = await ejs.render(image, {...data, s:imports.s, f:imports.format, style, fonts}, {views, async:true})
+          let rendered = await ejs.render(image, {...data, s:imports.s, f:imports.format, style:style+(conf.settings.extras?.css ?? conf.settings.extras?.default ? q["extras.css"] ?? "" : ""), fonts}, {views, async:true})
 
         //Additional transformations
           if (q["config.twemoji"])
@@ -102,7 +102,7 @@
             rendered = await imports.svg.gemojis(rendered, {rest})
         //Optimize rendering
           if (!q.raw)
-            rendered = xmlformat(rendered, {lineSeparator:"\n"})
+            rendered = xmlformat(rendered, {lineSeparator:"\n", collapseContent:true})
           if ((conf.settings?.optimize)&&(!q.raw)) {
             console.debug(`metrics/compute/${login} > optimize`)
             if (experimental.has("--optimize")) {

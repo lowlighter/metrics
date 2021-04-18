@@ -57,6 +57,7 @@
         //Load configuration
           const {conf, Plugins, Templates} = await setup({log:false, nosettings:true, community:{templates:core.getInput("setup_community_templates")}})
           const {metadata} = conf
+          conf.settings.extras = {default:true}
           info("Setup", "complete")
           info("Version", conf.package.version)
 
