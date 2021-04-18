@@ -9,6 +9,16 @@ query NotableContributions {
             login
             avatarUrl
           }
+          nameWithOwner
+          watchers {
+            totalCount
+          }
+          forks {
+            totalCount
+          }
+          stargazers {
+            totalCount
+          }
         }
       }
     }

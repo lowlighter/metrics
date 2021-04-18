@@ -7,19 +7,10 @@
             return null
 
         //Load inputs
-          imports.metadata.plugins.notable.inputs({data, account, q})
+          let {filter, repositories} = imports.metadata.plugins.notable.inputs({data, account, q})
 
         //Initialization
           const organizations = new Map()
-
-        //Load organization memberships
-          try {
-            const {user:{organizations:{nodes}}} = await graphql(queries.notable.organizations({login}))
-            nodes.map(({login, avatarUrl}) => organizations.set(login, avatarUrl))
-          }
-          catch (error) {
-            console.debug(`metrics/compute/${login}/plugins > notable > failed to load organizations memberships: ${error}`)
-          }
 
         //Iterate through contributed repositories from organizations
           {
@@ -29,7 +20,10 @@
               console.debug(`metrics/compute/${login}/plugins > notable > retrieving contributed repositories after ${cursor}`)
               const {user:{repositoriesContributedTo:{edges}}} = await graphql(queries.notable.contributions({login, after:cursor ? `after: "${cursor}"` : "", repositories:100}))
               cursor = edges?.[edges?.length-1]?.cursor
-              edges.map(({node}) => node.isInOrganization ? organizations.set(node.owner.login, node.owner.avatarUrl) : null)
+              edges
+                .filter(({node}) => node.isInOrganization)
+                .filter(({node}) => imports.ghfilter(filter, {name:node.nameWithOwner, stars:node.stargazers.totalCount, watchers:node.watchers.totalCount, forks:node.forks.totalCount}))
+                .map(({node}) => organizations.set(repositories ? node.nameWithOwner : node.owner.login, node.owner.avatarUrl))
               pushed = edges.length
             } while ((pushed)&&(cursor))
           }

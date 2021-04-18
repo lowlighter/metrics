@@ -11,3 +11,18 @@ inputs:
     description: Display notable contributions in organizations
     type: boolean
     default: no
+
+  # Query filter
+  # Based on GitHub search notation
+  # Supported fields are "stars", "forks" and "watchers"
+  plugin_notable_filter:
+    description: Query filter
+    type: string
+    default: ""
+    example: stars:>500 forks:>100
+
+  # Also display repository name along with organization name
+  plugin_notable_repositories:
+    description: Also display repository name
+    type: boolean
+    default: no
