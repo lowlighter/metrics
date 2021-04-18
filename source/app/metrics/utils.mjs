@@ -180,7 +180,7 @@
     return rendered
   }
 
-/** Check GitHub filter against object */
+/**Check GitHub filter against object */
   export function ghfilter(text, object) {
     console.debug(`metrics/svg/ghquery > checking ${text} against ${JSON.stringify(object)}`)
     const result = text.split(" ").map(x => x.trim()).filter(x => x).map(criteria => {
