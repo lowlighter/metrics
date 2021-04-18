@@ -126,7 +126,7 @@ inputs:
 
   # Define additional CSS that will be injected in used template
   # Example:
-  # config_extras_css: |
+  # config_extras_css꞉ |
   #   h2 {
   #     color: red;
   #   }
