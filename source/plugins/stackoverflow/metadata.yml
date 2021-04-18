@@ -41,9 +41,18 @@ inputs:
     max: 30
 
   # Number of lines to display per question or answer
+  # Code snippets will take one line slot and should be configured with "plugin_stackoverflow_lines_snippet" instead
   # Set to 0 to disable limitations
   plugin_stackoverflow_lines:
     description: Maximum number of lines to display per question or answer
     type: number
     default: 4
+    min: 0
+
+  # Number of lines to display per code snippet
+  # Set to 0 to disable limitations
+  plugin_stackoverflow_lines_snippet:
+    description: Maximum number of lines to display per code snippet
+    type: number
+    default: 2
     min: 0
