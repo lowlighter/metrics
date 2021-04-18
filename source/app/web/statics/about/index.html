@@ -190,7 +190,7 @@
                       <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M2.75 2.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h2a.75.75 0 01.75.75v2.19l2.72-2.72a.75.75 0 01.53-.22h4.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25H2.75zM1 2.75C1 1.784 1.784 1 2.75 1h10.5c.966 0 1.75.784 1.75 1.75v7.5A1.75 1.75 0 0113.25 12H9.06l-2.573 2.573A1.457 1.457 0 014 13.543V12H2.75A1.75 1.75 0 011 10.25v-7.5z"></path></svg>
                       <div class="content">
                         Commented on <a :href="`https://github.com/${repo}/${{issue:'issues', pr:'pull', commit:'commit'}[event.on]}/${event.number}`">#{{ event.number }} {{ event.title }}</a> from <a :href="`https://github.com/${repo}`">{{ repo }}</a>
-                        <quote v-html="markdown(event.content)"></quote>
+                        <quote v-if="event.content.trim().length" v-html="event.content"></quote>
                       </div>
                     </template>
                     <template v-if="type === 'member'">
@@ -205,7 +205,7 @@
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M8.878.392a1.75 1.75 0 00-1.756 0l-5.25 3.045A1.75 1.75 0 001 4.951v6.098c0 .624.332 1.2.872 1.514l5.25 3.045a1.75 1.75 0 001.756 0l5.25-3.045c.54-.313.872-.89.872-1.514V4.951c0-.624-.332-1.2-.872-1.514L8.878.392zM7.875 1.69a.25.25 0 01.25 0l4.63 2.685L8 7.133 3.245 4.375l4.63-2.685zM2.5 5.677v5.372c0 .09.047.171.125.216l4.625 2.683V8.432L2.5 5.677zm6.25 8.271l4.625-2.683a.25.25 0 00.125-.216V5.677L8.75 8.432v5.516z"></path></svg>
                       <div class="content">
                         {{ event.draft ? "Drafted release" : event.prerelease ? "Pre-released" : "Released" }} of <a :href="`https://github.com/${repo}`">{{ repo }}</a>
-                        <quote v-html="markdown(event.content)"></quote>
+                        <quote v-if="event.content.trim().length" v-html="event.content"></quote>
                       </div>
                     </template>
                     <template v-if="type === 'fork'">
@@ -227,14 +227,14 @@
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm9 3a1 1 0 11-2 0 1 1 0 012 0zm-.25-6.25a.75.75 0 00-1.5 0v3.5a.75.75 0 001.5 0v-3.5z"></path></svg>
                       <div class="content">
                         {{ event.action === "opened" ? "Opened" : event.action === "reopened" ? "Reopened" : "Closed" }} <a :href="`https://github.com/${repo}/issues/${event.number}`">#{{ event.number }} {{ event.title }}</a> in <a :href="`https://github.com/${repo}`">{{ repo }}</a>
-                        <quote v-html="markdown(event.content)"></quote>
+                        <quote v-if="event.content.trim().length" v-html="event.content"></quote>
                       </div>
                     </template>
                     <template v-if="type === 'pr'">
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"></path></svg>
                       <div class="content">
                         {{ event.action === "opened" ? "Opened" : event.action === "merged" ? "Merged" : "Closed" }} <a :href="`https://github.com/${repo}/pull/${event.number}`">#{{ event.number }} {{ event.title }}</a> in <a :href="`https://github.com/${repo}`">{{ repo }}</a>
-                        <quote v-html="markdown(event.content)"></quote>
+                        <quote v-if="event.content.trim().length" v-html="event.content"></quote>
                         <ul>
                           <li>
                             {{ event.files.changed }} file{{ "s" }} changed <code>++{{ event.lines.added }} --{{ event.lines.deleted }}</code>
@@ -295,7 +295,6 @@
     <!-- Scripts -->
     <script src="/.js/axios.min.js"></script>
     <script src="/.js/vue.min.js"></script>
-    <script src="/.js/marked.min.js"></script>
-    <script src="/about/.statics/script.js?v=3.7"></script>
+    <script src="/about/.statics/script.js?v=3.8"></script>
   </body>
 </html>

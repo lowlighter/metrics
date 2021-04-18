@@ -16,6 +16,11 @@
   import nodechartist from "node-chartist"
   import GIFEncoder from "gifencoder"
   import PNG from "png-js"
+  import marked from "marked"
+  import htmlsanitize from "sanitize-html"
+  import prism from "prismjs"
+  import prism_lang from "prismjs/components/index.js"
+  prism_lang()
 
 //Exports
   export {fs, os, paths, url, util, processes, axios, git, opengraph, jimp, rss}
@@ -153,6 +158,26 @@
       console.debug(`metrics/command > checking existence of ${command} > failed`)
     }
     return false
+  }
+
+/**Markdown-html sanitizer-interpreter */
+  export async function markdown(text, {mode = "inline", codelines = Infinity} = {}) {
+    //Sanitize once user text and then apply markdown. Depending on mode, reapply stricter sanitization if required
+      let rendered = htmlsanitize(await marked(htmlsanitize(text), {
+        highlight(code, lang) {
+          return lang in prism.languages ? prism.highlight(code, prism.languages[lang]) : code
+        },
+        silent:true,
+        xhtml:true,
+      }), {
+        inline:{allowedTags:["br", "code", "span"], allowedAttributes:{code:["class"], span:["class"]}},
+      }[mode])
+    //Trim code snippets
+      rendered = rendered.replace(/(?<open><code[\s\S]*?>)(?<code>[\s\S]*?)(?<close><\/code>)/g, (m, open, code, close) => { //eslint-disable-line max-params
+        const lines = code.trim().split("\n")
+        return `${open}${lines.slice(0, codelines).join("\n")}${lines.length > codelines ? `\n<span class="token trimmed">(${lines.length-codelines} more ${lines.length-codelines === 1 ? "line was" : "lines were"} trimmed)</span>` : ""}${close}`
+      })
+    return rendered
   }
 
 /**Image to base64 */

@@ -129,7 +129,6 @@
         app.get("/.js/prism.min.js", limiter, (req, res) => res.sendFile(`${conf.paths.node_modules}/prismjs/prism.js`))
         app.get("/.js/prism.yaml.min.js", limiter, (req, res) => res.sendFile(`${conf.paths.node_modules}/prismjs/components/prism-yaml.min.js`))
         app.get("/.js/prism.markdown.min.js", limiter, (req, res) => res.sendFile(`${conf.paths.node_modules}/prismjs/components/prism-markdown.min.js`))
-        app.get("/.js/marked.min.js", limiter, (req, res) => res.sendFile(`${conf.paths.node_modules}/marked/marked.min.js`))
       //Meta
         app.get("/.version", limiter, (req, res) => res.status(200).send(conf.package.version))
         app.get("/.requests", limiter, (req, res) => res.status(200).json(requests))
@@ -182,7 +181,7 @@
                     activity:true, "activity.limit":100, "activity.days":0,
                     notable:true,
                   },
-                }, {graphql, rest, plugins:{achievements:{enabled:true}, isocalendar:{enabled:true}, languages:{enabled:true}, activity:{enabled:true}, notable:{enabled:true}}, conf, convert:"json"}, {Plugins, Templates})
+                }, {graphql, rest, plugins:{achievements:{enabled:true}, isocalendar:{enabled:true}, languages:{enabled:true}, activity:{enabled:true, markdown:"extended"}, notable:{enabled:true}}, conf, convert:"json"}, {Plugins, Templates})
               //Cache
                 if ((!debug)&&(cached)) {
                   const maxage = Math.round(Number(req.query.cache))

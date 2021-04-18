@@ -47,7 +47,7 @@
                   </div>
                   <div class="details">
                     <div><%= event.on === "commit" ? "committed" : "opened" %> by <%= event.user %> in <span class="repo"><%= repo %></span></div>
-                    <div class="comment"><%= event.content %></div>
+                    <div class="comment"><%- event.content %></div>
                   </div>
                 <% } %>
                 <% if (type === "wiki") { %>

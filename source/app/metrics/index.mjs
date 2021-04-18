@@ -102,7 +102,7 @@
             rendered = await imports.svg.gemojis(rendered, {rest})
         //Optimize rendering
           if (!q.raw)
-            rendered = xmlformat(rendered, {lineSeparator:"\n"})
+            rendered = xmlformat(rendered, {lineSeparator:"\n", collapseContent:true})
           if ((conf.settings?.optimize)&&(!q.raw)) {
             console.debug(`metrics/compute/${login} > optimize`)
             if (experimental.has("--optimize")) {
