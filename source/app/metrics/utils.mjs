@@ -16,6 +16,11 @@
   import nodechartist from "node-chartist"
   import GIFEncoder from "gifencoder"
   import PNG from "png-js"
+  import marked from "marked"
+  import htmlsanitize from "sanitize-html"
+  import prism from "prismjs"
+  import prism_lang from "prismjs/components/index.js"
+  prism_lang()
 
 //Exports
   export {fs, os, paths, url, util, processes, axios, git, opengraph, jimp, rss}
@@ -153,6 +158,19 @@
       console.debug(`metrics/command > checking existence of ${command} > failed`)
     }
     return false
+  }
+
+/** Markdown-html sanitizer-interpreter */
+  export async function markdown(text, mode = "inline") {
+    return htmlsanitize(marked(htmlsanitize(text), {
+      highlight(code, lang) {
+        return lang in prism.languages ? prism.highlight(code, prism.languages[lang]) : code
+      },
+      silent:true,
+      xhtml:true
+    }), {
+      inline:{allowedTags:["code", "span"], allowedAttributes:{span:["class"]}}
+    }[mode])
   }
 
 /**Image to base64 */

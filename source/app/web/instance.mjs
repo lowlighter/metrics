@@ -182,7 +182,7 @@
                     activity:true, "activity.limit":100, "activity.days":0,
                     notable:true,
                   },
-                }, {graphql, rest, plugins:{achievements:{enabled:true}, isocalendar:{enabled:true}, languages:{enabled:true}, activity:{enabled:true}, notable:{enabled:true}}, conf, convert:"json"}, {Plugins, Templates})
+                }, {graphql, rest, plugins:{achievements:{enabled:true}, isocalendar:{enabled:true}, languages:{enabled:true}, activity:{enabled:true, markdown:"extended"}, notable:{enabled:true}}, conf, convert:"json"}, {Plugins, Templates})
               //Cache
                 if ((!debug)&&(cached)) {
                   const maxage = Math.round(Number(req.query.cache))

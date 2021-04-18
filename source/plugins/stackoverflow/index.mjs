@@ -32,14 +32,14 @@
             //Load and format answers
               console.debug(`metrics/compute/${login}/plugins > stackoverflow > querying api for ${key}`)
               const {data:{items}} = await imports.axios.get(`${api.user}/answers?site=stackoverflow&pagesize=${limit}&filter=${filters.answer}&${sort}`)
-              result[key] = items.map(item => format.answer(item, {imports, data}))
+              result[key] = await Promise.all(items.map(item => format.answer(item, {imports, data})))
               console.debug(`metrics/compute/${login}/plugins > stackoverflow > loaded ${result[key].length} items`)
             //Load related questions
               const ids = result[key].map(({question_id}) => question_id).filter(id => id)
               if (ids) {
                 console.debug(`metrics/compute/${login}/plugins > stackoverflow > loading ${ids.length} related items`)
                 const {data:{items}} = await imports.axios.get(`${api.base}/questions/${ids.join(";")}?site=stackoverflow&filter=${filters.question}`)
-                items.map(item => format.question(item, {imports, data}))
+                await Promise.all(items.map(item => format.question(item, {imports, data})))
               }
           }
 
@@ -48,14 +48,14 @@
             //Load and format questions
               console.debug(`metrics/compute/${login}/plugins > stackoverflow > querying api for ${key}`)
               const {data:{items}} = await imports.axios.get(`${api.user}/questions?site=stackoverflow&pagesize=${limit}&filter=${filters.question}&${sort}`)
-              result[key] = items.map(item => format.question(item, {imports, data}))
+              result[key] = await Promise.all(items.map(item => format.question(item, {imports, data})))
               console.debug(`metrics/compute/${login}/plugins > stackoverflow > loaded ${result[key].length} items`)
             //Load related answers
               const ids = result[key].map(({accepted_answer_id}) => accepted_answer_id).filter(id => id)
               if (ids) {
                 console.debug(`metrics/compute/${login}/plugins > stackoverflow > loading ${ids.length} related items`)
                 const {data:{items}} = await imports.axios.get(`${api.base}/answers/${ids.join(";")}?site=stackoverflow&filter=${filters.answer}`)
-                items.map(item => format.answer(item, {imports, data}))
+                await Promise.all(items.map(item => format.answer(item, {imports, data})))
               }
           }
 
@@ -75,8 +75,8 @@
     /**Cached */
       cached:new Map(),
     /**Format answers */
-      answer({body_markdown:body, score, up_vote_count:upvotes, down_vote_count:downvotes, is_accepted:accepted, comment_count:comments = 0, creation_date, owner:{display_name:author}, link, answer_id:id, question_id}, {imports, data})  {
-        const formatted = {type:"answer", body:imports.htmlunescape(body), score, upvotes, downvotes, accepted, comments, author, created:imports.date(creation_date*1000, {dateStyle:"short", timeZone:data.config.timezone?.name}), link, id, question_id,
+      async answer({body_markdown:body, score, up_vote_count:upvotes, down_vote_count:downvotes, is_accepted:accepted, comment_count:comments = 0, creation_date, owner:{display_name:author}, link, answer_id:id, question_id}, {imports, data})  {
+        const formatted = {type:"answer", body:await imports.markdown(body), score, upvotes, downvotes, accepted, comments, author, created:imports.date(creation_date*1000, {dateStyle:"short", timeZone:data.config.timezone?.name}), link, id, question_id,
           get question() {
             return format.cached.get(`q${this.question_id}`) ?? null
           },
@@ -85,8 +85,8 @@
         return formatted
       },
     /**Format questions */
-      question({title, body_markdown:body, score, up_vote_count:upvotes, down_vote_count:downvotes, favorite_count:favorites, tags, is_answered:answered, answer_count:answers, comment_count:comments, view_count:views, creation_date, owner:{display_name:author}, link, question_id:id, accepted_answer_id = null}, {imports, data}) {
-        const formatted = {type:"question", title:imports.htmlunescape(title), body:imports.htmlunescape(body), score, upvotes, downvotes, favorites, tags, answered, answers, comments, views, author, created:imports.date(creation_date*1000, {dateStyle:"short", timeZone:data.config.timezone?.name}), link, id, accepted_answer_id,
+      async question({title, body_markdown:body, score, up_vote_count:upvotes, down_vote_count:downvotes, favorite_count:favorites, tags, is_answered:answered, answer_count:answers, comment_count:comments, view_count:views, creation_date, owner:{display_name:author}, link, question_id:id, accepted_answer_id = null}, {imports, data}) {
+        const formatted = {type:"question", title:await imports.markdown(title), body:await imports.markdown(body), score, upvotes, downvotes, favorites, tags, answered, answers, comments, views, author, created:imports.date(creation_date*1000, {dateStyle:"short", timeZone:data.config.timezone?.name}), link, id, accepted_answer_id,
           get answer() {
             return format.cached.get(`a${this.accepted_answer_id}`) ?? null
           },

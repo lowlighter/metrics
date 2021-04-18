@@ -1,5 +1,5 @@
 //Setup
-  export default async function({login, data, rest, q, account, imports}, {enabled = false} = {}) {
+  export default async function({login, data, rest, q, account, imports}, {enabled = false, markdown = "inline"} = {}) {
     //Plugin execution
       try {
         //Check if plugin is enabled and requirements are met
@@ -25,11 +25,11 @@
           console.debug(`metrics/compute/${login}/plugins > activity > ${events.length} events loaded`)
 
         //Extract activity events
-          const activity = events
+          const activity = (await Promise.all(events
             .filter(({actor}) => account === "organization" ? true : actor.login === login)
             .filter(({created_at}) => Number.isFinite(days) ? new Date(created_at) > new Date(Date.now()-days*24*60*60*1000) : true)
             .filter(event => visibility === "public" ? event.public : true)
-            .map(({type, payload, actor:{login:actor}, repo:{name:repo}, created_at}) => {
+            .map(async ({type, payload, actor:{login:actor}, repo:{name:repo}, created_at}) => {
               //See https://docs.github.com/en/free-pro-team@latest/developers/webhooks-and-events/github-event-types
                 const timestamp = new Date(created_at)
                 switch (type) {
@@ -38,7 +38,7 @@
                       if (!["created"].includes(payload.action))
                         return null
                       const {comment:{user:{login:user}, commit_id:sha, body:content}} = payload
-                      return {type:"comment", on:"commit", actor, timestamp, repo, content, user, mobile:null, number:sha.substring(0, 7), title:""}
+                      return {type:"comment", on:"commit", actor, timestamp, repo, content:await imports.markdown(content, markdown), user, mobile:null, number:sha.substring(0, 7), title:""}
                     }
                   //Created a git branch or tag
                     case "CreateEvent":{
@@ -64,14 +64,14 @@
                       if (!["created"].includes(payload.action))
                         return null
                       const {issue:{user:{login:user}, title, number}, comment:{body:content, performed_via_github_app:mobile}} = payload
-                      return {type:"comment", on:"issue", actor, timestamp, repo, content, user, mobile, number, title}
+                      return {type:"comment", on:"issue", actor, timestamp, repo, content:await imports.markdown(content, markdown), user, mobile, number, title}
                     }
                   //Issue event
                     case "IssuesEvent":{
                       if (!["opened", "closed", "reopened"].includes(payload.action))
                         return null
                       const {action, issue:{user:{login:user}, title, number, body:content}} = payload
-                      return {type:"issue", actor, timestamp, repo, action, user, number, title, content}
+                      return {type:"issue", actor, timestamp, repo, action, user, number, title, content:await imports.markdown(content, markdown)}
                     }
                   //Activity from repository collaborators
                     case "MemberEvent":{
@@ -89,7 +89,7 @@
                       if (!["opened", "closed"].includes(payload.action))
                         return null
                       const {action, pull_request:{user:{login:user}, title, number, body:content, additions:added, deletions:deleted, changed_files:changed, merged}} = payload
-                      return {type:"pr", actor, timestamp, repo, action:(action === "closed")&&(merged) ? "merged" : action, user, title, number, content, lines:{added, deleted}, files:{changed}}
+                      return {type:"pr", actor, timestamp, repo, action:(action === "closed")&&(merged) ? "merged" : action, user, title, number, content:await imports.markdown(content, markdown), lines:{added, deleted}, files:{changed}}
                     }
                   //Reviewed a pull request
                     case "PullRequestReviewEvent":{
@@ -101,7 +101,7 @@
                       if (!["created"].includes(payload.action))
                         return null
                       const {pull_request:{user:{login:user}, title, number}, comment:{body:content, performed_via_github_app:mobile}} = payload
-                      return {type:"comment", on:"pr", actor, timestamp, repo, content, user, mobile, number, title}
+                      return {type:"comment", on:"pr", actor, timestamp, repo, content:await imports.markdown(content, markdown), user, mobile, number, title}
                     }
                   //Pushed commits
                     case "PushEvent":{
@@ -113,7 +113,7 @@
                       if (!["published"].includes(payload.action))
                         return null
                       const {action, release:{name, prerelease, draft, body:content}} = payload
-                      return {type:"release", actor, timestamp, repo, action, name, prerelease, draft, content}
+                      return {type:"release", actor, timestamp, repo, action, name, prerelease, draft, content:await imports.markdown(content, markdown)}
                     }
                   //Starred a repository
                     case "WatchEvent":{
@@ -127,7 +127,7 @@
                       return null
                     }
                 }
-            })
+            })))
             .filter(event => event)
             .filter(event => filter.includes("all") || filter.includes(event.type))
             .slice(0, limit)
