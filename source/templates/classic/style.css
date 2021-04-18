@@ -950,6 +950,12 @@
     font-size: 80%;
     font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
   }
+  code[class^=language-] {
+    display: block;
+    white-space: pre-wrap;
+    width: 97%;
+    margin-top: 6px;
+  }
   .token.comment, .token.prolog, .token.doctype, .token.cdata {
     color: #6a737d;
   }

@@ -162,15 +162,18 @@
 
 /** Markdown-html sanitizer-interpreter */
   export async function markdown(text, mode = "inline") {
-    return htmlsanitize(marked(htmlsanitize(text), {
-      highlight(code, lang) {
-        return lang in prism.languages ? prism.highlight(code, prism.languages[lang]) : code
-      },
-      silent:true,
-      xhtml:true
-    }), {
-      inline:{allowedTags:["code", "span"], allowedAttributes:{span:["class"]}}
-    }[mode])
+    //Special embed code syntax
+      text = text.replace(/<!-- language: lang-(?<lang>[\w]+) -->\s*(?<snippet>    [\s\S]+?)<!-- end snippet -->/g, "```$<lang>\n$<snippet>```")
+    //Sanitize once user text and then apply markdown. Depending on mode, reapply stricter sanitization if required
+      return htmlsanitize(marked(htmlsanitize(text), {
+        highlight(code, lang) {
+          return lang in prism.languages ? prism.highlight(code, prism.languages[lang]) : code
+        },
+        silent:true,
+        xhtml:true
+      }), {
+        inline:{allowedTags:["br", "code", "span"], allowedAttributes:{code:["class"], span:["class"]}}
+      }[mode])
   }
 
 /**Image to base64 */
