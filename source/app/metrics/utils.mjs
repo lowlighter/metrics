@@ -160,19 +160,19 @@
     return false
   }
 
-/** Markdown-html sanitizer-interpreter */
+/**Markdown-html sanitizer-interpreter */
   export async function markdown(text, mode = "inline") {
     //Special embed code syntax
-      text = text.replace(/<!-- language: lang-(?<lang>[\w]+) -->\s*(?<snippet>    [\s\S]+?)<!-- end snippet -->/g, "```$<lang>\n$<snippet>```")
+      text = text.replace(/<!-- language: lang-(?<lang>[\w]+) -->\s*(?<snippet> {4}[\s\S]+?)<!-- end snippet -->/g, "```$<lang>\n$<snippet>```")
     //Sanitize once user text and then apply markdown. Depending on mode, reapply stricter sanitization if required
       return htmlsanitize(marked(htmlsanitize(text), {
         highlight(code, lang) {
           return lang in prism.languages ? prism.highlight(code, prism.languages[lang]) : code
         },
         silent:true,
-        xhtml:true
+        xhtml:true,
       }), {
-        inline:{allowedTags:["br", "code", "span"], allowedAttributes:{code:["class"], span:["class"]}}
+        inline:{allowedTags:["br", "code", "span"], allowedAttributes:{code:["class"], span:["class"]}},
       }[mode])
   }
 

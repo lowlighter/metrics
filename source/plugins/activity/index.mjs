@@ -29,7 +29,7 @@
             .filter(({actor}) => account === "organization" ? true : actor.login === login)
             .filter(({created_at}) => Number.isFinite(days) ? new Date(created_at) > new Date(Date.now()-days*24*60*60*1000) : true)
             .filter(event => visibility === "public" ? event.public : true)
-            .map(async ({type, payload, actor:{login:actor}, repo:{name:repo}, created_at}) => {
+            .map(async({type, payload, actor:{login:actor}, repo:{name:repo}, created_at}) => {
               //See https://docs.github.com/en/free-pro-team@latest/developers/webhooks-and-events/github-event-types
                 const timestamp = new Date(created_at)
                 switch (type) {
