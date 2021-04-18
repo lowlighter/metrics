@@ -124,6 +124,17 @@ inputs:
     type: json
     default: "{}"
 
+  # Define additional CSS that will be injected in used template
+  # Example:
+  # config_extras_css: |
+  #   h2 {
+  #     color: red;
+  #   }
+  extras_css:
+    description: Extra CSS
+    type: string
+    default: ""
+
   # Timezone used by metrics
   # See https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   config_timezone:
