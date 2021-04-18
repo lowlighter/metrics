@@ -21,6 +21,6 @@ The *notable* plugin displays badges of organization where you commited at least
   with:
     # ... other options
     plugin_notable: yes
-    plugin_notable_threshold: stars:>500 # Only display repositories with 500 stars or more (syntax based on GitHub search query)
+    plugin_notable_filter: stars:>500 # Only display repositories with 500 stars or more (syntax based on GitHub search query)
     plugin_notable_repositories: yes     # Display repositories name instead of only organization name
 ```

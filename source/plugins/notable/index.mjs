@@ -7,7 +7,7 @@
             return null
 
         //Load inputs
-          let {threshold, repositories} = imports.metadata.plugins.notable.inputs({data, account, q})
+          let {filter, repositories} = imports.metadata.plugins.notable.inputs({data, account, q})
 
         //Initialization
           const organizations = new Map()
@@ -22,7 +22,7 @@
               cursor = edges?.[edges?.length-1]?.cursor
               edges
                 .filter(({node}) => node.isInOrganization)
-                .filter(({node}) => imports.ghfilter(threshold, {name:node.nameWithOwner, stars:node.stargazers.totalCount, watchers:node.watchers.totalCount, forks:node.forks.totalCount}))
+                .filter(({node}) => imports.ghfilter(filter, {name:node.nameWithOwner, stars:node.stargazers.totalCount, watchers:node.watchers.totalCount, forks:node.forks.totalCount}))
                 .map(({node}) => organizations.set(repositories ? node.nameWithOwner : node.owner.login, node.owner.avatarUrl))
               pushed = edges.length
             } while ((pushed)&&(cursor))
