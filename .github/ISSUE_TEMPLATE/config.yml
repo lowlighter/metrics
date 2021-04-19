@@ -1,5 +1,8 @@
-blank_issues_enabled: false
+blank_issues_enabled: true
 contact_links:
-  - name: Start a discussion
-    url: https://github.com/lowlighter/metrics/discussions/new
-    about: Request help or suggest new features
+  - name: 💡 Suggest new features
+    url: https://github.com/lowlighter/metrics/discussions/new?category=ideas
+  - name: 🙏 Request help or assistance
+    url: https://github.com/lowlighter/metrics/discussions/new?category=q-a
+  - name: 💬 Start a discussion
+    url: https://github.com/lowlighter/metrics/discussions/new?category=general
