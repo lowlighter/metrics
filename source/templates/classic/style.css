@@ -939,7 +939,11 @@
     overflow: hidden;
   }
 
-/* Syntax highlighting */
+/* Markdown and syntax highlighting */
+  .markdown b, .markdown i {
+    display: inline-block;
+    width: 97%;
+  }
   code {
     background-color: #7777771F;
     display: inline-block;

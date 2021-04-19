@@ -179,7 +179,7 @@
           }), {
             allowedAttributes:{code:["class"], span:["class"]},
             transformTags:{h1:"b", h2:"b", h3:"b", h4:"b", h5:"b", h6:"b", blockquote:"i"},
-          }).replace(/<(?<tag>[bi])>/g, "<$<tag>><br/>").replace(/<\/(?<tag>[bi])>/g, "</$<tag>><br/>")
+          })
           break
         }
         default:
