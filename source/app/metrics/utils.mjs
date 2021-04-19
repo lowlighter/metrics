@@ -162,19 +162,34 @@
 
 /**Markdown-html sanitizer-interpreter */
   export async function markdown(text, {mode = "inline", codelines = Infinity} = {}) {
-    //Sanitize once user text and then apply markdown. Depending on mode, reapply stricter sanitization if required
-      let rendered = htmlsanitize(await marked(htmlsanitize(text), {
+    //Sanitize user input once to prevent injections and parse into markdown
+      let rendered = await marked(htmlsanitize(text).replace(/^&gt;/gm, ">"), {
         highlight(code, lang) {
           return lang in prism.languages ? prism.highlight(code, prism.languages[lang]) : code
         },
         silent:true,
         xhtml:true,
-      }), {
-        inline:{allowedTags:["br", "code", "span"], allowedAttributes:{code:["class"], span:["class"]}},
-      }[mode])
+      })
+    //Markdown mode
+      switch (mode) {
+        case "inline":{
+          rendered = htmlsanitize(htmlsanitize(rendered, {
+            allowedTags:["h1", "h2", "h3", "h4", "h5", "h6", "br", "blockquote", "code", "span"],
+            allowedAttributes:{code:["class"], span:["class"]},
+          }), {
+            allowedAttributes:{code:["class"], span:["class"]},
+            transformTags:{h1:"b", h2:"b", h3:"b", h4:"b", h5:"b", h6:"b", blockquote:"i"},
+          })
+          break
+        }
+        default:
+          break
+      }
     //Trim code snippets
       rendered = rendered.replace(/(?<open><code[\s\S]*?>)(?<code>[\s\S]*?)(?<close><\/code>)/g, (m, open, code, close) => { //eslint-disable-line max-params
         const lines = code.trim().split("\n")
+        if ((lines.length > 1)&&(!/class="[\s\S]*"/.test(open)))
+          open = open.replace(">", ' class="language-multiline">')
         return `${open}${lines.slice(0, codelines).join("\n")}${lines.length > codelines ? `\n<span class="token trimmed">(${lines.length-codelines} more ${lines.length-codelines === 1 ? "line was" : "lines were"} trimmed)</span>` : ""}${close}`
       })
     return rendered
