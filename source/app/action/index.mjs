@@ -320,16 +320,23 @@
               }
               catch (error) {
                 console.debug(error)
-                if (/A pull request already exists/.test(error)) {
-                  info(`Pull request from ${committer.head} to ${committer.branch}`, "(already existing)")
-                  const q = `repo:${github.context.repo.owner}/${github.context.repo.repo}+type:pr+state:open+Auto-generated metrics for run #${github.context.runId}+in:title`
-                  const prs = (await committer.rest.search.issuesAndPullRequests({q})).data.items.filter(({user:{login}}) => login === "github-actions[bot]")
-                  if (prs.length < 1)
-                    throw new Error("0 matching prs. Cannot proceed.")
-                  if (prs.length > 1)
-                    throw new Error(`Found more than one matching prs: ${prs.map(({number}) => `#${number}`).join(", ")}. Cannot proceed.`)
-                  ;({number} = prs.shift())
-                }
+                //Check if pull request has already been created previously
+                  if (/A pull request already exists/.test(error)) {
+                    info(`Pull request from ${committer.head} to ${committer.branch}`, "(already existing)")
+                    const q = `repo:${github.context.repo.owner}/${github.context.repo.repo}+type:pr+state:open+Auto-generated metrics for run #${github.context.runId}+in:title`
+                    const prs = (await committer.rest.search.issuesAndPullRequests({q})).data.items.filter(({user:{login}}) => login === "github-actions[bot]")
+                    if (prs.length < 1)
+                      throw new Error("0 matching prs. Cannot proceed.")
+                    if (prs.length > 1)
+                      throw new Error(`Found more than one matching prs: ${prs.map(({number}) => `#${number}`).join(", ")}. Cannot proceed.`)
+                    ;({number} = prs.shift())
+                  }
+                //Check if pull request could not been created because there are no diff between head and base
+                  else if (/No commits between/.test(error)) {
+                    info(`Pull request from ${committer.head} to ${committer.branch}`, "(no diff)")
+                    committer.merge = false
+                    number = "(none)"
+                  }
                 else
                   throw error
               }
