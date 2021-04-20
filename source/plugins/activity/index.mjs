@@ -106,8 +106,10 @@
                     }
                   //Pushed commits
                     case "PushEvent":{
-                      const {size, commits, ref} = payload
-                      return {type:"push", actor, timestamp, repo, size, branch:ref.match(/refs.heads.(?<branch>.*)/)?.groups?.branch ?? null, commits:commits.map(({sha, message}) => ({sha:sha.substring(0, 7), message}))}
+                      let {size, commits, ref} = payload
+                      if (commits[commits.length-1].message.startsWith("Merge branch "))
+                        commits = [commits[commits.length-1]]
+                      return {type:"push", actor, timestamp, repo, size, branch:ref.match(/refs.heads.(?<branch>.*)/)?.groups?.branch ?? null, commits:commits.reverse().map(({sha, message}) => ({sha:sha.substring(0, 7), message}))}
                     }
                   //Released
                     case "ReleaseEvent":{
@@ -141,4 +143,3 @@
         throw {error:{message:"An error occured", instance:error}}
       }
   }
-
