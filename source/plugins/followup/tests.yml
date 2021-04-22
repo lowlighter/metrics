@@ -3,3 +3,10 @@
   with:
     token: MOCKED_TOKEN
     plugin_followup: yes
+
+- name: Follow-up plugin (complete)
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    plugin_followup: yes
+    plugin_followup_sections: repositories, user

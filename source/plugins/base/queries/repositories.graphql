@@ -34,6 +34,9 @@ query BaseRepositories {
         pr_open: pullRequests(states: OPEN) {
           totalCount
         }
+        pr_closed: pullRequests(states: CLOSED) {
+          totalCount
+        }
         pr_merged: pullRequests(states: MERGED) {
           totalCount
         }

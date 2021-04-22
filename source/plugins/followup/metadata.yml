@@ -1,5 +1,5 @@
 name: "🎟️ Follow-up of issues and pull requests"
-cost: 0 API request
+cost: 0 API request (1 GraphQL request if "user" section is enabled)
 categorie: github
 index: 11
 supports:
@@ -13,3 +13,13 @@ inputs:
     description: Display follow-up of repositories issues and pull requests
     type: boolean
     default: no
+
+  # Sections to display
+  plugin_followup_sections:
+    description: Sections to display
+    type: array
+    format: comma-separated
+    default: repositories
+    values:
+      - repositories # Overall status of issues and pull requests on your repositories
+      - user         # Overall status of issues and pull requests you have created on GitHub
