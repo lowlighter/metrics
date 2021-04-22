@@ -25,6 +25,7 @@ inputs:
     description: Website to take screenshot
     type: string
     default: ""
+    example: https://metrics.lecoq.io
 
   # Selector to take in screenshot
   plugin_screenshot_selector:

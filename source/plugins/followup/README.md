@@ -5,6 +5,9 @@ The *followup* plugin displays the ratio of open/closed issues and the ratio of 
 <table>
   <td align="center">
     <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.followup.svg">
+    <details><summary>Created by user version</summary>
+      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.followup.user.svg">
+    </details>
     <img width="900" height="1" alt="">
   </td>
 </table>
@@ -18,5 +21,6 @@ The *followup* plugin displays the ratio of open/closed issues and the ratio of 
   with:
     # ... other options
     plugin_followup: yes
+    plugin_followup_sections: repositories, user #
 ```
 

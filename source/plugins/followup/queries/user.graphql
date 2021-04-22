@@ -1,0 +1,19 @@
+query FollowupUser {
+  user(login: "$login") {
+    issues_open:issues(states: OPEN) {
+      totalCount
+    }
+    issues_closed:issues(states: CLOSED) {
+      totalCount
+    }
+    pr_open:pullRequests(states: OPEN) {
+      totalCount
+    }
+    pr_closed:pullRequests(states: CLOSED) {
+      totalCount
+    }
+    pr_merged:pullRequests(states: MERGED) {
+      totalCount
+    }
+  }
+}
