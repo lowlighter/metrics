@@ -15,9 +15,10 @@
           }
 
         //Load inputs
-          let {limit, days, filter, visibility, timestamps} = imports.metadata.plugins.activity.inputs({data, q, account})
+          let {limit, days, filter, visibility, timestamps, skipped} = imports.metadata.plugins.activity.inputs({data, q, account})
           if (!days)
             days = Infinity
+          skipped.push(...data.shared["repositories.skipped"])
           const codelines = 2
 
         //Get user recent activity
@@ -33,6 +34,8 @@
             .map(async({type, payload, actor:{login:actor}, repo:{name:repo}, created_at}) => {
               //See https://docs.github.com/en/free-pro-team@latest/developers/webhooks-and-events/github-event-types
                 const timestamp = new Date(created_at)
+                if ((skipped.includes(repo.split("/").pop()))||(skipped.includes(repo)))
+                  return null
                 switch (type) {
                   //Commented on a commit
                     case "CommitCommentEvent":{
