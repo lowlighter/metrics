@@ -9,6 +9,7 @@
         //Load inputs
           let {ignored, skipped, colors, details, threshold, limit} = imports.metadata.plugins.languages.inputs({data, account, q})
           threshold = (Number(threshold.replace(/%$/, ""))||0)/100
+          skipped.push(...data.shared["repositories.skipped"])
           if (!limit)
             limit = Infinity
 

@@ -163,7 +163,7 @@
 /**Markdown-html sanitizer-interpreter */
   export async function markdown(text, {mode = "inline", codelines = Infinity} = {}) {
     //Sanitize user input once to prevent injections and parse into markdown
-      let rendered = await marked(htmlsanitize(text).replace(/^&gt;/gm, ">"), {
+      let rendered = await marked(htmlunescape(htmlsanitize(text)), {
         highlight(code, lang) {
           return lang in prism.languages ? prism.highlight(code, prism.languages[lang]) : code
         },
