@@ -7,7 +7,7 @@
             return null
 
         //Load inputs
-          imports.metadata.plugins.lines.inputs({data, account, q})
+          let {skipped} = imports.metadata.plugins.lines.inputs({data, account, q})
 
         //Context
           let context = {mode:"user"}
@@ -22,8 +22,7 @@
         //Get contributors stats from repositories
           console.debug(`metrics/compute/${login}/plugins > lines > querying api`)
           const lines = {added:0, deleted:0}
-          const response = await Promise.all(repositories.map(({repo, owner}) => rest.repos.getContributorsStats({owner, repo})))
-
+          const response = await Promise.all(repositories.map(({repo, owner}) => (skipped.includes(repo.toLocaleLowerCase()))||(skipped.includes(`${owner}/${repo}`)) ? {} : rest.repos.getContributorsStats({owner, repo})))
         //Compute changed lines
           console.debug(`metrics/compute/${login}/plugins > lines > computing total diff`)
           response.map(({data:repository}) => {
