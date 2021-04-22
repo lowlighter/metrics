@@ -29,6 +29,12 @@ inputs:
     description: Repositories affiliations
     default: owner
   
+  # List of default repositories that will be skipped
+  # Plugins supporting a "skip repositories option" will automatically append repositories listed in this option
+  repositories_skipped:
+    description: Default repositories to skip
+    default: ""
+  
   # ====================================================================================
   # 🧱 Core
   
