@@ -67,6 +67,7 @@
                 issues_open:faker.datatype.number(1000),
                 issues_closed:faker.datatype.number(1000),
                 pr_open:faker.datatype.number(1000),
+                pr_closed:{totalCount:faker.datatype.number(100)},
                 pr_merged:faker.datatype.number(1000),
                 forks:faker.datatype.number(1000),
                 releases:faker.datatype.number(1000),
@@ -161,8 +162,13 @@
               //Follow-up
                 ...(set.plugins.enabled.followup ? ({
                   followup:{
+                    sections:options["followup.sections"].split(",").map(x => x.trim()).filter(x => ["user", "repositories"].includes(x)),
                     issues:{get count() { return this.open + this.closed }, open:faker.datatype.number(1000), closed:faker.datatype.number(1000)},
-                    pr:{get count() { return this.open + this.merged }, open:faker.datatype.number(1000), merged:faker.datatype.number(1000)},
+                    pr:{get count() { return this.open + this.merged }, open:faker.datatype.number(1000), closed:faker.datatype.number(1000), merged:faker.datatype.number(1000)},
+                    user:{
+                      issues:{get count() { return this.open + this.closed }, open:faker.datatype.number(1000), closed:faker.datatype.number(1000)},
+                      pr:{get count() { return this.open + this.merged }, open:faker.datatype.number(1000), closed:faker.datatype.number(1000), merged:faker.datatype.number(1000)},
+                    }
                   }
                 }) : null),
               //Notable

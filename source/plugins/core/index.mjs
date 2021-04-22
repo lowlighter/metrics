@@ -9,7 +9,7 @@
       const {"config.animations":animations, "config.timezone":_timezone, "debug.flags":dflags} = imports.metadata.plugins.core.inputs({data, account, q})
 
     //Init
-      const computed = {commits:0, sponsorships:0, licenses:{favorite:"", used:{}}, token:{}, repositories:{watchers:0, stargazers:0, issues_open:0, issues_closed:0, pr_open:0, pr_merged:0, forks:0, forked:0, releases:0}}
+      const computed = {commits:0, sponsorships:0, licenses:{favorite:"", used:{}}, token:{}, repositories:{watchers:0, stargazers:0, issues_open:0, issues_closed:0, pr_open:0, pr_closed:0, pr_merged:0, forks:0, forked:0, releases:0}}
       const avatar = imports.imgb64(data.user.avatarUrl)
       data.computed = computed
       console.debug(`metrics/compute/${login} > formatting common metrics`)
@@ -57,7 +57,7 @@
     //Iterate through user's repositories
       for (const repository of data.user.repositories.nodes) {
         //Simple properties with totalCount
-          for (const property of ["watchers", "stargazers", "issues_open", "issues_closed", "pr_open", "pr_merged", "releases"])
+          for (const property of ["watchers", "stargazers", "issues_open", "issues_closed", "pr_open", "pr_closed", "pr_merged", "releases"])
             computed.repositories[property] += repository[property].totalCount
         //Forks
           computed.repositories.forks += repository.forkCount
