@@ -8,6 +8,7 @@
 
         //Load inputs
           let {skipped} = imports.metadata.plugins.lines.inputs({data, account, q})
+          skipped.push(...data.shared["repositories.skipped"])
 
         //Context
           let context = {mode:"user"}

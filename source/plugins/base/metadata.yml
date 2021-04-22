@@ -46,3 +46,12 @@ inputs:
       - owner               # Use repositories you own
       - collaborator        # Use repositories you have contributed too
       - organization_member # Use repositories where you're an organization member
+
+  # List of default repositories that will be skipped
+  # Plugins supporting a "skip repositories option" will automatically append repositories listed in this option
+  repositories_skipped:
+    description: Default repositories to skip
+    type: array
+    format: comma-separated
+    default: ""
+    example: my-repo-1, my-repo-2, owner/repo-3 ...
