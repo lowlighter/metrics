@@ -527,6 +527,11 @@ inputs:
     description: Display lines of code metrics
     default: no
   
+  # List of repositories that will be skipped
+  plugin_lines_skipped:
+    description: Repositories to skip
+    default: ""
+  
   # ====================================================================================
   # 🧮 Repositories traffic
   
