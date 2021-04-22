@@ -525,6 +525,11 @@ inputs:
     description: Display follow-up of repositories issues and pull requests
     default: no
   
+  # Sections to display
+  plugin_followup_sections:
+    description: Sections to display
+    default: repositories
+  
   # ====================================================================================
   # 👨‍💻 Lines of code changed
   
@@ -613,6 +618,11 @@ inputs:
   plugin_activity_timestamps:
     description: Display events timestamps
     default: no
+  
+  # List of repositories that will be skipped
+  plugin_activity_skipped:
+    description: Repositories to skip
+    default: ""
   
   # ====================================================================================
   # 🏆 Achievements

@@ -147,6 +147,9 @@ And you can customize these heavily with plugins, templates and hundreds of opti
     </td>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.followup.svg">
+      <details><summary>Created by user version</summary>
+        <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.followup.user.svg">
+      </details>
       <img width="900" height="1" alt="">
     </td>
   </tr>
