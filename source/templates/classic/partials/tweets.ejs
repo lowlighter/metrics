@@ -28,10 +28,13 @@
               <% for (const {text, createdAt, attachments} of plugins.tweets.list) { %>
                 <div class="tweet">
                   <%- text %>
-                  <% if (attachments) { %>
+                  <% if (attachments?.length) { %>
                     <div class="attachments">
                       <% for (const {image, title, description, website} of attachments) { %>
                         <div style="background-image: url('<%= image %>');">
+                          <span style="display: none;">
+                            Hack to avoid self-closing empty div, do not remove
+                          </span>
                           <% if (title) { %>
                             <div class="infos">
                               <div class="title"><%= title %></div>
