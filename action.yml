@@ -383,7 +383,7 @@ inputs:
   # Ignored contributors (useful to ignore bots users)
   plugin_contributors_ignored:
     description: Contributors to ignore
-    default: github-actions[bot]
+    default: github-actions[bot], dependabot[bot]
   
   # Display total contributions for each contributor
   plugin_contributors_contributions:
