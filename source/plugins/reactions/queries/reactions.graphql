@@ -9,6 +9,9 @@ query ReactionsDefault {
           reactions(last: 100, orderBy: {field: CREATED_AT, direction: DESC}) {
             nodes {
               content
+              user {
+                login
+              }
             }
           }
         }
