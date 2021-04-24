@@ -49,7 +49,7 @@
     "svgo": "^2.3.0",
     "twemoji-parser": "^13.0.0",
     "vue": "^2.6.12",
-    "vue-prism-component": "^1.2.0",
+    "vue-prism-component": "^2.0.0",
     "xml-formatter": "^2.4.0"
   },
   "devDependencies": {
