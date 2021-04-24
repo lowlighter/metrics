@@ -7,7 +7,7 @@
             return null
 
         //Load inputs
-          let {limit, days, details, display} = imports.metadata.plugins.reactions.inputs({data, account, q})
+          let {limit, days, details, display, ignored} = imports.metadata.plugins.reactions.inputs({data, account, q})
 
         //Load issue comments
           let cursor = null, pushed = 0
@@ -19,7 +19,9 @@
                 const {user:{[type]:{edges}}} = await graphql(queries.reactions({login, type, after:cursor ? `after: "${cursor}"` : ""}))
                 cursor = edges?.[edges?.length-1]?.cursor
               //Save issue comments
-                const filtered = edges.flatMap(({node:{createdAt:created, reactions:{nodes:reactions}}}) => ({created:new Date(created), reactions:reactions.map(({content}) => content)})).filter(comment => Number.isFinite(days) ? comment.created < new Date(Date.now()-days*24*60*60*1000) : true)
+                const filtered = edges
+                  .flatMap(({node:{createdAt:created, reactions:{nodes:reactions}}}) => ({created:new Date(created), reactions:reactions.filter(({user = {}}) => !ignored.includes(user.login)).map(({content}) => content)}))
+                  .filter(comment => Number.isFinite(days) ? comment.created < new Date(Date.now()-days*24*60*60*1000) : true)
                 pushed = filtered.length
                 comments.push(...filtered)
                 console.debug(`metrics/compute/${login}/plugins > reactions > currently at ${comments.length} comments`)
