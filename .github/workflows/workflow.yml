@@ -41,9 +41,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Build lowlighter/metrics:${{ github.head_ref || 'master' }}
-        run: docker build -t lowlighter/metrics:${{ github.head_ref || 'master' }} .
+        run: docker build -t lowlighter/metrics:$(echo ${{ github.head_ref || 'master' }} | sed 's/\//-/g') .
       - name: Run tests
-        run: docker run --workdir=/metrics --entrypoint="" lowlighter/metrics:${{ github.head_ref || 'master' }} npm test -- metrics.test.js
+        run: docker run --workdir=/metrics --entrypoint="" lowlighter/metrics:$(echo ${{ github.head_ref || 'master' }} | sed 's/\//-/g') npm test -- metrics.test.js
 
   # Run CodeQL on branch
   analyze:
