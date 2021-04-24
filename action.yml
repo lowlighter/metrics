@@ -462,6 +462,11 @@ inputs:
     description: Additional details
     default: ""
   
+  # Ignored users (useful to ignore bots users)
+  plugin_reactions_ignored:
+    description: Users to ignore
+    default: github-actions[bot], dependabot[bot]
+  
   # ====================================================================================
   # 🧑‍🤝‍🧑 People plugin
   
