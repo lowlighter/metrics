@@ -19,7 +19,7 @@
               reactions:{
                 nodes:new Array(50).fill(null).map(_ => ({
                   user:{login:faker.internet.userName()},
-                  content:faker.random.arrayElement(["HEART", "THUMBS_UP", "THUMBS_DOWN", "LAUGH", "CONFUSED", "EYES", "ROCKET", "HOORAY"])
+                  content:faker.random.arrayElement(["HEART", "THUMBS_UP", "THUMBS_DOWN", "LAUGH", "CONFUSED", "EYES", "ROCKET", "HOORAY"]),
                 })),
               },
             },
