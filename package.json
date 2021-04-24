@@ -26,7 +26,7 @@
     "@actions/core": "^1.2.6",
     "@actions/github": "^4.0.0",
     "@octokit/graphql": "^4.6.1",
-    "@octokit/rest": "^18.5.2",
+    "@octokit/rest": "^18.5.3",
     "axios": "^0.21.1",
     "compression": "^1.7.4",
     "ejs": "^3.1.6",
