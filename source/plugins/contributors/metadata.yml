@@ -30,7 +30,7 @@ inputs:
     description: Contributors to ignore
     type: array
     format: comma-separated
-    default: github-actions[bot]
+    default: github-actions[bot], dependabot[bot]
 
   # Display total contributions for each contributor
   plugin_contributors_contributions:
