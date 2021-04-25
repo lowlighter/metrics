@@ -82,11 +82,19 @@
               catch (error) {
                 console.debug(error)
               }
+            //Embed method
+              const embed = async q => {
+                q = Object.fromEntries(Object.entries(q).map(([key, value]) => [key.replace(/^plugin_/, "").replace(/_/g, "."), value]))
+                const {rendered} = await metrics({login, q}, {...arguments[1], convert:null}, arguments[2])
+                //TODO: store in markdown_cache and return link instead when mode is action
+                //Maybe base64 it else
+                return rendered
+              }
             //Rendering template source
               let rendered = source.replace(/\{\{ (?<content>[\s\S]*?) \}\}/g, "{%= $<content> %}")
               console.debug(rendered)
               for (const delimiters of [{openDelimiter:"<", closeDelimiter:">"}, {openDelimiter:"{", closeDelimiter:"}"}])
-                rendered = await ejs.render(rendered, {...data, s:imports.s, f:imports.format}, {views, async:true, ...delimiters})
+                rendered = await ejs.render(rendered, {...data, s:imports.s, f:imports.format, embed}, {views, async:true, ...delimiters})
               console.debug(`metrics/compute/${login} > success`)
             return {rendered, mime:"text/plain"}
           }
