@@ -55,6 +55,21 @@
                 return new Intl.NumberFormat(navigator.lang, options).format(value)
               case "date":
                 return new Intl.DateTimeFormat(navigator.lang, options).format(new Date(value))
+              case "comment":
+                const baseUrl = String.raw`https?:\/\/(?:www\.)?github.com\/([\w.-]+\/[\w.-]+)\/`
+                return value
+                  .replace(
+                    RegExp(baseUrl + String.raw`(?:issues|pull|discussions)\/(\d+)(?:\?\S+)?(#\S+)?`, 'g'),
+                    (_, repo, id, comment) => (options?.repo === repo ? '' : repo) + `#${id}` + (comment ? ` (comment)` : '')
+                  ) // -> 'lowlighter/metrics#123'
+                  .replace(
+                    RegExp(baseUrl + String.raw`commit\/([\da-f]+)`, 'g'),
+                    (_, repo, sha) => (options?.repo === repo ? '' : repo + '@') + sha
+                  ) // -> 'lowlighter/metrics@123abc'
+                  .replace(
+                    RegExp(baseUrl + String.raw`compare\/(\S+...\S+)`, 'g'),
+                    (_, repo, tags) => (options?.repo === repo ? '' : repo + '@') + tags
+                  ) // -> 'lowlighter/metrics@1.0...1.1'
             }
             return value
           },
