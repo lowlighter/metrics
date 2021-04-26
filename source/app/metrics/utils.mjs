@@ -247,7 +247,7 @@
           }
         //Format padding
           const [pw = 1, ph] = (Array.isArray(paddings) ? paddings : `${paddings}`.split(",").map(x => x.trim())).map(padding => `${padding}`.substring(0, padding.length-1)).map(value => 1+Number(value)/100)
-          const padding = {width:pw, height:ph ?? pw}
+          const padding = {width:pw || 0, height:(ph ?? pw) || 0}
           console.debug(`metrics/svg/resize > padding width*${padding.width}, height*${padding.height}`)
         //Render through browser and resize height
           console.debug("metrics/svg/resize > loading svg")
