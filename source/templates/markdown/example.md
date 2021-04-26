@@ -18,9 +18,13 @@ I joined GitHub on `{{ f.date(REGISTRATION_DATE, {dateStyle:"short"}) }}`.
 I contributed to `{{ REPOSITORIES_CONTRIBUTED_TO }}` repositories and made `{{ COMMITS }}` commits.
 ```
 
-## 🧩 Markdown plugins
+<%- await embed({isocalendar:true}) %>
 
-Most of plugins from SVG templates can be reused directly by including image source in markdown, but some have them have their own **markdown** version which includes hyperlinks and reduce image overhead.
+## 🧩 Plugins
+
+### Using markdown plugins
+
+Some plugins have their own **markdown** version which includes hyperlinks and reduce image overhead.
 
 See [compatibility matrix](https://github.com/lowlighter/metrics#-templateplugin-compatibily-matrix) for more informations.
 
@@ -43,3 +47,11 @@ ___
 ___
 
 <%- await include(`partials/topics.ejs`) %>
+
+### Embedding SVG metrics
+
+You can also generate "on-the-fly" SVGs metrics image using the `embed` function:
+
+<%- await embed({isocalendar:true, isocalendar_duration:"full-year"}) %>
+
+Available configuration options are mostly the same as [action.yml](https://github.com/lowlighter/metrics/blob/master/action.yml). Note that tokens options must **not** be passed to this function. These will be automatically passed down when defined in your workflow job.
