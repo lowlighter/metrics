@@ -2,7 +2,7 @@
 
 When using **markdown template**, it is possible to export output as PDF.
 
-See [rendering of this file here](https://github.com/lowlighter/lowlighter/blob/master/metrics.markdown.pdf.md) and [original template source here](https://github.com/lowlighter/metrics/blob/master/source/templates/markdown/example.pdf.md).
+See [rendering of this file here](https://github.com/lowlighter/lowlighter/blob/master/metrics.markdown.pdf) and [original template source here](https://github.com/lowlighter/metrics/blob/master/source/templates/markdown/example.pdf.md).
 
 ## 🧩 Plugins
 
