@@ -97,7 +97,7 @@
               console.debug(`metrics/compute/${login} > success`)
             //Output
               if (convert === "markdown-pdf")
-                return await imports.svg.pdf(rendered)
+                return imports.svg.pdf(await imports.marked(rendered), {paddings:q["config.padding"] || conf.settings.padding, style:(conf.settings.extras?.css ?? conf.settings.extras?.default ? q["extras.css"] ?? "" : "")})
               return {rendered, mime:"text/plain"}
           }
 
