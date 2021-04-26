@@ -96,8 +96,15 @@
                 rendered = await ejs.render(rendered, {...data, s:imports.s, f:imports.format, embed}, {views, async:true, ...delimiters})
               console.debug(`metrics/compute/${login} > success`)
             //Output
-              if (convert === "markdown-pdf")
-                return imports.svg.pdf(await imports.marked(rendered), {paddings:q["config.padding"] || conf.settings.padding, style:(conf.settings.extras?.css ?? conf.settings.extras?.default ? q["extras.css"] ?? "" : "")})
+              if (convert === "markdown-pdf") {
+                return imports.svg.pdf(rendered, {
+                  paddings:q["config.padding"] || conf.settings.padding,
+                  style:(conf.settings.extras?.css ?? conf.settings.extras?.default ? q["extras.css"] ?? "" : ""),
+                  twemojis:q["config.twemoji"],
+                  gemojis:q["config.gemoji"],
+                  rest,
+                })
+              }
               return {rendered, mime:"text/plain"}
           }
 
