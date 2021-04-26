@@ -82,11 +82,18 @@
               catch (error) {
                 console.debug(error)
               }
+            //Embed method
+              const embed = async(name, q) => {
+                q = Object.fromEntries([...Object.entries(q).map(([key, value]) => [key.replace(/^plugin_/, "").replace(/_/g, "."), value]), ["base", false], ["config.animations", false]])
+                const plugins = Object.fromEntries(Object.entries(arguments[1].plugins).map(([key, value]) => [key, {...value, enabled:true}]))
+                const {rendered} = await metrics({login, q}, {...arguments[1], plugins, convert:null}, arguments[2])
+                return `<img class="metrics-cachable" data-name="${name}" src="data:image/svg+xml;base64,${Buffer.from(rendered).toString("base64")}">`
+              }
             //Rendering template source
               let rendered = source.replace(/\{\{ (?<content>[\s\S]*?) \}\}/g, "{%= $<content> %}")
               console.debug(rendered)
               for (const delimiters of [{openDelimiter:"<", closeDelimiter:">"}, {openDelimiter:"{", closeDelimiter:"}"}])
-                rendered = await ejs.render(rendered, {...data, s:imports.s, f:imports.format}, {views, async:true, ...delimiters})
+                rendered = await ejs.render(rendered, {...data, s:imports.s, f:imports.format, embed}, {views, async:true, ...delimiters})
               console.debug(`metrics/compute/${login} > success`)
             return {rendered, mime:"text/plain"}
           }

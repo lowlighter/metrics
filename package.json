@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/lowlighter/metrics#readme",
   "dependencies": {
-    "@actions/core": "^1.2.6",
+    "@actions/core": "^1.2.7",
     "@actions/github": "^4.0.0",
     "@octokit/graphql": "^4.6.1",
     "@octokit/rest": "^18.5.3",
@@ -34,7 +34,7 @@
     "express-rate-limit": "^5.2.6",
     "faker": "^5.5.3",
     "jimp": "^0.16.1",
-    "js-yaml": "^4.0.0",
+    "js-yaml": "^4.1.0",
     "marked": "^2.0.3",
     "memory-cache": "^0.2.0",
     "node-chartist": "^1.0.5",
@@ -52,7 +52,7 @@
     "xml-formatter": "^2.4.0"
   },
   "devDependencies": {
-    "eslint": "^7.23.0",
+    "eslint": "^7.25.0",
     "jest": "^26.6.3",
     "libxmljs2": "^0.26.7",
     "nodemon": "^2.0.7"

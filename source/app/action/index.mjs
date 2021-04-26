@@ -65,7 +65,7 @@
           const {
             user:_user, repo:_repo, token,
             template, query, "setup.community.templates":_templates,
-            filename, optimize, verify,
+            filename, optimize, verify, "markdown.cache":_markdown_cache,
             debug, "debug.flags":dflags, "use.mocked.data":mocked, dryrun,
             "plugins.errors.fatal":die,
             "committer.token":_token, "committer.branch":_branch, "committer.message":_message, "committer.gist":_gist,
@@ -215,6 +215,8 @@
           info("Plugin errors", die ? "(exit with error)" : "(displayed in generated image)")
           const convert = ["jpeg", "png", "json", "markdown"].includes(config["config.output"]) ? config["config.output"] : null
           Object.assign(q, config)
+          if (/markdown/.test(convert))
+            info("Markdown cache", _markdown_cache)
 
         //Base content
           info.break()
@@ -279,6 +281,40 @@
             await fs.mkdir(paths.dirname(paths.join("/renders", filename)), {recursive:true})
             await fs.writeFile(paths.join("/renders", filename), Buffer.from(rendered))
             info(`Save to /metrics_renders/${filename}`, "ok")
+          }
+
+        //Cache
+          if (/markdown/.test(convert)) {
+            const regex = /(?<match><img class="metrics-cachable" data-name="(?<name>[\s\S]+?)" src="data:image[/]svg[+]xml;base64,(?<content>[/+\w]+)">)/g
+            let matched = null
+            while (matched = regex.exec(rendered)?.groups) { //eslint-disable-line no-cond-assign
+              const {match, name, content} = matched
+              let path = `${_markdown_cache}/${name}.svg`
+              console.debug(`Processing ${path}`)
+              let sha = null
+              try {
+                const {repository:{object:{oid}}} = await graphql(`
+                    query Sha {
+                      repository(owner: "${github.context.repo.owner}", name: "${github.context.repo.repo}") {
+                        object(expression: "${committer.head}:${path}") { ... on Blob { oid } }
+                      }
+                    }
+                  `, {headers:{authorization:`token ${committer.token}`}})
+                sha = oid
+              }
+              catch (error) {
+                console.debug(error)
+              }
+              finally {
+                await committer.rest.repos.createOrUpdateFileContents({
+                  ...github.context.repo, path, content,
+                  message:`${committer.message} (cache)`, ...(sha ? {sha} : {}),
+                  branch:committer.pr ? committer.head : committer.branch,
+                })
+                rendered = rendered.replace(match, `<img src="https://github.com/${github.context.repo.owner}/${github.context.repo.repo}/blob/${committer.branch}/${path}">`)
+                info(`Saving ${path}`, "ok")
+              }
+            }
           }
 
         //Check editions

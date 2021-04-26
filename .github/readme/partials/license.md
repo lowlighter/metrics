@@ -11,4 +11,4 @@ See full license in [LICENSE.md](/LICENSE.md)
 
 ![Sponsors](https://github.com/lowlighter/lowlighter/blob/master/metrics.sponsors.svg)
 
-[`♥️ Become a sponsor`](https://www.buymeacoffee.com/lowlighter)
+[`♥️ Become a sponsor`](https://github.com/sponsors/lowlighter)
