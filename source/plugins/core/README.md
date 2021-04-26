@@ -239,6 +239,21 @@ It could then be processed for other usages.
     config_output: png
 ```
 
+### 🖨️ Convert output to PDF
+
+It is possible to convert output to PDF when using a markdown template by setting `config_output` to `markdown-pdf`.
+
+#### ℹ️ Examples workflows
+
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    markdown: template.md
+    markdown_cache: .cache
+    config_output: markdown-pdf
+```
+
 ### 🐳 Faster execution with prebuilt docker images
 
 If you're using the official release `lowlighter/metrics` as a GitHub Action (either a specific version, `@latest` or `@master`), it'll pull a prebuilt docker container image from [GitHub Container Registry](https://github.com/users/lowlighter/packages/container/package/metrics) which contains already installed dependencies which will cut execution time from ~5 minutes to ~1 minute.
