@@ -1004,6 +1004,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
   </tr>
 </table>
 
+*Note: **markdown template** can actually render any kind of SVG metrics using [`embed` function](https://github.com/lowlighter/metrics/blob/master/source/templates/markdown/example.md#embedding-svg-metrics)*
 ## 🖼️ Templates
 
 Templates lets you change general appearance of rendered metrics.
