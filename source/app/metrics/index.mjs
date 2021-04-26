@@ -26,7 +26,7 @@
           const pending = []
           const {queries} = conf
           const data = {animated:true, base:{}, config:{}, errors:[], plugins:{}, computed:{}}
-          const imports = {plugins:Plugins, templates:Templates, metadata:conf.metadata, ...utils, ...(convert === "markdown" ? {imgb64(url, options) {
+          const imports = {plugins:Plugins, templates:Templates, metadata:conf.metadata, ...utils, ...(/markdown/.test(convert) ? {imgb64(url, options) {
             return options?.force ? utils.imgb64(...arguments) : url
           }} : null)}
           const experimental = new Set(decodeURIComponent(q["experimental.features"] ?? "").split(" ").map(x => x.trim().toLocaleLowerCase()).filter(x => x))
@@ -65,7 +65,7 @@
           }
 
         //Markdown output
-          if (convert === "markdown") {
+          if (/markdown/.test(convert)) {
             //Retrieving template source
               console.debug(`metrics/compute/${login} > markdown render`)
               let source = image
@@ -95,7 +95,10 @@
               for (const delimiters of [{openDelimiter:"<", closeDelimiter:">"}, {openDelimiter:"{", closeDelimiter:"}"}])
                 rendered = await ejs.render(rendered, {...data, s:imports.s, f:imports.format, embed}, {views, async:true, ...delimiters})
               console.debug(`metrics/compute/${login} > success`)
-            return {rendered, mime:"text/plain"}
+            //Output
+              if (convert === "markdown-pdf")
+                return imports.svg.pdf(await imports.marked(rendered), {paddings:q["config.padding"] || conf.settings.padding, style:(conf.settings.extras?.css ?? conf.settings.extras?.default ? q["extras.css"] ?? "" : "")})
+              return {rendered, mime:"text/plain"}
           }
 
         //Rendering

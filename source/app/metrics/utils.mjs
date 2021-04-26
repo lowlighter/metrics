@@ -23,7 +23,7 @@
   prism_lang()
 
 //Exports
-  export {fs, os, paths, url, util, processes, axios, git, opengraph, jimp, rss}
+  export {fs, os, paths, url, util, processes, axios, git, opengraph, jimp, rss, marked}
 
 /**Returns module __dirname */
   export function __module(module) {
@@ -238,6 +238,26 @@
 
 /**SVG utils */
   export const svg = {
+    /**Render as pdf */
+      async pdf(rendered, {paddings = "", style = ""} = {}) {
+        //Instantiate browser if needed
+          if (!svg.resize.browser) {
+            svg.resize.browser = await puppeteer.launch()
+            console.debug(`metrics/svg/pdf > started ${await svg.resize.browser.version()}`)
+          }
+        //Render through browser and print pdf
+          console.debug("metrics/svg/pdf > loading svg")
+          const page = await svg.resize.browser.newPage()
+          page.on("console", ({_text:text}) => console.debug(`metrics/svg/pdf > puppeteer > ${text}`))
+          await page.setContent(`<main class="markdown-body">${rendered}</main>`, {waitUntil:["load", "domcontentloaded", "networkidle2"]})
+          console.debug("metrics/svg/pdf > loaded svg successfully")
+          await page.addStyleTag({content:`main { margin: ${(Array.isArray(paddings) ? paddings : paddings.split(",")).join(" ")}; }${await fs.readFile(paths.join(__module(import.meta.url), "../../../node_modules", "@primer/css/dist/markdown.css")).catch(_ => "")}${style}`})
+          rendered = await page.pdf()
+        //Result
+          await page.close()
+          console.debug("metrics/svg/pdf > rendering complete")
+          return {rendered, mime:"application/pdf"}
+      },
     /**Render and resize svg */
       async resize(rendered, {paddings, convert}) {
         //Instantiate browser if needed

@@ -188,10 +188,11 @@ inputs:
     default: svg
     values:
       - svg
-      - png      # Does not support animations
-      - jpeg     # Does not support animations and transparency
-      - json     # Outputs a JSON file instead of an image
-      - markdown # Outputs a Markdown file instead of an image
+      - png          # Does not support animations
+      - jpeg         # Does not support animations and transparency
+      - json         # Outputs a JSON file instead of an image
+      - markdown     # Outputs a Markdown file instead of an image
+      - markdown-pdf # Outputs a Markdown file as PDF instead of an image
 
   # Number of retries in case rendering fail
   retries:
