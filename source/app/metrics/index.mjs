@@ -83,9 +83,10 @@
                 console.debug(error)
               }
             //Embed method
-              const embed = async(q, name = Math.random().toString().substring(2)) => {
+              const embed = async(name, q) => {
                 q = Object.fromEntries([...Object.entries(q).map(([key, value]) => [key.replace(/^plugin_/, "").replace(/_/g, "."), value]), ["base", false], ["config.animations", false]])
-                const {rendered} = await metrics({login, q}, {...arguments[1], convert:null}, arguments[2])
+                const plugins = Object.fromEntries(Object.entries(arguments[1].plugins).map(([key, value]) => [key, {...value, enabled:true}]))
+                const {rendered} = await metrics({login, q}, {...arguments[1], plugins, convert:null}, arguments[2])
                 return `<img class="metrics-cachable" data-name="${name}" src="data:image/svg+xml;base64,${Buffer.from(rendered).toString("base64")}">`
               }
             //Rendering template source

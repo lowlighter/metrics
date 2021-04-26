@@ -12,7 +12,7 @@ Markdown template can render a **markdown template** by interpreting **templatin
 It can be used to render custom markdown which include data gathered by metrics.
 Unlike SVG templates, it is possible to include revelant hyperlinks since it'll be rendered as regular markdown.
 
-You can even mix it with SVG plugins for even more customization.
+You can even mix it with SVG plugins for even more customization using `embed` function.
 
 See [example.md](/source/templates/markdown/example.md) for a markdown template example.
 
