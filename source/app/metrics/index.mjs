@@ -83,12 +83,10 @@
                 console.debug(error)
               }
             //Embed method
-              const embed = async q => {
-                q = Object.fromEntries(Object.entries(q).map(([key, value]) => [key.replace(/^plugin_/, "").replace(/_/g, "."), value]))
+              const embed = async (q, name = Math.random().toString().substring(2)) => {
+                q = Object.fromEntries([...Object.entries(q).map(([key, value]) => [key.replace(/^plugin_/, "").replace(/_/g, "."), value]), ["base", false], ["config.animations", false]])
                 const {rendered} = await metrics({login, q}, {...arguments[1], convert:null}, arguments[2])
-                //TODO: store in markdown_cache and return link instead when mode is action
-                //Maybe base64 it else
-                return rendered
+                return `<img class="metrics-cachable" data-name="${name}" src="data:image/svg+xml;base64,${Buffer.from(rendered).toString("base64")}">`
               }
             //Rendering template source
               let rendered = source.replace(/\{\{ (?<content>[\s\S]*?) \}\}/g, "{%= $<content> %}")
