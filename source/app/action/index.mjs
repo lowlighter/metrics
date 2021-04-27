@@ -65,7 +65,7 @@
           const {
             user:_user, repo:_repo, token,
             template, query, "setup.community.templates":_templates,
-            filename, optimize, verify, "markdown.cache":_markdown_cache,
+            filename:_filename, optimize, verify, "markdown.cache":_markdown_cache,
             debug, "debug.flags":dflags, "use.mocked.data":mocked, dryrun,
             "plugins.errors.fatal":die,
             "committer.token":_token, "committer.branch":_branch, "committer.message":_message, "committer.gist":_gist,
@@ -75,6 +75,8 @@
             ...config
           } = metadata.plugins.core.inputs.action({core})
           const q = {...query, ...(_repo ? {repo:_repo} : null), template}
+          const _output = ["jpeg", "png", "json", "markdown", "markdown-pdf"].includes(config["config.output"]) ? config["config.output"] : null
+          const filename = _filename.replace(/[*]/g, {jpeg:"jpg", markdown:"md", "markdown-pdf":"pdf"}[_output] ?? _output)
 
         //Docker image
           if (_image)
@@ -213,7 +215,7 @@
           info.break()
           info.group({metadata, name:"core", inputs:config})
           info("Plugin errors", die ? "(exit with error)" : "(displayed in generated image)")
-          const convert = ["jpeg", "png", "json", "markdown", "markdown-pdf"].includes(config["config.output"]) ? config["config.output"] : null
+          const convert = _output || null
           Object.assign(q, config)
           if (/markdown/.test(convert))
             info("Markdown cache", _markdown_cache)

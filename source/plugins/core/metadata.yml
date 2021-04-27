@@ -61,10 +61,11 @@ inputs:
     default: ""
 
   # Rendered metrics output path, relative to repository's root
+  # When using "*", the correct extension will automatically on "config_output" value
   filename:
     description: Rendered metrics output path
     type: string
-    default: github-metrics.svg
+    default: github-metrics.*
 
   # Rendered markdown output path (when using a markdown template)
   # It can be either a local path or a link (e.g. raw.githubusercontent.com)
