@@ -254,9 +254,9 @@
   metadata.template = async function({__templates, name, plugins, logger}) {
     try {
       //Load meta descriptor
-        const raw = `${await fs.promises.readFile(path.join(__templates, name, "metadata.yml"), "utf-8")}`
+        const raw = fs.existsSync(path.join(__templates, name, "metadata.yml")) ? `${await fs.promises.readFile(path.join(__templates, name, "metadata.yml"), "utf-8")}` : ""
         const readme = `${await fs.promises.readFile(path.join(__templates, name, "README.md"), "utf-8")}`
-        const meta = yaml.load(raw)
+        const meta = yaml.load(raw) ?? {}
 
       //Compatibility
         const partials = path.join(__templates, name, "partials")
