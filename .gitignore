@@ -109,3 +109,6 @@ settings.json
 # Community templates
 source/templates/.community
 source/templates/@*
+
+# Preview
+source/app/web/statics/preview
