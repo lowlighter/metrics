@@ -186,8 +186,9 @@ inputs:
   config_output:
     description: Output image format
     type: string
-    default: svg
+    default: auto
     values:
+      - auto         # Defaults to template default
       - svg
       - png          # Does not support animations
       - jpeg         # Does not support animations and transparency
