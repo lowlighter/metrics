@@ -261,7 +261,7 @@
                 graphql, rest, plugins, conf,
                 die:q["plugins.errors.fatal"] ?? false,
                 verify:q.verify ?? false,
-                convert:["jpeg", "png", "json", "markdown", "markdown-pdf"].includes(q["config.output"]) ? q["config.output"] : null,
+                convert:["svg", "jpeg", "png", "json", "markdown", "markdown-pdf"].includes(q["config.output"]) ? q["config.output"] : null,
               }, {Plugins, Templates})
             //Cache
               if ((!debug)&&(cached)) {
@@ -283,6 +283,11 @@
               if ((error instanceof Error)&&(/^unsupported template$/.test(error.message))) {
                 console.debug(`metrics/app/${login} > 400 (bad request)`)
                 return res.status(400).send("Bad request: unsupported template")
+              }
+            //Unsupported output format or account type
+              if ((error instanceof Error)&&(/^not supported for: [\s\S]*$/.test(error.message))) {
+                console.debug(`metrics/app/${login} > 406 (Not Acceptable)`)
+                return res.status(406).send("Not Acceptable: unsupported output format or account type for specified parameters")
               }
             //GitHub failed request
               if ((error instanceof Error)&&(/this may be the result of a timeout, or it could be a GitHub bug/i.test(error.errors?.[0]?.message))) {

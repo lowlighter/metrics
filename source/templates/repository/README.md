@@ -1,4 +1,4 @@
-### 📘 Repository
+### 📘 Repository template
 
 Template crafted for repositories, mimicking GitHub visual identity.
 
@@ -10,6 +10,8 @@ Template crafted for repositories, mimicking GitHub visual identity.
 </table>
 
 #### ℹ️ Examples workflows
+
+[➡️ Supported formats and inputs](metadata.yml)
 
 ```yaml
 - uses: lowlighter/metrics@latest

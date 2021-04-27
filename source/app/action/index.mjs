@@ -75,7 +75,7 @@
             ...config
           } = metadata.plugins.core.inputs.action({core})
           const q = {...query, ...(_repo ? {repo:_repo} : null), template}
-          const _output = ["jpeg", "png", "json", "markdown", "markdown-pdf"].includes(config["config.output"]) ? config["config.output"] : null
+          const _output = ["svg", "jpeg", "png", "json", "markdown", "markdown-pdf"].includes(config["config.output"]) ? config["config.output"] : metadata.templates[template].formats[0] ?? null
           const filename = _filename.replace(/[*]/g, {jpeg:"jpg", markdown:"md", "markdown-pdf":"pdf"}[_output] ?? _output)
 
         //Docker image

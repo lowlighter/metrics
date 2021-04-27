@@ -1,0 +1,9 @@
+name: "📒 Markdown template"
+index: 3
+supports:
+  - user
+  - organization
+formats:
+  - markdown
+  - markdown-pdf
+  - json

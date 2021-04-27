@@ -5,6 +5,7 @@
   import processes from "child_process"
   import util from "util"
   import url from "url"
+  import yaml from "js-yaml"
   import OctokitRest from "@octokit/rest"
 
 //Templates and plugins
@@ -94,6 +95,16 @@
                 else if (fs.existsSync(path.join(__templates, `@${name}`, "template.mjs"))) {
                   logger(`metrics/setup > removing @${name}/template.mjs`)
                   await fs.promises.unlink(path.join(__templates, `@${name}`, "template.mjs"))
+                  const inherit = yaml.load(`${fs.promises.readFile(path.join(__templates, `@${name}`, "metadata.yml"))}`).extends ?? null
+                  if (inherit) {
+                    logger(`metrics/setup > @${name} extends from ${inherit}`)
+                    if (fs.existsSync(path.join(__templates, inherit, "template.mjs"))) {
+                      logger(`metrics/setup > @${name} extended from ${inherit}`)
+                      await fs.promises.copyFile(path.join(__templates, inherit, "template.mjs"), path.join(__templates, `@${name}`, "template.mjs"))
+                    }
+                    else
+                      logger(`metrics/setup > @${name} could not extends ${inherit} as it does not exist`)
+                  }
                 }
                 else
                   logger(`metrics/setup > @${name}/template.mjs does not exist`)
@@ -194,7 +205,7 @@
           }
       }
 
-    //Load metadata (plugins)
+    //Load metadata
       conf.metadata = await metadata({log})
 
     //Store authenticated user
