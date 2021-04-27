@@ -180,7 +180,7 @@ inputs:
   # Metrics output format
   config_output:
     description: Output image format
-    default: svg
+    default: auto
   
   # Number of retries in case rendering fail
   retries:
