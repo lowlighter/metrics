@@ -43,8 +43,8 @@
         Templates[name] = await metadata.template({__templates, name, plugins, logger})
       }
     //Reorder keys
-      const {classic, repository, markdown, community, ...templates} = Templates
-      Templates = {classic, repository, ...templates, markdown, community}
+      const {community, ...templates} = Templates
+      Templates = {...Object.fromEntries(Object.entries(templates).sort(([_an, a], [_bn, b]) => (a.index ?? Infinity) - (b.index ?? Infinity))), community}
 
     //Packaged metadata
       const packaged = JSON.parse(`${await fs.promises.readFile(__package)}`)
@@ -254,7 +254,9 @@
   metadata.template = async function({__templates, name, plugins, logger}) {
     try {
       //Load meta descriptor
-        const raw = `${await fs.promises.readFile(path.join(__templates, name, "README.md"), "utf-8")}`
+        const raw = fs.existsSync(path.join(__templates, name, "metadata.yml")) ? `${await fs.promises.readFile(path.join(__templates, name, "metadata.yml"), "utf-8")}` : ""
+        const readme = `${await fs.promises.readFile(path.join(__templates, name, "README.md"), "utf-8")}`
+        const meta = yaml.load(raw) ?? {}
 
       //Compatibility
         const partials = path.join(__templates, name, "partials")
@@ -269,10 +271,24 @@
 
       //Result
         return {
-          name:raw.match(/^### (?<name>[\s\S]+?)\n/)?.groups?.name?.trim(),
+          name:meta.name ?? readme.match(/^### (?<name>[\s\S]+?)\n/)?.groups?.name?.trim(),
+          index:meta.index ?? null,
+          formats:meta.formats ?? null,
+          supports:meta.supports ?? null,
           readme:{
-            demo:raw.match(/(?<demo><table>[\s\S]*?<[/]table>)/)?.groups?.demo?.replace(/<[/]?(?:table|tr)>/g, "")?.trim() ?? (name === "community" ? '<td align="center" colspan="2">See <a href="/source/templates/community/README.md">documentation</a> 🌍</td>' : "<td></td>"),
+            demo:readme.match(/(?<demo><table>[\s\S]*?<[/]table>)/)?.groups?.demo?.replace(/<[/]?(?:table|tr)>/g, "")?.trim() ?? (name === "community" ? '<td align="center" colspan="2">See <a href="/source/templates/community/README.md">documentation</a> 🌍</td>' : "<td></td>"),
             compatibility:{...compatibility, base:true},
+          },
+          check({q, account = "bypass", format = null}) {
+            //Support check
+              if (account !== "bypass") {
+                const context = q.repo ? "repository" : account
+                if ((Array.isArray(this.supports))&&(!this.supports.includes(context)))
+                  throw new Error(`not supported for: ${context}`)
+              }
+            //Format check
+              if ((format)&&(Array.isArray(this.formats))&&(!this.formats.includes(format)))
+                throw new Error(`not supported for: ${format}`)
           },
         }
     }
