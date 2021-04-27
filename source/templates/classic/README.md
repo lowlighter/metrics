@@ -1,4 +1,4 @@
-### 📗 Classic
+### 📗 Classic template
 
 Default template, mimicking GitHub visual identity.
 

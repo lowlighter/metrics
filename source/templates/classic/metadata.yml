@@ -1,0 +1,10 @@
+name: "📗 Classic template"
+index: 0
+supports:
+  - user
+  - organization
+formats:
+  - svg
+  - png
+  - jpeg
+  - json

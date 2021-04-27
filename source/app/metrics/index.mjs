@@ -21,6 +21,8 @@
             throw new Error("unsupported template")
           const {image, style, fonts, views, partials} = conf.templates[template]
           const computer = Templates[template].default || Templates[template]
+          convert = convert ?? conf.metadata.templates[template].formats[0] ?? null
+          console.debug(`metrics/compute/${login} > output format set to ${convert}`)
 
         //Initialization
           const pending = []
@@ -45,7 +47,7 @@
         //Executing base plugin and compute metrics
           console.debug(`metrics/compute/${login} > compute`)
           await Plugins.base({login, q, data, rest, graphql, plugins, queries, pending, imports}, conf)
-          await computer({login, q}, {conf, data, rest, graphql, plugins, queries, account:data.account}, {pending, imports})
+          await computer({login, q}, {conf, data, rest, graphql, plugins, queries, account:data.account, convert, template}, {pending, imports})
           const promised = await Promise.all(pending)
 
         //Check plugins errors
@@ -150,7 +152,7 @@
             console.debug(`metrics/compute/${login} > verified SVG, no parsing errors found`)
           }
         //Resizing
-          const {resized, mime} = await imports.svg.resize(rendered, {paddings:q["config.padding"] || conf.settings.padding, convert})
+          const {resized, mime} = await imports.svg.resize(rendered, {paddings:q["config.padding"] || conf.settings.padding, convert:convert === "svg" ? null : convert})
           rendered = resized
 
         //Result

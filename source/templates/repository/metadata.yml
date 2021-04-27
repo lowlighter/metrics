@@ -1,0 +1,9 @@
+name: "📘 Repository template"
+index: 1
+supports:
+  - repository
+formats:
+  - svg
+  - png
+  - jpeg
+  - json

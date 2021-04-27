@@ -1,4 +1,4 @@
-### 📘 Repository
+### 📘 Repository template
 
 Template crafted for repositories, mimicking GitHub visual identity.
 

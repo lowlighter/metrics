@@ -215,7 +215,7 @@
           info.break()
           info.group({metadata, name:"core", inputs:config})
           info("Plugin errors", die ? "(exit with error)" : "(displayed in generated image)")
-          const convert = _output || null
+          const convert = ["svg", "jpeg", "png", "json", "markdown", "markdown-pdf"].includes(config["config.output"]) ? config["config.output"] : null
           Object.assign(q, config)
           if (/markdown/.test(convert))
             info("Markdown cache", _markdown_cache)

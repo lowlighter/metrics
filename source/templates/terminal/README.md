@@ -1,4 +1,4 @@
-### 📙 Terminal
+### 📙 Terminal template
 
 Terminal template, mimicking a SSH session.
 
