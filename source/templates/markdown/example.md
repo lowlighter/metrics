@@ -50,7 +50,7 @@ ___
 
 To include SVGs metrics images without creating additional jobs, use the `embed` function:
 
-<%- await embed("example-isocalendar", {isocalendar:true, isocalendar_duration:"full-year"}) %>
+<%- await embed(`example-isocalendar`, {isocalendar:true, isocalendar_duration:"full-year"}) %>
 
 It takes two arguments:
 - An unique identifier which will be used as filename withing `markdown_cache` folder

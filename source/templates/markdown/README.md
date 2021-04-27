@@ -25,12 +25,25 @@ For convenience, several useful properties are aliased in [/source/templates/mar
 #### ℹ️ Examples workflows
 
 ```yaml
+# Markdown output
 - uses: lowlighter/metrics@latest
   with:
     # ... other options
     template: markdown
-    filename: README.md      # Output file
-    markdown: TEMPLATE.md    # Template file
-    markdown_cache: .cache   # Cache folder
-    config_output: markdown  # Output as markdown file
+    filename: README.md         # Output file
+    markdown: TEMPLATE.md       # Template file
+    markdown_cache: .cache      # Cache folder
+    config_output: markdown     # Output as markdown file
+```
+
+```yaml
+# PDF output
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    template: markdown
+    filename: render.pdf        # Output file
+    markdown: TEMPLATE.md       # Template file
+    markdown_cache: .cache      # Cache folder
+    config_output: markdown-pdf # Output as pdf file
 ```

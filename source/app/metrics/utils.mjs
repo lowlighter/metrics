@@ -238,6 +238,36 @@
 
 /**SVG utils */
   export const svg = {
+    /**Render as pdf */
+      async pdf(rendered, {paddings = "", style = "", twemojis = false, gemojis = false, rest = null} = {}) {
+        //Instantiate browser if needed
+          if (!svg.resize.browser) {
+            svg.resize.browser = await puppeteer.launch()
+            console.debug(`metrics/svg/pdf > started ${await svg.resize.browser.version()}`)
+          }
+        //Additional transformations
+          if (twemojis)
+            rendered = await svg.twemojis(rendered, {custom:false})
+          if ((gemojis)&&(rest))
+            rendered = await svg.gemojis(rendered, {rest})
+          rendered = marked(rendered)
+        //Render through browser and print pdf
+          console.debug("metrics/svg/pdf > loading svg")
+          const page = await svg.resize.browser.newPage()
+          page.on("console", ({_text:text}) => console.debug(`metrics/svg/pdf > puppeteer > ${text}`))
+          await page.setContent(`<main class="markdown-body">${rendered}</main>`, {waitUntil:["load", "domcontentloaded", "networkidle2"]})
+          console.debug("metrics/svg/pdf > loaded svg successfully")
+          await page.addStyleTag({content:`
+            main { margin: ${(Array.isArray(paddings) ? paddings : paddings.split(",")).join(" ")}; }
+            main svg { height: 1em; width: 1em; }
+            ${await fs.readFile(paths.join(__module(import.meta.url), "../../../node_modules", "@primer/css/dist/markdown.css")).catch(_ => "")}${style}
+          `})
+          rendered = await page.pdf()
+        //Result
+          await page.close()
+          console.debug("metrics/svg/pdf > rendering complete")
+          return {rendered, mime:"application/pdf"}
+      },
     /**Render and resize svg */
       async resize(rendered, {paddings, convert}) {
         //Instantiate browser if needed
@@ -247,7 +277,11 @@
           }
         //Format padding
           const [pw = 1, ph] = (Array.isArray(paddings) ? paddings : `${paddings}`.split(",").map(x => x.trim())).map(padding => `${padding}`.substring(0, padding.length-1)).map(value => 1+Number(value)/100)
-          const padding = {width:pw, height:ph ?? pw}
+          const padding = {width:pw, height:(ph ?? pw)}
+          if (!Number.isFinite(padding.width))
+            padding.width = 1
+          if (!Number.isFinite(padding.height))
+            padding.height = 1
           console.debug(`metrics/svg/resize > padding width*${padding.width}, height*${padding.height}`)
         //Render through browser and resize height
           console.debug("metrics/svg/resize > loading svg")
@@ -299,7 +333,7 @@
           return {resized, mime}
       },
     /**Render twemojis */
-      async twemojis(rendered) {
+      async twemojis(rendered, {custom = true} = {}) {
         //Load emojis
           console.debug("metrics/svg/twemojis > rendering twemojis")
           const emojis = new Map()
@@ -309,7 +343,8 @@
           }
         //Apply replacements
           for (const [emoji, twemoji] of emojis) {
-            rendered = rendered.replace(new RegExp(`<metrics[ ]*(?<attributes>[^>]*)>${emoji}</metrics>`, "g"), twemoji.replace(/(<svg class="twemoji" [\s\S]+?)(>)/, "$1 $<attributes> $2")) //eslint-disable-line prefer-named-capture-group
+            if (custom)
+              rendered = rendered.replace(new RegExp(`<metrics[ ]*(?<attributes>[^>]*)>${emoji}</metrics>`, "g"), twemoji.replace(/(<svg class="twemoji" [\s\S]+?)(>)/, "$1 $<attributes> $2")) //eslint-disable-line prefer-named-capture-group
             rendered = rendered.replace(new RegExp(emoji, "g"), twemoji)
           }
         return rendered

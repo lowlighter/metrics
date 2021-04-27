@@ -213,7 +213,7 @@
           info.break()
           info.group({metadata, name:"core", inputs:config})
           info("Plugin errors", die ? "(exit with error)" : "(displayed in generated image)")
-          const convert = ["jpeg", "png", "json", "markdown"].includes(config["config.output"]) ? config["config.output"] : null
+          const convert = ["jpeg", "png", "json", "markdown", "markdown-pdf"].includes(config["config.output"]) ? config["config.output"] : null
           Object.assign(q, config)
           if (/markdown/.test(convert))
             info("Markdown cache", _markdown_cache)
@@ -285,7 +285,7 @@
 
         //Cache
           if (/markdown/.test(convert)) {
-            const regex = /(?<match><img class="metrics-cachable" data-name="(?<name>[\s\S]+?)" src="data:image[/]svg[+]xml;base64,(?<content>[/+\w]+)">)/g
+            const regex = /(?<match><img class="metrics-cachable" data-name="(?<name>[\s\S]+?)" src="data:image[/]svg[+]xml;base64,(?<content>[/+=\w]+)">)/g
             let matched = null
             while (matched = regex.exec(rendered)?.groups) { //eslint-disable-line no-cond-assign
               const {match, name, content} = matched
