@@ -11,6 +11,8 @@ Terminal template, mimicking a SSH session.
 
 #### ℹ️ Examples workflows
 
+[➡️ Supported formats and inputs](metadata.yml)
+
 ```yaml
 - uses: lowlighter/metrics@latest
   with:

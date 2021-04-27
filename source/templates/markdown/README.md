@@ -24,6 +24,8 @@ For convenience, several useful properties are aliased in [/source/templates/mar
 
 #### ℹ️ Examples workflows
 
+[➡️ Supported formats and inputs](metadata.yml)
+
 ```yaml
 # Markdown output
 - uses: lowlighter/metrics@latest
@@ -33,7 +35,6 @@ For convenience, several useful properties are aliased in [/source/templates/mar
     filename: README.md         # Output file
     markdown: TEMPLATE.md       # Template file
     markdown_cache: .cache      # Cache folder
-    config_output: markdown     # Output as markdown file
 ```
 
 ```yaml

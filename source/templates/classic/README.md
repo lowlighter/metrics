@@ -11,6 +11,8 @@ Default template, mimicking GitHub visual identity.
 
 #### ℹ️ Examples workflows
 
+[➡️ Supported formats and inputs](metadata.yml)
+
 ```yaml
 - uses: lowlighter/metrics@latest
   with:
