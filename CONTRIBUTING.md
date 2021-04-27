@@ -122,6 +122,7 @@ This section explain how metrics is structured.
   * `queries/` contains plugin GraphQL queries
 * `source/templates/` contains templates files
   * `README.md` contains template documentation
+  * `metadata.yml` contains template metadata
   * `image.svg` contains template image used to render metrics
   * `style.css` contains style used to render metrics
   * `fonts.css` contains additional fonts used to render metrics
@@ -201,6 +202,7 @@ npm run quickstart -- template <template_name>
 It will create a new folder in [`source/templates`](https://github.com/lowlighter/metrics/tree/master/source/templates) with the following files:
 - A `README.md` to describe your template and document it
 - An `image.svg` with base structure for rendering
+- A `metadata.yml` which list templates attributes and supported formats
 - A `partials/` folder where you'll be able to implement parts of your template
   - A `partials/_.json` with a JSON array listing these parts in the order you want them displayed (unless overridden by user with `config_order` option)
 
@@ -209,6 +211,7 @@ If needed, you can also create the following optional files:
 - A `styles.css` with custom CSS that'll style your template
 - A `template.mjs` with additional data processing and formatting at template-level
   - When your template is used through `setup_community_templates` on official releases, this is disabled by default unless user trusts it by appending `+trust` at the end of source
+  - You can specify the default `template.mjs` fallback by filling `extends` key in your `metadata.yml` (defaults to `"classic"` template)
 
 If inexistent, these will fallback to [`classic`](https://github.com/lowlighter/metrics/tree/master/source/templates/classic) template files.
 
@@ -250,6 +253,33 @@ The base structure for rendering looks like below:
 As you can see, we exploit the fact that SVG images are able to render HTML and CSS content so designing partials is the same as creating static web pages.
 
 [EJS](https://github.com/mde/ejs) framework is also used to programmatically create content through the help of templating tags (`<% %>`).
+
+</details>
+
+<details>
+<summary>💬 Filling <code>metadata.yml</code></summary>
+
+`metadata.yml` is an optional file which describes what account types are allowed, which formats are supported, etc.
+
+Here's an example:
+```yaml
+name: "🖼️ Template name"
+extends: classic  # Fallback to "classic" template "template.mjs" if not trusted
+index: ~          # Leave as it (this is used to order plugins on metrics README.md)
+supports:
+  - user          # Support users account
+  - organization  # Support organizations account
+  - repository    # Support repositories metrics
+formats:
+  - svg           # Support SVG output
+  - png           # Support PNG output
+  - jpeg          # Support JPEG output
+  - json          # Support JSON output
+  - markdown      # Support markdown output
+  - markdown-pdf  # Support PDF output
+```
+
+Core plugin will automatically check whether template supports given account or repository and output format and will throw an error in case they aren't compatible.
 
 </details>
 
