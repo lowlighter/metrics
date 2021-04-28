@@ -1,7 +1,7 @@
 /**Mocked data */
   export default function({faker, url, options, login = faker.internet.userName()}) {
     //Wakatime api
-      if (/^https:..wakatime.com.api.v1.users.current.stats.*$/.test(url)) {
+      if (/^https:..wakatime.com.api.v1.users..*.stats.*$/.test(url)) {
         //Get user profile
           if (/api_key=MOCKED_TOKEN/.test(url)) {
             console.debug(`metrics/compute/mocks > mocking wakatime api result > ${url}`)
