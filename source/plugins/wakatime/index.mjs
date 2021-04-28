@@ -6,7 +6,7 @@ export default async function ({ login, q, imports, data, account },{ enabled = 
     if (!enabled || !q.wakatime) return null;
 
     //Load inputs
-    let { sections, days, limit, apiurl, user } = imports.metadata.plugins.wakatime.inputs({ data, account, q });
+    let { sections, days, limit, url, user } = imports.metadata.plugins.wakatime.inputs({ data, account, q });
     if (!limit) limit = void limit;
     const range =
       {
