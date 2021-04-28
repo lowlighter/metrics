@@ -5,7 +5,6 @@ index: 7
 supports:
   - user
 inputs:
-
   # Enable or disable plugin
   plugin_wakatime:
     description: Display WakaTime stats
@@ -24,8 +23,8 @@ inputs:
     description: WakaTime time range
     type: string
     values:
-      - 7   # Last week
-      - 30  # Last month
+      - 7 # Last week
+      - 30 # Last month
       - 180 # Last 6 months
       - 365 # Last year
     default: 7
@@ -35,15 +34,15 @@ inputs:
     description: Sections to display
     type: array
     values:
-      - time             # Show total coding time and daily average
-      - projects         # Show most time spent project
-      - projects-graphs  # Show most time spent projects graphs
-      - languages        # Show most language
+      - time # Show total coding time and daily average
+      - projects # Show most time spent project
+      - projects-graphs # Show most time spent projects graphs
+      - languages # Show most language
       - languages-graphs # Show languages graphs
-      - editors          # Show most used code editor
-      - editors-graphs   # Show code editors graphs
-      - os               # Show most used operating system
-      - os-graphs        # Show code operating systems graphs
+      - editors # Show most used code editor
+      - editors-graphs # Show code editors graphs
+      - os # Show most used operating system
+      - os-graphs # Show code operating systems graphs
     default: time, projects, projects-graphs, languages, languages-graphs, editors, os
 
   # Number of entries to display per graph
@@ -53,3 +52,18 @@ inputs:
     type: number
     default: 5
     min: 0
+
+  plugin_wakatime_wakapi:
+    description: Use WakaTime or self hosted Wakapi instance
+    type: boolean
+    default: no
+
+  plugin_wakatime_apiurl:
+    description: Address where to reach your Wakapi instance
+    type: string
+    default: ""
+
+  plugin_wakatime_user:
+    description: Your Wakatime user on the selfhosted Wakapi instance
+    type: string
+    default: ""
