@@ -10,4 +10,4 @@ You can customize your template with both markdown plugins and SVG plugins like 
 
 <%- await include(`partials/rss.ejs`) %>
 
-<%- await embed(`test-isocalendar`, {isocalendar:true}) %>
+<%- await embed(`example-isocalendar-pdf`, {isocalendar:true}) %>

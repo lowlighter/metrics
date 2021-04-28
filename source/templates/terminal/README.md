@@ -1,4 +1,4 @@
-### 📙 Terminal
+### 📙 Terminal template
 
 Terminal template, mimicking a SSH session.
 
@@ -10,6 +10,8 @@ Terminal template, mimicking a SSH session.
 </table>
 
 #### ℹ️ Examples workflows
+
+[➡️ Supported formats and inputs](metadata.yml)
 
 ```yaml
 - uses: lowlighter/metrics@latest

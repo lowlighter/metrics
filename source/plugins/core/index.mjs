@@ -4,9 +4,10 @@
  */
 
 //Setup
-  export default async function({login, q}, {conf, data, rest, graphql, plugins, queries, account}, {pending, imports}) {
+  export default async function({login, q}, {conf, data, rest, graphql, plugins, queries, account, convert, template}, {pending, imports}) {
     //Load inputs
       const {"config.animations":animations, "config.timezone":_timezone, "debug.flags":dflags} = imports.metadata.plugins.core.inputs({data, account, q})
+      imports.metadata.templates[template].check({q, account, format:convert})
 
     //Init
       const computed = {commits:0, sponsorships:0, licenses:{favorite:"", used:{}}, token:{}, repositories:{watchers:0, stargazers:0, issues_open:0, issues_closed:0, pr_open:0, pr_closed:0, pr_merged:0, forks:0, forked:0, releases:0}}

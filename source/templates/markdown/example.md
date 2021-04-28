@@ -56,4 +56,3 @@ It takes two arguments:
 - An unique identifier which will be used as filename withing `markdown_cache` folder
 - Configuration options (see [action.yml](https://github.com/lowlighter/metrics/blob/master/action.yml))
   - Tokens options are automatically passed down from your workflow job, do not pass them again
-  - Options syntax is same as web instance (i.e. dots (`.`) instead of underscores (`_`) and no `plugin_` prefixes)
