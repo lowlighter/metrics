@@ -56,13 +56,14 @@ inputs:
   # If you use a selfhosted wakatime instance (wakapi)
   # that is publicly available place your url here
   #
-  # If you use the public wakapi instance the url 
+  # If you use the public wakapi instance the url
   # would be https://wakapi.dev
   plugin_wakatime_url:
     description: Address where to reach your Wakatime instance
     type: string
     default: http://wakatime.com
 
+  # Username on Wakatime
   plugin_wakatime_user:
     description: Your Wakatime user on the selfhosted Wakapi instance
     type: string
