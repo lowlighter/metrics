@@ -16,8 +16,10 @@
 
         //Register existing licenses properties
           const licenses = Object.fromEntries((await graphql(queries.licenses())).licenses.map(license => [license.key, license]))
-          for (const license of Object.values(licenses))
+          for (const license of Object.values(licenses)) {
+            //dprint-ignore
             [...license.limitations, ...license.conditions, ...license.permissions].flat().map(({key, label}) => text[key] = label)
+          }
           colors(licenses)
 
         //Check if licensed exists
