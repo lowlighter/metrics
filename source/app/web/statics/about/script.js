@@ -122,6 +122,9 @@
           url() {
             return `${window.location.protocol}//${window.location.host}/about/${this.user}`
           },
+          preview() {
+            return /-preview$/.test(this.version)
+          }
         },
       //Data initialization
         data:{

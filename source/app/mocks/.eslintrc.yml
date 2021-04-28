@@ -2,4 +2,3 @@
 rules:
   max-params: off
   no-unused-vars: off
-  prefer-named-capture-group: off

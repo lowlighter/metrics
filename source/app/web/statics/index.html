@@ -49,8 +49,8 @@
 
             <div class="ui-avatar" :style="{backgroundImage:avatar ? `url(${avatar})` : 'none'}"></div>
 
-            <input type="text" v-model="user" placeholder="Your GitHub username" :disabled="generated.pending" @keyup.enter="(!user)||(generated.pending)||(unusable.length > 0) ? null : generate()">
-            <button @click="generate" :disabled="(!user)||(generated.pending)||(unusable.length > 0)">
+            <input type="text" v-model="user" placeholder="Your GitHub username" :disabled="generated.pending" @keyup.enter="(!user)||(generated.pending)||(unusable.length > 0)||(!requests.remaining) ? null : generate()">
+            <button @click="generate" :disabled="(!user)||(generated.pending)||(unusable.length > 0)||(!requests.remaining)">
               <template v-if="generated.pending">
                 Generating metrics<span class="loading"></span>
               </template>
@@ -58,7 +58,11 @@
                 Generate your metrics!
               </template>
             </button>
-            <small>{{ requests.remaining }} GitHub requests remaining</small>
+            <small :class="{'error-text':!requests.remaining}">{{ requests.remaining }} GitHub requests remaining</small>
+            <small class="warning" v-if="preview">
+              Metrics are rendered by <a href="https://metrics.lecoq.io/">metrics.lecoq.io</a> in preview mode.
+              Any backend editions won't be reflected but client-side rendering can still be tested.
+            </small>
             <div class="warning" v-if="unusable.length">
               Metrics cannot be generated because the following plugins are not available on this web instance: {{ unusable.join(", ") }}
             </div>

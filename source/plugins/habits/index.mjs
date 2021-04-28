@@ -74,7 +74,7 @@
             //Attempt to guess whether tabs or spaces are used in patches
               console.debug(`metrics/compute/${login}/plugins > habits > searching indent style`)
               patches
-                .map(({patch}) => patch.match(/((?:\t)|(?:[ ]{2})) /gm) ?? []) //eslint-disable-line prefer-named-capture-group
+                .map(({patch}) => patch.match(/((?:\t)|(?:[ ]{2})) /gm) ?? [])
                 .forEach(indent => habits.indents[/^\t/.test(indent) ? "tabs" : "spaces"]++)
               habits.indents.style = habits.indents.spaces > habits.indents.tabs ? "spaces" : habits.indents.tabs > habits.indents.spaces ? "tabs" : ""
           }

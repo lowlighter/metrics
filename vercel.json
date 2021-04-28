@@ -1,0 +1,15 @@
+{
+  "rewrites":[
+    {"source": "/.templates", "destination": "/.templates__"},
+    {"source": "/.templates/:template", "destination": "/.templates_/:template"},
+    {"source": "/:login([-\\w]+)", "destination": "https://metrics.lecoq.io/:login"},
+    {"source": "/:login([-\\w]+)/:repository([-\\w]+)", "destination": "https://metrics.lecoq.io/:login/:repository"},
+    {"source": "/about/query/:login", "destination": "https://metrics.lecoq.io/about/query/:login"},
+    {"source": "/.uncache", "destination": "https://metrics.lecoq.io/.uncache"},
+    {"source": "/.requests", "destination": "https://metrics.lecoq.io/.requests"}
+  ],
+  "github":{
+    "silent": true,
+    "autoJobCancelation": true
+  }
+}

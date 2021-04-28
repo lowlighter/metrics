@@ -8,9 +8,11 @@
     "test": "jest --runInBand",
     "index": "node .github/index.mjs",
     "quickstart": "node .github/quickstart/index.mjs",
+    "preview": "node .github/preview.mjs",
     "linter": "eslint source/**/*.mjs",
     "dev": "nodemon source/app/web/index.mjs -e mjs,css,ejs,json",
-    "postinstall": "node node_modules/puppeteer/install.js"
+    "postinstall": "node node_modules/puppeteer/install.js",
+    "fmt": "dprint fmt --config .github/config/dprint.json && eslint source/**/*.mjs --fix"
   },
   "repository": {
     "type": "git",
@@ -39,7 +41,7 @@
     "marked": "^2.0.3",
     "memory-cache": "^0.2.0",
     "node-chartist": "^1.0.5",
-    "open-graph-scraper": "^4.8.1",
+    "open-graph-scraper": "^4.8.2",
     "png-js": "^1.0.0",
     "prismjs": "^1.23.0",
     "puppeteer": "^9.0.0",

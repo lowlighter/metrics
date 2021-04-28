@@ -8,7 +8,9 @@
   import fs from "fs/promises"
   import paths from "path"
   import sgit from "simple-git"
-  process.on("unhandledRejection", error => { throw error }) //eslint-disable-line max-statements-per-line, brace-style
+  process.on("unhandledRejection", error => {
+    throw error
+  })
 
 //Debug message buffer
   let DEBUG = true

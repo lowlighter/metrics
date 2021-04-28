@@ -28,7 +28,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path></svg>
                 Search a GitHub user
               </h2>
-              <small>{{ requests.remaining }} GitHub requests remaining</small>
+              <small :class="{'error-text':!requests.remaining}">{{ requests.remaining }} GitHub requests remaining</small>
               <small>Send feedback on <a href="https://github.com/lowlighter/metrics/discussions/229" target="_blank">GitHub discussions</a>!</small>
             </div>
             <div class="inputs">
@@ -58,6 +58,10 @@
             An error occurred while generating metrics :(<br>
             <small>{{ error.message }}</small>
           </div>
+          <small class="warning" v-if="preview">
+            Metrics insights are rendered by <a href="https://metrics.lecoq.io/">metrics.lecoq.io</a> in preview mode.<br>
+            Any backend editions won't be reflected but client-side rendering can still be tested.
+          </small>
         </section>
 
         <template v-if="metrics">
