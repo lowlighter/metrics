@@ -65,7 +65,7 @@
 /**Total extracter */
   async function total({imports}) {
     if (!total.promise) {
-      total.promise = new Promise(async(solve, reject) => { //eslint-disable-line no-async-promise-executor
+      total.promise = new Promise(async(solve, reject) => {
         //Setup browser
           console.debug("metrics/compute/plugins > achievements > filling total from github.com/search")
           const browser = await imports.puppeteer.launch()

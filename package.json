@@ -11,7 +11,8 @@
     "preview": "node .github/preview.mjs",
     "linter": "eslint source/**/*.mjs",
     "dev": "nodemon source/app/web/index.mjs -e mjs,css,ejs,json",
-    "postinstall": "node node_modules/puppeteer/install.js"
+    "postinstall": "node node_modules/puppeteer/install.js",
+    "fmt": "dprint fmt --config .github/config/dprint.json && eslint source/**/*.mjs --fix"
   },
   "repository": {
     "type": "git",
