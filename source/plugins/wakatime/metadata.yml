@@ -23,10 +23,10 @@ inputs:
     description: WakaTime time range
     type: string
     values:
-      - 7 # Last week
-      - 30 # Last month
-      - 180 # Last 6 months
-      - 365 # Last year
+      - 7     # Last week
+      - 30    # Last month
+      - 180   # Last 6 months
+      - 365   # Last year
     default: 7
 
   # Sections to display
@@ -34,15 +34,15 @@ inputs:
     description: Sections to display
     type: array
     values:
-      - time # Show total coding time and daily average
-      - projects # Show most time spent project
-      - projects-graphs # Show most time spent projects graphs
-      - languages # Show most language
-      - languages-graphs # Show languages graphs
-      - editors # Show most used code editor
-      - editors-graphs # Show code editors graphs
-      - os # Show most used operating system
-      - os-graphs # Show code operating systems graphs
+      - time              # Show total coding time and daily average
+      - projects          # Show most time spent project
+      - projects-graphs   # Show most time spent projects graphs
+      - languages         # Show most language
+      - languages-graphs  # Show languages graphs
+      - editors           # Show most used code editor
+      - editors-graphs    # Show code editors graphs
+      - os                # Show most used operating system
+      - os-graphs         # Show code operating systems graphs
     default: time, projects, projects-graphs, languages, languages-graphs, editors, os
 
   # Number of entries to display per graph
@@ -53,11 +53,15 @@ inputs:
     default: 5
     min: 0
 
+  # If you use a selfhosted wakatime instance
+  # that is publicly available set this to true
   plugin_wakatime_wakapi:
     description: Use WakaTime or self hosted Wakapi instance
     type: boolean
     default: no
 
+  # If you use the public wakapi instance the url 
+  # would be https://wakapi.dev
   plugin_wakatime_apiurl:
     description: Address where to reach your Wakapi instance
     type: string
