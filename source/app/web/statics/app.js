@@ -207,6 +207,10 @@
               //Return object
                 const configure = Object.fromEntries(entries)
                 return Object.keys(configure).length ? configure : null
+            },
+          //Is in preview mode
+            preview() {
+              return /-preview$/.test(this.version)
             }
         },
       //Methods
