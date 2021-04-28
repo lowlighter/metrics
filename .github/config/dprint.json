@@ -11,7 +11,8 @@
     "singleBodyPosition": "nextLine",
     "arrowFunction.useParentheses": "preferNone",
     "commentLine.forceSpaceAfterSlashes": false,
-    "taggedTemplate.spaceBeforeLiteral": false
+    "taggedTemplate.spaceBeforeLiteral": false,
+    "nextControlFlowPosition": "nextLine"
   },
   "includes": ["**/*.{js,mjs}"],
   "excludes": [

@@ -89,7 +89,6 @@ rules:
 
   # Prefer using new syntax and features
   prefer-regex-literals: error
-  prefer-named-capture-group: error
   prefer-arrow-callback: error
   prefer-destructuring: error
   prefer-numeric-literals: error
@@ -109,7 +108,6 @@ rules:
   no-tabs: error
   no-trailing-spaces: error
   brace-style: [error, stroustrup]
-  comma-dangle: [error, always-multiline]
   comma-style: error
   sort-vars: error
 
@@ -128,14 +126,10 @@ rules:
   func-call-spacing: error
   arrow-spacing: error
   generator-star-spacing: error
-  object-curly-spacing: [error, never]
   rest-spread-spacing: error
-  key-spacing: [error, {afterColon: false}]
   computed-property-spacing: error
-  switch-colon-spacing: [error, {after: false}]
   array-bracket-spacing: [error, never]
   no-whitespace-before-property: error
-  space-before-function-paren: [error, never]
   space-in-parens: error
   spaced-comment: [error, never]
   lines-between-class-members: error
@@ -148,8 +142,6 @@ rules:
   no-new-func: error
   no-new-wrappers: error
   func-names: [error, never]
-  function-call-argument-newline: [error, never]
-  function-paren-newline: [error, never]
   no-extra-parens: [error, functions]
   arrow-body-style: [error, as-needed]
   arrow-parens: [error, as-needed]
