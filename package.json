@@ -40,7 +40,7 @@
     "marked": "^2.0.3",
     "memory-cache": "^0.2.0",
     "node-chartist": "^1.0.5",
-    "open-graph-scraper": "^4.8.1",
+    "open-graph-scraper": "^4.8.2",
     "png-js": "^1.0.0",
     "prismjs": "^1.23.0",
     "puppeteer": "^9.0.0",
