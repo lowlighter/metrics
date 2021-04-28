@@ -58,7 +58,7 @@
                 Generate your metrics!
               </template>
             </button>
-            <small>{{ requests.remaining }} GitHub requests remaining</small>
+            <small :class="{'error-text':!requests.remaining}">{{ requests.remaining }} GitHub requests remaining</small>
             <div class="warning" v-if="unusable.length">
               Metrics cannot be generated because the following plugins are not available on this web instance: {{ unusable.join(", ") }}
             </div>
