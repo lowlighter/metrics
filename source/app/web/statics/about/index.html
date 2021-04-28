@@ -32,7 +32,7 @@
               <small>Send feedback on <a href="https://github.com/lowlighter/metrics/discussions/229" target="_blank">GitHub discussions</a>!</small>
             </div>
             <div class="inputs">
-              <input type="text" v-model="user" @keyup.enter="search" :disabled="pending">
+              <input type="text" v-model="user" @keyup.enter="search" :disabled="(pending)||(!requests.remaining)">
               <button @click="search" :disabled="(pending)||(!requests.remaining)">
                 <template v-if="pending">
                   Searching<span class="loading"></span>
