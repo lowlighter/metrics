@@ -18,15 +18,24 @@
       ".github/config/*",
       ".github/ISSUE_TEMPLATE/*",
       ".github/PULL_REQUEST_TEMPLATE/*",
-      ".github/readme/README.md",
-      ".github/readme/partials/*",
+      ".github/readme/partials/license.md",
+      ".github/readme/partials/setup.md",
+      ".github/readme/partials/shared.md",
+      ".github/readme/partials/documentation/compatibility.md",
+      ".github/readme/partials/introduction.md",
       ".github/workflows/*",
       ".github/FUNDING.yml",
       ".github/index.mjs",
       ".github/release.mjs",
+      ".github/markdown_example.mjs",
+      ".github/architecture.svg",
       "LICENSE",
+      "ARCHITECTURE.md",
       "SECURITY.md",
-      "tests/ci.test.js"
+      "tests/ci.test.js",
+      "source/.eslintrc.yml",
+      "source/app/mocks/.eslintrc.yml",
+      "vercel.json"
     ])("%s", async file => expect((await diff()).filter(edited => new RegExp(`^${file.replace(/[.]/g, "[.]").replace(/[*]/g, "[\\s\\S]*")}$`).test(edited)).length).toBe(0)))
   })
 
