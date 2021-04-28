@@ -271,6 +271,10 @@
     border-radius: 6px;
   }
 
+  .error-text {
+    color: var(--color-alert-error-text);
+  }
+
 /* Warning */
   .warning {
     padding: .5rem .75rem;

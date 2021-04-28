@@ -8,6 +8,7 @@
     "test": "jest --runInBand",
     "index": "node .github/index.mjs",
     "quickstart": "node .github/quickstart/index.mjs",
+    "preview": "node .github/preview.mjs",
     "linter": "eslint source/**/*.mjs",
     "dev": "nodemon source/app/web/index.mjs -e mjs,css,ejs,json",
     "postinstall": "node node_modules/puppeteer/install.js"
