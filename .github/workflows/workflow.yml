@@ -41,7 +41,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Setup Dprint
-        run: curl -fsSL https://dprint.dev/install.sh | sh
+        run: |
+          curl -fsSL https://dprint.dev/install.sh | sh
+          PATH="/home/runner/.dprint/bin:$PATH"
       - name: Format code
         run: npm run fmt
       - name: Build lowlighter/metrics:${{ github.head_ref || 'master' }}
@@ -74,7 +76,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Setup Dprint
-        run: curl -fsSL https://dprint.dev/install.sh | sh
+        run: |
+          curl -fsSL https://dprint.dev/install.sh | sh
+          PATH="/home/runner/.dprint/bin:$PATH"
       - name: Format code
         run: npm run fmt
       - name: Publish formatted code
