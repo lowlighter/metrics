@@ -5,6 +5,7 @@ index: 7
 supports:
   - user
 inputs:
+
   # Enable or disable plugin
   plugin_wakatime:
     description: Display WakaTime stats
