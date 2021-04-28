@@ -102,7 +102,6 @@ rules:
   no-unsafe-finally: off
 
   # =========================================================================
-  # Rules below are really motivated by
 
   # Code style (general rules)
   no-tabs: error
@@ -110,6 +109,8 @@ rules:
   brace-style: [error, stroustrup]
   comma-style: error
   sort-vars: error
+  no-async-promise-executor: off
+  no-misleading-character-class: off
 
   # Coding style (quoting rules)
   quote-props: [error, as-needed, {numbers: true}]
@@ -118,7 +119,6 @@ rules:
 
   # Coding style (comments rules)
   line-comment-position: error
-  capitalized-comments: error
 
   # Coding style (spacing rules)
   block-spacing: [error, always]
