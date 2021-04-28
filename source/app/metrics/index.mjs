@@ -85,11 +85,33 @@
                 console.debug(error)
               }
             //Embed method
-              const embed = async(name, q) => {
-                q = Object.fromEntries([...Object.entries(q).map(([key, value]) => [key.replace(/^plugin_/, "").replace(/_/g, "."), value]), ["base", false], ["config.animations", false]])
-                const plugins = Object.fromEntries(Object.entries(arguments[1].plugins).map(([key, value]) => [key, {...value, enabled:true}]))
-                const {rendered} = await metrics({login, q}, {...arguments[1], plugins, convert:null}, arguments[2])
-                return `<img class="metrics-cachable" data-name="${name}" src="data:image/svg+xml;base64,${Buffer.from(rendered).toString("base64")}">`
+              const embed = async(name, q = {}) => {
+                //Check arguments
+                  if ((!name)||(typeof q !== "object")||(q === null)) {
+                    if (die)
+                      throw new Error("An error occured during embed rendering, dying")
+                    return "<p>⚠️ Failed to execute embed function: invalid arguments</p>"
+                  }
+                //Translate action syntax to web syntax
+                  let parts = []
+                  if (q.base === true)
+                    ({parts} = conf.settings.plugins.base)
+                  if (typeof q.base === "string")
+                    parts = q.base.split(",").map(x => x.trim())
+                  if (Array.isArray(q.base))
+                    parts = q.base
+                  for (const part of conf.settings.plugins.base.parts)
+                    q[`base.${part}`] = q[`base.${part}`] ?? parts.includes(part)
+                  if (convert === "markdown-pdf") {
+                    q["config.animations"] = false
+                    q.config_animations = false
+                  }
+                  q = Object.fromEntries([...Object.entries(q).map(([key, value]) => [key.replace(/^plugin_/, "").replace(/_/g, "."), value]), ["base", false]])
+                //Enable required plugins
+                  const plugins = Object.fromEntries(Object.entries(arguments[1].plugins).map(([key, value]) => [key, {...value, enabled:true}]))
+                //Compute rendering
+                  const {rendered} = await metrics({login, q}, {...arguments[1], plugins, convert:null}, arguments[2])
+                  return `<img class="metrics-cachable" data-name="${name}" src="data:image/svg+xml;base64,${Buffer.from(rendered).toString("base64")}">`
               }
             //Rendering template source
               let rendered = source.replace(/\{\{ (?<content>[\s\S]*?) \}\}/g, "{%= $<content> %}")
@@ -107,7 +129,7 @@
                   rest,
                 })
               }
-              return {rendered, mime:"text/plain"}
+              return {rendered, mime:"text/html"}
           }
 
         //Rendering
