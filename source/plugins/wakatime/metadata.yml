@@ -53,21 +53,17 @@ inputs:
     default: 5
     min: 0
 
-  # If you use a selfhosted wakatime instance
-  # that is publicly available set this to true
-  plugin_wakatime_wakapi:
-    description: Use WakaTime or self hosted Wakapi instance
-    type: boolean
-    default: no
-
+  # If you use a selfhosted wakatime instance (wakapi)
+  # that is publicly available place your url here
+  #
   # If you use the public wakapi instance the url 
   # would be https://wakapi.dev
-  plugin_wakatime_apiurl:
-    description: Address where to reach your Wakapi instance
+  plugin_wakatime_url:
+    description: Address where to reach your Wakatime instance
     type: string
-    default: ""
+    default: http://wakatime.com
 
   plugin_wakatime_user:
     description: Your Wakatime user on the selfhosted Wakapi instance
     type: string
-    default: ""
+    default: .user.login
