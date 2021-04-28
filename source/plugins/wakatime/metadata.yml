@@ -5,7 +5,6 @@ index: 7
 supports:
   - user
 inputs:
-
   # Enable or disable plugin
   plugin_wakatime:
     description: Display WakaTime stats
@@ -24,10 +23,10 @@ inputs:
     description: WakaTime time range
     type: string
     values:
-      - 7   # Last week
-      - 30  # Last month
-      - 180 # Last 6 months
-      - 365 # Last year
+      - 7     # Last week
+      - 30    # Last month
+      - 180   # Last 6 months
+      - 365   # Last year
     default: 7
 
   # Sections to display
@@ -35,15 +34,15 @@ inputs:
     description: Sections to display
     type: array
     values:
-      - time             # Show total coding time and daily average
-      - projects         # Show most time spent project
-      - projects-graphs  # Show most time spent projects graphs
-      - languages        # Show most language
-      - languages-graphs # Show languages graphs
-      - editors          # Show most used code editor
-      - editors-graphs   # Show code editors graphs
-      - os               # Show most used operating system
-      - os-graphs        # Show code operating systems graphs
+      - time              # Show total coding time and daily average
+      - projects          # Show most time spent project
+      - projects-graphs   # Show most time spent projects graphs
+      - languages         # Show most language
+      - languages-graphs  # Show languages graphs
+      - editors           # Show most used code editor
+      - editors-graphs    # Show code editors graphs
+      - os                # Show most used operating system
+      - os-graphs         # Show code operating systems graphs
     default: time, projects, projects-graphs, languages, languages-graphs, editors, os
 
   # Number of entries to display per graph
@@ -53,3 +52,18 @@ inputs:
     type: number
     default: 5
     min: 0
+
+  # If you use a selfhosted wakatime instance (wakapi)
+  # that is publicly available place your url here
+  #
+  # If you use the public wakapi instance the url 
+  # would be https://wakapi.dev
+  plugin_wakatime_url:
+    description: Address where to reach your Wakatime instance
+    type: string
+    default: http://wakatime.com
+
+  plugin_wakatime_user:
+    description: Your Wakatime user on the selfhosted Wakapi instance
+    type: string
+    default: .user.login
