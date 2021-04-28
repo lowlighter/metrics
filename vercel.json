@@ -5,7 +5,7 @@
     {"source": "/:login([-\\w]+)", "destination": "https://metrics.lecoq.io/:login"},
     {"source": "/:login([-\\w]+)/:repository([-\\w]+)", "destination": "https://metrics.lecoq.io/:login/:repository"},
     {"source": "/about/query/:login", "destination": "https://metrics.lecoq.io/about/query/:login"},
-    {"source": "/.version", "destination": "https://metrics.lecoq.io/.version"}
+    {"source": "/.requests", "destination": "https://metrics.lecoq.io/.requests"}
   ],
   "github":{
     "silent": true,

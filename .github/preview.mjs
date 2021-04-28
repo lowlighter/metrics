@@ -70,7 +70,6 @@
   fs.copyFile(paths.join(__node_modules, "prismjs/components/prism-markdown.min.js"), paths.join(__preview_js, "prism.markdown.min.js"))
 //Meta
   fs.writeFile(paths.join(__preview, ".version"), JSON.stringify(`${conf.package.version}-preview`))
-  fs.writeFile(paths.join(__preview, ".requests"), JSON.stringify({limit:0, used:0, remaining:0, reset:0}))
   fs.writeFile(paths.join(__preview, ".hosted"), JSON.stringify({by:"metrics", link:"https://github.com/lowlighter/metrics"}))
 //About
   fs.copyFile(paths.join(__web, "about", "index.html"), paths.join(__preview, "about", "index.html"))
