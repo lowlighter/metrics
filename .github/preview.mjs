@@ -34,8 +34,11 @@
   await fs.mkdir(__preview_templates_, {recursive:true})
   await fs.mkdir(__preview_about, {recursive:true})
 
-  function template_alt(content) {
-    return content.replace(/`[/][.]templates([/][^`/]+)`/g, "`/.templates_$1`").replace(/"[/][.]templates"/g, '"/.templates__"')
+//Dirty hack
+  function hack_replace_endpoints(content) {
+    return content
+      .replace(/`[/][.]templates([/][^`/]+)`/g, "`/.templates_$1`")
+      .replace(/"[/][.]templates"/g, '"/.templates__"')
   }
 
 //Web
@@ -60,8 +63,8 @@
   fs.copyFile(paths.join(__web, "style.vars.css"), paths.join(__preview_css, "style.vars.css"))
   fs.copyFile(paths.join(__node_modules, "prismjs/themes/prism-tomorrow.css"), paths.join(__preview_css, "style.prism.css"))
 //Scripts
-  fs.writeFile(paths.join(__preview_js, "app.js"), template_alt(`${await fs.readFile(paths.join(__web, "app.js"))}`))
-  fs.writeFile(paths.join(__preview_js, "app.placeholder.js"), template_alt(`${await fs.readFile(paths.join(__web, "app.placeholder.js"))}`))
+  fs.writeFile(paths.join(__preview_js, "app.js"), hack_replace_endpoints(`${await fs.readFile(paths.join(__web, "app.js"))}`))
+  fs.writeFile(paths.join(__preview_js, "app.placeholder.js"), hack_replace_endpoints(`${await fs.readFile(paths.join(__web, "app.placeholder.js"))}`))
   fs.copyFile(paths.join(__node_modules, "ejs/ejs.min.js"), paths.join(__preview_js, "ejs.min.js"))
   fs.copyFile(paths.join(__node_modules, "faker/dist/faker.min.js"), paths.join(__preview_js, "faker.min.js"))
   fs.copyFile(paths.join(__node_modules, "axios/dist/axios.min.js"), paths.join(__preview_js, "axios.min.js"))
@@ -77,6 +80,7 @@
   fs.writeFile(paths.join(__preview, ".requests"), JSON.stringify({limit:0, used:0, remaining:0, reset:0}))
   fs.writeFile(paths.join(__preview, ".hosted"), JSON.stringify({by:"metrics", link:"https://github.com/lowlighter/metrics"}))
 //About
+  fs.copyFile(paths.join(__web, "about", "index.html"), paths.join(__preview, "about", "index.html"))
   for (const file of await fs.readdir(__web_about))
     if (file !== ".statics")
       fs.copyFile(paths.join(__web_about, file), paths.join(__preview_about, file))

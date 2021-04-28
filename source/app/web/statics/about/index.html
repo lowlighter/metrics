@@ -33,7 +33,7 @@
             </div>
             <div class="inputs">
               <input type="text" v-model="user" @keyup.enter="search" :disabled="pending">
-              <button @click="search" :disabled="pending">
+              <button @click="search" :disabled="(pending)||(!requests.remaining)">
                 <template v-if="pending">
                   Searching<span class="loading"></span>
                 </template>
