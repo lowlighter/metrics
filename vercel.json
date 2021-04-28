@@ -5,7 +5,7 @@
     {"source": "/about/query/:login", "destination": "https://metrics.lecoq.io/about/query/:login"}
   ],
   "github":{
-    "silent": true
-  },
-  "collectMetrics": false
+    "silent": true,
+    "autoJobCancelation": true
+  }
 }
