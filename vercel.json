@@ -1,0 +1,12 @@
+{
+  "//":"Rewrites are used because it is not possible to have a file and folder with same name",
+  "rewrites":[
+    {"source": "/.templates", "destination": "/.templates__"},
+    {"source": "/.templates/:template", "destination": "/.templates_/:template"},
+    {"source": "/about/query/:login", "destination": "https://metrics.lecoq.io/about/query/:login" }
+  ],
+  "github":{
+    "silent": true
+  },
+  "collectMetrics": false
+}

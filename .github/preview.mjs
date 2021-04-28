@@ -34,13 +34,6 @@
   await fs.mkdir(__preview_templates_, {recursive:true})
   await fs.mkdir(__preview_about, {recursive:true})
 
-//Dirty hack
-  function hack_replace_endpoints(content) {
-    return content
-      .replace(/`[/][.]templates([/][^`/]+)`/g, "`/.templates_$1`")
-      .replace(/"[/][.]templates"/g, '"/.templates__"')
-  }
-
 //Web
   fs.copyFile(paths.join(__web, "index.html"), paths.join(__preview, "index.html"))
   fs.copyFile(paths.join(__web, "favicon.png"), paths.join(__preview, ".favicon.png"))
@@ -63,8 +56,8 @@
   fs.copyFile(paths.join(__web, "style.vars.css"), paths.join(__preview_css, "style.vars.css"))
   fs.copyFile(paths.join(__node_modules, "prismjs/themes/prism-tomorrow.css"), paths.join(__preview_css, "style.prism.css"))
 //Scripts
-  fs.writeFile(paths.join(__preview_js, "app.js"), hack_replace_endpoints(`${await fs.readFile(paths.join(__web, "app.js"))}`))
-  fs.writeFile(paths.join(__preview_js, "app.placeholder.js"), hack_replace_endpoints(`${await fs.readFile(paths.join(__web, "app.placeholder.js"))}`))
+  fs.writeFile(paths.join(__preview_js, "app.js"), `${await fs.readFile(paths.join(__web, "app.js"))}`)
+  fs.writeFile(paths.join(__preview_js, "app.placeholder.js"), `${await fs.readFile(paths.join(__web, "app.placeholder.js"))}`)
   fs.copyFile(paths.join(__node_modules, "ejs/ejs.min.js"), paths.join(__preview_js, "ejs.min.js"))
   fs.copyFile(paths.join(__node_modules, "faker/dist/faker.min.js"), paths.join(__preview_js, "faker.min.js"))
   fs.copyFile(paths.join(__node_modules, "axios/dist/axios.min.js"), paths.join(__preview_js, "axios.min.js"))
