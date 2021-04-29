@@ -1,14 +1,16 @@
 /**Mocked data */
-  export default function({faker, query, login = faker.internet.userName()}) {
-    console.debug("metrics/compute/mocks > mocking graphql api result > base/repositories")
-    return /after: "MOCKED_CURSOR"/m.test(query) ? ({
+export default function({faker, query, login = faker.internet.userName()}) {
+  console.debug("metrics/compute/mocks > mocking graphql api result > base/repositories")
+  return /after: "MOCKED_CURSOR"/m.test(query)
+    ? ({
       user:{
         repositories:{
           edges:[],
           nodes:[],
         },
       },
-    }) : ({
+    })
+    : ({
       user:{
         repositories:{
           edges:[
@@ -46,4 +48,4 @@
         },
       },
     })
-  }
+}
