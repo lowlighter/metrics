@@ -72,6 +72,7 @@ jobs:
     name: Format code
     runs-on: ubuntu-latest
     needs: [ build, analyze ]
+    if: github.event_name == 'push' && github.head_ref == 'refs/heads/master'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -81,15 +82,18 @@ jobs:
         run: |
           curl -fsSL https://dprint.dev/install.sh | sh
           echo "$HOME/.dprint/bin" >> $GITHUB_PATH
+      - name: Checkout master
+        run: git checkout master
       - name: Format code
         run: npm run fmt
       - name: Publish formatted code
-        if: false #github.event_name == 'pull_request' && github.ref != 'refs/heads/master'
         run: |
+          set +e
           git status
           # git add --update
           # git commit -m "Auto-format code"
           # git push
+          set -e
 
   # Update plugins and template indexes, along with README.md
   update-indexes:
