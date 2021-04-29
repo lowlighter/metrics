@@ -15,7 +15,6 @@ jobs:
   # Run linter to ensure new code respect coding rules
   lint:
     name: Lint code
-    if: false
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -72,7 +71,7 @@ jobs:
   format:
     name: Format code
     runs-on: ubuntu-latest
-    # needs: [ build, analyze ]
+    needs: [ build, analyze ]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -85,9 +84,8 @@ jobs:
       - name: Format code
         run: npm run fmt
       - name: Publish formatted code
-        if: github.event_name == 'pull_request' && github.ref != 'refs/heads/master'
+        if: false #github.event_name == 'pull_request' && github.ref != 'refs/heads/master'
         run: |
-          git checkout ${{ github.ref }}
           git status
           # git add --update
           # git commit -m "Auto-format code"
