@@ -25,18 +25,18 @@
     throw new Error(`Could not parse version from "${process.env.GITHUB_COMMIT_MESSAGE}"`)
   console.log(`Version: ${version}`)
 
-//Load related issue
-  const {data:{items:issues}} = await rest.search.issuesAndPullRequests({
-    q:`repo:${repository.owner}/${repository.name} is:issue is:open author:${maintainer} assignee:${maintainer} Release ${version} in:title`
+//Load related pr
+  const {data:{items:prs}} = await rest.search.issuesAndPullRequests({
+    q:`repo:${repository.owner}/${repository.name} is:pr is:merged author:${maintainer} assignee:${maintainer} Release ${version} in:title`
   })
 
-//Ensure that there is exactly one issue matching
-  if (issues.length < 1)
-    throw new Error(`No matching issues found`)
-  if (issues.length > 1)
-    throw new Error(`Multiple issues found (${issues.length} matching)`)
-  const [patchnote] = issues
-  console.log(`Using issue#${patchnote.number}: ${patchnote.title}`)
+//Ensure that there is exactly one pr matching
+  if (prs.length < 1)
+    throw new Error(`No matching prs found`)
+  if (prs.length > 1)
+    throw new Error(`Multiple prs found (${prs.length} matching)`)
+  const [patchnote] = prs
+  console.log(`Using pr#${patchnote.number}: ${patchnote.title}`)
 
 //Check whether release already exists
   try {
@@ -52,9 +52,5 @@
   }
 
 //Publish release
-  await rest.repos.createRelease({owner:repository.owner, repo:repository.name, tag_name:version, name:`Version ${version}`, body:patchnote.body})
+  await rest.repos.createRelease({owner:repository.owner, repo:repository.name, tag_name:version, name:`Version ${version.replace(/^v/g, "")}`, body:patchnote.body})
   console.log(`Successfully published`)
-
-//Close patchnote issue
-  await rest.issues.update({owner:repository.owner, repo:repository.name, issue_number:patchnote.number, state:"closed"})
-  console.log(`Closed #${patchnote.number}`)

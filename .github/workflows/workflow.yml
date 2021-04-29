@@ -90,9 +90,9 @@ jobs:
         run: |
           set +e
           git status
-          # git add --update
-          # git commit -m "Auto-format code"
-          # git push
+          git add --update
+          git commit -m "Auto-format code"
+          git push
           set -e
 
   # Update plugins and template indexes, along with README.md
