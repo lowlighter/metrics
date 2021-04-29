@@ -1,15 +1,17 @@
 /**Mocked data */
-  export default function({faker, query, login = faker.internet.userName()}) {
-    console.debug("metrics/compute/mocks > mocking graphql api result > reactions/default")
-    const type = query.match(/(?<type>issues|issueComments)[(]/)?.groups?.type ?? "(unknown type)"
-    return /after: "MOCKED_CURSOR"/m.test(query) ? ({
+export default function({faker, query, login = faker.internet.userName()}) {
+  console.debug("metrics/compute/mocks > mocking graphql api result > reactions/default")
+  const type = query.match(/(?<type>issues|issueComments)[(]/)?.groups?.type ?? "(unknown type)"
+  return /after: "MOCKED_CURSOR"/m.test(query)
+    ? ({
       user:{
         [type]:{
           edges:[],
           nodes:[],
         },
       },
-    }) : ({
+    })
+    : ({
       user:{
         [type]:{
           edges:new Array(100).fill(null).map(_ => ({
@@ -27,4 +29,4 @@
         },
       },
     })
-  }
+}

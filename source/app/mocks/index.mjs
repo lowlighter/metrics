@@ -1,150 +1,150 @@
 //Imports
-  import axios from "axios"
-  import faker from "faker"
-  import paths from "path"
-  import urls from "url"
-  import rss from "rss-parser"
-  import fs from "fs/promises"
+import fs from "fs/promises"
+import axios from "axios"
+import faker from "faker"
+import paths from "path"
+import rss from "rss-parser"
+import urls from "url"
 
 //Mocked state
-  let mocked = false
+let mocked = false
 
 //Mocking
-  export default async function({graphql, rest}) {
+export default async function({graphql, rest}) {
+  //Check if already mocked
+  if (mocked)
+    return {graphql, rest}
+  mocked = true
+  console.debug("metrics/compute/mocks > mocking")
 
-    //Check if already mocked
-      if (mocked)
-        return {graphql, rest}
-      mocked = true
-      console.debug("metrics/compute/mocks > mocking")
+  //Load mocks
+  const __mocks = paths.join(paths.dirname(urls.fileURLToPath(import.meta.url)))
+  const mock = async ({directory, mocks}) => {
+    for (const entry of await fs.readdir(directory)) {
+      if ((await fs.lstat(paths.join(directory, entry))).isDirectory()) {
+        if (!mocks[entry])
+          mocks[entry] = {}
+        await mock({directory:paths.join(directory, entry), mocks:mocks[entry]})
+      }
+      else
+        mocks[entry.replace(/[.]mjs$/, "")] = (await import(urls.pathToFileURL(paths.join(directory, entry)).href)).default
 
-    //Load mocks
-      const __mocks = paths.join(paths.dirname(urls.fileURLToPath(import.meta.url)))
-      const mock = async({directory, mocks}) => {
-        for (const entry of await fs.readdir(directory)) {
-          if ((await fs.lstat(paths.join(directory, entry))).isDirectory()) {
-            if (!mocks[entry])
-              mocks[entry] = {}
-            await mock({directory:paths.join(directory, entry), mocks:mocks[entry]})
-          }
-          else
-            mocks[entry.replace(/[.]mjs$/, "")] = (await import(urls.pathToFileURL(paths.join(directory, entry)).href)).default
+    }
+    return mocks
+  }
+  const mocks = await mock({directory:paths.join(__mocks, "api"), mocks:{}})
+
+  //GraphQL API mocking
+  {
+    //Unmocked
+    console.debug("metrics/compute/mocks > mocking graphql api")
+    const unmocked = graphql
+    //Mocked
+    graphql = new Proxy(unmocked, {
+      apply(target, that, args) {
+        //Arguments
+        const [query] = args
+        const login = query.match(/login: "(?<login>.*?)"/)?.groups?.login ?? faker.internet.userName()
+
+        //Search for mocked query
+        for (const mocked of Object.keys(mocks.github.graphql)) {
+          if (new RegExp(`^query ${mocked.replace(/([.]\w)/g, (_, g) => g.toLocaleUpperCase().substring(1)).replace(/^(\w)/g, (_, g) => g.toLocaleUpperCase())} `).test(query))
+            return mocks.github.graphql[mocked]({faker, query, login})
         }
-        return mocks
-      }
-      const mocks = await mock({directory:paths.join(__mocks, "api"), mocks:{}})
 
-    //GraphQL API mocking
-      {
-        //Unmocked
-          console.debug("metrics/compute/mocks > mocking graphql api")
-          const unmocked = graphql
-        //Mocked
-          graphql = new Proxy(unmocked, {
-            apply(target, that, args) {
-              //Arguments
-                const [query] = args
-                const login = query.match(/login: "(?<login>.*?)"/)?.groups?.login ?? faker.internet.userName()
-
-              //Search for mocked query
-                for (const mocked of Object.keys(mocks.github.graphql)) {
-                  if (new RegExp(`^query ${mocked.replace(/([.]\w)/g, (_, g) => g.toLocaleUpperCase().substring(1)).replace(/^(\w)/g, (_, g) => g.toLocaleUpperCase())} `).test(query))
-                    return mocks.github.graphql[mocked]({faker, query, login})
-                }
-
-              //Unmocked call
-                return target(...args)
-            },
-          })
-      }
-
-    //Rest API mocking
-      {
-        //Unmocked
-          console.debug("metrics/compute/mocks > mocking rest api")
-          const unmocked = {}
-        //Mocked
-          const mocker = ({path = "rest", mocks, mocked}) => {
-            for (const [key, value] of Object.entries(mocks)) {
-              console.debug(`metrics/compute/mocks > mocking rest api > mocking ${path}.${key}`)
-              if (typeof value === "function") {
-                unmocked[path] = value
-                mocked[key] = new Proxy(unmocked[path], {apply:value.bind(null, {faker})})
-              }
-              else
-                mocker({path:`${path}.${key}`, mocks:mocks[key], mocked:mocked[key]})
-            }
-          }
-          mocker({mocks:mocks.github.rest, mocked:rest})
-      }
-
-    //Axios mocking
-      {
-        //Unmocked
-          console.debug("metrics/compute/mocks > mocking axios")
-          const unmocked = {get:axios.get, post:axios.post}
-
-        //Mocked post requests
-          axios.post = new Proxy(unmocked.post, {
-            apply(target, that, args) {
-              //Arguments
-                const [url, body] = args
-
-              //Search for mocked request
-                for (const service of Object.keys(mocks.axios.post)) {
-                  const mocked = mocks.axios.post[service]({faker, url, body})
-                  if (mocked)
-                    return mocked
-                }
-
-              //Unmocked call
-                return target(...args)
-            },
-          })
-
-        //Mocked get requests
-          axios.get = new Proxy(unmocked.get, {
-            apply(target, that, args) {
-              //Arguments
-                const [url, options] = args
-
-              //Search for mocked request
-                for (const service of Object.keys(mocks.axios.get)) {
-                  const mocked = mocks.axios.get[service]({faker, url, options})
-                  if (mocked)
-                    return mocked
-                }
-
-              //Unmocked call
-                return target(...args)
-            },
-          })
-      }
-
-    //RSS mocking
-      {
-        //Unmocked
-          console.debug("metrics/compute/mocks > mocking rss-parser")
-
-        //Mock rss feed
-          rss.prototype.parseURL = function(url) {
-            console.debug(`metrics/compute/mocks > mocking rss feed result > ${url}`)
-            return ({
-              items:new Array(30).fill(null).map(_ => ({
-                title:faker.lorem.sentence(),
-                link:faker.internet.url(),
-                content:faker.lorem.paragraphs(),
-                contentSnippet:faker.lorem.paragraph(),
-                isoDate:faker.date.recent(),
-              })),
-              title:faker.lorem.words(),
-              description:faker.lorem.paragraph(),
-              link:url,
-            })
-          }
-      }
-
-    //Return mocked elements
-      return {graphql, rest}
+        //Unmocked call
+        return target(...args)
+      },
+    })
   }
 
+  //Rest API mocking
+  {
+    //Unmocked
+    console.debug("metrics/compute/mocks > mocking rest api")
+    const unmocked = {}
+    //Mocked
+    const mocker = ({path = "rest", mocks, mocked}) => {
+      for (const [key, value] of Object.entries(mocks)) {
+        console.debug(`metrics/compute/mocks > mocking rest api > mocking ${path}.${key}`)
+        if (typeof value === "function") {
+          unmocked[path] = value
+          mocked[key] = new Proxy(unmocked[path], {apply:value.bind(null, {faker})})
+        }
+        else
+          mocker({path:`${path}.${key}`, mocks:mocks[key], mocked:mocked[key]})
+
+      }
+    }
+    mocker({mocks:mocks.github.rest, mocked:rest})
+  }
+
+  //Axios mocking
+  {
+    //Unmocked
+    console.debug("metrics/compute/mocks > mocking axios")
+    const unmocked = {get:axios.get, post:axios.post}
+
+    //Mocked post requests
+    axios.post = new Proxy(unmocked.post, {
+      apply(target, that, args) {
+        //Arguments
+        const [url, body] = args
+
+        //Search for mocked request
+        for (const service of Object.keys(mocks.axios.post)) {
+          const mocked = mocks.axios.post[service]({faker, url, body})
+          if (mocked)
+            return mocked
+        }
+
+        //Unmocked call
+        return target(...args)
+      },
+    })
+
+    //Mocked get requests
+    axios.get = new Proxy(unmocked.get, {
+      apply(target, that, args) {
+        //Arguments
+        const [url, options] = args
+
+        //Search for mocked request
+        for (const service of Object.keys(mocks.axios.get)) {
+          const mocked = mocks.axios.get[service]({faker, url, options})
+          if (mocked)
+            return mocked
+        }
+
+        //Unmocked call
+        return target(...args)
+      },
+    })
+  }
+
+  //RSS mocking
+  {
+    //Unmocked
+    console.debug("metrics/compute/mocks > mocking rss-parser")
+
+    //Mock rss feed
+    rss.prototype.parseURL = function(url) {
+      console.debug(`metrics/compute/mocks > mocking rss feed result > ${url}`)
+      return ({
+        items:new Array(30).fill(null).map(_ => ({
+          title:faker.lorem.sentence(),
+          link:faker.internet.url(),
+          content:faker.lorem.paragraphs(),
+          contentSnippet:faker.lorem.paragraph(),
+          isoDate:faker.date.recent(),
+        })),
+        title:faker.lorem.words(),
+        description:faker.lorem.paragraph(),
+        link:url,
+      })
+    }
+  }
+
+  //Return mocked elements
+  return {graphql, rest}
+}
