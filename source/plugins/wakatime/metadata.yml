@@ -5,6 +5,7 @@ index: 7
 supports:
   - user
 inputs:
+
   # Enable or disable plugin
   plugin_wakatime:
     description: Display WakaTime stats
@@ -61,7 +62,7 @@ inputs:
   plugin_wakatime_url:
     description: Address where to reach your Wakatime instance
     type: string
-    default: http://wakatime.com
+    default: https://wakatime.com
 
   # Username on Wakatime
   plugin_wakatime_user:
