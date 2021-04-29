@@ -126,7 +126,9 @@ rules:
   func-call-spacing: error
   arrow-spacing: error
   generator-star-spacing: error
+  object-curly-spacing: [error, never]
   rest-spread-spacing: error
+  key-spacing: [error, {afterColon: false}]
   computed-property-spacing: error
   array-bracket-spacing: [error, never]
   no-whitespace-before-property: error
