@@ -5,8 +5,6 @@
 Generate your metrics that you can embed everywhere, including your GitHub profile readme! It works for both user and organization accounts, and even for repositories!
 
 
-> <sup>*⚠️ This is the documentation of **v3.8-beta** (`@master` branch) which includes [unreleased features](https://github.com/lowlighter/metrics/compare/latest...master), see documentation of [**v3.7** (`@latest` branch) here](https://github.com/lowlighter/metrics/blob/latest/README.md).*</sup>
-
 
 <table>
   <tr>
