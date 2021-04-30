@@ -72,7 +72,7 @@ jobs:
     name: Format code
     runs-on: ubuntu-latest
     needs: [ build, analyze ]
-    if: github.event_name == 'push' && github.head_ref == 'refs/heads/master'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -100,7 +100,7 @@ jobs:
     name: Publish rebuilt metrics indexes
     runs-on: ubuntu-latest
     needs: [ build, analyze, format ]
-    if: github.event_name == 'push' && github.head_ref == 'refs/heads/master'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
