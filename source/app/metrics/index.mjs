@@ -102,22 +102,25 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
             throw new Error("An error occured during embed rendering, dying")
           return "<p>⚠️ Failed to execute embed function: invalid arguments</p>"
         }
-        q = {..._q, ...Object.fromEntries(Object.keys(Plugins).map(key => [key, false])), ...(q.base === true ? {} : Object.fromEntries(conf.settings.plugins.base.parts.map(part => [`base.${part}`, false]))), template:"classic", ...q}
+        let {base} = q
+        q = {..._q, ...Object.fromEntries(Object.keys(Plugins).map(key => [key, false])), ...Object.fromEntries(conf.settings.plugins.base.parts.map(part => [`base.${part}`, false])), template:"classic", ...q}
         //Translate action syntax to web syntax
         let parts = []
-        if (q.base === true)
-          q.base = _q.base
-        if (typeof q.base === "string")
-          parts = q.base.split(",").map(x => x.trim())
-        if (Array.isArray(q.base))
-          parts = q.base
-        for (const part of conf.settings.plugins.base.parts)
-          q[`base.${part}`] = q[`base.${part}`] ?? parts.includes(part)
+        if (base === true)
+          q = {...q, ...Object.fromEntries(Object.entries(_q).filter(([key]) => /^base[.]?/.test(key)))}
+        if (typeof base === "string")
+          parts = base.split(",").map(x => x.trim())
+        if (Array.isArray(base))
+          parts = base
+        for (const part of parts)
+          q[`base.${part}`] = true
         if (convert === "markdown-pdf") {
           q["config.animations"] = false
           q.config_animations = false
         }
         q = Object.fromEntries([...Object.entries(q).map(([key, value]) => [key.replace(/^plugin_/, "").replace(/_/g, "."), value]), ["base", false]])
+        console.debug(`metrics/compute/${login} > embed called with`)
+        console.debug(q)
         //Compute rendering
         const {rendered} = await metrics({login, q}, {...arguments[1], convert:null}, arguments[2])
         return `<img class="metrics-cachable" data-name="${name}" src="data:image/svg+xml;base64,${Buffer.from(rendered).toString("base64")}">`
