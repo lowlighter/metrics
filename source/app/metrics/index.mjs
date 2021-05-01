@@ -102,7 +102,7 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
             throw new Error("An error occured during embed rendering, dying")
           return "<p>⚠️ Failed to execute embed function: invalid arguments</p>"
         }
-        q = {..._q, ...Object.fromEntries(Object.keys(Plugins).map(key => [key, false])), template:"classic", ...q}
+        q = {..._q, ...Object.fromEntries(Object.keys(Plugins).map(key => [key, false])), ...(q.base === true ? {} : Object.fromEntries(conf.settings.plugins.base.parts.map(part => [`base.${part}`, false]))), template:"classic", ...q}
         //Translate action syntax to web syntax
         let parts = []
         if (q.base === true)
