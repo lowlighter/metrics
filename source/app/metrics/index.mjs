@@ -122,8 +122,8 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
         console.debug(`metrics/compute/${login} > embed called with`)
         console.debug(q)
         //Compute rendering
-        const {rendered} = await metrics({login, q}, {...arguments[1], convert:null}, arguments[2])
-        return `<img class="metrics-cachable" data-name="${name}" src="data:image/svg+xml;base64,${Buffer.from(rendered).toString("base64")}">`
+        const {rendered} = await metrics({login, q}, {...arguments[1], convert:["svg", "png", "jpeg"].includes(q["config.output"]) ? q["config.output"] : null}, arguments[2])
+        return `<img class="metrics-cachable" data-name="${name}" src="data:image/${{png:"png", jpeg:"jpeg"}[q["config.output"]] ?? "svg+xml"};base64,${Buffer.from(rendered).toString("base64")}">`
       }
       //Rendering template source
       let rendered = source.replace(/\{\{ (?<content>[\s\S]*?) \}\}/g, "{%= $<content> %}")
