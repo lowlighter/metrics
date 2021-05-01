@@ -94,6 +94,7 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
         console.debug(error)
       }
       //Embed method
+      const _q = q
       const embed = async (name, q = {}) => {
         //Check arguments
         if ((!name) || (typeof q !== "object") || (q === null)) {
@@ -101,10 +102,11 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
             throw new Error("An error occured during embed rendering, dying")
           return "<p>⚠️ Failed to execute embed function: invalid arguments</p>"
         }
+        q = {..._q, ...Object.fromEntries(Object.keys(Plugins).map(key => [key, false])), template:"classic", ...q}
         //Translate action syntax to web syntax
         let parts = []
-        if (q.base === true);
-        ({parts} = conf.settings.plugins.base)
+        if (q.base === true)
+          q.base = _q.base
         if (typeof q.base === "string")
           parts = q.base.split(",").map(x => x.trim())
         if (Array.isArray(q.base))
@@ -116,10 +118,8 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
           q.config_animations = false
         }
         q = Object.fromEntries([...Object.entries(q).map(([key, value]) => [key.replace(/^plugin_/, "").replace(/_/g, "."), value]), ["base", false]])
-        //Enable required plugins
-        const plugins = Object.fromEntries(Object.entries(arguments[1].plugins).map(([key, value]) => [key, {...value, enabled:true}]))
         //Compute rendering
-        const {rendered} = await metrics({login, q}, {...arguments[1], plugins, convert:null}, arguments[2])
+        const {rendered} = await metrics({login, q}, {...arguments[1], convert:null}, arguments[2])
         return `<img class="metrics-cachable" data-name="${name}" src="data:image/svg+xml;base64,${Buffer.from(rendered).toString("base64")}">`
       }
       //Rendering template source
