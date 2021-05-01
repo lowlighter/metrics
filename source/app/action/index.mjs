@@ -315,11 +315,11 @@ async function wait(seconds) {
 
     //Cache
     if (/markdown/.test(convert)) {
-      const regex = /(?<match><img class="metrics-cachable" data-name="(?<name>[\s\S]+?)" src="data:image[/]svg[+]xml;base64,(?<content>[/+=\w]+)">)/g
+      const regex = /(?<match><img class="metrics-cachable" data-name="(?<name>[\s\S]+?)" src="data:image[/](?<format>(?:svg[+]xml)|jpeg|png);base64,(?<content>[/+=\w]+)">)/g
       let matched = null
       while (matched = regex.exec(rendered)?.groups) { //eslint-disable-line no-cond-assign
-        const {match, name, content} = matched
-        let path = `${_markdown_cache}/${name}.svg`
+        const {match, name, format, content} = matched
+        let path = `${_markdown_cache}/${name}.${format.replace(/[+].*$/g, "")}`
         console.debug(`Processing ${path}`)
         let sha = null
         try {
