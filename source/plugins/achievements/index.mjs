@@ -81,7 +81,7 @@ async function total({imports}) {
         const page = await browser.newPage()
         await page.goto("https://github.com/search")
         const result = await page.evaluate(() => [...document.querySelectorAll("h2")].filter(node => /Search more/.test(node.innerText)).shift()?.innerText.trim().match(/(?<count>\d+)M\s+(?<type>repositories|users|issues)$/)?.groups) ?? null
-        console.log(`metrics/compute/plugins > achievements > setup found ${result?.type ?? "(?)"}`)
+        console.debug(`metrics/compute/plugins > achievements > setup found ${result?.type ?? "(?)"}`)
         if ((result?.type) && (!total[result.type])) {
           const {count, type} = result
           total[type] = Number(count) * 10e5
