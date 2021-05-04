@@ -1008,7 +1008,7 @@ inputs:
   # Username on Wakatime
   plugin_wakatime_user:
     description: Your Wakatime user on the selfhosted Wakapi instance
-    default: .user.login
+    default: current
   
   # ====================================================================================
   # 💹 Stock prices
