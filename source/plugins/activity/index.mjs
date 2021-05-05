@@ -119,8 +119,8 @@ export default async function({login, data, rest, q, account, imports}, {enabled
             case "ReleaseEvent": {
               if (!["published"].includes(payload.action))
                 return null
-              const {action, release:{name, prerelease, draft, body:content}} = payload
-              return {type:"release", actor, timestamp, repo, action, name, prerelease, draft, content:await imports.markdown(content, {mode:markdown, codelines})}
+              const {action, release:{name, tag_name, prerelease, draft, body:content}} = payload
+              return {type:"release", actor, timestamp, repo, action, name:name || tag_name, prerelease, draft, content:await imports.markdown(content, {mode:markdown, codelines})}
             }
             //Starred a repository
             case "WatchEvent": {
