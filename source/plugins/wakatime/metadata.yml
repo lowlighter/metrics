@@ -68,4 +68,4 @@ inputs:
   plugin_wakatime_user:
     description: Your Wakatime user on the selfhosted Wakapi instance
     type: string
-    default: .user.login
+    default: current
