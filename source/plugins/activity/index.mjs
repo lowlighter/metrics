@@ -19,7 +19,7 @@ export default async function({login, data, rest, q, account, imports}, {enabled
     if (!days)
       days = Infinity
     skipped.push(...data.shared["repositories.skipped"])
-    const pages = Math.ceil(limit/100)
+    const pages = Math.ceil(limit / 100)
     const codelines = 2
 
     //Get user recent activity
