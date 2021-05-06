@@ -19,11 +19,21 @@ export default async function({login, data, rest, q, account, imports}, {enabled
     if (!days)
       days = Infinity
     skipped.push(...data.shared["repositories.skipped"])
+    const pages = Math.ceil(limit / 100)
     const codelines = 2
 
     //Get user recent activity
     console.debug(`metrics/compute/${login}/plugins > activity > querying api`)
-    const {data:events} = context.mode === "repository" ? await rest.activity.listRepoEvents({owner:context.owner, repo:context.repo}) : await rest.activity.listEventsForAuthenticatedUser({username:login, per_page:100})
+    const events = []
+    try {
+      for (let page = 1; page <= pages; page++) {
+        console.debug(`metrics/compute/${login}/plugins > activity > loading page ${page}`)
+        events.push(...(context.mode === "repository" ? await rest.activity.listRepoEvents({owner:context.owner, repo:context.repo}) : await rest.activity.listEventsForAuthenticatedUser({username:login, per_page:100})).data)
+      }
+    }
+    catch {
+      console.debug(`metrics/compute/${login}/plugins > activity > no more page to load`)
+    }
     console.debug(`metrics/compute/${login}/plugins > activity > ${events.length} events loaded`)
 
     //Extract activity events
@@ -119,8 +129,8 @@ export default async function({login, data, rest, q, account, imports}, {enabled
             case "ReleaseEvent": {
               if (!["published"].includes(payload.action))
                 return null
-              const {action, release:{name, prerelease, draft, body:content}} = payload
-              return {type:"release", actor, timestamp, repo, action, name, prerelease, draft, content:await imports.markdown(content, {mode:markdown, codelines})}
+              const {action, release:{name, tag_name, prerelease, draft, body:content}} = payload
+              return {type:"release", actor, timestamp, repo, action, name:name || tag_name, prerelease, draft, content:await imports.markdown(content, {mode:markdown, codelines})}
             }
             //Starred a repository
             case "WatchEvent": {

@@ -605,6 +605,7 @@ inputs:
     default: 5
   
   # Filter events by age
+  # Note that it only filter fetched events, you may need to increase "plugin_activity_limit" to display older events
   # Set to 0 to disable age filtering
   plugin_activity_days:
     description: Maximum event age

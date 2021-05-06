@@ -18,7 +18,7 @@ export default async function({login, data, rest, imports, q, account}, {enabled
     console.debug(`metrics/compute/${login}/plugins > habits > querying api`)
     const events = []
     try {
-      for (let page = 1; page < pages; page++) {
+      for (let page = 1; page <= pages; page++) {
         console.debug(`metrics/compute/${login}/plugins > habits > loading page ${page}`)
         events.push(...(await rest.activity.listEventsForAuthenticatedUser({username:login, per_page:100, page})).data)
       }
