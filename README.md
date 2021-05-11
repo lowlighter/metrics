@@ -5,8 +5,6 @@
 Generate your metrics that you can embed everywhere, including your GitHub profile readme! It works for both user and organization accounts, and even for repositories!
 
 
-> <sup>*⚠️ This is the documentation of **v3.9-beta** (`@master` branch) which includes [unreleased features](https://github.com/lowlighter/metrics/compare/latest...master), see documentation of [**v3.8** (`@latest` branch) here](https://github.com/lowlighter/metrics/blob/latest/README.md).*</sup>
-
 
 <table>
   <tr>
@@ -371,7 +369,7 @@ And you can customize these heavily with plugins, templates and hundreds of opti
 
 ## 🦑 Interested to get your own?
 
-For a fully-featured experience you should use **metrics** as a [GitHub Action](https://github.com/marketplace/actions/github-metrics-as-svg-image), but you can also try it now at [metrics.lecoq.io](https://metrics.lecoq.io/) with your GitHub username!
+For a fully-featured experience you should use **metrics** as a [GitHub Action](https://github.com/marketplace/actions/metrics-embed), but you can also try it now at [metrics.lecoq.io](https://metrics.lecoq.io/) with your GitHub username!
 
 Choose `📊 Metrics embed` if you want to customize your GitHub profile and `✨ Metrics insights` to get a quick overview of your GitHub statistics:
 

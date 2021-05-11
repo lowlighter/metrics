@@ -93,7 +93,13 @@ export default async function({login, q}, {conf, data, rest, graphql, plugins, q
   computed.avatar = await avatar || "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
 
   //Token scopes
-  computed.token.scopes = conf.settings.notoken ? [] : (await rest.request("HEAD /")).headers["x-oauth-scopes"].split(", ")
+  try {
+    computed.token.scopes = conf.settings.notoken ? [] : (await rest.request("HEAD /")).headers["x-oauth-scopes"].split(", ")
+  }
+  catch (error) {
+    console.debug(error)
+    computed.token.scopes = []
+  }
 
   //Meta
   data.meta = {version:conf.package.version, author:conf.package.author}

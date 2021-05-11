@@ -98,6 +98,15 @@
       achievements() {
         return this.metrics?.rendered.plugins.achievements.list?.filter(({ leaderboard }) => !leaderboard).filter(({ title }) => !/(?:automater|octonaut|infographile)/i.test(title)) ?? []
       },
+      introduction() {
+        return this.metrics?.rendered.plugins.introduction?.text ?? ""
+      },
+      followup() {
+        return this.metrics?.rendered.plugins.followup ?? null
+      },
+      habits() {
+        return this.metrics?.rendered.plugins.habits.commits.hours ?? null
+      },
       isocalendar() {
         return (this.metrics?.rendered.plugins.isocalendar.svg ?? "")
           .replace(/#ebedf0/gi, "var(--color-calendar-graph-day-bg)")
