@@ -1111,7 +1111,7 @@ inputs:
 # Action metadata
 name: GitHub metrics as SVG image
 author: lowlighter
-description: An SVG generator with 20+ metrics about your GitHub account! Additional plugins are available to display even more!
+description: An infographics generator with 30+ plugins and 100+ options to display stats about your GitHub account and render them as SVG, Markdown, PDF or JSON!
 branding:
   icon: user-check
   color: gray-dark

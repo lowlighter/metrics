@@ -188,9 +188,17 @@ export default async function({mock, nosettings} = {}) {
             "activity.limit":100,
             "activity.days":0,
             notable:true,
+            followup:true,
+            "followup.sections":"repositories, user",
+            habits:true,
+            "habits.from":100,
+            "habits.days":7,
+            "habits.facts":false,
+            "habits.charts":true,
+            introduction:true
           },
         },
-        {graphql, rest, plugins:{achievements:{enabled:true}, isocalendar:{enabled:true}, languages:{enabled:true}, activity:{enabled:true, markdown:"extended"}, notable:{enabled:true}}, conf, convert:"json"},
+        {graphql, rest, plugins:{achievements:{enabled:true}, isocalendar:{enabled:true}, languages:{enabled:true}, activity:{enabled:true, markdown:"extended"}, notable:{enabled:true}, followup:{enabled:true}, habits:{enabled:true}, introduction:{enabled:true}}, conf, convert:"json"},
         {Plugins, Templates},
       )
       //Cache
