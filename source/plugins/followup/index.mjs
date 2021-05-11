@@ -40,7 +40,7 @@ export default async function({login, data, computed, imports, q, graphql, queri
     }
 
     //Load user issues and pull requests
-    if (sections.includes("user")) {
+    if ((account === "user")&&(sections.includes("user"))) {
       const {user} = await graphql(queries.followup.user({login}))
       followup.user = {
         issues:{
