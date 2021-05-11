@@ -190,7 +190,7 @@ export default async function({mock, nosettings} = {}) {
             notable:true,
             followup:true,
             "followup.sections":"repositories, user",
-            "habits":true,
+            habits:true,
             "habits.from":100,
             "habits.days":7,
             "habits.facts":false,
