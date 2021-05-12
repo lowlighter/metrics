@@ -13,7 +13,7 @@
       <%_ } else if (type === "release") { _%>
 * 📦 <%- event.draft ? "Drafted release" : event.prerelease ? "Pre-released" : "Released" %> **<%= event.name %>** of [<%= repo %>](https://github.com/<%= repo %>)
       <%_ } else if (type === "fork") { _%>
-* 🍽️ Forked [<%= repo %>](https://github.com/<%= repo %>)
+* 🍽️ Forked [<%= repo %>](https://github.com/<%= repo %>) to [<%= event.forked %>](https://github.com/<%= event.forked %>)
       <%_ } else if (type === "push") { _%>
 * ➡️ Pushed <%= event.size %> commit<%= s(event.size) %> in [<%= repo %>](https://github.com/<%= repo %>) <%= event.branch ? `on branch \`${event.branch}\`` : "" %>
         <%_ for (const commit of event.commits) { _%>
@@ -34,7 +34,7 @@
       <%_ } else if (type === "review") { _%>
 * 🔍 Reviewed [#<%= event.number %> <%= event.title %>](https://github.com/<%= repo %>/pull/<%= event.number %>) in [<%= repo %>](https://github.com/<%= repo %>)
       <%_ } else if (type === "ref/create") { _%>
-* ⏺️ Created new <%= event.ref.type %> `<%= event.ref.name %>` in [<%= repo %>](https://github.com/<%= repo %>)
+* ⏺️ Created new <%= event.ref.type %> <%= event.ref.type !== "repository" ? `<%= event.ref.name %> in` : "" %> [<%= repo %>](https://github.com/<%= repo %>)
       <%_ } else if (type === "ref/create") { _%>
 * 🚮 Deleted <%= event.ref.type %> `<%= event.ref.name %>` from [<%= repo %>](https://github.com/<%= repo %>)
       <%_ } _%>
