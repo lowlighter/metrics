@@ -97,6 +97,7 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
       const _q = q
       const embed = async (name, q = {}) => {
         //Check arguments
+        console.debug(`metrics/compute/${login}/embed > ${name} >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>`)
         if ((!name) || (typeof q !== "object") || (q === null)) {
           if (die)
             throw new Error("An error occured during embed rendering, dying")
@@ -123,6 +124,7 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
         console.debug(q)
         //Compute rendering
         const {rendered} = await metrics({login, q}, {...arguments[1], convert:["svg", "png", "jpeg"].includes(q["config.output"]) ? q["config.output"] : null}, arguments[2])
+        console.debug(`metrics/compute/${login}/embed > ${name} > success >>>>>>>>>>>>>>>>>>>>>>`)
         return `<img class="metrics-cachable" data-name="${name}" src="data:image/${{png:"png", jpeg:"jpeg"}[q["config.output"]] ?? "svg+xml"};base64,${Buffer.from(rendered).toString("base64")}">`
       }
       //Rendering template source

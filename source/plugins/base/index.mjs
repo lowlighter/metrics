@@ -51,7 +51,7 @@ export default async function({login, graphql, data, q, queries, imports}, conf)
       }
       //Success
       console.debug(`metrics/compute/${login}/base > graphql query > account ${account} > success`)
-      console.debug(data)
+      console.debug(data.user)
       return {}
     }
     catch (error) {
