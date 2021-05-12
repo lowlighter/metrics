@@ -604,6 +604,13 @@ inputs:
     description: Maximum number of events to display
     default: 5
   
+  # Number of activity events to load
+  # This should be higher than "plugin_activity_limit"
+  # A high number will consume more requests
+  plugin_activity_load:
+    description: Number of events to load
+    default: 300
+  
   # Filter events by age
   # Note that it only filter fetched events, you may need to increase "plugin_activity_limit" to display older events
   # Set to 0 to disable age filtering
