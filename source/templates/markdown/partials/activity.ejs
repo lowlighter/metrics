@@ -34,7 +34,7 @@
       <%_ } else if (type === "review") { _%>
 * 🔍 Reviewed [#<%= event.number %> <%= event.title %>](https://github.com/<%= repo %>/pull/<%= event.number %>) in [<%= repo %>](https://github.com/<%= repo %>)
       <%_ } else if (type === "ref/create") { _%>
-* ⏺️ Created new <%= event.ref.type %> <%= event.ref.type !== "repository" ? `<%= event.ref.name %> in` : "" %> [<%= repo %>](https://github.com/<%= repo %>)
+* ⏺️ Created new <%= event.ref.type %> <%= event.ref.type !== "repository" ? `${event.ref.name} in` : "" %> [<%= repo %>](https://github.com/<%= repo %>)
       <%_ } else if (type === "ref/create") { _%>
 * 🚮 Deleted <%= event.ref.type %> `<%= event.ref.name %>` from [<%= repo %>](https://github.com/<%= repo %>)
       <%_ } _%>
