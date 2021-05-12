@@ -15,11 +15,11 @@ export default async function({login, data, rest, q, account, imports}, {enabled
     }
 
     //Load inputs
-    let {limit, days, filter, visibility, timestamps, skipped} = imports.metadata.plugins.activity.inputs({data, q, account})
+    let {limit, load, days, filter, visibility, timestamps, skipped} = imports.metadata.plugins.activity.inputs({data, q, account})
     if (!days)
       days = Infinity
     skipped.push(...data.shared["repositories.skipped"])
-    const pages = Math.ceil(limit / 100)
+    const pages = Math.ceil(load / 100)
     const codelines = 2
 
     //Get user recent activity
@@ -27,8 +27,8 @@ export default async function({login, data, rest, q, account, imports}, {enabled
     const events = []
     try {
       for (let page = 1; page <= pages; page++) {
-        console.debug(`metrics/compute/${login}/plugins > activity > loading page ${page}`)
-        events.push(...(context.mode === "repository" ? await rest.activity.listRepoEvents({owner:context.owner, repo:context.repo}) : await rest.activity.listEventsForAuthenticatedUser({username:login, per_page:100})).data)
+        console.debug(`metrics/compute/${login}/plugins > activity > loading page ${page}/${pages}`)
+        events.push(...(context.mode === "repository" ? await rest.activity.listRepoEvents({owner:context.owner, repo:context.repo}) : await rest.activity.listEventsForAuthenticatedUser({username:login, per_page:100, page})).data)
       }
     }
     catch {
@@ -67,7 +67,8 @@ export default async function({login, data, rest, q, account, imports}, {enabled
             }
             //Forked repository
             case "ForkEvent": {
-              return {type:"fork", actor, timestamp, repo}
+              const {forkee:{full_name:forked}} = payload
+              return {type:"fork", actor, timestamp, repo, forked}
             }
             //Wiki editions
             case "GollumEvent": {
