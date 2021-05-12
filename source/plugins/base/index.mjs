@@ -43,6 +43,7 @@ export default async function({login, graphql, data, q, queries, imports}, conf)
           cursor = edges?.[edges?.length - 1]?.cursor
           data.user.repositories.nodes.push(...nodes)
           pushed = nodes.length
+          console.debug(`metrics/compute/${login}/base > retrieved ${pushed} repositories after ${cursor}`)
         } while ((pushed) && (cursor) && (data.user.repositories.nodes.length < repositories))
         //Limit repositories
         console.debug(`metrics/compute/${login}/base > keeping only ${repositories} repositories`)
