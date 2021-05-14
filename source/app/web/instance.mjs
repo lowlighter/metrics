@@ -130,6 +130,7 @@ export default async function({mock, nosettings} = {}) {
   app.get("/.js/prism.min.js", limiter, (req, res) => res.sendFile(`${conf.paths.node_modules}/prismjs/prism.js`))
   app.get("/.js/prism.yaml.min.js", limiter, (req, res) => res.sendFile(`${conf.paths.node_modules}/prismjs/components/prism-yaml.min.js`))
   app.get("/.js/prism.markdown.min.js", limiter, (req, res) => res.sendFile(`${conf.paths.node_modules}/prismjs/components/prism-markdown.min.js`))
+  app.get("/.js/clipboard.min.js", limiter, (req, res) => res.sendFile(`${conf.paths.node_modules}/clipboard/dist/clipboard.min.js`))
   //Meta
   app.get("/.version", limiter, (req, res) => res.status(200).send(conf.package.version))
   app.get("/.requests", limiter, (req, res) => res.status(200).json(requests))

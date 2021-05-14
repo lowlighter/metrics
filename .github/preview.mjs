@@ -68,6 +68,7 @@
   fs.copyFile(paths.join(__node_modules, "prismjs/prism.js"), paths.join(__preview_js, "prism.min.js"))
   fs.copyFile(paths.join(__node_modules, "prismjs/components/prism-yaml.min.js"), paths.join(__preview_js, "prism.yaml.min.js"))
   fs.copyFile(paths.join(__node_modules, "prismjs/components/prism-markdown.min.js"), paths.join(__preview_js, "prism.markdown.min.js"))
+  fs.copyFile(paths.join(__node_modules, "clipboard/dist/clipboard.min.js"), paths.join(__preview_js, "clipboard.min.js"))
 //Meta
   fs.writeFile(paths.join(__preview, ".version"), JSON.stringify(`${conf.package.version}-preview`))
   fs.writeFile(paths.join(__preview, ".hosted"), JSON.stringify({by:"metrics", link:"https://github.com/lowlighter/metrics"}))

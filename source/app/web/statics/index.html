@@ -154,6 +154,9 @@
               </div>
             </div>
             <div v-else-if="tab == 'action'">
+              <div>
+                <button class="copy-action" data-clipboard-target=".code">Copy Action Code</button>
+              </div>
               Create a new workflow with the following content at <a :href="repo">{{ user }}/{{ user }}</a>
               <div class="code">
                 <Prism language="yaml" :code="action"></Prism>
@@ -183,6 +186,7 @@
     <script src="/.js/faker.min.js"></script>
     <script src="/.js/vue.min.js"></script>
     <script src="/.js/vue.prism.min.js"></script>
+    <script src="/.js/clipboard.min.js"></script>
     <script src="/.js/app.placeholder.js?v=3.9"></script>
     <script src="/.js/app.js?v=3.9"></script>
   </body>
