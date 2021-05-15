@@ -63,6 +63,13 @@
     components: { Prism: PrismComponent },
     //Watchers
     watch: {
+      tab: {
+        immediate: true,
+        handler(current) {
+          if (current === 'action') this.clipboard = new ClipboardJS('.copy-action')
+          else this.clipboard?.destroy()
+        },
+      },
       palette: {
         immediate: true,
         handler(current, previous) {
@@ -78,6 +85,7 @@
       mode: "metrics",
       tab: "overview",
       palette: "light",
+      clipboard: null,
       requests: { limit: 0, used: 0, remaining: 0, reset: 0 },
       cached: new Map(),
       config: Object.fromEntries(Object.entries(metadata.core.web).map(([key, { defaulted }]) => [key, defaulted])),
