@@ -113,6 +113,28 @@ jobs:
       - name: Publish rebuild metrics indexes
         run: npm run index -- publish
 
+  # Rebase main branch on master
+  update-main:
+    name: Rebase main on master
+    runs-on: ubuntu-latest
+    needs: [ update-indexes ]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Setup NodeJS
+        uses: actions/setup-node@v2
+        with:
+          node-version: 15
+      - name: Checkout main
+        run: git checkout main
+      - name: Rebase main on master
+        run: git merge master
+      - name: Push main
+        run: git push origin main
+
   # Build docker image from master and publish it to GitHub registry
   docker-master:
     name: Publish master to GitHub registry
