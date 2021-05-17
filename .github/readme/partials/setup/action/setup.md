@@ -72,6 +72,8 @@ Rendered metrics will be committed to your repository on each run.
 If you wish to use new features as they're being released, you can switch from `@latest` to `@master`.
 As the latter is used as a development branch, jobs may fail from time to time (although we try to mitigate this).
 
+For convenience, it is possible to use `@main` instead of `@master`.
+
 When using a token with additional permissions, it is advised to fork this repository and use it instead to minimize security risks:
 ```yaml
       - uses: my-github-username/metrics@master

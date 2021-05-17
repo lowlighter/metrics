@@ -169,7 +169,7 @@ Specify a single value to apply it to both height and with, and two values to us
 - uses: lowlighter/metrics@latest
   with:
     # ... other options
-    config_padding: 6%, 10% # 6% width padding, 10% height padding
+    config_padding: 6%, 15% # 6% width padding, 15% height padding
 ```
 
 ### 🧶 Using commits, pull requests, manual reviews or gists to handle metrics output
