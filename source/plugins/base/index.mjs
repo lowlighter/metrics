@@ -39,10 +39,12 @@ export default async function({login, graphql, data, q, queries, imports}, conf)
         let pushed = 0
         do {
           console.debug(`metrics/compute/${login}/base > retrieving repositories after ${cursor}`)
+          console.debug(queries.base.repositories({login, account, after:cursor ? `after: "${cursor}"` : "", repositories:Math.min(repositories, {user:100, organization:25}[account]), forks, affiliations}))
           const {[account]:{repositories:{edges, nodes}}} = await graphql(queries.base.repositories({login, account, after:cursor ? `after: "${cursor}"` : "", repositories:Math.min(repositories, {user:100, organization:25}[account]), forks, affiliations}))
           cursor = edges?.[edges?.length - 1]?.cursor
           data.user.repositories.nodes.push(...nodes)
           pushed = nodes.length
+          console.debug(account, cursor, edges, nodes)
           console.debug(`metrics/compute/${login}/base > retrieved ${pushed} repositories after ${cursor}`)
         } while ((pushed) && (cursor) && (data.user.repositories.nodes.length < repositories))
         //Limit repositories
