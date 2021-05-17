@@ -48,7 +48,7 @@ Metrics generator <%= meta.version %>
 These generated metrics comes with ABSOLUTELY NO
 WARRANTY, to the extent permitted by applicable law.
 
-Last generated: <%= new Date().toGMTString() %>
+Last generated: <%= meta.generated %>
 </div><% } -%>
 <% for (const partial of [...partials]) { %><%- await include(`partials/${partial}.ejs`) %><% } -%>
 <% if (base.metadata) { -%>
