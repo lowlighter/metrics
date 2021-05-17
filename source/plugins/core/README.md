@@ -161,7 +161,9 @@ As it can depend on fonts and operating system, it is possible that final result
 
 You can adjust padding by using `config_padding` option.
 
-Specify a single value to apply it to both height and with, and two values to use the first one for width and the second for height. Both positive and negative values are accepted, but you must specify a percentage.
+Specify a single value to apply it to both height and with, and two values to use the first one for width and the second for height. Both positive and negative values are accepted.
+
+The allowed format is `(absolute padding) + (relative padding)%` (each operand is optional).
 
 #### ℹ️ Examples workflows
 
@@ -169,7 +171,7 @@ Specify a single value to apply it to both height and with, and two values to us
 - uses: lowlighter/metrics@latest
   with:
     # ... other options
-    config_padding: 6%, 15% # 6% width padding, 15% height padding
+    config_padding: 16, 32 + 8% # 16px width padding, 32px + 8% height padding
 ```
 
 ### 🧶 Using commits, pull requests, manual reviews or gists to handle metrics output

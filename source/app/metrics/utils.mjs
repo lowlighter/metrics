@@ -283,13 +283,20 @@ export const svg = {
       console.debug(`metrics/svg/resize > started ${await svg.resize.browser.version()}`)
     }
     //Format padding
-    const [pw = 1, ph] = (Array.isArray(paddings) ? paddings : `${paddings}`.split(",").map(x => x.trim())).map(padding => `${padding}`.substring(0, padding.length - 1)).map(value => 1 + Number(value) / 100)
-    const padding = {width:pw, height:(ph ?? pw)}
-    if (!Number.isFinite(padding.width))
-      padding.width = 1
-    if (!Number.isFinite(padding.height))
-      padding.height = 1
-    console.debug(`metrics/svg/resize > padding width*${padding.width}, height*${padding.height}`)
+    const padding = {width:1, height:1, absolute:{width:0, height:0}}
+    paddings = Array.isArray(paddings) ? paddings : `${paddings}`.split(",").map(x => x.trim())
+    for (const [i, dimension] of [[0, "width"], [1, "height"]]) {
+      let operands = (paddings?.[i] ?? paddings[0])
+      let {relative} = operands.match(/(?<relative>[+-]?[\d.]+)%$/)?.groups ?? {}
+      operands = operands.replace(relative, "").trim()
+      let {absolute} = operands.match(/^(?<absolute>[+-]?[\d.]+)/)?.groups ?? {}
+      operands = operands.replace(absolute, "").trim()
+      if (Number.isFinite(Number(absolute)))
+        padding.absolute[dimension] = Number(absolute)
+      if (Number.isFinite(Number(relative)))
+        padding[dimension] = 1 + Number(relative/100)
+    }
+    console.debug(`metrics/svg/resize > padding width*${padding.width}+${padding.absolute.width}, height*${padding.height}+${padding.absolute.height}`)
     //Render through browser and resize height
     console.debug("metrics/svg/resize > loading svg")
     const page = await svg.resize.browser.newPage()
@@ -311,9 +318,9 @@ export const svg = {
         //Get bounds and resize
         let {y:height, width} = document.querySelector("svg #metrics-end").getBoundingClientRect()
         console.debug(`bounds width=${width}, height=${height}`)
-        height = Math.ceil(height * padding.height)
-        width = Math.ceil(width * padding.width)
-        console.debug(`bounds after applying padding width=${width} (*${padding.width}), height=${height} (*${padding.height})`)
+        height = Math.ceil(height * padding.height + padding.absolute.height)
+        width = Math.ceil(width * padding.width + padding.absolute.width)
+        console.debug(`bounds after applying padding width=${width} (*${padding.width}+${padding.absolute.width}), height=${height} (*${padding.height}+${padding.absolute.height})`)
         //Resize svg
         document.querySelector("svg").setAttribute("height", height)
         //Enable animations
