@@ -102,7 +102,11 @@ export default async function({login, q}, {conf, data, rest, graphql, plugins, q
   }
 
   //Meta
-  data.meta = {version:conf.package.version, author:conf.package.author}
+  data.meta = {
+    version:conf.package.version,
+    author:conf.package.author,
+    generated:new Date(new Date().getTime() + (data.config.timezone?.offset ?? 0)).toGMTString().replace(/GMT$/g, "").trim()
+  }
 
   //Debug flags
   if (dflags.includes("--cakeday")) {

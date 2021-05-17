@@ -26,7 +26,7 @@
 
       <% if (base.metadata) { %>
         <footer>
-          <span>Last updated <%= new Date().toGMTString() %> with lowlighter/metrics@<%= meta.version %></span>
+          <span>Last updated <%= meta.generated %> with lowlighter/metrics@<%= meta.version %></span>
         </footer>
       <% } %>
 
