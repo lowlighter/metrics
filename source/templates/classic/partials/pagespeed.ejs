@@ -103,7 +103,7 @@
     <% if (plugins.pagespeed.screenshot) { %>
       <div class="row">
         <section>
-          <img class="screenshot" src="<%= plugins.pagespeed.screenshot %>" width="452" height="315"/>
+          <img class="screenshot" src="<%= plugins.pagespeed.screenshot %>" width="<%= 452 * (1 + large) %>" height="<%= 315 * (1 + large) %>"/>
         </section>
       </div>
     <% } %>

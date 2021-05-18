@@ -167,6 +167,15 @@ inputs:
     type: boolean
     default: yes
 
+  # Render display width
+  config_display:
+    description: Render display width
+    type: string
+    default: regular
+    values:
+      - regular  # 480px width
+      - large    # 960px width (may not be supported by all templates)
+
   # Enable SVG CSS animations
   config_animations:
     description: SVG CSS animations

@@ -6,7 +6,7 @@
 //Setup
 export default async function({login, q}, {conf, data, rest, graphql, plugins, queries, account, convert, template}, {pending, imports}) {
   //Load inputs
-  const {"config.animations":animations, "config.timezone":_timezone, "debug.flags":dflags} = imports.metadata.plugins.core.inputs({data, account, q})
+  const {"config.animations":animations, "config.display":display, "config.timezone":_timezone, "debug.flags":dflags} = imports.metadata.plugins.core.inputs({data, account, q})
   imports.metadata.templates[template].check({q, account, format:convert})
 
   //Init
@@ -28,6 +28,9 @@ export default async function({login, q}, {conf, data, rest, graphql, plugins, q
       console.debug(`metrics/compute/${login} > failed to use timezone "${timezone.name}"`)
     }
   }
+
+  //Display
+  data.large = display === "large"
 
   //Animations
   data.animated = animations
