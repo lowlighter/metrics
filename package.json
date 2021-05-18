@@ -27,7 +27,7 @@
   "dependencies": {
     "@actions/core": "^1.2.7",
     "@actions/github": "^4.0.0",
-    "@octokit/graphql": "^4.6.1",
+    "@octokit/graphql": "^4.6.2",
     "@octokit/rest": "^18.5.3",
     "@primer/css": "^17.0.1",
     "axios": "^0.21.1",
