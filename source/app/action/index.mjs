@@ -97,6 +97,7 @@ async function wait(seconds) {
     const q = {...query, ...(_repo ? {repo:_repo} : null), template}
     const _output = ["svg", "jpeg", "png", "json", "markdown", "markdown-pdf"].includes(config["config.output"]) ? config["config.output"] : metadata.templates[template].formats[0] ?? null
     const filename = _filename.replace(/[*]/g, {jpeg:"jpg", markdown:"md", "markdown-pdf":"pdf"}[_output] ?? _output)
+    config["config.padding"] = core.getInput("config_padding") || config["config.padding"]
 
     //Docker image
     if (_image)
