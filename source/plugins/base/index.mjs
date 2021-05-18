@@ -10,6 +10,7 @@ export default async function({login, graphql, data, q, queries, imports}, conf)
   let {repositories, "repositories.forks":_forks, "repositories.affiliations":_affiliations, "repositories.skipped":_skipped} = imports.metadata.plugins.base.inputs({data, q, account:"bypass"}, {repositories:conf.settings.repositories ?? 100})
   const forks = _forks ? "" : ", isFork: false"
   const affiliations = _affiliations?.length ? `, ownerAffiliations: [${_affiliations.map(x => x.toLocaleUpperCase()).join(", ")}]${conf.authenticated === login ? `, affiliations: [${_affiliations.map(x => x.toLocaleUpperCase()).join(", ")}]` : ""}` : ""
+  console.debug(`metrics/compute/${login}/base > affiliations constraints ${affiliations}`)
 
   //Skip initial data gathering if not needed
   if (conf.settings.notoken)
@@ -39,12 +40,10 @@ export default async function({login, graphql, data, q, queries, imports}, conf)
         let pushed = 0
         do {
           console.debug(`metrics/compute/${login}/base > retrieving repositories after ${cursor}`)
-          console.debug(queries.base.repositories({login, account, after:cursor ? `after: "${cursor}"` : "", repositories:Math.min(repositories, {user:100, organization:25}[account]), forks, affiliations}))
           const {[account]:{repositories:{edges, nodes}}} = await graphql(queries.base.repositories({login, account, after:cursor ? `after: "${cursor}"` : "", repositories:Math.min(repositories, {user:100, organization:25}[account]), forks, affiliations}))
           cursor = edges?.[edges?.length - 1]?.cursor
           data.user.repositories.nodes.push(...nodes)
           pushed = nodes.length
-          console.debug(account, cursor, edges, nodes)
           console.debug(`metrics/compute/${login}/base > retrieved ${pushed} repositories after ${cursor}`)
         } while ((pushed) && (cursor) && (data.user.repositories.nodes.length < repositories))
         //Limit repositories
@@ -54,7 +53,6 @@ export default async function({login, graphql, data, q, queries, imports}, conf)
       }
       //Success
       console.debug(`metrics/compute/${login}/base > graphql query > account ${account} > success`)
-      console.debug(data.user)
       return {}
     }
     catch (error) {
