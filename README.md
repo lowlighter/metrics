@@ -5,7 +5,7 @@
 Generate your metrics that you can embed everywhere, including your GitHub profile readme! It works for both user and organization accounts, and even for repositories!
 
 
-> <sup>*⚠️ This is the documentation of **v3.10-beta** (`@master` branch) which includes [unreleased features](https://github.com/lowlighter/metrics/compare/latest...master), see documentation of [**v3.0** (`@latest` branch) here](https://github.com/lowlighter/metrics/blob/latest/README.md).*</sup>
+> <sup>*⚠️ This is the documentation of **v3.10-beta** (`@master` branch) which includes [unreleased features](https://github.com/lowlighter/metrics/compare/latest...master), see documentation of [**v3.9** (`@latest` branch) here](https://github.com/lowlighter/metrics/blob/latest/README.md).*</sup>
 
 
 <table>
@@ -368,6 +368,16 @@ And you can customize these heavily with plugins, templates and hundreds of opti
   </tr>
 </table>
 
+
+## 🐙 Features
+
+* Create infographics from **32 plugins**, **4 templates** and **182 options**!
+  * Even more **customization** with [community templates](source/templates/community) or by [forking this repository](https://github.com/lowlighter/metrics/network/members) and editing HTML/CSS/EJS
+* Support **users** and **organizations** accounts, and even **repositories**!
+* Save your metrics as **images** (SVG, PNG or JPG), **markdown**, **PDF** or **JSON**!
+  * Upload them through commits, pull request and gists, or handle output manually
+* Test it live on [metrics.lecoq.io](https://metrics.lecoq.io)!
+  * Get a quick overview of any user with [✨ metrics insights](https://metrics.lecoq.io/about)
 
 ## 🦑 Interested to get your own?
 
