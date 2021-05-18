@@ -5,6 +5,27 @@
     color: #777777;
   }
 
+/* Large SVG context */
+  svg.large .largeable {
+    width: 474px;
+  }
+
+  svg.large .largeable > .row {
+    width: 100%;
+  }
+
+  svg.large .column.largeable, svg.large .row.largeable, svg.large .largeable-inline-flex {
+    display: inline-flex;
+  }
+
+  svg.large .chart.largeable {
+    width: 458px;
+  }
+
+  svg.large .largeable-width-auto {
+    width: auto;
+  }
+
 /* Headers */
   h1, h2, h3 {
     margin: 8px 0 2px;
