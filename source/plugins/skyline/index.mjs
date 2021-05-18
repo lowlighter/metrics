@@ -12,7 +12,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
       year = new Date().getFullYear()
       console.debug(`metrics/compute/${login}/plugins > skyline > year set to ${year}`)
     }
-    const width = 454
+    const width = 454 * (1 + data.large)
     const height = 284
 
     //Start puppeteer and navigate to skyline.github.com

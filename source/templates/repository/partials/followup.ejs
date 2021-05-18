@@ -10,25 +10,27 @@
             <%= plugins.followup.error.message %>
           </div>
         </section>
-      <% } else { %>
-        <svg class="bar" xmlns="http://www.w3.org/2000/svg" width="220" height="8">
-          <mask id="issues-bar">
-            <rect x="0" y="0" width="220" height="8" fill="white" rx="5"/>
-          </mask>
-          <rect mask="url(#issues-bar)" x="0" y="0" width="<%= plugins.followup.issues.count ? 0 : 220 %>" height="8" fill="#d1d5da"/>
-          <rect mask="url(#issues-bar)" x="0" y="0" width="<%= (plugins.followup.issues.closed/plugins.followup.issues.count)*220 || 0 %>" height="8" fill="#d73a49"/>
-          <rect mask="url(#issues-bar)" x="<%= (plugins.followup.issues.closed/plugins.followup.issues.count)*220 || 0 %>" y="0" width="<%= (1-plugins.followup.issues.closed/plugins.followup.issues.count)*220 || 0 %>" height="8" fill="#28a745"/>
-        </svg>
-        <div class="field horizontal fill-width">
-          <div class="field center">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill="#d73a49" fill-rule="evenodd" d="M1.5 8a6.5 6.5 0 0110.65-5.003.75.75 0 00.959-1.153 8 8 0 102.592 8.33.75.75 0 10-1.444-.407A6.5 6.5 0 011.5 8zM8 12a1 1 0 100-2 1 1 0 000 2zm0-8a.75.75 0 01.75.75v3.5a.75.75 0 11-1.5 0v-3.5A.75.75 0 018 4zm4.78 4.28l3-3a.75.75 0 00-1.06-1.06l-2.47 2.47-.97-.97a.749.749 0 10-1.06 1.06l1.5 1.5a.75.75 0 001.06 0z"></path></svg>
-            <span class="no-wrap"><%= plugins.followup.issues.closed %> Closed</span>
+      <% } else { const section = plugins.followup, width = 220*(1+large) %>
+        <section class="column">
+          <svg class="bar" xmlns="http://www.w3.org/2000/svg" width="<%= width %>" height="8">
+            <mask id="issues-bar">
+              <rect x="0" y="0" width="<%= width %>" height="8" fill="white" rx="5"/>
+            </mask>
+            <rect mask="url(#issues-bar)" x="0" y="0" width="<%= section.issues.count ? 0 : width %>" height="8" fill="#d1d5da"/>
+            <rect mask="url(#issues-bar)" x="0" y="0" width="<%= (section.issues.open/section.issues.count)*width || 0 %>" height="8" fill="#28a745"/>
+            <rect mask="url(#issues-bar)" x="<%= (section.issues.open/section.issues.count)*width || 0 %>" y="0" width="<%= (1-section.issues.open/section.issues.count)*width || 0 %>" height="8" fill="#d73a49"/>
+          </svg>
+          <div class="followup legend field horizontal fill-width">
+            <div class="field center">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill="#28a745" fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm9 3a1 1 0 11-2 0 1 1 0 012 0zm-.25-6.25a.75.75 0 00-1.5 0v3.5a.75.75 0 001.5 0v-3.5z"></path></svg>
+              <span class="no-wrap"><%= section.issues.open %> <small>open</small></span>
+            </div>
+            <div class="field center">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill="#d73a49" fill-rule="evenodd" d="M1.5 8a6.5 6.5 0 0110.65-5.003.75.75 0 00.959-1.153 8 8 0 102.592 8.33.75.75 0 10-1.444-.407A6.5 6.5 0 011.5 8zM8 12a1 1 0 100-2 1 1 0 000 2zm0-8a.75.75 0 01.75.75v3.5a.75.75 0 11-1.5 0v-3.5A.75.75 0 018 4zm4.78 4.28l3-3a.75.75 0 00-1.06-1.06l-2.47 2.47-.97-.97a.749.749 0 10-1.06 1.06l1.5 1.5a.75.75 0 001.06 0z"></path></svg>
+              <span class="no-wrap"><%= section.issues.closed %> <small>closed</small></span>
+            </div>
           </div>
-          <div class="field center">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill="#28a745" fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm9 3a1 1 0 11-2 0 1 1 0 012 0zm-.25-6.25a.75.75 0 00-1.5 0v3.5a.75.75 0 001.5 0v-3.5z"></path></svg>
-            <span class="no-wrap"><%= plugins.followup.issues.open %> Open</span>
-          </div>
-        </div>
+        </section>
       <% } %>
     </section>
 
@@ -41,25 +43,32 @@
             <%= plugins.followup.error.message %>
           </div>
         </section>
-      <% } else { %>
-        <svg class="bar" xmlns="http://www.w3.org/2000/svg" width="220" height="8">
-          <mask id="pr-bar">
-            <rect x="0" y="0" width="220" height="8" fill="white" rx="5"/>
-          </mask>
-          <rect mask="url(#pr-bar)" x="0" y="0" width="<%= plugins.followup.pr.count ? 0 : 220 %>" height="8" fill="#d1d5da"/>
-          <rect mask="url(#pr-bar)" x="0" y="0" width="<%= (plugins.followup.pr.merged/plugins.followup.pr.count)*220 || 0 %>" height="8" fill="#6f42c1"/>
-          <rect mask="url(#pr-bar)" x="<%= (plugins.followup.pr.merged/plugins.followup.pr.count)*220 || 0 %>" y="0" width="<%= (1-plugins.followup.pr.merged/plugins.followup.pr.count)*220 || 0 %>" height="8" fill="#28a745"/>
-        </svg>
-        <div class="field horizontal fill-width">
-          <div class="field center">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill="#6f42c1" fill-rule="evenodd" d="M5 3.254V3.25v.005a.75.75 0 110-.005v.004zm.45 1.9a2.25 2.25 0 10-1.95.218v5.256a2.25 2.25 0 101.5 0V7.123A5.735 5.735 0 009.25 9h1.378a2.251 2.251 0 100-1.5H9.25a4.25 4.25 0 01-3.8-2.346zM12.75 9a.75.75 0 100-1.5.75.75 0 000 1.5zm-8.5 4.5a.75.75 0 100-1.5.75.75 0 000 1.5z"></path></svg>
-            <span class="no-wrap"><%= plugins.followup.pr.merged %> Merged</span>
+      <% } else { const section = plugins.followup, width = 220*(1+large) %>
+        <section class="column">
+          <svg class="bar" xmlns="http://www.w3.org/2000/svg" width="<%= width %>" height="8">
+            <mask id="pr-bar">
+              <rect x="0" y="0" width="<%= width %>" height="8" fill="white" rx="5"/>
+            </mask>
+            <rect mask="url(#pr-bar)" x="0" y="0" width="<%= section.pr.count ? 0 : width %>" height="8" fill="#d1d5da"/>
+            <rect mask="url(#pr-bar)" x="0" y="0" width="<%= (section.pr.open/section.pr.count)*width || 0 %>" height="8" fill="#28a745"/>
+            <rect mask="url(#pr-bar)" x="<%= (section.pr.open/section.pr.count)*width || 0 %>" y="0" width="<%= (section.pr.closed/section.pr.count)*width || 0 %>" height="8" fill="#d73a49"/>
+            <rect mask="url(#pr-bar)" x="<%= ((section.pr.open+section.pr.closed)/section.pr.count)*width || 0 %>" y="0" width="<%= (1-(section.pr.open+section.pr.closed)/section.pr.count)*width || 0 %>" height="8" fill="#6f42c1"/>
+          </svg>
+          <div class="followup legend field horizontal fill-width">
+            <div class="field center">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill="#28a745" fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"></path></svg>
+              <span class="no-wrap"><%= section.pr.open %> <small>open</small></span>
+            </div>
+            <div class="field center">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill="#d73a49" fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"></path></svg>
+              <span class="no-wrap"><%= section.pr.closed %> <small>closed</small></span>
+            </div>
+            <div class="field center">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill="#6f42c1" fill-rule="evenodd" d="M5 3.254V3.25v.005a.75.75 0 110-.005v.004zm.45 1.9a2.25 2.25 0 10-1.95.218v5.256a2.25 2.25 0 101.5 0V7.123A5.735 5.735 0 009.25 9h1.378a2.251 2.251 0 100-1.5H9.25a4.25 4.25 0 01-3.8-2.346zM12.75 9a.75.75 0 100-1.5.75.75 0 000 1.5zm-8.5 4.5a.75.75 0 100-1.5.75.75 0 000 1.5z"></path></svg>
+              <span class="no-wrap"><%= section.pr.merged %> <small>merged</small></span>
+            </div>
           </div>
-          <div class="field center">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill="#28a745" fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"></path></svg>
-            <span class="no-wrap"><%= plugins.followup.pr.open %> Open</span>
-          </div>
-        </div>
+        </section>
       <% } %>
     </section>
 

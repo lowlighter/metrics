@@ -32,7 +32,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
     //Generating chart
     console.debug(`metrics/compute/${login}/plugins > stock > generating chart`)
     const chart = await imports.chartist("line", {
-      width:480,
+      width:480 * (1 + data.large),
       height:160,
       showPoint:false,
       axisX:{showGrid:false, labelInterpolationFnc:(value, index) => index % Math.floor(close.length / 4) === 0 ? value : null},

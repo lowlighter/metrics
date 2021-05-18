@@ -14,7 +14,7 @@
     </section>
   <% } else { %>
     <% for (const name of plugins.followup.sections) { const section = {repositories:plugins.followup, user:plugins.followup?.user}[name] %>
-      <div class="column">
+      <div class="column largeable">
         <h3>
           <%= {repositories:`On ${user.login}'${[...user.login].pop() === "s" ? "" : "s"} repositories`, user:`Created by ${user.login}`}[name] %>
         </h3>

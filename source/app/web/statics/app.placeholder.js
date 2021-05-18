@@ -51,9 +51,11 @@
         return await ejs.render(partial, data, { async: true, rmWhitespace: true })
       },
       //Meta-data
-      meta: { version: set.version, author: "lowlighter" },
+      meta: { version: set.version, author: "lowlighter", generated:new Date().toGMTString().replace(/GMT$/g, "").trim() },
       //Animated
       animated: false,
+      //Display size
+      large: set.config.display === "large",
       //Config
       config: set.config,
       //Base elements
