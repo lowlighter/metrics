@@ -180,7 +180,7 @@ inputs:
     description: Image padding
     type: array
     format: comma-separated
-    default: 16, 16 + 4%
+    default: 16, 16 + 5%
 
   # Metrics output format
   config_output:
