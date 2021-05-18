@@ -322,6 +322,18 @@
     border-radius: 5px;
   }
 
+  svg.large .audits {
+    display: inline-flex;
+    width: 474px;
+  }
+  svg.large .audits section:last-child > .field {
+    justify-content: right;
+  }
+  svg.large .screenshot {
+    width: 904px;
+    height: 630px;
+  }
+
 /* Music plugin */
   .tracklist {
     display: flex;
