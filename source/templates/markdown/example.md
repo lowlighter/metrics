@@ -59,6 +59,14 @@ It takes two arguments:
 - Configuration options (see [action.yml](https://github.com/lowlighter/metrics/blob/master/action.yml))
   - Tokens options are automatically passed down from your workflow job, do not pass them again
 
+Embed plugins must still be enabled at top-level in order to work:
+```yml
+- uses: lowlighter/metrics@latest
+  with:
+    isocalendar: yes
+    languages: yes
+```
+
 Note that unlike regular workflow jobs, `embed` function does not have `base` plugin enabled by default.
 If you wish to diplay parts of it, they must be explicitely enabled:
 
