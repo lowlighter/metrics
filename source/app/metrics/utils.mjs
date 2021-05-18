@@ -262,12 +262,14 @@ export const svg = {
     page.on("console", ({_text:text}) => console.debug(`metrics/svg/pdf > puppeteer > ${text}`))
     await page.setContent(`<main class="markdown-body">${rendered}</main>`, {waitUntil:["load", "domcontentloaded", "networkidle2"]})
     console.debug("metrics/svg/pdf > loaded svg successfully")
+    const margins = (Array.isArray(paddings) ? paddings : paddings.split(",")).join(" ")
+    console.log(`metrics/svg/pdf > margins set to ${margins}`)
     await page.addStyleTag({
       content:`
-            main { margin: ${(Array.isArray(paddings) ? paddings : paddings.split(",")).join(" ")}; }
-            main svg { height: 1em; width: 1em; }
-            ${await fs.readFile(paths.join(__module(import.meta.url), "../../../node_modules", "@primer/css/dist/markdown.css")).catch(_ => "")}${style}
-          `,
+        main { margin: ${margins}; }
+        main svg { height: 1em; width: 1em; }
+        ${await fs.readFile(paths.join(__module(import.meta.url), "../../../node_modules", "@primer/css/dist/markdown.css")).catch(_ => "")}${style}
+      `,
     })
     rendered = await page.pdf()
     //Result

@@ -50,9 +50,16 @@ ___
 
 To include SVGs metrics images without creating additional jobs, use the `embed` function:
 
-<%- await embed(`example-isocalendar`, {isocalendar:true, isocalendar_duration:"full-year"}) %>
+<%- await embed(`example-isocalendar`, {isocalendar:true, isocalendar_duration:"full-year", config_display:"large"}) %>
+
+<%- await embed(`example-languages-pdf`, {languages:true, languages_details:"percentage, bytes-size", config_display:"large"}) %>
 
 It takes two arguments:
 - An unique identifier which will be used as filename withing `markdown_cache` folder
 - Configuration options (see [action.yml](https://github.com/lowlighter/metrics/blob/master/action.yml))
   - Tokens options are automatically passed down from your workflow job, do not pass them again
+
+Note that unlike regular workflow jobs, `embed` function does not have `base` plugin enabled by default.
+If you wish to diplay parts of it, they must be explicitely enabled:
+
+<%- await embed(`example-base-pdf`, {base:"activity, community, repositories"}) %>
