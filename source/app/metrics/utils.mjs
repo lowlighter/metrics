@@ -290,7 +290,6 @@ export const svg = {
       let {relative} = operands.match(/(?<relative>[+-]?[\d.]+)%$/)?.groups ?? {}
       operands = operands.replace(relative, "").trim()
       let {absolute} = operands.match(/^(?<absolute>[+-]?[\d.]+)/)?.groups ?? {}
-      operands = operands.replace(absolute, "").trim()
       if (Number.isFinite(Number(absolute)))
         padding.absolute[dimension] = Number(absolute)
       if (Number.isFinite(Number(relative)))
