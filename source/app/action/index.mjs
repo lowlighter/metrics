@@ -207,12 +207,12 @@ async function wait(seconds) {
       try {
         const {repository:{object:{oid}}} = await graphql(
           `
-                    query Sha {
-                      repository(owner: "${github.context.repo.owner}", name: "${github.context.repo.repo}") {
-                        object(expression: "${committer.head}:${filename}") { ... on Blob { oid } }
-                      }
-                    }
-                  `,
+            query Sha {
+              repository(owner: "${github.context.repo.owner}", name: "${github.context.repo.repo}") {
+                object(expression: "${committer.head}:${filename}") { ... on Blob { oid } }
+              }
+            }
+          `,
           {headers:{authorization:`token ${committer.token}`}},
         )
         committer.sha = oid
@@ -325,12 +325,12 @@ async function wait(seconds) {
         try {
           const {repository:{object:{oid}}} = await graphql(
             `
-                    query Sha {
-                      repository(owner: "${github.context.repo.owner}", name: "${github.context.repo.repo}") {
-                        object(expression: "${committer.head}:${path}") { ... on Blob { oid } }
-                      }
-                    }
-                  `,
+              query Sha {
+                repository(owner: "${github.context.repo.owner}", name: "${github.context.repo.repo}") {
+                  object(expression: "${committer.head}:${path}") { ... on Blob { oid } }
+                }
+              }
+            `,
             {headers:{authorization:`token ${committer.token}`}},
           )
           sha = oid
