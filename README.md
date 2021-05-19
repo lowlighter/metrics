@@ -369,16 +369,6 @@ And you can customize these heavily with plugins, templates and hundreds of opti
 </table>
 
 
-## 🐙 Features
-
-* Create infographics from **32 plugins**, **4 templates** and **182 options**!
-  * Even more **customization** with [community templates](source/templates/community) or by [forking this repository](https://github.com/lowlighter/metrics/network/members) and editing HTML/CSS/EJS
-* Support **users** and **organizations** accounts, and even **repositories**!
-* Save your metrics as **images** (SVG, PNG or JPG), **markdown**, **PDF** or **JSON**!
-  * Upload them through commits, pull request and gists, or handle output manually
-* Test it live on [metrics.lecoq.io](https://metrics.lecoq.io)!
-  * Get a quick overview of any user with [✨ metrics insights](https://metrics.lecoq.io/about)
-
 ## 🦑 Interested to get your own?
 
 For a fully-featured experience you should use **metrics** as a [GitHub Action](https://github.com/marketplace/actions/metrics-embed), but you can also try it now at [metrics.lecoq.io](https://metrics.lecoq.io/) with your GitHub username!
@@ -394,15 +384,25 @@ Choose `📊 Metrics embed` if you want to customize your GitHub profile and `�
     <td align="center">
       Embed metrics images on your profile readme or blog!<br>
       Use GitHub actions for even more features!<br>
-      <img width="441" height="1">
+      <img src="/.github/readme/imgs/features_embed.gif" width="441">
     </td>
     <td align="center">
       Share your metrics with friends and on social medias!<br>
       No configuration needed!<br>
-      <img width="441" height="1">
+      <img src="/.github/readme/imgs/features_insights.gif" width="441">
     </td>
   </tr>
 </table>
+
+### 🐙 Features
+
+* Create infographics from **32 plugins**, **4 templates** and **182 options**
+  * Even more **customization** with [community templates](source/templates/community) or by [forking this repository](https://github.com/lowlighter/metrics/network/members) and editing HTML/CSS/EJS
+* Support **users**, **organizations** and even **repositories**
+* Transparent by default so it'll blend well whether light or dark mode is used
+* Save your metrics as **images** (SVG, PNG or JPEG), **markdown**, **PDF** or **JSON**
+  * Upload them to GitHub through commits, pull requests and gists, or handle renders yourself
+* Works either as [GitHub action](https://github.com/marketplace/actions/metrics-embed) or as [web instance](https://metrics.lecoq.io)
 
 
 # 📜 How to use?
