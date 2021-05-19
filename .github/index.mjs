@@ -21,13 +21,13 @@
   const staged = new Set()
 
 //Load plugins metadata
-  const {plugins, templates, packaged} = await metadata({log:false})
+  const {plugins, templates, packaged, descriptor} = await metadata({log:false})
 
 //Update generated files
   async function update({source, output, options = {}}) {
     //Regenerate file
       console.log(`Generating ${output}`)
-      const content = await ejs.renderFile(source, {plugins, templates, packaged}, {async:true, ...options})
+      const content = await ejs.renderFile(source, {plugins, templates, packaged, descriptor}, {async:true, ...options})
     //Save result
       const file = paths.join(__metrics, output)
       await fs.writeFile(file, content)

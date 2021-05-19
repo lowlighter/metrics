@@ -32,7 +32,7 @@
 
   <% if (plugins.habits.charts) { %>
     <% if (!Number.isNaN(plugins.habits.commits.hour)) { %>
-      <section class="column chart">
+      <section class="column chart largeable">
         <h3>Commit activity per time of the day</h3>
         <div class="chart-bars">
           <% for (let h = 0; h < 24; h++) { const p = (plugins.habits.commits.hours[h]??0)/(plugins.habits.commits.hours.max??1); %>
@@ -46,7 +46,7 @@
       </section>
     <% } %>
 
-    <div class="row">
+    <div class="row largeable">
       <% if (!Number.isNaN(plugins.habits.commits.day)) { %>
         <section class="column chart">
           <h3>Commit activity per day</h3>

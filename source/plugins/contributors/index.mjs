@@ -33,7 +33,7 @@ export default async function({login, q, imports, data, rest, graphql, queries, 
           console.debug(`metrics/compute/${login}/plugins > contributors > no more page to load`)
           break
         }
-        commits.push(...loaded)
+        commits.push(...loaded.filter(commit => commit?.author?.login))
       }
       catch (error) {
         if (/Git Repository is empty/.test(error))

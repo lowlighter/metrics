@@ -5,6 +5,36 @@
     color: #777777;
   }
 
+/* Large SVG context */
+  svg.large .largeable {
+    width: 474px;
+  }
+  svg.large .largeable > .row {
+    width: 100%;
+  }
+  svg.large .largeable-align-start {
+    align-items: flex-start;
+  }
+  svg.large .column.largeable, svg.large .row.largeable, svg.large .largeable-inline-flex {
+    display: inline-flex;
+  }
+  svg.large .largeable-flex-wrap, svg.large .largeable-column-fields {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  svg.large .largeable-column-fields > .field {
+    width: 230px;
+  }
+  svg.large .chart.largeable {
+    width: 458px;
+  }
+  svg.large .largeable-width-auto {
+    width: auto;
+  }
+  svg.large .largeable-width-half {
+    width: 50%;
+  }
+
 /* Headers */
   h1, h2, h3 {
     margin: 8px 0 2px;
@@ -292,6 +322,18 @@
     border-radius: 5px;
   }
 
+  svg.large .audits {
+    display: inline-flex;
+    width: 474px;
+  }
+  svg.large .audits section:last-child > .field {
+    justify-content: right;
+  }
+  svg.large .screenshot {
+    width: 904px;
+    height: 630px;
+  }
+
 /* Music plugin */
   .tracklist {
     display: flex;
@@ -310,6 +352,7 @@
   .track img {
     margin: 0 10px;
     border-radius: 7px;
+    flex-shrink: 0;
   }
   .track .name {
     font-size: 14px;
@@ -319,6 +362,16 @@
   .track .artist, .track .played-at {
     font-size: 12px;
     color: #666666;
+  }
+  .track .infos {
+    flex-grow: 1;
+  }
+  svg.large .tracklist {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  svg.large .track {
+    width: 25%;
   }
 
 /* Posts plugin */
@@ -599,7 +652,6 @@
 
   .activity .bold, .activity .user {
     font-weight: 600;
-    margin: 0 4px;
   }
 
   .activity .details, .activity .timestamp {
@@ -638,6 +690,10 @@
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+  }
+
+  svg.large .activity .field {
+    max-width: 900px;
   }
 
 /* People */

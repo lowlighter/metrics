@@ -57,7 +57,7 @@ export default async function({login, q, imports, data, graphql, queries, accoun
       //Spawn licensed process
       console.debug(`metrics/compute/${login}/plugins > licenses > running licensed`)
       JSON.parse(await imports.run("licensed list --format=json --licenses", {cwd:path})).apps
-        .map(({sources}) => sources?.flatMap(source => source.dependencies.map(({dependency, license}) => {
+        .map(({sources}) => sources?.flatMap(source => source.dependencies?.map(({dependency, license}) => {
               used[license] = (used[license] ?? 0) + 1
               result.dependencies.push(dependency)
               result.known += (license in licenses)

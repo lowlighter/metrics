@@ -97,6 +97,7 @@ async function wait(seconds) {
     const q = {...query, ...(_repo ? {repo:_repo} : null), template}
     const _output = ["svg", "jpeg", "png", "json", "markdown", "markdown-pdf"].includes(config["config.output"]) ? config["config.output"] : metadata.templates[template].formats[0] ?? null
     const filename = _filename.replace(/[*]/g, {jpeg:"jpg", markdown:"md", "markdown-pdf":"pdf"}[_output] ?? _output)
+    config["config.padding"] = core.getInput("config_padding") || config["config.padding"]
 
     //Docker image
     if (_image)
@@ -147,8 +148,8 @@ async function wait(seconds) {
     catch {
       authenticated = github.context.repo.owner
     }
+    conf.authenticated = authenticated
     const user = _user || authenticated
-    conf.authenticated = user
     info("GitHub account", user)
     if (q.repo)
       info("GitHub repository", `${user}/${q.repo}`)
@@ -207,12 +208,12 @@ async function wait(seconds) {
       try {
         const {repository:{object:{oid}}} = await graphql(
           `
-                    query Sha {
-                      repository(owner: "${github.context.repo.owner}", name: "${github.context.repo.repo}") {
-                        object(expression: "${committer.head}:${filename}") { ... on Blob { oid } }
-                      }
-                    }
-                  `,
+            query Sha {
+              repository(owner: "${github.context.repo.owner}", name: "${github.context.repo.repo}") {
+                object(expression: "${committer.head}:${filename}") { ... on Blob { oid } }
+              }
+            }
+          `,
           {headers:{authorization:`token ${committer.token}`}},
         )
         committer.sha = oid
@@ -325,12 +326,12 @@ async function wait(seconds) {
         try {
           const {repository:{object:{oid}}} = await graphql(
             `
-                    query Sha {
-                      repository(owner: "${github.context.repo.owner}", name: "${github.context.repo.repo}") {
-                        object(expression: "${committer.head}:${path}") { ... on Blob { oid } }
-                      }
-                    }
-                  `,
+              query Sha {
+                repository(owner: "${github.context.repo.owner}", name: "${github.context.repo.repo}") {
+                  object(expression: "${committer.head}:${path}") { ... on Blob { oid } }
+                }
+              }
+            `,
             {headers:{authorization:`token ${committer.token}`}},
           )
           sha = oid

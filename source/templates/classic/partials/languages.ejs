@@ -11,21 +11,21 @@
           <%= plugins.languages.error.message %>
         </div>
       </section>
-    <% } else { %>
-      <svg class="bar" xmlns="http://www.w3.org/2000/svg" width="460" height="8">
+    <% } else { const width = 460 * (1 + large) %>
+      <svg class="bar" xmlns="http://www.w3.org/2000/svg" width="<%= width %>" height="8">
         <mask id="languages-bar">
-          <rect x="0" y="0" width="460" height="8" fill="white" rx="5"/>
+          <rect x="0" y="0" width="<%= width %>" height="8" fill="white" rx="5"/>
         </mask>
-        <rect mask="url(#languages-bar)" x="0" y="0" width="<%= plugins.languages.favorites.length ? 0 : 460 %>" height="8" fill="#d1d5da"/>
+        <rect mask="url(#languages-bar)" x="0" y="0" width="<%= plugins.languages.favorites.length ? 0 : width %>" height="8" fill="#d1d5da"/>
         <% for (const {name, value, color, x} of plugins.languages.favorites) { %>
-          <rect mask="url(#languages-bar)" x="<%= x*460 %>" y="0" width="<%= value*460 %>" height="8" fill="<%= color %>"/>
+          <rect mask="url(#languages-bar)" x="<%= x*width %>" y="0" width="<%= value*width %>" height="8" fill="<%= color %>"/>
         <% } %>
       </svg>
-      <% if (plugins.languages.details?.length) { %>
+      <% if (plugins.languages.details?.length) { const rows = large ? [0, 1, 2, 3] : [0, 1] %>
         <div class="row fill-width">
-          <% for (const row of [0, 1]) { %>
+          <% for (const row of rows) { %>
             <section>
-              <% for (const {name, value, color, size} of plugins.languages.favorites.filter((_, i) => i%2 === row)) { %>
+              <% for (const {name, value, color, size} of plugins.languages.favorites.filter((_, i) => i%rows.length === row)) { %>
                 <div class="field language details">
                   <div class="field">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill="<%= color %>" fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8z"></path></svg>

@@ -14,6 +14,7 @@ export default async function metadata({log = true} = {}) {
   const __templates = path.join(__metrics, "source/templates")
   const __plugins = path.join(__metrics, "source/plugins")
   const __package = path.join(__metrics, "package.json")
+  const __descriptor = path.join(__metrics, "action.yml")
 
   //Init
   const logger = log ? console.debug : () => null
@@ -49,8 +50,11 @@ export default async function metadata({log = true} = {}) {
   //Packaged metadata
   const packaged = JSON.parse(`${await fs.promises.readFile(__package)}`)
 
+  //Descriptor metadata
+  const descriptor = yaml.load(`${await fs.promises.readFile(__descriptor, "utf-8")}`)
+
   //Metadata
-  return {plugins:Plugins, templates:Templates, packaged}
+  return {plugins:Plugins, templates:Templates, packaged, descriptor}
 }
 
 /**Metadata extractor for templates */

@@ -5,7 +5,7 @@
 Generate your metrics that you can embed everywhere, including your GitHub profile readme! It works for both user and organization accounts, and even for repositories!
 
 
-> <sup>*⚠️ This is the documentation of **v3.10-beta** (`@master` branch) which includes [unreleased features](https://github.com/lowlighter/metrics/compare/latest...master), see documentation of [**v3.0** (`@latest` branch) here](https://github.com/lowlighter/metrics/blob/latest/README.md).*</sup>
+> <sup>*⚠️ This is the documentation of **v3.10-beta** (`@master` branch) which includes [unreleased features](https://github.com/lowlighter/metrics/compare/latest...master), see documentation of [**v3.9** (`@latest` branch) here](https://github.com/lowlighter/metrics/blob/latest/README.md).*</sup>
 
 
 <table>
@@ -384,15 +384,25 @@ Choose `📊 Metrics embed` if you want to customize your GitHub profile and `�
     <td align="center">
       Embed metrics images on your profile readme or blog!<br>
       Use GitHub actions for even more features!<br>
-      <img width="441" height="1">
+      <img src="/.github/readme/imgs/features_embed.gif" width="441">
     </td>
     <td align="center">
       Share your metrics with friends and on social medias!<br>
       No configuration needed!<br>
-      <img width="441" height="1">
+      <img src="/.github/readme/imgs/features_insights.gif" width="441">
     </td>
   </tr>
 </table>
+
+### 🐙 Features
+
+* Create infographics from **32 plugins**, **4 templates** and **182 options**
+  * Even more **customization** with [community templates](source/templates/community) or by [forking this repository](https://github.com/lowlighter/metrics/network/members) and editing HTML/CSS/EJS
+* Support **users**, **organizations** and even **repositories**
+* Transparent by default so it'll blend well whether light or dark mode is used
+* Save your metrics as **images** (SVG, PNG or JPEG), **markdown**, **PDF** or **JSON**
+  * Upload them to GitHub through commits, pull requests and gists, or handle renders yourself
+* Works either as [GitHub action](https://github.com/marketplace/actions/metrics-embed) or as [web instance](https://metrics.lecoq.io)
 
 
 # 📜 How to use?

@@ -140,6 +140,21 @@ It may increase filesize since it replace unicode characters by SVG images.
     config_twemoji: yes
 ```
 
+### ↔️ Controlling display size
+
+Some templates like `classic` and `repositories` support different output display size:
+- `regular` (default) will render a medium-sized image, which is suitable for both desktop and mobile displays and is preferable when using data-intensive metrics (since text may be scaled down on small devices)
+- `large` will render a large-sized image, which may be more suitable for some plugins (like displaying topics icons,  repository contributors, etc.)
+
+#### ℹ️ Examples workflows
+
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    config_display: large
+```
+
 ### 🎞️ SVG CSS Animations
 
 As rendered metrics use HTML and CSS, some templates have animations.
@@ -161,7 +176,9 @@ As it can depend on fonts and operating system, it is possible that final result
 
 You can adjust padding by using `config_padding` option.
 
-Specify a single value to apply it to both height and with, and two values to use the first one for width and the second for height. Both positive and negative values are accepted, but you must specify a percentage.
+Specify a single value to apply it to both height and with, and two values to use the first one for width and the second for height. Both positive and negative values are accepted.
+
+The allowed format is `(absolute padding) + (relative padding)%` (each operand is optional).
 
 #### ℹ️ Examples workflows
 
@@ -169,7 +186,7 @@ Specify a single value to apply it to both height and with, and two values to us
 - uses: lowlighter/metrics@latest
   with:
     # ... other options
-    config_padding: 6%, 15% # 6% width padding, 15% height padding
+    config_padding: 16, 16 + 9% # 16px width padding, 16px + 9% height padding
 ```
 
 ### 🧶 Using commits, pull requests, manual reviews or gists to handle metrics output

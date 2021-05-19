@@ -29,7 +29,7 @@
                 <div class="tweet">
                   <%- text %>
                   <% if (attachments?.length) { %>
-                    <div class="attachments">
+                    <div class="attachments largeable largeable-width-auto">
                       <% for (const {image, title, description, website} of attachments) { %>
                         <div style="background-image: url('<%= image %>');">
                           <span style="display: none;">

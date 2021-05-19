@@ -31,7 +31,7 @@ export default async function({login, graphql, data, imports, q, queries, accoun
     console.debug(`metrics/compute/${login}/plugins > stargazers > loaded ${dates.length} stargazers in total`)
 
     //Compute stargazers increments
-    const days = 14
+    const days = 14 * (1 + data.large/2)
     const increments = {dates:Object.fromEntries([...new Array(days).fill(null).map((_, i) => [new Date(Date.now() - i * 24 * 60 * 60 * 1000).toISOString().slice(0, 10), 0]).reverse()]), max:NaN, min:NaN}
     dates
       .map(date => date.toISOString().slice(0, 10))
