@@ -2,6 +2,6 @@
 
 ![Build](https://github.com/lowlighter/metrics/workflows/Build/badge.svg) [![Metrics (examples)](https://github.com/lowlighter/lowlighter/actions/workflows/metrics.yml/badge.svg)](https://github.com/lowlighter/lowlighter/actions/workflows/metrics.yml)
 
-<% for (const partial of ["introduction", "features", "shared", "setup", "documentation", "license", "references"]) { -%>
+<% for (const partial of ["introduction", "features", "setup", "documentation", "license", "references"]) { -%>
 <%- await include(`/partials/${partial}.md`) %>
 <% } %>

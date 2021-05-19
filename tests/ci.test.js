@@ -22,7 +22,7 @@ describe("Check files editions (checkout your files if needed)", () => {
       ".github/PULL_REQUEST_TEMPLATE/*",
       ".github/readme/partials/license.md",
       ".github/readme/partials/setup.md",
-      ".github/readme/partials/shared.md",
+      ".github/readme/partials/features.md",
       ".github/readme/partials/documentation/compatibility.md",
       ".github/readme/partials/introduction.md",
       ".github/workflows/*",
