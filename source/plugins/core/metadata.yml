@@ -187,8 +187,7 @@ inputs:
   # Specify one value (for both width and height) or two values (one for width and one for height)
   config_padding:
     description: Image padding
-    type: array
-    format: comma-separated
+    type: string
     default: 16, 16 + 9%
 
   # Metrics output format
