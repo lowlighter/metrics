@@ -33,6 +33,6 @@ Then setup [WakaTime plugins](https://wakatime.com/plugins) to be ready to go!
     plugin_wakatime_days: 7                                   # Display last week stats
     plugin_wakatime_sections: time, projects, projects-graphs # Display time and projects sections, along with projects graphs
     plugin_wakatime_limit: 4                                  # Show 4 entries per graph
-    plugin_wakatime_url: http://wakatime.com                  # Wakatime url endpoint
+    plugin_wakatime_url: https://wakatime.com                 # Wakatime url endpoint
     plugin_wakatime_user: .user.login                         # User
 ```
