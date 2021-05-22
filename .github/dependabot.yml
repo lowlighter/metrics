@@ -11,7 +11,7 @@ updates:
     assignees:
       - lowlighter
     ignore:
-      - dependency-name: *
+      - dependency-name: "*"
         update-types:
           - version-update:semver-patch
       - dependency-name: vue-prism-component
