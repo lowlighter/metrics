@@ -1,15 +1,19 @@
 version: 2
 updates:
-- package-ecosystem: npm
-  directory: "/"
-  schedule:
-    interval: daily
-  open-pull-requests-limit: 10
-  reviewers:
-  - lowlighter
-  assignees:
-  - lowlighter
-  ignore:
-  - dependency-name: vue-prism-component
-    versions:
-    - 2.0.0
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    pull-request-branch-name:
+      separator: "-"
+    reviewers:
+      - lowlighter
+    assignees:
+      - lowlighter
+    ignore:
+      - dependency-name: *
+        update-types:
+          - version-update:semver-patch
+      - dependency-name: vue-prism-component
+        versions:
+          - 2.0.0
