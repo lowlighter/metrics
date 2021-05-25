@@ -1,3 +1,6 @@
+//Imports
+import indepth_analyzer from "./indepth.mjs"
+
 //Setup
 export default async function({login, data, imports, q, account}, {enabled = false} = {}) {
   //Plugin execution
@@ -7,7 +10,7 @@ export default async function({login, data, imports, q, account}, {enabled = fal
       return null
 
     //Load inputs
-    let {ignored, skipped, colors, details, threshold, limit} = imports.metadata.plugins.languages.inputs({data, account, q})
+    let {ignored, skipped, colors, details, threshold, limit, indepth} = imports.metadata.plugins.languages.inputs({data, account, q})
     threshold = (Number(threshold.replace(/%$/, "")) || 0) / 100
     skipped.push(...data.shared["repositories.skipped"])
     if (!limit)
@@ -41,6 +44,12 @@ export default async function({login, data, imports, q, account}, {enabled = fal
         languages.colors[name] = colors[name.toLocaleLowerCase()] ?? color ?? "#ededed"
         languages.total += size
       }
+    }
+
+    //Indepth mode
+    if (indepth) {
+      console.debug(`metrics/compute/${login}/plugins > languages > switching to indepth mode (this may take some time)`)
+      Object.assign(languages, await indepth_analyzer({login, data, imports}, {skipped, ignored}))
     }
 
     //Compute languages stats

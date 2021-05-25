@@ -17,6 +17,16 @@ You can specify either an index with a color, or a language name (case insensiti
 Colors can be either in hexadecimal format or a [named color](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value).
 It is also possible to use a predefined set of colors from [colorsets.json](colorsets.json)
 
+**Using `indepth` statistics**
+
+Languages statistics are computed using the top languages of each repository you contributed to.
+If you work a lot with other people, these numbers may be less representative of your actual work.
+
+The `plugin_languages_indepth` option lets you get more accurate metrics by cloning each repository, running [github/linguist](https://github.com/github/linguist) on it and iterating over patches matching your username from `git log`, but will be **significantly slower**.
+
+> ⚠️ Although *metrics* does not send any code to external sources, you must understand that when using this option repositories are cloned locally temporarly on the GitHub Action runner. If you work with sensitive data or company code, it is advised to keep this option disabled. *Metrics* cannot be held responsible for any eventual code leaks, use at your own risk.
+> Source code is available for auditing at [indepth.mjs](/source/plugins/languages/indepth.mjs)
+
 #### ℹ️ Examples workflows
 
 [➡️ Available options for this plugin](metadata.yml)
@@ -32,4 +42,5 @@ It is also possible to use a predefined set of colors from [colorsets.json](colo
     plugin_languages_details: bytes-size, percentage             # Additionally display total bytes size and percentage
     plugin_languages_threshold: 2%                               # Hides all languages less than 2%
     plugin_languages_limit: 8                                    # Display up to 8 languages
+    plugin_languages_indepth: no                                 # Get indepth stats (see documentation before enabling)
 ```

@@ -131,7 +131,7 @@ export async function chartist() {
 }
 
 /**Run command */
-export async function run(command, options, {prefixed = true} = {}) {
+export async function run(command, options, {prefixed = true, log = true} = {}) {
   const prefix = {win32:"wsl"}[process.platform] ?? ""
   command = `${prefixed ? prefix : ""} ${command}`.trim()
   return new Promise((solve, reject) => {
@@ -142,8 +142,10 @@ export async function run(command, options, {prefixed = true} = {}) {
     child.stderr.on("data", data => stderr += data)
     child.on("close", code => {
       console.debug(`metrics/command > ${command} > exited with code ${code}`)
-      console.debug(stdout)
-      console.debug(stderr)
+      if (log) {
+        console.debug(stdout)
+        console.debug(stderr)
+      }
       return code === 0 ? solve(stdout) : reject(stderr)
     })
   })
