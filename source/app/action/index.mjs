@@ -119,7 +119,7 @@ async function wait(seconds) {
     const api = {}
     api.graphql = octokit.graphql.defaults({headers:{authorization:`token ${token}`}})
     info("Github GraphQL API", "ok")
-    api.rest = github.getOctokit(token)
+    api.rest = github.getOctokit(token).rest
     info("Github REST API", "ok")
     //Apply mocking if needed
     if (mocked) {
