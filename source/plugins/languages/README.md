@@ -17,7 +17,7 @@ You can specify either an index with a color, or a language name (case insensiti
 Colors can be either in hexadecimal format or a [named color](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value).
 It is also possible to use a predefined set of colors from [colorsets.json](colorsets.json)
 
-**Using `indepth` statistics**
+#### Using `indepth` statistics
 
 Languages statistics are computed using the top languages of each repository you contributed to.
 If you work a lot with other people, these numbers may be less representative of your actual work.
