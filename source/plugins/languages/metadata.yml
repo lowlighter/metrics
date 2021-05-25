@@ -39,6 +39,17 @@ inputs:
     min: 0
     max: 8
 
+  # Sections to display
+  plugin_languages_sections:
+    description: Sections to display
+    type: array
+    format: comma-separated
+    default: most-used
+    example: most-used, recently-used
+    values:
+      - most-used      # Most used languages
+      - recently-used  # Recently used languages
+
   # Overrides default languages colors
   # Use `${n}:${color}` to change the color of the n-th most used language (e.g. "0:red" to make your most used language red)
   # Use `${language}:${color}` to change the color of named language (e.g. "javascript:red" to make JavaScript language red, language case is ignored)
