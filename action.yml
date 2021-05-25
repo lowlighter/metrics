@@ -180,7 +180,7 @@ inputs:
   # Specify one value (for both width and height) or two values (one for width and one for height)
   config_padding:
     description: Image padding
-    default: 16, 16 + 9%
+    default: 16, 24 + 6.75%
   
   # Metrics output format
   config_output:
@@ -298,6 +298,12 @@ inputs:
   plugin_languages_threshold:
     description: Minimum threshold
     default: 0%
+  
+  # Compute indepth languages statistics by cloning repositories and processing your commits individually
+  # See documentation before enabling
+  plugin_languages_indepth:
+    description: Indepth languages processing (see documentation before enabling)
+    default: false
   
   # ====================================================================================
   # 🙋 Introduction
