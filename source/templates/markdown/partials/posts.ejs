@@ -19,7 +19,7 @@
     <td>
       <%= description %>
       <br>
-      <i>Published on <%= f.date(new Date(date), {dateStyle:"short"}) %></i>
+      <i>Published on <%= f.date(new Date(date), {dateStyle:"short", timeZone:config.timezone?.name}) %></i>
     </td>
   </tr>
 </table>
@@ -27,7 +27,7 @@
   <%_ } else if (plugins.posts.list.length) { _%>
     <%_ for (const {title, date, link} of plugins.posts.list) { _%>
 * [<%= title.trim() %>](<%= link %>)
-  * *Published on <%= f.date(new Date(date), {dateStyle:"short"}) %>*
+  * *Published on <%= f.date(new Date(date), {dateStyle:"short", timeZone:config.timezone?.name}) %>*
     <%_ } _%>
   <%_ } else { _%>
 No recent posts
