@@ -70,3 +70,10 @@ inputs:
     description: Minimum threshold
     type: string
     default: 0%
+
+  # Compute indepth languages statistics by cloning repositories and processing your commits individually
+  # See documentation before enabling
+  plugin_languages_indepth:
+    description: Indepth languages processing (see documentation before enabling)
+    type: boolean
+    default: false
