@@ -1,8 +1,8 @@
 //Imports
-import indepth_analyzer from "./indepth.mjs"
+import { indepth as indepth_analyzer, recent as recent_analyzer } from "./analyzers.mjs"
 
 //Setup
-export default async function({login, data, imports, q, account}, {enabled = false} = {}) {
+export default async function({login, data, imports, q, rest, account}, {enabled = false} = {}) {
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
@@ -10,7 +10,7 @@ export default async function({login, data, imports, q, account}, {enabled = fal
       return null
 
     //Load inputs
-    let {ignored, skipped, colors, details, threshold, limit, indepth} = imports.metadata.plugins.languages.inputs({data, account, q})
+    let {ignored, skipped, colors, details, threshold, limit, indepth, sections} = imports.metadata.plugins.languages.inputs({data, account, q})
     threshold = (Number(threshold.replace(/%$/, "")) || 0) / 100
     skipped.push(...data.shared["repositories.skipped"])
     if (!limit)
@@ -25,7 +25,7 @@ export default async function({login, data, imports, q, account}, {enabled = fal
 
     //Iterate through user's repositories and retrieve languages data
     console.debug(`metrics/compute/${login}/plugins > languages > processing ${data.user.repositories.nodes.length} repositories`)
-    const languages = {details, colors:{}, total:0, stats:{}}
+    const languages = {sections, details, colors:{}, total:0, stats:{}, "stats.recent":{}}
     for (const repository of data.user.repositories.nodes) {
       //Skip repository if asked
       if ((skipped.includes(repository.name.toLocaleLowerCase())) || (skipped.includes(`${repository.owner.login}/${repository.name}`.toLocaleLowerCase()))) {
@@ -34,33 +34,35 @@ export default async function({login, data, imports, q, account}, {enabled = fal
       }
       //Process repository languages
       for (const {size, node:{color, name}} of Object.values(repository.languages.edges)) {
-        //Ignore language if asked
-        if (ignored.includes(name.toLocaleLowerCase())) {
-          console.debug(`metrics/compute/${login}/plugins > languages > ignored language ${name}`)
-          continue
-        }
-        //Update language stats
         languages.stats[name] = (languages.stats[name] ?? 0) + size
         languages.colors[name] = colors[name.toLocaleLowerCase()] ?? color ?? "#ededed"
         languages.total += size
       }
     }
 
+    //Recently used languages
+    if ((sections.includes("recently-used"))&&(["user", "organization"].includes(account))) {
+      console.debug(`metrics/compute/${login}/plugins > languages > using recent analyzer`)
+      languages["stats.recent"] = await recent_analyzer({login, data, imports, rest, account}, {skipped})
+    }
+
     //Indepth mode
     if (indepth) {
       console.debug(`metrics/compute/${login}/plugins > languages > switching to indepth mode (this may take some time)`)
-      Object.assign(languages, await indepth_analyzer({login, data, imports}, {skipped, ignored}))
+      Object.assign(languages, await indepth_analyzer({login, data, imports}, {skipped}))
     }
 
     //Compute languages stats
-    console.debug(`metrics/compute/${login}/plugins > languages > computing stats`)
-    languages.favorites = Object.entries(languages.stats).sort(([_an, a], [_bn, b]) => b - a).slice(0, limit).map(([name, value]) => ({name, value, size:value, color:languages.colors[name], x:0})).filter(({value}) => value / languages.total > threshold)
-    const visible = {total:Object.values(languages.favorites).map(({size}) => size).reduce((a, b) => a + b, 0)}
-    for (let i = 0; i < languages.favorites.length; i++) {
-      languages.favorites[i].value /= visible.total
-      languages.favorites[i].x = (languages.favorites[i - 1]?.x ?? 0) + (languages.favorites[i - 1]?.value ?? 0)
-      if ((colors[i]) && (!colors[languages.favorites[i].name.toLocaleLowerCase()]))
-        languages.favorites[i].color = colors[i]
+    for (const {section, stats = {}, total = 0} of [{section:"favorites", stats:languages.stats, total:languages.total}, {section:"recent", ...languages["stats.recent"]}]) {
+      console.debug(`metrics/compute/${login}/plugins > languages > computing stats ${section}`)
+      languages[section] = Object.entries(stats).filter(([name]) => !ignored.includes(name.toLocaleLowerCase())).sort(([_an, a], [_bn, b]) => b - a).slice(0, limit).map(([name, value]) => ({name, value, size:value, color:languages.colors[name], x:0})).filter(({value}) => value / total > threshold)
+      const visible = {total:Object.values(languages[section]).map(({size}) => size).reduce((a, b) => a + b, 0)}
+      for (let i = 0; i < languages[section].length; i++) {
+        languages[section][i].value /= visible.total
+        languages[section][i].x = (languages[section][i - 1]?.x ?? 0) + (languages[section][i - 1]?.value ?? 0)
+        if ((colors[i]) && (!colors[languages[section][i].name.toLocaleLowerCase()]))
+          languages[section][i].color = colors[i]
+      }
     }
 
     //Results
