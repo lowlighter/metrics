@@ -11,6 +11,9 @@ The *languages* plugin displays which programming languages you use the most acr
     <details><summary>Recently used version (based on recent activity)</summary>
       <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.recent.svg">
     </details>
+    <details><summary>Indepth analysis (clone, analyze and extract commits)</summary>
+      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.indepth.svg">
+    </details>
     <img width="900" height="1" alt="">
   </td>
 </table>
