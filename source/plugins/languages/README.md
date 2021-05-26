@@ -8,7 +8,7 @@ The *languages* plugin displays which programming languages you use the most acr
     <details open><summary>With both total bytes size and percentage version</summary>
       <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.details.svg">
     </details>
-    <details open><summary>Recently used version (based on recent activity)</summary>
+    <details><summary>Recently used version (based on recent activity)</summary>
       <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.recent.svg">
     </details>
     <img width="900" height="1" alt="">

@@ -9,6 +9,13 @@ export default async function({login, data, imports, q, rest, account}, {enabled
     if ((!enabled) || (!q.languages))
       return null
 
+    //Context
+    let context = {mode:"user"}
+    if (q.repo) {
+      console.debug(`metrics/compute/${login}/plugins > activity > switched to repository mode`)
+      context = {...context, mode:"repository"}
+    }
+
     //Load inputs
     let {ignored, skipped, colors, details, threshold, limit, indepth, sections} = imports.metadata.plugins.languages.inputs({data, account, q})
     threshold = (Number(threshold.replace(/%$/, "")) || 0) / 100
@@ -23,9 +30,12 @@ export default async function({login, data, imports, q, rest, account}, {enabled
     colors = Object.fromEntries(decodeURIComponent(colors).split(",").map(x => x.trim().toLocaleLowerCase()).filter(x => x).map(x => x.split(":").map(x => x.trim())))
     console.debug(`metrics/compute/${login}/plugins > languages > custom colors ${JSON.stringify(colors)}`)
 
+    //Unique languages
+    const unique = new Set(data.user.repositories.nodes.flatMap(repository => repository.languages.edges.map(({node:{name}}) => name))).size
+
     //Iterate through user's repositories and retrieve languages data
     console.debug(`metrics/compute/${login}/plugins > languages > processing ${data.user.repositories.nodes.length} repositories`)
-    const languages = {sections, details, colors:{}, total:0, stats:{}, "stats.recent":{}}
+    const languages = {unique, sections, details, colors:{}, total:0, stats:{}, "stats.recent":{}}
     for (const repository of data.user.repositories.nodes) {
       //Skip repository if asked
       if ((skipped.includes(repository.name.toLocaleLowerCase())) || (skipped.includes(`${repository.owner.login}/${repository.name}`.toLocaleLowerCase()))) {
@@ -41,7 +51,7 @@ export default async function({login, data, imports, q, rest, account}, {enabled
     }
 
     //Recently used languages
-    if ((sections.includes("recently-used"))&&(["user", "organization"].includes(account))) {
+    if ((sections.includes("recently-used"))&&(context.mode === "user")) {
       console.debug(`metrics/compute/${login}/plugins > languages > using recent analyzer`)
       languages["stats.recent"] = await recent_analyzer({login, data, imports, rest, account}, {skipped})
     }
