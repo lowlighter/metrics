@@ -34,22 +34,24 @@ export default async function({login, graphql, data, q, queries, imports}, conf)
       Object.assign(data, {user:queried[account]})
       postprocess?.[account]({login, data})
       //Query repositories from GitHub API
-      {
+      data.user.repositoriesContributedTo.nodes = data.user.repositoriesContributedTo.nodes ?? []
+      for (const type of ["repositories", "repositoriesContributedTo"]) {
         //Iterate through repositories
         let cursor = null
         let pushed = 0
+        const options = {repositories:{forks, affiliations, constraints:""}, repositoriesContributedTo:{forks:"", affiliations:"", constraints:", includeUserRepositories: false, contributionTypes: COMMIT"}}[type] ?? null
         do {
-          console.debug(`metrics/compute/${login}/base > retrieving repositories after ${cursor}`)
-          const {[account]:{repositories:{edges, nodes}}} = await graphql(queries.base.repositories({login, account, after:cursor ? `after: "${cursor}"` : "", repositories:Math.min(repositories, {user:100, organization:25}[account]), forks, affiliations}))
+          console.debug(`metrics/compute/${login}/base > retrieving ${type} after ${cursor}`)
+          const {[account]:{[type]:{edges = [], nodes = []} = {}}} = await graphql(queries.base.repositories({login, account, type, after:cursor ? `after: "${cursor}"` : "", repositories:Math.min(repositories, {user:100, organization:25}[account]), ...options}))
           cursor = edges?.[edges?.length - 1]?.cursor
-          data.user.repositories.nodes.push(...nodes)
+          data.user[type].nodes.push(...nodes)
           pushed = nodes.length
-          console.debug(`metrics/compute/${login}/base > retrieved ${pushed} repositories after ${cursor}`)
-        } while ((pushed) && (cursor) && (data.user.repositories.nodes.length < repositories))
+          console.debug(`metrics/compute/${login}/base > retrieved ${pushed} ${type} after ${cursor}`)
+        } while ((pushed) && (cursor) && (data.user.repositories.nodes.length + data.user.repositoriesContributedTo.nodes.length < repositories))
         //Limit repositories
-        console.debug(`metrics/compute/${login}/base > keeping only ${repositories} repositories`)
-        data.user.repositories.nodes.splice(repositories)
-        console.debug(`metrics/compute/${login}/base > loaded ${data.user.repositories.nodes.length} repositories`)
+        console.debug(`metrics/compute/${login}/base > keeping only ${repositories} ${type}`)
+        data.user[type].nodes.splice(repositories)
+        console.debug(`metrics/compute/${login}/base > loaded ${data.user[type].nodes.length} ${type}`)
       }
       //Success
       console.debug(`metrics/compute/${login}/base > graphql query > account ${account} > success`)

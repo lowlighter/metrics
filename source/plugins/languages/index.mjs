@@ -31,7 +31,8 @@ export default async function({login, data, imports, q, rest, account}, {enabled
     console.debug(`metrics/compute/${login}/plugins > languages > custom colors ${JSON.stringify(colors)}`)
 
     //Unique languages
-    const unique = new Set(data.user.repositories.nodes.flatMap(repository => repository.languages.edges.map(({node:{name}}) => name))).size
+    const repositories = [...data.user.repositories.nodes, ...data.user.repositoriesContributedTo.nodes]
+    const unique = new Set(repositories.flatMap(repository => repository.languages.edges.map(({node:{name}}) => name))).size
 
     //Iterate through user's repositories and retrieve languages data
     console.debug(`metrics/compute/${login}/plugins > languages > processing ${data.user.repositories.nodes.length} repositories`)
@@ -59,7 +60,7 @@ export default async function({login, data, imports, q, rest, account}, {enabled
     //Indepth mode
     if (indepth) {
       console.debug(`metrics/compute/${login}/plugins > languages > switching to indepth mode (this may take some time)`)
-      Object.assign(languages, await indepth_analyzer({login, data, imports}, {skipped}))
+      Object.assign(languages, await indepth_analyzer({login, data, imports, repositories}, {skipped}))
     }
 
     //Compute languages stats

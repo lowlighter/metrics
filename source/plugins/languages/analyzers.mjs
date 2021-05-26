@@ -1,12 +1,12 @@
 /**Indepth analyzer */
-export async function indepth({login, data, imports}, {skipped}) {
+export async function indepth({login, data, imports, repositories}, {skipped}) {
   //Check prerequisites
   if (!await imports.which("github-linguist"))
     throw new Error("Feature requires github-linguist")
 
   //Compute repositories stats from fetched repositories
   const results = {total:0, stats:{}}
-  for (const repository of data.user.repositories.nodes) {
+  for (const repository of repositories) {
     //Skip repository if asked
     if ((skipped.includes(repository.name.toLocaleLowerCase())) || (skipped.includes(`${repository.owner.login}/${repository.name}`.toLocaleLowerCase()))) {
       console.debug(`metrics/compute/${login}/plugins > languages > skipped repository ${repository.owner.login}/${repository.name}`)
@@ -110,8 +110,6 @@ export async function recent({login, data, imports, rest, account}, {skipped}) {
     console.debug(`metrics/compute/${login}/plugins > languages > cleaning temp dir ${path}`)
     await imports.fs.rmdir(path, {recursive:true})
   }
-
-  console.log(results)
   return results
 }
 
@@ -120,8 +118,6 @@ async function analyze({login, imports}, {results, path}) {
   //Spawn linguist process and map files to languages
   console.debug(`metrics/compute/${login}/plugins > languages > indepth > running linguist`)
   const files = Object.fromEntries(Object.entries(JSON.parse(await imports.run("github-linguist --json", {cwd:path}, {log:false}))).flatMap(([lang, files]) => files.map(file => [file, lang])))
-
-  console.log(files)
 
   //Processing diff
   const per_page = 10
@@ -149,8 +145,8 @@ async function analyze({login, imports}, {results, path}) {
         if (!lang)
           continue
         //Added line marker
-        if (/^[+]\s(?<line>[\s\S]+)$/.test(line)) {
-          const size = Buffer.byteLength(line.match(/^[+]\s(?<line>[\s\S]+)$/)?.groups?.line ?? "", "utf-8")
+        if (/^[+]\s*(?<line>[\s\S]+)$/.test(line)) {
+          const size = Buffer.byteLength(line.match(/^[+]\s*(?<line>[\s\S]+)$/)?.groups?.line ?? "", "utf-8")
           results.stats[lang] = (results.stats[lang] ?? 0) + size
           results.total += size
         }
