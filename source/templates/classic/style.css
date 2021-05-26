@@ -186,6 +186,9 @@
   .field.language.details > *, .field.language.details small > * {
     flex: 1 1 0;
   }
+  .field.language.details small > *:not(:last-child) {
+    margin-right: 6px;
+  }
 
 /* Follow-up */
   .followup.legend {

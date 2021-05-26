@@ -1,6 +1,6 @@
 query BaseRepositories {
   $account(login: "$login") {
-    repositories($after first: $repositories $forks $affiliations, orderBy: {field: UPDATED_AT, direction: DESC}) {
+    $type($after first: $repositories $forks $affiliations $constraints, orderBy: {field: UPDATED_AT, direction: DESC}) {
       edges {
         cursor
       }

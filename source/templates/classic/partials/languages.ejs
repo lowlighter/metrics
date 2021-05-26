@@ -5,10 +5,10 @@
       <%= plugins.languages.unique %> Language<%= s(plugins.languages.unique) %>
     </h2>
   </section>
-  <% for (const section of plugins.languages.sections) { const languages = {"most-used":plugins.languages.favorites, "recently-used":plugins.languages.recent}[section] %>
+  <% for (const section of (plugins.languages.sections ?? ["error"])) { const languages = {"most-used":plugins.languages.favorites, "recently-used":plugins.languages.recent}[section] %>
     <section class="column">
       <h3 class="field">
-        <%= {"most-used":"Most used languages", "recently-used":"Recently used languages"}[section] %>
+        <%= {"most-used":"Most used languages", "recently-used":"Recently used languages", error:""}[section] %>
       </h3>
       <% if (plugins.languages.error) { %>
         <section>
@@ -31,13 +31,14 @@
           <div class="row fill-width">
             <% for (const row of rows) { %>
               <section>
-                <% for (const {name, value, color, size} of languages.filter((_, i) => i%rows.length === row)) { %>
+                <% for (const {name, value, lines, color, size} of languages.filter((_, i) => i%rows.length === row)) { %>
                   <div class="field language details">
                     <div class="field">
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill="<%= color ?? "#959DA5" %>" fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8z"></path></svg>
                       <%= name %>
                     </div>
                     <small>
+                      <% if (plugins.languages.details.includes("lines")) { %> <div><%= f(lines) %> line<%= s(lines) %></div><% } %>
                       <% if (plugins.languages.details.includes("bytes-size")) { %> <div><%= f.bytes(size) %></div><% } %>
                       <% if (plugins.languages.details.includes("percentage")) { %> <div><%= f.percentage(value) %></div><% } %>
                     </small>
