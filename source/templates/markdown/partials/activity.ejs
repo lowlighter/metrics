@@ -39,7 +39,7 @@
 * 🚮 Deleted <%= event.ref.type %> `<%= event.ref.name %>` from [<%= repo %>](https://github.com/<%= repo %>)
       <%_ } _%>
       <%_ if (plugins.activity.timestamps) { _%>
-  * *On <%= f.date(timestamp, {timeStyle:"short", dateStyle:"short"}) %>*
+  * *On <%= f.date(timestamp, {timeStyle:"short", dateStyle:"short", timeZone:config.timezone?.name}) %>*
       <%_ } _%>
     <%_ } _%>
   <%_ } else { _%>
