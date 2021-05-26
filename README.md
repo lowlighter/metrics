@@ -51,7 +51,7 @@ And you can customize these heavily with plugins, templates and hundreds of opti
       <details open><summary>With both total bytes size and percentage version</summary>
         <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.details.svg">
       </details>
-      <details open><summary>Recently used version (based on recent activity)</summary>
+      <details><summary>Recently used version (based on recent activity)</summary>
         <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.recent.svg">
       </details>
       <img width="900" height="1" alt="">
