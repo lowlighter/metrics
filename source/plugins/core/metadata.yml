@@ -188,7 +188,7 @@ inputs:
   config_padding:
     description: Image padding
     type: string
-    default: 16, 24 + 6.75%
+    default: 0, 7%
 
   # Metrics output format
   config_output:

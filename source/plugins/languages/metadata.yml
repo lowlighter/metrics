@@ -73,6 +73,7 @@ inputs:
     values:
       - bytes-size # Languages total size written in bytes
       - percentage # Languages proportions in %
+      - lines      # Estimation of lines of code (plugin_languages_indepth must be enabled)
     default: ""
     example: bytes-size, percentage
 

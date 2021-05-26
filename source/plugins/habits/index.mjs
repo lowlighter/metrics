@@ -47,7 +47,7 @@ export default async function({login, data, rest, imports, q, account}, {enabled
       .filter(({status}) => status === "fulfilled")
       .map(({value}) => value)
       .flatMap(files => files.map(file => ({name:imports.paths.basename(file.filename), patch:file.patch ?? ""})))
-      .map(({name, patch}) => ({name, patch:patch.split("\n").filter(line => /^[-+]/.test(line)).map(line => line.substring(1)).join("\n")}))
+      .map(({name, patch}) => ({name, patch:patch.split("\n").filter(line => /^[+]/.test(line)).map(line => line.substring(1)).join("\n")}))
 
     //Commit day
     {

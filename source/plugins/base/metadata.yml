@@ -44,7 +44,7 @@ inputs:
     default: owner
     values:
       - owner               # Use repositories you own
-      - collaborator        # Use repositories you have contributed too
+      - collaborator        # Use repositories you push access
       - organization_member # Use repositories where you're an organization member
 
   # List of default repositories that will be skipped
