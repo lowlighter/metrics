@@ -5,56 +5,59 @@
       <%= plugins.languages.unique %> Language<%= s(plugins.languages.unique) %>
     </h2>
   </section>
-  <section class="column">
-    <h3 class="field">
-      Most used languages
-    </h3>
-    <% if (plugins.languages.error) { %>
-      <section>
-        <div class="field error">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M2.343 13.657A8 8 0 1113.657 2.343 8 8 0 012.343 13.657zM6.03 4.97a.75.75 0 00-1.06 1.06L6.94 8 4.97 9.97a.75.75 0 101.06 1.06L8 9.06l1.97 1.97a.75.75 0 101.06-1.06L9.06 8l1.97-1.97a.75.75 0 10-1.06-1.06L8 6.94 6.03 4.97z"></path></svg>
-          <%= plugins.languages.error.message %>
-        </div>
-      </section>
-    <% } else { const width = 460 * (1 + large) %>
-      <svg class="bar" xmlns="http://www.w3.org/2000/svg" width="<%= width %>" height="8">
-        <mask id="languages-bar">
-          <rect x="0" y="0" width="<%= width %>" height="8" fill="white" rx="5"/>
-        </mask>
-        <rect mask="url(#languages-bar)" x="0" y="0" width="<%= plugins.languages.favorites.length ? 0 : width %>" height="8" fill="#d1d5da"/>
-        <% for (const {name, value, color, x} of plugins.languages.favorites) { %>
-          <rect mask="url(#languages-bar)" x="<%= x*width %>" y="0" width="<%= value*width %>" height="8" fill="<%= color %>"/>
-        <% } %>
-      </svg>
-      <% if (plugins.languages.details?.length) { const rows = large ? [0, 1, 2, 3] : [0, 1] %>
-        <div class="row fill-width">
-          <% for (const row of rows) { %>
-            <section>
-              <% for (const {name, value, color, size} of plugins.languages.favorites.filter((_, i) => i%rows.length === row)) { %>
-                <div class="field language details">
-                  <div class="field">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill="<%= color %>" fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8z"></path></svg>
-                    <%= name %>
+  <% for (const section of (plugins.languages.sections ?? ["error"])) { const languages = {"most-used":plugins.languages.favorites, "recently-used":plugins.languages.recent}[section] %>
+    <section class="column">
+      <h3 class="field">
+        <%= {"most-used":"Most used languages", "recently-used":"Recently used languages", error:""}[section] %>
+      </h3>
+      <% if (plugins.languages.error) { %>
+        <section>
+          <div class="field error">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M2.343 13.657A8 8 0 1113.657 2.343 8 8 0 012.343 13.657zM6.03 4.97a.75.75 0 00-1.06 1.06L6.94 8 4.97 9.97a.75.75 0 101.06 1.06L8 9.06l1.97 1.97a.75.75 0 101.06-1.06L9.06 8l1.97-1.97a.75.75 0 10-1.06-1.06L8 6.94 6.03 4.97z"></path></svg>
+            <%= plugins.languages.error.message %>
+          </div>
+        </section>
+      <% } else { const width = 460 * (1 + large) %>
+        <svg class="bar" xmlns="http://www.w3.org/2000/svg" width="<%= width %>" height="8">
+          <mask id="languages-bar">
+            <rect x="0" y="0" width="<%= width %>" height="8" fill="white" rx="5"/>
+          </mask>
+          <rect mask="url(#languages-bar)" x="0" y="0" width="<%= languages.length ? 0 : width %>" height="8" fill="#d1d5da"/>
+          <% for (const {name, value, color, x} of languages) { %>
+            <rect mask="url(#languages-bar)" x="<%= x*width %>" y="0" width="<%= value*width %>" height="8" fill="<%= color ?? "#959DA5" %>"/>
+          <% } %>
+        </svg>
+        <% if (plugins.languages.details?.length) { const rows = large ? [0, 1, 2, 3] : [0, 1] %>
+          <div class="row fill-width">
+            <% for (const row of rows) { %>
+              <section>
+                <% for (const {name, value, lines, color, size} of languages.filter((_, i) => i%rows.length === row)) { %>
+                  <div class="field language details">
+                    <div class="field">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill="<%= color ?? "#959DA5" %>" fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8z"></path></svg>
+                      <%= name %>
+                    </div>
+                    <small>
+                      <% if (plugins.languages.details.includes("lines")) { %> <div><%= f(lines) %> line<%= s(lines) %></div><% } %>
+                      <% if (plugins.languages.details.includes("bytes-size")) { %> <div><%= f.bytes(size) %></div><% } %>
+                      <% if (plugins.languages.details.includes("percentage")) { %> <div><%= f.percentage(value) %></div><% } %>
+                    </small>
                   </div>
-                  <small>
-                    <% if (plugins.languages.details.includes("bytes-size")) { %> <div><%= f.bytes(size) %></div><% } %>
-                    <% if (plugins.languages.details.includes("percentage")) { %> <div><%= f.percentage(value) %></div><% } %>
-                  </small>
-                </div>
-              <% } %>
-            </section>
-          <% } %>
-        </div>
-      <% } else { %>
-        <div class="field center horizontal-wrap fill-width">
-          <% for (const {name, value, color} of plugins.languages.favorites) { %>
-            <div class="field center no-wrap language">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill="<%= color %>" fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8z"></path></svg>
-              <%= name %>
-            </div>
-          <% } %>
-        </div>
+                <% } %>
+              </section>
+            <% } %>
+          </div>
+        <% } else { %>
+          <div class="field center horizontal-wrap fill-width">
+            <% for (const {name, value, color} of languages) { %>
+              <div class="field center no-wrap language">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill="<%= color %>" fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8z"></path></svg>
+                <%= name %>
+              </div>
+            <% } %>
+          </div>
+        <% } %>
       <% } %>
-    <% } %>
-  </section>
+    </section>
+  <% } %>
 <% } %>

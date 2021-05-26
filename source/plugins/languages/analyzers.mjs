@@ -5,7 +5,7 @@ export async function indepth({login, data, imports, repositories}, {skipped}) {
     throw new Error("Feature requires github-linguist")
 
   //Compute repositories stats from fetched repositories
-  const results = {total:0, stats:{}}
+  const results = {total:0, lines:{}, stats:{}}
   for (const repository of repositories) {
     //Skip repository if asked
     if ((skipped.includes(repository.name.toLocaleLowerCase())) || (skipped.includes(`${repository.owner.login}/${repository.name}`.toLocaleLowerCase()))) {
@@ -52,7 +52,7 @@ export async function recent({login, data, imports, rest, account}, {skipped}) {
 
   //Get user recent activity
   console.debug(`metrics/compute/${login}/plugins > languages > querying api`)
-  const commits = [], days = 14, pages = 3, results = {total:0, stats:{}}
+  const commits = [], days = 14, pages = 3, results = {total:0, lines:{}, stats:{}}
   try {
     for (let page = 1; page <= pages; page++) {
       console.debug(`metrics/compute/${login}/plugins > languages > loading page ${page}`)
@@ -148,6 +148,7 @@ async function analyze({login, imports}, {results, path}) {
         if (/^[+]\s*(?<line>[\s\S]+)$/.test(line)) {
           const size = Buffer.byteLength(line.match(/^[+]\s*(?<line>[\s\S]+)$/)?.groups?.line ?? "", "utf-8")
           results.stats[lang] = (results.stats[lang] ?? 0) + size
+          results.lines[lang] = (results.lines[lang] ?? 0) + 1
           results.total += size
         }
       }
