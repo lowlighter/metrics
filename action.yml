@@ -180,7 +180,7 @@ inputs:
   # Specify one value (for both width and height) or two values (one for width and one for height)
   config_padding:
     description: Image padding
-    default: 0, 7.5%
+    default: 0, 8%
   
   # Metrics output format
   config_output:
