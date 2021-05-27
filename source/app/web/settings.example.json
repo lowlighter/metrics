@@ -13,7 +13,7 @@
   "debug.headless": false,         "//": "Debug puppeteer process",
   "mocked": false,                 "//": "Use mocked data instead of live APIs (use 'force' to use mocked token even if real token are defined)",
   "repositories": 100,             "//": "Number of repositories to use",
-  "padding": ["0", "7%"],          "//": "Image padding (default)",
+  "padding": ["0", "7.5%"],        "//": "Image padding (default)",
   "hosted": {
     "by": "",                      "//": "Web instance host (displayed in footer)",
     "link": "",                    "//": "Web instance host link (displayed in footer)"
