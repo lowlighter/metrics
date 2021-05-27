@@ -35,7 +35,7 @@ export default async function({login, graphql, data, q, queries, imports}, conf)
       postprocess?.[account]({login, data})
       //Query repositories from GitHub API
       data.user.repositoriesContributedTo.nodes = data.user.repositoriesContributedTo.nodes ?? []
-      for (const type of ["repositories", "repositoriesContributedTo"]) {
+      for (const type of ({user:["repositories", "repositoriesContributedTo"], organization:["repositories"]}[account] ?? [])) {
         //Iterate through repositories
         let cursor = null
         let pushed = 0

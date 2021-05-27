@@ -18,6 +18,11 @@
           </div>
         </section>
       <% } else { const width = 460 * (1 + large) %>
+        <% if (section === "recently-used") { %>
+          <small>
+            estimation from <%= plugins.languages["stats.recent"]?.files %> edited file<%= s(plugins.languages["stats.recent"]?.files) %> from <%= plugins.languages["stats.recent"]?.commits %> commit<%= s(plugins.languages["stats.recent"]?.commits) %> over last <%= plugins.languages["stats.recent"]?.days %> day<%= s(plugins.languages["stats.recent"]?.days) %>
+          </small>
+        <% } %>
         <svg class="bar" xmlns="http://www.w3.org/2000/svg" width="<%= width %>" height="8">
           <mask id="languages-bar">
             <rect x="0" y="0" width="<%= width %>" height="8" fill="white" rx="5"/>
