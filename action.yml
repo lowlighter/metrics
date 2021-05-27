@@ -180,7 +180,7 @@ inputs:
   # Specify one value (for both width and height) or two values (one for width and one for height)
   config_padding:
     description: Image padding
-    default: 0, 7%
+    default: 0, 7.5%
   
   # Metrics output format
   config_output:
@@ -309,6 +309,18 @@ inputs:
   plugin_languages_indepth:
     description: Indepth languages processing (see documentation before enabling)
     default: false
+  
+  # Number of activity events to load (for recently used languages statistics)
+  # A high number will consume more requests
+  plugin_languages_recent_load:
+    description: Number of events to load (for recently used section)
+    default: 300
+  
+  # Filter events by age (for recently used languages statistics)
+  # Set to 0 to disable age filtering
+  plugin_languages_recent_days:
+    description: Maximum event age (for recently used section)
+    default: 14
   
   # ====================================================================================
   # 🙋 Introduction
