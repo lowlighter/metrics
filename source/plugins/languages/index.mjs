@@ -17,7 +17,7 @@ export default async function({login, data, imports, q, rest, account}, {enabled
     }
 
     //Load inputs
-    let {ignored, skipped, colors, details, threshold, limit, indepth, sections} = imports.metadata.plugins.languages.inputs({data, account, q})
+    let {ignored, skipped, colors, details, threshold, limit, indepth, sections, "recent.load":_recent_load, "recent.days":_recent_days} = imports.metadata.plugins.languages.inputs({data, account, q})
     threshold = (Number(threshold.replace(/%$/, "")) || 0) / 100
     skipped.push(...data.shared["repositories.skipped"])
     if (!limit)
@@ -54,7 +54,7 @@ export default async function({login, data, imports, q, rest, account}, {enabled
     //Recently used languages
     if ((sections.includes("recently-used"))&&(context.mode === "user")) {
       console.debug(`metrics/compute/${login}/plugins > languages > using recent analyzer`)
-      languages["stats.recent"] = await recent_analyzer({login, data, imports, rest, account}, {skipped})
+      languages["stats.recent"] = await recent_analyzer({login, data, imports, rest, account}, {skipped, days:_recent_days, load:_recent_load})
     }
 
     //Indepth mode

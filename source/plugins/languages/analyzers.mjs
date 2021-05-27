@@ -45,14 +45,14 @@ export async function indepth({login, data, imports, repositories}, {skipped}) {
 }
 
 /**Recent languages activity */
-export async function recent({login, data, imports, rest, account}, {skipped}) {
+export async function recent({login, data, imports, rest, account}, {skipped, days = 0, load = 0}) {
   //Check prerequisites
   if (!await imports.which("github-linguist"))
     throw new Error("Feature requires github-linguist")
 
   //Get user recent activity
   console.debug(`metrics/compute/${login}/plugins > languages > querying api`)
-  const commits = [], days = 14, pages = 3, results = {total:0, lines:{}, stats:{}}
+  const commits = [], pages = Math.ceil(load/100), results = {total:0, lines:{}, stats:{}, commits:0, files:0, days}
   try {
     for (let page = 1; page <= pages; page++) {
       console.debug(`metrics/compute/${login}/plugins > languages > loading page ${page}`)
@@ -68,6 +68,7 @@ export async function recent({login, data, imports, rest, account}, {skipped}) {
     console.debug(`metrics/compute/${login}/plugins > languages > no more page to load`)
   }
   console.debug(`metrics/compute/${login}/plugins > languages > ${commits.length} commits loaded`)
+  results.commits = commits.length
 
   //Retrieve edited files and filter edited lines (those starting with +/-) from patches
   console.debug(`metrics/compute/${login}/plugins > languages > loading patches`)
@@ -86,6 +87,7 @@ export async function recent({login, data, imports, rest, account}, {skipped}) {
   //Temporary directory
   const path = imports.paths.join(imports.os.tmpdir(), `${data.user.databaseId}`)
   console.debug(`metrics/compute/${login}/plugins > languages > creating temp dir ${path} with ${patches.length} files`)
+  results.files = patches.length
 
   //Process
   try {

@@ -89,3 +89,21 @@ inputs:
     description: Indepth languages processing (see documentation before enabling)
     type: boolean
     default: false
+
+  # Number of activity events to load (for recently used languages statistics)
+  # A high number will consume more requests
+  plugin_languages_recent_load:
+    description: Number of events to load (for recently used section)
+    type: number
+    default: 300
+    min: 100
+    max: 1000
+
+  # Filter events by age (for recently used languages statistics)
+  # Set to 0 to disable age filtering
+  plugin_languages_recent_days:
+    description: Maximum event age (for recently used section)
+    type: number
+    default: 14
+    min: 0
+    max: 365
