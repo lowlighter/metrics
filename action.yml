@@ -507,7 +507,7 @@ inputs:
   # Number of users to display per section
   plugin_people_limit:
     description: Maximum number of user to display
-    default: 28
+    default: 24
   
   # Size of displayed user's avatar
   plugin_people_size:
