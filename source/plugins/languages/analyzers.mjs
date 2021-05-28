@@ -75,7 +75,9 @@ export async function recent({login, data, imports, rest, account}, {skipped, da
   const patches = [
     ...await Promise.allSettled(
       commits
-        .flatMap(({payload}) => payload.commits).map(commit => commit.url)
+        .flatMap(({payload}) => payload.commits)
+        .filter(({author}) => data.shared["commits.authoring"].filter(authoring => author.email.includes(authoring)||author.name.includes(authoring)).length)
+        .map(commit => commit.url)
         .map(async commit => (await rest.request(commit)).data.files),
     ),
   ]
@@ -126,7 +128,7 @@ async function analyze({login, imports}, {results, path}) {
   console.debug(`metrics/compute/${login}/plugins > languages > indepth > checking git log`)
   for (let page = 0; ; page++) {
     try {
-      const stdout = await imports.run(`git log --author="${login}" --format="" --patch --max-count=${per_page} --skip=${page*per_page}`, {cwd:path}, {log:false})
+      const stdout = await imports.run(`git log ${data.shared["commits.authoring"].map(authoring => `--author="${authoring}"`).join(" ")} --format="" --patch --max-count=${per_page} --skip=${page*per_page}`, {cwd:path}, {log:false})
       let file = null, lang = null
       if (!stdout.trim().length) {
         console.debug(`metrics/compute/${login}/plugins > languages > indepth > no more commits`)
