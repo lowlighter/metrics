@@ -118,7 +118,7 @@ export async function recent({login, data, imports, rest, account}, {skipped, da
 }
 
 /**Analyze a single repository */
-async function analyze({login, imports}, {results, path}) {
+async function analyze({login, imports, data}, {results, path}) {
   //Spawn linguist process and map files to languages
   console.debug(`metrics/compute/${login}/plugins > languages > indepth > running linguist`)
   const files = Object.fromEntries(Object.entries(JSON.parse(await imports.run("github-linguist --json", {cwd:path}, {log:false}))).flatMap(([lang, files]) => files.map(file => [file, lang])))
