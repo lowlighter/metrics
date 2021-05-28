@@ -1,6 +1,6 @@
 name: "🎟️ Follow-up of issues and pull requests"
 cost: 0 API request (1 GraphQL request if "user" section is enabled)
-categorie: github
+category: github
 index: 11
 supports:
   - user

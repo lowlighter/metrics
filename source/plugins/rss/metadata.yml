@@ -1,6 +1,6 @@
 name: "🗼 Rss feed"
 cost: N/A
-categorie: social
+category: social
 index: 6.5
 supports:
   - user

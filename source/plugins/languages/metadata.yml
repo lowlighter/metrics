@@ -1,6 +1,6 @@
 name: "🈷️ Most used languages"
 cost: 0 API request (1 per 100 events fetched when using recently-used section)
-categorie: github
+category: github
 index: 1
 supports:
   - user

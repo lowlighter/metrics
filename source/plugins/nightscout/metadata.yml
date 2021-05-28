@@ -1,6 +1,6 @@
 name: "💉 Nightscout"
 cost: N/A
-categorie: other
+category: other
 index: 3
 supports:
   - user
