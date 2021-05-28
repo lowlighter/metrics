@@ -7,7 +7,7 @@
 export default async function({login, graphql, data, q, queries, imports}, conf) {
   //Load inputs
   console.debug(`metrics/compute/${login}/base > started`)
-  let {repositories, "repositories.forks":_forks, "repositories.affiliations":_affiliations, "repositories.skipped":_skipped} = imports.metadata.plugins.base.inputs({data, q, account:"bypass"}, {repositories:conf.settings.repositories ?? 100})
+  let {repositories, "repositories.forks":_forks, "repositories.affiliations":_affiliations} = imports.metadata.plugins.base.inputs({data, q, account:"bypass"}, {repositories:conf.settings.repositories ?? 100})
   const forks = _forks ? "" : ", isFork: false"
   const affiliations = _affiliations?.length ? `, ownerAffiliations: [${_affiliations.map(x => x.toLocaleUpperCase()).join(", ")}]${conf.authenticated === login ? `, affiliations: [${_affiliations.map(x => x.toLocaleUpperCase()).join(", ")}]` : ""}` : ""
   console.debug(`metrics/compute/${login}/base > affiliations constraints ${affiliations}`)
@@ -20,10 +20,6 @@ export default async function({login, graphql, data, q, queries, imports}, conf)
   const defaulted = ("base" in q) ? legacy.converter(q.base) ?? true : true
   for (const part of conf.settings.plugins.base.parts)
     data.base[part] = `base.${part}` in q ? legacy.converter(q[`base.${part}`]) : defaulted
-
-  //Shared options
-  data.shared = {"repositories.skipped":_skipped}
-  console.debug(`metrics/compute/${login}/base > shared options > ${JSON.stringify(data.shared)}`)
 
   //Iterate through account types
   for (const account of ["user", "organization"]) {
@@ -53,6 +49,10 @@ export default async function({login, graphql, data, q, queries, imports}, conf)
         data.user[type].nodes.splice(repositories)
         console.debug(`metrics/compute/${login}/base > loaded ${data.user[type].nodes.length} ${type}`)
       }
+      //Shared options
+      let {"repositories.skipped":skipped, "commits.authoring":authoring} = imports.metadata.plugins.base.inputs({data, q, account:"bypass"})
+      data.shared = {"repositories.skipped":skipped, "commits.authoring":authoring}
+      console.debug(`metrics/compute/${login}/base > shared options > ${JSON.stringify(data.shared)}`)
       //Success
       console.debug(`metrics/compute/${login}/base > graphql query > account ${account} > success`)
       return {}
