@@ -12,9 +12,9 @@
       <% if (base.metadata) { %>
         <footer>
           <% if (account === "user") { %>
-            <span>These metrics <%= !computed.token.scopes.includes("repo") ? "do not include all" : "include" %> private contributions<% if ((config.timezone?.name)&&(!config.timezone?.error)) { %>, timezone <%= config.timezone.name %><% } %></span>
+            <span>These metrics <%= !computed.token.scopes.includes("repo") ? "do not include all" : "include" %> private contributions</span>
           <% } %>
-          <span>Last updated <%= meta.generated %> with lowlighter/metrics@<%= meta.version %></span>
+          <span>Last updated <%= meta.generated %> <% if ((config.timezone?.name)&&(!config.timezone?.error)) { %>(timezone <%= config.timezone.name %>)<% } %> with lowlighter/metrics@<%= meta.version %></span>
         </footer>
       <% } %>
       <div id="metrics-end"></div>
