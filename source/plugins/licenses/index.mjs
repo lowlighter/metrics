@@ -115,7 +115,7 @@ export default async function({login, q, imports, data, graphql, queries, accoun
   }
 }
 
-/**Licenses colorizer (based on categorie) */
+/**Licenses colorizer (based on category) */
 function colors(licenses) {
   for (const [license, value] of Object.entries(licenses)) {
     const [permissions, conditions] = [value.permissions, value.conditions].map(properties => properties.map(({key}) => key))

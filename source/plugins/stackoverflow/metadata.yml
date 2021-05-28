@@ -1,6 +1,6 @@
 name: "🗨️ Stackoverflow plugin"
 cost: N/A
-categorie: social
+category: social
 index: 5
 supports:
   - user

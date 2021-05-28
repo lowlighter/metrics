@@ -1,6 +1,6 @@
 name: "📌 Starred topics"
 cost: N/A
-categorie: github
+category: github
 index: 7
 supports:
   - user

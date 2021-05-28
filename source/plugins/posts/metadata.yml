@@ -1,6 +1,6 @@
 name: "✒️ Recent posts"
 cost: N/A
-categorie: social
+category: social
 index: 6
 supports:
   - user
