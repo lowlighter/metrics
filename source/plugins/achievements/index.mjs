@@ -27,7 +27,7 @@ export default async function({login, q, imports, data, computed, graphql, queri
       .sort((a, b) => (order[b.rank] + b.progress * 0.99) - (order[a.rank] + a.progress * 0.99))
       .map(({title, unlock, ...achievement}) => ({
         title:({S:`Master ${title.toLocaleLowerCase()}`, A:`Super ${title.toLocaleLowerCase()}`, B:`Great ${title.toLocaleLowerCase()}`}[achievement.rank] ?? title),
-        unlock:!/invalid date/i.test(unlock) ? `${imports.date(unlock, {timeStyle:"short", timeZone:data.config.timezone?.name})} on ${imports.date(unlock, {dateStyle:"short", timeZone:data.config.timezone?.name})}` : null,
+        unlock:!/invalid date/i.test(unlock) ? `${imports.format.date(unlock, {timeStyle:"short"})} on ${imports.format.date(unlock, {dateStyle:"short"})}` : null,
         ...achievement,
       }))
       .map(({icon, ...achievement}) => ({icon:icon.replace(/#primary/g, colors[achievement.rank][0]).replace(/#secondary/g, colors[achievement.rank][1]), ...achievement}))

@@ -73,7 +73,7 @@ export default async function({login, q}, {conf, data, rest, graphql, plugins, q
   }
 
   //Total disk usage
-  computed.diskUsage = `${imports.bytes(data.user.repositories.totalDiskUsage * 1000)}`
+  computed.diskUsage = `${imports.format.bytes(data.user.repositories.totalDiskUsage * 1000)}`
 
   //Compute licenses stats
   computed.licenses.favorite = Object.entries(computed.licenses.used).sort(([_an, a], [_bn, b]) => b - a).slice(0, 1).map(([name, _value]) => name) ?? ""

@@ -48,51 +48,60 @@ export function s(value, end = "") {
   return value !== 1 ? {y:"ies", "":"s"}[end] : end
 }
 
-/**Formatter */
-export function format(n, {sign = false, unit = true, fixed} = {}) {
-  if (unit) {
-    for (const {u, v} of [{u:"b", v:10 ** 9}, {u:"m", v:10 ** 6}, {u:"k", v:10 ** 3}]) {
-      if (n / v >= 1)
-        return `${(sign) && (n > 0) ? "+" : ""}${(n / v).toFixed(fixed ?? 2).substr(0, 4).replace(/[.]0*$/, "")}${u}`
+/**Formatters */
+export function formatters({timeZone} = {}) {
+  //Check options
+  try {
+    new Date().toLocaleString("fr", {timeZoneName:"short", timeZone})
+  }
+  catch {
+    timeZone = undefined
+  }
+
+  /**Formatter */
+  const format = function(n, {sign = false, unit = true, fixed} = {}) {
+    if (unit) {
+      for (const {u, v} of [{u:"b", v:10 ** 9}, {u:"m", v:10 ** 6}, {u:"k", v:10 ** 3}]) {
+        if (n / v >= 1)
+          return `${(sign) && (n > 0) ? "+" : ""}${(n / v).toFixed(fixed ?? 2).substr(0, 4).replace(/[.]0*$/, "")}${u}`
+      }
     }
+    return `${(sign) && (n > 0) ? "+" : ""}${fixed ? n.toFixed(fixed) : n}`
   }
-  return `${(sign) && (n > 0) ? "+" : ""}${fixed ? n.toFixed(fixed) : n}`
-}
 
-/**Bytes formatter */
-export function bytes(n) {
-  for (const {u, v} of [{u:"E", v:10 ** 18}, {u:"P", v:10 ** 15}, {u:"T", v:10 ** 12}, {u:"G", v:10 ** 9}, {u:"M", v:10 ** 6}, {u:"k", v:10 ** 3}]) {
-    if (n / v >= 1)
-      return `${(n / v).toFixed(2).substr(0, 4).replace(/[.]0*$/, "")} ${u}B`
+  /**Bytes formatter */
+  format.bytes = function (n) {
+    for (const {u, v} of [{u:"E", v:10 ** 18}, {u:"P", v:10 ** 15}, {u:"T", v:10 ** 12}, {u:"G", v:10 ** 9}, {u:"M", v:10 ** 6}, {u:"k", v:10 ** 3}]) {
+      if (n / v >= 1)
+        return `${(n / v).toFixed(2).substr(0, 4).replace(/[.]0*$/, "")} ${u}B`
+    }
+    return `${n} byte${n > 1 ? "s" : ""}`
   }
-  return `${n} byte${n > 1 ? "s" : ""}`
-}
-format.bytes = bytes
 
-/**Percentage formatter */
-export function percentage(n, {rescale = true} = {}) {
-  return `${
-    (n * (rescale ? 100 : 1)).toFixed(2)
-      .replace(/(?<=[.])(?<decimal>[1-9]*)0+$/, "$<decimal>")
-      .replace(/[.]$/, "")
-  }%`
-}
-format.percentage = percentage
+  /**Percentage formatter */
+  format.percentage = function (n, {rescale = true} = {}) {
+    return `${
+      (n * (rescale ? 100 : 1)).toFixed(2)
+        .replace(/(?<=[.])(?<decimal>[1-9]*)0+$/, "$<decimal>")
+        .replace(/[.]$/, "")
+    }%`
+  }
 
-/**Text ellipsis formatter */
-export function ellipsis(text, {length = 20} = {}) {
-  text = `${text}`
-  if (text.length < length)
-    return text
-  return `${text.substring(0, length)}…`
-}
-format.ellipsis = ellipsis
+  /**Text ellipsis formatter */
+  format.ellipsis = function(text, {length = 20} = {}) {
+    text = `${text}`
+    if (text.length < length)
+      return text
+    return `${text.substring(0, length)}…`
+  }
 
-/**Date formatter */
-export function date(string, options) {
-  return new Intl.DateTimeFormat("en-GB", options).format(new Date(string))
+  /**Date formatter */
+  format.date = function(string, options) {
+    return new Intl.DateTimeFormat("en-GB", {timeZone, ...options}).format(new Date(string))
+  }
+
+  return {format}
 }
-format.date = date
 
 /**Array shuffler */
 export function shuffle(array) {

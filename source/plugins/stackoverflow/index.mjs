@@ -32,14 +32,14 @@ export default async function({login, q, imports, data, account}, {enabled = fal
       //Load and format answers
       console.debug(`metrics/compute/${login}/plugins > stackoverflow > querying api for ${key}`)
       const {data:{items}} = await imports.axios.get(`${api.user}/answers?site=stackoverflow&pagesize=${limit}&filter=${filters.answer}&${sort}`)
-      result[key] = await Promise.all(items.map(item => format.answer(item, {imports, data, codelines})))
+      result[key] = await Promise.all(items.map(item => format.answer(item, {imports, codelines})))
       console.debug(`metrics/compute/${login}/plugins > stackoverflow > loaded ${result[key].length} items`)
       //Load related questions
       const ids = result[key].map(({question_id}) => question_id).filter(id => id)
       if (ids) {
         console.debug(`metrics/compute/${login}/plugins > stackoverflow > loading ${ids.length} related items`)
         const {data:{items}} = await imports.axios.get(`${api.base}/questions/${ids.join(";")}?site=stackoverflow&filter=${filters.question}`)
-        await Promise.all(items.map(item => format.question(item, {imports, data, codelines})))
+        await Promise.all(items.map(item => format.question(item, {imports, codelines})))
       }
     }
 
@@ -48,14 +48,14 @@ export default async function({login, q, imports, data, account}, {enabled = fal
       //Load and format questions
       console.debug(`metrics/compute/${login}/plugins > stackoverflow > querying api for ${key}`)
       const {data:{items}} = await imports.axios.get(`${api.user}/questions?site=stackoverflow&pagesize=${limit}&filter=${filters.question}&${sort}`)
-      result[key] = await Promise.all(items.map(item => format.question(item, {imports, data, codelines})))
+      result[key] = await Promise.all(items.map(item => format.question(item, {imports, codelines})))
       console.debug(`metrics/compute/${login}/plugins > stackoverflow > loaded ${result[key].length} items`)
       //Load related answers
       const ids = result[key].map(({accepted_answer_id}) => accepted_answer_id).filter(id => id)
       if (ids) {
         console.debug(`metrics/compute/${login}/plugins > stackoverflow > loading ${ids.length} related items`)
         const {data:{items}} = await imports.axios.get(`${api.base}/answers/${ids.join(";")}?site=stackoverflow&filter=${filters.answer}`)
-        await Promise.all(items.map(item => format.answer(item, {imports, data, codelines})))
+        await Promise.all(items.map(item => format.answer(item, {imports, codelines})))
       }
     }
 
@@ -79,7 +79,7 @@ const format = {
     return text.replace(/<!-- language: lang-(?<lang>\w+) -->\s*(?<snippet> {4}[\s\S]+?)(?=(?:<!-- end snippet -->)|(?:<!-- language: lang-))/g, "```$<lang>\n$<snippet>```")
   },
   /**Format answers */
-  async answer({body_markdown:body, score, up_vote_count:upvotes, down_vote_count:downvotes, is_accepted:accepted, comment_count:comments = 0, creation_date, owner:{display_name:author}, link, answer_id:id, question_id}, {imports, data, codelines}) {
+  async answer({body_markdown:body, score, up_vote_count:upvotes, down_vote_count:downvotes, is_accepted:accepted, comment_count:comments = 0, creation_date, owner:{display_name:author}, link, answer_id:id, question_id}, {imports, codelines}) {
     const formatted = {
       type:"answer",
       body:await imports.markdown(format.code(imports.htmlunescape(body)), {codelines}),
@@ -89,7 +89,7 @@ const format = {
       accepted,
       comments,
       author,
-      created:imports.date(creation_date * 1000, {dateStyle:"short", timeZone:data.config.timezone?.name}),
+      created:imports.format.date(creation_date * 1000, {dateStyle:"short"}),
       link,
       id,
       question_id,
@@ -120,7 +120,7 @@ const format = {
       question_id:id,
       accepted_answer_id = null,
     },
-    {imports, data, codelines},
+    {imports, codelines},
   ) {
     const formatted = {
       type:"question",
@@ -136,7 +136,7 @@ const format = {
       comments,
       views,
       author,
-      created:imports.date(creation_date * 1000, {dateStyle:"short", timeZone:data.config.timezone?.name}),
+      created:imports.format.date(creation_date * 1000, {dateStyle:"short"}),
       link,
       id,
       accepted_answer_id,

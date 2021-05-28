@@ -32,6 +32,7 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
       templates:Templates,
       metadata:conf.metadata,
       ...utils,
+      ...utils.formatters({timeZone:q["config.timezone"]}),
       ...(/markdown/.test(convert)
         ? {
           imgb64(url, options) {
