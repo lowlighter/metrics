@@ -18,6 +18,9 @@
             <% if (plugins.habits.indents.style) { %>
               <li>Use <%= plugins.habits.indents.style %> for indents</li>
             <% } %>
+            <% if (plugins.habits.lines.average.chars) { %>
+              <li>Approximately <%= f(plugins.habits.lines.average.chars, {fixed:1}) %> characters per line of code written</li>
+            <% } %>
             <% if (!Number.isNaN(plugins.habits.commits.hour)) { %>
               <li>Mostly push code around <%= plugins.habits.commits.hour %>:00</li>
             <% } %>

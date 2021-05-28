@@ -186,7 +186,7 @@ The allowed format is `(absolute padding) + (relative padding)%` (each operand i
 - uses: lowlighter/metrics@latest
   with:
     # ... other options
-    config_padding: 0, 9% # 0px width padding, 0px + 9% height padding
+    config_padding: 0, 11% # 0px width padding, 0px + 11% height padding
 ```
 
 ### 🧶 Using commits, pull requests, manual reviews or gists to handle metrics output

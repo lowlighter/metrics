@@ -10,7 +10,7 @@ export default async function({login, data, rest, imports, q, account}, {enabled
     let {from, days, facts, charts} = imports.metadata.plugins.habits.inputs({data, account, q}, defaults)
 
     //Initialization
-    const habits = {facts, charts, commits:{hour:NaN, hours:{}, day:NaN, days:{}}, indents:{style:"", spaces:0, tabs:0}, linguist:{available:false, ordered:[], languages:{}}}
+    const habits = {facts, charts, lines:{average:{chars:0}}, commits:{hour:NaN, hours:{}, day:NaN, days:{}}, indents:{style:"", spaces:0, tabs:0}, linguist:{available:false, ordered:[], languages:{}}}
     const pages = Math.ceil(from / 100)
     const offset = data.config.timezone?.offset ?? 0
 
@@ -81,6 +81,14 @@ export default async function({login, data, rest, imports, q, account}, {enabled
         .map(({patch}) => patch.match(/((?:\t)|(?:[ ]{2})) /gm) ?? [])
         .forEach(indent => habits.indents[/^\t/.test(indent) ? "tabs" : "spaces"]++)
       habits.indents.style = habits.indents.spaces > habits.indents.tabs ? "spaces" : habits.indents.tabs > habits.indents.spaces ? "tabs" : ""
+    }
+
+    //Average characters per line
+    {
+      //Compute average number of characters per line of code fetched
+      console.debug(`metrics/compute/${login}/plugins > habits > computing average number of characters per line of code`)
+      const lines = patches.flatMap(({patch}) => patch.split("\n").map(line => line.length))
+      habits.lines.average.chars = lines.reduce((a, b) => a + b, 0)/lines.length
     }
 
     //Linguist
