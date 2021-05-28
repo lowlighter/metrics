@@ -79,6 +79,19 @@ metadata.plugin = async function({__plugins, name, logger}) {
           if (!meta.supports?.includes(context))
             throw {error:{message:`Not supported for: ${context}`, instance:new Error()}}
         }
+        //Special values replacer
+        const replacer = value => {
+          value = `${value}`.trim()
+          if (user) {
+            if (value === ".user.login")
+              return user.login
+            if (value === ".user.twitter")
+              return user.twitterUsername
+            if (value === ".user.website")
+              return user.websiteUrl
+          }
+          return value
+        }
         //Inputs checks
         const result = Object.fromEntries(
           Object.entries(inputs).map(([key, {type, format, default:defaulted, min, max, values}]) => [
@@ -120,19 +133,11 @@ metadata.plugin = async function({__plugins, name, logger}) {
                   }
                   const separators = {"comma-separated":",", "space-separated":" "}
                   const separator = separators[[format].flat().filter(s => s in separators)[0]] ?? ","
-                  return value.split(separator).map(v => v.trim().toLocaleLowerCase()).filter(v => Array.isArray(values) ? values.includes(v) : true).filter(v => v)
+                  return value.split(separator).map(v => replacer(v.trim().toLocaleLowerCase())).filter(v => Array.isArray(values) ? values.includes(v) : true).filter(v => v)
                 }
                 //String
                 case "string": {
-                  value = `${value}`.trim()
-                  if (user) {
-                    if (value === ".user.login")
-                      return user.login
-                    if (value === ".user.twitter")
-                      return user.twitterUsername
-                    if (value === ".user.website")
-                      return user.websiteUrl
-                  }
+                  value = replacer(value)
                   if ((Array.isArray(values)) && (!values.includes(value)))
                     return defaulted
                   return value
