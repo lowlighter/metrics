@@ -35,6 +35,12 @@ inputs:
     description: Default repositories to skip
     default: ""
   
+  # List of surnames or email addresses you use when authoring commits
+  # These are mostly used to perform commits analysis to detect ownership
+  commits_authoring:
+    description: List of surnames or email addresses you use when authoring commits
+    default: .user.login
+  
   # ====================================================================================
   # 🧱 Core
   
