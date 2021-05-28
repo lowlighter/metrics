@@ -50,6 +50,14 @@ export function s(value, end = "") {
 
 /**Formatters */
 export function formatters({timeZone} = {}) {
+  //Check options
+  try {
+    new Date().toLocaleString("fr", {timeZoneName:"short", timeZone})
+  }
+  catch {
+    timeZone = undefined
+  }
+
   /**Formatter */
   const format = function(n, {sign = false, unit = true, fixed} = {}) {
     if (unit) {
