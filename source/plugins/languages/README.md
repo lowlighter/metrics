@@ -33,6 +33,12 @@ The `plugin_languages_indepth` option lets you get more accurate metrics by clon
 > ⚠️ Although *metrics* does not send any code to external sources, you must understand that when using this option repositories are cloned locally temporarly on the GitHub Action runner. If you work with sensitive data or company code, it is advised to keep this option disabled. *Metrics* cannot be held responsible for any eventual code leaks, use at your own risk.
 > Source code is available for auditing at [analyzers.mjs](/source/plugins/languages/analyzers.mjs)
 
+#### `commits_authoring` option
+
+Since Git lets you use any email and name for commits, metrics may not be able to detect whether you own a commit or not. By default, it'll check whether it matches your GitHub login.
+
+For better results, it's advised to add either your surnames and eventually no-reply email addresses.
+
 #### ℹ️ Examples workflows
 
 [➡️ Available options for this plugin](metadata.yml)
@@ -50,4 +56,5 @@ The `plugin_languages_indepth` option lets you get more accurate metrics by clon
     plugin_languages_limit: 8                                    # Display up to 8 languages
     plugin_languages_sections: most-used, recently-used          # Display most used and recently used languages stats
     plugin_languages_indepth: no                                 # Get indepth stats (see documentation before enabling)
+    commits_authoring: lowlighter@users.noreply.github.com       # Surnames or email addresses used to identify your commits
 ```

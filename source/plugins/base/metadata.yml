@@ -55,3 +55,12 @@ inputs:
     format: comma-separated
     default: ""
     example: my-repo-1, my-repo-2, owner/repo-3 ...
+
+  # List of surnames or email addresses you use when authoring commits
+  # These are mostly used to perform commits analysis to detect ownership
+  commits_authoring:
+    description: List of surnames or email addresses you use when authoring commits
+    type: array
+    format: comma-seperated
+    default: .user.login
+    example: lowlighter, lowlighter@users.noreply.github.com

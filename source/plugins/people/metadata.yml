@@ -18,7 +18,7 @@ inputs:
   plugin_people_limit:
     description: Maximum number of user to display
     type: number
-    default: 28
+    default: 24
     min: 0
 
   # Size of displayed user's avatar

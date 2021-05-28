@@ -36,7 +36,7 @@
           <div class="row fill-width">
             <% for (const row of rows) { %>
               <section>
-                <% for (const {name, value, lines, color, size} of languages.filter((_, i) => i%rows.length === row)) { %>
+                <% for (const {name, value, lines = 0, color, size} of languages.filter((_, i) => i%rows.length === row)) { %>
                   <div class="field language details">
                     <div class="field">
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill="<%= color ?? "#959DA5" %>" fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8z"></path></svg>

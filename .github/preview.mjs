@@ -22,7 +22,7 @@
   const {conf, Templates} = await setup({nosettings:true, log:false})
   const templates = Object.entries(Templates).map(([name]) => ({name, enabled:true}))
   const metadata = Object.fromEntries(Object.entries(conf.metadata.plugins)
-    .map(([key, value]) => [key, Object.fromEntries(Object.entries(value).filter(([key]) => ["name", "icon", "categorie", "web", "supports"].includes(key)))])
+    .map(([key, value]) => [key, Object.fromEntries(Object.entries(value).filter(([key]) => ["name", "icon", "category", "web", "supports"].includes(key)))])
     .map(([key, value]) => [key, key === "core" ? {...value, web:Object.fromEntries(Object.entries(value.web).filter(([key]) => /^config[.]/.test(key)).map(([key, value]) => [key.replace(/^config[.]/, ""), value]))} : value]))
 
 
@@ -39,7 +39,7 @@
   fs.copyFile(paths.join(__web, "favicon.png"), paths.join(__preview, ".favicon.png"))
   fs.copyFile(paths.join(__web, "opengraph.png"), paths.join(__preview, ".opengraph.png"))
 //Plugins and templates
-  fs.writeFile(paths.join(__preview, ".plugins"), JSON.stringify(Object.entries(metadata).filter(([_name, {categorie}]) => categorie !== "core").map(([name]) => ({name, enabled:false}))))
+  fs.writeFile(paths.join(__preview, ".plugins"), JSON.stringify(Object.entries(metadata).filter(([_name, {category}]) => category !== "core").map(([name]) => ({name, enabled:false}))))
   fs.writeFile(paths.join(__preview, ".plugins.base"), JSON.stringify(conf.settings.plugins.base.parts))
   fs.writeFile(paths.join(__preview, ".plugins.metadata"), JSON.stringify(metadata))
   fs.writeFile(paths.join(__preview, ".templates__"), JSON.stringify(templates))
