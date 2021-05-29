@@ -25,7 +25,7 @@
       <div class="row fill-width">
         <section class="categories">
           <% for (const {score, title} of plugins.pagespeed.scores) { %>
-            <div class="categorie column">
+            <div class="category column">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="50" height="50" class="gauge <%= !Number.isNaN(score) ? (score >= 0.9 ? 'high' : score >= 0.5 ? 'average' : 'low') : '' %>">
                 <circle class="gauge-base" r="53" cx="60" cy="60"></circle>
                 <% if (!Number.isNaN(score)) { %>

@@ -1,6 +1,6 @@
 name: "⏰ WakaTime plugin"
 cost: N/A
-categorie: social
+category: social
 index: 7
 supports:
   - user

@@ -1,6 +1,6 @@
 name: "🧱 Core"
 cost: N/A
-categorie: core
+category: core
 supports:
   - user
   - organization

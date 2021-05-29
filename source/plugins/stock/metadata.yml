@@ -1,6 +1,6 @@
 name: "💹 Stock prices"
 cost: N/A
-categorie: other
+category: other
 index: 1
 supports:
   - user

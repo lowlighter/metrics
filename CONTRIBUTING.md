@@ -424,7 +424,7 @@ Here's an example:
 ```yaml
 name: "🧩 Plugin name (with emoji icon)"
 cost: Estimates how many GitHub requests is used during plugin execution ("N/A" for Third-Party services)
-categorie: github # Plugin categorie ("github", "social" or "other")
+category: github # Plugin category ("github", "social" or "other")
 index: ~          # Leave as it (this is used to order plugins on metrics README.md)
 supports:
   - user          # Support users account

@@ -30,7 +30,7 @@ export default async function metadata({log = true} = {}) {
   }
   //Reorder keys
   const {base, core, ...plugins} = Plugins //eslint-disable-line no-unused-vars
-  Plugins = Object.fromEntries(Object.entries(Plugins).sort(([_an, a], [_bn, b]) => a.categorie === b.categorie ? (a.index ?? Infinity) - (b.index ?? Infinity) : categories.indexOf(a.categorie) - categories.indexOf(b.categorie)))
+  Plugins = Object.fromEntries(Object.entries(Plugins).sort(([_an, a], [_bn, b]) => a.category === b.category ? (a.index ?? Infinity) - (b.index ?? Infinity) : categories.indexOf(a.category) - categories.indexOf(b.category)))
   logger(`metrics/metadata > loaded [${Object.keys(Plugins).join(", ")}]`)
   //Load templates metadata
   let Templates = {}
@@ -64,9 +64,9 @@ metadata.plugin = async function({__plugins, name, logger}) {
     const raw = `${await fs.promises.readFile(path.join(__plugins, name, "metadata.yml"), "utf-8")}`
     const {inputs, ...meta} = yaml.load(raw)
 
-    //Categorie
-    if (!categories.includes(meta.categorie))
-      meta.categorie = "other"
+    //category
+    if (!categories.includes(meta.category))
+      meta.category = "other"
 
     //Inputs parser
     {
