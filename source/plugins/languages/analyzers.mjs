@@ -125,7 +125,7 @@ async function analyze({login, imports, data}, {results, path}) {
   const files = Object.fromEntries(Object.entries(JSON.parse(await imports.run("github-linguist --json", {cwd:path}, {log:false}))).flatMap(([lang, files]) => files.map(file => [file, lang])))
 
   //Processing diff
-  const per_page = 10
+  const per_page = 1
   console.debug(`metrics/compute/${login}/plugins > languages > indepth > checking git log`)
   for (let page = 0; ; page++) {
     try {
@@ -182,7 +182,7 @@ if (/languages.analyzers.mjs$/.test(process.argv[1])) {
     //Prepare call
     const imports = await import("../../app/metrics/utils.mjs")
     const results = {total:0, lines:{}, stats:{}}
-    console.debug = () => null
+    console.debug = log => /exited with code null/.test(log) ? console.error(log.replace(/^.*--max-count=(?<step>\d+) --skip=(?<start>\d+).*$/, (_, step, start) => `error: skipped commits ${start} from ${Number(start)+Number(step)}`)) : null
 
     //Analyze repository
     console.log(`commits authoring | ${authoring}\nrepository path   | ${path}\n`)
