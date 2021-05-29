@@ -125,7 +125,7 @@ async function analyze({login, imports, data}, {results, path}) {
   const files = Object.fromEntries(Object.entries(JSON.parse(await imports.run("github-linguist --json", {cwd:path}, {log:false}))).flatMap(([lang, files]) => files.map(file => [file, lang])))
 
   //Processing diff
-  const per_page = 10
+  const per_page = 1
   console.debug(`metrics/compute/${login}/plugins > languages > indepth > checking git log`)
   for (let page = 0; ; page++) {
     try {
@@ -163,4 +163,30 @@ async function analyze({login, imports, data}, {results, path}) {
     }
   }
 
+}
+
+//import.meta.main
+if (/languages.analyzers.mjs$/.test(process.argv[1])) {
+  (async function() {
+    //Parse inputs
+    const [_authoring, path] = process.argv.slice(2)
+    if ((!_authoring)||(!path)) {
+      console.log("Usage is:\n  npm run indepth -- <commits authoring> <repository local path>\n\n")
+      process.exit(1)
+    }
+    const {default:setup} = await import("../../app/metrics/setup.mjs")
+    const {conf:{metadata}} = await setup({log:false, nosettings:true})
+    const {"commits.authoring":authoring} = await metadata.plugins.base.inputs({q:{"commits.authoring":_authoring}, account:"bypass"})
+    const data = {shared:{"commits.authoring":authoring}}
+
+    //Prepare call
+    const imports = await import("../../app/metrics/utils.mjs")
+    const results = {total:0, lines:{}, stats:{}}
+    console.debug = log => /exited with code null/.test(log) ? console.error(log.replace(/^.*--max-count=(?<step>\d+) --skip=(?<start>\d+).*$/, (_, step, start) => `error: skipped commits ${start} from ${Number(start)+Number(step)}`)) : null
+
+    //Analyze repository
+    console.log(`commits authoring | ${authoring}\nrepository path   | ${path}\n`)
+    await analyze({login:"cli", data, imports}, {results, path})
+    console.log(results)
+  })()
 }
