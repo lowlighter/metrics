@@ -133,7 +133,7 @@ metadata.plugin = async function({__plugins, name, logger}) {
                   }
                   const separators = {"comma-separated":",", "space-separated":" "}
                   const separator = separators[[format].flat().filter(s => s in separators)[0]] ?? ","
-                  return value.split(separator).map(v => replacer(v.trim().toLocaleLowerCase())).filter(v => Array.isArray(values) ? values.includes(v) : true).filter(v => v)
+                  return value.split(separator).map(v => replacer(v.trim()).toLocaleLowerCase()).filter(v => Array.isArray(values) ? values.includes(v) : true).filter(v => v)
                 }
                 //String
                 case "string": {
