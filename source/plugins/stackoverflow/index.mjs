@@ -112,7 +112,7 @@ const format = {
       tags,
       is_answered:answered,
       answer_count:answers,
-      comment_count:comments,
+      comment_count:comments = 0,
       view_count:views,
       creation_date,
       owner:{display_name:author},
