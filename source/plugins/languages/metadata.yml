@@ -101,6 +101,7 @@ inputs:
 
   # Filter events by age (for recently used languages statistics)
   # Set to 0 to disable age filtering
+  # Note that metrics won't be able to load more events than GitHub is able to provide
   plugin_languages_recent_days:
     description: Maximum event age (for recently used section)
     type: number

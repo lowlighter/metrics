@@ -56,5 +56,7 @@ For better results, it's advised to add either your surnames and eventually no-r
     plugin_languages_limit: 8                                    # Display up to 8 languages
     plugin_languages_sections: most-used, recently-used          # Display most used and recently used languages stats
     plugin_languages_indepth: no                                 # Get indepth stats (see documentation before enabling)
+    plugin_languages_recent_load: 500                            # Load up to 500 events to compute recently used stats
+    plugin_languages_recent_days: 7                              # Limit recently used stats to last week
     commits_authoring: lowlighter@users.noreply.github.com       # Surnames or email addresses used to identify your commits
 ```
