@@ -33,7 +33,7 @@ runs:
         for INPUT in $(echo $INPUTS | jq -r 'to_entries|map("INPUT_\(.key|ascii_upcase)=\(.value|@uri)")|.[]'); do
           echo $INPUT >> .env
         done
-        env | grep -E '^(GITHUB|ACTIONS|CI)' >> .env
+        env | grep -E '^(GITHUB|ACTIONS|CI|TZ)' >> .env
         echo "Environment variables: loaded"
 
         # Renders output folder
@@ -104,3 +104,4 @@ runs:
         METRICS_ACTION_PATH: ${{ github.action_path }}
         METRICS_USE_PREBUILT_IMAGE: ${{ inputs.use_prebuilt_image }}
         INPUTS: ${{ toJson(inputs) }}
+        TZ: ${{ inputs.config_timezone }}
