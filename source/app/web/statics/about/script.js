@@ -149,6 +149,7 @@
       metrics: null,
       pending: false,
       error: null,
+      config: {},
     },
   })
 })()
