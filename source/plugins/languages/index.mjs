@@ -81,11 +81,12 @@ export default async function({login, data, imports, q, rest, account}, {enabled
 
 console.log(aliases)
     //Apply aliases
-    for (const section of ["favorites", "recent"])
-      for (const language of languages[section])
+    for (const section of ["favorites", "recent"]) {
+      for (const language of languages[section]) {
         if (language.name.toLocaleLowerCase() in aliases)
           language.name = aliases[language.name.toLocaleLowerCase()]
-
+      }
+    }
     //Results
     return languages
   }
