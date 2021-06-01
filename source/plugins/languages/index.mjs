@@ -17,11 +17,13 @@ export default async function({login, data, imports, q, rest, account}, {enabled
     }
 
     //Load inputs
-    let {ignored, skipped, colors, details, threshold, limit, indepth, sections, "recent.load":_recent_load, "recent.days":_recent_days} = imports.metadata.plugins.languages.inputs({data, account, q})
+    let {ignored, skipped, colors, aliases, details, threshold, limit, indepth, sections, "recent.load":_recent_load, "recent.days":_recent_days} = imports.metadata.plugins.languages.inputs({data, account, q})
     threshold = (Number(threshold.replace(/%$/, "")) || 0) / 100
     skipped.push(...data.shared["repositories.skipped"])
     if (!limit)
       limit = Infinity
+    console.log(aliases, aliases.split(",").filter(alias => /^[\s\S]+:[\s\S]+$/.test(alias)).map(alias => alias.trim().split(":")))
+    aliases = Object.fromEntries(aliases.split(",").filter(alias => /^[\s\S]+:[\s\S]+$/.test(alias)).map(alias => alias.trim().split(":")).map(([key, value]) => [key.toLocaleLowerCase(), value]))
 
     //Custom colors
     const colorsets = JSON.parse(`${await imports.fs.readFile(`${imports.__module(import.meta.url)}/colorsets.json`)}`)
@@ -76,6 +78,13 @@ export default async function({login, data, imports, q, rest, account}, {enabled
           languages[section][i].color = colors[i]
       }
     }
+
+console.log(aliases)
+    //Apply aliases
+    for (const section of ["favorites", "recent"])
+      for (const language of languages[section])
+        if (language.name.toLocaleLowerCase() in aliases)
+          language.name = aliases[language.name.toLocaleLowerCase()]
 
     //Results
     return languages

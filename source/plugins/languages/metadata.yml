@@ -61,9 +61,17 @@ inputs:
     type: array
     format:
       - comma-separated
-      - /((?<index>[0-9])|(?<language>[-+a-z0-9#])):(?<color>#?[-a-z0-9]+)/
+      - /((?<index>[0-9])|(?<language>[-+a-z0-9#]+)):(?<color>#?[-a-z0-9]+)/
     default: github
     example: javascript:red, 0:blue, 1:#ff00aa
+
+  # Overrides default languages name
+  # Use `${language}:${alias}` to change the name of language (e.g. "javascript:JS" to make JavaScript render as "JS", case of left operand ignored)
+  plugin_languages_aliases:
+    description: Custom languages names
+    type: string
+    default: ""
+    example: javascript:JS typescript:TS
 
   # Languages additional details
   plugin_languages_details:
