@@ -186,7 +186,7 @@ inputs:
   # Specify one value (for both width and height) or two values (one for width and one for height)
   config_padding:
     description: Image padding
-    default: 0, 11%
+    default: 0, 8 + 11%
   
   # Metrics output format
   config_output:
@@ -300,6 +300,12 @@ inputs:
     description: Custom languages colors
     default: github
   
+  # Overrides default languages name
+  # Use `${language}:${alias}` to change the name of language (e.g. "javascript:JS" to make JavaScript render as "JS", case of left operand ignored)
+  plugin_languages_aliases:
+    description: Custom languages names
+    default: ""
+  
   # Languages additional details
   plugin_languages_details:
     description: Additional details
@@ -324,6 +330,7 @@ inputs:
   
   # Filter events by age (for recently used languages statistics)
   # Set to 0 to disable age filtering
+  # Note that metrics won't be able to load more events than GitHub is able to provide
   plugin_languages_recent_days:
     description: Maximum event age (for recently used section)
     default: 14
@@ -472,10 +479,14 @@ inputs:
     default: no
   
   # Maximum number of issue comments to parse
-  # Issues will be fetched before issues comments
   plugin_reactions_limit:
     description: Maximum number of issue comments to parse
     default: 200
+  
+  # Maximum number of issues and pull requests opened to parse
+  plugin_reactions_limit_issues:
+    description: Maximum number of issues and pull requests opened to parse
+    default: 100
   
   # Filter reactions by issue comments age
   # Set to 0 to disable age filtering
@@ -1171,7 +1182,7 @@ runs:
         for INPUT in $(echo $INPUTS | jq -r 'to_entries|map("INPUT_\(.key|ascii_upcase)=\(.value|@uri)")|.[]'); do
           echo $INPUT >> .env
         done
-        env | grep -E '^(GITHUB|ACTIONS|CI)' >> .env
+        env | grep -E '^(GITHUB|ACTIONS|CI|TZ)' >> .env
         echo "Environment variables: loaded"
 
         # Renders output folder
@@ -1242,3 +1253,4 @@ runs:
         METRICS_ACTION_PATH: ${{ github.action_path }}
         METRICS_USE_PREBUILT_IMAGE: ${{ inputs.use_prebuilt_image }}
         INPUTS: ${{ toJson(inputs) }}
+        TZ: ${{ inputs.config_timezone }}

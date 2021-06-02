@@ -13,12 +13,19 @@ inputs:
     default: no
 
   # Maximum number of issue comments to parse
-  # Issues will be fetched before issues comments
   plugin_reactions_limit:
     description: Maximum number of issue comments to parse
     type: number
     default: 200
-    min: 1
+    min: 0
+    max: 1000
+
+  # Maximum number of issues and pull requests opened to parse
+  plugin_reactions_limit_issues:
+    description: Maximum number of issues and pull requests opened to parse
+    type: number
+    default: 100
+    min: 0
     max: 1000
 
   # Filter reactions by issue comments age

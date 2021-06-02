@@ -7,12 +7,13 @@ export default async function({login, q, imports, data, graphql, queries, accoun
       return null
 
     //Load inputs
-    let {limit, days, details, display, ignored} = imports.metadata.plugins.reactions.inputs({data, account, q})
+    let {limit:_limit1, "limit.issues":_limit2, days, details, display, ignored} = imports.metadata.plugins.reactions.inputs({data, account, q})
 
     //Load issue comments
-    let cursor = null, pushed = 0
     const comments = []
-    for (const type of ["issues", "issueComments"]) {
+    for (const {type, limit} of [{type:"issueComments", limit:_limit1}, {type:"issues", limit:_limit2}].filter(({limit}) => limit)) {
+      let cursor = null, pushed = 0
+      const fetched = []
       do {
         //Load issue comments
         console.debug(`metrics/compute/${login}/plugins > reactions > retrieving ${type} after ${cursor}`)
@@ -23,19 +24,17 @@ export default async function({login, q, imports, data, graphql, queries, accoun
           .flatMap(({node:{createdAt:created, reactions:{nodes:reactions}}}) => ({created:new Date(created), reactions:reactions.filter(({user = {}}) => !ignored.includes(user.login)).map(({content}) => content)}))
           .filter(comment => Number.isFinite(days) ? comment.created < new Date(Date.now() - days * 24 * 60 * 60 * 1000) : true)
         pushed = filtered.length
-        comments.push(...filtered)
-        console.debug(`metrics/compute/${login}/plugins > reactions > currently at ${comments.length} comments`)
-        //Early break
-        if ((comments.length >= limit) || (filtered.length < edges.length))
-          break
-      } while ((cursor) && (pushed) && (comments.length < limit))
+        fetched.push(...filtered)
+        console.debug(`metrics/compute/${login}/plugins > reactions > currently at ${fetched.length} ${type} comments`)
+        //Applying limit
+        if ((fetched.length >= limit) || (filtered.length < edges.length)) {
+          fetched.splice(limit)
+          console.debug(`metrics/compute/${login}/plugins > reactions > keeping only ${fetched.length} ${type} comments`)
+        }
+      } while ((cursor) && (pushed) && (fetched.length < limit))
+      comments.push(...fetched)
     }
-
-    //Applying limit
-    if (limit) {
-      comments.splice(limit)
-      console.debug(`metrics/compute/${login}/plugins > reactions > keeping only ${comments.length} comments`)
-    }
+    console.debug(`metrics/compute/${login}/plugins > reactions > fetched ${comments.length} comments`)
 
     //Format reactions list
     const list = {}

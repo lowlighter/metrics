@@ -69,6 +69,7 @@ export async function recent({login, data, imports, rest, account}, {skipped, da
   }
   console.debug(`metrics/compute/${login}/plugins > languages > ${commits.length} commits loaded`)
   results.commits = commits.length
+  results.latest = Math.round((new Date().getTime() - new Date(commits.slice(-1).shift()?.created_at).getTime()) / (1000 * 60 * 60 * 24))
 
   //Retrieve edited files and filter edited lines (those starting with +/-) from patches
   console.debug(`metrics/compute/${login}/plugins > languages > loading patches`)
