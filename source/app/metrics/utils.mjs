@@ -20,10 +20,11 @@ import git from "simple-git"
 import twemojis from "twemoji-parser"
 import url from "url"
 import util from "util"
+import fetch from "node-fetch"
 prism_lang()
 
 //Exports
-export {axios, fs, git, jimp, opengraph, os, paths, processes, rss, url, util}
+export {axios, fs, git, jimp, opengraph, os, paths, processes, rss, url, fetch, util}
 
 /**Returns module __dirname */
 export function __module(module) {
