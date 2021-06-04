@@ -1,3 +1,6 @@
+//Legacy import
+import { recent as recent_analyzer } from "./../languages/analyzers.mjs"
+
 //Setup
 export default async function({login, data, rest, imports, q, account}, {enabled = false, ...defaults} = {}) {
   //Plugin execution
@@ -97,27 +100,11 @@ export default async function({login, data, rest, imports, q, account}, {enabled
       //Check if linguist exists
       console.debug(`metrics/compute/${login}/plugins > habits > searching recently used languages using linguist`)
       if ((patches.length) && (await imports.which("github-linguist"))) {
-        //Setup for linguist
+        //Call language analyzer (note: using content from other plugin is usually disallowed, this is mostly for legacy purposes)
         habits.linguist.available = true
-        const path = imports.paths.join(imports.os.tmpdir(), `${commits[0]?.actor?.id ?? 0}`)
-        //Create temporary directory and save patches
-        console.debug(`metrics/compute/${login}/plugins > habits > creating temp dir ${path} with ${patches.length} files`)
-        await imports.fs.mkdir(path, {recursive:true})
-        await Promise.all(patches.map(({name, patch}, i) => imports.fs.writeFile(imports.paths.join(path, `${i}${imports.paths.extname(name)}`), patch)))
-        //Create temporary git repository
-        console.debug(`metrics/compute/${login}/plugins > habits > creating temp git repository`)
-        const git = await imports.git(path)
-        await git.init().add(".").addConfig("user.name", "linguist").addConfig("user.email", "<>").commit("linguist").status()
-        //Spawn linguist process
-        console.debug(`metrics/compute/${login}/plugins > habits > running linguist`)
-        ;(await imports.run("github-linguist --breakdown", {cwd:path}))
-          //Parse linguist result
-          .split("\n").map(line => line.match(/(?<value>[\d.]+)%\s+(?<language>[\s\S]+)$/)?.groups).filter(line => line)
-          .map(({value, language}) => habits.linguist.languages[language] = (habits.linguist.languages[language] ?? 0) + value / 100)
+        const {total, stats} = await recent_analyzer({login, data, imports, rest, account}, {days, load:from || 1000})
+        habits.linguist.languages = Object.fromEntries(Object.entries(stats).map(([language, value]) => [language, value/total]))
         habits.linguist.ordered = Object.entries(habits.linguist.languages).sort(([_an, a], [_bn, b]) => b - a)
-        //Cleaning
-        console.debug(`metrics/compute/${login}/plugins > habits > cleaning temp dir ${path}`)
-        await imports.fs.rmdir(path, {recursive:true})
       }
       else
         console.debug(`metrics/compute/${login}/plugins > habits > linguist not available`)

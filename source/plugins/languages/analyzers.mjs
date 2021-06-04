@@ -45,7 +45,7 @@ export async function indepth({login, data, imports, repositories}, {skipped}) {
 }
 
 /**Recent languages activity */
-export async function recent({login, data, imports, rest, account}, {skipped, days = 0, load = 0}) {
+export async function recent({login, data, imports, rest, account}, {skipped = [], days = 0, load = 0}) {
   //Check prerequisites
   if (!await imports.which("github-linguist"))
     throw new Error("Feature requires github-linguist")
