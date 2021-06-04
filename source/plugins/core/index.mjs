@@ -16,11 +16,12 @@ export default async function({login, q}, {conf, data, rest, graphql, plugins, q
   console.debug(`metrics/compute/${login} > formatting common metrics`)
 
   //Timezone config
+  const offset = Number(new Date().toLocaleString("fr", {timeZoneName:"short"}).match(/UTC[+](?<offset>\d+)/)?.groups?.offset * 60 * 60 * 1000) || 0
   if (_timezone) {
     const timezone = {name:_timezone, offset:0}
     data.config.timezone = timezone
     try {
-      timezone.offset = Number(new Date().toLocaleString("fr", {timeZoneName:"short", timeZone:timezone.name}).match(/UTC[+](?<offset>\d+)/)?.groups?.offset * 60 * 60 * 1000) || 0
+      timezone.offset = offset - (Number(new Date().toLocaleString("fr", {timeZoneName:"short", timeZone:timezone.name}).match(/UTC[+](?<offset>\d+)/)?.groups?.offset * 60 * 60 * 1000) || 0)
       console.debug(`metrics/compute/${login} > timezone set to ${timezone.name} (${timezone.offset > 0 ? "+" : ""}${Math.round(timezone.offset / (60 * 60 * 1000))} hours)`)
     }
     catch {
@@ -28,6 +29,8 @@ export default async function({login, q}, {conf, data, rest, graphql, plugins, q
       console.debug(`metrics/compute/${login} > failed to use timezone "${timezone.name}"`)
     }
   }
+  else if (process?.env?.TZ)
+    data.config.timezone = {name:process.env.TZ, offset}
 
   //Display
   data.large = display === "large"
