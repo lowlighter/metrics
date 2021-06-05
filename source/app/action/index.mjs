@@ -309,7 +309,7 @@ async function wait(seconds) {
       info("Actions to perform", "(none)")
     else {
       await fs.mkdir(paths.dirname(paths.join("/renders", filename)), {recursive:true})
-      await fs.writeFile(paths.join("/renders", filename), Buffer.from(rendered))
+      await fs.writeFile(paths.join("/renders", filename), Buffer.from(typeof rendered === "object" ? JSON.stringify(rendered) : `${rendered}`))
       info(`Save to /metrics_renders/${filename}`, "ok")
     }
 
