@@ -377,7 +377,7 @@ async function wait(seconds) {
         ...github.context.repo,
         path:filename,
         message:committer.message,
-        content:Buffer.from(rendered).toString("base64"),
+        content:Buffer.from(typeof rendered === "object" ? JSON.stringify(rendered) : `${rendered}`).toString("base64"),
         branch:committer.pr ? committer.head : committer.branch,
         ...(committer.sha ? {sha:committer.sha} : {}),
       })
