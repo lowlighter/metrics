@@ -62,6 +62,12 @@ export default async function({login, q, imports, data, graphql, queries, accoun
       catch (error) {
         console.debug(error)
       }
+      try {
+        console.debug(await imports.run("npm list", {cwd:path}))
+      }
+      catch (error) {
+        console.debug(error)
+      }
       JSON.parse(await imports.run("licensed list --format=json --licenses", {cwd:path})).apps
         .map(({sources}) => sources?.flatMap(source => source.dependencies?.map(({dependency, license}) => {
               used[license] = (used[license] ?? 0) + 1
