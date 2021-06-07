@@ -20,7 +20,7 @@ RUN chmod +x /metrics/source/app/action/index.mjs \
   && apt-get install -y ruby-full \
   && apt-get install -y git g++ cmake pkg-config libicu-dev zlib1g-dev libcurl4-openssl-dev libssl-dev ruby-dev \
   && gem install github-linguist \
-  && gem install licensed \
+  && gem install licensed -v 2.15.2 \
   # Install python for node-gyp
   && apt-get install -y python3 \
   # Install node modules
