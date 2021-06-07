@@ -13,7 +13,7 @@ export default async function({login, data, rest, imports, q, account}, {enabled
     let {from, days, facts, charts} = imports.metadata.plugins.habits.inputs({data, account, q}, defaults)
 
     //Initialization
-    const habits = {facts, charts, lines:{average:{chars:0}}, commits:{hour:NaN, hours:{}, day:NaN, days:{}}, indents:{style:"", spaces:0, tabs:0}, linguist:{available:false, ordered:[], languages:{}}}
+    const habits = {facts, charts, lines:{average:{chars:0}}, commits:{fetched:0, hour:NaN, hours:{}, day:NaN, days:{}}, indents:{style:"", spaces:0, tabs:0}, linguist:{available:false, ordered:[], languages:{}}}
     const pages = Math.ceil(from / 100)
     const offset = data.config.timezone?.offset ?? 0
 
@@ -37,6 +37,7 @@ export default async function({login, data, rest, imports, q, account}, {enabled
       .filter(({actor}) => account === "organization" ? true : actor.login === login)
       .filter(({created_at}) => new Date(created_at) > new Date(Date.now() - days * 24 * 60 * 60 * 1000))
     console.debug(`metrics/compute/${login}/plugins > habits > filtered out ${commits.length} push events over last ${days} days`)
+    habits.commits.fetched = commits.length
 
     //Retrieve edited files and filter edited lines (those starting with +/-) from patches
     console.debug(`metrics/compute/${login}/plugins > habits > loading patches`)
