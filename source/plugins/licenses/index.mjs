@@ -57,16 +57,10 @@ export default async function({login, q, imports, data, graphql, queries, accoun
       //Spawn licensed process
       console.debug(`metrics/compute/${login}/plugins > licenses > running licensed`)
       try {
-        console.log(await imports.run("npm list --production --all", {cwd:path}))
+        console.debug(await imports.run("npm list --production --all", {cwd:path}))
       }
       catch (error) {
-        console.log(error)
-      }
-      try {
-        console.log(await imports.run("licensed list --format=json --licenses", {cwd:path}))
-      }
-      catch (error) {
-        console.log(error)
+        console.debug(error)
       }
       JSON.parse(await imports.run("licensed list --format=json --licenses", {cwd:path})).apps
         .map(({sources}) => sources?.flatMap(source => source.dependencies?.map(({dependency, license}) => {
