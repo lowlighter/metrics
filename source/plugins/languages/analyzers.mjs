@@ -120,11 +120,11 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
 
       //Create temporary git repository
       console.debug(`metrics/compute/${login}/plugins > languages > creating temp git repository for ${directory}`)
-      const git = await imports.git(path)
+      const git = await imports.git(imports.paths.join(path, directory))
       await git.init().add(".").addConfig("user.name", data.shared["commits.authoring"]?.[0] ?? login).addConfig("user.email", "<>").commit("linguist").status()
 
       //Analyze repository
-      await analyze(arguments[0], {results, path})
+      await analyze(arguments[0], {results, path:imports.paths.join(path, directory)})
     }
   }
   catch {
