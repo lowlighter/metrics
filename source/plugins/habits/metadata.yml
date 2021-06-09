@@ -43,3 +43,9 @@ inputs:
     description: Display coding habits charts based on recent activity
     type: boolean
     default: no
+
+  # Trim unused hours on daily chart
+  plugin_habits_trim:
+    description: Trim unused hours on daily chart
+    type: boolean
+    default: no

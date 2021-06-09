@@ -403,6 +403,7 @@
             habits: {
               facts: options["habits.facts"],
               charts: options["habits.charts"],
+              trim: options["habits.trim"],
               lines: {
                 average: {
                   chars: faker.datatype.number(1000)/10,
