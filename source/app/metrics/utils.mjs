@@ -336,7 +336,10 @@ export const svg = {
         width = Math.ceil(width * padding.width + padding.absolute.width)
         console.debug(`bounds after applying padding width=${width} (*${padding.width}+${padding.absolute.width}), height=${height} (*${padding.height}+${padding.absolute.height})`)
         //Resize svg
-        document.querySelector("svg").setAttribute("height", height)
+        if (document.querySelector("svg").getAttribute("height") === "auto")
+          console.debug("skipped height resizing because it was set to \"auto\"")
+        else
+          document.querySelector("svg").setAttribute("height", height)
         //Enable animations
         if (animated)
           document.querySelector("svg").classList.remove("no-animations")
