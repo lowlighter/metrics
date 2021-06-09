@@ -103,7 +103,7 @@ export default async function({login, data, rest, imports, q, account}, {enabled
       if ((patches.length) && (await imports.which("github-linguist"))) {
         //Call language analyzer (note: using content from other plugin is usually disallowed, this is mostly for legacy purposes)
         habits.linguist.available = true
-        const {total, stats} = await recent_analyzer({login, data, imports, rest, account}, {days, load:from || 1000})
+        const {total, stats} = await recent_analyzer({login, data, imports, rest, account}, {days, load:from || 1000, tempdir:"habits"})
         habits.linguist.languages = Object.fromEntries(Object.entries(stats).map(([language, value]) => [language, value/total]))
         habits.linguist.ordered = Object.entries(habits.linguist.languages).sort(([_an, a], [_bn, b]) => b - a)
       }

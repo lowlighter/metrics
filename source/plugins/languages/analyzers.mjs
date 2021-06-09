@@ -45,7 +45,7 @@ export async function indepth({login, data, imports, repositories}, {skipped}) {
 }
 
 /**Recent languages activity */
-export async function recent({login, data, imports, rest, account}, {skipped = [], days = 0, load = 0}) {
+export async function recent({login, data, imports, rest, account}, {skipped = [], days = 0, load = 0, tempdir = "recent"}) {
   //Check prerequisites
   if (!await imports.which("github-linguist"))
     throw new Error("Feature requires github-linguist")
@@ -89,7 +89,7 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
   .map(({name, directory, patch, repo}) => ({name, directory:`${repo.replace(/[/]/g, "@")}/${directory}`, patch:patch.split("\n").filter(line => /^[+]/.test(line)).map(line => line.substring(1)).join("\n")}))
 
   //Temporary directory
-  const path = imports.paths.join(imports.os.tmpdir(), `${data.user.databaseId}`)
+  const path = imports.paths.join(imports.os.tmpdir(), `${data.user.databaseId}-${tempdir}`)
   console.debug(`metrics/compute/${login}/plugins > languages > creating temp dir ${path} with ${patches.length} files`)
   results.files = patches.length
 
