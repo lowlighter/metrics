@@ -313,6 +313,7 @@ export const svg = {
     //Render through browser and resize height
     console.debug("metrics/svg/resize > loading svg")
     const page = await svg.resize.browser.newPage()
+    page.setViewport({width:980, height:980})
     page.on("console", ({_text:text}) => console.debug(`metrics/svg/resize > puppeteer > ${text}`))
     await page.setContent(rendered, {waitUntil:["load", "domcontentloaded", "networkidle2"]})
     console.debug("metrics/svg/resize > loaded svg successfully")
@@ -335,7 +336,10 @@ export const svg = {
         width = Math.ceil(width * padding.width + padding.absolute.width)
         console.debug(`bounds after applying padding width=${width} (*${padding.width}+${padding.absolute.width}), height=${height} (*${padding.height}+${padding.absolute.height})`)
         //Resize svg
-        document.querySelector("svg").setAttribute("height", height)
+        if (document.querySelector("svg").getAttribute("height") === "auto")
+          console.debug("skipped height resizing because it was set to \"auto\"")
+        else
+          document.querySelector("svg").setAttribute("height", height)
         //Enable animations
         if (animated)
           document.querySelector("svg").classList.remove("no-animations")

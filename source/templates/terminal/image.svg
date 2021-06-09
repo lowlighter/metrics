@@ -56,8 +56,8 @@ Last generated: <%= meta.generated %>
 <footer>Connection reset by <%= Math.floor(256*Math.random()) %>.<%= Math.floor(256*Math.random()) %>.<%= Math.floor(256*Math.random()) %>.<%= Math.floor(256*Math.random()) %></footer><%# -%>
 <% } -%></pre>
 
-      <div id="metrics-end"></div>
     </div>
+    <div id="metrics-end"></div>
   </foreignObject>
 </svg>
 

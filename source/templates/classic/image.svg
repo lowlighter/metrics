@@ -17,9 +17,9 @@
           <span>Last updated <%= meta.generated %> <% if ((config.timezone?.name)&&(!config.timezone?.error)) { %>(timezone <%= config.timezone.name %>)<% } %> with lowlighter/metrics@<%= meta.version %></span>
         </footer>
       <% } %>
-      <div id="metrics-end"></div>
 
     </div>
+    <div id="metrics-end"></div>
   </foreignObject>
 
 </svg>

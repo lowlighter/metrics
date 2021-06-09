@@ -7,31 +7,31 @@
         <small class="h-details">(computed from last <%= plugins.habits.commits.fetched %> commit<%= s(plugins.habits.commits.fetched) %>)</small>
       <% } %>
     </h2>
-    <% if (plugins.habits.facts) { %>
+    <% if (plugins.habits.error) { %>
       <div class="row">
-        <% if (plugins.habits.error) { %>
-          <section>
-            <div class="field error">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M2.343 13.657A8 8 0 1113.657 2.343 8 8 0 012.343 13.657zM6.03 4.97a.75.75 0 00-1.06 1.06L6.94 8 4.97 9.97a.75.75 0 101.06 1.06L8 9.06l1.97 1.97a.75.75 0 101.06-1.06L9.06 8l1.97-1.97a.75.75 0 10-1.06-1.06L8 6.94 6.03 4.97z"></path></svg>
-              <%= plugins.habits.error.message %>
-            </div>
-          </section>
-        <% } else { %>
-          <ul class="habits">
-            <% if (plugins.habits.indents.style) { %>
-              <li>Uses <%= plugins.habits.indents.style %> for indentation</li>
-            <% } %>
-            <% if (plugins.habits.lines.average.chars) { %>
-              <li>Has approximately <%= f(plugins.habits.lines.average.chars, {fixed:1}) %> characters per line of code written</li>
-            <% } %>
-            <% if (!Number.isNaN(plugins.habits.commits.hour)) { %>
-              <li>Mostly pushes code around <%= plugins.habits.commits.hour %>:00</li>
-            <% } %>
-            <% if (plugins.habits.commits.day) { %>
-              <li>Mostly active on <%= plugins.habits.commits.day %></li>
-            <% } %>
-          </ul>
-        <% } %>
+        <section>
+          <div class="field error">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M2.343 13.657A8 8 0 1113.657 2.343 8 8 0 012.343 13.657zM6.03 4.97a.75.75 0 00-1.06 1.06L6.94 8 4.97 9.97a.75.75 0 101.06 1.06L8 9.06l1.97 1.97a.75.75 0 101.06-1.06L9.06 8l1.97-1.97a.75.75 0 10-1.06-1.06L8 6.94 6.03 4.97z"></path></svg>
+            <%= plugins.habits.error.message %>
+          </div>
+        </section>
+      </div>
+    <% } else if (plugins.habits.facts) { %>
+      <div class="row">
+        <ul class="habits">
+          <% if (plugins.habits.indents.style) { %>
+            <li>Uses <%= plugins.habits.indents.style %> for indentation</li>
+          <% } %>
+          <% if (plugins.habits.lines.average.chars) { %>
+            <li>Has approximately <%= f(plugins.habits.lines.average.chars, {fixed:1}) %> characters per line of code written</li>
+          <% } %>
+          <% if (!Number.isNaN(plugins.habits.commits.hour)) { %>
+            <li>Mostly pushes code around <%= plugins.habits.commits.hour %>:00</li>
+          <% } %>
+          <% if (plugins.habits.commits.day) { %>
+            <li>Mostly active on <%= plugins.habits.commits.day %></li>
+          <% } %>
+        </ul>
       </div>
     <% } %>
   </section>
