@@ -313,6 +313,7 @@ export const svg = {
     //Render through browser and resize height
     console.debug("metrics/svg/resize > loading svg")
     const page = await svg.resize.browser.newPage()
+    page.setViewport({width:980, height:980})
     page.on("console", ({_text:text}) => console.debug(`metrics/svg/resize > puppeteer > ${text}`))
     await page.setContent(rendered, {waitUntil:["load", "domcontentloaded", "networkidle2"]})
     console.debug("metrics/svg/resize > loaded svg successfully")

@@ -30,7 +30,7 @@
         </footer>
       <% } %>
 
-      <div id="metrics-end"></div>
-    </div>
+  </div>
+  <div id="metrics-end"></div>
   </foreignObject>
 </svg>
