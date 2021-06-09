@@ -379,11 +379,6 @@ inputs:
     description: Display coding habits charts based on recent activity
     default: no
   
-  # Trim unused hours
-  plugin_habits_trim:
-    description: Trim unused hours
-    default: no
-  
   # ====================================================================================
   # 📜 Repository licenses
   
