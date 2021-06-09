@@ -42,7 +42,7 @@
         <h3>Commit activity per hour of day</h3>
         <div class="chart-bars">
           <% var displayedValues = []; %>
-          <% for (let h = 0; h < 24; h++) { const p = (plugins.habits.commits.hours[h]??0)/(plugins.habits.commits.hours.max??1); displayedValues.push([h, p]) } %>
+          <% for (let h = 0; h < 24; h++) { displayedValues.push([h, (plugins.habits.commits.hours[h]??0)/(plugins.habits.commits.hours.max??1), plugins.habits.commits.hours[h]]) } %>
 
           <% if (plugins.habits.trim) { %>
             <% while (displayedValues[0][1] === 0) { displayedValues.shift(); } %>
@@ -51,7 +51,7 @@
 
           <% for(let i = 0; i < displayedValues.length; i++) { %>
             <div class="entry">
-              <span class="value"><%= displayedValues[i][1] == 0 ? '' : displayedValues[i][1] %></span>
+              <span class="value"><%= displayedValues[i][2] %></span>
               <div class="bar" style="height: <%= displayedValues[i][1]*50 %>px; background-color: var(--color-calendar-graph-day-L<%= Math.ceil(displayedValues[i][1]/0.25) %>-bg)"></div>
               <%= `${displayedValues[i][0]}`.padStart(2, 0) %>
             </div>
