@@ -1,10 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="<%= large ? 960 : 480 %>" height="99999" class="<%= large ? 'large' : '' %> <%= !animated ? 'no-animations' : '' %>">
+<svg xmlns="http://www.w3.org/2000/svg" width="<%= large ? 960 : columns ? 'auto' : 480 %>" height="99999" class="<%= large ? 'large' : columns ? 'columns' : '' %> <%= !animated ? 'no-animations' : '' %>">
 
   <defs><style><%= fonts %></style></defs>
   <style><%= style %></style>
 
   <foreignObject x="0" y="0" width="100%" height="100%">
-    <div xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <div xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="items-wrapper">
       <% for (const partial of [...partials]) { %>
         <%- await include(`partials/${partial}.ejs`) %>
       <% } %>
