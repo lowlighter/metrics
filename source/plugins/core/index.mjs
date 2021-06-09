@@ -34,6 +34,7 @@ export default async function({login, q}, {conf, data, rest, graphql, plugins, q
 
   //Display
   data.large = display === "large"
+  data.columns = display === "columns"
 
   //Animations
   data.animated = animations

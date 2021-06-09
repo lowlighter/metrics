@@ -56,6 +56,7 @@
       animated: false,
       //Display size
       large: set.config.display === "large",
+      columns: set.config.display === "columns",
       //Config
       config: set.config,
       //Base elements
