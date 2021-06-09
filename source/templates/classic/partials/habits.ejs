@@ -44,7 +44,7 @@
           <% var displayedValues = []; %>
           <% for (let h = 0; h < 24; h++) { const p = (plugins.habits.commits.hours[h]??0)/(plugins.habits.commits.hours.max??1); displayedValues.push([h, p]) } %>
 
-          <% if (plugins.habits.chart.trim) { %>
+          <% if (plugins.habits.trim) { %>
             <% while (displayedValues[0][1] === 0) { displayedValues.shift(); } %>
             <% while (displayedValues[displayedValues.length-1][1] === 0){ displayedValues.pop(); } %>
           <% } %>

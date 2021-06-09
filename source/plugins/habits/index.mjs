@@ -10,10 +10,10 @@ export default async function({login, data, rest, imports, q, account}, {enabled
       return null
 
     //Load inputs
-    let {from, days, facts, charts} = imports.metadata.plugins.habits.inputs({data, account, q}, defaults)
+    let {from, days, facts, charts, trim} = imports.metadata.plugins.habits.inputs({data, account, q}, defaults)
 
     //Initialization
-    const habits = {facts, charts, lines:{average:{chars:0}}, commits:{fetched:0, hour:NaN, hours:{}, day:NaN, days:{}}, indents:{style:"", spaces:0, tabs:0}, linguist:{available:false, ordered:[], languages:{}}}
+    const habits = {facts, charts, trim, lines:{average:{chars:0}}, commits:{fetched:0, hour:NaN, hours:{}, day:NaN, days:{}}, indents:{style:"", spaces:0, tabs:0}, linguist:{available:false, ordered:[], languages:{}}}
     const pages = Math.ceil(from / 100)
     const offset = data.config.timezone?.offset ?? 0
 

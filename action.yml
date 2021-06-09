@@ -380,7 +380,7 @@ inputs:
     default: no
   
   # Trim unused hours
-  plugin_habits_chart_trim:
+  plugin_habits_trim:
     description: Trim unused hours
     default: no
   
