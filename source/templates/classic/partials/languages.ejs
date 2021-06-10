@@ -22,6 +22,10 @@
           <small>
             estimation from <%= plugins.languages["stats.recent"]?.files %> edited file<%= s(plugins.languages["stats.recent"]?.files) %> from <%= plugins.languages["stats.recent"]?.commits %> commit<%= s(plugins.languages["stats.recent"]?.commits) %> over last <%= plugins.languages["stats.recent"]?.latest ?? plugins.languages["stats.recent"]?.days %> day<%= s(plugins.languages["stats.recent"]?.latest ?? plugins.languages["stats.recent"]?.days) %>
           </small>
+        <% } else if ((section === "most-used")&&(plugins.languages.indepth)) { %>
+          <small>
+            estimation from <%= plugins.languages.files %> edited file<%= s(plugins.languages.files) %> from <%= plugins.languages.commits %> commit<%= s(plugins.languages.commits) %>
+          </small>
         <% } %>
         <svg class="bar" xmlns="http://www.w3.org/2000/svg" width="<%= width %>" height="8">
           <mask id="languages-bar">
