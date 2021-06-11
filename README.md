@@ -402,7 +402,7 @@ Choose `📊 Metrics embed` if you want to customize your GitHub profile and `�
 
 ### 🐙 Features
 
-* Create infographics from **32 plugins**, **4 templates** and **189 options**
+* Create infographics from **32 plugins**, **4 templates** and **190 options**
   * Even more **customization** with [community templates](source/templates/community) or by [forking this repository](https://github.com/lowlighter/metrics/network/members) and editing HTML/CSS/EJS
 * Support **users**, **organizations** and even **repositories**
 * Transparent by default so it'll blend well whether light or dark mode is used
@@ -529,6 +529,8 @@ Update your README.md to embed your metrics:
 ![Metrics](https://github.com/my-github-user/my-github-user/blob/master/github-metrics.svg)
 <!-- If you're using "main" as default branch -->
 ![Metrics](https://github.com/my-github-user/my-github-user/blob/main/github-metrics.svg)
+<!-- If you're using the "columns" display mode -->
+<img src="https://github.com/my-github-user/my-github-user/blob/master/github-metrics.svg" alt="Metrics" width="100%">
 ```
 </details>
 

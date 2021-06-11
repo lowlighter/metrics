@@ -11,6 +11,7 @@
     plugin_habits: yes
     plugin_habits_facts: no
     plugin_habits_charts: yes
+    plugin_habits_trim: yes
     config_timezone: Europe/Paris
 
 - name: Habits plugin (facts)

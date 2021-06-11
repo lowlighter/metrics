@@ -34,6 +34,7 @@ export default async function({login, q}, {conf, data, rest, graphql, plugins, q
 
   //Display
   data.large = display === "large"
+  data.columns = display === "columns"
 
   //Animations
   data.animated = animations
@@ -111,7 +112,7 @@ export default async function({login, q}, {conf, data, rest, graphql, plugins, q
   data.meta = {
     version:conf.package.version,
     author:conf.package.author,
-    generated:new Date(new Date().getTime() + (data.config.timezone?.offset ?? 0)).toGMTString().replace(/GMT$/g, "").trim()
+    generated:new Date().toGMTString().replace(/GMT$/g, "").trim()
   }
 
   //Debug flags

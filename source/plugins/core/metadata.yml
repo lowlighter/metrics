@@ -175,6 +175,7 @@ inputs:
     values:
       - regular  # 480px width
       - large    # 960px width (may not be supported by all templates)
+      - columns  # Full width with two columns on desktop / One column on mobile
 
   # Enable SVG CSS animations
   config_animations:

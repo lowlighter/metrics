@@ -5,7 +5,7 @@ export async function indepth({login, data, imports, repositories}, {skipped}) {
     throw new Error("Feature requires github-linguist")
 
   //Compute repositories stats from fetched repositories
-  const results = {total:0, lines:{}, stats:{}}
+  const results = {total:0, lines:{}, stats:{}, commits:0, files:0, missed:0}
   for (const repository of repositories) {
     //Skip repository if asked
     if ((skipped.includes(repository.name.toLocaleLowerCase())) || (skipped.includes(`${repository.owner.login}/${repository.name}`.toLocaleLowerCase()))) {
@@ -45,14 +45,14 @@ export async function indepth({login, data, imports, repositories}, {skipped}) {
 }
 
 /**Recent languages activity */
-export async function recent({login, data, imports, rest, account}, {skipped = [], days = 0, load = 0}) {
+export async function recent({login, data, imports, rest, account}, {skipped = [], days = 0, load = 0, tempdir = "recent"}) {
   //Check prerequisites
   if (!await imports.which("github-linguist"))
     throw new Error("Feature requires github-linguist")
 
   //Get user recent activity
   console.debug(`metrics/compute/${login}/plugins > languages > querying api`)
-  const commits = [], pages = Math.ceil(load/100), results = {total:0, lines:{}, stats:{}, commits:0, files:0, days}
+  const commits = [], pages = Math.ceil(load/100), results = {total:0, lines:{}, stats:{}, commits:0, files:0, missed:0, days}
   try {
     for (let page = 1; page <= pages; page++) {
       console.debug(`metrics/compute/${login}/plugins > languages > loading page ${page}`)
@@ -68,7 +68,6 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
     console.debug(`metrics/compute/${login}/plugins > languages > no more page to load`)
   }
   console.debug(`metrics/compute/${login}/plugins > languages > ${commits.length} commits loaded`)
-  results.commits = commits.length
   results.latest = Math.round((new Date().getTime() - new Date(commits.slice(-1).shift()?.created_at).getTime()) / (1000 * 60 * 60 * 24))
 
   //Retrieve edited files and filter edited lines (those starting with +/-) from patches
@@ -89,9 +88,8 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
   .map(({name, directory, patch, repo}) => ({name, directory:`${repo.replace(/[/]/g, "@")}/${directory}`, patch:patch.split("\n").filter(line => /^[+]/.test(line)).map(line => line.substring(1)).join("\n")}))
 
   //Temporary directory
-  const path = imports.paths.join(imports.os.tmpdir(), `${data.user.databaseId}`)
+  const path = imports.paths.join(imports.os.tmpdir(), `${data.user.databaseId}-${tempdir}`)
   console.debug(`metrics/compute/${login}/plugins > languages > creating temp dir ${path} with ${patches.length} files`)
-  results.files = patches.length
 
   //Process
   try {
@@ -120,11 +118,14 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
 
       //Create temporary git repository
       console.debug(`metrics/compute/${login}/plugins > languages > creating temp git repository for ${directory}`)
-      const git = await imports.git(path)
+      const git = await imports.git(imports.paths.join(path, directory))
       await git.init().add(".").addConfig("user.name", data.shared["commits.authoring"]?.[0] ?? login).addConfig("user.email", "<>").commit("linguist").status()
 
       //Analyze repository
-      await analyze(arguments[0], {results, path})
+      await analyze(arguments[0], {results, path:imports.paths.join(path, directory)})
+
+      //Since we reproduce a "partial repository" with a single commit, use number of commits retrieved instead
+      results.commits = commits.length
     }
   }
   catch {
@@ -146,10 +147,11 @@ async function analyze({login, imports, data}, {results, path}) {
 
   //Processing diff
   const per_page = 1
+  const edited = new Set()
   console.debug(`metrics/compute/${login}/plugins > languages > indepth > checking git log`)
   for (let page = 0; ; page++) {
     try {
-      const stdout = await imports.run(`git log ${data.shared["commits.authoring"].map(authoring => `--author="${authoring}"`).join(" ")} --regexp-ignore-case --format="" --patch --max-count=${per_page} --skip=${page*per_page}`, {cwd:path}, {log:false})
+      const stdout = await imports.run(`git log ${data.shared["commits.authoring"].map(authoring => `--author="${authoring}"`).join(" ")} --regexp-ignore-case --format=short --patch --max-count=${per_page} --skip=${page*per_page}`, {cwd:path}, {log:false})
       let file = null, lang = null
       if (!stdout.trim().length) {
         console.debug(`metrics/compute/${login}/plugins > languages > indepth > no more commits`)
@@ -157,6 +159,11 @@ async function analyze({login, imports, data}, {results, path}) {
       }
       console.debug(`metrics/compute/${login}/plugins > languages > indepth > processing commits ${page*per_page} from ${(page+1)*per_page}`)
       for (const line of stdout.split("\n").map(line => line.trim())) {
+        //Commits counter
+        if (/^commit [0-9a-f]{40}$/.test(line)) {
+          results.commits++
+          continue
+        }
         //Ignore empty lines or unneeded lines
         if ((!/^[+]/.test(line))||(!line.length))
           continue
@@ -164,6 +171,7 @@ async function analyze({login, imports, data}, {results, path}) {
         if (/^[+]{3}\sb[/](?<file>[\s\S]+)$/.test(line)) {
           file = line.match(/^[+]{3}\sb[/](?<file>[\s\S]+)$/)?.groups?.file ?? null
           lang = files[file] ?? null
+          edited.add(file)
           continue
         }
         //Ignore unkonwn languages
@@ -180,9 +188,10 @@ async function analyze({login, imports, data}, {results, path}) {
     }
     catch {
       console.debug(`metrics/compute/${login}/plugins > languages > indepth > an error occured on page ${page}, skipping...`)
+      results.missed += per_page
     }
   }
-
+  results.files += edited.size
 }
 
 //import.meta.main
@@ -201,7 +210,7 @@ if (/languages.analyzers.mjs$/.test(process.argv[1])) {
 
     //Prepare call
     const imports = await import("../../app/metrics/utils.mjs")
-    const results = {total:0, lines:{}, stats:{}}
+    const results = {total:0, lines:{}, stats:{}, missed:0}
     console.debug = log => /exited with code null/.test(log) ? console.error(log.replace(/^.*--max-count=(?<step>\d+) --skip=(?<start>\d+).*$/, (_, step, start) => `error: skipped commits ${start} from ${Number(start)+Number(step)}`)) : null
 
     //Analyze repository
