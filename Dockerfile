@@ -1,5 +1,5 @@
 # Base image
-FROM node:15-buster-slim
+FROM node:16-buster-slim
 
 # Copy repository
 COPY . /metrics
