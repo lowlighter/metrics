@@ -38,7 +38,7 @@ export default async function({login, data, imports, q, rest, account}, {enabled
 
     //Iterate through user's repositories and retrieve languages data
     console.debug(`metrics/compute/${login}/plugins > languages > processing ${data.user.repositories.nodes.length} repositories`)
-    const languages = {unique, sections, details, colors:{}, total:0, stats:{}, "stats.recent":{}}
+    const languages = {unique, sections, details, indepth, colors:{}, total:0, stats:{}, "stats.recent":{}}
     for (const repository of data.user.repositories.nodes) {
       //Skip repository if asked
       if ((skipped.includes(repository.name.toLocaleLowerCase())) || (skipped.includes(`${repository.owner.login}/${repository.name}`.toLocaleLowerCase()))) {
@@ -63,6 +63,7 @@ export default async function({login, data, imports, q, rest, account}, {enabled
     if (indepth) {
       console.debug(`metrics/compute/${login}/plugins > languages > switching to indepth mode (this may take some time)`)
       Object.assign(languages, await indepth_analyzer({login, data, imports, repositories}, {skipped}))
+      console.log(`metrics/compute/${login}/plugins > languages > indepth analysis missed ${languages.missed} commits`)
     }
 
     //Compute languages stats
@@ -79,7 +80,6 @@ export default async function({login, data, imports, q, rest, account}, {enabled
       }
     }
 
-console.log(aliases)
     //Apply aliases
     for (const section of ["favorites", "recent"]) {
       for (const language of languages[section]) {
