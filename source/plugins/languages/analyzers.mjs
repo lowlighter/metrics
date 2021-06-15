@@ -93,9 +93,12 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
 
   //Process
   try {
-    //Save patches in temporary directory matching respective repository and filename
-    await imports.fs.rm(path, {recursive:true})
+    //Clear old dir if it exists
+    await imports.fs.access(path, imports.fs.constants.F_OK, async err => {
+      if (!err) await imports.fs.rm(path, {recursive:true})
+    })
     console.debug(`metrics/compute/${login}/plugins > languages > cleared path`)
+    //Save patches in temporary directory matching respective repository and filename
     await imports.fs.mkdir(path, {recursive:true})
     console.debug(`metrics/compute/${login}/plugins > languages > created path`)
     await Promise.all(patches.map(async ({name, directory, patch}) => {
