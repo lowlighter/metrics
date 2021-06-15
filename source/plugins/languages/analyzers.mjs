@@ -95,13 +95,10 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
   try {
     //Save patches in temporary directory matching respective repository and filename
     await imports.fs.mkdir(path, {recursive:true})
-    console.debug(`metrics/compute/${login}/plugins > languages > created path`)
     await Promise.all(patches.map(async ({name, directory, patch}) => {
       await imports.fs.mkdir(imports.paths.join(path, directory), {recursive:true})
-      console.debug(`metrics/compute/${login}/plugins > languages > created patch directory ${directory}`)
       imports.fs.writeFile(imports.paths.join(path, directory, name), patch)
     }))
-    console.debug(`metrics/compute/${login}/plugins > languages > appplied patches`)
 
     //Process temporary repositories
     for (const directory of await imports.fs.readdir(path)) {
