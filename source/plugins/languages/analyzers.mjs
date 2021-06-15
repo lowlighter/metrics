@@ -128,7 +128,8 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
       results.commits = commits.length
     }
   }
-  catch {
+  catch (error) {
+    console.debug(error)
     console.debug(`metrics/compute/${login}/plugins > languages > an error occured while processing recently used languages`)
   }
   finally {
