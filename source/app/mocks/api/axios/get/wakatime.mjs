@@ -43,7 +43,7 @@ export default function({faker, url, options, login = faker.internet.userName()}
             machines:stats(),
             operating_systems:stats(["Mac", "Windows", "Linux"]),
             project:null,
-            projects:stats(),
+            projects:/api_key=MOCKED_TOKEN_NO_PROJECTS/.test(url) ? null : stats(),
             total_seconds:faker.datatype.number(1000000000),
             total_seconds_including_other_language:faker.datatype.number(1000000000),
           },
