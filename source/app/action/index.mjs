@@ -92,6 +92,7 @@ async function wait(seconds) {
       retries,
       "retries.delay":retries_delay,
       "output.action":_action,
+      delay,
       ...config
     } = metadata.plugins.core.inputs.action({core})
     const q = {...query, ...(_repo ? {repo:_repo} : null), template}
@@ -447,6 +448,13 @@ async function wait(seconds) {
           break
         } while (--attempts)
       }
+    }
+
+    //Delay
+    if (delay) {
+      info.break()
+      info("Delay before ending job", `${delay}s`)
+      await new Promise(solve => setTimeout(solve, delay*1000))
     }
 
     //Success
