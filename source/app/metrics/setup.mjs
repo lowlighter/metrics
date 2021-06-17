@@ -75,7 +75,7 @@ export default async function({log = true, nosettings = false, community = {}} =
   if ((Array.isArray(conf.settings.community.templates)) && (conf.settings.community.templates.length)) {
     //Clean remote repository
     logger(`metrics/setup > ${conf.settings.community.templates.length} community templates to install`)
-    await fs.promises.rmdir(path.join(__templates, ".community"), {recursive:true})
+    await fs.promises.rm(path.join(__templates, ".community"), {recursive:true, force:true})
     //Download community templates
     for (const template of conf.settings.community.templates) {
       try {
@@ -88,7 +88,7 @@ export default async function({log = true, nosettings = false, community = {}} =
         processes.execSync(command, {stdio:"ignore"})
         //Extract template
         logger(`metrics/setup > extract ${name} from ${repo}@${branch}`)
-        await fs.promises.rmdir(path.join(__templates, `@${name}`), {recursive:true})
+        await fs.promises.rm(path.join(__templates, `@${name}`), {recursive:true, force:true})
         await fs.promises.rename(path.join(__templates, ".community/source/templates", name), path.join(__templates, `@${name}`))
         //JavaScript file
         if (trust)
@@ -114,7 +114,7 @@ export default async function({log = true, nosettings = false, community = {}} =
 
         //Clean remote repository
         logger(`metrics/setup > clean ${repo}@${branch}`)
-        await fs.promises.rmdir(path.join(__templates, ".community"), {recursive:true})
+        await fs.promises.rm(path.join(__templates, ".community"), {recursive:true, force:true})
         logger(`metrics/setup > loaded community template ${name}`)
       }
       catch (error) {

@@ -24,7 +24,7 @@ export async function indepth({login, data, imports, repositories}, {skipped}) {
     //Process
     try {
       //Git clone into temporary directory
-      await imports.fs.rmdir(path, {recursive:true})
+      await imports.fs.rm(path, {recursive:true, force:true})
       await imports.fs.mkdir(path, {recursive:true})
       const git = await imports.git(path)
       await git.clone(`https://github.com/${repo}`, ".").status()
@@ -38,7 +38,7 @@ export async function indepth({login, data, imports, repositories}, {skipped}) {
     finally {
       //Cleaning
       console.debug(`metrics/compute/${login}/plugins > languages > indepth > cleaning temp dir ${path}`)
-      await imports.fs.rmdir(path, {recursive:true})
+      await imports.fs.rm(path, {recursive:true, force:true})
     }
   }
   return results
@@ -94,7 +94,7 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
   //Process
   try {
     //Save patches in temporary directory matching respective repository and filename
-    await imports.fs.rmdir(path, {recursive:true})
+    await imports.fs.rm(path, {recursive:true, force:true})
     await imports.fs.mkdir(path, {recursive:true})
     await Promise.all(patches.map(async ({name, directory, patch}) => {
       await imports.fs.mkdir(imports.paths.join(path, directory), {recursive:true})
@@ -134,7 +134,7 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
   finally {
     //Cleaning
     console.debug(`metrics/compute/${login}/plugins > languages > cleaning temp dir ${path}`)
-    await imports.fs.rmdir(path, {recursive:true})
+    await imports.fs.rm(path, {recursive:true, force:true})
   }
   return results
 }
