@@ -163,7 +163,7 @@ export async function run(command, options, {prefixed = true, log = true} = {}) 
 }
 
 /**Spawn command (use this to execute commands and process output on the fly) */
-export async function spawn(command, args = [], options = {}, {prefixed = true, timeout = 300*1000, stdout} = {}) {
+export async function spawn(command, args = [], options = {}, {prefixed = true, timeout = 300*1000, stdout} = {}) { //eslint-disable-line max-params
   const prefix = {win32:"wsl"}[process.platform] ?? ""
   if ((prefixed)&&(prefix)) {
     args.unshift(command)
@@ -181,7 +181,7 @@ export async function spawn(command, args = [], options = {}, {prefixed = true, 
       console.debug(`metrics/command/spawn > ${command} with ${args.join(" ")} > exited with code ${code}`)
       await closed
       console.debug(`metrics/command/spawn > ${command} with ${args.join(" ")} > reader closed`)
-      return code === 0 ? solve(stdout) : reject(stderr)
+      return code === 0 ? solve() : reject()
     })
   })
 }

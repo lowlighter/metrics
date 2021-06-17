@@ -152,7 +152,7 @@ async function analyze({login, imports, data}, {results, path}) {
   for (let page = 0; ; page++) {
     try {
       console.debug(`metrics/compute/${login}/plugins > languages > indepth > processing commits ${page*per_page} from ${(page+1)*per_page}`)
-      let file = null, lang = null, empty = true
+      let empty = true, file = null, lang = null
       await imports.spawn("git", ["log", ...data.shared["commits.authoring"].map(authoring => `--author="${authoring}"`), "--regexp-ignore-case", "--format=short", "--patch", `--max-count=${per_page}`, `--skip=${page*per_page}`], {cwd:path}, {
         stdout(line) {
           //Unflag empty output
