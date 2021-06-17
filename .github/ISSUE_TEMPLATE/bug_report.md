@@ -18,7 +18,7 @@ assignees: ''
     - To request help, please use discussions instead of issues
 
   For workflows errors:
-    - Retry at least once to confirm that error is reproductible
+    - Retry at least once to confirm that error is reproducible
     - Paste an excerpt of workflow job step and/or error logs
 
   For web instance errors:
