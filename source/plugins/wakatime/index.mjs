@@ -27,10 +27,10 @@ export default async function({login, q, imports, data, account}, {enabled = fal
         total:stats.total_seconds / (60 * 60),
         daily:stats.daily_average / (60 * 60),
       },
-      projects:stats.projects.map(({name, percent, total_seconds:total}) => ({name, percent:percent / 100, total})).sort((a, b) => b.percent - a.percent).slice(0, limit),
-      languages:stats.languages.map(({name, percent, total_seconds:total}) => ({name, percent:percent / 100, total})).sort((a, b) => b.percent - a.percent).slice(0, limit),
-      os:stats.operating_systems.map(({name, percent, total_seconds:total}) => ({name, percent:percent / 100, total})).sort((a, b) => b.percent - a.percent).slice(0, limit),
-      editors:stats.editors.map(({name, percent, total_seconds:total}) => ({name, percent:percent / 100, total})).sort((a, b) => b.percent - a.percent).slice(0, limit),
+      projects:stats.projects?.map(({name, percent, total_seconds:total}) => ({name, percent:percent / 100, total})).sort((a, b) => b.percent - a.percent).slice(0, limit),
+      languages:stats.languages?.map(({name, percent, total_seconds:total}) => ({name, percent:percent / 100, total})).sort((a, b) => b.percent - a.percent).slice(0, limit),
+      os:stats.operating_systems?.map(({name, percent, total_seconds:total}) => ({name, percent:percent / 100, total})).sort((a, b) => b.percent - a.percent).slice(0, limit),
+      editors:stats.editors?.map(({name, percent, total_seconds:total}) => ({name, percent:percent / 100, total})).sort((a, b) => b.percent - a.percent).slice(0, limit),
     }
 
     //Result
