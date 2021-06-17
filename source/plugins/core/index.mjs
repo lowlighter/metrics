@@ -112,7 +112,7 @@ export default async function({login, q}, {conf, data, rest, graphql, plugins, q
   data.meta = {
     version:conf.package.version,
     author:conf.package.author,
-    generated:new Date().toGMTString().replace(/GMT$/g, "").trim()
+    generated:imports.format.date(new Date(), {dateStyle:"short", timeStyle:"short"})
   }
 
   //Debug flags
