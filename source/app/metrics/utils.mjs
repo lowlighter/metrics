@@ -21,6 +21,7 @@ import twemojis from "twemoji-parser"
 import url from "url"
 import util from "util"
 import fetch from "node-fetch"
+import readline from "readline"
 prism_lang()
 
 //Exports
@@ -140,22 +141,46 @@ export async function chartist() {
     .replace(/class="ct-chart-line">/, `class="ct-chart-line">${css}`)
 }
 
-/**Run command */
+/**Run command (use this to execute commands and process whole output at once, may not be suitable for large outputs) */
 export async function run(command, options, {prefixed = true, log = true} = {}) {
   const prefix = {win32:"wsl"}[process.platform] ?? ""
   command = `${prefixed ? prefix : ""} ${command}`.trim()
   return new Promise((solve, reject) => {
-    console.debug(`metrics/command > ${command}`)
+    console.debug(`metrics/command/run > ${command}`)
     const child = processes.exec(command, options)
     let [stdout, stderr] = ["", ""]
     child.stdout.on("data", data => stdout += data)
     child.stderr.on("data", data => stderr += data)
     child.on("close", code => {
-      console.debug(`metrics/command > ${command} > exited with code ${code}`)
+      console.debug(`metrics/command/run > ${command} > exited with code ${code}`)
       if (log) {
         console.debug(stdout)
         console.debug(stderr)
       }
+      return code === 0 ? solve(stdout) : reject(stderr)
+    })
+  })
+}
+
+/**Spawn command (use this to execute commands and process output on the fly) */
+export async function spawn(command, args = [], options = {}, {prefixed = true, timeout = 300*1000, stdout} = {}) {
+  const prefix = {win32:"wsl"}[process.platform] ?? ""
+  if ((prefixed)&&(prefix)) {
+    args.unshift(command)
+    command = prefix
+  }
+  if (!stdout)
+    throw new Error("`stdout` argument was not provided, use run() instead of spawn() if processing output is not needed")
+  return new Promise((solve, reject) => {
+    console.debug(`metrics/command/spawn > ${command} with ${args.join(" ")}`)
+    const child = processes.spawn(command, args, {...options, shell:true, timeout})
+    const reader = readline.createInterface({input:child.stdout})
+    reader.on("line", stdout)
+    const closed = new Promise(close => reader.on("close", close))
+    child.on("close", async code => {
+      console.debug(`metrics/command/spawn > ${command} with ${args.join(" ")} > exited with code ${code}`)
+      await closed
+      console.debug(`metrics/command/spawn > ${command} with ${args.join(" ")} > reader closed`)
       return code === 0 ? solve(stdout) : reject(stderr)
     })
   })

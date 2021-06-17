@@ -151,39 +151,43 @@ async function analyze({login, imports, data}, {results, path}) {
   console.debug(`metrics/compute/${login}/plugins > languages > indepth > checking git log`)
   for (let page = 0; ; page++) {
     try {
-      const stdout = await imports.run(`git log ${data.shared["commits.authoring"].map(authoring => `--author="${authoring}"`).join(" ")} --regexp-ignore-case --format=short --patch --max-count=${per_page} --skip=${page*per_page}`, {cwd:path}, {log:false})
-      let file = null, lang = null
-      if (!stdout.trim().length) {
+      console.debug(`metrics/compute/${login}/plugins > languages > indepth > processing commits ${page*per_page} from ${(page+1)*per_page}`)
+      let file = null, lang = null, empty = true
+      await imports.spawn("git", ["log", ...data.shared["commits.authoring"].map(authoring => `--author="${authoring}"`), "--regexp-ignore-case", "--format=short", "--patch", `--max-count=${per_page}`, `--skip=${page*per_page}`], {cwd:path}, {
+        stdout(line) {
+          //Unflag empty output
+          if ((empty)&&(line.trim().length))
+            empty = false
+          //Commits counter
+          if (/^commit [0-9a-f]{40}$/.test(line)) {
+            results.commits++
+            return
+          }
+          //Ignore empty lines or unneeded lines
+          if ((!/^[+]/.test(line))||(!line.length))
+            return
+          //File marker
+          if (/^[+]{3}\sb[/](?<file>[\s\S]+)$/.test(line)) {
+            file = line.match(/^[+]{3}\sb[/](?<file>[\s\S]+)$/)?.groups?.file ?? null
+            lang = files[file] ?? null
+            edited.add(file)
+            return
+          }
+          //Ignore unkonwn languages
+          if (!lang)
+            return
+          //Added line marker
+          if (/^[+]\s*(?<line>[\s\S]+)$/.test(line)) {
+            const size = Buffer.byteLength(line.match(/^[+]\s*(?<line>[\s\S]+)$/)?.groups?.line ?? "", "utf-8")
+            results.stats[lang] = (results.stats[lang] ?? 0) + size
+            results.lines[lang] = (results.lines[lang] ?? 0) + 1
+            results.total += size
+          }
+        }
+      })
+      if (empty) {
         console.debug(`metrics/compute/${login}/plugins > languages > indepth > no more commits`)
         break
-      }
-      console.debug(`metrics/compute/${login}/plugins > languages > indepth > processing commits ${page*per_page} from ${(page+1)*per_page}`)
-      for (const line of stdout.split("\n").map(line => line.trim())) {
-        //Commits counter
-        if (/^commit [0-9a-f]{40}$/.test(line)) {
-          results.commits++
-          continue
-        }
-        //Ignore empty lines or unneeded lines
-        if ((!/^[+]/.test(line))||(!line.length))
-          continue
-        //File marker
-        if (/^[+]{3}\sb[/](?<file>[\s\S]+)$/.test(line)) {
-          file = line.match(/^[+]{3}\sb[/](?<file>[\s\S]+)$/)?.groups?.file ?? null
-          lang = files[file] ?? null
-          edited.add(file)
-          continue
-        }
-        //Ignore unkonwn languages
-        if (!lang)
-          continue
-        //Added line marker
-        if (/^[+]\s*(?<line>[\s\S]+)$/.test(line)) {
-          const size = Buffer.byteLength(line.match(/^[+]\s*(?<line>[\s\S]+)$/)?.groups?.line ?? "", "utf-8")
-          results.stats[lang] = (results.stats[lang] ?? 0) + size
-          results.lines[lang] = (results.lines[lang] ?? 0) + 1
-          results.total += size
-        }
       }
     }
     catch {
