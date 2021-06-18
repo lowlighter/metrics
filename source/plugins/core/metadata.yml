@@ -285,3 +285,12 @@ inputs:
     description: Use pre-built image from GitHub registry
     type: boolean
     default: yes
+
+  # Time to wait (in seconds) at the end of job
+  # Use this to avoid triggering abuse mechanics on large workflows
+  delay:
+    description: Use this to avoid triggering abuse mechanics on large workflows
+    type: number
+    default: 0
+    min: 0
+    max: 3600
