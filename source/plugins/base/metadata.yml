@@ -28,6 +28,16 @@ inputs:
     default: 100
     min: 0
 
+
+  # Number of repositories to load at once by queries
+  # If you encounter GitHub queries timeouts, using a lower value here may solve issues
+  repositories_batch:
+    description: Number of repositories to load at once by queries
+    type: number
+    default: 100
+    max: 100
+    min: 1
+
   # Include forked repositories into metrics
   repositories_forks:
     description: Include forks in metrics
