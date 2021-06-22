@@ -18,7 +18,7 @@ export default async function({login, q, imports, graphql, data, account, querie
       let pushed = 0
       do {
         console.debug(`metrics/compute/${login}/plugins > notable > retrieving contributed repositories after ${cursor}`)
-        const {user:{repositoriesContributedTo:{edges}}} = await graphql(queries.notable.contributions({login, after:cursor ? `after: "${cursor}"` : "", repositories:100}))
+        const {user:{repositoriesContributedTo:{edges}}} = await graphql(queries.notable.contributions({login, after:cursor ? `after: "${cursor}"` : "", repositories:data.shared["repositories.batch"] || 100}))
         cursor = edges?.[edges?.length - 1]?.cursor
         edges
           .filter(({node}) => node.isInOrganization)

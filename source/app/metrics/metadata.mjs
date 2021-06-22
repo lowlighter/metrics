@@ -84,11 +84,11 @@ metadata.plugin = async function({__plugins, name, logger}) {
           value = `${value}`.trim()
           if (user) {
             if (value === ".user.login")
-              return user.login
+              return user.login ?? value
             if (value === ".user.twitter")
-              return user.twitterUsername
+              return user.twitterUsername ?? value
             if (value === ".user.website")
-              return user.websiteUrl
+              return user.websiteUrl ?? value
           }
           return value
         }
@@ -133,7 +133,7 @@ metadata.plugin = async function({__plugins, name, logger}) {
                   }
                   const separators = {"comma-separated":",", "space-separated":" "}
                   const separator = separators[[format].flat().filter(s => s in separators)[0]] ?? ","
-                  return value.split(separator).map(v => replacer(v.trim()).toLocaleLowerCase()).filter(v => Array.isArray(values) ? values.includes(v) : true).filter(v => v)
+                  return value.split(separator).map(v => replacer(v).toLocaleLowerCase()).filter(v => Array.isArray(values) ? values.includes(v) : true).filter(v => v)
                 }
                 //String
                 case "string": {

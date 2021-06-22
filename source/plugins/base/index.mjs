@@ -7,14 +7,14 @@
 export default async function({login, graphql, data, q, queries, imports}, conf) {
   //Load inputs
   console.debug(`metrics/compute/${login}/base > started`)
-  let {repositories, "repositories.forks":_forks, "repositories.affiliations":_affiliations} = imports.metadata.plugins.base.inputs({data, q, account:"bypass"}, {repositories:conf.settings.repositories ?? 100})
+  let {repositories, "repositories.forks":_forks, "repositories.affiliations":_affiliations, "repositories.batch":_batch} = imports.metadata.plugins.base.inputs({data, q, account:"bypass"}, {repositories:conf.settings.repositories ?? 100})
   const forks = _forks ? "" : ", isFork: false"
   const affiliations = _affiliations?.length ? `, ownerAffiliations: [${_affiliations.map(x => x.toLocaleUpperCase()).join(", ")}]${conf.authenticated === login ? `, affiliations: [${_affiliations.map(x => x.toLocaleUpperCase()).join(", ")}]` : ""}` : ""
   console.debug(`metrics/compute/${login}/base > affiliations constraints ${affiliations}`)
 
   //Skip initial data gathering if not needed
   if (conf.settings.notoken)
-    return (postprocess.skip({login, data}), {})
+    return (postprocess.skip({login, data, imports}), {})
 
   //Base parts (legacy handling for web instance)
   const defaulted = ("base" in q) ? legacy.converter(q.base) ?? true : true
@@ -38,7 +38,7 @@ export default async function({login, graphql, data, q, queries, imports}, conf)
         const options = {repositories:{forks, affiliations, constraints:""}, repositoriesContributedTo:{forks:"", affiliations:"", constraints:", includeUserRepositories: false, contributionTypes: COMMIT"}}[type] ?? null
         do {
           console.debug(`metrics/compute/${login}/base > retrieving ${type} after ${cursor}`)
-          const {[account]:{[type]:{edges = [], nodes = []} = {}}} = await graphql(queries.base.repositories({login, account, type, after:cursor ? `after: "${cursor}"` : "", repositories:Math.min(repositories, {user:100, organization:25}[account]), ...options}))
+          const {[account]:{[type]:{edges = [], nodes = []} = {}}} = await graphql(queries.base.repositories({login, account, type, after:cursor ? `after: "${cursor}"` : "", repositories:Math.min(repositories, {user:_batch, organization:Math.min(25, _batch)}[account]), ...options}))
           cursor = edges?.[edges?.length - 1]?.cursor
           data.user[type].nodes.push(...nodes)
           pushed = nodes.length
@@ -51,7 +51,7 @@ export default async function({login, graphql, data, q, queries, imports}, conf)
       }
       //Shared options
       let {"repositories.skipped":skipped, "commits.authoring":authoring} = imports.metadata.plugins.base.inputs({data, q, account:"bypass"})
-      data.shared = {"repositories.skipped":skipped, "commits.authoring":authoring}
+      data.shared = {"repositories.skipped":skipped, "commits.authoring":authoring, "repositories.batch":_batch}
       console.debug(`metrics/compute/${login}/base > shared options > ${JSON.stringify(data.shared)}`)
       //Success
       console.debug(`metrics/compute/${login}/base > graphql query > account ${account} > success`)
@@ -107,8 +107,9 @@ const postprocess = {
     })
   },
   //Skip base content query and instantiate an empty user instance
-  skip({login, data}) {
+  skip({login, data, imports}) {
     data.user = {}
+    data.shared = imports.metadata.plugins.base.inputs({data, q:{}, account:"bypass"})
     for (const account of ["user", "organization"])
       postprocess?.[account]({login, data})
     data.account = "bypass"
@@ -122,6 +123,7 @@ const postprocess = {
       twitterUsername:login,
       repositories:{totalCount:0, totalDiskUsage:0, nodes:[]},
       packages:{totalCount:0},
+      repositoriesContributedTo:{nodes:[]},
     })
   },
 }
