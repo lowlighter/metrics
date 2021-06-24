@@ -102,6 +102,13 @@ export function formatters({timeZone} = {}) {
     return new Intl.DateTimeFormat("en-GB", {timeZone, ...options}).format(new Date(string))
   }
 
+  /**License formatter */
+  format.license = function(license) {
+    if (license.spdxId === "NOASSERTION")
+      return license.name
+    return license.nickname ?? license.spdxId ?? license.name
+  }
+
   return {format}
 }
 
