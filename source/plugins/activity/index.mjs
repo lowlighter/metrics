@@ -39,7 +39,7 @@ export default async function({login, data, rest, q, account, imports}, {enabled
     //Extract activity events
     const activity = (await Promise.all(
       events
-        .filter(({actor}) => account === "organization" ? true : actor.login === login)
+        .filter(({actor}) => account === "organization" ? true : actor.login?.toLocaleLowerCase() === login.toLocaleLowerCase())
         .filter(({created_at}) => Number.isFinite(days) ? new Date(created_at) > new Date(Date.now() - days * 24 * 60 * 60 * 1000) : true)
         .filter(event => visibility === "public" ? event.public : true)
         .map(async ({type, payload, actor:{login:actor}, repo:{name:repo}, created_at}) => {
