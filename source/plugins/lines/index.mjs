@@ -31,7 +31,7 @@ export default async function({login, data, imports, rest, q, account}, {enabled
       if (!Array.isArray(repository))
         return
       //Compute editions
-      const contributors = repository.filter(({author}) => context.mode === "repository" ? true : author?.login === login)
+      const contributors = repository.filter(({author}) => context.mode === "repository" ? true : author?.login?.toLocaleLowerCase() === login.toLocaleLowerCase())
       for (const contributor of contributors)
         contributor.weeks.forEach(({a, d}) => (lines.added += a, lines.deleted += d))
     })
