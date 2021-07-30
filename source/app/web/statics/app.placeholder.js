@@ -65,7 +65,7 @@
       computed: {
         commits: faker.datatype.number(10000),
         sponsorships: faker.datatype.number(10),
-        licenses: { favorite: [""], used: { MIT: 1 } },
+        licenses: { favorite: [""], used: { MIT: 1 }, about:{} },
         token: { scopes: [] },
         repositories: {
           watchers: faker.datatype.number(1000),
@@ -1054,6 +1054,9 @@
     }
     data.f.date = function(string, options) {
       return new Intl.DateTimeFormat("en-GB", options).format(new Date(string))
+    }
+    data.f.license = function(text) {
+      return text?.name ?? text
     }
     //Render
     return await ejs.render(image, data, { async: true, rmWhitespace: true })
