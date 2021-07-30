@@ -1,0 +1,22 @@
+name: "📓 Repositories"
+cost: 1 GraphQL request per repository
+category: github
+supports:
+  - user
+  - organization
+inputs:
+
+  # Enable or disable plugin
+  plugin_repositories:
+    description: Display chosen featured repositories
+    type: boolean
+    default: no
+
+  # Featured repositories to display
+  # If no owner is specified, it will implicitly use the current account login as owner
+  plugin_repositories_featured:
+    description: List of repositories to display
+    type: array
+    format: comma-separated
+    default: ""
+    example: lowlighter/metrics

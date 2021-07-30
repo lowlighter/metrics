@@ -1,0 +1,15 @@
+query DiscussionsCategories {
+  user(login: "$login") {
+    repositoryDiscussions($after first: 100, orderBy: {field: CREATED_AT, direction: DESC}) {
+      edges {
+        cursor
+      }
+      nodes {
+        category {
+          emoji
+          name
+        }
+      }
+    }
+  }
+}
