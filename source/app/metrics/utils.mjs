@@ -307,7 +307,7 @@ export const svg = {
     await page.setContent(`<main class="markdown-body">${rendered}</main>`, {waitUntil:["load", "domcontentloaded", "networkidle2"]})
     console.debug("metrics/svg/pdf > loaded svg successfully")
     const margins = (Array.isArray(paddings) ? paddings : paddings.split(",")).join(" ")
-    console.log(`metrics/svg/pdf > margins set to ${margins}`)
+    console.debug(`metrics/svg/pdf > margins set to ${margins}`)
     await page.addStyleTag({
       content:`
         main { margin: ${margins}; }

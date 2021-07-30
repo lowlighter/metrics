@@ -22,7 +22,6 @@ export default async function({login, data, imports, q, rest, account}, {enabled
     skipped.push(...data.shared["repositories.skipped"])
     if (!limit)
       limit = Infinity
-    console.log(aliases, aliases.split(",").filter(alias => /^[\s\S]+:[\s\S]+$/.test(alias)).map(alias => alias.trim().split(":")))
     aliases = Object.fromEntries(aliases.split(",").filter(alias => /^[\s\S]+:[\s\S]+$/.test(alias)).map(alias => alias.trim().split(":")).map(([key, value]) => [key.toLocaleLowerCase(), value]))
 
     //Custom colors
@@ -63,7 +62,7 @@ export default async function({login, data, imports, q, rest, account}, {enabled
     if (indepth) {
       console.debug(`metrics/compute/${login}/plugins > languages > switching to indepth mode (this may take some time)`)
       Object.assign(languages, await indepth_analyzer({login, data, imports, repositories}, {skipped}))
-      console.log(`metrics/compute/${login}/plugins > languages > indepth analysis missed ${languages.missed} commits`)
+      console.debug(`metrics/compute/${login}/plugins > languages > indepth analysis missed ${languages.missed} commits`)
     }
 
     //Compute languages stats
