@@ -32,7 +32,8 @@ export async function indepth({login, data, imports, repositories}, {skipped}) {
       //Analyze repository
       await analyze(arguments[0], {results, path})
     }
-    catch {
+    catch (error) {
+      console.log("#424 DEBUG:", error)
       console.debug(`metrics/compute/${login}/plugins > languages > indepth > an error occured while processing ${repo}, skipping...`)
     }
     finally {
