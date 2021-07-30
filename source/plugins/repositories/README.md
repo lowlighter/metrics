@@ -1,6 +1,6 @@
 ### 📓 Repositories
 
-The *repositories* plugin can display a list of featured repositories.
+The *repositories* plugin can display a list of chosen featured repositories.
 
 <table>
   <td align="center">

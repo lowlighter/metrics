@@ -8,7 +8,7 @@ inputs:
 
   # Enable or disable plugin
   plugin_repositories:
-    description: Display featured repositories
+    description: Display chosen featured repositories
     type: boolean
     default: no
 
