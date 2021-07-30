@@ -1,6 +1,5 @@
-# To comment out once #421 is solved
-#- name: Support plugin (default)
-#  uses: lowlighter/metrics@latest
-#  with:
-#    token: MOCKED_TOKEN
-#    plugin_support: yes
+- name: Support plugin (default)
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    plugin_support: yes
