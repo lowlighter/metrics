@@ -19,7 +19,7 @@ RUN chmod +x /metrics/source/app/action/index.mjs \
   # Based on https://github.com/github/linguist and https://github.com/github/licensed
   && apt-get install -y ruby-full \
   && apt-get install -y git g++ cmake pkg-config libicu-dev zlib1g-dev libcurl4-openssl-dev libssl-dev ruby-dev \
-  && gem install github-linguist \
+  && gem install github-linguist -v 7.15.0 \
   && gem install licensed \
   # Install python for node-gyp
   && apt-get install -y python3 \
