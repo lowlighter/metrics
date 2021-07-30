@@ -29,7 +29,7 @@
             console.debug(`metrics/compute/${login}/discussions > retrieved ${pushed} discussions after ${cursor}`)
           } while ((pushed) && (cursor))
 
-          //Compute favorite categorie
+          //Compute favorite category
           for (const category of [...fetched.map(({category:{emoji, name}}) => `${imports.emoji.get(emoji)} ${name}`)])
             categories[category] = (categories[category] ?? 0) + 1
           discussions.categories.stats = categories
