@@ -1,4 +1,4 @@
-query DiscussionsComments {
+query DiscussionsStatistics {
   user(login: "$login") {
     started: repositoryDiscussions {
       totalCount
