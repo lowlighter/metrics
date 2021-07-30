@@ -22,10 +22,11 @@ import url from "url"
 import util from "util"
 import fetch from "node-fetch"
 import readline from "readline"
+import emoji from "emoji-name-map"
 prism_lang()
 
 //Exports
-export {axios, fs, git, jimp, opengraph, os, paths, processes, rss, url, fetch, util}
+export {axios, fs, git, jimp, opengraph, os, paths, processes, rss, url, fetch, util, emoji}
 
 /**Returns module __dirname */
 export function __module(module) {
