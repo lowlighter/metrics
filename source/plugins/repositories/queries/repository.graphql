@@ -1,5 +1,6 @@
 query RepositoriesRepository {
   repository(owner: "$owner", name: "$name") {
+    createdAt
     description
     forkCount
     isFork

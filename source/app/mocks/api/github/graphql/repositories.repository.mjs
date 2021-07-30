@@ -3,6 +3,7 @@ export default function({faker, query, login = faker.internet.userName()}) {
   console.debug("metrics/compute/mocks > mocking graphql api result > stars/default")
   return ({
     repository:{
+      createdAt: faker.date.past(),
       description:"📊 An image generator with 20+ metrics about your GitHub account such as activity, community, repositories, coding habits, website performances, music played, starred topics, etc. that you can put on your profile or elsewhere !",
       forkCount:faker.datatype.number(100),
       isFork:false,

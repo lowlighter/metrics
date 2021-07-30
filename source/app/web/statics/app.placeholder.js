@@ -669,6 +669,7 @@
           ? ({
             repositories: {
               list: new Array(Number(options["repositories.featured"].split(",").length) - 1).fill(null).map((_, i) => ({
+                created: faker.date.past(),
                 description: faker.lorem.sentence(),
                 forkCount: faker.datatype.number(100),
                 isFork: faker.datatype.boolean(),
