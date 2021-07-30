@@ -62,7 +62,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
     {
       await page.goto(`https://github.community/u/${login}/badges`)
       const frame = page.mainFrame()
-      await frame.waitForSelector(".user-badges-list")
+      await frame.waitForSelector(".badge-group-list")
       const badges = await frame.evaluate(() => ({
         uniques:[...document.querySelectorAll(".badge-card .badge-link")].map(el => el.innerText),
         multiples:[...document.querySelectorAll(".grant-count")].map(el => Number(el.innerText)),
