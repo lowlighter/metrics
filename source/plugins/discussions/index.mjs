@@ -1,12 +1,13 @@
 //Setup
-  export default async function({login, q, imports, graphql, queries}, {enabled = false} = {}) {
+  export default async function({login, q, imports, graphql, queries, data, account}, {enabled = false} = {}) {
     //Plugin execution
       try {
         //Check if plugin is enabled and requirements are met
           if ((!enabled)||(!q.discussions))
             return null
 
-        //Initialization
+        //Load inputs
+        imports.metadata.plugins.discussions.inputs({data, account, q})
         const discussions = {categories:{}}
 
         //Fetch general statistics
