@@ -678,7 +678,31 @@
             },
           })
           : null),
-        //Stars
+        //Repositories
+        ...(set.plugins.enabled.repositories
+          ? ({
+            repositories: {
+              list: new Array(Number(options["repositories.featured"].split(",").length) - 1).fill(null).map((_, i) => ({
+                created: faker.date.past(),
+                description: faker.lorem.sentence(),
+                forkCount: faker.datatype.number(100),
+                isFork: faker.datatype.boolean(),
+                issues: {
+                  totalCount: faker.datatype.number(100),
+                },
+                nameWithOwner: `${faker.random.word()}/${faker.random.word()}`,
+                openGraphImageUrl: faker.internet.url(),
+                pullRequests: {
+                  totalCount: faker.datatype.number(100),
+                },
+                stargazerCount: faker.datatype.number(10000),
+                licenseInfo: { nickname: null, name: "License" },
+                primaryLanguage: { color: faker.internet.color(), name: faker.lorem.word() },
+              })),
+            },
+          })
+          : null),
+        //Stargazers
         ...(set.plugins.enabled.stargazers
           ? ({
             get stargazers() {
