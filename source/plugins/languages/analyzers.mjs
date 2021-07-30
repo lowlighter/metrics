@@ -74,7 +74,7 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
   //Retrieve edited files and filter edited lines (those starting with +/-) from patches
   console.debug(`metrics/compute/${login}/plugins > languages > loading patches`)
   console.debug(`metrics/compute/${login}/plugins > languages > commits authoring set to ${JSON.stringify(data.shared["commits.authoring"])}`)
-  const patches = [
+  let patches = [
     ...await Promise.allSettled(
       commits
         .flatMap(({payload}) => payload.commits)
@@ -85,7 +85,8 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
   ]
   .filter(({status}) => status === "fulfilled")
   .map(({value}) => value)
-  .flatMap(files => files.map(file => ({name:imports.paths.basename(file.filename), directory:imports.paths.dirname(file.filename), patch:file.patch ?? "", repo:file.raw_url?.match(/(?<=^https:..github.com\/)(?<repo>.*)(?=\/raw)/)?.groups.repo ?? "_"})))
+  console.log("#424 DEBUG:", patches)
+  patches = patches.flatMap(files => files.map(file => ({name:imports.paths.basename(file.filename), directory:imports.paths.dirname(file.filename), patch:file.patch ?? "", repo:file.raw_url?.match(/(?<=^https:..github.com\/)(?<repo>.*)(?=\/raw)/)?.groups.repo ?? "_"})))
   .map(({name, directory, patch, repo}) => ({name, directory:`${repo.replace(/[/]/g, "@")}/${directory}`, patch:patch.split("\n").filter(line => /^[+]/.test(line)).map(line => line.substring(1)).join("\n")}))
 
   //Temporary directory
