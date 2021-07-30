@@ -94,6 +94,12 @@
     "skyline":{
       "enabled": false,            "//": "Display GitHub Skyline 3D calendar"
     },
+    "discussions":{
+      "enabled": false,            "//": "GitHub discussions metrics"
+    },
+    "repositories":{
+      "enabled": false,            "//": "Display chosen featured repositories"
+    },
     "pagespeed":{
       "token": null,               "//":"PageSpeed token",
       "enabled": false,            "//": "Display a website Google PageSpeed metrics"

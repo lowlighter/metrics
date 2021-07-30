@@ -796,6 +796,28 @@ inputs:
     default: no
   
   # ====================================================================================
+  # 💬 Discussions
+  
+  # Enable or disable plugin
+  plugin_discussions:
+    description: GitHub discussions metrics
+    default: no
+  
+  # ====================================================================================
+  # 📓 Repositories
+  
+  # Enable or disable plugin
+  plugin_repositories:
+    description: Display chosen featured repositories
+    default: no
+  
+  # Featured repositories to display
+  # If no owner is specified, it will implicitly use the current account login as owner
+  plugin_repositories_featured:
+    description: List of repositories to display
+    default: ""
+  
+  # ====================================================================================
   # ⏱️ Website performances
   
   # Enable or disable plugin
