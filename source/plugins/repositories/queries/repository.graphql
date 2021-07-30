@@ -1,0 +1,25 @@
+query RepositoriesRepository {
+  repository(owner: "$owner", name: "$name") {
+    description
+    forkCount
+    isFork
+    issues {
+      totalCount
+    }
+    nameWithOwner
+    openGraphImageUrl
+    licenseInfo {
+      nickname
+      spdxId
+      name
+    }
+    pullRequests {
+      totalCount
+    }
+    stargazerCount
+    primaryLanguage {
+      color
+      name
+    }
+  }
+}
