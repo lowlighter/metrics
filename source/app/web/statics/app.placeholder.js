@@ -586,6 +586,20 @@
             },
           })
           : null),
+        //Discussions
+        ...(set.plugins.enabled.discussions
+          ? ({
+            discussions: {
+              categories: {
+                stats: { '🙏 Q&A': faker.datatype.number(100), '📣 Announcements': faker.datatype.number(100), '💡 Ideas': faker.datatype.number(100), '💬 General': faker.datatype.number(100) },
+                favorite: '📣 Announcements'
+              },
+              started: faker.datatype.number(1000),
+              comments: faker.datatype.number(1000),
+              answers: faker.datatype.number(1000),
+            },
+          })
+          : null),
         //Posts
         ...(set.plugins.enabled.posts
           ? ({
