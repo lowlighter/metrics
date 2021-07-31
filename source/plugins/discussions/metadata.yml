@@ -1,6 +1,7 @@
 name: "💬 Discussions"
 cost: 1 GraphQL request + 1 GraphQL request per 100 discussions started
 category: github
+index: 18
 supports:
   - user
 inputs:

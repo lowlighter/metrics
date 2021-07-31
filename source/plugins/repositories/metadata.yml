@@ -1,6 +1,7 @@
 name: "📓 Repositories"
 cost: 1 GraphQL request per repository
 category: github
+index: 21
 supports:
   - user
   - organization
