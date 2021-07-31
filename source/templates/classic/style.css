@@ -1013,13 +1013,10 @@
     color: #E7BD69;
   }
   .achievement.s .title {
-    color: #FF0000;
+    color: #EB355E;
   }
   .achievement.s .gauge.info {
-    color: #FF0000;
-  }
-  .achievement.s .icon {
-    filter: sepia() saturate(100);
+    color: #EB355E;
   }
   .achievement.secret .title{
     color: #FF76CD;

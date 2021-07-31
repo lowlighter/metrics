@@ -19,7 +19,7 @@ export default async function({login, q, imports, data, computed, graphql, queri
 
     //Results
     const order = {S:5, A:4, B:3, C:2, $:1, X:0}
-    const colors = {S:["#FF0000", "#FF8500"], A:["#B59151", "#FFD576"], B:["#7D6CFF", "#B2A8FF"], C:["#2088FF", "#79B8FF"], $:["#FF48BD", "#FF92D8"], X:["#7A7A7A", "#B0B0B0"]}
+    const colors = {S:["#EB355E", "#731237"], A:["#B59151", "#FFD576"], B:["#7D6CFF", "#B2A8FF"], C:["#2088FF", "#79B8FF"], $:["#FF48BD", "#FF92D8"], X:["#7A7A7A", "#B0B0B0"]}
     const achievements = list
       .filter(a => (order[a.rank] >= order[threshold]) || ((a.rank === "$") && (secrets)))
       .filter(a => (!only.length) || ((only.length) && (only.includes(a.title.toLocaleLowerCase()))))
@@ -41,7 +41,9 @@ export default async function({login, q, imports, data, computed, graphql, queri
 }
 
 /**Rank */
-function rank(x, [c, b, a, m]) {
+function rank(x, [c, b, a, s, m]) {
+  if (x >= s)
+    return {rank:"S", progress:(x - s) / (m - s)}
   if (x >= a)
     return {rank:"A", progress:(x - a) / (m - a)}
   else if (x >= b)
