@@ -15,6 +15,12 @@ export default function({faker, query, login = faker.internet.userName()}) {
       pullRequests:{
         totalCount:faker.datatype.number(100),
       },
+      deployments:{
+        totalCount:faker.datatype.number(100),
+      },
+      environments:{
+        totalCount:faker.datatype.number(100),
+      },
       stargazerCount:faker.datatype.number(10000),
       licenseInfo:{
         nickname:null,
