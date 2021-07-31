@@ -19,6 +19,7 @@ inputs:
     type: string
     default: C
     values:
+      - S
       - A
       - B
       - C
