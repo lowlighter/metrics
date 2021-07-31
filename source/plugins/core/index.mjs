@@ -10,7 +10,7 @@ export default async function({login, q}, {conf, data, rest, graphql, plugins, q
   imports.metadata.templates[template].check({q, account, format:convert})
 
   //Init
-  const computed = {commits:0, sponsorships:0, licenses:{favorite:"", used:{}, about:{}}, token:{}, repositories:{watchers:0, stargazers:0, issues_open:0, issues_closed:0, pr_open:0, pr_closed:0, pr_merged:0, forks:0, forked:0, releases:0}}
+  const computed = {commits:0, sponsorships:0, licenses:{favorite:"", used:{}, about:{}}, token:{}, repositories:{watchers:0, stargazers:0, issues_open:0, issues_closed:0, pr_open:0, pr_closed:0, pr_merged:0, forks:0, forked:0, releases:0, deployments:0, environments:0}}
   const avatar = imports.imgb64(data.user.avatarUrl)
   data.computed = computed
   console.debug(`metrics/compute/${login} > formatting common metrics`)
@@ -65,8 +65,8 @@ export default async function({login, q}, {conf, data, rest, graphql, plugins, q
   //Iterate through user's repositories
   for (const repository of data.user.repositories.nodes) {
     //Simple properties with totalCount
-    for (const property of ["watchers", "stargazers", "issues_open", "issues_closed", "pr_open", "pr_closed", "pr_merged", "releases"])
-      computed.repositories[property] += repository[property].totalCount
+    for (const property of ["watchers", "stargazers", "issues_open", "issues_closed", "pr_open", "pr_closed", "pr_merged", "releases", "deployments", "environments"])
+      computed.repositories[property] += repository[property]?.totalCount ?? 0
     //Forks
     computed.repositories.forks += repository.forkCount
     if (repository.isFork)

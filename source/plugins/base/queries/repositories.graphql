@@ -48,6 +48,12 @@ query BaseRepositories {
           name
           spdxId
         }
+        deployments {
+          totalCount
+        }
+        environments {
+          totalCount
+        }
       }
     }
   }
