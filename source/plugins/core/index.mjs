@@ -66,7 +66,7 @@ export default async function({login, q}, {conf, data, rest, graphql, plugins, q
   for (const repository of data.user.repositories.nodes) {
     //Simple properties with totalCount
     for (const property of ["watchers", "stargazers", "issues_open", "issues_closed", "pr_open", "pr_closed", "pr_merged", "releases", "deployments", "environments"])
-      computed.repositories[property] += repository[property].totalCount
+      computed.repositories[property] += repository[property]?.totalCount ?? 0
     //Forks
     computed.repositories.forks += repository.forkCount
     if (repository.isFork)

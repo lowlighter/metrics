@@ -49,6 +49,8 @@ export default function({faker, query, login = faker.internet.userName()}) {
               releases:{totalCount:faker.datatype.number(100)},
               forkCount:faker.datatype.number(100),
               licenseInfo:{spdxId:"MIT"},
+              deployments:{totalCount:faker.datatype.number(100)},
+              environments:{totalCount:faker.datatype.number(100)},
             },
           ],
         },
