@@ -247,6 +247,21 @@ export default async function({list, login, data, computed, imports, graphql, qu
     })
   }
 
+  //Deployer
+  {
+    const value = computed.repositories?.deployments
+    const unlock = null
+
+    list.push({
+      title:"Deployer",
+      text:`Repositories have been deployed ${value} time${imports.s(value)}`,
+      icon:'<g stroke-width="2" fill="none" fill-rule="evenodd"><g stroke="#secondary"><path d="M11 40a2 2 0 100-4 2 2 0 000 4z"/><path d="M11 34v1m0 5v3m0 3v3" stroke-linecap="round"/></g><g stroke="#secondary" stroke-linecap="round" stroke-linejoin="round"><path d="M47.01 41.009h-4M45.016 39v4"/></g><path d="M27.982 5c2.79 1.873 4.46 5.876 5.008 12.01l2.059.659a1.606 1.606 0 011.606-1.665h.84a2.513 2.513 0 012.511 2.508l.004 1.496 3.197 1.588a1.951 1.951 0 011.684-.952l.509.002c.898.003 1.625.73 1.629 1.629l.008 2.115L51 27.606v1.945l-4.815-1.211c-.474.894-.87 1.48-1.192 1.757-.345-.328-.814-1.158-1.406-2.49L38.744 26.5c-.402 1.153-.845 1.828-1.328 2.026-.451-.444-1.04-1.55-1.409-2.821-1.481-.286-2.486-.56-2.994-.688-.27 2.397-1.036 6.884-2.009 10.982l5.006 4.438-6.555-1.08-1.454 3.654-1.45-3.658-6.56 1.082 4.996-4.417c-.899-4.02-1.576-7.684-2.03-10.992a37.29 37.29 0 01-2.967.679c-.38 1.252-.845 2.191-1.396 2.817-.63-.184-1.142-1.474-1.338-2.023-.705.15-2.323.519-4.853 1.107-.601 1.388-1.07 2.218-1.41 2.49a7.032 7.032 0 01-1.173-1.758L5 29.55v-1.945l3.99-3.265v-2.102a1.604 1.604 0 011.625-1.604l.528.007c.68.008 1.307.37 1.654.956l3.184-1.614.003-1.467a2.503 2.503 0 012.511-2.497l.863.003a1.6 1.6 0 011.594 1.646 62.42 62.42 0 012.024-.667c.572-6.097 2.24-10.098 5.006-12.002z" stroke="#primary" stroke-linecap="round" stroke-linejoin="round"/><path stroke="#secondary" stroke-linecap="round" d="M45.016 36.032v-2M45.016 49.032v-3M38.978 36.089v-3.153M17.016 36.089v-3.153M51.031 51.165v-2.193m0-2.972V35.013M4.974 51.165v-2.193m0-2.972V35.013"/></g>',
+      ...rank(value, [1, 200, 500, 1000]),
+      value,
+      unlock:new Date(unlock?.createdAt),
+    })
+  }
+
   //Verified
   {
     const value = !/This user hasn't uploaded any GPG keys/i.test((await imports.axios.get(`https://github.com/${login}.gpg`)).data)
