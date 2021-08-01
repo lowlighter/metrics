@@ -13,6 +13,15 @@ Achievements are mostly related to features offered by GitHub, so by unlocking a
 
 A few achievements contains actual real ranking (based on [GitHub search](https://github.com/search) results)!
 
+**About achievements ranks**
+
+Moving forward between ranks is voluntarily difficult, making it almost impossible to reach the latest rank except by hard work.
+
+With this design, when a user reach upper ranks you can be sure that they really deserve it!
+It also lets you quickly see at a glance what this user primarly use GitHub for, just look for crimson and gold badges!
+
+![Ranks](/.github/readme/imgs/plugin_achievements_ranks.png)
+
 #### ℹ️ Examples workflows
 
 [➡️ Available options for this plugin](metadata.yml)

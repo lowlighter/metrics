@@ -31,7 +31,7 @@ And you can customize these heavily with plugins, templates and hundreds of opti
 <table>
   <tr>
     <th colspan="2" align="center">
-      <a href="source/plugins/README.md">🧩 32 plugins</a>
+      <a href="source/plugins/README.md">🧩 34 plugins</a>
     </th>
   </tr>
   <tr>
@@ -201,8 +201,22 @@ And you can customize these heavily with plugins, templates and hundreds of opti
     </td>
   </tr>
   <tr>
-    <th><a href="source/plugins/notable/README.md">🎩 Notable contributions</a></th>
+    <th><a href="source/plugins/discussions/README.md">💬 Discussions</a></th>
     <th><a href="source/plugins/support/README.md">💭 GitHub Community Support</a></th>
+  </tr>
+  <tr>
+    <td align="center">
+      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.discussions.svg">
+      <img width="900" height="1" alt="">
+    </td>
+    <td align="center">
+      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.support.svg">
+      <img width="900" height="1" alt="">
+    </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/notable/README.md">🎩 Notable contributions</a></th>
+    <th><a href="source/plugins/repositories/README.md">📓 Repositories</a></th>
   </tr>
   <tr>
     <td align="center">
@@ -213,7 +227,7 @@ And you can customize these heavily with plugins, templates and hundreds of opti
       <img width="900" height="1" alt="">
     </td>
     <td align="center">
-      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.support.svg">
+      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.repositories.svg">
       <img width="900" height="1" alt="">
     </td>
   </tr>
@@ -402,7 +416,7 @@ Choose `📊 Metrics embed` if you want to customize your GitHub profile and `�
 
 ### 🐙 Features
 
-* Create infographics from **32 plugins**, **4 templates** and **192 options**
+* Create infographics from **34 plugins**, **4 templates** and **195 options**
   * Even more **customization** with [community templates](source/templates/community) or by [forking this repository](https://github.com/lowlighter/metrics/network/members) and editing HTML/CSS/EJS
 * Support **users**, **organizations** and even **repositories**
 * Transparent by default so it'll blend well whether light or dark mode is used
@@ -716,8 +730,10 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" title="🗂️ Active projects">🗂️</th>
     <th nowrap="nowrap" align="center" title="📰 Recent activity">📰</th>
     <th nowrap="nowrap" align="center" title="🏆 Achievements">🏆</th>
-    <th nowrap="nowrap" align="center" title="🎩 Notable contributions">🎩</th>
+    <th nowrap="nowrap" align="center" title="💬 Discussions">💬</th>
     <th nowrap="nowrap" align="center" title="💭 GitHub Community Support">💭</th>
+    <th nowrap="nowrap" align="center" title="🎩 Notable contributions">🎩</th>
+    <th nowrap="nowrap" align="center" title="📓 Repositories">📓</th>
     <th nowrap="nowrap" align="center" title="🌇 GitHub Skyline 3D calendar">🌇</th>
     <th nowrap="nowrap" align="center" title="⏱️ Website performances">⏱️</th>
     <th nowrap="nowrap" align="center" title="🎼 Music plugin">🎼</th>
@@ -752,8 +768,10 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <td nowrap="nowrap" align="center" data-plugin="projects">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="activity">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="achievements">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="notable">✔️</td>
+    <td nowrap="nowrap" align="center" data-plugin="discussions">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="support">✔️</td>
+    <td nowrap="nowrap" align="center" data-plugin="notable">✔️</td>
+    <td nowrap="nowrap" align="center" data-plugin="repositories">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="skyline">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="music">✔️</td>
@@ -788,8 +806,10 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <td nowrap="nowrap" align="center" data-plugin="projects">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="activity">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="achievements">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="notable">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="discussions">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="support">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="notable">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="repositories">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="skyline">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="music">❌</td>
@@ -824,8 +844,10 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <td nowrap="nowrap" align="center" data-plugin="projects">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="activity">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="achievements">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="notable">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="discussions">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="support">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="notable">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="repositories">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="skyline">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="music">❌</td>
@@ -860,8 +882,10 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <td nowrap="nowrap" align="center" data-plugin="projects">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="activity">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="achievements">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="notable">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="discussions">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="support">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="notable">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="repositories">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="skyline">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="pagespeed">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="music">❌</td>
@@ -876,7 +900,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <td nowrap="nowrap" align="center" data-plugin="nightscout">❌</td>
   </tr>
   <tr>
-    <td colspan="34"></td>
+    <td colspan="36"></td>
   </tr>
   <tr>
     <th nowrap="nowrap">Mode/Plugin</th>    
@@ -899,8 +923,10 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" title="🗂️ Active projects">🗂️</th>
     <th nowrap="nowrap" align="center" title="📰 Recent activity">📰</th>
     <th nowrap="nowrap" align="center" title="🏆 Achievements">🏆</th>
-    <th nowrap="nowrap" align="center" title="🎩 Notable contributions">🎩</th>
+    <th nowrap="nowrap" align="center" title="💬 Discussions">💬</th>
     <th nowrap="nowrap" align="center" title="💭 GitHub Community Support">💭</th>
+    <th nowrap="nowrap" align="center" title="🎩 Notable contributions">🎩</th>
+    <th nowrap="nowrap" align="center" title="📓 Repositories">📓</th>
     <th nowrap="nowrap" align="center" title="🌇 GitHub Skyline 3D calendar">🌇</th>
     <th nowrap="nowrap" align="center" title="⏱️ Website performances">⏱️</th>
     <th nowrap="nowrap" align="center" title="🎼 Music plugin">🎼</th>
@@ -935,8 +961,10 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <td nowrap="nowrap" align="center" data-plugin="projects">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="activity">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="achievements">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="notable">✔️</td>
+    <td nowrap="nowrap" align="center" data-plugin="discussions">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="support">✔️</td>
+    <td nowrap="nowrap" align="center" data-plugin="notable">✔️</td>
+    <td nowrap="nowrap" align="center" data-plugin="repositories">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="skyline">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="music">✔️</td>
@@ -971,8 +999,10 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <td nowrap="nowrap" align="center" data-plugin="projects">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="activity">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="achievements">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="notable">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="discussions">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="support">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="notable">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="repositories">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="skyline">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="music">✔️</td>
@@ -1007,8 +1037,10 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <td nowrap="nowrap" align="center" data-plugin="projects">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="activity">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="achievements">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="notable">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="discussions">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="support">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="notable">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="repositories">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="skyline">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="music">❌</td>
@@ -1048,6 +1080,7 @@ See their respective documentation for more informations about how to setup them
   * [🏆 Achievements](/source/plugins/achievements/README.md)
   * [📰 Recent activity](/source/plugins/activity/README.md)
   * [🏅 Repository contributors](/source/plugins/contributors/README.md)
+  * [💬 Discussions](/source/plugins/discussions/README.md)
   * [🎟️ Follow-up of issues and pull requests](/source/plugins/followup/README.md)
   * [🎫 Gists](/source/plugins/gists/README.md)
   * [💡 Coding habits](/source/plugins/habits/README.md)
@@ -1060,6 +1093,7 @@ See their respective documentation for more informations about how to setup them
   * [🧑‍🤝‍🧑 People plugin](/source/plugins/people/README.md)
   * [🗂️ Active projects](/source/plugins/projects/README.md)
   * [🎭 Comment reactions](/source/plugins/reactions/README.md)
+  * [📓 Repositories](/source/plugins/repositories/README.md)
   * [🌇 GitHub Skyline 3D calendar](/source/plugins/skyline/README.md)
   * [✨ Stargazers over last weeks](/source/plugins/stargazers/README.md)
   * [🌟 Recently starred repositories](/source/plugins/stars/README.md)

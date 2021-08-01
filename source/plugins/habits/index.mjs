@@ -2,7 +2,7 @@
 import { recent as recent_analyzer } from "./../languages/analyzers.mjs"
 
 //Setup
-export default async function({login, data, rest, imports, q, account}, {enabled = false, ...defaults} = {}) {
+export default async function({login, data, rest, imports, q, account}, {enabled = false, extras = false, ...defaults} = {}) {
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
@@ -97,10 +97,10 @@ export default async function({login, data, rest, imports, q, account}, {enabled
     }
 
     //Linguist
-    if (charts) {
+    if ((extras)&&(charts)) {
       //Check if linguist exists
       console.debug(`metrics/compute/${login}/plugins > habits > searching recently used languages using linguist`)
-      if ((patches.length) && (await imports.which("github-linguist"))) {
+      if (patches.length) {
         //Call language analyzer (note: using content from other plugin is usually disallowed, this is mostly for legacy purposes)
         habits.linguist.available = true
         const {total, stats} = await recent_analyzer({login, data, imports, rest, account}, {days, load:from || 1000, tempdir:"habits"})
@@ -109,7 +109,6 @@ export default async function({login, data, rest, imports, q, account}, {enabled
       }
       else
         console.debug(`metrics/compute/${login}/plugins > habits > linguist not available`)
-
     }
 
     //Results

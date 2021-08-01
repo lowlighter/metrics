@@ -738,6 +738,22 @@ inputs:
     default: ""
   
   # ====================================================================================
+  # 💬 Discussions
+  
+  # Enable or disable plugin
+  plugin_discussions:
+    description: GitHub discussions metrics
+    default: no
+  
+  # ====================================================================================
+  # 💭 GitHub Community Support
+  
+  # Enable or disable plugin
+  plugin_support:
+    description: GitHub Community Support metrics
+    default: no
+  
+  # ====================================================================================
   # 🎩 Notable contributions
   
   # Enable or disable plugin
@@ -758,12 +774,18 @@ inputs:
     default: no
   
   # ====================================================================================
-  # 💭 GitHub Community Support
+  # 📓 Repositories
   
   # Enable or disable plugin
-  plugin_support:
-    description: GitHub Community Support metrics
+  plugin_repositories:
+    description: Display chosen featured repositories
     default: no
+  
+  # Featured repositories to display
+  # If no owner is specified, it will implicitly use the current account login as owner
+  plugin_repositories_featured:
+    description: List of repositories to display
+    default: ""
   
   # ====================================================================================
   # 🌇 GitHub Skyline 3D calendar
@@ -1194,6 +1216,7 @@ runs:
     - run: |
         # Create environment file from inputs and GitHub variables
         echo "::group::Metrics docker image setup"
+        echo "GitHub action: $METRICS_ACTION ($METRICS_ACTION_PATH)"
         cd $METRICS_ACTION_PATH
         touch .env
         for INPUT in $(echo $INPUTS | jq -r 'to_entries|map("INPUT_\(.key|ascii_upcase)=\(.value|@uri)")|.[]'); do
@@ -1208,7 +1231,7 @@ runs:
         echo "Renders output folder: $METRICS_RENDERS"
 
         # Source repository (picked from action name)
-        METRICS_SOURCE=$(echo $METRICS_ACTION | sed -E 's/metrics.*?$//g')
+        METRICS_SOURCE=$(echo $METRICS_ACTION | sed -E 's/metrics.*?$//g' | sed -E 's/_//g')
         echo "Source: $METRICS_SOURCE"
 
         # Version (picked from package.json)

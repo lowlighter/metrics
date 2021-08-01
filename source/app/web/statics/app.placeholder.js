@@ -65,7 +65,7 @@
       computed: {
         commits: faker.datatype.number(10000),
         sponsorships: faker.datatype.number(10),
-        licenses: { favorite: [""], used: { MIT: 1 } },
+        licenses: { favorite: [""], used: { MIT: 1 }, about:{} },
         token: { scopes: [] },
         repositories: {
           watchers: faker.datatype.number(1000),
@@ -586,6 +586,20 @@
             },
           })
           : null),
+        //Discussions
+        ...(set.plugins.enabled.discussions
+          ? ({
+            discussions: {
+              categories: {
+                stats: { '🙏 Q&A': faker.datatype.number(100), '📣 Announcements': faker.datatype.number(100), '💡 Ideas': faker.datatype.number(100), '💬 General': faker.datatype.number(100) },
+                favorite: '📣 Announcements'
+              },
+              started: faker.datatype.number(1000),
+              comments: faker.datatype.number(1000),
+              answers: faker.datatype.number(1000),
+            },
+          })
+          : null),
         //Posts
         ...(set.plugins.enabled.posts
           ? ({
@@ -664,7 +678,31 @@
             },
           })
           : null),
-        //Stars
+        //Repositories
+        ...(set.plugins.enabled.repositories
+          ? ({
+            repositories: {
+              list: new Array(Number(options["repositories.featured"].split(",").length) - 1).fill(null).map((_, i) => ({
+                created: faker.date.past(),
+                description: faker.lorem.sentence(),
+                forkCount: faker.datatype.number(100),
+                isFork: faker.datatype.boolean(),
+                issues: {
+                  totalCount: faker.datatype.number(100),
+                },
+                nameWithOwner: `${faker.random.word()}/${faker.random.word()}`,
+                openGraphImageUrl: faker.internet.url(),
+                pullRequests: {
+                  totalCount: faker.datatype.number(100),
+                },
+                stargazerCount: faker.datatype.number(10000),
+                licenseInfo: { nickname: null, name: "License" },
+                primaryLanguage: { color: faker.internet.color(), name: faker.lorem.word() },
+              })),
+            },
+          })
+          : null),
+        //Stargazers
         ...(set.plugins.enabled.stargazers
           ? ({
             get stargazers() {
@@ -1054,6 +1092,9 @@
     }
     data.f.date = function(string, options) {
       return new Intl.DateTimeFormat("en-GB", options).format(new Date(string))
+    }
+    data.f.license = function(text) {
+      return text?.name ?? text
     }
     //Render
     return await ejs.render(image, data, { async: true, rmWhitespace: true })

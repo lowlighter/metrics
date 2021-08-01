@@ -28,6 +28,7 @@ runs:
     - run: |
         # Create environment file from inputs and GitHub variables
         echo "::group::Metrics docker image setup"
+        echo "GitHub action: $METRICS_ACTION ($METRICS_ACTION_PATH)"
         cd $METRICS_ACTION_PATH
         touch .env
         for INPUT in $(echo $INPUTS | jq -r 'to_entries|map("INPUT_\(.key|ascii_upcase)=\(.value|@uri)")|.[]'); do
@@ -42,7 +43,7 @@ runs:
         echo "Renders output folder: $METRICS_RENDERS"
 
         # Source repository (picked from action name)
-        METRICS_SOURCE=$(echo $METRICS_ACTION | sed -E 's/metrics.*?$//g')
+        METRICS_SOURCE=$(echo $METRICS_ACTION | sed -E 's/metrics.*?$//g' | sed -E 's/_//g')
         echo "Source: $METRICS_SOURCE"
 
         # Version (picked from package.json)
