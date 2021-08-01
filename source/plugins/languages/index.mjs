@@ -2,7 +2,7 @@
 import { indepth as indepth_analyzer, recent as recent_analyzer } from "./analyzers.mjs"
 
 //Setup
-export default async function({login, data, imports, q, rest, account}, {enabled = false} = {}) {
+export default async function({login, data, imports, q, rest, account}, {enabled = false, extras = false} = {}) {
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
@@ -52,17 +52,20 @@ export default async function({login, data, imports, q, rest, account}, {enabled
       }
     }
 
-    //Recently used languages
-    if ((sections.includes("recently-used"))&&(context.mode === "user")) {
-      console.debug(`metrics/compute/${login}/plugins > languages > using recent analyzer`)
-      languages["stats.recent"] = await recent_analyzer({login, data, imports, rest, account}, {skipped, days:_recent_days, load:_recent_load})
-    }
+    //Extras features
+    if (extras) {
+      //Recently used languages
+      if ((sections.includes("recently-used"))&&(context.mode === "user")) {
+        console.debug(`metrics/compute/${login}/plugins > languages > using recent analyzer`)
+        languages["stats.recent"] = await recent_analyzer({login, data, imports, rest, account}, {skipped, days:_recent_days, load:_recent_load})
+      }
 
-    //Indepth mode
-    if (indepth) {
-      console.debug(`metrics/compute/${login}/plugins > languages > switching to indepth mode (this may take some time)`)
-      Object.assign(languages, await indepth_analyzer({login, data, imports, repositories}, {skipped}))
-      console.debug(`metrics/compute/${login}/plugins > languages > indepth analysis missed ${languages.missed} commits`)
+      //Indepth mode
+      if (indepth) {
+        console.debug(`metrics/compute/${login}/plugins > languages > switching to indepth mode (this may take some time)`)
+        Object.assign(languages, await indepth_analyzer({login, data, imports, repositories}, {skipped}))
+        console.debug(`metrics/compute/${login}/plugins > languages > indepth analysis missed ${languages.missed} commits`)
+      }
     }
 
     //Compute languages stats

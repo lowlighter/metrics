@@ -47,7 +47,7 @@ export default async function({login, q}, {conf, data, rest, graphql, plugins, q
     pending.push((async () => {
       try {
         console.debug(`metrics/compute/${login}/plugins > ${name} > started`)
-        data.plugins[name] = await imports.plugins[name]({login, q, imports, data, computed, rest, graphql, queries, account}, plugins[name])
+        data.plugins[name] = await imports.plugins[name]({login, q, imports, data, computed, rest, graphql, queries, account}, {...plugins[name], extras:conf.settings?.extras?.features ?? conf.settings?.extras?.default ?? false})
         console.debug(`metrics/compute/${login}/plugins > ${name} > completed`)
       }
       catch (error) {
