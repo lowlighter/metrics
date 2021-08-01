@@ -139,7 +139,7 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
 async function analyze({login, imports, data}, {results, path}) {
   //Gather language data
   console.debug(`metrics/compute/${login}/plugins > languages > indepth > running linguist`)
-  const {files} = await linguist(path)
+  const {results:files} = await linguist(path)
 
   //Processing diff
   const per_page = 1
