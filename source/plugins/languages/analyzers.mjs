@@ -1,8 +1,7 @@
+import linguist from "linguist-js"
+
 /**Indepth analyzer */
 export async function indepth({login, data, imports, repositories}, {skipped}) {
-  //Check prerequisites
-  if (!await imports.which("github-linguist"))
-    throw new Error("Feature requires github-linguist")
 
   //Compute repositories stats from fetched repositories
   const results = {total:0, lines:{}, stats:{}, commits:0, files:0, missed:0}
@@ -46,9 +45,6 @@ export async function indepth({login, data, imports, repositories}, {skipped}) {
 
 /**Recent languages activity */
 export async function recent({login, data, imports, rest, account}, {skipped = [], days = 0, load = 0, tempdir = "recent"}) {
-  //Check prerequisites
-  if (!await imports.which("github-linguist"))
-    throw new Error("Feature requires github-linguist")
 
   //Get user recent activity
   console.debug(`metrics/compute/${login}/plugins > languages > querying api`)
@@ -141,9 +137,9 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
 
 /**Analyze a single repository */
 async function analyze({login, imports, data}, {results, path}) {
-  //Spawn linguist process and map files to languages
+  //Gather language data
   console.debug(`metrics/compute/${login}/plugins > languages > indepth > running linguist`)
-  const files = Object.fromEntries(Object.entries(JSON.parse(await imports.run("github-linguist --json", {cwd:path}, {log:false}))).flatMap(([lang, files]) => files.map(file => [file, lang])))
+  const {results:files, languages:languageResults} = await linguist(path)
 
   //Processing diff
   const per_page = 1
@@ -168,8 +164,10 @@ async function analyze({login, imports, data}, {results, path}) {
             return
           //File marker
           if (/^[+]{3}\sb[/](?<file>[\s\S]+)$/.test(line)) {
-            file = line.match(/^[+]{3}\sb[/](?<file>[\s\S]+)$/)?.groups?.file ?? null
+            file = line.match(/^[+]{3}\sb[/](?<file>[\s\S]+)$/)?.groups?.file.replace(/^/, `${path}/`) ?? null
             lang = files[file] ?? null
+            if (lang in languageResults.data || lang in languageResults.prose)
+              lang = null
             edited.add(file)
             return
           }
