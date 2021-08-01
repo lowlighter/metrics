@@ -1,4 +1,4 @@
-const linguist = require('linguist-js');
+import linguist from "linguist-js"
 
 /**Indepth analyzer */
 export async function indepth({login, data, imports, repositories}, {skipped}) {
