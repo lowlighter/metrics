@@ -1,8 +1,10 @@
 ### 📜 Repository licenses
 
 > ⚠️ This is **NOT** legal advice, use at your own risk
->
-> 💣 Do **NOT** enable this plugin on public web instances (plugin allows raw commands injection)
+
+> 🔣 On web instances, this plugin is an extra feature and must be enabled globally in `settings.json`
+> 💣 Note that this plugin allows raw commands injection and is **NOT** advised to be enabled on them
+> This could result in compromised server!
 
 The *licenses* plugin lets you display license informations like permissions, limitations and conditions along with additional metrics about dependencies.
 

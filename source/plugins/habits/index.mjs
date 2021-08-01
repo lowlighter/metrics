@@ -2,7 +2,7 @@
 import { recent as recent_analyzer } from "./../languages/analyzers.mjs"
 
 //Setup
-export default async function({login, data, rest, imports, q, account}, {enabled = false, ...defaults} = {}) {
+export default async function({login, data, rest, imports, q, account}, {enabled = false, extras = false, ...defaults} = {}) {
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
@@ -97,7 +97,7 @@ export default async function({login, data, rest, imports, q, account}, {enabled
     }
 
     //Linguist
-    if (charts) {
+    if ((extras)&&(charts)) {
       //Check if linguist exists
       console.debug(`metrics/compute/${login}/plugins > habits > searching recently used languages using linguist`)
       if (patches.length) {
@@ -109,7 +109,6 @@ export default async function({login, data, rest, imports, q, account}, {enabled
       }
       else
         console.debug(`metrics/compute/${login}/plugins > habits > linguist not available`)
-
     }
 
     //Results
