@@ -449,6 +449,26 @@ inputs:
     description: Display contributions
     default: no
   
+  # Sections to display
+  plugin_contributors_sections:
+    description: Sections to display
+    default: contributors
+  
+  # Contributions categories
+  # This requires "plugin_contributors_sections" to have "categories" in it to be effective
+  #
+  # Pass a JSON object which contains a mapping of category with fileglobs.
+  # Contributors will be sorted into each category to reflect their contributions.
+  # Note that order a file will only match the first category matching
+  plugin_contributors_categories:
+    description: Contributions categories
+    default: |
+      {
+        "📚 Documentation": ["README.md", "docs/**"],
+        "💻 Code": ["source/**", "src/**"],
+        "#️⃣ Others": ["*"]
+      }
+  
   # ====================================================================================
   # 🌟 Recently starred repositories
   
