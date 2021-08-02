@@ -37,3 +37,30 @@ inputs:
     description: Display contributions
     type: boolean
     default: no
+
+  # Sections to display
+  plugin_contributors_sections:
+    description: Sections to display
+    type: array
+    format: comma-separated
+    default: contributors
+    example: contributors
+    values:
+      - contributors # Display all contributors
+      - categories   # Display contributors per contributions categories
+
+  # Contributions categories
+  # This requires "plugin_contributors_sections" to have "categories" in it to be effective
+  #
+  # Pass a JSON object which contains a mapping of category with fileglobs.
+  # Contributors will be sorted into each category to reflect their contributions.
+  # Note that order a file will only match the first category matching
+  plugin_contributors_categories:
+    description: Contributions categories
+    type: json
+    default: |
+      {
+        "📚 Documentation": ["README.md", "docs/**"],
+        "💻 Code": ["source/**", "src/**"],
+        "#️⃣ Others": ["*"]
+      }

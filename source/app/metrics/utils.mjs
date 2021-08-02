@@ -23,10 +23,11 @@ import util from "util"
 import fetch from "node-fetch"
 import readline from "readline"
 import emoji from "emoji-name-map"
+import minimatch from "minimatch"
 prism_lang()
 
 //Exports
-export {axios, fs, git, jimp, opengraph, os, paths, processes, rss, url, fetch, util, emoji}
+export {axios, fs, git, jimp, opengraph, os, paths, processes, rss, url, fetch, util, emoji, minimatch}
 
 /**Returns module __dirname */
 export function __module(module) {
