@@ -93,12 +93,12 @@ export default async function({login, q, imports, data, rest, graphql, queries, 
             }
           })
           //Search for contributions type in specified categories
-          files: for (const file of files) {
+          filesloop: for (const file of files) {
             for (const [category, globs] of Object.entries(categories)) {
               for (const glob of [globs].flat(Infinity)) {
                 if (imports.minimatch(file, glob, {nocase:true})) {
                   types[category].add(contributor)
-                  continue files
+                  continue filesloop
                 }
               }
             }
