@@ -4,7 +4,7 @@
  */
 
 //Setup
-export default async function({login, graphql, data, q, queries, imports}, conf) {
+export default async function({login, graphql, rest, data, q, queries, imports}, conf) {
   //Load inputs
   console.debug(`metrics/compute/${login}/base > started`)
   let {repositories, "repositories.forks":_forks, "repositories.affiliations":_affiliations, "repositories.batch":_batch} = imports.metadata.plugins.base.inputs({data, q, account:"bypass"}, {repositories:conf.settings.repositories ?? 100})
@@ -48,6 +48,17 @@ export default async function({login, graphql, data, q, queries, imports}, conf)
         console.debug(`metrics/compute/${login}/base > keeping only ${repositories} ${type}`)
         data.user[type].nodes.splice(repositories)
         console.debug(`metrics/compute/${login}/base > loaded ${data.user[type].nodes.length} ${type}`)
+      }
+      //For user accounts, attempt to load whole commit history rather than last year
+      if (account === "user") {
+        try {
+          console.debug(`metrics/compute/${login}/base > loading user commits history`)
+          const {data:{total_count:total = 0}} = await rest.search.commits({q:`author:${login}`})
+          data.user.contributionsCollection.totalCommitContributions = Math.max(total, data.user.contributionsCollection.totalCommitContributions)
+        }
+        catch {
+          console.debug(`metrics/compute/${login}/base > falling back to last year commits history`)
+        }
       }
       //Shared options
       let {"repositories.skipped":skipped, "commits.authoring":authoring} = imports.metadata.plugins.base.inputs({data, q, account:"bypass"})
