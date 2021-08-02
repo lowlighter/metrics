@@ -56,7 +56,9 @@ export default async function({login, graphql, rest, data, q, queries, imports},
           const {data:{total_count:total = 0}} = await rest.search.commits({q:`author:${login}`})
           data.user.contributionsCollection.totalCommitContributions = Math.max(total, data.user.contributionsCollection.totalCommitContributions)
         }
-        catch {}
+        catch {
+          console.debug(`metrics/compute/${login}/base > falling back to last year commits history`)
+        }
       }
       //Shared options
       let {"repositories.skipped":skipped, "commits.authoring":authoring} = imports.metadata.plugins.base.inputs({data, q, account:"bypass"})
