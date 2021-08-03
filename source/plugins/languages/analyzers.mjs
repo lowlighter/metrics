@@ -4,7 +4,7 @@ import linguist from "linguist-js"
 export async function indepth({login, data, imports, repositories}, {skipped}) {
 
   //Compute repositories stats from fetched repositories
-  const results = {total:0, lines:{}, stats:{}, commits:0, files:0, missed:0}
+  const results = {total:0, lines:{}, stats:{}, colors:{}, commits:0, files:0, missed:0}
   for (const repository of repositories) {
     //Skip repository if asked
     if ((skipped.includes(repository.name.toLocaleLowerCase())) || (skipped.includes(`${repository.owner.login}/${repository.name}`.toLocaleLowerCase()))) {
@@ -171,7 +171,7 @@ async function analyze({login, imports, data}, {results, path}) {
             edited.add(file)
             return
           }
-          //Ignore unkonwn languages
+          //Ignore unknown languages
           if (!lang)
             return
           //Added line marker
@@ -179,6 +179,7 @@ async function analyze({login, imports, data}, {results, path}) {
             const size = Buffer.byteLength(line.match(/^[+]\s*(?<line>[\s\S]+)$/)?.groups?.line ?? "", "utf-8")
             results.stats[lang] = (results.stats[lang] ?? 0) + size
             results.lines[lang] = (results.lines[lang] ?? 0) + 1
+            results.colors[lang] ??= languageResults.all[lang].color
             results.total += size
           }
         }
@@ -212,7 +213,7 @@ if (/languages.analyzers.mjs$/.test(process.argv[1])) {
 
     //Prepare call
     const imports = await import("../../app/metrics/utils.mjs")
-    const results = {total:0, lines:{}, stats:{}, missed:0}
+    const results = {total:0, lines:{}, colors:{}, stats:{}, missed:0}
     console.debug = log => /exited with code null/.test(log) ? console.error(log.replace(/^.*--max-count=(?<step>\d+) --skip=(?<start>\d+).*$/, (_, step, start) => `error: skipped commits ${start} from ${Number(start)+Number(step)}`)) : null
 
     //Analyze repository
