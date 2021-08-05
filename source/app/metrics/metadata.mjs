@@ -38,8 +38,6 @@ export default async function metadata({log = true} = {}) {
   for (const name of await fs.promises.readdir(__templates)) {
     if (!(await fs.promises.lstat(path.join(__templates, name))).isDirectory())
       continue
-    if (/^@/.test(name))
-      continue
     logger(`metrics/metadata > loading template metadata [${name}]`)
     Templates[name] = await metadata.template({__templates, name, plugins, logger})
   }
@@ -270,7 +268,7 @@ metadata.template = async function({__templates, name, plugins, logger}) {
   try {
     //Load meta descriptor
     const raw = fs.existsSync(path.join(__templates, name, "metadata.yml")) ? `${await fs.promises.readFile(path.join(__templates, name, "metadata.yml"), "utf-8")}` : ""
-    const readme = `${await fs.promises.readFile(path.join(__templates, name, "README.md"), "utf-8")}`
+    const readme = fs.existsSync(path.join(__templates, name, "README.md")) ? `${await fs.promises.readFile(path.join(__templates, name, "README.md"), "utf-8")}` : ""
     const meta = yaml.load(raw) ?? {}
 
     //Compatibility
