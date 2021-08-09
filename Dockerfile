@@ -15,10 +15,8 @@ RUN chmod +x /metrics/source/app/action/index.mjs \
   && apt-get update \
   && apt-get install -y google-chrome-stable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst fonts-freefont-ttf libxss1 --no-install-recommends \
   && apt-get install -y ca-certificates fonts-liberation libappindicator3-1 libasound2 libatk-bridge2.0-0 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgbm1 libgcc1 libglib2.0-0 libgtk-3-0 libnspr4 libnss3 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 lsb-release wget xdg-utils \
-  # Install ruby to support github gems
-  # Based on https://github.com/github/linguist and https://github.com/github/licensed
-  && apt-get install -y ruby-full \
-  && apt-get install -y git g++ cmake pkg-config libicu-dev zlib1g-dev libcurl4-openssl-dev libssl-dev ruby-dev \
+  # Install ruby to support github licensed gem
+  && apt-get install -y ruby-full git g++ cmake pkg-config libssl-dev \
   && gem install licensed \
   # Install python for node-gyp
   && apt-get install -y python3 \
