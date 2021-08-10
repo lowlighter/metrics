@@ -32,8 +32,9 @@
           //Compute favorite category
           for (const category of [...fetched.map(({category:{emoji, name}}) => `${imports.emoji.get(emoji)} ${name}`)])
             categories[category] = (categories[category] ?? 0) + 1
-          discussions.categories.stats = categories
-          discussions.categories.favorite = Object.entries(categories).sort((a, b) => b[1] - a[1]).map(([name]) => name).shift() ?? null
+          const categoryEntries = Object.entries(categories).sort((a, b) => b[1] - a[1])
+          discussions.categories.stats = Object.fromEntries(categoryEntries)
+          discussions.categories.favorite = categoryEntries[0]?.[0] ?? null
         }
 
         //Results
