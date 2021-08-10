@@ -47,7 +47,7 @@ export default async function({login, data, imports, q, rest, account}, {enabled
       //Process repository languages
       for (const {size, node:{color, name}} of Object.values(repository.languages.edges)) {
         languages.stats[name] = (languages.stats[name] ?? 0) + size
-        languages.colors[name] = colors[name.toLocaleLowerCase()] ?? color ?? "#ededed"
+        languages.colors[name] = colors[name.toLocaleLowerCase()] ?? color
         languages.total += size
       }
     }
@@ -79,7 +79,7 @@ export default async function({login, data, imports, q, rest, account}, {enabled
         languages[section][i].lines = lines[languages[section][i].name] ?? 0
         if ((colors[i]) && (!colors[languages[section][i].name.toLocaleLowerCase()]))
           languages[section][i].color = colors[i]
-        languages[section][i].color ??= languages.colors[languages[section][i].name.toLocaleLowerCase()]
+        languages[section][i].color ??= languages.colors[languages[section][i].name.toLocaleLowerCase()] ?? "#ededed"
       }
     }
 
