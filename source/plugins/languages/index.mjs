@@ -79,7 +79,7 @@ export default async function({login, data, imports, q, rest, account}, {enabled
         languages[section][i].lines = lines[languages[section][i].name] ?? 0
         if ((colors[i]) && (!colors[languages[section][i].name.toLocaleLowerCase()]))
           languages[section][i].color = colors[i]
-        languages[section][i].color ??= languages.colors[languages[section][i].name.toLocaleLowerCase()] ?? "#ededed"
+        languages[section][i].color ??= languages.colors[languages[section][i].name] ?? "#ededed"
       }
     }
 
