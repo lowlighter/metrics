@@ -48,7 +48,7 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
 
   //Get user recent activity
   console.debug(`metrics/compute/${login}/plugins > languages > querying api`)
-  const commits = [], pages = Math.ceil(load/100), results = {total:0, lines:{}, stats:{}, commits:0, files:0, missed:0, days}
+  const commits = [], pages = Math.ceil(load/100), results = {total:0, lines:{}, stats:{}, colors:{}, commits:0, files:0, missed:0, days}
   try {
     for (let page = 1; page <= pages; page++) {
       console.debug(`metrics/compute/${login}/plugins > languages > loading page ${page}`)

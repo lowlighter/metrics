@@ -1,5 +1,5 @@
 //Imports
-import { indepth as indepth_analyzer, recent as recent_analyzer } from "./analyzers.mjs"
+import {indepth as indepth_analyzer, recent as recent_analyzer} from "./analyzers.mjs"
 
 //Setup
 export default async function({login, data, imports, q, rest, account}, {enabled = false, extras = false} = {}) {
