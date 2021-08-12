@@ -166,12 +166,13 @@ async function analyze({login, imports, data}, {results, path}) {
           if (/^[+]{3}\sb[/](?<file>[\s\S]+)$/.test(line)) {
             file = line.match(/^[+]{3}\sb[/](?<file>[\s\S]+)$/)?.groups?.file.replace(/^/, `${path}/`) ?? null
             lang = files[file] ?? null
-            if (lang in languageResults.data || lang in languageResults.prose)
+            const ignored = ["data", "markup", "programming", "prose"].map(type => data.shared.categories.includes(type) && lang in languageResults[type]).filter(type => type)
+            if (ignored.length)
               lang = null
             edited.add(file)
             return
           }
-          //Ignore unkonwn languages
+          //Ignore unknown languages
           if (!lang)
             return
           //Added line marker
@@ -207,8 +208,8 @@ if (/languages.analyzers.mjs$/.test(process.argv[1])) {
     }
     const {default:setup} = await import("../../app/metrics/setup.mjs")
     const {conf:{metadata}} = await setup({log:false, nosettings:true})
-    const {"commits.authoring":authoring} = await metadata.plugins.base.inputs({q:{"commits.authoring":_authoring}, account:"bypass"})
-    const data = {shared:{"commits.authoring":authoring}}
+    const {"commits.authoring":authoring, categories:_categories, "recent.categories":_recent_categories} = await metadata.plugins.base.inputs({q:{"commits.authoring":_authoring}, account:"bypass"})
+    const data = {shared:{"commits.authoring":authoring, categories:_categories, "recent.categories":_recent_categories}}
 
     //Prepare call
     const imports = await import("../../app/metrics/utils.mjs")
