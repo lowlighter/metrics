@@ -199,9 +199,11 @@ And you can customize these heavily with plugins, templates and hundreds of opti
       <img width="900" height="1" alt="">
     </td>
     <td align="center">
-      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.achievements.svg">
-      <details><summary>Compact display</summary>
+      <details open><summary>Compact display</summary>
         <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.achievements.compact.svg">
+      </details>
+      <details open><summary>Detailed display</summary>
+        <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.achievements.svg">
       </details>
       <img width="900" height="1" alt="">
     </td>
@@ -422,7 +424,7 @@ Choose `📊 Metrics embed` if you want to customize your GitHub profile and `�
 
 ### 🐙 Features
 
-* Create infographics from **34 plugins**, **4 templates** and **197 options**
+* Create infographics from **34 plugins**, **4 templates** and **198 options**
   * Even more **customization** with [community templates](source/templates/community) or by [forking this repository](https://github.com/lowlighter/metrics/network/members) and editing HTML/CSS/EJS
 * Support **users**, **organizations** and even **repositories**
 * Transparent by default so it'll blend well whether light or dark mode is used

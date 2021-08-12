@@ -741,7 +741,7 @@ inputs:
   # Achievements display style
   plugin_achievements_display:
     description: Achievements display style
-    default: normal
+    default: detailed
   
   # Number of achievements events to display
   # Set to 0 to disable limitations
