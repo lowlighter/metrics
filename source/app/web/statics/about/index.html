@@ -81,7 +81,7 @@
           </section>
 
           <div class="rankeds">
-            <div v-for="{icon, title, text, rank, progress, value, leaderboard = null} in ranked" class="ranked" :class="{[rank.charAt(0).toLocaleLowerCase()]:rank !== '$', secret:rank === '$'}">
+            <div v-for="{icon, prefix, title, text, rank, progress, value, leaderboard = null} in ranked" class="ranked" :class="{[rank.charAt(0).toLocaleLowerCase()]:rank !== '$', secret:rank === '$'}">
               <div class="icon">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" height="44" width="44">
                   <defs>
@@ -99,7 +99,7 @@
               <div class="info">
                 <div class="user-rank">{{ format("number", leaderboard.user) }}<sup>{{ {1:"st", 2:"nd", 3:"rd"}[leaderboard.user%10] ?? "th" }}</sup></div>
                 <div class="total-rank">/ {{ format("number", leaderboard.total, {notation:"compact", compactDisplay:"long"}) }} {{ leaderboard.type }}</div>
-                <div class="title">{{ title }}</div>
+                <div class="title">{{ prefix }} {{ prefix.length ? title.toLocaleLowerCase() : title }}</div>
                 <div class="text">{{ text }}</div>
               </div>
             </div>
@@ -124,7 +124,7 @@
               Highlights
             </h2>
             <div class="achievements">
-              <div v-for="{icon, title, text, rank, progress, value, leaderboard = null} in achievements" class="achievement" :class="{[rank.charAt(0).toLocaleLowerCase()]:rank !== '$', secret:rank === '$'}">
+              <div v-for="{icon, prefix, title, text, rank, progress, value, leaderboard = null} in achievements" class="achievement" :class="{[rank.charAt(0).toLocaleLowerCase()]:rank !== '$', secret:rank === '$'}">
                 <div class="icon">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" height="44" width="44">
                     <defs>
@@ -140,7 +140,7 @@
                   </svg>
                 </div>
                 <div class="info">
-                  <div class="title">{{ title }}</div>
+                  <div class="title">{{ prefix }} {{ prefix.length ? title.toLocaleLowerCase() : title }}</div>
                   <div class="text">{{ text }}</div>
                 </div>
               </div>
