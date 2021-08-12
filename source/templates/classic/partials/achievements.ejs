@@ -38,11 +38,13 @@
                       ranked <%= f(leaderboard.user) %> out of <%= f(leaderboard.total) %> <%= leaderboard.type %>
                     </span>
                   <% } %>
-                  <div class="value-wrapper">
-                    <div class="value">
-                      <%= typeof value === "number" ? Math.floor(value) : value ? "☆" : "?" %>
+                  <% if (plugins.achievements.display === "compact") { %>
+                    <div class="value-wrapper">
+                      <div class="value">
+                        <%= typeof value === "number" ? Math.floor(value) : value ? "☆" : "?" %>
+                      </div>
                     </div>
-                  </div>
+                  <% } %>
                 </div>
                 <div class="text"><%= text %></div>
               </div>
