@@ -29,7 +29,7 @@ export async function indepth({login, data, imports, repositories}, {skipped}) {
       await git.clone(`https://github.com/${repo}`, ".").status()
 
       //Analyze repository
-      await analyze(arguments[0], {type:"indepth", results, path})
+      await analyze(arguments[0], {section:"indepth", results, path})
     }
     catch (error) {
       console.debug(`metrics/compute/${login}/plugins > languages > indepth > an error occured while processing ${repo}, skipping...`)
@@ -118,7 +118,7 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
       await git.init().add(".").addConfig("user.name", data.shared["commits.authoring"]?.[0] ?? login).addConfig("user.email", "<>").commit("linguist").status()
 
       //Analyze repository
-      await analyze(arguments[0], {type:"recent", results, path:imports.paths.join(path, directory)})
+      await analyze(arguments[0], {section:"recent", results, path:imports.paths.join(path, directory)})
 
       //Since we reproduce a "partial repository" with a single commit, use number of commits retrieved instead
       results.commits = commits.length
@@ -136,7 +136,7 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
 }
 
 /**Analyze a single repository */
-async function analyze({login, imports, data}, {type, results, path}) {
+async function analyze({login, imports, data}, {section, results, path}) {
   //Gather language data
   console.debug(`metrics/compute/${login}/plugins > languages > indepth > running linguist`)
   const {results:files, languages:languageResults} = await linguist(path)
@@ -166,8 +166,7 @@ async function analyze({login, imports, data}, {type, results, path}) {
           if (/^[+]{3}\sb[/](?<file>[\s\S]+)$/.test(line)) {
             file = line.match(/^[+]{3}\sb[/](?<file>[\s\S]+)$/)?.groups?.file.replace(/^/, `${path}/`) ?? null
             lang = files[file] ?? null
-            const ignored = ["data", "markup", "programming", "prose"].map(type => data.shared[type === "recent" ? "recent.categories" : "categories"].includes(type) && lang in languageResults[type]).filter(type => type)
-            if (ignored.length)
+            if (["data", "markup", "programming", "prose"].map(type => data.shared[section === "recent" ? "recent.categories" : "categories"].includes(type) && lang in languageResults[type]).filter(type => type).length)
               lang = null
             edited.add(file)
             return
