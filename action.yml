@@ -1278,7 +1278,10 @@ runs:
             fi
             METRICS_IMAGE=ghcr.io/lowlighter/metrics:$METRICS_TAG
             echo "Using pre-built version $METRICS_TAG, will pull docker image from GitHub registry"
-            docker image pull $METRICS_IMAGE
+            if ! docker image pull $METRICS_IMAGE; then
+              echo "Failed to fetch docker image from GitHub registry, will rebuild it locally"
+              METRICS_IMAGE=metrics:$METRICS_VERSION
+            fi
           # Rebuild image
           else
             echo "Using an unreleased version ($METRICS_VERSION)"
