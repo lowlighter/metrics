@@ -62,6 +62,9 @@ export default function({faker, query, login = faker.internet.userName()}) {
       bio:faker.lorem.sentence(),
       status:{message:faker.lorem.paragraph()},
       sponsorshipsAsSponsor:{totalCount:faker.datatype.number(100)},
+      discussionsStarted:{totalCount:faker.datatype.number(1000)},
+      discussionsComments:{totalCount:faker.datatype.number(1000)},
+      discussionAnswers:{totalCount:faker.datatype.number(1000)},
     },
   })
 }

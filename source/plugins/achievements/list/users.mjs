@@ -262,6 +262,36 @@ export default async function({list, login, data, computed, imports, graphql, qu
     })
   }
 
+  //Chatter
+  {
+    const value = user.discussionsStarted.totalCount + user.discussionsComments.totalCount
+    const unlock = null
+
+    list.push({
+      title:"Chatter",
+      text:`Participated in discussions ${value} time${imports.s(value)}`,
+      icon:'<g fill="none" fill-rule="evenodd"><path d="M6 42c.45-3.415 3.34-6 7-6 1.874 0 3.752.956 5 3m-6-13a5 5 0 110 10 5 5 0 010-10zm38 16c-.452-3.415-3.34-6-7-6-1.874 0-3.752.956-5 3m6-13a5 5 0 100 10 5 5 0 000-10z" stroke="#secondary" stroke-width="2" stroke-linecap="round"/><path d="M37 51c-.92-4.01-4.6-7-9-7-4.401 0-8.083 2.995-9 7" stroke="#primary" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M28.01 31.004a6.5 6.5 0 110 13 6.5 6.5 0 010-13z" stroke="#primary" stroke-width="2" stroke-linecap="round"/><path d="M28 14.011a5 5 0 11-5 4.998 5 5 0 015-4.998z" stroke="#secondary" stroke-width="2" stroke-linecap="round"/><path d="M22 26c1.558-1.25 3.665-2 6-2 2.319 0 4.439.761 6 2" stroke="#secondary" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M51 9V8c0-1.3-1.574-3-3-3h-8c-1.426 0-3 1.7-3 3v13l4-4h6c2.805-.031 4-1.826 4-4V9zM5 9V8c0-1.3 1.574-3 3-3h8c1.426 0 3 1.7 3 3v13l-4-4H9c-2.805-.031-4-1.826-4-4V9z" stroke="#primary" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M43 11a1 1 0 11-2 0 1 1 0 012 0zm4 0a1 1 0 11-2 0 1 1 0 012 0zm-36 0a1 1 0 11-2 0 1 1 0 012 0zm4 0a1 1 0 11-2 0 1 1 0 012 0z" fill="#primary"/></g>',
+      ...rank(value, [1, 200, 500, 1000, 2500]),
+      value,
+      unlock:new Date(unlock?.createdAt),
+    })
+  }
+
+  //Helper
+  {
+    const value = user.discussionAnswers.totalCount
+    const unlock = null
+
+    list.push({
+      title:"Helper",
+      text:`Answered and solved ${value} discussion${imports.s(value)}`,
+      icon:'<g xmlns="http://www.w3.org/2000/svg" fill="none" fill-rule="evenodd"><path d="M28 37c1.003.005.997-.443 1-1 .004-1.458-.004-4.629 0-6-.007-.564-.068-.987-1-1-2.118 0-4 1.79-4 4s1.882 4 4 4zM48 37c-1.003.005-.997-.443-1-1-.004-1.458.004-4.629 0-6 .007-.564.068-.987 1-1 2.118 0 4 1.79 4 4s-1.882 4-4 4z" stroke="#primary" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M26 51c.798-4.48 4.87-8.082 9.97-8.849.66-.1 1.338-.151 2.028-.151m9.606 4.038c1.27 1.408 2.12 3.102 2.396 4.945M32.002 39.71A8.966 8.966 0 0038 42a8.967 8.967 0 006.02-2.31m-.015-12.394A8.967 8.967 0 0038 25a8.966 8.966 0 00-5.994 2.286" stroke="#secondary" stroke-width="2" stroke-linecap="round"/><path d="M38 45c.17 0 .34-.004.509-.01 5.23-.219 9.596-3.785 11.01-8.613m-.004-6.766C48.052 24.634 43.45 21 38 21c-5.485 0-10.11 3.68-11.542 8.706" stroke="#primary" stroke-width="2"/><path d="M37.85 44h1.173c.54 0 .977.438.977.977v.523a1.5 1.5 0 01-3 0v-.65c0-.47.38-.85.85-.85z" fill="#primary"/><path d="M22 27h-3v4l-6-4H7a2 2 0 01-2-2V7a2 2 0 012-2h33a2 2 0 012 2v10" stroke="#secondary" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><g stroke="#primary" stroke-linecap="round" stroke-width="2"><path stroke-linejoin="round" d="M17 13l-3 3 3 3M30 13l3 3-3 3"/><path d="M25.03 10.986l-3.015 10.027"/></g></g>',
+      ...rank(value, [1, 20, 50, 100, 250]),
+      value,
+      unlock:new Date(unlock?.createdAt),
+    })
+  }
+
   //Verified
   {
     const value = !/This user hasn't uploaded any GPG keys/i.test((await imports.axios.get(`https://github.com/${login}.gpg`)).data)
