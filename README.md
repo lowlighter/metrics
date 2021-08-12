@@ -200,6 +200,9 @@ And you can customize these heavily with plugins, templates and hundreds of opti
     </td>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.achievements.svg">
+      <details><summary>Compact display</summary>
+        <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.achievements.compact.svg">
+      </details>
       <img width="900" height="1" alt="">
     </td>
   </tr>
@@ -529,7 +532,7 @@ When using a token with additional permissions, it is advised to fork this repos
 
 In this case, please consider watching new releases to stay up-to-date and enjoy latest features!
 
-`@latest` will be updated on each release soon after [Planned for next release](https://github.com/lowlighter/metrics/projects/1#column-12378679) is emptied. Metrics doesn't introduce breaking changes **from an user point of view** (i.e. your workflows will always be valid) so you can follow release cycles without worrying.
+`@latest` will be updated on each release. Metrics doesn't introduce breaking changes **from an user point of view** (i.e. your workflows will always be valid) so you can follow release cycles without worrying.
 
 #### Examples workflows
 

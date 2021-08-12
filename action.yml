@@ -738,6 +738,11 @@ inputs:
     description: Display unlocked secrets achievements
     default: yes
   
+  # Achievements display style
+  plugin_achievements_display:
+    description: Achievements display style
+    default: normal
+  
   # Number of achievements events to display
   # Set to 0 to disable limitations
   plugin_achievements_limit:
