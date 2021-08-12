@@ -144,17 +144,14 @@ metadata.plugin = async function({__plugins, name, logger}) {
                 case "json": {
                   if (typeof value === "object")
                     return value
-                  console.log("DEBUG1: ", value)
                   try {
                     value = JSON.parse(value)
                   }
                   catch (error) {
-                    console.log("DEBUG2: ", error)
                     try {
                       value = JSON.parse(decodeURIComponent(value))
                     }
                     catch (error) {
-                      console.log("DEBUG3: ", error)
                       logger(`metrics/inputs > failed to parse json : ${value}`)
                       value = JSON.parse(defaulted)
                     }
