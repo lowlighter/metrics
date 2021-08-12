@@ -78,6 +78,15 @@ export default async function({login, data, imports, q, rest, account}, {enabled
         languages[section][i].value /= visible.total
         languages[section][i].x = (languages[section][i - 1]?.x ?? 0) + (languages[section][i - 1]?.value ?? 0)
         languages[section][i].lines = lines[languages[section][i].name] ?? 0
+        console.warn("DEBUG>index:81>", {
+          name:languages[section][i].name,
+          colorI:colors[i],
+          colorsNameLC:colors[languages[section][i].name.toLocaleLowerCase()],
+          colorsNameNoLC:colors[languages[section][i].name],
+          curColor__isnull:languages[section][i].color,
+          ifStatementColor:colors[i],
+          elseStatementColor:languages.colors[languages[section][i].name] ?? "#ededed"
+        })
         if ((colors[i]) && (!colors[languages[section][i].name.toLocaleLowerCase()]))
           languages[section][i].color = colors[i]
         else
