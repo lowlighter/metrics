@@ -74,12 +74,12 @@ export default async function({login, data, imports, q, rest, account}, {enabled
       console.debug(`metrics/compute/${login}/plugins > languages > computing stats ${section}`)
       languages[section] = Object.entries(stats).filter(([name]) => !ignored.includes(name.toLocaleLowerCase())).sort(([_an, a], [_bn, b]) => b - a).slice(0, limit).map(([name, value]) => ({name, value, size:value, color:languages.colors[name], x:0})).filter(({value}) => value / total > threshold)
       const visible = {total:Object.values(languages[section]).map(({size}) => size).reduce((a, b) => a + b, 0)}
-      console.debug({"languages[section]":languages[section]})
+      console.warn("DEBUG>index:77", {"languages[section]":languages[section]})
       for (let i = 0; i < languages[section].length; i++) {
         languages[section][i].value /= visible.total
         languages[section][i].x = (languages[section][i - 1]?.x ?? 0) + (languages[section][i - 1]?.value ?? 0)
         languages[section][i].lines = lines[languages[section][i].name] ?? 0
-        console.warn("DEBUG>index:81>", {
+        console.warn("DEBUG>index:82>", {
           name:languages[section][i].name,
           colorI:colors[i],
           colorsNameLC:colors[languages[section][i].name.toLocaleLowerCase()],
