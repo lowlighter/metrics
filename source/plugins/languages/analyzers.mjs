@@ -140,6 +140,7 @@ async function analyze({login, imports, data}, {results, path}) {
   //Gather language data
   console.debug(`metrics/compute/${login}/plugins > languages > indepth > running linguist`)
   const {results:files, languages:languageResults} = await linguist(path)
+  results.colors = Object.fromEntries(Object.entries(languageResults.all).map(([lang, {color}]) => [lang, color]))
 
   //Processing diff
   const per_page = 1
@@ -179,7 +180,6 @@ async function analyze({login, imports, data}, {results, path}) {
             const size = Buffer.byteLength(line.match(/^[+]\s*(?<line>[\s\S]+)$/)?.groups?.line ?? "", "utf-8")
             results.stats[lang] = (results.stats[lang] ?? 0) + size
             results.lines[lang] = (results.lines[lang] ?? 0) + 1
-            results.colors[lang] = languageResults.all[lang].color
             results.total += size
           }
         }
