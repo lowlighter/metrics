@@ -35,7 +35,7 @@
       <% if (Object.keys(plugins.discussions.categories.stats).length) { %>
         <div class="row fill-width">
           <section>
-            <div class="field">
+            <div class="field wrap">
               <% for (const [category, posts] of Object.entries(plugins.discussions.categories.stats)) { %>
                 <div class="label label-flex"><%= category %> <div class="label-right"><%= posts %></div> </div>
               <% } %>

@@ -261,6 +261,10 @@
     border-top-right-radius: 32px;
     border-bottom-right-radius: 32px;
   }
+  .label .twemoji {
+    margin-top: .25em;
+    margin-left: 0px;
+  }
 
 /* Habits */
   .habits {
