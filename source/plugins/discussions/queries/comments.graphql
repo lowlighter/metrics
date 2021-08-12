@@ -1,0 +1,12 @@
+query DiscussionsComments {
+  user(login: "$login") {
+    repositoryDiscussionComments($after first: 100) {
+      edges {
+        cursor
+      }
+      nodes {
+        upvoteCount
+      }
+    }
+  }
+}
