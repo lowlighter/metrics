@@ -31,6 +31,15 @@ inputs:
     type: boolean
     default: yes
 
+  # Achievements display style
+  plugin_achievements_display:
+    description: Achievements display style
+    type: string
+    default: normal
+    values:
+      - normal   # Normal display
+      - compact  # Compact display (only icon, name and value are displayed)
+
   # Number of achievements events to display
   # Set to 0 to disable limitations
   plugin_achievements_limit:

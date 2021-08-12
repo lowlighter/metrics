@@ -304,6 +304,7 @@
           ? ({
             achievements: {
               list: new Array(8).fill(null).map(_ => ({
+                prefix: "",
                 title: faker.lorem.word(),
                 unlock: null,
                 text: faker.lorem.sentence(),

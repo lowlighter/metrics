@@ -1034,7 +1034,7 @@
   .achievement.secret .gauge.info {
     color: #FF79D1;
   }
-  .achievement .gh {
+  .achievement .gh, .achievement .value {
     border: 1px solid currentColor;
     border-radius: 16px;
     font-size: 10px;
@@ -1043,6 +1043,45 @@
   }
   .achievement .gauge-base, .achievement .gauge-arc {
     stroke-width: 6;
+  }
+  .achievement .value-wrapper {
+    margin-bottom: -48px;
+    margin-top: 34px;
+    display: none;
+    justify-content: flex-end;
+  }
+  .achievement .value {
+    background-color: rgba(255,255,255,0.85);
+    margin-right: 14px;
+  }
+  .achievements.compact {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .achievements.compact .achievement {
+    flex-direction: column-reverse;
+    align-items: center;
+    width: 80px;
+  }
+  .achievements.compact .info {
+    width: 100%;
+  }
+  .achievements.compact .achievement .title {
+    margin-bottom: 2px;
+    text-transform: capitalize;
+    text-align: center;
+  }
+  .achievements.compact .achievement .title .prefix {
+    min-height: 13px;
+    font-size: 10px;
+    display: block;
+    margin-bottom: -.25rem;
+  }
+  .achievements.compact .achievement .value-wrapper {
+    display: flex;
+  }
+  .achievements.compact .achievement .text, .achievements.compact .achievement .gh {
+    display: none;
   }
 
 /* RSS feed */
