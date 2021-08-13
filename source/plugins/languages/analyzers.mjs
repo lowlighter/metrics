@@ -141,7 +141,7 @@ async function analyze({login, imports, data}, {results, path}) {
   console.debug(`metrics/compute/${login}/plugins > languages > indepth > running linguist`)
   const {results:files, languages:languageResults} = await linguist(path)
   Object.assign(results.colors, Object.fromEntries(Object.entries(languageResults.all).map(([lang, {color}]) => [lang, color])))
-  console.warn("Debug:144", {results})
+  console.warn('Debug>analyzers:144>', {currentColors:Object.entries(results.colors).flat().join(' ')})
 
   //Processing diff
   const per_page = 1
@@ -195,7 +195,6 @@ async function analyze({login, imports, data}, {results, path}) {
       results.missed += per_page
     }
   }
-console.warn("Debug: results:after", {results})
   results.files += edited.size
 }
 
