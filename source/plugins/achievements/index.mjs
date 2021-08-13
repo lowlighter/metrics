@@ -10,7 +10,7 @@ export default async function({login, q, imports, data, computed, graphql, queri
       return null
 
     //Load inputs
-    let {threshold, secrets, only, ignored, limit} = imports.metadata.plugins.achievements.inputs({data, q, account})
+    let {threshold, secrets, only, ignored, limit, display} = imports.metadata.plugins.achievements.inputs({data, q, account})
 
     //Initialization
     const list = []
@@ -26,13 +26,14 @@ export default async function({login, q, imports, data, computed, graphql, queri
       .filter(a => !ignored.includes(a.title.toLocaleLowerCase()))
       .sort((a, b) => (order[b.rank] + b.progress * 0.99) - (order[a.rank] + a.progress * 0.99))
       .map(({title, unlock, ...achievement}) => ({
-        title:({S:`Master ${title.toLocaleLowerCase()}`, A:`Super ${title.toLocaleLowerCase()}`, B:`Great ${title.toLocaleLowerCase()}`}[achievement.rank] ?? title),
+        prefix:({S:"Master", A:"Super", B:"Great"}[achievement.rank] ?? ""),
+        title,
         unlock:!/invalid date/i.test(unlock) ? `${imports.format.date(unlock, {timeStyle:"short"})} on ${imports.format.date(unlock, {dateStyle:"short"})}` : null,
         ...achievement,
       }))
       .map(({icon, ...achievement}) => ({icon:icon.replace(/#primary/g, colors[achievement.rank][0]).replace(/#secondary/g, colors[achievement.rank][1]), ...achievement}))
       .slice(0, limit || Infinity)
-    return {list:achievements}
+    return {list:achievements, display}
   }
   //Handle errors
   catch (error) {

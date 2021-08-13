@@ -304,6 +304,7 @@
           ? ({
             achievements: {
               list: new Array(8).fill(null).map(_ => ({
+                prefix: "",
                 title: faker.lorem.word(),
                 unlock: null,
                 text: faker.lorem.sentence(),
@@ -594,6 +595,7 @@
                 stats: { '🙏 Q&A': faker.datatype.number(100), '📣 Announcements': faker.datatype.number(100), '💡 Ideas': faker.datatype.number(100), '💬 General': faker.datatype.number(100) },
                 favorite: '📣 Announcements'
               },
+              upvotes: { discussions:faker.datatype.number(1000), comments: faker.datatype.number(1000) },
               started: faker.datatype.number(1000),
               comments: faker.datatype.number(1000),
               answers: faker.datatype.number(1000),
