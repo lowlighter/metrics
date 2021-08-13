@@ -45,7 +45,7 @@ export default async function({login, data, imports, q, rest, account}, {enabled
         continue
       }
       //Process repository languages
-      for (const {size, node:{name, color}} of Object.values(repository.languages.edges)) {
+      for (const {size, node:{color, name}} of Object.values(repository.languages.edges)) {
         languages.stats[name] = (languages.stats[name] ?? 0) + size
         if (colors[name.toLocaleLowerCase()])
           languages.colors[name] = colors[name.toLocaleLowerCase()]
