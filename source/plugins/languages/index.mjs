@@ -86,6 +86,7 @@ export default async function({login, data, imports, q, rest, account}, {enabled
           colorsNameNoLC:colors[languages[section][i].name],
           curColor__isnull:languages[section][i].color,
           ifStatementColor:colors[i],
+          language_colors:languages.colors,
           elseStatementColor:languages.colors[languages[section][i].name] ?? "#ededed"
         })
         if ((colors[i]) && (!colors[languages[section][i].name.toLocaleLowerCase()]))
