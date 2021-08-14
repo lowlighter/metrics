@@ -29,7 +29,7 @@ export async function indepth({login, data, imports, repositories}, {skipped}) {
       await git.clone(`https://github.com/${repo}`, ".").status()
 
       //Analyze repository
-      await analyze(arguments[0], {section:"indepth", results, path})
+      await analyze(arguments[0], {results, path})
     }
     catch (error) {
       console.debug(`metrics/compute/${login}/plugins > languages > indepth > an error occured while processing ${repo}, skipping...`)
@@ -118,7 +118,7 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
       await git.init().add(".").addConfig("user.name", data.shared["commits.authoring"]?.[0] ?? login).addConfig("user.email", "<>").commit("linguist").status()
 
       //Analyze repository
-      await analyze(arguments[0], {section:"recent", results, path:imports.paths.join(path, directory)})
+      await analyze(arguments[0], {results, path:imports.paths.join(path, directory)})
 
       //Since we reproduce a "partial repository" with a single commit, use number of commits retrieved instead
       results.commits = commits.length
@@ -136,7 +136,7 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
 }
 
 /**Analyze a single repository */
-async function analyze({login, imports, data}, {section, results, path}) {
+async function analyze({login, imports, data}, {results, path}) {
   //Gather language data
   console.debug(`metrics/compute/${login}/plugins > languages > indepth > running linguist`)
   const {results:files, languages:languageResults} = await linguist(path)
@@ -166,7 +166,7 @@ async function analyze({login, imports, data}, {section, results, path}) {
           if (/^[+]{3}\sb[/](?<file>[\s\S]+)$/.test(line)) {
             file = line.match(/^[+]{3}\sb[/](?<file>[\s\S]+)$/)?.groups?.file.replace(/^/, `${path}/`) ?? null
             lang = files[file] ?? null
-            if (["data", "markup", "programming", "prose"].map(type => data.shared[section === "recent" ? "recent.categories" : "categories"].includes(type) && lang in languageResults[type]).filter(type => type).length)
+            if (["data", "markup", "programming", "prose"].map(type => data.shared.categories.includes(type) && lang in languageResults[type]).filter(type => type).length)
               lang = null
             edited.add(file)
             return
@@ -207,8 +207,8 @@ if (/languages.analyzers.mjs$/.test(process.argv[1])) {
     }
     const {default:setup} = await import("../../app/metrics/setup.mjs")
     const {conf:{metadata}} = await setup({log:false, nosettings:true})
-    const {"commits.authoring":authoring, categories:_categories, "recent.categories":_recent_categories} = await metadata.plugins.base.inputs({q:{"commits.authoring":_authoring}, account:"bypass"})
-    const data = {shared:{"commits.authoring":authoring, categories:_categories, "recent.categories":_recent_categories}}
+    const {"commits.authoring":authoring, categories:_categories} = await metadata.plugins.base.inputs({q:{"commits.authoring":_authoring}, account:"bypass"})
+    const data = {shared:{"commits.authoring":authoring, categories:_categories}}
 
     //Prepare call
     const imports = await import("../../app/metrics/utils.mjs")

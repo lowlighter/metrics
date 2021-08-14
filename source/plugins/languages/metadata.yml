@@ -98,21 +98,9 @@ inputs:
     type: boolean
     default: false
     
-  # GitHub language categories to display in most-used section
+  # GitHub language categories to display
   plugin_languages_categories:
     description: Language categories to display
-    type: array
-    format: comma-separated
-    values:
-      - data
-      - markup
-      - programming
-      - prose
-    default: markup, programming
-    
-  # GitHub language categories to display in recently-used section
-  plugin_languages_recent_categories:
-    description: Language categories to display (for recently used section)
     type: array
     format: comma-separated
     values:
