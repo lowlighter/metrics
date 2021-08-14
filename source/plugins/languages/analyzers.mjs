@@ -207,7 +207,8 @@ if (/languages.analyzers.mjs$/.test(process.argv[1])) {
     }
     const {default:setup} = await import("../../app/metrics/setup.mjs")
     const {conf:{metadata}} = await setup({log:false, nosettings:true})
-    const {"commits.authoring":authoring, categories:_categories} = await metadata.plugins.base.inputs({q:{"commits.authoring":_authoring}, account:"bypass"})
+    const {"commits.authoring":authoring} = await metadata.plugins.base.inputs({q:{"commits.authoring":_authoring}, account:"bypass"})
+    const {categories:_categories} = await metadata.plugins.languages.inputs({q:{}, account:"bypass"})
     const data = {shared:{"commits.authoring":authoring, categories:_categories}}
 
     //Prepare call
