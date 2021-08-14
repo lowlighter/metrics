@@ -166,7 +166,7 @@ async function analyze({login, imports, data}, {results, path, categories = ["pr
           if (/^[+]{3}\sb[/](?<file>[\s\S]+)$/.test(line)) {
             file = line.match(/^[+]{3}\sb[/](?<file>[\s\S]+)$/)?.groups?.file.replace(/^/, `${path}/`) ?? null
             lang = files[file] ?? null
-            if (["data", "markup", "programming", "prose"].map(type => categories.includes(type) && lang in languageResults[type]).filter(type => type).length)
+            if (["data", "markup", "programming", "prose"].map(type => categories.includes(type) && lang in languageResults[type]).filter(type => type).length === 0)
               lang = null
             edited.add(file)
             return
