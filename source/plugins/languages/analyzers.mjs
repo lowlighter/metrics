@@ -136,7 +136,7 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
 }
 
 /**Analyze a single repository */
-async function analyze({login, imports, data}, {results, path, categories}) {
+async function analyze({login, imports, data}, {results, path, categories = ["programming", "markup"]}) {
   //Gather language data
   console.debug(`metrics/compute/${login}/plugins > languages > indepth > running linguist`)
   const {results:files, languages:languageResults} = await linguist(path)
