@@ -1,7 +1,7 @@
 import linguist from "linguist-js"
 
 /**Indepth analyzer */
-export async function indepth({login, data, imports, repositories}, {skipped}) {
+export async function indepth({login, data, imports, repositories}, {skipped, categories}) {
 
   //Compute repositories stats from fetched repositories
   const results = {total:0, lines:{}, stats:{}, commits:0, files:0, missed:0}
@@ -44,7 +44,7 @@ export async function indepth({login, data, imports, repositories}, {skipped}) {
 }
 
 /**Recent languages activity */
-export async function recent({login, data, imports, rest, account}, {skipped = [], days = 0, load = 0, tempdir = "recent"}) {
+export async function recent({login, data, imports, rest, account}, {skipped = [], categories, days = 0, load = 0, tempdir = "recent"}) {
 
   //Get user recent activity
   console.debug(`metrics/compute/${login}/plugins > languages > querying api`)
