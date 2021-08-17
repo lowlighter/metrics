@@ -44,6 +44,7 @@ jobs:
         run: |
           curl -fsSL https://dprint.dev/install.sh | sh
           /home/runner/.dprint/bin/dprint fmt --config .github/config/dprint.json
+          npm install -g eslint
           npm run format
       - name: Build lowlighter/metrics:${{ github.head_ref || 'master' }}
         run: docker build -t lowlighter/metrics:$(echo ${{ github.head_ref || 'master' }} | sed 's/\//-/g') .
