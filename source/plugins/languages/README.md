@@ -55,7 +55,7 @@ For better results, it's advised to add either your surnames and eventually no-r
     plugin_languages_colors: "0:orange, javascript:#ff0000, ..."  # Make most used languages orange and JavaScript red
     plugin_languages_aliases: "JavaScript:JS, TypeScript:TS, ..." # Customize languages names with aliases
     plugin_languages_details: bytes-size, percentage              # Additionally display total bytes size and percentage
-    plugin_la nguages_threshold: 2%                               # Hides all languages less than 2%
+    plugin_languages_threshold: 2%                                # Hides all languages less than 2%
     plugin_languages_limit: 8                                     # Display up to 8 languages
     plugin_languages_sections: most-used, recently-used           # Display most used and recently used languages stats
     plugin_languages_indepth: no                                  # Get indepth stats (see documentation before enabling)
