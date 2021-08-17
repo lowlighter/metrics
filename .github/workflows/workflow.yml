@@ -43,8 +43,9 @@ jobs:
       - name: Format code with dprint
         run: |
           curl -fsSL https://dprint.dev/install.sh | sh
-          /home/runner/.dprint/bin/dprint fmt --config .github/config/dprint.json
+          cp /home/runner/.dprint/bin/dprint /usr/local/bin/dprint
           npm install -g eslint
+          dprint fmt --config .github/config/dprint.json
           npm run format
       - name: Build lowlighter/metrics:${{ github.head_ref || 'master' }}
         run: docker build -t lowlighter/metrics:$(echo ${{ github.head_ref || 'master' }} | sed 's/\//-/g') .
@@ -81,11 +82,14 @@ jobs:
       - name: Setup Dprint
         run: |
           curl -fsSL https://dprint.dev/install.sh | sh
-          echo "$HOME/.dprint/bin" >> $GITHUB_PATH
+          cp /home/runner/.dprint/bin/dprint /usr/local/bin/dprint
+          npm install -g eslint
       - name: Checkout master
         run: git checkout master
       - name: Format code
-        run: npm run fmt
+        run: |
+          dprint fmt --config .github/config/dprint.json
+          npm run format
       - name: Publish formatted code
         run: |
           set +e
