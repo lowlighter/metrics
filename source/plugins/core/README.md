@@ -52,7 +52,7 @@ Some templates may accept additional custom options that you can pass through th
     # ... other options
     template: "@super-metrics"
     setup_community_templates: octocat/metrics@master:super-metrics, octocat/metrics@master:trusted-metrics+trust
-    query: '{"custom_colo r":"#FF0000"}'
+    query: '{"custom_color":"#FF0000"}'
 ```
 
 ### 🎨 Custom CSS styling

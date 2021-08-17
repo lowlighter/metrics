@@ -40,12 +40,12 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Setup Dprint
+      - name: Format code with dprint
         run: |
           curl -fsSL https://dprint.dev/install.sh | sh
           echo "$HOME/.dprint/bin" >> $GITHUB_PATH
-      - name: Format code
-        run: npm run fmt
+          dprint fmt --config .github/config/dprint.json
+          npm run format
       - name: Build lowlighter/metrics:${{ github.head_ref || 'master' }}
         run: docker build -t lowlighter/metrics:$(echo ${{ github.head_ref || 'master' }} | sed 's/\//-/g') .
       - name: Run tests
