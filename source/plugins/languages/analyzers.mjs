@@ -1,7 +1,7 @@
 import linguist from "linguist-js"
 
 /**Indepth analyzer */
-export async function indepth({login, data, imports, repositories}, {skipped}) {
+export async function indepth({login, data, imports, repositories}, {skipped, categories}) {
 
   //Compute repositories stats from fetched repositories
   const results = {total:0, lines:{}, stats:{}, commits:0, files:0, missed:0}
@@ -29,7 +29,7 @@ export async function indepth({login, data, imports, repositories}, {skipped}) {
       await git.clone(`https://github.com/${repo}`, ".").status()
 
       //Analyze repository
-      await analyze(arguments[0], {results, path})
+      await analyze(arguments[0], {results, path, categories})
     }
     catch (error) {
       console.debug(`metrics/compute/${login}/plugins > languages > indepth > an error occured while processing ${repo}, skipping...`)
@@ -44,7 +44,7 @@ export async function indepth({login, data, imports, repositories}, {skipped}) {
 }
 
 /**Recent languages activity */
-export async function recent({login, data, imports, rest, account}, {skipped = [], days = 0, load = 0, tempdir = "recent"}) {
+export async function recent({login, data, imports, rest, account}, {skipped = [], categories, days = 0, load = 0, tempdir = "recent"}) {
 
   //Get user recent activity
   console.debug(`metrics/compute/${login}/plugins > languages > querying api`)
@@ -118,7 +118,7 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
       await git.init().add(".").addConfig("user.name", data.shared["commits.authoring"]?.[0] ?? login).addConfig("user.email", "<>").commit("linguist").status()
 
       //Analyze repository
-      await analyze(arguments[0], {results, path:imports.paths.join(path, directory)})
+      await analyze(arguments[0], {results, path:imports.paths.join(path, directory), categories})
 
       //Since we reproduce a "partial repository" with a single commit, use number of commits retrieved instead
       results.commits = commits.length
@@ -136,7 +136,7 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
 }
 
 /**Analyze a single repository */
-async function analyze({login, imports, data}, {results, path}) {
+async function analyze({login, imports, data}, {results, path, categories = ["programming", "markup"]}) {
   //Gather language data
   console.debug(`metrics/compute/${login}/plugins > languages > indepth > running linguist`)
   const {results:files, languages:languageResults} = await linguist(path)
@@ -166,12 +166,12 @@ async function analyze({login, imports, data}, {results, path}) {
           if (/^[+]{3}\sb[/](?<file>[\s\S]+)$/.test(line)) {
             file = line.match(/^[+]{3}\sb[/](?<file>[\s\S]+)$/)?.groups?.file.replace(/^/, `${path}/`) ?? null
             lang = files[file] ?? null
-            if (lang in languageResults.data || lang in languageResults.prose)
+            if (["data", "markup", "programming", "prose"].map(type => categories.includes(type) && lang in languageResults[type]).filter(type => type).length === 0)
               lang = null
             edited.add(file)
             return
           }
-          //Ignore unkonwn languages
+          //Ignore unknown languages
           if (!lang)
             return
           //Added line marker
