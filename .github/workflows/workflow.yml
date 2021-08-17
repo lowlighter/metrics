@@ -2,15 +2,16 @@ name: Build, test, analyze and publish
 
 on:
   push:
-    branches: [master]
+    branches: [ master ]
   pull_request:
-    branches: [master]
+    branches: [ master ]
     paths-ignore:
       - '**/*.md'
       - '**/*.png'
   workflow_dispatch:
 
 jobs:
+
   # Run linter to ensure new code respect coding rules
   lint:
     name: Lint code
@@ -35,7 +36,7 @@ jobs:
   build:
     name: Build and test
     runs-on: ubuntu-latest
-    needs: [lint]
+    needs: [ lint ]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -54,7 +55,7 @@ jobs:
   analyze:
     name: Analyze code
     runs-on: ubuntu-latest
-    needs: [lint]
+    needs: [ lint ]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -70,7 +71,7 @@ jobs:
   format:
     name: Format code
     runs-on: ubuntu-latest
-    needs: [build, analyze]
+    needs: [ build, analyze ]
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     steps:
       - name: Checkout repository
@@ -98,7 +99,7 @@ jobs:
   update-indexes:
     name: Publish rebuilt metrics indexes
     runs-on: ubuntu-latest
-    needs: [build, analyze, format]
+    needs: [ build, analyze, format ]
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     steps:
       - name: Checkout repository
@@ -116,7 +117,7 @@ jobs:
   update-main:
     name: Rebase main on master
     runs-on: ubuntu-latest
-    needs: [update-indexes]
+    needs: [ update-indexes ]
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     steps:
       - name: Checkout repository
@@ -138,7 +139,7 @@ jobs:
   docker-master:
     name: Publish master to GitHub registry
     runs-on: ubuntu-latest
-    needs: [update-indexes]
+    needs: [ update-indexes ]
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     steps:
       - name: Checkout repository
@@ -163,7 +164,7 @@ jobs:
   action-master-test:
     name: Test lowlighter/metrics@master
     runs-on: ubuntu-latest
-    needs: [docker-master]
+    needs: [ docker-master ]
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     steps:
       - name: Run tests
@@ -180,7 +181,7 @@ jobs:
   docker-release:
     name: Publish release to GitHub registry
     runs-on: ubuntu-latest
-    needs: [action-master-test]
+    needs: [ action-master-test ]
     if: github.event_name == 'push' && github.ref == 'refs/heads/master' && contains(github.event.head_commit.message, '[release]')
     steps:
       - name: Checkout repository
@@ -202,7 +203,7 @@ jobs:
   update-latest:
     name: Rebase latest on master
     runs-on: ubuntu-latest
-    needs: [docker-release]
+    needs: [ docker-release ]
     if: github.event_name == 'push' && github.ref == 'refs/heads/master' && contains(github.event.head_commit.message, '[release]')
     steps:
       - name: Checkout repository
@@ -226,7 +227,7 @@ jobs:
   action-latest-test:
     name: Test lowlighter/metrics@latest
     runs-on: ubuntu-latest
-    needs: [update-latest]
+    needs: [ update-latest ]
     if: github.event_name == 'push' && github.ref == 'refs/heads/master' && contains(github.event.head_commit.message, '[release]')
     steps:
       - name: Run tests
@@ -242,7 +243,7 @@ jobs:
   publish-release:
     name: Publish release
     runs-on: ubuntu-latest
-    needs: [action-latest-test]
+    needs: [ action-latest-test ]
     if: github.event_name == 'push' && github.ref == 'refs/heads/master' && contains(github.event.head_commit.message, '[release]')
     steps:
       - name: Checkout repository
@@ -264,7 +265,7 @@ jobs:
   deploy-master:
     name: Deploy lowlighter/metrics@master
     runs-on: ubuntu-latest
-    needs: [action-master-test]
+    needs: [ action-master-test ]
     if: github.event_name == 'push' && github.ref == 'refs/heads/master' && contains(github.event.head_commit.message, '[deploy]')
     steps:
       - name: Deploy web instance
