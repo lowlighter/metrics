@@ -43,8 +43,7 @@ jobs:
       - name: Format code with dprint
         run: |
           curl -fsSL https://dprint.dev/install.sh | sh
-          echo "$HOME/.dprint/bin" >> $GITHUB_PATH
-          dprint fmt --config .github/config/dprint.json
+          /home/runner/.dprint/bin/dprint fmt --config .github/config/dprint.json
           npm run format
       - name: Build lowlighter/metrics:${{ github.head_ref || 'master' }}
         run: docker build -t lowlighter/metrics:$(echo ${{ github.head_ref || 'master' }} | sed 's/\//-/g') .
