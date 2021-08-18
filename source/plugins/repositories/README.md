@@ -22,5 +22,5 @@ Because of limitations of using SVG inside of `<img>` tags, people won't be able
   with:
     # ... other options
     plugin_repositories: yes
-    plugin_repositories_list: lowlighter/metrics, denoland/deno  # List of repositories you want to feature
+    plugin_repositories_featured: lowlighter/metrics, denoland/deno  # List of repositories you want to feature
 ```
