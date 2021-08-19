@@ -61,7 +61,6 @@ export default async function({login, data, imports, q, rest, account}, {enabled
       if ((sections.includes("recently-used"))&&(context.mode === "user")) {
         console.debug(`metrics/compute/${login}/plugins > languages > using recent analyzer`)
         languages["stats.recent"] = await recent_analyzer({login, data, imports, rest, account}, {skipped, days:_recent_days, load:_recent_load})
-        console.warn("DEBUGx1:", languages.colors, "recent:", languages["stats.recent"].colors)
         Object.assign(languages.colors, languages["stats.recent"].colors)
       }
 
@@ -71,7 +70,6 @@ export default async function({login, data, imports, q, rest, account}, {enabled
         const existingColors = languages.colors
         Object.assign(languages, await indepth_analyzer({login, data, imports, repositories}, {skipped}))
         Object.assign(languages.colors, existingColors)
-        console.warn("DEBUGx2:", languages.colors)
         console.debug(`metrics/compute/${login}/plugins > languages > indepth analysis missed ${languages.missed} commits`)
       }
     }
