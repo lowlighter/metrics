@@ -142,7 +142,7 @@ async function analyze({login, imports, data}, {results, path}) {
   console.debug(`metrics/compute/${login}/plugins > languages > indepth > running linguist`)
   const {results:files, languages:languageResults} = await linguist(path)
   Object.assign(results.colors, Object.fromEntries(Object.entries(languageResults.all).map(([lang, {color}]) => [lang, color])))
-  console.warn("DEBUG1:",results.colors)
+  console.warn("DEBUG1:", results.colors, "Results:", languageResults)
 
   //Processing diff
   const per_page = 1

@@ -52,6 +52,7 @@ export default async function({login, data, imports, q, rest, account}, {enabled
         if (!languages.colors[name])
           languages.colors[name] = color
         languages.total += size
+        console.warn("DEBUGx0:", languages.colors[name])
       }
     }
 
@@ -61,6 +62,7 @@ export default async function({login, data, imports, q, rest, account}, {enabled
       if ((sections.includes("recently-used"))&&(context.mode === "user")) {
         console.debug(`metrics/compute/${login}/plugins > languages > using recent analyzer`)
         languages["stats.recent"] = await recent_analyzer({login, data, imports, rest, account}, {skipped, days:_recent_days, load:_recent_load})
+        console.warn("DEBUGx1:", languages.colors, "recent:", languages["stats.recent"].colors)
         Object.assign(languages.colors, languages["stats.recent"].colors)
       }
 
@@ -68,6 +70,7 @@ export default async function({login, data, imports, q, rest, account}, {enabled
       if (indepth) {
         console.debug(`metrics/compute/${login}/plugins > languages > switching to indepth mode (this may take some time)`)
         Object.assign(languages, await indepth_analyzer({login, data, imports, repositories}, {skipped}))
+        console.warn("DEBUGx2:", languages.colors)
         console.debug(`metrics/compute/${login}/plugins > languages > indepth analysis missed ${languages.missed} commits`)
       }
     }
@@ -85,6 +88,7 @@ export default async function({login, data, imports, q, rest, account}, {enabled
           languages[section][i].color = colors[i]
         else
           languages[section][i].color = languages.colors[languages[section][i].name] ?? "#ededed"
+        console.warn("DEBUGx3:", languages[section][i].color)
       }
     }
 
