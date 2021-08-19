@@ -51,7 +51,7 @@ export default async function({login, data, imports, q, rest, account}, {enabled
         if (colors[name.toLocaleLowerCase()])
           customColors[name] = colors[name.toLocaleLowerCase()]
         if (!languages.colors[name])
-          customColors[name] = color
+          languages.colors[name] = color
         languages.total += size
       }
     }
