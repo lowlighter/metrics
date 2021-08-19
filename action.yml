@@ -334,7 +334,7 @@ inputs:
     description: Indepth languages processing (see documentation before enabling)
     default: false
   
-  
+  # Language categories to display
   plugin_languages_categories:
     description: Language categories to display
     default: markup, programming
