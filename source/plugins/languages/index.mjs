@@ -52,7 +52,6 @@ export default async function({login, data, imports, q, rest, account}, {enabled
         if (!languages.colors[name])
           languages.colors[name] = color
         languages.total += size
-        console.warn("DEBUGx0:", languages.colors[name])
       }
     }
 
@@ -69,7 +68,9 @@ export default async function({login, data, imports, q, rest, account}, {enabled
       //Indepth mode
       if (indepth) {
         console.debug(`metrics/compute/${login}/plugins > languages > switching to indepth mode (this may take some time)`)
+        const existingColors = languages.colors
         Object.assign(languages, await indepth_analyzer({login, data, imports, repositories}, {skipped}))
+        Object.assign(languages.colors, existingColors)
         console.warn("DEBUGx2:", languages.colors)
         console.debug(`metrics/compute/${login}/plugins > languages > indepth analysis missed ${languages.missed} commits`)
       }
@@ -88,7 +89,6 @@ export default async function({login, data, imports, q, rest, account}, {enabled
           languages[section][i].color = colors[i]
         else
           languages[section][i].color = languages.colors[languages[section][i].name] ?? "#ededed"
-        console.warn("DEBUGx3:", languages[section][i].color)
       }
     }
 
