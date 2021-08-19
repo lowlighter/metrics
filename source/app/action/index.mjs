@@ -251,8 +251,9 @@ async function wait(seconds) {
 
     //Base content
     info.break()
-    const {base:parts, ...base} = metadata.plugins.base.inputs.action({core})
-    info.group({metadata, name:"base", inputs:base})
+    const {base:parts, repositories:_repositories, ...base} = metadata.plugins.base.inputs.action({core})
+    conf.settings.repositories = _repositories
+    info.group({metadata, name:"base", inputs:{repositories:conf.settings.repositories, ...base}})
     info("Base sections", parts)
     base.base = false
     for (const part of conf.settings.plugins.base.parts)

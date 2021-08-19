@@ -194,7 +194,7 @@ metadata.plugin = async function({__plugins, name, logger}) {
         Object.entries(inputs).map(([key, value]) => [
           key,
           {
-            comment:comments[key] ?? "",
+            comment:comments[key] ?? `# ${value.description}`,
             descriptor:yaml.dump({[key]:Object.fromEntries(Object.entries(value).filter(([key]) => ["description", "default", "required"].includes(key)))}, {quotingType:'"', noCompatMode:true}),
           },
         ]),
