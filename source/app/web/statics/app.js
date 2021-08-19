@@ -216,7 +216,7 @@
         const enabled = Object.entries(this.plugins.enabled).filter(([key, value]) => (value) && (key !== "base")).map(([key, value]) => key)
         const filter = new RegExp(`^(?:${enabled.join("|")})[.]`)
         //Search related options
-        const entries = Object.entries(this.plugins.options.descriptions).filter(([key, value]) => filter.test(key))
+        const entries = Object.entries(this.plugins.options.descriptions).filter(([key, value]) => (filter.test(key)) && (!(key in metadata.base.web)))
         entries.push(...enabled.map(key => [key, this.plugins.descriptions[key]]))
         entries.sort((a, b) => a[0].localeCompare(b[0]))
         //Return object
