@@ -38,6 +38,7 @@ export default async function({login, data, imports, q, rest, account}, {enabled
     //Iterate through user's repositories and retrieve languages data
     console.debug(`metrics/compute/${login}/plugins > languages > processing ${data.user.repositories.nodes.length} repositories`)
     const languages = {unique, sections, details, indepth, colors:{}, total:0, stats:{}, "stats.recent":{}}
+    const customColors = {}
     for (const repository of data.user.repositories.nodes) {
       //Skip repository if asked
       if ((skipped.includes(repository.name.toLocaleLowerCase())) || (skipped.includes(`${repository.owner.login}/${repository.name}`.toLocaleLowerCase()))) {
@@ -48,9 +49,9 @@ export default async function({login, data, imports, q, rest, account}, {enabled
       for (const {size, node:{color, name}} of Object.values(repository.languages.edges)) {
         languages.stats[name] = (languages.stats[name] ?? 0) + size
         if (colors[name.toLocaleLowerCase()])
-          languages.colors[name] = colors[name.toLocaleLowerCase()]
+          customColors[name] = colors[name.toLocaleLowerCase()]
         if (!languages.colors[name])
-          languages.colors[name] = color
+          customColors[name] = color
         languages.total += size
       }
     }
@@ -80,13 +81,14 @@ export default async function({login, data, imports, q, rest, account}, {enabled
       languages[section] = Object.entries(stats).filter(([name]) => !ignored.includes(name.toLocaleLowerCase())).sort(([_an, a], [_bn, b]) => b - a).slice(0, limit).map(([name, value]) => ({name, value, size:value, color:languages.colors[name], x:0})).filter(({value}) => value / total > threshold)
       const visible = {total:Object.values(languages[section]).map(({size}) => size).reduce((a, b) => a + b, 0)}
       for (let i = 0; i < languages[section].length; i++) {
+        const {name} = languages[section][i]
         languages[section][i].value /= visible.total
         languages[section][i].x = (languages[section][i - 1]?.x ?? 0) + (languages[section][i - 1]?.value ?? 0)
-        languages[section][i].lines = lines[languages[section][i].name] ?? 0
-        if ((colors[i]) && (!colors[languages[section][i].name.toLocaleLowerCase()]))
+        languages[section][i].lines = lines[name] ?? 0
+        if ((colors[i]) && (!colors[name.toLocaleLowerCase()]))
           languages[section][i].color = colors[i]
         else
-          languages[section][i].color = languages.colors[languages[section][i].name] ?? "#ededed"
+          languages[section][i].color = customColors[name] ?? languages.colors[name] ?? "#ededed"
       }
     }
 
