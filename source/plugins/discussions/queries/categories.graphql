@@ -5,6 +5,7 @@ query DiscussionsCategories {
         cursor
       }
       nodes {
+        upvoteCount
         category {
           emoji
           name

@@ -81,13 +81,13 @@ export default async function({list, login, data, computed, imports, graphql, qu
     })
   }
 
-  //Inspirationers
+  //Inspirers
   {
     const value = Math.max(0, ...data.user.repositories.nodes.map(({forkCount}) => forkCount))
     const unlock = null
     list.push({
-      title:"Inspirationers",
-      text:`Maintaining a repository which has been forked ${value} time${imports.s(value)}`,
+      title:"Inspirers",
+      text:`Maintaining or created a repository which has been forked ${value} time${imports.s(value)}`,
       icon:'<g transform="translate(4 4)" fill="none" fill-rule="evenodd"><path d="M20.065 47.122c.44-.525.58-1.448.58-1.889 0-2.204-1.483-3.967-3.633-4.187.447-1.537.58-2.64.397-3.31-.25-.92-.745-1.646-1.409-2.235m-5.97-7.157c.371-.254.911-.748 1.62-1.48a8.662 8.662 0 001.432-2.366M47 22h-7c-1.538 0-2.749-.357-4-1h-5c-1.789.001-3-1.3-3-2.955 0-1.656 1.211-3.04 3-3.045h2c.027-1.129.513-2.17 1-3m3.082 32.004C34.545 43.028 34.02 40.569 34 39v-1h-1c-2.603-.318-5-2.913-5-5.997S30.397 26 33 26h9c2.384 0 4.326 1.024 5.27 3" stroke="#secondary" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/><g transform="translate(36)" stroke="#primary" stroke-width="2"><path fill="#primary" stroke-linecap="round" stroke-linejoin="round" d="M5.395 5.352L6.009 4l.598 1.348L8 5.408l-1.067 1.12.425 1.47-1.356-.908-1.35.91.404-1.469L4 5.41z"/><circle cx="6" cy="6" r="6"/></g><g transform="translate(0 31)" stroke="#primary" stroke-width="2"><circle cx="6" cy="6" r="6"/><g stroke-linecap="round"><path d="M6 4v4M4 6h4"/></g></g><circle stroke="#primary" stroke-width="2" cx="10.5" cy="10.5" r="10.5"/><g stroke-linecap="round"><path d="M32.01 1.37A23.96 23.96 0 0024 0c-.999 0-1.983.061-2.95.18M.32 20.072a24.21 24.21 0 00.015 7.948M12.42 45.025A23.892 23.892 0 0024 48c13.255 0 24-10.745 24-24 0-2.811-.483-5.51-1.371-8.016" stroke="#secondary" stroke-width="2"/><path stroke="#primary" stroke-width="2" d="M8.999 7.151v5.865"/><path d="M9 3a2 2 0 110 4 2 2 0 010-4zm0 10.8a2 2 0 11-.001 4 2 2 0 01.001-4z" stroke="#primary" stroke-width="1.8"/><path d="M9.622 11.838c.138-.007.989.119 1.595-.05.607-.169 1.584-.539 1.829-1.337" stroke="#primary" stroke-width="2"/><path d="M14.8 7.202a2 2 0 110 4 2 2 0 010-4z" stroke="#primary" stroke-width="1.8"/></g></g>',
       ...rank(value, [1, 500, 1000, 3000, 5000]),
       value,

@@ -19,7 +19,8 @@ jobs:
           days-before-close: 3
           stale-issue-label: stale
           stale-pr-label: stale
-          exempt-issue-labels: needs fix, available on @master 
+          exempt-issue-labels: needs fix, available on next release
+          exempt-assignees: lowlighter
           remove-stale-when-updated: yes
           operations-per-run: 100
 

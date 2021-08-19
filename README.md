@@ -5,6 +5,8 @@
 Generate your metrics that you can embed everywhere, including your GitHub profile readme! It works for both user and organization accounts, and even for repositories!
 
 
+> <sup>*⚠️ This is the documentation of **v3.13-beta** (`@master` branch) which includes [unreleased features](https://github.com/lowlighter/metrics/compare/latest...master), see documentation of [**v3.12** (`@latest` branch) here](https://github.com/lowlighter/metrics/blob/latest/README.md).*</sup>
+
 
 <table>
   <tr>
@@ -197,7 +199,12 @@ And you can customize these heavily with plugins, templates and hundreds of opti
       <img width="900" height="1" alt="">
     </td>
     <td align="center">
-      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.achievements.svg">
+      <details open><summary>Compact display</summary>
+        <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.achievements.compact.svg">
+      </details>
+      <details open><summary>Detailed display</summary>
+        <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.achievements.svg">
+      </details>
       <img width="900" height="1" alt="">
     </td>
   </tr>
@@ -417,7 +424,7 @@ Choose `📊 Metrics embed` if you want to customize your GitHub profile and `�
 
 ### 🐙 Features
 
-* Create infographics from **34 plugins**, **4 templates** and **197 options**
+* Create infographics from **34 plugins**, **4 templates** and **200 options**
   * Even more **customization** with [community templates](source/templates/community) or by [forking this repository](https://github.com/lowlighter/metrics/network/members) and editing HTML/CSS/EJS
 * Support **users**, **organizations** and even **repositories**
 * Transparent by default so it'll blend well whether light or dark mode is used
@@ -527,7 +534,7 @@ When using a token with additional permissions, it is advised to fork this repos
 
 In this case, please consider watching new releases to stay up-to-date and enjoy latest features!
 
-`@latest` will be updated on each release soon after [Planned for next release](https://github.com/lowlighter/metrics/projects/1#column-12378679) is emptied. Metrics doesn't introduce breaking changes **from an user point of view** (i.e. your workflows will always be valid) so you can follow release cycles without worrying.
+`@latest` will be updated on each release. Metrics doesn't introduce breaking changes **from an user point of view** (i.e. your workflows will always be valid) so you can follow release cycles without worrying.
 
 #### Examples workflows
 

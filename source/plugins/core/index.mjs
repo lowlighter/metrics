@@ -96,7 +96,7 @@ export default async function({login, q}, {conf, data, rest, graphql, plugins, q
   computed.cakeday = years > 1 ? [new Date(), new Date(data.user.createdAt)].map(date => date.toISOString().match(/(?<mmdd>\d{2}-\d{2})(?=T)/)?.groups?.mmdd).every((v, _, a) => v === a[0]) : false
 
   //Compute calendar
-  computed.calendar = data.user.calendar.contributionCalendar.weeks.flatMap(({contributionDays}) => contributionDays).slice(0, 14).reverse()
+  computed.calendar = data.user.calendar.contributionCalendar.weeks.flatMap(({contributionDays}) => contributionDays).slice(-14)
 
   //Avatar (base64)
   computed.avatar = await avatar || "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="

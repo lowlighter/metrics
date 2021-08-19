@@ -187,13 +187,13 @@ export default async function({list, login, data, computed, imports, graphql, qu
     })
   }
 
-  //Inspirationer
+  //Inspirer
   {
     const value = Math.max(0, ...data.user.repositories.nodes.map(({forkCount}) => forkCount))
     const unlock = null
     list.push({
-      title:"Inspirationer",
-      text:`Maintaining a repository which has been forked ${value} time${imports.s(value)}`,
+      title:"Inspirer",
+      text:`Maintaining or created a repository which has been forked ${value} time${imports.s(value)}`,
       icon:'<g transform="translate(4 4)" fill="none" fill-rule="evenodd"><path d="M20.065 47.122c.44-.525.58-1.448.58-1.889 0-2.204-1.483-3.967-3.633-4.187.447-1.537.58-2.64.397-3.31-.25-.92-.745-1.646-1.409-2.235m-5.97-7.157c.371-.254.911-.748 1.62-1.48a8.662 8.662 0 001.432-2.366M47 22h-7c-1.538 0-2.749-.357-4-1h-5c-1.789.001-3-1.3-3-2.955 0-1.656 1.211-3.04 3-3.045h2c.027-1.129.513-2.17 1-3m3.082 32.004C34.545 43.028 34.02 40.569 34 39v-1h-1c-2.603-.318-5-2.913-5-5.997S30.397 26 33 26h9c2.384 0 4.326 1.024 5.27 3" stroke="#secondary" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/><g transform="translate(36)" stroke="#primary" stroke-width="2"><path fill="#primary" stroke-linecap="round" stroke-linejoin="round" d="M5.395 5.352L6.009 4l.598 1.348L8 5.408l-1.067 1.12.425 1.47-1.356-.908-1.35.91.404-1.469L4 5.41z"/><circle cx="6" cy="6" r="6"/></g><g transform="translate(0 31)" stroke="#primary" stroke-width="2"><circle cx="6" cy="6" r="6"/><g stroke-linecap="round"><path d="M6 4v4M4 6h4"/></g></g><circle stroke="#primary" stroke-width="2" cx="10.5" cy="10.5" r="10.5"/><g stroke-linecap="round"><path d="M32.01 1.37A23.96 23.96 0 0024 0c-.999 0-1.983.061-2.95.18M.32 20.072a24.21 24.21 0 00.015 7.948M12.42 45.025A23.892 23.892 0 0024 48c13.255 0 24-10.745 24-24 0-2.811-.483-5.51-1.371-8.016" stroke="#secondary" stroke-width="2"/><path stroke="#primary" stroke-width="2" d="M8.999 7.151v5.865"/><path d="M9 3a2 2 0 110 4 2 2 0 010-4zm0 10.8a2 2 0 11-.001 4 2 2 0 01.001-4z" stroke="#primary" stroke-width="1.8"/><path d="M9.622 11.838c.138-.007.989.119 1.595-.05.607-.169 1.584-.539 1.829-1.337" stroke="#primary" stroke-width="2"/><path d="M14.8 7.202a2 2 0 110 4 2 2 0 010-4z" stroke="#primary" stroke-width="1.8"/></g></g>',
       ...rank(value, [1, 100, 500, 1000, 2500]),
       value,
@@ -257,6 +257,36 @@ export default async function({list, login, data, computed, imports, graphql, qu
       text:`Repositories have been deployed ${value} time${imports.s(value)}`,
       icon:'<g stroke-width="2" fill="none" fill-rule="evenodd"><g stroke="#secondary"><path d="M11 40a2 2 0 100-4 2 2 0 000 4z"/><path d="M11 34v1m0 5v3m0 3v3" stroke-linecap="round"/></g><g stroke="#secondary" stroke-linecap="round" stroke-linejoin="round"><path d="M47.01 41.009h-4M45.016 39v4"/></g><path d="M27.982 5c2.79 1.873 4.46 5.876 5.008 12.01l2.059.659a1.606 1.606 0 011.606-1.665h.84a2.513 2.513 0 012.511 2.508l.004 1.496 3.197 1.588a1.951 1.951 0 011.684-.952l.509.002c.898.003 1.625.73 1.629 1.629l.008 2.115L51 27.606v1.945l-4.815-1.211c-.474.894-.87 1.48-1.192 1.757-.345-.328-.814-1.158-1.406-2.49L38.744 26.5c-.402 1.153-.845 1.828-1.328 2.026-.451-.444-1.04-1.55-1.409-2.821-1.481-.286-2.486-.56-2.994-.688-.27 2.397-1.036 6.884-2.009 10.982l5.006 4.438-6.555-1.08-1.454 3.654-1.45-3.658-6.56 1.082 4.996-4.417c-.899-4.02-1.576-7.684-2.03-10.992a37.29 37.29 0 01-2.967.679c-.38 1.252-.845 2.191-1.396 2.817-.63-.184-1.142-1.474-1.338-2.023-.705.15-2.323.519-4.853 1.107-.601 1.388-1.07 2.218-1.41 2.49a7.032 7.032 0 01-1.173-1.758L5 29.55v-1.945l3.99-3.265v-2.102a1.604 1.604 0 011.625-1.604l.528.007c.68.008 1.307.37 1.654.956l3.184-1.614.003-1.467a2.503 2.503 0 012.511-2.497l.863.003a1.6 1.6 0 011.594 1.646 62.42 62.42 0 012.024-.667c.572-6.097 2.24-10.098 5.006-12.002z" stroke="#primary" stroke-linecap="round" stroke-linejoin="round"/><path stroke="#secondary" stroke-linecap="round" d="M45.016 36.032v-2M45.016 49.032v-3M38.978 36.089v-3.153M17.016 36.089v-3.153M51.031 51.165v-2.193m0-2.972V35.013M4.974 51.165v-2.193m0-2.972V35.013"/></g>',
       ...rank(value, [1, 200, 500, 1000, 2500]),
+      value,
+      unlock:new Date(unlock?.createdAt),
+    })
+  }
+
+  //Chatter
+  {
+    const value = user.discussionsStarted.totalCount + user.discussionsComments.totalCount
+    const unlock = null
+
+    list.push({
+      title:"Chatter",
+      text:`Participated in discussions ${value} time${imports.s(value)}`,
+      icon:'<g fill="none" fill-rule="evenodd"><path d="M6 42c.45-3.415 3.34-6 7-6 1.874 0 3.752.956 5 3m-6-13a5 5 0 110 10 5 5 0 010-10zm38 16c-.452-3.415-3.34-6-7-6-1.874 0-3.752.956-5 3m6-13a5 5 0 100 10 5 5 0 000-10z" stroke="#secondary" stroke-width="2" stroke-linecap="round"/><path d="M37 51c-.92-4.01-4.6-7-9-7-4.401 0-8.083 2.995-9 7" stroke="#primary" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M28.01 31.004a6.5 6.5 0 110 13 6.5 6.5 0 010-13z" stroke="#primary" stroke-width="2" stroke-linecap="round"/><path d="M28 14.011a5 5 0 11-5 4.998 5 5 0 015-4.998z" stroke="#secondary" stroke-width="2" stroke-linecap="round"/><path d="M22 26c1.558-1.25 3.665-2 6-2 2.319 0 4.439.761 6 2" stroke="#secondary" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M51 9V8c0-1.3-1.574-3-3-3h-8c-1.426 0-3 1.7-3 3v13l4-4h6c2.805-.031 4-1.826 4-4V9zM5 9V8c0-1.3 1.574-3 3-3h8c1.426 0 3 1.7 3 3v13l-4-4H9c-2.805-.031-4-1.826-4-4V9z" stroke="#primary" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M43 11a1 1 0 11-2 0 1 1 0 012 0zm4 0a1 1 0 11-2 0 1 1 0 012 0zm-36 0a1 1 0 11-2 0 1 1 0 012 0zm4 0a1 1 0 11-2 0 1 1 0 012 0z" fill="#primary"/></g>',
+      ...rank(value, [1, 200, 500, 1000, 2500]),
+      value,
+      unlock:new Date(unlock?.createdAt),
+    })
+  }
+
+  //Helper
+  {
+    const value = user.discussionAnswers.totalCount
+    const unlock = null
+
+    list.push({
+      title:"Helper",
+      text:`Answered and solved ${value} discussion${imports.s(value)}`,
+      icon:'<g xmlns="http://www.w3.org/2000/svg" fill="none" fill-rule="evenodd"><path d="M28 37c1.003.005.997-.443 1-1 .004-1.458-.004-4.629 0-6-.007-.564-.068-.987-1-1-2.118 0-4 1.79-4 4s1.882 4 4 4zM48 37c-1.003.005-.997-.443-1-1-.004-1.458.004-4.629 0-6 .007-.564.068-.987 1-1 2.118 0 4 1.79 4 4s-1.882 4-4 4z" stroke="#primary" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M26 51c.798-4.48 4.87-8.082 9.97-8.849.66-.1 1.338-.151 2.028-.151m9.606 4.038c1.27 1.408 2.12 3.102 2.396 4.945M32.002 39.71A8.966 8.966 0 0038 42a8.967 8.967 0 006.02-2.31m-.015-12.394A8.967 8.967 0 0038 25a8.966 8.966 0 00-5.994 2.286" stroke="#secondary" stroke-width="2" stroke-linecap="round"/><path d="M38 45c.17 0 .34-.004.509-.01 5.23-.219 9.596-3.785 11.01-8.613m-.004-6.766C48.052 24.634 43.45 21 38 21c-5.485 0-10.11 3.68-11.542 8.706" stroke="#primary" stroke-width="2"/><path d="M37.85 44h1.173c.54 0 .977.438.977.977v.523a1.5 1.5 0 01-3 0v-.65c0-.47.38-.85.85-.85z" fill="#primary"/><path d="M22 27h-3v4l-6-4H7a2 2 0 01-2-2V7a2 2 0 012-2h33a2 2 0 012 2v10" stroke="#secondary" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><g stroke="#primary" stroke-linecap="round" stroke-width="2"><path stroke-linejoin="round" d="M17 13l-3 3 3 3M30 13l3 3-3 3"/><path d="M25.03 10.986l-3.015 10.027"/></g></g>',
+      ...rank(value, [1, 20, 50, 100, 250]),
       value,
       unlock:new Date(unlock?.createdAt),
     })

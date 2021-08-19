@@ -1,6 +1,6 @@
 /**Mocked data */
 export default function({faker, query, login = faker.internet.userName()}) {
-  console.debug("metrics/compute/mocks > mocking graphql api result > contributors/commit")
+  console.debug("metrics/compute/mocks > mocking graphql api result > discussions/categories")
   return /after: "MOCKED_CURSOR"/m.test(query)
     ? ({
       user:{
