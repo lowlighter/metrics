@@ -31,7 +31,7 @@
         //Plugins
         (async () => {
           const { data: plugins } = await axios.get("/.plugins")
-          this.plugins.list = plugins
+          this.plugins.list = plugins.filter(({name}) => metadata[name]?.supports.includes("user") || metadata[name]?.supports.includes("organization"))
         })(),
         //Base
         (async () => {
