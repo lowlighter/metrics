@@ -4,7 +4,7 @@ import linguist from "linguist-js"
 export async function indepth({login, data, imports, repositories}, {skipped, categories}) {
 
   //Compute repositories stats from fetched repositories
-  const results = {total:0, lines:{}, stats:{}, commits:0, files:0, missed:0}
+  const results = {total:0, lines:{}, stats:{}, colors:{}, commits:0, files:0, missed:0}
   for (const repository of repositories) {
     //Skip repository if asked
     if ((skipped.includes(repository.name.toLocaleLowerCase())) || (skipped.includes(`${repository.owner.login}/${repository.name}`.toLocaleLowerCase()))) {
@@ -48,7 +48,7 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
 
   //Get user recent activity
   console.debug(`metrics/compute/${login}/plugins > languages > querying api`)
-  const commits = [], pages = Math.ceil(load/100), results = {total:0, lines:{}, stats:{}, commits:0, files:0, missed:0, days}
+  const commits = [], pages = Math.ceil(load/100), results = {total:0, lines:{}, stats:{}, colors:{}, commits:0, files:0, missed:0, days}
   try {
     for (let page = 1; page <= pages; page++) {
       console.debug(`metrics/compute/${login}/plugins > languages > loading page ${page}`)
@@ -140,6 +140,7 @@ async function analyze({login, imports, data}, {results, path, categories = ["pr
   //Gather language data
   console.debug(`metrics/compute/${login}/plugins > languages > indepth > running linguist`)
   const {results:files, languages:languageResults} = await linguist(path)
+  Object.assign(results.colors, Object.fromEntries(Object.entries(languageResults.all).map(([lang, {color}]) => [lang, color])))
 
   //Processing diff
   const per_page = 1
@@ -212,7 +213,7 @@ if (/languages.analyzers.mjs$/.test(process.argv[1])) {
 
     //Prepare call
     const imports = await import("../../app/metrics/utils.mjs")
-    const results = {total:0, lines:{}, stats:{}, missed:0}
+    const results = {total:0, lines:{}, colors:{}, stats:{}, missed:0}
     console.debug = log => /exited with code null/.test(log) ? console.error(log.replace(/^.*--max-count=(?<step>\d+) --skip=(?<start>\d+).*$/, (_, step, start) => `error: skipped commits ${start} from ${Number(start)+Number(step)}`)) : null
 
     //Analyze repository
