@@ -54,7 +54,7 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
       console.debug(`metrics/compute/${login}/plugins > languages > loading page ${page}`)
       commits.push(...(await rest.activity.listEventsForAuthenticatedUser({username:login, per_page:100, page})).data
         .filter(({type}) => type === "PushEvent")
-        .filter(({actor}) => account === "organization" ? true : actor.login === login)
+        .filter(({actor}) => account === "organization" ? true : actor.login?.toLocaleLowerCase() === login.toLocaleLowerCase())
         .filter(({repo:{name:repo}}) => (!skipped.includes(repo.toLocaleLowerCase())) && (!skipped.includes(repo.toLocaleLowerCase().split("/").pop())))
         .filter(({created_at}) => new Date(created_at) > new Date(Date.now() - days * 24 * 60 * 60 * 1000))
       )
