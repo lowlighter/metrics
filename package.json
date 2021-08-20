@@ -1,7 +1,7 @@
 {
   "name": "metrics",
   "version": "3.14.0-beta",
-  "description": "An infographics generator with 30+ plugins and 100+ options to display stats about your GitHub account and render them as SVG, Markdown, PDF or JSON!",
+  "description": "An infographics generator with 30+ plugins and 200+ options to display stats about your GitHub account and render them as SVG, Markdown, PDF or JSON!",
   "main": "index.mjs",
   "scripts": {
     "start": "node source/app/web/index.mjs",
