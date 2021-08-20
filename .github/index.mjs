@@ -49,7 +49,7 @@ if (mode === "publish") {
     .addConfig("user.name", "github-actions[bot]")
     .addConfig("user.email", "41898282+github-actions[bot]@users.noreply.github.com")
     .add([...staged])
-    .commit("Auto-regenerate files")
+    .commit("ci: auto-regenerate files")
     .push("origin", "master")
   console.log(gitted)
 }
