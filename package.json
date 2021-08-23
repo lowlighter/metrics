@@ -26,11 +26,11 @@
   },
   "homepage": "https://github.com/lowlighter/metrics#readme",
   "dependencies": {
-    "@actions/core": "^1.4.0",
+    "@actions/core": "^1.5.0",
     "@actions/github": "^4.0.0",
     "@octokit/graphql": "^4.6.4",
     "@octokit/rest": "^18.9.0",
-    "@primer/css": "^17.5.1",
+    "@primer/css": "^17.6.0",
     "axios": "^0.21.1",
     "clipboard": "^2.0.8",
     "compression": "^1.7.4",
