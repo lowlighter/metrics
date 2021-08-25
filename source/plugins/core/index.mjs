@@ -88,11 +88,14 @@ export default async function({login, q}, {conf, data, rest, graphql, plugins, q
   computed.commits += data.user.contributionsCollection.totalCommitContributions + data.user.contributionsCollection.restrictedContributionsCount
 
   //Compute registration date
-  const diff = (Date.now() - (new Date(data.user.createdAt)).getTime()) / (365 * 24 * 60 * 60 * 1000)
-  const years = Math.floor(diff)
-  const months = Math.floor((diff - years) * 12)
+  const now = Date.now()
+  const created = new Date(data.user.createdAt)
+  const diff = now - created
+  const years = new Date(years).getFullUTCYear() - 1970
+  const months = now.getUTCMonth() - created.getUTCMonth() + 12 * years
+  const days = ~~(diff / (1000 * 60 * 60 * 24))
   computed.registered = {years, months, diff}
-  computed.registration = years ? `${years} year${imports.s(years)} ago` : months ? `${months} month${imports.s(months)} ago` : `${Math.ceil(diff * 365)} day${imports.s(Math.ceil(diff * 365))} ago`
+  computed.registration = years ? `${years} year${imports.s(years)} ago` : months ? `${months} month${imports.s(months)} ago` : `${days} day${imports.s(days)} ago`
   computed.cakeday = years > 1 ? [new Date(), new Date(data.user.createdAt)].map(date => date.toISOString().match(/(?<mmdd>\d{2}-\d{2})(?=T)/)?.groups?.mmdd).every((v, _, a) => v === a[0]) : false
 
   //Compute calendar
