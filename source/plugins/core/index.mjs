@@ -95,7 +95,7 @@ export default async function({login, q}, {conf, data, rest, graphql, plugins, q
   const years = new Date(diff).getUTCFullYear() - 1970
   const months = new Date(now).getUTCMonth() - created.getUTCMonth() + 12 * years
   const days = Math.floor((now - beginningOfYear) / (1000 * 60 * 60 * 24))
-  computed.registered = {years, months}
+  computed.registered = {years: years + days / 365.25, months}
   computed.registration = years ? `${years} year${imports.s(years)} ago` : months ? `${months} month${imports.s(months)} ago` : `${days} day${imports.s(days)} ago`
   computed.cakeday = years > 1 ? [new Date(), new Date(data.user.createdAt)].map(date => date.toISOString().match(/(?<mmdd>\d{2}-\d{2})(?=T)/)?.groups?.mmdd).every((v, _, a) => v === a[0]) : false
 
