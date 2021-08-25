@@ -92,7 +92,7 @@ export default async function({login, q}, {conf, data, rest, graphql, plugins, q
   const beginningOfYear = new Date(now).setUTCMonth(0, 1);
   const created = new Date(data.user.createdAt)
   const diff = now - created
-  const years = new Date(diff).getUTCFullYear() - 1970
+  const years = new Date(diff).getUTCFullYear() - new Date(0).getUTCFullYear()
   const months = new Date(now).getUTCMonth() - created.getUTCMonth() + 12 * years
   const days = Math.floor((now - beginningOfYear) / (1000 * 60 * 60 * 24))
   computed.registered = {years: years + days / 365.25, months}
