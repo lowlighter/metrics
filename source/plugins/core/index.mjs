@@ -89,7 +89,7 @@ export default async function({login, q}, {conf, data, rest, graphql, plugins, q
 
   //Compute registration date
   const now = Date.now()
-  const beginningOfYear = new Date(now).setUTCMonth(0, 1);
+  const beginningOfYear = new Date(now).setUTCMonth(0, 1)
   const created = new Date(data.user.createdAt)
   const diff = now - created
   const years = new Date(diff).getUTCFullYear() - new Date(0).getUTCFullYear()
