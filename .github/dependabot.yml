@@ -8,7 +8,7 @@ updates:
       separator: "-"
     reviewers:
       - lowlighter
-    commit_message:
+    commit-message:
       prefix: "deps"
     ignore:
       - dependency-name: "*"
