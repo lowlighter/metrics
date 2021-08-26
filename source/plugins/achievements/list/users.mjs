@@ -95,13 +95,13 @@ export default async function({list, login, data, computed, imports, graphql, qu
     })
   }
 
-  //Scripter
+  //Gister
   {
     const value = user.gists.totalCount
     const unlock = user.gists.nodes?.shift()
 
     list.push({
-      title:"Scripter",
+      title:"Gister",
       text:`Published ${value} gist${imports.s(value)}`,
       icon:'<g stroke-width="2" fill="none" fill-rule="evenodd"><path d="M20 48.875v-12.75c0-1.33.773-2.131 2.385-2.125h26.23c1.612-.006 2.385.795 2.385 2.125v12.75C51 50.198 50.227 51 48.615 51h-26.23C20.773 51 20 50.198 20 48.875zM37 40.505h9M37 44.492h6" stroke="#primary" stroke-linecap="round" stroke-linejoin="round"/><path stroke="#secondary" stroke-linecap="round" stroke-linejoin="round" d="M14 30h-4M16 35h-3M47 10H5M42 15H24M19 15h-9M16 25h-3M42 20h-2M42 20h-2M42 25h-2M16 20h-3"/><path stroke="#primary" stroke-linecap="round" stroke-linejoin="round" d="M31.974 25H24"/><path d="M22 20h12a2 2 0 012 2v6a2 2 0 01-2 2H22a2 2 0 01-2-2v-6a2 2 0 012-2z" stroke="#primary"/><path d="M5 33V7a2 2 0 012-2h38a2 2 0 012 2v23" stroke="#secondary" stroke-linecap="round"/><path d="M5 30v8c0 1.105.892 2 1.993 2H16" stroke="#secondary" stroke-linecap="round"/><g stroke="#primary" stroke-linecap="round"><path d="M26.432 37.933v7.07M26.432 37.933v9.07M24.432 40.433h7.07M24.432 40.433h8.07M24.432 44.433h7.07M24.432 44.433h8.07M30.432 37.933v9.07"/></g></g>',
       ...rank(value, [1, 20, 50, 100, 250]),
