@@ -41,7 +41,7 @@
     "faker": "^5.5.3",
     "jimp": "^0.16.1",
     "js-yaml": "^4.1.0",
-    "linguist-js": "^1.8.0",
+    "linguist-js": "^1.9.1",
     "marked": "^3.0.0",
     "memory-cache": "^0.2.0",
     "minimatch": "^3.0.4",
