@@ -75,9 +75,11 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
         .flatMap(({payload}) => payload.commits)
         .filter(({author}) => data.shared["commits.authoring"].filter(authoring => author?.email?.toLocaleLowerCase().includes(authoring)||author?.name?.toLocaleLowerCase().includes(authoring)).length)
         .map(commit => commit.url)
-        .map(async commit => (await rest.request(commit)).data.files),
-    ),
+        .map(async commit => (await rest.request(commit)).data),
+    )
   ]
+  .filter(({parents}) => parents.length <= 1)
+  .map(({files}) => files)
   .filter(({status}) => status === "fulfilled")
   .map(({value}) => value)
   .flatMap(files => files.map(file => ({name:imports.paths.basename(file.filename), directory:imports.paths.dirname(file.filename), patch:file.patch ?? "", repo:file.raw_url?.match(/(?<=^https:..github.com\/)(?<repo>.*)(?=\/raw)/)?.groups.repo ?? "_"})))
