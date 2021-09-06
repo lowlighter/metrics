@@ -78,10 +78,10 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
         .map(async commit => (await rest.request(commit)).data),
     )
   ]
-  .filter(({parents}) => parents.length <= 1)
-  .map(({files}) => files)
   .filter(({status}) => status === "fulfilled")
   .map(({value}) => value)
+  .filter(({parents}) => parents.length <= 1)
+  .map(({files}) => files)
   .flatMap(files => files.map(file => ({name:imports.paths.basename(file.filename), directory:imports.paths.dirname(file.filename), patch:file.patch ?? "", repo:file.raw_url?.match(/(?<=^https:..github.com\/)(?<repo>.*)(?=\/raw)/)?.groups.repo ?? "_"})))
   .map(({name, directory, patch, repo}) => ({name, directory:`${repo.replace(/[/]/g, "@")}/${directory}`, patch:patch.split("\n").filter(line => /^[+]/.test(line)).map(line => line.substring(1)).join("\n")}))
 
@@ -167,7 +167,7 @@ async function analyze({login, imports, data}, {results, path, categories = ["pr
             return
           //File marker
           if (/^[+]{3}\sb[/](?<file>[\s\S]+)$/.test(line)) {
-            file = line.match(/^[+]{3}\sb[/](?<file>[\s\S]+)$/)?.groups?.file.replace(/^/, `${path}/`) ?? null
+            file = `${path}/${line.match(/^[+]{3}\sb[/](?<file>[\s\S]+)$/)?.groups?.file}`.replace(/\\/g, "/")
             lang = files[file] ?? null
             if (["data", "markup", "programming", "prose"].map(type => categories.includes(type) && lang in languageResults[type]).filter(type => type).length === 0)
               lang = null
