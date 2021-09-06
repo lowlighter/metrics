@@ -28,9 +28,9 @@
   "dependencies": {
     "@actions/core": "^1.5.0",
     "@actions/github": "^4.0.0",
-    "@octokit/graphql": "^4.7.0",
-    "@octokit/rest": "^18.9.0",
-    "@primer/css": "^17.6.0",
+    "@octokit/graphql": "^4.8.0",
+    "@octokit/rest": "^18.10.0",
+    "@primer/css": "^17.8.0",
     "axios": "^0.21.1",
     "clipboard": "^2.0.8",
     "compression": "^1.7.4",
@@ -46,7 +46,7 @@
     "memory-cache": "^0.2.0",
     "minimatch": "^3.0.4",
     "node-chartist": "^1.0.5",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^3.0.0",
     "open-graph-scraper": "^4.9.0",
     "png-js": "^1.0.0",
     "prismjs": "^1.24.1",
@@ -63,7 +63,7 @@
   "devDependencies": {
     "eslint": "^7.32.0",
     "jest": "^27.1.0",
-    "libxmljs2": "^0.27.0",
+    "libxmljs2": "^0.28.0",
     "nodemon": "^2.0.7"
   },
   "jest": {
