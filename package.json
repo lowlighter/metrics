@@ -46,7 +46,7 @@
     "memory-cache": "^0.2.0",
     "minimatch": "^3.0.4",
     "node-chartist": "^1.0.5",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^3.0.0",
     "open-graph-scraper": "^4.9.0",
     "png-js": "^1.0.0",
     "prismjs": "^1.24.1",
