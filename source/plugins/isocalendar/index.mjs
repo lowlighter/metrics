@@ -89,7 +89,7 @@ export default async function({login, data, graphql, q, imports, queries, accoun
   }
 }
 
-/** Compute max and current streaks */
+/**Compute max and current streaks */
 async function statistics({login, data, graphql, queries}) {
   let average = 0, max = 0, streak = {max:0, current:0}, values = []
   const now = new Date()
