@@ -141,8 +141,8 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
 async function analyze({login, imports, data}, {results, path, categories = ["programming", "markup"]}) {
   //Gather language data
   console.debug(`metrics/compute/${login}/plugins > languages > indepth > running linguist`)
-  const {results:files, languages:languageResults} = await linguist(path)
-  Object.assign(results.colors, Object.fromEntries(Object.entries(languageResults.all).map(([lang, {color}]) => [lang, color])))
+  const {files:{results:files}, languages:{results:languageResults}} = await linguist(path)
+  Object.assign(results.colors, Object.fromEntries(Object.entries(languageResults).map(([lang, {color}]) => [lang, color])))
 
   //Processing diff
   const per_page = 1
@@ -168,9 +168,7 @@ async function analyze({login, imports, data}, {results, path, categories = ["pr
           //File marker
           if (/^[+]{3}\sb[/](?<file>[\s\S]+)$/.test(line)) {
             file = `${path}/${line.match(/^[+]{3}\sb[/](?<file>[\s\S]+)$/)?.groups?.file}`.replace(/\\/g, "/")
-            lang = files[file] ?? null
-            if (["data", "markup", "programming", "prose"].map(type => categories.includes(type) && lang in languageResults[type]).filter(type => type).length === 0)
-              lang = null
+            lang = categories.includes(languageResults[lang].type) && files[file] || null
             edited.add(file)
             return
           }
