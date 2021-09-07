@@ -208,16 +208,15 @@ export async function which(command) {
   return false
 }
 
+/**Code hightlighter */
+export async function highlight(code, lang) {
+  return lang in prism.languages ? prism.highlight(code, prism.languages[lang]) : code
+}
+
 /**Markdown-html sanitizer-interpreter */
 export async function markdown(text, {mode = "inline", codelines = Infinity} = {}) {
   //Sanitize user input once to prevent injections and parse into markdown
-  let rendered = await marked(htmlunescape(htmlsanitize(text)), {
-    highlight(code, lang) {
-      return lang in prism.languages ? prism.highlight(code, prism.languages[lang]) : code
-    },
-    silent:true,
-    xhtml:true,
-  })
+  let rendered = await marked(htmlunescape(htmlsanitize(text)), {highlight, silent:true, xhtml:true})
   //Markdown mode
   switch (mode) {
     case "inline": {

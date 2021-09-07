@@ -1,6 +1,6 @@
 ### ♐ Code snippet of the day
 
-> ⚠️ When improperly configured, this plugin could display private code. If you work with sensitive data or company code, it is advised to keep this plugin disabled. *Metrics* and its authors cannot be held responsible for any eventual code leaks, use at your own risk.
+> ⚠️ When improperly configured, this plugin could display private code. If you work with sensitive data or company code, it is advised to keep this plugin disabled. *Metrics* and its authors cannot be held responsible for any resulting code leaks, use at your own risk.
 
 Display a random code snippet from your recent activity history.
 

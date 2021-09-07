@@ -30,8 +30,7 @@ export default async function({login, q, imports, data, rest, account}, {enabled
           .filter(({actor}) => account === "organization" ? true : actor.login?.toLocaleLowerCase() === login.toLocaleLowerCase())
           .filter(({repo:{name:repo}}) => !((skipped.includes(repo.split("/").pop())) || (skipped.includes(repo))))
           .filter(event => visibility === "public" ? event.public : true)
-          .flatMap(async ({payload}) => await Promise.all(payload.commits.map(async commit => (await rest.request(commit.url)).data)))
-        ])]
+          .flatMap(({payload}) => Promise.all(payload.commits.map(async commit => (await rest.request(commit.url)).data)))])]
           .flat()
           .filter(({author}) => data.shared["commits.authoring"].filter(authoring => author?.email?.toLocaleLowerCase().includes(authoring)||author?.name?.toLocaleLowerCase().includes(authoring)))
         )
@@ -48,14 +47,14 @@ export default async function({login, q, imports, data, rest, account}, {enabled
       .filter(({patch}) => (patch ? (patch.match(/\n/mg)?.length ?? 1) : Infinity) < lines)
     const snippet = files[Math.floor(Math.random()*files.length)]
 
-    console.log(snippet.patch)
+    //Trim common indent from content and change line feed
+    if (!snippet.patch.split("\n").shift().endsWith("@@"))
+      snippet.patch = snippet.patch.replace(/^(?<coord>@@.*?@@)/, "$<coord>\n")
+    const indent = Math.min(...(snippet.patch.match(/^[+-]? +/mg)?.map(indent => (indent.length ?? Infinity) - indent.startsWith("+") - indent.startsWith("-")) ?? [])) || 0
+    const content = imports.htmlescape(snippet.patch.replace(/\r\n/mg, "\n").replace(new RegExp(`^([+-]?)${" ".repeat(indent)}`, "mg"), "$1"))
 
-    const indent = Math.min(...snippet.patch.match(/^ +/mg).map(indent => indent?.length ?? Infinity)) || 0
-    const content = imports.htmlescape(snippet.patch.replace(/\r\n/mg, "\n").replace(new RegExp(`^${" ".repeat(indent)}`, "mg"), ""))
-
-    console.log(indent, content)
-
-    snippet.patch = (await imports.markdown(`${"```diff"}\n${content}\n${"```"}`)).trim()
+    //Format patch
+    snippet.patch = imports.htmlunescape((await imports.highlight(content, "diff")).trim())
 
     //Results
     return {snippet}

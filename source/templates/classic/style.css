@@ -1122,8 +1122,14 @@
   }
 
 /* Code snippet */
-  .snippet {
-    padding-left: 4px;
+  .snippet .body {
+    padding-left: 12px;
+  }
+  .snippet.additions {
+    color: #336543;
+  }
+  .snippet.deletions {
+    color: #9A5256;
   }
 
 /* Markdown and syntax highlighting */
@@ -1174,18 +1180,27 @@
   }
   .token.trimmed {
     font-style: italic;
-    color: #77777760
+    color: #77777760;
   }
   .token.coord {
-    color: #D2A8FF
+    color: #D2A8FF;
+    font-weight: bold;
   }
-  .token.inserted {
-    color: #AAD0B4;
-    background-color: #336543F0;
+  .token.inserted:not(.prefix) {
+    color: #AAD0B4DC;
+    background-color: #336543DC;
   }
-  .token.deleted {
-    color: #EED2D0;
-    background-color: #9A5256F0;
+  .token.deleted:not(.prefix) {
+    color: #EED2D0DC;
+    background-color: #9A5256DC;
+  }
+
+/* Typography */
+  .space {
+    margin-left: 7px;
+  }
+  .blue {
+    color: #58a6ff;
   }
 
 /* Charts */
