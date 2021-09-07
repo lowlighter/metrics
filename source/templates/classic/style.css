@@ -1121,6 +1121,11 @@
     overflow: hidden;
   }
 
+/* Code snippet */
+  .snippet {
+    padding-left: 4px;
+  }
+
 /* Markdown and syntax highlighting */
   .markdown b, .markdown i {
     display: inline-block;
@@ -1139,6 +1144,15 @@
     white-space: pre-wrap;
     width: 97%;
     margin-top: 4px;
+  }
+  span.code {
+    background-color: #7777771F;
+    padding: 1px 5px;
+    font-size: 80%;
+    border-radius: 6px;
+    color: #777777;
+    font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+    margin: 0 4px -3px;
   }
   .token.comment {
     color: #669900;
@@ -1161,6 +1175,17 @@
   .token.trimmed {
     font-style: italic;
     color: #77777760
+  }
+  .token.coord {
+    color: #D2A8FF
+  }
+  .token.inserted {
+    color: #AAD0B4;
+    background-color: #336543F0;
+  }
+  .token.deleted {
+    color: #EED2D0;
+    background-color: #9A5256F0;
   }
 
 /* Charts */
