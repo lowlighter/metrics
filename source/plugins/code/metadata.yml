@@ -1,4 +1,4 @@
-name: "♐ Code"
+name: "♐ Code snippet of the day"
 cost: 1 REST request per 100 events fetched
 category: github
 supports:
