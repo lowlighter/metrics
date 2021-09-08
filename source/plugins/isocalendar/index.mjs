@@ -46,7 +46,7 @@ export default async function({login, data, graphql, q, imports, queries, accoun
     const size = 6
     let i = 0, j = 0
     let svg = `
-            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" style="margin-top: -52px;" viewBox="0,0 480,${duration === "full-year" ? 270 : 170}">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" style="margin-top: -130px;" viewBox="0,0 480,${duration === "full-year" ? 270 : 170}">
               ${
       [1, 2].map(k => `
                 <filter id="brightness${k}">
