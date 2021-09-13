@@ -52,7 +52,7 @@
     "prismjs": "^1.24.1",
     "puppeteer": "^10.2.0",
     "rss-parser": "^3.12.0",
-    "sanitize-html": "^2.4.0",
+    "sanitize-html": "^2.5.0",
     "simple-git": "^2.45.0",
     "svgo": "^2.5.0",
     "twemoji-parser": "^13.1.0",
