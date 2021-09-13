@@ -45,16 +45,17 @@ export default async function({login, q, imports, data, rest, account}, {enabled
     const files = events
       .flatMap(({sha, commit:{message, url}, files}) => files.map(({filename, status, additions, deletions, patch}) => ({sha, message, filename, status, additions, deletions, patch, repo:url.match(/repos[/](?<repo>[\s\S]+)[/]git[/]commits/)?.groups?.repo})))
       .filter(({patch}) => (patch ? (patch.match(/\n/mg)?.length ?? 1) : Infinity) < lines)
-    const snippet = files[Math.floor(Math.random()*files.length)]
+    const snippet = files[Math.floor(Math.random()*files.length)] ?? null
+    if (snippet) {
+      //Trim common indent from content and change line feed
+      if (!snippet.patch.split("\n").shift().endsWith("@@"))
+        snippet.patch = snippet.patch.replace(/^(?<coord>@@.*?@@)/, "$<coord>\n")
+      const indent = Math.min(...(snippet.patch.match(/^[+-]? +/mg)?.map(indent => (indent.length ?? Infinity) - indent.startsWith("+") - indent.startsWith("-")) ?? [])) || 0
+      const content = imports.htmlescape(snippet.patch.replace(/\r\n/mg, "\n").replace(new RegExp(`^([+-]?)${" ".repeat(indent)}`, "mg"), "$1"))
 
-    //Trim common indent from content and change line feed
-    if (!snippet.patch.split("\n").shift().endsWith("@@"))
-      snippet.patch = snippet.patch.replace(/^(?<coord>@@.*?@@)/, "$<coord>\n")
-    const indent = Math.min(...(snippet.patch.match(/^[+-]? +/mg)?.map(indent => (indent.length ?? Infinity) - indent.startsWith("+") - indent.startsWith("-")) ?? [])) || 0
-    const content = imports.htmlescape(snippet.patch.replace(/\r\n/mg, "\n").replace(new RegExp(`^([+-]?)${" ".repeat(indent)}`, "mg"), "$1"))
-
-    //Format patch
-    snippet.patch = imports.htmlunescape((await imports.highlight(content, "diff")).trim())
+      //Format patch
+      snippet.patch = imports.htmlunescape((await imports.highlight(content, "diff")).trim())
+    }
 
     //Results
     return {snippet}
