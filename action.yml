@@ -823,6 +823,35 @@ inputs:
     default: ""
   
   # ====================================================================================
+  # ♐ Code snippet of the day
+  
+  # Enable or disable plugin
+  plugin_code:
+    description: Display a random code snippet from recent activity
+    default: no
+  
+  # Maximum number of lines that a code snippet can contain
+  plugin_code_lines:
+    description: Maximum number of line that a code snippet can contain
+    default: 12
+  
+  # Number of activity events to load
+  # A high number will consume more requests
+  plugin_code_load:
+    description: Number of events to load
+    default: 100
+  
+  # Set events visibility (use this to restrict events when using a "repo" token)
+  plugin_code_visibility:
+    description: Set events visibility
+    default: public
+  
+  # List of repositories that will be skipped
+  plugin_code_skipped:
+    description: Repositories to skip
+    default: ""
+  
+  # ====================================================================================
   # 🌇 GitHub Skyline 3D calendar
   
   # Enable or disable plugin

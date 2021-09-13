@@ -35,6 +35,7 @@ export default function({faker}, target, that, args) {
             email:faker.internet.email(),
             date:`${faker.date.recent(7)}`,
           },
+          url:"https://api.github.com/repos/lowlighter/metrics/commits/MOCKED_SHA",
         },
         author:{
           login:faker.internet.userName(),
