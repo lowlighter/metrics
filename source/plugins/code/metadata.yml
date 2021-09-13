@@ -1,6 +1,7 @@
 name: "♐ Code snippet of the day"
 cost: 1 REST request per 100 events fetched
 category: github
+index: 22
 supports:
   - user
   - organization
