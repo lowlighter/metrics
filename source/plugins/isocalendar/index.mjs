@@ -40,6 +40,7 @@ export default async function({login, data, graphql, q, imports, queries, accoun
     //Compute the highest contributions in a day, streaks and average commits per day
     console.debug(`metrics/compute/${login}/plugins > isocalendar > computing stats`)
     const {streak, max, average} = await statistics({login, data, graphql, queries})
+    const reference = Math.max(...calendar.weeks.flatMap(({contributionDays}) => contributionDays.map(({contributionCount}) => contributionCount)))
 
     //Compute SVG
     console.debug(`metrics/compute/${login}/plugins > isocalendar > computing svg render`)
@@ -64,7 +65,7 @@ export default async function({login, data, graphql, q, imports, queries, accoun
       j = 0
       //Iterate through days
       for (const day of week.contributionDays) {
-        const ratio = day.contributionCount / max
+        const ratio = day.contributionCount / reference
         svg += `
                     <g transform="translate(${j * -1.7}, ${j + (1 - ratio) * size})">
                       <path fill="${day.color}" d="M1.7,2 0,1 1.7,0 3.4,1 z" />
