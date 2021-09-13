@@ -1,0 +1,46 @@
+name: "♐ Code snippet of the day"
+cost: 1 REST request per 100 events fetched
+category: github
+supports:
+  - user
+  - organization
+  - repository
+inputs:
+
+  # Enable or disable plugin
+  plugin_code:
+    description: Display a random code snippet from recent activity
+    type: boolean
+    default: no
+
+  # Maximum number of lines that a code snippet can contain
+  plugin_code_lines:
+    description: Maximum number of line that a code snippet can contain
+    type: number
+    default: 12
+
+  # Number of activity events to load
+  # A high number will consume more requests
+  plugin_code_load:
+    description: Number of events to load
+    type: number
+    default: 100
+    min: 100
+    max: 1000
+
+  # Set events visibility (use this to restrict events when using a "repo" token)
+  plugin_code_visibility:
+    description: Set events visibility
+    type: string
+    default: public
+    values:
+      - public
+      - all
+
+  # List of repositories that will be skipped
+  plugin_code_skipped:
+    description: Repositories to skip
+    type: array
+    format: comma-separated
+    default: ""
+    example: my-repo-1, my-repo-2, owner/repo-3 ...
