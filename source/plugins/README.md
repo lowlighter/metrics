@@ -9,6 +9,7 @@ See their respective documentation for more informations about how to setup them
 * **Github**
   * [🏆 Achievements](/source/plugins/achievements/README.md)
   * [📰 Recent activity](/source/plugins/activity/README.md)
+  * [♐ Code snippet of the day](/source/plugins/code/README.md)
   * [🏅 Repository contributors](/source/plugins/contributors/README.md)
   * [💬 Discussions](/source/plugins/discussions/README.md)
   * [🎟️ Follow-up of issues and pull requests](/source/plugins/followup/README.md)
