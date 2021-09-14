@@ -55,7 +55,7 @@ inputs:
     type: array
     format: comma-separated
     default: ""
-    example: octonaut, automater, explorer
+    example: octonaut, automator, explorer
 
   # List of unlocked achievements to display
   # Names must be given in lower case, without rank adjective
@@ -65,4 +65,4 @@ inputs:
     type: array
     format: comma-separated
     default: ""
-    example: octonaut, automater, explorer
+    example: octonaut, automator, explorer
