@@ -96,7 +96,7 @@
         return this.metrics?.rendered.plugins.achievements.list?.filter(({ leaderboard }) => leaderboard).sort((a, b) => a.leaderboard.type.localeCompare(b.leaderboard.type)) ?? []
       },
       achievements() {
-        return this.metrics?.rendered.plugins.achievements.list?.filter(({ leaderboard }) => !leaderboard).filter(({ title }) => !/(?:automater|octonaut|infographile)/i.test(title)) ?? []
+        return this.metrics?.rendered.plugins.achievements.list?.filter(({ leaderboard }) => !leaderboard).filter(({ title }) => !/(?:automator|octonaut|infographile)/i.test(title)) ?? []
       },
       introduction() {
         return this.metrics?.rendered.plugins.introduction?.text ?? ""
