@@ -49,7 +49,7 @@
     "node-fetch": "^3.0.0",
     "open-graph-scraper": "^4.9.0",
     "png-js": "^1.0.0",
-    "prismjs": "^1.24.1",
+    "prismjs": "^1.25.0",
     "puppeteer": "^10.2.0",
     "rss-parser": "^3.12.0",
     "sanitize-html": "^2.5.0",
