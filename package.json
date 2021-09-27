@@ -29,7 +29,7 @@
     "@actions/core": "^1.5.0",
     "@actions/github": "^4.0.0",
     "@octokit/graphql": "^4.8.0",
-    "@octokit/rest": "^18.10.0",
+    "@octokit/rest": "^18.11.1",
     "@primer/css": "^17.11.0",
     "axios": "^0.21.1",
     "clipboard": "^2.0.8",
