@@ -54,7 +54,7 @@
     "rss-parser": "^3.12.0",
     "sanitize-html": "^2.5.0",
     "simple-git": "^2.45.0",
-    "svgo": "^2.6.0",
+    "svgo": "^2.7.0",
     "twemoji-parser": "^13.1.0",
     "vue": "^2.6.12",
     "vue-prism-component": "^1.2.0",
