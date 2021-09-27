@@ -50,7 +50,7 @@
     "open-graph-scraper": "^4.9.0",
     "png-js": "^1.0.0",
     "prismjs": "^1.25.0",
-    "puppeteer": "^10.2.0",
+    "puppeteer": "^10.4.0",
     "rss-parser": "^3.12.0",
     "sanitize-html": "^2.5.0",
     "simple-git": "^2.45.0",
