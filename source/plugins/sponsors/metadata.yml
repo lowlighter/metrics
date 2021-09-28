@@ -1,0 +1,13 @@
+name: "🧩 Sponsors"
+cost: 1 GraphQL request
+category: github
+supports:
+  - user
+  - organization
+inputs:
+
+  # Enable or disable plugin
+  plugin_sponsors:
+    description: description
+    type: boolean
+    default: no
