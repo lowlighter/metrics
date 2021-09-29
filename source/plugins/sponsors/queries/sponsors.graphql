@@ -14,8 +14,11 @@ query SponsorsDefault {
         sponsorEntity {
           ... on User {
             login
-            avatarUrl(size: 24)
+            avatarUrl(size: 36)
           }
+        }
+        tier {
+          monthlyPriceInDollars
         }
       }
     }

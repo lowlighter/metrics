@@ -353,6 +353,26 @@
             }
           })
           : null),
+        //Sponsors
+        ...(set.plugins.enabled.sponsors
+          ? ({
+            sponsors: {
+              sections: options["sponsors.sections"].split(",").map(x => x.trim()),
+              about: "A new way to contribute to open source",
+              list: new Array(Number(faker.datatype.number(40))).fill(null).map(_ => ({
+                login: faker.internet.userName(),
+                amount: faker.datatype.number(10),
+                avatar: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
+              })),
+              count: faker.datatype.number(100),
+              goal: {
+                progress: faker.datatype.number(100),
+                title: `$${faker.datatype.number(100)*10} per month`,
+                description: "Invest in the software that powers your world"
+              }
+            }
+          })
+          : null),
         //Languages
         ...(set.plugins.enabled.languages
           ? ({
