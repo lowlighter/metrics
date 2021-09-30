@@ -882,6 +882,19 @@ inputs:
     default: no
   
   # ====================================================================================
+  # 💕 GitHub Sponsors
+  
+  # Enable or disable plugin
+  plugin_sponsors:
+    description: Display GitHub sponsors
+    default: no
+  
+  # Sections to display
+  plugin_sponsors_sections:
+    description: Sections to display
+    default: goal, about
+  
+  # ====================================================================================
   # ⏱️ Website performances
   
   # Enable or disable plugin

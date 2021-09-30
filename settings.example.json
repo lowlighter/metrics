@@ -104,6 +104,9 @@
     "skyline":{
       "enabled": false,            "//": "Display GitHub Skyline 3D calendar"
     },
+    "sponsors":{
+      "enabled": false,            "//": "Display GitHub sponsors"
+    },
     "pagespeed":{
       "token": null,               "//":"PageSpeed token",
       "enabled": false,            "//": "Display a website Google PageSpeed metrics"
