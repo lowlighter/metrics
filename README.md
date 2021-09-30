@@ -241,7 +241,7 @@ And you can customize these heavily with plugins, templates and hundreds of opti
   </tr>
   <tr>
     <th><a href="source/plugins/code/README.md">♐ Code snippet of the day</a></th>
-    <th><a href="source/plugins/skyline/README.md">🌇 GitHub Skyline 3D calendar</a></th>
+    <th><a href="source/plugins/sponsors/README.md">💕 GitHub Sponsors</a></th>
   </tr>
   <tr>
     <td align="center">
@@ -249,20 +249,20 @@ And you can customize these heavily with plugins, templates and hundreds of opti
       <img width="900" height="1" alt="">
     </td>
     <td align="center">
-      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.skyline.svg">
-      <img width="900" height="1" alt="">
-    </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/sponsors/README.md">💕 GitHub Sponsors</a></th>
-    <th><a href="source/plugins/pagespeed/README.md">⏱️ Website performances</a></th>
-  </tr>
-  <tr>
-    <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.sponsors.svg">
       <details><summary>With GitHub sponsors introduction</summary>
         <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.sponsors.full.svg">
       </details>
+      <img width="900" height="1" alt="">
+    </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/skyline/README.md">🌇 GitHub Skyline 3D calendar</a></th>
+    <th><a href="source/plugins/pagespeed/README.md">⏱️ Website performances</a></th>
+  </tr>
+  <tr>
+    <td align="center">
+      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.skyline.svg">
       <img width="900" height="1" alt="">
     </td>
     <td align="center">
@@ -441,7 +441,7 @@ Choose `📊 Metrics embed` if you want to customize your GitHub profile and `�
 
 ### 🐙 Features
 
-* Create infographics from **36 plugins**, **4 templates** and **205 options**
+* Create infographics from **36 plugins**, **4 templates** and **207 options**
   * Even more **customization** with [community templates](source/templates/community) or by [forking this repository](https://github.com/lowlighter/metrics/network/members) and editing HTML/CSS/EJS
 * Support **users**, **organizations** and even **repositories**
 * Transparent by default so it'll blend well whether light or dark mode is used
@@ -760,8 +760,8 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" title="🎩 Notable contributions">🎩</th>
     <th nowrap="nowrap" align="center" title="📓 Repositories">📓</th>
     <th nowrap="nowrap" align="center" title="♐ Code snippet of the day">♐</th>
-    <th nowrap="nowrap" align="center" title="🌇 GitHub Skyline 3D calendar">🌇</th>
     <th nowrap="nowrap" align="center" title="💕 GitHub Sponsors">💕</th>
+    <th nowrap="nowrap" align="center" title="🌇 GitHub Skyline 3D calendar">🌇</th>
     <th nowrap="nowrap" align="center" title="⏱️ Website performances">⏱️</th>
     <th nowrap="nowrap" align="center" title="🎼 Music plugin">🎼</th>
     <th nowrap="nowrap" align="center" title="🐤 Latest tweets">🐤</th>
@@ -800,8 +800,8 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <td nowrap="nowrap" align="center" data-plugin="notable">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="repositories">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="code">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="skyline">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="sponsors">✔️</td>
+    <td nowrap="nowrap" align="center" data-plugin="skyline">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="music">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="tweets">✔️</td>
@@ -840,8 +840,8 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <td nowrap="nowrap" align="center" data-plugin="notable">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="repositories">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="code">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="skyline">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="sponsors">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="skyline">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="music">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="tweets">❌</td>
@@ -880,8 +880,8 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <td nowrap="nowrap" align="center" data-plugin="notable">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="repositories">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="code">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="skyline">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="sponsors">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="skyline">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="music">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="tweets">❌</td>
@@ -920,8 +920,8 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <td nowrap="nowrap" align="center" data-plugin="notable">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="repositories">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="code">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="skyline">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="sponsors">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="skyline">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="pagespeed">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="music">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="tweets">✔️</td>
@@ -963,8 +963,8 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" title="🎩 Notable contributions">🎩</th>
     <th nowrap="nowrap" align="center" title="📓 Repositories">📓</th>
     <th nowrap="nowrap" align="center" title="♐ Code snippet of the day">♐</th>
-    <th nowrap="nowrap" align="center" title="🌇 GitHub Skyline 3D calendar">🌇</th>
     <th nowrap="nowrap" align="center" title="💕 GitHub Sponsors">💕</th>
+    <th nowrap="nowrap" align="center" title="🌇 GitHub Skyline 3D calendar">🌇</th>
     <th nowrap="nowrap" align="center" title="⏱️ Website performances">⏱️</th>
     <th nowrap="nowrap" align="center" title="🎼 Music plugin">🎼</th>
     <th nowrap="nowrap" align="center" title="🐤 Latest tweets">🐤</th>
@@ -1003,8 +1003,8 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <td nowrap="nowrap" align="center" data-plugin="notable">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="repositories">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="code">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="skyline">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="sponsors">✔️</td>
+    <td nowrap="nowrap" align="center" data-plugin="skyline">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="music">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="tweets">✔️</td>
@@ -1043,8 +1043,8 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <td nowrap="nowrap" align="center" data-plugin="notable">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="repositories">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="code">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="skyline">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="sponsors">✔️</td>
+    <td nowrap="nowrap" align="center" data-plugin="skyline">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="music">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="tweets">✔️</td>
@@ -1083,8 +1083,8 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <td nowrap="nowrap" align="center" data-plugin="notable">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="repositories">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="code">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="skyline">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="sponsors">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="skyline">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="music">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="tweets">❌</td>

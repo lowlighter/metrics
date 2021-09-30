@@ -852,6 +852,19 @@ inputs:
     default: ""
   
   # ====================================================================================
+  # 💕 GitHub Sponsors
+  
+  # Enable or disable plugin
+  plugin_sponsors:
+    description: Display GitHub sponsors
+    default: no
+  
+  # Sections to display
+  plugin_sponsors_sections:
+    description: Sections to display
+    default: goal, about
+  
+  # ====================================================================================
   # 🌇 GitHub Skyline 3D calendar
   
   # Enable or disable plugin
@@ -880,19 +893,6 @@ inputs:
   plugin_skyline_compatibility:
     description: Compatibility mode
     default: no
-  
-  # ====================================================================================
-  # 💕 GitHub Sponsors
-  
-  # Enable or disable plugin
-  plugin_sponsors:
-    description: Display GitHub sponsors
-    default: no
-  
-  # Sections to display
-  plugin_sponsors_sections:
-    description: Sections to display
-    default: goal, about
   
   # ====================================================================================
   # ⏱️ Website performances
