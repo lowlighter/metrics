@@ -26,6 +26,7 @@ See their respective documentation for more informations about how to setup them
   * [🎭 Comment reactions](/source/plugins/reactions/README.md)
   * [📓 Repositories](/source/plugins/repositories/README.md)
   * [🌇 GitHub Skyline 3D calendar](/source/plugins/skyline/README.md)
+  * [💕 GitHub Sponsors](/source/plugins/sponsors/README.md)
   * [✨ Stargazers over last weeks](/source/plugins/stargazers/README.md)
   * [🌟 Recently starred repositories](/source/plugins/stars/README.md)
   * [💭 GitHub Community Support](/source/plugins/support/README.md)

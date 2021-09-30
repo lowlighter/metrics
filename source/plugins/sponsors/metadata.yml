@@ -1,0 +1,25 @@
+name: "💕 GitHub Sponsors"
+cost: 1 GraphQL request
+category: github
+index: 23
+supports:
+  - user
+  - organization
+inputs:
+
+  # Enable or disable plugin
+  plugin_sponsors:
+    description: Display GitHub sponsors
+    type: boolean
+    default: no
+
+  # Sections to display
+  plugin_sponsors_sections:
+    description: Sections to display
+    type: array
+    format: comma-separated
+    default: goal, about
+    example: goal, about
+    values:
+      - goal    # Display your GitHub active goal
+      - about   # Display your GitHub sponsors introduction
