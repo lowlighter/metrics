@@ -37,7 +37,7 @@
     "ejs": "^3.1.6",
     "emoji-name-map": "^1.2.9",
     "express": "^4.17.1",
-    "express-rate-limit": "^5.3.0",
+    "express-rate-limit": "^5.4.0",
     "faker": "^5.5.3",
     "jimp": "^0.16.1",
     "js-yaml": "^4.1.0",
