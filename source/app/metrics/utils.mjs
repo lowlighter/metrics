@@ -248,16 +248,25 @@ export async function markdown(text, {mode = "inline", codelines = Infinity} = {
 /**Check GitHub filter against object */
 export function ghfilter(text, object) {
   console.debug(`metrics/svg/ghquery > checking ${text} against ${JSON.stringify(object)}`)
-  const result = text.split(" ").map(x => x.trim()).filter(x => x).map(criteria => {
+  const result = text.split(/(?<!NOT) /).map(x => x.trim()).filter(x => x).map(criteria => {
     const [key, filters] = criteria.split(":")
-    const value = object[key]
+    const value = object[/^NOT /.test(key) ? key.substring(3).trim() : key.trim()]
     console.debug(`metrics/svg/ghquery > checking ${criteria} against ${value}`)
-    return filters.split(",").map(x => x.trim()).filter(x => x).map(filter => {
+    return filters?.split(",").map(x => x.trim()).filter(x => x).map(filter => {
+      if (!Number.isFinite(Number(value))) {
+        if (/^NOT /.test(filter))
+          return value !== filter.substring(3).trim()
+        return value === filter.trim()
+      }
       switch (true) {
         case /^>\d+$/.test(filter):
           return value > Number(filter.substring(1))
+        case /^>=\d+$/.test(filter):
+          return value >= Number(filter.substring(2))
         case /^<\d+$/.test(filter):
           return value < Number(filter.substring(1))
+        case /^<=\d+$/.test(filter):
+          return value <= Number(filter.substring(2))
         case /^\d+$/.test(filter):
           return value === Number(filter)
         case /^\d+..\d+$/.test(filter): {
@@ -267,7 +276,7 @@ export function ghfilter(text, object) {
         default:
           return false
       }
-    }).reduce((a, b) => a || b, false)
+    }).reduce((a, b) => a || b, false) ?? false
   }).reduce((a, b) => a && b, true)
   console.debug(`metrics/svg/ghquery > ${result ? "matching" : "not matching"}`)
   return result
