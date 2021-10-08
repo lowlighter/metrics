@@ -16,10 +16,10 @@
     <% } else { %>
       <% if (plugins.notable.contributions.length) { %>
         <div class="row organization contributions">
-          <% for (const {name, avatar} of plugins.notable.contributions) { %>
+          <% for (const {name, avatar, organization} of plugins.notable.contributions) { %>
             <div class="organization contribution">
-              <img class="organization avatar" src="<%= avatar %>" width="16" height="16" />
-              <span class="organization name">@<%= name %></span>
+              <img class="<%= organization ? "organization" : "" %> avatar" src="<%= avatar %>" width="16" height="16" />
+              <span class="name">@<%= name %></span>
             </div>
           <% } %>
         </div>
