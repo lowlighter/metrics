@@ -7,12 +7,10 @@ export default async function({login, q, imports, graphql, data, account, querie
       return null
 
     //Load inputs
-    let {filter, repositories} = imports.metadata.plugins.notable.inputs({data, account, q})
+    let {filter, repositories, from} = imports.metadata.plugins.notable.inputs({data, account, q})
 
-    //Initialization
-    const organizations = new Map()
-
-    //Iterate through contributed repositories from organizations
+    //Iterate through contributed repositories
+    const notable = new Map()
     {
       let cursor = null
       let pushed = 0
@@ -21,16 +19,16 @@ export default async function({login, q, imports, graphql, data, account, querie
         const {user:{repositoriesContributedTo:{edges}}} = await graphql(queries.notable.contributions({login, after:cursor ? `after: "${cursor}"` : "", repositories:data.shared["repositories.batch"] || 100}))
         cursor = edges?.[edges?.length - 1]?.cursor
         edges
-          .filter(({node}) => node.isInOrganization)
-          .filter(({node}) => imports.ghfilter(filter, {name:node.nameWithOwner, stars:node.stargazers.totalCount, watchers:node.watchers.totalCount, forks:node.forks.totalCount}))
-          .map(({node}) => organizations.set(repositories ? node.nameWithOwner : node.owner.login, node.owner.avatarUrl))
+          .filter(({node}) => ({all:true, organization:node.isInOrganization, user:!node.isInOrganization}[from]))
+          .filter(({node}) => imports.ghfilter(filter, {name:node.nameWithOwner, user:node.owner.login, stars:node.stargazers.totalCount, watchers:node.watchers.totalCount, forks:node.forks.totalCount}))
+          .map(({node}) => notable.set((repositories || !node.isInOrganization) ? node.nameWithOwner : node.owner.login, {organization:node.isInOrganization, avatarUrl:node.owner.avatarUrl}))
         pushed = edges.length
       } while ((pushed) && (cursor))
     }
 
     //Set contributions
-    const contributions = (await Promise.all([...organizations.entries()].map(async ([name, avatarUrl]) => ({name, avatar:await imports.imgb64(avatarUrl)})))).sort((a, b) => a.name.localeCompare(b.name))
-    console.debug(`metrics/compute/${login}/plugins > notable > found contributions to ${organizations.length} organizations`)
+    const contributions = (await Promise.all([...notable.entries()].map(async ([name, {avatarUrl, organization}]) => ({name, avatar:await imports.imgb64(avatarUrl), organization})))).sort((a, b) => a.name.localeCompare(b.name))
+    console.debug(`metrics/compute/${login}/plugins > notable > found ${contributions.length} notable contributions`)
 
     //Results
     return {contributions}

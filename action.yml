@@ -803,7 +803,13 @@ inputs:
     description: Query filter
     default: ""
   
+  # Filter repositories depending on which type of account it is hosted
+  plugin_notable_from:
+    description: Filter by repository host account type
+    default: organization
+  
   # Also display repository name along with organization name
+  # Note that repositories hosted by user account will always be displayed fully
   plugin_notable_repositories:
     description: Also display repository name
     default: no
