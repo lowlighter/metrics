@@ -17,6 +17,7 @@ const providers = {
 const modes = {
   playlist:"Suggested tracks",
   recent:"Recently played",
+  top:"Top played",
 }
 
 //Setup
@@ -210,6 +211,69 @@ export default async function({login, imports, data, q, account}, {enabled = fal
               if (error.isAxiosError) {
                 const status = error.response?.status
                 const description = error.response.data?.message ?? null
+                const message = `API returned ${status}${description ? ` (${description})` : ""}`
+                error = error.response?.data ?? null
+                throw {error:{message, instance:error}, ...raw}
+              }
+              throw error
+            }
+            break
+          }
+          //Unsupported
+          default:
+            throw {error:{message:`Unsupported mode "${mode}" for provider "${provider}"`}, ...raw}
+        }
+        break
+      }
+      case "top": {
+        //Handle provider
+        switch (provider) {
+          //Spotify
+          case "spotify": {
+            //Prepare credentials
+            const [client_id, client_secret, refresh_token] = token.split(",").map(part => part.trim())
+            if ((!client_id) || (!client_secret) || (!refresh_token))
+            {
+              throw {error:{message:"Spotify token must contain client id/secret and refresh token"}}
+            } else if (limit > 50) {
+              throw {error:{message:"Spotify top limit cannot be greater than 50"}}
+            }
+            //API call and parse tracklist
+            try {
+              //Request access token
+              console.debug(`metrics/compute/${login}/plugins > music > requesting access token with spotify refresh token`)
+              const {data:{access_token:access}} = await imports.axios.post("https://accounts.spotify.com/api/token", `${new imports.url.URLSearchParams({grant_type:"refresh_token", refresh_token, client_id, client_secret})}`, {
+                headers:{
+                  "Content-Type":"application/x-www-form-urlencoded",
+                },
+              })
+              console.debug(`metrics/compute/${login}/plugins > music > got access token`)
+              //Retrieve tracks
+              console.debug(`metrics/compute/${login}/plugins > music > querying spotify api`)
+              tracks = []
+              const loaded = (await imports.axios.get(`https://api.spotify.com/v1/me/top/tracks?limit=${limit}`, {
+                headers:{
+                  "Content-Type":"application/json",
+                  Accept:"application/json",
+                  Authorization:`Bearer ${access}`,
+                },
+              })).data.items.map(({name, artists, album}) => ({
+                name,
+                artist:artists[0].name,
+                artwork:album.images[0].url,
+                played_at: null,
+              }))
+              //Ensure no duplicate are added
+              for (const track of loaded) {
+                if (!tracks.map(({name}) => name).includes(track.name))
+                  tracks.push(track)
+              }
+            }
+            //Handle errors
+            catch (error) {
+              if (error.isAxiosError) {
+                const status = error.response?.status
+                const description = error.response.data?.error_description ?? null
                 const message = `API returned ${status}${description ? ` (${description})` : ""}`
                 error = error.response?.data ?? null
                 throw {error:{message, instance:error}, ...raw}

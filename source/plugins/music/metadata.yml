@@ -43,6 +43,7 @@ inputs:
     values:
       - playlist # Display tracks from an embed playlist randomly
       - recent   # Display recently listened tracks
+      - top   # Display top listened tracks
 
   # Embed playlist url (i.e. url used by music player iframes)
   plugin_music_playlist:
