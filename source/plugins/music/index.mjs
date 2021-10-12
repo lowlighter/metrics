@@ -40,7 +40,7 @@ export default async function({login, imports, data, q, account}, {enabled = fal
     let tracks = null
 
     //Load inputs
-    let {provider, mode, playlist, limit, user, "played.at":played_at} = imports.metadata.plugins.music.inputs({data, account, q})
+    let {provider, mode, playlist, limit, user, "played.at":played_at, "time.range":time_range} = imports.metadata.plugins.music.inputs({data, account, q})
     //Auto-guess parameters
     if ((playlist) && (!mode))
       mode = "playlist"
@@ -237,6 +237,8 @@ export default async function({login, imports, data, q, account}, {enabled = fal
               throw {error:{message:"Spotify token must contain client id/secret and refresh token"}}
             } else if (limit > 50) {
               throw {error:{message:"Spotify top limit cannot be greater than 50"}}
+            } else if (!["short", "medium", "long"].includes(time_range)) {
+              throw {error:{message:"Top tracks time range must be one of short, medium or long"}}
             }
             //API call and parse tracklist
             try {
@@ -251,7 +253,7 @@ export default async function({login, imports, data, q, account}, {enabled = fal
               //Retrieve tracks
               console.debug(`metrics/compute/${login}/plugins > music > querying spotify api`)
               tracks = []
-              const loaded = (await imports.axios.get(`https://api.spotify.com/v1/me/top/tracks?limit=${limit}`, {
+              const loaded = (await imports.axios.get(`https://api.spotify.com/v1/me/top/tracks?time_range=${time_range}_term&limit=${limit}`, {
                 headers:{
                   "Content-Type":"application/json",
                   Accept:"application/json",

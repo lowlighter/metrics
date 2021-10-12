@@ -976,6 +976,12 @@ inputs:
   plugin_music_played_at:
     description: Display when the track was played
     default: no
+
+  # Time period for top tracks
+  # This is only used the "top" mode as an optional setting
+  plugin_music_time_range:
+    description: Time period for top tracks
+    default: short
   
   # Username on music provider service
   plugin_music_user:

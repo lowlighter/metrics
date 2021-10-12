@@ -66,6 +66,16 @@ inputs:
     type: boolean
     default: no
 
+  # Time range for "top" mode
+  plugin_music_time_range:
+    description: Plugin mode
+    type: string
+    default: short  # Defaults to "short" (4 weeks)
+    values:
+      - short # Top tracks from past 4 weeks
+      - medium   # Top tracks from past 6 months
+      - long   # Top tracks from several years
+
   # Username on music provider service
   plugin_music_user:
     description: Music provider username
