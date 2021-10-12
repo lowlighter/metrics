@@ -43,7 +43,7 @@ inputs:
     values:
       - playlist # Display tracks from an embed playlist randomly
       - recent   # Display recently listened tracks
-      - top   # Display top listened tracks
+      - top   # Display top listened artists/tracks
 
   # Embed playlist url (i.e. url used by music player iframes)
   plugin_music_playlist:
@@ -72,9 +72,9 @@ inputs:
     type: string
     default: short  # Defaults to "short" (4 weeks)
     values:
-      - short # Top tracks from past 4 weeks
-      - medium   # Top tracks from past 6 months
-      - long   # Top tracks from several years
+      - short # Top artists/tracks from past 4 weeks
+      - medium   # Top artists/tracks from past 6 months
+      - long   # Top artists/tracks from several years
 
   # Option for "top" mode to select tracks or artists
   plugin_music_top_type:

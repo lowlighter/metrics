@@ -223,7 +223,7 @@ Register your API key to finish setup.
     plugin_music: yes
     plugin_music_provider: lastfm  # Use Last.fm as provider
     plugin_music_mode: top         # Set plugin mode
-    plugin_music_top_type: artists # Set type for "top" mode, either tracks or artists
+    plugin_music_top_type: artists # Set type for "top" mode; either tracks or artists
     plugin_music_limit: 4          # Limit to 4 entries
     plugin_music_time_range: long  # Set time range for "top" mode; either short (4 weeks), medium (6 months) or long (several years)
     plugin_music_user: .user.login # Use same username as GitHub login
