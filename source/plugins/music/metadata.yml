@@ -76,6 +76,15 @@ inputs:
       - medium   # Top tracks from past 6 months
       - long   # Top tracks from several years
 
+  # Option for "top" mode to select tracks or artists
+  plugin_music_top_type:
+    description: Whether to show tracks or artits in top mode
+    type: string
+    default: tracks
+    values:
+      - tracks
+      - artists
+
   # Username on music provider service
   plugin_music_user:
     description: Music provider username

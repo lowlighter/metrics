@@ -980,8 +980,13 @@ inputs:
   # Time period for top tracks
   # This is only used the "top" mode as an optional setting
   plugin_music_time_range:
-    description: Time period for top tracks
+    description: Time period for top mode
     default: short
+
+  # Option for "top" mode to select tracks or artists
+  plugin_music_top_type:
+    description: Whether to show tracks or artits in top mode
+    default: tracks
   
   # Username on music provider service
   plugin_music_user:

@@ -40,7 +40,7 @@ export default async function({login, imports, data, q, account}, {enabled = fal
     let tracks = null
 
     //Load inputs
-    let {provider, mode, playlist, limit, user, "played.at":played_at, "time.range":time_range} = imports.metadata.plugins.music.inputs({data, account, q})
+    let {provider, mode, playlist, limit, user, "played.at":played_at, "time.range":time_range, "top.type":top_type} = imports.metadata.plugins.music.inputs({data, account, q})
     //Auto-guess parameters
     if ((playlist) && (!mode))
       mode = "playlist"
@@ -239,6 +239,8 @@ export default async function({login, imports, data, q, account}, {enabled = fal
               throw {error:{message:"Spotify top limit cannot be greater than 50"}}
             } else if (!["short", "medium", "long"].includes(time_range)) {
               throw {error:{message:"Top tracks time range must be one of short, medium or long"}}
+            } else if (!["tracks", "artists"].includes(top_type)) {
+              throw {error:{message:"Top tracks type must be one of tracks or artists"}}
             }
             //API call and parse tracklist
             try {
@@ -253,18 +255,42 @@ export default async function({login, imports, data, q, account}, {enabled = fal
               //Retrieve tracks
               console.debug(`metrics/compute/${login}/plugins > music > querying spotify api`)
               tracks = []
-              const loaded = (await imports.axios.get(`https://api.spotify.com/v1/me/top/tracks?time_range=${time_range}_term&limit=${limit}`, {
-                headers:{
-                  "Content-Type":"application/json",
-                  Accept:"application/json",
-                  Authorization:`Bearer ${access}`,
-                },
-              })).data.items.map(({name, artists, album}) => ({
-                name,
-                artist:artists[0].name,
-                artwork:album.images[0].url,
-                played_at: null,
-              }))
+              const loaded =
+                top_type === "artists"
+                  ? (
+                      await imports.axios.get(
+                        `https://api.spotify.com/v1/me/top/artists?time_range=${time_range}_term&limit=${limit}`,
+                        {
+                          headers: {
+                            "Content-Type": "application/json",
+                            Accept: "application/json",
+                            Authorization: `Bearer ${access}`,
+                          },
+                        }
+                      )
+                    ).data.items.map(({ name, genres, images }) => ({
+                      name,
+                      artist: genres.join(" • "),
+                      artwork: images[0].url,
+                      played_at: null,
+                    }))
+                  : (
+                      await imports.axios.get(
+                        `https://api.spotify.com/v1/me/top/tracks?time_range=${time_range}_term&limit=${limit}`,
+                        {
+                          headers: {
+                            "Content-Type": "application/json",
+                            Accept: "application/json",
+                            Authorization: `Bearer ${access}`,
+                          },
+                        }
+                      )
+                    ).data.items.map(({ name, artists, album }) => ({
+                      name,
+                      artist: artists[0].name,
+                      artwork: album.images[0].url,
+                      played_at: null,
+                    }));
               //Ensure no duplicate are added
               for (const track of loaded) {
                 if (!tracks.map(({name}) => name).includes(track.name))
