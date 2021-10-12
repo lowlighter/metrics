@@ -149,7 +149,7 @@ It should return a JSON response with the following content:
 {
   "access_token":"********",
   "expires_in": 3600,
-  "scope":"user-read-recently-played",
+  "scope":"user-read-recently-played user-top-read",
   "token_type":"Bearer",
   "refresh_token":"********"
 }
