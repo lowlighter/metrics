@@ -272,7 +272,6 @@ export default async function({login, imports, data, q, account}, {enabled = fal
                       name,
                       artist: genres.join(" • "),
                       artwork: images[0].url,
-                      played_at: null,
                     }))
                   : (
                       await imports.axios.get(
@@ -289,7 +288,6 @@ export default async function({login, imports, data, q, account}, {enabled = fal
                       name,
                       artist: artists[0].name,
                       artwork: album.images[0].url,
-                      played_at: null,
                     }));
               //Ensure no duplicate are added
               for (const track of loaded) {
@@ -302,6 +300,63 @@ export default async function({login, imports, data, q, account}, {enabled = fal
               if (error.isAxiosError) {
                 const status = error.response?.status
                 const description = error.response.data?.error_description ?? null
+                const message = `API returned ${status}${description ? ` (${description})` : ""}`
+                error = error.response?.data ?? null
+                throw {error:{message, instance:error}, ...raw}
+              }
+              throw error
+            }
+            break
+          }
+          //Last.fm
+          case "lastfm": {
+            if (!["short", "medium", "long"].includes(time_range)) {
+              throw {error:{message:"Top tracks time range must be one of short, medium or long"}}
+            } else if (!["tracks", "artists"].includes(top_type)) {
+              throw {error:{message:"Top tracks type must be one of tracks or artists"}}
+            }
+            //API call and parse tracklist
+            try {
+              console.debug(`metrics/compute/${login}/plugins > music > querying lastfm api`)
+              const period = time_range === "short" ? "1month" : time_range === "medium" ? "6month" : "overall"
+              tracks =
+                top_type === "artists"
+                  ? (
+                      await imports.axios.get(
+                        `https://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user=${user}&api_key=${token}&limit=${limit}&period=${period}&format=json`,
+                        {
+                          headers: {
+                            "User-Agent": "lowlighter/metrics",
+                            Accept: "application/json",
+                          },
+                        }
+                      )
+                    ).data.topartists.artist.map((artist) => ({
+                      name: artist.name,
+                      artist: "Play count: " + artist.playcount,
+                      artwork: artist.image.reverse()[0]["#text"],
+                    }))
+                  : (
+                      await imports.axios.get(
+                        `https://ws.audioscrobbler.com/2.0/?method=user.gettoptracks&user=${user}&api_key=${token}&limit=${limit}&period=${period}&format=json`,
+                        {
+                          headers: {
+                            "User-Agent": "lowlighter/metrics",
+                            Accept: "application/json",
+                          },
+                        }
+                      )
+                    ).data.toptracks.track.map((track) => ({
+                      name: track.name,
+                      artist: track.artist.name,
+                      artwork: track.image.reverse()[0]["#text"],
+                    }));
+            }
+            //Handle errors
+            catch (error) {
+              if (error.isAxiosError) {
+                const status = error.response?.status
+                const description = error.response.data?.message ?? null
                 const message = `API returned ${status}${description ? ` (${description})` : ""}`
                 error = error.response?.data ?? null
                 throw {error:{message, instance:error}, ...raw}
