@@ -68,7 +68,7 @@ inputs:
 
   # Time range for "top" mode
   plugin_music_time_range:
-    description: Plugin mode
+    description: Time period for top mode
     type: string
     default: short  # Defaults to "short" (4 weeks)
     values:
