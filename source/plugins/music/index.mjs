@@ -233,15 +233,15 @@ export default async function({login, imports, data, q, account}, {enabled = fal
             //Prepare credentials
             const [client_id, client_secret, refresh_token] = token.split(",").map(part => part.trim())
             if ((!client_id) || (!client_secret) || (!refresh_token))
-            {
               throw {error:{message:"Spotify token must contain client id/secret and refresh token"}}
-            } else if (limit > 50) {
+
+ else if (limit > 50)
               throw {error:{message:"Spotify top limit cannot be greater than 50"}}
-            } else if (!["short", "medium", "long"].includes(time_range)) {
+             else if (!["short", "medium", "long"].includes(time_range))
               throw {error:{message:"Top tracks time range must be one of short, medium or long"}}
-            } else if (!["tracks", "artists"].includes(top_type)) {
+             else if (!["tracks", "artists"].includes(top_type))
               throw {error:{message:"Top tracks type must be one of tracks or artists"}}
-            }
+
             //API call and parse tracklist
             try {
               //Request access token
@@ -288,7 +288,7 @@ export default async function({login, imports, data, q, account}, {enabled = fal
                       name,
                       artist: artists[0].name,
                       artwork: album.images[0].url,
-                    }));
+                    }))
               //Ensure no duplicate are added
               for (const track of loaded) {
                 if (!tracks.map(({name}) => name).includes(track.name))
@@ -310,11 +310,11 @@ export default async function({login, imports, data, q, account}, {enabled = fal
           }
           //Last.fm
           case "lastfm": {
-            if (!["short", "medium", "long"].includes(time_range)) {
+            if (!["short", "medium", "long"].includes(time_range))
               throw {error:{message:"Top tracks time range must be one of short, medium or long"}}
-            } else if (!["tracks", "artists"].includes(top_type)) {
+             else if (!["tracks", "artists"].includes(top_type))
               throw {error:{message:"Top tracks type must be one of tracks or artists"}}
-            }
+
             //API call and parse tracklist
             try {
               console.debug(`metrics/compute/${login}/plugins > music > querying lastfm api`)
@@ -331,9 +331,9 @@ export default async function({login, imports, data, q, account}, {enabled = fal
                           },
                         }
                       )
-                    ).data.topartists.artist.map((artist) => ({
+                    ).data.topartists.artist.map(artist => ({
                       name: artist.name,
-                      artist: "Play count: " + artist.playcount,
+                      artist: `Play count: ${artist.playcount}`,
                       artwork: artist.image.reverse()[0]["#text"],
                     }))
                   : (
@@ -346,11 +346,11 @@ export default async function({login, imports, data, q, account}, {enabled = fal
                           },
                         }
                       )
-                    ).data.toptracks.track.map((track) => ({
+                    ).data.toptracks.track.map(track => ({
                       name: track.name,
                       artist: track.artist.name,
                       artwork: track.image.reverse()[0]["#text"],
-                    }));
+                    }))
             }
             //Handle errors
             catch (error) {

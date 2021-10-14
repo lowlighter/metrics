@@ -61,7 +61,8 @@ export default function({faker, url, options, login = faker.internet.userName()}
           },
         },
       })
-    } else if (/user.gettoptracks/.test(url)) {
+    }
+ else if (/user.gettoptracks/.test(url)) {
       console.debug(`metrics/compute/mocks > mocking lastfm api result > ${url}`)
       const artist = faker.random.word()
       const track = faker.random.words(5)
