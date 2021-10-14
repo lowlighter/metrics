@@ -50,6 +50,8 @@ export default async function({login, imports, data, q, account}, {enabled = fal
           provider = name
       }
     }
+    if (("music.top.type" in q || "music.time.range" in q) && !mode)
+      mode = "top"
     if (!mode)
       mode = "recent"
     //Provider
