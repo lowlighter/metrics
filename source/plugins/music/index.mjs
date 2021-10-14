@@ -226,7 +226,7 @@ export default async function({login, imports, data, q, account}, {enabled = fal
         break
       }
       case "top": {
-        var time_msg;
+        let time_msg
         switch (time_range) {
           case "short":
             time_msg = "from the last month"
@@ -242,9 +242,18 @@ export default async function({login, imports, data, q, account}, {enabled = fal
         }
 
         if (top_type === "artists") {
-          Object.defineProperty(modes, "top", {get() { return `Top played artists ${time_msg}` }})
-        } else {
-          Object.defineProperty(modes, "top", {get() { return `Top played tracks ${time_msg}` }})
+          Object.defineProperty(modes, "top", {
+            get() {
+              return `Top played artists ${time_msg}`
+            }
+          })
+        }
+        else {
+          Object.defineProperty(modes, "top", {
+            get() {
+              return `Top played tracks ${time_msg}`
+            }
+          })
         }
 
         //Handle provider

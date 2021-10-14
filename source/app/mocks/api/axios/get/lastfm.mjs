@@ -109,7 +109,8 @@ export default function({faker, url, options, login = faker.internet.userName()}
           },
         },
       })
-    } if (/user.gettopartists/.test(url)) {
+    }
+ else if (/user.gettopartists/.test(url)) {
       console.debug(`metrics/compute/mocks > mocking lastfm api result > ${url}`)
       const artist = faker.random.word()
       const playcount = faker.random.number()
