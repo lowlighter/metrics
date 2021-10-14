@@ -45,6 +45,10 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
     if (conf.settings["debug.headless"])
       imports.puppeteer.headless = false
 
+    //Metrics insights
+    if (convert === "insights")
+      return metrics.insights({login, imports})
+
     //Partial parts
     {
       data.partials = new Set([
@@ -208,4 +212,30 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
     //Generic error
     throw error
   }
+}
+
+//Metrics insights static render
+metrics.insights = async function ({login, imports}) {
+  console.debug(`metrics/compute/${login} > insights`)
+  const server = "http://localhost:4000"
+  const browser = await imports.puppeteer.launch()
+  const page = await browser.newPage()
+  console.debug(`metrics/compute/${login} > insights > generating data`)
+  await page.goto(`${server}/about/${login}?embed=1`)
+  await page.waitForSelector(".container .user", {timeout:10*60*1000})
+  console.debug(`metrics/compute/${login} > insights > rendering data`)
+  const rendered = `
+    <html>
+      <head>
+        <meta charset="utf-8">
+        <title>Metrics insights: ${login}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      </head>
+      <body>
+        ${await page.evaluate(() => document.querySelector("main").outerHTML)}
+        ${(await Promise.all([".css/style.vars.css", ".css/style.css", "about/.statics/style.css"].map(path => utils.axios.get(`${server}/${path}`)))).map(({data:style}) => `<style>${style}</style>`).join("\n")}
+      </body>
+    </html>`
+  await browser.close()
+  return {mime:"text/html", rendered}
 }

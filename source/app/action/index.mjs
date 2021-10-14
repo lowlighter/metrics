@@ -96,8 +96,8 @@ async function wait(seconds) {
       ...config
     } = metadata.plugins.core.inputs.action({core})
     const q = {...query, ...(_repo ? {repo:_repo} : null), template}
-    const _output = ["svg", "jpeg", "png", "json", "markdown", "markdown-pdf"].includes(config["config.output"]) ? config["config.output"] : metadata.templates[template].formats[0] ?? null
-    const filename = _filename.replace(/[*]/g, {jpeg:"jpg", markdown:"md", "markdown-pdf":"pdf"}[_output] ?? _output)
+    const _output = ["svg", "jpeg", "png", "json", "markdown", "markdown-pdf", "insights"].includes(config["config.output"]) ? config["config.output"] : metadata.templates[template].formats[0] ?? null
+    const filename = _filename.replace(/[*]/g, {jpeg:"jpg", markdown:"md", "markdown-pdf":"pdf", insights:"html"}[_output] ?? _output)
 
     //Docker image
     if (_image)

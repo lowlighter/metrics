@@ -286,7 +286,7 @@ export default async function({mock, nosettings} = {}) {
         conf,
         die:q["plugins.errors.fatal"] ?? false,
         verify:q.verify ?? false,
-        convert:["svg", "jpeg", "png", "json", "markdown", "markdown-pdf"].includes(q["config.output"]) ? q["config.output"] : null,
+        convert:["svg", "jpeg", "png", "json", "markdown", "markdown-pdf", "insights"].includes(q["config.output"]) ? q["config.output"] : null,
       }, {Plugins, Templates})
       //Cache
       if ((!debug) && (cached)) {
