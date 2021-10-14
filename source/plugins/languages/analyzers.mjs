@@ -1,140 +1,154 @@
 import linguist from "linguist-js"
 
 /**Indepth analyzer */
-export async function indepth({login, data, imports, repositories}, {skipped, categories}) {
-
-  //Compute repositories stats from fetched repositories
-  const results = {total:0, lines:{}, stats:{}, colors:{}, commits:0, files:0, missed:0}
-  for (const repository of repositories) {
-    //Skip repository if asked
-    if ((skipped.includes(repository.name.toLocaleLowerCase())) || (skipped.includes(`${repository.owner.login}/${repository.name}`.toLocaleLowerCase()))) {
-      console.debug(`metrics/compute/${login}/plugins > languages > skipped repository ${repository.owner.login}/${repository.name}`)
-      continue
+export async function indepth({login, data, imports, repositories}, {skipped, categories, timeout}) {
+  return new Promise(async (solve, reject) => {
+    //Timeout
+    if (Number.isFinite(timeout)) {
+      console.debug(`metrics/compute/${login}/plugins > languages > timeout set to ${timeout}m`)
+      setTimeout(() => reject(`Reached maximum execution time of ${timeout}m for analysis`), timeout * 60 * 1000)
     }
 
-    //Repository handle
-    const repo = `${repository.owner.login}/${repository.name}`
-    console.debug(`metrics/compute/${login}/plugins > languages > indepth > checking ${repo}`)
+    //Compute repositories stats from fetched repositories
+    const results = {total:0, lines:{}, stats:{}, colors:{}, commits:0, files:0, missed:0}
+    for (const repository of repositories) {
+      //Skip repository if asked
+      if ((skipped.includes(repository.name.toLocaleLowerCase())) || (skipped.includes(`${repository.owner.login}/${repository.name}`.toLocaleLowerCase()))) {
+        console.debug(`metrics/compute/${login}/plugins > languages > skipped repository ${repository.owner.login}/${repository.name}`)
+        continue
+      }
 
-    //Temporary directory
-    const path = imports.paths.join(imports.os.tmpdir(), `${data.user.databaseId}-${repo.replace(/[^\w]/g, "_")}`)
-    console.debug(`metrics/compute/${login}/plugins > languages > indepth > cloning ${repo} to temp dir ${path}`)
+      //Repository handle
+      const repo = `${repository.owner.login}/${repository.name}`
+      console.debug(`metrics/compute/${login}/plugins > languages > indepth > checking ${repo}`)
 
-    //Process
-    try {
-      //Git clone into temporary directory
-      await imports.fs.rm(path, {recursive:true, force:true})
-      await imports.fs.mkdir(path, {recursive:true})
-      const git = await imports.git(path)
-      await git.clone(`https://github.com/${repo}`, ".").status()
+      //Temporary directory
+      const path = imports.paths.join(imports.os.tmpdir(), `${data.user.databaseId}-${repo.replace(/[^\w]/g, "_")}`)
+      console.debug(`metrics/compute/${login}/plugins > languages > indepth > cloning ${repo} to temp dir ${path}`)
 
-      //Analyze repository
-      await analyze(arguments[0], {results, path, categories})
+      //Process
+      try {
+        //Git clone into temporary directory
+        await imports.fs.rm(path, {recursive:true, force:true})
+        await imports.fs.mkdir(path, {recursive:true})
+        const git = await imports.git(path)
+        await git.clone(`https://github.com/${repo}`, ".").status()
+
+        //Analyze repository
+        await analyze(arguments[0], {results, path, categories})
+      }
+      catch (error) {
+        console.debug(`metrics/compute/${login}/plugins > languages > indepth > an error occured while processing ${repo}, skipping...`)
+      }
+      finally {
+        //Cleaning
+        console.debug(`metrics/compute/${login}/plugins > languages > indepth > cleaning temp dir ${path}`)
+        await imports.fs.rm(path, {recursive:true, force:true})
+      }
     }
-    catch (error) {
-      console.debug(`metrics/compute/${login}/plugins > languages > indepth > an error occured while processing ${repo}, skipping...`)
-    }
-    finally {
-      //Cleaning
-      console.debug(`metrics/compute/${login}/plugins > languages > indepth > cleaning temp dir ${path}`)
-      await imports.fs.rm(path, {recursive:true, force:true})
-    }
-  }
-  return results
+    solve(results)
+  })
 }
 
 /**Recent languages activity */
-export async function recent({login, data, imports, rest, account}, {skipped = [], categories, days = 0, load = 0, tempdir = "recent"}) {
-
-  //Get user recent activity
-  console.debug(`metrics/compute/${login}/plugins > languages > querying api`)
-  const commits = [], pages = Math.ceil(load/100), results = {total:0, lines:{}, stats:{}, colors:{}, commits:0, files:0, missed:0, days}
-  try {
-    for (let page = 1; page <= pages; page++) {
-      console.debug(`metrics/compute/${login}/plugins > languages > loading page ${page}`)
-      commits.push(...(await rest.activity.listEventsForAuthenticatedUser({username:login, per_page:100, page})).data
-        .filter(({type}) => type === "PushEvent")
-        .filter(({actor}) => account === "organization" ? true : actor.login?.toLocaleLowerCase() === login.toLocaleLowerCase())
-        .filter(({repo:{name:repo}}) => (!skipped.includes(repo.toLocaleLowerCase())) && (!skipped.includes(repo.toLocaleLowerCase().split("/").pop())))
-        .filter(({created_at}) => new Date(created_at) > new Date(Date.now() - days * 24 * 60 * 60 * 1000))
-      )
+export async function recent({login, data, imports, rest, account}, {skipped = [], categories, days = 0, load = 0, tempdir = "recent", timeout}) {
+  return new Promise(async (solve, reject) => {
+    //Timeout
+    if (Number.isFinite(timeout)) {
+      console.debug(`metrics/compute/${login}/plugins > languages > timeout set to ${timeout}m`)
+      setTimeout(() => reject(`Reached maximum execution time of ${timeout}m for analysis`), timeout * 60 * 1000)
     }
-  }
-  catch {
-    console.debug(`metrics/compute/${login}/plugins > languages > no more page to load`)
-  }
-  console.debug(`metrics/compute/${login}/plugins > languages > ${commits.length} commits loaded`)
-  results.latest = Math.round((new Date().getTime() - new Date(commits.slice(-1).shift()?.created_at).getTime()) / (1000 * 60 * 60 * 24))
 
-  //Retrieve edited files and filter edited lines (those starting with +/-) from patches
-  console.debug(`metrics/compute/${login}/plugins > languages > loading patches`)
-  console.debug(`metrics/compute/${login}/plugins > languages > commits authoring set to ${JSON.stringify(data.shared["commits.authoring"])}`)
-  let patches = [
-    ...await Promise.allSettled(
-      commits
-        .flatMap(({payload}) => payload.commits)
-        .filter(({author}) => data.shared["commits.authoring"].filter(authoring => author?.email?.toLocaleLowerCase().includes(authoring)||author?.name?.toLocaleLowerCase().includes(authoring)).length)
-        .map(commit => commit.url)
-        .map(async commit => (await rest.request(commit)).data),
-    )
-  ]
-  .filter(({status}) => status === "fulfilled")
-  .map(({value}) => value)
-  .filter(({parents}) => parents.length <= 1)
-  .map(({files}) => files)
-  .flatMap(files => files.map(file => ({name:imports.paths.basename(file.filename), directory:imports.paths.dirname(file.filename), patch:file.patch ?? "", repo:file.raw_url?.match(/(?<=^https:..github.com\/)(?<repo>.*)(?=\/raw)/)?.groups.repo ?? "_"})))
-  .map(({name, directory, patch, repo}) => ({name, directory:`${repo.replace(/[/]/g, "@")}/${directory}`, patch:patch.split("\n").filter(line => /^[+]/.test(line)).map(line => line.substring(1)).join("\n")}))
-
-  //Temporary directory
-  const path = imports.paths.join(imports.os.tmpdir(), `${data.user.databaseId}-${tempdir}`)
-  console.debug(`metrics/compute/${login}/plugins > languages > creating temp dir ${path} with ${patches.length} files`)
-
-  //Process
-  try {
-    //Save patches in temporary directory matching respective repository and filename
-    await imports.fs.rm(path, {recursive:true, force:true})
-    await imports.fs.mkdir(path, {recursive:true})
-    await Promise.all(patches.map(async ({name, directory, patch}) => {
-      await imports.fs.mkdir(imports.paths.join(path, directory), {recursive:true})
-      imports.fs.writeFile(imports.paths.join(path, directory, name), patch)
-    }))
-
-    //Process temporary repositories
-    for (const directory of await imports.fs.readdir(path)) {
-      //Pull gitattributes if possible
-      for (const branch of ["main", "master"]) {
-        const repo = directory.replace("@", "/")
-        try {
-          await imports.fs.writeFile(imports.paths.join(path, directory, ".gitattributes"), await imports.fetch(`https://raw.githubusercontent.com/${repo}/${branch}/.gitattributes`).then(response => response.text()).catch(() => ""))
-          console.debug(`metrics/compute/${login}/plugins > languages > successfully fetched .gitattributes for ${repo}`)
-          break
-        }
-        catch {
-          console.debug(`metrics/compute/${login}/plugins > languages > cannot load .gitattributes on branch ${branch} for ${repo}`)
-        }
+    //Get user recent activity
+    console.debug(`metrics/compute/${login}/plugins > languages > querying api`)
+    const commits = [], pages = Math.ceil(load/100), results = {total:0, lines:{}, stats:{}, colors:{}, commits:0, files:0, missed:0, days}
+    try {
+      for (let page = 1; page <= pages; page++) {
+        console.debug(`metrics/compute/${login}/plugins > languages > loading page ${page}`)
+        commits.push(...(await rest.activity.listEventsForAuthenticatedUser({username:login, per_page:100, page})).data
+          .filter(({type}) => type === "PushEvent")
+          .filter(({actor}) => account === "organization" ? true : actor.login?.toLocaleLowerCase() === login.toLocaleLowerCase())
+          .filter(({repo:{name:repo}}) => (!skipped.includes(repo.toLocaleLowerCase())) && (!skipped.includes(repo.toLocaleLowerCase().split("/").pop())))
+          .filter(({created_at}) => new Date(created_at) > new Date(Date.now() - days * 24 * 60 * 60 * 1000))
+        )
       }
-
-      //Create temporary git repository
-      console.debug(`metrics/compute/${login}/plugins > languages > creating temp git repository for ${directory}`)
-      const git = await imports.git(imports.paths.join(path, directory))
-      await git.init().add(".").addConfig("user.name", data.shared["commits.authoring"]?.[0] ?? login).addConfig("user.email", "<>").commit("linguist").status()
-
-      //Analyze repository
-      await analyze(arguments[0], {results, path:imports.paths.join(path, directory), categories})
-
-      //Since we reproduce a "partial repository" with a single commit, use number of commits retrieved instead
-      results.commits = commits.length
     }
-  }
-  catch {
-    console.debug(`metrics/compute/${login}/plugins > languages > an error occured while processing recently used languages`)
-  }
-  finally {
-    //Cleaning
-    console.debug(`metrics/compute/${login}/plugins > languages > cleaning temp dir ${path}`)
-    await imports.fs.rm(path, {recursive:true, force:true})
-  }
-  return results
+    catch {
+      console.debug(`metrics/compute/${login}/plugins > languages > no more page to load`)
+    }
+    console.debug(`metrics/compute/${login}/plugins > languages > ${commits.length} commits loaded`)
+    results.latest = Math.round((new Date().getTime() - new Date(commits.slice(-1).shift()?.created_at).getTime()) / (1000 * 60 * 60 * 24))
+
+    //Retrieve edited files and filter edited lines (those starting with +/-) from patches
+    console.debug(`metrics/compute/${login}/plugins > languages > loading patches`)
+    console.debug(`metrics/compute/${login}/plugins > languages > commits authoring set to ${JSON.stringify(data.shared["commits.authoring"])}`)
+    let patches = [
+      ...await Promise.allSettled(
+        commits
+          .flatMap(({payload}) => payload.commits)
+          .filter(({author}) => data.shared["commits.authoring"].filter(authoring => author?.email?.toLocaleLowerCase().includes(authoring)||author?.name?.toLocaleLowerCase().includes(authoring)).length)
+          .map(commit => commit.url)
+          .map(async commit => (await rest.request(commit)).data),
+      )
+    ]
+    .filter(({status}) => status === "fulfilled")
+    .map(({value}) => value)
+    .filter(({parents}) => parents.length <= 1)
+    .map(({files}) => files)
+    .flatMap(files => files.map(file => ({name:imports.paths.basename(file.filename), directory:imports.paths.dirname(file.filename), patch:file.patch ?? "", repo:file.raw_url?.match(/(?<=^https:..github.com\/)(?<repo>.*)(?=\/raw)/)?.groups.repo ?? "_"})))
+    .map(({name, directory, patch, repo}) => ({name, directory:`${repo.replace(/[/]/g, "@")}/${directory}`, patch:patch.split("\n").filter(line => /^[+]/.test(line)).map(line => line.substring(1)).join("\n")}))
+
+    //Temporary directory
+    const path = imports.paths.join(imports.os.tmpdir(), `${data.user.databaseId}-${tempdir}`)
+    console.debug(`metrics/compute/${login}/plugins > languages > creating temp dir ${path} with ${patches.length} files`)
+
+    //Process
+    try {
+      //Save patches in temporary directory matching respective repository and filename
+      await imports.fs.rm(path, {recursive:true, force:true})
+      await imports.fs.mkdir(path, {recursive:true})
+      await Promise.all(patches.map(async ({name, directory, patch}) => {
+        await imports.fs.mkdir(imports.paths.join(path, directory), {recursive:true})
+        imports.fs.writeFile(imports.paths.join(path, directory, name), patch)
+      }))
+
+      //Process temporary repositories
+      for (const directory of await imports.fs.readdir(path)) {
+        //Pull gitattributes if possible
+        for (const branch of ["main", "master"]) {
+          const repo = directory.replace("@", "/")
+          try {
+            await imports.fs.writeFile(imports.paths.join(path, directory, ".gitattributes"), await imports.fetch(`https://raw.githubusercontent.com/${repo}/${branch}/.gitattributes`).then(response => response.text()).catch(() => ""))
+            console.debug(`metrics/compute/${login}/plugins > languages > successfully fetched .gitattributes for ${repo}`)
+            break
+          }
+          catch {
+            console.debug(`metrics/compute/${login}/plugins > languages > cannot load .gitattributes on branch ${branch} for ${repo}`)
+          }
+        }
+
+        //Create temporary git repository
+        console.debug(`metrics/compute/${login}/plugins > languages > creating temp git repository for ${directory}`)
+        const git = await imports.git(imports.paths.join(path, directory))
+        await git.init().add(".").addConfig("user.name", data.shared["commits.authoring"]?.[0] ?? login).addConfig("user.email", "<>").commit("linguist").status()
+
+        //Analyze repository
+        await analyze(arguments[0], {results, path:imports.paths.join(path, directory), categories})
+
+        //Since we reproduce a "partial repository" with a single commit, use number of commits retrieved instead
+        results.commits = commits.length
+      }
+    }
+    catch {
+      console.debug(`metrics/compute/${login}/plugins > languages > an error occured while processing recently used languages`)
+    }
+    finally {
+      //Cleaning
+      console.debug(`metrics/compute/${login}/plugins > languages > cleaning temp dir ${path}`)
+      await imports.fs.rm(path, {recursive:true, force:true})
+    }
+    solve(results)
+  })
 }
 
 /**Analyze a single repository */
