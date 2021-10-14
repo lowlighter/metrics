@@ -233,14 +233,9 @@ export default async function({login, imports, data, q, account}, {enabled = fal
             //Prepare credentials
             const [client_id, client_secret, refresh_token] = token.split(",").map(part => part.trim())
             if ((!client_id) || (!client_secret) || (!refresh_token))
-              throw {error:{message:"Spotify token must contain client id/secret and refresh token"}}
-
- else if (limit > 50)
+              throw { error: { message: "Spotify token must contain client id/secret and refresh token" } }
+            else if (limit > 50)
               throw {error:{message:"Spotify top limit cannot be greater than 50"}}
-             else if (!["short", "medium", "long"].includes(time_range))
-              throw {error:{message:"Top tracks time range must be one of short, medium or long"}}
-             else if (!["tracks", "artists"].includes(top_type))
-              throw {error:{message:"Top tracks type must be one of tracks or artists"}}
 
             //API call and parse tracklist
             try {
@@ -310,11 +305,6 @@ export default async function({login, imports, data, q, account}, {enabled = fal
           }
           //Last.fm
           case "lastfm": {
-            if (!["short", "medium", "long"].includes(time_range))
-              throw {error:{message:"Top tracks time range must be one of short, medium or long"}}
-             else if (!["tracks", "artists"].includes(top_type))
-              throw {error:{message:"Top tracks type must be one of tracks or artists"}}
-
             //API call and parse tracklist
             try {
               console.debug(`metrics/compute/${login}/plugins > music > querying lastfm api`)
