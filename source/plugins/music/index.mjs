@@ -229,10 +229,10 @@ export default async function({login, imports, data, q, account}, {enabled = fal
         var time_msg;
         switch (time_range) {
           case "short":
-            time_msg = "from the past month"
+            time_msg = "from the last month"
             break
           case "medium":
-            time_msg = "from the past 6 months"
+            time_msg = "from the last 6 months"
             break
           case "long":
             time_msg = "overall"
@@ -241,7 +241,7 @@ export default async function({login, imports, data, q, account}, {enabled = fal
             throw {error:{message:`Unsupported time range "${time_range}"`}, ...raw}
         }
 
-        if (top_type === "artist") {
+        if (top_type === "artists") {
           Object.defineProperty(modes, "top", {get() { return `Top played artists ${time_msg}` }})
         } else {
           Object.defineProperty(modes, "top", {get() { return `Top played tracks ${time_msg}` }})
