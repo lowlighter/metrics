@@ -78,7 +78,7 @@ inputs:
 
   # Option for "top" mode to select tracks or artists
   plugin_music_top_type:
-    description: Whether to show tracks or artits in top mode
+    description: Whether to show tracks or artists in top mode
     type: string
     default: tracks
     values:
