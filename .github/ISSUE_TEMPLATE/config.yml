@@ -1,11 +1,11 @@
-blank_issues_enabled: true
+blank_issues_enabled: false
 contact_links:
+  - name: 🙏 Request help with setup or report a possible issue
+    url: https://github.com/lowlighter/metrics/discussions/new?category=q-a
+    about: Post here when having trouble with setup or configuration
   - name: 💡 Suggest new features
     url: https://github.com/lowlighter/metrics/discussions/new?category=ideas
     about: Submit ideas to help us improve
-  - name: 🙏 Request help with setup
-    url: https://github.com/lowlighter/metrics/discussions/new?category=q-a
-    about: Post here when having trouble with setup or configuration
   - name: 💬 Start a discussion
     url: https://github.com/lowlighter/metrics/discussions/new?category=general
     about: Ask other questions related to this project here

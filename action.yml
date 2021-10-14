@@ -334,7 +334,15 @@ inputs:
     description: Indepth languages processing (see documentation before enabling)
     default: false
   
-  # Language categories to display
+  # Analysis timeout (in minutes)
+  # In case of timeout, it'll automatically fallback to default algorithm
+  # Please be nice with GitHub Actions and disable `plugin_languages_indepth` if your account is not supported
+  # See documentation before enabling
+  plugin_languages_analysis_timeout:
+    description: Languages analysis timeout
+    default: 15
+  
+  # GitHub language categories to display
   plugin_languages_categories:
     description: Language categories to display
     default: markup, programming

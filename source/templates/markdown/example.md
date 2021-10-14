@@ -14,7 +14,7 @@ See [rendering of this file here](https://github.com/lowlighter/lowlighter/blob/
 * Same formatting helpers available in templates can be used too
 
 ```markdown
-I joined GitHub on `{{ f.date(REGISTRATION_DATE, {dateStyle:"short"}) }}`.
+I joined GitHub on `{{ f.date(REGISTRATION_DATE, {date:true}) }}`.
 I contributed to `{{ REPOSITORIES_CONTRIBUTED_TO }}` repositories and made `{{ COMMITS }}` commits.
 ```
 

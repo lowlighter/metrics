@@ -169,7 +169,7 @@
                 <% } %>
                 <% if (plugins.activity.timestamps) { %>
                   <div class="timestamp">
-                    <%= f.date(timestamp, {timeStyle:"short", dateStyle:"short", timeZone:config.timezone?.name}) %>
+                    <%= f.date(timestamp, {time:true, date:true, timeZone:config.timezone?.name}) %>
                   </div>
                 <% } %>
               </section>

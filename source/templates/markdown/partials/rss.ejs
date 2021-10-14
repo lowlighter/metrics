@@ -5,7 +5,7 @@
   <%_ } else if (plugins.rss.feed.length) { _%>
     <%_ for (const {title, link, date} of plugins.rss.feed) { _%>
 * [<%= title %>](<%= link %>)
-  * *Published on <%= f.date(new Date(date), {dateStyle:"short"}) %>*
+  * *Published on <%= f.date(new Date(date), {date:true}) %>*
     <%_ } _%>
   <%_ } else { _%>
 Empty RSS feed

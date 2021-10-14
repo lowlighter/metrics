@@ -120,7 +120,7 @@ export default async function({login, q}, {conf, data, rest, graphql, plugins, q
   data.meta = {
     version:conf.package.version,
     author:conf.package.author,
-    generated:imports.format.date(new Date(), {dateStyle:"short", timeStyle:"short"})
+    generated:imports.format.date(new Date(), {date:true, time:true})
   }
 
   //Debug flags
