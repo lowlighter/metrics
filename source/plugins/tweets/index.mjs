@@ -69,7 +69,7 @@ export default async function({login, imports, data, q, account}, {enabled = fal
 
       //Format text
       console.debug(`metrics/compute/${login}/plugins > tweets > formatting tweet ${tweet.id}`)
-      tweet.createdAt = `${imports.format.date(tweet.created_at, {timeStyle:"short"})} on ${imports.format.date(tweet.created_at, {dateStyle:"short"})}`
+      tweet.createdAt = `${imports.format.date(tweet.created_at, {time:true})} on ${imports.format.date(tweet.created_at, {date:true})}`
       tweet.text = imports.htmlescape(
         //Escape tags
         imports.htmlescape(tweet.text, {"<":true, ">":true})

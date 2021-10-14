@@ -28,7 +28,7 @@ export default async function({login, q, imports, data, computed, graphql, queri
       .map(({title, unlock, ...achievement}) => ({
         prefix:({S:"Master", A:"Super", B:"Great"}[achievement.rank] ?? ""),
         title,
-        unlock:!/invalid date/i.test(unlock) ? `${imports.format.date(unlock, {timeStyle:"short"})} on ${imports.format.date(unlock, {dateStyle:"short"})}` : null,
+        unlock:!/invalid date/i.test(unlock) ? `${imports.format.date(unlock, {time:true})} on ${imports.format.date(unlock, {date:true})}` : null,
         ...achievement,
       }))
       .map(({icon, ...achievement}) => ({icon:icon.replace(/#primary/g, colors[achievement.rank][0]).replace(/#secondary/g, colors[achievement.rank][1]), ...achievement}))

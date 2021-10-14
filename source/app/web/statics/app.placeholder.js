@@ -1131,6 +1131,14 @@
       return `${text.substring(0, length)}…`
     }
     data.f.date = function(string, options) {
+      if (options.date) {
+        delete options.date
+        Object.assign(options, {day:"numeric", month:"short", year:"numeric"})
+      }
+      if (options.time) {
+        delete options.time
+        Object.assign(options, {hour:"2-digit", minute:"2-digit", second:"2-digit"})
+      }
       return new Intl.DateTimeFormat("en-GB", options).format(new Date(string))
     }
     data.f.license = function(text) {
