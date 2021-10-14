@@ -226,6 +226,27 @@ export default async function({login, imports, data, q, account}, {enabled = fal
         break
       }
       case "top": {
+        var time_msg;
+        switch (time_range) {
+          case "short":
+            time_msg = "from the past month"
+            break
+          case "medium":
+            time_msg = "from the past 6 months"
+            break
+          case "long":
+            time_msg = "overall"
+            break
+          default:
+            throw {error:{message:`Unsupported time range "${time_range}"`}, ...raw}
+        }
+
+        if (top_type === "artist") {
+          Object.defineProperty(modes, "top", {get() { return `Top played artists ${time_msg}` }})
+        } else {
+          Object.defineProperty(modes, "top", {get() { return `Top played tracks ${time_msg}` }})
+        }
+
         //Handle provider
         switch (provider) {
           //Spotify
