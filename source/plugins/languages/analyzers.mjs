@@ -2,7 +2,7 @@ import linguist from "linguist-js"
 
 /**Indepth analyzer */
 export async function indepth({login, data, imports, repositories}, {skipped, categories, timeout}) {
-  return await new Promise((solve, reject) => {
+  return await new Promise(async (solve, reject) => {
     //Timeout
     if (Number.isFinite(timeout)) {
       console.debug(`metrics/compute/${login}/plugins > languages > timeout set to ${timeout}m`)
@@ -52,7 +52,7 @@ export async function indepth({login, data, imports, repositories}, {skipped, ca
 
 /**Recent languages activity */
 export async function recent({login, data, imports, rest, account}, {skipped = [], categories, days = 0, load = 0, tempdir = "recent", timeout}) {
-  return await new Promise((solve, reject) => {
+  return await new Promise(async (solve, reject) => {
     //Timeout
     if (Number.isFinite(timeout)) {
       console.debug(`metrics/compute/${login}/plugins > languages > timeout set to ${timeout}m`)
