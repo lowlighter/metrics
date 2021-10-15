@@ -42,18 +42,21 @@ export default async function({login, imports, data, q, account}, {enabled = fal
     //Load inputs
     let {provider, mode, playlist, limit, user, "played.at":played_at, "time.range":time_range, "top.type":top_type} = imports.metadata.plugins.music.inputs({data, account, q})
     //Auto-guess parameters
-    if ((playlist) && (!mode))
-      mode = "playlist"
-    if ((playlist) && (!provider)) {
-      for (const [name, {embed}] of Object.entries(providers)) {
-        if (embed.test(playlist))
-          provider = name
+    if (!mode) {
+      if (playlist) {
+        mode = "playlist"
+        if (!provider) {
+          for (const [name, {embed}] of Object.entries(providers)) {
+            if (embed.test(playlist))
+              provider = name
+          }
+        }
       }
+      else if ("music.top.type" in q || "music.time.range" in q)
+        mode = "top"
+      else
+        mode = "recent"
     }
-    if (("music.top.type" in q || "music.time.range" in q) && !mode)
-      mode = "top"
-    if (!mode)
-      mode = "recent"
     //Provider
     if (!(provider in providers))
       throw {error:{message:provider ? `Unsupported provider "${provider}"` : "Missing provider"}, ...raw}
