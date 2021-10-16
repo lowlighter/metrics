@@ -81,9 +81,11 @@ This mode is not supported for now.
                                             #   (plugin_music_provider and plugin_music_mode will be set automatically)
 ```
 
-### Recently played mode
+### Recently played & top modes
 
-Display tracks you have played recently.
+Recently played: Display tracks you have played recently.
+
+Top: Display your top artists/tracks for a certain time period.
 
 Select a music provider below for additional instructions.
 
@@ -113,7 +115,7 @@ Open the settings and add a new *Redirect url*. Normally it is used to setup cal
 Forge the authorization url with your `client_id` and the encoded `redirect_uri` you whitelisted, and access it from your browser:
 
 ```
-https://accounts.spotify.com/authorize?client_id=********&response_type=code&scope=user-read-recently-played&redirect_uri=https%3A%2F%2Flocalhost
+https://accounts.spotify.com/authorize?client_id=********&response_type=code&scope=user-read-recently-played%20user-top-read&redirect_uri=https%3A%2F%2Flocalhost
 ```
 
 When prompted, authorize your application.
@@ -147,7 +149,7 @@ It should return a JSON response with the following content:
 {
   "access_token":"********",
   "expires_in": 3600,
-  "scope":"user-read-recently-played",
+  "scope":"user-read-recently-played user-top-read",
   "token_type":"Bearer",
   "refresh_token":"********"
 }
@@ -172,6 +174,8 @@ Register your API key to finish setup.
 
 [➡️ Available options for this plugin](metadata.yml)
 
+##### Recent
+
 ```yaml
 - uses: lowlighter/metrics@latest
   with:
@@ -192,6 +196,36 @@ Register your API key to finish setup.
     plugin_music_provider: lastfm  # Use Last.fm as provider
     plugin_music_mode: recent      # Set plugin mode
     plugin_music_limit: 4          # Limit to 4 entries
+    plugin_music_user: .user.login # Use same username as GitHub login
+    plugin_music_token: ${{ secrets.LASTFM_API_KEY }}
+
+```
+
+##### Top
+
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_music: yes
+    plugin_music_provider: spotify # Use Spotify as provider
+    plugin_music_mode: top         # Set plugin mode
+    plugin_music_top_type: tracks  # Set type for "top" mode; either tracks or artists
+    plugin_music_limit: 4          # Limit to 4 entries, maximum is 50 for "top" mode with spotify
+    plugin_music_time_range: short # Set time range for "top" mode; either short (4 weeks), medium (6 months) or long (several years)
+    plugin_music_token: "${{ secrets.SPOTIFY_CLIENT_ID }}, ${{ secrets.SPOTIFY_CLIENT_SECRET }}, ${{ secrets.SPOTIFY_REFRESH_TOKEN }}"
+```
+
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    plugin_music: yes
+    plugin_music_provider: lastfm  # Use Last.fm as provider
+    plugin_music_mode: top         # Set plugin mode
+    plugin_music_top_type: artists # Set type for "top" mode; either tracks or artists
+    plugin_music_limit: 4          # Limit to 4 entries
+    plugin_music_time_range: long  # Set time range for "top" mode; either short (4 weeks), medium (6 months) or long (several years)
     plugin_music_user: .user.login # Use same username as GitHub login
     plugin_music_token: ${{ secrets.LASTFM_API_KEY }}
 

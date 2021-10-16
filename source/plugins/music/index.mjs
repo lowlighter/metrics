@@ -17,6 +17,7 @@ const providers = {
 const modes = {
   playlist:"Suggested tracks",
   recent:"Recently played",
+  top:"Top played",
 }
 
 //Setup
@@ -39,18 +40,23 @@ export default async function({login, imports, data, q, account}, {enabled = fal
     let tracks = null
 
     //Load inputs
-    let {provider, mode, playlist, limit, user, "played.at":played_at} = imports.metadata.plugins.music.inputs({data, account, q})
+    let {provider, mode, playlist, limit, user, "played.at":played_at, "time.range":time_range, "top.type":top_type} = imports.metadata.plugins.music.inputs({data, account, q})
     //Auto-guess parameters
-    if ((playlist) && (!mode))
-      mode = "playlist"
-    if ((playlist) && (!provider)) {
-      for (const [name, {embed}] of Object.entries(providers)) {
-        if (embed.test(playlist))
-          provider = name
+    if (!mode) {
+      if (playlist) {
+        mode = "playlist"
+        if (!provider) {
+          for (const [name, {embed}] of Object.entries(providers)) {
+            if (embed.test(playlist))
+              provider = name
+          }
+        }
       }
+      else if ("music.top.type" in q || "music.time.range" in q)
+        mode = "top"
+      else
+        mode = "recent"
     }
-    if (!mode)
-      mode = "recent"
     //Provider
     if (!(provider in providers))
       throw {error:{message:provider ? `Unsupported provider "${provider}"` : "Missing provider"}, ...raw}
@@ -204,6 +210,172 @@ export default async function({login, imports, data, q, account}, {enabled = fal
                 artist:track.artist["#text"],
                 artwork:track.image.reverse()[0]["#text"],
               }))
+            }
+            //Handle errors
+            catch (error) {
+              if (error.isAxiosError) {
+                const status = error.response?.status
+                const description = error.response.data?.message ?? null
+                const message = `API returned ${status}${description ? ` (${description})` : ""}`
+                error = error.response?.data ?? null
+                throw {error:{message, instance:error}, ...raw}
+              }
+              throw error
+            }
+            break
+          }
+          //Unsupported
+          default:
+            throw {error:{message:`Unsupported mode "${mode}" for provider "${provider}"`}, ...raw}
+        }
+        break
+      }
+      case "top": {
+        let time_msg
+        switch (time_range) {
+          case "short":
+            time_msg = "from the last month"
+            break
+          case "medium":
+            time_msg = "from the last 6 months"
+            break
+          case "long":
+            time_msg = "overall"
+            break
+          default:
+            throw {error:{message:`Unsupported time range "${time_range}"`}, ...raw}
+        }
+
+        if (top_type === "artists") {
+          Object.defineProperty(modes, "top", {
+            get() {
+              return `Top played artists ${time_msg}`
+            }
+          })
+        }
+        else {
+          Object.defineProperty(modes, "top", {
+            get() {
+              return `Top played tracks ${time_msg}`
+            }
+          })
+        }
+
+        //Handle provider
+        switch (provider) {
+          //Spotify
+          case "spotify": {
+            //Prepare credentials
+            const [client_id, client_secret, refresh_token] = token.split(",").map(part => part.trim())
+            if ((!client_id) || (!client_secret) || (!refresh_token))
+              throw { error: { message: "Spotify token must contain client id/secret and refresh token" } }
+            else if (limit > 50)
+              throw {error:{message:"Spotify top limit cannot be greater than 50"}}
+
+            //API call and parse tracklist
+            try {
+              //Request access token
+              console.debug(`metrics/compute/${login}/plugins > music > requesting access token with spotify refresh token`)
+              const {data:{access_token:access}} = await imports.axios.post("https://accounts.spotify.com/api/token", `${new imports.url.URLSearchParams({grant_type:"refresh_token", refresh_token, client_id, client_secret})}`, {
+                headers:{
+                  "Content-Type":"application/x-www-form-urlencoded",
+                },
+              })
+              console.debug(`metrics/compute/${login}/plugins > music > got access token`)
+              //Retrieve tracks
+              console.debug(`metrics/compute/${login}/plugins > music > querying spotify api`)
+              tracks = []
+              const loaded =
+                top_type === "artists"
+                  ? (
+                      await imports.axios.get(
+                        `https://api.spotify.com/v1/me/top/artists?time_range=${time_range}_term&limit=${limit}`,
+                        {
+                          headers: {
+                            "Content-Type": "application/json",
+                            Accept: "application/json",
+                            Authorization: `Bearer ${access}`,
+                          },
+                        }
+                      )
+                    ).data.items.map(({ name, genres, images }) => ({
+                      name,
+                      artist: genres.join(" • "),
+                      artwork: images[0].url,
+                    }))
+                  : (
+                      await imports.axios.get(
+                        `https://api.spotify.com/v1/me/top/tracks?time_range=${time_range}_term&limit=${limit}`,
+                        {
+                          headers: {
+                            "Content-Type": "application/json",
+                            Accept: "application/json",
+                            Authorization: `Bearer ${access}`,
+                          },
+                        }
+                      )
+                    ).data.items.map(({ name, artists, album }) => ({
+                      name,
+                      artist: artists[0].name,
+                      artwork: album.images[0].url,
+                    }))
+              //Ensure no duplicate are added
+              for (const track of loaded) {
+                if (!tracks.map(({name}) => name).includes(track.name))
+                  tracks.push(track)
+              }
+            }
+            //Handle errors
+            catch (error) {
+              if (error.isAxiosError) {
+                const status = error.response?.status
+                const description = error.response.data?.error_description ?? null
+                const message = `API returned ${status}${description ? ` (${description})` : ""}`
+                error = error.response?.data ?? null
+                throw {error:{message, instance:error}, ...raw}
+              }
+              throw error
+            }
+            break
+          }
+          //Last.fm
+          case "lastfm": {
+            //API call and parse tracklist
+            try {
+              console.debug(`metrics/compute/${login}/plugins > music > querying lastfm api`)
+              const period = time_range === "short" ? "1month" : time_range === "medium" ? "6month" : "overall"
+              tracks =
+                top_type === "artists"
+                  ? (
+                      await imports.axios.get(
+                        `https://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user=${user}&api_key=${token}&limit=${limit}&period=${period}&format=json`,
+                        {
+                          headers: {
+                            "User-Agent": "lowlighter/metrics",
+                            Accept: "application/json",
+                          },
+                        }
+                      )
+                    ).data.topartists.artist.map(artist => ({
+                      name: artist.name,
+                      artist: `Play count: ${artist.playcount}`,
+                      artwork: artist.image.reverse()[0]["#text"],
+                    }))
+                  : (
+                      await imports.axios.get(
+                        `https://ws.audioscrobbler.com/2.0/?method=user.gettoptracks&user=${user}&api_key=${token}&limit=${limit}&period=${period}&format=json`,
+                        {
+                          headers: {
+                            "User-Agent": "lowlighter/metrics",
+                            Accept: "application/json",
+                          },
+                        }
+                      )
+                    ).data.toptracks.track.map(track => ({
+                      name: track.name,
+                      artist: track.artist.name,
+                      artwork: track.image.reverse()[0]["#text"],
+                    }))
             }
             //Handle errors
             catch (error) {

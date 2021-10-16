@@ -62,5 +62,99 @@ export default function({faker, url, options, login = faker.internet.userName()}
         },
       })
     }
+ else if (/user.gettoptracks/.test(url)) {
+      console.debug(`metrics/compute/mocks > mocking lastfm api result > ${url}`)
+      const artist = faker.random.word()
+      const track = faker.random.words(5)
+      return ({
+        status:200,
+        data:{
+          toptracks:{
+            "@attr":{
+              page:"1",
+              perPage:"1",
+              user:"RJ",
+              total:"100",
+              pages:"100",
+            },
+            track:[
+              {
+                artist:{
+                  mbid:"",
+                  name:artist,
+                },
+                image:[
+                  {
+                    size:"small",
+                    "#text":faker.image.abstract(),
+                  },
+                  {
+                    size:"medium",
+                    "#text":faker.image.abstract(),
+                  },
+                  {
+                    size:"large",
+                    "#text":faker.image.abstract(),
+                  },
+                  {
+                    size:"extralarge",
+                    "#text":faker.image.abstract(),
+                  },
+                ],
+                url:faker.internet.url(),
+                name:track,
+                mbid:"",
+              },
+            ],
+          },
+        },
+      })
+    }
+ else if (/user.gettopartists/.test(url)) {
+      console.debug(`metrics/compute/mocks > mocking lastfm api result > ${url}`)
+      const artist = faker.random.word()
+      const playcount = faker.random.number()
+      return ({
+        status:200,
+        data:{
+          topartists:{
+            "@attr":{
+              page:"1",
+              perPage:"1",
+              user:"RJ",
+              total:"100",
+              pages:"100",
+            },
+            artist:[
+              {
+                image:[
+                  {
+                    size:"small",
+                    "#text":faker.image.abstract(),
+                  },
+                  {
+                    size:"medium",
+                    "#text":faker.image.abstract(),
+                  },
+                  {
+                    size:"large",
+                    "#text":faker.image.abstract(),
+                  },
+                  {
+                    size:"extralarge",
+                    "#text":faker.image.abstract(),
+                  },
+                ],
+                streamable:"0",
+                playcount,
+                url:faker.internet.url(),
+                name:artist,
+                mbid:"",
+              },
+            ],
+          },
+        },
+      })
+    }
   }
 }

@@ -959,7 +959,7 @@ inputs:
   # Music provider token
   # This may be required depending on music provider used and plugin mode
   # - "apple"   : not required
-  # - "spotify" : required for "recent" mode, format is "client_id, client_secret, refresh_token"
+  # - "spotify" : required for "recent" or "top" mode, format is "client_id, client_secret, refresh_token"
   # - "lastfm"  : required, format is "api_key"
   plugin_music_token:
     description: Music provider personal token
@@ -984,6 +984,16 @@ inputs:
   plugin_music_played_at:
     description: Display when the track was played
     default: no
+  
+  # Time range for "top" mode
+  plugin_music_time_range:
+    description: Time period for top mode
+    default: short
+  
+  # Option for "top" mode to select tracks or artists
+  plugin_music_top_type:
+    description: Whether to show tracks or artists in top mode
+    default: tracks
   
   # Username on music provider service
   plugin_music_user:
