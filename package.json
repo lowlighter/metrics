@@ -58,7 +58,7 @@
     "twemoji-parser": "^13.1.0",
     "vue": "^2.6.12",
     "vue-prism-component": "^1.2.0",
-    "xml-formatter": "^2.4.1"
+    "xml-formatter": "^2.5.0"
   },
   "devDependencies": {
     "eslint": "^8.0.0",
