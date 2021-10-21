@@ -37,6 +37,7 @@ export default async function({login, graphql, rest, data, q, queries, imports},
         let cursor = null
         let pushed = 0
         const options = {repositories:{forks, affiliations, constraints:""}, repositoriesContributedTo:{forks:"", affiliations:"", constraints:", includeUserRepositories: false, contributionTypes: COMMIT"}}[type] ?? null
+        data.user[type].nodes = data.user[type].nodes ?? []
         do {
           console.debug(`metrics/compute/${login}/base > retrieving ${type} after ${cursor}`)
           const {[account]:{[type]:{edges = [], nodes = []} = {}}} = await graphql(queries.base.repositories({login, account, type, after:cursor ? `after: "${cursor}"` : "", repositories:Math.min(repositories, {user:_batch, organization:Math.min(25, _batch)}[account]), ...options}))

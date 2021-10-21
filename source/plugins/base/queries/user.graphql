@@ -12,9 +12,6 @@ query BaseUser {
     repositories(last: 0 $forks $affiliations) {
       totalCount
       totalDiskUsage
-      nodes {
-        name
-      }
     }
     packages {
       totalCount

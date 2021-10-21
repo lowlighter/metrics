@@ -11,7 +11,7 @@ export default function({faker, query, login = faker.internet.userName()}) {
       websiteUrl:faker.internet.url(),
       isHireable:faker.datatype.boolean(),
       twitterUsername:login,
-      repositories:{totalCount:faker.datatype.number(100), totalDiskUsage:faker.datatype.number(100000), nodes:[]},
+      repositories:{totalCount:faker.datatype.number(100), totalDiskUsage:faker.datatype.number(100000)},
       packages:{totalCount:faker.datatype.number(10)},
       starredRepositories:{totalCount:faker.datatype.number(1000)},
       watching:{totalCount:faker.datatype.number(100)},

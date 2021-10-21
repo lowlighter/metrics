@@ -12,9 +12,6 @@ query BaseOrganization {
     repositories(last: 0) {
       totalCount
       totalDiskUsage
-      nodes {
-        name
-      }
     }
     packages {
       totalCount
