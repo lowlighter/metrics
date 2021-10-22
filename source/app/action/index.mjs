@@ -254,7 +254,7 @@ async function wait(seconds) {
         await new Promise(async (solve, reject) => {
           let stdout = ""
           setTimeout(() => reject("Timeout while waiting for Insights webserver"), 5*60*1000)
-          const web = await processes.spawn("node", [], {env:{...process.env, NO_SETTINGS: true }})
+          const web = await processes.spawn("node", ["source/app/web/index.mjs"], {env:{...process.env, NO_SETTINGS: true }})
           web.stdout.on("data", data => (console.debug(`web > ${data}`), stdout += data, /Server ready !/.test(stdout) ? solve() : null))
           web.stderr.on("data", data => console.debug(`web > ${data}`))
         })
