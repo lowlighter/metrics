@@ -1,43 +1,89 @@
-# Repository files
-repository:
-  - .github/**
-  - .gitattributes
-  - .gitignore
-  - .eslintrc.yml
-  - ARCHITECTURE.md
-  - CONTRIBUTING.md
-  - LICENSE
-  - SECURITY.md
-
-# Docker
-docker:
-  - .dockerignore
-  - Dockerfile
-
-# Metrics source code editions
-core:
-  - source/app/metrics/**
-  - source/plugins/base/**
-  - source/plugins/core/**
-action:
+📊 metrics embed:
   - source/app/action/**
-web:
   - source/app/web/**
-metrics-insights:
+✨ metrics insights:
   - source/app/web/statics/about/**
-plugins:
+
+🧩 plugins:
   - source/plugins/**
-templates:
+🖼️ templates:
   - source/templates/**
-templates-classic:
-  - source/templates/classic/**
-templates-markdown:
-  - source/templates/markdown/**
-templates-repository:
-  - source/templates/repository/**
-tests:
-  - source/app/mocks/**
-  - tests/**
-dependencies:
-  - package.json
-  - package-lock.json
+
+🗃️ base:
+  - source/plugins/base/**
+🧱 core:
+  - source/app/metrics/**
+  - source/plugins/core/**
+
+🏆 plugin achievements:
+  - source/plugins/isocalendar/**
+📰 plugin activity:
+  - source/plugins/activity/**
+♐ plugin code:
+  - source/plugins/code/**
+🏅 plugin contributors:
+  - source/plugins/contributors/**
+💬 plugin discussions:
+  - source/plugins/discussions/**
+🎟️ plugin followup:
+  - source/plugins/followup/**
+🎫 plugin gists:
+  - source/plugins/gists/**
+💡 plugin habits:
+  - source/plugins/habits/**
+🙋 plugin introduction:
+  - source/plugins/introduction/**
+📅 plugin isocalendar:
+  - source/plugins/isocalendar/**
+🈷️ plugin languages:
+  - source/plugins/languages/**
+📜 plugin licenses:
+  - source/plugins/licenses/**
+👨‍💻 plugin lines:
+  - source/plugins/lines/**
+🎩 plugin notable:
+  - source/plugins/notable/**
+🧑‍🤝‍🧑 plugin people:
+  - source/plugins/people/**
+🗂️ plugin projects:
+  - source/plugins/projects/**
+🎭 plugin reactions:
+  - source/plugins/reactions/**
+📓 plugin repositories:
+  - source/plugins/repositories/**
+🌇 plugin skyline:
+  - source/plugins/skyline/**
+💕 plugin sponsors:
+  - source/plugins/sponsors/**
+✨ plugin stargazers:
+  - source/plugins/stargazers/**
+🌟 plugin starred:
+  - source/plugins/starred/**
+💭 plugin community:
+  - source/plugins/community/**
+📌 plugin topics:
+  - source/plugins/topics/**
+🧮 plugin traffic:
+  - source/plugins/traffic/**
+🌸 plugin anilist:
+  - source/plugins/anilist/**
+🎼 plugin music:
+  - source/plugins/music/**
+⏱️ plugin pagespeed:
+  - source/plugins/pagespeed/**
+✒️ plugin posts:
+  - source/plugins/posts/**
+🗼 plugin rss:
+  - source/plugins/rss/**
+🗨️ plugin stackoverflow:
+  - source/plugins/stackoverflow/**
+🐤 plugin tweets:
+  - source/plugins/tweets/**
+⏰ plugin wakatime:
+  - source/plugins/wakatime/**
+💉 plugin nightscout:
+  - source/plugins/nightscout/**
+📸 plugin screenshot:
+  - source/plugins/screenshot/**
+💹 plugin stock:
+  - source/plugins/stock/**
