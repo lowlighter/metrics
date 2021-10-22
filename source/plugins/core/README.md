@@ -272,6 +272,21 @@ It is possible to convert output to PDF when using a markdown template by settin
     config_output: markdown-pdf
 ```
 
+### ✨ Render `Metrics insights` statically
+
+It is possible to generate an HTML file containing `✨ Metrics insights` output by setting `config_output` to `insights`. Resulting output will already be pre-rendered and not contain any external sources (i.e. no JavaScript and style sheets).
+
+> Note that like `✨ Metrics insights` content is not configurable.
+
+#### ℹ️ Examples workflows
+
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    config_output: insights
+```
+
 ### 🐳 Faster execution with prebuilt docker images
 
 If you're using the official release `lowlighter/metrics` as a GitHub Action (either a specific version, `@latest` or `@master`), it'll pull a prebuilt docker container image from [GitHub Container Registry](https://github.com/users/lowlighter/packages/container/package/metrics) which contains already installed dependencies which will cut execution time from ~5 minutes to ~1 minute.

@@ -30,7 +30,7 @@ export default async function({log = true, nosettings = false, community = {}} =
     authenticated:null,
     templates:{},
     queries:{},
-    settings:{},
+    settings:{port:3000},
     metadata:{},
     paths:{
       statics:__statics,
