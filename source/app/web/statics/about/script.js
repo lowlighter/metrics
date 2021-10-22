@@ -9,6 +9,10 @@
         this.palette = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
       }
       catch (error) {}
+      //Embed
+      this.embed = !!(new URLSearchParams(location.search).get("embed"))
+      //From local storage
+      this.localstorage = !!(new URLSearchParams(location.search).get("localstorage"))
       //User
       const user = location.pathname.split("/").pop()
       if ((user) && (user !== "about")) {
@@ -18,10 +22,6 @@
       else {
         this.searchable = true
       }
-      //Embed
-      this.embed = !!(new URLSearchParams(location.search).get("embed"))
-      //From local storage
-      this.localstorage = !!(new URLSearchParams(location.search).get("localstorage"))
       //Init
       await Promise.all([
         //GitHub limit tracker
@@ -83,7 +83,7 @@
           this.metrics = null
           this.pending = true
           if (this.localstorage) {
-            this.metrics = JSON.parse(localStorage.getItem("local.metrics") ?? "{}")
+            this.metrics = JSON.parse(localStorage.getItem("local.metrics") ?? "null")
             return
           }
           this.metrics = (await axios.get(`/about/query/${this.user}`)).data
