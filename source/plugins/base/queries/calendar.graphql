@@ -1,0 +1,13 @@
+query BaseCalendar {
+  user(login: "$login") {
+    calendar:contributionsCollection(from: "$calendar.from", to: "$calendar.to") {
+      contributionCalendar {
+        weeks {
+          contributionDays {
+            color
+          }
+        }
+      }
+    }
+  }
+}

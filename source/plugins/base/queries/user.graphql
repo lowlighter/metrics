@@ -9,56 +9,5 @@ query BaseUser {
     websiteUrl
     isHireable
     twitterUsername
-    repositories(last: 0 $forks $affiliations) {
-      totalCount
-      totalDiskUsage
-    }
-    packages {
-      totalCount
-    }
-    starredRepositories {
-      totalCount
-    }
-    watching {
-      totalCount
-    }
-    sponsorshipsAsSponsor {
-      totalCount
-    }
-    sponsorshipsAsMaintainer {
-      totalCount
-    }
-    contributionsCollection {
-      totalRepositoriesWithContributedCommits
-      totalCommitContributions
-      restrictedContributionsCount
-      totalIssueContributions
-      totalPullRequestContributions
-      totalPullRequestReviewContributions
-    }
-    calendar:contributionsCollection(from: "$calendar.from", to: "$calendar.to") {
-      contributionCalendar {
-        weeks {
-          contributionDays {
-            color
-          }
-        }
-      }
-    }
-    repositoriesContributedTo(includeUserRepositories: true) {
-      totalCount
-    }
-    followers {
-      totalCount
-    }
-    following {
-      totalCount
-    }
-    issueComments {
-      totalCount
-    }
-    organizations {
-      totalCount
-    }
   }
 }
