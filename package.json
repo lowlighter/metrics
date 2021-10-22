@@ -58,11 +58,11 @@
     "twemoji-parser": "^13.1.0",
     "vue": "^3.1.5",
     "vue-prism-component": "^1.2.0",
-    "xml-formatter": "^2.4.1"
+    "xml-formatter": "^2.5.0"
   },
   "devDependencies": {
     "eslint": "^8.0.0",
-    "jest": "^27.2.5",
+    "jest": "^27.3.0",
     "libxmljs2": "^0.28.0",
     "nodemon": "^2.0.13"
   },
