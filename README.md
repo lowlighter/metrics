@@ -441,7 +441,7 @@ Choose `📊 Metrics embed` if you want to customize your GitHub profile and `�
 
 ### 🐙 Features
 
-* Create infographics from **36 plugins**, **4 templates** and **209 options**
+* Create infographics from **36 plugins**, **4 templates** and **211 options**
   * Even more **customization** with [community templates](source/templates/community) or by [forking this repository](https://github.com/lowlighter/metrics/network/members) and editing HTML/CSS/EJS
 * Support **users**, **organizations** and even **repositories**
 * Transparent by default so it'll blend well whether light or dark mode is used
@@ -1218,7 +1218,6 @@ See [ARCHITECTURE.md](/ARCHITECTURE.md) for more informations about how code is 
 
 To report a bug fill an [issue](https://github.com/lowlighter/metrics/issues) describing it.
 To suggest new features or requesting help to setup metrics, check out [discussions](https://github.com/lowlighter/metrics/discussions).
-You can also take a look at issues labeled with [help wanted](https://github.com/lowlighter/metrics/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22).
 
 If you want to contribute, submit a [pull request](https://github.com/lowlighter/metrics/pulls).
 Be sure to read [CONTRIBUTING.md](/CONTRIBUTING.md) for more information about this.
