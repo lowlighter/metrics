@@ -47,7 +47,7 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
 
     //Metrics insights
     if (convert === "insights")
-      return metrics.insights({login, imports})
+      return metrics.insights.output({login, imports, conf}, {graphql, rest, Plugins, Templates})
 
     //Partial parts
     {
@@ -214,15 +214,51 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
   }
 }
 
+//Metrics insights
+metrics.insights = async function({login}, {graphql, rest, conf}, {Plugins, Templates}) {
+  const q = {
+    template:"classic",
+    achievements:true,
+    "achievements.threshold":"X",
+    isocalendar:true,
+    "isocalendar.duration":"full-year",
+    languages:true,
+    "languages.limit":0,
+    activity:true,
+    "activity.limit":100,
+    "activity.days":0,
+    notable:true,
+    followup:true,
+    "followup.sections":"repositories, user",
+    habits:true,
+    "habits.from":100,
+    "habits.days":7,
+    "habits.facts":false,
+    "habits.charts":true,
+    introduction:true
+  }
+  const plugins = {achievements:{enabled:true}, isocalendar:{enabled:true}, languages:{enabled:true, extras:false}, activity:{enabled:true, markdown:"extended"}, notable:{enabled:true}, followup:{enabled:true}, habits:{enabled:true, extras:false}, introduction:{enabled:true}}
+  return metrics({login, q}, {graphql, rest, plugins, conf, convert:"json"}, {Plugins, Templates})
+}
+
 //Metrics insights static render
-metrics.insights = async function ({login, imports}) {
+metrics.insights.output = async function ({login, imports, conf}, {graphql, rest, Plugins, Templates}) {
+  //Server
   console.debug(`metrics/compute/${login} > insights`)
-  const server = "http://localhost:4000"
+  const server = `http://localhost:${conf.settings.port}`
+  console.debug(`metrics/compute/${login} > insights > server on port ${conf.settings.port}`)
+
+  //Data processing
   const browser = await imports.puppeteer.launch()
   const page = await browser.newPage()
   console.debug(`metrics/compute/${login} > insights > generating data`)
-  await page.goto(`${server}/about/${login}?embed=1`)
+  const json = JSON.stringify(await metrics.insights({login}, {graphql, rest, conf}, {Plugins, Templates}))
+  await page.goto(`${server}/about/${login}?embed=1&localstorage=1`)
+  await page.evaluate(async json => localStorage.setItem("local.metrics", json), json) //eslint-disable-line no-undef
+  await page.goto(`${server}/about/${login}?embed=1&localstorage=1`)
   await page.waitForSelector(".container .user", {timeout:10*60*1000})
+
+  //Rendering
   console.debug(`metrics/compute/${login} > insights > rendering data`)
   const rendered = `
     <html>

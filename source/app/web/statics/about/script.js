@@ -20,6 +20,8 @@
       }
       //Embed
       this.embed = !!(new URLSearchParams(location.search).get("embed"))
+      //From local storage
+      this.localstorage = !!(new URLSearchParams(location.search).get("localstorage"))
       //Init
       await Promise.all([
         //GitHub limit tracker
@@ -80,6 +82,10 @@
           this.error = null
           this.metrics = null
           this.pending = true
+          if (this.localstorage) {
+            this.metrics = JSON.parse(localStorage.getItem("local.metrics") ?? "{}")
+            return
+          }
           this.metrics = (await axios.get(`/about/query/${this.user}`)).data
         }
         catch (error) {
@@ -143,6 +149,7 @@
       hosted: null,
       user: "",
       embed: false,
+      localstorage: false,
       searchable: false,
       requests: { limit: 0, used: 0, remaining: 0, reset: 0 },
       palette: "light",

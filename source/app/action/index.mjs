@@ -5,6 +5,7 @@ import octokit from "@octokit/graphql"
 import fs from "fs/promises"
 import paths from "path"
 import sgit from "simple-git"
+import processes from "child_process"
 import metrics from "../metrics/index.mjs"
 import setup from "../metrics/setup.mjs"
 import mocks from "../mocks/index.mjs"
@@ -248,6 +249,22 @@ async function wait(seconds) {
     Object.assign(q, config)
     if (/markdown/.test(convert))
       info("Markdown cache", _markdown_cache)
+    if (/insights/.test(convert)) {
+      try {
+        await new Promise(async (solve, reject) => {
+          let stdout = ""
+          setTimeout(() => reject("Timeout while waiting for Insights webserver"), 5*60*1000)
+          const web = await processes.spawn("node", [], {env:{...process.env, NO_SETTINGS: true }})
+          web.stdout.on("data", data => (console.debug(`web > ${data}`), stdout += data, /Server ready !/.test(stdout) ? solve() : null))
+          web.stderr.on("data", data => console.debug(`web > ${data}`))
+        })
+        info("Insights webserver", "ok")
+      }
+      catch (error) {
+        info("Insights webserver", "(failed to initialize)")
+        throw error
+      }
+    }
 
     //Base content
     info.break()
