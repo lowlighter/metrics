@@ -27,16 +27,65 @@ export default async function({login, graphql, rest, data, q, queries, imports},
     try {
       //Query data from GitHub API
       console.debug(`metrics/compute/${login}/base > account ${account}`)
-      const queried = await graphql(queries.base[account]({login, "calendar.from":new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString(), "calendar.to":(new Date()).toISOString(), forks, affiliations}))
+      const queried = await graphql(queries.base[account]({login}))
       Object.assign(data, {user:queried[account]})
       postprocess?.[account]({login, data})
+      //Query basic fields
+      const fields = {
+        user:["packages", "starredRepositories", "watching", "sponsorshipsAsSponsor", "sponsorshipsAsMaintainer", "followers", "following", "issueComments", "organizations", "repositoriesContributedTo(includeUserRepositories: true)"],
+        organization:["packages", "sponsorshipsAsSponsor", "sponsorshipsAsMaintainer", "membersWithRole"],
+      }[account] ?? []
+      for (const field of fields) {
+        try {
+          Object.assign(data.user, (await graphql(queries.base.field({login, account, field})))[account])
+        }
+        catch {
+          console.debug(`metrics/compute/${login}/base > failed to retrieve ${field}`)
+          data.user[field] = {totalCount:NaN}
+        }
+      }
+      //Query repositories fields
+      for (const field of ["totalCount", "totalDiskUsage"]) {
+        try {
+          Object.assign(data.user.repositories, (await graphql(queries.base["field.repositories"]({login, account, field})))[account].repositories)
+        }
+        catch (error) {
+          console.log(error)
+          console.debug(`metrics/compute/${login}/base > failed to retrieve repositories.${field}`)
+          data.user.repositories[field] = NaN
+        }
+      }
+      //Query user account fields
+      if (account === "user") {
+        //Query contributions collection
+        {
+          const fields = ["totalRepositoriesWithContributedCommits", "totalCommitContributions", "restrictedContributionsCount", "totalIssueContributions", "totalPullRequestContributions", "totalPullRequestReviewContributions"]
+          for (const field of fields) {
+            try {
+              Object.assign(data.user.contributionsCollection, (await graphql(queries.base.contributions({login, account, field})))[account].contributionsCollection)
+            }
+            catch {
+              console.debug(`metrics/compute/${login}/base > failed to retrieve contributionsCollection.${field}`)
+              data.user.contributionsCollection[field] = NaN
+            }
+          }
+        }
+        //Query calendar
+        try {
+          Object.assign(data.user, (await graphql(queries.base.calendar({login, "calendar.from":new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString(), "calendar.to":(new Date()).toISOString()})))[account])
+        }
+        catch {
+          console.debug(`metrics/compute/${login}/base > failed to retrieve contributions calendar`)
+          data.user.calendar = {contributionCalendar:{weeks:[]}}
+        }
+      }
       //Query repositories from GitHub API
-      data.user.repositoriesContributedTo.nodes = data.user.repositoriesContributedTo.nodes ?? []
       for (const type of ({user:["repositories", "repositoriesContributedTo"], organization:["repositories"]}[account] ?? [])) {
         //Iterate through repositories
         let cursor = null
         let pushed = 0
         const options = {repositories:{forks, affiliations, constraints:""}, repositoriesContributedTo:{forks:"", affiliations:"", constraints:", includeUserRepositories: false, contributionTypes: COMMIT"}}[type] ?? null
+        data.user[type] = data.user[type] ?? {}
         data.user[type].nodes = data.user[type].nodes ?? []
         do {
           console.debug(`metrics/compute/${login}/base > retrieving ${type} after ${cursor}`)
@@ -45,7 +94,7 @@ export default async function({login, graphql, rest, data, q, queries, imports},
           data.user[type].nodes.push(...nodes)
           pushed = nodes.length
           console.debug(`metrics/compute/${login}/base > retrieved ${pushed} ${type} after ${cursor}`)
-        } while ((pushed) && (cursor) && (data.user.repositories.nodes.length + data.user.repositoriesContributedTo.nodes.length < repositories))
+        } while ((pushed) && (cursor) && ((data.user.repositories?.nodes?.length ?? 0) + (data.user.repositoriesContributedTo?.nodes?.length ?? 0) < repositories))
         //Limit repositories
         console.debug(`metrics/compute/${login}/base > keeping only ${repositories} ${type}`)
         data.user[type].nodes.splice(repositories)
@@ -93,6 +142,8 @@ const postprocess = {
     data.account = "user"
     Object.assign(data.user, {
       isVerified:false,
+      repositories:{},
+      contributionsCollection:{},
     })
   },
   //Organization
@@ -101,22 +152,23 @@ const postprocess = {
     data.account = "organization"
     Object.assign(data.user, {
       isHireable:false,
-      starredRepositories:{totalCount:0},
-      watching:{totalCount:0},
+      repositories:{},
+      starredRepositories:{totalCount:NaN},
+      watching:{totalCount:NaN},
       contributionsCollection:{
-        totalRepositoriesWithContributedCommits:0,
-        totalCommitContributions:0,
-        restrictedContributionsCount:0,
-        totalIssueContributions:0,
-        totalPullRequestContributions:0,
-        totalPullRequestReviewContributions:0,
+        totalRepositoriesWithContributedCommits:NaN,
+        totalCommitContributions:NaN,
+        restrictedContributionsCount:NaN,
+        totalIssueContributions:NaN,
+        totalPullRequestContributions:NaN,
+        totalPullRequestReviewContributions:NaN,
       },
       calendar:{contributionCalendar:{weeks:[]}},
-      repositoriesContributedTo:{totalCount:0},
-      followers:{totalCount:0},
-      following:{totalCount:0},
-      issueComments:{totalCount:0},
-      organizations:{totalCount:0},
+      repositoriesContributedTo:{totalCount:NaN, nodes:[]},
+      followers:{totalCount:NaN},
+      following:{totalCount:NaN},
+      issueComments:{totalCount:NaN},
+      organizations:{totalCount:NaN},
     })
   },
   //Skip base content query and instantiate an empty user instance
@@ -127,16 +179,16 @@ const postprocess = {
       postprocess?.[account]({login, data})
     data.account = "bypass"
     Object.assign(data.user, {
-      databaseId:0,
+      databaseId:NaN,
       name:login,
       login,
       createdAt:new Date(),
       avatarUrl:`https://github.com/${login}.png`,
       websiteUrl:null,
       twitterUsername:login,
-      repositories:{totalCount:0, totalDiskUsage:0, nodes:[]},
-      packages:{totalCount:0},
-      repositoriesContributedTo:{nodes:[]},
+      repositories:{totalCount:NaN, totalDiskUsage:NaN, nodes:[]},
+      packages:{totalCount:NaN},
+      repositoriesContributedTo:{totalCount:NaN, nodes:[]},
     })
   },
 }

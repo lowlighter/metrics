@@ -1,0 +1,9 @@
+query BaseContributions {
+  user(login: "$login") {
+    contributionsCollection {
+      $field
+    }
+  }
+}
+
+
