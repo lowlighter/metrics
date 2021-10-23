@@ -174,34 +174,7 @@ export default async function({mock, nosettings} = {}) {
       }
       //Compute metrics
       console.debug(`metrics/app/${login}/insights > compute insights`)
-      const json = await metrics(
-        {
-          login,
-          q:{
-            template:"classic",
-            achievements:true,
-            "achievements.threshold":"X",
-            isocalendar:true,
-            "isocalendar.duration":"full-year",
-            languages:true,
-            "languages.limit":0,
-            activity:true,
-            "activity.limit":100,
-            "activity.days":0,
-            notable:true,
-            followup:true,
-            "followup.sections":"repositories, user",
-            habits:true,
-            "habits.from":100,
-            "habits.days":7,
-            "habits.facts":false,
-            "habits.charts":true,
-            introduction:true
-          },
-        },
-        {graphql, rest, plugins:{achievements:{enabled:true}, isocalendar:{enabled:true}, languages:{enabled:true}, activity:{enabled:true, markdown:"extended"}, notable:{enabled:true}, followup:{enabled:true}, habits:{enabled:true}, introduction:{enabled:true}}, conf, convert:"json"},
-        {Plugins, Templates},
-      )
+      const json = await metrics.insights({login}, {graphql, rest, conf}, {Plugins, Templates})
       //Cache
       if ((!debug) && (cached)) {
         const maxage = Math.round(Number(req.query.cache))
@@ -286,7 +259,7 @@ export default async function({mock, nosettings} = {}) {
         conf,
         die:q["plugins.errors.fatal"] ?? false,
         verify:q.verify ?? false,
-        convert:["svg", "jpeg", "png", "json", "markdown", "markdown-pdf"].includes(q["config.output"]) ? q["config.output"] : null,
+        convert:["svg", "jpeg", "png", "json", "markdown", "markdown-pdf", "insights"].includes(q["config.output"]) ? q["config.output"] : null,
       }, {Plugins, Templates})
       //Cache
       if ((!debug) && (cached)) {

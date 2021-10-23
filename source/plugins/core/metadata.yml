@@ -197,13 +197,14 @@ inputs:
     type: string
     default: auto
     values:
-      - auto         # Defaults to template default
+      - auto           # Defaults to template default
       - svg
-      - png          # Does not support animations
-      - jpeg         # Does not support animations and transparency
-      - json         # Outputs a JSON file instead of an image
-      - markdown     # Outputs a Markdown file instead of an image
-      - markdown-pdf # Outputs a Markdown file as PDF instead of an image
+      - png            # Does not support animations
+      - jpeg           # Does not support animations and transparency
+      - json           # Outputs a JSON file instead of an image
+      - markdown       # Outputs a Markdown file instead of an image
+      - markdown-pdf   # Outputs a Markdown file as PDF instead of an image
+      - insights       # Outputs a rendered HTML file of Metrics Insights
 
   # Number of retries in case rendering fail
   retries:
