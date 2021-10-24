@@ -24,7 +24,7 @@ I contributed to `{{ REPOSITORIES_CONTRIBUTED_TO }}` repositories and made `{{ C
 
 Some plugins have their own **markdown** version which includes hyperlinks and reduce image overhead.
 
-See [compatibility matrix](https://github.com/lowlighter/metrics#-templateplugin-compatibily-matrix) for more informations.
+See [compatibility matrix](https://github.com/lowlighter/metrics#-plugin-compatibility-matrix) for more informations.
 
 ___
 
