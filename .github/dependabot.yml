@@ -1,6 +1,8 @@
 version: 2
 updates:
   - package-ecosystem: npm
+    labels:
+      - 📦 dependencies
     directory: /
     schedule:
       interval: weekly
@@ -9,7 +11,7 @@ updates:
     reviewers:
       - lowlighter
     commit-message:
-      prefix: "deps"
+      prefix: "chore(deps)"
     ignore:
       - dependency-name: "*"
         update-types:
