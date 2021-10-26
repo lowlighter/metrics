@@ -6,8 +6,14 @@
 //Setup
 export default async function({login, q}, {conf, data, rest, graphql, plugins, queries, account, convert, template}, {pending, imports}) {
   //Load inputs
-  const {"config.animations":animations, "config.display":display, "config.timezone":_timezone, "debug.flags":dflags} = imports.metadata.plugins.core.inputs({data, account, q})
+  const {"config.animations":animations, "config.display":display, "config.timezone":_timezone, "config.base64":_base64, "debug.flags":dflags} = imports.metadata.plugins.core.inputs({data, account, q})
   imports.metadata.templates[template].check({q, account, format:convert})
+
+  //Base64 images
+  if (!_base64) {
+    console.debug(`metrics/compute/${login} > base64 for images has been disabled`)
+    imports.imgb64 = url => url
+  }
 
   //Init
   const computed = {commits:0, sponsorships:0, licenses:{favorite:"", used:{}, about:{}}, token:{}, repositories:{watchers:0, stargazers:0, issues_open:0, issues_closed:0, pr_open:0, pr_closed:0, pr_merged:0, forks:0, forked:0, releases:0, deployments:0, environments:0}}
