@@ -218,7 +218,7 @@ export async function which(command) {
 }
 
 /**Code hightlighter */
-export async function highlight(code, lang) {
+export function highlight(code, lang) {
   return lang in prism.languages ? prism.highlight(code, prism.languages[lang]) : code
 }
 
