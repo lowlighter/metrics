@@ -192,6 +192,13 @@ inputs:
     type: boolean
     default: yes
 
+  # Encode images links into base64 data
+  # Advised to be true when generating images and false when generating texts or JSON
+  config_base64:
+    description: Encode images links into base64 data
+    type: boolean
+    default: yes
+
   # Configure padding for output image (percentage value)
   # It can be used to add padding to generated metrics if rendering is cropped or has too much empty space
   # Specify one value (for both width and height) or two values (one for width and one for height)
