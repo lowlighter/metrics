@@ -334,7 +334,7 @@ async function wait(seconds) {
           info("Previous url source", source)
           let data = ""
           try {
-            ({data}) = await axios.get(source)
+            ({data} = await axios.get(source))
           }
           catch (error) {
             if (error.response.status !== 404)
