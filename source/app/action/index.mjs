@@ -327,12 +327,10 @@ async function wait(seconds) {
     info.section("Saving")
     info("Output condition", _output_condition)
     if ((_output_condition === "content-changed")&&((committer.commit) || (committer.pr))) {
-      const {svg, axios} = await import("../metrics/utils.mjs")
-      const source = `https://raw.githubusercontent.com/${github.context.repo.owner}/${github.context.repo.repo}/${committer.branch}/${filename}`
-      info("Previous url source", source)
+      const {svg} = await import("../metrics/utils.mjs")
       let data = ""
       try {
-        ({data} = await axios.get(source))
+        data = `${Buffer.from((await committer.rest.repos.getContent({...github.context.repo, ref:`heads/${committer.head}`, path:filename})).data.content, "base64")}`
       }
       catch (error) {
         if (error.response.status !== 404)
@@ -342,7 +340,7 @@ async function wait(seconds) {
       info("Previous hash", previous)
       const current = await svg.hash(rendered)
       info("Current hash", current)
-      const changed = (previous === current)
+      const changed = (previous !== current)
       info("Content changed", changed)
       if (!changed)
         committer.commit = false
