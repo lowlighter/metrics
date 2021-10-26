@@ -24,6 +24,7 @@ import fetch from "node-fetch"
 import readline from "readline"
 import emoji from "emoji-name-map"
 import minimatch from "minimatch"
+import crypto from "crypto"
 prism_lang()
 
 //Exports
@@ -412,6 +413,29 @@ export const svg = {
     await page.close()
     console.debug("metrics/svg/resize > rendering complete")
     return {resized, mime}
+  },
+  /**Hash a SVG (removing its metadata first)*/
+  async hash(rendered) {
+    //Handle empty case
+    if (!rendered)
+      return null
+    //Instantiate browser if needed
+    if (!svg.resize.browser) {
+      svg.resize.browser = await puppeteer.launch()
+      console.debug(`metrics/svg/hash > started ${await svg.resize.browser.version()}`)
+    }
+    //Compute hash
+    const page = await svg.resize.browser.newPage()
+    await page.setContent(rendered, {waitUntil:["load", "domcontentloaded", "networkidle2"]})
+    const data = await page.evaluate(async () => {
+      document.querySelector("footer")?.remove()
+      return document.querySelector("svg").outerHTML
+    })
+    const hash = crypto.createHash("md5").update(data).digest("hex")
+    //Result
+    await page.close()
+    console.debug(`metrics/svg/hash > MD5=${hash}`)
+    return hash
   },
   /**Render twemojis */
   async twemojis(rendered, {custom = true} = {}) {

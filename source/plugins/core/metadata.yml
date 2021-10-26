@@ -94,6 +94,15 @@ inputs:
       - pull-request-rebase # Same as "pull-request" and additionaly rebase and merge pull request
       - gist                # Save output to "committer_gist"
 
+  # Output condition
+  output_condition:
+    description: Output condition
+    type: string
+    default: always
+    values:
+      - always                        # Always push changes
+      - skip-if-only-metadata-changed # Skip changes if only metadata contained in footer changed
+
   # Optimize SVG image to reduce its filesize
   # Some templates may not support this option
   optimize:
