@@ -326,7 +326,7 @@ async function wait(seconds) {
     info.break()
     info.section("Saving")
     info("Output condition", _output_condition)
-    if ((_output_condition === "content-changed")&&((committer.commit) || (committer.pr))) {
+    if ((_output_condition === "skip-if-only-metadata-changed")&&((committer.commit) || (committer.pr))) {
       const {svg} = await import("../metrics/utils.mjs")
       let data = ""
       try {

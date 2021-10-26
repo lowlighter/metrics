@@ -100,8 +100,8 @@ inputs:
     type: string
     default: always
     values:
-      - always           # Always push changes
-      - content-changed  # Only push changes if content changed (excluding metadata contained in footer)
+      - always                        # Always push changes
+      - skip-if-only-metadata-changed # Skip changes if only metadata contained in footer changed
 
   # Optimize SVG image to reduce its filesize
   # Some templates may not support this option
