@@ -28,7 +28,7 @@ It is also possible to use a predefined set of colors from [colorsets.json](colo
 Languages statistics are computed using the top languages provided by GitHub of each repository you contributed to.
 If you work a lot with other people, these numbers may be less representative of your actual work.
 
-The `plugin_languages_indepth` option lets you get more accurate metrics by cloning each repository you contributed to, running [github/linguist](https://github.com/github/linguist) on it and then iterating over patches matching your username from `git log`. This method is slower than the first one.
+The `plugin_languages_indepth` option lets you get more accurate metrics by cloning each repository you contributed to, running [linguist-js](https://github.com/Nixinova/Linguist) and then iterating over patches matching your username from `git log`. This method is slower than the first one.
 
 > ⚠️ Although *metrics* does not send any code to external sources, you must understand that when using this option repositories are cloned locally temporarly on the GitHub Action runner. If you work with sensitive data or company code, it is advised to keep this option disabled. *Metrics* and its authors cannot be held responsible for any resulting code leaks, use at your own risk.
 > Source code is available for auditing at [analyzers.mjs](/source/plugins/languages/analyzers.mjs)
