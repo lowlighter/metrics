@@ -93,6 +93,7 @@ async function wait(seconds) {
       retries,
       "retries.delay":retries_delay,
       "output.action":_action,
+      "output.condition":_output_condition,
       delay,
       ...config
     } = metadata.plugins.core.inputs.action({core})
@@ -321,9 +322,37 @@ async function wait(seconds) {
       throw error ?? new Error("Could not render metrics")
     info("Status", "complete")
 
-    //Save output to renders output folder
+    //Output condition
     info.break()
     info.section("Saving")
+    if (_output_condition !== "always") {
+      //Output if content hashes changed
+      if (_output_condition === "content-changed") {
+        if ((committer.commit) || (committer.pr)){
+          const {svg, axios} = await import("../metrics/utils.mjs")
+          const source = `https://raw.githubusercontent.com/${github.context.repo.owner}/${github.context.repo.repo}/${committer.branch}/${filename}`
+          info("Previous url source", source)
+          let data = ""
+          try {
+            ({data}) = await axios.get(source)
+          }
+          catch (error) {
+            if (error.response.status !== 404)
+              throw error
+          }
+          const previous = await svg.hash(data)
+          info("Previous hash", previous)
+          const current = await svg.hash(rendered)
+          info("Current hash", current)
+          const changed = (previous === current)
+          info("Content changed", changed)
+          if (!changed)
+            committer.commit = false
+        }
+      }
+    }
+
+    //Save output to renders output folder
     if (dryrun)
       info("Actions to perform", "(none)")
     else {
