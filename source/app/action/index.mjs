@@ -93,6 +93,7 @@ async function wait(seconds) {
       retries,
       "retries.delay":retries_delay,
       "output.action":_action,
+      "output.condition":_output_condition,
       delay,
       ...config
     } = metadata.plugins.core.inputs.action({core})
@@ -321,9 +322,31 @@ async function wait(seconds) {
       throw error ?? new Error("Could not render metrics")
     info("Status", "complete")
 
-    //Save output to renders output folder
+    //Output condition
     info.break()
     info.section("Saving")
+    info("Output condition", _output_condition)
+    if ((_output_condition === "skip-if-only-metadata-changed")&&((committer.commit) || (committer.pr))) {
+      const {svg} = await import("../metrics/utils.mjs")
+      let data = ""
+      try {
+        data = `${Buffer.from((await committer.rest.repos.getContent({...github.context.repo, ref:`heads/${committer.head}`, path:filename})).data.content, "base64")}`
+      }
+      catch (error) {
+        if (error.response.status !== 404)
+          throw error
+      }
+      const previous = await svg.hash(data)
+      info("Previous hash", previous)
+      const current = await svg.hash(rendered)
+      info("Current hash", current)
+      const changed = (previous !== current)
+      info("Content changed", changed)
+      if (!changed)
+        committer.commit = false
+    }
+
+    //Save output to renders output folder
     if (dryrun)
       info("Actions to perform", "(none)")
     else {

@@ -31,7 +31,7 @@
     "@octokit/graphql": "^4.8.0",
     "@octokit/rest": "^18.12.0",
     "@primer/css": "^18.0.1",
-    "axios": "^0.23.0",
+    "axios": "^0.24.0",
     "clipboard": "^2.0.8",
     "compression": "^1.7.4",
     "ejs": "^3.1.6",
@@ -47,13 +47,13 @@
     "minimatch": "^3.0.4",
     "node-chartist": "^1.0.5",
     "node-fetch": "^3.0.0",
-    "open-graph-scraper": "^4.9.2",
+    "open-graph-scraper": "^4.10.0",
     "png-js": "^1.0.0",
     "prismjs": "^1.25.0",
     "puppeteer": "^10.4.0",
     "rss-parser": "^3.12.0",
     "sanitize-html": "^2.5.2",
-    "simple-git": "^2.46.0",
+    "simple-git": "^2.47.0",
     "svgo": "^2.7.0",
     "twemoji-parser": "^13.1.0",
     "vue": "^3.1.5",
@@ -61,9 +61,9 @@
     "xml-formatter": "^2.5.0"
   },
   "devDependencies": {
-    "eslint": "^8.0.0",
+    "eslint": "^8.1.0",
     "jest": "^27.3.0",
-    "libxmljs2": "^0.28.0",
+    "libxmljs2": "^0.29.0",
     "nodemon": "^2.0.13"
   },
   "jest": {

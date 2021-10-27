@@ -203,6 +203,10 @@ It is possible to configure output behaviour using `output_action` option, which
 - `gist`, where output will be stored an already existing gist
   - To use this feature, a `gists` scope must be granted to your `token` and `committer_gist` identifier must be provided
 
+It also possible to alter output condition using `output_action` option, which can be set to:
+- `always`, to always push changes (provided that git sha changed)
+- `skip-if-only-metadata-changed`, to skip changes if only metadata contained in footer changed
+
 #### ℹ️ Examples workflows
 
 ```yaml

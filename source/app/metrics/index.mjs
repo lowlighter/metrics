@@ -77,7 +77,20 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
     //JSON output
     if (convert === "json") {
       console.debug(`metrics/compute/${login} > json output`)
-      return {rendered:data, mime:"application/json"}
+      const cache = new WeakSet()
+      const rendered = JSON.parse(JSON.stringify(data, (key, value) => {
+        if ((value instanceof Set)||(Array.isArray(value)))
+          return [...value]
+        if (value instanceof Map)
+          return Object.fromEntries(value)
+        if ((typeof value === "object")&&(value)) {
+          if (cache.has(value))
+            return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, cache.has(v) ? "[Circular]" : v]))
+          cache.add(value)
+        }
+        return value
+      }))
+      return {rendered, mime:"application/json"}
     }
 
     //Markdown output
