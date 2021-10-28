@@ -1,0 +1,19 @@
+query FollowupRepository {
+  repository(name: "$repo", owner: "$owner") {
+    issues_open:issues(states: OPEN, filterBy: {createdBy: "$user"}) {
+      totalCount
+    }
+    issues_closed:issues(states: CLOSED, filterBy: {createdBy: "$user"}) {
+      totalCount
+    }
+    #pr_open:pullRequests(states: OPEN, filterBy: {createdBy: "$user"}) {
+    #  totalCount
+    #}
+    #pr_closed:pullRequests(states: CLOSED, filterBy: {createdBy: "$user"}) {
+    #  totalCount
+    #}
+    #pr_merged:pullRequests(states: MERGED, filterBy: {createdBy: "$user"}) {
+    #  totalCount
+    #}
+  }
+}
