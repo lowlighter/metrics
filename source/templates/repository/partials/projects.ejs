@@ -45,8 +45,8 @@
                   <mask id="project-bar">
                     <rect x="0" y="0" width="<%= width %>" height="8" fill="white" rx="5"/>
                   </mask>
-                  <rect mask="url(#project-bar)" x="0" y="0" width="<%= (progress.done/progress.total)*width %>" height="8" fill="#28A745"/>
-                  <rect mask="url(#project-bar)" x="<%= (progress.done/progress.total)*width %>" y="0" width="<%= (progress.doing/progress.total)*width %>" height="8" fill="#6F42C1"/>
+                  <rect mask="url(#project-bar)" x="0" y="0" width="<%= (progress.done/progress.total)*width %>" height="8" fill="#238636"/>
+                  <rect mask="url(#project-bar)" x="<%= (progress.done/progress.total)*width %>" y="0" width="<%= (progress.doing/progress.total)*width %>" height="8" fill="#8957e5"/>
                   <rect mask="url(#project-bar)" x="<%= ((progress.done+progress.doing)/progress.total)*width %>" y="0" width="<%= (progress.todo/progress.total)*width %>" height="8" fill="#d1d5da"/>
                 </svg>
               </div>
