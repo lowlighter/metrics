@@ -10,7 +10,7 @@ export default async function({login, data, queries, imports, q, account}, {enab
     let {limit, "limit.characters":limit_characters, medias, sections, shuffle, user} = imports.metadata.plugins.anilist.inputs({data, account, q})
 
     //Initialization
-    const result = {user:{stats:null, genres:[]}, lists:Object.fromEntries(medias.map(type => [type, {}])), characters:[], sections}
+    const result = {user:{name:user, stats:null, genres:[]}, lists:Object.fromEntries(medias.map(type => [type, {}])), characters:[], sections}
 
     //User statistics
     for (let retried = false; !retried; retried = true) {
