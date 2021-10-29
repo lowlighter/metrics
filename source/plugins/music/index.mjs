@@ -30,6 +30,7 @@ export default async function({login, imports, data, q, account}, {enabled = fal
 
     //Initialization
     const raw = {
+      user,
       get provider() {
         return providers[provider]?.name ?? ""
       },

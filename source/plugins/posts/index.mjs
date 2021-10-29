@@ -47,7 +47,7 @@ export default async function({login, data, imports, q, queries, account}, {enab
         posts = await Promise.all(posts.map(async ({image, ...post}) => ({image:await imports.imgb64(image, {width:144, height:-1}), ...post})))
       }
       //Results
-      return {source, link, descriptions, covers, list:posts}
+      return {user, source, link, descriptions, covers, list:posts}
     }
 
     //Unhandled error
