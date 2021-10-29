@@ -26,7 +26,7 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
     //Initialization
     const pending = []
     const {queries} = conf
-    const data = {animated:true, large:false, base:{}, config:{}, errors:[], plugins:{}, computed:{}}
+    const data = {q, animated:true, large:false, base:{}, config:{}, errors:[], plugins:{}, computed:{}}
     const imports = {
       plugins:Plugins,
       templates:Templates,

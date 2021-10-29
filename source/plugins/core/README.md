@@ -205,7 +205,7 @@ It is possible to configure output behaviour using `output_action` option, which
 
 It also possible to alter output condition using `output_action` option, which can be set to:
 - `always`, to always push changes (provided that git sha changed)
-- `skip-if-only-metadata-changed`, to skip changes if only metadata contained in footer changed
+- `data-changed`, to skip changes if no actual data changed (e.g. when only render timestamp changed)
 
 #### ℹ️ Examples workflows
 

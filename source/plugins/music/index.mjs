@@ -415,7 +415,7 @@ export default async function({login, imports, data, q, account}, {enabled = fal
         track.artwork = await imports.imgb64(track.artwork)
       }
       //Save results
-      return {...raw, tracks, played_at}
+      return {...raw, user, tracks, played_at}
     }
 
     //Unhandled error
