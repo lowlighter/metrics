@@ -16,10 +16,15 @@
     <% } else { %>
       <% if (plugins.notable.contributions.length) { %>
         <div class="row organization contributions">
-          <% for (const {name, avatar, organization} of plugins.notable.contributions) { %>
-            <div class="organization contribution">
+          <% for (const {name, avatar, organization, user:{maintainer = false, percentage = 0} = {}} of plugins.notable.contributions) { %>
+            <div class="organization contribution <%= maintainer ? "s" : percentage > .2 ? "a" : percentage > .1 ? "b" : percentage > .05 ? "c" : "" %> ">
               <img class="<%= organization ? "organization" : "" %> avatar" src="<%= avatar %>" width="16" height="16" />
               <span class="name">@<%= name %></span>
+              <% if (percentage) { %>
+                <div class="percentage">
+                  <div><%= Math.max(1, Math.floor(100*percentage)) %><span class="sign">%</span></div>
+                </div>
+              <% } %>
             </div>
           <% } %>
         </div>

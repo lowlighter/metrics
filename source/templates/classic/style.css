@@ -171,6 +171,49 @@
     font-size: 12px;
     background-color: #959da520;
   }
+  .contribution.organization.s {
+    color: #EB355E;
+    background-color: #EB355E26;
+    border-color: #EB355E;
+  }
+  .contribution.organization.a {
+    color: #D79533;
+    background-color: #E7BD6926;
+    border-color: #E7BD69;
+  }
+  .contribution.organization.b {
+    color: #9D8FFF;
+    background-color: #9E91FF26;
+    border-color: #9E91FF;
+  }
+  .contribution.organization.c {
+    color: #58A6FF;
+    background-color: #58A6FF26;
+    border-color: #58A6FF;
+  }
+  .contribution .percentage > div {
+    border-radius: 5px;
+    padding: 2px;
+    font-size: 10px;
+    margin-top: -4px;
+    margin-right: -6px;
+    margin-left: 2px;
+  }
+  .contribution.s .percentage > div {
+    background-color: #EB355E26;
+  }
+  .contribution.a .percentage > div {
+    background-color: #E7BD6926;
+  }
+  .contribution.b .percentage > div {
+    background-color: #9E91FF26;
+  }
+  .contribution.c .percentage > div {
+    background-color: #58A6FF26;
+  }
+  .contribution .percentage .sign {
+    font-size: 7px;
+  }
 
   .contribution.organization .avatar {
     margin: 0 4px;
