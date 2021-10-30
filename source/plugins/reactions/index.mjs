@@ -1,5 +1,5 @@
 //Setup
-export default async function({login, q, imports, data, rest, graphql, queries, account}, {enabled = false} = {}) {
+export default async function({login, q, imports, data, graphql, queries, account}, {enabled = false} = {}) {
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
