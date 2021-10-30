@@ -89,7 +89,20 @@ export default async function({login, graphql, rest, data, q, queries, imports},
         data.user[type].nodes = data.user[type].nodes ?? []
         do {
           console.debug(`metrics/compute/${login}/base > retrieving ${type} after ${cursor}`)
-          const {[account]:{[type]:{edges = [], nodes = []} = {}}} = await graphql(queries.base.repositories({login, account, type, after:cursor ? `after: "${cursor}"` : "", repositories:Math.min(repositories, {user:_batch, organization:Math.min(25, _batch)}[account]), ...options}))
+          const request = {}
+          try {
+            Object.assign(request, await graphql(queries.base.repositories({login, account, type, after:cursor ? `after: "${cursor}"` : "", repositories:Math.min(repositories, {user:_batch, organization:Math.min(25, _batch)}[account]), ...options})))
+          }
+          catch (error) {
+            console.debug(`metrics/compute/${login}/base > failed to retrieve ${_batch} repositories after ${cursor}, this is probably due to an API timeout, halving batch`)
+            _batch = Math.floor(_batch/2)
+            if (_batch < 1) {
+              console.debug(`metrics/compute/${login}/base > failed to retrieve repositories, cannot halve batch anymore`)
+              throw error
+            }
+            continue
+          }
+          const {[account]:{[type]:{edges = [], nodes = []} = {}}} = request
           cursor = edges?.[edges?.length - 1]?.cursor
           data.user[type].nodes.push(...nodes)
           pushed = nodes.length
