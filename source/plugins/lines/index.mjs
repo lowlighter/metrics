@@ -23,7 +23,7 @@ export default async function({login, data, imports, rest, q, account}, {enabled
     //Get contributors stats from repositories
     console.debug(`metrics/compute/${login}/plugins > lines > querying api`)
     const lines = {added:0, deleted:0}
-    const response = [...await Promise.allSettled(repositories.map(({repo, owner}) => (skipped.includes(repo.toLocaleLowerCase())) || (skipped.includes(`${owner}/${repo}`)) ? {} : rest.repos.getContributorsStats({owner, repo})))].filter(({status}) => status === "fulfilled").map(({value}) => value)
+    const response = [...await Promise.allSettled(repositories.map(({repo, owner}) => (skipped.includes(repo.toLocaleLowerCase())) || (skipped.includes(`${owner}/${repo}`.toLocaleLowerCase())) ? {} : rest.repos.getContributorsStats({owner, repo})))].filter(({status}) => status === "fulfilled").map(({value}) => value)
 
     //Compute changed lines
     console.debug(`metrics/compute/${login}/plugins > lines > computing total diff`)
