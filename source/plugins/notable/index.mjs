@@ -69,7 +69,7 @@ export default async function({login, q, imports, rest, graphql, data, account, 
           }
         }
         //Sort contribution by maintainer first and then by contribution percentage
-        contributions = contributions.sort((a, b) => ((b.user?.percentage + b.user?.maintainer) || 0) - ((a.user?.percentage + a.user?.percentage) || 0))
+        contributions = contributions.sort((a, b) => ((b.user?.percentage + b.user?.maintainer) || 0) - ((a.user?.percentage + a.user?.maintainer) || 0))
       }
     }
 

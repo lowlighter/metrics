@@ -191,28 +191,29 @@
     background-color: #58A6FF26;
     border-color: #58A6FF;
   }
-  .contribution .percentage > div {
+  .contribution .side {
     border-radius: 5px;
-    padding: 2px;
-    font-size: 10px;
-    margin-top: -4px;
-    margin-right: -6px;
-    margin-left: 2px;
+    padding: 0 2px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
   }
-  .contribution.s .percentage > div {
+  .contributors .side svg {
+    fill: currentColor;
+    margin-left: 4px;
+    width: .8rem;
+    height: .8rem;
+  }
+  .contribution.s .side {
     background-color: #EB355E26;
   }
-  .contribution.a .percentage > div {
+  .contribution.a .side {
     background-color: #E7BD6926;
   }
-  .contribution.b .percentage > div {
+  .contribution.b .side {
     background-color: #9E91FF26;
   }
-  .contribution.c .percentage > div {
+  .contribution.c .side {
     background-color: #58A6FF26;
-  }
-  .contribution .percentage .sign {
-    font-size: 7px;
   }
 
   .contribution.organization .avatar {
