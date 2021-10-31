@@ -554,10 +554,20 @@ inputs:
     description: Maximum number of issues and pull requests opened to parse
     default: 100
   
+  # Maximum number of discussions opened to parse
+  plugin_reactions_limit_discussions:
+    description: Maximum number of discussions opened to parse
+    default: 100
+  
+  # Maximum number of discussions comments opened to parse
+  plugin_reactions_limit_discussions_comments:
+    description: Maximum number of discussions comments opened to parse
+    default: 100
+  
   # Filter reactions by issue comments age
   # Set to 0 to disable age filtering
   plugin_reactions_days:
-    description: Maximum issue comments age
+    description: Maximum comments age
     default: 0
   
   # Reaction display mode.
