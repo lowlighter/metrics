@@ -83,16 +83,16 @@ export default async function({login, q, imports, rest, graphql, data, account, 
           aggregate.aggregated++
           if (extras) {
             const {history = 0, user:{commits = 0, percentage = 0, maintainer = false} = {}} = _extras
-            aggregate.history ??= 0
+            aggregate.history = aggregate.history ?? 0
             aggregate.history += history
-            aggregate.user ??= {}
+            aggregate.user = aggregate.user ?? {}
             aggregate.user.commits += commits
             aggregate.user.percentage += percentage
             aggregate.user.maintainer ||= maintainer
           }
         }
         else
-          aggregated.set(name, {name, avatar, organization, stars, aggregated:1, ..._extras})
+          aggregated.set(key, {name:key, handle, avatar, organization, stars, aggregated:1, ..._extras})
       }
       contributions = [...aggregated.values()]
       if (extras) {
