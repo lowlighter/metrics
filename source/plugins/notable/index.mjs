@@ -76,9 +76,10 @@ export default async function({login, q, imports, rest, graphql, data, account, 
       console.debug(`metrics/compute/${login}/plugins > notable > aggregating results`)
       contributions = contributions.filter(({organization}) => (from === "organization")&&(organization))
       const aggregated = new Map()
-      for (const {name, avatar, organization, stars, ..._extras} of contributions) {
-        if (aggregated.has(name)) {
-          const aggregate = aggregated.get(name)
+      for (const {name, handle, avatar, organization, stars, ..._extras} of contributions) {
+        const key = repositories ? handle : name
+        if (aggregated.has(key)) {
+          const aggregate = aggregated.get(key)
           aggregate.aggregated++
           if (extras) {
             const {history = 0, user:{commits = 0, percentage = 0, maintainer = false} = {}} = _extras
