@@ -2,7 +2,7 @@ name: Maintenance 🧰
 
 on:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "30 2 * * *"
   workflow_dispatch:
 
 jobs:
@@ -20,7 +20,7 @@ jobs:
         run: ./delete_workflows.sh lowlighter/metrics
         working-directory: ./.github/workflows/maintenance
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
 
   dangling_images_removal:
     runs-on: ubuntu-latest
@@ -43,4 +43,4 @@ jobs:
         run: ./delete_ghcr_dangling_images.sh ${{ matrix.container }}
         working-directory: ./.github/workflows/maintenance
         env:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
