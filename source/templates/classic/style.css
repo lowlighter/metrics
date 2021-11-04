@@ -196,12 +196,18 @@
     padding: 0 2px;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+    margin: -2px 0;
+    margin-right: -6px;
+    margin-left: 2px;
+    display: flex;
+    align-items: center;
   }
-  .contributors .side svg {
+  .contribution .side svg {
     fill: currentColor;
     margin-left: 4px;
     width: .8rem;
     height: .8rem;
+    margin-left: 3px;
   }
   .contribution.s .side {
     background-color: #EB355E26;
