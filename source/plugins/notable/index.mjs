@@ -10,7 +10,7 @@ export default async function({login, q, imports, rest, graphql, data, account, 
     let {filter, repositories, from, indepth} = imports.metadata.plugins.notable.inputs({data, account, q})
 
     //Iterate through contributed repositories
-    const notable = new Map()
+    const commits = []
     {
       let cursor = null
       let pushed = 0
@@ -21,13 +21,13 @@ export default async function({login, q, imports, rest, graphql, data, account, 
         edges
           .filter(({node}) => ({all:true, organization:node.isInOrganization, user:!node.isInOrganization}[from]))
           .filter(({node}) => imports.ghfilter(filter, {name:node.nameWithOwner, user:node.owner.login, stars:node.stargazers.totalCount, watchers:node.watchers.totalCount, forks:node.forks.totalCount}))
-          .map(({node}) => notable.set((repositories || !node.isInOrganization) ? node.nameWithOwner : node.owner.login, {handle:node.nameWithOwner, stars:node.stargazers.totalCount, organization:node.isInOrganization, avatarUrl:node.owner.avatarUrl}))
+          .map(({node}) => commits.push({handle:node.nameWithOwner, stars:node.stargazers.totalCount, organization:node.isInOrganization, avatarUrl:node.owner.avatarUrl}))
         pushed = edges.length
       } while ((pushed) && (cursor))
     }
 
     //Set contributions
-    let contributions = (await Promise.all([...notable.entries()].map(async ([name, {handle, stars, avatarUrl, organization}]) => ({name, handle, stars, avatar:await imports.imgb64(avatarUrl), organization})))).sort((a, b) => a.name.localeCompare(b.name))
+    let contributions = (await Promise.all(commits.map(async ({handle, stars, avatarUrl, organization}) => ({name:handle.split("/").shift(), handle, stars, avatar:await imports.imgb64(avatarUrl), organization})))).sort((a, b) => a.name.localeCompare(b.name))
     console.debug(`metrics/compute/${login}/plugins > notable > found ${contributions.length} notable contributions`)
 
     //Extras features
@@ -68,10 +68,40 @@ export default async function({login, q, imports, rest, graphql, data, account, 
             console.debug(`metrics/compute/${login}/plugins > notable > indepth > failed to compute for ${owner}/${repo}`)
           }
         }
+      }
+    }
+
+    //Aggregate contributions
+    if (from !== "all") {
+      console.debug(`metrics/compute/${login}/plugins > notable > aggregating results`)
+      contributions = contributions.filter(({organization}) => (from === "organization")&&(organization))
+      const aggregated = new Map()
+      for (const {name, avatar, organization, stars, ..._extras} of contributions) {
+        if (aggregated.has(name)) {
+          const aggregate = aggregated.get(name)
+          aggregate.aggregated++
+          if (extras) {
+            const {history = 0, user:{commits = 0, percentage = 0, maintainer = false} = {}} = _extras
+            aggregate.history ??= 0
+            aggregate.history += history
+            aggregate.user ??= {}
+            aggregate.user.commits += commits
+            aggregate.user.percentage += percentage
+            aggregate.user.maintainer ||= maintainer
+          }
+        }
+        else
+          aggregated.set(name, {name, avatar, organization, stars, aggregated:1, ..._extras})
+      }
+      contributions = [...aggregated.values()]
+      if (extras) {
+        //Normalize contribution percentage
+        contributions.map(aggregate => aggregate.user ? aggregate.user.percentage /= aggregate.aggregated : null)
         //Sort contribution by maintainer first and then by contribution percentage
         contributions = contributions.sort((a, b) => ((b.user?.percentage + b.user?.maintainer) || 0) - ((a.user?.percentage + a.user?.maintainer) || 0))
       }
     }
+
 
     //Results
     return {contributions}

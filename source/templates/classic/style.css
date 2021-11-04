@@ -191,23 +191,28 @@
     background-color: #58A6FF26;
     border-color: #58A6FF;
   }
-  .contribution .side {
-    border-radius: 5px;
-    padding: 0 2px;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    margin: -2px 0;
-    margin-right: -6px;
-    margin-left: 2px;
-    display: flex;
-    align-items: center;
+  .contribution .gauge-base, .contribution .gauge-arc {
+    stroke: currentColor;
+    stroke-width: 4;
   }
-  .contribution .side svg {
+  .contribution .gauge text {
     fill: currentColor;
-    margin-left: 4px;
-    width: .8rem;
-    height: .8rem;
-    margin-left: 3px;
+    font-size: 12px;
+    font-size: 15px;
+    letter-spacing: -2px;
+  }
+  .contribution .gauge {
+    margin: 0 4px;
+    color: inherit;
+  }
+  .contribution .commits-icon {
+    fill: currentColor;
+    width: 10px;
+    height: 10px;
+    margin-left: -9px;
+    margin-top: 8px;
+    color: inherit;
+    filter: brightness(.5);
   }
   .contribution.s .side {
     background-color: #EB355E26;
