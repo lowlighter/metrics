@@ -843,6 +843,11 @@ inputs:
     description: Also display repository name
     default: no
   
+  # Compute notable contributions with measured impact
+  plugin_notable_indepth:
+    description: Indepth notable contributions processing
+    default: no
+  
   # ====================================================================================
   # 📓 Repositories
   
@@ -884,6 +889,12 @@ inputs:
   # List of repositories that will be skipped
   plugin_code_skipped:
     description: Repositories to skip
+    default: ""
+  
+  # Restrict code snippet languages
+  # These are guessed through linguist
+  plugin_code_languages:
+    description: Restrict code snippet languages
     default: ""
   
   # ====================================================================================
