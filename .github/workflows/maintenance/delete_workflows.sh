@@ -23,9 +23,10 @@ else
 	echo "Removing all the workflows that are not successful or failed..."
 	while read -r line; do
 		id="$line"
+		echo "Processing workflow $id"
 		## Workaround for https://github.com/cli/cli/issues/4286 and https://github.com/cli/cli/issues/3937
 		echo -n | gh api --method DELETE /repos/${repo}/actions/runs/${id} --input -
-		
+
 		echo "Stale workflow run with ID $id deleted successfully!"
 	done <<< $ids_to_delete
 fi
@@ -39,10 +40,11 @@ else
 	echo -e "\nDeleting workflows without logs and artifacts..."
 	while read -r line; do
 		id="$line"
+		echo "Processing workflow $id"
 		artifact_count=$(gh api /repos/${repo}/actions/runs/${id}/artifacts | jq -r '.total_count')
 		if [ "${artifact_count}" = "0" ]
 		then
-			gh api --silent /repos/${repo}/actions/runs/${id}/logs || \ 
+			gh api --silent /repos/${repo}/actions/runs/${id}/logs || \
 				echo -n | gh api --method DELETE /repos/${repo}/actions/runs/${id} --input - && \
 				echo "Workflow run without logs and artifacts with ID $id deleted successfully!"
 		fi
