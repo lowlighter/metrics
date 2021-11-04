@@ -11,22 +11,16 @@ jobs:
     name: Workflow cleanup 🧹👷‍♂️
     # Errors will probably be caused by excesses in API quota, so we can safely continue.
     # Remaining workflows will be removed in the next scheduled run.
-    continue-on-error: true 
-    strategy:
-      fail-fast: false
-      matrix:
-        repo:
-          - 'lowlighter/metrics'
-
+    continue-on-error: true
     steps:
       - name: Clone repository
         uses: actions/checkout@v2.3.4
 
       - name: Run deletion script 🗑
-        run: ./delete_workflows.sh ${{ matrix.repo }}
+        run: ./delete_workflows.sh lowlighter/metrics
         working-directory: ./.github/workflows/maintenance
         env:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   dangling_images_removal:
     runs-on: ubuntu-latest
