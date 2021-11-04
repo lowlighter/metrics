@@ -32,7 +32,8 @@ export default async function({login, q, imports, data, rest, account}, {enabled
           .filter(event => visibility === "public" ? event.public : true)
           .flatMap(({payload}) => Promise.all(payload.commits.map(async commit => (await rest.request(commit.url)).data)))])]
           .flat()
-          .filter(({author}) => data.shared["commits.authoring"].filter(authoring => author?.email?.toLocaleLowerCase().includes(authoring)||author?.name?.toLocaleLowerCase().includes(authoring)))
+          .filter(({parents}) => parents.length <= 1)
+          .filter(({author}) => data.shared["commits.authoring"].filter(authoring => author?.login?.toLocaleLowerCase().includes(authoring)||author?.email?.toLocaleLowerCase().includes(authoring)||author?.name?.toLocaleLowerCase().includes(authoring)).length)
         )
       }
     }
