@@ -173,7 +173,8 @@ export async function language({filename, patch, prefix = ""}) {
 
     //Create temp git repository
     console.debug(`metrics/language > creating temp repository at ${path} for ${filename}`)
-    await git(path).init().add(".").addConfig("user.name", "linguist").addConfig("user.email", "<>").commit("linguist").status()
+    await git(path).init().add(".").addConfig("user.name", "linguist").addConfig("user.email", "<>").commit("linguist")
+      .status()
 
     //Call linguists
     const {languages:{results}} = await linguist(path)
