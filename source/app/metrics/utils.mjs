@@ -161,34 +161,38 @@ export async function chartist() {
 }
 
 /**Language analyzer (single file) */
-export async function language({filename, patch, prefix = ""}) {
+export async function language({filename, patch, prefix = "", timeout = 20*1000}) {
   const path = paths.join(os.tmpdir(), `${prefix}-${Math.random()}`.replace(/[^\w-]/g, ""))
-  try {
-    //Create temp dir
-    console.debug(`metrics/language > creating temp dir ${path} for ${filename}`)
-    await fs.mkdir(path, {recursive:true})
+  return new Promise(async (solve, reject) => {
+    setTimeout(() => {
+      console.debug(`metrics/language > ${filename} > timeout`)
+      reject("timeout")
+    }, timeout)
+    try {
+      //Create temp dir
+      console.debug(`metrics/language > ${filename} > creating temp dir at ${path}`)
+      await fs.mkdir(path, {recursive:true})
 
-    //Create file and remove diff syntax
-    await fs.writeFile(paths.join(path, paths.basename(filename)), patch.replace(/^@@ -\d+,\d+ \+\d+,\d+ @@/gm, "").replace(/^[+-]/gm, ""))
+      //Create file and remove diff syntax
+      await fs.writeFile(paths.join(path, paths.basename(filename)), patch.replace(/^@@ -\d+,\d+ \+\d+,\d+ @@/gm, "").replace(/^[+-]/gm, ""))
 
-    //Create temp git repository
-    console.debug(`metrics/language > creating temp repository at ${path} for ${filename}`)
-    await git(path).init().add(".").addConfig("user.name", "linguist").addConfig("user.email", "<>").commit("linguist")
-      .status()
-
-    //Call linguists
-    const {languages:{results}} = await linguist(path)
-    return (Object.keys(results).shift() ?? "unknown").toLocaleLowerCase()
-  }
-  catch (error) {
-    console.debug(`metrics/language > ${error}`)
-    return "unknown"
-  }
-  finally {
-    //Clean temp dir
-    console.debug(`metrics/language > clean temp dir ${path} for ${filename}`)
-    await fs.rm(path, {recursive:true, force:true})
-  }
+      //Call linguist
+      console.debug(`metrics/language > ${filename} > calling linguist`)
+      const {languages:{results}} = await linguist(path)
+      const result = (Object.keys(results).shift() ?? "unknown").toLocaleLowerCase()
+      console.debug(`metrics/language > ${filename} > result: ${result}`)
+      solve(result)
+    }
+    catch (error) {
+      console.debug(`metrics/language > ${filename} > ${error}`)
+      reject(error)
+    }
+    finally {
+      //Clean temp dir
+      console.debug(`metrics/language > ${filename} > cleaning temp dir at ${path}`)
+      fs.rm(path, {recursive:true, force:true}).catch(error => console.debug(`metrics/language > ${filename} > failed to clean temp dir at ${path} > ${error}`))
+    }
+  })
 }
 
 /**Run command (use this to execute commands and process whole output at once, may not be suitable for large outputs) */
