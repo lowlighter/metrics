@@ -10,7 +10,7 @@
   <tr>
     <td nowrap="nowrap"><%- name %></td><%# -%>
     <% for (const [plugin] of Object.entries(plugins).filter(([key, value]) => (value)&&(!["core"].includes(key)))) { %>
-    <td nowrap="nowrap" align="center" data-plugin="<%= plugin %>"><%= readme.compatibility[plugin] ? "✔️" : "❌" %></td><% } %>
+    <td nowrap="nowrap" align="center" data-plugin="<%= plugin %>"><%= {true:"✔️", false:"❌", embed:"✓"}[readme.compatibility[plugin]] %></td><% } %>
   </tr><% } %>
   <tr>
     <td colspan="<%= Object.keys(plugins).length %>"></td>
