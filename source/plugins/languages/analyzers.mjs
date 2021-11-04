@@ -86,7 +86,7 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
       ...await Promise.allSettled(
         commits
           .flatMap(({payload}) => payload.commits)
-          .filter(({author}) => data.shared["commits.authoring"].filter(authoring => author?.email?.toLocaleLowerCase().includes(authoring)||author?.name?.toLocaleLowerCase().includes(authoring)).length)
+          .filter(({author}) => data.shared["commits.authoring"].filter(authoring => author?.login?.toLocaleLowerCase().includes(authoring)||author?.email?.toLocaleLowerCase().includes(authoring)||author?.name?.toLocaleLowerCase().includes(authoring)).length)
           .map(commit => commit.url)
           .map(async commit => (await rest.request(commit)).data),
       )

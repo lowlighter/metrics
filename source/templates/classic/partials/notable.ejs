@@ -16,10 +16,18 @@
     <% } else { %>
       <% if (plugins.notable.contributions.length) { %>
         <div class="row organization contributions">
-          <% for (const {name, avatar, organization} of plugins.notable.contributions) { %>
-            <div class="organization contribution">
+          <% for (const {name, avatar, organization, user:{commits = 0, maintainer = false, percentage = 0} = {}} of plugins.notable.contributions) { %>
+            <div class="organization contribution <%= maintainer ? "s" : percentage > .2 ? "a" : percentage > .1 ? "b" : percentage > .05 ? "c" : "" %> ">
               <img class="<%= organization ? "organization" : "" %> avatar" src="<%= avatar %>" width="16" height="16" />
               <span class="name">@<%= name %></span>
+              <% if (commits) { %>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="16" height="16" class="gauge">
+                  <circle class="gauge-base" r="12.5" cx="15" cy="15"></circle>
+                  <circle class="gauge-arc" transform="rotate(-90 15 15)" r="12.5" cx="15" cy="15" stroke-dasharray="<%= percentage * 329 %> 329"></circle>
+                  <text x="15" y="15" dominant-baseline="central" ><%= commits %></text>
+                </svg>
+                <svg class="commits-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M10.5 7.75a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zm1.43.75a4.002 4.002 0 01-7.86 0H.75a.75.75 0 110-1.5h3.32a4.001 4.001 0 017.86 0h3.32a.75.75 0 110 1.5h-3.32z"></path></svg>
+              <% } %>
             </div>
           <% } %>
         </div>
