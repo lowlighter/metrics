@@ -45,3 +45,12 @@ inputs:
     format: comma-separated
     default: ""
     example: my-repo-1, my-repo-2, owner/repo-3 ...
+
+  # Restrict code snippet languages
+  # These are guessed through linguist
+  plugin_code_languages:
+    description: Restrict code snippet languages
+    type: array
+    format: comma-separated
+    default: ""
+    example: javascript, typescript, ....

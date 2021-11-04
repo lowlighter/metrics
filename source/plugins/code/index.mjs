@@ -15,7 +15,7 @@ export default async function({login, q, imports, data, rest, account}, {enabled
     }
 
     //Load inputs
-    let {load, lines, visibility, skipped} = imports.metadata.plugins.code.inputs({data, q, account})
+    let {load, lines, visibility, languages, skipped} = imports.metadata.plugins.code.inputs({data, q, account})
     skipped.push(...data.shared["repositories.skipped"])
     const pages = Math.ceil(load / 100)
 
@@ -43,9 +43,12 @@ export default async function({login, q, imports, data, rest, account}, {enabled
     console.debug(`metrics/compute/${login}/plugins > code > ${events.length} events loaded`)
 
     //Search for a random snippet
-    const files = events
+    let files = events
       .flatMap(({sha, commit:{message, url}, files}) => files.map(({filename, status, additions, deletions, patch}) => ({sha, message, filename, status, additions, deletions, patch, repo:url.match(/repos[/](?<repo>[\s\S]+)[/]git[/]commits/)?.groups?.repo})))
       .filter(({patch}) => (patch ? (patch.match(/\n/mg)?.length ?? 1) : Infinity) < lines)
+    for (const file of files)
+      file.language = await imports.language({...file, prefix:login}).catch(() => "unknown")
+    files = files.filter(({language}) => (!languages.length)||(languages.includes(language.toLocaleLowerCase())))
     const snippet = files[Math.floor(Math.random()*files.length)] ?? null
     if (snippet) {
       //Trim common indent from content and change line feed
