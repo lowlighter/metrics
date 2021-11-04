@@ -1,5 +1,4 @@
 name: "🎩 Notable contributions"
-cost: 1 GraphQL request per 100 repositories fetched
 category: github
 index: 20
 supports:
