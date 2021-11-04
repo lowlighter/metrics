@@ -25,6 +25,7 @@ import readline from "readline"
 import emoji from "emoji-name-map"
 import minimatch from "minimatch"
 import crypto from "crypto"
+import linguist from "linguist-js"
 prism_lang()
 
 //Exports
@@ -157,6 +158,36 @@ export async function chartist() {
   const css = `<style>${await fs.readFile(paths.join(__module(import.meta.url), "../../../node_modules", "node-chartist/dist/main.css")).catch(_ => "")}</style>`
   return (await nodechartist(...arguments))
     .replace(/class="ct-chart-line">/, `class="ct-chart-line">${css}`)
+}
+
+/**Language analyzer (single file) */
+export async function language({filename, patch, prefix = ""}) {
+  const path = paths.join(os.tmpdir(), `${prefix}-${Math.random()}`.replace(/[^\w-]/g, ""))
+  try {
+    //Create temp dir
+    console.debug(`metrics/language > creating temp dir ${path} for ${filename}`)
+    await fs.mkdir(path, {recursive:true})
+
+    //Create file and remove diff syntax
+    await fs.writeFile(paths.join(path, paths.basename(filename)), patch.replace(/^@@ -\d+,\d+ \+\d+,\d+ @@/gm, "").replace(/^[+-]/gm, ""))
+
+    //Create temp git repository
+    console.debug(`metrics/language > creating temp repository at ${path} for ${filename}`)
+    await git(path).init().add(".").addConfig("user.name", "linguist").addConfig("user.email", "<>").commit("linguist").status()
+
+    //Call linguists
+    const {languages:{results}} = await linguist(path)
+    return (Object.keys(results).shift() ?? "unknown").toLocaleLowerCase()
+  }
+  catch (error) {
+    console.debug(`metrics/language > ${error}`)
+    return "unknown"
+  }
+  finally {
+    //Clean temp dir
+    console.debug(`metrics/language > clean temp dir ${path} for ${filename}`)
+    await fs.rm(path, {recursive:true, force:true})
+  }
 }
 
 /**Run command (use this to execute commands and process whole output at once, may not be suitable for large outputs) */
