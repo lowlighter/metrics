@@ -1,5 +1,4 @@
 name: "📅 Isometric commit calendar"
-cost: 1-2 GraphQL requests + 1 GraphQL request per year
 category: github
 index: 0
 supports:

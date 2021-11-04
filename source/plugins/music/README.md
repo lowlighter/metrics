@@ -78,14 +78,14 @@ This mode is not supported for now.
     plugin_music: yes
     plugin_music_limit: 4                   # Limit to 4 entries
     plugin_music_playlist: https://******** # Use extracted playlist link
-                                            #   (plugin_music_provider and plugin_music_mode will be set automatically)
+    # plugin_music_provider: (will be guessed through plugin_music_playlist)
+    # plugin_music_mode: (will be set to "playlist" when plugin_music_playlist is provided)
 ```
 
 ### Recently played & top modes
 
-Recently played: Display tracks you have played recently.
-
-Top: Display your top artists/tracks for a certain time period.
+- **Recently played**: Display tracks you have played recently.
+- **Top**: Display your top artists/tracks for a certain time period.
 
 Select a music provider below for additional instructions.
 
@@ -198,7 +198,6 @@ Register your API key to finish setup.
     plugin_music_limit: 4          # Limit to 4 entries
     plugin_music_user: .user.login # Use same username as GitHub login
     plugin_music_token: ${{ secrets.LASTFM_API_KEY }}
-
 ```
 
 ##### Top
@@ -210,8 +209,8 @@ Register your API key to finish setup.
     plugin_music: yes
     plugin_music_provider: spotify # Use Spotify as provider
     plugin_music_mode: top         # Set plugin mode
-    plugin_music_top_type: tracks  # Set type for "top" mode; either tracks or artists
     plugin_music_limit: 4          # Limit to 4 entries, maximum is 50 for "top" mode with spotify
+    plugin_music_top_type: tracks  # Set type for "top" mode; either tracks or artists
     plugin_music_time_range: short # Set time range for "top" mode; either short (4 weeks), medium (6 months) or long (several years)
     plugin_music_token: "${{ secrets.SPOTIFY_CLIENT_ID }}, ${{ secrets.SPOTIFY_CLIENT_SECRET }}, ${{ secrets.SPOTIFY_REFRESH_TOKEN }}"
 ```
@@ -223,10 +222,9 @@ Register your API key to finish setup.
     plugin_music: yes
     plugin_music_provider: lastfm  # Use Last.fm as provider
     plugin_music_mode: top         # Set plugin mode
-    plugin_music_top_type: artists # Set type for "top" mode; either tracks or artists
     plugin_music_limit: 4          # Limit to 4 entries
+    plugin_music_top_type: artists # Set type for "top" mode; either tracks or artists
     plugin_music_time_range: long  # Set time range for "top" mode; either short (4 weeks), medium (6 months) or long (several years)
     plugin_music_user: .user.login # Use same username as GitHub login
     plugin_music_token: ${{ secrets.LASTFM_API_KEY }}
-
 ```

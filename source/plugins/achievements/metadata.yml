@@ -1,5 +1,4 @@
 name: "🏆 Achievements"
-cost: ~5 GraphQL request
 category: github
 index: 17
 supports:

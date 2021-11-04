@@ -33,4 +33,5 @@ Your user id will be in both url and search bar.
     plugin_stackoverflow_sections: answers-top, questions-recent # Display top answers and recent questions
     plugin_stackoverflow_limit: 2                                # Display 2 entries per section
     plugin_stackoverflow_lines: 4                                # Display 4 lines per entry
+    plugin_stackoverflow_lines_snippet: 2                        # Display 2 lines in embed code snippets
 ```

@@ -18,4 +18,5 @@ The *lines* of code plugin displays the number of lines of code you have added a
   with:
     # ... other options
     plugin_lines: yes
+    plugin_lines_skipped: repo # List of skipped repositories
 ```

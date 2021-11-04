@@ -297,7 +297,10 @@ metadata.template = async function({__templates, name, plugins, logger}) {
       supports:meta.supports ?? null,
       readme:{
         demo:readme.match(/(?<demo><table>[\s\S]*?<[/]table>)/)?.groups?.demo?.replace(/<[/]?(?:table|tr)>/g, "")?.trim() ?? (name === "community" ? '<td align="center" colspan="2">See <a href="/source/templates/community/README.md">documentation</a> 🌍</td>' : "<td></td>"),
-        compatibility:{...compatibility, base:true},
+        compatibility:{
+          ...Object.fromEntries(Object.entries(compatibility).filter(([_, value]) => value)),
+          ...Object.fromEntries(Object.entries(compatibility).filter(([_, value]) => !value).map(([key, _]) => [key, "embed"])),
+        },
       },
       check({q, account = "bypass", format = null}) {
         //Support check

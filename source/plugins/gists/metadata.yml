@@ -1,5 +1,4 @@
 name: "🎫 Gists"
-cost: 1 GraphQL request per 100 gists
 category: github
 index: 10
 supports:

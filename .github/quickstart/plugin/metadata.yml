@@ -1,5 +1,4 @@
 name: "🧩 <%= `${name.charAt(0).toLocaleUpperCase()}${name.substring(1)}` %>"
-cost: Estimates how many GitHub requests is used during plugin execution ("N/A" for Third-Party services)
 category: other   # Set plugin category ("github", "social" or "other")
 supports:
   - user          # Support users account

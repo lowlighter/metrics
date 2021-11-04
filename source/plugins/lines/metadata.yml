@@ -1,5 +1,4 @@
 name: "👨‍💻 Lines of code changed"
-cost: 1 REST request per repository
 category: github
 index: 12
 supports:
@@ -20,4 +19,4 @@ inputs:
     type: array
     format: comma-separated
     default: ""
-    example: my-repo-1, my-repo-2, owner/repo-3 ...
+    example: my-repo-1, my-repo-2, owner/repo-3, ...

@@ -1,5 +1,4 @@
 name: "♐ Code snippet of the day"
-cost: 1 REST request per 100 events fetched
 category: github
 index: 22
 supports:
@@ -44,7 +43,7 @@ inputs:
     type: array
     format: comma-separated
     default: ""
-    example: my-repo-1, my-repo-2, owner/repo-3 ...
+    example: my-repo-1, my-repo-2, owner/repo-3, ...
 
   # Restrict code snippet languages
   # These are guessed through linguist
@@ -53,4 +52,4 @@ inputs:
     type: array
     format: comma-separated
     default: ""
-    example: javascript, typescript, ....
+    example: javascript, typescript, ...

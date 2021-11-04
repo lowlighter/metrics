@@ -1,5 +1,4 @@
 name: "🗃️ Base content"
-cost: 2 GraphQL requests + 1 GraphQL request per 100 repositories fetched
 category: core
 supports:
   - user
@@ -64,7 +63,7 @@ inputs:
     type: array
     format: comma-separated
     default: ""
-    example: my-repo-1, my-repo-2, owner/repo-3 ...
+    example: my-repo-1, my-repo-2, owner/repo-3, ...
 
   # List of surnames or email addresses you use when authoring commits
   # These are mostly used to perform commits analysis to detect ownership
