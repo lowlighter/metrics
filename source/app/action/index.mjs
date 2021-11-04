@@ -355,6 +355,13 @@ async function wait(seconds) {
       info(`Save to /metrics_renders/${filename}`, "ok")
     }
 
+    //No output action apart from file on runner
+    if (_output === "none") {
+      info.break()
+      console.log("Success, thanks for using metrics!")
+      process.exit(0)
+    }
+
     //Cache
     if (/markdown/.test(convert)) {
       const regex = /(?<match><img class="metrics-cachable" data-name="(?<name>[\s\S]+?)" src="data:image[/](?<format>(?:svg[+]xml)|jpeg|png);base64,(?<content>[/+=\w]+)">)/g
