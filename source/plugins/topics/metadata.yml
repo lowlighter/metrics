@@ -19,6 +19,7 @@ inputs:
     default: starred
     values:
       - starred  # Display starred topics as labels
+      - icons    # Display starred topics as icons
       - mastered # Display starred topics as mastered/known technologies icons
 
   # Topics sorting order
