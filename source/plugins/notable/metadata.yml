@@ -37,3 +37,9 @@ inputs:
     description: Also display repository name
     type: boolean
     default: no
+
+  # Compute notable contributions with measured impact
+  plugin_notable_indepth:
+    description: Indepth notable contributions processing
+    type: boolean
+    default: no
