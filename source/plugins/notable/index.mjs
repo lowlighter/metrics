@@ -88,7 +88,7 @@ export default async function({login, q, imports, rest, graphql, data, account, 
             aggregate.user = aggregate.user ?? {}
             aggregate.user.commits += commits
             aggregate.user.percentage += percentage
-            aggregate.user.maintainer ||= maintainer
+            aggregate.user.maintainer = aggregate.user.maintainer || maintainer
           }
         }
         else
