@@ -6,8 +6,8 @@ Check out [GitHub topics](https://github.com/topics) to search interesting topic
 <table>
   <td align="center">
     <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.svg">
-    <details open><summary>Mastered and known technologies version</summary>
-      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.mastered.svg">
+    <details open><summary>With icons instead</summary>
+      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.icons.svg">
     </details>
     <img width="900" height="1" alt="">
   </td>
@@ -25,6 +25,6 @@ This uses puppeteer to navigate through your starred topics page.
     # ... other options
     plugin_topics: yes
     plugin_topics_sort: stars    # Sort by most starred topics
-    plugin_topics_mode: mastered # Display icons instead of labels
+    plugin_topics_mode: icons    # Display icons instead of labels
     plugin_topics_limit: 0       # Disable limitations
 ```

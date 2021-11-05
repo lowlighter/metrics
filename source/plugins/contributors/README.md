@@ -49,4 +49,10 @@ Matching is performed in keys order.
     plugin_contributors_ignored: bot           # Ignore "bot" user
     plugin_contributors_contributions: yes     # Display number of contributions for each contributor
     plugin_contributors_sections: contributors # Display contributors sections
+    plugin_contributors_categories: |          # A JSON mapping of labels by files edited
+      {
+        "📚 Documentation": ["README.md", "docs/**"],
+        "💻 Code": ["source/**", "src/**"],
+        "#️⃣ Others": ["*"]
+      }
 ```

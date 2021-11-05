@@ -1,15 +1,15 @@
-- name: Contributors plugin (default)
-  uses: lowlighter/metrics@latest
-  with:
-    token: MOCKED_TOKEN
-    plugin_contributors: yes
+#- name: Contributors plugin (default)
+#  uses: lowlighter/metrics@latest
+#  with:
+#    token: MOCKED_TOKEN
+#    plugin_contributors: yes
 
-- name: Contributors plugin (complete)
-  uses: lowlighter/metrics@latest
-  with:
-    token: MOCKED_TOKEN
-    plugin_contributors: yes
-    plugin_contributors_ignored: github-actions[bot]
-    plugin_contributors_contributions: yes
-    plugin_contributors_head: MOCKED_SHA
-    plugin_contributors_base: MOCKED_SHA
+#- name: Contributors plugin (complete)
+#  uses: lowlighter/metrics@latest
+#  with:
+#    token: MOCKED_TOKEN
+#    plugin_contributors: yes
+#    plugin_contributors_ignored: github-actions[bot]
+#    plugin_contributors_contributions: yes
+#    plugin_contributors_head: MOCKED_SHA
+#    plugin_contributors_base: MOCKED_SHA

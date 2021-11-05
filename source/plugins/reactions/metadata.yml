@@ -1,5 +1,4 @@
 name: "🎭 Comment reactions"
-cost: 1 GraphQL request per 100 issues and issues comments fetched
 category: github
 index: 8
 supports:

@@ -1,5 +1,4 @@
 name: "🌟 Recently starred repositories"
-cost: 1 GraphQL request
 category: github
 index: 6
 supports:

@@ -24,4 +24,5 @@ Display a random code snippet from your recent activity history.
     plugin_code_load: 100               # Fetch 100 events from activity
     plugin_code_visibility: public      # Only display snippets from public activity
     plugin_code_skipped: github/octocat # Skip github/octocat repository
+    plugin_code_languages: javascript   # Limit code snippets to JavaScript code
 ```

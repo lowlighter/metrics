@@ -1,5 +1,4 @@
 name: "🈷️ Most used languages"
-cost: 0 API request (1 per 100 events fetched when using recently-used section)
 category: github
 index: 1
 supports:
@@ -28,7 +27,7 @@ inputs:
     type: array
     format: comma-separated
     default: ""
-    example: my-repo-1, my-repo-2, owner/repo-3 ...
+    example: my-repo-1, my-repo-2, owner/repo-3, ...
 
   # Number of languages to display
   # Set to 0 to disable limitations

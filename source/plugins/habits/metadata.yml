@@ -1,5 +1,4 @@
 name: "💡 Coding habits"
-cost: 1 REST request per 100 events + 1 REST request per commit
 category: github
 index: 3
 supports:
