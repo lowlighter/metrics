@@ -14,7 +14,7 @@ export default async function({login, data, computed, imports, q, graphql, queri
       sections,
       issues:{
         get count() {
-          return this.open + this.closed
+          return this.open + this.closed + this.drafts + this.skipped
         },
         get open() {
           return computed.repositories.issues_open
@@ -22,14 +22,18 @@ export default async function({login, data, computed, imports, q, graphql, queri
         get closed() {
           return computed.repositories.issues_closed
         },
+        drafts:0,
+        skipped:0,
         collaborators:{
           open:0,
           closed:0,
+          drafts:0,
+          skipped:0,
         }
       },
       pr:{
         get count() {
-          return this.open + this.closed + this.merged
+          return this.open + this.closed + this.merged + this.drafts
         },
         get open() {
           return computed.repositories.pr_open
@@ -40,6 +44,13 @@ export default async function({login, data, computed, imports, q, graphql, queri
         get merged() {
           return computed.repositories.pr_merged
         },
+        drafts:0,
+        collaborators:{
+          open:0,
+          closed:0,
+          merged:0,
+          drafts:0,
+        }
       },
     }
 
@@ -78,22 +89,26 @@ export default async function({login, data, computed, imports, q, graphql, queri
 
     //Load user issues and pull requests
     if ((account === "user")&&(sections.includes("user"))) {
-      const {user} = await graphql(queries.followup.user({login}))
+      const search = await graphql(queries.followup.user({login}))
+      console.log(search)
       followup.user = {
         issues:{
           get count() {
-            return this.open + this.closed
+            return this.open + this.closed + this.drafts + this.skipped
           },
-          open:user.issues_open.totalCount,
-          closed:user.issues_closed.totalCount,
+          open:search.issues_open.issueCount,
+          closed:search.issues_closed.issueCount,
+          drafts:search.issues_drafts.issueCount,
+          skipped:search.issues_skipped.issueCount,
         },
         pr:{
           get count() {
-            return this.open + this.closed + this.merged
+            return this.open + this.closed + this.merged + this.drafts
           },
-          open:user.pr_open.totalCount,
-          closed:user.pr_closed.totalCount,
-          merged:user.pr_merged.totalCount,
+          open:search.pr_open.issueCount,
+          closed:search.pr_closed.issueCount,
+          merged:search.pr_merged.issueCount,
+          drafts:search.pr_drafts.issueCount,
         },
       }
     }
