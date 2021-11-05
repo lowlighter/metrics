@@ -116,8 +116,8 @@ And you can customize these heavily with plugins, templates and hundreds of opti
     </td>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.svg">
-      <details open><summary>Mastered and known technologies version</summary>
-        <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.mastered.svg">
+      <details open><summary>With icons instead</summary>
+        <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.icons.svg">
       </details>
       <img width="900" height="1" alt="">
     </td>
@@ -229,8 +229,11 @@ And you can customize these heavily with plugins, templates and hundreds of opti
   <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.notable.svg">
-      <details open><summary>With repository name</summary>
+      <details><summary>With repository name</summary>
         <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.notable.repositories.svg">
+      </details>
+      <details open><summary>Indepth analysis</summary>
+        <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.notable.indepth.svg">
       </details>
       <img width="900" height="1" alt="">
     </td>
@@ -441,7 +444,7 @@ Choose `📊 Metrics embed` if you want to customize your GitHub profile and `�
 
 ### 🐙 Features
 
-* Create infographics from **36 plugins**, **4 templates** and **215 options**
+* Create infographics from **36 plugins**, **4 templates** and **217 options**
   * Even more **customization** with [community templates](source/templates/community) or by [forking this repository](https://github.com/lowlighter/metrics/network/members) and editing HTML/CSS/EJS
 * Support **users**, **organizations** and even **repositories**
 * Transparent by default so it'll blend well whether light or dark mode is used
@@ -776,13 +779,13 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
   </tr>  
   <tr>
     <td nowrap="nowrap">📗 Classic template</td>    
-    <td nowrap="nowrap" align="center" data-plugin="base">✔️</td>
+    <td nowrap="nowrap" align="center" data-plugin="base"></td>
     <td nowrap="nowrap" align="center" data-plugin="isocalendar">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="languages">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="introduction">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="habits">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="licenses">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="contributors">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="licenses">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="contributors">✓</td>
     <td nowrap="nowrap" align="center" data-plugin="stars">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="topics">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="reactions">✔️</td>
@@ -816,123 +819,123 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
   </tr>
   <tr>
     <td nowrap="nowrap">📘 Repository template</td>    
-    <td nowrap="nowrap" align="center" data-plugin="base">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="isocalendar">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="base"></td>
+    <td nowrap="nowrap" align="center" data-plugin="isocalendar">✓</td>
     <td nowrap="nowrap" align="center" data-plugin="languages">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="introduction">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="habits">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="habits">✓</td>
     <td nowrap="nowrap" align="center" data-plugin="licenses">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="contributors">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="stars">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="topics">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="reactions">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="stars">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="topics">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="reactions">✓</td>
     <td nowrap="nowrap" align="center" data-plugin="people">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="gists">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="gists">✓</td>
     <td nowrap="nowrap" align="center" data-plugin="followup">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="lines">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="traffic">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="stargazers">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="projects">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="activity">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="achievements">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="discussions">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="support">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="notable">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="repositories">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="code">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="sponsors">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="skyline">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="achievements">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="discussions">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="support">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="notable">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="repositories">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="code">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="sponsors">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="skyline">✓</td>
     <td nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="music">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="tweets">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="anilist">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="stackoverflow">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="posts">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="music">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="tweets">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="anilist">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="stackoverflow">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="posts">✓</td>
     <td nowrap="nowrap" align="center" data-plugin="rss">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="wakatime">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="stock">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="screenshot">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="nightscout">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="wakatime">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="stock">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="screenshot">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="nightscout">✓</td>
   </tr>
   <tr>
     <td nowrap="nowrap">📙 Terminal template</td>    
-    <td nowrap="nowrap" align="center" data-plugin="base">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="isocalendar">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="base"></td>
+    <td nowrap="nowrap" align="center" data-plugin="isocalendar">✓</td>
     <td nowrap="nowrap" align="center" data-plugin="languages">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="introduction">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="habits">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="licenses">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="contributors">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="stars">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="topics">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="reactions">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="people">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="introduction">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="habits">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="licenses">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="contributors">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="stars">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="topics">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="reactions">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="people">✓</td>
     <td nowrap="nowrap" align="center" data-plugin="gists">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="followup">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="followup">✓</td>
     <td nowrap="nowrap" align="center" data-plugin="lines">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="traffic">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="stargazers">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="projects">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="activity">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="achievements">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="discussions">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="support">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="notable">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="repositories">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="code">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="sponsors">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="skyline">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="stargazers">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="projects">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="activity">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="achievements">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="discussions">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="support">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="notable">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="repositories">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="code">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="sponsors">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="skyline">✓</td>
     <td nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="music">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="tweets">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="anilist">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="stackoverflow">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="posts">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="rss">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="wakatime">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="stock">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="screenshot">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="nightscout">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="music">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="tweets">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="anilist">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="stackoverflow">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="posts">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="rss">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="wakatime">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="stock">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="screenshot">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="nightscout">✓</td>
   </tr>
   <tr>
     <td nowrap="nowrap">📒 Markdown template</td>    
-    <td nowrap="nowrap" align="center" data-plugin="base">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="isocalendar">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="languages">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="introduction">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="habits">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="licenses">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="contributors">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="stars">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="base"></td>
+    <td nowrap="nowrap" align="center" data-plugin="isocalendar">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="languages">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="introduction">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="habits">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="licenses">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="contributors">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="stars">✓</td>
     <td nowrap="nowrap" align="center" data-plugin="topics">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="reactions">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="people">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="gists">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="followup">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="lines">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="traffic">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="stargazers">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="projects">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="reactions">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="people">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="gists">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="followup">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="lines">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="traffic">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="stargazers">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="projects">✓</td>
     <td nowrap="nowrap" align="center" data-plugin="activity">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="achievements">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="discussions">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="support">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="notable">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="repositories">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="code">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="sponsors">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="skyline">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="pagespeed">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="music">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="achievements">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="discussions">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="support">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="notable">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="repositories">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="code">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="sponsors">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="skyline">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="pagespeed">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="music">✓</td>
     <td nowrap="nowrap" align="center" data-plugin="tweets">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="anilist">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="stackoverflow">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="anilist">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="stackoverflow">✓</td>
     <td nowrap="nowrap" align="center" data-plugin="posts">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="rss">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="wakatime">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="stock">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="screenshot">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="nightscout">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="wakatime">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="stock">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="screenshot">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="nightscout">✓</td>
   </tr>
   <tr>
     <td colspan="38"></td>
