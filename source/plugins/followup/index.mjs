@@ -64,24 +64,26 @@ export default async function({login, data, computed, imports, q, graphql, queri
 
         //Process repositories
         for (const {name:repo, owner:{login:owner}} of data.user.repositories.nodes) {
-          console.debug(`metrics/compute/${login}/plugins > followup > processing ${owner}/${repo}`)
-          followup.indepth.repositories[`${owner}/${repo}`] = {from:{}}
-          //Fetch users with push access
-          const {repository:{collaborators:{nodes:collaborators}}} = await graphql(queries.followup["repository.collaborators"]({repo, owner}))
-          console.debug(`metrics/compute/${login}/plugins > followup > found ${collaborators.length} collaborators`)
-          followup.indepth.repositories[`${owner}/${repo}`].collaborators = collaborators.map(({login}) => login)
-          //Fetch issues and pull requests created by collaborators
-          for (const {login:user} of collaborators)
-            followup.indepth.repositories[`${owner}/${repo}`].from[user] = (await graphql(queries.followup.repository({repo, owner, user}))).repository
-        }
-
-        //Aggregate collaborators stats
-        console.debug(`metrics/compute/${login}/plugins > followup > computing collaborators stats across repositories`)
-        for (const [repository, {from:users}] of Object.entries(followup.indepth.repositories)) {
-          console.debug(`metrics/compute/${login}/plugins > followup > processing ${repository}`)
-          for (const user of Object.values(users)) {
-            followup.issues.collaborators.open += user.issues_open.totalCount
-            followup.issues.collaborators.closed += user.issues_closed.totalCount
+          try {
+            console.debug(`metrics/compute/${login}/plugins > followup > processing ${owner}/${repo}`)
+            followup.indepth.repositories[`${owner}/${repo}`] = {stats:{}}
+            //Fetch users with push access
+            let {repository:{collaborators:{nodes:collaborators}}} = await graphql(queries.followup["repository.collaborators"]({repo, owner}))
+            console.debug(`metrics/compute/${login}/plugins > followup > found ${collaborators.length} collaborators`)
+            followup.indepth.repositories[`${owner}/${repo}`].collaborators = collaborators.map(({login}) => login)
+            //Fetch issues and pull requests created by collaborators
+            collaborators = collaborators.map(({login}) => `-author:${login}`).join(" ")
+            const stats = await graphql(queries.followup.repository({repo, owner, collaborators}))
+            followup.indepth.repositories[`${owner}/${repo}`] = stats
+            //Aggregate global stats
+            for (const [key, {issueCount:count}] of Object.entries(stats)) {
+              const [section, type] = key.split("_")
+              followup[section].collaborators[type] += count
+            }
+          }
+          catch (error) {
+            console.debug(error)
+            console.debug(`metrics/compute/${login}/plugins > followup > an error occured while processing ${owner}/${repo}, skipping...`)
           }
         }
       }
@@ -90,7 +92,6 @@ export default async function({login, data, computed, imports, q, graphql, queri
     //Load user issues and pull requests
     if ((account === "user")&&(sections.includes("user"))) {
       const search = await graphql(queries.followup.user({login}))
-      console.log(search)
       followup.user = {
         issues:{
           get count() {
