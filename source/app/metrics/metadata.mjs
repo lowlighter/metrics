@@ -299,7 +299,7 @@ metadata.template = async function({__templates, name, plugins, logger}) {
         demo:readme.match(/(?<demo><table>[\s\S]*?<[/]table>)/)?.groups?.demo?.replace(/<[/]?(?:table|tr)>/g, "")?.trim() ?? (name === "community" ? '<td align="center" colspan="2">See <a href="/source/templates/community/README.md">documentation</a> 🌍</td>' : "<td></td>"),
         compatibility:{
           ...Object.fromEntries(Object.entries(compatibility).filter(([_, value]) => value)),
-          ...Object.fromEntries(Object.entries(compatibility).filter(([_, value]) => !value).map(([key, _]) => [key, "embed"])),
+          ...Object.fromEntries(Object.entries(compatibility).filter(([_, value]) => !value).map(([key, value]) => [key, meta.formats?.includes("markdown") ? "embed" : value])),
         },
       },
       check({q, account = "bypass", format = null}) {
