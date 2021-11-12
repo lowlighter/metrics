@@ -32,7 +32,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
     await browser.close()
 
     //Results
-    return {image:await screenshot.getBase64Async("image/png"), title, height:screenshot.bitmap.height, width:screenshot.bitmap.width}
+    return {image:await screenshot.getBase64Async("image/png"), title, height:screenshot.bitmap.height, width:screenshot.bitmap.width, url}
   }
   //Handle errors
   catch (error) {
