@@ -22,3 +22,9 @@ inputs:
     values:
       - repositories # Overall status of issues and pull requests on your repositories
       - user         # Overall status of issues and pull requests you have created on GitHub
+
+  # Compute issues and pull requests per repositories with special highlighting for maintainers and specified users
+  plugin_followup_indepth:
+    description: Indepth follow-up processing
+    type: boolean
+    default: no
