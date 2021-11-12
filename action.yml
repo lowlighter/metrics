@@ -657,6 +657,11 @@ inputs:
     description: Sections to display
     default: repositories
   
+  # Compute issues and pull requests per repositories with special highlighting for maintainers and specified users
+  plugin_followup_indepth:
+    description: Indepth follow-up processing
+    default: no
+  
   # ====================================================================================
   # 👨‍💻 Lines of code changed
   

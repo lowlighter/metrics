@@ -779,7 +779,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
   </tr>  
   <tr>
     <td nowrap="nowrap">📗 Classic template</td>    
-    <td nowrap="nowrap" align="center" data-plugin="base"></td>
+    <td nowrap="nowrap" align="center" data-plugin="base">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="isocalendar">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="languages">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="introduction">✔️</td>
@@ -819,7 +819,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
   </tr>
   <tr>
     <td nowrap="nowrap">📘 Repository template</td>    
-    <td nowrap="nowrap" align="center" data-plugin="base"></td>
+    <td nowrap="nowrap" align="center" data-plugin="base">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="isocalendar">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="languages">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="introduction">✔️</td>
@@ -859,7 +859,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
   </tr>
   <tr>
     <td nowrap="nowrap">📙 Terminal template</td>    
-    <td nowrap="nowrap" align="center" data-plugin="base"></td>
+    <td nowrap="nowrap" align="center" data-plugin="base">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="isocalendar">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="languages">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="introduction">❌</td>
@@ -899,7 +899,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
   </tr>
   <tr>
     <td nowrap="nowrap">📒 Markdown template</td>    
-    <td nowrap="nowrap" align="center" data-plugin="base"></td>
+    <td nowrap="nowrap" align="center" data-plugin="base">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="isocalendar">✓</td>
     <td nowrap="nowrap" align="center" data-plugin="languages">✓</td>
     <td nowrap="nowrap" align="center" data-plugin="introduction">✓</td>
@@ -1058,7 +1058,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <td nowrap="nowrap" align="center" data-plugin="wakatime">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="stock">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="screenshot">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="nightscout">✔️</td>
+    <td nowrap="nowrap" align="center" data-plugin="nightscout">❌</td>
   </tr>
   <tr>
     <td nowrap="nowrap">📓 Repository</td>    
@@ -1085,18 +1085,18 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <td nowrap="nowrap" align="center" data-plugin="support">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="notable">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="repositories">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="code">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="sponsors">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="code">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="sponsors">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="skyline">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="music">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="tweets">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="anilist">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="stackoverflow">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="posts">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="posts">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="rss">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="wakatime">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="stock">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="stock">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="screenshot">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="nightscout">❌</td>
   </tr>
