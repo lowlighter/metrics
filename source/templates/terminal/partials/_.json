@@ -4,5 +4,6 @@
   "base.repositories",
   "gists",
   "languages",
-  "pagespeed"
+  "pagespeed",
+  "isocalendar"
 ]
