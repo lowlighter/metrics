@@ -300,6 +300,7 @@ metadata.template = async function({__templates, name, plugins, logger}) {
         compatibility:{
           ...Object.fromEntries(Object.entries(compatibility).filter(([_, value]) => value)),
           ...Object.fromEntries(Object.entries(compatibility).filter(([_, value]) => !value).map(([key, value]) => [key, meta.formats?.includes("markdown") ? "embed" : value])),
+          base:true
         },
       },
       check({q, account = "bypass", format = null}) {
