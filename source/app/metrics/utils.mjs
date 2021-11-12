@@ -6,7 +6,7 @@ import processes from "child_process"
 import fss from "fs"
 import GIFEncoder from "gifencoder"
 import jimp from "jimp"
-import marked from "marked"
+import {marked} from "marked"
 import nodechartist from "node-chartist"
 import opengraph from "open-graph-scraper"
 import os from "os"
@@ -261,7 +261,7 @@ export function highlight(code, lang) {
 /**Markdown-html sanitizer-interpreter */
 export async function markdown(text, {mode = "inline", codelines = Infinity} = {}) {
   //Sanitize user input once to prevent injections and parse into markdown
-  let rendered = await marked(htmlunescape(htmlsanitize(text)), {highlight, silent:true, xhtml:true})
+  let rendered = await marked.parse(htmlunescape(htmlsanitize(text)), {highlight, silent:true, xhtml:true})
   //Markdown mode
   switch (mode) {
     case "inline": {
@@ -354,7 +354,7 @@ export const svg = {
       rendered = await svg.twemojis(rendered, {custom:false})
     if ((gemojis) && (rest))
       rendered = await svg.gemojis(rendered, {rest})
-    rendered = marked(rendered)
+    rendered = marked.parse(rendered)
     //Render through browser and print pdf
     console.debug("metrics/svg/pdf > loading svg")
     const page = await svg.resize.browser.newPage()
