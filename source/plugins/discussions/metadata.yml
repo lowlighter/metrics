@@ -1,6 +1,6 @@
 name: "💬 Discussions"
 category: github
-index: 18
+index: 16
 supports:
   - user
 inputs:

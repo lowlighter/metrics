@@ -4,15 +4,17 @@ The *languages* plugin displays which programming languages you use the most acr
 
 <table>
   <td align="center">
-    <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.svg">
-    <details open><summary>With both total bytes size and percentage version</summary>
-      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.details.svg">
+    <details open><summary>Indepth analysis (clone and analyze repositories)</summary>
+      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.indepth.svg">
     </details>
-    <details open><summary>Recently used version (based on recent activity)</summary>
+    <details open><summary>Recently used (analyze recent activity events)</summary>
       <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.recent.svg">
     </details>
-    <details><summary>Indepth analysis (clone, analyze and extract commits)</summary>
-      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.indepth.svg">
+    <details><summary>Default algorithm</summary>
+      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.svg">
+    </details>
+    <details><summary>Default algorithm (with details)</summary>
+      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.details.svg">
     </details>
     <img width="900" height="1" alt="">
   </td>

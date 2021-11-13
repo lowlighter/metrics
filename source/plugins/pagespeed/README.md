@@ -5,11 +5,13 @@ The *pagespeed* plugin adds the performance statistics of the website attached o
 
 <table>
   <td align="center">
-    <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.svg">
-    <details><summary>Detailed version</summary>
+    <details open><summary>PageSpeed scores</summary>
+      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.svg">
+    </details>
+    <details><summary>PageSpeed scores with detailed report</summary>
       <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.detailed.svg">
     </details>
-    <details><summary>With screenshot version</summary>
+    <details><summary>PageSpeed scores with a website screenshot</summary>
       <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.pagespeed.screenshot.svg">
     </details>
     <img width="900" height="1" alt="">

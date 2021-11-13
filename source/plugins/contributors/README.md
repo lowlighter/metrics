@@ -6,11 +6,10 @@ It's especially useful to acknowledge contributors on release notes.
 
 <table>
   <td align="center">
-    <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.contributors.categories.svg">
-    <details><summary>Raw list with names</summary>
-      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.contributors.svg">
+    <details open><summary>By contribution types</summary>
+      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.contributors.categories.svg">
     </details>
-    <details><summary>With number of contributions</summary>
+    <details><summary>By number of contributions</summary>
       <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.contributors.contributions.svg">
     </details>
     <img width="900" height="1" alt="">

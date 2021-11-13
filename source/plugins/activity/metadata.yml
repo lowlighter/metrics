@@ -1,6 +1,6 @@
 name: "📰 Recent activity"
 category: github
-index: 16
+index: 13
 supports:
   - user
   - organization

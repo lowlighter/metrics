@@ -4,12 +4,11 @@ The *notable* plugin displays badges of organization where you commited at least
 
 <table>
   <td align="center">
-    <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.notable.svg">
-    <details><summary>With repository name</summary>
-      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.notable.repositories.svg">
-    </details>
     <details open><summary>Indepth analysis</summary>
       <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.notable.indepth.svg">
+    </details>
+    <details><summary>Contributions in organizations only</summary>
+      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.notable.svg">
     </details>
     <img width="900" height="1" alt="">
   </td>
