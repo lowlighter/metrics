@@ -5,12 +5,13 @@ set -e
 # You need to be logged to 'gh' first.
 
 # package_name syntax. i.e: jellyfin-vue
-container="$1"
+owner="$1"
+container="$2"
 temp_file="ghcr_prune.ids"
 rm -rf $temp_file
 
 echo "Fetching dangling images from GHCR..."
-gh api /user/packages/container/${container}/versions --paginate > $temp_file
+gh api /users/${owner}/packages/container/${container}/versions --paginate > $temp_file
 
 ids_to_delete=$(cat "$temp_file" | jq -r '.[] | select(.metadata.container.tags==[]) | .id')
 
@@ -25,7 +26,7 @@ while read -r line; do
 	id="$line"
 	echo "Processing image $id"
 	## Workaround for https://github.com/cli/cli/issues/4286 and https://github.com/cli/cli/issues/3937
-	echo -n | gh api --method DELETE /user/packages/container/${container}/versions/${id} --input -
+	echo -n | gh api --method DELETE /users/${owner}/packages/container/${container}/versions/${id} --input -
 	echo Dangling image with ID $id deleted successfully
 done <<< $ids_to_delete
 
