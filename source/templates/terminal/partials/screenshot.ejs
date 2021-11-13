@@ -1,0 +1,4 @@
+<% if (plugins.screenshot) { %>
+<div class="stdin"><%- meta.$ %> wget <%= plugins.screenshot.url %></div><%# -%>
+<div class="stdout"><%# -%><img class="screenshot autosize" src="<%= plugins.screenshot.image %>" height="<%= plugins.screenshot.height %>" width="<%= plugins.screenshot.width %>" alt=""/></div>
+<% } %>

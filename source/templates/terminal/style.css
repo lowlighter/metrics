@@ -63,6 +63,22 @@
     color: #AE9DA7;
   }
 
+/* Isocalendar */
+  .isocalendar svg {
+    margin-top: -20px !important;
+  }
+
+/* Images */
+  .isocalendar svg, .screenshot {
+    filter: grayscale(1) brightness(.9) opacity(.7);
+  }
+
+/* Autosize */
+  .autosize {
+    width: auto;
+    height: auto;
+  }
+
 /* Prompt */
   .ps1-path {
     color: #7EDA29;
