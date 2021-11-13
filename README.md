@@ -1,6 +1,6 @@
 # 📊 Metrics [<img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=280144&theme=dark" alt="" align="right" width="190" height="41">](https://www.producthunt.com/posts/github-metrics?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-github-metrics)
 
-[![Build, test, analyze and publish](https://github.com/lowlighter/metrics/actions/workflows/workflow.yml/badge.svg)](https://github.com/lowlighter/metrics/actions/workflows/workflow.yml) [![Metrics (examples)](https://github.com/lowlighter/lowlighter/actions/workflows/metrics.yml/badge.svg)](https://github.com/lowlighter/lowlighter/actions/workflows/metrics.yml)
+![Build](https://github.com/lowlighter/metrics/workflows/Build/badge.svg) [![Metrics (examples)](https://github.com/lowlighter/lowlighter/actions/workflows/metrics.yml/badge.svg)](https://github.com/lowlighter/lowlighter/actions/workflows/metrics.yml)
 
 Generate your metrics that you can embed everywhere, including your GitHub profile readme! It works for both user and organization accounts, and even for repositories!
 
@@ -444,7 +444,7 @@ Choose `📊 Metrics embed` if you want to customize your GitHub profile and `�
 
 ### 🐙 Features
 
-* Create infographics from **36 plugins**, **4 templates** and **217 options**
+* Create infographics from **36 plugins**, **4 templates** and **218 options**
   * Even more **customization** with [community templates](source/templates/community) or by [forking this repository](https://github.com/lowlighter/metrics/network/members) and editing HTML/CSS/EJS
 * Support **users**, **organizations** and even **repositories**
 * Transparent by default so it'll blend well whether light or dark mode is used
@@ -843,24 +843,24 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <td nowrap="nowrap" align="center" data-plugin="notable">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="repositories">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="code">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="sponsors">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="sponsors">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="skyline">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="music">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="tweets">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="anilist">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="stackoverflow">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="posts">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="posts">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="rss">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="wakatime">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="stock">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="screenshot">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="stock">✔️</td>
+    <td nowrap="nowrap" align="center" data-plugin="screenshot">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="nightscout">❌</td>
   </tr>
   <tr>
     <td nowrap="nowrap">📙 Terminal template</td>    
     <td nowrap="nowrap" align="center" data-plugin="base">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="isocalendar">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="isocalendar">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="languages">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="introduction">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="habits">❌</td>
@@ -894,7 +894,7 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <td nowrap="nowrap" align="center" data-plugin="rss">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="wakatime">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="stock">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="screenshot">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="screenshot">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="nightscout">❌</td>
   </tr>
   <tr>
