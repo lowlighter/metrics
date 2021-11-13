@@ -85,6 +85,20 @@ export default async function({login, data, imports, q, rest, account}, {enabled
       }
     }
 
+    //Apply aliases and group languages when needed
+    for (const stats of [languages.stats, languages.lines, languages["stats.recent"].stats, languages["stats.recent"].lines]) {
+      if (!stats)
+        continue
+      for (const [language, value] of Object.entries(stats)) {
+        if (language.toLocaleLowerCase() in aliases) {
+          delete stats[language]
+          const alias = aliases[language.toLocaleLowerCase()]
+          stats[alias] = (stats[alias] ?? 0) + value
+          console.debug(`metrics/compute/${login}/plugins > languages > ${language} -> ${alias}: ${stats[alias]} (+${value})`)
+        }
+      }
+    }
+
     //Compute languages stats
     for (const {section, stats = {}, lines = {}, total = 0} of [{section:"favorites", stats:languages.stats, lines:languages.lines, total:languages.total}, {section:"recent", ...languages["stats.recent"]}]) {
       console.debug(`metrics/compute/${login}/plugins > languages > computing stats ${section}`)
@@ -102,13 +116,6 @@ export default async function({login, data, imports, q, rest, account}, {enabled
       }
     }
 
-    //Apply aliases
-    for (const section of ["favorites", "recent"]) {
-      for (const language of languages[section]) {
-        if (language.name.toLocaleLowerCase() in aliases)
-          language.name = aliases[language.name.toLocaleLowerCase()]
-      }
-    }
     //Results
     return languages
   }
