@@ -3,7 +3,6 @@ category: other
 index: 3
 supports:
   - user
-  - organization
 inputs:
 
   # Enable or disable plugin

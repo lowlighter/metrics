@@ -1,6 +1,6 @@
 name: "🌟 Recently starred repositories"
 category: github
-index: 6
+index: 3
 supports:
   - user
 inputs:

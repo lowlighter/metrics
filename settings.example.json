@@ -38,23 +38,23 @@
     "languages":{
       "enabled": false,            "//": "Display most used languages metrics"
     },
-    "introduction":{
-      "enabled": false,            "//": "Display account or repository introduction"
-    },
-    "habits":{
-      "enabled": false,            "//": "Display coding habits metrics"
-    },
-    "licenses":{
-      "enabled": false,            "//": "Display licenses informations"
-    },
-    "contributors":{
-      "enabled": false,            "//": "Display repository contributors"
+    "topics":{
+      "enabled": false,            "//": "Display starred topics"
     },
     "stars":{
       "enabled": false,            "//": "Display recently starred repositories"
     },
-    "topics":{
-      "enabled": false,            "//": "Display starred topics"
+    "licenses":{
+      "enabled": false,            "//": "Display licenses informations"
+    },
+    "habits":{
+      "enabled": false,            "//": "Display coding habits metrics"
+    },
+    "contributors":{
+      "enabled": false,            "//": "Display repository contributors"
+    },
+    "followup":{
+      "enabled": false,            "//": "Display follow-up of repositories issues and pull requests"
     },
     "reactions":{
       "enabled": false,            "//": "Display average issue comments reactions"
@@ -62,23 +62,14 @@
     "people":{
       "enabled": false,            "//": "Display GitHub users from various affiliations"
     },
-    "gists":{
-      "enabled": false,            "//": "Display gists metrics"
-    },
-    "followup":{
-      "enabled": false,            "//": "Display follow-up of repositories issues and pull requests"
-    },
-    "lines":{
-      "enabled": false,            "//": "Display lines of code metrics"
-    },
-    "traffic":{
-      "enabled": false,            "//": "Display repositories traffic metrics"
-    },
     "stargazers":{
       "enabled": false,            "//": "Display stargazers metrics"
     },
     "projects":{
       "enabled": false,            "//": "Display active projects"
+    },
+    "code":{
+      "enabled": false,            "//": "Display a random code snippet from recent activity"
     },
     "activity":{
       "enabled": false,            "//": "Display recent activity"
@@ -86,20 +77,29 @@
     "achievements":{
       "enabled": false,            "//": "Display achievements"
     },
+    "notable":{
+      "enabled": false,            "//": "Display notable contributions in organizations"
+    },
     "discussions":{
       "enabled": false,            "//": "GitHub discussions metrics"
     },
     "support":{
       "enabled": false,            "//": "GitHub Community Support metrics"
     },
-    "notable":{
-      "enabled": false,            "//": "Display notable contributions in organizations"
+    "lines":{
+      "enabled": false,            "//": "Display lines of code metrics"
+    },
+    "traffic":{
+      "enabled": false,            "//": "Display repositories traffic metrics"
     },
     "repositories":{
       "enabled": false,            "//": "Display chosen featured repositories"
     },
-    "code":{
-      "enabled": false,            "//": "Display a random code snippet from recent activity"
+    "gists":{
+      "enabled": false,            "//": "Display gists metrics"
+    },
+    "introduction":{
+      "enabled": false,            "//": "Display account or repository introduction"
     },
     "sponsors":{
       "enabled": false,            "//": "Display GitHub sponsors"

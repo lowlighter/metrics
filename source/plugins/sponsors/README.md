@@ -4,8 +4,10 @@ The *sponsors* plugin lets you display your sponsors and introduction text from 
 
 <table>
   <td align="center">
-    <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.sponsors.svg">
-    <details><summary>With GitHub sponsors introduction</summary>
+    <details open><summary>GitHub sponsors card</summary>
+      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.sponsors.svg">
+    </details>
+    <details><summary>GitHub sponsors full introduction</summary>
       <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.sponsors.full.svg">
     </details>
     <img width="900" height="1" alt="">

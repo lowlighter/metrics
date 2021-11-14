@@ -1,6 +1,6 @@
 name: "🏅 Repository contributors"
 category: github
-index: 5
+index: 6
 supports:
   - repository
 inputs:

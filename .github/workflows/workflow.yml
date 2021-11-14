@@ -160,9 +160,15 @@ jobs:
           METRICS_VERSION=$(cat package.json | grep -Po '(?<="version": ")\d+[.]\d+(?=[.]0-beta")')
           METRICS_VERSION_BETA="$METRICS_VERSION-beta"
           set -e
-          echo "Beta version: v$METRICS_VERSION_BETA"
-          docker tag ghcr.io/lowlighter/metrics:master ghcr.io/lowlighter/metrics:$(echo "v$METRICS_VERSION_BETA")
-          docker push ghcr.io/lowlighter/metrics:$(echo "v$METRICS_VERSION_BETA")
+          if [[ "$METRICS_VERSION_BETA" != "v-beta" ]]; then
+            echo "Beta version: v$METRICS_VERSION_BETA"
+            docker tag ghcr.io/lowlighter/metrics:master ghcr.io/lowlighter/metrics:$(echo "v$METRICS_VERSION_BETA")
+            docker push ghcr.io/lowlighter/metrics:$(echo "v$METRICS_VERSION_BETA")
+          fi
+      - name: Tag docker image (main) and publish to GitHub registry
+        run: |
+          docker tag ghcr.io/lowlighter/metrics:master ghcr.io/lowlighter/metrics:main
+          docker push ghcr.io/lowlighter/metrics:main
 
   # Test lowlighter/metrics@master
   action-master-test:

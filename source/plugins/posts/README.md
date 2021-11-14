@@ -4,8 +4,10 @@ The recent *posts* plugin displays recent articles you wrote on an external sour
 
 <table>
   <td align="center">
-    <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.posts.svg">
-    <details><summary>With posts descriptions and cover images version</summary>
+    <details open><summary>Latest posts</summary>
+      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.posts.svg">
+    </details>
+    <details><summary>Latest posts width description and cover image</summary>
       <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.posts.full.svg">
     </details>
     <img width="900" height="1" alt="">

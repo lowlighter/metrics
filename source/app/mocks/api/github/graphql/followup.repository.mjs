@@ -1,6 +1,6 @@
 /**Mocked data */
 export default function({faker, query, login = faker.internet.userName()}) {
-  console.debug("metrics/compute/mocks > mocking graphql api result > followup/user")
+  console.debug("metrics/compute/mocks > mocking graphql api result > followup/repository")
   return ({
     issues_open:{issueCount:faker.datatype.number(100)},
     issues_drafts:{issueCount:faker.datatype.number(100)},

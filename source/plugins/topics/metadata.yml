@@ -1,6 +1,6 @@
 name: "📌 Starred topics"
 category: github
-index: 7
+index: 2
 supports:
   - user
 inputs:

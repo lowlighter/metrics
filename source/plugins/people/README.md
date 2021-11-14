@@ -5,14 +5,10 @@ In repository mode, it's possible to display sponsors, stargazers, watchers.
 
 <table>
   <td align="center">
-    <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.people.followers.svg">
-    <details><summary>Followed people version</summary>
-      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.people.following.svg">
+    <details open><summary>Related to an user</summary>
+      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.people.followers.svg">
     </details>
-    <details><summary>Special thanks version</summary>
-      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.people.thanks.svg">
-    </details>
-    <details><summary>Repository template version</summary>
+    <details><summary>Related to a repository</summary>
       <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.people.repository.svg">
     </details>
     <img width="900" height="1" alt="">

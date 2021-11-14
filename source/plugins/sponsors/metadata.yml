@@ -4,6 +4,7 @@ index: 23
 supports:
   - user
   - organization
+  - repository
 inputs:
 
   # Enable or disable plugin

@@ -5,9 +5,11 @@ Check out [GitHub topics](https://github.com/topics) to search interesting topic
 
 <table>
   <td align="center">
-    <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.svg">
-    <details open><summary>With icons instead</summary>
+    <details open><summary>With icons</summary>
       <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.icons.svg">
+    </details>
+    <details open><summary>With labels</summary>
+      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.svg">
     </details>
     <img width="900" height="1" alt="">
   </td>
