@@ -30,41 +30,41 @@
     "@actions/github": "^4.0.0",
     "@octokit/graphql": "^4.8.0",
     "@octokit/rest": "^18.12.0",
-    "@primer/css": "^18.1.0",
+    "@primer/css": "^18.2.0",
     "axios": "^0.24.0",
     "clipboard": "^2.0.8",
     "compression": "^1.7.4",
     "ejs": "^3.1.6",
     "emoji-name-map": "^1.2.9",
     "express": "^4.17.1",
-    "express-rate-limit": "^5.5.0",
+    "express-rate-limit": "^5.5.1",
     "faker": "^5.5.3",
     "jimp": "^0.16.1",
     "js-yaml": "^4.1.0",
     "linguist-js": "^2.1.4",
-    "marked": "^4.0.0",
+    "marked": "^4.0.3",
     "memory-cache": "^0.2.0",
     "minimatch": "^3.0.4",
     "node-chartist": "^1.0.5",
-    "node-fetch": "^3.0.0",
-    "open-graph-scraper": "^4.10.0",
+    "node-fetch": "^3.1.0",
+    "open-graph-scraper": "^4.11.0",
     "png-js": "^1.0.0",
     "prismjs": "^1.25.0",
     "puppeteer": "^11.0.0",
     "rss-parser": "^3.12.0",
-    "sanitize-html": "^2.5.2",
+    "sanitize-html": "^2.5.3",
     "simple-git": "^2.47.0",
     "svgo": "^2.8.0",
     "twemoji-parser": "^13.1.0",
-    "vue": "^2.6.12",
+    "vue": "^2.6.14",
     "vue-prism-component": "^1.2.0",
-    "xml-formatter": "^2.5.0"
+    "xml-formatter": "^2.5.1"
   },
   "devDependencies": {
     "eslint": "^8.2.0",
-    "jest": "^27.3.0",
+    "jest": "^27.3.1",
     "libxmljs2": "^0.29.0",
-    "nodemon": "^2.0.13"
+    "nodemon": "^2.0.15"
   },
   "jest": {
     "testEnvironment": "node",
@@ -73,6 +73,6 @@
   },
   "optionalDependencies": {
     "gifencoder": "^2.0.1",
-    "utf-8-validate": "^5.0.5"
+    "utf-8-validate": "^5.0.7"
   }
 }
