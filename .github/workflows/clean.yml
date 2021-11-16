@@ -2,7 +2,8 @@ name: Clean untagged docker images from ghcr.io
 
 on:
   release:
-    - published
+    types:
+      - published
   workflow_dispatch:
 
 jobs:
