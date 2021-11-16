@@ -1,0 +1,20 @@
+name: Clean untagged docker images from ghcr.io
+
+on:
+  release:
+    - published
+  workflow_dispatch:
+
+jobs:
+  clean:
+    name: Clean untagged docker images from ghcr.io
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Run script
+        run: ./delete_ghcr_dangling_images.sh lowlighter metrics
+        working-directory: .github/workflows/maintenance
+        env:
+          GITHUB_TOKEN: ${{ secrets.GHCR_BOT_TOKEN }}
