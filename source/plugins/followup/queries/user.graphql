@@ -17,7 +17,7 @@ query FollowupUser {
   pr_drafts:search(query: "is:pr author:$login draft:true", type: ISSUE, first: 0) {
     issueCount
   }
-  pr_closed:search(query: "is:pr author:$login is:unmerged draft:false", type: ISSUE, first: 0) {
+  pr_closed:search(query: "is:pr author:$login is:unmerged is:closed draft:false", type: ISSUE, first: 0) {
     issueCount
   }
   pr_merged:search(query: "is:pr author:$login is:merged", type: ISSUE, first: 0) {

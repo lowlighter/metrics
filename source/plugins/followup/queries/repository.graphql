@@ -17,7 +17,7 @@ query FollowupRepository {
   pr_drafts:search(query: "repo:$owner/$repo is:pr $collaborators draft:true", type: ISSUE, first: 0) {
     issueCount
   }
-  pr_closed:search(query: "repo:$owner/$repo is:pr $collaborators is:unmerged draft:false", type: ISSUE, first: 0) {
+  pr_closed:search(query: "repo:$owner/$repo is:pr $collaborators is:unmerged is:closed draft:false", type: ISSUE, first: 0) {
     issueCount
   }
   pr_merged:search(query: "repo:$owner/$repo is:pr $collaborators is:merged", type: ISSUE, first: 0) {
