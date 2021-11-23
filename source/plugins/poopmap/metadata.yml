@@ -1,13 +1,37 @@
-name: "🧩 Poopmap"
-category: other   # Set plugin category ("github", "social" or "other")
+name: "💩 PoopMap plugin"
+category: social
+index: ~
 supports:
-  - user          # Support users account
-  - organization  # Support organizations account
-  - repository    # Support repositories metrics
+  - user
 inputs:
 
   # Enable or disable plugin
   plugin_poopmap:
-    description: description
+    description: Display PoopMap stats
     type: boolean
     default: no
+
+  # PoopMap API token
+  plugin_poopmap_token:
+    description: PoopMap API token
+    type: token
+    default: ""
+
+  # Time range to use for displayed stats
+  plugin_poopmap_days:
+    description: PoopMap time range
+    type: string
+    values:
+      - 7     # Last week
+      - 30    # Last month
+      - 180   # Last 6 months
+      - 365   # Last year
+    default: 7
+
+  # Sections to display
+  plugin_poopmap_sections:
+    description: Sections to display
+    type: array
+    values:
+      - hours              # Show amount of poops per hour of a day
+    default: hours
