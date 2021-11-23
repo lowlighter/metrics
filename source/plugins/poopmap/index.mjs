@@ -19,8 +19,17 @@ export default async function({_login, q, imports, _data, _computed, _rest, _gra
       return createdAt.getTime() > timeframe
     })
 
+    for (let i = 0; i < filteredPoops.length; i++) {
+      const poop = filteredPoops[i]
+      const hour = new Date(poop.created_at).getHours()
+      if (!poops[hour]) poops[hour] = 1
+      else poops[hour] += 1
+
+      if (!poops.max || poops[hour] > poops.max) poops.max = poops[hour]
+    }
+
     //Results
-    return filteredPoops
+    return {poops}
   }
   //Handle errors
   catch (error) {
