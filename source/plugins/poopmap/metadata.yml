@@ -27,11 +27,3 @@ inputs:
       - 180   # Last 6 months
       - 365   # Last year
     default: 7
-
-  # Sections to display
-  plugin_poopmap_sections:
-    description: Sections to display
-    type: array
-    values:
-      - hours              # Show amount of poops per hour of a day
-    default: hours

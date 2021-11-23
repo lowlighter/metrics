@@ -54,5 +54,4 @@ You now have your PoopMap token! This token will not expire and it can only acce
     plugin_poopmap: yes
     plugin_poopmap_token: ${{ secrets.POOPMAP_TOKEN }}      # Required
     plugin_poopmap_days: 7                                  # Display last week stats
-    plugin_poopmap_sections: hours                          # Display poops per hours of a day graph
 ```
