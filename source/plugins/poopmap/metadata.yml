@@ -1,0 +1,13 @@
+name: "🧩 Poopmap"
+category: other   # Set plugin category ("github", "social" or "other")
+supports:
+  - user          # Support users account
+  - organization  # Support organizations account
+  - repository    # Support repositories metrics
+inputs:
+
+  # Enable or disable plugin
+  plugin_poopmap:
+    description: description
+    type: boolean
+    default: no
