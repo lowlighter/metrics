@@ -41,6 +41,7 @@ See their respective documentation for more informations about how to setup them
   * [🗨️ Stackoverflow plugin](/source/plugins/stackoverflow/README.md)
   * [🐤 Latest tweets](/source/plugins/tweets/README.md)
   * [⏰ WakaTime plugin](/source/plugins/wakatime/README.md)
+  * [💩 PoopMap plugin](/source/plugins/poopmap/README.md)
 * **Other**
   * [💉 Nightscout](/source/plugins/nightscout/README.md)
   * [📸 Website screenshot](/source/plugins/screenshot/README.md)
