@@ -14,7 +14,7 @@ inputs:
   # PoopMap API token
   plugin_poopmap_token:
     description: PoopMap API token
-    type: token
+    type: string
     default: ""
 
   # Time range to use for displayed stats
