@@ -36,7 +36,6 @@ See their respective documentation for more informations about how to setup them
   * [🌸 Anilist watch list and reading list](/source/plugins/anilist/README.md)
   * [🎼 Music plugin](/source/plugins/music/README.md)
   * [⏱️ Website performances](/source/plugins/pagespeed/README.md)
-  * [💩 PoopMap plugin](/source/plugins/poopmap/README.md)
   * [✒️ Recent posts](/source/plugins/posts/README.md)
   * [🗼 Rss feed](/source/plugins/rss/README.md)
   * [🗨️ Stackoverflow plugin](/source/plugins/stackoverflow/README.md)

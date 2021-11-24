@@ -31,7 +31,7 @@ And you can customize these heavily with plugins, templates and hundreds of opti
 <table>
   <tr>
     <th colspan="2" align="center">
-      <a href="source/plugins/README.md">🧩 37 plugins</a>
+      <a href="source/plugins/README.md">🧩 36 plugins</a>
     </th>
   </tr>
   <tr>
@@ -359,7 +359,7 @@ And you can customize these heavily with plugins, templates and hundreds of opti
   </tr>
   <tr>
     <th><a href="source/plugins/wakatime/README.md">⏰ WakaTime plugin</a></th>
-    <th><a href="source/plugins/poopmap/README.md">💩 PoopMap plugin</a></th>
+    <th><a href="source/plugins/stock/README.md">💹 Stock prices</a></th>
   </tr>
   <tr>
     <td align="center">
@@ -367,34 +367,23 @@ And you can customize these heavily with plugins, templates and hundreds of opti
       <img width="900" height="1" alt="">
     </td>
     <td align="center">
-      <img alt="" width="400" src="">
-      <img width="900" height="1" alt="">
-    </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/stock/README.md">💹 Stock prices</a></th>
-    <th><a href="source/plugins/screenshot/README.md">📸 Website screenshot</a></th>
-  </tr>
-  <tr>
-    <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.stock.svg">
       <img width="900" height="1" alt="">
     </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/screenshot/README.md">📸 Website screenshot</a></th>
+    <th><a href="source/plugins/nightscout/README.md">💉 Nightscout</a></th>
+  </tr>
+  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.screenshot.svg">
       <img width="900" height="1" alt="">
     </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/nightscout/README.md">💉 Nightscout</a></th>
-    <th><a href="source/plugins//README.md"></a></th>
-  </tr>
-  <tr>
     <td align="center">
       <img alt="" width="400" src="https://github.com/legoandmars/legoandmars/blob/master/metrics.plugin.nightscout.svg">
       <img width="900" height="1" alt="">
     </td>
-    <td align="center"><img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <th colspan="2" align="center">
@@ -474,7 +463,7 @@ Choose `📊 Metrics embed` if you want to customize your GitHub profile and `�
 
 ### 🐙 Features
 
-* Create infographics from **37 plugins**, **4 templates** and **218 options**
+* Create infographics from **36 plugins**, **4 templates** and **218 options**
   * Even more **customization** with [community templates](source/templates/community) or by [forking this repository](https://github.com/lowlighter/metrics/network/members) and editing HTML/CSS/EJS
 * Support **users**, **organizations** and even **repositories**
 * Transparent by default so it'll blend well whether light or dark mode is used
@@ -803,7 +792,6 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" title="✒️ Recent posts">✒️</th>
     <th nowrap="nowrap" align="center" title="🗼 Rss feed">🗼</th>
     <th nowrap="nowrap" align="center" title="⏰ WakaTime plugin">⏰</th>
-    <th nowrap="nowrap" align="center" title="💩 PoopMap plugin">💩</th>
     <th nowrap="nowrap" align="center" title="💹 Stock prices">💹</th>
     <th nowrap="nowrap" align="center" title="📸 Website screenshot">📸</th>
     <th nowrap="nowrap" align="center" title="💉 Nightscout">💉</th>
@@ -844,7 +832,6 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <td nowrap="nowrap" align="center" data-plugin="posts">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="rss">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="wakatime">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="poopmap">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="stock">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="screenshot">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="nightscout">✔️</td>
@@ -885,7 +872,6 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <td nowrap="nowrap" align="center" data-plugin="posts">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="rss">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="wakatime">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="poopmap">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="stock">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="screenshot">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="nightscout">❌</td>
@@ -926,7 +912,6 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <td nowrap="nowrap" align="center" data-plugin="posts">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="rss">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="wakatime">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="poopmap">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="stock">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="screenshot">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="nightscout">❌</td>
@@ -967,13 +952,12 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <td nowrap="nowrap" align="center" data-plugin="posts">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="rss">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="wakatime">✓</td>
-    <td nowrap="nowrap" align="center" data-plugin="poopmap">✓</td>
     <td nowrap="nowrap" align="center" data-plugin="stock">✓</td>
     <td nowrap="nowrap" align="center" data-plugin="screenshot">✓</td>
     <td nowrap="nowrap" align="center" data-plugin="nightscout">✓</td>
   </tr>
   <tr>
-    <td colspan="39"></td>
+    <td colspan="38"></td>
   </tr>
   <tr>
     <th nowrap="nowrap">Mode/Plugin</th>    
@@ -1011,7 +995,6 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" title="✒️ Recent posts">✒️</th>
     <th nowrap="nowrap" align="center" title="🗼 Rss feed">🗼</th>
     <th nowrap="nowrap" align="center" title="⏰ WakaTime plugin">⏰</th>
-    <th nowrap="nowrap" align="center" title="💩 PoopMap plugin">💩</th>
     <th nowrap="nowrap" align="center" title="💹 Stock prices">💹</th>
     <th nowrap="nowrap" align="center" title="📸 Website screenshot">📸</th>
     <th nowrap="nowrap" align="center" title="💉 Nightscout">💉</th>
@@ -1052,7 +1035,6 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <td nowrap="nowrap" align="center" data-plugin="posts">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="rss">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="wakatime">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="poopmap">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="stock">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="screenshot">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="nightscout">✔️</td>
@@ -1093,7 +1075,6 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <td nowrap="nowrap" align="center" data-plugin="posts">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="rss">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="wakatime">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="poopmap">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="stock">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="screenshot">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="nightscout">❌</td>
@@ -1134,7 +1115,6 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <td nowrap="nowrap" align="center" data-plugin="posts">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="rss">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="wakatime">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="poopmap">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="stock">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="screenshot">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="nightscout">❌</td>
@@ -1191,7 +1171,6 @@ See their respective documentation for more informations about how to setup them
   * [🌸 Anilist watch list and reading list](/source/plugins/anilist/README.md)
   * [🎼 Music plugin](/source/plugins/music/README.md)
   * [⏱️ Website performances](/source/plugins/pagespeed/README.md)
-  * [💩 PoopMap plugin](/source/plugins/poopmap/README.md)
   * [✒️ Recent posts](/source/plugins/posts/README.md)
   * [🗼 Rss feed](/source/plugins/rss/README.md)
   * [🗨️ Stackoverflow plugin](/source/plugins/stackoverflow/README.md)
@@ -1301,4 +1280,3 @@ See full license in [LICENSE.md](/LICENSE.md)
 * [vvo/sourcekarma](https://github.com/vvo/sourcekarma)
 * [ryo-ma/github-profile-trophy](https://github.com/ryo-ma/github-profile-trophy)
 * [teoxoy/profile-readme-stats](https://github.com/teoxoy/profile-readme-stats)
-
