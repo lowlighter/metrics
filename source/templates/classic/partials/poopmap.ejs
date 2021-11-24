@@ -1,3 +1,4 @@
+<% console.log(plugins) %>
 <% if (plugins.poopmap) { %>
   <section>
     <div class="row">
@@ -11,6 +12,7 @@
       <% } else { %>
         <section class="column chart largeable">
           <h3>Poops per hour of day</h3>
+          <small>over the last <%- plugins.poopmap.days %> days</small>
           <div class="chart-bars">
             <% let displayedValues = []; %>
             <% let poops = plugins.poopmap.poops %>
