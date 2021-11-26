@@ -72,35 +72,32 @@ export default async function({login, q, imports, rest, graphql, data, account, 
     }
 
     //Aggregate contributions
-    if (from !== "all") {
-      console.debug(`metrics/compute/${login}/plugins > notable > aggregating results`)
-      contributions = contributions.filter(({organization}) => (from === "organization")&&(organization))
-      const aggregated = new Map()
-      for (const {name, handle, avatar, organization, stars, ..._extras} of contributions) {
-        const key = repositories ? handle : name
-        if (aggregated.has(key)) {
-          const aggregate = aggregated.get(key)
-          aggregate.aggregated++
-          if (extras) {
-            const {history = 0, user:{commits = 0, percentage = 0, maintainer = false} = {}} = _extras
-            aggregate.history = aggregate.history ?? 0
-            aggregate.history += history
-            aggregate.user = aggregate.user ?? {}
-            aggregate.user.commits += commits
-            aggregate.user.percentage += percentage
-            aggregate.user.maintainer = aggregate.user.maintainer || maintainer
-          }
+    console.debug(`metrics/compute/${login}/plugins > notable > aggregating results`)
+    const aggregated = new Map()
+    for (const {name, handle, avatar, organization = handle.split("/").shift() ?? "", stars, ..._extras} of contributions) {
+      const key = repositories ? handle : name
+      if (aggregated.has(key)) {
+        const aggregate = aggregated.get(key)
+        aggregate.aggregated++
+        if (extras) {
+          const {history = 0, user:{commits = 0, percentage = 0, maintainer = false} = {}} = _extras
+          aggregate.history = aggregate.history ?? 0
+          aggregate.history += history
+          aggregate.user = aggregate.user ?? {}
+          aggregate.user.commits += commits
+          aggregate.user.percentage += percentage
+          aggregate.user.maintainer = aggregate.user.maintainer || maintainer
         }
-        else
-          aggregated.set(key, {name:key, handle, avatar, organization, stars, aggregated:1, ..._extras})
       }
-      contributions = [...aggregated.values()]
-      if (extras) {
-        //Normalize contribution percentage
-        contributions.map(aggregate => aggregate.user ? aggregate.user.percentage /= aggregate.aggregated : null)
-        //Sort contribution by maintainer first and then by contribution percentage
-        contributions = contributions.sort((a, b) => ((b.user?.percentage + b.user?.maintainer) || 0) - ((a.user?.percentage + a.user?.maintainer) || 0))
-      }
+      else
+        aggregated.set(key, {name:key, handle, avatar, organization, stars, aggregated:1, ..._extras})
+    }
+    contributions = [...aggregated.values()]
+    if (extras) {
+      //Normalize contribution percentage
+      contributions.map(aggregate => aggregate.user ? aggregate.user.percentage /= aggregate.aggregated : null)
+      //Sort contribution by maintainer first and then by contribution percentage
+      contributions = contributions.sort((a, b) => ((b.user?.percentage + b.user?.maintainer) || 0) - ((a.user?.percentage + a.user?.maintainer) || 0))
     }
 
 
