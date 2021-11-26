@@ -17,19 +17,19 @@ First, install the PoopMap app ([iOS](https://itunes.apple.com/us/app/poop-map/i
 Navigate to your profile in the app
 
 <div align="center">
-  <img src="https://i.imgur.com/TyXKzIR.jpg" width="150" />
+  <img src="https://user-images.githubusercontent.com/45036977/143533812-c2776bcc-1fda-441e-bc96-cf21d4c69ca1.jpg" width="150" />
 </div>
 
 Tap "Share Profile" in the top right
 
 <div align="center">
-  <img src="https://i.imgur.com/rWcNJaH.jpg" width="150" />
+  <img src="https://user-images.githubusercontent.com/45036977/143533849-b7e03b4d-2903-4339-bbb7-e1fc0ea9724e.jpg" width="150" />
 </div>
 
 Tap "Copy to Clipboard" the copy the link to your clipboard
 
 <div align="center">
-  <img src="https://i.imgur.com/CctdShL.jpg" width="150" />
+  <img src="https://user-images.githubusercontent.com/45036977/143533856-f4a9fc0d-7bde-48c2-b579-e8ee91804d78.jpg" width="150" />
 </div>
 
 You should have something like
