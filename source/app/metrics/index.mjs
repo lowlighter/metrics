@@ -1,8 +1,6 @@
 //Imports
 import ejs from "ejs"
-import SVGO from "svgo"
 import util from "util"
-import xmlformat from "xml-formatter"
 import * as utils from "./utils.mjs"
 
 //Setup
@@ -174,32 +172,12 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
     if (q["config.gemoji"])
       rendered = await imports.svg.gemojis(rendered, {rest})
     //Optimize rendering
-    if (!q.raw)
-      rendered = xmlformat(rendered, {lineSeparator:"\n", collapseContent:true})
-    if ((conf.settings?.optimize) && (!q.raw)) {
-      console.debug(`metrics/compute/${login} > optimize`)
-      if (experimental.has("--optimize")) {
-        const {error, data:optimized} = await SVGO.optimize(rendered, {
-          multipass:true,
-          plugins:SVGO.extendDefaultPlugins([
-            //Additional cleanup
-            {name:"cleanupListOfValues"},
-            {name:"removeRasterImages"},
-            {name:"removeScriptElement"},
-            //Force CSS style consistency
-            {name:"inlineStyles", active:false},
-            {name:"removeViewBox", active:false},
-          ]),
-        })
-        if (error)
-          throw new Error(`Could not optimize SVG: \n${error}`)
-        rendered = optimized
-        console.debug(`metrics/compute/${login} > optimize > success`)
-      }
-      else
-        console.debug(`metrics/compute/${login} > optimize > this feature is currently disabled due to display issues (use --optimize flag in experimental features to force enable it)`)
-
-    }
+    if ((conf.settings?.optimize === true) || (conf.settings?.optimize?.includes?.("css")))
+      rendered = await imports.svg.optimize.css(rendered)
+    if ((conf.settings?.optimize === true) || (conf.settings?.optimize?.includes?.("xml")))
+      rendered = await imports.svg.optimize.xml(rendered, q)
+    if ((conf.settings?.optimize === true) || (conf.settings?.optimize?.includes?.("svg")))
+      rendered = await imports.svg.optimize.svg(rendered, q, experimental)
     //Verify svg
     if (verify) {
       console.debug(`metrics/compute/${login} > verify SVG`)
