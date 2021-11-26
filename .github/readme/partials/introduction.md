@@ -15,7 +15,7 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
 </table>
 <% {
   let cell = 0
-  const elements = Object.entries(plugins).filter(([key, value]) => (value)&&(!["base", "core"].includes(key)&&(!value.community)))
+  const elements = Object.entries(plugins).filter(([key, value]) => (value)&&(!["base", "core"].includes(key)&&(value.category !== "community")))
 %>
 
 And you can customize these heavily with plugins, templates and hundreds of options!
@@ -23,7 +23,7 @@ And you can customize these heavily with plugins, templates and hundreds of opti
 <table>
   <tr>
     <th colspan="2" align="center">
-      <a href="source/plugins/README.md">🧩 <%= elements.length %> plugins</a>
+      <a href="source/plugins/README.md">🧩 <%= elements.length %>+ plugins</a>
     </th>
   </tr>
 <%  if (elements.length%2)
