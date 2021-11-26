@@ -5,7 +5,7 @@ import path from "path"
 import url from "url"
 
 //Defined categories
-const categories = ["core", "github", "social", "other"]
+const categories = ["core", "github", "social", "other", "community"]
 
 /**Metadata descriptor parser */
 export default async function metadata({log = true} = {}) {

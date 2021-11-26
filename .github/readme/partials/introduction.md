@@ -15,7 +15,7 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
 </table>
 <% {
   let cell = 0
-  const elements = Object.entries(plugins).filter(([key, value]) => (value)&&(!["base", "core"].includes(key)))
+  const elements = Object.entries(plugins).filter(([key, value]) => (value)&&(!["base", "core"].includes(key)&&(!value.community)))
 %>
 
 And you can customize these heavily with plugins, templates and hundreds of options!
@@ -34,7 +34,7 @@ And you can customize these heavily with plugins, templates and hundreds of opti
         if (cell === "even") {
 -%>
   <tr>
-<% } %>    <th><a href="source/plugins/<%= plugin %>/README.md"><%= name -%></a></th>
+<% } %>    <th><% if (plugin) { %><a href="source/plugins/<%= plugin %>/README.md"><%= name -%></a><% } %></th>
 <%      if (cell === "odd") {
 -%>  </tr>
 <% }}
