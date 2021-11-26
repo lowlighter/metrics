@@ -24,7 +24,7 @@ export default async function({q, imports, data, account}, {enabled = false, tok
     for (let i = 0; i < filteredPoops.length; i++) {
       const poop = filteredPoops[i]
       const hour = new Date(poop.created_at).getHours()
-      if (!hours[hour]) hours[hour] = 1
+      hours[hour] = (hours[hour] ?? 0) + 1
       else hours[hour] += 1
 
       if (!hours.max || hours[hour] > hours.max) hours.max = hours[hour]
