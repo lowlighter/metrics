@@ -32,13 +32,9 @@ Tap "Copy to Clipboard" the copy the link to your clipboard
   <img src="https://user-images.githubusercontent.com/45036977/143533856-f4a9fc0d-7bde-48c2-b579-e8ee91804d78.jpg" width="150" />
 </div>
 
-You should have something like
-```
-Haha, check out the places I've pooped on Poop Map https://api.poopmap.net/map?token=75f9b1f1af8372b8b991fb4e597db5f3
-```
-copied.
+You should have something like `Haha, check out the places I've pooped on Poop Map https://api.poopmap.net/map?token=xxxxxxxxxx` copied.
 
-Extract the `token` query paramater from the link. For example mine is: `75f9b1f1af8372b8b991fb4e597db5f3`
+Extract the `token` query paramater from the link
 
 You now have your PoopMap token! This token will not expire and it can only access public details.
 </details>
