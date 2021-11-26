@@ -1,8 +1,9 @@
 ## 🧩 Plugins
 
 Plugins are features which provide additional content and lets you customize your rendered metrics.
+See their respective documentation for more informations about how to setup them.
 
-See their respective documentation for more informations about how to setup them:
+The following plugins are maintained by Metric's core team:
 
 * **Core**
   * [🗃️ Base content](/source/plugins/base/README.md)
@@ -40,10 +41,13 @@ See their respective documentation for more informations about how to setup them
   * [✒️ Recent posts](/source/plugins/posts/README.md)
   * [🗼 Rss feed](/source/plugins/rss/README.md)
   * [🗨️ Stackoverflow plugin](/source/plugins/stackoverflow/README.md)
+  * [💹 Stock prices](/source/plugins/stock/README.md)
   * [🐤 Latest tweets](/source/plugins/tweets/README.md)
   * [⏰ WakaTime plugin](/source/plugins/wakatime/README.md)
-* **Other**
-  * [📸 Website screenshot](/source/plugins/screenshot/README.md)
-  * [💹 Stock prices](/source/plugins/stock/README.md)
-* **Community** *(provided and maintained by contributors)*
+
+### 🎲 Community plugins
+
+The following plugins are provided and maintained by Metrics's user community:
   * [💉 Nightscout](/source/plugins/nightscout/README.md) [@legoandmars](https://github.com/legoandmars)
+  * [💩 PoopMap plugin](/source/plugins/poopmap/README.md) [@matievisthekat](https://github.com/matievisthekat)
+  * [📸 Website screenshot](/source/plugins/screenshot/README.md) [@lowlighter](https://github.com/lowlighter)

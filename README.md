@@ -31,7 +31,7 @@ And you can customize these heavily with plugins, templates and hundreds of opti
 <table>
   <tr>
     <th colspan="2" align="center">
-      <a href="source/plugins/README.md">🧩 36 plugins</a>
+      <a href="source/plugins/README.md">🧩 34+ plugins</a>
     </th>
   </tr>
   <tr>
@@ -372,20 +372,6 @@ And you can customize these heavily with plugins, templates and hundreds of opti
     </td>
   </tr>
   <tr>
-    <th><a href="source/plugins/screenshot/README.md">📸 Website screenshot</a></th>
-    <th><a href="source/plugins/nightscout/README.md">💉 Nightscout</a></th>
-  </tr>
-  <tr>
-    <td align="center">
-      <img alt="" width="400" src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.screenshot.svg">
-      <img width="900" height="1" alt="">
-    </td>
-    <td align="center">
-      <img alt="" width="400" src="https://github.com/legoandmars/legoandmars/blob/master/metrics.plugin.nightscout.svg">
-      <img width="900" height="1" alt="">
-    </td>
-  </tr>
-  <tr>
     <th colspan="2" align="center">
       <a href="https://github.com/lowlighter/metrics/projects/1">More to come soon!</a>
     </th>
@@ -463,7 +449,7 @@ Choose `📊 Metrics embed` if you want to customize your GitHub profile and `�
 
 ### 🐙 Features
 
-* Create infographics from **36 plugins**, **4 templates** and **219 options**
+* Create infographics from **37 plugins**, **4 templates** and **219 options**
   * Even more **customization** with [community templates](source/templates/community) or by [forking this repository](https://github.com/lowlighter/metrics/network/members) and editing HTML/CSS/EJS
 * Support **users**, **organizations** and even **repositories**
 * Transparent by default so it'll blend well whether light or dark mode is used
@@ -793,7 +779,6 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" title="🗼 Rss feed">🗼</th>
     <th nowrap="nowrap" align="center" title="⏰ WakaTime plugin">⏰</th>
     <th nowrap="nowrap" align="center" title="💹 Stock prices">💹</th>
-    <th nowrap="nowrap" align="center" title="📸 Website screenshot">📸</th>
   </tr>  
   <tr>
     <td nowrap="nowrap">📗 Classic template</td>    
@@ -832,7 +817,6 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <td nowrap="nowrap" align="center" data-plugin="rss">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="wakatime">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="stock">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="screenshot">✔️</td>
   </tr>
   <tr>
     <td nowrap="nowrap">📘 Repository template</td>    
@@ -871,7 +855,6 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <td nowrap="nowrap" align="center" data-plugin="rss">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="wakatime">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="stock">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="screenshot">✔️</td>
   </tr>
   <tr>
     <td nowrap="nowrap">📙 Terminal template</td>    
@@ -910,7 +893,6 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <td nowrap="nowrap" align="center" data-plugin="rss">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="wakatime">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="stock">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="screenshot">✔️</td>
   </tr>
   <tr>
     <td nowrap="nowrap">📒 Markdown template</td>    
@@ -949,10 +931,9 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <td nowrap="nowrap" align="center" data-plugin="rss">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="wakatime">✓</td>
     <td nowrap="nowrap" align="center" data-plugin="stock">✓</td>
-    <td nowrap="nowrap" align="center" data-plugin="screenshot">✓</td>
   </tr>
   <tr>
-    <td colspan="38"></td>
+    <td colspan="39"></td>
   </tr>
   <tr>
     <th nowrap="nowrap">Mode/Plugin</th>    
@@ -991,7 +972,6 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <th nowrap="nowrap" align="center" title="🗼 Rss feed">🗼</th>
     <th nowrap="nowrap" align="center" title="⏰ WakaTime plugin">⏰</th>
     <th nowrap="nowrap" align="center" title="💹 Stock prices">💹</th>
-    <th nowrap="nowrap" align="center" title="📸 Website screenshot">📸</th>
   </tr>  
   <tr>
     <td nowrap="nowrap">👤 User</td>    
@@ -1030,7 +1010,6 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <td nowrap="nowrap" align="center" data-plugin="rss">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="wakatime">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="stock">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="screenshot">✔️</td>
   </tr>
   <tr>
     <td nowrap="nowrap">👥 Organization</td>    
@@ -1069,7 +1048,6 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <td nowrap="nowrap" align="center" data-plugin="rss">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="wakatime">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="stock">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="screenshot">✔️</td>
   </tr>
   <tr>
     <td nowrap="nowrap">📓 Repository</td>    
@@ -1108,7 +1086,6 @@ https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
     <td nowrap="nowrap" align="center" data-plugin="rss">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="wakatime">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="stock">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="screenshot">✔️</td>
   </tr>
 </table>
 
@@ -1127,8 +1104,9 @@ See their respective documentation for more informations about how to setup them
 ## 🧩 Plugins
 
 Plugins are features which provide additional content and lets you customize your rendered metrics.
+See their respective documentation for more informations about how to setup them.
 
-See their respective documentation for more informations about how to setup them:
+The following plugins are maintained by Metric's core team:
 
 * **Core**
   * [🗃️ Base content](/source/plugins/base/README.md)
@@ -1166,13 +1144,16 @@ See their respective documentation for more informations about how to setup them
   * [✒️ Recent posts](/source/plugins/posts/README.md)
   * [🗼 Rss feed](/source/plugins/rss/README.md)
   * [🗨️ Stackoverflow plugin](/source/plugins/stackoverflow/README.md)
+  * [💹 Stock prices](/source/plugins/stock/README.md)
   * [🐤 Latest tweets](/source/plugins/tweets/README.md)
   * [⏰ WakaTime plugin](/source/plugins/wakatime/README.md)
-* **Other**
-  * [📸 Website screenshot](/source/plugins/screenshot/README.md)
-  * [💹 Stock prices](/source/plugins/stock/README.md)
-* **Community** *(provided and maintained by contributors)*
+
+### 🎲 Community plugins
+
+The following plugins are provided and maintained by Metrics's user community:
   * [💉 Nightscout](/source/plugins/nightscout/README.md) [@legoandmars](https://github.com/legoandmars)
+  * [💩 PoopMap plugin](/source/plugins/poopmap/README.md) [@matievisthekat](https://github.com/matievisthekat)
+  * [📸 Website screenshot](/source/plugins/screenshot/README.md) [@lowlighter](https://github.com/lowlighter)
 
 ### 🏦 Organizations metrics
 
