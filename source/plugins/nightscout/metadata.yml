@@ -2,7 +2,6 @@ name: "💉 Nightscout"
 category: community
 authors:
   - legoandmars
-index: 3
 supports:
   - user
 inputs:

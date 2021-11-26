@@ -1,6 +1,7 @@
 name: "💩 PoopMap plugin"
-category: social
-index: ~
+category: community
+authors:
+  - matievisthekat
 supports:
   - user
 inputs:
