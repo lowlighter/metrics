@@ -13,13 +13,8 @@ export default async function({q, imports, data, account}, {enabled = false, tok
 
     const filteredPoops = poops.filter(poop => {
       const createdAt = new Date(poop.created_at)
-      const now = new Date().getTime()
-      //Days * hours * minutes * seconds * milliseconds
-      const timeframe = now - days * 24 * 60 * 60 * 1000
-
       poop.created_at = createdAt.toString()
-
-      return createdAt.getTime() > timeframe
+      return createdAt > new Date().getTime() - days * 24 * 60 * 60 * 1000
     })
 
     const hours = {max:0}
