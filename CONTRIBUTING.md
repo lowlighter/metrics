@@ -26,7 +26,7 @@ Review below which contributions are accepted:
     <td>✔️</td>
     <td>
       <ul>
-        <li>New plugins are welcomed provided they're not redundant with existing plugins</li>
+        <li>New plugins are welcomed provided they're functional and not redundant with existing plugins</li>
         <li>New features for existing plugins are allowed but must be optional</li>
       </ul>
     </td>
@@ -227,7 +227,7 @@ The base structure for rendering looks like below:
 <svg xmlns="http://www.w3.org/2000/svg" width="480" height="99999" class="<%= !animated ? 'no-animations' : '' %>">
 
   <defs><style><%= fonts %></style></defs>
-  <style><%= style %></style>
+  <style data-optimizable="true"><%= style %></style>
 
   <foreignObject x="0" y="0" width="100%" height="100%">
     <div xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -423,12 +423,12 @@ For example:
 Here's an example:
 ```yaml
 name: "🧩 Plugin name (with emoji icon)"
-category: github  # Plugin category ("github", "social" or "other")
-index: ~          # Leave as it (this is used to order plugins on metrics README.md)
+category: community # Leave as it
+index: ~            # Leave as it
 supports:
-  - user          # Support users account
-  - organization  # Support organizations account
-  - repository    # Support repositories metrics
+  - user            # Support users account
+  - organization    # Support organizations account
+  - repository      # Support repositories metrics
 inputs:
 
   # A comment detailing input purposes

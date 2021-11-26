@@ -1,9 +1,9 @@
 name: "🧩 <%= `${name.charAt(0).toLocaleUpperCase()}${name.substring(1)}` %>"
-category: other   # Set plugin category ("github", "social" or "other")
+category: community # Leave as it
 supports:
-  - user          # Support users account
-  - organization  # Support organizations account
-  - repository    # Support repositories metrics
+  - user            # Support users account
+  - organization    # Support organizations account
+  - repository      # Support repositories metrics
 inputs:
 
   # Enable or disable plugin

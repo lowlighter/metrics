@@ -30,10 +30,11 @@
     "@actions/github": "^4.0.0",
     "@octokit/graphql": "^4.8.0",
     "@octokit/rest": "^18.12.0",
-    "@primer/css": "^18.2.0",
+    "@primer/css": "^19.0.0",
     "axios": "^0.24.0",
     "clipboard": "^2.0.8",
     "compression": "^1.7.4",
+    "csso": "^4.2.0",
     "ejs": "^3.1.6",
     "emoji-name-map": "^1.2.9",
     "express": "^4.17.1",
@@ -51,6 +52,7 @@
     "png-js": "^1.0.0",
     "prismjs": "^1.25.0",
     "puppeteer": "^11.0.0",
+    "purgecss": "^4.0.3",
     "rss-parser": "^3.12.0",
     "sanitize-html": "^2.5.3",
     "simple-git": "^2.47.0",
@@ -61,7 +63,7 @@
     "xml-formatter": "^2.5.1"
   },
   "devDependencies": {
-    "eslint": "^8.2.0",
+    "eslint": "^8.3.0",
     "jest": "^27.3.1",
     "libxmljs2": "^0.29.0",
     "nodemon": "^2.0.15"
