@@ -4,7 +4,7 @@ The *poopmap* plugin displays statistics from your [PoopMap](https://poopmap.net
 
 <table>
   <td align="center">
-    <img src="">
+    <img src="https://github.com/matievisthekat/matievisthekat/blob/master/metrics.plugin.poopmap.svg">
     <img width="900" height="1" alt="">
   </td>
 </table>
