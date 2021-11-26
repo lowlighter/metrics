@@ -48,7 +48,7 @@ And you can customize these heavily with plugins, templates and hundreds of opti
 <% }}} -%>
   <tr>
     <th colspan="2" align="center">
-      <a href="https://github.com/lowlighter/metrics/projects/1">More to come soon!</a>
+      <a href="https://github.com/lowlighter/metrics#-community-plugins">🎲 Community plugins</a>
     </th>
   </tr>
 </table>
