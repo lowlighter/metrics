@@ -867,6 +867,11 @@ inputs:
     description: Display repositories traffic metrics
     default: no
   
+  # List of repositories that will be skipped
+  plugin_traffic_skipped:
+    description: Repositories to skip
+    default: ""
+  
   # ====================================================================================
   # 📓 Repositories
   
