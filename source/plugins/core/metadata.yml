@@ -106,8 +106,14 @@ inputs:
   # Some templates may not support this option
   optimize:
     description: SVG optimization
-    type: boolean
-    default: yes
+    type: array
+    default: css, xml
+    format:
+      - comma-separated
+    values:
+      - css  # Purge and minify CSS styles
+      - xml  # Pretty-print XML
+      - svg  # Optimize SVG with SVGO (experimental, require --optimize-svg flag)
 
   # Setup additional templates from remote repositories
   setup_community_templates:
@@ -280,13 +286,14 @@ inputs:
     default: no
 
   # Experimental features
+  # Note that no backward compatibility are guaranteed for these features
   experimental_features:
     description: Experimental features
     type: array
     format: space-separated
     default: ""
     values:
-      - --optimize
+      - --optimize-svg
 
   # Use mocked data to bypass external APIs
   use_mocked_data:

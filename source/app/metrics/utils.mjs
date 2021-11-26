@@ -26,6 +26,11 @@ import emoji from "emoji-name-map"
 import minimatch from "minimatch"
 import crypto from "crypto"
 import linguist from "linguist-js"
+import purgecss from "purgecss"
+import csso from "csso"
+import SVGO from "svgo"
+import xmlformat from "xml-formatter"
+
 prism_lang()
 
 //Exports
@@ -155,7 +160,7 @@ export function htmlunescape(string, u = {"&":true, "<":true, ">":true, '"':true
 
 /**Chartist */
 export async function chartist() {
-  const css = `<style>${await fs.readFile(paths.join(__module(import.meta.url), "../../../node_modules", "node-chartist/dist/main.css")).catch(_ => "")}</style>`
+  const css = `<style data-optimizable="true">${await fs.readFile(paths.join(__module(import.meta.url), "../../../node_modules", "node-chartist/dist/main.css")).catch(_ => "")}</style>`
   return (await nodechartist(...arguments))
     .replace(/class="ct-chart-line">/, `class="ct-chart-line">${css}`)
 }
@@ -510,6 +515,64 @@ export const svg = {
       rendered = rendered.replace(new RegExp(emoji, "g"), gemoji)
     return rendered
   },
+  /**Optimizers */
+  optimize:{
+    /**CSS optimizer */
+    async css(rendered) {
+      //Extract styles
+      console.debug("metrics/svg/optimize/css > optimizing")
+      const regex = /<style data-optimizable="true">(?<style>[\s\S]*?)<\/style>/
+      const cleaned = "<!-- (optimized css) -->"
+      const css = []
+      while (regex.test(rendered)) {
+        const style = htmlunescape(rendered.match(regex)?.groups?.style ?? "")
+        rendered = rendered.replace(regex, cleaned)
+        css.push({raw:style})
+      }
+      const content = [{raw:rendered, extension:"html"}]
+
+      //Purge CSS
+      const purged = await new purgecss.PurgeCSS().purge({content, css})
+      const optimized = `<style>${csso.minify(purged.map(({css}) => css).join("\n")).css}</style>`
+      return rendered.replace(cleaned, optimized)
+    },
+    /**XML optimizer */
+    async xml(rendered, {raw = false} = {}) {
+      console.debug("metrics/svg/optimize/xml > optimizing")
+      if (raw) {
+        console.debug("metrics/svg/optimize/xml > skipped as raw option is enabled")
+        return rendered
+      }
+      return xmlformat(rendered, {lineSeparator:"\n", collapseContent:true})
+    },
+    /**SVG optimizer */
+    async svg(rendered, {raw = false} = {}, experimental = new Set()) {
+      console.debug("metrics/svg/optimize/svg > optimizing")
+      if (raw) {
+        console.debug("metrics/svg/optimize/svg > skipped as raw option is enabled")
+        return rendered
+      }
+      if (!experimental.has("--optimize")) {
+        console.debug("metrics/svg/optimize/svg > this feature require experimental feature flag --optimize-svg")
+        return rendered
+      }
+      const {error, data:optimized} = await SVGO.optimize(rendered, {
+        multipass:true,
+        plugins:SVGO.extendDefaultPlugins([
+          //Additional cleanup
+          {name:"cleanupListOfValues"},
+          {name:"removeRasterImages"},
+          {name:"removeScriptElement"},
+          //Force CSS style consistency
+          {name:"inlineStyles", active:false},
+          {name:"removeViewBox", active:false},
+        ]),
+      })
+      if (error)
+        throw new Error(`Could not optimize SVG: \n${error}`)
+      return optimized
+    }
+  }
 }
 
 /**Wait */
