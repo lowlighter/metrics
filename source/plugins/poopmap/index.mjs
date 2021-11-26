@@ -6,7 +6,9 @@ export default async function({q, imports, data, account}, {enabled = false, tok
     if ((!enabled)||(!q.poopmap))
       return null
 
-    const {token, days} = imports.metadata.plugins.poopmap.inputs({data, account, q})
+    if (!token) return {error:{message:"No token provided"}, instance:null}
+
+    const {days} = imports.metadata.plugins.poopmap.inputs({data, account, q})
     const {data:{poops}} = await imports.axios.get(`https://api.poopmap.net/api/v1/public_links/${token}`)
 
     const filteredPoops = poops.filter(poop => {
@@ -20,14 +22,13 @@ export default async function({q, imports, data, account}, {enabled = false, tok
       return createdAt.getTime() > timeframe
     })
 
-    const hours = {}
+    const hours = {max:0}
     for (let i = 0; i < filteredPoops.length; i++) {
       const poop = filteredPoops[i]
       const hour = new Date(poop.created_at).getHours()
       hours[hour] = (hours[hour] ?? 0) + 1
-      else hours[hour] += 1
 
-      if (!hours.max || hours[hour] > hours.max) hours.max = hours[hour]
+      hours.max = Math.max(hours[hour], hours.max)
     }
 
     //Results
