@@ -26,7 +26,7 @@ Review below which contributions are accepted:
     <td>✔️</td>
     <td>
       <ul>
-        <li>New plugins are welcomed provided they're not redundant with existing plugins</li>
+        <li>New plugins are welcomed provided they're functional and not redundant with existing plugins</li>
         <li>New features for existing plugins are allowed but must be optional</li>
       </ul>
     </td>
@@ -423,12 +423,12 @@ For example:
 Here's an example:
 ```yaml
 name: "🧩 Plugin name (with emoji icon)"
-category: github  # Plugin category ("github", "social" or "other")
-index: ~          # Leave as it (this is used to order plugins on metrics README.md)
+category: community # Leave as it
+index: ~            # Leave as it
 supports:
-  - user          # Support users account
-  - organization  # Support organizations account
-  - repository    # Support repositories metrics
+  - user            # Support users account
+  - organization    # Support organizations account
+  - repository      # Support repositories metrics
 inputs:
 
   # A comment detailing input purposes
