@@ -127,7 +127,7 @@ inputs:
   # Some templates may not support this option
   optimize:
     description: SVG optimization
-    default: yes
+    default: css, xml
   
   # Setup additional templates from remote repositories
   setup_community_templates:
@@ -249,6 +249,7 @@ inputs:
     default: no
   
   # Experimental features
+  # Note that no backward compatibility are guaranteed for these features
   experimental_features:
     description: Experimental features
     default: ""

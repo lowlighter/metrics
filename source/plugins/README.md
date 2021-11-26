@@ -1,6 +1,7 @@
 ## 🧩 Plugins
 
 Plugins are features which provide additional content and lets you customize your rendered metrics.
+
 See their respective documentation for more informations about how to setup them:
 
 * **Core**
@@ -42,6 +43,7 @@ See their respective documentation for more informations about how to setup them
   * [🐤 Latest tweets](/source/plugins/tweets/README.md)
   * [⏰ WakaTime plugin](/source/plugins/wakatime/README.md)
 * **Other**
-  * [💉 Nightscout](/source/plugins/nightscout/README.md)
   * [📸 Website screenshot](/source/plugins/screenshot/README.md)
   * [💹 Stock prices](/source/plugins/stock/README.md)
+* **Community** *(provided and maintained by contributors)*
+  * [💉 Nightscout](/source/plugins/nightscout/README.md) [@legoandmars](https://github.com/legoandmars)
