@@ -17,11 +17,11 @@
             <% let poops = plugins.poopmap.poops %>
             <% for (let h = 0; h < 24; h++) { displayedValues.push([h, (poops[h] || 0)/(poops.max || 1), poops[h]]) } %>
   
-            <% for(let i = 0; i < displayedValues.length; i++) { %>
+            <% for(const [h, percentage, value] of displayedValues) { %>
               <div class="entry">
-                <span class="value"><%= displayedValues[i][2] %></span>
-                <div class="bar" style="height: <%= displayedValues[i][1]*50 %>px; background-color: var(--color-calendar-graph-day-L<%= Math.ceil(displayedValues[i][1]/0.25) %>-bg)"></div>
-                <%= `${displayedValues[i][0]}`.padStart(2, 0) %>
+                <span class="value"><%= value %></span>
+                <div class="bar" style="height: <%= percentage*50 %>px; background-color: var(--color-calendar-graph-day-L<%= Math.ceil(percentage/0.25) %>-bg)"></div>
+                <%= `${h}`.padStart(2, 0) %>
               </div>
             <% } %>
           </div>
