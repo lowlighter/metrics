@@ -6,7 +6,7 @@
 
   <defs><style><%= fonts %></style></defs>
 
-  <style>
+  <style data-optimizable="true">
     <%= style %>
       .stdin, .stdout {
         animation-duration: <%= meta.animations.stdin %>s;

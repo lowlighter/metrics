@@ -227,7 +227,7 @@ The base structure for rendering looks like below:
 <svg xmlns="http://www.w3.org/2000/svg" width="480" height="99999" class="<%= !animated ? 'no-animations' : '' %>">
 
   <defs><style><%= fonts %></style></defs>
-  <style><%= style %></style>
+  <style data-optimizable="true"><%= style %></style>
 
   <foreignObject x="0" y="0" width="100%" height="100%">
     <div xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink">

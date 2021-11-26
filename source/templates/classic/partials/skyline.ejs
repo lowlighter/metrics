@@ -23,7 +23,7 @@
               </div>
             </div>
             <% { const n = plugins.skyline.animation.length, width = plugins.skyline.width, height = plugins.skyline.height %>
-              <style>
+              <style data-optimizable="true">
                 @keyframes skyline-animation-frame {
                   100% { transform: translateX(-100%); }
                 }
