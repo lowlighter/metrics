@@ -145,6 +145,10 @@
     "nightscout":{
       "enabled": false,            "//": "Displays Blood Glucose"
     },
+    "poopmap":{
+      "token": null,               "//":"PoopMap API token",
+      "enabled": false,            "//": "Display PoopMap stats"
+    },
     "//": ""
   }
 }

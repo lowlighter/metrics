@@ -1,8 +1,9 @@
 ## 🧩 Plugins
 
 Plugins are features which provide additional content and lets you customize your rendered metrics.
+See their respective documentation for more informations about how to setup them.
 
-See their respective documentation for more informations about how to setup them:
+The following plugins are maintained by Metric's core team:
 
 * **Core**
   * [🗃️ Base content](/source/plugins/base/README.md)
@@ -45,5 +46,8 @@ See their respective documentation for more informations about how to setup them
 * **Other**
   * [📸 Website screenshot](/source/plugins/screenshot/README.md)
   * [💹 Stock prices](/source/plugins/stock/README.md)
-* **Community** *(provided and maintained by contributors)*
-  * [💉 Nightscout](/source/plugins/nightscout/README.md) [@legoandmars](https://github.com/legoandmars)
+
+### 🎲 Community plugins
+
+The following plugins are provided and maintained by Metrics's user community:
+  * [💉 Nightscout](/source/plugins/nightscout/README.md) [@legoandmars](https://github.com/legoandmars)  * [💩 PoopMap plugin](/source/plugins/poopmap/README.md) [@matievisthekat](https://github.com/matievisthekat)

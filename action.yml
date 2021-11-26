@@ -1341,6 +1341,24 @@ inputs:
     description: When the blood sugar is considered urgently high
     default: 250
   
+  # ====================================================================================
+  # 💩 PoopMap plugin
+  
+  # Enable or disable plugin
+  plugin_poopmap:
+    description: Display PoopMap stats
+    default: no
+  
+  # PoopMap API token
+  plugin_poopmap_token:
+    description: PoopMap API token
+    default: ""
+  
+  # Time range to use for displayed stats
+  plugin_poopmap_days:
+    description: PoopMap time range
+    default: 7
+  
 
 # ====================================================================================
 # Action metadata
