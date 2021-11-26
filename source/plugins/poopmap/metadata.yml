@@ -1,0 +1,29 @@
+name: "💩 PoopMap plugin"
+category: social
+index: ~
+supports:
+  - user
+inputs:
+
+  # Enable or disable plugin
+  plugin_poopmap:
+    description: Display PoopMap stats
+    type: boolean
+    default: no
+
+  # PoopMap API token
+  plugin_poopmap_token:
+    description: PoopMap API token
+    type: token
+    default: ""
+
+  # Time range to use for displayed stats
+  plugin_poopmap_days:
+    description: PoopMap time range
+    type: string
+    values:
+      - 7     # Last week
+      - 30    # Last month
+      - 180   # Last 6 months
+      - 365   # Last year
+    default: 7

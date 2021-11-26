@@ -1,0 +1,32 @@
+<% if (plugins.poopmap) { %>
+  <section>
+    <div class="row">
+      <% if (plugins.poopmap.error) { %>
+        <section>
+          <div class="field error">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M2.343 13.657A8 8 0 1113.657 2.343 8 8 0 012.343 13.657zM6.03 4.97a.75.75 0 00-1.06 1.06L6.94 8 4.97 9.97a.75.75 0 101.06 1.06L8 9.06l1.97 1.97a.75.75 0 101.06-1.06L9.06 8l1.97-1.97a.75.75 0 10-1.06-1.06L8 6.94 6.03 4.97z"></path></svg>
+            <%= plugins.poopmap.error.message %>
+          </div>
+        </section>
+      <% } else { %>
+        <section class="column chart largeable">
+          <h3>Poops per hour of day</h3>
+          <small>over the last <%- plugins.poopmap.days %> days</small>
+          <div class="chart-bars">
+            <% let displayedValues = []; %>
+            <% let poops = plugins.poopmap.poops %>
+            <% for (let h = 0; h < 24; h++) { displayedValues.push([h, (poops[h] || 0)/(poops.max || 1), poops[h]]) } %>
+  
+            <% for(const [h, percentage, value] of displayedValues) { %>
+              <div class="entry">
+                <span class="value"><%= value %></span>
+                <div class="bar" style="height: <%= percentage*50 %>px; background-color: var(--color-calendar-graph-day-L<%= Math.ceil(percentage/0.25) %>-bg)"></div>
+                <%= `${h}`.padStart(2, 0) %>
+              </div>
+            <% } %>
+          </div>
+        </section>
+      <% } %>
+    </div>
+  </section>
+<% } %>
