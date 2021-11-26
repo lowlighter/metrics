@@ -13,7 +13,7 @@ export default async function({q, imports, data, account}, {enabled = false, tok
       const createdAt = new Date(poop.created_at)
       const now = new Date().getTime()
       //Days * hours * minutes * seconds * milliseconds
-      const timeframe = now - (days ?? 7) * 24 * 60 * 60 * 1000
+      const timeframe = now - days * 24 * 60 * 60 * 1000
 
       poop.created_at = createdAt.toString()
 
