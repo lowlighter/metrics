@@ -525,7 +525,7 @@ export const svg = {
       const cleaned = "<!-- (optimized css) -->"
       const css = []
       while (regex.test(rendered)) {
-        const style = rendered.match(regex)?.groups?.style.replace(/&gt;/g, ">") ?? ""
+        const style = htmlunescape(rendered.match(regex)?.groups?.style ?? "")
         rendered = rendered.replace(regex, cleaned)
         css.push({raw:style})
       }
