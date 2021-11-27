@@ -1276,34 +1276,6 @@ inputs:
     default: 5m
   
   # ====================================================================================
-  # 📸 Website screenshot
-  
-  # Enable or disable plugin
-  plugin_screenshot:
-    description: Display a screenshot of any website
-    default: no
-  
-  # Screenshot title caption
-  plugin_screenshot_title:
-    description: Screenshot title caption
-    default: Screenshot
-  
-  # Website to take screenshot
-  plugin_screenshot_url:
-    description: Website to take screenshot
-    default: ""
-  
-  # Selector to take in screenshot
-  plugin_screenshot_selector:
-    description: Selector to take in screenshot
-    default: body
-  
-  # Display or remove default page background
-  plugin_screenshot_background:
-    description: Display or remove default page background
-    default: yes
-  
-  # ====================================================================================
   # 💉 Nightscout
   
   # Enable or disable plugin
@@ -1340,6 +1312,52 @@ inputs:
   plugin_nightscout_urgenthighalert:
     description: When the blood sugar is considered urgently high
     default: 250
+  
+  # ====================================================================================
+  # 💩 PoopMap plugin
+  
+  # Enable or disable plugin
+  plugin_poopmap:
+    description: Display PoopMap stats
+    default: no
+  
+  # PoopMap API token
+  plugin_poopmap_token:
+    description: PoopMap API token
+    default: ""
+  
+  # Time range to use for displayed stats
+  plugin_poopmap_days:
+    description: PoopMap time range
+    default: 7
+  
+  # ====================================================================================
+  # 📸 Website screenshot
+  
+  # Enable or disable plugin
+  plugin_screenshot:
+    description: Display a screenshot of any website
+    default: no
+  
+  # Screenshot title caption
+  plugin_screenshot_title:
+    description: Screenshot title caption
+    default: Screenshot
+  
+  # Website to take screenshot
+  plugin_screenshot_url:
+    description: Website to take screenshot
+    default: ""
+  
+  # Selector to take in screenshot
+  plugin_screenshot_selector:
+    description: Selector to take in screenshot
+    default: body
+  
+  # Display or remove default page background
+  plugin_screenshot_background:
+    description: Display or remove default page background
+    default: yes
   
 
 # ====================================================================================

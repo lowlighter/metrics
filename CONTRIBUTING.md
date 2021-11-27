@@ -6,18 +6,16 @@ Nice! Read the few sections below to understand how this project is structured a
 
 ## 👨‍💻 Extending metrics
 
-This section explains how to create new templates and plugins. It also contains references about used packages, global project structure and list which contributions on are accepted.
+This section explains how to create new templates, plugins and features. It also contains references about used packages, global project structure and which contributions are accepted.
 
 ### 🤝 Accepted contributions
 
-Thanks for your interest in [metrics](https://github.com/lowlighter/metrics) and wanting to help it growing!
-
-Review below which contributions are accepted:
+The following contributions are accepted:
 <table>
   <tr>
     <th>Section</th>
-    <th>Addition</th>
     <th>Editions</th>
+    <th>Additions</th>
     <th>Notes</th>
   </tr>
   <tr>
@@ -26,19 +24,19 @@ Review below which contributions are accepted:
     <td>✔️</td>
     <td>
       <ul>
-        <li>New plugins are welcomed provided they're functional and not redundant with existing plugins</li>
-        <li>New features for existing plugins are allowed but must be optional</li>
+        <li>New features for existing plugins are allowed but must be optional and backward compatible</li>
+        <li>New community plugins are welcomed provided they're functional and not redundant with existing plugins</li>
       </ul>
     </td>
   </tr>
   <tr>
     <td nowrap="nowrap">🖼️ Templates</td>
-    <td>❌</td>
     <td>〽️</td>
+    <td>❌</td>
     <td>
       <ul>
+        <li>Templates editions are allowed with new features additions (but must remain consistent with current visuals)</li>
         <li>New templates are not allowed (use <a href="https://github.com/lowlighter/metrics/blob/master/source/templates/community/README.md">📕 Community templates</a> instead)</li>
-        <li>Templates editions are allowed for new features additions (but must remain consistent with current visuals)</li>
       </ul>
     </td>
   </tr>
@@ -54,11 +52,12 @@ Review below which contributions are accepted:
   </tr>
   <tr>
     <td nowrap="nowrap">🧱 Core</td>
-    <td>❌</td>
     <td>〽️</td>
+    <td>❌</td>
     <td>
       <ul>
         <li>Core editions impacts all rendering process and should be avoided unless necessary</li>
+        <li>New dependencies should be avoided when possible</li>
       </ul>
     </td>
   </tr>
@@ -79,8 +78,10 @@ Review below which contributions are accepted:
 * 〽️: Contributions welcomed, but must be discussed first
 * ❌: Only maintainers can manage these files
 
-Before working on something, ensure that it isn't already [in progress](https://github.com/lowlighter/metrics/projects/1#column-12158618) and that it will not duplicate any open pull requests (including drafts).
+Before working on something, ensure that it will not duplicate any open pull requests (including drafts).
 If you're unsure, always open an issue first to get insights and gather feedback.
+
+To avoid an ever-growing backlog, inactive pull requests are closed after 3 weeks and locked after 5 weeks.
 
 Even if your changes don't get merged in [lowlighter/metrics](https://github.com/lowlighter/metrics), please don't be too sad.
 Metrics is designed to be highly customizable, so you can always decide to generate metrics on your forked repository 🙂!
@@ -115,12 +116,12 @@ This section explain how metrics is structured.
     * `axios/` contains external REST APIs mocked data
     * `github/` contains mocked GitHub api data
   * `index.mjs` contains mockers
-* `source/plugins/` contains source code of plugins
+* `source/plugins/*/` contains source code of plugins
   * `README.md` contains plugin documentation
   * `metadata.yml` contains plugin metadata
   * `index.mjs` contains plugin source code
   * `queries/` contains plugin GraphQL queries
-* `source/templates/` contains templates files
+* `source/templates/*/` contains templates files
   * `README.md` contains template documentation
   * `metadata.yml` contains template metadata
   * `image.svg` contains template image used to render metrics
@@ -157,7 +158,7 @@ Below is a list of used packages.
   * To make HTTP/S requests
 * [actions/toolkit](https://github.com/actions/toolkit/tree/master)
   * To build the GitHub Action
-* [vuejs/vue](https://github.com/vuejs/vue) and [egoist/vue-prism-component](https://github.com/egoist/vue-prism-component) + [prismjs/prism](https://github.com/prismjs/prism)
+* [vuejs/vue](https://github.com/vuejs/vue), [egoist/vue-prism-component](https://github.com/egoist/vue-prism-component), [prismjs/prism](https://github.com/prismjs/prism) and [zenorocha/clipboard.js](https://github.com/zenorocha/clipboard.js)
   * To display server application
 * [puppeteer/puppeteer](https://github.com/puppeteer/puppeteer)
   * To scrape the web
@@ -169,14 +170,26 @@ Below is a list of used packages.
   * For mocking data
 * [steveukx/git-js](https://github.com/steveukx/git-js)
   * For simple git operations
-* [twitter/twemoji-parser](https://github.com/twitter/twemoji-parser)
-  * To parse emojis and replace them by [twemojis](https://github.com/twitter/twemoji)
+* [twitter/twemoji-parser](https://github.com/twitter/twemoji-parser) and [IonicaBizau/emoji-name-map](https://github.com/IonicaBizau/emoji-name-map)
+  * To parse and handle emojis/[twemojis](https://github.com/twitter/twemoji)
 * [jshemas/openGraphScraper](https://github.com/jshemas/openGraphScraper)
   * To retrieve open graphs metadata
 * [panosoft/node-chartist](https://github.com/panosoft/node-chartist) and [gionkunz/chartist-js](https://github.com/gionkunz/chartist-js)
   * To display embed SVG charts
 * [rbren/rss-parser](https://github.com/rbren/rss-parser)
   * To parse RSS streams
+* [Nixinova/Linguist](https://github.com/Nixinova/Linguist)
+  * To analyze used languages
+* [markedjs/marked](https://github.com/markedjs/marked) and [apostrophecms/sanitize-html](https://github.com/apostrophecms/sanitize-html)
+  * To render markdown blocks
+* [css/csso](https://github.com/css/csso) and [FullHuman/purgecss](https://github.com/FullHuman/purgecss)
+  * To optimize and purge unused CSS
+* [isaacs/minimatch](https://github.com/isaacs/minimatch)
+  * For file traversal
+* [node-fetch/node-fetch](https://github.com/node-fetch/node-fetch)
+  * For `fetch` polyfill
+* [eslint/eslint](https://github.com/eslint/eslint)
+  * As linter
 
 </details>
 
@@ -187,9 +200,9 @@ Templates require you to be comfortable with HTML, CSS and JavaScript ([EJS](htt
 
 Metrics does not really accept new [default templates](https://github.com/lowlighter/metrics/tree/master/source/templates) in order to avoid bloating main repository (and it also makes maintaining easier upon new plugins releases).
 
-Redesigns of existing templates are also typically avoided to keep visual consistency across all versions, but fear not! Users will still be able to use your custom templates thanks to [community templates](source/templates/community)!
+Redesigns of existing templates are also typically avoided to keep visual consistency across all versions, but fear not! Users are still able to use custom templates thanks to [community templates](source/templates/community)!
 
-If you make something awesome, don't hesitate to share it!
+If you make something awesome, don't hesitate to share it through either [discussions](https://github.com/lowlighter/metrics/discussions) or open a pull request to [reference it](https://github.com/lowlighter/metrics/tree/master/source/templates/community)!
 
 <details>
 <summary>💬 Creating a new template from scratch</summary>
@@ -244,6 +257,7 @@ The base structure for rendering looks like below:
 
 - `fonts` and `style` variables will both be populated with the same content as your `fonts.css` and `styles.css` files
   - (or those of `classic` template files if inexistent)
+  - `data-optimizable="true"` tells that a `style` tag can be minified and purged by post-processors
 - `partials` variable will be populated with `partials/_.json` content
   - Main loop will iterate over this array to include all defined partials
 - `#metrics-end` is a special HTML tag which must remain at the bottom of SVG template
@@ -265,7 +279,6 @@ Here's an example:
 ```yaml
 name: "🖼️ Template name"
 extends: classic  # Fallback to "classic" template "template.mjs" if not trusted
-index: ~          # Leave as it (this is used to order plugins on metrics README.md)
 supports:
   - user          # Support users account
   - organization  # Support organizations account
@@ -312,7 +325,7 @@ Here's a quick step-by-step tutorial to create base64 encoded fonts:
 
 Plugins lets add new features with additional content to rendered metrics and are coded with [JavaScript modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules).
 
-New plugins are welcomed, but maintainers have no obligation to maintain them.
+New plugins are welcomed, but Metrics's maintainers have no obligation to maintain the ones you add.
 It means you (as author) may be notified about open issues regarding related plugin.
 
 <details>
@@ -424,7 +437,6 @@ Here's an example:
 ```yaml
 name: "🧩 Plugin name (with emoji icon)"
 category: community # Leave as it
-index: ~            # Leave as it
 supports:
   - user            # Support users account
   - organization    # Support organizations account
@@ -502,7 +514,7 @@ Additional CSS rules may be added to `style.css` of edited template, but ensure 
 
 It should contain:
 - A brief description of plugin's purpose
-- A table including demos (this is automatically extracted upon metrics `README.md` auto-generation)
+- A table including demos
   - Multiple demo are allowed, but if they're too big, please embed them in `<detail></details>` tags
   - Note that the `<img width="900" height="1" alt="">` must not be deleted, it is used to fill table height
 - Additional documentation on how to setup, token creation, etc.

@@ -1,6 +1,7 @@
 name: "📸 Website screenshot"
-category: other
-index: 2
+category: community
+authors:
+  - lowlighter
 supports:
   - user
   - organization

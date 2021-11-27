@@ -1,6 +1,6 @@
 name: "💹 Stock prices"
-category: other
-index: 1
+category: social
+index: 8
 supports:
   - user
   - organization

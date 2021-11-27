@@ -5,7 +5,7 @@ import path from "path"
 import url from "url"
 
 //Defined categories
-const categories = ["core", "github", "social", "other", "community"]
+const categories = ["core", "github", "social", "community"]
 
 /**Metadata descriptor parser */
 export default async function metadata({log = true} = {}) {
@@ -64,7 +64,7 @@ metadata.plugin = async function({__plugins, name, logger}) {
 
     //category
     if (!categories.includes(meta.category))
-      meta.category = "other"
+      meta.category = "community"
 
     //Inputs parser
     {
