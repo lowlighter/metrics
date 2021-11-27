@@ -373,7 +373,7 @@ And you can customize these heavily with plugins, templates and hundreds of opti
   </tr>
   <tr>
     <th colspan="2" align="center">
-      <a href="https://github.com/lowlighter/metrics/projects/1">More to come soon!</a>
+      <a href="https://github.com/lowlighter/metrics#-community-plugins">🎲 Community plugins</a>
     </th>
   </tr>
 </table>
@@ -1151,9 +1151,9 @@ The following plugins are maintained by Metric's core team:
 ### 🎲 Community plugins
 
 The following plugins are provided and maintained by Metrics's user community:
-  * [💉 Nightscout](/source/plugins/nightscout/README.md) [@legoandmars](https://github.com/legoandmars)
-  * [💩 PoopMap plugin](/source/plugins/poopmap/README.md) [@matievisthekat](https://github.com/matievisthekat)
-  * [📸 Website screenshot](/source/plugins/screenshot/README.md) [@lowlighter](https://github.com/lowlighter)
+  * [💉 Nightscout](/source/plugins/nightscout/README.md) by [@legoandmars](https://github.com/legoandmars)
+  * [💩 PoopMap plugin](/source/plugins/poopmap/README.md) by [@matievisthekat](https://github.com/matievisthekat)
+  * [📸 Website screenshot](/source/plugins/screenshot/README.md) by [@lowlighter](https://github.com/lowlighter)
 
 ### 🏦 Organizations metrics
 
