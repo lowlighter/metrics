@@ -468,6 +468,7 @@
   .track .name {
     font-size: 14px;
     line-height: 14px;
+    height: 14px;
     font-weight: 600;
     white-space: nowrap;
     overflow: hidden;
