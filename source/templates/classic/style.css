@@ -468,7 +468,11 @@
   .track .name {
     font-size: 14px;
     line-height: 14px;
+    height: 14px;
     font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .track .artist, .track .played-at {
     font-size: 12px;
