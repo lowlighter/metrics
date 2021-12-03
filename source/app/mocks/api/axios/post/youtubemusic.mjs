@@ -8,50 +8,49 @@ export default function({faker, url, options, login = faker.internet.userName()}
           const track = faker.random.words(5)
           const artwork = faker.image.imageUrl()
           return ({
-              contents: {
-                  singleColumnBrowseResultsRenderer: {
-                      tabs: [{
-                          tabRenderer: {
-                              content: {
-                                  sectionListRenderer: {
-                                      contents: [{
-                                          contents: [{
-                                              musicResponsiveListItemRenderer: {
-                                                  thumbnail: {
-                                                      musicThumbnailRenderer: {
-                                                          thumbnail: {
-                                                              thumbnails: [{
-                                                                  url: artwork,
+              contents:{
+                  singleColumnBrowseResultsRenderer:{
+                      tabs:[{
+                          tabRenderer:{
+                              content:{
+                                  sectionListRenderer:{
+                                      contents:[{
+                                          contents:[{
+                                              musicResponsiveListItemRenderer:{
+                                                  thumbnail:{
+                                                      musicThumbnailRenderer:{
+                                                          thumbnail:{
+                                                              thumbnails:[{
+                                                                  url:artwork,
                                                               }]
                                                           },
                                                       }
                                                   },
-                                                  flexColumns: [{
-                                                          musicResponsiveListItemFlexColumnRenderer: {
-                                                              text: {
-                                                                  runs: [{
-                                                                      text: track,
+                                                  flexColumns:[{
+                                                          musicResponsiveListItemFlexColumnRenderer:{
+                                                              text:{
+                                                                  runs:[{
+                                                                      text:track,
                                                                   }]
                                                               },
                                                           }
                                                       },
                                                       {
-                                                          musicResponsiveListItemFlexColumnRenderer: {
-                                                              text: {
-                                                                  runs: [{
-                                                                      text: artist,
-                                                                  }, ]
+                                                          musicResponsiveListItemFlexColumnRenderer:{
+                                                              text:{
+                                                                  runs:[{
+                                                                      text:artist,
+                                                                  }]
                                                               },
                                                           }
-                                                      }
-                                                  ],
-                                              }
-                                          }, ],
+                                                      }],
+                                                }
+                                          }],
                                       }],
                                   },
                               },
                           },
-                      }, ],
+                      }],
                   },
               },
           })

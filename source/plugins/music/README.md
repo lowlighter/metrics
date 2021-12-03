@@ -75,7 +75,7 @@ Extract the *playlist* URL of the playlist you want to share.
 To do so, Open YouTube Music and select the playlist you want to share.
 
 Extract the source link from copying it from the address bar:
-```html
+```
 https://music.youtube.com/playlist?list=********
 ```
 

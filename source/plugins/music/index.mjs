@@ -131,14 +131,12 @@ export default async function({login, imports, data, q, account}, {enabled = fal
               await frame.evaluate(() => window.scrollBy(0, window.innerHeight))
             //Parse tracklist
             tracks = [
-              ...await frame.evaluate(() => [...document.querySelectorAll("ytmusic-playlist-shelf-renderer ytmusic-responsive-list-item-renderer")].map(item => {
-                  return ({
+              ...await frame.evaluate(() => [...document.querySelectorAll("ytmusic-playlist-shelf-renderer ytmusic-responsive-list-item-renderer")].map(item => ({
                     name:item.querySelector("yt-formatted-string.title > a")?.innerText ?? "",
                     artist:item.querySelector(".secondary-flex-columns > yt-formatted-string > a")?.innerText ?? "",
                     artwork:item.querySelector("img").src,
-                  })
                 })
-              ),
+              )),
             ]
             break
           }
@@ -252,41 +250,41 @@ export default async function({login, imports, data, q, account}, {enabled = fal
           case "youtube": {
             //Prepare credentials
             let date = new Date().getTime()
-            let cookie = token.split("; ").find(part => part.startsWith("SAPISID=")).split("=")[1]
+            let [, cookie] = token.split("; ").find(part => part.startsWith("SAPISID=")).split("=")
             let sha1 = str => crypto.createHash("sha1").update(str).digest("hex")
-            let SAPISIDHASH = `SAPISIDHASH ${date}_${sha1(date + " " + cookie + " " + "https://music.youtube.com")}`
+            let SAPISIDHASH = `SAPISIDHASH ${date}_${sha1(`${date} ${cookie} https://music.youtube.com`)}`
             //API call and parse tracklist
             try {
               //Request access token
               console.debug(`metrics/compute/${login}/plugins > music > requesting access token with youtube refresh token`)
               const res = await imports.axios.post("https://music.youtube.com/youtubei/v1/browse?alt=json&key=AIzaSyC9XL3ZjWddXya6X74dJoCTL-WEYFDNX30",
               {
-                browseEndpointContextSupportedConfigs: {
-                    browseEndpointContextMusicConfig: {
-                        pageType: "MUSIC_PAGE_TYPE_PLAYLIST",
+                browseEndpointContextSupportedConfigs:{
+                    browseEndpointContextMusicConfig:{
+                        pageType:"MUSIC_PAGE_TYPE_PLAYLIST",
                     }
                 },
-                context: {
-                  client: {
-                    clientName: "WEB_REMIX",
-                    clientVersion: "1.20211129.00.01",
-                    gl: "US",
-                    hl: "en",
+                context:{
+                  client:{
+                    clientName:"WEB_REMIX",
+                    clientVersion:"1.20211129.00.01",
+                    gl:"US",
+                    hl:"en",
                   },
                 },
-                browseId: "FEmusic_history"
+                browseId:"FEmusic_history"
               },
               {
                 headers:{
-                  "Authorization":SAPISIDHASH,
-                  "Cookie":token,
+                  Authorization:SAPISIDHASH,
+                  Cookie:token,
                   "x-origin":"https://music.youtube.com",
                 },
               })
               //Retrieve tracks
               console.debug(`metrics/compute/${login}/plugins > music > querying youtube api`)
               tracks = []
-              var parsedHistory = get_all_with_key(res.data, "musicResponsiveListItemRenderer")
+              let parsedHistory = get_all_with_key(res.data, "musicResponsiveListItemRenderer")
 
               for (let i = 0; i < parsedHistory.length; i++) {
                 let track = parsedHistory[i]
