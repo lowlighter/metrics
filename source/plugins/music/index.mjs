@@ -1,5 +1,5 @@
 //Imports
-import crypto from 'crypto'
+import crypto from "crypto"
 
 //Supported providers
 const providers = {
@@ -91,7 +91,7 @@ export default async function({login, imports, data, q, account}, {enabled = fal
         console.debug(`metrics/compute/${login}/plugins > music > started ${await browser.version()}`)
         const page = await browser.newPage()
         console.debug(`metrics/compute/${login}/plugins > music > loading page`)
-        await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.55 Safari/537.36 Edg/96.0.1054.34')
+        await page.setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.55 Safari/537.36 Edg/96.0.1054.34")
         await page.goto(playlist)
         const frame = page.mainFrame()
         //Handle provider
@@ -254,27 +254,27 @@ export default async function({login, imports, data, q, account}, {enabled = fal
             let date = new Date().getTime()
             let cookie = token.split("; ").find(part => part.startsWith("SAPISID=")).split("=")[1]
             let sha1 = str => crypto.createHash("sha1").update(str).digest("hex")
-            let SAPISIDHASH = `SAPISIDHASH ${date}_${sha1(date + ' ' + cookie + ' ' + 'https://music.youtube.com')}`
+            let SAPISIDHASH = `SAPISIDHASH ${date}_${sha1(date + " " + cookie + " " + "https://music.youtube.com")}`
             //API call and parse tracklist
             try {
               //Request access token
               console.debug(`metrics/compute/${login}/plugins > music > requesting access token with youtube refresh token`)
               const res = await imports.axios.post("https://music.youtube.com/youtubei/v1/browse?alt=json&key=AIzaSyC9XL3ZjWddXya6X74dJoCTL-WEYFDNX30",
               {
-                'browseEndpointContextSupportedConfigs': {
-                    'browseEndpointContextMusicConfig': {
-                        'pageType': 'MUSIC_PAGE_TYPE_PLAYLIST',
+                browseEndpointContextSupportedConfigs: {
+                    browseEndpointContextMusicConfig: {
+                        pageType: "MUSIC_PAGE_TYPE_PLAYLIST",
                     }
                 },
                 context: {
                   client: {
-                    clientName: 'WEB_REMIX',
-                    clientVersion: '1.20211129.00.01',
-                    gl: 'US',
-                    hl: 'en',
+                    clientName: "WEB_REMIX",
+                    clientVersion: "1.20211129.00.01",
+                    gl: "US",
+                    hl: "en",
                   },
                 },
-                'browseId': 'FEmusic_history'
+                browseId: "FEmusic_history"
               },
               {
                 headers:{
@@ -286,7 +286,7 @@ export default async function({login, imports, data, q, account}, {enabled = fal
               //Retrieve tracks
               console.debug(`metrics/compute/${login}/plugins > music > querying youtube api`)
               tracks = []
-              var parsedHistory = get_all_with_key(res.data, 'musicResponsiveListItemRenderer')
+              var parsedHistory = get_all_with_key(res.data, "musicResponsiveListItemRenderer")
 
               for (let i = 0; i < parsedHistory.length; i++) {
                 let track = parsedHistory[i]
