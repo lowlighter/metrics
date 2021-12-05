@@ -21,7 +21,7 @@ inputs:
   # Time range to use for displayed stats
   plugin_poopmap_days:
     description: PoopMap time range
-    type: string
+    type: number
     values:
       - 7     # Last week
       - 30    # Last month

@@ -52,9 +52,9 @@
     "png-js": "^1.0.0",
     "prismjs": "^1.25.0",
     "puppeteer": "^11.0.0",
-    "purgecss": "^4.0.3",
+    "purgecss": "^4.1.2",
     "rss-parser": "^3.12.0",
-    "sanitize-html": "^2.5.3",
+    "sanitize-html": "^2.6.0",
     "simple-git": "^2.47.0",
     "svgo": "^2.8.0",
     "twemoji-parser": "^13.1.0",
@@ -64,7 +64,7 @@
   },
   "devDependencies": {
     "eslint": "^8.3.0",
-    "jest": "^27.3.1",
+    "jest": "^27.4.0",
     "libxmljs2": "^0.29.0",
     "nodemon": "^2.0.15"
   },
