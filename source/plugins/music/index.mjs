@@ -1,3 +1,6 @@
+//Imports
+import crypto from "crypto"
+
 //Supported providers
 const providers = {
   apple:{
@@ -11,6 +14,10 @@ const providers = {
   lastfm:{
     name:"Last.fm",
     embed:/^\b$/,
+  },
+  youtube:{
+    name:"YouTube Music",
+    embed:/^https:..music.youtube.com.playlist/,
   },
 }
 //Supported modes
@@ -84,6 +91,7 @@ export default async function({login, imports, data, q, account}, {enabled = fal
         console.debug(`metrics/compute/${login}/plugins > music > started ${await browser.version()}`)
         const page = await browser.newPage()
         console.debug(`metrics/compute/${login}/plugins > music > loading page`)
+        await page.setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.55 Safari/537.36 Edg/96.0.1054.34")
         await page.goto(playlist)
         const frame = page.mainFrame()
         //Handle provider
@@ -114,6 +122,21 @@ export default async function({login, imports, data, q, account}, {enabled = fal
                   artwork:window.getComputedStyle(document.querySelector("button[title=Play]").parentNode, null).backgroundImage.match(/^url\("(?<url>https:...+)"\)$/)?.groups?.url ?? null,
                 }))
               ),
+            ]
+            break
+          }
+          //YouTube Music
+          case "youtube": {
+            while (await frame.evaluate(() => document.querySelector("yt-next-continuation")?.children.length ?? 0))
+              await frame.evaluate(() => window.scrollBy(0, window.innerHeight))
+            //Parse tracklist
+            tracks = [
+              ...await frame.evaluate(() => [...document.querySelectorAll("ytmusic-playlist-shelf-renderer ytmusic-responsive-list-item-renderer")].map(item => ({
+                    name:item.querySelector("yt-formatted-string.title > a")?.innerText ?? "",
+                    artist:item.querySelector(".secondary-flex-columns > yt-formatted-string > a")?.innerText ?? "",
+                    artwork:item.querySelector("img").src,
+                })
+              )),
             ]
             break
           }
@@ -216,6 +239,70 @@ export default async function({login, imports, data, q, account}, {enabled = fal
               if (error.isAxiosError) {
                 const status = error.response?.status
                 const description = error.response.data?.message ?? null
+                const message = `API returned ${status}${description ? ` (${description})` : ""}`
+                error = error.response?.data ?? null
+                throw {error:{message, instance:error}, ...raw}
+              }
+              throw error
+            }
+            break
+          }
+          case "youtube": {
+            //Prepare credentials
+            let date = new Date().getTime()
+            let [, cookie] = token.split("; ").find(part => part.startsWith("SAPISID=")).split("=")
+            let sha1 = str => crypto.createHash("sha1").update(str).digest("hex")
+            let SAPISIDHASH = `SAPISIDHASH ${date}_${sha1(`${date} ${cookie} https://music.youtube.com`)}`
+            //API call and parse tracklist
+            try {
+              //Request access token
+              console.debug(`metrics/compute/${login}/plugins > music > requesting access token with youtube refresh token`)
+              const res = await imports.axios.post("https://music.youtube.com/youtubei/v1/browse?alt=json&key=AIzaSyC9XL3ZjWddXya6X74dJoCTL-WEYFDNX30",
+              {
+                browseEndpointContextSupportedConfigs:{
+                    browseEndpointContextMusicConfig:{
+                        pageType:"MUSIC_PAGE_TYPE_PLAYLIST",
+                    }
+                },
+                context:{
+                  client:{
+                    clientName:"WEB_REMIX",
+                    clientVersion:"1.20211129.00.01",
+                    gl:"US",
+                    hl:"en",
+                  },
+                },
+                browseId:"FEmusic_history"
+              },
+              {
+                headers:{
+                  Authorization:SAPISIDHASH,
+                  Cookie:token,
+                  "x-origin":"https://music.youtube.com",
+                },
+              })
+              //Retrieve tracks
+              console.debug(`metrics/compute/${login}/plugins > music > querying youtube api`)
+              tracks = []
+              let parsedHistory = get_all_with_key(res.data, "musicResponsiveListItemRenderer")
+
+              for (let i = 0; i < parsedHistory.length; i++) {
+                let track = parsedHistory[i]
+                tracks.push({
+                  name:track.flexColumns[0].musicResponsiveListItemFlexColumnRenderer.text.runs[0].text,
+                  artist:track.flexColumns[1].musicResponsiveListItemFlexColumnRenderer.text.runs[0].text,
+                  artwork:track.thumbnail.musicThumbnailRenderer.thumbnail.thumbnails[0].url,
+                })
+                //Early break
+                if (tracks.length >= limit)
+                  break
+              }
+            }
+            //Handle errors
+            catch (error) {
+              if (error.isAxiosError) {
+                const status = error.response?.status
+                const description = error.response.data?.error_description ?? null
                 const message = `API returned ${status}${description ? ` (${description})` : ""}`
                 error = error.response?.data ?? null
                 throw {error:{message, instance:error}, ...raw}
@@ -427,4 +514,16 @@ export default async function({login, imports, data, q, account}, {enabled = fal
       throw error
     throw {error:{message:"An error occured", instance:error}}
   }
+}
+
+//get all objects that have the given key name with recursivity
+function get_all_with_key(obj, key) {
+  const result = []
+  if (obj instanceof Object) {
+    if (key in obj)
+      result.push(obj[key])
+    for (const i in obj)
+      result.push(...get_all_with_key(obj[i], key))
+  }
+  return result
 }

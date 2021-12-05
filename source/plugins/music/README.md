@@ -67,6 +67,22 @@ This mode is not supported for now.
 
 </details>
 
+<details>
+<summary>YouTube Music</summary>
+
+Extract the *playlist* URL of the playlist you want to share.
+
+To do so, Open YouTube Music and select the playlist you want to share.
+
+Extract the source link from copying it from the address bar:
+```
+https://music.youtube.com/playlist?list=********
+```
+
+And use this value in `plugin_music_playlist` option.
+
+</details>
+
 #### ℹ️ Examples workflows
 
 [➡️ Available options for this plugin](metadata.yml)
@@ -167,6 +183,25 @@ Obtain a Last.fm API key.
 To do so, you can simply [create an API account](https://www.last.fm/api/account/create) or [use an existing one](https://www.last.fm/api/accounts).
 
 Register your API key to finish setup.
+
+</details>
+
+<details>
+<summary>YouTube Music</summary>
+
+Extract your YouTube Music cookies.
+
+To do so, open [YouTube Music](https://music.youtube.com) (whilst logged in) on any modern browser
+
+Open the developer tools (Ctrl-Shift-I) and select the “Network” tab
+
+![Open developer tools](/.github/readme/imgs/plugin_music_recent_youtube_cookie_1.png)
+
+Find an authenticated POST request. The simplest way is to filter by /browse using the search bar of the developer tools. If you don’t see the request, try scrolling down a bit or clicking on the library button in the top bar.
+
+Click on the Name of any matching request. In the “Headers” tab, scroll to the “Cookie” and copy this by right-clicking on it and selecting “Copy value”.
+
+![Copy cookie value](/.github/readme/imgs/plugin_music_recent_youtube_cookie_2.png)
 
 </details>
 

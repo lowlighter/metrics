@@ -23,12 +23,14 @@ inputs:
       - apple   # Apple Music
       - spotify # Spotify
       - lastfm  # Last.fm
+      - youtube # YouTube
 
   # Music provider token
   # This may be required depending on music provider used and plugin mode
   # - "apple"   : not required
   # - "spotify" : required for "recent" or "top" mode, format is "client_id, client_secret, refresh_token"
   # - "lastfm"  : required, format is "api_key"
+  # - "youtube" : required for "recent" mode, format is "cookie"
   plugin_music_token:
     description: Music provider personal token
     type: token
