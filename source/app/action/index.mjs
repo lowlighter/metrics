@@ -353,10 +353,11 @@ async function wait(seconds) {
       await fs.mkdir(paths.dirname(paths.join("/renders", filename)), {recursive:true})
       await fs.writeFile(paths.join("/renders", filename), Buffer.from(typeof rendered === "object" ? JSON.stringify(rendered) : `${rendered}`))
       info(`Save to /metrics_renders/${filename}`, "ok")
+      info("Output action", _action)
     }
 
     //No output action apart from file on runner
-    if (_output === "none") {
+    if (_action === "none") {
       info.break()
       console.log("Success, thanks for using metrics!")
       process.exit(0)

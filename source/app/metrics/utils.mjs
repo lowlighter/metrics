@@ -27,7 +27,7 @@ import minimatch from "minimatch"
 import crypto from "crypto"
 import linguist from "linguist-js"
 import purgecss from "purgecss"
-import csso from "csso"
+import {minify as csso} from "csso"
 import SVGO from "svgo"
 import xmlformat from "xml-formatter"
 
@@ -289,7 +289,7 @@ export async function markdown(text, {mode = "inline", codelines = Infinity} = {
   rendered = rendered.replace(/(?<open><code[\s\S]*?>)(?<code>[\s\S]*?)(?<close><\/code>)/g, (m, open, code, close) => { //eslint-disable-line max-params
     const lines = code.trim().split("\n")
     if ((lines.length > 1) && (!/class="[\s\S]*"/.test(open)))
-      open = open.replace(/>/g, ' class="language-multiline">')
+      open = open.replace(/>/g, ' class="language-multiline" xml:space="preserve">')
     return `${open}${lines.slice(0, codelines).join("\n")}${lines.length > codelines ? `\n<span class="token trimmed">(${lines.length - codelines} more ${lines.length - codelines === 1 ? "line was" : "lines were"} trimmed)</span>` : ""}${close}`
   })
   return rendered
@@ -533,7 +533,7 @@ export const svg = {
 
       //Purge CSS
       const purged = await new purgecss.PurgeCSS().purge({content, css})
-      const optimized = `<style>${csso.minify(purged.map(({css}) => css).join("\n")).css}</style>`
+      const optimized = `<style>${csso(purged.map(({css}) => css).join("\n")).css}</style>`
       return rendered.replace(cleaned, optimized)
     },
     /**XML optimizer */
