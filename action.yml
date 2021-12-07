@@ -758,6 +758,11 @@ inputs:
     description: Repositories to skip
     default: ""
   
+  # Ignored actors (useful to ignore bots users)
+  plugin_activity_ignored:
+    description: Actors to ignore
+    default: github-actions[bot], dependabot[bot], dependabot-preview[bot]
+  
   # ====================================================================================
   # 🏆 Achievements
   
