@@ -3,6 +3,7 @@ category: github
 index: 24
 supports:
   - user
+scopes: []
 inputs:
 
   # Enable or disable plugin

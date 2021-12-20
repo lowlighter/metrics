@@ -3,6 +3,8 @@ category: github
 index: 3
 supports:
   - user
+scopes:
+  - public_access
 inputs:
 
   # Enable or disable plugin

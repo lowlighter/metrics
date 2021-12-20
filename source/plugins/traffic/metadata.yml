@@ -5,6 +5,8 @@ supports:
   - user
   - organization
   - repository
+scopes:
+  - repo
 inputs:
 
   # Enable or disable plugin

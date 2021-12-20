@@ -4,6 +4,8 @@ index: 20
 supports:
   - user
   - organization
+scopes:
+  - public_access
 inputs:
 
   # Enable or disable plugin
