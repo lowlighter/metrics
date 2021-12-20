@@ -4,6 +4,7 @@ supports:
   - user            # Support users account
   - organization    # Support organizations account
   - repository      # Support repositories metrics
+scopes: []          # Required scopes for personal access token
 inputs:
 
   # Enable or disable plugin

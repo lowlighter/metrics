@@ -283,6 +283,7 @@ supports:
   - user          # Support users account
   - organization  # Support organizations account
   - repository    # Support repositories metrics
+scopes: []        # Required scopes for personal access token
 formats:
   - svg           # Support SVG output
   - png           # Support PNG output
