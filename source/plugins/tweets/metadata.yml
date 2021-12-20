@@ -4,6 +4,7 @@ index: 3
 supports:
   - user
   - organization
+scopes: []
 inputs:
 
   # Enable or disable plugin

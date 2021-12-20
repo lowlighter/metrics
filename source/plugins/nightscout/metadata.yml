@@ -4,6 +4,7 @@ authors:
   - legoandmars
 supports:
   - user
+scopes: []
 inputs:
 
   # Enable or disable plugin

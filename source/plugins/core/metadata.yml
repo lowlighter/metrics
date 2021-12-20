@@ -4,6 +4,7 @@ supports:
   - user
   - organization
   - repository
+scopes: []
 inputs:
 
   # User account personal token

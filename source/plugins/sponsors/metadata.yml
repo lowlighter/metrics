@@ -5,6 +5,8 @@ supports:
   - user
   - organization
   - repository
+scopes:
+  - public_access
 inputs:
 
   # Enable or disable plugin
