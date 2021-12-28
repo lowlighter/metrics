@@ -481,7 +481,7 @@ Assuming your username is `my-github-user`, you can then embed rendered metrics 
 
 ### 0. Setup your personal repository
 
-Create a repository with the same name as your GitHub login (if it's not already done).
+Create a repository with the same name as your GitHub login / `your_username` (if it's not already done).
 
 ![Setup personal repository](/.github/readme/imgs/setup_personal_repository.png)
 
@@ -490,8 +490,10 @@ Its `README.md` will be displayed on your user profile:
 ![GitHub Profile Example](/.github/readme/imgs/example_github_profile.png)
 
 ### 1. Create a GitHub personal token
+  
+Go to `Settings` tab of your account.
 
-From the `Developer settings` of your account settings, select `Personal access tokens` to create a new token.
+From the `Developer settings`, select `Personal access tokens` to create a new token.
 
 No additional scopes are needed for basic metrics, but you may have to grant additional scope depending on what features you're planning to use:
 - `public_repo` scope for some plugins
@@ -511,13 +513,13 @@ If a plugin has not enough scopes to operate (and `plugins_errors_fatal` isn't e
 
 ### 2. Put your GitHub personal token in your repository secrets
 
-Go to the `Settings` of your repository to create a new secret and paste your freshly generated GitHub token there.
+Go to the `Settings` of your `your_username` repository to create a new secret, named the secret `METRICS_TOKEN` and paste your freshly generated GitHub token there (the `Value`), then click `Add Secret`.
 
 ![Setup a repository secret](/.github/readme/imgs/setup_repository_secret.png)
 
 ### 3. Create a GitHub Action workflow in your repository
 
-Create a new workflow from the `Actions` tab of your repository and paste the following:
+Create a new workflow from the `Actions` tab of your `your_username` repository and paste the following:
 
 ```yaml
 name: Metrics
@@ -569,7 +571,7 @@ You can also take a look at this [user workflow](https://github.com/lowlighter/l
 
 ### 4. Embed link into your README.md
 
-Update your README.md to embed your metrics:
+Update your README.md in `your_username` repository to embed your metrics (remember to change ``my-github-user`` to `your_username`):
 
 ```markdown
 <!-- If you're using "master" as default branch -->
