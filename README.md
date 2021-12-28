@@ -571,7 +571,7 @@ You can also take a look at this [user workflow](https://github.com/lowlighter/l
 
 ### 4. Embed link into your README.md
 
-Update your README.md in `your_username` repository to embed your metrics (remember to change ``my-github-user`` to `your_username`):
+Update your README.md in `your_username` repository to embed your metrics (remember to change `my-github-user` to `your_username`):
 
 ```markdown
 <!-- If you're using "master" as default branch -->
