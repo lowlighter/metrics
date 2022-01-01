@@ -365,7 +365,7 @@ async function wait(seconds) {
 
     //Cache
     if (/markdown/.test(convert)) {
-      const regex = /(?<match><img class="metrics-cachable" data-name="(?<name>[\s\S]+?)" src="data:image[/](?<format>(?:svg[+]xml)|jpeg|png);base64,(?<content>[/+=\w]+)">)/g
+      const regex = /(?<match><img class="metrics-cachable" data-name="(?<name>[\s\S]+?)" src="data:image[/](?<format>(?:svg[+]xml)|jpeg|png);base64,(?<content>[/+=\w]+?)">)/
       let matched = null
       while (matched = regex.exec(rendered)?.groups) { //eslint-disable-line no-cond-assign
         const {match, name, format, content} = matched
