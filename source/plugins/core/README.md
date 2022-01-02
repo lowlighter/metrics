@@ -228,10 +228,13 @@ It also possible to alter output condition using `output_condition` option, whic
     output_action: pull-request-merge
 ```
 
-### ♻️ Retrying automatically failed rendering
+### ♻️ Retrying automatically failed rendering and output action
 
 Rendering is subject to external factors and can fail from time to time.
 It is possible to mitigate this issue using `retries` and `retries_delay` options to automatically retry later metrics rendering and avoid workflow fails.
+
+Output action is also subject to GitHub API rate-limiting and status and can fail from time to time.
+It is possible to mitigate this issue using `retries_output_action` and `retries_delay_output_action` options to automatically retry later metrics output action and avoid workflow fails. As this is a separate step from rendering, metrics rendering won't be computed again during this phase.
 
 #### ℹ️ Examples workflows
 
@@ -241,6 +244,8 @@ It is possible to mitigate this issue using `retries` and `retries_delay` option
     # ... other options
     retries: 3
     retries_delay: 300
+    retries_output_action: 5
+    retries_delay_output_action: 120
 ```
 
 ### 💱 Convert output to PNG/JPEG or JSON
