@@ -220,6 +220,16 @@ inputs:
     description: Time to wait (in seconds) before each retry
     default: 300
   
+  # Number of retries in case output action fail
+  retries_output_action:
+    description: Number of retries (output action)
+    default: 5
+  
+  # Time to wait (in seconds) before each retry (output action)
+  retries_delay_output_action:
+    description: Time to wait (in seconds) before each retry (output action)
+    default: 120
+  
   # Throw on plugins errors
   # If disabled, metrics will handle errors gracefully with a message in rendered metrics
   plugins_errors_fatal:
