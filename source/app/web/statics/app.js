@@ -32,6 +32,8 @@
         (async () => {
           const { data: plugins } = await axios.get("/.plugins")
           this.plugins.list = plugins.filter(({name}) => metadata[name]?.supports.includes("user") || metadata[name]?.supports.includes("organization"))
+          const categories = [...new Set(this.plugins.list.map(({category}) => category))]
+          this.plugins.categories = Object.fromEntries(categories.map(category => [category, this.plugins.list.filter(value => category === value.category)]))
         })(),
         //Base
         (async () => {
@@ -94,6 +96,7 @@
       plugins: {
         base: {},
         list: [],
+        categories: [],
         enabled: {},
         descriptions: {
           base: "🗃️ Base content",

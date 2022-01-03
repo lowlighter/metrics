@@ -83,12 +83,17 @@
               </label>
             </div>
 
-            <div class="configuration" v-if="plugins.list.length">
+            <div class="configuration plugins" v-if="plugins.list.length">
               <b>🧩 Additional plugins</b>
-              <label v-for="plugin in plugins.list" :key="plugin" :class="{'not-available':!plugin.enabled}" :title="!plugin.enabled ? 'This plugin is not enabled on web instance, use it with GitHub actions !' : ''">
-                <input type="checkbox" v-model="plugins.enabled[plugin.name]" @change="mock" :disabled="generated.pending">
-                {{ plugins.descriptions[plugin.name] || plugin.name }}
-              </label>
+              <template v-for="(category, name) in plugins.categories" :key="category">
+                <details open>
+                  <summary>{{ name }}</summary>
+                  <label v-for="plugin in category" :class="{'not-available':!plugin.enabled}" :title="!plugin.enabled ? 'This plugin is not enabled on web instance, use it with GitHub actions !' : ''">
+                    <input type="checkbox" v-model="plugins.enabled[plugin.name]" @change="mock" :disabled="generated.pending">
+                    <div>{{ plugins.descriptions[plugin.name] || plugin.name }}</div>
+                  </label>
+                </details>
+              </template>
             </div>
 
             <div class="configuration" v-if="configure">

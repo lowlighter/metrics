@@ -203,7 +203,7 @@ It is possible to configure output behaviour using `output_action` option, which
 - `gist`, where output will be stored an already existing gist
   - To use this feature, a `gists` scope must be granted to your `token` and `committer_gist` identifier must be provided
 
-It also possible to alter output condition using `output_action` option, which can be set to:
+It also possible to alter output condition using `output_condition` option, which can be set to:
 - `always`, to always push changes (provided that git sha changed)
 - `data-changed`, to skip changes if no actual data changed (e.g. when only render timestamp changed)
 
@@ -228,10 +228,13 @@ It also possible to alter output condition using `output_action` option, which c
     output_action: pull-request-merge
 ```
 
-### ♻️ Retrying automatically failed rendering
+### ♻️ Retrying automatically failed rendering and output action
 
 Rendering is subject to external factors and can fail from time to time.
 It is possible to mitigate this issue using `retries` and `retries_delay` options to automatically retry later metrics rendering and avoid workflow fails.
+
+Output action is also subject to GitHub API rate-limiting and status and can fail from time to time.
+It is possible to mitigate this issue using `retries_output_action` and `retries_delay_output_action` options to automatically retry later metrics output action and avoid workflow fails. As this is a separate step from rendering, metrics rendering won't be computed again during this phase.
 
 #### ℹ️ Examples workflows
 
@@ -241,6 +244,8 @@ It is possible to mitigate this issue using `retries` and `retries_delay` option
     # ... other options
     retries: 3
     retries_delay: 300
+    retries_output_action: 5
+    retries_delay_output_action: 120
 ```
 
 ### 💱 Convert output to PNG/JPEG or JSON
@@ -265,6 +270,8 @@ It could then be processed for other usages.
 
 It is possible to convert output to PDF when using a markdown template by setting `config_output` to `markdown-pdf`.
 
+It is advised to keep `config_base64: yes` to encode embed images in base64 and make self-contained documents.
+
 #### ℹ️ Examples workflows
 
 ```yaml
@@ -274,6 +281,31 @@ It is possible to convert output to PDF when using a markdown template by settin
     markdown: template.md
     markdown_cache: .cache
     config_output: markdown-pdf
+    config_base64: yes
+```
+
+### 🗜️ Optimize SVG output
+
+It is possible to optimize SVG output and reducing its filesize to improve loading times and reduce storage.
+
+The following optimizations are supported:
+- `css`, which purge unused CSS and minify remaining styles
+- `xml`, which pretty-print XML (it also helps reducing diffs between commits)
+- `svg`, which optimize SVG with SVGO (experimental)
+
+#### ℹ️ Examples workflows
+
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    optimize: css, xml
+
+- uses: lowlighter/metrics@latest
+  with:
+    # ... other options
+    optimize: css, xml, svg
+    experimental_features: --optimize-svg
 ```
 
 ### ✨ Render `Metrics insights` statically

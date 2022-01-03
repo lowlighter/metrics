@@ -244,6 +244,22 @@ inputs:
     min: 0
     max: 3600
 
+  # Number of retries in case output action fail
+  retries_output_action:
+    description: Number of retries (output action)
+    type: number
+    default: 5
+    min: 1
+    max: 10
+
+  # Time to wait (in seconds) before each retry (output action)
+  retries_delay_output_action:
+    description: Time to wait (in seconds) before each retry (output action)
+    type: number
+    default: 120
+    min: 0
+    max: 3600
+
   # ====================================================================================
   # 🚧 Options below are mostly used for testing
 
