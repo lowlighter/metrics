@@ -5,6 +5,8 @@
 Generate your metrics that you can embed everywhere, including your GitHub profile readme! It works for both user and organization accounts, and even for repositories!
 
 
+> <sup>*⚠️ This is the documentation of **v3.18-beta** (`@master` branch) which includes [unreleased features](https://github.com/lowlighter/metrics/compare/latest...master), see documentation of [**v3.17** (`@latest` branch) here](https://github.com/lowlighter/metrics/blob/latest/README.md).*</sup>
+
 
 <table>
   <tr>
@@ -624,7 +626,7 @@ Assuming your username is `my-github-user`, you can then embed rendered metrics 
 
 ### 0. Prepare your server
 
-You'll need a server with a recent version [NodeJS](https://nodejs.org) (see used version in [Dockerfile](/Dockerfile#L1-L2)).
+You'll need a server with a recent version of [Docker](https://www.docker.com/).
 
 ### 1. Create a GitHub personal token
 
@@ -634,18 +636,12 @@ No additional scopes are needed.
 
 ![Setup a GitHub personal token](/.github/readme/imgs/setup_personal_token.png)
 
-### 2. Install dependencies
+### 2. Configure your instance
 
-Clone repository, install dependencies and copy configuration example to `settings.json`:
-
+Fetch [settings.example.json](/settings.example.json) which contains all supported option.
 ```shell
-git clone https://github.com/lowlighter/metrics.git
-cd metrics/
-npm install --only=prod
-cp settings.example.json settings.json
+wget https://raw.githubusercontent.com/lowlighter/metrics/master/settings.example.json
 ```
-
-### 3. Configure your instance and start it
 
 Edit `settings.json` to configure your instance.
 
@@ -657,17 +653,28 @@ Edit `settings.json` to configure your instance.
 }
 ```
 
-See all supported options in [settings.example.json](/settings.example.json).
-
 If you plan to make your web instance public, it is advised to restrict its access thanks to rate limiter and access list.
 
-Once you've finished configuring metrics, start your instance:
+### 3. Start docker container
 
+Metrics docker images are published on [GitHub Container Registry](https://github.com/lowlighter/metrics/pkgs/container/metrics).
+
+Configure the following variables (or hardcode them in the command in the next block):
 ```shell
-npm start
+# Select an existing docker image tag
+VERSION=latest
+# Path to configured `settings.json`
+SETTINGS=/path/to/settings.json
+# Port used internally (use the same one than in `settings.json`)
+SERVICE_PORT=3000
+# Port to publish
+PUBLISHED_PORT=80
 ```
 
-Access your server with provided port in `setting.json` from your browser to ensure everything is working.
+And start the container using the following command:
+```shell
+docker run -d --workdir=/metrics --entrypoint="" -p=127.0.0.1:$PUBLISHED_PORT:$SERVICE_PORT --volume=$SETTINGS:/metrics/settings.json ghcr.io/lowlighter/metrics:$VERSION npm start
+```
 
 ### 4. Embed link into your README.md
 
@@ -677,7 +684,7 @@ Edit your repository readme and add your metrics image from your server domain:
 ![Metrics](https://my-personal-domain.com/my-github-user)
 ```
 
-### 6. (optional) Setup your instance as a service
+### 5. (optional) Setup your instance as a service
 
 To ensure that your instance will restart if it reboots or crashes, you should set it up as a service.
 This is described below for Linux-like systems which support *systemd*.
@@ -692,8 +699,7 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-WorkingDirectory=/path/to/metrics
-ExecStart=/usr/bin/node /path/to/metrics/index.mjs
+ExecStart=(command to run as service)
 
 [Install]
 WantedBy=multi-user.target
@@ -707,6 +713,28 @@ systemctl enable github_metrics
 systemctl start github_metrics
 systemctl status github_metrics
 ```
+
+### Alternative option: run an instance locally (intended for testing and development)
+
+To run an instance without docker, you'll need to have [NodeJS](https://nodejs.org) (see used version in [Dockerfile](/Dockerfile#L1-L2)) installed.
+
+Clone repository, install dependencies and copy configuration example to `settings.json`:
+
+```shell
+git clone https://github.com/lowlighter/metrics.git
+cd metrics/
+npm install --only=prod
+cp settings.example.json settings.json
+```
+
+Once you've finished configuring metrics, start your instance using the following command:
+
+```shell
+npm start
+```
+
+You should now be able to access your server with provided port in `setting.json` from your browser.
+
 </details>
 
 <details>
