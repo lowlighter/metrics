@@ -1,8 +1,9 @@
 # Base image
-FROM node:16.8-buster-slim
+FROM node:17.3.0-buster-slim
 
 # Copy repository
 COPY . /metrics
+WORKDIR /metrics
 
 # Setup
 RUN chmod +x /metrics/source/app/action/index.mjs \
@@ -20,12 +21,11 @@ RUN chmod +x /metrics/source/app/action/index.mjs \
   && gem install licensed \
   # Install python for node-gyp
   && apt-get install -y python3 \
-  # Install node modules
-  && cd /metrics \
+  # Clean apt/lists
+  && rm -rf /var/lib/apt/lists/* \
+  # Install node modules and rebuild indexes
   && npm ci \
-  # Rebuild indexes
-  && npm run index \
-  && rm -rf /var/lib/apt/lists/*
+  && npm run index
 
 # Environment variables
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
