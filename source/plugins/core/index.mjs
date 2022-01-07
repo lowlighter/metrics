@@ -95,17 +95,15 @@ export default async function({login, q}, {conf, data, rest, graphql, plugins, q
 
   //Compute registration date
   const now = Date.now()
-  const beginningOfYear = new Date(now).setUTCMonth(0, 1)
   const created = new Date(data.user.createdAt)
-  const diff = now - created
-  const years = new Date(diff).getUTCFullYear() - new Date(0).getUTCFullYear()
-  const nowMonth = new Date(now).getUTCMonth()
-  const createdMonth = created.getUTCMonth()
-  const months = nowMonth - createdMonth + 12 * (years + (nowMonth < createdMonth ? 1 : 0))
-  const days = Math.floor((now - beginningOfYear) / (1000 * 60 * 60 * 24))
+  const diff = new Date(now - created)
+  const years = diff.getUTCFullYear() - new Date(0).getUTCFullYear()
+  const months = diff.getUTCMonth() - new Date(0).getUTCMonth()
+  const days = diff.getUTCDate() - new Date(0).getUTCDate()
+
   computed.registered = {years: years + days / 365.25, months}
   computed.registration = years ? `${years} year${imports.s(years)} ago` : months ? `${months} month${imports.s(months)} ago` : `${days} day${imports.s(days)} ago`
-  computed.cakeday = years > 1 ? [new Date(), new Date(data.user.createdAt)].map(date => date.toISOString().match(/(?<mmdd>\d{2}-\d{2})(?=T)/)?.groups?.mmdd).every((v, _, a) => v === a[0]) : false
+  computed.cakeday = (years >= 1 && months === 0 && days === 0) ? true : false
 
   //Compute calendar
   computed.calendar = data.user.calendar.contributionCalendar.weeks.flatMap(({contributionDays}) => contributionDays).slice(-14)
