@@ -507,7 +507,7 @@ export const svg = {
     try {
       for (const [emoji, url] of Object.entries((await rest.emojis.get()).data).map(([key, value]) => [`:${key}:`, value])) {
         if (((!emojis.has(emoji))) && (new RegExp(emoji, "g").test(rendered)))
-          emojis.set(emoji, `<img class="gemoji" src="${await imgb64(url)}" height="16" width="16" alt="">`)
+          emojis.set(emoji, `<img class="gemoji" src="${await imgb64(url)}" height="16" width="16" alt="" />`)
       }
     }
     catch (error) {
