@@ -165,7 +165,7 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
 
     //Rendering
     console.debug(`metrics/compute/${login} > render`)
-    let rendered = await ejs.render(image, {...data, s:imports.s, f:imports.format, style}, fonts}, {views, async:true})
+    let rendered = await ejs.render(image, {...data, s:imports.s, f:imports.format, style, fonts}, {views, async:true})
 
     //Additional transformations
     if (q["config.twemoji"])
