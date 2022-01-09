@@ -59,6 +59,8 @@
       columns: set.config.display === "columns",
       //Config
       config: set.config,
+      //Extras
+      extras:{css:options["extras.css"] ?? ""},
       //Base elements
       base: set.plugins.enabled.base,
       //Computed elements
