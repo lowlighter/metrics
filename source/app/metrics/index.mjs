@@ -24,7 +24,8 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
     //Initialization
     const pending = []
     const {queries} = conf
-    const data = {q, animated:true, large:false, base:{}, config:{}, errors:[], plugins:{}, computed:{}}
+    const extras = {css:(conf.settings.extras?.css ?? conf.settings.extras?.default ? q["extras.css"] ?? "" : "")}
+    const data = {q, animated:true, large:false, base:{}, config:{}, errors:[], plugins:{}, computed:{}, extras}
     const imports = {
       plugins:Plugins,
       templates:Templates,
@@ -153,7 +154,7 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
       if (convert === "markdown-pdf") {
         return imports.svg.pdf(rendered, {
           paddings:q["config.padding"] || conf.settings.padding,
-          style:(conf.settings.extras?.css ?? conf.settings.extras?.default ? q["extras.css"] ?? "" : ""),
+          style:extras.css,
           twemojis:q["config.twemoji"],
           gemojis:q["config.gemoji"],
           rest,
@@ -164,7 +165,7 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
 
     //Rendering
     console.debug(`metrics/compute/${login} > render`)
-    let rendered = await ejs.render(image, {...data, s:imports.s, f:imports.format, style:style + (conf.settings.extras?.css ?? conf.settings.extras?.default ? q["extras.css"] ?? "" : ""), fonts}, {views, async:true})
+    let rendered = await ejs.render(image, {...data, s:imports.s, f:imports.format, style, fonts}, {views, async:true})
 
     //Additional transformations
     if (q["config.twemoji"])
