@@ -12,3 +12,16 @@ inputs:
     description: GitHub discussions metrics
     type: boolean
     default: no
+
+  # Display discussion categories you have taken part in
+  plugin_discussions_categories:
+    description: Display discussion categories
+    type: boolean
+    default: yes
+
+  # Maximum number of categories to display (note that these are sorted desc)
+  # Set to 0 to disable limitations
+  plugin_discussions_categories_limit:
+    description: Number of discussion categories to display
+    type: number
+    default: 0
