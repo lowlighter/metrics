@@ -310,6 +310,7 @@
   }
   .label.label-flex {
     display: flex;
+    align-items: center;
   }
   .label .label-right {
     display: flex;
@@ -1340,6 +1341,9 @@
     height: 1em;
     width: 1em;
     margin-bottom: -.125em;
+  }
+  .label-flex .gemoji {
+    margin-right: .25rem;
   }
 
 /* Cake day */
