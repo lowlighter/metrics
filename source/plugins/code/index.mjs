@@ -58,7 +58,7 @@ export default async function({login, q, imports, data, rest, account}, {enabled
       const content = imports.htmlescape(snippet.patch.replace(/\r\n/mg, "\n").replace(new RegExp(`^([+-]?)${" ".repeat(indent)}`, "mg"), "$1"))
 
       //Format patch
-      snippet.patch = imports.htmlunescape((await imports.highlight(content, "diff")).trim())
+      snippet.patch = imports.htmlunescape((await imports.highlight(content, "diff")).trim()).replace(/\n/g, "<br/>")
     }
 
     //Results
