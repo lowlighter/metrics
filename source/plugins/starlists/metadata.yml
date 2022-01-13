@@ -28,6 +28,12 @@ inputs:
     min: 0
     max: 100
 
+  # Shuffle displayed repositories for varied outputs
+  plugin_starlists_shuffle_repositories:
+    description: Shuffle displayed repositories
+    type: boolean
+    default: yes
+
   # List of star lists that will be ignored
   plugin_starlists_ignored:
     description: Star lists to skip
@@ -39,7 +45,7 @@ inputs:
   # List of star lists to display
   # Using this option is equivalent of using "plugin_starlists_ignored" with all star lists but the ones listed
   plugin_starlists_only:
-    description: Start lists to display
+    description: Star lists to display
     type: array
     format: comma-separated
     default: ""
