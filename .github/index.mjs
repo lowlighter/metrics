@@ -20,27 +20,36 @@ const __readme = paths.join(__metrics, ".github/readme")
 const git = sgit(__metrics)
 const staged = new Set()
 
+for (const step of ["config", "documentation"]) {
+
 //Load plugins metadata
 const {plugins, templates, packaged, descriptor} = await metadata({log:false})
 
-//Update generated files
-async function update({source, output, options = {}}) {
-  //Regenerate file
-  console.log(`Generating ${output}`)
-  const content = await ejs.renderFile(source, {plugins, templates, packaged, descriptor}, {async:true, ...options})
-  //Save result
-  const file = paths.join(__metrics, output)
-  await fs.writeFile(file, content)
-  //Add to git
-  staged.add(file)
-}
+  //Update generated files
+  async function update({source, output, options = {}}) {
+    //Regenerate file
+    console.log(`Generating ${output}`)
+    const content = await ejs.renderFile(source, {plugins, templates, packaged, descriptor}, {async:true, ...options})
+    //Save result
+    const file = paths.join(__metrics, output)
+    await fs.writeFile(file, content)
+    //Add to git
+    staged.add(file)
+  }
 
-//Rendering
-await update({source:paths.join(__readme, "README.md"), output:"README.md", options:{root:__readme}})
-await update({source:paths.join(__readme, "partials/documentation/plugins.md"), output:"source/plugins/README.md"})
-await update({source:paths.join(__readme, "partials/documentation/templates.md"), output:"source/templates/README.md"})
-await update({source:paths.join(__action, "action.yml"), output:"action.yml"})
-await update({source:paths.join(__web, "settings.example.json"), output:"settings.example.json"})
+  //Templating
+  switch (step) {
+    case "config":
+      await update({source:paths.join(__action, "action.yml"), output:"action.yml"})
+      await update({source:paths.join(__web, "settings.example.json"), output:"settings.example.json"})
+      break
+    case "documentation":
+      await update({source:paths.join(__readme, "README.md"), output:"README.md", options:{root:__readme}})
+      await update({source:paths.join(__readme, "partials/documentation/plugins.md"), output:"source/plugins/README.md"})
+      await update({source:paths.join(__readme, "partials/documentation/templates.md"), output:"source/templates/README.md"})
+      break
+  }
+}
 
 //Commit and push
 if (mode === "publish") {
