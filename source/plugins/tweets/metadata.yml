@@ -1,6 +1,6 @@
 name: "🐤 Latest tweets"
 category: social
-index: 3
+index: 5
 supports:
   - user
   - organization

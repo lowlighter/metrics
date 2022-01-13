@@ -1,6 +1,6 @@
 name: "🗨️ Stackoverflow plugin"
 category: social
-index: 5
+index: 3
 supports:
   - user
   - organization
