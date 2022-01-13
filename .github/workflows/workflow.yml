@@ -24,7 +24,7 @@ jobs:
       - name: Setup NodeJS
         uses: actions/setup-node@v2
         with:
-          node-version: 15
+          node-version: 17
       - name: Setup metrics
         run: npm ci
       - name: Check contributions requirements
@@ -111,7 +111,7 @@ jobs:
       - name: Setup NodeJS
         uses: actions/setup-node@v2
         with:
-          node-version: 15
+          node-version: 17
       - name: Setup metrics
         run: npm ci
       - name: Publish rebuild metrics indexes
@@ -131,7 +131,9 @@ jobs:
       - name: Setup NodeJS
         uses: actions/setup-node@v2
         with:
-          node-version: 15
+          node-version: 17
+      - name: Pull
+        run: git pull
       - name: Checkout main
         run: git checkout main
       - name: Rebase main on master
@@ -223,9 +225,11 @@ jobs:
       - name: Setup NodeJS
         uses: actions/setup-node@v2
         with:
-          node-version: 15
+          node-version: 17
       - name: Setup metrics
         run: npm ci
+      - name: Pull
+        run: git pull
       - name: Checkout latest
         run: git checkout latest
       - name: Rebase latest on master
@@ -261,7 +265,7 @@ jobs:
       - name: Setup NodeJS
         uses: actions/setup-node@v2
         with:
-          node-version: 15
+          node-version: 17
       - name: Setup metrics
         run: npm ci
       - name: Publish release
