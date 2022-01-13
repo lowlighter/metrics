@@ -7,7 +7,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
       return null
 
     //Load inputs
-    let {limit, ignored, only, "limit.repositories":_limit} = imports.metadata.plugins.starlists.inputs({data, account, q})
+    let {limit, ignored, only, "limit.repositories":_limit, "shuffle.repositories":_shuffle} = imports.metadata.plugins.starlists.inputs({data, account, q})
 
     //Start puppeteer and navigate to star lists
     console.debug(`metrics/compute/${login}/plugins > starlists > starting browser`)
@@ -26,7 +26,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
       repositories:[]
     }))))
     const count = lists.length
-    lists = lists.slice(0, limit).filter(({name}) => (only.includes(name.toLocaleLowerCase())) || ((!only.length)&&((!name)||(!ignored.includes(name.toLocaleLowerCase())))))
+    lists = lists.filter(({name}) => (name)&&((only.includes(name.toLocaleLowerCase()))||((!only.length)&&(!ignored.includes(name.toLocaleLowerCase()))))).slice(0, limit)
     console.debug(`metrics/compute/${login}/plugins > starlists > extracted ${lists.length} lists`)
 
     //Fetch star list content
@@ -38,6 +38,8 @@ export default async function({login, q, imports, data, account}, {enabled = fal
         description:element.querySelector(".py-1")?.innerText ?? ""
       })))
       list.repositories.push(...repositories)
+      if (_shuffle)
+        list.repositories = imports.shuffle(list.repositories)
       list.repositories = list.repositories.slice(0, _limit)
     }
 
