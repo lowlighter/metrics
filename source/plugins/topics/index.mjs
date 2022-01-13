@@ -42,7 +42,7 @@ export default async function({login, data, imports, q, account}, {enabled = fal
     }
 
     //Close browser
-    console.debug(`metrics/compute/${login}/plugins > music > closing browser`)
+    console.debug(`metrics/compute/${login}/plugins > topics > closing browser`)
     await browser.close()
 
     //Shuffle topics
