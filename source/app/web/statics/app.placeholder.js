@@ -743,6 +743,23 @@
             },
           })
           : null),
+        //Starlists
+        ...(set.plugins.enabled.starlists
+          ? ({
+            starlists: {
+              lists: new Array(Number(options["starlists.limit"])).fill(null).map(_ => ({
+                link: faker.internet.url(),
+                name: `${faker.random.arrayElement(["😎", "🥳", "🧐", "😂", "😁"])} ${faker.lorem.word()}`,
+                description: faker.lorem.sentence(),
+                count: faker.datatype.number(100),
+                repositories: new Array(Number(options["starlists.limit.repositories"])).fill(null).map((_, i) => ({
+                  description: !i ? "📊 An image generator with 20+ metrics about your GitHub account such as activity, community, repositories, coding habits, website performances, music played, starred topics, etc. that you can put on your profile or elsewhere !" : faker.lorem.sentence(),
+                  name: !i ? "lowlighter/metrics" : `${faker.random.word()}/${faker.random.word()}`,
+                }))
+              })),
+            },
+          })
+          : null),
         //Repositories
         ...(set.plugins.enabled.repositories
           ? ({

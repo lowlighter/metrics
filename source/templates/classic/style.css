@@ -837,6 +837,31 @@
     -webkit-box-orient: vertical;
   }
 
+/* Star lists */
+  .starlist {
+    margin-left: 28px;
+  }
+  .starlist > .description, .starlist > .count {
+    margin-left: 32px;
+  }
+  .starlist > .count {
+    font-size: 12px;
+    color: #666666;
+  }
+  .starlist .repositories {
+    margin-left: -5px;
+    margin-bottom: 20px;
+  }
+  .starlist .repository {
+    margin: 6px 0 0;
+  }
+  .starlist .repository .description {
+    font-size: 11px;
+  }
+  .starlist .repository .name {
+    font-size: 14px;
+  }
+
 /* Anilist */
   .anilist {
     display: flex;

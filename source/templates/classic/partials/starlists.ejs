@@ -1,0 +1,47 @@
+<% if (plugins.starlists) { %>
+  <section>
+    <h2 class="field">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M1.75 2.5a.75.75 0 000 1.5h6.5a.75.75 0 000-1.5h-6.5zm4 5a.75.75 0 000 1.5h7.5a.75.75 0 000-1.5h-7.5zm0 5a.75.75 0 000 1.5h7.5a.75.75 0 000-1.5h-7.5zM3 8a1 1 0 11-2 0 1 1 0 012 0zm-1 6a1 1 0 100-2 1 1 0 000 2z"></path><path d="M13.314 4.918L11.07 2.417A.25.25 0 0111.256 2h4.488a.25.25 0 01.186.417l-2.244 2.5a.25.25 0 01-.372 0z"></path></svg>
+      <%= plugins.starlists?.count ?? "" %> Star list<%= s(plugins.starlists?.count ?? 0) %>
+    </h2>
+    <div class="row">
+      <section class="largeable-flex-wrap">
+        <% if (plugins.starlists.error) { %>
+          <div class="field error">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M2.343 13.657A8 8 0 1113.657 2.343 8 8 0 012.343 13.657zM6.03 4.97a.75.75 0 00-1.06 1.06L6.94 8 4.97 9.97a.75.75 0 101.06 1.06L8 9.06l1.97 1.97a.75.75 0 101.06-1.06L9.06 8l1.97-1.97a.75.75 0 10-1.06-1.06L8 6.94 6.03 4.97z"></path></svg>
+            <%= plugins.starlists.error.message %>
+          </div>
+        <% } else { %>
+          <% for (const {name, description, count, repositories} of plugins.starlists.lists) { %>
+            <div class="starlist">
+              <h2 class="field">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M2 4a1 1 0 100-2 1 1 0 000 2zm3.75-1.5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zM3 8a1 1 0 11-2 0 1 1 0 012 0zm-1 6a1 1 0 100-2 1 1 0 000 2z"></path></svg>
+                <%= name %>
+              </h2>
+              <div class="count"><%= count %> repositor<%= s(count, "y") %></div>
+              <div class="description"><%= description %></div>
+              <div class="repositories">
+                <% for (const repository of repositories) { %>
+                  <div class="row fill-width largeable-width-half">
+                    <section class="repository">
+                      <div class="field">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M4 5.75C4 4.784 4.784 4 5.75 4h4.5c.966 0 1.75.784 1.75 1.75v4.5A1.75 1.75 0 0110.25 12h-4.5A1.75 1.75 0 014 10.25v-4.5zm1.75-.25a.25.25 0 00-.25.25v4.5c0 .138.112.25.25.25h4.5a.25.25 0 00.25-.25v-4.5a.25.25 0 00-.25-.25h-4.5z"></path></svg>
+                        <div class="name">
+                          <span><%= repository.name %></span>
+                          <span></span>
+                        </div>
+                      </div>
+                      <div class="field description">
+                        <%= repository.description %>
+                      </div>
+                    </section>
+                  </div>
+                <% } %>
+              </div>
+            </div>
+          <% } %>
+        <% } %>
+      </section>
+    </div>
+  </section>
+<% } %>
