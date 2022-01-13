@@ -978,6 +978,35 @@ inputs:
     default: no
   
   # ====================================================================================
+  # 💫 Starlists
+  
+  # Enable or disable plugin
+  plugin_starlists:
+    description: Display star lists
+    default: no
+  
+  # Number of star lists to display
+  plugin_starlists_limit:
+    description: Number of star lists to display
+    default: 2
+  
+  # Number of repositories to display per star lists
+  plugin_starlists_limit_repositories:
+    description: Number of repositories to display per star lists
+    default: 2
+  
+  # List of star lists that will be ignored
+  plugin_starlists_ignored:
+    description: Star lists to skip
+    default: ""
+  
+  # List of star lists to display
+  # Using this option is equivalent of using "plugin_starlists_ignored" with all star lists but the ones listed
+  plugin_starlists_only:
+    description: Start lists to display
+    default: ""
+  
+  # ====================================================================================
   # ⏱️ Website performances
   
   # Enable or disable plugin

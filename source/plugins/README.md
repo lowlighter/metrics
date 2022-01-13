@@ -30,6 +30,7 @@ The following plugins are maintained by Metric's core team:
   * [🌇 GitHub Skyline 3D calendar](/source/plugins/skyline/README.md)
   * [💕 GitHub Sponsors](/source/plugins/sponsors/README.md)
   * [✨ Stargazers over last weeks](/source/plugins/stargazers/README.md)
+  * [💫 Starlists](/source/plugins/starlists/README.md)
   * [🌟 Recently starred repositories](/source/plugins/stars/README.md)
   * [💭 GitHub Community Support](/source/plugins/support/README.md)
   * [📌 Starred topics](/source/plugins/topics/README.md)
