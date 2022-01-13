@@ -948,6 +948,35 @@ inputs:
     default: goal, about
   
   # ====================================================================================
+  # 💫 Starlists
+  
+  # Enable or disable plugin
+  plugin_starlists:
+    description: Display star lists
+    default: no
+  
+  # Number of star lists to display
+  plugin_starlists_limit:
+    description: Number of star lists to display
+    default: 2
+  
+  # Number of repositories to display per star lists
+  plugin_starlists_limit_repositories:
+    description: Number of repositories to display per star lists
+    default: 2
+  
+  # List of star lists that will be ignored
+  plugin_starlists_ignored:
+    description: Star lists to skip
+    default: ""
+  
+  # List of star lists to display
+  # Using this option is equivalent of using "plugin_starlists_ignored" with all star lists but the ones listed
+  plugin_starlists_only:
+    description: Start lists to display
+    default: ""
+  
+  # ====================================================================================
   # 🌇 GitHub Skyline 3D calendar
   
   # Enable or disable plugin
@@ -976,35 +1005,6 @@ inputs:
   plugin_skyline_compatibility:
     description: Compatibility mode
     default: no
-  
-  # ====================================================================================
-  # 💫 Starlists
-  
-  # Enable or disable plugin
-  plugin_starlists:
-    description: Display star lists
-    default: no
-  
-  # Number of star lists to display
-  plugin_starlists_limit:
-    description: Number of star lists to display
-    default: 2
-  
-  # Number of repositories to display per star lists
-  plugin_starlists_limit_repositories:
-    description: Number of repositories to display per star lists
-    default: 2
-  
-  # List of star lists that will be ignored
-  plugin_starlists_ignored:
-    description: Star lists to skip
-    default: ""
-  
-  # List of star lists to display
-  # Using this option is equivalent of using "plugin_starlists_ignored" with all star lists but the ones listed
-  plugin_starlists_only:
-    description: Start lists to display
-    default: ""
   
   # ====================================================================================
   # ⏱️ Website performances
@@ -1100,33 +1100,41 @@ inputs:
     default: .user.login
   
   # ====================================================================================
-  # 🐤 Latest tweets
+  # 🗨️ Stackoverflow plugin
   
   # Enable or disable plugin
-  plugin_tweets:
-    description: Display recent tweets
+  plugin_stackoverflow:
+    description: Stackoverflow metrics
     default: no
   
-  # Twitter API token
-  # See https://apps.twitter.com for more informations
-  plugin_tweets_token:
-    description: Twitter API token
-    default: ""
+  # Stackoverflow user id
+  # To obtain it, extract the identifier on your account page url
+  plugin_stackoverflow_user:
+    description: Stackoverflow user id
+    default: 0
   
-  # Display tweets attachments (images, video previews, etc.)
-  plugin_tweets_attachments:
-    description: Display tweets attchments
-    default: no
+  # Sections to display
+  plugin_stackoverflow_sections:
+    description: Sections to display
+    default: answers-top, questions-recent
   
-  # Number of tweets to display
-  plugin_tweets_limit:
-    description: Maximum number of tweets to display
+  # Number of entries to display per section
+  plugin_stackoverflow_limit:
+    description: Maximum number of entries to display per section
     default: 2
   
-  # Twitter username
-  plugin_tweets_user:
-    description: Twitter username
-    default: .user.twitter
+  # Number of lines to display per question or answer
+  # Code snippets will take one line slot and should be configured with "plugin_stackoverflow_lines_snippet" instead
+  # Set to 0 to disable limitations
+  plugin_stackoverflow_lines:
+    description: Maximum number of lines to display per question or answer
+    default: 4
+  
+  # Number of lines to display per code snippet
+  # Set to 0 to disable limitations
+  plugin_stackoverflow_lines_snippet:
+    description: Maximum number of lines to display per code snippet
+    default: 2
   
   # ====================================================================================
   # 🌸 Anilist watch list and reading list
@@ -1170,41 +1178,33 @@ inputs:
     default: .user.login
   
   # ====================================================================================
-  # 🗨️ Stackoverflow plugin
+  # 🐤 Latest tweets
   
   # Enable or disable plugin
-  plugin_stackoverflow:
-    description: Stackoverflow metrics
+  plugin_tweets:
+    description: Display recent tweets
     default: no
   
-  # Stackoverflow user id
-  # To obtain it, extract the identifier on your account page url
-  plugin_stackoverflow_user:
-    description: Stackoverflow user id
-    default: 0
+  # Twitter API token
+  # See https://apps.twitter.com for more informations
+  plugin_tweets_token:
+    description: Twitter API token
+    default: ""
   
-  # Sections to display
-  plugin_stackoverflow_sections:
-    description: Sections to display
-    default: answers-top, questions-recent
+  # Display tweets attachments (images, video previews, etc.)
+  plugin_tweets_attachments:
+    description: Display tweets attchments
+    default: no
   
-  # Number of entries to display per section
-  plugin_stackoverflow_limit:
-    description: Maximum number of entries to display per section
+  # Number of tweets to display
+  plugin_tweets_limit:
+    description: Maximum number of tweets to display
     default: 2
   
-  # Number of lines to display per question or answer
-  # Code snippets will take one line slot and should be configured with "plugin_stackoverflow_lines_snippet" instead
-  # Set to 0 to disable limitations
-  plugin_stackoverflow_lines:
-    description: Maximum number of lines to display per question or answer
-    default: 4
-  
-  # Number of lines to display per code snippet
-  # Set to 0 to disable limitations
-  plugin_stackoverflow_lines_snippet:
-    description: Maximum number of lines to display per code snippet
-    default: 2
+  # Twitter username
+  plugin_tweets_user:
+    description: Twitter username
+    default: .user.twitter
   
   # ====================================================================================
   # ✒️ Recent posts

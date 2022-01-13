@@ -104,11 +104,11 @@
     "sponsors":{
       "enabled": false,            "//": "Display GitHub sponsors"
     },
-    "skyline":{
-      "enabled": false,            "//": "Display GitHub Skyline 3D calendar"
-    },
     "starlists":{
       "enabled": false,            "//": "Display star lists"
+    },
+    "skyline":{
+      "enabled": false,            "//": "Display GitHub Skyline 3D calendar"
     },
     "pagespeed":{
       "token": null,               "//":"PageSpeed token",
@@ -118,15 +118,15 @@
       "token": null,               "//":"Music provider personal token",
       "enabled": false,            "//": "Display your music tracks"
     },
-    "tweets":{
-      "token": null,               "//":"Twitter API token",
-      "enabled": false,            "//": "Display recent tweets"
+    "stackoverflow":{
+      "enabled": false,            "//": "Stackoverflow metrics"
     },
     "anilist":{
       "enabled": false,            "//": "Display data from your AniList account"
     },
-    "stackoverflow":{
-      "enabled": false,            "//": "Stackoverflow metrics"
+    "tweets":{
+      "token": null,               "//":"Twitter API token",
+      "enabled": false,            "//": "Display recent tweets"
     },
     "posts":{
       "enabled": false,            "//": "Display recent posts"
