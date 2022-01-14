@@ -1,0 +1,4 @@
+- name: '💩 PoopMap plugin - '
+  uses: lowlighter/metrics@latest
+  with:
+    plugin_poopmap: 'yes'

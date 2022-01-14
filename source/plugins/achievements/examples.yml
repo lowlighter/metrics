@@ -6,8 +6,6 @@
     base: ""
     plugin_achievements: yes
     plugin_achievements_only: sponsor, maintainer, octonaut
-  test:
-    timeout: 900000
 
 - name: Compact display
   uses: lowlighter/metrics@latest
@@ -19,5 +17,3 @@
     plugin_achievements_only: polyglot, stargazer, sponsor, deployer, member, maintainer, developer, scripter, packager, explorer, infographile, manager
     plugin_achievements_display: compact
     plugin_achievements_threshold: X
-  test:
-    timeout: 900000

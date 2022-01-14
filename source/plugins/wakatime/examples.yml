@@ -7,6 +7,7 @@
     plugin_wakatime_sections: time, projects, projects-graphs, languages, languages-graphs, editors, os
     plugin_wakatime_token: ${{ secrets.WAKATIME_TOKEN }}
   prod:
-    # ⚠️ Using mocked data because I don't really use WakaTime, disable this
-    plugin_wakatime_token: MOCKED_TOKEN
-    use_mocked_data: yes
+    # ⚠️ Using mocked data because I don't really use WakaTime
+    with:
+      plugin_wakatime_token: MOCKED_TOKEN
+      use_mocked_data: yes

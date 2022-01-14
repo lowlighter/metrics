@@ -6,4 +6,5 @@
     base: repositories
     plugin_traffic: yes
   prod:
-    token: ${{ secrets.METRICS_BOT_TOKEN }}
+    with:
+      token: ${{ secrets.METRICS_BOT_TOKEN }}

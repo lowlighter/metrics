@@ -1,0 +1,11 @@
+- name: 💕 GitHub Sponsors - Sponsors goal
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    plugin_sponsors: 'yes'
+    plugin_sponsors_sections: goal
+- name: 💕 GitHub Sponsors - Sponsors introduction
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    plugin_sponsors: 'yes'

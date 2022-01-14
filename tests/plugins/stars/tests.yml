@@ -1,0 +1,6 @@
+- name: 🌟 Recently starred repositories - Recently starred
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    plugin_stars: 'yes'
+    plugin_stars_limit: 3

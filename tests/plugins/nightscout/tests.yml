@@ -1,0 +1,5 @@
+- name: '💉 Nightscout - '
+  uses: lowlighter/metrics@latest
+  with:
+    plugin_nightscout: 'yes'
+    plugin_nightscout_url: https://testapp.herokuapp.com/

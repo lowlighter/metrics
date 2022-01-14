@@ -1,0 +1,11 @@
+- name: 📸 Website screenshot - XKCD of the day
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    plugin_screenshot: 'yes'
+    plugin_screenshot_title: XKCD of the day
+    plugin_screenshot_url: https://xkcd.com
+    plugin_screenshot_selector: '#comic img'
+  timeout: 1800000
+  modes:
+    - action
