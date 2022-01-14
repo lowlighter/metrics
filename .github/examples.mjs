@@ -26,8 +26,7 @@ async function plugin(id) {
       content:`${await fs.readFile(readme)}`
     },
     tests:{
-      dir:tests,
-      file:paths.join(tests, "tests.yml")
+      path:paths.join(__test_plugins, `${id}.yml`)
     },
     examples:fss.existsSync(examples) ? yaml.load(await fs.readFile(examples), "utf8") ?? [] : [],
     options:plugins[id].readme.table
@@ -59,8 +58,7 @@ for (const id of Object.keys(plugins)) {
     .replace(/(<!--options-->)[\s\S]*(<!--\/options-->)/g, `$1\n${options}\n$2`)
   )
   //Plugin tests
-  await fs.mkdir(tests.dir, { recursive: true });
-  await fs.writeFile(tests.file, yaml.dump(examples.map(({prod, test = {}, name = "", ...step}) => {
+  await fs.writeFile(tests.path, yaml.dump(examples.map(({prod, test = {}, name = "", ...step}) => {
     const result = {name:`${plugins[id].name} - ${name}`, ...step, ...test}
     test.with ??= {}
     for (const [k, v] of Object.entries(result.with)) {
