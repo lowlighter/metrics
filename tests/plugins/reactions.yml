@@ -1,4 +1,4 @@
-- name: 🎭 Comment reactions - 🎭 Comment reactions
+- name: 🎭 Comment reactions - Comment reactions
   uses: lowlighter/metrics@latest
   with:
     token: MOCKED_TOKEN

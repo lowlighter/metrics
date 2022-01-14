@@ -1,10 +1,10 @@
-- name: 🧱 Core - 📗 Classic template
+- name: 🧱 Core - Classic template
   uses: lowlighter/metrics@latest
   with:
     token: MOCKED_TOKEN
     base: header, repositories
     plugin_lines: 'yes'
-- name: 🧱 Core - 📘 Repository template
+- name: 🧱 Core - Repository template
   uses: lowlighter/metrics@latest
   with:
     template: repository
@@ -15,20 +15,20 @@
     plugin_followup: 'yes'
     plugin_projects: 'yes'
     plugin_projects_repositories: lowlighter/metrics/projects/1
-- name: 🧱 Core - 📙 Terminal template
+- name: 🧱 Core - Terminal template
   uses: lowlighter/metrics@latest
   with:
     template: terminal
     token: MOCKED_TOKEN
     base: header, metadata
-- name: 🧱 Core - 📒 Markdown template
+- name: 🧱 Core - Markdown template
   uses: lowlighter/metrics@latest
   with:
     template: markdown
     markdown: metrics.markdown.template.md
     config_output: markdown
     token: MOCKED_TOKEN
-- name: 🧱 Core - 📒 Markdown template (with plugins)
+- name: 🧱 Core - Markdown template (with plugins)
   uses: lowlighter/metrics@latest
   with:
     template: markdown
@@ -57,7 +57,7 @@
     plugin_isocalendar: 'yes'
     plugin_languages: 'yes'
     token: MOCKED_TOKEN
-- name: 🧱 Core - 📒 Markdown template (pdf output)
+- name: 🧱 Core - Markdown template (pdf output)
   uses: lowlighter/metrics@latest
   with:
     template: markdown
@@ -71,7 +71,7 @@
     config_twemoji: 'yes'
     config_padding: 5%
     token: MOCKED_TOKEN
-- name: 🧱 Core - 📕 Community templates
+- name: 🧱 Core - Community templates
   uses: lowlighter/metrics@latest
   with:
     token: MOCKED_TOKEN
@@ -79,12 +79,6 @@
     setup_community_templates: lowlighter/metrics@master:classic
   modes:
     - action
-- name: 🧱 Core - Plugin error example
-  uses: lowlighter/metrics@latest
-  with:
-    token: MOCKED_TOKEN
-    plugin_projects: 'yes'
-  skip: true
 - name: 🧱 Core - Organization
   uses: lowlighter/metrics@latest
   with:

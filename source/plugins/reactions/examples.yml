@@ -1,4 +1,4 @@
-- name: 🎭 Comment reactions
+- name: Comment reactions
   uses: lowlighter/metrics@latest
   with:
     filename: metrics.plugin.reactions.svg

@@ -1,4 +1,4 @@
-- name: ⏰ WakaTime
+- name: WakaTime
   uses: lowlighter/metrics@latest
   with:
     filename: metrics.plugin.wakatime.svg

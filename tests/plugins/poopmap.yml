@@ -1,4 +1,5 @@
 - name: '💩 PoopMap plugin - '
   uses: lowlighter/metrics@latest
   with:
+    token: MOCKED_TOKEN
     plugin_poopmap: 'yes'
