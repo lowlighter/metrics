@@ -1,5 +1,0 @@
-- name: Code plugin (default)
-  uses: lowlighter/metrics@latest
-  with:
-    token: MOCKED_TOKEN
-    plugin_code: yes

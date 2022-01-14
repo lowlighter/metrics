@@ -8,3 +8,7 @@
     plugin_screenshot_title: XKCD of the day
     plugin_screenshot_url: https://xkcd.com
     plugin_screenshot_selector: "#comic img"
+  test:
+    timeout: 1800000
+    modes:
+      - action

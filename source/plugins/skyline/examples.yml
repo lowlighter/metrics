@@ -7,3 +7,7 @@
     plugin_skyline_year: 2020
     plugin_skyline_frames: 6
     plugin_skyline_quality: 1
+  test:
+    timeout: 1800000
+    modes:
+      - action
