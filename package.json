@@ -13,7 +13,8 @@
     "format": "eslint source/**/*.mjs --fix",
     "dev": "nodemon source/app/web/index.mjs -e mjs,css,ejs,json",
     "postinstall": "node node_modules/puppeteer/install.js",
-    "indepth": "node source/plugins/languages/analyzers.mjs"
+    "indepth": "node source/plugins/languages/analyzers.mjs",
+    "autogen": "node .github/examples.mjs"
   },
   "repository": {
     "type": "git",

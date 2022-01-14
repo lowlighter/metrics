@@ -106,7 +106,7 @@ metadata.plugin = async function({__plugins, name, logger}) {
         }
         //Inputs checks
         const result = Object.fromEntries(
-          Object.entries(inputs).map(([key, {type, format, default:defaulted, min, max, values, inherits}]) => [
+          Object.entries(inputs).map(([key, {type, format, default:defaulted, min, max, values, inherits:_inherits}]) => [
             //Format key
             metadata.to.query(key, {name}),
             //Format value
@@ -277,20 +277,34 @@ metadata.plugin = async function({__plugins, name, logger}) {
           let row = []
           {
             let cell = []
-            if (o.required)
-              cell.push("✔️"), flags.add("required")
-            if (type === "token")
-              cell.push("🔐"), flags.add("secret")
-            if (o.inherits)
-              cell.push("⏩"), flags.add("inherits")
-            if (o.global)
-              cell.push("⏭️"), flags.add("global")
-            if (o.testing)
-              cell.push("🔧"), flags.add("testing")
-            if (!Object.keys(previous?.inputs ?? {}).includes(option))
-              cell.push("✨"), flags.add("beta")
-            if (o.extras)
-              cell.push("🧰"), flags.add("extras")
+            if (o.required) {
+              cell.push("✔️")
+              flags.add("required")
+            }
+            if (type === "token") {
+              cell.push("🔐")
+              flags.add("secret")
+            }
+            if (o.inherits) {
+              cell.push("⏩")
+              flags.add("inherits")
+            }
+            if (o.global) {
+              cell.push("⏭️")
+              flags.add("global")
+            }
+            if (o.testing) {
+              cell.push("🔧")
+              flags.add("testing")
+            }
+            if (!Object.keys(previous?.inputs ?? {}).includes(option)) {
+              cell.push("✨")
+              flags.add("beta")
+            }
+            if (o.extras) {
+              cell.push("🧰")
+              flags.add("extras")
+            }
             cell = cell.map(flag => `<sup>${flag}</sup>`)
             cell.unshift(`${"`"}${option}${"`"}`)
             row.push(cell.join(" "))
