@@ -1,0 +1,7 @@
+- name: Lines of code changed
+  uses: lowlighter/metrics@latest
+  with:
+    filename: metrics.plugin.lines.svg
+    token: ${{ secrets.METRICS_TOKEN }}
+    base: repositories
+    plugin_lines: yes

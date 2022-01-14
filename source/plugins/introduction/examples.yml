@@ -1,0 +1,20 @@
+- name: User introduction
+  uses: lowlighter/metrics@latest
+  with:
+    filename: metrics.plugin.introduction.svg
+    token: ${{ secrets.METRICS_TOKEN }}
+    user: github
+    base: header
+    plugin_introduction: yes
+  prod:
+    token: ${{ secrets.METRICS_BOT_TOKEN }}
+
+- name: Repository introduction
+  uses: lowlighter/metrics@latest
+  with:
+    filename: metrics.plugin.introduction.repository.svg
+    token: ${{ secrets.METRICS_TOKEN }}
+    template: repository
+    repo: metrics
+    base: header
+    plugin_introduction: yes

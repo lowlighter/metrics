@@ -1,0 +1,21 @@
+- name: Followers
+  uses: lowlighter/metrics@latest
+  with:
+    filename: metrics.plugin.people.followers.svg
+    token: ${{ secrets.METRICS_TOKEN }}
+    base: ""
+    plugin_people: yes
+    plugin_people_types: followers
+
+- name: Contributors and sponsors
+  uses: lowlighter/metrics@latest
+  with:
+    filename: metrics.plugin.people.repository.svg
+    token: ${{ secrets.METRICS_TOKEN }}
+    base: ""
+    template: repository
+    repo: metrics
+    plugin_people: yes
+    plugin_people_types: contributors, stargazers, watchers, sponsors
+    # Note that active sponsors are automatically added, but I want to thanks previous sponsors too!
+    plugin_people_sponsors_custom: iamsainikhil, yutkat, KasparJohannesSchneider, ktnkk, tfSheol, haribo-io, marcreichel

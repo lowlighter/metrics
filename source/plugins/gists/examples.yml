@@ -1,0 +1,7 @@
+- name: Gists
+  uses: lowlighter/metrics@latest
+  with:
+    filename: metrics.plugin.gists.svg
+    token: ${{ secrets.METRICS_TOKEN }}
+    base: ""
+    plugin_gists: yes
