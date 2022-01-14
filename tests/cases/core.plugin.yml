@@ -1,0 +1,23 @@
+- name: 🧱 Core - Organization
+  uses: lowlighter/metrics@latest
+  with:
+    user: github
+    token: MOCKED_TOKEN
+    base: header, repositories
+- name: 🧱 Core - Large display
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    config_display: large
+- name: 🧱 Core - JSON metrics
+  if: ${{ success() || failure() }}
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    config_output: json
+- name: 🧱 Core - PNG metrics
+  if: ${{ success() || failure() }}
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    config_output: png

@@ -96,7 +96,7 @@ const metadata = JSON.parse(`${
 const tests = []
 for (const name in metadata.plugins) {
   const cases = yaml
-    .load(fs.readFileSync(path.join(__dirname, "../tests/plugins", `${name}.yml`), "utf8"))
+    .load(fs.readFileSync(path.join(__dirname, "../tests/cases", `${name}.yml`), "utf8"))
     ?.map(({ name: test, with: inputs, modes = [], timeout }) => {
       const skip = new Set(Object.entries(metadata.templates).filter(([_, { readme: { compatibility } }]) => !compatibility[name]).map(([template]) => template))
       if (!(metadata.plugins[name].supports.includes("repository")))
