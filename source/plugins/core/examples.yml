@@ -1,0 +1,133 @@
+- name: 📗 Classic template
+  uses: lowlighter/metrics@latest
+  with:
+    filename: metrics.classic.svg
+    token: ${{ secrets.METRICS_TOKEN }}
+    base: header, repositories
+    plugin_lines: yes
+
+- name: 📘 Repository template
+  uses: lowlighter/metrics@latest
+  with:
+    template: repository
+    filename: metrics.repository.svg
+    token: ${{ secrets.METRICS_BOT_TOKEN }}
+    user: lowlighter
+    repo: metrics
+    plugin_lines: yes
+    plugin_followup: yes
+    plugin_projects: yes
+    plugin_projects_repositories: lowlighter/metrics/projects/1
+
+- name: 📙 Terminal template
+  uses: lowlighter/metrics@latest
+  with:
+    template: terminal
+    filename: metrics.terminal.svg
+    token: ${{ secrets.METRICS_TOKEN }}
+    base: header, metadata
+
+- name: 📒 Markdown template
+  uses: lowlighter/metrics@latest
+  with:
+    template: markdown
+    filename: metrics.markdown.md
+    markdown: metrics.markdown.template.md
+    config_output: markdown
+    token: ${{ secrets.METRICS_TOKEN }}
+
+- name: 📒 Markdown template (with plugins)
+  uses: lowlighter/metrics@latest
+  with:
+    template: markdown
+    filename: metrics.markdown.full.md
+    markdown: https://raw.githubusercontent.com/lowlighter/metrics/master/source/templates/markdown/example.md
+    config_output: markdown
+    plugin_activity: yes
+    plugin_activity_limit: 7
+    plugin_activity_days: 0
+    plugin_activity_filter: issue, pr, release, fork, review, ref/create
+    plugin_posts: yes
+    plugin_posts_source: dev.to
+    plugin_posts_descriptions: yes
+    plugin_posts_covers: yes
+    plugin_posts_limit: 2
+    plugin_rss: yes
+    plugin_rss_source: https://news.ycombinator.com/rss
+    plugin_rss_limit: 4
+    plugin_tweets: yes
+    plugin_tweets_token: ${{ secrets.TWITTER_TOKEN }}
+    plugin_tweets_user: github
+    plugin_tweets_attachments: yes
+    plugin_tweets_limit: 2
+    plugin_topics: yes
+    plugin_topics_limit: 24
+    plugin_isocalendar: yes
+    plugin_languages: yes
+    token: ${{ secrets.METRICS_TOKEN }}
+
+- name: 📒 Markdown template (pdf output)
+  uses: lowlighter/metrics@latest
+  with:
+    template: markdown
+    filename: metrics.markdown.pdf
+    markdown: https://raw.githubusercontent.com/lowlighter/metrics/master/source/templates/markdown/example.pdf.md
+    config_output: markdown-pdf
+    plugin_rss: yes
+    plugin_rss_source: https://news.ycombinator.com/rss
+    plugin_rss_limit: 4
+    plugin_isocalendar: yes
+    config_twemoji: yes
+    config_padding: 5%
+    token: ${{ secrets.METRICS_TOKEN }}
+
+- name: 📕 Community templates
+  uses: lowlighter/metrics@latest
+  with:
+    token: ${{ secrets.METRICS_TOKEN }}
+    template: "@classic"
+    setup_community_templates: "lowlighter/metrics@master:classic"
+  test:
+    modes:
+      - action
+
+- name: Plugin error example
+  uses: lowlighter/metrics@latest
+  with:
+    filename: metrics.plugin.error.svg
+    token: ${{ secrets.METRICS_TOKEN }}
+    base: ""
+    plugin_projects: yes
+  test:
+    skip: true
+
+- name: Organization
+  uses: lowlighter/metrics@latest
+  with:
+    filename: metrics.organization.svg
+    user: github
+    token: ${{ secrets.METRICS_BOT_TOKEN }}
+    base: header, repositories
+
+- name: Large display
+  uses: lowlighter/metrics@latest
+  with:
+    filename: metrics.large.svg
+    token: ${{ secrets.METRICS_TOKEN }}
+    config_display: large
+
+- name: JSON metrics
+  if: ${{ success() || failure() }}
+  uses: lowlighter/metrics@latest
+  with:
+    filename: metrics.example.json
+    token: ${{ secrets.METRICS_TOKEN }}
+    config_output: json
+
+- name: PNG metrics
+  if: ${{ success() || failure() }}
+  uses: lowlighter/metrics@latest
+  with:
+    filename: metrics.example.png
+    token: ${{ secrets.METRICS_TOKEN }}
+    config_output: png
