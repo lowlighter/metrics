@@ -1,0 +1,12 @@
+- name: Example
+  uses: lowlighter/metrics@latest
+  with:
+    template: repository
+    filename: metrics.repository.svg
+    token: ${{ secrets.METRICS_BOT_TOKEN }}
+    user: lowlighter
+    repo: metrics
+    plugin_lines: yes
+    plugin_followup: yes
+    plugin_projects: yes
+    plugin_projects_repositories: lowlighter/metrics/projects/1
