@@ -3,12 +3,16 @@ import fs from "fs"
 import yaml from "js-yaml"
 import path from "path"
 import url from "url"
+import fetch from "node-fetch"
 
 //Defined categories
 const categories = ["core", "github", "social", "community"]
 
+//Previous descriptors
+let previous = null
+
 /**Metadata descriptor parser */
-export default async function metadata({log = true} = {}) {
+export default async function metadata({log = true, diff = false} = {}) {
   //Paths
   const __metrics = path.join(path.dirname(url.fileURLToPath(import.meta.url)), "../../..")
   const __templates = path.join(__metrics, "source/templates")
@@ -18,6 +22,16 @@ export default async function metadata({log = true} = {}) {
 
   //Init
   const logger = log ? console.debug : () => null
+
+  //Diff with latest version
+  if (diff) {
+    try {
+      previous = yaml.load(await fetch("https://raw.githubusercontent.com/lowlighter/metrics/latest/action.yml").then(response => response.text()))
+    }
+    catch (error) {
+      logger(error)
+    }
+  }
 
   //Load plugins metadata
   let Plugins = {}
@@ -259,11 +273,17 @@ metadata.plugin = async function({__plugins, name, logger}) {
         "| Option | Type *(format)* **[default]** *{allowed values}* | Description |",
         "| ------ | -------------------------------- | ----------- |",
         Object.entries(inputs).map(([option, {description, type, ...o}]) => {
-          let row = [`${"`"}${option}${"`"}`]
+          let row = []
           {
-            const cell = [`${"`"}${type}${"`"}`]
+            const cell = [`${"`"}${option}${"`"}`]
             if (type === "token")
               cell.push("🔐")
+            if (!Object.keys(previous?.inputs ?? {}).includes(option))
+              cell.push("✨")
+            row.push(cell.join(" "))
+          }
+          {
+            const cell = [`${"`"}${type}${"`"}`]
             if ("format" in o)
               cell.push(`*(${o.format})*`)
             if ("default" in o)
@@ -280,8 +300,12 @@ metadata.plugin = async function({__plugins, name, logger}) {
           }
           row.push(description)
           return `| ${row.join(" | ")} |`
-        }).join("\n")
-      ].join("\n")
+        }).join("\n"),
+        "\n",
+        "Legend for option icons:",
+        "* 🔐 Value should be stored in repository secrets",
+        "* ✨ New feature currently in testing on `master`/`main`"
+      ].flat(Infinity).filter(s => s).join("\n")
 
       //Readme descriptor
       meta.readme = {demo, table}

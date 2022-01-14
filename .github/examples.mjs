@@ -12,7 +12,7 @@ const __templates = paths.join(paths.join(__metrics, "source/templates/"))
 const __plugins = paths.join(paths.join(__metrics, "source/plugins/"))
 
 //Load plugins metadata
-const {plugins, templates} = await metadata({log:false})
+const {plugins, templates} = await metadata({log:false, diff:true})
 
 async function plugin(id) {
   const path = paths.join(__plugins, id)
