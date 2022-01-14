@@ -5,7 +5,7 @@ import fss from "fs"
 import paths from "path"
 import url from "url"
 import sgit from "simple-git"
-import metadata from "../source/app/metrics/metadata.mjs"
+import metadata from "../../source/app/metrics/metadata.mjs"
 import yaml from "js-yaml"
 
 //Mode
@@ -13,38 +13,24 @@ const [mode = "dryrun"] = process.argv.slice(2)
 console.log(`Mode: ${mode}`)
 
 //Paths
-const __metrics = paths.join(paths.dirname(url.fileURLToPath(import.meta.url)), "..")
+const __metrics = paths.join(paths.dirname(url.fileURLToPath(import.meta.url)), "../..")
 const __action = paths.join(__metrics, "source/app/action")
 const __web = paths.join(__metrics, "source/app/web")
 const __readme = paths.join(__metrics, ".github/readme")
 const __templates = paths.join(paths.join(__metrics, "source/templates/"))
 const __plugins = paths.join(paths.join(__metrics, "source/plugins/"))
-const __test_plugins = paths.join(paths.join(__metrics, "tests/plugins"))
+const __test_cases = paths.join(paths.join(__metrics, "tests/cases"))
 const __test_secrets = paths.join(paths.join(__metrics, "tests/secrets.json"))
 
 //Git setup
 const git = sgit(__metrics)
 const staged = new Set()
+const secrets = Object.assign(JSON.parse(`${await fs.readFile(__test_secrets)}`), {$regex:/\$\{\{\s*secrets\.(?<secret>\w+)\s*\}\}/})
+const {plugins, templates} = await metadata({log:false, diff:true})
+const workflow = []
 
 //Config and general documentation auto-generation
-for (const step of ["config", "documentation"]) {
-
-  //Load plugins metadata
-  const {plugins, templates, packaged, descriptor} = await metadata({log:false})
-
-  //Update generated files
-  async function update({source, output, options = {}}) {
-    //Regenerate file
-    console.log(`Generating ${output}`)
-    const content = await ejs.renderFile(source, {plugins, templates, packaged, descriptor}, {async:true, ...options})
-    //Save result
-    const file = paths.join(__metrics, output)
-    await fs.writeFile(file, content)
-    //Add to git
-    staged.add(file)
-  }
-
-  //Templating
+for (const step of []) {
   switch (step) {
     case "config":
       await update({source:paths.join(__action, "action.yml"), output:"action.yml"})
@@ -58,63 +44,41 @@ for (const step of ["config", "documentation"]) {
   }
 }
 
-{
-  //Load plugins metadata and secrets
-  const {plugins, templates} = await metadata({log:false, diff:true})
-  const secrets = Object.assign(JSON.parse(`${await fs.readFile(__test_secrets)}`), {$regex:/\$\{\{\s*secrets\.(?<secret>\w+)\s*\}\}/})
+//Plugins
+for (const id of Object.keys(plugins)) {
+  const {examples, options, readme, tests} = await plugin(id)
 
-  //Get plugin infos
-  async function plugin(id) {
-    const path = paths.join(__plugins, id)
-    const readme = paths.join(path, "README.md")
-    const examples = paths.join(path, "examples.yml")
-    const tests = paths.join(__test_plugins, `${id}.yml`)
-    return {
-      readme:{
-        path:readme,
-        content:`${await fs.readFile(readme)}`
-      },
-      tests:{
-        path:tests
-      },
-      examples:fss.existsSync(examples) ? yaml.load(await fs.readFile(examples), "utf8") ?? [] : [],
-      options:plugins[id].readme.table
-    }
-  }
+  //Readme
+  await fs.writeFile(readme.path, readme.content
+    .replace(/(<!--examples-->)[\s\S]*(<!--\/examples-->)/g, `$1\n${examples.map(({test, prod, ...step}) => ["```yaml", yaml.dump(step), "```"].join("\n")).join("\n")}\n$2`)
+    .replace(/(<!--options-->)[\s\S]*(<!--\/options-->)/g, `$1\n${options}\n$2`)
+  )
+  console.log(`Generating source/plugins/${id}/README.md`)
 
-  //Plugins
-  for (const id of Object.keys(plugins)) {
-    const {examples, options, readme, tests} = await plugin(id)
-
-    //Plugin readme
-    await fs.writeFile(readme.path, readme.content
-      .replace(/(<!--examples-->)[\s\S]*(<!--\/examples-->)/g, `$1\n${examples.map(({test, prod, ...step}) => ["```yaml", yaml.dump(step), "```"].join("\n")).join("\n")}\n$2`)
-      .replace(/(<!--options-->)[\s\S]*(<!--\/options-->)/g, `$1\n${options}\n$2`)
-    )
-    console.log(`Generating ${readme.path}`)
-
-    //Plugin tests
-    await fs.writeFile(tests.path, yaml.dump(examples.map(({prod, test = {}, name = "", ...step}) => {
-      if (test.skip)
-        return null
-      const result = {name:`${plugins[id].name} - ${name}`, ...step, ...test}
-      test.with ??= {}
-      for (const [k, v] of Object.entries(result.with)) {
-        if (k in test.with)
-          result.with[k] = test.with[k]
-        if (secrets.$regex.test(v))
-          result.with[k] = v.replace(secrets.$regex, secrets[v.match(secrets.$regex)?.groups?.secret])
-      }
-      if (!result.with.base)
-        delete result.with.base
-      delete result.with.filename
-      return result
-    }).filter(t => t)))
-    console.log(`Generating ${tests.path}`)
-
-  }
-
+  //Tests
+  workflow.push(...examples.map(example => testcase(plugins[id].name, "prod", example)).filter(t => t))
+  await fs.writeFile(tests.path, yaml.dump(examples.map(example => testcase(plugins[id].name, "test", example)).filter(t => t)))
+  console.log(`Generating tests/plugins/${id}.yml`)
 }
+
+//Templates
+for (const id of Object.keys(templates)) {
+  const {examples, readme, tests} = await template(id)
+
+  //Readme
+  await fs.writeFile(readme.path, readme.content
+    .replace(/(<!--examples-->)[\s\S]*(<!--\/examples-->)/g, `$1\n${examples.map(({test, prod, ...step}) => ["```yaml", yaml.dump(step), "```"].join("\n")).join("\n")}\n$2`)
+  )
+  console.log(`Generating source/templates/${id}/README.md`)
+
+  //Tests
+  workflow.push(...examples.map(example => testcase(templates[id].name, "prod", example)).filter(t => t))
+  await fs.writeFile(tests.path, yaml.dump(examples.map(example => testcase(templates[id].name, "test", example)).filter(t => t)))
+  console.log(`Generating tests/templates/${id}.yml`)
+}
+
+//Example workflows
+await update({source:paths.join(__metrics, ".github/scripts/files/examples.yml"), output:".github/workflows/examples.yml", context:{steps:yaml.dump(workflow)}})
 
 //Commit and push
 if (mode === "publish") {
@@ -128,3 +92,78 @@ if (mode === "publish") {
   console.log(gitted)
 }
 console.log("Success!")
+
+//==================================================================================
+
+//Update generated files
+async function update({source, output, context = {}, options = {}}) {
+  console.log(`Generating ${output}`)
+  const {plugins, templates, packaged, descriptor} = await metadata({log:false})
+  const content = await ejs.renderFile(source, {plugins, templates, packaged, descriptor, ...context}, {async:true, ...options})
+  const file = paths.join(__metrics, output)
+  await fs.writeFile(file, content)
+  staged.add(file)
+}
+
+//Get plugin infos
+async function plugin(id) {
+  const path = paths.join(__plugins, id)
+  const readme = paths.join(path, "README.md")
+  const examples = paths.join(path, "examples.yml")
+  const tests = paths.join(__test_cases, `${id}.plugin.yml`)
+  return {
+    readme:{
+      path:readme,
+      content:`${await fs.readFile(readme)}`
+    },
+    tests:{
+      path:tests
+    },
+    examples:fss.existsSync(examples) ? yaml.load(await fs.readFile(examples), "utf8") ?? [] : [],
+    options:plugins[id].readme.table
+  }
+}
+
+//Get template infos
+async function template(id) {
+  const path = paths.join(__templates, id)
+  const readme = paths.join(path, "README.md")
+  const examples = paths.join(path, "examples.yml")
+  const tests = paths.join(__test_cases, `${id}.template.yml`)
+  return {
+    readme:{
+      path:readme,
+      content:`${await fs.readFile(readme)}`
+    },
+    tests:{
+      path:tests
+    },
+    examples:fss.existsSync(examples) ? yaml.load(await fs.readFile(examples), "utf8") ?? [] : [],
+  }
+}
+
+//Testcase generator
+function testcase(name, env, {prod = {}, test = {}, ...step}) {
+  const context = {prod, test}[env] ?? {}
+  if (context.skip)
+    return null
+  const result = {...JSON.parse(JSON.stringify(step)), ...context, name:`${name} - ${step.name ?? "(unnamed)"}`}
+  context.with ??= {}
+  for (const [k, v] of Object.entries(result.with)) {
+    if (k in context.with)
+      result.with[k] = context.with[k]
+    if ((env === "test")&&(secrets.$regex.test(v)))
+      result.with[k] = v.replace(secrets.$regex, secrets[v.match(secrets.$regex)?.groups?.secret])
+  }
+  if (!result.with.base)
+    delete result.with.base
+  delete result.with.filename
+
+  if (env === "prod") {
+    result.if = "${{ success() || failure() }}"
+    result.uses = "lowlighter/metrics@master"
+    Object.assign(result.with, {plugins_errors_fatal:"yes", output_action:"none", delay:120})
+  }
+
+  return result
+}

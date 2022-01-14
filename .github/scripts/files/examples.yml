@@ -1,0 +1,107 @@
+name: Examples
+on:
+  schedule:
+    - cron: "0 8 * * *"
+  workflow_dispatch:
+jobs:
+
+# ======================================================================================
+# Examples renders
+# ======================================================================================
+
+  examples:
+    runs-on: ubuntu-latest
+    if: "github.repository == 'lowlighter/metrics'"
+    steps:
+<%- steps.split("\n").map(line => `      ${line}`).join("\n") %>
+
+# ======================================================================================
+# Markdown as png (for readme updates)
+# ======================================================================================
+
+  examples-markdown:
+    runs-on: ubuntu-latest
+    if: false
+    #if: "github.repository == 'lowlighter/metrics'"
+    container: ghcr.io/lowlighter/metrics:master
+    needs: [examples]
+    steps:
+      - name: Screenshot markdown example
+        run: |
+          node /metrics/.github/scripts/markdown_example.mjs
+          echo "METRICS_MARKDOWN_EXAMPLE=$(base64 --wrap=0 metrics.markdown.png)" >> $GITHUB_ENV
+      - name: Update markdown example
+        uses: actions/github-script@v5
+        env:
+          METRICS_MARKDOWN_EXAMPLE: "${{ env.METRICS_MARKDOWN_EXAMPLE }}"
+        with:
+          script: |
+            try {
+              const {data:{sha}} = await github.rest.repos.getContent({...context.repo, path:"metrics.markdown.png"})
+              console.log(`current sha: ${sha}`)
+              github.rest.repos.createOrUpdateFileContents({
+                ...context.repo,
+                path:"metrics.markdown.png",
+                message:`Auto-generated metrics for run #${github.context ? github.context.runId : "0000000000"}`,
+                content:process.env.METRICS_MARKDOWN_EXAMPLE,
+                sha,
+              })
+            } catch (error) { console.log(error) }
+
+# ======================================================================================
+# Special job used to render lowlighter/metrics repository assets
+# ======================================================================================
+
+  repository:
+    runs-on: ubuntu-latest
+    if: "github.repository == 'lowlighter/metrics'"
+    steps:
+      - name: Contributors
+        if: ${{ success() || failure() }}
+        uses: lowlighter/metrics@master
+        with:
+          filename: metrics.contributors.svg
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          template: repository
+          user: lowlighter
+          repo: metrics
+          plugin_people: yes
+          plugin_people_types: contributors
+          plugins_errors_fatal: yes
+          config_display: large
+          output_action: none
+          delay: 120
+
+      - name: Sponsors
+        if: ${{ success() || failure() }}
+        uses: lowlighter/metrics@master
+        with:
+          filename: metrics.sponsors.svg
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          plugin_people: yes
+          plugin_people_types: sponsors
+          plugin_people_sponsors_custom: yutkat, ktnkk, iamsainikhil, tfSheol
+          plugin_people_size: 48
+          plugins_errors_fatal: ${{ github.repository == 'lowlighter/lowlighter' }}
+          config_display: large
+          output_action: none
+          delay: 120
+
+      - name: Licenses
+        if: ${{ success() || failure() }}
+        uses: lowlighter/metrics@master
+        with:
+          filename: metrics.licenses.svg
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          template: repository
+          repo: metrics
+          plugin_licenses: yes
+          plugin_licenses_setup: npm ci
+          plugin_licenses_legal: yes
+          plugin_licenses_ratio: yes
+          plugins_errors_fatal: ${{ github.repository == 'lowlighter/lowlighter' }}
+          output_action: none
+          delay: 120
