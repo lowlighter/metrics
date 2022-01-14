@@ -13,17 +13,14 @@ The *skyline* plugin lets you display your 3D commits calendar from [skyline.git
 
 This uses puppeteer to generate collect image frames, and use CSS animations to create an animated rendering (GIF images are not animated in GitHub flavored markdown rendering which is why this design choice was made).
 
+#### ➡️ Available options
+
+<!--options-->
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
+
 #### ℹ️ Examples workflows
 
-[➡️ Available options for this plugin](metadata.yml)
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_skyline: yes
-    plugin_skyline_year: 0            # Set to 0 to display current year
-    plugin_skyline_frames: 60         # Use 60 frames (half-loop)
-    plugin_skyline_quality: 0.5       # Set image quality
-    plugin_skyline_compatibility: yes # Support additional browsers (⚠️ increases file size and reduce optimization)
-```
+<!--examples-->
+<!--/examples-->

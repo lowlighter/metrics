@@ -26,17 +26,14 @@ Create an app from your [developer dashboard](https://developer.twitter.com/en/p
 
 </details>
 
+#### ➡️ Available options
+
+<!--options-->
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
+
 #### ℹ️ Examples workflows
 
-[➡️ Available options for this plugin](metadata.yml)
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_tweets: yes
-    plugin_tweets_token: ${{ secrets.TWITTER_TOKEN }} # Required
-    plugin_tweets_attachments: yes                    # Display tweets attachments (images, preview urls, etc.)
-    plugin_tweets_limit: 2                            # Limit to 2 tweets
-    plugin_tweets_user: .user.twitter                 # Defaults to your GitHub linked twitter username
-```
+<!--examples-->
+<!--/examples-->

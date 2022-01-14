@@ -18,17 +18,14 @@ Create a [RapidAPI account](https://rapidapi.com) and subscribe to [Yahoo Financ
 
 </details>
 
+#### ➡️ Available options
+
+<!--options-->
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
+
 #### ℹ️ Examples workflows
 
-[➡️ Available options for this plugin](metadata.yml)
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_stock: yes
-    plugin_stock_token: ${{ secrets.STOCK_TOKEN }} # RapidAPI Yahoo Finance token
-    plugin_stock_symbol: TSLA                      # Display Tesla stock price
-    plugin_stock_duration: 1d                      # Display last day of market
-    plugin_stock_interval: 5m                      # Use precision of 5 minutes for each record
-```
+<!--examples-->
+<!--/examples-->

@@ -24,19 +24,14 @@ Project must be setup with dependencies using `plugin_licenses_setup` option (fo
 
 Dependencies will be analyzed with [github/licensed](https://github.com/github/licensed) and compared against GitHub known licenses.
 
+#### ➡️ Available options
+
+<!--options-->
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
+
 #### ℹ️ Examples workflows
 
-[➡️ Available options for this plugin](metadata.yml)
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    template: repository
-    user: repository-owner
-    repo: repository-name
-    plugin_licenses: yes
-    plugin_licenses_setup: npm ci       # Command to setup target repository
-    plugin_licenses_ratio: yes          # Display used licenses ratio
-    plugin_licenses_legal: yes          # Display permissions, limitations and conditions
-```
+<!--examples-->
+<!--/examples-->

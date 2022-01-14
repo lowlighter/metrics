@@ -14,14 +14,14 @@ The *isocalendar* plugin displays an isometric view of your commits calendar, al
   </td>
 </table>
 
+#### ➡️ Available options
+
+<!--options-->
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
+
 #### ℹ️ Examples workflows
 
-[➡️ Available options for this plugin](metadata.yml)
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_isocalendar: yes
-    plugin_isocalendar_duration: full-year # Display full year instead of half year
-```
+<!--examples-->
+<!--/examples-->

@@ -25,19 +25,14 @@ This plugin is composed of the following sections, which can be displayed or hid
 
 These sections can also be filtered by media type, which can be either `anime`, `manga` or both.
 
+#### ➡️ Available options
+
+<!--options-->
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
+
 #### ℹ️ Examples workflows
 
-[➡️ Available options for this plugin](metadata.yml)
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_anilist: yes
-    plugin_anilist_medias: anime, manga            # Display both animes and mangas
-    plugin_anilist_sections: favorites, characters # Display only favorites and characters sections
-    plugin_anilist_limit: 2                        # Limit to 2 entry per section (characters section excluded)
-    plugin_anilist_limit_characters: 22            # Limit to 22 characters in characters section
-    plugin_anilist_shuffle: yes                    # Shuffle data for more varied outputs
-    plugin_anilist_user: .user.login               # Use same username as GitHub login
-```
+<!--examples-->
+<!--/examples-->

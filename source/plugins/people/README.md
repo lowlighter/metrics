@@ -33,20 +33,14 @@ The following types are supported:
 Sections will be ordered the same as specified in `plugin_people_types`.
 `sponsors` for repositories will output the same as the owner's sponsors.
 
+#### ➡️ Available options
+
+<!--options-->
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
+
 #### ℹ️ Examples workflows
 
-[➡️ Available options for this plugin](metadata.yml)
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_people: yes
-    plugin_people_types: followers, thanks     # Display followers and "thanks" sections
-    plugin_people_limit: 28                    # Limit to 28 entries per section
-    plugin_people_size: 28                     # Size in pixels of displayed avatars
-    plugin_people_identicons: no               # Use avatars (do not use identicons)
-    plugin_people_thanks: lowlighter, octocat  # Users that will be displayed in "thanks" section
-    plugin_people_sponsors_custom: octocat     # Users that will be displayed additionally in "sponsors" section
-    plugin_people_shuffle: yes                 # Shuffle for varied output
-```
+<!--examples-->
+<!--/examples-->

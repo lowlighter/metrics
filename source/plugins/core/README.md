@@ -2,7 +2,12 @@
 
 Metrics also have general options that impact global metrics rendering.
 
-[➡️ Available options](metadata.yml)
+#### ➡️ Available options
+
+<!--options-->
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
 
 ### 🛠️ General configuration
 

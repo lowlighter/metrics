@@ -11,13 +11,14 @@ The *support* plugin lets you display your statistics from [GitHub Support Commu
 
 An account on [GitHub Support Community](https://github.community/) is required to use this plugin.
 
+#### ➡️ Available options
+
+<!--options-->
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
+
 #### ℹ️ Examples workflows
 
-[➡️ Available options for this plugin](metadata.yml)
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_support: yes
-```
+<!--examples-->
+<!--/examples-->

@@ -205,61 +205,14 @@ Click on the Name of any matching request. In the “Headers” tab, scroll to t
 
 </details>
 
+#### ➡️ Available options
+
+<!--options-->
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
+
 #### ℹ️ Examples workflows
 
-[➡️ Available options for this plugin](metadata.yml)
-
-##### Recent
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_music: yes
-    plugin_music_provider: spotify # Use Spotify as provider
-    plugin_music_mode: recent      # Set plugin mode
-    plugin_music_limit: 4          # Limit to 4 entries
-    plugin_music_played_at: yes    # Show timestamp (for spotify only)
-    plugin_music_token: "${{ secrets.SPOTIFY_CLIENT_ID }}, ${{ secrets.SPOTIFY_CLIENT_SECRET }}, ${{ secrets.SPOTIFY_REFRESH_TOKEN }}"
-```
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_music: yes
-    plugin_music_provider: lastfm  # Use Last.fm as provider
-    plugin_music_mode: recent      # Set plugin mode
-    plugin_music_limit: 4          # Limit to 4 entries
-    plugin_music_user: .user.login # Use same username as GitHub login
-    plugin_music_token: ${{ secrets.LASTFM_API_KEY }}
-```
-
-##### Top
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_music: yes
-    plugin_music_provider: spotify # Use Spotify as provider
-    plugin_music_mode: top         # Set plugin mode
-    plugin_music_limit: 4          # Limit to 4 entries, maximum is 50 for "top" mode with spotify
-    plugin_music_top_type: tracks  # Set type for "top" mode; either tracks or artists
-    plugin_music_time_range: short # Set time range for "top" mode; either short (4 weeks), medium (6 months) or long (several years)
-    plugin_music_token: "${{ secrets.SPOTIFY_CLIENT_ID }}, ${{ secrets.SPOTIFY_CLIENT_SECRET }}, ${{ secrets.SPOTIFY_REFRESH_TOKEN }}"
-```
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_music: yes
-    plugin_music_provider: lastfm  # Use Last.fm as provider
-    plugin_music_mode: top         # Set plugin mode
-    plugin_music_limit: 4          # Limit to 4 entries
-    plugin_music_top_type: artists # Set type for "top" mode; either tracks or artists
-    plugin_music_time_range: long  # Set time range for "top" mode; either short (4 weeks), medium (6 months) or long (several years)
-    plugin_music_user: .user.login # Use same username as GitHub login
-    plugin_music_token: ${{ secrets.LASTFM_API_KEY }}
-```
+<!--examples-->
+<!--/examples-->

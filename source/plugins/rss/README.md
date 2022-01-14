@@ -9,15 +9,14 @@ The *rss* plugin displays items from a specified RSS feed.
   </td>
 </table>
 
+#### ➡️ Available options
+
+<!--options-->
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
+
 #### ℹ️ Examples workflows
 
-[➡️ Available options for this plugin](metadata.yml)
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_rss: yes
-    plugin_rss_source: https://news.ycombinator.com/rss  # RSS feed
-    plugin_rss_limit: 6                                  # Limit to 6 items
-```
+<!--examples-->
+<!--/examples-->

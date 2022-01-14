@@ -26,17 +26,14 @@ Although not mandatory, you can generate an API key for PageSpeed API [here](htt
 
 Expect 10 to 30 seconds to generate the results.
 
+#### ➡️ Available options
+
+<!--options-->
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
+
 #### ℹ️ Examples workflows
 
-[➡️ Available options for this plugin](metadata.yml)
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_pagespeed: yes
-    plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }} # Optional but recommended
-    plugin_pagespeed_detailed: yes                         # Print detailed audit metrics
-    plugin_pagespeed_screenshot: no                        # Display a screenshot of your website
-    plugin_pagespeed_url: .user.website                    # Website to audit (defaults to your GitHub linked website)
-```
+<!--examples-->
+<!--/examples-->

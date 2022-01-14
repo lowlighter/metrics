@@ -17,15 +17,14 @@ The *followup* plugin displays the ratio of open/closed issues and the ratio of 
   </td>
 </table>
 
+#### ➡️ Available options
+
+<!--options-->
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
+
 #### ℹ️ Examples workflows
 
-[➡️ Available options for this plugin](metadata.yml)
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_followup: yes
-    plugin_followup_sections: repositories, user # Display overall status of issues/pull requests created on user's repositories and created by user
-```
-
+<!--examples-->
+<!--/examples-->

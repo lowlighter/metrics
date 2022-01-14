@@ -13,14 +13,14 @@ It is mostly intended for external usage as [pinned repositories](https://www.go
 
 Because of limitations of using SVG inside of `<img>` tags, people won't be able to click on it.
 
+#### ➡️ Available options
+
+<!--options-->
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
+
 #### ℹ️ Examples workflows
 
-[➡️ Available options for this plugin](metadata.yml)
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_repositories: yes
-    plugin_repositories_featured: lowlighter/metrics, denoland/deno  # List of repositories you want to feature
-```
+<!--examples-->
+<!--/examples-->

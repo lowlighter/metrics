@@ -40,16 +40,14 @@ To do so, open your repository project and retrieve the last URL endpoint, in th
 
 </details>
 
+#### ➡️ Available options
+
+<!--options-->
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
+
 #### ℹ️ Examples workflows
 
-[➡️ Available options for this plugin](metadata.yml)
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_projects: yes
-    plugin_projects_repositories: lowlighter/metrics/projects/1 # Display #1 project of lowlighter/metrics repository
-    plugin_projects_limit: 4                                    # Limit to 4 entries
-    plugin_projects_descriptions: yes                           # Display projects descriptions
-```
+<!--examples-->
+<!--/examples-->

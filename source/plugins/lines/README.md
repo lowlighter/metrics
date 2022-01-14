@@ -9,14 +9,14 @@ The *lines* of code plugin displays the number of lines of code you have added a
   </td>
 </table>
 
+#### ➡️ Available options
+
+<!--options-->
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
+
 #### ℹ️ Examples workflows
 
-[➡️ Available options for this plugin](metadata.yml)
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_lines: yes
-    plugin_lines_skipped: repo # List of skipped repositories
-```
+<!--examples-->
+<!--/examples-->

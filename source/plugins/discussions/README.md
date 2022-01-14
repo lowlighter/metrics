@@ -9,13 +9,14 @@ The *discussions* plugin displays your GitHub discussions metrics.
   </td>
 </table>
 
+#### ➡️ Available options
+
+<!--options-->
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
+
 #### ℹ️ Examples workflows
 
-[➡️ Available options for this plugin](metadata.yml)
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_discussions: yes
-```
+<!--examples-->
+<!--/examples-->

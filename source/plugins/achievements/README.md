@@ -29,10 +29,12 @@ It also lets you quickly see at a glance what this user primarly use GitHub for,
 
 #### ➡️ Available options
 
-<!--options -->
+<!--options-->
 <!--/options-->
+
+*[→ Full specification](metadata.yml)*
 
 #### ℹ️ Examples workflows
 
-<!--examples -->
+<!--examples-->
 <!--/examples-->

@@ -20,18 +20,14 @@ Your user id will be in both url and search bar.
 
 </details>
 
+#### ➡️ Available options
+
+<!--options-->
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
+
 #### ℹ️ Examples workflows
 
-[➡️ Available options for this plugin](metadata.yml)
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_stackoverflow: yes
-    plugin_stackoverflow_user: 8332505                           # Stackoverflow user id (required)
-    plugin_stackoverflow_sections: answers-top, questions-recent # Display top answers and recent questions
-    plugin_stackoverflow_limit: 2                                # Display 2 entries per section
-    plugin_stackoverflow_lines: 4                                # Display 4 lines per entry
-    plugin_stackoverflow_lines_snippet: 2                        # Display 2 lines in embed code snippets
-```
+<!--examples-->
+<!--/examples-->

@@ -39,15 +39,14 @@ Extract the `token` query paramater from the link
 You now have your PoopMap token! This token will not expire and it can only access public details.
 </details>
 
+#### ➡️ Available options
+
+<!--options-->
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
+
 #### ℹ️ Examples workflows
 
-[➡️ Available options for this plugin](metadata.yml)
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_poopmap: yes
-    plugin_poopmap_token: ${{ secrets.POOPMAP_TOKEN }}      # Required
-    plugin_poopmap_days: 7                                  # Display last week stats
-```
+<!--examples-->
+<!--/examples-->

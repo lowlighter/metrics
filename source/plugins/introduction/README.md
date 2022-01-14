@@ -15,14 +15,14 @@ It is mostly intended for metrics used outside of GitHub, since these informatio
   </td>
 </table>
 
+#### ➡️ Available options
+
+<!--options-->
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
+
 #### ℹ️ Examples workflows
 
-[➡️ Available options for this plugin](metadata.yml)
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_introduction: yes
-    plugin_introduction_title: no # Hide section title
-```
+<!--examples-->
+<!--/examples-->

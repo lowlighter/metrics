@@ -10,17 +10,14 @@ It can be restricted with a [CSS selector](https://developer.mozilla.org/en-US/d
   </td>
 </table>
 
+#### ➡️ Available options
+
+<!--options-->
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
+
 #### ℹ️ Examples workflows
 
-[➡️ Available options for this plugin](metadata.yml)
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_screenshot: yes
-    plugin_screenshot_title: XKCD of the day  # Section title
-    plugin_screenshot_url: https://xkcd.com   # Website url
-    plugin_screenshot_selector: "#comic img"  # CSS selector to take into screenshot
-    plugin_screenshot_background: no          # Remove page background
-```
+<!--examples-->
+<!--/examples-->

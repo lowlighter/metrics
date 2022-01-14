@@ -34,24 +34,14 @@ plugin_contributors_categories: |
 Each time a file modified by a contributor match a fileglob, they will be added in said category.
 Matching is performed in keys order.
 
+#### ➡️ Available options
+
+<!--options-->
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
+
 #### ℹ️ Examples workflows
 
-[➡️ Available options for this plugin](metadata.yml)
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_contributors: yes
-    plugin_contributors_base: ""               # Base reference (commit, tag, branch, etc.)
-    plugin_contributors_head: main             # Head reference (commit, tag, branch, etc.)
-    plugin_contributors_ignored: bot           # Ignore "bot" user
-    plugin_contributors_contributions: yes     # Display number of contributions for each contributor
-    plugin_contributors_sections: contributors # Display contributors sections
-    plugin_contributors_categories: |          # A JSON mapping of labels by files edited
-      {
-        "📚 Documentation": ["README.md", "docs/**"],
-        "💻 Code": ["source/**", "src/**"],
-        "#️⃣ Others": ["*"]
-      }
-```
+<!--examples-->
+<!--/examples-->

@@ -29,20 +29,14 @@ It uses data from [GitHub events](https://docs.github.com/en/free-pro-team@lates
 
 Use a full `repo` scope token to display **private** events.
 
+#### ➡️ Available options
+
+<!--options-->
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
+
 #### ℹ️ Examples workflows
 
-[➡️ Available options for this plugin](metadata.yml)
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_activity: yes
-    plugin_activity_limit: 5           # Limit to 5 events
-    plugin_activity_load: 100          # Load up to 100 recent events from API (should be higher than "limit")
-    plugin_activity_days: 14           # Keep only events from last 14 days (set to 0 for no limit)
-    plugin_activity_filter: all        # Show all events (use table above to filter events types)
-    plugin_activity_visibility: public # Only display public events
-    plugin_activity_timestamps: yes    # Display events timestamps
-    plugin_activity_skipped: repo      # Ignored repositories
-```
+<!--examples-->
+<!--/examples-->

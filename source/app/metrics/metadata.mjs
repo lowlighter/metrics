@@ -254,8 +254,37 @@ metadata.plugin = async function({__plugins, name, logger}) {
       const raw = `${await fs.promises.readFile(path.join(__plugins, name, "README.md"), "utf-8")}`
       const demo = raw.match(/(?<demo><table>[\s\S]*?<[/]table>)/)?.groups?.demo?.replace(/<[/]?(?:table|tr)>/g, "")?.trim() ?? "<td></td>"
 
+      //Options table
+      const table = [
+        "| Option | Type *(format)* **[default]** *{allowed values}* | Description |",
+        "| ------ | -------------------------------- | ----------- |",
+        Object.entries(inputs).map(([option, {description, type, ...o}]) => {
+          let row = [`${"`"}${option}${"`"}`]
+          {
+            const cell = [`${"`"}${type}${"`"}`]
+            if (type === "token")
+              cell.push("🔐")
+            if ("format" in o)
+              cell.push(`*(${o.format})*`)
+            if ("default" in o)
+              cell.push(`**[${o.default}]**`)
+            if ("values" in o)
+              cell.push(`*{${o.values.map(value => `"${value}"`).join(", ")}}*`)
+            if ("min" in o)
+              cell.push(`*{${o.min} ≤`)
+            if (("min" in o)||("max" in o))
+              cell.push(`${"min" in o ? "" : "*{"}𝑥${"max" in o ? "" : "}*"}`)
+            if ("max" in o)
+              cell.push(`≤ ${o.max}}*`)
+            row.push(cell.join(" "))
+          }
+          row.push(description)
+          return `| ${row.join(" | ")} |`
+        }).join("\n")
+      ].join("\n")
+
       //Readme descriptor
-      meta.readme = {demo}
+      meta.readme = {demo, table}
     }
 
     //Icon

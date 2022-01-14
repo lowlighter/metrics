@@ -14,13 +14,14 @@ Because of GitHub REST API limitation, provided token requires full `repo` scope
 
 ![Token with repo scope](/.github/readme/imgs/setup_token_repo_scope.png)
 
+#### ➡️ Available options
+
+<!--options-->
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
+
 #### ℹ️ Examples workflows
 
-[➡️ Available options for this plugin](metadata.yml)
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_traffic: yes
-```
+<!--examples-->
+<!--/examples-->
