@@ -14,6 +14,14 @@ An account on [GitHub Support Community](https://github.community/) is required 
 #### ➡️ Available options
 
 <!--options-->
+| Option | Type *(format)* **[default]** *{allowed values}* | Description |
+| ------ | -------------------------------- | ----------- |
+| `plugin_support` | `boolean` **[no]** | GitHub Community Support metrics |
+
+
+Legend for option icons:
+* 🔐 Value should be stored in repository secrets
+* ✨ New feature currently in testing on `master`/`main`
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*
@@ -21,4 +29,13 @@ An account on [GitHub Support Community](https://github.community/) is required 
 #### ℹ️ Examples workflows
 
 <!--examples-->
+```yaml
+name: GitHub Community Support
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.support.svg
+  token: NOT_NEEDED
+  plugin_support: 'yes'
+
+```
 <!--/examples-->

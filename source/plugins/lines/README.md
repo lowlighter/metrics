@@ -12,6 +12,15 @@ The *lines* of code plugin displays the number of lines of code you have added a
 #### ➡️ Available options
 
 <!--options-->
+| Option | Type *(format)* **[default]** *{allowed values}* | Description |
+| ------ | -------------------------------- | ----------- |
+| `plugin_lines` | `boolean` **[no]** | Display lines of code metrics |
+| `plugin_lines_skipped` | `array` *(comma-separated)* **[]** | Repositories to skip |
+
+
+Legend for option icons:
+* 🔐 Value should be stored in repository secrets
+* ✨ New feature currently in testing on `master`/`main`
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*
@@ -19,4 +28,14 @@ The *lines* of code plugin displays the number of lines of code you have added a
 #### ℹ️ Examples workflows
 
 <!--examples-->
+```yaml
+name: Lines of code changed
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.lines.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: repositories
+  plugin_lines: 'yes'
+
+```
 <!--/examples-->

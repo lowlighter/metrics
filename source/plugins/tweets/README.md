@@ -29,6 +29,18 @@ Create an app from your [developer dashboard](https://developer.twitter.com/en/p
 #### ➡️ Available options
 
 <!--options-->
+| Option | Type *(format)* **[default]** *{allowed values}* | Description |
+| ------ | -------------------------------- | ----------- |
+| `plugin_tweets` | `boolean` **[no]** | Display recent tweets |
+| `plugin_tweets_token` 🔐 | `token` **[]** | Twitter API token |
+| `plugin_tweets_attachments` | `boolean` **[no]** | Display tweets attchments |
+| `plugin_tweets_limit` | `number` **[2]** *{1 ≤ 𝑥 ≤ 10}* | Maximum number of tweets to display |
+| `plugin_tweets_user` | `string` **[.user.twitter]** | Twitter username |
+
+
+Legend for option icons:
+* 🔐 Value should be stored in repository secrets
+* ✨ New feature currently in testing on `master`/`main`
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*
@@ -36,4 +48,27 @@ Create an app from your [developer dashboard](https://developer.twitter.com/en/p
 #### ℹ️ Examples workflows
 
 <!--examples-->
+```yaml
+name: Latest tweets
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.tweets.svg
+  token: NOT_NEEDED
+  plugin_tweets: 'yes'
+  plugin_tweets_token: ${{ secrets.TWITTER_TOKEN }}
+  plugin_tweets_user: github
+
+```
+```yaml
+name: Latest tweets including attachments
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.tweets.attachments.svg
+  token: NOT_NEEDED
+  plugin_tweets: 'yes'
+  plugin_tweets_token: ${{ secrets.TWITTER_TOKEN }}
+  plugin_tweets_attachments: 'yes'
+  plugin_tweets_user: github
+
+```
 <!--/examples-->

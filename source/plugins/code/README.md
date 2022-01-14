@@ -14,6 +14,19 @@ Display a random code snippet from your recent activity history.
 #### ➡️ Available options
 
 <!--options-->
+| Option | Type *(format)* **[default]** *{allowed values}* | Description |
+| ------ | -------------------------------- | ----------- |
+| `plugin_code` | `boolean` **[no]** | Display a random code snippet from recent activity |
+| `plugin_code_lines` | `number` **[12]** | Maximum number of line that a code snippet can contain |
+| `plugin_code_load` | `number` **[100]** *{100 ≤ 𝑥 ≤ 1000}* | Number of events to load |
+| `plugin_code_visibility` | `string` **[public]** *{"public", "all"}* | Set events visibility |
+| `plugin_code_skipped` | `array` *(comma-separated)* **[]** | Repositories to skip |
+| `plugin_code_languages` | `array` *(comma-separated)* **[]** | Restrict code snippet languages |
+
+
+Legend for option icons:
+* 🔐 Value should be stored in repository secrets
+* ✨ New feature currently in testing on `master`/`main`
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*
@@ -21,4 +34,16 @@ Display a random code snippet from your recent activity history.
 #### ℹ️ Examples workflows
 
 <!--examples-->
+```yaml
+name: JavaScript or TypeScript snippet of the day
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.code.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ''
+  plugin_code: 'yes'
+  plugin_code_languages: javascript, typescript
+  plugin_code_load: 400
+
+```
 <!--/examples-->

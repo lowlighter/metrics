@@ -28,6 +28,19 @@ By default, dates use Greenwich meridian (GMT/UTC). Be sure to set your timezone
 #### ➡️ Available options
 
 <!--options-->
+| Option | Type *(format)* **[default]** *{allowed values}* | Description |
+| ------ | -------------------------------- | ----------- |
+| `plugin_habits` | `boolean` **[no]** | Display coding habits metrics |
+| `plugin_habits_from` | `number` **[200]** *{1 ≤ 𝑥 ≤ 1000}* | Number of events to use |
+| `plugin_habits_days` | `number` **[14]** *{1 ≤ 𝑥 ≤ 30}* | Maximum event age |
+| `plugin_habits_facts` | `boolean` **[yes]** | Display coding habits collected facts based on recent activity |
+| `plugin_habits_charts` | `boolean` **[no]** | Display coding habits charts based on recent activity |
+| `plugin_habits_trim` | `boolean` **[no]** | Trim unused hours on daily chart |
+
+
+Legend for option icons:
+* 🔐 Value should be stored in repository secrets
+* ✨ New feature currently in testing on `master`/`main`
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*
@@ -35,4 +48,30 @@ By default, dates use Greenwich meridian (GMT/UTC). Be sure to set your timezone
 #### ℹ️ Examples workflows
 
 <!--examples-->
+```yaml
+name: Midly interesting facts
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.habits.facts.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ''
+  plugin_habits: 'yes'
+  plugin_habits_facts: 'yes'
+  plugin_habits_charts: 'no'
+  config_timezone: Europe/Paris
+
+```
+```yaml
+name: Recent activity charts
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.habits.charts.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ''
+  plugin_habits: 'yes'
+  plugin_habits_facts: 'no'
+  plugin_habits_charts: 'yes'
+  config_timezone: Europe/Paris
+
+```
 <!--/examples-->

@@ -16,6 +16,15 @@ Because of limitations of using SVG inside of `<img>` tags, people won't be able
 #### ➡️ Available options
 
 <!--options-->
+| Option | Type *(format)* **[default]** *{allowed values}* | Description |
+| ------ | -------------------------------- | ----------- |
+| `plugin_repositories` | `boolean` **[no]** | Display chosen featured repositories |
+| `plugin_repositories_featured` | `array` *(comma-separated)* **[]** | List of repositories to display |
+
+
+Legend for option icons:
+* 🔐 Value should be stored in repository secrets
+* ✨ New feature currently in testing on `master`/`main`
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*
@@ -23,4 +32,15 @@ Because of limitations of using SVG inside of `<img>` tags, people won't be able
 #### ℹ️ Examples workflows
 
 <!--examples-->
+```yaml
+name: Featured repositories
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.repositories.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ''
+  plugin_repositories: 'yes'
+  plugin_repositories_featured: lowlighter/metrics
+
+```
 <!--/examples-->

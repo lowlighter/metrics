@@ -24,6 +24,18 @@ The `plugin_notable_indepth` option lets you get additional metrics about your c
 #### ➡️ Available options
 
 <!--options-->
+| Option | Type *(format)* **[default]** *{allowed values}* | Description |
+| ------ | -------------------------------- | ----------- |
+| `plugin_notable` | `boolean` **[no]** | Display notable contributions in organizations |
+| `plugin_notable_filter` | `string` **[]** | Query filter |
+| `plugin_notable_from` | `string` **[organization]** *{"all", "organization", "user"}* | Filter by repository host account type |
+| `plugin_notable_repositories` | `boolean` **[no]** | Also display repository name |
+| `plugin_notable_indepth` | `boolean` **[no]** | Indepth notable contributions processing |
+
+
+Legend for option icons:
+* 🔐 Value should be stored in repository secrets
+* ✨ New feature currently in testing on `master`/`main`
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*
@@ -31,4 +43,26 @@ The `plugin_notable_indepth` option lets you get additional metrics about your c
 #### ℹ️ Examples workflows
 
 <!--examples-->
+```yaml
+name: Contributions
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.notable.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ''
+  plugin_notable: 'yes'
+
+```
+```yaml
+name: Indepth analysis
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.notable.indepth.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ''
+  plugin_notable: 'yes'
+  plugin_notable_indepth: 'yes'
+  plugin_notable_repositories: 'yes'
+
+```
 <!--/examples-->

@@ -18,6 +18,15 @@ It is mostly intended for metrics used outside of GitHub, since these informatio
 #### ➡️ Available options
 
 <!--options-->
+| Option | Type *(format)* **[default]** *{allowed values}* | Description |
+| ------ | -------------------------------- | ----------- |
+| `plugin_introduction` | `boolean` **[no]** | Display account or repository introduction |
+| `plugin_introduction_title` | `boolean` **[yes]** | Display introduction section title |
+
+
+Legend for option icons:
+* 🔐 Value should be stored in repository secrets
+* ✨ New feature currently in testing on `master`/`main`
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*
@@ -25,4 +34,27 @@ It is mostly intended for metrics used outside of GitHub, since these informatio
 #### ℹ️ Examples workflows
 
 <!--examples-->
+```yaml
+name: User introduction
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.introduction.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  user: github
+  base: header
+  plugin_introduction: 'yes'
+
+```
+```yaml
+name: Repository introduction
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.introduction.repository.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  template: repository
+  repo: metrics
+  base: header
+  plugin_introduction: 'yes'
+
+```
 <!--/examples-->

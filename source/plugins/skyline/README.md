@@ -16,6 +16,18 @@ This uses puppeteer to generate collect image frames, and use CSS animations to 
 #### ➡️ Available options
 
 <!--options-->
+| Option | Type *(format)* **[default]** *{allowed values}* | Description |
+| ------ | -------------------------------- | ----------- |
+| `plugin_skyline` | `boolean` **[no]** | Display GitHub Skyline 3D calendar |
+| `plugin_skyline_year` | `number` **[current-year]** *{2008 ≤ 𝑥}* | Displayed year |
+| `plugin_skyline_frames` | `number` **[60]** *{1 ≤ 𝑥 ≤ 120}* | Number of frames |
+| `plugin_skyline_quality` | `number` **[0.5]** *{0.1 ≤ 𝑥 ≤ 1}* | Image quality |
+| `plugin_skyline_compatibility` | `boolean` **[no]** | Compatibility mode |
+
+
+Legend for option icons:
+* 🔐 Value should be stored in repository secrets
+* ✨ New feature currently in testing on `master`/`main`
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*
@@ -23,4 +35,16 @@ This uses puppeteer to generate collect image frames, and use CSS animations to 
 #### ℹ️ Examples workflows
 
 <!--examples-->
+```yaml
+name: GitHub Skyline
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.skyline.svg
+  token: NOT_NEEDED
+  plugin_skyline: 'yes'
+  plugin_skyline_year: 2020
+  plugin_skyline_frames: 6
+  plugin_skyline_quality: 1
+
+```
 <!--/examples-->

@@ -208,6 +208,23 @@ Click on the Name of any matching request. In the “Headers” tab, scroll to t
 #### ➡️ Available options
 
 <!--options-->
+| Option | Type *(format)* **[default]** *{allowed values}* | Description |
+| ------ | -------------------------------- | ----------- |
+| `plugin_music` | `boolean` **[no]** | Display your music tracks |
+| `plugin_music_provider` | `string` **[]** *{"apple", "spotify", "lastfm", "youtube"}* | Music provider |
+| `plugin_music_token` 🔐 | `token` **[]** | Music provider personal token |
+| `plugin_music_mode` | `string` **[]** *{"playlist", "recent", "top"}* | Plugin mode |
+| `plugin_music_playlist` | `string` **[]** | Embed playlist url |
+| `plugin_music_limit` | `number` **[4]** *{1 ≤ 𝑥 ≤ 100}* | Maximum number of tracks to display |
+| `plugin_music_played_at` | `boolean` **[no]** | Display when the track was played |
+| `plugin_music_time_range` | `string` **[short]** *{"short", "medium", "long"}* | Time period for top mode |
+| `plugin_music_top_type` | `string` **[tracks]** *{"tracks", "artists"}* | Whether to show tracks or artists in top mode |
+| `plugin_music_user` | `string` **[.user.login]** | Music provider username |
+
+
+Legend for option icons:
+* 🔐 Value should be stored in repository secrets
+* ✨ New feature currently in testing on `master`/`main`
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*
@@ -215,4 +232,94 @@ Click on the Name of any matching request. In the “Headers” tab, scroll to t
 #### ℹ️ Examples workflows
 
 <!--examples-->
+```yaml
+name: Apple Music - Random track from playlist
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.music.playlist.svg
+  token: NOT_NEEDED
+  plugin_music: 'yes'
+  plugin_music_playlist: https://embed.music.apple.com/fr/playlist/usr-share/pl.u-V9D7m8Etjmjd0D
+  plugin_music_limit: 2
+
+```
+```yaml
+name: Spotify - Random track from playlist
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.music.playlist.spotify.svg
+  token: NOT_NEEDED
+  plugin_music: 'yes'
+  plugin_music_playlist: https://open.spotify.com/embed/playlist/3nfA87oeJw4LFVcUDjRcqi
+
+```
+```yaml
+name: Spotify - Recently listed
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.music.recent.svg
+  token: NOT_NEEDED
+  plugin_music: 'yes'
+  plugin_music_provider: spotify
+  plugin_music_mode: recent
+  plugin_music_token: ${{ secrets.SPOTIFY_TOKENS }}
+  plugin_music_limit: 2
+
+```
+```yaml
+name: Spotify - Top tracks
+uses: lowlighter/metrics@latest
+with:
+  token: NOT_NEEDED
+  plugin_music: 'yes'
+  plugin_music_mode: top
+  plugin_music_provider: spotify
+  plugin_music_time_range: short
+  plugin_music_top_type: tracks
+
+```
+```yaml
+name: Spotify - Top artists
+uses: lowlighter/metrics@latest
+with:
+  token: NOT_NEEDED
+  plugin_music: 'yes'
+  plugin_music_mode: top
+  plugin_music_provider: spotify
+  plugin_music_time_range: long
+  plugin_music_top_type: artists
+
+```
+```yaml
+name: Youtube Music - Random track from playlist
+uses: lowlighter/metrics@latest
+with:
+  token: NOT_NEEDED
+  plugin_music: 'yes'
+  plugin_music_playlist: >-
+    https://music.youtube.com/playlist?list=OLAK5uy_kU_uxp9TUOl9zVdw77xith8o9AknVwz9U
+
+```
+```yaml
+name: Youtube Music - Recently listed
+uses: lowlighter/metrics@latest
+with:
+  token: NOT_NEEDED
+  plugin_music_token: ${{ secrets.YOUTUBE_MUSIC_TOKENS }}
+  plugin_music: 'yes'
+  plugin_music_mode: recent
+  plugin_music_provider: youtube
+
+```
+```yaml
+name: Last.fm  - Recently listed
+uses: lowlighter/metrics@latest
+with:
+  token: NOT_NEEDED
+  plugin_music_token: ${{ secrets.LASTFM_TOKEN }}
+  plugin_music: 'yes'
+  plugin_music_provider: lastfm
+  plugin_music_user: RJ
+
+```
 <!--/examples-->

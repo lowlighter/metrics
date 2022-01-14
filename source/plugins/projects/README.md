@@ -43,6 +43,17 @@ To do so, open your repository project and retrieve the last URL endpoint, in th
 #### ➡️ Available options
 
 <!--options-->
+| Option | Type *(format)* **[default]** *{allowed values}* | Description |
+| ------ | -------------------------------- | ----------- |
+| `plugin_projects` | `boolean` **[no]** | Display active projects |
+| `plugin_projects_limit` | `number` **[4]** *{0 ≤ 𝑥 ≤ 100}* | Maximum number of projects to display |
+| `plugin_projects_repositories` | `array` *(comma-separated,/(?<user>[-a-z0-9]+)[/](?<repo>[-a-z0-9]+)[/]projects[/](?<id>[0-9]+)/)* **[]** | List of repository project identifiers to disaplay |
+| `plugin_projects_descriptions` | `boolean` **[no]** | Display projects descriptions |
+
+
+Legend for option icons:
+* 🔐 Value should be stored in repository secrets
+* ✨ New feature currently in testing on `master`/`main`
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*
@@ -50,4 +61,16 @@ To do so, open your repository project and retrieve the last URL endpoint, in th
 #### ℹ️ Examples workflows
 
 <!--examples-->
+```yaml
+name: Project from a repository
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.projects.svg
+  token: ${{ secrets.METRICS_BOT_TOKEN }}
+  base: ''
+  plugin_projects: 'yes'
+  plugin_projects_repositories: lowlighter/metrics/projects/1
+  plugin_projects_descriptions: 'yes'
+
+```
 <!--/examples-->

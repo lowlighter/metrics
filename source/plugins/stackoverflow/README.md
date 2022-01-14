@@ -23,6 +23,19 @@ Your user id will be in both url and search bar.
 #### ➡️ Available options
 
 <!--options-->
+| Option | Type *(format)* **[default]** *{allowed values}* | Description |
+| ------ | -------------------------------- | ----------- |
+| `plugin_stackoverflow` | `boolean` **[no]** | Stackoverflow metrics |
+| `plugin_stackoverflow_user` | `number` **[0]** | Stackoverflow user id |
+| `plugin_stackoverflow_sections` | `array` *(comma-separated)* **[answers-top, questions-recent]** *{"answers-top", "answers-recent", "questions-top", "questions-recent"}* | Sections to display |
+| `plugin_stackoverflow_limit` | `number` **[2]** *{1 ≤ 𝑥 ≤ 30}* | Maximum number of entries to display per section |
+| `plugin_stackoverflow_lines` | `number` **[4]** *{0 ≤ 𝑥}* | Maximum number of lines to display per question or answer |
+| `plugin_stackoverflow_lines_snippet` | `number` **[2]** *{0 ≤ 𝑥}* | Maximum number of lines to display per code snippet |
+
+
+Legend for option icons:
+* 🔐 Value should be stored in repository secrets
+* ✨ New feature currently in testing on `master`/`main`
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*
@@ -30,4 +43,17 @@ Your user id will be in both url and search bar.
 #### ℹ️ Examples workflows
 
 <!--examples-->
+```yaml
+name: Top answers from stackoverflow
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.stackoverflow.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ''
+  plugin_stackoverflow: 'yes'
+  plugin_stackoverflow_user: 1
+  plugin_stackoverflow_sections: answers-top
+  plugin_stackoverflow_limit: 2
+
+```
 <!--/examples-->

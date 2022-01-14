@@ -36,6 +36,21 @@ Sections will be ordered the same as specified in `plugin_people_types`.
 #### ➡️ Available options
 
 <!--options-->
+| Option | Type *(format)* **[default]** *{allowed values}* | Description |
+| ------ | -------------------------------- | ----------- |
+| `plugin_people` | `boolean` **[no]** | Display GitHub users from various affiliations |
+| `plugin_people_limit` | `number` **[24]** *{0 ≤ 𝑥}* | Maximum number of user to display |
+| `plugin_people_size` | `number` **[28]** *{8 ≤ 𝑥 ≤ 64}* | Size of displayed GitHub users' avatars |
+| `plugin_people_types` | `array` *(comma-separated)* **[followers, following]** *{"followers", "following", "followed", "sponsoring", "members", "sponsored", "sponsors", "contributors", "stargazers", "watchers", "thanks"}* | Affiliations to display |
+| `plugin_people_thanks` | `array` *(comma-separated)* **[]** | GitHub users to personally thanks |
+| `plugin_people_sponsors_custom` | `array` *(comma-separated)* **[]** | Custom GitHub sponsors |
+| `plugin_people_identicons` | `boolean` **[no]** | Use identicons instead of avatars |
+| `plugin_people_shuffle` | `boolean` **[no]** | Shuffle users |
+
+
+Legend for option icons:
+* 🔐 Value should be stored in repository secrets
+* ✨ New feature currently in testing on `master`/`main`
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*
@@ -43,4 +58,31 @@ Sections will be ordered the same as specified in `plugin_people_types`.
 #### ℹ️ Examples workflows
 
 <!--examples-->
+```yaml
+name: Followers
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.people.followers.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ''
+  plugin_people: 'yes'
+  plugin_people_types: followers
+
+```
+```yaml
+name: Contributors and sponsors
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.people.repository.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ''
+  template: repository
+  repo: metrics
+  plugin_people: 'yes'
+  plugin_people_types: contributors, stargazers, watchers, sponsors
+  plugin_people_sponsors_custom: >-
+    iamsainikhil, yutkat, KasparJohannesSchneider, ktnkk, tfSheol, haribo-io,
+    marcreichel
+
+```
 <!--/examples-->

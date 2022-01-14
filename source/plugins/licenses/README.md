@@ -27,6 +27,17 @@ Dependencies will be analyzed with [github/licensed](https://github.com/github/l
 #### ➡️ Available options
 
 <!--options-->
+| Option | Type *(format)* **[default]** *{allowed values}* | Description |
+| ------ | -------------------------------- | ----------- |
+| `plugin_licenses` | `boolean` **[no]** | Display licenses informations |
+| `plugin_licenses_setup` | `string` **[]** | Command to setup target repository |
+| `plugin_licenses_ratio` | `boolean` **[no]** | Display used licenses ratio |
+| `plugin_licenses_legal` | `boolean` **[yes]** | Display legal informations about used licenses |
+
+
+Legend for option icons:
+* 🔐 Value should be stored in repository secrets
+* ✨ New feature currently in testing on `master`/`main`
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*
@@ -34,4 +45,31 @@ Dependencies will be analyzed with [github/licensed](https://github.com/github/l
 #### ℹ️ Examples workflows
 
 <!--examples-->
+```yaml
+name: Licenses and permissions
+with:
+  filename: metrics.plugin.licenses.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ''
+  template: repository
+  repo: metrics
+  plugin_licenses: 'yes'
+  plugin_licenses_setup: npm ci
+
+```
+```yaml
+name: Licenses with open-source ratio graphs
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.licenses.ratio.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ''
+  template: repository
+  repo: metrics
+  plugin_licenses: 'yes'
+  plugin_licenses_setup: npm ci
+  plugin_licenses_legal: 'no'
+  plugin_licenses_ratio: 'yes'
+
+```
 <!--/examples-->

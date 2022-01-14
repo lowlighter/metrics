@@ -12,6 +12,16 @@ The *rss* plugin displays items from a specified RSS feed.
 #### ➡️ Available options
 
 <!--options-->
+| Option | Type *(format)* **[default]** *{allowed values}* | Description |
+| ------ | -------------------------------- | ----------- |
+| `plugin_rss` | `boolean` **[no]** | Display RSS feed |
+| `plugin_rss_source` | `string` **[]** | RSS feed source |
+| `plugin_rss_limit` | `number` **[4]** *{0 ≤ 𝑥 ≤ 30}* | Maximum number of items to display |
+
+
+Legend for option icons:
+* 🔐 Value should be stored in repository secrets
+* ✨ New feature currently in testing on `master`/`main`
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*
@@ -19,4 +29,5 @@ The *rss* plugin displays items from a specified RSS feed.
 #### ℹ️ Examples workflows
 
 <!--examples-->
+
 <!--/examples-->
