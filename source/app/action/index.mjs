@@ -8,7 +8,7 @@ import sgit from "simple-git"
 import processes from "child_process"
 import metrics from "../metrics/index.mjs"
 import setup from "../metrics/setup.mjs"
-import mocks from "../mocks/index.mjs"
+import mocks from "../../../tests/mocks/index.mjs"
 process.on("unhandledRejection", error => {
   throw error
 })
