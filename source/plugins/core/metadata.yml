@@ -124,6 +124,7 @@ inputs:
       - comma-separated
       - /(?<user>[-a-z0-9]+)[/](?<repo>[-a-z0-9]+)@(?<branch>[-a-z0-9]+):(?<template>[-a-z0-9]+)/
     default: ""
+    extras: yes
 
   # Template to use
   # To use community template, prefix its name with "@"
@@ -150,6 +151,7 @@ inputs:
     description: Extra CSS
     type: string
     default: ""
+    extras: yes
 
   # Timezone used by metrics
   # See https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
@@ -157,6 +159,7 @@ inputs:
     description: Timezone used
     type: string
     default: ""
+    global: yes
 
   # Specify in which order metrics content will be displayed
   # If you omit some partials, they'll be appended at the end in default order
@@ -167,6 +170,7 @@ inputs:
     format: comma-separated
     default: ""
     example: base.header, base.repositories
+    global: yes
 
   # Use twemojis instead of emojis
   # May increase filesize but emojis will be rendered the same across all platforms
@@ -174,6 +178,7 @@ inputs:
     description: Use twemojis instead of emojis
     type: boolean
     default: no
+    global: yes
 
   # Render GitHub custom emojis (like ":octocat:", see full list at https://api.github.com/emojis)
   # May increase filesize
@@ -181,6 +186,7 @@ inputs:
     description: Use GitHub custom emojis
     type: boolean
     default: yes
+    global: yes
 
   # Render display width
   config_display:
@@ -191,12 +197,14 @@ inputs:
       - regular  # 480px width
       - large    # 960px width (may not be supported by all templates)
       - columns  # Full width with two columns on desktop / One column on mobile
+    global: yes
 
   # Enable SVG CSS animations
   config_animations:
     description: SVG CSS animations
     type: boolean
     default: yes
+    global: yes
 
   # Encode images links into base64 data
   # Advised to be true when generating images and false when generating texts or JSON
@@ -204,6 +212,7 @@ inputs:
     description: Encode images links into base64 data
     type: boolean
     default: yes
+    global: yes
 
   # Configure padding for output image (percentage value)
   # It can be used to add padding to generated metrics if rendering is cropped or has too much empty space
@@ -260,6 +269,23 @@ inputs:
     min: 0
     max: 3600
 
+  # Time to wait (in seconds) at the end of job
+  # Use this to avoid triggering abuse mechanics on large workflows
+  delay:
+    description: Use this to avoid triggering abuse mechanics on large workflows
+    type: number
+    default: 0
+    min: 0
+    max: 3600
+
+  # Use a pre-built image from GitHub registry when using unreleased versions of "lowlighter/metrics"
+  # This option has no effect on forks (images will always be rebuilt from Dockerfile)
+  # See https://github.com/users/lowlighter/packages/container/package/metrics for more information
+  use_prebuilt_image:
+    description: Use pre-built image from GitHub registry
+    type: boolean
+    default: yes
+
   # ====================================================================================
   # 🚧 Options below are mostly used for testing
 
@@ -269,6 +295,7 @@ inputs:
     description: Die on plugins errors
     type: boolean
     default: no
+    testing: yes
 
   # Debug mode
   # Note that this will automatically be enabled if job fails
@@ -276,12 +303,14 @@ inputs:
     description: Debug logs
     type: boolean
     default: no
+    testing: yes
 
   # Ensure SVG can be correctly parsed after generation
   verify:
     description: Verify SVG
     type: boolean
     default: no
+    testing: yes
 
   # Debug flags
   debug_flags:
@@ -294,6 +323,7 @@ inputs:
       - --hireable
       - --halloween
       - --error
+    testing: yes
 
   # Dry-run mode (perform generation without output)
   # Unlike "output_action" set to "none", output file won't be available in "/metrics_renders"
@@ -301,6 +331,7 @@ inputs:
     description: Enable dry-run
     type: boolean
     default: no
+    testing: yes
 
   # Experimental features
   # Note that no backward compatibility are guaranteed for these features
@@ -311,26 +342,11 @@ inputs:
     default: ""
     values:
       - --optimize-svg
+    testing: yes
 
   # Use mocked data to bypass external APIs
   use_mocked_data:
     description: Use mocked data instead of live APIs
     type: boolean
     default: no
-
-  # Use a pre-built image from GitHub registry when using unreleased versions of "lowlighter/metrics"
-  # This option has no effect on forks (images will always be rebuilt from Dockerfile)
-  # See https://github.com/users/lowlighter/packages/container/package/metrics for more information
-  use_prebuilt_image:
-    description: Use pre-built image from GitHub registry
-    type: boolean
-    default: yes
-
-  # Time to wait (in seconds) at the end of job
-  # Use this to avoid triggering abuse mechanics on large workflows
-  delay:
-    description: Use this to avoid triggering abuse mechanics on large workflows
-    type: number
-    default: 0
-    min: 0
-    max: 3600
+    testing: yes

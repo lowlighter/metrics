@@ -45,6 +45,7 @@ inputs:
     format: comma-separated
     default: ""
     example: my-repo-1, my-repo-2, owner/repo-3, ...
+    inherits: repositories_skipped
 
   # Restrict code snippet languages
   # These are guessed through linguist

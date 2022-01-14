@@ -12,6 +12,7 @@ inputs:
     description: Display licenses informations
     type: boolean
     default: no
+    extras: yes
 
   # Command to use to setup target repository
   # It is required to install all dependencies that will be analyzed with github/licensed

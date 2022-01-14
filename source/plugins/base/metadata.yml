@@ -29,7 +29,6 @@ inputs:
     default: 100
     min: 0
 
-
   # Number of repositories to load at once by queries
   # If you encounter GitHub queries timeouts, using a lower value here may solve issues
   repositories_batch:
@@ -66,6 +65,16 @@ inputs:
     format: comma-separated
     default: ""
     example: my-repo-1, my-repo-2, owner/repo-3, ...
+    global: yes
+
+  # List of default ignored users
+  # Plugins supporting a "skip users option" will automatically append users listed in this option
+  users_ignored:
+    description: Default users to ignore
+    type: array
+    format: comma-separated
+    default: github-actions[bot], dependabot[bot], dependabot-preview[bot]
+    global: yes
 
   # List of surnames or email addresses you use when authoring commits
   # These are mostly used to perform commits analysis to detect ownership
@@ -75,3 +84,4 @@ inputs:
     format: comma-seperated
     default: .user.login
     example: lowlighter, lowlighter@users.noreply.github.com
+    global: yes

@@ -30,3 +30,4 @@ inputs:
     description: Indepth follow-up processing
     type: boolean
     default: no
+    extras: yes

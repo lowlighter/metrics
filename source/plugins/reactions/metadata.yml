@@ -82,4 +82,5 @@ inputs:
     description: Users to ignore
     type: array
     format: comma-separated
-    default: github-actions[bot], dependabot[bot], dependabot-preview[bot]
+    default: ""
+    inherits: users_ignored

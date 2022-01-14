@@ -106,7 +106,7 @@ metadata.plugin = async function({__plugins, name, logger}) {
         }
         //Inputs checks
         const result = Object.fromEntries(
-          Object.entries(inputs).map(([key, {type, format, default:defaulted, min, max, values}]) => [
+          Object.entries(inputs).map(([key, {type, format, default:defaulted, min, max, values, inherits}]) => [
             //Format key
             metadata.to.query(key, {name}),
             //Format value
@@ -269,25 +269,46 @@ metadata.plugin = async function({__plugins, name, logger}) {
       const demo = raw.match(/(?<demo><table>[\s\S]*?<[/]table>)/)?.groups?.demo?.replace(/<[/]?(?:table|tr)>/g, "")?.trim() ?? "<td></td>"
 
       //Options table
+      let flags = new Set()
       const table = [
         "| Option | Type *(format)* **[default]** *{allowed values}* | Description |",
         "| ------ | -------------------------------- | ----------- |",
         Object.entries(inputs).map(([option, {description, type, ...o}]) => {
           let row = []
           {
-            const cell = [`${"`"}${option}${"`"}`]
+            let cell = []
+            if (o.required)
+              cell.push("✔️"), flags.add("required")
             if (type === "token")
-              cell.push("🔐")
+              cell.push("🔐"), flags.add("secret")
+            if (o.inherits)
+              cell.push("⏩"), flags.add("inherits")
+            if (o.global)
+              cell.push("⏭️"), flags.add("global")
+            if (o.testing)
+              cell.push("🔧"), flags.add("testing")
             if (!Object.keys(previous?.inputs ?? {}).includes(option))
-              cell.push("✨")
+              cell.push("✨"), flags.add("beta")
+            if (o.extras)
+              cell.push("🧰"), flags.add("extras")
+            cell = cell.map(flag => `<sup>${flag}</sup>`)
+            cell.unshift(`${"`"}${option}${"`"}`)
             row.push(cell.join(" "))
           }
           {
             const cell = [`${"`"}${type}${"`"}`]
             if ("format" in o)
-              cell.push(`*(${o.format})*`)
-            if ("default" in o)
-              cell.push(`**[${o.default}]**`)
+              cell.push(`*(${Array.isArray(o.format) ? o.format[0] : o.format})*`)
+            if ("default" in o) {
+              let text = o.default
+              if (o.default === ".user.login")
+                text = "*→ User login*"
+              if (o.default === ".user.twitter")
+                text = "*→ User attached twitter*"
+              if (o.default === ".user.website")
+                text = "*→ User attached website*"
+              cell.push(`**[${text}]**`)
+            }
             if ("values" in o)
               cell.push(`*{${o.values.map(value => `"${value}"`).join(", ")}}*`)
             if ("min" in o)
@@ -302,9 +323,14 @@ metadata.plugin = async function({__plugins, name, logger}) {
           return `| ${row.join(" | ")} |`
         }).join("\n"),
         "\n",
-        "Legend for option icons:",
-        "* 🔐 Value should be stored in repository secrets",
-        "* ✨ New feature currently in testing on `master`/`main`"
+        flags.size ? "Legend for option icons:" : "",
+        flags.has("required") ? "* ✔️ Value must be provided" : "",
+        flags.has("secret") ? "* 🔐 Value should be stored in repository secrets" : "",
+        flags.has("inherits") ? "* ⏩ Value inherits from its related global-level option" : "",
+        flags.has("global") ? "* ⏭️ Value be inherited by its related plugin-level option" : "",
+        flags.has("testing") ? "* 🔧 For development purposes, use with caution" : "",
+        flags.has("beta") ? "* ✨ Currently in beta-testing on `master`/`main`" : "",
+        flags.has("extras") ? "* 🧰 Must be enabled in `settings.json` (for web instances)" : "",
       ].flat(Infinity).filter(s => s).join("\n")
 
       //Readme descriptor

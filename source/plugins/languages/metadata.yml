@@ -50,6 +50,7 @@ inputs:
     values:
       - most-used      # Most used languages
       - recently-used  # Recently used languages
+    extras: yes
 
   # Overrides default languages colors
   # Use `${n}:${color}` to change the color of the n-th most used language (e.g. "0:red" to make your most used language red)
@@ -98,6 +99,7 @@ inputs:
     description: Indepth languages processing (see documentation before enabling)
     type: boolean
     default: false
+    extras: yes
 
   # Analysis timeout (in minutes)
   # In case of timeout, it'll automatically fallback to default algorithm
@@ -109,6 +111,7 @@ inputs:
     default: 15
     min: 1
     max: 30
+    extras: yes
 
   # GitHub language categories to display
   plugin_languages_categories:

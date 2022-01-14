@@ -44,3 +44,4 @@ inputs:
     description: Indepth notable contributions processing
     type: boolean
     default: no
+    extras: yes

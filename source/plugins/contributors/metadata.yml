@@ -32,6 +32,7 @@ inputs:
     type: array
     format: comma-separated
     default: github-actions[bot], dependabot[bot], dependabot-preview[bot]
+    inherits: users_ignored
 
   # Display total contributions for each contributor
   plugin_contributors_contributions:
@@ -65,3 +66,4 @@ inputs:
         "💻 Code": ["source/**", "src/**"],
         "#️⃣ Others": ["*"]
       }
+    extras: yes
