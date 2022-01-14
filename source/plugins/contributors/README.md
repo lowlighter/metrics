@@ -42,10 +42,10 @@ Matching is performed in keys order.
 | `plugin_contributors` | `boolean` **[no]** | Display repository contributors |
 | `plugin_contributors_base` | `string` **[]** | Base reference |
 | `plugin_contributors_head` | `string` **[master]** | Head reference |
-| `plugin_contributors_ignored` | `array` *(comma-separated)* **[github-actions[bot], dependabot[bot], dependabot-preview[bot]]** | Contributors to ignore |
+| `plugin_contributors_ignored` <sup>⏩</sup> | `array` *(comma-separated)* **[github-actions[bot], dependabot[bot], dependabot-preview[bot]]** | Contributors to ignore |
 | `plugin_contributors_contributions` | `boolean` **[no]** | Display contributions |
 | `plugin_contributors_sections` | `array` *(comma-separated)* **[contributors]** *{"contributors", "categories"}* | Sections to display |
-| `plugin_contributors_categories` | `json` **[{
+| `plugin_contributors_categories` <sup>🧰</sup> | `json` **[{
   "📚 Documentation": ["README.md", "docs/**"],
   "💻 Code": ["source/**", "src/**"],
   "#️⃣ Others": ["*"]
@@ -54,8 +54,8 @@ Matching is performed in keys order.
 
 
 Legend for option icons:
-* 🔐 Value should be stored in repository secrets
-* ✨ New feature currently in testing on `master`/`main`
+* ⏩ Value inherits from its related global-level option
+* 🧰 Must be enabled in `settings.json` (for web instances)
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

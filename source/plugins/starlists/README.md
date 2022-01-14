@@ -14,17 +14,16 @@ The *starlists* plugin displays your recently star lists.
 <!--options-->
 | Option | Type *(format)* **[default]** *{allowed values}* | Description |
 | ------ | -------------------------------- | ----------- |
-| `plugin_starlists` ✨ | `boolean` **[no]** | Display star lists |
-| `plugin_starlists_limit` ✨ | `number` **[2]** *{1 ≤ 𝑥 ≤ 100}* | Number of star lists to display |
-| `plugin_starlists_limit_repositories` ✨ | `number` **[2]** *{0 ≤ 𝑥 ≤ 100}* | Number of repositories to display per star lists |
-| `plugin_starlists_shuffle_repositories` ✨ | `boolean` **[yes]** | Shuffle displayed repositories |
-| `plugin_starlists_ignored` ✨ | `array` *(comma-separated)* **[]** | Star lists to skip |
-| `plugin_starlists_only` ✨ | `array` *(comma-separated)* **[]** | Star lists to display |
+| `plugin_starlists` <sup>✨</sup> | `boolean` **[no]** | Display star lists |
+| `plugin_starlists_limit` <sup>✨</sup> | `number` **[2]** *{1 ≤ 𝑥 ≤ 100}* | Number of star lists to display |
+| `plugin_starlists_limit_repositories` <sup>✨</sup> | `number` **[2]** *{0 ≤ 𝑥 ≤ 100}* | Number of repositories to display per star lists |
+| `plugin_starlists_shuffle_repositories` <sup>✨</sup> | `boolean` **[yes]** | Shuffle displayed repositories |
+| `plugin_starlists_ignored` <sup>✨</sup> | `array` *(comma-separated)* **[]** | Star lists to skip |
+| `plugin_starlists_only` <sup>✨</sup> | `array` *(comma-separated)* **[]** | Star lists to display |
 
 
 Legend for option icons:
-* 🔐 Value should be stored in repository secrets
-* ✨ New feature currently in testing on `master`/`main`
+* ✨ Currently in beta-testing on `master`/`main`
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

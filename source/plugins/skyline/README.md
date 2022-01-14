@@ -25,9 +25,6 @@ This uses puppeteer to generate collect image frames, and use CSS animations to 
 | `plugin_skyline_compatibility` | `boolean` **[no]** | Compatibility mode |
 
 
-Legend for option icons:
-* 🔐 Value should be stored in repository secrets
-* ✨ New feature currently in testing on `master`/`main`
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

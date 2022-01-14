@@ -24,12 +24,9 @@ The recent *posts* plugin displays recent articles you wrote on an external sour
 | `plugin_posts_descriptions` | `boolean` **[no]** | Display posts descriptions |
 | `plugin_posts_covers` | `boolean` **[no]** | Display posts cover images |
 | `plugin_posts_limit` | `number` **[4]** *{1 ≤ 𝑥 ≤ 30}* | Maximum number of posts to display |
-| `plugin_posts_user` | `string` **[.user.login]** | Posts external source username |
+| `plugin_posts_user` | `string` **[*→ User login*]** | Posts external source username |
 
 
-Legend for option icons:
-* 🔐 Value should be stored in repository secrets
-* ✨ New feature currently in testing on `master`/`main`
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

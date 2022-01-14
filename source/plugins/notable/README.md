@@ -30,12 +30,11 @@ The `plugin_notable_indepth` option lets you get additional metrics about your c
 | `plugin_notable_filter` | `string` **[]** | Query filter |
 | `plugin_notable_from` | `string` **[organization]** *{"all", "organization", "user"}* | Filter by repository host account type |
 | `plugin_notable_repositories` | `boolean` **[no]** | Also display repository name |
-| `plugin_notable_indepth` | `boolean` **[no]** | Indepth notable contributions processing |
+| `plugin_notable_indepth` <sup>🧰</sup> | `boolean` **[no]** | Indepth notable contributions processing |
 
 
 Legend for option icons:
-* 🔐 Value should be stored in repository secrets
-* ✨ New feature currently in testing on `master`/`main`
+* 🧰 Must be enabled in `settings.json` (for web instances)
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

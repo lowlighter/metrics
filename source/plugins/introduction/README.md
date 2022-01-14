@@ -24,9 +24,6 @@ It is mostly intended for metrics used outside of GitHub, since these informatio
 | `plugin_introduction_title` | `boolean` **[yes]** | Display introduction section title |
 
 
-Legend for option icons:
-* 🔐 Value should be stored in repository secrets
-* ✨ New feature currently in testing on `master`/`main`
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

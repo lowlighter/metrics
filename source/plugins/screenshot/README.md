@@ -22,9 +22,6 @@ It can be restricted with a [CSS selector](https://developer.mozilla.org/en-US/d
 | `plugin_screenshot_background` | `boolean` **[yes]** | Display or remove default page background |
 
 
-Legend for option icons:
-* 🔐 Value should be stored in repository secrets
-* ✨ New feature currently in testing on `master`/`main`
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

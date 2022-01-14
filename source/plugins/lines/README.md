@@ -15,12 +15,11 @@ The *lines* of code plugin displays the number of lines of code you have added a
 | Option | Type *(format)* **[default]** *{allowed values}* | Description |
 | ------ | -------------------------------- | ----------- |
 | `plugin_lines` | `boolean` **[no]** | Display lines of code metrics |
-| `plugin_lines_skipped` | `array` *(comma-separated)* **[]** | Repositories to skip |
+| `plugin_lines_skipped` <sup>⏩</sup> | `array` *(comma-separated)* **[]** | Repositories to skip |
 
 
 Legend for option icons:
-* 🔐 Value should be stored in repository secrets
-* ✨ New feature currently in testing on `master`/`main`
+* ⏩ Value inherits from its related global-level option
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

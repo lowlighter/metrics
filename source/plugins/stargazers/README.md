@@ -17,9 +17,6 @@ The *stargazers* plugin displays your stargazers evolution across all of your re
 | `plugin_stargazers` | `boolean` **[no]** | Display stargazers metrics |
 
 
-Legend for option icons:
-* 🔐 Value should be stored in repository secrets
-* ✨ New feature currently in testing on `master`/`main`
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

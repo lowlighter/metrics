@@ -22,12 +22,11 @@ The *reactions* plugin displays overall reactions on your recent issues and issu
 | `plugin_reactions_days` | `number` **[0]** *{0 ≤ 𝑥}* | Maximum comments age |
 | `plugin_reactions_display` | `string` **[absolute]** *{"absolute", "relative"}* | Display mode |
 | `plugin_reactions_details` | `array` *(comma-separated)* **[]** *{"count", "percentage"}* | Additional details |
-| `plugin_reactions_ignored` | `array` *(comma-separated)* **[github-actions[bot], dependabot[bot], dependabot-preview[bot]]** | Users to ignore |
+| `plugin_reactions_ignored` <sup>⏩</sup> | `array` *(comma-separated)* **[]** | Users to ignore |
 
 
 Legend for option icons:
-* 🔐 Value should be stored in repository secrets
-* ✨ New feature currently in testing on `master`/`main`
+* ⏩ Value inherits from its related global-level option
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*
@@ -36,7 +35,7 @@ Legend for option icons:
 
 <!--examples-->
 ```yaml
-name: 🎭 Comment reactions
+name: Comment reactions
 uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.reactions.svg

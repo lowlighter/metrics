@@ -18,9 +18,6 @@ The *stars* plugin displays your recently starred repositories.
 | `plugin_stars_limit` | `number` **[4]** *{1 ≤ 𝑥 ≤ 100}* | Maximum number of stars to display |
 
 
-Legend for option icons:
-* 🔐 Value should be stored in repository secrets
-* ✨ New feature currently in testing on `master`/`main`
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

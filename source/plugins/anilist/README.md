@@ -36,12 +36,9 @@ These sections can also be filtered by media type, which can be either `anime`, 
 | `plugin_anilist_limit` | `number` **[2]** *{0 ≤ 𝑥}* | Maximum number of entries to display per section |
 | `plugin_anilist_limit_characters` | `number` **[22]** *{0 ≤ 𝑥}* | Maximum number of entries to display in characters section |
 | `plugin_anilist_shuffle` | `boolean` **[yes]** | Shuffle AniList data |
-| `plugin_anilist_user` | `string` **[.user.login]** | AniList login |
+| `plugin_anilist_user` | `string` **[*→ User login*]** | AniList login |
 
 
-Legend for option icons:
-* 🔐 Value should be stored in repository secrets
-* ✨ New feature currently in testing on `master`/`main`
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

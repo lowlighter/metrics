@@ -33,9 +33,6 @@ Your user id will be in both url and search bar.
 | `plugin_stackoverflow_lines_snippet` | `number` **[2]** *{0 ≤ 𝑥}* | Maximum number of lines to display per code snippet |
 
 
-Legend for option icons:
-* 🔐 Value should be stored in repository secrets
-* ✨ New feature currently in testing on `master`/`main`
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

@@ -28,9 +28,6 @@ This uses puppeteer to navigate through your starred topics page.
 | `plugin_topics_limit` | `number` **[15]** *{0 ≤ 𝑥 ≤ 20}* | Maximum number of topics to display |
 
 
-Legend for option icons:
-* 🔐 Value should be stored in repository secrets
-* ✨ New feature currently in testing on `master`/`main`
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

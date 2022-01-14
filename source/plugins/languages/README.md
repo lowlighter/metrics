@@ -52,13 +52,13 @@ For better results, it's advised to add either your surnames and eventually no-r
 | `plugin_languages_ignored` | `array` *(comma-separated)* **[]** | Languages to ignore |
 | `plugin_languages_skipped` | `array` *(comma-separated)* **[]** | Repositories to skip |
 | `plugin_languages_limit` | `number` **[8]** *{0 ≤ 𝑥 ≤ 8}* | Maximum number of languages to display |
-| `plugin_languages_sections` | `array` *(comma-separated)* **[most-used]** *{"most-used", "recently-used"}* | Sections to display |
-| `plugin_languages_colors` | `array` *(comma-separated,/((?<index>[0-9])|(?<language>[-+a-z0-9#]+)):(?<color>#?[-a-z0-9]+)/)* **[github]** | Custom languages colors |
+| `plugin_languages_sections` <sup>🧰</sup> | `array` *(comma-separated)* **[most-used]** *{"most-used", "recently-used"}* | Sections to display |
+| `plugin_languages_colors` | `array` *(comma-separated)* **[github]** | Custom languages colors |
 | `plugin_languages_aliases` | `string` **[]** | Custom languages names |
 | `plugin_languages_details` | `array` *(comma-separated)* **[]** *{"bytes-size", "percentage", "lines"}* | Additional details |
 | `plugin_languages_threshold` | `string` **[0%]** | Minimum threshold |
-| `plugin_languages_indepth` | `boolean` **[false]** | Indepth languages processing (see documentation before enabling) |
-| `plugin_languages_analysis_timeout` | `number` **[15]** *{1 ≤ 𝑥 ≤ 30}* | Languages analysis timeout |
+| `plugin_languages_indepth` <sup>🧰</sup> | `boolean` **[false]** | Indepth languages processing (see documentation before enabling) |
+| `plugin_languages_analysis_timeout` <sup>🧰</sup> | `number` **[15]** *{1 ≤ 𝑥 ≤ 30}* | Languages analysis timeout |
 | `plugin_languages_categories` | `array` *(comma-separated)* **[markup, programming]** *{"data", "markup", "programming", "prose"}* | Language categories to display |
 | `plugin_languages_recent_categories` | `array` *(comma-separated)* **[markup, programming]** *{"data", "markup", "programming", "prose"}* | Language categories to display (for recently used section) |
 | `plugin_languages_recent_load` | `number` **[300]** *{100 ≤ 𝑥 ≤ 1000}* | Number of events to load (for recently used section) |
@@ -66,8 +66,7 @@ For better results, it's advised to add either your surnames and eventually no-r
 
 
 Legend for option icons:
-* 🔐 Value should be stored in repository secrets
-* ✨ New feature currently in testing on `master`/`main`
+* 🧰 Must be enabled in `settings.json` (for web instances)
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

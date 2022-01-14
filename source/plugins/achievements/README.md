@@ -41,9 +41,6 @@ It also lets you quickly see at a glance what this user primarly use GitHub for,
 | `plugin_achievements_only` | `array` *(comma-separated)* **[]** | Unlocked achievements to display |
 
 
-Legend for option icons:
-* 🔐 Value should be stored in repository secrets
-* ✨ New feature currently in testing on `master`/`main`
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

@@ -32,15 +32,14 @@ Create an app from your [developer dashboard](https://developer.twitter.com/en/p
 | Option | Type *(format)* **[default]** *{allowed values}* | Description |
 | ------ | -------------------------------- | ----------- |
 | `plugin_tweets` | `boolean` **[no]** | Display recent tweets |
-| `plugin_tweets_token` 🔐 | `token` **[]** | Twitter API token |
+| `plugin_tweets_token` <sup>🔐</sup> | `token` **[]** | Twitter API token |
 | `plugin_tweets_attachments` | `boolean` **[no]** | Display tweets attchments |
 | `plugin_tweets_limit` | `number` **[2]** *{1 ≤ 𝑥 ≤ 10}* | Maximum number of tweets to display |
-| `plugin_tweets_user` | `string` **[.user.twitter]** | Twitter username |
+| `plugin_tweets_user` | `string` **[*→ User attached twitter*]** | Twitter username |
 
 
 Legend for option icons:
 * 🔐 Value should be stored in repository secrets
-* ✨ New feature currently in testing on `master`/`main`
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

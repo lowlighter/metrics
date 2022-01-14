@@ -34,13 +34,12 @@ By default, dates use Greenwich meridian (GMT/UTC). Be sure to set your timezone
 | `plugin_habits_from` | `number` **[200]** *{1 ≤ 𝑥 ≤ 1000}* | Number of events to use |
 | `plugin_habits_days` | `number` **[14]** *{1 ≤ 𝑥 ≤ 30}* | Maximum event age |
 | `plugin_habits_facts` | `boolean` **[yes]** | Display coding habits collected facts based on recent activity |
-| `plugin_habits_charts` | `boolean` **[no]** | Display coding habits charts based on recent activity |
+| `plugin_habits_charts` <sup>🧰</sup> | `boolean` **[no]** | Display coding habits charts based on recent activity |
 | `plugin_habits_trim` | `boolean` **[no]** | Trim unused hours on daily chart |
 
 
 Legend for option icons:
-* 🔐 Value should be stored in repository secrets
-* ✨ New feature currently in testing on `master`/`main`
+* 🧰 Must be enabled in `settings.json` (for web instances)
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

@@ -7,10 +7,10 @@ Metrics also have general options that impact global metrics rendering.
 <!--options-->
 | Option | Type *(format)* **[default]** *{allowed values}* | Description |
 | ------ | -------------------------------- | ----------- |
-| `token` 🔐 | `token` | GitHub Personal Token |
+| `token` <sup>✔️</sup> <sup>🔐</sup> | `token` | GitHub Personal Token |
 | `user` | `string` **[]** | GitHub username |
 | `repo` | `string` **[]** | GitHub repository |
-| `committer_token` 🔐 | `token` **[${{ github.token }}]** | GitHub Token used to commit metrics |
+| `committer_token` <sup>🔐</sup> | `token` **[${{ github.token }}]** | GitHub Token used to commit metrics |
 | `committer_branch` | `string` **[]** | Branch used to commit rendered metrics |
 | `committer_message` | `string` **[Update ${filename} - [Skip GitHub Action]]** | Commit message |
 | `committer_gist` | `string` **[]** | Gist used to store metrics |
@@ -20,37 +20,40 @@ Metrics also have general options that impact global metrics rendering.
 | `output_action` | `string` **[commit]** *{"none", "commit", "pull-request", "pull-request-merge", "pull-request-squash", "pull-request-rebase", "gist"}* | Output action |
 | `output_condition` | `string` **[always]** *{"always", "data-changed"}* | Output condition |
 | `optimize` | `array` *(comma-separated)* **[css, xml]** *{"css", "xml", "svg"}* | SVG optimization |
-| `setup_community_templates` | `array` *(comma-separated,/(?<user>[-a-z0-9]+)[/](?<repo>[-a-z0-9]+)@(?<branch>[-a-z0-9]+):(?<template>[-a-z0-9]+)/)* **[]** | Additional community templates to setup |
+| `setup_community_templates` <sup>🧰</sup> | `array` *(comma-separated)* **[]** | Additional community templates to setup |
 | `template` | `string` **[classic]** | Template to use |
 | `query` | `json` **[{}]** | Additional query parameters |
-| `extras_css` | `string` **[]** | Extra CSS |
-| `config_timezone` | `string` **[]** | Timezone used |
-| `config_order` | `array` *(comma-separated)* **[]** | Configure content order |
-| `config_twemoji` | `boolean` **[no]** | Use twemojis instead of emojis |
-| `config_gemoji` | `boolean` **[yes]** | Use GitHub custom emojis |
-| `config_display` | `string` **[regular]** *{"regular", "large", "columns"}* | Render display width |
-| `config_animations` | `boolean` **[yes]** | SVG CSS animations |
-| `config_base64` | `boolean` **[yes]** | Encode images links into base64 data |
+| `extras_css` <sup>🧰</sup> | `string` **[]** | Extra CSS |
+| `config_timezone` <sup>⏭️</sup> | `string` **[]** | Timezone used |
+| `config_order` <sup>⏭️</sup> | `array` *(comma-separated)* **[]** | Configure content order |
+| `config_twemoji` <sup>⏭️</sup> | `boolean` **[no]** | Use twemojis instead of emojis |
+| `config_gemoji` <sup>⏭️</sup> | `boolean` **[yes]** | Use GitHub custom emojis |
+| `config_display` <sup>⏭️</sup> | `string` **[regular]** *{"regular", "large", "columns"}* | Render display width |
+| `config_animations` <sup>⏭️</sup> | `boolean` **[yes]** | SVG CSS animations |
+| `config_base64` <sup>⏭️</sup> | `boolean` **[yes]** | Encode images links into base64 data |
 | `config_padding` | `string` **[0, 8 + 11%]** | Image padding |
 | `config_output` | `string` **[auto]** *{"auto", "svg", "png", "jpeg", "json", "markdown", "markdown-pdf", "insights"}* | Output image format |
 | `retries` | `number` **[3]** *{1 ≤ 𝑥 ≤ 10}* | Number of retries |
 | `retries_delay` | `number` **[300]** *{0 ≤ 𝑥 ≤ 3600}* | Time to wait (in seconds) before each retry |
 | `retries_output_action` | `number` **[5]** *{1 ≤ 𝑥 ≤ 10}* | Number of retries (output action) |
 | `retries_delay_output_action` | `number` **[120]** *{0 ≤ 𝑥 ≤ 3600}* | Time to wait (in seconds) before each retry (output action) |
-| `plugins_errors_fatal` | `boolean` **[no]** | Die on plugins errors |
-| `debug` | `boolean` **[no]** | Debug logs |
-| `verify` | `boolean` **[no]** | Verify SVG |
-| `debug_flags` | `array` *(space-separated)* **[]** *{"--cakeday", "--hireable", "--halloween", "--error"}* | Debug flags |
-| `dryrun` | `boolean` **[no]** | Enable dry-run |
-| `experimental_features` | `array` *(space-separated)* **[]** *{"--optimize-svg"}* | Experimental features |
-| `use_mocked_data` | `boolean` **[no]** | Use mocked data instead of live APIs |
-| `use_prebuilt_image` | `boolean` **[yes]** | Use pre-built image from GitHub registry |
 | `delay` | `number` **[0]** *{0 ≤ 𝑥 ≤ 3600}* | Use this to avoid triggering abuse mechanics on large workflows |
+| `use_prebuilt_image` | `boolean` **[yes]** | Use pre-built image from GitHub registry |
+| `plugins_errors_fatal` <sup>🔧</sup> | `boolean` **[no]** | Die on plugins errors |
+| `debug` <sup>🔧</sup> | `boolean` **[no]** | Debug logs |
+| `verify` <sup>🔧</sup> | `boolean` **[no]** | Verify SVG |
+| `debug_flags` <sup>🔧</sup> | `array` *(space-separated)* **[]** *{"--cakeday", "--hireable", "--halloween", "--error"}* | Debug flags |
+| `dryrun` <sup>🔧</sup> | `boolean` **[no]** | Enable dry-run |
+| `experimental_features` <sup>🔧</sup> | `array` *(space-separated)* **[]** *{"--optimize-svg"}* | Experimental features |
+| `use_mocked_data` <sup>🔧</sup> | `boolean` **[no]** | Use mocked data instead of live APIs |
 
 
 Legend for option icons:
+* ✔️ Value must be provided
 * 🔐 Value should be stored in repository secrets
-* ✨ New feature currently in testing on `master`/`main`
+* ⏭️ Value be inherited by its related plugin-level option
+* 🔧 For development purposes, use with caution
+* 🧰 Must be enabled in `settings.json` (for web instances)
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

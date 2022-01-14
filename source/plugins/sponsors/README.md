@@ -23,9 +23,6 @@ The *sponsors* plugin lets you display your sponsors and introduction text from 
 | `plugin_sponsors_sections` | `array` *(comma-separated)* **[goal, about]** *{"goal", "about"}* | Sections to display |
 
 
-Legend for option icons:
-* 🔐 Value should be stored in repository secrets
-* ✨ New feature currently in testing on `master`/`main`
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

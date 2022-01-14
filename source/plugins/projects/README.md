@@ -47,13 +47,10 @@ To do so, open your repository project and retrieve the last URL endpoint, in th
 | ------ | -------------------------------- | ----------- |
 | `plugin_projects` | `boolean` **[no]** | Display active projects |
 | `plugin_projects_limit` | `number` **[4]** *{0 ≤ 𝑥 ≤ 100}* | Maximum number of projects to display |
-| `plugin_projects_repositories` | `array` *(comma-separated,/(?<user>[-a-z0-9]+)[/](?<repo>[-a-z0-9]+)[/]projects[/](?<id>[0-9]+)/)* **[]** | List of repository project identifiers to disaplay |
+| `plugin_projects_repositories` | `array` *(comma-separated)* **[]** | List of repository project identifiers to disaplay |
 | `plugin_projects_descriptions` | `boolean` **[no]** | Display projects descriptions |
 
 
-Legend for option icons:
-* 🔐 Value should be stored in repository secrets
-* ✨ New feature currently in testing on `master`/`main`
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

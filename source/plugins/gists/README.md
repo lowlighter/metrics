@@ -17,9 +17,6 @@ The *gists* plugin displays your [gists](https://gist.github.com) metrics.
 | `plugin_gists` | `boolean` **[no]** | Display gists metrics |
 
 
-Legend for option icons:
-* 🔐 Value should be stored in repository secrets
-* ✨ New feature currently in testing on `master`/`main`
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

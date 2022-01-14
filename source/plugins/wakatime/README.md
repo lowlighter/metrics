@@ -26,7 +26,7 @@ Then setup [WakaTime plugins](https://wakatime.com/plugins) to be ready to go!
 | Option | Type *(format)* **[default]** *{allowed values}* | Description |
 | ------ | -------------------------------- | ----------- |
 | `plugin_wakatime` | `boolean` **[no]** | Display WakaTime stats |
-| `plugin_wakatime_token` 🔐 | `token` **[]** | WakaTime API token |
+| `plugin_wakatime_token` <sup>🔐</sup> | `token` **[]** | WakaTime API token |
 | `plugin_wakatime_days` | `string` **[7]** *{"7", "30", "180", "365"}* | WakaTime time range |
 | `plugin_wakatime_sections` | `array` **[time, projects, projects-graphs, languages, languages-graphs, editors, os]** *{"time", "projects", "projects-graphs", "languages", "languages-graphs", "editors", "editors-graphs", "os", "os-graphs"}* | Sections to display |
 | `plugin_wakatime_limit` | `number` **[5]** *{0 ≤ 𝑥}* | Maximum number of entries to display per graph |
@@ -36,7 +36,6 @@ Then setup [WakaTime plugins](https://wakatime.com/plugins) to be ready to go!
 
 Legend for option icons:
 * 🔐 Value should be stored in repository secrets
-* ✨ New feature currently in testing on `master`/`main`
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*
@@ -45,7 +44,7 @@ Legend for option icons:
 
 <!--examples-->
 ```yaml
-name: ⏰ WakaTime
+name: WakaTime
 uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.wakatime.svg

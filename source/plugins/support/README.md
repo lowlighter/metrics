@@ -19,9 +19,6 @@ An account on [GitHub Support Community](https://github.community/) is required 
 | `plugin_support` | `boolean` **[no]** | GitHub Community Support metrics |
 
 
-Legend for option icons:
-* 🔐 Value should be stored in repository secrets
-* ✨ New feature currently in testing on `master`/`main`
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

@@ -41,13 +41,12 @@ Use a full `repo` scope token to display **private** events.
 | `plugin_activity_filter` | `array` *(comma-separated)* **[all]** *{"all", "comment", "ref/create", "ref/delete", "release", "push", "issue", "pr", "review", "wiki", "fork", "star", "member", "public"}* | Events types to keep |
 | `plugin_activity_visibility` | `string` **[all]** *{"public", "all"}* | Set events visibility |
 | `plugin_activity_timestamps` | `boolean` **[no]** | Display events timestamps |
-| `plugin_activity_skipped` | `array` *(comma-separated)* **[]** | Repositories to skip |
-| `plugin_activity_ignored` | `undefined` **[github-actions[bot], dependabot[bot], dependabot-preview[bot]]** | Actors to ignore |
+| `plugin_activity_skipped` <sup>⏩</sup> | `array` *(comma-separated)* **[]** | Repositories to skip |
+| `plugin_activity_ignored` <sup>⏩</sup> | `undefined` **[]** | Actors to ignore |
 
 
 Legend for option icons:
-* 🔐 Value should be stored in repository secrets
-* ✨ New feature currently in testing on `master`/`main`
+* ⏩ Value inherits from its related global-level option
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

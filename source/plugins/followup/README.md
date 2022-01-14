@@ -24,12 +24,11 @@ The *followup* plugin displays the ratio of open/closed issues and the ratio of 
 | ------ | -------------------------------- | ----------- |
 | `plugin_followup` | `boolean` **[no]** | Display follow-up of repositories issues and pull requests |
 | `plugin_followup_sections` | `array` *(comma-separated)* **[repositories]** *{"repositories", "user"}* | Sections to display |
-| `plugin_followup_indepth` | `boolean` **[no]** | Indepth follow-up processing |
+| `plugin_followup_indepth` <sup>🧰</sup> | `boolean` **[no]** | Indepth follow-up processing |
 
 
 Legend for option icons:
-* 🔐 Value should be stored in repository secrets
-* ✨ New feature currently in testing on `master`/`main`
+* 🧰 Must be enabled in `settings.json` (for web instances)
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

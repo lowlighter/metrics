@@ -23,9 +23,6 @@ The *isocalendar* plugin displays an isometric view of your commits calendar, al
 | `plugin_isocalendar_duration` | `string` **[half-year]** *{"half-year", "full-year"}* | Set time window shown by isometric calendar |
 
 
-Legend for option icons:
-* 🔐 Value should be stored in repository secrets
-* ✨ New feature currently in testing on `master`/`main`
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

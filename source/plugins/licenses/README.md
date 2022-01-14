@@ -29,15 +29,14 @@ Dependencies will be analyzed with [github/licensed](https://github.com/github/l
 <!--options-->
 | Option | Type *(format)* **[default]** *{allowed values}* | Description |
 | ------ | -------------------------------- | ----------- |
-| `plugin_licenses` | `boolean` **[no]** | Display licenses informations |
+| `plugin_licenses` <sup>🧰</sup> | `boolean` **[no]** | Display licenses informations |
 | `plugin_licenses_setup` | `string` **[]** | Command to setup target repository |
 | `plugin_licenses_ratio` | `boolean` **[no]** | Display used licenses ratio |
 | `plugin_licenses_legal` | `boolean` **[yes]** | Display legal informations about used licenses |
 
 
 Legend for option icons:
-* 🔐 Value should be stored in repository secrets
-* ✨ New feature currently in testing on `master`/`main`
+* 🧰 Must be enabled in `settings.json` (for web instances)
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

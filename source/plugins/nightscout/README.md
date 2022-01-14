@@ -30,9 +30,6 @@ The [nightscout website](http://www.nightscout.info/) details how to self-host a
 | `plugin_nightscout_urgenthighalert` | `number` **[250]** *{0 ≤ 𝑥}* | When the blood sugar is considered urgently high |
 
 
-Legend for option icons:
-* 🔐 Value should be stored in repository secrets
-* ✨ New feature currently in testing on `master`/`main`
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*
@@ -43,6 +40,7 @@ Legend for option icons:
 ```yaml
 uses: lowlighter/metrics@latest
 with:
+  token: ${{ secrets.METRICS_TOKEN }}
   plugin_nightscout: 'yes'
   plugin_nightscout_url: ${{ secrets.NIGHTSCOUT_URL }}
 

@@ -22,9 +22,6 @@ Because of limitations of using SVG inside of `<img>` tags, people won't be able
 | `plugin_repositories_featured` | `array` *(comma-separated)* **[]** | List of repositories to display |
 
 
-Legend for option icons:
-* 🔐 Value should be stored in repository secrets
-* ✨ New feature currently in testing on `master`/`main`
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

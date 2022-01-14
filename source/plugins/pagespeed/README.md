@@ -32,15 +32,14 @@ Expect 10 to 30 seconds to generate the results.
 | Option | Type *(format)* **[default]** *{allowed values}* | Description |
 | ------ | -------------------------------- | ----------- |
 | `plugin_pagespeed` | `boolean` **[no]** | Display a website Google PageSpeed metrics |
-| `plugin_pagespeed_url` | `string` **[.user.website]** | Audited website |
+| `plugin_pagespeed_url` | `string` **[*→ User attached website*]** | Audited website |
 | `plugin_pagespeed_detailed` | `boolean` **[no]** | Detailed audit result |
 | `plugin_pagespeed_screenshot` | `boolean` **[no]** | Display a screenshot of your website |
-| `plugin_pagespeed_token` 🔐 | `token` **[]** | PageSpeed token |
+| `plugin_pagespeed_token` <sup>🔐</sup> | `token` **[]** | PageSpeed token |
 
 
 Legend for option icons:
 * 🔐 Value should be stored in repository secrets
-* ✨ New feature currently in testing on `master`/`main`
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

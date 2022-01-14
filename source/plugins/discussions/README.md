@@ -15,13 +15,12 @@ The *discussions* plugin displays your GitHub discussions metrics.
 | Option | Type *(format)* **[default]** *{allowed values}* | Description |
 | ------ | -------------------------------- | ----------- |
 | `plugin_discussions` | `boolean` **[no]** | GitHub discussions metrics |
-| `plugin_discussions_categories` ✨ | `boolean` **[yes]** | Display discussion categories |
-| `plugin_discussions_categories_limit` ✨ | `number` **[0]** | Number of discussion categories to display |
+| `plugin_discussions_categories` <sup>✨</sup> | `boolean` **[yes]** | Display discussion categories |
+| `plugin_discussions_categories_limit` <sup>✨</sup> | `number` **[0]** | Number of discussion categories to display |
 
 
 Legend for option icons:
-* 🔐 Value should be stored in repository secrets
-* ✨ New feature currently in testing on `master`/`main`
+* ✨ Currently in beta-testing on `master`/`main`
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

@@ -20,13 +20,12 @@ Display a random code snippet from your recent activity history.
 | `plugin_code_lines` | `number` **[12]** | Maximum number of line that a code snippet can contain |
 | `plugin_code_load` | `number` **[100]** *{100 ≤ 𝑥 ≤ 1000}* | Number of events to load |
 | `plugin_code_visibility` | `string` **[public]** *{"public", "all"}* | Set events visibility |
-| `plugin_code_skipped` | `array` *(comma-separated)* **[]** | Repositories to skip |
+| `plugin_code_skipped` <sup>⏩</sup> | `array` *(comma-separated)* **[]** | Repositories to skip |
 | `plugin_code_languages` | `array` *(comma-separated)* **[]** | Restrict code snippet languages |
 
 
 Legend for option icons:
-* 🔐 Value should be stored in repository secrets
-* ✨ New feature currently in testing on `master`/`main`
+* ⏩ Value inherits from its related global-level option
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

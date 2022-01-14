@@ -19,9 +19,6 @@ The *rss* plugin displays items from a specified RSS feed.
 | `plugin_rss_limit` | `number` **[4]** *{0 ≤ 𝑥 ≤ 30}* | Maximum number of items to display |
 
 
-Legend for option icons:
-* 🔐 Value should be stored in repository secrets
-* ✨ New feature currently in testing on `master`/`main`
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

@@ -48,9 +48,6 @@ Sections will be ordered the same as specified in `plugin_people_types`.
 | `plugin_people_shuffle` | `boolean` **[no]** | Shuffle users |
 
 
-Legend for option icons:
-* 🔐 Value should be stored in repository secrets
-* ✨ New feature currently in testing on `master`/`main`
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

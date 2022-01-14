@@ -20,12 +20,11 @@ Because of GitHub REST API limitation, provided token requires full `repo` scope
 | Option | Type *(format)* **[default]** *{allowed values}* | Description |
 | ------ | -------------------------------- | ----------- |
 | `plugin_traffic` | `boolean` **[no]** | Display repositories traffic metrics |
-| `plugin_traffic_skipped` | `array` *(comma-separated)* **[]** | Repositories to skip |
+| `plugin_traffic_skipped` <sup>⏩</sup> | `array` *(comma-separated)* **[]** | Repositories to skip |
 
 
 Legend for option icons:
-* 🔐 Value should be stored in repository secrets
-* ✨ New feature currently in testing on `master`/`main`
+* ⏩ Value inherits from its related global-level option
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*
