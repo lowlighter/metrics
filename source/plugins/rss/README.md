@@ -29,5 +29,16 @@ Legend for option icons:
 #### ℹ️ Examples workflows
 
 <!--examples-->
+```yaml
+name: News from hackernews
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.rss.svg
+  token: NOT_NEEDED
+  base: ''
+  plugin_rss: 'yes'
+  plugin_rss_source: https://news.ycombinator.com/rss
+  plugin_rss_limit: 4
 
+```
 <!--/examples-->

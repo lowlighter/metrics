@@ -1,1 +1,5 @@
-[]
+- name: 🗃️ Base content - Default metrics
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    base: header, activity, community, repositories, metadata
