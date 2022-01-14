@@ -52,8 +52,7 @@ const secrets = {
 //Plugins
 for (const id of Object.keys(plugins)) {
   const {examples, options, readme, tests} = await plugin(id)
-  if (id !== "achievements")
-  continue
+
   //Plugin readme
   await fs.writeFile(readme.path, readme.content
     .replace(/(<!--examples-->)[\s\S]*(<!--\/examples-->)/g, `$1\n${examples.map(({test, prod, ...step}) => ["```yaml", yaml.dump(step), "```"].join("\n")).join("\n")}\n$2`)
@@ -63,14 +62,16 @@ for (const id of Object.keys(plugins)) {
   await fs.mkdir(tests.dir, { recursive: true });
   await fs.writeFile(tests.file, yaml.dump(examples.map(({prod, test = {}, name = "", ...step}) => {
     const result = {name:`${plugins[id].name} - ${name}`, ...step, ...test}
-    delete result.filename
-    if (!result.base)
-      delete result.base
+    test.with ??= {}
     for (const [k, v] of Object.entries(result.with)) {
-      console.log(k, v,secrets.$regex.test(v) )
+      if (k in test.with)
+        result.with[k] = test.with[k]
       if (secrets.$regex.test(v))
         result.with[k] = v.replace(secrets.$regex, secrets[v.match(secrets.$regex)?.groups?.secret])
     }
+    if (!result.with.base)
+      delete result.with.base
+    delete result.with.filename
     return result
   })))
 

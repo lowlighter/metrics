@@ -1,0 +1,14 @@
+- name: ✒️ Recent posts - Recent posts
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    plugin_posts: 'yes'
+    plugin_posts_source: dev.to
+- name: ✒️ Recent posts - Recent posts with descriptions and cover images
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    plugin_posts: 'yes'
+    plugin_posts_source: dev.to
+    plugin_posts_descriptions: 'yes'
+    plugin_posts_covers: 'yes'

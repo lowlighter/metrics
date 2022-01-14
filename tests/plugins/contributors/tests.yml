@@ -1,0 +1,22 @@
+- name: 🏅 Repository contributors - Contributors with contributions count
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    template: repository
+    repo: metrics
+    plugin_contributors: 'yes'
+    plugin_contributors_contributions: 'yes'
+- name: 🏅 Repository contributors - Contributors by categories
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    template: repository
+    repo: metrics
+    plugin_contributors: 'yes'
+    plugin_contributors_sections: categories
+    plugin_contributors_categories: |
+      {
+        "🧩 Plugins / 🖼️ templates":["source/plugins/**", "source/templates/**"],
+        "📚 Documentation":["README.md", "**/README.md", "**/metadata.yml"],
+        "💻 Code (other)":["source/**", "Dockerfile"]
+      }

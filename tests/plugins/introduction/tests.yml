@@ -1,0 +1,15 @@
+- name: 🙋 Introduction - User introduction
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    user: github
+    base: header
+    plugin_introduction: 'yes'
+- name: 🙋 Introduction - Repository introduction
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    template: repository
+    repo: metrics
+    base: header
+    plugin_introduction: 'yes'

@@ -1,0 +1,11 @@
+- name: 📅 Isometric commit calendar - Half-year calendar
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    plugin_isocalendar: 'yes'
+- name: 📅 Isometric commit calendar - Full-year calendar
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    plugin_isocalendar: 'yes'
+    plugin_isocalendar_duration: full-year

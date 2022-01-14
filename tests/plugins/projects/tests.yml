@@ -1,0 +1,7 @@
+- name: 🗂️ Active projects - Project from a repository
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    plugin_projects: 'yes'
+    plugin_projects_repositories: lowlighter/metrics/projects/1
+    plugin_projects_descriptions: 'yes'

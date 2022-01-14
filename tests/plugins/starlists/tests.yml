@@ -1,0 +1,7 @@
+- name: 💫 Starlists - Featured star list
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    plugin_starlists: 'yes'
+    plugin_starlists_limit_repositories: 2
+    plugin_starlists_only: 🤘 TC39

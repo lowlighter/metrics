@@ -1,0 +1,16 @@
+- name: 🏆 Achievements - Detailed display
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    plugin_achievements: 'yes'
+    plugin_achievements_only: sponsor, maintainer, octonaut
+- name: 🏆 Achievements - Compact display
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    plugin_achievements: 'yes'
+    plugin_achievements_only: >-
+      polyglot, stargazer, sponsor, deployer, member, maintainer, developer,
+      scripter, packager, explorer, infographile, manager
+    plugin_achievements_display: compact
+    plugin_achievements_threshold: X

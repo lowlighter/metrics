@@ -14,6 +14,7 @@ describe("Check files editions (checkout your files if needed)", () => {
       "source/templates/README.md",
       "action.yml",
       "settings.example.json",
+      "tests/plugins/*",
     ])("%s", async file => expect((await diff()).includes(file)).toBe(false)))
   describe("Repository level files were not modified", () =>
     void test.each([
@@ -27,6 +28,7 @@ describe("Check files editions (checkout your files if needed)", () => {
       ".github/readme/partials/introduction.md",
       ".github/workflows/*",
       ".github/FUNDING.yml",
+      ".github/examples.mjs",
       ".github/index.mjs",
       ".github/release.mjs",
       ".github/markdown_example.mjs",
