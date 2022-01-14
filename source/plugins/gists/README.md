@@ -9,13 +9,32 @@ The *gists* plugin displays your [gists](https://gist.github.com) metrics.
   </td>
 </table>
 
+#### ➡️ Available options
+
+<!--options-->
+| Option | Type *(format)* **[default]** *{allowed values}* | Description |
+| ------ | -------------------------------- | ----------- |
+| `plugin_gists` | `boolean` **[no]** | Display gists metrics |
+
+
+Legend for option icons:
+* 🔐 Value should be stored in repository secrets
+* ✨ New feature currently in testing on `master`/`main`
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
+
 #### ℹ️ Examples workflows
 
-[➡️ Available options for this plugin](metadata.yml)
-
+<!--examples-->
 ```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_gists: yes
+name: Gists
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.gists.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ''
+  plugin_gists: 'yes'
+
 ```
+<!--/examples-->

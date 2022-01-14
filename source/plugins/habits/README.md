@@ -25,19 +25,53 @@ By default, dates use Greenwich meridian (GMT/UTC). Be sure to set your timezone
 
 > 🔣 On web instances, *recent languages activity* is an extra feature and must be enabled globally in `settings.json`
 
+#### ➡️ Available options
+
+<!--options-->
+| Option | Type *(format)* **[default]** *{allowed values}* | Description |
+| ------ | -------------------------------- | ----------- |
+| `plugin_habits` | `boolean` **[no]** | Display coding habits metrics |
+| `plugin_habits_from` | `number` **[200]** *{1 ≤ 𝑥 ≤ 1000}* | Number of events to use |
+| `plugin_habits_days` | `number` **[14]** *{1 ≤ 𝑥 ≤ 30}* | Maximum event age |
+| `plugin_habits_facts` | `boolean` **[yes]** | Display coding habits collected facts based on recent activity |
+| `plugin_habits_charts` | `boolean` **[no]** | Display coding habits charts based on recent activity |
+| `plugin_habits_trim` | `boolean` **[no]** | Trim unused hours on daily chart |
+
+
+Legend for option icons:
+* 🔐 Value should be stored in repository secrets
+* ✨ New feature currently in testing on `master`/`main`
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
+
 #### ℹ️ Examples workflows
 
-[➡️ Available options for this plugin](metadata.yml)
-
+<!--examples-->
 ```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_habits: yes
-    plugin_habits_from: 200       # Use 200 events to compute habits
-    plugin_habits_days: 14        # Keep only events from last 14 days
-    plugin_habits_facts: yes      # Display facts section
-    plugin_habits_charts: yes     # Display charts section
-    plugin_habits_trim: yes       # Trim unused hours on daily chart
-    config_timezone: Europe/Paris # Set timezone
+name: Midly interesting facts
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.habits.facts.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ''
+  plugin_habits: 'yes'
+  plugin_habits_facts: 'yes'
+  plugin_habits_charts: 'no'
+  config_timezone: Europe/Paris
+
 ```
+```yaml
+name: Recent activity charts
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.habits.charts.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ''
+  plugin_habits: 'yes'
+  plugin_habits_facts: 'no'
+  plugin_habits_charts: 'yes'
+  config_timezone: Europe/Paris
+
+```
+<!--/examples-->

@@ -34,24 +34,65 @@ plugin_contributors_categories: |
 Each time a file modified by a contributor match a fileglob, they will be added in said category.
 Matching is performed in keys order.
 
+#### ➡️ Available options
+
+<!--options-->
+| Option | Type *(format)* **[default]** *{allowed values}* | Description |
+| ------ | -------------------------------- | ----------- |
+| `plugin_contributors` | `boolean` **[no]** | Display repository contributors |
+| `plugin_contributors_base` | `string` **[]** | Base reference |
+| `plugin_contributors_head` | `string` **[master]** | Head reference |
+| `plugin_contributors_ignored` | `array` *(comma-separated)* **[github-actions[bot], dependabot[bot], dependabot-preview[bot]]** | Contributors to ignore |
+| `plugin_contributors_contributions` | `boolean` **[no]** | Display contributions |
+| `plugin_contributors_sections` | `array` *(comma-separated)* **[contributors]** *{"contributors", "categories"}* | Sections to display |
+| `plugin_contributors_categories` | `json` **[{
+  "📚 Documentation": ["README.md", "docs/**"],
+  "💻 Code": ["source/**", "src/**"],
+  "#️⃣ Others": ["*"]
+}
+]** | Contributions categories |
+
+
+Legend for option icons:
+* 🔐 Value should be stored in repository secrets
+* ✨ New feature currently in testing on `master`/`main`
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
+
 #### ℹ️ Examples workflows
 
-[➡️ Available options for this plugin](metadata.yml)
-
+<!--examples-->
 ```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_contributors: yes
-    plugin_contributors_base: ""               # Base reference (commit, tag, branch, etc.)
-    plugin_contributors_head: main             # Head reference (commit, tag, branch, etc.)
-    plugin_contributors_ignored: bot           # Ignore "bot" user
-    plugin_contributors_contributions: yes     # Display number of contributions for each contributor
-    plugin_contributors_sections: contributors # Display contributors sections
-    plugin_contributors_categories: |          # A JSON mapping of labels by files edited
-      {
-        "📚 Documentation": ["README.md", "docs/**"],
-        "💻 Code": ["source/**", "src/**"],
-        "#️⃣ Others": ["*"]
-      }
+name: Contributors with contributions count
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.contributors.contributions.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ''
+  template: repository
+  repo: metrics
+  plugin_contributors: 'yes'
+  plugin_contributors_contributions: 'yes'
+
 ```
+```yaml
+name: Contributors by categories
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.contributors.categories.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ''
+  template: repository
+  repo: metrics
+  plugin_contributors: 'yes'
+  plugin_contributors_sections: categories
+  plugin_contributors_categories: |
+    {
+      "🧩 Plugins / 🖼️ templates":["source/plugins/**", "source/templates/**"],
+      "📚 Documentation":["README.md", "**/README.md", "**/metadata.yml"],
+      "💻 Code (other)":["source/**", "Dockerfile"]
+    }
+
+```
+<!--/examples-->

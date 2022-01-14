@@ -21,17 +21,48 @@ The `plugin_notable_indepth` option lets you get additional metrics about your c
 
 > 🔣 On web instances, `indepth` is an extra feature and must be enabled globally in `settings.json`
 
+#### ➡️ Available options
+
+<!--options-->
+| Option | Type *(format)* **[default]** *{allowed values}* | Description |
+| ------ | -------------------------------- | ----------- |
+| `plugin_notable` | `boolean` **[no]** | Display notable contributions in organizations |
+| `plugin_notable_filter` | `string` **[]** | Query filter |
+| `plugin_notable_from` | `string` **[organization]** *{"all", "organization", "user"}* | Filter by repository host account type |
+| `plugin_notable_repositories` | `boolean` **[no]** | Also display repository name |
+| `plugin_notable_indepth` | `boolean` **[no]** | Indepth notable contributions processing |
+
+
+Legend for option icons:
+* 🔐 Value should be stored in repository secrets
+* ✨ New feature currently in testing on `master`/`main`
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
+
 #### ℹ️ Examples workflows
 
-[➡️ Available options for this plugin](metadata.yml)
-
+<!--examples-->
 ```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_notable: yes
-    plugin_notable_filter: stars:>500 # Only display repositories with 500 stars or more (syntax based on GitHub search query)
-    plugin_notable_from: organization # Only display contributions within organization repositories
-    plugin_notable_repositories: yes  # Display repositories name instead of only organization name
-    plugin_notable_indepth: yes       # Gather additional informations about contributions
+name: Contributions
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.notable.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ''
+  plugin_notable: 'yes'
+
 ```
+```yaml
+name: Indepth analysis
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.notable.indepth.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ''
+  plugin_notable: 'yes'
+  plugin_notable_indepth: 'yes'
+  plugin_notable_repositories: 'yes'
+
+```
+<!--/examples-->

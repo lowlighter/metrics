@@ -1,0 +1,19 @@
+- name: Recent posts
+  uses: lowlighter/metrics@latest
+  with:
+    filename: metrics.plugin.posts.svg
+    token: ${{ secrets.METRICS_TOKEN }}
+    base: ""
+    plugin_posts: yes
+    plugin_posts_source: dev.to
+
+- name: Recent posts with descriptions and cover images
+  uses: lowlighter/metrics@latest
+  with:
+    filename: metrics.plugin.posts.full.svg
+    token: ${{ secrets.METRICS_TOKEN }}
+    base: ""
+    plugin_posts: yes
+    plugin_posts_source: dev.to
+    plugin_posts_descriptions: yes
+    plugin_posts_covers: yes

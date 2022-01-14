@@ -27,19 +27,54 @@ It also lets you quickly see at a glance what this user primarly use GitHub for,
 
 ![Ranks](/.github/readme/imgs/plugin_achievements_ranks.png)
 
+#### ➡️ Available options
+
+<!--options-->
+| Option | Type *(format)* **[default]** *{allowed values}* | Description |
+| ------ | -------------------------------- | ----------- |
+| `plugin_achievements` | `boolean` **[no]** | Display achievements |
+| `plugin_achievements_threshold` | `string` **[C]** *{"S", "A", "B", "C", "X"}* | Display rank minimal threshold |
+| `plugin_achievements_secrets` | `boolean` **[yes]** | Display unlocked secrets achievements |
+| `plugin_achievements_display` | `string` **[detailed]** *{"detailed", "compact"}* | Achievements display style |
+| `plugin_achievements_limit` | `number` **[0]** *{0 ≤ 𝑥}* | Maximum number of achievements to display |
+| `plugin_achievements_ignored` | `array` *(comma-separated)* **[]** | Unlocked achievements to hide |
+| `plugin_achievements_only` | `array` *(comma-separated)* **[]** | Unlocked achievements to display |
+
+
+Legend for option icons:
+* 🔐 Value should be stored in repository secrets
+* ✨ New feature currently in testing on `master`/`main`
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
+
 #### ℹ️ Examples workflows
 
-[➡️ Available options for this plugin](metadata.yml)
-
+<!--examples-->
 ```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_achievements: yes
-    plugin_achievements_threshold: B      # Display achievements with rank B or higher
-    plugin_achievements_secrets: yes      # Display unlocked secrets achievements
-    plugin_achievements_display: compact  # Use compact display
-    plugin_achievements_limit: 0          # Display all unlocked achievements (no limit)
-    plugin_achievements_ignored: octonaut # Hide "octonaut" achievement
-    plugin_achievements_only: explorer    # Display only "explorer" achievement (don't use with "ignored" option)
+name: Detailed display
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.achievements.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ''
+  plugin_achievements: 'yes'
+  plugin_achievements_only: sponsor, maintainer, octonaut
+
 ```
+```yaml
+name: Compact display
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.achievements.compact.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ''
+  plugin_achievements: 'yes'
+  plugin_achievements_only: >-
+    polyglot, stargazer, sponsor, deployer, member, maintainer, developer,
+    scripter, packager, explorer, infographile, manager
+  plugin_achievements_display: compact
+  plugin_achievements_threshold: X
+
+```
+<!--/examples-->

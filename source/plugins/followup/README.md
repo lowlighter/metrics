@@ -17,15 +17,56 @@ The *followup* plugin displays the ratio of open/closed issues and the ratio of 
   </td>
 </table>
 
+#### ➡️ Available options
+
+<!--options-->
+| Option | Type *(format)* **[default]** *{allowed values}* | Description |
+| ------ | -------------------------------- | ----------- |
+| `plugin_followup` | `boolean` **[no]** | Display follow-up of repositories issues and pull requests |
+| `plugin_followup_sections` | `array` *(comma-separated)* **[repositories]** *{"repositories", "user"}* | Sections to display |
+| `plugin_followup_indepth` | `boolean` **[no]** | Indepth follow-up processing |
+
+
+Legend for option icons:
+* 🔐 Value should be stored in repository secrets
+* ✨ New feature currently in testing on `master`/`main`
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
+
 #### ℹ️ Examples workflows
 
-[➡️ Available options for this plugin](metadata.yml)
-
+<!--examples-->
 ```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_followup: yes
-    plugin_followup_sections: repositories, user # Display overall status of issues/pull requests created on user's repositories and created by user
-```
+name: Opened on user's repositories
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.followup.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ''
+  plugin_followup: 'yes'
 
+```
+```yaml
+name: Opened by user
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.followup.user.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ''
+  plugin_followup: 'yes'
+  plugin_followup_sections: user
+
+```
+```yaml
+name: Indepth analysis
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.followup.indepth.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ''
+  plugin_followup: 'yes'
+  plugin_followup_indepth: 'yes'
+
+```
+<!--/examples-->

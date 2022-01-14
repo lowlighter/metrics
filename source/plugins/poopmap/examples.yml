@@ -1,0 +1,5 @@
+- uses: lowlighter/metrics@latest
+  with:
+    plugin_poopmap: yes
+  prod:
+    skip: true

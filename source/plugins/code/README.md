@@ -11,18 +11,39 @@ Display a random code snippet from your recent activity history.
   </td>
 </table>
 
+#### ➡️ Available options
+
+<!--options-->
+| Option | Type *(format)* **[default]** *{allowed values}* | Description |
+| ------ | -------------------------------- | ----------- |
+| `plugin_code` | `boolean` **[no]** | Display a random code snippet from recent activity |
+| `plugin_code_lines` | `number` **[12]** | Maximum number of line that a code snippet can contain |
+| `plugin_code_load` | `number` **[100]** *{100 ≤ 𝑥 ≤ 1000}* | Number of events to load |
+| `plugin_code_visibility` | `string` **[public]** *{"public", "all"}* | Set events visibility |
+| `plugin_code_skipped` | `array` *(comma-separated)* **[]** | Repositories to skip |
+| `plugin_code_languages` | `array` *(comma-separated)* **[]** | Restrict code snippet languages |
+
+
+Legend for option icons:
+* 🔐 Value should be stored in repository secrets
+* ✨ New feature currently in testing on `master`/`main`
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
+
 #### ℹ️ Examples workflows
 
-[➡️ Available options for this plugin](metadata.yml)
-
+<!--examples-->
 ```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_code: yes
-    plugin_code_lines: 12               # Only display snippets with less than 12 lines
-    plugin_code_load: 100               # Fetch 100 events from activity
-    plugin_code_visibility: public      # Only display snippets from public activity
-    plugin_code_skipped: github/octocat # Skip github/octocat repository
-    plugin_code_languages: javascript   # Limit code snippets to JavaScript code
+name: JavaScript or TypeScript snippet of the day
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.code.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ''
+  plugin_code: 'yes'
+  plugin_code_languages: javascript, typescript
+  plugin_code_load: 400
+
 ```
+<!--/examples-->

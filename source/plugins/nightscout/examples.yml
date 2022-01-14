@@ -1,0 +1,6 @@
+- uses: lowlighter/metrics@latest
+  with:
+    plugin_nightscout: yes
+    plugin_nightscout_url: ${{ secrets.NIGHTSCOUT_URL }}
+  prod:
+    skip: true

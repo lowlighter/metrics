@@ -1,0 +1,6 @@
+- name: GitHub Community Support
+  uses: lowlighter/metrics@latest
+  with:
+    filename: metrics.plugin.support.svg
+    token: NOT_NEEDED
+    plugin_support: yes

@@ -14,18 +14,51 @@ The recent *posts* plugin displays recent articles you wrote on an external sour
   </td>
 </table>
 
+#### ➡️ Available options
+
+<!--options-->
+| Option | Type *(format)* **[default]** *{allowed values}* | Description |
+| ------ | -------------------------------- | ----------- |
+| `plugin_posts` | `boolean` **[no]** | Display recent posts |
+| `plugin_posts_source` | `string` **[]** *{"dev.to", "hashnode"}* | Posts external source |
+| `plugin_posts_descriptions` | `boolean` **[no]** | Display posts descriptions |
+| `plugin_posts_covers` | `boolean` **[no]** | Display posts cover images |
+| `plugin_posts_limit` | `number` **[4]** *{1 ≤ 𝑥 ≤ 30}* | Maximum number of posts to display |
+| `plugin_posts_user` | `string` **[.user.login]** | Posts external source username |
+
+
+Legend for option icons:
+* 🔐 Value should be stored in repository secrets
+* ✨ New feature currently in testing on `master`/`main`
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
+
 #### ℹ️ Examples workflows
 
-[➡️ Available options for this plugin](metadata.yml)
-
+<!--examples-->
 ```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_posts: yes
-    plugin_posts_source: dev.to      # External source
-    plugin_people_user: .github.user # Use same username as GitHub login
-    plugin_posts_limit: 4            # Limit to 4 posts
-    plugin_posts_descriptions: yes   # Display article short description (when supported)
-    plugin_posts_covers: yes         # Display article thumbnail (when supported)
+name: Recent posts
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.posts.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ''
+  plugin_posts: 'yes'
+  plugin_posts_source: dev.to
+
 ```
+```yaml
+name: Recent posts with descriptions and cover images
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.posts.full.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ''
+  plugin_posts: 'yes'
+  plugin_posts_source: dev.to
+  plugin_posts_descriptions: 'yes'
+  plugin_posts_covers: 'yes'
+
+```
+<!--/examples-->

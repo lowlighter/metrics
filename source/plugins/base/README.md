@@ -24,19 +24,29 @@ It contains the following sections:
 
 These are all enabled by default, but you can explicitely opt out from them.
 
+#### ➡️ Available options
+
+<!--options-->
+| Option | Type *(format)* **[default]** *{allowed values}* | Description |
+| ------ | -------------------------------- | ----------- |
+| `base` | `array` *(comma-separated)* **[header, activity, community, repositories, metadata]** *{"header", "activity", "community", "repositories", "metadata"}* | Metrics base content |
+| `repositories` | `number` **[100]** *{0 ≤ 𝑥}* | Number of repositories to use |
+| `repositories_batch` | `number` **[100]** *{1 ≤ 𝑥 ≤ 100}* | Number of repositories to load at once by queries |
+| `repositories_forks` | `boolean` **[no]** | Include forks in metrics |
+| `repositories_affiliations` | `array` *(comma-separated)* **[owner]** *{"owner", "collaborator", "organization_member"}* | Repositories affiliations |
+| `repositories_skipped` | `array` *(comma-separated)* **[]** | Default repositories to skip |
+| `commits_authoring` | `array` *(comma-seperated)* **[.user.login]** | List of surnames or email addresses you use when authoring commits |
+
+
+Legend for option icons:
+* 🔐 Value should be stored in repository secrets
+* ✨ New feature currently in testing on `master`/`main`
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
+
 #### ℹ️ Examples workflows
 
-[➡️ Available options for this plugin](metadata.yml)
+<!--examples-->
 
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    base: header, repositories                     # Only display "header" and "repositories" sections
-    repositories: 100                              # Query only last 100 repositories
-    repositories_batch: 25                         # Query repositories 25 by 25 (lower this to avoid API timeouts)
-    repositories_forks: no                         # Don't include forks
-    repositories_affiliations: owner, collaborator # Display only repositories where user is owner or collaborator
-    repositories_skipped: lowlighter/lowlighter    # Exclude automatically "lowlighter/lowlighter" repository from plugins allowing a skip list
-    commits_authoring: octocat@github.com          # Handle you use when authoring commits, which can be used to filter commits in other plugins
-```
+<!--/examples-->

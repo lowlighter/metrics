@@ -33,20 +33,56 @@ The following types are supported:
 Sections will be ordered the same as specified in `plugin_people_types`.
 `sponsors` for repositories will output the same as the owner's sponsors.
 
+#### ➡️ Available options
+
+<!--options-->
+| Option | Type *(format)* **[default]** *{allowed values}* | Description |
+| ------ | -------------------------------- | ----------- |
+| `plugin_people` | `boolean` **[no]** | Display GitHub users from various affiliations |
+| `plugin_people_limit` | `number` **[24]** *{0 ≤ 𝑥}* | Maximum number of user to display |
+| `plugin_people_size` | `number` **[28]** *{8 ≤ 𝑥 ≤ 64}* | Size of displayed GitHub users' avatars |
+| `plugin_people_types` | `array` *(comma-separated)* **[followers, following]** *{"followers", "following", "followed", "sponsoring", "members", "sponsored", "sponsors", "contributors", "stargazers", "watchers", "thanks"}* | Affiliations to display |
+| `plugin_people_thanks` | `array` *(comma-separated)* **[]** | GitHub users to personally thanks |
+| `plugin_people_sponsors_custom` | `array` *(comma-separated)* **[]** | Custom GitHub sponsors |
+| `plugin_people_identicons` | `boolean` **[no]** | Use identicons instead of avatars |
+| `plugin_people_shuffle` | `boolean` **[no]** | Shuffle users |
+
+
+Legend for option icons:
+* 🔐 Value should be stored in repository secrets
+* ✨ New feature currently in testing on `master`/`main`
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
+
 #### ℹ️ Examples workflows
 
-[➡️ Available options for this plugin](metadata.yml)
-
+<!--examples-->
 ```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_people: yes
-    plugin_people_types: followers, thanks     # Display followers and "thanks" sections
-    plugin_people_limit: 28                    # Limit to 28 entries per section
-    plugin_people_size: 28                     # Size in pixels of displayed avatars
-    plugin_people_identicons: no               # Use avatars (do not use identicons)
-    plugin_people_thanks: lowlighter, octocat  # Users that will be displayed in "thanks" section
-    plugin_people_sponsors_custom: octocat     # Users that will be displayed additionally in "sponsors" section
-    plugin_people_shuffle: yes                 # Shuffle for varied output
+name: Followers
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.people.followers.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ''
+  plugin_people: 'yes'
+  plugin_people_types: followers
+
 ```
+```yaml
+name: Contributors and sponsors
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.people.repository.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ''
+  template: repository
+  repo: metrics
+  plugin_people: 'yes'
+  plugin_people_types: contributors, stargazers, watchers, sponsors
+  plugin_people_sponsors_custom: >-
+    iamsainikhil, yutkat, KasparJohannesSchneider, ktnkk, tfSheol, haribo-io,
+    marcreichel
+
+```
+<!--/examples-->

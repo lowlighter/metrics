@@ -11,13 +11,31 @@ The *support* plugin lets you display your statistics from [GitHub Support Commu
 
 An account on [GitHub Support Community](https://github.community/) is required to use this plugin.
 
+#### ➡️ Available options
+
+<!--options-->
+| Option | Type *(format)* **[default]** *{allowed values}* | Description |
+| ------ | -------------------------------- | ----------- |
+| `plugin_support` | `boolean` **[no]** | GitHub Community Support metrics |
+
+
+Legend for option icons:
+* 🔐 Value should be stored in repository secrets
+* ✨ New feature currently in testing on `master`/`main`
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
+
 #### ℹ️ Examples workflows
 
-[➡️ Available options for this plugin](metadata.yml)
-
+<!--examples-->
 ```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_support: yes
+name: GitHub Community Support
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.support.svg
+  token: NOT_NEEDED
+  plugin_support: 'yes'
+
 ```
+<!--/examples-->

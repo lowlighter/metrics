@@ -26,17 +26,58 @@ Although not mandatory, you can generate an API key for PageSpeed API [here](htt
 
 Expect 10 to 30 seconds to generate the results.
 
+#### ➡️ Available options
+
+<!--options-->
+| Option | Type *(format)* **[default]** *{allowed values}* | Description |
+| ------ | -------------------------------- | ----------- |
+| `plugin_pagespeed` | `boolean` **[no]** | Display a website Google PageSpeed metrics |
+| `plugin_pagespeed_url` | `string` **[.user.website]** | Audited website |
+| `plugin_pagespeed_detailed` | `boolean` **[no]** | Detailed audit result |
+| `plugin_pagespeed_screenshot` | `boolean` **[no]** | Display a screenshot of your website |
+| `plugin_pagespeed_token` 🔐 | `token` **[]** | PageSpeed token |
+
+
+Legend for option icons:
+* 🔐 Value should be stored in repository secrets
+* ✨ New feature currently in testing on `master`/`main`
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
+
 #### ℹ️ Examples workflows
 
-[➡️ Available options for this plugin](metadata.yml)
-
+<!--examples-->
 ```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_pagespeed: yes
-    plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }} # Optional but recommended
-    plugin_pagespeed_detailed: yes                         # Print detailed audit metrics
-    plugin_pagespeed_screenshot: no                        # Display a screenshot of your website
-    plugin_pagespeed_url: .user.website                    # Website to audit (defaults to your GitHub linked website)
+name: Succint report
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.pagespeed.svg
+  token: NOT_NEEDED
+  plugin_pagespeed: 'yes'
+  plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
+
 ```
+```yaml
+name: Detailed report
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.pagespeed.detailed.svg
+  token: NOT_NEEDED
+  plugin_pagespeed: 'yes'
+  plugin_pagespeed_detailed: 'yes'
+  plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
+
+```
+```yaml
+name: Screenshot
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.pagespeed.screenshot.svg
+  token: NOT_NEEDED
+  plugin_pagespeed: 'yes'
+  plugin_pagespeed_screenshot: 'yes'
+  plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
+
+```
+<!--/examples-->

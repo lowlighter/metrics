@@ -39,15 +39,30 @@ Extract the `token` query paramater from the link
 You now have your PoopMap token! This token will not expire and it can only access public details.
 </details>
 
+#### ➡️ Available options
+
+<!--options-->
+| Option | Type *(format)* **[default]** *{allowed values}* | Description |
+| ------ | -------------------------------- | ----------- |
+| `plugin_poopmap` | `boolean` **[no]** | Display PoopMap stats |
+| `plugin_poopmap_token` 🔐 | `token` **[]** | PoopMap API token |
+| `plugin_poopmap_days` | `number` **[7]** *{"7", "30", "180", "365"}* | PoopMap time range |
+
+
+Legend for option icons:
+* 🔐 Value should be stored in repository secrets
+* ✨ New feature currently in testing on `master`/`main`
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
+
 #### ℹ️ Examples workflows
 
-[➡️ Available options for this plugin](metadata.yml)
-
+<!--examples-->
 ```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_poopmap: yes
-    plugin_poopmap_token: ${{ secrets.POOPMAP_TOKEN }}      # Required
-    plugin_poopmap_days: 7                                  # Display last week stats
+uses: lowlighter/metrics@latest
+with:
+  plugin_poopmap: 'yes'
+
 ```
+<!--/examples-->

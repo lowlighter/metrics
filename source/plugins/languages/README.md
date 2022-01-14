@@ -43,29 +43,98 @@ Since Git lets you use any email and name for commits, metrics may not be able t
 
 For better results, it's advised to add either your surnames and eventually no-reply email addresses.
 
+#### ➡️ Available options
+
+<!--options-->
+| Option | Type *(format)* **[default]** *{allowed values}* | Description |
+| ------ | -------------------------------- | ----------- |
+| `plugin_languages` | `boolean` **[no]** | Display most used languages metrics |
+| `plugin_languages_ignored` | `array` *(comma-separated)* **[]** | Languages to ignore |
+| `plugin_languages_skipped` | `array` *(comma-separated)* **[]** | Repositories to skip |
+| `plugin_languages_limit` | `number` **[8]** *{0 ≤ 𝑥 ≤ 8}* | Maximum number of languages to display |
+| `plugin_languages_sections` | `array` *(comma-separated)* **[most-used]** *{"most-used", "recently-used"}* | Sections to display |
+| `plugin_languages_colors` | `array` *(comma-separated,/((?<index>[0-9])|(?<language>[-+a-z0-9#]+)):(?<color>#?[-a-z0-9]+)/)* **[github]** | Custom languages colors |
+| `plugin_languages_aliases` | `string` **[]** | Custom languages names |
+| `plugin_languages_details` | `array` *(comma-separated)* **[]** *{"bytes-size", "percentage", "lines"}* | Additional details |
+| `plugin_languages_threshold` | `string` **[0%]** | Minimum threshold |
+| `plugin_languages_indepth` | `boolean` **[false]** | Indepth languages processing (see documentation before enabling) |
+| `plugin_languages_analysis_timeout` | `number` **[15]** *{1 ≤ 𝑥 ≤ 30}* | Languages analysis timeout |
+| `plugin_languages_categories` | `array` *(comma-separated)* **[markup, programming]** *{"data", "markup", "programming", "prose"}* | Language categories to display |
+| `plugin_languages_recent_categories` | `array` *(comma-separated)* **[markup, programming]** *{"data", "markup", "programming", "prose"}* | Language categories to display (for recently used section) |
+| `plugin_languages_recent_load` | `number` **[300]** *{100 ≤ 𝑥 ≤ 1000}* | Number of events to load (for recently used section) |
+| `plugin_languages_recent_days` | `number` **[14]** *{0 ≤ 𝑥 ≤ 365}* | Maximum event age (for recently used section) |
+
+
+Legend for option icons:
+* 🔐 Value should be stored in repository secrets
+* ✨ New feature currently in testing on `master`/`main`
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
+
 #### ℹ️ Examples workflows
 
-[➡️ Available options for this plugin](metadata.yml)
-
+<!--examples-->
 ```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_languages: yes
-    plugin_languages_ignored: html, css                           # List of languages to ignore
-    plugin_languages_skipped: my-test-repo                        # List of repositories to skip
-    plugin_languages_limit: 8                                     # Display up to 8 languages
-    plugin_languages_sections: most-used, recently-used           # Display most used and recently used
-    plugin_languages_colors: "0:orange, javascript:#ff0000, ..."  # Make most used languages orange and JavaScript red
-    plugin_languages_aliases: "JavaScript:JS, TypeScript:TS, ..." # Customize languages names with aliases
-    plugin_languages_details: bytes-size, percentage              # Additionally display total bytes size and percentage
-    plugin_languages_threshold: 2%                                # Hides all languages less than 2%
-    languages stats
-    plugin_languages_indepth: no                                  # Get indepth stats (see documentation before enabling)
-    plugin_languages_analysis_timeout: 15                         # Set maximum time for indepth analysis
-    plugin_languages_categories: programming                      # Display only languages that match these categories in most-used section
-    plugin_languages_recent_categories: markup, programming, data # Display only languages that match these categories in recently-used section
-    plugin_languages_recent_load: 500                             # Load up to 500 events to compute recently used stats
-    plugin_languages_recent_days: 7                               # Limit recently used stats to last week
-    commits_authoring: octocat@users.noreply.github.com           # Surnames or email addresses used to identify your commits
+name: Most used
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.languages.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ''
+  plugin_languages: 'yes'
+  plugin_languages_ignored: >-
+    html, css, tex, less, dockerfile, makefile, qmake, lex, cmake, shell,
+    gnuplot
+  plugin_languages_limit: 4
+
 ```
+```yaml
+name: Most used (with details)
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.languages.details.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ''
+  plugin_languages: 'yes'
+  plugin_languages_ignored: >-
+    html, css, tex, less, dockerfile, makefile, qmake, lex, cmake, shell,
+    gnuplot
+  plugin_languages_details: bytes-size, percentage
+  plugin_languages_limit: 4
+
+```
+```yaml
+name: Recently used
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.languages.recent.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ''
+  plugin_languages: 'yes'
+  plugin_languages_ignored: >-
+    html, css, tex, less, dockerfile, makefile, qmake, lex, cmake, shell,
+    gnuplot
+  plugin_languages_sections: recently-used
+  plugin_languages_details: bytes-size, percentage
+  plugin_languages_limit: 4
+
+```
+```yaml
+name: Indepth analysis
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.languages.indepth.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ''
+  plugin_languages: 'yes'
+  plugin_languages_ignored: >-
+    html, css, tex, less, dockerfile, makefile, qmake, lex, cmake, shell,
+    gnuplot
+  plugin_languages_indepth: 'yes'
+  plugin_languages_details: lines, bytes-size
+  plugin_languages_limit: 4
+  plugin_languages_analysis_timeout: 15
+
+```
+<!--/examples-->

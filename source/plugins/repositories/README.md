@@ -13,14 +13,34 @@ It is mostly intended for external usage as [pinned repositories](https://www.go
 
 Because of limitations of using SVG inside of `<img>` tags, people won't be able to click on it.
 
+#### ➡️ Available options
+
+<!--options-->
+| Option | Type *(format)* **[default]** *{allowed values}* | Description |
+| ------ | -------------------------------- | ----------- |
+| `plugin_repositories` | `boolean` **[no]** | Display chosen featured repositories |
+| `plugin_repositories_featured` | `array` *(comma-separated)* **[]** | List of repositories to display |
+
+
+Legend for option icons:
+* 🔐 Value should be stored in repository secrets
+* ✨ New feature currently in testing on `master`/`main`
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
+
 #### ℹ️ Examples workflows
 
-[➡️ Available options for this plugin](metadata.yml)
-
+<!--examples-->
 ```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_repositories: yes
-    plugin_repositories_featured: lowlighter/metrics, denoland/deno  # List of repositories you want to feature
+name: Featured repositories
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.repositories.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ''
+  plugin_repositories: 'yes'
+  plugin_repositories_featured: lowlighter/metrics
+
 ```
+<!--/examples-->

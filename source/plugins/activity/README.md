@@ -29,20 +29,43 @@ It uses data from [GitHub events](https://docs.github.com/en/free-pro-team@lates
 
 Use a full `repo` scope token to display **private** events.
 
+#### ➡️ Available options
+
+<!--options-->
+| Option | Type *(format)* **[default]** *{allowed values}* | Description |
+| ------ | -------------------------------- | ----------- |
+| `plugin_activity` | `boolean` **[no]** | Display recent activity |
+| `plugin_activity_limit` | `number` **[5]** *{1 ≤ 𝑥 ≤ 1000}* | Maximum number of events to display |
+| `plugin_activity_load` | `number` **[300]** *{100 ≤ 𝑥 ≤ 1000}* | Number of events to load |
+| `plugin_activity_days` | `number` **[14]** *{0 ≤ 𝑥 ≤ 365}* | Maximum event age |
+| `plugin_activity_filter` | `array` *(comma-separated)* **[all]** *{"all", "comment", "ref/create", "ref/delete", "release", "push", "issue", "pr", "review", "wiki", "fork", "star", "member", "public"}* | Events types to keep |
+| `plugin_activity_visibility` | `string` **[all]** *{"public", "all"}* | Set events visibility |
+| `plugin_activity_timestamps` | `boolean` **[no]** | Display events timestamps |
+| `plugin_activity_skipped` | `array` *(comma-separated)* **[]** | Repositories to skip |
+| `plugin_activity_ignored` | `undefined` **[github-actions[bot], dependabot[bot], dependabot-preview[bot]]** | Actors to ignore |
+
+
+Legend for option icons:
+* 🔐 Value should be stored in repository secrets
+* ✨ New feature currently in testing on `master`/`main`
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
+
 #### ℹ️ Examples workflows
 
-[➡️ Available options for this plugin](metadata.yml)
-
+<!--examples-->
 ```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_activity: yes
-    plugin_activity_limit: 5           # Limit to 5 events
-    plugin_activity_load: 100          # Load up to 100 recent events from API (should be higher than "limit")
-    plugin_activity_days: 14           # Keep only events from last 14 days (set to 0 for no limit)
-    plugin_activity_filter: all        # Show all events (use table above to filter events types)
-    plugin_activity_visibility: public # Only display public events
-    plugin_activity_timestamps: yes    # Display events timestamps
-    plugin_activity_skipped: repo      # Ignored repositories
+name: Recent activity
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.activity.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ''
+  plugin_activity: 'yes'
+  plugin_activity_limit: 5
+  plugin_activity_days: 0
+  plugin_activity_filter: issue, pr, release, fork, review, ref/create
+
 ```
+<!--/examples-->

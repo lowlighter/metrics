@@ -14,14 +14,44 @@ The *sponsors* plugin lets you display your sponsors and introduction text from 
   </td>
 </table>
 
+#### ➡️ Available options
+
+<!--options-->
+| Option | Type *(format)* **[default]** *{allowed values}* | Description |
+| ------ | -------------------------------- | ----------- |
+| `plugin_sponsors` | `boolean` **[no]** | Display GitHub sponsors |
+| `plugin_sponsors_sections` | `array` *(comma-separated)* **[goal, about]** *{"goal", "about"}* | Sections to display |
+
+
+Legend for option icons:
+* 🔐 Value should be stored in repository secrets
+* ✨ New feature currently in testing on `master`/`main`
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
+
 #### ℹ️ Examples workflows
 
-[➡️ Available options for this plugin](metadata.yml)
-
+<!--examples-->
 ```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_sponsors: yes
-    plugin_sponsors_sections: goal, about # Display goal and about sections
+name: Sponsors goal
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.sponsors.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ''
+  plugin_sponsors: 'yes'
+  plugin_sponsors_sections: goal
+
 ```
+```yaml
+name: Sponsors introduction
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.sponsors.full.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ''
+  plugin_sponsors: 'yes'
+
+```
+<!--/examples-->

@@ -18,17 +18,37 @@ Create a [RapidAPI account](https://rapidapi.com) and subscribe to [Yahoo Financ
 
 </details>
 
+#### ➡️ Available options
+
+<!--options-->
+| Option | Type *(format)* **[default]** *{allowed values}* | Description |
+| ------ | -------------------------------- | ----------- |
+| `plugin_stock` | `boolean` **[no]** | Display stock prices of a given company |
+| `plugin_stock_token` 🔐 | `token` **[]** | Yahoo Finance token |
+| `plugin_stock_symbol` | `string` **[]** | Company stock symbol |
+| `plugin_stock_duration` | `string` **[1d]** *{"1d", "5d", "1mo", "3mo", "6mo", "1y", "2y", "5y", "10y", "ytd", "max"}* | Time range to display |
+| `plugin_stock_interval` | `string` **[5m]** *{"1m", "2m", "5m", "15m", "60m", "1d"}* | Time intervals between records |
+
+
+Legend for option icons:
+* 🔐 Value should be stored in repository secrets
+* ✨ New feature currently in testing on `master`/`main`
+<!--/options-->
+
+*[→ Full specification](metadata.yml)*
+
 #### ℹ️ Examples workflows
 
-[➡️ Available options for this plugin](metadata.yml)
-
+<!--examples-->
 ```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_stock: yes
-    plugin_stock_token: ${{ secrets.STOCK_TOKEN }} # RapidAPI Yahoo Finance token
-    plugin_stock_symbol: TSLA                      # Display Tesla stock price
-    plugin_stock_duration: 1d                      # Display last day of market
-    plugin_stock_interval: 5m                      # Use precision of 5 minutes for each record
+name: Stock prices from Tesla
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.stock.svg
+  token: NOT_NEEDED
+  base: ''
+  plugin_stock: 'yes'
+  plugin_stock_symbol: TSLA
+
 ```
+<!--/examples-->
