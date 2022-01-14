@@ -1,0 +1,1 @@
+This branch use the same [LICENSE](https://github.com/lowlighter/metrics/blob/master/LICENSE) as the `main` branch.
