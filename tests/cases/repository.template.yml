@@ -1,0 +1,11 @@
+- name: 📘 Repository template - Example
+  uses: lowlighter/metrics@latest
+  with:
+    template: repository
+    token: MOCKED_TOKEN
+    user: lowlighter
+    repo: metrics
+    plugin_lines: 'yes'
+    plugin_followup: 'yes'
+    plugin_projects: 'yes'
+    plugin_projects_repositories: lowlighter/metrics/projects/1
