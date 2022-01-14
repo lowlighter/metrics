@@ -5,7 +5,7 @@ import url from "url"
 import sgit from "simple-git"
 
 //Git setup
-const __metrics = paths.join(paths.dirname(url.fileURLToPath(import.meta.url)), "..")
+const __metrics = paths.join(paths.dirname(url.fileURLToPath(import.meta.url)), "../..")
 const git = sgit(__metrics)
 
 //Setup octokit

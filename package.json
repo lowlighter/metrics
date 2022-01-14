@@ -6,9 +6,9 @@
   "scripts": {
     "start": "node source/app/web/index.mjs",
     "test": "jest --runInBand",
-    "index": "node .github/index.mjs",
-    "quickstart": "node .github/quickstart/index.mjs",
-    "preview": "node .github/preview.mjs",
+    "build": "node .github/scripts/build.mjs",
+    "quickstart": "node .github/scripts/quickstart/index.mjs",
+    "preview": "node .github/scripts/preview.mjs",
     "linter": "eslint source/**/*.mjs --quiet",
     "format": "eslint source/**/*.mjs --fix",
     "dev": "nodemon source/app/web/index.mjs -e mjs,css,ejs,json",

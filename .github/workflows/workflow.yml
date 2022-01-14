@@ -115,7 +115,7 @@ jobs:
       - name: Setup metrics
         run: npm ci
       - name: Publish rebuild metrics indexes
-        run: npm run index -- publish
+        run: npm run build -- publish
 
   # Rebase main branch on master
   update-main:
@@ -269,7 +269,7 @@ jobs:
       - name: Setup metrics
         run: npm ci
       - name: Publish release
-        run: node .github/release.mjs
+        run: node .github/scripts/release.mjs
         env:
           GITHUB_TOKEN: ${{ github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}

@@ -8,8 +8,8 @@ import ejs from "ejs"
 const [mode, name] = process.argv.slice(2)
 
 //Paths
-const __metrics = paths.join(paths.dirname(url.fileURLToPath(import.meta.url)), "../..")
-const __quickstart = paths.join(__metrics, ".github/quickstart")
+const __metrics = paths.join(paths.dirname(url.fileURLToPath(import.meta.url)), "../../..")
+const __quickstart = paths.join(__metrics, ".github/scripts/quickstart")
 
 //Check arguments
 if ((!mode)||(!name))
