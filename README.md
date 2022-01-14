@@ -1,0 +1,1 @@
+Auto-generated examples from [lowlighter/metrics](https://github.com/lowlighter/metrics)!
