@@ -19,14 +19,14 @@ async function plugin(id) {
   const path = paths.join(__plugins, id)
   const readme = paths.join(path, "README.md")
   const examples = paths.join(path, "examples.yml")
-  const tests = paths.join(__test_plugins, id)
+  const tests = paths.join(__test_plugins, `${id}.yml`)
   return {
     readme:{
       path:readme,
       content:`${await fs.readFile(readme)}`
     },
     tests:{
-      path:paths.join(__test_plugins, `${id}.yml`)
+      path:tests
     },
     examples:fss.existsSync(examples) ? yaml.load(await fs.readFile(examples), "utf8") ?? [] : [],
     options:plugins[id].readme.table
@@ -59,6 +59,8 @@ for (const id of Object.keys(plugins)) {
   )
   //Plugin tests
   await fs.writeFile(tests.path, yaml.dump(examples.map(({prod, test = {}, name = "", ...step}) => {
+    if (test.skip)
+      return null
     const result = {name:`${plugins[id].name} - ${name}`, ...step, ...test}
     test.with ??= {}
     for (const [k, v] of Object.entries(result.with)) {
@@ -71,7 +73,7 @@ for (const id of Object.keys(plugins)) {
       delete result.with.base
     delete result.with.filename
     return result
-  })))
+  }).filter(t => t)))
 
 }
 
