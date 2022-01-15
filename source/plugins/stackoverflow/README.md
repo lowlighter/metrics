@@ -62,10 +62,10 @@ Your user id will be in both url and search bar.
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(1 ≤
 𝑥
 ≤ 30)</i>
+<br>
 <b>default:</b> 2<br></td>
   </tr>
   <tr>
@@ -74,9 +74,9 @@ Your user id will be in both url and search bar.
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(0 ≤
 𝑥)</i>
+<br>
 <b>default:</b> 4<br></td>
   </tr>
   <tr>
@@ -85,9 +85,9 @@ Your user id will be in both url and search bar.
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(0 ≤
 𝑥)</i>
+<br>
 <b>default:</b> 2<br></td>
   </tr>
 </table>

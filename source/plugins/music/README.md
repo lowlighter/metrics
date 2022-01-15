@@ -262,10 +262,10 @@ Click on the Name of any matching request. In the “Headers” tab, scroll to t
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(1 ≤
 𝑥
 ≤ 100)</i>
+<br>
 <b>default:</b> 4<br></td>
   </tr>
   <tr>

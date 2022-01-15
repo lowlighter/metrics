@@ -59,10 +59,10 @@ This uses puppeteer to navigate through your starred topics page.
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(0 ≤
 𝑥
 ≤ 20)</i>
+<br>
 <b>default:</b> 15<br></td>
   </tr>
 </table>

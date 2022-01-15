@@ -42,10 +42,10 @@ Display a random code snippet from your recent activity history.
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(100 ≤
 𝑥
 ≤ 1000)</i>
+<br>
 <b>default:</b> 100<br></td>
   </tr>
   <tr>

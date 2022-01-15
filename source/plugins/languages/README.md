@@ -65,10 +65,11 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(0 ≤
 𝑥
 ≤ 8)</i>
+<br>
+<b>zero behaviour:</b> disable</br>
 <b>default:</b> 8<br></td>
   </tr>
   <tr>
@@ -138,10 +139,10 @@
   <tr>
     <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
 <b>type:</b> <code>number</code>
-<br>
 <i>(1 ≤
 𝑥
 ≤ 30)</i>
+<br>
 <b>default:</b> 15<br></td>
   </tr>
   <tr>
@@ -175,10 +176,10 @@
   <tr>
     <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
 <b>type:</b> <code>number</code>
-<br>
 <i>(100 ≤
 𝑥
 ≤ 1000)</i>
+<br>
 <b>default:</b> 300<br></td>
   </tr>
   <tr>
@@ -188,10 +189,11 @@
   <tr>
     <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
 <b>type:</b> <code>number</code>
-<br>
 <i>(0 ≤
 𝑥
 ≤ 365)</i>
+<br>
+<b>zero behaviour:</b> disable</br>
 <b>default:</b> 14<br></td>
   </tr>
 </table>

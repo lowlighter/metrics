@@ -62,10 +62,10 @@ To do so, open your repository project and retrieve the last URL endpoint, in th
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(0 ≤
 𝑥
 ≤ 100)</i>
+<br>
 <b>default:</b> 4<br></td>
   </tr>
   <tr>

@@ -66,10 +66,10 @@ Create an app from your [developer dashboard](https://developer.twitter.com/en/p
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(1 ≤
 𝑥
 ≤ 10)</i>
+<br>
 <b>default:</b> 2<br></td>
   </tr>
   <tr>

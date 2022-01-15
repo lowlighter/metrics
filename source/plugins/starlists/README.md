@@ -33,10 +33,10 @@ The *starlists* plugin displays your recently star lists.
   <tr>
     <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
 <b>type:</b> <code>number</code>
-<br>
 <i>(1 ≤
 𝑥
 ≤ 100)</i>
+<br>
 <b>default:</b> 2<br></td>
   </tr>
   <tr>
@@ -46,10 +46,10 @@ The *starlists* plugin displays your recently star lists.
   <tr>
     <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
 <b>type:</b> <code>number</code>
-<br>
 <i>(0 ≤
 𝑥
 ≤ 100)</i>
+<br>
 <b>default:</b> 2<br></td>
   </tr>
   <tr>

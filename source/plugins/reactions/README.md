@@ -31,10 +31,10 @@ The *reactions* plugin displays overall reactions on your recent issues and issu
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(0 ≤
 𝑥
 ≤ 1000)</i>
+<br>
 <b>default:</b> 200<br></td>
   </tr>
   <tr>
@@ -43,10 +43,10 @@ The *reactions* plugin displays overall reactions on your recent issues and issu
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(0 ≤
 𝑥
 ≤ 1000)</i>
+<br>
 <b>default:</b> 100<br></td>
   </tr>
   <tr>
@@ -55,10 +55,10 @@ The *reactions* plugin displays overall reactions on your recent issues and issu
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(0 ≤
 𝑥
 ≤ 1000)</i>
+<br>
 <b>default:</b> 100<br></td>
   </tr>
   <tr>
@@ -67,10 +67,10 @@ The *reactions* plugin displays overall reactions on your recent issues and issu
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(0 ≤
 𝑥
 ≤ 1000)</i>
+<br>
 <b>default:</b> 100<br></td>
   </tr>
   <tr>
@@ -79,9 +79,9 @@ The *reactions* plugin displays overall reactions on your recent issues and issu
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(0 ≤
 𝑥)</i>
+<br>
 <b>default:</b> 0<br></td>
   </tr>
   <tr>

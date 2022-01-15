@@ -71,9 +71,9 @@ Then setup [WakaTime plugins](https://wakatime.com/plugins) to be ready to go!
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(0 ≤
 𝑥)</i>
+<br>
 <b>default:</b> 5<br></td>
   </tr>
   <tr>

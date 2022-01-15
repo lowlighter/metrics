@@ -48,9 +48,9 @@ These are all enabled by default, but you can explicitely opt out from them.
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(0 ≤
 𝑥)</i>
+<br>
 <b>default:</b> 100<br></td>
   </tr>
   <tr>
@@ -59,10 +59,10 @@ These are all enabled by default, but you can explicitely opt out from them.
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(1 ≤
 𝑥
 ≤ 100)</i>
+<br>
 <b>default:</b> 100<br></td>
   </tr>
   <tr>

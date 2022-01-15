@@ -260,10 +260,10 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(1 ≤
 𝑥
 ≤ 10)</i>
+<br>
 <b>default:</b> 3<br></td>
   </tr>
   <tr>
@@ -272,10 +272,10 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(0 ≤
 𝑥
 ≤ 3600)</i>
+<br>
 <b>default:</b> 300<br></td>
   </tr>
   <tr>
@@ -284,10 +284,10 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(1 ≤
 𝑥
 ≤ 10)</i>
+<br>
 <b>default:</b> 5<br></td>
   </tr>
   <tr>
@@ -296,10 +296,10 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(0 ≤
 𝑥
 ≤ 3600)</i>
+<br>
 <b>default:</b> 120<br></td>
   </tr>
   <tr>
@@ -308,10 +308,10 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(0 ≤
 𝑥
 ≤ 3600)</i>
+<br>
 <b>default:</b> 0<br></td>
   </tr>
   <tr>
@@ -328,7 +328,7 @@ Metrics also have general options that impact global metrics rendering.
     <td rowspan="2">Die on plugins errors<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">🔧 For development
+    <td nowrap="nowrap">🔧 For development<br>
 <b>type:</b> <code>boolean</code>
 <br>
 <b>default:</b> no<br></td>
@@ -338,7 +338,7 @@ Metrics also have general options that impact global metrics rendering.
     <td rowspan="2">Debug logs<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">🔧 For development
+    <td nowrap="nowrap">🔧 For development<br>
 <b>type:</b> <code>boolean</code>
 <br>
 <b>default:</b> no<br></td>
@@ -348,7 +348,7 @@ Metrics also have general options that impact global metrics rendering.
     <td rowspan="2">Verify SVG<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">🔧 For development
+    <td nowrap="nowrap">🔧 For development<br>
 <b>type:</b> <code>boolean</code>
 <br>
 <b>default:</b> no<br></td>
@@ -358,7 +358,7 @@ Metrics also have general options that impact global metrics rendering.
     <td rowspan="2">Debug flags<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">🔧 For development
+    <td nowrap="nowrap">🔧 For development<br>
 <b>type:</b> <code>array</code>
 <i>(space-separated)</i>
 <br>
@@ -369,7 +369,7 @@ Metrics also have general options that impact global metrics rendering.
     <td rowspan="2">Enable dry-run<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">🔧 For development
+    <td nowrap="nowrap">🔧 For development<br>
 <b>type:</b> <code>boolean</code>
 <br>
 <b>default:</b> no<br></td>
@@ -379,7 +379,7 @@ Metrics also have general options that impact global metrics rendering.
     <td rowspan="2">Experimental features<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">🔧 For development
+    <td nowrap="nowrap">🔧 For development<br>
 <b>type:</b> <code>array</code>
 <i>(space-separated)</i>
 <br>
@@ -390,7 +390,7 @@ Metrics also have general options that impact global metrics rendering.
     <td rowspan="2">Use mocked data instead of live APIs<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">🔧 For development
+    <td nowrap="nowrap">🔧 For development<br>
 <b>type:</b> <code>boolean</code>
 <br>
 <b>default:</b> no<br></td>

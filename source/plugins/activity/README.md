@@ -51,10 +51,10 @@ Use a full `repo` scope token to display **private** events.
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(1 ≤
 𝑥
 ≤ 1000)</i>
+<br>
 <b>default:</b> 5<br></td>
   </tr>
   <tr>
@@ -63,10 +63,10 @@ Use a full `repo` scope token to display **private** events.
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(100 ≤
 𝑥
 ≤ 1000)</i>
+<br>
 <b>default:</b> 300<br></td>
   </tr>
   <tr>
@@ -75,10 +75,10 @@ Use a full `repo` scope token to display **private** events.
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(0 ≤
 𝑥
 ≤ 365)</i>
+<br>
 <b>default:</b> 14<br></td>
   </tr>
   <tr>

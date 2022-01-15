@@ -63,10 +63,10 @@ The recent *posts* plugin displays recent articles you wrote on an external sour
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(1 ≤
 𝑥
 ≤ 30)</i>
+<br>
 <b>default:</b> 4<br></td>
   </tr>
   <tr>

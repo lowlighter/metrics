@@ -69,9 +69,9 @@ These sections can also be filtered by media type, which can be either `anime`, 
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(0 ≤
 𝑥)</i>
+<br>
 <b>default:</b> 2<br></td>
   </tr>
   <tr>
@@ -80,9 +80,9 @@ These sections can also be filtered by media type, which can be either `anime`, 
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(0 ≤
 𝑥)</i>
+<br>
 <b>default:</b> 22<br></td>
   </tr>
   <tr>

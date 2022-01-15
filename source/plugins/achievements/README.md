@@ -78,9 +78,9 @@ It also lets you quickly see at a glance what this user primarly use GitHub for,
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(0 ≤
 𝑥)</i>
+<br>
 <b>default:</b> 0<br></td>
   </tr>
   <tr>

@@ -47,10 +47,10 @@ By default, dates use Greenwich meridian (GMT/UTC). Be sure to set your timezone
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(1 ≤
 𝑥
 ≤ 1000)</i>
+<br>
 <b>default:</b> 200<br></td>
   </tr>
   <tr>
@@ -59,10 +59,10 @@ By default, dates use Greenwich meridian (GMT/UTC). Be sure to set your timezone
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(1 ≤
 𝑥
 ≤ 30)</i>
+<br>
 <b>default:</b> 14<br></td>
   </tr>
   <tr>

@@ -39,10 +39,10 @@ The *rss* plugin displays items from a specified RSS feed.
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(0 ≤
 𝑥
 ≤ 30)</i>
+<br>
 <b>default:</b> 4<br></td>
   </tr>
 </table>

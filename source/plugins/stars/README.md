@@ -31,10 +31,10 @@ The *stars* plugin displays your recently starred repositories.
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(1 ≤
 𝑥
 ≤ 100)</i>
+<br>
 <b>default:</b> 4<br></td>
   </tr>
 </table>

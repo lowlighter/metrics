@@ -35,9 +35,9 @@ This uses puppeteer to generate collect image frames, and use CSS animations to 
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(2008 ≤
 𝑥)</i>
+<br>
 <b>default:</b> current-year<br></td>
   </tr>
   <tr>
@@ -46,10 +46,10 @@ This uses puppeteer to generate collect image frames, and use CSS animations to 
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(1 ≤
 𝑥
 ≤ 120)</i>
+<br>
 <b>default:</b> 60<br></td>
   </tr>
   <tr>
@@ -58,10 +58,10 @@ This uses puppeteer to generate collect image frames, and use CSS animations to 
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(0.1 ≤
 𝑥
 ≤ 1)</i>
+<br>
 <b>default:</b> 0.5<br></td>
   </tr>
   <tr>

@@ -55,9 +55,9 @@ Sections will be ordered the same as specified in `plugin_people_types`.
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(0 ≤
 𝑥)</i>
+<br>
 <b>default:</b> 24<br></td>
   </tr>
   <tr>
@@ -66,10 +66,10 @@ Sections will be ordered the same as specified in `plugin_people_types`.
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(8 ≤
 𝑥
 ≤ 64)</i>
+<br>
 <b>default:</b> 28<br></td>
   </tr>
   <tr>

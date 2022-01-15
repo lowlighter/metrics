@@ -47,9 +47,9 @@ The [nightscout website](http://www.nightscout.info/) details how to self-host a
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(0 ≤
 𝑥)</i>
+<br>
 <b>default:</b> 12<br></td>
   </tr>
   <tr>
@@ -58,9 +58,9 @@ The [nightscout website](http://www.nightscout.info/) details how to self-host a
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(0 ≤
 𝑥)</i>
+<br>
 <b>default:</b> 80<br></td>
   </tr>
   <tr>
@@ -69,9 +69,9 @@ The [nightscout website](http://www.nightscout.info/) details how to self-host a
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(0 ≤
 𝑥)</i>
+<br>
 <b>default:</b> 180<br></td>
   </tr>
   <tr>
@@ -80,9 +80,9 @@ The [nightscout website](http://www.nightscout.info/) details how to self-host a
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(0 ≤
 𝑥)</i>
+<br>
 <b>default:</b> 50<br></td>
   </tr>
   <tr>
@@ -91,9 +91,9 @@ The [nightscout website](http://www.nightscout.info/) details how to self-host a
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<br>
 <i>(0 ≤
 𝑥)</i>
+<br>
 <b>default:</b> 250<br></td>
   </tr>
 </table>
