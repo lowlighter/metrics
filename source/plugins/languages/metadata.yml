@@ -1,5 +1,11 @@
 name: "🈷️ Most used languages"
 category: github
+description: This plugin can display which languages you use across all repositories you contributed to.
+examples:
+  +indepth analysis (clone and analyze repositories): https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.indepth.svg
+  +recently used (analyze recent activity events): https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.recent.svg
+  default algorithm: https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.svg
+  default algorithm (with details): https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.details.svg
 index: 1
 supports:
   - user
@@ -9,113 +15,92 @@ scopes:
   - public_access
 inputs:
 
-  # Enable or disable plugin
   plugin_languages:
-    description: Display most used languages metrics
+    description: Enable languages plugin
     type: boolean
     default: no
 
-  # List of languages that will be ignored
   plugin_languages_ignored:
-    description: Languages to ignore
+    description: Ignored languages
     type: array
     format: comma-separated
     default: ""
     example: html, css, ...
 
-  # List of repositories that will be skipped
   plugin_languages_skipped:
-    description: Repositories to skip
+    description: Skipped repositories
     type: array
     format: comma-separated
     default: ""
     example: my-repo-1, my-repo-2, owner/repo-3, ...
+    inherits: repositories_skipped
 
-  # Number of languages to display
-  # Set to 0 to disable limitations
   plugin_languages_limit:
-    description: Maximum number of languages to display
+    description: Display limit
     type: number
     default: 8
     min: 0
     max: 8
+    zero: disable
 
-  # Sections to display
-  plugin_languages_sections:
-    description: Sections to display
-    type: array
-    format: comma-separated
-    default: most-used
-    example: most-used, recently-used
-    values:
-      - most-used      # Most used languages
-      - recently-used  # Recently used languages
-    extras: yes
+  plugin_languages_threshold:
+    description: Display threshold (percentage)
+    type: string
+    default: 0%
 
-  # Overrides default languages colors
-  # Use `${n}:${color}` to change the color of the n-th most used language (e.g. "0:red" to make your most used language red)
-  # Use `${language}:${color}` to change the color of named language (e.g. "javascript:red" to make JavaScript language red, language case is ignored)
-  # Use a value from `colorsets.json` to use a predefined set of colors
-  # Both hexadecimal and named colors are supported
-  # This cannot be used when "plugin_languages_limit" is greater than 8
   plugin_languages_colors:
     description: Custom languages colors
     type: array
-    format:
-      - comma-separated
-      - /((?<index>[0-9])|(?<language>[-+a-z0-9#]+)):(?<color>#?[-a-z0-9]+)/
+    format: comma-separated
     default: github
     example: javascript:red, 0:blue, 1:#ff00aa
 
-  # Overrides default languages name
-  # Use `${language}:${alias}` to change the name of language (e.g. "javascript:JS" to make JavaScript render as "JS", case of left operand ignored)
   plugin_languages_aliases:
     description: Custom languages names
     type: string
     default: ""
     example: javascript:JS typescript:TS
 
-  # Languages additional details
+  plugin_languages_sections:
+    extras: yes
+    description: Displayed sections
+    type: array
+    format: comma-separated
+    default: most-used
+    example: most-used, recently-used
+    values:
+      - most-used
+      - recently-used
+
   plugin_languages_details:
+    extras: yes
     description: Additional details
     type: array
     format: comma-separated
     values:
-      - bytes-size # Languages total size written in bytes
-      - percentage # Languages proportions in %
-      - lines      # Estimation of lines of code (plugin_languages_indepth must be enabled)
+      - bytes-size
+      - percentage
+      - lines
     default: ""
     example: bytes-size, percentage
 
-  # Minimum threshold (in percentage) to reach for languages to be displayed
-  plugin_languages_threshold:
-    description: Minimum threshold
-    type: string
-    default: 0%
-
-  # Compute indepth languages statistics by cloning repositories and processing your commits individually
-  # See documentation before enabling
   plugin_languages_indepth:
-    description: Indepth languages processing (see documentation before enabling)
+    extras: yes
+    description: Indepth mode (⚠️ read documentation first)
     type: boolean
     default: false
-    extras: yes
 
-  # Analysis timeout (in minutes)
-  # In case of timeout, it'll automatically fallback to default algorithm
-  # Please be nice with GitHub Actions and disable `plugin_languages_indepth` if your account is not supported
-  # See documentation before enabling
   plugin_languages_analysis_timeout:
-    description: Languages analysis timeout
+    extras: yes
+    description: Indepth mode - Analysis timeout
     type: number
     default: 15
     min: 1
     max: 30
-    extras: yes
 
-  # GitHub language categories to display
   plugin_languages_categories:
-    description: Language categories to display
+    extras: yes
+    description: Indepth mode - Displayed categories (most-used section)
     type: array
     format: comma-separated
     values:
@@ -125,9 +110,9 @@ inputs:
       - prose
     default: markup, programming
 
-  # GitHub language categories to display in recently-used section
   plugin_languages_recent_categories:
-    description: Language categories to display (for recently used section)
+    extras: yes
+    description: Indepth mode - Displayed categories (recently-used section)
     type: array
     format: comma-separated
     values:
@@ -137,21 +122,19 @@ inputs:
       - prose
     default: markup, programming
 
-  # Number of activity events to load (for recently used languages statistics)
-  # A high number will consume more requests
   plugin_languages_recent_load:
-    description: Number of events to load (for recently used section)
+    extras: yes
+    description: Events to load (recently-used section)
     type: number
     default: 300
     min: 100
     max: 1000
 
-  # Filter events by age (for recently used languages statistics)
-  # Set to 0 to disable age filtering
-  # Note that metrics won't be able to load more events than GitHub is able to provide
   plugin_languages_recent_days:
-    description: Maximum event age (for recently used section)
+    extras: yes
+    description: Events maximum age (day, recently-used section)
     type: number
     default: 14
     min: 0
     max: 365
+    zero: disable
