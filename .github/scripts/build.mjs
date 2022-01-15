@@ -63,10 +63,11 @@ for (const id of Object.keys(plugins)) {
 
 //Templates
 for (const id of Object.keys(templates)) {
-  const {examples, readme, tests} = await template(id)
+  const {examples, readme, tests, header} = await template(id)
 
   //Readme
   await fs.writeFile(readme.path, readme.content
+    .replace(/(<!--header-->)[\s\S]*(<!--\/header-->)/g, `$1\n${header}\n$2`)
     .replace(/(<!--examples-->)[\s\S]*(<!--\/examples-->)/g, `$1\n${examples.map(({test, prod, ...step}) => ["```yaml", yaml.dump(step), "```"].join("\n")).join("\n")}\n$2`)
   )
   console.log(`Generating source/templates/${id}/README.md`)
@@ -139,6 +140,7 @@ async function template(id) {
       path:tests
     },
     examples:fss.existsSync(examples) ? yaml.load(await fs.readFile(examples), "utf8") ?? [] : [],
+    header:templates[id].readme.header
   }
 }
 

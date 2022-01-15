@@ -382,9 +382,52 @@ metadata.template = async function({__templates, name, plugins, logger}) {
       }
     }
 
+    //Header table
+    const header = [
+      "<table>",
+      `  <tr><th colspan="2"><h3>${meta.name ?? "(unnamed template)"}</h3></th></tr>`,
+      `  <tr><td colspan="2" align="center">${(meta.description ?? "").replaceAll("\n", "<br>")}</td></tr>`,
+      `  <tr>`,
+      `    <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>`,
+      `    <td>${Object.entries(compatibility).filter(([_, value]) => value).map(([id]) => `<a href="/source/plugins/${id}" title="${plugins[id].name}">${plugins[id].icon}</a>`).join(" ")}</td>`,
+      `  </tr>`,
+      `  <tr>`,
+      `    <td>${[
+        meta.supports?.includes("user") ? "👤 Users" : "",
+        meta.supports?.includes("organization") ? "👥 Organizations" : "",
+        meta.supports?.includes("repository") ? "📓 Repositories" : ""
+      ].filter(v => v).join(", ")}</td>`,
+      `  </tr>`,
+      `  <tr>`,
+      `    <td>${[
+        meta.formats?.includes("svg") ? "*️⃣ SVG" : "",
+        meta.formats?.includes("png") ? "*️⃣ PNG" : "",
+        meta.formats?.includes("jpeg") ? "*️⃣ JPEG" : "",
+        meta.formats?.includes("json") ? "#️⃣ JSON" : "",
+        meta.formats?.includes("markdown") ? "🔠 Markdown" : "",
+        meta.formats?.includes("markdown-pdf") ? "🔠 Markdown (PDF)" : "",
+      ].filter(v => v).join(", ")}</td>`,
+      `  </tr>`,
+      `  <tr>`,
+      `    <td  colspan="2" align="center">`,
+      `${Object.entries(meta.examples ?? {}).map(([text, link]) => {
+        let img = `<img src="${link}" alt=""></img>`
+        if (text !== "default") {
+          const open = text.charAt(0) === "+" ? " open" : ""
+          img = `<details><summary${open}>${open ? text.substring(1) : text}</summary>${img}</details>`
+        }
+        return `      ${img}`
+      }).join("\n")}`,
+      `      <img width="900" height="1" alt="">`,
+      `    </td>`,
+      `  </tr>`,
+      "</table>"
+    ].join("\n")
+
     //Result
     return {
-      name:meta.name ?? readme.match(/^### (?<name>[\s\S]+?)\n/)?.groups?.name?.trim(),
+      name:meta.name ?? "(unnamed template)",
+      description:meta.description ?? "",
       index:meta.index ?? null,
       formats:meta.formats ?? null,
       supports:meta.supports ?? null,
@@ -395,6 +438,7 @@ metadata.template = async function({__templates, name, plugins, logger}) {
           ...Object.fromEntries(Object.entries(compatibility).filter(([_, value]) => !value).map(([key, value]) => [key, meta.formats?.includes("markdown") ? "embed" : value])),
           base:true
         },
+        header
       },
       check({q, account = "bypass", format = null}) {
         //Support check
