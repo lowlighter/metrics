@@ -23,6 +23,7 @@ jobs:
       - name: 🗃️ Base content - Default metrics
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.base.svg
           token: ${{ secrets.METRICS_TOKEN }}
           base: header, activity, community, repositories, metadata
           plugins_errors_fatal: 'yes'
@@ -32,6 +33,7 @@ jobs:
       - name: 🧱 Core - Organization
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.organization.svg
           user: github
           token: ${{ secrets.METRICS_TOKEN_WITH_SCOPES }}
           base: header, repositories
@@ -42,6 +44,7 @@ jobs:
       - name: 🧱 Core - Large display
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.large.svg
           token: ${{ secrets.METRICS_TOKEN }}
           config_display: large
           plugins_errors_fatal: 'yes'
@@ -52,6 +55,7 @@ jobs:
         if: ${{ success() || failure() }}
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.example.json
           token: ${{ secrets.METRICS_TOKEN }}
           config_output: json
           plugins_errors_fatal: 'yes'
@@ -61,6 +65,7 @@ jobs:
         if: ${{ success() || failure() }}
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.example.png
           token: ${{ secrets.METRICS_TOKEN }}
           config_output: png
           plugins_errors_fatal: 'yes'
@@ -69,7 +74,9 @@ jobs:
       - name: 🧱 Core - Plugin error example
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.error.svg
           token: ${{ secrets.METRICS_TOKEN }}
+          base: ''
           plugin_projects: 'yes'
           plugins_errors_fatal: 'yes'
           output_action: none
@@ -78,7 +85,9 @@ jobs:
       - name: 📅 Isometric commit calendar - Half-year calendar
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.isocalendar.svg
           token: ${{ secrets.METRICS_TOKEN }}
+          base: ''
           plugin_isocalendar: 'yes'
           plugins_errors_fatal: 'yes'
           output_action: none
@@ -87,7 +96,9 @@ jobs:
       - name: 📅 Isometric commit calendar - Full-year calendar
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.isocalendar.fullyear.svg
           token: ${{ secrets.METRICS_TOKEN }}
+          base: ''
           plugin_isocalendar: 'yes'
           plugin_isocalendar_duration: full-year
           plugins_errors_fatal: 'yes'
@@ -97,7 +108,9 @@ jobs:
       - name: 🈷️ Most used languages - Most used
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.languages.svg
           token: ${{ secrets.METRICS_TOKEN }}
+          base: ''
           plugin_languages: 'yes'
           plugin_languages_ignored: >-
             html, css, tex, less, dockerfile, makefile, qmake, lex, cmake, shell,
@@ -110,7 +123,9 @@ jobs:
       - name: 🈷️ Most used languages - Most used (with details)
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.languages.details.svg
           token: ${{ secrets.METRICS_TOKEN }}
+          base: ''
           plugin_languages: 'yes'
           plugin_languages_ignored: >-
             html, css, tex, less, dockerfile, makefile, qmake, lex, cmake, shell,
@@ -124,7 +139,9 @@ jobs:
       - name: 🈷️ Most used languages - Recently used
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.languages.recent.svg
           token: ${{ secrets.METRICS_TOKEN }}
+          base: ''
           plugin_languages: 'yes'
           plugin_languages_ignored: >-
             html, css, tex, less, dockerfile, makefile, qmake, lex, cmake, shell,
@@ -139,7 +156,9 @@ jobs:
       - name: 🈷️ Most used languages - Indepth analysis
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.languages.indepth.svg
           token: ${{ secrets.METRICS_TOKEN }}
+          base: ''
           plugin_languages: 'yes'
           plugin_languages_ignored: >-
             html, css, tex, less, dockerfile, makefile, qmake, lex, cmake, shell,
@@ -155,7 +174,9 @@ jobs:
       - name: 📌 Starred topics - Labels
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.topics.svg
           token: ${{ secrets.METRICS_TOKEN }}
+          base: ''
           plugin_topics: 'yes'
           plugin_topics_limit: 12
           plugins_errors_fatal: 'yes'
@@ -165,7 +186,9 @@ jobs:
       - name: 📌 Starred topics - Icons
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.topics.icons.svg
           token: ${{ secrets.METRICS_TOKEN }}
+          base: ''
           plugin_topics: 'yes'
           plugin_topics_limit: 0
           plugin_topics_mode: icons
@@ -176,7 +199,9 @@ jobs:
       - name: 🌟 Recently starred repositories - Recently starred
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.stars.svg
           token: ${{ secrets.METRICS_TOKEN }}
+          base: ''
           plugin_stars: 'yes'
           plugin_stars_limit: 3
           plugins_errors_fatal: 'yes'
@@ -185,7 +210,9 @@ jobs:
         if: ${{ success() || failure() }}
       - name: 📜 Repository licenses - Licenses and permissions
         with:
+          filename: metrics.plugin.licenses.svg
           token: ${{ secrets.METRICS_TOKEN }}
+          base: ''
           template: repository
           repo: metrics
           plugin_licenses: 'yes'
@@ -198,7 +225,9 @@ jobs:
       - name: 📜 Repository licenses - Licenses with open-source ratio graphs
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.licenses.ratio.svg
           token: ${{ secrets.METRICS_TOKEN }}
+          base: ''
           template: repository
           repo: metrics
           plugin_licenses: 'yes'
@@ -212,7 +241,9 @@ jobs:
       - name: 💡 Coding habits - Midly interesting facts
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.habits.facts.svg
           token: ${{ secrets.METRICS_TOKEN }}
+          base: ''
           plugin_habits: 'yes'
           plugin_habits_facts: 'yes'
           plugin_habits_charts: 'no'
@@ -224,7 +255,9 @@ jobs:
       - name: 💡 Coding habits - Recent activity charts
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.habits.charts.svg
           token: ${{ secrets.METRICS_TOKEN }}
+          base: ''
           plugin_habits: 'yes'
           plugin_habits_facts: 'no'
           plugin_habits_charts: 'yes'
@@ -236,7 +269,9 @@ jobs:
       - name: 🏅 Repository contributors - Contributors with contributions count
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.contributors.contributions.svg
           token: ${{ secrets.METRICS_TOKEN }}
+          base: ''
           template: repository
           repo: metrics
           plugin_contributors: 'yes'
@@ -248,7 +283,9 @@ jobs:
       - name: 🏅 Repository contributors - Contributors by categories
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.contributors.categories.svg
           token: ${{ secrets.METRICS_TOKEN }}
+          base: ''
           template: repository
           repo: metrics
           plugin_contributors: 'yes'
@@ -266,7 +303,9 @@ jobs:
       - name: 🎟️ Follow-up of issues and pull requests - Opened on user's repositories
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.followup.svg
           token: ${{ secrets.METRICS_TOKEN }}
+          base: ''
           plugin_followup: 'yes'
           plugins_errors_fatal: 'yes'
           output_action: none
@@ -275,7 +314,9 @@ jobs:
       - name: 🎟️ Follow-up of issues and pull requests - Opened by user
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.followup.user.svg
           token: ${{ secrets.METRICS_TOKEN }}
+          base: ''
           plugin_followup: 'yes'
           plugin_followup_sections: user
           plugins_errors_fatal: 'yes'
@@ -285,7 +326,9 @@ jobs:
       - name: 🎟️ Follow-up of issues and pull requests - Indepth analysis
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.followup.indepth.svg
           token: ${{ secrets.METRICS_TOKEN }}
+          base: ''
           plugin_followup: 'yes'
           plugin_followup_indepth: 'yes'
           plugins_errors_fatal: 'yes'
@@ -295,7 +338,9 @@ jobs:
       - name: 🎭 Comment reactions - Comment reactions
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.reactions.svg
           token: ${{ secrets.METRICS_TOKEN }}
+          base: ''
           plugin_reactions: 'yes'
           plugin_reactions_limit: 100
           plugin_reactions_details: percentage
@@ -306,7 +351,9 @@ jobs:
       - name: 🧑‍🤝‍🧑 People plugin - Followers
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.people.followers.svg
           token: ${{ secrets.METRICS_TOKEN }}
+          base: ''
           plugin_people: 'yes'
           plugin_people_types: followers
           plugins_errors_fatal: 'yes'
@@ -316,7 +363,9 @@ jobs:
       - name: 🧑‍🤝‍🧑 People plugin - Contributors and sponsors
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.people.repository.svg
           token: ${{ secrets.METRICS_TOKEN }}
+          base: ''
           template: repository
           repo: metrics
           plugin_people: 'yes'
@@ -331,7 +380,9 @@ jobs:
       - name: ✨ Stargazers over last weeks - Last weeks stargazers
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.stargazers.svg
           token: ${{ secrets.METRICS_TOKEN }}
+          base: ''
           plugin_stargazers: 'yes'
           plugins_errors_fatal: 'yes'
           output_action: none
@@ -340,7 +391,9 @@ jobs:
       - name: 🗂️ Active projects - Project from a repository
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.projects.svg
           token: ${{ secrets.METRICS_TOKEN_WITH_SCOPES }}
+          base: ''
           plugin_projects: 'yes'
           plugin_projects_repositories: lowlighter/metrics/projects/1
           plugin_projects_descriptions: 'yes'
@@ -351,7 +404,9 @@ jobs:
       - name: ♐ Code snippet of the day - JavaScript or TypeScript snippet of the day
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.code.svg
           token: ${{ secrets.METRICS_TOKEN }}
+          base: ''
           plugin_code: 'yes'
           plugin_code_languages: javascript, typescript
           plugin_code_load: 400
@@ -362,7 +417,9 @@ jobs:
       - name: 📰 Recent activity - Recent activity
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.activity.svg
           token: ${{ secrets.METRICS_TOKEN }}
+          base: ''
           plugin_activity: 'yes'
           plugin_activity_limit: 5
           plugin_activity_days: 0
@@ -374,7 +431,9 @@ jobs:
       - name: 🏆 Achievements - Detailed display
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.achievements.svg
           token: ${{ secrets.METRICS_TOKEN }}
+          base: ''
           plugin_achievements: 'yes'
           plugin_achievements_only: sponsor, maintainer, octonaut
           plugins_errors_fatal: 'yes'
@@ -384,7 +443,9 @@ jobs:
       - name: 🏆 Achievements - Compact display
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.achievements.compact.svg
           token: ${{ secrets.METRICS_TOKEN }}
+          base: ''
           plugin_achievements: 'yes'
           plugin_achievements_only: >-
             polyglot, stargazer, sponsor, deployer, member, maintainer, developer,
@@ -398,7 +459,9 @@ jobs:
       - name: 🎩 Notable contributions - Contributions
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.notable.svg
           token: ${{ secrets.METRICS_TOKEN }}
+          base: ''
           plugin_notable: 'yes'
           plugins_errors_fatal: 'yes'
           output_action: none
@@ -407,7 +470,9 @@ jobs:
       - name: 🎩 Notable contributions - Indepth analysis
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.notable.indepth.svg
           token: ${{ secrets.METRICS_TOKEN }}
+          base: ''
           plugin_notable: 'yes'
           plugin_notable_indepth: 'yes'
           plugin_notable_repositories: 'yes'
@@ -418,7 +483,9 @@ jobs:
       - name: 💬 Discussions - GitHub Discussions
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.discussions.svg
           token: ${{ secrets.METRICS_TOKEN }}
+          base: ''
           plugin_discussions: 'yes'
           plugin_discussions_categories_limit: 8
           plugins_errors_fatal: 'yes'
@@ -428,7 +495,9 @@ jobs:
       - name: 💭 GitHub Community Support - GitHub Community Support
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.support.svg
           token: NOT_NEEDED
+          base: ''
           plugin_support: 'yes'
           plugins_errors_fatal: 'yes'
           output_action: none
@@ -437,6 +506,7 @@ jobs:
       - name: 👨‍💻 Lines of code changed - Lines of code changed
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.lines.svg
           token: ${{ secrets.METRICS_TOKEN }}
           base: repositories
           plugin_lines: 'yes'
@@ -447,7 +517,10 @@ jobs:
       - name: 🧮 Repositories traffic - Repositories traffic
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.traffic.svg
           token: ${{ secrets.METRICS_TOKEN_WITH_SCOPES }}
+          base: repositories
+          plugin_traffic: 'yes'
           plugins_errors_fatal: 'yes'
           output_action: none
           delay: 120
@@ -455,7 +528,9 @@ jobs:
       - name: 📓 Repositories - Featured repositories
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.repositories.svg
           token: ${{ secrets.METRICS_TOKEN }}
+          base: ''
           plugin_repositories: 'yes'
           plugin_repositories_featured: lowlighter/metrics
           plugins_errors_fatal: 'yes'
@@ -465,7 +540,9 @@ jobs:
       - name: 🎫 Gists - Gists
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.gists.svg
           token: ${{ secrets.METRICS_TOKEN }}
+          base: ''
           plugin_gists: 'yes'
           plugins_errors_fatal: 'yes'
           output_action: none
@@ -474,7 +551,11 @@ jobs:
       - name: 🙋 Introduction - Organization introduction
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.introduction.svg
           token: ${{ secrets.METRICS_TOKEN_WITH_SCOPES }}
+          user: github
+          base: header
+          plugin_introduction: 'yes'
           plugins_errors_fatal: 'yes'
           output_action: none
           delay: 120
@@ -482,6 +563,7 @@ jobs:
       - name: 🙋 Introduction - Repository introduction
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.introduction.repository.svg
           token: ${{ secrets.METRICS_TOKEN }}
           template: repository
           repo: metrics
@@ -494,7 +576,9 @@ jobs:
       - name: 💕 GitHub Sponsors - Sponsors goal
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.sponsors.svg
           token: ${{ secrets.METRICS_TOKEN }}
+          base: ''
           plugin_sponsors: 'yes'
           plugin_sponsors_sections: goal
           plugins_errors_fatal: 'yes'
@@ -504,7 +588,9 @@ jobs:
       - name: 💕 GitHub Sponsors - Sponsors introduction
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.sponsors.full.svg
           token: ${{ secrets.METRICS_TOKEN }}
+          base: ''
           plugin_sponsors: 'yes'
           plugins_errors_fatal: 'yes'
           output_action: none
@@ -513,7 +599,9 @@ jobs:
       - name: 💫 Starlists - Featured star list
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.starlists.svg
           token: ${{ secrets.METRICS_TOKEN }}
+          base: ''
           plugin_starlists: 'yes'
           plugin_starlists_limit_repositories: 2
           plugin_starlists_only: 🤘 TC39
@@ -524,7 +612,9 @@ jobs:
       - name: 🌇 GitHub Skyline 3D calendar - GitHub Skyline
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.skyline.svg
           token: NOT_NEEDED
+          base: ''
           plugin_skyline: 'yes'
           plugin_skyline_year: 2020
           plugin_skyline_frames: 6
@@ -536,7 +626,9 @@ jobs:
       - name: ⏱️ Website performances - Succint report
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.pagespeed.svg
           token: NOT_NEEDED
+          base: ''
           plugin_pagespeed: 'yes'
           plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
           plugin_pagespeed_url: https://lecoq.io
@@ -547,7 +639,9 @@ jobs:
       - name: ⏱️ Website performances - Detailed report
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.pagespeed.detailed.svg
           token: NOT_NEEDED
+          base: ''
           plugin_pagespeed: 'yes'
           plugin_pagespeed_detailed: 'yes'
           plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
@@ -559,7 +653,9 @@ jobs:
       - name: ⏱️ Website performances - Screenshot
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.pagespeed.screenshot.svg
           token: NOT_NEEDED
+          base: ''
           plugin_pagespeed: 'yes'
           plugin_pagespeed_screenshot: 'yes'
           plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
@@ -571,7 +667,9 @@ jobs:
       - name: 🎼 Music plugin - Apple Music - Random track from playlist
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.music.playlist.svg
           token: NOT_NEEDED
+          base: ''
           plugin_music: 'yes'
           plugin_music_playlist: https://embed.music.apple.com/fr/playlist/usr-share/pl.u-V9D7m8Etjmjd0D
           plugin_music_limit: 2
@@ -582,7 +680,9 @@ jobs:
       - name: 🎼 Music plugin - Spotify - Random track from playlist
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.music.playlist.spotify.svg
           token: NOT_NEEDED
+          base: ''
           plugin_music: 'yes'
           plugin_music_playlist: https://open.spotify.com/embed/playlist/3nfA87oeJw4LFVcUDjRcqi
           plugins_errors_fatal: 'yes'
@@ -592,7 +692,9 @@ jobs:
       - name: 🎼 Music plugin - Spotify - Recently listed
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.music.recent.svg
           token: NOT_NEEDED
+          base: ''
           plugin_music: 'yes'
           plugin_music_provider: spotify
           plugin_music_mode: recent
@@ -606,6 +708,7 @@ jobs:
         uses: lowlighter/metrics@master
         with:
           token: NOT_NEEDED
+          base: ''
           plugin_music: 'yes'
           plugin_music_mode: top
           plugin_music_provider: spotify
@@ -620,6 +723,7 @@ jobs:
         uses: lowlighter/metrics@master
         with:
           token: NOT_NEEDED
+          base: ''
           plugin_music: 'yes'
           plugin_music_mode: top
           plugin_music_provider: spotify
@@ -634,6 +738,7 @@ jobs:
         uses: lowlighter/metrics@master
         with:
           token: NOT_NEEDED
+          base: ''
           plugin_music: 'yes'
           plugin_music_playlist: >-
             https://music.youtube.com/playlist?list=OLAK5uy_kU_uxp9TUOl9zVdw77xith8o9AknVwz9U
@@ -644,7 +749,9 @@ jobs:
       - name: 🗨️ Stackoverflow plugin - Top answers from stackoverflow
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.stackoverflow.svg
           token: ${{ secrets.METRICS_TOKEN }}
+          base: ''
           plugin_stackoverflow: 'yes'
           plugin_stackoverflow_user: 1
           plugin_stackoverflow_sections: answers-top
@@ -658,7 +765,9 @@ jobs:
           watching
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.anilist.svg
           token: NOT_NEEDED
+          base: ''
           plugin_anilist: 'yes'
           plugin_anilist_medias: anime
           plugin_anilist_sections: favorites, watching
@@ -672,7 +781,9 @@ jobs:
           reading
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.anilist.manga.svg
           token: NOT_NEEDED
+          base: ''
           plugin_anilist: 'yes'
           plugin_anilist_medias: manga
           plugin_anilist_sections: favorites, reading
@@ -684,7 +795,9 @@ jobs:
       - name: 🌸 Anilist watch list and reading list - Favorites characters
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.anilist.characters.svg
           token: NOT_NEEDED
+          base: ''
           plugin_anilist: 'yes'
           plugin_anilist_sections: characters
           plugin_anilist_limit_characters: 22
@@ -695,7 +808,9 @@ jobs:
       - name: 🐤 Latest tweets - Latest tweets
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.tweets.svg
           token: NOT_NEEDED
+          base: ''
           plugin_tweets: 'yes'
           plugin_tweets_token: ${{ secrets.TWITTER_TOKEN }}
           plugin_tweets_user: github
@@ -706,7 +821,9 @@ jobs:
       - name: 🐤 Latest tweets - Latest tweets including attachments
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.tweets.attachments.svg
           token: NOT_NEEDED
+          base: ''
           plugin_tweets: 'yes'
           plugin_tweets_token: ${{ secrets.TWITTER_TOKEN }}
           plugin_tweets_attachments: 'yes'
@@ -718,7 +835,9 @@ jobs:
       - name: ✒️ Recent posts - Recent posts
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.posts.svg
           token: ${{ secrets.METRICS_TOKEN }}
+          base: ''
           plugin_posts: 'yes'
           plugin_posts_source: dev.to
           plugins_errors_fatal: 'yes'
@@ -728,7 +847,9 @@ jobs:
       - name: ✒️ Recent posts - Recent posts with descriptions and cover images
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.posts.full.svg
           token: ${{ secrets.METRICS_TOKEN }}
+          base: ''
           plugin_posts: 'yes'
           plugin_posts_source: dev.to
           plugin_posts_descriptions: 'yes'
@@ -740,7 +861,9 @@ jobs:
       - name: 🗼 Rss feed - News from hackernews
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.rss.svg
           token: NOT_NEEDED
+          base: ''
           plugin_rss: 'yes'
           plugin_rss_source: https://news.ycombinator.com/rss
           plugin_rss_limit: 4
@@ -751,6 +874,11 @@ jobs:
       - name: ⏰ WakaTime plugin - WakaTime
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.wakatime.svg
+          token: NOT_NEEDED
+          base: ''
+          plugin_wakatime: 'yes'
+          plugin_wakatime_sections: time, projects, projects-graphs, languages, languages-graphs, editors, os
           plugin_wakatime_token: MOCKED_TOKEN
           use_mocked_data: 'yes'
           plugins_errors_fatal: 'yes'
@@ -760,7 +888,9 @@ jobs:
       - name: 💹 Stock prices - Stock prices from Tesla
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.stock.svg
           token: NOT_NEEDED
+          base: ''
           plugin_stock: 'yes'
           plugin_stock_token: ${{ secrets.STOCK_TOKEN }}
           plugin_stock_symbol: TSLA
@@ -771,7 +901,9 @@ jobs:
       - name: 📸 Website screenshot - XKCD of the day
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.plugin.screenshot.svg
           token: ${{ secrets.METRICS_TOKEN }}
+          base: ''
           plugin_screenshot: 'yes'
           plugin_screenshot_title: XKCD of the day
           plugin_screenshot_url: https://xkcd.com
@@ -783,6 +915,7 @@ jobs:
       - name: 📗 Classic template - Example
         uses: lowlighter/metrics@master
         with:
+          filename: metrics.classic.svg
           token: ${{ secrets.METRICS_TOKEN }}
           base: header, repositories
           plugin_lines: 'yes'
@@ -794,6 +927,7 @@ jobs:
         uses: lowlighter/metrics@master
         with:
           template: repository
+          filename: metrics.repository.svg
           token: ${{ secrets.METRICS_TOKEN_WITH_SCOPES }}
           user: lowlighter
           repo: metrics
@@ -809,6 +943,7 @@ jobs:
         uses: lowlighter/metrics@master
         with:
           template: terminal
+          filename: metrics.terminal.svg
           token: ${{ secrets.METRICS_TOKEN }}
           base: header, metadata
           plugins_errors_fatal: 'yes'
@@ -819,6 +954,7 @@ jobs:
         uses: lowlighter/metrics@master
         with:
           template: markdown
+          filename: metrics.markdown.md
           markdown: metrics.markdown.template.md
           config_output: markdown
           token: ${{ secrets.METRICS_TOKEN }}
@@ -830,6 +966,7 @@ jobs:
         uses: lowlighter/metrics@master
         with:
           template: markdown
+          filename: metrics.markdown.full.md
           markdown: >-
             https://raw.githubusercontent.com/lowlighter/metrics/master/source/templates/markdown/example.md
           config_output: markdown
@@ -863,6 +1000,7 @@ jobs:
         uses: lowlighter/metrics@master
         with:
           template: markdown
+          filename: metrics.markdown.pdf
           markdown: >-
             https://raw.githubusercontent.com/lowlighter/metrics/master/source/templates/markdown/example.pdf.md
           config_output: markdown-pdf

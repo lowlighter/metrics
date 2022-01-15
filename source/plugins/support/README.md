@@ -32,6 +32,7 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.support.svg
   token: NOT_NEEDED
+  base: ''
   plugin_support: 'yes'
 
 ```

@@ -147,21 +147,19 @@ async function template(id) {
 }
 
 //Testcase generator
-function testcase(name, env, {prod = {}, test = {}, ...step}) {
+function testcase(name, env, args) {
+  const {prod = {}, test = {}, ...step} = JSON.parse(JSON.stringify(args))
   const context = {prod, test}[env] ?? {}
   if (context.skip)
     return null
-  const result = {...JSON.parse(JSON.stringify(step)), ...context, name:`${name} - ${step.name ?? "(unnamed)"}`}
-  context.with ??= {}
+
+  Object.assign(step.with, context.with ?? {})
+  delete context.with
+  const result = {...step, ...context, name:`${name} - ${step.name ?? "(unnamed)"}`}
   for (const [k, v] of Object.entries(result.with)) {
-    if (k in context.with)
-      result.with[k] = context.with[k]
     if ((env === "test")&&(secrets.$regex.test(v)))
       result.with[k] = v.replace(secrets.$regex, secrets[v.match(secrets.$regex)?.groups?.secret])
   }
-  if (!result.with.base)
-    delete result.with.base
-  delete result.with.filename
 
   if (env === "prod") {
     result.if = "${{ success() || failure() }}"
@@ -170,8 +168,12 @@ function testcase(name, env, {prod = {}, test = {}, ...step}) {
   }
 
   if (env === "test") {
+    if (!result.with.base)
+      delete result.with.base
+    delete result.with.filename
     Object.assign(result.with, {use_mocked_data:"yes", verify:"yes"})
   }
 
+  console.log(arguments, result)
   return result
 }

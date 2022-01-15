@@ -53,6 +53,7 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.pagespeed.svg
   token: NOT_NEEDED
+  base: ''
   plugin_pagespeed: 'yes'
   plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
   plugin_pagespeed_url: https://lecoq.io
@@ -64,6 +65,7 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.pagespeed.detailed.svg
   token: NOT_NEEDED
+  base: ''
   plugin_pagespeed: 'yes'
   plugin_pagespeed_detailed: 'yes'
   plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
@@ -76,6 +78,7 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.pagespeed.screenshot.svg
   token: NOT_NEEDED
+  base: ''
   plugin_pagespeed: 'yes'
   plugin_pagespeed_screenshot: 'yes'
   plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
