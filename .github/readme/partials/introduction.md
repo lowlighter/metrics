@@ -14,7 +14,7 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
 -%>
   <tr>
     <th colspan="2" align="center">
-      <a href="/source/plugins/README.md">🧩 Customizable with <%= Object.entries(plugins).filter(([key, value]) => (value)&&(!["base", "core"].includes(key))).length %> plugins and <%= Object.entries(descriptor.inputs).length %> options!</a>
+      <h3><a href="/source/plugins/README.md">🧩 Customizable with <%= Object.entries(plugins).filter(([key, value]) => (value)&&(!["base", "core"].includes(key))).length %> plugins and <%= Object.entries(descriptor.inputs).length %> options!</a></h3>
     </th>
   </tr>
 <%  if (elements.length%2)
@@ -49,7 +49,7 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
 -%>
   <tr>
     <th colspan="2" align="center">
-      <a href="/source/templates/README.md">🖼️ And even more with <%= elements.length %>+ templates!</a>
+      <h3><a href="/source/templates/README.md">🖼️ And even more with <%= elements.length %>+ templates!</a></h3>
     </th>
   </tr>
 <%  if (elements.length%2)
