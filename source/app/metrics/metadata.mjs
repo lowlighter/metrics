@@ -4,6 +4,7 @@ import yaml from "js-yaml"
 import path from "path"
 import url from "url"
 import fetch from "node-fetch"
+import {marked} from "marked"
 
 //Defined categories
 const categories = ["core", "github", "social", "community"]
@@ -359,7 +360,7 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
             cell.push(`<b>allowed values:</b><ul>${o.values.map(value => `<li>${value}</li>`).join("")}</ul>`)
           return `  <tr>
     <td nowrap="nowrap"><code>${option}</code></td>
-    <td rowspan="2">${description}<img width="900" height="1" alt=""></td>
+    <td rowspan="2">${marked.parse(description, {silent:true})}<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">${cell.join("\n")}</td>
@@ -379,6 +380,7 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
     return meta
   }
   catch (error) {
+    console.warn(error)
     logger(`metrics/metadata > failed to load plugin ${name}: ${error}`)
     return null
   }
