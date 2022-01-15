@@ -382,6 +382,23 @@ metadata.template = async function({__templates, name, plugins, logger}) {
       }
     }
 
+    //Demo for main and individual readmes
+    function demo({colspan = null} = {}) {
+      return [
+        `    <td ${colspan ? `colspan="${colspan}"` : ""} align="center">`,
+        `${Object.entries(meta.examples ?? {}).map(([text, link]) => {
+          let img = `<img src="${link}" alt=""></img>`
+          if (text !== "default") {
+            const open = text.charAt(0) === "+" ? " open" : ""
+            img = `<details><summary${open}>${open ? text.substring(1) : text}</summary>${img}</details>`
+          }
+          return `      ${img}`
+        }).join("\n")}`,
+        `      <img width="900" height="1" alt="">`,
+        `    </td>`
+      ].join("\n")
+    }
+
     //Header table
     const header = [
       "<table>",
@@ -409,17 +426,7 @@ metadata.template = async function({__templates, name, plugins, logger}) {
       ].filter(v => v).join(", ")}</td>`,
       `  </tr>`,
       `  <tr>`,
-      `    <td  colspan="2" align="center">`,
-      `${Object.entries(meta.examples ?? {}).map(([text, link]) => {
-        let img = `<img src="${link}" alt=""></img>`
-        if (text !== "default") {
-          const open = text.charAt(0) === "+" ? " open" : ""
-          img = `<details><summary${open}>${open ? text.substring(1) : text}</summary>${img}</details>`
-        }
-        return `      ${img}`
-      }).join("\n")}`,
-      `      <img width="900" height="1" alt="">`,
-      `    </td>`,
+      demo({colspan:2}),
       `  </tr>`,
       "</table>"
     ].join("\n")
@@ -432,7 +439,7 @@ metadata.template = async function({__templates, name, plugins, logger}) {
       formats:meta.formats ?? null,
       supports:meta.supports ?? null,
       readme:{
-        demo:readme.match(/(?<demo><table>[\s\S]*?<[/]table>)/)?.groups?.demo?.replace(/<[/]?(?:table|tr)>/g, "")?.trim() ?? (name === "community" ? '<td align="center" colspan="2">See <a href="/source/templates/community/README.md">documentation</a> 🌍</td>' : "<td></td>"),
+        demo:demo(),
         compatibility:{
           ...Object.fromEntries(Object.entries(compatibility).filter(([_, value]) => value)),
           ...Object.fromEntries(Object.entries(compatibility).filter(([_, value]) => !value).map(([key, value]) => [key, meta.formats?.includes("markdown") ? "embed" : value])),
