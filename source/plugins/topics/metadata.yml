@@ -1,44 +1,59 @@
 name: "📌 Starred topics"
 category: github
+description: |
+  This plugin displays [starred topics](https://github.com/stars?filter=topics).
+  Check out [GitHub topics](https://github.com/topics) to search interesting topics.
+examples:
+  +with icons: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.topics.icons.svg
+  +with labels: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.topics.svg
 index: 2
 supports:
   - user
 scopes: []
 inputs:
 
-  # Enable or disable plugin
   plugin_topics:
-    description: Display starred topics
+    description: Enable topics plugin
     type: boolean
     default: no
 
-  # Plugin mode
   plugin_topics_mode:
-    description: Plugin mode
+    description: |
+      Display mode:
+      - `labels`: display labels
+      - `icons`: display icons *(topics without icons will be ignored)*
+      - `starred`: alias for `labels`
+      - `mastered`: alias for `icons`
     type: string
     default: starred
     values:
-      - starred  # Display starred topics as labels
-      - icons    # Display starred topics as icons
-      - mastered # Display starred topics as mastered/known technologies icons
+      - labels
+      - icons
+      - starred
+      - mastered
 
-  # Topics sorting order
   plugin_topics_sort:
-    description: Sorting method of starred topics
+    description: |
+      Sorting method:
+      - `stars`: sort by most stars
+      - `activity`: sort by recent activity
+      - `starred`: sort by the date you starred them
+      - `random`: sort topics randomly
     type: string
     default: stars
     values:
-      - stars    # Sort topics by stargazers
-      - activity # Sort topics by recent activity
-      - starred  # Sort topics by the date you starred them
-      - random   # Sort topics randomly
+      - stars
+      - activity
+      - starred
+      - random
 
-  # Number of topics to display
-  # Set to 0 to disable limitations
-  # When in "starred" mode, additional topics will be grouped into an ellipsis
   plugin_topics_limit:
-    description: Maximum number of topics to display
+    description: |
+      Display limit
+
+      When using `plugin_topics_mode: labels`, an ellipsis will be displayed
     type: number
     default: 15
     min: 0
     max: 20
+    zero: disable

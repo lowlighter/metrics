@@ -8,6 +8,7 @@ export default async function({login, data, imports, q, account}, {enabled = fal
 
     //Load inputs
     let {sort, mode, limit} = imports.metadata.plugins.topics.inputs({data, account, q})
+    const type = {starred:"labels", labels:"labels", mastered:"icons", icons:"icons"}[mode]
     const shuffle = (sort === "random")
 
     //Start puppeteer and navigate to topics
@@ -51,8 +52,8 @@ export default async function({login, data, imports, q, account}, {enabled = fal
       topics = imports.shuffle(topics)
     }
 
-    //Limit topics (starred mode)
-    if ((mode === "starred") && (limit > 0)) {
+    //Limit topics (labels)
+    if ((type === "labels") && (limit > 0)) {
       console.debug(`metrics/compute/${login}/plugins > topics > keeping only ${limit} topics`)
       const removed = topics.splice(limit)
       if (removed.length)
@@ -72,14 +73,14 @@ export default async function({login, data, imports, q, account}, {enabled = fal
       topic.description = imports.htmlescape(topic.description)
     }
 
-    //Filter topics with icon (mastered mode)
-    if (mode === "mastered") {
+    //Filter topics with icon (icons)
+    if (type === "icons") {
       console.debug(`metrics/compute/${login}/plugins > topics > filtering topics with icon`)
       topics = topics.filter(({icon}) => icon)
     }
 
-    //Limit topics (mastered mode)
-    if ((mode === "mastered") && (limit > 0)) {
+    //Limit topics (icons)
+    if ((type === "icons") && (limit > 0)) {
       console.debug(`metrics/compute/${login}/plugins > topics > keeping only ${limit} topics`)
       topics.splice(limit)
     }
