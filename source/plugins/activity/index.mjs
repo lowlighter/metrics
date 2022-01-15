@@ -19,6 +19,7 @@ export default async function({login, data, rest, q, account, imports}, {enabled
     if (!days)
       days = Infinity
     skipped.push(...data.shared["repositories.skipped"])
+    ignored.push(...data.shared["users.ignored"])
     const pages = Math.ceil(load / 100)
     const codelines = 2
 
