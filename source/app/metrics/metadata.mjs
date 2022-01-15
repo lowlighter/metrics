@@ -287,7 +287,7 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
       const header = [
         "<table>",
         `  <tr><th colspan="2"><h3>${meta.name}</h3></th></tr>`,
-        `  <tr><td colspan="2" align="center">${(meta.description ?? "").replace(/\n/g, "<br>")}</td></tr>`,
+        `  <tr><td colspan="2" align="center">${marked.parse(meta.description ?? "", {silent:true})}</td></tr>`,
         "  <tr>",
         '    <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>',
         `    <td>${Object.entries(compatibility).filter(([_, value]) => value).map(([id]) => `<a href="/source/templates/${id}"><code>${templates[id].name ?? ""}</code></a>`).join(" ")}</td>`,
@@ -304,7 +304,7 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
           ...(meta.scopes ?? []).map(scope => `<code>🔑 ${{public_access:"(scopeless)"}[scope] ?? scope}</code>`),
           ...Object.entries(inputs).filter(([_, {type}]) => type === "token").map(([token]) => `<code>🗝️ ${token}</code>`),
           ...(meta.scopes?.length ? ["read:org", "read:user", "repo"].map(scope => !meta.scopes.includes(scope) ? `<code>${scope} (optional)</code>` : null).filter(v => v) : [])
-        ].join(" ")}</td>`,
+        ].filter(v => v).join(" ") || "<i>No tokens are required for this plugin</i>"}</td>`,
         "  </tr>",
         "  <tr>",
         demos({colspan:2, examples:meta.examples}),
@@ -408,7 +408,7 @@ metadata.template = async function({__templates, name, plugins, logger}) {
     const header = [
       "<table>",
       `  <tr><th colspan="2"><h3>${meta.name ?? "(unnamed template)"}</h3></th></tr>`,
-      `  <tr><td colspan="2" align="center">${(meta.description ?? "").replace(/\n/g, "<br>")}</td></tr>`,
+      `  <tr><td colspan="2" align="center">${marked.parse(meta.description ?? "", {silent:true})}</td></tr>`,
       "  <tr>",
       '    <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>',
       `    <td>${Object.entries(compatibility).filter(([_, value]) => value).map(([id]) => `<a href="/source/plugins/${id}" title="${plugins[id].name}">${plugins[id].icon}</a>`).join(" ")}${meta.formats?.includes("markdown") ? " <code>✓ embed()</code>" : ""}</td>`,
