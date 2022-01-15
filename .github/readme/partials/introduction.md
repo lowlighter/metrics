@@ -1,4 +1,4 @@
-Generate metrics that can be embedded everywhere, including your GitHub profile readme! For users, organizations, and even repositories!
+Generate metrics that can be embedded everywhere, including your GitHub profile readme! Supports users, organizations, and even repositories!
 
 <table>
   <tr>
