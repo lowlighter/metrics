@@ -1,4 +1,4 @@
-name: Clean untagged docker images from ghcr.io
+name: Clean untagged docker images
 
 on:
   release:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   clean:
-    name: Clean untagged docker images from ghcr.io
+    name: Clean untagged docker images
     runs-on: ubuntu-latest
     continue-on-error: true
     steps:

@@ -3,6 +3,8 @@ on:
   schedule:
     - cron: "0 8 1/2 * *"
   workflow_dispatch:
+  workflow_call:
+
 jobs:
 
 # ======================================================================================
@@ -1035,7 +1037,7 @@ jobs:
           output_action: none
           delay: 120
         if: ${{ success() || failure() }}
-      
+
 
       - name: Publish examples
         if: ${{ success() || failure() }}

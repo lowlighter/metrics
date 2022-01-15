@@ -3,77 +3,22 @@ name: Build, test, analyze and publish
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
-    paths-ignore:
-      - '**/*.md'
-      - '**/*.png'
-  workflow_dispatch:
 
 jobs:
 
-  # Run linter to ensure new code respect coding rules
-  lint:
-    name: Lint code
+  # Build, test and analyze
+  build-test-analyze:
+    if: "!contains(github.event.head_commit.message, '[skip test]')"
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: Setup NodeJS
-        uses: actions/setup-node@v2
-        with:
-          node-version: 17
-      - name: Setup metrics
-        run: npm ci
-      - name: Check contributions requirements
-        run: npm test -- ci.test.js --noStackTrace
-      - name: Run linter
-        run: npm run linter
-
-  # Build docker image from branch and run tests
-  build:
-    name: Build and test
-    runs-on: ubuntu-latest
-    needs: [ lint ]
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Format code with dprint
-        run: |
-          curl -fsSL https://dprint.dev/install.sh | sh
-          cp /home/runner/.dprint/bin/dprint /usr/local/bin/dprint
-          npm install -g eslint
-          dprint fmt --config .github/config/dprint.json
-          npm run format
-      - name: Build lowlighter/metrics:${{ github.head_ref || 'master' }}
-        run: docker build -t lowlighter/metrics:$(echo ${{ github.head_ref || 'master' }} | sed 's/\//-/g') .
-      - name: Run tests
-        run: docker run --workdir=/metrics --entrypoint="" lowlighter/metrics:$(echo ${{ github.head_ref || 'master' }} | sed 's/\//-/g') npm test -- metrics.test.js
-
-  # Run CodeQL on branch
-  analyze:
-    name: Analyze code
-    runs-on: ubuntu-latest
-    needs: [ lint ]
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Setup CodeQL
-        uses: github/codeql-action/init@v1
-        with:
-          languages: javascript
-          config-file: ./.github/config/codeql.yml
-      - name: Analyze code
-        uses: github/codeql-action/analyze@v1
+      - name: Build, test and analyze
+        uses: lowlighter/metrics/.github/workflows/test.yml@master
 
   # Format code
   format:
     name: Format code
     runs-on: ubuntu-latest
-    needs: [ build, analyze ]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    needs: [ build-test-analyze ]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -93,9 +38,10 @@ jobs:
       - name: Publish formatted code
         run: |
           set +e
-          git status
-          git add --update
-          git commit -m "Auto-format code"
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add --all
+          git commit -m "chore: code formatting"
           git push
           set -e
 
@@ -103,8 +49,7 @@ jobs:
   update-indexes:
     name: Publish rebuilt metrics indexes
     runs-on: ubuntu-latest
-    needs: [ build, analyze, format ]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    needs: [ format ]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -122,7 +67,6 @@ jobs:
     name: Rebase main on master
     runs-on: ubuntu-latest
     needs: [ update-indexes ]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -146,7 +90,6 @@ jobs:
     name: Publish master to GitHub registry
     runs-on: ubuntu-latest
     needs: [ update-indexes ]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -177,7 +120,6 @@ jobs:
     name: Test lowlighter/metrics@master
     runs-on: ubuntu-latest
     needs: [ docker-master ]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     steps:
       - name: Run tests
         uses: lowlighter/metrics@master
@@ -194,7 +136,7 @@ jobs:
     name: Publish release to GitHub registry
     runs-on: ubuntu-latest
     needs: [ action-master-test ]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master' && contains(github.event.head_commit.message, '[release]')
+    if: contains(github.event.head_commit.message, '[release]')
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -211,12 +153,19 @@ jobs:
       - name: Publish latest to GitHub registry
         run: docker push ghcr.io/lowlighter/metrics:latest
 
+  # Publish examples
+  publish-examples:
+    runs-on: ubuntu-latest
+    needs: [ docker-release ]
+    steps:
+      - name: Publish examples
+        uses: lowlighter/metrics/.github/workflows/examples.yml@master
+
   # Rebase latest branch on master
   update-latest:
     name: Rebase latest on master
     runs-on: ubuntu-latest
     needs: [ docker-release ]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master' && contains(github.event.head_commit.message, '[release]')
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -242,7 +191,6 @@ jobs:
     name: Test lowlighter/metrics@latest
     runs-on: ubuntu-latest
     needs: [ update-latest ]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master' && contains(github.event.head_commit.message, '[release]')
     steps:
       - name: Run tests
         uses: lowlighter/metrics@latest
@@ -258,7 +206,6 @@ jobs:
     name: Publish release
     runs-on: ubuntu-latest
     needs: [ action-latest-test ]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master' && contains(github.event.head_commit.message, '[release]')
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -276,11 +223,11 @@ jobs:
           GITHUB_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
 
   # Deploy to metrics.lecoq.io
-  deploy-master:
-    name: Deploy lowlighter/metrics@master
+  deploy-latest:
+    name: Deploy lowlighter/metrics@latest
     runs-on: ubuntu-latest
-    needs: [ action-master-test ]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master' && contains(github.event.head_commit.message, '[deploy]')
+    needs: [ action-latest-test ]
+    if: contains(github.event.head_commit.message, '[deploy]')
     steps:
       - name: Deploy web instance
         run: "curl -H 'Content-Type: application/json' --data '${{ secrets.WEB_DEPLOY_TOKEN }}' -X POST https://deploy.metrics.lecoq.io"

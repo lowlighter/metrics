@@ -1,8 +1,11 @@
-name: Examples
+# THIS WORKFLOW IS AUTO-GENERATED
+name: Publish examples
 on:
   schedule:
     - cron: "0 8 1/2 * *"
   workflow_dispatch:
+  workflow_call:
+
 jobs:
 
 # ======================================================================================

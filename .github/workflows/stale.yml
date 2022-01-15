@@ -1,4 +1,4 @@
-name: Stale issues, pull requests and workflow runs
+name: Stale issues, pr and runs
 
 on:
   schedule:
