@@ -12,12 +12,32 @@ The *stars* plugin displays your recently starred repositories.
 #### ➡️ Available options
 
 <!--options-->
-| Option | Type *(format)* **[default]** *{allowed values}* | Description |
-| ------ | -------------------------------- | ----------- |
-| `plugin_stars` | `boolean` **[no]** | Display recently starred repositories |
-| `plugin_stars_limit` | `number` **[4]** *{1 ≤ 𝑥 ≤ 100}* | Maximum number of stars to display |
-
-
+<table>
+  <tr>
+    <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_stars</code></td>
+    <td rowspan="2">Display recently starred repositories<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_stars_limit</code></td>
+    <td rowspan="2">Maximum number of stars to display<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<br>
+<i>(1 ≤
+𝑥
+≤ 100)</i>
+<b>default:</b> 4<br></td>
+  </tr>
+</table>
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

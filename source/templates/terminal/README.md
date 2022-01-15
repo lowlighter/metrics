@@ -7,10 +7,10 @@
     <td><a href="/source/plugins/gists" title="🎫 Gists">🎫</a> <a href="/source/plugins/isocalendar" title="📅 Isometric commit calendar">📅</a> <a href="/source/plugins/languages" title="🈷️ Most used languages">🈷️</a> <a href="/source/plugins/lines" title="👨‍💻 Lines of code changed">👨‍💻</a> <a href="/source/plugins/pagespeed" title="⏱️ Website performances">⏱️</a> <a href="/source/plugins/screenshot" title="📸 Website screenshot">📸</a> <a href="/source/plugins/traffic" title="🧮 Repositories traffic">🧮</a></td>
   </tr>
   <tr>
-    <td>👤 Users, 👥 Organizations</td>
+    <td><code>👤 Users</code> <code>👥 Organizations</code></td>
   </tr>
   <tr>
-    <td>*️⃣ SVG, *️⃣ PNG, *️⃣ JPEG, #️⃣ JSON</td>
+    <td><code>*️⃣ SVG</code> <code>*️⃣ PNG</code> <code>*️⃣ JPEG</code> <code>#️⃣ JSON</code></td>
   </tr>
   <tr>
     <td colspan="2" align="center">

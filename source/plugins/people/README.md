@@ -36,18 +36,90 @@ Sections will be ordered the same as specified in `plugin_people_types`.
 #### ➡️ Available options
 
 <!--options-->
-| Option | Type *(format)* **[default]** *{allowed values}* | Description |
-| ------ | -------------------------------- | ----------- |
-| `plugin_people` | `boolean` **[no]** | Display GitHub users from various affiliations |
-| `plugin_people_limit` | `number` **[24]** *{0 ≤ 𝑥}* | Maximum number of user to display |
-| `plugin_people_size` | `number` **[28]** *{8 ≤ 𝑥 ≤ 64}* | Size of displayed GitHub users' avatars |
-| `plugin_people_types` | `array` *(comma-separated)* **[followers, following]** *{"followers", "following", "followed", "sponsoring", "members", "sponsored", "sponsors", "contributors", "stargazers", "watchers", "thanks"}* | Affiliations to display |
-| `plugin_people_thanks` | `array` *(comma-separated)* **[]** | GitHub users to personally thanks |
-| `plugin_people_sponsors_custom` | `array` *(comma-separated)* **[]** | Custom GitHub sponsors |
-| `plugin_people_identicons` | `boolean` **[no]** | Use identicons instead of avatars |
-| `plugin_people_shuffle` | `boolean` **[no]** | Shuffle users |
-
-
+<table>
+  <tr>
+    <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_people</code></td>
+    <td rowspan="2">Display GitHub users from various affiliations<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_people_limit</code></td>
+    <td rowspan="2">Maximum number of user to display<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<br>
+<i>(0 ≤
+𝑥)</i>
+<b>default:</b> 24<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_people_size</code></td>
+    <td rowspan="2">Size of displayed GitHub users' avatars<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<br>
+<i>(8 ≤
+𝑥
+≤ 64)</i>
+<b>default:</b> 28<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_people_types</code></td>
+    <td rowspan="2">Affiliations to display<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br>
+<b>default:</b> followers, following<br>
+<b>allowed values:</b><ul><li>followers</li><li>following</li><li>followed</li><li>sponsoring</li><li>members</li><li>sponsored</li><li>sponsors</li><li>contributors</li><li>stargazers</li><li>watchers</li><li>thanks</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_people_thanks</code></td>
+    <td rowspan="2">GitHub users to personally thanks<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_people_sponsors_custom</code></td>
+    <td rowspan="2">Custom GitHub sponsors<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_people_identicons</code></td>
+    <td rowspan="2">Use identicons instead of avatars<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_people_shuffle</code></td>
+    <td rowspan="2">Shuffle users<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+</table>
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

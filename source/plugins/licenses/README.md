@@ -27,16 +27,47 @@ Dependencies will be analyzed with [github/licensed](https://github.com/github/l
 #### ➡️ Available options
 
 <!--options-->
-| Option | Type *(format)* **[default]** *{allowed values}* | Description |
-| ------ | -------------------------------- | ----------- |
-| `plugin_licenses` <sup>🧰</sup> | `boolean` **[no]** | Display licenses informations |
-| `plugin_licenses_setup` | `string` **[]** | Command to setup target repository |
-| `plugin_licenses_ratio` | `boolean` **[no]** | Display used licenses ratio |
-| `plugin_licenses_legal` | `boolean` **[yes]** | Display legal informations about used licenses |
-
-
-Legend for option icons:
-* 🧰 Must be enabled in `settings.json` (for web instances)
+<table>
+  <tr>
+    <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_licenses</code></td>
+    <td rowspan="2">Display licenses informations<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
+<b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_licenses_setup</code></td>
+    <td rowspan="2">Command to setup target repository<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_licenses_ratio</code></td>
+    <td rowspan="2">Display used licenses ratio<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_licenses_legal</code></td>
+    <td rowspan="2">Display legal informations about used licenses<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> yes<br></td>
+  </tr>
+</table>
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

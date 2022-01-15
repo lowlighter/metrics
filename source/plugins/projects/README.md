@@ -43,14 +43,50 @@ To do so, open your repository project and retrieve the last URL endpoint, in th
 #### ➡️ Available options
 
 <!--options-->
-| Option | Type *(format)* **[default]** *{allowed values}* | Description |
-| ------ | -------------------------------- | ----------- |
-| `plugin_projects` | `boolean` **[no]** | Display active projects |
-| `plugin_projects_limit` | `number` **[4]** *{0 ≤ 𝑥 ≤ 100}* | Maximum number of projects to display |
-| `plugin_projects_repositories` | `array` *(comma-separated)* **[]** | List of repository project identifiers to disaplay |
-| `plugin_projects_descriptions` | `boolean` **[no]** | Display projects descriptions |
-
-
+<table>
+  <tr>
+    <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_projects</code></td>
+    <td rowspan="2">Display active projects<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_projects_limit</code></td>
+    <td rowspan="2">Maximum number of projects to display<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<br>
+<i>(0 ≤
+𝑥
+≤ 100)</i>
+<b>default:</b> 4<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_projects_repositories</code></td>
+    <td rowspan="2">List of repository project identifiers to disaplay<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_projects_descriptions</code></td>
+    <td rowspan="2">Display projects descriptions<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+</table>
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

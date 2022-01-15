@@ -29,17 +29,56 @@ Expect 10 to 30 seconds to generate the results.
 #### ➡️ Available options
 
 <!--options-->
-| Option | Type *(format)* **[default]** *{allowed values}* | Description |
-| ------ | -------------------------------- | ----------- |
-| `plugin_pagespeed` | `boolean` **[no]** | Display a website Google PageSpeed metrics |
-| `plugin_pagespeed_url` | `string` **[*→ User attached website*]** | Audited website |
-| `plugin_pagespeed_detailed` | `boolean` **[no]** | Detailed audit result |
-| `plugin_pagespeed_screenshot` | `boolean` **[no]** | Display a screenshot of your website |
-| `plugin_pagespeed_token` <sup>🔐</sup> | `token` **[]** | PageSpeed token |
-
-
-Legend for option icons:
-* 🔐 Value should be stored in repository secrets
+<table>
+  <tr>
+    <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_pagespeed</code></td>
+    <td rowspan="2">Display a website Google PageSpeed metrics<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_pagespeed_url</code></td>
+    <td rowspan="2">Audited website<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br>
+<b>default:</b> <code>→ User attached website</code><br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_pagespeed_detailed</code></td>
+    <td rowspan="2">Detailed audit result<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_pagespeed_screenshot</code></td>
+    <td rowspan="2">Display a screenshot of your website<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_pagespeed_token</code></td>
+    <td rowspan="2">PageSpeed token<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">🔐 Token<br>
+<b>type:</b> <code>token</code>
+<br></td>
+  </tr>
+</table>
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

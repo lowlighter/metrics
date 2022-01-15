@@ -23,19 +23,78 @@ Then setup [WakaTime plugins](https://wakatime.com/plugins) to be ready to go!
 #### ➡️ Available options
 
 <!--options-->
-| Option | Type *(format)* **[default]** *{allowed values}* | Description |
-| ------ | -------------------------------- | ----------- |
-| `plugin_wakatime` | `boolean` **[no]** | Display WakaTime stats |
-| `plugin_wakatime_token` <sup>🔐</sup> | `token` **[]** | WakaTime API token |
-| `plugin_wakatime_days` | `string` **[7]** *{"7", "30", "180", "365"}* | WakaTime time range |
-| `plugin_wakatime_sections` | `array` **[time, projects, projects-graphs, languages, languages-graphs, editors, os]** *{"time", "projects", "projects-graphs", "languages", "languages-graphs", "editors", "editors-graphs", "os", "os-graphs"}* | Sections to display |
-| `plugin_wakatime_limit` | `number` **[5]** *{0 ≤ 𝑥}* | Maximum number of entries to display per graph |
-| `plugin_wakatime_url` | `string` **[https://wakatime.com]** | Address where to reach your Wakatime instance |
-| `plugin_wakatime_user` | `string` **[current]** | Your Wakatime user on the selfhosted Wakapi instance |
-
-
-Legend for option icons:
-* 🔐 Value should be stored in repository secrets
+<table>
+  <tr>
+    <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_wakatime</code></td>
+    <td rowspan="2">Display WakaTime stats<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_wakatime_token</code></td>
+    <td rowspan="2">WakaTime API token<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">🔐 Token<br>
+<b>type:</b> <code>token</code>
+<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_wakatime_days</code></td>
+    <td rowspan="2">WakaTime time range<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br>
+<b>default:</b> 7<br>
+<b>allowed values:</b><ul><li>7</li><li>30</li><li>180</li><li>365</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_wakatime_sections</code></td>
+    <td rowspan="2">Sections to display<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>array</code>
+<br>
+<b>default:</b> time, projects, projects-graphs, languages, languages-graphs, editors, os<br>
+<b>allowed values:</b><ul><li>time</li><li>projects</li><li>projects-graphs</li><li>languages</li><li>languages-graphs</li><li>editors</li><li>editors-graphs</li><li>os</li><li>os-graphs</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_wakatime_limit</code></td>
+    <td rowspan="2">Maximum number of entries to display per graph<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<br>
+<i>(0 ≤
+𝑥)</i>
+<b>default:</b> 5<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_wakatime_url</code></td>
+    <td rowspan="2">Address where to reach your Wakatime instance<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br>
+<b>default:</b> https://wakatime.com<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_wakatime_user</code></td>
+    <td rowspan="2">Your Wakatime user on the selfhosted Wakapi instance<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br>
+<b>default:</b> current<br></td>
+  </tr>
+</table>
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

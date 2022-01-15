@@ -30,17 +30,78 @@ It also lets you quickly see at a glance what this user primarly use GitHub for,
 #### ➡️ Available options
 
 <!--options-->
-| Option | Type *(format)* **[default]** *{allowed values}* | Description |
-| ------ | -------------------------------- | ----------- |
-| `plugin_achievements` | `boolean` **[no]** | Display achievements |
-| `plugin_achievements_threshold` | `string` **[C]** *{"S", "A", "B", "C", "X"}* | Display rank minimal threshold |
-| `plugin_achievements_secrets` | `boolean` **[yes]** | Display unlocked secrets achievements |
-| `plugin_achievements_display` | `string` **[detailed]** *{"detailed", "compact"}* | Achievements display style |
-| `plugin_achievements_limit` | `number` **[0]** *{0 ≤ 𝑥}* | Maximum number of achievements to display |
-| `plugin_achievements_ignored` | `array` *(comma-separated)* **[]** | Unlocked achievements to hide |
-| `plugin_achievements_only` | `array` *(comma-separated)* **[]** | Unlocked achievements to display |
-
-
+<table>
+  <tr>
+    <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_achievements</code></td>
+    <td rowspan="2">Display achievements<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_achievements_threshold</code></td>
+    <td rowspan="2">Display rank minimal threshold<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br>
+<b>default:</b> C<br>
+<b>allowed values:</b><ul><li>S</li><li>A</li><li>B</li><li>C</li><li>X</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_achievements_secrets</code></td>
+    <td rowspan="2">Display unlocked secrets achievements<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> yes<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_achievements_display</code></td>
+    <td rowspan="2">Achievements display style<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br>
+<b>default:</b> detailed<br>
+<b>allowed values:</b><ul><li>detailed</li><li>compact</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_achievements_limit</code></td>
+    <td rowspan="2">Maximum number of achievements to display<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<br>
+<i>(0 ≤
+𝑥)</i>
+<b>default:</b> 0<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_achievements_ignored</code></td>
+    <td rowspan="2">Unlocked achievements to hide<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_achievements_only</code></td>
+    <td rowspan="2">Unlocked achievements to display<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br></td>
+  </tr>
+</table>
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

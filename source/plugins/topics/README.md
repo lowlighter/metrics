@@ -20,14 +20,52 @@ This uses puppeteer to navigate through your starred topics page.
 #### ➡️ Available options
 
 <!--options-->
-| Option | Type *(format)* **[default]** *{allowed values}* | Description |
-| ------ | -------------------------------- | ----------- |
-| `plugin_topics` | `boolean` **[no]** | Display starred topics |
-| `plugin_topics_mode` | `string` **[starred]** *{"starred", "icons", "mastered"}* | Plugin mode |
-| `plugin_topics_sort` | `string` **[stars]** *{"stars", "activity", "starred", "random"}* | Sorting method of starred topics |
-| `plugin_topics_limit` | `number` **[15]** *{0 ≤ 𝑥 ≤ 20}* | Maximum number of topics to display |
-
-
+<table>
+  <tr>
+    <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_topics</code></td>
+    <td rowspan="2">Display starred topics<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_topics_mode</code></td>
+    <td rowspan="2">Plugin mode<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br>
+<b>default:</b> starred<br>
+<b>allowed values:</b><ul><li>starred</li><li>icons</li><li>mastered</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_topics_sort</code></td>
+    <td rowspan="2">Sorting method of starred topics<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br>
+<b>default:</b> stars<br>
+<b>allowed values:</b><ul><li>stars</li><li>activity</li><li>starred</li><li>random</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_topics_limit</code></td>
+    <td rowspan="2">Maximum number of topics to display<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<br>
+<i>(0 ≤
+𝑥
+≤ 20)</i>
+<b>default:</b> 15<br></td>
+  </tr>
+</table>
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

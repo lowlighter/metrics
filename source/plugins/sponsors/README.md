@@ -17,12 +17,31 @@ The *sponsors* plugin lets you display your sponsors and introduction text from 
 #### ➡️ Available options
 
 <!--options-->
-| Option | Type *(format)* **[default]** *{allowed values}* | Description |
-| ------ | -------------------------------- | ----------- |
-| `plugin_sponsors` | `boolean` **[no]** | Display GitHub sponsors |
-| `plugin_sponsors_sections` | `array` *(comma-separated)* **[goal, about]** *{"goal", "about"}* | Sections to display |
-
-
+<table>
+  <tr>
+    <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_sponsors</code></td>
+    <td rowspan="2">Display GitHub sponsors<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_sponsors_sections</code></td>
+    <td rowspan="2">Sections to display<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br>
+<b>default:</b> goal, about<br>
+<b>allowed values:</b><ul><li>goal</li><li>about</li></ul></td>
+  </tr>
+</table>
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

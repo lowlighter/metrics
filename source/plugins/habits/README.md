@@ -28,18 +28,72 @@ By default, dates use Greenwich meridian (GMT/UTC). Be sure to set your timezone
 #### ➡️ Available options
 
 <!--options-->
-| Option | Type *(format)* **[default]** *{allowed values}* | Description |
-| ------ | -------------------------------- | ----------- |
-| `plugin_habits` | `boolean` **[no]** | Display coding habits metrics |
-| `plugin_habits_from` | `number` **[200]** *{1 ≤ 𝑥 ≤ 1000}* | Number of events to use |
-| `plugin_habits_days` | `number` **[14]** *{1 ≤ 𝑥 ≤ 30}* | Maximum event age |
-| `plugin_habits_facts` | `boolean` **[yes]** | Display coding habits collected facts based on recent activity |
-| `plugin_habits_charts` <sup>🧰</sup> | `boolean` **[no]** | Display coding habits charts based on recent activity |
-| `plugin_habits_trim` | `boolean` **[no]** | Trim unused hours on daily chart |
-
-
-Legend for option icons:
-* 🧰 Must be enabled in `settings.json` (for web instances)
+<table>
+  <tr>
+    <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_habits</code></td>
+    <td rowspan="2">Display coding habits metrics<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_habits_from</code></td>
+    <td rowspan="2">Number of events to use<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<br>
+<i>(1 ≤
+𝑥
+≤ 1000)</i>
+<b>default:</b> 200<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_habits_days</code></td>
+    <td rowspan="2">Maximum event age<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<br>
+<i>(1 ≤
+𝑥
+≤ 30)</i>
+<b>default:</b> 14<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_habits_facts</code></td>
+    <td rowspan="2">Display coding habits collected facts based on recent activity<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> yes<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_habits_charts</code></td>
+    <td rowspan="2">Display coding habits charts based on recent activity<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
+<b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_habits_trim</code></td>
+    <td rowspan="2">Trim unused hours on daily chart<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+</table>
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

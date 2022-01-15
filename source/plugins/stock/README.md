@@ -21,17 +21,57 @@ Create a [RapidAPI account](https://rapidapi.com) and subscribe to [Yahoo Financ
 #### ➡️ Available options
 
 <!--options-->
-| Option | Type *(format)* **[default]** *{allowed values}* | Description |
-| ------ | -------------------------------- | ----------- |
-| `plugin_stock` | `boolean` **[no]** | Display stock prices of a given company |
-| `plugin_stock_token` <sup>🔐</sup> | `token` **[]** | Yahoo Finance token |
-| `plugin_stock_symbol` | `string` **[]** | Company stock symbol |
-| `plugin_stock_duration` | `string` **[1d]** *{"1d", "5d", "1mo", "3mo", "6mo", "1y", "2y", "5y", "10y", "ytd", "max"}* | Time range to display |
-| `plugin_stock_interval` | `string` **[5m]** *{"1m", "2m", "5m", "15m", "60m", "1d"}* | Time intervals between records |
-
-
-Legend for option icons:
-* 🔐 Value should be stored in repository secrets
+<table>
+  <tr>
+    <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_stock</code></td>
+    <td rowspan="2">Display stock prices of a given company<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_stock_token</code></td>
+    <td rowspan="2">Yahoo Finance token<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">🔐 Token<br>
+<b>type:</b> <code>token</code>
+<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_stock_symbol</code></td>
+    <td rowspan="2">Company stock symbol<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_stock_duration</code></td>
+    <td rowspan="2">Time range to display<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br>
+<b>default:</b> 1d<br>
+<b>allowed values:</b><ul><li>1d</li><li>5d</li><li>1mo</li><li>3mo</li><li>6mo</li><li>1y</li><li>2y</li><li>5y</li><li>10y</li><li>ytd</li><li>max</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_stock_interval</code></td>
+    <td rowspan="2">Time intervals between records<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br>
+<b>default:</b> 5m<br>
+<b>allowed values:</b><ul><li>1m</li><li>2m</li><li>5m</li><li>15m</li><li>60m</li><li>1d</li></ul></td>
+  </tr>
+</table>
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

@@ -27,21 +27,98 @@ These are all enabled by default, but you can explicitely opt out from them.
 #### ➡️ Available options
 
 <!--options-->
-| Option | Type *(format)* **[default]** *{allowed values}* | Description |
-| ------ | -------------------------------- | ----------- |
-| `base` | `array` *(comma-separated)* **[header, activity, community, repositories, metadata]** *{"header", "activity", "community", "repositories", "metadata"}* | Metrics base content |
-| `repositories` | `number` **[100]** *{0 ≤ 𝑥}* | Number of repositories to use |
-| `repositories_batch` | `number` **[100]** *{1 ≤ 𝑥 ≤ 100}* | Number of repositories to load at once by queries |
-| `repositories_forks` | `boolean` **[no]** | Include forks in metrics |
-| `repositories_affiliations` | `array` *(comma-separated)* **[owner]** *{"owner", "collaborator", "organization_member"}* | Repositories affiliations |
-| `repositories_skipped` <sup>⏭️</sup> | `array` *(comma-separated)* **[]** | Default repositories to skip |
-| `users_ignored` <sup>⏭️</sup> <sup>✨</sup> | `array` *(comma-separated)* **[github-actions[bot], dependabot[bot], dependabot-preview[bot]]** | Default users to ignore |
-| `commits_authoring` <sup>⏭️</sup> | `array` *(comma-seperated)* **[*→ User login*]** | List of surnames or email addresses you use when authoring commits |
-
-
-Legend for option icons:
-* ⏭️ Value be inherited by its related plugin-level option
-* ✨ Currently in beta-testing on `master`/`main`
+<table>
+  <tr>
+    <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>base</code></td>
+    <td rowspan="2">Metrics base content<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br>
+<b>default:</b> header, activity, community, repositories, metadata<br>
+<b>allowed values:</b><ul><li>header</li><li>activity</li><li>community</li><li>repositories</li><li>metadata</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>repositories</code></td>
+    <td rowspan="2">Number of repositories to use<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<br>
+<i>(0 ≤
+𝑥)</i>
+<b>default:</b> 100<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>repositories_batch</code></td>
+    <td rowspan="2">Number of repositories to load at once by queries<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<br>
+<i>(1 ≤
+𝑥
+≤ 100)</i>
+<b>default:</b> 100<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>repositories_forks</code></td>
+    <td rowspan="2">Include forks in metrics<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>repositories_affiliations</code></td>
+    <td rowspan="2">Repositories affiliations<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br>
+<b>default:</b> owner<br>
+<b>allowed values:</b><ul><li>owner</li><li>collaborator</li><li>organization_member</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>repositories_skipped</code></td>
+    <td rowspan="2">Default repositories to skip<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">⏭️ Global option<br>
+<b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>users_ignored</code></td>
+    <td rowspan="2">Default users to ignore<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">⏭️ Global option<br>
+✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br>
+<b>default:</b> github-actions[bot], dependabot[bot], dependabot-preview[bot]<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>commits_authoring</code></td>
+    <td rowspan="2">List of surnames or email addresses you use when authoring commits<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">⏭️ Global option<br>
+<b>type:</b> <code>array</code>
+<i>(comma-seperated)</i>
+<br>
+<b>default:</b> <code>→ User login</code><br></td>
+  </tr>
+</table>
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

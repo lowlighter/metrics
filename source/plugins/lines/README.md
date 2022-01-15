@@ -12,14 +12,30 @@ The *lines* of code plugin displays the number of lines of code you have added a
 #### ➡️ Available options
 
 <!--options-->
-| Option | Type *(format)* **[default]** *{allowed values}* | Description |
-| ------ | -------------------------------- | ----------- |
-| `plugin_lines` | `boolean` **[no]** | Display lines of code metrics |
-| `plugin_lines_skipped` <sup>⏩</sup> | `array` *(comma-separated)* **[]** | Repositories to skip |
-
-
-Legend for option icons:
-* ⏩ Value inherits from its related global-level option
+<table>
+  <tr>
+    <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_lines</code></td>
+    <td rowspan="2">Display lines of code metrics<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_lines_skipped</code></td>
+    <td rowspan="2">Repositories to skip<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">⏩ Inherits <code>repositories_skipped</code><br>
+<b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br></td>
+  </tr>
+</table>
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

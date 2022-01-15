@@ -17,16 +17,68 @@ The recent *posts* plugin displays recent articles you wrote on an external sour
 #### ➡️ Available options
 
 <!--options-->
-| Option | Type *(format)* **[default]** *{allowed values}* | Description |
-| ------ | -------------------------------- | ----------- |
-| `plugin_posts` | `boolean` **[no]** | Display recent posts |
-| `plugin_posts_source` | `string` **[]** *{"dev.to", "hashnode"}* | Posts external source |
-| `plugin_posts_descriptions` | `boolean` **[no]** | Display posts descriptions |
-| `plugin_posts_covers` | `boolean` **[no]** | Display posts cover images |
-| `plugin_posts_limit` | `number` **[4]** *{1 ≤ 𝑥 ≤ 30}* | Maximum number of posts to display |
-| `plugin_posts_user` | `string` **[*→ User login*]** | Posts external source username |
-
-
+<table>
+  <tr>
+    <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_posts</code></td>
+    <td rowspan="2">Display recent posts<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_posts_source</code></td>
+    <td rowspan="2">Posts external source<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br>
+<b>allowed values:</b><ul><li>dev.to</li><li>hashnode</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_posts_descriptions</code></td>
+    <td rowspan="2">Display posts descriptions<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_posts_covers</code></td>
+    <td rowspan="2">Display posts cover images<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_posts_limit</code></td>
+    <td rowspan="2">Maximum number of posts to display<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<br>
+<i>(1 ≤
+𝑥
+≤ 30)</i>
+<b>default:</b> 4<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_posts_user</code></td>
+    <td rowspan="2">Posts external source username<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br>
+<b>default:</b> <code>→ User login</code><br></td>
+  </tr>
+</table>
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

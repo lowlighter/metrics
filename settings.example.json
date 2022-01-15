@@ -33,10 +33,10 @@
   "plugins.default": false,        "//": "Default plugin state (advised to let 'false' unless in debug mode)",
   "plugins": {                     "//": "Global plugin configuration",
     "isocalendar":{
-      "enabled": false,            "//": "Display an isometric view of your commits calendar"
+      "enabled": false,            "//": "Enable isocalendar plugin"
     },
     "languages":{
-      "enabled": false,            "//": "Display most used languages metrics"
+      "enabled": false,            "//": "Enable languages plugin"
     },
     "topics":{
       "enabled": false,            "//": "Display starred topics"

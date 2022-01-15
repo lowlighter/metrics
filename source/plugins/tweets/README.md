@@ -29,17 +29,59 @@ Create an app from your [developer dashboard](https://developer.twitter.com/en/p
 #### ➡️ Available options
 
 <!--options-->
-| Option | Type *(format)* **[default]** *{allowed values}* | Description |
-| ------ | -------------------------------- | ----------- |
-| `plugin_tweets` | `boolean` **[no]** | Display recent tweets |
-| `plugin_tweets_token` <sup>🔐</sup> | `token` **[]** | Twitter API token |
-| `plugin_tweets_attachments` | `boolean` **[no]** | Display tweets attchments |
-| `plugin_tweets_limit` | `number` **[2]** *{1 ≤ 𝑥 ≤ 10}* | Maximum number of tweets to display |
-| `plugin_tweets_user` | `string` **[*→ User attached twitter*]** | Twitter username |
-
-
-Legend for option icons:
-* 🔐 Value should be stored in repository secrets
+<table>
+  <tr>
+    <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_tweets</code></td>
+    <td rowspan="2">Display recent tweets<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_tweets_token</code></td>
+    <td rowspan="2">Twitter API token<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">🔐 Token<br>
+<b>type:</b> <code>token</code>
+<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_tweets_attachments</code></td>
+    <td rowspan="2">Display tweets attchments<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_tweets_limit</code></td>
+    <td rowspan="2">Maximum number of tweets to display<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<br>
+<i>(1 ≤
+𝑥
+≤ 10)</i>
+<b>default:</b> 2<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_tweets_user</code></td>
+    <td rowspan="2">Twitter username<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br>
+<b>default:</b> <code>→ User attached twitter</code><br></td>
+  </tr>
+</table>
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

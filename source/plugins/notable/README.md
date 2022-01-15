@@ -24,17 +24,57 @@ The `plugin_notable_indepth` option lets you get additional metrics about your c
 #### ➡️ Available options
 
 <!--options-->
-| Option | Type *(format)* **[default]** *{allowed values}* | Description |
-| ------ | -------------------------------- | ----------- |
-| `plugin_notable` | `boolean` **[no]** | Display notable contributions in organizations |
-| `plugin_notable_filter` | `string` **[]** | Query filter |
-| `plugin_notable_from` | `string` **[organization]** *{"all", "organization", "user"}* | Filter by repository host account type |
-| `plugin_notable_repositories` | `boolean` **[no]** | Also display repository name |
-| `plugin_notable_indepth` <sup>🧰</sup> | `boolean` **[no]** | Indepth notable contributions processing |
-
-
-Legend for option icons:
-* 🧰 Must be enabled in `settings.json` (for web instances)
+<table>
+  <tr>
+    <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_notable</code></td>
+    <td rowspan="2">Display notable contributions in organizations<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_notable_filter</code></td>
+    <td rowspan="2">Query filter<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_notable_from</code></td>
+    <td rowspan="2">Filter by repository host account type<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br>
+<b>default:</b> organization<br>
+<b>allowed values:</b><ul><li>all</li><li>organization</li><li>user</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_notable_repositories</code></td>
+    <td rowspan="2">Also display repository name<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_notable_indepth</code></td>
+    <td rowspan="2">Indepth notable contributions processing<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
+<b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+</table>
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

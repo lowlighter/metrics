@@ -37,25 +37,83 @@ Matching is performed in keys order.
 #### ➡️ Available options
 
 <!--options-->
-| Option | Type *(format)* **[default]** *{allowed values}* | Description |
-| ------ | -------------------------------- | ----------- |
-| `plugin_contributors` | `boolean` **[no]** | Display repository contributors |
-| `plugin_contributors_base` | `string` **[]** | Base reference |
-| `plugin_contributors_head` | `string` **[master]** | Head reference |
-| `plugin_contributors_ignored` <sup>⏩</sup> | `array` *(comma-separated)* **[github-actions[bot], dependabot[bot], dependabot-preview[bot]]** | Contributors to ignore |
-| `plugin_contributors_contributions` | `boolean` **[no]** | Display contributions |
-| `plugin_contributors_sections` | `array` *(comma-separated)* **[contributors]** *{"contributors", "categories"}* | Sections to display |
-| `plugin_contributors_categories` <sup>🧰</sup> | `json` **[{
+<table>
+  <tr>
+    <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_contributors</code></td>
+    <td rowspan="2">Display repository contributors<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_contributors_base</code></td>
+    <td rowspan="2">Base reference<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_contributors_head</code></td>
+    <td rowspan="2">Head reference<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br>
+<b>default:</b> master<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_contributors_ignored</code></td>
+    <td rowspan="2">Contributors to ignore<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">⏩ Inherits <code>users_ignored</code><br>
+<b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br>
+<b>default:</b> github-actions[bot], dependabot[bot], dependabot-preview[bot]<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_contributors_contributions</code></td>
+    <td rowspan="2">Display contributions<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_contributors_sections</code></td>
+    <td rowspan="2">Sections to display<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br>
+<b>default:</b> contributors<br>
+<b>allowed values:</b><ul><li>contributors</li><li>categories</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_contributors_categories</code></td>
+    <td rowspan="2">Contributions categories<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
+<b>type:</b> <code>json</code>
+<br>
+<b>default:</b> {
   "📚 Documentation": ["README.md", "docs/**"],
   "💻 Code": ["source/**", "src/**"],
   "#️⃣ Others": ["*"]
 }
-]** | Contributions categories |
-
-
-Legend for option icons:
-* ⏩ Value inherits from its related global-level option
-* 🧰 Must be enabled in `settings.json` (for web instances)
+<br></td>
+  </tr>
+</table>
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

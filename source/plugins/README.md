@@ -44,6 +44,7 @@ Plugins provide additional content and lets you customize your rendered metrics.
   * [💹 Stock prices](/source/plugins/stock/README.md)
   * [🐤 Latest tweets](/source/plugins/tweets/README.md)
   * [⏰ WakaTime plugin](/source/plugins/wakatime/README.md)
+
 **🎲 Maintained by community**
 * [💉 Nightscout](/source/plugins/nightscout/README.md) by [@legoandmars](https://github.com/legoandmars)
 * [💩 PoopMap plugin](/source/plugins/poopmap/README.md) by [@matievisthekat](https://github.com/matievisthekat)

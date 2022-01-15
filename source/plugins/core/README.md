@@ -5,55 +5,397 @@ Metrics also have general options that impact global metrics rendering.
 #### ➡️ Available options
 
 <!--options-->
-| Option | Type *(format)* **[default]** *{allowed values}* | Description |
-| ------ | -------------------------------- | ----------- |
-| `token` <sup>✔️</sup> <sup>🔐</sup> | `token` | GitHub Personal Token |
-| `user` | `string` **[]** | GitHub username |
-| `repo` | `string` **[]** | GitHub repository |
-| `committer_token` <sup>🔐</sup> | `token` **[${{ github.token }}]** | GitHub Token used to commit metrics |
-| `committer_branch` | `string` **[]** | Branch used to commit rendered metrics |
-| `committer_message` | `string` **[Update ${filename} - [Skip GitHub Action]]** | Commit message |
-| `committer_gist` | `string` **[]** | Gist used to store metrics |
-| `filename` | `string` **[github-metrics.*]** | Rendered metrics output path |
-| `markdown` | `string` **[TEMPLATE.md]** | Rendered markdown output path |
-| `markdown_cache` | `string` **[.cache]** | Rendered markdown file cache |
-| `output_action` | `string` **[commit]** *{"none", "commit", "pull-request", "pull-request-merge", "pull-request-squash", "pull-request-rebase", "gist"}* | Output action |
-| `output_condition` | `string` **[always]** *{"always", "data-changed"}* | Output condition |
-| `optimize` | `array` *(comma-separated)* **[css, xml]** *{"css", "xml", "svg"}* | SVG optimization |
-| `setup_community_templates` <sup>🧰</sup> | `array` *(comma-separated)* **[]** | Additional community templates to setup |
-| `template` | `string` **[classic]** | Template to use |
-| `query` | `json` **[{}]** | Additional query parameters |
-| `extras_css` <sup>🧰</sup> | `string` **[]** | Extra CSS |
-| `config_timezone` <sup>⏭️</sup> | `string` **[]** | Timezone used |
-| `config_order` <sup>⏭️</sup> | `array` *(comma-separated)* **[]** | Configure content order |
-| `config_twemoji` <sup>⏭️</sup> | `boolean` **[no]** | Use twemojis instead of emojis |
-| `config_gemoji` <sup>⏭️</sup> | `boolean` **[yes]** | Use GitHub custom emojis |
-| `config_display` <sup>⏭️</sup> | `string` **[regular]** *{"regular", "large", "columns"}* | Render display width |
-| `config_animations` <sup>⏭️</sup> | `boolean` **[yes]** | SVG CSS animations |
-| `config_base64` <sup>⏭️</sup> | `boolean` **[yes]** | Encode images links into base64 data |
-| `config_padding` | `string` **[0, 8 + 11%]** | Image padding |
-| `config_output` | `string` **[auto]** *{"auto", "svg", "png", "jpeg", "json", "markdown", "markdown-pdf", "insights"}* | Output image format |
-| `retries` | `number` **[3]** *{1 ≤ 𝑥 ≤ 10}* | Number of retries |
-| `retries_delay` | `number` **[300]** *{0 ≤ 𝑥 ≤ 3600}* | Time to wait (in seconds) before each retry |
-| `retries_output_action` | `number` **[5]** *{1 ≤ 𝑥 ≤ 10}* | Number of retries (output action) |
-| `retries_delay_output_action` | `number` **[120]** *{0 ≤ 𝑥 ≤ 3600}* | Time to wait (in seconds) before each retry (output action) |
-| `delay` | `number` **[0]** *{0 ≤ 𝑥 ≤ 3600}* | Use this to avoid triggering abuse mechanics on large workflows |
-| `use_prebuilt_image` | `boolean` **[yes]** | Use pre-built image from GitHub registry |
-| `plugins_errors_fatal` <sup>🔧</sup> | `boolean` **[no]** | Die on plugins errors |
-| `debug` <sup>🔧</sup> | `boolean` **[no]** | Debug logs |
-| `verify` <sup>🔧</sup> | `boolean` **[no]** | Verify SVG |
-| `debug_flags` <sup>🔧</sup> | `array` *(space-separated)* **[]** *{"--cakeday", "--hireable", "--halloween", "--error"}* | Debug flags |
-| `dryrun` <sup>🔧</sup> | `boolean` **[no]** | Enable dry-run |
-| `experimental_features` <sup>🔧</sup> | `array` *(space-separated)* **[]** *{"--optimize-svg"}* | Experimental features |
-| `use_mocked_data` <sup>🔧</sup> | `boolean` **[no]** | Use mocked data instead of live APIs |
-
-
-Legend for option icons:
-* ✔️ Value must be provided
-* 🔐 Value should be stored in repository secrets
-* ⏭️ Value be inherited by its related plugin-level option
-* 🔧 For development purposes, use with caution
-* 🧰 Must be enabled in `settings.json` (for web instances)
+<table>
+  <tr>
+    <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>token</code></td>
+    <td rowspan="2">GitHub Personal Token<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">✔️ Required<br>
+🔐 Token<br>
+<b>type:</b> <code>token</code>
+<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>user</code></td>
+    <td rowspan="2">GitHub username<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>repo</code></td>
+    <td rowspan="2">GitHub repository<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>committer_token</code></td>
+    <td rowspan="2">GitHub Token used to commit metrics<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">🔐 Token<br>
+<b>type:</b> <code>token</code>
+<br>
+<b>default:</b> ${{ github.token }}<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>committer_branch</code></td>
+    <td rowspan="2">Branch used to commit rendered metrics<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>committer_message</code></td>
+    <td rowspan="2">Commit message<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br>
+<b>default:</b> Update ${filename} - [Skip GitHub Action]<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>committer_gist</code></td>
+    <td rowspan="2">Gist used to store metrics<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>filename</code></td>
+    <td rowspan="2">Rendered metrics output path<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br>
+<b>default:</b> github-metrics.*<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>markdown</code></td>
+    <td rowspan="2">Rendered markdown output path<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br>
+<b>default:</b> TEMPLATE.md<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>markdown_cache</code></td>
+    <td rowspan="2">Rendered markdown file cache<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br>
+<b>default:</b> .cache<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>output_action</code></td>
+    <td rowspan="2">Output action<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br>
+<b>default:</b> commit<br>
+<b>allowed values:</b><ul><li>none</li><li>commit</li><li>pull-request</li><li>pull-request-merge</li><li>pull-request-squash</li><li>pull-request-rebase</li><li>gist</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>output_condition</code></td>
+    <td rowspan="2">Output condition<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br>
+<b>default:</b> always<br>
+<b>allowed values:</b><ul><li>always</li><li>data-changed</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>optimize</code></td>
+    <td rowspan="2">SVG optimization<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br>
+<b>default:</b> css, xml<br>
+<b>allowed values:</b><ul><li>css</li><li>xml</li><li>svg</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>setup_community_templates</code></td>
+    <td rowspan="2">Additional community templates to setup<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
+<b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>template</code></td>
+    <td rowspan="2">Template to use<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br>
+<b>default:</b> classic<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>query</code></td>
+    <td rowspan="2">Additional query parameters<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>json</code>
+<br>
+<b>default:</b> {}<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>extras_css</code></td>
+    <td rowspan="2">Extra CSS<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
+<b>type:</b> <code>string</code>
+<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>config_timezone</code></td>
+    <td rowspan="2">Timezone used<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">⏭️ Global option<br>
+<b>type:</b> <code>string</code>
+<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>config_order</code></td>
+    <td rowspan="2">Configure content order<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">⏭️ Global option<br>
+<b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>config_twemoji</code></td>
+    <td rowspan="2">Use twemojis instead of emojis<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">⏭️ Global option<br>
+<b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>config_gemoji</code></td>
+    <td rowspan="2">Use GitHub custom emojis<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">⏭️ Global option<br>
+<b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> yes<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>config_display</code></td>
+    <td rowspan="2">Render display width<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">⏭️ Global option<br>
+<b>type:</b> <code>string</code>
+<br>
+<b>default:</b> regular<br>
+<b>allowed values:</b><ul><li>regular</li><li>large</li><li>columns</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>config_animations</code></td>
+    <td rowspan="2">SVG CSS animations<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">⏭️ Global option<br>
+<b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> yes<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>config_base64</code></td>
+    <td rowspan="2">Encode images links into base64 data<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">⏭️ Global option<br>
+<b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> yes<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>config_padding</code></td>
+    <td rowspan="2">Image padding<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br>
+<b>default:</b> 0, 8 + 11%<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>config_output</code></td>
+    <td rowspan="2">Output image format<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br>
+<b>default:</b> auto<br>
+<b>allowed values:</b><ul><li>auto</li><li>svg</li><li>png</li><li>jpeg</li><li>json</li><li>markdown</li><li>markdown-pdf</li><li>insights</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>retries</code></td>
+    <td rowspan="2">Number of retries<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<br>
+<i>(1 ≤
+𝑥
+≤ 10)</i>
+<b>default:</b> 3<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>retries_delay</code></td>
+    <td rowspan="2">Time to wait (in seconds) before each retry<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<br>
+<i>(0 ≤
+𝑥
+≤ 3600)</i>
+<b>default:</b> 300<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>retries_output_action</code></td>
+    <td rowspan="2">Number of retries (output action)<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<br>
+<i>(1 ≤
+𝑥
+≤ 10)</i>
+<b>default:</b> 5<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>retries_delay_output_action</code></td>
+    <td rowspan="2">Time to wait (in seconds) before each retry (output action)<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<br>
+<i>(0 ≤
+𝑥
+≤ 3600)</i>
+<b>default:</b> 120<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>delay</code></td>
+    <td rowspan="2">Use this to avoid triggering abuse mechanics on large workflows<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<br>
+<i>(0 ≤
+𝑥
+≤ 3600)</i>
+<b>default:</b> 0<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>use_prebuilt_image</code></td>
+    <td rowspan="2">Use pre-built image from GitHub registry<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> yes<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugins_errors_fatal</code></td>
+    <td rowspan="2">Die on plugins errors<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">🔧 For development
+<b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>debug</code></td>
+    <td rowspan="2">Debug logs<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">🔧 For development
+<b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>verify</code></td>
+    <td rowspan="2">Verify SVG<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">🔧 For development
+<b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>debug_flags</code></td>
+    <td rowspan="2">Debug flags<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">🔧 For development
+<b>type:</b> <code>array</code>
+<i>(space-separated)</i>
+<br>
+<b>allowed values:</b><ul><li>--cakeday</li><li>--hireable</li><li>--halloween</li><li>--error</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>dryrun</code></td>
+    <td rowspan="2">Enable dry-run<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">🔧 For development
+<b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>experimental_features</code></td>
+    <td rowspan="2">Experimental features<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">🔧 For development
+<b>type:</b> <code>array</code>
+<i>(space-separated)</i>
+<br>
+<b>allowed values:</b><ul><li>--optimize-svg</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>use_mocked_data</code></td>
+    <td rowspan="2">Use mocked data instead of live APIs<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">🔧 For development
+<b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+</table>
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

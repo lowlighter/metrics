@@ -20,15 +20,41 @@ The *followup* plugin displays the ratio of open/closed issues and the ratio of 
 #### ➡️ Available options
 
 <!--options-->
-| Option | Type *(format)* **[default]** *{allowed values}* | Description |
-| ------ | -------------------------------- | ----------- |
-| `plugin_followup` | `boolean` **[no]** | Display follow-up of repositories issues and pull requests |
-| `plugin_followup_sections` | `array` *(comma-separated)* **[repositories]** *{"repositories", "user"}* | Sections to display |
-| `plugin_followup_indepth` <sup>🧰</sup> | `boolean` **[no]** | Indepth follow-up processing |
-
-
-Legend for option icons:
-* 🧰 Must be enabled in `settings.json` (for web instances)
+<table>
+  <tr>
+    <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_followup</code></td>
+    <td rowspan="2">Display follow-up of repositories issues and pull requests<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_followup_sections</code></td>
+    <td rowspan="2">Sections to display<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br>
+<b>default:</b> repositories<br>
+<b>allowed values:</b><ul><li>repositories</li><li>user</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_followup_indepth</code></td>
+    <td rowspan="2">Indepth follow-up processing<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
+<b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+</table>
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

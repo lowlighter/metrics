@@ -16,15 +16,64 @@ This uses puppeteer to generate collect image frames, and use CSS animations to 
 #### ➡️ Available options
 
 <!--options-->
-| Option | Type *(format)* **[default]** *{allowed values}* | Description |
-| ------ | -------------------------------- | ----------- |
-| `plugin_skyline` | `boolean` **[no]** | Display GitHub Skyline 3D calendar |
-| `plugin_skyline_year` | `number` **[current-year]** *{2008 ≤ 𝑥}* | Displayed year |
-| `plugin_skyline_frames` | `number` **[60]** *{1 ≤ 𝑥 ≤ 120}* | Number of frames |
-| `plugin_skyline_quality` | `number` **[0.5]** *{0.1 ≤ 𝑥 ≤ 1}* | Image quality |
-| `plugin_skyline_compatibility` | `boolean` **[no]** | Compatibility mode |
-
-
+<table>
+  <tr>
+    <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_skyline</code></td>
+    <td rowspan="2">Display GitHub Skyline 3D calendar<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_skyline_year</code></td>
+    <td rowspan="2">Displayed year<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<br>
+<i>(2008 ≤
+𝑥)</i>
+<b>default:</b> current-year<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_skyline_frames</code></td>
+    <td rowspan="2">Number of frames<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<br>
+<i>(1 ≤
+𝑥
+≤ 120)</i>
+<b>default:</b> 60<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_skyline_quality</code></td>
+    <td rowspan="2">Image quality<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<br>
+<i>(0.1 ≤
+𝑥
+≤ 1)</i>
+<b>default:</b> 0.5<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_skyline_compatibility</code></td>
+    <td rowspan="2">Compatibility mode<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+</table>
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

@@ -12,13 +12,40 @@ The *rss* plugin displays items from a specified RSS feed.
 #### ➡️ Available options
 
 <!--options-->
-| Option | Type *(format)* **[default]** *{allowed values}* | Description |
-| ------ | -------------------------------- | ----------- |
-| `plugin_rss` | `boolean` **[no]** | Display RSS feed |
-| `plugin_rss_source` | `string` **[]** | RSS feed source |
-| `plugin_rss_limit` | `number` **[4]** *{0 ≤ 𝑥 ≤ 30}* | Maximum number of items to display |
-
-
+<table>
+  <tr>
+    <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_rss</code></td>
+    <td rowspan="2">Display RSS feed<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_rss_source</code></td>
+    <td rowspan="2">RSS feed source<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_rss_limit</code></td>
+    <td rowspan="2">Maximum number of items to display<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<br>
+<i>(0 ≤
+𝑥
+≤ 30)</i>
+<b>default:</b> 4<br></td>
+  </tr>
+</table>
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

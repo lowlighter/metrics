@@ -28,17 +28,82 @@ These sections can also be filtered by media type, which can be either `anime`, 
 #### ➡️ Available options
 
 <!--options-->
-| Option | Type *(format)* **[default]** *{allowed values}* | Description |
-| ------ | -------------------------------- | ----------- |
-| `plugin_anilist` | `boolean` **[no]** | Display data from your AniList account |
-| `plugin_anilist_medias` | `array` *(comma-separated)* **[anime, manga]** *{"anime", "manga"}* | Medias types to display |
-| `plugin_anilist_sections` | `array` *(comma-separated)* **[favorites]** *{"favorites", "watching", "reading", "characters"}* | Sections to display |
-| `plugin_anilist_limit` | `number` **[2]** *{0 ≤ 𝑥}* | Maximum number of entries to display per section |
-| `plugin_anilist_limit_characters` | `number` **[22]** *{0 ≤ 𝑥}* | Maximum number of entries to display in characters section |
-| `plugin_anilist_shuffle` | `boolean` **[yes]** | Shuffle AniList data |
-| `plugin_anilist_user` | `string` **[*→ User login*]** | AniList login |
-
-
+<table>
+  <tr>
+    <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_anilist</code></td>
+    <td rowspan="2">Display data from your AniList account<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_anilist_medias</code></td>
+    <td rowspan="2">Medias types to display<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br>
+<b>default:</b> anime, manga<br>
+<b>allowed values:</b><ul><li>anime</li><li>manga</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_anilist_sections</code></td>
+    <td rowspan="2">Sections to display<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br>
+<b>default:</b> favorites<br>
+<b>allowed values:</b><ul><li>favorites</li><li>watching</li><li>reading</li><li>characters</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_anilist_limit</code></td>
+    <td rowspan="2">Maximum number of entries to display per section<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<br>
+<i>(0 ≤
+𝑥)</i>
+<b>default:</b> 2<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_anilist_limit_characters</code></td>
+    <td rowspan="2">Maximum number of entries to display in characters section<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<br>
+<i>(0 ≤
+𝑥)</i>
+<b>default:</b> 22<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_anilist_shuffle</code></td>
+    <td rowspan="2">Shuffle AniList data<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> yes<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_anilist_user</code></td>
+    <td rowspan="2">AniList login<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br>
+<b>default:</b> <code>→ User login</code><br></td>
+  </tr>
+</table>
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

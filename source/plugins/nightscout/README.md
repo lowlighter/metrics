@@ -19,17 +19,84 @@ The [nightscout website](http://www.nightscout.info/) details how to self-host a
 #### ➡️ Available options
 
 <!--options-->
-| Option | Type *(format)* **[default]** *{allowed values}* | Description |
-| ------ | -------------------------------- | ----------- |
-| `plugin_nightscout` | `boolean` **[no]** | Displays Blood Glucose |
-| `plugin_nightscout_url` | `string` **[https://example.herokuapp.com]** | Your Nightscout site URL |
-| `plugin_nightscout_datapoints` | `number` **[12]** *{0 ≤ 𝑥}* | How many datapoints to show on the graph. 0 and 1 disable the graph. |
-| `plugin_nightscout_lowalert` | `number` **[80]** *{0 ≤ 𝑥}* | When the blood sugar is considered low |
-| `plugin_nightscout_highalert` | `number` **[180]** *{0 ≤ 𝑥}* | When the blood sugar is considered high |
-| `plugin_nightscout_urgentlowalert` | `number` **[50]** *{0 ≤ 𝑥}* | When the blood sugar is considered urgently low |
-| `plugin_nightscout_urgenthighalert` | `number` **[250]** *{0 ≤ 𝑥}* | When the blood sugar is considered urgently high |
-
-
+<table>
+  <tr>
+    <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_nightscout</code></td>
+    <td rowspan="2">Displays Blood Glucose<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_nightscout_url</code></td>
+    <td rowspan="2">Your Nightscout site URL<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br>
+<b>default:</b> https://example.herokuapp.com<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_nightscout_datapoints</code></td>
+    <td rowspan="2">How many datapoints to show on the graph. 0 and 1 disable the graph.<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<br>
+<i>(0 ≤
+𝑥)</i>
+<b>default:</b> 12<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_nightscout_lowalert</code></td>
+    <td rowspan="2">When the blood sugar is considered low<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<br>
+<i>(0 ≤
+𝑥)</i>
+<b>default:</b> 80<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_nightscout_highalert</code></td>
+    <td rowspan="2">When the blood sugar is considered high<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<br>
+<i>(0 ≤
+𝑥)</i>
+<b>default:</b> 180<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_nightscout_urgentlowalert</code></td>
+    <td rowspan="2">When the blood sugar is considered urgently low<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<br>
+<i>(0 ≤
+𝑥)</i>
+<b>default:</b> 50<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_nightscout_urgenthighalert</code></td>
+    <td rowspan="2">When the blood sugar is considered urgently high<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<br>
+<i>(0 ≤
+𝑥)</i>
+<b>default:</b> 250<br></td>
+  </tr>
+</table>
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

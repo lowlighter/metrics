@@ -14,18 +14,70 @@ Display a random code snippet from your recent activity history.
 #### ➡️ Available options
 
 <!--options-->
-| Option | Type *(format)* **[default]** *{allowed values}* | Description |
-| ------ | -------------------------------- | ----------- |
-| `plugin_code` | `boolean` **[no]** | Display a random code snippet from recent activity |
-| `plugin_code_lines` | `number` **[12]** | Maximum number of line that a code snippet can contain |
-| `plugin_code_load` | `number` **[100]** *{100 ≤ 𝑥 ≤ 1000}* | Number of events to load |
-| `plugin_code_visibility` | `string` **[public]** *{"public", "all"}* | Set events visibility |
-| `plugin_code_skipped` <sup>⏩</sup> | `array` *(comma-separated)* **[]** | Repositories to skip |
-| `plugin_code_languages` | `array` *(comma-separated)* **[]** | Restrict code snippet languages |
-
-
-Legend for option icons:
-* ⏩ Value inherits from its related global-level option
+<table>
+  <tr>
+    <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_code</code></td>
+    <td rowspan="2">Display a random code snippet from recent activity<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_code_lines</code></td>
+    <td rowspan="2">Maximum number of line that a code snippet can contain<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<br>
+<b>default:</b> 12<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_code_load</code></td>
+    <td rowspan="2">Number of events to load<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<br>
+<i>(100 ≤
+𝑥
+≤ 1000)</i>
+<b>default:</b> 100<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_code_visibility</code></td>
+    <td rowspan="2">Set events visibility<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br>
+<b>default:</b> public<br>
+<b>allowed values:</b><ul><li>public</li><li>all</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_code_skipped</code></td>
+    <td rowspan="2">Repositories to skip<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">⏩ Inherits <code>repositories_skipped</code><br>
+<b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_code_languages</code></td>
+    <td rowspan="2">Restrict code snippet languages<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br></td>
+  </tr>
+</table>
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

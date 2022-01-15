@@ -32,21 +32,105 @@ Use a full `repo` scope token to display **private** events.
 #### ➡️ Available options
 
 <!--options-->
-| Option | Type *(format)* **[default]** *{allowed values}* | Description |
-| ------ | -------------------------------- | ----------- |
-| `plugin_activity` | `boolean` **[no]** | Display recent activity |
-| `plugin_activity_limit` | `number` **[5]** *{1 ≤ 𝑥 ≤ 1000}* | Maximum number of events to display |
-| `plugin_activity_load` | `number` **[300]** *{100 ≤ 𝑥 ≤ 1000}* | Number of events to load |
-| `plugin_activity_days` | `number` **[14]** *{0 ≤ 𝑥 ≤ 365}* | Maximum event age |
-| `plugin_activity_filter` | `array` *(comma-separated)* **[all]** *{"all", "comment", "ref/create", "ref/delete", "release", "push", "issue", "pr", "review", "wiki", "fork", "star", "member", "public"}* | Events types to keep |
-| `plugin_activity_visibility` | `string` **[all]** *{"public", "all"}* | Set events visibility |
-| `plugin_activity_timestamps` | `boolean` **[no]** | Display events timestamps |
-| `plugin_activity_skipped` <sup>⏩</sup> | `array` *(comma-separated)* **[]** | Repositories to skip |
-| `plugin_activity_ignored` <sup>⏩</sup> | `undefined` **[]** | Actors to ignore |
-
-
-Legend for option icons:
-* ⏩ Value inherits from its related global-level option
+<table>
+  <tr>
+    <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_activity</code></td>
+    <td rowspan="2">Display recent activity<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_activity_limit</code></td>
+    <td rowspan="2">Maximum number of events to display<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<br>
+<i>(1 ≤
+𝑥
+≤ 1000)</i>
+<b>default:</b> 5<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_activity_load</code></td>
+    <td rowspan="2">Number of events to load<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<br>
+<i>(100 ≤
+𝑥
+≤ 1000)</i>
+<b>default:</b> 300<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_activity_days</code></td>
+    <td rowspan="2">Maximum event age<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<br>
+<i>(0 ≤
+𝑥
+≤ 365)</i>
+<b>default:</b> 14<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_activity_filter</code></td>
+    <td rowspan="2">Events types to keep<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br>
+<b>default:</b> all<br>
+<b>allowed values:</b><ul><li>all</li><li>comment</li><li>ref/create</li><li>ref/delete</li><li>release</li><li>push</li><li>issue</li><li>pr</li><li>review</li><li>wiki</li><li>fork</li><li>star</li><li>member</li><li>public</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_activity_visibility</code></td>
+    <td rowspan="2">Set events visibility<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br>
+<b>default:</b> all<br>
+<b>allowed values:</b><ul><li>public</li><li>all</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_activity_timestamps</code></td>
+    <td rowspan="2">Display events timestamps<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_activity_skipped</code></td>
+    <td rowspan="2">Repositories to skip<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">⏩ Inherits <code>repositories_skipped</code><br>
+<b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_activity_ignored</code></td>
+    <td rowspan="2">Actors to ignore<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">⏩ Inherits <code>users_ignored</code><br>
+<b>type:</b> <code>undefined</code>
+<br></td>
+  </tr>
+</table>
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

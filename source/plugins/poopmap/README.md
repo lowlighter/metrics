@@ -42,15 +42,39 @@ You now have your PoopMap token! This token will not expire and it can only acce
 #### ➡️ Available options
 
 <!--options-->
-| Option | Type *(format)* **[default]** *{allowed values}* | Description |
-| ------ | -------------------------------- | ----------- |
-| `plugin_poopmap` | `boolean` **[no]** | Display PoopMap stats |
-| `plugin_poopmap_token` <sup>🔐</sup> | `token` **[]** | PoopMap API token |
-| `plugin_poopmap_days` | `number` **[7]** *{"7", "30", "180", "365"}* | PoopMap time range |
-
-
-Legend for option icons:
-* 🔐 Value should be stored in repository secrets
+<table>
+  <tr>
+    <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_poopmap</code></td>
+    <td rowspan="2">Display PoopMap stats<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_poopmap_token</code></td>
+    <td rowspan="2">PoopMap API token<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">🔐 Token<br>
+<b>type:</b> <code>token</code>
+<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_poopmap_days</code></td>
+    <td rowspan="2">PoopMap time range<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<br>
+<b>default:</b> 7<br>
+<b>allowed values:</b><ul><li>7</li><li>30</li><li>180</li><li>365</li></ul></td>
+  </tr>
+</table>
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

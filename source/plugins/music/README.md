@@ -208,22 +208,105 @@ Click on the Name of any matching request. In the “Headers” tab, scroll to t
 #### ➡️ Available options
 
 <!--options-->
-| Option | Type *(format)* **[default]** *{allowed values}* | Description |
-| ------ | -------------------------------- | ----------- |
-| `plugin_music` | `boolean` **[no]** | Display your music tracks |
-| `plugin_music_provider` | `string` **[]** *{"apple", "spotify", "lastfm", "youtube"}* | Music provider |
-| `plugin_music_token` <sup>🔐</sup> | `token` **[]** | Music provider personal token |
-| `plugin_music_mode` | `string` **[]** *{"playlist", "recent", "top"}* | Plugin mode |
-| `plugin_music_playlist` | `string` **[]** | Embed playlist url |
-| `plugin_music_limit` | `number` **[4]** *{1 ≤ 𝑥 ≤ 100}* | Maximum number of tracks to display |
-| `plugin_music_played_at` | `boolean` **[no]** | Display when the track was played |
-| `plugin_music_time_range` | `string` **[short]** *{"short", "medium", "long"}* | Time period for top mode |
-| `plugin_music_top_type` | `string` **[tracks]** *{"tracks", "artists"}* | Whether to show tracks or artists in top mode |
-| `plugin_music_user` | `string` **[*→ User login*]** | Music provider username |
-
-
-Legend for option icons:
-* 🔐 Value should be stored in repository secrets
+<table>
+  <tr>
+    <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_music</code></td>
+    <td rowspan="2">Display your music tracks<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_music_provider</code></td>
+    <td rowspan="2">Music provider<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br>
+<b>allowed values:</b><ul><li>apple</li><li>spotify</li><li>lastfm</li><li>youtube</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_music_token</code></td>
+    <td rowspan="2">Music provider personal token<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">🔐 Token<br>
+<b>type:</b> <code>token</code>
+<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_music_mode</code></td>
+    <td rowspan="2">Plugin mode<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br>
+<b>allowed values:</b><ul><li>playlist</li><li>recent</li><li>top</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_music_playlist</code></td>
+    <td rowspan="2">Embed playlist url<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_music_limit</code></td>
+    <td rowspan="2">Maximum number of tracks to display<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<br>
+<i>(1 ≤
+𝑥
+≤ 100)</i>
+<b>default:</b> 4<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_music_played_at</code></td>
+    <td rowspan="2">Display when the track was played<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_music_time_range</code></td>
+    <td rowspan="2">Time period for top mode<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br>
+<b>default:</b> short<br>
+<b>allowed values:</b><ul><li>short</li><li>medium</li><li>long</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_music_top_type</code></td>
+    <td rowspan="2">Whether to show tracks or artists in top mode<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br>
+<b>default:</b> tracks<br>
+<b>allowed values:</b><ul><li>tracks</li><li>artists</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_music_user</code></td>
+    <td rowspan="2">Music provider username<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br>
+<b>default:</b> <code>→ User login</code><br></td>
+  </tr>
+</table>
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

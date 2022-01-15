@@ -13,15 +13,55 @@ It can be restricted with a [CSS selector](https://developer.mozilla.org/en-US/d
 #### ➡️ Available options
 
 <!--options-->
-| Option | Type *(format)* **[default]** *{allowed values}* | Description |
-| ------ | -------------------------------- | ----------- |
-| `plugin_screenshot` | `boolean` **[no]** | Display a screenshot of any website |
-| `plugin_screenshot_title` | `string` **[Screenshot]** | Screenshot title caption |
-| `plugin_screenshot_url` | `string` **[]** | Website to take screenshot |
-| `plugin_screenshot_selector` | `string` **[body]** | Selector to take in screenshot |
-| `plugin_screenshot_background` | `boolean` **[yes]** | Display or remove default page background |
-
-
+<table>
+  <tr>
+    <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_screenshot</code></td>
+    <td rowspan="2">Display a screenshot of any website<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_screenshot_title</code></td>
+    <td rowspan="2">Screenshot title caption<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br>
+<b>default:</b> Screenshot<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_screenshot_url</code></td>
+    <td rowspan="2">Website to take screenshot<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_screenshot_selector</code></td>
+    <td rowspan="2">Selector to take in screenshot<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br>
+<b>default:</b> body<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_screenshot_background</code></td>
+    <td rowspan="2">Display or remove default page background<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> yes<br></td>
+  </tr>
+</table>
 <!--/options-->
 
 *[→ Full specification](metadata.yml)*

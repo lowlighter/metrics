@@ -1,9 +1,200 @@
 <!--header-->
+<table>
+  <tr><th colspan="2"><h3>🈷️ Most used languages</h3></th></tr>
+  <tr><td colspan="2" align="center">This plugin can display which languages you use across all repositories you contributed to.</td></tr>
+  <tr>
+    <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
+    <td><a href="/source/templates/classic"><code>📗 Classic template</code></a> <a href="/source/templates/repository"><code>📘 Repository template</code></a> <a href="/source/templates/terminal"><code>📙 Terminal template</code></a></td>
+  </tr>
+  <tr>
+    <td><code>👤 Users</code> <code>👥 Organizations</code> <code>📓 Repositories</code></td>
+  </tr>
+  <tr>
+    <td><code>🔑 (scopeless)</code> <code>read:org (optional)</code> <code>read:user (optional)</code> <code>repo (optional)</code></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
+      <details open><summary>Indepth analysis (clone and analyze repositories)</summary><img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.indepth.svg" alt=""></img></details>
+      <details open><summary>Recently used (analyze recent activity events)</summary><img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.recent.svg" alt=""></img></details>
+      <details><summary>Default algorithm</summary><img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.svg" alt=""></img></details>
+      <details><summary>Default algorithm (with details)</summary><img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.details.svg" alt=""></img></details>
+      <img width="900" height="1" alt="">
+    </td>
+  </tr>
+</table>
 <!--/header-->
 
 ## ➡️ Available options
 
 <!--options-->
+<table>
+  <tr>
+    <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_languages</code></td>
+    <td rowspan="2">Enable languages plugin<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_languages_ignored</code></td>
+    <td rowspan="2">Ignored languages<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_languages_skipped</code></td>
+    <td rowspan="2">Skipped repositories<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">⏩ Inherits <code>repositories_skipped</code><br>
+<b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_languages_limit</code></td>
+    <td rowspan="2">Display limit<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<br>
+<i>(0 ≤
+𝑥
+≤ 8)</i>
+<b>default:</b> 8<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_languages_threshold</code></td>
+    <td rowspan="2">Display threshold (percentage)<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br>
+<b>default:</b> 0%<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_languages_colors</code></td>
+    <td rowspan="2">Custom languages colors<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br>
+<b>default:</b> github<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_languages_aliases</code></td>
+    <td rowspan="2">Custom languages names<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_languages_sections</code></td>
+    <td rowspan="2">Displayed sections<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
+<b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br>
+<b>default:</b> most-used<br>
+<b>allowed values:</b><ul><li>most-used</li><li>recently-used</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_languages_details</code></td>
+    <td rowspan="2">Additional details<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
+<b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br>
+<b>allowed values:</b><ul><li>bytes-size</li><li>percentage</li><li>lines</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_languages_indepth</code></td>
+    <td rowspan="2">Indepth mode (⚠️ read documentation first)<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
+<b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> false<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_languages_analysis_timeout</code></td>
+    <td rowspan="2">Indepth mode - Analysis timeout<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
+<b>type:</b> <code>number</code>
+<br>
+<i>(1 ≤
+𝑥
+≤ 30)</i>
+<b>default:</b> 15<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_languages_categories</code></td>
+    <td rowspan="2">Indepth mode - Displayed categories (most-used section)<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
+<b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br>
+<b>default:</b> markup, programming<br>
+<b>allowed values:</b><ul><li>data</li><li>markup</li><li>programming</li><li>prose</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_languages_recent_categories</code></td>
+    <td rowspan="2">Indepth mode - Displayed categories (recently-used section)<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
+<b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br>
+<b>default:</b> markup, programming<br>
+<b>allowed values:</b><ul><li>data</li><li>markup</li><li>programming</li><li>prose</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_languages_recent_load</code></td>
+    <td rowspan="2">Events to load (recently-used section)<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
+<b>type:</b> <code>number</code>
+<br>
+<i>(100 ≤
+𝑥
+≤ 1000)</i>
+<b>default:</b> 300<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_languages_recent_days</code></td>
+    <td rowspan="2">Events maximum age (day, recently-used section)<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
+<b>type:</b> <code>number</code>
+<br>
+<i>(0 ≤
+𝑥
+≤ 365)</i>
+<b>default:</b> 14<br></td>
+  </tr>
+</table>
 <!--/options-->
 
 ## 🔎 `indepth` mode
@@ -136,4 +327,66 @@ To mitigate this, it is possible to use `plugin_languages_aliases` option and pr
 ## ℹ️ Examples workflows
 
 <!--examples-->
+```yaml
+name: Most used
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.languages.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ''
+  plugin_languages: 'yes'
+  plugin_languages_ignored: >-
+    html, css, tex, less, dockerfile, makefile, qmake, lex, cmake, shell,
+    gnuplot
+  plugin_languages_limit: 4
+
+```
+```yaml
+name: Most used (with details)
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.languages.details.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ''
+  plugin_languages: 'yes'
+  plugin_languages_ignored: >-
+    html, css, tex, less, dockerfile, makefile, qmake, lex, cmake, shell,
+    gnuplot
+  plugin_languages_details: bytes-size, percentage
+  plugin_languages_limit: 4
+
+```
+```yaml
+name: Recently used
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.languages.recent.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ''
+  plugin_languages: 'yes'
+  plugin_languages_ignored: >-
+    html, css, tex, less, dockerfile, makefile, qmake, lex, cmake, shell,
+    gnuplot
+  plugin_languages_sections: recently-used
+  plugin_languages_details: bytes-size, percentage
+  plugin_languages_limit: 4
+
+```
+```yaml
+name: Indepth analysis
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.languages.indepth.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ''
+  plugin_languages: 'yes'
+  plugin_languages_ignored: >-
+    html, css, tex, less, dockerfile, makefile, qmake, lex, cmake, shell,
+    gnuplot
+  plugin_languages_indepth: 'yes'
+  plugin_languages_details: lines, bytes-size
+  plugin_languages_limit: 4
+  plugin_languages_analysis_timeout: 15
+
+```
 <!--/examples-->
