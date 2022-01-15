@@ -895,12 +895,22 @@ jobs:
           output_action: none
           delay: 120
         if: ${{ success() || failure() }}
-      - name: 📕 Community templates - Example
+      - name: 📕 Community templates - Using a community template
         uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           template: '@classic'
           setup_community_templates: lowlighter/metrics@master:classic
+          plugins_errors_fatal: 'yes'
+          output_action: none
+          delay: 120
+        if: ${{ success() || failure() }}
+      - name: 📕 Community templates - Using a trusted community template
+        uses: lowlighter/metrics@master
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          template: '@terminal'
+          setup_community_templates: lowlighter/metrics@master:terminal+trust
           plugins_errors_fatal: 'yes'
           output_action: none
           delay: 120
