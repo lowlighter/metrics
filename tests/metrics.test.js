@@ -94,16 +94,18 @@ const metadata = JSON.parse(`${
 
 //Build tests index
 const tests = []
-for (const name in metadata.plugins) {
-  const cases = yaml
-    .load(fs.readFileSync(path.join(__dirname, "../tests/cases", `${name}.yml`), "utf8"))
-    ?.map(({ name: test, with: inputs, modes = [], timeout }) => {
-      const skip = new Set(Object.entries(metadata.templates).filter(([_, { readme: { compatibility } }]) => !compatibility[name]).map(([template]) => template))
-      if (!(metadata.plugins[name].supports.includes("repository")))
-        skip.add("repository")
-      return [test, inputs, { skip: [...skip], modes, timeout }]
-    }) ?? []
-  tests.push(...cases)
+for (const type of ["plugins", "templates"]) {
+  for (const name in metadata[type]) {
+    const cases = yaml
+      .load(fs.readFileSync(path.join(__dirname, "../tests/cases", `${name}.${type.replace(/s$/, "")}.yml`), "utf8"))
+      ?.map(({ name: test, with: inputs, modes = [], timeout }) => {
+        const skip = new Set(Object.entries(metadata.templates).filter(([_, { readme: { compatibility } }]) => !compatibility[name]).map(([template]) => template))
+        if (!(metadata[type][name].supports.includes("repository")))
+          skip.add("repository")
+        return [test, inputs, { skip: [...skip], modes, timeout }]
+      }) ?? []
+    tests.push(...cases)
+  }
 }
 
 //Tests run
