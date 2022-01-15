@@ -11,9 +11,26 @@ jobs:
 
   examples:
     runs-on: ubuntu-latest
-    if: "github.repository == 'lowlighter/metrics'"
+    if: false
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Checkout examples
+        run: git checkout examples
+
 <%- steps.split("\n").map(line => `      ${line}`).join("\n") %>
+
+      - name: Publish examples
+        run: |
+          set +e
+          sudo mv /metrics_renders/* ./
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add --all
+          git commit -m "chore: update examples"
+          git push
 
 # ======================================================================================
 # Markdown as png (for readme updates)
@@ -22,7 +39,6 @@ jobs:
   examples-markdown:
     runs-on: ubuntu-latest
     if: false
-    #if: "github.repository == 'lowlighter/metrics'"
     container: ghcr.io/lowlighter/metrics:master
     needs: [examples]
     steps:
@@ -56,6 +72,13 @@ jobs:
     runs-on: ubuntu-latest
     if: "github.repository == 'lowlighter/metrics'"
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Checkout examples
+        run: git checkout examples
+
       - name: Contributors
         if: ${{ success() || failure() }}
         uses: lowlighter/metrics@master
@@ -72,7 +95,6 @@ jobs:
           config_display: large
           output_action: none
           delay: 120
-
       - name: Sponsors
         if: ${{ success() || failure() }}
         uses: lowlighter/metrics@master
@@ -88,7 +110,6 @@ jobs:
           config_display: large
           output_action: none
           delay: 120
-
       - name: Licenses
         if: ${{ success() || failure() }}
         uses: lowlighter/metrics@master
@@ -105,3 +126,13 @@ jobs:
           plugins_errors_fatal: ${{ github.repository == 'lowlighter/lowlighter' }}
           output_action: none
           delay: 120
+
+      - name: Publish examples
+        run: |
+          set +e
+          sudo mv /metrics_renders/* ./
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add --all
+          git commit -m "chore: update examples"
+          git push
