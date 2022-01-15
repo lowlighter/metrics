@@ -16,7 +16,8 @@
   },
   "includes": ["**/*.{js,mjs}"],
   "excludes": [
-    "**/node_modules"
+    "node_modules/**/*",
+    ".github/scripts/quickstart/**/*"
   ],
   "plugins": [
     "https://plugins.dprint.dev/typescript-0.42.0.wasm"
