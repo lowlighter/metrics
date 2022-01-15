@@ -3,4 +3,6 @@
     token: MOCKED_TOKEN
     plugin_nightscout: 'yes'
     plugin_nightscout_url: https://testapp.herokuapp.com/
+    use_mocked_data: 'yes'
+    verify: 'yes'
   name: 💉 Nightscout - (unnamed)

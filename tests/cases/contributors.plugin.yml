@@ -6,6 +6,8 @@
     repo: metrics
     plugin_contributors: 'yes'
     plugin_contributors_contributions: 'yes'
+    use_mocked_data: 'yes'
+    verify: 'yes'
 - name: 🏅 Repository contributors - Contributors by categories
   uses: lowlighter/metrics@latest
   with:
@@ -20,3 +22,5 @@
         "📚 Documentation":["README.md", "**/README.md", "**/metadata.yml"],
         "💻 Code (other)":["source/**", "Dockerfile"]
       }
+    use_mocked_data: 'yes'
+    verify: 'yes'

@@ -4,6 +4,8 @@
     token: MOCKED_TOKEN
     plugin_topics: 'yes'
     plugin_topics_limit: 12
+    use_mocked_data: 'yes'
+    verify: 'yes'
 - name: 📌 Starred topics - Icons
   uses: lowlighter/metrics@latest
   with:
@@ -11,3 +13,5 @@
     plugin_topics: 'yes'
     plugin_topics_limit: 0
     plugin_topics_mode: icons
+    use_mocked_data: 'yes'
+    verify: 'yes'

@@ -5,3 +5,5 @@
     plugin_rss: 'yes'
     plugin_rss_source: https://news.ycombinator.com/rss
     plugin_rss_limit: 4
+    use_mocked_data: 'yes'
+    verify: 'yes'

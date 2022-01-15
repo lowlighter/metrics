@@ -7,6 +7,8 @@
       html, css, tex, less, dockerfile, makefile, qmake, lex, cmake, shell,
       gnuplot
     plugin_languages_limit: 4
+    use_mocked_data: 'yes'
+    verify: 'yes'
 - name: 🈷️ Most used languages - Most used (with details)
   uses: lowlighter/metrics@latest
   with:
@@ -17,6 +19,8 @@
       gnuplot
     plugin_languages_details: bytes-size, percentage
     plugin_languages_limit: 4
+    use_mocked_data: 'yes'
+    verify: 'yes'
 - name: 🈷️ Most used languages - Recently used
   uses: lowlighter/metrics@latest
   with:
@@ -28,6 +32,8 @@
     plugin_languages_sections: recently-used
     plugin_languages_details: bytes-size, percentage
     plugin_languages_limit: 4
+    use_mocked_data: 'yes'
+    verify: 'yes'
 - name: 🈷️ Most used languages - Indepth analysis
   uses: lowlighter/metrics@latest
   with:
@@ -40,3 +46,5 @@
     plugin_languages_details: lines, bytes-size
     plugin_languages_limit: 4
     plugin_languages_analysis_timeout: 15
+    use_mocked_data: 'yes'
+    verify: 'yes'

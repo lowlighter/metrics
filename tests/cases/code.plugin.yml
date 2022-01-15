@@ -5,3 +5,5 @@
     plugin_code: 'yes'
     plugin_code_languages: javascript, typescript
     plugin_code_load: 400
+    use_mocked_data: 'yes'
+    verify: 'yes'

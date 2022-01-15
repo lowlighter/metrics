@@ -2,4 +2,6 @@
   with:
     token: MOCKED_TOKEN
     plugin_poopmap: 'yes'
+    use_mocked_data: 'yes'
+    verify: 'yes'
   name: 💩 PoopMap plugin - (unnamed)

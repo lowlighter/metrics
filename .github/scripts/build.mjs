@@ -169,5 +169,9 @@ function testcase(name, env, {prod = {}, test = {}, ...step}) {
     Object.assign(result.with, {plugins_errors_fatal:"yes", output_action:"none", delay:120})
   }
 
+  if (env === "test") {
+    Object.assign(result.with, {use_mocked_data:"yes", verify:"yes"})
+  }
+
   return result
 }

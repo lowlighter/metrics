@@ -6,6 +6,8 @@
     plugin_habits_facts: 'yes'
     plugin_habits_charts: 'no'
     config_timezone: Europe/Paris
+    use_mocked_data: 'yes'
+    verify: 'yes'
 - name: 💡 Coding habits - Recent activity charts
   uses: lowlighter/metrics@latest
   with:
@@ -14,3 +16,5 @@
     plugin_habits_facts: 'no'
     plugin_habits_charts: 'yes'
     config_timezone: Europe/Paris
+    use_mocked_data: 'yes'
+    verify: 'yes'

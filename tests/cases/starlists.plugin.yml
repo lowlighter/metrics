@@ -5,3 +5,5 @@
     plugin_starlists: 'yes'
     plugin_starlists_limit_repositories: 2
     plugin_starlists_only: 🤘 TC39
+    use_mocked_data: 'yes'
+    verify: 'yes'

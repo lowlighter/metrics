@@ -5,6 +5,8 @@
     user: github
     base: header
     plugin_introduction: 'yes'
+    use_mocked_data: 'yes'
+    verify: 'yes'
 - name: 🙋 Introduction - Repository introduction
   uses: lowlighter/metrics@latest
   with:
@@ -13,3 +15,5 @@
     repo: metrics
     base: header
     plugin_introduction: 'yes'
+    use_mocked_data: 'yes'
+    verify: 'yes'

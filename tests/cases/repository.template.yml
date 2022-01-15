@@ -9,3 +9,5 @@
     plugin_followup: 'yes'
     plugin_projects: 'yes'
     plugin_projects_repositories: lowlighter/metrics/projects/1
+    use_mocked_data: 'yes'
+    verify: 'yes'

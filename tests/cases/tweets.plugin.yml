@@ -5,6 +5,8 @@
     plugin_tweets: 'yes'
     plugin_tweets_token: MOCKED_TOKEN
     plugin_tweets_user: github
+    use_mocked_data: 'yes'
+    verify: 'yes'
 - name: 🐤 Latest tweets - Latest tweets including attachments
   uses: lowlighter/metrics@latest
   with:
@@ -13,3 +15,5 @@
     plugin_tweets_token: MOCKED_TOKEN
     plugin_tweets_attachments: 'yes'
     plugin_tweets_user: github
+    use_mocked_data: 'yes'
+    verify: 'yes'

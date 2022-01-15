@@ -6,3 +6,5 @@
     plugin_activity_limit: 5
     plugin_activity_days: 0
     plugin_activity_filter: issue, pr, release, fork, review, ref/create
+    use_mocked_data: 'yes'
+    verify: 'yes'

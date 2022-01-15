@@ -4,6 +4,8 @@
     token: MOCKED_TOKEN
     plugin_achievements: 'yes'
     plugin_achievements_only: sponsor, maintainer, octonaut
+    use_mocked_data: 'yes'
+    verify: 'yes'
   timeout: 1800000
 - name: 🏆 Achievements - Compact display
   uses: lowlighter/metrics@latest
@@ -15,4 +17,6 @@
       scripter, packager, explorer, infographile, manager
     plugin_achievements_display: compact
     plugin_achievements_threshold: X
+    use_mocked_data: 'yes'
+    verify: 'yes'
   timeout: 1800000

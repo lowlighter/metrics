@@ -3,15 +3,21 @@
   with:
     token: MOCKED_TOKEN
     plugin_followup: 'yes'
+    use_mocked_data: 'yes'
+    verify: 'yes'
 - name: 🎟️ Follow-up of issues and pull requests - Opened by user
   uses: lowlighter/metrics@latest
   with:
     token: MOCKED_TOKEN
     plugin_followup: 'yes'
     plugin_followup_sections: user
+    use_mocked_data: 'yes'
+    verify: 'yes'
 - name: 🎟️ Follow-up of issues and pull requests - Indepth analysis
   uses: lowlighter/metrics@latest
   with:
     token: MOCKED_TOKEN
     plugin_followup: 'yes'
     plugin_followup_indepth: 'yes'
+    use_mocked_data: 'yes'
+    verify: 'yes'

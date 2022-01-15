@@ -5,3 +5,5 @@
     plugin_reactions: 'yes'
     plugin_reactions_limit: 100
     plugin_reactions_details: percentage
+    use_mocked_data: 'yes'
+    verify: 'yes'

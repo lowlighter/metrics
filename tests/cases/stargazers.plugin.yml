@@ -3,3 +3,5 @@
   with:
     token: MOCKED_TOKEN
     plugin_stargazers: 'yes'
+    use_mocked_data: 'yes'
+    verify: 'yes'

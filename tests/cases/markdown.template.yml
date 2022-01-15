@@ -5,6 +5,8 @@
     markdown: metrics.markdown.template.md
     config_output: markdown
     token: MOCKED_TOKEN
+    use_mocked_data: 'yes'
+    verify: 'yes'
 - name: 📒 Markdown template - Example with plugins configuration for embed use
   uses: lowlighter/metrics@latest
   with:
@@ -34,6 +36,8 @@
     plugin_isocalendar: 'yes'
     plugin_languages: 'yes'
     token: MOCKED_TOKEN
+    use_mocked_data: 'yes'
+    verify: 'yes'
 - name: 📒 Markdown template - Example (pdf output)
   uses: lowlighter/metrics@latest
   with:
@@ -48,3 +52,5 @@
     config_twemoji: 'yes'
     config_padding: 5%
     token: MOCKED_TOKEN
+    use_mocked_data: 'yes'
+    verify: 'yes'

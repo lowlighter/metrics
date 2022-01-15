@@ -5,3 +5,5 @@
     plugin_wakatime: 'yes'
     plugin_wakatime_sections: time, projects, projects-graphs, languages, languages-graphs, editors, os
     plugin_wakatime_token: MOCKED_TOKEN
+    use_mocked_data: 'yes'
+    verify: 'yes'

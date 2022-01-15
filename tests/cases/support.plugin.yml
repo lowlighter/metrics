@@ -3,3 +3,5 @@
   with:
     token: NOT_NEEDED
     plugin_support: 'yes'
+    use_mocked_data: 'yes'
+    verify: 'yes'

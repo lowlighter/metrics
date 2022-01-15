@@ -6,6 +6,8 @@
     plugin_skyline_year: 2020
     plugin_skyline_frames: 6
     plugin_skyline_quality: 1
+    use_mocked_data: 'yes'
+    verify: 'yes'
   timeout: 1800000
   modes:
     - action

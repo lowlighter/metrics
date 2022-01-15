@@ -4,6 +4,8 @@
     token: MOCKED_TOKEN
     plugin_posts: 'yes'
     plugin_posts_source: dev.to
+    use_mocked_data: 'yes'
+    verify: 'yes'
 - name: ✒️ Recent posts - Recent posts with descriptions and cover images
   uses: lowlighter/metrics@latest
   with:
@@ -12,3 +14,5 @@
     plugin_posts_source: dev.to
     plugin_posts_descriptions: 'yes'
     plugin_posts_covers: 'yes'
+    use_mocked_data: 'yes'
+    verify: 'yes'
