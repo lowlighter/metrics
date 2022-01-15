@@ -2,20 +2,9 @@
 
 Setup a GitHub Action which runs periodically and pushes generated images to a repository.
 
-Assuming your username is `my-github-user`, you can then embed rendered metrics in your readme like below:
+## 0️ Setup a personal repository
 
-```markdown
-<!-- If you're using "master" as default branch -->
-![Metrics](https://github.com/my-github-user/my-github-user/blob/master/github-metrics.svg)
-<!-- If you're using "main" as default branch -->
-![Metrics](https://github.com/my-github-user/my-github-user/blob/main/github-metrics.svg)
-```
-
-## 💬 How to setup?
-
-### 0. Setup a personal repository
-
-Create a repository with the same name as your GitHub login (if it's not already done).
+Create a repository with the same name as your GitHub login (if it doesn't exist).
 
 ![Setup personal repository](/.github/readme/imgs/setup_personal_repository.png)
 
@@ -23,93 +12,111 @@ Its `README.md` will be displayed on your user profile:
 
 ![GitHub Profile Example](/.github/readme/imgs/example_github_profile.png)
 
-### 1. Create a GitHub personal token
+## 1️ Create a GitHub personal token
 
 From the `Developer settings` of your account settings, select `Personal access tokens` to create a new token.
 
-No additional scopes are needed for basic metrics, but you may have to grant additional scope depending on what features you're planning to use:
-- `public_repo` scope for some plugins
-- `read:org` scope for all organizations related metrics
-- `repo` scope for all private repositories related metrics
-  - `read:user` scope may also be required for some private repositories related metrics
+No scopes are required, but additional one may be required depending on which features will be used. Each plugin documentation enumerates which scopes are required to make it work.
+
+A a general rule, the following scopes may be required:
+- `public_repo` for some plugins
+- `read:org` for all organizations related metrics
+- `repo` for all private repositories related metrics
+  - `read:user` for some private repositories related metrics
+- `gist` for publishing renders to gists instead of a repository
+
+> 💡 For security reasons, it is advised to always use the least amount of scopes. It is possible to prevent security issues by [forking this repository](https://github.com/lowlighter/metrics/fork) and using it in your workflow instead (more information available in step 3)
 
 ![Setup a GitHub personal token](/.github/readme/imgs/setup_personal_token.png)
 
-A scope-less token can still display private contributions by enabling `Include private contributions on my profile` in your account settings:
+A scope-less token can still display private contributions by enabling `Include private contributions on my profile` in account settings:
 
 ![Enable "Include private contributions on my profile`"](/.github/readme/imgs/setup_private_contributions.png)
 
-If a plugin has not enough scopes to operate (and `plugins_errors_fatal` isn't enabled), it'll be reported in the rendering like below:
+When a plugin has not enough scopes to operate (and `plugins_errors_fatal` is disabled), an error will be reported in the rendering like below:
 
 ![Plugin error example](https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.error.svg)
 
-### 2. Put your GitHub personal token in your repository secrets
+## 2️ Put your GitHub personal token in repository secrets
 
-Go to the `Settings` of your repository to create a new secret and paste your freshly generated GitHub token there.
+Go to the `Settings` of your repository and to create a new secret and paste your freshly generated GitHub token there.
 
 ![Setup a repository secret](/.github/readme/imgs/setup_repository_secret.png)
 
-### 3. Create a GitHub Action workflow in your repository
+## 3️ Setup GitHub Action workflow
 
-Create a new workflow from the `Actions` tab of your repository and paste the following:
+Create a new workflow from the `Actions` tab of repository and paste the following:
 
 ```yaml
 name: Metrics
 on:
-  # Schedule updates (each hour)
-  schedule: [{cron: "0 * * * *"}]
-  # Lines below let you run workflow manually and on each commit (optional)
+  # Schedule daily updates
+  schedule: [{cron: "0 0 * * *"}]
+  # (optional) Run workflow manually
   workflow_dispatch:
+  # (optional) Run workflow when pushing on master/main
   push: {branches: ["master", "main"]}
 jobs:
   github-metrics:
     runs-on: ubuntu-latest
     steps:
-      # See action.yml for all options
       - uses: lowlighter/metrics@latest
         with:
-          # Your GitHub token
           token: ${{ secrets.METRICS_TOKEN }}
 ```
 
-See all supported options in [action.yml](/action.yml).
-
-Rendered metrics will be committed to your repository on each run.
+Rendered metrics will be committed to repository on each run.
 
 ![Action update example](/.github/readme/imgs/example_action_update.png)
 
-#### Choosing between `@latest`, `@master` or a fork
+### 3️.1️ Choosing between `@latest`, `@master`/`@main`, a fork or a pinned version
 
-If you wish to use new features as they're being released, you can switch from `@latest` to `@master`.
-As the latter is used as a development branch, jobs may fail from time to time (although we try to mitigate this).
+There are several *metrics* versions that can be used in workflows:
 
-For convenience, it is possible to use `@main` instead of `@master`.
+- `@latest`
+  - ✔️ Stable version
+- `@master`/`@main`
+  - ✔️ Enjoy new features and bug fixes as they're being released
+  - ✔️ Helps discovering new issues
+  - ➖ Jobs may fail occasionally (watch [issues](https://github.com/lowlighter/metrics/issues) and [discussions](https://github.com/lowlighter/metrics/discussions) for bug tracking)
+- `@{fork}`
+  - ✔️ Secure as you're in control
+  - ✔️ Advised when using additional scopes in personal access token
+  - ➖ Manual updates (watch new [releases](https://github.com/lowlighter/metrics/releases) for updates)
+- `@v{x}.{x}`
+  - ➖
 
-When using a token with additional permissions, it is advised to fork this repository and use it instead to minimize security risks:
+> 💡 Workflows are always compatible with previous version as *metrics* workflow-breaking changes are never introduced. In fact, even workflows from v1.0 are still compatible!
+
+*Example: using a forked version*
 ```yaml
-      - uses: my-github-username/metrics@master
-      # If you make changes on your fork, be sure not leave @latest as tag!
+  - uses: user/metrics@master
 ```
 
-In this case, please consider watching new releases to stay up-to-date and enjoy latest features!
+> ⚠️ Be sure to use the default branch (`@master`) on forks to apply any changes made!
 
-`@latest` will be updated on each release. Metrics doesn't introduce breaking changes **from an user point of view** (i.e. your workflows will always be valid) so you can follow release cycles without worrying.
+### 3️.2️ Configure *metrics*
 
-#### Examples workflows
+Read [documentation](/README.md#-documentation) for more informations about configuration.
+It is advised to start with [`🧱 core`](/source/plugins/core/README.md) plugin documentation.
 
-Metrics displayed on this page are rendered from this [workflow](https://github.com/lowlighter/metrics/blob/examples/.github/workflows/metrics.yml) so you can check it out for some code examples about plugins usage.
+It is also possible to use [metrics.lecoq.io](https://metrics.lecoq.io) to play with configuration options, preview renders and finally copy the auto-generated workflow code.
 
-You can also take a look at this [user workflow](https://github.com/lowlighter/metrics/blob/examples/.github/workflows/personal.yml) if you want.
+## 4️ Add images to your profile `README.md`
 
-### 4. Embed link into your README.md
+Update profile `README.md` to include rendered image (filename may differ if `filename` option has been set, use the correct path accordingly).
 
-Update your README.md to embed your metrics:
-
+*Example: add rendered image with markdown*
 ```markdown
-<!-- If you're using "master" as default branch -->
-![Metrics](https://github.com/my-github-user/my-github-user/blob/master/github-metrics.svg)
-<!-- If you're using "main" as default branch -->
-![Metrics](https://github.com/my-github-user/my-github-user/blob/main/github-metrics.svg)
-<!-- If you're using the "columns" display mode -->
-<img src="https://github.com/my-github-user/my-github-user/blob/master/github-metrics.svg" alt="Metrics" width="100%">
+![Metrics](/github-metrics.svg)
+```
+
+*Example: add rendered image with html for more customization*
+```markdown
+<img align="center" src="/github-metrics.svg" width="400">
+```
+
+*Example: add rendered image when using `config_display: columns`*
+```markdown
+<img src="/github-metrics.svg" width="100%">
 ```
