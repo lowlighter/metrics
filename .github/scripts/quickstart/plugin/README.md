@@ -1,19 +1,12 @@
-### 🧩 <%= `${name.charAt(0).toLocaleUpperCase()}${name.substring(1)}` %>
+<!--header-->
+<!--/header-->
 
-<table>
-  <td align="center">
-    <img src="">
-    <img width="900" height="1" alt="">
-  </td>
-</table>
+## ➡️ Available options
 
-#### ℹ️ Examples workflows
+<!--options-->
+<!--/options-->
 
-[➡️ Available options for this plugin](metadata.yml)
+## ℹ️ Examples workflows
 
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_<%= name %>: yes
-```
+<!--examples-->
+<!--/examples-->

@@ -1,14 +1,16 @@
 name: "🖼️ Template name"
-extends: classic  # Fallback to "classic" template "template.mjs" if not trusted
-index: ~          # Leave as it (this is used to order plugins on metrics README.md)
+extends: classic
+description: Short description
+examples:
+  default: https://via.placeholder.com/468x60?text=No%20preview%20available
 supports:
-  - user          # Support users account
-  - organization  # Support organizations account
-  - repository    # Support repositories metrics
+  - user
+  - organization
+  - repository
 formats:
-  - svg           # Support SVG output
-  - png           # Support PNG output
-  - jpeg          # Support JPEG output
-  - json          # Support JSON output
-  - markdown      # Support markdown output
-  - markdown-pdf  # Support PDF output
+  - svg
+  - png
+  - jpeg
+  - json
+  - markdown
+  - markdown-pdf

@@ -1,14 +1,16 @@
 name: "🧩 <%= `${name.charAt(0).toLocaleUpperCase()}${name.substring(1)}` %>"
-category: community # Leave as it
+category: community
+description: Short description
+examples:
+  default: https://via.placeholder.com/468x60?text=No%20preview%20available
 supports:
-  - user            # Support users account
-  - organization    # Support organizations account
-  - repository      # Support repositories metrics
-scopes: []          # Required scopes for personal access token
+  - user
+  - organization
+  - repository
+scopes: []
 inputs:
 
-  # Enable or disable plugin
   plugin_<%= name %>:
-    description: description
+    description: Enable <%= name %> plugin
     type: boolean
     default: no

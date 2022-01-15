@@ -1,7 +1,9 @@
-- name: <%= `${name.charAt(0).toLocaleUpperCase()}${name.substring(1)}` %> plugin (default)
+- name: Example
   uses: lowlighter/metrics@latest
   with:
     filename: metrics.plugin.<%= name %>.svg
     token: ${{ secrets.METRICS_TOKEN }}
     base: ""
     plugin_<%= name %>: yes
+  prod:
+    skip: true
