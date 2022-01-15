@@ -1,7 +1,7 @@
 ## 🖼️ Templates
 
 Templates lets you change general appearance of rendered metrics.
-See their respective documentation for more informations about how to setup them:
+
 
 * [📗 Classic template](/source/templates/classic/README.md)
 * [📘 Repository template](/source/templates/repository/README.md)

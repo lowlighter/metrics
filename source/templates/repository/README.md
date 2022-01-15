@@ -13,7 +13,7 @@
     <td>*️⃣ SVG, *️⃣ PNG, *️⃣ JPEG, #️⃣ JSON</td>
   </tr>
   <tr>
-    <td  colspan="2" align="center">
+    <td colspan="2" align="center">
       <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.repository.svg" alt=""></img>
       <img width="900" height="1" alt="">
     </td>

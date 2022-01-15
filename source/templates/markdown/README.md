@@ -13,7 +13,7 @@
     <td>#️⃣ JSON, 🔠 Markdown, 🔠 Markdown (PDF)</td>
   </tr>
   <tr>
-    <td  colspan="2" align="center">
+    <td colspan="2" align="center">
       <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.markdown.png" alt=""></img>
       <img width="900" height="1" alt="">
     </td>
