@@ -30,7 +30,7 @@ const {plugins, templates} = await metadata({log:false, diff:true})
 const workflow = []
 
 //Config and general documentation auto-generation
-for (const step of []) {
+for (const step of ["config", "documentation"]) {
   switch (step) {
     case "config":
       await update({source:paths.join(__action, "action.yml"), output:"action.yml"})

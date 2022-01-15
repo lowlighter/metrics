@@ -1,7 +1,7 @@
 name: Examples
 on:
   schedule:
-    - cron: "0 8 * * *"
+    - cron: "0 8 1/2 * *"
   workflow_dispatch:
 jobs:
 
@@ -11,7 +11,7 @@ jobs:
 
   examples:
     runs-on: ubuntu-latest
-    if: false
+    if: "github.repository == 'lowlighter/metrics'"
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -38,7 +38,7 @@ jobs:
 
   examples-markdown:
     runs-on: ubuntu-latest
-    if: false
+    if: "github.repository == 'lowlighter/metrics'"
     container: ghcr.io/lowlighter/metrics:master
     needs: [examples]
     steps:
