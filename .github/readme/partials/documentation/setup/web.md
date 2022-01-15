@@ -1,50 +1,93 @@
-# 🏗️ Deploying your own web instance (~20 min setup, depending on your sysadmin knowledge)
+# 🏗️ Deploying a web instance (~20 min)
 
-Setup a metrics instance on your server if you don't want to use GitHub Actions and [metrics.lecoq.io](https://metrics.lecoq.io).
-See all supported options in [settings.example.json](/settings.example.json).
+Setup a *metrics* web instance on your server.
 
-Assuming your username is `my-github-user`, you can then embed rendered metrics in your readme like below:
+## 0️ Prepare your server
 
-```markdown
-![Metrics](https://my-personal-domain.com/my-github-user)
-```
+A server with a recent version of [docker](https://www.docker.com/) is required.
 
-## 💬 How to setup?
-
-### 0. Prepare your server
-
-You'll need a server with a recent version of [Docker](https://www.docker.com/).
-
-### 1. Create a GitHub personal token
+## 1️ Create a GitHub personal token
 
 From the `Developer settings` of your account settings, select `Personal access tokens` to create a new token.
 
-No additional scopes are needed.
+No additional scopes are required.
+
+> 💡 For security reasons, it is advised to use a scope-less token for web instances.
 
 ![Setup a GitHub personal token](/.github/readme/imgs/setup_personal_token.png)
 
-### 2. Configure your instance
+## 2️ Configure *metrics*
 
-Fetch [settings.example.json](/settings.example.json) which contains all supported option.
+Fetch a copy of [`settings.example.json`](/settings.example.json) and rename it `settings.json`
 ```shell
 wget https://raw.githubusercontent.com/lowlighter/metrics/master/settings.example.json
+mv settings.example.json settings.json
 ```
 
 Edit `settings.json` to configure your instance.
 
+*Example: minimal configuration*
 ```javascript
 {
-  //GitHub API token
-    "token":"GITHUB_TOKEN",
-  //Other options...
+  "token": "GITHUB_TOKEN",
 }
 ```
 
-If you plan to make your web instance public, it is advised to restrict its access thanks to rate limiter and access list.
+### 2️.1️  Restricting access to your web instance
 
-### 3. Start docker container
+If you intend to make your web instance public, it is advised to restrict access using an access list or rate-limiting it.
 
-Metrics docker images are published on [GitHub Container Registry](https://github.com/lowlighter/metrics/pkgs/container/metrics).
+Only authorized users will be able to generate images.
+
+*Example: restricted access server*
+```javascript
+{
+  "restricted": ["user1", "user2", "user3"],
+  "maxusers": 2,
+  "ratelimiter": {
+    "windowMs": 900000,
+	  "max": 100
+  }
+}
+```
+
+### 2️.2️ Global configuration
+
+Configuration file also contains settings about enabled templates, plugins and features.
+
+*Example: additional server configuration*
+```javascript
+{
+  "cached": 3600000,
+  "port": 3000,
+  "templates": {
+    "default": "classic",
+    "enabled": ["classic", "terminal"],
+  },
+  "community": {
+    "templates": ["user/repo@main:custom-theme"],
+  },
+  "hosted": {
+    "by": "me",
+    "link": "https://user.me",
+  },
+  "extras": {
+    "css": true,
+    "features": false
+  },
+  "plugins": {
+    "isocalendar":{
+      "enabled": false
+    }
+  }
+}
+```
+
+> ⚠️ Extras features **should not** be enabled on a public server, most of these are compute-intensive and some of some even allow remote code execution! Use with caution
+
+## 3️ Start docker container
+
+Docker images are published on [GitHub Container Registry](https://github.com/lowlighter/metrics/pkgs/container/metrics).
 
 Configure the following variables (or hardcode them in the command in the next block):
 ```shell
@@ -60,24 +103,47 @@ PUBLISHED_PORT=80
 
 And start the container using the following command:
 ```shell
-docker run -d --workdir=/metrics --entrypoint="" -p=127.0.0.1:$PUBLISHED_PORT:$SERVICE_PORT --volume=$SETTINGS:/metrics/settings.json ghcr.io/lowlighter/metrics:$VERSION npm start
+docker run --entrypoint="" -p=127.0.0.1:$PUBLISHED_PORT:$SERVICE_PORT --volume=$SETTINGS:/metrics/settings.json ghcr.io/lowlighter/metrics:$VERSION npm start
 ```
 
-### 4. Embed link into your README.md
+## 4️ Add images to your profile `README.md`
 
-Edit your repository readme and add your metrics image from your server domain:
+Update profile `README.md` to include rendered image.
 
+*Example: add rendered image with markdown*
 ```markdown
-![Metrics](https://my-personal-domain.com/my-github-user)
+![Metrics](https://my.server.com/username)
 ```
 
-### 5. (optional) Setup your instance as a service
+### 4️.1️ URL parameters syntax
 
-To ensure that your instance will restart if it reboots or crashes, you should set it up as a service.
+The GitHub action and the web instance uses the same engine behing the hood.
+
+It is actually possible to generate image directly from url without passing by the web ui by knowing how to pass parameters.
+
+Parameters for the web instance:
+- use dots (`.`) instead of underscores (`_`)
+- does not use `plugin_` prefixes
+- special characters need to be url [encoded](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent)
+
+*Example: configuring `⏱️ pagespeed` plugin for [https://example.org](https://example.org/)*
+```html
+<img src="https://my.server.com/username?pagespeed=1&pagespeed.detailed=1&pagespeed.url=https%3A%2F%2Fexample.com">
+```
+
+`🗃️ base` plugin use a slightly different notation where sections are configured through `base.<section>` param.
+
+*Example: configuring `🗃️ base` plugin to display only repositories section*
+```html
+<img src="https://my.server.com/username?base=0&base.repositories=1">
+```
+
+## *️⃣ Create a service (optional)
+
+To ensure that service will restart after reboots or crashes, it is advised to setup it as a service.
 This is described below for Linux-like systems which support *systemd*.
 
-Create a new service file `/etc/systemd/system/github_metrics.service` and paste the following after editing paths inside:
-
+Create a new service file `/etc/systemd/system/github_metrics.service` and paste the following:
 ```ini
 [Unit]
 Description=Metrics
@@ -86,57 +152,16 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-ExecStart=(command to run as service)
+ExecStart=# docker command #
 
 [Install]
 WantedBy=multi-user.target
 ```
 
 Reload services, enable it, start it and check if it is up and running:
-
 ```shell
 systemctl daemon-reload
 systemctl enable github_metrics
 systemctl start github_metrics
 systemctl status github_metrics
-```
-
-### Alternative option: run an instance locally (intended for testing and development)
-
-To run an instance without docker, you'll need to have [NodeJS](https://nodejs.org) (see used version in [Dockerfile](/Dockerfile#L1-L2)) installed.
-
-Clone repository, install dependencies and copy configuration example to `settings.json`:
-
-```shell
-git clone https://github.com/lowlighter/metrics.git
-cd metrics/
-npm install --only=prod
-cp settings.example.json settings.json
-```
-
-Once you've finished configuring metrics, start your instance using the following command:
-
-```shell
-npm start
-```
-
-You should now be able to access your server with provided port in `setting.json` from your browser.
-
-## 🔗 HTTP parameters
-
-Most of options from [action.yml](/action.yml) are actually supported by web instance, though syntax is slightly different.
-All underscores (`_`) must be replaced by dots (`.`) and `plugin_` prefixes must be dropped.
-
-For example, to configure pagespeed plugin you'd use the following:
-```
-https://my-personal-domain.com/my-github-user?pagespeed=1&pagespeed.detailed=1&pagespeed.url=https%3A%2F%2Fexample.com
-```
-
-Note that url parameters must be [encoded](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/encodeURIComponent).
-
-As for `base` content, which is enabled by default, sections are available through "`base.<section>`".
-
-For example, to display only `repositories` section, use:
-```
-https://my-personal-domain.com/my-github-user?base=0&base.repositories=1
 ```
