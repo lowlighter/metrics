@@ -1,50 +1,118 @@
-### 📒 Markdown template
-
-Markdown template can render a **markdown template** by interpreting **templating brackets** `{{` and `}}`.
-
-<table>
-  <td align="center">
-    <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.markdown.png">
-    <img width="900" height="1" alt="">
-  </td>
-</table>
-
-It can be used to render custom markdown which include data gathered by metrics.
-Unlike SVG templates, it is possible to include revelant hyperlinks since it'll be rendered as regular markdown.
-
-You can even mix it with SVG plugins for even more customization using `embed` function.
-
-See [example.md](/source/templates/markdown/example.md) for a markdown template example.
-
-> Note that available data still depends on which plugins have been enabled.
-> You may need to handle errors and setup plugins correctly in order to access to their output data.
-
-To find which data can be used, you can run a workflow with `config_output: json`.
-For convenience, several useful properties are aliased in [/source/templates/markdown/template.mjs](/source/templates/markdown/template.mjs).
+<!--header-->
+<!--/header-->
 
 #### ℹ️ Examples workflows
 
-[➡️ Supported formats and inputs](metadata.yml)
+<!--examples-->
+<!--/examples-->
 
-```yaml
-# Markdown output
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    template: markdown
-    filename: README.md         # Output file
-    markdown: TEMPLATE.md       # Template file
-    markdown_cache: .cache      # Cache folder
+___
+
+This template can be used to a *markdown template file* with data gathered by metrics.
+
+Since the resulting output is a markdown file, it is possible to do additional formatting such as creating hyperlinks and adding custom texts.
+
+## 🈂️ Templating syntax:
+
+The templating engine is [EJS](https://github.com/mde/ejs) and can be used to interpolate any data retrieved by metrics.
+
+* `<%=` and `%>` are used to display escaped output
+  * `{{` and `}}` is also supported as syntaxic sugar
+* `<%-` and `%>` are used to display raw output
+* `<%` and `%>` are used to execute JavaScript, and can also contains control statements such as conditionals and loops
+
+*Example: basic templating*
+```markdown
+<!-- template -->
+I joined GitHub on `{{ f.date(REGISTRATION_DATE, {date:true}) }}`.
+I contributed to `{{ REPOSITORIES_CONTRIBUTED_TO }}` repositories and made `{{ COMMITS }}` commits.
+
+<!-- render -->
+I joined GitHub on `20 Oct 2016`.
+I contributed to `37` repositories and made `5947` commits.
 ```
 
-```yaml
-# PDF output
+## 🔣 Available data
+
+Any data fetched by metrics and exposed formatting helpers can be used.
+
+It also means that to access plugins data they must be enabled and configured beforehand.
+
+*Example: enabling `plugin_activity` exposes `plugins.activity` data*
+```yml
 - uses: lowlighter/metrics@latest
   with:
-    # ... other options
     template: markdown
-    filename: render.pdf        # Output file
-    markdown: TEMPLATE.md       # Template file
-    markdown_cache: .cache      # Cache folder
-    config_output: markdown-pdf # Output as pdf file
+    plugin_activity: yes
 ```
+
+> 💡 To avoid failures while accessing data, use [optional chaining operator `?.`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining) or ensure that no errors where reported by a given plugin.
+
+> ⚠️ Although rare, data schemas may change in-between metrics version without any notice (these changes are not documented in release notes). It is advised to use a pinned version or a fork when using this template.
+
+A few properties are aliased in [/source/templates/markdown/template.mjs](/source/templates/markdown/template.mjs) for convenience.
+
+Use `config_output: json` to dump all available data for a given configuration. Power users can also directly read [metrics source code](https://github.com/lowlighter/metrics) to know what is exposed.
+
+For a quick overview, it is also possible to use [metrics.lecoq.io/{username}?config.output=json](https://metrics.lecoq.io).
+
+> 💡 Note however that [metrics.lecoq.io](https://metrics.lecoq.io) has a caching system which may prevent any new result.
+
+## 🧩 Plugins with markdown version
+
+Several plugins have a markdown version which provides better usability, usually with hyperlinks and better text formatting.
+
+*Example: using `✒️ posts` plugin markdown version*
+```ejs
+<%- await include(`partials/posts.ejs`) %>
+```
+
+**[✒️ Recent posts from dev.to](https://dev.to/lowlighter)**
+<table>
+  <tr>
+    <td rowspan="2" width="280">
+      <img src="https://res.cloudinary.com/practicaldev/image/fetch/s--rbmokFTg--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/i/idot5ak9irxtu948bgzs.png" alt="" width="280">
+    </td>
+    <th>
+      <a href="https://dev.to/lowlighter/metrics-v3-0-the-ultimate-tool-to-pimp-your-github-profile-g7p">Metrics v3.0, the ultimate tool to pimp your GitHub profile!</a>
+    </th>
+  </tr>
+  <tr>
+    <td>
+      Metrics is an extensive SVG images generator plugged with various APIs (GitHub, Twitter, Spotify, ......
+      <br>
+      <i>Published on 4 Jan 2021</i>
+    </td>
+  </tr>
+</table>
+
+> 💡 Remember, plugins still need to be enabled and configured in workflow file!
+
+## 🎈 Embedding SVG metrics on-the-fly
+
+An additional feature which makes the markdown template more powerful than its counterparts is that it can also render SVG on the fly using `embed()` function, without creating any additional jobs.
+
+These renders will automatically be pushed to `markdown_cache` folder and included in the markdown render.
+
+```yml
+- uses: lowlighter/metrics@latest
+  with:
+    template: markdown
+    markdown_cache: .cache
+```
+
+The `embed()` function takes two arguments:
+1. An unique file identifier (which will be used to store render in `${markdown_cache}/${file_identifier}`)
+2. Configuration options
+  - Note that `token` options are automatically passed down from overall configuration, do not pass them again (especially in clear) in it
+
+*Example: embed a `🈷️ languages` SVG render*
+```ejs
+<%- await embed(`example-languages-pdf`, {languages:true, languages_details:"percentage, bytes-size", config_display:"large"}) %>
+```
+
+<img src="https://github.com/lowlighter/lowlighter/blob/master/.cache/example-languages-pdf.svg">
+
+> 💡 The `plugin_` prefix can be dropped for convenience
+
+> 💡 The `embed()` function does not have `🗃️ base` plugin enabled by default. To use it, it is required to explicitely pass them through `base` option.
