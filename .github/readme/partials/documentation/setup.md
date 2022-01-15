@@ -9,11 +9,13 @@ There are several ways to setup metrics, each having its advantages and disadvan
 * [💕 Using the shared instance *(~1 min)*](/.github/readme/partials/documentation/setup/shared.md)
   * ✔️ Easily configurable and previewable
   * ➖ Limited features *(compute-intensive features are disabled)*
-* 🐳 Using command line with docker *(~5 min)* *(documentation not available yet)*
+* [🏗️ Deploying a web instance *(~20 min)*](/.github/readme/partials/documentation/setup/web.md)
+  * ✔️ Create another shared instance
+  * ➖ Requires some sysadmin knowlegde
+* [🐳 Using command line with docker *(~5 min)*](/.github/readme/partials/documentation/setup/docker.md)
   * ✔️ Suited for one-time rendering
-* [🏗️ Deploying your own web instance *(~20 min)*](/.github/readme/partials/documentation/setup/web.md)
-  * ➖ Mostly intended for development, or to create another shared instance
+* [🔧 Local setup for development *(~20 min)*](/.github/readme/partials/documentation/setup/local.md)
 
 Additional resources for setup:
-* [🏦 Configuring metrics for organizations](/.github/readme/partials/documentation/organizations.md)
-* 🧰 Template/Plugin compatibility matrix *(documentation not available yet)*
+* [🏦 Configure metrics for organizations](/.github/readme/partials/documentation/organizations.md)
+* [🧰 Template/Plugin compatibility matrix](/.github/readme/partials/documentation/compatibility.md)

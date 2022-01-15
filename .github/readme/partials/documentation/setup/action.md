@@ -1,4 +1,4 @@
-# ⚙️ Using GitHub Action on a profile repository (~10 min setup)
+# ⚙️ Using GitHub Action on a profile repository (~10 min)
 
 Setup a GitHub Action which runs periodically and pushes generated images to a repository.
 
@@ -84,7 +84,7 @@ There are several *metrics* versions that can be used in workflows:
   - ✔️ Advised when using additional scopes in personal access token
   - ➖ Manual updates (watch new [releases](https://github.com/lowlighter/metrics/releases) for updates)
 - `@v{x}.{x}`
-  - ➖
+  - ➖ Pinned versions have no real advantages
 
 > 💡 Workflows are always compatible with previous version as *metrics* workflow-breaking changes are never introduced. In fact, even workflows from v1.0 are still compatible!
 
@@ -112,11 +112,11 @@ Update profile `README.md` to include rendered image (filename may differ if `fi
 ```
 
 *Example: add rendered image with html for more customization*
-```markdown
-<img align="center" src="/github-metrics.svg" width="400">
+```html
+<img align="center" src="/github-metrics.svg" alt="Metrics" width="400">
 ```
 
 *Example: add rendered image when using `config_display: columns`*
-```markdown
-<img src="/github-metrics.svg" width="100%">
+```html
+<img src="/github-metrics.svg" alt="Metrics" width="100%">
 ```

@@ -14,7 +14,7 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
 -%>
   <tr>
     <th colspan="2" align="center">
-      <h3><a href="/source/plugins/README.md">🧩 Customizable with <%= Object.entries(plugins).filter(([key, value]) => (value)&&(!["base", "core"].includes(key))).length %> plugins and <%= Object.entries(descriptor.inputs).length %> options!</a></h3>
+      <h3><a href="/README.md#-plugins">🧩 Customizable with <%= Object.entries(plugins).filter(([key, value]) => (value)&&(!["base", "core"].includes(key))).length %> plugins and <%= Object.entries(descriptor.inputs).length %> options!</a></h3>
     </th>
   </tr>
 <%  if (elements.length%2)
@@ -39,7 +39,7 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
 <% }}} -%>
   <tr>
     <th colspan="2" align="center">
-      <a href="/#-plugins">🎲 See also community plugins</a>
+      <a href="/README.md#-pluginss">🎲 See also community plugins</a>
     </th>
   </tr>
 <% } %>
@@ -49,7 +49,7 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
 -%>
   <tr>
     <th colspan="2" align="center">
-      <h3><a href="/source/templates/README.md">🖼️ And even more with <%= elements.length %>+ templates!</a></h3>
+      <h3><a href="/README.md#%EF%B8%8F-templates">🖼️ And even more with <%= elements.length %>+ templates!</a></h3>
     </th>
   </tr>
 <%  if (elements.length%2)
@@ -97,7 +97,7 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
   <tr>
     <td align="center" colspan="2">
       <b>Power user?</b><br>
-      <a href="https://github.com/lowlighter/metrics/fork">Fork this repository</a> and edit HTML, CSS, JS and <a href="https://github.com/mde/ejs"> for even more customization!
+      <a href="https://github.com/lowlighter/metrics/fork">Fork this repository</a> and edit HTML, CSS, JS and <a href="https://github.com/mde/ejs">EJS</a> for even more customization!
     </td>
   </tr>
 </table>
