@@ -7,7 +7,8 @@
     base: header
     plugin_introduction: yes
   prod:
-    token: ${{ secrets.METRICS_BOT_TOKEN }}
+    with:
+      token: ${{ secrets.METRICS_BOT_TOKEN }}
 
 - name: Repository introduction
   uses: lowlighter/metrics@latest

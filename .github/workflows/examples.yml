@@ -474,14 +474,10 @@ jobs:
       - name: 🙋 Introduction - User introduction
         uses: lowlighter/metrics@master
         with:
-          token: ${{ secrets.METRICS_TOKEN }}
-          user: github
-          base: header
-          plugin_introduction: 'yes'
+          token: ${{ secrets.METRICS_BOT_TOKEN }}
           plugins_errors_fatal: 'yes'
           output_action: none
           delay: 120
-        token: ${{ secrets.METRICS_BOT_TOKEN }}
         if: ${{ success() || failure() }}
       - name: 🙋 Introduction - Repository introduction
         uses: lowlighter/metrics@master

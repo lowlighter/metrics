@@ -389,7 +389,7 @@ metadata.template = async function({__templates, name, plugins, logger}) {
       `  <tr><td colspan="2" align="center">${(meta.description ?? "").replaceAll("\n", "<br>")}</td></tr>`,
       `  <tr>`,
       `    <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>`,
-      `    <td>${Object.entries(compatibility).filter(([_, value]) => value).map(([id]) => `<a href="/source/plugins/${id}" title="${plugins[id].name}">${plugins[id].icon}</a>`).join(" ")}${meta.formats?.includes("markdown") ? "<code>✓ embed()</code>" : ""}</td>`,
+      `    <td>${Object.entries(compatibility).filter(([_, value]) => value).map(([id]) => `<a href="/source/plugins/${id}" title="${plugins[id].name}">${plugins[id].icon}</a>`).join(" ")}${meta.formats?.includes("markdown") ? " <code>✓ embed()</code>" : ""}</td>`,
       `  </tr>`,
       `  <tr>`,
       `    <td>${[
