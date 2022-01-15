@@ -24,7 +24,8 @@ It is mostly intended for metrics used outside of GitHub, since these informatio
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_introduction</code></td>
-    <td rowspan="2">Display account or repository introduction<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display account or repository introduction</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -33,7 +34,8 @@ It is mostly intended for metrics used outside of GitHub, since these informatio
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_introduction_title</code></td>
-    <td rowspan="2">Display introduction section title<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display introduction section title</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>

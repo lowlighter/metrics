@@ -38,7 +38,8 @@ Use a full `repo` scope token to display **private** events.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_activity</code></td>
-    <td rowspan="2">Display recent activity<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display recent activity</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -47,7 +48,8 @@ Use a full `repo` scope token to display **private** events.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_activity_limit</code></td>
-    <td rowspan="2">Maximum number of events to display<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Maximum number of events to display</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
@@ -59,7 +61,8 @@ Use a full `repo` scope token to display **private** events.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_activity_load</code></td>
-    <td rowspan="2">Number of events to load<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Number of events to load</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
@@ -71,7 +74,8 @@ Use a full `repo` scope token to display **private** events.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_activity_days</code></td>
-    <td rowspan="2">Maximum event age<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Maximum event age</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
@@ -83,7 +87,8 @@ Use a full `repo` scope token to display **private** events.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_activity_filter</code></td>
-    <td rowspan="2">Events types to keep<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Events types to keep</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>array</code>
@@ -94,7 +99,8 @@ Use a full `repo` scope token to display **private** events.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_activity_visibility</code></td>
-    <td rowspan="2">Set events visibility<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Set events visibility</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
@@ -104,7 +110,8 @@ Use a full `repo` scope token to display **private** events.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_activity_timestamps</code></td>
-    <td rowspan="2">Display events timestamps<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display events timestamps</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -113,7 +120,8 @@ Use a full `repo` scope token to display **private** events.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_activity_skipped</code></td>
-    <td rowspan="2">Repositories to skip<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Repositories to skip</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">⏩ Inherits <code>repositories_skipped</code><br>
@@ -123,7 +131,8 @@ Use a full `repo` scope token to display **private** events.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_activity_ignored</code></td>
-    <td rowspan="2">Actors to ignore<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Actors to ignore</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">⏩ Inherits <code>users_ignored</code><br>

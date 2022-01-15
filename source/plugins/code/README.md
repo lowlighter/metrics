@@ -20,7 +20,8 @@ Display a random code snippet from your recent activity history.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_code</code></td>
-    <td rowspan="2">Display a random code snippet from recent activity<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display a random code snippet from recent activity</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -29,7 +30,8 @@ Display a random code snippet from your recent activity history.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_code_lines</code></td>
-    <td rowspan="2">Maximum number of line that a code snippet can contain<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Maximum number of line that a code snippet can contain</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
@@ -38,7 +40,8 @@ Display a random code snippet from your recent activity history.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_code_load</code></td>
-    <td rowspan="2">Number of events to load<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Number of events to load</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
@@ -50,7 +53,8 @@ Display a random code snippet from your recent activity history.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_code_visibility</code></td>
-    <td rowspan="2">Set events visibility<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Set events visibility</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
@@ -60,7 +64,8 @@ Display a random code snippet from your recent activity history.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_code_skipped</code></td>
-    <td rowspan="2">Repositories to skip<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Repositories to skip</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">⏩ Inherits <code>repositories_skipped</code><br>
@@ -70,7 +75,8 @@ Display a random code snippet from your recent activity history.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_code_languages</code></td>
-    <td rowspan="2">Restrict code snippet languages<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Restrict code snippet languages</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>array</code>

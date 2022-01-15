@@ -29,7 +29,8 @@ Then setup [WakaTime plugins](https://wakatime.com/plugins) to be ready to go!
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_wakatime</code></td>
-    <td rowspan="2">Display WakaTime stats<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display WakaTime stats</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -38,7 +39,8 @@ Then setup [WakaTime plugins](https://wakatime.com/plugins) to be ready to go!
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_wakatime_token</code></td>
-    <td rowspan="2">WakaTime API token<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>WakaTime API token</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">🔐 Token<br>
@@ -47,7 +49,8 @@ Then setup [WakaTime plugins](https://wakatime.com/plugins) to be ready to go!
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_wakatime_days</code></td>
-    <td rowspan="2">WakaTime time range<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>WakaTime time range</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
@@ -57,7 +60,8 @@ Then setup [WakaTime plugins](https://wakatime.com/plugins) to be ready to go!
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_wakatime_sections</code></td>
-    <td rowspan="2">Sections to display<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Sections to display</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>array</code>
@@ -67,7 +71,8 @@ Then setup [WakaTime plugins](https://wakatime.com/plugins) to be ready to go!
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_wakatime_limit</code></td>
-    <td rowspan="2">Maximum number of entries to display per graph<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Maximum number of entries to display per graph</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
@@ -78,7 +83,8 @@ Then setup [WakaTime plugins](https://wakatime.com/plugins) to be ready to go!
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_wakatime_url</code></td>
-    <td rowspan="2">Address where to reach your Wakatime instance<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Address where to reach your Wakatime instance</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
@@ -87,7 +93,8 @@ Then setup [WakaTime plugins](https://wakatime.com/plugins) to be ready to go!
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_wakatime_user</code></td>
-    <td rowspan="2">Your Wakatime user on the selfhosted Wakapi instance<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Your Wakatime user on the selfhosted Wakapi instance</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>

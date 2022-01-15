@@ -48,7 +48,8 @@ You now have your PoopMap token! This token will not expire and it can only acce
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_poopmap</code></td>
-    <td rowspan="2">Display PoopMap stats<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display PoopMap stats</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -57,7 +58,8 @@ You now have your PoopMap token! This token will not expire and it can only acce
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_poopmap_token</code></td>
-    <td rowspan="2">PoopMap API token<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>PoopMap API token</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">🔐 Token<br>
@@ -66,7 +68,8 @@ You now have your PoopMap token! This token will not expire and it can only acce
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_poopmap_days</code></td>
-    <td rowspan="2">PoopMap time range<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>PoopMap time range</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>

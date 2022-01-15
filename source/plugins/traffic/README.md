@@ -23,7 +23,8 @@ Because of GitHub REST API limitation, provided token requires full `repo` scope
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_traffic</code></td>
-    <td rowspan="2">Display repositories traffic metrics<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display repositories traffic metrics</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -32,7 +33,8 @@ Because of GitHub REST API limitation, provided token requires full `repo` scope
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_traffic_skipped</code></td>
-    <td rowspan="2">Repositories to skip<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Repositories to skip</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">⏩ Inherits <code>repositories_skipped</code><br>

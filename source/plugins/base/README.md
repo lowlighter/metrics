@@ -33,7 +33,8 @@ These are all enabled by default, but you can explicitely opt out from them.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>base</code></td>
-    <td rowspan="2">Metrics base content<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Metrics base content</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>array</code>
@@ -44,7 +45,8 @@ These are all enabled by default, but you can explicitely opt out from them.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>repositories</code></td>
-    <td rowspan="2">Number of repositories to use<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Number of repositories to use</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
@@ -55,7 +57,8 @@ These are all enabled by default, but you can explicitely opt out from them.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>repositories_batch</code></td>
-    <td rowspan="2">Number of repositories to load at once by queries<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Number of repositories to load at once by queries</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
@@ -67,7 +70,8 @@ These are all enabled by default, but you can explicitely opt out from them.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>repositories_forks</code></td>
-    <td rowspan="2">Include forks in metrics<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Include forks in metrics</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -76,7 +80,8 @@ These are all enabled by default, but you can explicitely opt out from them.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>repositories_affiliations</code></td>
-    <td rowspan="2">Repositories affiliations<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Repositories affiliations</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>array</code>
@@ -87,7 +92,8 @@ These are all enabled by default, but you can explicitely opt out from them.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>repositories_skipped</code></td>
-    <td rowspan="2">Default repositories to skip<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Default repositories to skip</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">⏭️ Global option<br>
@@ -97,7 +103,8 @@ These are all enabled by default, but you can explicitely opt out from them.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>users_ignored</code></td>
-    <td rowspan="2">Default users to ignore<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Default users to ignore</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">⏭️ Global option<br>
@@ -109,7 +116,8 @@ These are all enabled by default, but you can explicitely opt out from them.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>commits_authoring</code></td>
-    <td rowspan="2">List of surnames or email addresses you use when authoring commits<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>List of surnames or email addresses you use when authoring commits</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">⏭️ Global option<br>

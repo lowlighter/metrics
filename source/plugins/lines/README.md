@@ -18,7 +18,8 @@ The *lines* of code plugin displays the number of lines of code you have added a
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_lines</code></td>
-    <td rowspan="2">Display lines of code metrics<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display lines of code metrics</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -27,7 +28,8 @@ The *lines* of code plugin displays the number of lines of code you have added a
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_lines_skipped</code></td>
-    <td rowspan="2">Repositories to skip<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Repositories to skip</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">⏩ Inherits <code>repositories_skipped</code><br>

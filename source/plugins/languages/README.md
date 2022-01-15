@@ -33,7 +33,8 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_languages</code></td>
-    <td rowspan="2">Enable languages plugin<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Enable languages plugin</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -42,7 +43,8 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_languages_ignored</code></td>
-    <td rowspan="2">Ignored languages<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Ignored languages</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>array</code>
@@ -51,7 +53,8 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_languages_skipped</code></td>
-    <td rowspan="2">Skipped repositories<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Skipped repositories</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">⏩ Inherits <code>repositories_skipped</code><br>
@@ -61,7 +64,8 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_languages_limit</code></td>
-    <td rowspan="2">Display limit<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display limit</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
@@ -74,7 +78,8 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_languages_threshold</code></td>
-    <td rowspan="2">Display threshold (percentage)<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display threshold (percentage)</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
@@ -83,7 +88,8 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_languages_colors</code></td>
-    <td rowspan="2">Custom languages colors<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Custom languages colors</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>array</code>
@@ -93,7 +99,8 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_languages_aliases</code></td>
-    <td rowspan="2">Custom languages names<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Custom languages names</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
@@ -101,7 +108,8 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_languages_sections</code></td>
-    <td rowspan="2">Displayed sections<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Displayed sections</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
@@ -113,7 +121,8 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_languages_details</code></td>
-    <td rowspan="2">Additional details<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Additional details</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
@@ -124,7 +133,8 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_languages_indepth</code></td>
-    <td rowspan="2">Indepth mode (⚠️ read documentation first)<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Indepth mode (⚠️ read documentation first)</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
@@ -134,7 +144,8 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_languages_analysis_timeout</code></td>
-    <td rowspan="2">Indepth mode - Analysis timeout<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Indepth mode - Analysis timeout</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
@@ -147,7 +158,8 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_languages_categories</code></td>
-    <td rowspan="2">Indepth mode - Displayed categories (most-used section)<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Indepth mode - Displayed categories (most-used section)</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
@@ -159,7 +171,8 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_languages_recent_categories</code></td>
-    <td rowspan="2">Indepth mode - Displayed categories (recently-used section)<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Indepth mode - Displayed categories (recently-used section)</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
@@ -171,7 +184,8 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_languages_recent_load</code></td>
-    <td rowspan="2">Events to load (recently-used section)<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Events to load (recently-used section)</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
@@ -184,7 +198,8 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_languages_recent_days</code></td>
-    <td rowspan="2">Events maximum age (day, recently-used section)<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Events maximum age (day, recently-used section)</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>

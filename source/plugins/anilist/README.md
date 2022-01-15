@@ -34,7 +34,8 @@ These sections can also be filtered by media type, which can be either `anime`, 
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_anilist</code></td>
-    <td rowspan="2">Display data from your AniList account<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display data from your AniList account</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -43,7 +44,8 @@ These sections can also be filtered by media type, which can be either `anime`, 
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_anilist_medias</code></td>
-    <td rowspan="2">Medias types to display<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Medias types to display</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>array</code>
@@ -54,7 +56,8 @@ These sections can also be filtered by media type, which can be either `anime`, 
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_anilist_sections</code></td>
-    <td rowspan="2">Sections to display<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Sections to display</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>array</code>
@@ -65,7 +68,8 @@ These sections can also be filtered by media type, which can be either `anime`, 
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_anilist_limit</code></td>
-    <td rowspan="2">Maximum number of entries to display per section<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Maximum number of entries to display per section</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
@@ -76,7 +80,8 @@ These sections can also be filtered by media type, which can be either `anime`, 
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_anilist_limit_characters</code></td>
-    <td rowspan="2">Maximum number of entries to display in characters section<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Maximum number of entries to display in characters section</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
@@ -87,7 +92,8 @@ These sections can also be filtered by media type, which can be either `anime`, 
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_anilist_shuffle</code></td>
-    <td rowspan="2">Shuffle AniList data<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Shuffle AniList data</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -96,7 +102,8 @@ These sections can also be filtered by media type, which can be either `anime`, 
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_anilist_user</code></td>
-    <td rowspan="2">AniList login<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>AniList login</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>

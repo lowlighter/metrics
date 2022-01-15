@@ -7,3 +7,4 @@
     plugin_starlists_only: 🤘 TC39
     use_mocked_data: 'yes'
     verify: 'yes'
+  timeout: 1800000

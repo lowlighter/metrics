@@ -49,7 +49,8 @@ To do so, open your repository project and retrieve the last URL endpoint, in th
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_projects</code></td>
-    <td rowspan="2">Display active projects<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display active projects</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -58,7 +59,8 @@ To do so, open your repository project and retrieve the last URL endpoint, in th
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_projects_limit</code></td>
-    <td rowspan="2">Maximum number of projects to display<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Maximum number of projects to display</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
@@ -70,7 +72,8 @@ To do so, open your repository project and retrieve the last URL endpoint, in th
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_projects_repositories</code></td>
-    <td rowspan="2">List of repository project identifiers to disaplay<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>List of repository project identifiers to disaplay</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>array</code>
@@ -79,7 +82,8 @@ To do so, open your repository project and retrieve the last URL endpoint, in th
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_projects_descriptions</code></td>
-    <td rowspan="2">Display projects descriptions<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display projects descriptions</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>

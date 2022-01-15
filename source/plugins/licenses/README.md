@@ -33,7 +33,8 @@ Dependencies will be analyzed with [github/licensed](https://github.com/github/l
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_licenses</code></td>
-    <td rowspan="2">Display licenses informations<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display licenses informations</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
@@ -43,7 +44,8 @@ Dependencies will be analyzed with [github/licensed](https://github.com/github/l
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_licenses_setup</code></td>
-    <td rowspan="2">Command to setup target repository<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Command to setup target repository</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
@@ -51,7 +53,8 @@ Dependencies will be analyzed with [github/licensed](https://github.com/github/l
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_licenses_ratio</code></td>
-    <td rowspan="2">Display used licenses ratio<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display used licenses ratio</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -60,7 +63,8 @@ Dependencies will be analyzed with [github/licensed](https://github.com/github/l
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_licenses_legal</code></td>
-    <td rowspan="2">Display legal informations about used licenses<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display legal informations about used licenses</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>

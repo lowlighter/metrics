@@ -18,7 +18,8 @@ The *rss* plugin displays items from a specified RSS feed.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_rss</code></td>
-    <td rowspan="2">Display RSS feed<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display RSS feed</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -27,7 +28,8 @@ The *rss* plugin displays items from a specified RSS feed.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_rss_source</code></td>
-    <td rowspan="2">RSS feed source<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>RSS feed source</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
@@ -35,7 +37,8 @@ The *rss* plugin displays items from a specified RSS feed.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_rss_limit</code></td>
-    <td rowspan="2">Maximum number of items to display<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Maximum number of items to display</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>

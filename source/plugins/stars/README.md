@@ -18,7 +18,8 @@ The *stars* plugin displays your recently starred repositories.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_stars</code></td>
-    <td rowspan="2">Display recently starred repositories<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display recently starred repositories</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -27,7 +28,8 @@ The *stars* plugin displays your recently starred repositories.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_stars_limit</code></td>
-    <td rowspan="2">Maximum number of stars to display<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Maximum number of stars to display</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>

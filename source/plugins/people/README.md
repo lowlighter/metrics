@@ -42,7 +42,8 @@ Sections will be ordered the same as specified in `plugin_people_types`.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_people</code></td>
-    <td rowspan="2">Display GitHub users from various affiliations<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display GitHub users from various affiliations</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -51,7 +52,8 @@ Sections will be ordered the same as specified in `plugin_people_types`.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_people_limit</code></td>
-    <td rowspan="2">Maximum number of user to display<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Maximum number of user to display</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
@@ -62,7 +64,8 @@ Sections will be ordered the same as specified in `plugin_people_types`.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_people_size</code></td>
-    <td rowspan="2">Size of displayed GitHub users' avatars<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Size of displayed GitHub users&#39; avatars</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
@@ -74,7 +77,8 @@ Sections will be ordered the same as specified in `plugin_people_types`.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_people_types</code></td>
-    <td rowspan="2">Affiliations to display<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Affiliations to display</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>array</code>
@@ -85,7 +89,8 @@ Sections will be ordered the same as specified in `plugin_people_types`.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_people_thanks</code></td>
-    <td rowspan="2">GitHub users to personally thanks<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>GitHub users to personally thanks</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>array</code>
@@ -94,7 +99,8 @@ Sections will be ordered the same as specified in `plugin_people_types`.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_people_sponsors_custom</code></td>
-    <td rowspan="2">Custom GitHub sponsors<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Custom GitHub sponsors</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>array</code>
@@ -103,7 +109,8 @@ Sections will be ordered the same as specified in `plugin_people_types`.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_people_identicons</code></td>
-    <td rowspan="2">Use identicons instead of avatars<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Use identicons instead of avatars</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -112,7 +119,8 @@ Sections will be ordered the same as specified in `plugin_people_types`.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_people_shuffle</code></td>
-    <td rowspan="2">Shuffle users<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Shuffle users</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>

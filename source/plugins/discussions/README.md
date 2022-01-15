@@ -18,7 +18,8 @@ The *discussions* plugin displays your GitHub discussions metrics.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_discussions</code></td>
-    <td rowspan="2">GitHub discussions metrics<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>GitHub discussions metrics</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -27,7 +28,8 @@ The *discussions* plugin displays your GitHub discussions metrics.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_discussions_categories</code></td>
-    <td rowspan="2">Display discussion categories<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display discussion categories</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
@@ -37,7 +39,8 @@ The *discussions* plugin displays your GitHub discussions metrics.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_discussions_categories_limit</code></td>
-    <td rowspan="2">Number of discussion categories to display<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Number of discussion categories to display</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>

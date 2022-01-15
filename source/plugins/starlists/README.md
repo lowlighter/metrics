@@ -18,7 +18,8 @@ The *starlists* plugin displays your recently star lists.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_starlists</code></td>
-    <td rowspan="2">Display star lists<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display star lists</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
@@ -28,7 +29,8 @@ The *starlists* plugin displays your recently star lists.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_starlists_limit</code></td>
-    <td rowspan="2">Number of star lists to display<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Number of star lists to display</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
@@ -41,7 +43,8 @@ The *starlists* plugin displays your recently star lists.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_starlists_limit_repositories</code></td>
-    <td rowspan="2">Number of repositories to display per star lists<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Number of repositories to display per star lists</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
@@ -54,7 +57,8 @@ The *starlists* plugin displays your recently star lists.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_starlists_shuffle_repositories</code></td>
-    <td rowspan="2">Shuffle displayed repositories<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Shuffle displayed repositories</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
@@ -64,7 +68,8 @@ The *starlists* plugin displays your recently star lists.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_starlists_ignored</code></td>
-    <td rowspan="2">Star lists to skip<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Star lists to skip</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
@@ -74,7 +79,8 @@ The *starlists* plugin displays your recently star lists.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_starlists_only</code></td>
-    <td rowspan="2">Star lists to display<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Star lists to display</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>

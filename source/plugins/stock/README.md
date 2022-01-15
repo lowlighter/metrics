@@ -27,7 +27,8 @@ Create a [RapidAPI account](https://rapidapi.com) and subscribe to [Yahoo Financ
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_stock</code></td>
-    <td rowspan="2">Display stock prices of a given company<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display stock prices of a given company</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -36,7 +37,8 @@ Create a [RapidAPI account](https://rapidapi.com) and subscribe to [Yahoo Financ
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_stock_token</code></td>
-    <td rowspan="2">Yahoo Finance token<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Yahoo Finance token</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">🔐 Token<br>
@@ -45,7 +47,8 @@ Create a [RapidAPI account](https://rapidapi.com) and subscribe to [Yahoo Financ
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_stock_symbol</code></td>
-    <td rowspan="2">Company stock symbol<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Company stock symbol</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
@@ -53,7 +56,8 @@ Create a [RapidAPI account](https://rapidapi.com) and subscribe to [Yahoo Financ
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_stock_duration</code></td>
-    <td rowspan="2">Time range to display<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Time range to display</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
@@ -63,7 +67,8 @@ Create a [RapidAPI account](https://rapidapi.com) and subscribe to [Yahoo Financ
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_stock_interval</code></td>
-    <td rowspan="2">Time intervals between records<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Time intervals between records</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>

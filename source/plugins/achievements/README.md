@@ -36,7 +36,8 @@ It also lets you quickly see at a glance what this user primarly use GitHub for,
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_achievements</code></td>
-    <td rowspan="2">Display achievements<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display achievements</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -45,7 +46,8 @@ It also lets you quickly see at a glance what this user primarly use GitHub for,
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_achievements_threshold</code></td>
-    <td rowspan="2">Display rank minimal threshold<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display rank minimal threshold</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
@@ -55,7 +57,8 @@ It also lets you quickly see at a glance what this user primarly use GitHub for,
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_achievements_secrets</code></td>
-    <td rowspan="2">Display unlocked secrets achievements<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display unlocked secrets achievements</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -64,7 +67,8 @@ It also lets you quickly see at a glance what this user primarly use GitHub for,
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_achievements_display</code></td>
-    <td rowspan="2">Achievements display style<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Achievements display style</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
@@ -74,7 +78,8 @@ It also lets you quickly see at a glance what this user primarly use GitHub for,
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_achievements_limit</code></td>
-    <td rowspan="2">Maximum number of achievements to display<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Maximum number of achievements to display</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
@@ -85,7 +90,8 @@ It also lets you quickly see at a glance what this user primarly use GitHub for,
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_achievements_ignored</code></td>
-    <td rowspan="2">Unlocked achievements to hide<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Unlocked achievements to hide</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>array</code>
@@ -94,7 +100,8 @@ It also lets you quickly see at a glance what this user primarly use GitHub for,
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_achievements_only</code></td>
-    <td rowspan="2">Unlocked achievements to display<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Unlocked achievements to display</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>array</code>

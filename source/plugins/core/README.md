@@ -11,7 +11,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>token</code></td>
-    <td rowspan="2">GitHub Personal Token<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>GitHub Personal Token</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">✔️ Required<br>
@@ -21,7 +22,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>user</code></td>
-    <td rowspan="2">GitHub username<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>GitHub username</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
@@ -29,7 +31,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>repo</code></td>
-    <td rowspan="2">GitHub repository<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>GitHub repository</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
@@ -37,7 +40,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>committer_token</code></td>
-    <td rowspan="2">GitHub Token used to commit metrics<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>GitHub Token used to commit metrics</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">🔐 Token<br>
@@ -47,7 +51,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>committer_branch</code></td>
-    <td rowspan="2">Branch used to commit rendered metrics<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Branch used to commit rendered metrics</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
@@ -55,7 +60,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>committer_message</code></td>
-    <td rowspan="2">Commit message<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Commit message</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
@@ -64,7 +70,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>committer_gist</code></td>
-    <td rowspan="2">Gist used to store metrics<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Gist used to store metrics</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
@@ -72,7 +79,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>filename</code></td>
-    <td rowspan="2">Rendered metrics output path<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Rendered metrics output path</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
@@ -81,7 +89,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>markdown</code></td>
-    <td rowspan="2">Rendered markdown output path<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Rendered markdown output path</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
@@ -90,7 +99,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>markdown_cache</code></td>
-    <td rowspan="2">Rendered markdown file cache<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Rendered markdown file cache</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
@@ -99,7 +109,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>output_action</code></td>
-    <td rowspan="2">Output action<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Output action</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
@@ -109,7 +120,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>output_condition</code></td>
-    <td rowspan="2">Output condition<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Output condition</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
@@ -119,7 +131,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>optimize</code></td>
-    <td rowspan="2">SVG optimization<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>SVG optimization</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>array</code>
@@ -130,7 +143,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>setup_community_templates</code></td>
-    <td rowspan="2">Additional community templates to setup<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Additional community templates to setup</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
@@ -140,7 +154,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>template</code></td>
-    <td rowspan="2">Template to use<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Template to use</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
@@ -149,7 +164,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>query</code></td>
-    <td rowspan="2">Additional query parameters<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Additional query parameters</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>json</code>
@@ -158,7 +174,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>extras_css</code></td>
-    <td rowspan="2">Extra CSS<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Extra CSS</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
@@ -167,7 +184,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>config_timezone</code></td>
-    <td rowspan="2">Timezone used<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Timezone used</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">⏭️ Global option<br>
@@ -176,7 +194,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>config_order</code></td>
-    <td rowspan="2">Configure content order<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Configure content order</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">⏭️ Global option<br>
@@ -186,7 +205,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>config_twemoji</code></td>
-    <td rowspan="2">Use twemojis instead of emojis<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Use twemojis instead of emojis</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">⏭️ Global option<br>
@@ -196,7 +216,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>config_gemoji</code></td>
-    <td rowspan="2">Use GitHub custom emojis<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Use GitHub custom emojis</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">⏭️ Global option<br>
@@ -206,7 +227,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>config_display</code></td>
-    <td rowspan="2">Render display width<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Render display width</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">⏭️ Global option<br>
@@ -217,7 +239,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>config_animations</code></td>
-    <td rowspan="2">SVG CSS animations<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>SVG CSS animations</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">⏭️ Global option<br>
@@ -227,7 +250,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>config_base64</code></td>
-    <td rowspan="2">Encode images links into base64 data<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Encode images links into base64 data</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">⏭️ Global option<br>
@@ -237,7 +261,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>config_padding</code></td>
-    <td rowspan="2">Image padding<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Image padding</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
@@ -246,7 +271,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>config_output</code></td>
-    <td rowspan="2">Output image format<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Output image format</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
@@ -256,7 +282,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>retries</code></td>
-    <td rowspan="2">Number of retries<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Number of retries</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
@@ -268,7 +295,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>retries_delay</code></td>
-    <td rowspan="2">Time to wait (in seconds) before each retry<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Time to wait (in seconds) before each retry</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
@@ -280,7 +308,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>retries_output_action</code></td>
-    <td rowspan="2">Number of retries (output action)<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Number of retries (output action)</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
@@ -292,7 +321,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>retries_delay_output_action</code></td>
-    <td rowspan="2">Time to wait (in seconds) before each retry (output action)<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Time to wait (in seconds) before each retry (output action)</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
@@ -304,7 +334,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>delay</code></td>
-    <td rowspan="2">Use this to avoid triggering abuse mechanics on large workflows<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Use this to avoid triggering abuse mechanics on large workflows</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
@@ -316,7 +347,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>use_prebuilt_image</code></td>
-    <td rowspan="2">Use pre-built image from GitHub registry<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Use pre-built image from GitHub registry</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -325,7 +357,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugins_errors_fatal</code></td>
-    <td rowspan="2">Die on plugins errors<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Die on plugins errors</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">🔧 For development<br>
@@ -335,7 +368,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>debug</code></td>
-    <td rowspan="2">Debug logs<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Debug logs</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">🔧 For development<br>
@@ -345,7 +379,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>verify</code></td>
-    <td rowspan="2">Verify SVG<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Verify SVG</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">🔧 For development<br>
@@ -355,7 +390,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>debug_flags</code></td>
-    <td rowspan="2">Debug flags<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Debug flags</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">🔧 For development<br>
@@ -366,7 +402,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>dryrun</code></td>
-    <td rowspan="2">Enable dry-run<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Enable dry-run</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">🔧 For development<br>
@@ -376,7 +413,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>experimental_features</code></td>
-    <td rowspan="2">Experimental features<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Experimental features</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">🔧 For development<br>
@@ -387,7 +425,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>use_mocked_data</code></td>
-    <td rowspan="2">Use mocked data instead of live APIs<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Use mocked data instead of live APIs</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">🔧 For development<br>

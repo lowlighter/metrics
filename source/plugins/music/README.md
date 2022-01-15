@@ -214,7 +214,8 @@ Click on the Name of any matching request. In the “Headers” tab, scroll to t
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_music</code></td>
-    <td rowspan="2">Display your music tracks<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display your music tracks</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -223,7 +224,8 @@ Click on the Name of any matching request. In the “Headers” tab, scroll to t
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_music_provider</code></td>
-    <td rowspan="2">Music provider<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Music provider</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
@@ -232,7 +234,8 @@ Click on the Name of any matching request. In the “Headers” tab, scroll to t
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_music_token</code></td>
-    <td rowspan="2">Music provider personal token<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Music provider personal token</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">🔐 Token<br>
@@ -241,7 +244,8 @@ Click on the Name of any matching request. In the “Headers” tab, scroll to t
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_music_mode</code></td>
-    <td rowspan="2">Plugin mode<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Plugin mode</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
@@ -250,7 +254,8 @@ Click on the Name of any matching request. In the “Headers” tab, scroll to t
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_music_playlist</code></td>
-    <td rowspan="2">Embed playlist url<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Embed playlist url</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
@@ -258,7 +263,8 @@ Click on the Name of any matching request. In the “Headers” tab, scroll to t
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_music_limit</code></td>
-    <td rowspan="2">Maximum number of tracks to display<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Maximum number of tracks to display</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
@@ -270,7 +276,8 @@ Click on the Name of any matching request. In the “Headers” tab, scroll to t
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_music_played_at</code></td>
-    <td rowspan="2">Display when the track was played<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display when the track was played</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -279,7 +286,8 @@ Click on the Name of any matching request. In the “Headers” tab, scroll to t
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_music_time_range</code></td>
-    <td rowspan="2">Time period for top mode<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Time period for top mode</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
@@ -289,7 +297,8 @@ Click on the Name of any matching request. In the “Headers” tab, scroll to t
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_music_top_type</code></td>
-    <td rowspan="2">Whether to show tracks or artists in top mode<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Whether to show tracks or artists in top mode</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
@@ -299,7 +308,8 @@ Click on the Name of any matching request. In the “Headers” tab, scroll to t
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_music_user</code></td>
-    <td rowspan="2">Music provider username<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Music provider username</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>

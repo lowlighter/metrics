@@ -1,6 +1,6 @@
 ## 🧩 Plugins
 
-Plugins provide additional content and lets you customize your rendered metrics.
+Plugins provide additional content and lets you customize rendered metrics.
 
 **📦 Maintained by core team**
 

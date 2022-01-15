@@ -20,7 +20,8 @@ An account on [GitHub Support Community](https://github.community/) is required 
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_support</code></td>
-    <td rowspan="2">GitHub Community Support metrics<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>GitHub Community Support metrics</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>

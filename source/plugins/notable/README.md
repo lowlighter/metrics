@@ -30,7 +30,8 @@ The `plugin_notable_indepth` option lets you get additional metrics about your c
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_notable</code></td>
-    <td rowspan="2">Display notable contributions in organizations<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display notable contributions in organizations</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -39,7 +40,8 @@ The `plugin_notable_indepth` option lets you get additional metrics about your c
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_notable_filter</code></td>
-    <td rowspan="2">Query filter<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Query filter</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
@@ -47,7 +49,8 @@ The `plugin_notable_indepth` option lets you get additional metrics about your c
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_notable_from</code></td>
-    <td rowspan="2">Filter by repository host account type<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Filter by repository host account type</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
@@ -57,7 +60,8 @@ The `plugin_notable_indepth` option lets you get additional metrics about your c
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_notable_repositories</code></td>
-    <td rowspan="2">Also display repository name<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Also display repository name</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -66,7 +70,8 @@ The `plugin_notable_indepth` option lets you get additional metrics about your c
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_notable_indepth</code></td>
-    <td rowspan="2">Indepth notable contributions processing<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Indepth notable contributions processing</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>

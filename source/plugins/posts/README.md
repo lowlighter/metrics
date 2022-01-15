@@ -23,7 +23,8 @@ The recent *posts* plugin displays recent articles you wrote on an external sour
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_posts</code></td>
-    <td rowspan="2">Display recent posts<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display recent posts</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -32,7 +33,8 @@ The recent *posts* plugin displays recent articles you wrote on an external sour
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_posts_source</code></td>
-    <td rowspan="2">Posts external source<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Posts external source</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
@@ -41,7 +43,8 @@ The recent *posts* plugin displays recent articles you wrote on an external sour
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_posts_descriptions</code></td>
-    <td rowspan="2">Display posts descriptions<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display posts descriptions</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -50,7 +53,8 @@ The recent *posts* plugin displays recent articles you wrote on an external sour
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_posts_covers</code></td>
-    <td rowspan="2">Display posts cover images<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display posts cover images</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -59,7 +63,8 @@ The recent *posts* plugin displays recent articles you wrote on an external sour
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_posts_limit</code></td>
-    <td rowspan="2">Maximum number of posts to display<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Maximum number of posts to display</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
@@ -71,7 +76,8 @@ The recent *posts* plugin displays recent articles you wrote on an external sour
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_posts_user</code></td>
-    <td rowspan="2">Posts external source username<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Posts external source username</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>

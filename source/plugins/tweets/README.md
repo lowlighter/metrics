@@ -35,7 +35,8 @@ Create an app from your [developer dashboard](https://developer.twitter.com/en/p
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_tweets</code></td>
-    <td rowspan="2">Display recent tweets<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display recent tweets</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -44,7 +45,8 @@ Create an app from your [developer dashboard](https://developer.twitter.com/en/p
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_tweets_token</code></td>
-    <td rowspan="2">Twitter API token<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Twitter API token</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">🔐 Token<br>
@@ -53,7 +55,8 @@ Create an app from your [developer dashboard](https://developer.twitter.com/en/p
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_tweets_attachments</code></td>
-    <td rowspan="2">Display tweets attchments<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display tweets attchments</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -62,7 +65,8 @@ Create an app from your [developer dashboard](https://developer.twitter.com/en/p
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_tweets_limit</code></td>
-    <td rowspan="2">Maximum number of tweets to display<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Maximum number of tweets to display</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
@@ -74,7 +78,8 @@ Create an app from your [developer dashboard](https://developer.twitter.com/en/p
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_tweets_user</code></td>
-    <td rowspan="2">Twitter username<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Twitter username</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>

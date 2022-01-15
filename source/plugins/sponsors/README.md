@@ -23,7 +23,8 @@ The *sponsors* plugin lets you display your sponsors and introduction text from 
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_sponsors</code></td>
-    <td rowspan="2">Display GitHub sponsors<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display GitHub sponsors</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -32,7 +33,8 @@ The *sponsors* plugin lets you display your sponsors and introduction text from 
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_sponsors_sections</code></td>
-    <td rowspan="2">Sections to display<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Sections to display</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>array</code>

@@ -19,7 +19,8 @@ It can be restricted with a [CSS selector](https://developer.mozilla.org/en-US/d
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_screenshot</code></td>
-    <td rowspan="2">Display a screenshot of any website<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display a screenshot of any website</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -28,7 +29,8 @@ It can be restricted with a [CSS selector](https://developer.mozilla.org/en-US/d
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_screenshot_title</code></td>
-    <td rowspan="2">Screenshot title caption<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Screenshot title caption</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
@@ -37,7 +39,8 @@ It can be restricted with a [CSS selector](https://developer.mozilla.org/en-US/d
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_screenshot_url</code></td>
-    <td rowspan="2">Website to take screenshot<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Website to take screenshot</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
@@ -45,7 +48,8 @@ It can be restricted with a [CSS selector](https://developer.mozilla.org/en-US/d
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_screenshot_selector</code></td>
-    <td rowspan="2">Selector to take in screenshot<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Selector to take in screenshot</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
@@ -54,7 +58,8 @@ It can be restricted with a [CSS selector](https://developer.mozilla.org/en-US/d
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_screenshot_background</code></td>
-    <td rowspan="2">Display or remove default page background<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display or remove default page background</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>

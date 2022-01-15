@@ -18,7 +18,8 @@ The *stargazers* plugin displays your stargazers evolution across all of your re
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_stargazers</code></td>
-    <td rowspan="2">Display stargazers metrics<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display stargazers metrics</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>

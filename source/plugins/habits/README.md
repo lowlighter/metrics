@@ -34,7 +34,8 @@ By default, dates use Greenwich meridian (GMT/UTC). Be sure to set your timezone
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_habits</code></td>
-    <td rowspan="2">Display coding habits metrics<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display coding habits metrics</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -43,7 +44,8 @@ By default, dates use Greenwich meridian (GMT/UTC). Be sure to set your timezone
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_habits_from</code></td>
-    <td rowspan="2">Number of events to use<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Number of events to use</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
@@ -55,7 +57,8 @@ By default, dates use Greenwich meridian (GMT/UTC). Be sure to set your timezone
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_habits_days</code></td>
-    <td rowspan="2">Maximum event age<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Maximum event age</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
@@ -67,7 +70,8 @@ By default, dates use Greenwich meridian (GMT/UTC). Be sure to set your timezone
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_habits_facts</code></td>
-    <td rowspan="2">Display coding habits collected facts based on recent activity<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display coding habits collected facts based on recent activity</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -76,7 +80,8 @@ By default, dates use Greenwich meridian (GMT/UTC). Be sure to set your timezone
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_habits_charts</code></td>
-    <td rowspan="2">Display coding habits charts based on recent activity<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display coding habits charts based on recent activity</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
@@ -86,7 +91,8 @@ By default, dates use Greenwich meridian (GMT/UTC). Be sure to set your timezone
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_habits_trim</code></td>
-    <td rowspan="2">Trim unused hours on daily chart<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Trim unused hours on daily chart</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>

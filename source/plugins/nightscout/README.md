@@ -25,7 +25,8 @@ The [nightscout website](http://www.nightscout.info/) details how to self-host a
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_nightscout</code></td>
-    <td rowspan="2">Displays Blood Glucose<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Displays Blood Glucose</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -34,7 +35,8 @@ The [nightscout website](http://www.nightscout.info/) details how to self-host a
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_nightscout_url</code></td>
-    <td rowspan="2">Your Nightscout site URL<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Your Nightscout site URL</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
@@ -43,7 +45,8 @@ The [nightscout website](http://www.nightscout.info/) details how to self-host a
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_nightscout_datapoints</code></td>
-    <td rowspan="2">How many datapoints to show on the graph. 0 and 1 disable the graph.<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>How many datapoints to show on the graph. 0 and 1 disable the graph.</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
@@ -54,7 +57,8 @@ The [nightscout website](http://www.nightscout.info/) details how to self-host a
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_nightscout_lowalert</code></td>
-    <td rowspan="2">When the blood sugar is considered low<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>When the blood sugar is considered low</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
@@ -65,7 +69,8 @@ The [nightscout website](http://www.nightscout.info/) details how to self-host a
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_nightscout_highalert</code></td>
-    <td rowspan="2">When the blood sugar is considered high<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>When the blood sugar is considered high</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
@@ -76,7 +81,8 @@ The [nightscout website](http://www.nightscout.info/) details how to self-host a
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_nightscout_urgentlowalert</code></td>
-    <td rowspan="2">When the blood sugar is considered urgently low<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>When the blood sugar is considered urgently low</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
@@ -87,7 +93,8 @@ The [nightscout website](http://www.nightscout.info/) details how to self-host a
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_nightscout_urgenthighalert</code></td>
-    <td rowspan="2">When the blood sugar is considered urgently high<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>When the blood sugar is considered urgently high</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>

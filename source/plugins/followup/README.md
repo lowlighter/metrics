@@ -26,7 +26,8 @@ The *followup* plugin displays the ratio of open/closed issues and the ratio of 
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_followup</code></td>
-    <td rowspan="2">Display follow-up of repositories issues and pull requests<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display follow-up of repositories issues and pull requests</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -35,7 +36,8 @@ The *followup* plugin displays the ratio of open/closed issues and the ratio of 
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_followup_sections</code></td>
-    <td rowspan="2">Sections to display<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Sections to display</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>array</code>
@@ -46,7 +48,8 @@ The *followup* plugin displays the ratio of open/closed issues and the ratio of 
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_followup_indepth</code></td>
-    <td rowspan="2">Indepth follow-up processing<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Indepth follow-up processing</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>

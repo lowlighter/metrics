@@ -1,6 +1,6 @@
 # 📊 Metrics [<img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=280144&theme=dark" alt="" align="right" width="190" height="41">](https://www.producthunt.com/posts/github-metrics?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-github-metrics)
 
-[![Build, test, analyze and publish](https://github.com/lowlighter/metrics/actions/workflows/workflow.yml/badge.svg)](https://github.com/lowlighter/metrics/actions/workflows/workflow.yml) [![Metrics (examples)](https://github.com/lowlighter/lowlighter/actions/workflows/metrics.yml/badge.svg)](https://github.com/lowlighter/lowlighter/actions/workflows/metrics.yml)
+[![Continuous integration](https://github.com/lowlighter/metrics/actions/workflows/ci.yml/badge.svg)](https://github.com/lowlighter/metrics/actions/workflows/ci.yml)
 
 Generate metrics that can be embedded everywhere, including your GitHub profile readme! Supports users, organizations, and even repositories!
 
@@ -21,7 +21,7 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
   </tr>
   <tr>
     <th colspan="2" align="center">
-      <h3><a href="/source/plugins/README.md">🧩 Customizable with 38 plugins and 234 options!</a></h3>
+      <h3><a href="/README.md#-plugins">🧩 Customizable with 38 plugins and 234 options!</a></h3>
     </th>
   </tr>
   <tr>
@@ -47,15 +47,11 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
     <th><a href="source/plugins/stars/README.md">🌟 Recently starred repositories</a></th>
   </tr>
   <tr>
-    <td align="center">
-      <details open><summary>With icons</summary>
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.topics.icons.svg">
-      </details>
-      <details open><summary>With labels</summary>
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.topics.svg">
-      </details>
-      <img width="900" height="1" alt="">
-    </td>
+        <td  align="center">
+        <details open><summary>With icons</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.topics.icons.svg" alt=""></img></details>
+        <details open><summary>With labels</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.topics.svg" alt=""></img></details>
+        <img width="900" height="1" alt="">
+      </td>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stars.svg">
       <img width="900" height="1" alt="">
@@ -362,13 +358,13 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
   </tr>
   <tr>
     <th colspan="2" align="center">
-      <a href="/#-plugins">🎲 See also community plugins</a>
+      <a href="/README.md#-pluginss">🎲 See also community plugins</a>
     </th>
   </tr>
 
   <tr>
     <th colspan="2" align="center">
-      <h3><a href="/source/templates/README.md">🖼️ And even more with 4+ templates!</a></h3>
+      <h3><a href="/README.md#%EF%B8%8F-templates">🖼️ And even more with 4+ templates!</a></h3>
     </th>
   </tr>
   <tr>
@@ -424,7 +420,7 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
   <tr>
     <td align="center" colspan="2">
       <b>Power user?</b><br>
-      <a href="https://github.com/lowlighter/metrics/fork">Fork this repository</a> and edit HTML, CSS, JS and <a href="https://github.com/mde/ejs"> for even more customization!
+      <a href="https://github.com/lowlighter/metrics/fork">Fork this repository</a> and edit HTML, CSS, JS and <a href="https://github.com/mde/ejs">EJS</a> for even more customization!
     </td>
   </tr>
 </table>
@@ -448,14 +444,16 @@ There are several ways to setup metrics, each having its advantages and disadvan
 * [💕 Using the shared instance *(~1 min)*](/.github/readme/partials/documentation/setup/shared.md)
   * ✔️ Easily configurable and previewable
   * ➖ Limited features *(compute-intensive features are disabled)*
-* 🐳 Using command line with docker *(~5 min)* *(documentation not available yet)*
+* [🏗️ Deploying a web instance *(~20 min)*](/.github/readme/partials/documentation/setup/web.md)
+  * ✔️ Create another shared instance
+  * ➖ Requires some sysadmin knowlegde
+* [🐳 Using command line with docker *(~5 min)*](/.github/readme/partials/documentation/setup/docker.md)
   * ✔️ Suited for one-time rendering
-* [🏗️ Deploying your own web instance *(~20 min)*](/.github/readme/partials/documentation/setup/web.md)
-  * ➖ Mostly intended for development, or to create another shared instance
+* [🔧 Local setup for development *(~20 min)*](/.github/readme/partials/documentation/setup/local.md)
 
 Additional resources for setup:
-* [🏦 Configuring metrics for organizations](/.github/readme/partials/documentation/organizations.md)
-* 🧰 Template/Plugin compatibility matrix *(documentation not available yet)*
+* [🏦 Configure metrics for organizations](/.github/readme/partials/documentation/organizations.md)
+* [🧰 Template/Plugin compatibility matrix](/.github/readme/partials/documentation/compatibility.md)
 ## 🖼️ Templates
 
 Templates lets you change general appearance of rendered metrics.
@@ -469,7 +467,7 @@ Templates lets you change general appearance of rendered metrics.
 
 ## 🧩 Plugins
 
-Plugins provide additional content and lets you customize your rendered metrics.
+Plugins provide additional content and lets you customize rendered metrics.
 
 **📦 Maintained by core team**
 

@@ -18,7 +18,8 @@ The *reactions* plugin displays overall reactions on your recent issues and issu
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_reactions</code></td>
-    <td rowspan="2">Display average issue comments reactions<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display average issue comments reactions</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -27,7 +28,8 @@ The *reactions* plugin displays overall reactions on your recent issues and issu
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_reactions_limit</code></td>
-    <td rowspan="2">Maximum number of issue comments to parse<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Maximum number of issue comments to parse</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
@@ -39,7 +41,8 @@ The *reactions* plugin displays overall reactions on your recent issues and issu
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_reactions_limit_issues</code></td>
-    <td rowspan="2">Maximum number of issues and pull requests opened to parse<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Maximum number of issues and pull requests opened to parse</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
@@ -51,7 +54,8 @@ The *reactions* plugin displays overall reactions on your recent issues and issu
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_reactions_limit_discussions</code></td>
-    <td rowspan="2">Maximum number of discussions opened to parse<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Maximum number of discussions opened to parse</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
@@ -63,7 +67,8 @@ The *reactions* plugin displays overall reactions on your recent issues and issu
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_reactions_limit_discussions_comments</code></td>
-    <td rowspan="2">Maximum number of discussions comments opened to parse<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Maximum number of discussions comments opened to parse</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
@@ -75,7 +80,8 @@ The *reactions* plugin displays overall reactions on your recent issues and issu
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_reactions_days</code></td>
-    <td rowspan="2">Maximum comments age<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Maximum comments age</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
@@ -86,7 +92,8 @@ The *reactions* plugin displays overall reactions on your recent issues and issu
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_reactions_display</code></td>
-    <td rowspan="2">Display mode<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display mode</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
@@ -96,7 +103,8 @@ The *reactions* plugin displays overall reactions on your recent issues and issu
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_reactions_details</code></td>
-    <td rowspan="2">Additional details<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Additional details</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>array</code>
@@ -106,7 +114,8 @@ The *reactions* plugin displays overall reactions on your recent issues and issu
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_reactions_ignored</code></td>
-    <td rowspan="2">Users to ignore<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Users to ignore</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">⏩ Inherits <code>users_ignored</code><br>

@@ -22,7 +22,8 @@ Because of limitations of using SVG inside of `<img>` tags, people won't be able
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_repositories</code></td>
-    <td rowspan="2">Display chosen featured repositories<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display chosen featured repositories</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -31,7 +32,8 @@ Because of limitations of using SVG inside of `<img>` tags, people won't be able
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_repositories_featured</code></td>
-    <td rowspan="2">List of repositories to display<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>List of repositories to display</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>array</code>

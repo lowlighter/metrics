@@ -35,7 +35,8 @@ Expect 10 to 30 seconds to generate the results.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_pagespeed</code></td>
-    <td rowspan="2">Display a website Google PageSpeed metrics<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display a website Google PageSpeed metrics</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -44,7 +45,8 @@ Expect 10 to 30 seconds to generate the results.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_pagespeed_url</code></td>
-    <td rowspan="2">Audited website<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Audited website</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
@@ -53,7 +55,8 @@ Expect 10 to 30 seconds to generate the results.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_pagespeed_detailed</code></td>
-    <td rowspan="2">Detailed audit result<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Detailed audit result</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -62,7 +65,8 @@ Expect 10 to 30 seconds to generate the results.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_pagespeed_screenshot</code></td>
-    <td rowspan="2">Display a screenshot of your website<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display a screenshot of your website</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -71,7 +75,8 @@ Expect 10 to 30 seconds to generate the results.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_pagespeed_token</code></td>
-    <td rowspan="2">PageSpeed token<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>PageSpeed token</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">🔐 Token<br>

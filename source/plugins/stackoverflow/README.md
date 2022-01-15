@@ -29,7 +29,8 @@ Your user id will be in both url and search bar.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_stackoverflow</code></td>
-    <td rowspan="2">Stackoverflow metrics<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Stackoverflow metrics</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -38,7 +39,8 @@ Your user id will be in both url and search bar.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_stackoverflow_user</code></td>
-    <td rowspan="2">Stackoverflow user id<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Stackoverflow user id</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
@@ -47,7 +49,8 @@ Your user id will be in both url and search bar.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_stackoverflow_sections</code></td>
-    <td rowspan="2">Sections to display<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Sections to display</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>array</code>
@@ -58,7 +61,8 @@ Your user id will be in both url and search bar.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_stackoverflow_limit</code></td>
-    <td rowspan="2">Maximum number of entries to display per section<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Maximum number of entries to display per section</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
@@ -70,7 +74,8 @@ Your user id will be in both url and search bar.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_stackoverflow_lines</code></td>
-    <td rowspan="2">Maximum number of lines to display per question or answer<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Maximum number of lines to display per question or answer</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
@@ -81,7 +86,8 @@ Your user id will be in both url and search bar.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_stackoverflow_lines_snippet</code></td>
-    <td rowspan="2">Maximum number of lines to display per code snippet<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Maximum number of lines to display per code snippet</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>

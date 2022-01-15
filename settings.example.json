@@ -39,7 +39,7 @@
       "enabled": false,            "//": "Enable languages plugin"
     },
     "topics":{
-      "enabled": false,            "//": "Display starred topics"
+      "enabled": false,            "//": "Enable topics plugin"
     },
     "stars":{
       "enabled": false,            "//": "Display recently starred repositories"

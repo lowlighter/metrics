@@ -43,7 +43,8 @@ Matching is performed in keys order.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_contributors</code></td>
-    <td rowspan="2">Display repository contributors<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display repository contributors</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -52,7 +53,8 @@ Matching is performed in keys order.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_contributors_base</code></td>
-    <td rowspan="2">Base reference<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Base reference</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
@@ -60,7 +62,8 @@ Matching is performed in keys order.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_contributors_head</code></td>
-    <td rowspan="2">Head reference<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Head reference</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
@@ -69,7 +72,8 @@ Matching is performed in keys order.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_contributors_ignored</code></td>
-    <td rowspan="2">Contributors to ignore<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Contributors to ignore</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">⏩ Inherits <code>users_ignored</code><br>
@@ -80,7 +84,8 @@ Matching is performed in keys order.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_contributors_contributions</code></td>
-    <td rowspan="2">Display contributions<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display contributions</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -89,7 +94,8 @@ Matching is performed in keys order.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_contributors_sections</code></td>
-    <td rowspan="2">Sections to display<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Sections to display</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>array</code>
@@ -100,7 +106,8 @@ Matching is performed in keys order.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_contributors_categories</code></td>
-    <td rowspan="2">Contributions categories<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Contributions categories</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>

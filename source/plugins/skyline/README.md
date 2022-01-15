@@ -22,7 +22,8 @@ This uses puppeteer to generate collect image frames, and use CSS animations to 
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_skyline</code></td>
-    <td rowspan="2">Display GitHub Skyline 3D calendar<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display GitHub Skyline 3D calendar</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -31,7 +32,8 @@ This uses puppeteer to generate collect image frames, and use CSS animations to 
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_skyline_year</code></td>
-    <td rowspan="2">Displayed year<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Displayed year</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
@@ -42,7 +44,8 @@ This uses puppeteer to generate collect image frames, and use CSS animations to 
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_skyline_frames</code></td>
-    <td rowspan="2">Number of frames<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Number of frames</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
@@ -54,7 +57,8 @@ This uses puppeteer to generate collect image frames, and use CSS animations to 
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_skyline_quality</code></td>
-    <td rowspan="2">Image quality<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Image quality</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
@@ -66,7 +70,8 @@ This uses puppeteer to generate collect image frames, and use CSS animations to 
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_skyline_compatibility</code></td>
-    <td rowspan="2">Compatibility mode<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Compatibility mode</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>

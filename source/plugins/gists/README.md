@@ -18,7 +18,8 @@ The *gists* plugin displays your [gists](https://gist.github.com) metrics.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_gists</code></td>
-    <td rowspan="2">Display gists metrics<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Display gists metrics</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>

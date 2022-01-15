@@ -31,7 +31,8 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_isocalendar</code></td>
-    <td rowspan="2">Enable isocalendar plugin<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Enable isocalendar plugin</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
@@ -40,7 +41,8 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_isocalendar_duration</code></td>
-    <td rowspan="2">Time window<img width="900" height="1" alt=""></td>
+    <td rowspan="2"><p>Time window</p>
+<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
