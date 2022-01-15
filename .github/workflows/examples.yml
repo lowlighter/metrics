@@ -1,4 +1,5 @@
-name: Examples
+# THIS WORKFLOW IS AUTO-GENERATED
+name: Publish examples
 on:
   schedule:
     - cron: "0 8 1/2 * *"
@@ -1037,7 +1038,7 @@ jobs:
           output_action: none
           delay: 120
         if: ${{ success() || failure() }}
-
+      
 
       - name: Publish examples
         if: ${{ success() || failure() }}

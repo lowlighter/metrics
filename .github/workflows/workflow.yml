@@ -1,4 +1,4 @@
-name: Build, test, analyze and publish
+name: Main workflow
 
 on:
   push:
