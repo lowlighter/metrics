@@ -1,4 +1,4 @@
-name: Main workflow
+name: Continuous integration
 
 on:
   push:
