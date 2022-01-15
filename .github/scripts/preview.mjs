@@ -5,7 +5,7 @@ import url from "url"
 import setup from "../../source/app/metrics/setup.mjs"
 
 //Paths
-const __metrics = paths.join(paths.dirname(url.fileURLToPath(import.meta.url)), "..")
+const __metrics = paths.join(paths.dirname(url.fileURLToPath(import.meta.url)), "../..")
 const __templates = paths.join(paths.join(__metrics, "source/templates/"))
 const __node_modules = paths.join(paths.join(__metrics, "node_modules"))
 const __web = paths.join(paths.join(__metrics, "source/app/web/statics"))
