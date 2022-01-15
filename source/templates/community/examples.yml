@@ -1,9 +1,19 @@
-- name: Example
+- name: Using a community template
   uses: lowlighter/metrics@latest
   with:
     token: ${{ secrets.METRICS_TOKEN }}
     template: "@classic"
     setup_community_templates: "lowlighter/metrics@master:classic"
+  test:
+    modes:
+      - action
+
+- name: Using a trusted community template
+  uses: lowlighter/metrics@latest
+  with:
+    token: ${{ secrets.METRICS_TOKEN }}
+    template: "@terminal"
+    setup_community_templates: "lowlighter/metrics@master:terminal+trust"
   test:
     modes:
       - action
