@@ -1,7 +1,8 @@
 <!--header-->
 <table>
   <tr><th colspan="2"><h3>📒 Markdown template</h3></th></tr>
-  <tr><td colspan="2" align="center">A template capable of rendering markdown from a given template file.</td></tr>
+  <tr><td colspan="2" align="center"><p>A template capable of rendering markdown from a given template file.</p>
+</td></tr>
   <tr>
     <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
     <td><a href="/source/plugins/activity" title="📰 Recent activity">📰</a> <a href="/source/plugins/posts" title="✒️ Recent posts">✒️</a> <a href="/source/plugins/rss" title="🗼 Rss feed">🗼</a> <a href="/source/plugins/topics" title="📌 Starred topics">📌</a> <a href="/source/plugins/tweets" title="🐤 Latest tweets">🐤</a> <code>✓ embed()</code></td>

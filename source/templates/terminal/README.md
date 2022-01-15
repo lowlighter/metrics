@@ -1,7 +1,8 @@
 <!--header-->
 <table>
   <tr><th colspan="2"><h3>📙 Terminal template</h3></th></tr>
-  <tr><td colspan="2" align="center">A template mimicking a SSH session.</td></tr>
+  <tr><td colspan="2" align="center"><p>A template mimicking a SSH session.</p>
+</td></tr>
   <tr>
     <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
     <td><a href="/source/plugins/gists" title="🎫 Gists">🎫</a> <a href="/source/plugins/isocalendar" title="📅 Isometric commit calendar">📅</a> <a href="/source/plugins/languages" title="🈷️ Most used languages">🈷️</a> <a href="/source/plugins/lines" title="👨‍💻 Lines of code changed">👨‍💻</a> <a href="/source/plugins/pagespeed" title="⏱️ Website performances">⏱️</a> <a href="/source/plugins/screenshot" title="📸 Website screenshot">📸</a> <a href="/source/plugins/traffic" title="🧮 Repositories traffic">🧮</a></td>

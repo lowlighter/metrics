@@ -1,7 +1,8 @@
 <!--header-->
 <table>
   <tr><th colspan="2"><h3>🈷️ Most used languages</h3></th></tr>
-  <tr><td colspan="2" align="center">This plugin can display which languages you use across all repositories you contributed to.</td></tr>
+  <tr><td colspan="2" align="center"><p>This plugin can display which languages you use across all repositories you contributed to.</p>
+</td></tr>
   <tr>
     <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
     <td><a href="/source/templates/classic"><code>📗 Classic template</code></a> <a href="/source/templates/repository"><code>📘 Repository template</code></a> <a href="/source/templates/terminal"><code>📙 Terminal template</code></a></td>
