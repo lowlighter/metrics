@@ -278,7 +278,7 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
         const partials = path.join(__templates, template, "partials")
         if ((fs.existsSync(partials)) && ((await fs.promises.lstat(partials)).isDirectory())) {
           const supported = [...await fs.promises.readdir(partials)]
-          compatibility[template] = !!supported.filter(id => id.match(new RegExp(`^${name}(?:[.][\s\S]+)?[.]ejs$`))).length
+          compatibility[template] = !!supported.filter(id => id.match(new RegExp(`^${name}(?:[.][\\s\\S]+)?[.]ejs$`))).length
         }
       }
 
