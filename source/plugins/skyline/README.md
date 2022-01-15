@@ -6,7 +6,7 @@ The *skyline* plugin lets you display your 3D commits calendar from [skyline.git
 
 <table>
   <td align="center">
-    <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.skyline.svg">
+    <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.skyline.svg">
     <img width="900" height="1" alt="">
   </td>
 </table>

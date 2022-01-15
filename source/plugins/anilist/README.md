@@ -5,13 +5,13 @@ The *anilist* plugin lets you display your favorites animes, mangas and characte
 <table>
   <td align="center">
     <details open><summary>For anime watchers</summary>
-      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.anilist.svg">
+      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.anilist.svg">
     </details>
     <details><summary>For manga readers</summary>
-      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.anilist.manga.svg">
+      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.anilist.manga.svg">
     </details>
     <details open><summary>Favorites characters</summary>
-      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.anilist.characters.svg">
+      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.anilist.characters.svg">
     </details>
     <img width="900" height="1" alt="">
   </td>

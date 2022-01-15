@@ -6,7 +6,7 @@ The repositories *traffic* plugin displays the number of page views across your 
 
 <table>
   <td align="center">
-    <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.traffic.svg">
+    <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.traffic.svg">
   </td>
 </table>
 

@@ -6,10 +6,10 @@ Check out [GitHub topics](https://github.com/topics) to search interesting topic
 <table>
   <td align="center">
     <details open><summary>With icons</summary>
-      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.icons.svg">
+      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.topics.icons.svg">
     </details>
     <details open><summary>With labels</summary>
-      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.topics.svg">
+      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.topics.svg">
     </details>
     <img width="900" height="1" alt="">
   </td>

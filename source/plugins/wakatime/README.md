@@ -4,7 +4,7 @@ The *wakatime* plugin displays statistics from your [WakaTime](https://wakatime.
 
 <table>
   <td align="center">
-    <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.wakatime.svg">
+    <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.wakatime.svg">
     <img width="900" height="1" alt="">
   </td>
 </table>

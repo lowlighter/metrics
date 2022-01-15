@@ -5,10 +5,10 @@ The *achievements* plugin displays several highlights about what you achieved on
 <table>
   <td align="center">
     <details open><summary>Compact display</summary>
-      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.achievements.compact.svg">
+      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.achievements.compact.svg">
     </details>
     <details><summary>Detailed display</summary>
-      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.achievements.svg">
+      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.achievements.svg">
     </details>
     <img width="900" height="1" alt="">
   </td>

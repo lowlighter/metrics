@@ -5,10 +5,10 @@ The coding *habits* plugin display metrics based on your recent activity, such a
 <table>
   <td align="center">
     <details open><summary>Recent activity charts</summary>
-      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.charts.svg">
+      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.habits.charts.svg">
     </details>
     <details open><summary>Midly interesting facts</summary>
-      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.habits.facts.svg">
+      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.habits.facts.svg">
     </details>
     <img width="900" height="1" alt="">
   </td>

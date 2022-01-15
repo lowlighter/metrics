@@ -4,7 +4,7 @@ The *stargazers* plugin displays your stargazers evolution across all of your re
 
 <table>
   <td align="center">
-    <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.stargazers.svg">
+    <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.svg">
     <img width="900" height="1" alt="">
   </td>
 </table>

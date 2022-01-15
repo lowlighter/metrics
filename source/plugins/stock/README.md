@@ -4,7 +4,7 @@ The *stock* plugin lets you display the stock market price of a given company.
 
 <table>
   <td align="center">
-    <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.stock.svg">
+    <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stock.svg">
     <img width="900" height="1" alt="">
   </td>
 </table>

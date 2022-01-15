@@ -5,13 +5,13 @@ The *followup* plugin displays the ratio of open/closed issues and the ratio of 
 <table>
   <td align="center">
     <details open><summary>Indepth analysis</summary>
-      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.followup.indepth.svg">
+      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.followup.indepth.svg">
     </details>
     <details><summary>Created on an user's repositories</summary>
-      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.followup.svg">
+      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.followup.svg">
     </details>
     <details><summary>Created by an user</summary>
-      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.followup.user.svg">
+      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.followup.user.svg">
     </details>
     <img width="900" height="1" alt="">
   </td>

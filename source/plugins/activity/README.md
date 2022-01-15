@@ -4,7 +4,7 @@ The *activity* plugin displays your recent activity on GitHub.
 
 <table>
   <td align="center">
-    <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.activity.svg">
+    <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.activity.svg">
     <img width="900" height="1" alt="">
   </td>
 </table>

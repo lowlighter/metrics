@@ -2,7 +2,7 @@
 
 While metrics targets mainly user accounts, it's possible to render metrics for organization accounts.
 
-![Metrics (organization account)](https://github.com/lowlighter/lowlighter/blob/master/metrics.organization.svg)
+![Metrics (organization account)](https://github.com/lowlighter/metrics/blob/examples/metrics.organization.svg)
 
 ## 💬 Metrics for organizations
 

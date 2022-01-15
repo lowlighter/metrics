@@ -6,10 +6,10 @@ It is mostly intended for metrics used outside of GitHub, since these informatio
 <table>
   <td align="center">
     <details open><summary>For an user or an organization</summary>
-      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.introduction.svg">
+      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.introduction.svg">
     </details>
     <details><summary>For a repository</summary>
-      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.introduction.repository.svg">
+      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.introduction.repository.svg">
     </details>
     <img width="900" height="1" alt="">
   </td>

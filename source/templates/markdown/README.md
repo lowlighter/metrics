@@ -14,7 +14,7 @@
   </tr>
   <tr>
     <td colspan="2" align="center">
-      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.markdown.png" alt=""></img>
+      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.markdown.png" alt=""></img>
       <img width="900" height="1" alt="">
     </td>
   </tr>
@@ -124,7 +124,7 @@ The `embed()` function takes two arguments:
 <%- await embed(`example-languages-pdf`, {languages:true, languages_details:"percentage, bytes-size", config_display:"large"}) %>
 ```
 
-<img src="https://github.com/lowlighter/lowlighter/blob/master/.cache/example-languages-pdf.svg">
+<img src="https://github.com/lowlighter/metrics/blob/examples/.cache/example-languages-pdf.svg">
 
 > 💡 The `plugin_` prefix can be dropped for convenience
 

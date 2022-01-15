@@ -6,7 +6,7 @@ The *projects* plugin displays the progress of your profile projects.
 
 <table>
   <td align="center">
-    <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.projects.svg">
+    <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.projects.svg">
     <img width="900" height="1" alt="">
   </td>
 </table>

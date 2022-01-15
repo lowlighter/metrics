@@ -5,10 +5,10 @@ The *music* plugin lets you display :
 <table>
   <td align="center">
     <details open><summary>Random tracks from a playlist</summary>
-      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.music.playlist.svg">
+      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.music.playlist.svg">
     </details>
     <details open><summary>Recently listened</summary>
-      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.music.recent.svg">
+      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.music.recent.svg">
     </details>
     <img width="900" height="1" alt="">
   </td>

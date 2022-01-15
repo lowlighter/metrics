@@ -2,10 +2,10 @@ name: "🈷️ Most used languages"
 category: github
 description: This plugin can display which languages you use across all repositories you contributed to.
 examples:
-  +indepth analysis (clone and analyze repositories): https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.indepth.svg
-  +recently used (analyze recent activity events): https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.recent.svg
-  default algorithm: https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.svg
-  default algorithm (with details): https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.languages.details.svg
+  +indepth analysis (clone and analyze repositories): https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.languages.indepth.svg
+  +recently used (analyze recent activity events): https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.languages.recent.svg
+  default algorithm: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.languages.svg
+  default algorithm (with details): https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.languages.details.svg
 index: 1
 supports:
   - user

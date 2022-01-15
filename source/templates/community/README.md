@@ -3,7 +3,7 @@
   <tr><td colspan="2" align="center">A template capable of rendering markdown from a given template file.</td></tr>
   <tr>
     <td  colspan="2" align="center">
-      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.markdown.png" alt=""></img>
+      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.markdown.png" alt=""></img>
       <img width="900" height="1" alt="">
     </td>
   </tr>

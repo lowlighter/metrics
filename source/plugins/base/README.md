@@ -5,11 +5,11 @@ The *base* content is all metrics enabled by default.
 <table>
   <tr>
     <td align="center">
-      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.classic.svg">
+      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.classic.svg">
       <img width="900" height="1" alt="">
     </td>
     <td align="center">
-      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.organization.svg">
+      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.organization.svg">
       <img width="900" height="1" alt="">
     </td>
   </tr>

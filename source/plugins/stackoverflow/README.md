@@ -4,7 +4,7 @@ The *stackoverflow* plugin lets you display your metrics, questions and answer f
 
 <table>
   <td align="center">
-    <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.stackoverflow.svg">
+    <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stackoverflow.svg">
     <img width="900" height="1" alt="">
   </td>
 </table>

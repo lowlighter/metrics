@@ -4,7 +4,7 @@ The *lines* of code plugin displays the number of lines of code you have added a
 
 <table>
   <td align="center">
-    <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.lines.svg">
+    <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.lines.svg">
     <img width="900" height="1" alt="">
   </td>
 </table>

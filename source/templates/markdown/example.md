@@ -1,6 +1,6 @@
 # 📒 Markdown template example
 
-See [rendering of this file here](https://github.com/lowlighter/lowlighter/blob/master/metrics.markdown.full.md) and [original template source here](https://github.com/lowlighter/metrics/blob/master/source/templates/markdown/example.md).
+See [rendering of this file here](https://github.com/lowlighter/metrics/blob/examples/metrics.markdown.full.md) and [original template source here](https://github.com/lowlighter/metrics/blob/master/source/templates/markdown/example.md).
 
 ## 🧩 Plugins with markdown version
 

@@ -5,10 +5,10 @@ The *notable* plugin displays badges of organization where you commited at least
 <table>
   <td align="center">
     <details open><summary>Indepth analysis</summary>
-      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.notable.indepth.svg">
+      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.notable.indepth.svg">
     </details>
     <details><summary>Contributions in organizations only</summary>
-      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.notable.svg">
+      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.notable.svg">
     </details>
     <img width="900" height="1" alt="">
   </td>

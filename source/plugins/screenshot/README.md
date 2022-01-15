@@ -5,7 +5,7 @@ It can be restricted with a [CSS selector](https://developer.mozilla.org/en-US/d
 
 <table>
   <td align="center">
-    <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.screenshot.svg">
+    <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.screenshot.svg">
     <img width="900" height="1" alt="">
   </td>
 </table>

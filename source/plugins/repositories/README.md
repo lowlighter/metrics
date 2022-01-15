@@ -4,7 +4,7 @@ The *repositories* plugin can display a list of chosen featured repositories.
 
 <table>
   <td align="center">
-    <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.repositories.svg">
+    <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.repositories.svg">
     <img width="900" height="1" alt="">
   </td>
 </table>

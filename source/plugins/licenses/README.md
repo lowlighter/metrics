@@ -11,10 +11,10 @@ The *licenses* plugin lets you display license informations like permissions, li
 <table>
   <td align="center">
     <details open><summary>Permissions, limitations and conditions</summary>
-      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.licenses.svg">
+      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.licenses.svg">
     </details>
     <details open><summary>Licenses overview</summary>
-      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.licenses.ratio.svg">
+      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.licenses.ratio.svg">
     </details>
     <img width="900" height="1" alt="">
   </td>

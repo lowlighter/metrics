@@ -12,7 +12,7 @@ const page = await browser.newPage()
 
 //Select markdown example and take screenshoot
 await page.setViewport({width:600, height:600})
-await page.goto("https://github.com/lowlighter/lowlighter/blob/master/metrics.markdown.md")
+await page.goto("https://github.com/lowlighter/metrics/blob/examples/metrics.markdown.md")
 const clip = await page.evaluate(() => {
   const {x, y, width, height} = document.querySelector("#readme").getBoundingClientRect()
   return {x, y, width, height}

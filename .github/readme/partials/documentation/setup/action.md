@@ -41,7 +41,7 @@ A scope-less token can still display private contributions by enabling `Include 
 
 If a plugin has not enough scopes to operate (and `plugins_errors_fatal` isn't enabled), it'll be reported in the rendering like below:
 
-![Plugin error example](https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.error.svg)
+![Plugin error example](https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.error.svg)
 
 ### 2. Put your GitHub personal token in your repository secrets
 
@@ -97,9 +97,9 @@ In this case, please consider watching new releases to stay up-to-date and enjoy
 
 #### Examples workflows
 
-Metrics displayed on this page are rendered from this [workflow](https://github.com/lowlighter/lowlighter/blob/master/.github/workflows/metrics.yml) so you can check it out for some code examples about plugins usage.
+Metrics displayed on this page are rendered from this [workflow](https://github.com/lowlighter/metrics/blob/examples/.github/workflows/metrics.yml) so you can check it out for some code examples about plugins usage.
 
-You can also take a look at this [user workflow](https://github.com/lowlighter/lowlighter/blob/master/.github/workflows/personal.yml) if you want.
+You can also take a look at this [user workflow](https://github.com/lowlighter/metrics/blob/examples/.github/workflows/personal.yml) if you want.
 
 ### 4. Embed link into your README.md
 

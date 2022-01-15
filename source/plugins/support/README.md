@@ -4,7 +4,7 @@ The *support* plugin lets you display your statistics from [GitHub Support Commu
 
 <table>
   <td align="center">
-    <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.support.svg">
+    <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.support.svg">
     <img width="900" height="1" alt="">
   </td>
 </table>
