@@ -9,8 +9,6 @@
   </tr>
 </table>
 
-___
-
 Community templates are a way to use official releases of [lowlighter/metrics](https://github.com/lowlighter/metrics) while using templates from external repositories (owned or not).
 
 ## 📮 Using community templates

@@ -21,6 +21,21 @@
 </table>
 <!--/header-->
 
+## 🎎 Using a repository template
+
+To use a repository template, a `repo` handle must be provided.
+
+If the token owner is not the repository owner, then the `user` option must be set to the repository owner (whether it is an user or organization account).
+
+*Example: render `lowlighter/metrics` repository*
+```yml
+- uses: lowlighter/metrics@latest
+  with:
+    template: repository
+    user: lowlighter
+    repo: metrics
+```
+
 ## ℹ️ Examples workflows
 
 <!--examples-->
