@@ -1,8 +1,4 @@
-Generate your metrics that you can embed everywhere, including your GitHub profile readme! It works for both user and organization accounts, and even for repositories!
-
-<% if (/[.]0-beta$/.test(packaged.version)) { %>
-> <sup>*⚠️ This is the documentation of **v<%= packaged.version.replace(/[.]0-beta$/, "") %>-beta** (`@master` branch) which includes [unreleased features](https://github.com/lowlighter/metrics/compare/latest...master), see documentation of [**v<%= (Number(packaged.version.replace(/[.]0-beta$/, ""))-0.01).toFixed(2).replace(/[.]0/, ".") %>** (`@latest` branch) here](https://github.com/lowlighter/metrics/blob/latest/README.md).*</sup>
-<% } %>
+Generate metrics that can be embedded everywhere, including your GitHub profile readme! For users, organizations, and even repositories!
 
 <table>
   <tr>
@@ -12,18 +8,13 @@ Generate your metrics that you can embed everywhere, including your GitHub profi
   <tr>
     <%- plugins.base.readme.demo?.replace(/<img src=/g, `<img alt="" width="400" src=`) %>
   </tr>
-</table>
 <% {
   let cell = 0
   const elements = Object.entries(plugins).filter(([key, value]) => (value)&&(!["base", "core"].includes(key)&&(value.category !== "community")))
-%>
-
-And you can customize these heavily with plugins, templates and hundreds of options!
-
-<table>
+-%>
   <tr>
     <th colspan="2" align="center">
-      <a href="source/plugins/README.md">🧩 <%= elements.length %>+ plugins</a>
+      <a href="/source/plugins/README.md">🧩 Customizable with <%= Object.entries(plugins).filter(([key, value]) => (value)&&(!["base", "core"].includes(key))).length %> plugins and <%= Object.entries(descriptor.inputs).length %> options!</a>
     </th>
   </tr>
 <%  if (elements.length%2)
@@ -48,19 +39,17 @@ And you can customize these heavily with plugins, templates and hundreds of opti
 <% }}} -%>
   <tr>
     <th colspan="2" align="center">
-      <a href="https://github.com/lowlighter/metrics#-community-plugins">🎲 Community plugins</a>
+      <a href="/#-plugins">🎲 See also community plugins</a>
     </th>
   </tr>
-</table>
 <% } %>
 <% {
   let cell = 0
   const elements = Object.entries(templates).filter(([key, value]) => (value)&&(!["community"].includes(key)))
-%>
-<table>
+-%>
   <tr>
     <th colspan="2" align="center">
-      <a href="source/templates/README.md">🖼️ <%= elements.length %>+ templates</a>
+      <a href="/source/templates/README.md">🖼️ And even more with <%= elements.length %>+ templates!</a>
     </th>
   </tr>
 <%  if (elements.length%2)
@@ -71,7 +60,7 @@ And you can customize these heavily with plugins, templates and hundreds of opti
         if (cell === "even") {
 -%>
   <tr>
-<% } %>    <th><a href="source/templates/<%= template %>/README.md"><%- name -%></a></th>
+<% } %>    <th><a href="/source/templates/<%= template %>/README.md"><%- name -%></a></th>
 <%      if (cell === "odd") {
 -%>  </tr>
 <% }}
@@ -84,10 +73,32 @@ And you can customize these heavily with plugins, templates and hundreds of opti
 -%>  </tr>
 <% }}} -%>
   <tr>
-    <th colspan="2"><a href="source/templates/community/README.md"><%= templates.community.name -%></a></th>
+    <th colspan="2"><a href="/source/templates/community/README.md">📕 See also community templates</a></th>
   </tr>
   <tr>
-    <%- templates.community.readme.demo %>
+    <th colspan="2"><h2>🦑 Try it now!</h2></th>
+  </tr>
+  <tr>
+    <th><a href="https://metrics.lecoq.io">📊 Metrics embed</a></th>
+    <th><a href="https://metrics.lecoq.io/about">✨ Metrics insights</a></th>
+  </tr>
+  <tr>
+    <td align="center">
+      Embed metrics images on your profile or blog!<br>
+      Use <a href="https://github.com/marketplace/actions/metrics-embed">GitHub actions</a> for even more features!<br>
+      <img src="/.github/readme/imgs/features_embed.gif" width="441">
+    </td>
+    <td align="center">
+      Share your metrics with friends and on social medias!<br>
+      No configuration needed!<br>
+      <img src="/.github/readme/imgs/features_insights.gif" width="441">
+    </td>
+  </tr>
+  <tr>
+    <td align="center" colspan="2">
+      <b>Power user?</b><br>
+      <a href="https://github.com/lowlighter/metrics/fork">Fork this repository</a> and edit HTML, CSS, JS and <a href="https://github.com/mde/ejs"> for even more customization!
+    </td>
   </tr>
 </table>
 <% } %>

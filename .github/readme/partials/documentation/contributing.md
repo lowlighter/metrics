@@ -1,12 +1,14 @@
-## 💪 Customizing and contributing
+## 💪 Contributing
 
-Metrics is built to be easily customizable.
-Fork this repository, switch used action from `lowlighter/metrics@latest` to your fork and start coding!
+If you are interested in contributing, the following resources may interest you:
 
-See [ARCHITECTURE.md](/ARCHITECTURE.md) for more informations about how code is structured.
+* [💪 Contribution guide](/CONTRIBUTING.md)
+* [🧬 Architecture](/ARCHITECTURE.md)
+* [📜 License](/LICENSE)
+* **:octocat: GitHub resources**
+  * [📖 GitHub GraphQL API](https://docs.github.com/en/graphql)
+  * [📖 GitHub GraphQL Explorer](https://docs.github.com/en/free-pro-team@latest/graphql/overview/explorer)
+  * [📖 GitHub Rest API](https://docs.github.com/en/rest)
+  * [📖 GitHub Octicons](https://github.com/primer/octicons)
 
-To report a bug fill an [issue](https://github.com/lowlighter/metrics/issues) describing it.
-To suggest new features or requesting help to setup metrics, check out [discussions](https://github.com/lowlighter/metrics/discussions).
-
-If you want to contribute, submit a [pull request](https://github.com/lowlighter/metrics/pulls).
-Be sure to read [CONTRIBUTING.md](/CONTRIBUTING.md) for more information about this.
+Use [`💬 discussions`](https://github.com/lowlighter/metrics/discussions) for feedback, new features suggestions, bugs reports or to request help for installation.

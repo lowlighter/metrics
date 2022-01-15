@@ -2,6 +2,6 @@
 
 [![Build, test, analyze and publish](https://github.com/lowlighter/metrics/actions/workflows/workflow.yml/badge.svg)](https://github.com/lowlighter/metrics/actions/workflows/workflow.yml) [![Metrics (examples)](https://github.com/lowlighter/lowlighter/actions/workflows/metrics.yml/badge.svg)](https://github.com/lowlighter/lowlighter/actions/workflows/metrics.yml)
 
-<% for (const partial of ["introduction", "features", "setup", "documentation", "license", "references"]) { -%>
+<% for (const partial of ["introduction", "documentation", "license"]) { -%>
 <%- await include(`/partials/${partial}.md`) %>
 <% } %>

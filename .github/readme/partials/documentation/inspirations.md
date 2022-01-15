@@ -1,12 +1,4 @@
-## 📖 Useful references
-
-* [GitHub GraphQL API](https://docs.github.com/en/graphql)
-* [GitHub GraphQL Explorer](https://docs.github.com/en/free-pro-team@latest/graphql/overview/explorer)
-* [GitHub Rest API](https://docs.github.com/en/rest)
-* [GitHub Octicons](https://github.com/primer/octicons)
-  * See [GitHub Logos and Usage](https://github.com/logos) for more information.
-
-### ✨ Inspirations
+# ✨ Inspirations
 
 * [anuraghazra/github-readme-stats](https://github.com/anuraghazra/github-readme-stats)
 * [jstrieb/github-stats](https://github.com/jstrieb/github-stats)
