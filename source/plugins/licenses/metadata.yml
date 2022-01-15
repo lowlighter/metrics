@@ -1,5 +1,9 @@
 name: "📜 Repository licenses"
 category: github
+description: This plugin display repository license informations like permissions, limitations and conditions along with additional stats about dependencies.
+examples:
+  +permissions, limitations and conditions: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.licenses.svg
+  +licenses overview: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.licenses.ratio.svg
 index: 4
 supports:
   - repository
@@ -7,30 +11,24 @@ scopes:
   - public_access
 inputs:
 
-  # Enable or disable plugin
   plugin_licenses:
-    description: Display licenses informations
+    description: Enable licenses plugin
     type: boolean
     default: no
     extras: yes
 
-  # Command to use to setup target repository
-  # It is required to install all dependencies that will be analyzed with github/licensed
   plugin_licenses_setup:
-    description: Command to setup target repository
+    description: Setup command
     type: string
     default: ""
     example: npm ci
 
-  # Display used licenses from both repository license and dependencies licenses ratio
   plugin_licenses_ratio:
     description: Display used licenses ratio
     type: boolean
     default: no
 
-  # Display permissions, limitations and conditions from both repository license and dependencies licenses
-  # Note that this is NOT legal advice, use at your own risk
   plugin_licenses_legal:
-    description: Display legal informations about used licenses
+    description: Display permissions, limitations and conditions about used licenses
     type: boolean
     default: yes

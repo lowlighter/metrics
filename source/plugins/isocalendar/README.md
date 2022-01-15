@@ -43,6 +43,10 @@
   <tr>
     <td nowrap="nowrap"><code>plugin_isocalendar_duration</code></td>
     <td rowspan="2"><p>Time window</p>
+<ul>
+<li><code>half-year</code>: 180 days</li>
+<li><code>full-year</code>: 1 year</li>
+</ul>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>

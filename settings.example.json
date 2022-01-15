@@ -39,13 +39,13 @@
       "enabled": false,            "//": "Enable languages plugin"
     },
     "topics":{
-      "enabled": false,            "//": "Enable topics plugin"
+      "enabled": false,            "//": "Display starred topics"
     },
     "stars":{
-      "enabled": false,            "//": "Display recently starred repositories"
+      "enabled": false,            "//": "Enable stars plugin"
     },
     "licenses":{
-      "enabled": false,            "//": "Display licenses informations"
+      "enabled": false,            "//": "Enable licenses plugin"
     },
     "habits":{
       "enabled": false,            "//": "Display coding habits metrics"
