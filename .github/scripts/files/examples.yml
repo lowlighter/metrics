@@ -23,6 +23,7 @@ jobs:
 <%- steps.split("\n").map(line => `      ${line}`).join("\n") %>
 
       - name: Publish examples
+        if: ${{ success() || failure() }}
         run: |
           set +e
           sudo mv /metrics_renders/* ./
@@ -128,6 +129,7 @@ jobs:
           delay: 120
 
       - name: Publish examples
+        if: ${{ success() || failure() }}
         run: |
           set +e
           sudo mv /metrics_renders/* ./

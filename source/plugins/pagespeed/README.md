@@ -55,6 +55,7 @@ with:
   token: NOT_NEEDED
   plugin_pagespeed: 'yes'
   plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
+  plugin_pagespeed_url: https://lecoq.io
 
 ```
 ```yaml
@@ -66,6 +67,7 @@ with:
   plugin_pagespeed: 'yes'
   plugin_pagespeed_detailed: 'yes'
   plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
+  plugin_pagespeed_url: https://lecoq.io
 
 ```
 ```yaml
@@ -77,6 +79,7 @@ with:
   plugin_pagespeed: 'yes'
   plugin_pagespeed_screenshot: 'yes'
   plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
+  plugin_pagespeed_url: https://lecoq.io
 
 ```
 <!--/examples-->

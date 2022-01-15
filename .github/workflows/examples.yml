@@ -33,7 +33,7 @@ jobs:
         uses: lowlighter/metrics@master
         with:
           user: github
-          token: ${{ secrets.METRICS_BOT_TOKEN }}
+          token: ${{ secrets.METRICS_TOKEN_WITH_SCOPES }}
           base: header, repositories
           plugins_errors_fatal: 'yes'
           output_action: none
@@ -340,7 +340,7 @@ jobs:
       - name: 🗂️ Active projects - Project from a repository
         uses: lowlighter/metrics@master
         with:
-          token: ${{ secrets.METRICS_BOT_TOKEN }}
+          token: ${{ secrets.METRICS_TOKEN_WITH_SCOPES }}
           plugin_projects: 'yes'
           plugin_projects_repositories: lowlighter/metrics/projects/1
           plugin_projects_descriptions: 'yes'
@@ -447,7 +447,7 @@ jobs:
       - name: 🧮 Repositories traffic - Repositories traffic
         uses: lowlighter/metrics@master
         with:
-          token: ${{ secrets.METRICS_BOT_TOKEN }}
+          token: ${{ secrets.METRICS_TOKEN_WITH_SCOPES }}
           plugins_errors_fatal: 'yes'
           output_action: none
           delay: 120
@@ -471,10 +471,10 @@ jobs:
           output_action: none
           delay: 120
         if: ${{ success() || failure() }}
-      - name: 🙋 Introduction - User introduction
+      - name: 🙋 Introduction - Organization introduction
         uses: lowlighter/metrics@master
         with:
-          token: ${{ secrets.METRICS_BOT_TOKEN }}
+          token: ${{ secrets.METRICS_TOKEN_WITH_SCOPES }}
           plugins_errors_fatal: 'yes'
           output_action: none
           delay: 120
@@ -539,6 +539,7 @@ jobs:
           token: NOT_NEEDED
           plugin_pagespeed: 'yes'
           plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
+          plugin_pagespeed_url: https://lecoq.io
           plugins_errors_fatal: 'yes'
           output_action: none
           delay: 120
@@ -550,6 +551,7 @@ jobs:
           plugin_pagespeed: 'yes'
           plugin_pagespeed_detailed: 'yes'
           plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
+          plugin_pagespeed_url: https://lecoq.io
           plugins_errors_fatal: 'yes'
           output_action: none
           delay: 120
@@ -561,6 +563,7 @@ jobs:
           plugin_pagespeed: 'yes'
           plugin_pagespeed_screenshot: 'yes'
           plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
+          plugin_pagespeed_url: https://lecoq.io
           plugins_errors_fatal: 'yes'
           output_action: none
           delay: 120
@@ -638,30 +641,6 @@ jobs:
           output_action: none
           delay: 120
         if: ${{ success() || failure() }}
-      - name: 🎼 Music plugin - Youtube Music - Recently listed
-        uses: lowlighter/metrics@master
-        with:
-          token: NOT_NEEDED
-          plugin_music_token: ${{ secrets.YOUTUBE_MUSIC_TOKENS }}
-          plugin_music: 'yes'
-          plugin_music_mode: recent
-          plugin_music_provider: youtube
-          plugins_errors_fatal: 'yes'
-          output_action: none
-          delay: 120
-        if: ${{ success() || failure() }}
-      - name: 🎼 Music plugin - Last.fm  - Recently listed
-        uses: lowlighter/metrics@master
-        with:
-          token: NOT_NEEDED
-          plugin_music_token: ${{ secrets.LASTFM_TOKEN }}
-          plugin_music: 'yes'
-          plugin_music_provider: lastfm
-          plugin_music_user: RJ
-          plugins_errors_fatal: 'yes'
-          output_action: none
-          delay: 120
-        if: ${{ success() || failure() }}
       - name: 🗨️ Stackoverflow plugin - Top answers from stackoverflow
         uses: lowlighter/metrics@master
         with:
@@ -716,7 +695,10 @@ jobs:
       - name: 🐤 Latest tweets - Latest tweets
         uses: lowlighter/metrics@master
         with:
-          user: botlighter
+          token: NOT_NEEDED
+          plugin_tweets: 'yes'
+          plugin_tweets_token: ${{ secrets.TWITTER_TOKEN }}
+          plugin_tweets_user: github
           plugins_errors_fatal: 'yes'
           output_action: none
           delay: 120
@@ -724,7 +706,11 @@ jobs:
       - name: 🐤 Latest tweets - Latest tweets including attachments
         uses: lowlighter/metrics@master
         with:
-          user: botlighter
+          token: NOT_NEEDED
+          plugin_tweets: 'yes'
+          plugin_tweets_token: ${{ secrets.TWITTER_TOKEN }}
+          plugin_tweets_attachments: 'yes'
+          plugin_tweets_user: github
           plugins_errors_fatal: 'yes'
           output_action: none
           delay: 120
@@ -776,7 +762,7 @@ jobs:
         with:
           token: NOT_NEEDED
           plugin_stock: 'yes'
-          plugin_stock_token: ${{ secrets.RAPIDAPI_TOKEN }}
+          plugin_stock_token: ${{ secrets.STOCK_TOKEN }}
           plugin_stock_symbol: TSLA
           plugins_errors_fatal: 'yes'
           output_action: none
@@ -808,7 +794,7 @@ jobs:
         uses: lowlighter/metrics@master
         with:
           template: repository
-          token: ${{ secrets.METRICS_BOT_TOKEN }}
+          token: ${{ secrets.METRICS_TOKEN_WITH_SCOPES }}
           user: lowlighter
           repo: metrics
           plugin_lines: 'yes'
@@ -914,6 +900,7 @@ jobs:
       
 
       - name: Publish examples
+        if: ${{ success() || failure() }}
         run: |
           set +e
           sudo mv /metrics_renders/* ./
@@ -1019,6 +1006,7 @@ jobs:
           delay: 120
 
       - name: Publish examples
+        if: ${{ success() || failure() }}
         run: |
           set +e
           sudo mv /metrics_renders/* ./

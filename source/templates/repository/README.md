@@ -45,7 +45,7 @@ uses: lowlighter/metrics@latest
 with:
   template: repository
   filename: metrics.repository.svg
-  token: ${{ secrets.METRICS_BOT_TOKEN }}
+  token: ${{ secrets.METRICS_TOKEN_WITH_SCOPES }}
   user: lowlighter
   repo: metrics
   plugin_lines: 'yes'

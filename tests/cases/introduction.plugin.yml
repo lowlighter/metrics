@@ -1,4 +1,4 @@
-- name: 🙋 Introduction - User introduction
+- name: 🙋 Introduction - Organization introduction
   uses: lowlighter/metrics@latest
   with:
     token: MOCKED_TOKEN

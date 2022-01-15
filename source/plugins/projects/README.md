@@ -63,7 +63,7 @@ name: Project from a repository
 uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.projects.svg
-  token: ${{ secrets.METRICS_BOT_TOKEN }}
+  token: ${{ secrets.METRICS_TOKEN_WITH_SCOPES }}
   base: ''
   plugin_projects: 'yes'
   plugin_projects_repositories: lowlighter/metrics/projects/1

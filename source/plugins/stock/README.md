@@ -47,7 +47,7 @@ with:
   token: NOT_NEEDED
   base: ''
   plugin_stock: 'yes'
-  plugin_stock_token: ${{ secrets.RAPIDAPI_TOKEN }}
+  plugin_stock_token: ${{ secrets.STOCK_TOKEN }}
   plugin_stock_symbol: TSLA
 
 ```

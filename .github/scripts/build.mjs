@@ -46,10 +46,11 @@ for (const step of ["config", "documentation"]) {
 
 //Plugins
 for (const id of Object.keys(plugins)) {
-  const {examples, options, readme, tests} = await plugin(id)
+  const {examples, options, readme, tests, header} = await plugin(id)
 
   //Readme
   await fs.writeFile(readme.path, readme.content
+    .replace(/(<!--header-->)[\s\S]*(<!--\/header-->)/g, `$1\n${header}\n$2`)
     .replace(/(<!--examples-->)[\s\S]*(<!--\/examples-->)/g, `$1\n${examples.map(({test, prod, ...step}) => ["```yaml", yaml.dump(step), "```"].join("\n")).join("\n")}\n$2`)
     .replace(/(<!--options-->)[\s\S]*(<!--\/options-->)/g, `$1\n${options}\n$2`)
   )
@@ -121,7 +122,8 @@ async function plugin(id) {
       path:tests
     },
     examples:fss.existsSync(examples) ? yaml.load(await fs.readFile(examples), "utf8") ?? [] : [],
-    options:plugins[id].readme.table
+    options:plugins[id].readme.table,
+    header:plugins[id].readme.header
   }
 }
 

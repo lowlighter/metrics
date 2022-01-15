@@ -63,6 +63,8 @@
     plugin_music: yes
     plugin_music_mode: recent
     plugin_music_provider: youtube
+  prod:
+    skip: true
 
 - name: Last.fm  - Recently listed
   uses: lowlighter/metrics@latest
@@ -72,3 +74,5 @@
     plugin_music: yes
     plugin_music_provider: lastfm
     plugin_music_user: RJ
+  prod:
+    skip: true

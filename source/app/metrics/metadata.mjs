@@ -268,6 +268,30 @@ metadata.plugin = async function({__plugins, name, logger}) {
       const raw = `${await fs.promises.readFile(path.join(__plugins, name, "README.md"), "utf-8")}`
       const demo = raw.match(/(?<demo><table>[\s\S]*?<[/]table>)/)?.groups?.demo?.replace(/<[/]?(?:table|tr)>/g, "")?.trim() ?? "<td></td>"
 
+      //Header table
+      const header = [
+        "<table>",
+        `  <tr><th colspan="2"><h3>${meta.name}</h3></th></tr>`,
+        `  <tr><td colspan="2" align="center">${(meta.description ?? "").replaceAll("\n", "<br>")}</td></tr>`,
+        "  <tr>",
+        '    <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>',
+        //`    <td>${Object.entries(compatibility).filter(([_, value]) => value).map(([id]) => `<a href="/source/plugins/${id}" title="${plugins[id].name}">${plugins[id].icon}</a>`).join(" ")}${meta.formats?.includes("markdown") ? " <code>✓ embed()</code>" : ""}</td>`,
+        "  </tr>",
+        "  <tr>",
+        `    <td>${[
+          meta.supports?.includes("user") ? "👤 Users" : "",
+          meta.supports?.includes("organization") ? "👥 Organizations" : "",
+          meta.supports?.includes("repository") ? "📓 Repositories" : ""
+        ].filter(v => v).join(", ")}</td>`,
+        "  </tr>",
+        "  <tr>",
+        `    <td>${[...(meta.scopes ?? []).map(scope => `🔑 ${scope}`), ...Object.entries(inputs).filter(([_, {type}]) => type === "token").map(([token]) => `<code>🗝️ ${token}</code>`)].join(", ")}</td>`,
+        "  </tr>",
+        "  <tr>",
+        "  </tr>",
+        "</table>"
+      ].join("\n")
+
       //Options table
       let flags = new Set()
       const table = [
@@ -348,7 +372,7 @@ metadata.plugin = async function({__plugins, name, logger}) {
       ].flat(Infinity).filter(s => s).join("\n")
 
       //Readme descriptor
-      meta.readme = {demo, table}
+      meta.readme = {demo, table, header}
     }
 
     //Icon
@@ -368,7 +392,6 @@ metadata.template = async function({__templates, name, plugins, logger}) {
   try {
     //Load meta descriptor
     const raw = fs.existsSync(path.join(__templates, name, "metadata.yml")) ? `${await fs.promises.readFile(path.join(__templates, name, "metadata.yml"), "utf-8")}` : ""
-    const readme = fs.existsSync(path.join(__templates, name, "README.md")) ? `${await fs.promises.readFile(path.join(__templates, name, "README.md"), "utf-8")}` : ""
     const meta = yaml.load(raw) ?? {}
 
     //Compatibility
@@ -383,7 +406,7 @@ metadata.template = async function({__templates, name, plugins, logger}) {
     }
 
     //Demo for main and individual readmes
-    function demo({colspan = null} = {}) {
+    function demo({colspan = null} = {}) { //eslint-disable-line no-inner-declarations
       return [
         `    <td ${colspan ? `colspan="${colspan}"` : ""} align="center">`,
         `${Object.entries(meta.examples ?? {}).map(([text, link]) => {
@@ -394,8 +417,8 @@ metadata.template = async function({__templates, name, plugins, logger}) {
           }
           return `      ${img}`
         }).join("\n")}`,
-        `      <img width="900" height="1" alt="">`,
-        `    </td>`
+        '      <img width="900" height="1" alt="">',
+        "    </td>"
       ].join("\n")
     }
 
@@ -404,18 +427,18 @@ metadata.template = async function({__templates, name, plugins, logger}) {
       "<table>",
       `  <tr><th colspan="2"><h3>${meta.name ?? "(unnamed template)"}</h3></th></tr>`,
       `  <tr><td colspan="2" align="center">${(meta.description ?? "").replaceAll("\n", "<br>")}</td></tr>`,
-      `  <tr>`,
-      `    <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>`,
+      "  <tr>",
+      '    <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>',
       `    <td>${Object.entries(compatibility).filter(([_, value]) => value).map(([id]) => `<a href="/source/plugins/${id}" title="${plugins[id].name}">${plugins[id].icon}</a>`).join(" ")}${meta.formats?.includes("markdown") ? " <code>✓ embed()</code>" : ""}</td>`,
-      `  </tr>`,
-      `  <tr>`,
+      "  </tr>",
+      "  <tr>",
       `    <td>${[
         meta.supports?.includes("user") ? "👤 Users" : "",
         meta.supports?.includes("organization") ? "👥 Organizations" : "",
         meta.supports?.includes("repository") ? "📓 Repositories" : ""
       ].filter(v => v).join(", ")}</td>`,
-      `  </tr>`,
-      `  <tr>`,
+      "  </tr>",
+      "  <tr>",
       `    <td>${[
         meta.formats?.includes("svg") ? "*️⃣ SVG" : "",
         meta.formats?.includes("png") ? "*️⃣ PNG" : "",
@@ -424,10 +447,10 @@ metadata.template = async function({__templates, name, plugins, logger}) {
         meta.formats?.includes("markdown") ? "🔠 Markdown" : "",
         meta.formats?.includes("markdown-pdf") ? "🔠 Markdown (PDF)" : "",
       ].filter(v => v).join(", ")}</td>`,
-      `  </tr>`,
-      `  <tr>`,
+      "  </tr>",
+      "  <tr>",
       demo({colspan:2}),
-      `  </tr>`,
+      "  </tr>",
       "</table>"
     ].join("\n")
 

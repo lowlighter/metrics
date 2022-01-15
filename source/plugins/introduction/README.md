@@ -32,7 +32,7 @@ It is mostly intended for metrics used outside of GitHub, since these informatio
 
 <!--examples-->
 ```yaml
-name: User introduction
+name: Organization introduction
 uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.introduction.svg
