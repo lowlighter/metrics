@@ -1,5 +1,9 @@
 name: "📅 Isometric commit calendar"
 category: github
+description: This plugin displays an isometric view of your commit calendar along with a few additional statistics like current streak and average number of commit per day.
+examples:
+  full year calendar: https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.isocalendar.fullyear.svg
+  half year calendar: https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.isocalendar.svg
 index: 0
 supports:
   - user
@@ -7,15 +11,13 @@ scopes:
   - public_access
 inputs:
 
-  # Enable or disable plugin
   plugin_isocalendar:
-    description: Display an isometric view of your commits calendar
+    description: Enable isocalendar plugin
     type: boolean
     default: no
 
-  # Set time window shown by isometric calendar
   plugin_isocalendar_duration:
-    description: Set time window shown by isometric calendar
+    description: Time window
     type: string
     default: half-year
     values:
