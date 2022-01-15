@@ -2,7 +2,7 @@
 import fs from "fs/promises"
 import paths from "path"
 import url from "url"
-import setup from "../source/app/metrics/setup.mjs"
+import setup from "../../source/app/metrics/setup.mjs"
 
 //Paths
 const __metrics = paths.join(paths.dirname(url.fileURLToPath(import.meta.url)), "..")
