@@ -26,7 +26,12 @@ export default async function({login, q, imports, data, account}, {enabled = fal
       repositories:[]
     }))))
     const count = lists.length
-    lists = lists.filter(({name}) => (name)&&((only.includes(name.toLocaleLowerCase()))||((!only.length)&&(!ignored.includes(name.toLocaleLowerCase()))))).slice(0, limit)
+    console.debug(`metrics/compute/${login}/plugins > starlists > found [${lists.map(({name}) => name)}]`)
+    lists = lists
+      .filter(({name}) => name)
+      .filter(({name}) => (!only.length)||(only.includes(name.toLocaleLowerCase()))
+      .filter(({name}) => !ignored.includes(name.toLocaleLowerCase())))
+      .slice(0, limit)
     console.debug(`metrics/compute/${login}/plugins > starlists > extracted ${lists.length} lists`)
 
     //Fetch star list content
