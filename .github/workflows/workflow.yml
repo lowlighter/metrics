@@ -8,11 +8,10 @@ jobs:
 
   # Build, test and analyze
   build-test-analyze:
-    if: "!contains(github.event.head_commit.message, '[skip test]')"
+    name: Build, test and analyze
     runs-on: ubuntu-latest
-    steps:
-      - name: Build, test and analyze
-        uses: lowlighter/metrics/.github/workflows/test.yml@master
+    if: "!contains(github.event.head_commit.message, '[skip test]')"
+    uses: lowlighter/metrics/.github/workflows/test.yml@master
 
   # Format code
   format:
@@ -155,11 +154,10 @@ jobs:
 
   # Publish examples
   publish-examples:
+    name: Publish examples
     runs-on: ubuntu-latest
     needs: [ docker-release ]
-    steps:
-      - name: Publish examples
-        uses: lowlighter/metrics/.github/workflows/examples.yml@master
+    uses: lowlighter/metrics/.github/workflows/examples.yml@master
 
   # Rebase latest branch on master
   update-latest:
