@@ -40,7 +40,7 @@ export default async function metadata({log = true, diff = false} = {}) {
     if (!(await fs.promises.lstat(path.join(__plugins, name))).isDirectory())
       continue
     logger(`metrics/metadata > loading plugin metadata [${name}]`)
-    Plugins[name] = await metadata.plugin({__plugins, name, logger})
+    Plugins[name] = await metadata.plugin({__plugins, __templates, name, logger})
   }
   //Reorder keys
   const {base, core, ...plugins} = Plugins //eslint-disable-line no-unused-vars
@@ -70,7 +70,7 @@ export default async function metadata({log = true, diff = false} = {}) {
 }
 
 /**Metadata extractor for templates */
-metadata.plugin = async function({__plugins, name, logger}) {
+metadata.plugin = async function({__plugins, __templates, name, logger}) {
   try {
     //Load meta descriptor
     const raw = `${await fs.promises.readFile(path.join(__plugins, name, "metadata.yml"), "utf-8")}`
@@ -266,7 +266,21 @@ metadata.plugin = async function({__plugins, name, logger}) {
     {
       //Extract demos
       const raw = `${await fs.promises.readFile(path.join(__plugins, name, "README.md"), "utf-8")}`
-      const demo = raw.match(/(?<demo><table>[\s\S]*?<[/]table>)/)?.groups?.demo?.replace(/<[/]?(?:table|tr)>/g, "")?.trim() ?? "<td></td>"
+      const demo = meta.examples ? demos({examples:meta.examples}) : raw.match(/(?<demo><table>[\s\S]*?<[/]table>)/)?.groups?.demo?.replace(/<[/]?(?:table|tr)>/g, "")?.trim() ?? "<td></td>"
+
+      //Compatibility
+      const templates = {}
+      const compatibility = {}
+      for (const template of await fs.promises.readdir(__templates)) {
+        if (!(await fs.promises.lstat(path.join(__templates, template))).isDirectory())
+          continue
+        templates[template] = yaml.load(`${await fs.promises.readFile(path.join(__templates, template, "metadata.yml"), "utf-8")}`)
+        const partials = path.join(__templates, template, "partials")
+        if ((fs.existsSync(partials)) && ((await fs.promises.lstat(partials)).isDirectory())) {
+          const supported = [...await fs.promises.readdir(partials)]
+          compatibility[template] = !!supported.filter(id => id.match(new RegExp(`^${name}(?:[.][\s\S]+)?[.]ejs$`))).length
+        }
+      }
 
       //Header table
       const header = [
@@ -275,100 +289,81 @@ metadata.plugin = async function({__plugins, name, logger}) {
         `  <tr><td colspan="2" align="center">${(meta.description ?? "").replaceAll("\n", "<br>")}</td></tr>`,
         "  <tr>",
         '    <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>',
-        //`    <td>${Object.entries(compatibility).filter(([_, value]) => value).map(([id]) => `<a href="/source/plugins/${id}" title="${plugins[id].name}">${plugins[id].icon}</a>`).join(" ")}${meta.formats?.includes("markdown") ? " <code>✓ embed()</code>" : ""}</td>`,
+        `    <td>${Object.entries(compatibility).filter(([_, value]) => value).map(([id]) => `<a href="/source/templates/${id}"><code>${templates[id].name ?? ""}</code></a>`).join(" ")}</td>`,
         "  </tr>",
         "  <tr>",
         `    <td>${[
-          meta.supports?.includes("user") ? "👤 Users" : "",
-          meta.supports?.includes("organization") ? "👥 Organizations" : "",
-          meta.supports?.includes("repository") ? "📓 Repositories" : ""
-        ].filter(v => v).join(", ")}</td>`,
+          meta.supports?.includes("user") ? "<code>👤 Users</code>" : "",
+          meta.supports?.includes("organization") ? "<code>👥 Organizations</code>" : "",
+          meta.supports?.includes("repository") ? "<code>📓 Repositories</code>" : ""
+        ].filter(v => v).join(" ")}</td>`,
         "  </tr>",
         "  <tr>",
-        `    <td>${[...(meta.scopes ?? []).map(scope => `🔑 ${scope}`), ...Object.entries(inputs).filter(([_, {type}]) => type === "token").map(([token]) => `<code>🗝️ ${token}</code>`)].join(", ")}</td>`,
+        `    <td>${[
+          ...(meta.scopes ?? []).map(scope => `<code>🔑 ${{public_access:"(scopeless)"}[scope] ?? scope}</code>`),
+          ...Object.entries(inputs).filter(([_, {type}]) => type === "token").map(([token]) => `<code>🗝️ ${token}</code>`),
+          ...(meta.scopes?.length ? ["read:org", "read:user", "repo"].map(scope => !meta.scopes.includes(scope) ? `<code>${scope} (optional)</code>` : null).filter(v => v) : [])
+        ].join(" ")}</td>`,
         "  </tr>",
         "  <tr>",
+        demos({colspan:2, examples:meta.examples}),
         "  </tr>",
         "</table>"
       ].join("\n")
 
       //Options table
-      let flags = new Set()
       const table = [
-        "| Option | Type *(format)* **[default]** *{allowed values}* | Description |",
-        "| ------ | -------------------------------- | ----------- |",
+        "<table>",
+        "  <tr>",
+        '    <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>',
+        "  </tr>",
         Object.entries(inputs).map(([option, {description, type, ...o}]) => {
-          let row = []
-          {
-            let cell = []
-            if (o.required) {
-              cell.push("✔️")
-              flags.add("required")
-            }
-            if (type === "token") {
-              cell.push("🔐")
-              flags.add("secret")
-            }
-            if (o.inherits) {
-              cell.push("⏩")
-              flags.add("inherits")
-            }
-            if (o.global) {
-              cell.push("⏭️")
-              flags.add("global")
-            }
-            if (o.testing) {
-              cell.push("🔧")
-              flags.add("testing")
-            }
-            if (!Object.keys(previous?.inputs ?? {}).includes(option)) {
-              cell.push("✨")
-              flags.add("beta")
-            }
-            if (o.extras) {
-              cell.push("🧰")
-              flags.add("extras")
-            }
-            cell = cell.map(flag => `<sup>${flag}</sup>`)
-            cell.unshift(`${"`"}${option}${"`"}`)
-            row.push(cell.join(" "))
+          const cell = []
+          if (o.required)
+            cell.push("✔️ Required<br>")
+          if (type === "token")
+            cell.push("🔐 Token<br>")
+          if (o.inherits)
+            cell.push(`⏩ Inherits <code>${o.inherits}</code><br>`)
+          if (o.global)
+            cell.push("⏭️ Global option<br>")
+          if (o.testing)
+            cell.push("🔧 For development")
+          if (!Object.keys(previous?.inputs ?? {}).includes(option))
+            cell.push("✨ On <code>master</code>/<code>main</code><br>")
+          if (o.extras)
+            cell.push("🌐 Web instances must configure <code>settings.json</code><br>")
+          cell.push(`<b>type:</b> <code>${type}</code>`)
+          if ("format" in o)
+            cell.push(`<i>(${Array.isArray(o.format) ? o.format[0] : o.format})</i>`)
+          cell.push("<br>")
+          if ("min" in o)
+            cell.push(`<i>(${o.min} ≤`)
+          if (("min" in o)||("max" in o))
+            cell.push(`${"min" in o ? "" : "<i>("}𝑥${"max" in o ? "" : ")</i>"}`)
+          if ("max" in o)
+            cell.push(`≤ ${o.max})</i>`)
+          if (("default" in o)&&(o.default !== "")) {
+            let text = o.default
+            if (o.default === ".user.login")
+              text = "<code>→ User login</code>"
+            if (o.default === ".user.twitter")
+              text = "<code>→ User attached twitter</code>"
+            if (o.default === ".user.website")
+              text = "<code>→ User attached website</code>"
+            cell.push(`<b>default:</b> ${text}<br>`)
           }
-          {
-            const cell = [`${"`"}${type}${"`"}`]
-            if ("format" in o)
-              cell.push(`*(${Array.isArray(o.format) ? o.format[0] : o.format})*`)
-            if ("default" in o) {
-              let text = o.default
-              if (o.default === ".user.login")
-                text = "*→ User login*"
-              if (o.default === ".user.twitter")
-                text = "*→ User attached twitter*"
-              if (o.default === ".user.website")
-                text = "*→ User attached website*"
-              cell.push(`**[${text}]**`)
-            }
-            if ("values" in o)
-              cell.push(`*{${o.values.map(value => `"${value}"`).join(", ")}}*`)
-            if ("min" in o)
-              cell.push(`*{${o.min} ≤`)
-            if (("min" in o)||("max" in o))
-              cell.push(`${"min" in o ? "" : "*{"}𝑥${"max" in o ? "" : "}*"}`)
-            if ("max" in o)
-              cell.push(`≤ ${o.max}}*`)
-            row.push(cell.join(" "))
-          }
-          row.push(description)
-          return `| ${row.join(" | ")} |`
+          if ("values" in o)
+            cell.push(`<b>allowed values:</b><ul>${o.values.map(value => `<li>${value}</li>`).join("")}</ul>`)
+          return `  <tr>
+    <td nowrap="nowrap"><code>${option}</code></td>
+    <td rowspan="2">${description}<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">${cell.join("\n")}</td>
+  </tr>`
         }).join("\n"),
-        "\n",
-        flags.size ? "Legend for option icons:" : "",
-        flags.has("required") ? "* ✔️ Value must be provided" : "",
-        flags.has("secret") ? "* 🔐 Value should be stored in repository secrets" : "",
-        flags.has("inherits") ? "* ⏩ Value inherits from its related global-level option" : "",
-        flags.has("global") ? "* ⏭️ Value be inherited by its related plugin-level option" : "",
-        flags.has("testing") ? "* 🔧 For development purposes, use with caution" : "",
-        flags.has("beta") ? "* ✨ Currently in beta-testing on `master`/`main`" : "",
-        flags.has("extras") ? "* 🧰 Must be enabled in `settings.json` (for web instances)" : "",
+        "</table>",
       ].flat(Infinity).filter(s => s).join("\n")
 
       //Readme descriptor
@@ -405,23 +400,6 @@ metadata.template = async function({__templates, name, plugins, logger}) {
       }
     }
 
-    //Demo for main and individual readmes
-    function demo({colspan = null} = {}) { //eslint-disable-line no-inner-declarations
-      return [
-        `    <td ${colspan ? `colspan="${colspan}"` : ""} align="center">`,
-        `${Object.entries(meta.examples ?? {}).map(([text, link]) => {
-          let img = `<img src="${link}" alt=""></img>`
-          if (text !== "default") {
-            const open = text.charAt(0) === "+" ? " open" : ""
-            img = `<details><summary${open}>${open ? text.substring(1) : text}</summary>${img}</details>`
-          }
-          return `      ${img}`
-        }).join("\n")}`,
-        '      <img width="900" height="1" alt="">',
-        "    </td>"
-      ].join("\n")
-    }
-
     //Header table
     const header = [
       "<table>",
@@ -433,23 +411,23 @@ metadata.template = async function({__templates, name, plugins, logger}) {
       "  </tr>",
       "  <tr>",
       `    <td>${[
-        meta.supports?.includes("user") ? "👤 Users" : "",
-        meta.supports?.includes("organization") ? "👥 Organizations" : "",
-        meta.supports?.includes("repository") ? "📓 Repositories" : ""
-      ].filter(v => v).join(", ")}</td>`,
+        meta.supports?.includes("user") ? "<code>👤 Users</code>" : "",
+        meta.supports?.includes("organization") ? "<code>👥 Organizations</code>" : "",
+        meta.supports?.includes("repository") ? "<code>📓 Repositories</code>" : ""
+      ].filter(v => v).join(" ")}</td>`,
       "  </tr>",
       "  <tr>",
       `    <td>${[
-        meta.formats?.includes("svg") ? "*️⃣ SVG" : "",
-        meta.formats?.includes("png") ? "*️⃣ PNG" : "",
-        meta.formats?.includes("jpeg") ? "*️⃣ JPEG" : "",
-        meta.formats?.includes("json") ? "#️⃣ JSON" : "",
-        meta.formats?.includes("markdown") ? "🔠 Markdown" : "",
-        meta.formats?.includes("markdown-pdf") ? "🔠 Markdown (PDF)" : "",
-      ].filter(v => v).join(", ")}</td>`,
+        meta.formats?.includes("svg") ? "<code>*️⃣ SVG</code>" : "",
+        meta.formats?.includes("png") ? "<code>*️⃣ PNG</code>" : "",
+        meta.formats?.includes("jpeg") ? "<code>*️⃣ JPEG</code>" : "",
+        meta.formats?.includes("json") ? "<code>#️⃣ JSON</code>" : "",
+        meta.formats?.includes("markdown") ? "<code>🔠 Markdown</code>" : "",
+        meta.formats?.includes("markdown-pdf") ? "<code>🔠 Markdown (PDF)</code>" : "",
+      ].filter(v => v).join(" ")}</td>`,
       "  </tr>",
       "  <tr>",
-      demo({colspan:2}),
+      demos({colspan:2, examples:meta.examples}),
       "  </tr>",
       "</table>"
     ].join("\n")
@@ -462,7 +440,7 @@ metadata.template = async function({__templates, name, plugins, logger}) {
       formats:meta.formats ?? null,
       supports:meta.supports ?? null,
       readme:{
-        demo:demo(),
+        demo:demos({examples:meta.examples}),
         compatibility:{
           ...Object.fromEntries(Object.entries(compatibility).filter(([_, value]) => value)),
           ...Object.fromEntries(Object.entries(compatibility).filter(([_, value]) => !value).map(([key, value]) => [key, meta.formats?.includes("markdown") ? "embed" : value])),
@@ -495,4 +473,23 @@ metadata.to = {
     key = key.replace(/^plugin_/, "").replace(/_/g, ".")
     return name ? key.replace(new RegExp(`^(${name}.)`, "g"), "") : key
   },
+}
+
+//Demo for main and individual readmes
+function demos({colspan = null, examples = {}} = {}) {
+  return [
+    `    <td ${colspan ? `colspan="${colspan}"` : ""} align="center">`,
+    `${Object.entries(examples).map(([text, link]) => {
+      let img = `<img src="${link}" alt=""></img>`
+      if (text !== "default") {
+        const open = text.charAt(0) === "+" ? " open" : ""
+        text = open ? text.substring(1) : text
+        text = `${text.charAt(0).toLocaleUpperCase()}${text.substring(1)}`
+        img = `<details${open}><summary>${text}</summary>${img}</details>`
+      }
+      return `      ${img}`
+    }).join("\n")}`,
+    '      <img width="900" height="1" alt="">',
+    "    </td>"
+  ].join("\n")
 }

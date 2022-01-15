@@ -174,6 +174,5 @@ function testcase(name, env, args) {
     Object.assign(result.with, {use_mocked_data:"yes", verify:"yes"})
   }
 
-  console.log(arguments, result)
   return result
 }
