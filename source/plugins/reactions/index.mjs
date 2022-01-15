@@ -8,6 +8,7 @@ export default async function({login, q, imports, data, graphql, queries, accoun
 
     //Load inputs
     let {limit:_limit1, "limit.issues":_limit2, "limit.discussions":_limit3, "limit.discussions.comments":_limit4, days, details, display, ignored} = imports.metadata.plugins.reactions.inputs({data, account, q})
+    ignored.push(...data.shared["users.ignored"])
 
     //Load issue comments
     const comments = []

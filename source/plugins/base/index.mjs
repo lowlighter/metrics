@@ -125,8 +125,8 @@ export default async function({login, graphql, rest, data, q, queries, imports},
         }
       }
       //Shared options
-      let {"repositories.skipped":skipped, "commits.authoring":authoring} = imports.metadata.plugins.base.inputs({data, q, account:"bypass"})
-      data.shared = {"repositories.skipped":skipped, "commits.authoring":authoring, "repositories.batch":_batch}
+      let {"repositories.skipped":skipped, "users.ignored":ignored, "commits.authoring":authoring} = imports.metadata.plugins.base.inputs({data, q, account:"bypass"})
+      data.shared = {"repositories.skipped":skipped, "users.ignored":ignored, "commits.authoring":authoring, "repositories.batch":_batch}
       console.debug(`metrics/compute/${login}/base > shared options > ${JSON.stringify(data.shared)}`)
       //Success
       console.debug(`metrics/compute/${login}/base > graphql query > account ${account} > success`)
