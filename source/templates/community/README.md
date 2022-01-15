@@ -60,3 +60,26 @@ Then use HTML, CSS, and [EJS](https://github.com/mde/ejs) to create something aw
 Do not hesitate to share it on [GitHub discussions](https://github.com/lowlighter/metrics/discussions)!
 
 For more information, see [contribution guide](/CONTRIBUTING.md).
+
+## ℹ️ Examples workflows
+
+<!--examples-->
+```yaml
+name: Using a community template
+uses: lowlighter/metrics@latest
+with:
+  token: ${{ secrets.METRICS_TOKEN }}
+  template: '@classic'
+  setup_community_templates: lowlighter/metrics@master:classic
+
+```
+```yaml
+name: Using a trusted community template
+uses: lowlighter/metrics@latest
+with:
+  token: ${{ secrets.METRICS_TOKEN }}
+  template: '@terminal'
+  setup_community_templates: lowlighter/metrics@master:terminal+trust
+
+```
+<!--/examples-->

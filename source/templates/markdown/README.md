@@ -1,12 +1,25 @@
 <!--header-->
+<table>
+  <tr><th colspan="2"><h3>📒 Markdown template</h3></th></tr>
+  <tr><td colspan="2" align="center">A template capable of rendering markdown from a given template file.</td></tr>
+  <tr>
+    <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
+    <td><a href="/source/plugins/activity" title="📰 Recent activity">📰</a> <a href="/source/plugins/posts" title="✒️ Recent posts">✒️</a> <a href="/source/plugins/rss" title="🗼 Rss feed">🗼</a> <a href="/source/plugins/topics" title="📌 Starred topics">📌</a> <a href="/source/plugins/tweets" title="🐤 Latest tweets">🐤</a></td>
+  </tr>
+  <tr>
+    <td>👤 Users, 👥 Organizations</td>
+  </tr>
+  <tr>
+    <td>#️⃣ JSON, 🔠 Markdown, 🔠 Markdown (PDF)</td>
+  </tr>
+  <tr>
+    <td  colspan="2" align="center">
+      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.markdown.png" alt=""></img>
+      <img width="900" height="1" alt="">
+    </td>
+  </tr>
+</table>
 <!--/header-->
-
-#### ℹ️ Examples workflows
-
-<!--examples-->
-<!--/examples-->
-
-___
 
 This template can be used to a *markdown template file* with data gathered by metrics.
 
@@ -116,3 +129,70 @@ The `embed()` function takes two arguments:
 > 💡 The `plugin_` prefix can be dropped for convenience
 
 > 💡 The `embed()` function does not have `🗃️ base` plugin enabled by default. To use it, it is required to explicitely pass them through `base` option.
+
+## ℹ️ Examples workflows
+
+<!--examples-->
+```yaml
+name: Example
+uses: lowlighter/metrics@latest
+with:
+  template: markdown
+  filename: metrics.markdown.md
+  markdown: metrics.markdown.template.md
+  config_output: markdown
+  token: ${{ secrets.METRICS_TOKEN }}
+
+```
+```yaml
+name: Example with plugins configuration for embed use
+uses: lowlighter/metrics@latest
+with:
+  template: markdown
+  filename: metrics.markdown.full.md
+  markdown: >-
+    https://raw.githubusercontent.com/lowlighter/metrics/master/source/templates/markdown/example.md
+  config_output: markdown
+  plugin_activity: 'yes'
+  plugin_activity_limit: 7
+  plugin_activity_days: 0
+  plugin_activity_filter: issue, pr, release, fork, review, ref/create
+  plugin_posts: 'yes'
+  plugin_posts_source: dev.to
+  plugin_posts_descriptions: 'yes'
+  plugin_posts_covers: 'yes'
+  plugin_posts_limit: 2
+  plugin_rss: 'yes'
+  plugin_rss_source: https://news.ycombinator.com/rss
+  plugin_rss_limit: 4
+  plugin_tweets: 'yes'
+  plugin_tweets_token: ${{ secrets.TWITTER_TOKEN }}
+  plugin_tweets_user: github
+  plugin_tweets_attachments: 'yes'
+  plugin_tweets_limit: 2
+  plugin_topics: 'yes'
+  plugin_topics_limit: 24
+  plugin_isocalendar: 'yes'
+  plugin_languages: 'yes'
+  token: ${{ secrets.METRICS_TOKEN }}
+
+```
+```yaml
+name: Example (pdf output)
+uses: lowlighter/metrics@latest
+with:
+  template: markdown
+  filename: metrics.markdown.pdf
+  markdown: >-
+    https://raw.githubusercontent.com/lowlighter/metrics/master/source/templates/markdown/example.pdf.md
+  config_output: markdown-pdf
+  plugin_rss: 'yes'
+  plugin_rss_source: https://news.ycombinator.com/rss
+  plugin_rss_limit: 4
+  plugin_isocalendar: 'yes'
+  config_twemoji: 'yes'
+  config_padding: 5%
+  token: ${{ secrets.METRICS_TOKEN }}
+
+```
+<!--/examples-->
