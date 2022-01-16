@@ -31,7 +31,7 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_rss</code></td>
-    <td rowspan="2"><p>Display RSS feed</p>
+    <td rowspan="2"><p>Enable rss plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -50,7 +50,7 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_rss_limit</code></td>
-    <td rowspan="2"><p>Maximum number of items to display</p>
+    <td rowspan="2"><p>Display limit</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -59,6 +59,7 @@
 𝑥
 ≤ 30)</i>
 <br>
+<b>zero behaviour:</b> disable</br>
 <b>default:</b> 4<br></td>
   </tr>
 </table>

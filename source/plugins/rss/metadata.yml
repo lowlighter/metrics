@@ -11,24 +11,21 @@ supports:
 scopes: []
 inputs:
 
-  # Enable or disable plugin
   plugin_rss:
-    description: Display RSS feed
+    description: Enable rss plugin
     type: boolean
     default: no
 
-  # RSS feed source
   plugin_rss_source:
     description: RSS feed source
     type: string
     default: ""
     example: https://news.ycombinator.com/rss
 
-  # Number of items to display
-  # Set to 0 to disable limitations
   plugin_rss_limit:
-    description: Maximum number of items to display
+    description: Display limit
     type: number
     default: 4
     min: 0
     max: 30
+    zero: disable
