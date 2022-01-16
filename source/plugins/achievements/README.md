@@ -1,33 +1,29 @@
-### 🏆 Achievements
-
-The *achievements* plugin displays several highlights about what you achieved on GitHub.
-
+<!--header-->
 <table>
-  <td align="center">
-    <details open><summary>Compact display</summary>
-      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.achievements.compact.svg">
-    </details>
-    <details><summary>Detailed display</summary>
-      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.achievements.svg">
-    </details>
-    <img width="900" height="1" alt="">
-  </td>
+  <tr><th colspan="2"><h3>🏆 Achievements</h3></th></tr>
+  <tr><td colspan="2" align="center"><p>This plugin displays several highlights about what you achieved on GitHub.</p>
+</td></tr>
+  <tr>
+    <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
+    <td><a href="/source/templates/classic"><code>📗 Classic template</code></a></td>
+  </tr>
+  <tr>
+    <td><code>👤 Users</code> <code>👥 Organizations</code></td>
+  </tr>
+  <tr>
+    <td><code>🔑 (scopeless)</code> <code>read:org (optional)</code> <code>read:user (optional)</code> <code>repo (optional)</code></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
+      <details open><summary>Compact display</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.achievements.compact.svg" alt=""></img></details>
+      <details><summary>Detailed display</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.achievements.svg" alt=""></img></details>
+      <img width="900" height="1" alt="">
+    </td>
+  </tr>
 </table>
+<!--/header-->
 
-Achievements are mostly related to features offered by GitHub, so by unlocking achivements ranks you'll be mastering GitHub in no time!
-
-A few achievements contains actual real ranking (based on [GitHub search](https://github.com/search) results)!
-
-**About achievements ranks**
-
-Moving forward between ranks is voluntarily difficult, making it almost impossible to reach the latest rank except by hard work.
-
-With this design, when a user reach upper ranks you can be sure that they really deserve it!
-It also lets you quickly see at a glance what this user primarly use GitHub for, just look for crimson and gold badges!
-
-![Ranks](/.github/readme/imgs/plugin_achievements_ranks.png)
-
-#### ➡️ Available options
+## ➡️ Available options
 
 <!--options-->
 <table>
@@ -36,7 +32,7 @@ It also lets you quickly see at a glance what this user primarly use GitHub for,
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_achievements</code></td>
-    <td rowspan="2"><p>Display achievements</p>
+    <td rowspan="2"><p>Enable achievements plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -46,7 +42,8 @@ It also lets you quickly see at a glance what this user primarly use GitHub for,
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_achievements_threshold</code></td>
-    <td rowspan="2"><p>Display rank minimal threshold</p>
+    <td rowspan="2"><p>Display rank threshold</p>
+<p>Use <code>X</code> to display achievements not yet unlocked</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -57,7 +54,7 @@ It also lets you quickly see at a glance what this user primarly use GitHub for,
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_achievements_secrets</code></td>
-    <td rowspan="2"><p>Display unlocked secrets achievements</p>
+    <td rowspan="2"><p>Display secrets achievements</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -67,7 +64,11 @@ It also lets you quickly see at a glance what this user primarly use GitHub for,
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_achievements_display</code></td>
-    <td rowspan="2"><p>Achievements display style</p>
+    <td rowspan="2"><p>Display style</p>
+<ul>
+<li><code>detailed</code>: display icon, name, description and ranking</li>
+<li><code>compact</code>: display icon, name and value</li>
+</ul>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -78,7 +79,7 @@ It also lets you quickly see at a glance what this user primarly use GitHub for,
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_achievements_limit</code></td>
-    <td rowspan="2"><p>Maximum number of achievements to display</p>
+    <td rowspan="2"><p>Display limit</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -90,7 +91,8 @@ It also lets you quickly see at a glance what this user primarly use GitHub for,
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_achievements_ignored</code></td>
-    <td rowspan="2"><p>Unlocked achievements to hide</p>
+    <td rowspan="2"><p>Hide specified achievements</p>
+<p>Use names without the rank adjective (i.e. without &quot;great&quot;, &quot;super&quot; or &quot;master&quot;)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -100,7 +102,9 @@ It also lets you quickly see at a glance what this user primarly use GitHub for,
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_achievements_only</code></td>
-    <td rowspan="2"><p>Unlocked achievements to display</p>
+    <td rowspan="2"><p>Restrict display to specified achievements</p>
+<p>Use names without the rank adjective (i.e. without &quot;great&quot;, &quot;super&quot; or &quot;master&quot;)</p>
+<p>This option is equivalent to <code>plugin_achievements_ignored</code> with all existing achievements but the ones listed in this option</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -111,9 +115,7 @@ It also lets you quickly see at a glance what this user primarly use GitHub for,
 </table>
 <!--/options-->
 
-*[→ Full specification](metadata.yml)*
-
-#### ℹ️ Examples workflows
+## ℹ️ Examples workflows
 
 <!--examples-->
 ```yaml
