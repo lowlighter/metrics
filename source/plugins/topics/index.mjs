@@ -86,7 +86,7 @@ export default async function({login, data, imports, q, account}, {enabled = fal
     }
 
     //Results
-    return {mode, list:topics}
+    return {mode, type, list:topics}
   }
   //Handle errors
   catch (error) {
