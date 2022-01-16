@@ -1,5 +1,12 @@
 name: "⏱️ Website performances"
 category: social
+description: |
+  This plugin adds performance statistics of a website.
+  It uses [Google's PageSpeed API](https://developers.google.com/speed/docs/insights/v5/get-started) (same as [web.dev](https://web.dev)), see [performance scoring](https://web.dev/performance-scoring/) and [score calculator](https://googlechrome.github.io/lighthouse/scorecalc/) for more informations about results.
+examples:
+  +PageSpeed scores: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.pagespeed.svg
+  PageSpeed scores with detailed report: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.pagespeed.detailed.svg
+  PageSpeed scores with a website screenshot: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.pagespeed.screenshot.svg
 index: 1
 supports:
   - user
@@ -8,37 +15,42 @@ supports:
 scopes: []
 inputs:
 
-  # Enable or disable plugin
   plugin_pagespeed:
-    description: Display a website Google PageSpeed metrics
+    description: Enable pagespeed plugin
     type: boolean
     default: no
 
-  # Website to audit with PageSpeed
   plugin_pagespeed_url:
     description: Audited website
     type: string
     default: .user.website
 
-  # Display the following additional metrics from audited website:
-  # First Contentful Paint, Speed Index, Largest Contentful Paint, Time to Interactive, Total Blocking Time, Cumulative Layout Shift
-  # See https://web.dev/performance-scoring/ and https://googlechrome.github.io/lighthouse/scorecalc/ for more informations
   plugin_pagespeed_detailed:
-    description: Detailed audit result
+    description: |
+      Detailed results
+
+      The following additional stats will be displayed:
+      - First Contentful Paint
+      - Speed Index
+      - Largest Contentful Paint
+      - Time to Interactive
+      - Total Blocking Time
+      - Cumulative Layout Shift
     type: boolean
     default: no
 
-  # Display a screenshot of audited website
-  # May increases significantly filesize
   plugin_pagespeed_screenshot:
-    description: Display a screenshot of your website
+    description: |
+      Display a website screenshot
+
+      Significantly increase filesize
     type: boolean
     default: no
 
-  # PageSpeed API token
-  # This is optional, but providing it will avoid hitting rate-limiter
-  # See https://developers.google.com/speed/docs/insights/v5/get-started for more informations
   plugin_pagespeed_token:
-    description: PageSpeed token
+    description: |
+      PageSpeed token
+
+      Although not mandatory, it strongly advised to create one to avoid triggering the rate limiter. See [PageSpeed documentation](https://developers.google.com/speed/docs/insights/v5/get-started) for more informations.
     type: token
     default: ""

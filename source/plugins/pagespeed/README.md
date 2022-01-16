@@ -1,32 +1,31 @@
-
-### ⏱️ Website performances
-
-The *pagespeed* plugin adds the performance statistics of the website attached on your account:
-
+<!--header-->
 <table>
-  <td align="center">
-    <details open><summary>PageSpeed scores</summary>
-      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.pagespeed.svg">
-    </details>
-    <details><summary>PageSpeed scores with detailed report</summary>
-      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.pagespeed.detailed.svg">
-    </details>
-    <details><summary>PageSpeed scores with a website screenshot</summary>
-      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.pagespeed.screenshot.svg">
-    </details>
-    <img width="900" height="1" alt="">
-  </td>
+  <tr><th colspan="2"><h3>⏱️ Website performances</h3></th></tr>
+  <tr><td colspan="2" align="center"><p>This plugin adds performance statistics of a website.
+It uses <a href="https://developers.google.com/speed/docs/insights/v5/get-started">Google&#39;s PageSpeed API</a> (same as <a href="https://web.dev">web.dev</a>), see <a href="https://web.dev/performance-scoring/">performance scoring</a> and <a href="https://googlechrome.github.io/lighthouse/scorecalc/">score calculator</a> for more informations about results.</p>
+</td></tr>
+  <tr>
+    <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
+    <td><a href="/source/templates/classic"><code>📗 Classic template</code></a> <a href="/source/templates/repository"><code>📘 Repository template</code></a> <a href="/source/templates/terminal"><code>📙 Terminal template</code></a></td>
+  </tr>
+  <tr>
+    <td><code>👤 Users</code> <code>👥 Organizations</code> <code>📓 Repositories</code></td>
+  </tr>
+  <tr>
+    <td><code>🗝️ plugin_pagespeed_token</code></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
+      <details open><summary>PageSpeed scores</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.pagespeed.svg" alt=""></img></details>
+      <details><summary>PageSpeed scores with detailed report</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.pagespeed.detailed.svg" alt=""></img></details>
+      <details><summary>PageSpeed scores with a website screenshot</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.pagespeed.screenshot.svg" alt=""></img></details>
+      <img width="900" height="1" alt="">
+    </td>
+  </tr>
 </table>
+<!--/header-->
 
-These metrics are computed through [Google's PageSpeed API](https://developers.google.com/speed/docs/insights/v5/get-started), which yields the same results as [web.dev](https://web.dev).
-
-See [performance scoring](https://web.dev/performance-scoring/) and [score calculator](https://googlechrome.github.io/lighthouse/scorecalc/) for more informations about how PageSpeed compute these statistics.
-
-Although not mandatory, you can generate an API key for PageSpeed API [here](https://developers.google.com/speed/docs/insights/v5/get-started) to avoid hitting rate limiter.
-
-Expect 10 to 30 seconds to generate the results.
-
-#### ➡️ Available options
+## ➡️ Available options
 
 <!--options-->
 <table>
@@ -35,7 +34,7 @@ Expect 10 to 30 seconds to generate the results.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_pagespeed</code></td>
-    <td rowspan="2"><p>Display a website Google PageSpeed metrics</p>
+    <td rowspan="2"><p>Enable pagespeed plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -55,7 +54,16 @@ Expect 10 to 30 seconds to generate the results.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_pagespeed_detailed</code></td>
-    <td rowspan="2"><p>Detailed audit result</p>
+    <td rowspan="2"><p>Detailed results</p>
+<p>The following additional stats will be displayed:</p>
+<ul>
+<li>First Contentful Paint</li>
+<li>Speed Index</li>
+<li>Largest Contentful Paint</li>
+<li>Time to Interactive</li>
+<li>Total Blocking Time</li>
+<li>Cumulative Layout Shift</li>
+</ul>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -65,7 +73,8 @@ Expect 10 to 30 seconds to generate the results.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_pagespeed_screenshot</code></td>
-    <td rowspan="2"><p>Display a screenshot of your website</p>
+    <td rowspan="2"><p>Display a website screenshot</p>
+<p>Significantly increase filesize</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -76,6 +85,7 @@ Expect 10 to 30 seconds to generate the results.
   <tr>
     <td nowrap="nowrap"><code>plugin_pagespeed_token</code></td>
     <td rowspan="2"><p>PageSpeed token</p>
+<p>Although not mandatory, it strongly advised to create one to avoid triggering the rate limiter. See <a href="https://developers.google.com/speed/docs/insights/v5/get-started">PageSpeed documentation</a> for more informations.</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -86,9 +96,7 @@ Expect 10 to 30 seconds to generate the results.
 </table>
 <!--/options-->
 
-*[→ Full specification](metadata.yml)*
-
-#### ℹ️ Examples workflows
+## ℹ️ Examples workflows
 
 <!--examples-->
 ```yaml
