@@ -43,3 +43,5 @@ Testing is done through [jest](https://github.com/facebook/jest) framework.
 
 To avoid consuming APIs requests and causing additional charges on external services, data are [mocked](/tests/mocks/index.mjs) using [JavaScript Proxies](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) and [Faker.js](https://github.com/marak/Faker.js/) with randomly generated data.
 
+Since tests are pretty long to run, it is advised to just let GitHub Actions do the testing.
+
