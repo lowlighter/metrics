@@ -17,6 +17,7 @@ const __metrics = paths.join(paths.dirname(url.fileURLToPath(import.meta.url)), 
 const __action = paths.join(__metrics, "source/app/action")
 const __web = paths.join(__metrics, "source/app/web")
 const __readme = paths.join(__metrics, ".github/readme")
+const __documentation = paths.join(__metrics, ".github/readme/partials/templated")
 const __templates = paths.join(paths.join(__metrics, "source/templates/"))
 const __plugins = paths.join(paths.join(__metrics, "source/plugins/"))
 const __test_cases = paths.join(paths.join(__metrics, "tests/cases"))
@@ -37,9 +38,10 @@ for (const step of ["config", "documentation"]) {
       await update({ source: paths.join(__web, "settings.example.json"), output: "settings.example.json" })
       break
     case "documentation":
-      await update({ source: paths.join(__readme, "README.md"), output: "README.md", options: { root: __readme } })
-      await update({ source: paths.join(__readme, "partials/documentation/plugins.md"), output: "source/plugins/README.md" })
-      await update({ source: paths.join(__readme, "partials/documentation/templates.md"), output: "source/templates/README.md" })
+      await update({ source: paths.join(__documentation, "README.md"), output: "README.md", options: { root: __readme } })
+      await update({ source: paths.join(__documentation, "plugins.md"), output: "source/plugins/README.md" })
+      await update({ source: paths.join(__documentation, "templates.md"), output: "source/templates/README.md" })
+      await update({ source: paths.join(__documentation, "compatibility.md"), output: ".github/readme/partials/documentation/compatibility.md" })
       break
   }
 }
