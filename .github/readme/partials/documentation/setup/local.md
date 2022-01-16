@@ -36,3 +36,10 @@ For quick testing, it is advised to directly craft URLs, rather than using the w
 ```shell
 https://localhost:{port}/username?base=0&newplugin=1&newplugin.option1=hello&newplugin.option2=world)
 ```
+
+## *️⃣ Testing changes
+
+Testing is done through [jest](https://github.com/facebook/jest) framework.
+
+To avoid consuming APIs requests and causing additional charges on external services, data are [mocked](/tests/mocks/index.mjs) using [JavaScript Proxies](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) and [Faker.js](https://github.com/marak/Faker.js/) with randomly generated data.
+
