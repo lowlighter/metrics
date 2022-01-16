@@ -126,7 +126,10 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
     <th><a href="source/plugins/projects/README.md">🗂️ Active projects</a></th>
   </tr>
   <tr>
-    <td></td>
+        <td  align="center">
+        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.svg" alt=""></img>
+        <img width="900" height="1" alt="">
+      </td>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.projects.svg">
       <img width="900" height="1" alt="">
@@ -175,7 +178,10 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
       <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.discussions.svg">
       <img width="900" height="1" alt="">
     </td>
-    <td></td>
+        <td  align="center">
+        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.support.svg" alt=""></img>
+        <img width="900" height="1" alt="">
+      </td>
   </tr>
   <tr>
     <th><a href="source/plugins/lines/README.md">👨‍💻 Lines of code changed</a></th>
@@ -200,7 +206,10 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
       <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.repositories.svg">
       <img width="900" height="1" alt="">
     </td>
-    <td></td>
+        <td  align="center">
+        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.gists.svg" alt=""></img>
+        <img width="900" height="1" alt="">
+      </td>
   </tr>
   <tr>
     <th><a href="source/plugins/introduction/README.md">🙋 Introduction</a></th>

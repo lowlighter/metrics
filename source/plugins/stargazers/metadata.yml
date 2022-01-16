@@ -1,7 +1,7 @@
 name: "✨ Stargazers over last weeks"
 category: github
 description: This plugin displays your stargazers evolution across all of your repositories over the last two weeks.
-example:
+examples:
   default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.svg
 index: 10
 supports:

@@ -1,7 +1,7 @@
 name: "🎫 Gists"
 category: github
 description: This plugin displays [gists](https://gist.github.com) stats.
-example:
+examples:
   default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.gists.svg
 index: 21
 supports:
