@@ -120,7 +120,8 @@
   </tr>
   <tr>
     <td nowrap="nowrap">⏩ Inherits <code>users_ignored</code><br>
-<b>type:</b> <code>undefined</code>
+<b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
 <br></td>
   </tr>
   <tr>
