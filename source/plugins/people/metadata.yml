@@ -1,5 +1,9 @@
 name: "🧑‍🤝‍🧑 People plugin"
 category: github
+description: This plugin can display relationships with users, such as followers, sponsors, contributors, stargazers, watchers, members, etc.
+examples:
+  +related to an user: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.people.followers.svg
+  related to a repository: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.people.repository.svg
 index: 9
 supports:
   - user
@@ -9,75 +13,92 @@ scopes:
   - public_access
 inputs:
 
-  # Enable or disable plugin
   plugin_people:
-    description: Display GitHub users from various affiliations
+    description: Enable people plugin
     type: boolean
     default: no
 
-  # Number of users to display per section
   plugin_people_limit:
-    description: Maximum number of user to display
+    description: Display limit
     type: number
     default: 24
     min: 0
+    zero: disable
 
-  # Size of displayed user's avatar
+  plugin_people_identicons:
+    description: |
+      Toggle identicons display
+
+      This can be used to mask user profile pictures for privacy
+    type: boolean
+    default: no
+
   plugin_people_size:
-    description: Size of displayed GitHub users' avatars
+    description: Profile picture display size
     type: number
     default: 28
     min: 8
     max: 64
 
-  # List of section to display
-  # Ordering will be kept
   plugin_people_types:
-    description: Affiliations to display
+    description: |
+      Displayed sections (order is respected)
+
+      User and organization accounts support the following values:
+      - `followers`
+      - `following`/`followed`
+      - `sponsoring`/`sponsored`
+      - `sponsors`
+      - `members` (organization only)
+      - `thanks`(to be configured with `plugin_people_thanks`)
+      Repositories support the following values:
+      - `sponsors` (same as owner sponsors)
+      - `contributors`
+      - `stargazers`
+      - `watchers`
+      - `thanks`(to be configured with `plugin_people_thanks`)
     type: array
     format: comma-separated
     default: followers, following
     example: follower, following, sponsors, sponsoring
     values:
-      - followers    # For user metrics
-      - following    # For user metrics
-      - followed     # For user metrics, alias for "following"
-      - sponsoring   # For user metrics
-      - members      # For organization metrics
-      - sponsored    # Alias for "sponsored"
-      - sponsors     # For both user and repository metrics
-      - contributors # For repository metrics
-      - stargazers   # For repository metrics
-      - watchers     # For repository metrics
-      - thanks       # For both user and repository metrics, see "plugin_people_thanks" below
+      - followers
+      - following
+      - followed
+      - sponsoring
+      - members
+      - sponsored
+      - sponsors
+      - contributors
+      - stargazers
+      - watchers
+      - thanks
 
-  # When displaying "thanks" section, specified users list will be displayed
-  # This is useful to craft "Special thanks" badges
   plugin_people_thanks:
-    description: GitHub users to personally thanks
+    description: |
+      Special thanks
+
+      This list can be used to thank specific users
     type: array
     format: comma-separated
     default: ""
     example: octocat, hubot
 
-  # Add specified users to GitHub sponsors ("sponsors" must be specified in "plugin_people_types")
-  # This is useful to list sponsors from unsupported GitHub sponsors sources
   plugin_people_sponsors_custom:
-    description: Custom GitHub sponsors
+    description: |
+      Custom sponsors
+
+      This list can be used to add users from unsupported GitHub sponsors sources.
+      The option `plugin_people_types` must contain the `sponsors` section in order for this setting to be effective
     type: array
     format: comma-separated
     default: ""
     example: octocat, hubot
 
-  # Use GitHub identicons instead of users' avatar (for privacy purposes)
-  plugin_people_identicons:
-    description: Use identicons instead of avatars
-    type: boolean
-    default: no
-
-  # Shuffle users for varied outputs
-  # If "plugin_people_limit" is set, plugin will fetch up to 10 ten times limit to ensure output is different each time
   plugin_people_shuffle:
-    description: Shuffle users
+    description: |
+      Shuffle data for varied output
+
+      This will fetch 10 times more data than `plugin_people_limit` to ensure output is always different
     type: boolean
     default: no
