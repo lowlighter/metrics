@@ -1,17 +1,33 @@
-### ♐ Code snippet of the day
-
-> ⚠️ When improperly configured, this plugin could display private code. If you work with sensitive data or company code, it is advised to keep this plugin disabled. *Metrics* and its authors cannot be held responsible for any resulting code leaks, use at your own risk.
-
-Display a random code snippet from your recent activity history.
-
+<!--header-->
 <table>
-  <td align="center">
-    <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.code.svg">
-    <img width="900" height="1" alt="">
-  </td>
+  <tr><th colspan="2"><h3>♐ Code snippet of the day</h3></th></tr>
+  <tr><td colspan="2" align="center"><p>This plugin displays a random code snippet from your recent activity history.</p>
+<blockquote>
+<p>⚠️ When improperly configured, this plugin could display private code.
+If you work with sensitive data or company code, it is advised to keep this plugin disabled.
+Use at your own risk, <em>metrics</em> and its authors cannot be held responsible for any resulting code leaks.</p>
+</blockquote>
+</td></tr>
+  <tr>
+    <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
+    <td><a href="/source/templates/classic"><code>📗 Classic template</code></a></td>
+  </tr>
+  <tr>
+    <td><code>👤 Users</code> <code>👥 Organizations</code></td>
+  </tr>
+  <tr>
+    <td><code>🔑 (scopeless)</code> <code>read:org (optional)</code> <code>read:user (optional)</code> <code>repo (optional)</code></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
+      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.code.svg" alt=""></img>
+      <img width="900" height="1" alt="">
+    </td>
+  </tr>
 </table>
+<!--/header-->
 
-#### ➡️ Available options
+## ➡️ Available options
 
 <!--options-->
 <table>
@@ -20,7 +36,7 @@ Display a random code snippet from your recent activity history.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_code</code></td>
-    <td rowspan="2"><p>Display a random code snippet from recent activity</p>
+    <td rowspan="2"><p>Enable code plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -30,7 +46,7 @@ Display a random code snippet from your recent activity history.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_code_lines</code></td>
-    <td rowspan="2"><p>Maximum number of line that a code snippet can contain</p>
+    <td rowspan="2"><p>Display limit for code snippets</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -40,7 +56,7 @@ Display a random code snippet from your recent activity history.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_code_load</code></td>
-    <td rowspan="2"><p>Number of events to load</p>
+    <td rowspan="2"><p>Events to load</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -53,7 +69,8 @@ Display a random code snippet from your recent activity history.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_code_visibility</code></td>
-    <td rowspan="2"><p>Set events visibility</p>
+    <td rowspan="2"><p>Events visibility</p>
+<p>Lets you hide private activity when using a <code>repo</code> scope token</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -64,7 +81,7 @@ Display a random code snippet from your recent activity history.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_code_skipped</code></td>
-    <td rowspan="2"><p>Repositories to skip</p>
+    <td rowspan="2"><p>Skipped repositories</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -75,20 +92,19 @@ Display a random code snippet from your recent activity history.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_code_languages</code></td>
-    <td rowspan="2"><p>Restrict code snippet languages</p>
+    <td rowspan="2"><p>Restrict display to specific languages</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><b>type:</b> <code>array</code>
+    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
+<b>type:</b> <code>array</code>
 <i>(comma-separated)</i>
 <br></td>
   </tr>
 </table>
 <!--/options-->
 
-*[→ Full specification](metadata.yml)*
-
-#### ℹ️ Examples workflows
+## ℹ️ Examples workflows
 
 <!--examples-->
 ```yaml
