@@ -1,22 +1,29 @@
-### 💉 Nightscout
-
-The *Nightscout* plugin lets you display blood sugar values from a [Nightscout](http://nightscout.info) site.
-
+<!--header-->
 <table>
-  <td align="center">
-    <img src="https://github.com/legoandmars/legoandmars/blob/master/metrics.plugin.nightscout.svg">
-    <img width="900" height="1" alt="">
-  </td>
+  <tr><th colspan="2"><h3>💉 Nightscout</h3></th></tr>
+  <tr><td colspan="2" align="center"><p>This plugin lets you display blood sugar values from a <a href="http://nightscout.info">Nightscout</a> site.</p>
+</td></tr>
+<tr><th>Authors</th><td><a href="https://github.com/legoandmars">@legoandmars</a></td></tr>
+  <tr>
+    <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
+    <td><a href="/source/templates/classic"><code>📗 Classic template</code></a></td>
+  </tr>
+  <tr>
+    <td><code>👤 Users</code></td>
+  </tr>
+  <tr>
+    <td><i>No tokens are required for this plugin</i></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
+      <img src="https://github.com/legoandmars/legoandmars/blob/master/metrics.plugin.nightscout.svg" alt=""></img>
+      <img width="900" height="1" alt="">
+    </td>
+  </tr>
 </table>
+<!--/header-->
 
-<details>
-<summary>💬 Setting up a nightscout site</summary>
-
-The [nightscout website](http://www.nightscout.info/) details how to self-host a nightscout site. Check out the instructions there.
-
-</details>
-
-#### ➡️ Available options
+## ➡️ Available options
 
 <!--options-->
 <table>
@@ -25,7 +32,7 @@ The [nightscout website](http://www.nightscout.info/) details how to self-host a
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_nightscout</code></td>
-    <td rowspan="2"><p>Displays Blood Glucose</p>
+    <td rowspan="2"><p>Enable nightscout plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -35,7 +42,7 @@ The [nightscout website](http://www.nightscout.info/) details how to self-host a
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_nightscout_url</code></td>
-    <td rowspan="2"><p>Your Nightscout site URL</p>
+    <td rowspan="2"><p>Nightscout URL</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -45,7 +52,7 @@ The [nightscout website](http://www.nightscout.info/) details how to self-host a
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_nightscout_datapoints</code></td>
-    <td rowspan="2"><p>How many datapoints to show on the graph. 0 and 1 disable the graph.</p>
+    <td rowspan="2"><p>Number of datapoints shown the graph</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -53,11 +60,12 @@ The [nightscout website](http://www.nightscout.info/) details how to self-host a
 <i>(0 ≤
 𝑥)</i>
 <br>
+<b>zero behaviour:</b> disable</br>
 <b>default:</b> 12<br></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_nightscout_lowalert</code></td>
-    <td rowspan="2"><p>When the blood sugar is considered low</p>
+    <td rowspan="2"><p>Threshold for low blood sugar</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -69,7 +77,7 @@ The [nightscout website](http://www.nightscout.info/) details how to self-host a
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_nightscout_highalert</code></td>
-    <td rowspan="2"><p>When the blood sugar is considered high</p>
+    <td rowspan="2"><p>Threshold for high blood sugar</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -81,7 +89,7 @@ The [nightscout website](http://www.nightscout.info/) details how to self-host a
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_nightscout_urgentlowalert</code></td>
-    <td rowspan="2"><p>When the blood sugar is considered urgently low</p>
+    <td rowspan="2"><p>Threshold for urgently low blood sugar</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -93,7 +101,7 @@ The [nightscout website](http://www.nightscout.info/) details how to self-host a
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_nightscout_urgenthighalert</code></td>
-    <td rowspan="2"><p>When the blood sugar is considered urgently high</p>
+    <td rowspan="2"><p>Threshold for urgently high blood sugar</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -106,9 +114,12 @@ The [nightscout website](http://www.nightscout.info/) details how to self-host a
 </table>
 <!--/options-->
 
-*[→ Full specification](metadata.yml)*
+## 🌐 Setup a Nightscout instance
 
-#### ℹ️ Examples workflows
+The [nightscout website](http://www.nightscout.info/) details how to self-host a nightscout site.
+Check out the instructions there.
+
+## ℹ️ Examples workflows
 
 <!--examples-->
 ```yaml
