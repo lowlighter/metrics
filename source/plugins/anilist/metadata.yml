@@ -3,7 +3,7 @@ category: social
 description: This plugin displays your favorites animes, mangas and characters from your [AniList](https://anilist.co) account.
 examples:
   +for anime watchers: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.anilist.svg
-  +for manga readers: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.anilist.manga.svg
+  for manga readers: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.anilist.manga.svg
   +for waifus simp: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.anilist.characters.svg
 index: 4
 supports:
