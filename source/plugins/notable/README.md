@@ -1,27 +1,29 @@
-### 🎩 Notable contributions
-
-The *notable* plugin displays badges of organization where you commited at least once on main branch.
-
+<!--header-->
 <table>
-  <td align="center">
-    <details open><summary>Indepth analysis</summary>
-      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.notable.indepth.svg">
-    </details>
-    <details><summary>Contributions in organizations only</summary>
-      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.notable.svg">
-    </details>
-    <img width="900" height="1" alt="">
-  </td>
+  <tr><th colspan="2"><h3>🎩 Notable contributions</h3></th></tr>
+  <tr><td colspan="2" align="center"><p>This plugin displays badges of repositories where you commited at least once on default branch.</p>
+</td></tr>
+  <tr>
+    <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
+    <td><a href="/source/templates/classic"><code>📗 Classic template</code></a></td>
+  </tr>
+  <tr>
+    <td><code>👤 Users</code></td>
+  </tr>
+  <tr>
+    <td><code>🔑 (scopeless)</code> <code>read:org (optional)</code> <code>read:user (optional)</code> <code>repo (optional)</code></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
+      <details open><summary>Indepth analysis</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.notable.indepth.svg" alt=""></img></details>
+      <details><summary>Contributions in organizations only</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.notable.svg" alt=""></img></details>
+      <img width="900" height="1" alt="">
+    </td>
+  </tr>
 </table>
+<!--/header-->
 
-#### Using `indepth` statistics
-
-The `plugin_notable_indepth` option lets you get additional metrics about your contribution, such as:
-- Total number of commits within a repository or organization. The badge will have a circular gauge which is proportional to the percentage of total contribution. It will also determine the resulting color of the badge.
-
-> 🔣 On web instances, `indepth` is an extra feature and must be enabled globally in `settings.json`
-
-#### ➡️ Available options
+## ➡️ Available options
 
 <!--options-->
 <table>
@@ -30,7 +32,7 @@ The `plugin_notable_indepth` option lets you get additional metrics about your c
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_notable</code></td>
-    <td rowspan="2"><p>Display notable contributions in organizations</p>
+    <td rowspan="2"><p>Enable notable plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -41,6 +43,8 @@ The `plugin_notable_indepth` option lets you get additional metrics about your c
   <tr>
     <td nowrap="nowrap"><code>plugin_notable_filter</code></td>
     <td rowspan="2"><p>Query filter</p>
+<p>Based on <a href="https://docs.github.com/en/search-github/getting-started-with-searching-on-github/understanding-the-search-syntax">GitHub search syntax</a>.
+Supported fields are <code>stars</code>, <code>forks</code> and <code>watchers</code></p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -49,7 +53,12 @@ The `plugin_notable_indepth` option lets you get additional metrics about your c
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_notable_from</code></td>
-    <td rowspan="2"><p>Filter by repository host account type</p>
+    <td rowspan="2"><p>Filter by repository owner account type</p>
+<ul>
+<li><code>all</code>: no filtering</li>
+<li><code>organization</code>: only organization accounts repositories</li>
+<li><code>user</code>: only user accounts repositories</li>
+</ul>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -60,7 +69,8 @@ The `plugin_notable_indepth` option lets you get additional metrics about your c
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_notable_repositories</code></td>
-    <td rowspan="2"><p>Also display repository name</p>
+    <td rowspan="2"><p>Toggle repository name display</p>
+<p>Note that Repositories hosted by user account will always be fully displayed</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -70,7 +80,7 @@ The `plugin_notable_indepth` option lets you get additional metrics about your c
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_notable_indepth</code></td>
-    <td rowspan="2"><p>Indepth notable contributions processing</p>
+    <td rowspan="2"><p>Indepth mode</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -82,9 +92,14 @@ The `plugin_notable_indepth` option lets you get additional metrics about your c
 </table>
 <!--/options-->
 
-*[→ Full specification](metadata.yml)*
+## 🔎 `indepth` mode
 
-#### ℹ️ Examples workflows
+The `plugin_notable_indepth` option collects additional stats about your contributions, such as:
+- Total number of commits within a repository or organization.
+
+For each of the above, a badge is awarded. Its color and progress depends of the associated value.
+
+## ℹ️ Examples workflows
 
 <!--examples-->
 ```yaml

@@ -1,5 +1,9 @@
 name: "🎩 Notable contributions"
 category: github
+description: This plugin displays badges of repositories where you commited at least once on default branch.
+examples:
+  +indepth analysis: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.notable.indepth.svg
+  contributions in organizations only: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.notable.svg
 index: 15
 supports:
   - user
@@ -7,41 +11,44 @@ scopes:
   - public_access
 inputs:
 
-  # Enable or disable plugin
   plugin_notable:
-    description: Display notable contributions in organizations
+    description: Enable notable plugin
     type: boolean
     default: no
 
-  # Query filter
-  # Based on GitHub search notation
-  # Supported fields are "stars", "forks" and "watchers"
   plugin_notable_filter:
-    description: Query filter
+    description: |
+      Query filter
+
+      Based on [GitHub search syntax](https://docs.github.com/en/search-github/getting-started-with-searching-on-github/understanding-the-search-syntax).
+      Supported fields are `stars`, `forks` and `watchers`
     type: string
     default: ""
     example: stars:>500 forks:>100
 
-  # Filter repositories depending on which type of account it is hosted
   plugin_notable_from:
-    description: Filter by repository host account type
+    description: |
+      Filter by repository owner account type
+      - `all`: no filtering
+      - `organization`: only organization accounts repositories
+      - `user`: only user accounts repositories
     type: string
     default: organization
     values:
-      - all           #
-      - organization  # Only hosted by organization accounts
-      - user          # Only hosted by user accounts
+      - all
+      - organization
+      - user
 
-  # Also display repository name along with organization name
-  # Note that repositories hosted by user account will always be displayed fully
   plugin_notable_repositories:
-    description: Also display repository name
+    description: |
+      Toggle repository name display
+
+      Note that Repositories hosted by user account will always be fully displayed
     type: boolean
     default: no
 
-  # Compute notable contributions with measured impact
   plugin_notable_indepth:
-    description: Indepth notable contributions processing
+    description: Indepth mode
     type: boolean
     default: no
     extras: yes
