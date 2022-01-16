@@ -1,5 +1,9 @@
 name: "💡 Coding habits"
 category: github
+description: This plugin display coding habits based on your recent activity, such as active hours and languages recently used.
+examples:
+  +recent activity charts: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.habits.charts.svg
+  +midly interesting facts: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.habits.facts.svg
 index: 5
 supports:
   - user
@@ -8,46 +12,47 @@ scopes:
   - public_access
 inputs:
 
-  # Enable or disable plugin
   plugin_habits:
-    description: Display coding habits metrics
+    description: Enable habits plugin
     type: boolean
     default: no
 
-  # Number of events to use to computes habits
-  # Using more will result in more accurate metrics, but you may hit GitHub rate-limit more easily
   plugin_habits_from:
-    description: Number of events to use
+    description: |
+      Events to use
+
+      A higher number will increase stats accuracy
     type: number
     default: 200
     min: 1
     max: 1000
 
-  # Filter used events to compute habits by age
   plugin_habits_days:
-    description: Maximum event age
+    description: Event maximum age
     type: number
     default: 14
     min: 1
     max: 30
 
-  # Display tidbits about your most active hours/days, indents used (spaces/tabs), etc.
-  # This is deduced from your recent activity
   plugin_habits_facts:
-    description: Display coding habits collected facts based on recent activity
+    description: |
+      Toggle midly interesting facts display
+
+      It includes indentation type, average number of characters per line of code, and most active time and day
     type: boolean
     default: yes
 
-  # Display charts of most active time of the day and most active day of the week
-  # Also display languages recently used (this is not the same as plugin_languages, as the latter is an all-time stats)
   plugin_habits_charts:
-    description: Display coding habits charts based on recent activity
+    extras: yes
+    description: |
+      Toggle charts display
+
+      It includes commit activity per hour of day and commit activity per day of week
+      Recent language activity may also displayed (it requires extras features to be enabled for web instances) for historical reasons
     type: boolean
     default: no
-    extras: yes
 
-  # Trim unused hours on daily chart
   plugin_habits_trim:
-    description: Trim unused hours on daily chart
+    description: Trim unused hours on charts
     type: boolean
     default: no

@@ -1,31 +1,29 @@
-### 💡 Coding habits
-
-The coding *habits* plugin display metrics based on your recent activity, such as active hours or languages recently used.
-
+<!--header-->
 <table>
-  <td align="center">
-    <details open><summary>Recent activity charts</summary>
-      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.habits.charts.svg">
-    </details>
-    <details open><summary>Midly interesting facts</summary>
-      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.habits.facts.svg">
-    </details>
-    <img width="900" height="1" alt="">
-  </td>
+  <tr><th colspan="2"><h3>💡 Coding habits</h3></th></tr>
+  <tr><td colspan="2" align="center"><p>This plugin display coding habits based on your recent activity, such as active hours and languages recently used.</p>
+</td></tr>
+  <tr>
+    <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
+    <td><a href="/source/templates/classic"><code>📗 Classic template</code></a></td>
+  </tr>
+  <tr>
+    <td><code>👤 Users</code> <code>👥 Organizations</code></td>
+  </tr>
+  <tr>
+    <td><code>🔑 (scopeless)</code> <code>read:org (optional)</code> <code>read:user (optional)</code> <code>repo (optional)</code></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
+      <details open><summary>Recent activity charts</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.habits.charts.svg" alt=""></img></details>
+      <details open><summary>Midly interesting facts</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.habits.facts.svg" alt=""></img></details>
+      <img width="900" height="1" alt="">
+    </td>
+  </tr>
 </table>
+<!--/header-->
 
-Using more events will improve accuracy of these metrics, although it'll increase the number of GitHub requests used.
-
-Active hours and days are computed through your commit history, while indent style is deduced from your recent diffs.
-Recent languages activity is also computed from your recent diffs, using [github/linguist](https://github.com/github/linguist).
-
-Use a full `repo` scope token to access **private** events.
-
-By default, dates use Greenwich meridian (GMT/UTC). Be sure to set your timezone (see [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) for a list of supported timezones) for accurate metrics.
-
-> 🔣 On web instances, *recent languages activity* is an extra feature and must be enabled globally in `settings.json`
-
-#### ➡️ Available options
+## ➡️ Available options
 
 <!--options-->
 <table>
@@ -34,7 +32,7 @@ By default, dates use Greenwich meridian (GMT/UTC). Be sure to set your timezone
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_habits</code></td>
-    <td rowspan="2"><p>Display coding habits metrics</p>
+    <td rowspan="2"><p>Enable habits plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -44,7 +42,8 @@ By default, dates use Greenwich meridian (GMT/UTC). Be sure to set your timezone
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_habits_from</code></td>
-    <td rowspan="2"><p>Number of events to use</p>
+    <td rowspan="2"><p>Events to use</p>
+<p>A higher number will increase stats accuracy</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -57,7 +56,7 @@ By default, dates use Greenwich meridian (GMT/UTC). Be sure to set your timezone
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_habits_days</code></td>
-    <td rowspan="2"><p>Maximum event age</p>
+    <td rowspan="2"><p>Event maximum age</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -70,7 +69,8 @@ By default, dates use Greenwich meridian (GMT/UTC). Be sure to set your timezone
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_habits_facts</code></td>
-    <td rowspan="2"><p>Display coding habits collected facts based on recent activity</p>
+    <td rowspan="2"><p>Toggle midly interesting facts display</p>
+<p>It includes indentation type, average number of characters per line of code, and most active time and day</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -80,7 +80,9 @@ By default, dates use Greenwich meridian (GMT/UTC). Be sure to set your timezone
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_habits_charts</code></td>
-    <td rowspan="2"><p>Display coding habits charts based on recent activity</p>
+    <td rowspan="2"><p>Toggle charts display</p>
+<p>It includes commit activity per hour of day and commit activity per day of week
+Recent language activity may also displayed (it requires extras features to be enabled for web instances) for historical reasons</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -91,7 +93,7 @@ By default, dates use Greenwich meridian (GMT/UTC). Be sure to set your timezone
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_habits_trim</code></td>
-    <td rowspan="2"><p>Trim unused hours on daily chart</p>
+    <td rowspan="2"><p>Trim unused hours on charts</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -102,9 +104,20 @@ By default, dates use Greenwich meridian (GMT/UTC). Be sure to set your timezone
 </table>
 <!--/options-->
 
-*[→ Full specification](metadata.yml)*
+## 🌐 Configure used timezone
 
-#### ℹ️ Examples workflows
+By default, dates use Greenwich meridian (GMT/UTC).
+
+Configure `config_timezone` (see [supported timezone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)) to avoid time offsets.
+
+*Example: configuring timezone*
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    config_timezone: Europe/Paris
+```
+
+## ℹ️ Examples workflows
 
 <!--examples-->
 ```yaml
@@ -134,3 +147,5 @@ with:
 
 ```
 <!--/examples-->
+
+
