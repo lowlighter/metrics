@@ -132,11 +132,11 @@ export default async function({login, imports, data, q, account}, {enabled = fal
             //Parse tracklist
             tracks = [
               ...await frame.evaluate(() => [...document.querySelectorAll("ytmusic-playlist-shelf-renderer ytmusic-responsive-list-item-renderer")].map(item => ({
-                    name:item.querySelector("yt-formatted-string.title > a")?.innerText ?? "",
-                    artist:item.querySelector(".secondary-flex-columns > yt-formatted-string > a")?.innerText ?? "",
-                    artwork:item.querySelector("img").src,
-                })
-              )),
+                  name:item.querySelector("yt-formatted-string.title > a")?.innerText ?? "",
+                  artist:item.querySelector(".secondary-flex-columns > yt-formatted-string > a")?.innerText ?? "",
+                  artwork:item.querySelector("img").src,
+                }))
+              ),
             ]
             break
           }
@@ -257,12 +257,11 @@ export default async function({login, imports, data, q, account}, {enabled = fal
             try {
               //Request access token
               console.debug(`metrics/compute/${login}/plugins > music > requesting access token with youtube refresh token`)
-              const res = await imports.axios.post("https://music.youtube.com/youtubei/v1/browse?alt=json&key=AIzaSyC9XL3ZjWddXya6X74dJoCTL-WEYFDNX30",
-              {
+              const res = await imports.axios.post("https://music.youtube.com/youtubei/v1/browse?alt=json&key=AIzaSyC9XL3ZjWddXya6X74dJoCTL-WEYFDNX30", {
                 browseEndpointContextSupportedConfigs:{
-                    browseEndpointContextMusicConfig:{
-                        pageType:"MUSIC_PAGE_TYPE_PLAYLIST",
-                    }
+                  browseEndpointContextMusicConfig:{
+                    pageType:"MUSIC_PAGE_TYPE_PLAYLIST",
+                  },
                 },
                 context:{
                   client:{
@@ -272,9 +271,8 @@ export default async function({login, imports, data, q, account}, {enabled = fal
                     hl:"en",
                   },
                 },
-                browseId:"FEmusic_history"
-              },
-              {
+                browseId:"FEmusic_history",
+              }, {
                 headers:{
                   Authorization:SAPISIDHASH,
                   Cookie:token,
@@ -337,14 +335,14 @@ export default async function({login, imports, data, q, account}, {enabled = fal
           Object.defineProperty(modes, "top", {
             get() {
               return `Top played artists ${time_msg}`
-            }
+            },
           })
         }
         else {
           Object.defineProperty(modes, "top", {
             get() {
               return `Top played tracks ${time_msg}`
-            }
+            },
           })
         }
 
@@ -355,7 +353,7 @@ export default async function({login, imports, data, q, account}, {enabled = fal
             //Prepare credentials
             const [client_id, client_secret, refresh_token] = token.split(",").map(part => part.trim())
             if ((!client_id) || (!client_secret) || (!refresh_token))
-              throw { error: { message: "Spotify token must contain client id/secret and refresh token" } }
+              throw {error:{message:"Spotify token must contain client id/secret and refresh token"}}
             else if (limit > 50)
               throw {error:{message:"Spotify top limit cannot be greater than 50"}}
 
@@ -372,40 +370,39 @@ export default async function({login, imports, data, q, account}, {enabled = fal
               //Retrieve tracks
               console.debug(`metrics/compute/${login}/plugins > music > querying spotify api`)
               tracks = []
-              const loaded =
-                top_type === "artists"
-                  ? (
-                      await imports.axios.get(
-                        `https://api.spotify.com/v1/me/top/artists?time_range=${time_range}_term&limit=${limit}`,
-                        {
-                          headers: {
-                            "Content-Type": "application/json",
-                            Accept: "application/json",
-                            Authorization: `Bearer ${access}`,
-                          },
-                        }
-                      )
-                    ).data.items.map(({ name, genres, images }) => ({
-                      name,
-                      artist: genres.join(" • "),
-                      artwork: images[0].url,
-                    }))
-                  : (
-                      await imports.axios.get(
-                        `https://api.spotify.com/v1/me/top/tracks?time_range=${time_range}_term&limit=${limit}`,
-                        {
-                          headers: {
-                            "Content-Type": "application/json",
-                            Accept: "application/json",
-                            Authorization: `Bearer ${access}`,
-                          },
-                        }
-                      )
-                    ).data.items.map(({ name, artists, album }) => ({
-                      name,
-                      artist: artists[0].name,
-                      artwork: album.images[0].url,
-                    }))
+              const loaded = top_type === "artists"
+                ? (
+                  await imports.axios.get(
+                    `https://api.spotify.com/v1/me/top/artists?time_range=${time_range}_term&limit=${limit}`,
+                    {
+                      headers:{
+                        "Content-Type":"application/json",
+                        Accept:"application/json",
+                        Authorization:`Bearer ${access}`,
+                      },
+                    },
+                  )
+                ).data.items.map(({name, genres, images}) => ({
+                  name,
+                  artist:genres.join(" • "),
+                  artwork:images[0].url,
+                }))
+                : (
+                  await imports.axios.get(
+                    `https://api.spotify.com/v1/me/top/tracks?time_range=${time_range}_term&limit=${limit}`,
+                    {
+                      headers:{
+                        "Content-Type":"application/json",
+                        Accept:"application/json",
+                        Authorization:`Bearer ${access}`,
+                      },
+                    },
+                  )
+                ).data.items.map(({name, artists, album}) => ({
+                  name,
+                  artist:artists[0].name,
+                  artwork:album.images[0].url,
+                }))
               //Ensure no duplicate are added
               for (const track of loaded) {
                 if (!tracks.map(({name}) => name).includes(track.name))
@@ -431,38 +428,37 @@ export default async function({login, imports, data, q, account}, {enabled = fal
             try {
               console.debug(`metrics/compute/${login}/plugins > music > querying lastfm api`)
               const period = time_range === "short" ? "1month" : time_range === "medium" ? "6month" : "overall"
-              tracks =
-                top_type === "artists"
-                  ? (
-                      await imports.axios.get(
-                        `https://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user=${user}&api_key=${token}&limit=${limit}&period=${period}&format=json`,
-                        {
-                          headers: {
-                            "User-Agent": "lowlighter/metrics",
-                            Accept: "application/json",
-                          },
-                        }
-                      )
-                    ).data.topartists.artist.map(artist => ({
-                      name: artist.name,
-                      artist: `Play count: ${artist.playcount}`,
-                      artwork: artist.image.reverse()[0]["#text"],
-                    }))
-                  : (
-                      await imports.axios.get(
-                        `https://ws.audioscrobbler.com/2.0/?method=user.gettoptracks&user=${user}&api_key=${token}&limit=${limit}&period=${period}&format=json`,
-                        {
-                          headers: {
-                            "User-Agent": "lowlighter/metrics",
-                            Accept: "application/json",
-                          },
-                        }
-                      )
-                    ).data.toptracks.track.map(track => ({
-                      name: track.name,
-                      artist: track.artist.name,
-                      artwork: track.image.reverse()[0]["#text"],
-                    }))
+              tracks = top_type === "artists"
+                ? (
+                  await imports.axios.get(
+                    `https://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user=${user}&api_key=${token}&limit=${limit}&period=${period}&format=json`,
+                    {
+                      headers:{
+                        "User-Agent":"lowlighter/metrics",
+                        Accept:"application/json",
+                      },
+                    },
+                  )
+                ).data.topartists.artist.map(artist => ({
+                  name:artist.name,
+                  artist:`Play count: ${artist.playcount}`,
+                  artwork:artist.image.reverse()[0]["#text"],
+                }))
+                : (
+                  await imports.axios.get(
+                    `https://ws.audioscrobbler.com/2.0/?method=user.gettoptracks&user=${user}&api_key=${token}&limit=${limit}&period=${period}&format=json`,
+                    {
+                      headers:{
+                        "User-Agent":"lowlighter/metrics",
+                        Accept:"application/json",
+                      },
+                    },
+                  )
+                ).data.toptracks.track.map(track => ({
+                  name:track.name,
+                  artist:track.artist.name,
+                  artwork:track.image.reverse()[0]["#text"],
+                }))
             }
             //Handle errors
             catch (error) {

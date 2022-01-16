@@ -61,15 +61,16 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
 
     //Get user recent activity
     console.debug(`metrics/compute/${login}/plugins > languages > querying api`)
-    const commits = [], pages = Math.ceil(load/100), results = {total:0, lines:{}, stats:{}, colors:{}, commits:0, files:0, missed:0, days}
+    const commits = [], pages = Math.ceil(load / 100), results = {total:0, lines:{}, stats:{}, colors:{}, commits:0, files:0, missed:0, days}
     try {
       for (let page = 1; page <= pages; page++) {
         console.debug(`metrics/compute/${login}/plugins > languages > loading page ${page}`)
-        commits.push(...(await rest.activity.listEventsForAuthenticatedUser({username:login, per_page:100, page})).data
-          .filter(({type}) => type === "PushEvent")
-          .filter(({actor}) => account === "organization" ? true : actor.login?.toLocaleLowerCase() === login.toLocaleLowerCase())
-          .filter(({repo:{name:repo}}) => (!skipped.includes(repo.toLocaleLowerCase())) && (!skipped.includes(repo.toLocaleLowerCase().split("/").pop())))
-          .filter(({created_at}) => new Date(created_at) > new Date(Date.now() - days * 24 * 60 * 60 * 1000))
+        commits.push(
+          ...(await rest.activity.listEventsForAuthenticatedUser({username:login, per_page:100, page})).data
+            .filter(({type}) => type === "PushEvent")
+            .filter(({actor}) => account === "organization" ? true : actor.login?.toLocaleLowerCase() === login.toLocaleLowerCase())
+            .filter(({repo:{name:repo}}) => (!skipped.includes(repo.toLocaleLowerCase())) && (!skipped.includes(repo.toLocaleLowerCase().split("/").pop())))
+            .filter(({created_at}) => new Date(created_at) > new Date(Date.now() - days * 24 * 60 * 60 * 1000)),
         )
       }
     }
@@ -86,17 +87,17 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
       ...await Promise.allSettled(
         commits
           .flatMap(({payload}) => payload.commits)
-          .filter(({author}) => data.shared["commits.authoring"].filter(authoring => author?.login?.toLocaleLowerCase().includes(authoring)||author?.email?.toLocaleLowerCase().includes(authoring)||author?.name?.toLocaleLowerCase().includes(authoring)).length)
+          .filter(({author}) => data.shared["commits.authoring"].filter(authoring => author?.login?.toLocaleLowerCase().includes(authoring) || author?.email?.toLocaleLowerCase().includes(authoring) || author?.name?.toLocaleLowerCase().includes(authoring)).length)
           .map(commit => commit.url)
           .map(async commit => (await rest.request(commit)).data),
-      )
+      ),
     ]
-    .filter(({status}) => status === "fulfilled")
-    .map(({value}) => value)
-    .filter(({parents}) => parents.length <= 1)
-    .map(({files}) => files)
-    .flatMap(files => files.map(file => ({name:imports.paths.basename(file.filename), directory:imports.paths.dirname(file.filename), patch:file.patch ?? "", repo:file.raw_url?.match(/(?<=^https:..github.com\/)(?<repo>.*)(?=\/raw)/)?.groups.repo ?? "_"})))
-    .map(({name, directory, patch, repo}) => ({name, directory:`${repo.replace(/[/]/g, "@")}/${directory}`, patch:patch.split("\n").filter(line => /^[+]/.test(line)).map(line => line.substring(1)).join("\n")}))
+      .filter(({status}) => status === "fulfilled")
+      .map(({value}) => value)
+      .filter(({parents}) => parents.length <= 1)
+      .map(({files}) => files)
+      .flatMap(files => files.map(file => ({name:imports.paths.basename(file.filename), directory:imports.paths.dirname(file.filename), patch:file.patch ?? "", repo:file.raw_url?.match(/(?<=^https:..github.com\/)(?<repo>.*)(?=\/raw)/)?.groups.repo ?? "_"})))
+      .map(({name, directory, patch, repo}) => ({name, directory:`${repo.replace(/[/]/g, "@")}/${directory}`, patch:patch.split("\n").filter(line => /^[+]/.test(line)).map(line => line.substring(1)).join("\n")}))
 
     //Temporary directory
     const path = imports.paths.join(imports.os.tmpdir(), `${data.user.databaseId}-${tempdir}`)
@@ -164,13 +165,13 @@ async function analyze({login, imports, data}, {results, path, categories = ["pr
   console.debug(`metrics/compute/${login}/plugins > languages > indepth > checking git log`)
   for (let page = 0; ; page++) {
     try {
-      console.debug(`metrics/compute/${login}/plugins > languages > indepth > processing commits ${page*per_page} from ${(page+1)*per_page}`)
+      console.debug(`metrics/compute/${login}/plugins > languages > indepth > processing commits ${page * per_page} from ${(page + 1) * per_page}`)
       let empty = true, file = null, lang = null
-      await imports.spawn("git", ["log", ...data.shared["commits.authoring"].map(authoring => `--author="${authoring}"`), "--regexp-ignore-case", "--format=short", "--patch", `--max-count=${per_page}`, `--skip=${page*per_page}`], {cwd:path}, {
+      await imports.spawn("git", ["log", ...data.shared["commits.authoring"].map(authoring => `--author="${authoring}"`), "--regexp-ignore-case", "--format=short", "--patch", `--max-count=${per_page}`, `--skip=${page * per_page}`], {cwd:path}, {
         stdout(line) {
           try {
             //Unflag empty output
-            if ((empty)&&(line.trim().length))
+            if ((empty) && (line.trim().length))
               empty = false
             //Commits counter
             if (/^commit [0-9a-f]{40}$/.test(line)) {
@@ -178,13 +179,13 @@ async function analyze({login, imports, data}, {results, path, categories = ["pr
               return
             }
             //Ignore empty lines or unneeded lines
-            if ((!/^[+]/.test(line))||(!line.length))
+            if ((!/^[+]/.test(line)) || (!line.length))
               return
             //File marker
             if (/^[+]{3}\sb[/](?<file>[\s\S]+)$/.test(line)) {
               file = `${path}/${line.match(/^[+]{3}\sb[/](?<file>[\s\S]+)$/)?.groups?.file}`.replace(/\\/g, "/")
               lang = files[file] ?? null
-              if ((lang)&&(!categories.includes(languageResults[lang].type)))
+              if ((lang) && (!categories.includes(languageResults[lang].type)))
                 lang = null
               edited.add(file)
               return
@@ -203,7 +204,7 @@ async function analyze({login, imports, data}, {results, path, categories = ["pr
           catch (error) {
             console.debug(`metrics/compute/${login}/plugins > languages > indepth > an error occured while processing line (${error.message}), skipping...`)
           }
-        }
+        },
       })
       if (empty) {
         console.debug(`metrics/compute/${login}/plugins > languages > indepth > no more commits`)
@@ -223,7 +224,7 @@ if (/languages.analyzers.mjs$/.test(process.argv[1])) {
   (async function() {
     //Parse inputs
     const [_authoring, path] = process.argv.slice(2)
-    if ((!_authoring)||(!path)) {
+    if ((!_authoring) || (!path)) {
       console.log("Usage is:\n  npm run indepth -- <commits authoring> <repository local path>\n\n")
       process.exit(1)
     }
@@ -235,7 +236,7 @@ if (/languages.analyzers.mjs$/.test(process.argv[1])) {
     //Prepare call
     const imports = await import("../../app/metrics/utils.mjs")
     const results = {total:0, lines:{}, colors:{}, stats:{}, missed:0}
-    console.debug = log => /exited with code null/.test(log) ? console.error(log.replace(/^.*--max-count=(?<step>\d+) --skip=(?<start>\d+).*$/, (_, step, start) => `error: skipped commits ${start} from ${Number(start)+Number(step)}`)) : null
+    console.debug = log => /exited with code null/.test(log) ? console.error(log.replace(/^.*--max-count=(?<step>\d+) --skip=(?<start>\d+).*$/, (_, step, start) => `error: skipped commits ${start} from ${Number(start) + Number(step)}`)) : null
 
     //Analyze repository
     console.log(`commits authoring | ${authoring}\nrepository path   | ${path}\n`)

@@ -78,11 +78,11 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
       console.debug(`metrics/compute/${login} > json output`)
       const cache = new WeakSet()
       const rendered = JSON.parse(JSON.stringify(data, (key, value) => {
-        if ((value instanceof Set)||(Array.isArray(value)))
+        if ((value instanceof Set) || (Array.isArray(value)))
           return [...value]
         if (value instanceof Map)
           return Object.fromEntries(value)
-        if ((typeof value === "object")&&(value)) {
+        if ((typeof value === "object") && (value)) {
           if (cache.has(value))
             return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, cache.has(v) ? "[Circular]" : v]))
           cache.add(value)
@@ -227,14 +227,23 @@ metrics.insights = async function({login}, {graphql, rest, conf}, {Plugins, Temp
     "habits.days":7,
     "habits.facts":false,
     "habits.charts":true,
-    introduction:true
+    introduction:true,
   }
-  const plugins = {achievements:{enabled:true}, isocalendar:{enabled:true}, languages:{enabled:true, extras:false}, activity:{enabled:true, markdown:"extended"}, notable:{enabled:true}, followup:{enabled:true}, habits:{enabled:true, extras:false}, introduction:{enabled:true}}
+  const plugins = {
+    achievements:{enabled:true},
+    isocalendar:{enabled:true},
+    languages:{enabled:true, extras:false},
+    activity:{enabled:true, markdown:"extended"},
+    notable:{enabled:true},
+    followup:{enabled:true},
+    habits:{enabled:true, extras:false},
+    introduction:{enabled:true},
+  }
   return metrics({login, q}, {graphql, rest, plugins, conf, convert:"json"}, {Plugins, Templates})
 }
 
 //Metrics insights static render
-metrics.insights.output = async function ({login, imports, conf}, {graphql, rest, Plugins, Templates}) {
+metrics.insights.output = async function({login, imports, conf}, {graphql, rest, Plugins, Templates}) {
   //Server
   console.debug(`metrics/compute/${login} > insights`)
   const server = `http://localhost:${conf.settings.port}`
@@ -248,7 +257,7 @@ metrics.insights.output = async function ({login, imports, conf}, {graphql, rest
   await page.goto(`${server}/about/${login}?embed=1&localstorage=1`)
   await page.evaluate(async json => localStorage.setItem("local.metrics", json), json) //eslint-disable-line no-undef
   await page.goto(`${server}/about/${login}?embed=1&localstorage=1`)
-  await page.waitForSelector(".container .user", {timeout:10*60*1000})
+  await page.waitForSelector(".container .user", {timeout:10 * 60 * 1000})
 
   //Rendering
   console.debug(`metrics/compute/${login} > insights > rendering data`)

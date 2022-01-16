@@ -3,38 +3,38 @@ import fs from "fs/promises"
 import prism_lang from "prismjs/components/index.js"
 import axios from "axios"
 import processes from "child_process"
+import crypto from "crypto"
+import {minify as csso} from "csso"
+import emoji from "emoji-name-map"
 import fss from "fs"
 import GIFEncoder from "gifencoder"
 import jimp from "jimp"
+import linguist from "linguist-js"
 import {marked} from "marked"
+import minimatch from "minimatch"
 import nodechartist from "node-chartist"
+import fetch from "node-fetch"
 import opengraph from "open-graph-scraper"
 import os from "os"
 import paths from "path"
 import PNG from "png-js"
 import prism from "prismjs"
 import _puppeteer from "puppeteer"
+import purgecss from "purgecss"
+import readline from "readline"
 import rss from "rss-parser"
 import htmlsanitize from "sanitize-html"
 import git from "simple-git"
+import SVGO from "svgo"
 import twemojis from "twemoji-parser"
 import url from "url"
 import util from "util"
-import fetch from "node-fetch"
-import readline from "readline"
-import emoji from "emoji-name-map"
-import minimatch from "minimatch"
-import crypto from "crypto"
-import linguist from "linguist-js"
-import purgecss from "purgecss"
-import {minify as csso} from "csso"
-import SVGO from "svgo"
 import xmlformat from "xml-formatter"
 
 prism_lang()
 
 //Exports
-export {axios, fs, git, jimp, opengraph, os, paths, processes, rss, url, fetch, util, emoji, minimatch}
+export {axios, emoji, fetch, fs, git, jimp, minimatch, opengraph, os, paths, processes, rss, url, util}
 
 /**Returns module __dirname */
 export function __module(module) {
@@ -81,7 +81,7 @@ export function formatters({timeZone} = {}) {
   }
 
   /**Bytes formatter */
-  format.bytes = function (n) {
+  format.bytes = function(n) {
     for (const {u, v} of [{u:"E", v:10 ** 18}, {u:"P", v:10 ** 15}, {u:"T", v:10 ** 12}, {u:"G", v:10 ** 9}, {u:"M", v:10 ** 6}, {u:"k", v:10 ** 3}]) {
       if (n / v >= 1)
         return `${(n / v).toFixed(2).substr(0, 4).replace(/[.]0*$/, "")} ${u}B`
@@ -90,7 +90,7 @@ export function formatters({timeZone} = {}) {
   }
 
   /**Percentage formatter */
-  format.percentage = function (n, {rescale = true} = {}) {
+  format.percentage = function(n, {rescale = true} = {}) {
     return `${
       (n * (rescale ? 100 : 1)).toFixed(2)
         .replace(/(?<=[.])(?<decimal>[1-9]*)0+$/, "$<decimal>")
@@ -166,7 +166,7 @@ export async function chartist() {
 }
 
 /**Language analyzer (single file) */
-export async function language({filename, patch, prefix = "", timeout = 20*1000}) {
+export async function language({filename, patch, prefix = "", timeout = 20 * 1000}) {
   const path = paths.join(os.tmpdir(), `${prefix}-${Math.random()}`.replace(/[^\w-]/g, ""))
   return new Promise(async (solve, reject) => {
     setTimeout(() => {
@@ -222,9 +222,9 @@ export async function run(command, options, {prefixed = true, log = true} = {}) 
 }
 
 /**Spawn command (use this to execute commands and process output on the fly) */
-export async function spawn(command, args = [], options = {}, {prefixed = true, timeout = 300*1000, stdout} = {}) { //eslint-disable-line max-params
+export async function spawn(command, args = [], options = {}, {prefixed = true, timeout = 300 * 1000, stdout} = {}) { //eslint-disable-line max-params
   const prefix = {win32:"wsl"}[process.platform] ?? ""
-  if ((prefixed)&&(prefix)) {
+  if ((prefixed) && (prefix)) {
     args.unshift(command)
     command = prefix
   }
@@ -403,7 +403,7 @@ export const svg = {
       if (Number.isFinite(Number(absolute)))
         padding.absolute[dimension] = Number(absolute)
       if (Number.isFinite(Number(relative)))
-        padding[dimension] = 1 + Number(relative/100)
+        padding[dimension] = 1 + Number(relative / 100)
     }
     console.debug(`metrics/svg/resize > padding width*${padding.width}+${padding.absolute.width}, height*${padding.height}+${padding.absolute.height}`)
     //Render through browser and resize height
@@ -433,7 +433,7 @@ export const svg = {
         console.debug(`bounds after applying padding width=${width} (*${padding.width}+${padding.absolute.width}), height=${height} (*${padding.height}+${padding.absolute.height})`)
         //Resize svg
         if (document.querySelector("svg").getAttribute("height") === "auto")
-          console.debug("skipped height resizing because it was set to \"auto\"")
+          console.debug('skipped height resizing because it was set to "auto"')
         else
           document.querySelector("svg").setAttribute("height", height)
         //Enable animations
@@ -575,8 +575,8 @@ export const svg = {
       if (error)
         throw new Error(`Could not optimize SVG: \n${error}`)
       return optimized
-    }
-  }
+    },
+  },
 }
 
 /**Wait */

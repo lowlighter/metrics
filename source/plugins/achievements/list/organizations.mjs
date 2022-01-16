@@ -143,7 +143,7 @@ export default async function({list, login, data, computed, imports, graphql, qu
 
   //Member
   {
-    const { years: value } = computed.registered
+    const {years:value} = computed.registered
     const unlock = null
 
     list.push({

@@ -1,10 +1,10 @@
 //Imports
 import fs from "fs"
 import yaml from "js-yaml"
+import {marked} from "marked"
+import fetch from "node-fetch"
 import path from "path"
 import url from "url"
-import fetch from "node-fetch"
-import {marked} from "marked"
 
 //Defined categories
 const categories = ["core", "github", "social", "community"]
@@ -293,23 +293,25 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
         `    <td>${Object.entries(compatibility).filter(([_, value]) => value).map(([id]) => `<a href="/source/templates/${id}"><code>${templates[id].name ?? ""}</code></a>`).join(" ")}</td>`,
         "  </tr>",
         "  <tr>",
-        `    <td>${[
-          meta.supports?.includes("user") ? "<code>👤 Users</code>" : "",
-          meta.supports?.includes("organization") ? "<code>👥 Organizations</code>" : "",
-          meta.supports?.includes("repository") ? "<code>📓 Repositories</code>" : ""
-        ].filter(v => v).join(" ")}</td>`,
+        `    <td>${
+          [
+            meta.supports?.includes("user") ? "<code>👤 Users</code>" : "",
+            meta.supports?.includes("organization") ? "<code>👥 Organizations</code>" : "",
+            meta.supports?.includes("repository") ? "<code>📓 Repositories</code>" : "",
+          ].filter(v => v).join(" ")
+        }</td>`,
         "  </tr>",
         "  <tr>",
         `    <td>${[
           ...(meta.scopes ?? []).map(scope => `<code>🔑 ${{public_access:"(scopeless)"}[scope] ?? scope}</code>`),
           ...Object.entries(inputs).filter(([_, {type}]) => type === "token").map(([token]) => `<code>🗝️ ${token}</code>`),
-          ...(meta.scopes?.length ? ["read:org", "read:user", "repo"].map(scope => !meta.scopes.includes(scope) ? `<code>${scope} (optional)</code>` : null).filter(v => v) : [])
+          ...(meta.scopes?.length ? ["read:org", "read:user", "repo"].map(scope => !meta.scopes.includes(scope) ? `<code>${scope} (optional)</code>` : null).filter(v => v) : []),
         ].filter(v => v).join(" ") || "<i>No tokens are required for this plugin</i>"}</td>`,
         "  </tr>",
         "  <tr>",
         demos({colspan:2, wrap:name === "base", examples:meta.examples}),
         "  </tr>",
-        "</table>"
+        "</table>",
       ].join("\n")
 
       //Options table
@@ -339,14 +341,14 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
             cell.push(`<i>(${Array.isArray(o.format) ? o.format[0] : o.format})</i>`)
           if ("min" in o)
             cell.push(`<i>(${o.min} ≤`)
-          if (("min" in o)||("max" in o))
+          if (("min" in o) || ("max" in o))
             cell.push(`${"min" in o ? "" : "<i>("}𝑥${"max" in o ? "" : ")</i>"}`)
           if ("max" in o)
             cell.push(`≤ ${o.max})</i>`)
           cell.push("<br>")
           if ("zero" in o)
             cell.push(`<b>zero behaviour:</b> ${o.zero}</br>`)
-          if (("default" in o)&&(o.default !== "")) {
+          if (("default" in o) && (o.default !== "")) {
             let text = o.default
             if (o.default === ".user.login")
               text = "<code>→ User login</code>"
@@ -414,26 +416,30 @@ metadata.template = async function({__templates, name, plugins, logger}) {
       `    <td>${Object.entries(compatibility).filter(([_, value]) => value).map(([id]) => `<a href="/source/plugins/${id}" title="${plugins[id].name}">${plugins[id].icon}</a>`).join(" ")}${meta.formats?.includes("markdown") ? " <code>✓ embed()</code>" : ""}</td>`,
       "  </tr>",
       "  <tr>",
-      `    <td>${[
-        meta.supports?.includes("user") ? "<code>👤 Users</code>" : "",
-        meta.supports?.includes("organization") ? "<code>👥 Organizations</code>" : "",
-        meta.supports?.includes("repository") ? "<code>📓 Repositories</code>" : ""
-      ].filter(v => v).join(" ")}</td>`,
+      `    <td>${
+        [
+          meta.supports?.includes("user") ? "<code>👤 Users</code>" : "",
+          meta.supports?.includes("organization") ? "<code>👥 Organizations</code>" : "",
+          meta.supports?.includes("repository") ? "<code>📓 Repositories</code>" : "",
+        ].filter(v => v).join(" ")
+      }</td>`,
       "  </tr>",
       "  <tr>",
-      `    <td>${[
-        meta.formats?.includes("svg") ? "<code>*️⃣ SVG</code>" : "",
-        meta.formats?.includes("png") ? "<code>*️⃣ PNG</code>" : "",
-        meta.formats?.includes("jpeg") ? "<code>*️⃣ JPEG</code>" : "",
-        meta.formats?.includes("json") ? "<code>#️⃣ JSON</code>" : "",
-        meta.formats?.includes("markdown") ? "<code>🔠 Markdown</code>" : "",
-        meta.formats?.includes("markdown-pdf") ? "<code>🔠 Markdown (PDF)</code>" : "",
-      ].filter(v => v).join(" ")}</td>`,
+      `    <td>${
+        [
+          meta.formats?.includes("svg") ? "<code>*️⃣ SVG</code>" : "",
+          meta.formats?.includes("png") ? "<code>*️⃣ PNG</code>" : "",
+          meta.formats?.includes("jpeg") ? "<code>*️⃣ JPEG</code>" : "",
+          meta.formats?.includes("json") ? "<code>#️⃣ JSON</code>" : "",
+          meta.formats?.includes("markdown") ? "<code>🔠 Markdown</code>" : "",
+          meta.formats?.includes("markdown-pdf") ? "<code>🔠 Markdown (PDF)</code>" : "",
+        ].filter(v => v).join(" ")
+      }</td>`,
       "  </tr>",
       "  <tr>",
       demos({colspan:2, examples:meta.examples}),
       "  </tr>",
-      "</table>"
+      "</table>",
     ].join("\n")
 
     //Result
@@ -448,9 +454,9 @@ metadata.template = async function({__templates, name, plugins, logger}) {
         compatibility:{
           ...Object.fromEntries(Object.entries(compatibility).filter(([_, value]) => value)),
           ...Object.fromEntries(Object.entries(compatibility).filter(([_, value]) => !value).map(([key, value]) => [key, meta.formats?.includes("markdown") ? "embed" : value])),
-          base:true
+          base:true,
         },
-        header
+        header,
       },
       check({q, account = "bypass", format = null}) {
         //Support check
@@ -481,31 +487,33 @@ metadata.to = {
 
 //Demo for main and individual readmes
 function demos({colspan = null, wrap = false, examples = {}} = {}) {
-  if (("default1" in examples)&&("default2" in examples)) {
+  if (("default1" in examples) && ("default2" in examples)) {
     return [
       wrap ? '<td colspan="2"><table><tr>' : "",
       '<td align="center">',
-        `<img src="${examples.default1}" alt=""></img>`,
+      `<img src="${examples.default1}" alt=""></img>`,
       "</td>",
       '<td align="center">',
-        `<img src="${examples.default2}" alt=""></img>`,
+      `<img src="${examples.default2}" alt=""></img>`,
       "</td>",
       wrap ? "</tr></table></td>" : "",
     ].filter(v => v).join("\n")
   }
   return [
     `    <td ${colspan ? `colspan="${colspan}"` : ""} align="center">`,
-    `${Object.entries(examples).map(([text, link]) => {
-      let img = `<img src="${link}" alt=""></img>`
-      if (text !== "default") {
-        const open = text.charAt(0) === "+" ? " open" : ""
-        text = open ? text.substring(1) : text
-        text = `${text.charAt(0).toLocaleUpperCase()}${text.substring(1)}`
-        img = `<details${open}><summary>${text}</summary>${img}</details>`
-      }
-      return `      ${img}`
-    }).join("\n")}`,
+    `${
+      Object.entries(examples).map(([text, link]) => {
+        let img = `<img src="${link}" alt=""></img>`
+        if (text !== "default") {
+          const open = text.charAt(0) === "+" ? " open" : ""
+          text = open ? text.substring(1) : text
+          text = `${text.charAt(0).toLocaleUpperCase()}${text.substring(1)}`
+          img = `<details${open}><summary>${text}</summary>${img}</details>`
+        }
+        return `      ${img}`
+      }).join("\n")
+    }`,
     '      <img width="900" height="1" alt="">',
-    "    </td>"
+    "    </td>",
   ].filter(v => v).join("\n")
 }

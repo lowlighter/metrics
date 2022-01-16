@@ -3,7 +3,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
-    if ((!enabled)||(!q.starlists))
+    if ((!enabled) || (!q.starlists))
       return null
 
     //Load inputs
@@ -19,17 +19,18 @@ export default async function({login, q, imports, data, account}, {enabled = fal
     console.debug(`metrics/compute/${login}/plugins > starlists > fetching lists`)
     await page.goto(`https://github.com/${login}?tab=stars`)
     let lists = (await page.evaluate(() => [...document.querySelectorAll("[href^='/stars/lowlighter/lists']")].map(element => ({
-      link:element.href,
-      name:element.querySelector("h3")?.innerText ?? "",
-      description:element.querySelector("span")?.innerText ?? "",
-      count:Number(element.querySelector("div")?.innerText.match(/(?<count>\d+)/)?.groups.count),
-      repositories:[]
-    }))))
+        link:element.href,
+        name:element.querySelector("h3")?.innerText ?? "",
+        description:element.querySelector("span")?.innerText ?? "",
+        count:Number(element.querySelector("div")?.innerText.match(/(?<count>\d+)/)?.groups.count),
+        repositories:[],
+      }))
+    ))
     const count = lists.length
     console.debug(`metrics/compute/${login}/plugins > starlists > found [${lists.map(({name}) => name)}]`)
     lists = lists
       .filter(({name}) => name)
-      .filter(({name}) => (!only.length)||(only.includes(name.toLocaleLowerCase())))
+      .filter(({name}) => (!only.length) || (only.includes(name.toLocaleLowerCase())))
       .filter(({name}) => !ignored.includes(name.toLocaleLowerCase()))
       .slice(0, limit)
     console.debug(`metrics/compute/${login}/plugins > starlists > extracted ${lists.length} lists`)
@@ -39,9 +40,10 @@ export default async function({login, q, imports, data, account}, {enabled = fal
       console.debug(`metrics/compute/${login}/plugins > starlists > fetching ${list.name}`)
       await page.goto(list.link)
       const repositories = await page.evaluate(() => [...document.querySelectorAll("#user-list-repositories > div")].map(element => ({
-        name:element.querySelector("div:first-child")?.innerText.replace(" / ", "/") ?? "",
-        description:element.querySelector(".py-1")?.innerText ?? ""
-      })))
+          name:element.querySelector("div:first-child")?.innerText.replace(" / ", "/") ?? "",
+          description:element.querySelector(".py-1")?.innerText ?? "",
+        }))
+      )
       list.repositories.push(...repositories)
       if (_shuffle)
         list.repositories = imports.shuffle(list.repositories)

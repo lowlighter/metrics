@@ -55,11 +55,11 @@ export default async function({login, q, imports, rest, graphql, data, account, 
             //Save user data
             contribution.user = {
               commits,
-              percentage:commits/contribution.history,
+              percentage:commits / contribution.history,
               maintainer:maintainers.includes(login),
               get stars() {
-                return this.maintainer ? stars : this.percentage*stars
-              }
+                return this.maintainer ? stars : this.percentage * stars
+              },
             }
             console.debug(`metrics/compute/${login}/plugins > notable > indepth > successfully processed ${owner}/${repo}`)
           }
@@ -91,6 +91,7 @@ export default async function({login, q, imports, rest, graphql, data, account, 
       }
       else
         aggregated.set(key, {name:key, handle, avatar, organization, stars, aggregated:1, ..._extras})
+
     }
     contributions = [...aggregated.values()]
     if (extras) {
@@ -99,7 +100,6 @@ export default async function({login, q, imports, rest, graphql, data, account, 
       //Sort contribution by maintainer first and then by contribution percentage
       contributions = contributions.sort((a, b) => ((b.user?.percentage + b.user?.maintainer) || 0) - ((a.user?.percentage + a.user?.maintainer) || 0))
     }
-
 
     //Results
     return {contributions}
