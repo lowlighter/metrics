@@ -1,5 +1,9 @@
 name: "🗃️ Base content"
 category: core
+description:
+examples:
+  default1: https://github.com/lowlighter/metrics/blob/examples/metrics.classic.svg
+  default2: https://github.com/lowlighter/metrics/blob/examples/metrics.organization.svg
 supports:
   - user
   - organization
@@ -10,76 +14,91 @@ inputs:
 
   # Base content
   base:
-    description: Metrics base content
+    description: |
+      Base content
+
+      The following sections are supported:
+      * `header`, which usually contains username, two-week commits calendars and a few additional data
+      * `activity`, which contains recent activity (commits, pull requests, issues, etc.)
+      * `community`, which contains community stats (following, sponsors, organizations, etc.)
+      * `repositories`, which contains repositories stats (license, forks, stars, etc.)
+      * `metadata`, which contains informations about generated metrics
+
+      These are all enabled by default, but it is possible to explicitely opt out from them.
     type: array
     format: comma-separated
     default: header, activity, community, repositories, metadata
     values:
-      - header       # name, commits calendar, ...
-      - activity     # commits, issues/pull requests opened, ...
-      - community    # following, stars, sponsors, ...
-      - repositories # license, stars, forks, ...
-      - metadata     # svg generation metadata
+      - header
+      - activity
+      - community
+      - repositories
+      - metadata
 
-  # Number of repositories to use to computes metrics
-  # Using more will result in more accurate metrics, but you may hit GitHub rate-limit more easily if you use a lot of plugins
   repositories:
-    description: Number of repositories to use
+    description: |
+      Repositories to fetch
+
+      A higher value result in more accurate metrics but can hit GitHub API rate-limit more easily (especially with a lot of plugins enabled)
     type: number
     default: 100
     min: 0
 
-  # Number of repositories to load at once by queries
-  # If you encounter GitHub queries timeouts, using a lower value here may solve issues
   repositories_batch:
-    description: Number of repositories to load at once by queries
+    description: |
+      Repositories to fetch at a time
+
+      If you receive `Something went wrong while executing your query` (which is usually caused by API timeout),
+      try lowering this value.
     type: number
     default: 100
     max: 100
     min: 1
 
-  # Include forked repositories into metrics
   repositories_forks:
-    description: Include forks in metrics
+    description: Include forks
     type: boolean
     default: no
 
-  # Filter repositories by user affiliations (you can specify multiple affiliations constraints)
-  # Set to "" to use all repositories related to you
-  # Note that it may affect some plugin outputs (broad affiliations will result in less representative metrics)
   repositories_affiliations:
-    description: Repositories affiliations
+    description: |
+      Repositories affiliations
+      - `owner`: owned repositories
+      - `collaborator`: repositories with push access
+      - `organization_member`: repositories from an organization where user is a member
+
+      Some plugin outputs may be affected by this setting too.
+
+      Set to `""` to disable and fetch all repositories related to you.
+      Broad affiliation will result in less representative metrics.
     type: array
     format: comma-separated
     default: owner
     values:
-      - owner               # Use repositories you own
-      - collaborator        # Use repositories you push access
-      - organization_member # Use repositories where you're an organization member
+      - owner
+      - collaborator
+      - organization_member
 
-  # List of default repositories that will be skipped
-  # Plugins supporting a "skip repositories option" will automatically append repositories listed in this option
   repositories_skipped:
-    description: Default repositories to skip
+    description: Default skipped repositories
     type: array
     format: comma-separated
     default: ""
     example: my-repo-1, my-repo-2, owner/repo-3, ...
     global: yes
 
-  # List of default ignored users
-  # Plugins supporting a "skip users option" will automatically append users listed in this option
   users_ignored:
-    description: Default users to ignore
+    description: Default ignored users
     type: array
     format: comma-separated
     default: github-actions[bot], dependabot[bot], dependabot-preview[bot]
     global: yes
 
-  # List of surnames or email addresses you use when authoring commits
-  # These are mostly used to perform commits analysis to detect ownership
   commits_authoring:
-    description: List of surnames or email addresses you use when authoring commits
+    description: |
+      Name, username, email addresses that has been used for authoring commits
+
+      This setting can be used to detect commits ownerships in some plugin
     type: array
     format: comma-seperated
     default: .user.login

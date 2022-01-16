@@ -1,30 +1,31 @@
-### 🗃️ Base content
-
-The *base* content is all metrics enabled by default.
-
+<!--header-->
 <table>
+  <tr><th colspan="2"><h3>🗃️ Base content</h3></th></tr>
+  <tr><td colspan="2" align="center"></td></tr>
   <tr>
-    <td align="center">
-      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.classic.svg">
-      <img width="900" height="1" alt="">
-    </td>
-    <td align="center">
-      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.organization.svg">
-      <img width="900" height="1" alt="">
-    </td>
+    <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
+    <td><a href="/source/templates/classic"><code>📗 Classic template</code></a> <a href="/source/templates/repository"><code>📘 Repository template</code></a> <a href="/source/templates/terminal"><code>📙 Terminal template</code></a></td>
+  </tr>
+  <tr>
+    <td><code>👤 Users</code> <code>👥 Organizations</code> <code>📓 Repositories</code></td>
+  </tr>
+  <tr>
+    <td><code>🔑 (scopeless)</code> <code>read:org (optional)</code> <code>read:user (optional)</code> <code>repo (optional)</code></td>
+  </tr>
+  <tr>
+<td colspan="2"><table><tr>
+<td align="center">
+<img src="https://github.com/lowlighter/metrics/blob/examples/metrics.classic.svg" alt=""></img>
+</td>
+<td align="center">
+<img src="https://github.com/lowlighter/metrics/blob/examples/metrics.organization.svg" alt=""></img>
+</td>
+</tr></table></td>
   </tr>
 </table>
+<!--/header-->
 
-It contains the following sections:
-* `header`, which usually contains your username, your two-week commits calendars and a few additional data
-* `activity`, which contains your recent activity (commits, pull requests, issues, etc.)
-* `community`, which contains your community stats (following, sponsors, organizations, etc.)
-* `repositories`, which contains your repositories stats (license, forks, stars, etc.)
-* `metadata`, which contains informations about generated metrics
-
-These are all enabled by default, but you can explicitely opt out from them.
-
-#### ➡️ Available options
+## ➡️ Available options
 
 <!--options-->
 <table>
@@ -33,7 +34,16 @@ These are all enabled by default, but you can explicitely opt out from them.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>base</code></td>
-    <td rowspan="2"><p>Metrics base content</p>
+    <td rowspan="2"><p>Base content</p>
+<p>The following sections are supported:</p>
+<ul>
+<li><code>header</code>, which usually contains username, two-week commits calendars and a few additional data</li>
+<li><code>activity</code>, which contains recent activity (commits, pull requests, issues, etc.)</li>
+<li><code>community</code>, which contains community stats (following, sponsors, organizations, etc.)</li>
+<li><code>repositories</code>, which contains repositories stats (license, forks, stars, etc.)</li>
+<li><code>metadata</code>, which contains informations about generated metrics</li>
+</ul>
+<p>These are all enabled by default, but it is possible to explicitely opt out from them.</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -45,7 +55,8 @@ These are all enabled by default, but you can explicitely opt out from them.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>repositories</code></td>
-    <td rowspan="2"><p>Number of repositories to use</p>
+    <td rowspan="2"><p>Repositories to fetch</p>
+<p>A higher value result in more accurate metrics but can hit GitHub API rate-limit more easily (especially with a lot of plugins enabled)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -57,7 +68,9 @@ These are all enabled by default, but you can explicitely opt out from them.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>repositories_batch</code></td>
-    <td rowspan="2"><p>Number of repositories to load at once by queries</p>
+    <td rowspan="2"><p>Repositories to fetch at a time</p>
+<p>If you receive <code>Something went wrong while executing your query</code> (which is usually caused by API timeout),
+try lowering this value.</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -70,7 +83,7 @@ These are all enabled by default, but you can explicitely opt out from them.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>repositories_forks</code></td>
-    <td rowspan="2"><p>Include forks in metrics</p>
+    <td rowspan="2"><p>Include forks</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -81,6 +94,14 @@ These are all enabled by default, but you can explicitely opt out from them.
   <tr>
     <td nowrap="nowrap"><code>repositories_affiliations</code></td>
     <td rowspan="2"><p>Repositories affiliations</p>
+<ul>
+<li><code>owner</code>: owned repositories</li>
+<li><code>collaborator</code>: repositories with push access</li>
+<li><code>organization_member</code>: repositories from an organization where user is a member</li>
+</ul>
+<p>Some plugin outputs may be affected by this setting too.</p>
+<p>Set to <code>&quot;&quot;</code> to disable and fetch all repositories related to you.
+Broad affiliation will result in less representative metrics.</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -92,7 +113,7 @@ These are all enabled by default, but you can explicitely opt out from them.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>repositories_skipped</code></td>
-    <td rowspan="2"><p>Default repositories to skip</p>
+    <td rowspan="2"><p>Default skipped repositories</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -103,7 +124,7 @@ These are all enabled by default, but you can explicitely opt out from them.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>users_ignored</code></td>
-    <td rowspan="2"><p>Default users to ignore</p>
+    <td rowspan="2"><p>Default ignored users</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -116,7 +137,8 @@ These are all enabled by default, but you can explicitely opt out from them.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>commits_authoring</code></td>
-    <td rowspan="2"><p>List of surnames or email addresses you use when authoring commits</p>
+    <td rowspan="2"><p>Name, username, email addresses that has been used for authoring commits</p>
+<p>This setting can be used to detect commits ownerships in some plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -129,9 +151,7 @@ These are all enabled by default, but you can explicitely opt out from them.
 </table>
 <!--/options-->
 
-*[→ Full specification](metadata.yml)*
-
-#### ℹ️ Examples workflows
+## ℹ️ Examples workflows
 
 <!--examples-->
 ```yaml
