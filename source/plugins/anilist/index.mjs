@@ -125,7 +125,7 @@ export default async function({login, data, queries, imports, q, account}, {enab
     let message = "An error occured"
     if (error.isAxiosError) {
       const status = error.response?.status
-      console.log(error.response.data)
+      console.debug(error.response.data)
       message = `API returned ${status}`
       error = error.response?.data ?? null
     }
