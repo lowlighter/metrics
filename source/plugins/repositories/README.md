@@ -1,19 +1,32 @@
-### 📓 Repositories
-
-The *repositories* plugin can display a list of chosen featured repositories.
-
+<!--header-->
 <table>
-  <td align="center">
-    <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.repositories.svg">
-    <img width="900" height="1" alt="">
-  </td>
+  <tr><th colspan="2"><h3>📓 Repositories</h3></th></tr>
+  <tr><td colspan="2" align="center"><p>This plugin displays a list of chosen featured repositories.</p>
+<p>It is mostly intended for images that will be used outside of GitHub, since it is already possible to <a href="https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/pinning-items-to-your-profile">pin repositories</a> on GitHub.</p>
+<blockquote>
+<p>⚠️ People will not be able to click on it due to limitations of using SVG inside <code>&lt;img&gt;</code> tags.</p>
+</blockquote>
+</td></tr>
+  <tr>
+    <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
+    <td><a href="/source/templates/classic"><code>📗 Classic template</code></a></td>
+  </tr>
+  <tr>
+    <td><code>👤 Users</code> <code>👥 Organizations</code></td>
+  </tr>
+  <tr>
+    <td><code>🔑 (scopeless)</code> <code>read:org (optional)</code> <code>read:user (optional)</code> <code>repo (optional)</code></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
+      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.repositories.svg" alt=""></img>
+      <img width="900" height="1" alt="">
+    </td>
+  </tr>
 </table>
+<!--/header-->
 
-It is mostly intended for external usage as [pinned repositories](https://www.google.com/search?client=firefox-b-d&q=github+pinned+repositories) is probably a better alternative if you want to embed them on your profile.
-
-Because of limitations of using SVG inside of `<img>` tags, people won't be able to click on it.
-
-#### ➡️ Available options
+## ➡️ Available options
 
 <!--options-->
 <table>
@@ -22,7 +35,7 @@ Because of limitations of using SVG inside of `<img>` tags, people won't be able
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_repositories</code></td>
-    <td rowspan="2"><p>Display chosen featured repositories</p>
+    <td rowspan="2"><p>Enable repositories plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -32,7 +45,8 @@ Because of limitations of using SVG inside of `<img>` tags, people won't be able
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_repositories_featured</code></td>
-    <td rowspan="2"><p>List of repositories to display</p>
+    <td rowspan="2"><p>List of featured repositories</p>
+<p>If no owner is specified, it will implicitly use the current account login</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -43,9 +57,7 @@ Because of limitations of using SVG inside of `<img>` tags, people won't be able
 </table>
 <!--/options-->
 
-*[→ Full specification](metadata.yml)*
-
-#### ℹ️ Examples workflows
+## ℹ️ Examples workflows
 
 <!--examples-->
 ```yaml

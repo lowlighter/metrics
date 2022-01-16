@@ -1,5 +1,13 @@
 name: "📓 Repositories"
 category: github
+description: |
+  This plugin displays a list of chosen featured repositories.
+
+  It is mostly intended for images that will be used outside of GitHub, since it is already possible to [pin repositories](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/pinning-items-to-your-profile) on GitHub.
+
+  > ⚠️ People will not be able to click on it due to limitations of using SVG inside `<img>` tags.
+examples:
+  default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.repositories.svg
 index: 20
 supports:
   - user
@@ -8,16 +16,16 @@ scopes:
   - public_access
 inputs:
 
-  # Enable or disable plugin
   plugin_repositories:
-    description: Display chosen featured repositories
+    description: Enable repositories plugin
     type: boolean
     default: no
 
-  # Featured repositories to display
-  # If no owner is specified, it will implicitly use the current account login as owner
   plugin_repositories_featured:
-    description: List of repositories to display
+    description: |
+      List of featured repositories
+
+      If no owner is specified, it will implicitly use the current account login
     type: array
     format: comma-separated
     default: ""
