@@ -1,5 +1,9 @@
 name: "✒️ Recent posts"
 category: social
+description: This plugin displays recent articles from a specified external source.
+examples:
+  +latest posts: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.posts.svg
+  Latest posts width description and cover image: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.posts.full.svg
 index: 6
 supports:
   - user
@@ -8,44 +12,41 @@ supports:
 scopes: []
 inputs:
 
-  # Enable or disable plugin
   plugin_posts:
-    description: Display recent posts
+    description: Enable posts plugin
     type: boolean
     default: no
 
-  # Posts external source
   plugin_posts_source:
-    description: Posts external source
+    description: |
+      External source
+      - `dev.to`: [dev.to](https://dev.to)
+      - `hashnode`: [hashnode.com](https://hashnode.com)
     type: string
     default: ""
     values:
-      - dev.to # Dev.to
+      - dev.to
       - hashnode
 
-  # Display a few lines about each posts
   plugin_posts_descriptions:
-    description: Display posts descriptions
+    description: Toggle posts descriptions display
     type: boolean
     default: no
 
-  # Display posts cover images
   plugin_posts_covers:
-    description: Display posts cover images
+    description: Toggle posts cover images display
     type: boolean
     default: no
 
-  # Number of posts to display
   plugin_posts_limit:
-    description: Maximum number of posts to display
+    description: Display limit
     type: number
     default: 4
     min: 1
     max: 30
 
-  # Username on external posts source
   plugin_posts_user:
-    description: Posts external source username
+    description: External source username
     type: string
     default: .user.login
 
