@@ -1,20 +1,29 @@
-### 💕 GitHub Sponsors
-
-The *sponsors* plugin lets you display your sponsors and introduction text from [GitHub sponsors](https://github.com/sponsors/).
-
+<!--header-->
 <table>
-  <td align="center">
-    <details open><summary>GitHub sponsors card</summary>
-      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.sponsors.svg">
-    </details>
-    <details><summary>GitHub sponsors full introduction</summary>
-      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.sponsors.full.svg">
-    </details>
-    <img width="900" height="1" alt="">
-  </td>
+  <tr><th colspan="2"><h3>💕 GitHub Sponsors</h3></th></tr>
+  <tr><td colspan="2" align="center"><p>This plugin displays sponsors and introduction text from <a href="https://github.com/sponsors/">GitHub sponsors</a>.</p>
+</td></tr>
+  <tr>
+    <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
+    <td><a href="/source/templates/classic"><code>📗 Classic template</code></a> <a href="/source/templates/repository"><code>📘 Repository template</code></a></td>
+  </tr>
+  <tr>
+    <td><code>👤 Users</code> <code>👥 Organizations</code> <code>📓 Repositories</code></td>
+  </tr>
+  <tr>
+    <td><code>🔑 (scopeless)</code> <code>read:org (optional)</code> <code>read:user (optional)</code> <code>repo (optional)</code></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
+      <details open><summary>GitHub sponsors card</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.sponsors.svg" alt=""></img></details>
+      <details open><summary>GitHub sponsors full introduction</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.sponsors.full.svg" alt=""></img></details>
+      <img width="900" height="1" alt="">
+    </td>
+  </tr>
 </table>
+<!--/header-->
 
-#### ➡️ Available options
+## ➡️ Available options
 
 <!--options-->
 <table>
@@ -46,9 +55,7 @@ The *sponsors* plugin lets you display your sponsors and introduction text from 
 </table>
 <!--/options-->
 
-*[→ Full specification](metadata.yml)*
-
-#### ℹ️ Examples workflows
+## ℹ️ Examples workflows
 
 <!--examples-->
 ```yaml
