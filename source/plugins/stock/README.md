@@ -60,7 +60,7 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_stock_duration</code></td>
-    <td rowspan="2"><p>Time window (relative to current date)</p>
+    <td rowspan="2"><p>Time range (relative to current date)</p>
 <ul>
 <li><code>1d</code>: Today</li>
 <li><code>5d</code>: 5 days</li>
