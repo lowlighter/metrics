@@ -135,6 +135,12 @@ jobs:
           verify: yes
           use_prebuilt_image: no
 
+  # Publish examples
+  publish-examples:
+    name: Publish examples
+    needs: [ docker-master ]
+    uses: lowlighter/metrics/.github/workflows/examples.yml@master
+
   # Build docker image from master and publish it to GitHub registry with release tag
   docker-release:
     name: Publish release to GitHub registry
@@ -156,12 +162,6 @@ jobs:
         run: docker tag ghcr.io/lowlighter/metrics:master ghcr.io/lowlighter/metrics:latest
       - name: Publish latest to GitHub registry
         run: docker push ghcr.io/lowlighter/metrics:latest
-
-  # Publish examples
-  publish-examples:
-    name: Publish examples
-    needs: [ docker-release ]
-    uses: lowlighter/metrics/.github/workflows/examples.yml@master
 
   # Rebase latest branch on master
   update-latest:
