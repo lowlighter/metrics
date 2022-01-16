@@ -18,7 +18,7 @@ The *reactions* plugin displays overall reactions on your recent issues and issu
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_reactions</code></td>
-    <td rowspan="2"><p>Display average issue comments reactions</p>
+    <td rowspan="2"><p>Enable reactions plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -28,7 +28,7 @@ The *reactions* plugin displays overall reactions on your recent issues and issu
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_reactions_limit</code></td>
-    <td rowspan="2"><p>Maximum number of issue comments to parse</p>
+    <td rowspan="2"><p>Display limit (issues and pull requests comments)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -41,7 +41,7 @@ The *reactions* plugin displays overall reactions on your recent issues and issu
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_reactions_limit_issues</code></td>
-    <td rowspan="2"><p>Maximum number of issues and pull requests opened to parse</p>
+    <td rowspan="2"><p>Display limit (issues and pull requests, first comment)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -54,7 +54,7 @@ The *reactions* plugin displays overall reactions on your recent issues and issu
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_reactions_limit_discussions</code></td>
-    <td rowspan="2"><p>Maximum number of discussions opened to parse</p>
+    <td rowspan="2"><p>Display limit (discussions, first comment)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -67,7 +67,7 @@ The *reactions* plugin displays overall reactions on your recent issues and issu
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_reactions_limit_discussions_comments</code></td>
-    <td rowspan="2"><p>Maximum number of discussions comments opened to parse</p>
+    <td rowspan="2"><p>Display limit (discussions comments)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -80,7 +80,7 @@ The *reactions* plugin displays overall reactions on your recent issues and issu
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_reactions_days</code></td>
-    <td rowspan="2"><p>Maximum comments age</p>
+    <td rowspan="2"><p>Comments maximum age</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -88,11 +88,16 @@ The *reactions* plugin displays overall reactions on your recent issues and issu
 <i>(0 ≤
 𝑥)</i>
 <br>
+<b>zero behaviour:</b> disable</br>
 <b>default:</b> 0<br></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_reactions_display</code></td>
     <td rowspan="2"><p>Display mode</p>
+<ul>
+<li><code>absolute</code>: scale percentages using total reactions count</li>
+<li><code>relative</code>: scale percentages using highest reaction count</li>
+</ul>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -114,7 +119,8 @@ The *reactions* plugin displays overall reactions on your recent issues and issu
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_reactions_ignored</code></td>
-    <td rowspan="2"><p>Users to ignore</p>
+    <td rowspan="2"><p>Ignored users</p>
+<p>Useful to ignore bots activity</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>

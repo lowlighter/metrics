@@ -1,5 +1,8 @@
 name: "🎭 Comment reactions"
 category: github
+description: This plugin displays overall reactions on your recent issues, comments and discussions.
+examples:
+  default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.reactions.svg
 index: 8
 supports:
   - user
@@ -7,66 +10,57 @@ scopes:
   - public_access
 inputs:
 
-  # Enable or disable plugin
   plugin_reactions:
-    description: Display average issue comments reactions
+    description: Enable reactions plugin
     type: boolean
     default: no
 
-  # Maximum number of issue comments to parse
   plugin_reactions_limit:
-    description: Maximum number of issue comments to parse
+    description: Display limit (issues and pull requests comments)
     type: number
     default: 200
     min: 0
     max: 1000
 
-  # Maximum number of issues and pull requests opened to parse
   plugin_reactions_limit_issues:
-    description: Maximum number of issues and pull requests opened to parse
+    description: Display limit (issues and pull requests, first comment)
     type: number
     default: 100
     min: 0
     max: 1000
 
-  # Maximum number of discussions opened to parse
   plugin_reactions_limit_discussions:
-    description: Maximum number of discussions opened to parse
+    description: Display limit (discussions, first comment)
     type: number
     default: 100
     min: 0
     max: 1000
 
-  # Maximum number of discussions comments opened to parse
   plugin_reactions_limit_discussions_comments:
-    description: Maximum number of discussions comments opened to parse
+    description: Display limit (discussions comments)
     type: number
     default: 100
     min: 0
     max: 1000
 
-  # Filter reactions by issue comments age
-  # Set to 0 to disable age filtering
   plugin_reactions_days:
-    description: Maximum comments age
+    description: Comments maximum age
     type: number
     default: 0
     min: 0
+    zero: disable
 
-  # Reaction display mode.
-  # Use this option to fill gauges using:
-  # - "absolute" to use total reactions count
-  # - "relative" to use highest reaction count
   plugin_reactions_display:
-    description: Display mode
+    description: |
+      Display mode
+      - `absolute`: scale percentages using total reactions count
+      - `relative`: scale percentages using highest reaction count
     type: string
     default: absolute
     values:
       - absolute
       - relative
 
-  # Additional details
-  # If multiple values are specified, emphasis will be set on first value
   plugin_reactions_details:
     description: Additional details
     type: array
@@ -77,9 +71,11 @@ inputs:
       - count
       - percentage
 
-  # Ignored users (useful to ignore bots users)
   plugin_reactions_ignored:
-    description: Users to ignore
+    description: |
+      Ignored users
+
+      Useful to ignore bots activity
     type: array
     format: comma-separated
     default: ""
