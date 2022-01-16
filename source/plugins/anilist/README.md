@@ -1,31 +1,30 @@
-### 🌸 Anilist watch list and reading list"
-
-The *anilist* plugin lets you display your favorites animes, mangas and characters from your [AniList](https://anilist.co) account.
-
+<!--header-->
 <table>
-  <td align="center">
-    <details open><summary>For anime watchers</summary>
-      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.anilist.svg">
-    </details>
-    <details><summary>For manga readers</summary>
-      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.anilist.manga.svg">
-    </details>
-    <details open><summary>Favorites characters</summary>
-      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.anilist.characters.svg">
-    </details>
-    <img width="900" height="1" alt="">
-  </td>
+  <tr><th colspan="2"><h3>🌸 Anilist watch list and reading list</h3></th></tr>
+  <tr><td colspan="2" align="center"><p>This plugin lets you display your favorites animes, mangas and characters from your <a href="https://anilist.co">AniList</a> account.</p>
+</td></tr>
+  <tr>
+    <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
+    <td><a href="/source/templates/classic"><code>📗 Classic template</code></a></td>
+  </tr>
+  <tr>
+    <td><code>👤 Users</code> <code>👥 Organizations</code></td>
+  </tr>
+  <tr>
+    <td><i>No tokens are required for this plugin</i></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
+      <details open><summary>For anime watchers</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.anilist.svg" alt=""></img></details>
+      <details open><summary>For manga readers</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.anilist.manga.svg" alt=""></img></details>
+      <details open><summary>For waifus simp</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.anilist.characters.svg" alt=""></img></details>
+      <img width="900" height="1" alt="">
+    </td>
+  </tr>
 </table>
+<!--/header-->
 
-This plugin is composed of the following sections, which can be displayed or hidden through `plugin_anilist_sections` option:
-- `favorites` will display your favorites mangas and animes
-- `watching` will display animes currently in your watching list
-- `reading` will display manga currently in your reading list
-- `characters` will display characters you liked
-
-These sections can also be filtered by media type, which can be either `anime`, `manga` or both.
-
-#### ➡️ Available options
+## ➡️ Available options
 
 <!--options-->
 <table>
@@ -34,7 +33,7 @@ These sections can also be filtered by media type, which can be either `anime`, 
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_anilist</code></td>
-    <td rowspan="2"><p>Display data from your AniList account</p>
+    <td rowspan="2"><p>Enable aniList plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -44,7 +43,7 @@ These sections can also be filtered by media type, which can be either `anime`, 
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_anilist_medias</code></td>
-    <td rowspan="2"><p>Medias types to display</p>
+    <td rowspan="2"><p>Display medias types</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -56,7 +55,13 @@ These sections can also be filtered by media type, which can be either `anime`, 
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_anilist_sections</code></td>
-    <td rowspan="2"><p>Sections to display</p>
+    <td rowspan="2"><p>Displayed sections</p>
+<ul>
+<li><code>favorites</code> will display favorites <code>plugin_anilist_medias</code></li>
+<li><code>watching</code> will display animes currently in watching list</li>
+<li><code>reading</code> will display manga currently in reading list</li>
+<li><code>characters</code> will display liked characters</li>
+</ul>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -68,7 +73,7 @@ These sections can also be filtered by media type, which can be either `anime`, 
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_anilist_limit</code></td>
-    <td rowspan="2"><p>Maximum number of entries to display per section</p>
+    <td rowspan="2"><p>Display limit (medias)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -76,11 +81,12 @@ These sections can also be filtered by media type, which can be either `anime`, 
 <i>(0 ≤
 𝑥)</i>
 <br>
+<b>zero behaviour:</b> disable</br>
 <b>default:</b> 2<br></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_anilist_limit_characters</code></td>
-    <td rowspan="2"><p>Maximum number of entries to display in characters section</p>
+    <td rowspan="2"><p>Display limit (characters)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -88,11 +94,12 @@ These sections can also be filtered by media type, which can be either `anime`, 
 <i>(0 ≤
 𝑥)</i>
 <br>
+<b>zero behaviour:</b> disable</br>
 <b>default:</b> 22<br></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_anilist_shuffle</code></td>
-    <td rowspan="2"><p>Shuffle AniList data</p>
+    <td rowspan="2"><p>Shuffle data for varied outputs</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -113,9 +120,7 @@ These sections can also be filtered by media type, which can be either `anime`, 
 </table>
 <!--/options-->
 
-*[→ Full specification](metadata.yml)*
-
-#### ℹ️ Examples workflows
+## ℹ️ Examples workflows
 
 <!--examples-->
 ```yaml

@@ -1,5 +1,10 @@
 name: "🌸 Anilist watch list and reading list"
 category: social
+description: This plugin lets you display your favorites animes, mangas and characters from your [AniList](https://anilist.co) account.
+examples:
+  +for anime watchers: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.anilist.svg
+  +for manga readers: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.anilist.manga.svg
+  +for waifus simp: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.anilist.characters.svg
 index: 4
 supports:
   - user
@@ -7,15 +12,13 @@ supports:
 scopes: []
 inputs:
 
-  # Enable or disable plugin
   plugin_anilist:
-    description: Display data from your AniList account
+    description: Enable aniList plugin
     type: boolean
     default: no
 
-  # Types of medias to display
   plugin_anilist_medias:
-    description: Medias types to display
+    description: Display medias types
     type: array
     format: comma-separated
     default: anime, manga
@@ -23,43 +26,42 @@ inputs:
       - anime
       - manga
 
-  # Sections to display
-  # Values from "plugin_anilist_medias" may impact displayed sections
   plugin_anilist_sections:
-    description: Sections to display
+    description: |
+      Displayed sections
+      - `favorites` will display favorites `plugin_anilist_medias`
+      - `watching` will display animes currently in watching list
+      - `reading` will display manga currently in reading list
+      - `characters` will display liked characters
     type: array
     format: comma-separated
     default: favorites
     example: favorites, watching, characters
     values:
-      - favorites  # Favorites animes and mangas (depending on plugin_anilist_medias values)
-      - watching   # Animes in your watching list
-      - reading    # Mangas in your reading list
-      - characters # Favorites characters
+      - favorites
+      - watching
+      - reading
+      - characters
 
-  # Number of entries to display per section (this does not impacts characters section)
-  # Set to 0 to disable limitations
   plugin_anilist_limit:
-    description: Maximum number of entries to display per section
+    description: Display limit (medias)
     type: number
     default: 2
     min: 0
+    zero: disable
 
-  # Number of entries to display in characters section
-  # Set to 0 to disable limitations
   plugin_anilist_limit_characters:
-    description: Maximum number of entries to display in characters section
+    description: Display limit (characters)
     type: number
     default: 22
     min: 0
+    zero: disable
 
-  # Shuffle AniList data for varied outputs
   plugin_anilist_shuffle:
-    description: Shuffle AniList data
+    description: Shuffle data for varied outputs
     type: boolean
     default: yes
 
-  # Username on AniList
   plugin_anilist_user:
     type: string
     description: AniList login
