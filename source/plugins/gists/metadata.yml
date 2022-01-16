@@ -1,5 +1,8 @@
 name: "🎫 Gists"
 category: github
+description: This plugin displays [gists](https://gist.github.com) stats.
+example:
+  default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.gists.svg
 index: 21
 supports:
   - user
@@ -7,8 +10,7 @@ scopes:
   - public_access
 inputs:
 
-  # Enable or disable plugin
   plugin_gists:
-    description: Display gists metrics
+    description: Enable gists plugin
     type: boolean
     default: no
