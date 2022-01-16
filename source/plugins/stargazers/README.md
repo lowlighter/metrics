@@ -1,15 +1,27 @@
-### ✨ Stargazers over last weeks
-
-The *stargazers* plugin displays your stargazers evolution across all of your repositories over the last two weeks.
-
+<!--header-->
 <table>
-  <td align="center">
-    <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.svg">
-    <img width="900" height="1" alt="">
-  </td>
+  <tr><th colspan="2"><h3>✨ Stargazers over last weeks</h3></th></tr>
+  <tr><td colspan="2" align="center"><p>This plugin displays your stargazers evolution across all of your repositories over the last two weeks.</p>
+</td></tr>
+  <tr>
+    <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
+    <td><a href="/source/templates/classic"><code>📗 Classic template</code></a> <a href="/source/templates/repository"><code>📘 Repository template</code></a></td>
+  </tr>
+  <tr>
+    <td><code>👤 Users</code> <code>👥 Organizations</code> <code>📓 Repositories</code></td>
+  </tr>
+  <tr>
+    <td><code>🔑 (scopeless)</code> <code>read:org (optional)</code> <code>read:user (optional)</code> <code>repo (optional)</code></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
+      <img width="900" height="1" alt="">
+    </td>
+  </tr>
 </table>
+<!--/header-->
 
-#### ➡️ Available options
+## ➡️ Available options
 
 <!--options-->
 <table>
@@ -18,7 +30,7 @@ The *stargazers* plugin displays your stargazers evolution across all of your re
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_stargazers</code></td>
-    <td rowspan="2"><p>Display stargazers metrics</p>
+    <td rowspan="2"><p>Enable stargazers plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -29,9 +41,7 @@ The *stargazers* plugin displays your stargazers evolution across all of your re
 </table>
 <!--/options-->
 
-*[→ Full specification](metadata.yml)*
-
-#### ℹ️ Examples workflows
+## ℹ️ Examples workflows
 
 <!--examples-->
 ```yaml
