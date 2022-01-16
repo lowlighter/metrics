@@ -28,6 +28,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
     ))
     const count = lists.length
     console.debug(`metrics/compute/${login}/plugins > starlists > found [${lists.map(({name}) => name)}]`)
+    console.log(">>>> DEBUG", only, ignored, lists, lists.filter(({name}) => name).filter(({name}) => (!only.length) || (only.includes(name.toLocaleLowerCase()))))
     lists = lists
       .filter(({name}) => name)
       .filter(({name}) => (!only.length) || (only.includes(name.toLocaleLowerCase())))
