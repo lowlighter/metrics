@@ -1,5 +1,8 @@
 name: "🗂️ Active projects"
 category: github
+description: This plugin displays progress of your profile and repository projects.
+examples:
+  default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.projects.svg
 index: 11
 supports:
   - user
@@ -10,35 +13,32 @@ scopes:
   - public_repo
 inputs:
 
-  # Enable or disable plugin
   plugin_projects:
-    description: Display active projects
+    description: Enable projects plugin
     type: boolean
     default: no
 
-  # Number of projects to display
-  # Set to 0 to only display "plugin_projects_repositories" projects
-  # Projects listed in "plugin_projects_repositories" are not affected by this option
   plugin_projects_limit:
-    description: Maximum number of projects to display
+    description: |
+      Display limit
+
+      Note that `plugin_projects_repositories` is not affected by this option
     type: number
     default: 4
     min: 0
     max: 100
 
-  # List of repository projects to display, using the following format:
-  # :user/:repo/projects/:project_id
   plugin_projects_repositories:
-    description: List of repository project identifiers to disaplay
+    description: |
+      List of repositories projects
+
+      Use the following syntax for each project `:user/:repo/projects/:project_id`
     type: array
     example: username/repo/projects/1, username/repo/projects/2, ...
-    format:
-      - comma-separated
-      - /(?<user>[-a-z0-9]+)[/](?<repo>[-a-z0-9]+)[/]projects[/](?<id>[0-9]+)/
+    format: comma-separated
     default: ""
 
-  # Display projects descriptions
   plugin_projects_descriptions:
-    description: Display projects descriptions
+    description: Toggle projects descriptions display
     type: boolean
     default: no
