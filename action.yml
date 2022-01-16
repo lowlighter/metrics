@@ -434,37 +434,34 @@ inputs:
   # ====================================================================================
   # 💡 Coding habits
   
-  # Enable or disable plugin
+  
   plugin_habits:
-    description: Display coding habits metrics
+    description: Enable habits plugin
     default: no
   
-  # Number of events to use to computes habits
-  # Using more will result in more accurate metrics, but you may hit GitHub rate-limit more easily
+  
   plugin_habits_from:
-    description: Number of events to use
+    description: Events to use
     default: 200
   
-  # Filter used events to compute habits by age
+  
   plugin_habits_days:
-    description: Maximum event age
+    description: Event maximum age
     default: 14
   
-  # Display tidbits about your most active hours/days, indents used (spaces/tabs), etc.
-  # This is deduced from your recent activity
+  
   plugin_habits_facts:
-    description: Display coding habits collected facts based on recent activity
+    description: Toggle midly interesting facts display
     default: yes
   
-  # Display charts of most active time of the day and most active day of the week
-  # Also display languages recently used (this is not the same as plugin_languages, as the latter is an all-time stats)
+  
   plugin_habits_charts:
-    description: Display coding habits charts based on recent activity
+    description: Toggle charts display
     default: no
   
-  # Trim unused hours on daily chart
+  
   plugin_habits_trim:
-    description: Trim unused hours on daily chart
+    description: Trim unused hours on charts
     default: no
   
   # ====================================================================================
@@ -579,48 +576,44 @@ inputs:
   # ====================================================================================
   # 🧑‍🤝‍🧑 People plugin
   
-  # Enable or disable plugin
+  
   plugin_people:
-    description: Display GitHub users from various affiliations
+    description: Enable people plugin
     default: no
   
-  # Number of users to display per section
+  
   plugin_people_limit:
-    description: Maximum number of user to display
+    description: Display limit
     default: 24
   
-  # Size of displayed user's avatar
-  plugin_people_size:
-    description: Size of displayed GitHub users' avatars
-    default: 28
   
-  # List of section to display
-  # Ordering will be kept
-  plugin_people_types:
-    description: Affiliations to display
-    default: followers, following
-  
-  # When displaying "thanks" section, specified users list will be displayed
-  # This is useful to craft "Special thanks" badges
-  plugin_people_thanks:
-    description: GitHub users to personally thanks
-    default: ""
-  
-  # Add specified users to GitHub sponsors ("sponsors" must be specified in "plugin_people_types")
-  # This is useful to list sponsors from unsupported GitHub sponsors sources
-  plugin_people_sponsors_custom:
-    description: Custom GitHub sponsors
-    default: ""
-  
-  # Use GitHub identicons instead of users' avatar (for privacy purposes)
   plugin_people_identicons:
-    description: Use identicons instead of avatars
+    description: Toggle identicons display
     default: no
   
-  # Shuffle users for varied outputs
-  # If "plugin_people_limit" is set, plugin will fetch up to 10 ten times limit to ensure output is different each time
+  
+  plugin_people_size:
+    description: Profile picture display size
+    default: 28
+  
+  
+  plugin_people_types:
+    description: Displayed sections (order is respected)
+    default: followers, following
+  
+  
+  plugin_people_thanks:
+    description: Special thanks
+    default: ""
+  
+  
+  plugin_people_sponsors_custom:
+    description: Custom sponsors
+    default: ""
+  
+  
   plugin_people_shuffle:
-    description: Shuffle users
+    description: Shuffle data for varied output
     default: no
   
   # ====================================================================================
@@ -964,32 +957,27 @@ inputs:
   # ====================================================================================
   # ⏱️ Website performances
   
-  # Enable or disable plugin
+  
   plugin_pagespeed:
-    description: Display a website Google PageSpeed metrics
+    description: Enable pagespeed plugin
     default: no
   
-  # Website to audit with PageSpeed
+  
   plugin_pagespeed_url:
     description: Audited website
     default: .user.website
   
-  # Display the following additional metrics from audited website:
-  # First Contentful Paint, Speed Index, Largest Contentful Paint, Time to Interactive, Total Blocking Time, Cumulative Layout Shift
-  # See https://web.dev/performance-scoring/ and https://googlechrome.github.io/lighthouse/scorecalc/ for more informations
+  
   plugin_pagespeed_detailed:
-    description: Detailed audit result
+    description: Detailed results
     default: no
   
-  # Display a screenshot of audited website
-  # May increases significantly filesize
+  
   plugin_pagespeed_screenshot:
-    description: Display a screenshot of your website
+    description: Display a website screenshot
     default: no
   
-  # PageSpeed API token
-  # This is optional, but providing it will avoid hitting rate-limiter
-  # See https://developers.google.com/speed/docs/insights/v5/get-started for more informations
+  
   plugin_pagespeed_token:
     description: PageSpeed token
     default: ""
@@ -997,59 +985,52 @@ inputs:
   # ====================================================================================
   # 🎼 Music plugin
   
-  # Enable or disable plugin
+  
   plugin_music:
-    description: Display your music tracks
+    description: Enable music plugin
     default: no
   
-  # Name of music provider
-  # This is optional for "playlist" mode (it can be deduced automatically from "plugin_music_playlist" url)
-  # This is required in other modes
+  
   plugin_music_provider:
     description: Music provider
     default: ""
   
-  # Music provider token
-  # This may be required depending on music provider used and plugin mode
-  # - "apple"   : not required
-  # - "spotify" : required for "recent" or "top" mode, format is "client_id, client_secret, refresh_token"
-  # - "lastfm"  : required, format is "api_key"
-  # - "youtube" : required for "recent" mode, format is "cookie"
+  
   plugin_music_token:
-    description: Music provider personal token
+    description: Music provider token
     default: ""
   
-  # Plugin mode
+  
   plugin_music_mode:
-    description: Plugin mode
+    description: Display mode
     default: ""
   
-  # Embed playlist url (i.e. url used by music player iframes)
+  
   plugin_music_playlist:
-    description: Embed playlist url
+    description: Playlist URL
     default: ""
   
-  # Number of music tracks to display
+  
   plugin_music_limit:
-    description: Maximum number of tracks to display
+    description: Display limit
     default: 4
   
-  # Display when track was last played
+  
   plugin_music_played_at:
-    description: Display when the track was played
+    description: Recently played - Toggle last played timestamp display
     default: no
   
-  # Time range for "top" mode
+  
   plugin_music_time_range:
-    description: Time period for top mode
+    description: Top tracks - Time range for `top` mode
     default: short
   
-  # Option for "top" mode to select tracks or artists
+  
   plugin_music_top_type:
-    description: Whether to show tracks or artists in top mode
+    description: Top tracks - Display type
     default: tracks
   
-  # Username on music provider service
+  
   plugin_music_user:
     description: Music provider username
     default: .user.login

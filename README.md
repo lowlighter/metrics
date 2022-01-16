@@ -65,15 +65,11 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
         <details open><summary>Licenses overview</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.licenses.ratio.svg" alt=""></img></details>
         <img width="900" height="1" alt="">
       </td>
-    <td align="center">
-      <details open><summary>Recent activity charts</summary>
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.habits.charts.svg">
-      </details>
-      <details open><summary>Midly interesting facts</summary>
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.habits.facts.svg">
-      </details>
-      <img width="900" height="1" alt="">
-    </td>
+        <td  align="center">
+        <details open><summary>Recent activity charts</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.habits.charts.svg" alt=""></img></details>
+        <details open><summary>Midly interesting facts</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.habits.facts.svg" alt=""></img></details>
+        <img width="900" height="1" alt="">
+      </td>
   </tr>
   <tr>
     <th><a href="source/plugins/contributors/README.md">🏅 Repository contributors</a></th>
@@ -101,15 +97,11 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
         <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.reactions.svg" alt=""></img>
         <img width="900" height="1" alt="">
       </td>
-    <td align="center">
-      <details open><summary>Related to an user</summary>
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.people.followers.svg">
-      </details>
-      <details><summary>Related to a repository</summary>
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.people.repository.svg">
-      </details>
-      <img width="900" height="1" alt="">
-    </td>
+        <td  align="center">
+        <details open><summary>Related to an user</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.people.followers.svg" alt=""></img></details>
+        <details><summary>Related to a repository</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.people.repository.svg" alt=""></img></details>
+        <img width="900" height="1" alt="">
+      </td>
   </tr>
   <tr>
     <th><a href="source/plugins/stargazers/README.md">✨ Stargazers over last weeks</a></th>
@@ -232,27 +224,17 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
     <th><a href="source/plugins/music/README.md">🎼 Music plugin</a></th>
   </tr>
   <tr>
-    <td align="center">
-      <details open><summary>PageSpeed scores</summary>
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.pagespeed.svg">
-      </details>
-      <details><summary>PageSpeed scores with detailed report</summary>
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.pagespeed.detailed.svg">
-      </details>
-      <details><summary>PageSpeed scores with a website screenshot</summary>
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.pagespeed.screenshot.svg">
-      </details>
-      <img width="900" height="1" alt="">
-    </td>
-    <td align="center">
-      <details open><summary>Random tracks from a playlist</summary>
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.music.playlist.svg">
-      </details>
-      <details open><summary>Recently listened</summary>
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.music.recent.svg">
-      </details>
-      <img width="900" height="1" alt="">
-    </td>
+        <td  align="center">
+        <details open><summary>PageSpeed scores</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.pagespeed.svg" alt=""></img></details>
+        <details><summary>PageSpeed scores with detailed report</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.pagespeed.detailed.svg" alt=""></img></details>
+        <details><summary>PageSpeed scores with a website screenshot</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.pagespeed.screenshot.svg" alt=""></img></details>
+        <img width="900" height="1" alt="">
+      </td>
+        <td  align="center">
+        <details open><summary>Random tracks from a playlist</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.music.playlist.svg" alt=""></img></details>
+        <details open><summary>Recently listened</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.music.recent.svg" alt=""></img></details>
+        <img width="900" height="1" alt="">
+      </td>
   </tr>
   <tr>
     <th><a href="source/plugins/stackoverflow/README.md">🗨️ StackOverflow plugin</a></th>
@@ -402,7 +384,7 @@ There are several ways to setup metrics, each having its advantages and disadvan
 * [🏗️ Deploying a web instance *(~20 min)*](/.github/readme/partials/documentation/setup/web.md)
   * ✔️ Create another shared instance
   * ➖ Requires some sysadmin knowlegde
-* [🐳 Using command line with docker *(~5 min)*](/.github/readme/partials/documentation/setup/docker.md)
+* [🐳 Using command line with docker *(~2 min)*](/.github/readme/partials/documentation/setup/docker.md)
   * ✔️ Suited for one-time rendering
 * [🔧 Local setup for development *(~20 min)*](/.github/readme/partials/documentation/setup/local.md)
 
