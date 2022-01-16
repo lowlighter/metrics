@@ -1,5 +1,8 @@
 name: "💹 Stock prices"
 category: social
+description: This plugin displays the stock market price of a given company.
+examples:
+  default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stock.svg
 index: 8
 supports:
   - user
@@ -8,53 +11,66 @@ supports:
 scopes: []
 inputs:
 
-  # Enable or disable plugin
   plugin_stock:
-    description: Display stock prices of a given company
+    description: Enable stock plugin
     type: boolean
     default: no
 
-  # RapidAPI Yahoo finance token
-  # Case insensitive
   plugin_stock_token:
     description: Yahoo Finance token
     type: token
     default: ""
 
-  # Company stock symbol (required)
   plugin_stock_symbol:
     description: Company stock symbol
     type: string
     default: ""
     example: MSFT
 
-  # Time range to display (relative to current date)
   plugin_stock_duration:
-    description: Time range to display
+    description: |
+      Time window (relative to current date)
+      - `1d`: Today
+      - `5d`: 5 days
+      - `1mo`: 1 month
+      - `3mo`: 3 months
+      - `6mo`: 6 months
+      - `1y`: 1 year
+      - `2y`: 2 years
+      - `5y`: 5 years
+      - `10y`: 10 years
+      - `ytd`: Year to date
+      - `max`: All time
     type: string
     default: 1d
     values:
-      - 1d  # Today
-      - 5d  # 5 days
-      - 1mo # 1 month
-      - 3mo # 3 months
-      - 6mo # 6 months
-      - 1y  # 1 year
-      - 2y  # 2 years
-      - 5y  # 5 years
-      - 10y # 10 years
-      - ytd # Year to date
-      - max # All time
+      - 1d
+      - 5d
+      - 1mo
+      - 3mo
+      - 6mo
+      - 1y
+      - 2y
+      - 5y
+      - 10y
+      - ytd
+      - max
 
-  # Time invervals between each records over the given time range
   plugin_stock_interval:
-    description: Time intervals between records
+    description: |
+      Time interval between points
+      - `1m`: 1 minute
+      - `2m`: 2 minutes
+      - `5m`: 5 minutes
+      - `15m`: 15 minutes
+      - `60m`: 60 minutes
+      - `1d`: 1 day
     type: string
     default: 5m
     values:
-      - 1m   # 1 minute
-      - 2m   # 2 minutes
-      - 5m   # 5 minutes
-      - 15m  # 15 minutes
-      - 60m  # 60 minutes
-      - 1d   # 1 day
+      - 1m
+      - 2m
+      - 5m
+      - 15m
+      - 60m
+      - 1d

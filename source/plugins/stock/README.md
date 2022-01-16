@@ -1,24 +1,28 @@
-### 💹 Stock prices
-
-The *stock* plugin lets you display the stock market price of a given company.
-
+<!--header-->
 <table>
-  <td align="center">
-    <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stock.svg">
-    <img width="900" height="1" alt="">
-  </td>
+  <tr><th colspan="2"><h3>💹 Stock prices</h3></th></tr>
+  <tr><td colspan="2" align="center"><p>This plugin displays the stock market price of a given company.</p>
+</td></tr>
+  <tr>
+    <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
+    <td><a href="/source/templates/classic"><code>📗 Classic template</code></a> <a href="/source/templates/repository"><code>📘 Repository template</code></a></td>
+  </tr>
+  <tr>
+    <td><code>👤 Users</code> <code>👥 Organizations</code> <code>📓 Repositories</code></td>
+  </tr>
+  <tr>
+    <td><code>🗝️ plugin_stock_token</code></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
+      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stock.svg" alt=""></img>
+      <img width="900" height="1" alt="">
+    </td>
+  </tr>
 </table>
+<!--/header-->
 
-<details>
-<summary>💬 Obtaining a RapidAPI Yahoo Finance token</summary>
-
-Create a [RapidAPI account](https://rapidapi.com) and subscribe to [Yahoo Finance API](https://rapidapi.com/apidojo/api/yahoo-finance1) to get a token.
-
-![RapidAPI token](/.github/readme/imgs/plugin_stock_token.png)
-
-</details>
-
-#### ➡️ Available options
+## ➡️ Available options
 
 <!--options-->
 <table>
@@ -27,7 +31,7 @@ Create a [RapidAPI account](https://rapidapi.com) and subscribe to [Yahoo Financ
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_stock</code></td>
-    <td rowspan="2"><p>Display stock prices of a given company</p>
+    <td rowspan="2"><p>Enable stock plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -56,7 +60,20 @@ Create a [RapidAPI account](https://rapidapi.com) and subscribe to [Yahoo Financ
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_stock_duration</code></td>
-    <td rowspan="2"><p>Time range to display</p>
+    <td rowspan="2"><p>Time window (relative to current date)</p>
+<ul>
+<li><code>1d</code>: Today</li>
+<li><code>5d</code>: 5 days</li>
+<li><code>1mo</code>: 1 month</li>
+<li><code>3mo</code>: 3 months</li>
+<li><code>6mo</code>: 6 months</li>
+<li><code>1y</code>: 1 year</li>
+<li><code>2y</code>: 2 years</li>
+<li><code>5y</code>: 5 years</li>
+<li><code>10y</code>: 10 years</li>
+<li><code>ytd</code>: Year to date</li>
+<li><code>max</code>: All time</li>
+</ul>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -67,7 +84,15 @@ Create a [RapidAPI account](https://rapidapi.com) and subscribe to [Yahoo Financ
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_stock_interval</code></td>
-    <td rowspan="2"><p>Time intervals between records</p>
+    <td rowspan="2"><p>Time interval between points</p>
+<ul>
+<li><code>1m</code>: 1 minute</li>
+<li><code>2m</code>: 2 minutes</li>
+<li><code>5m</code>: 5 minutes</li>
+<li><code>15m</code>: 15 minutes</li>
+<li><code>60m</code>: 60 minutes</li>
+<li><code>1d</code>: 1 day</li>
+</ul>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -79,9 +104,13 @@ Create a [RapidAPI account](https://rapidapi.com) and subscribe to [Yahoo Financ
 </table>
 <!--/options-->
 
-*[→ Full specification](metadata.yml)*
+## 🗝️ Obtaining a RapidAPI Yahoo Finance token
 
-#### ℹ️ Examples workflows
+Create a [RapidAPI account](https://rapidapi.com) and subscribe to [Yahoo Finance API](https://rapidapi.com/apidojo/api/yahoo-finance1) to get a token.
+
+![RapidAPI token](/.github/readme/imgs/plugin_stock_token.png)
+
+## ℹ️ Examples workflows
 
 <!--examples-->
 ```yaml
