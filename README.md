@@ -80,27 +80,17 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
     <th><a href="source/plugins/followup/README.md">🎟️ Follow-up of issues and pull requests</a></th>
   </tr>
   <tr>
-    <td align="center">
-      <details open><summary>By contribution types</summary>
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.contributors.categories.svg">
-      </details>
-      <details><summary>By number of contributions</summary>
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.contributors.contributions.svg">
-      </details>
-      <img width="900" height="1" alt="">
-    </td>
-    <td align="center">
-      <details open><summary>Indepth analysis</summary>
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.followup.indepth.svg">
-      </details>
-      <details><summary>Created on an user's repositories</summary>
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.followup.svg">
-      </details>
-      <details><summary>Created by an user</summary>
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.followup.user.svg">
-      </details>
-      <img width="900" height="1" alt="">
-    </td>
+        <td  align="center">
+        <details open><summary>By contribution types</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.contributors.categories.svg" alt=""></img></details>
+        <details><summary>By number of contributions</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.contributors.contributions.svg" alt=""></img></details>
+        <img width="900" height="1" alt="">
+      </td>
+        <td  align="center">
+        <details open><summary>Indepth analysis</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.followup.indepth.svg" alt=""></img></details>
+        <details><summary>Created on an user's repositories</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.followup.svg" alt=""></img></details>
+        <details><summary>Created by an user</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.followup.user.svg" alt=""></img></details>
+        <img width="900" height="1" alt="">
+      </td>
   </tr>
   <tr>
     <th><a href="source/plugins/reactions/README.md">🎭 Comment reactions</a></th>
@@ -159,15 +149,11 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
         <details><summary>Detailed display</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.achievements.svg" alt=""></img></details>
         <img width="900" height="1" alt="">
       </td>
-    <td align="center">
-      <details open><summary>Indepth analysis</summary>
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.notable.indepth.svg">
-      </details>
-      <details><summary>Contributions in organizations only</summary>
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.notable.svg">
-      </details>
-      <img width="900" height="1" alt="">
-    </td>
+        <td  align="center">
+        <details open><summary>Indepth analysis</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.notable.indepth.svg" alt=""></img></details>
+        <details><summary>Contributions in organizations only</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.notable.svg" alt=""></img></details>
+        <img width="900" height="1" alt="">
+      </td>
   </tr>
   <tr>
     <th><a href="source/plugins/discussions/README.md">💬 Discussions</a></th>

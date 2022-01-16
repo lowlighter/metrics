@@ -470,44 +470,39 @@ inputs:
   # ====================================================================================
   # 🏅 Repository contributors
   
-  # Enable or disable plugin
+  
   plugin_contributors:
-    description: Display repository contributors
+    description: Enable contributors plugin
     default: no
   
-  # Base reference (commit, tag, branch, etc.)
+  
   plugin_contributors_base:
-    description: Base reference
+    description: Base reference (commit, tag, branch, etc.)
     default: ""
   
-  # Head reference (commit, tag, branch, etc.)
+  
   plugin_contributors_head:
-    description: Head reference
+    description: Head reference (commit, tag, branch, etc.)
     default: master
   
-  # Ignored contributors (useful to ignore bots users)
-  plugin_contributors_ignored:
-    description: Contributors to ignore
-    default: github-actions[bot], dependabot[bot], dependabot-preview[bot]
   
-  # Display total contributions for each contributor
+  plugin_contributors_ignored:
+    description: Ignored users
+    default: ""
+  
+  
   plugin_contributors_contributions:
-    description: Display contributions
+    description: Toggle number of contributions display
     default: no
   
-  # Sections to display
+  
   plugin_contributors_sections:
-    description: Sections to display
+    description: Displayed sections
     default: contributors
   
-  # Contributions categories
-  # This requires "plugin_contributors_sections" to have "categories" in it to be effective
-  #
-  # Pass a JSON object which contains a mapping of category with fileglobs.
-  # Contributors will be sorted into each category to reflect their contributions.
-  # Note that order a file will only match the first category matching
+  
   plugin_contributors_categories:
-    description: Contributions categories
+    description: Configure contribution categories
     default: |
       {
         "📚 Documentation": ["README.md", "docs/**"],
@@ -518,19 +513,19 @@ inputs:
   # ====================================================================================
   # 🎟️ Follow-up of issues and pull requests
   
-  # Enable or disable plugin
+  
   plugin_followup:
-    description: Display follow-up of repositories issues and pull requests
+    description: Enable followup plugin
     default: no
   
-  # Sections to display
+  
   plugin_followup_sections:
-    description: Sections to display
+    description: Displayed sections
     default: repositories
   
-  # Compute issues and pull requests per repositories with special highlighting for maintainers and specified users
+  
   plugin_followup_indepth:
-    description: Indepth follow-up processing
+    description: Indepth analysis
     default: no
   
   # ====================================================================================
@@ -781,32 +776,29 @@ inputs:
   # ====================================================================================
   # 🎩 Notable contributions
   
-  # Enable or disable plugin
+  
   plugin_notable:
-    description: Display notable contributions in organizations
+    description: Enable notable plugin
     default: no
   
-  # Query filter
-  # Based on GitHub search notation
-  # Supported fields are "stars", "forks" and "watchers"
+  
   plugin_notable_filter:
     description: Query filter
     default: ""
   
-  # Filter repositories depending on which type of account it is hosted
+  
   plugin_notable_from:
-    description: Filter by repository host account type
+    description: Filter by repository owner account type
     default: organization
   
-  # Also display repository name along with organization name
-  # Note that repositories hosted by user account will always be displayed fully
+  
   plugin_notable_repositories:
-    description: Also display repository name
+    description: Toggle repository name display
     default: no
   
-  # Compute notable contributions with measured impact
+  
   plugin_notable_indepth:
-    description: Indepth notable contributions processing
+    description: Indepth mode
     default: no
   
   # ====================================================================================

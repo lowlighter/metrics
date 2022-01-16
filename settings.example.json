@@ -51,10 +51,10 @@
       "enabled": false,            "//": "Display coding habits metrics"
     },
     "contributors":{
-      "enabled": false,            "//": "Display repository contributors"
+      "enabled": false,            "//": "Enable contributors plugin"
     },
     "followup":{
-      "enabled": false,            "//": "Display follow-up of repositories issues and pull requests"
+      "enabled": false,            "//": "Enable followup plugin"
     },
     "reactions":{
       "enabled": false,            "//": "Enable reactions plugin"
@@ -78,7 +78,7 @@
       "enabled": false,            "//": "Enable achievements plugin"
     },
     "notable":{
-      "enabled": false,            "//": "Display notable contributions in organizations"
+      "enabled": false,            "//": "Enable notable plugin"
     },
     "discussions":{
       "enabled": false,            "//": "Enable discussions plugin"
