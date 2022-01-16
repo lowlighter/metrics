@@ -24,7 +24,7 @@ Check out <a href="https://github.com/topics">GitHub topics</a> to search intere
 </table>
 <!--/header-->
 
-#### ➡️ Available options
+## ➡️ Available options
 
 <!--options-->
 <table>
@@ -93,9 +93,7 @@ Check out <a href="https://github.com/topics">GitHub topics</a> to search intere
 </table>
 <!--/options-->
 
-*[→ Full specification](metadata.yml)*
-
-#### ℹ️ Examples workflows
+## ℹ️ Examples workflows
 
 <!--examples-->
 ```yaml

@@ -1,7 +1,7 @@
 <!--header-->
 <table>
   <tr><th colspan="2"><h3>🌸 Anilist watch list and reading list</h3></th></tr>
-  <tr><td colspan="2" align="center"><p>This plugin lets you display your favorites animes, mangas and characters from your <a href="https://anilist.co">AniList</a> account.</p>
+  <tr><td colspan="2" align="center"><p>This plugin displays your favorites animes, mangas and characters from your <a href="https://anilist.co">AniList</a> account.</p>
 </td></tr>
   <tr>
     <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>

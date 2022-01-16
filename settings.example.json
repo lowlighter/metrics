@@ -63,7 +63,7 @@
       "enabled": false,            "//": "Display GitHub users from various affiliations"
     },
     "stargazers":{
-      "enabled": false,            "//": "Display stargazers metrics"
+      "enabled": false,            "//": "Enable stargazers plugin"
     },
     "projects":{
       "enabled": false,            "//": "Display active projects"
@@ -84,19 +84,19 @@
       "enabled": false,            "//": "GitHub discussions metrics"
     },
     "support":{
-      "enabled": false,            "//": "GitHub Community Support metrics"
+      "enabled": false,            "//": "Enable support plugin"
     },
     "lines":{
       "enabled": false,            "//": "Display lines of code metrics"
     },
     "traffic":{
-      "enabled": false,            "//": "Display repositories traffic metrics"
+      "enabled": false,            "//": "Enable traffic plugin"
     },
     "repositories":{
       "enabled": false,            "//": "Display chosen featured repositories"
     },
     "gists":{
-      "enabled": false,            "//": "Display gists metrics"
+      "enabled": false,            "//": "Enable gists plugin"
     },
     "introduction":{
       "enabled": false,            "//": "Display account or repository introduction"
@@ -140,7 +140,7 @@
     },
     "stock":{
       "token": null,               "//":"Yahoo Finance token",
-      "enabled": false,            "//": "Display stock prices of a given company"
+      "enabled": false,            "//": "Enable stock plugin"
     },
     "nightscout":{
       "enabled": false,            "//": "Displays Blood Glucose"

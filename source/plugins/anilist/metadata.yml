@@ -1,6 +1,6 @@
 name: "🌸 Anilist watch list and reading list"
 category: social
-description: This plugin lets you display your favorites animes, mangas and characters from your [AniList](https://anilist.co) account.
+description: This plugin displays your favorites animes, mangas and characters from your [AniList](https://anilist.co) account.
 examples:
   +for anime watchers: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.anilist.svg
   +for manga readers: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.anilist.manga.svg
