@@ -1,15 +1,28 @@
-### 👨‍💻 Lines of code changed
-
-The *lines* of code plugin displays the number of lines of code you have added and removed across all of your repositories.
-
+<!--header-->
 <table>
-  <td align="center">
-    <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.lines.svg">
-    <img width="900" height="1" alt="">
-  </td>
+  <tr><th colspan="2"><h3>👨‍💻 Lines of code changed</h3></th></tr>
+  <tr><td colspan="2" align="center"><p>This plugin displays the number of lines of code you have added and removed across all of your repositories.</p>
+</td></tr>
+  <tr>
+    <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
+    <td><a href="/source/templates/classic"><code>📗 Classic template</code></a> <a href="/source/templates/repository"><code>📘 Repository template</code></a> <a href="/source/templates/terminal"><code>📙 Terminal template</code></a></td>
+  </tr>
+  <tr>
+    <td><code>👤 Users</code> <code>👥 Organizations</code> <code>📓 Repositories</code></td>
+  </tr>
+  <tr>
+    <td><code>🔑 (scopeless)</code> <code>read:org (optional)</code> <code>read:user (optional)</code> <code>repo (optional)</code></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
+      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.lines.svg" alt=""></img>
+      <img width="900" height="1" alt="">
+    </td>
+  </tr>
 </table>
+<!--/header-->
 
-#### ➡️ Available options
+## ➡️ Available options
 
 <!--options-->
 <table>
@@ -18,7 +31,7 @@ The *lines* of code plugin displays the number of lines of code you have added a
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_lines</code></td>
-    <td rowspan="2"><p>Display lines of code metrics</p>
+    <td rowspan="2"><p>Enable lines plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -28,7 +41,7 @@ The *lines* of code plugin displays the number of lines of code you have added a
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_lines_skipped</code></td>
-    <td rowspan="2"><p>Repositories to skip</p>
+    <td rowspan="2"><p>Skipped repositories</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -40,9 +53,7 @@ The *lines* of code plugin displays the number of lines of code you have added a
 </table>
 <!--/options-->
 
-*[→ Full specification](metadata.yml)*
-
-#### ℹ️ Examples workflows
+## ℹ️ Examples workflows
 
 <!--examples-->
 ```yaml
