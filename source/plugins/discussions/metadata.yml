@@ -1,5 +1,8 @@
 name: "💬 Discussions"
 category: github
+description: This plugin displays your GitHub discussions stats.
+examples:
+  default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.discussions.svg
 index: 16
 supports:
   - user
@@ -7,21 +10,21 @@ scopes:
   - public_access
 inputs:
 
-  # Enable or disable plugin
   plugin_discussions:
-    description: GitHub discussions metrics
+    description: Enable discussions plugin
     type: boolean
     default: no
 
-  # Display discussion categories you have taken part in
   plugin_discussions_categories:
-    description: Display discussion categories
+    description: Toggle discussion categories display
     type: boolean
     default: yes
 
-  # Maximum number of categories to display (note that these are sorted desc)
-  # Set to 0 to disable limitations
   plugin_discussions_categories_limit:
-    description: Number of discussion categories to display
+    description: |
+      Display limit (categories)
+
+      Note that categories are sorted from highest to lowest count.
     type: number
     default: 0
+    zero: disable
