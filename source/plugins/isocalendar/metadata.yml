@@ -18,7 +18,7 @@ inputs:
 
   plugin_isocalendar_duration:
     description: |
-      Time window
+      Time range
       - `half-year`: 180 days
       - `full-year`: 1 year
     type: string
