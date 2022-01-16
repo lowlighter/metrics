@@ -307,7 +307,7 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
         ].filter(v => v).join(" ") || "<i>No tokens are required for this plugin</i>"}</td>`,
         "  </tr>",
         "  <tr>",
-        demos({colspan:2, examples:meta.examples}),
+        demos({colspan:2, wrap:name === "base", examples:meta.examples}),
         "  </tr>",
         "</table>"
       ].join("\n")
@@ -480,7 +480,19 @@ metadata.to = {
 }
 
 //Demo for main and individual readmes
-function demos({colspan = null, examples = {}} = {}) {
+function demos({colspan = null, wrap = false, examples = {}} = {}) {
+  if (("default1" in examples)&&("default2" in examples)) {
+    return [
+      wrap ? '<td colspan="2"><table><tr>' : "",
+      '<td align="center">',
+        `<img src="${examples.default1}" alt=""></img>`,
+      "</td>",
+      '<td align="center">',
+        `<img src="${examples.default2}" alt=""></img>`,
+      "</td>",
+      wrap ? "</tr></table></td>" : "",
+    ].filter(v => v).join("\n")
+  }
   return [
     `    <td ${colspan ? `colspan="${colspan}"` : ""} align="center">`,
     `${Object.entries(examples).map(([text, link]) => {
@@ -495,5 +507,5 @@ function demos({colspan = null, examples = {}} = {}) {
     }).join("\n")}`,
     '      <img width="900" height="1" alt="">',
     "    </td>"
-  ].join("\n")
+  ].filter(v => v).join("\n")
 }
