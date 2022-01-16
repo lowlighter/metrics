@@ -1,5 +1,8 @@
 name: "📰 Recent activity"
 category: github
+description: This plugin displays your recent activity on GitHub.
+examples:
+  default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.activity.svg
 index: 13
 supports:
   - user
@@ -9,89 +12,99 @@ scopes:
   - public_access
 inputs:
 
-  # Enable or disable plugin
   plugin_activity:
-    description: Display recent activity
+    description: Enable activity plugin
     type: boolean
     default: no
 
-  # Number of activity events to display
   plugin_activity_limit:
-    description: Maximum number of events to display
+    description: Display limit
     type: number
     default: 5
     min: 1
     max: 1000
 
-  # Number of activity events to load
-  # This should be higher than "plugin_activity_limit"
-  # A high number will consume more requests
   plugin_activity_load:
-    description: Number of events to load
+    description: Events to load
     type: number
     default: 300
     min: 100
     max: 1000
 
-  # Filter events by age
-  # Note that it only filter fetched events, you may need to increase "plugin_activity_limit" to display older events
-  # Set to 0 to disable age filtering
   plugin_activity_days:
-    description: Maximum event age
+    description: Events maximum age
     type: number
     default: 14
     min: 0
     max: 365
+    zero: disable
 
-  # Filter events by type
-  plugin_activity_filter:
-    description: Events types to keep
-    type: array
-    format: comma-separated
-    default: all
-    example: issue, pr, review, wiki, star
-    values:
-      - all        # Display all types of events
-      - comment    # Display commits, issues and pull requests comments
-      - ref/create # Display tags and branches creations
-      - ref/delete # Display tags and branches deletions
-      - release    # Display published releases
-      - push       # Display commits
-      - issue      # Display issues events
-      - pr         # Display pull requests events
-      - review     # Display pull request reviews
-      - wiki       # Display wiki editions
-      - fork       # Display forked repositories
-      - star       # Display starred repositories
-      - member     # Display collaborators additions
-      - public     # Display repositories made public
-
-  # Set events visibility (use this to restrict events when using a "repo" token)
   plugin_activity_visibility:
-    description: Set events visibility
+    description: |
+      Events visibility
+
+      Lets you hide private activity when using a `repo` scope token
     type: string
     default: all
     values:
       - public
       - all
 
-  # Display events timestamps
   plugin_activity_timestamps:
     description: Display events timestamps
     type: boolean
     default: no
 
-  # List of repositories that will be skipped
   plugin_activity_skipped:
-    description: Repositories to skip
+    description: Skipped repositories
     type: array
     format: comma-separated
     default: ""
     example: my-repo-1, my-repo-2, owner/repo-3, ...
     inherits: repositories_skipped
 
-  # Ignored actors (useful to ignore bots users)
   plugin_activity_ignored:
-    description: Actors to ignore
+    description: |
+      Ignored users
+
+      Useful to ignore bots activity
     default: ""
     inherits: users_ignored
+
+  plugin_activity_filter:
+    description: |
+      Events types
+
+      These are fetched from [GitHub events API](https://docs.github.com/en/free-pro-team@latest/developers/webhooks-and-events/github-event-types) and the following types are currently supported:
+      - `push`: Push of commits
+      - `issue`: Opening/Reopening/Closing of issues
+      - `pr`: Opening/Closing of pull requests
+      - `ref/create: Creation of git tags or git branches
+      - `ref/delete: Deletion of git tags or git branches
+      - `release`: Publication of new releases
+      - `review`: Review of pull requests
+      - `comment`: Comments on commits, issues and pull requests
+      - `wiki`: Edition of wiki pages
+      - `fork`: Forking of repositories
+      - `star`: Starring of repositories
+      - `public`: Repositories made public
+      - `member`: Addition of new collaborator in repository
+    type: array
+    format: comma-separated
+    default: all
+    example: issue, pr, review, wiki, star
+    values:
+      - all
+      - comment
+      - ref/create
+      - ref/delete
+      - release
+      - push
+      - issue
+      - pr
+      - review
+      - wiki
+      - fork
+      - star
+      - member
+      - public

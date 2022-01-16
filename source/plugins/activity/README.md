@@ -1,35 +1,28 @@
-### 📰 Recent activity
-
-The *activity* plugin displays your recent activity on GitHub.
-
+<!--header-->
 <table>
-  <td align="center">
-    <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.activity.svg">
-    <img width="900" height="1" alt="">
-  </td>
+  <tr><th colspan="2"><h3>📰 Recent activity</h3></th></tr>
+  <tr><td colspan="2" align="center"><p>This plugin displays your recent activity on GitHub.</p>
+</td></tr>
+  <tr>
+    <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
+    <td><a href="/source/templates/classic"><code>📗 Classic template</code></a> <a href="/source/templates/markdown"><code>📒 Markdown template</code></a> <a href="/source/templates/repository"><code>📘 Repository template</code></a></td>
+  </tr>
+  <tr>
+    <td><code>👤 Users</code> <code>👥 Organizations</code> <code>📓 Repositories</code></td>
+  </tr>
+  <tr>
+    <td><code>🔑 (scopeless)</code> <code>read:org (optional)</code> <code>read:user (optional)</code> <code>repo (optional)</code></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
+      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.activity.svg" alt=""></img>
+      <img width="900" height="1" alt="">
+    </td>
+  </tr>
 </table>
+<!--/header-->
 
-It uses data from [GitHub events](https://docs.github.com/en/free-pro-team@latest/developers/webhooks-and-events/github-event-types) and is able to track the following events:
-
-| Event        | Description                                     |
-| ------------ | ----------------------------------------------- |
-| `push`       | Push of commits                                 |
-| `issue`      | Opening/Reopening/Closing of issues             |
-| `pr`         | Opening/Closing of pull requests                |
-| `ref/create` | Creation of git tags or git branches            |
-| `ref/delete` | Deletion of git tags or git branches            |
-| `release`    | Publication of new releases                     |
-| `review`     | Review of pull requests                         |
-| `comment`    | Comments on commits, issues and pull requests   |
-| `wiki`       | Edition of wiki pages                           |
-| `fork`       | Forking of repositories                         |
-| `star`       | Starring of repositories                        |
-| `public`     | Repositories made public                        |
-| `member`     | Addition of new collaborator in repository      |
-
-Use a full `repo` scope token to display **private** events.
-
-#### ➡️ Available options
+## ➡️ Available options
 
 <!--options-->
 <table>
@@ -38,7 +31,7 @@ Use a full `repo` scope token to display **private** events.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_activity</code></td>
-    <td rowspan="2"><p>Display recent activity</p>
+    <td rowspan="2"><p>Enable activity plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -48,7 +41,7 @@ Use a full `repo` scope token to display **private** events.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_activity_limit</code></td>
-    <td rowspan="2"><p>Maximum number of events to display</p>
+    <td rowspan="2"><p>Display limit</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -61,7 +54,7 @@ Use a full `repo` scope token to display **private** events.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_activity_load</code></td>
-    <td rowspan="2"><p>Number of events to load</p>
+    <td rowspan="2"><p>Events to load</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -74,7 +67,7 @@ Use a full `repo` scope token to display **private** events.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_activity_days</code></td>
-    <td rowspan="2"><p>Maximum event age</p>
+    <td rowspan="2"><p>Events maximum age</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -83,23 +76,13 @@ Use a full `repo` scope token to display **private** events.
 𝑥
 ≤ 365)</i>
 <br>
+<b>zero behaviour:</b> disable</br>
 <b>default:</b> 14<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_activity_filter</code></td>
-    <td rowspan="2"><p>Events types to keep</p>
-<img width="900" height="1" alt=""></td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap"><b>type:</b> <code>array</code>
-<i>(comma-separated)</i>
-<br>
-<b>default:</b> all<br>
-<b>allowed values:</b><ul><li>all</li><li>comment</li><li>ref/create</li><li>ref/delete</li><li>release</li><li>push</li><li>issue</li><li>pr</li><li>review</li><li>wiki</li><li>fork</li><li>star</li><li>member</li><li>public</li></ul></td>
-  </tr>
-  <tr>
     <td nowrap="nowrap"><code>plugin_activity_visibility</code></td>
-    <td rowspan="2"><p>Set events visibility</p>
+    <td rowspan="2"><p>Events visibility</p>
+<p>Lets you hide private activity when using a <code>repo</code> scope token</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -120,7 +103,7 @@ Use a full `repo` scope token to display **private** events.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_activity_skipped</code></td>
-    <td rowspan="2"><p>Repositories to skip</p>
+    <td rowspan="2"><p>Skipped repositories</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -131,7 +114,8 @@ Use a full `repo` scope token to display **private** events.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_activity_ignored</code></td>
-    <td rowspan="2"><p>Actors to ignore</p>
+    <td rowspan="2"><p>Ignored users</p>
+<p>Useful to ignore bots activity</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -139,12 +123,38 @@ Use a full `repo` scope token to display **private** events.
 <b>type:</b> <code>undefined</code>
 <br></td>
   </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_activity_filter</code></td>
+    <td rowspan="2"><p>Events types</p>
+<p>These are fetched from <a href="https://docs.github.com/en/free-pro-team@latest/developers/webhooks-and-events/github-event-types">GitHub events API</a> and the following types are currently supported:</p>
+<ul>
+<li><code>push</code>: Push of commits</li>
+<li><code>issue</code>: Opening/Reopening/Closing of issues</li>
+<li><code>pr</code>: Opening/Closing of pull requests</li>
+<li>`ref/create: Creation of git tags or git branches</li>
+<li>`ref/delete: Deletion of git tags or git branches</li>
+<li><code>release</code>: Publication of new releases</li>
+<li><code>review</code>: Review of pull requests</li>
+<li><code>comment</code>: Comments on commits, issues and pull requests</li>
+<li><code>wiki</code>: Edition of wiki pages</li>
+<li><code>fork</code>: Forking of repositories</li>
+<li><code>star</code>: Starring of repositories</li>
+<li><code>public</code>: Repositories made public</li>
+<li><code>member</code>: Addition of new collaborator in repository</li>
+</ul>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br>
+<b>default:</b> all<br>
+<b>allowed values:</b><ul><li>all</li><li>comment</li><li>ref/create</li><li>ref/delete</li><li>release</li><li>push</li><li>issue</li><li>pr</li><li>review</li><li>wiki</li><li>fork</li><li>star</li><li>member</li><li>public</li></ul></td>
+  </tr>
 </table>
 <!--/options-->
 
-*[→ Full specification](metadata.yml)*
-
-#### ℹ️ Examples workflows
+## ℹ️ Examples workflows
 
 <!--examples-->
 ```yaml
