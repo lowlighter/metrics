@@ -13,19 +13,20 @@ scopes:
   - public_access
 inputs:
 
-  # Enable or disable plugin
   plugin_sponsors:
-    description: Display GitHub sponsors
+    description: Enable sponsors plugin
     type: boolean
     default: no
 
-  # Sections to display
   plugin_sponsors_sections:
-    description: Sections to display
+    description: |
+      Displayed sections
+      - `goal`: display GitHub active goal
+      - `about`: display GitHub sponsors introduction
     type: array
     format: comma-separated
     default: goal, about
     example: goal, about
     values:
-      - goal    # Display your GitHub active goal
-      - about   # Display your GitHub sponsors introduction
+      - goal
+      - about

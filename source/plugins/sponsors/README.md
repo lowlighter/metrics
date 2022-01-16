@@ -32,7 +32,7 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_sponsors</code></td>
-    <td rowspan="2"><p>Display GitHub sponsors</p>
+    <td rowspan="2"><p>Enable sponsors plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -42,7 +42,11 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_sponsors_sections</code></td>
-    <td rowspan="2"><p>Sections to display</p>
+    <td rowspan="2"><p>Displayed sections</p>
+<ul>
+<li><code>goal</code>: display GitHub active goal</li>
+<li><code>about</code>: display GitHub sponsors introduction</li>
+</ul>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
