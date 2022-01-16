@@ -210,7 +210,7 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
           key,
           {
             comment:comments[key] ?? `# ${value.description}`,
-            descriptor:yaml.dump({[key]:Object.fromEntries(Object.entries(value).filter(([key]) => ["description", "default", "required"].includes(key)))}, {quotingType:'"', noCompatMode:true}),
+            descriptor:yaml.dump({[key]:Object.fromEntries(Object.entries(value).filter(([key]) => ["description", "default", "required"].includes(key)).map(([k, v]) => k === "description" ? [k, v.split("\n").at(0)] : [k, v]))}, {quotingType:'"', noCompatMode:true}),
           },
         ]),
       )
@@ -288,6 +288,7 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
         "<table>",
         `  <tr><th colspan="2"><h3>${meta.name}</h3></th></tr>`,
         `  <tr><td colspan="2" align="center">${marked.parse(meta.description ?? "", {silent:true})}</td></tr>`,
+        meta.authors?.length ? `<tr><th>Authors</th><td>${[meta.authors].flat().map(author => `<a href="https://github.com/${author}">@${author}</a>`)}</td></tr>` : "",
         "  <tr>",
         '    <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>',
         `    <td>${Object.entries(compatibility).filter(([_, value]) => value).map(([id]) => `<a href="/source/templates/${id}"><code>${templates[id].name ?? ""}</code></a>`).join(" ")}</td>`,
@@ -312,7 +313,7 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
         demos({colspan:2, wrap:name === "base", examples:meta.examples}),
         "  </tr>",
         "</table>",
-      ].join("\n")
+      ].filter(v => v).join("\n")
 
       //Options table
       const table = [
