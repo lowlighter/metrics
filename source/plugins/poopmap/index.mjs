@@ -3,10 +3,11 @@ export default async function({q, imports, data, account}, {enabled = false, tok
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
-    if ((!enabled)||(!q.poopmap))
+    if ((!enabled) || (!q.poopmap))
       return null
 
-    if (!token) return {poops:[], days:7}
+    if (!token)
+      return {poops:[], days:7}
 
     const {days} = imports.metadata.plugins.poopmap.inputs({data, account, q})
     const {data:{poops}} = await imports.axios.get(`https://api.poopmap.net/api/v1/public_links/${token}`)

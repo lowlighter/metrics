@@ -3,12 +3,12 @@ import core from "@actions/core"
 import github from "@actions/github"
 import octokit from "@octokit/graphql"
 import fs from "fs/promises"
+import processes from "child_process"
 import paths from "path"
 import sgit from "simple-git"
-import processes from "child_process"
+import mocks from "../../../tests/mocks/index.mjs"
 import metrics from "../metrics/index.mjs"
 import setup from "../metrics/setup.mjs"
-import mocks from "../../../tests/mocks/index.mjs"
 process.on("unhandledRejection", error => {
   throw error
 })
@@ -278,8 +278,8 @@ async function retry(func, {retries = 1, delay = 0} = {}) {
       try {
         await new Promise(async (solve, reject) => {
           let stdout = ""
-          setTimeout(() => reject("Timeout while waiting for Insights webserver"), 5*60*1000)
-          const web = await processes.spawn("node", ["/metrics/source/app/web/index.mjs"], {env:{...process.env, NO_SETTINGS: true }})
+          setTimeout(() => reject("Timeout while waiting for Insights webserver"), 5 * 60 * 1000)
+          const web = await processes.spawn("node", ["/metrics/source/app/web/index.mjs"], {env:{...process.env, NO_SETTINGS:true}})
           web.stdout.on("data", data => (console.debug(`web > ${data}`), stdout += data, /Server ready !/.test(stdout) ? solve() : null))
           web.stderr.on("data", data => console.debug(`web > ${data}`))
         })
@@ -339,7 +339,7 @@ async function retry(func, {retries = 1, delay = 0} = {}) {
     info.break()
     info.section("Saving")
     info("Output condition", _output_condition)
-    if ((_output_condition === "data-changed")&&((committer.commit) || (committer.pr))) {
+    if ((_output_condition === "data-changed") && ((committer.commit) || (committer.pr))) {
       const {svg} = await import("../metrics/utils.mjs")
       let data = ""
       await retry(async () => {
@@ -485,6 +485,7 @@ async function retry(func, {retries = 1, delay = 0} = {}) {
           }
           else
             throw error
+
         }
         info("Pull request number", number)
       }, {retries:retries_output_action, delay:retries_delay_output_action})
@@ -532,7 +533,7 @@ async function retry(func, {retries = 1, delay = 0} = {}) {
     if (delay) {
       info.break()
       info("Delay before ending job", `${delay}s`)
-      await new Promise(solve => setTimeout(solve, delay*1000))
+      await new Promise(solve => setTimeout(solve, delay * 1000))
     }
 
     //Success

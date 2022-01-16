@@ -3,7 +3,7 @@ export default async function({login, q, imports, data, rest, account}, {enabled
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
-    if ((!enabled)||(!q.code))
+    if ((!enabled) || (!q.code))
       return null
 
     //Context
@@ -25,15 +25,22 @@ export default async function({login, q, imports, data, rest, account}, {enabled
     try {
       for (let page = 1; page <= pages; page++) {
         console.debug(`metrics/compute/${login}/plugins > code > loading page ${page}/${pages}`)
-        events.push(...[...await Promise.all([...(context.mode === "repository" ? await rest.activity.listRepoEvents({owner:context.owner, repo:context.repo}) : await rest.activity.listEventsForAuthenticatedUser({username:login, per_page:100, page})).data
-          .filter(({type}) => type === "PushEvent")
-          .filter(({actor}) => account === "organization" ? true : actor.login?.toLocaleLowerCase() === login.toLocaleLowerCase())
-          .filter(({repo:{name:repo}}) => !((skipped.includes(repo.split("/").pop())) || (skipped.includes(repo))))
-          .filter(event => visibility === "public" ? event.public : true)
-          .flatMap(({payload}) => Promise.all(payload.commits.map(async commit => (await rest.request(commit.url)).data)))])]
-          .flat()
-          .filter(({parents}) => parents.length <= 1)
-          .filter(({author}) => data.shared["commits.authoring"].filter(authoring => author?.login?.toLocaleLowerCase().includes(authoring)||author?.email?.toLocaleLowerCase().includes(authoring)||author?.name?.toLocaleLowerCase().includes(authoring)).length)
+        events.push(
+          ...[
+            ...await Promise.all([
+              ...(context.mode === "repository"
+                ? await rest.activity.listRepoEvents({owner:context.owner, repo:context.repo})
+                : await rest.activity.listEventsForAuthenticatedUser({username:login, per_page:100, page})).data
+                .filter(({type}) => type === "PushEvent")
+                .filter(({actor}) => account === "organization" ? true : actor.login?.toLocaleLowerCase() === login.toLocaleLowerCase())
+                .filter(({repo:{name:repo}}) => !((skipped.includes(repo.split("/").pop())) || (skipped.includes(repo))))
+                .filter(event => visibility === "public" ? event.public : true)
+                .flatMap(({payload}) => Promise.all(payload.commits.map(async commit => (await rest.request(commit.url)).data))),
+            ]),
+          ]
+            .flat()
+            .filter(({parents}) => parents.length <= 1)
+            .filter(({author}) => data.shared["commits.authoring"].filter(authoring => author?.login?.toLocaleLowerCase().includes(authoring) || author?.email?.toLocaleLowerCase().includes(authoring) || author?.name?.toLocaleLowerCase().includes(authoring)).length),
         )
       }
     }
@@ -48,8 +55,8 @@ export default async function({login, q, imports, data, rest, account}, {enabled
       .filter(({patch}) => (patch ? (patch.match(/\n/mg)?.length ?? 1) : Infinity) < lines)
     for (const file of files)
       file.language = await imports.language({...file, prefix:login}).catch(() => "unknown")
-    files = files.filter(({language}) => (!languages.length)||(languages.includes(language.toLocaleLowerCase())))
-    const snippet = files[Math.floor(Math.random()*files.length)] ?? null
+    files = files.filter(({language}) => (!languages.length) || (languages.includes(language.toLocaleLowerCase())))
+    const snippet = files[Math.floor(Math.random() * files.length)] ?? null
     if (snippet) {
       //Trim common indent from content and change line feed
       if (!snippet.patch.split("\n").shift().endsWith("@@"))

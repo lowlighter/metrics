@@ -29,7 +29,7 @@ export default async function({login, data, computed, imports, q, graphql, queri
           closed:0,
           drafts:0,
           skipped:0,
-        }
+        },
       },
       pr:{
         get count() {
@@ -50,13 +50,12 @@ export default async function({login, data, computed, imports, q, graphql, queri
           closed:0,
           merged:0,
           drafts:0,
-        }
+        },
       },
     }
 
     //Extras features
     if (extras) {
-
       //Indepth mode
       if (indepth) {
         console.debug(`metrics/compute/${login}/plugins > followup > indepth`)
@@ -90,7 +89,7 @@ export default async function({login, data, computed, imports, q, graphql, queri
     }
 
     //Load user issues and pull requests
-    if ((account === "user")&&(sections.includes("user"))) {
+    if ((account === "user") && (sections.includes("user"))) {
       const search = await graphql(queries.followup.user({login}))
       followup.user = {
         issues:{

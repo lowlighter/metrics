@@ -70,7 +70,7 @@ placeholder.run = async vars => {
 //Setup
 beforeAll(async () => {
   //Clean community template
-  await fs.promises.rm(path.join(__dirname, "../source/templates/@classic"), { recursive: true, force:true })
+  await fs.promises.rm(path.join(__dirname, "../source/templates/@classic"), { recursive: true, force: true })
   //Start web instance
   await web.start()
 })
@@ -79,7 +79,7 @@ afterAll(async () => {
   //Stop web instance
   await web.stop()
   //Clean community template
-  await fs.promises.rm(path.join(__dirname, "../source/templates/@classic"), { recursive: true, force:true })
+  await fs.promises.rm(path.join(__dirname, "../source/templates/@classic"), { recursive: true, force: true })
 })
 
 //Load metadata (as jest doesn't support ESM modules, we use this dirty hack)

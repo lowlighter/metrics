@@ -6,9 +6,9 @@ import express from "express"
 import ratelimit from "express-rate-limit"
 import cache from "memory-cache"
 import util from "util"
+import mocks from "../../../tests/mocks/index.mjs"
 import metrics from "../metrics/index.mjs"
 import setup from "../metrics/setup.mjs"
-import mocks from "../../../tests/mocks/index.mjs"
 
 /**App */
 export default async function({mock, nosettings} = {}) {

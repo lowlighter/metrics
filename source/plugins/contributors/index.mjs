@@ -69,7 +69,7 @@ export default async function({login, q, imports, data, rest, graphql, queries, 
 
     //Contributions categories
     const types = Object.fromEntries([...new Set(Object.keys(categories))].map(type => [type, new Set()]))
-    if ((sections.includes("categories"))&&(extras)) {
+    if ((sections.includes("categories")) && (extras)) {
       //Temporary directory
       const repository = `${repo.owner}/${repo.repo}`
       const path = imports.paths.join(imports.os.tmpdir(), `${repository.replace(/[^\w]/g, "_")}`)
@@ -90,10 +90,11 @@ export default async function({login, q, imports, data, rest, graphql, queries, 
             stdout(line) {
               if (line.trim().length)
                 files.push(line)
-            }
+            },
           })
           //Search for contributions type in specified categories
-          filesloop: for (const file of files) {
+          filesloop:
+          for (const file of files) {
             for (const [category, globs] of Object.entries(categories)) {
               for (const glob of [globs].flat(Infinity)) {
                 if (imports.minimatch(file, glob, {nocase:true})) {

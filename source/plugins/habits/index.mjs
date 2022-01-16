@@ -1,5 +1,5 @@
 //Legacy import
-import { recent as recent_analyzer } from "./../languages/analyzers.mjs"
+import {recent as recent_analyzer} from "./../languages/analyzers.mjs"
 
 //Setup
 export default async function({login, data, rest, imports, q, account}, {enabled = false, extras = false, ...defaults} = {}) {
@@ -45,7 +45,7 @@ export default async function({login, data, rest, imports, q, account}, {enabled
       ...await Promise.allSettled(
         commits
           .flatMap(({payload}) => payload.commits)
-          .filter(({author}) => data.shared["commits.authoring"].filter(authoring => author?.login?.toLocaleLowerCase().includes(authoring)||author?.email?.toLocaleLowerCase().includes(authoring)||author?.name?.toLocaleLowerCase().includes(authoring)).length)
+          .filter(({author}) => data.shared["commits.authoring"].filter(authoring => author?.login?.toLocaleLowerCase().includes(authoring) || author?.email?.toLocaleLowerCase().includes(authoring) || author?.name?.toLocaleLowerCase().includes(authoring)).length)
           .map(async commit => (await rest.request(commit)).data.files),
       ),
     ]
@@ -93,22 +93,23 @@ export default async function({login, data, rest, imports, q, account}, {enabled
       //Compute average number of characters per line of code fetched
       console.debug(`metrics/compute/${login}/plugins > habits > computing average number of characters per line of code`)
       const lines = patches.flatMap(({patch}) => patch.split("\n").map(line => line.length))
-      habits.lines.average.chars = lines.reduce((a, b) => a + b, 0)/lines.length
+      habits.lines.average.chars = lines.reduce((a, b) => a + b, 0) / lines.length
     }
 
     //Linguist
-    if ((extras)&&(charts)) {
+    if ((extras) && (charts)) {
       //Check if linguist exists
       console.debug(`metrics/compute/${login}/plugins > habits > searching recently used languages using linguist`)
       if (patches.length) {
         //Call language analyzer (note: using content from other plugin is usually disallowed, this is mostly for legacy purposes)
         habits.linguist.available = true
         const {total, stats} = await recent_analyzer({login, data, imports, rest, account}, {days, load:from || 1000, tempdir:"habits"})
-        habits.linguist.languages = Object.fromEntries(Object.entries(stats).map(([language, value]) => [language, value/total]))
+        habits.linguist.languages = Object.fromEntries(Object.entries(stats).map(([language, value]) => [language, value / total]))
         habits.linguist.ordered = Object.entries(habits.linguist.languages).sort(([_an, a], [_bn, b]) => b - a)
       }
       else
         console.debug(`metrics/compute/${login}/plugins > habits > linguist not available`)
+
     }
 
     //Results

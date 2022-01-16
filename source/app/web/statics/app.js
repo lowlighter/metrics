@@ -31,8 +31,8 @@
         //Plugins
         (async () => {
           const { data: plugins } = await axios.get("/.plugins")
-          this.plugins.list = plugins.filter(({name}) => metadata[name]?.supports.includes("user") || metadata[name]?.supports.includes("organization"))
-          const categories = [...new Set(this.plugins.list.map(({category}) => category))]
+          this.plugins.list = plugins.filter(({ name }) => metadata[name]?.supports.includes("user") || metadata[name]?.supports.includes("organization"))
+          const categories = [...new Set(this.plugins.list.map(({ category }) => category))]
           this.plugins.categories = Object.fromEntries(categories.map(category => [category, this.plugins.list.filter(value => category === value.category)]))
         })(),
         //Base
@@ -68,8 +68,10 @@
       tab: {
         immediate: true,
         handler(current) {
-          if (current === 'action') this.clipboard = new ClipboardJS('.copy-action')
-          else this.clipboard?.destroy()
+          if (current === "action")
+            this.clipboard = new ClipboardJS(".copy-action")
+          else
+            this.clipboard?.destroy()
         },
       },
       palette: {
@@ -181,7 +183,7 @@
       scopes() {
         return new Set([
           ...Object.entries(this.plugins.enabled).filter(([key, value]) => (key !== "base") && (value)).flatMap(([key]) => metadata[key].scopes),
-          ...(Object.entries(this.plugins.enabled.base).filter(([key, value]) => value).length ? metadata.base.scopes : [])
+          ...(Object.entries(this.plugins.enabled.base).filter(([key, value]) => value).length ? metadata.base.scopes : []),
         ])
       },
       //GitHub action auto-generated code
@@ -201,17 +203,19 @@
           `    steps:`,
           `      - uses: lowlighter/metrics@latest`,
           `        with:`,
-          ...(this.scopes.size ? [
-          `          # Your GitHub token`,
-          `          # The following scopes are required:`,
-          ...[...this.scopes].map(scope => `          #  - ${scope}${scope === "public_access" ? " (default scope)" : ""}`),
-          `          # The following additional scopes may be required:`,
-          `          #  - read:org  (for organization related metrics)`,
-          `          #  - read:user (for user related data)`,
-          `          #  - repo      (optional, if you want to include private repositories)`
-          ] : [
-          `          # Current configuration doesn't require a GitHub token`,
-          ]),
+          ...(this.scopes.size
+            ? [
+              `          # Your GitHub token`,
+              `          # The following scopes are required:`,
+              ...[...this.scopes].map(scope => `          #  - ${scope}${scope === "public_access" ? " (default scope)" : ""}`),
+              `          # The following additional scopes may be required:`,
+              `          #  - read:org  (for organization related metrics)`,
+              `          #  - read:user (for user related data)`,
+              `          #  - repo      (optional, if you want to include private repositories)`,
+            ]
+            : [
+              `          # Current configuration doesn't require a GitHub token`,
+            ]),
           `          token: ${this.scopes.size ? `${"$"}{{ secrets.METRICS_TOKEN }}` : "NOT_NEEDED"}`,
           ``,
           `          # Options`,
@@ -252,7 +256,7 @@
     methods: {
       //Refresh computed properties
       async refresh() {
-        const keys = {action:["scopes", "action"], markdown:["url", "embed"]}[this.tab]
+        const keys = { action: ["scopes", "action"], markdown: ["url", "embed"] }[this.tab]
         if (keys) {
           for (const key of keys)
             this._computedWatchers[key]?.run()
