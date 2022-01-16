@@ -831,6 +831,7 @@ jobs:
           plugin_tweets_token: ${{ secrets.TWITTER_TOKEN }}
           plugin_tweets_attachments: 'yes'
           plugin_tweets_user: github
+          plugin_tweets_limit: 1
           plugins_errors_fatal: 'yes'
           output_action: none
           delay: 120
@@ -855,6 +856,7 @@ jobs:
           base: ''
           plugin_posts: 'yes'
           plugin_posts_source: dev.to
+          plugin_posts_limit: 2
           plugin_posts_descriptions: 'yes'
           plugin_posts_covers: 'yes'
           plugins_errors_fatal: 'yes'

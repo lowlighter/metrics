@@ -2,8 +2,8 @@ name: "🐤 Latest tweets"
 category: social
 description: This plugin displays the latest tweets from your [Twitter](https://twitter.com) account.
 examples:
-  +latest tweets: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.tweets.svg
-  latest tweets with attachments: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.tweets.attachments.svg
+  +latest tweets with attachments: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.tweets.attachments.svg
+  latest tweets: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.tweets.svg
 index: 5
 supports:
   - user

@@ -15,5 +15,6 @@
     base: ""
     plugin_posts: yes
     plugin_posts_source: dev.to
+    plugin_posts_limit: 2
     plugin_posts_descriptions: yes
     plugin_posts_covers: yes
