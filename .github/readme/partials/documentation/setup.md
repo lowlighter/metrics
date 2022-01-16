@@ -12,7 +12,7 @@ There are several ways to setup metrics, each having its advantages and disadvan
 * [🏗️ Deploying a web instance *(~20 min)*](/.github/readme/partials/documentation/setup/web.md)
   * ✔️ Create another shared instance
   * ➖ Requires some sysadmin knowlegde
-* [🐳 Using command line with docker *(~5 min)*](/.github/readme/partials/documentation/setup/docker.md)
+* [🐳 Using command line with docker *(~2 min)*](/.github/readme/partials/documentation/setup/docker.md)
   * ✔️ Suited for one-time rendering
 * [🔧 Local setup for development *(~20 min)*](/.github/readme/partials/documentation/setup/local.md)
 
