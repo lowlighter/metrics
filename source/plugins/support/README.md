@@ -1,17 +1,27 @@
-### 💭 GitHub Community Support
-
-The *support* plugin lets you display your statistics from [GitHub Support Community](https://github.community/).
-
+<!--header-->
 <table>
-  <td align="center">
-    <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.support.svg">
-    <img width="900" height="1" alt="">
-  </td>
+  <tr><th colspan="2"><h3>💭 GitHub Community Support</h3></th></tr>
+  <tr><td colspan="2" align="center"><p>This plugin displays your statistics from <a href="https://github.community/">GitHub Support Community</a> (an account must be created on it beforehand).</p>
+</td></tr>
+  <tr>
+    <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
+    <td><a href="/source/templates/classic"><code>📗 Classic template</code></a></td>
+  </tr>
+  <tr>
+    <td><code>👤 Users</code></td>
+  </tr>
+  <tr>
+    <td><i>No tokens are required for this plugin</i></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
+      <img width="900" height="1" alt="">
+    </td>
+  </tr>
 </table>
+<!--/header-->
 
-An account on [GitHub Support Community](https://github.community/) is required to use this plugin.
-
-#### ➡️ Available options
+## ➡️ Available options
 
 <!--options-->
 <table>
@@ -20,7 +30,7 @@ An account on [GitHub Support Community](https://github.community/) is required 
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_support</code></td>
-    <td rowspan="2"><p>GitHub Community Support metrics</p>
+    <td rowspan="2"><p>Enable support plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -31,9 +41,7 @@ An account on [GitHub Support Community](https://github.community/) is required 
 </table>
 <!--/options-->
 
-*[→ Full specification](metadata.yml)*
-
-#### ℹ️ Examples workflows
+## ℹ️ Examples workflows
 
 <!--examples-->
 ```yaml
