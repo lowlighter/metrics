@@ -39,7 +39,7 @@
       "enabled": false,            "//": "Enable languages plugin"
     },
     "topics":{
-      "enabled": false,            "//": "Display starred topics"
+      "enabled": false,            "//": "Enable topics plugin"
     },
     "stars":{
       "enabled": false,            "//": "Enable stars plugin"
@@ -72,10 +72,10 @@
       "enabled": false,            "//": "Display a random code snippet from recent activity"
     },
     "activity":{
-      "enabled": false,            "//": "Display recent activity"
+      "enabled": false,            "//": "Enable activity plugin"
     },
     "achievements":{
-      "enabled": false,            "//": "Display achievements"
+      "enabled": false,            "//": "Enable achievements plugin"
     },
     "notable":{
       "enabled": false,            "//": "Display notable contributions in organizations"
@@ -122,7 +122,7 @@
       "enabled": false,            "//": "Stackoverflow metrics"
     },
     "anilist":{
-      "enabled": false,            "//": "Display data from your AniList account"
+      "enabled": false,            "//": "Enable aniList plugin"
     },
     "tweets":{
       "token": null,               "//":"Twitter API token",

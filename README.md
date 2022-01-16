@@ -11,13 +11,11 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
   </tr>
   <tr>
     <td align="center">
-      <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.classic.svg">
-      <img width="900" height="1" alt="">
-    </td>
-    <td align="center">
-      <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.organization.svg">
-      <img width="900" height="1" alt="">
-    </td>
+<img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.classic.svg" alt=""></img>
+</td>
+<td align="center">
+<img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.organization.svg" alt=""></img>
+</td>
   </tr>
   <tr>
     <th colspan="2" align="center">
@@ -47,15 +45,11 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
     <th><a href="source/plugins/stars/README.md">🌟 Recently starred repositories</a></th>
   </tr>
   <tr>
-    <td align="center">
-      <details open><summary>With icons</summary>
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.topics.icons.svg">
-      </details>
-      <details open><summary>With labels</summary>
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.topics.svg">
-      </details>
-      <img width="900" height="1" alt="">
-    </td>
+        <td  align="center">
+        <details open><summary>With icons</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.topics.icons.svg" alt=""></img></details>
+        <details open><summary>With labels</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.topics.svg" alt=""></img></details>
+        <img width="900" height="1" alt="">
+      </td>
         <td  align="center">
         <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stars.svg" alt=""></img>
         <img width="900" height="1" alt="">
@@ -150,25 +144,21 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
       <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.code.svg">
       <img width="900" height="1" alt="">
     </td>
-    <td align="center">
-      <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.activity.svg">
-      <img width="900" height="1" alt="">
-    </td>
+        <td  align="center">
+        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.activity.svg" alt=""></img>
+        <img width="900" height="1" alt="">
+      </td>
   </tr>
   <tr>
     <th><a href="source/plugins/achievements/README.md">🏆 Achievements</a></th>
     <th><a href="source/plugins/notable/README.md">🎩 Notable contributions</a></th>
   </tr>
   <tr>
-    <td align="center">
-      <details open><summary>Compact display</summary>
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.achievements.compact.svg">
-      </details>
-      <details><summary>Detailed display</summary>
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.achievements.svg">
-      </details>
-      <img width="900" height="1" alt="">
-    </td>
+        <td  align="center">
+        <details open><summary>Compact display</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.achievements.compact.svg" alt=""></img></details>
+        <details><summary>Detailed display</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.achievements.svg" alt=""></img></details>
+        <img width="900" height="1" alt="">
+      </td>
     <td align="center">
       <details open><summary>Indepth analysis</summary>
         <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.notable.indepth.svg">
@@ -294,18 +284,12 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
       <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stackoverflow.svg">
       <img width="900" height="1" alt="">
     </td>
-    <td align="center">
-      <details open><summary>For anime watchers</summary>
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.anilist.svg">
-      </details>
-      <details><summary>For manga readers</summary>
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.anilist.manga.svg">
-      </details>
-      <details open><summary>Favorites characters</summary>
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.anilist.characters.svg">
-      </details>
-      <img width="900" height="1" alt="">
-    </td>
+        <td  align="center">
+        <details open><summary>For anime watchers</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.anilist.svg" alt=""></img></details>
+        <details open><summary>For manga readers</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.anilist.manga.svg" alt=""></img></details>
+        <details open><summary>For waifus simp</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.anilist.characters.svg" alt=""></img></details>
+        <img width="900" height="1" alt="">
+      </td>
   </tr>
   <tr>
     <th><a href="source/plugins/tweets/README.md">🐤 Latest tweets</a></th>
