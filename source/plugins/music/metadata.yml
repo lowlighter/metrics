@@ -1,5 +1,12 @@
 name: "🎼 Music plugin"
 category: social
+description: |
+  This plugin can display top and recently listened music tracks or from a random playlist.
+
+  Different music providers are supported.
+examples:
+  +random tracks from a playlist: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.music.playlist.svg
+  +recently listened: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.music.recent.svg
 index: 2
 supports:
   - user
@@ -7,87 +14,100 @@ supports:
 scopes: []
 inputs:
 
-  # Enable or disable plugin
   plugin_music:
-    description: Display your music tracks
+    description: Enable music plugin
     type: boolean
     default: no
 
-  # Name of music provider
-  # This is optional for "playlist" mode (it can be deduced automatically from "plugin_music_playlist" url)
-  # This is required in other modes
   plugin_music_provider:
-    description: Music provider
+    description: |
+      Music provider
+      - `apple`: Apple Music
+      - `spotify`: Spotify
+      - `lastfm`: Last.fm
+      - `youtube`: YouTube Music
+
+      This setting is optional when using `plugin_music_mode: playlist` (provider will be auto-detected from `plugin_music_playlist` URL)
     type: string
     default: ""
     values:
-      - apple   # Apple Music
-      - spotify # Spotify
-      - lastfm  # Last.fm
-      - youtube # YouTube
+      - apple
+      - spotify
+      - lastfm
+      - youtube
 
-  # Music provider token
-  # This may be required depending on music provider used and plugin mode
-  # - "apple"   : not required
-  # - "spotify" : required for "recent" or "top" mode, format is "client_id, client_secret, refresh_token"
-  # - "lastfm"  : required, format is "api_key"
-  # - "youtube" : required for "recent" mode, format is "cookie"
   plugin_music_token:
-    description: Music provider personal token
+    description: |
+      Music provider token
+
+      Below is the expected token format for each provider:
+      - `apple`: *(not supported)*
+      - `spotify`: "client_id, client_secret, refresh_token"
+      - `lastfm`: "api_key"
+      - `youtube`: "cookie"
     type: token
     default: ""
 
-  # Plugin mode
   plugin_music_mode:
-    description: Plugin mode
-    type: string
-    default: ""  # Defaults to "recent" or to "playlist" if "plugin_music_playlist" is specified
-    values:
-      - playlist # Display tracks from an embed playlist randomly
-      - recent   # Display recently listened tracks
-      - top   # Display top listened artists/tracks
+    description: |
+      Display mode
+      - `playlist`: display random tracks from an URL playlist
+      - `recent`: display recently listened tracks
+      - `top`: display top listened artists/tracks
 
-  # Embed playlist url (i.e. url used by music player iframes)
+      If `plugin_music_playlist` is specifed, the default value is `playlist`, else it is `recent`
+    type: string
+    default: ""
+    values:
+      - playlist
+      - recent
+      - top
+
   plugin_music_playlist:
-    description: Embed playlist url
+    description: |
+      Playlist URL
+
+      It must be from an "embed url" (i.e. music player iframes that can be integrated in other websites)
     type: string
     default: ""
     example: https://embed.music.apple.com/--/playlist/--------/--------
 
-  # Number of music tracks to display
   plugin_music_limit:
-    description: Maximum number of tracks to display
+    description: Display limit
     type: number
     default: 4
     min: 1
     max: 100
 
-  # Display when track was last played
   plugin_music_played_at:
-    description: Display when the track was played
+    description: Recently played - Toggle last played timestamp display
     type: boolean
     default: no
 
-  # Time range for "top" mode
   plugin_music_time_range:
-    description: Time period for top mode
+    description: |
+      Top tracks - Time range for `top` mode
+      - `short`: 4 weeks
+      - `medium`: 6 months
+      - `long`: several years
     type: string
-    default: short  # Defaults to "short" (4 weeks)
+    default: short
     values:
-      - short # Top artists/tracks from past 4 weeks
-      - medium   # Top artists/tracks from past 6 months
-      - long   # Top artists/tracks from several years
+      - short
+      - medium
+      - long
 
-  # Option for "top" mode to select tracks or artists
   plugin_music_top_type:
-    description: Whether to show tracks or artists in top mode
+    description: |
+      Top tracks - Display type
+      - `tracks`: display track
+      - `artists`: display artists
     type: string
     default: tracks
     values:
       - tracks
       - artists
 
-  # Username on music provider service
   plugin_music_user:
     description: Music provider username
     type: string
