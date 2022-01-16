@@ -15,8 +15,8 @@
   </tr>
   <tr>
     <td colspan="2" align="center">
-      <details open><summary>Latest tweets</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.tweets.svg" alt=""></img></details>
-      <details><summary>Latest tweets with attachments</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.tweets.attachments.svg" alt=""></img></details>
+      <details open><summary>Latest tweets with attachments</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.tweets.attachments.svg" alt=""></img></details>
+      <details><summary>Latest tweets</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.tweets.svg" alt=""></img></details>
       <img width="900" height="1" alt="">
     </td>
   </tr>
@@ -121,6 +121,7 @@ with:
   plugin_tweets_token: ${{ secrets.TWITTER_TOKEN }}
   plugin_tweets_attachments: 'yes'
   plugin_tweets_user: github
+  plugin_tweets_limit: 1
 
 ```
 <!--/examples-->

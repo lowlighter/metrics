@@ -15,5 +15,6 @@
     plugin_tweets_token: MOCKED_TOKEN
     plugin_tweets_attachments: 'yes'
     plugin_tweets_user: github
+    plugin_tweets_limit: 1
     use_mocked_data: 'yes'
     verify: 'yes'

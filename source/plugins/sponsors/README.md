@@ -16,7 +16,7 @@
   <tr>
     <td colspan="2" align="center">
       <details open><summary>GitHub sponsors card</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.sponsors.svg" alt=""></img></details>
-      <details open><summary>GitHub sponsors full introduction</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.sponsors.full.svg" alt=""></img></details>
+      <details><summary>GitHub sponsors full introduction</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.sponsors.full.svg" alt=""></img></details>
       <img width="900" height="1" alt="">
     </td>
   </tr>
