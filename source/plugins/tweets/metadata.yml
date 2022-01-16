@@ -1,5 +1,9 @@
 name: "🐤 Latest tweets"
 category: social
+description: This plugin displays the latest tweets from your [Twitter](https://twitter.com) account.
+examples:
+  +latest tweets: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.tweets.svg
+  latest tweets with attachments: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.tweets.attachments.svg
 index: 5
 supports:
   - user
@@ -7,34 +11,28 @@ supports:
 scopes: []
 inputs:
 
-  # Enable or disable plugin
   plugin_tweets:
-    description: Display recent tweets
+    description: Enable tweets plugin
     type: boolean
     default: no
 
-  # Twitter API token
-  # See https://apps.twitter.com for more informations
   plugin_tweets_token:
     description: Twitter API token
     type: token
     default: ""
 
-  # Display tweets attachments (images, video previews, etc.)
   plugin_tweets_attachments:
-    description: Display tweets attchments
+    description: Display tweets attachments (images, video previews, etc.)
     type: boolean
     default: no
 
-  # Number of tweets to display
   plugin_tweets_limit:
-    description: Maximum number of tweets to display
+    description: Display limit
     type: number
     default: 2
     min: 1
     max: 10
 
-  # Twitter username
   plugin_tweets_user:
     description: Twitter username
     type: string

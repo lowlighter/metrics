@@ -1,32 +1,29 @@
-### 🐤 Tweets
-
-The recent *tweets* plugin displays your latest tweets from your [Twitter](https://twitter.com) account.
-
+<!--header-->
 <table>
-  <td align="center">
-    <details open><summary>Latest tweets</summary>
-      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.tweets.svg">
-    </details>
-    <details><summary>Latest tweets with attachments</summary>
-      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.tweets.attachments.svg">
-    </details>
-    <img width="900" height="1" alt="">
-  </td>
+  <tr><th colspan="2"><h3>🐤 Latest tweets</h3></th></tr>
+  <tr><td colspan="2" align="center"><p>This plugin displays the latest tweets from your <a href="https://twitter.com">Twitter</a> account.</p>
+</td></tr>
+  <tr>
+    <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
+    <td><a href="/source/templates/classic"><code>📗 Classic template</code></a> <a href="/source/templates/markdown"><code>📒 Markdown template</code></a></td>
+  </tr>
+  <tr>
+    <td><code>👤 Users</code> <code>👥 Organizations</code></td>
+  </tr>
+  <tr>
+    <td><code>🗝️ plugin_tweets_token</code></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
+      <details open><summary>Latest tweets</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.tweets.svg" alt=""></img></details>
+      <details><summary>Latest tweets with attachments</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.tweets.attachments.svg" alt=""></img></details>
+      <img width="900" height="1" alt="">
+    </td>
+  </tr>
 </table>
+<!--/header-->
 
-<details>
-<summary>💬 Obtaining a Twitter token</summary>
-
-To get a Twitter token, you'll need to apply to the [developer program](https://apps.twitter.com).
-It's a bit tedious, but it seems that requests are approved quite quickly.
-
-Create an app from your [developer dashboard](https://developer.twitter.com/en/portal/dashboard) and register your bearer token in your repository secrets.
-
-![Twitter token](/.github/readme/imgs/plugin_tweets_secrets.png)
-
-</details>
-
-#### ➡️ Available options
+## ➡️ Available options
 
 <!--options-->
 <table>
@@ -35,7 +32,7 @@ Create an app from your [developer dashboard](https://developer.twitter.com/en/p
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_tweets</code></td>
-    <td rowspan="2"><p>Display recent tweets</p>
+    <td rowspan="2"><p>Enable tweets plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -55,7 +52,7 @@ Create an app from your [developer dashboard](https://developer.twitter.com/en/p
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_tweets_attachments</code></td>
-    <td rowspan="2"><p>Display tweets attchments</p>
+    <td rowspan="2"><p>Display tweets attachments (images, video previews, etc.)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -65,7 +62,7 @@ Create an app from your [developer dashboard](https://developer.twitter.com/en/p
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_tweets_limit</code></td>
-    <td rowspan="2"><p>Maximum number of tweets to display</p>
+    <td rowspan="2"><p>Display limit</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -89,9 +86,16 @@ Create an app from your [developer dashboard](https://developer.twitter.com/en/p
 </table>
 <!--/options-->
 
-*[→ Full specification](metadata.yml)*
+## 🗝️ Obtaining a Twitter token
 
-#### ℹ️ Examples workflows
+To get a Twitter token, it is required to apply to the [developer program](https://apps.twitter.com).
+It's a bit tedious, but requests seems to be approved quite quickly.
+
+Create an app from the [developer dashboard](https://developer.twitter.com/en/portal/dashboard) and register your bearer token in repository secrets.
+
+![Twitter token](/.github/readme/imgs/plugin_tweets_secrets.png)
+
+## ℹ️ Examples workflows
 
 <!--examples-->
 ```yaml
