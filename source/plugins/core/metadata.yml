@@ -1,5 +1,6 @@
 name: "🧱 Core"
 category: core
+description: Global configuration and options
 supports:
   - user
   - organization
@@ -7,314 +8,375 @@ supports:
 scopes: []
 inputs:
 
-  # User account personal token
-  # No additional scopes are needed unless you want to include private repositories metrics
-  # Some plugins may also require additional scopes
-  # ────────────────────────────────────────────────────────────────
-  # If you're only using plugins which don't really require a GitHub token, you may pass "NOT_NEEDED" as value
   token:
-    description: GitHub Personal Token
+    description: |
+      GitHub Personal Access Token
+
+      No scopes are required by default, though some plugins and features may require additional scopes
+
+      When using a configuration which does not requires a GitHub PAT, you may pass `NOT_NEEDED` instead
     type: token
     required: true
 
-  # GitHub username
-  # Defaults to "token" owner
   user:
-    description: GitHub username
+    description: |
+      GitHub username
+
+      Defaults to `token` owner username.
     type: string
     default: ""
 
-  # GitHub repository
-  # Compute metrics for a repository instead ("user" being the repository owner)
-  # Check https://github.com/lowlighter/metrics/blob/master/source/templates/repository/README.md for more informations
   repo:
-    description: GitHub repository
+    description: |
+      GitHub repository
+
+      This option is revevalant only for repositories templates
     type: string
     default: ""
 
-  # Set to "${{ github.token }}" or "${{ secrets.GITHUB_TOKEN }}"
-  # GITHUB_TOKEN is a special auto-generated token restricted to current repository, which is used to push files in it
   committer_token:
-    description: GitHub Token used to commit metrics
+    description: |
+      GitHub Token used to commit metrics
+
+      Leave this to `${{ github.token }}` or `${{ secrets.GITHUB_TOKEN }}`, which is a special auto-generated token restricted to current repository scope.
+
+      > 💡 When using `output_action: gist`, it will use `token` instead, since gists are outside of scope
     type: token
     default: ${{ github.token }}
 
-  # Branch used to commit rendered metrics
   committer_branch:
-    description: Branch used to commit rendered metrics
-    type: string
-    default: "" # Defaults to your repository default branch
+    description: |
+      Target branch
 
-  # Commit message
-  # Use "${filename}" to display filename
-  committer_message:
-    description: Commit message
-    type: string
-    default: Update ${filename} - [Skip GitHub Action]
-
-  # Instead of saving metrics to a repository, it's possible to save them to a gist to avoid "commits pollution"
-  # Gist must be created prior and you must pass its identifier in the following option
-  # Set "gist" in "output_action" to use this option
-  committer_gist:
-    description: Gist used to store metrics
+      Default value is set to your repository default branch
     type: string
     default: ""
 
-  # Rendered metrics output path, relative to repository's root
-  # When using "*", the correct extension will automatically on "config_output" value
+  committer_message:
+    description: |
+      Commit message
+
+      Use `${filename}` to display filename
+    type: string
+    default: Update ${filename} - [Skip GitHub Action]
+
+  committer_gist:
+    description: |
+      Gist id
+
+      Specify an existing gist id (can be retrieved from its URL) when using `output_action: gist`.
+    type: string
+    default: ""
+
   filename:
-    description: Rendered metrics output path
+    description: |
+      Output path
+
+      When using an asterisk (`*`), correct extension will automatically be applied according to `config_output` value
     type: string
     default: github-metrics.*
 
-  # Rendered markdown output path (when using a markdown template)
-  # It can be either a local path or a link (e.g. raw.githubusercontent.com)
   markdown:
-    description: Rendered markdown output path
+    description: |
+      Markdown template path
+
+      It can be either a local path or a full link (e.g. https://raw.githubusercontent.com)
     type: string
     default: TEMPLATE.md
 
-  # Rendered markdown file cache (when using a markdown template)
   markdown_cache:
-    description: Rendered markdown file cache
+    description: Markdown file cache
     type: string
     default: .cache
 
-  # Output action
   output_action:
-    description: Output action
+    description: |
+      Output action
+      - `none`: just create file in `/metrics_renders` directory of action runner
+      - `commit`: push output to `committer_branch`
+      - `pull-request`: push output to a new branch and open a pull request to `committer_branch`
+      - `pull-request-merge`: same as `pull-request` and additionaly merge pull request
+      - `pull-request-squash`: same as `pull-request` and additionaly squash and merge pull request
+      - `pull-request-rebase`: same as `pull-request` and additionaly rebase and merge pull request
+      - `gist`: push output to `committer_gist`
+
+      > 💡 When using `pull-request`, you will need to set the last job with a `pull-request-*` action instead, else it won't be merged
     type: string
     default: commit
     values:
-      - none                # Only generate file in "/metrics_renders"
-      - commit              # Commit output to "committer_branch"
-      - pull-request        # Commit output to a new branch and open a pull request to "committer_branch"
-      - pull-request-merge  # Same as "pull-request" and additionaly merge pull request
-      - pull-request-squash # Same as "pull-request" and additionaly squash and merge pull request
-      - pull-request-rebase # Same as "pull-request" and additionaly rebase and merge pull request
-      - gist                # Save output to "committer_gist"
+      - none
+      - commit
+      - pull-request
+      - pull-request-merge
+      - pull-request-squash
+      - pull-request-rebase
+      - gist
 
-  # Output condition
   output_condition:
-    description: Output condition
-    type: string
-    default: always
-    values:
-      - always        # Always push changes
-      - data-changed  # Skip changes if no actual data changed (e.g. when only render timestamp changed)
+    description: |
+      Output condition
+      - `always`: always try to push changes
+      - `data-changed`: skip changes if no data changed (e.g. like when only metadata changed)
 
-  # Optimize SVG image to reduce its filesize
-  # Some templates may not support this option
   optimize:
-    description: SVG optimization
+    description: |
+      Optimization features
+      - `css`: purge and minify CSS styles
+      - `xml`: pretty-print XML (useful to reduce diff)
+      - `svg`: optimization with SVGO (experimental, require `--optimize-svg` experimental flag)
+
+      Some templates may not support all options
     type: array
     default: css, xml
     format:
       - comma-separated
     values:
-      - css  # Purge and minify CSS styles
-      - xml  # Pretty-print XML
-      - svg  # Optimize SVG with SVGO (experimental, require --optimize-svg flag)
+      - css
+      - xml
+      - svg
 
   # Setup additional templates from remote repositories
   setup_community_templates:
-    description: Additional community templates to setup
+    description: |
+      Community templates to setup
+
+      See [community templates guide](https://github.com/lowlighter/metrics/blob/master/source/templates/community/README.md) for more informations
     type: array
-    format:
-      - comma-separated
-      - /(?<user>[-a-z0-9]+)[/](?<repo>[-a-z0-9]+)@(?<branch>[-a-z0-9]+):(?<template>[-a-z0-9]+)/
+    format: comma-separated
     default: ""
     extras: yes
 
-  # Template to use
-  # To use community template, prefix its name with "@"
   template:
-    description: Template to use
+    description: |
+      Template
+
+      Community templates must be prefixed by at sign (`@`)
+      See [list of supported templates](https://github.com/lowlighter/metrics/blob/master/README.md#%EF%B8%8F-templates)
     type: string
     default: classic
 
-  # Additional query parameters (JSON string)
-  # Some templates may require additional parameters which you can specify here
-  # Do not use this option to pass plugins parameters as they'll be overwritten by the other options
   query:
-    description: Additional query parameters
+    description: |
+      Query parameters
+
+      Pass additional parameters to templates.
+      This is mostly useful for custom templates.
+
+      > ⚠️ **Do not** use this option to pass other existing parameters, they will be overwritten
     type: json
     default: "{}"
 
-  # Define additional CSS that will be injected in used template
-  # Example:
-  # config_extras_css꞉ |
-  #   h2 {
-  #     color: red;
-  #   }
   extras_css:
-    description: Extra CSS
+    extras: yes
+    description: |
+      Extra CSS
+
+      Custom CSS that will be injected in used template.
+      Useful to avoid creating a new template just to tweak some styling
     type: string
     default: ""
-    extras: yes
 
-  # Timezone used by metrics
-  # See https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   config_timezone:
-    description: Timezone used
+    description: |
+      Timezone for dates
+
+      See [list of supported timezone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
     type: string
     default: ""
     global: yes
 
-  # Specify in which order metrics content will be displayed
-  # If you omit some partials, they'll be appended at the end in default order
-  # See "partials/_.json" of each template for a list of supported partials
   config_order:
-    description: Configure content order
+    description: |
+      Plugin order
+
+      By default, templates use `partials/_.json` ordering.
+      You can override the content order by using this setting.
+
+      If some partials are omitted, they will be appended at the end with default ordering
     type: array
     format: comma-separated
     default: ""
     example: base.header, base.repositories
     global: yes
 
-  # Use twemojis instead of emojis
-  # May increase filesize but emojis will be rendered the same across all platforms
   config_twemoji:
-    description: Use twemojis instead of emojis
+    description: |
+      Use twemojis
+
+      Replace emojis by [twemojis]([twemojis](https://github.com/twitter/twemoji)) to have a consistent render across all platforms
+      May increase filesize.
     type: boolean
     default: no
     global: yes
 
-  # Render GitHub custom emojis (like ":octocat:", see full list at https://api.github.com/emojis)
-  # May increase filesize
   config_gemoji:
-    description: Use GitHub custom emojis
+    description: |
+      Use GitHub custom emojis
+
+      GitHub supports additional emojis which are not registered in Unicode standard (:octocat:, :shipit:, :trollface:, ...)
+      See full list at https://api.github.com/emojis.
+
+      May increase filesize
     type: boolean
     default: yes
     global: yes
 
-  # Render display width
   config_display:
-    description: Render display width
+    description: |
+      Display width (for image output formats)
+
+      - `regular`: 480px width
+      - `large`: 960px width (may not be supported by all templates)
+      - `columns`: Full width with auto-sizing (two columns for desktops, and one column for mobile)
+        - known issue: https://github.com/lowlighter/metrics/issues/374
     type: string
     default: regular
     values:
-      - regular  # 480px width
-      - large    # 960px width (may not be supported by all templates)
-      - columns  # Full width with two columns on desktop / One column on mobile
+      - regular
+      - large
+      - columns
     global: yes
 
-  # Enable SVG CSS animations
   config_animations:
-    description: SVG CSS animations
+    description: Use CSS animations
     type: boolean
     default: yes
     global: yes
 
-  # Encode images links into base64 data
-  # Advised to be true when generating images and false when generating texts or JSON
   config_base64:
-    description: Encode images links into base64 data
+    description: |
+      Base64-encoded images
+
+      Enable this option to make self-contained ouput (i.e. with no external links)
     type: boolean
     default: yes
     global: yes
 
-  # Configure padding for output image (percentage value)
-  # It can be used to add padding to generated metrics if rendering is cropped or has too much empty space
-  # Specify one value (for both width and height) or two values (one for width and one for height)
   config_padding:
-    description: Image padding
+    description: |
+      Output padding
+
+      Although *metrics* try to auto-guess resulting height, rendering is still dependent on OS and browser settings.
+      It can result in cropped or oversized outputs.
+
+      This settings let you manually adjust padding with the following format:
+      - 1 value for both width and height
+      - 2 values for width fist and height second, separated by a comma (`,`)
+
+      Each value need to respect the following format:
+      - {number}
+      - {number} + {number}%
+      - {number}%
+
+      Percentage are relative to computed dimensions
     type: string
     default: 0, 8 + 11%
 
-  # Metrics output format
   config_output:
-    description: Output image format
+    description: |
+      Output format
+      - `auto`: Template default (usually `svg` or `markdown`)
+      - `svg`: SVG image
+      - `png`: PNG image (animations not supported)
+      - `jpeg`: JPEG image (animations and transparency not supported)
+      - `json`: JSON data dump
+      - `markdown`: Markdown rendered file
+      - `markdown-pdf`: PDF from markdown rendered file
+      - `insights`: Metrics Insights self-contained HTML file (not configurable)
     type: string
     default: auto
     values:
-      - auto           # Defaults to template default
+      - auto
       - svg
-      - png            # Does not support animations
-      - jpeg           # Does not support animations and transparency
-      - json           # Outputs a JSON file instead of an image
-      - markdown       # Outputs a Markdown file instead of an image
-      - markdown-pdf   # Outputs a Markdown file as PDF instead of an image
-      - insights       # Outputs a rendered HTML file of Metrics Insights
+      - png
+      - jpeg
+      - json
+      - markdown
+      - markdown-pdf
+      - insights
 
-  # Number of retries in case rendering fail
   retries:
-    description: Number of retries
+    description: Retries in case of failures (for rendering)
     type: number
     default: 3
     min: 1
     max: 10
 
-  # Time to wait (in seconds) before each retry
   retries_delay:
-    description: Time to wait (in seconds) before each retry
+    description: Delay between each retry (in seconds, for rendering)
     type: number
     default: 300
     min: 0
     max: 3600
 
-  # Number of retries in case output action fail
   retries_output_action:
-    description: Number of retries (output action)
+    description: Retries in case of failures (for output action)
     type: number
     default: 5
     min: 1
     max: 10
 
-  # Time to wait (in seconds) before each retry (output action)
   retries_delay_output_action:
-    description: Time to wait (in seconds) before each retry (output action)
+    description: Delay between each retry (in seconds, for output action)
     type: number
     default: 120
     min: 0
     max: 3600
 
-  # Time to wait (in seconds) at the end of job
-  # Use this to avoid triggering abuse mechanics on large workflows
   delay:
-    description: Use this to avoid triggering abuse mechanics on large workflows
+    description: |
+      Job delay
+
+      This can be used to avoid triggering GitHub abuse mechanics on large workflows
     type: number
     default: 0
     min: 0
     max: 3600
 
-  # Use a pre-built image from GitHub registry when using unreleased versions of "lowlighter/metrics"
-  # This option has no effect on forks (images will always be rebuilt from Dockerfile)
-  # See https://github.com/users/lowlighter/packages/container/package/metrics for more information
-  use_prebuilt_image:
-    description: Use pre-built image from GitHub registry
-    type: boolean
-    default: yes
-
   # ====================================================================================
   # 🚧 Options below are mostly used for testing
 
-  # Throw on plugins errors
-  # If disabled, metrics will handle errors gracefully with a message in rendered metrics
+  use_prebuilt_image:
+    description: |
+      Use pre-built docker image from [GitHub container registry](https://github.com/lowlighter/metrics/pkgs/container/metrics)
+
+      It allows to save build time and make job significantly faster, and there is almost no reason to disable this settings.
+      This option has no effects on forks (images will always be rebuilt from Dockerfile)
+    type: boolean
+    default: yes
+    testing: yes
+
   plugins_errors_fatal:
-    description: Die on plugins errors
+    description: |
+      Fatal plugin errors
+
+      When enabled, the job will fail in case of plugin errors, else it will be handled gracefully in output with an error message
     type: boolean
     default: no
     testing: yes
 
-  # Debug mode
-  # Note that this will automatically be enabled if job fails
   debug:
-    description: Debug logs
+    description: |
+      Debug mode
+
+      This setting is automatically enable if a job fail (useful with `plugins_errors_fatal: yes`)
     type: boolean
     default: no
     testing: yes
 
-  # Ensure SVG can be correctly parsed after generation
   verify:
-    description: Verify SVG
+    description: SVG validity check
     type: boolean
     default: no
     testing: yes
 
-  # Debug flags
   debug_flags:
-    description: Debug flags
+    description: |
+      Debug flags
+      - `--cakeday`: simulate registration anniversary
+      - `--hireable`: simulate "Available for hire" account setting
+      - `--halloween`: enable halloween colors
+      - `--error`: force render error
     type: array
     format: space-separated
     default: ""
@@ -325,18 +387,20 @@ inputs:
       - --error
     testing: yes
 
-  # Dry-run mode (perform generation without output)
-  # Unlike "output_action" set to "none", output file won't be available in "/metrics_renders"
   dryrun:
-    description: Enable dry-run
+    description: |
+      Dry-run
+
+      Contrary to `output_action: none`, output file won't be available in `/metrics_renders` directory
     type: boolean
     default: no
     testing: yes
 
-  # Experimental features
-  # Note that no backward compatibility are guaranteed for these features
   experimental_features:
-    description: Experimental features
+    description: |
+      Experimental features
+
+      No backward compatibility is guaranteed for these features
     type: array
     format: space-separated
     default: ""
@@ -344,7 +408,6 @@ inputs:
       - --optimize-svg
     testing: yes
 
-  # Use mocked data to bypass external APIs
   use_mocked_data:
     description: Use mocked data instead of live APIs
     type: boolean

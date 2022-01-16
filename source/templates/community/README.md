@@ -41,6 +41,19 @@ If you trust a community template, append `+trust` to it.
 
 > ⚠️ Note that it basically allow remote code execution and the template may have access to **sensitive data** along with **tokens**! Use this feature only from a trusted source. Remember that its content may also change at any time...
 
+Some templates may accept additional custom parameters that can be passed through the `query` option, using a JSON formatted string.
+
+*Example: using and trusting `my-theme` template by downloading it from `user/repo`*
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    template: "@my-theme"
+    query: |
+      {
+        "header_color": "#FF0000"
+      }
+```
+
 ## 📪 Creating community templates
 
 To create a new template, start a new repository and create a new folder in `/source/templates` with the same file structure as in [lowlighter/metrics](https://github.com/lowlighter/metrics) templates:

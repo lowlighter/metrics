@@ -1,8 +1,283 @@
-### 🧱 Core
+<!--header-->
+<table>
+  <tr><th colspan="2"><h3>🧱 Core</h3></th></tr>
+  <tr><td colspan="2" align="center"><p>Global configuration and options</p>
+</td></tr>
+  <tr>
+    <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
+    <td></td>
+  </tr>
+  <tr>
+    <td><code>👤 Users</code> <code>👥 Organizations</code> <code>📓 Repositories</code></td>
+  </tr>
+  <tr>
+    <td><code>🗝️ token</code> <code>🗝️ committer_token</code></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
+      <img width="900" height="1" alt="">
+    </td>
+  </tr>
+</table>
+<!--/header-->
 
-Metrics also have general options that impact global metrics rendering.
+[➡️ Jump to all available options](#%EF%B8%8F-available-options)
 
-#### ➡️ Available options
+## 🌐 Configure used timezone
+
+By default, dates use Greenwich meridian (GMT/UTC).
+
+Configure `config_timezone` (see [supported timezone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)) to avoid time offsets.
+
+*Example: configuring timezone*
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    config_timezone: Europe/Paris
+```
+
+## 📦 Ordering content
+
+Content can be manually ordered using `config_order` option.
+
+*Example: display base.header, isocalendar, languages and stars in this specific order*
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    base: header
+    plugin_isocalendar: yes
+    plugin_languages: yes
+    plugin_stars: yes
+    config_order: base.header, isocalendar, languages, stars
+```
+
+> 💡 Omitted sections will be appended at the end using default order
+
+## 🎨 Custom CSS styling
+
+Additional CSS can be injected using `extras_css` option.
+
+*Example: changing the color of `h2`*
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    base: header
+    extras_css: |
+      h2 {
+        color: red;
+      }
+```
+
+> 💡 *metrics* does not use `!important` keyword, so use it when having trouble when styling is not applied
+
+> 💡 If you make an heavy use of this option, creating a [community templates](/source/templates/community/README.md) may be a better alternative
+
+> ⚠️ CSS styles may slightly change between releases, backward compatibility is not guaranteed!
+
+## ↔️ Controlling display size
+
+Some templates may support different output display size.
+
+A `regular` display size will render a medium-sized image suitable for both desktop and mobile displays, while a `large` one will be more suitable only for desktop and some plugins (like [`📌 topics`](/source/plugins/topics/README.md) or [`🏅 contributors`](/source/plugins/contributors/README.md))
+
+The `columns` display will render a full-width image with automatic resizing: two columns for desktop and a single one column for mobiles.
+
+*Example: output a PNG image*
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    config_display: large
+```
+
+## 💱 Configuring output format
+
+Use `config_output` to change output format.
+
+*Example: output a PNG image*
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    config_output: png
+```
+
+A JSON output can be used to retrieved collected data and use it elsewhere.
+
+*Example: output a JSON data dump*
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    config_output: json
+```
+
+When using a PDF output, it is advised to set `config_base64: yes` to encode embed images in base64 in order to make self-contained documents.
+
+*Example: output a self-contained PDF document*
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    markdown: TEMPLATE.md
+    config_output: markdown-pdf
+    config_base64: yes
+```
+
+## ✨ Render `Metrics insights` statically
+
+It is possible to generate a self-contained HTML file containing `✨ Metrics insights` output by using `config_output: insights`.
+
+> 💡 Note that like `✨ Metrics insights` content is not configurable, thus any other plugin option will actually be ignored
+
+*Example: output `✨ Metrics insights` report*
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    config_output: insights
+```
+
+## 🧶 Configuring output action
+
+### Using commits (default)
+
+Use `config_output: commit` to make the action directly push changes to `committer_branch` with a commit.
+A custom commit message can be used through `committer_message`.
+
+> 💡 *metrics* will automatically ignore push events with a commit message containing `[Skip GitHub Action]` or `Auto-generated metrics for run #` to avoid infinite loops. Note that by default, GitHub already ignore events pushed by `${{ github.token }}` or containing `[skip ci]` in commit message
+
+*Example: push output to metrics-renders branch rather than the default branch*
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    output_action: commit
+    committer_branch: metrics-renders
+    committer_message: "chore: update metrics"
+```
+
+### Using pull requests
+
+Use `config_output: pull-request` to make the action open a new pull request and push changes from the same run on it.
+
+The last step should use either `pull-request-merge`, `pull-request-squash` or `pull-request-rebase` to merge changes to `committer_branch`.
+
+> 💡 When using `pull-request` output action, do not forget to change `filename` too or previous output will be overwritten!
+
+*Example: push two outputs using a merge pull request*
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    filename: my-metrics-0.svg
+    output_action: pull-request
+
+- uses: lowlighter/metrics@latest
+  with:
+    filename: my-metrics-1.svg
+    output_action: pull-request-merge
+```
+
+### Using gists
+
+Use `config_output: gist` to push output to a [GitHub gist](https://gist.github.com) instead.
+It is required to provide a gist id to `committer_gist` option to make it work.
+
+> 💡 This feature will use `token` instead of `committer_token` to push changes, so `gists` scope must be granted to the original `token` first
+
+*Example: push output to a gist*
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    output_action: gist
+    committer_gist: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
+
+### Manual handling
+
+Use `config_ouput: none` to perform custom processing with outputs.
+They will be available under `/metrics_renders/{filename}` in the runner.
+
+*Example: generate outputs and manually push them*
+```yaml
+- name: Checkout repository
+  uses: actions/checkout@v2
+    with:
+      fetch-depth: 0
+
+- uses: lowlighter/metrics@latest
+  with:
+    output_action: none
+
+- uses: lowlighter/metrics@latest
+  run: |
+    set +e
+    git checkout metrics-renders
+    git config user.name github-actions[bot]
+    git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+    sudo mv /metrics_renders/* ./
+    git add --all
+    git commit -m "chore: push metrics"
+    git push
+```
+
+## ♻️ Retrying automatically failed rendering and output action
+
+Rendering is subject to external factors and can fail ocassionaly.
+Use `retries` and `retries_delay` options to automatically retry rendering.
+
+*Example: retry render up to 3 times (wait 5 minutes between each fail)*
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    retries: 3
+    retries_delay: 300
+```
+
+Output action is also subject to GitHub API rate-limiting and overall health status and can fail ocassionaly.
+Use `retries_output_action` and `retries_delay_output_action` options to automatically retry output action.
+
+> 💡 As output action is a separate step from rendering, render step won't be called again
+
+*Example: retry output action up to 5 times (wait 2 minutes between each fail)*
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    retries_output_action: 5
+    retries_delay_output_action: 120
+```
+
+## 🗜️ Optimize SVG output
+
+To reduce filesize and decrease loading time, *metrics* offers several optimization options, such as purging unused CSS and style minification, XML pretty-pretting (which also reduce diffs between changes) and general SVG optimation (still experimental).
+
+> 💡 This option is enabled by default!
+
+*Example: optimize CSS and XML*
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    optimize: css, xml
+```
+
+*Example: optimize SVG (experimental)*
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    optimize: svg
+    experimental_features: --optimize-svg
+```
+
+## 🐳 Faster execution with prebuilt docker images
+
+When using `lowlighter/metrics` official releases as a GitHub Action, a prebuilt docker container image will be pulled from [GitHub Container Registry](https://github.com/users/lowlighter/packages/container/package/metrics). It allows to significantly reduce workflow execution time.
+
+> 💡 This option is enabled by default!
+
+On forks, this feature is disable to take into account any changes you made on it.
+
+*Example: using prebuilt docker image*
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    use_prebuilt_image: yes
+```
+
+## ➡️ Available options
 
 <!--options-->
 <table>
@@ -11,7 +286,9 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>token</code></td>
-    <td rowspan="2"><p>GitHub Personal Token</p>
+    <td rowspan="2"><p>GitHub Personal Access Token</p>
+<p>No scopes are required by default, though some plugins and features may require additional scopes</p>
+<p>When using a configuration which does not requires a GitHub PAT, you may pass <code>NOT_NEEDED</code> instead</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -23,6 +300,7 @@ Metrics also have general options that impact global metrics rendering.
   <tr>
     <td nowrap="nowrap"><code>user</code></td>
     <td rowspan="2"><p>GitHub username</p>
+<p>Defaults to <code>token</code> owner username.</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -32,6 +310,7 @@ Metrics also have general options that impact global metrics rendering.
   <tr>
     <td nowrap="nowrap"><code>repo</code></td>
     <td rowspan="2"><p>GitHub repository</p>
+<p>This option is revevalant only for repositories templates</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -41,6 +320,10 @@ Metrics also have general options that impact global metrics rendering.
   <tr>
     <td nowrap="nowrap"><code>committer_token</code></td>
     <td rowspan="2"><p>GitHub Token used to commit metrics</p>
+<p>Leave this to <code>${{ github.token }}</code> or <code>${{ secrets.GITHUB_TOKEN }}</code>, which is a special auto-generated token restricted to current repository scope.</p>
+<blockquote>
+<p>💡 When using <code>output_action: gist</code>, it will use <code>token</code> instead, since gists are outside of scope</p>
+</blockquote>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -51,7 +334,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>committer_branch</code></td>
-    <td rowspan="2"><p>Branch used to commit rendered metrics</p>
+    <td rowspan="2"><p>Target branch</p>
+<p>Default value is set to your repository default branch</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -61,6 +345,7 @@ Metrics also have general options that impact global metrics rendering.
   <tr>
     <td nowrap="nowrap"><code>committer_message</code></td>
     <td rowspan="2"><p>Commit message</p>
+<p>Use <code>${filename}</code> to display filename</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -70,7 +355,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>committer_gist</code></td>
-    <td rowspan="2"><p>Gist used to store metrics</p>
+    <td rowspan="2"><p>Gist id</p>
+<p>Specify an existing gist id (can be retrieved from its URL) when using <code>output_action: gist</code>.</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -79,7 +365,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>filename</code></td>
-    <td rowspan="2"><p>Rendered metrics output path</p>
+    <td rowspan="2"><p>Output path</p>
+<p>When using an asterisk (<code>*</code>), correct extension will automatically be applied according to <code>config_output</code> value</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -89,7 +376,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>markdown</code></td>
-    <td rowspan="2"><p>Rendered markdown output path</p>
+    <td rowspan="2"><p>Markdown template path</p>
+<p>It can be either a local path or a full link (e.g. <a href="https://raw.githubusercontent.com">https://raw.githubusercontent.com</a>)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -99,7 +387,7 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>markdown_cache</code></td>
-    <td rowspan="2"><p>Rendered markdown file cache</p>
+    <td rowspan="2"><p>Markdown file cache</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -110,6 +398,18 @@ Metrics also have general options that impact global metrics rendering.
   <tr>
     <td nowrap="nowrap"><code>output_action</code></td>
     <td rowspan="2"><p>Output action</p>
+<ul>
+<li><code>none</code>: just create file in <code>/metrics_renders</code> directory of action runner</li>
+<li><code>commit</code>: push output to <code>committer_branch</code></li>
+<li><code>pull-request</code>: push output to a new branch and open a pull request to <code>committer_branch</code></li>
+<li><code>pull-request-merge</code>: same as <code>pull-request</code> and additionaly merge pull request</li>
+<li><code>pull-request-squash</code>: same as <code>pull-request</code> and additionaly squash and merge pull request</li>
+<li><code>pull-request-rebase</code>: same as <code>pull-request</code> and additionaly rebase and merge pull request</li>
+<li><code>gist</code>: push output to <code>committer_gist</code></li>
+</ul>
+<blockquote>
+<p>💡 When using <code>pull-request</code>, you will need to set the last job with a <code>pull-request-*</code> action instead, else it won&#39;t be merged</p>
+</blockquote>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -121,17 +421,25 @@ Metrics also have general options that impact global metrics rendering.
   <tr>
     <td nowrap="nowrap"><code>output_condition</code></td>
     <td rowspan="2"><p>Output condition</p>
+<ul>
+<li><code>always</code>: always try to push changes</li>
+<li><code>data-changed</code>: skip changes if no data changed (e.g. like when only metadata changed)</li>
+</ul>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><b>type:</b> <code>string</code>
-<br>
-<b>default:</b> always<br>
-<b>allowed values:</b><ul><li>always</li><li>data-changed</li></ul></td>
+    <td nowrap="nowrap"><b>type:</b> <code>undefined</code>
+<br></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><code>optimize</code></td>
-    <td rowspan="2"><p>SVG optimization</p>
+    <td rowspan="2"><p>Optimization features</p>
+<ul>
+<li><code>css</code>: purge and minify CSS styles</li>
+<li><code>xml</code>: pretty-print XML (useful to reduce diff)</li>
+<li><code>svg</code>: optimization with SVGO (experimental, require <code>--optimize-svg</code> experimental flag)</li>
+</ul>
+<p>Some templates may not support all options</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -143,7 +451,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>setup_community_templates</code></td>
-    <td rowspan="2"><p>Additional community templates to setup</p>
+    <td rowspan="2"><p>Community templates to setup</p>
+<p>See <a href="https://github.com/lowlighter/metrics/blob/master/source/templates/community/README.md">community templates guide</a> for more informations</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -154,7 +463,9 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>template</code></td>
-    <td rowspan="2"><p>Template to use</p>
+    <td rowspan="2"><p>Template</p>
+<p>Community templates must be prefixed by at sign (<code>@</code>)
+See <a href="https://github.com/lowlighter/metrics/blob/master/README.md#%EF%B8%8F-templates">list of supported templates</a></p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -164,7 +475,12 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>query</code></td>
-    <td rowspan="2"><p>Additional query parameters</p>
+    <td rowspan="2"><p>Query parameters</p>
+<p>Pass additional parameters to templates.
+This is mostly useful for custom templates.</p>
+<blockquote>
+<p>⚠️ <strong>Do not</strong> use this option to pass other existing parameters, they will be overwritten</p>
+</blockquote>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -175,6 +491,8 @@ Metrics also have general options that impact global metrics rendering.
   <tr>
     <td nowrap="nowrap"><code>extras_css</code></td>
     <td rowspan="2"><p>Extra CSS</p>
+<p>Custom CSS that will be injected in used template.
+Useful to avoid creating a new template just to tweak some styling</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -184,7 +502,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>config_timezone</code></td>
-    <td rowspan="2"><p>Timezone used</p>
+    <td rowspan="2"><p>Timezone for dates</p>
+<p>See <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">list of supported timezone</a></p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -194,7 +513,10 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>config_order</code></td>
-    <td rowspan="2"><p>Configure content order</p>
+    <td rowspan="2"><p>Plugin order</p>
+<p>By default, templates use <code>partials/_.json</code> ordering.
+You can override the content order by using this setting.</p>
+<p>If some partials are omitted, they will be appended at the end with default ordering</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -205,7 +527,9 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>config_twemoji</code></td>
-    <td rowspan="2"><p>Use twemojis instead of emojis</p>
+    <td rowspan="2"><p>Use twemojis</p>
+<p>Replace emojis by <a href="%5Btwemojis%5D(https://github.com/twitter/twemoji)">twemojis</a> to have a consistent render across all platforms
+May increase filesize.</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -217,6 +541,9 @@ Metrics also have general options that impact global metrics rendering.
   <tr>
     <td nowrap="nowrap"><code>config_gemoji</code></td>
     <td rowspan="2"><p>Use GitHub custom emojis</p>
+<p>GitHub supports additional emojis which are not registered in Unicode standard (:octocat:, :shipit:, :trollface:, ...)
+See full list at <a href="https://api.github.com/emojis">https://api.github.com/emojis</a>.</p>
+<p>May increase filesize</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -227,7 +554,15 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>config_display</code></td>
-    <td rowspan="2"><p>Render display width</p>
+    <td rowspan="2"><p>Display width (for image output formats)</p>
+<ul>
+<li><code>regular</code>: 480px width</li>
+<li><code>large</code>: 960px width (may not be supported by all templates)</li>
+<li><code>columns</code>: Full width with auto-sizing (two columns for desktops, and one column for mobile)<ul>
+<li>known issue: <a href="https://github.com/lowlighter/metrics/issues/374">https://github.com/lowlighter/metrics/issues/374</a></li>
+</ul>
+</li>
+</ul>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -239,7 +574,7 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>config_animations</code></td>
-    <td rowspan="2"><p>SVG CSS animations</p>
+    <td rowspan="2"><p>Use CSS animations</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -250,7 +585,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>config_base64</code></td>
-    <td rowspan="2"><p>Encode images links into base64 data</p>
+    <td rowspan="2"><p>Base64-encoded images</p>
+<p>Enable this option to make self-contained ouput (i.e. with no external links)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -261,7 +597,21 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>config_padding</code></td>
-    <td rowspan="2"><p>Image padding</p>
+    <td rowspan="2"><p>Output padding</p>
+<p>Although <em>metrics</em> try to auto-guess resulting height, rendering is still dependent on OS and browser settings.
+It can result in cropped or oversized outputs.</p>
+<p>This settings let you manually adjust padding with the following format:</p>
+<ul>
+<li>1 value for both width and height</li>
+<li>2 values for width fist and height second, separated by a comma (<code>,</code>)</li>
+</ul>
+<p>Each value need to respect the following format:</p>
+<ul>
+<li>{number}</li>
+<li>{number} + {number}%</li>
+<li>{number}%</li>
+</ul>
+<p>Percentage are relative to computed dimensions</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -271,7 +621,17 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>config_output</code></td>
-    <td rowspan="2"><p>Output image format</p>
+    <td rowspan="2"><p>Output format</p>
+<ul>
+<li><code>auto</code>: Template default (usually <code>svg</code> or <code>markdown</code>)</li>
+<li><code>svg</code>: SVG image</li>
+<li><code>png</code>: PNG image (animations not supported)</li>
+<li><code>jpeg</code>: JPEG image (animations and transparency not supported)</li>
+<li><code>json</code>: JSON data dump</li>
+<li><code>markdown</code>: Markdown rendered file</li>
+<li><code>markdown-pdf</code>: PDF from markdown rendered file</li>
+<li><code>insights</code>: Metrics Insights self-contained HTML file (not configurable)</li>
+</ul>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -282,7 +642,7 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>retries</code></td>
-    <td rowspan="2"><p>Number of retries</p>
+    <td rowspan="2"><p>Retries in case of failures (for rendering)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -295,7 +655,7 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>retries_delay</code></td>
-    <td rowspan="2"><p>Time to wait (in seconds) before each retry</p>
+    <td rowspan="2"><p>Delay between each retry (in seconds, for rendering)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -308,7 +668,7 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>retries_output_action</code></td>
-    <td rowspan="2"><p>Number of retries (output action)</p>
+    <td rowspan="2"><p>Retries in case of failures (for output action)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -321,7 +681,7 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>retries_delay_output_action</code></td>
-    <td rowspan="2"><p>Time to wait (in seconds) before each retry (output action)</p>
+    <td rowspan="2"><p>Delay between each retry (in seconds, for output action)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -334,7 +694,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>delay</code></td>
-    <td rowspan="2"><p>Use this to avoid triggering abuse mechanics on large workflows</p>
+    <td rowspan="2"><p>Job delay</p>
+<p>This can be used to avoid triggering GitHub abuse mechanics on large workflows</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -347,17 +708,21 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>use_prebuilt_image</code></td>
-    <td rowspan="2"><p>Use pre-built image from GitHub registry</p>
+    <td rowspan="2"><p>Use pre-built docker image from <a href="https://github.com/lowlighter/metrics/pkgs/container/metrics">GitHub container registry</a></p>
+<p>It allows to save build time and make job significantly faster, and there is almost no reason to disable this settings.
+This option has no effects on forks (images will always be rebuilt from Dockerfile)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+    <td nowrap="nowrap">🔧 For development<br>
+<b>type:</b> <code>boolean</code>
 <br>
 <b>default:</b> yes<br></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugins_errors_fatal</code></td>
-    <td rowspan="2"><p>Die on plugins errors</p>
+    <td rowspan="2"><p>Fatal plugin errors</p>
+<p>When enabled, the job will fail in case of plugin errors, else it will be handled gracefully in output with an error message</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -368,7 +733,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>debug</code></td>
-    <td rowspan="2"><p>Debug logs</p>
+    <td rowspan="2"><p>Debug mode</p>
+<p>This setting is automatically enable if a job fail (useful with <code>plugins_errors_fatal: yes</code>)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -379,7 +745,7 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>verify</code></td>
-    <td rowspan="2"><p>Verify SVG</p>
+    <td rowspan="2"><p>SVG validity check</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -391,6 +757,12 @@ Metrics also have general options that impact global metrics rendering.
   <tr>
     <td nowrap="nowrap"><code>debug_flags</code></td>
     <td rowspan="2"><p>Debug flags</p>
+<ul>
+<li><code>--cakeday</code>: simulate registration anniversary</li>
+<li><code>--hireable</code>: simulate &quot;Available for hire&quot; account setting</li>
+<li><code>--halloween</code>: enable halloween colors</li>
+<li><code>--error</code>: force render error</li>
+</ul>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -402,7 +774,8 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>dryrun</code></td>
-    <td rowspan="2"><p>Enable dry-run</p>
+    <td rowspan="2"><p>Dry-run</p>
+<p>Contrary to <code>output_action: none</code>, output file won&#39;t be available in <code>/metrics_renders</code> directory</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -414,6 +787,7 @@ Metrics also have general options that impact global metrics rendering.
   <tr>
     <td nowrap="nowrap"><code>experimental_features</code></td>
     <td rowspan="2"><p>Experimental features</p>
+<p>No backward compatibility is guaranteed for these features</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -436,341 +810,3 @@ Metrics also have general options that impact global metrics rendering.
   </tr>
 </table>
 <!--/options-->
-
-*[→ Full specification](metadata.yml)*
-
-### 🛠️ General configuration
-
-A GitHub personal access token is required in `token` option.
-It cannot be `${{ github.token }}` or `${{ secrets.GITHUB_TOKEN }}` as these are special tokens scoped to a single repository, so metrics would not be able to fetch any user related data or external repositories informations.
-
-By default, metrics will be generated for the user who owns the `token`, but it is possible to generate them for another user or an organization using `user` option. Additional scopes may be required to do so.
-
-To generate metrics for a repository, use `user` option to specify the repository owner, and `repo` option to specify its name.
-
-Committer options lets you specify how to rendered metrics should be pushed.
-Usually leaving default values is fine, but you have the possibility to change which user will commit to repository using `committer_token`, on which branch using `committer_branch` and with a specific commit message using `committer_message`.
-
-You may also be interested in using [pull requests](/source/plugins/core#-using-commits-pull-requests-or-manual-review-to-handle-metrics-output) instead of commits.
-
-When generating multiple metrics, you'll need to save them under different `filename`s to avoid them being overwritten at each step.
-
-#### ℹ️ Examples workflows
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    token: ${{ secrets.METRICS_TOKEN }}
-    user: lowlighter
-    repo: metrics
-    committer_token: ${{ github.token }}
-    committer_branch: my-branch
-    committer_message: Update metrics
-    filename: metrics.svg
-    # ... other options
-```
-
-### 🖼️ Templates configuration
-
-To use a different template, pass its identifier to `template` option.
-See the [list of supported templates](/source/templates/README.md).
-
-It is possible to use templates from any forked repositories (not necessarly your own) while using official releases  using [community templates](/source/templates/community/README.md).
-
-Some templates may accept additional custom options that you can pass through the `query` option, using a JSON formatted string.
-
-#### ℹ️ Examples workflows
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    template: "@super-metrics"
-    setup_community_templates: octocat/metrics@master:super-metrics, octocat/metrics@master:trusted-metrics+trust
-    query: '{"custom_color":"#FF0000"}'
-```
-
-### 🎨 Custom CSS styling
-
-You can inject CSS rules using `extras_css` option.
-
-If you make heavy use of this option, consider using [community templates](/source/templates/community/README.md) instead.
-
-#### ℹ️ Examples workflows
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    base: header
-    extras_css: |
-      h2 {
-        color: red;
-      }
-```
-
-### 🌐 Set timezone
-
-By default, dates are based on Greenwich meridian (GMT/UTC).
-
-Set your timezone (see [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) for a list of supported timezones) using `config_timezone` option.
-
-#### ℹ️ Examples workflows
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    config_timezone: Europe/Paris
-```
-
-### 📦 Ordering content
-
-You can order metrics content by using `config_order` option.
-
-It is not mandatory to specify all partials of used templates.
-Omitted one will be appended using default order.
-
-#### ℹ️ Examples workflows
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    base: header
-    plugin_isocalendar: yes
-    plugin_languages: yes
-    plugin_stars: yes
-    config_order: base.header, isocalendar, languages, stars
-```
-
-### 🥳 Render GitHub custom emojis
-
-GitHub provide additional emojis which are not registered in Unicode standard (:octocat:, :shipit:, :trollface:, ...).
-You can choose to render (or not) [GitHub emojis](https://github.com/github/gemoji).
-
-It may increase filesize since it replace special strings by base64 images.
-
-#### ℹ️ Examples workflows
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    config_gemoji: yes
-```
-
-### 🙂 Using twemojis instead of emojis
-
-You can choose to use [twemojis](https://github.com/twitter/twemoji) instead of regular emojis so rendered metrics are more consistent across all platforms.
-
-It may increase filesize since it replace unicode characters by SVG images.
-
-#### ℹ️ Examples workflows
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    config_twemoji: yes
-```
-
-### ↔️ Controlling display size
-
-Some templates like `classic` and `repositories` support different output display size:
-- `regular` (default) will render a medium-sized image, which is suitable for both desktop and mobile displays and is preferable when using data-intensive metrics (since text may be scaled down on small devices)
-- `large` will render a large-sized image, which may be more suitable for some plugins (like displaying topics icons,  repository contributors, etc.)
-- `columns` will render a full-width image, with two columns on desktop / one column on mobile
-
-#### ℹ️ Examples workflows
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    config_display: large
-```
-
-### 🎞️ SVG CSS Animations
-
-As rendered metrics use HTML and CSS, some templates have animations.
-You can choose to disable them by using `config_animations` option.
-
-#### ℹ️ Examples workflows
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    committer_branch: my-branch
-```
-
-### 🔲 Adjust padding
-
-Height of rendered metrics is computed after being rendered through an headless browser.
-As it can depend on fonts and operating system, it is possible that final result is cropped or has blank space at the bottom.
-
-You can adjust padding by using `config_padding` option.
-
-Specify a single value to apply it to both height and with, and two values to use the first one for width and the second for height. Both positive and negative values are accepted.
-
-The allowed format is `(absolute padding) + (relative padding)%` (each operand is optional).
-
-#### ℹ️ Examples workflows
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    config_padding: 0, 8 + 11% # 0px width padding, 8px + 11% height padding
-```
-
-### 🧶 Using commits, pull requests, manual reviews or gists to handle metrics output
-
-It is possible to configure output behaviour using `output_action` option, which can be set to:
-- `none`, where output will be generated in `/rendered/${filename}` without being pushed
-  - You can then manually post-process it
-- `commit` (default), where output will directly be committed and pushed to `committer_branch`
-- `pull-request`, where output will be committed to a new branch with current run id waiting for to be merged in `committer_branch`
-  - By appending either `-merge`, `-squash` or `-rebase`, pull request will be automatically merged with given method
-  - This method is useful to combine all editions of a single run with multiples metrics steps into a single commit on targetted branch
-  - If you choose to manually merge pull requests, be sure to disable `push:` triggers on your workflow, as it'll count as your own commit
-- `gist`, where output will be stored an already existing gist
-  - To use this feature, a `gists` scope must be granted to your `token` and `committer_gist` identifier must be provided
-
-It also possible to alter output condition using `output_condition` option, which can be set to:
-- `always`, to always push changes (provided that git sha changed)
-- `data-changed`, to skip changes if no actual data changed (e.g. when only render timestamp changed)
-
-#### ℹ️ Examples workflows
-
-```yaml
-# The following will:
-#   - open a pull request with "my-metrics-0.svg" as first commit
-#   - append "my-metrics-1.svg" as second commit
-#   - merge pull request (as second step is set to "pull-request-merge")
-
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    filename: my-metrics-0.svg
-    output_action: pull-request
-
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    filename: my-metrics-1.svg
-    output_action: pull-request-merge
-```
-
-### ♻️ Retrying automatically failed rendering and output action
-
-Rendering is subject to external factors and can fail from time to time.
-It is possible to mitigate this issue using `retries` and `retries_delay` options to automatically retry later metrics rendering and avoid workflow fails.
-
-Output action is also subject to GitHub API rate-limiting and status and can fail from time to time.
-It is possible to mitigate this issue using `retries_output_action` and `retries_delay_output_action` options to automatically retry later metrics output action and avoid workflow fails. As this is a separate step from rendering, metrics rendering won't be computed again during this phase.
-
-#### ℹ️ Examples workflows
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    retries: 3
-    retries_delay: 300
-    retries_output_action: 5
-    retries_delay_output_action: 120
-```
-
-### 💱 Convert output to PNG/JPEG or JSON
-
-It is possible to convert output from SVG to PNG or JPEG images and even to JSON by using `config_output` option.
-
-Note that `png` does not support animations while `jpeg` does not support both animations and transparency.
-
-Using `json` output can be useful if you want to retrieve all data computed by metrics without rendering it.
-It could then be processed for other usages.
-
-#### ℹ️ Examples workflows
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    config_output: png
-```
-
-### 🖨️ Convert output to PDF
-
-It is possible to convert output to PDF when using a markdown template by setting `config_output` to `markdown-pdf`.
-
-It is advised to keep `config_base64: yes` to encode embed images in base64 and make self-contained documents.
-
-#### ℹ️ Examples workflows
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    markdown: template.md
-    markdown_cache: .cache
-    config_output: markdown-pdf
-    config_base64: yes
-```
-
-### 🗜️ Optimize SVG output
-
-It is possible to optimize SVG output and reducing its filesize to improve loading times and reduce storage.
-
-The following optimizations are supported:
-- `css`, which purge unused CSS and minify remaining styles
-- `xml`, which pretty-print XML (it also helps reducing diffs between commits)
-- `svg`, which optimize SVG with SVGO (experimental)
-
-#### ℹ️ Examples workflows
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    optimize: css, xml
-
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    optimize: css, xml, svg
-    experimental_features: --optimize-svg
-```
-
-### ✨ Render `Metrics insights` statically
-
-It is possible to generate an HTML file containing `✨ Metrics insights` output by setting `config_output` to `insights`. Resulting output will already be pre-rendered and not contain any external sources (i.e. no JavaScript and style sheets).
-
-> Note that like `✨ Metrics insights` content is not configurable.
-
-#### ℹ️ Examples workflows
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    config_output: insights
-```
-
-### 🐳 Faster execution with prebuilt docker images
-
-If you're using the official release `lowlighter/metrics` as a GitHub Action (either a specific version, `@latest` or `@master`), it'll pull a prebuilt docker container image from [GitHub Container Registry](https://github.com/users/lowlighter/packages/container/package/metrics) which contains already installed dependencies which will cut execution time from ~5 minutes to ~1 minute.
-
-These are published through this automated [workflow](/.github/workflows/workflow.yml).
-
-As code is frozen on docker container images, this feature is disabled on forks to take into account any changes you've made on it. In case you wish to use official releases along with a custom template present on your fork, check out [community templates](/source/templates/community/README.md).
-
-#### ℹ️ Examples workflows
-
-```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    use_prebuilt_image: yes
-```
