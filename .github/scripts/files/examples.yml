@@ -7,12 +7,19 @@ on:
   workflow_call:
     secrets:
       METRICS_TOKEN:
+        required: true
       METRICS_TOKEN_WITH_SCOPES:
+        required: true
       PAGESPEED_TOKEN:
+        required: true
       SPOTIFY_TOKENS:
+        required: true
       STOCK_TOKEN:
+        required: true
       TWITTER_TOKEN:
+        required: true
       WAKATIME_TOKEN:
+        required: true
 jobs:
 
 # ======================================================================================
