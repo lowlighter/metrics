@@ -1,23 +1,30 @@
-### 🎟️ Follow-up of issues and pull requests
-
-The *followup* plugin displays the ratio of open/closed issues and the ratio of open/merged pull requests across all your repositories, which shows if they're well-maintained or not.
-
+<!--header-->
 <table>
-  <td align="center">
-    <details open><summary>Indepth analysis</summary>
-      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.followup.indepth.svg">
-    </details>
-    <details><summary>Created on an user's repositories</summary>
-      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.followup.svg">
-    </details>
-    <details><summary>Created by an user</summary>
-      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.followup.user.svg">
-    </details>
-    <img width="900" height="1" alt="">
-  </td>
+  <tr><th colspan="2"><h3>🎟️ Follow-up of issues and pull requests</h3></th></tr>
+  <tr><td colspan="2" align="center"><p>This plugin displays the ratio of open/closed issues and the ratio of open/merged pull requests across all your repositories.</p>
+</td></tr>
+  <tr>
+    <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
+    <td><a href="/source/templates/classic"><code>📗 Classic template</code></a> <a href="/source/templates/repository"><code>📘 Repository template</code></a></td>
+  </tr>
+  <tr>
+    <td><code>👤 Users</code> <code>👥 Organizations</code> <code>📓 Repositories</code></td>
+  </tr>
+  <tr>
+    <td><code>🔑 (scopeless)</code> <code>read:org (optional)</code> <code>read:user (optional)</code> <code>repo (optional)</code></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
+      <details open><summary>Indepth analysis</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.followup.indepth.svg" alt=""></img></details>
+      <details><summary>Created on an user's repositories</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.followup.svg" alt=""></img></details>
+      <details><summary>Created by an user</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.followup.user.svg" alt=""></img></details>
+      <img width="900" height="1" alt="">
+    </td>
+  </tr>
 </table>
+<!--/header-->
 
-#### ➡️ Available options
+## ➡️ Available options
 
 <!--options-->
 <table>
@@ -26,7 +33,7 @@ The *followup* plugin displays the ratio of open/closed issues and the ratio of 
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_followup</code></td>
-    <td rowspan="2"><p>Display follow-up of repositories issues and pull requests</p>
+    <td rowspan="2"><p>Enable followup plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -36,7 +43,11 @@ The *followup* plugin displays the ratio of open/closed issues and the ratio of 
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_followup_sections</code></td>
-    <td rowspan="2"><p>Sections to display</p>
+    <td rowspan="2"><p>Displayed sections</p>
+<ul>
+<li><code>repositories</code>: overall status of issues and pull requests on your repositories</li>
+<li><code>user</code>: overall status of issues and pull requests you have created on GitHub</li>
+</ul>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -48,7 +59,7 @@ The *followup* plugin displays the ratio of open/closed issues and the ratio of 
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_followup_indepth</code></td>
-    <td rowspan="2"><p>Indepth follow-up processing</p>
+    <td rowspan="2"><p>Indepth analysis</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -60,9 +71,13 @@ The *followup* plugin displays the ratio of open/closed issues and the ratio of 
 </table>
 <!--/options-->
 
-*[→ Full specification](metadata.yml)*
+## 🔎 `indepth` mode
 
-#### ℹ️ Examples workflows
+The `plugin_followup_indepth` option collects additional stats to differentiate issues and pull requests opened by maintainers and users.
+
+It helps knowing whether repositories are also maintained by other users and give an overall health status of repositories.
+
+## ℹ️ Examples workflows
 
 <!--examples-->
 ```yaml
