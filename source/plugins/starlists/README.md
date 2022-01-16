@@ -1,15 +1,28 @@
-### 💫 Starlists
-
-The *starlists* plugin displays your recently star lists.
-
+<!--header-->
 <table>
-  <td align="center">
-    <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.starlists.svg">
-    <img width="900" height="1" alt="">
-  </td>
+  <tr><th colspan="2"><h3>💫 Starlists</h3></th></tr>
+  <tr><td colspan="2" align="center"><p>This plugin displays your star lists.</p>
+</td></tr>
+  <tr>
+    <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
+    <td><a href="/source/templates/classic"><code>📗 Classic template</code></a></td>
+  </tr>
+  <tr>
+    <td><code>👤 Users</code></td>
+  </tr>
+  <tr>
+    <td><i>No tokens are required for this plugin</i></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
+      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.starlists.svg" alt=""></img>
+      <img width="900" height="1" alt="">
+    </td>
+  </tr>
 </table>
+<!--/header-->
 
-#### ➡️ Available options
+## ➡️ Available options
 
 <!--options-->
 <table>
@@ -18,7 +31,7 @@ The *starlists* plugin displays your recently star lists.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_starlists</code></td>
-    <td rowspan="2"><p>Display star lists</p>
+    <td rowspan="2"><p>Enable starlists plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -29,7 +42,7 @@ The *starlists* plugin displays your recently star lists.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_starlists_limit</code></td>
-    <td rowspan="2"><p>Number of star lists to display</p>
+    <td rowspan="2"><p>Display limit (star lists)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -43,7 +56,7 @@ The *starlists* plugin displays your recently star lists.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_starlists_limit_repositories</code></td>
-    <td rowspan="2"><p>Number of repositories to display per star lists</p>
+    <td rowspan="2"><p>Display limit (repositories per star list)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -57,7 +70,7 @@ The *starlists* plugin displays your recently star lists.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_starlists_shuffle_repositories</code></td>
-    <td rowspan="2"><p>Shuffle displayed repositories</p>
+    <td rowspan="2"><p>Shuffle data for varied outputs</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -68,7 +81,7 @@ The *starlists* plugin displays your recently star lists.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_starlists_ignored</code></td>
-    <td rowspan="2"><p>Star lists to skip</p>
+    <td rowspan="2"><p>Skipped star lists (case insensitive)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -79,7 +92,8 @@ The *starlists* plugin displays your recently star lists.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_starlists_only</code></td>
-    <td rowspan="2"><p>Star lists to display</p>
+    <td rowspan="2"><p>Restrict display to specified star lists (case insensitive)</p>
+<p>This option is equivalent to <code>plugin_starlists_ignored</code> with all star lists but the ones listed in this option</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -91,9 +105,7 @@ The *starlists* plugin displays your recently star lists.
 </table>
 <!--/options-->
 
-*[→ Full specification](metadata.yml)*
-
-#### ℹ️ Examples workflows
+## ℹ️ Examples workflows
 
 <!--examples-->
 ```yaml

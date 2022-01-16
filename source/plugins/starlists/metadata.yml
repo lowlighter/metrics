@@ -1,51 +1,50 @@
 name: "💫 Starlists"
 category: github
+description: This plugin displays your star lists.
+examples:
+  default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.starlists.svg
 index: 24
 supports:
   - user
 scopes: []
 inputs:
 
-  # Enable or disable plugin
   plugin_starlists:
-    description: Display star lists
+    description: Enable starlists plugin
     type: boolean
     default: no
 
-  # Number of star lists to display
   plugin_starlists_limit:
-    description: Number of star lists to display
+    description: Display limit (star lists)
     type: number
     default: 2
     min: 1
     max: 100
 
-  # Number of repositories to display per star lists
   plugin_starlists_limit_repositories:
-    description: Number of repositories to display per star lists
+    description: Display limit (repositories per star list)
     type: number
     default: 2
     min: 0
     max: 100
 
-  # Shuffle displayed repositories for varied outputs
   plugin_starlists_shuffle_repositories:
-    description: Shuffle displayed repositories
+    description: Shuffle data for varied outputs
     type: boolean
     default: yes
 
-  # List of star lists that will be ignored
   plugin_starlists_ignored:
-    description: Star lists to skip
+    description: Skipped star lists (case insensitive)
     type: array
     format: comma-separated
     default: ""
     example: 😎 list1, 🥳 list2, ...
 
-  # List of star lists to display
-  # Using this option is equivalent of using "plugin_starlists_ignored" with all star lists but the ones listed
   plugin_starlists_only:
-    description: Star lists to display
+    description:  |
+      Restrict display to specified star lists (case insensitive)
+
+      This option is equivalent to `plugin_starlists_ignored` with all star lists but the ones listed in this option
     type: array
     format: comma-separated
     default: ""
