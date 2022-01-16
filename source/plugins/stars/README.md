@@ -64,8 +64,8 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.stars.svg
   token: ${{ secrets.METRICS_TOKEN }}
-  base: ''
-  plugin_stars: 'yes'
+  base: ""
+  plugin_stars: yes
   plugin_stars_limit: 3
 
 ```

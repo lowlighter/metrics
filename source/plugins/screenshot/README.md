@@ -92,11 +92,11 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.screenshot.svg
   token: ${{ secrets.METRICS_TOKEN }}
-  base: ''
-  plugin_screenshot: 'yes'
+  base: ""
+  plugin_screenshot: yes
   plugin_screenshot_title: XKCD of the day
   plugin_screenshot_url: https://xkcd.com
-  plugin_screenshot_selector: '#comic img'
+  plugin_screenshot_selector: "#comic img"
 
 ```
 <!--/examples-->

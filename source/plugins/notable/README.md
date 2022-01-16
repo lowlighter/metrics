@@ -108,8 +108,8 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.notable.svg
   token: ${{ secrets.METRICS_TOKEN }}
-  base: ''
-  plugin_notable: 'yes'
+  base: ""
+  plugin_notable: yes
 
 ```
 ```yaml
@@ -118,10 +118,10 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.notable.indepth.svg
   token: ${{ secrets.METRICS_TOKEN }}
-  base: ''
-  plugin_notable: 'yes'
-  plugin_notable_indepth: 'yes'
-  plugin_notable_repositories: 'yes'
+  base: ""
+  plugin_notable: yes
+  plugin_notable_indepth: yes
+  plugin_notable_repositories: yes
 
 ```
 <!--/examples-->

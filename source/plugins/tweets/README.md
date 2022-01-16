@@ -104,8 +104,8 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.tweets.svg
   token: NOT_NEEDED
-  base: ''
-  plugin_tweets: 'yes'
+  base: ""
+  plugin_tweets: yes
   plugin_tweets_token: ${{ secrets.TWITTER_TOKEN }}
   plugin_tweets_user: github
 
@@ -116,10 +116,10 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.tweets.attachments.svg
   token: NOT_NEEDED
-  base: ''
-  plugin_tweets: 'yes'
+  base: ""
+  plugin_tweets: yes
   plugin_tweets_token: ${{ secrets.TWITTER_TOKEN }}
-  plugin_tweets_attachments: 'yes'
+  plugin_tweets_attachments: yes
   plugin_tweets_user: github
   plugin_tweets_limit: 1
 

@@ -102,10 +102,10 @@ name: Licenses and permissions
 with:
   filename: metrics.plugin.licenses.svg
   token: ${{ secrets.METRICS_TOKEN }}
-  base: ''
+  base: ""
   template: repository
   repo: metrics
-  plugin_licenses: 'yes'
+  plugin_licenses: yes
   plugin_licenses_setup: npm ci
 
 ```
@@ -115,13 +115,13 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.licenses.ratio.svg
   token: ${{ secrets.METRICS_TOKEN }}
-  base: ''
+  base: ""
   template: repository
   repo: metrics
-  plugin_licenses: 'yes'
+  plugin_licenses: yes
   plugin_licenses_setup: npm ci
-  plugin_licenses_legal: 'no'
-  plugin_licenses_ratio: 'yes'
+  plugin_licenses_legal: no
+  plugin_licenses_ratio: yes
 
 ```
 <!--/examples-->

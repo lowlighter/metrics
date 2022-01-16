@@ -308,8 +308,8 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.music.playlist.svg
   token: NOT_NEEDED
-  base: ''
-  plugin_music: 'yes'
+  base: ""
+  plugin_music: yes
   plugin_music_playlist: https://embed.music.apple.com/fr/playlist/usr-share/pl.u-V9D7m8Etjmjd0D
   plugin_music_limit: 2
 
@@ -320,8 +320,8 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.music.playlist.spotify.svg
   token: NOT_NEEDED
-  base: ''
-  plugin_music: 'yes'
+  base: ""
+  plugin_music: yes
   plugin_music_playlist: https://open.spotify.com/embed/playlist/3nfA87oeJw4LFVcUDjRcqi
 
 ```
@@ -331,8 +331,8 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.music.recent.svg
   token: NOT_NEEDED
-  base: ''
-  plugin_music: 'yes'
+  base: ""
+  plugin_music: yes
   plugin_music_provider: spotify
   plugin_music_mode: recent
   plugin_music_token: ${{ secrets.SPOTIFY_TOKENS }}
@@ -344,8 +344,8 @@ name: Spotify - Top tracks
 uses: lowlighter/metrics@latest
 with:
   token: NOT_NEEDED
-  base: ''
-  plugin_music: 'yes'
+  base: ""
+  plugin_music: yes
   plugin_music_mode: top
   plugin_music_provider: spotify
   plugin_music_token: ${{ secrets.SPOTIFY_TOKENS }}
@@ -358,8 +358,8 @@ name: Spotify - Top artists
 uses: lowlighter/metrics@latest
 with:
   token: NOT_NEEDED
-  base: ''
-  plugin_music: 'yes'
+  base: ""
+  plugin_music: yes
   plugin_music_mode: top
   plugin_music_provider: spotify
   plugin_music_token: ${{ secrets.SPOTIFY_TOKENS }}
@@ -372,8 +372,8 @@ name: Youtube Music - Random track from playlist
 uses: lowlighter/metrics@latest
 with:
   token: NOT_NEEDED
-  base: ''
-  plugin_music: 'yes'
+  base: ""
+  plugin_music: yes
   plugin_music_playlist: >-
     https://music.youtube.com/playlist?list=OLAK5uy_kU_uxp9TUOl9zVdw77xith8o9AknVwz9U
 
@@ -383,9 +383,9 @@ name: Youtube Music - Recently listed
 uses: lowlighter/metrics@latest
 with:
   token: NOT_NEEDED
-  base: ''
+  base: ""
   plugin_music_token: ${{ secrets.YOUTUBE_MUSIC_TOKENS }}
-  plugin_music: 'yes'
+  plugin_music: yes
   plugin_music_mode: recent
   plugin_music_provider: youtube
 
@@ -395,9 +395,9 @@ name: Last.fm  - Recently listed
 uses: lowlighter/metrics@latest
 with:
   token: NOT_NEEDED
-  base: ''
+  base: ""
   plugin_music_token: ${{ secrets.LASTFM_TOKEN }}
-  plugin_music: 'yes'
+  plugin_music: yes
   plugin_music_provider: lastfm
   plugin_music_user: RJ
 

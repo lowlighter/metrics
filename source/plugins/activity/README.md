@@ -164,8 +164,8 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.activity.svg
   token: ${{ secrets.METRICS_TOKEN }}
-  base: ''
-  plugin_activity: 'yes'
+  base: ""
+  plugin_activity: yes
   plugin_activity_limit: 5
   plugin_activity_days: 0
   plugin_activity_filter: issue, pr, release, fork, review, ref/create

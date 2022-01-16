@@ -43,7 +43,7 @@ jobs:
           filename: metrics.base.svg
           token: ${{ secrets.METRICS_TOKEN }}
           base: header, activity, community, repositories, metadata
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -54,7 +54,7 @@ jobs:
           user: github
           token: ${{ secrets.METRICS_TOKEN_WITH_SCOPES }}
           base: header, repositories
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -64,7 +64,7 @@ jobs:
           filename: metrics.large.svg
           token: ${{ secrets.METRICS_TOKEN }}
           config_display: large
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -75,7 +75,7 @@ jobs:
           filename: metrics.example.json
           token: ${{ secrets.METRICS_TOKEN }}
           config_output: json
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
       - name: 🧱 Core - PNG metrics
@@ -85,7 +85,7 @@ jobs:
           filename: metrics.example.png
           token: ${{ secrets.METRICS_TOKEN }}
           config_output: png
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
       - name: 🧱 Core - Plugin error example
@@ -93,9 +93,9 @@ jobs:
         with:
           filename: metrics.plugin.error.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          base: ''
-          plugin_projects: 'yes'
-          plugins_errors_fatal: 'yes'
+          base: ""
+          plugin_projects: yes
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -104,9 +104,9 @@ jobs:
         with:
           filename: metrics.plugin.isocalendar.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          base: ''
-          plugin_isocalendar: 'yes'
-          plugins_errors_fatal: 'yes'
+          base: ""
+          plugin_isocalendar: yes
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -115,10 +115,10 @@ jobs:
         with:
           filename: metrics.plugin.isocalendar.fullyear.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          base: ''
-          plugin_isocalendar: 'yes'
+          base: ""
+          plugin_isocalendar: yes
           plugin_isocalendar_duration: full-year
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -127,13 +127,13 @@ jobs:
         with:
           filename: metrics.plugin.languages.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          base: ''
-          plugin_languages: 'yes'
+          base: ""
+          plugin_languages: yes
           plugin_languages_ignored: >-
             html, css, tex, less, dockerfile, makefile, qmake, lex, cmake, shell,
             gnuplot
           plugin_languages_limit: 4
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -142,14 +142,14 @@ jobs:
         with:
           filename: metrics.plugin.languages.details.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          base: ''
-          plugin_languages: 'yes'
+          base: ""
+          plugin_languages: yes
           plugin_languages_ignored: >-
             html, css, tex, less, dockerfile, makefile, qmake, lex, cmake, shell,
             gnuplot
           plugin_languages_details: bytes-size, percentage
           plugin_languages_limit: 4
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -158,15 +158,15 @@ jobs:
         with:
           filename: metrics.plugin.languages.recent.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          base: ''
-          plugin_languages: 'yes'
+          base: ""
+          plugin_languages: yes
           plugin_languages_ignored: >-
             html, css, tex, less, dockerfile, makefile, qmake, lex, cmake, shell,
             gnuplot
           plugin_languages_sections: recently-used
           plugin_languages_details: bytes-size, percentage
           plugin_languages_limit: 4
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -175,16 +175,16 @@ jobs:
         with:
           filename: metrics.plugin.languages.indepth.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          base: ''
-          plugin_languages: 'yes'
+          base: ""
+          plugin_languages: yes
           plugin_languages_ignored: >-
             html, css, tex, less, dockerfile, makefile, qmake, lex, cmake, shell,
             gnuplot
-          plugin_languages_indepth: 'yes'
+          plugin_languages_indepth: yes
           plugin_languages_details: lines, bytes-size
           plugin_languages_limit: 4
           plugin_languages_analysis_timeout: 15
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -193,10 +193,10 @@ jobs:
         with:
           filename: metrics.plugin.topics.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          base: ''
-          plugin_topics: 'yes'
+          base: ""
+          plugin_topics: yes
           plugin_topics_limit: 12
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -205,11 +205,11 @@ jobs:
         with:
           filename: metrics.plugin.topics.icons.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          base: ''
-          plugin_topics: 'yes'
+          base: ""
+          plugin_topics: yes
           plugin_topics_limit: 0
           plugin_topics_mode: icons
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -218,10 +218,10 @@ jobs:
         with:
           filename: metrics.plugin.stars.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          base: ''
-          plugin_stars: 'yes'
+          base: ""
+          plugin_stars: yes
           plugin_stars_limit: 3
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -229,12 +229,12 @@ jobs:
         with:
           filename: metrics.plugin.licenses.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          base: ''
+          base: ""
           template: repository
           repo: metrics
-          plugin_licenses: 'yes'
+          plugin_licenses: yes
           plugin_licenses_setup: npm ci
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -244,14 +244,14 @@ jobs:
         with:
           filename: metrics.plugin.licenses.ratio.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          base: ''
+          base: ""
           template: repository
           repo: metrics
-          plugin_licenses: 'yes'
+          plugin_licenses: yes
           plugin_licenses_setup: npm ci
-          plugin_licenses_legal: 'no'
-          plugin_licenses_ratio: 'yes'
-          plugins_errors_fatal: 'yes'
+          plugin_licenses_legal: no
+          plugin_licenses_ratio: yes
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -260,12 +260,12 @@ jobs:
         with:
           filename: metrics.plugin.habits.facts.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          base: ''
-          plugin_habits: 'yes'
-          plugin_habits_facts: 'yes'
-          plugin_habits_charts: 'no'
+          base: ""
+          plugin_habits: yes
+          plugin_habits_facts: yes
+          plugin_habits_charts: no
           config_timezone: Europe/Paris
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -274,12 +274,12 @@ jobs:
         with:
           filename: metrics.plugin.habits.charts.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          base: ''
-          plugin_habits: 'yes'
-          plugin_habits_facts: 'no'
-          plugin_habits_charts: 'yes'
+          base: ""
+          plugin_habits: yes
+          plugin_habits_facts: no
+          plugin_habits_charts: yes
           config_timezone: Europe/Paris
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -288,12 +288,12 @@ jobs:
         with:
           filename: metrics.plugin.contributors.contributions.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          base: ''
+          base: ""
           template: repository
           repo: metrics
-          plugin_contributors: 'yes'
-          plugin_contributors_contributions: 'yes'
-          plugins_errors_fatal: 'yes'
+          plugin_contributors: yes
+          plugin_contributors_contributions: yes
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -302,10 +302,10 @@ jobs:
         with:
           filename: metrics.plugin.contributors.categories.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          base: ''
+          base: ""
           template: repository
           repo: metrics
-          plugin_contributors: 'yes'
+          plugin_contributors: yes
           plugin_contributors_sections: categories
           plugin_contributors_categories: |
             {
@@ -313,7 +313,7 @@ jobs:
               "📚 Documentation":["README.md", "**/README.md", "**/metadata.yml"],
               "💻 Code (other)":["source/**", "Dockerfile"]
             }
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -322,9 +322,9 @@ jobs:
         with:
           filename: metrics.plugin.followup.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          base: ''
-          plugin_followup: 'yes'
-          plugins_errors_fatal: 'yes'
+          base: ""
+          plugin_followup: yes
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -333,10 +333,10 @@ jobs:
         with:
           filename: metrics.plugin.followup.user.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          base: ''
-          plugin_followup: 'yes'
+          base: ""
+          plugin_followup: yes
           plugin_followup_sections: user
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -345,10 +345,10 @@ jobs:
         with:
           filename: metrics.plugin.followup.indepth.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          base: ''
-          plugin_followup: 'yes'
-          plugin_followup_indepth: 'yes'
-          plugins_errors_fatal: 'yes'
+          base: ""
+          plugin_followup: yes
+          plugin_followup_indepth: yes
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -357,11 +357,11 @@ jobs:
         with:
           filename: metrics.plugin.reactions.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          base: ''
-          plugin_reactions: 'yes'
+          base: ""
+          plugin_reactions: yes
           plugin_reactions_limit: 100
           plugin_reactions_details: percentage
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -370,10 +370,10 @@ jobs:
         with:
           filename: metrics.plugin.people.followers.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          base: ''
-          plugin_people: 'yes'
+          base: ""
+          plugin_people: yes
           plugin_people_types: followers
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -382,15 +382,15 @@ jobs:
         with:
           filename: metrics.plugin.people.repository.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          base: ''
+          base: ""
           template: repository
           repo: metrics
-          plugin_people: 'yes'
+          plugin_people: yes
           plugin_people_types: contributors, stargazers, watchers, sponsors
           plugin_people_sponsors_custom: >-
             iamsainikhil, yutkat, KasparJohannesSchneider, ktnkk, tfSheol, haribo-io,
             marcreichel
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -399,9 +399,9 @@ jobs:
         with:
           filename: metrics.plugin.stargazers.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          base: ''
-          plugin_stargazers: 'yes'
-          plugins_errors_fatal: 'yes'
+          base: ""
+          plugin_stargazers: yes
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -410,11 +410,11 @@ jobs:
         with:
           filename: metrics.plugin.projects.svg
           token: ${{ secrets.METRICS_TOKEN_WITH_SCOPES }}
-          base: ''
-          plugin_projects: 'yes'
+          base: ""
+          plugin_projects: yes
           plugin_projects_repositories: lowlighter/metrics/projects/1
-          plugin_projects_descriptions: 'yes'
-          plugins_errors_fatal: 'yes'
+          plugin_projects_descriptions: yes
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -423,11 +423,11 @@ jobs:
         with:
           filename: metrics.plugin.code.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          base: ''
-          plugin_code: 'yes'
+          base: ""
+          plugin_code: yes
           plugin_code_languages: javascript, typescript
           plugin_code_load: 400
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -436,12 +436,12 @@ jobs:
         with:
           filename: metrics.plugin.activity.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          base: ''
-          plugin_activity: 'yes'
+          base: ""
+          plugin_activity: yes
           plugin_activity_limit: 5
           plugin_activity_days: 0
           plugin_activity_filter: issue, pr, release, fork, review, ref/create
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -450,10 +450,10 @@ jobs:
         with:
           filename: metrics.plugin.achievements.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          base: ''
-          plugin_achievements: 'yes'
+          base: ""
+          plugin_achievements: yes
           plugin_achievements_only: sponsor, maintainer, octonaut
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -462,14 +462,14 @@ jobs:
         with:
           filename: metrics.plugin.achievements.compact.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          base: ''
-          plugin_achievements: 'yes'
+          base: ""
+          plugin_achievements: yes
           plugin_achievements_only: >-
             polyglot, stargazer, sponsor, deployer, member, maintainer, developer,
             scripter, packager, explorer, infographile, manager
           plugin_achievements_display: compact
           plugin_achievements_threshold: X
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -478,9 +478,9 @@ jobs:
         with:
           filename: metrics.plugin.notable.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          base: ''
-          plugin_notable: 'yes'
-          plugins_errors_fatal: 'yes'
+          base: ""
+          plugin_notable: yes
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -489,11 +489,11 @@ jobs:
         with:
           filename: metrics.plugin.notable.indepth.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          base: ''
-          plugin_notable: 'yes'
-          plugin_notable_indepth: 'yes'
-          plugin_notable_repositories: 'yes'
-          plugins_errors_fatal: 'yes'
+          base: ""
+          plugin_notable: yes
+          plugin_notable_indepth: yes
+          plugin_notable_repositories: yes
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -502,10 +502,10 @@ jobs:
         with:
           filename: metrics.plugin.discussions.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          base: ''
-          plugin_discussions: 'yes'
+          base: ""
+          plugin_discussions: yes
           plugin_discussions_categories_limit: 8
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -514,9 +514,9 @@ jobs:
         with:
           filename: metrics.plugin.support.svg
           token: NOT_NEEDED
-          base: ''
-          plugin_support: 'yes'
-          plugins_errors_fatal: 'yes'
+          base: ""
+          plugin_support: yes
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -526,8 +526,8 @@ jobs:
           filename: metrics.plugin.lines.svg
           token: ${{ secrets.METRICS_TOKEN }}
           base: repositories
-          plugin_lines: 'yes'
-          plugins_errors_fatal: 'yes'
+          plugin_lines: yes
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -537,8 +537,8 @@ jobs:
           filename: metrics.plugin.traffic.svg
           token: ${{ secrets.METRICS_TOKEN_WITH_SCOPES }}
           base: repositories
-          plugin_traffic: 'yes'
-          plugins_errors_fatal: 'yes'
+          plugin_traffic: yes
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -547,10 +547,10 @@ jobs:
         with:
           filename: metrics.plugin.repositories.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          base: ''
-          plugin_repositories: 'yes'
+          base: ""
+          plugin_repositories: yes
           plugin_repositories_featured: lowlighter/metrics
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -559,9 +559,9 @@ jobs:
         with:
           filename: metrics.plugin.gists.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          base: ''
-          plugin_gists: 'yes'
-          plugins_errors_fatal: 'yes'
+          base: ""
+          plugin_gists: yes
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -572,8 +572,8 @@ jobs:
           token: ${{ secrets.METRICS_TOKEN_WITH_SCOPES }}
           user: github
           base: header
-          plugin_introduction: 'yes'
-          plugins_errors_fatal: 'yes'
+          plugin_introduction: yes
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -585,8 +585,8 @@ jobs:
           template: repository
           repo: metrics
           base: header
-          plugin_introduction: 'yes'
-          plugins_errors_fatal: 'yes'
+          plugin_introduction: yes
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -595,10 +595,10 @@ jobs:
         with:
           filename: metrics.plugin.sponsors.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          base: ''
-          plugin_sponsors: 'yes'
+          base: ""
+          plugin_sponsors: yes
           plugin_sponsors_sections: goal
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -607,9 +607,9 @@ jobs:
         with:
           filename: metrics.plugin.sponsors.full.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          base: ''
-          plugin_sponsors: 'yes'
-          plugins_errors_fatal: 'yes'
+          base: ""
+          plugin_sponsors: yes
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -618,11 +618,11 @@ jobs:
         with:
           filename: metrics.plugin.starlists.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          base: ''
-          plugin_starlists: 'yes'
+          base: ""
+          plugin_starlists: yes
           plugin_starlists_limit_repositories: 2
           plugin_starlists_only: 🤘 TC39
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -631,12 +631,12 @@ jobs:
         with:
           filename: metrics.plugin.skyline.svg
           token: NOT_NEEDED
-          base: ''
-          plugin_skyline: 'yes'
+          base: ""
+          plugin_skyline: yes
           plugin_skyline_year: 2020
           plugin_skyline_frames: 6
           plugin_skyline_quality: 1
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -645,11 +645,11 @@ jobs:
         with:
           filename: metrics.plugin.pagespeed.svg
           token: NOT_NEEDED
-          base: ''
-          plugin_pagespeed: 'yes'
+          base: ""
+          plugin_pagespeed: yes
           plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
           plugin_pagespeed_url: https://lecoq.io
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -658,12 +658,12 @@ jobs:
         with:
           filename: metrics.plugin.pagespeed.detailed.svg
           token: NOT_NEEDED
-          base: ''
-          plugin_pagespeed: 'yes'
-          plugin_pagespeed_detailed: 'yes'
+          base: ""
+          plugin_pagespeed: yes
+          plugin_pagespeed_detailed: yes
           plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
           plugin_pagespeed_url: https://lecoq.io
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -672,12 +672,12 @@ jobs:
         with:
           filename: metrics.plugin.pagespeed.screenshot.svg
           token: NOT_NEEDED
-          base: ''
-          plugin_pagespeed: 'yes'
-          plugin_pagespeed_screenshot: 'yes'
+          base: ""
+          plugin_pagespeed: yes
+          plugin_pagespeed_screenshot: yes
           plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
           plugin_pagespeed_url: https://lecoq.io
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -686,11 +686,11 @@ jobs:
         with:
           filename: metrics.plugin.music.playlist.svg
           token: NOT_NEEDED
-          base: ''
-          plugin_music: 'yes'
+          base: ""
+          plugin_music: yes
           plugin_music_playlist: https://embed.music.apple.com/fr/playlist/usr-share/pl.u-V9D7m8Etjmjd0D
           plugin_music_limit: 2
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -699,10 +699,10 @@ jobs:
         with:
           filename: metrics.plugin.music.playlist.spotify.svg
           token: NOT_NEEDED
-          base: ''
-          plugin_music: 'yes'
+          base: ""
+          plugin_music: yes
           plugin_music_playlist: https://open.spotify.com/embed/playlist/3nfA87oeJw4LFVcUDjRcqi
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -711,13 +711,13 @@ jobs:
         with:
           filename: metrics.plugin.music.recent.svg
           token: NOT_NEEDED
-          base: ''
-          plugin_music: 'yes'
+          base: ""
+          plugin_music: yes
           plugin_music_provider: spotify
           plugin_music_mode: recent
           plugin_music_token: ${{ secrets.SPOTIFY_TOKENS }}
           plugin_music_limit: 2
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -725,14 +725,14 @@ jobs:
         uses: lowlighter/metrics@master
         with:
           token: NOT_NEEDED
-          base: ''
-          plugin_music: 'yes'
+          base: ""
+          plugin_music: yes
           plugin_music_mode: top
           plugin_music_provider: spotify
           plugin_music_token: ${{ secrets.SPOTIFY_TOKENS }}
           plugin_music_time_range: short
           plugin_music_top_type: tracks
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -740,14 +740,14 @@ jobs:
         uses: lowlighter/metrics@master
         with:
           token: NOT_NEEDED
-          base: ''
-          plugin_music: 'yes'
+          base: ""
+          plugin_music: yes
           plugin_music_mode: top
           plugin_music_provider: spotify
           plugin_music_token: ${{ secrets.SPOTIFY_TOKENS }}
           plugin_music_time_range: long
           plugin_music_top_type: artists
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -755,11 +755,11 @@ jobs:
         uses: lowlighter/metrics@master
         with:
           token: NOT_NEEDED
-          base: ''
-          plugin_music: 'yes'
+          base: ""
+          plugin_music: yes
           plugin_music_playlist: >-
             https://music.youtube.com/playlist?list=OLAK5uy_kU_uxp9TUOl9zVdw77xith8o9AknVwz9U
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -768,12 +768,12 @@ jobs:
         with:
           filename: metrics.plugin.stackoverflow.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          base: ''
-          plugin_stackoverflow: 'yes'
+          base: ""
+          plugin_stackoverflow: yes
           plugin_stackoverflow_user: 1
           plugin_stackoverflow_sections: answers-top
           plugin_stackoverflow_limit: 2
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -784,12 +784,12 @@ jobs:
         with:
           filename: metrics.plugin.anilist.svg
           token: NOT_NEEDED
-          base: ''
-          plugin_anilist: 'yes'
+          base: ""
+          plugin_anilist: yes
           plugin_anilist_medias: anime
           plugin_anilist_sections: favorites, watching
           plugin_anilist_limit: 1
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -800,12 +800,12 @@ jobs:
         with:
           filename: metrics.plugin.anilist.manga.svg
           token: NOT_NEEDED
-          base: ''
-          plugin_anilist: 'yes'
+          base: ""
+          plugin_anilist: yes
           plugin_anilist_medias: manga
           plugin_anilist_sections: favorites, reading
           plugin_anilist_limit: 1
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -814,11 +814,11 @@ jobs:
         with:
           filename: metrics.plugin.anilist.characters.svg
           token: NOT_NEEDED
-          base: ''
-          plugin_anilist: 'yes'
+          base: ""
+          plugin_anilist: yes
           plugin_anilist_sections: characters
           plugin_anilist_limit_characters: 22
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -827,11 +827,11 @@ jobs:
         with:
           filename: metrics.plugin.tweets.svg
           token: NOT_NEEDED
-          base: ''
-          plugin_tweets: 'yes'
+          base: ""
+          plugin_tweets: yes
           plugin_tweets_token: ${{ secrets.TWITTER_TOKEN }}
           plugin_tweets_user: github
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -840,13 +840,13 @@ jobs:
         with:
           filename: metrics.plugin.tweets.attachments.svg
           token: NOT_NEEDED
-          base: ''
-          plugin_tweets: 'yes'
+          base: ""
+          plugin_tweets: yes
           plugin_tweets_token: ${{ secrets.TWITTER_TOKEN }}
-          plugin_tweets_attachments: 'yes'
+          plugin_tweets_attachments: yes
           plugin_tweets_user: github
           plugin_tweets_limit: 1
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -855,10 +855,10 @@ jobs:
         with:
           filename: metrics.plugin.posts.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          base: ''
-          plugin_posts: 'yes'
+          base: ""
+          plugin_posts: yes
           plugin_posts_source: dev.to
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -867,13 +867,13 @@ jobs:
         with:
           filename: metrics.plugin.posts.full.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          base: ''
-          plugin_posts: 'yes'
+          base: ""
+          plugin_posts: yes
           plugin_posts_source: dev.to
           plugin_posts_limit: 2
-          plugin_posts_descriptions: 'yes'
-          plugin_posts_covers: 'yes'
-          plugins_errors_fatal: 'yes'
+          plugin_posts_descriptions: yes
+          plugin_posts_covers: yes
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -882,11 +882,11 @@ jobs:
         with:
           filename: metrics.plugin.rss.svg
           token: NOT_NEEDED
-          base: ''
-          plugin_rss: 'yes'
+          base: ""
+          plugin_rss: yes
           plugin_rss_source: https://news.ycombinator.com/rss
           plugin_rss_limit: 4
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -895,12 +895,12 @@ jobs:
         with:
           filename: metrics.plugin.wakatime.svg
           token: NOT_NEEDED
-          base: ''
-          plugin_wakatime: 'yes'
+          base: ""
+          plugin_wakatime: yes
           plugin_wakatime_sections: time, projects, projects-graphs, languages, languages-graphs, editors, os
           plugin_wakatime_token: MOCKED_TOKEN
-          use_mocked_data: 'yes'
-          plugins_errors_fatal: 'yes'
+          use_mocked_data: yes
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -909,11 +909,11 @@ jobs:
         with:
           filename: metrics.plugin.stock.svg
           token: NOT_NEEDED
-          base: ''
-          plugin_stock: 'yes'
+          base: ""
+          plugin_stock: yes
           plugin_stock_token: ${{ secrets.STOCK_TOKEN }}
           plugin_stock_symbol: TSLA
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -922,12 +922,12 @@ jobs:
         with:
           filename: metrics.plugin.screenshot.svg
           token: ${{ secrets.METRICS_TOKEN }}
-          base: ''
-          plugin_screenshot: 'yes'
+          base: ""
+          plugin_screenshot: yes
           plugin_screenshot_title: XKCD of the day
           plugin_screenshot_url: https://xkcd.com
-          plugin_screenshot_selector: '#comic img'
-          plugins_errors_fatal: 'yes'
+          plugin_screenshot_selector: "#comic img"
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -937,8 +937,8 @@ jobs:
           filename: metrics.classic.svg
           token: ${{ secrets.METRICS_TOKEN }}
           base: header, repositories
-          plugin_lines: 'yes'
-          plugins_errors_fatal: 'yes'
+          plugin_lines: yes
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -950,11 +950,11 @@ jobs:
           token: ${{ secrets.METRICS_TOKEN_WITH_SCOPES }}
           user: lowlighter
           repo: metrics
-          plugin_lines: 'yes'
-          plugin_followup: 'yes'
-          plugin_projects: 'yes'
+          plugin_lines: yes
+          plugin_followup: yes
+          plugin_projects: yes
           plugin_projects_repositories: lowlighter/metrics/projects/1
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -965,7 +965,7 @@ jobs:
           filename: metrics.terminal.svg
           token: ${{ secrets.METRICS_TOKEN }}
           base: header, metadata
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -977,7 +977,7 @@ jobs:
           markdown: metrics.markdown.template.md
           config_output: markdown
           token: ${{ secrets.METRICS_TOKEN }}
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -989,29 +989,29 @@ jobs:
           markdown: >-
             https://raw.githubusercontent.com/lowlighter/metrics/master/source/templates/markdown/example.md
           config_output: markdown
-          plugin_activity: 'yes'
+          plugin_activity: yes
           plugin_activity_limit: 7
           plugin_activity_days: 0
           plugin_activity_filter: issue, pr, release, fork, review, ref/create
-          plugin_posts: 'yes'
+          plugin_posts: yes
           plugin_posts_source: dev.to
-          plugin_posts_descriptions: 'yes'
-          plugin_posts_covers: 'yes'
+          plugin_posts_descriptions: yes
+          plugin_posts_covers: yes
           plugin_posts_limit: 2
-          plugin_rss: 'yes'
+          plugin_rss: yes
           plugin_rss_source: https://news.ycombinator.com/rss
           plugin_rss_limit: 4
-          plugin_tweets: 'yes'
+          plugin_tweets: yes
           plugin_tweets_token: ${{ secrets.TWITTER_TOKEN }}
           plugin_tweets_user: github
-          plugin_tweets_attachments: 'yes'
+          plugin_tweets_attachments: yes
           plugin_tweets_limit: 2
-          plugin_topics: 'yes'
+          plugin_topics: yes
           plugin_topics_limit: 24
-          plugin_isocalendar: 'yes'
-          plugin_languages: 'yes'
+          plugin_isocalendar: yes
+          plugin_languages: yes
           token: ${{ secrets.METRICS_TOKEN }}
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -1023,14 +1023,14 @@ jobs:
           markdown: >-
             https://raw.githubusercontent.com/lowlighter/metrics/master/source/templates/markdown/example.pdf.md
           config_output: markdown-pdf
-          plugin_rss: 'yes'
+          plugin_rss: yes
           plugin_rss_source: https://news.ycombinator.com/rss
           plugin_rss_limit: 4
-          plugin_isocalendar: 'yes'
-          config_twemoji: 'yes'
+          plugin_isocalendar: yes
+          config_twemoji: yes
           config_padding: 5%
           token: ${{ secrets.METRICS_TOKEN }}
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -1038,9 +1038,9 @@ jobs:
         uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
-          template: '@classic'
+          template: "@classic"
           setup_community_templates: lowlighter/metrics@master:classic
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
@@ -1048,9 +1048,9 @@ jobs:
         uses: lowlighter/metrics@master
         with:
           token: ${{ secrets.METRICS_TOKEN }}
-          template: '@terminal'
+          template: "@terminal"
           setup_community_templates: lowlighter/metrics@master:terminal+trust
-          plugins_errors_fatal: 'yes'
+          plugins_errors_fatal: yes
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}

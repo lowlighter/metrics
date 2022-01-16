@@ -62,7 +62,7 @@ name: Using a community template
 uses: lowlighter/metrics@latest
 with:
   token: ${{ secrets.METRICS_TOKEN }}
-  template: '@classic'
+  template: "@classic"
   setup_community_templates: lowlighter/metrics@master:classic
 
 ```
@@ -71,7 +71,7 @@ name: Using a trusted community template
 uses: lowlighter/metrics@latest
 with:
   token: ${{ secrets.METRICS_TOKEN }}
-  template: '@terminal'
+  template: "@terminal"
   setup_community_templates: lowlighter/metrics@master:terminal+trust
 
 ```

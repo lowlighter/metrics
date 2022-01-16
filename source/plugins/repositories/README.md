@@ -66,8 +66,8 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.repositories.svg
   token: ${{ secrets.METRICS_TOKEN }}
-  base: ''
-  plugin_repositories: 'yes'
+  base: ""
+  plugin_repositories: yes
   plugin_repositories_featured: lowlighter/metrics
 
 ```

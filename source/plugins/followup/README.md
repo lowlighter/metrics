@@ -86,8 +86,8 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.followup.svg
   token: ${{ secrets.METRICS_TOKEN }}
-  base: ''
-  plugin_followup: 'yes'
+  base: ""
+  plugin_followup: yes
 
 ```
 ```yaml
@@ -96,8 +96,8 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.followup.user.svg
   token: ${{ secrets.METRICS_TOKEN }}
-  base: ''
-  plugin_followup: 'yes'
+  base: ""
+  plugin_followup: yes
   plugin_followup_sections: user
 
 ```
@@ -107,9 +107,9 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.followup.indepth.svg
   token: ${{ secrets.METRICS_TOKEN }}
-  base: ''
-  plugin_followup: 'yes'
-  plugin_followup_indepth: 'yes'
+  base: ""
+  plugin_followup: yes
+  plugin_followup_indepth: yes
 
 ```
 <!--/examples-->

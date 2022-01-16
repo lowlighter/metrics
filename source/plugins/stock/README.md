@@ -119,8 +119,8 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.stock.svg
   token: NOT_NEEDED
-  base: ''
-  plugin_stock: 'yes'
+  base: ""
+  plugin_stock: yes
   plugin_stock_token: ${{ secrets.STOCK_TOKEN }}
   plugin_stock_symbol: TSLA
 

@@ -120,10 +120,10 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.projects.svg
   token: ${{ secrets.METRICS_TOKEN_WITH_SCOPES }}
-  base: ''
-  plugin_projects: 'yes'
+  base: ""
+  plugin_projects: yes
   plugin_projects_repositories: lowlighter/metrics/projects/1
-  plugin_projects_descriptions: 'yes'
+  plugin_projects_descriptions: yes
 
 ```
 <!--/examples-->

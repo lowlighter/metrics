@@ -68,8 +68,8 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.sponsors.svg
   token: ${{ secrets.METRICS_TOKEN }}
-  base: ''
-  plugin_sponsors: 'yes'
+  base: ""
+  plugin_sponsors: yes
   plugin_sponsors_sections: goal
 
 ```
@@ -79,8 +79,8 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.sponsors.full.svg
   token: ${{ secrets.METRICS_TOKEN }}
-  base: ''
-  plugin_sponsors: 'yes'
+  base: ""
+  plugin_sponsors: yes
 
 ```
 <!--/examples-->

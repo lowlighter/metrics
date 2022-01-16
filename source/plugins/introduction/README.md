@@ -65,7 +65,7 @@ with:
   token: ${{ secrets.METRICS_TOKEN }}
   user: github
   base: header
-  plugin_introduction: 'yes'
+  plugin_introduction: yes
 
 ```
 ```yaml
@@ -77,7 +77,7 @@ with:
   template: repository
   repo: metrics
   base: header
-  plugin_introduction: 'yes'
+  plugin_introduction: yes
 
 ```
 <!--/examples-->

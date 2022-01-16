@@ -63,7 +63,7 @@ with:
   filename: metrics.plugin.lines.svg
   token: ${{ secrets.METRICS_TOKEN }}
   base: repositories
-  plugin_lines: 'yes'
+  plugin_lines: yes
 
 ```
 <!--/examples-->

@@ -150,11 +150,11 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.contributors.contributions.svg
   token: ${{ secrets.METRICS_TOKEN }}
-  base: ''
+  base: ""
   template: repository
   repo: metrics
-  plugin_contributors: 'yes'
-  plugin_contributors_contributions: 'yes'
+  plugin_contributors: yes
+  plugin_contributors_contributions: yes
 
 ```
 ```yaml
@@ -163,10 +163,10 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.contributors.categories.svg
   token: ${{ secrets.METRICS_TOKEN }}
-  base: ''
+  base: ""
   template: repository
   repo: metrics
-  plugin_contributors: 'yes'
+  plugin_contributors: yes
   plugin_contributors_sections: categories
   plugin_contributors_categories: |
     {

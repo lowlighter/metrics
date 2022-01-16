@@ -154,27 +154,27 @@ with:
   markdown: >-
     https://raw.githubusercontent.com/lowlighter/metrics/master/source/templates/markdown/example.md
   config_output: markdown
-  plugin_activity: 'yes'
+  plugin_activity: yes
   plugin_activity_limit: 7
   plugin_activity_days: 0
   plugin_activity_filter: issue, pr, release, fork, review, ref/create
-  plugin_posts: 'yes'
+  plugin_posts: yes
   plugin_posts_source: dev.to
-  plugin_posts_descriptions: 'yes'
-  plugin_posts_covers: 'yes'
+  plugin_posts_descriptions: yes
+  plugin_posts_covers: yes
   plugin_posts_limit: 2
-  plugin_rss: 'yes'
+  plugin_rss: yes
   plugin_rss_source: https://news.ycombinator.com/rss
   plugin_rss_limit: 4
-  plugin_tweets: 'yes'
+  plugin_tweets: yes
   plugin_tweets_token: ${{ secrets.TWITTER_TOKEN }}
   plugin_tweets_user: github
-  plugin_tweets_attachments: 'yes'
+  plugin_tweets_attachments: yes
   plugin_tweets_limit: 2
-  plugin_topics: 'yes'
+  plugin_topics: yes
   plugin_topics_limit: 24
-  plugin_isocalendar: 'yes'
-  plugin_languages: 'yes'
+  plugin_isocalendar: yes
+  plugin_languages: yes
   token: ${{ secrets.METRICS_TOKEN }}
 
 ```
@@ -187,11 +187,11 @@ with:
   markdown: >-
     https://raw.githubusercontent.com/lowlighter/metrics/master/source/templates/markdown/example.pdf.md
   config_output: markdown-pdf
-  plugin_rss: 'yes'
+  plugin_rss: yes
   plugin_rss_source: https://news.ycombinator.com/rss
   plugin_rss_limit: 4
-  plugin_isocalendar: 'yes'
-  config_twemoji: 'yes'
+  plugin_isocalendar: yes
+  config_twemoji: yes
   config_padding: 5%
   token: ${{ secrets.METRICS_TOKEN }}
 

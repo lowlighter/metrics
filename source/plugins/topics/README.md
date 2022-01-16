@@ -102,8 +102,8 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.topics.svg
   token: ${{ secrets.METRICS_TOKEN }}
-  base: ''
-  plugin_topics: 'yes'
+  base: ""
+  plugin_topics: yes
   plugin_topics_limit: 12
 
 ```
@@ -113,8 +113,8 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.topics.icons.svg
   token: ${{ secrets.METRICS_TOKEN }}
-  base: ''
-  plugin_topics: 'yes'
+  base: ""
+  plugin_topics: yes
   plugin_topics_limit: 0
   plugin_topics_mode: icons
 

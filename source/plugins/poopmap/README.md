@@ -98,7 +98,7 @@ This token will not expire and it will be able to access only public details.
 uses: lowlighter/metrics@latest
 with:
   token: ${{ secrets.METRICS_TOKEN }}
-  plugin_poopmap: 'yes'
+  plugin_poopmap: yes
 
 ```
 <!--/examples-->

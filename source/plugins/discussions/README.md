@@ -75,8 +75,8 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.discussions.svg
   token: ${{ secrets.METRICS_TOKEN }}
-  base: ''
-  plugin_discussions: 'yes'
+  base: ""
+  plugin_discussions: yes
   plugin_discussions_categories_limit: 8
 
 ```

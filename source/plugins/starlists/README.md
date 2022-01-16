@@ -114,8 +114,8 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.starlists.svg
   token: ${{ secrets.METRICS_TOKEN }}
-  base: ''
-  plugin_starlists: 'yes'
+  base: ""
+  plugin_starlists: yes
   plugin_starlists_limit_repositories: 2
   plugin_starlists_only: 🤘 TC39
 

@@ -150,8 +150,8 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.people.followers.svg
   token: ${{ secrets.METRICS_TOKEN }}
-  base: ''
-  plugin_people: 'yes'
+  base: ""
+  plugin_people: yes
   plugin_people_types: followers
 
 ```
@@ -161,10 +161,10 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.people.repository.svg
   token: ${{ secrets.METRICS_TOKEN }}
-  base: ''
+  base: ""
   template: repository
   repo: metrics
-  plugin_people: 'yes'
+  plugin_people: yes
   plugin_people_types: contributors, stargazers, watchers, sponsors
   plugin_people_sponsors_custom: >-
     iamsainikhil, yutkat, KasparJohannesSchneider, ktnkk, tfSheol, haribo-io,

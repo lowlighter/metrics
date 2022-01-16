@@ -126,7 +126,7 @@ Check out the instructions there.
 uses: lowlighter/metrics@latest
 with:
   token: ${{ secrets.METRICS_TOKEN }}
-  plugin_nightscout: 'yes'
+  plugin_nightscout: yes
   plugin_nightscout_url: ${{ secrets.NIGHTSCOUT_URL }}
 
 ```

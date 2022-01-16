@@ -51,8 +51,8 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.gists.svg
   token: ${{ secrets.METRICS_TOKEN }}
-  base: ''
-  plugin_gists: 'yes'
+  base: ""
+  plugin_gists: yes
 
 ```
 <!--/examples-->

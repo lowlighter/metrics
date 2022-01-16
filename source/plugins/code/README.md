@@ -113,8 +113,8 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.code.svg
   token: ${{ secrets.METRICS_TOKEN }}
-  base: ''
-  plugin_code: 'yes'
+  base: ""
+  plugin_code: yes
   plugin_code_languages: javascript, typescript
   plugin_code_load: 400
 

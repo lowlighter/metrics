@@ -124,8 +124,8 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.achievements.svg
   token: ${{ secrets.METRICS_TOKEN }}
-  base: ''
-  plugin_achievements: 'yes'
+  base: ""
+  plugin_achievements: yes
   plugin_achievements_only: sponsor, maintainer, octonaut
 
 ```
@@ -135,8 +135,8 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.achievements.compact.svg
   token: ${{ secrets.METRICS_TOKEN }}
-  base: ''
-  plugin_achievements: 'yes'
+  base: ""
+  plugin_achievements: yes
   plugin_achievements_only: >-
     polyglot, stargazer, sponsor, deployer, member, maintainer, developer,
     scripter, packager, explorer, infographile, manager

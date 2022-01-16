@@ -129,8 +129,8 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.anilist.svg
   token: NOT_NEEDED
-  base: ''
-  plugin_anilist: 'yes'
+  base: ""
+  plugin_anilist: yes
   plugin_anilist_medias: anime
   plugin_anilist_sections: favorites, watching
   plugin_anilist_limit: 1
@@ -142,8 +142,8 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.anilist.manga.svg
   token: NOT_NEEDED
-  base: ''
-  plugin_anilist: 'yes'
+  base: ""
+  plugin_anilist: yes
   plugin_anilist_medias: manga
   plugin_anilist_sections: favorites, reading
   plugin_anilist_limit: 1
@@ -155,8 +155,8 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.anilist.characters.svg
   token: NOT_NEEDED
-  base: ''
-  plugin_anilist: 'yes'
+  base: ""
+  plugin_anilist: yes
   plugin_anilist_sections: characters
   plugin_anilist_limit_characters: 22
 

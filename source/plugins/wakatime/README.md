@@ -136,8 +136,8 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.wakatime.svg
   token: NOT_NEEDED
-  base: ''
-  plugin_wakatime: 'yes'
+  base: ""
+  plugin_wakatime: yes
   plugin_wakatime_sections: time, projects, projects-graphs, languages, languages-graphs, editors, os
   plugin_wakatime_token: ${{ secrets.WAKATIME_TOKEN }}
 

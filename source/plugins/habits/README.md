@@ -126,10 +126,10 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.habits.facts.svg
   token: ${{ secrets.METRICS_TOKEN }}
-  base: ''
-  plugin_habits: 'yes'
-  plugin_habits_facts: 'yes'
-  plugin_habits_charts: 'no'
+  base: ""
+  plugin_habits: yes
+  plugin_habits_facts: yes
+  plugin_habits_charts: no
   config_timezone: Europe/Paris
 
 ```
@@ -139,10 +139,10 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.habits.charts.svg
   token: ${{ secrets.METRICS_TOKEN }}
-  base: ''
-  plugin_habits: 'yes'
-  plugin_habits_facts: 'no'
-  plugin_habits_charts: 'yes'
+  base: ""
+  plugin_habits: yes
+  plugin_habits_facts: no
+  plugin_habits_charts: yes
   config_timezone: Europe/Paris
 
 ```

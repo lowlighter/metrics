@@ -109,8 +109,8 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.posts.svg
   token: ${{ secrets.METRICS_TOKEN }}
-  base: ''
-  plugin_posts: 'yes'
+  base: ""
+  plugin_posts: yes
   plugin_posts_source: dev.to
 
 ```
@@ -120,12 +120,12 @@ uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.posts.full.svg
   token: ${{ secrets.METRICS_TOKEN }}
-  base: ''
-  plugin_posts: 'yes'
+  base: ""
+  plugin_posts: yes
   plugin_posts_source: dev.to
   plugin_posts_limit: 2
-  plugin_posts_descriptions: 'yes'
-  plugin_posts_covers: 'yes'
+  plugin_posts_descriptions: yes
+  plugin_posts_covers: yes
 
 ```
 <!--/examples-->
