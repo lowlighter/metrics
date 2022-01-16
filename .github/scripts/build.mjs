@@ -168,7 +168,7 @@ function testcase(name, env, args) {
   if (env === "prod") {
     result.if = "${{ success() || failure() }}"
     result.uses = "lowlighter/metrics@master"
-    Object.assign(result.with, { plugins_errors_fatal: "yes", output_action: "none", delay: 120 })
+    Object.assign(result.with, { plugins_errors_fatal: "yes", output_action: "none", delay: 5 })
   }
 
   if (env === "test") {
