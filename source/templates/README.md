@@ -3,8 +3,8 @@
 Templates lets you change general appearance of rendered metrics.
 
 
-* [📗 Classic template](/source/templates/classic/README.md)
-* [📘 Repository template](/source/templates/repository/README.md)
-* [📙 Terminal template](/source/templates/terminal/README.md)
-* [📒 Markdown template](/source/templates/markdown/README.md)
-* [📕 Community templates](/source/templates/community/README.md)
+* [📗 Classic template <sub>`classic`</sub>](/source/templates/classic/README.md)
+* [📘 Repository template <sub>`repository`</sub>](/source/templates/repository/README.md)
+* [📙 Terminal template <sub>`terminal`</sub>](/source/templates/terminal/README.md)
+* [📒 Markdown template <sub>`markdown`</sub>](/source/templates/markdown/README.md)
+* [📕 Community templates <sub>`community`</sub>](/source/templates/community/README.md)
