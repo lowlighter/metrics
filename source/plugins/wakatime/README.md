@@ -1,26 +1,28 @@
-### ⏰ WakaTime plugin
-
-The *wakatime* plugin displays statistics from your [WakaTime](https://wakatime.com) account.
-
+<!--header-->
 <table>
-  <td align="center">
-    <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.wakatime.svg">
-    <img width="900" height="1" alt="">
-  </td>
+  <tr><th colspan="2"><h3>⏰ WakaTime plugin</h3></th></tr>
+  <tr><td colspan="2" align="center"><p>This plugin displays statistics from your <a href="https://wakatime.com">WakaTime</a> account.</p>
+</td></tr>
+  <tr>
+    <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
+    <td><a href="/source/templates/classic"><code>📗 Classic template</code></a></td>
+  </tr>
+  <tr>
+    <td><code>👤 Users</code></td>
+  </tr>
+  <tr>
+    <td><code>🗝️ plugin_wakatime_token</code></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
+      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.wakatime.svg" alt=""></img>
+      <img width="900" height="1" alt="">
+    </td>
+  </tr>
 </table>
+<!--/header-->
 
-<details>
-<summary>💬 Obtaining a WakaTime token</summary>
-
-Create a [WakaTime account](https://wakatime.com) and retrieve your API key in your [Account settings](https://wakatime.com/settings/account).
-
-![WakaTime API token](/.github/readme/imgs/plugin_wakatime_token.png)
-
-Then setup [WakaTime plugins](https://wakatime.com/plugins) to be ready to go!
-
-</details>
-
-#### ➡️ Available options
+## ➡️ Available options
 
 <!--options-->
 <table>
@@ -29,7 +31,7 @@ Then setup [WakaTime plugins](https://wakatime.com/plugins) to be ready to go!
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_wakatime</code></td>
-    <td rowspan="2"><p>Display WakaTime stats</p>
+    <td rowspan="2"><p>Enable wakatime plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -49,7 +51,7 @@ Then setup [WakaTime plugins](https://wakatime.com/plugins) to be ready to go!
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_wakatime_days</code></td>
-    <td rowspan="2"><p>WakaTime time range</p>
+    <td rowspan="2"><p>Time range</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -60,7 +62,18 @@ Then setup [WakaTime plugins](https://wakatime.com/plugins) to be ready to go!
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_wakatime_sections</code></td>
-    <td rowspan="2"><p>Sections to display</p>
+    <td rowspan="2"><p>Displayed sections</p>
+<ul>
+<li><code>time</code>: show total coding time and daily average</li>
+<li><code>projects</code>: show most time spent project</li>
+<li><code>projects-graphs</code>: show most time spent projects graphs</li>
+<li><code>languages</code>: show most language</li>
+<li><code>languages-graphs</code>: show languages graphs</li>
+<li><code>editors</code>: show most used code editor</li>
+<li><code>editors-graphs</code>: show code editors graphs</li>
+<li><code>os</code>: show most used operating system</li>
+<li><code>os-graphs</code>: show code operating systems graphs</li>
+</ul>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -71,7 +84,7 @@ Then setup [WakaTime plugins](https://wakatime.com/plugins) to be ready to go!
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_wakatime_limit</code></td>
-    <td rowspan="2"><p>Maximum number of entries to display per graph</p>
+    <td rowspan="2"><p>Display limit (per graph)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -79,11 +92,13 @@ Then setup [WakaTime plugins](https://wakatime.com/plugins) to be ready to go!
 <i>(0 ≤
 𝑥)</i>
 <br>
+<b>zero behaviour:</b> disable</br>
 <b>default:</b> 5<br></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_wakatime_url</code></td>
-    <td rowspan="2"><p>Address where to reach your Wakatime instance</p>
+    <td rowspan="2"><p>WakaTime url</p>
+<p>Also compatible with self-hosted instance (<a href="https://github.com/muety/wakapi">wakapi</a>)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -93,7 +108,7 @@ Then setup [WakaTime plugins](https://wakatime.com/plugins) to be ready to go!
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_wakatime_user</code></td>
-    <td rowspan="2"><p>Your Wakatime user on the selfhosted Wakapi instance</p>
+    <td rowspan="2"><p>WakaTime username</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -104,9 +119,15 @@ Then setup [WakaTime plugins](https://wakatime.com/plugins) to be ready to go!
 </table>
 <!--/options-->
 
-*[→ Full specification](metadata.yml)*
+## 🗝️ Obtaining a WakaTime token
 
-#### ℹ️ Examples workflows
+Create a [WakaTime account](https://wakatime.com) and retrieve API key in [Account settings](https://wakatime.com/settings/account).
+
+![WakaTime API token](/.github/readme/imgs/plugin_wakatime_token.png)
+
+Then setup [WakaTime plugins](https://wakatime.com/plugins) to be ready to go!
+
+## ℹ️ Examples workflows
 
 <!--examples-->
 ```yaml
