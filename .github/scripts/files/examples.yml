@@ -5,7 +5,14 @@ on:
     - cron: "0 8 1/2 * *"
   workflow_dispatch:
   workflow_call:
-
+    secrets:
+      METRICS_TOKEN:
+      METRICS_TOKEN_WITH_SCOPES:
+      PAGESPEED_TOKEN:
+      SPOTIFY_TOKENS:
+      STOCK_TOKEN:
+      TWITTER_TOKEN:
+      WAKATIME_TOKEN:
 jobs:
 
 # ======================================================================================

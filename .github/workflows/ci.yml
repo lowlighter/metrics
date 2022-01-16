@@ -140,6 +140,14 @@ jobs:
     name: Publish examples
     needs: [ docker-master ]
     uses: lowlighter/metrics/.github/workflows/examples.yml@master
+    secrets:
+      METRICS_TOKEN: ${{ secrets.METRICS_TOKEN }}
+      #METRICS_TOKEN_WITH_SCOPES: ${{ secrets.METRICS_TOKEN_WITH_SCOPES }}
+      #PAGESPEED_TOKEN: ${{ secrets.PAGESPEED_TOKEN }}
+      #SPOTIFY_TOKENS: ${{ secrets.SPOTIFY_TOKENS }}
+      #STOCK_TOKEN: ${{ secrets.STOCK_TOKEN }}
+      #TWITTER_TOKEN: ${{ secrets.TWITTER_TOKEN }}
+      #WAKATIME_TOKEN: ${{ secrets.WAKATIME_TOKEN }}
 
   # Build docker image from master and publish it to GitHub registry with release tag
   docker-release:
