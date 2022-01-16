@@ -87,7 +87,7 @@
       "enabled": false,            "//": "Enable support plugin"
     },
     "lines":{
-      "enabled": false,            "//": "Display lines of code metrics"
+      "enabled": false,            "//": "Enable lines plugin"
     },
     "traffic":{
       "enabled": false,            "//": "Enable traffic plugin"
@@ -105,7 +105,7 @@
       "enabled": false,            "//": "Display GitHub sponsors"
     },
     "starlists":{
-      "enabled": false,            "//": "Display star lists"
+      "enabled": false,            "//": "Enable starlists plugin"
     },
     "skyline":{
       "enabled": false,            "//": "Display GitHub Skyline 3D calendar"
@@ -126,7 +126,7 @@
     },
     "tweets":{
       "token": null,               "//":"Twitter API token",
-      "enabled": false,            "//": "Display recent tweets"
+      "enabled": false,            "//": "Enable tweets plugin"
     },
     "posts":{
       "enabled": false,            "//": "Display recent posts"
@@ -136,7 +136,7 @@
     },
     "wakatime":{
       "token": null,               "//":"WakaTime API token",
-      "enabled": false,            "//": "Display WakaTime stats"
+      "enabled": false,            "//": "Enable wakatime plugin"
     },
     "stock":{
       "token": null,               "//":"Yahoo Finance token",
@@ -150,7 +150,7 @@
       "enabled": false,            "//": "Display PoopMap stats"
     },
     "screenshot":{
-      "enabled": false,            "//": "Display a screenshot of any website"
+      "enabled": false,            "//": "Enable screenshot plugin"
     },
     "//": ""
   }

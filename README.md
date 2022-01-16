@@ -188,10 +188,10 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
     <th><a href="source/plugins/traffic/README.md">🧮 Repositories traffic</a></th>
   </tr>
   <tr>
-    <td align="center">
-      <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.lines.svg">
-      <img width="900" height="1" alt="">
-    </td>
+        <td  align="center">
+        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.lines.svg" alt=""></img>
+        <img width="900" height="1" alt="">
+      </td>
         <td  align="center">
         <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.traffic.svg" alt=""></img>
         <img width="900" height="1" alt="">
@@ -240,10 +240,10 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
     <th><a href="source/plugins/skyline/README.md">🌇 GitHub Skyline 3D calendar</a></th>
   </tr>
   <tr>
-    <td align="center">
-      <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.starlists.svg">
-      <img width="900" height="1" alt="">
-    </td>
+        <td  align="center">
+        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.starlists.svg" alt=""></img>
+        <img width="900" height="1" alt="">
+      </td>
     <td align="center">
       <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.skyline.svg">
       <img width="900" height="1" alt="">
@@ -287,7 +287,7 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
     </td>
         <td  align="center">
         <details open><summary>For anime watchers</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.anilist.svg" alt=""></img></details>
-        <details open><summary>For manga readers</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.anilist.manga.svg" alt=""></img></details>
+        <details><summary>For manga readers</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.anilist.manga.svg" alt=""></img></details>
         <details open><summary>For waifus simp</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.anilist.characters.svg" alt=""></img></details>
         <img width="900" height="1" alt="">
       </td>
@@ -297,15 +297,11 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
     <th><a href="source/plugins/posts/README.md">✒️ Recent posts</a></th>
   </tr>
   <tr>
-    <td align="center">
-      <details open><summary>Latest tweets</summary>
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.tweets.svg">
-      </details>
-      <details><summary>Latest tweets with attachments</summary>
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.tweets.attachments.svg">
-      </details>
-      <img width="900" height="1" alt="">
-    </td>
+        <td  align="center">
+        <details open><summary>Latest tweets</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.tweets.svg" alt=""></img></details>
+        <details><summary>Latest tweets with attachments</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.tweets.attachments.svg" alt=""></img></details>
+        <img width="900" height="1" alt="">
+      </td>
     <td align="center">
       <details open><summary>Latest posts</summary>
         <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.posts.svg">
@@ -321,14 +317,14 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
     <th><a href="source/plugins/wakatime/README.md">⏰ WakaTime plugin</a></th>
   </tr>
   <tr>
-    <td align="center">
-      <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.rss.svg">
-      <img width="900" height="1" alt="">
-    </td>
-    <td align="center">
-      <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.wakatime.svg">
-      <img width="900" height="1" alt="">
-    </td>
+        <td  align="center">
+        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.rss.svg" alt=""></img>
+        <img width="900" height="1" alt="">
+      </td>
+        <td  align="center">
+        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.wakatime.svg" alt=""></img>
+        <img width="900" height="1" alt="">
+      </td>
   </tr>
   <tr>
     <th><a href="source/plugins/stock/README.md">💹 Stock prices</a></th>
