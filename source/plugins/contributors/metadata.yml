@@ -1,5 +1,9 @@
 name: "🏅 Repository contributors"
 category: github
+description: This plugin display repositories contributors from a commit range along with additional stats.
+examples:
+  +by contribution types: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.contributors.categories.svg
+  by number of contributions: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.contributors.contributions.svg
 index: 6
 supports:
   - repository
@@ -7,58 +11,56 @@ scopes:
   - public_access
 inputs:
 
-  # Enable or disable plugin
   plugin_contributors:
-    description: Display repository contributors
+    description: Enable contributors plugin
     type: boolean
     default: no
 
-  # Base reference (commit, tag, branch, etc.)
   plugin_contributors_base:
-    description: Base reference
+    description: Base reference (commit, tag, branch, etc.)
     type: string
     default: ""
     example: commit, tag or branch
 
-  # Head reference (commit, tag, branch, etc.)
   plugin_contributors_head:
-    description: Head reference
+    description: Head reference (commit, tag, branch, etc.)
     type: string
     default: master
 
-  # Ignored contributors (useful to ignore bots users)
   plugin_contributors_ignored:
-    description: Contributors to ignore
+    description: |
+      Ignored users
+
+      Useful to ignore bots activity
     type: array
     format: comma-separated
-    default: github-actions[bot], dependabot[bot], dependabot-preview[bot]
+    default: ""
     inherits: users_ignored
 
-  # Display total contributions for each contributor
   plugin_contributors_contributions:
-    description: Display contributions
+    description: Toggle number of contributions display
     type: boolean
     default: no
 
-  # Sections to display
   plugin_contributors_sections:
-    description: Sections to display
+    description: |
+      Displayed sections
+      - `contributors`: all contributors
+      - `categories`: contributors sorted by contributions categories
     type: array
     format: comma-separated
     default: contributors
     example: contributors
     values:
-      - contributors # Display all contributors
-      - categories   # Display contributors per contributions categories
+      - contributors
+      - categories
 
-  # Contributions categories
-  # This requires "plugin_contributors_sections" to have "categories" in it to be effective
-  #
-  # Pass a JSON object which contains a mapping of category with fileglobs.
-  # Contributors will be sorted into each category to reflect their contributions.
-  # Note that order a file will only match the first category matching
   plugin_contributors_categories:
-    description: Contributions categories
+    description: |
+      Configure contribution categories
+
+      This option required `plugin_contributors_sections` to have `categories` in it to be effective
+      Pass a JSON object mapping category with fileglobs
     type: json
     default: |
       {
