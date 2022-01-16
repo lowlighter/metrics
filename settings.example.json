@@ -57,7 +57,7 @@
       "enabled": false,            "//": "Display follow-up of repositories issues and pull requests"
     },
     "reactions":{
-      "enabled": false,            "//": "Display average issue comments reactions"
+      "enabled": false,            "//": "Enable reactions plugin"
     },
     "people":{
       "enabled": false,            "//": "Display GitHub users from various affiliations"
@@ -66,10 +66,10 @@
       "enabled": false,            "//": "Enable stargazers plugin"
     },
     "projects":{
-      "enabled": false,            "//": "Display active projects"
+      "enabled": false,            "//": "Enable projects plugin"
     },
     "code":{
-      "enabled": false,            "//": "Display a random code snippet from recent activity"
+      "enabled": false,            "//": "Enable code plugin"
     },
     "activity":{
       "enabled": false,            "//": "Enable activity plugin"
@@ -81,7 +81,7 @@
       "enabled": false,            "//": "Display notable contributions in organizations"
     },
     "discussions":{
-      "enabled": false,            "//": "GitHub discussions metrics"
+      "enabled": false,            "//": "Enable discussions plugin"
     },
     "support":{
       "enabled": false,            "//": "Enable support plugin"
@@ -93,7 +93,7 @@
       "enabled": false,            "//": "Enable traffic plugin"
     },
     "repositories":{
-      "enabled": false,            "//": "Display chosen featured repositories"
+      "enabled": false,            "//": "Enable repositories plugin"
     },
     "gists":{
       "enabled": false,            "//": "Enable gists plugin"
@@ -102,13 +102,13 @@
       "enabled": false,            "//": "Display account or repository introduction"
     },
     "sponsors":{
-      "enabled": false,            "//": "Display GitHub sponsors"
+      "enabled": false,            "//": "Enable sponsors plugin"
     },
     "starlists":{
       "enabled": false,            "//": "Enable starlists plugin"
     },
     "skyline":{
-      "enabled": false,            "//": "Display GitHub Skyline 3D calendar"
+      "enabled": false,            "//": "Enable skyline plugin"
     },
     "pagespeed":{
       "token": null,               "//":"PageSpeed token",
@@ -119,7 +119,7 @@
       "enabled": false,            "//": "Display your music tracks"
     },
     "stackoverflow":{
-      "enabled": false,            "//": "Stackoverflow metrics"
+      "enabled": false,            "//": "Enable stackoverflow plugin"
     },
     "anilist":{
       "enabled": false,            "//": "Enable aniList plugin"
@@ -129,10 +129,10 @@
       "enabled": false,            "//": "Enable tweets plugin"
     },
     "posts":{
-      "enabled": false,            "//": "Display recent posts"
+      "enabled": false,            "//": "Enable posts plugin"
     },
     "rss":{
-      "enabled": false,            "//": "Display RSS feed"
+      "enabled": false,            "//": "Enable rss plugin"
     },
     "wakatime":{
       "token": null,               "//":"WakaTime API token",
@@ -143,11 +143,11 @@
       "enabled": false,            "//": "Enable stock plugin"
     },
     "nightscout":{
-      "enabled": false,            "//": "Displays Blood Glucose"
+      "enabled": false,            "//": "Enable nightscout plugin"
     },
     "poopmap":{
       "token": null,               "//":"PoopMap API token",
-      "enabled": false,            "//": "Display PoopMap stats"
+      "enabled": false,            "//": "Enable poopmap plugin"
     },
     "screenshot":{
       "enabled": false,            "//": "Enable screenshot plugin"

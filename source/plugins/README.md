@@ -40,7 +40,7 @@ Plugins provide additional content and lets you customize rendered metrics.
   * [⏱️ Website performances](/source/plugins/pagespeed/README.md)
   * [✒️ Recent posts](/source/plugins/posts/README.md)
   * [🗼 Rss feed](/source/plugins/rss/README.md)
-  * [🗨️ Stackoverflow plugin](/source/plugins/stackoverflow/README.md)
+  * [🗨️ StackOverflow plugin](/source/plugins/stackoverflow/README.md)
   * [💹 Stock prices](/source/plugins/stock/README.md)
   * [🐤 Latest tweets](/source/plugins/tweets/README.md)
   * [⏰ WakaTime plugin](/source/plugins/wakatime/README.md)

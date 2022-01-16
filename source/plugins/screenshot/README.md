@@ -4,6 +4,7 @@
   <tr><td colspan="2" align="center"><p>This plugin display a screenshot from any website.
 It can either the full page or a portion restricted by a <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors">CSS selector</a>.</p>
 </td></tr>
+<tr><th>Authors</th><td><a href="https://github.com/lowlighter">@lowlighter</a></td></tr>
   <tr>
     <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
     <td><a href="/source/templates/classic"><code>📗 Classic template</code></a> <a href="/source/templates/repository"><code>📘 Repository template</code></a> <a href="/source/templates/terminal"><code>📙 Terminal template</code></a></td>

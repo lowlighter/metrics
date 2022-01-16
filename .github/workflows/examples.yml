@@ -749,7 +749,7 @@ jobs:
           output_action: none
           delay: 120
         if: ${{ success() || failure() }}
-      - name: 🗨️ Stackoverflow plugin - Top answers from stackoverflow
+      - name: 🗨️ StackOverflow plugin - Top answers from stackoverflow
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.stackoverflow.svg

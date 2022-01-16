@@ -1,4 +1,4 @@
-- name: 🗨️ Stackoverflow plugin - Top answers from stackoverflow
+- name: 🗨️ StackOverflow plugin - Top answers from stackoverflow
   uses: lowlighter/metrics@latest
   with:
     token: MOCKED_TOKEN
