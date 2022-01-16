@@ -1,44 +1,54 @@
 name: "🌇 GitHub Skyline 3D calendar"
 category: github
+description: |
+  This plugins lets you display your 3D commits calendar from [skyline.github.com](https://skyline.github.com/).
+
+  > ⚠️ This plugin significantly increase file size, consider using it as standalone.
+examples:
+  default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.skyline.svg
 index: 25
 supports:
   - user
 scopes: []
 inputs:
 
-  # Enable or disable plugin
   plugin_skyline:
-    description: Display GitHub Skyline 3D calendar
+    description: Enable skyline plugin
     type: boolean
     default: no
 
-  # Displayed year
   plugin_skyline_year:
     description: Displayed year
     type: number
-    default: "current-year"
+    default: current-year
     min: 2008
 
-  # Number of frames
-  # Use 120 for a full-loop and 60 for a half-loop
   plugin_skyline_frames:
-    description: Number of frames
+    description: |
+      Frames count
+
+      Use 120 for a full-loop and 60 for a half-loop.
+      A higher number of frames will increase file size.
     type: number
     default: 60
     min: 1
     max: 120
 
-  # Image quality
   plugin_skyline_quality:
-    description: Image quality
+    description: |
+      Image quality
+
+      A higher image quality will increase file size.
     type: number
     default: 0.5
     min: 0.1
     max: 1
 
-  # This uses CSS animations instead of GIF to support a wider range of browser like FireFox and Safari
-  # Using this mode significantly increase file size as each frame is encoded separately
   plugin_skyline_compatibility:
-    description: Compatibility mode
+    description: |
+      Compatibility mode
+
+      This uses CSS animations rather than embedded GIF to support a widerr range of browser, like Firefox and Safari.
+      Using this mode significantly increase file size as each frame is encoded separately
     type: boolean
     default: no
