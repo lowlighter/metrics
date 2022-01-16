@@ -1,26 +1,28 @@
-### 🗨️ Stackoverflow plugin
-
-The *stackoverflow* plugin lets you display your metrics, questions and answer from [stackoverflow](https://stackoverflow.com/).
-
+<!--header-->
 <table>
-  <td align="center">
-    <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stackoverflow.svg">
-    <img width="900" height="1" alt="">
-  </td>
+  <tr><th colspan="2"><h3>🗨️ StackOverflow plugin</h3></th></tr>
+  <tr><td colspan="2" align="center"><p>This plugin displays stats, questions and answer from <a href="https://stackoverflow.com/">stackoverflow</a>.</p>
+</td></tr>
+  <tr>
+    <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
+    <td><a href="/source/templates/classic"><code>📗 Classic template</code></a></td>
+  </tr>
+  <tr>
+    <td><code>👤 Users</code> <code>👥 Organizations</code></td>
+  </tr>
+  <tr>
+    <td><i>No tokens are required for this plugin</i></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
+      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stackoverflow.svg" alt=""></img>
+      <img width="900" height="1" alt="">
+    </td>
+  </tr>
 </table>
+<!--/header-->
 
-<details>
-<summary>💬 Get your user id</summary>
-
-Go to [stackoverflow.com](https://stackoverflow.com/) and click on your account profile.
-
-Your user id will be in both url and search bar.
-
-![User id](/.github/readme/imgs/plugin_stackoverflow_user_id.png)
-
-</details>
-
-#### ➡️ Available options
+## ➡️ Available options
 
 <!--options-->
 <table>
@@ -29,7 +31,7 @@ Your user id will be in both url and search bar.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_stackoverflow</code></td>
-    <td rowspan="2"><p>Stackoverflow metrics</p>
+    <td rowspan="2"><p>Enable stackoverflow plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -49,7 +51,13 @@ Your user id will be in both url and search bar.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_stackoverflow_sections</code></td>
-    <td rowspan="2"><p>Sections to display</p>
+    <td rowspan="2"><p>Displayed sections</p>
+<ul>
+<li><code>answers-top</code>: display most popular answers</li>
+<li><code>answers-recent</code>: display recent answers</li>
+<li><code>questions-top</code>: display most popular questions</li>
+<li><code>questions-recent</code>: display recent questions</li>
+</ul>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -61,7 +69,7 @@ Your user id will be in both url and search bar.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_stackoverflow_limit</code></td>
-    <td rowspan="2"><p>Maximum number of entries to display per section</p>
+    <td rowspan="2"><p>Display limit (per section)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -74,7 +82,8 @@ Your user id will be in both url and search bar.
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_stackoverflow_lines</code></td>
-    <td rowspan="2"><p>Maximum number of lines to display per question or answer</p>
+    <td rowspan="2"><p>Display limit for questions and answers</p>
+<p>Code snippets count as a single line and must be configured with <code>plugin_stackoverflow_lines_snippet</code> instead</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -82,11 +91,12 @@ Your user id will be in both url and search bar.
 <i>(0 ≤
 𝑥)</i>
 <br>
+<b>zero behaviour:</b> disable</br>
 <b>default:</b> 4<br></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_stackoverflow_lines_snippet</code></td>
-    <td rowspan="2"><p>Maximum number of lines to display per code snippet</p>
+    <td rowspan="2"><p>Display limit for code snippets</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -94,14 +104,13 @@ Your user id will be in both url and search bar.
 <i>(0 ≤
 𝑥)</i>
 <br>
+<b>zero behaviour:</b> disable</br>
 <b>default:</b> 2<br></td>
   </tr>
 </table>
 <!--/options-->
 
-*[→ Full specification](metadata.yml)*
-
-#### ℹ️ Examples workflows
+## ℹ️ Examples workflows
 
 <!--examples-->
 ```yaml
