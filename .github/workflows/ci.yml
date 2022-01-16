@@ -51,10 +51,16 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: Setup NodeJS
         uses: actions/setup-node@v2
         with:
           node-version: 17
+      - name: Pull changes
+        run: |
+          git checkout master
+          git pull
       - name: Setup metrics
         run: npm ci
       - name: Publish rebuild metrics indexes
