@@ -163,10 +163,50 @@ export default async function({log = true, nosettings = false, community = {}} =
 
   //Load plugins
   for (const name of await fs.promises.readdir(__plugins)) {
+    switch (name) {
+      case "community":{
+        const ___plugins = path.join(__plugins, "community")
+        for (const name of await fs.promises.readdir(___plugins))
+          await load.plugin(name, {__plugins:___plugins, Plugins, conf, logger})
+        continue
+      }
+      default:
+        await load.plugin(name, {__plugins, Plugins, conf, logger})
+    }
+  }
+
+  //Load metadata
+  conf.metadata = await metadata({log})
+
+  //Store authenticated user
+  if (conf.settings.token) {
+    try {
+      conf.authenticated = (await (new OctokitRest.Octokit({auth:conf.settings.token})).users.getAuthenticated()).data.login
+      logger(`metrics/setup > setup > authenticated as ${conf.authenticated}`)
+    }
+    catch (error) {
+      logger(`metrics/setup > setup > could not verify authentication : ${error}`)
+    }
+  }
+
+  //Set no token property
+  Object.defineProperty(conf.settings, "notoken", {
+    get() {
+      return conf.settings.token === "NOT_NEEDED"
+    },
+  })
+
+  //Conf
+  logger("metrics/setup > setup > success")
+  return {Templates, Plugins, conf}
+}
+
+const load = {
+  async plugin(name, {__plugins, Plugins, conf, logger}) {
     //Search for plugins
     const directory = path.join(__plugins, name)
     if (!(await fs.promises.lstat(directory)).isDirectory())
-      continue
+      return
     //Cache plugins scripts
     logger(`metrics/setup > load plugin [${name}]`)
     Plugins[name] = (await import(url.pathToFileURL(path.join(directory, "index.mjs")).href)).default
@@ -210,29 +250,4 @@ export default async function({log = true, nosettings = false, community = {}} =
       )
     }
   }
-
-  //Load metadata
-  conf.metadata = await metadata({log})
-
-  //Store authenticated user
-  if (conf.settings.token) {
-    try {
-      conf.authenticated = (await (new OctokitRest.Octokit({auth:conf.settings.token})).users.getAuthenticated()).data.login
-      logger(`metrics/setup > setup > authenticated as ${conf.authenticated}`)
-    }
-    catch (error) {
-      logger(`metrics/setup > setup > could not verify authentication : ${error}`)
-    }
-  }
-
-  //Set no token property
-  Object.defineProperty(conf.settings, "notoken", {
-    get() {
-      return conf.settings.token === "NOT_NEEDED"
-    },
-  })
-
-  //Conf
-  logger("metrics/setup > setup > success")
-  return {Templates, Plugins, conf}
 }

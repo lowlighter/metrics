@@ -30,25 +30,9 @@ const secrets = Object.assign(JSON.parse(`${await fs.readFile(__test_secrets)}`)
 const { plugins, templates } = await metadata({ log: false, diff: true })
 const workflow = []
 
-//Config and general documentation auto-generation
-for (const step of ["config", "documentation"]) {
-  switch (step) {
-    case "config":
-      await update({ source: paths.join(__action, "action.yml"), output: "action.yml" })
-      await update({ source: paths.join(__web, "settings.example.json"), output: "settings.example.json" })
-      break
-    case "documentation":
-      await update({ source: paths.join(__documentation, "README.md"), output: "README.md", options: { root: __readme } })
-      await update({ source: paths.join(__documentation, "plugins.md"), output: "source/plugins/README.md" })
-      await update({ source: paths.join(__documentation, "templates.md"), output: "source/templates/README.md" })
-      await update({ source: paths.join(__documentation, "compatibility.md"), output: ".github/readme/partials/documentation/compatibility.md" })
-      break
-  }
-}
-
 //Plugins
 for (const id of Object.keys(plugins)) {
-  const { examples, options, readme, tests, header } = await plugin(id)
+  const { examples, options, readme, tests, header, community } = await plugin(id)
 
   //Readme
   await fs.writeFile(
@@ -58,12 +42,12 @@ for (const id of Object.keys(plugins)) {
       .replace(/(<!--examples-->)[\s\S]*(<!--\/examples-->)/g, `$1\n${examples.map(({ test, prod, ...step }) => ["```yaml", yaml.dump(step, {quotingType:'"', noCompatMode:true}), "```"].join("\n")).join("\n")}\n$2`)
       .replace(/(<!--options-->)[\s\S]*(<!--\/options-->)/g, `$1\n${options}\n$2`),
   )
-  console.log(`Generating source/plugins/${id}/README.md`)
+  console.log(`Generating source/plugins/${community ? "community/" : ""}${id}/README.md`)
 
   //Tests
   workflow.push(...examples.map(example => testcase(plugins[id].name, "prod", example)).filter(t => t))
   await fs.writeFile(tests.path, yaml.dump(examples.map(example => testcase(plugins[id].name, "test", example)).filter(t => t)))
-  console.log(`Generating tests/plugins/${id}.yml`)
+  console.log(`Generating tests/plugins/${community ? "community/" : ""}${id}.yml`)
 }
 
 //Templates
@@ -83,6 +67,22 @@ for (const id of Object.keys(templates)) {
   workflow.push(...examples.map(example => testcase(templates[id].name, "prod", example)).filter(t => t))
   await fs.writeFile(tests.path, yaml.dump(examples.map(example => testcase(templates[id].name, "test", example)).filter(t => t), {quotingType:'"', noCompatMode:true}))
   console.log(`Generating tests/templates/${id}.yml`)
+}
+
+//Config and general documentation auto-generation
+for (const step of ["config", "documentation"]) {
+  switch (step) {
+    case "config":
+      await update({ source: paths.join(__action, "action.yml"), output: "action.yml" })
+      await update({ source: paths.join(__web, "settings.example.json"), output: "settings.example.json" })
+      break
+    case "documentation":
+      await update({ source: paths.join(__documentation, "README.md"), output: "README.md", options: { root: __readme } })
+      await update({ source: paths.join(__documentation, "plugins.md"), output: "source/plugins/README.md" })
+      await update({ source: paths.join(__documentation, "templates.md"), output: "source/templates/README.md" })
+      await update({ source: paths.join(__documentation, "compatibility.md"), output: ".github/readme/partials/documentation/compatibility.md" })
+      break
+  }
 }
 
 //Example workflows
@@ -115,11 +115,12 @@ async function update({ source, output, context = {}, options = {} }) {
 
 //Get plugin infos
 async function plugin(id) {
-  const path = paths.join(__plugins, id)
+  const path = paths.join(__plugins, plugins[id].community ? "community" : "", id)
   const readme = paths.join(path, "README.md")
   const examples = paths.join(path, "examples.yml")
   const tests = paths.join(__test_cases, `${id}.plugin.yml`)
   return {
+    community: plugins[id].community,
     readme: {
       path: readme,
       content: `${await fs.readFile(readme)}`,

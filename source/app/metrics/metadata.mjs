@@ -40,8 +40,22 @@ export default async function metadata({log = true, diff = false} = {}) {
   for (const name of await fs.promises.readdir(__plugins)) {
     if (!(await fs.promises.lstat(path.join(__plugins, name))).isDirectory())
       continue
-    logger(`metrics/metadata > loading plugin metadata [${name}]`)
-    Plugins[name] = await metadata.plugin({__plugins, __templates, name, logger})
+    switch (name) {
+      case "community":{
+        const ___plugins = path.join(__plugins, "community")
+        for (const name of await fs.promises.readdir(___plugins)) {
+          if (!(await fs.promises.lstat(path.join(___plugins, name))).isDirectory())
+            continue
+          logger(`metrics/metadata > loading plugin metadata [community/${name}]`)
+          Plugins[name] = await metadata.plugin({__plugins:___plugins, __templates, name, logger})
+          Plugins[name].community = true
+        }
+        continue
+      }
+      default:
+        logger(`metrics/metadata > loading plugin metadata [${name}]`)
+        Plugins[name] = await metadata.plugin({__plugins, __templates, name, logger})
+    }
   }
   //Reorder keys
   const {base, core, ...plugins} = Plugins //eslint-disable-line no-unused-vars
