@@ -192,7 +192,7 @@
     <td nowrap="nowrap" align="center" data-plugin="wakatime">✓</td>
   </tr>
   <tr>
-    <td colspan="40"></td>
+    <td colspan="35"></td>
   </tr>
   <tr>
     <th nowrap="nowrap">Mode/Plugin</th>    

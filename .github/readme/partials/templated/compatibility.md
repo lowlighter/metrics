@@ -13,7 +13,7 @@
     <td nowrap="nowrap" align="center" data-plugin="<%= plugin %>"><%= {true:"✔️", false:"❌", embed:"✓"}[readme.compatibility[plugin]] %></td><% } %>
   </tr><% } %>
   <tr>
-    <td colspan="<%= Object.keys(plugins).length %>"></td>
+    <td colspan="<%= Object.entries(plugins).filter(([key, value]) => (value)&&(!["core"].includes(key))&&(value.category !== "community")).length %>"></td>
   </tr>
   <tr>
     <th nowrap="nowrap">Mode/Plugin</th><%# -%>
