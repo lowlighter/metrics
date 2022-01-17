@@ -1,10 +1,15 @@
 <table>
-  <tr><th><h3>🎲 Community plugins</h3></th></tr>
-  <tr><td align="center">Additional plugins maintained by community for even more features!</td></tr>
+  <tr><th colspan="2"><h3>🎲 Community plugins</h3></th></tr>
+  <tr><td colspan="2" align="center">Additional plugins maintained by community for even more features!</td></tr>
   <tr>
     <td align="center">
-      <% for (const [plugin, {name, category}] of Object.entries(plugins).filter(([key, value]) => (value)&&(value.category === "community")).sort(([an, a], [bn, b]) => a.category === b.category ? an.localeCompare(bn) : 0)) { %><%# -%>
-      <a href="/source/plugins/community/<%= plugin %>/README.md"><%- name %> <sub>`<%= plugin %>`</sub></a>
+      <% for (const [plugin, {name, category}] of Object.entries(plugins).filter(([key, value], index) => (index%2 === 0)&&(value)&&(value.category === "community")).sort(([an, a], [bn, b]) => a.category === b.category ? an.localeCompare(bn) : 0)) { %><%# -%>
+      <a href="/source/plugins/community/<%= plugin %>/README.md"><%- name %> <sub><code><%= plugin %></code></sub></a><br><% } %>
+      <img width="900" height="1" alt="">
+    </td>
+    <td align="center">
+      <% for (const [plugin, {name, category}] of Object.entries(plugins).filter(([key, value], index) => (index%2 === 1)&&(value)&&(value.category === "community")).sort(([an, a], [bn, b]) => a.category === b.category ? an.localeCompare(bn) : 0)) { %><%# -%>
+      <a href="/source/plugins/community/<%= plugin %>/README.md"><%- name %> <sub><code><%= plugin %></code></sub></a><br><% } %>
       <img width="900" height="1" alt="">
     </td>
   </tr>
@@ -192,13 +197,13 @@ Plugin partials should be able to handle gracefully their own state and errors.
 
 Below is a minimal snippet of a partial:
 ```ejs
-<% if (plugins.{plugin_name}) { %>
-  <% if (plugins.{plugin_name}.error) { %>
-    <%= plugins.{plugin_name}.error.message %>
-  <% } else { %>
-    <%# content %>
-  <% } %>
-<% } %>
+<<%= "%" %> if (plugins.{plugin_name}) { <%= "%" %>>
+  <<%= "%" %> if (plugins.{plugin_name}.error) { <%= "%" %>>
+    <<%= "%=" %> plugins.{plugin_name}.error.message <%= "%" %>>
+  <<%= "%" %> } else { <%= "%" %>>
+    <<%= "%#" %> content <%= "%" %>>
+  <<%= "%" %> } <%= "%" %>>
+<<%= "%" %> } <%= "%" %>>
 ```
 
 Partials should have the match the same name as plugin handles, as they're used to display plugin compatibility in auto-generated header.
