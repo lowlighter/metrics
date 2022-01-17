@@ -79,6 +79,7 @@ for (const step of ["config", "documentation"]) {
     case "documentation":
       await update({ source: paths.join(__documentation, "README.md"), output: "README.md", options: { root: __readme } })
       await update({ source: paths.join(__documentation, "plugins.md"), output: "source/plugins/README.md" })
+      await update({ source: paths.join(__documentation, "plugins.community.md"), output: "source/plugins/community/README.md" })
       await update({ source: paths.join(__documentation, "templates.md"), output: "source/templates/README.md" })
       await update({ source: paths.join(__documentation, "compatibility.md"), output: ".github/readme/partials/documentation/compatibility.md" })
       break

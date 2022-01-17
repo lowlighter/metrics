@@ -284,7 +284,7 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
   </tr>
   <tr>
     <th colspan="2" align="center">
-      <a href="/README.md#-pluginss">🎲 See also community plugins</a>
+      <a href="/source/plugins/community/README.md">🎲 See also community plugins</a>
     </th>
   </tr>
 
