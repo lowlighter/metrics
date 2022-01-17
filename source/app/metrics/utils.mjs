@@ -158,6 +158,11 @@ export function htmlunescape(string, u = {"&":true, "<":true, ">":true, '"':true
     .replace(/&amp;/g, u["&"] ? "&" : "&amp;")
 }
 
+/**Strip emojis from string */
+export function stripemojis(string) {
+  return string.replace(/[^\p{L}\p{N}\p{P}\p{Z}^$\n]/gu, "")
+}
+
 /**Chartist */
 export async function chartist() {
   const css = `<style data-optimizable="true">${await fs.readFile(paths.join(__module(import.meta.url), "../../../node_modules", "node-chartist/dist/main.css")).catch(_ => "")}</style>`

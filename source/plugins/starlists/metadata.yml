@@ -34,7 +34,7 @@ inputs:
     default: yes
 
   plugin_starlists_ignored:
-    description: Skipped star lists (case insensitive)
+    description: Skipped star lists (case insensitive, emojis insensitive)
     type: array
     format: comma-separated
     default: ""
@@ -42,7 +42,7 @@ inputs:
 
   plugin_starlists_only:
     description:  |
-      Restrict display to specified star lists (case insensitive)
+      Restrict display to specified star lists (case insensitive, emojis insensitive)
 
       This option is equivalent to `plugin_starlists_ignored` with all star lists but the ones listed in this option
     type: array

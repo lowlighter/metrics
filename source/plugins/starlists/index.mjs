@@ -8,6 +8,8 @@ export default async function({login, q, imports, data, account}, {enabled = fal
 
     //Load inputs
     let {limit, ignored, only, "limit.repositories":_limit, "shuffle.repositories":_shuffle} = imports.metadata.plugins.starlists.inputs({data, account, q})
+    ignored = ignored.map(imports.stripemojis)
+    only = only.map(imports.stripemojis)
 
     //Start puppeteer and navigate to star lists
     console.debug(`metrics/compute/${login}/plugins > starlists > starting browser`)
@@ -28,11 +30,13 @@ export default async function({login, q, imports, data, account}, {enabled = fal
     ))
     const count = lists.length
     console.debug(`metrics/compute/${login}/plugins > starlists > found [${lists.map(({name}) => name)}]`)
-    console.log(">>>> DEBUG", only, ignored, lists, lists.filter(({name}) => name).filter(({name}) => (!only.length) || (only.includes(name.toLocaleLowerCase()))))
     lists = lists
-      .filter(({name}) => name)
-      .filter(({name}) => (!only.length) || (only.includes(name.toLocaleLowerCase())))
-      .filter(({name}) => !ignored.includes(name.toLocaleLowerCase()))
+      .filter(({name}) => {
+        name = imports.stripemojis(name ?? "").trim().toLocaleLowerCase()
+        if (only.length)
+          return only.includes(name)
+        return !ignored.includes(name)
+      })
       .slice(0, limit)
     console.debug(`metrics/compute/${login}/plugins > starlists > extracted ${lists.length} lists`)
 
