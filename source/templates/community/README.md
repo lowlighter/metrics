@@ -76,6 +76,124 @@ with:
 
 ```
 <!--/examples-->
+
+## 📪 Creating community templates
+
+Templates creation requires you to be comfortable with HTML, CSS and JavaScript ([EJS](https://github.com/mde/ejs) flavored).
+
+To create a new template, clone and setup this repository first:
+```shell
+git clone https://github.com/lowlighter/metrics.git
+cd metrics/
+npm install
+```
+
+Find a cool name for your new template and run the following:
+```shell
+npm run quickstart template <template_name>
+```
+
+It will create a new directory in `/source/templates` with the following file structure:
+* `/source/templates/{template-name}`
+  * `README.md`,
+  * `metadata.yml`,
+  * `image.svg`
+  * `partials/`
+    * `_.json`
+    * `*.ejs`
+
+Templates are auto-loaded based on their folder existence, so there's no need to register them somewhere.
+
+### 💬 Understanding `image.svg`
+
+Usually `image.svg` doesn't need to be edited too much, but let's explain it how it works.
+
+```html
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="99999" class="<%= !animated ? 'no-animations' : '' %>">
+
+  <defs><style><%= fonts %></style></defs>
+  <style data-optimizable="true"><%= style %></style>
+
+  <foreignObject x="0" y="0" width="100%" height="100%">
+    <div xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <% for (const partial of [...partials]) { %>
+        <%- await include(`partials/${partial}.ejs`) %>
+      <% } %>
+
+      <div id="metrics-end"></div>
+    </div>
+  </foreignObject>
+
+</svg>
+```
+
+#### EJS syntax
+
+[EJS](https://github.com/mde/ejs) framework is used to programmatically create content through the help of templating tags (`<% %>`).
+
+#### Styling
+
+`fonts` and `style` variables are respectively populated with `fonts.css` and `styles.css` files content (or will fallback to those of `classic` template inexistent).
+
+These will define the global design of the output.
+
+`data-optimizable="true"` tells that a `style` tag can be safely minified and purged by CSS post-processors.
+
+#### Partials
+
+`partials` variable is populated with `partials/_.json` file content and define which files should be included along with default ordering.
+
+The loop iterates over this array to include all defined partials. Each partial should handle whether it should be displayed by itself.
+
+### `#metrics-end` tag
+
+`#metrics-end` is a special HTML tag which must remain at the bottom of SVG template.
+
+It is used to compute height dynamically through a [puppeteer](https://github.com/puppeteer/puppeteer) headless instance. Initial height should remain a high number so it doesn't get cropped accidentally while [puppeteer](https://github.com/puppeteer/puppeteer) compute [element.getBoundingClientRect()](https://developer.mozilla.org/fr/docs/Web/API/Element/getBoundingClientRect).
+
+### 💬 Filling `metadata.yml`
+
+`metadata.yml` is a file which describes supported account types, output formats, scopes, etc.
+
+```yaml
+name: "🖼️ Template name"
+extends: classic
+description: Short description
+examples:
+  default: https://via.placeholder.com/468x60?text=No%20preview%20available
+supports:
+  - user
+  - organization
+  - repository
+formats:
+  - svg
+  - png
+  - jpeg
+  - json
+  - markdown
+  - markdown-pdf
+```
+
+[`🧱 core`](/source/plugins/core/README.md) plugin will automatically check user inputs with your defined supported `supports` and `formats` key and throw an error in case of incompatibility.
+
+`name`, `description` and `examples` are used to auto-generate documentation in the `README.md` by replacing the following:
+
+```markdown
+<ǃ--header-->
+<ǃ--/header-->
+```
+
+`extends` is used to define upon which template it should inherits its `template.mjs` when it is not trusted by user.
+
+### 💬 Filling `examples.yml`
+
+Workflow examples from `examples.yml` are used to auto-generate documentation in the `README.md` by replacing the following:
+
+```markdown
+#### ℹ️ Examples workflows
+
+<ǃ--examples-->
+<ǃ--/examples-->
 ```
 
 ### 💬 Creating partials
