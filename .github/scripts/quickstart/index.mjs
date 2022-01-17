@@ -18,7 +18,7 @@ if (!["plugin", "template"].includes(mode))
   throw new Error(`Unsupported mode ${mode}`)
 
 //Check if target directory already exists
-const target = paths.join(__metrics, `source/${mode}s`, name)
+const target = paths.join(__metrics, `source/${{plugin:"plugins/community", template:"templates"}[mode]}`, name)
 if (fs.existsSync(target))
   throw new Error(`A ${mode} named ${name} already exists!`)
 

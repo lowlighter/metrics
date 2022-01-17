@@ -33,7 +33,7 @@ info.section = (left = "", right = " ") => info(`\x1b[36m${left}\x1b[0m`, right)
 info.group = ({metadata, name, inputs}) => {
   info.section(metadata.plugins[name]?.name?.match(/(?<section>[\w\s]+)/i)?.groups?.section?.trim(), " ")
   for (const [input, value] of Object.entries(inputs))
-    info(metadata.plugins[name]?.inputs[input]?.description ?? input, value, {token:metadata.plugins[name]?.inputs[input]?.type === "token"})
+    info(metadata.plugins[name]?.inputs[input]?.description?.split("\n")[0] ?? metadata.plugins[name]?.inputs[input]?.description ?? input, value, {token:metadata.plugins[name]?.inputs[input]?.type === "token"})
 }
 info.break = () => console.log("─".repeat(88))
 

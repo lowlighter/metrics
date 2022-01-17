@@ -176,7 +176,7 @@ jobs:
   update-latest:
     name: Rebase latest on master
     runs-on: ubuntu-latest
-    needs: [ docker-release ]
+    needs: [ docker-release, publish-examples ]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2

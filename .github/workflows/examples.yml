@@ -977,8 +977,9 @@ jobs:
           markdown: metrics.markdown.template.md
           config_output: markdown
           token: ${{ secrets.METRICS_TOKEN }}
-          plugins_errors_fatal: yes
           output_action: none
+          committer_branch: examples
+          plugins_errors_fatal: yes
           delay: 5
         if: ${{ success() || failure() }}
       - name: 📒 Markdown template - Example with plugins configuration for embed use
@@ -1011,8 +1012,9 @@ jobs:
           plugin_isocalendar: yes
           plugin_languages: yes
           token: ${{ secrets.METRICS_TOKEN }}
-          plugins_errors_fatal: yes
           output_action: none
+          committer_branch: examples
+          plugins_errors_fatal: yes
           delay: 5
         if: ${{ success() || failure() }}
       - name: 📒 Markdown template - Example (pdf output)
@@ -1030,8 +1032,9 @@ jobs:
           config_twemoji: yes
           config_padding: 5%
           token: ${{ secrets.METRICS_TOKEN }}
-          plugins_errors_fatal: yes
           output_action: none
+          committer_branch: examples
+          plugins_errors_fatal: yes
           delay: 5
         if: ${{ success() || failure() }}
       - name: 📕 Community templates - Using a community template
@@ -1054,7 +1057,7 @@ jobs:
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
-      
+
 
       - name: Publish examples
         if: ${{ success() || failure() }}

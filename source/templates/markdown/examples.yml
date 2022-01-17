@@ -6,6 +6,10 @@
     markdown: metrics.markdown.template.md
     config_output: markdown
     token: ${{ secrets.METRICS_TOKEN }}
+  prod:
+    with:
+      output_action: commit
+      committer_branch: examples
 
 - name: Example with plugins configuration for embed use
   uses: lowlighter/metrics@latest
@@ -36,6 +40,10 @@
     plugin_isocalendar: yes
     plugin_languages: yes
     token: ${{ secrets.METRICS_TOKEN }}
+  prod:
+    with:
+      output_action: commit
+      committer_branch: examples
 
 - name: Example (pdf output)
   uses: lowlighter/metrics@latest
@@ -51,3 +59,7 @@
     config_twemoji: yes
     config_padding: 5%
     token: ${{ secrets.METRICS_TOKEN }}
+  prod:
+    with:
+      output_action: commit
+      committer_branch: examples
