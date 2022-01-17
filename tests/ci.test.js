@@ -11,25 +11,25 @@ describe("Check files editions (checkout your files if needed)", () => {
     void test.each([
       "README.md",
       "source/plugins/README.md",
+      "source/plugins/community/README.md",
       "source/templates/README.md",
       "action.yml",
       "settings.example.json",
       "tests/plugins/*",
+      ".github/workflows/examples.yml",
+      ".github/readme/partials/documentation/compatibility.md"
     ])("%s", async file => expect((await diff()).includes(file)).toBe(false)))
   describe("Repository level files were not modified", () =>
     void test.each([
       ".github/config/*",
       ".github/ISSUE_TEMPLATE/*",
-      ".github/PULL_REQUEST_TEMPLATE/*",
       ".github/readme/partials/license.md",
-      ".github/readme/partials/setup.md",
-      ".github/readme/partials/features.md",
-      ".github/readme/partials/documentation/compatibility.md",
-      ".github/readme/partials/introduction.md",
-      ".github/workflows/*",
       ".github/scripts/*",
-      ".github/FUNDING.yml",
+      ".github/workflows/*",
       ".github/architecture.svg",
+      ".github/dependabot.yml",
+      ".github/FUNDING.yml",
+      ".github/pull_request_template.md/*",
       "LICENSE",
       "ARCHITECTURE.md",
       "SECURITY.md",
