@@ -38,7 +38,6 @@
     <th nowrap="nowrap" align="center" title="✒️ Recent posts">✒️</th>
     <th nowrap="nowrap" align="center" title="🗼 Rss feed">🗼</th>
     <th nowrap="nowrap" align="center" title="⏰ WakaTime plugin">⏰</th>
-    <th nowrap="nowrap" align="center" title="💹 Stock prices">💹</th>
   </tr>  
   <tr>
     <td nowrap="nowrap">📗 Classic template</td>    
@@ -77,7 +76,6 @@
     <td nowrap="nowrap" align="center" data-plugin="posts">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="rss">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="wakatime">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="stock">✔️</td>
   </tr>
   <tr>
     <td nowrap="nowrap">📘 Repository template</td>    
@@ -116,7 +114,6 @@
     <td nowrap="nowrap" align="center" data-plugin="posts">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="rss">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="wakatime">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="stock">✔️</td>
   </tr>
   <tr>
     <td nowrap="nowrap">📙 Terminal template</td>    
@@ -155,7 +152,6 @@
     <td nowrap="nowrap" align="center" data-plugin="posts">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="rss">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="wakatime">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="stock">❌</td>
   </tr>
   <tr>
     <td nowrap="nowrap">📒 Markdown template</td>    
@@ -194,7 +190,6 @@
     <td nowrap="nowrap" align="center" data-plugin="posts">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="rss">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="wakatime">✓</td>
-    <td nowrap="nowrap" align="center" data-plugin="stock">✓</td>
   </tr>
   <tr>
     <td colspan="40"></td>
@@ -236,7 +231,6 @@
     <th nowrap="nowrap" align="center" title="✒️ Recent posts">✒️</th>
     <th nowrap="nowrap" align="center" title="🗼 Rss feed">🗼</th>
     <th nowrap="nowrap" align="center" title="⏰ WakaTime plugin">⏰</th>
-    <th nowrap="nowrap" align="center" title="💹 Stock prices">💹</th>
   </tr>  
   <tr>
     <td nowrap="nowrap">👤 User</td>    
@@ -275,7 +269,6 @@
     <td nowrap="nowrap" align="center" data-plugin="posts">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="rss">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="wakatime">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="stock">✔️</td>
   </tr>
   <tr>
     <td nowrap="nowrap">👥 Organization</td>    
@@ -314,7 +307,6 @@
     <td nowrap="nowrap" align="center" data-plugin="posts">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="rss">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="wakatime">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="stock">✔️</td>
   </tr>
   <tr>
     <td nowrap="nowrap">📓 Repository</td>    
@@ -353,7 +345,6 @@
     <td nowrap="nowrap" align="center" data-plugin="posts">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="rss">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="wakatime">❌</td>
-    <td nowrap="nowrap" align="center" data-plugin="stock">✔️</td>
   </tr>
 </table>
 

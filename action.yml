@@ -882,12 +882,14 @@ inputs:
   
   
   plugin_starlists_ignored:
-    description: Skipped star lists (case insensitive)
+    description: Skipped star lists (case insensitive, emojis insensitive)
     default: ""
   
   
   plugin_starlists_only:
-    description: Restrict display to specified star lists (case insensitive)
+    description: >-
+      Restrict display to specified star lists (case insensitive, emojis
+      insensitive)
     default: ""
   
   # ====================================================================================
@@ -1188,34 +1190,6 @@ inputs:
     default: current
   
   # ====================================================================================
-  # 💹 Stock prices
-  
-  
-  plugin_stock:
-    description: Enable stock plugin
-    default: no
-  
-  
-  plugin_stock_token:
-    description: Yahoo Finance token
-    default: ""
-  
-  
-  plugin_stock_symbol:
-    description: Company stock symbol
-    default: ""
-  
-  
-  plugin_stock_duration:
-    description: Time range (relative to current date)
-    default: 1d
-  
-  
-  plugin_stock_interval:
-    description: Time interval between points
-    default: 5m
-  
-  # ====================================================================================
   # 💉 Nightscout
   
   
@@ -1298,6 +1272,34 @@ inputs:
   plugin_screenshot_background:
     description: Display background
     default: yes
+  
+  # ====================================================================================
+  # 💹 Stock prices
+  
+  
+  plugin_stock:
+    description: Enable stock plugin
+    default: no
+  
+  
+  plugin_stock_token:
+    description: Yahoo Finance token
+    default: ""
+  
+  
+  plugin_stock_symbol:
+    description: Company stock symbol
+    default: ""
+  
+  
+  plugin_stock_duration:
+    description: Time range (relative to current date)
+    default: 1d
+  
+  
+  plugin_stock_interval:
+    description: Time interval between points
+    default: 5m
   
 
 # ====================================================================================

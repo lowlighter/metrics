@@ -15,8 +15,8 @@
   </tr>
   <tr>
     <td colspan="2" align="center">
-      <details><summary>Latest posts</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.posts.svg" alt=""></img></details>
       <details open><summary>Latest posts width description and cover image</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.posts.full.svg" alt=""></img></details>
+      <details><summary>Latest posts</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.posts.svg" alt=""></img></details>
       <img width="900" height="1" alt="">
     </td>
   </tr>

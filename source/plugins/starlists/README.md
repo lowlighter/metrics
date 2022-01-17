@@ -81,7 +81,7 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_starlists_ignored</code></td>
-    <td rowspan="2"><p>Skipped star lists (case insensitive)</p>
+    <td rowspan="2"><p>Skipped star lists (case insensitive, emojis insensitive)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -92,7 +92,7 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_starlists_only</code></td>
-    <td rowspan="2"><p>Restrict display to specified star lists (case insensitive)</p>
+    <td rowspan="2"><p>Restrict display to specified star lists (case insensitive, emojis insensitive)</p>
 <p>This option is equivalent to <code>plugin_starlists_ignored</code> with all star lists but the ones listed in this option</p>
 <img width="900" height="1" alt=""></td>
   </tr>

@@ -904,19 +904,6 @@ jobs:
           output_action: none
           delay: 5
         if: ${{ success() || failure() }}
-      - name: 💹 Stock prices - Stock prices from Tesla
-        uses: lowlighter/metrics@master
-        with:
-          filename: metrics.plugin.stock.svg
-          token: NOT_NEEDED
-          base: ""
-          plugin_stock: yes
-          plugin_stock_token: ${{ secrets.STOCK_TOKEN }}
-          plugin_stock_symbol: TSLA
-          plugins_errors_fatal: yes
-          output_action: none
-          delay: 5
-        if: ${{ success() || failure() }}
       - name: 📸 Website screenshot - XKCD of the day
         uses: lowlighter/metrics@master
         with:
@@ -927,6 +914,19 @@ jobs:
           plugin_screenshot_title: XKCD of the day
           plugin_screenshot_url: https://xkcd.com
           plugin_screenshot_selector: "#comic img"
+          plugins_errors_fatal: yes
+          output_action: none
+          delay: 5
+        if: ${{ success() || failure() }}
+      - name: 💹 Stock prices - Stock prices from Tesla
+        uses: lowlighter/metrics@master
+        with:
+          filename: metrics.plugin.stock.svg
+          token: NOT_NEEDED
+          base: ""
+          plugin_stock: yes
+          plugin_stock_token: ${{ secrets.STOCK_TOKEN }}
+          plugin_stock_symbol: TSLA
           plugins_errors_fatal: yes
           output_action: none
           delay: 5

@@ -263,8 +263,8 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
         <img width="900" height="1" alt="">
       </td>
         <td  align="center">
-        <details><summary>Latest posts</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.posts.svg" alt=""></img></details>
         <details open><summary>Latest posts width description and cover image</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.posts.full.svg" alt=""></img></details>
+        <details><summary>Latest posts</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.posts.svg" alt=""></img></details>
         <img width="900" height="1" alt="">
       </td>
   </tr>
@@ -281,17 +281,6 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
         <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.wakatime.svg" alt=""></img>
         <img width="900" height="1" alt="">
       </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/stock/README.md">💹 Stock prices</a></th>
-    <th></th>
-  </tr>
-  <tr>
-        <td  align="center">
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stock.svg" alt=""></img>
-        <img width="900" height="1" alt="">
-      </td>
-    <td align="center"><img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <th colspan="2" align="center">
@@ -445,7 +434,6 @@ Plugins provide additional content and lets you customize rendered metrics.
   * [✒️ Recent posts <sub>`posts`</sub>](/source/plugins/posts/README.md)
   * [🗼 Rss feed <sub>`rss`</sub>](/source/plugins/rss/README.md)
   * [🗨️ StackOverflow plugin <sub>`stackoverflow`</sub>](/source/plugins/stackoverflow/README.md)
-  * [💹 Stock prices <sub>`stock`</sub>](/source/plugins/stock/README.md)
   * [🐤 Latest tweets <sub>`tweets`</sub>](/source/plugins/tweets/README.md)
   * [⏰ WakaTime plugin <sub>`wakatime`</sub>](/source/plugins/wakatime/README.md)
 
@@ -453,6 +441,7 @@ Plugins provide additional content and lets you customize rendered metrics.
 * [💉 Nightscout <sub>`nightscout`</sub>](/source/plugins/nightscout/README.md) by [@legoandmars](https://github.com/legoandmars)
 * [💩 PoopMap plugin <sub>`poopmap`</sub>](/source/plugins/poopmap/README.md) by [@matievisthekat](https://github.com/matievisthekat)
 * [📸 Website screenshot <sub>`screenshot`</sub>](/source/plugins/screenshot/README.md) by [@lowlighter](https://github.com/lowlighter)
+* [💹 Stock prices <sub>`stock`</sub>](/source/plugins/stock/README.md) by [@lowlighter](https://github.com/lowlighter)
 
 ## 💪 Contributing
 

@@ -138,10 +138,6 @@
       "token": null,               "//":"WakaTime API token",
       "enabled": false,            "//": "Enable wakatime plugin"
     },
-    "stock":{
-      "token": null,               "//":"Yahoo Finance token",
-      "enabled": false,            "//": "Enable stock plugin"
-    },
     "nightscout":{
       "enabled": false,            "//": "Enable nightscout plugin"
     },
@@ -151,6 +147,10 @@
     },
     "screenshot":{
       "enabled": false,            "//": "Enable screenshot plugin"
+    },
+    "stock":{
+      "token": null,               "//":"Yahoo Finance token",
+      "enabled": false,            "//": "Enable stock plugin"
     },
     "//": ""
   }

@@ -41,7 +41,6 @@ Plugins provide additional content and lets you customize rendered metrics.
   * [✒️ Recent posts <sub>`posts`</sub>](/source/plugins/posts/README.md)
   * [🗼 Rss feed <sub>`rss`</sub>](/source/plugins/rss/README.md)
   * [🗨️ StackOverflow plugin <sub>`stackoverflow`</sub>](/source/plugins/stackoverflow/README.md)
-  * [💹 Stock prices <sub>`stock`</sub>](/source/plugins/stock/README.md)
   * [🐤 Latest tweets <sub>`tweets`</sub>](/source/plugins/tweets/README.md)
   * [⏰ WakaTime plugin <sub>`wakatime`</sub>](/source/plugins/wakatime/README.md)
 
@@ -49,3 +48,4 @@ Plugins provide additional content and lets you customize rendered metrics.
 * [💉 Nightscout <sub>`nightscout`</sub>](/source/plugins/nightscout/README.md) by [@legoandmars](https://github.com/legoandmars)
 * [💩 PoopMap plugin <sub>`poopmap`</sub>](/source/plugins/poopmap/README.md) by [@matievisthekat](https://github.com/matievisthekat)
 * [📸 Website screenshot <sub>`screenshot`</sub>](/source/plugins/screenshot/README.md) by [@lowlighter](https://github.com/lowlighter)
+* [💹 Stock prices <sub>`stock`</sub>](/source/plugins/stock/README.md) by [@lowlighter](https://github.com/lowlighter)
