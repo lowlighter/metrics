@@ -17,7 +17,7 @@ describe("Check files editions (checkout your files if needed)", () => {
       "settings.example.json",
       "tests/plugins/*",
       ".github/workflows/examples.yml",
-      ".github/readme/partials/documentation/compatibility.md"
+      ".github/readme/partials/documentation/compatibility.md",
     ])("%s", async file => expect((await diff()).includes(file)).toBe(false)))
   describe("Repository level files were not modified", () =>
     void test.each([
