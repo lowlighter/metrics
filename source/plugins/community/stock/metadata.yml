@@ -1,9 +1,10 @@
 name: "💹 Stock prices"
-category: social
+category: community
 description: This plugin displays the stock market price of a given company.
 examples:
   default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stock.svg
-index: 8
+authors:
+  - lowlighter
 supports:
   - user
   - organization
