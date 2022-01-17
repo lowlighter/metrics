@@ -36,5 +36,8 @@
     token: ${{ secrets.METRICS_TOKEN }}
     base: ""
     plugin_projects: yes
+  prod:
+    with:
+      plugins_errors_fatal: no
   test:
     skip: true

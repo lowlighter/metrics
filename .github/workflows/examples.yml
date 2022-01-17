@@ -43,9 +43,10 @@ jobs:
           filename: metrics.base.svg
           token: ${{ secrets.METRICS_TOKEN }}
           base: header, activity, community, repositories, metadata
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 🧱 Core - Organization
         uses: lowlighter/metrics@master
@@ -54,9 +55,9 @@ jobs:
           user: github
           token: ${{ secrets.METRICS_TOKEN_WITH_SCOPES }}
           base: header, repositories
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 🧱 Core - Large display
         uses: lowlighter/metrics@master
@@ -64,9 +65,10 @@ jobs:
           filename: metrics.large.svg
           token: ${{ secrets.METRICS_TOKEN }}
           config_display: large
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 🧱 Core - JSON metrics
         if: ${{ success() || failure() }}
@@ -75,9 +77,10 @@ jobs:
           filename: metrics.example.json
           token: ${{ secrets.METRICS_TOKEN }}
           config_output: json
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
       - name: 🧱 Core - PNG metrics
         if: ${{ success() || failure() }}
         uses: lowlighter/metrics@master
@@ -85,9 +88,10 @@ jobs:
           filename: metrics.example.png
           token: ${{ secrets.METRICS_TOKEN }}
           config_output: png
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
       - name: 🧱 Core - Plugin error example
         uses: lowlighter/metrics@master
         with:
@@ -95,9 +99,10 @@ jobs:
           token: ${{ secrets.METRICS_TOKEN }}
           base: ""
           plugin_projects: yes
-          plugins_errors_fatal: yes
+          plugins_errors_fatal: no
           output_action: none
           delay: 120
+          user: lowlighter
         if: ${{ success() || failure() }}
       - name: 📅 Isometric commit calendar - Half-year calendar
         uses: lowlighter/metrics@master
@@ -106,9 +111,10 @@ jobs:
           token: ${{ secrets.METRICS_TOKEN }}
           base: ""
           plugin_isocalendar: yes
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 📅 Isometric commit calendar - Full-year calendar
         uses: lowlighter/metrics@master
@@ -118,9 +124,10 @@ jobs:
           base: ""
           plugin_isocalendar: yes
           plugin_isocalendar_duration: full-year
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 🈷️ Most used languages - Most used
         uses: lowlighter/metrics@master
@@ -133,9 +140,10 @@ jobs:
             html, css, tex, less, dockerfile, makefile, qmake, lex, cmake, shell,
             gnuplot
           plugin_languages_limit: 4
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 🈷️ Most used languages - Most used (with details)
         uses: lowlighter/metrics@master
@@ -149,9 +157,10 @@ jobs:
             gnuplot
           plugin_languages_details: bytes-size, percentage
           plugin_languages_limit: 4
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 🈷️ Most used languages - Recently used
         uses: lowlighter/metrics@master
@@ -166,9 +175,10 @@ jobs:
           plugin_languages_sections: recently-used
           plugin_languages_details: bytes-size, percentage
           plugin_languages_limit: 4
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 🈷️ Most used languages - Indepth analysis
         uses: lowlighter/metrics@master
@@ -184,9 +194,10 @@ jobs:
           plugin_languages_details: lines, bytes-size
           plugin_languages_limit: 4
           plugin_languages_analysis_timeout: 15
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 📌 Starred topics - Labels
         uses: lowlighter/metrics@master
@@ -196,9 +207,10 @@ jobs:
           base: ""
           plugin_topics: yes
           plugin_topics_limit: 12
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 📌 Starred topics - Icons
         uses: lowlighter/metrics@master
@@ -209,9 +221,10 @@ jobs:
           plugin_topics: yes
           plugin_topics_limit: 0
           plugin_topics_mode: icons
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 🌟 Recently starred repositories - Recently starred
         uses: lowlighter/metrics@master
@@ -221,9 +234,10 @@ jobs:
           base: ""
           plugin_stars: yes
           plugin_stars_limit: 3
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 📜 Repository licenses - Licenses and permissions
         with:
@@ -234,9 +248,10 @@ jobs:
           repo: metrics
           plugin_licenses: yes
           plugin_licenses_setup: npm ci
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
         uses: lowlighter/metrics@master
       - name: 📜 Repository licenses - Licenses with open-source ratio graphs
@@ -251,9 +266,10 @@ jobs:
           plugin_licenses_setup: npm ci
           plugin_licenses_legal: no
           plugin_licenses_ratio: yes
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 💡 Coding habits - Midly interesting facts
         uses: lowlighter/metrics@master
@@ -265,9 +281,10 @@ jobs:
           plugin_habits_facts: yes
           plugin_habits_charts: no
           config_timezone: Europe/Paris
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 💡 Coding habits - Recent activity charts
         uses: lowlighter/metrics@master
@@ -279,9 +296,10 @@ jobs:
           plugin_habits_facts: no
           plugin_habits_charts: yes
           config_timezone: Europe/Paris
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 🏅 Repository contributors - Contributors with contributions count
         uses: lowlighter/metrics@master
@@ -293,9 +311,10 @@ jobs:
           repo: metrics
           plugin_contributors: yes
           plugin_contributors_contributions: yes
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 🏅 Repository contributors - Contributors by categories
         uses: lowlighter/metrics@master
@@ -313,9 +332,10 @@ jobs:
               "📚 Documentation":["README.md", "**/README.md", "**/metadata.yml"],
               "💻 Code (other)":["source/**", "Dockerfile"]
             }
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 🎟️ Follow-up of issues and pull requests - Opened on user's repositories
         uses: lowlighter/metrics@master
@@ -324,9 +344,10 @@ jobs:
           token: ${{ secrets.METRICS_TOKEN }}
           base: ""
           plugin_followup: yes
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 🎟️ Follow-up of issues and pull requests - Opened by user
         uses: lowlighter/metrics@master
@@ -336,9 +357,10 @@ jobs:
           base: ""
           plugin_followup: yes
           plugin_followup_sections: user
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 🎟️ Follow-up of issues and pull requests - Indepth analysis
         uses: lowlighter/metrics@master
@@ -348,9 +370,10 @@ jobs:
           base: ""
           plugin_followup: yes
           plugin_followup_indepth: yes
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 🎭 Comment reactions - Comment reactions
         uses: lowlighter/metrics@master
@@ -361,9 +384,10 @@ jobs:
           plugin_reactions: yes
           plugin_reactions_limit: 100
           plugin_reactions_details: percentage
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 🧑‍🤝‍🧑 People plugin - Followers
         uses: lowlighter/metrics@master
@@ -373,9 +397,10 @@ jobs:
           base: ""
           plugin_people: yes
           plugin_people_types: followers
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 🧑‍🤝‍🧑 People plugin - Contributors and sponsors
         uses: lowlighter/metrics@master
@@ -390,9 +415,10 @@ jobs:
           plugin_people_sponsors_custom: >-
             iamsainikhil, yutkat, KasparJohannesSchneider, ktnkk, tfSheol, haribo-io,
             marcreichel
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: ✨ Stargazers over last weeks - Last weeks stargazers
         uses: lowlighter/metrics@master
@@ -401,9 +427,10 @@ jobs:
           token: ${{ secrets.METRICS_TOKEN }}
           base: ""
           plugin_stargazers: yes
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 🗂️ Active projects - Project from a repository
         uses: lowlighter/metrics@master
@@ -414,9 +441,10 @@ jobs:
           plugin_projects: yes
           plugin_projects_repositories: lowlighter/metrics/projects/1
           plugin_projects_descriptions: yes
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: ♐ Code snippet of the day - JavaScript or TypeScript snippet of the day
         uses: lowlighter/metrics@master
@@ -427,9 +455,10 @@ jobs:
           plugin_code: yes
           plugin_code_languages: javascript, typescript
           plugin_code_load: 400
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 📰 Recent activity - Recent activity
         uses: lowlighter/metrics@master
@@ -441,9 +470,10 @@ jobs:
           plugin_activity_limit: 5
           plugin_activity_days: 0
           plugin_activity_filter: issue, pr, release, fork, review, ref/create
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 🏆 Achievements - Detailed display
         uses: lowlighter/metrics@master
@@ -453,9 +483,10 @@ jobs:
           base: ""
           plugin_achievements: yes
           plugin_achievements_only: sponsor, maintainer, octonaut
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 🏆 Achievements - Compact display
         uses: lowlighter/metrics@master
@@ -469,9 +500,10 @@ jobs:
             scripter, packager, explorer, infographile, manager
           plugin_achievements_display: compact
           plugin_achievements_threshold: X
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 🎩 Notable contributions - Contributions
         uses: lowlighter/metrics@master
@@ -480,9 +512,10 @@ jobs:
           token: ${{ secrets.METRICS_TOKEN }}
           base: ""
           plugin_notable: yes
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 🎩 Notable contributions - Indepth analysis
         uses: lowlighter/metrics@master
@@ -493,9 +526,10 @@ jobs:
           plugin_notable: yes
           plugin_notable_indepth: yes
           plugin_notable_repositories: yes
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 💬 Discussions - GitHub Discussions
         uses: lowlighter/metrics@master
@@ -505,9 +539,10 @@ jobs:
           base: ""
           plugin_discussions: yes
           plugin_discussions_categories_limit: 8
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 💭 GitHub Community Support - GitHub Community Support
         uses: lowlighter/metrics@master
@@ -516,9 +551,10 @@ jobs:
           token: NOT_NEEDED
           base: ""
           plugin_support: yes
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 👨‍💻 Lines of code changed - Lines of code changed
         uses: lowlighter/metrics@master
@@ -527,9 +563,10 @@ jobs:
           token: ${{ secrets.METRICS_TOKEN }}
           base: repositories
           plugin_lines: yes
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 🧮 Repositories traffic - Repositories traffic
         uses: lowlighter/metrics@master
@@ -538,9 +575,10 @@ jobs:
           token: ${{ secrets.METRICS_TOKEN_WITH_SCOPES }}
           base: repositories
           plugin_traffic: yes
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 📓 Repositories - Featured repositories
         uses: lowlighter/metrics@master
@@ -550,9 +588,10 @@ jobs:
           base: ""
           plugin_repositories: yes
           plugin_repositories_featured: lowlighter/metrics
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 🎫 Gists - Gists
         uses: lowlighter/metrics@master
@@ -561,9 +600,10 @@ jobs:
           token: ${{ secrets.METRICS_TOKEN }}
           base: ""
           plugin_gists: yes
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 🙋 Introduction - Organization introduction
         uses: lowlighter/metrics@master
@@ -573,9 +613,9 @@ jobs:
           user: github
           base: header
           plugin_introduction: yes
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 🙋 Introduction - Repository introduction
         uses: lowlighter/metrics@master
@@ -586,9 +626,10 @@ jobs:
           repo: metrics
           base: header
           plugin_introduction: yes
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 💕 GitHub Sponsors - Sponsors goal
         uses: lowlighter/metrics@master
@@ -598,9 +639,10 @@ jobs:
           base: ""
           plugin_sponsors: yes
           plugin_sponsors_sections: goal
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 💕 GitHub Sponsors - Sponsors introduction
         uses: lowlighter/metrics@master
@@ -609,9 +651,10 @@ jobs:
           token: ${{ secrets.METRICS_TOKEN }}
           base: ""
           plugin_sponsors: yes
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 💫 Starlists - Featured star list
         uses: lowlighter/metrics@master
@@ -622,9 +665,10 @@ jobs:
           plugin_starlists: yes
           plugin_starlists_limit_repositories: 2
           plugin_starlists_only: 🤘 TC39
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 🌇 GitHub Skyline 3D calendar - GitHub Skyline
         uses: lowlighter/metrics@master
@@ -636,9 +680,10 @@ jobs:
           plugin_skyline_year: 2020
           plugin_skyline_frames: 6
           plugin_skyline_quality: 1
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: ⏱️ Website performances - Succint report
         uses: lowlighter/metrics@master
@@ -649,9 +694,10 @@ jobs:
           plugin_pagespeed: yes
           plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
           plugin_pagespeed_url: https://lecoq.io
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: ⏱️ Website performances - Detailed report
         uses: lowlighter/metrics@master
@@ -663,9 +709,10 @@ jobs:
           plugin_pagespeed_detailed: yes
           plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
           plugin_pagespeed_url: https://lecoq.io
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: ⏱️ Website performances - Screenshot
         uses: lowlighter/metrics@master
@@ -677,9 +724,10 @@ jobs:
           plugin_pagespeed_screenshot: yes
           plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
           plugin_pagespeed_url: https://lecoq.io
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 🎼 Music plugin - Apple Music - Random track from playlist
         uses: lowlighter/metrics@master
@@ -690,9 +738,10 @@ jobs:
           plugin_music: yes
           plugin_music_playlist: https://embed.music.apple.com/fr/playlist/usr-share/pl.u-V9D7m8Etjmjd0D
           plugin_music_limit: 2
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 🎼 Music plugin - Spotify - Random track from playlist
         uses: lowlighter/metrics@master
@@ -702,9 +751,10 @@ jobs:
           base: ""
           plugin_music: yes
           plugin_music_playlist: https://open.spotify.com/embed/playlist/3nfA87oeJw4LFVcUDjRcqi
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 🎼 Music plugin - Spotify - Recently listed
         uses: lowlighter/metrics@master
@@ -717,9 +767,10 @@ jobs:
           plugin_music_mode: recent
           plugin_music_token: ${{ secrets.SPOTIFY_TOKENS }}
           plugin_music_limit: 2
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 🎼 Music plugin - Spotify - Top tracks
         uses: lowlighter/metrics@master
@@ -732,9 +783,10 @@ jobs:
           plugin_music_token: ${{ secrets.SPOTIFY_TOKENS }}
           plugin_music_time_range: short
           plugin_music_top_type: tracks
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 🎼 Music plugin - Spotify - Top artists
         uses: lowlighter/metrics@master
@@ -747,9 +799,10 @@ jobs:
           plugin_music_token: ${{ secrets.SPOTIFY_TOKENS }}
           plugin_music_time_range: long
           plugin_music_top_type: artists
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 🎼 Music plugin - Youtube Music - Random track from playlist
         uses: lowlighter/metrics@master
@@ -759,9 +812,10 @@ jobs:
           plugin_music: yes
           plugin_music_playlist: >-
             https://music.youtube.com/playlist?list=OLAK5uy_kU_uxp9TUOl9zVdw77xith8o9AknVwz9U
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 🗨️ StackOverflow plugin - Top answers from stackoverflow
         uses: lowlighter/metrics@master
@@ -773,9 +827,10 @@ jobs:
           plugin_stackoverflow_user: 1
           plugin_stackoverflow_sections: answers-top
           plugin_stackoverflow_limit: 2
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: >-
           🌸 Anilist watch list and reading list - Favorites anime and currently
@@ -789,9 +844,10 @@ jobs:
           plugin_anilist_medias: anime
           plugin_anilist_sections: favorites, watching
           plugin_anilist_limit: 1
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: >-
           🌸 Anilist watch list and reading list - Favorites manga and currently
@@ -805,9 +861,10 @@ jobs:
           plugin_anilist_medias: manga
           plugin_anilist_sections: favorites, reading
           plugin_anilist_limit: 1
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 🌸 Anilist watch list and reading list - Favorites characters
         uses: lowlighter/metrics@master
@@ -818,9 +875,10 @@ jobs:
           plugin_anilist: yes
           plugin_anilist_sections: characters
           plugin_anilist_limit_characters: 22
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 🐤 Latest tweets - Latest tweets
         uses: lowlighter/metrics@master
@@ -831,9 +889,10 @@ jobs:
           plugin_tweets: yes
           plugin_tweets_token: ${{ secrets.TWITTER_TOKEN }}
           plugin_tweets_user: github
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 🐤 Latest tweets - Latest tweets including attachments
         uses: lowlighter/metrics@master
@@ -846,9 +905,10 @@ jobs:
           plugin_tweets_attachments: yes
           plugin_tweets_user: github
           plugin_tweets_limit: 1
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: ✒️ Recent posts - Recent posts
         uses: lowlighter/metrics@master
@@ -858,9 +918,10 @@ jobs:
           base: ""
           plugin_posts: yes
           plugin_posts_source: dev.to
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: ✒️ Recent posts - Recent posts with descriptions and cover images
         uses: lowlighter/metrics@master
@@ -873,9 +934,10 @@ jobs:
           plugin_posts_limit: 2
           plugin_posts_descriptions: yes
           plugin_posts_covers: yes
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 🗼 Rss feed - News from hackernews
         uses: lowlighter/metrics@master
@@ -886,9 +948,10 @@ jobs:
           plugin_rss: yes
           plugin_rss_source: https://news.ycombinator.com/rss
           plugin_rss_limit: 4
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: ⏰ WakaTime plugin - WakaTime
         uses: lowlighter/metrics@master
@@ -900,9 +963,10 @@ jobs:
           plugin_wakatime_sections: time, projects, projects-graphs, languages, languages-graphs, editors, os
           plugin_wakatime_token: MOCKED_TOKEN
           use_mocked_data: yes
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 📸 Website screenshot - XKCD of the day
         uses: lowlighter/metrics@master
@@ -914,9 +978,10 @@ jobs:
           plugin_screenshot_title: XKCD of the day
           plugin_screenshot_url: https://xkcd.com
           plugin_screenshot_selector: "#comic img"
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 💹 Stock prices - Stock prices from Tesla
         uses: lowlighter/metrics@master
@@ -927,9 +992,10 @@ jobs:
           plugin_stock: yes
           plugin_stock_token: ${{ secrets.STOCK_TOKEN }}
           plugin_stock_symbol: TSLA
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 📗 Classic template - Example
         uses: lowlighter/metrics@master
@@ -938,9 +1004,10 @@ jobs:
           token: ${{ secrets.METRICS_TOKEN }}
           base: header, repositories
           plugin_lines: yes
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 📘 Repository template - Example
         uses: lowlighter/metrics@master
@@ -954,9 +1021,9 @@ jobs:
           plugin_followup: yes
           plugin_projects: yes
           plugin_projects_repositories: lowlighter/metrics/projects/1
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 📙 Terminal template - Example
         uses: lowlighter/metrics@master
@@ -965,9 +1032,10 @@ jobs:
           filename: metrics.terminal.svg
           token: ${{ secrets.METRICS_TOKEN }}
           base: header, metadata
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 📒 Markdown template - Example
         uses: lowlighter/metrics@master
@@ -979,8 +1047,9 @@ jobs:
           token: ${{ secrets.METRICS_TOKEN }}
           output_action: none
           committer_branch: examples
-          plugins_errors_fatal: yes
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 📒 Markdown template - Example with plugins configuration for embed use
         uses: lowlighter/metrics@master
@@ -1014,8 +1083,9 @@ jobs:
           token: ${{ secrets.METRICS_TOKEN }}
           output_action: none
           committer_branch: examples
-          plugins_errors_fatal: yes
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 📒 Markdown template - Example (pdf output)
         uses: lowlighter/metrics@master
@@ -1034,8 +1104,9 @@ jobs:
           token: ${{ secrets.METRICS_TOKEN }}
           output_action: none
           committer_branch: examples
-          plugins_errors_fatal: yes
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 📕 Community templates - Using a community template
         uses: lowlighter/metrics@master
@@ -1043,9 +1114,10 @@ jobs:
           token: ${{ secrets.METRICS_TOKEN }}
           template: "@classic"
           setup_community_templates: lowlighter/metrics@master:classic
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       - name: 📕 Community templates - Using a trusted community template
         uses: lowlighter/metrics@master
@@ -1053,9 +1125,10 @@ jobs:
           token: ${{ secrets.METRICS_TOKEN }}
           template: "@terminal"
           setup_community_templates: lowlighter/metrics@master:terminal+trust
-          plugins_errors_fatal: yes
           output_action: none
           delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
       
 
