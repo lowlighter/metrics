@@ -39,7 +39,7 @@ for (const id of Object.keys(plugins)) {
     readme.path,
     readme.content
       .replace(/(<!--header-->)[\s\S]*(<!--\/header-->)/g, `$1\n${header}\n$2`)
-      .replace(/(<!--examples-->)[\s\S]*(<!--\/examples-->)/g, `$1\n${examples.map(({ test, prod, ...step }) => ["```yaml", yaml.dump(step, {quotingType:'"', noCompatMode:true}), "```"].join("\n")).join("\n")}\n$2`)
+      .replace(/(<!--examples-->)[\s\S]*(<!--\/examples-->)/g, `$1\n${examples.map(({ test, prod, ...step }) => ["```yaml", yaml.dump(step, { quotingType: '"', noCompatMode: true }), "```"].join("\n")).join("\n")}\n$2`)
       .replace(/(<!--options-->)[\s\S]*(<!--\/options-->)/g, `$1\n${options}\n$2`),
   )
   console.log(`Generating source/plugins/${community ? "community/" : ""}${id}/README.md`)
@@ -59,13 +59,13 @@ for (const id of Object.keys(templates)) {
     readme.path,
     readme.content
       .replace(/(<!--header-->)[\s\S]*(<!--\/header-->)/g, `$1\n${header}\n$2`)
-      .replace(/(<!--examples-->)[\s\S]*(<!--\/examples-->)/g, `$1\n${examples.map(({ test, prod, ...step }) => ["```yaml", yaml.dump(step, {quotingType:'"', noCompatMode:true}), "```"].join("\n")).join("\n")}\n$2`),
+      .replace(/(<!--examples-->)[\s\S]*(<!--\/examples-->)/g, `$1\n${examples.map(({ test, prod, ...step }) => ["```yaml", yaml.dump(step, { quotingType: '"', noCompatMode: true }), "```"].join("\n")).join("\n")}\n$2`),
   )
   console.log(`Generating source/templates/${id}/README.md`)
 
   //Tests
   workflow.push(...examples.map(example => testcase(templates[id].name, "prod", example)).filter(t => t))
-  await fs.writeFile(tests.path, yaml.dump(examples.map(example => testcase(templates[id].name, "test", example)).filter(t => t), {quotingType:'"', noCompatMode:true}))
+  await fs.writeFile(tests.path, yaml.dump(examples.map(example => testcase(templates[id].name, "test", example)).filter(t => t), { quotingType: '"', noCompatMode: true }))
   console.log(`Generating tests/templates/${id}.yml`)
 }
 
@@ -87,7 +87,7 @@ for (const step of ["config", "documentation"]) {
 }
 
 //Example workflows
-await update({ source: paths.join(__metrics, ".github/scripts/files/examples.yml"), output: ".github/workflows/examples.yml", context: { steps: yaml.dump(workflow, {quotingType:'"', noCompatMode:true}) } })
+await update({ source: paths.join(__metrics, ".github/scripts/files/examples.yml"), output: ".github/workflows/examples.yml", context: { steps: yaml.dump(workflow, { quotingType: '"', noCompatMode: true }) } })
 
 //Commit and push
 if (mode === "publish") {

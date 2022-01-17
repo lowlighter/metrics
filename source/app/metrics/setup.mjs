@@ -164,7 +164,7 @@ export default async function({log = true, nosettings = false, community = {}} =
   //Load plugins
   for (const name of await fs.promises.readdir(__plugins)) {
     switch (name) {
-      case "community":{
+      case "community": {
         const ___plugins = path.join(__plugins, "community")
         for (const name of await fs.promises.readdir(___plugins))
           await load.plugin(name, {__plugins:___plugins, Plugins, conf, logger})
@@ -249,5 +249,5 @@ const load = {
         }
       )
     }
-  }
+  },
 }

@@ -41,7 +41,7 @@ export default async function metadata({log = true, diff = false} = {}) {
     if (!(await fs.promises.lstat(path.join(__plugins, name))).isDirectory())
       continue
     switch (name) {
-      case "community":{
+      case "community": {
         const ___plugins = path.join(__plugins, "community")
         for (const name of await fs.promises.readdir(___plugins)) {
           if (!(await fs.promises.lstat(path.join(___plugins, name))).isDirectory())
