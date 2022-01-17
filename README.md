@@ -438,10 +438,10 @@ Plugins provide additional content and lets you customize rendered metrics.
   * [⏰ WakaTime plugin <sub>`wakatime`</sub>](/source/plugins/wakatime/README.md)
 
 **🎲 Maintained by community**
-* [💉 Nightscout <sub>`nightscout`</sub>](/source/plugins/nightscout/README.md) by [@legoandmars](https://github.com/legoandmars)
-* [💩 PoopMap plugin <sub>`poopmap`</sub>](/source/plugins/poopmap/README.md) by [@matievisthekat](https://github.com/matievisthekat)
-* [📸 Website screenshot <sub>`screenshot`</sub>](/source/plugins/screenshot/README.md) by [@lowlighter](https://github.com/lowlighter)
-* [💹 Stock prices <sub>`stock`</sub>](/source/plugins/stock/README.md) by [@lowlighter](https://github.com/lowlighter)
+* [💉 Nightscout <sub>`nightscout`</sub>](/source/plugins/community/nightscout/README.md) by [@legoandmars](https://github.com/legoandmars)
+* [💩 PoopMap plugin <sub>`poopmap`</sub>](/source/plugins/community/poopmap/README.md) by [@matievisthekat](https://github.com/matievisthekat)
+* [📸 Website screenshot <sub>`screenshot`</sub>](/source/plugins/community/screenshot/README.md) by [@lowlighter](https://github.com/lowlighter)
+* [💹 Stock prices <sub>`stock`</sub>](/source/plugins/community/stock/README.md) by [@lowlighter](https://github.com/lowlighter)
 
 ## 💪 Contributing
 
