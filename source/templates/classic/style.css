@@ -783,8 +783,14 @@
     margin-top: 4px;
   }
 
+  .activity .commit {
+    display: flex;
+    align-items: center;
+  }
+
   .activity .commit .sha {
     font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+    margin-right: 4px;
   }
 
   .activity .commit .message {
