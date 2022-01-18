@@ -43,7 +43,7 @@ inputs:
   
   
   commits_authoring:
-    description: Name, username, email addresses that has been used for authoring commits
+    description: Identifiers that has been used for authoring commits
     default: .user.login
   
   # ====================================================================================
@@ -392,7 +392,7 @@ inputs:
   
   
   plugin_licenses_legal:
-    description: Display permissions, limitations and conditions about used licenses
+    description: Display permissions, limitations and conditions about licenses
     default: yes
   
   # ====================================================================================
@@ -882,14 +882,12 @@ inputs:
   
   
   plugin_starlists_ignored:
-    description: Skipped star lists (case insensitive, emojis insensitive)
+    description: Skipped star lists
     default: ""
   
   
   plugin_starlists_only:
-    description: >-
-      Restrict display to specified star lists (case insensitive, emojis
-      insensitive)
+    description: Restrict display to specified star lists
     default: ""
   
   # ====================================================================================

@@ -34,17 +34,3 @@
     plugin_languages_limit: 4
     use_mocked_data: 'yes'
     verify: 'yes'
-- name: 🈷️ Most used languages - Indepth analysis
-  uses: lowlighter/metrics@latest
-  with:
-    token: MOCKED_TOKEN
-    plugin_languages: 'yes'
-    plugin_languages_ignored: >-
-      html, css, tex, less, dockerfile, makefile, qmake, lex, cmake, shell,
-      gnuplot
-    plugin_languages_indepth: 'yes'
-    plugin_languages_details: lines, bytes-size
-    plugin_languages_limit: 4
-    plugin_languages_analysis_timeout: 15
-    use_mocked_data: 'yes'
-    verify: 'yes'
