@@ -154,7 +154,7 @@ jobs:
   docker-release:
     name: Publish release to GitHub registry
     runs-on: ubuntu-latest
-    needs: [ action-master-test ]
+    needs: [ action-master-test, publish-examples ]
     if: contains(github.event.head_commit.message, '[release]')
     steps:
       - name: Checkout repository

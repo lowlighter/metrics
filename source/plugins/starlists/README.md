@@ -117,7 +117,7 @@ with:
   base: ""
   plugin_starlists: yes
   plugin_starlists_limit_repositories: 2
-  plugin_starlists_only: 🤘 TC39
+  plugin_starlists_only: TC39
 
 ```
 <!--/examples-->

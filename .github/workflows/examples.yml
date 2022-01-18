@@ -664,7 +664,7 @@ jobs:
           base: ""
           plugin_starlists: yes
           plugin_starlists_limit_repositories: 2
-          plugin_starlists_only: 🤘 TC39
+          plugin_starlists_only: TC39
           output_action: none
           delay: 120
           user: lowlighter
@@ -1132,6 +1132,11 @@ jobs:
         if: ${{ success() || failure() }}
       
 
+      - name: Screenshot markdown example
+        if: ${{ success() || failure() }}
+        run: |
+          node /metrics/.github/scripts/markdown_example.mjs
+          mv metrics.markdown.png /
       - name: Publish examples
         if: ${{ success() || failure() }}
         run: |
@@ -1139,41 +1144,10 @@ jobs:
           sudo mv /metrics_renders/* ./
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git pull
           git add --all
           git commit -m "chore: update examples"
           git push
-
-# ======================================================================================
-# Markdown as png (for readme updates)
-# ======================================================================================
-
-  examples-markdown:
-    runs-on: ubuntu-latest
-    if: "github.repository == 'lowlighter/metrics'"
-    container: ghcr.io/lowlighter/metrics:master
-    needs: [examples]
-    steps:
-      - name: Screenshot markdown example
-        run: |
-          node /metrics/.github/scripts/markdown_example.mjs
-          echo "METRICS_MARKDOWN_EXAMPLE=$(base64 --wrap=0 metrics.markdown.png)" >> $GITHUB_ENV
-      - name: Update markdown example
-        uses: actions/github-script@v5
-        env:
-          METRICS_MARKDOWN_EXAMPLE: "${{ env.METRICS_MARKDOWN_EXAMPLE }}"
-        with:
-          script: |
-            try {
-              const {data:{sha}} = await github.rest.repos.getContent({...context.repo, path:"metrics.markdown.png"})
-              console.log(`current sha: ${sha}`)
-              github.rest.repos.createOrUpdateFileContents({
-                ...context.repo,
-                path:"metrics.markdown.png",
-                message:`Auto-generated metrics for run #${github.context ? github.context.runId : "0000000000"}`,
-                content:process.env.METRICS_MARKDOWN_EXAMPLE,
-                sha,
-              })
-            } catch (error) { console.log(error) }
 
 # ======================================================================================
 # Special job used to render lowlighter/metrics repository assets
@@ -1246,6 +1220,7 @@ jobs:
           sudo mv /metrics_renders/* ./
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git pull
           git add --all
           git commit -m "chore: update examples"
           git push
