@@ -136,8 +136,8 @@
                     <% } %>
                     <% for (const commit of event.commits) { %>
                       <div class="commit">
-                        <span class="sha">#<%= commit.sha %></span>
-                        <span class="message"><%= commit.message %></span>
+                        <div class="sha">#<%= commit.sha %></div>
+                        <div class="message"><%= commit.message %></div>
                       </div>
                     <% } %>
                   </div>
