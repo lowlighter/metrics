@@ -1045,7 +1045,7 @@ jobs:
           markdown: metrics.markdown.template.md
           config_output: markdown
           token: ${{ secrets.METRICS_TOKEN }}
-          output_action: none
+          output_action: commit
           committer_branch: examples
           delay: 120
           user: lowlighter
@@ -1081,7 +1081,7 @@ jobs:
           plugin_isocalendar: yes
           plugin_languages: yes
           token: ${{ secrets.METRICS_TOKEN }}
-          output_action: none
+          output_action: commit
           committer_branch: examples
           delay: 120
           user: lowlighter
@@ -1102,7 +1102,7 @@ jobs:
           config_twemoji: yes
           config_padding: 5%
           token: ${{ secrets.METRICS_TOKEN }}
-          output_action: none
+          output_action: commit
           committer_branch: examples
           delay: 120
           user: lowlighter
@@ -1135,8 +1135,8 @@ jobs:
       - name: Screenshot markdown example
         if: ${{ success() || failure() }}
         run: |
-          node /metrics/.github/scripts/markdown_example.mjs
-          mv metrics.markdown.png /
+          docker run --entrypoint="" --volume=/tmp:/tmp ghcr.io/lowlighter/metrics:master node /metrics/.github/scripts/markdown_example.mjs
+          sudo mv /tmp/metrics.markdown.png /metrics_renders/
       - name: Publish examples
         if: ${{ success() || failure() }}
         run: |

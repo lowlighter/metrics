@@ -17,5 +17,5 @@ const clip = await page.evaluate(() => {
   const { x, y, width, height } = document.querySelector("#readme").getBoundingClientRect()
   return { x, y, width, height }
 })
-await page.screenshot({ type: "png", path: "metrics.markdown.png", clip, omitBackground: true })
+await page.screenshot({ type: "png", path: "/tmp/metrics.markdown.png", clip, omitBackground: true })
 await browser.close()

@@ -158,6 +158,7 @@ async function template(id) {
 function testcase(name, env, args) {
   const { prod = {}, test = {}, ...step } = JSON.parse(JSON.stringify(args))
   const context = { prod, test }[env] ?? {}
+  const {with:overrides} = context
   if (context.skip)
     return null
 
@@ -178,8 +179,9 @@ function testcase(name, env, args) {
       if (!(property in result.with))
         result.with[property] = value
     }
-    if ((context.with?.output_action) && (context.with?.committer_branch === "examples"))
-      Object.assign(result.with, { output_action: context.with.output_action, committer_branch: "examples" })
+    if ((overrides?.output_action) && (overrides?.committer_branch === "examples")) {
+      Object.assign(result.with, { output_action: overrides.output_action, committer_branch: "examples" })
+    }
   }
 
   if (env === "test") {
