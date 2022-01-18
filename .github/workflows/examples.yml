@@ -1141,13 +1141,15 @@ jobs:
         if: ${{ success() || failure() }}
         run: |
           set +e
+          rm -rf /metrics_renders/metrics.markdown.*
           sudo mv /metrics_renders/* ./
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git pull
+          git reset --soft c8d364ee752ad090945b7e104873d24d011b521e
           git add --all
           git commit -m "chore: update examples"
-          git push
+          git push --force
 
 # ======================================================================================
 # Special job used to render lowlighter/metrics repository assets
@@ -1223,4 +1225,4 @@ jobs:
           git pull
           git add --all
           git commit -m "chore: update examples"
-          git push
+          git push --force
