@@ -29,6 +29,6 @@ inputs:
     default: no
 
   plugin_licenses_legal:
-    description: Display permissions, limitations and conditions about used licenses
+    description: Display permissions, limitations and conditions about licenses
     type: boolean
     default: yes

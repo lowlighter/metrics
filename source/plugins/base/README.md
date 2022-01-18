@@ -137,8 +137,8 @@ Broad affiliation will result in less representative metrics.</p>
   </tr>
   <tr>
     <td nowrap="nowrap"><code>commits_authoring</code></td>
-    <td rowspan="2"><p>Name, username, email addresses that has been used for authoring commits</p>
-<p>This setting can be used to detect commits ownerships in some plugin</p>
+    <td rowspan="2"><p>Identifiers that has been used for authoring commits</p>
+<p>Specify names, surnames, username, email addresses that has been used in the past that can be used to detect commits ownerships in some plugins</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>

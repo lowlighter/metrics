@@ -96,9 +96,9 @@ inputs:
 
   commits_authoring:
     description: |
-      Name, username, email addresses that has been used for authoring commits
+      Identifiers that has been used for authoring commits
 
-      This setting can be used to detect commits ownerships in some plugin
+      Specify names, surnames, username, email addresses that has been used in the past that can be used to detect commits ownerships in some plugins
     type: array
     format: comma-seperated
     default: .user.login

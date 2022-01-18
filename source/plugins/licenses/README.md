@@ -83,7 +83,7 @@ Dependencies will be analyzed by [GitHub licensed](https://github.com/github/lic
   </tr>
   <tr>
     <td nowrap="nowrap"><code>plugin_licenses_legal</code></td>
-    <td rowspan="2"><p>Display permissions, limitations and conditions about used licenses</p>
+    <td rowspan="2"><p>Display permissions, limitations and conditions about licenses</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>

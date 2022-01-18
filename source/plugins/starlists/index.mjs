@@ -30,7 +30,6 @@ export default async function({login, q, imports, data, account}, {enabled = fal
     ))
     const count = lists.length
     console.debug(`metrics/compute/${login}/plugins > starlists > found [${lists.map(({name}) => name)}]`)
-    console.log(">>>>> DEBUG", lists.map(({name}) => name), lists.map(({name}) => imports.stripemojis(name ?? "").trim().toLocaleLowerCase()), only, ignored)
     lists = lists
       .filter(({name}) => {
         name = imports.stripemojis(name ?? "").trim().toLocaleLowerCase()
