@@ -1,18 +1,24 @@
 <table>
   <tr><th colspan="2"><h3>🎲 Community plugins</h3></th></tr>
   <tr><td colspan="2" align="center">Additional plugins maintained by community for even more features!</td></tr>
-  <tr>
-    <td align="center">
-      <% for (const [plugin, {name, category}] of Object.entries(plugins).filter(([key, value], index) => (index%2 === 0)&&(value)&&(value.category === "community")).sort(([an, a], [bn, b]) => a.category === b.category ? an.localeCompare(bn) : 0)) { %><%# -%>
-      <a href="/source/plugins/community/<%= plugin %>/README.md"><%- name %> <sub><code><%= plugin %></code></sub></a><br><% } %>
-      <img width="900" height="1" alt="">
-    </td>
-    <td align="center">
-      <% for (const [plugin, {name, category}] of Object.entries(plugins).filter(([key, value], index) => (index%2 === 1)&&(value)&&(value.category === "community")).sort(([an, a], [bn, b]) => a.category === b.category ? an.localeCompare(bn) : 0)) { %><%# -%>
-      <a href="/source/plugins/community/<%= plugin %>/README.md"><%- name %> <sub><code><%= plugin %></code></sub></a><br><% } %>
-      <img width="900" height="1" alt="">
-    </td>
+<% {
+  let cell = 0
+  const elements = Object.entries(plugins).filter(([key, value]) => (value)&&(value.category === "community"))
+  if (elements.length%2)
+    elements.push(["", {readme:{demo:`<td align="center"><img width="900" height="1" alt=""></td>`}}])
+  for (let i = 0; i < elements.length; i+=2) {
+    const cells = [["even", elements[i]], ["odd", elements[i+1]]]
+    for (const [cell, [plugin, {name, readme}]] of cells) {
+      if (cell === "even") { %>  <tr><% } %>
+    <th><% if (plugin) { %><a href="source/plugins/community/<%= plugin %>/README.md"><%= name -%></a><% } %></th><%
+    if (cell === "odd") { %>
   </tr>
+<% }}
+    for (const [cell, [plugin, {name, readme}]] of cells) {
+      if (cell === "even") { %>  <tr><% } %>
+<%- readme.demo.replace(/<img src=/g, `<img alt="" width="400" src=`) %><%
+      if (cell === "odd") { %>
+  </tr><% }}}} %>
 </table>
 
 ## 📪 Creating community plugins
@@ -87,7 +93,6 @@ inputs:
     description: Enable {name} plugin
     type: boolean
     default: no
-
 ```
 
 > 💡 It is important to correctly define `metadata.yml` because *metrics* will use its content for various usage
