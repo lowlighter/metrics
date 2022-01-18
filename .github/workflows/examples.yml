@@ -635,7 +635,7 @@ jobs:
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.sponsors.svg
-          token: ${{ secrets.METRICS_TOKEN }}
+          token: ${{ secrets.METRICS_TOKEN_WITH_SCOPES }}
           base: ""
           plugin_sponsors: yes
           plugin_sponsors_sections: goal
@@ -648,7 +648,7 @@ jobs:
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.sponsors.full.svg
-          token: ${{ secrets.METRICS_TOKEN }}
+          token: ${{ secrets.METRICS_TOKEN_WITH_SCOPES }}
           base: ""
           plugin_sponsors: yes
           output_action: none
@@ -1229,6 +1229,7 @@ jobs:
           token: ${{ secrets.METRICS_TOKEN }}
           base: ""
           template: repository
+          user: lowlighter
           repo: metrics
           plugin_licenses: yes
           plugin_licenses_setup: npm ci

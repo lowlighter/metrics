@@ -10,7 +10,8 @@ supports:
   - organization
   - repository
 scopes:
-  - public_access
+  - read:user
+  - read:org
 inputs:
 
   plugin_sponsors:

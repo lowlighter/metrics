@@ -11,7 +11,7 @@
     <td><code>👤 Users</code> <code>👥 Organizations</code> <code>📓 Repositories</code></td>
   </tr>
   <tr>
-    <td><code>🔑 (scopeless)</code> <code>read:org (optional)</code> <code>read:user (optional)</code> <code>repo (optional)</code></td>
+    <td><code>🔑 read:user</code> <code>🔑 read:org</code> <code>repo (optional)</code></td>
   </tr>
   <tr>
     <td colspan="2" align="center">
@@ -67,7 +67,7 @@ name: Sponsors goal
 uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.sponsors.svg
-  token: ${{ secrets.METRICS_TOKEN }}
+  token: ${{ secrets.METRICS_TOKEN_WITH_SCOPES }}
   base: ""
   plugin_sponsors: yes
   plugin_sponsors_sections: goal
@@ -78,7 +78,7 @@ name: Sponsors introduction
 uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.sponsors.full.svg
-  token: ${{ secrets.METRICS_TOKEN }}
+  token: ${{ secrets.METRICS_TOKEN_WITH_SCOPES }}
   base: ""
   plugin_sponsors: yes
 

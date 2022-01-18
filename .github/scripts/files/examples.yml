@@ -136,6 +136,7 @@ jobs:
           token: ${{ secrets.METRICS_TOKEN }}
           base: ""
           template: repository
+          user: lowlighter
           repo: metrics
           plugin_licenses: yes
           plugin_licenses_setup: npm ci
