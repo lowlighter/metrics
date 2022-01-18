@@ -43,3 +43,5 @@
     plugin_languages_details: lines, bytes-size
     plugin_languages_limit: 4
     plugin_languages_analysis_timeout: 15
+  test:
+    skip: true
