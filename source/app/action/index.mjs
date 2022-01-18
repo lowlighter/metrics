@@ -18,7 +18,7 @@ let DEBUG = true
 const debugged = []
 
 //Info logger
-const info = (left, right, {token = false} = {}) => console.log(`${`${left}`.padEnd(56 + 9 * (/0m$/.test(left)))} │ ${
+const info = (left, right, {token = false} = {}) => console.log(`${`${left}`.padEnd(63 + 9 * (/0m$/.test(left)))} │ ${
     Array.isArray(right)
       ? right.join(", ") || "(none)"
       : right === undefined
