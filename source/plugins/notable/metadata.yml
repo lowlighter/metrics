@@ -22,9 +22,20 @@ inputs:
 
       Based on [GitHub search syntax](https://docs.github.com/en/search-github/getting-started-with-searching-on-github/understanding-the-search-syntax).
       Supported fields are `stars`, `forks` and `watchers`
+
+      If `plugin_notable_indepth` is enabled, `commits`, `commits.user`, `commits.user%` and `maintainer` fields are also supported.
+      Some repositories may not be able to reported advanced stats and in the case the default behaviour will be to bypass filtering
     type: string
     default: ""
-    example: stars:>500 forks:>100
+    example: stars:>500 forks:>100 maintainer:true commits.user%:>5
+
+  plugin_notable_skipped:
+    description: Skipped repositories
+    type: array
+    format: comma-separated
+    default: ""
+    example: my-repo-1, my-repo-2, owner/repo-3, ...
+    inherits: repositories_skipped
 
   plugin_notable_from:
     description: |
