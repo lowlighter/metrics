@@ -15,6 +15,10 @@ RUN chmod +x /metrics/source/app/action/index.mjs \
   && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
   && apt-get update \
   && apt-get install -y google-chrome-stable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst fonts-freefont-ttf fonts-noto-color-emoji fonts-opensymbol libxss1 libx11-xcb1 libxtst6 lsb-release --no-install-recommends \
+  && mkdir -p /usr/local/share/fonts \
+  && cp /usr/share/fonts/truetype/noto/NotoColorEmoji.ttf /usr/local/share/fonts/ \
+  && chmod 644 /usr/local/share/fonts/NotoColorEmoji.ttf \
+  && fc-cache -fv \
   # Install ruby to support github licensed gem
   && apt-get install -y ruby-full git g++ cmake pkg-config libssl-dev \
   && gem install licensed \
