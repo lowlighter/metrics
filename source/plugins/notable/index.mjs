@@ -20,7 +20,7 @@ export default async function({login, q, imports, rest, graphql, data, account, 
         const {user:{repositoriesContributedTo:{edges}}} = await graphql(queries.notable.contributions({login, after:cursor ? `after: "${cursor}"` : "", repositories:data.shared["repositories.batch"] || 100}))
         cursor = edges?.[edges?.length - 1]?.cursor
         edges
-          .filter(({node}) => !((skipped.includes(node.nameWithOwner.toLocaleLowerCase()))||(skipped.includes(node.nameWithOwner.split("/")[1].toLocaleLowerCase()))))
+          .filter(({node}) => !((skipped.includes(node.nameWithOwner.toLocaleLowerCase())) || (skipped.includes(node.nameWithOwner.split("/")[1].toLocaleLowerCase()))))
           .filter(({node}) => ({all:true, organization:node.isInOrganization, user:!node.isInOrganization}[from]))
           .filter(({node}) => imports.ghfilter(filter, {name:node.nameWithOwner, user:node.owner.login, stars:node.stargazers.totalCount, watchers:node.watchers.totalCount, forks:node.forks.totalCount}))
           .map(({node}) => commits.push({handle:node.nameWithOwner, stars:node.stargazers.totalCount, organization:node.isInOrganization, avatarUrl:node.owner.avatarUrl}))
@@ -100,7 +100,7 @@ export default async function({login, q, imports, rest, graphql, data, account, 
       //Normalize contribution percentage
       contributions.map(aggregate => aggregate.user ? aggregate.user.percentage /= aggregate.aggregated : null)
       //Additional filtering (no user commits means that API wasn't able to answer back, considering it as matching by default)
-      contributions = contributions.filter(({handle, user}) => !user?.commits ? true : imports.ghfilter(filter, {handle, commits:contributions.history, "commits.user":user.commits, "commits.user%":user.percentage*100, maintainer:user.maintainer}))
+      contributions = contributions.filter(({handle, user}) => !user?.commits ? true : imports.ghfilter(filter, {handle, commits:contributions.history, "commits.user":user.commits, "commits.user%":user.percentage * 100, maintainer:user.maintainer}))
       //Sort contribution by maintainer first and then by contribution percentage
       contributions = contributions.sort((a, b) => ((b.user?.percentage + b.user?.maintainer) || 0) - ((a.user?.percentage + a.user?.maintainer) || 0))
     }
