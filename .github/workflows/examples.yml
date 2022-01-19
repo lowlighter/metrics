@@ -1189,6 +1189,7 @@ jobs:
           filename: metrics.sponsors.svg
           token: ${{ secrets.METRICS_TOKEN }}
           base: ""
+          user: lowlighter
           plugin_people: yes
           plugin_people_types: sponsors
           plugin_people_sponsors_custom: yutkat, ktnkk, iamsainikhil, tfSheol
