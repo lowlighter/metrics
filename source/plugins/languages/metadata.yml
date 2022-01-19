@@ -74,7 +74,10 @@ inputs:
 
   plugin_languages_details:
     extras: yes
-    description: Additional details
+    description: |
+      Additional details
+
+      Note that `lines` is only available when `plugin_languages_indepth` is enabled
     type: array
     format: comma-separated
     values:

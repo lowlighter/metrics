@@ -26,6 +26,8 @@ export default async function({login, data, imports, q, rest, account}, {enabled
     skipped.push(...data.shared["repositories.skipped"])
     if (!limit)
       limit = Infinity
+    if (!indepth)
+      details = details.filter(detail => !["lines"].includes(detail))
     aliases = Object.fromEntries(aliases.split(",").filter(alias => /^[\s\S]+:[\s\S]+$/.test(alias)).map(alias => alias.trim().split(":")).map(([key, value]) => [key.toLocaleLowerCase(), value]))
 
     //Custom colors
