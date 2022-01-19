@@ -100,7 +100,7 @@ export default async function({login, q, imports, rest, graphql, data, account, 
       //Normalize contribution percentage
       contributions.map(aggregate => aggregate.user ? aggregate.user.percentage /= aggregate.aggregated : null)
       //Additional filtering (no user commits means that API wasn't able to answer back, considering it as matching by default)
-      contributions = contributions.filter(({handle, user}) => !user.commits ? true : imports.ghfilter(filter, {handle, commits:contributions.history, "commits.user":user.commits, "commits.user%":user.percentage*100, maintainer:user.maintainer}))
+      contributions = contributions.filter(({handle, user}) => !user?.commits ? true : imports.ghfilter(filter, {handle, commits:contributions.history, "commits.user":user.commits, "commits.user%":user.percentage*100, maintainer:user.maintainer}))
       //Sort contribution by maintainer first and then by contribution percentage
       contributions = contributions.sort((a, b) => ((b.user?.percentage + b.user?.maintainer) || 0) - ((a.user?.percentage + a.user?.maintainer) || 0))
     }
