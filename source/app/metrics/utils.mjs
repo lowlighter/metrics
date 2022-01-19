@@ -309,15 +309,25 @@ export function ghfilter(text, object) {
   console.debug(`metrics/svg/ghquery > checking ${text} against ${JSON.stringify(object)}`)
   const result = text.split(/(?<!NOT) /).map(x => x.trim()).filter(x => x).map(criteria => {
     const [key, filters] = criteria.split(":")
-    const value = object[/^NOT /.test(key) ? key.substring(3).trim() : key.trim()]
+    const value = object[/^NOT /.test(key) ? key.substring(3).trim() : /^-/.test(key) ? key.substring(1).trim() : key.trim()]
     console.debug(`metrics/svg/ghquery > checking ${criteria} against ${value}`)
+    if (value === undefined) {
+      console.debug(`metrics/svg/ghquery > value for ${criteria} is undefined, considering it truthy`)
+      return true
+    }
     return filters?.split(",").map(x => x.trim()).filter(x => x).map(filter => {
       if (!Number.isFinite(Number(value))) {
         if (/^NOT /.test(filter))
           return value !== filter.substring(3).trim()
+        if (/^-/.test(key))
+          return value !== filter
         return value === filter.trim()
       }
       switch (true) {
+        case /^true$/.test(filter):
+          return value === true
+        case /^false$/.test(filter):
+          return value === false
         case /^>\d+$/.test(filter):
           return value > Number(filter.substring(1))
         case /^>=\d+$/.test(filter):
