@@ -305,7 +305,7 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
         meta.authors?.length ? `<tr><th>Authors</th><td>${[meta.authors].flat().map(author => `<a href="https://github.com/${author}">@${author}</a>`)}</td></tr>` : "",
         "  <tr>",
         '    <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>',
-        `    <td>${Object.entries(compatibility).filter(([_, value]) => value).map(([id]) => `<a href="/source/templates/${id}"><code>${templates[id].name ?? ""}</code></a>`).join(" ")}</td>`,
+        `    <td>${Object.entries(compatibility).filter(([_, value]) => value).map(([id]) => `<a href="/source/templates/${id}/README.md"><code>${templates[id].name ?? ""}</code></a>`).join(" ")}</td>`,
         "  </tr>",
         "  <tr>",
         `    <td>${
@@ -428,7 +428,7 @@ metadata.template = async function({__templates, name, plugins, logger}) {
       `  <tr><td colspan="2" align="center">${marked.parse(meta.description ?? "", {silent:true})}</td></tr>`,
       "  <tr>",
       '    <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>',
-      `    <td>${Object.entries(compatibility).filter(([_, value]) => value).map(([id]) => `<a href="/source/plugins/${id}" title="${plugins[id].name}">${plugins[id].icon}</a>`).join(" ")}${meta.formats?.includes("markdown") ? " <code>✓ embed()</code>" : ""}</td>`,
+      `    <td>${Object.entries(compatibility).filter(([_, value]) => value).map(([id]) => `<a href="/source/plugins/${id}/README.md" title="${plugins[id].name}">${plugins[id].icon}</a>`).join(" ")}${meta.formats?.includes("markdown") ? " <code>✓ embed()</code>" : ""}</td>`,
       "  </tr>",
       "  <tr>",
       `    <td>${
