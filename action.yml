@@ -744,6 +744,11 @@ inputs:
     default: ""
   
   
+  plugin_notable_skipped:
+    description: Skipped repositories
+    default: ""
+  
+  
   plugin_notable_from:
     description: Filter by repository owner account type
     default: organization
