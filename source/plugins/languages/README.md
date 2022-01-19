@@ -5,7 +5,7 @@
 </td></tr>
   <tr>
     <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
-    <td><a href="/source/templates/classic"><code>📗 Classic template</code></a> <a href="/source/templates/repository"><code>📘 Repository template</code></a> <a href="/source/templates/terminal"><code>📙 Terminal template</code></a></td>
+    <td><a href="/source/templates/classic/README.md"><code>📗 Classic template</code></a> <a href="/source/templates/repository/README.md"><code>📘 Repository template</code></a> <a href="/source/templates/terminal/README.md"><code>📙 Terminal template</code></a></td>
   </tr>
   <tr>
     <td><code>👤 Users</code> <code>👥 Organizations</code> <code>📓 Repositories</code></td>
@@ -123,6 +123,7 @@
   <tr>
     <td nowrap="nowrap"><code>plugin_languages_details</code></td>
     <td rowspan="2"><p>Additional details</p>
+<p>Note that <code>lines</code> is only available when <code>plugin_languages_indepth</code> is enabled</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>

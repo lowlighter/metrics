@@ -5,7 +5,7 @@
 </td></tr>
   <tr>
     <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
-    <td><a href="/source/templates/classic"><code>📗 Classic template</code></a></td>
+    <td><a href="/source/templates/classic/README.md"><code>📗 Classic template</code></a></td>
   </tr>
   <tr>
     <td><code>👤 Users</code></td>

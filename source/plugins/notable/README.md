@@ -5,7 +5,7 @@
 </td></tr>
   <tr>
     <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
-    <td><a href="/source/templates/classic"><code>📗 Classic template</code></a></td>
+    <td><a href="/source/templates/classic/README.md"><code>📗 Classic template</code></a></td>
   </tr>
   <tr>
     <td><code>👤 Users</code></td>
@@ -45,10 +45,24 @@
     <td rowspan="2"><p>Query filter</p>
 <p>Based on <a href="https://docs.github.com/en/search-github/getting-started-with-searching-on-github/understanding-the-search-syntax">GitHub search syntax</a>.
 Supported fields are <code>stars</code>, <code>forks</code> and <code>watchers</code></p>
+<p>If <code>plugin_notable_indepth</code> is enabled, <code>commits</code>, <code>commits.user</code>, <code>commits.user%</code> and <code>maintainer</code> fields are also supported.
+Some repositories may not be able to reported advanced stats and in the case the default behaviour will be to bypass filtering</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_notable_skipped</code></td>
+    <td rowspan="2"><p>Skipped repositories</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">⏩ Inherits <code>repositories_skipped</code><br>
+✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
 <br></td>
   </tr>
   <tr>

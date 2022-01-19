@@ -5,7 +5,7 @@
 </td></tr>
   <tr>
     <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
-    <td><a href="/source/templates/repository"><code>📘 Repository template</code></a></td>
+    <td><a href="/source/templates/repository/README.md"><code>📘 Repository template</code></a></td>
   </tr>
   <tr>
     <td><code>📓 Repositories</code></td>
