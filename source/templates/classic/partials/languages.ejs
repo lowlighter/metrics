@@ -36,7 +36,7 @@
             <rect mask="url(#languages-bar)" x="<%= x*width %>" y="0" width="<%= value*width %>" height="8" fill="<%= color ?? "#959DA5" %>"/>
           <% } %>
         </svg>
-        <% if (plugins.languages.details?.length) { const rows = large ? [0, 1, 2, 3] : [0, 1] %>
+        <% if (plugins.languages.details.length) { const rows = large ? [0, 1, 2, 3] : (plugins.languages.details.length > 2) ? [0] : [0, 1] %>
           <div class="row fill-width">
             <% for (const row of rows) { %>
               <section>
