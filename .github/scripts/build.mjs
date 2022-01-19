@@ -35,6 +35,7 @@ for (const id of Object.keys(plugins)) {
   const { examples, options, readme, tests, header, community } = await plugin(id)
 
   //Readme
+  console.log(`Generating source/plugins/${community ? "community/" : ""}${id}/README.md`)
   await fs.writeFile(
     readme.path,
     readme.content
@@ -42,12 +43,13 @@ for (const id of Object.keys(plugins)) {
       .replace(/(<!--examples-->)[\s\S]*(<!--\/examples-->)/g, `$1\n${examples.map(({ test, prod, ...step }) => ["```yaml", yaml.dump(step, { quotingType: '"', noCompatMode: true }), "```"].join("\n")).join("\n")}\n$2`)
       .replace(/(<!--options-->)[\s\S]*(<!--\/options-->)/g, `$1\n${options}\n$2`),
   )
-  console.log(`Generating source/plugins/${community ? "community/" : ""}${id}/README.md`)
+  staged.add(readme.path)
 
   //Tests
+  console.log(`Generating tests/plugins/${community ? "community/" : ""}${id}.yml`)
   workflow.push(...examples.map(example => testcase(plugins[id].name, "prod", example)).filter(t => t))
   await fs.writeFile(tests.path, yaml.dump(examples.map(example => testcase(plugins[id].name, "test", example)).filter(t => t)))
-  console.log(`Generating tests/plugins/${community ? "community/" : ""}${id}.yml`)
+  staged.add(tests.path)
 }
 
 //Templates
@@ -55,18 +57,20 @@ for (const id of Object.keys(templates)) {
   const { examples, readme, tests, header } = await template(id)
 
   //Readme
+  console.log(`Generating source/templates/${id}/README.md`)
   await fs.writeFile(
     readme.path,
     readme.content
       .replace(/(<!--header-->)[\s\S]*(<!--\/header-->)/g, `$1\n${header}\n$2`)
       .replace(/(<!--examples-->)[\s\S]*(<!--\/examples-->)/g, `$1\n${examples.map(({ test, prod, ...step }) => ["```yaml", yaml.dump(step, { quotingType: '"', noCompatMode: true }), "```"].join("\n")).join("\n")}\n$2`),
   )
-  console.log(`Generating source/templates/${id}/README.md`)
+  staged.add(readme.path)
 
   //Tests
+  console.log(`Generating tests/templates/${id}.yml`)
   workflow.push(...examples.map(example => testcase(templates[id].name, "prod", example)).filter(t => t))
   await fs.writeFile(tests.path, yaml.dump(examples.map(example => testcase(templates[id].name, "test", example)).filter(t => t), { quotingType: '"', noCompatMode: true }))
-  console.log(`Generating tests/templates/${id}.yml`)
+  staged.add(tests.path)
 }
 
 //Config and general documentation auto-generation
