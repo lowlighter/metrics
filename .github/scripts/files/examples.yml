@@ -48,7 +48,7 @@ jobs:
         if: ${{ success() || failure() }}
         run: |
           set +e
-          rm -rf /metrics_renders/metrics.markdown.*
+          rm -rf /metrics_renders/metrics.markdown*.{md,pdf}
           sudo mv /metrics_renders/* ./
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
