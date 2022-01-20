@@ -2,7 +2,8 @@
   uses: lowlighter/metrics@latest
   with:
     template: markdown
-    markdown: metrics.markdown.template.md
+    markdown: >-
+      https://raw.githubusercontent.com/lowlighter/metrics/examples/metrics.markdown.template.md
     config_output: markdown
     token: MOCKED_TOKEN
     use_mocked_data: yes
