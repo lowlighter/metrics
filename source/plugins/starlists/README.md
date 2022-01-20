@@ -35,8 +35,7 @@
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
-<b>type:</b> <code>boolean</code>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
 <br>
 <b>default:</b> no<br></td>
   </tr>
@@ -46,8 +45,7 @@
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
-<b>type:</b> <code>number</code>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
 <i>(1 ≤
 𝑥
 ≤ 100)</i>
@@ -60,8 +58,7 @@
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
-<b>type:</b> <code>number</code>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
 <i>(0 ≤
 𝑥
 ≤ 100)</i>
@@ -74,8 +71,7 @@
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
-<b>type:</b> <code>boolean</code>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
 <br>
 <b>default:</b> yes<br></td>
   </tr>
@@ -86,8 +82,7 @@
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
-<b>type:</b> <code>array</code>
+    <td nowrap="nowrap"><b>type:</b> <code>array</code>
 <i>(comma-separated)</i>
 <br></td>
   </tr>
@@ -99,8 +94,7 @@ This option is equivalent to <code>plugin_starlists_ignored</code> with all star
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
-<b>type:</b> <code>array</code>
+    <td nowrap="nowrap"><b>type:</b> <code>array</code>
 <i>(comma-separated)</i>
 <br></td>
   </tr>
