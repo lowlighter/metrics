@@ -74,6 +74,65 @@ Additional CSS can be injected using `extras_css` option.
 
 > ⚠️ CSS styles may slightly change between releases, backward compatibility is not guaranteed!
 
+## 🎨 Custom JavaScript scripting
+
+Additional JavaScript can be injected using `extras_js` option.
+
+*Example: removing all `h2`*
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    base: header
+    extras_js: |
+      document.querySelectorAll("h2")?.forEach(h2 => h2.remove())
+```
+
+> 💡 If you make an heavy use of this option, creating a [community templates](/source/templates/community/README.md) may be a better alternative
+
+> ⚠️ HTML elements may slightly change between releases, backward compatibility is not guaranteed!
+
+## 🔲 Adjusting padding
+
+SVG rendering is dependent on operating system, browser and fonts combination and may look different across different platforms.
+
+It may not look like it, but computing the height of a SVG is not trivial. *metrics* spawns an headless browser and try to do its best to resize the result, but it may sometimes ends up in either cropped or oversized images.
+
+Tweak `config_padding` option to manually adjust padding and solve this issue.
+
+This settings supports the following format:
+- 1 value for both width and height
+- 2 values for width fist and height second, separated by a comma (`,`)
+
+> 💡 Both negative and positive values are allowed
+
+Each value need to respect the following format:
+- {number}
+- {number} + {number}%
+- {number}%
+
+> 💡 Percentage based values are relative to the height computed by puppeteer
+
+*Example: add 10px padding for both width and height*
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    config_padding: 10
+```
+
+*Example: add 10px padding to height and increase it by 8%*
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    config_padding: 0, 10 + 8%
+```
+
+*Example: remove 10% from height*
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    config_padding: 0, -10%
+```
+
 ## ↔️ Controlling display size
 
 Some templates may support different output display size.
