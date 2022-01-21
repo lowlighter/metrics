@@ -20,7 +20,11 @@ export default async function presets(list, {log = true, core = null} = {}) {
       //Load and parse preset
       logger(`metrics/presets > loading ${file}`)
       let text = ""
-      if (file.startsWith("https://")) {
+      if (file.startsWith("@")) {
+        logger(`metrics/presets > ${file} seems to be predefined preset, fetching`)
+        text = await fetch(`https://raw.githubusercontent.com/lowlighter/metrics/presets/${file.substring(1)}/preset.yaml`).then(response => response.text())
+      }
+      else if (file.startsWith("https://")) {
         logger(`metrics/presets > ${file} seems to be an url, fetching`)
         text = await fetch(file).then(response => response.text())
       }
@@ -32,11 +36,11 @@ export default async function presets(list, {log = true, core = null} = {}) {
         logger(`metrics/presets > ${file} cannot be loaded in current environment ${env}, skipping`)
         continue
       }
-      const {version, with:inputs} = yaml.load(text)
-      logger(`metrics/presets > ${file} preset version is ${version}`)
+      const {schema, with:inputs} = yaml.load(text)
+      logger(`metrics/presets > ${file} preset schema is ${schema}`)
 
       //Evaluate preset
-      switch (`${version}`) {
+      switch (`${schema}`) {
         case "draft":{
           for (let [key, value] of Object.entries(inputs)) {
             if (!allowed.includes(key)) {
@@ -52,7 +56,7 @@ export default async function presets(list, {log = true, core = null} = {}) {
           break
         }
         default:
-          throw new Error(`unsupported preset version: ${version}`)
+          throw new Error(`unsupported preset schema: ${schema}`)
       }
     }
     //Handle errors

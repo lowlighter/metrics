@@ -298,13 +298,12 @@ inputs:
       - insights
 
   config_presets:
-    description: |
-      A list of external
-
+    description: Configuration presets
     type: array
     format: comma-separated
     default: ""
     preset: no
+    example: "@lunar-red"
 
   retries:
     description: Retries in case of failures (for rendering)

@@ -65,18 +65,25 @@ Options resolution is done in the following order:
 - presets, from first to last
 - user values
 
-*Example: using a configuration preset*
+*Example: using a configuration preset from an url*
 ```yaml
 - uses: lowlighter/metrics@latest
   with:
     config_presets: https://raw.githubusercontent.com/lowlighter/metrics/presets/lunar-red/preset.yaml
 ```
 
-`🔐 Tokens` and options marked with `⏯️ Cannot be preset`, as they suggest, cannot be preset and thus requires to be explicitely defined to be set.
+Some presets are hosted on this repository on the [`@presets`](https://github.com/lowlighter/metrics/tree/presets) branch and can be used directly by using using their identifier prefixed by an arobase (`@`).
 
-Some presets are hosted on this repository on the [`@presets`](https://github.com/lowlighter/metrics/tree/presets) branch.
+*Example: using a pre-defined configuration preset*
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    config_presets: "@lunar-red"
+```
 
-> ℹ️ Presets configurations are versioned to ensure compatibility between format changes
+> ⚠️ `🔐 Tokens` and options marked with `⏯️ Cannot be preset`, as they suggest, cannot be preset and thus requires to be explicitely defined to be set.
+
+> ℹ️ Presets configurations use [schemas](https://github.com/lowlighter/metrics/tree/presets/%40schema) to ensure compatibility between format changes
 
 ## 🎨 Custom CSS styling
 
