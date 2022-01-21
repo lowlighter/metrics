@@ -19,25 +19,26 @@ describe("Check files editions (checkout your files if needed)", () => {
       ".github/workflows/examples.yml",
       ".github/readme/partials/documentation/compatibility.md",
     ])("%s", async file => expect((await diff()).includes(file)).toBe(false)))
-  describe("Repository level files were not modified", () =>
-    void test.each([
-      ".github/config/*",
-      ".github/ISSUE_TEMPLATE/*",
-      ".github/readme/partials/license.md",
-      ".github/scripts/*",
-      ".github/workflows/*",
-      ".github/architecture.svg",
-      ".github/dependabot.yml",
-      ".github/FUNDING.yml",
-      ".github/pull_request_template.md/*",
-      "LICENSE",
-      "ARCHITECTURE.md",
-      "SECURITY.md",
-      "tests/ci.test.js",
-      "source/.eslintrc.yml",
-      "source/app/mocks/.eslintrc.yml",
-      "vercel.json",
-    ])("%s", async file => expect((await diff()).filter(edited => new RegExp(`^${file.replace(/[.]/g, "[.]").replace(/[*]/g, "[\\s\\S]*")}$`).test(edited)).length).toBe(0)))
+  if (!["lowlighter"].includes(process.env.PR_AUTHOR))
+    describe("Repository level files were not modified", () =>
+      void test.each([
+        ".github/config/*",
+        ".github/ISSUE_TEMPLATE/*",
+        ".github/readme/partials/license.md",
+        ".github/scripts/*",
+        ".github/workflows/*",
+        ".github/architecture.svg",
+        ".github/dependabot.yml",
+        ".github/FUNDING.yml",
+        ".github/pull_request_template.md/*",
+        "LICENSE",
+        "ARCHITECTURE.md",
+        "SECURITY.md",
+        "tests/ci.test.js",
+        "source/.eslintrc.yml",
+        "source/app/mocks/.eslintrc.yml",
+        "vercel.json",
+      ])("%s", async file => expect((await diff()).filter(edited => new RegExp(`^${file.replace(/[.]/g, "[.]").replace(/[*]/g, "[\\s\\S]*")}$`).test(edited)).length).toBe(0)))
 })
 
 //Templates editions

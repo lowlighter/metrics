@@ -24,6 +24,8 @@ jobs:
         run: npm ci
       - name: Check contributions requirements
         run: npm test -- ci.test.js --noStackTrace
+        env:
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
       - name: Run linter
         run: npm run linter
 
