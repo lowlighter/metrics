@@ -1,4 +1,4 @@
-version: 0
+schema: draft
 with:
   plugin_isocalendar: yes
   plugin_isocalendar_duration: full-year
