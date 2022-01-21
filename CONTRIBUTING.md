@@ -47,6 +47,17 @@ The following contributions are accepted:
     </td>
   </tr>
   <tr>
+    <td nowrap="nowrap">🪛 Presets</td>
+    <td>✔️</td>
+    <td>✔️</td>
+    <td>
+      <ul>
+        <li>New presets are welcomed provided they're functional and not redundant with existing presets</li>
+        <li>Note that presets are on <code><a href="https://github.com/lowlighter/metrics/tree/presets">@presets</a></code> branch</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
     <td nowrap="nowrap">🧪 Tests</td>
     <td>✔️</td>
     <td>✔️</td>
