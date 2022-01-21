@@ -501,6 +501,21 @@ Useful to avoid creating a new template just to tweak some styling</p>
 <br></td>
   </tr>
   <tr>
+    <td nowrap="nowrap"><code>extras_js</code></td>
+    <td rowspan="2"><p>Extra JavaScript</p>
+<p>Custom JavaScript that will be executed during puppeteer rendering.
+Useful to avoid creating a new template just to tweak some content.</p>
+<p>Note that is it executed within puppeteer context and <strong>not</strong> <em>metrics</em> context.
+It is run after transformations and optimizations, but just before resizing.</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
+🌐 Web instances must configure <code>settings.json</code><br>
+<b>type:</b> <code>string</code>
+<br></td>
+  </tr>
+  <tr>
     <td nowrap="nowrap"><code>config_timezone</code></td>
     <td rowspan="2"><p>Timezone for dates</p>
 <p>See <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">list of supported timezone</a></p>
