@@ -1,0 +1,27 @@
+name: Check automated branches
+
+on:
+  pull_request:
+    branches:
+      - main
+      - latest
+      - examples
+
+jobs:
+  notice:
+    - name:
+      uses: actions/github-script@v5
+      with:
+        script: |
+          const {issue:{number:issue_number}, repo:{owner, repo}} = context
+          github.issues.createComment({issue_number, owner, repo, body:[
+            "Hello there 👋!",
+            "",
+            "It seems you have opened a pull request on either `main`, `latest` or `examples`.",
+            "These branches are fully-automated and do not accept human contributions.",
+            "",
+            "* To contribute to *metrics* code, open a pull request to `master` branch",
+            "* To contribute to *metrics* presets, open a pull request to `presets` branch",
+            "",
+            "Thanks for your cooperation 🦾!"
+          ].join("\n")})
