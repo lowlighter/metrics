@@ -5,8 +5,7 @@ inputs:
 <% for (const [plugin, {name, action}] of Object.entries(plugins)) { %>
   # ====================================================================================
   # <%- name %>
-  <% for (const [input, {comment, descriptor}] of Object.entries(action)) { %>
-  <%- comment.split("\n").map((line, i) => `${i ? "  " : ""}${line}`).join("\n").trim() %>
+  <% for (const [input, {descriptor}] of Object.entries(action)) { %>
   <%- descriptor.split("\n").map((line, i) => `${i ? "  " : ""}${line}`).join("\n") -%>
 <% }} %>
 

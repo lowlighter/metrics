@@ -135,7 +135,6 @@ inputs:
       - xml
       - svg
 
-  # Setup additional templates from remote repositories
   setup_community_templates:
     description: |
       Community templates to setup
