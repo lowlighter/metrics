@@ -401,7 +401,7 @@ export const svg = {
     return {rendered, mime:"application/pdf"}
   },
   /**Render and resize svg */
-  async resize(rendered, {paddings, convert}) {
+  async resize(rendered, {paddings, convert, js}) {
     //Instantiate browser if needed
     if (!svg.resize.browser) {
       svg.resize.browser = await puppeteer.launch()
@@ -425,7 +425,9 @@ export const svg = {
     console.debug("metrics/svg/resize > loading svg")
     const page = await svg.resize.browser.newPage()
     page.setViewport({width:980, height:980})
-    page.on("console", ({_text:text}) => console.debug(`metrics/svg/resize > puppeteer > ${text}`))
+    page
+      .on("console", message => console.debug(`metrics/svg/resize > puppeteer > ${message.text()}`))
+      .on("pageerror", error => console.debug(`metrics/svg/resize > puppeteer > ${error.message}`))
     await page.setContent(rendered, {waitUntil:["load", "domcontentloaded", "networkidle2"]})
     console.debug("metrics/svg/resize > loaded svg successfully")
     await page.addStyleTag({content:"body { margin: 0; padding: 0; }"})
@@ -433,7 +435,18 @@ export const svg = {
     console.debug("metrics/svg/resize > resizing svg")
     let height, resized, width
     try {
-      ({resized, width, height} = await page.evaluate(async padding => {
+      ({resized, width, height} = await page.evaluate(async (padding, js) => {
+        //Execute user JavaScript if provided
+        if (js) {
+          try {
+            console.debug(`metrics/svg/resize > executing ${js}`)
+            await new Function("document", `return (async () => {${js}})()`)(document) //eslint-disable-line no-new-func
+            console.debug("metrics/svg/resize > successfully executed user javascript")
+          }
+          catch (error) {
+            console.debug(`an error occured while evaluating user js: ${error}`)
+          }
+        }
         //Disable animations
         const animated = !document.querySelector("svg").classList.contains("no-animations")
         if (animated)
@@ -456,7 +469,7 @@ export const svg = {
           document.querySelector("svg").classList.remove("no-animations")
         //Result
         return {resized:new XMLSerializer().serializeToString(document.querySelector("svg")), height, width}
-      }, padding))
+      }, padding, js))
     }
     catch (error) {
       console.error(error)
