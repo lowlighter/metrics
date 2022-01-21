@@ -53,6 +53,31 @@ Content can be manually ordered using `config_order` option.
 
 > 💡 Omitted sections will be appended at the end using default order
 
+## 🪛 Using presets
+
+> 🚧 This feature is an early implementation and may change before official release
+
+It is possible to reuse the same configuration across different repositories and workflows using configuration presets.
+A preset override the default values of inputs, and multiple presets can be provided at once through URLs or file paths.
+
+Options resolution is done in the following order:
+- default values
+- presets, from first to last
+- user values
+
+*Example: using a configuration preset*
+```yaml
+- uses: lowlighter/metrics@latest
+  with:
+    config_presets: https://raw.githubusercontent.com/lowlighter/metrics/presets/lunar-red/preset.yaml
+```
+
+`🔐 Tokens` and options marked with `⏯️ Cannot be preset`, as they suggest, cannot be preset and thus requires to be explicitely defined to be set.
+
+Some presets are hosted on this repository on the [`@presets`](https://github.com/lowlighter/metrics/tree/presets) branch.
+
+> ℹ️ Presets configurations are versioned to ensure compatibility between format changes
+
 ## 🎨 Custom CSS styling
 
 Additional CSS can be injected using `extras_css` option.
