@@ -175,6 +175,19 @@ inputs:
     type: string
     default: ""
 
+  extras_js:
+    extras: yes
+    description: |
+      Extra JavaScript
+
+      Custom JavaScript that will be executed during puppeteer rendering.
+      Useful to avoid creating a new template just to tweak some content.
+
+      Note that is it executed within puppeteer context and **not** *metrics* context.
+      It is run after transformations and optimizations, but just before resizing.
+    type: string
+    default: ""
+
   config_timezone:
     description: |
       Timezone for dates
