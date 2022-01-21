@@ -60,7 +60,7 @@ fs.copyFile(paths.join(__node_modules, "prismjs/themes/prism-tomorrow.css"), pat
 fs.writeFile(paths.join(__preview_js, "app.js"), `${await fs.readFile(paths.join(__web, "app.js"))}`)
 fs.writeFile(paths.join(__preview_js, "app.placeholder.js"), `${await fs.readFile(paths.join(__web, "app.placeholder.js"))}`)
 fs.copyFile(paths.join(__node_modules, "ejs/ejs.min.js"), paths.join(__preview_js, "ejs.min.js"))
-fs.copyFile(paths.join(__node_modules, "faker/dist/faker.min.js"), paths.join(__preview_js, "faker.min.js"))
+fs.copyFile(paths.join(__node_modules, "@faker-js/faker/dist/faker.min.js"), paths.join(__preview_js, "faker.min.js"))
 fs.copyFile(paths.join(__node_modules, "axios/dist/axios.min.js"), paths.join(__preview_js, "axios.min.js"))
 fs.copyFile(paths.join(__node_modules, "axios/dist/axios.min.map"), paths.join(__preview_js, "axios.min.map"))
 fs.copyFile(paths.join(__node_modules, "vue/dist/vue.min.js"), paths.join(__preview_js, "vue.min.js"))

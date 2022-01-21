@@ -111,7 +111,7 @@ Below is a list of used packages.
   * To format, test and verify SVG validity
 * [facebook/jest](https://github.com/facebook/jest) and [nodeca/js-yaml](https://github.com/nodeca/js-yaml)
   * For unit testing
-* [marak/faker.js](https://github.com/marak/Faker.js)
+* [faker-js/faker](https://github.com/faker-js/faker)
   * For mocking data
 * [steveukx/git-js](https://github.com/steveukx/git-js)
   * For simple git operations
