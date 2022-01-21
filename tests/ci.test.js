@@ -19,7 +19,7 @@ describe("Check files editions (checkout your files if needed)", () => {
       ".github/workflows/examples.yml",
       ".github/readme/partials/documentation/compatibility.md",
     ])("%s", async file => expect((await diff()).includes(file)).toBe(false)))
-  if (!["lowlighter"].includes(process.env.PR_AUTHOR))
+  if (!["lowlighter"].includes(process.env.PR_AUTHOR)) {
     describe("Repository level files were not modified", () =>
       void test.each([
         ".github/config/*",
@@ -39,6 +39,7 @@ describe("Check files editions (checkout your files if needed)", () => {
         "source/app/mocks/.eslintrc.yml",
         "vercel.json",
       ])("%s", async file => expect((await diff()).filter(edited => new RegExp(`^${file.replace(/[.]/g, "[.]").replace(/[*]/g, "[\\s\\S]*")}$`).test(edited)).length).toBe(0)))
+  }
 })
 
 //Templates editions

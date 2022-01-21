@@ -6,41 +6,33 @@ inputs:
   # ====================================================================================
   # 🗃️ Base content
   
-  # Base content
   base:
     description: Base content
     default: header, activity, community, repositories, metadata
-  
   
   repositories:
     description: Repositories to fetch
     default: 100
   
-  
   repositories_batch:
     description: Repositories to fetch at a time
     default: 100
-  
   
   repositories_forks:
     description: Include forks
     default: no
   
-  
   repositories_affiliations:
     description: Repositories affiliations
     default: owner
-  
   
   repositories_skipped:
     description: Default skipped repositories
     default: ""
   
-  
   users_ignored:
     description: Default ignored users
     default: github-actions[bot], dependabot[bot], dependabot-preview[bot]
-  
   
   commits_authoring:
     description: Identifiers that has been used for authoring commits
@@ -49,160 +41,132 @@ inputs:
   # ====================================================================================
   # 🧱 Core
   
-  
   token:
     description: GitHub Personal Access Token
     required: true
-  
   
   user:
     description: GitHub username
     default: ""
   
-  
   repo:
     description: GitHub repository
     default: ""
-  
   
   committer_token:
     description: GitHub Token used to commit metrics
     default: ${{ github.token }}
   
-  
   committer_branch:
     description: Target branch
     default: ""
-  
   
   committer_message:
     description: Commit message
     default: Update ${filename} - [Skip GitHub Action]
   
-  
   committer_gist:
     description: Gist id
     default: ""
-  
   
   filename:
     description: Output path
     default: github-metrics.*
   
-  
   markdown:
     description: Markdown template path
     default: TEMPLATE.md
-  
   
   markdown_cache:
     description: Markdown file cache
     default: .cache
   
-  
   output_action:
     description: Output action
     default: commit
   
-  
   output_condition:
     description: Output condition
-  
   
   optimize:
     description: Optimization features
     default: css, xml
   
-  # Setup additional templates from remote repositories
   setup_community_templates:
     description: Community templates to setup
     default: ""
-  
   
   template:
     description: Template
     default: classic
   
-  
   query:
     description: Query parameters
     default: "{}"
-  
   
   extras_css:
     description: Extra CSS
     default: ""
   
+  extras_js:
+    description: Extra JavaScript
+    default: ""
   
   config_timezone:
     description: Timezone for dates
     default: ""
   
-  
   config_order:
     description: Plugin order
     default: ""
-  
   
   config_twemoji:
     description: Use twemojis
     default: no
   
-  
   config_gemoji:
     description: Use GitHub custom emojis
     default: yes
-  
   
   config_display:
     description: Display width (for image output formats)
     default: regular
   
-  
   config_animations:
     description: Use CSS animations
     default: yes
-  
   
   config_base64:
     description: Base64-encoded images
     default: yes
   
-  
   config_padding:
     description: Output padding
     default: 0, 8 + 11%
-  
   
   config_output:
     description: Output format
     default: auto
   
-  
   retries:
     description: Retries in case of failures (for rendering)
     default: 3
-  
   
   retries_delay:
     description: Delay between each retry (in seconds, for rendering)
     default: 300
   
-  
   retries_output_action:
     description: Retries in case of failures (for output action)
     default: 5
-  
   
   retries_delay_output_action:
     description: Delay between each retry (in seconds, for output action)
     default: 120
   
-  
   delay:
     description: Job delay
     default: 0
-  
   
   use_prebuilt_image:
     description: >-
@@ -210,36 +174,29 @@ inputs:
       registry](https://github.com/lowlighter/metrics/pkgs/container/metrics)
     default: yes
   
-  
   plugins_errors_fatal:
     description: Fatal plugin errors
     default: no
-  
   
   debug:
     description: Debug mode
     default: no
   
-  
   verify:
     description: SVG validity check
     default: no
-  
   
   debug_flags:
     description: Debug flags
     default: ""
   
-  
   dryrun:
     description: Dry-run
     default: no
   
-  
   experimental_features:
     description: Experimental features
     default: ""
-  
   
   use_mocked_data:
     description: Use mocked data instead of live APIs
@@ -248,11 +205,9 @@ inputs:
   # ====================================================================================
   # 📅 Isometric commit calendar
   
-  
   plugin_isocalendar:
     description: Enable isocalendar plugin
     default: no
-  
   
   plugin_isocalendar_duration:
     description: Time range
@@ -261,76 +216,61 @@ inputs:
   # ====================================================================================
   # 🈷️ Most used languages
   
-  
   plugin_languages:
     description: Enable languages plugin
     default: no
-  
   
   plugin_languages_ignored:
     description: Ignored languages
     default: ""
   
-  
   plugin_languages_skipped:
     description: Skipped repositories
     default: ""
-  
   
   plugin_languages_limit:
     description: Display limit
     default: 8
   
-  
   plugin_languages_threshold:
     description: Display threshold (percentage)
     default: 0%
-  
   
   plugin_languages_colors:
     description: Custom languages colors
     default: github
   
-  
   plugin_languages_aliases:
     description: Custom languages names
     default: ""
-  
   
   plugin_languages_sections:
     description: Displayed sections
     default: most-used
   
-  
   plugin_languages_details:
     description: Additional details
     default: ""
-  
   
   plugin_languages_indepth:
     description: Indepth mode (⚠️ read documentation first)
     default: false
   
-  
   plugin_languages_analysis_timeout:
     description: Indepth mode - Analysis timeout
     default: 15
-  
   
   plugin_languages_categories:
     description: Indepth mode - Displayed categories (most-used section)
     default: markup, programming
   
-  
   plugin_languages_recent_categories:
     description: Indepth mode - Displayed categories (recently-used section)
     default: markup, programming
   
-  
   plugin_languages_recent_load:
     description: Events to load (recently-used section)
     default: 300
-  
   
   plugin_languages_recent_days:
     description: Events maximum age (day, recently-used section)
@@ -339,21 +279,17 @@ inputs:
   # ====================================================================================
   # 📌 Starred topics
   
-  
   plugin_topics:
     description: Enable topics plugin
     default: no
-  
   
   plugin_topics_mode:
     description: "Display mode:"
     default: starred
   
-  
   plugin_topics_sort:
     description: "Sorting method:"
     default: stars
-  
   
   plugin_topics_limit:
     description: Display limit
@@ -362,11 +298,9 @@ inputs:
   # ====================================================================================
   # 🌟 Recently starred repositories
   
-  
   plugin_stars:
     description: Enable stars plugin
     default: no
-  
   
   plugin_stars_limit:
     description: Display limit
@@ -375,21 +309,17 @@ inputs:
   # ====================================================================================
   # 📜 Repository licenses
   
-  
   plugin_licenses:
     description: Enable licenses plugin
     default: no
-  
   
   plugin_licenses_setup:
     description: Setup command
     default: ""
   
-  
   plugin_licenses_ratio:
     description: Display used licenses ratio
     default: no
-  
   
   plugin_licenses_legal:
     description: Display permissions, limitations and conditions about licenses
@@ -398,31 +328,25 @@ inputs:
   # ====================================================================================
   # 💡 Coding habits
   
-  
   plugin_habits:
     description: Enable habits plugin
     default: no
-  
   
   plugin_habits_from:
     description: Events to use
     default: 200
   
-  
   plugin_habits_days:
     description: Event maximum age
     default: 14
-  
   
   plugin_habits_facts:
     description: Toggle midly interesting facts display
     default: yes
   
-  
   plugin_habits_charts:
     description: Toggle charts display
     default: no
-  
   
   plugin_habits_trim:
     description: Trim unused hours on charts
@@ -431,36 +355,29 @@ inputs:
   # ====================================================================================
   # 🏅 Repository contributors
   
-  
   plugin_contributors:
     description: Enable contributors plugin
     default: no
-  
   
   plugin_contributors_base:
     description: Base reference (commit, tag, branch, etc.)
     default: ""
   
-  
   plugin_contributors_head:
     description: Head reference (commit, tag, branch, etc.)
     default: master
-  
   
   plugin_contributors_ignored:
     description: Ignored users
     default: ""
   
-  
   plugin_contributors_contributions:
     description: Toggle number of contributions display
     default: no
   
-  
   plugin_contributors_sections:
     description: Displayed sections
     default: contributors
-  
   
   plugin_contributors_categories:
     description: Configure contribution categories
@@ -474,16 +391,13 @@ inputs:
   # ====================================================================================
   # 🎟️ Follow-up of issues and pull requests
   
-  
   plugin_followup:
     description: Enable followup plugin
     default: no
   
-  
   plugin_followup_sections:
     description: Displayed sections
     default: repositories
-  
   
   plugin_followup_indepth:
     description: Indepth analysis
@@ -492,46 +406,37 @@ inputs:
   # ====================================================================================
   # 🎭 Comment reactions
   
-  
   plugin_reactions:
     description: Enable reactions plugin
     default: no
-  
   
   plugin_reactions_limit:
     description: Display limit (issues and pull requests comments)
     default: 200
   
-  
   plugin_reactions_limit_issues:
     description: Display limit (issues and pull requests, first comment)
     default: 100
-  
   
   plugin_reactions_limit_discussions:
     description: Display limit (discussions, first comment)
     default: 100
   
-  
   plugin_reactions_limit_discussions_comments:
     description: Display limit (discussions comments)
     default: 100
-  
   
   plugin_reactions_days:
     description: Comments maximum age
     default: 0
   
-  
   plugin_reactions_display:
     description: Display mode
     default: absolute
   
-  
   plugin_reactions_details:
     description: Additional details
     default: ""
-  
   
   plugin_reactions_ignored:
     description: Ignored users
@@ -540,41 +445,33 @@ inputs:
   # ====================================================================================
   # 🧑‍🤝‍🧑 People plugin
   
-  
   plugin_people:
     description: Enable people plugin
     default: no
-  
   
   plugin_people_limit:
     description: Display limit
     default: 24
   
-  
   plugin_people_identicons:
     description: Toggle identicons display
     default: no
-  
   
   plugin_people_size:
     description: Profile picture display size
     default: 28
   
-  
   plugin_people_types:
     description: Displayed sections (order is respected)
     default: followers, following
-  
   
   plugin_people_thanks:
     description: Special thanks
     default: ""
   
-  
   plugin_people_sponsors_custom:
     description: Custom sponsors
     default: ""
-  
   
   plugin_people_shuffle:
     description: Shuffle data for varied output
@@ -583,7 +480,6 @@ inputs:
   # ====================================================================================
   # ✨ Stargazers over last weeks
   
-  
   plugin_stargazers:
     description: Enable stargazers plugin
     default: no
@@ -591,21 +487,17 @@ inputs:
   # ====================================================================================
   # 🗂️ Active projects
   
-  
   plugin_projects:
     description: Enable projects plugin
     default: no
-  
   
   plugin_projects_limit:
     description: Display limit
     default: 4
   
-  
   plugin_projects_repositories:
     description: List of repositories projects
     default: ""
-  
   
   plugin_projects_descriptions:
     description: Toggle projects descriptions display
@@ -614,31 +506,25 @@ inputs:
   # ====================================================================================
   # ♐ Code snippet of the day
   
-  
   plugin_code:
     description: Enable code plugin
     default: no
-  
   
   plugin_code_lines:
     description: Display limit for code snippets
     default: 12
   
-  
   plugin_code_load:
     description: Events to load
     default: 100
-  
   
   plugin_code_visibility:
     description: Events visibility
     default: public
   
-  
   plugin_code_skipped:
     description: Skipped repositories
     default: ""
-  
   
   plugin_code_languages:
     description: Restrict display to specific languages
@@ -647,46 +533,37 @@ inputs:
   # ====================================================================================
   # 📰 Recent activity
   
-  
   plugin_activity:
     description: Enable activity plugin
     default: no
-  
   
   plugin_activity_limit:
     description: Display limit
     default: 5
   
-  
   plugin_activity_load:
     description: Events to load
     default: 300
-  
   
   plugin_activity_days:
     description: Events maximum age
     default: 14
   
-  
   plugin_activity_visibility:
     description: Events visibility
     default: all
-  
   
   plugin_activity_timestamps:
     description: Display events timestamps
     default: no
   
-  
   plugin_activity_skipped:
     description: Skipped repositories
     default: ""
   
-  
   plugin_activity_ignored:
     description: Ignored users
     default: ""
-  
   
   plugin_activity_filter:
     description: Events types
@@ -695,36 +572,29 @@ inputs:
   # ====================================================================================
   # 🏆 Achievements
   
-  
   plugin_achievements:
     description: Enable achievements plugin
     default: no
-  
   
   plugin_achievements_threshold:
     description: Display rank threshold
     default: C
   
-  
   plugin_achievements_secrets:
     description: Display secrets achievements
     default: yes
-  
   
   plugin_achievements_display:
     description: Display style
     default: detailed
   
-  
   plugin_achievements_limit:
     description: Display limit
     default: 0
   
-  
   plugin_achievements_ignored:
     description: Hide specified achievements
     default: ""
-  
   
   plugin_achievements_only:
     description: Restrict display to specified achievements
@@ -733,31 +603,25 @@ inputs:
   # ====================================================================================
   # 🎩 Notable contributions
   
-  
   plugin_notable:
     description: Enable notable plugin
     default: no
-  
   
   plugin_notable_filter:
     description: Query filter
     default: ""
   
-  
   plugin_notable_skipped:
     description: Skipped repositories
     default: ""
-  
   
   plugin_notable_from:
     description: Filter by repository owner account type
     default: organization
   
-  
   plugin_notable_repositories:
     description: Toggle repository name display
     default: no
-  
   
   plugin_notable_indepth:
     description: Indepth mode
@@ -766,16 +630,13 @@ inputs:
   # ====================================================================================
   # 💬 Discussions
   
-  
   plugin_discussions:
     description: Enable discussions plugin
     default: no
   
-  
   plugin_discussions_categories:
     description: Toggle discussion categories display
     default: yes
-  
   
   plugin_discussions_categories_limit:
     description: Display limit (categories)
@@ -784,7 +645,6 @@ inputs:
   # ====================================================================================
   # 💭 GitHub Community Support
   
-  
   plugin_support:
     description: Enable support plugin
     default: no
@@ -792,11 +652,9 @@ inputs:
   # ====================================================================================
   # 👨‍💻 Lines of code changed
   
-  
   plugin_lines:
     description: Enable lines plugin
     default: no
-  
   
   plugin_lines_skipped:
     description: Skipped repositories
@@ -805,11 +663,9 @@ inputs:
   # ====================================================================================
   # 🧮 Repositories traffic
   
-  
   plugin_traffic:
     description: Enable traffic plugin
     default: no
-  
   
   plugin_traffic_skipped:
     description: Skipped repositories
@@ -818,11 +674,9 @@ inputs:
   # ====================================================================================
   # 📓 Repositories
   
-  
   plugin_repositories:
     description: Enable repositories plugin
     default: no
-  
   
   plugin_repositories_featured:
     description: List of featured repositories
@@ -831,7 +685,6 @@ inputs:
   # ====================================================================================
   # 🎫 Gists
   
-  
   plugin_gists:
     description: Enable gists plugin
     default: no
@@ -839,12 +692,10 @@ inputs:
   # ====================================================================================
   # 🙋 Introduction
   
-  # Enable or disable plugin
   plugin_introduction:
     description: Display account or repository introduction
     default: no
   
-  # Display introduction section title
   plugin_introduction_title:
     description: Display introduction section title
     default: yes
@@ -852,11 +703,9 @@ inputs:
   # ====================================================================================
   # 💕 GitHub Sponsors
   
-  
   plugin_sponsors:
     description: Enable sponsors plugin
     default: no
-  
   
   plugin_sponsors_sections:
     description: Displayed sections
@@ -865,31 +714,25 @@ inputs:
   # ====================================================================================
   # 💫 Starlists
   
-  
   plugin_starlists:
     description: Enable starlists plugin
     default: no
-  
   
   plugin_starlists_limit:
     description: Display limit (star lists)
     default: 2
   
-  
   plugin_starlists_limit_repositories:
     description: Display limit (repositories per star list)
     default: 2
-  
   
   plugin_starlists_shuffle_repositories:
     description: Shuffle data for varied outputs
     default: yes
   
-  
   plugin_starlists_ignored:
     description: Skipped star lists
     default: ""
-  
   
   plugin_starlists_only:
     description: Restrict display to specified star lists
@@ -898,26 +741,21 @@ inputs:
   # ====================================================================================
   # 🌇 GitHub Skyline 3D calendar
   
-  
   plugin_skyline:
     description: Enable skyline plugin
     default: no
-  
   
   plugin_skyline_year:
     description: Displayed year
     default: current-year
   
-  
   plugin_skyline_frames:
     description: Frames count
     default: 60
   
-  
   plugin_skyline_quality:
     description: Image quality
     default: 0.5
-  
   
   plugin_skyline_compatibility:
     description: Compatibility mode
@@ -926,26 +764,21 @@ inputs:
   # ====================================================================================
   # ⏱️ Website performances
   
-  
   plugin_pagespeed:
     description: Enable pagespeed plugin
     default: no
-  
   
   plugin_pagespeed_url:
     description: Audited website
     default: .user.website
   
-  
   plugin_pagespeed_detailed:
     description: Detailed results
     default: no
   
-  
   plugin_pagespeed_screenshot:
     description: Display a website screenshot
     default: no
-  
   
   plugin_pagespeed_token:
     description: PageSpeed token
@@ -954,51 +787,41 @@ inputs:
   # ====================================================================================
   # 🎼 Music plugin
   
-  
   plugin_music:
     description: Enable music plugin
     default: no
-  
   
   plugin_music_provider:
     description: Music provider
     default: ""
   
-  
   plugin_music_token:
     description: Music provider token
     default: ""
-  
   
   plugin_music_mode:
     description: Display mode
     default: ""
   
-  
   plugin_music_playlist:
     description: Playlist URL
     default: ""
-  
   
   plugin_music_limit:
     description: Display limit
     default: 4
   
-  
   plugin_music_played_at:
     description: Recently played - Toggle last played timestamp display
     default: no
-  
   
   plugin_music_time_range:
     description: Top tracks - Time range for `top` mode
     default: short
   
-  
   plugin_music_top_type:
     description: Top tracks - Display type
     default: tracks
-  
   
   plugin_music_user:
     description: Music provider username
@@ -1007,31 +830,25 @@ inputs:
   # ====================================================================================
   # 🗨️ StackOverflow plugin
   
-  
   plugin_stackoverflow:
     description: Enable stackoverflow plugin
     default: no
-  
   
   plugin_stackoverflow_user:
     description: Stackoverflow user id
     default: 0
   
-  
   plugin_stackoverflow_sections:
     description: Displayed sections
     default: answers-top, questions-recent
-  
   
   plugin_stackoverflow_limit:
     description: Display limit (per section)
     default: 2
   
-  
   plugin_stackoverflow_lines:
     description: Display limit for questions and answers
     default: 4
-  
   
   plugin_stackoverflow_lines_snippet:
     description: Display limit for code snippets
@@ -1040,36 +857,29 @@ inputs:
   # ====================================================================================
   # 🌸 Anilist watch list and reading list
   
-  
   plugin_anilist:
     description: Enable aniList plugin
     default: no
-  
   
   plugin_anilist_medias:
     description: Display medias types
     default: anime, manga
   
-  
   plugin_anilist_sections:
     description: Displayed sections
     default: favorites
-  
   
   plugin_anilist_limit:
     description: Display limit (medias)
     default: 2
   
-  
   plugin_anilist_limit_characters:
     description: Display limit (characters)
     default: 22
   
-  
   plugin_anilist_shuffle:
     description: Shuffle data for varied outputs
     default: yes
-  
   
   plugin_anilist_user:
     description: AniList login
@@ -1078,26 +888,21 @@ inputs:
   # ====================================================================================
   # 🐤 Latest tweets
   
-  
   plugin_tweets:
     description: Enable tweets plugin
     default: no
-  
   
   plugin_tweets_token:
     description: Twitter API token
     default: ""
   
-  
   plugin_tweets_attachments:
     description: Display tweets attachments (images, video previews, etc.)
     default: no
   
-  
   plugin_tweets_limit:
     description: Display limit
     default: 2
-  
   
   plugin_tweets_user:
     description: Twitter username
@@ -1106,31 +911,25 @@ inputs:
   # ====================================================================================
   # ✒️ Recent posts
   
-  
   plugin_posts:
     description: Enable posts plugin
     default: no
-  
   
   plugin_posts_source:
     description: External source
     default: ""
   
-  
   plugin_posts_descriptions:
     description: Toggle posts descriptions display
     default: no
-  
   
   plugin_posts_covers:
     description: Toggle posts cover images display
     default: no
   
-  
   plugin_posts_limit:
     description: Display limit
     default: 4
-  
   
   plugin_posts_user:
     description: External source username
@@ -1139,16 +938,13 @@ inputs:
   # ====================================================================================
   # 🗼 Rss feed
   
-  
   plugin_rss:
     description: Enable rss plugin
     default: no
   
-  
   plugin_rss_source:
     description: RSS feed source
     default: ""
-  
   
   plugin_rss_limit:
     description: Display limit
@@ -1157,36 +953,29 @@ inputs:
   # ====================================================================================
   # ⏰ WakaTime plugin
   
-  
   plugin_wakatime:
     description: Enable wakatime plugin
     default: no
-  
   
   plugin_wakatime_token:
     description: WakaTime API token
     default: ""
   
-  
   plugin_wakatime_days:
     description: Time range
     default: 7
-  
   
   plugin_wakatime_sections:
     description: Displayed sections
     default: time, projects, projects-graphs, languages, languages-graphs, editors, os
   
-  
   plugin_wakatime_limit:
     description: Display limit (per graph)
     default: 5
   
-  
   plugin_wakatime_url:
     description: WakaTime url
     default: https://wakatime.com
-  
   
   plugin_wakatime_user:
     description: WakaTime username
@@ -1195,36 +984,29 @@ inputs:
   # ====================================================================================
   # 💉 Nightscout
   
-  
   plugin_nightscout:
     description: Enable nightscout plugin
     default: no
-  
   
   plugin_nightscout_url:
     description: Nightscout URL
     default: https://example.herokuapp.com
   
-  
   plugin_nightscout_datapoints:
     description: Number of datapoints shown the graph
     default: 12
-  
   
   plugin_nightscout_lowalert:
     description: Threshold for low blood sugar
     default: 80
   
-  
   plugin_nightscout_highalert:
     description: Threshold for high blood sugar
     default: 180
   
-  
   plugin_nightscout_urgentlowalert:
     description: Threshold for urgently low blood sugar
     default: 50
-  
   
   plugin_nightscout_urgenthighalert:
     description: Threshold for urgently high blood sugar
@@ -1233,16 +1015,13 @@ inputs:
   # ====================================================================================
   # 💩 PoopMap plugin
   
-  
   plugin_poopmap:
     description: Enable poopmap plugin
     default: no
   
-  
   plugin_poopmap_token:
     description: PoopMap API token
     default: ""
-  
   
   plugin_poopmap_days:
     description: Time range
@@ -1251,26 +1030,21 @@ inputs:
   # ====================================================================================
   # 📸 Website screenshot
   
-  
   plugin_screenshot:
     description: Enable screenshot plugin
     default: no
-  
   
   plugin_screenshot_title:
     description: Title caption
     default: Screenshot
   
-  
   plugin_screenshot_url:
     description: Website url
     default: ""
   
-  
   plugin_screenshot_selector:
     description: CSS Selector
     default: body
-  
   
   plugin_screenshot_background:
     description: Display background
@@ -1279,26 +1053,21 @@ inputs:
   # ====================================================================================
   # 💹 Stock prices
   
-  
   plugin_stock:
     description: Enable stock plugin
     default: no
-  
   
   plugin_stock_token:
     description: Yahoo Finance token
     default: ""
   
-  
   plugin_stock_symbol:
     description: Company stock symbol
     default: ""
   
-  
   plugin_stock_duration:
     description: Time range (relative to current date)
     default: 1d
-  
   
   plugin_stock_interval:
     description: Time interval between points
