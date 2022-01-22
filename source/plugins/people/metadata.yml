@@ -83,6 +83,7 @@ inputs:
     format: comma-separated
     default: ""
     example: octocat, hubot
+    preset: no
 
   plugin_people_sponsors_custom:
     description: |
@@ -94,6 +95,7 @@ inputs:
     format: comma-separated
     default: ""
     example: octocat, hubot
+    preset: no
 
   plugin_people_shuffle:
     description: |

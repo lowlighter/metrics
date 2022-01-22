@@ -104,3 +104,4 @@ inputs:
     default: .user.login
     example: lowlighter, lowlighter@users.noreply.github.com
     global: yes
+    preset: no

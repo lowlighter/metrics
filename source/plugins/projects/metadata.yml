@@ -37,6 +37,7 @@ inputs:
     example: username/repo/projects/1, username/repo/projects/2, ...
     format: comma-separated
     default: ""
+    preset: no
 
   plugin_projects_descriptions:
     description: Toggle projects descriptions display

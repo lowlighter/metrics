@@ -24,6 +24,7 @@ inputs:
     description: Audited website
     type: string
     default: .user.website
+    preset: no
 
   plugin_pagespeed_detailed:
     description: |

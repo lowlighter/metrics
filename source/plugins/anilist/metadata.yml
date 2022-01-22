@@ -66,3 +66,4 @@ inputs:
     type: string
     description: AniList login
     default: .user.login
+    preset: no

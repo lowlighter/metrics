@@ -49,4 +49,5 @@ inputs:
     description: External source username
     type: string
     default: .user.login
+    preset: no
 

@@ -73,3 +73,4 @@ inputs:
     description: WakaTime username
     type: string
     default: current
+    preset: no

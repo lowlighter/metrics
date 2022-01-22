@@ -30,3 +30,4 @@ inputs:
     format: comma-separated
     default: ""
     example: lowlighter/metrics
+    preset: no

@@ -71,6 +71,7 @@ inputs:
     type: string
     default: ""
     example: https://embed.music.apple.com/--/playlist/--------/--------
+    preset: no
 
   plugin_music_limit:
     description: Display limit
@@ -112,3 +113,4 @@ inputs:
     description: Music provider username
     type: string
     default: .user.login
+    preset: no

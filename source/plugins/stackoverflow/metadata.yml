@@ -19,6 +19,7 @@ inputs:
     description: Stackoverflow user id
     type: number
     default: 0
+    preset: no
 
   plugin_stackoverflow_sections:
     description: |

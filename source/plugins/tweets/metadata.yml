@@ -37,3 +37,4 @@ inputs:
     description: Twitter username
     type: string
     default: .user.twitter
+    preset: no
