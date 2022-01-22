@@ -25,6 +25,7 @@ inputs:
       Defaults to `token` owner username.
     type: string
     default: ""
+    preset: no
 
   repo:
     description: |
@@ -33,6 +34,7 @@ inputs:
       This option is revevalant only for repositories templates
     type: string
     default: ""
+    preset: no
 
   committer_token:
     description: |
@@ -67,6 +69,7 @@ inputs:
       Specify an existing gist id (can be retrieved from its URL) when using `output_action: gist`.
     type: string
     default: ""
+    preset: no
 
   filename:
     description: |
@@ -307,6 +310,14 @@ inputs:
       - markdown-pdf
       - insights
 
+  config_presets:
+    description: Configuration presets
+    type: array
+    format: comma-separated
+    default: ""
+    preset: no
+    example: "@lunar-red"
+
   retries:
     description: Retries in case of failures (for rendering)
     type: number
@@ -357,6 +368,7 @@ inputs:
     type: boolean
     default: yes
     testing: yes
+    preset: no
 
   plugins_errors_fatal:
     description: |
@@ -366,6 +378,7 @@ inputs:
     type: boolean
     default: no
     testing: yes
+    preset: no
 
   debug:
     description: |
@@ -375,12 +388,14 @@ inputs:
     type: boolean
     default: no
     testing: yes
+    preset: no
 
   verify:
     description: SVG validity check
     type: boolean
     default: no
     testing: yes
+    preset: no
 
   debug_flags:
     description: |
@@ -398,6 +413,7 @@ inputs:
       - --halloween
       - --error
     testing: yes
+    preset: no
 
   dryrun:
     description: |
@@ -407,6 +423,7 @@ inputs:
     type: boolean
     default: no
     testing: yes
+    preset: no
 
   experimental_features:
     description: |
@@ -419,9 +436,11 @@ inputs:
     values:
       - --optimize-svg
     testing: yes
+    preset: no
 
   use_mocked_data:
     description: Use mocked data instead of live APIs
     type: boolean
     default: no
     testing: yes
+    preset: no

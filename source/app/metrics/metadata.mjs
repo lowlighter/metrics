@@ -84,12 +84,16 @@ export default async function metadata({log = true, diff = false} = {}) {
   return {plugins:Plugins, templates:Templates, packaged, descriptor}
 }
 
+/**Metadata extractor for inputs */
+metadata.inputs = {}
+
 /**Metadata extractor for templates */
 metadata.plugin = async function({__plugins, __templates, name, logger}) {
   try {
     //Load meta descriptor
     const raw = `${await fs.promises.readFile(path.join(__plugins, name, "metadata.yml"), "utf-8")}`
     const {inputs, ...meta} = yaml.load(raw)
+    Object.assign(metadata.inputs, inputs)
 
     //category
     if (!categories.includes(meta.category))
@@ -345,6 +349,8 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
             cell.push(`⏩ Inherits <code>${o.inherits}</code><br>`)
           if (o.global)
             cell.push("⏭️ Global option<br>")
+          if (/^(?:[Ff]alse|[Oo]ff|[Nn]o|0)$/.test(o.preset))
+            cell.push("⏯️ Cannot be preset<br>")
           if (o.testing)
             cell.push("🔧 For development<br>")
           if (!Object.keys(previous?.inputs ?? {}).includes(option))
