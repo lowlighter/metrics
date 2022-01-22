@@ -29,6 +29,19 @@
     token: ${{ secrets.METRICS_TOKEN }}
     config_output: png
 
+- name: Presets
+  uses: lowlighter/metrics@latest
+  with:
+    filename: metrics.presets.svg
+    token: ${{ secrets.METRICS_TOKEN }}
+    base: header, repositories
+    config_presets: https://raw.githubusercontent.com/lowlighter/metrics/presets/lunar-red/preset.yaml
+  prod:
+    skip: true
+  test:
+    modes:
+      - web
+
 - name: Plugin error example
   uses: lowlighter/metrics@latest
   with:
