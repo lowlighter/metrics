@@ -74,7 +74,7 @@ Additional CSS can be injected using `extras_css` option.
 
 > ⚠️ CSS styles may slightly change between releases, backward compatibility is not guaranteed!
 
-## 🎨 Custom JavaScript scripting
+## 🗳️ Custom JavaScript scripting
 
 Additional JavaScript can be injected using `extras_js` option.
 
@@ -86,6 +86,9 @@ Additional JavaScript can be injected using `extras_js` option.
     extras_js: |
       document.querySelectorAll("h2")?.forEach(h2 => h2.remove())
 ```
+
+> ℹ️ JavaScript is executed in puppeteer context during the rendering phase, **not** in *metrics* context.
+> It will be possible to access `document` and all other features accessibles like if the SVG was opened in a browser page
 
 > 💡 If you make an heavy use of this option, creating a [community templates](/source/templates/community/README.md) may be a better alternative
 
@@ -101,7 +104,7 @@ Tweak `config_padding` option to manually adjust padding and solve this issue.
 
 This settings supports the following format:
 - 1 value for both width and height
-- 2 values for width fist and height second, separated by a comma (`,`)
+- 2 values for width first and height second, separated by a comma (`,`)
 
 > 💡 Both negative and positive values are allowed
 

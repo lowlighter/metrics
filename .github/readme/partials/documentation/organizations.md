@@ -1,12 +1,12 @@
 # 🏦 Configure metrics for organizations
 
-While metrics targets mainly user accounts, it's possible to render metrics for organization accounts.
+While *metrics* targets mainly user accounts, it's possible to render metrics for organization accounts.
 
 ![Metrics (organization account)](https://github.com/lowlighter/metrics/blob/examples/metrics.organization.svg)
 
 ## *️⃣ Using *metrics* on organization
 
-Setup is the same as for user accounts, and a personal access token from an user account is required excepted that `read:org` scope must be enabled, **whether you are member of the target organization or not**.
+Setup is mostly the same as for user accounts. A personal access token from an user account is required excepted that `read:org` scope must be enabled, **whether you are member of the target organization or not**.
 
 ![Add read:org scope to personal token](/.github/readme/imgs/setup_token_org_read_scope.png)
 
@@ -25,6 +25,8 @@ Setup is the same as for user accounts, and a personal access token from an user
 > 💡 Plugins supporting organizations account are labeled with `👥 Organizations`. Note that rendering consume way more API requests and huge organization may not actually be able to use a given plugin.
 
 > 💡 To support private repositories, add `repo` scope
+
+It is possible to host workflows in the `.github` repository of organizations, and display *metrics* on [organization profiles](https://docs.github.com/en/organizations/collaborating-with-groups-in-organizations/customizing-your-organizations-profile).
 
 ## *️⃣ Organizations memberships for user accounts
 
