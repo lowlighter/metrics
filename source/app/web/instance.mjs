@@ -253,7 +253,7 @@ export default async function({mock, nosettings} = {}) {
       //Render
       const q = req.query
       console.debug(`metrics/app/${login} > ${util.inspect(q, {depth:Infinity, maxStringLength:256})}`)
-      if ((q["config.presets"])&&(conf.settings.extras?.presets ?? conf.settings.extras?.default ?? false)) {
+      if ((q["config.presets"]) && (conf.settings.extras?.presets ?? conf.settings.extras?.default ?? false)) {
         console.debug(`metrics/app/${login} > presets have been specified, loading them`)
         Object.assign(q, await presets(q["config.presets"]))
       }
