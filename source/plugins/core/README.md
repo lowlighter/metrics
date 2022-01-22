@@ -398,7 +398,8 @@ On forks, this feature is disable to take into account any changes you made on i
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+    <td nowrap="nowrap">⏯️ Cannot be preset<br>
+<b>type:</b> <code>string</code>
 <br></td>
   </tr>
   <tr>
@@ -408,7 +409,8 @@ On forks, this feature is disable to take into account any changes you made on i
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+    <td nowrap="nowrap">⏯️ Cannot be preset<br>
+<b>type:</b> <code>string</code>
 <br></td>
   </tr>
   <tr>
@@ -454,7 +456,8 @@ On forks, this feature is disable to take into account any changes you made on i
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+    <td nowrap="nowrap">⏯️ Cannot be preset<br>
+<b>type:</b> <code>string</code>
 <br></td>
   </tr>
   <tr>
@@ -750,6 +753,18 @@ It can result in cropped or oversized outputs.</p>
 <b>allowed values:</b><ul><li>auto</li><li>svg</li><li>png</li><li>jpeg</li><li>json</li><li>markdown</li><li>markdown-pdf</li><li>insights</li></ul></td>
   </tr>
   <tr>
+    <td nowrap="nowrap"><code>config_presets</code></td>
+    <td rowspan="2"><p>Configuration presets</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">⏯️ Cannot be preset<br>
+✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br></td>
+  </tr>
+  <tr>
     <td nowrap="nowrap"><code>retries</code></td>
     <td rowspan="2"><p>Retries in case of failures (for rendering)</p>
 <img width="900" height="1" alt=""></td>
@@ -823,7 +838,8 @@ This option has no effects on forks (images will always be rebuilt from Dockerfi
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">🔧 For development<br>
+    <td nowrap="nowrap">⏯️ Cannot be preset<br>
+🔧 For development<br>
 <b>type:</b> <code>boolean</code>
 <br>
 <b>default:</b> yes<br></td>
@@ -835,7 +851,8 @@ This option has no effects on forks (images will always be rebuilt from Dockerfi
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">🔧 For development<br>
+    <td nowrap="nowrap">⏯️ Cannot be preset<br>
+🔧 For development<br>
 <b>type:</b> <code>boolean</code>
 <br>
 <b>default:</b> no<br></td>
@@ -847,7 +864,8 @@ This option has no effects on forks (images will always be rebuilt from Dockerfi
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">🔧 For development<br>
+    <td nowrap="nowrap">⏯️ Cannot be preset<br>
+🔧 For development<br>
 <b>type:</b> <code>boolean</code>
 <br>
 <b>default:</b> no<br></td>
@@ -858,7 +876,8 @@ This option has no effects on forks (images will always be rebuilt from Dockerfi
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">🔧 For development<br>
+    <td nowrap="nowrap">⏯️ Cannot be preset<br>
+🔧 For development<br>
 <b>type:</b> <code>boolean</code>
 <br>
 <b>default:</b> no<br></td>
@@ -875,7 +894,8 @@ This option has no effects on forks (images will always be rebuilt from Dockerfi
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">🔧 For development<br>
+    <td nowrap="nowrap">⏯️ Cannot be preset<br>
+🔧 For development<br>
 <b>type:</b> <code>array</code>
 <i>(space-separated)</i>
 <br>
@@ -888,7 +908,8 @@ This option has no effects on forks (images will always be rebuilt from Dockerfi
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">🔧 For development<br>
+    <td nowrap="nowrap">⏯️ Cannot be preset<br>
+🔧 For development<br>
 <b>type:</b> <code>boolean</code>
 <br>
 <b>default:</b> no<br></td>
@@ -900,7 +921,8 @@ This option has no effects on forks (images will always be rebuilt from Dockerfi
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">🔧 For development<br>
+    <td nowrap="nowrap">⏯️ Cannot be preset<br>
+🔧 For development<br>
 <b>type:</b> <code>array</code>
 <i>(space-separated)</i>
 <br>
@@ -912,7 +934,8 @@ This option has no effects on forks (images will always be rebuilt from Dockerfi
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">🔧 For development<br>
+    <td nowrap="nowrap">⏯️ Cannot be preset<br>
+🔧 For development<br>
 <b>type:</b> <code>boolean</code>
 <br>
 <b>default:</b> no<br></td>

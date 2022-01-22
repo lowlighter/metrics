@@ -142,6 +142,7 @@ Broad affiliation will result in less representative metrics.</p>
   </tr>
   <tr>
     <td nowrap="nowrap">⏭️ Global option<br>
+⏯️ Cannot be preset<br>
 <b>type:</b> <code>array</code>
 <i>(comma-seperated)</i>
 <br>

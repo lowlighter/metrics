@@ -29,3 +29,14 @@
     config_output: png
     use_mocked_data: 'yes'
     verify: 'yes'
+- name: 🧱 Core - Presets
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    base: header, repositories
+    config_presets: >-
+      https://raw.githubusercontent.com/lowlighter/metrics/presets/lunar-red/preset.yaml
+    use_mocked_data: 'yes'
+    verify: 'yes'
+  modes:
+    - web

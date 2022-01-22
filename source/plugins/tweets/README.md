@@ -79,7 +79,8 @@
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+    <td nowrap="nowrap">⏯️ Cannot be preset<br>
+<b>type:</b> <code>string</code>
 <br>
 <b>default:</b> <code>→ User attached twitter</code><br></td>
   </tr>

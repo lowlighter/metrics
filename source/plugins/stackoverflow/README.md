@@ -45,7 +45,8 @@
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+    <td nowrap="nowrap">⏯️ Cannot be preset<br>
+<b>type:</b> <code>number</code>
 <br>
 <b>default:</b> 0<br></td>
   </tr>
