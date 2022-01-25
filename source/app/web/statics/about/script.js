@@ -10,9 +10,9 @@
       }
       catch (error) {}
       //Embed
-      this.embed = !!(new URLSearchParams(location.search).get("embed"))
+      this.embed = Boolean(new URLSearchParams(location.search).get("embed"))
       //From local storage
-      this.localstorage = !!(new URLSearchParams(location.search).get("localstorage"))
+      this.localstorage = Boolean(new URLSearchParams(location.search).get("localstorage"))
       //User
       const user = location.pathname.split("/").pop()
       if ((user) && (user !== "about")) {
