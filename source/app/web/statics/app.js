@@ -159,7 +159,7 @@
         const plugins = Object.entries(this.plugins.enabled)
           .flatMap(([key, value]) => key === "base" ? Object.entries(value).map(([key, value]) => [`base.${key}`, value]) : [[key, value]])
           .filter(([key, value]) => /^base[.]\w+$/.test(key) ? !value : value)
-          .map(([key, value]) => `${key}=${+value}`)
+          .map(([key, value]) => `${key}=${Number(value)}`)
         //Plugins options
         const options = Object.entries(this.plugins.options)
           .filter(([key, value]) => `${value}`.length)
