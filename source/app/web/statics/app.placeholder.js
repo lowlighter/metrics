@@ -565,7 +565,7 @@
         ...(set.plugins.enabled.nightscout
           ? ({
             nightscout: {
-              url: options["nightscout.url"] !== null && options["nightscout.url"] != "https://example.herokuapp.com" ? options["nightscout.url"] : "https://testapp.herokuapp.com/",
+              url: options["nightscout.url"] && options["nightscout.url"] !== "https://example.herokuapp.com" ? options["nightscout.url"] : "https://testapp.herokuapp.com/",
               data: new Array(12).fill(null).map(_ => ({
                 timeUTCHumanReadable: `${new Date().getUTCHours()}:${new Date().getUTCMinutes()}`,
                 color: faker.random.arrayElement(["#9be9a8", "#40c463", "#30a14e", "#216e39"]),
