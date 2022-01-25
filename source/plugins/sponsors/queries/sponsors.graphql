@@ -1,0 +1,26 @@
+query SponsorsDefault {
+  $account(login: "$login") {
+    sponsorsListing {
+      fullDescription
+      activeGoal {
+        percentComplete
+        title
+        description
+      }
+    }
+    sponsorshipsAsMaintainer(first: 100) {
+      totalCount
+      nodes {
+        sponsorEntity {
+          ... on User {
+            login
+            avatarUrl(size: 36)
+          }
+        }
+        tier {
+          monthlyPriceInDollars
+        }
+      }
+    }
+  }
+}

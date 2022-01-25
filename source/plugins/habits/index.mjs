@@ -1,8 +1,8 @@
 //Legacy import
-import { recent as recent_analyzer } from "./../languages/analyzers.mjs"
+import {recent as recent_analyzer} from "./../languages/analyzers.mjs"
 
 //Setup
-export default async function({login, data, rest, imports, q, account}, {enabled = false, ...defaults} = {}) {
+export default async function({login, data, rest, imports, q, account}, {enabled = false, extras = false, ...defaults} = {}) {
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
@@ -34,7 +34,7 @@ export default async function({login, data, rest, imports, q, account}, {enabled
     //Get user recent commits
     const commits = events
       .filter(({type}) => type === "PushEvent")
-      .filter(({actor}) => account === "organization" ? true : actor.login === login)
+      .filter(({actor}) => account === "organization" ? true : actor.login?.toLocaleLowerCase() === login.toLocaleLowerCase())
       .filter(({created_at}) => new Date(created_at) > new Date(Date.now() - days * 24 * 60 * 60 * 1000))
     console.debug(`metrics/compute/${login}/plugins > habits > filtered out ${commits.length} push events over last ${days} days`)
     habits.commits.fetched = commits.length
@@ -45,7 +45,7 @@ export default async function({login, data, rest, imports, q, account}, {enabled
       ...await Promise.allSettled(
         commits
           .flatMap(({payload}) => payload.commits)
-          .filter(({author}) => data.shared["commits.authoring"].filter(authoring => author?.email?.toLocaleLowerCase().includes(authoring)||author?.name?.toLocaleLowerCase().includes(authoring)).length)
+          .filter(({author}) => data.shared["commits.authoring"].filter(authoring => author?.login?.toLocaleLowerCase().includes(authoring) || author?.email?.toLocaleLowerCase().includes(authoring) || author?.name?.toLocaleLowerCase().includes(authoring)).length)
           .map(async commit => (await rest.request(commit)).data.files),
       ),
     ]
@@ -93,18 +93,18 @@ export default async function({login, data, rest, imports, q, account}, {enabled
       //Compute average number of characters per line of code fetched
       console.debug(`metrics/compute/${login}/plugins > habits > computing average number of characters per line of code`)
       const lines = patches.flatMap(({patch}) => patch.split("\n").map(line => line.length))
-      habits.lines.average.chars = lines.reduce((a, b) => a + b, 0)/lines.length
+      habits.lines.average.chars = lines.reduce((a, b) => a + b, 0) / lines.length
     }
 
     //Linguist
-    if (charts) {
+    if ((extras) && (charts)) {
       //Check if linguist exists
       console.debug(`metrics/compute/${login}/plugins > habits > searching recently used languages using linguist`)
-      if ((patches.length) && (await imports.which("github-linguist"))) {
+      if (patches.length) {
         //Call language analyzer (note: using content from other plugin is usually disallowed, this is mostly for legacy purposes)
         habits.linguist.available = true
         const {total, stats} = await recent_analyzer({login, data, imports, rest, account}, {days, load:from || 1000, tempdir:"habits"})
-        habits.linguist.languages = Object.fromEntries(Object.entries(stats).map(([language, value]) => [language, value/total]))
+        habits.linguist.languages = Object.fromEntries(Object.entries(stats).map(([language, value]) => [language, value / total]))
         habits.linguist.ordered = Object.entries(habits.linguist.languages).sort(([_an, a], [_bn, b]) => b - a)
       }
       else

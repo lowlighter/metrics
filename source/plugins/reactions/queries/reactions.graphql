@@ -1,7 +1,7 @@
 query ReactionsDefault {
   user(login: "$login") {
     login
-    $type($after first: 100, orderBy: {field: UPDATED_AT, direction: DESC}) {
+    $type($before last: 50) {
       edges {
         cursor
         node {

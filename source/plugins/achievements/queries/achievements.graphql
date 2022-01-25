@@ -94,5 +94,14 @@ query AchievementsDefault {
     sponsorshipsAsSponsor {
       totalCount
     }
+    discussionsStarted: repositoryDiscussions {
+      totalCount
+    }
+    discussionsComments: repositoryDiscussionComments {
+      totalCount
+    }
+    discussionAnswers: repositoryDiscussionComments(onlyAnswers: true) {
+      totalCount
+    }
   }
 }

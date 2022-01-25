@@ -24,7 +24,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
       const {data:{items:[{reputation, badge_counts:{bronze, silver, gold}, answer_count:answers, question_count:questions, view_count:views}]}} = await imports.axios.get(`${api.user}?site=stackoverflow&filter=${filters.user}`)
       const {data:{total:comments}} = await imports.axios.get(`${api.user}/comments?site=stackoverflow&filter=total`)
       //Save result
-      result.user = {reputation, badges:bronze + silver + gold, questions, answers, comments, views}
+      result.user = {id:user, reputation, badges:bronze + silver + gold, questions, answers, comments, views}
     }
 
     //Answers
@@ -89,7 +89,7 @@ const format = {
       accepted,
       comments,
       author,
-      created:imports.format.date(creation_date * 1000, {dateStyle:"short"}),
+      created:imports.format.date(creation_date * 1000, {date:true}),
       link,
       id,
       question_id,
@@ -136,7 +136,7 @@ const format = {
       comments,
       views,
       author,
-      created:imports.format.date(creation_date * 1000, {dateStyle:"short"}),
+      created:imports.format.date(creation_date * 1000, {date:true}),
       link,
       id,
       accepted_answer_id,

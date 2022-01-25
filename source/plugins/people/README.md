@@ -1,56 +1,176 @@
-### 🧑‍🤝‍🧑 People plugin
-
-The *people* plugin can display people you're following or sponsoring, and also users who're following or sponsoring you.
-In repository mode, it's possible to display sponsors, stargazers, watchers.
-
+<!--header-->
 <table>
-  <td align="center">
-    <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.people.followers.svg">
-    <details><summary>Followed people version</summary>
-      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.people.following.svg">
-    </details>
-    <details><summary>Special thanks version</summary>
-      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.people.thanks.svg">
-    </details>
-    <details><summary>Repository template version</summary>
-      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.people.repository.svg">
-    </details>
-    <img width="900" height="1" alt="">
-  </td>
+  <tr><th colspan="2"><h3>🧑‍🤝‍🧑 People plugin</h3></th></tr>
+  <tr><td colspan="2" align="center"><p>This plugin can display relationships with users, such as followers, sponsors, contributors, stargazers, watchers, members, etc.</p>
+</td></tr>
+  <tr>
+    <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
+    <td><a href="/source/templates/classic/README.md"><code>📗 Classic template</code></a> <a href="/source/templates/repository/README.md"><code>📘 Repository template</code></a></td>
+  </tr>
+  <tr>
+    <td><code>👤 Users</code> <code>👥 Organizations</code> <code>📓 Repositories</code></td>
+  </tr>
+  <tr>
+    <td><code>🔑 (scopeless)</code> <code>read:org (optional)</code> <code>read:user (optional)</code> <code>repo (optional)</code></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
+      <details open><summary>Related to an user</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.people.followers.svg" alt=""></img></details>
+      <details><summary>Related to a repository</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.people.repository.svg" alt=""></img></details>
+      <img width="900" height="1" alt="">
+    </td>
+  </tr>
 </table>
+<!--/header-->
 
-The following types are supported:
+## ➡️ Available options
 
-| Type            | Alias                                | User metrics       | Repository metrics |
-| --------------- | ------------------------------------ | :----------------: | :----------------: |
-| `followers`     |                                      | ✔️                 | ❌                |
-| `following`     | `followed`                           | ✔️                 | ❌                |
-| `sponsoring`    | `sponsored`, `sponsorshipsAsSponsor` | ✔️                 | ❌                |
-| `sponsors`      | `sponsorshipsAsMaintainer`           | ✔️                 | ✔️                |
-| `contributors`  |                                      | ❌                 | ✔️                |
-| `stargazers`    |                                      | ❌                 | ✔️                |
-| `watchers`      |                                      | ❌                 | ✔️                |
-| `thanks`        |                                      | ✔️                 | ✔️                |
-| `members`       |                                      | ✔️ (organization)  | ❌                |
+<!--options-->
+<table>
+  <tr>
+    <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_people</code></td>
+    <td rowspan="2"><p>Enable people plugin</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_people_limit</code></td>
+    <td rowspan="2"><p>Display limit</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<i>(0 ≤
+𝑥)</i>
+<br>
+<b>zero behaviour:</b> disable</br>
+<b>default:</b> 24<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_people_identicons</code></td>
+    <td rowspan="2"><p>Toggle identicons display</p>
+<p>This can be used to mask user profile pictures for privacy</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_people_size</code></td>
+    <td rowspan="2"><p>Profile picture display size</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<i>(8 ≤
+𝑥
+≤ 64)</i>
+<br>
+<b>default:</b> 28<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_people_types</code></td>
+    <td rowspan="2"><p>Displayed sections (order is respected)</p>
+<p>User and organization accounts support the following values:</p>
+<ul>
+<li><code>followers</code></li>
+<li><code>following</code>/<code>followed</code></li>
+<li><code>sponsoring</code>/<code>sponsored</code></li>
+<li><code>sponsors</code></li>
+<li><code>members</code> (organization only)</li>
+<li><code>thanks</code>(to be configured with <code>plugin_people_thanks</code>)
+Repositories support the following values:</li>
+<li><code>sponsors</code> (same as owner sponsors)</li>
+<li><code>contributors</code></li>
+<li><code>stargazers</code></li>
+<li><code>watchers</code></li>
+<li><code>thanks</code>(to be configured with <code>plugin_people_thanks</code>)</li>
+</ul>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br>
+<b>default:</b> followers, following<br>
+<b>allowed values:</b><ul><li>followers</li><li>following</li><li>followed</li><li>sponsoring</li><li>members</li><li>sponsored</li><li>sponsors</li><li>contributors</li><li>stargazers</li><li>watchers</li><li>thanks</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_people_thanks</code></td>
+    <td rowspan="2"><p>Special thanks</p>
+<p>This list can be used to thank specific users</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">⏯️ Cannot be preset<br>
+<b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_people_sponsors_custom</code></td>
+    <td rowspan="2"><p>Custom sponsors</p>
+<p>This list can be used to add users from unsupported GitHub sponsors sources.
+The option <code>plugin_people_types</code> must contain the <code>sponsors</code> section in order for this setting to be effective</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">⏯️ Cannot be preset<br>
+<b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_people_shuffle</code></td>
+    <td rowspan="2"><p>Shuffle data for varied output</p>
+<p>This will fetch 10 times more data than <code>plugin_people_limit</code> to ensure output is always different</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+</table>
+<!--/options-->
 
+## ℹ️ Examples workflows
 
-Sections will be ordered the same as specified in `plugin_people_types`.
-`sponsors` for repositories will output the same as the owner's sponsors.
-
-#### ℹ️ Examples workflows
-
-[➡️ Available options for this plugin](metadata.yml)
-
+<!--examples-->
 ```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_people: yes
-    plugin_people_types: followers, thanks     # Display followers and "thanks" sections
-    plugin_people_limit: 28                    # Limit to 28 entries per section
-    plugin_people_size: 28                     # Size in pixels of displayed avatars
-    plugin_people_identicons: no               # Use avatars (do not use identicons)
-    plugin_people_thanks: lowlighter, octocat  # Users that will be displayed in "thanks" section
-    plugin_people_sponsors_custom: octocat     # Users that will be displayed additionally in "sponsors" section
-    plugin_people_shuffle: yes                 # Shuffle for varied output
+name: Followers
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.people.followers.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ""
+  plugin_people: yes
+  plugin_people_types: followers
+
 ```
+```yaml
+name: Contributors and sponsors
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.people.repository.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ""
+  template: repository
+  repo: metrics
+  plugin_people: yes
+  plugin_people_types: contributors, stargazers, watchers, sponsors
+  plugin_people_sponsors_custom: >-
+    iamsainikhil, yutkat, KasparJohannesSchneider, ktnkk, tfSheol, haribo-io,
+    marcreichel
+
+```
+<!--/examples-->

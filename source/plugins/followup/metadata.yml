@@ -1,25 +1,38 @@
 name: "🎟️ Follow-up of issues and pull requests"
-cost: 0 API request (1 GraphQL request if "user" section is enabled)
 category: github
-index: 11
+description: This plugin displays the ratio of open/closed issues and the ratio of open/merged pull requests across all your repositories.
+examples:
+  +indepth analysis: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.followup.indepth.svg
+  created on an user's repositories: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.followup.svg
+  created by an user: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.followup.user.svg
+index: 7
 supports:
   - user
   - organization
   - repository
+scopes:
+  - public_access
 inputs:
 
-  # Enable or disable plugin
   plugin_followup:
-    description: Display follow-up of repositories issues and pull requests
+    description: Enable followup plugin
     type: boolean
     default: no
 
-  # Sections to display
   plugin_followup_sections:
-    description: Sections to display
+    description: |
+      Displayed sections
+      - `repositories`: overall status of issues and pull requests on your repositories
+      - `user`: overall status of issues and pull requests you have created on GitHub
     type: array
     format: comma-separated
     default: repositories
     values:
-      - repositories # Overall status of issues and pull requests on your repositories
-      - user         # Overall status of issues and pull requests you have created on GitHub
+      - repositories
+      - user
+
+  plugin_followup_indepth:
+    description: Indepth analysis
+    type: boolean
+    default: no
+    extras: yes

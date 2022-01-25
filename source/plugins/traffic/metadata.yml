@@ -1,15 +1,26 @@
 name: "🧮 Repositories traffic"
-cost: 1 REST request per repository
 category: github
-index: 13
+description: This plugin displays the number of page views across your repositories.
+examples:
+  default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.traffic.svg
+index: 19
 supports:
   - user
   - organization
   - repository
+scopes:
+  - repo
 inputs:
 
-  # Enable or disable plugin
   plugin_traffic:
-    description: Display repositories traffic metrics
+    description: Enable traffic plugin
     type: boolean
     default: no
+
+  plugin_traffic_skipped:
+    description: Skipped repositories
+    type: array
+    format: comma-separated
+    default: ""
+    example: my-repo-1, my-repo-2, owner/repo-3, ...
+    inherits: repositories_skipped

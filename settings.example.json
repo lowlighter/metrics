@@ -27,110 +27,132 @@
   },
   "extras": {
     "default": false,              "//": "Default extras state (advised to let 'false' unless in debug mode)",
-    "css": false,                  "//": "Allow use of 'extras.css' option"
+    "presets": false,              "//": "Allow use of 'config.presets' option",
+    "css": false,                  "//": "Allow use of 'extras.css' option",
+    "js": false,                   "//": "Allow use of 'extras.js' option",
+    "features": false,             "//": "Enable extra features (advised to let 'false' on web instances)"
   },
   "plugins.default": false,        "//": "Default plugin state (advised to let 'false' unless in debug mode)",
   "plugins": {                     "//": "Global plugin configuration",
     "isocalendar":{
-      "enabled": false,            "//": "Display an isometric view of your commits calendar"
+      "enabled": false,            "//": "Enable isocalendar plugin"
     },
     "languages":{
-      "enabled": false,            "//": "Display most used languages metrics"
+      "enabled": false,            "//": "Enable languages plugin"
+    },
+    "topics":{
+      "enabled": false,            "//": "Enable topics plugin"
+    },
+    "stars":{
+      "enabled": false,            "//": "Enable stars plugin"
+    },
+    "licenses":{
+      "enabled": false,            "//": "Enable licenses plugin"
+    },
+    "habits":{
+      "enabled": false,            "//": "Enable habits plugin"
+    },
+    "contributors":{
+      "enabled": false,            "//": "Enable contributors plugin"
+    },
+    "followup":{
+      "enabled": false,            "//": "Enable followup plugin"
+    },
+    "reactions":{
+      "enabled": false,            "//": "Enable reactions plugin"
+    },
+    "people":{
+      "enabled": false,            "//": "Enable people plugin"
+    },
+    "stargazers":{
+      "enabled": false,            "//": "Enable stargazers plugin"
+    },
+    "projects":{
+      "enabled": false,            "//": "Enable projects plugin"
+    },
+    "code":{
+      "enabled": false,            "//": "Enable code plugin"
+    },
+    "activity":{
+      "enabled": false,            "//": "Enable activity plugin"
+    },
+    "achievements":{
+      "enabled": false,            "//": "Enable achievements plugin"
+    },
+    "notable":{
+      "enabled": false,            "//": "Enable notable plugin"
+    },
+    "discussions":{
+      "enabled": false,            "//": "Enable discussions plugin"
+    },
+    "support":{
+      "enabled": false,            "//": "Enable support plugin"
+    },
+    "lines":{
+      "enabled": false,            "//": "Enable lines plugin"
+    },
+    "traffic":{
+      "enabled": false,            "//": "Enable traffic plugin"
+    },
+    "repositories":{
+      "enabled": false,            "//": "Enable repositories plugin"
+    },
+    "gists":{
+      "enabled": false,            "//": "Enable gists plugin"
     },
     "introduction":{
       "enabled": false,            "//": "Display account or repository introduction"
     },
-    "habits":{
-      "enabled": false,            "//": "Display coding habits metrics"
+    "sponsors":{
+      "enabled": false,            "//": "Enable sponsors plugin"
     },
-    "licenses":{
-      "enabled": false,            "//": "Display licenses informations"
-    },
-    "contributors":{
-      "enabled": false,            "//": "Display repository contributors"
-    },
-    "stars":{
-      "enabled": false,            "//": "Display recently starred repositories"
-    },
-    "topics":{
-      "enabled": false,            "//": "Display starred topics"
-    },
-    "reactions":{
-      "enabled": false,            "//": "Display average issue comments reactions"
-    },
-    "people":{
-      "enabled": false,            "//": "Display GitHub users from various affiliations"
-    },
-    "gists":{
-      "enabled": false,            "//": "Display gists metrics"
-    },
-    "followup":{
-      "enabled": false,            "//": "Display follow-up of repositories issues and pull requests"
-    },
-    "lines":{
-      "enabled": false,            "//": "Display lines of code metrics"
-    },
-    "traffic":{
-      "enabled": false,            "//": "Display repositories traffic metrics"
-    },
-    "stargazers":{
-      "enabled": false,            "//": "Display stargazers metrics"
-    },
-    "projects":{
-      "enabled": false,            "//": "Display active projects"
-    },
-    "activity":{
-      "enabled": false,            "//": "Display recent activity"
-    },
-    "achievements":{
-      "enabled": false,            "//": "Display achievements"
-    },
-    "notable":{
-      "enabled": false,            "//": "Display notable contributions in organizations"
-    },
-    "support":{
-      "enabled": false,            "//": "GitHub Community Support metrics"
+    "starlists":{
+      "enabled": false,            "//": "Enable starlists plugin"
     },
     "skyline":{
-      "enabled": false,            "//": "Display GitHub Skyline 3D calendar"
+      "enabled": false,            "//": "Enable skyline plugin"
     },
     "pagespeed":{
-      "token": null,               "//":"PageSpeed token",
-      "enabled": false,            "//": "Display a website Google PageSpeed metrics"
+      "token": null,               "//":"PageSpeed token\n\nAlthough not mandatory, it strongly advised to create one to avoid triggering the rate limiter. See [PageSpeed documentation](https://developers.google.com/speed/docs/insights/v5/get-started) for more informations.\n",
+      "enabled": false,            "//": "Enable pagespeed plugin"
     },
     "music":{
-      "token": null,               "//":"Music provider personal token",
-      "enabled": false,            "//": "Display your music tracks"
+      "token": null,               "//":"Music provider token\n\nBelow is the expected token format for each provider:\n- `apple`: *(not supported)*\n- `spotify`: \"client_id, client_secret, refresh_token\"\n- `lastfm`: \"api_key\"\n- `youtube`: \"cookie\"\n",
+      "enabled": false,            "//": "Enable music plugin"
+    },
+    "stackoverflow":{
+      "enabled": false,            "//": "Enable stackoverflow plugin"
+    },
+    "anilist":{
+      "enabled": false,            "//": "Enable aniList plugin"
     },
     "tweets":{
       "token": null,               "//":"Twitter API token",
-      "enabled": false,            "//": "Display recent tweets"
-    },
-    "anilist":{
-      "enabled": false,            "//": "Display data from your AniList account"
-    },
-    "stackoverflow":{
-      "enabled": false,            "//": "Stackoverflow metrics"
+      "enabled": false,            "//": "Enable tweets plugin"
     },
     "posts":{
-      "enabled": false,            "//": "Display recent posts"
+      "enabled": false,            "//": "Enable posts plugin"
     },
     "rss":{
-      "enabled": false,            "//": "Display RSS feed"
+      "enabled": false,            "//": "Enable rss plugin"
     },
     "wakatime":{
       "token": null,               "//":"WakaTime API token",
-      "enabled": false,            "//": "Display WakaTime stats"
+      "enabled": false,            "//": "Enable wakatime plugin"
+    },
+    "nightscout":{
+      "enabled": false,            "//": "Enable nightscout plugin"
+    },
+    "poopmap":{
+      "token": null,               "//":"PoopMap API token",
+      "enabled": false,            "//": "Enable poopmap plugin"
+    },
+    "screenshot":{
+      "enabled": false,            "//": "Enable screenshot plugin"
     },
     "stock":{
       "token": null,               "//":"Yahoo Finance token",
-      "enabled": false,            "//": "Display stock prices of a given company"
-    },
-    "screenshot":{
-      "enabled": false,            "//": "Display a screenshot of any website"
-    },
-    "nightscout":{
-      "enabled": false,            "//": "Displays Blood Glucose"
+      "enabled": false,            "//": "Enable stock plugin"
     },
     "//": ""
   }

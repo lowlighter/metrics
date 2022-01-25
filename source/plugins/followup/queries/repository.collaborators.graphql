@@ -1,0 +1,9 @@
+query FollowupRepositoryCollaborators {
+  repository(name: "$repo", owner: "$owner") {
+    collaborators {
+      nodes {
+        login
+      }
+    }
+  }
+}

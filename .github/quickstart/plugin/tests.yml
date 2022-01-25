@@ -1,5 +1,0 @@
-- name: <%= `${name.charAt(0).toLocaleUpperCase()}${name.substring(1)}` %> plugin (default)
-  uses: lowlighter/metrics@latest
-  with:
-    token: MOCKED_TOKEN
-    plugin_<%= name %>: yes

@@ -1,0 +1,20 @@
+{
+  repository(owner: "$owner", name: "$repo") {
+    ...RepoFragment
+  }
+}
+
+fragment RepoFragment on Repository {
+  name
+  defaultBranchRef {
+    name
+    target {
+      ... on Commit {
+        id
+        history(first: 0) {
+          totalCount
+        }
+      }
+    }
+  }
+}

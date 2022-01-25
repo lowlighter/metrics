@@ -9,25 +9,44 @@
         of <%= plugins.contributors.head || plugins.contributors.ref?.head?.abbreviatedOid %>
       <% } %>
     </h2>
-    <section>
-      <div class="contributors fill-width">
-        <% if (plugins.contributors.error) { %>
+    <% if (plugins.contributors.error) { %>
+      <section>
+        <div class="contributors fill-width">
           <div class="field error">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M2.343 13.657A8 8 0 1113.657 2.343 8 8 0 012.343 13.657zM6.03 4.97a.75.75 0 00-1.06 1.06L6.94 8 4.97 9.97a.75.75 0 101.06 1.06L8 9.06l1.97 1.97a.75.75 0 101.06-1.06L9.06 8l1.97-1.97a.75.75 0 10-1.06-1.06L8 6.94 6.03 4.97z"></path></svg>
             <%= plugins.contributors.error.message %>
           </div>
-        <% } else { %>
-          <% for (const [login, {avatar, contributions}] of Object.entries(plugins.contributors.list)) { %>
-            <div class="label">
-              <img class="avatar" src="<%= avatar %>" width="22" height="22" alt="" />
-              <%= login %>
-              <% if (plugins.contributors.contributions) { %>
-                <div class="contributions"><%= contributions %> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M10.5 7.75a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zm1.43.75a4.002 4.002 0 01-7.86 0H.75a.75.75 0 110-1.5h3.32a4.001 4.001 0 017.86 0h3.32a.75.75 0 110 1.5h-3.32z"></path></svg></div>
+        </div>
+      </section>
+    <% } else { %>
+      <% if (plugins.contributors.sections?.includes("contributors")) { %>
+        <section>
+          <div class="contributors fill-width">
+            <% for (const [login, {avatar, contributions}] of Object.entries(plugins.contributors.list)) { %>
+              <div class="label">
+                <img class="avatar" src="<%= avatar %>" width="22" height="22" alt="" />
+                <%= login %>
+                <% if (plugins.contributors.contributions) { %>
+                  <div class="contributions"><%= contributions %> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M10.5 7.75a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zm1.43.75a4.002 4.002 0 01-7.86 0H.75a.75.75 0 110-1.5h3.32a4.001 4.001 0 017.86 0h3.32a.75.75 0 110 1.5h-3.32z"></path></svg></div>
+                <% } %>
+              </div>
+            <% } %>
+          </div>
+        </section>
+      <% } %>
+      <% if (plugins.contributors.sections?.includes("categories")) { %>
+        <section>
+          <% for (const [category, contributors] of Object.entries(plugins.contributors.categories)) { %>
+            <% if (!contributors.size) continue %>
+            <h3 class="field contributors-category"><%= category %></h3>
+            <div class="contributors contributors-categories fill-width">
+              <% for (const contributor of contributors) { %>
+                <img class="avatar" src="<%= plugins.contributors.list[contributor].avatar %>" width="22" height="22" alt="" />
               <% } %>
             </div>
           <% } %>
-        <% } %>
-      </div>
-    </section>
+        </section>
+      <% } %>
+    <% } %>
   </section>
 <% } %>

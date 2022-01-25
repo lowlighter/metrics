@@ -1,38 +1,127 @@
-### 📜 Repository licenses
+<!--header-->
+<table>
+  <tr><th colspan="2"><h3>📜 Repository licenses</h3></th></tr>
+  <tr><td colspan="2" align="center"><p>This plugin display repository license informations like permissions, limitations and conditions along with additional stats about dependencies.</p>
+</td></tr>
+  <tr>
+    <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
+    <td><a href="/source/templates/repository/README.md"><code>📘 Repository template</code></a></td>
+  </tr>
+  <tr>
+    <td><code>📓 Repositories</code></td>
+  </tr>
+  <tr>
+    <td><code>🔑 (scopeless)</code> <code>read:org (optional)</code> <code>read:user (optional)</code> <code>repo (optional)</code></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
+      <details open><summary>Permissions, limitations and conditions</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.licenses.svg" alt=""></img></details>
+      <details open><summary>Licenses overview</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.licenses.ratio.svg" alt=""></img></details>
+      <img width="900" height="1" alt="">
+    </td>
+  </tr>
+</table>
+<!--/header-->
+
+## 🔎 Licenses analysis
+
+Use to `plugin_licenses_setup` command to setup project dependencies.
+
+*Example: setup a NodeJS project using `npm ci`*
+```yml
+- name: Licenses and permissions
+  with:
+    repo: metrics
+    plugin_licenses: yes
+    plugin_licenses_setup: npm ci
+```
+
+Dependencies will be analyzed by [GitHub licensed](https://github.com/github/licensed) and compared against GitHub known licenses.
 
 > ⚠️ This is **NOT** legal advice, use at your own risk
->
-> 💣 Do **NOT** enable this plugin on public web instances (plugin allows raw commands injection)
 
-The *licenses* plugin lets you display license informations like permissions, limitations and conditions along with additional metrics about dependencies.
+> 💣 This plugin **SHOULD NOT** be enabled on web instances, since it allows raw command injection.
+> This could result in compromised server!
 
+
+## ➡️ Available options
+
+<!--options-->
 <table>
-  <td align="center">
-    <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.licenses.svg">
-    <details><summary>With licenses ratio</summary>
-      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.licenses.ratio.svg">
-    </details>
-    <img width="900" height="1" alt="">
-  </td>
+  <tr>
+    <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_licenses</code></td>
+    <td rowspan="2"><p>Enable licenses plugin</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
+<b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_licenses_setup</code></td>
+    <td rowspan="2"><p>Setup command</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_licenses_ratio</code></td>
+    <td rowspan="2"><p>Display used licenses ratio</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_licenses_legal</code></td>
+    <td rowspan="2"><p>Display permissions, limitations and conditions about licenses</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> yes<br></td>
+  </tr>
 </table>
+<!--/options-->
 
-Project must be setup with dependencies using `plugin_licenses_setup` option (for example, `npm ci` for a NodeJS project).
+## ℹ️ Examples workflows
 
-Dependencies will be analyzed with [github/licensed](https://github.com/github/licensed) and compared against GitHub known licenses.
-
-#### ℹ️ Examples workflows
-
-[➡️ Available options for this plugin](metadata.yml)
-
+<!--examples-->
 ```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    template: repository
-    user: repository-owner
-    repo: repository-name
-    plugin_licenses: yes
-    plugin_licenses_setup: npm ci       # Command to setup target repository
-    plugin_licenses_ratio: yes          # Display used licenses ratio
-    plugin_licenses_legal: yes          # Display permissions, limitations and conditions
+name: Licenses and permissions
+with:
+  filename: metrics.plugin.licenses.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ""
+  template: repository
+  repo: metrics
+  plugin_licenses: yes
+  plugin_licenses_setup: npm ci
+
 ```
+```yaml
+name: Licenses with open-source ratio graphs
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.licenses.ratio.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ""
+  template: repository
+  repo: metrics
+  plugin_licenses: yes
+  plugin_licenses_setup: npm ci
+  plugin_licenses_legal: no
+  plugin_licenses_ratio: yes
+
+```
+<!--/examples-->

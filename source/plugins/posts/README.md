@@ -1,26 +1,132 @@
-### ✒️ Recent posts
-
-The recent *posts* plugin displays recent articles you wrote on an external source, like [dev.to](https://dev.to).
-
+<!--header-->
 <table>
-  <td align="center">
-    <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.posts.svg">
-    <details><summary>With posts descriptions and cover images version</summary>
-      <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.posts.full.svg">
-    </details>
-    <img width="900" height="1" alt="">
-  </td>
+  <tr><th colspan="2"><h3>✒️ Recent posts</h3></th></tr>
+  <tr><td colspan="2" align="center"><p>This plugin displays recent articles from a specified external source.</p>
+</td></tr>
+  <tr>
+    <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
+    <td><a href="/source/templates/classic/README.md"><code>📗 Classic template</code></a> <a href="/source/templates/markdown/README.md"><code>📒 Markdown template</code></a> <a href="/source/templates/repository/README.md"><code>📘 Repository template</code></a></td>
+  </tr>
+  <tr>
+    <td><code>👤 Users</code> <code>👥 Organizations</code> <code>📓 Repositories</code></td>
+  </tr>
+  <tr>
+    <td><i>No tokens are required for this plugin</i></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
+      <details open><summary>Latest posts width description and cover image</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.posts.full.svg" alt=""></img></details>
+      <details><summary>Latest posts</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.posts.svg" alt=""></img></details>
+      <img width="900" height="1" alt="">
+    </td>
+  </tr>
 </table>
+<!--/header-->
 
-#### ℹ️ Examples workflows
+## ➡️ Available options
 
-[➡️ Available options for this plugin](metadata.yml)
+<!--options-->
+<table>
+  <tr>
+    <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_posts</code></td>
+    <td rowspan="2"><p>Enable posts plugin</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_posts_source</code></td>
+    <td rowspan="2"><p>External source</p>
+<ul>
+<li><code>dev.to</code>: <a href="https://dev.to">dev.to</a></li>
+<li><code>hashnode</code>: <a href="https://hashnode.com">hashnode.com</a></li>
+</ul>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br>
+<b>allowed values:</b><ul><li>dev.to</li><li>hashnode</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_posts_descriptions</code></td>
+    <td rowspan="2"><p>Toggle posts descriptions display</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_posts_covers</code></td>
+    <td rowspan="2"><p>Toggle posts cover images display</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_posts_limit</code></td>
+    <td rowspan="2"><p>Display limit</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<i>(1 ≤
+𝑥
+≤ 30)</i>
+<br>
+<b>default:</b> 4<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_posts_user</code></td>
+    <td rowspan="2"><p>External source username</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">⏯️ Cannot be preset<br>
+<b>type:</b> <code>string</code>
+<br>
+<b>default:</b> <code>→ User login</code><br></td>
+  </tr>
+</table>
+<!--/options-->
 
+## ℹ️ Examples workflows
+
+<!--examples-->
 ```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_posts: yes
-    plugin_posts_source: dev.to      # External source
-    plugin_people_user: .github.user # Use same username as GitHub login
+name: Recent posts
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.posts.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ""
+  plugin_posts: yes
+  plugin_posts_source: dev.to
+
 ```
+```yaml
+name: Recent posts with descriptions and cover images
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.posts.full.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ""
+  plugin_posts: yes
+  plugin_posts_source: dev.to
+  plugin_posts_limit: 2
+  plugin_posts_descriptions: yes
+  plugin_posts_covers: yes
+
+```
+<!--/examples-->

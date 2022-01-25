@@ -1,11 +1,19 @@
 name: "🙋 Introduction"
-cost: 1 GraphQL request
 category: github
-index: 2
+description: |
+  This plugin displays account bio or organization/repository description.
+
+  It is mostly intended for images that will be used outside of GitHub, since these informations are already displayed on GitHub.
+examples:
+  +for an user or an organization: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.introduction.svg
+  for a repository: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.introduction.repository.svg
+index: 22
 supports:
   - user
   - organization
   - repository
+scopes:
+  - public_access
 inputs:
 
   # Enable or disable plugin

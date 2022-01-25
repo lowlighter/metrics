@@ -1,0 +1,10 @@
+- name: Repositories traffic
+  uses: lowlighter/metrics@latest
+  with:
+    filename: metrics.plugin.traffic.svg
+    token: ${{ secrets.METRICS_TOKEN }}
+    base: repositories
+    plugin_traffic: yes
+  prod:
+    with:
+      token: ${{ secrets.METRICS_TOKEN_WITH_SCOPES }}

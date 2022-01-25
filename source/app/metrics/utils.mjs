@@ -3,29 +3,38 @@ import fs from "fs/promises"
 import prism_lang from "prismjs/components/index.js"
 import axios from "axios"
 import processes from "child_process"
+import crypto from "crypto"
+import {minify as csso} from "csso"
+import emoji from "emoji-name-map"
 import fss from "fs"
 import GIFEncoder from "gifencoder"
 import jimp from "jimp"
-import marked from "marked"
+import linguist from "linguist-js"
+import {marked} from "marked"
+import minimatch from "minimatch"
 import nodechartist from "node-chartist"
+import fetch from "node-fetch"
 import opengraph from "open-graph-scraper"
 import os from "os"
 import paths from "path"
 import PNG from "png-js"
 import prism from "prismjs"
 import _puppeteer from "puppeteer"
+import purgecss from "purgecss"
+import readline from "readline"
 import rss from "rss-parser"
 import htmlsanitize from "sanitize-html"
 import git from "simple-git"
+import SVGO from "svgo"
 import twemojis from "twemoji-parser"
 import url from "url"
 import util from "util"
-import fetch from "node-fetch"
-import readline from "readline"
+import xmlformat from "xml-formatter"
+
 prism_lang()
 
 //Exports
-export {axios, fs, git, jimp, opengraph, os, paths, processes, rss, url, fetch, util}
+export {axios, emoji, fetch, fs, git, jimp, minimatch, opengraph, os, paths, processes, rss, url, util}
 
 /**Returns module __dirname */
 export function __module(module) {
@@ -72,7 +81,7 @@ export function formatters({timeZone} = {}) {
   }
 
   /**Bytes formatter */
-  format.bytes = function (n) {
+  format.bytes = function(n) {
     for (const {u, v} of [{u:"E", v:10 ** 18}, {u:"P", v:10 ** 15}, {u:"T", v:10 ** 12}, {u:"G", v:10 ** 9}, {u:"M", v:10 ** 6}, {u:"k", v:10 ** 3}]) {
       if (n / v >= 1)
         return `${(n / v).toFixed(2).substr(0, 4).replace(/[.]0*$/, "")} ${u}B`
@@ -81,7 +90,7 @@ export function formatters({timeZone} = {}) {
   }
 
   /**Percentage formatter */
-  format.percentage = function (n, {rescale = true} = {}) {
+  format.percentage = function(n, {rescale = true} = {}) {
     return `${
       (n * (rescale ? 100 : 1)).toFixed(2)
         .replace(/(?<=[.])(?<decimal>[1-9]*)0+$/, "$<decimal>")
@@ -99,6 +108,14 @@ export function formatters({timeZone} = {}) {
 
   /**Date formatter */
   format.date = function(string, options) {
+    if (options.date) {
+      delete options.date
+      Object.assign(options, {day:"numeric", month:"short", year:"numeric"})
+    }
+    if (options.time) {
+      delete options.time
+      Object.assign(options, {hour:"2-digit", minute:"2-digit", second:"2-digit"})
+    }
     return new Intl.DateTimeFormat("en-GB", {timeZone, ...options}).format(new Date(string))
   }
 
@@ -141,11 +158,51 @@ export function htmlunescape(string, u = {"&":true, "<":true, ">":true, '"':true
     .replace(/&amp;/g, u["&"] ? "&" : "&amp;")
 }
 
+/**Strip emojis from string */
+export function stripemojis(string) {
+  return string.replace(/[^\p{L}\p{N}\p{P}\p{Z}^$\n]/gu, "")
+}
+
 /**Chartist */
 export async function chartist() {
-  const css = `<style>${await fs.readFile(paths.join(__module(import.meta.url), "../../../node_modules", "node-chartist/dist/main.css")).catch(_ => "")}</style>`
+  const css = `<style data-optimizable="true">${await fs.readFile(paths.join(__module(import.meta.url), "../../../node_modules", "node-chartist/dist/main.css")).catch(_ => "")}</style>`
   return (await nodechartist(...arguments))
     .replace(/class="ct-chart-line">/, `class="ct-chart-line">${css}`)
+}
+
+/**Language analyzer (single file) */
+export async function language({filename, patch, prefix = "", timeout = 20 * 1000}) {
+  const path = paths.join(os.tmpdir(), `${prefix}-${Math.random()}`.replace(/[^\w-]/g, ""))
+  return new Promise(async (solve, reject) => {
+    setTimeout(() => {
+      console.debug(`metrics/language > ${filename} > timeout`)
+      reject("timeout")
+    }, timeout)
+    try {
+      //Create temp dir
+      console.debug(`metrics/language > ${filename} > creating temp dir at ${path}`)
+      await fs.mkdir(path, {recursive:true})
+
+      //Create file and remove diff syntax
+      await fs.writeFile(paths.join(path, paths.basename(filename)), patch.replace(/^@@ -\d+,\d+ \+\d+,\d+ @@/gm, "").replace(/^[+-]/gm, ""))
+
+      //Call linguist
+      console.debug(`metrics/language > ${filename} > calling linguist`)
+      const {languages:{results}} = await linguist(path)
+      const result = (Object.keys(results).shift() ?? "unknown").toLocaleLowerCase()
+      console.debug(`metrics/language > ${filename} > result: ${result}`)
+      solve(result)
+    }
+    catch (error) {
+      console.debug(`metrics/language > ${filename} > ${error}`)
+      reject(error)
+    }
+    finally {
+      //Clean temp dir
+      console.debug(`metrics/language > ${filename} > cleaning temp dir at ${path}`)
+      fs.rm(path, {recursive:true, force:true}).catch(error => console.debug(`metrics/language > ${filename} > failed to clean temp dir at ${path} > ${error}`))
+    }
+  })
 }
 
 /**Run command (use this to execute commands and process whole output at once, may not be suitable for large outputs) */
@@ -170,9 +227,9 @@ export async function run(command, options, {prefixed = true, log = true} = {}) 
 }
 
 /**Spawn command (use this to execute commands and process output on the fly) */
-export async function spawn(command, args = [], options = {}, {prefixed = true, timeout = 300*1000, stdout} = {}) { //eslint-disable-line max-params
+export async function spawn(command, args = [], options = {}, {prefixed = true, timeout = 300 * 1000, stdout} = {}) { //eslint-disable-line max-params
   const prefix = {win32:"wsl"}[process.platform] ?? ""
-  if ((prefixed)&&(prefix)) {
+  if ((prefixed) && (prefix)) {
     args.unshift(command)
     command = prefix
   }
@@ -206,16 +263,15 @@ export async function which(command) {
   return false
 }
 
+/**Code hightlighter */
+export function highlight(code, lang) {
+  return lang in prism.languages ? prism.highlight(code, prism.languages[lang]) : code
+}
+
 /**Markdown-html sanitizer-interpreter */
 export async function markdown(text, {mode = "inline", codelines = Infinity} = {}) {
   //Sanitize user input once to prevent injections and parse into markdown
-  let rendered = await marked(htmlunescape(htmlsanitize(text)), {
-    highlight(code, lang) {
-      return lang in prism.languages ? prism.highlight(code, prism.languages[lang]) : code
-    },
-    silent:true,
-    xhtml:true,
-  })
+  let rendered = await marked.parse(htmlunescape(htmlsanitize(text)), {highlight, silent:true, xhtml:true})
   //Markdown mode
   switch (mode) {
     case "inline": {
@@ -237,8 +293,12 @@ export async function markdown(text, {mode = "inline", codelines = Infinity} = {
   //Trim code snippets
   rendered = rendered.replace(/(?<open><code[\s\S]*?>)(?<code>[\s\S]*?)(?<close><\/code>)/g, (m, open, code, close) => { //eslint-disable-line max-params
     const lines = code.trim().split("\n")
-    if ((lines.length > 1) && (!/class="[\s\S]*"/.test(open)))
-      open = open.replace(/>/g, ' class="language-multiline">')
+    if (lines.length > 1) {
+      if (/class=".*language-[\s\S]+?.*"/.test(open))
+        open = open.replace(/>/g, ` class="language-multiline ${open.match(/class="(?<class>[\s\S]+)"/)?.groups.class}" xml:space="preserve">`)
+      else if (!/class="[\s\S]*"/.test(open))
+        open = open.replace(/>/g, ' class="language-multiline" xml:space="preserve">')
+    }
     return `${open}${lines.slice(0, codelines).join("\n")}${lines.length > codelines ? `\n<span class="token trimmed">(${lines.length - codelines} more ${lines.length - codelines === 1 ? "line was" : "lines were"} trimmed)</span>` : ""}${close}`
   })
   return rendered
@@ -247,16 +307,35 @@ export async function markdown(text, {mode = "inline", codelines = Infinity} = {
 /**Check GitHub filter against object */
 export function ghfilter(text, object) {
   console.debug(`metrics/svg/ghquery > checking ${text} against ${JSON.stringify(object)}`)
-  const result = text.split(" ").map(x => x.trim()).filter(x => x).map(criteria => {
+  const result = text.split(/(?<!NOT) /).map(x => x.trim()).filter(x => x).map(criteria => {
     const [key, filters] = criteria.split(":")
-    const value = object[key]
+    const value = object[/^NOT /.test(key) ? key.substring(3).trim() : /^-/.test(key) ? key.substring(1).trim() : key.trim()]
     console.debug(`metrics/svg/ghquery > checking ${criteria} against ${value}`)
-    return filters.split(",").map(x => x.trim()).filter(x => x).map(filter => {
+    if (value === undefined) {
+      console.debug(`metrics/svg/ghquery > value for ${criteria} is undefined, considering it truthy`)
+      return true
+    }
+    return filters?.split(",").map(x => x.trim()).filter(x => x).map(filter => {
+      if (!Number.isFinite(Number(value))) {
+        if (/^NOT /.test(filter))
+          return value !== filter.substring(3).trim()
+        if (/^-/.test(key))
+          return value !== filter
+        return value === filter.trim()
+      }
       switch (true) {
+        case /^true$/.test(filter):
+          return value === true
+        case /^false$/.test(filter):
+          return value === false
         case /^>\d+$/.test(filter):
           return value > Number(filter.substring(1))
+        case /^>=\d+$/.test(filter):
+          return value >= Number(filter.substring(2))
         case /^<\d+$/.test(filter):
           return value < Number(filter.substring(1))
+        case /^<=\d+$/.test(filter):
+          return value <= Number(filter.substring(2))
         case /^\d+$/.test(filter):
           return value === Number(filter)
         case /^\d+..\d+$/.test(filter): {
@@ -266,7 +345,7 @@ export function ghfilter(text, object) {
         default:
           return false
       }
-    }).reduce((a, b) => a || b, false)
+    }).reduce((a, b) => a || b, false) ?? false
   }).reduce((a, b) => a && b, true)
   console.debug(`metrics/svg/ghquery > ${result ? "matching" : "not matching"}`)
   return result
@@ -299,7 +378,7 @@ export const svg = {
       rendered = await svg.twemojis(rendered, {custom:false})
     if ((gemojis) && (rest))
       rendered = await svg.gemojis(rendered, {rest})
-    rendered = marked(rendered)
+    rendered = marked.parse(rendered)
     //Render through browser and print pdf
     console.debug("metrics/svg/pdf > loading svg")
     const page = await svg.resize.browser.newPage()
@@ -307,7 +386,7 @@ export const svg = {
     await page.setContent(`<main class="markdown-body">${rendered}</main>`, {waitUntil:["load", "domcontentloaded", "networkidle2"]})
     console.debug("metrics/svg/pdf > loaded svg successfully")
     const margins = (Array.isArray(paddings) ? paddings : paddings.split(",")).join(" ")
-    console.log(`metrics/svg/pdf > margins set to ${margins}`)
+    console.debug(`metrics/svg/pdf > margins set to ${margins}`)
     await page.addStyleTag({
       content:`
         main { margin: ${margins}; }
@@ -322,7 +401,7 @@ export const svg = {
     return {rendered, mime:"application/pdf"}
   },
   /**Render and resize svg */
-  async resize(rendered, {paddings, convert}) {
+  async resize(rendered, {paddings, convert, js}) {
     //Instantiate browser if needed
     if (!svg.resize.browser) {
       svg.resize.browser = await puppeteer.launch()
@@ -339,14 +418,16 @@ export const svg = {
       if (Number.isFinite(Number(absolute)))
         padding.absolute[dimension] = Number(absolute)
       if (Number.isFinite(Number(relative)))
-        padding[dimension] = 1 + Number(relative/100)
+        padding[dimension] = 1 + Number(relative / 100)
     }
     console.debug(`metrics/svg/resize > padding width*${padding.width}+${padding.absolute.width}, height*${padding.height}+${padding.absolute.height}`)
     //Render through browser and resize height
     console.debug("metrics/svg/resize > loading svg")
     const page = await svg.resize.browser.newPage()
     page.setViewport({width:980, height:980})
-    page.on("console", ({_text:text}) => console.debug(`metrics/svg/resize > puppeteer > ${text}`))
+    page
+      .on("console", message => console.debug(`metrics/svg/resize > puppeteer > ${message.text()}`))
+      .on("pageerror", error => console.debug(`metrics/svg/resize > puppeteer > ${error.message}`))
     await page.setContent(rendered, {waitUntil:["load", "domcontentloaded", "networkidle2"]})
     console.debug("metrics/svg/resize > loaded svg successfully")
     await page.addStyleTag({content:"body { margin: 0; padding: 0; }"})
@@ -354,30 +435,45 @@ export const svg = {
     console.debug("metrics/svg/resize > resizing svg")
     let height, resized, width
     try {
-      ({resized, width, height} = await page.evaluate(async padding => {
-        //Disable animations
-        const animated = !document.querySelector("svg").classList.contains("no-animations")
-        if (animated)
-          document.querySelector("svg").classList.add("no-animations")
-        console.debug(`animations are ${animated ? "enabled" : "disabled"}`)
-        await new Promise(solve => setTimeout(solve, 2400))
-        //Get bounds and resize
-        let {y:height, width} = document.querySelector("svg #metrics-end").getBoundingClientRect()
-        console.debug(`bounds width=${width}, height=${height}`)
-        height = Math.ceil(height * padding.height + padding.absolute.height)
-        width = Math.ceil(width * padding.width + padding.absolute.width)
-        console.debug(`bounds after applying padding width=${width} (*${padding.width}+${padding.absolute.width}), height=${height} (*${padding.height}+${padding.absolute.height})`)
-        //Resize svg
-        if (document.querySelector("svg").getAttribute("height") === "auto")
-          console.debug("skipped height resizing because it was set to \"auto\"")
-        else
-          document.querySelector("svg").setAttribute("height", height)
-        //Enable animations
-        if (animated)
-          document.querySelector("svg").classList.remove("no-animations")
-        //Result
-        return {resized:new XMLSerializer().serializeToString(document.querySelector("svg")), height, width}
-      }, padding))
+      ({resized, width, height} = await page.evaluate(
+        async (padding, js) => {
+          //Execute user JavaScript if provided
+          if (js) {
+            try {
+              console.debug(`metrics/svg/resize > executing ${js}`)
+              await new Function("document", `return (async () => {${js}})()`)(document) //eslint-disable-line no-new-func
+              console.debug("metrics/svg/resize > successfully executed user javascript")
+            }
+            catch (error) {
+              console.debug(`an error occured while evaluating user js: ${error}`)
+            }
+          }
+          //Disable animations
+          const animated = !document.querySelector("svg").classList.contains("no-animations")
+          if (animated)
+            document.querySelector("svg").classList.add("no-animations")
+          console.debug(`animations are ${animated ? "enabled" : "disabled"}`)
+          await new Promise(solve => setTimeout(solve, 2400))
+          //Get bounds and resize
+          let {y:height, width} = document.querySelector("svg #metrics-end").getBoundingClientRect()
+          console.debug(`bounds width=${width}, height=${height}`)
+          height = Math.ceil(height * padding.height + padding.absolute.height)
+          width = Math.ceil(width * padding.width + padding.absolute.width)
+          console.debug(`bounds after applying padding width=${width} (*${padding.width}+${padding.absolute.width}), height=${height} (*${padding.height}+${padding.absolute.height})`)
+          //Resize svg
+          if (document.querySelector("svg").getAttribute("height") === "auto")
+            console.debug('skipped height resizing because it was set to "auto"')
+          else
+            document.querySelector("svg").setAttribute("height", height)
+          //Enable animations
+          if (animated)
+            document.querySelector("svg").classList.remove("no-animations")
+          //Result
+          return {resized:new XMLSerializer().serializeToString(document.querySelector("svg")), height, width}
+        },
+        padding,
+        js,
+      ))
     }
     catch (error) {
       console.error(error)
@@ -394,6 +490,29 @@ export const svg = {
     await page.close()
     console.debug("metrics/svg/resize > rendering complete")
     return {resized, mime}
+  },
+  /**Hash a SVG (removing its metadata first)*/
+  async hash(rendered) {
+    //Handle empty case
+    if (!rendered)
+      return null
+    //Instantiate browser if needed
+    if (!svg.resize.browser) {
+      svg.resize.browser = await puppeteer.launch()
+      console.debug(`metrics/svg/hash > started ${await svg.resize.browser.version()}`)
+    }
+    //Compute hash
+    const page = await svg.resize.browser.newPage()
+    await page.setContent(rendered, {waitUntil:["load", "domcontentloaded", "networkidle2"]})
+    const data = await page.evaluate(async () => {
+      document.querySelector("footer")?.remove()
+      return document.querySelector("svg").outerHTML
+    })
+    const hash = crypto.createHash("md5").update(data).digest("hex")
+    //Result
+    await page.close()
+    console.debug(`metrics/svg/hash > MD5=${hash}`)
+    return hash
   },
   /**Render twemojis */
   async twemojis(rendered, {custom = true} = {}) {
@@ -420,7 +539,7 @@ export const svg = {
     try {
       for (const [emoji, url] of Object.entries((await rest.emojis.get()).data).map(([key, value]) => [`:${key}:`, value])) {
         if (((!emojis.has(emoji))) && (new RegExp(emoji, "g").test(rendered)))
-          emojis.set(emoji, `<img class="gemoji" src="${await imgb64(url)}" height="16" width="16" alt="">`)
+          emojis.set(emoji, `<img class="gemoji" src="${await imgb64(url)}" height="16" width="16" alt="" />`)
       }
     }
     catch (error) {
@@ -431,6 +550,64 @@ export const svg = {
     for (const [emoji, gemoji] of emojis)
       rendered = rendered.replace(new RegExp(emoji, "g"), gemoji)
     return rendered
+  },
+  /**Optimizers */
+  optimize:{
+    /**CSS optimizer */
+    async css(rendered) {
+      //Extract styles
+      console.debug("metrics/svg/optimize/css > optimizing")
+      const regex = /<style data-optimizable="true">(?<style>[\s\S]*?)<\/style>/
+      const cleaned = "<!-- (optimized css) -->"
+      const css = []
+      while (regex.test(rendered)) {
+        const style = htmlunescape(rendered.match(regex)?.groups?.style ?? "")
+        rendered = rendered.replace(regex, cleaned)
+        css.push({raw:style})
+      }
+      const content = [{raw:rendered, extension:"html"}]
+
+      //Purge CSS
+      const purged = await new purgecss.PurgeCSS().purge({content, css})
+      const optimized = `<style>${csso(purged.map(({css}) => css).join("\n")).css}</style>`
+      return rendered.replace(cleaned, optimized)
+    },
+    /**XML optimizer */
+    async xml(rendered, {raw = false} = {}) {
+      console.debug("metrics/svg/optimize/xml > optimizing")
+      if (raw) {
+        console.debug("metrics/svg/optimize/xml > skipped as raw option is enabled")
+        return rendered
+      }
+      return xmlformat(rendered, {lineSeparator:"\n", collapseContent:true})
+    },
+    /**SVG optimizer */
+    async svg(rendered, {raw = false} = {}, experimental = new Set()) {
+      console.debug("metrics/svg/optimize/svg > optimizing")
+      if (raw) {
+        console.debug("metrics/svg/optimize/svg > skipped as raw option is enabled")
+        return rendered
+      }
+      if (!experimental.has("--optimize")) {
+        console.debug("metrics/svg/optimize/svg > this feature require experimental feature flag --optimize-svg")
+        return rendered
+      }
+      const {error, data:optimized} = await SVGO.optimize(rendered, {
+        multipass:true,
+        plugins:SVGO.extendDefaultPlugins([
+          //Additional cleanup
+          {name:"cleanupListOfValues"},
+          {name:"removeRasterImages"},
+          {name:"removeScriptElement"},
+          //Force CSS style consistency
+          {name:"inlineStyles", active:false},
+          {name:"removeViewBox", active:false},
+        ]),
+      })
+      if (error)
+        throw new Error(`Could not optimize SVG: \n${error}`)
+      return optimized
+    },
   },
 }
 

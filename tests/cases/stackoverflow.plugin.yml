@@ -1,0 +1,10 @@
+- name: 🗨️ StackOverflow plugin - Top answers from stackoverflow
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    plugin_stackoverflow: 'yes'
+    plugin_stackoverflow_user: 1
+    plugin_stackoverflow_sections: answers-top
+    plugin_stackoverflow_limit: 2
+    use_mocked_data: 'yes'
+    verify: 'yes'

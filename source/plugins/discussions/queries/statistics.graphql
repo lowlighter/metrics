@@ -1,0 +1,13 @@
+query DiscussionsStatistics {
+  user(login: "$login") {
+    started: repositoryDiscussions {
+      totalCount
+    }
+    comments: repositoryDiscussionComments {
+      totalCount
+    }
+    answers: repositoryDiscussionComments(onlyAnswers: true) {
+      totalCount
+    }
+  }
+}

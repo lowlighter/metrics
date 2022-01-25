@@ -1,0 +1,33 @@
+name: "💕 GitHub Sponsors"
+category: github
+description: This plugin displays sponsors and introduction text from [GitHub sponsors](https://github.com/sponsors/).
+examples:
+  +GitHub sponsors card: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.sponsors.svg
+  GitHub sponsors full introduction: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.sponsors.full.svg
+index: 23
+supports:
+  - user
+  - organization
+  - repository
+scopes:
+  - read:user
+  - read:org
+inputs:
+
+  plugin_sponsors:
+    description: Enable sponsors plugin
+    type: boolean
+    default: no
+
+  plugin_sponsors_sections:
+    description: |
+      Displayed sections
+      - `goal`: display GitHub active goal
+      - `about`: display GitHub sponsors introduction
+    type: array
+    format: comma-separated
+    default: goal, about
+    example: goal, about
+    values:
+      - goal
+      - about

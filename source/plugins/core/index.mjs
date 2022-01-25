@@ -6,11 +6,23 @@
 //Setup
 export default async function({login, q}, {conf, data, rest, graphql, plugins, queries, account, convert, template}, {pending, imports}) {
   //Load inputs
-  const {"config.animations":animations, "config.display":display, "config.timezone":_timezone, "debug.flags":dflags} = imports.metadata.plugins.core.inputs({data, account, q})
+  const {"config.animations":animations, "config.display":display, "config.timezone":_timezone, "config.base64":_base64, "debug.flags":dflags} = imports.metadata.plugins.core.inputs({data, account, q})
   imports.metadata.templates[template].check({q, account, format:convert})
 
+  //Base64 images
+  if (!_base64) {
+    console.debug(`metrics/compute/${login} > base64 for images has been disabled`)
+    imports.imgb64 = url => url
+  }
+
   //Init
-  const computed = {commits:0, sponsorships:0, licenses:{favorite:"", used:{}}, token:{}, repositories:{watchers:0, stargazers:0, issues_open:0, issues_closed:0, pr_open:0, pr_closed:0, pr_merged:0, forks:0, forked:0, releases:0}}
+  const computed = {
+    commits:0,
+    sponsorships:0,
+    licenses:{favorite:"", used:{}, about:{}},
+    token:{},
+    repositories:{watchers:0, stargazers:0, issues_open:0, issues_closed:0, pr_open:0, pr_closed:0, pr_merged:0, forks:0, forked:0, releases:0, deployments:0, environments:0},
+  }
   const avatar = imports.imgb64(data.user.avatarUrl)
   data.computed = computed
   console.debug(`metrics/compute/${login} > formatting common metrics`)
@@ -32,6 +44,7 @@ export default async function({login, q}, {conf, data, rest, graphql, plugins, q
   else if (process?.env?.TZ)
     data.config.timezone = {name:process.env.TZ, offset}
 
+
   //Display
   data.large = display === "large"
   data.columns = display === "columns"
@@ -47,7 +60,7 @@ export default async function({login, q}, {conf, data, rest, graphql, plugins, q
     pending.push((async () => {
       try {
         console.debug(`metrics/compute/${login}/plugins > ${name} > started`)
-        data.plugins[name] = await imports.plugins[name]({login, q, imports, data, computed, rest, graphql, queries, account}, plugins[name])
+        data.plugins[name] = await imports.plugins[name]({login, q, imports, data, computed, rest, graphql, queries, account}, {extras:conf.settings?.extras?.features ?? conf.settings?.extras?.default ?? false, ...plugins[name]})
         console.debug(`metrics/compute/${login}/plugins > ${name} > completed`)
       }
       catch (error) {
@@ -65,15 +78,17 @@ export default async function({login, q}, {conf, data, rest, graphql, plugins, q
   //Iterate through user's repositories
   for (const repository of data.user.repositories.nodes) {
     //Simple properties with totalCount
-    for (const property of ["watchers", "stargazers", "issues_open", "issues_closed", "pr_open", "pr_closed", "pr_merged", "releases"])
-      computed.repositories[property] += repository[property].totalCount
+    for (const property of ["watchers", "stargazers", "issues_open", "issues_closed", "pr_open", "pr_closed", "pr_merged", "releases", "deployments", "environments"])
+      computed.repositories[property] += repository[property]?.totalCount ?? 0
     //Forks
     computed.repositories.forks += repository.forkCount
     if (repository.isFork)
       computed.repositories.forked++
     //License
-    if (repository.licenseInfo)
+    if (repository.licenseInfo) {
       computed.licenses.used[repository.licenseInfo.spdxId] = (computed.licenses.used[repository.licenseInfo.spdxId] ?? 0) + 1
+      computed.licenses.about[repository.licenseInfo.spdxId] = repository.licenseInfo
+    }
   }
 
   //Total disk usage
@@ -86,15 +101,19 @@ export default async function({login, q}, {conf, data, rest, graphql, plugins, q
   computed.commits += data.user.contributionsCollection.totalCommitContributions + data.user.contributionsCollection.restrictedContributionsCount
 
   //Compute registration date
-  const diff = (Date.now() - (new Date(data.user.createdAt)).getTime()) / (365 * 24 * 60 * 60 * 1000)
-  const years = Math.floor(diff)
-  const months = Math.floor((diff - years) * 12)
-  computed.registered = {years, months, diff}
-  computed.registration = years ? `${years} year${imports.s(years)} ago` : months ? `${months} month${imports.s(months)} ago` : `${Math.ceil(diff * 365)} day${imports.s(Math.ceil(diff * 365))} ago`
-  computed.cakeday = years > 1 ? [new Date(), new Date(data.user.createdAt)].map(date => date.toISOString().match(/(?<mmdd>\d{2}-\d{2})(?=T)/)?.groups?.mmdd).every((v, _, a) => v === a[0]) : false
+  const now = Date.now()
+  const created = new Date(data.user.createdAt)
+  const diff = new Date(now - created)
+  const years = diff.getUTCFullYear() - new Date(0).getUTCFullYear()
+  const months = diff.getUTCMonth() - new Date(0).getUTCMonth()
+  const days = diff.getUTCDate() - new Date(0).getUTCDate()
+
+  computed.registered = {years:years + days / 365.25, months}
+  computed.registration = years ? `${years} year${imports.s(years)} ago` : months ? `${months} month${imports.s(months)} ago` : `${days} day${imports.s(days)} ago`
+  computed.cakeday = (years >= 1 && months === 0 && days === 0) ? true : false
 
   //Compute calendar
-  computed.calendar = data.user.calendar.contributionCalendar.weeks.flatMap(({contributionDays}) => contributionDays).slice(0, 14).reverse()
+  computed.calendar = data.user.calendar.contributionCalendar.weeks.flatMap(({contributionDays}) => contributionDays).slice(-14)
 
   //Avatar (base64)
   computed.avatar = await avatar || "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
@@ -112,7 +131,7 @@ export default async function({login, q}, {conf, data, rest, graphql, plugins, q
   data.meta = {
     version:conf.package.version,
     author:conf.package.author,
-    generated:imports.format.date(new Date(), {dateStyle:"short", timeStyle:"short"})
+    generated:imports.format.date(new Date(), {date:true, time:true}),
   }
 
   //Debug flags

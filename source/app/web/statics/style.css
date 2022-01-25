@@ -126,8 +126,23 @@
     border-top: 1px solid var(--color-border-primary);
   }
 
+  .configuration.plugins label {
+    display: flex;
+    align-items: flex-start;
+  }
+
   .configuration .not-available {
     color: var(--color-text-secondary);
+  }
+
+  .configuration details {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .configuration summary {
+    font-weight: bold;
+    text-transform: capitalize;
   }
 
   .option {

@@ -1,38 +1,146 @@
-### ⏰ WakaTime plugin
-
-The *wakatime* plugin displays statistics from your [WakaTime](https://wakatime.com) account.
-
+<!--header-->
 <table>
-  <td align="center">
-    <img src="https://github.com/lowlighter/lowlighter/blob/master/metrics.plugin.wakatime.svg">
-    <img width="900" height="1" alt="">
-  </td>
+  <tr><th colspan="2"><h3>⏰ WakaTime plugin</h3></th></tr>
+  <tr><td colspan="2" align="center"><p>This plugin displays statistics from your <a href="https://wakatime.com">WakaTime</a> account.</p>
+</td></tr>
+  <tr>
+    <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
+    <td><a href="/source/templates/classic/README.md"><code>📗 Classic template</code></a></td>
+  </tr>
+  <tr>
+    <td><code>👤 Users</code></td>
+  </tr>
+  <tr>
+    <td><code>🗝️ plugin_wakatime_token</code></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
+      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.wakatime.svg" alt=""></img>
+      <img width="900" height="1" alt="">
+    </td>
+  </tr>
 </table>
+<!--/header-->
 
-<details>
-<summary>💬 Obtaining a WakaTime token</summary>
+## ➡️ Available options
 
-Create a [WakaTime account](https://wakatime.com) and retrieve your API key in your [Account settings](https://wakatime.com/settings/account).
+<!--options-->
+<table>
+  <tr>
+    <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_wakatime</code></td>
+    <td rowspan="2"><p>Enable wakatime plugin</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_wakatime_token</code></td>
+    <td rowspan="2"><p>WakaTime API token</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">🔐 Token<br>
+<b>type:</b> <code>token</code>
+<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_wakatime_days</code></td>
+    <td rowspan="2"><p>Time range</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br>
+<b>default:</b> 7<br>
+<b>allowed values:</b><ul><li>7</li><li>30</li><li>180</li><li>365</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_wakatime_sections</code></td>
+    <td rowspan="2"><p>Displayed sections</p>
+<ul>
+<li><code>time</code>: show total coding time and daily average</li>
+<li><code>projects</code>: show most time spent project</li>
+<li><code>projects-graphs</code>: show most time spent projects graphs</li>
+<li><code>languages</code>: show most language</li>
+<li><code>languages-graphs</code>: show languages graphs</li>
+<li><code>editors</code>: show most used code editor</li>
+<li><code>editors-graphs</code>: show code editors graphs</li>
+<li><code>os</code>: show most used operating system</li>
+<li><code>os-graphs</code>: show code operating systems graphs</li>
+</ul>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>array</code>
+<br>
+<b>default:</b> time, projects, projects-graphs, languages, languages-graphs, editors, os<br>
+<b>allowed values:</b><ul><li>time</li><li>projects</li><li>projects-graphs</li><li>languages</li><li>languages-graphs</li><li>editors</li><li>editors-graphs</li><li>os</li><li>os-graphs</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_wakatime_limit</code></td>
+    <td rowspan="2"><p>Display limit (per graph)</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<i>(0 ≤
+𝑥)</i>
+<br>
+<b>zero behaviour:</b> disable</br>
+<b>default:</b> 5<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_wakatime_url</code></td>
+    <td rowspan="2"><p>WakaTime url</p>
+<p>Also compatible with self-hosted instance (<a href="https://github.com/muety/wakapi">wakapi</a>)</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br>
+<b>default:</b> https://wakatime.com<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_wakatime_user</code></td>
+    <td rowspan="2"><p>WakaTime username</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">⏯️ Cannot be preset<br>
+<b>type:</b> <code>string</code>
+<br>
+<b>default:</b> current<br></td>
+  </tr>
+</table>
+<!--/options-->
+
+## 🗝️ Obtaining a WakaTime token
+
+Create a [WakaTime account](https://wakatime.com) and retrieve API key in [Account settings](https://wakatime.com/settings/account).
 
 ![WakaTime API token](/.github/readme/imgs/plugin_wakatime_token.png)
 
 Then setup [WakaTime plugins](https://wakatime.com/plugins) to be ready to go!
 
-</details>
+## ℹ️ Examples workflows
 
-#### ℹ️ Examples workflows
-
-[➡️ Available options for this plugin](metadata.yml)
-
+<!--examples-->
 ```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    # ... other options
-    plugin_wakatime: yes
-    plugin_wakatime_token: ${{ secrets.WAKATIME_TOKEN }}      # Required
-    plugin_wakatime_days: 7                                   # Display last week stats
-    plugin_wakatime_sections: time, projects, projects-graphs # Display time and projects sections, along with projects graphs
-    plugin_wakatime_limit: 4                                  # Show 4 entries per graph
-    plugin_wakatime_url: https://wakatime.com                 # Wakatime url endpoint
-    plugin_wakatime_user: .user.login                         # User
+name: WakaTime
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.wakatime.svg
+  token: NOT_NEEDED
+  base: ""
+  plugin_wakatime: yes
+  plugin_wakatime_sections: time, projects, projects-graphs, languages, languages-graphs, editors, os
+  plugin_wakatime_token: ${{ secrets.WAKATIME_TOKEN }}
+
 ```
+<!--/examples-->

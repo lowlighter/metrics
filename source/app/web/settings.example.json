@@ -27,7 +27,10 @@
   },
   "extras": {
     "default": false,              "//": "Default extras state (advised to let 'false' unless in debug mode)",
-    "css": false,                  "//": "Allow use of 'extras.css' option"
+    "presets": false,              "//": "Allow use of 'config.presets' option",
+    "css": false,                  "//": "Allow use of 'extras.css' option",
+    "js": false,                   "//": "Allow use of 'extras.js' option",
+    "features": false,             "//": "Enable extra features (advised to let 'false' on web instances)"
   },
   "plugins.default": false,        "//": "Default plugin state (advised to let 'false' unless in debug mode)",
   "plugins": {                     "//": "Global plugin configuration",

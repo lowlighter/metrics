@@ -5,8 +5,7 @@ inputs:
 <% for (const [plugin, {name, action}] of Object.entries(plugins)) { %>
   # ====================================================================================
   # <%- name %>
-  <% for (const [input, {comment, descriptor}] of Object.entries(action)) { %>
-  <%- comment.split("\n").map((line, i) => `${i ? "  " : ""}${line}`).join("\n").trim() %>
+  <% for (const [input, {descriptor}] of Object.entries(action)) { %>
   <%- descriptor.split("\n").map((line, i) => `${i ? "  " : ""}${line}`).join("\n") -%>
 <% }} %>
 
@@ -14,7 +13,7 @@ inputs:
 # Action metadata
 name: Metrics embed
 author: lowlighter
-description: An infographics generator with 30+ plugins and 100+ options to display stats about your GitHub account!
+description: An infographics generator with 30+ plugins and 200+ options to display stats about your GitHub account!
 branding:
   icon: user-check
   color: gray-dark
@@ -28,6 +27,7 @@ runs:
     - run: |
         # Create environment file from inputs and GitHub variables
         echo "::group::Metrics docker image setup"
+        echo "GitHub action: $METRICS_ACTION ($METRICS_ACTION_PATH)"
         cd $METRICS_ACTION_PATH
         touch .env
         for INPUT in $(echo $INPUTS | jq -r 'to_entries|map("INPUT_\(.key|ascii_upcase)=\(.value|@uri)")|.[]'); do
@@ -42,7 +42,7 @@ runs:
         echo "Renders output folder: $METRICS_RENDERS"
 
         # Source repository (picked from action name)
-        METRICS_SOURCE=$(echo $METRICS_ACTION | sed -E 's/metrics.*?$//g')
+        METRICS_SOURCE=$(echo $METRICS_ACTION | sed -E 's/metrics.*?$//g' | sed -E 's/_//g')
         echo "Source: $METRICS_SOURCE"
 
         # Version (picked from package.json)
@@ -69,7 +69,10 @@ runs:
             fi
             METRICS_IMAGE=ghcr.io/lowlighter/metrics:$METRICS_TAG
             echo "Using pre-built version $METRICS_TAG, will pull docker image from GitHub registry"
-            docker image pull $METRICS_IMAGE
+            if ! docker image pull $METRICS_IMAGE; then
+              echo "Failed to fetch docker image from GitHub registry, will rebuild it locally"
+              METRICS_IMAGE=metrics:$METRICS_VERSION
+            fi
           # Rebuild image
           else
             echo "Using an unreleased version ($METRICS_VERSION)"

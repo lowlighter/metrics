@@ -1,8 +1,8 @@
 //Imports
-import { indepth as indepth_analyzer, recent as recent_analyzer } from "./analyzers.mjs"
+import {indepth as indepth_analyzer, recent as recent_analyzer} from "./analyzers.mjs"
 
 //Setup
-export default async function({login, data, imports, q, rest, account}, {enabled = false} = {}) {
+export default async function({login, data, imports, q, rest, account}, {enabled = false, extras = false} = {}) {
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
@@ -17,12 +17,17 @@ export default async function({login, data, imports, q, rest, account}, {enabled
     }
 
     //Load inputs
-    let {ignored, skipped, colors, aliases, details, threshold, limit, indepth, sections, "recent.load":_recent_load, "recent.days":_recent_days} = imports.metadata.plugins.languages.inputs({data, account, q})
+    let {ignored, skipped, colors, aliases, details, threshold, limit, indepth, "analysis.timeout":timeout, sections, categories, "recent.categories":_recent_categories, "recent.load":_recent_load, "recent.days":_recent_days} = imports.metadata.plugins.languages.inputs({
+      data,
+      account,
+      q,
+    })
     threshold = (Number(threshold.replace(/%$/, "")) || 0) / 100
     skipped.push(...data.shared["repositories.skipped"])
     if (!limit)
       limit = Infinity
-    console.log(aliases, aliases.split(",").filter(alias => /^[\s\S]+:[\s\S]+$/.test(alias)).map(alias => alias.trim().split(":")))
+    if (!indepth)
+      details = details.filter(detail => !["lines"].includes(detail))
     aliases = Object.fromEntries(aliases.split(",").filter(alias => /^[\s\S]+:[\s\S]+$/.test(alias)).map(alias => alias.trim().split(":")).map(([key, value]) => [key.toLocaleLowerCase(), value]))
 
     //Custom colors
@@ -39,6 +44,7 @@ export default async function({login, data, imports, q, rest, account}, {enabled
     //Iterate through user's repositories and retrieve languages data
     console.debug(`metrics/compute/${login}/plugins > languages > processing ${data.user.repositories.nodes.length} repositories`)
     const languages = {unique, sections, details, indepth, colors:{}, total:0, stats:{}, "stats.recent":{}}
+    const customColors = {}
     for (const repository of data.user.repositories.nodes) {
       //Skip repository if asked
       if ((skipped.includes(repository.name.toLocaleLowerCase())) || (skipped.includes(`${repository.owner.login}/${repository.name}`.toLocaleLowerCase()))) {
@@ -48,45 +54,75 @@ export default async function({login, data, imports, q, rest, account}, {enabled
       //Process repository languages
       for (const {size, node:{color, name}} of Object.values(repository.languages.edges)) {
         languages.stats[name] = (languages.stats[name] ?? 0) + size
-        languages.colors[name] = colors[name.toLocaleLowerCase()] ?? color ?? "#ededed"
+        if (colors[name.toLocaleLowerCase()])
+          customColors[name] = colors[name.toLocaleLowerCase()]
+        if (!languages.colors[name])
+          languages.colors[name] = color
         languages.total += size
       }
     }
 
-    //Recently used languages
-    if ((sections.includes("recently-used"))&&(context.mode === "user")) {
-      console.debug(`metrics/compute/${login}/plugins > languages > using recent analyzer`)
-      languages["stats.recent"] = await recent_analyzer({login, data, imports, rest, account}, {skipped, days:_recent_days, load:_recent_load})
+    //Extras features
+    if (extras) {
+      //Recently used languages
+      if ((sections.includes("recently-used")) && (context.mode === "user")) {
+        try {
+          console.debug(`metrics/compute/${login}/plugins > languages > using recent analyzer`)
+          languages["stats.recent"] = await recent_analyzer({login, data, imports, rest, account}, {skipped, categories:_recent_categories ?? categories, days:_recent_days, load:_recent_load, timeout})
+          Object.assign(languages.colors, languages["stats.recent"].colors)
+        }
+        catch (error) {
+          console.debug(`metrics/compute/${login}/plugins > languages > ${error}`)
+        }
+      }
+
+      //Indepth mode
+      if (indepth) {
+        try {
+          console.debug(`metrics/compute/${login}/plugins > languages > switching to indepth mode (this may take some time)`)
+          const existingColors = languages.colors
+          Object.assign(languages, await indepth_analyzer({login, data, imports, repositories}, {skipped, categories, timeout}))
+          Object.assign(languages.colors, existingColors)
+          console.debug(`metrics/compute/${login}/plugins > languages > indepth analysis missed ${languages.missed} commits`)
+        }
+        catch (error) {
+          console.debug(`metrics/compute/${login}/plugins > languages > ${error}`)
+        }
+      }
     }
 
-    //Indepth mode
-    if (indepth) {
-      console.debug(`metrics/compute/${login}/plugins > languages > switching to indepth mode (this may take some time)`)
-      Object.assign(languages, await indepth_analyzer({login, data, imports, repositories}, {skipped}))
-      console.log(`metrics/compute/${login}/plugins > languages > indepth analysis missed ${languages.missed} commits`)
+    //Apply aliases and group languages when needed
+    for (const stats of [languages.stats, languages.lines, languages["stats.recent"].stats, languages["stats.recent"].lines]) {
+      if (!stats)
+        continue
+      for (const [language, value] of Object.entries(stats)) {
+        if (language.toLocaleLowerCase() in aliases) {
+          delete stats[language]
+          const alias = aliases[language.toLocaleLowerCase()]
+          stats[alias] = (stats[alias] ?? 0) + value
+          console.debug(`metrics/compute/${login}/plugins > languages > ${language} -> ${alias}: ${stats[alias]} (+${value})`)
+        }
+      }
     }
 
     //Compute languages stats
     for (const {section, stats = {}, lines = {}, total = 0} of [{section:"favorites", stats:languages.stats, lines:languages.lines, total:languages.total}, {section:"recent", ...languages["stats.recent"]}]) {
       console.debug(`metrics/compute/${login}/plugins > languages > computing stats ${section}`)
-      languages[section] = Object.entries(stats).filter(([name]) => !ignored.includes(name.toLocaleLowerCase())).sort(([_an, a], [_bn, b]) => b - a).slice(0, limit).map(([name, value]) => ({name, value, size:value, color:languages.colors[name], x:0})).filter(({value}) => value / total > threshold)
+      languages[section] = Object.entries(stats).filter(([name]) => !ignored.includes(name.toLocaleLowerCase())).sort(([_an, a], [_bn, b]) => b - a).slice(0, limit).map(([name, value]) => ({name, value, size:value, color:languages.colors[name], x:0})).filter(({value}) => value / total > threshold
+      )
       const visible = {total:Object.values(languages[section]).map(({size}) => size).reduce((a, b) => a + b, 0)}
       for (let i = 0; i < languages[section].length; i++) {
+        const {name} = languages[section][i]
         languages[section][i].value /= visible.total
         languages[section][i].x = (languages[section][i - 1]?.x ?? 0) + (languages[section][i - 1]?.value ?? 0)
-        languages[section][i].lines = lines[languages[section][i].name] ?? 0
-        if ((colors[i]) && (!colors[languages[section][i].name.toLocaleLowerCase()]))
+        languages[section][i].lines = lines[name] ?? 0
+        if ((colors[i]) && (!colors[name.toLocaleLowerCase()]))
           languages[section][i].color = colors[i]
+        else
+          languages[section][i].color = customColors[name] ?? languages.colors[name] ?? "#ededed"
       }
     }
 
-    //Apply aliases
-    for (const section of ["favorites", "recent"]) {
-      for (const language of languages[section]) {
-        if (language.name.toLocaleLowerCase() in aliases)
-          language.name = aliases[language.name.toLocaleLowerCase()]
-      }
-    }
     //Results
     return languages
   }

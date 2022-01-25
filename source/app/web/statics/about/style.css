@@ -121,6 +121,9 @@
     width: 100%;
     margin: 0 0 .5rem;
   }
+  .languages .language .progress {
+    border-radius: 6px;
+  }
   .languages .percent {
     font-size: .8rem;
   }
@@ -143,7 +146,7 @@
 
 /* Isocalendar */
   .isocalendar .svg {
-    margin-top: 5rem;
+    margin-top: 8rem;
   }
 
 /* Activity */
@@ -360,13 +363,10 @@
     color: #E7BD69;
   }
   .s .info {
-    color: #FF0000;
+    color: #EB355E;
   }
   .s .gauge {
-    color: #FF0000;
-  }
-  .s .icon {
-    filter: sepia() saturate(100);
+    color: #EB355E;
   }
   .secret .info {
     color: #FF76CD;

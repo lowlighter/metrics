@@ -1,0 +1,136 @@
+# THIS WORKFLOW IS AUTO-GENERATED
+name: Publish examples
+on:
+  schedule:
+    - cron: "0 8 1/2 * *"
+  workflow_dispatch:
+  workflow_call:
+    secrets:
+      METRICS_TOKEN:
+        required: true
+      METRICS_TOKEN_WITH_SCOPES:
+        required: true
+      PAGESPEED_TOKEN:
+        required: true
+      SPOTIFY_TOKENS:
+        required: true
+      STOCK_TOKEN:
+        required: true
+      TWITTER_TOKEN:
+        required: true
+      WAKATIME_TOKEN:
+        required: true
+jobs:
+
+# ======================================================================================
+# Examples renders
+# ======================================================================================
+
+  examples:
+    runs-on: ubuntu-latest
+    if: "github.repository == 'lowlighter/metrics'"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Checkout examples
+        run: git checkout examples
+
+<%- steps.split("\n").map(line => `      ${line}`).join("\n") %>
+
+      - name: Screenshot markdown example
+        if: ${{ success() || failure() }}
+        run: |
+          docker run --entrypoint="" --volume=/tmp:/tmp ghcr.io/lowlighter/metrics:master node /metrics/.github/scripts/markdown_example.mjs
+          sudo mv /tmp/metrics.markdown.png /metrics_renders/
+      - name: Publish examples
+        if: ${{ success() || failure() }}
+        run: |
+          set +e
+          rm -rf /metrics_renders/metrics.markdown*.{md,pdf}
+          sudo mv /metrics_renders/* ./
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git pull
+          git reset --soft c8d364ee752ad090945b7e104873d24d011b521e
+          git add --all
+          git commit -m "chore: update examples"
+          git push --force
+
+# ======================================================================================
+# Special job used to render lowlighter/metrics repository assets
+# ======================================================================================
+
+  repository:
+    runs-on: ubuntu-latest
+    if: "github.repository == 'lowlighter/metrics'"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Checkout examples
+        run: git checkout examples
+
+      - name: Contributors
+        if: ${{ success() || failure() }}
+        uses: lowlighter/metrics@master
+        with:
+          filename: metrics.contributors.svg
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          template: repository
+          user: lowlighter
+          repo: metrics
+          plugin_people: yes
+          plugin_people_types: contributors
+          plugins_errors_fatal: yes
+          config_display: large
+          output_action: none
+          delay: 120
+      - name: Sponsors
+        if: ${{ success() || failure() }}
+        uses: lowlighter/metrics@master
+        with:
+          filename: metrics.sponsors.svg
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          user: lowlighter
+          plugin_people: yes
+          plugin_people_types: sponsors
+          plugin_people_sponsors_custom: yutkat, ktnkk, iamsainikhil, tfSheol
+          plugin_people_size: 48
+          plugins_errors_fatal: ${{ github.repository == 'lowlighter/lowlighter' }}
+          config_display: large
+          output_action: none
+          delay: 120
+      - name: Licenses
+        if: ${{ success() || failure() }}
+        uses: lowlighter/metrics@master
+        with:
+          filename: metrics.licenses.svg
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          template: repository
+          user: lowlighter
+          repo: metrics
+          plugin_licenses: yes
+          plugin_licenses_setup: npm ci
+          plugin_licenses_legal: yes
+          plugin_licenses_ratio: yes
+          plugins_errors_fatal: ${{ github.repository == 'lowlighter/lowlighter' }}
+          output_action: none
+          delay: 120
+
+      - name: Publish examples
+        if: ${{ success() || failure() }}
+        run: |
+          set +e
+          sudo mv /metrics_renders/* ./
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git pull
+          git add --all
+          git commit -m "chore: update examples"
+          git push --force
