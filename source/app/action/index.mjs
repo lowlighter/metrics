@@ -145,6 +145,9 @@ async function retry(func, {retries = 1, delay = 0} = {}) {
 
     //Token for data gathering
     info("GitHub token", token, {token:true})
+    //A GitHub token should start with "gh" along an additional letter for type
+    //See https://github.blog/2021-04-05-behind-githubs-new-authentication-token-formats
+    info("GitHub token format", /^gh[pousr]_/.test(token) ? "correct" : "(old or invalid)")
     if (!token)
       throw new Error("You must provide a valid GitHub personal token to gather your metrics (see https://github.com/lowlighter/metrics/blob/master/.github/readme/partials/setup/action/setup.md for more informations)")
     conf.settings.token = token

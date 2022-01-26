@@ -253,13 +253,11 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
           if ((key in preset)&&(unspecified)) {
             console.debug(`metrics/inputs > ${key} has been set by preset value`)
             q[key] = preset[key]
-            continue
           }
           //From defaults
           else if (unspecified) {
             console.debug(`metrics/inputs > ${key} has been set by default value`)
             q[key] = metadata.inputs[key]?.default
-            continue
           }
           //From user
           else {
