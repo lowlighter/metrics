@@ -62,29 +62,30 @@ export default async function({login, graphql, data, imports, q, queries, accoun
     if (_charts === "chartist") {
       console.debug(`metrics/compute/${login}/plugins > stargazers > generating charts`)
       charts = await Promise.all([{data:total, low:total.min, high:total.max}, {data:increments, ref:0, low:increments.min, high:increments.max, sign:true}].map(({data:{dates:set}, high, low, ref, sign = false}) => imports.chartist("line", {
-        width:480 * (1 + data.large),
-        height:160,
-        showPoint:true,
-        axisX:{showGrid:false},
-        axisY:{showLabel:false, offset: 20, labelInterpolationFnc:value => imports.format(value, {sign}), high, low, referenceValue: ref},
-        showArea:true,
-        fullWidth: true,
-      }, {
-        labels:Object.keys(set).map((date, i, a) => {
-          const day = date.substring(date.length-2)
-          if ((i === 0)||((a[i+1])&&(date.substring(0, 7) !== a[i+1].substring(0, 7))))
-            return `${day} ${months[Number(date.substring(5, 7))]}`
-          return day
-        }),
-        series:[Object.values(set)],
-      })))
-      data.postscripts.push(`(${function (format) {
+          width:480 * (1 + data.large),
+          height:160,
+          showPoint:true,
+          axisX:{showGrid:false},
+          axisY:{showLabel:false, offset:20, labelInterpolationFnc:value => imports.format(value, {sign}), high, low, referenceValue:ref},
+          showArea:true,
+          fullWidth:true,
+        }, {
+          labels:Object.keys(set).map((date, i, a) => {
+            const day = date.substring(date.length - 2)
+            if ((i === 0) || ((a[i + 1]) && (date.substring(0, 7) !== a[i + 1].substring(0, 7))))
+              return `${day} ${months[Number(date.substring(5, 7))]}`
+            return day
+          }),
+          series:[Object.values(set)],
+        })
+      ))
+      data.postscripts.push(`(${function(format) {
         document.querySelectorAll(".stargazers .chartist").forEach((chart, sign) => {
           chart.querySelectorAll(".stargazers .chartist .ct-point").forEach(node => {
             const [x, y, value] = ["x1", "y1", "ct:value"].map(attribute => node.getAttribute(attribute))
             const text = document.createElementNS("http://www.w3.org/2000/svg", "text")
             text.setAttributeNS(null, "x", x)
-            text.setAttributeNS(null, "y", y-5)
+            text.setAttributeNS(null, "y", y - 5)
             text.setAttributeNS(null, "class", "ct-post")
             text.appendChild(document.createTextNode(format(value, {sign})))
             node.parentNode.append(text)
