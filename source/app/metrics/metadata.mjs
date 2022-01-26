@@ -238,8 +238,17 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
         //Build query object from inputs
         const q = {}
         for (const key of Object.keys(inputs)) {
-          const unspecified = process.env[`INPUT_${key.replace(/ /g, "_").toUpperCase()}`] === "<default-value>"
-          let value
+          //Parse input
+          let value = `${core.getInput(key)}`.trim()
+          try {
+            value = decodeURIComponent(value)
+          }
+          catch {
+            console.debug(`metrics/inputs > failed to decode uri for ${key}`)
+            logger(`metrics/inputs > failed to decode uri for ${key}: ${value}`)
+            value = "<default-value>"
+          }
+          const unspecified = value === "<default-value>"
           //From presets
           if ((key in preset)&&(unspecified)) {
             console.debug(`metrics/inputs > ${key} has been set by preset value`)
@@ -249,19 +258,12 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
           //From defaults
           else if (unspecified) {
             console.debug(`metrics/inputs > ${key} has been set by default value`)
-            value = metadata.inputs[key]?.default
+            q[key] = metadata.inputs[key]?.default
+            continue
           }
           //From user
           else {
             console.debug(`metrics/inputs > ${key} has been set by user`)
-            value = `${core.getInput(key)}`.trim()
-          }
-          try {
-            q[key] = decodeURIComponent(value)
-          }
-          catch {
-            console.debug(`metrics/inputs > failed to decode uri for ${key}`)
-            logger(`metrics/inputs > failed to decode uri for ${key}: ${value}`)
             q[key] = value
           }
         }
@@ -427,7 +429,7 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
 }
 
 /**Metadata extractor for templates */
-metadata.template = async function({__templates, name, plugins, logger}) {
+metadata.template = async function({__templates, name, plugins}) {
   try {
     //Load meta descriptor
     const raw = fs.existsSync(path.join(__templates, name, "metadata.yml")) ? `${await fs.promises.readFile(path.join(__templates, name, "metadata.yml"), "utf-8")}` : ""
