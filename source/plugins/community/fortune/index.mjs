@@ -1,11 +1,12 @@
 //Setup
-export default async function({q}, {enabled = false} = {}) {
+export default async function({q, data, imports, account}, {enabled = false} = {}) {
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
     if ((!enabled)||(!q.fortune))
       return null
 
+    //Load inputs
     imports.metadata.plugins.fortune.inputs({data, account, q})
 
     //Fortunes list
@@ -28,14 +29,14 @@ export default async function({q}, {enabled = false} = {}) {
     //Result
     let [fortune] = fortunes
     const x = Math.random()
-    for (let i = 0, dx = 0; i < fortunes.length; i++) {
-      if (x <= dx) {
+    for (let i = 0, r = 0; i < fortunes.length; i++) {
+      if (x <= r) {
         fortune = fortunes[i]
         break
       }
-      dx += fortunes[i].chance
+      r += fortunes[i].chance
     }
-    return {fortune}
+    return {...fortune}
   }
   //Handle errors
   catch (error) {
