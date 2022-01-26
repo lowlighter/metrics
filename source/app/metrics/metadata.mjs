@@ -104,7 +104,7 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
       meta.inputs = function({data:{user = null} = {}, q, account}, defaults = {}) {
         //Support check
         if (!account)
-          logger(`metrics/inputs > account type not set for plugin ${name}!`)
+          console.debug(`metrics/inputs > account type not set for plugin ${name}!`)
         if (account !== "bypass") {
           const context = q.repo ? "repository" : account
           if (!meta.supports?.includes(context))
@@ -242,25 +242,26 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
           let value
           //From presets
           if ((key in preset)&&(unspecified)) {
-            logger(`metrics/inputs > ${key} has been set by preset value`)
+            console.debug(`metrics/inputs > ${key} has been set by preset value`)
             q[key] = preset[key]
             continue
           }
           //From defaults
           else if (unspecified) {
-            logger(`metrics/inputs > ${key} has been set by default value`)
+            console.debug(`metrics/inputs > ${key} has been set by default value`)
             value = metadata.inputs[key]?.default
           }
           //From user
           else {
-            logger(`metrics/inputs > ${key} has been set by user`)
+            console.debug(`metrics/inputs > ${key} has been set by user`)
             value = `${core.getInput(key)}`.trim()
           }
           try {
             q[key] = decodeURIComponent(value)
           }
           catch {
-            logger(`metrics/inputs > failed to decode uri : ${value}`)
+            console.debug(`metrics/inputs > failed to decode uri for ${key}`)
+            logger(`metrics/inputs > failed to decode uri for ${key}: ${value}`)
             q[key] = value
           }
         }
@@ -420,8 +421,7 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
     return meta
   }
   catch (error) {
-    console.warn(error)
-    logger(`metrics/metadata > failed to load plugin ${name}: ${error}`)
+    console.debug(`metrics/metadata > failed to load plugin ${name}: ${error}`)
     return null
   }
 }
@@ -510,7 +510,7 @@ metadata.template = async function({__templates, name, plugins, logger}) {
     }
   }
   catch (error) {
-    logger(`metrics/metadata > failed to load template ${name}: ${error}`)
+    console.debug(`metrics/metadata > failed to load template ${name}: ${error}`)
     return null
   }
 }
