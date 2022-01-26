@@ -401,7 +401,7 @@ export const svg = {
     return {rendered, mime:"application/pdf"}
   },
   /**Render and resize svg */
-  async resize(rendered, {paddings, convert, js}) {
+  async resize(rendered, {paddings, convert, scripts = []}) {
     //Instantiate browser if needed
     if (!svg.resize.browser) {
       svg.resize.browser = await puppeteer.launch()
@@ -436,16 +436,16 @@ export const svg = {
     let height, resized, width
     try {
       ({resized, width, height} = await page.evaluate(
-        async (padding, js) => {
-          //Execute user JavaScript if provided
-          if (js) {
+        async (padding, scripts) => {
+          //Execute additional JavaScript
+          for (const script of scripts) {
             try {
-              console.debug(`metrics/svg/resize > executing ${js}`)
-              await new Function("document", `return (async () => {${js}})()`)(document) //eslint-disable-line no-new-func
+              console.debug(`metrics/svg/resize > executing ${script}`)
+              await new Function("document", `return (async () => {${script}})()`)(document) //eslint-disable-line no-new-func
               console.debug("metrics/svg/resize > successfully executed user javascript")
             }
             catch (error) {
-              console.debug(`an error occured while evaluating user js: ${error}`)
+              console.debug(`an error occured while evaluating script: ${error}`)
             }
           }
           //Disable animations
@@ -472,7 +472,7 @@ export const svg = {
           return {resized:new XMLSerializer().serializeToString(document.querySelector("svg")), height, width}
         },
         padding,
-        js,
+        scripts,
       ))
     }
     catch (error) {

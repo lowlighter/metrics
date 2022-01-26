@@ -25,7 +25,7 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
     const pending = []
     const {queries} = conf
     const extras = {css:(conf.settings.extras?.css ?? conf.settings.extras?.default) ? q["extras.css"] ?? "" : "", js:(conf.settings.extras?.js ?? conf.settings.extras?.default) ? q["extras.js"] ?? "" : ""}
-    const data = {q, animated:true, large:false, base:{}, config:{}, errors:[], plugins:{}, computed:{}, extras}
+    const data = {q, animated:true, large:false, base:{}, config:{}, errors:[], plugins:{}, computed:{}, extras, postscripts:[]}
     const imports = {
       plugins:Plugins,
       templates:Templates,
@@ -189,7 +189,7 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
       console.debug(`metrics/compute/${login} > verified SVG, no parsing errors found`)
     }
     //Resizing
-    const {resized, mime} = await imports.svg.resize(rendered, {paddings:q["config.padding"] || conf.settings.padding, convert:convert === "svg" ? null : convert, js:extras.js || null})
+    const {resized, mime} = await imports.svg.resize(rendered, {paddings:q["config.padding"] || conf.settings.padding, convert:convert === "svg" ? null : convert, scripts:[...data.postscripts, extras.js || null].filter(x => x)})
     rendered = resized
 
     //Result
