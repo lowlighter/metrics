@@ -9,6 +9,7 @@ import sgit from "simple-git"
 import mocks from "../../../tests/mocks/index.mjs"
 import metrics from "../metrics/index.mjs"
 import setup from "../metrics/setup.mjs"
+import presets from "../metrics/presets.mjs"
 process.on("unhandledRejection", error => {
   throw error
 })
@@ -16,6 +17,9 @@ process.on("unhandledRejection", error => {
 //Debug message buffer
 let DEBUG = true
 const debugged = []
+
+//Preset
+const preset = {}
 
 //Info logger
 const info = (left, right, {token = false} = {}) => console.log(`${`${left}`.padEnd(63 + 9 * (/0m$/.test(left)))} │ ${
@@ -33,7 +37,7 @@ info.section = (left = "", right = " ") => info(`\x1b[36m${left}\x1b[0m`, right)
 info.group = ({metadata, name, inputs}) => {
   info.section(metadata.plugins[name]?.name?.match(/(?<section>[\w\s]+)/i)?.groups?.section?.trim(), " ")
   for (const [input, value] of Object.entries(inputs))
-    info(metadata.plugins[name]?.inputs[input]?.description?.split("\n")[0] ?? metadata.plugins[name]?.inputs[input]?.description ?? input, value, {token:metadata.plugins[name]?.inputs[input]?.type === "token"})
+    info(metadata.plugins[name]?.inputs[input]?.description?.split("\n")[0] ?? metadata.plugins[name]?.inputs[input]?.description ?? input, `${input in preset ? "*" : ""}${value}`, {token:metadata.plugins[name]?.inputs[input]?.type === "token"})
 }
 info.break = () => console.log("─".repeat(88))
 
@@ -91,6 +95,7 @@ async function retry(func, {retries = 1, delay = 0} = {}) {
     info("Version", conf.package.version)
 
     //Core inputs
+    Object.assign(preset, await presets(core.getInput("config_presets"), {log:true, core}))
     const {
       user:_user,
       repo:_repo,
@@ -120,7 +125,7 @@ async function retry(func, {retries = 1, delay = 0} = {}) {
       "output.condition":_output_condition,
       delay,
       ...config
-    } = metadata.plugins.core.inputs.action({core})
+    } = metadata.plugins.core.inputs.action({core, preset})
     const q = {...query, ...(_repo ? {repo:_repo} : null), template}
     const _output = ["svg", "jpeg", "png", "json", "markdown", "markdown-pdf", "insights"].includes(config["config.output"]) ? config["config.output"] : metadata.templates[template].formats[0] ?? null
     const filename = _filename.replace(/[*]/g, {jpeg:"jpg", markdown:"md", "markdown-pdf":"pdf", insights:"html"}[_output] ?? _output)
@@ -293,7 +298,7 @@ async function retry(func, {retries = 1, delay = 0} = {}) {
 
     //Base content
     info.break()
-    const {base:parts, repositories:_repositories, ...base} = metadata.plugins.base.inputs.action({core})
+    const {base:parts, repositories:_repositories, ...base} = metadata.plugins.base.inputs.action({core, preset})
     conf.settings.repositories = _repositories
     info.group({metadata, name:"base", inputs:{repositories:conf.settings.repositories, ...base}})
     info("Base sections", parts)
@@ -306,7 +311,7 @@ async function retry(func, {retries = 1, delay = 0} = {}) {
     const plugins = {}
     for (const name of Object.keys(Plugins).filter(key => !["base", "core"].includes(key))) {
       //Parse inputs
-      const {[name]:enabled, ...inputs} = metadata.plugins[name].inputs.action({core})
+      const {[name]:enabled, ...inputs} = metadata.plugins[name].inputs.action({core, preset})
       plugins[name] = {enabled}
       //Register user inputs
       if (enabled) {
