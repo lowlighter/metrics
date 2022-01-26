@@ -1,0 +1,22 @@
+<% if (plugins.fortune) { %>
+  <section>
+    <h2 class="field">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z"></path></svg>
+      Fortune
+    </h2>
+    <div class="row">
+      <section class="largeable-column-fields">
+        <% if (plugins.fortune.error) { %>
+          <div class="field error">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M2.343 13.657A8 8 0 1113.657 2.343 8 8 0 012.343 13.657zM6.03 4.97a.75.75 0 00-1.06 1.06L6.94 8 4.97 9.97a.75.75 0 101.06 1.06L8 9.06l1.97 1.97a.75.75 0 101.06-1.06L9.06 8l1.97-1.97a.75.75 0 10-1.06-1.06L8 6.94 6.03 4.97z"></path></svg>
+            <%= plugins.fortune.error.message %>
+          </div>
+        <% } else { %>
+          <div class="field" style="padding-left: 31px">
+            <b style="color: <%= plugins.fortune.color %>">Your fortune: <%= plugins.fortune.text %></b>
+          </div>
+        <% } %>
+      </section>
+    </div>
+  </section>
+<% } %>
