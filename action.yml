@@ -55,7 +55,7 @@ inputs:
   
   committer_token:
     description: GitHub Token used to commit metrics
-    default: <default-value>
+    default: ${{ github.token }}
   
   committer_branch:
     description: Target branch
@@ -485,7 +485,7 @@ inputs:
   
   plugin_stargazers_charts_type:
     description: Charts display type
-    default: null
+    default: <default-value>
   
   # ====================================================================================
   # 🗂️ Active projects
@@ -989,7 +989,7 @@ inputs:
   
   plugin_fortune:
     description: Enable fortune plugin
-    default: no
+    default: <default-value>
   
   # ====================================================================================
   # 💉 Nightscout
