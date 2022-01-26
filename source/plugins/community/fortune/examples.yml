@@ -5,5 +5,3 @@
     token: NOT_NEEDED
     base: ""
     plugin_fortune: yes
-  prod:
-    skip: true
