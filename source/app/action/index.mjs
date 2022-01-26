@@ -8,8 +8,8 @@ import paths from "path"
 import sgit from "simple-git"
 import mocks from "../../../tests/mocks/index.mjs"
 import metrics from "../metrics/index.mjs"
-import setup from "../metrics/setup.mjs"
 import presets from "../metrics/presets.mjs"
+import setup from "../metrics/setup.mjs"
 process.on("unhandledRejection", error => {
   throw error
 })

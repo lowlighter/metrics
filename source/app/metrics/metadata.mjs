@@ -228,7 +228,12 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
           key,
           {
             comment:comments[key] ?? `# ${value.description}`,
-            descriptor:yaml.dump({[key]:Object.fromEntries(Object.entries(value).filter(([key]) => ["description", "default", "required"].includes(key)).map(([k, v]) => k === "description" ? [k, v.split("\n")[0]] : k === "default" ? [k, /^\$\{\{[\s\S]+\}\}$/.test(v) ? v : "<default-value>"] : [k, v]))}, {quotingType:'"', noCompatMode:true}),
+            descriptor:yaml.dump({
+              [key]:Object.fromEntries(
+                Object.entries(value).filter(([key]) => ["description", "default", "required"].includes(key)).map(([k, v]) => k === "description" ? [k, v.split("\n")[0]] : k === "default" ? [k, /^\$\{\{[\s\S]+\}\}$/.test(v) ? v : "<default-value>"] : [k, v]
+                ),
+              ),
+            }, {quotingType:'"', noCompatMode:true}),
           },
         ]),
       )
@@ -250,7 +255,7 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
           }
           const unspecified = value === "<default-value>"
           //From presets
-          if ((key in preset)&&(unspecified)) {
+          if ((key in preset) && (unspecified)) {
             console.debug(`metrics/inputs > ${key} has been set by preset value`)
             q[key] = preset[key]
           }
