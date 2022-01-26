@@ -1,0 +1,16 @@
+name: "🥠 Fortune"
+category: community
+description: This plugins displays a random fortune message
+examples:
+  default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.fortune.svg
+authors:
+  - lowlighter
+supports:
+  - user
+scopes: []
+inputs:
+
+  plugin_fortune:
+    description: Enable fortune plugin
+    type: boolean
+    default: no
