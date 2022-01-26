@@ -227,10 +227,10 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
         Object.entries(inputs).map(([key, value]) => [
           key,
           {
-            comment:comments[key] ?? `# ${value.description}`,
+            comment:"",
             descriptor:yaml.dump({
               [key]:Object.fromEntries(
-                Object.entries(value).filter(([key]) => ["description", "default", "required"].includes(key)).map(([k, v]) => k === "description" ? [k, v.split("\n")[0]] : k === "default" ? [k, (/^\$\{\{[\s\S]+\}\}$/.test(v)) || (["config_preset", "config_timezone", "use_prebuilt_image"].includes(k)) ? v : "<default-value>"] : [k, v]
+                Object.entries(value).filter(([key]) => ["description", "default", "required"].includes(key)).map(([k, v]) => k === "description" ? [k, v.split("\n")[0]] : k === "default" ? [k, ((/^\$\{\{[\s\S]+\}\}$/.test(v)) || (["config_presets", "config_timezone", "use_prebuilt_image"].includes(key))) ? v : "<default-value>"] : [k, v]
                 ),
               ),
             }, {quotingType:'"', noCompatMode:true}),

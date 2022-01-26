@@ -115,7 +115,7 @@ inputs:
   
   config_timezone:
     description: Timezone for dates
-    default: <default-value>
+    default: ""
   
   config_order:
     description: Plugin order
@@ -151,7 +151,7 @@ inputs:
   
   config_presets:
     description: Configuration presets
-    default: <default-value>
+    default: ""
   
   retries:
     description: Retries in case of failures (for rendering)
@@ -177,7 +177,7 @@ inputs:
     description: >-
       Use pre-built docker image from [GitHub container
       registry](https://github.com/lowlighter/metrics/pkgs/container/metrics)
-    default: <default-value>
+    default: yes
   
   plugins_errors_fatal:
     description: Fatal plugin errors
