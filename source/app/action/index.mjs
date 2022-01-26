@@ -95,7 +95,7 @@ async function retry(func, {retries = 1, delay = 0} = {}) {
     info("Version", conf.package.version)
 
     //Core inputs
-    Object.assign(preset, await presets(core.getInput("config_presets"), {log:true, core}))
+    Object.assign(preset, await presets(core.getInput("config_presets"), {log:false, core}))
     const {
       user:_user,
       repo:_repo,
