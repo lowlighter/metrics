@@ -15,7 +15,8 @@
   </tr>
   <tr>
     <td colspan="2" align="center">
-      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.svg" alt=""></img>
+      <details open><summary>Chartist charts</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.chartist.svg" alt=""></img></details>
+      <details><summary>Classic charts</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.svg" alt=""></img></details>
       <img width="900" height="1" alt="">
     </td>
   </tr>
@@ -39,6 +40,22 @@
 <br>
 <b>default:</b> no<br></td>
   </tr>
+  <tr>
+    <td nowrap="nowrap"><code>plugin_stargazers_charts_type</code></td>
+    <td rowspan="2"><p>Charts display type</p>
+<ul>
+<li><code>classic</code>: <code>&lt;div&gt;</code> based charts, simple and lightweight</li>
+<li><code>chartist</code>: <code>&lt;svg&gt;</code> based charts, smooth</li>
+</ul>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>string</code>
+<br>
+<b>default:</b> null<br>
+<b>allowed values:</b><ul><li>classic</li><li>chartist</li></ul></td>
+  </tr>
 </table>
 <!--/options-->
 
@@ -46,13 +63,24 @@
 
 <!--examples-->
 ```yaml
-name: Last weeks stargazers
+name: Using classic charts
 uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.stargazers.svg
   token: ${{ secrets.METRICS_TOKEN }}
   base: ""
   plugin_stargazers: yes
+
+```
+```yaml
+name: Using chartist charts
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.stargazers.chartist.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ""
+  plugin_stargazers: yes
+  plugin_stargazers_charts_type: chartist
 
 ```
 <!--/examples-->

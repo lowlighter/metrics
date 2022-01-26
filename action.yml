@@ -488,6 +488,10 @@ inputs:
     description: Enable stargazers plugin
     default: no
   
+  plugin_stargazers_charts_type:
+    description: Charts display type
+    default: null
+  
   # ====================================================================================
   # 🗂️ Active projects
   
@@ -984,6 +988,13 @@ inputs:
   plugin_wakatime_user:
     description: WakaTime username
     default: current
+  
+  # ====================================================================================
+  # 🥠 Fortune
+  
+  plugin_fortune:
+    description: Enable fortune plugin
+    default: no
   
   # ====================================================================================
   # 💉 Nightscout

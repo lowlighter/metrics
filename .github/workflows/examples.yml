@@ -420,13 +420,26 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      - name: ✨ Stargazers over last weeks - Last weeks stargazers
+      - name: ✨ Stargazers over last weeks - Using classic charts
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.stargazers.svg
           token: ${{ secrets.METRICS_TOKEN }}
           base: ""
           plugin_stargazers: yes
+          output_action: none
+          delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
+        if: ${{ success() || failure() }}
+      - name: ✨ Stargazers over last weeks - Using chartist charts
+        uses: lowlighter/metrics@master
+        with:
+          filename: metrics.plugin.stargazers.chartist.svg
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          plugin_stargazers: yes
+          plugin_stargazers_charts_type: chartist
           output_action: none
           delay: 120
           user: lowlighter

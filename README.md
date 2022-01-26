@@ -19,7 +19,7 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
   </tr>
   <tr>
     <th colspan="2" align="center">
-      <h3><a href="/README.md#-plugins">🧩 Customizable with 38 plugins and 237 options!</a></h3>
+      <h3><a href="/README.md#-plugins">🧩 Customizable with 39 plugins and 239 options!</a></h3>
     </th>
   </tr>
   <tr>
@@ -109,7 +109,8 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
   </tr>
   <tr>
         <td  align="center">
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.svg" alt=""></img>
+        <details open><summary>Chartist charts</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.chartist.svg" alt=""></img></details>
+        <details><summary>Classic charts</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.svg" alt=""></img></details>
         <img width="900" height="1" alt="">
       </td>
         <td  align="center">
@@ -438,6 +439,7 @@ Plugins provide additional content and lets you customize rendered metrics.
   * [⏰ WakaTime plugin <sub>`wakatime`</sub>](/source/plugins/wakatime/README.md)
 
 **🎲 Maintained by community**
+* [🥠 Fortune <sub>`fortune`</sub>](/source/plugins/community/fortune/README.md) by [@lowlighter](https://github.com/lowlighter)
 * [💉 Nightscout <sub>`nightscout`</sub>](/source/plugins/community/nightscout/README.md) by [@legoandmars](https://github.com/legoandmars)
 * [💩 PoopMap plugin <sub>`poopmap`</sub>](/source/plugins/community/poopmap/README.md) by [@matievisthekat](https://github.com/matievisthekat)
 * [📸 Website screenshot <sub>`screenshot`</sub>](/source/plugins/community/screenshot/README.md) by [@lowlighter](https://github.com/lowlighter)

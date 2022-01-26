@@ -140,6 +140,9 @@
       "token": null,               "//":"WakaTime API token",
       "enabled": false,            "//": "Enable wakatime plugin"
     },
+    "fortune":{
+      "enabled": false,            "//": "Enable fortune plugin"
+    },
     "nightscout":{
       "enabled": false,            "//": "Enable nightscout plugin"
     },

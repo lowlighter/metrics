@@ -45,6 +45,7 @@ Plugins provide additional content and lets you customize rendered metrics.
   * [⏰ WakaTime plugin <sub>`wakatime`</sub>](/source/plugins/wakatime/README.md)
 
 **🎲 Maintained by community**
+* [🥠 Fortune <sub>`fortune`</sub>](/source/plugins/community/fortune/README.md) by [@lowlighter](https://github.com/lowlighter)
 * [💉 Nightscout <sub>`nightscout`</sub>](/source/plugins/community/nightscout/README.md) by [@legoandmars](https://github.com/legoandmars)
 * [💩 PoopMap plugin <sub>`poopmap`</sub>](/source/plugins/community/poopmap/README.md) by [@matievisthekat](https://github.com/matievisthekat)
 * [📸 Website screenshot <sub>`screenshot`</sub>](/source/plugins/community/screenshot/README.md) by [@lowlighter](https://github.com/lowlighter)
