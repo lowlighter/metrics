@@ -525,8 +525,10 @@ On forks, this feature is disable to take into account any changes you made on i
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><b>type:</b> <code>undefined</code>
-<br></td>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br>
+<b>default:</b> always<br>
+<b>allowed values:</b><ul><li>always</li><li>data-changed</li></ul></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><code>optimize</code></td>

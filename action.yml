@@ -87,6 +87,7 @@ inputs:
   
   output_condition:
     description: Output condition
+    default: <default-value>
   
   optimize:
     description: Optimization features
