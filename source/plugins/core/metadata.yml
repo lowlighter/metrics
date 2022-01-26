@@ -120,6 +120,11 @@ inputs:
       Output condition
       - `always`: always try to push changes
       - `data-changed`: skip changes if no data changed (e.g. like when only metadata changed)
+    type: string
+    default: always
+    values:
+      - always
+      - data-changed
 
   optimize:
     description: |
