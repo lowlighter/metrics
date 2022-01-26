@@ -335,6 +335,15 @@
     padding-left: 37px;
   }
 
+/* Stargazers */
+/* purgecss ignore */
+  .stargazers .chartist .ct-post {
+    fill: rgba(127, 127, 127, 0.8) !important;
+    color: rgba(127, 127, 127, 0.8) !important;
+    font-size: 9px;
+    text-anchor: middle;
+  }
+
 /* Footer */
   footer {
     margin-top: 8px;
@@ -628,7 +637,7 @@
   }
 
   .chart-bars .entry {
-    flex: 1 1 0;
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -637,7 +646,7 @@
   }
 
   .chart-bars .entry .value {
-    font-size: 7px;
+    font-size: 6px;
   }
 
   .chart-bars .entry .empty {
@@ -1332,9 +1341,17 @@
   }
 
 /* Charts */
+  .ct-chart {
+    display: flex;
+    margin-left: -12px;
+  }
   .ct-line {
     stroke-width: 2px !important;
     stroke: #58A6FF !important;
+  }
+  .ct-point {
+    stroke: #106cbc !important;
+    stroke-width: 2px !important;
   }
   .ct-area {
     fill: #58A6FF !important;
@@ -1342,6 +1359,9 @@
   .ct-label {
     fill: rgba(127, 127, 127, 0.8) !important;
     color: rgba(127, 127, 127, 0.8) !important;
+  }
+  .ct-label.ct-horizontal {
+    text-anchor: middle !important;
   }
   .ct-grid {
     stroke: rgba(127, 127, 127, 0.4) !important;

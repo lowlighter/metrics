@@ -1,7 +1,16 @@
-- name: Last weeks stargazers
+- name: Using classic charts
   uses: lowlighter/metrics@latest
   with:
     filename: metrics.plugin.stargazers.svg
     token: ${{ secrets.METRICS_TOKEN }}
     base: ""
     plugin_stargazers: yes
+
+- name: Using chartist charts
+  uses: lowlighter/metrics@latest
+  with:
+    filename: metrics.plugin.stargazers.chartist.svg
+    token: ${{ secrets.METRICS_TOKEN }}
+    base: ""
+    plugin_stargazers: yes
+    plugin_stargazers_charts_type: chartist
