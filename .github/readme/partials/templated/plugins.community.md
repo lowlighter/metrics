@@ -10,7 +10,7 @@
     const cells = [["even", elements[i]], ["odd", elements[i+1]]]
     for (const [cell, [plugin, {name, readme}]] of cells) {
       if (cell === "even") { %>  <tr><% } %>
-    <th><% if (plugin) { %><a href="source/plugins/community/<%= plugin %>/README.md"><%= name -%></a><% } %></th><%
+    <th><% if (plugin) { %><a href="/source/plugins/community/<%= plugin %>/README.md"><%= name -%></a><% } %></th><%
     if (cell === "odd") { %>
   </tr>
 <% }}
