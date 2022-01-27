@@ -14,13 +14,8 @@ console.log(`Mode: ${mode}`)
 const __metrics = paths.join(paths.dirname(url.fileURLToPath(import.meta.url)), "../..")
 const __presets = paths.join(__metrics, ".presets")
 
-if ((!await fs.access(__presets).then(_ => true).catch(_ => false)) || (!(await fs.lstat(__presets)).isDirectory())) {
-  let { HEAD_REF: branch, REPO: repo } = process.env
-  branch = branch || "presets"
-  repo = repo || "lowlighter/metrics"
-  console.log(`cloning: ${repo}@${branch}`)
-  await sgit().clone(`https://github-actions[bot]:${process.env.GITHUB_TOKEN}@github.com/${repo}`, __presets, { "--branch": branch, "--single-branch": true })
-}
+if ((!await fs.access(__presets).then(_ => true).catch(_ => false)) || (!(await fs.lstat(__presets)).isDirectory()))
+  await sgit().clone(`https://github-actions[bot]:${process.env.GITHUB_TOKEN}@github.com/lowlighter/metrics`, __presets, { "--branch": "presets", "--single-branch": true })
 const git = sgit(__presets)
 await git.pull()
 const staged = new Set()
@@ -37,10 +32,8 @@ action.run = async vars =>
     child.stdout.on("data", data => stdout += data)
     child.stderr.on("data", data => stderr += data)
     child.on("close", code => {
-      if (code === 0) {
-        console.log(stdout)
-        return solve(stdout.match(/(?<svg><svg[\s\S]+<\/svg>)/g)?.groups.svg ?? `<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1"/>`)
-      }
+      if (code === 0)
+        return solve(stdout.match(/(?<svg><svg[\s\S]+<\/svg>)/)?.groups?.svg ?? `<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1"/>`)
       console.log(stdout, stderr)
       reject(stdout)
     })
