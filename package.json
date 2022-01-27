@@ -7,6 +7,7 @@
     "start": "node source/app/web/index.mjs",
     "test": "jest --runInBand",
     "build": "node .github/scripts/build.mjs",
+    "presets": "node .github/scripts/presets_examples.mjs",
     "quickstart": "node .github/scripts/quickstart/index.mjs",
     "preview": "node .github/scripts/preview.mjs",
     "linter": "eslint source/**/*.mjs --quiet",

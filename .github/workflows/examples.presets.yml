@@ -1,0 +1,26 @@
+name: Publish examples (presets)
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - presets
+
+jobs:
+  examples:
+    runs-on: ubuntu-latest
+    if: "github.repository == 'lowlighter/metrics'"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Setup NodeJS
+        uses: actions/setup-node@v2
+        with:
+          node-version: 17
+      - name: Setup metrics
+        run: npm ci
+      - name: Publish presets examples
+        run: npm run presets -- publish
+
+
