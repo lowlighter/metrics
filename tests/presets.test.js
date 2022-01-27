@@ -30,21 +30,21 @@ for (const path of fss.readdirSync(__presets)) {
       test("syntax is valid", () => expect(true).toBe(true))
       try {
         //Load schema
-        const {properties} = yaml.load(fss.readFileSync(paths.join(__presets, "@schema", `${preset.schema}.yml`)))
+        const { properties } = yaml.load(fss.readFileSync(paths.join(__presets, "@schema", `${preset.schema}.yml`)))
         test("schema is valid", () => expect(preset.schema).toBeDefined())
         //Test schema
-        for (const [key, {type, required}] of Object.entries(properties)) {
+        for (const [key, { type, required }] of Object.entries(properties)) {
           if (required)
             test(`preset.${key} is defined`, () => expect(preset[key]).toBeDefined())
           test(`preset.${key} type is ${type}`, () => {
             switch (true) {
-              case /^'.*'$/.test(type):{
-                const value = type.substring(1, type.length-1)
+              case /^'.*'$/.test(type): {
+                const value = type.substring(1, type.length - 1)
                 expect(preset[key]).toBe(value)
                 return
               }
-              case /\{\}$/.test(type):{
-                const typed = type.substring(0, type.length-2)
+              case /\{\}$/.test(type): {
+                const typed = type.substring(0, type.length - 2)
                 expect(typeof preset[key]).toBe("object")
                 if (typed !== "unknown") {
                   for (const value of Object.values(preset[key]))
@@ -52,8 +52,8 @@ for (const path of fss.readdirSync(__presets)) {
                 }
                 return
               }
-              case /\[\]$/.test(type):{
-                const typed = type.substring(0, type.length-2)
+              case /\[\]$/.test(type): {
+                const typed = type.substring(0, type.length - 2)
                 expect(Array.isArray(preset[key])).toBe(true)
                 if (typed !== "unknown") {
                   for (const value of Object.values(preset[key]))

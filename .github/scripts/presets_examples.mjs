@@ -1,10 +1,10 @@
 //Imports
+import fs from "fs/promises"
 import processes from "child_process"
 import yaml from "js-yaml"
-import sgit from "simple-git"
 import paths from "path"
+import sgit from "simple-git"
 import url from "url"
-import fs from "fs/promises"
 
 //Mode
 const [mode = "dryrun"] = process.argv.slice(2)
@@ -14,8 +14,8 @@ console.log(`Mode: ${mode}`)
 const __metrics = paths.join(paths.dirname(url.fileURLToPath(import.meta.url)), "../..")
 const __presets = paths.join(__metrics, ".presets")
 
-if ((!await fs.access(__presets).then(_ => true).catch(_ => false))||(!(await fs.lstat(__presets)).isDirectory()))
-  await sgit().clone(`https://github-actions[bot]:${process.env.GITHUB_TOKEN}@github.com/lowlighter/metrics`, __presets, {"--branch":"presets", "--single-branch":true})
+if ((!await fs.access(__presets).then(_ => true).catch(_ => false)) || (!(await fs.lstat(__presets)).isDirectory()))
+  await sgit().clone(`https://github-actions[bot]:${process.env.GITHUB_TOKEN}@github.com/lowlighter/metrics`, __presets, { "--branch": "presets", "--single-branch": true })
 const git = sgit(__presets)
 await git.pull()
 const staged = new Set()
@@ -49,14 +49,16 @@ for (const path of await fs.readdir(__presets)) {
 
   //Example
   console.log(`generating: ${preset}/example.svg`)
-  const svg = await action.run({config_presets:`@${preset}`, debug_print: true, plugins_errors_fatal: true, dryrun: true, use_mocked_data: true, verify: true, token:"MOCKED_TOKEN"})
+  const svg = await action.run({ config_presets: `@${preset}`, debug_print: true, plugins_errors_fatal: true, dryrun: true, use_mocked_data: true, verify: true, token: "MOCKED_TOKEN" })
   await fs.writeFile(paths.join(__presets, path, "example.svg"), svg)
   staged.add(paths.join(__presets, path, "example.svg"))
 
   //Readme
   console.log(`generating: ${preset}/README.svg`)
-  const {name, description} = await yaml.load(await fs.readFile(paths.join(__presets, preset, "preset.yml")))
-  await fs.writeFile(paths.join(__presets, path, "README.md"), `
+  const { name, description } = await yaml.load(await fs.readFile(paths.join(__presets, preset, "preset.yml")))
+  await fs.writeFile(
+    paths.join(__presets, path, "README.md"),
+    `
 <table>
   <tr><th><h3>${name}</h3></th></tr>
   <tr><td align="center"><p>${description}</p></td></tr>
@@ -65,7 +67,8 @@ for (const path of await fs.readdir(__presets)) {
     <img width="900" height="1" alt="">
   </td></tr>
 </table>
-`.trim())
+`.trim(),
+  )
   staged.add(paths.join(__presets, path, "README.md"))
 }
 
@@ -78,6 +81,6 @@ if (mode === "publish") {
     .add([...staged])
     .commit("ci: auto-regenerate files")
     .push("origin", "presets")
-    console.log(gitted)
+  console.log(gitted)
 }
 console.log("Success!")
