@@ -2,10 +2,10 @@
 import fs from "fs/promises"
 import processes from "child_process"
 import yaml from "js-yaml"
+import fetch from "node-fetch"
 import paths from "path"
 import sgit from "simple-git"
 import url from "url"
-import fetch from "node-fetch"
 
 //Mode
 const [mode = "dryrun"] = process.argv.slice(2)
