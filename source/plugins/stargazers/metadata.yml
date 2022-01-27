@@ -24,7 +24,7 @@ inputs:
       - `classic`: `<div>` based charts, simple and lightweight
       - `chartist`: `<svg>` based charts, smooth
     type: string
-    default:
+    default: classic
     values:
       - classic
       - chartist
