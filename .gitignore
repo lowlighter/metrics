@@ -112,3 +112,6 @@ source/templates/@*
 
 # Preview
 source/app/web/statics/preview
+
+# Presets
+.presets
