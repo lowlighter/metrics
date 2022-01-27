@@ -10,6 +10,7 @@ on:
 jobs:
   notice:
     name: Notice for automated branches
+    runs-on: ubuntu-latest
     steps:
       - name: Comment on pull request
         uses: actions/github-script@v5
