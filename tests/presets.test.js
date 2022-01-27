@@ -13,7 +13,11 @@ try {
   fss.accessSync(__presets)
 }
 catch {
-  processes.execSync(`git clone https://github.com/lowlighter/metrics.git ${__presets} --branch presets --single-branch`)
+  let {HEAD_REF:branch, REPO:repo} = process.env
+  branch = branch || "presets"
+  repo = repo || "lowlighter/metrics"
+  console.log(`cloning: ${repo}@${branch}`)
+  processes.execSync(`git clone https://github.com/${repo}.git ${__presets} --branch ${branch} --single-branch`)
 }
 
 //Generate presets examples
