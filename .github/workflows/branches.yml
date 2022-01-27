@@ -28,3 +28,5 @@ jobs:
               "",
               "Thanks for your cooperation 🦾!"
             ].join("\n")})
+      - name: Change base branch
+        run: exit 1

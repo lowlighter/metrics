@@ -21,7 +21,7 @@ catch {
   if (!/^[-\w\d]+\/[-\w\d]+$/.test(repo))
     throw new Error(`invalid repo: ${repo}`)
   console.log(`cloning: ${repo}@${branch}`)
-  processes.execSync(`git clone https://github.com/${repo}.git ${__presets} --branch ${branch} --single-branch`)
+  processes.execFileSync("git", ["clone", `https://github.com/${repo}.git`, __presets, "--branch", branch, "--single-branch"])
 }
 
 //Generate presets examples
