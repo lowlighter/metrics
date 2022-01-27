@@ -17,7 +17,7 @@ jobs:
         with:
           script: |
             const {issue:{number:issue_number}, repo:{owner, repo}} = context
-            github.issues.createComment({issue_number, owner, repo, body:[
+            github.rest.issues.createComment({issue_number, owner, repo, body:[
               "Hello there 👋!",
               "",
               "It seems you have opened a pull request on either `main`, `latest` or `examples`.",
