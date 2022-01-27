@@ -15,10 +15,15 @@
   - source/app/metrics/**
   - source/plugins/core/**
 
+🎲 community plugin:
+  - source/plugins/community/**
+
 🏆 plugin achievements:
-  - source/plugins/isocalendar/**
+  - source/plugins/achievements/**
 📰 plugin activity:
   - source/plugins/activity/**
+🌸 plugin anilist:
+  - source/plugins/anilist/**
 ♐ plugin code:
   - source/plugins/code/**
 🏅 plugin contributors:
@@ -41,49 +46,43 @@
   - source/plugins/licenses/**
 👨‍💻 plugin lines:
   - source/plugins/lines/**
+🎼 plugin music:
+  - source/plugins/music/**
 🎩 plugin notable:
   - source/plugins/notable/**
+⏱️ plugin pagespeed:
+  - source/plugins/pagespeed/**
 🧑‍🤝‍🧑 plugin people:
   - source/plugins/people/**
+✒️ plugin posts:
+  - source/plugins/posts/**
 🗂️ plugin projects:
   - source/plugins/projects/**
 🎭 plugin reactions:
   - source/plugins/reactions/**
 📓 plugin repositories:
   - source/plugins/repositories/**
+🗼 plugin rss:
+  - source/plugins/rss/**
 🌇 plugin skyline:
   - source/plugins/skyline/**
 💕 plugin sponsors:
   - source/plugins/sponsors/**
+🗨️ plugin stackoverflow:
+  - source/plugins/stackoverflow/**
 ✨ plugin stargazers:
   - source/plugins/stargazers/**
-🌟 plugin starred:
-  - source/plugins/starred/**
-💭 plugin community:
-  - source/plugins/community/**
+💫 plugin starlists:
+  - source/plugins/starlists/**
+🌟 plugin stars:
+  - source/plugins/stars/**
+💭 plugin support:
+  - source/plugins/support/**
 📌 plugin topics:
   - source/plugins/topics/**
 🧮 plugin traffic:
   - source/plugins/traffic/**
-🌸 plugin anilist:
-  - source/plugins/anilist/**
-🎼 plugin music:
-  - source/plugins/music/**
-⏱️ plugin pagespeed:
-  - source/plugins/pagespeed/**
-✒️ plugin posts:
-  - source/plugins/posts/**
-🗼 plugin rss:
-  - source/plugins/rss/**
-🗨️ plugin stackoverflow:
-  - source/plugins/stackoverflow/**
 🐤 plugin tweets:
   - source/plugins/tweets/**
 ⏰ plugin wakatime:
   - source/plugins/wakatime/**
-💉 plugin nightscout:
-  - source/plugins/nightscout/**
-📸 plugin screenshot:
-  - source/plugins/screenshot/**
-💹 plugin stock:
-  - source/plugins/stock/**
