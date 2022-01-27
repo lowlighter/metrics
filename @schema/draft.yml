@@ -5,6 +5,18 @@ properties:
     description: Schema identifier
     type: "'draft'"
     required: true
+  name:
+    description: Preset name
+    type: string
+    required: true
+  description:
+    description: Preset description
+    type: string
+    required: true
+  author:
+    description: Preset author
+    type: string
+    required: true
   with:
     description: Preset options
     type: "{[key:string]:unknown}"

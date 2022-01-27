@@ -1,4 +1,7 @@
 schema: draft
+name: Lunar red
+description: A simple red themed preset
+author: lowlighter
 with:
   plugin_isocalendar: yes
   plugin_isocalendar_duration: full-year
