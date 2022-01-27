@@ -5,6 +5,7 @@ import yaml from "js-yaml"
 import paths from "path"
 import sgit from "simple-git"
 import url from "url"
+import fetch from "node-fetch"
 
 //Mode
 const [mode = "dryrun"] = process.argv.slice(2)
@@ -20,26 +21,20 @@ const git = sgit(__presets)
 await git.pull()
 const staged = new Set()
 
-//Github action
-const action = yaml.load(await fs.readFile(paths.join(__metrics, "action.yml"), "utf8"))
-action.defaults = Object.fromEntries(Object.entries(action.inputs).map(([key, { default: value }]) => [key, value]))
-action.input = vars => Object.fromEntries([...Object.entries(action.defaults), ...Object.entries(vars)].map(([key, value]) => [`INPUT_${key.toLocaleUpperCase()}`, value]))
-action.run = async vars =>
-  await new Promise((solve, reject) => {
-    let [stdout, stderr] = ["", ""]
-    const env = { ...process.env, ...action.input(vars), GITHUB_REPOSITORY: "lowlighter/metrics" }
-    const child = processes.spawn("node", ["source/app/action/index.mjs"], { env })
-    child.stdout.on("data", data => stdout += data)
-    child.stderr.on("data", data => stderr += data)
-    child.on("close", code => {
-      if (code === 0)
-        return solve(stdout.match(/(?<svg><svg[\s\S]+<\/svg>)/)?.groups?.svg ?? `<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1"/>`)
-      console.log(stdout, stderr)
-      reject(stdout)
-    })
+//Web instance
+const web = {}
+web.run = async vars => await fetch(`http://localhost:3000/lowlighter?${new url.URLSearchParams(Object.fromEntries(Object.entries(vars).map(([key, value]) => [key.replace(/^plugin_/, "").replace(/_/g, "."), value])))}`).then(response => response.text())
+web.start = async () =>
+  new Promise(solve => {
+    let stdout = ""
+    web.instance = processes.spawn("node", ["source/app/web/index.mjs"], { env: { ...process.env, SANDBOX: true } })
+    web.instance.stdout.on("data", data => (stdout += data, /Server ready !/.test(stdout) ? solve() : null))
+    web.instance.stderr.on("data", data => console.error(`${data}`))
   })
+web.stop = async () => await web.instance.kill("SIGKILL")
 
 //Generate presets examples
+await web.start()
 for (const path of await fs.readdir(__presets)) {
   if (/^[.@]/.test(path))
     continue
@@ -49,7 +44,7 @@ for (const path of await fs.readdir(__presets)) {
 
   //Example
   console.log(`generating: ${preset}/example.svg`)
-  const svg = await action.run({ config_presets: `@${preset}`, debug_print: true, plugins_errors_fatal: true, dryrun: true, use_mocked_data: true, verify: true, token: "MOCKED_TOKEN" })
+  const svg = await web.run({ config_presets: `@${preset}`, plugins_errors_fatal: true, verify: true, optimize: "css, xml" })
   await fs.writeFile(paths.join(__presets, path, "example.svg"), svg)
   staged.add(paths.join(__presets, path, "example.svg"))
 
@@ -71,6 +66,7 @@ for (const path of await fs.readdir(__presets)) {
   )
   staged.add(paths.join(__presets, path, "README.md"))
 }
+await web.stop()
 
 //Commit and push
 if (mode === "publish") {
