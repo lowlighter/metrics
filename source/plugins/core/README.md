@@ -904,6 +904,19 @@ This option has no effects on forks (images will always be rebuilt from Dockerfi
 <b>allowed values:</b><ul><li>--cakeday</li><li>--hireable</li><li>--halloween</li><li>--error</li></ul></td>
   </tr>
   <tr>
+    <td nowrap="nowrap"><code>debug_print</code></td>
+    <td rowspan="2"><p>Print output in console</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">⏯️ Cannot be preset<br>
+🔧 For development<br>
+✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
     <td nowrap="nowrap"><code>dryrun</code></td>
     <td rowspan="2"><p>Dry-run</p>
 <p>Contrary to <code>output_action: none</code>, output file won&#39;t be available in <code>/metrics_renders</code> directory</p>
