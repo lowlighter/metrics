@@ -9,3 +9,5 @@ jobs:
   test:
     name: Test
     uses: lowlighter/metrics/.github/workflows/test.presets.yml@master
+    with:
+      HEAD_REF: ${{ env.GITHUB_HEAD_REF }}
