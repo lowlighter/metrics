@@ -109,6 +109,7 @@ async function retry(func, {retries = 1, delay = 0} = {}) {
       "markdown.cache":_markdown_cache,
       debug,
       "debug.flags":dflags,
+      "debug.print":dprint,
       "use.mocked.data":mocked,
       dryrun,
       "plugins.errors.fatal":die,
@@ -342,6 +343,13 @@ async function retry(func, {retries = 1, delay = 0} = {}) {
     if (!rendered)
       throw new Error("Could not render metrics")
     info("Status", "complete")
+
+    //Debug print
+    if (dprint) {
+      info.break()
+      info.section("Debug print")
+      console.log(rendered)
+    }
 
     //Output condition
     info.break()

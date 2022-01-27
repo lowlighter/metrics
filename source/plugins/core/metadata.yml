@@ -420,6 +420,13 @@ inputs:
     testing: yes
     preset: no
 
+  debug_print:
+    description: Print output in console
+    type: boolean
+    default: no
+    testing: yes
+    preset: no
+
   dryrun:
     description: |
       Dry-run

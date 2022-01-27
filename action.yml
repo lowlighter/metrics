@@ -195,6 +195,10 @@ inputs:
     description: Debug flags
     default: <default-value>
   
+  debug_print:
+    description: Print output in console
+    default: <default-value>
+  
   dryrun:
     description: Dry-run
     default: <default-value>
