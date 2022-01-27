@@ -2,7 +2,7 @@ name: Test
 
 on:
   pull_request:
-    branches: [ master ]
+    branches: [ presets ]
   workflow_call:
 
 jobs:
