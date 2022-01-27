@@ -10,4 +10,4 @@ jobs:
     name: Test
     uses: lowlighter/metrics/.github/workflows/test.presets.yml@master
     with:
-      HEAD_REF: ${{ env.GITHUB_HEAD_REF }}
+      HEAD_REF: ${{ github.event.pull_request.head.ref }}
