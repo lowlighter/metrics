@@ -16,6 +16,10 @@ catch {
   let { HEAD_REF: branch, REPO: repo } = process.env
   branch = branch || "presets"
   repo = repo || "lowlighter/metrics"
+  if (!/^[/-\w\d]+$/.test(branch))
+    throw new Error(`invalid branch: ${branch}`)
+  if (!/^[-\w\d]+\/[-\w\d]+$/.test(repo))
+    throw new Error(`invalid repo: ${repo}`)
   console.log(`cloning: ${repo}@${branch}`)
   processes.execSync(`git clone https://github.com/${repo}.git ${__presets} --branch ${branch} --single-branch`)
 }
