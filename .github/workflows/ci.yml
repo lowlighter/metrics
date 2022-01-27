@@ -150,6 +150,12 @@ jobs:
       TWITTER_TOKEN: ${{ secrets.TWITTER_TOKEN }}
       WAKATIME_TOKEN: ${{ secrets.WAKATIME_TOKEN }}
 
+  # Publish examples (presets)
+  publish-examples-presets:
+    name: Publish examples (presets)
+    needs: [ docker-master ]
+    uses: lowlighter/metrics/.github/workflows/examples.presets.yml@master
+
   # Build docker image from master and publish it to GitHub registry with release tag
   docker-release:
     name: Publish release to GitHub registry
