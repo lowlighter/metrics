@@ -14,7 +14,7 @@ console.log(`Mode: ${mode}`)
 const __metrics = paths.join(paths.dirname(url.fileURLToPath(import.meta.url)), "../..")
 const __presets = paths.join(__metrics, ".presets")
 
-if ((await fs.lstat(paths.join(__presets)).catch(_ => false))||(!(await fs.lstat(paths.join(__presets))).isDirectory()))
+if ((!await fs.access(__presets).then(_ => true).catch(_ => false))||(!(await fs.lstat(__presets)).isDirectory()))
   await sgit().clone("https://github.com/lowlighter/metrics.git", __presets, {"--branch":"presets", "--single-branch":true})
 const git = sgit(__presets)
 await git.pull()
