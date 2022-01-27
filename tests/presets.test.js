@@ -13,7 +13,7 @@ try {
   fss.accessSync(__presets)
 }
 catch {
-  let {HEAD_REF:branch, REPO:repo} = process.env
+  let { HEAD_REF: branch, REPO: repo } = process.env
   branch = branch || "presets"
   repo = repo || "lowlighter/metrics"
   console.log(`cloning: ${repo}@${branch}`)

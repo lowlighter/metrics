@@ -15,7 +15,7 @@ const __metrics = paths.join(paths.dirname(url.fileURLToPath(import.meta.url)), 
 const __presets = paths.join(__metrics, ".presets")
 
 if ((!await fs.access(__presets).then(_ => true).catch(_ => false)) || (!(await fs.lstat(__presets)).isDirectory())) {
-  let {HEAD_REF:branch, REPO:repo} = process.env
+  let { HEAD_REF: branch, REPO: repo } = process.env
   branch = branch || "presets"
   repo = repo || "lowlighter/metrics"
   console.log(`cloning: ${repo}@${branch}`)
