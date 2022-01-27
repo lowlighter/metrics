@@ -19,4 +19,4 @@ properties:
     required: true
   with:
     description: Preset options
-    type: "{[key:string]:unknown}"
+    type: unknown{}
