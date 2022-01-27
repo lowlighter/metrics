@@ -15,7 +15,7 @@ const __metrics = paths.join(paths.dirname(url.fileURLToPath(import.meta.url)), 
 const __presets = paths.join(__metrics, ".presets")
 
 if ((!await fs.access(__presets).then(_ => true).catch(_ => false)) || (!(await fs.lstat(__presets)).isDirectory()))
-  await sgit().clone(`https://github-actions[bot]:${process.env.GITHUB_TOKEN}@github.com/lowlighter/metrics`, __presets, { "--branch": "presets", "--single-branch": true })
+  await sgit().clone(`https://github-actions[bot]:${process.env.GITHUB_TOKEN}@github.com/lowlighter/metrics`, __presets, { "--branch": process.env.HEAD_REF || "presets", "--single-branch": true })
 const git = sgit(__presets)
 await git.pull()
 const staged = new Set()
