@@ -15,17 +15,13 @@ import setup from "../metrics/setup.mjs"
 export default async function({sandbox} = {}) {
   //Load configuration settings
   const {conf, Plugins, Templates} = await setup({sandbox})
-  const {token, maxusers = 0, restricted = [], debug = false, cached = 30 * 60 * 1000, port = 3000, ratelimiter = null, plugins = null} = conf.settings
-  const mock = sandbox || conf.settings.mocked
-
   //Sandbox mode
   if (sandbox) {
     console.debug("metrics/app > sandbox mode is specified, enabling advanced features")
-    conf.settings.extras = conf.settings.extras ?? {}
-    conf.settings.extras.default = true
-    conf.settings["plugins.default"] = true
-    conf.settings.optimize = true
+    Object.assign(conf.settings, {optimize: true, cached:0, "plugins.default":true, extras:{default:true}})
   }
+  const {token, maxusers = 0, restricted = [], debug = false, cached = 30 * 60 * 1000, port = 3000, ratelimiter = null, plugins = null} = conf.settings
+  const mock = sandbox || conf.settings.mocked
 
   //Process mocking and default plugin state
   for (const plugin of Object.keys(Plugins).filter(x => !["base", "core"].includes(x))) {

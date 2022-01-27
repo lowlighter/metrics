@@ -44,7 +44,7 @@ for (const path of await fs.readdir(__presets)) {
 
   //Example
   console.log(`generating: ${preset}/example.svg`)
-  const svg = await web.run({ config_presets: `@${preset}`, plugins_errors_fatal: true, verify: true, optimize: "css, xml" })
+  const svg = await web.run({ config_presets: `@${preset}`, plugins_errors_fatal: true })
   await fs.writeFile(paths.join(__presets, path, "example.svg"), svg)
   staged.add(paths.join(__presets, path, "example.svg"))
 
