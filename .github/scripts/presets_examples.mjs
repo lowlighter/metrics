@@ -14,8 +14,13 @@ console.log(`Mode: ${mode}`)
 const __metrics = paths.join(paths.dirname(url.fileURLToPath(import.meta.url)), "../..")
 const __presets = paths.join(__metrics, ".presets")
 
-if ((!await fs.access(__presets).then(_ => true).catch(_ => false)) || (!(await fs.lstat(__presets)).isDirectory()))
-  await sgit().clone(`https://github-actions[bot]:${process.env.GITHUB_TOKEN}@github.com/lowlighter/metrics`, __presets, { "--branch": process.env.HEAD_REF || "presets", "--single-branch": true })
+if ((!await fs.access(__presets).then(_ => true).catch(_ => false)) || (!(await fs.lstat(__presets)).isDirectory())) {
+  let {HEAD_REF:branch, REPO:repo} = process.env
+  branch = branch || "presets"
+  repo = repo || "lowlighter/metrics"
+  console.log(`cloning: ${repo}@${branch}`)
+  await sgit().clone(`https://github-actions[bot]:${process.env.GITHUB_TOKEN}@github.com/${repo}`, __presets, { "--branch": branch, "--single-branch": true })
+}
 const git = sgit(__presets)
 await git.pull()
 const staged = new Set()

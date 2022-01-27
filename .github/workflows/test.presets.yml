@@ -1,11 +1,13 @@
-name: Test
+name: Test (presets)
 
 on:
   pull_request:
     branches: [ presets ]
   workflow_call:
     inputs:
-      HEAD_REF:
+      ref:
+        type: string
+      repo:
         type: string
 jobs:
 
@@ -27,4 +29,5 @@ jobs:
       - name: Run tests
         run: npm run test-presets
         env:
-          HEAD_REF: ${{ inputs.HEAD_REF }}
+          HEAD_REF: ${{ inputs.ref }}
+          REPO: ${{ inputs.repo }}
