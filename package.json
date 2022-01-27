@@ -5,8 +5,10 @@
   "main": "index.mjs",
   "scripts": {
     "start": "node source/app/web/index.mjs",
-    "test": "jest --runInBand --testPathIgnorePatterns presets.test.js",
-    "test-presets": "jest --runInBand presets.test.js",
+    "test": "jest --runInBand",
+    "test-contrib": "jest --runInBand ci.test.js --noStackTrace",
+    "test-presets": "jest --runInBand presets.test.js --noStackTrace",
+    "test-metrics": "jest --runInBand metrics.test.js",
     "build": "node .github/scripts/build.mjs",
     "presets": "node .github/scripts/presets_examples.mjs",
     "quickstart": "node .github/scripts/quickstart/index.mjs",

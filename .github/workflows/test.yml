@@ -23,7 +23,7 @@ jobs:
       - name: Setup metrics
         run: npm ci
       - name: Check contributions requirements
-        run: npm test -- ci.test.js --noStackTrace
+        run: npm run test-contrib
         env:
           PR_AUTHOR: ${{ github.event.pull_request.user.login }}
       - name: Run linter
@@ -47,7 +47,7 @@ jobs:
       - name: Build lowlighter/metrics:${{ github.head_ref || 'master' }}
         run: docker build -t lowlighter/metrics:$(echo ${{ github.head_ref || 'master' }} | sed 's/\//-/g') .
       - name: Run tests
-        run: docker run --entrypoint="" lowlighter/metrics:$(echo ${{ github.head_ref || 'master' }} | sed 's/\//-/g') npm test -- metrics.test.js
+        run: docker run --entrypoint="" lowlighter/metrics:$(echo ${{ github.head_ref || 'master' }} | sed 's/\//-/g') npm test-metrics
 
   # Run CodeQL on branch
   analyze:
