@@ -33,7 +33,7 @@ action.run = async vars =>
     child.stderr.on("data", data => stderr += data)
     child.on("close", code => {
       if (code === 0)
-        return solve(stdout.match(/(?<svg><svg [\s\S]+<\/svg>)/)?.groups.svg ?? "")
+        return solve(stdout.match(/(?<svg><svg [\s\S]+<\/svg>)/g)?.groups.svg ?? `<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1"/>`)
       console.log(stdout, stderr)
       reject(stdout)
     })
