@@ -88,7 +88,7 @@ async function retry(func, {retries = 1, delay = 0} = {}) {
     }
 
     //Load configuration
-    const {conf, Plugins, Templates} = await setup({log:false, nosettings:true, community:{templates:core.getInput("setup_community_templates")}})
+    const {conf, Plugins, Templates} = await setup({log:false, community:{templates:core.getInput("setup_community_templates")}})
     const {metadata} = conf
     conf.settings.extras = {default:true}
     info("Setup", "complete")
@@ -288,7 +288,7 @@ async function retry(func, {retries = 1, delay = 0} = {}) {
         await new Promise(async (solve, reject) => {
           let stdout = ""
           setTimeout(() => reject("Timeout while waiting for Insights webserver"), 5 * 60 * 1000)
-          const web = await processes.spawn("node", ["/metrics/source/app/web/index.mjs"], {env:{...process.env, NO_SETTINGS:true}})
+          const web = await processes.spawn("node", ["/metrics/source/app/web/index.mjs"], {env:{...process.env}})
           web.stdout.on("data", data => (console.debug(`web > ${data}`), stdout += data, /Server ready !/.test(stdout) ? solve() : null))
           web.stderr.on("data", data => console.debug(`web > ${data}`))
         })

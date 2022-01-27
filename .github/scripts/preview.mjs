@@ -19,7 +19,7 @@ const __preview_templates_ = paths.join(__preview, ".templates_")
 const __preview_about = paths.join(__preview, "about/.statics")
 
 //Extract from web server
-const { conf, Templates } = await setup({ nosettings: true, log: false })
+const { conf, Templates } = await setup({ log: false })
 const templates = Object.entries(Templates).map(([name]) => ({ name, enabled: true }))
 const metadata = Object.fromEntries(
   Object.entries(conf.metadata.plugins)

@@ -13,7 +13,7 @@ const Templates = {}
 const Plugins = {}
 
 /**Setup */
-export default async function({log = true, nosettings = false, community = {}} = {}) {
+export default async function({log = true, sandbox = false, community = {}} = {}) {
   //Paths
   const __metrics = path.join(path.dirname(url.fileURLToPath(import.meta.url)), "../../..")
   const __statics = path.join(__metrics, "source/app/web/statics")
@@ -42,8 +42,8 @@ export default async function({log = true, nosettings = false, community = {}} =
   //Load settings
   logger("metrics/setup > load settings.json")
   if (fs.existsSync(__settings)) {
-    if (nosettings)
-      logger("metrics/setup > load settings.json > skipped because no settings is enabled")
+    if (sandbox)
+      logger("metrics/setup > load settings.json > skipped because in sandbox is enabled")
     else {
       conf.settings = JSON.parse(`${await fs.promises.readFile(__settings)}`)
       logger("metrics/setup > load settings.json > success")

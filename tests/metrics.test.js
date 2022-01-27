@@ -33,7 +33,7 @@ web.run = async vars => (await axios(`http://localhost:3000/lowlighter?${new url
 web.start = async () =>
   new Promise(solve => {
     let stdout = ""
-    web.instance = processes.spawn("node", ["source/app/web/index.mjs"], { env: { ...process.env, USE_MOCKED_DATA: true, NO_SETTINGS: true } })
+    web.instance = processes.spawn("node", ["source/app/web/index.mjs"], { env: { ...process.env, SANDBOX: true } })
     web.instance.stdout.on("data", data => (stdout += data, /Server ready !/.test(stdout) ? solve() : null))
     web.instance.stderr.on("data", data => console.error(`${data}`))
   })
