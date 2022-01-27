@@ -5,7 +5,8 @@
   "main": "index.mjs",
   "scripts": {
     "start": "node source/app/web/index.mjs",
-    "test": "jest --runInBand",
+    "test": "jest --runInBand --testPathIgnorePatterns presets.test.js",
+    "test-presets": "jest --runInBand presets.test.js",
     "build": "node .github/scripts/build.mjs",
     "presets": "node .github/scripts/presets_examples.mjs",
     "quickstart": "node .github/scripts/quickstart/index.mjs",
@@ -14,8 +15,7 @@
     "format": "eslint source/**/*.mjs --fix",
     "dev": "nodemon source/app/web/index.mjs -e mjs,css,ejs,json",
     "postinstall": "node node_modules/puppeteer/install.js",
-    "indepth": "node source/plugins/languages/analyzers.mjs",
-    "autogen": "node .github/examples.mjs"
+    "indepth": "node source/plugins/languages/analyzers.mjs"
   },
   "repository": {
     "type": "git",

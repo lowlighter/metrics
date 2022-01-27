@@ -1,0 +1,22 @@
+name: Continuous integration (presets)
+on:
+  push:
+    branches: [ presets ]
+
+jobs:
+  test:
+    name: Build, test and analyze
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Setup NodeJS
+        uses: actions/setup-node@v2
+        with:
+          node-version: 17
+      - name: Setup metrics
+        run: npm ci
+      - name: Run tests
+        run: npm run test-presets
