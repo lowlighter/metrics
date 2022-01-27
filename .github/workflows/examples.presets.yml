@@ -22,5 +22,7 @@ jobs:
         run: npm ci
       - name: Publish presets examples
         run: npm run presets -- publish
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
 
 
