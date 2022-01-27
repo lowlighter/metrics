@@ -54,7 +54,7 @@ export default async function({login, data, graphql, q, imports, queries, accoun
       j = 0
       //Iterate through days
       for (const day of week.contributionDays) {
-        const ratio = day.contributionCount / reference
+        const ratio = (day.contributionCount / reference) || 0
         svg += `
                     <g transform="translate(${j * -1.7}, ${j + (1 - ratio) * size})">
                       <path fill="${day.color}" d="M1.7,2 0,1 1.7,0 3.4,1 z" />
