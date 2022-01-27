@@ -1,0 +1,11 @@
+name: Continuous integration (presets)
+
+on:
+  pull_request:
+    branches: [ presets ]
+
+jobs:
+
+  test:
+    name: Test
+    uses: lowlighter/metrics/.github/workflows/test.presets.yml@master
