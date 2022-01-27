@@ -22,7 +22,7 @@ export default async function presets(list, {log = true, core = null} = {}) {
       let text = ""
       if (file.startsWith("@")) {
         logger(`metrics/presets > ${file} seems to be predefined preset, fetching`)
-        text = await fetch(`https://raw.githubusercontent.com/lowlighter/metrics/presets/${file.substring(1)}/preset.yaml`).then(response => response.text())
+        text = await fetch(`https://raw.githubusercontent.com/lowlighter/metrics/presets/${file.substring(1)}/preset.yml`).then(response => response.text())
       }
       else if (file.startsWith("https://")) {
         logger(`metrics/presets > ${file} seems to be an url, fetching`)
