@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -28,7 +29,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path></svg>
                 Search a GitHub user
               </h2>
-              <small :class="{'error-text':!requests.remaining}">{{ requests.remaining }} GitHub requests remaining</small>
+              <small :class="{'error-text':(!requests.rest.remaining)||(!requests.graphql.remaining)}">Remaining GitHub requests: {{ requests.rest.remaining }} REST / {{ requests.graphql.remaining }} GraphQL</small>
               <small>Send feedback on <a href="https://github.com/lowlighter/metrics/discussions/229" target="_blank">GitHub discussions</a>!</small>
             </div>
             <div class="inputs">
@@ -41,6 +42,10 @@
                   Search user!
                 </template>
               </button>
+            </div>
+            <div class="warning" v-if="(!requests.rest.remaining)||(!requests.graphql.remaining)">
+              This web instance has run out of GitHub API requests.
+              Please wait until {{ rlreset }} to generate metrics again.
             </div>
             <small class="info">
               Display rankings, contributions, highlights, commits calendar, used languages and recent activity from any user account!
@@ -237,7 +242,7 @@
             <div class="chart-bars">
               <div class="entry" v-for="h in 24">
                 <span class="value">{{ habits[h] }}</span>
-                <div class="bar" :style="{height:(habits[h]/habits.max)*150, backgroundColor:`var(--color-calendar-graph-day-L${Math.ceil((habits[h]/habits.max)/0.25)}-bg)`}"></div>
+                <div class="bar" :style="{height:`${((habits[h]||0)/(habits.max||1))*150}px`, backgroundColor:`var(--color-calendar-graph-day-L${Math.ceil(((habits[h]||0)/(habits.max||1))/0.25)}-bg)`}"></div>
                 <span class="label">{{ `${h}`.padStart(2, 0) }}</span>
               </div>
             </div>
@@ -369,6 +374,6 @@
     <!-- Scripts -->
     <script src="/.js/axios.min.js"></script>
     <script src="/.js/vue.min.js"></script>
-    <script src="/about/.statics/script.js?v=3.18"></script>
+    <script src="/about/.statics/script.js?v=3.19"></script>
   </body>
 </html>

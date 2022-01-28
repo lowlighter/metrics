@@ -18,6 +18,12 @@
     values.push(probability)
     return values.sort((a, b) => b - a)
   }
+  //Static complex placeholder
+  async function staticPlaceholder(condition, name) {
+    if (!condition)
+      return ""
+    return await fetch(`/.placeholders/${name}`).then(response => response.text()).catch(() => "(could not render placeholder)")
+  }
   //Placeholder function
   globalThis.placeholder = async function(set) {
     //Load templates informations
@@ -241,8 +247,21 @@
           ? ({
             notable: {
               contributions: new Array(2 + faker.datatype.number(2)).fill(null).map(_ => ({
-                name: `${options["notable.repositories"] ? `${faker.lorem.slug()}/` : ""}${faker.lorem.slug()}`,
+                get name() { return options["notable.repositories"] ? this.handle : this.handle.split("/")[0] },
+                handle: `${faker.lorem.slug()}/${faker.lorem.slug()}`,
                 avatar: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
+                organization: faker.datatype.boolean(),
+                stars: faker.datatype.number(1000),
+                aggregated: faker.datatype.number(100),
+                history: faker.datatype.number(1000),
+                ...(options["notable.indepth"] ? {
+                  user:{
+                    commits: faker.datatype.number(100),
+                    percentage: faker.datatype.float({ max: 1 }),
+                    maintainer: false,
+                    stars: faker.datatype.number(100),
+                  }
+                } : null)
               })),
             },
           })
@@ -322,7 +341,7 @@
                 },
               },
               comments: options["reactions.limit"],
-              details: options["reactions.details"],
+              details: options["reactions.details"].split(",").map(x => x.trim()),
               days: options["reactions.days"],
             },
           })
@@ -451,7 +470,7 @@
         ...(set.plugins.enabled.stock
           ? ({
             stock: {
-              chart: "(stock chart is not displayed in placeholder)",
+              chart: await staticPlaceholder(set.plugins.enabled.stock, "stock.svg"),
               currency: "USD",
               price: faker.datatype.number(10000) / 100,
               previous: faker.datatype.number(10000) / 100,
@@ -553,10 +572,12 @@
             music: {
               provider: "(music provider)",
               mode: "Suggested tracks",
+              played_at: options["music.played.at"],
               tracks: new Array(Number(options["music.limit"])).fill(null).map(_ => ({
                 name: faker.random.words(5),
                 artist: faker.random.words(),
                 artwork: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
+                played_at: options["music.played.at"] ? faker.date.recent() : null,
               })),
             },
           })
@@ -576,6 +597,16 @@
                 arrowHumanReadable: faker.random.arrayElement(["↑↑", "↑", "↗", "→", "↘", "↓", "↓↓"]),
               })),
             },
+          })
+          : null),
+        //Fortune
+        ...(set.plugins.enabled.fortune
+          ? ({
+            fortune: faker.random.arrayElement([
+              {chance:.06, color:"#43FD3B", text:"Good news will come to you by mail"},
+              {chance:.06, color:"#00CBB0", text:"ｷﾀ━━━━━━(ﾟ∀ﾟ)━━━━━━ !!!!"},
+              {chance: 0.03, color: "#FD4D32", text: "Excellent Luck"}
+            ]),
           })
           : null),
         //Pagespeed
@@ -666,6 +697,7 @@
               started: faker.datatype.number(1000),
               comments: faker.datatype.number(1000),
               answers: faker.datatype.number(1000),
+              display: { categories: options["discussions.categories"] ? { limit: options["discussions.categories.limit"] || Infinity } : null },
             },
           })
           : null),
@@ -690,6 +722,7 @@
           ? ({
             topics: {
               mode: options["topics.mode"],
+              type: {starred:"labels", labels:"labels", mastered:"icons", icons:"icons"}[options["topics.mode"]] || "labels",
               list: new Array(Number(options["topics.limit"]) || 20).fill(null).map(_ => ({
                 name: faker.lorem.words(2),
                 description: faker.lorem.sentence(),
@@ -770,7 +803,7 @@
         ...(set.plugins.enabled.repositories
           ? ({
             repositories: {
-              list: new Array(Number(options["repositories.featured"].split(",").length) - 1).fill(null).map((_, i) => ({
+              list: new Array(Number(options["repositories.featured"].split(",").map(x => x.trim()).length)).fill(null).map((_, i) => ({
                 created: faker.date.past(),
                 description: faker.lorem.sentence(),
                 forkCount: faker.datatype.number(100),
@@ -1058,7 +1091,7 @@
               streak: { max: 30 + faker.datatype.number(20), current: faker.datatype.number(30) },
               max: 10 + faker.datatype.number(40),
               average: faker.datatype.float(10),
-              svg: "(isometric calendar is not displayed in placeholder)",
+              svg: await staticPlaceholder(set.plugins.enabled.isocalendar, `isocalendar.${options["isocalendar.duration"]}.svg`),
               duration: options["isocalendar.duration"],
             },
           })
@@ -1076,7 +1109,7 @@
         ...(set.plugins.enabled.screenshot
           ? ({
             screenshot: {
-              image: "data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
+              image: "/.placeholders/screenshot.png",
               title: options["screenshot.title"],
               height: 440,
               width: 454,
@@ -1087,7 +1120,7 @@
         ...(set.plugins.enabled.skyline
           ? ({
             skyline: {
-              animation: "data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
+              animation: "/.placeholders/skyline.png",
               width: 454,
               height: 284,
               compatibility: false,

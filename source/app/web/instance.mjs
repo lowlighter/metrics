@@ -12,13 +12,13 @@ import presets from "../metrics/presets.mjs"
 import setup from "../metrics/setup.mjs"
 
 /**App */
-export default async function({sandbox} = {}) {
+export default async function({sandbox = false} = {}) {
   //Load configuration settings
   const {conf, Plugins, Templates} = await setup({sandbox})
   //Sandbox mode
   if (sandbox) {
     console.debug("metrics/app > sandbox mode is specified, enabling advanced features")
-    Object.assign(conf.settings, {optimize: true, cached:0, "plugins.default":true, extras:{default:true}})
+    Object.assign(conf.settings, {sandbox:true, optimize: true, cached:0, "plugins.default":true, extras:{default:true}})
   }
   const {token, maxusers = 0, restricted = [], debug = false, cached = 30 * 60 * 1000, port = 3000, ratelimiter = null, plugins = null} = conf.settings
   const mock = sandbox || conf.settings.mocked
@@ -93,17 +93,28 @@ export default async function({sandbox} = {}) {
   const enabled = Object.entries(metadata).filter(([_name, {category}]) => category !== "core").map(([name]) => ({name, category:metadata[name]?.category ?? "community", enabled:plugins[name]?.enabled ?? false}))
   const templates = Object.entries(Templates).map(([name]) => ({name, enabled:(conf.settings.templates.enabled.length ? conf.settings.templates.enabled.includes(name) : true) ?? false}))
   const actions = {flush:new Map()}
-  let requests = {limit:0, used:0, remaining:0, reset:NaN}
+  const requests = {rest:{limit:0, used:0, remaining:0, reset:NaN}, graphql:{limit:0, used:0, remaining:0, reset:NaN}}
+  let _requests_refresh = false
   if (!conf.settings.notoken) {
-    requests = (await rest.rateLimit.get()).data.rate
-    setInterval(async () => {
+    const refresh = async () => {
       try {
-        requests = (await rest.rateLimit.get()).data.rate
+        const {limit} = await graphql("{ limit:rateLimit {limit remaining reset:resetAt used} }")
+        Object.assign(requests, {
+          rest:(await rest.rateLimit.get()).data.rate,
+          graphql:{...limit, reset:new Date(limit.reset).getTime()}
+        })
       }
       catch {
         console.debug("metrics/app > failed to update remaining requests")
       }
-    }, 5 * 60 * 1000)
+    }
+    await refresh()
+    setInterval(refresh, 15 * 60 * 1000)
+    setInterval(() => {
+      if (_requests_refresh)
+        refresh()
+      _requests_refresh = false
+    }, 15 * 1000)
   }
   //Web
   app.get("/", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/index.html`))
@@ -119,6 +130,8 @@ export default async function({sandbox} = {}) {
   app.get("/.templates/:template", limiter, (req, res) => req.params.template in conf.templates ? res.status(200).json(conf.templates[req.params.template]) : res.sendStatus(404))
   for (const template in conf.templates)
     app.use(`/.templates/${template}/partials`, express.static(`${conf.paths.templates}/${template}/partials`))
+  //Placeholders
+  app.use("/.placeholders", express.static(`${conf.paths.statics}/placeholders`))
   //Styles
   app.get("/.css/style.css", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/style.css`))
   app.get("/.css/style.vars.css", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/style.vars.css`))
@@ -204,6 +217,9 @@ export default async function({sandbox} = {}) {
       //General error
       console.error(error)
       return res.status(500).send("Internal Server Error: failed to process metrics correctly")
+    }
+    finally {
+      _requests_refresh = true
     }
   })
 
@@ -309,8 +325,8 @@ export default async function({sandbox} = {}) {
     }
     finally {
       //After rendering
-
       solve?.()
+      _requests_refresh = true
     }
   })
 
