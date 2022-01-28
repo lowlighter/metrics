@@ -1,0 +1,55 @@
+query BaseUserX {
+  user(login: "$login") {
+    packages {
+      totalCount
+    }
+    starredRepositories {
+      totalCount
+    }
+    watching {
+      totalCount
+    }
+    sponsorshipsAsSponsor {
+      totalCount
+    }
+    sponsorshipsAsMaintainer {
+      totalCount
+    }
+    followers {
+      totalCount
+    }
+    following {
+      totalCount
+    }
+    issueComments {
+      totalCount
+    }
+    organizations {
+      totalCount
+    }
+    repositoriesContributedTo(includeUserRepositories: true) {
+      totalCount
+    }
+    repositories(last: 0) {
+      totalCount
+      totalDiskUsage
+    }
+    contributionsCollection {
+      totalRepositoriesWithContributedCommits
+      totalCommitContributions
+      restrictedContributionsCount
+      totalIssueContributions
+      totalPullRequestContributions
+      totalPullRequestReviewContributions
+    }
+    calendar:contributionsCollection(from: "$calendar.from", to: "$calendar.to") {
+      contributionCalendar {
+        weeks {
+          contributionDays {
+            color
+          }
+        }
+      }
+    }
+  }
+}

@@ -30,53 +30,60 @@ export default async function({login, graphql, rest, data, q, queries, imports},
       const queried = await graphql(queries.base[account]({login}))
       Object.assign(data, {user:queried[account]})
       postprocess?.[account]({login, data})
-      //Query basic fields
-      const fields = {
-        user:["packages", "starredRepositories", "watching", "sponsorshipsAsSponsor", "sponsorshipsAsMaintainer", "followers", "following", "issueComments", "organizations", "repositoriesContributedTo(includeUserRepositories: true)"],
-        organization:["packages", "sponsorshipsAsSponsor", "sponsorshipsAsMaintainer", "membersWithRole"],
-      }[account] ?? []
-      for (const field of fields) {
-        try {
-          Object.assign(data.user, (await graphql(queries.base.field({login, account, field})))[account])
-        }
-        catch {
-          console.debug(`metrics/compute/${login}/base > failed to retrieve ${field}`)
-          data.user[field] = {totalCount:NaN}
-        }
+      try {
+        Object.assign(data.user, (await graphql(queries.base[`${account}.x`]({login, account, "calendar.from":new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString(), "calendar.to":(new Date()).toISOString()})))[account])
+        console.debug(`metrics/compute/${login}/base > successfully loaded bulk query`)
       }
-      //Query repositories fields
-      for (const field of ["totalCount", "totalDiskUsage"]) {
-        try {
-          Object.assign(data.user.repositories, (await graphql(queries.base["field.repositories"]({login, account, field})))[account].repositories)
-        }
-        catch (error) {
-          console.log(error)
-          console.debug(`metrics/compute/${login}/base > failed to retrieve repositories.${field}`)
-          data.user.repositories[field] = NaN
-        }
-      }
-      //Query user account fields
-      if (account === "user") {
-        //Query contributions collection
-        {
-          const fields = ["totalRepositoriesWithContributedCommits", "totalCommitContributions", "restrictedContributionsCount", "totalIssueContributions", "totalPullRequestContributions", "totalPullRequestReviewContributions"]
-          for (const field of fields) {
-            try {
-              Object.assign(data.user.contributionsCollection, (await graphql(queries.base.contributions({login, account, field})))[account].contributionsCollection)
-            }
-            catch {
-              console.debug(`metrics/compute/${login}/base > failed to retrieve contributionsCollection.${field}`)
-              data.user.contributionsCollection[field] = NaN
-            }
+      catch {
+        console.debug(`metrics/compute/${login}/base > failed to load bulk query, falling back to unit queries`)
+        //Query basic fields
+        const fields = {
+          user:["packages", "starredRepositories", "watching", "sponsorshipsAsSponsor", "sponsorshipsAsMaintainer", "followers", "following", "issueComments", "organizations", "repositoriesContributedTo(includeUserRepositories: true)"],
+          organization:["packages", "sponsorshipsAsSponsor", "sponsorshipsAsMaintainer", "membersWithRole"],
+        }[account] ?? []
+        for (const field of fields) {
+          try {
+            Object.assign(data.user, (await graphql(queries.base.field({login, account, field})))[account])
+          }
+          catch {
+            console.debug(`metrics/compute/${login}/base > failed to retrieve ${field}`)
+            data.user[field] = {totalCount:NaN}
           }
         }
-        //Query calendar
-        try {
-          Object.assign(data.user, (await graphql(queries.base.calendar({login, "calendar.from":new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString(), "calendar.to":(new Date()).toISOString()})))[account])
+        //Query repositories fields
+        for (const field of ["totalCount", "totalDiskUsage"]) {
+          try {
+            Object.assign(data.user.repositories, (await graphql(queries.base["field.repositories"]({login, account, field})))[account].repositories)
+          }
+          catch (error) {
+            console.log(error)
+            console.debug(`metrics/compute/${login}/base > failed to retrieve repositories.${field}`)
+            data.user.repositories[field] = NaN
+          }
         }
-        catch {
-          console.debug(`metrics/compute/${login}/base > failed to retrieve contributions calendar`)
-          data.user.calendar = {contributionCalendar:{weeks:[]}}
+        //Query user account fields
+        if (account === "user") {
+          //Query contributions collection
+          {
+            const fields = ["totalRepositoriesWithContributedCommits", "totalCommitContributions", "restrictedContributionsCount", "totalIssueContributions", "totalPullRequestContributions", "totalPullRequestReviewContributions"]
+            for (const field of fields) {
+              try {
+                Object.assign(data.user.contributionsCollection, (await graphql(queries.base.contributions({login, account, field})))[account].contributionsCollection)
+              }
+              catch {
+                console.debug(`metrics/compute/${login}/base > failed to retrieve contributionsCollection.${field}`)
+                data.user.contributionsCollection[field] = NaN
+              }
+            }
+          }
+          //Query calendar
+          try {
+            Object.assign(data.user, (await graphql(queries.base.calendar({login, "calendar.from":new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString(), "calendar.to":(new Date()).toISOString()})))[account])
+          }
+          catch {
+            console.debug(`metrics/compute/${login}/base > failed to retrieve contributions calendar`)
+            data.user.calendar = {contributionCalendar:{weeks:[]}}
+          }
         }
       }
       //Query repositories from GitHub API
@@ -107,6 +114,10 @@ export default async function({login, graphql, rest, data, q, queries, imports},
           data.user[type].nodes.push(...nodes)
           pushed = nodes.length
           console.debug(`metrics/compute/${login}/base > retrieved ${pushed} ${type} after ${cursor}`)
+          if (pushed < repositories) {
+            console.debug(`metrics/compute/${login}/base > retrieved less repositories than expected, probably no more to fetch`)
+            break
+          }
         } while ((pushed) && (cursor) && ((data.user.repositories?.nodes?.length ?? 0) + (data.user.repositoriesContributedTo?.nodes?.length ?? 0) < repositories))
         //Limit repositories
         console.debug(`metrics/compute/${login}/base > keeping only ${repositories} ${type}`)

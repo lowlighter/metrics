@@ -1,0 +1,20 @@
+query BaseOrganizationX {
+  organization(login: "$login") {
+    packages {
+      totalCount
+    }
+    sponsorshipsAsSponsor {
+      totalCount
+    }
+    sponsorshipsAsMaintainer {
+      totalCount
+    }
+    membersWithRole {
+      totalCount
+    }
+    repositories(last: 0) {
+      totalCount
+      totalDiskUsage
+    }
+  }
+}
