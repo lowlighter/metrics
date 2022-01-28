@@ -457,8 +457,8 @@ export const svg = {
           //Get bounds and resize
           let {y:height, width} = document.querySelector("svg #metrics-end").getBoundingClientRect()
           console.debug(`bounds width=${width}, height=${height}`)
-          height = Math.ceil(height * padding.height + padding.absolute.height)
-          width = Math.ceil(width * padding.width + padding.absolute.width)
+          height = Math.max(1, Math.ceil(height * padding.height + padding.absolute.height))
+          width = Math.max(1, Math.ceil(width * padding.width + padding.absolute.width))
           console.debug(`bounds after applying padding width=${width} (*${padding.width}+${padding.absolute.width}), height=${height} (*${padding.height}+${padding.absolute.height})`)
           //Resize svg
           if (document.querySelector("svg").getAttribute("height") === "auto")
