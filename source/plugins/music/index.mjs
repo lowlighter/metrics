@@ -28,7 +28,7 @@ const modes = {
 }
 
 //Setup
-export default async function({login, imports, data, q, account}, {enabled = false, token = ""} = {}) {
+export default async function({login, imports, data, q, account}, {enabled = false, token = "", sandbox = false} = {}) {
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
@@ -47,7 +47,12 @@ export default async function({login, imports, data, q, account}, {enabled = fal
     let tracks = null
 
     //Load inputs
-    let {provider, mode, playlist, limit, user, "played.at":played_at, "time.range":time_range, "top.type":top_type} = imports.metadata.plugins.music.inputs({data, account, q})
+    let {provider, mode, playlist, limit, user, "played.at":played_at, "time.range":time_range, "top.type":top_type, token:_token} = imports.metadata.plugins.music.inputs({data, account, q})
+    if ((sandbox)&&(_token)) {
+      token = _token
+      console.debug(`metrics/compute/${login}/plugins > music > overriden token value through user inputs as sandbox mode is enabled`)
+    }
+
     //Auto-guess parameters
     if (!mode) {
       if (playlist) {
@@ -119,7 +124,7 @@ export default async function({login, imports, data, q, account}, {enabled = fal
                   name:tr.querySelector("td:nth-child(2) div div:nth-child(1)").innerText,
                   artist:tr.querySelector("td:nth-child(2) div div:nth-child(2)").innerText,
                   //Spotify doesn't provide artworks so we fallback on playlist artwork instead
-                  artwork:window.getComputedStyle(document.querySelector("button[title=Play]").parentNode, null).backgroundImage.match(/^url\("(?<url>https:...+)"\)$/)?.groups?.url ?? null,
+                  artwork:window.getComputedStyle(document.querySelector("button[title=Play]")?.parentNode ?? document.querySelector("button").parentNode, null).backgroundImage.match(/^url\("(?<url>https:...+)"\)$/)?.groups?.url ?? null,
                 }))
               ),
             ]
