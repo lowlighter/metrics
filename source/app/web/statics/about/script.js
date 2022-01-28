@@ -116,7 +116,6 @@
         return this.metrics?.rendered.plugins.followup ?? null
       },
       habits() {
-        console.log(this.metrics?.rendered.plugins.habits.commits.hours)
         return this.metrics?.rendered.plugins.habits.commits.hours ?? null
       },
       isocalendar() {

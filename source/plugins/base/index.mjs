@@ -56,7 +56,6 @@ export default async function({login, graphql, rest, data, q, queries, imports},
             Object.assign(data.user.repositories, (await graphql(queries.base["field.repositories"]({login, account, field})))[account].repositories)
           }
           catch (error) {
-            console.log(error)
             console.debug(`metrics/compute/${login}/base > failed to retrieve repositories.${field}`)
             data.user.repositories[field] = NaN
           }

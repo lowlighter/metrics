@@ -66,11 +66,11 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
     //Check plugins errors
     const errors = [...promised.filter(({result = null}) => result?.error), ...data.errors]
     if (errors.length) {
-      console.warn(`metrics/compute/${login} > ${errors.length} errors !`)
+      console.debug(`metrics/compute/${login} > ${errors.length} errors !`)
       if (die)
         throw new Error("An error occured during rendering, dying")
       else
-        console.warn(util.inspect(errors, {depth:Infinity, maxStringLength:256}))
+        console.debug(util.inspect(errors, {depth:Infinity, maxStringLength:256}))
     }
 
     //JSON output

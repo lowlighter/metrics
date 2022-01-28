@@ -28,7 +28,7 @@ export default async function({login, data, imports, graphql, q, queries, accoun
           ({project} = (await graphql(queries.projects.repository({user, repository, id, account})))[account].repository)
         }
         catch (error) {
-          console.error(error)
+          console.debug(error)
         }
       }
       if (!project)

@@ -476,7 +476,6 @@ export const svg = {
       ))
     }
     catch (error) {
-      console.error(error)
       console.debug(`metrics/svg/resize > an error occured: ${error}`)
       throw error
     }
