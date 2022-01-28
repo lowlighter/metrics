@@ -203,7 +203,7 @@ jobs:
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.topics.svg
-          token: ${{ secrets.METRICS_TOKEN }}
+          token: NOT_NEEDED
           base: ""
           plugin_topics: yes
           plugin_topics_limit: 12
@@ -216,7 +216,7 @@ jobs:
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.topics.icons.svg
-          token: ${{ secrets.METRICS_TOKEN }}
+          token: NOT_NEEDED
           base: ""
           plugin_topics: yes
           plugin_topics_limit: 0
@@ -673,7 +673,7 @@ jobs:
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.starlists.svg
-          token: ${{ secrets.METRICS_TOKEN }}
+          token: NOT_NEEDED
           base: ""
           plugin_starlists: yes
           plugin_starlists_limit_repositories: 2
@@ -834,7 +834,7 @@ jobs:
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.stackoverflow.svg
-          token: ${{ secrets.METRICS_TOKEN }}
+          token: NOT_NEEDED
           base: ""
           plugin_stackoverflow: yes
           plugin_stackoverflow_user: 1
@@ -927,7 +927,7 @@ jobs:
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.posts.svg
-          token: ${{ secrets.METRICS_TOKEN }}
+          token: NOT_NEEDED
           base: ""
           plugin_posts: yes
           plugin_posts_source: dev.to
@@ -940,7 +940,7 @@ jobs:
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.posts.full.svg
-          token: ${{ secrets.METRICS_TOKEN }}
+          token: NOT_NEEDED
           base: ""
           plugin_posts: yes
           plugin_posts_source: dev.to
@@ -997,7 +997,7 @@ jobs:
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.screenshot.svg
-          token: ${{ secrets.METRICS_TOKEN }}
+          token: NOT_NEEDED
           base: ""
           plugin_screenshot: yes
           plugin_screenshot_title: XKCD of the day

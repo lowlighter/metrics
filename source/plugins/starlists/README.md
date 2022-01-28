@@ -109,7 +109,7 @@ name: Featured star list
 uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.starlists.svg
-  token: ${{ secrets.METRICS_TOKEN }}
+  token: NOT_NEEDED
   base: ""
   plugin_starlists: yes
   plugin_starlists_limit_repositories: 2

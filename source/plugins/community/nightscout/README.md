@@ -125,7 +125,7 @@ Check out the instructions there.
 ```yaml
 uses: lowlighter/metrics@latest
 with:
-  token: ${{ secrets.METRICS_TOKEN }}
+  token: NOT_NEEDED
   plugin_nightscout: yes
   plugin_nightscout_url: ${{ secrets.NIGHTSCOUT_URL }}
 

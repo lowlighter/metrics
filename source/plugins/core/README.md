@@ -382,7 +382,9 @@ On forks, this feature is disable to take into account any changes you made on i
     <td nowrap="nowrap"><code>token</code></td>
     <td rowspan="2"><p>GitHub Personal Access Token</p>
 <p>No scopes are required by default, though some plugins and features may require additional scopes</p>
-<p>When using a configuration which does not requires a GitHub PAT, you may pass <code>NOT_NEEDED</code> instead</p>
+<p>When using a configuration which does not requires a GitHub PAT, you may pass <code>NOT_NEEDED</code> instead.
+Note that when doing so, all defaults values using <code>.user.*</code> will not be applicable meaning that they need to be filled manually.
+Most of the time <code>user</code> option must also be set.</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>

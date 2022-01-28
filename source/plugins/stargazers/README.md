@@ -15,8 +15,8 @@
   </tr>
   <tr>
     <td colspan="2" align="center">
-      <details open><summary>Chartist charts</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.chartist.svg" alt=""></img></details>
-      <details><summary>Classic charts</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.svg" alt=""></img></details>
+      <details open><summary>Classic charts</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.svg" alt=""></img></details>
+      <details><summary>Chartist charts</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.chartist.svg" alt=""></img></details>
       <img width="900" height="1" alt="">
     </td>
   </tr>
@@ -53,7 +53,7 @@
     <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
 <b>type:</b> <code>string</code>
 <br>
-<b>default:</b> null<br>
+<b>default:</b> classic<br>
 <b>allowed values:</b><ul><li>classic</li><li>chartist</li></ul></td>
   </tr>
 </table>

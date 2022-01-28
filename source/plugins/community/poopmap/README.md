@@ -97,7 +97,8 @@ This token will not expire and it will be able to access only public details.
 ```yaml
 uses: lowlighter/metrics@latest
 with:
-  token: ${{ secrets.METRICS_TOKEN }}
+  token: NOT_NEEDED
+  plugin_poopmap_token: ${{ secrets.POOPMAP_TOKEN }}
   plugin_poopmap: yes
 
 ```

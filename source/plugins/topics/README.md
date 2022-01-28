@@ -101,7 +101,7 @@ name: Labels
 uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.topics.svg
-  token: ${{ secrets.METRICS_TOKEN }}
+  token: NOT_NEEDED
   base: ""
   plugin_topics: yes
   plugin_topics_limit: 12
@@ -112,7 +112,7 @@ name: Icons
 uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.topics.icons.svg
-  token: ${{ secrets.METRICS_TOKEN }}
+  token: NOT_NEEDED
   base: ""
   plugin_topics: yes
   plugin_topics_limit: 0

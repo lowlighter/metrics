@@ -14,7 +14,9 @@ inputs:
 
       No scopes are required by default, though some plugins and features may require additional scopes
 
-      When using a configuration which does not requires a GitHub PAT, you may pass `NOT_NEEDED` instead
+      When using a configuration which does not requires a GitHub PAT, you may pass `NOT_NEEDED` instead.
+      Note that when doing so, all defaults values using `.user.*` will not be applicable meaning that they need to be filled manually.
+      Most of the time `user` option must also be set.
     type: token
     required: true
 

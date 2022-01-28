@@ -91,7 +91,7 @@ name: XKCD of the day
 uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.screenshot.svg
-  token: ${{ secrets.METRICS_TOKEN }}
+  token: NOT_NEEDED
   base: ""
   plugin_screenshot: yes
   plugin_screenshot_title: XKCD of the day

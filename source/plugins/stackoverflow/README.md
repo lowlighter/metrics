@@ -119,7 +119,7 @@ name: Top answers from stackoverflow
 uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.stackoverflow.svg
-  token: ${{ secrets.METRICS_TOKEN }}
+  token: NOT_NEEDED
   base: ""
   plugin_stackoverflow: yes
   plugin_stackoverflow_user: 1

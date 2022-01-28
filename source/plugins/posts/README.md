@@ -109,7 +109,7 @@ name: Recent posts
 uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.posts.svg
-  token: ${{ secrets.METRICS_TOKEN }}
+  token: NOT_NEEDED
   base: ""
   plugin_posts: yes
   plugin_posts_source: dev.to
@@ -120,7 +120,7 @@ name: Recent posts with descriptions and cover images
 uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.posts.full.svg
-  token: ${{ secrets.METRICS_TOKEN }}
+  token: NOT_NEEDED
   base: ""
   plugin_posts: yes
   plugin_posts_source: dev.to
