@@ -1,9 +1,8 @@
-# Note: this schema is subject to change upon official release
-name: draft
+name: v1
 properties:
   schema:
     description: Schema identifier
-    type: "'draft'"
+    type: "'v1'"
     required: true
   name:
     description: Preset name

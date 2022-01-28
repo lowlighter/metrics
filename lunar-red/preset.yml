@@ -1,4 +1,4 @@
-schema: draft
+schema: v1
 name: Lunar red
 description: A simple red themed preset
 author: lowlighter
@@ -18,9 +18,9 @@ with:
   extras_js: |
     for (const {a, b} of [
       {a:"#216e39", b:"#820711"},
-      {a:"#30a14e", b:"#e53228"}, 
-      {a:"#40c463", b:"#fb7252"}, 
-      {a:"#9be9a8", b:"#fcaf93"}, 
-      {a:"#ebedf0", b:"#fee2d5"}, 
+      {a:"#30a14e", b:"#e53228"},
+      {a:"#40c463", b:"#fb7252"},
+      {a:"#9be9a8", b:"#fcaf93"},
+      {a:"#ebedf0", b:"#fee2d5"},
     ])
     document.querySelectorAll(`svg g [fill="${a}"]`).forEach(node => node.setAttribute("fill", b))
