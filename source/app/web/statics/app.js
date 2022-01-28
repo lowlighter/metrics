@@ -90,24 +90,24 @@
       tab: "overview",
       palette: "light",
       clipboard: null,
-      requests: {rest:{limit:0, used:0, remaining:0, reset:NaN}, graphql:{limit:0, used:0, remaining:0, reset:NaN}},
+      requests: { rest: { limit: 0, used: 0, remaining: 0, reset: NaN }, graphql: { limit: 0, used: 0, remaining: 0, reset: NaN } },
       cached: new Map(),
       config: Object.fromEntries(Object.entries(metadata.core.web).map(([key, { defaulted }]) => [key, defaulted])),
       metadata: Object.fromEntries(Object.entries(metadata).map(([key, { web }]) => [key, web])),
       hosted: null,
-      docs:{
-        overview:{
-          link:"https://github.com/lowlighter/metrics#-documentation",
-          name:"Complete documentation",
+      docs: {
+        overview: {
+          link: "https://github.com/lowlighter/metrics#-documentation",
+          name: "Complete documentation",
         },
-        markdown:{
-          link:"https://github.com/lowlighter/metrics/blob/master/.github/readme/partials/documentation/setup/shared.md",
-          name:"Setup using the shared instance",
+        markdown: {
+          link: "https://github.com/lowlighter/metrics/blob/master/.github/readme/partials/documentation/setup/shared.md",
+          name: "Setup using the shared instance",
         },
-        action:{
-          link:"https://github.com/lowlighter/metrics/blob/master/.github/readme/partials/documentation/setup/action.md",
-          name:"Setup using GitHub Action on a profile repository",
-        }
+        action: {
+          link: "https://github.com/lowlighter/metrics/blob/master/.github/readme/partials/documentation/setup/action.md",
+          name: "Setup using GitHub Action on a profile repository",
+        },
       },
       plugins: {
         base: {},
@@ -269,7 +269,7 @@
       rlreset() {
         const reset = new Date(Math.max(this.requests.graphql.reset, this.requests.rest.reset))
         return `${reset.getHours()}:${reset.getMinutes()}`
-      }
+      },
     },
     //Methods
     methods: {
@@ -321,7 +321,8 @@
           try {
             const { data: requests } = await axios.get("/.requests")
             this.requests = requests
-          } catch {}
+          }
+          catch {}
         }
       },
     },

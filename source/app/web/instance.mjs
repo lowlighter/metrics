@@ -18,7 +18,7 @@ export default async function({sandbox = false} = {}) {
   //Sandbox mode
   if (sandbox) {
     console.debug("metrics/app > sandbox mode is specified, enabling advanced features")
-    Object.assign(conf.settings, {sandbox:true, optimize: true, cached:0, "plugins.default":true, extras:{default:true}})
+    Object.assign(conf.settings, {sandbox:true, optimize:true, cached:0, "plugins.default":true, extras:{default:true}})
   }
   const {token, maxusers = 0, restricted = [], debug = false, cached = 30 * 60 * 1000, port = 3000, ratelimiter = null, plugins = null} = conf.settings
   const mock = sandbox || conf.settings.mocked
@@ -101,7 +101,7 @@ export default async function({sandbox = false} = {}) {
         const {limit} = await graphql("{ limit:rateLimit {limit remaining reset:resetAt used} }")
         Object.assign(requests, {
           rest:(await rest.rateLimit.get()).data.rate,
-          graphql:{...limit, reset:new Date(limit.reset).getTime()}
+          graphql:{...limit, reset:new Date(limit.reset).getTime()},
         })
       }
       catch {

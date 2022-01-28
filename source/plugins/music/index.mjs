@@ -48,7 +48,7 @@ export default async function({login, imports, data, q, account}, {enabled = fal
 
     //Load inputs
     let {provider, mode, playlist, limit, user, "played.at":played_at, "time.range":time_range, "top.type":top_type, token:_token} = imports.metadata.plugins.music.inputs({data, account, q})
-    if ((sandbox)&&(_token)) {
+    if ((sandbox) && (_token)) {
       token = _token
       console.debug(`metrics/compute/${login}/plugins > music > overriden token value through user inputs as sandbox mode is enabled`)
     }

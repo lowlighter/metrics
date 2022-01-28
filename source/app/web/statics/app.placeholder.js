@@ -247,21 +247,25 @@
           ? ({
             notable: {
               contributions: new Array(2 + faker.datatype.number(2)).fill(null).map(_ => ({
-                get name() { return options["notable.repositories"] ? this.handle : this.handle.split("/")[0] },
+                get name() {
+                  return options["notable.repositories"] ? this.handle : this.handle.split("/")[0]
+                },
                 handle: `${faker.lorem.slug()}/${faker.lorem.slug()}`,
                 avatar: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
                 organization: faker.datatype.boolean(),
                 stars: faker.datatype.number(1000),
                 aggregated: faker.datatype.number(100),
                 history: faker.datatype.number(1000),
-                ...(options["notable.indepth"] ? {
-                  user:{
-                    commits: faker.datatype.number(100),
-                    percentage: faker.datatype.float({ max: 1 }),
-                    maintainer: false,
-                    stars: faker.datatype.number(100),
+                ...(options["notable.indepth"]
+                  ? {
+                    user: {
+                      commits: faker.datatype.number(100),
+                      percentage: faker.datatype.float({ max: 1 }),
+                      maintainer: false,
+                      stars: faker.datatype.number(100),
+                    },
                   }
-                } : null)
+                  : null),
               })),
             },
           })
@@ -603,9 +607,9 @@
         ...(set.plugins.enabled.fortune
           ? ({
             fortune: faker.random.arrayElement([
-              {chance:.06, color:"#43FD3B", text:"Good news will come to you by mail"},
-              {chance:.06, color:"#00CBB0", text:"ｷﾀ━━━━━━(ﾟ∀ﾟ)━━━━━━ !!!!"},
-              {chance: 0.03, color: "#FD4D32", text: "Excellent Luck"}
+              { chance: .06, color: "#43FD3B", text: "Good news will come to you by mail" },
+              { chance: .06, color: "#00CBB0", text: "ｷﾀ━━━━━━(ﾟ∀ﾟ)━━━━━━ !!!!" },
+              { chance: 0.03, color: "#FD4D32", text: "Excellent Luck" },
             ]),
           })
           : null),
@@ -722,7 +726,7 @@
           ? ({
             topics: {
               mode: options["topics.mode"],
-              type: {starred:"labels", labels:"labels", mastered:"icons", icons:"icons"}[options["topics.mode"]] || "labels",
+              type: { starred: "labels", labels: "labels", mastered: "icons", icons: "icons" }[options["topics.mode"]] || "labels",
               list: new Array(Number(options["topics.limit"]) || 20).fill(null).map(_ => ({
                 name: faker.lorem.words(2),
                 description: faker.lorem.sentence(),
