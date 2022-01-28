@@ -1,7 +1,7 @@
 /**Mocked data */
 export default function({ faker, url, options, login = faker.internet.userName() }) {
   //Wakatime api
-  if (/^https:..api.poopmap.net$/.test(url)) {
+  if (/^https:..api.poopmap.net/.test(url)) {
     //Get user profile
     if (/public_links\/MOCKED_TOKEN/.test(url)) {
       console.debug(`metrics/compute/mocks > mocking poopmap api result > ${url}`)
