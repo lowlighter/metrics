@@ -109,8 +109,8 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
   </tr>
   <tr>
         <td  align="center">
-        <details open><summary>Chartist charts</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.chartist.svg" alt=""></img></details>
-        <details><summary>Classic charts</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.svg" alt=""></img></details>
+        <details open><summary>Classic charts</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.svg" alt=""></img></details>
+        <details><summary>Chartist charts</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.chartist.svg" alt=""></img></details>
         <img width="900" height="1" alt="">
       </td>
         <td  align="center">
