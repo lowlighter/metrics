@@ -41,7 +41,7 @@ export default async function presets(list, {log = true, core = null} = {}) {
 
       //Evaluate preset
       switch (`${schema}`) {
-        case "draft": {
+        case "v1": {
           for (let [key, value] of Object.entries(inputs)) {
             if (!allowed.includes(key)) {
               logger(`metrics/presets > ${key} is specified but is not allowed in preset, skipping`)
