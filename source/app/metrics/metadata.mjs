@@ -404,7 +404,7 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
           if ("values" in o)
             cell.push(`<b>allowed values:</b><ul>${o.values.map(value => `<li>${value}</li>`).join("")}</ul>`)
           return `  <tr>
-    <td nowrap="nowrap"><code>${option}</code></td>
+    <td nowrap="nowrap"><h4><code>${option}</code></h4></td>
     <td rowspan="2">${marked.parse(description, {silent:true})}<img width="900" height="1" alt=""></td>
   </tr>
   <tr>
