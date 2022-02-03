@@ -157,6 +157,7 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
           style:extras.css,
           twemojis:q["config.twemoji"],
           gemojis:q["config.gemoji"],
+          octicons:q["config.octicon"],
           rest,
         })
       }
@@ -172,6 +173,8 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
       rendered = await imports.svg.twemojis(rendered)
     if (q["config.gemoji"])
       rendered = await imports.svg.gemojis(rendered, {rest})
+    if (q["config.octicon"])
+      rendered = await imports.svg.octicons(rendered)
     //Optimize rendering
     if ((conf.settings?.optimize === true) || (conf.settings?.optimize?.includes?.("css")))
       rendered = await imports.svg.optimize.css(rendered)

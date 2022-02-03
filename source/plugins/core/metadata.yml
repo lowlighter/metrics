@@ -243,6 +243,22 @@ inputs:
     default: yes
     global: yes
 
+  config_octicon:
+    description: |
+      Use GitHub octicons
+
+      Octicons are open-sourced icons provided by GitHub.
+      See full list at https://primer.style/octicons.
+
+      To include an octicon, use the following syntax: `:octicon-{name}-{size}:`.
+      Size must be a supported icon size (12, 16 or 24).
+      16px octicons can omit size and directly use `:octicon-{name}:` syntax.
+
+      May increase filesize
+    type: boolean
+    default: no
+    global: yes
+
   config_display:
     description: |
       Display width (for image output formats)
