@@ -20,16 +20,16 @@ export default function({ faker, query, login = faker.internet.userName() }) {
             {
               cursor: "MOCKED_CURSOR",
               node: {
-                repository:{
-                  nameWithOwner: `${faker.internet.userName()}/${faker.lorem.slug()}`
-                }
+                repository: {
+                  nameWithOwner: `${faker.internet.userName()}/${faker.lorem.slug()}`,
+                },
               },
             },
           ],
         },
         get pullRequests() {
           return this.issues
-        }
+        },
       },
     })
 }

@@ -29,7 +29,8 @@ export default async function({login, q, imports, rest, graphql, data, account, 
     }
 
     //Set contributions
-    contributions = (await Promise.all(contributions.map(async ({handle, stars, issues, pulls, avatarUrl, organization}) => ({name:handle.split("/").shift(), handle, stars, issues, pulls, avatar:await imports.imgb64(avatarUrl), organization})))).sort((a, b) => a.name.localeCompare(b.name))
+    contributions = (await Promise.all(contributions.map(async ({handle, stars, issues, pulls, avatarUrl, organization}) => ({name:handle.split("/").shift(), handle, stars, issues, pulls, avatar:await imports.imgb64(avatarUrl), organization})))).sort((a, b) => a.name.localeCompare(b.name)
+    )
     console.debug(`metrics/compute/${login}/plugins > notable > found ${contributions.length} notable contributions`)
 
     //Extras features

@@ -1,4 +1,5 @@
 //Imports
+import octicons from "@primer/octicons"
 import fs from "fs/promises"
 import prism_lang from "prismjs/components/index.js"
 import axios from "axios"
@@ -30,7 +31,6 @@ import twemojis from "twemoji-parser"
 import url from "url"
 import util from "util"
 import xmlformat from "xml-formatter"
-import octicons from "@primer/octicons"
 prism_lang()
 
 //Exports
