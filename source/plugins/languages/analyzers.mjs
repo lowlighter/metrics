@@ -163,6 +163,13 @@ async function analyze({login, imports, data}, {results, path, categories = ["pr
   const per_page = 1
   const edited = new Set()
   console.debug(`metrics/compute/${login}/plugins > languages > indepth > checking git log`)
+  try {
+    await imports.run("git log --max-count=1", {cwd:path})
+  }
+  catch {
+    console.debug(`metrics/compute/${login}/plugins > languages > indepth > repo seems empty or impossible to git log, skipping`)
+    return
+  }
   for (let page = 0; ; page++) {
     try {
       console.debug(`metrics/compute/${login}/plugins > languages > indepth > processing commits ${page * per_page} from ${(page + 1) * per_page}`)
