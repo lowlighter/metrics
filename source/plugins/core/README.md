@@ -666,6 +666,24 @@ See full list at <a href="https://api.github.com/emojis">https://api.github.com/
 <b>default:</b> yes<br></td>
   </tr>
   <tr>
+    <td nowrap="nowrap"><h4><code>config_octicon</code></h4></td>
+    <td rowspan="2"><p>Use GitHub octicons</p>
+<p>Octicons are open-sourced icons provided by GitHub.
+See full list at <a href="https://primer.style/octicons">https://primer.style/octicons</a>.</p>
+<p>To include an octicon, use the following syntax: <code>:octicon-{name}-{size}:</code>.
+Size must be a supported icon size (12, 16 or 24).
+16px octicons can omit size and directly use <code>:octicon-{name}:</code> syntax.</p>
+<p>May increase filesize</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">⏭️ Global option<br>
+✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
     <td nowrap="nowrap"><h4><code>config_display</code></h4></td>
     <td rowspan="2"><p>Display width (for image output formats)</p>
 <ul>

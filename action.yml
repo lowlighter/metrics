@@ -129,6 +129,10 @@ inputs:
     description: Use GitHub custom emojis
     default: <default-value>
   
+  config_octicon:
+    description: Use GitHub octicons
+    default: <default-value>
+  
   config_display:
     description: Display width (for image output formats)
     default: <default-value>
@@ -633,6 +637,10 @@ inputs:
   
   plugin_notable_indepth:
     description: Indepth mode
+    default: <default-value>
+  
+  plugin_notable_types:
+    description: Contribution types filter
     default: <default-value>
   
   # ====================================================================================

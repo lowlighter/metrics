@@ -102,6 +102,25 @@ Some repositories may not be able to reported advanced stats and in the case the
 <br>
 <b>default:</b> no<br></td>
   </tr>
+  <tr>
+    <td nowrap="nowrap"><h4><code>plugin_notable_types</code></h4></td>
+    <td rowspan="2"><p>Contribution types filter</p>
+<p>Use a combination of below values to include repositories where:</p>
+<ul>
+<li><code>commit</code>: a commit on default branch was made</li>
+<li><code>pull_request</code>: a pull request was opened</li>
+<li><code>issue</code>: an issue was opened</li>
+</ul>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br>
+<b>default:</b> commit<br>
+<b>allowed values:</b><ul><li>commit</li><li>pull_request</li><li>issue</li></ul></td>
+  </tr>
 </table>
 <!--/options-->
 
