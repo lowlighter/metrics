@@ -55,8 +55,6 @@ Content can be manually ordered using `config_order` option.
 
 ## 🪛 Using presets
 
-> 🚧 This feature is an early implementation and may change before official release
-
 It is possible to reuse the same configuration across different repositories and workflows using configuration presets.
 A preset override the default values of inputs, and multiple presets can be provided at once through URLs or file paths.
 
