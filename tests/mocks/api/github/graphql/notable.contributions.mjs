@@ -25,6 +25,8 @@ export default function({ faker, query, login = faker.internet.userName() }) {
                 stargazers: { totalCount: faker.datatype.number(1000) },
                 watchers: { totalCount: faker.datatype.number(1000) },
                 forks: { totalCount: faker.datatype.number(1000) },
+                issues: { totalCount: faker.datatype.number(1000) },
+                pullRequests: { totalCount: faker.datatype.number(1000) },
               },
             },
           ],

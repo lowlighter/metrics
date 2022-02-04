@@ -7,29 +7,29 @@ export default async function({login, q, imports, rest, graphql, data, account, 
       return null
 
     //Load inputs
-    let {filter, skipped, repositories, from, indepth} = imports.metadata.plugins.notable.inputs({data, account, q})
+    let {filter, skipped, repositories, types, from, indepth} = imports.metadata.plugins.notable.inputs({data, account, q})
     skipped.push(...data.shared["repositories.skipped"])
 
     //Iterate through contributed repositories
-    const commits = []
+    let contributions = []
     {
       let cursor = null
       let pushed = 0
       do {
         console.debug(`metrics/compute/${login}/plugins > notable > retrieving contributed repositories after ${cursor}`)
-        const {user:{repositoriesContributedTo:{edges}}} = await graphql(queries.notable.contributions({login, after:cursor ? `after: "${cursor}"` : "", repositories:data.shared["repositories.batch"] || 100}))
+        const {user:{repositoriesContributedTo:{edges}}} = await graphql(queries.notable.contributions({login, types:types.map(x => x.toLocaleUpperCase()).join(", "), after:cursor ? `after: "${cursor}"` : "", repositories:data.shared["repositories.batch"] || 100}))
         cursor = edges?.[edges?.length - 1]?.cursor
         edges
           .filter(({node}) => !((skipped.includes(node.nameWithOwner.toLocaleLowerCase())) || (skipped.includes(node.nameWithOwner.split("/")[1].toLocaleLowerCase()))))
           .filter(({node}) => ({all:true, organization:node.isInOrganization, user:!node.isInOrganization}[from]))
           .filter(({node}) => imports.ghfilter(filter, {name:node.nameWithOwner, user:node.owner.login, stars:node.stargazers.totalCount, watchers:node.watchers.totalCount, forks:node.forks.totalCount}))
-          .map(({node}) => commits.push({handle:node.nameWithOwner, stars:node.stargazers.totalCount, organization:node.isInOrganization, avatarUrl:node.owner.avatarUrl}))
+          .map(({node}) => contributions.push({handle:node.nameWithOwner, stars:node.stargazers.totalCount, issues:node.issues.totalCount, pulls:node.pullRequests.totalCount, organization:node.isInOrganization, avatarUrl:node.owner.avatarUrl}))
         pushed = edges.length
       } while ((pushed) && (cursor))
     }
 
     //Set contributions
-    let contributions = (await Promise.all(commits.map(async ({handle, stars, avatarUrl, organization}) => ({name:handle.split("/").shift(), handle, stars, avatar:await imports.imgb64(avatarUrl), organization})))).sort((a, b) => a.name.localeCompare(b.name))
+    contributions = (await Promise.all(contributions.map(async ({handle, stars, issues, pulls, avatarUrl, organization}) => ({name:handle.split("/").shift(), handle, stars, issues, pulls, avatar:await imports.imgb64(avatarUrl), organization})))).sort((a, b) => a.name.localeCompare(b.name))
     console.debug(`metrics/compute/${login}/plugins > notable > found ${contributions.length} notable contributions`)
 
     //Extras features
@@ -37,6 +37,36 @@ export default async function({login, q, imports, rest, graphql, data, account, 
       //Indepth
       if (indepth) {
         console.debug(`metrics/compute/${login}/plugins > notable > indepth`)
+
+        //Fetch issues
+        const issues = {}
+        if (types.includes("issue")) {
+          let cursor = null
+          let pushed = 0
+          do {
+            console.debug(`metrics/compute/${login}/plugins > notable > retrieving user issues after ${cursor}`)
+            const {user:{issues:{edges}}} = await graphql(queries.notable.issues({login, type:"issues", after:cursor ? `after: "${cursor}"` : ""}))
+            cursor = edges?.[edges?.length - 1]?.cursor
+            edges.map(({node:{repository:{nameWithOwner:repository}}}) => issues[repository] = (issues[repositories] ?? 0) + 1)
+            pushed = edges.length
+          } while ((pushed) && (cursor))
+        }
+
+        //Fetch pull requests
+        const pulls = {}
+        if (types.includes("pull_request")) {
+          let cursor = null
+          let pushed = 0
+          do {
+            console.debug(`metrics/compute/${login}/plugins > notable > retrieving user pull requests after ${cursor}`)
+            const {user:{pullRequests:{edges}}} = await graphql(queries.notable.issues({login, type:"pullRequests", after:cursor ? `after: "${cursor}"` : ""}))
+            cursor = edges?.[edges?.length - 1]?.cursor
+            edges.map(({node:{repository:{nameWithOwner:repository}}}) => pulls[repository] = (pulls[repositories] ?? 0) + 1)
+            pushed = edges.length
+          } while ((pushed) && (cursor))
+        }
+
+        //Fetch commits
         for (const contribution of contributions) {
           //Prepare data
           const {handle, stars} = contribution
@@ -59,8 +89,10 @@ export default async function({login, q, imports, rest, graphql, data, account, 
               commits,
               percentage:commits / contribution.history,
               maintainer:maintainers.includes(login),
+              issues:issues[handle] ?? 0,
+              pulls:pulls[handle] ?? 0,
               get stars() {
-                return this.maintainer ? stars : this.percentage * stars
+                return Math.round(this.maintainer ? stars : this.percentage * stars)
               },
             }
             console.debug(`metrics/compute/${login}/plugins > notable > indepth > successfully processed ${owner}/${repo}`)
@@ -106,7 +138,7 @@ export default async function({login, q, imports, rest, graphql, data, account, 
     }
 
     //Results
-    return {contributions}
+    return {contributions, types}
   }
   //Handle errors
   catch (error) {

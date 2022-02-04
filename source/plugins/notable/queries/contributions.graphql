@@ -1,6 +1,6 @@
 query NotableContributions {
   user(login: "$login") {
-    repositoriesContributedTo($after first: $repositories, contributionTypes: COMMIT, orderBy: { field: STARGAZERS, direction: DESC }) {
+    repositoriesContributedTo($after first: $repositories, contributionTypes: [$types], orderBy: { field: STARGAZERS, direction: DESC }) {
       edges {
         cursor
         node {
@@ -17,6 +17,12 @@ query NotableContributions {
             totalCount
           }
           stargazers {
+            totalCount
+          }
+          issues {
+            totalCount
+          }
+          pullRequests {
             totalCount
           }
         }
