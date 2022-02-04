@@ -30,7 +30,7 @@
     <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_projects</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_projects</code></h4></td>
     <td rowspan="2"><p>Enable projects plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -40,7 +40,7 @@
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_projects_limit</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_projects_limit</code></h4></td>
     <td rowspan="2"><p>Display limit</p>
 <p>Note that <code>plugin_projects_repositories</code> is not affected by this option</p>
 <img width="900" height="1" alt=""></td>
@@ -54,7 +54,7 @@
 <b>default:</b> 4<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_projects_repositories</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_projects_repositories</code></h4></td>
     <td rowspan="2"><p>List of repositories projects</p>
 <p>Use the following syntax for each project <code>:user/:repo/projects/:project_id</code></p>
 <img width="900" height="1" alt=""></td>
@@ -66,7 +66,7 @@
 <br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_projects_descriptions</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_projects_descriptions</code></h4></td>
     <td rowspan="2"><p>Toggle projects descriptions display</p>
 <img width="900" height="1" alt=""></td>
   </tr>

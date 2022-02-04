@@ -31,7 +31,7 @@
     <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_tweets</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_tweets</code></h4></td>
     <td rowspan="2"><p>Enable tweets plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -41,7 +41,7 @@
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_tweets_token</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_tweets_token</code></h4></td>
     <td rowspan="2"><p>Twitter API token</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -51,7 +51,7 @@
 <br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_tweets_attachments</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_tweets_attachments</code></h4></td>
     <td rowspan="2"><p>Display tweets attachments (images, video previews, etc.)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -61,7 +61,7 @@
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_tweets_limit</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_tweets_limit</code></h4></td>
     <td rowspan="2"><p>Display limit</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -74,7 +74,7 @@
 <b>default:</b> 2<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_tweets_user</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_tweets_user</code></h4></td>
     <td rowspan="2"><p>Twitter username</p>
 <img width="900" height="1" alt=""></td>
   </tr>

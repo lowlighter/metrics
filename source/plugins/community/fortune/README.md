@@ -31,13 +31,12 @@
     <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_fortune</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_fortune</code></h4></td>
     <td rowspan="2"><p>Enable fortune plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
-<b>type:</b> <code>boolean</code>
+    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
 <br>
 <b>default:</b> no<br></td>
   </tr>

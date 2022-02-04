@@ -30,7 +30,7 @@
     <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_discussions</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_discussions</code></h4></td>
     <td rowspan="2"><p>Enable discussions plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -40,7 +40,7 @@
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_discussions_categories</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_discussions_categories</code></h4></td>
     <td rowspan="2"><p>Toggle discussion categories display</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -50,7 +50,7 @@
 <b>default:</b> yes<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_discussions_categories_limit</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_discussions_categories_limit</code></h4></td>
     <td rowspan="2"><p>Display limit (categories)</p>
 <p>Note that categories are sorted from highest to lowest count.</p>
 <img width="900" height="1" alt=""></td>

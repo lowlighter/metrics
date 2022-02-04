@@ -34,7 +34,7 @@
     <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_repositories</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_repositories</code></h4></td>
     <td rowspan="2"><p>Enable repositories plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -44,7 +44,7 @@
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_repositories_featured</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_repositories_featured</code></h4></td>
     <td rowspan="2"><p>List of featured repositories</p>
 <p>If no owner is specified, it will implicitly use the current account login</p>
 <img width="900" height="1" alt=""></td>

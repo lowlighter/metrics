@@ -31,7 +31,7 @@
     <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_people</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_people</code></h4></td>
     <td rowspan="2"><p>Enable people plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -41,7 +41,7 @@
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_people_limit</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_people_limit</code></h4></td>
     <td rowspan="2"><p>Display limit</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -54,7 +54,7 @@
 <b>default:</b> 24<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_people_identicons</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_people_identicons</code></h4></td>
     <td rowspan="2"><p>Toggle identicons display</p>
 <p>This can be used to mask user profile pictures for privacy</p>
 <img width="900" height="1" alt=""></td>
@@ -65,7 +65,7 @@
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_people_size</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_people_size</code></h4></td>
     <td rowspan="2"><p>Profile picture display size</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -78,7 +78,7 @@
 <b>default:</b> 28<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_people_types</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_people_types</code></h4></td>
     <td rowspan="2"><p>Displayed sections (order is respected)</p>
 <p>User and organization accounts support the following values:</p>
 <ul>
@@ -105,7 +105,7 @@ Repositories support the following values:</li>
 <b>allowed values:</b><ul><li>followers</li><li>following</li><li>followed</li><li>sponsoring</li><li>members</li><li>sponsored</li><li>sponsors</li><li>contributors</li><li>stargazers</li><li>watchers</li><li>thanks</li></ul></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_people_thanks</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_people_thanks</code></h4></td>
     <td rowspan="2"><p>Special thanks</p>
 <p>This list can be used to thank specific users</p>
 <img width="900" height="1" alt=""></td>
@@ -117,7 +117,7 @@ Repositories support the following values:</li>
 <br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_people_sponsors_custom</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_people_sponsors_custom</code></h4></td>
     <td rowspan="2"><p>Custom sponsors</p>
 <p>This list can be used to add users from unsupported GitHub sponsors sources.
 The option <code>plugin_people_types</code> must contain the <code>sponsors</code> section in order for this setting to be effective</p>
@@ -130,7 +130,7 @@ The option <code>plugin_people_types</code> must contain the <code>sponsors</cod
 <br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_people_shuffle</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_people_shuffle</code></h4></td>
     <td rowspan="2"><p>Shuffle data for varied output</p>
 <p>This will fetch 10 times more data than <code>plugin_people_limit</code> to ensure output is always different</p>
 <img width="900" height="1" alt=""></td>

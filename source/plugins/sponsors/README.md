@@ -31,7 +31,7 @@
     <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_sponsors</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_sponsors</code></h4></td>
     <td rowspan="2"><p>Enable sponsors plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -41,7 +41,7 @@
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_sponsors_sections</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_sponsors_sections</code></h4></td>
     <td rowspan="2"><p>Displayed sections</p>
 <ul>
 <li><code>goal</code>: display GitHub active goal</li>

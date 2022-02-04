@@ -32,7 +32,7 @@ Check out <a href="https://github.com/topics">GitHub topics</a> to search intere
     <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_topics</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_topics</code></h4></td>
     <td rowspan="2"><p>Enable topics plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -42,7 +42,7 @@ Check out <a href="https://github.com/topics">GitHub topics</a> to search intere
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_topics_mode</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_topics_mode</code></h4></td>
     <td rowspan="2"><p>Display mode:</p>
 <ul>
 <li><code>labels</code>: display labels</li>
@@ -59,7 +59,7 @@ Check out <a href="https://github.com/topics">GitHub topics</a> to search intere
 <b>allowed values:</b><ul><li>labels</li><li>icons</li><li>starred</li><li>mastered</li></ul></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_topics_sort</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_topics_sort</code></h4></td>
     <td rowspan="2"><p>Sorting method:</p>
 <ul>
 <li><code>stars</code>: sort by most stars</li>
@@ -76,7 +76,7 @@ Check out <a href="https://github.com/topics">GitHub topics</a> to search intere
 <b>allowed values:</b><ul><li>stars</li><li>activity</li><li>starred</li><li>random</li></ul></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_topics_limit</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_topics_limit</code></h4></td>
     <td rowspan="2"><p>Display limit</p>
 <p>When using <code>plugin_topics_mode: labels</code>, an ellipsis will be displayed</p>
 <img width="900" height="1" alt=""></td>

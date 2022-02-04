@@ -30,7 +30,7 @@
     <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_stackoverflow</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_stackoverflow</code></h4></td>
     <td rowspan="2"><p>Enable stackoverflow plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -40,7 +40,7 @@
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_stackoverflow_user</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_stackoverflow_user</code></h4></td>
     <td rowspan="2"><p>Stackoverflow user id</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -51,7 +51,7 @@
 <b>default:</b> 0<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_stackoverflow_sections</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_stackoverflow_sections</code></h4></td>
     <td rowspan="2"><p>Displayed sections</p>
 <ul>
 <li><code>answers-top</code>: display most popular answers</li>
@@ -69,7 +69,7 @@
 <b>allowed values:</b><ul><li>answers-top</li><li>answers-recent</li><li>questions-top</li><li>questions-recent</li></ul></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_stackoverflow_limit</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_stackoverflow_limit</code></h4></td>
     <td rowspan="2"><p>Display limit (per section)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -82,7 +82,7 @@
 <b>default:</b> 2<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_stackoverflow_lines</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_stackoverflow_lines</code></h4></td>
     <td rowspan="2"><p>Display limit for questions and answers</p>
 <p>Code snippets count as a single line and must be configured with <code>plugin_stackoverflow_lines_snippet</code> instead</p>
 <img width="900" height="1" alt=""></td>
@@ -96,7 +96,7 @@
 <b>default:</b> 4<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_stackoverflow_lines_snippet</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_stackoverflow_lines_snippet</code></h4></td>
     <td rowspan="2"><p>Display limit for code snippets</p>
 <img width="900" height="1" alt=""></td>
   </tr>

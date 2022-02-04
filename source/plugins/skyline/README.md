@@ -33,7 +33,7 @@
     <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_skyline</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_skyline</code></h4></td>
     <td rowspan="2"><p>Enable skyline plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -43,7 +43,7 @@
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_skyline_year</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_skyline_year</code></h4></td>
     <td rowspan="2"><p>Displayed year</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -55,7 +55,7 @@
 <b>default:</b> current-year<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_skyline_frames</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_skyline_frames</code></h4></td>
     <td rowspan="2"><p>Frames count</p>
 <p>Use 120 for a full-loop and 60 for a half-loop.
 A higher number of frames will increase file size.</p>
@@ -70,7 +70,7 @@ A higher number of frames will increase file size.</p>
 <b>default:</b> 60<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_skyline_quality</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_skyline_quality</code></h4></td>
     <td rowspan="2"><p>Image quality</p>
 <p>A higher image quality will increase file size.</p>
 <img width="900" height="1" alt=""></td>
@@ -84,7 +84,7 @@ A higher number of frames will increase file size.</p>
 <b>default:</b> 0.5<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_skyline_compatibility</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_skyline_compatibility</code></h4></td>
     <td rowspan="2"><p>Compatibility mode</p>
 <p>This uses CSS animations rather than embedded GIF to support a widerr range of browser, like Firefox and Safari.
 Using this mode significantly increase file size as each frame is encoded separately</p>

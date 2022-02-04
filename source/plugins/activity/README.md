@@ -30,7 +30,7 @@
     <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_activity</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_activity</code></h4></td>
     <td rowspan="2"><p>Enable activity plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -40,7 +40,7 @@
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_activity_limit</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_activity_limit</code></h4></td>
     <td rowspan="2"><p>Display limit</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -53,7 +53,7 @@
 <b>default:</b> 5<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_activity_load</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_activity_load</code></h4></td>
     <td rowspan="2"><p>Events to load</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -66,7 +66,7 @@
 <b>default:</b> 300<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_activity_days</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_activity_days</code></h4></td>
     <td rowspan="2"><p>Events maximum age</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -80,7 +80,7 @@
 <b>default:</b> 14<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_activity_visibility</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_activity_visibility</code></h4></td>
     <td rowspan="2"><p>Events visibility</p>
 <p>Lets you hide private activity when using a <code>repo</code> scope token</p>
 <img width="900" height="1" alt=""></td>
@@ -92,7 +92,7 @@
 <b>allowed values:</b><ul><li>public</li><li>all</li></ul></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_activity_timestamps</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_activity_timestamps</code></h4></td>
     <td rowspan="2"><p>Display events timestamps</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -102,7 +102,7 @@
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_activity_skipped</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_activity_skipped</code></h4></td>
     <td rowspan="2"><p>Skipped repositories</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -113,7 +113,7 @@
 <br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_activity_ignored</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_activity_ignored</code></h4></td>
     <td rowspan="2"><p>Ignored users</p>
 <p>Useful to ignore bots activity</p>
 <img width="900" height="1" alt=""></td>
@@ -125,7 +125,7 @@
 <br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_activity_filter</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_activity_filter</code></h4></td>
     <td rowspan="2"><p>Events types</p>
 <p>These are fetched from <a href="https://docs.github.com/en/free-pro-team@latest/developers/webhooks-and-events/github-event-types">GitHub events API</a> and the following types are currently supported:</p>
 <ul>

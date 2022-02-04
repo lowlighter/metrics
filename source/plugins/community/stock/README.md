@@ -31,7 +31,7 @@
     <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_stock</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_stock</code></h4></td>
     <td rowspan="2"><p>Enable stock plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -41,7 +41,7 @@
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_stock_token</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_stock_token</code></h4></td>
     <td rowspan="2"><p>Yahoo Finance token</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -51,7 +51,7 @@
 <br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_stock_symbol</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_stock_symbol</code></h4></td>
     <td rowspan="2"><p>Company stock symbol</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -60,7 +60,7 @@
 <br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_stock_duration</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_stock_duration</code></h4></td>
     <td rowspan="2"><p>Time range (relative to current date)</p>
 <ul>
 <li><code>1d</code>: Today</li>
@@ -84,7 +84,7 @@
 <b>allowed values:</b><ul><li>1d</li><li>5d</li><li>1mo</li><li>3mo</li><li>6mo</li><li>1y</li><li>2y</li><li>5y</li><li>10y</li><li>ytd</li><li>max</li></ul></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_stock_interval</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_stock_interval</code></h4></td>
     <td rowspan="2"><p>Time interval between points</p>
 <ul>
 <li><code>1m</code>: 1 minute</li>

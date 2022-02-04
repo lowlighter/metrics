@@ -52,7 +52,7 @@ Dependencies will be analyzed by [GitHub licensed](https://github.com/github/lic
     <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_licenses</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_licenses</code></h4></td>
     <td rowspan="2"><p>Enable licenses plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -63,7 +63,7 @@ Dependencies will be analyzed by [GitHub licensed](https://github.com/github/lic
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_licenses_setup</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_licenses_setup</code></h4></td>
     <td rowspan="2"><p>Setup command</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -72,7 +72,7 @@ Dependencies will be analyzed by [GitHub licensed](https://github.com/github/lic
 <br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_licenses_ratio</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_licenses_ratio</code></h4></td>
     <td rowspan="2"><p>Display used licenses ratio</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -82,7 +82,7 @@ Dependencies will be analyzed by [GitHub licensed](https://github.com/github/lic
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_licenses_legal</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_licenses_legal</code></h4></td>
     <td rowspan="2"><p>Display permissions, limitations and conditions about licenses</p>
 <img width="900" height="1" alt=""></td>
   </tr>

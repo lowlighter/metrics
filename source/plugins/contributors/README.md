@@ -31,7 +31,7 @@
     <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_contributors</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_contributors</code></h4></td>
     <td rowspan="2"><p>Enable contributors plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -41,7 +41,7 @@
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_contributors_base</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_contributors_base</code></h4></td>
     <td rowspan="2"><p>Base reference (commit, tag, branch, etc.)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -50,7 +50,7 @@
 <br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_contributors_head</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_contributors_head</code></h4></td>
     <td rowspan="2"><p>Head reference (commit, tag, branch, etc.)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -60,7 +60,7 @@
 <b>default:</b> master<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_contributors_ignored</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_contributors_ignored</code></h4></td>
     <td rowspan="2"><p>Ignored users</p>
 <p>Useful to ignore bots activity</p>
 <img width="900" height="1" alt=""></td>
@@ -72,7 +72,7 @@
 <br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_contributors_contributions</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_contributors_contributions</code></h4></td>
     <td rowspan="2"><p>Toggle number of contributions display</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -82,7 +82,7 @@
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_contributors_sections</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_contributors_sections</code></h4></td>
     <td rowspan="2"><p>Displayed sections</p>
 <ul>
 <li><code>contributors</code>: all contributors</li>
@@ -98,7 +98,7 @@
 <b>allowed values:</b><ul><li>contributors</li><li>categories</li></ul></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_contributors_categories</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_contributors_categories</code></h4></td>
     <td rowspan="2"><p>Configure contribution categories</p>
 <p>This option required <code>plugin_contributors_sections</code> to have <code>categories</code> in it to be effective
 Pass a JSON object mapping category with fileglobs</p>

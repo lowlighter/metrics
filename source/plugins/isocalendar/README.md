@@ -31,7 +31,7 @@
     <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_isocalendar</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_isocalendar</code></h4></td>
     <td rowspan="2"><p>Enable isocalendar plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -41,7 +41,7 @@
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_isocalendar_duration</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_isocalendar_duration</code></h4></td>
     <td rowspan="2"><p>Time range</p>
 <ul>
 <li><code>half-year</code>: 180 days</li>

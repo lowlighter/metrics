@@ -35,7 +35,7 @@ Use at your own risk, <em>metrics</em> and its authors cannot be held responsibl
     <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_code</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_code</code></h4></td>
     <td rowspan="2"><p>Enable code plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -45,7 +45,7 @@ Use at your own risk, <em>metrics</em> and its authors cannot be held responsibl
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_code_lines</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_code_lines</code></h4></td>
     <td rowspan="2"><p>Display limit for code snippets</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -55,7 +55,7 @@ Use at your own risk, <em>metrics</em> and its authors cannot be held responsibl
 <b>default:</b> 12<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_code_load</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_code_load</code></h4></td>
     <td rowspan="2"><p>Events to load</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -68,7 +68,7 @@ Use at your own risk, <em>metrics</em> and its authors cannot be held responsibl
 <b>default:</b> 100<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_code_visibility</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_code_visibility</code></h4></td>
     <td rowspan="2"><p>Events visibility</p>
 <p>Lets you hide private activity when using a <code>repo</code> scope token</p>
 <img width="900" height="1" alt=""></td>
@@ -80,7 +80,7 @@ Use at your own risk, <em>metrics</em> and its authors cannot be held responsibl
 <b>allowed values:</b><ul><li>public</li><li>all</li></ul></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_code_skipped</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_code_skipped</code></h4></td>
     <td rowspan="2"><p>Skipped repositories</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -91,7 +91,7 @@ Use at your own risk, <em>metrics</em> and its authors cannot be held responsibl
 <br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_code_languages</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_code_languages</code></h4></td>
     <td rowspan="2"><p>Restrict display to specific languages</p>
 <img width="900" height="1" alt=""></td>
   </tr>

@@ -30,7 +30,7 @@
     <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_reactions</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_reactions</code></h4></td>
     <td rowspan="2"><p>Enable reactions plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -40,7 +40,7 @@
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_reactions_limit</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_reactions_limit</code></h4></td>
     <td rowspan="2"><p>Display limit (issues and pull requests comments)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -53,7 +53,7 @@
 <b>default:</b> 200<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_reactions_limit_issues</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_reactions_limit_issues</code></h4></td>
     <td rowspan="2"><p>Display limit (issues and pull requests, first comment)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -66,7 +66,7 @@
 <b>default:</b> 100<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_reactions_limit_discussions</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_reactions_limit_discussions</code></h4></td>
     <td rowspan="2"><p>Display limit (discussions, first comment)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -79,7 +79,7 @@
 <b>default:</b> 100<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_reactions_limit_discussions_comments</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_reactions_limit_discussions_comments</code></h4></td>
     <td rowspan="2"><p>Display limit (discussions comments)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -92,7 +92,7 @@
 <b>default:</b> 100<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_reactions_days</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_reactions_days</code></h4></td>
     <td rowspan="2"><p>Comments maximum age</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -105,7 +105,7 @@
 <b>default:</b> 0<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_reactions_display</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_reactions_display</code></h4></td>
     <td rowspan="2"><p>Display mode</p>
 <ul>
 <li><code>absolute</code>: scale percentages using total reactions count</li>
@@ -120,7 +120,7 @@
 <b>allowed values:</b><ul><li>absolute</li><li>relative</li></ul></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_reactions_details</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_reactions_details</code></h4></td>
     <td rowspan="2"><p>Additional details</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -131,7 +131,7 @@
 <b>allowed values:</b><ul><li>count</li><li>percentage</li></ul></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_reactions_ignored</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_reactions_ignored</code></h4></td>
     <td rowspan="2"><p>Ignored users</p>
 <p>Useful to ignore bots activity</p>
 <img width="900" height="1" alt=""></td>

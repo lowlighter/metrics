@@ -32,7 +32,7 @@
     <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_anilist</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_anilist</code></h4></td>
     <td rowspan="2"><p>Enable aniList plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -42,7 +42,7 @@
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_anilist_medias</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_anilist_medias</code></h4></td>
     <td rowspan="2"><p>Display medias types</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -54,7 +54,7 @@
 <b>allowed values:</b><ul><li>anime</li><li>manga</li></ul></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_anilist_sections</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_anilist_sections</code></h4></td>
     <td rowspan="2"><p>Displayed sections</p>
 <ul>
 <li><code>favorites</code> will display favorites <code>plugin_anilist_medias</code></li>
@@ -72,7 +72,7 @@
 <b>allowed values:</b><ul><li>favorites</li><li>watching</li><li>reading</li><li>characters</li></ul></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_anilist_limit</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_anilist_limit</code></h4></td>
     <td rowspan="2"><p>Display limit (medias)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -85,7 +85,7 @@
 <b>default:</b> 2<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_anilist_limit_characters</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_anilist_limit_characters</code></h4></td>
     <td rowspan="2"><p>Display limit (characters)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -98,7 +98,7 @@
 <b>default:</b> 22<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_anilist_shuffle</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_anilist_shuffle</code></h4></td>
     <td rowspan="2"><p>Shuffle data for varied outputs</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -108,7 +108,7 @@
 <b>default:</b> yes<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_anilist_user</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_anilist_user</code></h4></td>
     <td rowspan="2"><p>AniList login</p>
 <img width="900" height="1" alt=""></td>
   </tr>

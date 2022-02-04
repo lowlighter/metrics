@@ -30,7 +30,7 @@
     <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_starlists</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_starlists</code></h4></td>
     <td rowspan="2"><p>Enable starlists plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -40,7 +40,7 @@
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_starlists_limit</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_starlists_limit</code></h4></td>
     <td rowspan="2"><p>Display limit (star lists)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -53,7 +53,7 @@
 <b>default:</b> 2<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_starlists_limit_repositories</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_starlists_limit_repositories</code></h4></td>
     <td rowspan="2"><p>Display limit (repositories per star list)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -66,7 +66,7 @@
 <b>default:</b> 2<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_starlists_shuffle_repositories</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_starlists_shuffle_repositories</code></h4></td>
     <td rowspan="2"><p>Shuffle data for varied outputs</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -76,7 +76,7 @@
 <b>default:</b> yes<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_starlists_ignored</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_starlists_ignored</code></h4></td>
     <td rowspan="2"><p>Skipped star lists</p>
 <p>This is case and emojis insensitive</p>
 <img width="900" height="1" alt=""></td>
@@ -87,7 +87,7 @@
 <br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_starlists_only</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_starlists_only</code></h4></td>
     <td rowspan="2"><p>Restrict display to specified star lists</p>
 <p>This is case and emojis insensitive.
 This option is equivalent to <code>plugin_starlists_ignored</code> with all star lists but the ones listed in this option</p>

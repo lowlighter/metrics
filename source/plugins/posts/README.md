@@ -31,7 +31,7 @@
     <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_posts</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_posts</code></h4></td>
     <td rowspan="2"><p>Enable posts plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -41,7 +41,7 @@
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_posts_source</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_posts_source</code></h4></td>
     <td rowspan="2"><p>External source</p>
 <ul>
 <li><code>dev.to</code>: <a href="https://dev.to">dev.to</a></li>
@@ -55,7 +55,7 @@
 <b>allowed values:</b><ul><li>dev.to</li><li>hashnode</li></ul></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_posts_descriptions</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_posts_descriptions</code></h4></td>
     <td rowspan="2"><p>Toggle posts descriptions display</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -65,7 +65,7 @@
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_posts_covers</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_posts_covers</code></h4></td>
     <td rowspan="2"><p>Toggle posts cover images display</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -75,7 +75,7 @@
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_posts_limit</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_posts_limit</code></h4></td>
     <td rowspan="2"><p>Display limit</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -88,7 +88,7 @@
 <b>default:</b> 4<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_posts_user</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_posts_user</code></h4></td>
     <td rowspan="2"><p>External source username</p>
 <img width="900" height="1" alt=""></td>
   </tr>

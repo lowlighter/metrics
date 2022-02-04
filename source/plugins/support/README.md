@@ -30,7 +30,7 @@
     <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_support</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_support</code></h4></td>
     <td rowspan="2"><p>Enable support plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>

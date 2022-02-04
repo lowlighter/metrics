@@ -30,7 +30,7 @@
     <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_traffic</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_traffic</code></h4></td>
     <td rowspan="2"><p>Enable traffic plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -40,7 +40,7 @@
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_traffic_skipped</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_traffic_skipped</code></h4></td>
     <td rowspan="2"><p>Skipped repositories</p>
 <img width="900" height="1" alt=""></td>
   </tr>

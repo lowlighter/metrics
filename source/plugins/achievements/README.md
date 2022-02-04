@@ -31,7 +31,7 @@
     <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_achievements</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_achievements</code></h4></td>
     <td rowspan="2"><p>Enable achievements plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -41,7 +41,7 @@
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_achievements_threshold</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_achievements_threshold</code></h4></td>
     <td rowspan="2"><p>Display rank threshold</p>
 <p>Use <code>X</code> to display achievements not yet unlocked</p>
 <img width="900" height="1" alt=""></td>
@@ -53,7 +53,7 @@
 <b>allowed values:</b><ul><li>S</li><li>A</li><li>B</li><li>C</li><li>X</li></ul></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_achievements_secrets</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_achievements_secrets</code></h4></td>
     <td rowspan="2"><p>Display secrets achievements</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -63,7 +63,7 @@
 <b>default:</b> yes<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_achievements_display</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_achievements_display</code></h4></td>
     <td rowspan="2"><p>Display style</p>
 <ul>
 <li><code>detailed</code>: display icon, name, description and ranking</li>
@@ -78,7 +78,7 @@
 <b>allowed values:</b><ul><li>detailed</li><li>compact</li></ul></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_achievements_limit</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_achievements_limit</code></h4></td>
     <td rowspan="2"><p>Display limit</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -90,7 +90,7 @@
 <b>default:</b> 0<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_achievements_ignored</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_achievements_ignored</code></h4></td>
     <td rowspan="2"><p>Hide specified achievements</p>
 <p>Use names without the rank adjective (i.e. without &quot;great&quot;, &quot;super&quot; or &quot;master&quot;)</p>
 <img width="900" height="1" alt=""></td>
@@ -101,7 +101,7 @@
 <br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_achievements_only</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_achievements_only</code></h4></td>
     <td rowspan="2"><p>Restrict display to specified achievements</p>
 <p>Use names without the rank adjective (i.e. without &quot;great&quot;, &quot;super&quot; or &quot;master&quot;)</p>
 <p>This option is equivalent to <code>plugin_achievements_ignored</code> with all existing achievements but the ones listed in this option</p>

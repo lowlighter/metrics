@@ -33,7 +33,7 @@ It uses <a href="https://developers.google.com/speed/docs/insights/v5/get-starte
     <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_pagespeed</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_pagespeed</code></h4></td>
     <td rowspan="2"><p>Enable pagespeed plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -43,7 +43,7 @@ It uses <a href="https://developers.google.com/speed/docs/insights/v5/get-starte
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_pagespeed_url</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_pagespeed_url</code></h4></td>
     <td rowspan="2"><p>Audited website</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -54,7 +54,7 @@ It uses <a href="https://developers.google.com/speed/docs/insights/v5/get-starte
 <b>default:</b> <code>→ User attached website</code><br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_pagespeed_detailed</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_pagespeed_detailed</code></h4></td>
     <td rowspan="2"><p>Detailed results</p>
 <p>The following additional stats will be displayed:</p>
 <ul>
@@ -73,7 +73,7 @@ It uses <a href="https://developers.google.com/speed/docs/insights/v5/get-starte
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_pagespeed_screenshot</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_pagespeed_screenshot</code></h4></td>
     <td rowspan="2"><p>Display a website screenshot</p>
 <p>Significantly increase filesize</p>
 <img width="900" height="1" alt=""></td>
@@ -84,7 +84,7 @@ It uses <a href="https://developers.google.com/speed/docs/insights/v5/get-starte
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_pagespeed_token</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_pagespeed_token</code></h4></td>
     <td rowspan="2"><p>PageSpeed token</p>
 <p>Although not mandatory, it strongly advised to create one to avoid triggering the rate limiter. See <a href="https://developers.google.com/speed/docs/insights/v5/get-started">PageSpeed documentation</a> for more informations.</p>
 <img width="900" height="1" alt=""></td>

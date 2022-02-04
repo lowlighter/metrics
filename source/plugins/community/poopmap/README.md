@@ -31,7 +31,7 @@
     <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_poopmap</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_poopmap</code></h4></td>
     <td rowspan="2"><p>Enable poopmap plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -41,7 +41,7 @@
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_poopmap_token</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_poopmap_token</code></h4></td>
     <td rowspan="2"><p>PoopMap API token</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -51,7 +51,7 @@
 <br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_poopmap_days</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_poopmap_days</code></h4></td>
     <td rowspan="2"><p>Time range</p>
 <img width="900" height="1" alt=""></td>
   </tr>

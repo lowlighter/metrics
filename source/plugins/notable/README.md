@@ -31,7 +31,7 @@
     <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_notable</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_notable</code></h4></td>
     <td rowspan="2"><p>Enable notable plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -41,7 +41,7 @@
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_notable_filter</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_notable_filter</code></h4></td>
     <td rowspan="2"><p>Query filter</p>
 <p>Based on <a href="https://docs.github.com/en/search-github/getting-started-with-searching-on-github/understanding-the-search-syntax">GitHub search syntax</a>.
 Supported fields are <code>stars</code>, <code>forks</code> and <code>watchers</code></p>
@@ -54,7 +54,7 @@ Some repositories may not be able to reported advanced stats and in the case the
 <br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_notable_skipped</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_notable_skipped</code></h4></td>
     <td rowspan="2"><p>Skipped repositories</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -65,7 +65,7 @@ Some repositories may not be able to reported advanced stats and in the case the
 <br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_notable_from</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_notable_from</code></h4></td>
     <td rowspan="2"><p>Filter by repository owner account type</p>
 <ul>
 <li><code>all</code>: no filtering</li>
@@ -81,7 +81,7 @@ Some repositories may not be able to reported advanced stats and in the case the
 <b>allowed values:</b><ul><li>all</li><li>organization</li><li>user</li></ul></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_notable_repositories</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_notable_repositories</code></h4></td>
     <td rowspan="2"><p>Toggle repository name display</p>
 <p>Note that Repositories hosted by user account will always be fully displayed</p>
 <img width="900" height="1" alt=""></td>
@@ -92,7 +92,7 @@ Some repositories may not be able to reported advanced stats and in the case the
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_notable_indepth</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_notable_indepth</code></h4></td>
     <td rowspan="2"><p>Indepth mode</p>
 <img width="900" height="1" alt=""></td>
   </tr>

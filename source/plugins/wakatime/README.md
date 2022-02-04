@@ -30,7 +30,7 @@
     <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_wakatime</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_wakatime</code></h4></td>
     <td rowspan="2"><p>Enable wakatime plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -40,7 +40,7 @@
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_wakatime_token</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_wakatime_token</code></h4></td>
     <td rowspan="2"><p>WakaTime API token</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -50,7 +50,7 @@
 <br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_wakatime_days</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_wakatime_days</code></h4></td>
     <td rowspan="2"><p>Time range</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -61,7 +61,7 @@
 <b>allowed values:</b><ul><li>7</li><li>30</li><li>180</li><li>365</li></ul></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_wakatime_sections</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_wakatime_sections</code></h4></td>
     <td rowspan="2"><p>Displayed sections</p>
 <ul>
 <li><code>time</code>: show total coding time and daily average</li>
@@ -83,7 +83,7 @@
 <b>allowed values:</b><ul><li>time</li><li>projects</li><li>projects-graphs</li><li>languages</li><li>languages-graphs</li><li>editors</li><li>editors-graphs</li><li>os</li><li>os-graphs</li></ul></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_wakatime_limit</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_wakatime_limit</code></h4></td>
     <td rowspan="2"><p>Display limit (per graph)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -96,7 +96,7 @@
 <b>default:</b> 5<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_wakatime_url</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_wakatime_url</code></h4></td>
     <td rowspan="2"><p>WakaTime url</p>
 <p>Also compatible with self-hosted instance (<a href="https://github.com/muety/wakapi">wakapi</a>)</p>
 <img width="900" height="1" alt=""></td>
@@ -107,7 +107,7 @@
 <b>default:</b> https://wakatime.com<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_wakatime_user</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_wakatime_user</code></h4></td>
     <td rowspan="2"><p>WakaTime username</p>
 <img width="900" height="1" alt=""></td>
   </tr>

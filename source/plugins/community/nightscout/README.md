@@ -31,7 +31,7 @@
     <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_nightscout</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_nightscout</code></h4></td>
     <td rowspan="2"><p>Enable nightscout plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -41,7 +41,7 @@
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_nightscout_url</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_nightscout_url</code></h4></td>
     <td rowspan="2"><p>Nightscout URL</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -51,7 +51,7 @@
 <b>default:</b> https://example.herokuapp.com<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_nightscout_datapoints</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_nightscout_datapoints</code></h4></td>
     <td rowspan="2"><p>Number of datapoints shown the graph</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -64,7 +64,7 @@
 <b>default:</b> 12<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_nightscout_lowalert</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_nightscout_lowalert</code></h4></td>
     <td rowspan="2"><p>Threshold for low blood sugar</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -76,7 +76,7 @@
 <b>default:</b> 80<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_nightscout_highalert</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_nightscout_highalert</code></h4></td>
     <td rowspan="2"><p>Threshold for high blood sugar</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -88,7 +88,7 @@
 <b>default:</b> 180<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_nightscout_urgentlowalert</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_nightscout_urgentlowalert</code></h4></td>
     <td rowspan="2"><p>Threshold for urgently low blood sugar</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -100,7 +100,7 @@
 <b>default:</b> 50<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_nightscout_urgenthighalert</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_nightscout_urgenthighalert</code></h4></td>
     <td rowspan="2"><p>Threshold for urgently high blood sugar</p>
 <img width="900" height="1" alt=""></td>
   </tr>

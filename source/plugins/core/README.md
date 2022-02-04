@@ -377,7 +377,7 @@ On forks, this feature is disable to take into account any changes you made on i
     <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>token</code></td>
+    <td nowrap="nowrap"><h4><code>token</code></h4></td>
     <td rowspan="2"><p>GitHub Personal Access Token</p>
 <p>No scopes are required by default, though some plugins and features may require additional scopes</p>
 <p>When using a configuration which does not requires a GitHub PAT, you may pass <code>NOT_NEEDED</code> instead.
@@ -392,7 +392,7 @@ Most of the time <code>user</code> option must also be set.</p>
 <br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>user</code></td>
+    <td nowrap="nowrap"><h4><code>user</code></h4></td>
     <td rowspan="2"><p>GitHub username</p>
 <p>Defaults to <code>token</code> owner username.</p>
 <img width="900" height="1" alt=""></td>
@@ -403,7 +403,7 @@ Most of the time <code>user</code> option must also be set.</p>
 <br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>repo</code></td>
+    <td nowrap="nowrap"><h4><code>repo</code></h4></td>
     <td rowspan="2"><p>GitHub repository</p>
 <p>This option is revevalant only for repositories templates</p>
 <img width="900" height="1" alt=""></td>
@@ -414,7 +414,7 @@ Most of the time <code>user</code> option must also be set.</p>
 <br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>committer_token</code></td>
+    <td nowrap="nowrap"><h4><code>committer_token</code></h4></td>
     <td rowspan="2"><p>GitHub Token used to commit metrics</p>
 <p>Leave this to <code>${{ github.token }}</code> or <code>${{ secrets.GITHUB_TOKEN }}</code>, which is a special auto-generated token restricted to current repository scope.</p>
 <blockquote>
@@ -429,7 +429,7 @@ Most of the time <code>user</code> option must also be set.</p>
 <b>default:</b> ${{ github.token }}<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>committer_branch</code></td>
+    <td nowrap="nowrap"><h4><code>committer_branch</code></h4></td>
     <td rowspan="2"><p>Target branch</p>
 <p>Default value is set to your repository default branch</p>
 <img width="900" height="1" alt=""></td>
@@ -439,7 +439,7 @@ Most of the time <code>user</code> option must also be set.</p>
 <br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>committer_message</code></td>
+    <td nowrap="nowrap"><h4><code>committer_message</code></h4></td>
     <td rowspan="2"><p>Commit message</p>
 <p>Use <code>${filename}</code> to display filename</p>
 <img width="900" height="1" alt=""></td>
@@ -450,7 +450,7 @@ Most of the time <code>user</code> option must also be set.</p>
 <b>default:</b> Update ${filename} - [Skip GitHub Action]<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>committer_gist</code></td>
+    <td nowrap="nowrap"><h4><code>committer_gist</code></h4></td>
     <td rowspan="2"><p>Gist id</p>
 <p>Specify an existing gist id (can be retrieved from its URL) when using <code>output_action: gist</code>.</p>
 <img width="900" height="1" alt=""></td>
@@ -461,7 +461,7 @@ Most of the time <code>user</code> option must also be set.</p>
 <br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>filename</code></td>
+    <td nowrap="nowrap"><h4><code>filename</code></h4></td>
     <td rowspan="2"><p>Output path</p>
 <p>When using an asterisk (<code>*</code>), correct extension will automatically be applied according to <code>config_output</code> value</p>
 <img width="900" height="1" alt=""></td>
@@ -472,7 +472,7 @@ Most of the time <code>user</code> option must also be set.</p>
 <b>default:</b> github-metrics.*<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>markdown</code></td>
+    <td nowrap="nowrap"><h4><code>markdown</code></h4></td>
     <td rowspan="2"><p>Markdown template path</p>
 <p>It can be either a local path or a full link (e.g. <a href="https://raw.githubusercontent.com">https://raw.githubusercontent.com</a>)</p>
 <img width="900" height="1" alt=""></td>
@@ -483,7 +483,7 @@ Most of the time <code>user</code> option must also be set.</p>
 <b>default:</b> TEMPLATE.md<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>markdown_cache</code></td>
+    <td nowrap="nowrap"><h4><code>markdown_cache</code></h4></td>
     <td rowspan="2"><p>Markdown file cache</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -493,7 +493,7 @@ Most of the time <code>user</code> option must also be set.</p>
 <b>default:</b> .cache<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>output_action</code></td>
+    <td nowrap="nowrap"><h4><code>output_action</code></h4></td>
     <td rowspan="2"><p>Output action</p>
 <ul>
 <li><code>none</code>: just create file in <code>/metrics_renders</code> directory of action runner</li>
@@ -516,7 +516,7 @@ Most of the time <code>user</code> option must also be set.</p>
 <b>allowed values:</b><ul><li>none</li><li>commit</li><li>pull-request</li><li>pull-request-merge</li><li>pull-request-squash</li><li>pull-request-rebase</li><li>gist</li></ul></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>output_condition</code></td>
+    <td nowrap="nowrap"><h4><code>output_condition</code></h4></td>
     <td rowspan="2"><p>Output condition</p>
 <ul>
 <li><code>always</code>: always try to push changes</li>
@@ -531,7 +531,7 @@ Most of the time <code>user</code> option must also be set.</p>
 <b>allowed values:</b><ul><li>always</li><li>data-changed</li></ul></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>optimize</code></td>
+    <td nowrap="nowrap"><h4><code>optimize</code></h4></td>
     <td rowspan="2"><p>Optimization features</p>
 <ul>
 <li><code>css</code>: purge and minify CSS styles</li>
@@ -549,7 +549,7 @@ Most of the time <code>user</code> option must also be set.</p>
 <b>allowed values:</b><ul><li>css</li><li>xml</li><li>svg</li></ul></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>setup_community_templates</code></td>
+    <td nowrap="nowrap"><h4><code>setup_community_templates</code></h4></td>
     <td rowspan="2"><p>Community templates to setup</p>
 <p>See <a href="https://github.com/lowlighter/metrics/blob/master/source/templates/community/README.md">community templates guide</a> for more informations</p>
 <img width="900" height="1" alt=""></td>
@@ -561,7 +561,7 @@ Most of the time <code>user</code> option must also be set.</p>
 <br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>template</code></td>
+    <td nowrap="nowrap"><h4><code>template</code></h4></td>
     <td rowspan="2"><p>Template</p>
 <p>Community templates must be prefixed by at sign (<code>@</code>)
 See <a href="https://github.com/lowlighter/metrics/blob/master/README.md#%EF%B8%8F-templates">list of supported templates</a></p>
@@ -573,7 +573,7 @@ See <a href="https://github.com/lowlighter/metrics/blob/master/README.md#%EF%B8%
 <b>default:</b> classic<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>query</code></td>
+    <td nowrap="nowrap"><h4><code>query</code></h4></td>
     <td rowspan="2"><p>Query parameters</p>
 <p>Pass additional parameters to templates.
 This is mostly useful for custom templates.</p>
@@ -588,7 +588,7 @@ This is mostly useful for custom templates.</p>
 <b>default:</b> {}<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>extras_css</code></td>
+    <td nowrap="nowrap"><h4><code>extras_css</code></h4></td>
     <td rowspan="2"><p>Extra CSS</p>
 <p>Custom CSS that will be injected in used template.
 Useful to avoid creating a new template just to tweak some styling</p>
@@ -600,7 +600,7 @@ Useful to avoid creating a new template just to tweak some styling</p>
 <br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>extras_js</code></td>
+    <td nowrap="nowrap"><h4><code>extras_js</code></h4></td>
     <td rowspan="2"><p>Extra JavaScript</p>
 <p>Custom JavaScript that will be executed during puppeteer rendering.
 Useful to avoid creating a new template just to tweak some content.</p>
@@ -609,13 +609,12 @@ It is run after transformations and optimizations, but just before resizing.</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
-🌐 Web instances must configure <code>settings.json</code><br>
+    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
 <b>type:</b> <code>string</code>
 <br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>config_timezone</code></td>
+    <td nowrap="nowrap"><h4><code>config_timezone</code></h4></td>
     <td rowspan="2"><p>Timezone for dates</p>
 <p>See <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">list of supported timezone</a></p>
 <img width="900" height="1" alt=""></td>
@@ -626,7 +625,7 @@ It is run after transformations and optimizations, but just before resizing.</p>
 <br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>config_order</code></td>
+    <td nowrap="nowrap"><h4><code>config_order</code></h4></td>
     <td rowspan="2"><p>Plugin order</p>
 <p>By default, templates use <code>partials/_.json</code> ordering.
 You can override the content order by using this setting.</p>
@@ -640,7 +639,7 @@ You can override the content order by using this setting.</p>
 <br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>config_twemoji</code></td>
+    <td nowrap="nowrap"><h4><code>config_twemoji</code></h4></td>
     <td rowspan="2"><p>Use twemojis</p>
 <p>Replace emojis by <a href="%5Btwemojis%5D(https://github.com/twitter/twemoji)">twemojis</a> to have a consistent render across all platforms
 May increase filesize.</p>
@@ -653,7 +652,7 @@ May increase filesize.</p>
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>config_gemoji</code></td>
+    <td nowrap="nowrap"><h4><code>config_gemoji</code></h4></td>
     <td rowspan="2"><p>Use GitHub custom emojis</p>
 <p>GitHub supports additional emojis which are not registered in Unicode standard (:octocat:, :shipit:, :trollface:, ...)
 See full list at <a href="https://api.github.com/emojis">https://api.github.com/emojis</a>.</p>
@@ -667,7 +666,7 @@ See full list at <a href="https://api.github.com/emojis">https://api.github.com/
 <b>default:</b> yes<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>config_display</code></td>
+    <td nowrap="nowrap"><h4><code>config_display</code></h4></td>
     <td rowspan="2"><p>Display width (for image output formats)</p>
 <ul>
 <li><code>regular</code>: 480px width</li>
@@ -687,7 +686,7 @@ See full list at <a href="https://api.github.com/emojis">https://api.github.com/
 <b>allowed values:</b><ul><li>regular</li><li>large</li><li>columns</li></ul></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>config_animations</code></td>
+    <td nowrap="nowrap"><h4><code>config_animations</code></h4></td>
     <td rowspan="2"><p>Use CSS animations</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -698,7 +697,7 @@ See full list at <a href="https://api.github.com/emojis">https://api.github.com/
 <b>default:</b> yes<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>config_base64</code></td>
+    <td nowrap="nowrap"><h4><code>config_base64</code></h4></td>
     <td rowspan="2"><p>Base64-encoded images</p>
 <p>Enable this option to make self-contained ouput (i.e. with no external links)</p>
 <img width="900" height="1" alt=""></td>
@@ -710,7 +709,7 @@ See full list at <a href="https://api.github.com/emojis">https://api.github.com/
 <b>default:</b> yes<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>config_padding</code></td>
+    <td nowrap="nowrap"><h4><code>config_padding</code></h4></td>
     <td rowspan="2"><p>Output padding</p>
 <p>Although <em>metrics</em> try to auto-guess resulting height, rendering is still dependent on OS and browser settings.
 It can result in cropped or oversized outputs.</p>
@@ -734,7 +733,7 @@ It can result in cropped or oversized outputs.</p>
 <b>default:</b> 0, 8 + 11%<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>config_output</code></td>
+    <td nowrap="nowrap"><h4><code>config_output</code></h4></td>
     <td rowspan="2"><p>Output format</p>
 <ul>
 <li><code>auto</code>: Template default (usually <code>svg</code> or <code>markdown</code>)</li>
@@ -755,19 +754,18 @@ It can result in cropped or oversized outputs.</p>
 <b>allowed values:</b><ul><li>auto</li><li>svg</li><li>png</li><li>jpeg</li><li>json</li><li>markdown</li><li>markdown-pdf</li><li>insights</li></ul></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>config_presets</code></td>
+    <td nowrap="nowrap"><h4><code>config_presets</code></h4></td>
     <td rowspan="2"><p>Configuration presets</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">⏯️ Cannot be preset<br>
-✨ On <code>master</code>/<code>main</code><br>
 <b>type:</b> <code>array</code>
 <i>(comma-separated)</i>
 <br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>retries</code></td>
+    <td nowrap="nowrap"><h4><code>retries</code></h4></td>
     <td rowspan="2"><p>Retries in case of failures (for rendering)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -780,7 +778,7 @@ It can result in cropped or oversized outputs.</p>
 <b>default:</b> 3<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>retries_delay</code></td>
+    <td nowrap="nowrap"><h4><code>retries_delay</code></h4></td>
     <td rowspan="2"><p>Delay between each retry (in seconds, for rendering)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -793,7 +791,7 @@ It can result in cropped or oversized outputs.</p>
 <b>default:</b> 300<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>retries_output_action</code></td>
+    <td nowrap="nowrap"><h4><code>retries_output_action</code></h4></td>
     <td rowspan="2"><p>Retries in case of failures (for output action)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -806,7 +804,7 @@ It can result in cropped or oversized outputs.</p>
 <b>default:</b> 5<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>retries_delay_output_action</code></td>
+    <td nowrap="nowrap"><h4><code>retries_delay_output_action</code></h4></td>
     <td rowspan="2"><p>Delay between each retry (in seconds, for output action)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -819,7 +817,7 @@ It can result in cropped or oversized outputs.</p>
 <b>default:</b> 120<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>delay</code></td>
+    <td nowrap="nowrap"><h4><code>delay</code></h4></td>
     <td rowspan="2"><p>Job delay</p>
 <p>This can be used to avoid triggering GitHub abuse mechanics on large workflows</p>
 <img width="900" height="1" alt=""></td>
@@ -833,7 +831,7 @@ It can result in cropped or oversized outputs.</p>
 <b>default:</b> 0<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>use_prebuilt_image</code></td>
+    <td nowrap="nowrap"><h4><code>use_prebuilt_image</code></h4></td>
     <td rowspan="2"><p>Use pre-built docker image from <a href="https://github.com/lowlighter/metrics/pkgs/container/metrics">GitHub container registry</a></p>
 <p>It allows to save build time and make job significantly faster, and there is almost no reason to disable this settings.
 This option has no effects on forks (images will always be rebuilt from Dockerfile)</p>
@@ -847,7 +845,7 @@ This option has no effects on forks (images will always be rebuilt from Dockerfi
 <b>default:</b> yes<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugins_errors_fatal</code></td>
+    <td nowrap="nowrap"><h4><code>plugins_errors_fatal</code></h4></td>
     <td rowspan="2"><p>Fatal plugin errors</p>
 <p>When enabled, the job will fail in case of plugin errors, else it will be handled gracefully in output with an error message</p>
 <img width="900" height="1" alt=""></td>
@@ -860,7 +858,7 @@ This option has no effects on forks (images will always be rebuilt from Dockerfi
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>debug</code></td>
+    <td nowrap="nowrap"><h4><code>debug</code></h4></td>
     <td rowspan="2"><p>Debug mode</p>
 <p>This setting is automatically enable if a job fail (useful with <code>plugins_errors_fatal: yes</code>)</p>
 <img width="900" height="1" alt=""></td>
@@ -873,7 +871,7 @@ This option has no effects on forks (images will always be rebuilt from Dockerfi
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>verify</code></td>
+    <td nowrap="nowrap"><h4><code>verify</code></h4></td>
     <td rowspan="2"><p>SVG validity check</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -885,7 +883,7 @@ This option has no effects on forks (images will always be rebuilt from Dockerfi
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>debug_flags</code></td>
+    <td nowrap="nowrap"><h4><code>debug_flags</code></h4></td>
     <td rowspan="2"><p>Debug flags</p>
 <ul>
 <li><code>--cakeday</code>: simulate registration anniversary</li>
@@ -904,20 +902,19 @@ This option has no effects on forks (images will always be rebuilt from Dockerfi
 <b>allowed values:</b><ul><li>--cakeday</li><li>--hireable</li><li>--halloween</li><li>--error</li></ul></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>debug_print</code></td>
+    <td nowrap="nowrap"><h4><code>debug_print</code></h4></td>
     <td rowspan="2"><p>Print output in console</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap">⏯️ Cannot be preset<br>
 🔧 For development<br>
-✨ On <code>master</code>/<code>main</code><br>
 <b>type:</b> <code>boolean</code>
 <br>
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>dryrun</code></td>
+    <td nowrap="nowrap"><h4><code>dryrun</code></h4></td>
     <td rowspan="2"><p>Dry-run</p>
 <p>Contrary to <code>output_action: none</code>, output file won&#39;t be available in <code>/metrics_renders</code> directory</p>
 <img width="900" height="1" alt=""></td>
@@ -930,7 +927,7 @@ This option has no effects on forks (images will always be rebuilt from Dockerfi
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>experimental_features</code></td>
+    <td nowrap="nowrap"><h4><code>experimental_features</code></h4></td>
     <td rowspan="2"><p>Experimental features</p>
 <p>No backward compatibility is guaranteed for these features</p>
 <img width="900" height="1" alt=""></td>
@@ -944,7 +941,7 @@ This option has no effects on forks (images will always be rebuilt from Dockerfi
 <b>allowed values:</b><ul><li>--optimize-svg</li></ul></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>use_mocked_data</code></td>
+    <td nowrap="nowrap"><h4><code>use_mocked_data</code></h4></td>
     <td rowspan="2"><p>Use mocked data instead of live APIs</p>
 <img width="900" height="1" alt=""></td>
   </tr>

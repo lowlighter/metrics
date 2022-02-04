@@ -32,7 +32,7 @@
     <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_introduction</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_introduction</code></h4></td>
     <td rowspan="2"><p>Display account or repository introduction</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -42,7 +42,7 @@
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_introduction_title</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_introduction_title</code></h4></td>
     <td rowspan="2"><p>Display introduction section title</p>
 <img width="900" height="1" alt=""></td>
   </tr>

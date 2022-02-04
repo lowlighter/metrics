@@ -31,7 +31,7 @@
     <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_stargazers</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_stargazers</code></h4></td>
     <td rowspan="2"><p>Enable stargazers plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -41,7 +41,7 @@
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_stargazers_charts_type</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_stargazers_charts_type</code></h4></td>
     <td rowspan="2"><p>Charts display type</p>
 <ul>
 <li><code>classic</code>: <code>&lt;div&gt;</code> based charts, simple and lightweight</li>
@@ -50,8 +50,7 @@
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
-<b>type:</b> <code>string</code>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
 <br>
 <b>default:</b> classic<br>
 <b>allowed values:</b><ul><li>classic</li><li>chartist</li></ul></td>

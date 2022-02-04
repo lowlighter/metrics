@@ -31,7 +31,7 @@
     <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_habits</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_habits</code></h4></td>
     <td rowspan="2"><p>Enable habits plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -41,7 +41,7 @@
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_habits_from</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_habits_from</code></h4></td>
     <td rowspan="2"><p>Events to use</p>
 <p>A higher number will increase stats accuracy</p>
 <img width="900" height="1" alt=""></td>
@@ -55,7 +55,7 @@
 <b>default:</b> 200<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_habits_days</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_habits_days</code></h4></td>
     <td rowspan="2"><p>Event maximum age</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -68,7 +68,7 @@
 <b>default:</b> 14<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_habits_facts</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_habits_facts</code></h4></td>
     <td rowspan="2"><p>Toggle midly interesting facts display</p>
 <p>It includes indentation type, average number of characters per line of code, and most active time and day</p>
 <img width="900" height="1" alt=""></td>
@@ -79,7 +79,7 @@
 <b>default:</b> yes<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_habits_charts</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_habits_charts</code></h4></td>
     <td rowspan="2"><p>Toggle charts display</p>
 <p>It includes commit activity per hour of day and commit activity per day of week
 Recent language activity may also displayed (it requires extras features to be enabled for web instances) for historical reasons</p>
@@ -92,7 +92,7 @@ Recent language activity may also displayed (it requires extras features to be e
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_habits_trim</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_habits_trim</code></h4></td>
     <td rowspan="2"><p>Trim unused hours on charts</p>
 <img width="900" height="1" alt=""></td>
   </tr>

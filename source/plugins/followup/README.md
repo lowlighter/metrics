@@ -32,7 +32,7 @@
     <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_followup</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_followup</code></h4></td>
     <td rowspan="2"><p>Enable followup plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -42,7 +42,7 @@
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_followup_sections</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_followup_sections</code></h4></td>
     <td rowspan="2"><p>Displayed sections</p>
 <ul>
 <li><code>repositories</code>: overall status of issues and pull requests on your repositories</li>
@@ -58,7 +58,7 @@
 <b>allowed values:</b><ul><li>repositories</li><li>user</li></ul></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_followup_indepth</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_followup_indepth</code></h4></td>
     <td rowspan="2"><p>Indepth analysis</p>
 <img width="900" height="1" alt=""></td>
   </tr>

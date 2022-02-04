@@ -33,7 +33,7 @@
     <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>base</code></td>
+    <td nowrap="nowrap"><h4><code>base</code></h4></td>
     <td rowspan="2"><p>Base content</p>
 <p>The following sections are supported:</p>
 <ul>
@@ -54,7 +54,7 @@
 <b>allowed values:</b><ul><li>header</li><li>activity</li><li>community</li><li>repositories</li><li>metadata</li></ul></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>repositories</code></td>
+    <td nowrap="nowrap"><h4><code>repositories</code></h4></td>
     <td rowspan="2"><p>Repositories to fetch</p>
 <p>A higher value result in more accurate metrics but can hit GitHub API rate-limit more easily (especially with a lot of plugins enabled)</p>
 <img width="900" height="1" alt=""></td>
@@ -67,7 +67,7 @@
 <b>default:</b> 100<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>repositories_batch</code></td>
+    <td nowrap="nowrap"><h4><code>repositories_batch</code></h4></td>
     <td rowspan="2"><p>Repositories to fetch at a time</p>
 <p>If you receive <code>Something went wrong while executing your query</code> (which is usually caused by API timeout),
 try lowering this value.</p>
@@ -82,7 +82,7 @@ try lowering this value.</p>
 <b>default:</b> 100<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>repositories_forks</code></td>
+    <td nowrap="nowrap"><h4><code>repositories_forks</code></h4></td>
     <td rowspan="2"><p>Include forks</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -92,7 +92,7 @@ try lowering this value.</p>
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>repositories_affiliations</code></td>
+    <td nowrap="nowrap"><h4><code>repositories_affiliations</code></h4></td>
     <td rowspan="2"><p>Repositories affiliations</p>
 <ul>
 <li><code>owner</code>: owned repositories</li>
@@ -112,7 +112,7 @@ Broad affiliation will result in less representative metrics.</p>
 <b>allowed values:</b><ul><li>owner</li><li>collaborator</li><li>organization_member</li></ul></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>repositories_skipped</code></td>
+    <td nowrap="nowrap"><h4><code>repositories_skipped</code></h4></td>
     <td rowspan="2"><p>Default skipped repositories</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -123,7 +123,7 @@ Broad affiliation will result in less representative metrics.</p>
 <br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>users_ignored</code></td>
+    <td nowrap="nowrap"><h4><code>users_ignored</code></h4></td>
     <td rowspan="2"><p>Default ignored users</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -135,7 +135,7 @@ Broad affiliation will result in less representative metrics.</p>
 <b>default:</b> github-actions[bot], dependabot[bot], dependabot-preview[bot]<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>commits_authoring</code></td>
+    <td nowrap="nowrap"><h4><code>commits_authoring</code></h4></td>
     <td rowspan="2"><p>Identifiers that has been used for authoring commits</p>
 <p>Specify names, surnames, username, email addresses that has been used in the past that can be used to detect commits ownerships in some plugins</p>
 <img width="900" height="1" alt=""></td>

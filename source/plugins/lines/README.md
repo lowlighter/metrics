@@ -30,7 +30,7 @@
     <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_lines</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_lines</code></h4></td>
     <td rowspan="2"><p>Enable lines plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -40,7 +40,7 @@
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_lines_skipped</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_lines_skipped</code></h4></td>
     <td rowspan="2"><p>Skipped repositories</p>
 <img width="900" height="1" alt=""></td>
   </tr>

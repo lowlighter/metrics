@@ -32,7 +32,7 @@
     <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_music</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_music</code></h4></td>
     <td rowspan="2"><p>Enable music plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -42,7 +42,7 @@
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_music_provider</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_music_provider</code></h4></td>
     <td rowspan="2"><p>Music provider</p>
 <ul>
 <li><code>apple</code>: Apple Music</li>
@@ -59,7 +59,7 @@
 <b>allowed values:</b><ul><li>apple</li><li>spotify</li><li>lastfm</li><li>youtube</li></ul></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_music_token</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_music_token</code></h4></td>
     <td rowspan="2"><p>Music provider token</p>
 <p>Below is the expected token format for each provider:</p>
 <ul>
@@ -76,7 +76,7 @@
 <br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_music_mode</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_music_mode</code></h4></td>
     <td rowspan="2"><p>Display mode</p>
 <ul>
 <li><code>playlist</code>: display random tracks from an URL playlist</li>
@@ -92,7 +92,7 @@
 <b>allowed values:</b><ul><li>playlist</li><li>recent</li><li>top</li></ul></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_music_playlist</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_music_playlist</code></h4></td>
     <td rowspan="2"><p>Playlist URL</p>
 <p>It must be from an &quot;embed url&quot; (i.e. music player iframes that can be integrated in other websites)</p>
 <img width="900" height="1" alt=""></td>
@@ -103,7 +103,7 @@
 <br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_music_limit</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_music_limit</code></h4></td>
     <td rowspan="2"><p>Display limit</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -116,7 +116,7 @@
 <b>default:</b> 4<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_music_played_at</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_music_played_at</code></h4></td>
     <td rowspan="2"><p>Recently played - Toggle last played timestamp display</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -126,7 +126,7 @@
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_music_time_range</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_music_time_range</code></h4></td>
     <td rowspan="2"><p>Top tracks - Time range for <code>top</code> mode</p>
 <ul>
 <li><code>short</code>: 4 weeks</li>
@@ -142,7 +142,7 @@
 <b>allowed values:</b><ul><li>short</li><li>medium</li><li>long</li></ul></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_music_top_type</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_music_top_type</code></h4></td>
     <td rowspan="2"><p>Top tracks - Display type</p>
 <ul>
 <li><code>tracks</code>: display track</li>
@@ -157,7 +157,7 @@
 <b>allowed values:</b><ul><li>tracks</li><li>artists</li></ul></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_music_user</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_music_user</code></h4></td>
     <td rowspan="2"><p>Music provider username</p>
 <img width="900" height="1" alt=""></td>
   </tr>

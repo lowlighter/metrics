@@ -32,7 +32,7 @@ It can either the full page or a portion restricted by a <a href="https://develo
     <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_screenshot</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_screenshot</code></h4></td>
     <td rowspan="2"><p>Enable screenshot plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -42,7 +42,7 @@ It can either the full page or a portion restricted by a <a href="https://develo
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_screenshot_title</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_screenshot_title</code></h4></td>
     <td rowspan="2"><p>Title caption</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -52,7 +52,7 @@ It can either the full page or a portion restricted by a <a href="https://develo
 <b>default:</b> Screenshot<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_screenshot_url</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_screenshot_url</code></h4></td>
     <td rowspan="2"><p>Website url</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -61,7 +61,7 @@ It can either the full page or a portion restricted by a <a href="https://develo
 <br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_screenshot_selector</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_screenshot_selector</code></h4></td>
     <td rowspan="2"><p>CSS Selector</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -71,7 +71,7 @@ It can either the full page or a portion restricted by a <a href="https://develo
 <b>default:</b> body<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_screenshot_background</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_screenshot_background</code></h4></td>
     <td rowspan="2"><p>Display background</p>
 <img width="900" height="1" alt=""></td>
   </tr>

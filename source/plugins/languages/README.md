@@ -33,7 +33,7 @@
     <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_languages</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_languages</code></h4></td>
     <td rowspan="2"><p>Enable languages plugin</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -43,7 +43,7 @@
 <b>default:</b> no<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_languages_ignored</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_languages_ignored</code></h4></td>
     <td rowspan="2"><p>Ignored languages</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -53,7 +53,7 @@
 <br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_languages_skipped</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_languages_skipped</code></h4></td>
     <td rowspan="2"><p>Skipped repositories</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -64,7 +64,7 @@
 <br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_languages_limit</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_languages_limit</code></h4></td>
     <td rowspan="2"><p>Display limit</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -78,7 +78,7 @@
 <b>default:</b> 8<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_languages_threshold</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_languages_threshold</code></h4></td>
     <td rowspan="2"><p>Display threshold (percentage)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -88,7 +88,7 @@
 <b>default:</b> 0%<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_languages_colors</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_languages_colors</code></h4></td>
     <td rowspan="2"><p>Custom languages colors</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -99,7 +99,7 @@
 <b>default:</b> github<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_languages_aliases</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_languages_aliases</code></h4></td>
     <td rowspan="2"><p>Custom languages names</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -108,7 +108,7 @@
 <br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_languages_sections</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_languages_sections</code></h4></td>
     <td rowspan="2"><p>Displayed sections</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -121,7 +121,7 @@
 <b>allowed values:</b><ul><li>most-used</li><li>recently-used</li></ul></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_languages_details</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_languages_details</code></h4></td>
     <td rowspan="2"><p>Additional details</p>
 <p>Note that <code>lines</code> is only available when <code>plugin_languages_indepth</code> is enabled</p>
 <img width="900" height="1" alt=""></td>
@@ -134,7 +134,7 @@
 <b>allowed values:</b><ul><li>bytes-size</li><li>percentage</li><li>lines</li></ul></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_languages_indepth</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_languages_indepth</code></h4></td>
     <td rowspan="2"><p>Indepth mode (⚠️ read documentation first)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -145,7 +145,7 @@
 <b>default:</b> false<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_languages_analysis_timeout</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_languages_analysis_timeout</code></h4></td>
     <td rowspan="2"><p>Indepth mode - Analysis timeout</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -159,7 +159,7 @@
 <b>default:</b> 15<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_languages_categories</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_languages_categories</code></h4></td>
     <td rowspan="2"><p>Indepth mode - Displayed categories (most-used section)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -172,7 +172,7 @@
 <b>allowed values:</b><ul><li>data</li><li>markup</li><li>programming</li><li>prose</li></ul></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_languages_recent_categories</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_languages_recent_categories</code></h4></td>
     <td rowspan="2"><p>Indepth mode - Displayed categories (recently-used section)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -185,7 +185,7 @@
 <b>allowed values:</b><ul><li>data</li><li>markup</li><li>programming</li><li>prose</li></ul></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_languages_recent_load</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_languages_recent_load</code></h4></td>
     <td rowspan="2"><p>Events to load (recently-used section)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -199,7 +199,7 @@
 <b>default:</b> 300<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><code>plugin_languages_recent_days</code></td>
+    <td nowrap="nowrap"><h4><code>plugin_languages_recent_days</code></h4></td>
     <td rowspan="2"><p>Events maximum age (day, recently-used section)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
