@@ -63,3 +63,20 @@ inputs:
     type: boolean
     default: no
     extras: yes
+
+  plugin_notable_types:
+    description: |
+      Contribution types filter
+
+      Use a combination of below values to include repositories where:
+      - `commit`: a commit on default branch was made
+      - `pull_request`: a pull request was opened
+      - `issue`: an issue was opened
+    type: array
+    format: comma-separated
+    default: commit
+    example: commit, pull_request
+    values:
+      - commit
+      - pull_request
+      - issue

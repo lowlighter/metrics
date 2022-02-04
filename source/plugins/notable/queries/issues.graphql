@@ -1,0 +1,15 @@
+query NotableIssues {
+  user(login: "$login") {
+    $type($after first: 100, orderBy: {field: CREATED_AT, direction: DESC}) {
+      totalCount
+      edges {
+        cursor
+        node {
+          repository {
+            nameWithOwner
+          }
+        }
+      }
+    }
+  }
+}
