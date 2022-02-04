@@ -30,7 +30,7 @@ import twemojis from "twemoji-parser"
 import url from "url"
 import util from "util"
 import xmlformat from "xml-formatter"
-
+import octicons from "@primer/octicons"
 prism_lang()
 
 //Exports
@@ -367,7 +367,7 @@ export async function imgb64(image, {width, height, fallback = true} = {}) {
 /**SVG utils */
 export const svg = {
   /**Render as pdf */
-  async pdf(rendered, {paddings = "", style = "", twemojis = false, gemojis = false, rest = null} = {}) {
+  async pdf(rendered, {paddings = "", style = "", twemojis = false, gemojis = false, octicons = false, rest = null} = {}) {
     //Instantiate browser if needed
     if (!svg.resize.browser) {
       svg.resize.browser = await puppeteer.launch()
@@ -378,6 +378,8 @@ export const svg = {
       rendered = await svg.twemojis(rendered, {custom:false})
     if ((gemojis) && (rest))
       rendered = await svg.gemojis(rendered, {rest})
+    if (octicons)
+      rendered = await svg.octicons(rendered)
     rendered = marked.parse(rendered)
     //Render through browser and print pdf
     console.debug("metrics/svg/pdf > loading svg")
@@ -548,6 +550,26 @@ export const svg = {
     //Apply replacements
     for (const [emoji, gemoji] of emojis)
       rendered = rendered.replace(new RegExp(emoji, "g"), gemoji)
+    return rendered
+  },
+  /**Render github octicons */
+  async octicons(rendered) {
+    //Load octicons
+    console.debug("metrics/svg/octicons > rendering octicons")
+    const icons = new Map()
+    for (const {name, heights, toSVG} of Object.values(octicons)) {
+      for (const size of Object.keys(heights)) {
+        const octicon = `:octicon-${name}-${size}:`
+        if (new RegExp(`:octicon-${name}(?:-[0-9]+)?:`, "g").test(rendered)) {
+          icons.set(octicon, toSVG({height:size, width:size}))
+          if (Number(size) === 16)
+            icons.set(`:octicon-${name}:`, toSVG({height:size, width:size}))
+        }
+      }
+    }
+    //Apply replacements
+    for (const [octicon, image] of icons)
+      rendered = rendered.replace(new RegExp(octicon, "g"), image)
     return rendered
   },
   /**Optimizers */
