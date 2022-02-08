@@ -870,7 +870,7 @@
   .starlist .repository {
     margin: 6px 0 0;
   }
-  .starlist .repository .description {
+  .starlist .repository .description, .starlist .repository .infos {
     font-size: 11px;
   }
   .starlist .repository .name {
