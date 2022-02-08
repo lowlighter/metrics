@@ -742,6 +742,14 @@ inputs:
     description: Display limit (repositories per star list)
     default: <default-value>
   
+  plugin_starlists_languages:
+    description: Toggle star list languages statistics
+    default: <default-value>
+  
+  plugin_starlists_limit_languages:
+    description: Disply limit (languages per star list)
+    default: <default-value>
+  
   plugin_starlists_shuffle_repositories:
     description: Shuffle data for varied outputs
     default: <default-value>
