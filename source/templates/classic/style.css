@@ -854,7 +854,8 @@
 
 /* Star lists */
   .starlist {
-    margin-left: 28px;
+    padding-left: 28px;
+    width: 460px;
   }
   .starlist > .description, .starlist > .count {
     margin-left: 32px;
@@ -875,6 +876,13 @@
   }
   .starlist .repository .name {
     font-size: 14px;
+  }
+  .starlist .languages {
+    margin-top: 6px;
+    padding-left: 13px;
+  }
+  .starlist .languages svg.bar {
+    margin-left: 18px;
   }
 
 /* Anilist */

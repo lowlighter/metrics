@@ -5,14 +5,14 @@
       <%= plugins.starlists?.count ?? "" %> Star list<%= s(plugins.starlists?.count ?? 0) %>
     </h2>
     <div class="row">
-      <section class="largeable-flex-wrap">
+      <section>
         <% if (plugins.starlists.error) { %>
           <div class="field error">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M2.343 13.657A8 8 0 1113.657 2.343 8 8 0 012.343 13.657zM6.03 4.97a.75.75 0 00-1.06 1.06L6.94 8 4.97 9.97a.75.75 0 101.06 1.06L8 9.06l1.97 1.97a.75.75 0 101.06-1.06L9.06 8l1.97-1.97a.75.75 0 10-1.06-1.06L8 6.94 6.03 4.97z"></path></svg>
             <%= plugins.starlists.error.message %>
           </div>
         <% } else { %>
-          <% for (const {name, description, count, repositories} of plugins.starlists.lists) { %>
+          <% for (const {name, description, count, repositories, languages = null} of plugins.starlists.lists) { %>
             <div class="starlist">
               <h2 class="field">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M2 4a1 1 0 100-2 1 1 0 000 2zm3.75-1.5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zM3 8a1 1 0 11-2 0 1 1 0 012 0zm-1 6a1 1 0 100-2 1 1 0 000 2z"></path></svg>
@@ -20,6 +20,39 @@
               </h2>
               <div class="count"><%= count %> repositor<%= s(count, "y") %></div>
               <div class="description"><%= description %></div>
+              <% if (languages) { const width = 420 * (1 + large), rows = large ? [0, 1, 2, 3] : [0, 1] %>
+                <div class="languages">
+                  <div class="row">
+                    <svg class="bar" xmlns="http://www.w3.org/2000/svg" width="<%= width %>" height="8">
+                      <mask id="languages-bar">
+                        <rect x="0" y="0" width="<%= width %>" height="8" fill="white" rx="5"/>
+                      </mask>
+                      <rect mask="url(#languages-bar)" x="0" y="0" width="<%= languages.length ? 0 : width %>" height="8" fill="#d1d5da"/>
+                      <% for (const {name, value, color, x, p} of languages) { %>
+                        <rect mask="url(#languages-bar)" x="<%= x*width %>" y="0" width="<%= p*width %>" height="8" fill="<%= color ?? "#959DA5" %>"/>
+                      <% } %>
+                    </svg>
+                  </div>
+                  <div class="row">
+                    <% for (const row of rows) { %>
+                      <section>
+                        <% for (const {name, value, color} of languages.filter((_, i) => i%rows.length === row)) { %>
+                          <div class="field language details">
+                            <div class="field">
+                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill="<%= color ?? "#959DA5" %>" fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8z"></path></svg>
+                              <%= name %>
+                            </div>
+                            <small>
+                              <div><%= f.percentage(value/count) %></div>
+                              <div><%= f(value) %>★</div>
+                            </small>
+                          </div>
+                        <% } %>
+                      </section>
+                    <% } %>
+                  </div>
+                </div>
+              <% } %>
               <div class="repositories">
                 <% for (const repository of repositories) { %>
                   <div class="row fill-width largeable-width-half">
