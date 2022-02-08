@@ -44,9 +44,15 @@ export default async function({login, q, imports, data, account}, {enabled = fal
     for (const list of lists) {
       console.debug(`metrics/compute/${login}/plugins > starlists > fetching ${list.name}`)
       await page.goto(list.link)
-      const repositories = await page.evaluate(() => [...document.querySelectorAll("#user-list-repositories > div")].map(element => ({
+      const repositories = await page.evaluate(() => [...document.querySelectorAll("#user-list-repositories > div:not(.paginate-container)")].map(element => ({
           name:element.querySelector("div:first-child")?.innerText.replace(" / ", "/") ?? "",
           description:element.querySelector(".py-1")?.innerText ?? "",
+          language:{
+            name:element.querySelector("[itemprop='programmingLanguage']")?.innerText ?? "",
+            color:element.querySelector(".repo-language-color")?.style?.backgroundColor?.match(/\d+/g)?.map(x => Number(x).toString(16)).join("") ?? null,
+          },
+          stargazers:Number(element.querySelector("[href$='/stargazers']")?.innerText.trim().replace(/[^\d]/g, "") ?? NaN),
+          forks:Number(element.querySelector("[href$='/network/members']")?.innerText.trim().replace(/[^\d]/g, "") ?? NaN),
         }))
       )
       list.repositories.push(...repositories)
