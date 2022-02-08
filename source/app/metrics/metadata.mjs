@@ -258,7 +258,7 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
               value = "<default-value>"
             }
           }
-          else 
+          else
             value = process.env[`INPUT_${key.toUpperCase()}`]?.trim() ?? "<default-value>"
           const unspecified = value === "<default-value>"
           //From presets
