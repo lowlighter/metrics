@@ -95,7 +95,6 @@ async function retry(func, {retries = 1, delay = 0} = {}) {
     info("Version", conf.package.version)
 
     //Docker run environment default values
-    console.log(metadata, metadata.env)
     if (!metadata.env.ghactions) {
       info("Docker environment", "(enabled)")
       process.env.INPUT_OUTPUT_ACTION = process.env.INPUT_OUTPUT_ACTION ?? "none"
