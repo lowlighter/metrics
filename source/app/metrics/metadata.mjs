@@ -12,6 +12,9 @@ const categories = ["core", "github", "social", "community"]
 //Previous descriptors
 let previous = null
 
+//Environment
+const env = {ghactions:`${process.env.GITHUB_ACTIONS}` === "true"}
+
 /**Metadata descriptor parser */
 export default async function metadata({log = true, diff = false} = {}) {
   //Paths
@@ -81,7 +84,7 @@ export default async function metadata({log = true, diff = false} = {}) {
   const descriptor = yaml.load(`${await fs.promises.readFile(__descriptor, "utf-8")}`)
 
   //Metadata
-  return {plugins:Plugins, templates:Templates, packaged, descriptor}
+  return {plugins:Plugins, templates:Templates, packaged, descriptor, env}
 }
 
 /**Metadata extractor for inputs */
@@ -239,13 +242,13 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
       )
 
       //Action inputs
-      meta.inputs.action = function({core, preset = {}, action = true}) {
+      meta.inputs.action = function({core, preset = {}}) {
         //Build query object from inputs
         const q = {}
         for (const key of Object.keys(inputs)) {
           //Parse input
           let value
-          if (action) {
+          if (env.ghactions) {
             value = `${core.getInput(key)}`.trim()
             try {
               value = decodeURIComponent(value)
@@ -255,7 +258,7 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
               value = "<default-value>"
             }
           }
-          else
+          else 
             value = process.env[`INPUT_${key.toUpperCase()}`]?.trim() ?? "<default-value>"
           const unspecified = value === "<default-value>"
           //From presets
