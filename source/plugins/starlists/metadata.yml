@@ -28,6 +28,18 @@ inputs:
     min: 0
     max: 100
 
+  plugin_starlists_languages:
+    description: Toggle star list languages statistics
+    type: boolean
+    default: no
+
+  plugin_starlists_limit_languages:
+    description: Disply limit (languages per star list)
+    type: number
+    default: 8
+    min: 0
+    zero: disable
+
   plugin_starlists_shuffle_repositories:
     description: Shuffle data for varied outputs
     type: boolean

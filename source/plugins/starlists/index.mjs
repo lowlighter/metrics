@@ -7,7 +7,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
       return null
 
     //Load inputs
-    let {limit, ignored, only, "limit.repositories":_limit, "shuffle.repositories":_shuffle} = imports.metadata.plugins.starlists.inputs({data, account, q})
+    let {limit, ignored, only, "limit.repositories":_limit, languages, "limit.languages":_limit_languages, "shuffle.repositories":_shuffle} = imports.metadata.plugins.starlists.inputs({data, account, q})
     ignored = ignored.map(imports.stripemojis)
     only = only.map(imports.stripemojis)
 
@@ -40,24 +40,52 @@ export default async function({login, q, imports, data, account}, {enabled = fal
       .slice(0, limit)
     console.debug(`metrics/compute/${login}/plugins > starlists > extracted ${lists.length} lists`)
 
-    //Fetch star list content
+    //Compute lists content
+    const colors = {}
     for (const list of lists) {
+      //Fetch star list content
       console.debug(`metrics/compute/${login}/plugins > starlists > fetching ${list.name}`)
-      await page.goto(list.link)
-      const repositories = await page.evaluate(() => [...document.querySelectorAll("#user-list-repositories > div:not(.paginate-container)")].map(element => ({
-          name:element.querySelector("div:first-child")?.innerText.replace(" / ", "/") ?? "",
-          description:element.querySelector(".py-1")?.innerText ?? "",
-          language:{
-            name:element.querySelector("[itemprop='programmingLanguage']")?.innerText ?? "",
-            color:element.querySelector(".repo-language-color")?.style?.backgroundColor?.match(/\d+/g)?.map(x => Number(x).toString(16)).join("") ?? null,
-          },
-          stargazers:Number(element.querySelector("[href$='/stargazers']")?.innerText.trim().replace(/[^\d]/g, "") ?? NaN),
-          forks:Number(element.querySelector("[href$='/network/members']")?.innerText.trim().replace(/[^\d]/g, "") ?? NaN),
-        }))
-      )
+      const repositories = []
+      for (let i = 1; i <= (languages ? 100 : 1); i++) {
+        console.debug(`metrics/compute/${login}/plugins > starlists > fetching page ${i}`)
+        await page.goto(`${list.link}?page=${i}`)
+        repositories.push(...await page.evaluate(() => [...document.querySelectorAll("#user-list-repositories > div:not(.paginate-container)")].map(element => ({
+            name:element.querySelector("div:first-child")?.innerText.replace(" / ", "/") ?? "",
+            description:element.querySelector(".py-1")?.innerText ?? "",
+            language:{
+              name:element.querySelector("[itemprop='programmingLanguage']")?.innerText ?? "",
+              color:element.querySelector(".repo-language-color")?.style?.backgroundColor?.match(/\d+/g)?.map(x => Number(x).toString(16).padStart(2, "0")).join("") ?? null,
+            },
+            stargazers:Number(element.querySelector("[href$='/stargazers']")?.innerText.trim().replace(/[^\d]/g, "") ?? NaN),
+            forks:Number(element.querySelector("[href$='/network/members']")?.innerText.trim().replace(/[^\d]/g, "") ?? NaN),
+          }))
+        ))
+        if (await page.evaluate(() => document.querySelector(".next_page.disabled"))) {
+          console.debug(`metrics/compute/${login}/plugins > starlists > reached last page`)
+          break
+        }
+      }
       list.repositories.push(...repositories)
       if (_shuffle)
         list.repositories = imports.shuffle(list.repositories)
+
+      //Compute languages statistics
+      if (languages) {
+        list.languages = {}
+        for (const {language:{name, color}} of repositories) {
+          if (name)
+            list.languages[name] = (list.languages[name] ?? 0) + 1
+          if (color)
+            colors[name] = color
+        }
+        list.languages = Object.entries(list.languages).sort((a, b) => b[1] - a[1]).slice(0, _limit_languages || Infinity)
+        const visible = list.languages.map(([_, value]) => value).reduce((a, b) => a + b, 0)
+        list.languages = list.languages.map(([name, value]) => ({name, value, color:name in colors ? `#${colors[name]}` : null, x:0, p:value/visible}))
+        for (let i = 1; i < list.languages.length; i++)
+          list.languages[i].x = (list.languages[i-1]?.x ?? 0) + (list.languages[i-1]?.value ?? 0)/visible
+      }
+
+      //Limit repositories
       list.repositories = list.repositories.slice(0, _limit)
     }
 
