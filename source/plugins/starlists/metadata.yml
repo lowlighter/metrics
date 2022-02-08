@@ -2,7 +2,8 @@ name: "💫 Starlists"
 category: github
 description: This plugin displays your star lists.
 examples:
-  default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.starlists.svg
+  +repositories from star lists: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.starlists.svg
+  +languages from star lists: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.starlists.languages.svg
 index: 24
 supports:
   - user
