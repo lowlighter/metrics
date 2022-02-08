@@ -1,7 +1,5 @@
 # 🔧 Local setup for development (~20 min)
 
-*Documentation not available yet*
-
 ## 0️ Prepare your machine
 
 A machine with a recent version of [NodeJS](https://nodejs.org) is required (see used version in [Dockerfile](/Dockerfile#L1-L2)).
