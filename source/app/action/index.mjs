@@ -99,7 +99,7 @@ async function retry(func, {retries = 1, delay = 0} = {}) {
     //Docker run environment default values
     if (!action) {
       process.env.INPUT_OUTPUT_ACTION = process.env.INPUT_OUTPUT_ACTION ?? "none"
-      process.env.GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY ?? `${user}/${user}`
+      process.env.GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY ?? "octocat/hello-world"
     }
 
     //Core inputs
@@ -198,7 +198,8 @@ async function retry(func, {retries = 1, delay = 0} = {}) {
       info("GitHub repository", `${user}/${q.repo}`)
 
     //Current repository
-    info("Current repository", `${github.context.repo.owner}/${github.context.repo.repo}`)
+    if (action)
+      info("Current repository", `${github.context.repo.owner}/${github.context.repo.repo}`)
 
     //Committer
     const committer = {}
