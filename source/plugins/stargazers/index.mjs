@@ -72,7 +72,7 @@ export default async function({login, graphql, data, imports, q, queries, accoun
         }, {
           labels:Object.keys(set).map((date, i, a) => {
             const day = date.substring(date.length - 2)
-            if ((i === 0) || ((a[i + 1]) && (date.substring(0, 7) !== a[i + 1].substring(0, 7))))
+            if ((i === 0) || ((a[i - 1]) && (date.substring(0, 7) !== a[i - 1].substring(0, 7))))
               return `${day} ${months[Number(date.substring(5, 7))]}`
             return day
           }),
