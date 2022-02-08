@@ -239,19 +239,24 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
       )
 
       //Action inputs
-      meta.inputs.action = function({core, preset = {}}) {
+      meta.inputs.action = function({core, preset = {}, action = true}) {
         //Build query object from inputs
         const q = {}
         for (const key of Object.keys(inputs)) {
           //Parse input
-          let value = `${core.getInput(key)}`.trim()
-          try {
-            value = decodeURIComponent(value)
+          let value
+          if (action) {
+            value = `${core.getInput(key)}`.trim()
+            try {
+              value = decodeURIComponent(value)
+            }
+            catch {
+              logger(`metrics/inputs > failed to decode uri for ${key}: ${value}`)
+              value = "<default-value>"
+            }
           }
-          catch {
-            logger(`metrics/inputs > failed to decode uri for ${key}: ${value}`)
-            value = "<default-value>"
-          }
+          else
+            value = process.env[`INPUT_${key.toUpperCase()}`]?.trim() ?? "<default-value>"
           const unspecified = value === "<default-value>"
           //From presets
           if ((key in preset) && (unspecified)) {

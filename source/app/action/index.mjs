@@ -90,9 +90,17 @@ async function retry(func, {retries = 1, delay = 0} = {}) {
     //Load configuration
     const {conf, Plugins, Templates} = await setup({log:false, community:{templates:core.getInput("setup_community_templates")}})
     const {metadata} = conf
+    const action = "GITHUB_ACTION" in process.env
     conf.settings.extras = {default:true}
     info("Setup", "complete")
     info("Version", conf.package.version)
+    info("Environment", action ? "GitHub Actions" : "Docker")
+
+    //Docker run environment default values
+    if (!action) {
+      process.env.INPUT_OUTPUT_ACTION = process.env.INPUT_OUTPUT_ACTION ?? "none"
+      process.env.GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY ?? `${user}/${user}`
+    }
 
     //Core inputs
     Object.assign(preset, await presets(core.getInput("config_presets"), {log:false, core}))
@@ -126,7 +134,7 @@ async function retry(func, {retries = 1, delay = 0} = {}) {
       "output.condition":_output_condition,
       delay,
       ...config
-    } = metadata.plugins.core.inputs.action({core, preset})
+    } = metadata.plugins.core.inputs.action({core, preset, action})
     const q = {...query, ...(_repo ? {repo:_repo} : null), template}
     const _output = ["svg", "jpeg", "png", "json", "markdown", "markdown-pdf", "insights"].includes(config["config.output"]) ? config["config.output"] : metadata.templates[template].formats[0] ?? null
     const filename = _filename.replace(/[*]/g, {jpeg:"jpg", markdown:"md", "markdown-pdf":"pdf", insights:"html"}[_output] ?? _output)
