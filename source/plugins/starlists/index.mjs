@@ -54,7 +54,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
             description:element.querySelector(".py-1")?.innerText ?? "",
             language:{
               name:element.querySelector("[itemprop='programmingLanguage']")?.innerText ?? "",
-              color:element.querySelector(".repo-language-color")?.style?.backgroundColor?.match(/\d+/g)?.map(x => Number(x).toString(16)).join("") ?? null,
+              color:element.querySelector(".repo-language-color")?.style?.backgroundColor?.match(/\d+/g)?.map(x => Number(x).toString(16).padStart(2, "0")).join("") ?? null,
             },
             stargazers:Number(element.querySelector("[href$='/stargazers']")?.innerText.trim().replace(/[^\d]/g, "") ?? NaN),
             forks:Number(element.querySelector("[href$='/network/members']")?.innerText.trim().replace(/[^\d]/g, "") ?? NaN),
