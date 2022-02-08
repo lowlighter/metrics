@@ -6,6 +6,7 @@ index: 3
 supports:
   - user
   - organization
+  - repository
 formats:
   - markdown
   - markdown-pdf
