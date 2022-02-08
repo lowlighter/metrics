@@ -505,11 +505,11 @@ metadata.template = async function({__templates, name, plugins}) {
         if (account !== "bypass") {
           const context = q.repo ? "repository" : account
           if ((Array.isArray(this.supports)) && (!this.supports.includes(context)))
-            throw new Error(`not supported for: ${context}`)
+            throw new Error(`template not supported for: ${context}`)
         }
         //Format check
         if ((format) && (Array.isArray(this.formats)) && (!this.formats.includes(format)))
-          throw new Error(`not supported for: ${format}`)
+          throw new Error(`template not supported for: ${format}`)
       },
     }
   }
