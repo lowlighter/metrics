@@ -49,17 +49,19 @@ export default async function({login, q, imports, data, account}, {enabled = fal
       for (let i = 1; i <= (languages ? 100 : 1); i++) {
         console.debug(`metrics/compute/${login}/plugins > starlists > fetching page ${i}`)
         await page.goto(`${list.link}?page=${i}`)
-        repositories.push(...await page.evaluate(() => [...document.querySelectorAll("#user-list-repositories > div:not(.paginate-container)")].map(element => ({
-            name:element.querySelector("div:first-child")?.innerText.replace(" / ", "/") ?? "",
-            description:element.querySelector(".py-1")?.innerText ?? "",
-            language:{
-              name:element.querySelector("[itemprop='programmingLanguage']")?.innerText ?? "",
-              color:element.querySelector(".repo-language-color")?.style?.backgroundColor?.match(/\d+/g)?.map(x => Number(x).toString(16).padStart(2, "0")).join("") ?? null,
-            },
-            stargazers:Number(element.querySelector("[href$='/stargazers']")?.innerText.trim().replace(/[^\d]/g, "") ?? NaN),
-            forks:Number(element.querySelector("[href$='/network/members']")?.innerText.trim().replace(/[^\d]/g, "") ?? NaN),
-          }))
-        ))
+        repositories.push(
+          ...await page.evaluate(() => [...document.querySelectorAll("#user-list-repositories > div:not(.paginate-container)")].map(element => ({
+              name:element.querySelector("div:first-child")?.innerText.replace(" / ", "/") ?? "",
+              description:element.querySelector(".py-1")?.innerText ?? "",
+              language:{
+                name:element.querySelector("[itemprop='programmingLanguage']")?.innerText ?? "",
+                color:element.querySelector(".repo-language-color")?.style?.backgroundColor?.match(/\d+/g)?.map(x => Number(x).toString(16).padStart(2, "0")).join("") ?? null,
+              },
+              stargazers:Number(element.querySelector("[href$='/stargazers']")?.innerText.trim().replace(/[^\d]/g, "") ?? NaN),
+              forks:Number(element.querySelector("[href$='/network/members']")?.innerText.trim().replace(/[^\d]/g, "") ?? NaN),
+            }))
+          ),
+        )
         if (await page.evaluate(() => document.querySelector(".next_page.disabled"))) {
           console.debug(`metrics/compute/${login}/plugins > starlists > reached last page`)
           break
@@ -80,9 +82,9 @@ export default async function({login, q, imports, data, account}, {enabled = fal
         }
         list.languages = Object.entries(list.languages).sort((a, b) => b[1] - a[1]).slice(0, _limit_languages || Infinity)
         const visible = list.languages.map(([_, value]) => value).reduce((a, b) => a + b, 0)
-        list.languages = list.languages.map(([name, value]) => ({name, value, color:name in colors ? `#${colors[name]}` : null, x:0, p:value/visible}))
+        list.languages = list.languages.map(([name, value]) => ({name, value, color:name in colors ? `#${colors[name]}` : null, x:0, p:value / visible}))
         for (let i = 1; i < list.languages.length; i++)
-          list.languages[i].x = (list.languages[i-1]?.x ?? 0) + (list.languages[i-1]?.value ?? 0)/visible
+          list.languages[i].x = (list.languages[i - 1]?.x ?? 0) + (list.languages[i - 1]?.value ?? 0) / visible
       }
 
       //Limit repositories
