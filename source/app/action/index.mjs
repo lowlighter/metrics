@@ -203,7 +203,7 @@ async function retry(func, {retries = 1, delay = 0} = {}) {
 
     //Committer
     const committer = {}
-    if ((!dryrun)&&(_action !== "none")) {
+    if ((!dryrun) && (_action !== "none")) {
       //Compute committer informations
       committer.token = _token || token
       committer.gist = _action === "gist" ? _gist : null
@@ -245,6 +245,7 @@ async function retry(func, {retries = 1, delay = 0} = {}) {
         }
         else
           throw error
+
       }
       //Retrieve previous render SHA to be able to update file content through API
       committer.sha = null
