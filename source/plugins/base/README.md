@@ -132,7 +132,7 @@ Broad affiliation will result in less representative metrics.</p>
 <b>type:</b> <code>array</code>
 <i>(comma-separated)</i>
 <br>
-<b>default:</b> github-actions[bot], dependabot[bot], dependabot-preview[bot]<br></td>
+<b>default:</b> github-actions[bot], dependabot[bot], dependabot-preview[bot], actions-user<br></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>commits_authoring</code></h4></td>
