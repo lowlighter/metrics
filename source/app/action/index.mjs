@@ -94,6 +94,14 @@ async function retry(func, {retries = 1, delay = 0} = {}) {
     info("Setup", "complete")
     info("Version", conf.package.version)
 
+    //Docker run environment default values
+    if (!metadata.env.ghactions) {
+      info("Docker environment", "(enabled)")
+      process.env.INPUT_OUTPUT_ACTION = process.env.INPUT_OUTPUT_ACTION ?? "none"
+      process.env.INPUT_COMMITTER_TOKEN = process.env.INPUT_COMMITTER_TOKEN ?? process.env.INPUT_TOKEN
+      process.env.GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY ?? "octocat/hello-world"
+    }
+
     //Core inputs
     Object.assign(preset, await presets(core.getInput("config_presets"), {log:false, core}))
     const {
@@ -150,7 +158,7 @@ async function retry(func, {retries = 1, delay = 0} = {}) {
     //See https://github.blog/2021-04-05-behind-githubs-new-authentication-token-formats
     info("GitHub token format", /^gh[pousr]_/.test(token) ? "correct" : "(old or invalid)")
     if (!token)
-      throw new Error("You must provide a valid GitHub personal token to gather your metrics (see https://github.com/lowlighter/metrics/blob/master/.github/readme/partials/setup/action/setup.md for more informations)")
+      throw new Error("You must provide a valid GitHub personal token to gather your metrics (see https://github.com/lowlighter/metrics/blob/master/.github/readme/partials/documentation/setup/action.md for more informations)")
     conf.settings.token = token
     const api = {}
     api.graphql = octokit.graphql.defaults({headers:{authorization:`token ${token}`}})
@@ -167,7 +175,7 @@ async function retry(func, {retries = 1, delay = 0} = {}) {
       const {headers} = await api.rest.request("HEAD /")
       if (!("x-oauth-scopes" in headers)) {
         throw new Error(
-          'GitHub API did not send any "x-oauth-scopes" header back from provided "token". It means that your token may not be valid or you\'re using GITHUB_TOKEN which cannot be used since metrics will fetch data outside of this repository scope. Use a personal access token instead (see https://github.com/lowlighter/metrics/blob/master/.github/readme/partials/setup/action/setup.md for more informations).',
+          'GitHub API did not send any "x-oauth-scopes" header back from provided "token". It means that your token may not be valid or you\'re using GITHUB_TOKEN which cannot be used since metrics will fetch data outside of this repository scope. Use a personal access token instead (see https://github.com/lowlighter/metrics/blob/master/.github/readme/partials/documentation/setup/action.md for more informations).',
         )
       }
       info("Token validity", "seems ok")
@@ -190,11 +198,12 @@ async function retry(func, {retries = 1, delay = 0} = {}) {
       info("GitHub repository", `${user}/${q.repo}`)
 
     //Current repository
-    info("Current repository", `${github.context.repo.owner}/${github.context.repo.repo}`)
+    if (metadata.env.ghactions)
+      info("Current repository", `${github.context.repo.owner}/${github.context.repo.repo}`)
 
     //Committer
     const committer = {}
-    if (!dryrun) {
+    if ((!dryrun)&&(_action !== "none")) {
       //Compute committer informations
       committer.token = _token || token
       committer.gist = _action === "gist" ? _gist : null
@@ -236,7 +245,6 @@ async function retry(func, {retries = 1, delay = 0} = {}) {
         }
         else
           throw error
-
       }
       //Retrieve previous render SHA to be able to update file content through API
       committer.sha = null
@@ -258,7 +266,7 @@ async function retry(func, {retries = 1, delay = 0} = {}) {
       }
       info("Previous render sha", committer.sha ?? "(none)")
     }
-    else
+    else if (dryrun)
       info("Dry-run", true)
 
 
