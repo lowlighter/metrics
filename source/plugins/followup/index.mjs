@@ -67,7 +67,7 @@ export default async function({login, data, computed, imports, q, graphql, queri
             console.debug(`metrics/compute/${login}/plugins > followup > processing ${owner}/${repo}`)
             followup.indepth.repositories[`${owner}/${repo}`] = {stats:{}}
             //Fetch users with push access
-            let {repository:{collaborators:{nodes:collaborators}}} = await graphql(queries.followup["repository.collaborators"]({repo, owner}))
+            let {repository:{collaborators:{nodes:collaborators}}} = await graphql(queries.followup["repository.collaborators"]({repo, owner})).catch(() => ({repository:{collaborators:{nodes:[{login:owner}]}}}))
             console.debug(`metrics/compute/${login}/plugins > followup > found ${collaborators.length} collaborators`)
             followup.indepth.repositories[`${owner}/${repo}`].collaborators = collaborators.map(({login}) => login)
             //Fetch issues and pull requests created by collaborators

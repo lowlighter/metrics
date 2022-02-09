@@ -77,6 +77,8 @@ The `plugin_followup_indepth` option collects additional stats to differentiate 
 
 It helps knowing whether repositories are also maintained by other users and give an overall health status of repositories.
 
+> ⚠️ This mode will try to list users with push access to know who are the maintainers in order to place issues in the correct category, which requires a `repo` scope. If not available, it will consider that only the owner is a maintainer.
+
 ## ℹ️ Examples workflows
 
 <!--examples-->
