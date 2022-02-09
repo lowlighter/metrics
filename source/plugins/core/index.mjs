@@ -69,7 +69,7 @@ export default async function({login, q}, {conf, data, rest, graphql, plugins, q
       }
       finally {
         const result = {name, result:data.plugins[name]}
-        console.debug(imports.util.inspect(result, {depth:Infinity, maxStringLength:256}))
+        console.debug(imports.util.inspect(result, {depth:Infinity, maxStringLength:256, getters:true}))
         return result
       }
     })())
