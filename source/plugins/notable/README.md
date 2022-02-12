@@ -114,8 +114,7 @@ Some repositories may not be able to reported advanced stats and in the case the
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
-<b>type:</b> <code>array</code>
+    <td nowrap="nowrap"><b>type:</b> <code>array</code>
 <i>(comma-separated)</i>
 <br>
 <b>default:</b> commit<br>

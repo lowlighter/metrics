@@ -678,7 +678,6 @@ Size must be a supported icon size (12, 16 or 24).
   </tr>
   <tr>
     <td nowrap="nowrap">⏭️ Global option<br>
-✨ On <code>master</code>/<code>main</code><br>
 <b>type:</b> <code>boolean</code>
 <br>
 <b>default:</b> no<br></td>
