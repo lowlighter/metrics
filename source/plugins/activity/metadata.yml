@@ -82,8 +82,8 @@ inputs:
       - `push`: Push of commits
       - `issue`: Opening/Reopening/Closing of issues
       - `pr`: Opening/Closing of pull requests
-      - `ref/create: Creation of git tags or git branches
-      - `ref/delete: Deletion of git tags or git branches
+      - `ref/create`: Creation of git tags or git branches
+      - `ref/delete`: Deletion of git tags or git branches
       - `release`: Publication of new releases
       - `review`: Review of pull requests
       - `comment`: Comments on commits, issues and pull requests

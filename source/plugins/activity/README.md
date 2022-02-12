@@ -132,8 +132,8 @@
 <li><code>push</code>: Push of commits</li>
 <li><code>issue</code>: Opening/Reopening/Closing of issues</li>
 <li><code>pr</code>: Opening/Closing of pull requests</li>
-<li>`ref/create: Creation of git tags or git branches</li>
-<li>`ref/delete: Deletion of git tags or git branches</li>
+<li><code>ref/create</code>: Creation of git tags or git branches</li>
+<li><code>ref/delete</code>: Deletion of git tags or git branches</li>
 <li><code>release</code>: Publication of new releases</li>
 <li><code>review</code>: Review of pull requests</li>
 <li><code>comment</code>: Comments on commits, issues and pull requests</li>
