@@ -53,6 +53,9 @@ Content can be manually ordered using `config_order` option.
 
 > 💡 Omitted sections will be appended at the end using default order
 
+> ℹ️ The handles to use for each plugin and sections is based on the [`partials/_.json`](/source/templates/classic/partials/_.json) of the template.
+> It may not necessarly be the plugin id (e.g. `base.header`, `base.activity+community`, `base.repositories`, etc.).
+
 ## 🪛 Using presets
 
 It is possible to reuse the same configuration across different repositories and workflows using configuration presets.
