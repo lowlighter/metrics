@@ -4,7 +4,7 @@ Nice! Please read the few sections below to understand how to implement new feat
 
 ## 👨‍💻 Extending *metrics*
 
-Be sure to read [/ARCHITECTURE.md] first to understand how *metrics* is structured and to follow [`🔧 Local setup for development`](.github/readme/partials/documentation/setup/local.md) to get a working development environment!
+Be sure to read [ARCHITECTURE.md](/ARCHITECTURE.md) first to understand how `metrics` is structured and to follow [`🔧 Local setup for development`](.github/readme/partials/documentation/setup/local.md) to get a working development environment!
 
 Before working on something, ensure that it will not duplicate any active open pull requests (including drafts).
 
@@ -63,7 +63,7 @@ The following contributions are accepted:
     <td>✔️</td>
     <td>
       <ul>
-        <li>Everything that make metrics more stable is welcomed!</li>
+        <li>Everything that makes metrics more stable is welcomed!</li>
       </ul>
     </td>
   </tr>
@@ -73,7 +73,7 @@ The following contributions are accepted:
     <td>❌</td>
     <td>
       <ul>
-        <li>Core editions impacts all rendering process and should be avoided unless necessary</li>
+        <li>Core editions impact all rendering process and should be avoided unless necessary</li>
         <li>New dependencies should be avoided when possible</li>
       </ul>
     </td>
@@ -92,5 +92,5 @@ The following contributions are accepted:
 
 **Legend**
 * ✔️: Contributions welcomed!
-* ✓: Contributions welcomed, but must be discussed first
+* ✓: Contributions are welcomed, but must be discussed first
 * ❌: Only maintainers can manage these files
