@@ -33,6 +33,14 @@ inputs:
     min: 100
     max: 1000
 
+  plugin_activity_days:
+    description: Events maximum age
+    type: number
+    default: 3
+    min: 0
+    max: 365
+    zero: disable
+
   plugin_code_visibility:
     description: |
       Events visibility
@@ -53,7 +61,6 @@ inputs:
     inherits: repositories_skipped
 
   plugin_code_languages:
-    extras: yes
     description: Restrict display to specific languages
     type: array
     format: comma-separated
