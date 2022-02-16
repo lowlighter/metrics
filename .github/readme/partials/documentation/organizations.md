@@ -8,7 +8,8 @@ While *metrics* targets mainly user accounts, it's possible to render metrics fo
 
 Setup is mostly the same as for user accounts. A personal access token from an user account is required excepted that `read:org` scope must be enabled, **whether you are member of the target organization or not**.
 
-![Add read:org scope to personal token](/.github/readme/imgs/setup_token_org_read_scope.png)
+![Add read:org scope to personal token](/.github/readme/imgs/setup_token_org_read_scope.light.png#gh-light-mode-only)
+![Add read:org scope to personal token](/.github/readme/imgs/setup_token_org_read_scope.dark.png#gh-dark-mode-only)
 
 `user` option will need to be set to organization name instead.
 
@@ -33,7 +34,8 @@ It is possible to host workflows in the `.github` repository of organizations, a
 By default, GitHub only display public memberships.
 Membership visibility canbe managed in the `People` tab of your organization.
 
-![Publish organization membership](/.github/readme/imgs/setup_public_membership_org.png)
+![Publish organization membership](/.github/readme/imgs/setup_public_membership_org.light.png#gh-light-mode-only)
+![Publish organization membership](/.github/readme/imgs/setup_public_membership_org.dark.png#gh-dark-mode-only)
 
 > ⚠️ Seeing your organization membership in your profile **does not** mean that it is visible from other users! You can check this by viewing your profile in an private browser window.
 

@@ -14,7 +14,8 @@ No additional scopes are required.
 
 > 💡 For security reasons, it is advised to use a scope-less token for web instances.
 
-![Setup a GitHub personal token](/.github/readme/imgs/setup_personal_token.png)
+![Setup a GitHub personal token](/.github/readme/imgs/setup_personal_token.light.png#gh-light-mode-only)
+![Setup a GitHub personal token](/.github/readme/imgs/setup_personal_token.dark.png#gh-dark-mode-only)
 
 ## 2️ Configure *metrics*
 
