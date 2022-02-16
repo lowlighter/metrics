@@ -273,9 +273,9 @@ export default function({ faker }, target, that, [{ username: login, page, per_p
               sha: "MOCKED_SHA",
               message: faker.lorem.sentence(),
               url: "https://api.github.com/repos/lowlighter/metrics/commits/MOCKED_SHA",
-              author:{
+              author: {
                 email: faker.internet.email(),
-              }
+              },
             },
           ],
         },
