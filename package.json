@@ -47,7 +47,7 @@
     "express-rate-limit": "^6.2.0",
     "jimp": "^0.16.1",
     "js-yaml": "^4.1.0",
-    "linguist-js": "^2.3.0",
+    "linguist-js": "^2.3.1",
     "marked": "^4.0.12",
     "memory-cache": "^0.2.0",
     "minimatch": "^5.0.0",
