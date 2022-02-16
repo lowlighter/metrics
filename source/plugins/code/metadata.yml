@@ -33,7 +33,7 @@ inputs:
     min: 100
     max: 1000
 
-  plugin_activity_days:
+  plugin_code_days:
     description: Events maximum age
     type: number
     default: 3

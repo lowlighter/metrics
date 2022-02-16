@@ -173,8 +173,8 @@ export async function chartist() {
 /**Language analyzer (single file) */
 export async function language({filename, patch}) {
   console.debug(`metrics/language > ${filename}`)
-  const {languages:{results}} = await linguist(filename, {fileContent:patch})
-  const result = (Object.keys(results).shift() ?? "unknown").toLocaleLowerCase()
+  const {files:{results}} = await linguist(filename, {fileContent:patch})
+  const result = (results[filename] ?? "unknown").toLocaleLowerCase()
   console.debug(`metrics/language > ${filename} > result: ${result}`)
   return result
 }
