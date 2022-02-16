@@ -123,7 +123,7 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
         console.debug(`metrics/compute/${login} > embed called with`)
         console.debug(q)
         let {base} = q
-        q = {..._q, ...Object.fromEntries(Object.keys(Plugins).map(key => [key, false])), ...Object.fromEntries(conf.settings.plugins.base.parts.map(part => [`base.${part}`, false])), template:"classic", ...q}
+        q = {..._q, ...Object.fromEntries(Object.keys(Plugins).map(key => [key, false])), ...Object.fromEntries(conf.settings.plugins.base.parts.map(part => [`base.${part}`, false])), template:q.repo ? "repository" : "classic", ...q}
         //Translate action syntax to web syntax
         let parts = []
         if (base === true)
