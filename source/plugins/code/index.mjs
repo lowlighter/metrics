@@ -15,7 +15,9 @@ export default async function({login, q, imports, data, rest, account}, {enabled
     }
 
     //Load inputs
-    let {load, lines, visibility, languages, skipped} = imports.metadata.plugins.code.inputs({data, q, account})
+    let {load, days, lines, visibility, languages, skipped} = imports.metadata.plugins.code.inputs({data, q, account})
+    if (!days)
+      days = Infinity
     skipped.push(...data.shared["repositories.skipped"])
     const pages = Math.ceil(load / 100)
 
@@ -35,7 +37,8 @@ export default async function({login, q, imports, data, rest, account}, {enabled
                 .filter(({actor}) => account === "organization" ? true : actor.login?.toLocaleLowerCase() === login.toLocaleLowerCase())
                 .filter(({repo:{name:repo}}) => !((skipped.includes(repo.split("/").pop())) || (skipped.includes(repo))))
                 .filter(event => visibility === "public" ? event.public : true)
-                .flatMap(({payload}) => Promise.all(payload.commits.map(async commit => (await rest.request(commit.url)).data))),
+                .filter(({created_at}) => Number.isFinite(days) ? new Date(created_at) > new Date(Date.now() - days * 24 * 60 * 60 * 1000) : true)
+                .flatMap(({created_at:created, payload}) => Promise.all(payload.commits.map(async commit => ({created:new Date(created), ...(await rest.request(commit.url)).data})))),
             ]),
           ]
             .flat()
@@ -51,7 +54,7 @@ export default async function({login, q, imports, data, rest, account}, {enabled
 
     //Search for a random snippet
     let files = events
-      .flatMap(({sha, commit:{message, url}, files}) => files.map(({filename, status, additions, deletions, patch}) => ({sha, message, filename, status, additions, deletions, patch, repo:url.match(/repos[/](?<repo>[\s\S]+)[/]git[/]commits/)?.groups?.repo})))
+      .flatMap(({created, sha, commit:{message, url}, files}) => files.map(({filename, status, additions, deletions, patch}) => ({created, sha, message, filename, status, additions, deletions, patch, repo:url.match(/repos[/](?<repo>[\s\S]+)[/]git[/]commits/)?.groups?.repo})))
       .filter(({patch}) => (patch ? (patch.match(/\n/mg)?.length ?? 1) : Infinity) < lines)
     for (const file of files)
       file.language = await imports.language({...file, prefix:login}).catch(() => "unknown")
@@ -60,12 +63,15 @@ export default async function({login, q, imports, data, rest, account}, {enabled
     if (snippet) {
       //Trim common indent from content and change line feed
       if (!snippet.patch.split("\n").shift().endsWith("@@"))
-        snippet.patch = snippet.patch.replace(/^(?<coord>@@.*?@@)/, "$<coord>\n")
-      const indent = Math.min(...(snippet.patch.match(/^[+-]? +/mg)?.map(indent => (indent.length ?? Infinity) - indent.startsWith("+") - indent.startsWith("-")) ?? [])) || 0
-      const content = imports.htmlescape(snippet.patch.replace(/\r\n/mg, "\n").replace(new RegExp(`^([+-]?)${" ".repeat(indent)}`, "mg"), "$1"))
+        snippet.patch = snippet.patch.replace(/^(?<coord>@@.*?@@).*/, "$<coord>")
+      const indent = Math.min(...(snippet.patch.match(/^.\s+/mg) ?? [0]).map(line => line.length-1)) || 0
+      const content = imports.htmlescape(snippet.patch.replace(new RegExp(`^(.)\\s{0,${indent}}`, "mg"), "$1"))
 
       //Format patch
-      snippet.patch = imports.htmlunescape((await imports.highlight(content, "diff")).trim()).replace(/\n/g, "<br/>")
+      snippet.patch = imports.htmlunescape(await imports.highlight(content, "diff"))
+        .trim()
+        .replace(/\r?\n/g, "<br/>")
+        .replace(/<span class="token prefix unchanged"> <\/span>/g, '<span class="token prefix unchanged">·</span>')
     }
 
     //Results
