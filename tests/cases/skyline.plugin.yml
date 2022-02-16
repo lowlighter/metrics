@@ -1,13 +1,1 @@
-- name: 🌇 GitHub Skyline 3D calendar - GitHub Skyline
-  uses: lowlighter/metrics@latest
-  with:
-    token: NOT_NEEDED
-    plugin_skyline: 'yes'
-    plugin_skyline_year: 2020
-    plugin_skyline_frames: 6
-    plugin_skyline_quality: 1
-    use_mocked_data: 'yes'
-    verify: 'yes'
-  timeout: 1800000
-  modes:
-    - action
+[]
