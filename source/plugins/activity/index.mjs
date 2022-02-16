@@ -137,6 +137,9 @@ export default async function({login, data, rest, q, account, imports}, {enabled
             //Pushed commits
             case "PushEvent": {
               let {size, commits, ref} = payload
+              commits = commits.filter(({author:{email}}) => !ignored.includes(email))
+              if (!commits.length)
+                return null
               if (commits.slice(-1).pop()?.message.startsWith("Merge branch "))
                 commits = commits.slice(-1)
               return {type:"push", actor, timestamp, repo, size, branch:ref.match(/refs.heads.(?<branch>.*)/)?.groups?.branch ?? null, commits:commits.reverse().map(({sha, message}) => ({sha:sha.substring(0, 7), message}))}

@@ -9,6 +9,7 @@ export default async function({login, q, imports, data, rest, graphql, queries, 
     //Load inputs
     let {head, base, ignored, contributions, sections, categories} = imports.metadata.plugins.contributors.inputs({data, account, q})
     const repo = {owner:data.repo.owner.login, repo:data.repo.name}
+    ignored.push(...data.shared["users.ignored"])
 
     //Retrieve head and base commits
     console.debug(`metrics/compute/${login}/plugins > contributors > querying api head and base commits`)
@@ -49,8 +50,8 @@ export default async function({login, q, imports, data, rest, graphql, queries, 
 
     //Compute contributors and contributions
     let contributors = {}
-    for (const {author:{login, avatar_url:avatar}, commit:{message = ""}} of commits) {
-      if ((!login) || (ignored.includes(login))) {
+    for (const {author:{login, avatar_url:avatar}, commit:{message = "", author:{email = ""} = {}}} of commits) {
+      if ((!login) || (ignored.includes(login)) || (ignored.includes(email))) {
         console.debug(`metrics/compute/${login}/plugins > contributors > ignored contributor "${login}"`)
         continue
       }
