@@ -68,6 +68,21 @@ Use at your own risk, <em>metrics</em> and its authors cannot be held responsibl
 <b>default:</b> 100<br></td>
   </tr>
   <tr>
+    <td nowrap="nowrap"><h4><code>plugin_code_days</code></h4></td>
+    <td rowspan="2"><p>Events maximum age</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>number</code>
+<i>(0 ≤
+𝑥
+≤ 365)</i>
+<br>
+<b>zero behaviour:</b> disable</br>
+<b>default:</b> 3<br></td>
+  </tr>
+  <tr>
     <td nowrap="nowrap"><h4><code>plugin_code_visibility</code></h4></td>
     <td rowspan="2"><p>Events visibility</p>
 <p>Lets you hide private activity when using a <code>repo</code> scope token</p>
@@ -96,8 +111,7 @@ Use at your own risk, <em>metrics</em> and its authors cannot be held responsibl
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
-<b>type:</b> <code>array</code>
+    <td nowrap="nowrap"><b>type:</b> <code>array</code>
 <i>(comma-separated)</i>
 <br></td>
   </tr>

@@ -530,6 +530,10 @@ inputs:
     description: Events to load
     default: <default-value>
   
+  plugin_code_days:
+    description: Events maximum age
+    default: <default-value>
+  
   plugin_code_visibility:
     description: Events visibility
     default: <default-value>

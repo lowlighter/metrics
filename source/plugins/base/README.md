@@ -125,6 +125,7 @@ Broad affiliation will result in less representative metrics.</p>
   <tr>
     <td nowrap="nowrap"><h4><code>users_ignored</code></h4></td>
     <td rowspan="2"><p>Default ignored users</p>
+<p>Note that email are supported only commits-related elements.</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -132,7 +133,7 @@ Broad affiliation will result in less representative metrics.</p>
 <b>type:</b> <code>array</code>
 <i>(comma-separated)</i>
 <br>
-<b>default:</b> github-actions[bot], dependabot[bot], dependabot-preview[bot], actions-user<br></td>
+<b>default:</b> github-actions[bot], dependabot[bot], dependabot-preview[bot], actions-user, action@github.com<br></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>commits_authoring</code></h4></td>
