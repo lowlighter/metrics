@@ -88,10 +88,13 @@ inputs:
     global: yes
 
   users_ignored:
-    description: Default ignored users
+    description: |
+      Default ignored users
+
+      Note that email are supported only commits-related elements.
     type: array
     format: comma-separated
-    default: github-actions[bot], dependabot[bot], dependabot-preview[bot], actions-user
+    default: github-actions[bot], dependabot[bot], dependabot-preview[bot], actions-user, action@github.com
     global: yes
 
   commits_authoring:
