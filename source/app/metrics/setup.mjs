@@ -40,18 +40,28 @@ export default async function({log = true, sandbox = false, community = {}} = {}
   }
 
   //Load settings
-  logger("metrics/setup > load settings.json")
-  if (fs.existsSync(__settings)) {
-    if (sandbox)
-      logger("metrics/setup > load settings.json > skipped because in sandbox is enabled")
-    else {
-      conf.settings = JSON.parse(`${await fs.promises.readFile(__settings)}`)
-      logger("metrics/setup > load settings.json > success")
+  {
+    logger("metrics/setup > load settings.json")
+    let fd
+    try {
+      fd = await fs.promises.open(__settings, "r")
+      if (sandbox)
+        logger("metrics/setup > load settings.json > skipped because in sandbox is enabled")
+      else {
+        conf.settings = JSON.parse(`${await fs.promises.readFile(fd)}`)
+        logger("metrics/setup > load settings.json > success")
+      }
+    }
+    catch (error) {
+      if (error?.code === "ENOENT")
+        logger("metrics/setup > load settings.json > (missing)")
+      else
+        logger(`metrics/setup > load settings.json > (error : ${error})`)
+    }
+    finally {
+      await fd?.close()
     }
   }
-  else
-    logger("metrics/setup > load settings.json > (missing)")
-
 
   if (!conf.settings.templates)
     conf.settings.templates = {default:"classic", enabled:[]}
