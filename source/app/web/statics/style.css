@@ -52,6 +52,8 @@
 
   .ui.top {
     border-bottom: 1px solid var(--color-border-secondary);
+    max-width: 1250px;
+    margin: 0 auto;
   }
   .ui.top > * {
     margin: 0 1rem;
