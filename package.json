@@ -44,7 +44,7 @@
     "ejs": "^3.1.6",
     "emoji-name-map": "^1.2.9",
     "express": "^4.17.2",
-    "express-rate-limit": "^6.2.0",
+    "express-rate-limit": "^6.3.0",
     "jimp": "^0.16.1",
     "js-yaml": "^4.1.0",
     "linguist-js": "^2.3.1",
