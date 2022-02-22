@@ -12,7 +12,3 @@
     timeout: 1800000
     modes:
       - action
-  # Workaround while certificate is expired
-    skip: true
-  prod:
-    skip: true

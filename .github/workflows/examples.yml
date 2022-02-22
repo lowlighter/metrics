@@ -699,6 +699,21 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
+      - name: 🌇 GitHub Skyline 3D calendar - GitHub Skyline
+        uses: lowlighter/metrics@master
+        with:
+          filename: metrics.plugin.skyline.svg
+          token: NOT_NEEDED
+          base: ""
+          plugin_skyline: yes
+          plugin_skyline_year: 2020
+          plugin_skyline_frames: 6
+          plugin_skyline_quality: 1
+          output_action: none
+          delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
+        if: ${{ success() || failure() }}
       - name: ⏱️ Website performances - Succint report
         uses: lowlighter/metrics@master
         with:
