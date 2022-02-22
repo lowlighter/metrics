@@ -3,8 +3,8 @@ category: github
 description: This plugin displays the ratio of open/closed issues and the ratio of open/merged pull requests across all your repositories.
 examples:
   +indepth analysis: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.followup.indepth.svg
-  created on an user's repositories: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.followup.svg
-  created by an user: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.followup.user.svg
+  created on a user's repositories: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.followup.svg
+  created by a user: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.followup.user.svg
 index: 7
 supports:
   - user
