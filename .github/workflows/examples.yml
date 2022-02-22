@@ -1172,7 +1172,7 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      
+
 
       - name: Screenshot markdown example
         if: ${{ success() || failure() }}
@@ -1234,7 +1234,7 @@ jobs:
           user: lowlighter
           plugin_people: yes
           plugin_people_types: sponsors
-          plugin_people_sponsors_custom: yutkat, ktnkk, iamsainikhil, tfSheol
+          plugin_people_sponsors_custom: yutkat, ktnkk, iamsainikhil, tfSheol, haribo-io
           plugin_people_size: 48
           plugins_errors_fatal: ${{ github.repository == 'lowlighter/lowlighter' }}
           config_display: large
