@@ -78,10 +78,21 @@ export default async function({login, data, imports, q, rest, account}, {enabled
 
       //Indepth mode
       if (indepth) {
+        //Fetch gpg keys
+        const gpg = []
+        try {
+          const {data:keys} = await rest.users.listGpgKeysForUser({username:login})
+          gpg.push(...keys.map(({key_id:id, raw_key:pub, emails}) => ({id, pub, emails})))
+        }
+        catch (error) {
+          console.debug(`metrics/compute/${login}/plugins > languages > ${error}`)
+        }
+
+        //Analyze languages
         try {
           console.debug(`metrics/compute/${login}/plugins > languages > switching to indepth mode (this may take some time)`)
           const existingColors = languages.colors
-          Object.assign(languages, await indepth_analyzer({login, data, imports, repositories}, {skipped, categories, timeout}))
+          Object.assign(languages, await indepth_analyzer({login, data, imports, repositories, gpg}, {skipped, categories, timeout}))
           Object.assign(languages.colors, existingColors)
           console.debug(`metrics/compute/${login}/plugins > languages > indepth analysis missed ${languages.missed} commits`)
         }

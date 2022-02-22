@@ -1,7 +1,7 @@
 import linguist from "linguist-js"
 
 /**Indepth analyzer */
-export async function indepth({login, data, imports, repositories}, {skipped, categories, timeout}) {
+export async function indepth({login, data, imports, repositories, gpg}, {skipped, categories, timeout}) {
   return new Promise(async (solve, reject) => {
     //Timeout
     if (Number.isFinite(timeout)) {
@@ -9,8 +9,31 @@ export async function indepth({login, data, imports, repositories}, {skipped, ca
       setTimeout(() => reject(`Reached maximum execution time of ${timeout}m for analysis`), timeout * 60 * 1000)
     }
 
+    //GPG keys imports
+    for (const {id, pub} of gpg) {
+      const path = imports.paths.join(imports.os.tmpdir(), `${data.user.databaseId}.${id}.gpg`)
+      console.debug(`metrics/compute/${login}/plugins > languages > saving gpg ${id} to ${path}`)
+      try {
+        await imports.fs.writeFile(path, pub)
+        if (process.env.GITHUB_ACTIONS) {
+          console.debug(`metrics/compute/${login}/plugins > languages > importing gpg ${id}`)
+          await imports.run(`gpg --import ${path}`)
+        }
+        else
+          console.debug(`metrics/compute/${login}/plugins > languages > skipping import of gpg ${id}`)
+      }
+      catch (error) {
+        console.debug(`metrics/compute/${login}/plugins > languages > indepth > an error occured while importing gpg ${id}, skipping...`)
+      }
+      finally {
+        //Cleaning
+        console.debug(`metrics/compute/${login}/plugins > languages > indepth > cleaning ${path}`)
+        await imports.fs.rm(path, {recursive:true, force:true})
+      }
+    }
+
     //Compute repositories stats from fetched repositories
-    const results = {total:0, lines:{}, stats:{}, colors:{}, commits:0, files:0, missed:0}
+    const results = {total:0, lines:{}, stats:{}, colors:{}, commits:0, files:0, missed:0, verified:{signature:0}}
     for (const repository of repositories) {
       //Skip repository if asked
       if ((skipped.includes(repository.name.toLocaleLowerCase())) || (skipped.includes(`${repository.owner.login}/${repository.name}`.toLocaleLowerCase()))) {
@@ -170,6 +193,7 @@ async function analyze({login, imports, data}, {results, path, categories = ["pr
     console.debug(`metrics/compute/${login}/plugins > languages > indepth > repo seems empty or impossible to git log, skipping`)
     return
   }
+  const pending = []
   for (let page = 0; ; page++) {
     try {
       console.debug(`metrics/compute/${login}/plugins > languages > indepth > processing commits ${page * per_page} from ${(page + 1) * per_page}`)
@@ -182,6 +206,14 @@ async function analyze({login, imports, data}, {results, path, categories = ["pr
               empty = false
             //Commits counter
             if (/^commit [0-9a-f]{40}$/.test(line)) {
+              if (results.verified) {
+                const sha = line.match(/[0-9a-f]{40}/)?.[0]
+                if (sha) {
+                  pending.push(imports.run(`git verify-commit ${sha}`, {cwd:path, env:{LANG:"en_GB"}}, {log:false, prefixed:false})
+                    .then(() => results.verified.signature++)
+                    .catch(() => null))
+                }
+              }
               results.commits++
               return
             }
@@ -223,6 +255,7 @@ async function analyze({login, imports, data}, {results, path, categories = ["pr
       results.missed += per_page
     }
   }
+  await Promise.allSettled(pending)
   results.files += edited.size
 }
 
