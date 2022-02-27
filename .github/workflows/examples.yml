@@ -1172,7 +1172,7 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-
+      
 
       - name: Screenshot markdown example
         if: ${{ success() || failure() }}
