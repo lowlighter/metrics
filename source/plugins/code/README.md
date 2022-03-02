@@ -73,8 +73,7 @@ Use at your own risk, <em>metrics</em> and its authors cannot be held responsibl
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
-<b>type:</b> <code>number</code>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
 <i>(0 ≤
 𝑥
 ≤ 365)</i>
