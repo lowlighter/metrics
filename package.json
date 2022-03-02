@@ -56,7 +56,7 @@
     "open-graph-scraper": "^4.11.0",
     "png-js": "^1.0.0",
     "prismjs": "^1.27.0",
-    "puppeteer": "^13.3.2",
+    "puppeteer": "^13.4.0",
     "purgecss": "^4.1.3",
     "rss-parser": "^3.12.0",
     "sanitize-html": "^2.7.0",
