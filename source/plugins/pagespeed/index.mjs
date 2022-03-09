@@ -47,7 +47,9 @@ export default async function({login, imports, data, q, account}, {enabled = fal
     let message = "An error occured"
     if (error.isAxiosError) {
       const status = error.response?.status
-      const description = error.response?.data?.error?.message?.match(/Lighthouse returned error: (?<description>[A-Z_]+)/)?.groups?.description ?? null
+      let description = error.response?.data?.error?.message?.match(/Lighthouse returned error: (?<description>[A-Z_]+)/)?.groups?.description ?? null
+      if ((status === 429)&&(!description))
+        description = 'consider using "plugin_pagespeed_token"'
       message = `API returned ${status}${description ? ` (${description})` : ""}`
       error = error.response?.data ?? null
     }
