@@ -10,7 +10,7 @@ export default async function({login, data, rest, imports, q, account}, {enabled
       return null
 
     //Load inputs
-    let {from, days, facts, charts, trim} = imports.metadata.plugins.habits.inputs({data, account, q}, defaults)
+    let {from, days, facts, charts, "charts.type":_charts, trim} = imports.metadata.plugins.habits.inputs({data, account, q}, defaults)
 
     //Initialization
     const habits = {facts, charts, trim, lines:{average:{chars:0}}, commits:{fetched:0, hour:NaN, hours:{}, day:NaN, days:{}}, indents:{style:"", spaces:0, tabs:0}, linguist:{available:false, ordered:[], languages:{}}}
@@ -109,7 +109,41 @@ export default async function({login, data, rest, imports, q, account}, {enabled
       }
       else
         console.debug(`metrics/compute/${login}/plugins > habits > linguist not available`)
+    }
 
+    //Generating charts with chartist
+    if (_charts === "chartist") {
+      console.debug(`metrics/compute/${login}/plugins > habits > generating charts`)
+      habits.charts = await Promise.all([
+        {type:"line", data:Object.fromEntries(Object.entries(habits.commits.hours).filter(([k]) => !Number.isNaN(+k))), low:0, high:habits.commits.hours.max},
+        {type:"line", data:Object.fromEntries(Object.entries(habits.commits.days).filter(([k]) => !Number.isNaN(+k))), low:0, high:habits.commits.days.max},
+        {type:"pie", data:habits.linguist.languages},
+      ].map(({type, data, high, low, ref, sign = false}) => imports.chartist(type, {
+          width:480,
+          height:160,
+          showPoint:true,
+          axisX:{showGrid:false},
+          axisY:{showLabel:false, offset:20, labelInterpolationFnc:value => imports.format(value, {sign}), high, low, referenceValue:ref},
+          showArea:true,
+          fullWidth:true,
+        }, {
+          labels:Object.keys(data),
+          series:[Object.values(data)],
+        })
+      ))
+      data.postscripts.push(`(${function(format) {
+        document.querySelectorAll(".stargazers .chartist").forEach((chart, sign) => {
+          chart.querySelectorAll(".stargazers .chartist .ct-point").forEach(node => {
+            const [x, y, value] = ["x1", "y1", "ct:value"].map(attribute => node.getAttribute(attribute))
+            const text = document.createElementNS("http://www.w3.org/2000/svg", "text")
+            text.setAttributeNS(null, "x", x)
+            text.setAttributeNS(null, "y", y - 5)
+            text.setAttributeNS(null, "class", "ct-post")
+            text.appendChild(document.createTextNode(format(value, {sign})))
+            node.parentNode.append(text)
+          })
+        })
+      }})(${imports.format.toString()})`)
     }
 
     //Results

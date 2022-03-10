@@ -90,5 +90,31 @@
         </section>
       <% } %>
     </div>
+
+    <div class="row margin-bottom">
+      <section class="column chart chartist">
+        <h3>Commit activity per hour of day</h3>
+        <% if (Array.isArray(plugins.habits.charts)) { %>
+          <%- plugins.habits.charts[0] %>
+        <% } %>
+      </section>
+    </div>
+    <div class="row margin-bottom">
+      <section class="column chart chartist">
+        <h3>Commit activity per day of week</h3>
+        <% if (Array.isArray(plugins.habits.charts)) { %>
+          <%- plugins.habits.charts[1] %>
+        <% } %>
+      </section>
+    </div>
+    <div class="row margin-bottom">
+      <section class="column chart chartist">
+        <h3>Language activity</h3>
+        <% if (Array.isArray(plugins.habits.charts)) { %>
+          <%- plugins.habits.charts[2] %>
+        <% } %>
+      </section>
+    </div>
+
   <% } %>
 <% } %>
