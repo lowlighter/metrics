@@ -29,7 +29,7 @@ inputs:
   plugin_code_load:
     description: Events to load
     type: number
-    default: 100
+    default: 400
     min: 100
     max: 1000
 
