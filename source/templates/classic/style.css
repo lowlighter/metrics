@@ -480,6 +480,9 @@
     line-height: 14px;
     height: 14px;
     font-weight: 600;
+  }
+  .track .name, .track .artist {
+    width: 387px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -494,9 +497,6 @@
   svg.large .tracklist {
     flex-direction: row;
     flex-wrap: wrap;
-  }
-  svg.large .track {
-    width: 50%;
   }
 
 /* Posts plugin */
