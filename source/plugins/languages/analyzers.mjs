@@ -21,6 +21,7 @@ export async function indepth({login, data, imports, repositories, gpg}, {skippe
         }
         else
           console.debug(`metrics/compute/${login}/plugins > languages > skipping import of gpg ${id}`)
+
       }
       catch (error) {
         console.debug(`metrics/compute/${login}/plugins > languages > indepth > an error occured while importing gpg ${id}, skipping...`)
@@ -209,9 +210,11 @@ async function analyze({login, imports, data}, {results, path, categories = ["pr
               if (results.verified) {
                 const sha = line.match(/[0-9a-f]{40}/)?.[0]
                 if (sha) {
-                  pending.push(imports.run(`git verify-commit ${sha}`, {cwd:path, env:{LANG:"en_GB"}}, {log:false, prefixed:false})
-                    .then(() => results.verified.signature++)
-                    .catch(() => null))
+                  pending.push(
+                    imports.run(`git verify-commit ${sha}`, {cwd:path, env:{LANG:"en_GB"}}, {log:false, prefixed:false})
+                      .then(() => results.verified.signature++)
+                      .catch(() => null),
+                  )
                 }
               }
               results.commits++

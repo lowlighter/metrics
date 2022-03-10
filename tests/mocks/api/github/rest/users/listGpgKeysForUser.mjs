@@ -16,10 +16,10 @@ export default function({ faker }, target, that, [{ username }]) {
         emails: [
           {
             email: faker.internet.email(),
-            verified: true
-          }
-        ]
-      }
+            verified: true,
+          },
+        ],
+      },
     ],
   })
 }
