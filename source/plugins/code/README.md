@@ -65,7 +65,7 @@ Use at your own risk, <em>metrics</em> and its authors cannot be held responsibl
 𝑥
 ≤ 1000)</i>
 <br>
-<b>default:</b> 100<br></td>
+<b>default:</b> 400<br></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_code_days</code></h4></td>

@@ -170,7 +170,7 @@ with:
   plugin_people_types: contributors, stargazers, watchers, sponsors
   plugin_people_sponsors_custom: >-
     iamsainikhil, yutkat, KasparJohannesSchneider, ktnkk, tfSheol, haribo-io,
-    marcreichel
+    marcreichel, OmaarElAmri, naveensrinivasan
 
 ```
 <!--/examples-->
