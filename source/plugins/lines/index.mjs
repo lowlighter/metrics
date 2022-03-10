@@ -22,7 +22,7 @@ export default async function({login, data, imports, rest, q, account}, {enabled
 
     //Get contributors stats from repositories
     console.debug(`metrics/compute/${login}/plugins > lines > querying api`)
-    const lines = {added:0, deleted:0}
+    const lines = {added:0, deleted:0, changed:0}
     const response = [...await Promise.allSettled(repositories.map(({repo, owner}) => (skipped.includes(repo.toLocaleLowerCase())) || (skipped.includes(`${owner}/${repo}`.toLocaleLowerCase())) ? {} : rest.repos.getContributorsStats({owner, repo})))].filter(({status}) => status === "fulfilled"
     ).map(({value}) => value)
 
@@ -35,7 +35,7 @@ export default async function({login, data, imports, rest, q, account}, {enabled
       //Compute editions
       const contributors = repository.filter(({author}) => context.mode === "repository" ? true : author?.login?.toLocaleLowerCase() === login.toLocaleLowerCase())
       for (const contributor of contributors)
-        contributor.weeks.forEach(({a, d}) => (lines.added += a, lines.deleted += d))
+        contributor.weeks.forEach(({a = 0, d = 0, c = 0}) => (lines.added += a, lines.deleted += d, lines.changed += c))
     })
 
     //Results

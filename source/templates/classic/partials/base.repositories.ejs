@@ -34,7 +34,7 @@
                   <% if (plugins.lines.error) { %>
                     <%= plugins.lines.error.message %>
                   <% } else { %>
-                    <%= f(plugins.lines.added) %> added, <%= f(plugins.lines.deleted) %> removed
+                    <%= f(plugins.lines.added+plugins.lines.changed) %> added, <%= f(plugins.lines.deleted+plugins.lines.changed) %> removed
                   <% } %>
                 </div>
             <% } %>
