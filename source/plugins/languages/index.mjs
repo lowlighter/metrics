@@ -78,10 +78,29 @@ export default async function({login, data, imports, q, rest, account}, {enabled
 
       //Indepth mode
       if (indepth) {
+        //Fetch gpg keys (web-flow is GitHub's public key when making changes from web ui)
+        const gpg = []
+        try {
+          for (const username of [login, "web-flow"]) {
+            const {data:keys} = await rest.users.listGpgKeysForUser({username})
+            gpg.push(...keys.map(({key_id:id, raw_key:pub, emails}) => ({id, pub, emails})))
+            if (username === login) {
+              for (const {email} of gpg.flatMap(({emails}) => emails)) {
+                console.debug(`metrics/compute/${login}/plugins > languages > auto-adding ${email} to commits_authoring (fetched from gpg)`)
+                data.shared["commits.authoring"].push(email)
+              }
+            }
+          }
+        }
+        catch (error) {
+          console.debug(`metrics/compute/${login}/plugins > languages > ${error}`)
+        }
+
+        //Analyze languages
         try {
           console.debug(`metrics/compute/${login}/plugins > languages > switching to indepth mode (this may take some time)`)
           const existingColors = languages.colors
-          Object.assign(languages, await indepth_analyzer({login, data, imports, repositories}, {skipped, categories, timeout}))
+          Object.assign(languages, await indepth_analyzer({login, data, imports, repositories, gpg}, {skipped, categories, timeout}))
           Object.assign(languages.colors, existingColors)
           console.debug(`metrics/compute/${login}/plugins > languages > indepth analysis missed ${languages.missed} commits`)
         }

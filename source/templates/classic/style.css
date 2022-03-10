@@ -271,6 +271,12 @@
     margin-right: 6px;
   }
 
+  .footnote {
+    width: 100%;
+    justify-content: flex-end;
+    font-size: 12px;
+  }
+
 /* Follow-up */
   .followup.legend {
     font-size: 12px;
