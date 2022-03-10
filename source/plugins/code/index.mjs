@@ -66,7 +66,7 @@ export default async function({login, q, imports, data, rest, account}, {enabled
       if (!snippet.patch.split("\n").shift().endsWith("@@"))
         snippet.patch = snippet.patch.replace(/^(?<coord>@@.*?@@).*/, "$<coord>")
       const indent = Math.min(...(snippet.patch.match(/^.\s+/mg) ?? [0]).map(line => line.length - 1)) || 0
-      const content = imports.htmlescape(snippet.patch.replace(new RegExp(`^(.)\\s{0,${indent}}`, "mg"), "$1"))
+      const content = imports.htmlescape(snippet.patch.replace(new RegExp(`^(.)[\\t ]{0,${indent}}`, "mg"), "$1"))
 
       //Format patch
       snippet.patch = imports.htmlunescape(await imports.highlight(content, "diff"))
