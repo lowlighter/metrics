@@ -78,11 +78,19 @@ export default async function({login, data, imports, q, rest, account}, {enabled
 
       //Indepth mode
       if (indepth) {
-        //Fetch gpg keys
+        //Fetch gpg keys (web-flow is GitHub's public key when making changes from web ui)
         const gpg = []
         try {
-          const {data:keys} = await rest.users.listGpgKeysForUser({username:login})
-          gpg.push(...keys.map(({key_id:id, raw_key:pub, emails}) => ({id, pub, emails})))
+          for (const username of [login, "web-flow"]) {
+            const {data:keys} = await rest.users.listGpgKeysForUser({username})
+            gpg.push(...keys.map(({key_id:id, raw_key:pub, emails}) => ({id, pub, emails})))
+            if (username === login) {
+              for (const {email} of gpg.flatMap(({emails}) => emails)) {
+                console.debug(`metrics/compute/${login}/plugins > languages > auto-adding ${email} to commits_authoring (fetched from gpg)`)
+                data.shared["commits.authoring"].push(email)
+              }
+            }
+          }
         }
         catch (error) {
           console.debug(`metrics/compute/${login}/plugins > languages > ${error}`)
