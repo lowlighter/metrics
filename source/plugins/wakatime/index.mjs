@@ -7,7 +7,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
       return null
 
     //Load inputs
-    let {sections, days, limit, url, user} = imports.metadata.plugins.wakatime.inputs({data, account, q})
+    let {sections, days, limit, url, user, "languages.other":others} = imports.metadata.plugins.wakatime.inputs({data, account, q})
     if (!limit)
       limit = void limit
     const range = {
@@ -24,8 +24,8 @@ export default async function({login, q, imports, data, account}, {enabled = fal
       sections,
       days,
       time:{
-        total:stats.total_seconds / (60 * 60),
-        daily:stats.daily_average / (60 * 60),
+        total:(others ? stats.total_seconds_including_other_language : stats.total_seconds) / (60 * 60),
+        daily:(others ? stats.daily_average_including_other_language : stats.daily_average) / (60 * 60),
       },
       projects:stats.projects?.map(({name, percent, total_seconds:total}) => ({name, percent:percent / 100, total})).sort((a, b) => b.percent - a.percent).slice(0, limit),
       languages:stats.languages?.map(({name, percent, total_seconds:total}) => ({name, percent:percent / 100, total})).sort((a, b) => b.percent - a.percent).slice(0, limit),
