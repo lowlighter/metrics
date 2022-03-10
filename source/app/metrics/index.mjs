@@ -18,7 +18,7 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
       throw new Error("unsupported template")
     const {image, style, fonts, views, partials} = conf.templates[template]
     const computer = Templates[template].default || Templates[template]
-    convert = convert ?? conf.metadata.templates[template].formats[0] ?? null
+    convert = convert ?? conf.metadata.templates[template]?.formats?.[0] ?? null
     console.debug(`metrics/compute/${login} > output format set to ${convert}`)
 
     //Initialization
