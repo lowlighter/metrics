@@ -118,7 +118,7 @@
 <b>default:</b> current<br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><h4><code>plugin_wakatime_others</code></h4></td>
+    <td nowrap="nowrap"><h4><code>plugin_wakatime_languages_other</code></h4></td>
     <td rowspan="2"><p>Including Other Languages</p>
 <img width="900" height="1" alt=""></td>
   </tr>

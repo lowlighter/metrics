@@ -1009,6 +1009,10 @@ inputs:
     description: WakaTime username
     default: <default-value>
   
+  plugin_wakatime_languages_other:
+    description: Including Other Languages
+    default: <default-value>
+  
   # ====================================================================================
   # 🥠 Fortune
   
