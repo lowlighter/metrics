@@ -20,13 +20,13 @@ export default async function({login, q, imports, data, account}, {enabled = fal
     //Fetch star lists
     console.debug(`metrics/compute/${login}/plugins > starlists > fetching lists`)
     await page.goto(`https://github.com/${login}?tab=stars`)
-    let lists = (await page.evaluate(() => [...document.querySelectorAll("[href^='/stars/lowlighter/lists']")].map(element => ({
+    let lists = (await page.evaluate(login => [...document.querySelectorAll(`[href^='/stars/${login}/lists']`)].map(element => ({
         link:element.href,
         name:element.querySelector("h3")?.innerText ?? "",
         description:element.querySelector("span")?.innerText ?? "",
         count:Number(element.querySelector("div")?.innerText.match(/(?<count>\d+)/)?.groups.count),
         repositories:[],
-      }))
+      })), login
     ))
     const count = lists.length
     console.debug(`metrics/compute/${login}/plugins > starlists > found [${lists.map(({name}) => name)}]`)
