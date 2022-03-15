@@ -26,8 +26,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
         description:element.querySelector("span")?.innerText ?? "",
         count:Number(element.querySelector("div")?.innerText.match(/(?<count>\d+)/)?.groups.count),
         repositories:[],
-      })), login
-    ))
+      })), login))
     const count = lists.length
     console.debug(`metrics/compute/${login}/plugins > starlists > found [${lists.map(({name}) => name)}]`)
     lists = lists
