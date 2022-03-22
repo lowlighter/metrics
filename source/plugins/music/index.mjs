@@ -104,14 +104,18 @@ export default async function({login, imports, data, q, account}, {enabled = fal
           //Apple music
           case "apple": {
             //Parse tracklist
-            await frame.waitForSelector(".tracklist.playlist")
+            await frame.waitForFunction(() => !!document.querySelector("embed-root").shadowRoot.querySelector(".audio-tracklist"))
+            //Apple music do a lot of lazy-loading preventing the use of networkIdle, but images are lazy-loaded and through picture tag...
+            await new Promise(solve => setTimeout(solve, 10*1000))
             tracks = [
-              ...await frame.evaluate(() => [...document.querySelectorAll(".tracklist li")].map(li => ({
-                  name:li.querySelector(".tracklist__track__name").innerText,
-                  artist:li.querySelector(".tracklist__track__sub").innerText,
-                  artwork:li.querySelector(".tracklist__track__artwork img").src,
+              ...await frame.evaluate(() => {
+                const tracklist = document.querySelector("embed-root").shadowRoot.querySelector(".audio-tracklist")
+                return [...tracklist.querySelectorAll("embed-audio-tracklist-item")].map(item => ({
+                  name:item.querySelector(".audio-tracklist-item__metadata h3").innerText,
+                  artist:item.querySelector(".audio-tracklist-item__metadata h4").innerText,
+                  artwork:item.querySelector("apple-music-artwork")?.shadowRoot?.querySelector("picture source")?.srcset?.split(",")?.[0]?.replace(/\s+\d+x$/, ""),
                 }))
-              ),
+              })
             ]
             break
           }
@@ -151,7 +155,7 @@ export default async function({login, imports, data, q, account}, {enabled = fal
         }
         //Close browser
         console.debug(`metrics/compute/${login}/plugins > music > closing browser`)
-        await browser.close()
+        //await browser.close()
         //Format tracks
         if (Array.isArray(tracks)) {
           //Tracks
