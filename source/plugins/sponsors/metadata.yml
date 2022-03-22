@@ -31,3 +31,11 @@ inputs:
     values:
       - goal
       - about
+
+  plugin_sponsors_past:
+    description: |
+      Display past sponsorships
+
+      This feature requires a token from target account, as past sponsorships are gathered from sponsors activity and is private data.
+    type: boolean
+    default: no

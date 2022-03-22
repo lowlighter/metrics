@@ -1071,6 +1071,9 @@
   .sponsors .avatar {
     margin: 2px;
   }
+  .sponsors .avatar.past {
+    opacity: 0.3;
+  }
 
 /* Stackoverflow */
   .stackoverflow {
