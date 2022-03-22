@@ -106,7 +106,7 @@ export default async function({login, imports, data, q, account}, {enabled = fal
             //Parse tracklist
             await frame.waitForFunction(() => !!document.querySelector("embed-root").shadowRoot.querySelector(".audio-tracklist"))
             //Apple music do a lot of lazy-loading preventing the use of networkIdle
-            await new Promise(solve => setTimeout(solve, 10*1000))
+            await new Promise(solve => setTimeout(solve, 10 * 1000))
             tracks = [
               ...await frame.evaluate(() => {
                 const tracklist = document.querySelector("embed-root").shadowRoot.querySelector(".audio-tracklist")
@@ -115,7 +115,7 @@ export default async function({login, imports, data, q, account}, {enabled = fal
                   artist:item.querySelector(".audio-tracklist-item__metadata h4").innerText,
                   artwork:item.querySelector("apple-music-artwork")?.shadowRoot?.querySelector("picture source")?.srcset?.split(",")?.[0]?.replace(/\s+\d+x$/, ""),
                 }))
-              })
+              }),
             ]
             break
           }
