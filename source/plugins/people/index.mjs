@@ -85,8 +85,12 @@ export default async function({login, data, graphql, rest, q, queries, imports, 
     }
 
     //Special type handling
-    if (types.includes("sponsorshipsCustom"))
+    if (types.includes("sponsorshipsCustom")) {
       types.splice(types.indexOf("sponsorshipsCustom"), 1)
+      const unique = [...new Map(result.sponsorshipsAsMaintainer.reverse().map(user => [user.login, user])).values()].reverse()
+      data.user.sponsorshipsAsMaintainer.totalCount -= result.sponsorshipsAsMaintainer.length - unique.length
+      result.sponsorshipsAsMaintainer = unique
+    }
 
     //Results
     return {types, size, ...result}
