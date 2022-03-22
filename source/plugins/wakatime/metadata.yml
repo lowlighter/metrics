@@ -74,8 +74,8 @@ inputs:
     type: string
     default: current
     preset: no
-  
+
   plugin_wakatime_languages_other:
-    description: Including Other Languages
+    description: Include other languages
     type: boolean
     default: no
