@@ -335,15 +335,15 @@
   }
 
 /* Habits */
-  .habits {
+  .habits .facts {
     margin: 0;
     list-style-type: none;
     padding-left: 37px;
   }
 
-/* Stargazers */
+/* Chartist */
 /* purgecss ignore */
-  .stargazers .chartist .ct-post {
+  .chartist .ct-post {
     fill: rgba(127, 127, 127, 0.8) !important;
     color: rgba(127, 127, 127, 0.8) !important;
     font-size: 9px;
@@ -1364,6 +1364,10 @@
   .ct-chart {
     display: flex;
     margin-left: -12px;
+  }
+  .ct-chart-pie .ct-label {
+    fill: rgba(255, 255, 255, 0.8) !important;
+    color: rgba(255, 255, 255, 0.8) !important;
   }
   .ct-line {
     stroke-width: 2px !important;
