@@ -19,7 +19,7 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
   </tr>
   <tr>
     <th colspan="2" align="center">
-      <h3><a href="/README.md#-plugins">🧩 Customizable with 39 plugins and 246 options!</a></h3>
+      <h3><a href="/README.md#-plugins">🧩 Customizable with 39 plugins and 247 options!</a></h3>
     </th>
   </tr>
   <tr>

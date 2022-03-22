@@ -361,6 +361,10 @@ inputs:
     description: Toggle charts display
     default: <default-value>
   
+  plugin_habits_charts_type:
+    description: Charts display type
+    default: <default-value>
+  
   plugin_habits_trim:
     description: Trim unused hours on charts
     default: <default-value>

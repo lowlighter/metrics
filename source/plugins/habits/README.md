@@ -92,6 +92,22 @@ Recent language activity may also displayed (it requires extras features to be e
 <b>default:</b> no<br></td>
   </tr>
   <tr>
+    <td nowrap="nowrap"><h4><code>plugin_habits_charts_type</code></h4></td>
+    <td rowspan="2"><p>Charts display type</p>
+<ul>
+<li><code>classic</code>: <code>&lt;div&gt;</code> based charts, simple and lightweight</li>
+<li><code>chartist</code>: <code>&lt;svg&gt;</code> based charts, smooth</li>
+</ul>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>string</code>
+<br>
+<b>default:</b> classic<br>
+<b>allowed values:</b><ul><li>classic</li><li>chartist</li></ul></td>
+  </tr>
+  <tr>
     <td nowrap="nowrap"><h4><code>plugin_habits_trim</code></h4></td>
     <td rowspan="2"><p>Trim unused hours on charts</p>
 <img width="900" height="1" alt=""></td>
