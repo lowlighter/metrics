@@ -10,7 +10,7 @@ const git = sgit(__metrics)
 
 //Setup octokit
 const token = process.env.GITHUB_TOKEN
-const rest = github.getOctokit(token)
+const rest = github.getOctokit(token).rest
 
 //Environment
 const maintainer = "lowlighter"
