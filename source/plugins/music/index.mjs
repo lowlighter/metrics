@@ -105,7 +105,7 @@ export default async function({login, imports, data, q, account}, {enabled = fal
           case "apple": {
             //Parse tracklist
             await frame.waitForFunction(() => !!document.querySelector("embed-root").shadowRoot.querySelector(".audio-tracklist"))
-            //Apple music do a lot of lazy-loading preventing the use of networkIdle, but images are lazy-loaded and through picture tag...
+            //Apple music do a lot of lazy-loading preventing the use of networkIdle
             await new Promise(solve => setTimeout(solve, 10*1000))
             tracks = [
               ...await frame.evaluate(() => {
@@ -155,7 +155,7 @@ export default async function({login, imports, data, q, account}, {enabled = fal
         }
         //Close browser
         console.debug(`metrics/compute/${login}/plugins > music > closing browser`)
-        //await browser.close()
+        await browser.close()
         //Format tracks
         if (Array.isArray(tracks)) {
           //Tracks
