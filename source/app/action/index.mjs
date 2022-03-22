@@ -163,7 +163,9 @@ async function retry(func, {retries = 1, delay = 0} = {}) {
     const api = {}
     api.graphql = octokit.graphql.defaults({headers:{authorization:`token ${token}`}})
     info("Github GraphQL API", "ok")
-    api.rest = github.getOctokit(token).rest
+    const octoraw = github.getOctokit(token)
+    api.rest = octoraw.rest
+    api.rest.request = octoraw.request
     info("Github REST API", "ok")
     //Apply mocking if needed
     if (mocked) {
