@@ -109,6 +109,7 @@ export default async function({login, data, rest, imports, q, account}, {enabled
       }
       else
         console.debug(`metrics/compute/${login}/plugins > habits > linguist not available`)
+
     }
 
     //Generating charts with chartist
@@ -126,7 +127,7 @@ export default async function({login, data, rest, imports, q, account}, {enabled
         }
         const values = {
           labels:Object.keys(data).map(key => labels[key] ?? key),
-          series:Object.values(data)
+          series:Object.values(data),
         }
         if (type === "line") {
           Object.assign(options, {
@@ -136,7 +137,7 @@ export default async function({login, data, rest, imports, q, account}, {enabled
             showArea:true,
           })
           Object.assign(values, {
-            series:[Object.values(data)]
+            series:[Object.values(data)],
           })
         }
         return imports.chartist(type, options, values)
