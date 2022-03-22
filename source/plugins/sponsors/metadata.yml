@@ -31,3 +31,8 @@ inputs:
     values:
       - goal
       - about
+
+  plugin_sponsors_past:
+    description: Display past sponsorships
+    type: boolean
+    default: no

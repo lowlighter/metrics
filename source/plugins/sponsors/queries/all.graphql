@@ -1,0 +1,17 @@
+query SponsorsAll {
+  $account(login: "$login") {
+    sponsorsActivities(last: 100, period: ALL) {
+      nodes {
+        sponsor {
+          ... on User {
+            avatarUrl
+            login
+          }
+        }
+        sponsorsTier {
+          monthlyPriceInDollars
+        }
+      }
+    }
+  }
+}
