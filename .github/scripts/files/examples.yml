@@ -97,12 +97,13 @@ jobs:
           token: ${{ secrets.METRICS_TOKEN }}
           base: ""
           user: lowlighter
-          plugin_people: yes
-          plugin_people_types: sponsors
-          plugin_people_sponsors_custom: iamsainikhil, yutkat, KasparJohannesSchneider, ktnkk, tfSheol, haribo-io, marcreichel, OmaarElAmri, naveensrinivasan
-          plugin_people_size: 48
+          plugin_sponsors: yes
+          plugin_sponsors_past: yes
+          plugin_sponsors_sections: goal
           plugins_errors_fatal: ${{ github.repository == 'lowlighter/lowlighter' }}
           config_display: large
+          extras_js: |
+            document.querySelectorAll(".markdown, .center, .goal-text span:last-child")?.forEach(h2 => h2.remove())
           output_action: none
           delay: 120
       - name: Licenses

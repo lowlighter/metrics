@@ -17,5 +17,3 @@
     repo: metrics
     plugin_people: yes
     plugin_people_types: contributors, stargazers, watchers, sponsors
-    # Note that active sponsors are automatically added, but I want to thanks previous sponsors too!
-    plugin_people_sponsors_custom: iamsainikhil, yutkat, KasparJohannesSchneider, ktnkk, tfSheol, haribo-io, marcreichel, OmaarElAmri, naveensrinivasan
