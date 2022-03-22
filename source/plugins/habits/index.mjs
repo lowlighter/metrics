@@ -115,32 +115,44 @@ export default async function({login, data, rest, imports, q, account}, {enabled
     if (_charts === "chartist") {
       console.debug(`metrics/compute/${login}/plugins > habits > generating charts`)
       habits.charts = await Promise.all([
-        {type:"line", data:Object.fromEntries(Object.entries(habits.commits.hours).filter(([k]) => !Number.isNaN(+k))), low:0, high:habits.commits.hours.max},
-        {type:"line", data:Object.fromEntries(Object.entries(habits.commits.days).filter(([k]) => !Number.isNaN(+k))), low:0, high:habits.commits.days.max},
-        {type:"pie", data:habits.linguist.languages},
-      ].map(({type, data, high, low, ref, sign = false}) => imports.chartist(type, {
-          width:480,
+        {type:"line", data:{...empty(24), ...Object.fromEntries(Object.entries(habits.commits.hours).filter(([k]) => !Number.isNaN(+k)))}, low:0, high:habits.commits.hours.max},
+        {type:"line", data:{...empty(7), ...Object.fromEntries(Object.entries(habits.commits.days).filter(([k]) => !Number.isNaN(+k)))}, low:0, high:habits.commits.days.max, labels:["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], half:true},
+        {type:"pie", data:habits.linguist.languages, half:true},
+      ].map(({type, data, high, low, ref, labels = {}, half = false}) => {
+        const options = {
+          width:480 * (half ? 0.45 : 1),
           height:160,
-          showPoint:true,
-          axisX:{showGrid:false},
-          axisY:{showLabel:false, offset:20, labelInterpolationFnc:value => imports.format(value, {sign}), high, low, referenceValue:ref},
-          showArea:true,
           fullWidth:true,
-        }, {
-          labels:Object.keys(data),
-          series:[Object.values(data)],
-        })
-      ))
+        }
+        const values = {
+          labels:Object.keys(data).map(key => labels[key] ?? key),
+          series:Object.values(data)
+        }
+        if (type === "line") {
+          Object.assign(options, {
+            showPoint:true,
+            axisX:{showGrid:false},
+            axisY:{showLabel:false, offset:20, labelInterpolationFnc:value => imports.format(value), high, low, referenceValue:ref},
+            showArea:true,
+          })
+          Object.assign(values, {
+            series:[Object.values(data)]
+          })
+        }
+        return imports.chartist(type, options, values)
+      }))
       data.postscripts.push(`(${function(format) {
-        document.querySelectorAll(".stargazers .chartist").forEach((chart, sign) => {
-          chart.querySelectorAll(".stargazers .chartist .ct-point").forEach(node => {
+        document.querySelectorAll(".habits .chartist").forEach(chart => {
+          chart.querySelectorAll(".habits .chartist .ct-point").forEach(node => {
             const [x, y, value] = ["x1", "y1", "ct:value"].map(attribute => node.getAttribute(attribute))
-            const text = document.createElementNS("http://www.w3.org/2000/svg", "text")
-            text.setAttributeNS(null, "x", x)
-            text.setAttributeNS(null, "y", y - 5)
-            text.setAttributeNS(null, "class", "ct-post")
-            text.appendChild(document.createTextNode(format(value, {sign})))
-            node.parentNode.append(text)
+            if (Number(value)) {
+              const text = document.createElementNS("http://www.w3.org/2000/svg", "text")
+              text.setAttributeNS(null, "x", x)
+              text.setAttributeNS(null, "y", y - 5)
+              text.setAttributeNS(null, "class", "ct-post")
+              text.appendChild(document.createTextNode(format(value)))
+              node.parentNode.append(text)
+            }
           })
         })
       }})(${imports.format.toString()})`)
@@ -155,4 +167,9 @@ export default async function({login, data, rest, imports, q, account}, {enabled
       throw error
     throw {error:{message:"An error occured", instance:error}}
   }
+}
+
+/**Initialize an empty object with values from 0 to n */
+function empty(n) {
+  return Object.fromEntries(new Array(n).fill(0).map((_, i) => [i, 0]))
 }
