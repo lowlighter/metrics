@@ -41,7 +41,7 @@
                   <span><%= plugins.sponsors.goal.title %></span>
                 </div>
                 <div class="row">
-                  <% for (const user of plugins.sponsors.list) { %><img class="avatar" src="<%= user.avatar %>" width="24" height="24" alt="" /><% } %>
+                  <% for (const user of plugins.sponsors.list) { %><img class="avatar <%= user.past ? "past" : "" %>" src="<%= user.avatar %>" width="24" height="24" alt="" /><% } %>
                 </div>
               </section>
             </div>

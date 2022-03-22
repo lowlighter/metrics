@@ -6,6 +6,7 @@
     base: ""
     plugin_sponsors: yes
     plugin_sponsors_sections: goal
+    plugin_sponsors_past: yes
 
 - name: Sponsors introduction
   uses: lowlighter/metrics@latest
