@@ -735,6 +735,10 @@ inputs:
     description: Displayed sections
     default: <default-value>
   
+  plugin_sponsors_past:
+    description: Display past sponsorships
+    default: <default-value>
+  
   # ====================================================================================
   # 💫 Starlists
   
@@ -1014,7 +1018,7 @@ inputs:
     default: <default-value>
   
   plugin_wakatime_languages_other:
-    description: Including Other Languages
+    description: Include other languages
     default: <default-value>
   
   # ====================================================================================

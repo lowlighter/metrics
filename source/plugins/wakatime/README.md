@@ -119,7 +119,7 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_wakatime_languages_other</code></h4></td>
-    <td rowspan="2"><p>Including Other Languages</p>
+    <td rowspan="2"><p>Include other languages</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
