@@ -22,7 +22,6 @@ export default async function({login, q, imports, data, graphql, queries, accoun
       console.debug(`metrics/compute/${login}/plugins > sponsors > querying past sponsors`)
       const active = new Set(list.map(({login}) => login))
       const {[account]:{sponsorsActivities:{nodes:events}}} = await graphql(queries.sponsors.all({login, account}))
-      console.log(JSON.stringify(await graphql(queries.sponsors.all({login, account})), null, 2))
       const users = events.map(({sponsor:{login, avatarUrl}, sponsorsTier}) => ({login, avatarUrl, amount:sponsorsTier?.monthlyPriceInDollars ?? null, past:true}))
       for (const user of users) {
         if (!active.has(user.login)) {
