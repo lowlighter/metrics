@@ -101,8 +101,7 @@ Recent language activity may also displayed (it requires extras features to be e
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
-<b>type:</b> <code>string</code>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
 <br>
 <b>default:</b> classic<br>
 <b>allowed values:</b><ul><li>classic</li><li>chartist</li></ul></td>
