@@ -21,7 +21,7 @@ export default async function({login, data, graphql, rest, q, queries, imports, 
     }
 
     //Load inputs
-    let {limit, types, size, identicons, thanks, shuffle, "sponsors.custom":_sponsors} = imports.metadata.plugins.people.inputs({data, account, q}, {types:context.default})
+    let {limit, types, size, identicons, "identicons.hide":_identicons_hide, thanks, shuffle, "sponsors.custom":_sponsors} = imports.metadata.plugins.people.inputs({data, account, q}, {types:context.default})
     //Filter types
     types = [...new Set([...types].map(type => (context.alias[type] ?? type)).filter(type => context.types.includes(type)) ?? [])]
     if ((types.includes("sponsorshipsAsMaintainer")) && (_sponsors?.length)) {
@@ -68,6 +68,11 @@ export default async function({login, data, graphql, rest, q, queries, imports, 
       if (shuffle) {
         console.debug(`metrics/compute/${login}/plugins > people > shuffling`)
         imports.shuffle(result[type])
+      }
+      //Filter out identicons if not wanted
+      if (_identicons_hide) {
+        console.debug(`metrics/compute/${login}/plugins > people > filtering out user without custom avatarUrl`)
+        result[type] = result[type].filter(user => user.avatarUrl?.includes("&u="))
       }
       //Limit people
       if (limit > 0) {

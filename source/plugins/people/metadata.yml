@@ -33,6 +33,17 @@ inputs:
     type: boolean
     default: no
 
+  plugin_people_identicons_hide:
+    description: |
+      Hide identicons display
+
+      This can be used to mask user who did not setup a personal profile picture.
+
+      When used with `plugin_people_identicons`, users who did not setup a personal profile picture
+      will still be filtered out, but will have their picture replaced by an identicon instead.
+    type: boolean
+    default: no
+
   plugin_people_size:
     description: Profile picture display size
     type: number
