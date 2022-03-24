@@ -134,7 +134,6 @@ jobs:
           dryrun: yes
           use_mocked_data: yes
           verify: yes
-          use_prebuilt_image: no
 
   # Publish examples
   publish-examples:
