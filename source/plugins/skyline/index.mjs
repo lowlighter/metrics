@@ -27,7 +27,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
     await page.goto(`https://skyline.github.com/${login}/${year}`, {timeout:90 * 1000})
     console.debug(`metrics/compute/${login}/plugins > skyline > waiting for initial render`)
     const frame = page.mainFrame()
-    await page.waitForFunction('[...document.querySelectorAll("span")].map(span => span.innerText).includes("Download STL file")', {timeout:90 * 1000})
+    await page.waitForFunction('[...document.querySelectorAll("span")].map(span => span.innerText).includes("Share on Twitter")', {timeout:90 * 1000})
     await frame.evaluate(() => [...document.querySelectorAll("button, footer, a")].map(element => element.remove()))
 
     //Generate gif
