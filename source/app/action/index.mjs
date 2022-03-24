@@ -163,7 +163,9 @@ async function retry(func, {retries = 1, delay = 0} = {}) {
     const api = {}
     api.graphql = octokit.graphql.defaults({headers:{authorization:`token ${token}`}})
     info("Github GraphQL API", "ok")
-    api.rest = github.getOctokit(token)
+    const octoraw = github.getOctokit(token)
+    api.rest = octoraw.rest
+    api.rest.request = octoraw.request
     info("Github REST API", "ok")
     //Apply mocking if needed
     if (mocked) {
@@ -222,7 +224,7 @@ async function retry(func, {retries = 1, delay = 0} = {}) {
       if (committer.gist)
         info("Committer Gist id", committer.gist)
       //Instantiate API for committer
-      committer.rest = github.getOctokit(committer.token)
+      committer.rest = github.getOctokit(committer.token).rest
       info("Committer REST API", "ok")
       try {
         info("Committer account", (await committer.rest.users.getAuthenticated()).data.login)
