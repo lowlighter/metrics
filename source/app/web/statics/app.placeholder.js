@@ -53,7 +53,7 @@
       },
       //Trap for includes
       async $include(path) {
-        const partial = await load(`/.templates/${set.templates.selected}/${encodeURIComponent(path).replace(/%2F/gi, "/")}`)
+        const partial = await load(`/.templates/${set.templates.selected}/${path.replace(/\+/gi, "%2B")}`)
         return await ejs.render(partial, data, { async: true, rmWhitespace: true })
       },
       //Meta-data
