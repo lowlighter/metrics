@@ -71,6 +71,7 @@ export default async function({login, data, graphql, rest, q, queries, imports, 
       }
       //Filter out identicons if not wanted
       if (_identicons_hide) {
+        console.debug(`metrics/compute/${login}/plugins > people > filtering out user without custom avatarUrl`)
         result[type] = result[type].filter(user => user.avatarUrl?.includes("&u="))
       }
       //Limit people
