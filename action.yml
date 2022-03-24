@@ -469,6 +469,10 @@ inputs:
     description: Toggle identicons display
     default: <default-value>
   
+  plugin_people_identicons_hide:
+    description: Hide identicons display
+    default: <default-value>
+  
   plugin_people_size:
     description: Profile picture display size
     default: <default-value>
