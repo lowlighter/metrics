@@ -100,7 +100,7 @@ jobs:
           plugin_sponsors: yes
           plugin_sponsors_past: yes
           plugin_sponsors_sections: goal
-          plugins_errors_fatal: ${{ github.repository == 'lowlighter/lowlighter' }}
+          plugins_errors_fatal: yes
           config_display: large
           extras_js: |
             document.querySelectorAll(".markdown, .center, .goal-text span:last-child")?.forEach(h2 => h2.remove())
@@ -120,7 +120,7 @@ jobs:
           plugin_licenses_setup: npm ci
           plugin_licenses_legal: yes
           plugin_licenses_ratio: yes
-          plugins_errors_fatal: ${{ github.repository == 'lowlighter/lowlighter' }}
+          plugins_errors_fatal: yes
           output_action: none
           delay: 120
 
