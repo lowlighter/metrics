@@ -65,6 +65,20 @@
 <b>default:</b> no<br></td>
   </tr>
   <tr>
+    <td nowrap="nowrap"><h4><code>plugin_people_identicons_hide</code></h4></td>
+    <td rowspan="2"><p>Hide identicons display</p>
+<p>This can be used to mask user who did not setup a personal profile picture.</p>
+<p>When used with <code>plugin_people_identicons</code>, users who did not setup a personal profile picture
+will still be filtered out, but will have their picture replaced by an identicon instead.</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
     <td nowrap="nowrap"><h4><code>plugin_people_size</code></h4></td>
     <td rowspan="2"><p>Profile picture display size</p>
 <img width="900" height="1" alt=""></td>
