@@ -18,6 +18,10 @@
     values.push(probability)
     return values.sort((a, b) => b - a)
   }
+  //Escape partial
+  function escape(partial) {
+    return encodeURIComponent(partial).replace(/%2F/gi, "/")
+  }
   //Static complex placeholder
   async function staticPlaceholder(condition, name) {
     if (!condition)
@@ -28,7 +32,7 @@
   globalThis.placeholder = async function(set) {
     //Load templates informations
     let { image, style, fonts, partials } = await load(`/.templates/${set.templates.selected}`)
-    await Promise.all(partials.map(async partial => await load(`/.templates/${set.templates.selected}/partials/${partial}.ejs`)))
+    await Promise.all(partials.map(async partial => await load(`/.templates/${set.templates.selected}/partials/${escape(partial)}.ejs`)))
     //Trap includes
     image = image.replace(/<%-\s*await include[(](`.*?[.]ejs`)[)]\s*%>/g, (m, g) => `<%- await $include(${g}) %>`)
     //Faked data
@@ -53,7 +57,7 @@
       },
       //Trap for includes
       async $include(path) {
-        const partial = await load(`/.templates/${set.templates.selected}/${path}`)
+        const partial = await load(`/.templates/${set.templates.selected}/${escape(path)}`)
         return await ejs.render(partial, data, { async: true, rmWhitespace: true })
       },
       //Meta-data
