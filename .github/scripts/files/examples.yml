@@ -94,7 +94,7 @@ jobs:
         uses: lowlighter/metrics@master
         with:
           filename: metrics.sponsors.svg
-          token: ${{ secrets.METRICS_TOKEN }}
+          token: ${{ secrets.METRICS_TOKEN_WITH_SCOPES }}
           base: ""
           user: lowlighter
           plugin_sponsors: yes
