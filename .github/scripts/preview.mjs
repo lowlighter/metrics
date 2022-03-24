@@ -24,9 +24,9 @@ const templates = Object.entries(Templates).map(([name]) => ({ name, enabled: tr
 const metadata = Object.fromEntries(
   Object.entries(conf.metadata.plugins)
     .map(([key, value]) => [key, Object.fromEntries(Object.entries(value).filter(([key]) => ["name", "icon", "category", "web", "supports", "scopes"].includes(key)))])
-    .map(([key, value]) => [key, key === "core" ? {...value, web:Object.fromEntries(Object.entries(value.web).filter(([key]) => /^config[.]/.test(key)).map(([key, value]) => [key.replace(/^config[.]/, ""), value]))} : value]),
+    .map(([key, value]) => [key, key === "core" ? { ...value, web: Object.fromEntries(Object.entries(value.web).filter(([key]) => /^config[.]/.test(key)).map(([key, value]) => [key.replace(/^config[.]/, ""), value])) } : value]),
 )
-const enabled = Object.entries(metadata).filter(([_name, {category}]) => category !== "core").map(([name]) => ({name, category:metadata[name]?.category ?? "community", enabled:true}))
+const enabled = Object.entries(metadata).filter(([_name, { category }]) => category !== "core").map(([name]) => ({ name, category: metadata[name]?.category ?? "community", enabled: true }))
 
 //Directories
 await fs.mkdir(__preview, { recursive: true })
