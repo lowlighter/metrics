@@ -249,6 +249,12 @@ inputs:
     description: Display threshold (percentage)
     default: <default-value>
   
+  plugin_languages_other:
+    description: >-
+      Group unknown, ignored and over-limit languages into a single "Other"
+      category
+    default: <default-value>
+  
   plugin_languages_colors:
     description: Custom languages colors
     default: <default-value>

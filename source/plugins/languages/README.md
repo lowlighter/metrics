@@ -88,6 +88,19 @@
 <b>default:</b> 0%<br></td>
   </tr>
   <tr>
+    <td nowrap="nowrap"><h4><code>plugin_languages_other</code></h4></td>
+    <td rowspan="2"><p>Group unknown, ignored and over-limit languages into a single &quot;Other&quot; category</p>
+<p>If this option is enabled, &quot;Other&quot; category will not be subject to <code>plugin_languages_threshold</code>.
+It will be automatically hidden if empty.</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
     <td nowrap="nowrap"><h4><code>plugin_languages_colors</code></h4></td>
     <td rowspan="2"><p>Custom languages colors</p>
 <img width="900" height="1" alt=""></td>
