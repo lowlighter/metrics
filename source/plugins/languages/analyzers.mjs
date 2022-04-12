@@ -1,3 +1,4 @@
+//Imports
 import linguist from "linguist-js"
 
 /**Indepth analyzer */
@@ -29,12 +30,12 @@ export async function indepth({login, data, imports, repositories, gpg}, {skippe
       finally {
         //Cleaning
         console.debug(`metrics/compute/${login}/plugins > languages > indepth > cleaning ${path}`)
-        await imports.fs.rm(path, {recursive:true, force:true})
+        await imports.fs.rm(path, {recursive:true, force:true}).catch(error => console.debug(`metrics/compute/${login}/plugins > languages > indepth > failed to clean ${path} (${error})`))
       }
     }
 
     //Compute repositories stats from fetched repositories
-    const results = {total:0, lines:{}, stats:{}, colors:{}, commits:0, files:0, missed:0, verified:{signature:0}}
+    const results = {total:0, lines:{}, stats:{}, colors:{}, commits:0, files:0, missed:{lines:0, bytes:0, commits:0}, verified:{signature:0}}
     for (const repository of repositories) {
       //Skip repository if asked
       if ((skipped.includes(repository.name.toLocaleLowerCase())) || (skipped.includes(`${repository.owner.login}/${repository.name}`.toLocaleLowerCase()))) {
@@ -67,7 +68,7 @@ export async function indepth({login, data, imports, repositories, gpg}, {skippe
       finally {
         //Cleaning
         console.debug(`metrics/compute/${login}/plugins > languages > indepth > cleaning temp dir ${path}`)
-        await imports.fs.rm(path, {recursive:true, force:true})
+        await imports.fs.rm(path, {recursive:true, force:true}).catch(error => console.debug(`metrics/compute/${login}/plugins > languages > indepth > failed to clean ${path} (${error})`))
       }
     }
     solve(results)
@@ -85,7 +86,7 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
 
     //Get user recent activity
     console.debug(`metrics/compute/${login}/plugins > languages > querying api`)
-    const commits = [], pages = Math.ceil(load / 100), results = {total:0, lines:{}, stats:{}, colors:{}, commits:0, files:0, missed:0, days}
+    const commits = [], pages = Math.ceil(load / 100), results = {total:0, lines:{}, stats:{}, colors:{}, commits:0, files:0, missed:{lines:0, bytes:0, commits:0}, days}
     try {
       for (let page = 1; page <= pages; page++) {
         console.debug(`metrics/compute/${login}/plugins > languages > loading page ${page}`)
@@ -134,7 +135,7 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
       await imports.fs.mkdir(path, {recursive:true})
       await Promise.all(patches.map(async ({name, directory, patch}) => {
         await imports.fs.mkdir(imports.paths.join(path, directory), {recursive:true})
-        imports.fs.writeFile(imports.paths.join(path, directory, name), patch)
+        await imports.fs.writeFile(imports.paths.join(path, directory, name), patch)
       }))
 
       //Process temporary repositories
@@ -170,7 +171,7 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
     finally {
       //Cleaning
       console.debug(`metrics/compute/${login}/plugins > languages > cleaning temp dir ${path}`)
-      await imports.fs.rm(path, {recursive:true, force:true})
+      await imports.fs.rm(path, {recursive:true, force:true}).catch(error => console.debug(`metrics/compute/${login}/plugins > languages > indepth > failed to clean ${path} (${error})`))
     }
     solve(results)
   })
@@ -199,7 +200,7 @@ async function analyze({login, imports, data}, {results, path, categories = ["pr
     try {
       console.debug(`metrics/compute/${login}/plugins > languages > indepth > processing commits ${page * per_page} from ${(page + 1) * per_page}`)
       let empty = true, file = null, lang = null
-      await imports.spawn("git", ["log", ...data.shared["commits.authoring"].map(authoring => `--author="${authoring}"`), "--regexp-ignore-case", "--format=short", "--patch", `--max-count=${per_page}`, `--skip=${page * per_page}`], {cwd:path}, {
+      await imports.spawn("git", ["log", ...data.shared["commits.authoring"].map(authoring => `--author="${authoring}"`), "--regexp-ignore-case", "--format=short", "--no-merges", "--patch", `--max-count=${per_page}`, `--skip=${page * per_page}`], {cwd:path}, {
         stdout(line) {
           try {
             //Unflag empty output
@@ -226,8 +227,8 @@ async function analyze({login, imports, data}, {results, path, categories = ["pr
             //File marker
             if (/^[+]{3}\sb[/](?<file>[\s\S]+)$/.test(line)) {
               file = `${path}/${line.match(/^[+]{3}\sb[/](?<file>[\s\S]+)$/)?.groups?.file}`.replace(/\\/g, "/")
-              lang = files[file] ?? null
-              if ((lang) && (!categories.includes(languageResults[lang].type)))
+              lang = files[file] ?? "<unknown>"
+              if ((lang) && (lang !== "<unknown>") && (!categories.includes(languageResults[lang].type)))
                 lang = null
               edited.add(file)
               return
@@ -238,9 +239,15 @@ async function analyze({login, imports, data}, {results, path, categories = ["pr
             //Added line marker
             if (/^[+]\s*(?<line>[\s\S]+)$/.test(line)) {
               const size = Buffer.byteLength(line.match(/^[+]\s*(?<line>[\s\S]+)$/)?.groups?.line ?? "", "utf-8")
-              results.stats[lang] = (results.stats[lang] ?? 0) + size
-              results.lines[lang] = (results.lines[lang] ?? 0) + 1
               results.total += size
+              if (lang === "<unknown>") {
+                results.missed.lines++
+                results.missed.bytes += size
+              }
+              else {
+                results.stats[lang] = (results.stats[lang] ?? 0) + size
+                results.lines[lang] = (results.lines[lang] ?? 0) + 1
+              }
             }
           }
           catch (error) {
@@ -255,7 +262,7 @@ async function analyze({login, imports, data}, {results, path, categories = ["pr
     }
     catch {
       console.debug(`metrics/compute/${login}/plugins > languages > indepth > an error occured on page ${page}, skipping...`)
-      results.missed += per_page
+      results.missed.commits += per_page
     }
   }
   await Promise.allSettled(pending)
@@ -278,7 +285,7 @@ if (/languages.analyzers.mjs$/.test(process.argv[1])) {
 
     //Prepare call
     const imports = await import("../../app/metrics/utils.mjs")
-    const results = {total:0, lines:{}, colors:{}, stats:{}, missed:0}
+    const results = {total:0, lines:{}, colors:{}, stats:{}, missed:{lines:0, bytes:0, commits:0}}
     console.debug = log => /exited with code null/.test(log) ? console.error(log.replace(/^.*--max-count=(?<step>\d+) --skip=(?<start>\d+).*$/, (_, step, start) => `error: skipped commits ${start} from ${Number(start) + Number(step)}`)) : null
 
     //Analyze repository

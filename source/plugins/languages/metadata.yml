@@ -48,6 +48,16 @@ inputs:
     type: string
     default: 0%
 
+  plugin_languages_other:
+    description: |
+      Group unknown and ignored languages into an "Other" category
+
+      If this category is empty, it will be hidden automatically.
+      If not and `plugin_languages_limit` is set, it will count towards languages limit.
+      This option is not subject to `plugin_languages_threshold`.
+    type: boolean
+    default: no
+
   plugin_languages_colors:
     description: Custom languages colors
     type: array

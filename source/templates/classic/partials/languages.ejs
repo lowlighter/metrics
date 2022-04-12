@@ -20,22 +20,32 @@
       <% } else { const width = 460 * (1 + large) %>
         <% if (section === "recently-used") { %>
           <small>
-            estimation from <%= plugins.languages["stats.recent"]?.files %> edited file<%= s(plugins.languages["stats.recent"]?.files) %> from <%= plugins.languages["stats.recent"]?.commits %> commit<%= s(plugins.languages["stats.recent"]?.commits) %> over last <%= plugins.languages["stats.recent"]?.latest ?? plugins.languages["stats.recent"]?.days %> day<%= s(plugins.languages["stats.recent"]?.latest ?? plugins.languages["stats.recent"]?.days) %>
+            <% if (languages.length) { %>
+              estimation from <%= f(plugins.languages["stats.recent"]?.total) %>b of code in <%= plugins.languages["stats.recent"]?.files %> edited file<%= s(plugins.languages["stats.recent"]?.files) %> across <%= plugins.languages["stats.recent"]?.commits %> commit<%= s(plugins.languages["stats.recent"]?.commits) %> over last <%= plugins.languages["stats.recent"]?.latest ?? plugins.languages["stats.recent"]?.days %> day<%= s(plugins.languages["stats.recent"]?.latest ?? plugins.languages["stats.recent"]?.days) %>
+            <% } else { %>
+              No recent push activity found over last <%= plugins.languages["stats.recent"]?.latest ?? plugins.languages["stats.recent"]?.days %> day<%= s(plugins.languages["stats.recent"]?.latest ?? plugins.languages["stats.recent"]?.days) %>
+            <% } %>
           </small>
         <% } else if ((section === "most-used")&&(plugins.languages.indepth)) { %>
           <small>
-            estimation from <%= plugins.languages.files %> edited file<%= s(plugins.languages.files) %> from <%= plugins.languages.commits %> commit<%= s(plugins.languages.commits) %>
+            <% if (languages.length) { %>
+              estimation from <%= f(plugins.languages.total) %>b of code in <%= plugins.languages.files %> edited file<%= s(plugins.languages.files) %> across <%= plugins.languages.commits %> commit<%= s(plugins.languages.commits) %>
+            <% } else { %>
+              No push activity found
+            <% } %>
           </small>
         <% } %>
-        <svg class="bar" xmlns="http://www.w3.org/2000/svg" width="<%= width %>" height="8">
-          <mask id="languages-bar">
-            <rect x="0" y="0" width="<%= width %>" height="8" fill="white" rx="5"/>
-          </mask>
-          <rect mask="url(#languages-bar)" x="0" y="0" width="<%= languages.length ? 0 : width %>" height="8" fill="#d1d5da"/>
-          <% for (const {name, value, color, x} of languages) { %>
-            <rect mask="url(#languages-bar)" x="<%= x*width %>" y="0" width="<%= value*width %>" height="8" fill="<%= color ?? "#959DA5" %>"/>
-          <% } %>
-        </svg>
+        <% if (languages.length) { %>
+          <svg class="bar" xmlns="http://www.w3.org/2000/svg" width="<%= width %>" height="8">
+            <mask id="languages-bar">
+              <rect x="0" y="0" width="<%= width %>" height="8" fill="white" rx="5"/>
+            </mask>
+            <rect mask="url(#languages-bar)" x="0" y="0" width="<%= languages.length ? 0 : width %>" height="8" fill="#d1d5da"/>
+            <% for (const {name, value, color, x} of languages) { %>
+              <rect mask="url(#languages-bar)" x="<%= x*width %>" y="0" width="<%= value*width %>" height="8" fill="<%= color ?? "#959DA5" %>"/>
+            <% } %>
+          </svg>
+        <% } %>
         <% if (plugins.languages.details.length) { const rows = large ? [0, 1, 2, 3] : (plugins.languages.details.length > 2) ? [0] : [0, 1] %>
           <div class="row fill-width">
             <% for (const row of rows) { %>
