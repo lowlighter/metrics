@@ -50,11 +50,10 @@ inputs:
 
   plugin_languages_other:
     description: |
-      Group unknown and ignored languages into an "Other" category
+      Group unknown, ignored and over-limit languages into a single "Other" category
 
-      If this category is empty, it will be hidden automatically.
-      If not and `plugin_languages_limit` is set, it will count towards languages limit.
-      This option is not subject to `plugin_languages_threshold`.
+      If this option is enabled, "Other" category will not be subject to `plugin_languages_threshold`.
+      It will be automatically hidden if empty.
     type: boolean
     default: no
 
