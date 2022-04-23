@@ -185,7 +185,7 @@ function quit(reason) {
     //Test token validity and requests count
     else if (!/^NOT_NEEDED$/.test(token)) {
       //Check rate limit
-      const {data} = await api.rest.rateLimit.get().catch(() => ({data:{resources:{}}}))
+      const {data} = await api.rest.rateLimit.get()
       Object.assign(resources, data.resources)
       info("API requests (REST)", resources.core ? `${resources.core.remaining}/${resources.core.limit}` : "(unknown)")
       info("API requests (GraphQL)", resources.graphql ? `${resources.graphql.remaining}/${resources.graphql.limit}` : "(unknown)")
@@ -600,7 +600,7 @@ function quit(reason) {
       info.break()
       info.section("Consumed API requests")
       info("  * provided that no other app used your quota during execution", "")
-      const {data:current} = await api.rest.rateLimit.get().catch(() => ({data:{resources:{}}}))
+      const {data:current} = await api.rest.rateLimit.get()
       for (const type of ["core", "graphql", "search"]) {
         const used = resources[type].remaining - current.resources[type].remaining
         info({core:"REST API", graphql:"GraphQL API", search:"Search API"}[type], (Number.isFinite(used)&&(used >= 0)) ? used : "(unknown)")
