@@ -596,7 +596,7 @@ function quit(reason) {
     }
 
     //Consumed API requests
-    {
+    if ((!mocked)&&(!/^NOT_NEEDED$/.test(token))) {
       info.break()
       info.section("Consumed API requests")
       info("  * provided that no other app used your quota during execution", "")
