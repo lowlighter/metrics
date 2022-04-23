@@ -379,6 +379,11 @@ inputs:
     min: 0
     max: 3600
 
+  notice_releases:
+    description: Notice about new releases of metrics
+    type: boolean
+    default: yes
+
   # ====================================================================================
   # 🚧 Options below are mostly used for testing
 
