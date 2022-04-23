@@ -1,6 +1,6 @@
 //Imports
-import fs from "fs/promises"
 import processes from "child_process"
+import fs from "fs/promises"
 import yaml from "js-yaml"
 import fetch from "node-fetch"
 import paths from "path"
@@ -16,7 +16,7 @@ const __metrics = paths.join(paths.dirname(url.fileURLToPath(import.meta.url)), 
 const __presets = paths.join(__metrics, ".presets")
 
 if ((!await fs.access(__presets).then(_ => true).catch(_ => false)) || (!(await fs.lstat(__presets)).isDirectory()))
-  await sgit().clone(`https://github-actions[bot]:${process.env.GITHUB_TOKEN}@github.com/lowlighter/metrics`, __presets, { "--branch": "presets", "--single-branch": true })
+  await sgit().clone(`https://github-actions[bot]:${process.env.GITHUB_TOKEN}@github.com/lowlighter/metrics`, __presets, {"--branch": "presets", "--single-branch": true})
 const git = sgit(__presets)
 await git.pull()
 const staged = new Set()
@@ -27,7 +27,7 @@ web.run = async vars => await fetch(`http://localhost:3000/lowlighter?${new url.
 web.start = async () =>
   new Promise(solve => {
     let stdout = ""
-    web.instance = processes.spawn("node", ["source/app/web/index.mjs"], { env: { ...process.env, SANDBOX: true } })
+    web.instance = processes.spawn("node", ["source/app/web/index.mjs"], {env: {...process.env, SANDBOX: true}})
     web.instance.stdout.on("data", data => (stdout += data, /Server ready !/.test(stdout) ? solve() : null))
     web.instance.stderr.on("data", data => console.error(`${data}`))
   })
@@ -44,13 +44,13 @@ for (const path of await fs.readdir(__presets)) {
 
   //Example
   console.log(`generating: ${preset}/example.svg`)
-  const svg = await web.run({ config_presets: `@${preset}`, plugins_errors_fatal: true })
+  const svg = await web.run({config_presets: `@${preset}`, plugins_errors_fatal: true})
   await fs.writeFile(paths.join(__presets, path, "example.svg"), svg)
   staged.add(paths.join(__presets, path, "example.svg"))
 
   //Readme
   console.log(`generating: ${preset}/README.svg`)
-  const { name, description } = await yaml.load(await fs.readFile(paths.join(__presets, preset, "preset.yml")))
+  const {name, description} = await yaml.load(await fs.readFile(paths.join(__presets, preset, "preset.yml")))
   await fs.writeFile(
     paths.join(__presets, path, "README.md"),
     `

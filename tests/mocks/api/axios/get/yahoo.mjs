@@ -1,5 +1,5 @@
 /**Mocked data */
-export default function({ faker, url, options, login = faker.internet.userName() }) {
+export default function({faker, url, options, login = faker.internet.userName()}) {
   //Wakatime api
   if (/^https:..apidojo-yahoo-finance-v1.p.rapidapi.com.stock.v2.*$/.test(url)) {
     //Get company profile

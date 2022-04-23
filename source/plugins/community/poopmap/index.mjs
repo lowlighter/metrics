@@ -7,10 +7,10 @@ export default async function({q, imports, data, account}, {enabled = false, tok
       return null
 
     if (!token)
-      return {poops:[], days:7}
+      return {poops: [], days: 7}
 
     const {days} = imports.metadata.plugins.poopmap.inputs({data, account, q})
-    const {data:{poops}} = await imports.axios.get(`https://api.poopmap.net/api/v1/public_links/${token}`)
+    const {data: {poops}} = await imports.axios.get(`https://api.poopmap.net/api/v1/public_links/${token}`)
 
     const filteredPoops = poops.filter(poop => {
       const createdAt = new Date(poop.created_at)
@@ -18,7 +18,7 @@ export default async function({q, imports, data, account}, {enabled = false, tok
       return createdAt > new Date().getTime() - days * 24 * 60 * 60 * 1000
     })
 
-    const hours = {max:0}
+    const hours = {max: 0}
     for (let i = 0; i < filteredPoops.length; i++) {
       const poop = filteredPoops[i]
       const hour = new Date(poop.created_at).getHours()
@@ -28,10 +28,10 @@ export default async function({q, imports, data, account}, {enabled = false, tok
     }
 
     //Results
-    return {poops:hours, days}
+    return {poops: hours, days}
   }
   //Handle errors
   catch (error) {
-    throw {error:{message:"An error occured", instance:error}}
+    throw {error: {message: "An error occured", instance: error}}
   }
 }

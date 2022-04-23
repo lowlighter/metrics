@@ -1,5 +1,5 @@
 /**Mocked data */
-export default async function({ faker }, target, that, [{ username: login, page, per_page }]) {
+export default async function({faker}, target, that, [{username: login, page, per_page}]) {
   console.debug("metrics/compute/mocks > mocking rest api result > rest.activity.listEventsForAuthenticatedUser")
   return ({
     status: 200,
@@ -236,7 +236,7 @@ export default async function({ faker }, target, that, [{ username: login, page,
         repo: {
           name: "lowlighter/metrics",
         },
-        payload: { action: "started" },
+        payload: {action: "started"},
         created_at: faker.date.recent(7),
         public: true,
       },

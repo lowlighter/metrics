@@ -9,14 +9,14 @@ export default async function({login, q, imports, data, account}, {enabled = fal
     //Load inputs
     let {url, selector, title, background} = imports.metadata.plugins.screenshot.inputs({data, account, q})
     if (!url)
-      throw {error:{message:"An url is required"}}
+      throw {error: {message: "An url is required"}}
 
     //Start puppeteer and navigate to page
     console.debug(`metrics/compute/${login}/plugins > screenshot > starting browser`)
     const browser = await imports.puppeteer.launch()
     console.debug(`metrics/compute/${login}/plugins > screenshot > started ${await browser.version()}`)
     const page = await browser.newPage()
-    await page.setViewport({width:1280, height:1280})
+    await page.setViewport({width: 1280, height: 1280})
     console.debug(`metrics/compute/${login}/plugins > screenshot > loading ${url}`)
     await page.goto(url)
 
@@ -27,17 +27,17 @@ export default async function({login, q, imports, data, account}, {enabled = fal
       return {x, y, width, height}
     }, selector)
     console.debug(`metrics/compute/${login}/plugins > screenshot > coordinates ${JSON.stringify(clip)}`)
-    const [buffer] = await imports.record({page, ...clip, frames:1, background})
+    const [buffer] = await imports.record({page, ...clip, frames: 1, background})
     const screenshot = await (await imports.jimp.read(Buffer.from(buffer.split(",").pop(), "base64"))).resize(Math.min(454 * (1 + data.large), clip.width), imports.jimp.AUTO)
     await browser.close()
 
     //Results
-    return {image:await screenshot.getBase64Async("image/png"), title, height:screenshot.bitmap.height, width:screenshot.bitmap.width, url}
+    return {image: await screenshot.getBase64Async("image/png"), title, height: screenshot.bitmap.height, width: screenshot.bitmap.width, url}
   }
   //Handle errors
   catch (error) {
     if (error.error?.message)
       throw error
-    throw {title:"Screenshot error", error:{message:"An error occured", instance:error}}
+    throw {title: "Screenshot error", error: {message: "An error occured", instance: error}}
   }
 }

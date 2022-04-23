@@ -1,5 +1,5 @@
 /**Mocked data */
-export default async function({ faker }, target, that, [{ username }]) {
+export default async function({faker}, target, that, [{username}]) {
   console.debug("metrics/compute/mocks > mocking rest api result > rest.users.listGpgKeysForUser")
   return ({
     status: 200,

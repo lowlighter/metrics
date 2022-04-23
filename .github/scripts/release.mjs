@@ -26,7 +26,7 @@ if (!version)
 console.log(`Version: ${version}`)
 
 //Load related pr
-const { data: { items: prs } } = await rest.search.issuesAndPullRequests({
+const {data: {items: prs}} = await rest.search.issuesAndPullRequests({
   q: `repo:${repository.owner}/${repository.name} is:pr is:merged author:${maintainer} assignee:${maintainer} Release ${version} in:title`,
 })
 
@@ -40,9 +40,9 @@ console.log(`Using pr#${patchnote.number}: ${patchnote.title}`)
 
 //Check whether release already exists
 try {
-  const { data: { id } } = await rest.repos.getReleaseByTag({ owner: repository.owner, repo: repository.name, tag: version })
+  const {data: {id}} = await rest.repos.getReleaseByTag({owner: repository.owner, repo: repository.name, tag: version})
   console.log(`Release ${version} already exists (#${id}), will replace it`)
-  await rest.repos.deleteRelease({ owner: repository.owner, repo: repository.name, release_id: id })
+  await rest.repos.deleteRelease({owner: repository.owner, repo: repository.name, release_id: id})
   console.log(`Deleting tag ${version}`)
   await git.push(["--delete", "origin", version])
   await new Promise(solve => setTimeout(solve, 15 * 1000))
@@ -52,5 +52,5 @@ catch {
 }
 
 //Publish release
-await rest.repos.createRelease({ owner: repository.owner, repo: repository.name, tag_name: version, name: `Version ${version.replace(/^v/g, "")}`, body: patchnote.body })
+await rest.repos.createRelease({owner: repository.owner, repo: repository.name, tag_name: version, name: `Version ${version.replace(/^v/g, "")}`, body: patchnote.body})
 console.log(`Successfully published`)

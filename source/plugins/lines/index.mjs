@@ -11,24 +11,25 @@ export default async function({login, data, imports, rest, q, account}, {enabled
     skipped.push(...data.shared["repositories.skipped"])
 
     //Context
-    let context = {mode:"user"}
+    let context = {mode: "user"}
     if (q.repo) {
       console.debug(`metrics/compute/${login}/plugins > people > switched to repository mode`)
-      context = {...context, mode:"repository"}
+      context = {...context, mode: "repository"}
     }
 
     //Repositories
-    const repositories = data.user.repositories.nodes.map(({name:repo, owner:{login:owner}}) => ({repo, owner})) ?? []
+    const repositories = data.user.repositories.nodes.map(({name: repo, owner: {login: owner}}) => ({repo, owner})) ?? []
 
     //Get contributors stats from repositories
     console.debug(`metrics/compute/${login}/plugins > lines > querying api`)
-    const lines = {added:0, deleted:0, changed:0}
-    const response = [...await Promise.allSettled(repositories.map(({repo, owner}) => (skipped.includes(repo.toLocaleLowerCase())) || (skipped.includes(`${owner}/${repo}`.toLocaleLowerCase())) ? {} : rest.repos.getContributorsStats({owner, repo})))].filter(({status}) => status === "fulfilled"
+    const lines = {added: 0, deleted: 0, changed: 0}
+    const response = [...await Promise.allSettled(repositories.map(({repo, owner}) => (skipped.includes(repo.toLocaleLowerCase())) || (skipped.includes(`${owner}/${repo}`.toLocaleLowerCase())) ? {} : rest.repos.getContributorsStats({owner, repo})))].filter(({status}) =>
+      status === "fulfilled"
     ).map(({value}) => value)
 
     //Compute changed lines
     console.debug(`metrics/compute/${login}/plugins > lines > computing total diff`)
-    response.map(({data:repository}) => {
+    response.map(({data: repository}) => {
       //Check if data are available
       if (!Array.isArray(repository))
         return
@@ -43,6 +44,6 @@ export default async function({login, data, imports, rest, q, account}, {enabled
   }
   //Handle errors
   catch (error) {
-    throw {error:{message:"An error occured", instance:error}}
+    throw {error: {message: "An error occured", instance: error}}
   }
 }

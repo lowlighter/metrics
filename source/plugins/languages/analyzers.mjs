@@ -5,7 +5,7 @@ import linguist from "linguist-js"
 export async function indepth({login, data, imports, repositories, gpg}, {skipped, categories, timeout}) {
   return new Promise(async solve => {
     //Results
-    const results = {partial:false, total:0, lines:{}, stats:{}, colors:{}, commits:0, files:0, missed:{lines:0, bytes:0, commits:0}, verified:{signature:0}}
+    const results = {partial: false, total: 0, lines: {}, stats: {}, colors: {}, commits: 0, files: 0, missed: {lines: 0, bytes: 0, commits: 0}, verified: {signature: 0}}
 
     //Timeout
     if (Number.isFinite(timeout)) {
@@ -27,9 +27,9 @@ export async function indepth({login, data, imports, repositories, gpg}, {skippe
           console.debug(`metrics/compute/${login}/plugins > languages > importing gpg ${id}`)
           await imports.run(`gpg --import ${path}`)
         }
-        else
+        else {
           console.debug(`metrics/compute/${login}/plugins > languages > skipping import of gpg ${id}`)
-
+        }
       }
       catch (error) {
         console.debug(`metrics/compute/${login}/plugins > languages > indepth > an error occured while importing gpg ${id}, skipping...`)
@@ -37,7 +37,7 @@ export async function indepth({login, data, imports, repositories, gpg}, {skippe
       finally {
         //Cleaning
         console.debug(`metrics/compute/${login}/plugins > languages > indepth > cleaning ${path}`)
-        await imports.fs.rm(path, {recursive:true, force:true}).catch(error => console.debug(`metrics/compute/${login}/plugins > languages > indepth > failed to clean ${path} (${error})`))
+        await imports.fs.rm(path, {recursive: true, force: true}).catch(error => console.debug(`metrics/compute/${login}/plugins > languages > indepth > failed to clean ${path} (${error})`))
       }
     }
 
@@ -64,8 +64,8 @@ export async function indepth({login, data, imports, repositories, gpg}, {skippe
       //Process
       try {
         //Git clone into temporary directory
-        await imports.fs.rm(path, {recursive:true, force:true})
-        await imports.fs.mkdir(path, {recursive:true})
+        await imports.fs.rm(path, {recursive: true, force: true})
+        await imports.fs.mkdir(path, {recursive: true})
         const git = await imports.git(path)
         await git.clone(`https://github.com/${repo}`, ".").status()
 
@@ -78,7 +78,7 @@ export async function indepth({login, data, imports, repositories, gpg}, {skippe
       finally {
         //Cleaning
         console.debug(`metrics/compute/${login}/plugins > languages > indepth > cleaning temp dir ${path}`)
-        await imports.fs.rm(path, {recursive:true, force:true}).catch(error => console.debug(`metrics/compute/${login}/plugins > languages > indepth > failed to clean ${path} (${error})`))
+        await imports.fs.rm(path, {recursive: true, force: true}).catch(error => console.debug(`metrics/compute/${login}/plugins > languages > indepth > failed to clean ${path} (${error})`))
       }
     }
     solve(results)
@@ -89,7 +89,7 @@ export async function indepth({login, data, imports, repositories, gpg}, {skippe
 export async function recent({login, data, imports, rest, account}, {skipped = [], categories, days = 0, load = 0, tempdir = "recent", timeout}) {
   return new Promise(async solve => {
     //Results
-    const results = {partial:false, total:0, lines:{}, stats:{}, colors:{}, commits:0, files:0, missed:{lines:0, bytes:0, commits:0}, days}
+    const results = {partial: false, total: 0, lines: {}, stats: {}, colors: {}, commits: 0, files: 0, missed: {lines: 0, bytes: 0, commits: 0}, days}
 
     //Timeout
     if (Number.isFinite(timeout)) {
@@ -109,10 +109,10 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
       for (let page = 1; page <= pages; page++) {
         console.debug(`metrics/compute/${login}/plugins > languages > loading page ${page}`)
         commits.push(
-          ...(await rest.activity.listEventsForAuthenticatedUser({username:login, per_page:100, page})).data
+          ...(await rest.activity.listEventsForAuthenticatedUser({username: login, per_page: 100, page})).data
             .filter(({type}) => type === "PushEvent")
             .filter(({actor}) => account === "organization" ? true : actor.login?.toLocaleLowerCase() === login.toLocaleLowerCase())
-            .filter(({repo:{name:repo}}) => (!skipped.includes(repo.toLocaleLowerCase())) && (!skipped.includes(repo.toLocaleLowerCase().split("/").pop())))
+            .filter(({repo: {name: repo}}) => (!skipped.includes(repo.toLocaleLowerCase())) && (!skipped.includes(repo.toLocaleLowerCase().split("/").pop())))
             .filter(({created_at}) => new Date(created_at) > new Date(Date.now() - days * 24 * 60 * 60 * 1000)),
         )
       }
@@ -139,8 +139,8 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
       .map(({value}) => value)
       .filter(({parents}) => parents.length <= 1)
       .map(({files}) => files)
-      .flatMap(files => files.map(file => ({name:imports.paths.basename(file.filename), directory:imports.paths.dirname(file.filename), patch:file.patch ?? "", repo:file.raw_url?.match(/(?<=^https:..github.com\/)(?<repo>.*)(?=\/raw)/)?.groups.repo ?? "_"})))
-      .map(({name, directory, patch, repo}) => ({name, directory:`${repo.replace(/[/]/g, "@")}/${directory}`, patch:patch.split("\n").filter(line => /^[+]/.test(line)).map(line => line.substring(1)).join("\n")}))
+      .flatMap(files => files.map(file => ({name: imports.paths.basename(file.filename), directory: imports.paths.dirname(file.filename), patch: file.patch ?? "", repo: file.raw_url?.match(/(?<=^https:..github.com\/)(?<repo>.*)(?=\/raw)/)?.groups.repo ?? "_"})))
+      .map(({name, directory, patch, repo}) => ({name, directory: `${repo.replace(/[/]/g, "@")}/${directory}`, patch: patch.split("\n").filter(line => /^[+]/.test(line)).map(line => line.substring(1)).join("\n")}))
 
     //Temporary directory
     const path = imports.paths.join(imports.os.tmpdir(), `${data.user.databaseId}-${tempdir}`)
@@ -149,10 +149,10 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
     //Process
     try {
       //Save patches in temporary directory matching respective repository and filename
-      await imports.fs.rm(path, {recursive:true, force:true})
-      await imports.fs.mkdir(path, {recursive:true})
+      await imports.fs.rm(path, {recursive: true, force: true})
+      await imports.fs.mkdir(path, {recursive: true})
       await Promise.all(patches.map(async ({name, directory, patch}) => {
-        await imports.fs.mkdir(imports.paths.join(path, directory), {recursive:true})
+        await imports.fs.mkdir(imports.paths.join(path, directory), {recursive: true})
         await imports.fs.writeFile(imports.paths.join(path, directory, name), patch)
       }))
 
@@ -177,7 +177,7 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
         await git.init().add(".").addConfig("user.name", data.shared["commits.authoring"]?.[0] ?? login).addConfig("user.email", "<>").commit("linguist").status()
 
         //Analyze repository
-        await analyze(arguments[0], {results, path:imports.paths.join(path, directory), categories})
+        await analyze(arguments[0], {results, path: imports.paths.join(path, directory), categories})
 
         //Since we reproduce a "partial repository" with a single commit, use number of commits retrieved instead
         results.commits = commits.length
@@ -189,7 +189,7 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
     finally {
       //Cleaning
       console.debug(`metrics/compute/${login}/plugins > languages > cleaning temp dir ${path}`)
-      await imports.fs.rm(path, {recursive:true, force:true}).catch(error => console.debug(`metrics/compute/${login}/plugins > languages > indepth > failed to clean ${path} (${error})`))
+      await imports.fs.rm(path, {recursive: true, force: true}).catch(error => console.debug(`metrics/compute/${login}/plugins > languages > indepth > failed to clean ${path} (${error})`))
     }
     solve(results)
   })
@@ -199,7 +199,7 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
 async function analyze({login, imports, data}, {results, path, categories = ["programming", "markup"]}) {
   //Gather language data
   console.debug(`metrics/compute/${login}/plugins > languages > indepth > running linguist`)
-  const {files:{results:files}, languages:{results:languageResults}} = await linguist(path)
+  const {files: {results: files}, languages: {results: languageResults}} = await linguist(path)
   Object.assign(results.colors, Object.fromEntries(Object.entries(languageResults).map(([lang, {color}]) => [lang, color])))
 
   //Processing diff
@@ -207,18 +207,18 @@ async function analyze({login, imports, data}, {results, path, categories = ["pr
   const edited = new Set()
   console.debug(`metrics/compute/${login}/plugins > languages > indepth > checking git log`)
   try {
-    await imports.run("git log --max-count=1", {cwd:path})
+    await imports.run("git log --max-count=1", {cwd: path})
   }
   catch {
     console.debug(`metrics/compute/${login}/plugins > languages > indepth > repo seems empty or impossible to git log, skipping`)
     return
   }
   const pending = []
-  for (let page = 0; ; page++) {
+  for (let page = 0;; page++) {
     try {
       console.debug(`metrics/compute/${login}/plugins > languages > indepth > processing commits ${page * per_page} from ${(page + 1) * per_page}`)
       let empty = true, file = null, lang = null
-      await imports.spawn("git", ["log", ...data.shared["commits.authoring"].map(authoring => `--author="${authoring}"`), "--regexp-ignore-case", "--format=short", "--no-merges", "--patch", `--max-count=${per_page}`, `--skip=${page * per_page}`], {cwd:path}, {
+      await imports.spawn("git", ["log", ...data.shared["commits.authoring"].map(authoring => `--author="${authoring}"`), "--regexp-ignore-case", "--format=short", "--no-merges", "--patch", `--max-count=${per_page}`, `--skip=${page * per_page}`], {cwd: path}, {
         stdout(line) {
           try {
             //Unflag empty output
@@ -230,7 +230,7 @@ async function analyze({login, imports, data}, {results, path, categories = ["pr
                 const sha = line.match(/[0-9a-f]{40}/)?.[0]
                 if (sha) {
                   pending.push(
-                    imports.run(`git verify-commit ${sha}`, {cwd:path, env:{LANG:"en_GB"}}, {log:false, prefixed:false})
+                    imports.run(`git verify-commit ${sha}`, {cwd: path, env: {LANG: "en_GB"}}, {log: false, prefixed: false})
                       .then(() => results.verified.signature++)
                       .catch(() => null),
                   )
@@ -289,26 +289,26 @@ async function analyze({login, imports, data}, {results, path, categories = ["pr
 
 //import.meta.main
 if (/languages.analyzers.mjs$/.test(process.argv[1])) {
-  (async function() {
+  ;(async function() {
     //Parse inputs
     const [_authoring, path] = process.argv.slice(2)
     if ((!_authoring) || (!path)) {
       console.log("Usage is:\n  npm run indepth -- <commits authoring> <repository local path>\n\n")
       process.exit(1)
     }
-    const {default:setup} = await import("../../app/metrics/setup.mjs")
-    const {conf:{metadata}} = await setup({log:false})
-    const {"commits.authoring":authoring} = await metadata.plugins.base.inputs({q:{"commits.authoring":_authoring}, account:"bypass"})
-    const data = {shared:{"commits.authoring":authoring}}
+    const {default: setup} = await import("../../app/metrics/setup.mjs")
+    const {conf: {metadata}} = await setup({log: false})
+    const {"commits.authoring": authoring} = await metadata.plugins.base.inputs({q: {"commits.authoring": _authoring}, account: "bypass"})
+    const data = {shared: {"commits.authoring": authoring}}
 
     //Prepare call
     const imports = await import("../../app/metrics/utils.mjs")
-    const results = {total:0, lines:{}, colors:{}, stats:{}, missed:{lines:0, bytes:0, commits:0}}
+    const results = {total: 0, lines: {}, colors: {}, stats: {}, missed: {lines: 0, bytes: 0, commits: 0}}
     console.debug = log => /exited with code null/.test(log) ? console.error(log.replace(/^.*--max-count=(?<step>\d+) --skip=(?<start>\d+).*$/, (_, step, start) => `error: skipped commits ${start} from ${Number(start) + Number(step)}`)) : null
 
     //Analyze repository
     console.log(`commits authoring | ${authoring}\nrepository path   | ${path}\n`)
-    await analyze({login:"cli", data, imports}, {results, path})
+    await analyze({login: "cli", data, imports}, {results, path})
     console.log(results)
   })()
 }

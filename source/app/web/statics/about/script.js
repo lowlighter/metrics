@@ -6,7 +6,7 @@
     async mounted() {
       //Palette
       try {
-        this.palette = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
+        this.palette = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
       }
       catch (error) {}
       //Embed
@@ -26,17 +26,17 @@
       await Promise.all([
         //GitHub limit tracker
         (async () => {
-          const { data: requests } = await axios.get("/.requests")
+          const {data: requests} = await axios.get("/.requests")
           this.requests = requests
         })(),
         //Version
         (async () => {
-          const { data: version } = await axios.get("/.version")
+          const {data: version} = await axios.get("/.version")
           this.version = `v${version}`
         })(),
         //Hosted
         (async () => {
-          const { data: hosted } = await axios.get("/.hosted")
+          const {data: hosted} = await axios.get("/.hosted")
           this.hosted = hosted
         })(),
       ])
@@ -89,12 +89,12 @@
           this.metrics = (await axios.get(`/about/query/${this.user}`)).data
         }
         catch (error) {
-          this.error = { code: error.response.status, message: error.response.data }
+          this.error = {code: error.response.status, message: error.response.data}
         }
         finally {
           this.pending = false
           try {
-            const { data: requests } = await axios.get("/.requests")
+            const {data: requests} = await axios.get("/.requests")
             this.requests = requests
           }
           catch {}
@@ -104,10 +104,10 @@
     //Computed properties
     computed: {
       ranked() {
-        return this.metrics?.rendered.plugins.achievements.list?.filter(({ leaderboard }) => leaderboard).sort((a, b) => a.leaderboard.type.localeCompare(b.leaderboard.type)) ?? []
+        return this.metrics?.rendered.plugins.achievements.list?.filter(({leaderboard}) => leaderboard).sort((a, b) => a.leaderboard.type.localeCompare(b.leaderboard.type)) ?? []
       },
       achievements() {
-        return this.metrics?.rendered.plugins.achievements.list?.filter(({ leaderboard }) => !leaderboard).filter(({ title }) => !/(?:automator|octonaut|infographile)/i.test(title)) ?? []
+        return this.metrics?.rendered.plugins.achievements.list?.filter(({leaderboard}) => !leaderboard).filter(({title}) => !/(?:automator|octonaut|infographile)/i.test(title)) ?? []
       },
       introduction() {
         return this.metrics?.rendered.plugins.introduction?.text ?? ""
@@ -138,8 +138,8 @@
       account() {
         if (!this.metrics)
           return null
-        const { login, name } = this.metrics.rendered.user
-        return { login, name, avatar: this.metrics.rendered.computed.avatar, type: this.metrics?.rendered.account }
+        const {login, name} = this.metrics.rendered.user
+        return {login, name, avatar: this.metrics.rendered.computed.avatar, type: this.metrics?.rendered.account}
       },
       url() {
         return `${window.location.protocol}//${window.location.host}/about/${this.user}`
@@ -160,7 +160,7 @@
       embed: false,
       localstorage: false,
       searchable: false,
-      requests: { rest: { limit: 0, used: 0, remaining: 0, reset: NaN }, graphql: { limit: 0, used: 0, remaining: 0, reset: NaN } },
+      requests: {rest: {limit: 0, used: 0, remaining: 0, reset: NaN}, graphql: {limit: 0, used: 0, remaining: 0, reset: NaN}},
       palette: "light",
       metrics: null,
       pending: false,

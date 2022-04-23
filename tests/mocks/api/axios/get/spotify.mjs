@@ -1,5 +1,5 @@
 /**Mocked data */
-export default function({ faker, url, options, login = faker.internet.userName() }) {
+export default function({faker, url, options, login = faker.internet.userName()}) {
   //Spotify api
   if (/^https:..api.spotify.com.*$/.test(url)) {
     //Get recently played tracks

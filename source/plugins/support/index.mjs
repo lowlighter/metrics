@@ -10,7 +10,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
     imports.metadata.plugins.stackoverflow.inputs({data, account, q})
 
     //Start puppeteer and navigate to github.community
-    const result = {stats:{solutions:0, posts:0, topics:0, received:0}, badges:{count:0}}
+    const result = {stats: {solutions: 0, posts: 0, topics: 0, received: 0}, badges: {count: 0}}
     console.debug(`metrics/compute/${login}/plugins > support > starting browser`)
     const browser = await imports.puppeteer.launch()
     console.debug(`metrics/compute/${login}/plugins > support > started ${await browser.version()}`)
@@ -21,10 +21,10 @@ export default async function({login, q, imports, data, account}, {enabled = fal
       await page.goto(`https://github.community/u/${login}`)
       const frame = page.mainFrame()
       try {
-        await frame.waitForSelector(".user-profile-names", {timeout:5000})
+        await frame.waitForSelector(".user-profile-names", {timeout: 5000})
       }
       catch {
-        throw {error:{message:"Could not find matching account on github.community"}}
+        throw {error: {message: "Could not find matching account on github.community"}}
       }
     }
 
@@ -36,7 +36,8 @@ export default async function({login, q, imports, data, account}, {enabled = fal
       Object.assign(
         result.stats,
         Object.fromEntries(
-          (await frame.evaluate(() => [...document.querySelectorAll(".stats-section li")].map(el => [
+          (await frame.evaluate(() =>
+            [...document.querySelectorAll(".stats-section li")].map(el => [
               el.querySelector(".label").innerText.trim().toLocaleLowerCase(),
               el.querySelector(".value").innerText.trim().toLocaleLowerCase(),
             ])
@@ -64,8 +65,8 @@ export default async function({login, q, imports, data, account}, {enabled = fal
       const frame = page.mainFrame()
       await frame.waitForSelector(".badge-group-list")
       const badges = await frame.evaluate(() => ({
-        uniques:[...document.querySelectorAll(".badge-card .badge-link")].map(el => el.innerText),
-        multiples:[...document.querySelectorAll(".grant-count")].map(el => Number(el.innerText)),
+        uniques: [...document.querySelectorAll(".badge-card .badge-link")].map(el => el.innerText),
+        multiples: [...document.querySelectorAll(".grant-count")].map(el => Number(el.innerText)),
       }))
       badges.count = badges.uniques.length + (badges.multiples.reduce((a, b) => a + b, 0) - badges.multiples.length)
       result.badges = badges
@@ -82,6 +83,6 @@ export default async function({login, q, imports, data, account}, {enabled = fal
   catch (error) {
     if (error.error?.message)
       throw error
-    throw {error:{message:"An error occured", instance:error}}
+    throw {error: {message: "An error occured", instance: error}}
   }
 }

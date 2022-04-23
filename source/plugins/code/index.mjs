@@ -7,11 +7,11 @@ export default async function({login, q, imports, data, rest, account}, {enabled
       return null
 
     //Context
-    let context = {mode:"user"}
+    let context = {mode: "user"}
     if (q.repo) {
       console.debug(`metrics/compute/${login}/plugins > code > switched to repository mode`)
-      const {owner, repo} = data.user.repositories.nodes.map(({name:repo, owner:{login:owner}}) => ({repo, owner})).shift()
-      context = {...context, mode:"repository", owner, repo}
+      const {owner, repo} = data.user.repositories.nodes.map(({name: repo, owner: {login: owner}}) => ({repo, owner})).shift()
+      context = {...context, mode: "repository", owner, repo}
     }
 
     //Load inputs
@@ -31,14 +31,14 @@ export default async function({login, q, imports, data, rest, account}, {enabled
           ...[
             ...await Promise.all([
               ...(context.mode === "repository"
-                ? await rest.activity.listRepoEvents({owner:context.owner, repo:context.repo})
-                : await rest.activity.listEventsForAuthenticatedUser({username:login, per_page:100, page})).data
+                ? await rest.activity.listRepoEvents({owner: context.owner, repo: context.repo})
+                : await rest.activity.listEventsForAuthenticatedUser({username: login, per_page: 100, page})).data
                 .filter(({type}) => type === "PushEvent")
                 .filter(({actor}) => account === "organization" ? true : actor.login?.toLocaleLowerCase() === login.toLocaleLowerCase())
-                .filter(({repo:{name:repo}}) => !((skipped.includes(repo.split("/").pop())) || (skipped.includes(repo))))
+                .filter(({repo: {name: repo}}) => !((skipped.includes(repo.split("/").pop())) || (skipped.includes(repo))))
                 .filter(event => visibility === "public" ? event.public : true)
                 .filter(({created_at}) => Number.isFinite(days) ? new Date(created_at) > new Date(Date.now() - days * 24 * 60 * 60 * 1000) : true)
-                .flatMap(({created_at:created, payload}) => Promise.all(payload.commits.map(async commit => ({created:new Date(created), ...(await rest.request(commit.url)).data})))),
+                .flatMap(({created_at: created, payload}) => Promise.all(payload.commits.map(async commit => ({created: new Date(created), ...(await rest.request(commit.url)).data})))),
             ]),
           ]
             .flat()
@@ -54,11 +54,10 @@ export default async function({login, q, imports, data, rest, account}, {enabled
 
     //Search for a random snippet
     let files = events
-      .flatMap(({created, sha, commit:{message, url}, files}) => files.map(({filename, status, additions, deletions, patch}) => ({created, sha, message, filename, status, additions, deletions, patch, repo:url.match(/repos[/](?<repo>[\s\S]+)[/]git[/]commits/)?.groups?.repo}))
-      )
+      .flatMap(({created, sha, commit: {message, url}, files}) => files.map(({filename, status, additions, deletions, patch}) => ({created, sha, message, filename, status, additions, deletions, patch, repo: url.match(/repos[/](?<repo>[\s\S]+)[/]git[/]commits/)?.groups?.repo})))
       .filter(({patch}) => (patch ? (patch.match(/\n/mg)?.length ?? 1) : Infinity) < lines)
     for (const file of files)
-      file.language = await imports.language({...file, prefix:login}).catch(() => "unknown")
+      file.language = await imports.language({...file, prefix: login}).catch(() => "unknown")
     files = files.filter(({language}) => (!languages.length) || (languages.includes(language.toLocaleLowerCase())))
     const snippet = files[Math.floor(Math.random() * files.length)] ?? null
     if (snippet) {
@@ -80,6 +79,6 @@ export default async function({login, q, imports, data, rest, account}, {enabled
   }
   //Handle errors
   catch (error) {
-    throw {error:{message:"An error occured", instance:error}}
+    throw {error: {message: "An error occured", instance: error}}
   }
 }

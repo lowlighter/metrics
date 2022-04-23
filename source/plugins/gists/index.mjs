@@ -17,7 +17,7 @@ export default async function({login, data, graphql, q, imports, queries, accoun
       let pushed = 0
       do {
         console.debug(`metrics/compute/${login}/plugins > gists > retrieving gists after ${cursor}`)
-        const {user:{gists:{edges, nodes, totalCount}}} = await graphql(queries.gists({login, after:cursor ? `after: "${cursor}"` : ""}))
+        const {user: {gists: {edges, nodes, totalCount}}} = await graphql(queries.gists({login, after: cursor ? `after: "${cursor}"` : ""}))
         cursor = edges?.[edges?.length - 1]?.cursor
         gists.push(...nodes)
         gists.totalCount = totalCount
@@ -41,12 +41,12 @@ export default async function({login, data, graphql, q, imports, queries, accoun
     }
 
     //Results
-    return {totalCount:gists.totalCount, stargazers, forks, files, comments}
+    return {totalCount: gists.totalCount, stargazers, forks, files, comments}
   }
   //Handle errors
   catch (error) {
     if (error.error?.message)
       throw error
-    throw {error:{message:"An error occured", instance:error}}
+    throw {error: {message: "An error occured", instance: error}}
   }
 }

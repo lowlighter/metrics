@@ -15,7 +15,7 @@ export default async function({login, data, imports, graphql, q, queries, accoun
 
     //Retrieve user owned projects from graphql api
     console.debug(`metrics/compute/${login}/plugins > projects > querying api`)
-    const {[account]:{projects}} = await graphql(queries.projects.user({login, limit, account}))
+    const {[account]: {projects}} = await graphql(queries.projects.user({login, limit, account}))
 
     //Retrieve repositories projects from graphql api
     for (const identifier of repositories) {
@@ -25,7 +25,7 @@ export default async function({login, data, imports, graphql, q, queries, accoun
       let project = null
       for (const account of ["user", "organization"]) {
         try {
-          ({project} = (await graphql(queries.projects.repository({user, repository, id, account})))[account].repository)
+          ;({project} = (await graphql(queries.projects.repository({user, repository, id, account})))[account].repository)
         }
         catch (error) {
           console.debug(error)
@@ -52,9 +52,9 @@ export default async function({login, data, imports, graphql, q, queries, accoun
       else if (time < 30)
         updated = `${Math.floor(time)} day${time >= 2 ? "s" : ""} ago`
       //Format progress
-      const {enabled, todoCount:todo, inProgressCount:doing, doneCount:done} = project.progress
+      const {enabled, todoCount: todo, inProgressCount: doing, doneCount: done} = project.progress
       //Append
-      list.push({name:project.name, updated, description:project.body, progress:{enabled, todo, doing, done, total:todo + doing + done}})
+      list.push({name: project.name, updated, description: project.body, progress: {enabled, todo, doing, done, total: todo + doing + done}})
     }
 
     //Limit
@@ -62,13 +62,13 @@ export default async function({login, data, imports, graphql, q, queries, accoun
     list.splice(limit)
 
     //Results
-    return {list, totalCount:projects.totalCount, descriptions}
+    return {list, totalCount: projects.totalCount, descriptions}
   }
   //Handle errors
   catch (error) {
     let message = "An error occured"
     if (error.errors?.map(({type}) => type)?.includes("INSUFFICIENT_SCOPES"))
       message = "Insufficient token rights"
-    throw {error:{message, instance:error}}
+    throw {error: {message, instance: error}}
   }
 }

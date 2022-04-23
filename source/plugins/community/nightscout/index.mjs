@@ -10,7 +10,7 @@ export default async function({q, imports, data, account}, {enabled = false} = {
     let {url, datapoints, lowalert, highalert, urgentlowalert, urgenthighalert} = imports.metadata.plugins.nightscout.inputs({data, account, q})
 
     if (!url || url === "https://example.herokuapp.com")
-      throw {error:{message:"Nightscout site URL isn't set!"}}
+      throw {error: {message: "Nightscout site URL isn't set!"}}
     if (url.substring(url.length - 1) !== "/")
       url += "/"
     if (url.substring(0, 7) === "http://")
@@ -44,13 +44,13 @@ export default async function({q, imports, data, account}, {enabled = false} = {
       resp.data[i].color = color
       resp.data[i].alert = alertName
     }
-    return {data:resp.data.reverse()}
+    return {data: resp.data.reverse()}
   }
   //Handle errors
   catch (error) {
     if (error.error?.message)
       throw error
-    throw {error:{message:"An error occured", instance:error}}
+    throw {error: {message: "An error occured", instance: error}}
   }
 }
 

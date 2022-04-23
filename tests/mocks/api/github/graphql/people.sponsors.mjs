@@ -1,5 +1,5 @@
 /**Mocked data */
-export default function({ faker, query, login = faker.internet.userName() }) {
+export default function({faker, query, login = faker.internet.userName()}) {
   console.debug("metrics/compute/mocks > mocking graphql api result > people/sponsors")
   const type = query.match(/(?<type>sponsorshipsAsSponsor|sponsorshipsAsMaintainer)[(]/)?.groups?.type ?? "(unknown type)"
   return /after: "MOCKED_CURSOR"/m.test(query)

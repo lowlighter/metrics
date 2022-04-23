@@ -10,8 +10,8 @@ export default async function({login, q, imports, data, graphql, queries, accoun
     let {setup, ratio, legal} = imports.metadata.plugins.licenses.inputs({data, account, q})
 
     //Initialization
-    const {user:{repository}} = await graphql(queries.licenses.repository({owner:data.repo.owner.login, name:data.repo.name, account}))
-    const result = {ratio, legal, default:repository.licenseInfo, licensed:{available:false}, text:{}, list:[], used:{}, dependencies:[], known:0, unknown:0}
+    const {user: {repository}} = await graphql(queries.licenses.repository({owner: data.repo.owner.login, name: data.repo.name, account}))
+    const result = {ratio, legal, default: repository.licenseInfo, licensed: {available: false}, text: {}, list: [], used: {}, dependencies: [], known: 0, unknown: 0}
     const {used, text} = result
 
     //Register existing licenses properties
@@ -29,8 +29,8 @@ export default async function({login, q, imports, data, graphql, queries, accoun
       const path = imports.paths.join(imports.os.tmpdir(), `${repository.databaseId}`)
       //Create temporary directory
       console.debug(`metrics/compute/${login}/plugins > licenses > creating temp dir ${path}`)
-      await imports.fs.rm(path, {recursive:true, force:true})
-      await imports.fs.mkdir(path, {recursive:true})
+      await imports.fs.rm(path, {recursive: true, force: true})
+      await imports.fs.mkdir(path, {recursive: true})
       //Clone repository
       console.debug(`metrics/compute/${login}/plugins > licenses > cloning temp git repository ${repository.url} to ${path}`)
       const git = imports.git(path)
@@ -38,7 +38,7 @@ export default async function({login, q, imports, data, graphql, queries, accoun
       //Run setup
       if (setup) {
         console.debug(`metrics/compute/${login}/plugins > licenses > running setup [${setup}]`)
-        await imports.run(setup, {cwd:path}, {prefixed:false})
+        await imports.run(setup, {cwd: path}, {prefixed: false})
       }
       //Create configuration file if needed
       if (!(await imports.fs.stat(imports.paths.join(path, ".licensed.yml")).then(() => 1).catch(() => 0))) {
@@ -50,33 +50,35 @@ export default async function({login, q, imports, data, graphql, queries, accoun
           ].join("\n"),
         )
       }
-      else
+      else {
         console.debug(`metrics/compute/${login}/plugins > licenses > a .licensed.yml configuration file already exists`)
-
+      }
 
       //Spawn licensed process
       console.debug(`metrics/compute/${login}/plugins > licenses > running licensed`)
-      JSON.parse(await imports.run("licensed list --format=json --licenses", {cwd:path})).apps
-        .map(({sources}) => sources?.flatMap(source => source.dependencies?.map(({dependency, license}) => {
+      JSON.parse(await imports.run("licensed list --format=json --licenses", {cwd: path})).apps
+        .map(({sources}) =>
+          sources?.flatMap(source =>
+            source.dependencies?.map(({dependency, license}) => {
               used[license] = (used[license] ?? 0) + 1
               result.dependencies.push(dependency)
-              result.known += (license in licenses)
+              result.known += license in licenses
               result.unknown += !(license in licenses)
             })
           )
         )
       //Cleaning
       console.debug(`metrics/compute/${login}/plugins > licensed > cleaning temp dir ${path}`)
-      await imports.fs.rm(path, {recursive:true, force:true})
+      await imports.fs.rm(path, {recursive: true, force: true})
     }
-    else
+    else {
       console.debug(`metrics/compute/${login}/plugins > licenses > licensed not available`)
-
+    }
 
     //List licenses properties
     console.debug(`metrics/compute/${login}/plugins > licenses > compute licenses properties`)
-    const base = {permissions:new Set(), limitations:new Set(), conditions:new Set()}
-    const combined = {permissions:new Set(), limitations:new Set(), conditions:new Set()}
+    const base = {permissions: new Set(), limitations: new Set(), conditions: new Set()}
+    const combined = {permissions: new Set(), limitations: new Set(), conditions: new Set()}
     const detected = Object.entries(used).map(([key, _value]) => ({key}))
     for (const properties of Object.keys(base)) {
       //Base license
@@ -89,15 +91,15 @@ export default async function({login, q, imports, data, graphql, queries, accoun
 
     //Merge limitations and conditions
     for (const properties of ["limitations", "conditions"])
-      result[properties] = [[...base[properties]].map(key => ({key, text:text[key], inherited:false})), [...combined[properties]].filter(key => !base[properties].has(key)).map(key => ({key, text:text[key], inherited:true}))].flat()
+      result[properties] = [[...base[properties]].map(key => ({key, text: text[key], inherited: false})), [...combined[properties]].filter(key => !base[properties].has(key)).map(key => ({key, text: text[key], inherited: true}))].flat()
     //Remove base permissions conflicting with inherited limitations
-    result.permissions = [...base.permissions].filter(key => !combined.limitations.has(key)).map(key => ({key, text:text[key]}))
+    result.permissions = [...base.permissions].filter(key => !combined.limitations.has(key)).map(key => ({key, text: text[key]}))
 
     //Count used licenses
     console.debug(`metrics/compute/${login}/plugins > licenses > computing ratio`)
     const total = Object.values(used).reduce((a, b) => a + b, 0)
     //Format used licenses and compute positions
-    const list = Object.entries(used).map(([key, count]) => ({name:licenses[key]?.spdxId ?? `${key.charAt(0).toLocaleUpperCase()}${key.substring(1)}`, key, count, value:count / total, x:0, color:licenses[key]?.color ?? "#6e7681", order:licenses[key]?.order ?? -1})).sort((
+    const list = Object.entries(used).map(([key, count]) => ({name: licenses[key]?.spdxId ?? `${key.charAt(0).toLocaleUpperCase()}${key.substring(1)}`, key, count, value: count / total, x: 0, color: licenses[key]?.color ?? "#6e7681", order: licenses[key]?.order ?? -1})).sort((
       a,
       b,
     ) => a.order === b.order ? b.count - a.count : b.order - a.order)
@@ -111,7 +113,7 @@ export default async function({login, q, imports, data, graphql, queries, accoun
   }
   //Handle errors
   catch (error) {
-    throw {error:{message:"An error occured", instance:error}}
+    throw {error: {message: "An error occured", instance: error}}
   }
 }
 

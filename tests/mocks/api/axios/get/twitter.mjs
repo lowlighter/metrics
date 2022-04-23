@@ -1,5 +1,5 @@
 /**Mocked data */
-export default function({ faker, url, options, login = faker.internet.userName() }) {
+export default function({faker, url, options, login = faker.internet.userName()}) {
   //Twitter api
   if (/^https:..api.twitter.com.*$/.test(url)) {
     //Get user profile
@@ -31,7 +31,7 @@ export default function({ faker, url, options, login = faker.internet.userName()
               created_at: `${faker.date.recent()}`,
               entities: {
                 mentions: [
-                  { start: 22, end: 33, username: "lowlighter" },
+                  {start: 22, end: 33, username: "lowlighter"},
                 ],
               },
               text: "Checkout metrics from @lowlighter ! #GitHub",

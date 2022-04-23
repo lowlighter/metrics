@@ -13,7 +13,7 @@ try {
   fss.accessSync(__presets)
 }
 catch {
-  let { HEAD_REF: branch, REPO: repo } = process.env
+  let {HEAD_REF: branch, REPO: repo} = process.env
   branch = branch || "presets"
   repo = repo || "lowlighter/metrics"
   if (!/^[/-\w\d]+$/.test(branch))
@@ -38,10 +38,10 @@ for (const path of fss.readdirSync(__presets)) {
       test("syntax is valid", () => expect(true).toBe(true))
       try {
         //Load schema
-        const { properties } = yaml.load(fss.readFileSync(paths.join(__presets, "@schema", `${preset.schema}.yml`)))
+        const {properties} = yaml.load(fss.readFileSync(paths.join(__presets, "@schema", `${preset.schema}.yml`)))
         test("schema is valid", () => expect(preset.schema).toBeDefined())
         //Test schema
-        for (const [key, { type, required }] of Object.entries(properties)) {
+        for (const [key, {type, required}] of Object.entries(properties)) {
           if (required)
             test(`preset.${key} is defined`, () => expect(preset[key]).toBeDefined())
           test(`preset.${key} type is ${type}`, () => {

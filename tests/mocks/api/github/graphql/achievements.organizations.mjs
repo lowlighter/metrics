@@ -1,5 +1,5 @@
 /**Mocked data */
-export default function({ faker, query, login = faker.internet.userName() }) {
+export default function({faker, query, login = faker.internet.userName()}) {
   console.debug("metrics/compute/mocks > mocking graphql api result > achievements/organizations")
   return ({
     organization: {
@@ -22,12 +22,12 @@ export default function({ faker, query, login = faker.internet.userName() }) {
         totalCount: faker.datatype.number(100),
       },
       popular: {
-        nodes: [{ stargazers: { totalCount: faker.datatype.number(50000) } }],
+        nodes: [{stargazers: {totalCount: faker.datatype.number(50000)}}],
       },
-      projects: { totalCount: faker.datatype.number(100) },
-      packages: { totalCount: faker.datatype.number(100) },
-      membersWithRole: { totalCount: faker.datatype.number(100) },
-      sponsorshipsAsSponsor: { totalCount: faker.datatype.number(100) },
+      projects: {totalCount: faker.datatype.number(100)},
+      packages: {totalCount: faker.datatype.number(100)},
+      membersWithRole: {totalCount: faker.datatype.number(100)},
+      sponsorshipsAsSponsor: {totalCount: faker.datatype.number(100)},
     },
   })
 }

@@ -27,15 +27,15 @@ export default async function({log = true, sandbox = false, community = {}} = {}
   const logger = log ? console.debug : () => null
   logger("metrics/setup > setup")
   const conf = {
-    authenticated:null,
-    templates:{},
-    queries:{},
-    settings:{port:3000},
-    metadata:{},
-    paths:{
-      statics:__statics,
-      templates:__templates,
-      node_modules:__modules,
+    authenticated: null,
+    templates: {},
+    queries: {},
+    settings: {port: 3000},
+    metadata: {},
+    paths: {
+      statics: __statics,
+      templates: __templates,
+      node_modules: __modules,
     },
   }
 
@@ -64,13 +64,13 @@ export default async function({log = true, sandbox = false, community = {}} = {}
   }
 
   if (!conf.settings.templates)
-    conf.settings.templates = {default:"classic", enabled:[]}
+    conf.settings.templates = {default: "classic", enabled: []}
   if (!conf.settings.plugins)
     conf.settings.plugins = {}
   conf.settings.community = {...conf.settings.community, ...community}
-  conf.settings.plugins.base = {parts:["header", "activity", "community", "repositories", "metadata"]}
+  conf.settings.plugins.base = {parts: ["header", "activity", "community", "repositories", "metadata"]}
   if (conf.settings.debug)
-    logger(util.inspect(conf.settings, {depth:Infinity, maxStringLength:256}))
+    logger(util.inspect(conf.settings, {depth: Infinity, maxStringLength: 256}))
 
   //Load package settings
   logger("metrics/setup > load package.json")
@@ -85,7 +85,7 @@ export default async function({log = true, sandbox = false, community = {}} = {}
   if ((Array.isArray(conf.settings.community.templates)) && (conf.settings.community.templates.length)) {
     //Clean remote repository
     logger(`metrics/setup > ${conf.settings.community.templates.length} community templates to install`)
-    await fs.promises.rm(path.join(__templates, ".community"), {recursive:true, force:true})
+    await fs.promises.rm(path.join(__templates, ".community"), {recursive: true, force: true})
     //Download community templates
     for (const template of conf.settings.community.templates) {
       try {
@@ -95,10 +95,10 @@ export default async function({log = true, sandbox = false, community = {}} = {}
         const command = `git clone --single-branch --branch ${branch} https://github.com/${repo}.git ${path.join(__templates, ".community")}`
         logger(`metrics/setup > run ${command}`)
         //Clone remote repository
-        processes.execSync(command, {stdio:"ignore"})
+        processes.execSync(command, {stdio: "ignore"})
         //Extract template
         logger(`metrics/setup > extract ${name} from ${repo}@${branch}`)
-        await fs.promises.rm(path.join(__templates, `@${name}`), {recursive:true, force:true})
+        await fs.promises.rm(path.join(__templates, `@${name}`), {recursive: true, force: true})
         await fs.promises.rename(path.join(__templates, ".community/source/templates", name), path.join(__templates, `@${name}`))
         //JavaScript file
         if (trust)
@@ -113,18 +113,18 @@ export default async function({log = true, sandbox = false, community = {}} = {}
               logger(`metrics/setup > @${name} extended from ${inherit}`)
               await fs.promises.copyFile(path.join(__templates, inherit, "template.mjs"), path.join(__templates, `@${name}`, "template.mjs"))
             }
-            else
+            else {
               logger(`metrics/setup > @${name} could not extends ${inherit} as it does not exist`)
-
+            }
           }
         }
-        else
+        else {
           logger(`metrics/setup > @${name}/template.mjs does not exist`)
-
+        }
 
         //Clean remote repository
         logger(`metrics/setup > clean ${repo}@${branch}`)
-        await fs.promises.rm(path.join(__templates, ".community"), {recursive:true, force:true})
+        await fs.promises.rm(path.join(__templates, ".community"), {recursive: true, force: true})
         logger(`metrics/setup > loaded community template ${name}`)
       }
       catch (error) {
@@ -133,9 +133,9 @@ export default async function({log = true, sandbox = false, community = {}} = {}
       }
     }
   }
-  else
+  else {
     logger("metrics/setup > no community templates to install")
-
+  }
 
   //Load templates
   for (const name of await fs.promises.readdir(__templates)) {
@@ -145,10 +145,10 @@ export default async function({log = true, sandbox = false, community = {}} = {}
       continue
     logger(`metrics/setup > load template [${name}]`)
     //Cache templates files
-    const files = ["image.svg", "style.css", "fonts.css"].map(file => path.join(__templates, (fs.existsSync(path.join(directory, file)) ? name : "classic"), file))
+    const files = ["image.svg", "style.css", "fonts.css"].map(file => path.join(__templates, fs.existsSync(path.join(directory, file)) ? name : "classic", file))
     const [image, style, fonts] = await Promise.all(files.map(async file => `${await fs.promises.readFile(file)}`))
     const partials = JSON.parse(`${await fs.promises.readFile(path.join(directory, "partials/_.json"))}`)
-    conf.templates[name] = {image, style, fonts, partials, views:[directory]}
+    conf.templates[name] = {image, style, fonts, partials, views: [directory]}
 
     //Cache templates scripts
     Templates[name] = await (async () => {
@@ -165,7 +165,7 @@ export default async function({log = true, sandbox = false, community = {}} = {}
           const [image, style, fonts] = files.map(file => `${fs.readFileSync(file)}`)
           const partials = JSON.parse(`${fs.readFileSync(path.join(directory, "partials/_.json"))}`)
           logger(`metrics/setup > reload template [${name}] > success`)
-          return {image, style, fonts, partials, views:[directory]}
+          return {image, style, fonts, partials, views: [directory]}
         },
       })
     }
@@ -177,7 +177,7 @@ export default async function({log = true, sandbox = false, community = {}} = {}
       case "community": {
         const ___plugins = path.join(__plugins, "community")
         for (const name of await fs.promises.readdir(___plugins))
-          await load.plugin(name, {__plugins:___plugins, Plugins, conf, logger})
+          await load.plugin(name, {__plugins: ___plugins, Plugins, conf, logger})
         continue
       }
       default:
@@ -191,7 +191,7 @@ export default async function({log = true, sandbox = false, community = {}} = {}
   //Store authenticated user
   if (conf.settings.token) {
     try {
-      conf.authenticated = (await (new OctokitRest.Octokit({auth:conf.settings.token})).users.getAuthenticated()).data.login
+      conf.authenticated = (await (new OctokitRest.Octokit({auth: conf.settings.token})).users.getAuthenticated()).data.login
       logger(`metrics/setup > setup > authenticated as ${conf.authenticated}`)
     }
     catch (error) {
@@ -251,7 +251,8 @@ const load = {
         }
       }
       //Create queries formatters
-      Object.keys(queries).map(query => queries[query.substring(1)] = (vars = {}) => {
+      Object.keys(queries).map(query =>
+        queries[query.substring(1)] = (vars = {}) => {
           let queried = queries[query]
           for (const [key, value] of Object.entries(vars))
             queried = queried.replace(new RegExp(`[$]${key}`, "g"), value)

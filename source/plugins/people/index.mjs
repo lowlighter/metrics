@@ -8,20 +8,20 @@ export default async function({login, data, graphql, rest, q, queries, imports, 
 
     //Context
     let context = {
-      mode:"user",
-      types:account === "organization" ? ["sponsorshipsAsMaintainer", "sponsorshipsAsSponsor", "membersWithRole", "thanks"] : ["followers", "following", "sponsorshipsAsMaintainer", "sponsorshipsAsSponsor", "thanks"],
-      default:"followers, following",
-      alias:{followed:"following", sponsors:"sponsorshipsAsMaintainer", sponsored:"sponsorshipsAsSponsor", sponsoring:"sponsorshipsAsSponsor", members:"membersWithRole"},
-      sponsorships:{sponsorshipsAsMaintainer:"sponsorEntity", sponsorshipsAsSponsor:"sponsorable"},
+      mode: "user",
+      types: account === "organization" ? ["sponsorshipsAsMaintainer", "sponsorshipsAsSponsor", "membersWithRole", "thanks"] : ["followers", "following", "sponsorshipsAsMaintainer", "sponsorshipsAsSponsor", "thanks"],
+      default: "followers, following",
+      alias: {followed: "following", sponsors: "sponsorshipsAsMaintainer", sponsored: "sponsorshipsAsSponsor", sponsoring: "sponsorshipsAsSponsor", members: "membersWithRole"},
+      sponsorships: {sponsorshipsAsMaintainer: "sponsorEntity", sponsorshipsAsSponsor: "sponsorable"},
     }
     if (q.repo) {
       console.debug(`metrics/compute/${login}/plugins > people > switched to repository mode`)
-      const {owner, repo} = data.user.repositories.nodes.map(({name:repo, owner:{login:owner}}) => ({repo, owner})).shift()
-      context = {...context, mode:"repository", types:["contributors", "stargazers", "watchers", "sponsorshipsAsMaintainer", "thanks"], default:"stargazers, watchers", owner, repo}
+      const {owner, repo} = data.user.repositories.nodes.map(({name: repo, owner: {login: owner}}) => ({repo, owner})).shift()
+      context = {...context, mode: "repository", types: ["contributors", "stargazers", "watchers", "sponsorshipsAsMaintainer", "thanks"], default: "stargazers, watchers", owner, repo}
     }
 
     //Load inputs
-    let {limit, types, size, identicons, "identicons.hide":_identicons_hide, thanks, shuffle, "sponsors.custom":_sponsors} = imports.metadata.plugins.people.inputs({data, account, q}, {types:context.default})
+    let {limit, types, size, identicons, "identicons.hide": _identicons_hide, thanks, shuffle, "sponsors.custom": _sponsors} = imports.metadata.plugins.people.inputs({data, account, q}, {types: context.default})
     //Filter types
     types = [...new Set([...types].map(type => (context.alias[type] ?? type)).filter(type => context.types.includes(type)) ?? [])]
     if ((types.includes("sponsorshipsAsMaintainer")) && (_sponsors?.length)) {
@@ -38,13 +38,13 @@ export default async function({login, data, graphql, rest, q, queries, imports, 
       //Rest
       if (type === "contributors") {
         const {owner, repo} = context
-        const {data:nodes} = await rest.repos.listContributors({owner, repo})
-        result[type].push(...nodes.map(({login, avatar_url}) => ({login, avatarUrl:avatar_url})))
+        const {data: nodes} = await rest.repos.listContributors({owner, repo})
+        result[type].push(...nodes.map(({login, avatar_url}) => ({login, avatarUrl: avatar_url})))
       }
       else if ((type === "thanks") || (type === "sponsorshipsCustom")) {
-        const users = {thanks, sponsorshipsCustom:_sponsors}[type] ?? []
+        const users = {thanks, sponsorshipsCustom: _sponsors}[type] ?? []
         const nodes = await Promise.all(users.map(async username => (await rest.users.getByUsername({username})).data))
-        result[{sponsorshipsCustom:"sponsorshipsAsMaintainer"}[type] ?? type].push(...nodes.map(({login, avatar_url}) => ({login, avatarUrl:avatar_url})))
+        result[{sponsorshipsCustom: "sponsorshipsAsMaintainer"}[type] ?? type].push(...nodes.map(({login, avatar_url}) => ({login, avatarUrl: avatar_url})))
       }
       //GraphQL
       else {
@@ -52,12 +52,12 @@ export default async function({login, data, graphql, rest, q, queries, imports, 
         let pushed = 0
         do {
           console.debug(`metrics/compute/${login}/plugins > people > retrieving ${type} after ${cursor}`)
-          const {[type]:{edges}} = (
+          const {[type]: {edges}} = (
             type in context.sponsorships
-              ? (await graphql(queries.people.sponsors({login:context.owner ?? login, type, size, after:cursor ? `after: "${cursor}"` : "", target:context.sponsorships[type], account})))[account]
+              ? (await graphql(queries.people.sponsors({login: context.owner ?? login, type, size, after: cursor ? `after: "${cursor}"` : "", target: context.sponsorships[type], account})))[account]
               : context.mode === "repository"
-              ? (await graphql(queries.people.repository({login:context.owner, repository:context.repo, type, size, after:cursor ? `after: "${cursor}"` : "", account})))[account].repository
-              : (await graphql(queries.people({login, type, size, after:cursor ? `after: "${cursor}"` : "", account})))[account]
+              ? (await graphql(queries.people.repository({login: context.owner, repository: context.repo, type, size, after: cursor ? `after: "${cursor}"` : "", account})))[account].repository
+              : (await graphql(queries.people({login, type, size, after: cursor ? `after: "${cursor}"` : "", account})))[account]
           )
           cursor = edges?.[edges?.length - 1]?.cursor
           result[type].push(...edges.map(({node}) => node[context.sponsorships[type]] ?? node))
@@ -102,6 +102,6 @@ export default async function({login, data, graphql, rest, q, queries, imports, 
   }
   //Handle errors
   catch (error) {
-    throw {error:{message:"An error occured", instance:error}}
+    throw {error: {message: "An error occured", instance: error}}
   }
 }

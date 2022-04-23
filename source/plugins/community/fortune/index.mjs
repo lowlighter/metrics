@@ -11,19 +11,19 @@ export default async function({q, data, imports, account}, {enabled = false} = {
 
     //Fortunes list
     const fortunes = [
-      {chance:.06, color:"#F51C6A", text:"Reply hazy"},
-      {chance:.03, color:"#FD4D32", text:"Excellent Luck"},
-      {chance:.16, color:"#E7890C", text:"Good Luck"},
-      {chance:.24, color:"#BAC200", text:"Average Luck"},
-      {chance:.16, color:"#7FEC11", text:"Bad Luck"},
-      {chance:.06, color:"#43FD3B", text:"Good news will come to you by mail"},
-      {chance:.06, color:"#16F174", text:"（　´_ゝ`）ﾌｰﾝ "},
-      {chance:.06, color:"#00CBB0", text:"ｷﾀ━━━━━━(ﾟ∀ﾟ)━━━━━━ !!!!"},
-      {chance:.06, color:"#0893E1", text:"You will meet a dark handsome stranger"},
-      {chance:.06, color:"#2A56FB", text:"Better not tell you now"},
-      {chance:.06, color:"#6023F8", text:"Outlook good"},
-      {chance:.04, color:"#9D05DA", text:"Very Bad Luck"},
-      {chance:.01, color:"#D302A7", text:"Godly Luck"},
+      {chance: .06, color: "#F51C6A", text: "Reply hazy"},
+      {chance: .03, color: "#FD4D32", text: "Excellent Luck"},
+      {chance: .16, color: "#E7890C", text: "Good Luck"},
+      {chance: .24, color: "#BAC200", text: "Average Luck"},
+      {chance: .16, color: "#7FEC11", text: "Bad Luck"},
+      {chance: .06, color: "#43FD3B", text: "Good news will come to you by mail"},
+      {chance: .06, color: "#16F174", text: "（　´_ゝ`）ﾌｰﾝ "},
+      {chance: .06, color: "#00CBB0", text: "ｷﾀ━━━━━━(ﾟ∀ﾟ)━━━━━━ !!!!"},
+      {chance: .06, color: "#0893E1", text: "You will meet a dark handsome stranger"},
+      {chance: .06, color: "#2A56FB", text: "Better not tell you now"},
+      {chance: .06, color: "#6023F8", text: "Outlook good"},
+      {chance: .04, color: "#9D05DA", text: "Very Bad Luck"},
+      {chance: .01, color: "#D302A7", text: "Godly Luck"},
     ]
 
     //Result
@@ -40,6 +40,6 @@ export default async function({q, data, imports, account}, {enabled = false} = {
   }
   //Handle errors
   catch (error) {
-    throw {error:{message:"An error occured", instance:error}}
+    throw {error: {message: "An error occured", instance: error}}
   }
 }

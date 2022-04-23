@@ -4,19 +4,19 @@ export default async function({login, q}, {data, rest, graphql, queries, account
   const {repo} = q
   if (!repo) {
     console.debug(`metrics/compute/${login}/${repo} > error, repo was undefined`)
-    data.errors.push({error:{message:'You must pass a "repo" argument to use this template'}})
+    data.errors.push({error: {message: 'You must pass a "repo" argument to use this template'}})
     return imports.plugins.core(...arguments)
   }
   console.debug(`metrics/compute/${login}/${repo} > switching to mode ${account}`)
 
   //Retrieving single repository
   console.debug(`metrics/compute/${login}/${repo} > retrieving single repository ${repo}`)
-  const {[account === "bypass" ? "user" : account]:{repository}} = await graphql(queries.base.repository({login, repo, account}))
+  const {[account === "bypass" ? "user" : account]: {repository}} = await graphql(queries.base.repository({login, repo, account}))
   data.user.repositories.nodes = [repository]
   data.repo = repository
 
   //Contributors and sponsors
-  data.repo.contributors = {totalCount:(await rest.repos.listContributors({owner:data.repo.owner.login, repo})).data.length}
+  data.repo.contributors = {totalCount: (await rest.repos.listContributors({owner: data.repo.owner.login, repo})).data.length}
   data.repo.sponsorshipsAsMaintainer = data.user.sponsorshipsAsMaintainer
 
   //Get commit activity
@@ -25,7 +25,7 @@ export default async function({login, q}, {data, rest, graphql, queries, account
   for (let page = 1; page < 100; page++) {
     console.debug(`metrics/compute/${login}/${repo} > loading page ${page}`)
     try {
-      const {data} = await rest.repos.listCommits({owner:login, repo, per_page:100, page})
+      const {data} = await rest.repos.listCommits({owner: login, repo, per_page: 100, page})
       if (!data.length) {
         console.debug(`metrics/compute/${login}/${repo} > no more page to load`)
         break
@@ -58,16 +58,16 @@ export default async function({login, q}, {data, rest, graphql, queries, account
   calendar.splice(days)
   const max = Math.max(...calendar)
   //Override contributions calendar
-  data.user.calendar.contributionCalendar.weeks = calendar.map(commit => ({contributionDays:{color:commit ? `var(--color-calendar-graph-day-L${Math.ceil(commit / max / 0.25)}-bg)` : "var(--color-calendar-graph-day-bg)"}}))
+  data.user.calendar.contributionCalendar.weeks = calendar.map(commit => ({contributionDays: {color: commit ? `var(--color-calendar-graph-day-L${Math.ceil(commit / max / 0.25)}-bg)` : "var(--color-calendar-graph-day-bg)"}}))
 
   //Override plugins parameters
   q["projects.limit"] = 0
 
   //Fetching users count if it's an action
   try {
-    if (await rest.repos.getContent({owner:login, repo, path:"action.yml"})) {
+    if (await rest.repos.getContent({owner: login, repo, path: "action.yml"})) {
       console.debug(`metrics/compute/${login}/${repo} > this repository seems to be a GitHub action, fetching users using code search`)
-      const {data:{total_count}} = await rest.search.code({q:`uses ${login} ${repo} path:.github/workflows language:YAML`})
+      const {data: {total_count}} = await rest.search.code({q: `uses ${login} ${repo} path:.github/workflows language:YAML`})
       data.repo.actionUsersCount = total_count
     }
   }

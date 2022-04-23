@@ -1,5 +1,5 @@
 /**Mocked data */
-export default function({ faker, url, options, login = faker.internet.userName() }) {
+export default function({faker, url, options, login = faker.internet.userName()}) {
   //Wakatime api
   if (/^https:..wakatime.com.api.v1.users..*.stats.*$/.test(url)) {
     //Get user profile
@@ -17,7 +17,7 @@ export default function({ faker, url, options, login = faker.internet.userName()
           percent: 0,
           total_seconds: faker.datatype.number(1000000),
         }))
-        results = results.filter(({ name }) => elements.includes(name) ? false : (elements.push(name), true))
+        results = results.filter(({name}) => elements.includes(name) ? false : (elements.push(name), true))
         let percents = 100
         for (const result of results) {
           result.percent = 1 + faker.datatype.number(percents - 1)

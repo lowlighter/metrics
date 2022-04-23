@@ -11,7 +11,7 @@ export default async function({login, data, graphql, q, queries, imports, accoun
 
     //Retrieve user stars from graphql api
     console.debug(`metrics/compute/${login}/plugins > stars > querying api`)
-    const {user:{starredRepositories:{edges:repositories}}} = await graphql(queries.stars({login, limit}))
+    const {user: {starredRepositories: {edges: repositories}}} = await graphql(queries.stars({login, limit}))
 
     //Format starred repositories
     for (const edge of repositories) {
@@ -32,6 +32,6 @@ export default async function({login, data, graphql, q, queries, imports, accoun
   catch (error) {
     if (error.error?.message)
       throw error
-    throw {error:{message:"An error occured", instance:error}}
+    throw {error: {message: "An error occured", instance: error}}
   }
 }

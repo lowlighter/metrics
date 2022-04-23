@@ -1,5 +1,5 @@
 /**Mocked data */
-export default function({ faker, url, options, login = faker.internet.userName() }) {
+export default function({faker, url, options, login = faker.internet.userName()}) {
   //Tested url
   const tested = url.match(/&url=(?<tested>.*?)(?:&|$)/)?.groups?.tested ?? faker.internet.url()
   //Pagespeed api
@@ -43,12 +43,12 @@ export default function({ faker, url, options, login = faker.internet.userName()
                       maxPotentialFID: faker.datatype.number(500),
                       observedLoad: faker.datatype.number(500),
                       firstMeaningfulPaint: faker.datatype.number(500),
-                      observedCumulativeLayoutShift: faker.datatype.float({ max: 1 }),
+                      observedCumulativeLayoutShift: faker.datatype.float({max: 1}),
                       observedSpeedIndex: faker.datatype.number(1000),
                       observedSpeedIndexTs: faker.time.recent(),
                       observedTimeOriginTs: faker.time.recent(),
                       observedLargestContentfulPaint: faker.datatype.number(1000),
-                      cumulativeLayoutShift: faker.datatype.float({ max: 1 }),
+                      cumulativeLayoutShift: faker.datatype.float({max: 1}),
                       observedFirstPaintTs: faker.time.recent(),
                       observedTraceEndTs: faker.time.recent(),
                       largestContentfulPaint: faker.datatype.number(2000),
@@ -78,22 +78,22 @@ export default function({ faker, url, options, login = faker.internet.userName()
               "best-practices": {
                 id: "best-practices",
                 title: "Best Practices",
-                score: faker.datatype.float({ max: 1 }),
+                score: faker.datatype.float({max: 1}),
               },
               seo: {
                 id: "seo",
                 title: "SEO",
-                score: faker.datatype.float({ max: 1 }),
+                score: faker.datatype.float({max: 1}),
               },
               accessibility: {
                 id: "accessibility",
                 title: "Accessibility",
-                score: faker.datatype.float({ max: 1 }),
+                score: faker.datatype.float({max: 1}),
               },
               performance: {
                 id: "performance",
                 title: "Performance",
-                score: faker.datatype.float({ max: 1 }),
+                score: faker.datatype.float({max: 1}),
               },
             },
           },

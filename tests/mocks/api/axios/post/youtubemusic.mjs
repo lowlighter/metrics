@@ -1,5 +1,5 @@
 /**Mocked data */
-export default function({ faker, url, options, login = faker.internet.userName() }) {
+export default function({faker, url, options, login = faker.internet.userName()}) {
   if (/^https:..music.youtube.com.youtubei.v1.*$/.test(url)) {
     //Get recently played tracks
     if (/browse/.test(url)) {

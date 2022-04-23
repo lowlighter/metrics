@@ -12,7 +12,7 @@ export default async function({login, data, computed, imports, q, graphql, queri
     //Define getters
     const followup = {
       sections,
-      issues:{
+      issues: {
         get count() {
           return this.open + this.closed + this.drafts + this.skipped
         },
@@ -22,16 +22,16 @@ export default async function({login, data, computed, imports, q, graphql, queri
         get closed() {
           return computed.repositories.issues_closed
         },
-        drafts:0,
-        skipped:0,
-        collaborators:{
-          open:0,
-          closed:0,
-          drafts:0,
-          skipped:0,
+        drafts: 0,
+        skipped: 0,
+        collaborators: {
+          open: 0,
+          closed: 0,
+          drafts: 0,
+          skipped: 0,
         },
       },
-      pr:{
+      pr: {
         get count() {
           return this.open + this.closed + this.merged + this.drafts
         },
@@ -44,12 +44,12 @@ export default async function({login, data, computed, imports, q, graphql, queri
         get merged() {
           return computed.repositories.pr_merged
         },
-        drafts:0,
-        collaborators:{
-          open:0,
-          closed:0,
-          merged:0,
-          drafts:0,
+        drafts: 0,
+        collaborators: {
+          open: 0,
+          closed: 0,
+          merged: 0,
+          drafts: 0,
         },
       },
     }
@@ -59,15 +59,15 @@ export default async function({login, data, computed, imports, q, graphql, queri
       //Indepth mode
       if (indepth) {
         console.debug(`metrics/compute/${login}/plugins > followup > indepth`)
-        followup.indepth = {repositories:{}}
+        followup.indepth = {repositories: {}}
 
         //Process repositories
-        for (const {name:repo, owner:{login:owner}} of data.user.repositories.nodes) {
+        for (const {name: repo, owner: {login: owner}} of data.user.repositories.nodes) {
           try {
             console.debug(`metrics/compute/${login}/plugins > followup > processing ${owner}/${repo}`)
-            followup.indepth.repositories[`${owner}/${repo}`] = {stats:{}}
+            followup.indepth.repositories[`${owner}/${repo}`] = {stats: {}}
             //Fetch users with push access
-            let {repository:{collaborators:{nodes:collaborators}}} = await graphql(queries.followup["repository.collaborators"]({repo, owner})).catch(() => ({repository:{collaborators:{nodes:[{login:owner}]}}}))
+            let {repository: {collaborators: {nodes: collaborators}}} = await graphql(queries.followup["repository.collaborators"]({repo, owner})).catch(() => ({repository: {collaborators: {nodes: [{login: owner}]}}}))
             console.debug(`metrics/compute/${login}/plugins > followup > found ${collaborators.length} collaborators`)
             followup.indepth.repositories[`${owner}/${repo}`].collaborators = collaborators.map(({login}) => login)
             //Fetch issues and pull requests created by collaborators
@@ -75,7 +75,7 @@ export default async function({login, data, computed, imports, q, graphql, queri
             const stats = await graphql(queries.followup.repository({repo, owner, collaborators}))
             followup.indepth.repositories[`${owner}/${repo}`] = stats
             //Aggregate global stats
-            for (const [key, {issueCount:count}] of Object.entries(stats)) {
+            for (const [key, {issueCount: count}] of Object.entries(stats)) {
               const [section, type] = key.split("_")
               followup[section].collaborators[type] += count
             }
@@ -92,23 +92,23 @@ export default async function({login, data, computed, imports, q, graphql, queri
     if ((account === "user") && (sections.includes("user"))) {
       const search = await graphql(queries.followup.user({login}))
       followup.user = {
-        issues:{
+        issues: {
           get count() {
             return this.open + this.closed + this.drafts + this.skipped
           },
-          open:search.issues_open.issueCount,
-          closed:search.issues_closed.issueCount,
-          drafts:search.issues_drafts.issueCount,
-          skipped:search.issues_skipped.issueCount,
+          open: search.issues_open.issueCount,
+          closed: search.issues_closed.issueCount,
+          drafts: search.issues_drafts.issueCount,
+          skipped: search.issues_skipped.issueCount,
         },
-        pr:{
+        pr: {
           get count() {
             return this.open + this.closed + this.merged + this.drafts
           },
-          open:search.pr_open.issueCount,
-          closed:search.pr_closed.issueCount,
-          merged:search.pr_merged.issueCount,
-          drafts:search.pr_drafts.issueCount,
+          open: search.pr_open.issueCount,
+          closed: search.pr_closed.issueCount,
+          merged: search.pr_merged.issueCount,
+          drafts: search.pr_drafts.issueCount,
         },
       }
     }
@@ -118,6 +118,6 @@ export default async function({login, data, computed, imports, q, graphql, queri
   }
   //Handle errors
   catch (error) {
-    throw {error:{message:"An error occured", instance:error}}
+    throw {error: {message: "An error occured", instance: error}}
   }
 }

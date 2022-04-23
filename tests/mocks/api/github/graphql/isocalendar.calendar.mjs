@@ -1,5 +1,5 @@
 /**Mocked data */
-export default function({ faker, query, login = faker.internet.userName() }) {
+export default function({faker, query, login = faker.internet.userName()}) {
   console.debug("metrics/compute/mocks > mocking graphql api result > isocalendar/calendar")
   //Generate calendar
   const date = new Date(query.match(/from: "(?<date>\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z)"/)?.groups?.date)
@@ -9,7 +9,7 @@ export default function({ faker, query, login = faker.internet.userName() }) {
   for (; date <= to; date.setDate(date.getDate() + 1)) {
     //Create new week on sunday
     if (date.getDay() === 0) {
-      weeks.push({ contributionDays })
+      weeks.push({contributionDays})
       contributionDays = []
     }
     //Random contributions

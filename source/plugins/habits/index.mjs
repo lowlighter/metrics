@@ -1,5 +1,5 @@
 //Legacy import
-import {recent as recent_analyzer} from "./../languages/analyzers.mjs"
+import { recent as recent_analyzer } from "./../languages/analyzers.mjs"
 
 //Setup
 export default async function({login, data, rest, imports, q, account}, {enabled = false, extras = false, ...defaults} = {}) {
@@ -10,10 +10,10 @@ export default async function({login, data, rest, imports, q, account}, {enabled
       return null
 
     //Load inputs
-    let {from, days, facts, charts, "charts.type":_charts, trim} = imports.metadata.plugins.habits.inputs({data, account, q}, defaults)
+    let {from, days, facts, charts, "charts.type": _charts, trim} = imports.metadata.plugins.habits.inputs({data, account, q}, defaults)
 
     //Initialization
-    const habits = {facts, charts, trim, lines:{average:{chars:0}}, commits:{fetched:0, hour:NaN, hours:{}, day:NaN, days:{}}, indents:{style:"", spaces:0, tabs:0}, linguist:{available:false, ordered:[], languages:{}}}
+    const habits = {facts, charts, trim, lines: {average: {chars: 0}}, commits: {fetched: 0, hour: NaN, hours: {}, day: NaN, days: {}}, indents: {style: "", spaces: 0, tabs: 0}, linguist: {available: false, ordered: [], languages: {}}}
     const pages = Math.ceil(from / 100)
     const offset = data.config.timezone?.offset ?? 0
 
@@ -23,7 +23,7 @@ export default async function({login, data, rest, imports, q, account}, {enabled
     try {
       for (let page = 1; page <= pages; page++) {
         console.debug(`metrics/compute/${login}/plugins > habits > loading page ${page}`)
-        events.push(...(await rest.activity.listEventsForAuthenticatedUser({username:login, per_page:100, page})).data)
+        events.push(...(await rest.activity.listEventsForAuthenticatedUser({username: login, per_page: 100, page})).data)
       }
     }
     catch {
@@ -51,8 +51,8 @@ export default async function({login, data, rest, imports, q, account}, {enabled
     ]
       .filter(({status}) => status === "fulfilled")
       .map(({value}) => value)
-      .flatMap(files => files.map(file => ({name:imports.paths.basename(file.filename), patch:file.patch ?? ""})))
-      .map(({name, patch}) => ({name, patch:patch.split("\n").filter(line => /^[+]/.test(line)).map(line => line.substring(1)).join("\n")}))
+      .flatMap(files => files.map(file => ({name: imports.paths.basename(file.filename), patch: file.patch ?? ""})))
+      .map(({name, patch}) => ({name, patch: patch.split("\n").filter(line => /^[+]/.test(line)).map(line => line.substring(1)).join("\n")}))
 
     //Commit day
     {
@@ -103,41 +103,41 @@ export default async function({login, data, rest, imports, q, account}, {enabled
       if (patches.length) {
         //Call language analyzer (note: using content from other plugin is usually disallowed, this is mostly for legacy purposes)
         habits.linguist.available = true
-        const {total, stats} = await recent_analyzer({login, data, imports, rest, account}, {days, load:from || 1000, tempdir:"habits"})
+        const {total, stats} = await recent_analyzer({login, data, imports, rest, account}, {days, load: from || 1000, tempdir: "habits"})
         habits.linguist.languages = Object.fromEntries(Object.entries(stats).map(([language, value]) => [language, value / total]))
         habits.linguist.ordered = Object.entries(habits.linguist.languages).sort(([_an, a], [_bn, b]) => b - a)
       }
-      else
+      else {
         console.debug(`metrics/compute/${login}/plugins > habits > linguist not available`)
-
+      }
     }
 
     //Generating charts with chartist
     if (_charts === "chartist") {
       console.debug(`metrics/compute/${login}/plugins > habits > generating charts`)
       habits.charts = await Promise.all([
-        {type:"line", data:{...empty(24), ...Object.fromEntries(Object.entries(habits.commits.hours).filter(([k]) => !Number.isNaN(+k)))}, low:0, high:habits.commits.hours.max},
-        {type:"line", data:{...empty(7), ...Object.fromEntries(Object.entries(habits.commits.days).filter(([k]) => !Number.isNaN(+k)))}, low:0, high:habits.commits.days.max, labels:["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], half:true},
-        {type:"pie", data:habits.linguist.languages, half:true},
+        {type: "line", data: {...empty(24), ...Object.fromEntries(Object.entries(habits.commits.hours).filter(([k]) => !Number.isNaN(+k)))}, low: 0, high: habits.commits.hours.max},
+        {type: "line", data: {...empty(7), ...Object.fromEntries(Object.entries(habits.commits.days).filter(([k]) => !Number.isNaN(+k)))}, low: 0, high: habits.commits.days.max, labels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], half: true},
+        {type: "pie", data: habits.linguist.languages, half: true},
       ].map(({type, data, high, low, ref, labels = {}, half = false}) => {
         const options = {
-          width:480 * (half ? 0.45 : 1),
-          height:160,
-          fullWidth:true,
+          width: 480 * (half ? 0.45 : 1),
+          height: 160,
+          fullWidth: true,
         }
         const values = {
-          labels:Object.keys(data).map(key => labels[key] ?? key),
-          series:Object.values(data),
+          labels: Object.keys(data).map(key => labels[key] ?? key),
+          series: Object.values(data),
         }
         if (type === "line") {
           Object.assign(options, {
-            showPoint:true,
-            axisX:{showGrid:false},
-            axisY:{showLabel:false, offset:20, labelInterpolationFnc:value => imports.format(value), high, low, referenceValue:ref},
-            showArea:true,
+            showPoint: true,
+            axisX: {showGrid: false},
+            axisY: {showLabel: false, offset: 20, labelInterpolationFnc: value => imports.format(value), high, low, referenceValue: ref},
+            showArea: true,
           })
           Object.assign(values, {
-            series:[Object.values(data)],
+            series: [Object.values(data)],
           })
         }
         return imports.chartist(type, options, values)
@@ -166,7 +166,7 @@ export default async function({login, data, rest, imports, q, account}, {enabled
   catch (error) {
     if (error.error?.message)
       throw error
-    throw {error:{message:"An error occured", instance:error}}
+    throw {error: {message: "An error occured", instance: error}}
   }
 }
 

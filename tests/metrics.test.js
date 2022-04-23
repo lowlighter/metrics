@@ -10,13 +10,13 @@ const ejs = require("ejs")
 
 //Github action
 const action = yaml.load(fs.readFileSync(path.join(__dirname, "../action.yml"), "utf8"))
-action.defaults = Object.fromEntries(Object.entries(action.inputs).map(([key, { default: value }]) => [key, value]))
+action.defaults = Object.fromEntries(Object.entries(action.inputs).map(([key, {default: value}]) => [key, value]))
 action.input = vars => Object.fromEntries([...Object.entries(action.defaults), ...Object.entries(vars)].map(([key, value]) => [`INPUT_${key.toLocaleUpperCase()}`, value]))
 action.run = async vars =>
   await new Promise((solve, reject) => {
     let [stdout, stderr] = ["", ""]
-    const env = { ...process.env, ...action.input(vars), GITHUB_REPOSITORY: "lowlighter/metrics" }
-    const child = processes.spawn("node", ["source/app/action/index.mjs"], { env })
+    const env = {...process.env, ...action.input(vars), GITHUB_REPOSITORY: "lowlighter/metrics"}
+    const child = processes.spawn("node", ["source/app/action/index.mjs"], {env})
     child.stdout.on("data", data => stdout += data)
     child.stderr.on("data", data => stderr += data)
     child.on("close", code => {
@@ -33,7 +33,7 @@ web.run = async vars => (await axios(`http://localhost:3000/lowlighter?${new url
 web.start = async () =>
   new Promise(solve => {
     let stdout = ""
-    web.instance = processes.spawn("node", ["source/app/web/index.mjs"], { env: { ...process.env, SANDBOX: true } })
+    web.instance = processes.spawn("node", ["source/app/web/index.mjs"], {env: {...process.env, SANDBOX: true}})
     web.instance.stdout.on("data", data => (stdout += data, /Server ready !/.test(stdout) ? solve() : null))
     web.instance.stderr.on("data", data => console.error(`${data}`))
   })
@@ -58,8 +58,8 @@ placeholder.run = async vars => {
   const config = Object.fromEntries(Object.entries(options).filter(([key]) => /^config[.]/.test(key)))
   const base = Object.fromEntries(Object.entries(options).filter(([key]) => /^base[.]/.test(key)))
   return typeof await placeholder({
-    templates: { selected: vars.template },
-    plugins: { enabled: { ...enabled, base }, options },
+    templates: {selected: vars.template},
+    plugins: {enabled: {...enabled, base}, options},
     config,
     version: "TEST",
     user: "lowlighter",
@@ -70,7 +70,7 @@ placeholder.run = async vars => {
 //Setup
 beforeAll(async () => {
   //Clean community template
-  await fs.promises.rm(path.join(__dirname, "../source/templates/@classic"), { recursive: true, force: true })
+  await fs.promises.rm(path.join(__dirname, "../source/templates/@classic"), {recursive: true, force: true})
   //Start web instance
   await web.start()
 })
@@ -79,7 +79,7 @@ afterAll(async () => {
   //Stop web instance
   await web.stop()
   //Clean community template
-  await fs.promises.rm(path.join(__dirname, "../source/templates/@classic"), { recursive: true, force: true })
+  await fs.promises.rm(path.join(__dirname, "../source/templates/@classic"), {recursive: true, force: true})
 })
 
 //Load metadata (as jest doesn't support ESM modules, we use this dirty hack)
@@ -98,11 +98,11 @@ for (const type of ["plugins", "templates"]) {
   for (const name in metadata[type]) {
     const cases = yaml
       .load(fs.readFileSync(path.join(__dirname, "../tests/cases", `${name}.${type.replace(/s$/, "")}.yml`), "utf8"))
-      ?.map(({ name: test, with: inputs, modes = [], timeout }) => {
-        const skip = new Set(Object.entries(metadata.templates).filter(([_, { readme: { compatibility } }]) => !compatibility[name]).map(([template]) => template))
+      ?.map(({name: test, with: inputs, modes = [], timeout}) => {
+        const skip = new Set(Object.entries(metadata.templates).filter(([_, {readme: {compatibility}}]) => !compatibility[name]).map(([template]) => template))
         if (!(metadata[type][name].supports?.includes("repository")))
           skip.add("repository")
-        return [test, inputs, { skip: [...skip], modes, timeout }]
+        return [test, inputs, {skip: [...skip], modes, timeout}]
       }) ?? []
     tests.push(...cases)
   }
@@ -113,13 +113,13 @@ describe("GitHub Action", () =>
   describe.each([
     ["classic", {}],
     ["terminal", {}],
-    ["repository", { repo: "metrics" }],
+    ["repository", {repo: "metrics"}],
   ])("Template : %s", (template, query) => {
-    for (const [name, input, { skip = [], modes = [], timeout } = {}] of tests) {
+    for (const [name, input, {skip = [], modes = [], timeout} = {}] of tests) {
       if ((skip.includes(template)) || ((modes.length) && (!modes.includes("action"))))
         test.skip(name, () => null)
       else
-        test(name, async () => expect(await action.run({ template, base: "", query: JSON.stringify(query), plugins_errors_fatal: true, dryrun: true, use_mocked_data: true, verify: true, ...input })).toBe(true), timeout)
+        test(name, async () => expect(await action.run({template, base: "", query: JSON.stringify(query), plugins_errors_fatal: true, dryrun: true, use_mocked_data: true, verify: true, ...input})).toBe(true), timeout)
     }
   }))
 
@@ -127,13 +127,13 @@ describe("Web instance", () =>
   describe.each([
     ["classic", {}],
     ["terminal", {}],
-    ["repository", { repo: "metrics" }],
+    ["repository", {repo: "metrics"}],
   ])("Template : %s", (template, query) => {
-    for (const [name, input, { skip = [], modes = [], timeout } = {}] of tests) {
+    for (const [name, input, {skip = [], modes = [], timeout} = {}] of tests) {
       if ((skip.includes(template)) || ((modes.length) && (!modes.includes("web"))))
         test.skip(name, () => null)
       else
-        test(name, async () => expect(await web.run({ template, base: 0, ...query, plugins_errors_fatal: true, verify: true, ...input })).toBe(true), timeout)
+        test(name, async () => expect(await web.run({template, base: 0, ...query, plugins_errors_fatal: true, verify: true, ...input})).toBe(true), timeout)
     }
   }))
 
@@ -142,10 +142,10 @@ describe("Web instance (placeholder)", () =>
     ["classic", {}],
     ["terminal", {}],
   ])("Template : %s", (template, query) => {
-    for (const [name, input, { skip = [], modes = [], timeout } = {}] of tests) {
+    for (const [name, input, {skip = [], modes = [], timeout} = {}] of tests) {
       if ((skip.includes(template)) || ((modes.length) && (!modes.includes("placeholder"))))
         test.skip(name, () => null)
       else
-        test(name, async () => expect(await placeholder.run({ template, base: 0, ...query, ...input })).toBe(true), timeout)
+        test(name, async () => expect(await placeholder.run({template, base: 0, ...query, ...input})).toBe(true), timeout)
     }
   }))

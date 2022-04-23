@@ -2,7 +2,7 @@
 import urls from "url"
 
 /**Mocked data */
-export default function({ faker, url, body, login = faker.internet.userName() }) {
+export default function({faker, url, body, login = faker.internet.userName()}) {
   if (/^https:..accounts.spotify.com.api.token.*$/.test(url)) {
     //Access token generator
     const params = new urls.URLSearchParams(body)

@@ -7,11 +7,11 @@ export default async function({login, imports, data, q, account}, {enabled = fal
       return null
 
     //Load inputs
-    let {limit, user:username, attachments} = imports.metadata.plugins.tweets.inputs({data, account, q})
+    let {limit, user: username, attachments} = imports.metadata.plugins.tweets.inputs({data, account, q})
 
     //Load user profile
     console.debug(`metrics/compute/${login}/plugins > tweets > loading twitter profile (@${username})`)
-    const {data:{data:profile = null}} = await imports.axios.get(`https://api.twitter.com/2/users/by/username/${username}?user.fields=profile_image_url,verified`, {headers:{Authorization:`Bearer ${token}`}})
+    const {data: {data: profile = null}} = await imports.axios.get(`https://api.twitter.com/2/users/by/username/${username}?user.fields=profile_image_url,verified`, {headers: {Authorization: `Bearer ${token}`}})
 
     //Load profile image
     if (profile?.profile_image_url) {
@@ -21,9 +21,9 @@ export default async function({login, imports, data, q, account}, {enabled = fal
 
     //Load tweets
     console.debug(`metrics/compute/${login}/plugins > tweets > querying api`)
-    const {data:{data:tweets = [], includes:{media = []} = {}}} = await imports.axios.get(
+    const {data: {data: tweets = [], includes: {media = []} = {}}} = await imports.axios.get(
       `https://api.twitter.com/2/tweets/search/recent?query=from:${username}&tweet.fields=created_at,entities&media.fields=preview_image_url,url,type&expansions=entities.mentions.username,attachments.media_keys`,
-      {headers:{Authorization:`Bearer ${token}`}},
+      {headers: {Authorization: `Bearer ${token}`}},
     )
     const medias = new Map(media.map(({media_key, type, url, preview_image_url}) => [media_key, (type === "photo") || (type === "animated_gif") ? url : type === "video" ? preview_image_url : null]))
 
@@ -37,7 +37,7 @@ export default async function({login, imports, data, q, account}, {enabled = fal
     await Promise.all(tweets.map(async tweet => {
       //Mentions and urls
       tweet.mentions = tweet.entities?.mentions?.map(({username}) => username) ?? []
-      tweet.urls = new Map(tweet.entities?.urls?.map(({url, display_url:link}) => [url, link]) ?? [])
+      tweet.urls = new Map(tweet.entities?.urls?.map(({url, display_url: link}) => [url, link]) ?? [])
       //Attachments
       if (attachments) {
         //Retrieve linked content
@@ -48,31 +48,31 @@ export default async function({login, imports, data, q, account}, {enabled = fal
         }
         //Medias
         if (tweet.attachments)
-          tweet.attachments = await Promise.all(tweet.attachments.media_keys.filter(key => medias.get(key)).map(key => medias.get(key)).map(async url => ({image:await imports.imgb64(url, {height:-1, width:450})})))
+          tweet.attachments = await Promise.all(tweet.attachments.media_keys.filter(key => medias.get(key)).map(key => medias.get(key)).map(async url => ({image: await imports.imgb64(url, {height: -1, width: 450})})))
         if (linked) {
-          const {result:{ogImage, ogSiteName:website, ogTitle:title, ogDescription:description}} = await imports.opengraph({url:linked})
-          const image = await imports.imgb64(ogImage?.url, {height:-1, width:450, fallback:false})
+          const {result: {ogImage, ogSiteName: website, ogTitle: title, ogDescription: description}} = await imports.opengraph({url: linked})
+          const image = await imports.imgb64(ogImage?.url, {height: -1, width: 450, fallback: false})
           if (image) {
             if (tweet.attachments)
               tweet.attachments.unshift([{image, title, description, website}])
             else
               tweet.attachments = [{image, title, description, website}]
           }
-          else
+          else {
             tweet.text = `${tweet.text}\n${linked}`
-
+          }
         }
       }
-      else
+      else {
         tweet.attachments = null
-
+      }
 
       //Format text
       console.debug(`metrics/compute/${login}/plugins > tweets > formatting tweet ${tweet.id}`)
-      tweet.createdAt = `${imports.format.date(tweet.created_at, {time:true})} on ${imports.format.date(tweet.created_at, {date:true})}`
+      tweet.createdAt = `${imports.format.date(tweet.created_at, {time: true})} on ${imports.format.date(tweet.created_at, {date: true})}`
       tweet.text = imports.htmlescape(
         //Escape tags
-        imports.htmlescape(tweet.text, {"<":true, ">":true})
+        imports.htmlescape(tweet.text, {"<": true, ">": true})
           //Mentions
           .replace(new RegExp(`@(${tweet.mentions.join("|")})`, "gi"), '<span class="mention">@$1</span>')
           //Hashtags (this regex comes from the twitter source code)
@@ -84,12 +84,12 @@ export default async function({login, imports, data, q, account}, {enabled = fal
           .replace(/\n/g, "<br/>")
           //Links
           .replace(new RegExp(`${tweet.urls.size ? "" : "noop^"}(${[...tweet.urls.keys()].map(url => `(?:${url})`).join("|")})`, "gi"), (_, url) => `<a href="${url}" class="link">${tweet.urls.get(url)}</a>`),
-        {"&":true},
+        {"&": true},
       )
     }))
 
     //Result
-    return {username, profile, list:tweets}
+    return {username, profile, list: tweets}
   }
   //Handle errors
   catch (error) {
@@ -100,6 +100,6 @@ export default async function({login, imports, data, q, account}, {enabled = fal
       message = `API returned ${status}${description ? ` (${description})` : ""}`
       error = error.response?.data ?? null
     }
-    throw {error:{message, instance:error}}
+    throw {error: {message, instance: error}}
   }
 }

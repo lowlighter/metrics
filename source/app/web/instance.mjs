@@ -18,7 +18,7 @@ export default async function({sandbox = false} = {}) {
   //Sandbox mode
   if (sandbox) {
     console.debug("metrics/app > sandbox mode is specified, enabling advanced features")
-    Object.assign(conf.settings, {sandbox:true, optimize:true, cached:0, "plugins.default":true, extras:{default:true}})
+    Object.assign(conf.settings, {sandbox: true, optimize: true, cached: 0, "plugins.default": true, extras: {default: true}})
   }
   const {token, maxusers = 0, restricted = [], debug = false, cached = 30 * 60 * 1000, port = 3000, ratelimiter = null, plugins = null} = conf.settings
   const mock = sandbox || conf.settings.mocked
@@ -48,10 +48,10 @@ export default async function({sandbox = false} = {}) {
     conf.settings.token = "MOCKED_TOKEN"
   }
   if (debug)
-    console.debug(util.inspect(conf.settings, {depth:Infinity, maxStringLength:256}))
+    console.debug(util.inspect(conf.settings, {depth: Infinity, maxStringLength: 256}))
 
   //Load octokits
-  const api = {graphql:octokit.graphql.defaults({headers:{authorization:`token ${token}`}}), rest:new OctokitRest.Octokit({auth:token})}
+  const api = {graphql: octokit.graphql.defaults({headers: {authorization: `token ${token}`}}), rest: new OctokitRest.Octokit({auth: token})}
   //Apply mocking if needed
   if (mock)
     Object.assign(api, await mocks(api))
@@ -68,8 +68,8 @@ export default async function({sandbox = false} = {}) {
       skip(req, _res) {
         return !!cache.get(req.params.login)
       },
-      message:"Too many requests: retry later",
-      headers:true,
+      message: "Too many requests: retry later",
+      headers: true,
       ...ratelimiter,
     }))
   }
@@ -84,24 +84,24 @@ export default async function({sandbox = false} = {}) {
   })
 
   //Base routes
-  const limiter = ratelimit({max:debug ? Number.MAX_SAFE_INTEGER : 60, windowMs:60 * 1000, headers:false})
+  const limiter = ratelimit({max: debug ? Number.MAX_SAFE_INTEGER : 60, windowMs: 60 * 1000, headers: false})
   const metadata = Object.fromEntries(
     Object.entries(conf.metadata.plugins)
       .map(([key, value]) => [key, Object.fromEntries(Object.entries(value).filter(([key]) => ["name", "icon", "category", "web", "supports", "scopes"].includes(key)))])
-      .map(([key, value]) => [key, key === "core" ? {...value, web:Object.fromEntries(Object.entries(value.web).filter(([key]) => /^config[.]/.test(key)).map(([key, value]) => [key.replace(/^config[.]/, ""), value]))} : value]),
+      .map(([key, value]) => [key, key === "core" ? {...value, web: Object.fromEntries(Object.entries(value.web).filter(([key]) => /^config[.]/.test(key)).map(([key, value]) => [key.replace(/^config[.]/, ""), value]))} : value]),
   )
-  const enabled = Object.entries(metadata).filter(([_name, {category}]) => category !== "core").map(([name]) => ({name, category:metadata[name]?.category ?? "community", enabled:plugins[name]?.enabled ?? false}))
-  const templates = Object.entries(Templates).map(([name]) => ({name, enabled:(conf.settings.templates.enabled.length ? conf.settings.templates.enabled.includes(name) : true) ?? false}))
-  const actions = {flush:new Map()}
-  const requests = {rest:{limit:0, used:0, remaining:0, reset:NaN}, graphql:{limit:0, used:0, remaining:0, reset:NaN}}
+  const enabled = Object.entries(metadata).filter(([_name, {category}]) => category !== "core").map(([name]) => ({name, category: metadata[name]?.category ?? "community", enabled: plugins[name]?.enabled ?? false}))
+  const templates = Object.entries(Templates).map(([name]) => ({name, enabled: (conf.settings.templates.enabled.length ? conf.settings.templates.enabled.includes(name) : true) ?? false}))
+  const actions = {flush: new Map()}
+  const requests = {rest: {limit: 0, used: 0, remaining: 0, reset: NaN}, graphql: {limit: 0, used: 0, remaining: 0, reset: NaN}}
   let _requests_refresh = false
   if (!conf.settings.notoken) {
     const refresh = async () => {
       try {
         const {limit} = await graphql("{ limit:rateLimit {limit remaining reset:resetAt used} }")
         Object.assign(requests, {
-          rest:(await rest.rateLimit.get()).data.rate,
-          graphql:{...limit, reset:new Date(limit.reset).getTime()},
+          rest: (await rest.rateLimit.get()).data.rate,
+          graphql: {...limit, reset: new Date(limit.reset).getTime()},
         })
       }
       catch {
@@ -245,9 +245,9 @@ export default async function({sandbox = false} = {}) {
       console.debug(`metrics/app/${login} > awaiting pending request`)
       await pending.get(login)
     }
-    else
+    else {
       pending.set(login, new Promise(_solve => solve = _solve))
-
+    }
 
     //Read cached data if possible
     if ((!debug) && (cached) && (cache.get(login))) {
@@ -273,7 +273,7 @@ export default async function({sandbox = false} = {}) {
     try {
       //Render
       const q = req.query
-      console.debug(`metrics/app/${login} > ${util.inspect(q, {depth:Infinity, maxStringLength:256})}`)
+      console.debug(`metrics/app/${login} > ${util.inspect(q, {depth: Infinity, maxStringLength: 256})}`)
       if ((q["config.presets"]) && (conf.settings.extras?.presets ?? conf.settings.extras?.default ?? false)) {
         console.debug(`metrics/app/${login} > presets have been specified, loading them`)
         Object.assign(q, await presets(q["config.presets"]))
@@ -283,9 +283,9 @@ export default async function({sandbox = false} = {}) {
         rest,
         plugins,
         conf,
-        die:q["plugins.errors.fatal"] ?? false,
-        verify:q.verify ?? false,
-        convert:["svg", "jpeg", "png", "json", "markdown", "markdown-pdf", "insights"].includes(q["config.output"]) ? q["config.output"] : null,
+        die: q["plugins.errors.fatal"] ?? false,
+        verify: q.verify ?? false,
+        convert: ["svg", "jpeg", "png", "json", "markdown", "markdown-pdf", "insights"].includes(q["config.output"]) ? q["config.output"] : null,
       }, {Plugins, Templates})
       //Cache
       if ((!debug) && (cached)) {
@@ -331,13 +331,14 @@ export default async function({sandbox = false} = {}) {
   })
 
   //Listen
-  app.listen(port, () => console.log([
+  app.listen(port, () =>
+    console.log([
       `Listening on port      │ ${port}`,
       `Debug mode             │ ${debug}`,
       `Mocked data            │ ${conf.settings.mocked ?? false}`,
       `Restricted to users    │ ${restricted.size ? [...restricted].join(", ") : "(unrestricted)"}`,
       `Cached time            │ ${cached} seconds`,
-      `Rate limiter           │ ${ratelimiter ? util.inspect(ratelimiter, {depth:Infinity, maxStringLength:256}) : "(enabled)"}`,
+      `Rate limiter           │ ${ratelimiter ? util.inspect(ratelimiter, {depth: Infinity, maxStringLength: 256}) : "(enabled)"}`,
       `Max simultaneous users │ ${maxusers ? `${maxusers} users` : "(unrestricted)"}`,
       `Plugins enabled        │ ${enabled.map(({name}) => name).join(", ")}`,
       `SVG optimization       │ ${conf.settings.optimize ?? false}`,
