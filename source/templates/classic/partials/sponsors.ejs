@@ -34,14 +34,14 @@
                 <% } %>
                 <div class="goal-text">
                   <span>
-                    <% if (plugins.sponsors.count) { %>
-                      <%= plugins.sponsors.count %> sponsor<%= plugins.sponsors.count !== 1 ? "s are" : " is" %> funding <%= user.login %>'s work
+                    <% if (plugins.sponsors.count.active.total) { %>
+                      <%= plugins.sponsors.count.active.total %> sponsor<%= plugins.sponsors.count.active.total !== 1 ? "s are" : " is" %> funding <%= user.login %>'s work
                     <% } %>
                   </span>
                   <span><%= plugins.sponsors.goal.title %></span>
                 </div>
                 <div class="row">
-                  <% for (const user of plugins.sponsors.list) { %><img class="avatar <%= user.past ? "past" : "" %>" src="<%= user.avatar %>" width="24" height="24" alt="" /><% } %>
+                  <% for (const user of plugins.sponsors.list) { %><img class="avatar <%= user.type === "organization" ? "organization" : "" %> <%= user.past ? "past" : "" %>" src="<%= user.avatar %>" width="24" height="24" alt="" /><% } %>
                 </div>
               </section>
             </div>

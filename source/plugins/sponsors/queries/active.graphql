@@ -1,20 +1,19 @@
-query SponsorsDefault {
+query SponsorsActive {
   $account(login: "$login") {
-    sponsorsListing {
-      fullDescription
-      activeGoal {
-        percentComplete
-        title
-        description
+    sponsorshipsAsMaintainer($after first: 100) {
+      edges {
+        cursor
       }
-    }
-    sponsorshipsAsMaintainer(first: 100) {
-      totalCount
       nodes {
         sponsorEntity {
           ... on User {
             login
             avatarUrl(size: 36)
+          }
+          ... on Organization {
+            login
+            avatarUrl(size: 36)
+            url
           }
         }
         tier {

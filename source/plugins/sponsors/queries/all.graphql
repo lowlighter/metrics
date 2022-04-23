@@ -1,11 +1,19 @@
 query SponsorsAll {
   $account(login: "$login") {
-    sponsorsActivities(last: 100, period: ALL) {
+    sponsorsActivities($after first: 100, period: ALL) {
+      edges {
+        cursor
+      }
       nodes {
         sponsor {
           ... on User {
             avatarUrl
             login
+          }
+          ... on Organization {
+            login
+            avatarUrl(size: 36)
+            url
           }
         }
         sponsorsTier {

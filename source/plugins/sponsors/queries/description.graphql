@@ -1,0 +1,12 @@
+query SponsorsDescription {
+  $account(login: "$login") {
+    sponsorsListing {
+      fullDescription
+      activeGoal {
+        percentComplete
+        title
+        description
+      }
+    }
+  }
+}

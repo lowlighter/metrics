@@ -9,24 +9,59 @@ export default async function({login, q, imports, data, graphql, queries, accoun
     //Load inputs
     const {sections, past} = await imports.metadata.plugins.sponsors.inputs({data, account, q})
 
-    //Query sponsors and goal
+    //Query description and goal
     console.debug(`metrics/compute/${login}/plugins > sponsors > querying sponsors and goal`)
-    const {[account]:{sponsorsListing:{fullDescription, activeGoal}, sponsorshipsAsMaintainer:{nodes, totalCount:count}}} = await graphql(queries.sponsors({login, account}))
+    const {[account]:{sponsorsListing:{fullDescription, activeGoal}}} = await graphql(queries.sponsors.description({login, account}))
     const about = await imports.markdown(fullDescription, {mode:"multiline"})
     const goal = activeGoal ? {progress:activeGoal.percentComplete, title:activeGoal.title, description:await imports.markdown(activeGoal.description)} : null
-    let list = nodes.map(({sponsorEntity:{login, avatarUrl}, tier}) => ({login, avatarUrl, amount:tier?.monthlyPriceInDollars ?? null, past:false}))
-    await Promise.all(list.map(async user => user.avatar = await imports.imgb64(user.avatarUrl)))
+    const count = {active:{total:0, user:0, organization:0}, past:{total:0, user:0, organization:0}}
+
+    //Query active sponsors
+    let list = []
+    {
+      const fetched = []
+      let cursor = null
+      let pushed = 0
+      do {
+        console.debug(`metrics/compute/${login}/sponsors > retrieving sponsors after ${cursor}`)
+        const {[account]:{sponsorshipsAsMaintainer:{edges, nodes}}} = await graphql(queries.sponsors.active({login, account, after:cursor ? `after: "${cursor}"` : ""}))
+        cursor = edges?.[edges?.length - 1]?.cursor
+        fetched.push(...nodes)
+        pushed = nodes.length
+        console.debug(`metrics/compute/${login}/sponsors > retrieved ${pushed} sponsors after ${cursor}`)
+      } while ((pushed) && (cursor))
+      list.push(...fetched.map(({sponsorEntity:{login, avatarUrl, url:organization = null}, tier}) => ({login, avatarUrl, type:organization ? "organization" : "user", amount:tier?.monthlyPriceInDollars ?? null, past:false})))
+      await Promise.all(list.map(async user => user.avatar = await imports.imgb64(user.avatarUrl)))
+      count.active.total = list.length
+      count.active.user = list.filter(user => user.type === "user").length
+      count.active.organization = list.filter(user => user.type === "organization").length
+    }
 
     //Query past sponsors
     if (past) {
       console.debug(`metrics/compute/${login}/plugins > sponsors > querying past sponsors`)
       const active = new Set(list.map(({login}) => login))
-      const {[account]:{sponsorsActivities:{nodes:events}}} = await graphql(queries.sponsors.all({login, account}))
-      const users = events.map(({sponsor:{login, avatarUrl}, sponsorsTier}) => ({login, avatarUrl, amount:sponsorsTier?.monthlyPriceInDollars ?? null, past:true}))
+      const users = []
+      {
+        const fetched = []
+        let cursor = null
+        let pushed = 0
+        do {
+          console.debug(`metrics/compute/${login}/sponsors > retrieving sponsors events after ${cursor}`)
+          const {[account]:{sponsorsActivities:{edges, nodes}}} = await graphql(queries.sponsors.all({login, account, after:cursor ? `after: "${cursor}"` : ""}))
+          cursor = edges?.[edges?.length - 1]?.cursor
+          fetched.push(...nodes)
+          pushed = nodes.length
+          console.debug(`metrics/compute/${login}/sponsors > retrieved ${pushed} sponsors events after ${cursor}`)
+        } while ((pushed) && (cursor))
+        users.push(...fetched.map(({sponsor:{login, avatarUrl, url:organization = null}, sponsorsTier}) => ({login, avatarUrl, type:organization ? "organization" : "user", amount:sponsorsTier?.monthlyPriceInDollars ?? null, past:true})))
+      }
       for (const user of users) {
         if (!active.has(user.login)) {
           active.add(user.login)
           list.push({...user, avatar:await imports.imgb64(user.avatarUrl)})
+          count.past.total++
+          count.past[user.type]++
         }
       }
     }
