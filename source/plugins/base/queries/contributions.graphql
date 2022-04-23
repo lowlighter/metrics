@@ -1,6 +1,6 @@
 query BaseContributions {
   user(login: "$login") {
-    contributionsCollection {
+    contributionsCollection$range {
       $field
     }
   }

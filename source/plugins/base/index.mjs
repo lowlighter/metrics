@@ -7,7 +7,8 @@
 export default async function({login, graphql, rest, data, q, queries, imports}, conf) {
   //Load inputs
   console.debug(`metrics/compute/${login}/base > started`)
-  let {"repositories.forks":_forks, "repositories.affiliations":_affiliations, "repositories.batch":_batch} = imports.metadata.plugins.base.inputs({data, q, account:"bypass"})
+  let {indepth, "repositories.forks":_forks, "repositories.affiliations":_affiliations, "repositories.batch":_batch} = imports.metadata.plugins.base.inputs({data, q, account:"bypass"})
+  const extras = conf.settings.extras?.features ?? conf.settings.extras?.default
   const repositories = conf.settings.repositories || 100
   const forks = _forks ? "" : ", isFork: false"
   const affiliations = _affiliations?.length ? `, ownerAffiliations: [${_affiliations.map(x => x.toLocaleUpperCase()).join(", ")}]${conf.authenticated === login ? `, affiliations: [${_affiliations.map(x => x.toLocaleUpperCase()).join(", ")}]` : ""}` : ""
@@ -67,7 +68,7 @@ export default async function({login, graphql, rest, data, q, queries, imports},
             const fields = ["totalRepositoriesWithContributedCommits", "totalCommitContributions", "restrictedContributionsCount", "totalIssueContributions", "totalPullRequestContributions", "totalPullRequestReviewContributions"]
             for (const field of fields) {
               try {
-                Object.assign(data.user.contributionsCollection, (await graphql(queries.base.contributions({login, account, field})))[account].contributionsCollection)
+                Object.assign(data.user.contributionsCollection, (await graphql(queries.base.contributions({login, account, field, range:""})))[account].contributionsCollection)
               }
               catch {
                 console.debug(`metrics/compute/${login}/base > failed to retrieve contributionsCollection.${field}`)
@@ -82,6 +83,55 @@ export default async function({login, graphql, rest, data, q, queries, imports},
           catch {
             console.debug(`metrics/compute/${login}/base > failed to retrieve contributions calendar`)
             data.user.calendar = {contributionCalendar:{weeks:[]}}
+          }
+        }
+      }
+      //Query contributions collection over account lifetime instead of last year
+      if (account === "user") {
+        if ((indepth)&&(extras)) {
+          const fields = ["totalRepositoriesWithContributedCommits", "totalCommitContributions", "restrictedContributionsCount", "totalIssueContributions", "totalPullRequestContributions", "totalPullRequestReviewContributions"]
+          const start = new Date(data.user.createdAt)
+          const end = new Date()
+          const collection = {}
+          for (const field of fields) {
+            collection[field] = 0
+            //Load contribution calendar
+            for (let from = new Date(start); from < end;) {
+              //Set date range
+              let to = new Date(from)
+              to.setUTCHours(+6 * 4 * 7 * 24)
+              if (to > end)
+                to = end
+              //Ensure that date ranges are not overlapping by setting it to previous day at 23:59:59.999
+              const dto = new Date(to)
+              dto.setUTCHours(-1)
+              dto.setUTCMinutes(59)
+              dto.setUTCSeconds(59)
+              dto.setUTCMilliseconds(999)
+              //Fetch data from api
+              try {
+                console.debug(`metrics/compute/${login}/plugins > base > loading contributions collections for ${field} from "${from.toISOString()}" to "${dto.toISOString()}"`)
+                const {[account]:{contributionsCollection}} = await graphql(queries.base.contributions({login, account, field, range:`(from: "${from.toISOString()}", to: "${dto.toISOString()}")`}))
+                collection[field] += contributionsCollection[field]
+              }
+              catch {
+                console.debug(`metrics/compute/${login}/plugins > base > failed to load contributions collections for ${field} from "${from.toISOString()}" to "${dto.toISOString()}"`)
+              }
+              //Set next date range start
+              from = new Date(to)
+            }
+            data.user.contributionsCollection[field] = Math.max(collection[field], data.user.contributionsCollection[field])
+          }
+        }
+        //Fallback to load whole commit history rather than last year
+        else {
+          try {
+            console.debug(`metrics/compute/${login}/base > loading user commits history`)
+            const {data:{total_count:total = 0}} = await rest.search.commits({q:`author:${login}`})
+            data.user.contributionsCollection.totalCommitContributions = Math.max(total, data.user.contributionsCollection.totalCommitContributions)
+          }
+          catch {
+            console.debug(`metrics/compute/${login}/base > falling back to last year commits history`)
           }
         }
       }
@@ -122,17 +172,6 @@ export default async function({login, graphql, rest, data, q, queries, imports},
         console.debug(`metrics/compute/${login}/base > keeping only ${repositories} ${type}`)
         data.user[type].nodes.splice(repositories)
         console.debug(`metrics/compute/${login}/base > loaded ${data.user[type].nodes.length} ${type}`)
-      }
-      //For user accounts, attempt to load whole commit history rather than last year
-      if (account === "user") {
-        try {
-          console.debug(`metrics/compute/${login}/base > loading user commits history`)
-          const {data:{total_count:total = 0}} = await rest.search.commits({q:`author:${login}`})
-          data.user.contributionsCollection.totalCommitContributions = Math.max(total, data.user.contributionsCollection.totalCommitContributions)
-        }
-        catch {
-          console.debug(`metrics/compute/${login}/base > falling back to last year commits history`)
-        }
       }
       //Shared options
       let {"repositories.skipped":skipped, "users.ignored":ignored, "commits.authoring":authoring} = imports.metadata.plugins.base.inputs({data, q, account:"bypass"})
