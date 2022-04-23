@@ -197,13 +197,12 @@
   }
   .contribution .gauge text {
     fill: currentColor;
-    font-size: 12px;
-    font-size: 15px;
-    letter-spacing: -2px;
+    font-size: 13px;
   }
   .contribution .gauge {
-    margin: 0 4px;
+    margin: 0 6px;
     color: inherit;
+    transform: scale(1.4) translateY(1px);
   }
   .contribution .icon {
     fill: currentColor;
