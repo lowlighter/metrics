@@ -173,6 +173,16 @@ export default async function({login, graphql, rest, data, q, queries, imports},
         data.user[type].nodes.splice(repositories)
         console.debug(`metrics/compute/${login}/base > loaded ${data.user[type].nodes.length} ${type}`)
       }
+      //Fetch missing packages count from ghcr.io using REST API (as GraphQL API does not support it yet)
+      try {
+        console.debug(`metrics/compute/${login}/base > patching packages count if possible`)
+        const {data:packages} = await rest.packages[{user:"listPackagesForUser", organization:"listPackagesForOrganization"}[account]]({package_type:"container", org:login, username:login})
+        data.user.packages.totalCount += packages.length
+        console.debug(`metrics/compute/${login}/base > patched packages count (added ${packages.length} from ghcr.io)`)
+      }
+      catch {
+        console.debug(`metrics/compute/${login}/base > failed to patch packages count, maybe read:packages scope was not provided`)
+      }
       //Shared options
       let {"repositories.skipped":skipped, "users.ignored":ignored, "commits.authoring":authoring} = imports.metadata.plugins.base.inputs({data, q, account:"bypass"})
       data.shared = {"repositories.skipped":skipped, "users.ignored":ignored, "commits.authoring":authoring, "repositories.batch":_batch}
