@@ -356,7 +356,7 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
         `    <td>${[
           ...(meta.scopes ?? []).map(scope => `<code>🔑 ${{public_access:"(scopeless)"}[scope] ?? scope}</code>`),
           ...Object.entries(inputs).filter(([_, {type}]) => type === "token").map(([token]) => `<code>🗝️ ${token}</code>`),
-          ...(meta.scopes?.length ? ["read:org", "read:user", "repo"].map(scope => !meta.scopes.includes(scope) ? `<code>${scope} (optional)</code>` : null).filter(v => v) : []),
+          ...(meta.scopes?.length ? ["read:org", "read:user", "read:packages", "repo"].map(scope => !meta.scopes.includes(scope) ? `<code>${scope} (optional)</code>` : null).filter(v => v) : []),
         ].filter(v => v).join(" ") || "<i>No tokens are required for this plugin</i>"}</td>`,
         "  </tr>",
         "  <tr>",

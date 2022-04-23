@@ -223,9 +223,10 @@
               `          # The following scopes are required:`,
               ...[...this.scopes].map(scope => `          #  - ${scope}${scope === "public_access" ? " (default scope)" : ""}`),
               `          # The following additional scopes may be required:`,
-              `          #  - read:org  (for organization related metrics)`,
-              `          #  - read:user (for user related data)`,
-              `          #  - repo      (optional, if you want to include private repositories)`,
+              `          #  - read:org      (for organization related metrics)`,
+              `          #  - read:user     (for user related data)`,
+              `          #  - read:packages (for some packages related data)`,
+              `          #  - repo          (optional, if you want to include private repositories)`,
             ]
             : [
               `          # Current configuration doesn't require a GitHub token`,
