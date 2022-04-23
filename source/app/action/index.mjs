@@ -174,15 +174,34 @@ async function retry(func, {retries = 1, delay = 0} = {}) {
       Object.assign(api, await mocks(api))
       info("Use mocked API", true)
     }
-    //Test token validity
+    //Test token validity and requests count
     else if (!/^NOT_NEEDED$/.test(token)) {
-      const {headers} = await api.rest.request("HEAD /")
-      if (!("x-oauth-scopes" in headers)) {
-        throw new Error(
-          'GitHub API did not send any "x-oauth-scopes" header back from provided "token". It means that your token may not be valid or you\'re using GITHUB_TOKEN which cannot be used since metrics will fetch data outside of this repository scope. Use a personal access token instead (see https://github.com/lowlighter/metrics/blob/master/.github/readme/partials/documentation/setup/action.md for more informations).',
-        )
+      //Check rate limit
+      const {data:{resources}} = await api.rest.rateLimit.get()
+      info("API requests (REST)", `${resources.core.remaining}/${resources.core.limit}`)
+      info("API requests (GraphQL)", `${resources.graphql.remaining}/${resources.graphql.limit}`)
+      info("API requests (search)", `${resources.search.remaining}/${resources.search.limit}`)
+      if ((!resources.core.remaining)||(!resources.graphql.remaining)) {
+        console.warn(`::warning::It seems you have reached your API requests limit. Please retry later.`)
+        info.break()
+        console.log("Nothing can be done currently, thanks for using metrics!")
+        process.exit(0)
       }
-      info("Token validity", "seems ok")
+      if (!resources.search.remaining)
+        console.warn(`::warning::It seems you have reached your search API requests limit. Some plugins may return less accurate results.`)
+      //Check scopes
+      try {
+        const {headers} = await api.rest.request("HEAD /")
+        if (!("x-oauth-scopes" in headers)) {
+          throw new Error(
+            'GitHub API did not send any "x-oauth-scopes" header back from provided "token". It means that your token may not be valid or you\'re using GITHUB_TOKEN which cannot be used since metrics will fetch data outside of this repository scope. Use a personal access token instead (see https://github.com/lowlighter/metrics/blob/master/.github/readme/partials/documentation/setup/action.md for more informations).',
+          )
+        }
+        info("Token validity", "seems ok")
+      }
+      catch {
+        info("Token validity", "(could not verify)")
+      }
     }
     //Extract octokits
     const {graphql, rest} = api
