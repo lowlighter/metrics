@@ -147,6 +147,9 @@
     border-radius: 50%;
     margin: 0 6px;
   }
+  .avatar.past {
+    filter: opacity(0.5);
+  }
 
   .organization.avatar {
     border-radius: 15%;
@@ -1075,9 +1078,6 @@
   }
   .sponsors .avatar {
     margin: 2px;
-  }
-  .sponsors .avatar.past {
-    opacity: 0.3;
   }
 
 /* Stackoverflow */

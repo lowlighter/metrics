@@ -14,23 +14,25 @@
           </section>
         </div>
       <% } else { %>
-        <% for (const section of plugins.sponsors.sections) { %>
-          <% if ((section === "goal")&&(plugins.sponsors.goal)) { %>
+        <% for (const section of plugins.sponsors.sections) { if ((plugins.sponsors.sections.includes("goal"))&&(plugins.sponsors.sections.includes("list"))&&(section === "list")) continue%>
+          <% if ((section === "goal")||(section === "list")) { %>
             <div class="fill-width">
               <section class="sponsors goal">
-                <div class="markdown">
-                  <%= plugins.sponsors.goal.description %>
-                </div>
-                <% { const width = 440 * (1 + large) %>
-                  <div class="center horizontal-wrap ">
-                    <svg class="bar" xmlns="http://www.w3.org/2000/svg" width="<%= width %>" height="8">
-                      <mask id="project-bar">
-                        <rect x="0" y="0" width="<%= width %>" height="8" fill="white" rx="5"/>
-                      </mask>
-                      <rect mask="url(#project-bar)" x="0" y="0" width="<%= (plugins.sponsors.goal.progress/100)*width %>" height="8" fill="#ec6cb9"/>
-                      <rect mask="url(#project-bar)" x="<%= (plugins.sponsors.goal.progress/100)*width %>" y="0" width="<%= ((100-plugins.sponsors.goal.progress)/100)*width %>" height="8" fill="#d1d5da"/>
-                    </svg>
+                <% if ((section === "goal")&&(plugins.sponsors.goal)) { %>
+                  <div class="markdown">
+                    <%= plugins.sponsors.goal.description %>
                   </div>
+                  <% { const width = 440 * (1 + large) %>
+                    <div class="center horizontal-wrap ">
+                      <svg class="bar" xmlns="http://www.w3.org/2000/svg" width="<%= width %>" height="8">
+                        <mask id="project-bar">
+                          <rect x="0" y="0" width="<%= width %>" height="8" fill="white" rx="5"/>
+                        </mask>
+                        <rect mask="url(#project-bar)" x="0" y="0" width="<%= (plugins.sponsors.goal.progress/100)*width %>" height="8" fill="#ec6cb9"/>
+                        <rect mask="url(#project-bar)" x="<%= (plugins.sponsors.goal.progress/100)*width %>" y="0" width="<%= ((100-plugins.sponsors.goal.progress)/100)*width %>" height="8" fill="#d1d5da"/>
+                      </svg>
+                    </div>
+                  <% } %>
                 <% } %>
                 <div class="goal-text">
                   <span>
@@ -38,11 +40,15 @@
                       <%= plugins.sponsors.count.active.total %> sponsor<%= plugins.sponsors.count.active.total !== 1 ? "s are" : " is" %> funding <%= user.login %>'s work
                     <% } %>
                   </span>
-                  <span><%= plugins.sponsors.goal.title %></span>
+                  <% if ((section === "goal")&&(plugins.sponsors.goal)) { %>
+                    <span><%= plugins.sponsors.goal.title %></span>
+                  <% } %>
                 </div>
-                <div class="row">
-                  <% for (const user of plugins.sponsors.list) { %><img class="avatar <%= user.type === "organization" ? "organization" : "" %> <%= user.past ? "past" : "" %>" src="<%= user.avatar %>" width="24" height="24" alt="" /><% } %>
-                </div>
+                <% if ((section === "list")||(plugins.sponsors.sections.includes("list"))) { %>
+                  <div class="row">
+                    <% for (const user of plugins.sponsors.list) { %><img class="avatar <%= user.type === "organization" ? "organization" : "" %> <%= user.past ? "past" : "" %>" src="<%= user.avatar %>" width="24" height="24" alt="" /><% } %>
+                  </div>
+                <% } %>
               </section>
             </div>
           <% } else if (section === "about") { %>
