@@ -3,11 +3,18 @@ import linguist from "linguist-js"
 
 /**Indepth analyzer */
 export async function indepth({login, data, imports, repositories, gpg}, {skipped, categories, timeout}) {
-  return new Promise(async (solve, reject) => {
+  return new Promise(async solve => {
+    //Results
+    const results = {partial:false, total:0, lines:{}, stats:{}, colors:{}, commits:0, files:0, missed:{lines:0, bytes:0, commits:0}, verified:{signature:0}}
+
     //Timeout
     if (Number.isFinite(timeout)) {
       console.debug(`metrics/compute/${login}/plugins > languages > timeout set to ${timeout}m`)
-      setTimeout(() => reject(`Reached maximum execution time of ${timeout}m for analysis`), timeout * 60 * 1000)
+      setTimeout(() => {
+        results.partial = true
+        console.debug(`metrics/compute/${login}/plugins > languages > reached maximum execution time of ${timeout}m for analysis`)
+        solve(results)
+      }, timeout * 60 * 1000)
     }
 
     //GPG keys imports
@@ -35,8 +42,11 @@ export async function indepth({login, data, imports, repositories, gpg}, {skippe
     }
 
     //Compute repositories stats from fetched repositories
-    const results = {total:0, lines:{}, stats:{}, colors:{}, commits:0, files:0, missed:{lines:0, bytes:0, commits:0}, verified:{signature:0}}
     for (const repository of repositories) {
+      //Early break
+      if (results.partial)
+        break
+
       //Skip repository if asked
       if ((skipped.includes(repository.name.toLocaleLowerCase())) || (skipped.includes(`${repository.owner.login}/${repository.name}`.toLocaleLowerCase()))) {
         console.debug(`metrics/compute/${login}/plugins > languages > skipped repository ${repository.owner.login}/${repository.name}`)
@@ -77,16 +87,24 @@ export async function indepth({login, data, imports, repositories, gpg}, {skippe
 
 /**Recent languages activity */
 export async function recent({login, data, imports, rest, account}, {skipped = [], categories, days = 0, load = 0, tempdir = "recent", timeout}) {
-  return new Promise(async (solve, reject) => {
+  return new Promise(async solve => {
+    //Results
+    const results = {partial:false, total:0, lines:{}, stats:{}, colors:{}, commits:0, files:0, missed:{lines:0, bytes:0, commits:0}, days}
+
     //Timeout
     if (Number.isFinite(timeout)) {
       console.debug(`metrics/compute/${login}/plugins > languages > timeout set to ${timeout}m`)
-      setTimeout(() => reject(`Reached maximum execution time of ${timeout}m for analysis`), timeout * 60 * 1000)
+      setTimeout(() => {
+        results.partial = true
+        console.debug(`metrics/compute/${login}/plugins > languages > reached maximum execution time of ${timeout}m for analysis`)
+        solve(results)
+        return
+      }, timeout * 60 * 1000)
     }
 
     //Get user recent activity
     console.debug(`metrics/compute/${login}/plugins > languages > querying api`)
-    const commits = [], pages = Math.ceil(load / 100), results = {total:0, lines:{}, stats:{}, colors:{}, commits:0, files:0, missed:{lines:0, bytes:0, commits:0}, days}
+    const commits = [], pages = Math.ceil(load / 100)
     try {
       for (let page = 1; page <= pages; page++) {
         console.debug(`metrics/compute/${login}/plugins > languages > loading page ${page}`)

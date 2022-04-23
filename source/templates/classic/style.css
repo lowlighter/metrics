@@ -276,6 +276,12 @@
     justify-content: flex-end;
     font-size: 12px;
   }
+  .footnote.warning {
+    color: #D79533;
+  }
+  .footnote.warning svg {
+    fill: #D79533;
+  }
 
 /* Follow-up */
   .followup.legend {
