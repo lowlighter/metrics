@@ -35,6 +35,21 @@ inputs:
       - repositories
       - metadata
 
+  base_indepth:
+    extras: yes
+    description: |
+      Indepth mode
+
+      Enabling this will consume additional API queries to fetch more data.
+      This currently improves the accuracy of the following statistics:
+        - total commits
+        - total issues
+        - total pull requests
+        - total pull requests reviews
+        - total repositories contributed to
+    type: boolean
+    default: no
+
   repositories:
     description: |
       Repositories to fetch
