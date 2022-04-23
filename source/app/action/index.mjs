@@ -68,6 +68,12 @@ async function retry(func, {retries = 1, delay = 0} = {}) {
   return null
 }
 
+//Process exit
+function quit(reason) {
+  const code = {success:0, skipped:0, failed:1}[reason] ?? 0
+  process.exit(code)
+}
+
 //=====================================================================================================
 
 //Runner
@@ -81,11 +87,11 @@ async function retry(func, {retries = 1, delay = 0} = {}) {
     if ((github.context.eventName === "push") && (github.context.payload?.head_commit)) {
       if (/\[Skip GitHub Action\]/.test(github.context.payload.head_commit.message)) {
         console.log("Skipped because [Skip GitHub Action] is in commit message")
-        process.exit(0)
+        quit("skipped")
       }
       if (/Auto-generated metrics for run #\d+/.test(github.context.payload.head_commit.message)) {
         console.log("Skipped because this seems to be an automated pull request merge")
-        process.exit(0)
+        quit("skipped")
       }
     }
 
@@ -163,6 +169,7 @@ async function retry(func, {retries = 1, delay = 0} = {}) {
       throw new Error("You must provide a valid GitHub personal token to gather your metrics (see https://github.com/lowlighter/metrics/blob/master/.github/readme/partials/documentation/setup/action.md for more informations)")
     conf.settings.token = token
     const api = {}
+    const resources = {}
     api.graphql = octokit.graphql.defaults({headers:{authorization:`token ${token}`}})
     info("Github GraphQL API", "ok")
     const octoraw = github.getOctokit(token)
@@ -174,15 +181,35 @@ async function retry(func, {retries = 1, delay = 0} = {}) {
       Object.assign(api, await mocks(api))
       info("Use mocked API", true)
     }
-    //Test token validity
+    //Test token validity and requests count
     else if (!/^NOT_NEEDED$/.test(token)) {
-      const {headers} = await api.rest.request("HEAD /")
-      if (!("x-oauth-scopes" in headers)) {
-        throw new Error(
-          'GitHub API did not send any "x-oauth-scopes" header back from provided "token". It means that your token may not be valid or you\'re using GITHUB_TOKEN which cannot be used since metrics will fetch data outside of this repository scope. Use a personal access token instead (see https://github.com/lowlighter/metrics/blob/master/.github/readme/partials/documentation/setup/action.md for more informations).',
-        )
+      //Check rate limit
+      const {data} = await api.rest.rateLimit.get().catch(() => ({data:{resources:{}}}))
+      Object.assign(resources, data.resources)
+      info("API requests (REST)", resources.core ? `${resources.core.remaining}/${resources.core.limit}` : "(unknown)")
+      info("API requests (GraphQL)", resources.graphql ? `${resources.graphql.remaining}/${resources.graphql.limit}` : "(unknown)")
+      info("API requests (search)", resources.search ? `${resources.search.remaining}/${resources.search.limit}` : "(unknown)")
+      if ((!resources.core.remaining)||(!resources.graphql.remaining)) {
+        console.warn("::warning::It seems you have reached your API requests limit. Please retry later.")
+        info.break()
+        console.log("Nothing can be done currently, thanks for using metrics!")
+        quit("skipped")
       }
-      info("Token validity", "seems ok")
+      if (!resources.search.remaining)
+        console.warn("::warning::It seems you have reached your Search API requests limit. Some plugins may return less accurate results.")
+      //Check scopes
+      try {
+        const {headers} = await api.rest.request("HEAD /")
+        if (!("x-oauth-scopes" in headers)) {
+          throw new Error(
+            'GitHub API did not send any "x-oauth-scopes" header back from provided "token". It means that your token may not be valid or you\'re using GITHUB_TOKEN which cannot be used since metrics will fetch data outside of this repository scope. Use a personal access token instead (see https://github.com/lowlighter/metrics/blob/master/.github/readme/partials/documentation/setup/action.md for more informations).',
+          )
+        }
+        info("Token validity", "seems ok")
+      }
+      catch {
+        info("Token validity", "(could not verify)")
+      }
     }
     //Extract octokits
     const {graphql, rest} = api
@@ -404,157 +431,170 @@ async function retry(func, {retries = 1, delay = 0} = {}) {
     if (_action === "none") {
       info.break()
       console.log("Success, thanks for using metrics!")
-      process.exit(0)
     }
-
-    //Cache embed svg for markdown outputs
-    if (/markdown/.test(convert)) {
-      const regex = /(?<match><img class="metrics-cachable" data-name="(?<name>[\s\S]+?)" src="data:image[/](?<format>(?:svg[+]xml)|jpeg|png);base64,(?<content>[/+=\w]+?)">)/
-      let matched = null
-      while (matched = regex.exec(rendered)?.groups) { //eslint-disable-line no-cond-assign
-        await retry(async () => {
-          const {match, name, format, content} = matched
-          let path = `${_markdown_cache}/${name}.${format.replace(/[+].*$/g, "")}`
-          console.debug(`Processing ${path}`)
-          let sha = null
-          try {
-            const {repository:{object:{oid}}} = await graphql(
-              `
-                query Sha {
-                  repository(owner: "${github.context.repo.owner}", name: "${github.context.repo.repo}") {
-                    object(expression: "${committer.head}:${path}") { ... on Blob { oid } }
-                  }
-                }
-              `,
-              {headers:{authorization:`token ${committer.token}`}},
-            )
-            sha = oid
-          }
-          catch (error) {
-            console.debug(error)
-          }
-          finally {
-            await committer.rest.repos.createOrUpdateFileContents({
-              ...github.context.repo,
-              path,
-              content,
-              message:`${committer.message} (cache)`,
-              ...(sha ? {sha} : {}),
-              branch:committer.pr ? committer.head : committer.branch,
-            })
-            rendered = rendered.replace(match, `<img src="https://github.com/${github.context.repo.owner}/${github.context.repo.repo}/blob/${committer.branch}/${path}">`)
-            info(`Saving ${path}`, "ok")
-          }
-        }, {retries:retries_output_action, delay:retries_delay_output_action})
-      }
-    }
-
-    //Check editions
-    if ((committer.commit) || (committer.pr)) {
-      const git = sgit()
-      const sha = await git.hashObject(paths.join("/renders", filename))
-      info("Current render sha", sha)
-      if (committer.sha === sha) {
-        info(`Commit to branch ${committer.branch}`, "(no changes)")
-        committer.commit = false
-      }
-    }
-
-    //Upload to gist (this is done as user since committer_token may not have gist rights)
-    if (committer.gist) {
-      await retry(async () => {
-        await rest.gists.update({gist_id:committer.gist, files:{[filename]:{content:rendered}}})
-        info(`Upload to gist ${committer.gist}`, "ok")
-        committer.commit = false
-      }, {retries:retries_output_action, delay:retries_delay_output_action})
-    }
-
-    //Commit metrics
-    if (committer.commit) {
-      await retry(async () => {
-        await committer.rest.repos.createOrUpdateFileContents({
-          ...github.context.repo,
-          path:filename,
-          message:committer.message,
-          content:Buffer.from(typeof rendered === "object" ? JSON.stringify(rendered) : `${rendered}`).toString("base64"),
-          branch:committer.pr ? committer.head : committer.branch,
-          ...(committer.sha ? {sha:committer.sha} : {}),
-        })
-        info(`Commit to branch ${committer.branch}`, "ok")
-      }, {retries:retries_output_action, delay:retries_delay_output_action})
-    }
-
-    //Pull request
-    if (committer.pr) {
-      //Create pull request
-      let number = null
-      await retry(async () => {
-        try {
-          ({data:{number}} = await committer.rest.pulls.create({...github.context.repo, head:committer.head, base:committer.branch, title:`Auto-generated metrics for run #${github.context.runId}`, body:" ", maintainer_can_modify:true}))
-          info(`Pull request from ${committer.head} to ${committer.branch}`, "(created)")
-        }
-        catch (error) {
-          console.debug(error)
-          //Check if pull request has already been created previously
-          if (/A pull request already exists/.test(error)) {
-            info(`Pull request from ${committer.head} to ${committer.branch}`, "(already existing)")
-            const q = `repo:${github.context.repo.owner}/${github.context.repo.repo}+type:pr+state:open+Auto-generated metrics for run #${github.context.runId}+in:title`
-            const prs = (await committer.rest.search.issuesAndPullRequests({q})).data.items.filter(({user:{login}}) => login === "github-actions[bot]")
-            if (prs.length < 1)
-              throw new Error("0 matching prs. Cannot proceed.")
-            if (prs.length > 1)
-              throw new Error(`Found more than one matching prs: ${prs.map(({number}) => `#${number}`).join(", ")}. Cannot proceed.`)
-            ;({number} = prs.shift())
-          }
-          //Check if pull request could not been created because there are no diff between head and base
-          else if (/No commits between/.test(error)) {
-            info(`Pull request from ${committer.head} to ${committer.branch}`, "(no diff)")
-            committer.merge = false
-            number = "(none)"
-          }
-          else
-            throw error
-
-        }
-        info("Pull request number", number)
-      }, {retries:retries_output_action, delay:retries_delay_output_action})
-      //Merge pull request
-      if (committer.merge) {
-        info("Merge method", committer.merge)
-        let attempts = 240
-        do {
-          const success = await retry(async () => {
-            //Check pull request mergeability (https://octokit.github.io/rest.js/v18#pulls-get)
-            const {data:{mergeable, mergeable_state:state}} = await committer.rest.pulls.get({...github.context.repo, pull_number:number})
-            console.debug(`Pull request #${number} mergeable state is "${state}"`)
-            if (mergeable === null) {
-              await wait(15)
-              return false
-            }
-            if (!mergeable)
-              throw new Error(`Pull request #${number} is not mergeable (state is "${state}")`)
-            //Merge pull request
-            await committer.rest.pulls.merge({...github.context.repo, pull_number:number, merge_method:committer.merge})
-            info(`Merge #${number} to ${committer.branch}`, "ok")
-            return true
-          }, {retries:retries_output_action, delay:retries_delay_output_action})
-          if (!success)
-            continue
-          //Delete head branch
+    //Perform output action
+    else {
+      //Cache embed svg for markdown outputs
+      if (/markdown/.test(convert)) {
+        const regex = /(?<match><img class="metrics-cachable" data-name="(?<name>[\s\S]+?)" src="data:image[/](?<format>(?:svg[+]xml)|jpeg|png);base64,(?<content>[/+=\w]+?)">)/
+        let matched = null
+        while (matched = regex.exec(rendered)?.groups) { //eslint-disable-line no-cond-assign
           await retry(async () => {
+            const {match, name, format, content} = matched
+            let path = `${_markdown_cache}/${name}.${format.replace(/[+].*$/g, "")}`
+            console.debug(`Processing ${path}`)
+            let sha = null
             try {
-              await wait(15)
-              await committer.rest.git.deleteRef({...github.context.repo, ref:`heads/${committer.head}`})
+              const {repository:{object:{oid}}} = await graphql(
+                `
+                  query Sha {
+                    repository(owner: "${github.context.repo.owner}", name: "${github.context.repo.repo}") {
+                      object(expression: "${committer.head}:${path}") { ... on Blob { oid } }
+                    }
+                  }
+                `,
+                {headers:{authorization:`token ${committer.token}`}},
+              )
+              sha = oid
             }
             catch (error) {
               console.debug(error)
-              if (!/reference does not exist/i.test(`${error}`))
-                throw error
             }
-            info(`Branch ${committer.head}`, "(deleted)")
+            finally {
+              await committer.rest.repos.createOrUpdateFileContents({
+                ...github.context.repo,
+                path,
+                content,
+                message:`${committer.message} (cache)`,
+                ...(sha ? {sha} : {}),
+                branch:committer.pr ? committer.head : committer.branch,
+              })
+              rendered = rendered.replace(match, `<img src="https://github.com/${github.context.repo.owner}/${github.context.repo.repo}/blob/${committer.branch}/${path}">`)
+              info(`Saving ${path}`, "ok")
+            }
           }, {retries:retries_output_action, delay:retries_delay_output_action})
-          break
-        } while (--attempts)
+        }
+      }
+
+      //Check editions
+      if ((committer.commit) || (committer.pr)) {
+        const git = sgit()
+        const sha = await git.hashObject(paths.join("/renders", filename))
+        info("Current render sha", sha)
+        if (committer.sha === sha) {
+          info(`Commit to branch ${committer.branch}`, "(no changes)")
+          committer.commit = false
+        }
+      }
+
+      //Upload to gist (this is done as user since committer_token may not have gist rights)
+      if (committer.gist) {
+        await retry(async () => {
+          await rest.gists.update({gist_id:committer.gist, files:{[filename]:{content:rendered}}})
+          info(`Upload to gist ${committer.gist}`, "ok")
+          committer.commit = false
+        }, {retries:retries_output_action, delay:retries_delay_output_action})
+      }
+
+      //Commit metrics
+      if (committer.commit) {
+        await retry(async () => {
+          await committer.rest.repos.createOrUpdateFileContents({
+            ...github.context.repo,
+            path:filename,
+            message:committer.message,
+            content:Buffer.from(typeof rendered === "object" ? JSON.stringify(rendered) : `${rendered}`).toString("base64"),
+            branch:committer.pr ? committer.head : committer.branch,
+            ...(committer.sha ? {sha:committer.sha} : {}),
+          })
+          info(`Commit to branch ${committer.branch}`, "ok")
+        }, {retries:retries_output_action, delay:retries_delay_output_action})
+      }
+
+      //Pull request
+      if (committer.pr) {
+        //Create pull request
+        let number = null
+        await retry(async () => {
+          try {
+            ({data:{number}} = await committer.rest.pulls.create({...github.context.repo, head:committer.head, base:committer.branch, title:`Auto-generated metrics for run #${github.context.runId}`, body:" ", maintainer_can_modify:true}))
+            info(`Pull request from ${committer.head} to ${committer.branch}`, "(created)")
+          }
+          catch (error) {
+            console.debug(error)
+            //Check if pull request has already been created previously
+            if (/A pull request already exists/.test(error)) {
+              info(`Pull request from ${committer.head} to ${committer.branch}`, "(already existing)")
+              const q = `repo:${github.context.repo.owner}/${github.context.repo.repo}+type:pr+state:open+Auto-generated metrics for run #${github.context.runId}+in:title`
+              const prs = (await committer.rest.search.issuesAndPullRequests({q})).data.items.filter(({user:{login}}) => login === "github-actions[bot]")
+              if (prs.length < 1)
+                throw new Error("0 matching prs. Cannot proceed.")
+              if (prs.length > 1)
+                throw new Error(`Found more than one matching prs: ${prs.map(({number}) => `#${number}`).join(", ")}. Cannot proceed.`)
+              ;({number} = prs.shift())
+            }
+            //Check if pull request could not been created because there are no diff between head and base
+            else if (/No commits between/.test(error)) {
+              info(`Pull request from ${committer.head} to ${committer.branch}`, "(no diff)")
+              committer.merge = false
+              number = "(none)"
+            }
+            else
+              throw error
+
+          }
+          info("Pull request number", number)
+        }, {retries:retries_output_action, delay:retries_delay_output_action})
+        //Merge pull request
+        if (committer.merge) {
+          info("Merge method", committer.merge)
+          let attempts = 240
+          do {
+            const success = await retry(async () => {
+              //Check pull request mergeability (https://octokit.github.io/rest.js/v18#pulls-get)
+              const {data:{mergeable, mergeable_state:state}} = await committer.rest.pulls.get({...github.context.repo, pull_number:number})
+              console.debug(`Pull request #${number} mergeable state is "${state}"`)
+              if (mergeable === null) {
+                await wait(15)
+                return false
+              }
+              if (!mergeable)
+                throw new Error(`Pull request #${number} is not mergeable (state is "${state}")`)
+              //Merge pull request
+              await committer.rest.pulls.merge({...github.context.repo, pull_number:number, merge_method:committer.merge})
+              info(`Merge #${number} to ${committer.branch}`, "ok")
+              return true
+            }, {retries:retries_output_action, delay:retries_delay_output_action})
+            if (!success)
+              continue
+            //Delete head branch
+            await retry(async () => {
+              try {
+                await wait(15)
+                await committer.rest.git.deleteRef({...github.context.repo, ref:`heads/${committer.head}`})
+              }
+              catch (error) {
+                console.debug(error)
+                if (!/reference does not exist/i.test(`${error}`))
+                  throw error
+              }
+              info(`Branch ${committer.head}`, "(deleted)")
+            }, {retries:retries_output_action, delay:retries_delay_output_action})
+            break
+          } while (--attempts)
+        }
+      }
+    }
+
+    //Consumed API requests
+    {
+      info.break()
+      info.section("Consumed API requests")
+      info("  * provided that no other app used your quota during execution", "")
+      const {data:current} = await api.rest.rateLimit.get().catch(() => ({data:{resources:{}}}))
+      for (const type of ["core", "graphql", "search"]) {
+        const used = resources[type].remaining - current.resources[type].remaining
+        info({core:"REST API", graphql:"GraphQL API", search:"Search API"}[type], (Number.isFinite(used)&&(used >= 0)) ? used : "(unknown)")
       }
     }
 
@@ -568,7 +608,7 @@ async function retry(func, {retries = 1, delay = 0} = {}) {
     //Success
     info.break()
     console.log("Success, thanks for using metrics!")
-    process.exit(0)
+    quit("success")
   }
   //Errors
   catch (error) {
@@ -579,6 +619,6 @@ async function retry(func, {retries = 1, delay = 0} = {}) {
         console.log(log)
     }
     core.setFailed(error.message)
-    process.exit(1)
+    quit("failed")
   }
 })()
