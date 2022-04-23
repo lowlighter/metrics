@@ -11,7 +11,7 @@
     <td><code>👤 Users</code> <code>👥 Organizations</code> <code>📓 Repositories</code></td>
   </tr>
   <tr>
-    <td><code>🔑 read:user</code> <code>🔑 read:org</code> <code>repo (optional)</code></td>
+    <td><code>🔑 read:user</code> <code>🔑 read:org</code> <code>read:packages (optional)</code> <code>repo (optional)</code></td>
   </tr>
   <tr>
     <td colspan="2" align="center">
@@ -54,7 +54,7 @@
 <i>(comma-separated)</i>
 <br>
 <b>default:</b> goal, about<br>
-<b>allowed values:</b><ul><li>goal</li><li>about</li></ul></td>
+<b>allowed values:</b><ul><li>goal</li><li>about</li><li>list</li></ul></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_sponsors_past</code></h4></td>
@@ -66,6 +66,20 @@
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
 <br>
 <b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><h4><code>plugin_sponsors_size</code></h4></td>
+    <td rowspan="2"><p>Profile picture display size</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>number</code>
+<i>(8 ≤
+𝑥
+≤ 64)</i>
+<br>
+<b>default:</b> 24<br></td>
   </tr>
 </table>
 <!--/options-->

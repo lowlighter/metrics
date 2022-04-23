@@ -851,6 +851,17 @@ It can result in cropped or oversized outputs.</p>
 <b>default:</b> 0<br></td>
   </tr>
   <tr>
+    <td nowrap="nowrap"><h4><code>notice_releases</code></h4></td>
+    <td rowspan="2"><p>Notice about new releases of metrics</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> yes<br></td>
+  </tr>
+  <tr>
     <td nowrap="nowrap"><h4><code>use_prebuilt_image</code></h4></td>
     <td rowspan="2"><p>Use pre-built docker image from <a href="https://github.com/lowlighter/metrics/pkgs/container/metrics">GitHub container registry</a></p>
 <p>It allows to save build time and make job significantly faster, and there is almost no reason to disable this settings.

@@ -10,6 +10,10 @@ inputs:
     description: Base content
     default: <default-value>
   
+  base_indepth:
+    description: Indepth mode
+    default: <default-value>
+  
   repositories:
     description: Repositories to fetch
     default: <default-value>
@@ -175,6 +179,10 @@ inputs:
   
   delay:
     description: Job delay
+    default: <default-value>
+  
+  notice_releases:
+    description: Notice about new releases of metrics
     default: <default-value>
   
   use_prebuilt_image:
@@ -747,6 +755,10 @@ inputs:
   
   plugin_sponsors_past:
     description: Display past sponsorships
+    default: <default-value>
+  
+  plugin_sponsors_size:
+    description: Profile picture display size
     default: <default-value>
   
   # ====================================================================================

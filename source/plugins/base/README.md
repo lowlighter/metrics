@@ -10,7 +10,7 @@
     <td><code>👤 Users</code> <code>👥 Organizations</code> <code>📓 Repositories</code></td>
   </tr>
   <tr>
-    <td><code>🔑 (scopeless)</code> <code>read:org (optional)</code> <code>read:user (optional)</code> <code>repo (optional)</code></td>
+    <td><code>🔑 (scopeless)</code> <code>read:org (optional)</code> <code>read:user (optional)</code> <code>read:packages (optional)</code> <code>repo (optional)</code></td>
   </tr>
   <tr>
 <td colspan="2"><table><tr>
@@ -52,6 +52,27 @@
 <br>
 <b>default:</b> header, activity, community, repositories, metadata<br>
 <b>allowed values:</b><ul><li>header</li><li>activity</li><li>community</li><li>repositories</li><li>metadata</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><h4><code>base_indepth</code></h4></td>
+    <td rowspan="2"><p>Indepth mode</p>
+<p>Enabling this will consume additional API queries to fetch more data.
+This currently improves the accuracy of the following statistics:</p>
+<ul>
+<li>total commits</li>
+<li>total issues</li>
+<li>total pull requests</li>
+<li>total pull requests reviews</li>
+<li>total repositories contributed to</li>
+</ul>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
+🌐 Web instances must configure <code>settings.json</code><br>
+<b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>repositories</code></h4></td>
