@@ -141,6 +141,7 @@ function quit(reason) {
       "output.action":_action,
       "output.condition":_output_condition,
       delay,
+      "notice.release":_notice_releases,
       ...config
     } = metadata.plugins.core.inputs.action({core, preset})
     const q = {...query, ...(_repo ? {repo:_repo} : null), template}
@@ -213,6 +214,15 @@ function quit(reason) {
     }
     //Extract octokits
     const {graphql, rest} = api
+
+    //Check for new versions
+    if (_notice_releases) {
+      const {data:[{tag_name:tag}]} = await rest.repos.listReleases({owner:"lowlighter", repo:"metrics"})
+      const current = Number(conf.package.version.match(/(\d+\.\d+)/)?.[1] ?? 0)
+      const latest = Number(tag.match(/(\d+\.\d+)/)?.[1] ?? 0)
+      if (latest > current)
+        console.info(`::notice::A new version of metrics (v${latest}) has been released, check it out for even more features!`)
+    }
 
     //GitHub user
     let authenticated
@@ -300,7 +310,6 @@ function quit(reason) {
     }
     else if (dryrun)
       info("Dry-run", true)
-
 
     //SVG file
     conf.settings.optimize = optimize
