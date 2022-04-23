@@ -30,7 +30,7 @@
   "homepage": "https://github.com/lowlighter/metrics#readme",
   "dependencies": {
     "@actions/core": "^1.6.0",
-    "@actions/github": "^5.0.0",
+    "@actions/github": "^5.0.1",
     "@faker-js/faker": "^6.0.0-alpha.3",
     "@octokit/graphql": "^4.8.0",
     "@octokit/rest": "^18.12.0",
@@ -40,14 +40,14 @@
     "clipboard": "^2.0.10",
     "compression": "^1.7.4",
     "csso": "^5.0.3",
-    "ejs": "^3.1.6",
+    "ejs": "^3.1.7",
     "emoji-name-map": "^1.2.9",
     "express": "^4.17.3",
     "express-rate-limit": "^6.3.0",
     "jimp": "^0.16.1",
     "js-yaml": "^4.1.0",
     "linguist-js": "^2.4.2",
-    "marked": "^4.0.12",
+    "marked": "^4.0.14",
     "memory-cache": "^0.2.0",
     "minimatch": "^5.0.1",
     "node-chartist": "^1.0.5",
@@ -55,11 +55,11 @@
     "open-graph-scraper": "^4.11.0",
     "png-js": "^1.0.0",
     "prismjs": "^1.28.0",
-    "puppeteer": "^13.5.1",
+    "puppeteer": "^13.6.0",
     "purgecss": "^4.1.3",
     "rss-parser": "^3.12.0",
     "sanitize-html": "^2.7.0",
-    "simple-git": "^3.6.0",
+    "simple-git": "^3.7.1",
     "svgo": "^2.8.0",
     "twemoji-parser": "^14.0.0",
     "vue": "^2.6.14",
@@ -67,8 +67,8 @@
     "xml-formatter": "^2.6.1"
   },
   "devDependencies": {
-    "eslint": "^8.13.0",
-    "jest": "^27.5.0",
+    "eslint": "^8.14.0",
+    "jest": "^27.5.1",
     "libxmljs2": "^0.29.0",
     "nodemon": "^2.0.15"
   },
@@ -78,7 +78,6 @@
     "transform": {}
   },
   "optionalDependencies": {
-    "gifencoder": "^2.0.1",
-    "utf-8-validate": "^5.0.8"
+    "gifencoder": "^2.0.1"
   }
 }
