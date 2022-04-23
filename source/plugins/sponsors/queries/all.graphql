@@ -7,12 +7,12 @@ query SponsorsAll {
       nodes {
         sponsor {
           ... on User {
-            avatarUrl
+            avatarUrl(size: $size)
             login
           }
           ... on Organization {
             login
-            avatarUrl(size: 36)
+            avatarUrl(size: $size)
             url
           }
         }

@@ -8,11 +8,11 @@ query SponsorsActive {
         sponsorEntity {
           ... on User {
             login
-            avatarUrl(size: 36)
+            avatarUrl(size: $size)
           }
           ... on Organization {
             login
-            avatarUrl(size: 36)
+            avatarUrl(size: $size)
             url
           }
         }

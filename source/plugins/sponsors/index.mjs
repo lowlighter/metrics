@@ -7,7 +7,7 @@ export default async function({login, q, imports, data, graphql, queries, accoun
       return null
 
     //Load inputs
-    const {sections, past} = await imports.metadata.plugins.sponsors.inputs({data, account, q})
+    const {size, sections, past} = await imports.metadata.plugins.sponsors.inputs({data, account, q})
 
     //Query description and goal
     console.debug(`metrics/compute/${login}/plugins > sponsors > querying sponsors and goal`)
@@ -24,7 +24,7 @@ export default async function({login, q, imports, data, graphql, queries, accoun
       let pushed = 0
       do {
         console.debug(`metrics/compute/${login}/sponsors > retrieving sponsors after ${cursor}`)
-        const {[account]:{sponsorshipsAsMaintainer:{edges, nodes}}} = await graphql(queries.sponsors.active({login, account, after:cursor ? `after: "${cursor}"` : ""}))
+        const {[account]:{sponsorshipsAsMaintainer:{edges, nodes}}} = await graphql(queries.sponsors.active({login, account, after:cursor ? `after: "${cursor}"` : "", size:Math.round(size*1.5)}))
         cursor = edges?.[edges?.length - 1]?.cursor
         fetched.push(...nodes)
         pushed = nodes.length
@@ -48,7 +48,7 @@ export default async function({login, q, imports, data, graphql, queries, accoun
         let pushed = 0
         do {
           console.debug(`metrics/compute/${login}/sponsors > retrieving sponsors events after ${cursor}`)
-          const {[account]:{sponsorsActivities:{edges, nodes}}} = await graphql(queries.sponsors.all({login, account, after:cursor ? `after: "${cursor}"` : ""}))
+          const {[account]:{sponsorsActivities:{edges, nodes}}} = await graphql(queries.sponsors.all({login, account, after:cursor ? `after: "${cursor}"` : "", size:Math.round(size*1.5)}))
           cursor = edges?.[edges?.length - 1]?.cursor
           fetched.push(...nodes)
           pushed = nodes.length
@@ -73,7 +73,7 @@ export default async function({login, q, imports, data, graphql, queries, accoun
 
     //Results
     list = list.sort((a, b) => a.past === b.past ? b.amount - a.amount : a.past - b.past)
-    return {sections, about, list, count, goal}
+    return {sections, about, list, count, goal, size}
   }
   //Handle errors
   catch (error) {

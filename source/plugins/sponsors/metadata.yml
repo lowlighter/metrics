@@ -40,3 +40,10 @@ inputs:
       This feature requires a token from target account, as past sponsorships are gathered from sponsors activity and is private data.
     type: boolean
     default: no
+
+  plugin_sponsors_size:
+    description: Profile picture display size
+    type: number
+    default: 24
+    min: 8
+    max: 64

@@ -46,7 +46,7 @@
                 </div>
                 <% if ((section === "list")||(plugins.sponsors.sections.includes("list"))) { %>
                   <div class="row">
-                    <% for (const user of plugins.sponsors.list) { %><img class="avatar <%= user.type === "organization" ? "organization" : "" %> <%= user.past ? "past" : "" %>" src="<%= user.avatar %>" width="24" height="24" alt="" /><% } %>
+                    <% for (const user of plugins.sponsors.list) { %><img class="avatar <%= user.type === "organization" ? "organization" : "" %> <%= user.past ? "past" : "" %>" src="<%= user.avatar %>" width="<%= plugins.sponsors.size %>" height="<%= plugins.sponsors.size %>" alt="" /><% } %>
                   </div>
                 <% } %>
               </section>
