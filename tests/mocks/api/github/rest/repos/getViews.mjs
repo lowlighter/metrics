@@ -1,5 +1,5 @@
 /**Mocked data */
-export default function({ faker }, target, that, [{ owner, repo }]) {
+export default async function({ faker }, target, that, [{ owner, repo }]) {
   console.debug("metrics/compute/mocks > mocking rest api result > rest.repos.getViews")
   const count = faker.datatype.number(10000) * 2
   const uniques = faker.datatype.number(count) * 2

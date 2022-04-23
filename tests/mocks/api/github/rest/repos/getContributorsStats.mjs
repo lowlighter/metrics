@@ -1,5 +1,5 @@
 /**Mocked data */
-export default function({ faker }, target, that, [{ owner, repo }]) {
+export default async function({ faker }, target, that, [{ owner, repo }]) {
   console.debug("metrics/compute/mocks > mocking rest api result > rest.repos.getContributorsStats")
   return ({
     status: 200,

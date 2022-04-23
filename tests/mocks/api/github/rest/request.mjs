@@ -1,5 +1,5 @@
 /**Mocked data */
-export default function({ faker }, target, that, args) {
+export default async function({ faker }, target, that, args) {
   //Arguments
   const [url] = args
   //Head request

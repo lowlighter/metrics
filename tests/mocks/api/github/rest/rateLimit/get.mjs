@@ -1,5 +1,5 @@
 /**Mocked data */
-export default function({ faker }, target, that, args) {
+export default async function({ faker }, target, that, args) {
   return ({
     status: 200,
     url: "https://api.github.com/rate_limit",

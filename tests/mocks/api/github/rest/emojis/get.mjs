@@ -1,5 +1,5 @@
 /**Mocked data */
-export default function({ faker }, target, that) {
+export default async function({ faker }, target, that) {
   console.debug("metrics/compute/mocks > mocking rest api result > rest.emojis.get")
   return ({
     status: 200,
