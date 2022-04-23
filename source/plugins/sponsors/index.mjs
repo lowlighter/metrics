@@ -14,7 +14,7 @@ export default async function({login, q, imports, data, graphql, queries, accoun
     const {[account]:{sponsorsListing:{fullDescription, activeGoal}}} = await graphql(queries.sponsors.description({login, account}))
     const about = await imports.markdown(fullDescription, {mode:"multiline"})
     const goal = activeGoal ? {progress:activeGoal.percentComplete, title:activeGoal.title, description:await imports.markdown(activeGoal.description)} : null
-    const count = {active:{total:0, user:0, organization:0}, past:{total:0, user:0, organization:0}}
+    const count = {total:{count:0, user:0, organization:0}, active:{total:0, user:0, organization:0}, past:{total:0, user:0, organization:0}}
 
     //Query active sponsors
     let list = []
@@ -65,6 +65,11 @@ export default async function({login, q, imports, data, graphql, queries, accoun
         }
       }
     }
+
+    //Update counters
+    count.total.count = count.active.total + count.past.total
+    count.total.user = count.active.user + count.past.user
+    count.total.organization = count.active.organization + count.past.organization
 
     //Results
     list = list.sort((a, b) => a.past === b.past ? b.amount - a.amount : a.past - b.past)
