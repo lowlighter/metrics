@@ -33,7 +33,6 @@ jobs:
       - name: Format code
         run: |
           dprint fmt --config .github/config/dprint.json
-          npm run format
       - name: Publish formatted code
         run: |
           set +e

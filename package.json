@@ -14,7 +14,6 @@
     "quickstart": "node .github/scripts/quickstart/index.mjs",
     "preview": "node .github/scripts/preview.mjs",
     "linter": "eslint source/**/*.mjs --quiet",
-    "format": "eslint source/**/*.mjs --fix",
     "dev": "nodemon source/app/web/index.mjs -e mjs,css,ejs,json",
     "postinstall": "node node_modules/puppeteer/install.js",
     "indepth": "node source/plugins/languages/analyzers.mjs"

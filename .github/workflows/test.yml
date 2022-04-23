@@ -43,7 +43,6 @@ jobs:
           cp /home/runner/.dprint/bin/dprint /usr/local/bin/dprint
           npm install -g eslint
           dprint fmt --config .github/config/dprint.json
-          npm run format
       - name: Build lowlighter/metrics:${{ github.head_ref || 'master' }}
         run: docker build -t lowlighter/metrics:$(echo ${{ github.head_ref || 'master' }} | sed 's/\//-/g') .
       - name: Run tests

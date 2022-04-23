@@ -12,7 +12,8 @@
     "arrowFunction.useParentheses": "preferNone",
     "commentLine.forceSpaceAfterSlashes": false,
     "taggedTemplate.spaceBeforeLiteral": false,
-    "nextControlFlowPosition": "nextLine"
+    "nextControlFlowPosition": "nextLine",
+    "spaceSurroundingProperties": false
   },
   "includes": ["**/*.{js,mjs}"],
   "excludes": [
@@ -20,6 +21,6 @@
     ".github/scripts/quickstart/**/*"
   ],
   "plugins": [
-    "https://plugins.dprint.dev/typescript-0.42.0.wasm"
+    "https://plugins.dprint.dev/typescript-0.68.0.wasm"
   ]
 }
