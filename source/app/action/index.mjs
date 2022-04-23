@@ -190,13 +190,13 @@ function quit(reason) {
       info("API requests (GraphQL)", resources.graphql ? `${resources.graphql.remaining}/${resources.graphql.limit}` : "(unknown)")
       info("API requests (search)", resources.search ? `${resources.search.remaining}/${resources.search.limit}` : "(unknown)")
       if ((!resources.core.remaining)||(!resources.graphql.remaining)) {
-        console.warn(`::warning::It seems you have reached your API requests limit. Please retry later.`)
+        console.warn("::warning::It seems you have reached your API requests limit. Please retry later.")
         info.break()
         console.log("Nothing can be done currently, thanks for using metrics!")
         quit("skipped")
       }
       if (!resources.search.remaining)
-        console.warn(`::warning::It seems you have reached your Search API requests limit. Some plugins may return less accurate results.`)
+        console.warn("::warning::It seems you have reached your Search API requests limit. Some plugins may return less accurate results.")
       //Check scopes
       try {
         const {headers} = await api.rest.request("HEAD /")
