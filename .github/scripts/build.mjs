@@ -114,7 +114,7 @@ async function update({source, output, context = {}, options = {}}) {
   const {plugins, templates, packaged, descriptor} = await metadata({log: false})
   const content = await ejs.renderFile(source, {plugins, templates, packaged, descriptor, ...context}, {async: true, ...options})
   const file = paths.join(__metrics, output)
-  await fs.writeFile(file, content)
+  await fs.writeFile(file, content.replace(/^[ ]+$/gm, ""))
   staged.add(file)
 }
 
