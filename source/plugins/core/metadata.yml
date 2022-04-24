@@ -379,6 +379,42 @@ inputs:
     min: 0
     max: 3600
 
+  quota_required_rest:
+    description: |
+      Minimum GitHub REST API requests quota required to run
+
+      Action will cancel itself without any errors if requirements are not met
+
+      This option has no effect when `token` is set to `NOT_NEEDED`
+    type: number
+    default: 200
+    min: 0
+    max: 5000
+
+  quota_required_graphql:
+    description: |
+      Minimum GitHub GraphQL API requests quota required to run
+
+      Action will cancel itself without any errors if requirements are not met
+
+      This option has no effect when `token` is set to `NOT_NEEDED`
+    type: number
+    default: 200
+    min: 0
+    max: 5000
+
+  quota_required_search:
+    description: |
+      Minimum GitHub REST API requests quota required to run
+
+      Action will cancel itself without any errors if requirements are not met
+
+      This option has no effect when `token` is set to `NOT_NEEDED`
+    type: number
+    default: 0
+    min: 0
+    max: 30
+
   notice_releases:
     description: Notice about new releases of metrics
     type: boolean
