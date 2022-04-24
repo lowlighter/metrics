@@ -46,7 +46,7 @@ jobs:
       - name: Build lowlighter/metrics:${{ github.head_ref || 'master' }}
         run: docker build -t lowlighter/metrics:$(echo ${{ github.head_ref || 'master' }} | sed 's/\//-/g') .
       - name: Run tests
-        run: docker run --entrypoint="" lowlighter/metrics:$(echo ${{ github.head_ref || 'master' }} | sed 's/\//-/g') npm run test-metrics
+        run: docker run --rm --entrypoint="" lowlighter/metrics:$(echo ${{ github.head_ref || 'master' }} | sed 's/\//-/g') npm run test-metrics
 
   # Run CodeQL on branch
   analyze:

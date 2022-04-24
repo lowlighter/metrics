@@ -104,7 +104,7 @@ PUBLISHED_PORT=80
 
 And start the container using the following command:
 ```shell
-docker run --entrypoint="" -p=127.0.0.1:$PUBLISHED_PORT:$SERVICE_PORT --volume=$SETTINGS:/metrics/settings.json ghcr.io/lowlighter/metrics:$VERSION npm start
+docker run --rm --entrypoint="" -p=127.0.0.1:$PUBLISHED_PORT:$SERVICE_PORT --volume=$SETTINGS:/metrics/settings.json ghcr.io/lowlighter/metrics:$VERSION npm start
 ```
 
 ## 4️ Add images to your profile `README.md`

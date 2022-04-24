@@ -99,7 +99,7 @@ runs:
         echo "::endgroup::"
 
         # Run docker image with current environment
-        docker run --init --volume $GITHUB_EVENT_PATH:$GITHUB_EVENT_PATH --volume $METRICS_RENDERS:/renders --env-file .env $METRICS_IMAGE
+        docker run --init --rm --volume $GITHUB_EVENT_PATH:$GITHUB_EVENT_PATH --volume $METRICS_RENDERS:/renders --env-file .env $METRICS_IMAGE
         rm .env
       shell: bash
       env:

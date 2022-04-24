@@ -1197,12 +1197,12 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      
+
 
       - name: Screenshot markdown example
         if: ${{ success() || failure() }}
         run: |
-          docker run --entrypoint="" --volume=/tmp:/tmp ghcr.io/lowlighter/metrics:master node /metrics/.github/scripts/markdown_example.mjs
+          docker run --rm --entrypoint="" --volume=/tmp:/tmp ghcr.io/lowlighter/metrics:master node /metrics/.github/scripts/markdown_example.mjs
           sudo mv /tmp/metrics.markdown.png /metrics_renders/
       - name: Publish examples
         if: ${{ success() || failure() }}
