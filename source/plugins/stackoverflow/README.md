@@ -1,5 +1,6 @@
 <!--header-->
 <table>
+  <tr><td colspan="2"><a href="/README.md#-plugins">← Back to plugins index</a></td></tr>
   <tr><th colspan="2"><h3>🗨️ StackOverflow plugin</h3></th></tr>
   <tr><td colspan="2" align="center"><p>This plugin displays stats, questions and answer from <a href="https://stackoverflow.com/">stackoverflow</a>.</p>
 </td></tr>
@@ -27,7 +28,7 @@
 <!--options-->
 <table>
   <tr>
-    <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
+    <td align="center" nowrap="nowrap">Option</i></td><td align="center" nowrap="nowrap">Description</td>
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_stackoverflow</code></h4></td>

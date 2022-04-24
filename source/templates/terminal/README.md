@@ -1,5 +1,6 @@
 <!--header-->
 <table>
+  <tr><td colspan="2"><a href="/README.md#%EF%B8%8F-templates">← Back to templates index</a></td></tr>
   <tr><th colspan="2"><h3>📙 Terminal template</h3></th></tr>
   <tr><td colspan="2" align="center"><p>A template mimicking a SSH session.</p>
 </td></tr>

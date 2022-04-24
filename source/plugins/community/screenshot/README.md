@@ -1,5 +1,6 @@
 <!--header-->
 <table>
+  <tr><td colspan="2"><a href="/README.md#-plugins">← Back to plugins index</a></td></tr>
   <tr><th colspan="2"><h3>📸 Website screenshot</h3></th></tr>
   <tr><td colspan="2" align="center"><p>This plugin display a screenshot from any website.
 It can either the full page or a portion restricted by a <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors">CSS selector</a>.</p>
@@ -29,7 +30,7 @@ It can either the full page or a portion restricted by a <a href="https://develo
 <!--options-->
 <table>
   <tr>
-    <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
+    <td align="center" nowrap="nowrap">Option</i></td><td align="center" nowrap="nowrap">Description</td>
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_screenshot</code></h4></td>

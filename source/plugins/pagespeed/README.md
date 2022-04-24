@@ -1,5 +1,6 @@
 <!--header-->
 <table>
+  <tr><td colspan="2"><a href="/README.md#-plugins">← Back to plugins index</a></td></tr>
   <tr><th colspan="2"><h3>⏱️ Website performances</h3></th></tr>
   <tr><td colspan="2" align="center"><p>This plugin adds performance statistics of a website.
 It uses <a href="https://developers.google.com/speed/docs/insights/v5/get-started">Google&#39;s PageSpeed API</a> (same as <a href="https://web.dev">web.dev</a>), see <a href="https://web.dev/performance-scoring/">performance scoring</a> and <a href="https://googlechrome.github.io/lighthouse/scorecalc/">score calculator</a> for more informations about results.</p>
@@ -30,7 +31,7 @@ It uses <a href="https://developers.google.com/speed/docs/insights/v5/get-starte
 <!--options-->
 <table>
   <tr>
-    <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>
+    <td align="center" nowrap="nowrap">Option</i></td><td align="center" nowrap="nowrap">Description</td>
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_pagespeed</code></h4></td>
