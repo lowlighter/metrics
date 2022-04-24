@@ -1170,10 +1170,24 @@ runs:
   using: composite
   steps:
     - run: |
-        # Create environment file from inputs and GitHub variables
+        # Check runner compatibility
         echo "::group::Metrics docker image setup"
         echo "GitHub action: $METRICS_ACTION ($METRICS_ACTION_PATH)"
         cd $METRICS_ACTION_PATH
+        for DEPENDENCY in docker jq; do
+          if ! which $DEPENDENCY; then
+            echo '::error::"$DEPENDENCY" is not installed on current runner but is needed to run metrics'
+            MISSING_DEPENDENCIES=1
+          fi
+        done
+        if [[ $MISSING_DEPENDENCIES == "1" ]]; then
+          echo "Runner compatibility: missing dependencies"
+          exit 1
+        else
+          echo "Runner compatibility: compatible"
+        fi
+
+        # Create environment file from inputs and GitHub variables
         touch .env
         for INPUT in $(echo $INPUTS | jq -r 'to_entries|map("INPUT_\(.key|ascii_upcase)=\(.value|@uri)")|.[]'); do
           echo $INPUT >> .env
