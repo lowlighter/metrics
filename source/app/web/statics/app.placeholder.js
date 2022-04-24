@@ -418,8 +418,27 @@
                 login: faker.internet.userName(),
                 amount: faker.datatype.number(10),
                 avatar: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
+                past: faker.datatype.boolean(),
               })),
-              count: faker.datatype.number(100),
+              past:options["sponsors.past"],
+              size:options["sponsors.size"],
+              count: {
+                total:{
+                  count:faker.datatype.number(100),
+                  user:faker.datatype.number(100),
+                  organization:faker.datatype.number(100),
+                },
+                active:{
+                  total:faker.datatype.number(100),
+                  user:faker.datatype.number(100),
+                  organization:faker.datatype.number(100),
+                },
+                past:{
+                  total:faker.datatype.number(100),
+                  user:faker.datatype.number(100),
+                  organization:faker.datatype.number(100),
+                }
+              },
               goal: {
                 progress: faker.datatype.number(100),
                 title: `$${faker.datatype.number(100) * 10} per month`,
@@ -445,17 +464,23 @@
               ["stats.recent"]: {
                 total: faker.datatype.number(10000),
                 get lines() {
-                  return Object.fromEntries(Object.entries(this.favorites).map(([key, {value}]) => [key, value]))
+                  return Object.fromEntries(Object.entries(this.recent).map(([key, {value}]) => [key, value]))
                 },
                 get stats() {
-                  return Object.fromEntries(Object.entries(this.favorites).map(([key, {value}]) => [key, value]))
+                  return Object.fromEntries(Object.entries(this.recent).map(([key, {value}]) => [key, value]))
                 },
                 commits: faker.datatype.number(500),
                 files: faker.datatype.number(1000),
                 days: Number(options["languages.recent.days"]),
               },
-              favorites: distribution(7).map((value, index, array) => ({name: faker.lorem.word(), color: faker.internet.color(), value, size: faker.datatype.number(1000000), x: array.slice(0, index).reduce((a, b) => a + b, 0)})),
-              recent: distribution(7).map((value, index, array) => ({name: faker.lorem.word(), color: faker.internet.color(), value, size: faker.datatype.number(1000000), x: array.slice(0, index).reduce((a, b) => a + b, 0)})),
+              favorites: distribution(options["languages.limit"] || 8).map((value, index, array) => ({name: (index+1 === array.length)&&(options["languages.other"]) ? "Other" :faker.lorem.word(), color: faker.internet.color(), value, size: faker.datatype.number(1000000), x: array.slice(0, index).reduce((a, b) => a + b, 0)})),
+              recent: distribution(options["languages.limit"] || 8).map((value, index, array) => ({name: (index+1 === array.length)&&(options["languages.other"]) ? "Other" :faker.lorem.word(), color: faker.internet.color(), value, size: faker.datatype.number(1000000), x: array.slice(0, index).reduce((a, b) => a + b, 0)})),
+              get verified() {
+                return options["languages.indepth"] ? {signature:faker.datatype.number(this.commits)} : null
+              },
+              indepth:options["languages.indepth"],
+              commits: faker.datatype.number(500),
+              files: faker.datatype.number(1000),
             },
           })
           : null),
@@ -1100,6 +1125,23 @@
               average: faker.datatype.float(10),
               svg: await staticPlaceholder(set.plugins.enabled.isocalendar, `isocalendar.${options["isocalendar.duration"]}.svg`),
               duration: options["isocalendar.duration"],
+            },
+          })
+          : null),
+        //Calendar
+        ...(set.plugins.enabled.calendar
+          ? ({
+            calendar: {
+              years:new Array(options["calendar.years"] || 2).fill(0).map((_, index) => ({
+                year: new Date().getFullYear() - index,
+                weeks:new Array(53).fill(0).map(() => ({
+                  contributionDays: new Array(7).fill(0).map(() => ({
+                    contributionCount: faker.datatype.number(10),
+                    color: faker.random.arrayElement(["#ebedf0", "#ebedf0", "#ebedf0", "#ebedf0", "#ebedf0", "#ebedf0", "#9be9a8", "#9be9a8", "#9be9a8", "#40c463", "#40c463", "#30a14e", "#216e39"]),
+                    date: faker.date.past(365)
+                  }))
+                }))
+              }))
             },
           })
           : null),
