@@ -77,7 +77,7 @@ for (const id of Object.keys(templates)) {
 for (const step of ["config", "documentation"]) {
   switch (step) {
     case "config":
-      await update({source: paths.join(__action, "action.yml"), output: "action.yml"})
+      await update({source: paths.join(__action, "action.yml"), output: "action.yml", context: {runsh: `${await fs.readFile(paths.join(__action, "run.sh"), "utf8")}`}})
       await update({source: paths.join(__web, "settings.example.json"), output: "settings.example.json"})
       break
     case "documentation":
