@@ -645,7 +645,7 @@ jobs:
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.sponsors.svg
-          token: ${{ secrets.METRICS_TOKEN_WITH_SCOPES }}
+          token: ${{ secrets.METRICS_TOKEN_PERSONAL }}
           base: ""
           plugin_sponsors: yes
           plugin_sponsors_sections: goal, list
@@ -1252,13 +1252,13 @@ jobs:
         uses: lowlighter/metrics@master
         with:
           filename: metrics.sponsors.svg
-          token: ${{ secrets.METRICS_TOKEN_WITH_SCOPES }}
+          token: ${{ secrets.METRICS_TOKEN_PERSONAL }}
           base: ""
           user: lowlighter
           plugin_sponsors: yes
           plugin_sponsors_past: yes
           plugin_sponsors_sections: list
-          plugin_sponsors_size: 48
+          plugin_sponsors_size: 32
           plugins_errors_fatal: yes
           config_display: large
           output_action: none

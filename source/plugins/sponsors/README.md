@@ -93,7 +93,7 @@ name: Sponsors goal
 uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.sponsors.svg
-  token: ${{ secrets.METRICS_TOKEN_WITH_SCOPES }}
+  token: ${{ secrets.METRICS_TOKEN_PERSONAL }}
   base: ""
   plugin_sponsors: yes
   plugin_sponsors_sections: goal, list
