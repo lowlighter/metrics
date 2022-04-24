@@ -18,4 +18,5 @@ There are several ways to setup metrics, each having its advantages and disadvan
 
 Additional resources for setup:
 * [🏦 Configure metrics for organizations](/.github/readme/partials/documentation/organizations.md)
+* [🏠 Run metrics on self-hosted runners](/.github/readme/partials/documentation/selfhosted.md)
 * [🧰 Template/Plugin compatibility matrix](/.github/readme/partials/documentation/compatibility.md)
