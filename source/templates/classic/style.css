@@ -838,6 +838,17 @@
     max-width: 900px;
   }
 
+/* Calendar */
+  svg.calendar {
+    margin-left: 13px;
+    margin-top: 4px;
+  }
+
+  svg.calendar text {
+    font-size: 18px;
+    fill: currentColor;
+  }
+
 /* People */
   .people {
     padding: 0 10px;
