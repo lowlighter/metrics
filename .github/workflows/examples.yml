@@ -648,7 +648,7 @@ jobs:
           token: ${{ secrets.METRICS_TOKEN_WITH_SCOPES }}
           base: ""
           plugin_sponsors: yes
-          plugin_sponsors_sections: goal
+          plugin_sponsors_sections: goal, list
           plugin_sponsors_past: yes
           output_action: none
           delay: 120
@@ -1232,11 +1232,10 @@ jobs:
           user: lowlighter
           plugin_sponsors: yes
           plugin_sponsors_past: yes
-          plugin_sponsors_sections: goal
+          plugin_sponsors_sections: list
+          plugin_sponsors_size: 48
           plugins_errors_fatal: yes
           config_display: large
-          extras_js: |
-            document.querySelectorAll(".markdown, .center, .goal-text span:last-child")?.forEach(h2 => h2.remove())
           output_action: none
           delay: 120
       - name: Licenses

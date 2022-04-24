@@ -95,7 +95,7 @@ with:
   token: ${{ secrets.METRICS_TOKEN_WITH_SCOPES }}
   base: ""
   plugin_sponsors: yes
-  plugin_sponsors_sections: goal
+  plugin_sponsors_sections: goal, list
   plugin_sponsors_past: yes
 
 ```
