@@ -44,6 +44,5 @@ describe("Check files editions (checkout your files if needed)", () => {
 
 //Templates editions
 describe("Check templates editions", () => {
-  test("Use community templates instead (see https://github.com/lowlighter/metrics/tree/master/source/templates/community)", async () =>
-    void expect((await diff()).filter(edited => /^sources[/]templates[/]/.test(edited) && /^source[/]templates[/](?:classic|terminal|markdown|repository|community)[/][\s\S]*$/.test(edited)).length).toBe(0))
+  test("Use community templates instead (see https://github.com/lowlighter/metrics/tree/master/source/templates/community)", async () => void expect((await diff()).filter(edited => /^sources[/]templates[/]/.test(edited) && /^source[/]templates[/](?:classic|terminal|markdown|repository|community)[/][\s\S]*$/.test(edited)).length).toBe(0))
 })

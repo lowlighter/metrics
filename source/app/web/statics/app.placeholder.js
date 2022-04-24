@@ -402,8 +402,7 @@
                 status: "modified",
                 additions: faker.datatype.number(50),
                 deletions: faker.datatype.number(50),
-                patch:
-                  `<span class="token coord">@@ -0,0 +1,5 @@</span><br>  //Imports<br><span class="token inserted">+  import app from "./src/app.mjs"</span><br><span class="token deleted">-  import app from "./src/app.js"</span><br>  //Start app<br>  await app()<br>\\ No newline at end of file`,
+                patch: `<span class="token coord">@@ -0,0 +1,5 @@</span><br>  //Imports<br><span class="token inserted">+  import app from "./src/app.mjs"</span><br><span class="token deleted">-  import app from "./src/app.js"</span><br>  //Start app<br>  await app()<br>\\ No newline at end of file`,
                 repo: `${faker.random.word()}/${faker.random.word()}`,
               },
             },

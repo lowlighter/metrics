@@ -81,7 +81,6 @@ rules:
   no-multiple-empty-lines: error
   no-multi-str: error
   no-multi-assign: error
-  no-inline-comments: error
   yoda: error
   max-classes-per-file: [error, 1]
   grouped-accessor-pairs: error
@@ -115,9 +114,6 @@ rules:
   quote-props: [error, as-needed, {numbers: true}]
   quotes: [error, double, {avoidEscape: true}]
   template-curly-spacing: error
-
-  # Coding style (comments rules)
-  line-comment-position: error
 
   # Coding style (spacing rules)
   block-spacing: [error, always]
