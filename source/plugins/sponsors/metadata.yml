@@ -24,10 +24,11 @@ inputs:
       Displayed sections
       - `goal`: display GitHub active goal
       - `about`: display GitHub sponsors introduction
+      - `list`: display GitHub sponsors list
     type: array
     format: comma-separated
-    default: goal, about
-    example: goal, about
+    default: goal, list, about
+    example: goal, list, about
     values:
       - goal
       - about

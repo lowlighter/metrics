@@ -46,8 +46,18 @@
                 </div>
                 <% if ((section === "list")||(plugins.sponsors.sections.includes("list"))) { %>
                   <div class="row">
-                    <% for (const user of plugins.sponsors.list) { %><img class="avatar <%= user.type === "organization" ? "organization" : "" %> <%= user.past ? "past" : "" %>" src="<%= user.avatar %>" width="<%= plugins.sponsors.size %>" height="<%= plugins.sponsors.size %>" alt="" /><% } %>
+                    <% for (const user of plugins.sponsors.list.filter(({past}) => !past)) { %><img class="avatar <%= user.type === "organization" ? "organization" : "" %>" src="<%= user.avatar %>" width="<%= plugins.sponsors.size %>" height="<%= plugins.sponsors.size %>" alt="" /><% } %>
                   </div>
+                  <% if ((plugins.sponsors.past)&&(plugins.sponsors.count.past.total)) { %>
+                    <div class="past-text">
+                      <span>
+                        <%= plugins.sponsors.count.past.total %> sponsor<%= s(plugins.sponsors.count.past.total) %> helped <%= user.login %> in the past
+                      </span>
+                    </div>
+                    <div class="row">
+                      <% for (const user of plugins.sponsors.list.filter(({past}) => past)) { %><img class="avatar past <%= user.type === "organization" ? "organization" : "" %>" src="<%= user.avatar %>" width="<%= 0.8*plugins.sponsors.size %>" height="<%= 0.8*plugins.sponsors.size %>" alt="" /><% } %>
+                    </div>
+                  <% } %>
                 <% } %>
               </section>
             </div>

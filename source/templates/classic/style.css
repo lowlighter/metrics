@@ -147,9 +147,6 @@
     border-radius: 50%;
     margin: 0 6px;
   }
-  .avatar.past {
-    filter: opacity(0.5);
-  }
 
   .organization.avatar {
     border-radius: 15%;
@@ -1069,12 +1066,15 @@
     border-radius: 5px;
     background-color: #7777771F;
   }
-  .sponsors .goal-text {
+  .sponsors .goal-text, .sponsors .past-text {
     display: flex;
     justify-content: space-between;
     font-style: italic;
-    font-size: 10px;
+    font-size: 12px;
     margin-bottom: 4px;
+  }
+  .sponsors .past-text {
+    margin: 8px 0 2px;
   }
   .sponsors .avatar {
     margin: 2px;
@@ -1403,20 +1403,6 @@
   .autosize {
     width: auto;
     height: auto;
-  }
-
-/* Fade animation */
-  .af {
-    opacity: 0;
-    animation: animation-fade 1s ease forwards;
-  }
-  @keyframes animation-fade {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
   }
 
 /* Twemoji and GitHub emoji */

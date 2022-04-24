@@ -7,7 +7,7 @@ export default async function({login, q, imports, data, graphql, queries, accoun
       return null
 
     //Load inputs
-    const {size, sections, past} = await imports.metadata.plugins.sponsors.inputs({data, account, q})
+    let {size, sections, past} = await imports.metadata.plugins.sponsors.inputs({data, account, q})
 
     //Query description and goal
     console.debug(`metrics/compute/${login}/plugins > sponsors > querying sponsors and goal`)
@@ -15,6 +15,8 @@ export default async function({login, q, imports, data, graphql, queries, accoun
     const about = await imports.markdown(fullDescription, {mode: "multiline"})
     const goal = activeGoal ? {progress: activeGoal.percentComplete, title: activeGoal.title, description: await imports.markdown(activeGoal.description)} : null
     const count = {total: {count: 0, user: 0, organization: 0}, active: {total: 0, user: 0, organization: 0}, past: {total: 0, user: 0, organization: 0}}
+    if (!goal)
+      sections = sections.filter(section => section.name !== "goal")
 
     //Query active sponsors
     let list = []
@@ -73,7 +75,7 @@ export default async function({login, q, imports, data, graphql, queries, accoun
 
     //Results
     list = list.sort((a, b) => a.past === b.past ? b.amount - a.amount : a.past - b.past)
-    return {sections, about, list, count, goal, size}
+    return {sections, about, list, count, goal, size, past}
   }
   //Handle errors
   catch (error) {
