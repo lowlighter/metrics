@@ -1,4 +1,5 @@
 <table>
+  <tr><td colspan="2"><a href="/README.md#-plugins">← Back to plugins index</a></td></tr>
   <tr><th colspan="2"><h3>🎲 Community plugins</h3></th></tr>
   <tr><td colspan="2" align="center">Additional plugins maintained by community for even more features!</td></tr>
 <% {
