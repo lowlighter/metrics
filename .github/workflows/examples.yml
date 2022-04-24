@@ -10,6 +10,8 @@ on:
         required: true
       METRICS_TOKEN_WITH_SCOPES:
         required: true
+      METRICS_TOKEN_PERSONAL:
+        required: true
       PAGESPEED_TOKEN:
         required: true
       SPOTIFY_TOKENS:
