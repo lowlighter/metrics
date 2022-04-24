@@ -140,9 +140,9 @@ function quit(reason) {
       "output.action": _action,
       "output.condition": _output_condition,
       delay,
-      "quota.required.rest":_quota_required_rest,
-      "quota.required.graphql":_quota_required_graphql,
-      "quota.required.search":_quota_required_search,
+      "quota.required.rest": _quota_required_rest,
+      "quota.required.graphql": _quota_required_graphql,
+      "quota.required.search": _quota_required_search,
       "notice.release": _notice_releases,
       ...config
     } = metadata.plugins.core.inputs.action({core, preset})
@@ -192,7 +192,7 @@ function quit(reason) {
       Object.assign(resources, data.resources)
       for (const type of ["core", "graphql", "search"]) {
         const name = {core: "REST", graphql: "GraphQL", search: "Search"}[type]
-        const quota = {core:_quota_required_rest, graphql:_quota_required_graphql, search:_quota_required_search}[type] ?? 1
+        const quota = {core: _quota_required_rest, graphql: _quota_required_graphql, search: _quota_required_search}[type] ?? 1
         info(`API requests (${name})`, resources[type] ? `${resources[type].remaining}/${resources[type].limit}${quota ? ` (${quota}+ required)` : ""}` : "(unknown)")
         if ((resources[type]) && (resources[type].remaining < quota))
           ratelimit = true
