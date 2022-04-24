@@ -3,7 +3,7 @@ export default async function({login, q, data, imports, graphql, queries, accoun
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
-    if ((!enabled)||(!q.calendar))
+    if ((!enabled) || (!q.calendar))
       return null
 
     //Load inputs
@@ -12,11 +12,11 @@ export default async function({login, q, data, imports, graphql, queries, accoun
     //Compute boundaries
     const end = new Date().getFullYear()
     console.log(data.user.createdAt instanceof Date)
-    const start = (limit ? new Date(end-limit+1, 0) : new Date(data.user.createdAt)).getFullYear()
+    const start = (limit ? new Date(end - limit + 1, 0) : new Date(data.user.createdAt)).getFullYear()
 
     //Load contribution calendar
     console.debug(`metrics/compute/${login}/plugins > calendar > processing years ${start} to ${end}`)
-    const calendar = {years:[]}
+    const calendar = {years: []}
     for (let year = start; year <= end; year++) {
       console.debug(`metrics/compute/${login}/plugins > calendar > processing year ${year}`)
       const weeks = []
@@ -39,7 +39,7 @@ export default async function({login, q, data, imports, graphql, queries, accoun
         dto.setUTCMilliseconds(999)
         //Fetch data from api
         console.debug(`metrics/compute/${login}/plugins > calendar > loading calendar from "${from.toISOString()}" to "${dto.toISOString()}"`)
-        const {user:{calendar:{contributionCalendar}}} = await graphql(queries.isocalendar.calendar({login, from:from.toISOString(), to:dto.toISOString()}))
+        const {user: {calendar: {contributionCalendar}}} = await graphql(queries.isocalendar.calendar({login, from: from.toISOString(), to: dto.toISOString()}))
         weeks.push(...contributionCalendar.weeks)
         //Set next date range start
         from = new Date(to)
@@ -52,6 +52,6 @@ export default async function({login, q, data, imports, graphql, queries, accoun
   }
   //Handle errors
   catch (error) {
-    throw {error:{message:"An error occured", instance:error}}
+    throw {error: {message: "An error occured", instance: error}}
   }
 }
