@@ -4,7 +4,7 @@
   "incremental": true,
   "indentWidth": 2,
   "typescript": {
-    "lineWidth": 280,
+    "lineWidth": 360,
     "semiColons": "asi",
     "quoteStyle": "preferDouble",
     "useBraces": "preferNone",

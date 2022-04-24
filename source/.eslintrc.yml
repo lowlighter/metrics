@@ -35,10 +35,9 @@ rules:
 
   # Avoid visual pollution
   semi: [error, never]
-  semi-spacing: error
   semi-style: [error, first]
-  curly: [error, multi-or-nest]
   dot-notation: error
+  no-extra-semi: off
 
   # Avoid confusing code
   no-label-var: error
@@ -147,4 +146,3 @@ rules:
   no-extra-parens: [error, functions]
   arrow-body-style: [error, as-needed]
   arrow-parens: [error, as-needed]
-  implicit-arrow-linebreak: error
