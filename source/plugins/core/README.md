@@ -852,6 +852,54 @@ It can result in cropped or oversized outputs.</p>
 <b>default:</b> 0<br></td>
   </tr>
   <tr>
+    <td nowrap="nowrap"><h4><code>quota_required_rest</code></h4></td>
+    <td rowspan="2"><p>Minimum GitHub REST API requests quota required to run</p>
+<p>Action will cancel itself without any errors if requirements are not met</p>
+<p>This option has no effect when <code>token</code> is set to <code>NOT_NEEDED</code></p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>number</code>
+<i>(0 ≤
+𝑥
+≤ 5000)</i>
+<br>
+<b>default:</b> 200<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><h4><code>quota_required_graphql</code></h4></td>
+    <td rowspan="2"><p>Minimum GitHub GraphQL API requests quota required to run</p>
+<p>Action will cancel itself without any errors if requirements are not met</p>
+<p>This option has no effect when <code>token</code> is set to <code>NOT_NEEDED</code></p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>number</code>
+<i>(0 ≤
+𝑥
+≤ 5000)</i>
+<br>
+<b>default:</b> 200<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><h4><code>quota_required_search</code></h4></td>
+    <td rowspan="2"><p>Minimum GitHub REST API requests quota required to run</p>
+<p>Action will cancel itself without any errors if requirements are not met</p>
+<p>This option has no effect when <code>token</code> is set to <code>NOT_NEEDED</code></p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>number</code>
+<i>(0 ≤
+𝑥
+≤ 30)</i>
+<br>
+<b>default:</b> 0<br></td>
+  </tr>
+  <tr>
     <td nowrap="nowrap"><h4><code>notice_releases</code></h4></td>
     <td rowspan="2"><p>Notice about new releases of metrics</p>
 <img width="900" height="1" alt=""></td>

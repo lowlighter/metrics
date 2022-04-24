@@ -181,6 +181,18 @@ inputs:
     description: Job delay
     default: <default-value>
 
+  quota_required_rest:
+    description: Minimum GitHub REST API requests quota required to run
+    default: <default-value>
+
+  quota_required_graphql:
+    description: Minimum GitHub GraphQL API requests quota required to run
+    default: <default-value>
+
+  quota_required_search:
+    description: Minimum GitHub REST API requests quota required to run
+    default: <default-value>
+
   notice_releases:
     description: Notice about new releases of metrics
     default: <default-value>
@@ -1175,7 +1187,7 @@ runs:
         echo "GitHub action: $METRICS_ACTION ($METRICS_ACTION_PATH)"
         cd $METRICS_ACTION_PATH
         for DEPENDENCY in docker jq; do
-          if ! which $DEPENDENCY; then
+          if ! which $DEPENDENCY > /dev/null 2>&1; then
             echo '::error::"$DEPENDENCY" is not installed on current runner but is needed to run metrics'
             MISSING_DEPENDENCIES=1
           fi

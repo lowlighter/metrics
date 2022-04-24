@@ -19,7 +19,7 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
   </tr>
   <tr>
     <th colspan="2" align="center">
-      <h3><a href="/README.md#-plugins">🧩 Customizable with 40 plugins and 255 options!</a></h3>
+      <h3><a href="/README.md#-plugins">🧩 Customizable with 40 plugins and 258 options!</a></h3>
     </th>
   </tr>
   <tr>
@@ -369,7 +369,7 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
 # 📚 Documentation
 
 
-> <sup>*⚠️ This is the documentation of **v3.23-beta** (`@master`/`@main` branches) which includes [unreleased features](https://github.com/lowlighter/metrics/compare/latest...master). See documentation for [**v3.22** (`@latest` branch) here](https://github.com/lowlighter/metrics/blob/latest/README.md).*</sup>
+> <sup>*⚠️ This is the documentation of **v3.23-beta** (`@master`/`@main` branches) which includes [unreleased features](https://github.com/lowlighter/metrics/compare/latest...master) planned for next release. See documentation for current released version [**v3.22** (`@latest` branch) here](https://github.com/lowlighter/metrics/blob/latest/README.md).* </sup>
 
 
 
