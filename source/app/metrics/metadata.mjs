@@ -335,6 +335,7 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
       //Header table
       const header = [
         "<table>",
+        `  <tr><td colspan="2"><a href="/README.md#-plugins">← Back to plugins index</a></td></tr>`,
         `  <tr><th colspan="2"><h3>${meta.name}</h3></th></tr>`,
         `  <tr><td colspan="2" align="center">${marked.parse(meta.description ?? "", {silent: true})}</td></tr>`,
         meta.authors?.length ? `<tr><th>Authors</th><td>${[meta.authors].flat().map(author => `<a href="https://github.com/${author}">@${author}</a>`)}</td></tr>` : "",
@@ -370,7 +371,7 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
       const table = [
         "<table>",
         "  <tr>",
-        '    <td align="center" nowrap="nowrap">Type</i></td><td align="center" nowrap="nowrap">Description</td>',
+        '    <td align="center" nowrap="nowrap">Option</i></td><td align="center" nowrap="nowrap">Description</td>',
         "  </tr>",
         Object.entries(inputs).map(([option, {description, type, ...o}]) => {
           const cell = []
@@ -462,6 +463,7 @@ metadata.template = async function({__templates, name, plugins}) {
     //Header table
     const header = [
       "<table>",
+      `  <tr><td colspan="2"><a href="/README.md#%EF%B8%8F-templates">← Back to templates index</a></td></tr>`,
       `  <tr><th colspan="2"><h3>${meta.name ?? "(unnamed template)"}</h3></th></tr>`,
       `  <tr><td colspan="2" align="center">${marked.parse(meta.description ?? "", {silent: true})}</td></tr>`,
       "  <tr>",
