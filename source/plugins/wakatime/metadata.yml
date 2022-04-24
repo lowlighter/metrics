@@ -3,7 +3,7 @@ category: social
 description: This plugin displays statistics from your [WakaTime](https://wakatime.com) account.
 examples:
   default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.wakatime.svg
-index: 7
+index: 8
 supports:
   - user
 scopes: []

@@ -109,16 +109,15 @@
     "starlists":{
       "enabled": false,            "//": "Enable starlists plugin"
     },
+    "calendar":{
+      "enabled": false,            "//": "Enable calendar plugin"
+    },
     "skyline":{
       "enabled": false,            "//": "Enable skyline plugin"
     },
     "pagespeed":{
       "token": null,               "//":"PageSpeed token\n\nAlthough not mandatory, it strongly advised to create one to avoid triggering the rate limiter. See [PageSpeed documentation](https://developers.google.com/speed/docs/insights/v5/get-started) for more informations.\n",
       "enabled": false,            "//": "Enable pagespeed plugin"
-    },
-    "music":{
-      "token": null,               "//":"Music provider token\n\nBelow is the expected token format for each provider:\n- `apple`: *(not supported)*\n- `spotify`: \"client_id, client_secret, refresh_token\"\n- `lastfm`: \"api_key\"\n- `youtube`: \"cookie\"\n",
-      "enabled": false,            "//": "Enable music plugin"
     },
     "stackoverflow":{
       "enabled": false,            "//": "Enable stackoverflow plugin"
@@ -132,6 +131,10 @@
     },
     "posts":{
       "enabled": false,            "//": "Enable posts plugin"
+    },
+    "music":{
+      "token": null,               "//":"Music provider token\n\nBelow is the expected token format for each provider:\n- `apple`: *(not supported)*\n- `spotify`: \"client_id, client_secret, refresh_token\"\n- `lastfm`: \"api_key\"\n- `youtube`: \"cookie\"\n",
+      "enabled": false,            "//": "Enable music plugin"
     },
     "rss":{
       "enabled": false,            "//": "Enable rss plugin"

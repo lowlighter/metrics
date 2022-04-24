@@ -1,0 +1,15 @@
+- name: 📆 Calendar - Current year calendar
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    plugin_calendar: 'yes'
+    use_mocked_data: 'yes'
+    verify: 'yes'
+- name: 📆 Calendar - Full history calendar
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    plugin_calendar: 'yes'
+    plugin_calendar_limit: 0
+    use_mocked_data: 'yes'
+    verify: 'yes'

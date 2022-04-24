@@ -29,13 +29,14 @@
     <th nowrap="nowrap" align="center" title="🙋 Introduction">🙋</th>
     <th nowrap="nowrap" align="center" title="💕 GitHub Sponsors">💕</th>
     <th nowrap="nowrap" align="center" title="💫 Starlists">💫</th>
+    <th nowrap="nowrap" align="center" title="📆 Calendar">📆</th>
     <th nowrap="nowrap" align="center" title="🌇 GitHub Skyline 3D calendar">🌇</th>
     <th nowrap="nowrap" align="center" title="⏱️ Website performances">⏱️</th>
-    <th nowrap="nowrap" align="center" title="🎼 Music plugin">🎼</th>
     <th nowrap="nowrap" align="center" title="🗨️ StackOverflow plugin">🗨️</th>
     <th nowrap="nowrap" align="center" title="🌸 Anilist watch list and reading list">🌸</th>
     <th nowrap="nowrap" align="center" title="🐤 Latest tweets">🐤</th>
     <th nowrap="nowrap" align="center" title="✒️ Recent posts">✒️</th>
+    <th nowrap="nowrap" align="center" title="🎼 Music plugin">🎼</th>
     <th nowrap="nowrap" align="center" title="🗼 Rss feed">🗼</th>
     <th nowrap="nowrap" align="center" title="⏰ WakaTime plugin">⏰</th>
   </tr>  
@@ -67,13 +68,14 @@
     <td nowrap="nowrap" align="center" data-plugin="introduction">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="sponsors">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="starlists">✔️</td>
+    <td nowrap="nowrap" align="center" data-plugin="calendar">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="skyline">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="music">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="stackoverflow">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="anilist">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="tweets">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="posts">✔️</td>
+    <td nowrap="nowrap" align="center" data-plugin="music">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="rss">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="wakatime">✔️</td>
   </tr>
@@ -105,13 +107,14 @@
     <td nowrap="nowrap" align="center" data-plugin="introduction">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="sponsors">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="starlists">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="calendar">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="skyline">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="music">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="stackoverflow">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="anilist">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="tweets">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="posts">✔️</td>
+    <td nowrap="nowrap" align="center" data-plugin="music">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="rss">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="wakatime">❌</td>
   </tr>
@@ -143,13 +146,14 @@
     <td nowrap="nowrap" align="center" data-plugin="introduction">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="sponsors">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="starlists">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="calendar">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="skyline">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="music">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="stackoverflow">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="anilist">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="tweets">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="posts">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="music">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="rss">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="wakatime">❌</td>
   </tr>
@@ -181,18 +185,19 @@
     <td nowrap="nowrap" align="center" data-plugin="introduction">✓</td>
     <td nowrap="nowrap" align="center" data-plugin="sponsors">✓</td>
     <td nowrap="nowrap" align="center" data-plugin="starlists">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="calendar">✓</td>
     <td nowrap="nowrap" align="center" data-plugin="skyline">✓</td>
     <td nowrap="nowrap" align="center" data-plugin="pagespeed">✓</td>
-    <td nowrap="nowrap" align="center" data-plugin="music">✓</td>
     <td nowrap="nowrap" align="center" data-plugin="stackoverflow">✓</td>
     <td nowrap="nowrap" align="center" data-plugin="anilist">✓</td>
     <td nowrap="nowrap" align="center" data-plugin="tweets">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="posts">✔️</td>
+    <td nowrap="nowrap" align="center" data-plugin="music">✓</td>
     <td nowrap="nowrap" align="center" data-plugin="rss">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="wakatime">✓</td>
   </tr>
   <tr>
-    <td colspan="35"></td>
+    <td colspan="36"></td>
   </tr>
   <tr>
     <th nowrap="nowrap">Mode/Plugin</th>    
@@ -222,13 +227,14 @@
     <th nowrap="nowrap" align="center" title="🙋 Introduction">🙋</th>
     <th nowrap="nowrap" align="center" title="💕 GitHub Sponsors">💕</th>
     <th nowrap="nowrap" align="center" title="💫 Starlists">💫</th>
+    <th nowrap="nowrap" align="center" title="📆 Calendar">📆</th>
     <th nowrap="nowrap" align="center" title="🌇 GitHub Skyline 3D calendar">🌇</th>
     <th nowrap="nowrap" align="center" title="⏱️ Website performances">⏱️</th>
-    <th nowrap="nowrap" align="center" title="🎼 Music plugin">🎼</th>
     <th nowrap="nowrap" align="center" title="🗨️ StackOverflow plugin">🗨️</th>
     <th nowrap="nowrap" align="center" title="🌸 Anilist watch list and reading list">🌸</th>
     <th nowrap="nowrap" align="center" title="🐤 Latest tweets">🐤</th>
     <th nowrap="nowrap" align="center" title="✒️ Recent posts">✒️</th>
+    <th nowrap="nowrap" align="center" title="🎼 Music plugin">🎼</th>
     <th nowrap="nowrap" align="center" title="🗼 Rss feed">🗼</th>
     <th nowrap="nowrap" align="center" title="⏰ WakaTime plugin">⏰</th>
   </tr>  
@@ -260,13 +266,14 @@
     <td nowrap="nowrap" align="center" data-plugin="introduction">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="sponsors">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="starlists">✔️</td>
+    <td nowrap="nowrap" align="center" data-plugin="calendar">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="skyline">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="music">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="stackoverflow">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="anilist">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="tweets">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="posts">✔️</td>
+    <td nowrap="nowrap" align="center" data-plugin="music">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="rss">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="wakatime">✔️</td>
   </tr>
@@ -298,13 +305,14 @@
     <td nowrap="nowrap" align="center" data-plugin="introduction">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="sponsors">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="starlists">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="calendar">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="skyline">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="music">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="stackoverflow">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="anilist">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="tweets">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="posts">✔️</td>
+    <td nowrap="nowrap" align="center" data-plugin="music">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="rss">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="wakatime">❌</td>
   </tr>
@@ -336,13 +344,14 @@
     <td nowrap="nowrap" align="center" data-plugin="introduction">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="sponsors">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="starlists">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="calendar">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="skyline">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</td>
-    <td nowrap="nowrap" align="center" data-plugin="music">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="stackoverflow">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="anilist">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="tweets">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="posts">✔️</td>
+    <td nowrap="nowrap" align="center" data-plugin="music">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="rss">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="wakatime">❌</td>
   </tr>

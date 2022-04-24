@@ -697,6 +697,31 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
+      - name: 📆 Calendar - Current year calendar
+        uses: lowlighter/metrics@master
+        with:
+          filename: metrics.plugin.calendar.svg
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          plugin_calendar: yes
+          output_action: none
+          delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
+        if: ${{ success() || failure() }}
+      - name: 📆 Calendar - Full history calendar
+        uses: lowlighter/metrics@master
+        with:
+          filename: metrics.plugin.calendar.full.svg
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          plugin_calendar: yes
+          plugin_calendar_limit: 0
+          output_action: none
+          delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
+        if: ${{ success() || failure() }}
       - name: 🌇 GitHub Skyline 3D calendar - GitHub Skyline
         uses: lowlighter/metrics@master
         with:
@@ -751,94 +776,6 @@ jobs:
           plugin_pagespeed_screenshot: yes
           plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
           plugin_pagespeed_url: https://lecoq.io
-          output_action: none
-          delay: 120
-          user: lowlighter
-          plugins_errors_fatal: yes
-        if: ${{ success() || failure() }}
-      - name: 🎼 Music plugin - Apple Music - Random track from playlist
-        uses: lowlighter/metrics@master
-        with:
-          filename: metrics.plugin.music.playlist.svg
-          token: NOT_NEEDED
-          base: ""
-          plugin_music: yes
-          plugin_music_playlist: https://embed.music.apple.com/fr/playlist/usr-share/pl.u-V9D7m8Etjmjd0D
-          plugin_music_limit: 2
-          output_action: none
-          delay: 120
-          user: lowlighter
-          plugins_errors_fatal: yes
-        if: ${{ success() || failure() }}
-      - name: 🎼 Music plugin - Spotify - Random track from playlist
-        uses: lowlighter/metrics@master
-        with:
-          filename: metrics.plugin.music.playlist.spotify.svg
-          token: NOT_NEEDED
-          base: ""
-          plugin_music: yes
-          plugin_music_playlist: https://open.spotify.com/embed/playlist/3nfA87oeJw4LFVcUDjRcqi
-          output_action: none
-          delay: 120
-          user: lowlighter
-          plugins_errors_fatal: yes
-        if: ${{ success() || failure() }}
-      - name: 🎼 Music plugin - Spotify - Recently listed
-        uses: lowlighter/metrics@master
-        with:
-          filename: metrics.plugin.music.recent.svg
-          token: NOT_NEEDED
-          base: ""
-          plugin_music: yes
-          plugin_music_provider: spotify
-          plugin_music_mode: recent
-          plugin_music_token: ${{ secrets.SPOTIFY_TOKENS }}
-          plugin_music_limit: 2
-          output_action: none
-          delay: 120
-          user: lowlighter
-          plugins_errors_fatal: yes
-        if: ${{ success() || failure() }}
-      - name: 🎼 Music plugin - Spotify - Top tracks
-        uses: lowlighter/metrics@master
-        with:
-          token: NOT_NEEDED
-          base: ""
-          plugin_music: yes
-          plugin_music_mode: top
-          plugin_music_provider: spotify
-          plugin_music_token: ${{ secrets.SPOTIFY_TOKENS }}
-          plugin_music_time_range: short
-          plugin_music_top_type: tracks
-          output_action: none
-          delay: 120
-          user: lowlighter
-          plugins_errors_fatal: yes
-        if: ${{ success() || failure() }}
-      - name: 🎼 Music plugin - Spotify - Top artists
-        uses: lowlighter/metrics@master
-        with:
-          token: NOT_NEEDED
-          base: ""
-          plugin_music: yes
-          plugin_music_mode: top
-          plugin_music_provider: spotify
-          plugin_music_token: ${{ secrets.SPOTIFY_TOKENS }}
-          plugin_music_time_range: long
-          plugin_music_top_type: artists
-          output_action: none
-          delay: 120
-          user: lowlighter
-          plugins_errors_fatal: yes
-        if: ${{ success() || failure() }}
-      - name: 🎼 Music plugin - Youtube Music - Random track from playlist
-        uses: lowlighter/metrics@master
-        with:
-          token: NOT_NEEDED
-          base: ""
-          plugin_music: yes
-          plugin_music_playlist: >-
-            https://music.youtube.com/playlist?list=OLAK5uy_kU_uxp9TUOl9zVdw77xith8o9AknVwz9U
           output_action: none
           delay: 120
           user: lowlighter
@@ -961,6 +898,94 @@ jobs:
           plugin_posts_limit: 2
           plugin_posts_descriptions: yes
           plugin_posts_covers: yes
+          output_action: none
+          delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
+        if: ${{ success() || failure() }}
+      - name: 🎼 Music plugin - Apple Music - Random track from playlist
+        uses: lowlighter/metrics@master
+        with:
+          filename: metrics.plugin.music.playlist.svg
+          token: NOT_NEEDED
+          base: ""
+          plugin_music: yes
+          plugin_music_playlist: https://embed.music.apple.com/fr/playlist/usr-share/pl.u-V9D7m8Etjmjd0D
+          plugin_music_limit: 2
+          output_action: none
+          delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
+        if: ${{ success() || failure() }}
+      - name: 🎼 Music plugin - Spotify - Random track from playlist
+        uses: lowlighter/metrics@master
+        with:
+          filename: metrics.plugin.music.playlist.spotify.svg
+          token: NOT_NEEDED
+          base: ""
+          plugin_music: yes
+          plugin_music_playlist: https://open.spotify.com/embed/playlist/3nfA87oeJw4LFVcUDjRcqi
+          output_action: none
+          delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
+        if: ${{ success() || failure() }}
+      - name: 🎼 Music plugin - Spotify - Recently listed
+        uses: lowlighter/metrics@master
+        with:
+          filename: metrics.plugin.music.recent.svg
+          token: NOT_NEEDED
+          base: ""
+          plugin_music: yes
+          plugin_music_provider: spotify
+          plugin_music_mode: recent
+          plugin_music_token: ${{ secrets.SPOTIFY_TOKENS }}
+          plugin_music_limit: 2
+          output_action: none
+          delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
+        if: ${{ success() || failure() }}
+      - name: 🎼 Music plugin - Spotify - Top tracks
+        uses: lowlighter/metrics@master
+        with:
+          token: NOT_NEEDED
+          base: ""
+          plugin_music: yes
+          plugin_music_mode: top
+          plugin_music_provider: spotify
+          plugin_music_token: ${{ secrets.SPOTIFY_TOKENS }}
+          plugin_music_time_range: short
+          plugin_music_top_type: tracks
+          output_action: none
+          delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
+        if: ${{ success() || failure() }}
+      - name: 🎼 Music plugin - Spotify - Top artists
+        uses: lowlighter/metrics@master
+        with:
+          token: NOT_NEEDED
+          base: ""
+          plugin_music: yes
+          plugin_music_mode: top
+          plugin_music_provider: spotify
+          plugin_music_token: ${{ secrets.SPOTIFY_TOKENS }}
+          plugin_music_time_range: long
+          plugin_music_top_type: artists
+          output_action: none
+          delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
+        if: ${{ success() || failure() }}
+      - name: 🎼 Music plugin - Youtube Music - Random track from playlist
+        uses: lowlighter/metrics@master
+        with:
+          token: NOT_NEEDED
+          base: ""
+          plugin_music: yes
+          plugin_music_playlist: >-
+            https://music.youtube.com/playlist?list=OLAK5uy_kU_uxp9TUOl9zVdw77xith8o9AknVwz9U
           output_action: none
           delay: 120
           user: lowlighter

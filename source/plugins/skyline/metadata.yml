@@ -6,7 +6,7 @@ description: |
   > ⚠️ This plugin significantly increase file size, consider using it as standalone.
 examples:
   default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.skyline.svg
-index: 25
+index: 26
 supports:
   - user
 scopes: []

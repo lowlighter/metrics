@@ -19,7 +19,7 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
   </tr>
   <tr>
     <th colspan="2" align="center">
-      <h3><a href="/README.md#-plugins">🧩 Customizable with 39 plugins and 253 options!</a></h3>
+      <h3><a href="/README.md#-plugins">🧩 Customizable with 40 plugins and 255 options!</a></h3>
     </th>
   </tr>
   <tr>
@@ -208,7 +208,7 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
   </tr>
   <tr>
     <th><a href="source/plugins/starlists/README.md">💫 Starlists</a></th>
-    <th><a href="source/plugins/skyline/README.md">🌇 GitHub Skyline 3D calendar</a></th>
+    <th><a href="source/plugins/calendar/README.md">📆 Calendar</a></th>
   </tr>
   <tr>
         <td  align="center">
@@ -217,24 +217,24 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
         <img width="900" height="1" alt="">
       </td>
         <td  align="center">
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.skyline.svg" alt=""></img>
+        <details open><summary>Current year</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.calendar.svg" alt=""></img></details>
+        <details><summary>Full history</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.calendar.full.svg" alt=""></img></details>
         <img width="900" height="1" alt="">
       </td>
   </tr>
   <tr>
+    <th><a href="source/plugins/skyline/README.md">🌇 GitHub Skyline 3D calendar</a></th>
     <th><a href="source/plugins/pagespeed/README.md">⏱️ Website performances</a></th>
-    <th><a href="source/plugins/music/README.md">🎼 Music plugin</a></th>
   </tr>
   <tr>
+        <td  align="center">
+        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.skyline.svg" alt=""></img>
+        <img width="900" height="1" alt="">
+      </td>
         <td  align="center">
         <details open><summary>PageSpeed scores</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.pagespeed.svg" alt=""></img></details>
         <details><summary>PageSpeed scores with detailed report</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.pagespeed.detailed.svg" alt=""></img></details>
         <details><summary>PageSpeed scores with a website screenshot</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.pagespeed.screenshot.svg" alt=""></img></details>
-        <img width="900" height="1" alt="">
-      </td>
-        <td  align="center">
-        <details open><summary>Random tracks from a playlist</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.music.playlist.svg" alt=""></img></details>
-        <details open><summary>Recently listened</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.music.recent.svg" alt=""></img></details>
         <img width="900" height="1" alt="">
       </td>
   </tr>
@@ -271,18 +271,30 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
       </td>
   </tr>
   <tr>
+    <th><a href="source/plugins/music/README.md">🎼 Music plugin</a></th>
     <th><a href="source/plugins/rss/README.md">🗼 Rss feed</a></th>
-    <th><a href="source/plugins/wakatime/README.md">⏰ WakaTime plugin</a></th>
   </tr>
   <tr>
+        <td  align="center">
+        <details open><summary>Random tracks from a playlist</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.music.playlist.svg" alt=""></img></details>
+        <details open><summary>Recently listened</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.music.recent.svg" alt=""></img></details>
+        <img width="900" height="1" alt="">
+      </td>
         <td  align="center">
         <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.rss.svg" alt=""></img>
         <img width="900" height="1" alt="">
       </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/wakatime/README.md">⏰ WakaTime plugin</a></th>
+    <th></th>
+  </tr>
+  <tr>
         <td  align="center">
         <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.wakatime.svg" alt=""></img>
         <img width="900" height="1" alt="">
       </td>
+    <td align="center"><img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <th colspan="2" align="center">
@@ -405,6 +417,7 @@ Plugins provide additional content and lets you customize rendered metrics.
 * **Github plugins**
   * [🏆 Achievements <sub>`achievements`</sub>](/source/plugins/achievements/README.md)
   * [📰 Recent activity <sub>`activity`</sub>](/source/plugins/activity/README.md)
+  * [📆 Calendar <sub>`calendar`</sub>](/source/plugins/calendar/README.md)
   * [♐ Code snippet of the day <sub>`code`</sub>](/source/plugins/code/README.md)
   * [🏅 Repository contributors <sub>`contributors`</sub>](/source/plugins/contributors/README.md)
   * [💬 Discussions <sub>`discussions`</sub>](/source/plugins/discussions/README.md)

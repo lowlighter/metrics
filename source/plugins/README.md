@@ -10,6 +10,7 @@ Plugins provide additional content and lets you customize rendered metrics.
 * **Github plugins**
   * [🏆 Achievements <sub>`achievements`</sub>](/source/plugins/achievements/README.md)
   * [📰 Recent activity <sub>`activity`</sub>](/source/plugins/activity/README.md)
+  * [📆 Calendar <sub>`calendar`</sub>](/source/plugins/calendar/README.md)
   * [♐ Code snippet of the day <sub>`code`</sub>](/source/plugins/code/README.md)
   * [🏅 Repository contributors <sub>`contributors`</sub>](/source/plugins/contributors/README.md)
   * [💬 Discussions <sub>`discussions`</sub>](/source/plugins/discussions/README.md)

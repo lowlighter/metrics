@@ -797,6 +797,17 @@ inputs:
     default: <default-value>
   
   # ====================================================================================
+  # 📆 Calendar
+  
+  plugin_calendar:
+    description: Enable calendar plugin
+    default: <default-value>
+  
+  plugin_calendar_limit:
+    description: Years to display
+    default: <default-value>
+  
+  # ====================================================================================
   # 🌇 GitHub Skyline 3D calendar
   
   plugin_skyline:
@@ -840,49 +851,6 @@ inputs:
   
   plugin_pagespeed_token:
     description: PageSpeed token
-    default: <default-value>
-  
-  # ====================================================================================
-  # 🎼 Music plugin
-  
-  plugin_music:
-    description: Enable music plugin
-    default: <default-value>
-  
-  plugin_music_provider:
-    description: Music provider
-    default: <default-value>
-  
-  plugin_music_token:
-    description: Music provider token
-    default: <default-value>
-  
-  plugin_music_mode:
-    description: Display mode
-    default: <default-value>
-  
-  plugin_music_playlist:
-    description: Playlist URL
-    default: <default-value>
-  
-  plugin_music_limit:
-    description: Display limit
-    default: <default-value>
-  
-  plugin_music_played_at:
-    description: Recently played - Toggle last played timestamp display
-    default: <default-value>
-  
-  plugin_music_time_range:
-    description: Top tracks - Time range for `top` mode
-    default: <default-value>
-  
-  plugin_music_top_type:
-    description: Top tracks - Display type
-    default: <default-value>
-  
-  plugin_music_user:
-    description: Music provider username
     default: <default-value>
   
   # ====================================================================================
@@ -991,6 +959,49 @@ inputs:
   
   plugin_posts_user:
     description: External source username
+    default: <default-value>
+  
+  # ====================================================================================
+  # 🎼 Music plugin
+  
+  plugin_music:
+    description: Enable music plugin
+    default: <default-value>
+  
+  plugin_music_provider:
+    description: Music provider
+    default: <default-value>
+  
+  plugin_music_token:
+    description: Music provider token
+    default: <default-value>
+  
+  plugin_music_mode:
+    description: Display mode
+    default: <default-value>
+  
+  plugin_music_playlist:
+    description: Playlist URL
+    default: <default-value>
+  
+  plugin_music_limit:
+    description: Display limit
+    default: <default-value>
+  
+  plugin_music_played_at:
+    description: Recently played - Toggle last played timestamp display
+    default: <default-value>
+  
+  plugin_music_time_range:
+    description: Top tracks - Time range for `top` mode
+    default: <default-value>
+  
+  plugin_music_top_type:
+    description: Top tracks - Display type
+    default: <default-value>
+  
+  plugin_music_user:
+    description: Music provider username
     default: <default-value>
   
   # ====================================================================================

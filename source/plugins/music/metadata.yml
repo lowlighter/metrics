@@ -7,7 +7,7 @@ description: |
 examples:
   +random tracks from a playlist: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.music.playlist.svg
   +recently listened: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.music.recent.svg
-index: 2
+index: 6.5
 supports:
   - user
   - organization

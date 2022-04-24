@@ -46,6 +46,7 @@
 <ul>
 <li><code>goal</code>: display GitHub active goal</li>
 <li><code>about</code>: display GitHub sponsors introduction</li>
+<li><code>list</code>: display GitHub sponsors list</li>
 </ul>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -53,7 +54,7 @@
     <td nowrap="nowrap"><b>type:</b> <code>array</code>
 <i>(comma-separated)</i>
 <br>
-<b>default:</b> goal, about<br>
+<b>default:</b> goal, list, about<br>
 <b>allowed values:</b><ul><li>goal</li><li>about</li><li>list</li></ul></td>
   </tr>
   <tr>
