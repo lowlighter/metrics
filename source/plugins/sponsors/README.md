@@ -62,6 +62,9 @@
     <td nowrap="nowrap"><h4><code>plugin_sponsors_past</code></h4></td>
     <td rowspan="2"><p>Display past sponsorships</p>
 <p>This feature requires a token from target account, as past sponsorships are gathered from sponsors activity and is private data.</p>
+<blockquote>
+<p>⚠️ Past sponsorships does not respect sponsors privacy because of current GitHub API limitations. This may be fixed in future releases.</p>
+</blockquote>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
