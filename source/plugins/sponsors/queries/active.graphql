@@ -5,6 +5,7 @@ query SponsorsActive {
         cursor
       }
       nodes {
+        privacyLevel
         sponsorEntity {
           ... on User {
             login

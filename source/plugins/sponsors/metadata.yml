@@ -39,6 +39,8 @@ inputs:
       Display past sponsorships
 
       This feature requires a token from target account, as past sponsorships are gathered from sponsors activity and is private data.
+
+      > ⚠️ Past sponsorships does not respect sponsors privacy because of current GitHub API limitations. This may be fixed in future releases.
     type: boolean
     default: no
 
