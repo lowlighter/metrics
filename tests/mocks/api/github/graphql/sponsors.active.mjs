@@ -15,6 +15,7 @@ export default function({faker, query, login = faker.internet.userName()}) {
         sponsorshipsAsMaintainer: {
           edges: new Array(10).fill("MOCKED_CURSOR"),
           nodes: new Array(10).fill(null).map(_ => ({
+            privacyLevel: faker.random.arrayElement(["PUBLIC", "PRIVATE"]),
             sponsorEntity: {
               login: faker.internet.userName(),
               avatarUrl: null,
