@@ -143,7 +143,7 @@ async function format({media, imports}) {
     release,
     genres,
     progress,
-    description: description.replace(/<br\s*\\?>/g, " "),
+    description: description?.replace(/<br\s*\\?>/g, " ") ?? "",
     scores: {user: userScore, community: averageScore},
     released: type === "ANIME" ? episodes : chapters,
     artwork: await imports.imgb64(artwork),
