@@ -17,7 +17,14 @@ inputs:
     default: no
 
   plugin_calendar_limit:
-    description: Years to display
+    description: |
+      Years to display
+
+      This option has different behaviours depending on its value:
+      - `n > 0` will display the last `n` years, relative to current year
+      - `n == 0` will display all years starting from GitHub account registration date
+      - `n < 0` will display all years plus `n` additional years, relative to GitHub account registration date
+        - Use this when there are commits pushed before GitHub registration
     type: number
     default: 1
     zero: disable
