@@ -13,7 +13,7 @@ inputs:
 # Action metadata
 name: Metrics embed
 author: lowlighter
-description: An infographics generator with 30+ plugins and 200+ options to display stats about your GitHub account!
+description: An infographics generator with 40+ plugins and 200+ options to display stats about your GitHub account!
 branding:
   icon: user-check
   color: gray-dark
