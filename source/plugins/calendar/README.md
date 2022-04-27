@@ -44,6 +44,15 @@
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_calendar_limit</code></h4></td>
     <td rowspan="2"><p>Years to display</p>
+<p>This option has different behaviours depending on its value:</p>
+<ul>
+<li><code>n &gt; 0</code> will display the last <code>n</code> years, relative to current year</li>
+<li><code>n == 0</code> will display all years starting from GitHub account registration date</li>
+<li><code>n &lt; 0</code> will display all years plus <code>n</code> additional years, relative to GitHub account registration date<ul>
+<li>Use this when there are commits pushed before GitHub registration</li>
+</ul>
+</li>
+</ul>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
