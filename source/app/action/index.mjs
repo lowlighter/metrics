@@ -6,6 +6,7 @@ import processes from "child_process"
 import fs from "fs/promises"
 import paths from "path"
 import sgit from "simple-git"
+import util from "util"
 import mocks from "../../../tests/mocks/index.mjs"
 import metrics from "../metrics/index.mjs"
 import presets from "../metrics/presets.mjs"
@@ -392,7 +393,12 @@ function quit(reason) {
     info.break()
     info.section("Rendering")
     let rendered = await retry(async () => {
-      const {rendered} = await metrics({login: user, q}, {graphql, rest, plugins, conf, die, verify, convert}, {Plugins, Templates})
+      const {rendered, errors} = await metrics({login: user, q}, {graphql, rest, plugins, conf, die, verify, convert}, {Plugins, Templates})
+      if (errors.length) {
+        console.warn(`::group::${errors.length} error(s) occured`)
+        console.warn(util.inspect(errors, {depth: Infinity, maxStringLength: 256}))
+        console.warn("::endgroup::")
+      }
       return rendered
     }, {retries, delay: retries_delay})
     if (!rendered)

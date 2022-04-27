@@ -89,7 +89,7 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
         }
         return value
       }))
-      return {rendered, mime: "application/json"}
+      return {rendered, mime: "application/json", errors}
     }
 
     //Markdown output
@@ -161,7 +161,7 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
           rest,
         })
       }
-      return {rendered, mime: "text/html"}
+      return {rendered, mime: "text/html", errors}
     }
 
     //Rendering
@@ -197,7 +197,7 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
 
     //Result
     console.debug(`metrics/compute/${login} > success`)
-    return {rendered, mime}
+    return {rendered, mime, errors}
   }
   //Internal error
   catch (error) {
