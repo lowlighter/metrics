@@ -10,9 +10,9 @@ export default async function({login, q, data, imports, graphql, queries, accoun
     let {limit} = imports.metadata.plugins.calendar.inputs({data, account, q})
 
     //Compute boundaries
+    const registration = new Date(data.user.createdAt)
     const end = new Date().getFullYear()
-    console.log(data.user.createdAt instanceof Date)
-    const start = (limit ? new Date(end - limit + 1, 0) : new Date(data.user.createdAt)).getFullYear()
+    const start = (limit > 0 ? new Date(end - limit + 1, 0) : limit < 0 ? new Date(new Date(registration).setFullYear(registration.getFullYear() + limit)) : registration).getFullYear()
 
     //Load contribution calendar
     console.debug(`metrics/compute/${login}/plugins > calendar > processing years ${start} to ${end}`)
