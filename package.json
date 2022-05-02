@@ -42,7 +42,7 @@
     "csso": "^5.0.3",
     "ejs": "^3.1.7",
     "emoji-name-map": "^1.2.9",
-    "express": "^4.17.3",
+    "express": "^4.18.1",
     "express-rate-limit": "^6.4.0",
     "jimp": "^0.16.1",
     "js-yaml": "^4.1.0",
