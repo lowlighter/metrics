@@ -341,7 +341,7 @@ export async function imgb64(image, {width, height, fallback = true} = {}) {
 /**SVG utils */
 export const svg = {
   /**Render as pdf */
-  async pdf(rendered, {paddings = "", style = "", twemojis = false, gemojis = false, octicons = false, rest = null} = {}) {
+  async pdf(rendered, {paddings = "", style = "", twemojis = false, gemojis = false, octicons = false, rest = null, errors = []} = {}) {
     //Instantiate browser if needed
     if (!svg.resize.browser) {
       svg.resize.browser = await puppeteer.launch()
@@ -374,7 +374,7 @@ export const svg = {
     //Result
     await page.close()
     console.debug("metrics/svg/pdf > rendering complete")
-    return {rendered, mime: "application/pdf"}
+    return {rendered, mime: "application/pdf", errors}
   },
   /**Render and resize svg */
   async resize(rendered, {paddings, convert, scripts = []}) {
