@@ -34,7 +34,7 @@
     "@faker-js/faker": "^6.0.0-alpha.3",
     "@octokit/graphql": "^4.8.0",
     "@octokit/rest": "^18.12.0",
-    "@primer/css": "^19.8.2",
+    "@primer/css": "^20.0.0",
     "@primer/octicons": "^17.0.0",
     "axios": "^0.26.1",
     "clipboard": "^2.0.10",
