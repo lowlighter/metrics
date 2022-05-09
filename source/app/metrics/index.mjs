@@ -159,6 +159,7 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
           gemojis: q["config.gemoji"],
           octicons: q["config.octicon"],
           rest,
+          errors,
         })
       }
       return {rendered, mime: "text/html", errors}
