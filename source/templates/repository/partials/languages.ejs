@@ -20,7 +20,10 @@
       <% } else { const width = 460 * (1 + large) %>
         <% if (section === "recently-used") { %>
           <small>
-            estimation from <%= plugins.languages["stats.recent"]?.files %> edited file<%= s(plugins.languages["stats.recent"]?.files) %> from <%= plugins.languages["stats.recent"]?.commits %> commit<%= s(plugins.languages["stats.recent"]?.commits) %> over last <%= plugins.languages["stats.recent"]?.days %> day<%= s(plugins.languages["stats.recent"]?.days) %>
+            estimation from <%= plugins.languages["stats.recent"]?.files %> edited file<%= s(plugins.languages["stats.recent"]?.files) %> from <%= plugins.languages["stats.recent"]?.commits %> commit<%= s(plugins.languages["stats.recent"]?.commits) %>
+            <% { const days = plugins.languages["stats.recent"]?.latest ?? plugins.languages["stats.recent"]?.days; if (days) { %>
+              over last <%= days %> day<%= s(days) %>
+            <% } } %>
           </small>
         <% } %>
         <svg class="bar" xmlns="http://www.w3.org/2000/svg" width="<%= width %>" height="8">
