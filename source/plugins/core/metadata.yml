@@ -238,6 +238,8 @@ inputs:
       GitHub supports additional emojis which are not registered in Unicode standard (:octocat:, :shipit:, :trollface:, ...)
       See full list at https://api.github.com/emojis.
 
+      This option has no effect when `token: NOT_NEEDED` is set.
+
       May increase filesize
     type: boolean
     default: yes
