@@ -387,6 +387,7 @@ inputs:
       - failure
       - success
       - skipped
+      - startup_failure
       - timed_out
 
   delay:
