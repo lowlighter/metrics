@@ -512,7 +512,7 @@ export const svg = {
     console.debug("metrics/svg/gemojis > rendering gemojis")
     const emojis = new Map()
     try {
-      for (const [emoji, url] of Object.entries((await rest.emojis.get().catch(() => ({data:{}}))).data).map(([key, value]) => [`:${key}:`, value])) {
+      for (const [emoji, url] of Object.entries((await rest.emojis.get().catch(() => ({data: {}}))).data).map(([key, value]) => [`:${key}:`, value])) {
         if ((!emojis.has(emoji)) && (new RegExp(emoji, "g").test(rendered)))
           emojis.set(emoji, `<img class="gemoji" src="${await imgb64(url)}" height="16" width="16" alt="" />`)
       }
