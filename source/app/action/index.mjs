@@ -358,13 +358,14 @@ function quit(reason) {
 
     //Base content
     info.break()
-    const {base: parts, repositories: _repositories, ...base} = metadata.plugins.base.inputs.action({core, preset})
+    const {base: parts, repositories: _repositories, indepth: _base_indepth, ...base} = metadata.plugins.base.inputs.action({core, preset})
     conf.settings.repositories = _repositories
-    info.group({metadata, name: "base", inputs: {repositories: conf.settings.repositories, ...base}})
+    info.group({metadata, name: "base", inputs: {repositories: conf.settings.repositories, indepth: _base_indepth, ...base}})
     info("Base sections", parts)
     base.base = false
     for (const part of conf.settings.plugins.base.parts)
       base[`base.${part}`] = parts.includes(part)
+    base["base.indepth"] = _base_indepth
     Object.assign(q, base)
 
     //Additional plugins
