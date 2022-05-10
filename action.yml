@@ -190,7 +190,7 @@ inputs:
     default: <default-value>
 
   quota_required_search:
-    description: Minimum GitHub REST API requests quota required to run
+    description: Minimum GitHub Search API requests quota required to run
     default: <default-value>
 
   notice_releases:

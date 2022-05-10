@@ -660,6 +660,7 @@ May increase filesize.</p>
     <td rowspan="2"><p>Use GitHub custom emojis</p>
 <p>GitHub supports additional emojis which are not registered in Unicode standard (:octocat:, :shipit:, :trollface:, ...)
 See full list at <a href="https://api.github.com/emojis">https://api.github.com/emojis</a>.</p>
+<p>This option has no effect when <code>token: NOT_NEEDED</code> is set.</p>
 <p>May increase filesize</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -883,7 +884,7 @@ It can result in cropped or oversized outputs.</p>
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>quota_required_search</code></h4></td>
-    <td rowspan="2"><p>Minimum GitHub REST API requests quota required to run</p>
+    <td rowspan="2"><p>Minimum GitHub Search API requests quota required to run</p>
 <p>Action will cancel itself without any errors if requirements are not met</p>
 <p>This option has no effect when <code>token</code> is set to <code>NOT_NEEDED</code></p>
 <img width="900" height="1" alt=""></td>
