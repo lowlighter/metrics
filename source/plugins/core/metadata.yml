@@ -405,7 +405,7 @@ inputs:
 
   quota_required_search:
     description: |
-      Minimum GitHub REST API requests quota required to run
+      Minimum GitHub Search API requests quota required to run
 
       Action will cancel itself without any errors if requirements are not met
 
