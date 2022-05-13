@@ -83,7 +83,7 @@ Some presets are hosted on this repository on the [`@presets`](https://github.co
     config_presets: "@lunar-red"
 ```
 
-> ⚠️ `🔐 Tokens` and options marked with `⏯️ Cannot be preset`, as they suggest, cannot be preset and thus requires to be explicitely defined to be set.
+> ⚠️ `🔐 Tokens` and options marked with `⏯️ Cannot be preset`, as they suggest, cannot be preset and thus requires to be explicitly defined to be set.
 
 > ℹ️ Presets configurations use [schemas](https://github.com/lowlighter/metrics/tree/presets/%40schema) to ensure compatibility between format changes
 
