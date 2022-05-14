@@ -62,6 +62,17 @@
 <b>allowed values:</b><ul><li>7</li><li>30</li><li>180</li><li>365</li></ul></td>
   </tr>
   <tr>
+    <td nowrap="nowrap"><h4><code>plugin_wakatime_show_only_github_public_repos</code></h4></td>
+    <td rowspan="2"><p>Show only github public repositories</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
     <td nowrap="nowrap"><h4><code>plugin_wakatime_sections</code></h4></td>
     <td rowspan="2"><p>Displayed sections</p>
 <ul>

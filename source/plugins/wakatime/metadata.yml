@@ -29,6 +29,11 @@ inputs:
       - 365
     default: 7
 
+  plugin_wakatime_show_only_github_public_repos:
+    description: Show only github public repositories
+    type: boolean
+    default: no
+
   plugin_wakatime_sections:
     description: |
       Displayed sections

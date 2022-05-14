@@ -1046,6 +1046,10 @@ inputs:
     description: Time range
     default: <default-value>
 
+  plugin_wakatime_show_only_github_public_repos:
+    description: Show only github public repositories
+    default: <default-value>
+
   plugin_wakatime_sections:
     description: Displayed sections
     default: <default-value>
