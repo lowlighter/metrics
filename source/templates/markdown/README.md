@@ -130,7 +130,7 @@ The `embed()` function takes two arguments:
 
 > 💡 The `plugin_` prefix can be dropped for convenience
 
-> 💡 The `embed()` function does not have `🗃️ base` plugin enabled by default. To use it, it is required to explicitely pass them through `base` option.
+> 💡 The `embed()` function does not have `🗃️ base` plugin enabled by default. To use it, it is required to explicitly pass them through `base` option.
 
 ## ℹ️ Examples workflows
 

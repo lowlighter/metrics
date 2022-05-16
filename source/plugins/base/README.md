@@ -44,7 +44,7 @@
 <li><code>repositories</code>, which contains repositories stats (license, forks, stars, etc.)</li>
 <li><code>metadata</code>, which contains informations about generated metrics</li>
 </ul>
-<p>These are all enabled by default, but it is possible to explicitely opt out from them.</p>
+<p>These are all enabled by default, but it is possible to explicitly opt out from them.</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
