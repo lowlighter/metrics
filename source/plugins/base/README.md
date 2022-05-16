@@ -41,8 +41,8 @@
 <li><code>header</code>, which usually contains username, two-week commits calendars and a few additional data</li>
 <li><code>activity</code>, which contains recent activity (commits, pull requests, issues, etc.)</li>
 <li><code>community</code>, which contains community stats (following, sponsors, organizations, etc.)</li>
-<li><code>repositories</code>, which contains repositories stats (license, forks, stars, etc.)</li>
-<li><code>metadata</code>, which contains informations about generated metrics</li>
+<li><code>repositories</code>, which contains repository stats (license, forks, stars, etc.)</li>
+<li><code>metadata</code>, which contains information about generated metrics</li>
 </ul>
 <p>These are all enabled by default, but it is possible to explicitly opt out from them.</p>
 <img width="900" height="1" alt=""></td>
