@@ -79,3 +79,14 @@ inputs:
     description: Include other languages
     type: boolean
     default: no
+
+  plugin_wakatime_repositories_visibility:
+    description: |
+      Repositories visibility
+
+      Lets you hide private repositories.
+    type: string
+    default: all
+    values:
+      - public
+      - all
