@@ -1066,6 +1066,10 @@ inputs:
     description: Include other languages
     default: <default-value>
 
+  plugin_wakatime_repositories_visibility:
+    description: Repositories visibility
+    default: <default-value>
+
   # ====================================================================================
   # 🥠 Fortune
 

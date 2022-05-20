@@ -128,6 +128,19 @@
 <br>
 <b>default:</b> no<br></td>
   </tr>
+  <tr>
+    <td nowrap="nowrap"><h4><code>plugin_wakatime_repositories_visibility</code></h4></td>
+    <td rowspan="2"><p>Repositories visibility</p>
+<p>Lets you hide private repositories.</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>string</code>
+<br>
+<b>default:</b> all<br>
+<b>allowed values:</b><ul><li>public</li><li>all</li></ul></td>
+  </tr>
 </table>
 <!--/options-->
 
