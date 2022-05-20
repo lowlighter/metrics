@@ -25,8 +25,8 @@ export default async function({login, q, imports, data, account}, {enabled = fal
     console.debug(`metrics/compute/${login}/plugins > wakatime > querying api`)
     const {data: {data: stats}} = await imports.axios.get(`${url}/api/v1/users/${user}/stats/${range}?api_key=${token}`)
 
-    const projectStats = stats.projects?.map(({name, percent, total_seconds:total}) => ({name, percent:percent / 100, total})).sort((a, b) => b.percent - a.percent)
-    const projects = showOnlyGithubPublicRepos ? await pickOnlyGithubPublicRepos({limit, login, axios:imports.axios, projects:projectStats}) : projectStats?.slice(0, limit)
+    const projectStats = stats.projects?.map(({name, percent, total_seconds: total}) => ({name, percent: percent / 100, total})).sort((a, b) => b.percent - a.percent)
+    const projects = showOnlyGithubPublicRepos ? await pickOnlyGithubPublicRepos({limit, login, axios: imports.axios, projects: projectStats}) : projectStats?.slice(0, limit)
 
     const result = {
       sections,
@@ -56,11 +56,12 @@ export default async function({login, q, imports, data, account}, {enabled = fal
   }
 }
 
-async function pickOnlyGithubPublicRepos ({projects, axios, login, limit}) {
+async function pickOnlyGithubPublicRepos({projects, axios, login, limit}) {
   const result = []
 
   for await (const project of projects) {
-    if (result.length >= limit) break
+    if (result.length >= limit)
+      break
     try {
       console.debug(`metrics/compute/${login}/plugins > wakatime > checking 'https://github.com/${login}/${project.name}'`)
       await axios.head(`https://github.com/${login}/${project.name}`)
@@ -72,6 +73,7 @@ async function pickOnlyGithubPublicRepos ({projects, axios, login, limit}) {
     }
   }
 
-  if (result.length === 0) return undefined
+  if (result.length === 0)
+    return undefined
   return result
 }
