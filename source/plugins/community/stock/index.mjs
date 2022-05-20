@@ -16,14 +16,14 @@ export default async function({login, q, imports, data, account}, {enabled = fal
 
     //Query API for company informations
     console.debug(`metrics/compute/${login}/plugins > stock > querying api for company`)
-    const {data: {quoteType: {shortName: company}}} = await imports.axios.get("https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-profile", {
+    const {data: {quoteType: {shortName: company}}} = await imports.axios.get("https://yh-finance.p.rapidapi.com/stock/v2/get-profile", {
       params: {symbol, region: "US"},
       headers: {"x-rapidapi-key": token},
     })
 
     //Query API for sotck charts
     console.debug(`metrics/compute/${login}/plugins > stock > querying api for stock`)
-    const {data: {chart: {result: [{meta, timestamp, indicators: {quote: [{close}]}}]}}} = await imports.axios.get("https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-chart", {
+    const {data: {chart: {result: [{meta, timestamp, indicators: {quote: [{close}]}}]}}} = await imports.axios.get("https://yh-finance.p.rapidapi.com/stock/v2/get-chart", {
       params: {interval, symbol, range: duration, region: "US"},
       headers: {"x-rapidapi-key": token},
     })
