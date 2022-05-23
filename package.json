@@ -67,7 +67,7 @@
     "xml-formatter": "^2.6.1"
   },
   "devDependencies": {
-    "eslint": "^8.15.0",
+    "eslint": "^8.16.0",
     "jest": "^28.1.0",
     "libxmljs2": "^0.30.1",
     "nodemon": "^2.0.15"
