@@ -49,7 +49,7 @@
     "linguist-js": "^2.5.0",
     "marked": "^4.0.14",
     "memory-cache": "^0.2.0",
-    "minimatch": "^5.0.1",
+    "minimatch": "^5.1.0",
     "node-chartist": "^1.0.5",
     "node-fetch": "^3.2.3",
     "open-graph-scraper": "^4.11.0",
