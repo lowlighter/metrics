@@ -2,7 +2,7 @@
 import * as compute from "./list/index.mjs"
 
 //Setup
-export default async function({login, q, imports, data, computed, graphql, queries, account}, {enabled = false} = {}) {
+export default async function({login, q, imports, data, computed, graphql, queries, rest, account}, {enabled = false} = {}) {
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
@@ -15,7 +15,7 @@ export default async function({login, q, imports, data, computed, graphql, queri
     //Initialization
     const list = []
     await total({imports})
-    await compute[account]({list, login, data, computed, imports, graphql, queries, rank, leaderboard})
+    await compute[account]({list, login, data, computed, imports, graphql, queries, rest, rank, leaderboard})
 
     //Results
     const order = {S: 5, A: 4, B: 3, C: 2, $: 1, X: 0}

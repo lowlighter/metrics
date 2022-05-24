@@ -1,5 +1,5 @@
 /**Achievements list for users accounts */
-export default async function({list, login, data, computed, imports, graphql, queries, rank, leaderboard}) {
+export default async function({list, login, data, computed, imports, graphql, queries, rest, rank, leaderboard}) {
   //Initialization
   const {user} = await graphql(queries.achievements({login}))
   const scores = {followers: user.followers.totalCount, created: user.repositories.totalCount, stars: user.popular.nodes?.[0]?.stargazers?.totalCount ?? 0, forks: Math.max(0, ...data.user.repositories.nodes.map(({forkCount}) => forkCount))}
@@ -87,7 +87,7 @@ export default async function({list, login, data, computed, imports, graphql, qu
 
   //Packager
   {
-    const value = user.packages.totalCount
+    const value = user.packages.totalCount + ((await rest.packages.listPackagesForUser({package_type:"container", username:login}).catch(() => ({data:[]})))?.data?.length || 0)
     const unlock = user.packages.nodes?.shift()
 
     list.push({
