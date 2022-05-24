@@ -240,7 +240,7 @@
           ...[
             ...Object.entries(this.plugins.options).filter(([key, value]) => (key in metadata.base.web) && (value !== metadata.base.web[key]?.defaulted)).map(([key, value]) => `          ${key.replace(/[.]/g, "_")}: ${typeof value === "boolean" ? {true: "yes", false: "no"}[value] : value}`),
             ...Object.entries(this.plugins.enabled).filter(([key, value]) => (key !== "base") && (value)).map(([key]) => `          plugin_${key}: yes`),
-            ...Object.entries(this.plugins.options).filter(([key, value]) => value).filter(([key, value]) => this.plugins.enabled[key.split(".")[0]]).map(([key, value]) => `          plugin_${key.replace(/[.]/g, "_")}: ${typeof value === "boolean" ? {true: "yes", false: "no"}[value] : value}`),
+            ...Object.entries(this.plugins.options).filter(([key, value]) => (value) && (!(key in metadata.base.web))).filter(([key, value]) => this.plugins.enabled[key.split(".")[0]]).map(([key, value]) => `          plugin_${key.replace(/[.]/g, "_")}: ${typeof value === "boolean" ? {true: "yes", false: "no"}[value] : value}`),
             ...Object.entries(this.config).filter(([key, value]) => (value) && (value !== metadata.core.web[key]?.defaulted)).map(([key, value]) => `          config_${key.replace(/[.]/g, "_")}: ${typeof value === "boolean" ? {true: "yes", false: "no"}[value] : value}`),
           ].sort(),
         ].join("\n")
