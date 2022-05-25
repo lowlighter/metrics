@@ -87,7 +87,7 @@ export default async function({list, login, data, computed, imports, graphql, qu
 
   //Packager
   {
-    const value = user.packages.totalCount + ((await rest.packages.listPackagesForUser({package_type:"container", username:login}).catch(() => ({data:[]})))?.data?.length || 0)
+    const value = user.packages.totalCount + ((await rest.packages.listPackagesForUser({package_type: "container", username: login}).catch(() => ({data: []})))?.data?.length || 0)
     const unlock = user.packages.nodes?.shift()
 
     list.push({

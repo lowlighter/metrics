@@ -55,7 +55,7 @@ export default async function({list, login, data, computed, imports, graphql, qu
 
   //Packagers
   {
-    const value = organization.packages.totalCount + ((await rest.packages.listPackagesForOrganization({package_type:"container", org:login}).catch(() => ({data:[]})))?.data?.length || 0)
+    const value = organization.packages.totalCount + ((await rest.packages.listPackagesForOrganization({package_type: "container", org: login}).catch(() => ({data: []})))?.data?.length || 0)
     const unlock = organization.packages.nodes?.shift()
 
     list.push({
