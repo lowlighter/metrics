@@ -14,6 +14,41 @@ Its `README.md` will be displayed on your user profile:
 ![GitHub Profile Example](/.github/readme/imgs/example_github_profile.light.png#gh-light-mode-only)
 ![GitHub Profile Example](/.github/readme/imgs/example_github_profile.dark.png#gh-dark-mode-only)
 
+# Methode 1 (using secrets.GITHUB_TOKEN )
+
+## 1 Setup GitHub Action workflow
+
+Create a new workflow from the `Actions` tab of repository and paste the following:
+
+```yaml
+name: Metrics
+on:
+  # Schedule daily updates
+  schedule: [{cron: "0 0 * * *"}]
+  # (optional) Run workflow manually
+  workflow_dispatch:
+  # (optional) Run workflow when pushing on master/main
+  push: {branches: ["master", "main"]}
+jobs:
+  github-metrics:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: lowlighter/metrics@latest
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+```
+
+Rendered metrics will be committed to repository on each run.
+
+![Action update example](/.github/readme/imgs/example_action_update.light.png#gh-light-mode-only)
+![Action update example](/.github/readme/imgs/example_action_update.dark.png#gh-dark-mode-only)
+
+
+- [Continue at 3.1](#3_1)
+
+
+# Methode 2
+
 ## 1️ Create a GitHub personal token
 
 From the `Developer settings` of your account settings, select `Personal access tokens` to create a new token.
@@ -76,7 +111,7 @@ Rendered metrics will be committed to repository on each run.
 ![Action update example](/.github/readme/imgs/example_action_update.light.png#gh-light-mode-only)
 ![Action update example](/.github/readme/imgs/example_action_update.dark.png#gh-dark-mode-only)
 
-### 3️.1️ Choosing between `@latest`, `@master`/`@main`, a fork or a pinned version
+### 3️.1️ Choosing between `@latest`, `@master`/`@main`, a fork or a pinned version <a name = "3_1"></a>
 
 There are several *metrics* versions that can be used in workflows:
 
