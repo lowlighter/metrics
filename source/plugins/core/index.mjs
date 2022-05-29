@@ -139,10 +139,6 @@ export default async function({login, q}, {conf, data, rest, graphql, plugins, q
     console.debug(`metrics/compute/${login} > applying dflag --cakeday`)
     computed.cakeday = true
   }
-  if (dflags.includes("--hireable")) {
-    console.debug(`metrics/compute/${login} > applying dflag --hireable`)
-    data.user.isHireable = true
-  }
   if (dflags.includes("--halloween")) {
     console.debug(`metrics/compute/${login} > applying dflag --halloween`)
     //Haloween color replacer

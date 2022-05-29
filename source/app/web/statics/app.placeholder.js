@@ -105,7 +105,7 @@
         createdAt: `${faker.date.past(10)}`,
         avatarUrl: set.avatar,
         websiteUrl: options["pagespeed.url"] || "(attached website)",
-        isHireable: false,
+        isHireable: options["base.hireable"],
         twitterUsername: options["tweets.user"] || "(attached Twitter account)",
         repositories: {totalCount: faker.datatype.number(100), totalDiskUsage: faker.datatype.number(100000), nodes: []},
         packages: {totalCount: faker.datatype.number(10)},

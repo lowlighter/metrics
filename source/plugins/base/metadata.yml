@@ -50,6 +50,12 @@ inputs:
     type: boolean
     default: no
 
+  base_hireable:
+    description: |
+      Display `Available for hire!` in header section
+    type: boolean
+    default: no
+
   repositories:
     description: |
       Repositories to fetch
