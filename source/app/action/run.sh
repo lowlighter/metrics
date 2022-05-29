@@ -4,7 +4,7 @@ echo "GitHub action: $METRICS_ACTION ($METRICS_ACTION_PATH)"
 cd $METRICS_ACTION_PATH
 for DEPENDENCY in docker jq; do
   if ! which $DEPENDENCY > /dev/null 2>&1; then
-    echo '::error::"$DEPENDENCY" is not installed on current runner but is needed to run metrics'
+    echo "::error::\"$DEPENDENCY\" is not installed on current runner but is needed to run metrics"
     MISSING_DEPENDENCIES=1
   fi
 done
