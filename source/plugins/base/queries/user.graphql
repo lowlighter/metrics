@@ -7,7 +7,6 @@ query BaseUser {
     createdAt
     avatarUrl
     websiteUrl
-    isHireable
     twitterUsername
   }
 }

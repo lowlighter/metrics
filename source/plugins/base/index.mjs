@@ -7,7 +7,7 @@
 export default async function({login, graphql, rest, data, q, queries, imports}, conf) {
   //Load inputs
   console.debug(`metrics/compute/${login}/base > started`)
-  let {indepth, "repositories.forks": _forks, "repositories.affiliations": _affiliations, "repositories.batch": _batch} = imports.metadata.plugins.base.inputs({data, q, account: "bypass"})
+  let {indepth, hireable, "repositories.forks": _forks, "repositories.affiliations": _affiliations, "repositories.batch": _batch} = imports.metadata.plugins.base.inputs({data, q, account: "bypass"})
   const extras = conf.settings.extras?.features ?? conf.settings.extras?.default
   const repositories = conf.settings.repositories || 100
   const forks = _forks ? "" : ", isFork: false"
@@ -134,6 +134,11 @@ export default async function({login, graphql, rest, data, q, queries, imports},
             console.debug(`metrics/compute/${login}/base > falling back to last year commits history`)
           }
         }
+        //Hireable status
+        if (hireable) {
+          console.debug(`metrics/compute/${login}/base > is hireable`)
+          data.user.isHireable = hireable
+        }
       }
       //Query repositories from GitHub API
       for (const type of ({user: ["repositories", "repositoriesContributedTo"], organization: ["repositories"]}[account] ?? [])) {
@@ -213,6 +218,7 @@ const postprocess = {
     console.debug(`metrics/compute/${login}/base > applying postprocessing`)
     data.account = "user"
     Object.assign(data.user, {
+      isHireable: false,
       isVerified: false,
       repositories: {},
       contributionsCollection: {},

@@ -467,7 +467,6 @@ inputs:
     description: |
       Debug flags
       - `--cakeday`: simulate registration anniversary
-      - `--hireable`: simulate "Available for hire" account setting
       - `--halloween`: enable halloween colors
       - `--error`: force render error
     type: array
@@ -475,7 +474,6 @@ inputs:
     default: ""
     values:
       - --cakeday
-      - --hireable
       - --halloween
       - --error
     testing: yes
