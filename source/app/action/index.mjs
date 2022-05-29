@@ -608,6 +608,7 @@ function quit(reason) {
       }
 
       //Clean workflows
+      console.log(">>>>>>>>>>>>>>>>>>>>", _clean_workflows)
       if (_clean_workflows.length) {
         try {
           //Get workflow metadata
@@ -629,7 +630,7 @@ function quit(reason) {
               console.debug(`Fetching page ${page}/${pages} of workflow ${workflow}`)
               const {data:{workflow_runs, total_count}} = await rest.actions.listWorkflowRuns({...github.context.repo, workflow_id:workflow, branch:committer.branch, status:"completed", page})
               pages = total_count/100
-              runs.push(...workflow_runs.filter(({conclusion}) => _clean_workflows.includes(conclusion)).map(({id}) => ({id})))
+              runs.push(...workflow_runs.filter(({conclusion}) => (_clean_workflows.includes("all"))||(_clean_workflows.includes(conclusion))).map(({id}) => ({id})))
             }
             catch (error) {
               console.debug(error)

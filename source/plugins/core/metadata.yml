@@ -375,6 +375,8 @@ inputs:
 
       This can be used to clean up Action tabs from previous workflows runs.
 
+      Use `all` to clean up workflows runs in any state.
+
       > ⚠️ When reporting issues, it is **required** to provide logs so it can be investigated and reproduced.
       > Be sure to disable this option when asking for help or submitting bug reports.
     type: array
@@ -389,6 +391,7 @@ inputs:
       - skipped
       - startup_failure
       - timed_out
+      - all
 
   delay:
     description: |
