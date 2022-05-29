@@ -839,6 +839,25 @@ It can result in cropped or oversized outputs.</p>
 <b>default:</b> 120<br></td>
   </tr>
   <tr>
+    <td nowrap="nowrap"><h4><code>clean_workflows</code></h4></td>
+    <td rowspan="2"><p>Clean previous workflows jobs</p>
+<p>This can be used to clean up Action tabs from previous workflows runs.</p>
+<p>Use <code>all</code> to clean up workflows runs in any state.</p>
+<blockquote>
+<p>⚠️ When reporting issues, it is <strong>required</strong> to provide logs so it can be investigated and reproduced.
+Be sure to disable this option when asking for help or submitting bug reports.</p>
+</blockquote>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">⏯️ Cannot be preset<br>
+✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br>
+<b>allowed values:</b><ul><li>cancelled</li><li>failure</li><li>success</li><li>skipped</li><li>startup_failure</li><li>timed_out</li><li>all</li></ul></td>
+  </tr>
+  <tr>
     <td nowrap="nowrap"><h4><code>delay</code></h4></td>
     <td rowspan="2"><p>Job delay</p>
 <p>This can be used to avoid triggering GitHub abuse mechanics on large workflows</p>

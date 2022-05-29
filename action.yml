@@ -181,6 +181,10 @@ inputs:
     description: Delay between each retry (in seconds, for output action)
     default: <default-value>
 
+  clean_workflows:
+    description: Clean previous workflows jobs
+    default: <default-value>
+
   delay:
     description: Job delay
     default: <default-value>
