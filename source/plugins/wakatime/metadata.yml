@@ -80,6 +80,13 @@ inputs:
     type: boolean
     default: no
 
+  plugin_wakatime_languages_ignored:
+    description: Ignored languages
+    type: array
+    format: comma-separated
+    default: ""
+    example: html, css, ...
+
   plugin_wakatime_repositories_visibility:
     description: |
       Repositories visibility
