@@ -7,7 +7,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
       return null
 
     //Load inputs
-    let {sections, days, limit, url, user, "languages.other": others, "languages.ignored":_ignored, "repositories.visibility": repositoriesVisibility} = imports.metadata.plugins.wakatime.inputs({data, account, q})
+    let {sections, days, limit, url, user, "languages.other": others, "languages.ignored": _ignored, "repositories.visibility": repositoriesVisibility} = imports.metadata.plugins.wakatime.inputs({data, account, q})
 
     if (!limit)
       limit = void limit
