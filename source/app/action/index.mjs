@@ -613,8 +613,8 @@ function quit(reason) {
         try {
           //Get workflow metadata
           const run_id = github.context.runId
-          const {data:{workflow_id}} = await rest.actions.getWorkflowRun({...github.context.repo, run_id})
-          const {data:{path}} = await rest.actions.getWorkflow({...github.context.repo, workflow_id})
+          const {data: {workflow_id}} = await rest.actions.getWorkflowRun({...github.context.repo, run_id})
+          const {data: {path}} = await rest.actions.getWorkflow({...github.context.repo, workflow_id})
           const workflow = paths.basename(path)
           info.break()
           info.section("Cleaning workflows")
@@ -628,9 +628,9 @@ function quit(reason) {
           for (let page = 1; page <= pages; page++) {
             try {
               console.debug(`Fetching page ${page}/${pages} of workflow ${workflow}`)
-              const {data:{workflow_runs, total_count}} = await rest.actions.listWorkflowRuns({...github.context.repo, workflow_id:workflow, branch:committer.branch, status:"completed", page})
-              pages = total_count/100
-              runs.push(...workflow_runs.filter(({conclusion}) => (_clean_workflows.includes("all"))||(_clean_workflows.includes(conclusion))).map(({id}) => ({id})))
+              const {data: {workflow_runs, total_count}} = await rest.actions.listWorkflowRuns({...github.context.repo, workflow_id: workflow, branch: committer.branch, status: "completed", page})
+              pages = total_count / 100
+              runs.push(...workflow_runs.filter(({conclusion}) => (_clean_workflows.includes("all")) || (_clean_workflows.includes(conclusion))).map(({id}) => ({id})))
             }
             catch (error) {
               console.debug(error)
@@ -643,7 +643,7 @@ function quit(reason) {
           let cleaned = 0
           for (const {id} of runs) {
             try {
-              await rest.actions.deleteWorkflowRun({...github.context.repo, run_id:id})
+              await rest.actions.deleteWorkflowRun({...github.context.repo, run_id: id})
               cleaned++
             }
             catch (error) {
@@ -655,7 +655,7 @@ function quit(reason) {
         }
         catch (error) {
           if (error.response.status === 404)
-            console.log("::warning::Workflow data could not be fetched. If this is a private repository, you may need to grant full \"repo\" scope.")
+            console.log('::warning::Workflow data could not be fetched. If this is a private repository, you may need to grant full "repo" scope.')
           console.debug(error)
         }
       }
