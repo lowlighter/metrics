@@ -9,7 +9,6 @@ export default function({faker, query, login = faker.internet.userName()}) {
       createdAt: `${faker.date.past(10)}`,
       avatarUrl: faker.image.people(),
       websiteUrl: faker.internet.url(),
-      isHireable: faker.datatype.boolean(),
       twitterUsername: login,
     },
   })
