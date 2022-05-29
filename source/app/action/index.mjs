@@ -654,6 +654,7 @@ function quit(reason) {
           info("Runs cleaned", cleaned)
         }
         catch (error) {
+          console.log(">>>>>>>>>>>", error)
           console.debug(error)
         }
       }
