@@ -608,7 +608,6 @@ function quit(reason) {
       }
 
       //Clean workflows
-      console.log(">>>>>>>>>>>>>>>>>>>>", _clean_workflows)
       if (_clean_workflows.length) {
         try {
           //Get workflow metadata
@@ -627,13 +626,13 @@ function quit(reason) {
           let pages = 1
           for (let page = 1; page <= pages; page++) {
             try {
-              console.debug(`Fetching page ${page}/${pages} of workflow ${workflow}`)
+              console.log(`Fetching page ${page}/${pages} of workflow ${workflow}`)
               const {data:{workflow_runs, total_count}} = await rest.actions.listWorkflowRuns({...github.context.repo, workflow_id:workflow, branch:committer.branch, status:"completed", page})
               pages = total_count/100
               runs.push(...workflow_runs.filter(({conclusion}) => (_clean_workflows.includes("all"))||(_clean_workflows.includes(conclusion))).map(({id}) => ({id})))
             }
             catch (error) {
-              console.debug(error)
+              console.log(error)
               break
             }
           }
@@ -647,15 +646,16 @@ function quit(reason) {
               cleaned++
             }
             catch (error) {
-              console.debug(error)
+              console.log(error)
               break
             }
           }
           info("Runs cleaned", cleaned)
         }
         catch (error) {
-          console.log(">>>>>>>>>>>", error)
-          console.debug(error)
+          if (error.response.status === 404)
+            console.log(`::warning::Workflow data could not be fetched. If this is a private repository, you may need to grant full "repo" scope.`)
+          console.log(error)
         }
       }
     }
