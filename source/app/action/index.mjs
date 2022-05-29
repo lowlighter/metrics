@@ -632,7 +632,7 @@ function quit(reason) {
               runs.push(...workflow_runs.filter(({conclusion}) => (_clean_workflows.includes("all"))||(_clean_workflows.includes(conclusion))).map(({id}) => ({id})))
             }
             catch (error) {
-              console.log(error)
+              console.debug(error)
               break
             }
           }
@@ -646,16 +646,16 @@ function quit(reason) {
               cleaned++
             }
             catch (error) {
-              console.log(error)
-              break
+              console.debug(error)
+              continue
             }
           }
           info("Runs cleaned", cleaned)
         }
         catch (error) {
           if (error.response.status === 404)
-            console.log(`::warning::Workflow data could not be fetched. If this is a private repository, you may need to grant full "repo" scope.`)
-          console.log(error)
+            console.log("::warning::Workflow data could not be fetched. If this is a private repository, you may need to grant full \"repo\" scope.")
+          console.debug(error)
         }
       }
     }
