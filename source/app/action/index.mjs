@@ -626,7 +626,7 @@ function quit(reason) {
           let pages = 1
           for (let page = 1; page <= pages; page++) {
             try {
-              console.log(`Fetching page ${page}/${pages} of workflow ${workflow}`)
+              console.debug(`Fetching page ${page}/${pages} of workflow ${workflow}`)
               const {data:{workflow_runs, total_count}} = await rest.actions.listWorkflowRuns({...github.context.repo, workflow_id:workflow, branch:committer.branch, status:"completed", page})
               pages = total_count/100
               runs.push(...workflow_runs.filter(({conclusion}) => (_clean_workflows.includes("all"))||(_clean_workflows.includes(conclusion))).map(({id}) => ({id})))
