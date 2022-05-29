@@ -145,6 +145,7 @@ function quit(reason) {
       "quota.required.graphql": _quota_required_graphql,
       "quota.required.search": _quota_required_search,
       "notice.release": _notice_releases,
+      "clean.workflows": _clean_workflows,
       ...config
     } = metadata.plugins.core.inputs.action({core, preset})
     const q = {...query, ...(_repo ? {repo: _repo} : null), template}
@@ -604,6 +605,58 @@ function quit(reason) {
             }, {retries: retries_output_action, delay: retries_delay_output_action})
             break
           } while (--attempts)
+        }
+      }
+
+      //Clean workflows
+      if (_clean_workflows.length) {
+        try {
+          //Get workflow metadata
+          const run_id = github.context.runId
+          const {data:{workflow_id}} = await rest.actions.getWorkflowRun({...github.context.repo, run_id})
+          const {data:{path}} = await rest.actions.getWorkflow({...github.context.repo, workflow_id})
+          const workflow = paths.basename(path)
+          info.break()
+          info.section("Cleaning workflows")
+          info("Current workflow run id", run_id)
+          info("Current workflow file", workflow)
+
+          //Fetch workflows runs to clean
+          info("States to clean", _clean_workflows)
+          const runs = []
+          let pages = 1
+          for (let page = 1; page <= pages; page++) {
+            try {
+              console.debug(`Fetching page ${page}/${pages} of workflow ${workflow}`)
+              const {data:{workflow_runs, total_count}} = await rest.actions.listWorkflowRuns({...github.context.repo, workflow_id:workflow, branch:committer.branch, status:"completed", page})
+              pages = total_count/100
+              runs.push(...workflow_runs.filter(({conclusion}) => (_clean_workflows.includes("all"))||(_clean_workflows.includes(conclusion))).map(({id}) => ({id})))
+            }
+            catch (error) {
+              console.debug(error)
+              break
+            }
+          }
+          info("Runs to clean", runs.length)
+
+          //Clean workflow runs
+          let cleaned = 0
+          for (const {id} of runs) {
+            try {
+              await rest.actions.deleteWorkflowRun({...github.context.repo, run_id:id})
+              cleaned++
+            }
+            catch (error) {
+              console.debug(error)
+              continue
+            }
+          }
+          info("Runs cleaned", cleaned)
+        }
+        catch (error) {
+          if (error.response.status === 404)
+            console.log("::warning::Workflow data could not be fetched. If this is a private repository, you may need to grant full \"repo\" scope.")
+          console.debug(error)
         }
       }
     }
