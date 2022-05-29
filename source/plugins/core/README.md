@@ -964,7 +964,6 @@ This option has no effects on forks (images will always be rebuilt from Dockerfi
     <td rowspan="2"><p>Debug flags</p>
 <ul>
 <li><code>--cakeday</code>: simulate registration anniversary</li>
-<li><code>--hireable</code>: simulate &quot;Available for hire&quot; account setting</li>
 <li><code>--halloween</code>: enable halloween colors</li>
 <li><code>--error</code>: force render error</li>
 </ul>
@@ -976,7 +975,7 @@ This option has no effects on forks (images will always be rebuilt from Dockerfi
 <b>type:</b> <code>array</code>
 <i>(space-separated)</i>
 <br>
-<b>allowed values:</b><ul><li>--cakeday</li><li>--hireable</li><li>--halloween</li><li>--error</li></ul></td>
+<b>allowed values:</b><ul><li>--cakeday</li><li>--halloween</li><li>--error</li></ul></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>debug_print</code></h4></td>

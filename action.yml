@@ -14,6 +14,10 @@ inputs:
     description: Indepth mode
     default: <default-value>
 
+  base_hireable:
+    description: Display `Available for hire!` in header section
+    default: <default-value>
+
   repositories:
     description: Repositories to fetch
     default: <default-value>
@@ -1064,6 +1068,10 @@ inputs:
 
   plugin_wakatime_languages_other:
     description: Include other languages
+    default: <default-value>
+
+  plugin_wakatime_languages_ignored:
+    description: Ignored languages
     default: <default-value>
 
   plugin_wakatime_repositories_visibility:

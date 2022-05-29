@@ -75,6 +75,17 @@ This currently improves the accuracy of the following statistics:</p>
 <b>default:</b> no<br></td>
   </tr>
   <tr>
+    <td nowrap="nowrap"><h4><code>base_hireable</code></h4></td>
+    <td rowspan="2"><p>Display <code>Available for hire!</code> in header section</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
     <td nowrap="nowrap"><h4><code>repositories</code></h4></td>
     <td rowspan="2"><p>Repositories to fetch</p>
 <p>A higher value result in more accurate metrics but can hit GitHub API rate-limit more easily (especially with a lot of plugins enabled)</p>
