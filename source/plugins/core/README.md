@@ -231,6 +231,14 @@ It is possible to generate a self-contained HTML file containing `✨ Metrics in
 
 ## 🧶 Configuring output action
 
+Before configuring output action, ensure that workflows permissions are properly set.
+These can be changed either through repository settings in Actions tab:
+
+![Setting workflows permissions](/.github/readme/imgs/setup_workflow_permissions.light.png#gh-light-mode-only)
+![Setting workflows permissions](/.github/readme/imgs/setup_workflow_permissions.dark.png#gh-dark-mode-only)
+
+Or more granulary [at job or workflow level](https://docs.github.com/en/actions/security-guides/automatic-token-authentication#permissions-for-the-github_token).
+
 ### Using commits (default)
 
 Use `config_output: commit` to make the action directly push changes to `committer_branch` with a commit.
@@ -240,11 +248,15 @@ A custom commit message can be used through `committer_message`.
 
 *Example: push output to metrics-renders branch rather than the default branch*
 ```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    output_action: commit
-    committer_branch: metrics-renders
-    committer_message: "chore: update metrics"
+metrics:
+  permissions:
+    contents: write
+  steps:
+    - uses: lowlighter/metrics@latest
+      with:
+        output_action: commit
+        committer_branch: metrics-renders
+        committer_message: "chore: update metrics"
 ```
 
 ### Using pull requests
@@ -257,15 +269,20 @@ The last step should use either `pull-request-merge`, `pull-request-squash` or `
 
 *Example: push two outputs using a merge pull request*
 ```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    filename: my-metrics-0.svg
-    output_action: pull-request
+metrics:
+  permissions:
+    contents: write
+    pull-requests: write
+  steps:
+    - uses: lowlighter/metrics@latest
+      with:
+        filename: my-metrics-0.svg
+        output_action: pull-request
 
-- uses: lowlighter/metrics@latest
-  with:
-    filename: my-metrics-1.svg
-    output_action: pull-request-merge
+    - uses: lowlighter/metrics@latest
+      with:
+        filename: my-metrics-1.svg
+        output_action: pull-request-merge
 ```
 
 ### Using gists
@@ -277,10 +294,12 @@ It is required to provide a gist id to `committer_gist` option to make it work.
 
 *Example: push output to a gist*
 ```yaml
-- uses: lowlighter/metrics@latest
-  with:
-    output_action: gist
-    committer_gist: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+metrics:
+  steps:
+    - uses: lowlighter/metrics@latest
+      with:
+        output_action: gist
+        committer_gist: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
 ### Manual handling
@@ -290,25 +309,29 @@ They will be available under `/metrics_renders/{filename}` in the runner.
 
 *Example: generate outputs and manually push them*
 ```yaml
-- name: Checkout repository
-  uses: actions/checkout@v2
-    with:
-      fetch-depth: 0
+metrics:
+  permissions:
+    contents: write
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
-- uses: lowlighter/metrics@latest
-  with:
-    output_action: none
+    - uses: lowlighter/metrics@latest
+      with:
+        output_action: none
 
-- uses: lowlighter/metrics@latest
-  run: |
-    set +e
-    git checkout metrics-renders
-    git config user.name github-actions[bot]
-    git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-    sudo mv /metrics_renders/* ./
-    git add --all
-    git commit -m "chore: push metrics"
-    git push
+    - uses: lowlighter/metrics@latest
+      run: |
+        set +e
+        git checkout metrics-renders
+        git config user.name github-actions[bot]
+        git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+        sudo mv /metrics_renders/* ./
+        git add --all
+        git commit -m "chore: push metrics"
+        git push
 ```
 
 ## ♻️ Retrying automatically failed rendering and output action

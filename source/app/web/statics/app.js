@@ -214,6 +214,8 @@
           `jobs:`,
           `  github-metrics:`,
           `    runs-on: ubuntu-latest`,
+          `    permissions:`,
+          `      contents: write`,
           `    steps:`,
           `      - uses: lowlighter/metrics@latest`,
           `        with:`,
