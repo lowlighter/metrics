@@ -369,6 +369,8 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
 # 📚 Documentation
 
 
+> <sup>*⚠️ This is the documentation of **v3.25-beta** (`@master`/`@main` branches) which includes [unreleased features](https://github.com/lowlighter/metrics/compare/latest...master) planned for next release. See documentation for current released version [**v3.24** (`@latest` branch) here](https://github.com/lowlighter/metrics/blob/latest/README.md).* </sup>
+
 
 
 ## 🦮 Setup

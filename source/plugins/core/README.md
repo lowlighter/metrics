@@ -874,7 +874,6 @@ Be sure to disable this option when asking for help or submitting bug reports.</
   </tr>
   <tr>
     <td nowrap="nowrap">⏯️ Cannot be preset<br>
-✨ On <code>master</code>/<code>main</code><br>
 <b>type:</b> <code>array</code>
 <i>(comma-separated)</i>
 <br>

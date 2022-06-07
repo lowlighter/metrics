@@ -134,8 +134,7 @@
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
-<b>type:</b> <code>array</code>
+    <td nowrap="nowrap"><b>type:</b> <code>array</code>
 <i>(comma-separated)</i>
 <br></td>
   </tr>
@@ -146,8 +145,7 @@
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
-<b>type:</b> <code>string</code>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
 <br>
 <b>default:</b> all<br>
 <b>allowed values:</b><ul><li>public</li><li>all</li></ul></td>
