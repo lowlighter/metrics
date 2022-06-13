@@ -7,7 +7,6 @@ import { minify as csso } from "csso"
 import emoji from "emoji-name-map"
 import fss from "fs"
 import fs from "fs/promises"
-import GIFEncoder from "gifencoder"
 import jimp from "jimp"
 import linguist from "linguist-js"
 import { marked } from "marked"
@@ -635,6 +634,7 @@ export async function gif({page, width, height, frames, x = 0, y = 0, repeat = t
   if (fss.existsSync(path))
     await fs.unlink(path)
   //Create encoder
+  const GIFEncoder = (await import("gifencoder")).default
   const encoder = new GIFEncoder(width, height)
   encoder.createWriteStream().pipe(fss.createWriteStream(path))
   encoder.start()
