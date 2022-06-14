@@ -68,7 +68,7 @@ rules:
   # Code simplicity
   max-depth: [error, 10]
   max-nested-callbacks: error
-  max-params: [error, 3]
+  max-params: [error, 4]
   max-statements-per-line: error
   newline-per-chained-call: [error, {ignoreChainWithDepth: 6}]
   object-shorthand: error
