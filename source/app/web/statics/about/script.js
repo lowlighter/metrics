@@ -55,6 +55,10 @@
     methods: {
       format(type, value, options) {
         switch (type) {
+          case "plural":
+            if (options?.y)
+              return (value !== 1) ? "ies" : "y"
+            return (value !== 1) ? "s" : ""
           case "number":
             return new Intl.NumberFormat(navigator.lang, options).format(value)
           case "date":
@@ -74,6 +78,18 @@
                 RegExp(baseUrl + String.raw`compare\/([\w-.]+...[\w-.]+)(?=<)`, "g"),
                 (_, repo, tags) => (options?.repo === repo ? "" : repo + "@") + tags,
               ) // -> 'lowlighter/metrics@1.0...1.1'
+              .replace(
+                /(?<!&)#(\d+)/g,
+                (_, id) => `<a href="https://github.com/${options?.repo}/issues/${id}">#${id}</a>`,
+              ) // -> #123
+              .replace(
+                /@([-\w]+)/g,
+                (_, user) => `<a href="https://github.com/${user}">@${user}</a>`,
+              ) // -> @user
+              .replace(
+                /(?:^|\s)([\da-f]{7,40})(?:\s|$)/g,
+                (_, id) => `<a href="https://github.com/${options?.repo}/commit/${id}"><code>${id.substring(0, 7)}</code></a>`,
+              ) // -> abcdef123
         }
         return value
       },
@@ -103,6 +119,12 @@
     },
     //Computed properties
     computed: {
+      stats() {
+        return this.metrics?.rendered?.user ?? null
+      },
+      sponsors() {
+        return this.metrics?.rendered.plugins.sponsors ?? null
+      },
       ranked() {
         return this.metrics?.rendered.plugins.achievements.list?.filter(({leaderboard}) => leaderboard).sort((a, b) => a.leaderboard.type.localeCompare(b.leaderboard.type)) ?? []
       },
@@ -115,8 +137,18 @@
       followup() {
         return this.metrics?.rendered.plugins.followup ?? null
       },
-      habits() {
-        return this.metrics?.rendered.plugins.habits.commits.hours ?? null
+      calendar() {
+        if (this.metrics?.rendered.plugins.calendar)
+          return Object.assign(this.metrics?.rendered.plugins.calendar, {color(c) {
+            return {
+              "#ebedf0":"var(--color-calendar-graph-day-bg)",
+              "#9be9a8":"var(--color-calendar-graph-day-L1-bg)",
+              "#40c463":"var(--color-calendar-graph-day-L2-bg)",
+              "#30a14e":"var(--color-calendar-graph-day-L3-bg)",
+              "#216e39":"var(--color-calendar-graph-day-L4-bg)",
+            }[c] ?? c
+          }})
+        return null
       },
       isocalendar() {
         return (this.metrics?.rendered.plugins.isocalendar.svg ?? "")
@@ -127,7 +159,10 @@
           .replace(/#216e39/gi, "var(--color-calendar-graph-day-L4-bg)")
       },
       languages() {
-        return this.metrics?.rendered.plugins.languages.favorites ?? []
+        return Object.assign(this.metrics?.rendered.plugins.languages.favorites ?? [], {total:this.metrics?.rendered.plugins.languages.total})
+      },
+      topics() {
+        return this.metrics?.rendered.plugins.topics.list ?? []
       },
       activity() {
         return this.metrics?.rendered.plugins.activity.events ?? []

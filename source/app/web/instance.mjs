@@ -177,6 +177,24 @@ export default async function({sandbox = false} = {}) {
   app.get("/about/", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/about/index.html`))
   app.get("/about/index.html", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/about/index.html`))
   app.get("/about/:login", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/about/index.html`))
+  app.get("/about/query/:login/:plugin/", ...middlewares, async (req, res) => {
+    //Check username
+    const login = req.params.login?.replace(/[\n\r]/g, "")
+    if (!/^[-\w]+$/i.test(login)) {
+      console.debug(`metrics/app/${login}/insights > 400 (invalid username)`)
+      return res.status(400).send("Bad request: username seems invalid")
+    }
+    //Check plugin
+    const plugin = req.params.plugin?.replace(/[\n\r]/g, "")
+    if (!/^\w+$/i.test(plugin)) {
+      console.debug(`metrics/app/${login}/insights > 400 (invalid plugin name)`)
+      return res.status(400).send("Bad request: plugin name seems invalid")
+    }
+    if (cache.get(`about.${login}.${plugin}`)) {
+      return res.send(cache.get(`about.${login}.${plugin}`))
+    }
+    return res.status(204).send("No content: no data fetched yet")
+  })
   app.get("/about/query/:login/", ...middlewares, async (req, res) => {
     //Check username
     const login = req.params.login?.replace(/[\n\r]/g, "")
@@ -187,14 +205,22 @@ export default async function({sandbox = false} = {}) {
     //Compute metrics
     try {
       //Read cached data if possible
-      if ((!debug) && (cached) && (cache.get(`about.${login}`))) {
+      //if ((!debug) && (cached) && (cache.get(`about.${login}`))) {
+      if (cache.get(`about.${login}`)) {
         console.debug(`metrics/app/${login}/insights > using cached results`)
         return res.send(cache.get(`about.${login}`))
       }
       //Compute metrics
       console.debug(`metrics/app/${login}/insights > compute insights`)
-      const json = await metrics.insights({login}, {graphql, rest, conf}, {Plugins, Templates})
+      const callbacks = {
+        async plugin(login, plugin, success, result) {
+          console.debug(`metrics/app/${login}/insights/plugins > ${plugin} > ${success ? "success" : "failure"}`)
+          cache.put(`about.${login}.${plugin}`, result)
+        }
+      }
+      const json = await metrics.insights({login}, {graphql, rest, conf, callbacks}, {Plugins, Templates})
       //Cache
+      cache.put(`about.${login}`, json)
       if ((!debug) && (cached)) {
         const maxage = Math.round(Number(req.query.cache))
         cache.put(`about.${login}`, json, maxage > 0 ? maxage : cached)
