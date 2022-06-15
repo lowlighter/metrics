@@ -6,3 +6,12 @@
     base: ""
     plugin_repositories: yes
     plugin_repositories_featured: lowlighter/metrics
+
+- name: Pinned repositories
+  uses: lowlighter/metrics@latest
+  with:
+    filename: metrics.plugin.repositories.pinned.svg
+    token: ${{ secrets.METRICS_TOKEN }}
+    base: ""
+    plugin_repositories: yes
+    plugin_repositories_pinned: 2

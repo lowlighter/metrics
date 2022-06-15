@@ -1,0 +1,34 @@
+query RepositoriesPinned {
+  user(login: "$login") {
+    pinnedItems(types: REPOSITORY, first: $limit) {
+      edges {
+        node {
+          ... on Repository {
+            createdAt
+            description
+            forkCount
+            isFork
+            issues {
+              totalCount
+            }
+            nameWithOwner
+            openGraphImageUrl
+            licenseInfo {
+              nickname
+              spdxId
+              name
+            }
+            pullRequests {
+              totalCount
+            }
+            stargazerCount
+            primaryLanguage {
+              color
+              name
+            }
+          }
+        }
+      }
+    }
+  }
+}

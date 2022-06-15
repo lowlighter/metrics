@@ -7,7 +7,8 @@ description: |
 
   > ⚠️ People will not be able to click on it due to limitations of using SVG inside `<img>` tags.
 examples:
-  default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.repositories.svg
+  +featured: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.repositories.svg
+  pinned: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.repositories.pinned.svg
 index: 20
 supports:
   - user
@@ -31,3 +32,11 @@ inputs:
     default: ""
     example: lowlighter/metrics
     preset: no
+
+  plugin_repositories_pinned:
+    description: |
+      Display pinned repositories
+    type: number
+    default: 0
+    min: 0
+    max: 6

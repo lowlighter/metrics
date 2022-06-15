@@ -1,6 +1,6 @@
 /**Mocked data */
 export default function({faker, query, login = faker.internet.userName()}) {
-  console.debug("metrics/compute/mocks > mocking graphql api result > stars/default")
+  console.debug("metrics/compute/mocks > mocking graphql api result > repositories/repository")
   return ({
     repository: {
       createdAt: faker.date.past(),
