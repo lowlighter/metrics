@@ -14,7 +14,7 @@ export default async function({login, q, imports, graphql, queries, data, accoun
 
     //Fetch pinned repositories
     if (pinned) {
-      const {user:{pinnedItems:{edges}}} = await graphql(queries.repositories.pinned({login, limit:pinned}))
+      const {user: {pinnedItems: {edges}}} = await graphql(queries.repositories.pinned({login, limit: pinned}))
       repositories.list.push(...edges.map(({node}) => format(node)))
     }
 
