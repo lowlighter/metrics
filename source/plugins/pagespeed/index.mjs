@@ -15,30 +15,23 @@ export default async function({login, imports, data, q, account}, {enabled = fal
     const result = {url: `${protocol}//${host}`, detailed, scores: [], metrics: {}}
     //Load scores from API
     console.debug(`metrics/compute/${login}/plugins > pagespeed > querying api for ${result.url}`)
-    
     const categories = ["performance", "accessibility", "best-practices", "seo"];
-    let categories_required = '';
-
-    for(const category of categories){
-      categories_required += `&category=${category}`;
+    let categories_required = ''
+    for (const category of categories){
+      categories_required += `&category=${category}`
     }
-
     //Perform audit
     console.debug(`metrics/compute/${login}/plugins > pagespeed > performing audit ${categories_required}`)
-    const request = await imports.axios.get(`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?&url=${url}${categories_required}${token ? `&key=${token}` : ""}`)
-
-    for(const category of categories){
+    const request = await imports.axios.get(`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${url}${categories_required}${token ? `&key=${token}` : ""}`)
+    for (const category of categories){
       const {score, title} = request.data.lighthouseResult.categories[category]
-      result.scores.push({score, title});
+      result.scores.push({score, title})
       console.debug(`metrics/compute/${login}/plugins > pagespeed > performed audit ${category} (status code ${request.status})`)
     }
-    
     //Store screenshot
     if (screenshot) {
       result.screenshot = request.data.lighthouseResult.audits["final-screenshot"].details.data;
     }
-    
-
     //Detailed metrics
     if (detailed) {
       console.debug(`metrics/compute/${login}/plugins > pagespeed > performing detailed audit`)
