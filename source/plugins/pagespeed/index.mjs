@@ -15,8 +15,8 @@ export default async function({login, imports, data, q, account}, {enabled = fal
     const result = {url: `${protocol}//${host}`, detailed, scores: [], metrics: {}}
     //Load scores from API
     console.debug(`metrics/compute/${login}/plugins > pagespeed > querying api for ${result.url}`)
-    const categories = ["performance", "accessibility", "best-practices", "seo"];
-    let categories_required = ''
+    const categories = ["performance", "accessibility", "best-practices", "seo"]
+    let categories_required = ""
     for (const category of categories){
       categories_required += `&category=${category}`
     }
@@ -30,7 +30,7 @@ export default async function({login, imports, data, q, account}, {enabled = fal
     }
     //Store screenshot
     if (screenshot) {
-      result.screenshot = request.data.lighthouseResult.audits["final-screenshot"].details.data;
+      result.screenshot = request.data.lighthouseResult.audits["final-screenshot"].details.data
     }
     //Detailed metrics
     if (detailed) {
