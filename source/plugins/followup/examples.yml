@@ -23,3 +23,12 @@
     base: ""
     plugin_followup: yes
     plugin_followup_indepth: yes
+
+- name: Exclude Archived
+  uses: lowlighter/metrics@latest
+  with:
+    filename: metrics.plugin.followup.archived.svg
+    token: ${{ secrets.METRICS_TOKEN }}
+    base: ""
+    plugin_followup: yes
+    plugin_followup_archived: no
