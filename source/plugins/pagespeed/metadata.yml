@@ -55,3 +55,8 @@ inputs:
       Although not mandatory, it strongly advised to create one to avoid triggering the rate limiter. See [PageSpeed documentation](https://developers.google.com/speed/docs/insights/v5/get-started) for more informations.
     type: token
     default: ""
+
+  plugin_pagespeed_pwa:
+    description: Display PWA Status
+    type: boolean
+    default: no
