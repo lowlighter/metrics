@@ -7,7 +7,7 @@ export default async function({login, imports, data, q, account}, {enabled = fal
       return null
 
     //Load inputs
-    let {detailed, screenshot, url} = imports.metadata.plugins.pagespeed.inputs({data, account, q})
+    let {detailed, screenshot, url, pwa} = imports.metadata.plugins.pagespeed.inputs({data, account, q})
     //Format url if needed
     if (!/^https?:[/][/]/.test(url))
       url = `https://${url}`
@@ -16,6 +16,9 @@ export default async function({login, imports, data, q, account}, {enabled = fal
     //Load scores from API
     console.debug(`metrics/compute/${login}/plugins > pagespeed > querying api for ${result.url}`)
     const categories = ["performance", "accessibility", "best-practices", "seo"]
+    if(pwa){
+      categories.push("pwa")
+    }
     let categories_required = ""
     for (const category of categories){
       categories_required += `&category=${category}`
