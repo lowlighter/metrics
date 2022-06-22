@@ -16,7 +16,7 @@ export default async function({login, imports, data, q, account}, {enabled = fal
     //Load scores from API
     console.debug(`metrics/compute/${login}/plugins > pagespeed > querying api for ${result.url}`)
     const categories = ["performance", "accessibility", "best-practices", "seo"]
-    if(pwa){
+    if (pwa){
       categories.push("pwa")
     }
     let categories_required = ""
