@@ -101,7 +101,7 @@
           const {processing, ...data} = (await axios.get(`/about/query/${this.user}`)).data
           if (processing) {
             let completed = 0
-            this.progress = 1/(data.plugins.length+1)
+            this.progress = 1 / (data.plugins.length + 1)
             this.loaded = []
             const retry = async (plugin, attempts = 60, interval = 10) => {
               if (this.loaded.includes(plugin))
@@ -112,18 +112,18 @@
                   if (!data)
                     throw new Error(`${plugin}: no data`)
                   if (plugin === "base")
-                    this.metrics = {rendered:data, mime:"application/json", errors:[]}
+                    this.metrics = {rendered: data, mime: "application/json", errors: []}
                   else
-                    Object.assign(this.metrics.rendered.plugins, {[plugin]:data})
+                    Object.assign(this.metrics.rendered.plugins, {[plugin]: data})
                   break
                 }
                 catch {
                   console.warn(`${plugin}: no data yet, retrying in ${interval} seconds`)
-                  await new Promise(solve => setTimeout(solve, interval*1000))
+                  await new Promise(solve => setTimeout(solve, interval * 1000))
                 }
               } while (--attempts)
               completed++
-              this.progress = completed/(data.plugins.length+1)
+              this.progress = completed / (data.plugins.length + 1)
               this.loaded.push(plugin)
             }
             await retry("base", 30, 5)
@@ -167,16 +167,19 @@
         return this.metrics?.rendered.plugins?.followup ?? null
       },
       calendar() {
-        if (this.metrics?.rendered.plugins?.calendar)
-          return Object.assign(this.metrics?.rendered.plugins?.calendar, {color(c) {
-            return {
-              "#ebedf0":"var(--color-calendar-graph-day-bg)",
-              "#9be9a8":"var(--color-calendar-graph-day-L1-bg)",
-              "#40c463":"var(--color-calendar-graph-day-L2-bg)",
-              "#30a14e":"var(--color-calendar-graph-day-L3-bg)",
-              "#216e39":"var(--color-calendar-graph-day-L4-bg)",
-            }[c] ?? c
-          }})
+        if (this.metrics?.rendered.plugins?.calendar) {
+          return Object.assign(this.metrics?.rendered.plugins?.calendar, {
+            color(c) {
+              return {
+                "#ebedf0": "var(--color-calendar-graph-day-bg)",
+                "#9be9a8": "var(--color-calendar-graph-day-L1-bg)",
+                "#40c463": "var(--color-calendar-graph-day-L2-bg)",
+                "#30a14e": "var(--color-calendar-graph-day-L3-bg)",
+                "#216e39": "var(--color-calendar-graph-day-L4-bg)",
+              }[c] ?? c
+            },
+          })
+        }
         return null
       },
       isocalendar() {
@@ -188,7 +191,7 @@
           .replace(/#216e39/gi, "var(--color-calendar-graph-day-L4-bg)")
       },
       languages() {
-        return Object.assign(this.metrics?.rendered.plugins?.languages?.favorites ?? [], {total:this.metrics?.rendered.plugins?.languages.total})
+        return Object.assign(this.metrics?.rendered.plugins?.languages?.favorites ?? [], {total: this.metrics?.rendered.plugins?.languages.total})
       },
       reactions() {
         return this.metrics?.rendered.plugins?.reactions ?? null
@@ -197,7 +200,7 @@
         return this.metrics?.rendered.plugins?.repositories?.list ?? []
       },
       stars() {
-        return {repositories:this.metrics?.rendered.plugins?.stars?.repositories.map(({node, starredAt}) => ({...node, starredAt})) ?? []}
+        return {repositories: this.metrics?.rendered.plugins?.stars?.repositories.map(({node, starredAt}) => ({...node, starredAt})) ?? []}
       },
       topics() {
         return this.metrics?.rendered.plugins?.topics?.list ?? []
@@ -240,7 +243,7 @@
       error: null,
       config: {},
       progress: 0,
-      loaded: []
+      loaded: [],
     },
   })
 })()

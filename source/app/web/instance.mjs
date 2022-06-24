@@ -193,9 +193,8 @@ export default async function({sandbox = false} = {}) {
       console.debug(`metrics/app/${login}/insights > 400 (invalid plugin name)`)
       return res.status(400).send("Bad request: plugin name seems invalid")
     }
-    if (cache.get(`about.${login}.${plugin}`)) {
+    if (cache.get(`about.${login}.${plugin}`))
       return res.send(cache.get(`about.${login}.${plugin}`))
-    }
     return res.status(204).send("No content: no data fetched yet")
   })
   app.get("/about/query/:login/", ...middlewares, async (req, res) => {
@@ -209,7 +208,7 @@ export default async function({sandbox = false} = {}) {
     let solve = null
     try {
       //Prevent multiples requests
-       if ((!debug) && (!mock) && (pending.has(`about.${login}`))) {
+      if ((!debug) && (!mock) && (pending.has(`about.${login}`))) {
         console.debug(`metrics/app/${login}/insights > awaiting pending request`)
         await pending.get(`about.${login}`)
       }
@@ -227,7 +226,7 @@ export default async function({sandbox = false} = {}) {
         async plugin(login, plugin, success, result) {
           console.debug(`metrics/app/${login}/insights/plugins > ${plugin} > ${success ? "success" : "failure"}`)
           cache.put(`about.${login}.${plugin}`, result)
-        }
+        },
       }
       ;(async () => {
         try {
@@ -244,7 +243,7 @@ export default async function({sandbox = false} = {}) {
         }
       })()
       console.debug(`metrics/app/${login}/insights > accepted request`)
-      return res.status(202).json({processing:true, plugins:Object.keys(metrics.insights.plugins)})
+      return res.status(202).json({processing: true, plugins: Object.keys(metrics.insights.plugins)})
     }
     //Internal error
     catch (error) {

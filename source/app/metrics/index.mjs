@@ -212,7 +212,7 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
 
 //Metrics insights
 metrics.insights = async function({login}, {graphql, rest, conf, callbacks}, {Plugins, Templates}) {
-  return metrics({login, q:metrics.insights.q}, {graphql, rest, plugins:metrics.insights.plugins, conf, callbacks, convert: "json"}, {Plugins, Templates})
+  return metrics({login, q: metrics.insights.q}, {graphql, rest, plugins: metrics.insights.plugins, conf, callbacks, convert: "json"}, {Plugins, Templates})
 }
 metrics.insights.q = {
   template: "classic",
@@ -292,5 +292,5 @@ metrics.insights.output = async function({login, imports, conf}, {graphql, rest,
       </body>
     </html>`
   await browser.close()
-  return {mime: "text/html", rendered, errors:json.errors}
+  return {mime: "text/html", rendered, errors: json.errors}
 }
