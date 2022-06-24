@@ -20,7 +20,7 @@ export default function({faker, url, options, login = faker.internet.userName()}
         results = results.filter(({name}) => elements.includes(name) ? false : (elements.push(name), true))
         let percents = 100
         for (const result of results) {
-          result.percent = 1 + faker.datatype.number(percents - 1)
+          result.percent = 1 + ((percents - 1) <= 0 ? 0 : faker.datatype.number(percents - 1))
           percents -= result.percent
         }
         return results
