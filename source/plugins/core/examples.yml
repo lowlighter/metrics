@@ -29,6 +29,14 @@
     token: ${{ secrets.METRICS_TOKEN }}
     config_output: png
 
+- name: Metrics insights
+  if: ${{ success() || failure() }}
+  uses: lowlighter/metrics@latest
+  with:
+    filename: metrics.insights.html
+    token: ${{ secrets.METRICS_TOKEN }}
+    config_output: insights
+
 - name: Presets
   uses: lowlighter/metrics@latest
   with:

@@ -172,11 +172,32 @@ export default async function({sandbox = false} = {}) {
     }
   })
 
+  //Pending requests
+  const pending = new Map()
+
   //About routes
   app.use("/about/.statics/", express.static(`${conf.paths.statics}/about`))
   app.get("/about/", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/about/index.html`))
   app.get("/about/index.html", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/about/index.html`))
   app.get("/about/:login", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/about/index.html`))
+  app.get("/about/query/:login/:plugin/", async (req, res) => {
+    //Check username
+    const login = req.params.login?.replace(/[\n\r]/g, "")
+    if (!/^[-\w]+$/i.test(login)) {
+      console.debug(`metrics/app/${login}/insights > 400 (invalid username)`)
+      return res.status(400).send("Bad request: username seems invalid")
+    }
+    //Check plugin
+    const plugin = req.params.plugin?.replace(/[\n\r]/g, "")
+    if (!/^\w+$/i.test(plugin)) {
+      console.debug(`metrics/app/${login}/insights > 400 (invalid plugin name)`)
+      return res.status(400).send("Bad request: plugin name seems invalid")
+    }
+    if (cache.get(`about.${login}.${plugin}`)) {
+      return res.send(cache.get(`about.${login}.${plugin}`))
+    }
+    return res.status(204).send("No content: no data fetched yet")
+  })
   app.get("/about/query/:login/", ...middlewares, async (req, res) => {
     //Check username
     const login = req.params.login?.replace(/[\n\r]/g, "")
@@ -185,7 +206,16 @@ export default async function({sandbox = false} = {}) {
       return res.status(400).send("Bad request: username seems invalid")
     }
     //Compute metrics
+    let solve = null
     try {
+      //Prevent multiples requests
+       if ((!debug) && (!mock) && (pending.has(`about.${login}`))) {
+        console.debug(`metrics/app/${login}/insights > awaiting pending request`)
+        await pending.get(`about.${login}`)
+      }
+      else {
+        pending.set(`about.${login}`, new Promise(_solve => solve = _solve))
+      }
       //Read cached data if possible
       if ((!debug) && (cached) && (cache.get(`about.${login}`))) {
         console.debug(`metrics/app/${login}/insights > using cached results`)
@@ -193,13 +223,28 @@ export default async function({sandbox = false} = {}) {
       }
       //Compute metrics
       console.debug(`metrics/app/${login}/insights > compute insights`)
-      const json = await metrics.insights({login}, {graphql, rest, conf}, {Plugins, Templates})
-      //Cache
-      if ((!debug) && (cached)) {
-        const maxage = Math.round(Number(req.query.cache))
-        cache.put(`about.${login}`, json, maxage > 0 ? maxage : cached)
+      const callbacks = {
+        async plugin(login, plugin, success, result) {
+          console.debug(`metrics/app/${login}/insights/plugins > ${plugin} > ${success ? "success" : "failure"}`)
+          cache.put(`about.${login}.${plugin}`, result)
+        }
       }
-      return res.json(json)
+      ;(async () => {
+        try {
+          const json = await metrics.insights({login}, {graphql, rest, conf, callbacks}, {Plugins, Templates})
+          //Cache
+          cache.put(`about.${login}`, json)
+          if ((!debug) && (cached)) {
+            const maxage = Math.round(Number(req.query.cache))
+            cache.put(`about.${login}`, json, maxage > 0 ? maxage : cached)
+          }
+        }
+        catch (error) {
+          console.error(`metrics/app/${login}/insights > error > ${error}`)
+        }
+      })()
+      console.debug(`metrics/app/${login}/insights > accepted request`)
+      return res.status(202).json({processing:true, plugins:Object.keys(metrics.insights.plugins)})
     }
     //Internal error
     catch (error) {
@@ -219,12 +264,12 @@ export default async function({sandbox = false} = {}) {
       return res.status(500).send("Internal Server Error: failed to process metrics correctly")
     }
     finally {
+      solve?.()
       _requests_refresh = true
     }
   })
 
   //Metrics
-  const pending = new Map()
   app.get("/:login/:repository?", ...middlewares, async (req, res) => {
     //Request params
     const login = req.params.login?.replace(/[\n\r]/g, "")

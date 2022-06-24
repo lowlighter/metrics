@@ -133,6 +133,29 @@
     color: var(--color-text-secondary);
   }
 
+/* Topics */
+  .topics .list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .topic {
+    display: flex;
+    align-items: center;
+    border-radius: 6px;
+    margin: .25rem;
+    padding: .25rem .5rem;
+    padding-left: .25rem;
+    color: var(--color-text-primary) !important;
+    border: 1px solid var(--color-border-primary);
+  }
+  .topic img {
+    height: 1.5rem;
+    width: 1.5rem;
+    margin-right: .5rem;
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+
 /* Followup */
   .followup {
     display: flex;
@@ -144,9 +167,13 @@
     margin-bottom: .5rem;
   }
 
-/* Isocalendar */
+/* Isocalendar  and calendar */
   .isocalendar .svg {
     margin-top: 8rem;
+  }
+  .calendar rect:hover {
+    cursor: pointer;
+    filter: brightness(4);
   }
 
 /* Activity */
@@ -198,13 +225,45 @@
     color: var(--color-text-secondary);
     overflow-x: auto;
   }
-  .activity quote p:first-child {
+
+/* Markdown */
+  .markdown p:first-child {
     margin-top: 0;
   }
-  .activity quote p:last-child {
+  .markdown p:last-child {
     margin-bottom: 0;
   }
-  .activity img {
+  .markdown p {
+    white-space: pre-wrap;
+  }
+  .markdown h1, .activity quote h2 {
+    border-bottom: 1px solid var(--color-markdown-frame-border);
+  }
+  .markdown blockquote {
+    margin: 0;
+    margin-bottom: 1rem;
+    padding: 0 .9rem;
+    border-left: .25rem solid var(--color-markdown-blockquote-border);
+  }
+  .markdown code {
+    background-color: var(--color-markdown-code-bg);
+    border-radius: .25rem;
+    padding: .125rem .25rem;
+    font-size: .9rem;
+  }
+  .markdown code[class^="language-"] {
+    display: block;
+    padding: 1rem;
+  }
+  .markdown ul {
+    margin-left: 0;
+    padding-left: 1rem;
+    font-size: 1rem !important;
+  }
+  .markdown input {
+    pointer-events: none
+  }
+  .markdown img {
     max-width: 100%;
   }
 
@@ -229,6 +288,40 @@
   }
   .user .login {
     font-size: 1.25rem;
+  }
+
+/* Sponsors */
+  .goal {
+    background-color: var(--color-markdown-code-bg);
+    border-radius: .25rem;
+    display: block;
+    padding: .5rem 1rem;
+    margin-top: 1rem;
+  }
+  .goal p {
+    margin: 0 0 .5rem;
+  }
+  .goal .progress-wrap {
+    background-color: var(--color-markdown-table-tr-border);
+    height: 8px;
+    border-radius: 6px;
+  }
+  .goal .objective {
+    text-align: right;
+    font-style: italic;
+    font-size: .8rem;
+  }
+  .goal .sponsors-list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  img.avatar {
+    height: 2rem;
+    width: 2rem;
+    margin-right: .5rem;
+    border-radius: 50%;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 1px var(--color-avatar-border);
   }
 
 /* Ranked achievements */
@@ -280,6 +373,79 @@
     width: 100%;
   }
 
+/* Reactions */
+  .reactions {
+    display: flex;
+    justify-content: center;
+  }
+
+  .reactions > div {
+    margin: 1.5rem;
+  }
+
+  .reactions .text {
+    text-align: center;
+    white-space: nowrap;
+  }
+
+/* Repository */
+  .repositories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .repository {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: .5rem;
+    max-width: 416px;
+    border-radius: .25rem;
+    border: 1px solid var(--color-border-primary);
+    padding: .5rem .5rem 0;
+  }
+
+  .repository .field {
+    display: flex;
+    align-items: center;
+    margin-bottom: .5rem;
+  }
+  .repository svg {
+    fill: currentColor;
+  }
+  .repository .infos, .repository .description {
+    font-size: .8rem;
+  }
+
+  .repository .name {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: .25rem;
+    flex-grow: 1;
+  }
+
+  .repository .name span:first-child {
+    color: var(--color-text-link);
+  }
+
+  .repository .name span:last-child {
+    color: var(--color-text-secondary);
+    font-size: .7rem;
+  }
+
+  .repository .infos > div {
+    color: var(--color-text-secondary);
+    display: flex;
+    align-items: center;
+    margin-right: 1rem;
+  }
+
+  .repository .infos svg {
+    margin: 0;
+    margin-right: .25rem;
+  }
+
 /* Charts */
   .chart-bars {
     display: flex;
@@ -306,11 +472,50 @@
     width: 100%;
   }
 
+/* Code highlighting */
+.token.comment {
+  color: #669900;
+}
+.token.punctuation {
+  color: #8a93a8;
+}
+.token.namespace, .token.constant, .token.symbol, .token.keyword {
+  color: #b44418;
+}
+.token.regex, .token.string, .token.char, .token.number, .token.boolean {
+  color: #2777AA;
+}
+.token.property, .token.tag {
+  color: #48428a;
+}
+.token.builtin, .token.operator {
+  color: #106cbc;
+}
+.token.trimmed {
+  font-style: italic;
+  color: #77777760;
+}
+.token.coord {
+  color: #D2A8FF;
+  font-weight: bold;
+}
+.token.inserted:not(.prefix) {
+  color: #AAD0B4DC;
+  background-color: #336543DC;
+}
+.token.deleted:not(.prefix) {
+  color: #EED2D0DC;
+  background-color: #9A5256DC;
+}
+
 /* Icon gauges */
   .gauge {
     stroke-linecap: round;
     fill: none;
     color: #58A6FF;
+  }
+  .gauge text {
+    fill: #ffffff;
   }
   .gauge-base, .gauge-arc {
     stroke: currentColor;
@@ -438,6 +643,14 @@
     outline: none;
   }
 
+/* */
+  small.footnote {
+    font-style: italic;
+    opacity: .8;
+    display: block;
+    text-align: left;
+  }
+
 /* Media screen */
   @media only screen and (min-width: 740px)  {
     .rankeds {
@@ -457,4 +670,19 @@
     .search {
       width: 520px;
     }
+  }
+
+/* Loading bar */
+  .loading-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    z-index: 9999;
+  }
+  .loading-bar > div {
+    background-color: #58A6FF;
+    height: 100%;
+    transition: all .12s ease-out;
   }

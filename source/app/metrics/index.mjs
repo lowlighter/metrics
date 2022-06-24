@@ -4,7 +4,7 @@ import util from "util"
 import * as utils from "./utils.mjs"
 
 //Setup
-export default async function metrics({login, q}, {graphql, rest, plugins, conf, die = false, verify = false, convert = null}, {Plugins, Templates}) {
+export default async function metrics({login, q}, {graphql, rest, plugins, conf, die = false, verify = false, convert = null, callbacks = null}, {Plugins, Templates}) {
   //Compute rendering
   try {
     //Debug
@@ -59,8 +59,8 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
 
     //Executing base plugin and compute metrics
     console.debug(`metrics/compute/${login} > compute`)
-    await Plugins.base({login, q, data, rest, graphql, plugins, queries, pending, imports}, conf)
-    await computer({login, q}, {conf, data, rest, graphql, plugins, queries, account: data.account, convert, template}, {pending, imports})
+    await Plugins.base({login, q, data, rest, graphql, plugins, queries, pending, imports, callbacks}, conf)
+    await computer({login, q}, {conf, data, rest, graphql, plugins, queries, account: data.account, convert, template, callbacks}, {pending, imports})
     const promised = await Promise.all(pending)
 
     //Check plugins errors
@@ -211,39 +211,53 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
 }
 
 //Metrics insights
-metrics.insights = async function({login}, {graphql, rest, conf}, {Plugins, Templates}) {
-  const q = {
-    template: "classic",
-    achievements: true,
-    "achievements.threshold": "X",
-    isocalendar: true,
-    "isocalendar.duration": "full-year",
-    languages: true,
-    "languages.limit": 0,
-    activity: true,
-    "activity.limit": 100,
-    "activity.days": 0,
-    notable: true,
-    followup: true,
-    "followup.sections": "repositories, user",
-    habits: true,
-    "habits.from": 100,
-    "habits.days": 7,
-    "habits.facts": false,
-    "habits.charts": true,
-    introduction: true,
-  }
-  const plugins = {
-    achievements: {enabled: true},
-    isocalendar: {enabled: true},
-    languages: {enabled: true, extras: false},
-    activity: {enabled: true, markdown: "extended"},
-    notable: {enabled: true},
-    followup: {enabled: true},
-    habits: {enabled: true, extras: false},
-    introduction: {enabled: true},
-  }
-  return metrics({login, q}, {graphql, rest, plugins, conf, convert: "json"}, {Plugins, Templates})
+metrics.insights = async function({login}, {graphql, rest, conf, callbacks}, {Plugins, Templates}) {
+  return metrics({login, q:metrics.insights.q}, {graphql, rest, plugins:metrics.insights.plugins, conf, callbacks, convert: "json"}, {Plugins, Templates})
+}
+metrics.insights.q = {
+  template: "classic",
+  achievements: true,
+  "achievements.threshold": "X",
+  isocalendar: true,
+  "isocalendar.duration": "full-year",
+  languages: true,
+  "languages.limit": 0,
+  activity: true,
+  "activity.limit": 100,
+  "activity.days": 0,
+  "activity.timestamps": true,
+  notable: true,
+  "notable.repositories": true,
+  followup: true,
+  "followup.sections": "repositories, user",
+  introduction: true,
+  topics: true,
+  "topics.mode": "icons",
+  "topics.limit": 0,
+  stars: true,
+  "stars.limit": 6,
+  reactions: true,
+  "reactions.details": "percentage",
+  repositories: true,
+  "repositories.pinned": 6,
+  sponsors: true,
+  calendar: true,
+  "calendar.limit": 0,
+}
+metrics.insights.plugins = {
+  achievements: {enabled: true},
+  isocalendar: {enabled: true},
+  languages: {enabled: true, extras: false},
+  activity: {enabled: true, markdown: "extended"},
+  notable: {enabled: true},
+  followup: {enabled: true},
+  introduction: {enabled: true},
+  topics: {enabled: true},
+  stars: {enabled: true},
+  reactions: {enabled: true},
+  repositories: {enabled: true},
+  sponsors: {enabled: true},
+  calendar: {enabled: true},
 }
 
 //Metrics insights static render
@@ -278,5 +292,5 @@ metrics.insights.output = async function({login, imports, conf}, {graphql, rest,
       </body>
     </html>`
   await browser.close()
-  return {mime: "text/html", rendered}
+  return {mime: "text/html", rendered, errors:json.errors}
 }

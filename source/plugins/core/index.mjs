@@ -4,7 +4,7 @@
  */
 
 //Setup
-export default async function({login, q}, {conf, data, rest, graphql, plugins, queries, account, convert, template}, {pending, imports}) {
+export default async function({login, q}, {conf, data, rest, graphql, plugins, queries, account, convert, template, callbacks}, {pending, imports}) {
   //Load inputs
   const {"config.animations": animations, "config.display": display, "config.timezone": _timezone, "config.base64": _base64, "debug.flags": dflags} = imports.metadata.plugins.core.inputs({data, account, q})
   imports.metadata.templates[template].check({q, account, format: convert})
@@ -70,6 +70,7 @@ export default async function({login, q}, {conf, data, rest, graphql, plugins, q
       finally {
         const result = {name, result: data.plugins[name]}
         console.debug(imports.util.inspect(result, {depth: Infinity, maxStringLength: 256, getters: true}))
+        await callbacks?.plugin?.(login, name, !data.plugins[name].error, data.plugins[name]).catch(error => console.debug(`metrics/compute/${login}/plugins/callbacks > ${name} > ${error}`))
         return result
       }
     })())

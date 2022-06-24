@@ -52,8 +52,11 @@ export default async function({login, q, imports, data, graphql, queries, accoun
     for (const [key, value] of Object.entries(list))
       list[key] = {value, percentage: value / reactions.length, score: value / (display === "relative" ? max : reactions.length)}
 
+    //Compute total reactions
+    const total = Object.values(list).map(({value}) => value).reduce((a, b) => a + b, 0)
+
     //Results
-    return {list, comments: comments.length, details, days, twemoji: q["config.twemoji"]}
+    return {list, total, comments: comments.length, details, days, twemoji: q["config.twemoji"]}
   }
   //Handle errors
   catch (error) {

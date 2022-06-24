@@ -4,7 +4,7 @@
  */
 
 //Setup
-export default async function({login, graphql, rest, data, q, queries, imports}, conf) {
+export default async function({login, graphql, rest, data, q, queries, imports, callbacks}, conf) {
   //Load inputs
   console.debug(`metrics/compute/${login}/base > started`)
   let {indepth, hireable, "repositories.forks": _forks, "repositories.affiliations": _affiliations, "repositories.batch": _batch} = imports.metadata.plugins.base.inputs({data, q, account: "bypass"})
@@ -15,8 +15,10 @@ export default async function({login, graphql, rest, data, q, queries, imports},
   console.debug(`metrics/compute/${login}/base > affiliations constraints ${affiliations}`)
 
   //Skip initial data gathering if not needed
-  if (conf.settings.notoken)
+  if (conf.settings.notoken) {
+    await callbacks?.plugin?.(login, "base", true, data).catch(error => console.debug(`metrics/compute/${login}/plugins/callbacks > base > ${error}`))
     return (postprocess.skip({login, data, imports}), {})
+  }
 
   //Base parts (legacy handling for web instance)
   const defaulted = ("base" in q) ? legacy.converter(q.base) ?? true : true
@@ -194,6 +196,7 @@ export default async function({login, graphql, rest, data, q, queries, imports},
       console.debug(`metrics/compute/${login}/base > shared options > ${JSON.stringify(data.shared)}`)
       //Success
       console.debug(`metrics/compute/${login}/base > graphql query > account ${account} > success`)
+      await callbacks?.plugin?.(login, "base", true, data).catch(error => console.debug(`metrics/compute/${login}/plugins/callbacks > base > ${error}`))
       return {}
     }
     catch (error) {
@@ -208,6 +211,7 @@ export default async function({login, graphql, rest, data, q, queries, imports},
   }
   //Not found
   console.debug(`metrics/compute/${login}/base > no more account type`)
+  await callbacks?.plugin?.(login, "base", false, data).catch(error => console.debug(`metrics/compute/${login}/plugins/callbacks > base > ${error}`))
   throw new Error("user not found")
 }
 

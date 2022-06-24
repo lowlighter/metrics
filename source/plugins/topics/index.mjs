@@ -32,6 +32,7 @@ export default async function({login, data, imports, q, account}, {enabled = fal
           name: li.querySelector(".f3").innerText,
           description: li.querySelector(".f5").innerText,
           icon: li.querySelector("img")?.src ?? null,
+          url: li.querySelector("a")?.href ?? null,
         }))
       )
       console.debug(`metrics/compute/${login}/plugins > topics > extracted ${starred.length} starred topics`)
