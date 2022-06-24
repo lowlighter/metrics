@@ -671,3 +671,18 @@
       width: 520px;
     }
   }
+
+/* Loading bar */
+  .loading-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    z-index: 9999;
+  }
+  .loading-bar > div {
+    background-color: #58A6FF;
+    height: 100%;
+    transition: all .12s ease-out;
+  }

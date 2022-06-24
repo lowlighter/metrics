@@ -98,7 +98,40 @@
             this.metrics = JSON.parse(localStorage.getItem("local.metrics") ?? "null")
             return
           }
-          this.metrics = (await axios.get(`/about/query/${this.user}`)).data
+          const {processing, ...data} = (await axios.get(`/about/query/${this.user}`)).data
+          if (processing) {
+            let completed = 0
+            this.progress = 1/(data.plugins.length+1)
+            this.loaded = []
+            const retry = async (plugin, attempts = 60, interval = 10) => {
+              if (this.loaded.includes(plugin))
+                return
+              do {
+                try {
+                  const {data} = await axios.get(`/about/query/${this.user}/${plugin}`)
+                  if (!data)
+                    throw new Error(`${plugin}: no data`)
+                  if (plugin === "base")
+                    this.metrics = {rendered:data, mime:"application/json", errors:[]}
+                  else
+                    Object.assign(this.metrics.rendered.plugins, {[plugin]:data})
+                  break
+                }
+                catch {
+                  console.warn(`${plugin}: no data yet, retrying in ${interval} seconds`)
+                  await new Promise(solve => setTimeout(solve, interval*1000))
+                }
+              } while (--attempts)
+              completed++
+              this.progress = completed/(data.plugins.length+1)
+              this.loaded.push(plugin)
+            }
+            await retry("base", 30, 5)
+            await Promise.allSettled(data.plugins.map(plugin => retry(plugin)))
+          }
+          else {
+            this.metrics = data
+          }
         }
         catch (error) {
           this.error = {code: error.response.status, message: error.response.data}
@@ -116,26 +149,26 @@
     //Computed properties
     computed: {
       stats() {
-        return this.metrics?.rendered?.user ?? null
+        return this.metrics?.rendered.user ?? null
       },
       sponsors() {
-        return this.metrics?.rendered.plugins.sponsors ?? null
+        return this.metrics?.rendered.plugins?.sponsors ?? null
       },
       ranked() {
-        return this.metrics?.rendered.plugins.achievements.list?.filter(({leaderboard}) => leaderboard).sort((a, b) => a.leaderboard.type.localeCompare(b.leaderboard.type)) ?? []
+        return this.metrics?.rendered.plugins?.achievements?.list?.filter(({leaderboard}) => leaderboard).sort((a, b) => a.leaderboard.type.localeCompare(b.leaderboard.type)) ?? []
       },
       achievements() {
-        return this.metrics?.rendered.plugins.achievements.list?.filter(({leaderboard}) => !leaderboard).filter(({title}) => !/(?:automator|octonaut|infographile)/i.test(title)) ?? []
+        return this.metrics?.rendered.plugins?.achievements?.list?.filter(({leaderboard}) => !leaderboard).filter(({title}) => !/(?:automator|octonaut|infographile)/i.test(title)) ?? []
       },
       introduction() {
-        return this.metrics?.rendered.plugins.introduction?.text ?? ""
+        return this.metrics?.rendered.plugins?.introduction?.text ?? ""
       },
       followup() {
-        return this.metrics?.rendered.plugins.followup ?? null
+        return this.metrics?.rendered.plugins?.followup ?? null
       },
       calendar() {
-        if (this.metrics?.rendered.plugins.calendar)
-          return Object.assign(this.metrics?.rendered.plugins.calendar, {color(c) {
+        if (this.metrics?.rendered.plugins?.calendar)
+          return Object.assign(this.metrics?.rendered.plugins?.calendar, {color(c) {
             return {
               "#ebedf0":"var(--color-calendar-graph-day-bg)",
               "#9be9a8":"var(--color-calendar-graph-day-L1-bg)",
@@ -147,7 +180,7 @@
         return null
       },
       isocalendar() {
-        return (this.metrics?.rendered.plugins.isocalendar.svg ?? "")
+        return (this.metrics?.rendered.plugins?.isocalendar?.svg ?? "")
           .replace(/#ebedf0/gi, "var(--color-calendar-graph-day-bg)")
           .replace(/#9be9a8/gi, "var(--color-calendar-graph-day-L1-bg)")
           .replace(/#40c463/gi, "var(--color-calendar-graph-day-L2-bg)")
@@ -155,31 +188,31 @@
           .replace(/#216e39/gi, "var(--color-calendar-graph-day-L4-bg)")
       },
       languages() {
-        return Object.assign(this.metrics?.rendered.plugins.languages.favorites ?? [], {total:this.metrics?.rendered.plugins.languages.total})
+        return Object.assign(this.metrics?.rendered.plugins?.languages?.favorites ?? [], {total:this.metrics?.rendered.plugins?.languages.total})
       },
       reactions() {
-        return this.metrics?.rendered.plugins.reactions ?? null
+        return this.metrics?.rendered.plugins?.reactions ?? null
       },
       repositories() {
-        return this.metrics?.rendered.plugins.repositories.list ?? []
+        return this.metrics?.rendered.plugins?.repositories?.list ?? []
       },
       stars() {
-        return {repositories:this.metrics?.rendered.plugins.stars?.repositories.map(({node, starredAt}) => ({...node, starredAt})) ?? []}
+        return {repositories:this.metrics?.rendered.plugins?.stars?.repositories.map(({node, starredAt}) => ({...node, starredAt})) ?? []}
       },
       topics() {
-        return this.metrics?.rendered.plugins.topics.list ?? []
+        return this.metrics?.rendered.plugins?.topics?.list ?? []
       },
       activity() {
-        return this.metrics?.rendered.plugins.activity.events ?? []
+        return this.metrics?.rendered.plugins?.activity?.events ?? []
       },
       contributions() {
-        return this.metrics?.rendered.plugins.notable.contributions ?? []
+        return this.metrics?.rendered.plugins?.notable?.contributions ?? []
       },
       account() {
         if (!this.metrics)
           return null
-        const {login, name} = this.metrics.rendered.user
-        return {login, name, avatar: this.metrics.rendered.computed.avatar, type: this.metrics?.rendered.account}
+        const {login, name} = this.metrics?.rendered.user
+        return {login, name, avatar: this.metrics?.rendered.computed.avatar, type: this.metrics?.rendered.account}
       },
       url() {
         return `${window.location.protocol}//${window.location.host}/about/${this.user}`
@@ -206,6 +239,8 @@
       pending: false,
       error: null,
       config: {},
+      progress: 0,
+      loaded: []
     },
   })
 })()
