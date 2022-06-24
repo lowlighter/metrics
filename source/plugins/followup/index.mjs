@@ -7,7 +7,9 @@ export default async function({login, data, computed, imports, q, graphql, queri
       return null
 
     //Load inputs
-    let {sections, indepth} = imports.metadata.plugins.followup.inputs({data, account, q})
+    let {sections, indepth, archived} = imports.metadata.plugins.followup.inputs({data, account, q})
+
+    archived = archived === false ? "archived:false" : ""
 
     //Define getters
     const followup = {
@@ -90,7 +92,7 @@ export default async function({login, data, computed, imports, q, graphql, queri
 
     //Load user issues and pull requests
     if ((account === "user") && (sections.includes("user"))) {
-      const search = await graphql(queries.followup.user({login}))
+      const search = await graphql(queries.followup.user({login, archived}))
       followup.user = {
         issues: {
           get count() {

@@ -30,7 +30,7 @@ query BaseUserX {
     repositoriesContributedTo(includeUserRepositories: true) {
       totalCount
     }
-    repositories(last: 0) {
+    repositories(last: 0 $affiliations) {
       totalCount
       totalDiskUsage
     }

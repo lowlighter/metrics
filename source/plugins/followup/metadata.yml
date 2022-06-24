@@ -36,3 +36,8 @@ inputs:
     type: boolean
     default: no
     extras: yes
+
+  plugin_followup_archived:
+    description: Include Issues and Pull requests on the archived repositories.
+    type: boolean
+    default: yes

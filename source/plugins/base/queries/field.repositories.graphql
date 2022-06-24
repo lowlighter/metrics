@@ -1,6 +1,6 @@
-query BaseFieldRepositories {
+query BaseFieldRepositories{
   $account(login: "$login") {
-    repositories(last: 0) {
+    repositories(last: 0 $affiliations) {
       $field
     }
   }

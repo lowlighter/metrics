@@ -1,26 +1,26 @@
 query FollowupUser {
-  issues_open:search(query: "is:issue author:$login is:open", type: ISSUE, first: 0) {
+  issues_open:search(query: "is:issue author:$login is:open $archived", type: ISSUE, first: 0) {
     issueCount
   }
-  issues_drafts:search(query: "is:issue author:$login draft:true", type: ISSUE, first: 0) {
+  issues_drafts:search(query: "is:issue author:$login draft:true $archived", type: ISSUE, first: 0) {
     issueCount
   }
-  issues_skipped:search(query: "is:issue author:$login is:closed label:wontfix,duplicate", type: ISSUE, first: 0) {
+  issues_skipped:search(query: "is:issue author:$login is:closed label:wontfix,duplicate $archived", type: ISSUE, first: 0) {
     issueCount
   }
-  issues_closed:search(query: "is:issue author:$login is:closed", type: ISSUE, first: 0) {
+  issues_closed:search(query: "is:issue author:$login is:closed $archived", type: ISSUE, first: 0) {
     issueCount
   }
-  pr_open:search(query: "is:pr author:$login is:open draft:false", type: ISSUE, first: 0) {
+  pr_open:search(query: "is:pr author:$login is:open draft:false $archived", type: ISSUE, first: 0) {
     issueCount
   }
-  pr_drafts:search(query: "is:pr author:$login draft:true", type: ISSUE, first: 0) {
+  pr_drafts:search(query: "is:pr author:$login draft:true $archived", type: ISSUE, first: 0) {
     issueCount
   }
-  pr_closed:search(query: "is:pr author:$login is:unmerged is:closed draft:false", type: ISSUE, first: 0) {
+  pr_closed:search(query: "is:pr author:$login is:unmerged is:closed draft:false $archived", type: ISSUE, first: 0) {
     issueCount
   }
-  pr_merged:search(query: "is:pr author:$login is:merged", type: ISSUE, first: 0) {
+  pr_merged:search(query: "is:pr author:$login is:merged $archived", type: ISSUE, first: 0) {
     issueCount
   }
 }

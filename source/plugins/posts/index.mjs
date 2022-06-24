@@ -8,7 +8,6 @@ export default async function({login, data, imports, q, queries, account}, {enab
 
     //Load inputs
     let {source, descriptions, covers, limit, user} = imports.metadata.plugins.posts.inputs({data, account, q})
-
     //Retrieve posts
     console.debug(`metrics/compute/${login}/plugins > posts > processing with source ${source}`)
     let posts = null
@@ -16,6 +15,7 @@ export default async function({login, data, imports, q, queries, account}, {enab
     switch (source) {
       //Dev.to
       case "dev.to": {
+        user = user.toLowerCase()
         console.debug(`metrics/compute/${login}/plugins > posts > querying api`)
         posts = (await imports.axios.get(`https://dev.to/api/articles?username=${user}&state=fresh`)).data.map(({title, description, published_at: date, cover_image: image, url: link}) => ({title, description, date, image, link}))
         link = `https://dev.to/${user}`

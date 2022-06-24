@@ -95,6 +95,11 @@ export default function({faker, url, options, login = faker.internet.userName()}
                 title: "Performance",
                 score: faker.datatype.float({max: 1}),
               },
+              pwa: {
+                id: "pwa",
+                title: "PWA",
+                score: faker.datatype.number({max: 1}),
+              },
             },
           },
           analysisUTCTimestamp: `${faker.date.recent()}`,

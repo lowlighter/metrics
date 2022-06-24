@@ -12,7 +12,7 @@ query BaseOrganizationX {
     membersWithRole {
       totalCount
     }
-    repositories(last: 0) {
+    repositories(last: 0 $affiliations) {
       totalCount
       totalDiskUsage
     }

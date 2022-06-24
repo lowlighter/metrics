@@ -32,7 +32,7 @@ export default async function({login, graphql, rest, data, q, queries, imports},
       Object.assign(data, {user: queried[account]})
       postprocess?.[account]({login, data})
       try {
-        Object.assign(data.user, (await graphql(queries.base[`${account}.x`]({login, account, "calendar.from": new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString(), "calendar.to": (new Date()).toISOString()})))[account])
+        Object.assign(data.user, (await graphql(queries.base[`${account}.x`]({login, account, "calendar.from": new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString(), "calendar.to": (new Date()).toISOString(), affiliations})))[account])
         console.debug(`metrics/compute/${login}/base > successfully loaded bulk query`)
       }
       catch {
@@ -54,7 +54,7 @@ export default async function({login, graphql, rest, data, q, queries, imports},
         //Query repositories fields
         for (const field of ["totalCount", "totalDiskUsage"]) {
           try {
-            Object.assign(data.user.repositories, (await graphql(queries.base["field.repositories"]({login, account, field})))[account].repositories)
+            Object.assign(data.user.repositories, (await graphql(queries.base["field.repositories"]({login, account, field, affiliations})))[account].repositories)
           }
           catch (error) {
             console.debug(`metrics/compute/${login}/base > failed to retrieve repositories.${field}`)
