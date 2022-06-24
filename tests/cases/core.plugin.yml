@@ -29,6 +29,14 @@
     config_output: png
     use_mocked_data: 'yes'
     verify: 'yes'
+- name: 🧱 Core - Metrics insights
+  if: ${{ success() || failure() }}
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    config_output: insights
+    use_mocked_data: 'yes'
+    verify: 'yes'
 - name: 🧱 Core - Presets
   uses: lowlighter/metrics@latest
   with:
