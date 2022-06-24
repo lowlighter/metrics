@@ -74,14 +74,10 @@ export default async function({login, data, imports, q, account}, {enabled = fal
       topic.description = imports.htmlescape(topic.description)
     }
 
-    //Filter topics with icon (icons)
-    if (type === "icons") {
-      console.debug(`metrics/compute/${login}/plugins > topics > filtering topics with icon`)
-      topics = topics.filter(({icon}) => icon)
-    }
-
     //Limit topics (icons)
     if ((type === "icons") && (limit > 0)) {
+      console.debug(`metrics/compute/${login}/plugins > topics > filtering topics with icon`)
+      topics = topics.filter(({icon}) => icon)
       console.debug(`metrics/compute/${login}/plugins > topics > keeping only ${limit} topics`)
       topics.splice(limit)
     }
