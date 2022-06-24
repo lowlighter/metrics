@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/lowlighter/metrics#readme",
   "dependencies": {
-    "@actions/core": "^1.8.2",
+    "@actions/core": "^1.9.0",
     "@actions/github": "^5.0.3",
     "@faker-js/faker": "^6.0.0-alpha.3",
     "@octokit/graphql": "^4.8.0",
