@@ -373,6 +373,79 @@
     width: 100%;
   }
 
+/* Reactions */
+  .reactions {
+    display: flex;
+    justify-content: center;
+  }
+
+  .reactions > div {
+    margin: 1.5rem;
+  }
+
+  .reactions .text {
+    text-align: center;
+    white-space: nowrap;
+  }
+
+/* Repository */
+  .repositories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .repository {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: .5rem;
+    max-width: 416px;
+    border-radius: .25rem;
+    border: 1px solid var(--color-border-primary);
+    padding: .5rem .5rem 0;
+  }
+
+  .repository .field {
+    display: flex;
+    align-items: center;
+    margin-bottom: .5rem;
+  }
+  .repository svg {
+    fill: currentColor;
+  }
+  .repository .infos, .repository .description {
+    font-size: .8rem;
+  }
+
+  .repository .name {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: .25rem;
+    flex-grow: 1;
+  }
+
+  .repository .name span:first-child {
+    color: var(--color-text-link);
+  }
+
+  .repository .name span:last-child {
+    color: var(--color-text-secondary);
+    font-size: .7rem;
+  }
+
+  .repository .infos > div {
+    color: var(--color-text-secondary);
+    display: flex;
+    align-items: center;
+    margin-right: 1rem;
+  }
+
+  .repository .infos svg {
+    margin: 0;
+    margin-right: .25rem;
+  }
+
 /* Charts */
   .chart-bars {
     display: flex;
@@ -399,11 +472,50 @@
     width: 100%;
   }
 
+/* Code highlighting */
+.token.comment {
+  color: #669900;
+}
+.token.punctuation {
+  color: #8a93a8;
+}
+.token.namespace, .token.constant, .token.symbol, .token.keyword {
+  color: #b44418;
+}
+.token.regex, .token.string, .token.char, .token.number, .token.boolean {
+  color: #2777AA;
+}
+.token.property, .token.tag {
+  color: #48428a;
+}
+.token.builtin, .token.operator {
+  color: #106cbc;
+}
+.token.trimmed {
+  font-style: italic;
+  color: #77777760;
+}
+.token.coord {
+  color: #D2A8FF;
+  font-weight: bold;
+}
+.token.inserted:not(.prefix) {
+  color: #AAD0B4DC;
+  background-color: #336543DC;
+}
+.token.deleted:not(.prefix) {
+  color: #EED2D0DC;
+  background-color: #9A5256DC;
+}
+
 /* Icon gauges */
   .gauge {
     stroke-linecap: round;
     fill: none;
     color: #58A6FF;
+  }
+  .gauge text {
+    fill: #ffffff;
   }
   .gauge-base, .gauge-arc {
     stroke: currentColor;

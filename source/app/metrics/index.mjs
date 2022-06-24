@@ -237,7 +237,7 @@ metrics.insights = async function({login}, {graphql, rest, conf, callbacks}, {Pl
     reactions: true,
     "reactions.details": "percentage",
     repositories: true,
-    "repositories.pinned": true,
+    "repositories.pinned": 6,
     sponsors: true,
     calendar: true,
     "calendar.limit": 0,

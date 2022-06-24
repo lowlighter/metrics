@@ -86,10 +86,6 @@
                 /@([-\w]+)/g,
                 (_, user) => `<a href="https://github.com/${user}">@${user}</a>`,
               ) // -> @user
-              .replace(
-                /(?:^|\s)([\da-f]{7,40})(?:\s|$)/g,
-                (_, id) => `<a href="https://github.com/${options?.repo}/commit/${id}"><code>${id.substring(0, 7)}</code></a>`,
-              ) // -> abcdef123
         }
         return value
       },
@@ -160,6 +156,15 @@
       },
       languages() {
         return Object.assign(this.metrics?.rendered.plugins.languages.favorites ?? [], {total:this.metrics?.rendered.plugins.languages.total})
+      },
+      reactions() {
+        return this.metrics?.rendered.plugins.reactions ?? null
+      },
+      repositories() {
+        return this.metrics?.rendered.plugins.repositories.list ?? []
+      },
+      stars() {
+        return {repositories:this.metrics?.rendered.plugins.stars?.repositories.map(({node, starredAt}) => ({...node, starredAt})) ?? []}
       },
       topics() {
         return this.metrics?.rendered.plugins.topics.list ?? []
