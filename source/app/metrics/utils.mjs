@@ -329,11 +329,13 @@ export async function imgb64(image, {width, height, fallback = true} = {}) {
   //Undefined image
   if (!image)
     return fallback ? "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==" : null
-  //Fix: seems that http:// is not properly supproted by phin (underlying lib for requests in jimp)
-  if (image.startsWith("http://"))
-    image = image.replace("http://", "https://")
   //Load image
   try {
+    //Fix: redirections are not properly supported by jimp (https://github.com/oliver-moran/jimp/issues/909)
+    if (typeof image === "string") {
+      image = (await axios.get(image)).then(response => response.request.responseURL).catch(() => null)
+      console.debug(`metrics/svg/imgb64 > redirected image link to ${image}`)
+    }
     image = await jimp.read(image)
   }
   catch {
