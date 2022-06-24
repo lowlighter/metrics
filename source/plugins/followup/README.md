@@ -69,6 +69,17 @@
 <br>
 <b>default:</b> no<br></td>
   </tr>
+  <tr>
+    <td nowrap="nowrap"><h4><code>plugin_followup_archived</code></h4></td>
+    <td rowspan="2"><p>Include Issues and Pull requests on the archived repositories.</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> yes<br></td>
+  </tr>
 </table>
 <!--/options-->
 
@@ -113,6 +124,17 @@ with:
   base: ""
   plugin_followup: yes
   plugin_followup_indepth: yes
+
+```
+```yaml
+name: Exclude Archived
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.followup.archived.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ""
+  plugin_followup: yes
+  plugin_followup_archived: no
 
 ```
 <!--/examples-->

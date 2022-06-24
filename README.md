@@ -19,7 +19,7 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
   </tr>
   <tr>
     <th colspan="2" align="center">
-      <h3><a href="/README.md#-plugins">🧩 Customizable with 40 plugins and 262 options!</a></h3>
+      <h3><a href="/README.md#-plugins">🧩 Customizable with 40 plugins and 265 options!</a></h3>
     </th>
   </tr>
   <tr>
@@ -182,7 +182,8 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
   </tr>
   <tr>
         <td  align="center">
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.repositories.svg" alt=""></img>
+        <details open><summary>Featured</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.repositories.svg" alt=""></img></details>
+        <details><summary>Pinned</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.repositories.pinned.svg" alt=""></img></details>
         <img width="900" height="1" alt="">
       </td>
         <td  align="center">

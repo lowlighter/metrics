@@ -449,6 +449,10 @@ inputs:
     description: Indepth analysis
     default: <default-value>
 
+  plugin_followup_archived:
+    description: Include Issues and Pull requests on the archived repositories.
+    default: <default-value>
+
   # ====================================================================================
   # 🎭 Comment reactions
 
@@ -744,6 +748,10 @@ inputs:
     description: List of featured repositories
     default: <default-value>
 
+  plugin_repositories_pinned:
+    description: Display pinned repositories
+    default: <default-value>
+
   # ====================================================================================
   # 🎫 Gists
 
@@ -871,6 +879,10 @@ inputs:
 
   plugin_pagespeed_token:
     description: PageSpeed token
+    default: <default-value>
+
+  plugin_pagespeed_pwa:
+    description: Display PWA Status
     default: <default-value>
 
   # ====================================================================================

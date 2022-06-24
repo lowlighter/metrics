@@ -95,6 +95,17 @@ It uses <a href="https://developers.google.com/speed/docs/insights/v5/get-starte
 <b>type:</b> <code>token</code>
 <br></td>
   </tr>
+  <tr>
+    <td nowrap="nowrap"><h4><code>plugin_pagespeed_pwa</code></h4></td>
+    <td rowspan="2"><p>Display PWA Status</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
 </table>
 <!--/options-->
 
@@ -137,6 +148,19 @@ with:
   plugin_pagespeed_screenshot: yes
   plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
   plugin_pagespeed_url: https://lecoq.io
+
+```
+```yaml
+name: Succint report with PWA
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.pagespeed.svg
+  token: NOT_NEEDED
+  base: ""
+  plugin_pagespeed: yes
+  plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
+  plugin_pagespeed_url: https://lecoq.io
+  plugin_pagespeed_pwa: yes
 
 ```
 <!--/examples-->
