@@ -7,7 +7,7 @@ export default function({faker, url, body, login = faker.internet.userName()}) {
       title: {romaji: faker.lorem.words(), english: faker.lorem.words(), native: faker.lorem.words()},
       description: faker.lorem.paragraphs(),
       type,
-      status: faker.random.arrayElement(["FINISHED", "RELEASING", "NOT_YET_RELEASED", "CANCELLED", "HIATUS"]),
+      status: faker.helpers.arrayElement(["FINISHED", "RELEASING", "NOT_YET_RELEASED", "CANCELLED", "HIATUS"]),
       episodes: 100 + faker.datatype.number(100),
       volumes: faker.datatype.number(100),
       chapters: 100 + faker.datatype.number(1000),
@@ -103,7 +103,7 @@ export default function({faker, url, body, login = faker.internet.userName()}) {
                   name: {ANIME: "Watching", MANGA: "Reading", OTHER: "Completed"}[type],
                   isCustomList: false,
                   entries: new Array(16).fill(null).map(_ => ({
-                    status: faker.random.arrayElement(["CURRENT", "PLANNING", "COMPLETED", "DROPPED", "PAUSED", "REPEATING"]),
+                    status: faker.helpers.arrayElement(["CURRENT", "PLANNING", "COMPLETED", "DROPPED", "PAUSED", "REPEATING"]),
                     progress: faker.datatype.number(100),
                     progressVolumes: null,
                     score: 0,

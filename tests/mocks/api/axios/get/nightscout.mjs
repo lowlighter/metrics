@@ -14,7 +14,7 @@ export default function({faker, url}) {
         dateString: new Date(lastInterval).toISOString(),
         sgv: faker.datatype.number({min: 40, max: 400}),
         delta: faker.datatype.number({min: -10, max: 10}),
-        direction: faker.random.arrayElement(["SingleUp", "DoubleUp", "FortyFiveUp", "Flat", "FortyFiveDown", "SingleDown", "DoubleDown"]),
+        direction: faker.helpers.arrayElement(["SingleUp", "DoubleUp", "FortyFiveUp", "Flat", "FortyFiveDown", "SingleDown", "DoubleDown"]),
         type: "sgv",
         filtered: 0,
         unfiltered: 0,

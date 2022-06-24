@@ -71,7 +71,7 @@ export default async function({faker}, target, that, [{username: login, page, pe
           name: `${faker.random.word()}/${faker.random.word()}`,
         },
         payload: {
-          action: faker.random.arrayElement(["opened", "closed", "reopened"]),
+          action: faker.helpers.arrayElement(["opened", "closed", "reopened"]),
           issue: {
             number: 2,
             title: faker.lorem.sentence(),
@@ -221,7 +221,7 @@ export default async function({faker}, target, that, [{username: login, page, pe
         },
         payload: {
           ref: faker.lorem.slug(),
-          ref_type: faker.random.arrayElement(["tag", "branch"]),
+          ref_type: faker.helpers.arrayElement(["tag", "branch"]),
           master_branch: "master",
         },
         created_at: faker.date.recent(7),
@@ -251,7 +251,7 @@ export default async function({faker}, target, that, [{username: login, page, pe
         },
         payload: {
           ref: faker.lorem.slug(),
-          ref_type: faker.random.arrayElement(["tag", "branch"]),
+          ref_type: faker.helpers.arrayElement(["tag", "branch"]),
         },
         created_at: faker.date.recent(7),
         public: true,
@@ -292,7 +292,7 @@ export default async function({faker}, target, that, [{username: login, page, pe
           name: `${faker.random.word()}/${faker.random.word()}`,
         },
         payload: {
-          action: faker.random.arrayElement(["opened", "closed"]),
+          action: faker.helpers.arrayElement(["opened", "closed"]),
           number: 5,
           pull_request: {
             user: {

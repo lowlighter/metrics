@@ -329,8 +329,16 @@ export async function imgb64(image, {width, height, fallback = true} = {}) {
   //Undefined image
   if (!image)
     return fallback ? "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==" : null
+  //Fix: seems that http:// is not properly supproted by phin (underlying lib for requests in jimp)
+  if (image.startsWith("http://"))
+    image = image.replace("http://", "https://")
   //Load image
-  image = await jimp.read(image)
+  try {
+    image = await jimp.read(image)
+  }
+  catch {
+    return null
+  }
   //Resize image
   if ((width) && (height))
     image = image.resize(width, height)
