@@ -335,15 +335,13 @@ export async function imgb64(image, {width, height, fallback = true} = {}) {
     if (typeof image === "string") {
       axios.get(image).then(response => {
         image = response.request.responseURL
-      }).catch((e) => {
-        comsole.log(e)
       })
       console.debug(`metrics/svg/imgb64 > redirected image link to ${image}`)
     }
     image = await jimp.read(image)
   }
   catch(e) {
-    console.log(e);
+    console.log(e)
     return null
   }
   //Resize image
