@@ -67,3 +67,11 @@ inputs:
     description: Trim unused hours on charts
     type: boolean
     default: no
+
+  plugin_habits_languages_limit:
+    description: Limits the number of languages to be displayed
+    type: number
+    default: 8
+    min: 0
+    max: 8
+    zero: disable
