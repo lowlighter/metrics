@@ -5,7 +5,7 @@ const fs = require("fs")
 const path = require("path")
 const url = require("url")
 const axios = require("axios")
-const faker = require("@faker-js/faker")
+const faker = require("@faker-js/faker").faker
 const ejs = require("ejs")
 
 //Github action

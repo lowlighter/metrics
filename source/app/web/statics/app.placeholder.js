@@ -93,7 +93,7 @@
         diskUsage: `${faker.datatype.float({min: 1, max: 999}).toFixed(1)}MB`,
         registration: `${faker.datatype.number({min: 2, max: 10})} years ago`,
         cakeday: false,
-        calendar: new Array(14).fill(null).map(_ => ({color: faker.random.arrayElement(["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"])})),
+        calendar: new Array(14).fill(null).map(_ => ({color: faker.helpers.arrayElement(["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"])})),
         avatar: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
       },
       //User data
@@ -370,7 +370,7 @@
                     .replace(/#primary/g, colors[this.rank][0])
                     .replace(/#secondary/g, colors[this.rank][1])
                 },
-                rank: faker.random.arrayElement(["A", "B", "C", "X", "$"]),
+                rank: faker.helpers.arrayElement(["A", "B", "C", "X", "$"]),
                 progress: faker.datatype.number(100) / 100,
                 value: faker.datatype.number(1000),
               }))
@@ -404,6 +404,7 @@
                 deletions: faker.datatype.number(50),
                 patch: `<span class="token coord">@@ -0,0 +1,5 @@</span><br>  //Imports<br><span class="token inserted">+  import app from "./src/app.mjs"</span><br><span class="token deleted">-  import app from "./src/app.js"</span><br>  //Start app<br>  await app()<br>\\ No newline at end of file`,
                 repo: `${faker.random.word()}/${faker.random.word()}`,
+                created: faker.date.recent(),
               },
             },
           })
@@ -621,12 +622,12 @@
               url: options["nightscout.url"] != null && options["nightscout.url"] != "https://example.herokuapp.com" ? options["nightscout.url"] : "https://testapp.herokuapp.com/",
               data: new Array(12).fill(null).map(_ => ({
                 timeUTCHumanReadable: `${new Date().getUTCHours()}:${new Date().getUTCMinutes()}`,
-                color: faker.random.arrayElement(["#9be9a8", "#40c463", "#30a14e", "#216e39"]),
+                color: faker.helpers.arrayElement(["#9be9a8", "#40c463", "#30a14e", "#216e39"]),
                 sgv: faker.datatype.number({min: 40, max: 400}),
                 delta: faker.datatype.number({min: -10, max: 10}),
-                direction: faker.random.arrayElement(["SingleUp", "DoubleUp", "FortyFiveUp", "Flat", "FortyFiveDown", "SingleDown", "DoubleDown"]),
-                alert: faker.random.arrayElement(["Normal", "Urgent High", "Urgent Low", "High", "Low"]),
-                arrowHumanReadable: faker.random.arrayElement(["↑↑", "↑", "↗", "→", "↘", "↓", "↓↓"]),
+                direction: faker.helpers.arrayElement(["SingleUp", "DoubleUp", "FortyFiveUp", "Flat", "FortyFiveDown", "SingleDown", "DoubleDown"]),
+                alert: faker.helpers.arrayElement(["Normal", "Urgent High", "Urgent Low", "High", "Low"]),
+                arrowHumanReadable: faker.helpers.arrayElement(["↑↑", "↑", "↗", "→", "↘", "↓", "↓↓"]),
               })),
             },
           })
@@ -634,7 +635,7 @@
         //Fortune
         ...(set.plugins.enabled.fortune
           ? ({
-            fortune: faker.random.arrayElement([
+            fortune: faker.helpers.arrayElement([
               {chance: .06, color: "#43FD3B", text: "Good news will come to you by mail"},
               {chance: .06, color: "#00CBB0", text: "ｷﾀ━━━━━━(ﾟ∀ﾟ)━━━━━━ !!!!"},
               {chance: 0.03, color: "#FD4D32", text: "Excellent Luck"},
@@ -655,8 +656,8 @@
               ],
               metrics: {
                 observedFirstContentfulPaint: faker.datatype.number(500),
-                observedFirstVisualChangeTs: faker.time.recent(),
-                observedFirstContentfulPaintTs: faker.time.recent(),
+                observedFirstVisualChangeTs: faker.date.recent(),
+                observedFirstContentfulPaintTs: faker.date.recent(),
                 firstContentfulPaint: faker.datatype.number(500),
                 observedDomContentLoaded: faker.datatype.number(500),
                 observedFirstMeaningfulPaint: faker.datatype.number(1000),
@@ -665,30 +666,30 @@
                 firstMeaningfulPaint: faker.datatype.number(500),
                 observedCumulativeLayoutShift: faker.datatype.float({max: 1}),
                 observedSpeedIndex: faker.datatype.number(1000),
-                observedSpeedIndexTs: faker.time.recent(),
-                observedTimeOriginTs: faker.time.recent(),
+                observedSpeedIndexTs: faker.date.recent(),
+                observedTimeOriginTs: faker.date.recent(),
                 observedLargestContentfulPaint: faker.datatype.number(1000),
                 cumulativeLayoutShift: faker.datatype.float({max: 1}),
-                observedFirstPaintTs: faker.time.recent(),
-                observedTraceEndTs: faker.time.recent(),
+                observedFirstPaintTs: faker.date.recent(),
+                observedTraceEndTs: faker.date.recent(),
                 largestContentfulPaint: faker.datatype.number(2000),
                 observedTimeOrigin: faker.datatype.number(10),
                 speedIndex: faker.datatype.number(1000),
                 observedTraceEnd: faker.datatype.number(2000),
-                observedDomContentLoadedTs: faker.time.recent(),
+                observedDomContentLoadedTs: faker.date.recent(),
                 observedFirstPaint: faker.datatype.number(500),
                 totalBlockingTime: faker.datatype.number(500),
-                observedLastVisualChangeTs: faker.time.recent(),
+                observedLastVisualChangeTs: faker.date.recent(),
                 observedFirstVisualChange: faker.datatype.number(500),
-                observedLargestContentfulPaintTs: faker.time.recent(),
+                observedLargestContentfulPaintTs: faker.date.recent(),
                 estimatedInputLatency: faker.datatype.number(100),
-                observedLoadTs: faker.time.recent(),
+                observedLoadTs: faker.date.recent(),
                 observedLastVisualChange: faker.datatype.number(1000),
                 firstCPUIdle: faker.datatype.number(1000),
                 interactive: faker.datatype.number(1000),
-                observedNavigationStartTs: faker.time.recent(),
+                observedNavigationStartTs: faker.date.recent(),
                 observedNavigationStart: faker.datatype.number(10),
-                observedFirstMeaningfulPaintTs: faker.time.recent(),
+                observedFirstMeaningfulPaintTs: faker.date.recent(),
               },
               screenshot: options["pagespeed.screenshot"] ? "data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==" : null,
             },
@@ -818,7 +819,7 @@
             starlists: {
               lists: new Array(Number(options["starlists.limit"])).fill(null).map(_ => ({
                 link: faker.internet.url(),
-                name: `${faker.random.arrayElement(["😎", "🥳", "🧐", "😂", "😁"])} ${faker.lorem.word()}`,
+                name: `${faker.helpers.arrayElement(["😎", "🥳", "🧐", "😂", "😁"])} ${faker.lorem.word()}`,
                 description: faker.lorem.sentence(),
                 count: faker.datatype.number(100),
                 repositories: new Array(Number(options["starlists.limit.repositories"])).fill(null).map((_, i) => ({
@@ -898,7 +899,7 @@
               const stats = array => {
                 const elements = []
                 let results = new Array(4 + faker.datatype.number(2)).fill(null).map(_ => ({
-                  name: array ? faker.random.arrayElement(array) : faker.random.words(2).replace(/ /g, "-").toLocaleLowerCase(),
+                  name: array ? faker.helpers.arrayElement(array) : faker.random.words(2).replace(/ /g, "-").toLocaleLowerCase(),
                   percent: 0,
                   total_seconds: faker.datatype.number(1000000),
                 }))
@@ -948,7 +949,7 @@
                 const media = type => ({
                   name: faker.lorem.words(),
                   type,
-                  status: faker.random.arrayElement(["FINISHED", "RELEASING", "NOT_YET_RELEASED", "CANCELLED", "HIATUS"]),
+                  status: faker.helpers.arrayElement(["FINISHED", "RELEASING", "NOT_YET_RELEASED", "CANCELLED", "HIATUS"]),
                   release: faker.date.past(20).getFullYear(),
                   genres: new Array(6).fill(null).map(_ => faker.lorem.word()),
                   progress: faker.datatype.number(100),
@@ -1037,7 +1038,7 @@
                   {
                     type: "issue",
                     repo: `${faker.random.word()}/${faker.random.word()}`,
-                    action: faker.random.arrayElement(["opened", "closed", "reopened"]),
+                    action: faker.helpers.arrayElement(["opened", "closed", "reopened"]),
                     user: set.user,
                     number: faker.datatype.number(100),
                     title: faker.lorem.sentence(),
@@ -1046,7 +1047,7 @@
                   {
                     type: "pr",
                     repo: `${faker.random.word()}/${faker.random.word()}`,
-                    action: faker.random.arrayElement(["opened", "closed"]),
+                    action: faker.helpers.arrayElement(["opened", "closed"]),
                     user: set.user,
                     number: faker.datatype.number(100),
                     title: faker.lorem.sentence(),
@@ -1085,13 +1086,13 @@
                   {
                     type: "ref/create",
                     repo: `${faker.random.word()}/${faker.random.word()}`,
-                    ref: {name: faker.lorem.slug(), type: faker.random.arrayElement(["tag", "branch"])},
+                    ref: {name: faker.lorem.slug(), type: faker.helpers.arrayElement(["tag", "branch"])},
                     timestamp: faker.date.recent(),
                   },
                   {
                     type: "ref/delete",
                     repo: `${faker.random.word()}/${faker.random.word()}`,
-                    ref: {name: faker.lorem.slug(), type: faker.random.arrayElement(["tag", "branch"])},
+                    ref: {name: faker.lorem.slug(), type: faker.helpers.arrayElement(["tag", "branch"])},
                     timestamp: faker.date.recent(),
                   },
                   {
@@ -1137,7 +1138,7 @@
                 weeks: new Array(53).fill(0).map(() => ({
                   contributionDays: new Array(7).fill(0).map(() => ({
                     contributionCount: faker.datatype.number(10),
-                    color: faker.random.arrayElement(["#ebedf0", "#ebedf0", "#ebedf0", "#ebedf0", "#ebedf0", "#ebedf0", "#9be9a8", "#9be9a8", "#9be9a8", "#40c463", "#40c463", "#30a14e", "#216e39"]),
+                    color: faker.helpers.arrayElement(["#ebedf0", "#ebedf0", "#ebedf0", "#ebedf0", "#ebedf0", "#ebedf0", "#9be9a8", "#9be9a8", "#9be9a8", "#40c463", "#40c463", "#30a14e", "#216e39"]),
                     date: faker.date.past(365),
                   })),
                 })),
