@@ -648,7 +648,13 @@
             pagespeed: {
               url: options["pagespeed.url"] || "(attached website url)",
               detailed: options["pagespeed.detailed"] || false,
-              scores: [
+              scores: options["pagespeed.pwa"] ? [
+                {score: faker.datatype.float({max: 1}), title: "Performance"},
+                {score: faker.datatype.float({max: 1}), title: "Accessibility"},
+                {score: faker.datatype.float({max: 1}), title: "Best Practices"},
+                {score: faker.datatype.float({max: 1}), title: "SEO"},
+                {score : faker.datatype.number({max: 1}), title: "PWA"}
+              ] : [
                 {score: faker.datatype.float({max: 1}), title: "Performance"},
                 {score: faker.datatype.float({max: 1}), title: "Accessibility"},
                 {score: faker.datatype.float({max: 1}), title: "Best Practices"},
