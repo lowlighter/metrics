@@ -63,7 +63,7 @@ fs.writeFile(paths.join(__preview_js, "app.placeholder.js"), `${await fs.readFil
 fs.copyFile(paths.join(__node_modules, "ejs/ejs.min.js"), paths.join(__preview_js, "ejs.min.js"))
 fs.writeFile(paths.join(__preview_js, "faker.min.js"), "import {faker} from '/.js/faker/index.mjs';globalThis.faker=faker;globalThis.placeholder.init(globalThis)")
 for (const path of [[], ["locale"]]) {
-  await fs.mkdir(paths.join(__preview_js, "faker", ...path), {recursive:true})
+  await fs.mkdir(paths.join(__preview_js, "faker", ...path), {recursive: true})
   for (const file of await fs.readdir(paths.join(__node_modules, "@faker-js/faker/dist/esm", ...path))) {
     if (file.endsWith(".mjs"))
       fs.copyFile(paths.join(__node_modules, "@faker-js/faker/dist/esm", ...path, file), paths.join(__preview_js, "faker", ...path, file))
