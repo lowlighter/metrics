@@ -333,12 +333,17 @@ export async function imgb64(image, {width, height, fallback = true} = {}) {
   try {
     //Fix: redirections are not properly supported by jimp (https://github.com/oliver-moran/jimp/issues/909)
     if (typeof image === "string") {
-      image = (await axios.get(image)).then(response => response.request.responseURL).catch(() => null)
+      axios.get(image).then(response => {
+        image = response.request.responseURL
+      }).catch((e) => {
+        comsole.log(e)
+      })
       console.debug(`metrics/svg/imgb64 > redirected image link to ${image}`)
     }
     image = await jimp.read(image)
   }
-  catch {
+  catch(e) {
+    console.log(e);
     return null
   }
   //Resize image
