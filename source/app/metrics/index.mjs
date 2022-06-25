@@ -271,7 +271,8 @@ metrics.insights.output = async function({login, imports, conf}, {graphql, rest,
   const browser = await imports.puppeteer.launch()
   const page = await browser.newPage()
   console.debug(`metrics/compute/${login} > insights > generating data`)
-  const json = JSON.stringify(await metrics.insights({login}, {graphql, rest, conf}, {Plugins, Templates}))
+  const result = await metrics.insights({login}, {graphql, rest, conf}, {Plugins, Templates})
+  const json = JSON.stringify(result)
   await page.goto(`${server}/about/${login}?embed=1&localstorage=1`)
   await page.evaluate(async json => localStorage.setItem("local.metrics", json), json) //eslint-disable-line no-undef
   await page.goto(`${server}/about/${login}?embed=1&localstorage=1`)
@@ -292,5 +293,5 @@ metrics.insights.output = async function({login, imports, conf}, {graphql, rest,
       </body>
     </html>`
   await browser.close()
-  return {mime: "text/html", rendered, errors: json.errors}
+  return {mime: "text/html", rendered, errors: result.errors}
 }

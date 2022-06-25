@@ -96,6 +96,7 @@
           this.pending = true
           if (this.localstorage) {
             this.metrics = JSON.parse(localStorage.getItem("local.metrics") ?? "null")
+            this.loaded = ["base", ...Object.keys(this.metrics?.rendered?.plugins ?? {})]
             return
           }
           const {processing, ...data} = (await axios.get(`/about/query/${this.user}`)).data
