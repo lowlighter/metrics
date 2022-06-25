@@ -340,7 +340,7 @@ export async function imgb64(image, {width, height, fallback = true} = {}) {
     }
     image = await jimp.read(image)
   }
-  catch(e) {
+  catch (e) {
     console.log(e)
     return null
   }
