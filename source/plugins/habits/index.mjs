@@ -105,7 +105,7 @@ export default async function({login, data, rest, imports, q, account}, {enabled
         habits.linguist.available = true
         const {total, stats} = await recent_analyzer({login, data, imports, rest, account}, {days, load: from || 1000, tempdir: "habits"})
         habits.linguist.languages = Object.fromEntries(Object.entries(stats).map(([language, value]) => [language, value / total]))
-        habits.linguist.ordered = Object.entries(habits.linguist.languages).sort(([_an, a], [_bn, b]) => b - a).slice(0, limit)
+        habits.linguist.ordered = Object.entries(habits.linguist.languages).sort(([_an, a], [_bn, b]) => b - a).slice(0, limit || Infinity)
       }
       else {
         console.debug(`metrics/compute/${login}/plugins > habits > linguist not available`)
