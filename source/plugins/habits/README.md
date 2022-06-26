@@ -117,6 +117,21 @@ Recent language activity may also displayed (it requires extras features to be e
 <br>
 <b>default:</b> no<br></td>
   </tr>
+  <tr>
+    <td nowrap="nowrap"><h4><code>plugin_habits_languages_limit</code></h4></td>
+    <td rowspan="2"><p>Limits the number of languages to be displayed</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>number</code>
+<i>(0 ≤
+𝑥
+≤ 8)</i>
+<br>
+<b>zero behaviour:</b> disable</br>
+<b>default:</b> 8<br></td>
+  </tr>
 </table>
 <!--/options-->
 

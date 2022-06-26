@@ -403,6 +403,10 @@ inputs:
     description: Trim unused hours on charts
     default: <default-value>
 
+  plugin_habits_languages_limit:
+    description: Limits the number of languages to be displayed
+    default: <default-value>
+
   # ====================================================================================
   # 🏅 Repository contributors
 
