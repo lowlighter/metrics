@@ -653,7 +653,7 @@
                 {score: faker.datatype.float({max: 1}), title: "Accessibility"},
                 {score: faker.datatype.float({max: 1}), title: "Best Practices"},
                 {score: faker.datatype.float({max: 1}), title: "SEO"},
-                ... options["pagespeed.pwa"] ? [{score : faker.datatype.number({max: 1}), title: "PWA"}] : []
+                ...options["pagespeed.pwa"] ? [{score: faker.datatype.number({max: 1}), title: "PWA"}] : [],
               ],
               metrics: {
                 observedFirstContentfulPaint: faker.datatype.number(500),
