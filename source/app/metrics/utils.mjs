@@ -331,8 +331,8 @@ export async function imgb64(image, {width, height, fallback = true} = {}) {
     return fallback ? "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==" : null
   //Load image
   try {
-    //Fix: redirections are not properly supported by jimp (https://github.com/oliver-moran/jimp/issues/909)
-    if (typeof image === "string") {
+    //Fix: redirections are not properly supported by jimp (https://github.com/oliver-moran/jimp/issues/909), seems to occur only when in jest environment
+    if ((typeof image === "string")&&(process.env.JEST_WORKER_ID)) {
       image = (await axios.get(image)).then(response => response.request.responseURL).catch(() => null)
       console.debug(`metrics/svg/imgb64 > redirected image link to ${image}`)
     }
