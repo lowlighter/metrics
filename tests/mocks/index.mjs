@@ -8,6 +8,7 @@ import urls from "url"
 
 //Mocked state
 let mocked = false
+process.env.METRICS_MOCKED = true
 
 //Mocking
 export default async function({graphql, rest}) {
