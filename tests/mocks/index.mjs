@@ -8,7 +8,6 @@ import urls from "url"
 
 //Mocked state
 let mocked = false
-process.env.METRICS_MOCKED = true
 
 //Mocking
 export default async function({graphql, rest}) {
@@ -16,6 +15,7 @@ export default async function({graphql, rest}) {
   if (mocked)
     return {graphql, rest}
   mocked = true
+  process.env.METRICS_MOCKED = true
   console.debug("metrics/compute/mocks > mocking")
 
   //Load mocks
