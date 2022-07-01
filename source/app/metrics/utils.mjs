@@ -7,7 +7,7 @@ import { minify as csso } from "csso"
 import emoji from "emoji-name-map"
 import fss from "fs"
 import fs from "fs/promises"
-import jimp from "jimp"
+import sharp from "sharp"
 import linguist from "linguist-js"
 import { marked } from "marked"
 import minimatch from "minimatch"
@@ -30,10 +30,11 @@ import twemojis from "twemoji-parser"
 import url from "url"
 import util from "util"
 import xmlformat from "xml-formatter"
+import {fileTypeFromBuffer} from "file-type"
 prism_lang()
 
 //Exports
-export { axios, emoji, fetch, fs, git, jimp, minimatch, opengraph, os, paths, processes, rss, url, util }
+export { axios, emoji, fetch, fs, git, sharp, minimatch, opengraph, os, paths, processes, rss, url, util }
 
 /**Returns module __dirname */
 export function __module(module) {
@@ -330,21 +331,23 @@ export async function imgb64(image, {width, height, fallback = true} = {}) {
   if (!image)
     return fallback ? "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==" : null
   //Load image
+  let ext = "png"
   try {
-    //Fix: redirections are not properly supported by jimp (https://github.com/oliver-moran/jimp/issues/909), seems to occur only when in jest environment
-    if ((typeof image === "string") && ((process.env.JEST_WORKER_ID) || (process.env.METRICS_MOCKED))) {
-      image = (await axios.get(image)).then(response => response.request.responseURL).catch(() => null)
-      console.debug(`metrics/svg/imgb64 > redirected image link to ${image}`)
+    if (image.startsWith("http://") || image.startsWith("https://")) {
+      const buffer = Buffer.from(await fetch(image).then(response => response.arrayBuffer()))
+      ext = (await fileTypeFromBuffer(buffer)).ext ?? ext
+      image = sharp(buffer)
     }
-    image = await jimp.read(image)
+    else
+      image = sharp(image)
   }
   catch {
-    return null
+    return imgb64(null, {fallback})
   }
   //Resize image
   if ((width) && (height))
     image = image.resize(width, height)
-  return image.getBase64Async(jimp.AUTO)
+  return `data:image/${ext};base64,${(await image.toBuffer()).toString("base64")}`
 }
 
 /**SVG utils */
@@ -633,7 +636,7 @@ export async function record({page, width, height, frames, scale = 1, quality = 
   console.debug(`metrics/record > processed ${frames}/${frames} frames`)
   //Post-processing
   console.debug("metrics/record > applying post-processing")
-  return Promise.all(images.map(async buffer => (await jimp.read(buffer)).scale(scale).quality(quality).getBase64Async("image/png")))
+  return Promise.all(images.map(async buffer => `data:image/png;base64,${(await (sharp(buffer).resize({width:Math.round(width*scale), height:Math.round(height*scale)}).png({quality}).toBuffer())).toString("base64")}`))
 }
 
 /**Create gif from puppeteer browser*/

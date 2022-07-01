@@ -95,7 +95,7 @@ Below is a list of used packages.
   * To render SVG images
 * [ptarjan/node-cache](https://github.com/ptarjan/node-cache)
   * To cache generated content
-* [oliver-moran/jimp](https://github.com/oliver-moran/jimp), [foliojs/png.js](https://github.com/foliojs/png.js) and [eugeneware/gifencoder](https://github.com/eugeneware/gifencoder)
+* [lovell/sharp](https://github.com/lovell/sharp), [foliojs/png.js](https://github.com/foliojs/png.js) and [eugeneware/gifencoder](https://github.com/eugeneware/gifencoder)
   * To process images transformations
 * [svg/svgo](https://github.com/svg/svgo)
   * To optimize generated SVG

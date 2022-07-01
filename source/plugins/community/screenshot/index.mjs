@@ -28,11 +28,12 @@ export default async function({login, q, imports, data, account}, {enabled = fal
     }, selector)
     console.debug(`metrics/compute/${login}/plugins > screenshot > coordinates ${JSON.stringify(clip)}`)
     const [buffer] = await imports.record({page, ...clip, frames: 1, background})
-    const screenshot = await (await imports.jimp.read(Buffer.from(buffer.split(",").pop(), "base64"))).resize(Math.min(454 * (1 + data.large), clip.width), imports.jimp.AUTO)
+    const screenshot = await imports.sharp(Buffer.from(buffer.split(",").pop(), "base64")).resize({width:Math.min(454 * (1 + data.large), clip.width)})
+    const metadata = await screenshot.metadata()
     await browser.close()
 
     //Results
-    return {image: await screenshot.getBase64Async("image/png"), title, height: screenshot.bitmap.height, width: screenshot.bitmap.width, url}
+    return {image: `data:image/png;base64,${(await screenshot.toBuffer()).toString("base64")}`, title, height: metadata.height, width: metadata.width, url}
   }
   //Handle errors
   catch (error) {
