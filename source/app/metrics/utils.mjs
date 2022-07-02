@@ -346,7 +346,7 @@ export async function imgb64(image, {width, height, fallback = true} = {}) {
   }
   //Resize image
   if ((width) && (height))
-    image = image.resize(width, height)
+    image = image.resize({width: width > 0 ? width : null, height: height > 0 ? height : null})
   return `data:image/${ext};base64,${(await image.toBuffer()).toString("base64")}`
 }
 
