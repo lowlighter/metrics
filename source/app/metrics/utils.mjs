@@ -5,9 +5,9 @@ import processes from "child_process"
 import crypto from "crypto"
 import { minify as csso } from "csso"
 import emoji from "emoji-name-map"
+import { fileTypeFromBuffer } from "file-type"
 import fss from "fs"
 import fs from "fs/promises"
-import sharp from "sharp"
 import linguist from "linguist-js"
 import { marked } from "marked"
 import minimatch from "minimatch"
@@ -24,17 +24,17 @@ import purgecss from "purgecss"
 import readline from "readline"
 import rss from "rss-parser"
 import htmlsanitize from "sanitize-html"
+import sharp from "sharp"
 import git from "simple-git"
 import SVGO from "svgo"
 import twemojis from "twemoji-parser"
 import url from "url"
 import util from "util"
 import xmlformat from "xml-formatter"
-import {fileTypeFromBuffer} from "file-type"
 prism_lang()
 
 //Exports
-export { axios, emoji, fetch, fs, git, sharp, minimatch, opengraph, os, paths, processes, rss, url, util }
+export { axios, emoji, fetch, fs, git, minimatch, opengraph, os, paths, processes, rss, sharp, url, util }
 
 /**Returns module __dirname */
 export function __module(module) {
@@ -338,8 +338,9 @@ export async function imgb64(image, {width, height, fallback = true} = {}) {
       ext = (await fileTypeFromBuffer(buffer)).ext ?? ext
       image = sharp(buffer)
     }
-    else
+    else {
       image = sharp(image)
+    }
   }
   catch {
     return imgb64(null, {fallback})
@@ -636,7 +637,7 @@ export async function record({page, width, height, frames, scale = 1, quality = 
   console.debug(`metrics/record > processed ${frames}/${frames} frames`)
   //Post-processing
   console.debug("metrics/record > applying post-processing")
-  return Promise.all(images.map(async buffer => `data:image/png;base64,${(await (sharp(buffer).resize({width:Math.round(width*scale), height:Math.round(height*scale)}).png({quality}).toBuffer())).toString("base64")}`))
+  return Promise.all(images.map(async buffer => `data:image/png;base64,${(await (sharp(buffer).resize({width: Math.round(width * scale), height: Math.round(height * scale)}).png({quality}).toBuffer())).toString("base64")}`))
 }
 
 /**Create gif from puppeteer browser*/
