@@ -132,6 +132,7 @@
           }
           else {
             this.metrics = data
+            this.loaded = ["base", ...Object.keys(this.metrics?.rendered?.plugins ?? {})]
           }
         }
         catch (error) {
