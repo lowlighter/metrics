@@ -78,6 +78,7 @@
     "transform": {}
   },
   "optionalDependencies": {
-    "gifencoder": "^2.0.1"
+    "gifencoder": "^2.0.1",
+    "libxmljs2": "^0.30.1"
   }
 }
