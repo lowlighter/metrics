@@ -63,7 +63,7 @@
     "simple-git": "^3.10.0",
     "svgo": "^2.8.0",
     "twemoji-parser": "^14.0.0",
-    "vue": "^2.6.14",
+    "vue": "^2.7.1",
     "vue-prism-component": "^1.2.0",
     "xml-formatter": "^2.6.1"
   },
