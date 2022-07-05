@@ -421,8 +421,13 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
             cell.push("🔧 For development<br>")
           if (!Object.keys(previous?.inputs ?? {}).includes(option))
             cell.push("✨ On <code>master</code>/<code>main</code><br>")
-          if (o.extras)
-            cell.push("🌐 Web instances must configure <code>settings.json</code><br>")
+          if (o.extras) {
+            cell.push("🌐 Web instances must configure <code>settings.json</code>:")
+            cell.push("<ul>")
+            for (const permission of o.extras)
+              cell.push(`<li><i>${permission}</i></li>`)
+            cell.push("</ul>")
+          }
           cell.push(`<b>type:</b> <code>${type}</code>`)
           if ("format" in o)
             cell.push(`<i>(${Array.isArray(o.format) ? o.format[0] : o.format})</i>`)
