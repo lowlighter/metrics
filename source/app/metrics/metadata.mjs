@@ -580,7 +580,7 @@ metadata.to = {
     if (name)
       parts.unshift((name === "base") ? name : `plugin_${name}`)
     return parts.join("_")
-  }
+  },
 }
 
 //Demo for main and individual readmes
