@@ -11,7 +11,6 @@ import sharp from "sharp"
 import linguist from "linguist-js"
 import { marked } from "marked"
 import minimatch from "minimatch"
-import nodechartist from "node-chartist"
 import fetch from "node-fetch"
 import opengraph from "open-graph-scraper"
 import os from "os"
@@ -166,6 +165,7 @@ export function stripemojis(string) {
 /**Chartist */
 export async function chartist() {
   const css = `<style data-optimizable="true">${await fs.readFile(paths.join(__module(import.meta.url), "../../../node_modules", "node-chartist/dist/main.css")).catch(_ => "")}</style>`
+  const {default:nodechartist} = await import(url.pathToFileURL(paths.join(__module(import.meta.url), "../../../node_modules", "/node-chartist/lib/index.js")))
   return (await nodechartist(...arguments))
     .replace(/class="ct-chart-line">/, `class="ct-chart-line">${css}`)
 }
