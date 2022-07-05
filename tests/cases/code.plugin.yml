@@ -1,4 +1,4 @@
-- name: ♐ Code snippet of the day - JavaScript or TypeScript snippet of the day
+- name: ♐ Random code snippet - JavaScript or TypeScript snippet of the day
   uses: lowlighter/metrics@latest
   with:
     token: MOCKED_TOKEN

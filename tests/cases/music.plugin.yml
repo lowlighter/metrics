@@ -1,4 +1,4 @@
-- name: 🎼 Music plugin - Apple Music - Random track from playlist
+- name: 🎼 Music activity and suggestions - Apple Music - Random track from playlist
   uses: lowlighter/metrics@latest
   with:
     token: NOT_NEEDED
@@ -7,7 +7,7 @@
     plugin_music_limit: 2
     use_mocked_data: 'yes'
     verify: 'yes'
-- name: 🎼 Music plugin - Spotify - Random track from playlist
+- name: 🎼 Music activity and suggestions - Spotify - Random track from playlist
   uses: lowlighter/metrics@latest
   with:
     token: NOT_NEEDED
@@ -15,7 +15,7 @@
     plugin_music_playlist: https://open.spotify.com/embed/playlist/3nfA87oeJw4LFVcUDjRcqi
     use_mocked_data: 'yes'
     verify: 'yes'
-- name: 🎼 Music plugin - Spotify - Recently listed
+- name: 🎼 Music activity and suggestions - Spotify - Recently listed
   uses: lowlighter/metrics@latest
   with:
     token: NOT_NEEDED
@@ -26,7 +26,7 @@
     plugin_music_limit: 2
     use_mocked_data: 'yes'
     verify: 'yes'
-- name: 🎼 Music plugin - Spotify - Top tracks
+- name: 🎼 Music activity and suggestions - Spotify - Top tracks
   uses: lowlighter/metrics@latest
   with:
     token: NOT_NEEDED
@@ -38,7 +38,7 @@
     plugin_music_top_type: tracks
     use_mocked_data: 'yes'
     verify: 'yes'
-- name: 🎼 Music plugin - Spotify - Top artists
+- name: 🎼 Music activity and suggestions - Spotify - Top artists
   uses: lowlighter/metrics@latest
   with:
     token: NOT_NEEDED
@@ -50,7 +50,9 @@
     plugin_music_top_type: artists
     use_mocked_data: 'yes'
     verify: 'yes'
-- name: 🎼 Music plugin - Youtube Music - Random track from playlist
+- name: >-
+    🎼 Music activity and suggestions - Youtube Music - Random track from
+    playlist
   uses: lowlighter/metrics@latest
   with:
     token: NOT_NEEDED
@@ -59,7 +61,7 @@
       https://music.youtube.com/playlist?list=OLAK5uy_kU_uxp9TUOl9zVdw77xith8o9AknVwz9U
     use_mocked_data: 'yes'
     verify: 'yes'
-- name: 🎼 Music plugin - Youtube Music - Recently listed
+- name: 🎼 Music activity and suggestions - Youtube Music - Recently listed
   uses: lowlighter/metrics@latest
   with:
     token: NOT_NEEDED
@@ -69,7 +71,7 @@
     plugin_music_provider: youtube
     use_mocked_data: 'yes'
     verify: 'yes'
-- name: 🎼 Music plugin - Last.fm  - Recently listed
+- name: 🎼 Music activity and suggestions - Last.fm  - Recently listed
   uses: lowlighter/metrics@latest
   with:
     token: NOT_NEEDED

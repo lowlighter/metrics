@@ -1,4 +1,4 @@
-- name: 💫 Starlists - Featured star list
+- name: 💫 Star lists - Featured star list
   uses: lowlighter/metrics@latest
   with:
     token: NOT_NEEDED
@@ -8,7 +8,7 @@
     use_mocked_data: 'yes'
     verify: 'yes'
   timeout: 1800000
-- name: 💫 Starlists - Featured star list languages
+- name: 💫 Star lists - Featured star list languages
   uses: lowlighter/metrics@latest
   with:
     token: NOT_NEEDED

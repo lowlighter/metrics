@@ -1,4 +1,4 @@
-- name: 💡 Coding habits - Midly interesting facts
+- name: 💡 Coding habits and activity - Midly interesting facts
   uses: lowlighter/metrics@latest
   with:
     token: MOCKED_TOKEN
@@ -8,7 +8,7 @@
     config_timezone: Europe/Paris
     use_mocked_data: 'yes'
     verify: 'yes'
-- name: 💡 Coding habits - Recent activity charts
+- name: 💡 Coding habits and activity - Recent activity charts
   uses: lowlighter/metrics@latest
   with:
     token: MOCKED_TOKEN

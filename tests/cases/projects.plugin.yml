@@ -1,4 +1,4 @@
-- name: 🗂️ Active projects - Project from a repository
+- name: 🗂️ GitHub projects - Project from a repository
   uses: lowlighter/metrics@latest
   with:
     token: MOCKED_TOKEN

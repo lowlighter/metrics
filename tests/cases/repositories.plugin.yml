@@ -1,4 +1,4 @@
-- name: 📓 Repositories - Featured repositories
+- name: 📓 Featured repositories - Featured repositories
   uses: lowlighter/metrics@latest
   with:
     token: MOCKED_TOKEN
@@ -6,7 +6,7 @@
     plugin_repositories_featured: lowlighter/metrics
     use_mocked_data: 'yes'
     verify: 'yes'
-- name: 📓 Repositories - Pinned repositories
+- name: 📓 Featured repositories - Pinned repositories
   uses: lowlighter/metrics@latest
   with:
     token: MOCKED_TOKEN

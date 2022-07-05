@@ -1,11 +1,11 @@
-- name: 📆 Calendar - Current year calendar
+- name: 📆 Commit calendar - Current year calendar
   uses: lowlighter/metrics@latest
   with:
     token: MOCKED_TOKEN
     plugin_calendar: 'yes'
     use_mocked_data: 'yes'
     verify: 'yes'
-- name: 📆 Calendar - Full history calendar
+- name: 📆 Commit calendar - Full history calendar
   uses: lowlighter/metrics@latest
   with:
     token: MOCKED_TOKEN

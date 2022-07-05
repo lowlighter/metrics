@@ -142,7 +142,7 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      - name: 🈷️ Most used languages - Most used
+      - name: 🈷️ Languages activity - Most used
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.languages.svg
@@ -158,7 +158,7 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      - name: 🈷️ Most used languages - Most used (with details)
+      - name: 🈷️ Languages activity - Most used (with details)
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.languages.details.svg
@@ -175,7 +175,7 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      - name: 🈷️ Most used languages - Recently used
+      - name: 🈷️ Languages activity - Recently used
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.languages.recent.svg
@@ -193,7 +193,7 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      - name: 🈷️ Most used languages - Indepth analysis
+      - name: 🈷️ Languages activity - Indepth analysis
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.languages.indepth.svg
@@ -284,7 +284,7 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      - name: 💡 Coding habits - Midly interesting facts
+      - name: 💡 Coding habits and activity - Midly interesting facts
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.habits.facts.svg
@@ -299,7 +299,7 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      - name: 💡 Coding habits - Recent activity charts
+      - name: 💡 Coding habits and activity - Recent activity charts
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.habits.charts.svg
@@ -402,7 +402,7 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      - name: 🧑‍🤝‍🧑 People plugin - Followers
+      - name: 🧑‍🤝‍🧑 People - Followers
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.people.followers.svg
@@ -415,7 +415,7 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      - name: 🧑‍🤝‍🧑 People plugin - Contributors and sponsors
+      - name: 🧑‍🤝‍🧑 People - Contributors and sponsors
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.people.repository.svg
@@ -455,7 +455,7 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      - name: 🗂️ Active projects - Project from a repository
+      - name: 🗂️ GitHub projects - Project from a repository
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.projects.svg
@@ -469,7 +469,7 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      - name: ♐ Code snippet of the day - JavaScript or TypeScript snippet of the day
+      - name: ♐ Random code snippet - JavaScript or TypeScript snippet of the day
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.code.svg
@@ -603,7 +603,7 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      - name: 📓 Repositories - Featured repositories
+      - name: 📓 Featured repositories - Featured repositories
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.repositories.svg
@@ -616,7 +616,7 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      - name: 📓 Repositories - Pinned repositories
+      - name: 📓 Featured repositories - Pinned repositories
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.repositories.pinned.svg
@@ -693,7 +693,7 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      - name: 💫 Starlists - Featured star list
+      - name: 💫 Star lists - Featured star list
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.starlists.svg
@@ -707,7 +707,7 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      - name: 💫 Starlists - Featured star list languages
+      - name: 💫 Star lists - Featured star list languages
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.starlists.languages.svg
@@ -723,7 +723,7 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      - name: 📆 Calendar - Current year calendar
+      - name: 📆 Commit calendar - Current year calendar
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.calendar.svg
@@ -735,7 +735,7 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      - name: 📆 Calendar - Full history calendar
+      - name: 📆 Commit calendar - Full history calendar
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.calendar.full.svg
@@ -748,7 +748,7 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      - name: 🌇 GitHub Skyline 3D calendar - GitHub Skyline
+      - name: 🌇 GitHub Skyline - GitHub Skyline
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.skyline.svg
@@ -763,7 +763,7 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      - name: ⏱️ Website performances - Succint report
+      - name: ⏱️ Google PageSpeed - Succint report
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.pagespeed.svg
@@ -777,7 +777,7 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      - name: ⏱️ Website performances - Detailed report
+      - name: ⏱️ Google PageSpeed - Detailed report
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.pagespeed.detailed.svg
@@ -792,7 +792,7 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      - name: ⏱️ Website performances - Screenshot
+      - name: ⏱️ Google PageSpeed - Screenshot
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.pagespeed.screenshot.svg
@@ -807,7 +807,7 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      - name: 🗨️ StackOverflow plugin - Top answers from stackoverflow
+      - name: 🗨️ Stack Overflow - Top answers from stackoverflow
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.stackoverflow.svg
@@ -929,7 +929,7 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      - name: 🎼 Music plugin - Apple Music - Random track from playlist
+      - name: 🎼 Music activity and suggestions - Apple Music - Random track from playlist
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.music.playlist.svg
@@ -943,7 +943,7 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      - name: 🎼 Music plugin - Spotify - Random track from playlist
+      - name: 🎼 Music activity and suggestions - Spotify - Random track from playlist
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.music.playlist.spotify.svg
@@ -956,7 +956,7 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      - name: 🎼 Music plugin - Spotify - Recently listed
+      - name: 🎼 Music activity and suggestions - Spotify - Recently listed
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.music.recent.svg
@@ -972,7 +972,7 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      - name: 🎼 Music plugin - Spotify - Top tracks
+      - name: 🎼 Music activity and suggestions - Spotify - Top tracks
         uses: lowlighter/metrics@master
         with:
           token: NOT_NEEDED
@@ -988,7 +988,7 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      - name: 🎼 Music plugin - Spotify - Top artists
+      - name: 🎼 Music activity and suggestions - Spotify - Top artists
         uses: lowlighter/metrics@master
         with:
           token: NOT_NEEDED
@@ -1004,7 +1004,9 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      - name: 🎼 Music plugin - Youtube Music - Random track from playlist
+      - name: >-
+          🎼 Music activity and suggestions - Youtube Music - Random track from
+          playlist
         uses: lowlighter/metrics@master
         with:
           token: NOT_NEEDED
@@ -1031,7 +1033,7 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      - name: ⏰ WakaTime plugin - WakaTime
+      - name: ⏰ WakaTime - WakaTime
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.wakatime.svg

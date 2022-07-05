@@ -1,4 +1,4 @@
-- name: 🗨️ StackOverflow plugin - Top answers from stackoverflow
+- name: 🗨️ Stack Overflow - Top answers from stackoverflow
   uses: lowlighter/metrics@latest
   with:
     token: NOT_NEEDED

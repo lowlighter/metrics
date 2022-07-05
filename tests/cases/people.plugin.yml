@@ -1,4 +1,4 @@
-- name: 🧑‍🤝‍🧑 People plugin - Followers
+- name: 🧑‍🤝‍🧑 People - Followers
   uses: lowlighter/metrics@latest
   with:
     token: MOCKED_TOKEN
@@ -6,7 +6,7 @@
     plugin_people_types: followers
     use_mocked_data: 'yes'
     verify: 'yes'
-- name: 🧑‍🤝‍🧑 People plugin - Contributors and sponsors
+- name: 🧑‍🤝‍🧑 People - Contributors and sponsors
   uses: lowlighter/metrics@latest
   with:
     token: MOCKED_TOKEN

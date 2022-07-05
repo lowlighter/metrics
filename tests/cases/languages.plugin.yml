@@ -1,4 +1,4 @@
-- name: 🈷️ Most used languages - Most used
+- name: 🈷️ Languages activity - Most used
   uses: lowlighter/metrics@latest
   with:
     token: MOCKED_TOKEN
@@ -9,7 +9,7 @@
     plugin_languages_limit: 4
     use_mocked_data: 'yes'
     verify: 'yes'
-- name: 🈷️ Most used languages - Most used (with details)
+- name: 🈷️ Languages activity - Most used (with details)
   uses: lowlighter/metrics@latest
   with:
     token: MOCKED_TOKEN
@@ -21,7 +21,7 @@
     plugin_languages_limit: 4
     use_mocked_data: 'yes'
     verify: 'yes'
-- name: 🈷️ Most used languages - Recently used
+- name: 🈷️ Languages activity - Recently used
   uses: lowlighter/metrics@latest
   with:
     token: MOCKED_TOKEN
