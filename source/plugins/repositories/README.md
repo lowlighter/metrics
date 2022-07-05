@@ -1,11 +1,11 @@
 <!--header-->
 <table>
   <tr><td colspan="2"><a href="/README.md#-plugins">← Back to plugins index</a></td></tr>
-  <tr><th colspan="2"><h3>📓 Repositories</h3></th></tr>
+  <tr><th colspan="2"><h3>📓 Featured repositories</h3></th></tr>
   <tr><td colspan="2" align="center"><p>This plugin displays a list of chosen featured repositories.</p>
-<p>It is mostly intended for images that will be used outside of GitHub, since it is already possible to <a href="https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/pinning-items-to-your-profile">pin repositories</a> on GitHub.</p>
+<p>Since it is possible to <a href="https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/pinning-items-to-your-profile">pin repositories</a> on GitHub, this plugin is mostly intended for external usage.</p>
 <blockquote>
-<p>⚠️ People will not be able to click on it due to limitations of using SVG inside <code>&lt;img&gt;</code> tags.</p>
+<p>⚠️ Due to limitations of using SVG images inside <code>&lt;img&gt;</code> tags, clicking on a repository card will not redirect to repository page.</p>
 </blockquote>
 </td></tr>
   <tr>
@@ -47,8 +47,8 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_repositories_featured</code></h4></td>
-    <td rowspan="2"><p>List of featured repositories</p>
-<p>If no owner is specified, it will implicitly use the current account login</p>
+    <td rowspan="2"><p>Featured repositories</p>
+<p>Current <a href="/source/plugins/core/README.md#user"><code>user</code></a> will be used when no owner is specified</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -59,7 +59,7 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_repositories_pinned</code></h4></td>
-    <td rowspan="2"><p>Display pinned repositories</p>
+    <td rowspan="2"><p>Pinned repositories</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>

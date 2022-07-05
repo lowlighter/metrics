@@ -43,7 +43,8 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_contributors_base</code></h4></td>
-    <td rowspan="2"><p>Base reference (commit, tag, branch, etc.)</p>
+    <td rowspan="2"><p>Base reference</p>
+<p>Can be a commit, tag, branch, etc.</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -52,7 +53,8 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_contributors_head</code></h4></td>
-    <td rowspan="2"><p>Head reference (commit, tag, branch, etc.)</p>
+    <td rowspan="2"><p>Head reference</p>
+<p>Can be a commit, tag, branch, etc.</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -63,7 +65,7 @@
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_contributors_ignored</code></h4></td>
     <td rowspan="2"><p>Ignored users</p>
-<p>Useful to ignore bots activity</p>
+<p>Can be used to ignore bots activity</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -74,7 +76,7 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_contributors_contributions</code></h4></td>
-    <td rowspan="2"><p>Toggle number of contributions display</p>
+    <td rowspan="2"><p>Contributions count</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -87,7 +89,7 @@
     <td rowspan="2"><p>Displayed sections</p>
 <ul>
 <li><code>contributors</code>: all contributors</li>
-<li><code>categories</code>: contributors sorted by contributions categories</li>
+<li><code>categories</code>: contributors sorted by contributions categories (must be configured with <code>plugin_contributors_categories</code>)</li>
 </ul>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -100,13 +102,17 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_contributors_categories</code></h4></td>
-    <td rowspan="2"><p>Configure contribution categories</p>
-<p>This option required <code>plugin_contributors_sections</code> to have <code>categories</code> in it to be effective
+    <td rowspan="2"><p>Contribution categories</p>
+<p>This option requires <a href="/source/plugins/contributors/README.md#plugin_contributors_sections"><code>plugin_contributors_sections</code></a> to have <code>categories</code> in it to be effective.
 Pass a JSON object mapping category with fileglobs</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
+    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code>:
+<ul>
+<li><i>metrics.runner.tempdir</i></li>
+<li><i>metrics.runner.git</i></li>
+</ul>
 <b>type:</b> <code>json</code>
 <br>
 <b>default:</b> {

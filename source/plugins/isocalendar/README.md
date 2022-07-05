@@ -2,7 +2,7 @@
 <table>
   <tr><td colspan="2"><a href="/README.md#-plugins">← Back to plugins index</a></td></tr>
   <tr><th colspan="2"><h3>📅 Isometric commit calendar</h3></th></tr>
-  <tr><td colspan="2" align="center"><p>This plugin displays an isometric view of your commit calendar along with a few additional statistics like current streak and average number of commit per day.</p>
+  <tr><td colspan="2" align="center"><p>This plugin displays an isometric view of a user commit calendar along with a few additional statistics like current streak and average number of commit per day.</p>
 </td></tr>
   <tr>
     <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>

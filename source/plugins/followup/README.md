@@ -2,7 +2,7 @@
 <table>
   <tr><td colspan="2"><a href="/README.md#-plugins">← Back to plugins index</a></td></tr>
   <tr><th colspan="2"><h3>🎟️ Follow-up of issues and pull requests</h3></th></tr>
-  <tr><td colspan="2" align="center"><p>This plugin displays the ratio of open/closed issues and the ratio of open/merged pull requests across all your repositories.</p>
+  <tr><td colspan="2" align="center"><p>This plugin displays the ratio of open/closed issues and the ratio of open/merged pull requests across repositories.</p>
 </td></tr>
   <tr>
     <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
@@ -64,14 +64,17 @@
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
+    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code>:
+<ul>
+<li><i>metrics.api.github.overuse</i></li>
+</ul>
 <b>type:</b> <code>boolean</code>
 <br>
 <b>default:</b> no<br></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_followup_archived</code></h4></td>
-    <td rowspan="2"><p>Include Issues and Pull requests on the archived repositories.</p>
+    <td rowspan="2"><p>Include archived repositories</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>

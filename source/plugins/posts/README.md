@@ -2,7 +2,7 @@
 <table>
   <tr><td colspan="2"><a href="/README.md#-plugins">← Back to plugins index</a></td></tr>
   <tr><th colspan="2"><h3>✒️ Recent posts</h3></th></tr>
-  <tr><td colspan="2" align="center"><p>This plugin displays recent articles from a specified external source.</p>
+  <tr><td colspan="2" align="center"><p>This plugin displays recent articles from a specified and supported external source.</p>
 </td></tr>
   <tr>
     <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
@@ -56,8 +56,19 @@
 <b>allowed values:</b><ul><li>dev.to</li><li>hashnode</li></ul></td>
   </tr>
   <tr>
+    <td nowrap="nowrap"><h4><code>plugin_posts_user</code></h4></td>
+    <td rowspan="2"><p>External source username</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">⏯️ Cannot be preset<br>
+<b>type:</b> <code>string</code>
+<br>
+<b>default:</b> <code>→ User login</code><br></td>
+  </tr>
+  <tr>
     <td nowrap="nowrap"><h4><code>plugin_posts_descriptions</code></h4></td>
-    <td rowspan="2"><p>Toggle posts descriptions display</p>
+    <td rowspan="2"><p>Posts descriptions</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -67,7 +78,7 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_posts_covers</code></h4></td>
-    <td rowspan="2"><p>Toggle posts cover images display</p>
+    <td rowspan="2"><p>Posts cover images</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -87,17 +98,6 @@
 ≤ 30)</i>
 <br>
 <b>default:</b> 4<br></td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap"><h4><code>plugin_posts_user</code></h4></td>
-    <td rowspan="2"><p>External source username</p>
-<img width="900" height="1" alt=""></td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap">⏯️ Cannot be preset<br>
-<b>type:</b> <code>string</code>
-<br>
-<b>default:</b> <code>→ User login</code><br></td>
   </tr>
 </table>
 <!--/options-->

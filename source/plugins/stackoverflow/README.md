@@ -1,8 +1,8 @@
 <!--header-->
 <table>
   <tr><td colspan="2"><a href="/README.md#-plugins">← Back to plugins index</a></td></tr>
-  <tr><th colspan="2"><h3>🗨️ StackOverflow plugin</h3></th></tr>
-  <tr><td colspan="2" align="center"><p>This plugin displays stats, questions and answer from <a href="https://stackoverflow.com/">stackoverflow</a>.</p>
+  <tr><th colspan="2"><h3>🗨️ Stack Overflow</h3></th></tr>
+  <tr><td colspan="2" align="center"><p>This plugin displays stats, questions and answer from <a href="https://stackoverflow.com/">Stack Overflow</a>.</p>
 </td></tr>
   <tr>
     <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
@@ -71,7 +71,7 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_stackoverflow_limit</code></h4></td>
-    <td rowspan="2"><p>Display limit (per section)</p>
+    <td rowspan="2"><p>Display limit (entries per section)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -84,8 +84,8 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_stackoverflow_lines</code></h4></td>
-    <td rowspan="2"><p>Display limit for questions and answers</p>
-<p>Code snippets count as a single line and must be configured with <code>plugin_stackoverflow_lines_snippet</code> instead</p>
+    <td rowspan="2"><p>Display limit (lines per questions and answers)</p>
+<p>Code snippets count as a single line and must be configured with <a href="/source/plugins/stackoverflow/README.md#plugin_stackoverflow_lines_snippet"><code>plugin_stackoverflow_lines_snippet</code></a> instead</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -98,7 +98,7 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_stackoverflow_lines_snippet</code></h4></td>
-    <td rowspan="2"><p>Display limit for code snippets</p>
+    <td rowspan="2"><p>Display limit (lines per code snippets)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>

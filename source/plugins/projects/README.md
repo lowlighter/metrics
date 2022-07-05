@@ -1,8 +1,11 @@
 <!--header-->
 <table>
   <tr><td colspan="2"><a href="/README.md#-plugins">← Back to plugins index</a></td></tr>
-  <tr><th colspan="2"><h3>🗂️ Active projects</h3></th></tr>
-  <tr><td colspan="2" align="center"><p>This plugin displays progress of your profile and repository projects.</p>
+  <tr><th colspan="2"><h3>🗂️ GitHub projects</h3></th></tr>
+  <tr><td colspan="2" align="center"><p>This plugin displays progress of profile and repository projects.</p>
+<blockquote>
+<p>ℹ️ This plugin currently only supports <a href="https://docs.github.com/en/issues/organizing-your-work-with-project-boards/managing-project-boards/about-project-boards">GitHub projects boards</a> and not <a href="https://docs.github.com/en/issues/trying-out-the-new-projects-experience/about-projects">GitHub projects (beta)</a></p>
+</blockquote>
 </td></tr>
   <tr>
     <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
@@ -43,7 +46,7 @@
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_projects_limit</code></h4></td>
     <td rowspan="2"><p>Display limit</p>
-<p>Note that <code>plugin_projects_repositories</code> is not affected by this option</p>
+<p>Projects defined by <a href="/source/plugins/projects/README.md#plugin_projects_repositories"><code>plugin_projects_repositories</code></a> are not affected by this option</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -56,7 +59,7 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_projects_repositories</code></h4></td>
-    <td rowspan="2"><p>List of repositories projects</p>
+    <td rowspan="2"><p>Featured repositories projects</p>
 <p>Use the following syntax for each project <code>:user/:repo/projects/:project_id</code></p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -68,7 +71,7 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_projects_descriptions</code></h4></td>
-    <td rowspan="2"><p>Toggle projects descriptions display</p>
+    <td rowspan="2"><p>Projects descriptions</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>

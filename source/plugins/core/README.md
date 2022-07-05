@@ -406,10 +406,9 @@ On forks, this feature is disable to take into account any changes you made on i
   <tr>
     <td nowrap="nowrap"><h4><code>token</code></h4></td>
     <td rowspan="2"><p>GitHub Personal Access Token</p>
-<p>No scopes are required by default, though some plugins and features may require additional scopes</p>
-<p>When using a configuration which does not requires a GitHub PAT, you may pass <code>NOT_NEEDED</code> instead.
-Note that when doing so, all defaults values using <code>.user.*</code> will not be applicable meaning that they need to be filled manually.
-Most of the time <code>user</code> option must also be set.</p>
+<p>No scopes are required by default, though some plugins and features may require additional scopes.</p>
+<p>When using a configuration which does not requires a GitHub PAT, it is possible to pass <code>NOT_NEEDED</code> instead.
+When doing so, any settings which defaults on user fetched values will not be templated (e.g. <code>.user.*</code>) and will usually need to be set manually.</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -432,7 +431,7 @@ Most of the time <code>user</code> option must also be set.</p>
   <tr>
     <td nowrap="nowrap"><h4><code>repo</code></h4></td>
     <td rowspan="2"><p>GitHub repository</p>
-<p>This option is revevalant only for repositories templates</p>
+<p>This option is only revelant for repositories templates</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -458,7 +457,7 @@ Most of the time <code>user</code> option must also be set.</p>
   <tr>
     <td nowrap="nowrap"><h4><code>committer_branch</code></h4></td>
     <td rowspan="2"><p>Target branch</p>
-<p>Default value is set to your repository default branch</p>
+<p>Defaults to current repository default branch</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -582,7 +581,10 @@ Most of the time <code>user</code> option must also be set.</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
+    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code>:
+<ul>
+<li><i>metrics.run.setup.community.templates</i></li>
+</ul>
 <b>type:</b> <code>array</code>
 <i>(comma-separated)</i>
 <br></td>
@@ -622,7 +624,10 @@ Useful to avoid creating a new template just to tweak some styling</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
+    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code>:
+<ul>
+<li><i>metrics.run.user.css</i></li>
+</ul>
 <b>type:</b> <code>string</code>
 <br></td>
   </tr>
@@ -636,7 +641,10 @@ It is run after transformations and optimizations, but just before resizing.</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
+    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code>:
+<ul>
+<li><i>metrics.run.user.js</i></li>
+</ul>
 <b>type:</b> <code>string</code>
 <br></td>
   </tr>

@@ -1,8 +1,8 @@
 <!--header-->
 <table>
   <tr><td colspan="2"><a href="/README.md#-plugins">← Back to plugins index</a></td></tr>
-  <tr><th colspan="2"><h3>🌇 GitHub Skyline 3D calendar</h3></th></tr>
-  <tr><td colspan="2" align="center"><p>This plugins lets you display your 3D commits calendar from <a href="https://skyline.github.com/">skyline.github.com</a>.</p>
+  <tr><th colspan="2"><h3>🌇 GitHub Skyline</h3></th></tr>
+  <tr><td colspan="2" align="center"><p>This plugin displays the 3D commits calendar from <a href="https://skyline.github.com/">skyline.github.com</a>.</p>
 <blockquote>
 <p>⚠️ This plugin significantly increase file size, consider using it as standalone.</p>
 </blockquote>
@@ -39,7 +39,11 @@
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code>:
+<ul>
+<li><i>metrics.npm.optional.gifencoder</i></li>
+</ul>
+<b>type:</b> <code>boolean</code>
 <br>
 <b>default:</b> no<br></td>
   </tr>
@@ -87,7 +91,7 @@ A higher number of frames will increase file size.</p>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_skyline_compatibility</code></h4></td>
     <td rowspan="2"><p>Compatibility mode</p>
-<p>This uses CSS animations rather than embedded GIF to support a widerr range of browser, like Firefox and Safari.
+<p>This uses CSS animations rather than embedded GIF to support a wider range of browsers, like Firefox and Safari.
 Using this mode significantly increase file size as each frame is encoded separately</p>
 <img width="900" height="1" alt=""></td>
   </tr>

@@ -1,8 +1,8 @@
 <!--header-->
 <table>
   <tr><td colspan="2"><a href="/README.md#-plugins">← Back to plugins index</a></td></tr>
-  <tr><th colspan="2"><h3>💡 Coding habits</h3></th></tr>
-  <tr><td colspan="2" align="center"><p>This plugin display coding habits based on your recent activity, such as active hours and languages recently used.</p>
+  <tr><th colspan="2"><h3>💡 Coding habits and activity</h3></th></tr>
+  <tr><td colspan="2" align="center"><p>This plugin displays coding habits based on recent activity, such as active hours and languages recently used.</p>
 </td></tr>
   <tr>
     <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
@@ -70,7 +70,7 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_habits_facts</code></h4></td>
-    <td rowspan="2"><p>Toggle midly interesting facts display</p>
+    <td rowspan="2"><p>Midly interesting facts</p>
 <p>It includes indentation type, average number of characters per line of code, and most active time and day</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -81,13 +81,18 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_habits_charts</code></h4></td>
-    <td rowspan="2"><p>Toggle charts display</p>
+    <td rowspan="2"><p>Charts</p>
 <p>It includes commit activity per hour of day and commit activity per day of week
 Recent language activity may also displayed (it requires extras features to be enabled for web instances) for historical reasons</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
+    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code>:
+<ul>
+<li><i>metrics.api.github.overuse</i></li>
+<li><i>metrics.run.tempdir</i></li>
+<li><i>metrics.run.git</i></li>
+</ul>
 <b>type:</b> <code>boolean</code>
 <br>
 <b>default:</b> no<br></td>
@@ -102,7 +107,11 @@ Recent language activity may also displayed (it requires extras features to be e
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code>:
+<ul>
+<li><i>metrics.npm.optional.chartist</i></li>
+</ul>
+<b>type:</b> <code>string</code>
 <br>
 <b>default:</b> classic<br>
 <b>allowed values:</b><ul><li>classic</li><li>chartist</li></ul></td>
@@ -119,7 +128,7 @@ Recent language activity may also displayed (it requires extras features to be e
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_habits_languages_limit</code></h4></td>
-    <td rowspan="2"><p>Limits the number of languages to be displayed</p>
+    <td rowspan="2"><p>Display limit (languages)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>

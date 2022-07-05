@@ -2,8 +2,8 @@
 <table>
   <tr><td colspan="2"><a href="/README.md#-plugins">← Back to plugins index</a></td></tr>
   <tr><th colspan="2"><h3>📌 Starred topics</h3></th></tr>
-  <tr><td colspan="2" align="center"><p>This plugin displays <a href="https://github.com/stars?filter=topics">starred topics</a>.
-Check out <a href="https://github.com/topics">GitHub topics</a> to search interesting topics.</p>
+  <tr><td colspan="2" align="center"><p>This plugin displays <a href="https://github.com/stars?filter=topics">starred topics</a>.</p>
+<p>Check out <a href="https://github.com/topics">GitHub topics</a> to search interesting topics.</p>
 </td></tr>
   <tr>
     <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
@@ -44,10 +44,10 @@ Check out <a href="https://github.com/topics">GitHub topics</a> to search intere
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_topics_mode</code></h4></td>
-    <td rowspan="2"><p>Display mode:</p>
+    <td rowspan="2"><p>Display mode</p>
 <ul>
 <li><code>labels</code>: display labels</li>
-<li><code>icons</code>: display icons <em>(topics without icons will be ignored)</em></li>
+<li><code>icons</code>: display icons <em>(topics without icons will not be displayed)</em></li>
 <li><code>starred</code>: alias for <code>labels</code></li>
 <li><code>mastered</code>: alias for <code>icons</code></li>
 </ul>
@@ -61,12 +61,12 @@ Check out <a href="https://github.com/topics">GitHub topics</a> to search intere
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_topics_sort</code></h4></td>
-    <td rowspan="2"><p>Sorting method:</p>
+    <td rowspan="2"><p>Sorting method</p>
 <ul>
 <li><code>stars</code>: sort by most stars</li>
 <li><code>activity</code>: sort by recent activity</li>
-<li><code>starred</code>: sort by the date you starred them</li>
-<li><code>random</code>: sort topics randomly</li>
+<li><code>starred</code>: sort by starred date</li>
+<li><code>random</code>: sort randomly</li>
 </ul>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -79,7 +79,6 @@ Check out <a href="https://github.com/topics">GitHub topics</a> to search intere
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_topics_limit</code></h4></td>
     <td rowspan="2"><p>Display limit</p>
-<p>When using <code>plugin_topics_mode: labels</code>, an ellipsis will be displayed</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>

@@ -2,7 +2,7 @@
 <table>
   <tr><td colspan="2"><a href="/README.md#-plugins">← Back to plugins index</a></td></tr>
   <tr><th colspan="2"><h3>🌟 Recently starred repositories</h3></th></tr>
-  <tr><td colspan="2" align="center"><p>This plugin displays your recently starred repositories.</p>
+  <tr><td colspan="2" align="center"><p>This plugin displays recently starred repositories.</p>
 </td></tr>
   <tr>
     <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>

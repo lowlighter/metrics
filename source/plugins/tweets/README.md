@@ -2,7 +2,7 @@
 <table>
   <tr><td colspan="2"><a href="/README.md#-plugins">← Back to plugins index</a></td></tr>
   <tr><th colspan="2"><h3>🐤 Latest tweets</h3></th></tr>
-  <tr><td colspan="2" align="center"><p>This plugin displays the latest tweets from your <a href="https://twitter.com">Twitter</a> account.</p>
+  <tr><td colspan="2" align="center"><p>This plugin displays the latest tweets from a <a href="https://twitter.com">Twitter</a> account.</p>
 </td></tr>
   <tr>
     <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
@@ -52,8 +52,20 @@
 <br></td>
   </tr>
   <tr>
+    <td nowrap="nowrap"><h4><code>plugin_tweets_user</code></h4></td>
+    <td rowspan="2"><p>Twitter username</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">⏯️ Cannot be preset<br>
+<b>type:</b> <code>string</code>
+<br>
+<b>default:</b> <code>→ User attached twitter</code><br></td>
+  </tr>
+  <tr>
     <td nowrap="nowrap"><h4><code>plugin_tweets_attachments</code></h4></td>
-    <td rowspan="2"><p>Display tweets attachments (images, video previews, etc.)</p>
+    <td rowspan="2"><p>Tweets attachments</p>
+<p>Can be used to display linked images, video thumbnails, etc.</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -73,17 +85,6 @@
 ≤ 10)</i>
 <br>
 <b>default:</b> 2<br></td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap"><h4><code>plugin_tweets_user</code></h4></td>
-    <td rowspan="2"><p>Twitter username</p>
-<img width="900" height="1" alt=""></td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap">⏯️ Cannot be preset<br>
-<b>type:</b> <code>string</code>
-<br>
-<b>default:</b> <code>→ User attached twitter</code><br></td>
   </tr>
 </table>
 <!--/options-->

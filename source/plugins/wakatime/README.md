@@ -1,8 +1,9 @@
 <!--header-->
 <table>
   <tr><td colspan="2"><a href="/README.md#-plugins">← Back to plugins index</a></td></tr>
-  <tr><th colspan="2"><h3>⏰ WakaTime plugin</h3></th></tr>
-  <tr><td colspan="2" align="center"><p>This plugin displays statistics from your <a href="https://wakatime.com">WakaTime</a> account.</p>
+  <tr><th colspan="2"><h3>⏰ WakaTime</h3></th></tr>
+  <tr><td colspan="2" align="center"><p>This plugin displays statistics from a <a href="https://wakatime.com">WakaTime</a> account.</p>
+<p>It is also compatible with self-hosted instances from <a href="https://github.com/muety/wakapi">wakapi</a>.</p>
 </td></tr>
   <tr>
     <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
@@ -51,55 +52,9 @@
 <br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><h4><code>plugin_wakatime_days</code></h4></td>
-    <td rowspan="2"><p>Time range</p>
-<img width="900" height="1" alt=""></td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap"><b>type:</b> <code>string</code>
-<br>
-<b>default:</b> 7<br>
-<b>allowed values:</b><ul><li>7</li><li>30</li><li>180</li><li>365</li></ul></td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap"><h4><code>plugin_wakatime_sections</code></h4></td>
-    <td rowspan="2"><p>Displayed sections</p>
-<ul>
-<li><code>time</code>: show total coding time and daily average</li>
-<li><code>projects</code>: show most time spent project</li>
-<li><code>projects-graphs</code>: show most time spent projects graphs</li>
-<li><code>languages</code>: show most language</li>
-<li><code>languages-graphs</code>: show languages graphs</li>
-<li><code>editors</code>: show most used code editor</li>
-<li><code>editors-graphs</code>: show code editors graphs</li>
-<li><code>os</code>: show most used operating system</li>
-<li><code>os-graphs</code>: show code operating systems graphs</li>
-</ul>
-<img width="900" height="1" alt=""></td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap"><b>type:</b> <code>array</code>
-<br>
-<b>default:</b> time, projects, projects-graphs, languages, languages-graphs, editors, os<br>
-<b>allowed values:</b><ul><li>time</li><li>projects</li><li>projects-graphs</li><li>languages</li><li>languages-graphs</li><li>editors</li><li>editors-graphs</li><li>os</li><li>os-graphs</li></ul></td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap"><h4><code>plugin_wakatime_limit</code></h4></td>
-    <td rowspan="2"><p>Display limit (per graph)</p>
-<img width="900" height="1" alt=""></td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap"><b>type:</b> <code>number</code>
-<i>(0 ≤
-𝑥)</i>
-<br>
-<b>zero behaviour:</b> disable</br>
-<b>default:</b> 5<br></td>
-  </tr>
-  <tr>
     <td nowrap="nowrap"><h4><code>plugin_wakatime_url</code></h4></td>
-    <td rowspan="2"><p>WakaTime url</p>
-<p>Also compatible with self-hosted instance (<a href="https://github.com/muety/wakapi">wakapi</a>)</p>
+    <td rowspan="2"><p>WakaTime URL</p>
+<p>Can be used to specify a <a href="https://github.com/muety/wakapi">wakapi</a> instance</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -119,8 +74,54 @@
 <b>default:</b> current<br></td>
   </tr>
   <tr>
+    <td nowrap="nowrap"><h4><code>plugin_wakatime_sections</code></h4></td>
+    <td rowspan="2"><p>Displayed sections</p>
+<ul>
+<li><code>time</code>: show total coding time and daily average</li>
+<li><code>projects</code>: show most time spent project</li>
+<li><code>projects-graphs</code>: show most time spent projects graphs</li>
+<li><code>languages</code>: show most used language</li>
+<li><code>languages-graphs</code>: show languages graphs</li>
+<li><code>editors</code>: show most used code editor</li>
+<li><code>editors-graphs</code>: show code editors graphs</li>
+<li><code>os</code>: show most used operating system</li>
+<li><code>os-graphs</code>: show operating systems graphs</li>
+</ul>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>array</code>
+<br>
+<b>default:</b> time, projects, projects-graphs, languages, languages-graphs, editors, os<br>
+<b>allowed values:</b><ul><li>time</li><li>projects</li><li>projects-graphs</li><li>languages</li><li>languages-graphs</li><li>editors</li><li>editors-graphs</li><li>os</li><li>os-graphs</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><h4><code>plugin_wakatime_days</code></h4></td>
+    <td rowspan="2"><p>Time range</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>string</code>
+<br>
+<b>default:</b> 7<br>
+<b>allowed values:</b><ul><li>7</li><li>30</li><li>180</li><li>365</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><h4><code>plugin_wakatime_limit</code></h4></td>
+    <td rowspan="2"><p>Display limit (entries per graph)</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<i>(0 ≤
+𝑥)</i>
+<br>
+<b>zero behaviour:</b> disable</br>
+<b>default:</b> 5<br></td>
+  </tr>
+  <tr>
     <td nowrap="nowrap"><h4><code>plugin_wakatime_languages_other</code></h4></td>
-    <td rowspan="2"><p>Include other languages</p>
+    <td rowspan="2"><p>Other languages</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -141,7 +142,7 @@
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_wakatime_repositories_visibility</code></h4></td>
     <td rowspan="2"><p>Repositories visibility</p>
-<p>Lets you hide private repositories.</p>
+<p>Can be used to toggle private activity visibility</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>

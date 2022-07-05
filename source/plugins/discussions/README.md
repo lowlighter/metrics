@@ -2,7 +2,7 @@
 <table>
   <tr><td colspan="2"><a href="/README.md#-plugins">← Back to plugins index</a></td></tr>
   <tr><th colspan="2"><h3>💬 Discussions</h3></th></tr>
-  <tr><td colspan="2" align="center"><p>This plugin displays your GitHub discussions stats.</p>
+  <tr><td colspan="2" align="center"><p>This plugin displays GitHub discussions stats.</p>
 </td></tr>
   <tr>
     <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
@@ -42,7 +42,7 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_discussions_categories</code></h4></td>
-    <td rowspan="2"><p>Toggle discussion categories display</p>
+    <td rowspan="2"><p>Discussion categories</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -53,7 +53,7 @@
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_discussions_categories_limit</code></h4></td>
     <td rowspan="2"><p>Display limit (categories)</p>
-<p>Note that categories are sorted from highest to lowest count.</p>
+<p>Note that categories are sorted from highest to lowest count</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>

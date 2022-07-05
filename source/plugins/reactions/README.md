@@ -2,7 +2,7 @@
 <table>
   <tr><td colspan="2"><a href="/README.md#-plugins">← Back to plugins index</a></td></tr>
   <tr><th colspan="2"><h3>🎭 Comment reactions</h3></th></tr>
-  <tr><td colspan="2" align="center"><p>This plugin displays overall reactions on your recent issues, comments and discussions.</p>
+  <tr><td colspan="2" align="center"><p>This plugin displays overall user reactions on recent issues, comments and discussions.</p>
 </td></tr>
   <tr>
     <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
@@ -134,7 +134,7 @@
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_reactions_ignored</code></h4></td>
     <td rowspan="2"><p>Ignored users</p>
-<p>Useful to ignore bots activity</p>
+<p>Can be used to ignore bots activity</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>

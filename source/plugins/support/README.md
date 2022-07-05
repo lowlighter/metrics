@@ -2,7 +2,7 @@
 <table>
   <tr><td colspan="2"><a href="/README.md#-plugins">← Back to plugins index</a></td></tr>
   <tr><th colspan="2"><h3>💭 GitHub Community Support</h3></th></tr>
-  <tr><td colspan="2" align="center"><p>This plugin displays your statistics from <a href="https://github.community/">GitHub Support Community</a> (an account must be created on it beforehand).</p>
+  <tr><td colspan="2" align="center"><p>This plugin displays statistics from a <a href="https://github.community/">GitHub Support Community</a> account.</p>
 </td></tr>
   <tr>
     <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>

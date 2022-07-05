@@ -2,7 +2,7 @@
 <table>
   <tr><td colspan="2"><a href="/README.md#-plugins">← Back to plugins index</a></td></tr>
   <tr><th colspan="2"><h3>🌸 Anilist watch list and reading list</h3></th></tr>
-  <tr><td colspan="2" align="center"><p>This plugin displays your favorites animes, mangas and characters from your <a href="https://anilist.co">AniList</a> account.</p>
+  <tr><td colspan="2" align="center"><p>This plugin displays favorites animes, mangas and characters from a <a href="https://anilist.co">AniList</a> account.</p>
 </td></tr>
   <tr>
     <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
@@ -43,8 +43,19 @@
 <b>default:</b> no<br></td>
   </tr>
   <tr>
+    <td nowrap="nowrap"><h4><code>plugin_anilist_user</code></h4></td>
+    <td rowspan="2"><p>AniList login</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">⏯️ Cannot be preset<br>
+<b>type:</b> <code>string</code>
+<br>
+<b>default:</b> <code>→ User login</code><br></td>
+  </tr>
+  <tr>
     <td nowrap="nowrap"><h4><code>plugin_anilist_medias</code></h4></td>
-    <td rowspan="2"><p>Display medias types</p>
+    <td rowspan="2"><p>Medias types</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -58,7 +69,7 @@
     <td nowrap="nowrap"><h4><code>plugin_anilist_sections</code></h4></td>
     <td rowspan="2"><p>Displayed sections</p>
 <ul>
-<li><code>favorites</code> will display favorites <code>plugin_anilist_medias</code></li>
+<li><code>favorites</code> will display favorites from <code>plugin_anilist_medias</code></li>
 <li><code>watching</code> will display animes currently in watching list</li>
 <li><code>reading</code> will display manga currently in reading list</li>
 <li><code>characters</code> will display liked characters</li>
@@ -100,24 +111,14 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_anilist_shuffle</code></h4></td>
-    <td rowspan="2"><p>Shuffle data for varied outputs</p>
+    <td rowspan="2"><p>Shuffle data</p>
+<p>Can be used to create varied outputs</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
 <br>
 <b>default:</b> yes<br></td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap"><h4><code>plugin_anilist_user</code></h4></td>
-    <td rowspan="2"><p>AniList login</p>
-<img width="900" height="1" alt=""></td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap">⏯️ Cannot be preset<br>
-<b>type:</b> <code>string</code>
-<br>
-<b>default:</b> <code>→ User login</code><br></td>
   </tr>
 </table>
 <!--/options-->

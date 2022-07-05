@@ -2,7 +2,7 @@
 <table>
   <tr><td colspan="2"><a href="/README.md#-plugins">← Back to plugins index</a></td></tr>
   <tr><th colspan="2"><h3>👨‍💻 Lines of code changed</h3></th></tr>
-  <tr><td colspan="2" align="center"><p>This plugin displays the number of lines of code you have added and removed across all of your repositories.</p>
+  <tr><td colspan="2" align="center"><p>This plugin displays the number of lines of code added and removed across repositories.</p>
 </td></tr>
   <tr>
     <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>

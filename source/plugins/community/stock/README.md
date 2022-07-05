@@ -37,7 +37,11 @@
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><b>type:</b> <code>boolean</code>
+    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code>:
+<ul>
+<li><i>metrics.npm.optional.chartist</i></li>
+</ul>
+<b>type:</b> <code>boolean</code>
 <br>
 <b>default:</b> no<br></td>
   </tr>
@@ -62,7 +66,7 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_stock_duration</code></h4></td>
-    <td rowspan="2"><p>Time range (relative to current date)</p>
+    <td rowspan="2"><p>Time range</p>
 <ul>
 <li><code>1d</code>: Today</li>
 <li><code>5d</code>: 5 days</li>
@@ -76,6 +80,7 @@
 <li><code>ytd</code>: Year to date</li>
 <li><code>max</code>: All time</li>
 </ul>
+<p>This is relative to current date</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>

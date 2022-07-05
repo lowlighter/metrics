@@ -5,18 +5,18 @@
     <th nowrap="nowrap">Template/Plugin</th>    
     <th nowrap="nowrap" align="center" title="🗃️ Base content">🗃️</th>
     <th nowrap="nowrap" align="center" title="📅 Isometric commit calendar">📅</th>
-    <th nowrap="nowrap" align="center" title="🈷️ Most used languages">🈷️</th>
+    <th nowrap="nowrap" align="center" title="🈷️ Languages activity">🈷️</th>
     <th nowrap="nowrap" align="center" title="📌 Starred topics">📌</th>
     <th nowrap="nowrap" align="center" title="🌟 Recently starred repositories">🌟</th>
     <th nowrap="nowrap" align="center" title="📜 Repository licenses">📜</th>
-    <th nowrap="nowrap" align="center" title="💡 Coding habits">💡</th>
+    <th nowrap="nowrap" align="center" title="💡 Coding habits and activity">💡</th>
     <th nowrap="nowrap" align="center" title="🏅 Repository contributors">🏅</th>
     <th nowrap="nowrap" align="center" title="🎟️ Follow-up of issues and pull requests">🎟️</th>
     <th nowrap="nowrap" align="center" title="🎭 Comment reactions">🎭</th>
-    <th nowrap="nowrap" align="center" title="🧑‍🤝‍🧑 People plugin">🧑‍🤝‍🧑</th>
+    <th nowrap="nowrap" align="center" title="🧑‍🤝‍🧑 People">🧑‍🤝‍🧑</th>
     <th nowrap="nowrap" align="center" title="✨ Stargazers over last weeks">✨</th>
-    <th nowrap="nowrap" align="center" title="🗂️ Active projects">🗂️</th>
-    <th nowrap="nowrap" align="center" title="♐ Code snippet of the day">♐</th>
+    <th nowrap="nowrap" align="center" title="🗂️ GitHub projects">🗂️</th>
+    <th nowrap="nowrap" align="center" title="♐ Random code snippet">♐</th>
     <th nowrap="nowrap" align="center" title="📰 Recent activity">📰</th>
     <th nowrap="nowrap" align="center" title="🏆 Achievements">🏆</th>
     <th nowrap="nowrap" align="center" title="🎩 Notable contributions">🎩</th>
@@ -24,21 +24,21 @@
     <th nowrap="nowrap" align="center" title="💭 GitHub Community Support">💭</th>
     <th nowrap="nowrap" align="center" title="👨‍💻 Lines of code changed">👨‍💻</th>
     <th nowrap="nowrap" align="center" title="🧮 Repositories traffic">🧮</th>
-    <th nowrap="nowrap" align="center" title="📓 Repositories">📓</th>
+    <th nowrap="nowrap" align="center" title="📓 Featured repositories">📓</th>
     <th nowrap="nowrap" align="center" title="🎫 Gists">🎫</th>
     <th nowrap="nowrap" align="center" title="🙋 Introduction">🙋</th>
     <th nowrap="nowrap" align="center" title="💕 GitHub Sponsors">💕</th>
-    <th nowrap="nowrap" align="center" title="💫 Starlists">💫</th>
-    <th nowrap="nowrap" align="center" title="📆 Calendar">📆</th>
-    <th nowrap="nowrap" align="center" title="🌇 GitHub Skyline 3D calendar">🌇</th>
-    <th nowrap="nowrap" align="center" title="⏱️ Website performances">⏱️</th>
-    <th nowrap="nowrap" align="center" title="🗨️ StackOverflow plugin">🗨️</th>
+    <th nowrap="nowrap" align="center" title="💫 Star lists">💫</th>
+    <th nowrap="nowrap" align="center" title="📆 Commit calendar">📆</th>
+    <th nowrap="nowrap" align="center" title="🌇 GitHub Skyline">🌇</th>
+    <th nowrap="nowrap" align="center" title="⏱️ Google PageSpeed">⏱️</th>
+    <th nowrap="nowrap" align="center" title="🗨️ Stack Overflow">🗨️</th>
     <th nowrap="nowrap" align="center" title="🌸 Anilist watch list and reading list">🌸</th>
     <th nowrap="nowrap" align="center" title="🐤 Latest tweets">🐤</th>
     <th nowrap="nowrap" align="center" title="✒️ Recent posts">✒️</th>
-    <th nowrap="nowrap" align="center" title="🎼 Music plugin">🎼</th>
+    <th nowrap="nowrap" align="center" title="🎼 Music activity and suggestions">🎼</th>
     <th nowrap="nowrap" align="center" title="🗼 Rss feed">🗼</th>
-    <th nowrap="nowrap" align="center" title="⏰ WakaTime plugin">⏰</th>
+    <th nowrap="nowrap" align="center" title="⏰ WakaTime">⏰</th>
   </tr>  
   <tr>
     <td nowrap="nowrap">📗 Classic template</td>    
@@ -203,18 +203,18 @@
     <th nowrap="nowrap">Mode/Plugin</th>    
     <th nowrap="nowrap" align="center" title="🗃️ Base content">🗃️</th>
     <th nowrap="nowrap" align="center" title="📅 Isometric commit calendar">📅</th>
-    <th nowrap="nowrap" align="center" title="🈷️ Most used languages">🈷️</th>
+    <th nowrap="nowrap" align="center" title="🈷️ Languages activity">🈷️</th>
     <th nowrap="nowrap" align="center" title="📌 Starred topics">📌</th>
     <th nowrap="nowrap" align="center" title="🌟 Recently starred repositories">🌟</th>
     <th nowrap="nowrap" align="center" title="📜 Repository licenses">📜</th>
-    <th nowrap="nowrap" align="center" title="💡 Coding habits">💡</th>
+    <th nowrap="nowrap" align="center" title="💡 Coding habits and activity">💡</th>
     <th nowrap="nowrap" align="center" title="🏅 Repository contributors">🏅</th>
     <th nowrap="nowrap" align="center" title="🎟️ Follow-up of issues and pull requests">🎟️</th>
     <th nowrap="nowrap" align="center" title="🎭 Comment reactions">🎭</th>
-    <th nowrap="nowrap" align="center" title="🧑‍🤝‍🧑 People plugin">🧑‍🤝‍🧑</th>
+    <th nowrap="nowrap" align="center" title="🧑‍🤝‍🧑 People">🧑‍🤝‍🧑</th>
     <th nowrap="nowrap" align="center" title="✨ Stargazers over last weeks">✨</th>
-    <th nowrap="nowrap" align="center" title="🗂️ Active projects">🗂️</th>
-    <th nowrap="nowrap" align="center" title="♐ Code snippet of the day">♐</th>
+    <th nowrap="nowrap" align="center" title="🗂️ GitHub projects">🗂️</th>
+    <th nowrap="nowrap" align="center" title="♐ Random code snippet">♐</th>
     <th nowrap="nowrap" align="center" title="📰 Recent activity">📰</th>
     <th nowrap="nowrap" align="center" title="🏆 Achievements">🏆</th>
     <th nowrap="nowrap" align="center" title="🎩 Notable contributions">🎩</th>
@@ -222,21 +222,21 @@
     <th nowrap="nowrap" align="center" title="💭 GitHub Community Support">💭</th>
     <th nowrap="nowrap" align="center" title="👨‍💻 Lines of code changed">👨‍💻</th>
     <th nowrap="nowrap" align="center" title="🧮 Repositories traffic">🧮</th>
-    <th nowrap="nowrap" align="center" title="📓 Repositories">📓</th>
+    <th nowrap="nowrap" align="center" title="📓 Featured repositories">📓</th>
     <th nowrap="nowrap" align="center" title="🎫 Gists">🎫</th>
     <th nowrap="nowrap" align="center" title="🙋 Introduction">🙋</th>
     <th nowrap="nowrap" align="center" title="💕 GitHub Sponsors">💕</th>
-    <th nowrap="nowrap" align="center" title="💫 Starlists">💫</th>
-    <th nowrap="nowrap" align="center" title="📆 Calendar">📆</th>
-    <th nowrap="nowrap" align="center" title="🌇 GitHub Skyline 3D calendar">🌇</th>
-    <th nowrap="nowrap" align="center" title="⏱️ Website performances">⏱️</th>
-    <th nowrap="nowrap" align="center" title="🗨️ StackOverflow plugin">🗨️</th>
+    <th nowrap="nowrap" align="center" title="💫 Star lists">💫</th>
+    <th nowrap="nowrap" align="center" title="📆 Commit calendar">📆</th>
+    <th nowrap="nowrap" align="center" title="🌇 GitHub Skyline">🌇</th>
+    <th nowrap="nowrap" align="center" title="⏱️ Google PageSpeed">⏱️</th>
+    <th nowrap="nowrap" align="center" title="🗨️ Stack Overflow">🗨️</th>
     <th nowrap="nowrap" align="center" title="🌸 Anilist watch list and reading list">🌸</th>
     <th nowrap="nowrap" align="center" title="🐤 Latest tweets">🐤</th>
     <th nowrap="nowrap" align="center" title="✒️ Recent posts">✒️</th>
-    <th nowrap="nowrap" align="center" title="🎼 Music plugin">🎼</th>
+    <th nowrap="nowrap" align="center" title="🎼 Music activity and suggestions">🎼</th>
     <th nowrap="nowrap" align="center" title="🗼 Rss feed">🗼</th>
-    <th nowrap="nowrap" align="center" title="⏰ WakaTime plugin">⏰</th>
+    <th nowrap="nowrap" align="center" title="⏰ WakaTime">⏰</th>
   </tr>  
   <tr>
     <td nowrap="nowrap">👤 User</td>    

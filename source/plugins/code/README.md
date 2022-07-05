@@ -1,8 +1,8 @@
 <!--header-->
 <table>
   <tr><td colspan="2"><a href="/README.md#-plugins">← Back to plugins index</a></td></tr>
-  <tr><th colspan="2"><h3>♐ Code snippet of the day</h3></th></tr>
-  <tr><td colspan="2" align="center"><p>This plugin displays a random code snippet from your recent activity history.</p>
+  <tr><th colspan="2"><h3>♐ Random code snippet</h3></th></tr>
+  <tr><td colspan="2" align="center"><p>This plugin displays a random code snippet from recent activity history.</p>
 <blockquote>
 <p>⚠️ When improperly configured, this plugin could display private code.
 If you work with sensitive data or company code, it is advised to keep this plugin disabled.
@@ -47,11 +47,14 @@ Use at your own risk, <em>metrics</em> and its authors cannot be held responsibl
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_code_lines</code></h4></td>
-    <td rowspan="2"><p>Display limit for code snippets</p>
+    <td rowspan="2"><p>Display limit (lines per code snippets)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
+<i>(1 ≤
+𝑥
+≤ 128)</i>
 <br>
 <b>default:</b> 12<br></td>
   </tr>
@@ -85,7 +88,7 @@ Use at your own risk, <em>metrics</em> and its authors cannot be held responsibl
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_code_visibility</code></h4></td>
     <td rowspan="2"><p>Events visibility</p>
-<p>Lets you hide private activity when using a <code>repo</code> scope token</p>
+<p>Can be used to toggle private activity visibility when using a token with <code>repo</code> scope</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -107,7 +110,7 @@ Use at your own risk, <em>metrics</em> and its authors cannot be held responsibl
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_code_languages</code></h4></td>
-    <td rowspan="2"><p>Restrict display to specific languages</p>
+    <td rowspan="2"><p>Showcased languages</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>

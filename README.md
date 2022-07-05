@@ -24,7 +24,7 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
   </tr>
   <tr>
     <th><a href="source/plugins/isocalendar/README.md">📅 Isometric commit calendar</a></th>
-    <th><a href="source/plugins/languages/README.md">🈷️ Most used languages</a></th>
+    <th><a href="source/plugins/languages/README.md">🈷️ Languages activity</a></th>
   </tr>
   <tr>
         <td  align="center">
@@ -57,7 +57,7 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
   </tr>
   <tr>
     <th><a href="source/plugins/licenses/README.md">📜 Repository licenses</a></th>
-    <th><a href="source/plugins/habits/README.md">💡 Coding habits</a></th>
+    <th><a href="source/plugins/habits/README.md">💡 Coding habits and activity</a></th>
   </tr>
   <tr>
         <td  align="center">
@@ -90,7 +90,7 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
   </tr>
   <tr>
     <th><a href="source/plugins/reactions/README.md">🎭 Comment reactions</a></th>
-    <th><a href="source/plugins/people/README.md">🧑‍🤝‍🧑 People plugin</a></th>
+    <th><a href="source/plugins/people/README.md">🧑‍🤝‍🧑 People</a></th>
   </tr>
   <tr>
         <td  align="center">
@@ -105,7 +105,7 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
   </tr>
   <tr>
     <th><a href="source/plugins/stargazers/README.md">✨ Stargazers over last weeks</a></th>
-    <th><a href="source/plugins/projects/README.md">🗂️ Active projects</a></th>
+    <th><a href="source/plugins/projects/README.md">🗂️ GitHub projects</a></th>
   </tr>
   <tr>
         <td  align="center">
@@ -119,7 +119,7 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
       </td>
   </tr>
   <tr>
-    <th><a href="source/plugins/code/README.md">♐ Code snippet of the day</a></th>
+    <th><a href="source/plugins/code/README.md">♐ Random code snippet</a></th>
     <th><a href="source/plugins/activity/README.md">📰 Recent activity</a></th>
   </tr>
   <tr>
@@ -177,7 +177,7 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
       </td>
   </tr>
   <tr>
-    <th><a href="source/plugins/repositories/README.md">📓 Repositories</a></th>
+    <th><a href="source/plugins/repositories/README.md">📓 Featured repositories</a></th>
     <th><a href="source/plugins/gists/README.md">🎫 Gists</a></th>
   </tr>
   <tr>
@@ -208,8 +208,8 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
       </td>
   </tr>
   <tr>
-    <th><a href="source/plugins/starlists/README.md">💫 Starlists</a></th>
-    <th><a href="source/plugins/calendar/README.md">📆 Calendar</a></th>
+    <th><a href="source/plugins/starlists/README.md">💫 Star lists</a></th>
+    <th><a href="source/plugins/calendar/README.md">📆 Commit calendar</a></th>
   </tr>
   <tr>
         <td  align="center">
@@ -224,8 +224,8 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
       </td>
   </tr>
   <tr>
-    <th><a href="source/plugins/skyline/README.md">🌇 GitHub Skyline 3D calendar</a></th>
-    <th><a href="source/plugins/pagespeed/README.md">⏱️ Website performances</a></th>
+    <th><a href="source/plugins/skyline/README.md">🌇 GitHub Skyline</a></th>
+    <th><a href="source/plugins/pagespeed/README.md">⏱️ Google PageSpeed</a></th>
   </tr>
   <tr>
         <td  align="center">
@@ -240,7 +240,7 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
       </td>
   </tr>
   <tr>
-    <th><a href="source/plugins/stackoverflow/README.md">🗨️ StackOverflow plugin</a></th>
+    <th><a href="source/plugins/stackoverflow/README.md">🗨️ Stack Overflow</a></th>
     <th><a href="source/plugins/anilist/README.md">🌸 Anilist watch list and reading list</a></th>
   </tr>
   <tr>
@@ -272,7 +272,7 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
       </td>
   </tr>
   <tr>
-    <th><a href="source/plugins/music/README.md">🎼 Music plugin</a></th>
+    <th><a href="source/plugins/music/README.md">🎼 Music activity and suggestions</a></th>
     <th><a href="source/plugins/rss/README.md">🗼 Rss feed</a></th>
   </tr>
   <tr>
@@ -287,7 +287,7 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
       </td>
   </tr>
   <tr>
-    <th><a href="source/plugins/wakatime/README.md">⏰ WakaTime plugin</a></th>
+    <th><a href="source/plugins/wakatime/README.md">⏰ WakaTime</a></th>
     <th></th>
   </tr>
   <tr>
@@ -419,40 +419,40 @@ Plugins provide additional content and lets you customize rendered metrics.
 * **Github plugins**
   * [🏆 Achievements <sub>`achievements`</sub>](/source/plugins/achievements/README.md)
   * [📰 Recent activity <sub>`activity`</sub>](/source/plugins/activity/README.md)
-  * [📆 Calendar <sub>`calendar`</sub>](/source/plugins/calendar/README.md)
-  * [♐ Code snippet of the day <sub>`code`</sub>](/source/plugins/code/README.md)
+  * [📆 Commit calendar <sub>`calendar`</sub>](/source/plugins/calendar/README.md)
+  * [♐ Random code snippet <sub>`code`</sub>](/source/plugins/code/README.md)
   * [🏅 Repository contributors <sub>`contributors`</sub>](/source/plugins/contributors/README.md)
   * [💬 Discussions <sub>`discussions`</sub>](/source/plugins/discussions/README.md)
   * [🎟️ Follow-up of issues and pull requests <sub>`followup`</sub>](/source/plugins/followup/README.md)
   * [🎫 Gists <sub>`gists`</sub>](/source/plugins/gists/README.md)
-  * [💡 Coding habits <sub>`habits`</sub>](/source/plugins/habits/README.md)
+  * [💡 Coding habits and activity <sub>`habits`</sub>](/source/plugins/habits/README.md)
   * [🙋 Introduction <sub>`introduction`</sub>](/source/plugins/introduction/README.md)
   * [📅 Isometric commit calendar <sub>`isocalendar`</sub>](/source/plugins/isocalendar/README.md)
-  * [🈷️ Most used languages <sub>`languages`</sub>](/source/plugins/languages/README.md)
+  * [🈷️ Languages activity <sub>`languages`</sub>](/source/plugins/languages/README.md)
   * [📜 Repository licenses <sub>`licenses`</sub>](/source/plugins/licenses/README.md)
   * [👨‍💻 Lines of code changed <sub>`lines`</sub>](/source/plugins/lines/README.md)
   * [🎩 Notable contributions <sub>`notable`</sub>](/source/plugins/notable/README.md)
-  * [🧑‍🤝‍🧑 People plugin <sub>`people`</sub>](/source/plugins/people/README.md)
-  * [🗂️ Active projects <sub>`projects`</sub>](/source/plugins/projects/README.md)
+  * [🧑‍🤝‍🧑 People <sub>`people`</sub>](/source/plugins/people/README.md)
+  * [🗂️ GitHub projects <sub>`projects`</sub>](/source/plugins/projects/README.md)
   * [🎭 Comment reactions <sub>`reactions`</sub>](/source/plugins/reactions/README.md)
-  * [📓 Repositories <sub>`repositories`</sub>](/source/plugins/repositories/README.md)
-  * [🌇 GitHub Skyline 3D calendar <sub>`skyline`</sub>](/source/plugins/skyline/README.md)
+  * [📓 Featured repositories <sub>`repositories`</sub>](/source/plugins/repositories/README.md)
+  * [🌇 GitHub Skyline <sub>`skyline`</sub>](/source/plugins/skyline/README.md)
   * [💕 GitHub Sponsors <sub>`sponsors`</sub>](/source/plugins/sponsors/README.md)
   * [✨ Stargazers over last weeks <sub>`stargazers`</sub>](/source/plugins/stargazers/README.md)
-  * [💫 Starlists <sub>`starlists`</sub>](/source/plugins/starlists/README.md)
+  * [💫 Star lists <sub>`starlists`</sub>](/source/plugins/starlists/README.md)
   * [🌟 Recently starred repositories <sub>`stars`</sub>](/source/plugins/stars/README.md)
   * [💭 GitHub Community Support <sub>`support`</sub>](/source/plugins/support/README.md)
   * [📌 Starred topics <sub>`topics`</sub>](/source/plugins/topics/README.md)
   * [🧮 Repositories traffic <sub>`traffic`</sub>](/source/plugins/traffic/README.md)
 * **Social plugins**
   * [🌸 Anilist watch list and reading list <sub>`anilist`</sub>](/source/plugins/anilist/README.md)
-  * [🎼 Music plugin <sub>`music`</sub>](/source/plugins/music/README.md)
-  * [⏱️ Website performances <sub>`pagespeed`</sub>](/source/plugins/pagespeed/README.md)
+  * [🎼 Music activity and suggestions <sub>`music`</sub>](/source/plugins/music/README.md)
+  * [⏱️ Google PageSpeed <sub>`pagespeed`</sub>](/source/plugins/pagespeed/README.md)
   * [✒️ Recent posts <sub>`posts`</sub>](/source/plugins/posts/README.md)
   * [🗼 Rss feed <sub>`rss`</sub>](/source/plugins/rss/README.md)
-  * [🗨️ StackOverflow plugin <sub>`stackoverflow`</sub>](/source/plugins/stackoverflow/README.md)
+  * [🗨️ Stack Overflow <sub>`stackoverflow`</sub>](/source/plugins/stackoverflow/README.md)
   * [🐤 Latest tweets <sub>`tweets`</sub>](/source/plugins/tweets/README.md)
-  * [⏰ WakaTime plugin <sub>`wakatime`</sub>](/source/plugins/wakatime/README.md)
+  * [⏰ WakaTime <sub>`wakatime`</sub>](/source/plugins/wakatime/README.md)
 
 **🎲 Maintained by community**
 * **[Community plugins](/source/plugins/community/README.md)**

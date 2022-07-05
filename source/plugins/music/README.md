@@ -1,8 +1,8 @@
 <!--header-->
 <table>
   <tr><td colspan="2"><a href="/README.md#-plugins">← Back to plugins index</a></td></tr>
-  <tr><th colspan="2"><h3>🎼 Music plugin</h3></th></tr>
-  <tr><td colspan="2" align="center"><p>This plugin can display top and recently listened music tracks or from a random playlist.</p>
+  <tr><th colspan="2"><h3>🎼 Music activity and suggestions</h3></th></tr>
+  <tr><td colspan="2" align="center"><p>This plugin can display top and recently listened music tracks or titles from a random playlist.</p>
 <p>Different music providers are supported.</p>
 </td></tr>
   <tr>
@@ -51,7 +51,7 @@
 <li><code>lastfm</code>: Last.fm</li>
 <li><code>youtube</code>: YouTube Music</li>
 </ul>
-<p>This setting is optional when using <code>plugin_music_mode: playlist</code> (provider will be auto-detected from <code>plugin_music_playlist</code> URL)</p>
+<p>This setting is optional when using <a href="/source/plugins/music/README.md#plugin_music_mode"><code>plugin_music_mode: playlist</code></a> (provider will be auto-detected from <a href="/source/plugins/music/README.md#plugin_music_playlist"><code>plugin_music_playlist</code></a> URL)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -77,6 +77,17 @@
 <br></td>
   </tr>
   <tr>
+    <td nowrap="nowrap"><h4><code>plugin_music_user</code></h4></td>
+    <td rowspan="2"><p>Music provider username</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">⏯️ Cannot be preset<br>
+<b>type:</b> <code>string</code>
+<br>
+<b>default:</b> <code>→ User login</code><br></td>
+  </tr>
+  <tr>
     <td nowrap="nowrap"><h4><code>plugin_music_mode</code></h4></td>
     <td rowspan="2"><p>Display mode</p>
 <ul>
@@ -84,7 +95,7 @@
 <li><code>recent</code>: display recently listened tracks</li>
 <li><code>top</code>: display top listened artists/tracks</li>
 </ul>
-<p>If <code>plugin_music_playlist</code> is specifed, the default value is <code>playlist</code>, else it is <code>recent</code></p>
+<p>If <a href="/source/plugins/music/README.md#plugin_music_playlist"><code>plugin_music_playlist</code></a> is specifed, the default value is <code>playlist</code>, else it is <code>recent</code></p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -118,7 +129,7 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_music_played_at</code></h4></td>
-    <td rowspan="2"><p>Recently played - Toggle last played timestamp display</p>
+    <td rowspan="2"><p>Recently played - Last played timestamp</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -128,7 +139,7 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_music_time_range</code></h4></td>
-    <td rowspan="2"><p>Top tracks - Time range for <code>top</code> mode</p>
+    <td rowspan="2"><p>Top tracks - Time range</p>
 <ul>
 <li><code>short</code>: 4 weeks</li>
 <li><code>medium</code>: 6 months</li>
@@ -156,17 +167,6 @@
 <br>
 <b>default:</b> tracks<br>
 <b>allowed values:</b><ul><li>tracks</li><li>artists</li></ul></td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap"><h4><code>plugin_music_user</code></h4></td>
-    <td rowspan="2"><p>Music provider username</p>
-<img width="900" height="1" alt=""></td>
-  </tr>
-  <tr>
-    <td nowrap="nowrap">⏯️ Cannot be preset<br>
-<b>type:</b> <code>string</code>
-<br>
-<b>default:</b> <code>→ User login</code><br></td>
   </tr>
 </table>
 <!--/options-->

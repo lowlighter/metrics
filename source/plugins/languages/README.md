@@ -1,7 +1,7 @@
 <!--header-->
 <table>
   <tr><td colspan="2"><a href="/README.md#-plugins">← Back to plugins index</a></td></tr>
-  <tr><th colspan="2"><h3>🈷️ Most used languages</h3></th></tr>
+  <tr><th colspan="2"><h3>🈷️ Languages activity</h3></th></tr>
   <tr><td colspan="2" align="center"><p>This plugin can display which languages you use across all repositories you contributed to.</p>
 </td></tr>
   <tr>
@@ -90,8 +90,8 @@
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_languages_other</code></h4></td>
-    <td rowspan="2"><p>Group unknown, ignored and over-limit languages into a single &quot;Other&quot; category</p>
-<p>If this option is enabled, &quot;Other&quot; category will not be subject to <code>plugin_languages_threshold</code>.
+    <td rowspan="2"><p>Group unknown, ignored and over-limit languages into &quot;Other&quot; category</p>
+<p>If this option is enabled, &quot;Other&quot; category will not be subject to <a href="/source/plugins/languages/README.md#plugin_languages_threshold"><code>plugin_languages_threshold</code></a>.
 It will be automatically hidden if empty.</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -123,11 +123,11 @@ It will be automatically hidden if empty.</p>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_languages_sections</code></h4></td>
     <td rowspan="2"><p>Displayed sections</p>
+<p>Note that <code>recently-used</code> is only available when <a href="/source/plugins/languages/README.md#plugin_languages_indepth"><code>plugin_languages_indepth</code></a> is enabled</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
-<b>type:</b> <code>array</code>
+    <td nowrap="nowrap"><b>type:</b> <code>array</code>
 <i>(comma-separated)</i>
 <br>
 <b>default:</b> most-used<br>
@@ -136,23 +136,30 @@ It will be automatically hidden if empty.</p>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_languages_details</code></h4></td>
     <td rowspan="2"><p>Additional details</p>
-<p>Note that <code>lines</code> is only available when <code>plugin_languages_indepth</code> is enabled</p>
+<p>Note that <code>lines</code> is only available when <a href="/source/plugins/languages/README.md#plugin_languages_indepth"><code>plugin_languages_indepth</code></a> is enabled</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
-<b>type:</b> <code>array</code>
+    <td nowrap="nowrap"><b>type:</b> <code>array</code>
 <i>(comma-separated)</i>
 <br>
 <b>allowed values:</b><ul><li>bytes-size</li><li>percentage</li><li>lines</li></ul></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_languages_indepth</code></h4></td>
-    <td rowspan="2"><p>Indepth mode (⚠️ read documentation first)</p>
+    <td rowspan="2"><p>Indepth mode</p>
+<blockquote>
+<p>⚠️ read documentation first</p>
+</blockquote>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
+    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code>:
+<ul>
+<li><i>metrics.api.github.overuse</i></li>
+<li><i>metrics.run.tempdir</i></li>
+<li><i>metrics.run.git</i></li>
+</ul>
 <b>type:</b> <code>boolean</code>
 <br>
 <b>default:</b> false<br></td>
@@ -163,7 +170,12 @@ It will be automatically hidden if empty.</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
+    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code>:
+<ul>
+<li><i>metrics.api.github.overuse</i></li>
+<li><i>metrics.run.tempdir</i></li>
+<li><i>metrics.run.git</i></li>
+</ul>
 <b>type:</b> <code>number</code>
 <i>(1 ≤
 𝑥
@@ -177,7 +189,12 @@ It will be automatically hidden if empty.</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
+    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code>:
+<ul>
+<li><i>metrics.api.github.overuse</i></li>
+<li><i>metrics.run.tempdir</i></li>
+<li><i>metrics.run.git</i></li>
+</ul>
 <b>type:</b> <code>array</code>
 <i>(comma-separated)</i>
 <br>
@@ -190,7 +207,12 @@ It will be automatically hidden if empty.</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
+    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code>:
+<ul>
+<li><i>metrics.api.github.overuse</i></li>
+<li><i>metrics.run.tempdir</i></li>
+<li><i>metrics.run.git</i></li>
+</ul>
 <b>type:</b> <code>array</code>
 <i>(comma-separated)</i>
 <br>
@@ -203,7 +225,12 @@ It will be automatically hidden if empty.</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
+    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code>:
+<ul>
+<li><i>metrics.api.github.overuse</i></li>
+<li><i>metrics.run.tempdir</i></li>
+<li><i>metrics.run.git</i></li>
+</ul>
 <b>type:</b> <code>number</code>
 <i>(100 ≤
 𝑥
@@ -217,7 +244,12 @@ It will be automatically hidden if empty.</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code><br>
+    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code>:
+<ul>
+<li><i>metrics.api.github.overuse</i></li>
+<li><i>metrics.run.tempdir</i></li>
+<li><i>metrics.run.git</i></li>
+</ul>
 <b>type:</b> <code>number</code>
 <i>(0 ≤
 𝑥
