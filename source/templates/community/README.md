@@ -159,9 +159,10 @@ It is used to compute height dynamically through a [puppeteer](https://github.co
 
 The default file looks like below:
 ```yaml
-name: "🖼️ Template name"
+name: 🖼️ Template name
 extends: classic
-description: Short description
+description: |
+  Short description
 examples:
   default: https://via.placeholder.com/468x60?text=No%20preview%20available
 supports:

@@ -1,5 +1,6 @@
-name: "📒 Markdown template"
-description: A template capable of rendering markdown from a given template file.
+name: 📒 Markdown template
+description: |
+  A template capable of rendering markdown from a given template file.
 examples:
   default: https://github.com/lowlighter/metrics/blob/examples/metrics.markdown.png
 index: 3
