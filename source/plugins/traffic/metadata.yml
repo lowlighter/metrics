@@ -1,6 +1,7 @@
-name: "🧮 Repositories traffic"
+name: 🧮 Repositories traffic
 category: github
-description: This plugin displays the number of page views across your repositories.
+description: |
+  This plugin displays the number of page views across affiliated repositories.
 examples:
   default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.traffic.svg
 index: 19
@@ -13,12 +14,14 @@ scopes:
 inputs:
 
   plugin_traffic:
-    description: Enable traffic plugin
+    description: |
+      Enable traffic plugin
     type: boolean
     default: no
 
   plugin_traffic_skipped:
-    description: Skipped repositories
+    description: |
+      Skipped repositories
     type: array
     format: comma-separated
     default: ""

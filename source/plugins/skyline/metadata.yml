@@ -1,7 +1,7 @@
-name: "🌇 GitHub Skyline 3D calendar"
+name: 🌇 GitHub Skyline
 category: github
 description: |
-  This plugins lets you display your 3D commits calendar from [skyline.github.com](https://skyline.github.com/).
+  This plugin displays the 3D commits calendar from [skyline.github.com](https://skyline.github.com/).
 
   > ⚠️ This plugin significantly increase file size, consider using it as standalone.
 examples:
@@ -13,12 +13,16 @@ scopes: []
 inputs:
 
   plugin_skyline:
-    description: Enable skyline plugin
+    description: |
+      Enable skyline plugin
     type: boolean
     default: no
+    extras:
+      - metrics.npm.optional.gifencoder
 
   plugin_skyline_year:
-    description: Displayed year
+    description: |
+      Displayed year
     type: number
     default: current-year
     min: 2008
@@ -48,7 +52,7 @@ inputs:
     description: |
       Compatibility mode
 
-      This uses CSS animations rather than embedded GIF to support a widerr range of browser, like Firefox and Safari.
+      This uses CSS animations rather than embedded GIF to support a wider range of browsers, like Firefox and Safari.
       Using this mode significantly increase file size as each frame is encoded separately
     type: boolean
     default: no

@@ -1,6 +1,7 @@
-name: "✨ Stargazers over last weeks"
+name: ✨ Stargazers over last weeks
 category: github
-description: This plugin displays your stargazers evolution across all of your repositories over the last two weeks.
+description: |
+  This plugin displays stargazers evolution across affiliated repositories over the last two weeks.
 examples:
   +classic charts: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.svg
   chartist charts: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.chartist.svg
@@ -14,13 +15,15 @@ scopes:
 inputs:
 
   plugin_stargazers:
-    description: Enable stargazers plugin
+    description: |
+      Enable stargazers plugin
     type: boolean
     default: no
 
   plugin_stargazers_charts_type:
     description: |
       Charts display type
+
       - `classic`: `<div>` based charts, simple and lightweight
       - `chartist`: `<svg>` based charts, smooth
     type: string
@@ -28,3 +31,5 @@ inputs:
     values:
       - classic
       - chartist
+    extras:
+      - metrics.npm.optional.chartist

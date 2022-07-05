@@ -1,4 +1,4 @@
-name: "🗃️ Base content"
+name: 🗃️ Base content
 category: core
 description:
 examples:
@@ -12,17 +12,16 @@ scopes:
   - public_access
 inputs:
 
-  # Base content
   base:
     description: |
       Base content
 
       The following sections are supported:
-      * `header`, which usually contains username, two-week commits calendars and a few additional data
-      * `activity`, which contains recent activity (commits, pull requests, issues, etc.)
-      * `community`, which contains community stats (following, sponsors, organizations, etc.)
-      * `repositories`, which contains repository stats (license, forks, stars, etc.)
-      * `metadata`, which contains information about generated metrics
+      - `header`, which usually contains username, two-weeks commits calendars and a few additional data
+      - `activity`, which contains recent activity (commits, pull requests, issues, etc.)
+      - `community`, which contains community stats (following, sponsors, organizations, etc.)
+      - `repositories`, which contains repository stats (license, forks, stars, etc.)
+      - `metadata`, which contains information about generated metrics
 
       These are all enabled by default, but it is possible to explicitly opt out from them.
     type: array
@@ -36,7 +35,6 @@ inputs:
       - metadata
 
   base_indepth:
-    extras: yes
     description: |
       Indepth mode
 
@@ -49,16 +47,19 @@ inputs:
         - total repositories contributed to
     type: boolean
     default: no
+    extras:
+      - metrics.api.github.overuse
+      - plugins.base.indepth
 
   base_hireable:
     description: |
-      Display `Available for hire!` in header section
+      Show `Available for hire!` in header section
     type: boolean
     default: no
 
   repositories:
     description: |
-      Repositories to fetch
+      Fetched repositories
 
       A higher value result in more accurate metrics but can hit GitHub API rate-limit more easily (especially with a lot of plugins enabled)
     type: number
@@ -67,31 +68,33 @@ inputs:
 
   repositories_batch:
     description: |
-      Repositories to fetch at a time
+      Fetched repositories per query
 
-      If you receive `Something went wrong while executing your query` (which is usually caused by API timeout),
-      try lowering this value.
+      If you receive `Something went wrong while executing your query` (which is usually caused by API timeouts), lowering this value may help.
+      This setting may not be supported by all plugins.
     type: number
     default: 100
     max: 100
     min: 1
 
   repositories_forks:
-    description: Include forks
+    description: |
+      Include forks
     type: boolean
     default: no
 
   repositories_affiliations:
     description: |
       Repositories affiliations
+
       - `owner`: owned repositories
       - `collaborator`: repositories with push access
       - `organization_member`: repositories from an organization where user is a member
 
       Some plugin outputs may be affected by this setting too.
 
-      Set to `""` to disable and fetch all repositories related to you.
-      Broad affiliation will result in less representative metrics.
+      Set to `""` to disable and fetch all repositories related to given account.
+      Broad affiliations will result in less representative metrics.
     type: array
     format: comma-separated
     default: owner
@@ -101,7 +104,8 @@ inputs:
       - organization_member
 
   repositories_skipped:
-    description: Default skipped repositories
+    description: |
+      Default skipped repositories
     type: array
     format: comma-separated
     default: ""
@@ -112,7 +116,7 @@ inputs:
     description: |
       Default ignored users
 
-      Note that email are supported only commits-related elements.
+      Note that emails are only supported in commits-related elements.
     type: array
     format: comma-separated
     default: github-actions[bot], dependabot[bot], dependabot-preview[bot], actions-user, action@github.com

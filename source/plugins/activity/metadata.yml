@@ -1,6 +1,7 @@
-name: "📰 Recent activity"
+name: 📰 Recent activity
 category: github
-description: This plugin displays your recent activity on GitHub.
+description: |
+  This plugin displays recent activity on GitHub.
 examples:
   default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.activity.svg
 index: 13
@@ -13,26 +14,30 @@ scopes:
 inputs:
 
   plugin_activity:
-    description: Enable activity plugin
+    description: |
+      Enable activity plugin
     type: boolean
     default: no
 
   plugin_activity_limit:
-    description: Display limit
+    description: |
+      Display limit
     type: number
     default: 5
     min: 1
     max: 1000
 
   plugin_activity_load:
-    description: Events to load
+    description: |
+      Events to load
     type: number
     default: 300
     min: 100
     max: 1000
 
   plugin_activity_days:
-    description: Events maximum age
+    description: |
+      Events maximum age
     type: number
     default: 14
     min: 0
@@ -43,7 +48,7 @@ inputs:
     description: |
       Events visibility
 
-      Lets you hide private activity when using a `repo` scope token
+      Can be used to toggle private activity visibility when using a token with `repo` scope
     type: string
     default: all
     values:
@@ -51,12 +56,14 @@ inputs:
       - all
 
   plugin_activity_timestamps:
-    description: Display events timestamps
+    description: |
+      Events timestamps
     type: boolean
     default: no
 
   plugin_activity_skipped:
-    description: Skipped repositories
+    description: |
+      Skipped repositories
     type: array
     format: comma-separated
     default: ""
@@ -67,7 +74,7 @@ inputs:
     description: |
       Ignored users
 
-      Useful to ignore bots activity
+      Can be used to ignore bots activity
     type: array
     format: comma-separated
     default: ""

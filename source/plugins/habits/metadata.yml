@@ -1,6 +1,7 @@
-name: "💡 Coding habits"
+name: 💡 Coding habits and activity
 category: github
-description: This plugin display coding habits based on your recent activity, such as active hours and languages recently used.
+description: |
+  This plugin displays coding habits based on recent activity, such as active hours and languages recently used.
 examples:
   +recent activity charts: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.habits.charts.svg
   +midly interesting facts: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.habits.facts.svg
@@ -13,7 +14,8 @@ scopes:
 inputs:
 
   plugin_habits:
-    description: Enable habits plugin
+    description: |
+      Enable habits plugin
     type: boolean
     default: no
 
@@ -28,7 +30,8 @@ inputs:
     max: 1000
 
   plugin_habits_days:
-    description: Event maximum age
+    description: |
+      Event maximum age
     type: number
     default: 14
     min: 1
@@ -36,25 +39,29 @@ inputs:
 
   plugin_habits_facts:
     description: |
-      Toggle midly interesting facts display
+      Midly interesting facts
 
       It includes indentation type, average number of characters per line of code, and most active time and day
     type: boolean
     default: yes
 
   plugin_habits_charts:
-    extras: yes
     description: |
-      Toggle charts display
+      Charts
 
       It includes commit activity per hour of day and commit activity per day of week
       Recent language activity may also displayed (it requires extras features to be enabled for web instances) for historical reasons
     type: boolean
     default: no
+    extras:
+      - metrics.api.github.overuse
+      - metrics.run.tempdir
+      - metrics.run.git
 
   plugin_habits_charts_type:
     description: |
       Charts display type
+
       - `classic`: `<div>` based charts, simple and lightweight
       - `chartist`: `<svg>` based charts, smooth
     type: string
@@ -62,14 +69,18 @@ inputs:
     values:
       - classic
       - chartist
+    extras:
+      - metrics.npm.optional.chartist
 
   plugin_habits_trim:
-    description: Trim unused hours on charts
+    description: |
+      Trim unused hours on charts
     type: boolean
     default: no
 
   plugin_habits_languages_limit:
-    description: Limits the number of languages to be displayed
+    description: |
+      Display limit (languages)
     type: number
     default: 8
     min: 0

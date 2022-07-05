@@ -1,6 +1,7 @@
-name: "🧑‍🤝‍🧑 People plugin"
+name: 🧑‍🤝‍🧑 People
 category: github
-description: This plugin can display relationships with users, such as followers, sponsors, contributors, stargazers, watchers, members, etc.
+description: |
+  This plugin can display relationships with users, such as followers, sponsors, contributors, stargazers, watchers, members, etc.
 examples:
   +related to a user: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.people.followers.svg
   related to a repository: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.people.repository.svg
@@ -14,12 +15,14 @@ scopes:
 inputs:
 
   plugin_people:
-    description: Enable people plugin
+    description: |
+      Enable people plugin
     type: boolean
     default: no
 
   plugin_people_limit:
-    description: Display limit
+    description: |
+      Display limit
     type: number
     default: 24
     min: 0
@@ -27,25 +30,25 @@ inputs:
 
   plugin_people_identicons:
     description: |
-      Toggle identicons display
+      Force identicons pictures
 
-      This can be used to mask user profile pictures for privacy
+      Can be used to mask profile pictures for privacy
     type: boolean
     default: no
 
   plugin_people_identicons_hide:
     description: |
-      Hide identicons display
+      Hide identicons pictures
 
-      This can be used to mask user who did not setup a personal profile picture.
+      Can be used to mask users without a personal profile picture.
 
-      When used with `plugin_people_identicons`, users who did not setup a personal profile picture
-      will still be filtered out, but will have their picture replaced by an identicon instead.
+      When used with [`plugin_people_identicons`](/source/plugins/people/README.md#plugin_people_identicons), users without a personal profile picture will still be filtered out, but their picture will be replaced by an identicon instead
     type: boolean
     default: no
 
   plugin_people_size:
-    description: Profile picture display size
+    description: |
+      Profile picture display size
     type: number
     default: 28
     min: 8
@@ -53,7 +56,7 @@ inputs:
 
   plugin_people_types:
     description: |
-      Displayed sections (order is respected)
+      Displayed sections
 
       User and organization accounts support the following values:
       - `followers`
@@ -61,13 +64,16 @@ inputs:
       - `sponsoring`/`sponsored`
       - `sponsors`
       - `members` (organization only)
-      - `thanks`(to be configured with `plugin_people_thanks`)
+      - `thanks`(to be configured with [`plugin_people_thanks`](/source/plugins/people/README.md#plugin_people_thanks))
+
       Repositories support the following values:
       - `sponsors` (same as owner sponsors)
       - `contributors`
       - `stargazers`
       - `watchers`
-      - `thanks`(to be configured with `plugin_people_thanks`)
+      - `thanks`(to be configured with [`plugin_people_thanks`](/source/plugins/people/README.md#plugin_people_thanks))
+
+      Specified order is honored
     type: array
     format: comma-separated
     default: followers, following
@@ -89,7 +95,7 @@ inputs:
     description: |
       Special thanks
 
-      This list can be used to thank specific users
+      Can be used to thank specific users
     type: array
     format: comma-separated
     default: ""
@@ -101,7 +107,7 @@ inputs:
       Custom sponsors
 
       This list can be used to add users from unsupported GitHub sponsors sources.
-      The option `plugin_people_types` must contain the `sponsors` section in order for this setting to be effective
+      The option [`plugin_people_types`](/source/plugins/people/README.md#plugin_people_types) must contain the `sponsors` section in order for this setting to be effective
     type: array
     format: comma-separated
     default: ""
@@ -110,8 +116,9 @@ inputs:
 
   plugin_people_shuffle:
     description: |
-      Shuffle data for varied output
+      Shuffle data
 
-      This will fetch 10 times more data than `plugin_people_limit` to ensure output is always different
+      Can be used to create varied outputs
+      This will fetch additional data (10 times [`plugin_people_limit`](/source/plugins/people/README.md#plugin_people_limit)) to ensure output is always different
     type: boolean
     default: no

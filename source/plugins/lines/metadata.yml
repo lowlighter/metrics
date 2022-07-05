@@ -1,6 +1,7 @@
-name: "👨‍💻 Lines of code changed"
+name: 👨‍💻 Lines of code changed
 category: github
-description: This plugin displays the number of lines of code you have added and removed across all of your repositories.
+description: |
+  This plugin displays the number of lines of code added and removed across repositories.
 examples:
   default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.lines.svg
 index: 18
@@ -13,12 +14,14 @@ scopes:
 inputs:
 
   plugin_lines:
-    description: Enable lines plugin
+    description: |
+      Enable lines plugin
     type: boolean
     default: no
 
   plugin_lines_skipped:
-    description: Skipped repositories
+    description: |
+      Skipped repositories
     type: array
     format: comma-separated
     default: ""

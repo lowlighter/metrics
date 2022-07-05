@@ -1,6 +1,7 @@
-name: "💭 GitHub Community Support"
+name: 💭 GitHub Community Support
 category: github
-description: This plugin displays your statistics from [GitHub Support Community](https://github.community/) (an account must be created on it beforehand).
+description: |
+  This plugin displays statistics from a [GitHub Support Community](https://github.community/) account.
 examples:
   default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.support.svg
 index: 17
@@ -10,6 +11,7 @@ scopes: []
 inputs:
 
   plugin_support:
-    description: Enable support plugin
+    description: |
+      Enable support plugin
     type: boolean
     default: no

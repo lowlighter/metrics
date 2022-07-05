@@ -1,6 +1,7 @@
-name: "🏆 Achievements"
+name: 🏆 Achievements
 category: github
-description: This plugin displays several highlights about what you achieved on GitHub.
+description: |
+  This plugin displays several highlights about what an account has achieved on GitHub.
 examples:
   +compact display: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.achievements.compact.svg
   detailed display: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.achievements.svg
@@ -13,13 +14,14 @@ scopes:
 inputs:
 
   plugin_achievements:
-    description: Enable achievements plugin
+    description: |
+      Enable achievements plugin
     type: boolean
     default: no
 
   plugin_achievements_threshold:
     description: |
-      Display rank threshold
+      Rank threshold filter
 
       Use `X` to display achievements not yet unlocked
     type: string
@@ -32,13 +34,15 @@ inputs:
       - X
 
   plugin_achievements_secrets:
-    description: Display secrets achievements
+    description: |
+      Secrets achievements
     type: boolean
     default: yes
 
   plugin_achievements_display:
     description: |
       Display style
+
       - `detailed`: display icon, name, description and ranking
       - `compact`: display icon, name and value
     type: string
@@ -48,16 +52,18 @@ inputs:
       - compact
 
   plugin_achievements_limit:
-    description: Display limit
+    description: |
+      Display limit
     type: number
     default: 0
     min: 0
+    zero: disable
 
   plugin_achievements_ignored:
     description: |
-      Hide specified achievements
+      Ignored achievements
 
-      Use names without the rank adjective (i.e. without "great", "super" or "master")
+      Use achievements names without their rank adjective (i.e. without "great", "super" or "master")
     type: array
     format: comma-separated
     default: ""
@@ -65,11 +71,11 @@ inputs:
 
   plugin_achievements_only:
     description: |
-      Restrict display to specified achievements
+      Showcased achievements
 
-      Use names without the rank adjective (i.e. without "great", "super" or "master")
+      Use achievements names without their rank adjective (i.e. without "great", "super" or "master")
 
-      This option is equivalent to `plugin_achievements_ignored` with all existing achievements but the ones listed in this option
+      This option is equivalent to [`plugin_achievements_ignored`](/source/plugins/achievements/README.md#plugin_achievements_ignored) with all existing achievements except the ones listed in this option
     type: array
     format: comma-separated
     default: ""

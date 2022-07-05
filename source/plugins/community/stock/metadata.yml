@@ -1,6 +1,7 @@
-name: "💹 Stock prices"
+name:"💹 Stock prices
 category: community
-description: This plugin displays the stock market price of a given company.
+description: |
+  This plugin displays the stock market price of a given company.
 examples:
   default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stock.svg
 authors:
@@ -13,24 +14,30 @@ scopes: []
 inputs:
 
   plugin_stock:
-    description: Enable stock plugin
+    description: |
+      Enable stock plugin
     type: boolean
     default: no
+    extras:
+      - metrics.npm.optional.chartist
 
   plugin_stock_token:
-    description: Yahoo Finance token
+    description: |
+      Yahoo Finance token
     type: token
     default: ""
 
   plugin_stock_symbol:
-    description: Company stock symbol
+    description: |
+      Company stock symbol
     type: string
     default: ""
     example: MSFT
 
   plugin_stock_duration:
     description: |
-      Time range (relative to current date)
+      Time range
+
       - `1d`: Today
       - `5d`: 5 days
       - `1mo`: 1 month
@@ -42,6 +49,8 @@ inputs:
       - `10y`: 10 years
       - `ytd`: Year to date
       - `max`: All time
+
+      This is relative to current date
     type: string
     default: 1d
     values:
@@ -60,6 +69,7 @@ inputs:
   plugin_stock_interval:
     description: |
       Time interval between points
+
       - `1m`: 1 minute
       - `2m`: 2 minutes
       - `5m`: 5 minutes

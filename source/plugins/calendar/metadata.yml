@@ -1,6 +1,7 @@
-name: "📆 Calendar"
+name: 📆 Commit calendar
 category: github
-description: This plugin displays your commit calendar across several years
+description: |
+  This plugin can display commit calendar across several years.
 examples:
   current year: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.calendar.svg
   +full history: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.calendar.full.svg
@@ -12,7 +13,8 @@ scopes:
 inputs:
 
   plugin_calendar:
-    description: Enable calendar plugin
+    description: |
+      Enable calendar plugin
     type: boolean
     default: no
 

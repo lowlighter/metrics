@@ -1,6 +1,7 @@
-name: "🗼 Rss feed"
+name: 🗼 Rss feed
 category: social
-description: This plugin displays news from a given RSS feed.
+description: |
+  This plugin displays news from a given RSS feed.
 examples:
   default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.rss.svg
 index: 7
@@ -12,18 +13,21 @@ scopes: []
 inputs:
 
   plugin_rss:
-    description: Enable rss plugin
+    description: |
+      Enable rss plugin
     type: boolean
     default: no
 
   plugin_rss_source:
-    description: RSS feed source
+    description: |
+      RSS feed source
     type: string
     default: ""
     example: https://news.ycombinator.com/rss
 
   plugin_rss_limit:
-    description: Display limit
+    description: |
+      Display limit
     type: number
     default: 4
     min: 0

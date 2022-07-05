@@ -3,7 +3,7 @@ category: github
 description: |
   This plugin displays account bio or organization/repository description.
 
-  It is mostly intended for images that will be used outside of GitHub, since these informations are already displayed on GitHub.
+  Since account bio is already displayed on account profile, this plugin is mostly intended for external usage.
 examples:
   +for a user or an organization: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.introduction.svg
   for a repository: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.introduction.repository.svg
@@ -16,14 +16,14 @@ scopes:
   - public_access
 inputs:
 
-  # Enable or disable plugin
   plugin_introduction:
-    description: Display account or repository introduction
+    description: |
+      Enable introduction plugin
     type: boolean
     default: no
 
-  # Display introduction section title
   plugin_introduction_title:
-    description: Display introduction section title
+    description: |
+      Section title
     type: boolean
     default: yes

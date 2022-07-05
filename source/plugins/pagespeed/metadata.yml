@@ -1,7 +1,8 @@
-name: "⏱️ Website performances"
+name: ⏱️ Google PageSpeed
 category: social
 description: |
-  This plugin adds performance statistics of a website.
+  This plugin displays performance statistics of a website.
+
   It uses [Google's PageSpeed API](https://developers.google.com/speed/docs/insights/v5/get-started) (same as [web.dev](https://web.dev)), see [performance scoring](https://web.dev/performance-scoring/) and [score calculator](https://googlechrome.github.io/lighthouse/scorecalc/) for more informations about results.
 examples:
   +PageSpeed scores: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.pagespeed.svg
@@ -16,12 +17,22 @@ scopes: []
 inputs:
 
   plugin_pagespeed:
-    description: Enable pagespeed plugin
+    description: |
+      Enable pagespeed plugin
     type: boolean
     default: no
 
+  plugin_pagespeed_token:
+    description: |
+      PageSpeed token
+
+      > ⚠️ While not mandatory, it is strongly advised pass a token to avoid triggering the rate limiter. See [PageSpeed documentation](https://developers.google.com/speed/docs/insights/v5/get-started) for more informations.
+    type: token
+    default: ""
+
   plugin_pagespeed_url:
-    description: Audited website
+    description: |
+      Audited website
     type: string
     default: .user.website
     preset: no
@@ -42,21 +53,14 @@ inputs:
 
   plugin_pagespeed_screenshot:
     description: |
-      Display a website screenshot
+      Website screenshot
 
       Significantly increase filesize
     type: boolean
     default: no
 
-  plugin_pagespeed_token:
-    description: |
-      PageSpeed token
-
-      Although not mandatory, it strongly advised to create one to avoid triggering the rate limiter. See [PageSpeed documentation](https://developers.google.com/speed/docs/insights/v5/get-started) for more informations.
-    type: token
-    default: ""
-
   plugin_pagespeed_pwa:
-    description: Display PWA Status
+    description: |
+      PWA Status
     type: boolean
     default: no

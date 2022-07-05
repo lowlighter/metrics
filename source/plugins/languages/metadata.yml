@@ -1,6 +1,7 @@
-name: "🈷️ Most used languages"
+name: 🈷️ Languages activity
 category: github
-description: This plugin can display which languages you use across all repositories you contributed to.
+description: |
+  This plugin can display which languages you use across all repositories you contributed to.
 examples:
   +indepth analysis (clone and analyze repositories): https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.languages.indepth.svg
   +recently used (analyze recent activity events): https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.languages.recent.svg
@@ -16,19 +17,22 @@ scopes:
 inputs:
 
   plugin_languages:
-    description: Enable languages plugin
+    description: |
+      Enable languages plugin
     type: boolean
     default: no
 
   plugin_languages_ignored:
-    description: Ignored languages
+    description: |
+      Ignored languages
     type: array
     format: comma-separated
     default: ""
     example: html, css, ...
 
   plugin_languages_skipped:
-    description: Skipped repositories
+    description: |
+      Skipped repositories
     type: array
     format: comma-separated
     default: ""
@@ -36,7 +40,8 @@ inputs:
     inherits: repositories_skipped
 
   plugin_languages_limit:
-    description: Display limit
+    description: |
+      Display limit
     type: number
     default: 8
     min: 0
@@ -44,35 +49,40 @@ inputs:
     zero: disable
 
   plugin_languages_threshold:
-    description: Display threshold (percentage)
+    description: |
+      Display threshold (percentage)
     type: string
     default: 0%
 
   plugin_languages_other:
     description: |
-      Group unknown, ignored and over-limit languages into a single "Other" category
+      Group unknown, ignored and over-limit languages into "Other" category
 
-      If this option is enabled, "Other" category will not be subject to `plugin_languages_threshold`.
+      If this option is enabled, "Other" category will not be subject to [`plugin_languages_threshold`](/source/plugins/languages/README.md#plugin_languages_threshold).
       It will be automatically hidden if empty.
     type: boolean
     default: no
 
   plugin_languages_colors:
-    description: Custom languages colors
+    description: |
+      Custom languages colors
     type: array
     format: comma-separated
     default: github
     example: javascript:red, 0:blue, 1:#ff00aa
 
   plugin_languages_aliases:
-    description: Custom languages names
+    description: |
+      Custom languages names
     type: string
     default: ""
     example: javascript:JS typescript:TS
 
   plugin_languages_sections:
-    extras: yes
-    description: Displayed sections
+    description: |
+      Displayed sections
+
+      Note that `recently-used` is only available when [`plugin_languages_indepth`](/source/plugins/languages/README.md#plugin_languages_indepth) is enabled
     type: array
     format: comma-separated
     default: most-used
@@ -82,11 +92,10 @@ inputs:
       - recently-used
 
   plugin_languages_details:
-    extras: yes
     description: |
       Additional details
 
-      Note that `lines` is only available when `plugin_languages_indepth` is enabled
+      Note that `lines` is only available when [`plugin_languages_indepth`](/source/plugins/languages/README.md#plugin_languages_indepth) is enabled
     type: array
     format: comma-separated
     values:
@@ -97,22 +106,32 @@ inputs:
     example: bytes-size, percentage
 
   plugin_languages_indepth:
-    extras: yes
-    description: Indepth mode (⚠️ read documentation first)
+    description: |
+      Indepth mode
+
+      > ⚠️ read documentation first
     type: boolean
     default: false
+    extras:
+      - metrics.api.github.overuse
+      - metrics.run.tempdir
+      - metrics.run.git
 
   plugin_languages_analysis_timeout:
-    extras: yes
-    description: Indepth mode - Analysis timeout
+    description: |
+      Indepth mode - Analysis timeout
     type: number
     default: 15
     min: 1
     max: 30
+    extras:
+      - metrics.api.github.overuse
+      - metrics.run.tempdir
+      - metrics.run.git
 
   plugin_languages_categories:
-    extras: yes
-    description: Indepth mode - Displayed categories (most-used section)
+    description: |
+      Indepth mode - Displayed categories (most-used section)
     type: array
     format: comma-separated
     values:
@@ -121,10 +140,14 @@ inputs:
       - programming
       - prose
     default: markup, programming
+    extras:
+      - metrics.api.github.overuse
+      - metrics.run.tempdir
+      - metrics.run.git
 
   plugin_languages_recent_categories:
-    extras: yes
-    description: Indepth mode - Displayed categories (recently-used section)
+    description: |
+      Indepth mode - Displayed categories (recently-used section)
     type: array
     format: comma-separated
     values:
@@ -133,20 +156,32 @@ inputs:
       - programming
       - prose
     default: markup, programming
+    extras:
+      - metrics.api.github.overuse
+      - metrics.run.tempdir
+      - metrics.run.git
 
   plugin_languages_recent_load:
-    extras: yes
-    description: Events to load (recently-used section)
+    description: |
+      Events to load (recently-used section)
     type: number
     default: 300
     min: 100
     max: 1000
+    extras:
+      - metrics.api.github.overuse
+      - metrics.run.tempdir
+      - metrics.run.git
 
   plugin_languages_recent_days:
-    extras: yes
-    description: Events maximum age (day, recently-used section)
+    description: |
+      Events maximum age (day, recently-used section)
     type: number
     default: 14
     min: 0
     max: 365
     zero: disable
+    extras:
+      - metrics.api.github.overuse
+      - metrics.run.tempdir
+      - metrics.run.git

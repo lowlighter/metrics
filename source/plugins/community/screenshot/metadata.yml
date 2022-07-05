@@ -1,8 +1,9 @@
-name: "📸 Website screenshot"
+name: 📸 Website screenshot
 category: community
 description: |
-  This plugin display a screenshot from any website.
-  It can either the full page or a portion restricted by a [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors).
+  This plugin displays a screenshot from any website.
+
+  It can either show the full page or a portion restricted by a [CSS selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors).
 examples:
   default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.screenshot.svg
 authors:
@@ -15,27 +16,32 @@ scopes: []
 inputs:
 
   plugin_screenshot:
-    description: Enable screenshot plugin
+    description: |
+      Enable screenshot plugin
     type: boolean
     default: no
 
   plugin_screenshot_title:
-    description: Title caption
+    description: |
+      Title caption
     type: string
     default: Screenshot
 
   plugin_screenshot_url:
-    description: Website url
+    description: |
+      Website URL
     type: string
     default: ""
     example: https://metrics.lecoq.io
 
   plugin_screenshot_selector:
-    description: CSS Selector
+    description: |
+      CSS Selector
     type: string
     default: body
 
   plugin_screenshot_background:
-    description: Display background
+    description: |
+      Background
     type: boolean
     default: yes

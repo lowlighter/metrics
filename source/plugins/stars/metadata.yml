@@ -1,6 +1,7 @@
-name: "🌟 Recently starred repositories"
+name: 🌟 Recently starred repositories
 category: github
-description: This plugin displays your recently starred repositories.
+description: |
+  This plugin displays recently starred repositories.
 examples:
   default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stars.svg
 index: 3
@@ -11,12 +12,14 @@ scopes:
 inputs:
 
   plugin_stars:
-    description: Enable stars plugin
+    description: |
+      Enable stars plugin
     type: boolean
     default: no
 
   plugin_stars_limit:
-    description: Display limit
+    description: |
+      Display limit
     type: number
     default: 4
     min: 1

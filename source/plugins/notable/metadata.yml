@@ -1,6 +1,7 @@
-name: "🎩 Notable contributions"
+name: 🎩 Notable contributions
 category: github
-description: This plugin displays badges of repositories where you commited at least once on default branch.
+description: |
+  This plugin displays badges for notable contributions on repositories.
 examples:
   +indepth analysis: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.notable.indepth.svg
   contributions in organizations only: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.notable.svg
@@ -12,7 +13,8 @@ scopes:
 inputs:
 
   plugin_notable:
-    description: Enable notable plugin
+    description: |
+      Enable notable plugin
     type: boolean
     default: no
 
@@ -23,14 +25,15 @@ inputs:
       Based on [GitHub search syntax](https://docs.github.com/en/search-github/getting-started-with-searching-on-github/understanding-the-search-syntax).
       Supported fields are `stars`, `forks` and `watchers`
 
-      If `plugin_notable_indepth` is enabled, `commits`, `commits.user`, `commits.user%` and `maintainer` fields are also supported.
+      If [`plugin_notable_indepth`](/source/plugins/notable/README.md#plugin_notable_indepth) is enabled, `commits`, `commits.user`, `commits.user%` and `maintainer` fields are also supported.
       Some repositories may not be able to reported advanced stats and in the case the default behaviour will be to bypass filtering
     type: string
     default: ""
     example: stars:>500 forks:>100 maintainer:true commits.user%:>5
 
   plugin_notable_skipped:
-    description: Skipped repositories
+    description: |
+      Skipped repositories
     type: array
     format: comma-separated
     default: ""
@@ -39,7 +42,8 @@ inputs:
 
   plugin_notable_from:
     description: |
-      Filter by repository owner account type
+      Repository owner account type filter
+
       - `all`: no filtering
       - `organization`: only organization accounts repositories
       - `user`: only user accounts repositories
@@ -52,17 +56,19 @@ inputs:
 
   plugin_notable_repositories:
     description: |
-      Toggle repository name display
+      Repository name
 
-      Note that Repositories hosted by user account will always be fully displayed
+      Repositories hosted by user account will always have their full handle displayed
     type: boolean
     default: no
 
   plugin_notable_indepth:
-    description: Indepth mode
+    description: |
+      Indepth mode
     type: boolean
     default: no
-    extras: yes
+    extras:
+      - metrics.api.github.overuse
 
   plugin_notable_types:
     description: |

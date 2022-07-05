@@ -1,6 +1,7 @@
-name: "💉 Nightscout"
+name: 💉 Nightscout
 category: community
-description: This plugin lets you display blood sugar values from a [Nightscout](http://nightscout.info) site.
+description: |
+  This plugin displays blood sugar values from a [Nightscout](http://nightscout.info) site.
 examples:
   default: https://github.com/legoandmars/legoandmars/blob/master/metrics.plugin.nightscout.svg
 authors:
@@ -11,42 +12,49 @@ scopes: []
 inputs:
 
   plugin_nightscout:
-    description: Enable nightscout plugin
+    description: |
+      Enable nightscout plugin
     type: boolean
     default: no
 
   plugin_nightscout_url:
-    description: Nightscout URL
+    description: |
+      Nightscout URL
     type: string
     default: https://example.herokuapp.com
 
   plugin_nightscout_datapoints:
-    description: Number of datapoints shown the graph
+    description: |
+      Number of datapoints shown the graph
     type: number
     default: 12
     min: 0
     zero: disable
 
   plugin_nightscout_lowalert:
-    description: Threshold for low blood sugar
+    description: |
+      Threshold for low blood sugar
     type: number
     default: 80
     min: 0
 
   plugin_nightscout_highalert:
-    description: Threshold for high blood sugar
+    description: |
+      Threshold for high blood sugar
     type: number
     default: 180
     min: 0
 
   plugin_nightscout_urgentlowalert:
-    description: Threshold for urgently low blood sugar
+    description: |
+      Threshold for urgently low blood sugar
     type: number
     default: 50
     min: 0
 
   plugin_nightscout_urgenthighalert:
-    description: Threshold for urgently high blood sugar
+    description: |
+      Threshold for urgently high blood sugar
     type: number
     default: 250
     min: 0

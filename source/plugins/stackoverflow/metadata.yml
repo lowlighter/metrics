@@ -1,6 +1,7 @@
-name: "🗨️ StackOverflow plugin"
+name: 🗨️ Stack Overflow
 category: social
-description: This plugin displays stats, questions and answer from [stackoverflow](https://stackoverflow.com/).
+description: |
+  This plugin displays stats, questions and answer from [Stack Overflow](https://stackoverflow.com/).
 examples:
   default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stackoverflow.svg
 index: 3
@@ -11,12 +12,14 @@ scopes: []
 inputs:
 
   plugin_stackoverflow:
-    description: Enable stackoverflow plugin
+    description: |
+      Enable stackoverflow plugin
     type: boolean
     default: no
 
   plugin_stackoverflow_user:
-    description: Stackoverflow user id
+    description: |
+      Stackoverflow user id
     type: number
     default: 0
     preset: no
@@ -24,6 +27,7 @@ inputs:
   plugin_stackoverflow_sections:
     description: |
       Displayed sections
+
       - `answers-top`: display most popular answers
       - `answers-recent`: display recent answers
       - `questions-top`: display most popular questions
@@ -38,7 +42,8 @@ inputs:
       - questions-recent
 
   plugin_stackoverflow_limit:
-    description: Display limit (per section)
+    description: |
+      Display limit (entries per section)
     type: number
     default: 2
     min: 1
@@ -46,16 +51,17 @@ inputs:
 
   plugin_stackoverflow_lines:
     description: |
-      Display limit for questions and answers
+      Display limit (lines per questions and answers)
 
-      Code snippets count as a single line and must be configured with `plugin_stackoverflow_lines_snippet` instead
+      Code snippets count as a single line and must be configured with [`plugin_stackoverflow_lines_snippet`](/source/plugins/stackoverflow/README.md#plugin_stackoverflow_lines_snippet) instead
     type: number
     default: 4
     min: 0
     zero: disable
 
   plugin_stackoverflow_lines_snippet:
-    description: Display limit for code snippets
+    description: |
+      Display limit (lines per code snippets)
     type: number
     default: 2
     min: 0

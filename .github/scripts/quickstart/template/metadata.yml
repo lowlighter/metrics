@@ -1,6 +1,7 @@
-name: "🖼️ Template name"
+name: 🖼️ Template name
 extends: classic
-description: Short description
+description: |
+  Short description
 examples:
   default: https://via.placeholder.com/468x60?text=No%20preview%20available
 authors:

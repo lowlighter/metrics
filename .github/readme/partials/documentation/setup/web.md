@@ -84,7 +84,9 @@ Configuration file also contains settings about enabled templates, plugins and f
 }
 ```
 
-> ⚠️ Extras features **should not** be enabled on a public server, most of these are compute-intensive and some of some even allow remote code execution! Use with caution
+> ⚠️ Extras features **should not** be enabled on a public server, most of these are either compute, network or API intensive tasks. Some extras features even allow remote code execution which could compromise server security.
+>
+> Use at your own risk, *metrics* and its authors cannot be held responsible for any damage caused.
 
 ## 3️ Start docker container
 

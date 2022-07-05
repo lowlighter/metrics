@@ -1,6 +1,7 @@
-name: "💩 PoopMap plugin"
+name: 💩 PoopMap plugin
 category: community
-description: This plugin displays statistics from a [PoopMap](https://poopmap.net) account.
+description: |
+  This plugin displays statistics from a [PoopMap](https://poopmap.net) account.
 examples:
   default: https://github.com/matievisthekat/matievisthekat/blob/master/metrics.plugin.poopmap.svg
 authors:
@@ -11,17 +12,20 @@ scopes: []
 inputs:
 
   plugin_poopmap:
-    description: Enable poopmap plugin
+    description: |
+      Enable poopmap plugin
     type: boolean
     default: no
 
   plugin_poopmap_token:
-    description: PoopMap API token
+    description: |
+      PoopMap API token
     type: token
     default: ""
 
   plugin_poopmap_days:
-    description: Time range
+    description: |
+      Time range
     type: number
     values:
       - 7

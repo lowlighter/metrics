@@ -1,7 +1,8 @@
-name: "📌 Starred topics"
+name: 📌 Starred topics
 category: github
 description: |
   This plugin displays [starred topics](https://github.com/stars?filter=topics).
+
   Check out [GitHub topics](https://github.com/topics) to search interesting topics.
 examples:
   +with icons: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.topics.icons.svg
@@ -13,15 +14,17 @@ scopes: []
 inputs:
 
   plugin_topics:
-    description: Enable topics plugin
+    description: |
+      Enable topics plugin
     type: boolean
     default: no
 
   plugin_topics_mode:
     description: |
-      Display mode:
+      Display mode
+
       - `labels`: display labels
-      - `icons`: display icons *(topics without icons will be ignored)*
+      - `icons`: display icons *(topics without icons will not be displayed)*
       - `starred`: alias for `labels`
       - `mastered`: alias for `icons`
     type: string
@@ -34,11 +37,12 @@ inputs:
 
   plugin_topics_sort:
     description: |
-      Sorting method:
+      Sorting method
+
       - `stars`: sort by most stars
       - `activity`: sort by recent activity
-      - `starred`: sort by the date you starred them
-      - `random`: sort topics randomly
+      - `starred`: sort by starred date
+      - `random`: sort randomly
     type: string
     default: stars
     values:
@@ -50,8 +54,6 @@ inputs:
   plugin_topics_limit:
     description: |
       Display limit
-
-      When using `plugin_topics_mode: labels`, an ellipsis will be displayed
     type: number
     default: 15
     min: 0

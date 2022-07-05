@@ -1,7 +1,7 @@
-name: "🎼 Music plugin"
+name: 🎼 Music activity and suggestions
 category: social
 description: |
-  This plugin can display top and recently listened music tracks or from a random playlist.
+  This plugin can display top and recently listened music tracks or titles from a random playlist.
 
   Different music providers are supported.
 examples:
@@ -15,19 +15,21 @@ scopes: []
 inputs:
 
   plugin_music:
-    description: Enable music plugin
+    description: |
+      Enable music plugin
     type: boolean
     default: no
 
   plugin_music_provider:
     description: |
       Music provider
+
       - `apple`: Apple Music
       - `spotify`: Spotify
       - `lastfm`: Last.fm
       - `youtube`: YouTube Music
 
-      This setting is optional when using `plugin_music_mode: playlist` (provider will be auto-detected from `plugin_music_playlist` URL)
+      This setting is optional when using [`plugin_music_mode: playlist`](/source/plugins/music/README.md#plugin_music_mode) (provider will be auto-detected from [`plugin_music_playlist`](/source/plugins/music/README.md#plugin_music_playlist) URL)
     type: string
     default: ""
     values:
@@ -48,14 +50,22 @@ inputs:
     type: token
     default: ""
 
+  plugin_music_user:
+    description: |
+      Music provider username
+    type: string
+    default: .user.login
+    preset: no
+
   plugin_music_mode:
     description: |
       Display mode
+
       - `playlist`: display random tracks from an URL playlist
       - `recent`: display recently listened tracks
       - `top`: display top listened artists/tracks
 
-      If `plugin_music_playlist` is specifed, the default value is `playlist`, else it is `recent`
+      If [`plugin_music_playlist`](/source/plugins/music/README.md#plugin_music_playlist) is specifed, the default value is `playlist`, else it is `recent`
     type: string
     default: ""
     values:
@@ -74,20 +84,23 @@ inputs:
     preset: no
 
   plugin_music_limit:
-    description: Display limit
+    description: |
+      Display limit
     type: number
     default: 4
     min: 1
     max: 100
 
   plugin_music_played_at:
-    description: Recently played - Toggle last played timestamp display
+    description: |
+      Recently played - Last played timestamp
     type: boolean
     default: no
 
   plugin_music_time_range:
     description: |
-      Top tracks - Time range for `top` mode
+      Top tracks - Time range
+
       - `short`: 4 weeks
       - `medium`: 6 months
       - `long`: several years
@@ -101,6 +114,7 @@ inputs:
   plugin_music_top_type:
     description: |
       Top tracks - Display type
+
       - `tracks`: display track
       - `artists`: display artists
     type: string
@@ -108,9 +122,3 @@ inputs:
     values:
       - tracks
       - artists
-
-  plugin_music_user:
-    description: Music provider username
-    type: string
-    default: .user.login
-    preset: no

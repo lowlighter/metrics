@@ -1,7 +1,7 @@
-name: "♐ Code snippet of the day"
+name: ♐ Random code snippet
 category: github
 description: |
-  This plugin displays a random code snippet from your recent activity history.
+  This plugin displays a random code snippet from recent activity history.
 
   > ⚠️ When improperly configured, this plugin could display private code.
   > If you work with sensitive data or company code, it is advised to keep this plugin disabled.
@@ -17,24 +17,30 @@ scopes:
 inputs:
 
   plugin_code:
-    description: Enable code plugin
+    description: |
+      Enable code plugin
     type: boolean
     default: no
 
   plugin_code_lines:
-    description: Display limit for code snippets
+    description: |
+      Display limit (lines per code snippets)
     type: number
     default: 12
+    min: 1
+    max: 128
 
   plugin_code_load:
-    description: Events to load
+    description: |
+      Events to load
     type: number
     default: 400
     min: 100
     max: 1000
 
   plugin_code_days:
-    description: Events maximum age
+    description: |
+      Events maximum age
     type: number
     default: 3
     min: 0
@@ -45,7 +51,7 @@ inputs:
     description: |
       Events visibility
 
-      Lets you hide private activity when using a `repo` scope token
+      Can be used to toggle private activity visibility when using a token with `repo` scope
     type: string
     default: public
     values:
@@ -53,7 +59,8 @@ inputs:
       - all
 
   plugin_code_skipped:
-    description: Skipped repositories
+    description: |
+      Skipped repositories
     type: array
     format: comma-separated
     default: ""
@@ -61,7 +68,8 @@ inputs:
     inherits: repositories_skipped
 
   plugin_code_languages:
-    description: Restrict display to specific languages
+    description: |
+      Showcased languages
     type: array
     format: comma-separated
     default: ""

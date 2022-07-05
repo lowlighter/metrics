@@ -1,6 +1,7 @@
-name: "🎭 Comment reactions"
+name: 🎭 Comment reactions
 category: github
-description: This plugin displays overall reactions on your recent issues, comments and discussions.
+description: |
+  This plugin displays overall user reactions on recent issues, comments and discussions.
 examples:
   default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.reactions.svg
 index: 8
@@ -11,40 +12,46 @@ scopes:
 inputs:
 
   plugin_reactions:
-    description: Enable reactions plugin
+    description: |
+      Enable reactions plugin
     type: boolean
     default: no
 
   plugin_reactions_limit:
-    description: Display limit (issues and pull requests comments)
+    description: |
+      Display limit (issues and pull requests comments)
     type: number
     default: 200
     min: 0
     max: 1000
 
   plugin_reactions_limit_issues:
-    description: Display limit (issues and pull requests, first comment)
+    description: |
+      Display limit (issues and pull requests, first comment)
     type: number
     default: 100
     min: 0
     max: 1000
 
   plugin_reactions_limit_discussions:
-    description: Display limit (discussions, first comment)
+    description: |
+      Display limit (discussions, first comment)
     type: number
     default: 100
     min: 0
     max: 1000
 
   plugin_reactions_limit_discussions_comments:
-    description: Display limit (discussions comments)
+    description: |
+      Display limit (discussions comments)
     type: number
     default: 100
     min: 0
     max: 1000
 
   plugin_reactions_days:
-    description: Comments maximum age
+    description: |
+      Comments maximum age
     type: number
     default: 0
     min: 0
@@ -53,6 +60,7 @@ inputs:
   plugin_reactions_display:
     description: |
       Display mode
+
       - `absolute`: scale percentages using total reactions count
       - `relative`: scale percentages using highest reaction count
     type: string
@@ -62,7 +70,8 @@ inputs:
       - relative
 
   plugin_reactions_details:
-    description: Additional details
+    description: |
+      Additional details
     type: array
     format: comma-separated
     default: ""
@@ -75,7 +84,7 @@ inputs:
     description: |
       Ignored users
 
-      Useful to ignore bots activity
+      Can be used to ignore bots activity
     type: array
     format: comma-separated
     default: ""

@@ -1,4 +1,4 @@
-name: "🧱 Core"
+name: 🧱 Core
 category: core
 description: Global configuration and options
 supports:
@@ -12,11 +12,10 @@ inputs:
     description: |
       GitHub Personal Access Token
 
-      No scopes are required by default, though some plugins and features may require additional scopes
+      No scopes are required by default, though some plugins and features may require additional scopes.
 
-      When using a configuration which does not requires a GitHub PAT, you may pass `NOT_NEEDED` instead.
-      Note that when doing so, all defaults values using `.user.*` will not be applicable meaning that they need to be filled manually.
-      Most of the time `user` option must also be set.
+      When using a configuration which does not requires a GitHub PAT, it is possible to pass `NOT_NEEDED` instead.
+      When doing so, any settings which defaults on user fetched values will not be templated (e.g. `.user.*`) and will usually need to be set manually.
     type: token
     required: true
 
@@ -33,7 +32,7 @@ inputs:
     description: |
       GitHub repository
 
-      This option is revevalant only for repositories templates
+      This option is only revelant for repositories templates
     type: string
     default: ""
     preset: no
@@ -52,7 +51,7 @@ inputs:
     description: |
       Target branch
 
-      Default value is set to your repository default branch
+      Defaults to current repository default branch
     type: string
     default: ""
 
@@ -90,7 +89,8 @@ inputs:
     default: TEMPLATE.md
 
   markdown_cache:
-    description: Markdown file cache
+    description: |
+      Markdown file cache
     type: string
     default: .cache
 
@@ -153,7 +153,8 @@ inputs:
     type: array
     format: comma-separated
     default: ""
-    extras: yes
+    extras:
+      - metrics.run.setup.community.templates
 
   template:
     description: |
@@ -176,7 +177,6 @@ inputs:
     default: "{}"
 
   extras_css:
-    extras: yes
     description: |
       Extra CSS
 
@@ -184,9 +184,10 @@ inputs:
       Useful to avoid creating a new template just to tweak some styling
     type: string
     default: ""
+    extras:
+      - metrics.run.user.css
 
   extras_js:
-    extras: yes
     description: |
       Extra JavaScript
 
@@ -197,6 +198,8 @@ inputs:
       It is run after transformations and optimizations, but just before resizing.
     type: string
     default: ""
+    extras:
+      - metrics.run.user.js
 
   config_timezone:
     description: |
@@ -278,7 +281,8 @@ inputs:
     global: yes
 
   config_animations:
-    description: Use CSS animations
+    description: |
+      Use CSS animations
     type: boolean
     default: yes
     global: yes
@@ -336,7 +340,8 @@ inputs:
       - insights
 
   config_presets:
-    description: Configuration presets
+    description: |
+      Configuration presets
     type: array
     format: comma-separated
     default: ""
@@ -344,28 +349,32 @@ inputs:
     example: "@lunar-red"
 
   retries:
-    description: Retries in case of failures (for rendering)
+    description: |
+      Retries in case of failures (for rendering)
     type: number
     default: 3
     min: 1
     max: 10
 
   retries_delay:
-    description: Delay between each retry (in seconds, for rendering)
+    description: |
+      Delay between each retry (in seconds, for rendering)
     type: number
     default: 300
     min: 0
     max: 3600
 
   retries_output_action:
-    description: Retries in case of failures (for output action)
+    description: |
+      Retries in case of failures (for output action)
     type: number
     default: 5
     min: 1
     max: 10
 
   retries_delay_output_action:
-    description: Delay between each retry (in seconds, for output action)
+    description: |
+      Delay between each retry (in seconds, for output action)
     type: number
     default: 120
     min: 0
@@ -442,7 +451,8 @@ inputs:
     max: 30
 
   notice_releases:
-    description: Notice about new releases of metrics
+    description: |
+      Notice about new releases of metrics
     type: boolean
     default: yes
 
@@ -481,7 +491,8 @@ inputs:
     preset: no
 
   verify:
-    description: SVG validity check
+    description: |
+      SVG validity check
     type: boolean
     default: no
     testing: yes
@@ -504,7 +515,8 @@ inputs:
     preset: no
 
   debug_print:
-    description: Print output in console
+    description: |
+      Print output in console
     type: boolean
     default: no
     testing: yes
@@ -534,7 +546,8 @@ inputs:
     preset: no
 
   use_mocked_data:
-    description: Use mocked data instead of live APIs
+    description: |
+      Use mocked data instead of live APIs
     type: boolean
     default: no
     testing: yes

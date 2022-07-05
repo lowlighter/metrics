@@ -1,6 +1,7 @@
-name: "🧩 <%= `${name.charAt(0).toLocaleUpperCase()}${name.substring(1)}` %>"
+name: 🧩 <%= `${name.charAt(0).toLocaleUpperCase()}${name.substring(1)}` %>
 category: community
-description: Short description
+description: |
+  Short description
 examples:
   default: https://via.placeholder.com/468x60?text=No%20preview%20available
 authors:
@@ -13,6 +14,7 @@ scopes: []
 inputs:
 
   plugin_<%= name %>:
-    description: Enable <%= name %> plugin
+    description: |
+      Enable <%= name %> plugin
     type: boolean
     default: no

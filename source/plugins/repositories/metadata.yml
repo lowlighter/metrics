@@ -1,11 +1,11 @@
-name: "📓 Repositories"
+name: 📓 Featured repositories
 category: github
 description: |
   This plugin displays a list of chosen featured repositories.
 
-  It is mostly intended for images that will be used outside of GitHub, since it is already possible to [pin repositories](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/pinning-items-to-your-profile) on GitHub.
+  Since it is possible to [pin repositories](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/pinning-items-to-your-profile) on GitHub, this plugin is mostly intended for external usage.
 
-  > ⚠️ People will not be able to click on it due to limitations of using SVG inside `<img>` tags.
+  > ⚠️ Due to limitations of using SVG images inside `<img>` tags, clicking on a repository card will not redirect to repository page.
 examples:
   +featured: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.repositories.svg
   pinned: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.repositories.pinned.svg
@@ -18,24 +18,25 @@ scopes:
 inputs:
 
   plugin_repositories:
-    description: Enable repositories plugin
+    description: |
+      Enable repositories plugin
     type: boolean
     default: no
 
   plugin_repositories_featured:
     description: |
-      List of featured repositories
+      Featured repositories
 
-      If no owner is specified, it will implicitly use the current account login
+      Current [`user`](/source/plugins/core/README.md#user) will be used when no owner is specified
     type: array
     format: comma-separated
     default: ""
-    example: lowlighter/metrics
+    example: metrics, lowlighter/metrics
     preset: no
 
   plugin_repositories_pinned:
     description: |
-      Display pinned repositories
+      Pinned repositories
     type: number
     default: 0
     min: 0

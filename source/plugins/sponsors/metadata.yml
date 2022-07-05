@@ -1,6 +1,7 @@
-name: "💕 GitHub Sponsors"
+name: 💕 GitHub Sponsors
 category: github
-description: This plugin displays sponsors and introduction text from [GitHub sponsors](https://github.com/sponsors/).
+description: |
+  This plugin displays sponsors and introduction text from [GitHub sponsors](https://github.com/sponsors/).
 examples:
   +GitHub sponsors card: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.sponsors.svg
   GitHub sponsors full introduction: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.sponsors.full.svg
@@ -15,13 +16,15 @@ scopes:
 inputs:
 
   plugin_sponsors:
-    description: Enable sponsors plugin
+    description: |
+      Enable sponsors plugin
     type: boolean
     default: no
 
   plugin_sponsors_sections:
     description: |
       Displayed sections
+
       - `goal`: display GitHub active goal
       - `about`: display GitHub sponsors introduction
       - `list`: display GitHub sponsors list
@@ -36,16 +39,17 @@ inputs:
 
   plugin_sponsors_past:
     description: |
-      Display past sponsorships
+      Past sponsorships
 
-      This feature requires a token from target account, as past sponsorships are gathered from sponsors activity and is private data.
+      A [`token`](/source/plugins/core/README.md#token) from target [`user`](/source/plugins/core/README.md#user) must be specified to use this feature, as past sponsorships are gathered from sponsors activity which is private data.
 
-      > ⚠️ Past sponsorships does not respect sponsors privacy because of current GitHub API limitations. This may be fixed in future releases.
+      > ⚠️ Past sponsorships does not respect sponsors privacy because of current GitHub API limitations. This may be fixed in a future release.
     type: boolean
     default: no
 
   plugin_sponsors_size:
-    description: Profile picture display size
+    description: |
+      Profile picture display size
     type: number
     default: 24
     min: 8

@@ -1,6 +1,7 @@
-name: "🏅 Repository contributors"
+name: 🏅 Repository contributors
 category: github
-description: This plugin display repositories contributors from a commit range along with additional stats.
+description: |
+  This plugin display repositories contributors from a commit range along with additional stats.
 examples:
   +by contribution types: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.contributors.categories.svg
   by number of contributions: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.contributors.contributions.svg
@@ -12,18 +13,25 @@ scopes:
 inputs:
 
   plugin_contributors:
-    description: Enable contributors plugin
+    description: |
+      Enable contributors plugin
     type: boolean
     default: no
 
   plugin_contributors_base:
-    description: Base reference (commit, tag, branch, etc.)
+    description: |
+      Base reference
+
+      Can be a commit, tag, branch, etc.
     type: string
     default: ""
     example: commit, tag or branch
 
   plugin_contributors_head:
-    description: Head reference (commit, tag, branch, etc.)
+    description: |
+      Head reference
+
+      Can be a commit, tag, branch, etc.
     type: string
     default: master
 
@@ -31,22 +39,24 @@ inputs:
     description: |
       Ignored users
 
-      Useful to ignore bots activity
+      Can be used to ignore bots activity
     type: array
     format: comma-separated
     default: ""
     inherits: users_ignored
 
   plugin_contributors_contributions:
-    description: Toggle number of contributions display
+    description: |
+      Contributions count
     type: boolean
     default: no
 
   plugin_contributors_sections:
     description: |
       Displayed sections
+
       - `contributors`: all contributors
-      - `categories`: contributors sorted by contributions categories
+      - `categories`: contributors sorted by contributions categories (must be configured with `plugin_contributors_categories`)
     type: array
     format: comma-separated
     default: contributors
@@ -57,9 +67,9 @@ inputs:
 
   plugin_contributors_categories:
     description: |
-      Configure contribution categories
+      Contribution categories
 
-      This option required `plugin_contributors_sections` to have `categories` in it to be effective
+      This option requires [`plugin_contributors_sections`](/source/plugins/contributors/README.md#plugin_contributors_sections) to have `categories` in it to be effective.
       Pass a JSON object mapping category with fileglobs
     type: json
     default: |
@@ -68,4 +78,6 @@ inputs:
         "💻 Code": ["source/**", "src/**"],
         "#️⃣ Others": ["*"]
       }
-    extras: yes
+    extras:
+      - metrics.runner.tempdir
+      - metrics.runner.git

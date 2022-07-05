@@ -99,9 +99,10 @@ Plugins are auto-loaded based on their folder existence, so there's no need to r
 
 The default file looks like below:
 ```yaml
-name: "🧩 Plugin name"
+name: 🧩 Plugin name
 category: community
-description: Short description
+description: |
+  Short description
 examples:
   default: https://via.placeholder.com/468x60?text=No%20preview%20available
 authors:
@@ -114,7 +115,8 @@ scopes: []
 inputs:
 
   plugin_{name}:
-    description: Enable {name} plugin
+    description: |
+      Enable {name} plugin
     type: boolean
     default: no
 ```
@@ -134,14 +136,16 @@ Because of GitHub Actions original limitations, only strings, numbers and boolea
 *Example: boolean type, defaults to `false`*
 ```yml
   plugin_{name}_{option}:
-    description: Boolean type
+    description: |
+      Boolean type
     type: boolean
     default: no
 ```
 
 ```yml
   plugin_{name}_{option}:
-    description: String type
+    description: |
+      String type
     type: string
     default: .user.login
 ```
@@ -151,7 +155,8 @@ Because of GitHub Actions original limitations, only strings, numbers and boolea
 *Example: string type, defaults to `foo` with `foo` or `bar` as allowed values*
 ```yml
   plugin_{name}_{option}:
-    description: Select type
+    description: |
+      Select type
     type: string
     values:
       - foo
@@ -164,7 +169,8 @@ Because of GitHub Actions original limitations, only strings, numbers and boolea
 *Example: number type, defaults to `1` and expected to be between `0` and `100`*
 ```yml
   plugin_{name}_{option}:
-    description: Number type
+    description: |
+      Number type
     type: number
     default: 1
     min: 0
@@ -178,7 +184,8 @@ Because of GitHub Actions original limitations, only strings, numbers and boolea
 *Example: array type, with comma-separated elements*
 ```yml
   plugin_{name}_{option}:
-    description: Array type
+    description: |
+      Array type
     type: array
     format: comma-separated
     values:
@@ -192,7 +199,8 @@ Because of GitHub Actions original limitations, only strings, numbers and boolea
 *Example: json type*
 ```yml
   plugin_{name}_{option}:
-    description: JSON type
+    description: |
+      JSON type
     type: json
     default: |
       {

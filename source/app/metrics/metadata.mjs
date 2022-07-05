@@ -212,6 +212,38 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
       Object.assign(meta.inputs, inputs, Object.fromEntries(Object.entries(inputs).map(([key, value]) => [metadata.to.query(key, {name}), value])))
     }
 
+    //Extra features parser
+    {
+      meta.extras = function(input, {extras = {}}) {
+        //Required permissions
+        const required = inputs[metadata.to.yaml(input, {name})]?.extras ?? null
+        if (!required)
+          return true
+        console.debug(`metrics/extras > ${name} > ${input} > require [${required}]`)
+
+        //Legacy handling
+        const enabled = extras?.features ?? extras?.default ?? false
+        if (typeof enabled === "boolean") {
+          console.debug(`metrics/extras > ${name} > ${input} > extras features is set to ${enabled}`)
+          return enabled
+        }
+        if (!Array.isArray(required)) {
+          console.debug(`metrics/extras > ${name} > ${input} > extras is not a permission array, skipping`)
+          return false
+        }
+
+        //Check permissions
+        if (!Array.isArray(extras.features))
+          throw new Error(`metrics/extras > ${name} > ${input} > extras.features is not an array`)
+        const missing = required.filter(permission => !extras.features.includes(permission))
+        if (missing.length > 0) {
+          console.debug(`metrics/extras > ${name} > ${input} > missing permissions [${missing}], skipping`)
+          return false
+        }
+        return true
+      }
+    }
+
     //Action metadata
     {
       //Extract comments
@@ -538,6 +570,12 @@ metadata.to = {
     key = key.replace(/^plugin_/, "").replace(/_/g, ".")
     return name ? key.replace(new RegExp(`^(${name}.)`, "g"), "") : key
   },
+  yaml(key, {name = ""} = {}) {
+    const parts = [key.replaceAll(".", "_")]
+    if (name)
+      parts.unshift((name === "base") ? name : `plugin_${name}`)
+    return parts.join("_")
+  }
 }
 
 //Demo for main and individual readmes
