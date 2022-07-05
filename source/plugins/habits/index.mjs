@@ -97,7 +97,7 @@ export default async function({login, data, rest, imports, q, account}, {enabled
     }
 
     //Linguist
-    if ((extras) && (charts)) {
+    if (((imports.metadata.plugins.habits.extras("charts", {extras}))) && (charts)) {
       //Check if linguist exists
       console.debug(`metrics/compute/${login}/plugins > habits > searching recently used languages using linguist`)
       if (patches.length) {
@@ -113,7 +113,7 @@ export default async function({login, data, rest, imports, q, account}, {enabled
     }
 
     //Generating charts with chartist
-    if (_charts === "chartist") {
+    if ((imports.metadata.plugins.habits.extras("charts.type", {extras}))&&(_charts === "chartist")) {
       console.debug(`metrics/compute/${login}/plugins > habits > generating charts`)
       habits.charts = await Promise.all([
         {type: "line", data: {...empty(24), ...Object.fromEntries(Object.entries(habits.commits.hours).filter(([k]) => !Number.isNaN(+k)))}, low: 0, high: habits.commits.hours.max},

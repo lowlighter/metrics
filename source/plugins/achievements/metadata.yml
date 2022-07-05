@@ -18,6 +18,8 @@ inputs:
       Enable achievements plugin
     type: boolean
     default: no
+    extras:
+      - metrics.run.puppeteer.scraping
 
   plugin_achievements_threshold:
     description: |

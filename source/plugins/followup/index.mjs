@@ -57,7 +57,7 @@ export default async function({login, data, computed, imports, q, graphql, queri
     }
 
     //Extras features
-    if (extras) {
+    if (imports.metadata.plugins.followup.extras("indepth", {extras})) {
       //Indepth mode
       if (indepth) {
         console.debug(`metrics/compute/${login}/plugins > followup > indepth`)

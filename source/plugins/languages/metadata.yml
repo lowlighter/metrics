@@ -113,7 +113,7 @@ inputs:
     type: boolean
     default: false
     extras:
-      - metrics.api.github.overuse
+      - metrics.cpu.overuse
       - metrics.run.tempdir
       - metrics.run.git
 
@@ -124,10 +124,6 @@ inputs:
     default: 15
     min: 1
     max: 30
-    extras:
-      - metrics.api.github.overuse
-      - metrics.run.tempdir
-      - metrics.run.git
 
   plugin_languages_categories:
     description: |
@@ -140,10 +136,6 @@ inputs:
       - programming
       - prose
     default: markup, programming
-    extras:
-      - metrics.api.github.overuse
-      - metrics.run.tempdir
-      - metrics.run.git
 
   plugin_languages_recent_categories:
     description: |
@@ -156,10 +148,6 @@ inputs:
       - programming
       - prose
     default: markup, programming
-    extras:
-      - metrics.api.github.overuse
-      - metrics.run.tempdir
-      - metrics.run.git
 
   plugin_languages_recent_load:
     description: |
@@ -168,10 +156,6 @@ inputs:
     default: 300
     min: 100
     max: 1000
-    extras:
-      - metrics.api.github.overuse
-      - metrics.run.tempdir
-      - metrics.run.git
 
   plugin_languages_recent_days:
     description: |
@@ -181,7 +165,3 @@ inputs:
     min: 0
     max: 365
     zero: disable
-    extras:
-      - metrics.api.github.overuse
-      - metrics.run.tempdir
-      - metrics.run.git

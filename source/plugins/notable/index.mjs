@@ -33,7 +33,7 @@ export default async function({login, q, imports, rest, graphql, data, account, 
     console.debug(`metrics/compute/${login}/plugins > notable > found ${contributions.length} notable contributions`)
 
     //Extras features
-    if (extras) {
+    if (imports.metadata.plugins.notable.extras("indepth", {extras})) {
       //Indepth
       if (indepth) {
         console.debug(`metrics/compute/${login}/plugins > notable > indepth`)

@@ -576,7 +576,9 @@ metadata.to = {
     return name ? key.replace(new RegExp(`^(${name}.)`, "g"), "") : key
   },
   yaml(key, {name = ""} = {}) {
-    const parts = [key.replaceAll(".", "_")]
+    const parts = []
+    if (key !== "enabled")
+      parts.unshift(key.replaceAll(".", "_"))
     if (name)
       parts.unshift((name === "base") ? name : `plugin_${name}`)
     return parts.join("_")

@@ -70,7 +70,7 @@ export default async function({login, q, imports, data, rest, graphql, queries, 
 
     //Contributions categories
     const types = Object.fromEntries([...new Set(Object.keys(categories))].map(type => [type, new Set()]))
-    if ((sections.includes("categories")) && (extras)) {
+    if ((sections.includes("categories")) && (imports.metadata.plugins.contributors.extras("categories", {extras}))) {
       //Temporary directory
       const repository = `${repo.owner}/${repo.repo}`
       const path = imports.paths.join(imports.os.tmpdir(), `${repository.replace(/[^\w]/g, "_")}`)

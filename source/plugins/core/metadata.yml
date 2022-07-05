@@ -154,7 +154,7 @@ inputs:
     format: comma-separated
     default: ""
     extras:
-      - metrics.run.setup.community.templates
+      - metrics.setup.community.templates
 
   template:
     description: |
@@ -497,6 +497,8 @@ inputs:
     default: no
     testing: yes
     preset: no
+    extras:
+      - metrics.npm.optional.libxml2
 
   debug_flags:
     description: |

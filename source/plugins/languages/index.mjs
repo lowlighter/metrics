@@ -64,7 +64,7 @@ export default async function({login, data, imports, q, rest, account}, {enabled
     }
 
     //Extras features
-    if (extras) {
+    if (imports.metadata.plugins.languages.extras("indepth", {extras})) {
       //Recently used languages
       if ((sections.includes("recently-used")) && (context.mode === "user")) {
         try {

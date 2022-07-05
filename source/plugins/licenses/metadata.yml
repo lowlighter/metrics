@@ -18,6 +18,7 @@ inputs:
     type: boolean
     default: no
     extras:
+      - metrics.cpu.overuse
       - metrics.run.tempdir
       - metrics.run.git
       - metrics.run.licensed

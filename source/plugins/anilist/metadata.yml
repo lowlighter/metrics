@@ -18,6 +18,8 @@ inputs:
       Enable aniList plugin
     type: boolean
     default: no
+    extras:
+      - metrics.run.puppeteer.scraping
 
   plugin_anilist_user:
     type: string

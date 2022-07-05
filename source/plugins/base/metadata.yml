@@ -49,7 +49,6 @@ inputs:
     default: no
     extras:
       - metrics.api.github.overuse
-      - plugins.base.indepth
 
   base_hireable:
     description: |

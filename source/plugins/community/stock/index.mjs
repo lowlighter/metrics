@@ -1,9 +1,9 @@
 //Setup
-export default async function({login, q, imports, data, account}, {enabled = false, token} = {}) {
+export default async function({login, q, imports, data, account}, {enabled = false, extras = false, token} = {}) {
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
-    if ((!enabled) || (!q.stock))
+    if ((!enabled) || (!imports.metadata.plugins.stock.extras("enabled", {extras})) || (!q.stock))
       return null
 
     //Load inputs
