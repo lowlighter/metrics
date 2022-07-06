@@ -1,9 +1,9 @@
 //Setup
-export default async function({login, graphql, data, imports, q, queries, account}, {enabled = false} = {}) {
+export default async function({login, graphql, data, imports, q, queries, account}, {enabled = false, extras = false} = {}) {
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
-    if ((!enabled) || (!q.stargazers))
+    if ((!enabled) || (!q.stargazers) || (!imports.metadata.plugins.stargazers.extras("enabled", {extras})))
       return null
 
     //Load inputs
@@ -59,7 +59,7 @@ export default async function({login, graphql, data, imports, q, queries, accoun
 
     //Generating charts
     let charts = null
-    if (_charts === "chartist") {
+    if ((_charts === "chartist")&&(imports.metadata.plugins.stargazers.extras("charts.type", {extras}))) {
       console.debug(`metrics/compute/${login}/plugins > stargazers > generating charts`)
       charts = await Promise.all([{data: total, low: total.min, high: total.max}, {data: increments, ref: 0, low: increments.min, high: increments.max, sign: true}].map(({data: {dates: set}, high, low, ref, sign = false}) =>
         imports.chartist("line", {
@@ -100,6 +100,6 @@ export default async function({login, graphql, data, imports, q, queries, accoun
   }
   //Handle errors
   catch (error) {
-    throw {error: {message: "An error occured", instance: error}}
+    throw imports.format.error(error)
   }
 }

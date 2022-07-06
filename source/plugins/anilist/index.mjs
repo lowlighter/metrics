@@ -1,9 +1,9 @@
 //Setup
-export default async function({login, data, queries, imports, q, account}, {enabled = false} = {}) {
+export default async function({login, data, queries, imports, q, account}, {enabled = false, extras = false} = {}) {
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
-    if ((!enabled) || (!q.anilist))
+    if ((!enabled) || (!q.anilist) || (!imports.metadata.plugins.anilist.extras("enabled", {extras})))
       return null
 
     //Load inputs
@@ -122,14 +122,7 @@ export default async function({login, data, queries, imports, q, account}, {enab
   }
   //Handle errors
   catch (error) {
-    let message = "An error occured"
-    if (error.isAxiosError) {
-      const status = error.response?.status
-      console.debug(error.response.data)
-      message = `API returned ${status}`
-      error = error.response?.data ?? null
-    }
-    throw {error: {message, instance: error}}
+    throw imports.format.error(error)
   }
 }
 

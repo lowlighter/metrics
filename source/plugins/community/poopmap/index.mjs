@@ -1,9 +1,9 @@
 //Setup
-export default async function({q, imports, data, account}, {enabled = false, token = ""} = {}) {
+export default async function({q, imports, data, account}, {enabled = false, token = "", extras = false} = {}) {
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
-    if ((!enabled) || (!q.poopmap))
+    if ((!enabled) || (!q.poopmap) || (!imports.metadata.plugins.poopmap.extras("enabled", {extras})))
       return null
 
     if (!token)
@@ -32,6 +32,6 @@ export default async function({q, imports, data, account}, {enabled = false, tok
   }
   //Handle errors
   catch (error) {
-    throw {error: {message: "An error occured", instance: error}}
+    throw imports.format.error(error)
   }
 }

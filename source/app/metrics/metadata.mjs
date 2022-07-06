@@ -111,7 +111,7 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
         if (account !== "bypass") {
           const context = q.repo ? "repository" : account
           if (!meta.supports?.includes(context))
-            throw {error: {message: `Not supported for: ${context}`, instance: new Error()}}
+            throw {error: {message: `Unsupported context ${context}`, instance: new Error()}}
         }
         //Special values replacer
         const replacer = value => {
@@ -214,33 +214,59 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
 
     //Extra features parser
     {
-      meta.extras = function(input, {extras = {}}) {
-        //Required permissions
-        const required = inputs[metadata.to.yaml(input, {name})]?.extras ?? null
-        if (!required)
+      meta.extras = function(input, {extras = {}, error = true}) {
+        const key = metadata.to.yaml(input, {name})
+        try {
+          //Required permissions
+          const required = inputs[key]?.extras ?? null
+          if (!required)
+            return true
+          console.debug(`metrics/extras > ${name} > ${key} > require [${required}]`)
+
+          //Legacy handling
+          const enabled = extras?.features ?? extras?.default ?? false
+          if (typeof enabled === "boolean") {
+            console.debug(`metrics/extras > ${name} > ${key} > extras features is set to ${enabled}`)
+            if (!enabled)
+              throw new Error()
+            return enabled
+          }
+          if (!Array.isArray(required)) {
+            console.debug(`metrics/extras > ${name} > ${key} > extras is not a permission array, skipping`)
+            return false
+          }
+
+          //Legacy options handling
+          if (!Array.isArray(extras.features))
+            throw new Error(`metrics/extras > ${name} > ${key} > extras.features is not an array`)
+          if (extras.css) {
+            console.warn(`metrics/extras > ${name} > ${key} > extras.css is deprecated, use extras.features with "metrics.run.puppeteer.user.css" instead`)
+            extras.features.push("metrics.run.puppeteer.user.css")
+          }
+          if (extras.js) {
+            console.warn(`metrics/extras > ${name} > ${key} > extras.js is deprecated, use extras.features with "metrics.run.puppeteer.user.js" instead`)
+            extras.features.push("metrics.run.puppeteer.user.js")
+          }
+          if (extras.presets) {
+            console.warn(`metrics/extras > ${name} > ${key} > extras.presets is deprecated, use extras.features with "metrics.setup.community.presets" instead`)
+            extras.features.push("metrics.setup.community.presets")
+          }
+
+          //Check permissions
+          const missing = required.filter(permission => !extras.features.includes(permission))
+          if (missing.length > 0) {
+            console.debug(`metrics/extras > ${name} > ${key} > missing permissions [${missing}]`)
+            throw new Error()
+          }
           return true
-        console.debug(`metrics/extras > ${name} > ${input} > require [${required}]`)
-
-        //Legacy handling
-        const enabled = extras?.features ?? extras?.default ?? false
-        if (typeof enabled === "boolean") {
-          console.debug(`metrics/extras > ${name} > ${input} > extras features is set to ${enabled}`)
-          return enabled
         }
-        if (!Array.isArray(required)) {
-          console.debug(`metrics/extras > ${name} > ${input} > extras is not a permission array, skipping`)
-          return false
+        catch {
+          if (!error) {
+            console.debug(`metrics/extras > ${name} > ${key} > skipping (no error mode)`)
+            return false
+          }
+          throw Object.assign(new Error(`Unsupported option "${key}"`), {extras:true})
         }
-
-        //Check permissions
-        if (!Array.isArray(extras.features))
-          throw new Error(`metrics/extras > ${name} > ${input} > extras.features is not an array`)
-        const missing = required.filter(permission => !extras.features.includes(permission))
-        if (missing.length > 0) {
-          console.debug(`metrics/extras > ${name} > ${input} > missing permissions [${missing}], skipping`)
-          return false
-        }
-        return true
       }
     }
 
@@ -576,7 +602,9 @@ metadata.to = {
     return name ? key.replace(new RegExp(`^(${name}.)`, "g"), "") : key
   },
   yaml(key, {name = ""} = {}) {
-    const parts = [key.replaceAll(".", "_")]
+    const parts = []
+    if (key !== "enabled")
+      parts.unshift(key.replaceAll(".", "_"))
     if (name)
       parts.unshift((name === "base") ? name : `plugin_${name}`)
     return parts.join("_")

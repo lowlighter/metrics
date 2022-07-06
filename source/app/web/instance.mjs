@@ -130,15 +130,12 @@ export default async function({sandbox = false} = {}) {
   app.get("/.templates/:template", limiter, (req, res) => req.params.template in conf.templates ? res.status(200).json(conf.templates[req.params.template]) : res.sendStatus(404))
   for (const template in conf.templates)
     app.use(`/.templates/${template}/partials`, express.static(`${conf.paths.templates}/${template}/partials`))
-  //Placeholders
-  app.use("/.placeholders", express.static(`${conf.paths.statics}/placeholders`))
   //Styles
   app.get("/.css/style.css", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/style.css`))
   app.get("/.css/style.vars.css", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/style.vars.css`))
   app.get("/.css/style.prism.css", limiter, (req, res) => res.sendFile(`${conf.paths.node_modules}/prismjs/themes/prism-tomorrow.css`))
   //Scripts
   app.get("/.js/app.js", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/app.js`))
-  app.get("/.js/app.placeholder.js", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/app.placeholder.js`))
   app.get("/.js/ejs.min.js", limiter, (req, res) => res.sendFile(`${conf.paths.node_modules}/ejs/ejs.min.js`))
   app.get("/.js/faker.min.js", limiter, (req, res) => res.set({"Content-Type": "text/javascript"}).send("import {faker} from '/.js/faker/index.mjs';globalThis.faker=faker;globalThis.placeholder.init(globalThis)"))
   app.use("/.js/faker", express.static(`${conf.paths.node_modules}/@faker-js/faker/dist/esm`))
@@ -176,217 +173,258 @@ export default async function({sandbox = false} = {}) {
   //Pending requests
   const pending = new Map()
 
-  //About routes
-  app.use("/about/.statics/", express.static(`${conf.paths.statics}/about`))
-  app.get("/about/", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/about/index.html`))
-  app.get("/about/index.html", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/about/index.html`))
-  app.get("/about/:login", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/about/index.html`))
-  app.get("/about/query/:login/:plugin/", async (req, res) => {
-    //Check username
-    const login = req.params.login?.replace(/[\n\r]/g, "")
-    if (!/^[-\w]+$/i.test(login)) {
-      console.debug(`metrics/app/${login}/insights > 400 (invalid username)`)
-      return res.status(400).send("Bad request: username seems invalid")
-    }
-    //Check plugin
-    const plugin = req.params.plugin?.replace(/[\n\r]/g, "")
-    if (!/^\w+$/i.test(plugin)) {
-      console.debug(`metrics/app/${login}/insights > 400 (invalid plugin name)`)
-      return res.status(400).send("Bad request: plugin name seems invalid")
-    }
-    if (cache.get(`about.${login}.${plugin}`))
-      return res.send(cache.get(`about.${login}.${plugin}`))
-    return res.status(204).send("No content: no data fetched yet")
-  })
-  app.get("/about/query/:login/", ...middlewares, async (req, res) => {
-    //Check username
-    const login = req.params.login?.replace(/[\n\r]/g, "")
-    if (!/^[-\w]+$/i.test(login)) {
-      console.debug(`metrics/app/${login}/insights > 400 (invalid username)`)
-      return res.status(400).send("Bad request: username seems invalid")
-    }
-    //Compute metrics
-    let solve = null
-    try {
-      //Prevent multiples requests
-      if ((!debug) && (!mock) && (pending.has(`about.${login}`))) {
-        console.debug(`metrics/app/${login}/insights > awaiting pending request`)
-        await pending.get(`about.${login}`)
+  //Metrics insights
+  if (conf.settings.modes.includes("insights")) {
+    console.debug("metrics/app > setup insights mode")
+    //Legacy routes
+    app.get("/about/*", (req, res) => res.redirect(req.path.replace("/about/", "/insights/")))
+    //Static routes
+    app.get("/insights/", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/insights/index.html`))
+    app.get("/insights/index.html", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/insights/index.html`))
+    app.use("/insights/.statics/", express.static(`${conf.paths.statics}/insights`))
+    //App routes
+    app.get("/insights/:login", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/insights/index.html`))
+    app.get("/insights/query/:login/:plugin/", async (req, res) => {
+      //Check username
+      const login = req.params.login?.replace(/[\n\r]/g, "")
+      if (!/^[-\w]+$/i.test(login)) {
+        console.debug(`metrics/app/${login}/insights > 400 (invalid username)`)
+        return res.status(400).send("Bad request: username seems invalid")
       }
-      else {
-        pending.set(`about.${login}`, new Promise(_solve => solve = _solve))
+      //Check plugin
+      const plugin = req.params.plugin?.replace(/[\n\r]/g, "")
+      if (!/^\w+$/i.test(plugin)) {
+        console.debug(`metrics/app/${login}/insights > 400 (invalid plugin name)`)
+        return res.status(400).send("Bad request: plugin name seems invalid")
       }
-      //Read cached data if possible
-      if ((!debug) && (cached) && (cache.get(`about.${login}`))) {
-        console.debug(`metrics/app/${login}/insights > using cached results`)
-        return res.send(cache.get(`about.${login}`))
+      if (cache.get(`insights.${login}.${plugin}`))
+        return res.send(cache.get(`insights.${login}.${plugin}`))
+      return res.status(204).send("No content: no data fetched yet")
+    })
+    app.get("/insights/query/:login/", ...middlewares, async (req, res) => {
+      //Check username
+      const login = req.params.login?.replace(/[\n\r]/g, "")
+      if (!/^[-\w]+$/i.test(login)) {
+        console.debug(`metrics/app/${login}/insights > 400 (invalid username)`)
+        return res.status(400).send("Bad request: username seems invalid")
       }
       //Compute metrics
-      console.debug(`metrics/app/${login}/insights > compute insights`)
-      const callbacks = {
-        async plugin(login, plugin, success, result) {
-          console.debug(`metrics/app/${login}/insights/plugins > ${plugin} > ${success ? "success" : "failure"}`)
-          cache.put(`about.${login}.${plugin}`, result)
-        },
-      }
-      ;(async () => {
-        try {
-          const json = await metrics.insights({login}, {graphql, rest, conf, callbacks}, {Plugins, Templates})
-          //Cache
-          cache.put(`about.${login}`, json)
-          if ((!debug) && (cached)) {
-            const maxage = Math.round(Number(req.query.cache))
-            cache.put(`about.${login}`, json, maxage > 0 ? maxage : cached)
+      let solve = null
+      try {
+        //Prevent multiples requests
+        if ((!debug) && (!mock) && (pending.has(`insights.${login}`))) {
+          console.debug(`metrics/app/${login}/insights > awaiting pending request`)
+          await pending.get(`insights.${login}`)
+        }
+        else {
+          pending.set(`insights.${login}`, new Promise(_solve => solve = _solve))
+        }
+        //Read cached data if possible
+        if ((!debug) && (cached) && (cache.get(`insights.${login}`))) {
+          console.debug(`metrics/app/${login}/insights > using cached results`)
+          return res.send(cache.get(`insights.${login}`))
+        }
+        //Compute metrics
+        console.debug(`metrics/app/${login}/insights > compute insights`)
+        const callbacks = {
+          async plugin(login, plugin, success, result) {
+            console.debug(`metrics/app/${login}/insights/plugins > ${plugin} > ${success ? "success" : "failure"}`)
+            cache.put(`insights.${login}.${plugin}`, result)
+          },
+        }
+        ;(async () => {
+          try {
+            const json = await metrics.insights({login}, {graphql, rest, conf, callbacks}, {Plugins, Templates})
+            //Cache
+            cache.put(`insights.${login}`, json)
+            if ((!debug) && (cached)) {
+              const maxage = Math.round(Number(req.query.cache))
+              cache.put(`insights.${login}`, json, maxage > 0 ? maxage : cached)
+            }
           }
+          catch (error) {
+            console.error(`metrics/app/${login}/insights > error > ${error}`)
+          }
+        })()
+        console.debug(`metrics/app/${login}/insights > accepted request`)
+        return res.status(202).json({processing: true, plugins: Object.keys(metrics.insights.plugins)})
+      }
+      //Internal error
+      catch (error) {
+        //Not found user
+        if ((error instanceof Error) && (/^user not found$/.test(error.message))) {
+          console.debug(`metrics/app/${login} > 404 (user/organization not found)`)
+          return res.status(404).send("Not found: unknown user or organization")
         }
-        catch (error) {
-          console.error(`metrics/app/${login}/insights > error > ${error}`)
+        //GitHub failed request
+        if ((error instanceof Error) && (/this may be the result of a timeout, or it could be a GitHub bug/i.test(error.errors?.[0]?.message))) {
+          console.debug(`metrics/app/${login} > 502 (bad gateway from GitHub)`)
+          const request = encodeURIComponent(error.errors[0].message.match(/`(?<request>[\w:]+)`/)?.groups?.request ?? "").replace(/%3A/g, ":")
+          return res.status(500).send(`Internal Server Error: failed to execute request ${request} (this may be the result of a timeout, or it could be a GitHub bug)`)
         }
-      })()
-      console.debug(`metrics/app/${login}/insights > accepted request`)
-      return res.status(202).json({processing: true, plugins: Object.keys(metrics.insights.plugins)})
-    }
-    //Internal error
-    catch (error) {
-      //Not found user
-      if ((error instanceof Error) && (/^user not found$/.test(error.message))) {
-        console.debug(`metrics/app/${login} > 404 (user/organization not found)`)
-        return res.status(404).send("Not found: unknown user or organization")
+        //General error
+        console.error(error)
+        return res.status(500).send("Internal Server Error: failed to process metrics correctly")
       }
-      //GitHub failed request
-      if ((error instanceof Error) && (/this may be the result of a timeout, or it could be a GitHub bug/i.test(error.errors?.[0]?.message))) {
-        console.debug(`metrics/app/${login} > 502 (bad gateway from GitHub)`)
-        const request = encodeURIComponent(error.errors[0].message.match(/`(?<request>[\w:]+)`/)?.groups?.request ?? "").replace(/%3A/g, ":")
-        return res.status(500).send(`Internal Server Error: failed to execute request ${request} (this may be the result of a timeout, or it could be a GitHub bug)`)
+      finally {
+        solve?.()
+        _requests_refresh = true
       }
-      //General error
-      console.error(error)
-      return res.status(500).send("Internal Server Error: failed to process metrics correctly")
-    }
-    finally {
-      solve?.()
-      _requests_refresh = true
-    }
-  })
+    })
+  }
+  else {
+    app.get("/about/*", (req, res) => res.redirect(req.path.replace("/about/", "/insights/")))
+    app.get("/insights/*", (req, res) => res.status(405).send("Method not allowed: this endpoint is not available"))
+  }
 
-  //Metrics
-  app.get("/:login/:repository?", ...middlewares, async (req, res) => {
-    //Request params
-    const login = req.params.login?.replace(/[\n\r]/g, "")
-    const repository = req.params.repository?.replace(/[\n\r]/g, "")
-    let solve = null
-    //Check username
-    if (!/^[-\w]+$/i.test(login)) {
-      console.debug(`metrics/app/${login} > 400 (invalid username)`)
-      return res.status(400).send("Bad request: username seems invalid")
-    }
-    //Allowed list check
-    if ((restricted.length) && (!restricted.includes(login))) {
-      console.debug(`metrics/app/${login} > 403 (not in allowed users)`)
-      return res.status(403).send("Forbidden: username not in allowed list")
-    }
-    //Prevent multiples requests
-    if ((!debug) && (!mock) && (pending.has(login))) {
-      console.debug(`metrics/app/${login} > awaiting pending request`)
-      await pending.get(login)
-    }
-    else {
-      pending.set(login, new Promise(_solve => solve = _solve))
-    }
+  //Metrics embed
+  if (conf.settings.modes.includes("embed")) {
+    console.debug("metrics/app > setup embed mode")
+    //Static routes
+    app.get("/embed/", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/embed/index.html`))
+    app.get("/embed/index.html", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/embed/index.html`))
+    app.use("/.placeholders", express.static(`${conf.paths.statics}/embed/placeholders`))
+    app.get("/.js/embed/app.js", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/embed/app.js`))
+    app.get("/.js/embed/app.placeholder.js", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/embed/app.placeholder.js`))
+    //App routes
+    app.get("/:login/:repository?", ...middlewares, async (req, res) => {
+      //Request params
+      const login = req.params.login?.replace(/[\n\r]/g, "")
+      const repository = req.params.repository?.replace(/[\n\r]/g, "")
+      let solve = null
+      //Check username
+      if (!/^[-\w]+$/i.test(login)) {
+        console.debug(`metrics/app/${login} > 400 (invalid username)`)
+        return res.status(400).send("Bad request: username seems invalid")
+      }
+      //Allowed list check
+      if ((restricted.length) && (!restricted.includes(login))) {
+        console.debug(`metrics/app/${login} > 403 (not in allowed users)`)
+        return res.status(403).send("Forbidden: username not in allowed list")
+      }
+      //Prevent multiples requests
+      if ((!debug) && (!mock) && (pending.has(login))) {
+        console.debug(`metrics/app/${login} > awaiting pending request`)
+        await pending.get(login)
+      }
+      else {
+        pending.set(login, new Promise(_solve => solve = _solve))
+      }
 
-    //Read cached data if possible
-    if ((!debug) && (cached) && (cache.get(login))) {
-      console.debug(`metrics/app/${login} > using cached image`)
-      const {rendered, mime} = cache.get(login)
-      res.header("Content-Type", mime)
-      return res.send(rendered)
-    }
-    //Maximum simultaneous users
-    if ((maxusers) && (cache.size() + 1 > maxusers)) {
-      console.debug(`metrics/app/${login} > 503 (maximum users reached)`)
-      return res.status(503).send("Service Unavailable: maximum number of users reached, only cached metrics are available")
-    }
-    //Repository alias
-    if (repository) {
-      console.debug(`metrics/app/${login} > compute repository metrics`)
-      if (!req.query.template)
-        req.query.template = "repository"
-      req.query.repo = repository
-    }
+      //Read cached data if possible
+      if ((!debug) && (cached) && (cache.get(login))) {
+        console.debug(`metrics/app/${login} > using cached image`)
+        const {rendered, mime} = cache.get(login)
+        res.header("Content-Type", mime)
+        return res.send(rendered)
+      }
+      //Maximum simultaneous users
+      if ((maxusers) && (cache.size() + 1 > maxusers)) {
+        console.debug(`metrics/app/${login} > 503 (maximum users reached)`)
+        return res.status(503).send("Service Unavailable: maximum number of users reached, only cached metrics are available")
+      }
+      //Repository alias
+      if (repository) {
+        console.debug(`metrics/app/${login} > compute repository metrics`)
+        if (!req.query.template)
+          req.query.template = "repository"
+        req.query.repo = repository
+      }
 
-    //Compute rendering
-    try {
-      //Render
-      const q = req.query
-      console.debug(`metrics/app/${login} > ${util.inspect(q, {depth: Infinity, maxStringLength: 256})}`)
-      if ((q["config.presets"]) && (conf.settings.extras?.presets ?? conf.settings.extras?.default ?? false)) {
-        console.debug(`metrics/app/${login} > presets have been specified, loading them`)
-        Object.assign(q, await presets(q["config.presets"]))
+      //Compute rendering
+      try {
+        //Render
+        const q = req.query
+        console.debug(`metrics/app/${login} > ${util.inspect(q, {depth: Infinity, maxStringLength: 256})}`)
+        if ((q["config.presets"]) && ((conf.settings.extras?.features?.includes("metrics.setup.community.presets"))||(conf.settings.extras?.features === true)||(conf.settings.extras?.default))) {
+          console.debug(`metrics/app/${login} > presets have been specified, loading them`)
+          Object.assign(q, await presets(q["config.presets"]))
+        }
+        const convert = conf.settings.outputs.includes(q["config.output"]) ? q["config.output"] : conf.settings.outputs[0]
+        const {rendered, mime} = await metrics({login, q}, {
+          graphql,
+          rest,
+          plugins,
+          conf,
+          die: q["plugins.errors.fatal"] ?? false,
+          verify: q.verify ?? false,
+          convert: convert !== "auto" ? convert : null,
+        }, {Plugins, Templates})
+        //Cache
+        if ((!debug) && (cached)) {
+          const maxage = Math.round(Number(req.query.cache))
+          cache.put(login, {rendered, mime}, maxage > 0 ? maxage : cached)
+        }
+        //Send response
+        res.header("Content-Type", mime)
+        return res.send(rendered)
       }
-      const {rendered, mime} = await metrics({login, q}, {
-        graphql,
-        rest,
-        plugins,
-        conf,
-        die: q["plugins.errors.fatal"] ?? false,
-        verify: q.verify ?? false,
-        convert: ["svg", "jpeg", "png", "json", "markdown", "markdown-pdf", "insights"].includes(q["config.output"]) ? q["config.output"] : null,
-      }, {Plugins, Templates})
-      //Cache
-      if ((!debug) && (cached)) {
-        const maxage = Math.round(Number(req.query.cache))
-        cache.put(login, {rendered, mime}, maxage > 0 ? maxage : cached)
+      //Internal error
+      catch (error) {
+        //Not found user
+        if ((error instanceof Error) && (/^user not found$/.test(error.message))) {
+          console.debug(`metrics/app/${login} > 404 (user/organization not found)`)
+          return res.status(404).send("Not found: unknown user or organization")
+        }
+        //Invalid template
+        if ((error instanceof Error) && (/^unsupported template$/.test(error.message))) {
+          console.debug(`metrics/app/${login} > 400 (bad request)`)
+          return res.status(400).send("Bad request: unsupported template")
+        }
+        //Unsupported output format or account type
+        if ((error instanceof Error) && (/^not supported for: [\s\S]*$/.test(error.message))) {
+          console.debug(`metrics/app/${login} > 406 (Not Acceptable)`)
+          return res.status(406).send("Not Acceptable: unsupported output format or account type for specified parameters")
+        }
+        //GitHub failed request
+        if ((error instanceof Error) && (/this may be the result of a timeout, or it could be a GitHub bug/i.test(error.errors?.[0]?.message))) {
+          console.debug(`metrics/app/${login} > 502 (bad gateway from GitHub)`)
+          const request = encodeURIComponent(error.errors[0].message.match(/`(?<request>[\w:]+)`/)?.groups?.request ?? "").replace(/%3A/g, ":")
+          return res.status(500).send(`Internal Server Error: failed to execute request ${request} (this may be the result of a timeout, or it could be a GitHub bug)`)
+        }
+        //General error
+        console.error(error)
+        return res.status(500).send("Internal Server Error: failed to process metrics correctly")
       }
-      //Send response
-      res.header("Content-Type", mime)
-      return res.send(rendered)
-    }
-    //Internal error
-    catch (error) {
-      //Not found user
-      if ((error instanceof Error) && (/^user not found$/.test(error.message))) {
-        console.debug(`metrics/app/${login} > 404 (user/organization not found)`)
-        return res.status(404).send("Not found: unknown user or organization")
+      finally {
+        //After rendering
+        solve?.()
+        _requests_refresh = true
       }
-      //Invalid template
-      if ((error instanceof Error) && (/^unsupported template$/.test(error.message))) {
-        console.debug(`metrics/app/${login} > 400 (bad request)`)
-        return res.status(400).send("Bad request: unsupported template")
-      }
-      //Unsupported output format or account type
-      if ((error instanceof Error) && (/^not supported for: [\s\S]*$/.test(error.message))) {
-        console.debug(`metrics/app/${login} > 406 (Not Acceptable)`)
-        return res.status(406).send("Not Acceptable: unsupported output format or account type for specified parameters")
-      }
-      //GitHub failed request
-      if ((error instanceof Error) && (/this may be the result of a timeout, or it could be a GitHub bug/i.test(error.errors?.[0]?.message))) {
-        console.debug(`metrics/app/${login} > 502 (bad gateway from GitHub)`)
-        const request = encodeURIComponent(error.errors[0].message.match(/`(?<request>[\w:]+)`/)?.groups?.request ?? "").replace(/%3A/g, ":")
-        return res.status(500).send(`Internal Server Error: failed to execute request ${request} (this may be the result of a timeout, or it could be a GitHub bug)`)
-      }
-      //General error
-      console.error(error)
-      return res.status(500).send("Internal Server Error: failed to process metrics correctly")
-    }
-    finally {
-      //After rendering
-      solve?.()
-      _requests_refresh = true
-    }
-  })
+    })
+  }
+  else {
+    app.get("/embed/*", (req, res) => res.status(405).send("Method not allowed: this endpoint is not available"))
+  }
 
   //Listen
   app.listen(port, () =>
     console.log([
-      `Listening on port      │ ${port}`,
-      `Debug mode             │ ${debug}`,
-      `Mocked data            │ ${conf.settings.mocked ?? false}`,
-      `Restricted to users    │ ${restricted.size ? [...restricted].join(", ") : "(unrestricted)"}`,
-      `Cached time            │ ${cached} seconds`,
-      `Rate limiter           │ ${ratelimiter ? util.inspect(ratelimiter, {depth: Infinity, maxStringLength: 256}) : "(enabled)"}`,
-      `Max simultaneous users │ ${maxusers ? `${maxusers} users` : "(unrestricted)"}`,
-      `Plugins enabled        │ ${enabled.map(({name}) => name).join(", ")}`,
-      `SVG optimization       │ ${conf.settings.optimize ?? false}`,
+      "───────────────────────────────────────────────────────────────────",
+      "── Server configuration ───────────────────────────────────────────",
+      `Listening on port         │ ${port}`,
+      `Modes                     │ ${conf.settings.modes}`,
+      "── Server capacity ───────────────────────────────────────────────",
+      `Restricted to users       │ ${restricted.size ? [...restricted].join(", ") : "(unrestricted)"}`,
+      `Max simultaneous users    │ ${maxusers ? `${maxusers} users` : "(unrestricted)"}`,
+      `Rate limiter              │ ${ratelimiter ? util.inspect(ratelimiter, {depth: Infinity, maxStringLength: 256}) : "(enabled)"}`,
+      `Max repositories per user │ ${conf.settings.repositories}`,
+      "── Render settings ────────────────────────────────────────────────",
+      `Cached time               │ ${cached} seconds`,
+      `SVG optimization          │ ${conf.settings.optimize ?? false}`,
+      `Allowed outputs           │ ${conf.settings.outputs.join(", ")}`,
+      `Padding                   │ ${conf.settings.padding}`,
+      "── Sandbox ────────────────────────────────────────────────────────",
+      `Debug                     │ ${debug}`,
+      `Debug (puppeteer)         │ ${conf.settings["debug.headless"] ?? false}`,
+      `Mocked data               │ ${conf.settings.mocked ?? false}`,
+      "── Content ────────────────────────────────────────────────────────",
+      `Plugins enabled           │ ${enabled.map(({name}) => name).join(", ")}`,
+      `Templates enabled         │ ${templates.filter(({enabled}) => enabled).map(({name}) => name).join(", ")}`,
+      "── Extras ─────────────────────────────────────────────────────────",
+      `Default                   │ ${conf.settings.extras.default ?? false}`,
+      `Features                  │ ${conf.settings.extras.features ?? "(none)"}`,
+      "───────────────────────────────────────────────────────────────────",
       "Server ready !",
     ].join("\n")))
 }

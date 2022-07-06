@@ -220,7 +220,8 @@ export default async function(
   },
   //Settings and tokens
   {
-    enabled = false
+    enabled = false,
+    extras = false,
   } = {}) {
     //Plugin execution
     try {
@@ -241,7 +242,7 @@ export default async function(
     }
     //Handle errors
     catch (error) {
-      throw {error:{message:"An error occured", instance:error}}
+      throw imports.format.error(error)
     }
 }
 ```

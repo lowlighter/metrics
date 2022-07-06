@@ -6,7 +6,7 @@ export default async function({login, data, rest, imports, q, account}, {enabled
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
-    if ((!enabled) || (!q.habits))
+    if ((!enabled) || (!q.habits) || (!imports.metadata.plugins.habits.extras("enabled", {extras})))
       return null
 
     //Load inputs
@@ -97,7 +97,7 @@ export default async function({login, data, rest, imports, q, account}, {enabled
     }
 
     //Linguist
-    if ((extras) && (charts)) {
+    if ((charts)&&((imports.metadata.plugins.habits.extras("charts", {extras, error:false})))) {
       //Check if linguist exists
       console.debug(`metrics/compute/${login}/plugins > habits > searching recently used languages using linguist`)
       if (patches.length) {
@@ -113,7 +113,7 @@ export default async function({login, data, rest, imports, q, account}, {enabled
     }
 
     //Generating charts with chartist
-    if (_charts === "chartist") {
+    if ((_charts === "chartist")&&(imports.metadata.plugins.habits.extras("charts.type", {extras}))) {
       console.debug(`metrics/compute/${login}/plugins > habits > generating charts`)
       habits.charts = await Promise.all([
         {type: "line", data: {...empty(24), ...Object.fromEntries(Object.entries(habits.commits.hours).filter(([k]) => !Number.isNaN(+k)))}, low: 0, high: habits.commits.hours.max},
@@ -164,9 +164,7 @@ export default async function({login, data, rest, imports, q, account}, {enabled
   }
   //Handle errors
   catch (error) {
-    if (error.error?.message)
-      throw error
-    throw {error: {message: "An error occured", instance: error}}
+    throw imports.format.error(error)
   }
 }
 

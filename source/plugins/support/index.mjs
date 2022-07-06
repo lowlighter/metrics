@@ -1,9 +1,9 @@
 //Setup
-export default async function({login, q, imports, data, account}, {enabled = false} = {}) {
+export default async function({login, q, imports, data, account}, {enabled = false, extras = false} = {}) {
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
-    if ((!enabled) || (!q.support))
+    if ((!enabled) || (!q.support) || (!imports.metadata.plugins.support.extras("enabled", {extras})))
       return null
 
     //Load inputs
@@ -24,7 +24,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
         await frame.waitForSelector(".user-profile-names", {timeout: 5000})
       }
       catch {
-        throw {error: {message: "Could not find matching account on github.community"}}
+        throw {error: {message: "Account does not exists on github.community"}}
       }
     }
 
@@ -81,8 +81,6 @@ export default async function({login, q, imports, data, account}, {enabled = fal
   }
   //Handle errors
   catch (error) {
-    if (error.error?.message)
-      throw error
-    throw {error: {message: "An error occured", instance: error}}
+    throw imports.format.error(error)
   }
 }

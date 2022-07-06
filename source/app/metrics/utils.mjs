@@ -125,6 +125,49 @@ export function formatters({timeZone} = {}) {
     return license.nickname ?? license.spdxId ?? license.name
   }
 
+  /**Error formatter */
+  format.error = function(error, {descriptions = {}, ...attributes} = {}) {
+    try {
+      //Extras features error
+      if (error.extras)
+        throw {error: {message: error.message, instance: error}}
+      //Already formatted error
+      if (error.error?.message)
+        throw error
+      //Custom description
+      let message = "Unexpected error"
+      if (descriptions.custom) {
+        const description = descriptions.custom(error)
+        if (description)
+          message += ` (${description})`
+      }
+      //Axios error
+      if (error.isAxiosError) {
+        //Error code
+        const status = error.response?.status
+        message = `API error: ${status}`
+
+        //Error description (optional)
+        if ((descriptions)&&(descriptions[status]))
+          message += ` (${descriptions[status]})`
+        else {
+          const description = error.response?.data?.errors?.[0]?.message ?? error.response.data?.error_description ?? error.response?.data?.message ?? null
+          if (description)
+            message += ` (${description})`
+        }
+
+        //Error data
+        console.debug(error.response.data)
+        error = error.response?.data ?? null
+        throw {error: {message, instance: error}}
+      }
+      throw {error: {message, instance: error}}
+    }
+    catch (error) {
+      return Object.assign(error, attributes)
+    }
+  }
+
   return {format}
 }
 

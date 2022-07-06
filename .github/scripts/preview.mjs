@@ -9,14 +9,12 @@ const __metrics = paths.join(paths.dirname(url.fileURLToPath(import.meta.url)), 
 const __templates = paths.join(paths.join(__metrics, "source/templates/"))
 const __node_modules = paths.join(paths.join(__metrics, "node_modules"))
 const __web = paths.join(paths.join(__metrics, "source/app/web/statics"))
-const __web_about = paths.join(paths.join(__web, "about"))
 
 const __preview = paths.join(paths.join(__web, "preview"))
 const __preview_js = paths.join(__preview, ".js")
 const __preview_css = paths.join(__preview, ".css")
 const __preview_templates = paths.join(__preview, ".templates")
 const __preview_templates_ = paths.join(__preview, ".templates_")
-const __preview_about = paths.join(__preview, "about/.statics")
 
 //Extract from web server
 const {conf, Templates} = await setup({log: false})
@@ -34,7 +32,6 @@ await fs.mkdir(__preview_js, {recursive: true})
 await fs.mkdir(__preview_css, {recursive: true})
 await fs.mkdir(__preview_templates, {recursive: true})
 await fs.mkdir(__preview_templates_, {recursive: true})
-await fs.mkdir(__preview_about, {recursive: true})
 
 //Web
 fs.copyFile(paths.join(__web, "index.html"), paths.join(__preview, "index.html"))
@@ -81,9 +78,15 @@ fs.copyFile(paths.join(__node_modules, "clipboard/dist/clipboard.min.js"), paths
 //Meta
 fs.writeFile(paths.join(__preview, ".version"), JSON.stringify(`${conf.package.version}-preview`))
 fs.writeFile(paths.join(__preview, ".hosted"), JSON.stringify({by: "metrics", link: "https://github.com/lowlighter/metrics"}))
-//About
-fs.copyFile(paths.join(__web, "about", "index.html"), paths.join(__preview, "about", "index.html"))
-for (const file of await fs.readdir(__web_about)) {
-  if (file !== ".statics")
-    fs.copyFile(paths.join(__web_about, file), paths.join(__preview_about, file))
+//Insights
+for (const insight of ["insights", "about"]) {
+  const __web_insights = paths.join(paths.join(__web, insight))
+  const __preview_insights = paths.join(__preview, `${insight}/.statics`)
+  await fs.mkdir(__preview_insights, {recursive: true})
+
+  fs.copyFile(paths.join(__web, insight, "index.html"), paths.join(__preview, insight, "index.html"))
+  for (const file of await fs.readdir(__web_insights)) {
+    if (file !== ".statics")
+      fs.copyFile(paths.join(__web_insights, file), paths.join(__preview_insights, file))
+  }
 }

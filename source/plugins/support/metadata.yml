@@ -15,3 +15,5 @@ inputs:
       Enable support plugin
     type: boolean
     default: no
+    extras:
+      - metrics.run.puppeteer.scrapping

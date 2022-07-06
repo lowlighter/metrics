@@ -1,15 +1,15 @@
 //Setup
-export default async function({login, q, imports, data, account}, {enabled = false} = {}) {
+export default async function({login, q, imports, data, account}, {enabled = false, extras = false} = {}) {
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
-    if ((!enabled) || (!q.screenshot))
+    if ((!enabled) || (!q.screenshot) || (!imports.metadata.plugins.screenshot.extras("enabled", {extras})))
       return null
 
     //Load inputs
     let {url, selector, title, background} = imports.metadata.plugins.screenshot.inputs({data, account, q})
     if (!url)
-      throw {error: {message: "An url is required"}}
+      throw {error: {message: "URL is not set"}}
 
     //Start puppeteer and navigate to page
     console.debug(`metrics/compute/${login}/plugins > screenshot > starting browser`)
@@ -37,8 +37,6 @@ export default async function({login, q, imports, data, account}, {enabled = fal
   }
   //Handle errors
   catch (error) {
-    if (error.error?.message)
-      throw error
-    throw {title: "Screenshot error", error: {message: "An error occured", instance: error}}
+    throw imports.format.error(error, {title:"Screenshot error"})
   }
 }

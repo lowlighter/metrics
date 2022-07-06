@@ -154,7 +154,7 @@ inputs:
     format: comma-separated
     default: ""
     extras:
-      - metrics.run.setup.community.templates
+      - metrics.setup.community.templates
 
   template:
     description: |
@@ -185,7 +185,7 @@ inputs:
     type: string
     default: ""
     extras:
-      - metrics.run.user.css
+      - metrics.run.puppeteer.user.css
 
   extras_js:
     description: |
@@ -199,7 +199,7 @@ inputs:
     type: string
     default: ""
     extras:
-      - metrics.run.user.js
+      - metrics.run.puppeteer.user.js
 
   config_timezone:
     description: |
@@ -347,6 +347,8 @@ inputs:
     default: ""
     preset: no
     example: "@lunar-red"
+    extras:
+      - metrics.setup.community.presets
 
   retries:
     description: |
@@ -497,6 +499,8 @@ inputs:
     default: no
     testing: yes
     preset: no
+    extras:
+      - metrics.npm.optional.libxml2
 
   debug_flags:
     description: |

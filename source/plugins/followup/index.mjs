@@ -3,7 +3,7 @@ export default async function({login, data, computed, imports, q, graphql, queri
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
-    if ((!enabled) || (!q.followup))
+    if ((!enabled) || (!q.followup) || (!imports.metadata.plugins.followup.extras("enabled", {extras})))
       return null
 
     //Load inputs
@@ -56,36 +56,33 @@ export default async function({login, data, computed, imports, q, graphql, queri
       },
     }
 
-    //Extras features
-    if (extras) {
-      //Indepth mode
-      if (indepth) {
-        console.debug(`metrics/compute/${login}/plugins > followup > indepth`)
-        followup.indepth = {repositories: {}}
+    //Indepth mode
+    if ((indepth)&&(imports.metadata.plugins.followup.extras("indepth", {extras}))) {
+      console.debug(`metrics/compute/${login}/plugins > followup > indepth`)
+      followup.indepth = {repositories: {}}
 
-        //Process repositories
-        for (const {name: repo, owner: {login: owner}} of data.user.repositories.nodes) {
-          try {
-            console.debug(`metrics/compute/${login}/plugins > followup > processing ${owner}/${repo}`)
-            followup.indepth.repositories[`${owner}/${repo}`] = {stats: {}}
-            //Fetch users with push access
-            let {repository: {collaborators: {nodes: collaborators}}} = await graphql(queries.followup["repository.collaborators"]({repo, owner})).catch(() => ({repository: {collaborators: {nodes: [{login: owner}]}}}))
-            console.debug(`metrics/compute/${login}/plugins > followup > found ${collaborators.length} collaborators`)
-            followup.indepth.repositories[`${owner}/${repo}`].collaborators = collaborators.map(({login}) => login)
-            //Fetch issues and pull requests created by collaborators
-            collaborators = collaborators.map(({login}) => `-author:${login}`).join(" ")
-            const stats = await graphql(queries.followup.repository({repo, owner, collaborators}))
-            followup.indepth.repositories[`${owner}/${repo}`] = stats
-            //Aggregate global stats
-            for (const [key, {issueCount: count}] of Object.entries(stats)) {
-              const [section, type] = key.split("_")
-              followup[section].collaborators[type] += count
-            }
+      //Process repositories
+      for (const {name: repo, owner: {login: owner}} of data.user.repositories.nodes) {
+        try {
+          console.debug(`metrics/compute/${login}/plugins > followup > processing ${owner}/${repo}`)
+          followup.indepth.repositories[`${owner}/${repo}`] = {stats: {}}
+          //Fetch users with push access
+          let {repository: {collaborators: {nodes: collaborators}}} = await graphql(queries.followup["repository.collaborators"]({repo, owner})).catch(() => ({repository: {collaborators: {nodes: [{login: owner}]}}}))
+          console.debug(`metrics/compute/${login}/plugins > followup > found ${collaborators.length} collaborators`)
+          followup.indepth.repositories[`${owner}/${repo}`].collaborators = collaborators.map(({login}) => login)
+          //Fetch issues and pull requests created by collaborators
+          collaborators = collaborators.map(({login}) => `-author:${login}`).join(" ")
+          const stats = await graphql(queries.followup.repository({repo, owner, collaborators}))
+          followup.indepth.repositories[`${owner}/${repo}`] = stats
+          //Aggregate global stats
+          for (const [key, {issueCount: count}] of Object.entries(stats)) {
+            const [section, type] = key.split("_")
+            followup[section].collaborators[type] += count
           }
-          catch (error) {
-            console.debug(error)
-            console.debug(`metrics/compute/${login}/plugins > followup > an error occured while processing ${owner}/${repo}, skipping...`)
-          }
+        }
+        catch (error) {
+          console.debug(error)
+          console.debug(`metrics/compute/${login}/plugins > followup > an error occured while processing ${owner}/${repo}, skipping...`)
         }
       }
     }
@@ -120,6 +117,6 @@ export default async function({login, data, computed, imports, q, graphql, queri
   }
   //Handle errors
   catch (error) {
-    throw {error: {message: "An error occured", instance: error}}
+    throw imports.format.error(error)
   }
 }

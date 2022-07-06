@@ -2,7 +2,7 @@
   - source/app/action/**
   - source/app/web/**
 ✨ metrics insights:
-  - source/app/web/statics/about/**
+  - source/app/web/statics/insights/**
 
 🧩 plugins:
   - source/plugins/**

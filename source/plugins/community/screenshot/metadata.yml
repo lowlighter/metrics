@@ -20,6 +20,8 @@ inputs:
       Enable screenshot plugin
     type: boolean
     default: no
+    extras:
+      - metrics.run.puppeteer.scrapping
 
   plugin_screenshot_title:
     description: |

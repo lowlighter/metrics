@@ -8,7 +8,6 @@ export default async function({login, graphql, rest, data, q, queries, imports, 
   //Load inputs
   console.debug(`metrics/compute/${login}/base > started`)
   let {indepth, hireable, "repositories.forks": _forks, "repositories.affiliations": _affiliations, "repositories.batch": _batch} = imports.metadata.plugins.base.inputs({data, q, account: "bypass"})
-  const extras = conf.settings.extras?.features ?? conf.settings.extras?.default
   const repositories = conf.settings.repositories || 100
   const forks = _forks ? "" : ", isFork: false"
   const affiliations = _affiliations?.length ? `, ownerAffiliations: [${_affiliations.map(x => x.toLocaleUpperCase()).join(", ")}]${conf.authenticated === login ? `, affiliations: [${_affiliations.map(x => x.toLocaleUpperCase()).join(", ")}]` : ""}` : ""
@@ -90,7 +89,7 @@ export default async function({login, graphql, rest, data, q, queries, imports, 
       }
       //Query contributions collection over account lifetime instead of last year
       if (account === "user") {
-        if ((indepth) && (extras)) {
+        if ((indepth) && (imports.metadata.plugins.base.extras("indepth", {...conf.settings, error:false}))) {
           const fields = ["totalRepositoriesWithContributedCommits", "totalCommitContributions", "restrictedContributionsCount", "totalIssueContributions", "totalPullRequestContributions", "totalPullRequestReviewContributions"]
           const start = new Date(data.user.createdAt)
           const end = new Date()

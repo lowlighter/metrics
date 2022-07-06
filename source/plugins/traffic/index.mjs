@@ -1,9 +1,9 @@
 //Setup
-export default async function({login, imports, data, rest, q, account}, {enabled = false} = {}) {
+export default async function({login, imports, data, rest, q, account}, {enabled = false, extras = false} = {}) {
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
-    if ((!enabled) || (!q.traffic))
+    if ((!enabled) || (!q.traffic) || (!imports.metadata.plugins.traffic.extras("enabled", {extras})))
       return null
 
     //Load inputs
@@ -27,9 +27,6 @@ export default async function({login, imports, data, rest, q, account}, {enabled
   }
   //Handle errors
   catch (error) {
-    let message = "An error occured"
-    if (error.status === 403)
-      message = "Insufficient token rights"
-    throw {error: {message, instance: error}}
+    throw imports.format.error(error, {descriptions:{"403":"Insufficient token scopes"}})
   }
 }

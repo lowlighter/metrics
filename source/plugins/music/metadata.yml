@@ -19,6 +19,8 @@ inputs:
       Enable music plugin
     type: boolean
     default: no
+    extras:
+      - metrics.run.puppeteer.scrapping
 
   plugin_music_provider:
     description: |

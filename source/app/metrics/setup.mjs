@@ -78,63 +78,68 @@ export default async function({log = true, sandbox = false, community = {}} = {}
   logger("metrics/setup > load package.json > success")
 
   //Load community templates
-  if ((typeof conf.settings.community.templates === "string") && (conf.settings.community.templates.length)) {
-    logger("metrics/setup > parsing community templates list")
-    conf.settings.community.templates = [...new Set([...decodeURIComponent(conf.settings.community.templates).split(",").map(v => v.trim().toLocaleLowerCase()).filter(v => v)])]
-  }
-  if ((Array.isArray(conf.settings.community.templates)) && (conf.settings.community.templates.length)) {
-    //Clean remote repository
-    logger(`metrics/setup > ${conf.settings.community.templates.length} community templates to install`)
-    await fs.promises.rm(path.join(__templates, ".community"), {recursive: true, force: true})
-    //Download community templates
-    for (const template of conf.settings.community.templates) {
-      try {
-        //Parse community template
-        logger(`metrics/setup > load community template ${template}`)
-        const {repo, branch, name, trust = false} = template.match(/^(?<repo>[\s\S]+?)@(?<branch>[\s\S]+?):(?<name>[\s\S]+?)(?<trust>[+]trust)?$/)?.groups ?? null
-        const command = `git clone --single-branch --branch ${branch} https://github.com/${repo}.git ${path.join(__templates, ".community")}`
-        logger(`metrics/setup > run ${command}`)
-        //Clone remote repository
-        processes.execSync(command, {stdio: "ignore"})
-        //Extract template
-        logger(`metrics/setup > extract ${name} from ${repo}@${branch}`)
-        await fs.promises.rm(path.join(__templates, `@${name}`), {recursive: true, force: true})
-        await fs.promises.rename(path.join(__templates, ".community/source/templates", name), path.join(__templates, `@${name}`))
-        //JavaScript file
-        if (trust)
-          logger(`metrics/setup > keeping @${name}/template.mjs (unsafe mode is enabled)`)
-        else if (fs.existsSync(path.join(__templates, `@${name}`, "template.mjs"))) {
-          logger(`metrics/setup > removing @${name}/template.mjs`)
-          await fs.promises.unlink(path.join(__templates, `@${name}`, "template.mjs"))
-          const inherit = yaml.load(`${fs.promises.readFile(path.join(__templates, `@${name}`, "metadata.yml"))}`).extends ?? null
-          if (inherit) {
-            logger(`metrics/setup > @${name} extends from ${inherit}`)
-            if (fs.existsSync(path.join(__templates, inherit, "template.mjs"))) {
-              logger(`metrics/setup > @${name} extended from ${inherit}`)
-              await fs.promises.copyFile(path.join(__templates, inherit, "template.mjs"), path.join(__templates, `@${name}`, "template.mjs"))
-            }
-            else {
-              logger(`metrics/setup > @${name} could not extends ${inherit} as it does not exist`)
+  if ((conf.settings.extras?.features?.includes("metrics.setup.community.templates"))||(conf.settings.extras?.features === true)||(conf.settings.extras?.default)) {
+    if ((typeof conf.settings.community.templates === "string") && (conf.settings.community.templates.length)) {
+      logger("metrics/setup > parsing community templates list")
+      conf.settings.community.templates = [...new Set([...decodeURIComponent(conf.settings.community.templates).split(",").map(v => v.trim().toLocaleLowerCase()).filter(v => v)])]
+    }
+    if ((Array.isArray(conf.settings.community.templates)) && (conf.settings.community.templates.length)) {
+      //Clean remote repository
+      logger(`metrics/setup > ${conf.settings.community.templates.length} community templates to install`)
+      await fs.promises.rm(path.join(__templates, ".community"), {recursive: true, force: true})
+      //Download community templates
+      for (const template of conf.settings.community.templates) {
+        try {
+          //Parse community template
+          logger(`metrics/setup > load community template ${template}`)
+          const {repo, branch, name, trust = false} = template.match(/^(?<repo>[\s\S]+?)@(?<branch>[\s\S]+?):(?<name>[\s\S]+?)(?<trust>[+]trust)?$/)?.groups ?? null
+          const command = `git clone --single-branch --branch ${branch} https://github.com/${repo}.git ${path.join(__templates, ".community")}`
+          logger(`metrics/setup > run ${command}`)
+          //Clone remote repository
+          processes.execSync(command, {stdio: "ignore"})
+          //Extract template
+          logger(`metrics/setup > extract ${name} from ${repo}@${branch}`)
+          await fs.promises.rm(path.join(__templates, `@${name}`), {recursive: true, force: true})
+          await fs.promises.rename(path.join(__templates, ".community/source/templates", name), path.join(__templates, `@${name}`))
+          //JavaScript file
+          if (trust)
+            logger(`metrics/setup > keeping @${name}/template.mjs (unsafe mode is enabled)`)
+          else if (fs.existsSync(path.join(__templates, `@${name}`, "template.mjs"))) {
+            logger(`metrics/setup > removing @${name}/template.mjs`)
+            await fs.promises.unlink(path.join(__templates, `@${name}`, "template.mjs"))
+            const inherit = yaml.load(`${fs.promises.readFile(path.join(__templates, `@${name}`, "metadata.yml"))}`).extends ?? null
+            if (inherit) {
+              logger(`metrics/setup > @${name} extends from ${inherit}`)
+              if (fs.existsSync(path.join(__templates, inherit, "template.mjs"))) {
+                logger(`metrics/setup > @${name} extended from ${inherit}`)
+                await fs.promises.copyFile(path.join(__templates, inherit, "template.mjs"), path.join(__templates, `@${name}`, "template.mjs"))
+              }
+              else {
+                logger(`metrics/setup > @${name} could not extends ${inherit} as it does not exist`)
+              }
             }
           }
-        }
-        else {
-          logger(`metrics/setup > @${name}/template.mjs does not exist`)
-        }
+          else {
+            logger(`metrics/setup > @${name}/template.mjs does not exist`)
+          }
 
-        //Clean remote repository
-        logger(`metrics/setup > clean ${repo}@${branch}`)
-        await fs.promises.rm(path.join(__templates, ".community"), {recursive: true, force: true})
-        logger(`metrics/setup > loaded community template ${name}`)
+          //Clean remote repository
+          logger(`metrics/setup > clean ${repo}@${branch}`)
+          await fs.promises.rm(path.join(__templates, ".community"), {recursive: true, force: true})
+          logger(`metrics/setup > loaded community template ${name}`)
+        }
+        catch (error) {
+          logger(`metrics/setup > failed to load community template ${template}`)
+          logger(error)
+        }
       }
-      catch (error) {
-        logger(`metrics/setup > failed to load community template ${template}`)
-        logger(error)
-      }
+    }
+    else {
+      logger("metrics/setup > no community templates to install")
     }
   }
   else {
-    logger("metrics/setup > no community templates to install")
+    logger("metrics/setup > community templates are disabled")
   }
 
   //Load templates
@@ -187,6 +192,18 @@ export default async function({log = true, sandbox = false, community = {}} = {}
 
   //Load metadata
   conf.metadata = await metadata({log})
+
+  //Modes
+  if ((!conf.settings.modes)||(!conf.settings.modes.length))
+    conf.settings.modes = ["embed", "insights"]
+  logger(`metrics/setup > setup > enabled modes ${JSON.stringify(conf.settings.modes)}`)
+
+  //Allowed outputs formats
+  if ((!conf.settings.outputs)||(!conf.settings.outputs.length))
+    conf.settings.outputs = metadata.inputs.config_output.values
+  else
+    conf.settings.outputs = conf.settings.outputs.filter(format => metadata.inputs.config_output.values.includes(format))
+  logger(`metrics/setup > setup > allowed outputs ${JSON.stringify(conf.settings.outputs)}`)
 
   //Store authenticated user
   if (conf.settings.token) {

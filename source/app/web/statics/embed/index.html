@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Metrics</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="An image generator with 20+ metrics about your GitHub account such as activity, community, repositories, coding habits, website performances, music played, starred topics, etc. that you can put on your profile or elsewhere !">
+    <meta name="author" content="lowlighter">
+    <meta property="og:image" content="/.opengraph.png">
+    <link rel="icon" href="/.favicon.png">
+    <link rel="stylesheet" href="/.css/style.vars.css">
+    <link rel="stylesheet" href="/.css/style.css">
+    <link rel="stylesheet" href="/.css/style.prism.css" />
+  </head>
+  <body>
+    <!-- Vue app -->
+    <main :class="[palette]">
+      <template>
+
+        <header>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+          <a href="https://github.com/lowlighter/metrics">Metrics {{ version }}</a>
+        </header>
+
+        <div class="ui top">
+          <aside></aside>
+          <nav>
+            <div @click="tab = 'overview'" :class="{active:tab === 'overview'}">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M1.5 1.75a.75.75 0 00-1.5 0v12.5c0 .414.336.75.75.75h14.5a.75.75 0 000-1.5H1.5V1.75zm14.28 2.53a.75.75 0 00-1.06-1.06L10 7.94 7.53 5.47a.75.75 0 00-1.06 0L3.22 8.72a.75.75 0 001.06 1.06L7 7.06l2.47 2.47a.75.75 0 001.06 0l5.25-5.25z"></path></svg>
+              Metrics preview
+            </div>
+            <div @click="tab = 'action'" :class="{active:tab === 'action'}">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zM8 0a8 8 0 100 16A8 8 0 008 0zM6.379 5.227A.25.25 0 006 5.442v5.117a.25.25 0 00.379.214l4.264-2.559a.25.25 0 000-.428L6.379 5.227z"></path></svg>
+              Action code
+            </div>
+            <div @click="tab = 'markdown'" :class="{active:tab === 'markdown'}">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M4 1.75C4 .784 4.784 0 5.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v8.586A1.75 1.75 0 0114.25 15h-9a.75.75 0 010-1.5h9a.25.25 0 00.25-.25V6h-2.75A1.75 1.75 0 0110 4.25V1.5H5.75a.25.25 0 00-.25.25v2.5a.75.75 0 01-1.5 0v-2.5zm7.5-.188V4.25c0 .138.112.25.25.25h2.688a.252.252 0 00-.011-.013l-2.914-2.914a.272.272 0 00-.013-.011zM5.72 6.72a.75.75 0 000 1.06l1.47 1.47-1.47 1.47a.75.75 0 101.06 1.06l2-2a.75.75 0 000-1.06l-2-2a.75.75 0 00-1.06 0zM3.28 7.78a.75.75 0 00-1.06-1.06l-2 2a.75.75 0 000 1.06l2 2a.75.75 0 001.06-1.06L1.81 9.25l1.47-1.47z"></path></svg>
+              Markdown code
+            </div>
+          </nav>
+        </div>
+
+        <div class="ui">
+
+          <aside>
+
+            <div class="ui-avatar" :style="{backgroundImage:avatar ? `url(${avatar})` : 'none'}"></div>
+
+            <input type="text" v-model="user" placeholder="Your GitHub username" :disabled="generated.pending" @keyup.enter="(!user)||(generated.pending)||(unusable.length > 0)||(!requests.rest.remaining)||(!requests.graphql.remaining) ? null : generate()">
+            <button @click="generate" :disabled="(!user)||(generated.pending)||(unusable.length > 0)||(!requests.rest.remaining)||(!requests.graphql.remaining)">
+              <template v-if="generated.pending">
+                Generating metrics<span class="loading"></span>
+              </template>
+              <template v-else>
+                Generate your metrics!
+              </template>
+            </button>
+            <small :class="{'error-text':(!requests.rest.remaining)||(!requests.graphql.remaining)}">Remaining GitHub requests:</small>
+            <small>{{ requests.rest.remaining }} REST / {{ requests.graphql.remaining }} GraphQL</small>
+            <small class="warning" v-if="preview">
+              Metrics are rendered by <a href="https://metrics.lecoq.io/">metrics.lecoq.io</a> in preview mode.
+              Any backend editions won't be reflected but client-side rendering can still be tested.
+            </small>
+            <div class="warning" v-if="unusable.length">
+              The following plugins are not available on this web instance: {{ unusable.join(", ") }}
+            </div>
+            <div class="warning" v-if="(!requests.rest.remaining)||(!requests.graphql.remaining)">
+              This web instance has run out of GitHub API requests.
+              Please wait until {{ rlreset }} to generate metrics again.
+            </div>
+
+            <div class="configuration">
+              <b>🖼️ Template</b>
+              <label v-for="template in templates.list" :key="template" v-show="templates.descriptions[template.name] !== '(hidden)'" :class="{'not-available':!template.enabled}" :title="!template.enabled ? 'This template is not enabled on this web instance, use GitHub actions instead!' : ''">
+                <input type="radio" v-model="templates.selected" :value="template.name" @change="mock" :disabled="generated.pending">
+                {{ templates.descriptions[template.name] || template.name }}
+              </label>
+            </div>
+
+            <div class="configuration" v-if="plugins.base.length">
+              <b>🗃️ Base content</b>
+              <label v-for="part in plugins.base" :key="part">
+                <input type="checkbox" v-model="plugins.enabled.base[part]" @change="mock" :disabled="generated.pending">
+                <span>{{ plugins.descriptions[`base.${part}`] || `base.${part}` }}</span>
+              </label>
+            </div>
+
+            <div class="configuration plugins" v-if="plugins.list.length">
+              <b>🧩 Additional plugins</b>
+              <template v-for="(category, name) in plugins.categories" :key="category">
+                <details open>
+                  <summary>{{ name }}</summary>
+                  <label v-for="plugin in category" :class="{'not-available':!plugin.enabled}" :title="!plugin.enabled ? 'This plugin is not enabled on web instance, use it with GitHub actions !' : ''">
+                    <input type="checkbox" v-model="plugins.enabled[plugin.name]" @change="mock" :disabled="generated.pending">
+                    <div>{{ plugins.descriptions[plugin.name] || plugin.name }}</div>
+                  </label>
+                </details>
+              </template>
+            </div>
+
+            <div class="configuration" v-if="configure">
+              <b>🔧 Configure plugins</b>
+              <template v-for="(input, key) in configure">
+                <b v-if="typeof input === 'string'">{{ input }}</b>
+                <label v-else class="option">
+                  <i>{{ input.text.split("\n")[0] }}</i>
+                  <input type="checkbox" v-if="input.type === 'boolean'" v-model="plugins.options[key]" @change="mock">
+                  <input type="number" v-else-if="input.type === 'number'" v-model="plugins.options[key]" @change="mock" :min="input.min" :max="input.max">
+                  <select v-else-if="input.type === 'select'" v-model="plugins.options[key]" @change="mock">
+                    <option v-for="value in input.values" :value="value">{{ value }}</option>
+                  </select>
+                  <input type="text" v-else v-model="plugins.options[key]" @change="mock" :placeholder="input.placeholder">
+                </label>
+              </template>
+            </div>
+
+            <div class="configuration">
+              <details>
+                <summary><b>⚙️ Additional settings</b></summary>
+                <template v-for="{key, target} in [{key:'base', target:plugins.options}, {key:'core', target:config}]">
+                  <template v-for="(input, key) in metadata[key]">
+                    <label class="option">
+                      <i>{{ input.text.split("\n")[0] }}</i>
+                      <input type="checkbox" v-if="input.type === 'boolean'" v-model="target[key]" @change="mock">
+                      <input type="number" v-else-if="input.type === 'number'" v-model="target[key]" @change="mock" :min="input.min" :max="input.max">
+                      <select v-else-if="input.type === 'select'" v-model="target[key]" @change="mock">
+                        <option v-for="value in input.values" :value="value">{{ value }}</option>
+                      </select>
+                      <input type="text" v-else v-model="target[key]" @change="mock" :placeholder="input.placeholder">
+                    </label>
+                  </template>
+                </template>
+              </details>
+            </div>
+
+          </aside>
+
+          <div class="preview">
+
+            <div class="readmes">
+              <div class="readme">
+                <svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M1.326 1.973a1.2 1.2 0 011.49-.832c.387.112.977.307 1.575.602.586.291 1.243.71 1.7 1.296.022.027.042.056.061.084A13.22 13.22 0 018 3c.67 0 1.289.037 1.861.108l.051-.07c.457-.586 1.114-1.004 1.7-1.295a9.654 9.654 0 011.576-.602 1.2 1.2 0 011.49.832c.14.493.356 1.347.479 2.29.079.604.123 1.28.07 1.936.541.977.773 2.11.773 3.301C16 13 14.5 15 8 15s-8-2-8-5.5c0-1.034.238-2.128.795-3.117-.08-.712-.034-1.46.052-2.12.122-.943.34-1.797.479-2.29zM8 13.065c6 0 6.5-2 6-4.27C13.363 5.905 11.25 5 8 5s-5.363.904-6 3.796c-.5 2.27 0 4.27 6 4.27z"></path><path d="M4 8a1 1 0 012 0v1a1 1 0 01-2 0V8zm2.078 2.492c-.083-.264.146-.492.422-.492h3c.276 0 .505.228.422.492C9.67 11.304 8.834 12 8 12c-.834 0-1.669-.696-1.922-1.508zM10 8a1 1 0 112 0v1a1 1 0 11-2 0V8z"></path></svg>
+                <span>{{ user }}</span><span class="slash">/</span>README<span class="md">.md</span>
+              </div>
+              <div class="readme" v-if="tab in docs">
+                <a :href="docs[tab].link">{{ docs[tab].name }}</a>
+              </div>
+              <div class="readme">
+                <a href="https://github.com/lowlighter/metrics/discussions" target="_blank">Send feedback</a>
+              </div>
+            </div>
+
+            <div v-if="tab == 'overview'">
+              <div class="alert error" v-if="generated.error">
+                An error occurred while generating your metrics :(<br>
+                <small>{{ generated.error.message }}</small>
+              </div>
+              <div class="image" :class="{pending:generated.pending}" v-html="generated.content||templates.placeholder.image"></div>
+            </div>
+            <div v-else-if="tab == 'markdown'">
+              Add the markdown below to your <i>README.md</i> <template v-if="user">at <a :href="repo">{{ user }}/{{ user }}</a></template>
+              <div class="code">
+                <Prism language="markdown" :code="embed"></Prism>
+              </div>
+            </div>
+            <div v-else-if="tab == 'action'">
+              <div>
+                <button class="copy-action" data-clipboard-target=".code">Copy Action Code</button>
+              </div>
+              Create a new workflow with the following content <template v-if="user">at <a :href="repo">{{ user }}/{{ user }}</a></template>
+              <div class="code">
+                <Prism language="yaml" :code="action"></Prism>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <footer>
+          <a href="https://github.com/lowlighter/metrics">Repository</a>
+          <a href="https://github.com/lowlighter/metrics/blob/master/LICENSE">License</a>
+          <a href="https://github.com/marketplace/actions/metrics-embed">GitHub Action</a>
+          <span v-if="hosted">Hosted with ❤️ by <a :href="hosted.link">{{ hosted.by }}</a></span>
+        </footer>
+
+      </template>
+    </main>
+    <!-- Scripts -->
+    <script src="/.js/axios.min.js"></script>
+    <script src="/.js/prism.min.js"></script>
+    <script src="/.js/prism.markdown.min.js"></script>
+    <script src="/.js/prism.yaml.min.js"></script>
+    <script src="/.js/ejs.min.js"></script>
+    <script src="/.js/faker.min.js?v=7.x" type="module"></script>
+    <script src="/.js/vue.min.js"></script>
+    <script src="/.js/vue.prism.min.js"></script>
+    <script src="/.js/clipboard.min.js"></script>
+    <script src="/.js/embed/app.placeholder.js?v=3.26"></script>
+    <script src="/.js/embed/app.js?v=3.26"></script>
+  </body>
+</html>

@@ -6,7 +6,7 @@ export default async function({login, data, imports, q, rest, account}, {enabled
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
-    if ((!enabled) || (!q.languages))
+    if ((!enabled) || (!q.languages) || (!imports.metadata.plugins.languages.extras("enabled", {extras})))
       return null
 
     //Context
@@ -63,51 +63,48 @@ export default async function({login, data, imports, q, rest, account}, {enabled
       }
     }
 
-    //Extras features
-    if (extras) {
-      //Recently used languages
-      if ((sections.includes("recently-used")) && (context.mode === "user")) {
-        try {
-          console.debug(`metrics/compute/${login}/plugins > languages > using recent analyzer`)
-          languages["stats.recent"] = await recent_analyzer({login, data, imports, rest, account}, {skipped, categories: _recent_categories ?? categories, days: _recent_days, load: _recent_load, timeout})
-          Object.assign(languages.colors, languages["stats.recent"].colors)
-        }
-        catch (error) {
-          console.debug(`metrics/compute/${login}/plugins > languages > ${error}`)
-        }
+    //Recently used languages
+    if ((sections.includes("recently-used")) && (context.mode === "user") && (imports.metadata.plugins.languages.extras("indepth", {extras}))) {
+      try {
+        console.debug(`metrics/compute/${login}/plugins > languages > using recent analyzer`)
+        languages["stats.recent"] = await recent_analyzer({login, data, imports, rest, account}, {skipped, categories: _recent_categories ?? categories, days: _recent_days, load: _recent_load, timeout})
+        Object.assign(languages.colors, languages["stats.recent"].colors)
       }
+      catch (error) {
+        console.debug(`metrics/compute/${login}/plugins > languages > ${error}`)
+      }
+    }
 
-      //Indepth mode
-      if (indepth) {
-        //Fetch gpg keys (web-flow is GitHub's public key when making changes from web ui)
-        const gpg = []
-        try {
-          for (const username of [login, "web-flow"]) {
-            const {data: keys} = await rest.users.listGpgKeysForUser({username})
-            gpg.push(...keys.map(({key_id: id, raw_key: pub, emails}) => ({id, pub, emails})))
-            if (username === login) {
-              for (const {email} of gpg.flatMap(({emails}) => emails)) {
-                console.debug(`metrics/compute/${login}/plugins > languages > auto-adding ${email} to commits_authoring (fetched from gpg)`)
-                data.shared["commits.authoring"].push(email)
-              }
+    //Indepth mode
+    if ((indepth)&&(imports.metadata.plugins.languages.extras("indepth", {extras}))) {
+      //Fetch gpg keys (web-flow is GitHub's public key when making changes from web ui)
+      const gpg = []
+      try {
+        for (const username of [login, "web-flow"]) {
+          const {data: keys} = await rest.users.listGpgKeysForUser({username})
+          gpg.push(...keys.map(({key_id: id, raw_key: pub, emails}) => ({id, pub, emails})))
+          if (username === login) {
+            for (const {email} of gpg.flatMap(({emails}) => emails)) {
+              console.debug(`metrics/compute/${login}/plugins > languages > auto-adding ${email} to commits_authoring (fetched from gpg)`)
+              data.shared["commits.authoring"].push(email)
             }
           }
         }
-        catch (error) {
-          console.debug(`metrics/compute/${login}/plugins > languages > ${error}`)
-        }
+      }
+      catch (error) {
+        console.debug(`metrics/compute/${login}/plugins > languages > ${error}`)
+      }
 
-        //Analyze languages
-        try {
-          console.debug(`metrics/compute/${login}/plugins > languages > switching to indepth mode (this may take some time)`)
-          const existingColors = languages.colors
-          Object.assign(languages, await indepth_analyzer({login, data, imports, repositories, gpg}, {skipped, categories, timeout}))
-          Object.assign(languages.colors, existingColors)
-          console.debug(`metrics/compute/${login}/plugins > languages > indepth analysis missed ${languages.missed.commits} commits`)
-        }
-        catch (error) {
-          console.debug(`metrics/compute/${login}/plugins > languages > ${error}`)
-        }
+      //Analyze languages
+      try {
+        console.debug(`metrics/compute/${login}/plugins > languages > switching to indepth mode (this may take some time)`)
+        const existingColors = languages.colors
+        Object.assign(languages, await indepth_analyzer({login, data, imports, repositories, gpg}, {skipped, categories, timeout}))
+        Object.assign(languages.colors, existingColors)
+        console.debug(`metrics/compute/${login}/plugins > languages > indepth analysis missed ${languages.missed.commits} commits`)
+      }
+      catch (error) {
+        console.debug(`metrics/compute/${login}/plugins > languages > ${error}`)
       }
     }
 
@@ -158,6 +155,6 @@ export default async function({login, data, imports, q, rest, account}, {enabled
   }
   //Handle errors
   catch (error) {
-    throw {error: {message: "An error occured", instance: error}}
+    throw imports.format.error(error)
   }
 }

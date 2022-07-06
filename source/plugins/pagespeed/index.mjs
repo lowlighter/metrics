@@ -1,14 +1,16 @@
 //Setup
-export default async function({login, imports, data, q, account}, {enabled = false, token = null} = {}) {
+export default async function({login, imports, data, q, account}, {enabled = false, token = null, extras = false} = {}) {
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
-    if ((!enabled) || (!q.pagespeed) || ((!data.user.websiteUrl) && (!q["pagespeed.url"])))
+    if ((!enabled) || (!q.pagespeed) || (!imports.metadata.plugins.pagespeed.extras("enabled", {extras})))
       return null
 
     //Load inputs
     let {detailed, screenshot, url, pwa} = imports.metadata.plugins.pagespeed.inputs({data, account, q})
     //Format url if needed
+    if (!url)
+      throw {error: {message: "Website URL is not set"}}
     if (!/^https?:[/][/]/.test(url))
       url = `https://${url}`
     const {protocol, host} = imports.url.parse(url)
@@ -45,15 +47,13 @@ export default async function({login, imports, data, q, account}, {enabled = fal
   }
   //Handle errors
   catch (error) {
-    let message = "An error occured"
-    if (error.isAxiosError) {
-      const status = error.response?.status
-      let description = error.response?.data?.error?.message?.match(/Lighthouse returned error: (?<description>[A-Z_]+)/)?.groups?.description ?? null
-      if ((status === 429) && (!description))
-        description = 'consider using "plugin_pagespeed_token"'
-      message = `API returned ${status}${description ? ` (${description})` : ""}`
-      error = error.response?.data ?? null
-    }
-    throw {error: {message, instance: error}}
+    throw imports.format.error(error, {descriptions:{"429":'(consider using "plugin_pagespeed_token")', custom(error) {
+      const description = error.response?.data?.error?.message?.match(/Lighthouse returned error: (?<description>[A-Z_]+)/)?.groups?.description ?? null
+      if (description) {
+        const status = error.response?.status
+        return `API error: ${status} (${description})`
+      }
+      return null
+    }}})
   }
 }
