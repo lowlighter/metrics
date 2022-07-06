@@ -83,7 +83,7 @@ fs.writeFile(paths.join(__preview, ".hosted"), JSON.stringify({by: "metrics", li
   const __web_embed = paths.join(paths.join(__web, "embed"))
   const __web_embed_placeholders = paths.join(__web_embed, "placeholders")
   const __preview_embed = paths.join(__preview, "embed")
-  const __preview_embed_placeholders = paths.join(__preview_embed, "placeholders")
+  const __preview_embed_placeholders = paths.join(__preview, ".placeholders")
   const __preview_embed_js = paths.join(__preview_js, "embed")
   await fs.mkdir(__preview_embed, {recursive: true})
   await fs.mkdir(__preview_embed_placeholders, {recursive: true})
