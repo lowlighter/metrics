@@ -94,8 +94,7 @@ for (const insights of ["insights", "about"]) {
   const __web_insights = paths.join(paths.join(__web, "insights"))
   const __preview_insights = paths.join(__preview, `${insights}/.statics`)
   await fs.mkdir(__preview_insights, {recursive: true})
-
-  fs.copyFile(paths.join(__web, insights, "index.html"), paths.join(__preview, insights, "index.html"))
+  fs.copyFile(paths.join(__web_insights, "index.html"), paths.join(__preview, insights, "index.html"))
   for (const file of await fs.readdir(__web_insights)) {
     if (file !== ".statics")
       fs.copyFile(paths.join(__web_insights, file), paths.join(__preview_insights, file))
