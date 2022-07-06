@@ -56,7 +56,6 @@ fs.copyFile(paths.join(__web, "style.vars.css"), paths.join(__preview_css, "styl
 fs.copyFile(paths.join(__node_modules, "prismjs/themes/prism-tomorrow.css"), paths.join(__preview_css, "style.prism.css"))
 //Scripts
 fs.writeFile(paths.join(__preview_js, "app.js"), `${await fs.readFile(paths.join(__web, "app.js"))}`)
-fs.writeFile(paths.join(__preview_js, "app.placeholder.js"), `${await fs.readFile(paths.join(__web, "app.placeholder.js"))}`)
 fs.copyFile(paths.join(__node_modules, "ejs/ejs.min.js"), paths.join(__preview_js, "ejs.min.js"))
 fs.writeFile(paths.join(__preview_js, "faker.min.js"), "import {faker} from '/.js/faker/index.mjs';globalThis.faker=faker;globalThis.placeholder.init(globalThis)")
 for (const path of [[], ["locale"]]) {
@@ -76,8 +75,13 @@ fs.copyFile(paths.join(__node_modules, "prismjs/components/prism-yaml.min.js"), 
 fs.copyFile(paths.join(__node_modules, "prismjs/components/prism-markdown.min.js"), paths.join(__preview_js, "prism.markdown.min.js"))
 fs.copyFile(paths.join(__node_modules, "clipboard/dist/clipboard.min.js"), paths.join(__preview_js, "clipboard.min.js"))
 //Meta
+fs.writeFile(paths.join(__preview, ".modes"), JSON.stringify(["embed", "insights"]))
 fs.writeFile(paths.join(__preview, ".version"), JSON.stringify(`${conf.package.version}-preview`))
 fs.writeFile(paths.join(__preview, ".hosted"), JSON.stringify({by: "metrics", link: "https://github.com/lowlighter/metrics"}))
+//Embed
+fs.writeFile(paths.join(__preview_js, "embed/index.html"), `${await fs.readFile(paths.join(__web, "embed/index.html"))}`)
+fs.writeFile(paths.join(__preview_js, "embed/app.js"), `${await fs.readFile(paths.join(__web, "embed/app.js"))}`)
+fs.writeFile(paths.join(__preview_js, "embed/app.placeholder.js"), `${await fs.readFile(paths.join(__web, "embed/app.placeholder.js"))}`)
 //Insights
 for (const insight of ["insights", "about"]) {
   const __web_insights = paths.join(paths.join(__web, insight))
