@@ -40,7 +40,7 @@ web.start = async () =>
 web.stop = async () => await web.instance.kill("SIGKILL")
 
 //Web instance placeholder
-require("./../source/app/web/statics/app.placeholder.js")
+require("./../source/app/web/statics/embed/app.placeholder.js")
 const placeholder = globalThis.placeholder
 delete globalThis.placeholder
 placeholder.init({
