@@ -16,4 +16,4 @@ inputs:
     type: boolean
     default: no
     extras:
-      - metrics.run.puppeteer.scraping
+      - metrics.run.puppeteer.scrapping

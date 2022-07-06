@@ -40,7 +40,7 @@
                                         "//": "metrics.run.git                   | Allow to run git (needs to be installed)",
                                         "//": "metrics.run.licensed              | Allow to run licensed (needs to be installed)",
                                         "//": "metrics.run.user.cmd              | Allow to run ANY command by user (USE WITH CAUTION!)",
-                                        "//": "metrics.run.puppeteer.scraping    | Allow to run puppeteer to scrape data",
+                                        "//": "metrics.run.puppeteer.scrapping   | Allow to run puppeteer to scrape data",
                                         "//": "metrics.run.puppeteer.user.css    | Allow to run CSS by user during puppeteer render",
                                         "//": "metrics.run.puppeteer.user.js     | Allow to run JavaScript by user during puppeteer render",
                                         "//": "metrics.npm.optional.chartist     | Allow use of chartist (needs to be installed)",

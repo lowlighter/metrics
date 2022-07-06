@@ -220,7 +220,8 @@ export default async function(
   },
   //Settings and tokens
   {
-    enabled = false
+    enabled = false,
+    extras = false,
   } = {}) {
     //Plugin execution
     try {
