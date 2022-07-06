@@ -91,7 +91,7 @@ fs.writeFile(paths.join(__preview, ".hosted"), JSON.stringify({by: "metrics", li
 }
 //Insights
 for (const insights of ["insights", "about"]) {
-  const __web_insights = paths.join(paths.join(__web, "insight"))
+  const __web_insights = paths.join(paths.join(__web, "insights"))
   const __preview_insights = paths.join(__preview, `${insights}/.statics`)
   await fs.mkdir(__preview_insights, {recursive: true})
 
