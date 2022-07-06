@@ -81,13 +81,18 @@ fs.writeFile(paths.join(__preview, ".hosted"), JSON.stringify({by: "metrics", li
 //Embed
 {
   const __web_embed = paths.join(paths.join(__web, "embed"))
+  const __web_embed_placeholders = paths.join(__web_embed, "placeholders")
   const __preview_embed = paths.join(__preview, "embed")
+  const __preview_embed_placeholders = paths.join(__preview_embed, "placeholders")
   const __preview_embed_js = paths.join(__preview_js, "embed")
   await fs.mkdir(__preview_embed, {recursive: true})
+  await fs.mkdir(__preview_embed_placeholders, {recursive: true})
   await fs.mkdir(__preview_embed_js, {recursive: true})
   fs.writeFile(paths.join(__preview_embed, "index.html"), `${await fs.readFile(paths.join(__web_embed, "index.html"))}`)
   fs.writeFile(paths.join(__preview_embed_js, "app.js"), `${await fs.readFile(paths.join(__web_embed, "app.js"))}`)
   fs.writeFile(paths.join(__preview_embed_js, "app.placeholder.js"), `${await fs.readFile(paths.join(__web_embed, "app.placeholder.js"))}`)
+  for (const file of await fs.readdir(__web_embed_placeholders))
+    fs.copyFile(paths.join(__web_embed_placeholders, file), paths.join(__preview_embed_placeholders, file))
 }
 //Insights
 for (const insights of ["insights", "about"]) {
