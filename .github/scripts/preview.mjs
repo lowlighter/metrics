@@ -79,9 +79,16 @@ fs.writeFile(paths.join(__preview, ".modes"), JSON.stringify(["embed", "insights
 fs.writeFile(paths.join(__preview, ".version"), JSON.stringify(`${conf.package.version}-preview`))
 fs.writeFile(paths.join(__preview, ".hosted"), JSON.stringify({by: "metrics", link: "https://github.com/lowlighter/metrics"}))
 //Embed
-fs.writeFile(paths.join(__preview_js, "embed/index.html"), `${await fs.readFile(paths.join(__web, "embed/index.html"))}`)
-fs.writeFile(paths.join(__preview_js, "embed/app.js"), `${await fs.readFile(paths.join(__web, "embed/app.js"))}`)
-fs.writeFile(paths.join(__preview_js, "embed/app.placeholder.js"), `${await fs.readFile(paths.join(__web, "embed/app.placeholder.js"))}`)
+{
+  const __web_embed = paths.join(paths.join(__web, "embed"))
+  const __preview_embed = paths.join(__preview, `${insight}/.statics`)
+  const __preview_embed_js = paths.join(__preview_embed, ".js/embed")
+  await fs.mkdir(__preview_embed, {recursive: true})
+  await fs.mkdir(__preview_embed_js, {recursive: true})
+  fs.writeFile(paths.join(__preview_embed, "index.html"), `${await fs.readFile(paths.join(__web_embed, "index.html"))}`)
+  fs.writeFile(paths.join(__preview_embed_js, "app.js"), `${await fs.readFile(paths.join(__web_embed, "app.js"))}`)
+  fs.writeFile(paths.join(__preview_embed_js, "app.placeholder.js"), `${await fs.readFile(paths.join(__web_embed, "app.placeholder.js"))}`)
+}
 //Insights
 for (const insight of ["insights", "about"]) {
   const __web_insights = paths.join(paths.join(__web, insight))
