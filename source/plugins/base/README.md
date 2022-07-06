@@ -72,7 +72,6 @@ This currently improves the accuracy of the following statistics:</p>
     <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code>:
 <ul>
 <li><i>metrics.api.github.overuse</i></li>
-<li><i>plugins.base.indepth</i></li>
 </ul>
 <b>type:</b> <code>boolean</code>
 <br>

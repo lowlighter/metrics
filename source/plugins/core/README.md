@@ -583,7 +583,7 @@ When doing so, any settings which defaults on user fetched values will not be te
   <tr>
     <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code>:
 <ul>
-<li><i>metrics.run.setup.community.templates</i></li>
+<li><i>metrics.setup.community.templates</i></li>
 </ul>
 <b>type:</b> <code>array</code>
 <i>(comma-separated)</i>
@@ -626,7 +626,7 @@ Useful to avoid creating a new template just to tweak some styling</p>
   <tr>
     <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code>:
 <ul>
-<li><i>metrics.run.user.css</i></li>
+<li><i>metrics.run.puppeteer.user.css</i></li>
 </ul>
 <b>type:</b> <code>string</code>
 <br></td>
@@ -643,7 +643,7 @@ It is run after transformations and optimizations, but just before resizing.</p>
   <tr>
     <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code>:
 <ul>
-<li><i>metrics.run.user.js</i></li>
+<li><i>metrics.run.puppeteer.user.js</i></li>
 </ul>
 <b>type:</b> <code>string</code>
 <br></td>
@@ -813,6 +813,10 @@ It can result in cropped or oversized outputs.</p>
   </tr>
   <tr>
     <td nowrap="nowrap">⏯️ Cannot be preset<br>
+🌐 Web instances must configure <code>settings.json</code>:
+<ul>
+<li><i>metrics.setup.community.presets</i></li>
+</ul>
 <b>type:</b> <code>array</code>
 <i>(comma-separated)</i>
 <br></td>
@@ -1004,6 +1008,10 @@ This option has no effects on forks (images will always be rebuilt from Dockerfi
   <tr>
     <td nowrap="nowrap">⏯️ Cannot be preset<br>
 🔧 For development<br>
+🌐 Web instances must configure <code>settings.json</code>:
+<ul>
+<li><i>metrics.npm.optional.libxml2</i></li>
+</ul>
 <b>type:</b> <code>boolean</code>
 <br>
 <b>default:</b> no<br></td>

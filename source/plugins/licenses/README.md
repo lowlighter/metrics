@@ -60,6 +60,7 @@ Dependencies will be analyzed by [GitHub licensed](https://github.com/github/lic
   <tr>
     <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code>:
 <ul>
+<li><i>metrics.cpu.overuse</i></li>
 <li><i>metrics.run.tempdir</i></li>
 <li><i>metrics.run.git</i></li>
 <li><i>metrics.run.licensed</i></li>

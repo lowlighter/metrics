@@ -2,38 +2,53 @@
   "//": "Example of configuration for metrics web instance",
   "//": "====================================================================",
 
-  "token": "MY GITHUB API TOKEN",  "//": "GitHub Personal Token (required)",
-  "restricted": [],                "//": "Authorized users (empty to disable)",
-  "maxusers": 0,                   "//": "Maximum users, (0 to disable)",
-  "cached": 3600000,               "//": "Cache time rendered metrics (0 to disable)",
-  "ratelimiter": null,             "//": "Rate limiter (see express-rate-limit documentation)",
-  "port": 3000,                    "//": "Listening port",
-  "optimize": true,                "//": "SVG optimization",
-  "debug": false,                  "//": "Debug logs",
-  "debug.headless": false,         "//": "Debug puppeteer process",
-  "mocked": false,                 "//": "Use mocked data instead of live APIs (use 'force' to use mocked token even if real token are defined)",
-  "repositories": 100,             "//": "Number of repositories to use",
-  "padding": ["0", "8 + 11%"],     "//": "Image padding (default)",
+  "token": "GITHUB API TOKEN",          "//": "GitHub Personal Token (required)",
+  "modes": ["embed", "insights"],       "//": "Web instance enabled modes",
+  "restricted": [],                     "//": "Authorized users (empty to disable)",
+  "maxusers": 0,                        "//": "Maximum users, (0 to disable)",
+  "cached": 3600000,                    "//": "Cache time rendered metrics (0 to disable)",
+  "ratelimiter": null,                  "//": "Rate limiter (see express-rate-limit documentation)",
+  "port": 3000,                         "//": "Listening port",
+  "optimize": true,                     "//": "SVG optimization",
+  "debug": false,                       "//": "Debug logs",
+  "debug.headless": false,              "//": "Debug puppeteer process",
+  "mocked": false,                      "//": "Use mocked data instead of live APIs (use 'force' to use mocked token even if real token are defined)",
+  "repositories": 100,                  "//": "Number of repositories to use",
+  "padding": ["0", "8 + 11%"],          "//": "Image padding (default)",
+  "outputs": ["svg", "png", "json"],    "//": "Image output formats (empty to enable all)",
   "hosted": {
-    "by": "",                      "//": "Web instance host (displayed in footer)",
-    "link": "",                    "//": "Web instance host link (displayed in footer)"
+    "by": "",                           "//": "Web instance host (displayed in footer)",
+    "link": "",                         "//": "Web instance host link (displayed in footer)"
   },
   "community": {
-    "templates": [],               "//": "Additional community templates to setup"
+    "templates": [],                    "//": "Additional community templates to setup"
   },
   "templates": {
-    "default": "classic",          "//": "Default template",
-    "enabled": [],                 "//": "Enabled templates (empty to enable all)"
+    "default": "classic",               "//": "Default template",
+    "enabled": [],                      "//": "Enabled templates (empty to enable all)"
   },
   "extras": {
-    "default": false,              "//": "Default extras state (advised to let 'false' unless in debug mode)",
-    "presets": false,              "//": "Allow use of 'config.presets' option",
-    "css": false,                  "//": "Allow use of 'extras.css' option",
-    "js": false,                   "//": "Allow use of 'extras.js' option",
-    "features": false,             "//": "Enable extra features (advised to let 'false' on web instances)"
+    "default": false,                   "//": "Default extras state (advised to let 'false' unless in debug mode)",
+    "presets": false,                   "//": "Allow use of 'config.presets' option",
+    "features": false,                  "//": "Enable extra features (advised to let 'false' on web instances), see below for supported features",
+                                        "//": "________________________________________________________________________",
+                                        "//": "metrics.setup.community.templates | Allow community templates download",
+                                        "//": "metrics.setup.community.presets   | Allow community presets usage",
+                                        "//": "metrics.api.github.overuse        | Allow GitHub API intensive requests",
+                                        "//": "metrics.cpu.overuse               | Allow CPU intensive requests",
+                                        "//": "metrics.run.tempdir               | Allow access to temporary directory (I/O operations may be performed)",
+                                        "//": "metrics.run.git                   | Allow to run git (needs to be installed)",
+                                        "//": "metrics.run.licensed              | Allow to run licensed (needs to be installed)",
+                                        "//": "metrics.run.user.cmd              | Allow to run ANY command by user (USE WITH CAUTION!)",
+                                        "//": "metrics.run.puppeteer.scrapping   | Allow to run puppeteer to scrape data",
+                                        "//": "metrics.run.puppeteer.user.css    | Allow to run CSS by user during puppeteer render",
+                                        "//": "metrics.run.puppeteer.user.js     | Allow to run JavaScript by user during puppeteer render",
+                                        "//": "metrics.npm.optional.chartist     | Allow use of chartist (needs to be installed)",
+                                        "//": "metrics.npm.optional.gifencoder   | Allow use of gifencoder (needs to be installed)",
+                                        "//": "metrics.npm.optional.libxmljs2    | Allow use of libxmljs2 (needs to be installed)"
   },
-  "plugins.default": false,        "//": "Default plugin state (advised to let 'false' unless in debug mode)",
-  "plugins": {                     "//": "Global plugin configuration",
+  "plugins.default": false,             "//": "Default plugin state (advised to let 'false' unless in debug mode)",
+  "plugins": {                          "//": "Global plugin configuration",
     "isocalendar":{
       "enabled": false,            "//": "Enable isocalendar plugin"
     },

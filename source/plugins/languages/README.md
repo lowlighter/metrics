@@ -156,7 +156,7 @@ It will be automatically hidden if empty.</p>
   <tr>
     <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code>:
 <ul>
-<li><i>metrics.api.github.overuse</i></li>
+<li><i>metrics.cpu.overuse</i></li>
 <li><i>metrics.run.tempdir</i></li>
 <li><i>metrics.run.git</i></li>
 </ul>
@@ -170,13 +170,7 @@ It will be automatically hidden if empty.</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code>:
-<ul>
-<li><i>metrics.api.github.overuse</i></li>
-<li><i>metrics.run.tempdir</i></li>
-<li><i>metrics.run.git</i></li>
-</ul>
-<b>type:</b> <code>number</code>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
 <i>(1 ≤
 𝑥
 ≤ 30)</i>
@@ -189,13 +183,7 @@ It will be automatically hidden if empty.</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code>:
-<ul>
-<li><i>metrics.api.github.overuse</i></li>
-<li><i>metrics.run.tempdir</i></li>
-<li><i>metrics.run.git</i></li>
-</ul>
-<b>type:</b> <code>array</code>
+    <td nowrap="nowrap"><b>type:</b> <code>array</code>
 <i>(comma-separated)</i>
 <br>
 <b>default:</b> markup, programming<br>
@@ -207,13 +195,7 @@ It will be automatically hidden if empty.</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code>:
-<ul>
-<li><i>metrics.api.github.overuse</i></li>
-<li><i>metrics.run.tempdir</i></li>
-<li><i>metrics.run.git</i></li>
-</ul>
-<b>type:</b> <code>array</code>
+    <td nowrap="nowrap"><b>type:</b> <code>array</code>
 <i>(comma-separated)</i>
 <br>
 <b>default:</b> markup, programming<br>
@@ -225,13 +207,7 @@ It will be automatically hidden if empty.</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code>:
-<ul>
-<li><i>metrics.api.github.overuse</i></li>
-<li><i>metrics.run.tempdir</i></li>
-<li><i>metrics.run.git</i></li>
-</ul>
-<b>type:</b> <code>number</code>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
 <i>(100 ≤
 𝑥
 ≤ 1000)</i>
@@ -244,13 +220,7 @@ It will be automatically hidden if empty.</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code>:
-<ul>
-<li><i>metrics.api.github.overuse</i></li>
-<li><i>metrics.run.tempdir</i></li>
-<li><i>metrics.run.git</i></li>
-</ul>
-<b>type:</b> <code>number</code>
+    <td nowrap="nowrap"><b>type:</b> <code>number</code>
 <i>(0 ≤
 𝑥
 ≤ 365)</i>
