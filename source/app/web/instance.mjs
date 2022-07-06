@@ -130,6 +130,8 @@ export default async function({sandbox = false} = {}) {
   app.get("/.templates/:template", limiter, (req, res) => req.params.template in conf.templates ? res.status(200).json(conf.templates[req.params.template]) : res.sendStatus(404))
   for (const template in conf.templates)
     app.use(`/.templates/${template}/partials`, express.static(`${conf.paths.templates}/${template}/partials`))
+  //Modes
+  app.get("/.modes", limiter, (req, res) => res.status(200).json(conf.settings.modes))
   //Styles
   app.get("/.css/style.css", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/style.css`))
   app.get("/.css/style.vars.css", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/style.vars.css`))

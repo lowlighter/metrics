@@ -20,7 +20,12 @@
         await this.search()
       }
       else {
+        const user = new URLSearchParams(location.search).get("user")
         this.searchable = true
+        if (user) {
+          this.user = user
+          this.search()
+        }
       }
       //Init
       await Promise.all([

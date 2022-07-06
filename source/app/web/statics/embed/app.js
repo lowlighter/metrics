@@ -85,7 +85,7 @@
     //Data initialization
     data: {
       version: "",
-      user: "",
+      user: new URLSearchParams(location.search).get("user") || "",
       tab: "overview",
       palette: "light",
       clipboard: null,

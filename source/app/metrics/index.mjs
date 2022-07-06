@@ -24,8 +24,6 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
     //Initialization
     const pending = []
     const {queries} = conf
-    const extras = {css: imports.metadata.plugins.core.extras("extras_css", {...conf.settings, error:false}) ? q["extras.css"] ?? "" : "", js: imports.metadata.plugins.core.extras("extras_js", {...conf.settings, error:false}) ? q["extras.js"] ?? "" : ""}
-    const data = {q, animated: true, large: false, base: {}, config: {}, errors: [], plugins: {}, computed: {}, extras, postscripts: []}
     const imports = {
       plugins: Plugins,
       templates: Templates,
@@ -40,6 +38,8 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
         }
         : null),
     }
+    const extras = {css: imports.metadata.plugins.core.extras("extras_css", {...conf.settings, error:false}) ? q["extras.css"] ?? "" : "", js: imports.metadata.plugins.core.extras("extras_js", {...conf.settings, error:false}) ? q["extras.js"] ?? "" : ""}
+    const data = {q, animated: true, large: false, base: {}, config: {}, errors: [], plugins: {}, computed: {}, extras, postscripts: []}
     const experimental = new Set(decodeURIComponent(q["experimental.features"] ?? "").split(" ").map(x => x.trim().toLocaleLowerCase()).filter(x => x))
     if (conf.settings["debug.headless"])
       imports.puppeteer.headless = false

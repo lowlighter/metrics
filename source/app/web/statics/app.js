@@ -6,7 +6,6 @@
     async mounted() {
       //Interpolate config from browser
       try {
-        this.config.timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
         this.palette = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
       }
       catch (error) {}
@@ -16,26 +15,6 @@
         (async () => {
           const {data: requests} = await axios.get("/.requests")
           this.requests = requests
-        })(),
-        //Templates
-        (async () => {
-          const {data: templates} = await axios.get("/.templates")
-          templates.sort((a, b) => (a.name.startsWith("@") ^ b.name.startsWith("@")) ? (a.name.startsWith("@") ? 1 : -1) : a.name.localeCompare(b.name))
-          this.templates.list = templates
-          this.templates.selected = templates[0]?.name || "classic"
-        })(),
-        //Plugins
-        (async () => {
-          const {data: plugins} = await axios.get("/.plugins")
-          this.plugins.list = plugins.filter(({name}) => metadata[name]?.supports.includes("user") || metadata[name]?.supports.includes("organization"))
-          const categories = [...new Set(this.plugins.list.map(({category}) => category))]
-          this.plugins.categories = Object.fromEntries(categories.map(category => [category, this.plugins.list.filter(value => category === value.category)]))
-        })(),
-        //Base
-        (async () => {
-          const {data: base} = await axios.get("/.plugins.base")
-          this.plugins.base = base
-          this.plugins.enabled.base = Object.fromEntries(base.map(key => [key, true]))
         })(),
         //Version
         (async () => {
@@ -47,28 +26,15 @@
           const {data: hosted} = await axios.get("/.hosted")
           this.hosted = hosted
         })(),
+        //Modes
+        (async () => {
+          const {data: modes} = await axios.get("/.modes")
+          this.modes = modes
+        })(),
       ])
-      //Generate placeholder
-      this.mock({timeout: 200})
-      setInterval(() => {
-        const marker = document.querySelector("#metrics-end")
-        if (marker) {
-          this.mockresize()
-          marker.remove()
-        }
-      }, 100)
     },
     //Watchers
     watch: {
-      tab: {
-        immediate: true,
-        handler(current) {
-          if (current === "action")
-            this.clipboard = new ClipboardJS(".copy-action")
-          else
-            this.clipboard?.destroy()
-        },
-      },
       palette: {
         immediate: true,
         handler(current, previous) {
@@ -80,14 +46,12 @@
     //Data initialization
     data: {
       version: "",
-      user: "",
-      tab: "overview",
+      user1: "",
+      user2: "",
       palette: "light",
-      clipboard: null,
       requests: {rest: {limit: 0, used: 0, remaining: 0, reset: NaN}, graphql: {limit: 0, used: 0, remaining: 0, reset: NaN}},
-      cached: new Map(),
-
       hosted: null,
+      modes: [],
     },
     //Computed data
     computed: {
@@ -95,6 +59,22 @@
       preview() {
         return /-preview$/.test(this.version)
       },
+      //Rate limit reset
+      rlreset() {
+        const reset = new Date(Math.max(this.requests.graphql.reset, this.requests.rest.reset))
+        return `${reset.getHours()}:${reset.getMinutes()}`
+      },
     },
+    //Methods
+    methods:{
+      //Metrics insights
+      async insights() {
+        window.location.href = `/insights?user=${this.user1}`
+      },
+      //Metrics embed
+      async embed() {
+        window.location.href = `/embed?user=${this.user2}`
+      }
+    }
   })
 })()
