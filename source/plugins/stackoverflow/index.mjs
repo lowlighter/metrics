@@ -1,15 +1,15 @@
 //Setup
-export default async function({login, q, imports, data, account}, {enabled = false} = {}) {
+export default async function({login, q, imports, data, account}, {enabled = false, extras = false} = {}) {
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
-    if ((!enabled) || (!q.stackoverflow))
+    if ((!enabled) || (!q.stackoverflow) || (!imports.metadata.plugins.stackoverflow.extras("enabled", {extras})))
       return null
 
     //Load inputs
     let {sections, user, limit, lines, "lines.snippet": codelines} = imports.metadata.plugins.stackoverflow.inputs({data, account, q})
     if (!user)
-      throw {error: {message: "You must provide a stackoverflow user id"}}
+      throw {error: {message: "Stack Overflow user id is not set"}}
 
     //Initialization
     //See https://api.stackexchange.com/docs
@@ -64,9 +64,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
   }
   //Handle errors
   catch (error) {
-    if (error.error?.message)
-      throw error
-    throw {error: {message: "An error occured", instance: error}}
+    throw imports.format.error(error)
   }
 }
 

@@ -1,9 +1,9 @@
 //Setup
-export default async function({login, data, graphql, q, imports, queries, account}, {enabled = false} = {}) {
+export default async function({login, data, graphql, q, imports, queries, account}, {enabled = false, extras = false} = {}) {
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
-    if ((!enabled) || (!q.gists))
+    if ((!enabled) || (!q.gists) || (!imports.metadata.plugins.gists.extras("enabled", {extras})))
       return null
 
     //Load inputs
@@ -45,8 +45,6 @@ export default async function({login, data, graphql, q, imports, queries, accoun
   }
   //Handle errors
   catch (error) {
-    if (error.error?.message)
-      throw error
-    throw {error: {message: "An error occured", instance: error}}
+    throw imports.format.error(error)
   }
 }

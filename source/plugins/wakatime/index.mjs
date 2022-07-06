@@ -1,9 +1,9 @@
 //Setup
-export default async function({login, q, imports, data, account}, {enabled = false, token} = {}) {
+export default async function({login, q, imports, data, account}, {enabled = false, token, extras = false} = {}) {
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
-    if (!enabled || !q.wakatime)
+    if ((!enabled) || (!q.wakatime) || (!imports.metadata.plugins.wakatime.extras("enabled", {extras})))
       return null
 
     //Load inputs
@@ -46,13 +46,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
   }
   //Handle errors
   catch (error) {
-    let message = "An error occured"
-    if (error.isAxiosError) {
-      const status = error.response?.status
-      message = `API returned ${status}`
-      error = error.response?.data ?? null
-    }
-    throw {error: {message, instance: error}}
+    throw imports.format.error(error)
   }
 }
 

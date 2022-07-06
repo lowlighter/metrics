@@ -28,11 +28,11 @@ const modes = {
 }
 
 //Setup
-export default async function({login, imports, data, q, account}, {enabled = false, token = "", sandbox = false} = {}) {
+export default async function({login, imports, data, q, account}, {enabled = false, token = "", sandbox = false, extras = false} = {}) {
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
-    if ((!enabled) || (!q.music))
+    if ((!enabled) || (!q.music) || (!imports.metadata.plugins.music.extras("enabled", {extras})))
       return null
 
     //Initialization
@@ -71,16 +71,16 @@ export default async function({login, imports, data, q, account}, {enabled = fal
     }
     //Provider
     if (!(provider in providers))
-      throw {error: {message: provider ? `Unsupported provider "${provider}"` : "Missing provider"}, ...raw}
+      throw {error: {message: provider ? `Unsupported provider "${provider}"` : "Provider is not set"}, ...raw}
     //Mode
     if (!(mode in modes))
       throw {error: {message: `Unsupported mode "${mode}"`}, ...raw}
     //Playlist mode
     if (mode === "playlist") {
       if (!playlist)
-        throw {error: {message: "Missing playlist url"}, ...raw}
+        throw {error: {message: "Playlist URL is not set"}, ...raw}
       if (!providers[provider].embed.test(playlist))
-        throw {error: {message: "Unsupported playlist url format"}, ...raw}
+        throw {error: {message: "Unsupported playlist URL format"}, ...raw}
     }
     //Limit
     limit = Math.max(1, Math.min(100, Number(limit)))
@@ -177,7 +177,7 @@ export default async function({login, imports, data, q, account}, {enabled = fal
             //Prepare credentials
             const [client_id, client_secret, refresh_token] = token.split(",").map(part => part.trim())
             if ((!client_id) || (!client_secret) || (!refresh_token))
-              throw {error: {message: "Spotify token must contain client id/secret and refresh token"}}
+              throw {error: {message: "Token must contain client id, client secret and refresh token"}}
             //API call and parse tracklist
             try {
               //Request access token
@@ -309,14 +309,7 @@ export default async function({login, imports, data, q, account}, {enabled = fal
             }
             //Handle errors
             catch (error) {
-              if (error.isAxiosError) {
-                const status = error.response?.status
-                const description = error.response.data?.error_description ?? null
-                const message = `API returned ${status}${description ? ` (${description})` : ""}`
-                error = error.response?.data ?? null
-                throw {error: {message, instance: error}, ...raw}
-              }
-              throw error
+              throw imports.format.error(error)
             }
             break
           }
@@ -364,9 +357,9 @@ export default async function({login, imports, data, q, account}, {enabled = fal
             //Prepare credentials
             const [client_id, client_secret, refresh_token] = token.split(",").map(part => part.trim())
             if ((!client_id) || (!client_secret) || (!refresh_token))
-              throw {error: {message: "Spotify token must contain client id/secret and refresh token"}}
+              throw {error: {message: "Token must contain client id, client secret and refresh token"}}
             else if (limit > 50)
-              throw {error: {message: "Spotify top limit cannot be greater than 50"}}
+              throw {error: {message: "Top limit cannot exceed 50 for this provider"}}
 
             //API call and parse tracklist
             try {
@@ -422,14 +415,7 @@ export default async function({login, imports, data, q, account}, {enabled = fal
             }
             //Handle errors
             catch (error) {
-              if (error.isAxiosError) {
-                const status = error.response?.status
-                const description = error.response.data?.error_description ?? null
-                const message = `API returned ${status}${description ? ` (${description})` : ""}`
-                error = error.response?.data ?? null
-                throw {error: {message, instance: error}, ...raw}
-              }
-              throw error
+              throw imports.format.error(error)
             }
             break
           }
@@ -473,14 +459,7 @@ export default async function({login, imports, data, q, account}, {enabled = fal
             }
             //Handle errors
             catch (error) {
-              if (error.isAxiosError) {
-                const status = error.response?.status
-                const description = error.response.data?.message ?? null
-                const message = `API returned ${status}${description ? ` (${description})` : ""}`
-                error = error.response?.data ?? null
-                throw {error: {message, instance: error}, ...raw}
-              }
-              throw error
+              throw imports.format.error(error)
             }
             break
           }
@@ -513,13 +492,11 @@ export default async function({login, imports, data, q, account}, {enabled = fal
     }
 
     //Unhandled error
-    throw {error: {message: "An error occured (could not retrieve tracks)"}}
+    throw {error: {message: "Failed to retrieve tracks"}}
   }
   //Handle errors
   catch (error) {
-    if (error.error?.message)
-      throw error
-    throw {error: {message: "An error occured", instance: error}}
+    throw imports.format.error(error)
   }
 }
 

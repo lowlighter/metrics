@@ -281,7 +281,7 @@
   }
 
 /* Error */
-  .error {
+  .alert.error {
     padding: 1.25rem 1rem;
     background-image: linear-gradient(var(--color-alert-error-bg),var(--color-alert-error-bg));
     color: var(--color-alert-error-text);

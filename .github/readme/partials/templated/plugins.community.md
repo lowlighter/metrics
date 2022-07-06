@@ -241,7 +241,7 @@ export default async function(
     }
     //Handle errors
     catch (error) {
-      throw {error:{message:"An error occured", instance:error}}
+      throw imports.format.error(error)
     }
 }
 ```

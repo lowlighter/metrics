@@ -24,7 +24,7 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
     //Initialization
     const pending = []
     const {queries} = conf
-    const extras = {css: (conf.settings.extras?.css ?? conf.settings.extras?.default) ? q["extras.css"] ?? "" : "", js: (conf.settings.extras?.js ?? conf.settings.extras?.default) ? q["extras.js"] ?? "" : ""}
+    const extras = {css: imports.metadata.plugins.core.extras("extras_css", {...conf.settings, error:false}) ? q["extras.css"] ?? "" : "", js: imports.metadata.plugins.core.extras("extras_js", {...conf.settings, error:false}) ? q["extras.js"] ?? "" : ""}
     const data = {q, animated: true, large: false, base: {}, config: {}, errors: [], plugins: {}, computed: {}, extras, postscripts: []}
     const imports = {
       plugins: Plugins,
@@ -184,7 +184,7 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
     if ((conf.settings?.optimize === true) || (conf.settings?.optimize?.includes?.("svg")))
       rendered = await imports.svg.optimize.svg(rendered, q, experimental)
     //Verify svg
-    if (verify) {
+    if ((verify)&&(imports.metadata.plugins.core.extras("verify", {...conf.settings, error:false}))) {
       console.debug(`metrics/compute/${login} > verify SVG`)
       let libxmljs = null
       try {
@@ -281,9 +281,9 @@ metrics.insights.output = async function({login, imports, conf}, {graphql, rest,
   console.debug(`metrics/compute/${login} > insights > generating data`)
   const result = await metrics.insights({login}, {graphql, rest, conf}, {Plugins, Templates})
   const json = JSON.stringify(result)
-  await page.goto(`${server}/about/${login}?embed=1&localstorage=1`)
+  await page.goto(`${server}/insights/${login}?embed=1&localstorage=1`)
   await page.evaluate(async json => localStorage.setItem("local.metrics", json), json) //eslint-disable-line no-undef
-  await page.goto(`${server}/about/${login}?embed=1&localstorage=1`)
+  await page.goto(`${server}/insights/${login}?embed=1&localstorage=1`)
   await page.waitForSelector(".container .user", {timeout: 10 * 60 * 1000})
 
   //Rendering
@@ -297,7 +297,7 @@ metrics.insights.output = async function({login, imports, conf}, {graphql, rest,
       </head>
       <body>
         ${await page.evaluate(() => document.querySelector("main").outerHTML)}
-        ${(await Promise.all([".css/style.vars.css", ".css/style.css", "about/.statics/style.css"].map(path => utils.axios.get(`${server}/${path}`)))).map(({data: style}) => `<style>${style}</style>`).join("\n")}
+        ${(await Promise.all([".css/style.vars.css", ".css/style.css", "insights/.statics/style.css"].map(path => utils.axios.get(`${server}/${path}`)))).map(({data: style}) => `<style>${style}</style>`).join("\n")}
       </body>
     </html>`
   await browser.close()

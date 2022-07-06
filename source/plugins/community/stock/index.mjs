@@ -3,15 +3,15 @@ export default async function({login, q, imports, data, account}, {enabled = fal
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
-    if ((!enabled) || (!imports.metadata.plugins.stock.extras("enabled", {extras})) || (!q.stock))
+    if ((!enabled) || (!q.stock) || (!imports.metadata.plugins.stock.extras("enabled", {extras})))
       return null
 
     //Load inputs
     let {symbol, interval, duration} = imports.metadata.plugins.stock.inputs({data, account, q})
     if (!token)
-      throw {error: {message: "A token is required"}}
+      throw {error: {message: "API token is not set"}}
     if (!symbol)
-      throw {error: {message: "A company stock symbol is required"}}
+      throw {error: {message: "Company stock symbol is not set"}}
     symbol = symbol.toLocaleUpperCase()
 
     //Query API for company informations
@@ -48,13 +48,6 @@ export default async function({login, q, imports, data, account}, {enabled = fal
   }
   //Handle errors
   catch (error) {
-    let message = "An error occured"
-    if (error.isAxiosError) {
-      const status = error.response?.status
-      const description = error.response?.data?.message ?? null
-      message = `API returned ${status}${description ? ` (${description})` : ""}`
-      error = error.response?.data ?? null
-    }
-    throw {error: {message, instance: error}}
+    throw imports.format.error(error)
   }
 }

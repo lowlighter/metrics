@@ -1,9 +1,9 @@
 //Setup
-export default async function({login, data, imports, rest, q, account}, {enabled = false} = {}) {
+export default async function({login, data, imports, rest, q, account}, {enabled = false, extras = false} = {}) {
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
-    if ((!enabled) || (!q.lines))
+    if ((!enabled) || (!q.lines) || (!imports.metadata.plugins.lines.extras("enabled", {extras})))
       return null
 
     //Load inputs
@@ -42,6 +42,6 @@ export default async function({login, data, imports, rest, q, account}, {enabled
   }
   //Handle errors
   catch (error) {
-    throw {error: {message: "An error occured", instance: error}}
+    throw imports.format.error(error)
   }
 }

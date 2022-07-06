@@ -1,9 +1,9 @@
 //Setup
-export default async function({login, q, imports, data, account}, {enabled = false} = {}) {
+export default async function({login, q, imports, data, account}, {enabled = false, extras = false} = {}) {
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
-    if ((!enabled) || (!q.starlists))
+    if ((!enabled) || (!q.starlists) || (!imports.metadata.plugins.starlists.extras("enabled", {extras})))
       return null
 
     //Load inputs
@@ -101,6 +101,6 @@ export default async function({login, q, imports, data, account}, {enabled = fal
   }
   //Handle errors
   catch (error) {
-    throw {error: {message: "An error occured", instance: error}}
+    throw imports.format.error(error)
   }
 }

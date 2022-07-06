@@ -1,9 +1,9 @@
 //Setup
-export default async function({login, data, imports, q, queries, account}, {enabled = false} = {}) {
+export default async function({login, data, imports, q, queries, account}, {enabled = false, extras = false} = {}) {
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
-    if ((!enabled) || (!q.posts))
+    if ((!enabled) || (!q.posts) || (!imports.metadata.plugins.posts.extras("enabled", {extras})))
       return null
 
     //Load inputs
@@ -51,12 +51,10 @@ export default async function({login, data, imports, q, queries, account}, {enab
     }
 
     //Unhandled error
-    throw {error: {message: "An error occured (could not retrieve posts)"}}
+    throw {error: {message: "Failed to retrieve posts"}}
   }
   //Handle errors
   catch (error) {
-    if (error.error?.message)
-      throw error
-    throw {error: {message: "An error occured", instance: error}}
+    throw imports.format.error(error)
   }
 }

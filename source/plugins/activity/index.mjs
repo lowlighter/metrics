@@ -1,9 +1,9 @@
 //Setup
-export default async function({login, data, rest, q, account, imports}, {enabled = false, markdown = "inline"} = {}) {
+export default async function({login, data, rest, q, account, imports}, {enabled = false, markdown = "inline", extras = false} = {}) {
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
-    if ((!enabled) || (!q.activity))
+    if ((!enabled) || (!q.activity) || (!imports.metadata.plugins.activity.extras("enabled", {extras})))
       return null
 
     //Context
@@ -174,6 +174,6 @@ export default async function({login, data, rest, q, account, imports}, {enabled
   }
   //Handle errors
   catch (error) {
-    throw {error: {message: "An error occured", instance: error}}
+    throw imports.format.error(error)
   }
 }

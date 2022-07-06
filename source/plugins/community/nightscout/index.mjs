@@ -1,16 +1,16 @@
 //Setup
-export default async function({q, imports, data, account}, {enabled = false} = {}) {
+export default async function({q, imports, data, account}, {enabled = false, extras = false} = {}) {
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
-    if ((!enabled) || (!q.nightscout))
+    if ((!enabled) || (!q.nightscout) || (!imports.metadata.plugins.nightscout.extras("enabled", {extras})))
       return null
 
     //Load inputs
     let {url, datapoints, lowalert, highalert, urgentlowalert, urgenthighalert} = imports.metadata.plugins.nightscout.inputs({data, account, q})
 
     if (!url || url === "https://example.herokuapp.com")
-      throw {error: {message: "Nightscout site URL isn't set!"}}
+      throw {error: {message: "Nightscout URL is not set"}}
     if (url.substring(url.length - 1) !== "/")
       url += "/"
     if (url.substring(0, 7) === "http://")
@@ -48,9 +48,7 @@ export default async function({q, imports, data, account}, {enabled = false} = {
   }
   //Handle errors
   catch (error) {
-    if (error.error?.message)
-      throw error
-    throw {error: {message: "An error occured", instance: error}}
+    throw imports.format.error(error)
   }
 }
 

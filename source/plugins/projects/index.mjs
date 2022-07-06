@@ -1,9 +1,9 @@
 //Setup
-export default async function({login, data, imports, graphql, q, queries, account}, {enabled = false} = {}) {
+export default async function({login, data, imports, graphql, q, queries, account}, {enabled = false, extras = false} = {}) {
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
-    if ((!enabled) || (!q.projects))
+    if ((!enabled) || (!q.projects) || (!imports.metadata.plugins.projects.extras("enabled", {extras})))
       return null
 
     //Load inputs
@@ -66,9 +66,10 @@ export default async function({login, data, imports, graphql, q, queries, accoun
   }
   //Handle errors
   catch (error) {
-    let message = "An error occured"
-    if (error.errors?.map(({type}) => type)?.includes("INSUFFICIENT_SCOPES"))
-      message = "Insufficient token rights"
-    throw {error: {message, instance: error}}
+    throw imports.format.error(error, {descriptions:{custom(error) {
+      if (error.errors?.map(({type}) => type)?.includes("INSUFFICIENT_SCOPES"))
+        return "Insufficient token scopes"
+      return null
+    }}})
   }
 }

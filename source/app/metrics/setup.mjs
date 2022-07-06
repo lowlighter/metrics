@@ -193,6 +193,18 @@ export default async function({log = true, sandbox = false, community = {}} = {}
   //Load metadata
   conf.metadata = await metadata({log})
 
+  //Modes
+  if ((!conf.settings.modes)||(!conf.settings.modes.length))
+    conf.settings.modes = ["embed", "insights"]
+  logger(`metrics/setup > setup > enabled modes ${JSON.stringify(conf.settings.modes)}`)
+
+  //Allowed outputs formats
+  if ((!conf.settings.outputs)||(!conf.settings.outputs.length))
+    conf.settings.outputs = metadata.inputs.config_output.values
+  else
+    conf.settings.outputs = conf.settings.outputs.filter(format => metadata.inputs.config_output.values.includes(format))
+  logger(`metrics/setup > setup > allowed outputs ${JSON.stringify(conf.settings.outputs)}`)
+
   //Store authenticated user
   if (conf.settings.token) {
     try {

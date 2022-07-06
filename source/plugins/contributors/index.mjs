@@ -3,7 +3,7 @@ export default async function({login, q, imports, data, rest, graphql, queries, 
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
-    if ((!enabled) || (!q.contributors))
+    if ((!enabled) || (!q.contributors) || (!imports.metadata.plugins.contributors.extras("enabled", {extras})))
       return null
 
     //Load inputs
@@ -123,6 +123,6 @@ export default async function({login, q, imports, data, rest, graphql, queries, 
   }
   //Handle errors
   catch (error) {
-    throw {error: {message: "An error occured", instance: error}}
+    throw imports.format.error(error)
   }
 }
