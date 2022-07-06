@@ -90,12 +90,12 @@ fs.writeFile(paths.join(__preview, ".hosted"), JSON.stringify({by: "metrics", li
   fs.writeFile(paths.join(__preview_embed_js, "app.placeholder.js"), `${await fs.readFile(paths.join(__web_embed, "app.placeholder.js"))}`)
 }
 //Insights
-for (const insight of ["insights", "about"]) {
-  const __web_insights = paths.join(paths.join(__web, insight))
-  const __preview_insights = paths.join(__preview, `${insight}/.statics`)
+for (const insights of ["insights", "about"]) {
+  const __web_insights = paths.join(paths.join(__web, "insight"))
+  const __preview_insights = paths.join(__preview, `${insights}/.statics`)
   await fs.mkdir(__preview_insights, {recursive: true})
 
-  fs.copyFile(paths.join(__web, insight, "index.html"), paths.join(__preview, insight, "index.html"))
+  fs.copyFile(paths.join(__web, insights, "index.html"), paths.join(__preview, insights, "index.html"))
   for (const file of await fs.readdir(__web_insights)) {
     if (file !== ".statics")
       fs.copyFile(paths.join(__web_insights, file), paths.join(__preview_insights, file))
