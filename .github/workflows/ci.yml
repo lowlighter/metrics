@@ -217,11 +217,20 @@ jobs:
           use_mocked_data: yes
           verify: yes
 
+  # Deploy to metrics.lecoq.io
+  deploy-latest:
+    name: Deploy lowlighter/metrics@latest
+    runs-on: ubuntu-latest
+    needs: [ update-latest ]
+    steps:
+      - name: Deploy web instance
+        run: "curl -X POST -H 'Authorization: ${{ secrets.WEB_DEPLOY_TOKEN }}' https://metrics.lecoq.io/.control/stop"
+
   # Publish GitHub release
   publish-release:
     name: Publish release
     runs-on: ubuntu-latest
-    needs: [ action-latest-test ]
+    needs: [ action-latest-test, deploy-latest ]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -237,13 +246,3 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           GITHUB_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
-
-  # Deploy to metrics.lecoq.io
-  deploy-latest:
-    name: Deploy lowlighter/metrics@latest
-    runs-on: ubuntu-latest
-    needs: [ action-latest-test ]
-    if: contains(github.event.head_commit.message, '[deploy]')
-    steps:
-      - name: Deploy web instance
-        run: "curl -H 'Content-Type: application/json' --data '${{ secrets.WEB_DEPLOY_TOKEN }}' -X POST https://deploy.metrics.lecoq.io"

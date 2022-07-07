@@ -399,6 +399,24 @@ export default async function({sandbox = false} = {}) {
     app.get("/embed/*", (req, res) => res.status(405).send("Method not allowed: this endpoint is not available"))
   }
 
+  //Control endpoints
+  if ((conf.settings.control?.token)&&(conf.settings.control.token)) {
+    const middleware = (req, res, next) => {
+      console.log(`metrics/app/control > ${req.method} > ${req.url}`)
+      if (req.headers.authorization === conf.settings.control.token) {
+        next()
+        return
+      }
+      return res.status(401).send("Unauthorized: invalid token")
+    }
+    app.post("/.control/stop", limiter, middleware, async (req, res) => {
+      console.debug("metrics/app/control > instance will be stopped in a few seconds")
+      res.status(202).send("Accepted: instance will be stopped in a few seconds")
+      await new Promise(resolve => setTimeout(resolve, 5000))
+      process.exit(1)
+    })
+  }
+
   //Listen
   app.listen(port, () =>
     console.log([
