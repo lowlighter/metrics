@@ -38,7 +38,7 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
         }
         : null),
     }
-    const extras = {css: imports.metadata.plugins.core.extras("extras_css", {...conf.settings, error:false}) ? q["extras.css"] ?? "" : "", js: imports.metadata.plugins.core.extras("extras_js", {...conf.settings, error:false}) ? q["extras.js"] ?? "" : ""}
+    const extras = {css: imports.metadata.plugins.core.extras("extras_css", {...conf.settings, error: false}) ? q["extras.css"] ?? "" : "", js: imports.metadata.plugins.core.extras("extras_js", {...conf.settings, error: false}) ? q["extras.js"] ?? "" : ""}
     const data = {q, animated: true, large: false, base: {}, config: {}, errors: [], plugins: {}, computed: {}, extras, postscripts: []}
     const experimental = new Set(decodeURIComponent(q["experimental.features"] ?? "").split(" ").map(x => x.trim().toLocaleLowerCase()).filter(x => x))
     if (conf.settings["debug.headless"])
@@ -184,7 +184,7 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
     if ((conf.settings?.optimize === true) || (conf.settings?.optimize?.includes?.("svg")))
       rendered = await imports.svg.optimize.svg(rendered, q, experimental)
     //Verify svg
-    if ((verify)&&(imports.metadata.plugins.core.extras("verify", {...conf.settings, error:false}))) {
+    if ((verify) && (imports.metadata.plugins.core.extras("verify", {...conf.settings, error: false}))) {
       console.debug(`metrics/compute/${login} > verify SVG`)
       let libxmljs = null
       try {

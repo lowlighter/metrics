@@ -27,6 +27,6 @@ export default async function({login, imports, data, rest, q, account}, {enabled
   }
   //Handle errors
   catch (error) {
-    throw imports.format.error(error, {descriptions:{"403":"Insufficient token scopes"}})
+    throw imports.format.error(error, {descriptions: {"403": "Insufficient token scopes"}})
   }
 }

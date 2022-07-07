@@ -265,7 +265,7 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
             console.debug(`metrics/extras > ${name} > ${key} > skipping (no error mode)`)
             return false
           }
-          throw Object.assign(new Error(`Unsupported option "${key}"`), {extras:true})
+          throw Object.assign(new Error(`Unsupported option "${key}"`), {extras: true})
         }
       }
     }

@@ -57,7 +57,7 @@ export default async function({login, data, computed, imports, q, graphql, queri
     }
 
     //Indepth mode
-    if ((indepth)&&(imports.metadata.plugins.followup.extras("indepth", {extras}))) {
+    if ((indepth) && (imports.metadata.plugins.followup.extras("indepth", {extras}))) {
       console.debug(`metrics/compute/${login}/plugins > followup > indepth`)
       followup.indepth = {repositories: {}}
 

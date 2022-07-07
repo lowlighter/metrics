@@ -59,7 +59,7 @@ export default async function({login, graphql, data, imports, q, queries, accoun
 
     //Generating charts
     let charts = null
-    if ((_charts === "chartist")&&(imports.metadata.plugins.stargazers.extras("charts.type", {extras}))) {
+    if ((_charts === "chartist") && (imports.metadata.plugins.stargazers.extras("charts.type", {extras}))) {
       console.debug(`metrics/compute/${login}/plugins > stargazers > generating charts`)
       charts = await Promise.all([{data: total, low: total.min, high: total.max}, {data: increments, ref: 0, low: increments.min, high: increments.max, sign: true}].map(({data: {dates: set}, high, low, ref, sign = false}) =>
         imports.chartist("line", {

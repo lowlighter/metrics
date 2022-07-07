@@ -33,7 +33,7 @@ export default async function({login, q, imports, rest, graphql, data, account, 
     console.debug(`metrics/compute/${login}/plugins > notable > found ${contributions.length} notable contributions`)
 
     //Indepth
-    if ((indepth)&&(imports.metadata.plugins.notable.extras("indepth", {extras}))) {
+    if ((indepth) && (imports.metadata.plugins.notable.extras("indepth", {extras}))) {
       console.debug(`metrics/compute/${login}/plugins > notable > indepth`)
 
       //Fetch issues

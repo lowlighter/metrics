@@ -338,7 +338,7 @@ export default async function({sandbox = false} = {}) {
         //Render
         const q = req.query
         console.debug(`metrics/app/${login} > ${util.inspect(q, {depth: Infinity, maxStringLength: 256})}`)
-        if ((q["config.presets"]) && ((conf.settings.extras?.features?.includes("metrics.setup.community.presets"))||(conf.settings.extras?.features === true)||(conf.settings.extras?.default))) {
+        if ((q["config.presets"]) && ((conf.settings.extras?.features?.includes("metrics.setup.community.presets")) || (conf.settings.extras?.features === true) || (conf.settings.extras?.default))) {
           console.debug(`metrics/app/${login} > presets have been specified, loading them`)
           Object.assign(q, await presets(q["config.presets"]))
         }

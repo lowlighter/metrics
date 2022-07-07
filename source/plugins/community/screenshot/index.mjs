@@ -37,6 +37,6 @@ export default async function({login, q, imports, data, account}, {enabled = fal
   }
   //Handle errors
   catch (error) {
-    throw imports.format.error(error, {title:"Screenshot error"})
+    throw imports.format.error(error, {title: "Screenshot error"})
   }
 }

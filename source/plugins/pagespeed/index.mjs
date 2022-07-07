@@ -47,13 +47,18 @@ export default async function({login, imports, data, q, account}, {enabled = fal
   }
   //Handle errors
   catch (error) {
-    throw imports.format.error(error, {descriptions:{"429":'(consider using "plugin_pagespeed_token")', custom(error) {
-      const description = error.response?.data?.error?.message?.match(/Lighthouse returned error: (?<description>[A-Z_]+)/)?.groups?.description ?? null
-      if (description) {
-        const status = error.response?.status
-        return `API error: ${status} (${description})`
-      }
-      return null
-    }}})
+    throw imports.format.error(error, {
+      descriptions: {
+        "429": '(consider using "plugin_pagespeed_token")',
+        custom(error) {
+          const description = error.response?.data?.error?.message?.match(/Lighthouse returned error: (?<description>[A-Z_]+)/)?.groups?.description ?? null
+          if (description) {
+            const status = error.response?.status
+            return `API error: ${status} (${description})`
+          }
+          return null
+        },
+      },
+    })
   }
 }

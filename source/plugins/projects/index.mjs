@@ -66,10 +66,14 @@ export default async function({login, data, imports, graphql, q, queries, accoun
   }
   //Handle errors
   catch (error) {
-    throw imports.format.error(error, {descriptions:{custom(error) {
-      if (error.errors?.map(({type}) => type)?.includes("INSUFFICIENT_SCOPES"))
-        return "Insufficient token scopes"
-      return null
-    }}})
+    throw imports.format.error(error, {
+      descriptions: {
+        custom(error) {
+          if (error.errors?.map(({type}) => type)?.includes("INSUFFICIENT_SCOPES"))
+            return "Insufficient token scopes"
+          return null
+        },
+      },
+    })
   }
 }

@@ -148,7 +148,7 @@ export function formatters({timeZone} = {}) {
         message = `API error: ${status}`
 
         //Error description (optional)
-        if ((descriptions)&&(descriptions[status]))
+        if ((descriptions) && (descriptions[status]))
           message += ` (${descriptions[status]})`
         else {
           const description = error.response?.data?.errors?.[0]?.message ?? error.response.data?.error_description ?? error.response?.data?.message ?? null

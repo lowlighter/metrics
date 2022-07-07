@@ -78,7 +78,7 @@ export default async function({log = true, sandbox = false, community = {}} = {}
   logger("metrics/setup > load package.json > success")
 
   //Load community templates
-  if ((conf.settings.extras?.features?.includes("metrics.setup.community.templates"))||(conf.settings.extras?.features === true)||(conf.settings.extras?.default)) {
+  if ((conf.settings.extras?.features?.includes("metrics.setup.community.templates")) || (conf.settings.extras?.features === true) || (conf.settings.extras?.default)) {
     if ((typeof conf.settings.community.templates === "string") && (conf.settings.community.templates.length)) {
       logger("metrics/setup > parsing community templates list")
       conf.settings.community.templates = [...new Set([...decodeURIComponent(conf.settings.community.templates).split(",").map(v => v.trim().toLocaleLowerCase()).filter(v => v)])]
@@ -194,12 +194,12 @@ export default async function({log = true, sandbox = false, community = {}} = {}
   conf.metadata = await metadata({log})
 
   //Modes
-  if ((!conf.settings.modes)||(!conf.settings.modes.length))
+  if ((!conf.settings.modes) || (!conf.settings.modes.length))
     conf.settings.modes = ["embed", "insights"]
   logger(`metrics/setup > setup > enabled modes ${JSON.stringify(conf.settings.modes)}`)
 
   //Allowed outputs formats
-  if ((!conf.settings.outputs)||(!conf.settings.outputs.length))
+  if ((!conf.settings.outputs) || (!conf.settings.outputs.length))
     conf.settings.outputs = metadata.inputs.config_output.values
   else
     conf.settings.outputs = conf.settings.outputs.filter(format => metadata.inputs.config_output.values.includes(format))

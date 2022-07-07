@@ -89,7 +89,7 @@ export default async function({login, graphql, rest, data, q, queries, imports, 
       }
       //Query contributions collection over account lifetime instead of last year
       if (account === "user") {
-        if ((indepth) && (imports.metadata.plugins.base.extras("indepth", {...conf.settings, error:false}))) {
+        if ((indepth) && (imports.metadata.plugins.base.extras("indepth", {...conf.settings, error: false}))) {
           const fields = ["totalRepositoriesWithContributedCommits", "totalCommitContributions", "restrictedContributionsCount", "totalIssueContributions", "totalPullRequestContributions", "totalPullRequestReviewContributions"]
           const start = new Date(data.user.createdAt)
           const end = new Date()

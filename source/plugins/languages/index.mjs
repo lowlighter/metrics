@@ -76,7 +76,7 @@ export default async function({login, data, imports, q, rest, account}, {enabled
     }
 
     //Indepth mode
-    if ((indepth)&&(imports.metadata.plugins.languages.extras("indepth", {extras}))) {
+    if ((indepth) && (imports.metadata.plugins.languages.extras("indepth", {extras}))) {
       //Fetch gpg keys (web-flow is GitHub's public key when making changes from web ui)
       const gpg = []
       try {
