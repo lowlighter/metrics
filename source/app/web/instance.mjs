@@ -400,9 +400,9 @@ export default async function({sandbox = false} = {}) {
   }
 
   //Control endpoints
-  if ((conf.settings.control?.token) && (conf.settings.control.token)) {
+  if (conf.settings.control?.token) {
     const middleware = (req, res, next) => {
-      console.log(`metrics/app/control > ${req.method} > ${req.url}`)
+      console.log(`metrics/app/control > ${req.url.replace(/[\n\r]/g, "")}`)
       if (req.headers.authorization === conf.settings.control.token) {
         next()
         return
