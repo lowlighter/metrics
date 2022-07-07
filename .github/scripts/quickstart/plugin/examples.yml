@@ -1,9 +1,0 @@
-- name: Example
-  uses: lowlighter/metrics@latest
-  with:
-    filename: metrics.plugin.<%= name %>.svg
-    token: ${{ secrets.METRICS_TOKEN }}
-    base: ""
-    plugin_<%= name %>: yes
-  prod:
-    skip: true
