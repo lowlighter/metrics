@@ -34,7 +34,7 @@ Edit `settings.json` to configure your instance.
 }
 ```
 
-### 2️.1️  Restricting access to your web instance
+### 2️.1️ Restricting access to your web instance
 
 If you intend to make your web instance public, it is advised to restrict access using an access list or rate-limiting it.
 
@@ -72,10 +72,6 @@ Configuration file also contains settings about enabled templates, plugins and f
     "by": "me",
     "link": "https://user.me",
   },
-  "extras": {
-    "css": true,
-    "features": false
-  },
   "plugins": {
     "isocalendar":{
       "enabled": false
@@ -84,9 +80,46 @@ Configuration file also contains settings about enabled templates, plugins and f
 }
 ```
 
-> ⚠️ Extras features **should not** be enabled on a public server, most of these are either compute, network or API intensive tasks. Some extras features even allow remote code execution which could compromise server security.
->
+### 2️.3️ Extra features configuration
+
+Extra features are a way to enable and control advanced functionality in plugins, which are usually either CPU or API intensive, require access to filesystem or binaries, and sometimes also allow remote code execution.
+
+> ⚠️ Please understand that some extras features may compromise server integrity or security.
 > Use at your own risk, *metrics* and its authors cannot be held responsible for any damage caused.
+
+*Example: extra features server configuration*
+```javascript
+{
+  "extras": {
+    "features": [
+      "metrics.setup.community.templates",
+      "metrics.api.github.overuse",
+      "metrics.cpu.overuse",
+      "metrics.run.puppeteer.scrapping",
+    ]
+  }
+}
+```
+
+The following extra features are supported:
+| Extra feature identifier            | Description                                               |
+| ----------------------------------- | --------------------------------------------------------- |
+| `metrics.setup.community.templates` | Allow community templates download                        |
+| `metrics.setup.community.presets`   | Allow community presets usage                             |
+| `metrics.api.github.overuse`        | Allow GitHub API intensive requests                       |
+| `metrics.cpu.overuse`               | Allow CPU intensive requests                              |
+| `metrics.run.tempdir`               | Allow access to temporary directory (I/O operations may be performed)                                                                                        |
+| `metrics.run.git`                   | Allow to run git (needs to be installed)                  |
+| `metrics.run.licensed`              | Allow to run licensed (needs to be installed)             |
+| ⚠️ `metrics.run.user.cmd`           | Allow to run ANY command by user (USE WITH CAUTION!)      |
+| `metrics.run.puppeteer.scrapping`   | Allow to run puppeteer to scrape data                     |
+| `metrics.run.puppeteer.user.css`    | Allow to run CSS by user during puppeteer render          |
+| `metrics.run.puppeteer.user.js`     | Allow to run JavaScript by user during puppeteer render   |
+| ⚠️ `metrics.npm.optional.chartist`  | Allow use of chartist (needs to be installed, vulnerable to [CVE-2021-20066](https://github.com/advisories/GHSA-f4c9-cqv8-9v98))                              |
+| `metrics.npm.optional.gifencoder`   | Allow use of gifencoder (needs to be installed)           |
+| `metrics.npm.optional.libxmljs2`    | Allow use of libxmljs2 (needs to be installed)            |
+
+If a plugin is used without sufficient permissions, it will result in an error.
 
 ## 3️ Start docker container
 
