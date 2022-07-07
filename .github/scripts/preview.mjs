@@ -56,7 +56,6 @@ fs.copyFile(paths.join(__web, "style.vars.css"), paths.join(__preview_css, "styl
 fs.copyFile(paths.join(__node_modules, "prismjs/themes/prism-tomorrow.css"), paths.join(__preview_css, "style.prism.css"))
 //Scripts
 fs.writeFile(paths.join(__preview_js, "app.js"), `${await fs.readFile(paths.join(__web, "app.js"))}`)
-fs.writeFile(paths.join(__preview_js, "app.placeholder.js"), `${await fs.readFile(paths.join(__web, "app.placeholder.js"))}`)
 fs.copyFile(paths.join(__node_modules, "ejs/ejs.min.js"), paths.join(__preview_js, "ejs.min.js"))
 fs.writeFile(paths.join(__preview_js, "faker.min.js"), "import {faker} from '/.js/faker/index.mjs';globalThis.faker=faker;globalThis.placeholder.init(globalThis)")
 for (const path of [[], ["locale"]]) {
@@ -76,15 +75,31 @@ fs.copyFile(paths.join(__node_modules, "prismjs/components/prism-yaml.min.js"), 
 fs.copyFile(paths.join(__node_modules, "prismjs/components/prism-markdown.min.js"), paths.join(__preview_js, "prism.markdown.min.js"))
 fs.copyFile(paths.join(__node_modules, "clipboard/dist/clipboard.min.js"), paths.join(__preview_js, "clipboard.min.js"))
 //Meta
+fs.writeFile(paths.join(__preview, ".modes"), JSON.stringify(["embed", "insights"]))
 fs.writeFile(paths.join(__preview, ".version"), JSON.stringify(`${conf.package.version}-preview`))
 fs.writeFile(paths.join(__preview, ".hosted"), JSON.stringify({by: "metrics", link: "https://github.com/lowlighter/metrics"}))
+//Embed
+{
+  const __web_embed = paths.join(paths.join(__web, "embed"))
+  const __web_embed_placeholders = paths.join(__web_embed, "placeholders")
+  const __preview_embed = paths.join(__preview, "embed")
+  const __preview_embed_placeholders = paths.join(__preview, ".placeholders")
+  const __preview_embed_js = paths.join(__preview_js, "embed")
+  await fs.mkdir(__preview_embed, {recursive: true})
+  await fs.mkdir(__preview_embed_placeholders, {recursive: true})
+  await fs.mkdir(__preview_embed_js, {recursive: true})
+  fs.writeFile(paths.join(__preview_embed, "index.html"), `${await fs.readFile(paths.join(__web_embed, "index.html"))}`)
+  fs.writeFile(paths.join(__preview_embed_js, "app.js"), `${await fs.readFile(paths.join(__web_embed, "app.js"))}`)
+  fs.writeFile(paths.join(__preview_embed_js, "app.placeholder.js"), `${await fs.readFile(paths.join(__web_embed, "app.placeholder.js"))}`)
+  for (const file of await fs.readdir(__web_embed_placeholders))
+    fs.copyFile(paths.join(__web_embed_placeholders, file), paths.join(__preview_embed_placeholders, file))
+}
 //Insights
-for (const insight of ["insights", "about"]) {
-  const __web_insights = paths.join(paths.join(__web, insight))
-  const __preview_insights = paths.join(__preview, `${insight}/.statics`)
+for (const insights of ["insights", "about"]) {
+  const __web_insights = paths.join(paths.join(__web, "insights"))
+  const __preview_insights = paths.join(__preview, `${insights}/.statics`)
   await fs.mkdir(__preview_insights, {recursive: true})
-
-  fs.copyFile(paths.join(__web, insight, "index.html"), paths.join(__preview, insight, "index.html"))
+  fs.copyFile(paths.join(__web_insights, "index.html"), paths.join(__preview, insights, "index.html"))
   for (const file of await fs.readdir(__web_insights)) {
     if (file !== ".statics")
       fs.copyFile(paths.join(__web_insights, file), paths.join(__preview_insights, file))

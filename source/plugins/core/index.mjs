@@ -53,6 +53,10 @@ export default async function({login, q}, {conf, data, rest, graphql, plugins, q
   data.animated = animations
   console.debug(`metrics/compute/${login} > animations ${data.animated ? "enabled" : "disabled"}`)
 
+  //Extras features
+  const extras = conf.settings?.extras?.features ?? conf.settings?.extras?.default ?? false
+  console.debug(`metrics/compute/${login} > extras > ${JSON.stringify(extras)}`)
+
   //Plugins
   for (const name of Object.keys(imports.plugins)) {
     if ((!plugins[name]?.enabled) || (!q[name]))
@@ -60,7 +64,7 @@ export default async function({login, q}, {conf, data, rest, graphql, plugins, q
     pending.push((async () => {
       try {
         console.debug(`metrics/compute/${login}/plugins > ${name} > started`)
-        data.plugins[name] = await imports.plugins[name]({login, q, imports, data, computed, rest, graphql, queries, account}, {extras: conf.settings?.extras?.features ?? conf.settings?.extras?.default ?? false, sandbox: conf.settings?.sandbox ?? false, ...plugins[name]})
+        data.plugins[name] = await imports.plugins[name]({login, q, imports, data, computed, rest, graphql, queries, account}, {extras, sandbox: conf.settings?.sandbox ?? false, ...plugins[name]})
         console.debug(`metrics/compute/${login}/plugins > ${name} > completed`)
       }
       catch (error) {
