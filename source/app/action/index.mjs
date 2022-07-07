@@ -96,7 +96,7 @@ function quit(reason) {
     }
 
     //Load configuration
-    const {conf, Plugins, Templates} = await setup({log: false, community: {templates: core.getInput("setup_community_templates")}})
+    const {conf, Plugins, Templates} = await setup({log: false, community: {templates: core.getInput("setup_community_templates")}, extras: true})
     const {metadata} = conf
     conf.settings.extras = {default: true}
     info("Setup", "complete")
