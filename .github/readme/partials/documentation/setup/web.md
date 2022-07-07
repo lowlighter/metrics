@@ -84,7 +84,9 @@ Configuration file also contains settings about enabled templates, plugins and f
 
 Extra features are a way to enable and control advanced functionality in plugins, which are usually either CPU or API intensive, require access to filesystem or binaries, and sometimes also allow remote code execution.
 
-> ⚠️ Please understand that some extras features may compromise server integrity or security.
+> ⚠️ Please understand that some extras features may compromise container integrity or security.
+> Never use them if outside a containerized or development environment!
+>
 > Use at your own risk, *metrics* and its authors cannot be held responsible for any damage caused.
 
 *Example: extra features server configuration*
@@ -108,16 +110,16 @@ The following extra features are supported:
 | `metrics.setup.community.presets`   | Allow community presets usage                             |
 | `metrics.api.github.overuse`        | Allow GitHub API intensive requests                       |
 | `metrics.cpu.overuse`               | Allow CPU intensive requests                              |
-| `metrics.run.tempdir`               | Allow access to temporary directory (I/O operations may be performed)                                                                                        |
-| `metrics.run.git`                   | Allow to run git (needs to be installed)                  |
-| `metrics.run.licensed`              | Allow to run licensed (needs to be installed)             |
-| ⚠️ `metrics.run.user.cmd`           | Allow to run ANY command by user (USE WITH CAUTION!)      |
+| `metrics.run.tempdir`               | Allow access to temporary directory (including I/O)       |
+| `metrics.run.git`                   | Allow to run git                                          |
+| `metrics.run.licensed`              | Allow to run licensed                                     |
+| ⚠️ `metrics.run.user.cmd`           | Allow to run ANY command by user (USE WITH CAUTION! May result in token leaks by malicious users)                                                                |
 | `metrics.run.puppeteer.scrapping`   | Allow to run puppeteer to scrape data                     |
 | `metrics.run.puppeteer.user.css`    | Allow to run CSS by user during puppeteer render          |
 | `metrics.run.puppeteer.user.js`     | Allow to run JavaScript by user during puppeteer render   |
-| ⚠️ `metrics.npm.optional.chartist`  | Allow use of chartist (needs to be installed, vulnerable to [CVE-2021-20066](https://github.com/advisories/GHSA-f4c9-cqv8-9v98))                              |
-| `metrics.npm.optional.gifencoder`   | Allow use of gifencoder (needs to be installed)           |
-| `metrics.npm.optional.libxmljs2`    | Allow use of libxmljs2 (needs to be installed)            |
+| ⚠️ `metrics.npm.optional.chartist`  | Allow use of chartist (vulnerable to [CVE-2021-20066](https://github.com/advisories/GHSA-f4c9-cqv8-9v98))                                                       |
+| `metrics.npm.optional.gifencoder`   | Allow use of gifencoder                                   |
+| `metrics.npm.optional.libxmljs2`    | Allow use of libxmljs2                                    |
 
 If a plugin is used without sufficient permissions, it will result in an error.
 
