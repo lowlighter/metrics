@@ -224,7 +224,7 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
           console.debug(`metrics/extras > ${name} > ${key} > require [${required}]`)
 
           //Legacy handling
-          const enabled = extras?.features ?? extras?.default ?? false
+          const enabled = extras?.features ?? extras?.default ?? (typeof extras === "boolean" ? extras : false)
           if (typeof enabled === "boolean") {
             console.debug(`metrics/extras > ${name} > ${key} > extras features is set to ${enabled}`)
             if (!enabled)

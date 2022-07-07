@@ -55,7 +55,6 @@ export default async function({login, q}, {conf, data, rest, graphql, plugins, q
 
   //Extras features
   const extras = conf.settings?.extras?.features ?? conf.settings?.extras?.default ?? false
-  console.debug(`metrics/compute/${login} > extras > ${JSON.stringify(conf.settings?.extras)}`)
   console.debug(`metrics/compute/${login} > extras > ${JSON.stringify(extras)}`)
 
   //Plugins
