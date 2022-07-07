@@ -7,7 +7,7 @@ export default async function({login, q, imports, data, graphql, queries, accoun
       return null
 
     //Load inputs
-    let {size, sections, past} = await imports.metadata.plugins.sponsors.inputs({data, account, q})
+    let {size, sections, past, title} = await imports.metadata.plugins.sponsors.inputs({data, account, q})
 
     //Query description and goal
     console.debug(`metrics/compute/${login}/plugins > sponsors > querying sponsors and goal`)
@@ -81,7 +81,7 @@ export default async function({login, q, imports, data, graphql, queries, accoun
 
     //Results
     list = list.sort((a, b) => a.private === b.private ? a.past === b.past ? b.amount - a.amount : a.past - b.past : a.private - b.private)
-    return {sections, about, list, count, goal, size, past}
+    return {sections, about, list, count, goal, size, past, title}
   }
   //Handle errors
   catch (error) {
