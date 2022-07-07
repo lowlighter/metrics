@@ -424,8 +424,8 @@ export default async function({sandbox = false} = {}) {
       `Plugins enabled           │ ${enabled.map(({name}) => name).join(", ")}`,
       `Templates enabled         │ ${templates.filter(({enabled}) => enabled).map(({name}) => name).join(", ")}`,
       "── Extras ─────────────────────────────────────────────────────────",
-      `Default                   │ ${conf.settings.extras.default ?? false}`,
-      `Features                  │ ${conf.settings.extras.features ?? "(none)"}`,
+      `Default                   │ ${conf.settings.extras?.default ?? false}`,
+      `Features                  │ ${conf.settings.extras?.features ?? "(none)"}`,
       "───────────────────────────────────────────────────────────────────",
       "Server ready !",
     ].join("\n")))
