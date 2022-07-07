@@ -224,7 +224,7 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
           console.debug(`metrics/extras > ${name} > ${key} > require [${required}]`)
 
           //Legacy handling
-          const enabled = extras?.features ?? extras?.default ?? (typeof extras === "boolean" ? extras : false)
+          const enabled = Array.isArray(extras) ? extras : (extras?.features ?? extras?.default ?? (typeof extras === "boolean" ? extras : false))
           if (typeof enabled === "boolean") {
             console.debug(`metrics/extras > ${name} > ${key} > extras features is set to ${enabled}`)
             if (!enabled)
@@ -237,23 +237,23 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
           }
 
           //Legacy options handling
-          if (!Array.isArray(extras.features))
+          if (!Array.isArray(enabled))
             throw new Error(`metrics/extras > ${name} > ${key} > extras.features is not an array`)
           if (extras.css) {
             console.warn(`metrics/extras > ${name} > ${key} > extras.css is deprecated, use extras.features with "metrics.run.puppeteer.user.css" instead`)
-            extras.features.push("metrics.run.puppeteer.user.css")
+            enabled.push("metrics.run.puppeteer.user.css")
           }
           if (extras.js) {
             console.warn(`metrics/extras > ${name} > ${key} > extras.js is deprecated, use extras.features with "metrics.run.puppeteer.user.js" instead`)
-            extras.features.push("metrics.run.puppeteer.user.js")
+            enabled.push("metrics.run.puppeteer.user.js")
           }
           if (extras.presets) {
             console.warn(`metrics/extras > ${name} > ${key} > extras.presets is deprecated, use extras.features with "metrics.setup.community.presets" instead`)
-            extras.features.push("metrics.setup.community.presets")
+            enabled.push("metrics.setup.community.presets")
           }
 
           //Check permissions
-          const missing = required.filter(permission => !extras.features.includes(permission))
+          const missing = required.filter(permission => !enabled.includes(permission))
           if (missing.length > 0) {
             console.debug(`metrics/extras > ${name} > ${key} > missing permissions [${missing}]`)
             throw new Error()
