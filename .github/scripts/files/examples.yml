@@ -66,6 +66,7 @@ jobs:
 
   repository:
     runs-on: ubuntu-latest
+    needs: [ examples ]
     if: "github.repository == 'lowlighter/metrics'"
     steps:
       - name: Checkout repository
