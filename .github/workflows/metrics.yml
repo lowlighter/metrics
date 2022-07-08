@@ -100,10 +100,12 @@ jobs:
           base: ""
           template: classic
           plugin_habits: yes
-          plugin_habits_from: 200000    # # of events to compute habits
+          plugin_habits_from: 1000      # of events to compute habits
           plugin_habits_days: 30        # Keep only events from last 30 days
           plugin_habits_charts: yes     # Display charts section
           plugin_habits_trim: yes       # Trim unused hours on daily chart
+          plugin_habits_facts: yes
+          plugin_habits_charts_type: chartist
 
   issue_pr_lang:
     runs-on: ubuntu-latest
