@@ -54,3 +54,9 @@ inputs:
     default: 24
     min: 8
     max: 64
+
+  plugin_sponsors_title:
+    description: |
+      Title caption
+    type: string
+    default: Sponsor Me!
