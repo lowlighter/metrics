@@ -791,6 +791,10 @@ inputs:
     description: Profile picture display size
     default: <default-value>
 
+  plugin_sponsors_title:
+    description: Title caption
+    default: <default-value>
+
   # ====================================================================================
   # 💫 Star lists
 
