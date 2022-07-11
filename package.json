@@ -32,7 +32,7 @@
     "@actions/core": "^1.9.0",
     "@actions/github": "^5.0.3",
     "@faker-js/faker": "^7.3.0",
-    "@octokit/graphql": "^4.8.0",
+    "@octokit/graphql": "^5.0.0",
     "@octokit/rest": "^19.0.3",
     "@primer/css": "^20.2.4",
     "@primer/octicons": "^17.3.0",
