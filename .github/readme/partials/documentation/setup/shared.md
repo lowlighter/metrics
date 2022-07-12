@@ -20,6 +20,8 @@ Visit [metrics.lecoq.io](https://metrics.lecoq.io) and start playing around!
 
 > ⚠️ Some plugins are not available on the web instance. Consider using [GitHub action](https://github.com/marketplace/actions/metrics-embed) to enjoy all features!
 
+> ℹ️ [metrics.lecoq.io](https://metrics.lecoq.io) always run on [latest release](https://github.com/lowlighter/metrics/releases/latest). To test upcoming releases, use [beta-metrics.lecoq.io](https://beta-metrics.lecoq.io), which always run on `@master` instead.
+
 ![metrics.lecoq.io](/.github/readme/imgs/setup_shared.light.png#gh-light-mode-only)
 ![metrics.lecoq.io](/.github/readme/imgs/setup_shared.dark.png#gh-dark-mode-only)
 
