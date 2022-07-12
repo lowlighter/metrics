@@ -119,6 +119,19 @@ jobs:
           docker tag ghcr.io/lowlighter/metrics:master ghcr.io/lowlighter/metrics:main
           docker push ghcr.io/lowlighter/metrics:main
 
+  # Deploy to beta-metrics.lecoq.io
+  deploy-master:
+    name: Deploy lowlighter/metrics@master
+    runs-on: ubuntu-latest
+    needs: [ docker-master ]
+    steps:
+      - name: Deploy web instance
+        run: "curl -X POST -H 'Authorization: ${{ secrets.WEB_DEPLOY_BETA_TOKEN }}' https://beta-metrics.lecoq.io/.control/stop"
+      - name: Wait for redeploy
+        run: sleep 120
+      - name: Check deployment status
+        run: "curl --retry 15 --retry-delay 60 https://beta-metrics.lecoq.io/.version"
+
   # Test lowlighter/metrics@master
   action-master-test:
     name: Test lowlighter/metrics@master
@@ -137,7 +150,7 @@ jobs:
   # Publish examples
   publish-examples:
     name: Publish examples
-    needs: [ docker-master ]
+    needs: [ action-master-test ]
     uses: lowlighter/metrics/.github/workflows/examples.yml@master
     secrets:
       METRICS_TOKEN: ${{ secrets.METRICS_TOKEN }}
@@ -152,14 +165,14 @@ jobs:
   # Publish examples (presets)
   publish-examples-presets:
     name: Publish examples (presets)
-    needs: [ docker-master ]
+    needs: [ action-master-test ]
     uses: lowlighter/metrics/.github/workflows/examples.presets.yml@master
 
   # Build docker image from master and publish it to GitHub registry with release tag
   docker-release:
     name: Publish release to GitHub registry
     runs-on: ubuntu-latest
-    needs: [ action-master-test, publish-examples ]
+    needs: [ publish-examples ]
     if: contains(github.event.head_commit.message, '[release]')
     steps:
       - name: Checkout repository
@@ -181,7 +194,7 @@ jobs:
   update-latest:
     name: Rebase latest on master
     runs-on: ubuntu-latest
-    needs: [ docker-release, publish-examples ]
+    needs: [ docker-release ]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -221,10 +234,14 @@ jobs:
   deploy-latest:
     name: Deploy lowlighter/metrics@latest
     runs-on: ubuntu-latest
-    needs: [ update-latest ]
+    needs: [ docker-release, deploy-master ]
     steps:
       - name: Deploy web instance
         run: "curl -X POST -H 'Authorization: ${{ secrets.WEB_DEPLOY_TOKEN }}' https://metrics.lecoq.io/.control/stop"
+      - name: Wait for redeploy
+        run: sleep 120
+      - name: Check deployment status
+        run: "curl --retry 15 --retry-delay 60 https://metrics.lecoq.io/.version"
 
   # Publish GitHub release
   publish-release:
