@@ -263,6 +263,10 @@
       preview() {
         return /-preview$/.test(this.version)
       },
+      //Is in beta mode
+      beta() {
+        return /-beta$/.test(this.version)
+      },
       //Rate limit reset
       rlreset() {
         const reset = new Date(Math.max(this.requests.graphql.reset, this.requests.rest.reset))

@@ -26,7 +26,13 @@
     background-color: var(--color-header-bg);
   }
 
+  header.beta {
+    color: var(--color-text-warning);
+    background-color: var(--color-bg-warning);
+  }
+
   header svg {
+    color: currentColor;
     fill: currentColor;
     margin-right: 1rem;
     height: 2rem;

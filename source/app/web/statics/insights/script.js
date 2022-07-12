@@ -230,6 +230,9 @@
       preview() {
         return /-preview$/.test(this.version)
       },
+      beta() {
+        return /-beta$/.test(this.version)
+      },
       rlreset() {
         const reset = new Date(Math.max(this.requests.graphql.reset, this.requests.rest.reset))
         return `${reset.getHours()}:${reset.getMinutes()}`
