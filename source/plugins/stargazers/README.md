@@ -24,6 +24,10 @@
 </table>
 <!--/header-->
 
+##
+
+https://developers.google.com/maps/documentation/geocoding/get-api-key
+
 ## ➡️ Available options
 
 <!--options-->

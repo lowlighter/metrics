@@ -1,5 +1,5 @@
 //Setup
-export default async function({login, graphql, data, imports, q, queries, account}, {enabled = false, extras = false} = {}) {
+export default async function({login, graphql, data, imports, q, queries, account}, {enabled = false, extras = false, "worldmap.token":_worldmap_token} = {}) {
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
@@ -7,12 +7,13 @@ export default async function({login, graphql, data, imports, q, queries, accoun
       return null
 
     //Load inputs
-    let {"charts.type": _charts} = imports.metadata.plugins.stargazers.inputs({data, account, q})
+    let {"charts.type": _charts, worldmap:_worldmap} = imports.metadata.plugins.stargazers.inputs({data, account, q})
 
     //Retrieve stargazers from graphql api
     console.debug(`metrics/compute/${login}/plugins > stargazers > querying api`)
     const repositories = data.user.repositories.nodes.map(({name: repository, owner: {login: owner}}) => ({repository, owner})) ?? []
     const dates = []
+    const locations = []
     for (const {repository, owner} of repositories) {
       //Iterate through stargazers
       console.debug(`metrics/compute/${login}/plugins > stargazers > retrieving stargazers of ${repository}`)
@@ -20,10 +21,12 @@ export default async function({login, graphql, data, imports, q, queries, accoun
       let pushed = 0
       do {
         console.debug(`metrics/compute/${login}/plugins > stargazers > retrieving stargazers of ${repository} after ${cursor}`)
-        const {repository: {stargazers: {edges}}} = await graphql(queries.stargazers({login: owner, repository, after: cursor ? `after: "${cursor}"` : ""}))
+        const {repository: {stargazers: {edges}}} = await graphql(queries.stargazers({login: owner, repository, after: cursor ? `after: "${cursor}"` : "", location: _worldmap ? "node { location }" : ""}))
         cursor = edges?.[edges?.length - 1]?.cursor
         dates.push(...edges.map(({starredAt}) => new Date(starredAt)))
+        locations.push(...edges.map(({node: {location}}) => location))
         pushed = edges.length
+        break
       } while ((pushed) && (cursor))
       //Limit repositories
       console.debug(`metrics/compute/${login}/plugins > stargazers > loaded ${dates.length} stargazers for ${repository}`)
@@ -95,8 +98,15 @@ export default async function({login, graphql, data, imports, q, queries, accoun
       }})(${imports.format.toString()})`)
     }
 
+    //Generating worldmap
+    let worldmap = null
+    if (_worldmap) {
+      const {default:generate} = await import("./worldmap/index.mjs")
+      worldmap = await generate(login, {locations, imports, token:_worldmap_token})
+    }
+
     //Results
-    return {total, increments, months, charts}
+    return {total, increments, months, charts, worldmap}
   }
   //Handle errors
   catch (error) {

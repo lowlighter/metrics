@@ -141,6 +141,10 @@
   .no-margin-top {
     margin-top: 0px;
   }
+  .margin-lr-auto {
+    margin-left: auto;
+    margin-right: auto;
+  }
 
 /* User avatar */
   .avatar {

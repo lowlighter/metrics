@@ -5,6 +5,7 @@ description: |
 examples:
   +classic charts: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.svg
   chartist charts: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.chartist.svg
+  +worldmap: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.worldmap.svg
 index: 10
 supports:
   - user
@@ -33,3 +34,17 @@ inputs:
       - chartist
     extras:
       - metrics.npm.optional.chartist
+
+  plugin_stargazers_worldmap:
+    description: |
+      Stargazers worldmap
+    type: boolean
+    default: no
+    extras:
+      - metrics.api.github.overuse
+
+  plugin_stargazers_worldmap_token:
+    description: |
+      Stargazers worldmap token
+    type: token
+    default: ""
