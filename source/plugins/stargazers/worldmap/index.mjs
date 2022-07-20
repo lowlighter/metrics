@@ -4,7 +4,11 @@ import D3Node from "d3-node"
 import color from "color"
 import {Client as Gmap} from "@googlemaps/google-maps-services-js"
 
-/**Worldmap */
+/**
+ * Worldmap
+ * Mostly ported from https://github.com/dyatko/worldstar
+ * License: https://raw.githubusercontent.com/dyatko/worldstar/master/LICENSE
+ */
 export default async function (login, {locations, imports, token}) {
   //Parse geocodes
   let stars = new Map()
@@ -33,7 +37,7 @@ export default async function (login, {locations, imports, token}) {
   //Generate SVG
   const d3n = new D3Node()
   const svg = d3n.createSVG(480, 315)
-  const countries = JSON.parse(await imports.fs.readFile(imports.paths.join(imports.__module(import.meta.url), "50m_countries.geojson")))
+  const countries = JSON.parse(await imports.fs.readFile(imports.paths.join(imports.__module(import.meta.url), "atlas/50m_countries.geojson")))
   const geopath = d3.geoPath(d3.geoMercator().fitWidth(svg.attr("width"), countries))
   const splits = [...new Set(stars.values())].sort((a, b) => a - b)
   svg
@@ -45,7 +49,7 @@ export default async function (login, {locations, imports, token}) {
     .style("fill", ({properties:{iso_a2, wb_a2, sov_a3}}) => {
       const code = iso_a2?.match(/[A-Z]{2}/) ? iso_a2 : wb_a2?.match(/[A-Z]{2}/) ? wb_a2 : sov_a3?.substr(0, 2) ?? ""
       const value = stars.get(code)
-      return color("#216e39").mix(color("#ffffff"), 1 - Math.max(0, splits.indexOf(value))/splits.length).hex();
+      return color("#216e39").mix(color("#ffffff"), 1 - Math.max(0, splits.indexOf(value))/splits.length).hex()
     })
     .style("stroke", "#afafaf")
     .style("stroke-width", "0.6px")

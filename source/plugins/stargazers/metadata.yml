@@ -41,7 +41,7 @@ inputs:
     type: boolean
     default: no
     extras:
-      - metrics.api.github.overuse
+      - metrics.api.google.maps
 
   plugin_stargazers_worldmap_token:
     description: |

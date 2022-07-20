@@ -26,9 +26,7 @@ export default async function({login, graphql, data, imports, q, queries, accoun
         dates.push(...edges.map(({starredAt}) => new Date(starredAt)))
         locations.push(...edges.map(({node: {location}}) => location))
         pushed = edges.length
-        break
       } while ((pushed) && (cursor))
-      //Limit repositories
       console.debug(`metrics/compute/${login}/plugins > stargazers > loaded ${dates.length} stargazers for ${repository}`)
     }
     console.debug(`metrics/compute/${login}/plugins > stargazers > loaded ${dates.length} stargazers in total`)
