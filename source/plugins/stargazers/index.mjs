@@ -7,7 +7,7 @@ export default async function({login, graphql, data, imports, q, queries, accoun
       return null
 
     //Load inputs
-    let {"charts.type": _charts, worldmap:_worldmap} = imports.metadata.plugins.stargazers.inputs({data, account, q})
+    let {"charts.type": _charts, worldmap:_worldmap, "worldmap.sample":_worldmap_sample} = imports.metadata.plugins.stargazers.inputs({data, account, q})
 
     //Retrieve stargazers from graphql api
     console.debug(`metrics/compute/${login}/plugins > stargazers > querying api`)
@@ -100,7 +100,7 @@ export default async function({login, graphql, data, imports, q, queries, accoun
     let worldmap = null
     if ((_worldmap)&&(imports.metadata.plugins.stargazers.extras("worldmap", {extras}))) {
       const {default:generate} = await import("./worldmap/index.mjs")
-      worldmap = await generate(login, {locations, imports, token:_worldmap_token})
+      worldmap = await generate(login, {locations, imports, token:_worldmap_token, sample:_worldmap_sample})
     }
 
     //Results

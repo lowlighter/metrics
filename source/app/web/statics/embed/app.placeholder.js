@@ -860,10 +860,14 @@
         //Stargazers
         ...(set.plugins.enabled.stargazers
           ? ({
+            __stargazers: {
+              worldmap: await staticPlaceholder(options["stargazers.worldmap"], "stargazers.worldmap.svg"),
+            },
             get stargazers() {
               const dates = []
               let total = faker.datatype.number(1000)
               const result = {
+                worldmap: this.__stargazers.worldmap,
                 total: {
                   dates: {},
                   get max() {

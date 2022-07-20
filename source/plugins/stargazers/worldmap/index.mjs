@@ -9,13 +9,14 @@ import {Client as Gmap} from "@googlemaps/google-maps-services-js"
  * Mostly ported from https://github.com/dyatko/worldstar
  * License: https://raw.githubusercontent.com/dyatko/worldstar/master/LICENSE
  */
-export default async function (login, {locations, imports, token}) {
+export default async function (login, {locations, sample, imports, token}) {
   //Parse geocodes
   let stars = new Map()
   if (token) {
     const cache = new Map()
     const get = new Gmap()
-    for (const location of locations.filter(string => string).map(string => string.toLocaleLowerCase())) {
+    locations = imports.shuffle(locations.filter(string => string).map(string => string.toLocaleLowerCase())).slice(0, sample || Infinity)
+    for (const location of locations) {
       console.debug(`metrics/compute/${login}/plugins > stargazers > worldmap > looking for ${location}`)
       if (!cache.has(location)) {
         try {
