@@ -7,13 +7,14 @@ export default async function({login, q, imports, data, account}, {enabled = fal
       return null
 
     //Load inputs
-    let {year, frames, quality, compatibility} = imports.metadata.plugins.skyline.inputs({data, account, q})
+    let {year, frames, quality, compatibility, settings} = imports.metadata.plugins.skyline.inputs({data, account, q})
     if (Number.isNaN(year)) {
       year = new Date().getFullYear()
       console.debug(`metrics/compute/${login}/plugins > skyline > year set to ${year}`)
     }
     const width = 454 * (1 + data.large)
     const height = 284
+    const {url, ready, wait, hide} = settings
 
     //Start puppeteer and navigate to skyline.github.com
     console.debug(`metrics/compute/${login}/plugins > skyline > starting browser`)
@@ -23,12 +24,13 @@ export default async function({login, q, imports, data, account}, {enabled = fal
     await page.setViewport({width, height})
 
     //Load page
-    console.debug(`metrics/compute/${login}/plugins > skyline > loading skyline.github.com/${login}/${year}`)
-    await page.goto(`https://skyline.github.com/${login}/${year}`, {timeout: 90 * 1000})
+    console.debug(`metrics/compute/${login}/plugins > skyline > loading ${url.replaceAll("${login}", login).replaceAll("${year}", year)}`)
+    await page.goto(url.replaceAll("${login}", login).replaceAll("${year}", year), {timeout: 90 * 1000})
     console.debug(`metrics/compute/${login}/plugins > skyline > waiting for initial render`)
     const frame = page.mainFrame()
-    await page.waitForFunction('[...document.querySelectorAll("span")].map(span => span.innerText).includes("Share on Twitter")', {timeout: 90 * 1000})
-    await frame.evaluate(() => [...document.querySelectorAll("button, footer, a")].map(element => element.remove()))
+    await page.waitForFunction(ready.replaceAll("${login}", login).replaceAll("${year}", year), {timeout: 90 * 1000})
+    await new Promise(solve => setTimeout(solve, wait*1000))
+    await frame.evaluate(() => [...document.querySelectorAll(hide)].map(element => element.style.display = "none"))
 
     //Generate gif
     console.debug(`metrics/compute/${login}/plugins > skyline > generating frames`)
