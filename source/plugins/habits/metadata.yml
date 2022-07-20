@@ -86,3 +86,9 @@ inputs:
     min: 0
     max: 8
     zero: disable
+
+  plugin_habits_languages_threshold:
+    description: |
+      Display threshold (percentage)
+    type: string
+    default: 0%
