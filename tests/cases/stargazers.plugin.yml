@@ -13,3 +13,12 @@
     plugin_stargazers_charts_type: chartist
     use_mocked_data: 'yes'
     verify: 'yes'
+- name: ✨ Stargazers over last weeks - With worldmap
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    plugin_stargazers: 'yes'
+    plugin_stargazers_worldmap: 'yes'
+    plugin_stargazers_worldmap_token: MOCKED_TOKEN
+    use_mocked_data: 'yes'
+    verify: 'yes'
