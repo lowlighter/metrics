@@ -1,5 +1,5 @@
 //Setup
-export default async function({login, graphql, data, imports, q, queries, account}, {enabled = false, extras = false, "worldmap.token":_worldmap_token} = {}) {
+export default async function({login, graphql, data, imports, q, queries, account}, {enabled = false, extras = false, "worldmap.token": _worldmap_token} = {}) {
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
@@ -7,7 +7,7 @@ export default async function({login, graphql, data, imports, q, queries, accoun
       return null
 
     //Load inputs
-    let {"charts.type": _charts, worldmap:_worldmap, "worldmap.sample":_worldmap_sample} = imports.metadata.plugins.stargazers.inputs({data, account, q})
+    let {"charts.type": _charts, worldmap: _worldmap, "worldmap.sample": _worldmap_sample} = imports.metadata.plugins.stargazers.inputs({data, account, q})
 
     //Retrieve stargazers from graphql api
     console.debug(`metrics/compute/${login}/plugins > stargazers > querying api`)
@@ -98,9 +98,9 @@ export default async function({login, graphql, data, imports, q, queries, accoun
 
     //Generating worldmap
     let worldmap = null
-    if ((_worldmap)&&(imports.metadata.plugins.stargazers.extras("worldmap", {extras}))) {
-      const {default:generate} = await import("./worldmap/index.mjs")
-      worldmap = await generate(login, {locations, imports, token:_worldmap_token, sample:_worldmap_sample})
+    if ((_worldmap) && (imports.metadata.plugins.stargazers.extras("worldmap", {extras}))) {
+      const {default: generate} = await import("./worldmap/index.mjs")
+      worldmap = await generate(login, {locations, imports, token: _worldmap_token, sample: _worldmap_sample})
     }
 
     //Results

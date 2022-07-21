@@ -1,11 +1,11 @@
 //Imports
 import { faker } from "@faker-js/faker"
+import { Client as Gmap } from "@googlemaps/google-maps-services-js"
 import axios from "axios"
 import fs from "fs/promises"
 import paths from "path"
 import rss from "rss-parser"
 import urls from "url"
-import {Client as Gmap} from "@googlemaps/google-maps-services-js"
 
 //Mocked state
 let mocked = false
@@ -160,39 +160,39 @@ export default async function({graphql, rest}) {
       const city = faker.address.city()
       const country = faker.address.country()
       return {
-        data:{
-          results:[
+        data: {
+          results: [
             {
               address_components: [
                 {
                   long_name: city,
                   short_name: city,
-                  types: [ "political" ]
+                  types: ["political"],
                 },
                 {
                   long_name: country,
                   short_name: faker.address.countryCode(),
-                  types: [ "country", "political" ]
-                }
+                  types: ["country", "political"],
+                },
               ],
               formatted_address: `${city}, ${country}`,
               geometry: {
                 bounds: {
-                  northeast: { lat, lng },
-                  southwest: { lat, lng }
+                  northeast: {lat, lng},
+                  southwest: {lat, lng},
                 },
-                location: { lat, lng },
+                location: {lat, lng},
                 location_type: "APPROXIMATE",
                 viewport: {
-                  northeast: { lat, lng },
-                  southwest: { lat, lng }
-                }
+                  northeast: {lat, lng},
+                  southwest: {lat, lng},
+                },
               },
-              place_id: 'ChIJu9FC7RXupzsR26dsAapFLgg',
-              types: [ "locality", "political" ]
-            }
-          ]
-        }
+              place_id: "ChIJu9FC7RXupzsR26dsAapFLgg",
+              types: ["locality", "political"],
+            },
+          ],
+        },
       }
     }
   }

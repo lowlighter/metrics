@@ -27,15 +27,15 @@ export default async function({login, q, imports, data, account}, {enabled = fal
 
     //Load page
     if (!url)
-      throw {error:{message:"Skyline URL is not set"}}
+      throw {error: {message: "Skyline URL is not set"}}
     console.debug(`metrics/compute/${login}/plugins > skyline > loading ${url.replaceAll("${login}", login).replaceAll("${year}", year)}`)
     await page.goto(url.replaceAll("${login}", login).replaceAll("${year}", year), {timeout: 90 * 1000})
     console.debug(`metrics/compute/${login}/plugins > skyline > waiting for initial render`)
     const frame = page.mainFrame()
     if (ready)
       await page.waitForFunction(ready.replaceAll("${login}", login).replaceAll("${year}", year), {timeout: 90 * 1000})
-    if ((wait)&&(wait > 0))
-      await new Promise(solve => setTimeout(solve, wait*1000))
+    if ((wait) && (wait > 0))
+      await new Promise(solve => setTimeout(solve, wait * 1000))
     if (hide)
       await frame.evaluate(hide => [...document.querySelectorAll(hide)].map(element => element.style.display = "none"), hide)
 
