@@ -54,7 +54,7 @@
   "plugins": {                          "//": "Global plugin configuration",
     <% for (const name of Object.keys(plugins).filter(v => !["base", "core"].includes(v))) { -%>
 "<%= name %>":{
-      <%- JSON.stringify(Object.fromEntries(Object.entries(plugins[name].inputs).filter(([key, {type}]) => (type === "token")&&(!key.includes("_"))).map(([key, {description:value}]) => [key.replace(new RegExp(`^plugin_${name}_`), ""), value.split("\n")[0].trim()])), null, 6).replace(/^[{]/gm, "").replace(/^\s*[}]$/gm, "").replace(/": "/gm, `${'": null,'.padEnd(22)} "//": "`).replace(/"$/gm, '",').trimStart().replace(/\n$/gm, "\n      ") %>"enabled": false,            "//": "<%= plugins[name].inputs[`plugin_${name}`].description.trim() %>"
+      <%- JSON.stringify(Object.fromEntries(Object.entries(plugins[name].inputs).filter(([key, {type}]) => (type === "token")&&(!key.includes("_"))).map(([key, {description:value}]) => [key.replace(new RegExp(`^plugin_${name}_`), ""), value.split("\n")[0].trim()])), null, 6).replace(/^[{]/gm, "").replace(/^\s*[}]$/gm, "").replace(/(?:([a-z0-9.]+)(?=[.]))(.*)": "/gm, (_, k, r) => `${k}${r}${'": null,'.padEnd(27 - (k.length ? k.length+1 : 0))} "//": "`).replace(/"$/gm, '",').trimStart().replace(/\n$/gm, "\n      ") %>"enabled": false,                 "//": "<%= plugins[name].inputs[`plugin_${name}`].description.trim() %>"
     },
     <% } %>"//": ""
   }
