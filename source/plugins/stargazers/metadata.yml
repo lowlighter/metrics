@@ -5,6 +5,7 @@ description: |
 examples:
   +classic charts: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.svg
   chartist charts: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.chartist.svg
+  +worldmap: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.worldmap.svg
 index: 10
 supports:
   - user
@@ -33,3 +34,28 @@ inputs:
       - chartist
     extras:
       - metrics.npm.optional.chartist
+
+  plugin_stargazers_worldmap:
+    description: |
+      Stargazers worldmap
+    type: boolean
+    default: no
+    extras:
+      - metrics.api.google.maps
+
+  plugin_stargazers_worldmap_token:
+    description: |
+      Stargazers worldmap token
+    type: token
+    default: ""
+
+  plugin_stargazers_worldmap_sample:
+    description: |
+      Stargazers worldmap sample
+
+      Use this setting to randomly sample and limit your stargazers.
+      Helps to avoid consuming too much Google Geocoding API requests while still being representative.
+    type: number
+    default: 0
+    min: 0
+    zero: disable

@@ -4,6 +4,7 @@ query StargazersDefault {
       edges {
         starredAt
         cursor
+        $location
       }
     }
   }

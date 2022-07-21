@@ -50,6 +50,12 @@
           <% } %>
         </section>
       </div>
+      <% if (plugins.stargazers.worldmap) { %>
+      <div class="row margin-bottom">
+        <h3 class="margin-lr-auto">Stargazers origins</h3>
+        <%- plugins.stargazers.worldmap %>
+      </div>
+      <% } %>
     <% } %>
   </section>
 <% } %>

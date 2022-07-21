@@ -5,6 +5,7 @@ import fs from "fs/promises"
 import paths from "path"
 import rss from "rss-parser"
 import urls from "url"
+import {Client as Gmap} from "@googlemaps/google-maps-services-js"
 
 //Mocked state
 let mocked = false
@@ -143,6 +144,56 @@ export default async function({graphql, rest}) {
         description: faker.lorem.paragraph(),
         link: url,
       })
+    }
+  }
+
+  //Google API mocking
+  {
+    //Unmocked
+    console.debug("metrics/compute/mocks > mocking google-maps-services-js")
+
+    //Mock geocode API
+    Gmap.prototype.geocode = function() {
+      console.debug("metrics/compute/mocks > mocking google maps geocode result")
+      const lat = faker.address.latitude()
+      const lng = faker.address.longitude()
+      const city = faker.address.city()
+      const country = faker.address.country()
+      return {
+        data:{
+          results:[
+            {
+              address_components: [
+                {
+                  long_name: city,
+                  short_name: city,
+                  types: [ "political" ]
+                },
+                {
+                  long_name: country,
+                  short_name: faker.address.countryCode(),
+                  types: [ "country", "political" ]
+                }
+              ],
+              formatted_address: `${city}, ${country}`,
+              geometry: {
+                bounds: {
+                  northeast: { lat, lng },
+                  southwest: { lat, lng }
+                },
+                location: { lat, lng },
+                location_type: "APPROXIMATE",
+                viewport: {
+                  northeast: { lat, lng },
+                  southwest: { lat, lng }
+                }
+              },
+              place_id: 'ChIJu9FC7RXupzsR26dsAapFLgg',
+              types: [ "locality", "political" ]
+            }
+          ]
+        }
+      }
     }
   }
 
