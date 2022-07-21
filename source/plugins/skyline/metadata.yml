@@ -58,3 +58,26 @@ inputs:
       Using this mode significantly increase file size as each frame is encoded separately
     type: boolean
     default: no
+
+  plugin_skyline_settings:
+    description: |
+      Advanced settings
+
+      Can be configured to use alternate skyline websites different from [skyline.github.com](https://skyline.github.com), such as [honzaap's GitHub City](https://github.com/honzaap/GitHubCity).
+
+      - `url`: Target URL (mandatory)
+      - `ready`: Readiness condition (A JS function that returns a boolean)
+      - `wait`: Time to wait after readiness condition is met (in seconds)
+      - `hide`: HTML elements to hide (A CSS selector)
+
+      For `url` and `ready` options, `${login}` and `${year}` will be respectively templated to user's login and specified year
+    type: json
+    default: |
+      {
+        "url": "https://skyline.github.com/${login}/${year}",
+        "ready": "[...document.querySelectorAll('span')].map(span => span.innerText).includes('Share on Twitter')",
+        "wait": 1,
+        "hide": "button, footer, a"
+      }
+    extras:
+      - metrics.run.puppeteer.user.js
