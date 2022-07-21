@@ -7,7 +7,7 @@ export default async function({login, graphql, data, imports, q, queries, accoun
       return null
 
     //Load inputs
-    let {"charts.type": _charts, worldmap: _worldmap, "worldmap.sample": _worldmap_sample} = imports.metadata.plugins.stargazers.inputs({data, account, q})
+    let {charts: _charts, "charts.type": _charts_type, worldmap: _worldmap, "worldmap.sample": _worldmap_sample} = imports.metadata.plugins.stargazers.inputs({data, account, q})
 
     //Retrieve stargazers from graphql api
     console.debug(`metrics/compute/${login}/plugins > stargazers > querying api`)
@@ -60,8 +60,8 @@ export default async function({login, graphql, data, imports, q, queries, accoun
     const months = ["", "Jan.", "Feb.", "Mar.", "Apr.", "May", "June", "July", "Aug.", "Sep.", "Oct.", "Nov.", "Dec."]
 
     //Generating charts
-    let charts = null
-    if ((_charts === "chartist") && (imports.metadata.plugins.stargazers.extras("charts.type", {extras}))) {
+    let charts = _charts ? true : null
+    if ((_charts_type === "chartist") && (imports.metadata.plugins.stargazers.extras("charts.type", {extras}))) {
       console.debug(`metrics/compute/${login}/plugins > stargazers > generating charts`)
       charts = await Promise.all([{data: total, low: total.min, high: total.max}, {data: increments, ref: 0, low: increments.min, high: increments.max, sign: true}].map(({data: {dates: set}, high, low, ref, sign = false}) =>
         imports.chartist("line", {

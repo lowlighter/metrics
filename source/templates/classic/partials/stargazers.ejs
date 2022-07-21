@@ -10,46 +10,48 @@
         <%= plugins.stargazers.error.message %>
       </div>
     <% } else { %>
-      <div class="row margin-bottom">
-        <section class="column chart chartist">
-          <h3>Total stargazers</h3>
-          <% if (plugins.stargazers.charts) { %>
-            <%- plugins.stargazers.charts[0] %>
-          <% } else { %>
-            <div class="chart-bars">
-              <% { let previous = null; for (const [date, value] of Object.entries(plugins.stargazers.total.dates)) { const p = 0.05+0.95*(value-plugins.stargazers.total.min)/(plugins.stargazers.total.max-plugins.stargazers.total.min || 1); const [y, m, d] = date.split("-").map(Number) %>
-                <div class="entry">
-                  <span class="value"><%= (value-(previous ?? 0)) ? f(value) : "" %></span>
-                  <div class="bar" style="height: <%= p*50 %>px; background-color: var(--color-calendar-graph-day-L<%= Math.ceil(p/0.25) %>-bg)"></div>
-                  <%= d %>
-                  <% if ((previous === null)||(d === 1)) { %>
+      <% if (plugins.stargazers.charts) { %>
+        <div class="row margin-bottom">
+          <section class="column chart chartist">
+            <h3>Total stargazers</h3>
+            <% if (Array.isArray(plugins.stargazers.charts)) { %>
+              <%- plugins.stargazers.charts[0] %>
+            <% } else { %>
+              <div class="chart-bars">
+                <% { let previous = null; for (const [date, value] of Object.entries(plugins.stargazers.total.dates)) { const p = 0.05+0.95*(value-plugins.stargazers.total.min)/(plugins.stargazers.total.max-plugins.stargazers.total.min || 1); const [y, m, d] = date.split("-").map(Number) %>
+                  <div class="entry">
+                    <span class="value"><%= (value-(previous ?? 0)) ? f(value) : "" %></span>
+                    <div class="bar" style="height: <%= p*50 %>px; background-color: var(--color-calendar-graph-day-L<%= Math.ceil(p/0.25) %>-bg)"></div>
+                    <%= d %>
+                    <% if ((previous === null)||(d === 1)) { %>
+                      <div class="bottom"><%= plugins.stargazers.months[m] %></div>
+                    <% } %>
+                  </div>
+                <% previous = value } } %>
+              </div>
+            <% } %>
+          </section>
+          <section class="column chart chartist">
+            <h3>New stargazers per day</h3>
+            <% if (Array.isArray(plugins.stargazers.charts)) { %>
+              <%- plugins.stargazers.charts[1] %>
+            <% } else { %>
+              <div class="chart-bars">
+                <% { let previous = null; for (const [date, value] of Object.entries(plugins.stargazers.increments.dates)) { const p = value/(plugins.stargazers.increments.max || 1); const [y, m, d] = date.split("-").map(Number) %>
+                  <div class="entry">
+                    <span class="value"><%= value != 0 ? f(value, {sign:true}) : "" %></span>
+                    <div class="bar" style="height: <%= p*50 %>px; background-color: var(--color-calendar-graph-day-L<%= Math.ceil(p/0.25) %>-bg)"></div>
+                    <%= d %>
+                    <% if ((previous === null)||(d === 1)) { %>
                     <div class="bottom"><%= plugins.stargazers.months[m] %></div>
-                  <% } %>
-                </div>
-              <% previous = value } } %>
-            </div>
-          <% } %>
-        </section>
-        <section class="column chart chartist">
-          <h3>New stargazers per day</h3>
-          <% if (plugins.stargazers.charts) { %>
-            <%- plugins.stargazers.charts[1] %>
-          <% } else { %>
-            <div class="chart-bars">
-              <% { let previous = null; for (const [date, value] of Object.entries(plugins.stargazers.increments.dates)) { const p = value/(plugins.stargazers.increments.max || 1); const [y, m, d] = date.split("-").map(Number) %>
-                <div class="entry">
-                  <span class="value"><%= value != 0 ? f(value, {sign:true}) : "" %></span>
-                  <div class="bar" style="height: <%= p*50 %>px; background-color: var(--color-calendar-graph-day-L<%= Math.ceil(p/0.25) %>-bg)"></div>
-                  <%= d %>
-                  <% if ((previous === null)||(d === 1)) { %>
-                  <div class="bottom"><%= plugins.stargazers.months[m] %></div>
-                  <% } %>
-                </div>
-              <% previous = value } } %>
-            </div>
-          <% } %>
-        </section>
-      </div>
+                    <% } %>
+                  </div>
+                <% previous = value } } %>
+              </div>
+            <% } %>
+          </section>
+        </div>
+      <% } %>
       <% if (plugins.stargazers.worldmap) { %>
       <div class="row margin-bottom">
         <h3 class="margin-lr-auto">Stargazers origins</h3>

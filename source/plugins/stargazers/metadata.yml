@@ -21,6 +21,14 @@ inputs:
     type: boolean
     default: no
 
+  plugin_stargazers_charts:
+    description: |
+      Charts
+
+      It includes total number of stargazers evolution, along with the number of new stars per day over the last two weeks.
+    type: boolean
+    default: yes
+
   plugin_stargazers_charts_type:
     description: |
       Charts display type
