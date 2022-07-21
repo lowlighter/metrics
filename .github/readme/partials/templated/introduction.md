@@ -86,12 +86,12 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
     <td align="center">
       Embed metrics images on your profile or blog!<br>
       Use <a href="https://github.com/marketplace/actions/metrics-embed">GitHub actions</a> for even more features!<br>
-      <img src="/.github/readme/imgs/features_embed.gif" width="441">
+      <img src="/.github/readme/imgs/features_embed.gif" width="360">
     </td>
     <td align="center">
       Share your metrics with friends and on social medias!<br>
       No configuration needed!<br>
-      <img src="/.github/readme/imgs/features_insights.gif" width="441">
+      <img src="/.github/readme/imgs/features_insights.gif" width="360">
     </td>
   </tr>
   <tr>
