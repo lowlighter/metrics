@@ -20,5 +20,6 @@
     plugin_stargazers: 'yes'
     plugin_stargazers_worldmap: 'yes'
     plugin_stargazers_worldmap_token: MOCKED_TOKEN
+    plugin_stargazers_worldmap_sample: 200
     use_mocked_data: 'yes'
     verify: 'yes'
