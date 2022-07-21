@@ -544,6 +544,10 @@ inputs:
     description: Enable stargazers plugin
     default: <default-value>
 
+  plugin_stargazers_charts:
+    description: Charts
+    default: <default-value>
+
   plugin_stargazers_charts_type:
     description: Charts display type
     default: <default-value>

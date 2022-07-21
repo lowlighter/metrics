@@ -110,8 +110,8 @@ Pass a JSON object mapping category with fileglobs</p>
   <tr>
     <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code>:
 <ul>
-<li><i>metrics.runner.tempdir</i></li>
-<li><i>metrics.runner.git</i></li>
+<li><i>metrics.run.tempdir</i></li>
+<li><i>metrics.run.git</i></li>
 </ul>
 <b>type:</b> <code>json</code>
 <br>

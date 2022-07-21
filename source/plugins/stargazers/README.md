@@ -54,6 +54,18 @@ Follow instructions from their [documentation](https://developers.google.com/map
 <b>default:</b> no<br></td>
   </tr>
   <tr>
+    <td nowrap="nowrap"><h4><code>plugin_stargazers_charts</code></h4></td>
+    <td rowspan="2"><p>Charts</p>
+<p>It includes total number of stargazers evolution, along with the number of new stars per day over the last two weeks.</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> yes<br></td>
+  </tr>
+  <tr>
     <td nowrap="nowrap"><h4><code>plugin_stargazers_charts_type</code></h4></td>
     <td rowspan="2"><p>Charts display type</p>
 <ul>
@@ -149,6 +161,7 @@ with:
   token: ${{ secrets.METRICS_TOKEN }}
   base: ""
   plugin_stargazers: yes
+  plugin_stargazers_charts: no
   plugin_stargazers_worldmap: yes
   plugin_stargazers_worldmap_token: ${{ secrets.GOOGLE_MAP_TOKEN }}
   plugin_stargazers_worldmap_sample: 200

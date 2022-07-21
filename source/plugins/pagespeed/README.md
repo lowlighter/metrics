@@ -53,6 +53,10 @@
   </tr>
   <tr>
     <td nowrap="nowrap">🔐 Token<br>
+🌐 Web instances must configure <code>settings.json</code>:
+<ul>
+<li><i>metrics.api.google.pagespeed</i></li>
+</ul>
 <b>type:</b> <code>token</code>
 <br></td>
   </tr>
