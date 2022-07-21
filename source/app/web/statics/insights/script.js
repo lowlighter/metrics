@@ -84,7 +84,7 @@
                 (_, repo, tags) => (options?.repo === repo ? "" : repo + "@") + tags,
               ) // -> 'lowlighter/metrics@1.0...1.1'
               .replace(
-                /(?<!&)#(\d+)/g,
+                /[^&]#(\d+)/g,
                 (_, id) => `<a href="https://github.com/${options?.repo}/issues/${id}">#${id}</a>`,
               ) // -> #123
               .replace(
