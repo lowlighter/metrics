@@ -22,6 +22,7 @@
     token: ${{ secrets.METRICS_TOKEN }}
     base: ""
     plugin_stargazers: yes
+    plugin_stargazers_charts: no
     plugin_stargazers_worldmap: yes
     plugin_stargazers_worldmap_token: ${{ secrets.GOOGLE_MAP_TOKEN }}
     plugin_stargazers_worldmap_sample: 200
