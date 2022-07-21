@@ -53,130 +53,131 @@
   "plugins.default": false,             "//": "Default plugin state (advised to let 'false' unless in debug mode)",
   "plugins": {                          "//": "Global plugin configuration",
     "isocalendar":{
-      "enabled": false,            "//": "Enable isocalendar plugin"
+      "enabled": false,                 "//": "Enable isocalendar plugin"
     },
     "languages":{
-      "enabled": false,            "//": "Enable languages plugin"
+      "enabled": false,                 "//": "Enable languages plugin"
     },
     "topics":{
-      "enabled": false,            "//": "Enable topics plugin"
+      "enabled": false,                 "//": "Enable topics plugin"
     },
     "stars":{
-      "enabled": false,            "//": "Enable stars plugin"
+      "enabled": false,                 "//": "Enable stars plugin"
     },
     "licenses":{
-      "enabled": false,            "//": "Enable licenses plugin"
+      "enabled": false,                 "//": "Enable licenses plugin"
     },
     "habits":{
-      "enabled": false,            "//": "Enable habits plugin"
+      "enabled": false,                 "//": "Enable habits plugin"
     },
     "contributors":{
-      "enabled": false,            "//": "Enable contributors plugin"
+      "enabled": false,                 "//": "Enable contributors plugin"
     },
     "followup":{
-      "enabled": false,            "//": "Enable followup plugin"
+      "enabled": false,                 "//": "Enable followup plugin"
     },
     "reactions":{
-      "enabled": false,            "//": "Enable reactions plugin"
+      "enabled": false,                 "//": "Enable reactions plugin"
     },
     "people":{
-      "enabled": false,            "//": "Enable people plugin"
+      "enabled": false,                 "//": "Enable people plugin"
     },
     "stargazers":{
-      "enabled": false,            "//": "Enable stargazers plugin"
+      "worldmap.token": null,           "//": "Stargazers worldmap token",
+      "enabled": false,                 "//": "Enable stargazers plugin"
     },
     "projects":{
-      "enabled": false,            "//": "Enable projects plugin"
+      "enabled": false,                 "//": "Enable projects plugin"
     },
     "code":{
-      "enabled": false,            "//": "Enable code plugin"
+      "enabled": false,                 "//": "Enable code plugin"
     },
     "activity":{
-      "enabled": false,            "//": "Enable activity plugin"
+      "enabled": false,                 "//": "Enable activity plugin"
     },
     "achievements":{
-      "enabled": false,            "//": "Enable achievements plugin"
+      "enabled": false,                 "//": "Enable achievements plugin"
     },
     "notable":{
-      "enabled": false,            "//": "Enable notable plugin"
+      "enabled": false,                 "//": "Enable notable plugin"
     },
     "discussions":{
-      "enabled": false,            "//": "Enable discussions plugin"
+      "enabled": false,                 "//": "Enable discussions plugin"
     },
     "support":{
-      "enabled": false,            "//": "Enable support plugin"
+      "enabled": false,                 "//": "Enable support plugin"
     },
     "lines":{
-      "enabled": false,            "//": "Enable lines plugin"
+      "enabled": false,                 "//": "Enable lines plugin"
     },
     "traffic":{
-      "enabled": false,            "//": "Enable traffic plugin"
+      "enabled": false,                 "//": "Enable traffic plugin"
     },
     "repositories":{
-      "enabled": false,            "//": "Enable repositories plugin"
+      "enabled": false,                 "//": "Enable repositories plugin"
     },
     "gists":{
-      "enabled": false,            "//": "Enable gists plugin"
+      "enabled": false,                 "//": "Enable gists plugin"
     },
     "introduction":{
-      "enabled": false,            "//": "Enable introduction plugin"
+      "enabled": false,                 "//": "Enable introduction plugin"
     },
     "sponsors":{
-      "enabled": false,            "//": "Enable sponsors plugin"
+      "enabled": false,                 "//": "Enable sponsors plugin"
     },
     "starlists":{
-      "enabled": false,            "//": "Enable starlists plugin"
+      "enabled": false,                 "//": "Enable starlists plugin"
     },
     "calendar":{
-      "enabled": false,            "//": "Enable calendar plugin"
+      "enabled": false,                 "//": "Enable calendar plugin"
     },
     "skyline":{
-      "enabled": false,            "//": "Enable skyline plugin"
+      "enabled": false,                 "//": "Enable skyline plugin"
     },
     "pagespeed":{
-      "token": null,               "//": "PageSpeed token",
-      "enabled": false,            "//": "Enable pagespeed plugin"
+      "token": "PageSpeed token",
+      "enabled": false,                 "//": "Enable pagespeed plugin"
     },
     "stackoverflow":{
-      "enabled": false,            "//": "Enable stackoverflow plugin"
+      "enabled": false,                 "//": "Enable stackoverflow plugin"
     },
     "anilist":{
-      "enabled": false,            "//": "Enable aniList plugin"
+      "enabled": false,                 "//": "Enable aniList plugin"
     },
     "tweets":{
-      "token": null,               "//": "Twitter API token",
-      "enabled": false,            "//": "Enable tweets plugin"
+      "token": "Twitter API token",
+      "enabled": false,                 "//": "Enable tweets plugin"
     },
     "posts":{
-      "enabled": false,            "//": "Enable posts plugin"
+      "enabled": false,                 "//": "Enable posts plugin"
     },
     "music":{
-      "token": null,               "//": "Music provider token",
-      "enabled": false,            "//": "Enable music plugin"
+      "token": "Music provider token",
+      "enabled": false,                 "//": "Enable music plugin"
     },
     "rss":{
-      "enabled": false,            "//": "Enable rss plugin"
+      "enabled": false,                 "//": "Enable rss plugin"
     },
     "wakatime":{
-      "token": null,               "//": "WakaTime API token",
-      "enabled": false,            "//": "Enable wakatime plugin"
+      "token": "WakaTime API token",
+      "enabled": false,                 "//": "Enable wakatime plugin"
     },
     "fortune":{
-      "enabled": false,            "//": "Enable fortune plugin"
+      "enabled": false,                 "//": "Enable fortune plugin"
     },
     "nightscout":{
-      "enabled": false,            "//": "Enable nightscout plugin"
+      "enabled": false,                 "//": "Enable nightscout plugin"
     },
     "poopmap":{
-      "token": null,               "//": "PoopMap API token",
-      "enabled": false,            "//": "Enable poopmap plugin"
+      "token": "PoopMap API token",
+      "enabled": false,                 "//": "Enable poopmap plugin"
     },
     "screenshot":{
-      "enabled": false,            "//": "Enable screenshot plugin"
+      "enabled": false,                 "//": "Enable screenshot plugin"
     },
     "stock":{
-      "token": null,               "//": "Yahoo Finance token",
-      "enabled": false,            "//": "Enable stock plugin"
+      "token": "Yahoo Finance token",
+      "enabled": false,                 "//": "Enable stock plugin"
     },
     "//": ""
   }

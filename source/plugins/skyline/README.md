@@ -102,6 +102,35 @@ Using this mode significantly increase file size as each frame is encoded separa
 <br>
 <b>default:</b> no<br></td>
   </tr>
+  <tr>
+    <td nowrap="nowrap"><h4><code>plugin_skyline_settings</code></h4></td>
+    <td rowspan="2"><p>Advanced settings</p>
+<p>Can be configured to use alternate skyline websites different from <a href="https://skyline.github.com">skyline.github.com</a>, such as <a href="https://github.com/honzaap/GitHubCity">honzaap&#39;s GitHub City</a>.</p>
+<ul>
+<li><code>url</code>: Target URL (mandatory)</li>
+<li><code>ready</code>: Readiness condition (A JS function that returns a boolean)</li>
+<li><code>wait</code>: Time to wait after readiness condition is met (in seconds)</li>
+<li><code>hide</code>: HTML elements to hide (A CSS selector)</li>
+</ul>
+<p>For <code>url</code> and <code>ready</code> options, <code>${login}</code> and <code>${year}</code> will be respectively templated to user&#39;s login and specified year</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
+🌐 Web instances must configure <code>settings.json</code>:
+<ul>
+<li><i>metrics.run.puppeteer.user.js</i></li>
+</ul>
+<b>type:</b> <code>json</code>
+<br>
+<b>default:</b> {
+  "url": "https://skyline.github.com/${login}/${year}",
+  "ready": "[...document.querySelectorAll('span')].map(span => span.innerText).includes('Share on Twitter')",
+  "wait": 1,
+  "hide": "button, footer, a"
+}
+<br></td>
+  </tr>
 </table>
 <!--/options-->
 
@@ -119,6 +148,26 @@ with:
   plugin_skyline_year: 2020
   plugin_skyline_frames: 6
   plugin_skyline_quality: 1
+
+```
+```yaml
+name: GitHub City
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.skyline.city.svg
+  token: NOT_NEEDED
+  base: ""
+  plugin_skyline: yes
+  plugin_skyline_year: 2020
+  plugin_skyline_frames: 6
+  plugin_skyline_quality: 1
+  plugin_skyline_settings: |
+    {
+      "url": "https://honzaap.github.io/GithubCity?name=${login}&year=${year}",
+      "ready": "[...document.querySelectorAll('.display-info span')].map(span => span.innerText).includes('${login}')",
+      "wait": 4,
+      "hide": ".github-corner, .footer-link, .buttons-options, .mobile-rotate, .display-info span:first-child"
+    }
 
 ```
 <!--/examples-->

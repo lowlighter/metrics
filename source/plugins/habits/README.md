@@ -140,6 +140,17 @@ Recent language activity may also displayed (it requires extras features to be e
 <b>zero behaviour:</b> disable</br>
 <b>default:</b> 8<br></td>
   </tr>
+  <tr>
+    <td nowrap="nowrap"><h4><code>plugin_habits_languages_threshold</code></h4></td>
+    <td rowspan="2"><p>Display threshold (percentage)</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>string</code>
+<br>
+<b>default:</b> 0%<br></td>
+  </tr>
 </table>
 <!--/options-->
 

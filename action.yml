@@ -405,6 +405,10 @@ inputs:
     description: Display limit (languages)
     default: <default-value>
 
+  plugin_habits_languages_threshold:
+    description: Display threshold (percentage)
+    default: <default-value>
+
   # ====================================================================================
   # 🏅 Repository contributors
 
@@ -542,6 +546,18 @@ inputs:
 
   plugin_stargazers_charts_type:
     description: Charts display type
+    default: <default-value>
+
+  plugin_stargazers_worldmap:
+    description: Stargazers worldmap
+    default: <default-value>
+
+  plugin_stargazers_worldmap_token:
+    description: Stargazers worldmap token
+    default: <default-value>
+
+  plugin_stargazers_worldmap_sample:
+    description: Stargazers worldmap sample
     default: <default-value>
 
   # ====================================================================================
@@ -862,6 +878,10 @@ inputs:
 
   plugin_skyline_compatibility:
     description: Compatibility mode
+    default: <default-value>
+
+  plugin_skyline_settings:
+    description: Advanced settings
     default: <default-value>
 
   # ====================================================================================

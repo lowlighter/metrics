@@ -12,12 +12,13 @@
     <td><code>👤 Users</code> <code>👥 Organizations</code> <code>📓 Repositories</code></td>
   </tr>
   <tr>
-    <td><code>🔑 (scopeless)</code> <code>read:org (optional)</code> <code>read:user (optional)</code> <code>read:packages (optional)</code> <code>repo (optional)</code></td>
+    <td><code>🔑 (scopeless)</code> <code>🗝️ plugin_stargazers_worldmap_token</code> <code>read:org (optional)</code> <code>read:user (optional)</code> <code>read:packages (optional)</code> <code>repo (optional)</code></td>
   </tr>
   <tr>
     <td colspan="2" align="center">
       <details open><summary>Classic charts</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.svg" alt=""></img></details>
       <details><summary>Chartist charts</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.chartist.svg" alt=""></img></details>
+      <details open><summary>Worldmap</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.worldmap.svg" alt=""></img></details>
       <img width="900" height="1" alt="">
     </td>
   </tr>
@@ -71,6 +72,48 @@ Follow instructions from their [documentation](https://developers.google.com/map
 <b>default:</b> classic<br>
 <b>allowed values:</b><ul><li>classic</li><li>chartist</li></ul></td>
   </tr>
+  <tr>
+    <td nowrap="nowrap"><h4><code>plugin_stargazers_worldmap</code></h4></td>
+    <td rowspan="2"><p>Stargazers worldmap</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
+🌐 Web instances must configure <code>settings.json</code>:
+<ul>
+<li><i>metrics.api.google.maps</i></li>
+</ul>
+<b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><h4><code>plugin_stargazers_worldmap_token</code></h4></td>
+    <td rowspan="2"><p>Stargazers worldmap token</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">🔐 Token<br>
+✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>token</code>
+<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><h4><code>plugin_stargazers_worldmap_sample</code></h4></td>
+    <td rowspan="2"><p>Stargazers worldmap sample</p>
+<p>Use this setting to randomly sample and limit your stargazers.
+Helps to avoid consuming too much Google Geocoding API requests while still being representative.</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>number</code>
+<i>(0 ≤
+𝑥)</i>
+<br>
+<b>zero behaviour:</b> disable</br>
+<b>default:</b> 0<br></td>
+  </tr>
 </table>
 <!--/options-->
 
@@ -96,6 +139,19 @@ with:
   base: ""
   plugin_stargazers: yes
   plugin_stargazers_charts_type: chartist
+
+```
+```yaml
+name: With worldmap
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.stargazers.worldmap.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ""
+  plugin_stargazers: yes
+  plugin_stargazers_worldmap: yes
+  plugin_stargazers_worldmap_token: ${{ secrets.GOOGLE_MAP_TOKEN }}
+  plugin_stargazers_worldmap_sample: 200
 
 ```
 <!--/examples-->
