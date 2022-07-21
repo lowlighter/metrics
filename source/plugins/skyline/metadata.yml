@@ -63,9 +63,9 @@ inputs:
     description: |
       Advanced settings
 
-      Can be configured to use a website similar to [skyline.github.com](https://skyline.github.com).
+      Can be configured to use alternate skyline websites different from [skyline.github.com](https://skyline.github.com), such as [honzaap's GitHub City](https://github.com/honzaap/GitHubCity).
 
-      - `url`: Target URL
+      - `url`: Target URL (mandatory)
       - `ready`: Readiness condition (A JS function that returns a boolean)
       - `wait`: Time to wait after readiness condition is met (in seconds)
       - `hide`: HTML elements to hide (A CSS selector)
@@ -79,3 +79,5 @@ inputs:
         "wait": 1,
         "hide": "button, footer, a"
       }
+    extras:
+      - metrics.run.puppeteer.user.js

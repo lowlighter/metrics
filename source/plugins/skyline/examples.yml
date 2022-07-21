@@ -28,7 +28,7 @@
         "url": "https://honzaap.github.io/GithubCity?name=${login}&year=${year}",
         "ready": "[...document.querySelectorAll('.display-info span')].map(span => span.innerText).includes('${login}')",
         "wait": 4,
-        "hide": ".github-corner, .footer-link, .buttons-options"
+        "hide": ".github-corner, .footer-link, .buttons-options, .mobile-rotate, .display-info span:first-child"
       }
   test:
     timeout: 1800000
