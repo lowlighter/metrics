@@ -24,7 +24,8 @@ export default async function({login, graphql, data, imports, q, queries, accoun
         const {repository: {stargazers: {edges}}} = await graphql(queries.stargazers({login: owner, repository, after: cursor ? `after: "${cursor}"` : "", location: _worldmap ? "node { location }" : ""}))
         cursor = edges?.[edges?.length - 1]?.cursor
         dates.push(...edges.map(({starredAt}) => new Date(starredAt)))
-        locations.push(...edges.map(({node: {location}}) => location))
+        if (_worldmap)
+          locations.push(...edges.map(({node: {location}}) => location))
         pushed = edges.length
       } while ((pushed) && (cursor))
       console.debug(`metrics/compute/${login}/plugins > stargazers > loaded ${dates.length} stargazers for ${repository}`)
