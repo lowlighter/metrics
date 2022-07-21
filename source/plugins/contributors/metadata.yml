@@ -79,5 +79,5 @@ inputs:
         "#️⃣ Others": ["*"]
       }
     extras:
-      - metrics.runner.tempdir
-      - metrics.runner.git
+      - metrics.run.tempdir
+      - metrics.run.git

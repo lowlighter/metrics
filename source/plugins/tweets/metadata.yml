@@ -17,6 +17,8 @@ inputs:
       Enable tweets plugin
     type: boolean
     default: no
+    extras:
+      - metrics.api.twitter.tweets
 
   plugin_tweets_token:
     description: |

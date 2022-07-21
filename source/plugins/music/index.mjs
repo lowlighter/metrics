@@ -52,6 +52,8 @@ export default async function({login, imports, data, q, account}, {enabled = fal
       token = _token
       console.debug(`metrics/compute/${login}/plugins > music > overriden token value through user inputs as sandbox mode is enabled`)
     }
+    if (!imports.metadata.plugins.music.extras("token", {extras, error: false}))
+      token = ""
 
     //Auto-guess parameters
     if (!mode) {

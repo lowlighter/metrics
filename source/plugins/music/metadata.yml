@@ -51,6 +51,8 @@ inputs:
       - `youtube`: "cookie"
     type: token
     default: ""
+    extras:
+      - metrics.api.music.any
 
   plugin_music_user:
     description: |

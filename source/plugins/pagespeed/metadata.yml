@@ -29,6 +29,8 @@ inputs:
       > ⚠️ While not mandatory, it is strongly advised pass a token to avoid triggering the rate limiter. See [PageSpeed documentation](https://developers.google.com/speed/docs/insights/v5/get-started) for more informations.
     type: token
     default: ""
+    extras:
+      - metrics.api.google.pagespeed
 
   plugin_pagespeed_url:
     description: |

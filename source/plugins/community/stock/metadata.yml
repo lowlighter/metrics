@@ -20,6 +20,7 @@ inputs:
     default: no
     extras:
       - metrics.npm.optional.chartist
+      - metrics.api.yahoo.finance
 
   plugin_stock_token:
     description: |
