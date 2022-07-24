@@ -14,7 +14,7 @@
         </section>
       </div>
     <% } else { %>
-      <% if (plugins.lines.sections.includes("repositories")) { %>
+      <% if (plugins.lines.sections?.includes("repositories")) { %>
         <div class="row">
           <section>
             <% for (const {handle, added, deleted, changed} of plugins.lines.repos) { %>
@@ -28,7 +28,7 @@
             <% for (const {handle, added, deleted, changed} of plugins.lines.repos) { %>
               <div class="field">
                 <% for (let i = 1; i <= 5; i++) { %>
-                <div class="diff-box <%= (added+changed+deleted) ? (added+changed)/(added+deleted+2*changed) >= i*0.2 ? 'added' : 'deleted' : '' %>"></div>
+                <div class="diff-box <%= (added+changed+deleted) ? (added+changed)/(added+deleted+2*changed) >= (i === 3 ? 0.5 : i*0.2) ? 'added' : 'deleted' : '' %>"></div>
                 <% } %>
                 <div class="diff-stats"><span class="added"><%= `+${f(added+changed)}`.padStart(7) %></span> <span class="deleted"><%= `-${f(deleted+changed)}`.padStart(7) %></span></div>
                 <span>&nbsp;</span>
@@ -37,9 +37,9 @@
           </section>
         </div>
       <% } %>
-      <% if ((plugins.lines.sections.includes("history"))&&(plugins.lines.history)) { %>
+      <% if ((plugins.lines.sections?.includes("history"))&&(plugins.lines.history)) { %>
         <div class="row margin-bottom">
-          <h3 class="margin-lr-auto">History</h3>
+          <h3 class="margin-lr-auto">Diff history</h3>
           <%- plugins.lines.history %>
         </div>
       <% } %>
