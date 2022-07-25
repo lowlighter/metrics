@@ -78,7 +78,7 @@ export default async function({log = true, sandbox = false, community = {}, extr
   logger("metrics/setup > load package.json > success")
 
   //Load community templates
-  if ((conf.settings.extras?.features?.includes("metrics.setup.community.templates")) || (conf.settings.extras?.features === true) || (conf.settings.extras?.default) || (extras) || (sandbox)) {
+  if ((conf.settings.extras?.features?.includes?.("metrics.setup.community.templates")) || (conf.settings.extras?.features === true) || (conf.settings.extras?.default) || (extras) || (sandbox)) {
     if ((typeof conf.settings.community.templates === "string") && (conf.settings.community.templates.length)) {
       logger("metrics/setup > parsing community templates list")
       conf.settings.community.templates = [...new Set([...decodeURIComponent(conf.settings.community.templates).split(",").map(v => v.trim().toLocaleLowerCase()).filter(v => v)])]
