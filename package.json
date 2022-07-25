@@ -35,7 +35,7 @@
     "@googlemaps/google-maps-services-js": "^3.3.16",
     "@octokit/graphql": "^5.0.0",
     "@octokit/rest": "^19.0.3",
-    "@primer/css": "^20.2.4",
+    "@primer/css": "^20.3.0",
     "@primer/octicons": "^17.3.0",
     "axios": "^0.27.2",
     "clipboard": "^2.0.11",
