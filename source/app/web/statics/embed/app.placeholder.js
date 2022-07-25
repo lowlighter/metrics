@@ -167,8 +167,17 @@
         ...(set.plugins.enabled.lines
           ? ({
             lines: {
-              added: `${faker.datatype.number(100)}.${faker.datatype.number(9)}k`,
-              deleted: `${faker.datatype.number(100)}.${faker.datatype.number(9)}k`,
+              added: faker.datatype.number(1000000),
+              deleted: faker.datatype.number(1000000),
+              changed: faker.datatype.number(1000000),
+              sections: options["lines.sections"].split(",").map(x => x.trim()),
+              repos: new Array(options["lines.repositories.limit"] || 4).fill(null).map(_ => ({
+                handle: `${faker.random.word()}/${faker.random.word()}`,
+                added: faker.datatype.number(10000),
+                deleted: faker.datatype.number(10000),
+                changed: faker.datatype.number(10000),
+              })),
+              history: await staticPlaceholder(set.plugins.enabled.lines, "lines.history.svg"),
             },
           })
           : null),

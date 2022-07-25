@@ -30,10 +30,12 @@ import twemojis from "twemoji-parser"
 import url from "url"
 import util from "util"
 import xmlformat from "xml-formatter"
+import * as d3 from "d3"
+import D3node from "d3-node"
 prism_lang()
 
 //Exports
-export { axios, emoji, fetch, fs, git, minimatch, opengraph, os, paths, processes, rss, sharp, url, util }
+export { axios, d3, D3node, emoji, fetch, fs, git, minimatch, opengraph, os, paths, processes, rss, sharp, url, util }
 
 /**Returns module __dirname */
 export function __module(module) {

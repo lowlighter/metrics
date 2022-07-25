@@ -3,7 +3,8 @@ category: github
 description: |
   This plugin displays the number of lines of code added and removed across repositories.
 examples:
-  default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.lines.svg
+  +Repositories and diff history: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.lines.history.svg
+  Compact display in base plugin: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.lines.svg
 index: 18
 supports:
   - user
@@ -27,3 +28,35 @@ inputs:
     default: ""
     example: my-repo-1, my-repo-2, owner/repo-3, ...
     inherits: repositories_skipped
+
+  plugin_lines_sections:
+    description: |
+      Displayed sections
+
+      - `base` will display the total lines added and removed in `base.repositories` section
+      - `repositories` will display repositories with the most lines added and removed
+      - `history` will display a graph displaying lines added and removed over time
+    type: array
+    format: comma-separated
+    default: base
+    example: repositories, history
+    values:
+      - base
+      - repositories
+      - history
+
+  plugin_lines_repositories_limit:
+    description: |
+      Display limit
+    type: number
+    default: 4
+    min: 0
+
+  plugin_lines_history_limit:
+    description: |
+      Years to display
+
+      Will display the last `n` years, relative to current year
+    type: number
+    default: 1
+    zero: disable

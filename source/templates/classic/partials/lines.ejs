@@ -1,1 +1,48 @@
-<%# Included in base.repositories.ejs %>
+<% if ((plugins.lines)&&((plugins.lines.sections.includes("history"))||(plugins.lines.sections.includes("repositories")))) { %>
+  <section>
+    <h2 class="field">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M2.75 1.5a.25.25 0 00-.25.25v12.5c0 .138.112.25.25.25h10.5a.25.25 0 00.25-.25V4.664a.25.25 0 00-.073-.177l-2.914-2.914a.25.25 0 00-.177-.073H2.75zM1 1.75C1 .784 1.784 0 2.75 0h7.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0113.25 16H2.75A1.75 1.75 0 011 14.25V1.75zm7 1.5a.75.75 0 01.75.75v1.5h1.5a.75.75 0 010 1.5h-1.5v1.5a.75.75 0 01-1.5 0V7h-1.5a.75.75 0 010-1.5h1.5V4A.75.75 0 018 3.25zm-3 8a.75.75 0 01.75-.75h4.5a.75.75 0 010 1.5h-4.5a.75.75 0 01-.75-.75z"></path></svg>
+      Lines of code pushed
+    </h2>
+    <% if (plugins.lines.error) { %>
+      <div class="row">
+        <section>
+          <div class="field error">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M2.343 13.657A8 8 0 1113.657 2.343 8 8 0 012.343 13.657zM6.03 4.97a.75.75 0 00-1.06 1.06L6.94 8 4.97 9.97a.75.75 0 101.06 1.06L8 9.06l1.97 1.97a.75.75 0 101.06-1.06L9.06 8l1.97-1.97a.75.75 0 10-1.06-1.06L8 6.94 6.03 4.97z"></path></svg>
+            <%= plugins.lines.error.message %>
+          </div>
+        </section>
+      </div>
+    <% } else { %>
+      <% if (plugins.lines.sections?.includes("repositories")) { %>
+        <div class="row">
+          <section>
+            <% for (const {handle, added, deleted, changed} of plugins.lines.repos) { %>
+              <div class="field">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M8 5.5a2.5 2.5 0 100 5 2.5 2.5 0 000-5zM4 8a4 4 0 118 0 4 4 0 01-8 0z"></path></svg>
+                <span class="diff-handle"><%= handle %></span>
+              </div>
+            <% } %>
+          </section>
+          <section>
+            <% for (const {handle, added, deleted, changed} of plugins.lines.repos) { %>
+              <div class="field">
+                <% for (let i = 1; i <= 5; i++) { %>
+                <div class="diff-box <%= (added+changed+deleted) ? (added+changed)/(added+deleted+2*changed) >= (i === 3 ? 0.5 : i*0.2) ? 'added' : 'deleted' : '' %>"></div>
+                <% } %>
+                <div class="diff-stats"><span class="added"><%= `+${f(added+changed)}`.padStart(7) %></span> <span class="deleted"><%= `-${f(deleted+changed)}`.padStart(7) %></span></div>
+                <span>&nbsp;</span>
+              </div>
+            <% } %>
+          </section>
+        </div>
+      <% } %>
+      <% if ((plugins.lines.sections?.includes("history"))&&(plugins.lines.history)) { %>
+        <div class="row margin-bottom">
+          <h3 class="margin-lr-auto">Diff history</h3>
+          <%- plugins.lines.history %>
+        </div>
+      <% } %>
+    <% } %>
+  </section>
+<% } %>
