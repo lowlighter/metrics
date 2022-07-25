@@ -1,8 +1,18 @@
-- name: 👨‍💻 Lines of code changed - Lines of code changed
+- name: 👨‍💻 Lines of code changed - Compact display in base plugin
   uses: lowlighter/metrics@latest
   with:
     token: MOCKED_TOKEN
     base: repositories
     plugin_lines: 'yes'
+    use_mocked_data: 'yes'
+    verify: 'yes'
+- name: 👨‍💻 Lines of code changed - Repositories and diff history
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    plugin_lines: 'yes'
+    plugin_lines_sections: repositories, history
+    plugin_lines_repositories_limit: 2
+    plugin_lines_history_limit: 1
     use_mocked_data: 'yes'
     verify: 'yes'

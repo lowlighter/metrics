@@ -432,7 +432,7 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      - name: ✨ Stargazers over last weeks - Using classic charts
+      - name: ✨ Stargazers - Using classic charts
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.stargazers.svg
@@ -444,7 +444,7 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      - name: ✨ Stargazers over last weeks - Using chartist charts
+      - name: ✨ Stargazers - Using chartist charts
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.stargazers.chartist.svg
@@ -457,7 +457,7 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      - name: ✨ Stargazers over last weeks - With worldmap
+      - name: ✨ Stargazers - With worldmap
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.stargazers.worldmap.svg
@@ -597,13 +597,28 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      - name: 👨‍💻 Lines of code changed - Lines of code changed
+      - name: 👨‍💻 Lines of code changed - Compact display in base plugin
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.lines.svg
           token: ${{ secrets.METRICS_TOKEN }}
           base: repositories
           plugin_lines: yes
+          output_action: none
+          delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
+        if: ${{ success() || failure() }}
+      - name: 👨‍💻 Lines of code changed - Repositories and diff history
+        uses: lowlighter/metrics@master
+        with:
+          filename: metrics.plugin.lines.history.svg
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          plugin_lines: yes
+          plugin_lines_sections: repositories, history
+          plugin_lines_repositories_limit: 2
+          plugin_lines_history_limit: 1
           output_action: none
           delay: 120
           user: lowlighter
