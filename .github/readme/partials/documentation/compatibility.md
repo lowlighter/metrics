@@ -14,7 +14,7 @@
     <th nowrap="nowrap" align="center" title="🎟️ Follow-up of issues and pull requests">🎟️</th>
     <th nowrap="nowrap" align="center" title="🎭 Comment reactions">🎭</th>
     <th nowrap="nowrap" align="center" title="🧑‍🤝‍🧑 People">🧑‍🤝‍🧑</th>
-    <th nowrap="nowrap" align="center" title="✨ Stargazers over last weeks">✨</th>
+    <th nowrap="nowrap" align="center" title="✨ Stargazers">✨</th>
     <th nowrap="nowrap" align="center" title="🗂️ GitHub projects">🗂️</th>
     <th nowrap="nowrap" align="center" title="♐ Random code snippet">♐</th>
     <th nowrap="nowrap" align="center" title="📰 Recent activity">📰</th>
@@ -212,7 +212,7 @@
     <th nowrap="nowrap" align="center" title="🎟️ Follow-up of issues and pull requests">🎟️</th>
     <th nowrap="nowrap" align="center" title="🎭 Comment reactions">🎭</th>
     <th nowrap="nowrap" align="center" title="🧑‍🤝‍🧑 People">🧑‍🤝‍🧑</th>
-    <th nowrap="nowrap" align="center" title="✨ Stargazers over last weeks">✨</th>
+    <th nowrap="nowrap" align="center" title="✨ Stargazers">✨</th>
     <th nowrap="nowrap" align="center" title="🗂️ GitHub projects">🗂️</th>
     <th nowrap="nowrap" align="center" title="♐ Random code snippet">♐</th>
     <th nowrap="nowrap" align="center" title="📰 Recent activity">📰</th>

@@ -1,8 +1,8 @@
 <!--header-->
 <table>
   <tr><td colspan="2"><a href="/README.md#-plugins">← Back to plugins index</a></td></tr>
-  <tr><th colspan="2"><h3>✨ Stargazers over last weeks</h3></th></tr>
-  <tr><td colspan="2" align="center"><p>This plugin displays stargazers evolution across affiliated repositories over the last two weeks.</p>
+  <tr><th colspan="2"><h3>✨ Stargazers</h3></th></tr>
+  <tr><td colspan="2" align="center"><p>This plugin displays stargazers evolution across affiliated repositories.</p>
 </td></tr>
   <tr>
     <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>

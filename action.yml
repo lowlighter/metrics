@@ -538,7 +538,7 @@ inputs:
     default: <default-value>
 
   # ====================================================================================
-  # ✨ Stargazers over last weeks
+  # ✨ Stargazers
 
   plugin_stargazers:
     description: Enable stargazers plugin
@@ -746,6 +746,18 @@ inputs:
 
   plugin_lines_skipped:
     description: Skipped repositories
+    default: <default-value>
+
+  plugin_lines_sections:
+    description: Displayed sections
+    default: <default-value>
+
+  plugin_lines_repositories_limit:
+    description: Display limit
+    default: <default-value>
+
+  plugin_lines_history_limit:
+    description: Years to display
     default: <default-value>
 
   # ====================================================================================

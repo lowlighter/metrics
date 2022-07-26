@@ -16,7 +16,8 @@
   </tr>
   <tr>
     <td colspan="2" align="center">
-      <img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.lines.svg" alt=""></img>
+      <details open><summary>Repositories and diff history</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.lines.history.svg" alt=""></img></details>
+      <details><summary>Compact display in base plugin</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.lines.svg" alt=""></img></details>
       <img width="900" height="1" alt="">
     </td>
   </tr>
@@ -51,6 +52,50 @@
 <i>(comma-separated)</i>
 <br></td>
   </tr>
+  <tr>
+    <td nowrap="nowrap"><h4><code>plugin_lines_sections</code></h4></td>
+    <td rowspan="2"><p>Displayed sections</p>
+<ul>
+<li><code>base</code> will display the total lines added and removed in <code>base.repositories</code> section</li>
+<li><code>repositories</code> will display repositories with the most lines added and removed</li>
+<li><code>history</code> will display a graph displaying lines added and removed over time</li>
+</ul>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br>
+<b>default:</b> base<br>
+<b>allowed values:</b><ul><li>base</li><li>repositories</li><li>history</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><h4><code>plugin_lines_repositories_limit</code></h4></td>
+    <td rowspan="2"><p>Display limit</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>number</code>
+<i>(0 ≤
+𝑥)</i>
+<br>
+<b>default:</b> 4<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><h4><code>plugin_lines_history_limit</code></h4></td>
+    <td rowspan="2"><p>Years to display</p>
+<p>Will display the last <code>n</code> years, relative to current year</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>number</code>
+<br>
+<b>zero behaviour:</b> disable</br>
+<b>default:</b> 1<br></td>
+  </tr>
 </table>
 <!--/options-->
 
@@ -58,13 +103,26 @@
 
 <!--examples-->
 ```yaml
-name: Lines of code changed
+name: Compact display in base plugin
 uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.lines.svg
   token: ${{ secrets.METRICS_TOKEN }}
   base: repositories
   plugin_lines: yes
+
+```
+```yaml
+name: Repositories and diff history
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.lines.history.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ""
+  plugin_lines: yes
+  plugin_lines_sections: repositories, history
+  plugin_lines_repositories_limit: 2
+  plugin_lines_history_limit: 1
 
 ```
 <!--/examples-->

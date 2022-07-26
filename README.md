@@ -19,7 +19,7 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
   </tr>
   <tr>
     <th colspan="2" align="center">
-      <h3><a href="/README.md#-plugins">🧩 Customizable with 40 plugins and 273 options!</a></h3>
+      <h3><a href="/README.md#-plugins">🧩 Customizable with 40 plugins and 276 options!</a></h3>
     </th>
   </tr>
   <tr>
@@ -104,7 +104,7 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
       </td>
   </tr>
   <tr>
-    <th><a href="source/plugins/stargazers/README.md">✨ Stargazers over last weeks</a></th>
+    <th><a href="source/plugins/stargazers/README.md">✨ Stargazers</a></th>
     <th><a href="source/plugins/projects/README.md">🗂️ GitHub projects</a></th>
   </tr>
   <tr>
@@ -169,7 +169,8 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
   </tr>
   <tr>
         <td  align="center">
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.lines.svg" alt=""></img>
+        <details open><summary>Repositories and diff history</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.lines.history.svg" alt=""></img></details>
+        <details><summary>Compact display in base plugin</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.lines.svg" alt=""></img></details>
         <img width="900" height="1" alt="">
       </td>
         <td  align="center">
@@ -440,7 +441,7 @@ Plugins provide additional content and lets you customize rendered metrics.
   * [📓 Featured repositories <sub>`repositories`</sub>](/source/plugins/repositories/README.md)
   * [🌇 GitHub Skyline <sub>`skyline`</sub>](/source/plugins/skyline/README.md)
   * [💕 GitHub Sponsors <sub>`sponsors`</sub>](/source/plugins/sponsors/README.md)
-  * [✨ Stargazers over last weeks <sub>`stargazers`</sub>](/source/plugins/stargazers/README.md)
+  * [✨ Stargazers <sub>`stargazers`</sub>](/source/plugins/stargazers/README.md)
   * [💫 Star lists <sub>`starlists`</sub>](/source/plugins/starlists/README.md)
   * [🌟 Recently starred repositories <sub>`stars`</sub>](/source/plugins/stars/README.md)
   * [💭 GitHub Community Support <sub>`support`</sub>](/source/plugins/support/README.md)

@@ -29,7 +29,7 @@ Plugins provide additional content and lets you customize rendered metrics.
   * [📓 Featured repositories <sub>`repositories`</sub>](/source/plugins/repositories/README.md)
   * [🌇 GitHub Skyline <sub>`skyline`</sub>](/source/plugins/skyline/README.md)
   * [💕 GitHub Sponsors <sub>`sponsors`</sub>](/source/plugins/sponsors/README.md)
-  * [✨ Stargazers over last weeks <sub>`stargazers`</sub>](/source/plugins/stargazers/README.md)
+  * [✨ Stargazers <sub>`stargazers`</sub>](/source/plugins/stargazers/README.md)
   * [💫 Star lists <sub>`starlists`</sub>](/source/plugins/starlists/README.md)
   * [🌟 Recently starred repositories <sub>`stars`</sub>](/source/plugins/stars/README.md)
   * [💭 GitHub Community Support <sub>`support`</sub>](/source/plugins/support/README.md)
