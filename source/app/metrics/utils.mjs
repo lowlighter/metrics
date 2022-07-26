@@ -4,6 +4,8 @@ import axios from "axios"
 import processes from "child_process"
 import crypto from "crypto"
 import { minify as csso } from "csso"
+import * as d3 from "d3"
+import D3node from "d3-node"
 import emoji from "emoji-name-map"
 import { fileTypeFromBuffer } from "file-type"
 import fss from "fs"
@@ -30,8 +32,6 @@ import twemojis from "twemoji-parser"
 import url from "url"
 import util from "util"
 import xmlformat from "xml-formatter"
-import * as d3 from "d3"
-import D3node from "d3-node"
 prism_lang()
 
 //Exports
