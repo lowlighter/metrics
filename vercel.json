@@ -1,15 +1,15 @@
 {
   "rewrites":[
+    {"source": "/.uncache", "destination": "https://metrics.lecoq.io/.uncache"},
+    {"source": "/.requests", "destination": "https://metrics.lecoq.io/.requests"},
     {"source": "/.templates", "destination": "/.templates__"},
     {"source": "/.templates/:template", "destination": "/.templates_/:template"},
-    {"source": "/:login([-\\w]+)", "destination": "https://metrics.lecoq.io/:login"},
-    {"source": "/:login([-\\w]+)/:repository([-\\w]+)", "destination": "https://metrics.lecoq.io/:login/:repository"},
     {"source": "/about/query/:login", "destination": "https://metrics.lecoq.io/about/query/:login"},
     {"source": "/about/query/:login/:plugin", "destination": "https://metrics.lecoq.io/about/query/:login/:plugin"},
-    {"source": "/insights/query/:login", "destination": "https://metrics.lecoq.io/about/query/:login"},
-    {"source": "/insights/query/:login/:plugin", "destination": "https://metrics.lecoq.io/about/query/:login/:plugin"},
-    {"source": "/.uncache", "destination": "https://metrics.lecoq.io/.uncache"},
-    {"source": "/.requests", "destination": "https://metrics.lecoq.io/.requests"}
+    {"source": "/insights/query/:login", "destination": "https://metrics.lecoq.io/insights/query/:login"},
+    {"source": "/insights/query/:login/:plugin", "destination": "https://metrics.lecoq.io/insights/query/:login/:plugin"},
+    {"source": "/:login([-\\w]+)", "destination": "https://metrics.lecoq.io/:login"},
+    {"source": "/:login([-\\w]+)/:repository([-\\w]+)", "destination": "https://metrics.lecoq.io/:login/:repository"}
   ],
   "github":{
     "silent": true,
