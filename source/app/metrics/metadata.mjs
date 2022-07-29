@@ -475,6 +475,8 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
               text = "<code>→ User attached twitter</code>"
             if (o.default === ".user.website")
               text = "<code>→ User attached website</code>"
+            if (type === "json")
+              text = `<details><summary>→ Click to expand</summary><pre language="json"><code>${text}</code></pre></details>`
             cell.push(`<b>default:</b> ${text}<br>`)
           }
           if ("values" in o)
