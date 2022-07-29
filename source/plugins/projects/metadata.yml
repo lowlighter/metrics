@@ -2,7 +2,7 @@ name: 🗂️ GitHub projects
 category: github
 description: |
   This plugin displays progress of profile and repository projects.
-
+notes: |
   > ℹ️ This plugin currently only supports [GitHub projects boards](https://docs.github.com/en/issues/organizing-your-work-with-project-boards/managing-project-boards/about-project-boards) and not [GitHub projects (beta)](https://docs.github.com/en/issues/trying-out-the-new-projects-experience/about-projects)
 examples:
   default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.projects.svg

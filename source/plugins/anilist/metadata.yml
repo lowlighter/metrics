@@ -2,6 +2,9 @@ name: 🌸 Anilist watch list and reading list
 category: social
 description: |
   This plugin displays favorites animes, mangas and characters from a [AniList](https://anilist.co) account.
+disclaimer: |
+  This plugin is not affiliated, associated, authorized, endorsed by, or in any way officially connected with [AniList](https://anilist.co).
+  All product and company names are trademarks™ or registered® trademarks of their respective holders.
 examples:
   +for anime watchers: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.anilist.svg
   for manga readers: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.anilist.manga.svg

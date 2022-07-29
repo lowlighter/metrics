@@ -2,7 +2,7 @@ name: ♐ Random code snippet
 category: github
 description: |
   This plugin displays a random code snippet from recent activity history.
-
+notes: |
   > ⚠️ When improperly configured, this plugin could display private code.
   > If you work with sensitive data or company code, it is advised to keep this plugin disabled.
   > Use at your own risk, *metrics* and its authors cannot be held responsible for any resulting code leaks.

@@ -2,6 +2,9 @@ name: 💩 PoopMap plugin
 category: community
 description: |
   This plugin displays statistics from a [PoopMap](https://poopmap.net) account.
+disclaimer: |
+  This plugin is not affiliated, associated, authorized, endorsed by, or in any way officially connected with [PoopMap](https://poopmap.net).
+  All product and company names are trademarks™ or registered® trademarks of their respective holders.
 examples:
   default: https://github.com/matievisthekat/matievisthekat/blob/master/metrics.plugin.poopmap.svg
 authors:

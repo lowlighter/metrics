@@ -4,6 +4,9 @@ description: |
   This plugin displays statistics from a [WakaTime](https://wakatime.com) account.
 
   It is also compatible with self-hosted instances from [wakapi](https://github.com/muety/wakapi).
+disclaimer: |
+  This plugin is not affiliated, associated, authorized, endorsed by, or in any way officially connected with [WakaTime](https://wakatime.com).
+  All product and company names are trademarks™ or registered® trademarks of their respective holders.
 examples:
   default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.wakatime.svg
 index: 8

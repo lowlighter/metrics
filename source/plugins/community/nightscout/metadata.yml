@@ -2,6 +2,9 @@ name: 💉 Nightscout
 category: community
 description: |
   This plugin displays blood sugar values from a [Nightscout](http://nightscout.info) site.
+disclaimer: |
+  This plugin is not affiliated, associated, authorized, endorsed by, or in any way officially connected with [Nightscout](http://nightscout.info).
+  All product and company names are trademarks™ or registered® trademarks of their respective holders.
 examples:
   default: https://github.com/legoandmars/legoandmars/blob/master/metrics.plugin.nightscout.svg
 authors:

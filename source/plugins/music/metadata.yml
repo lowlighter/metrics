@@ -4,6 +4,9 @@ description: |
   This plugin can display top and recently listened music tracks or titles from a random playlist.
 
   Different music providers are supported.
+disclaimer: |
+  This plugin is not affiliated, associated, authorized, endorsed by, or in any way officially connected with any of the supported provider.
+  All product and company names are trademarks™ or registered® trademarks of their respective holders.
 examples:
   +random tracks from a playlist: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.music.playlist.svg
   +recently listened: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.music.recent.svg

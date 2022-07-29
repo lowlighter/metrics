@@ -2,7 +2,7 @@ name: 🌇 GitHub Skyline
 category: github
 description: |
   This plugin displays the 3D commits calendar from [skyline.github.com](https://skyline.github.com/).
-
+notes: |
   > ⚠️ This plugin significantly increase file size, consider using it as standalone.
 examples:
   +GitHub Skyline: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.skyline.svg

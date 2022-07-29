@@ -4,6 +4,9 @@ description: |
   This plugin displays performance statistics of a website.
 
   It uses [Google's PageSpeed API](https://developers.google.com/speed/docs/insights/v5/get-started) (same as [web.dev](https://web.dev)), see [performance scoring](https://web.dev/performance-scoring/) and [score calculator](https://googlechrome.github.io/lighthouse/scorecalc/) for more informations about results.
+disclaimer: |
+  This plugin is not affiliated, associated, authorized, endorsed by, or in any way officially connected with [Google PageSpeed](https://pagespeed.web.dev/).
+  All product and company names are trademarks™ or registered® trademarks of their respective holders.
 examples:
   +PageSpeed scores: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.pagespeed.svg
   PageSpeed scores with detailed report: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.pagespeed.detailed.svg

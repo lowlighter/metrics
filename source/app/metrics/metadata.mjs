@@ -98,9 +98,11 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
     const {inputs, ...meta} = yaml.load(raw)
     Object.assign(metadata.inputs, inputs)
 
-    //category
+    //Category
     if (!categories.includes(meta.category))
       meta.category = "community"
+    if ((meta.category === "github")&&(!meta.disclaimer))
+      meta.disclaimer = "This plugin is not affiliated, associated, authorized, endorsed by, or in any way officially connected with [GitHub](https://github.com).\nAll product and company names are trademarks™ or registered® trademarks of their respective holders."
 
     //Inputs parser
     {
@@ -397,6 +399,8 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
         `  <tr><th colspan="2"><h3>${meta.name}</h3></th></tr>`,
         `  <tr><td colspan="2" align="center">${marked.parse(meta.description ?? "", {silent: true})}</td></tr>`,
         meta.deprecation ? `  <tr><th>⚠️ Deprecated</th><td>${marked.parse(meta.deprecation ?? "", {silent: true})}</td></tr>` : "",
+        meta.disclaimer ? `  <tr><th>⚠️ Disclaimer</th><td>${marked.parse(meta.disclaimer ?? "", {silent: true})}</td></tr>` : "",
+        meta.notes ? `  <tr><th>ℹ Additional notes</th><td>${marked.parse(meta.notes ?? "", {silent: true})}</td></tr>` : "",
         meta.authors?.length ? `<tr><th>Authors</th><td>${[meta.authors].flat().map(author => `<a href="https://github.com/${author}">@${author}</a>`)}</td></tr>` : "",
         "  <tr>",
         '    <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>',

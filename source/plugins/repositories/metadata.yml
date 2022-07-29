@@ -4,7 +4,7 @@ description: |
   This plugin displays a list of chosen featured repositories.
 
   Since it is possible to [pin repositories](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/pinning-items-to-your-profile) on GitHub, this plugin is mostly intended for external usage.
-
+notes: |
   > ⚠️ Due to limitations of using SVG images inside `<img>` tags, clicking on a repository card will not redirect to repository page.
 examples:
   +featured: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.repositories.svg
