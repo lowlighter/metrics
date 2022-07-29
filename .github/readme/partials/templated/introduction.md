@@ -10,7 +10,7 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
   </tr>
 <% {
   let cell = 0
-  const elements = Object.entries(plugins).filter(([key, value]) => (value)&&(!["base", "core"].includes(key)&&(value.category !== "community")))
+  const elements = Object.entries(plugins).filter(([key, value]) => (value)&&(!["base", "core"].includes(key)&&(value.category !== "community")&&(!value.deprecation)))
 -%>
   <tr>
     <th colspan="2" align="center">

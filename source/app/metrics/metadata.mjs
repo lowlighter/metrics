@@ -396,6 +396,7 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
         '  <tr><td colspan="2"><a href="/README.md#-plugins">← Back to plugins index</a></td></tr>',
         `  <tr><th colspan="2"><h3>${meta.name}</h3></th></tr>`,
         `  <tr><td colspan="2" align="center">${marked.parse(meta.description ?? "", {silent: true})}</td></tr>`,
+        meta.deprecation ? `  <tr><th>⚠️ Deprecated</th><td>${marked.parse(meta.deprecation ?? "", {silent: true})}</td></tr>` : "",
         meta.authors?.length ? `<tr><th>Authors</th><td>${[meta.authors].flat().map(author => `<a href="https://github.com/${author}">@${author}</a>`)}</td></tr>` : "",
         "  <tr>",
         '    <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>',

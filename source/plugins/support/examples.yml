@@ -5,3 +5,5 @@
     token: NOT_NEEDED
     base: ""
     plugin_support: yes
+  prod:
+    skip: true
