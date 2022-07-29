@@ -7,3 +7,5 @@
     plugin_support: yes
   prod:
     skip: true
+  test:
+    skip: true
