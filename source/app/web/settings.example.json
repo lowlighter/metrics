@@ -38,6 +38,7 @@
                                         "//": "metrics.setup.community.templates | Allow community templates download",
                                         "//": "metrics.setup.community.presets   | Allow community presets usage",
                                         "//": "metrics.api.github.overuse        | Allow GitHub API intensive requests",
+                                        "//": "metrics.api.*                     | Allow use of external API requests",
                                         "//": "metrics.cpu.overuse               | Allow CPU intensive requests",
                                         "//": "metrics.run.tempdir               | Allow access to temporary directory (I/O operations may be performed)",
                                         "//": "metrics.run.git                   | Allow to run git",
@@ -46,9 +47,7 @@
                                         "//": "metrics.run.puppeteer.scrapping   | Allow to run puppeteer to scrape data",
                                         "//": "metrics.run.puppeteer.user.css    | Allow to run CSS by user during puppeteer render",
                                         "//": "metrics.run.puppeteer.user.js     | Allow to run JavaScript by user during puppeteer render",
-                                        "//": "metrics.npm.optional.chartist     | Allow use of chartist",
-                                        "//": "metrics.npm.optional.gifencoder   | Allow use of gifencoder",
-                                        "//": "metrics.npm.optional.libxmljs2    | Allow use of libxmljs2"
+                                        "//": "metrics.npm.optional.*            | Allow use of specified dependency"
   },
   "plugins.default": false,             "//": "Default plugin state (advised to let 'false' unless in debug mode)",
   "plugins": {                          "//": "Global plugin configuration",

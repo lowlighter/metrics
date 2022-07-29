@@ -109,6 +109,7 @@ The following extra features are supported:
 | `metrics.setup.community.templates` | Allow community templates download                        |
 | `metrics.setup.community.presets`   | Allow community presets usage                             |
 | `metrics.api.github.overuse`        | Allow GitHub API intensive requests                       |
+| `metrics.api.*`                     | Allow use of external API requests                        |
 | `metrics.cpu.overuse`               | Allow CPU intensive requests                              |
 | `metrics.run.tempdir`               | Allow access to temporary directory (including I/O)       |
 | `metrics.run.git`                   | Allow to run git                                          |
@@ -117,9 +118,7 @@ The following extra features are supported:
 | `metrics.run.puppeteer.scrapping`   | Allow to run puppeteer to scrape data                     |
 | `metrics.run.puppeteer.user.css`    | Allow to run CSS by user during puppeteer render          |
 | `metrics.run.puppeteer.user.js`     | Allow to run JavaScript by user during puppeteer render   |
-| ⚠️ `metrics.npm.optional.chartist`  | Allow use of chartist (vulnerable to [CVE-2021-20066](https://github.com/advisories/GHSA-f4c9-cqv8-9v98))                                                       |
-| `metrics.npm.optional.gifencoder`   | Allow use of gifencoder                                   |
-| `metrics.npm.optional.libxmljs2`    | Allow use of libxmljs2                                    |
+| ⚠️ `metrics.npm.optional.*`        | Allow use of specified dependency (CONSULT RESPECTIVE DEPENDENCY CVE FIRST) |
 
 If a plugin is used without sufficient permissions, it will result in an error.
 

@@ -50,6 +50,7 @@ inputs:
     default: no
     extras:
       - metrics.api.google.maps
+      - metrics.npm.optional.d3
 
   plugin_stargazers_worldmap_token:
     description: |
