@@ -5,7 +5,7 @@ description: |
 examples:
   +latest tweets with attachments: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.tweets.attachments.svg
   latest tweets: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.tweets.svg
-index: 5
+index: 1
 supports:
   - user
   - organization

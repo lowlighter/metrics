@@ -7,7 +7,7 @@ description: |
 examples:
   +with icons: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.topics.icons.svg
   +with labels: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.topics.svg
-index: 2
+index: 4
 supports:
   - user
 scopes: []

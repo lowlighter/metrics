@@ -4,7 +4,7 @@ description: |
   This plugin displays GitHub discussions stats.
 examples:
   default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.discussions.svg
-index: 16
+index: 15
 supports:
   - user
 scopes:

@@ -4,7 +4,7 @@ description: |
   This plugin displays overall user reactions on recent issues, comments and discussions.
 examples:
   default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.reactions.svg
-index: 8
+index: 10
 supports:
   - user
 scopes:

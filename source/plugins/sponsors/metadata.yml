@@ -5,7 +5,7 @@ description: |
 examples:
   +GitHub sponsors card: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.sponsors.svg
   GitHub sponsors full introduction: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.sponsors.full.svg
-index: 23
+index: 13
 supports:
   - user
   - organization

@@ -5,7 +5,7 @@ description: |
 examples:
   +Repositories and diff history: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.lines.history.svg
   Compact display in base plugin: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.lines.svg
-index: 11
+index: 3
 supports:
   - user
   - organization

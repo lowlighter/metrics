@@ -4,7 +4,7 @@ description: |
   This plugin displays recently starred repositories.
 examples:
   default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stars.svg
-index: 3
+index: 5
 supports:
   - user
 scopes:

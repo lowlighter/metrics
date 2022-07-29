@@ -6,7 +6,7 @@ examples:
   +indepth analysis: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.followup.indepth.svg
   created on a user's repositories: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.followup.svg
   created by a user: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.followup.user.svg
-index: 7
+index: 9
 supports:
   - user
   - organization

@@ -5,7 +5,7 @@ description: |
 examples:
   +related to a user: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.people.followers.svg
   related to a repository: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.people.repository.svg
-index: 9
+index: 11
 supports:
   - user
   - organization

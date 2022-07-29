@@ -9,7 +9,7 @@ description: |
 examples:
   +featured: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.repositories.svg
   pinned: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.repositories.pinned.svg
-index: 20
+index: 14
 supports:
   - user
   - organization

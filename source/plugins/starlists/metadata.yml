@@ -5,7 +5,7 @@ description: |
 examples:
   +repositories from star lists: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.starlists.svg
   +languages from star lists: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.starlists.languages.svg
-index: 24
+index: 16
 supports:
   - user
 scopes: []

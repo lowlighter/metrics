@@ -6,7 +6,7 @@ examples:
   +classic charts: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.svg
   chartist charts: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.chartist.svg
   +worldmap: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.worldmap.svg
-index: 10
+index: 2
 supports:
   - user
   - organization

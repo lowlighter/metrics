@@ -8,7 +8,7 @@ examples:
   +PageSpeed scores: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.pagespeed.svg
   PageSpeed scores with detailed report: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.pagespeed.detailed.svg
   PageSpeed scores with a website screenshot: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.pagespeed.screenshot.svg
-index: 1
+index: 0
 supports:
   - user
   - organization

@@ -5,7 +5,7 @@ description: |
 examples:
   +indepth analysis: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.notable.indepth.svg
   contributions in organizations only: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.notable.svg
-index: 15
+index: 20
 supports:
   - user
 scopes:

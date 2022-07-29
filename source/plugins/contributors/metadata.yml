@@ -5,7 +5,7 @@ description: |
 examples:
   +by contribution types: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.contributors.categories.svg
   by number of contributions: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.contributors.contributions.svg
-index: 6
+index: 8
 supports:
   - repository
 scopes:

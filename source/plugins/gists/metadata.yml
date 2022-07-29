@@ -4,7 +4,7 @@ description: |
   This plugin displays [gists](https://gist.github.com) stats.
 examples:
   default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.gists.svg
-index: 21
+index: 24
 supports:
   - user
 scopes:

@@ -5,7 +5,7 @@ description: |
 examples:
   +permissions, limitations and conditions: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.licenses.svg
   +licenses overview: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.licenses.ratio.svg
-index: 4
+index: 6
 supports:
   - repository
 scopes:

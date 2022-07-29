@@ -4,7 +4,7 @@ description: |
   This plugin displays recent activity on GitHub.
 examples:
   default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.activity.svg
-index: 13
+index: 21
 supports:
   - user
   - organization
