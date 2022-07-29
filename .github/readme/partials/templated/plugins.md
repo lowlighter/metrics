@@ -7,7 +7,7 @@ Plugins provide additional content and lets you customize rendered metrics.
 <% if (previous !== category) { previous = category -%>
 * **<%= `${category.charAt(0).toLocaleUpperCase()}${category.substring(1)} plugins` %>**
 <% } -%>
-  * [<%- name %> <sub>`<%= plugin %>`</sub>](/source/plugins/<%= plugin %>/README.md)<%# -%><% if (deprecation) { %><sub>⚠️ deprecated</sub><% } %>
+  * [<%- name %> <sub>`<%= plugin %>`</sub>](/source/plugins/<%= plugin %>/README.md)<%# -%><% if (deprecation) { %> <sub>`⚠️ deprecated`</sub><% } %><%# -%>
 <% }} %>
 
 **🎲 Maintained by community**
