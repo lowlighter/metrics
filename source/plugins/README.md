@@ -32,7 +32,7 @@ Plugins provide additional content and lets you customize rendered metrics.
   * [✨ Stargazers <sub>`stargazers`</sub>](/source/plugins/stargazers/README.md)
   * [💫 Star lists <sub>`starlists`</sub>](/source/plugins/starlists/README.md)
   * [🌟 Recently starred repositories <sub>`stars`</sub>](/source/plugins/stars/README.md)
-  * [💭 GitHub Community Support <sub>`support`</sub>](/source/plugins/support/README.md)
+  * [💭 GitHub Community Support <sub>`support`</sub>](/source/plugins/support/README.md) <sub>`⚠️ deprecated`</sub>
   * [📌 Starred topics <sub>`topics`</sub>](/source/plugins/topics/README.md)
   * [🧮 Repositories traffic <sub>`traffic`</sub>](/source/plugins/traffic/README.md)
 * **Social plugins**

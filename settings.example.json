@@ -38,6 +38,7 @@
                                         "//": "metrics.setup.community.templates | Allow community templates download",
                                         "//": "metrics.setup.community.presets   | Allow community presets usage",
                                         "//": "metrics.api.github.overuse        | Allow GitHub API intensive requests",
+                                        "//": "metrics.api.*                     | Allow use of external API requests",
                                         "//": "metrics.cpu.overuse               | Allow CPU intensive requests",
                                         "//": "metrics.run.tempdir               | Allow access to temporary directory (I/O operations may be performed)",
                                         "//": "metrics.run.git                   | Allow to run git",
@@ -46,9 +47,7 @@
                                         "//": "metrics.run.puppeteer.scrapping   | Allow to run puppeteer to scrape data",
                                         "//": "metrics.run.puppeteer.user.css    | Allow to run CSS by user during puppeteer render",
                                         "//": "metrics.run.puppeteer.user.js     | Allow to run JavaScript by user during puppeteer render",
-                                        "//": "metrics.npm.optional.chartist     | Allow use of chartist",
-                                        "//": "metrics.npm.optional.gifencoder   | Allow use of gifencoder",
-                                        "//": "metrics.npm.optional.libxmljs2    | Allow use of libxmljs2"
+                                        "//": "metrics.npm.optional.*            | Allow use of specified dependency"
   },
   "plugins.default": false,             "//": "Default plugin state (advised to let 'false' unless in debug mode)",
   "plugins": {                          "//": "Global plugin configuration",
@@ -57,6 +56,13 @@
     },
     "languages":{
       "enabled": false,                 "//": "Enable languages plugin"
+    },
+    "stargazers":{
+      "worldmap.token": null,           "//": "Stargazers worldmap token",
+      "enabled": false,                 "//": "Enable stargazers plugin"
+    },
+    "lines":{
+      "enabled": false,                 "//": "Enable lines plugin"
     },
     "topics":{
       "enabled": false,                 "//": "Enable topics plugin"
@@ -82,48 +88,17 @@
     "people":{
       "enabled": false,                 "//": "Enable people plugin"
     },
-    "stargazers":{
-      "worldmap.token": null,           "//": "Stargazers worldmap token",
-      "enabled": false,                 "//": "Enable stargazers plugin"
-    },
-    "projects":{
-      "enabled": false,                 "//": "Enable projects plugin"
-    },
-    "code":{
-      "enabled": false,                 "//": "Enable code plugin"
-    },
-    "activity":{
-      "enabled": false,                 "//": "Enable activity plugin"
-    },
-    "achievements":{
-      "enabled": false,                 "//": "Enable achievements plugin"
-    },
-    "notable":{
-      "enabled": false,                 "//": "Enable notable plugin"
-    },
-    "discussions":{
-      "enabled": false,                 "//": "Enable discussions plugin"
-    },
-    "support":{
-      "enabled": false,                 "//": "Enable support plugin"
-    },
-    "lines":{
-      "enabled": false,                 "//": "Enable lines plugin"
-    },
-    "traffic":{
-      "enabled": false,                 "//": "Enable traffic plugin"
-    },
-    "repositories":{
-      "enabled": false,                 "//": "Enable repositories plugin"
-    },
-    "gists":{
-      "enabled": false,                 "//": "Enable gists plugin"
-    },
     "introduction":{
       "enabled": false,                 "//": "Enable introduction plugin"
     },
     "sponsors":{
       "enabled": false,                 "//": "Enable sponsors plugin"
+    },
+    "repositories":{
+      "enabled": false,                 "//": "Enable repositories plugin"
+    },
+    "discussions":{
+      "enabled": false,                 "//": "Enable discussions plugin"
     },
     "starlists":{
       "enabled": false,                 "//": "Enable starlists plugin"
@@ -131,12 +106,40 @@
     "calendar":{
       "enabled": false,                 "//": "Enable calendar plugin"
     },
+    "achievements":{
+      "enabled": false,                 "//": "Enable achievements plugin"
+    },
+    "notable":{
+      "enabled": false,                 "//": "Enable notable plugin"
+    },
+    "activity":{
+      "enabled": false,                 "//": "Enable activity plugin"
+    },
+    "traffic":{
+      "enabled": false,                 "//": "Enable traffic plugin"
+    },
+    "code":{
+      "enabled": false,                 "//": "Enable code plugin"
+    },
+    "gists":{
+      "enabled": false,                 "//": "Enable gists plugin"
+    },
+    "projects":{
+      "enabled": false,                 "//": "Enable projects plugin"
+    },
     "skyline":{
       "enabled": false,                 "//": "Enable skyline plugin"
+    },
+    "support":{
+      "enabled": false,                 "//": "Enable support plugin"
     },
     "pagespeed":{
       "token": "PageSpeed token",
       "enabled": false,                 "//": "Enable pagespeed plugin"
+    },
+    "tweets":{
+      "token": "Twitter API token",
+      "enabled": false,                 "//": "Enable tweets plugin"
     },
     "stackoverflow":{
       "enabled": false,                 "//": "Enable stackoverflow plugin"
@@ -144,16 +147,12 @@
     "anilist":{
       "enabled": false,                 "//": "Enable aniList plugin"
     },
-    "tweets":{
-      "token": "Twitter API token",
-      "enabled": false,                 "//": "Enable tweets plugin"
-    },
-    "posts":{
-      "enabled": false,                 "//": "Enable posts plugin"
-    },
     "music":{
       "token": "Music provider token",
       "enabled": false,                 "//": "Enable music plugin"
+    },
+    "posts":{
+      "enabled": false,                 "//": "Enable posts plugin"
     },
     "rss":{
       "enabled": false,                 "//": "Enable rss plugin"

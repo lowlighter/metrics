@@ -322,6 +322,56 @@ inputs:
     default: <default-value>
 
   # ====================================================================================
+  # ✨ Stargazers
+
+  plugin_stargazers:
+    description: Enable stargazers plugin
+    default: <default-value>
+
+  plugin_stargazers_charts:
+    description: Charts
+    default: <default-value>
+
+  plugin_stargazers_charts_type:
+    description: Charts display type
+    default: <default-value>
+
+  plugin_stargazers_worldmap:
+    description: Stargazers worldmap
+    default: <default-value>
+
+  plugin_stargazers_worldmap_token:
+    description: Stargazers worldmap token
+    default: <default-value>
+
+  plugin_stargazers_worldmap_sample:
+    description: Stargazers worldmap sample
+    default: <default-value>
+
+  # ====================================================================================
+  # 👨‍💻 Lines of code changed
+
+  plugin_lines:
+    description: Enable lines plugin
+    default: <default-value>
+
+  plugin_lines_skipped:
+    description: Skipped repositories
+    default: <default-value>
+
+  plugin_lines_sections:
+    description: Displayed sections
+    default: <default-value>
+
+  plugin_lines_repositories_limit:
+    description: Display limit
+    default: <default-value>
+
+  plugin_lines_history_limit:
+    description: Years to display
+    default: <default-value>
+
+  # ====================================================================================
   # 📌 Starred topics
 
   plugin_topics:
@@ -538,119 +588,113 @@ inputs:
     default: <default-value>
 
   # ====================================================================================
-  # ✨ Stargazers
+  # 🙋 Introduction
 
-  plugin_stargazers:
-    description: Enable stargazers plugin
+  plugin_introduction:
+    description: Enable introduction plugin
     default: <default-value>
 
-  plugin_stargazers_charts:
-    description: Charts
-    default: <default-value>
-
-  plugin_stargazers_charts_type:
-    description: Charts display type
-    default: <default-value>
-
-  plugin_stargazers_worldmap:
-    description: Stargazers worldmap
-    default: <default-value>
-
-  plugin_stargazers_worldmap_token:
-    description: Stargazers worldmap token
-    default: <default-value>
-
-  plugin_stargazers_worldmap_sample:
-    description: Stargazers worldmap sample
+  plugin_introduction_title:
+    description: Section title
     default: <default-value>
 
   # ====================================================================================
-  # 🗂️ GitHub projects
+  # 💕 GitHub Sponsors
 
-  plugin_projects:
-    description: Enable projects plugin
+  plugin_sponsors:
+    description: Enable sponsors plugin
     default: <default-value>
 
-  plugin_projects_limit:
-    description: Display limit
+  plugin_sponsors_sections:
+    description: Displayed sections
     default: <default-value>
 
-  plugin_projects_repositories:
-    description: Featured repositories projects
+  plugin_sponsors_past:
+    description: Past sponsorships
     default: <default-value>
 
-  plugin_projects_descriptions:
-    description: Projects descriptions
+  plugin_sponsors_size:
+    description: Profile picture display size
     default: <default-value>
 
-  # ====================================================================================
-  # ♐ Random code snippet
-
-  plugin_code:
-    description: Enable code plugin
-    default: <default-value>
-
-  plugin_code_lines:
-    description: Display limit (lines per code snippets)
-    default: <default-value>
-
-  plugin_code_load:
-    description: Events to load
-    default: <default-value>
-
-  plugin_code_days:
-    description: Events maximum age
-    default: <default-value>
-
-  plugin_code_visibility:
-    description: Events visibility
-    default: <default-value>
-
-  plugin_code_skipped:
-    description: Skipped repositories
-    default: <default-value>
-
-  plugin_code_languages:
-    description: Showcased languages
+  plugin_sponsors_title:
+    description: Title caption
     default: <default-value>
 
   # ====================================================================================
-  # 📰 Recent activity
+  # 📓 Featured repositories
 
-  plugin_activity:
-    description: Enable activity plugin
+  plugin_repositories:
+    description: Enable repositories plugin
     default: <default-value>
 
-  plugin_activity_limit:
-    description: Display limit
+  plugin_repositories_featured:
+    description: Featured repositories
     default: <default-value>
 
-  plugin_activity_load:
-    description: Events to load
+  plugin_repositories_pinned:
+    description: Pinned repositories
     default: <default-value>
 
-  plugin_activity_days:
-    description: Events maximum age
+  # ====================================================================================
+  # 💬 Discussions
+
+  plugin_discussions:
+    description: Enable discussions plugin
     default: <default-value>
 
-  plugin_activity_visibility:
-    description: Events visibility
+  plugin_discussions_categories:
+    description: Discussion categories
     default: <default-value>
 
-  plugin_activity_timestamps:
-    description: Events timestamps
+  plugin_discussions_categories_limit:
+    description: Display limit (categories)
     default: <default-value>
 
-  plugin_activity_skipped:
-    description: Skipped repositories
+  # ====================================================================================
+  # 💫 Star lists
+
+  plugin_starlists:
+    description: Enable starlists plugin
     default: <default-value>
 
-  plugin_activity_ignored:
-    description: Ignored users
+  plugin_starlists_limit:
+    description: Display limit (star lists)
     default: <default-value>
 
-  plugin_activity_filter:
-    description: Events types
+  plugin_starlists_limit_repositories:
+    description: Display limit (repositories per star list)
+    default: <default-value>
+
+  plugin_starlists_languages:
+    description: Star lists languages statistics
+    default: <default-value>
+
+  plugin_starlists_limit_languages:
+    description: Display limit (languages per star list)
+    default: <default-value>
+
+  plugin_starlists_shuffle_repositories:
+    description: Shuffle data
+    default: <default-value>
+
+  plugin_starlists_ignored:
+    description: Skipped star lists
+    default: <default-value>
+
+  plugin_starlists_only:
+    description: Showcased star lists
+    default: <default-value>
+
+  # ====================================================================================
+  # 📆 Commit calendar
+
+  plugin_calendar:
+    description: Enable calendar plugin
+    default: <default-value>
+
+  plugin_calendar_limit:
+    description: Years to display
     default: <default-value>
 
   # ====================================================================================
@@ -716,48 +760,42 @@ inputs:
     default: <default-value>
 
   # ====================================================================================
-  # 💬 Discussions
+  # 📰 Recent activity
 
-  plugin_discussions:
-    description: Enable discussions plugin
+  plugin_activity:
+    description: Enable activity plugin
     default: <default-value>
 
-  plugin_discussions_categories:
-    description: Discussion categories
-    default: <default-value>
-
-  plugin_discussions_categories_limit:
-    description: Display limit (categories)
-    default: <default-value>
-
-  # ====================================================================================
-  # 💭 GitHub Community Support
-
-  plugin_support:
-    description: Enable support plugin
-    default: <default-value>
-
-  # ====================================================================================
-  # 👨‍💻 Lines of code changed
-
-  plugin_lines:
-    description: Enable lines plugin
-    default: <default-value>
-
-  plugin_lines_skipped:
-    description: Skipped repositories
-    default: <default-value>
-
-  plugin_lines_sections:
-    description: Displayed sections
-    default: <default-value>
-
-  plugin_lines_repositories_limit:
+  plugin_activity_limit:
     description: Display limit
     default: <default-value>
 
-  plugin_lines_history_limit:
-    description: Years to display
+  plugin_activity_load:
+    description: Events to load
+    default: <default-value>
+
+  plugin_activity_days:
+    description: Events maximum age
+    default: <default-value>
+
+  plugin_activity_visibility:
+    description: Events visibility
+    default: <default-value>
+
+  plugin_activity_timestamps:
+    description: Events timestamps
+    default: <default-value>
+
+  plugin_activity_skipped:
+    description: Skipped repositories
+    default: <default-value>
+
+  plugin_activity_ignored:
+    description: Ignored users
+    default: <default-value>
+
+  plugin_activity_filter:
+    description: Events types
     default: <default-value>
 
   # ====================================================================================
@@ -772,18 +810,34 @@ inputs:
     default: <default-value>
 
   # ====================================================================================
-  # 📓 Featured repositories
+  # ♐ Random code snippet
 
-  plugin_repositories:
-    description: Enable repositories plugin
+  plugin_code:
+    description: Enable code plugin
     default: <default-value>
 
-  plugin_repositories_featured:
-    description: Featured repositories
+  plugin_code_lines:
+    description: Display limit (lines per code snippets)
     default: <default-value>
 
-  plugin_repositories_pinned:
-    description: Pinned repositories
+  plugin_code_load:
+    description: Events to load
+    default: <default-value>
+
+  plugin_code_days:
+    description: Events maximum age
+    default: <default-value>
+
+  plugin_code_visibility:
+    description: Events visibility
+    default: <default-value>
+
+  plugin_code_skipped:
+    description: Skipped repositories
+    default: <default-value>
+
+  plugin_code_languages:
+    description: Showcased languages
     default: <default-value>
 
   # ====================================================================================
@@ -794,83 +848,22 @@ inputs:
     default: <default-value>
 
   # ====================================================================================
-  # 🙋 Introduction
+  # 🗂️ GitHub projects
 
-  plugin_introduction:
-    description: Enable introduction plugin
+  plugin_projects:
+    description: Enable projects plugin
     default: <default-value>
 
-  plugin_introduction_title:
-    description: Section title
+  plugin_projects_limit:
+    description: Display limit
     default: <default-value>
 
-  # ====================================================================================
-  # 💕 GitHub Sponsors
-
-  plugin_sponsors:
-    description: Enable sponsors plugin
+  plugin_projects_repositories:
+    description: Featured repositories projects
     default: <default-value>
 
-  plugin_sponsors_sections:
-    description: Displayed sections
-    default: <default-value>
-
-  plugin_sponsors_past:
-    description: Past sponsorships
-    default: <default-value>
-
-  plugin_sponsors_size:
-    description: Profile picture display size
-    default: <default-value>
-
-  plugin_sponsors_title:
-    description: Title caption
-    default: <default-value>
-
-  # ====================================================================================
-  # 💫 Star lists
-
-  plugin_starlists:
-    description: Enable starlists plugin
-    default: <default-value>
-
-  plugin_starlists_limit:
-    description: Display limit (star lists)
-    default: <default-value>
-
-  plugin_starlists_limit_repositories:
-    description: Display limit (repositories per star list)
-    default: <default-value>
-
-  plugin_starlists_languages:
-    description: Star lists languages statistics
-    default: <default-value>
-
-  plugin_starlists_limit_languages:
-    description: Display limit (languages per star list)
-    default: <default-value>
-
-  plugin_starlists_shuffle_repositories:
-    description: Shuffle data
-    default: <default-value>
-
-  plugin_starlists_ignored:
-    description: Skipped star lists
-    default: <default-value>
-
-  plugin_starlists_only:
-    description: Showcased star lists
-    default: <default-value>
-
-  # ====================================================================================
-  # 📆 Commit calendar
-
-  plugin_calendar:
-    description: Enable calendar plugin
-    default: <default-value>
-
-  plugin_calendar_limit:
-    description: Years to display
+  plugin_projects_descriptions:
+    description: Projects descriptions
     default: <default-value>
 
   # ====================================================================================
@@ -901,6 +894,13 @@ inputs:
     default: <default-value>
 
   # ====================================================================================
+  # 💭 GitHub Community Support
+
+  plugin_support:
+    description: Enable support plugin
+    default: <default-value>
+
+  # ====================================================================================
   # ⏱️ Google PageSpeed
 
   plugin_pagespeed:
@@ -925,6 +925,29 @@ inputs:
 
   plugin_pagespeed_pwa:
     description: PWA Status
+    default: <default-value>
+
+  # ====================================================================================
+  # 🐤 Latest tweets
+
+  plugin_tweets:
+    description: Enable tweets plugin
+    default: <default-value>
+
+  plugin_tweets_token:
+    description: Twitter API token
+    default: <default-value>
+
+  plugin_tweets_user:
+    description: Twitter username
+    default: <default-value>
+
+  plugin_tweets_attachments:
+    description: Tweets attachments
+    default: <default-value>
+
+  plugin_tweets_limit:
+    description: Display limit
     default: <default-value>
 
   # ====================================================================================
@@ -986,56 +1009,6 @@ inputs:
     default: <default-value>
 
   # ====================================================================================
-  # 🐤 Latest tweets
-
-  plugin_tweets:
-    description: Enable tweets plugin
-    default: <default-value>
-
-  plugin_tweets_token:
-    description: Twitter API token
-    default: <default-value>
-
-  plugin_tweets_user:
-    description: Twitter username
-    default: <default-value>
-
-  plugin_tweets_attachments:
-    description: Tweets attachments
-    default: <default-value>
-
-  plugin_tweets_limit:
-    description: Display limit
-    default: <default-value>
-
-  # ====================================================================================
-  # ✒️ Recent posts
-
-  plugin_posts:
-    description: Enable posts plugin
-    default: <default-value>
-
-  plugin_posts_source:
-    description: External source
-    default: <default-value>
-
-  plugin_posts_user:
-    description: External source username
-    default: <default-value>
-
-  plugin_posts_descriptions:
-    description: Posts descriptions
-    default: <default-value>
-
-  plugin_posts_covers:
-    description: Posts cover images
-    default: <default-value>
-
-  plugin_posts_limit:
-    description: Display limit
-    default: <default-value>
-
-  # ====================================================================================
   # 🎼 Music activity and suggestions
 
   plugin_music:
@@ -1076,6 +1049,33 @@ inputs:
 
   plugin_music_top_type:
     description: Top tracks - Display type
+    default: <default-value>
+
+  # ====================================================================================
+  # ✒️ Recent posts
+
+  plugin_posts:
+    description: Enable posts plugin
+    default: <default-value>
+
+  plugin_posts_source:
+    description: External source
+    default: <default-value>
+
+  plugin_posts_user:
+    description: External source username
+    default: <default-value>
+
+  plugin_posts_descriptions:
+    description: Posts descriptions
+    default: <default-value>
+
+  plugin_posts_covers:
+    description: Posts cover images
+    default: <default-value>
+
+  plugin_posts_limit:
+    description: Display limit
     default: <default-value>
 
   # ====================================================================================
