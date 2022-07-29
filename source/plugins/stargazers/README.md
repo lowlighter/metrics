@@ -94,6 +94,7 @@ Follow instructions from their [documentation](https://developers.google.com/map
 🌐 Web instances must configure <code>settings.json</code>:
 <ul>
 <li><i>metrics.api.google.maps</i></li>
+<li><i>metrics.npm.optional.d3</i></li>
 </ul>
 <b>type:</b> <code>boolean</code>
 <br>

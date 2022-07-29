@@ -614,7 +614,7 @@ This is mostly useful for custom templates.</p>
   <tr>
     <td nowrap="nowrap"><b>type:</b> <code>json</code>
 <br>
-<b>default:</b> {}<br></td>
+<b>default:</b> <details><summary>→ Click to expand</summary><pre language="json"><code>{}</code></pre></details><br></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>extras_css</code></h4></td>

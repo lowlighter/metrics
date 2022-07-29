@@ -124,13 +124,13 @@ Using this mode significantly increase file size as each frame is encoded separa
 </ul>
 <b>type:</b> <code>json</code>
 <br>
-<b>default:</b> {
+<b>default:</b> <details><summary>→ Click to expand</summary><pre language="json"><code>{
   "url": "https://skyline.github.com/${login}/${year}",
   "ready": "[...document.querySelectorAll('span')].map(span => span.innerText).includes('Share on Twitter')",
   "wait": 1,
   "hide": "button, footer, a"
 }
-<br></td>
+</code></pre></details><br></td>
   </tr>
 </table>
 <!--/options-->

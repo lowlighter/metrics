@@ -115,12 +115,12 @@ Pass a JSON object mapping category with fileglobs</p>
 </ul>
 <b>type:</b> <code>json</code>
 <br>
-<b>default:</b> {
+<b>default:</b> <details><summary>→ Click to expand</summary><pre language="json"><code>{
   "📚 Documentation": ["README.md", "docs/**"],
   "💻 Code": ["source/**", "src/**"],
   "#️⃣ Others": ["*"]
 }
-<br></td>
+</code></pre></details><br></td>
   </tr>
 </table>
 <!--/options-->
