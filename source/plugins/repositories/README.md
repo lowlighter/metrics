@@ -4,7 +4,11 @@
   <tr><th colspan="2"><h3>📓 Featured repositories</h3></th></tr>
   <tr><td colspan="2" align="center"><p>This plugin displays a list of chosen featured repositories.</p>
 <p>Since it is possible to <a href="https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/pinning-items-to-your-profile">pin repositories</a> on GitHub, this plugin is mostly intended for external usage.</p>
-<blockquote>
+</td></tr>
+  <tr><th>⚠️ Disclaimer</th><td><p>This plugin is not affiliated, associated, authorized, endorsed by, or in any way officially connected with <a href="https://github.com">GitHub</a>.
+All product and company names are trademarks™ or registered® trademarks of their respective holders.</p>
+</td></tr>
+  <tr><th>ℹ Additional notes</th><td><blockquote>
 <p>⚠️ Due to limitations of using SVG images inside <code>&lt;img&gt;</code> tags, clicking on a repository card will not redirect to repository page.</p>
 </blockquote>
 </td></tr>

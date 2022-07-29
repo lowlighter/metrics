@@ -5,6 +5,9 @@
   <tr><td colspan="2" align="center"><p>This plugin displays performance statistics of a website.</p>
 <p>It uses <a href="https://developers.google.com/speed/docs/insights/v5/get-started">Google&#39;s PageSpeed API</a> (same as <a href="https://web.dev">web.dev</a>), see <a href="https://web.dev/performance-scoring/">performance scoring</a> and <a href="https://googlechrome.github.io/lighthouse/scorecalc/">score calculator</a> for more informations about results.</p>
 </td></tr>
+  <tr><th>⚠️ Disclaimer</th><td><p>This plugin is not affiliated, associated, authorized, endorsed by, or in any way officially connected with <a href="https://pagespeed.web.dev/">Google PageSpeed</a>.
+All product and company names are trademarks™ or registered® trademarks of their respective holders.</p>
+</td></tr>
   <tr>
     <th rowspan="3">Supported features<br><sub><a href="metadata.yml">→ Full specification</a></sub></th>
     <td><a href="/source/templates/classic/README.md"><code>📗 Classic template</code></a> <a href="/source/templates/repository/README.md"><code>📘 Repository template</code></a> <a href="/source/templates/terminal/README.md"><code>📙 Terminal template</code></a></td>

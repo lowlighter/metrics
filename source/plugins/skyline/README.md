@@ -3,7 +3,11 @@
   <tr><td colspan="2"><a href="/README.md#-plugins">← Back to plugins index</a></td></tr>
   <tr><th colspan="2"><h3>🌇 GitHub Skyline</h3></th></tr>
   <tr><td colspan="2" align="center"><p>This plugin displays the 3D commits calendar from <a href="https://skyline.github.com/">skyline.github.com</a>.</p>
-<blockquote>
+</td></tr>
+  <tr><th>⚠️ Disclaimer</th><td><p>This plugin is not affiliated, associated, authorized, endorsed by, or in any way officially connected with <a href="https://github.com">GitHub</a>.
+All product and company names are trademarks™ or registered® trademarks of their respective holders.</p>
+</td></tr>
+  <tr><th>ℹ Additional notes</th><td><blockquote>
 <p>⚠️ This plugin significantly increase file size, consider using it as standalone.</p>
 </blockquote>
 </td></tr>

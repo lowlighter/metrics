@@ -3,7 +3,11 @@
   <tr><td colspan="2"><a href="/README.md#-plugins">← Back to plugins index</a></td></tr>
   <tr><th colspan="2"><h3>♐ Random code snippet</h3></th></tr>
   <tr><td colspan="2" align="center"><p>This plugin displays a random code snippet from recent activity history.</p>
-<blockquote>
+</td></tr>
+  <tr><th>⚠️ Disclaimer</th><td><p>This plugin is not affiliated, associated, authorized, endorsed by, or in any way officially connected with <a href="https://github.com">GitHub</a>.
+All product and company names are trademarks™ or registered® trademarks of their respective holders.</p>
+</td></tr>
+  <tr><th>ℹ Additional notes</th><td><blockquote>
 <p>⚠️ When improperly configured, this plugin could display private code.
 If you work with sensitive data or company code, it is advised to keep this plugin disabled.
 Use at your own risk, <em>metrics</em> and its authors cannot be held responsible for any resulting code leaks.</p>
