@@ -8,7 +8,7 @@ description: |
   > Use at your own risk, *metrics* and its authors cannot be held responsible for any resulting code leaks.
 examples:
   default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.code.svg
-index: 12
+index: 19
 supports:
   - user
   - organization
