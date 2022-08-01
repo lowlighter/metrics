@@ -63,7 +63,7 @@
     "rss-parser": "^3.12.0",
     "sanitize-html": "^2.7.0",
     "sharp": "^0.30.7",
-    "simple-git": "^3.10.0",
+    "simple-git": "^3.11.0",
     "svgo": "^2.8.0",
     "twemoji-parser": "^14.0.0",
     "vue": "^2.7.1",
