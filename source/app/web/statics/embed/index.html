@@ -150,7 +150,7 @@
                   </label>
                   <div class="options">
                     <template v-for="(input, key) in metadata.core">
-                      <label class="option" class="option" :class="{unsupported:!supports(input)}" :title="!supports(input) ? 'This option is not enabled on web instance, use it with GitHub actions !' : ''">
+                      <label class="option" :class="{unsupported:!supports(input)}" :title="!supports(input) ? 'This option is not enabled on web instance, use it with GitHub actions !' : ''">
                         <i>{{ input.text.split("\n")[0] }}</i>
                         <input type="checkbox" v-if="input.type === 'boolean'" v-model="config[key]" @change="mock">
                         <input type="number" v-else-if="input.type === 'number'" v-model="config[key]" @change="mock" :min="input.min" :max="input.max">

@@ -61,7 +61,7 @@ export default async function({sandbox = false} = {}) {
   //Custom user octokits sessions
   const authenticated = new Map()
   const uapi = session => {
-    if (typeof session !== "string")
+    if (!/^[a-f0-9]+$/i.test(`${session}`))
       return null
     if (authenticated.has(session)) {
       const {login, token} = authenticated.get(session)
@@ -201,8 +201,8 @@ export default async function({sandbox = false} = {}) {
   if (conf.settings.oauth) {
     console.debug("metrics/app/oauth > enabled")
     const states = new Map()
-    app.get("/.oauth/", (req, res) => res.sendFile(`${conf.paths.statics}/oauth/index.html`))
-    app.get("/.oauth/index.html", (req, res) => res.sendFile(`${conf.paths.statics}/oauth/index.html`))
+    app.get("/.oauth/", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/oauth/index.html`))
+    app.get("/.oauth/index.html", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/oauth/index.html`))
     app.get("/.oauth/authenticate", (req, res) => {
       //Create a state to protect against cross-site request forgery attacks
       const state = crypto.randomBytes(64).toString("hex")
@@ -251,7 +251,7 @@ export default async function({sandbox = false} = {}) {
         states.delete(state)
       }
     })
-    app.get("/.oauth/redirect", (req, res) => res.sendFile(`${conf.paths.statics}/oauth/redirect.html`))
+    app.get("/.oauth/redirect", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/oauth/redirect.html`))
   }
 
   //Pending requests
