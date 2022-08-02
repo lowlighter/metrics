@@ -101,7 +101,7 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
     //Category
     if (!categories.includes(meta.category))
       meta.category = "community"
-    if ((meta.category === "github")&&(!meta.disclaimer))
+    if ((meta.category === "github") && (!meta.disclaimer))
       meta.disclaimer = "This plugin is not affiliated, associated, authorized, endorsed by, or in any way officially connected with [GitHub](https://github.com).\nAll product and company names are trademarks™ or registered® trademarks of their respective holders."
 
     //Inputs parser
