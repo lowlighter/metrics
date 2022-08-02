@@ -6,10 +6,13 @@ import express from "express"
 import ratelimit from "express-rate-limit"
 import cache from "memory-cache"
 import util from "util"
+import url from "url"
+import axios from "axios"
 import mocks from "../../../tests/mocks/index.mjs"
 import metrics from "../metrics/index.mjs"
 import presets from "../metrics/presets.mjs"
 import setup from "../metrics/setup.mjs"
+import crypto from "crypto"
 
 /**App */
 export default async function({sandbox = false} = {}) {
@@ -55,7 +58,20 @@ export default async function({sandbox = false} = {}) {
   //Apply mocking if needed
   if (mock)
     Object.assign(api, await mocks(api))
-  const {graphql, rest} = api
+  //Custom user octokits sessions
+  const authenticated = new Map()
+  const uapi = session => {
+    if (typeof session !== "string")
+      return null
+    if (authenticated.has(session)) {
+      const {login, token} = authenticated.get(session)
+      console.debug(`metrics/app/session/${login} > authenticated with session ${session.substring(0, 6)}, using custom octokit`)
+      return {login, graphql: octokit.graphql.defaults({headers: {authorization: `token ${token}`}}), rest: new OctokitRest.Octokit({auth: token})}
+    }
+    else if (session)
+      console.debug(`metrics/app/session > unknown session ${session.substring(0, 6)}, using default octokit`)
+    return null
+  }
 
   //Setup server
   const app = express()
@@ -87,22 +103,19 @@ export default async function({sandbox = false} = {}) {
   const limiter = ratelimit({max: debug ? Number.MAX_SAFE_INTEGER : 60, windowMs: 60 * 1000, headers: false})
   const metadata = Object.fromEntries(
     Object.entries(conf.metadata.plugins)
-      .map(([key, value]) => [key, Object.fromEntries(Object.entries(value).filter(([key]) => ["name", "icon", "category", "web", "supports", "scopes"].includes(key)))])
+      .map(([key, value]) => [key, Object.fromEntries(Object.entries(value).filter(([key]) => ["name", "icon", "category", "web", "supports", "scopes", "deprecated"].includes(key)))])
       .map(([key, value]) => [key, key === "core" ? {...value, web: Object.fromEntries(Object.entries(value.web).filter(([key]) => /^config[.]/.test(key)).map(([key, value]) => [key.replace(/^config[.]/, ""), value]))} : value]),
   )
-  const enabled = Object.entries(metadata).filter(([_name, {category}]) => category !== "core").map(([name]) => ({name, category: metadata[name]?.category ?? "community", enabled: plugins[name]?.enabled ?? false}))
+  const enabled = Object.entries(metadata).filter(([_name, {category}]) => category !== "core").map(([name]) => ({name, category: metadata[name]?.category ?? "community", deprecated: metadata[name]?.deprecated ?? false, enabled: plugins[name]?.enabled ?? false}))
   const templates = Object.entries(Templates).map(([name]) => ({name, enabled: (conf.settings.templates.enabled.length ? conf.settings.templates.enabled.includes(name) : true) ?? false}))
   const actions = {flush: new Map()}
-  const requests = {rest: {limit: 0, used: 0, remaining: 0, reset: NaN}, graphql: {limit: 0, used: 0, remaining: 0, reset: NaN}}
+  const requests = {rest: {limit: 0, used: 0, remaining: 0, reset: NaN}, graphql: {limit: 0, used: 0, remaining: 0, reset: NaN}, search: {limit: 0, used: 0, remaining: 0, reset: NaN}}
   let _requests_refresh = false
   if (!conf.settings.notoken) {
     const refresh = async () => {
       try {
-        const {limit} = await graphql("{ limit:rateLimit {limit remaining reset:resetAt used} }")
-        Object.assign(requests, {
-          rest: (await rest.rateLimit.get()).data.rate,
-          graphql: {...limit, reset: new Date(limit.reset).getTime()},
-        })
+        const {resources} = (await api.rest.rateLimit.get()).data
+        Object.assign(requests, {rest: resources.core, graphql: resources.graphql, search: resources.search})
       }
       catch {
         console.debug("metrics/app > failed to update remaining requests")
@@ -130,8 +143,9 @@ export default async function({sandbox = false} = {}) {
   app.get("/.templates/:template", limiter, (req, res) => req.params.template in conf.templates ? res.status(200).json(conf.templates[req.params.template]) : res.sendStatus(404))
   for (const template in conf.templates)
     app.use(`/.templates/${template}/partials`, express.static(`${conf.paths.templates}/${template}/partials`))
-  //Modes
+  //Modes and extras
   app.get("/.modes", limiter, (req, res) => res.status(200).json(conf.settings.modes))
+  app.get("/.extras", limiter, (req, res) => res.status(200).json(conf.settings.extras?.features ?? conf.settings?.extras?.default ?? false))
   //Styles
   app.get("/.css/style.css", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/style.css`))
   app.get("/.css/style.vars.css", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/style.vars.css`))
@@ -152,7 +166,18 @@ export default async function({sandbox = false} = {}) {
   app.get("/.js/clipboard.min.js", limiter, (req, res) => res.sendFile(`${conf.paths.node_modules}/clipboard/dist/clipboard.min.js`))
   //Meta
   app.get("/.version", limiter, (req, res) => res.status(200).send(conf.package.version))
-  app.get("/.requests", limiter, (req, res) => res.status(200).json(requests))
+  app.get("/.requests", limiter, async (req, res) => {
+    try {
+      const custom = uapi(req.headers["x-metrics-session"])
+      if (custom) {
+        const {data:{resources}} = await custom.rest.rateLimit.get()
+        if (resources)
+          return res.status(200).json({rest:resources.core, graphql:resources.graphql, search:resources.search, login:custom.login})
+      }
+    }
+    catch {} //eslint-disable-line no-empty
+    return res.status(200).json(requests)
+  })
   app.get("/.hosted", limiter, (req, res) => res.status(200).json(conf.settings.hosted || null))
   //Cache
   app.get("/.uncache", limiter, (req, res) => {
@@ -171,6 +196,63 @@ export default async function({sandbox = false} = {}) {
       return res.json({token})
     }
   })
+
+  //OAuth
+  if (conf.settings.oauth) {
+    console.debug("metrics/app/oauth > enabled")
+    const states = new Map()
+    app.get("/.oauth/", (req, res) => res.sendFile(`${conf.paths.statics}/oauth/index.html`))
+    app.get("/.oauth/index.html", (req, res) => res.sendFile(`${conf.paths.statics}/oauth/index.html`))
+    app.get("/.oauth/authenticate", (req, res) => {
+      //Create a state to protect against cross-site request forgery attacks
+      const state = crypto.randomBytes(64).toString("hex")
+      states.set(state, {from:req.query.from})
+      console.debug(`metrics/app/oauth > request ${state}`)
+      //OAuth through GitHub
+      return res.redirect(`https://github.com/login/oauth/authorize?${new url.URLSearchParams({
+        client_id:conf.settings.oauth.id,
+        state,
+        redirect_uri:`${conf.settings.oauth.url}/.oauth/authorize`,
+        allow_signup:false
+      })}`)
+    })
+    app.get("/.oauth/authorize", async (req, res) => {
+      //Check state
+      const {code, state} = req.query
+      if ((!state)||(!states.has(state))) {
+        console.debug("metrics/app/oauth > 400 (invalid state)")
+        return res.status(400).send("Bad request: invalid state")
+      }
+      //OAuth
+      try {
+        //Authorize user
+        console.debug("metrics/app/oauth > authorization")
+        const {data} = await axios.post("https://github.com/login/oauth/access_token", `${new url.URLSearchParams({
+          client_id:conf.settings.oauth.id,
+          client_secret:conf.settings.oauth.secret,
+          code,
+        })}`)
+        const token = new url.URLSearchParams(data).get("access_token")
+        //Validate user
+        const {data:{login}} = await axios.get("https://api.github.com/user", {headers:{Authorization:`token ${token}`}})
+        console.debug(`metrics/app/oauth > authorization success for ${login}`)
+        const session = crypto.randomBytes(128).toString("hex")
+        authenticated.set(session, {login, token})
+        console.debug(`metrics/app/oauth > created session ${session.substring(0, 6)}`)
+        //Redirect user back
+        const {from = ""} = states.get(state)
+        return res.redirect(`/.oauth/redirect?${new url.URLSearchParams({to:from, session})}`)
+      }
+      catch {
+        console.debug("metrics/app/oauth > authorization failed")
+        return res.status(401).send("Unauthorized: oauth failed")
+      }
+      finally {
+        states.delete(state)
+      }
+    })
+    app.get("/.oauth/redirect", (req, res) => res.sendFile(`${conf.paths.statics}/oauth/redirect.html`))
+  }
 
   //Pending requests
   const pending = new Map()
@@ -236,7 +318,7 @@ export default async function({sandbox = false} = {}) {
         }
         ;(async () => {
           try {
-            const json = await metrics.insights({login}, {graphql, rest, conf, callbacks}, {Plugins, Templates})
+            const json = await metrics.insights({login}, {...api, ...uapi(req.headers["x-metrics-session"]), conf, callbacks}, {Plugins, Templates})
             //Cache
             cache.put(`insights.${login}`, json)
             if ((!debug) && (cached)) {
@@ -344,8 +426,8 @@ export default async function({sandbox = false} = {}) {
         }
         const convert = conf.settings.outputs.includes(q["config.output"]) ? q["config.output"] : conf.settings.outputs[0]
         const {rendered, mime} = await metrics({login, q}, {
-          graphql,
-          rest,
+          ...api,
+          ...uapi(req.headers["x-metrics-session"]),
           plugins,
           conf,
           die: q["plugins.errors.fatal"] ?? false,
@@ -443,7 +525,7 @@ export default async function({sandbox = false} = {}) {
       `Templates enabled         │ ${templates.filter(({enabled}) => enabled).map(({name}) => name).join(", ")}`,
       "── Extras ─────────────────────────────────────────────────────────",
       `Default                   │ ${conf.settings.extras?.default ?? false}`,
-      `Features                  │ ${conf.settings.extras?.features ?? "(none)"}`,
+      `Features                  │ ${Array.isArray(conf.settings.extras?.features) ? conf.settings.extras.features?.length ? conf.settings.extras?.features : "(none)" : "(default)"}`,
       "───────────────────────────────────────────────────────────────────",
       "Server ready !",
     ].join("\n")))

@@ -7,6 +7,8 @@
       //Interpolate config from browser
       try {
         this.palette = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
+        if (localStorage.getItem("session.metrics"))
+          axios.defaults.headers.common["x-metrics-session"] = localStorage.getItem("session.metrics")
       }
       catch (error) {}
       //Init
@@ -49,12 +51,16 @@
       user1: "",
       user2: "",
       palette: "light",
-      requests: {rest: {limit: 0, used: 0, remaining: 0, reset: NaN}, graphql: {limit: 0, used: 0, remaining: 0, reset: NaN}},
+      requests: {rest: {limit: 0, used: 0, remaining: 0, reset: NaN}, graphql: {limit: 0, used: 0, remaining: 0, reset: NaN}, search: {limit: 0, used: 0, remaining: 0, reset: NaN}},
       hosted: null,
       modes: [],
     },
     //Computed data
     computed: {
+      //URL parameters
+      params() {
+        return new URLSearchParams({from:location.href})
+      },
       //Is in preview mode
       preview() {
         return /-preview$/.test(this.version)
