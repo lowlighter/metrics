@@ -456,6 +456,43 @@
     margin-bottom: 1rem;
   }
 
+/* */
+  .badges-oauth {
+    display: flex;
+    align-items: center ;
+  }
+  .badges-oauth .border {
+    width: 4rem;
+    border: 3px dashed var(--color-border-secondary);
+  }
+  .badge-oauth {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    box-shadow: var(--color-shadow-medium);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0D1117;
+  }
+  .oauth-scopes {
+    display: flex;
+  }
+  .oauth-scopes label {
+    margin: .5rem;
+  }
+  .oauth-revoke {
+    color: var(--color-text-danger);
+    background-color: var(--color-bg-danger);
+    border-color: var(--color-border-danger);
+    cursor: pointer;
+  }
+  .oauth small {
+    font-size: .8rem;
+    color: var(--color-text-secondary);
+    max-width: 80%;
+  }
+
 /* Search */
   .search {
     display: flex;

@@ -4,11 +4,13 @@
     //Initialization
     el: "main",
     async mounted() {
-      //Interpolate config from browser
+      //Palette
       try {
         this.palette = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
-        if (localStorage.getItem("session.metrics"))
+        if (localStorage.getItem("session.metrics")) {
+          this.session = localStorage.getItem("session.metrics")
           axios.defaults.headers.common["x-metrics-session"] = localStorage.getItem("session.metrics")
+        }
       }
       catch (error) {}
       //Init
@@ -28,15 +30,15 @@
           const {data: hosted} = await axios.get("/.hosted")
           this.hosted = hosted
         })(),
-        //Modes
-        (async () => {
-          const {data: modes} = await axios.get("/.modes")
-          this.modes = modes
-        })(),
         //OAuth
         (async () => {
           const {data: enabled} = await axios.get("/.oauth/enabled")
           this.oauth = enabled
+        })(),
+        //OAuth
+        (async () => {
+          const {data: extras} = await axios.get("/.extras.logged")
+          this.extras = extras
         })(),
       ])
     },
@@ -50,47 +52,28 @@
         },
       },
     },
-    //Data initialization
-    data: {
-      version: "",
-      user1: "",
-      user2: "",
-      palette: "light",
-      requests: {rest: {limit: 0, used: 0, remaining: 0, reset: NaN}, graphql: {limit: 0, used: 0, remaining: 0, reset: NaN}, search: {limit: 0, used: 0, remaining: 0, reset: NaN}},
-      hosted: null,
-      modes: [],
-      oauth: false,
-    },
-    //Computed data
+    //Computed properties
     computed: {
-      //URL parameters
       params() {
-        return new URLSearchParams({from:location.href})
+        return new URLSearchParams({from:new URLSearchParams(location.search).get("from"), scopes:this.scopes.join(" ")})
       },
-      //Is in preview mode
       preview() {
         return /-preview$/.test(this.version)
       },
-      //Is in beta mode
       beta() {
         return /-beta$/.test(this.version)
       },
-      //Rate limit reset
-      rlreset() {
-        const reset = new Date(Math.max(this.requests.graphql.reset, this.requests.rest.reset))
-        return `${reset.getHours()}:${reset.getMinutes()}`
-      },
     },
-    //Methods
-    methods: {
-      //Metrics insights
-      async insights() {
-        window.location.href = `/insights?user=${this.user1}`
-      },
-      //Metrics embed
-      async embed() {
-        window.location.href = `/embed?user=${this.user2}`
-      },
+    //Data initialization
+    data: {
+      version: "",
+      hosted: null,
+      requests: {rest: {limit: 0, used: 0, remaining: 0, reset: NaN}, graphql: {limit: 0, used: 0, remaining: 0, reset: NaN}, search: {limit: 0, used: 0, remaining: 0, reset: NaN}},
+      palette: "light",
+      oauth: false,
+      scopes:[],
+      extras: [],
+      session: null,
     },
   })
 })()

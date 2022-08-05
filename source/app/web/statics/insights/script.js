@@ -46,6 +46,11 @@
           const {data: hosted} = await axios.get("/.hosted")
           this.hosted = hosted
         })(),
+        //OAuth
+        (async () => {
+          const {data: enabled} = await axios.get("/.oauth/enabled")
+          this.oauth = enabled
+        })(),
       ])
     },
     //Watchers
@@ -255,6 +260,7 @@
       palette: "light",
       metrics: null,
       pending: false,
+      oauth: false,
       error: null,
       config: {},
       progress: 0,

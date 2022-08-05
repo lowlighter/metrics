@@ -58,6 +58,11 @@
           const {data: hosted} = await axios.get("/.hosted")
           this.hosted = hosted
         })(),
+        //OAuth
+        (async () => {
+          const {data: enabled} = await axios.get("/.oauth/enabled")
+          this.oauth = enabled
+        })(),
       ])
       //Generate placeholder
       this.mock({timeout: 200})
@@ -102,6 +107,7 @@
       metadata: Object.fromEntries(Object.entries(metadata).map(([key, {web}]) => [key, web])),
       hosted: null,
       extras: false,
+      oauth: false,
       docs: {
         overview: {
           link: "https://github.com/lowlighter/metrics#-documentation",
@@ -168,7 +174,13 @@
       },
       //Unusable plugins
       unusable() {
-        return this.plugins.list.filter(({name}) => this.plugins.enabled[name]).filter(({enabled}) => !enabled).map(({name}) => name)
+        const plugins = Object.entries(this.plugins.enabled).filter(([key, value]) => (value == true)&&(!this.supports(this.plugins.options.descriptions[key]))).map(([key]) => key)
+        const options = this.edited.filter(option => !this.supports(this.plugins.options.descriptions[option]))
+        return [...plugins, ...options].sort()
+      },
+      //Edited plugins options
+      edited() {
+        return Object.keys(this.plugins.enabled).flatMap(plugin => Object.keys(this.options({name:plugin})).filter(key => this.plugins.options[key] !== metadata[plugin]?.web[key]?.defaulted))
       },
       //User's avatar
       avatar() {

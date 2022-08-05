@@ -51,7 +51,12 @@
                                         "//": "metrics.run.puppeteer.scrapping   | Allow to run puppeteer to scrape data",
                                         "//": "metrics.run.puppeteer.user.css    | Allow to run CSS by user during puppeteer render",
                                         "//": "metrics.run.puppeteer.user.js     | Allow to run JavaScript by user during puppeteer render",
-                                        "//": "metrics.npm.optional.*            | Allow use of specified dependency"
+                                        "//": "metrics.npm.optional.*            | Allow use of specified dependency",
+                                        "//": "________________________________________________________________________",
+                                        "//": "Additional extra features when user is logged with GitHub",
+    "logged": [
+      "metrics.api.github.overuse"
+    ]
   },
   "plugins.default": false,             "//": "Default plugin state (advised to let 'false' unless in debug mode)",
   "plugins": {                          "//": "Global plugin configuration",

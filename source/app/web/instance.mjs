@@ -145,7 +145,14 @@ export default async function({sandbox = false} = {}) {
     app.use(`/.templates/${template}/partials`, express.static(`${conf.paths.templates}/${template}/partials`))
   //Modes and extras
   app.get("/.modes", limiter, (req, res) => res.status(200).json(conf.settings.modes))
-  app.get("/.extras", limiter, (req, res) => res.status(200).json(conf.settings.extras?.features ?? conf.settings?.extras?.default ?? false))
+  app.get("/.extras", limiter, async (req, res) => {
+    if ((authenticated.has(req.headers["x-metrics-session"]))&&(conf.settings.extras?.logged)) {
+      if (conf.settings.extras?.features !== true)
+        return res.status(200).json([...conf.settings.extras.features, ...conf.settings.extras.logged])
+    }
+    res.status(200).json(conf.settings.extras?.features ?? conf.settings?.extras?.default ?? false)
+  })
+  app.get("/.extras.logged", limiter, async (req, res) => res.status(200).json(conf.settings.extras?.logged ?? []))
   //Styles
   app.get("/.css/style.css", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/style.css`))
   app.get("/.css/style.vars.css", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/style.vars.css`))
@@ -203,17 +210,21 @@ export default async function({sandbox = false} = {}) {
     const states = new Map()
     app.get("/.oauth/", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/oauth/index.html`))
     app.get("/.oauth/index.html", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/oauth/index.html`))
+    app.get("/.oauth/script.js", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/oauth/script.js`))
     app.get("/.oauth/authenticate", (req, res) => {
       //Create a state to protect against cross-site request forgery attacks
       const state = crypto.randomBytes(64).toString("hex")
-      states.set(state, {from:req.query.from})
+      const scopes = new url.URLSearchParams(req.query).get("scopes")
+      const from = new url.URLSearchParams(req.query).get("scopes")
+      states.set(state, {from, scopes})
       console.debug(`metrics/app/oauth > request ${state}`)
       //OAuth through GitHub
       return res.redirect(`https://github.com/login/oauth/authorize?${new url.URLSearchParams({
         client_id:conf.settings.oauth.id,
         state,
         redirect_uri:`${conf.settings.oauth.url}/.oauth/authorize`,
-        allow_signup:false
+        allow_signup:false,
+        scope:scopes,
       })}`)
     })
     app.get("/.oauth/authorize", async (req, res) => {
@@ -240,7 +251,7 @@ export default async function({sandbox = false} = {}) {
         authenticated.set(session, {login, token})
         console.debug(`metrics/app/oauth > created session ${session.substring(0, 6)}`)
         //Redirect user back
-        const {from = ""} = states.get(state)
+        const {from} = states.get(state)
         return res.redirect(`/.oauth/redirect?${new url.URLSearchParams({to:from, session})}`)
       }
       catch {
@@ -251,8 +262,25 @@ export default async function({sandbox = false} = {}) {
         states.delete(state)
       }
     })
+    app.get("/.oauth/revoke/:session", limiter, async (req, res) => {
+      const session = req.params.session?.replace(/[\n\r]/g, "")
+      if (authenticated.has(session)) {
+        const {token} = authenticated.get(session)
+        try {
+          console.log(await axios.delete(`https://api.github.com/applications/${conf.settings.oauth.id}/grant`, {auth:{username:conf.settings.oauth.id, password:conf.settings.oauth.secret}, headers:{Accept:"application/vnd.github+json"}, data:{access_token:token}}))
+          authenticated.delete(session)
+          console.debug(`metrics/app/oauth > deleted session ${session.substring(0, 6)}`)
+          return res.redirect("/.oauth")
+        }
+        catch {} //eslint-disable-line no-empty
+      }
+      return res.status(400).send("Bad request: invalid session")
+    })
     app.get("/.oauth/redirect", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/oauth/redirect.html`))
+    app.get("/.oauth/enabled", limiter, (req, res) => res.json(true))
   }
+  else
+    app.get("/.oauth/enabled", limiter, (req, res) => res.json(false))
 
   //Pending requests
   const pending = new Map()
@@ -371,12 +399,14 @@ export default async function({sandbox = false} = {}) {
     app.get("/.js/embed/app.js", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/embed/app.js`))
     app.get("/.js/embed/app.placeholder.js", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/embed/app.placeholder.js`))
     //App routes
-    app.get("/:login/:repository?", ...middlewares, async (req, res) => {
+    app.get("/:login/:repository?", ...middlewares, async (req, res, next) => {
       //Request params
       const login = req.params.login?.replace(/[\n\r]/g, "")
       const repository = req.params.repository?.replace(/[\n\r]/g, "")
       let solve = null
       //Check username
+      if ((login.startsWith("."))||(login.includes("/")))
+        return next()
       if (!/^[-\w]+$/i.test(login)) {
         console.debug(`metrics/app/${login} > 400 (invalid username)`)
         return res.status(400).send("Bad request: username seems invalid")
@@ -417,19 +447,28 @@ export default async function({sandbox = false} = {}) {
 
       //Compute rendering
       try {
-        //Render
+        //Prepare settings
         const q = req.query
         console.debug(`metrics/app/${login} > ${util.inspect(q, {depth: Infinity, maxStringLength: 256})}`)
-        if ((q["config.presets"]) && ((conf.settings.extras?.features?.includes("metrics.setup.community.presets")) || (conf.settings.extras?.features === true) || (conf.settings.extras?.default))) {
+        const octokit = {...api, ...uapi(req.headers["x-metrics-session"])}
+        let uconf = conf
+        if ((octokit.login)&&(conf.settings.extras?.logged)&&(uconf.settings.extras?.features !== true)) {
+          console.debug(`metrics/app/${login} > session is authenticated, adding additional permissions ${conf.settings.extras.logged}`)
+          uconf = {...conf, settings:{...conf.settings, extras:{...conf.settings.extras}}}
+          uconf.settings.extras.features = uconf.settings.extras.features ?? []
+          uconf.settings.extras.features.push(...conf.settings.extras.logged)
+        }
+        //Preset
+        if ((q["config.presets"]) && ((uconf.settings.extras?.features?.includes("metrics.setup.community.presets")) || (uconf.settings.extras?.features === true) || (uconf.settings.extras?.default))) {
           console.debug(`metrics/app/${login} > presets have been specified, loading them`)
           Object.assign(q, await presets(q["config.presets"]))
         }
-        const convert = conf.settings.outputs.includes(q["config.output"]) ? q["config.output"] : conf.settings.outputs[0]
+        //Render
+        const convert = uconf.settings.outputs.includes(q["config.output"]) ? q["config.output"] : uconf.settings.outputs[0]
         const {rendered, mime} = await metrics({login, q}, {
-          ...api,
-          ...uapi(req.headers["x-metrics-session"]),
+          ...octokit,
           plugins,
-          conf,
+          conf:uconf,
           die: q["plugins.errors.fatal"] ?? false,
           verify: q.verify ?? false,
           convert: convert !== "auto" ? convert : null,
@@ -523,6 +562,8 @@ export default async function({sandbox = false} = {}) {
       "── Content ────────────────────────────────────────────────────────",
       `Plugins enabled           │ ${enabled.map(({name}) => name).join(", ")}`,
       `Templates enabled         │ ${templates.filter(({enabled}) => enabled).map(({name}) => name).join(", ")}`,
+      "── OAuth ──────────────────────────────────────────────────────────",
+      `Client id                 │ ${conf.settings.oauth?.id ?? "(none)"}`,
       "── Extras ─────────────────────────────────────────────────────────",
       `Default                   │ ${conf.settings.extras?.default ?? false}`,
       `Features                  │ ${Array.isArray(conf.settings.extras?.features) ? conf.settings.extras.features?.length ? conf.settings.extras?.features : "(none)" : "(default)"}`,
