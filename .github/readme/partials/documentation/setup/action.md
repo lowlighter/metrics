@@ -28,6 +28,7 @@ A a general rule, the following scopes may be required:
 - `repo` for all private repositories related metrics
   - `read:user` for some private repositories related metrics
 - `read:packages` for some packages related metrics
+- `read:project` for some projects related metrics
 - `gist` for publishing renders to gists instead of a repository
 
 > 💡 For security reasons, it is advised to always use the least amount of scopes. It is possible to prevent security issues by [forking this repository](https://github.com/lowlighter/metrics/fork) and using it in your workflow instead (more information available in step 3)

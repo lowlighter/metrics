@@ -59,7 +59,7 @@
                 Sign in with GitHub
               </a>
               <div class="oauth-scopes">
-                <label v-for="scope in ['read:org', 'read:user', 'read:packages']">
+                <label v-for="scope in ['read:org', 'read:user', 'read:packages', 'read:project']">
                   <input type="checkbox" :value="scope" v-model="scopes"> <code>{{ scope }}</code>
                 </label>
               </div>
