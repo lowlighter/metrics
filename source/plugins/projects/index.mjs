@@ -70,7 +70,7 @@ export default async function({login, data, imports, graphql, q, queries, accoun
       //Format items (v2)
       const items = []
       if (project.items) {
-        items.push(...project.items.nodes.map(({type, fieldValues:{nodes:fields}}) => ({type, text:fields.filter(field => field.text).shift()?.text ?? ""})))
+        items.push(...project.items.nodes.map(({type, fieldValues: {nodes: fields}}) => ({type, text: fields.filter(field => field.text).shift()?.text ?? ""})))
         total = project.items.totalCount
       }
       //Append

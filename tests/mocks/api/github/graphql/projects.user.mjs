@@ -14,8 +14,8 @@ export default function({faker, query, login = faker.internet.userName()}) {
               get totalCount() {
                 return this.nodes.length
               },
-              nodes: new Array(faker.datatype.number(10)).fill(null).map(() => ({type: faker.helpers.arrayElement(["DRAFT_ISSUE", "ISSUE", "PULL_REQUEST", "REDACTED"]), fieldValues: { nodes: [ { text: faker.lorem.sentence() } ] }}))
-            }
+              nodes: new Array(faker.datatype.number(10)).fill(null).map(() => ({type: faker.helpers.arrayElement(["DRAFT_ISSUE", "ISSUE", "PULL_REQUEST", "REDACTED"]), fieldValues: {nodes: [{text: faker.lorem.sentence()}]}})),
+            },
           },
         ],
       },
