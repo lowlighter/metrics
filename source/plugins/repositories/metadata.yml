@@ -41,3 +41,30 @@ inputs:
     default: 0
     min: 0
     max: 6
+
+  plugin_repositories_starred:
+    description: |
+      Featured most starred repositories
+    type: number
+    default: 0
+    min: 0
+    max: 100
+
+  plugin_repositories_random:
+    description: |
+      Featured random repositories
+    type: number
+    default: 0
+    min: 0
+    max: 100
+
+  plugin_repositories_order:
+    description: |
+      Featured repositories display order
+    type: array
+    values:
+      - featured
+      - pinned
+      - starred
+      - random
+    default: featured, pinned, starred, random
