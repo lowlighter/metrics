@@ -20,6 +20,16 @@
         <header :class="{beta}">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
           <a href="/">Metrics Embed {{ version }}</a>
+          <div class="grow"></div>
+          <a class="oauth-github" :href="`/.oauth?${params}`" v-if="oauth">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+            <template v-if="requests.login">
+              Signed in as {{ requests.login }}
+            </template>
+            <template v-else>
+              Sign in with GitHub
+            </template>
+          </a>
         </header>
 
         <div class="ui top">
@@ -55,81 +65,103 @@
                 Generate your metrics!
               </template>
             </button>
-            <small :class="{'error-text':(!requests.rest.remaining)||(!requests.graphql.remaining)}">Remaining GitHub requests:</small>
-            <small>{{ requests.rest.remaining }} REST / {{ requests.graphql.remaining }} GraphQL</small>
+            <small :class="{'error-text':(!requests.rest.remaining)||(!requests.graphql.remaining)}">Remaining GitHub requests<span v-if="requests.login"> for {{ requests.login }}</span>:</small>
+            <small>{{ requests.rest.remaining }} REST / {{ requests.graphql.remaining }} GraphQL / {{ requests.search.remaining }} search</small>
             <small class="warning" v-if="preview">
               Metrics are rendered by <a href="https://metrics.lecoq.io/">metrics.lecoq.io</a> in preview mode.
               Any backend editions won't be reflected but client-side rendering can still be tested.
             </small>
             <div class="warning" v-if="unusable.length">
-              The following plugins are not available on this web instance: {{ unusable.join(", ") }}
+              The following plugins options are not available on this web instance: {{ unusable.join(", ") }}
             </div>
             <div class="warning" v-if="(!requests.rest.remaining)||(!requests.graphql.remaining)">
               This web instance has run out of GitHub API requests.
               Please wait until {{ rlreset }} to generate metrics again.
             </div>
 
-            <div class="configuration">
-              <b>🖼️ Template</b>
-              <label v-for="template in templates.list" :key="template" v-show="templates.descriptions[template.name] !== '(hidden)'" :class="{'not-available':!template.enabled}" :title="!template.enabled ? 'This template is not enabled on this web instance, use GitHub actions instead!' : ''">
-                <input type="radio" v-model="templates.selected" :value="template.name" @change="mock" :disabled="generated.pending">
-                {{ templates.descriptions[template.name] || template.name }}
-              </label>
-            </div>
-
-            <div class="configuration" v-if="plugins.base.length">
-              <b>🗃️ Base content</b>
-              <label v-for="part in plugins.base" :key="part">
-                <input type="checkbox" v-model="plugins.enabled.base[part]" @change="mock" :disabled="generated.pending">
-                <span>{{ plugins.descriptions[`base.${part}`] || `base.${part}` }}</span>
-              </label>
-            </div>
-
-            <div class="configuration plugins" v-if="plugins.list.length">
-              <b>🧩 Additional plugins</b>
-              <template v-for="(category, name) in plugins.categories" :key="category">
-                <details open>
-                  <summary>{{ name }}</summary>
-                  <label v-for="plugin in category" :class="{'not-available':!plugin.enabled}" :title="!plugin.enabled ? 'This plugin is not enabled on web instance, use it with GitHub actions !' : ''">
-                    <input type="checkbox" v-model="plugins.enabled[plugin.name]" @change="mock" :disabled="generated.pending">
-                    <div>{{ plugins.descriptions[plugin.name] || plugin.name }}</div>
-                  </label>
-                </details>
-              </template>
-            </div>
-
-            <div class="configuration" v-if="configure">
-              <b>🔧 Configure plugins</b>
-              <template v-for="(input, key) in configure">
-                <b v-if="typeof input === 'string'">{{ input }}</b>
-                <label v-else class="option">
-                  <i>{{ input.text.split("\n")[0] }}</i>
-                  <input type="checkbox" v-if="input.type === 'boolean'" v-model="plugins.options[key]" @change="mock">
-                  <input type="number" v-else-if="input.type === 'number'" v-model="plugins.options[key]" @change="mock" :min="input.min" :max="input.max">
-                  <select v-else-if="input.type === 'select'" v-model="plugins.options[key]" @change="mock">
-                    <option v-for="value in input.values" :value="value">{{ value }}</option>
-                  </select>
-                  <input type="text" v-else v-model="plugins.options[key]" @change="mock" :placeholder="input.placeholder">
+            <div class="category">
+              <div class="configuration plugins" v-if="plugins.base.length">
+                <label>
+                  <input type="checkbox" checked disabled>
+                  <div class="name">🖼️ Template</div>
                 </label>
-              </template>
+                <div class="options">
+                  <label v-for="template in templates.list" :key="template" v-show="templates.descriptions[template.name] !== '(hidden)'" :class="{'not-available':!template.enabled}" :title="!template.enabled ? 'This template is not enabled on this web instance, use GitHub actions instead!' : ''">
+                    <input type="radio" v-model="templates.selected" :value="template.name" @change="mock" :disabled="generated.pending">
+                    {{ templates.descriptions[template.name] || template.name }}
+                  </label>
+                </div>
+              </div>
             </div>
 
-            <div class="configuration">
-              <details>
-                <summary><b>⚙️ Additional settings</b></summary>
-                <template v-for="{key, target} in [{key:'base', target:plugins.options}, {key:'core', target:config}]">
-                  <template v-for="(input, key) in metadata[key]">
-                    <label class="option">
+            <div class="category" v-for="(category, name) in plugins.categories" :key="category">
+              <details open>
+                <summary>{{ name }}</summary>
+                <div v-for="plugin in category" class="configuration plugins" :class="{'not-available':(!plugin.enabled)||(!supports(options(plugin)[plugin.name])), deprecated:plugin.deprecated}" :title="!plugin.enabled ? 'This plugin is not enabled on web instance, use it with GitHub actions !' : plugin.deprecated ? 'This plugin is deprecated and should not be used anymore' : ''">
+                  <label>
+                    <input type="checkbox" v-model="plugins.enabled[plugin.name]" @change="mock" :disabled="generated.pending">
+                    <div class="name">{{ plugins.descriptions[plugin.name] || plugin.name }}</div>
+                  </label>
+                  <div class="options">
+                    <label v-for="(input, key) in options(plugin)" v-if="(plugins.enabled[plugin.name])&&(key !== plugin.name)" class="option" :class="{unsupported:!supports(input)}" :title="!supports(input) ? 'This option is not enabled on web instance, use it with GitHub actions !' : ''">
                       <i>{{ input.text.split("\n")[0] }}</i>
-                      <input type="checkbox" v-if="input.type === 'boolean'" v-model="target[key]" @change="mock">
-                      <input type="number" v-else-if="input.type === 'number'" v-model="target[key]" @change="mock" :min="input.min" :max="input.max">
-                      <select v-else-if="input.type === 'select'" v-model="target[key]" @change="mock">
+                      <input type="checkbox" v-if="input.type === 'boolean'" v-model="plugins.options[key]" @change="mock">
+                      <input type="number" v-else-if="input.type === 'number'" v-model="plugins.options[key]" @change="mock" :min="input.min" :max="input.max">
+                      <select v-else-if="input.type === 'select'" v-model="plugins.options[key]" @change="mock">
                         <option v-for="value in input.values" :value="value">{{ value }}</option>
                       </select>
-                      <input type="text" v-else v-model="target[key]" @change="mock" :placeholder="input.placeholder">
+                      <input type="text" v-else v-model="plugins.options[key]" @change="mock" :placeholder="input.placeholder">
                     </label>
-                  </template>
-                </template>
+                  </div>
+                </div>
+              </details>
+            </div>
+
+            <div class="category">
+              <details open>
+                <summary>Core</summary>
+                <div class="configuration plugins" v-if="plugins.base.length">
+                  <label>
+                    <input type="checkbox" checked disabled>
+                    <div class="name">🗃️ Base content</div>
+                  </label>
+                  <div class="options">
+                    <label v-for="part in plugins.base" :key="part" class="option">
+                      <i>{{ plugins.descriptions[`base.${part}`] || `base.${part}` }}</i>
+                      <input type="checkbox" v-model="plugins.enabled.base[part]" @change="mock" :disabled="generated.pending">
+                    </label>
+                    <template v-for="(input, key) in metadata.base" v-if="key !== 'base'">
+                      <label class="option">
+                        <i>{{ input.text.split("\n")[0] }}</i>
+                        <input type="checkbox" v-if="input.type === 'boolean'" v-model="plugins.options[key]" @change="mock">
+                        <input type="number" v-else-if="input.type === 'number'" v-model="plugins.options[key]" @change="mock" :min="input.min" :max="input.max">
+                        <select v-else-if="input.type === 'select'" v-model="plugins.options[key]" @change="mock">
+                          <option v-for="value in input.values" :value="value">{{ value }}</option>
+                        </select>
+                        <input type="text" v-else v-model="plugins.options[key]" @change="mock" :placeholder="input.placeholder">
+                      </label>
+                    </template>
+                  </div>
+                </div>
+                <div class="configuration plugins" v-if="plugins.base.length">
+                  <label>
+                    <input type="checkbox" checked disabled>
+                    <div class="name">⚙️ Rendering options</div>
+                  </label>
+                  <div class="options">
+                    <template v-for="(input, key) in metadata.core">
+                      <label class="option" :class="{unsupported:!supports(input)}" :title="!supports(input) ? 'This option is not enabled on web instance, use it with GitHub actions !' : ''">
+                        <i>{{ input.text.split("\n")[0] }}</i>
+                        <input type="checkbox" v-if="input.type === 'boolean'" v-model="config[key]" @change="mock">
+                        <input type="number" v-else-if="input.type === 'number'" v-model="config[key]" @change="mock" :min="input.min" :max="input.max">
+                        <select v-else-if="input.type === 'select'" v-model="config[key]" @change="mock">
+                          <option v-for="value in input.values" :value="value">{{ value }}</option>
+                        </select>
+                        <input type="text" v-else v-model="config[key]" @change="mock" :placeholder="input.placeholder">
+                      </label>
+                    </template>
+                  </div>
+                </div>
               </details>
             </div>
 

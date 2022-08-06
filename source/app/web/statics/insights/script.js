@@ -7,6 +7,8 @@
       //Palette
       try {
         this.palette = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
+        if (localStorage.getItem("session.metrics"))
+          axios.defaults.headers.common["x-metrics-session"] = localStorage.getItem("session.metrics")
       }
       catch (error) {}
       //Embed
@@ -43,6 +45,11 @@
         (async () => {
           const {data: hosted} = await axios.get("/.hosted")
           this.hosted = hosted
+        })(),
+        //OAuth
+        (async () => {
+          const {data: enabled} = await axios.get("/.oauth/enabled")
+          this.oauth = enabled
         })(),
       ])
     },
@@ -155,6 +162,9 @@
     },
     //Computed properties
     computed: {
+      params() {
+        return new URLSearchParams({from:location.href})
+      },
       stats() {
         return this.metrics?.rendered.user ?? null
       },
@@ -246,10 +256,11 @@
       embed: false,
       localstorage: false,
       searchable: false,
-      requests: {rest: {limit: 0, used: 0, remaining: 0, reset: NaN}, graphql: {limit: 0, used: 0, remaining: 0, reset: NaN}},
+      requests: {rest: {limit: 0, used: 0, remaining: 0, reset: NaN}, graphql: {limit: 0, used: 0, remaining: 0, reset: NaN}, search: {limit: 0, used: 0, remaining: 0, reset: NaN}},
       palette: "light",
       metrics: null,
       pending: false,
+      oauth: false,
       error: null,
       config: {},
       progress: 0,

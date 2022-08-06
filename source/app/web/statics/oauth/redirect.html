@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Metrics</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="An image generator with 20+ metrics about your GitHub account such as activity, community, repositories, coding habits, website performances, music played, starred topics, etc. that you can put on your profile or elsewhere !">
+    <meta name="author" content="lowlighter">
+    <meta property="og:image" content="/.opengraph.png">
+    <link rel="icon" href="/.favicon.png">
+  </head>
+  <body>
+    Redirecting...
+    <script>
+      const query = new URLSearchParams(location.search)
+      const session = query.get("session")
+      if (session)
+        localStorage.setItem("session.metrics", session)
+      const to = query.get("to")
+      if (to)
+        window.location.href = to
+      else
+        window.location.href = "/.oauth"
+    </script>
+  </body>
+</html>

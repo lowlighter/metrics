@@ -12,6 +12,8 @@
       try {
         this.config.timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
         this.palette = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
+        if (localStorage.getItem("session.metrics"))
+          axios.defaults.headers.common["x-metrics-session"] = localStorage.getItem("session.metrics")
       }
       catch (error) {}
       //Init
@@ -41,6 +43,11 @@
           this.plugins.base = base
           this.plugins.enabled.base = Object.fromEntries(base.map(key => [key, true]))
         })(),
+        //Extras
+        (async () => {
+          const {data: extras} = await axios.get("/.extras")
+          this.extras = extras
+        })(),
         //Version
         (async () => {
           const {data: version} = await axios.get("/.version")
@@ -50,6 +57,11 @@
         (async () => {
           const {data: hosted} = await axios.get("/.hosted")
           this.hosted = hosted
+        })(),
+        //OAuth
+        (async () => {
+          const {data: enabled} = await axios.get("/.oauth/enabled")
+          this.oauth = enabled
         })(),
       ])
       //Generate placeholder
@@ -89,11 +101,13 @@
       tab: "overview",
       palette: "light",
       clipboard: null,
-      requests: {rest: {limit: 0, used: 0, remaining: 0, reset: NaN}, graphql: {limit: 0, used: 0, remaining: 0, reset: NaN}},
+      requests: {rest: {limit: 0, used: 0, remaining: 0, reset: NaN}, graphql: {limit: 0, used: 0, remaining: 0, reset: NaN}, search: {limit: 0, used: 0, remaining: 0, reset: NaN}},
       cached: new Map(),
       config: Object.fromEntries(Object.entries(metadata.core.web).map(([key, {defaulted}]) => [key, defaulted])),
       metadata: Object.fromEntries(Object.entries(metadata).map(([key, {web}]) => [key, web])),
       hosted: null,
+      extras: false,
+      oauth: false,
       docs: {
         overview: {
           link: "https://github.com/lowlighter/metrics#-documentation",
@@ -154,9 +168,19 @@
     },
     //Computed data
     computed: {
+      //URL parameters
+      params() {
+        return new URLSearchParams({from:location.href})
+      },
       //Unusable plugins
       unusable() {
-        return this.plugins.list.filter(({name}) => this.plugins.enabled[name]).filter(({enabled}) => !enabled).map(({name}) => name)
+        const plugins = Object.entries(this.plugins.enabled).filter(([key, value]) => (value == true)&&(!this.supports(this.plugins.options.descriptions[key]))).map(([key]) => key)
+        const options = this.edited.filter(option => !this.supports(this.plugins.options.descriptions[option]))
+        return [...plugins, ...options].sort()
+      },
+      //Edited plugins options
+      edited() {
+        return Object.keys(this.plugins.enabled).flatMap(plugin => Object.keys(this.options({name:plugin})).filter(key => this.plugins.options[key] !== metadata[plugin]?.web[key]?.defaulted))
       },
       //User's avatar
       avatar() {
@@ -246,19 +270,6 @@
           ].sort(),
         ].join("\n")
       },
-      //Configurable plugins
-      configure() {
-        //Check enabled plugins
-        const enabled = Object.entries(this.plugins.enabled).filter(([key, value]) => (value) && (key !== "base")).map(([key, value]) => key)
-        const filter = new RegExp(`^(?:${enabled.join("|")})[.]`)
-        //Search related options
-        const entries = Object.entries(this.plugins.options.descriptions).filter(([key, value]) => (filter.test(key)) && (!(key in metadata.base.web)))
-        entries.push(...enabled.map(key => [key, this.plugins.descriptions[key]]))
-        entries.sort((a, b) => a[0].localeCompare(b[0]))
-        //Return object
-        const configure = Object.fromEntries(entries)
-        return Object.keys(configure).length ? configure : null
-      },
       //Is in preview mode
       preview() {
         return /-preview$/.test(this.version)
@@ -327,6 +338,21 @@
           catch {}
         }
       },
+      //Get available options from plugin
+      options({name}) {
+        return Object.fromEntries(Object.entries(this.plugins.options.descriptions).filter(([key]) => ((key.startsWith(`${name}.`))||(key === name)) && (!(key in metadata.base.web))))
+      },
+      //Check if option is supported
+      supports(option) {
+        if (!option)
+          return false
+        const {extras:required = null} = option
+        if (!Array.isArray(required))
+          return true
+        if (!Array.isArray(this.extras))
+          return this.extras
+        return required.filter(permission => !this.extras.includes(permission)).length === 0
+      }
     },
   })
 })()

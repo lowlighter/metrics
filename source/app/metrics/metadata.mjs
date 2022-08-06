@@ -104,6 +104,9 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
     if ((meta.category === "github") && (!meta.disclaimer))
       meta.disclaimer = "This plugin is not affiliated, associated, authorized, endorsed by, or in any way officially connected with [GitHub](https://github.com).\nAll product and company names are trademarks™ or registered® trademarks of their respective holders."
 
+    //Deprecation
+    meta.deprecated = !!meta?.deprecation
+
     //Inputs parser
     {
       meta.inputs = function({data: {user = null} = {}, q, account}, defaults = {}) {
@@ -345,30 +348,30 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
     //Web metadata
     {
       meta.web = Object.fromEntries(
-        Object.entries(inputs).map(([key, {type, description: text, example, default: defaulted, min = 0, max = 9999, values}]) => [
+        Object.entries(inputs).map(([key, {type, description: text, example, default: defaulted, min = 0, max = 9999, values, extras}]) => [
           //Format key
           metadata.to.query(key),
           //Value descriptor
           (() => {
             switch (type) {
               case "boolean":
-                return {text, type: "boolean", defaulted: /^(?:[Tt]rue|[Oo]n|[Yy]es|1)$/.test(defaulted) ? true : /^(?:[Ff]alse|[Oo]ff|[Nn]o|0)$/.test(defaulted) ? false : defaulted}
+                return {text, type: "boolean", defaulted: /^(?:[Tt]rue|[Oo]n|[Yy]es|1)$/.test(defaulted) ? true : /^(?:[Ff]alse|[Oo]ff|[Nn]o|0)$/.test(defaulted) ? false : defaulted, extras}
               case "number":
-                return {text, type: "number", min, max, defaulted}
+                return {text, type: "number", min, max, defaulted, extras}
               case "array":
-                return {text, type: "text", placeholder: example ?? defaulted, defaulted}
+                return {text, type: "text", placeholder: example ?? defaulted, defaulted, extras}
               case "string": {
                 if (Array.isArray(values))
                   return {text, type: "select", values, defaulted}
-                return {text, type: "text", placeholder: example ?? defaulted, defaulted}
+                return {text, type: "text", placeholder: example ?? defaulted, defaulted, extras}
               }
               case "json":
-                return {text, type: "text", placeholder: example ?? defaulted, defaulted}
+                return {text, type: "text", placeholder: example ?? defaulted, defaulted, extras}
               default:
                 return null
             }
           })(),
-        ]).filter(([key, value]) => (value) && (key !== name)),
+        ]).filter(([key, value]) => (value)&&(!((name === "base")&&(key === "repositories")))),
       )
     }
 
