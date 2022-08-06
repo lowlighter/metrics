@@ -20,6 +20,11 @@
     "by": "",                           "//": "Web instance host (displayed in footer)",
     "link": "",                         "//": "Web instance host link (displayed in footer)"
   },
+  "oauth":{
+    "id": null,                         "//": "GitHub OAUTH client id",
+    "secret": null,                     "//": "GitHub OAUTH client secret",
+    "url":"https://example.com",        "//": "GitHub OAUTH callback url (must be the same as the web instance host)"
+  },
   "control":{
     "token": null,                      "//": "Control token (can be used by external services to perform actions on instance, such as stopping it for redeploys)"
   },
@@ -32,7 +37,6 @@
   },
   "extras": {
     "default": false,                   "//": "Default extras state (advised to let 'false' unless in debug mode)",
-    "presets": false,                   "//": "Allow use of 'config.presets' option",
     "features": false,                  "//": "Enable extra features (advised to let 'false' on web instances), see below for supported features",
                                         "//": "________________________________________________________________________",
                                         "//": "metrics.setup.community.templates | Allow community templates download",
@@ -47,7 +51,12 @@
                                         "//": "metrics.run.puppeteer.scrapping   | Allow to run puppeteer to scrape data",
                                         "//": "metrics.run.puppeteer.user.css    | Allow to run CSS by user during puppeteer render",
                                         "//": "metrics.run.puppeteer.user.js     | Allow to run JavaScript by user during puppeteer render",
-                                        "//": "metrics.npm.optional.*            | Allow use of specified dependency"
+                                        "//": "metrics.npm.optional.*            | Allow use of specified dependency",
+                                        "//": "________________________________________________________________________",
+                                        "//": "Additional extra features when user is logged with GitHub",
+    "logged": [
+      "metrics.api.github.overuse"
+    ]
   },
   "plugins.default": false,             "//": "Default plugin state (advised to let 'false' unless in debug mode)",
   "plugins": {                          "//": "Global plugin configuration",
