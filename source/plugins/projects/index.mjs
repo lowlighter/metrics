@@ -15,7 +15,10 @@ export default async function({login, data, imports, graphql, q, queries, accoun
 
     //Retrieve user owned projects from graphql api
     console.debug(`metrics/compute/${login}/plugins > projects > querying api`)
-    const {[account]: {projects}} = await graphql(queries.projects.user({login, limit, account}))
+    const {[account]: {projects}} = await graphql(queries.projects["user.legacy"]({login, limit, account}))
+    const {[account]: {projectsV2}} = await graphql(queries.projects.user({login, limit, account}))
+    projects.nodes.unshift(...projectsV2.nodes)
+    projects.totalCount += projectsV2.totalCount
 
     //Retrieve repositories projects from graphql api
     for (const identifier of repositories) {
@@ -24,11 +27,21 @@ export default async function({login, data, imports, graphql, q, queries, accoun
       const {user, repository, id} = identifier.match(/(?<user>[-\w]+)[/](?<repository>[-\w]+)[/]projects[/](?<id>\d+)/)?.groups ?? {}
       let project = null
       for (const account of ["user", "organization"]) {
+        //Try projects beta
         try {
-          ;({project} = (await graphql(queries.projects.repository({user, repository, id, account})))[account].repository)
+          project = (await graphql(queries.projects.repository({user, repository, id, account})))[account].repository.projectV2
+          break
         }
         catch (error) {
+          //Try projects classic
           console.debug(error)
+          try {
+            ;({project} = (await graphql(queries.projects["repository.legacy"]({user, repository, id, account})))[account].repository)
+            break
+          }
+          catch (error) {
+            console.debug(error)
+          }
         }
       }
       if (!project)
@@ -52,9 +65,16 @@ export default async function({login, data, imports, graphql, q, queries, accoun
       else if (time < 30)
         updated = `${Math.floor(time)} day${time >= 2 ? "s" : ""} ago`
       //Format progress
-      const {enabled, todoCount: todo, inProgressCount: doing, doneCount: done} = project.progress
+      const {enabled = false, todoCount: todo = NaN, inProgressCount: doing = NaN, doneCount: done = NaN} = project.progress ?? {}
+      let total = todo + doing + done
+      //Format items (v2)
+      const items = []
+      if (project.items) {
+        items.push(...project.items.nodes.map(({type, fieldValues:{nodes:fields}}) => ({type, text:fields.filter(field => field.text).shift()?.text ?? ""})))
+        total = project.items.totalCount
+      }
       //Append
-      list.push({name: project.name, updated, description: project.body, progress: {enabled, todo, doing, done, total: todo + doing + done}})
+      list.push({name: project.name, updated, description: project.body, progress: {enabled, todo, doing, done, total}, items})
     }
 
     //Limit

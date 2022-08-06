@@ -1,15 +1,23 @@
 query ProjectsRepository {
   $account(login: "$user") {
     repository(name: "$repository") {
-      project(number: $id) {
-        name
-        body
+      projectV2(number: $id) {
+        name: title
+        body: shortDescription
         updatedAt
-        progress {
-          doneCount
-          inProgressCount
-          todoCount
-          enabled
+        items(first: 4, orderBy: {field: POSITION, direction: ASC}) {
+          totalCount
+          nodes {
+            type
+            isArchived
+            fieldValues(last: 100) {
+              nodes {
+                ... on ProjectV2ItemFieldTextValue {
+                  text
+                }
+              }
+            }
+          }
         }
       }
     }

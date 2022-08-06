@@ -2,8 +2,6 @@ name: 🗂️ GitHub projects
 category: github
 description: |
   This plugin displays progress of profile and repository projects.
-notes: |
-  > ℹ️ This plugin currently only supports [GitHub projects boards](https://docs.github.com/en/issues/organizing-your-work-with-project-boards/managing-project-boards/about-project-boards) and not [GitHub projects (beta)](https://docs.github.com/en/issues/trying-out-the-new-projects-experience/about-projects)
 examples:
   default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.projects.svg
 index: 25
@@ -14,6 +12,7 @@ supports:
 scopes:
   - public_access
   - public_repo
+  - read:project
 inputs:
 
   plugin_projects:
@@ -37,6 +36,8 @@ inputs:
       Featured repositories projects
 
       Use the following syntax for each project `:user/:repo/projects/:project_id`
+
+      > ℹ️ [GitHub projects (beta)](https://docs.github.com/en/issues/trying-out-the-new-projects-experience/about-projects) needs to use the same syntax as above and repository must specified repository must be linked to given project.
     type: array
     example: username/repo/projects/1, username/repo/projects/2, ...
     format: comma-separated

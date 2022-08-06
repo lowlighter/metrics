@@ -715,15 +715,26 @@
                 name: faker.lorem.sentence(),
                 description: faker.lorem.paragraph(),
                 updated: `${2 + faker.datatype.number(8)} days ago`,
-                progress: {
-                  enabled: true,
-                  todo: faker.datatype.number(50),
-                  doing: faker.datatype.number(50),
-                  done: faker.datatype.number(50),
-                  get total() {
-                    return this.todo + this.doing + this.done
-                  },
-                },
+                ...(faker.datatype.boolean() ? {
+                  items: new Array(faker.datatype.number(4)).fill(null).map(() => ({type: faker.helpers.arrayElement(["DRAFT_ISSUE", "ISSUE", "PULL_REQUEST", "REDACTED"]), text: faker.lorem.sentence()})),
+                  progress: {
+                    enabled: false,
+                    todo: NaN,
+                    doing: NaN,
+                    done: NaN,
+                    total: faker.datatype.number(100),
+                  }
+                } : {
+                  progress: {
+                    enabled: true,
+                    todo: faker.datatype.number(50),
+                    doing: faker.datatype.number(50),
+                    done: faker.datatype.number(50),
+                    get total() {
+                      return this.todo + this.doing + this.done
+                    },
+                  }
+                }),
               })),
             },
           })

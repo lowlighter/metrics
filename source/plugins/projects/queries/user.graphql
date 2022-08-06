@@ -1,16 +1,24 @@
 query ProjectsUser {
   $account(login: "$login") {
-    projects(last: $limit, states: OPEN, orderBy: {field: UPDATED_AT, direction: DESC}) {
+    projectsV2(last: $limit, orderBy: {field: UPDATED_AT, direction: DESC}) {
       totalCount
       nodes {
-        name
-        body
+        name: title
+        body: shortDescription
         updatedAt
-        progress {
-          doneCount
-          inProgressCount
-          todoCount
-          enabled
+        items(first: 4, orderBy: {field: POSITION, direction: ASC}) {
+          totalCount
+          nodes {
+            type
+            isArchived
+            fieldValues(last: 100) {
+              nodes {
+                ... on ProjectV2ItemFieldTextValue {
+                  text
+                }
+              }
+            }
+          }
         }
       }
     }

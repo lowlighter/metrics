@@ -1,0 +1,17 @@
+query ProjectsRepositoryLegacy {
+  $account(login: "$user") {
+    repository(name: "$repository") {
+      project(number: $id) {
+        name
+        body
+        updatedAt
+        progress {
+          doneCount
+          inProgressCount
+          todoCount
+          enabled
+        }
+      }
+    }
+  }
+}
