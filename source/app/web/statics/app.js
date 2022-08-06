@@ -65,7 +65,7 @@
     computed: {
       //URL parameters
       params() {
-        return new URLSearchParams({from:location.href})
+        return new URLSearchParams({from: location.href})
       },
       //Is in preview mode
       preview() {

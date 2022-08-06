@@ -163,7 +163,7 @@
     //Computed properties
     computed: {
       params() {
-        return new URLSearchParams({from:location.href})
+        return new URLSearchParams({from: location.href})
       },
       stats() {
         return this.metrics?.rendered.user ?? null

@@ -55,7 +55,7 @@
     //Computed properties
     computed: {
       params() {
-        return new URLSearchParams({from:new URLSearchParams(location.search).get("from"), scopes:this.scopes.join(" ")})
+        return new URLSearchParams({from: new URLSearchParams(location.search).get("from"), scopes: this.scopes.join(" ")})
       },
       preview() {
         return /-preview$/.test(this.version)
@@ -71,7 +71,7 @@
       requests: {rest: {limit: 0, used: 0, remaining: 0, reset: NaN}, graphql: {limit: 0, used: 0, remaining: 0, reset: NaN}, search: {limit: 0, used: 0, remaining: 0, reset: NaN}},
       palette: "light",
       oauth: false,
-      scopes:[],
+      scopes: [],
       extras: [],
       session: null,
     },

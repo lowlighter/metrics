@@ -1,18 +1,18 @@
 //Imports
 import octokit from "@octokit/graphql"
 import OctokitRest from "@octokit/rest"
+import axios from "axios"
 import compression from "compression"
+import crypto from "crypto"
 import express from "express"
 import ratelimit from "express-rate-limit"
 import cache from "memory-cache"
-import util from "util"
 import url from "url"
-import axios from "axios"
+import util from "util"
 import mocks from "../../../tests/mocks/index.mjs"
 import metrics from "../metrics/index.mjs"
 import presets from "../metrics/presets.mjs"
 import setup from "../metrics/setup.mjs"
-import crypto from "crypto"
 
 /**App */
 export default async function({sandbox = false} = {}) {
@@ -68,8 +68,9 @@ export default async function({sandbox = false} = {}) {
       console.debug(`metrics/app/session/${login} > authenticated with session ${session.substring(0, 6)}, using custom octokit`)
       return {login, graphql: octokit.graphql.defaults({headers: {authorization: `token ${token}`}}), rest: new OctokitRest.Octokit({auth: token})}
     }
-    else if (session)
+    else if (session) {
       console.debug(`metrics/app/session > unknown session ${session.substring(0, 6)}, using default octokit`)
+    }
     return null
   }
 
@@ -146,7 +147,7 @@ export default async function({sandbox = false} = {}) {
   //Modes and extras
   app.get("/.modes", limiter, (req, res) => res.status(200).json(conf.settings.modes))
   app.get("/.extras", limiter, async (req, res) => {
-    if ((authenticated.has(req.headers["x-metrics-session"]))&&(conf.settings.extras?.logged)) {
+    if ((authenticated.has(req.headers["x-metrics-session"])) && (conf.settings.extras?.logged)) {
       if (conf.settings.extras?.features !== true)
         return res.status(200).json([...conf.settings.extras.features, ...conf.settings.extras.logged])
     }
@@ -177,9 +178,9 @@ export default async function({sandbox = false} = {}) {
     try {
       const custom = uapi(req.headers["x-metrics-session"])
       if (custom) {
-        const {data:{resources}} = await custom.rest.rateLimit.get()
+        const {data: {resources}} = await custom.rest.rateLimit.get()
         if (resources)
-          return res.status(200).json({rest:resources.core, graphql:resources.graphql, search:resources.search, login:custom.login})
+          return res.status(200).json({rest: resources.core, graphql: resources.graphql, search: resources.search, login: custom.login})
       }
     }
     catch {} //eslint-disable-line no-empty
@@ -220,17 +221,17 @@ export default async function({sandbox = false} = {}) {
       console.debug(`metrics/app/oauth > request ${state}`)
       //OAuth through GitHub
       return res.redirect(`https://github.com/login/oauth/authorize?${new url.URLSearchParams({
-        client_id:conf.settings.oauth.id,
+        client_id: conf.settings.oauth.id,
         state,
-        redirect_uri:`${conf.settings.oauth.url}/.oauth/authorize`,
-        allow_signup:false,
-        scope:scopes,
+        redirect_uri: `${conf.settings.oauth.url}/.oauth/authorize`,
+        allow_signup: false,
+        scope: scopes,
       })}`)
     })
     app.get("/.oauth/authorize", async (req, res) => {
       //Check state
       const {code, state} = req.query
-      if ((!state)||(!states.has(state))) {
+      if ((!state) || (!states.has(state))) {
         console.debug("metrics/app/oauth > 400 (invalid state)")
         return res.status(400).send("Bad request: invalid state")
       }
@@ -238,21 +239,24 @@ export default async function({sandbox = false} = {}) {
       try {
         //Authorize user
         console.debug("metrics/app/oauth > authorization")
-        const {data} = await axios.post("https://github.com/login/oauth/access_token", `${new url.URLSearchParams({
-          client_id:conf.settings.oauth.id,
-          client_secret:conf.settings.oauth.secret,
-          code,
-        })}`)
+        const {data} = await axios.post(
+          "https://github.com/login/oauth/access_token",
+          `${new url.URLSearchParams({
+            client_id: conf.settings.oauth.id,
+            client_secret: conf.settings.oauth.secret,
+            code,
+          })}`,
+        )
         const token = new url.URLSearchParams(data).get("access_token")
         //Validate user
-        const {data:{login}} = await axios.get("https://api.github.com/user", {headers:{Authorization:`token ${token}`}})
+        const {data: {login}} = await axios.get("https://api.github.com/user", {headers: {Authorization: `token ${token}`}})
         console.debug(`metrics/app/oauth > authorization success for ${login}`)
         const session = crypto.randomBytes(128).toString("hex")
         authenticated.set(session, {login, token})
         console.debug(`metrics/app/oauth > created session ${session.substring(0, 6)}`)
         //Redirect user back
         const {from} = states.get(state)
-        return res.redirect(`/.oauth/redirect?${new url.URLSearchParams({to:from, session})}`)
+        return res.redirect(`/.oauth/redirect?${new url.URLSearchParams({to: from, session})}`)
       }
       catch {
         console.debug("metrics/app/oauth > authorization failed")
@@ -267,7 +271,7 @@ export default async function({sandbox = false} = {}) {
       if (authenticated.has(session)) {
         const {token} = authenticated.get(session)
         try {
-          console.log(await axios.delete(`https://api.github.com/applications/${conf.settings.oauth.id}/grant`, {auth:{username:conf.settings.oauth.id, password:conf.settings.oauth.secret}, headers:{Accept:"application/vnd.github+json"}, data:{access_token:token}}))
+          console.log(await axios.delete(`https://api.github.com/applications/${conf.settings.oauth.id}/grant`, {auth: {username: conf.settings.oauth.id, password: conf.settings.oauth.secret}, headers: {Accept: "application/vnd.github+json"}, data: {access_token: token}}))
           authenticated.delete(session)
           console.debug(`metrics/app/oauth > deleted session ${session.substring(0, 6)}`)
           return res.redirect("/.oauth")
@@ -279,8 +283,9 @@ export default async function({sandbox = false} = {}) {
     app.get("/.oauth/redirect", limiter, (req, res) => res.sendFile(`${conf.paths.statics}/oauth/redirect.html`))
     app.get("/.oauth/enabled", limiter, (req, res) => res.json(true))
   }
-  else
+  else {
     app.get("/.oauth/enabled", limiter, (req, res) => res.json(false))
+  }
 
   //Pending requests
   const pending = new Map()
@@ -405,7 +410,7 @@ export default async function({sandbox = false} = {}) {
       const repository = req.params.repository?.replace(/[\n\r]/g, "")
       let solve = null
       //Check username
-      if ((login.startsWith("."))||(login.includes("/")))
+      if ((login.startsWith(".")) || (login.includes("/")))
         return next()
       if (!/^[-\w]+$/i.test(login)) {
         console.debug(`metrics/app/${login} > 400 (invalid username)`)
@@ -452,9 +457,9 @@ export default async function({sandbox = false} = {}) {
         console.debug(`metrics/app/${login} > ${util.inspect(q, {depth: Infinity, maxStringLength: 256})}`)
         const octokit = {...api, ...uapi(req.headers["x-metrics-session"])}
         let uconf = conf
-        if ((octokit.login)&&(conf.settings.extras?.logged)&&(uconf.settings.extras?.features !== true)) {
+        if ((octokit.login) && (conf.settings.extras?.logged) && (uconf.settings.extras?.features !== true)) {
           console.debug(`metrics/app/${login} > session is authenticated, adding additional permissions ${conf.settings.extras.logged}`)
-          uconf = {...conf, settings:{...conf.settings, extras:{...conf.settings.extras}}}
+          uconf = {...conf, settings: {...conf.settings, extras: {...conf.settings.extras}}}
           uconf.settings.extras.features = uconf.settings.extras.features ?? []
           uconf.settings.extras.features.push(...conf.settings.extras.logged)
         }
@@ -468,7 +473,7 @@ export default async function({sandbox = false} = {}) {
         const {rendered, mime} = await metrics({login, q}, {
           ...octokit,
           plugins,
-          conf:uconf,
+          conf: uconf,
           die: q["plugins.errors.fatal"] ?? false,
           verify: q.verify ?? false,
           convert: convert !== "auto" ? convert : null,

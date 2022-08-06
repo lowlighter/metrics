@@ -170,17 +170,17 @@
     computed: {
       //URL parameters
       params() {
-        return new URLSearchParams({from:location.href})
+        return new URLSearchParams({from: location.href})
       },
       //Unusable plugins
       unusable() {
-        const plugins = Object.entries(this.plugins.enabled).filter(([key, value]) => (value == true)&&(!this.supports(this.plugins.options.descriptions[key]))).map(([key]) => key)
+        const plugins = Object.entries(this.plugins.enabled).filter(([key, value]) => (value == true) && (!this.supports(this.plugins.options.descriptions[key]))).map(([key]) => key)
         const options = this.edited.filter(option => !this.supports(this.plugins.options.descriptions[option]))
         return [...plugins, ...options].sort()
       },
       //Edited plugins options
       edited() {
-        return Object.keys(this.plugins.enabled).flatMap(plugin => Object.keys(this.options({name:plugin})).filter(key => this.plugins.options[key] !== metadata[plugin]?.web[key]?.defaulted))
+        return Object.keys(this.plugins.enabled).flatMap(plugin => Object.keys(this.options({name: plugin})).filter(key => this.plugins.options[key] !== metadata[plugin]?.web[key]?.defaulted))
       },
       //User's avatar
       avatar() {
@@ -340,19 +340,19 @@
       },
       //Get available options from plugin
       options({name}) {
-        return Object.fromEntries(Object.entries(this.plugins.options.descriptions).filter(([key]) => ((key.startsWith(`${name}.`))||(key === name)) && (!(key in metadata.base.web))))
+        return Object.fromEntries(Object.entries(this.plugins.options.descriptions).filter(([key]) => ((key.startsWith(`${name}.`)) || (key === name)) && (!(key in metadata.base.web))))
       },
       //Check if option is supported
       supports(option) {
         if (!option)
           return false
-        const {extras:required = null} = option
+        const {extras: required = null} = option
         if (!Array.isArray(required))
           return true
         if (!Array.isArray(this.extras))
           return this.extras
         return required.filter(permission => !this.extras.includes(permission)).length === 0
-      }
+      },
     },
   })
 })()

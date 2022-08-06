@@ -371,7 +371,7 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
                 return null
             }
           })(),
-        ]).filter(([key, value]) => (value)&&(!((name === "base")&&(key === "repositories")))),
+        ]).filter(([key, value]) => (value) && (!((name === "base") && (key === "repositories")))),
       )
     }
 
