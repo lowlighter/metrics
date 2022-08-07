@@ -336,7 +336,7 @@ metrics:
 
 ## ♻️ Retrying automatically failed rendering and output action
 
-Rendering is subject to external factors and can fail ocassionaly.
+Rendering is subject to external factors and can fail occasionally.
 Use `retries` and `retries_delay` options to automatically retry rendering.
 
 *Example: retry render up to 3 times (wait 5 minutes between each fail)*
@@ -347,7 +347,7 @@ Use `retries` and `retries_delay` options to automatically retry rendering.
     retries_delay: 300
 ```
 
-Output action is also subject to GitHub API rate-limiting and overall health status and can fail ocassionaly.
+Output action is also subject to GitHub API rate-limiting and overall health status and can fail occasionally.
 Use `retries_output_action` and `retries_delay_output_action` options to automatically retry output action.
 
 > 💡 As output action is a separate step from rendering, render step won't be called again
