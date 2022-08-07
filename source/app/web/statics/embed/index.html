@@ -69,7 +69,7 @@
             <small>{{ requests.rest.remaining }} REST / {{ requests.graphql.remaining }} GraphQL / {{ requests.search.remaining }} search</small>
             <small class="warning" v-if="preview">
               Metrics are rendered by <a href="https://metrics.lecoq.io/">metrics.lecoq.io</a> in preview mode.
-              Any backend editions won't be reflected but client-side rendering can still be tested.
+              Any backend changes won't be reflected but client-side rendering can still be tested.
             </small>
             <div class="warning" v-if="unusable.length">
               The following plugins options are not available on this web instance: {{ unusable.join(", ") }}

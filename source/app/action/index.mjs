@@ -499,7 +499,7 @@ function quit(reason) {
         }
       }
 
-      //Check editions
+      //Check changes
       if ((committer.commit) || (committer.pr)) {
         const git = sgit()
         const sha = await git.hashObject(paths.join("/renders", filename))

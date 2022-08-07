@@ -94,7 +94,7 @@ inputs:
       - `release`: Publication of new releases
       - `review`: Review of pull requests
       - `comment`: Comments on commits, issues and pull requests
-      - `wiki`: Edition of wiki pages
+      - `wiki`: Changes of wiki pages
       - `fork`: Forking of repositories
       - `star`: Starring of repositories
       - `public`: Repositories made public
