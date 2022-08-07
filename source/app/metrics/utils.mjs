@@ -479,7 +479,7 @@ export const svg = {
               console.debug("metrics/svg/resize > successfully executed user javascript")
             }
             catch (error) {
-              console.debug(`an error occured while evaluating script: ${error}`)
+              console.debug(`an error occurred while evaluating script: ${error}`)
             }
           }
           //Disable animations
@@ -510,7 +510,7 @@ export const svg = {
       ))
     }
     catch (error) {
-      console.debug(`metrics/svg/resize > an error occured: ${error}`)
+      console.debug(`metrics/svg/resize > an error occurred: ${error}`)
       throw error
     }
     //Convert if required

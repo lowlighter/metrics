@@ -68,7 +68,7 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
     if (errors.length) {
       console.debug(`metrics/compute/${login} > ${errors.length} errors !`)
       if (die)
-        throw new Error("An error occured during rendering, dying")
+        throw new Error("An error occurred during rendering, dying")
       else
         console.debug(util.inspect(errors, {depth: Infinity, maxStringLength: 256}))
     }
@@ -117,7 +117,7 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
         console.debug(`metrics/compute/${login}/embed > ${name} >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>`)
         if ((!name) || (typeof q !== "object") || (q === null)) {
           if (die)
-            throw new Error("An error occured during embed rendering, dying")
+            throw new Error("An error occurred during embed rendering, dying")
           return "<p>⚠️ Failed to execute embed function: invalid arguments</p>"
         }
         console.debug(`metrics/compute/${login} > embed called with`)

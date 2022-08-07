@@ -397,7 +397,7 @@ function quit(reason) {
     let rendered = await retry(async () => {
       const {rendered, errors} = await metrics({login: user, q}, {graphql, rest, plugins, conf, die, verify, convert}, {Plugins, Templates})
       if (errors.length) {
-        console.warn(`::group::${errors.length} error(s) occured`)
+        console.warn(`::group::${errors.length} error(s) occurred`)
         console.warn(util.inspect(errors, {depth: Infinity, maxStringLength: 256}))
         console.warn("::endgroup::")
       }
@@ -690,7 +690,7 @@ function quit(reason) {
     console.error(error)
     //Print debug buffer if debug was not enabled (if it is, it's already logged on the fly)
     if (!DEBUG) {
-      for (const log of [info.break(), "An error occured, logging debug message :", ...debugged])
+      for (const log of [info.break(), "An error occurred, logging debug message :", ...debugged])
         console.log(log)
     }
     core.setFailed(error.message)

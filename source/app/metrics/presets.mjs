@@ -63,7 +63,7 @@ export default async function presets(list, {log = true, core = null} = {}) {
     catch (error) {
       if (env === "action")
         console.log(`::warning::skipping preset ${file}: ${error.message}`)
-      logger(`metrics/presets > an error occured while loading preset ${file} (${error}), ignoring`)
+      logger(`metrics/presets > an error occurred while loading preset ${file} (${error}), ignoring`)
     }
   }
   return options
