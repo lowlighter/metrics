@@ -70,7 +70,7 @@ inputs:
       Contribution categories
 
       This option requires [`plugin_contributors_sections`](/source/plugins/contributors/README.md#plugin_contributors_sections) to have `categories` in it to be effective.
-      Pass a JSON object mapping category with fileglobs
+      Pass a JSON object mapping category with file globs
     type: json
     default: |
       {

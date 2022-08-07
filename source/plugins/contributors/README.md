@@ -107,7 +107,7 @@ All product and company names are trademarks™ or registered® trademarks of th
     <td nowrap="nowrap"><h4><code>plugin_contributors_categories</code></h4></td>
     <td rowspan="2"><p>Contribution categories</p>
 <p>This option requires <a href="/source/plugins/contributors/README.md#plugin_contributors_sections"><code>plugin_contributors_sections</code></a> to have <code>categories</code> in it to be effective.
-Pass a JSON object mapping category with fileglobs</p>
+Pass a JSON object mapping category with file globs</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -130,9 +130,9 @@ Pass a JSON object mapping category with fileglobs</p>
 
 ## 🗂️ Setting up contribution categories
 
-Pass a JSON object to `plugin_contributors_categories` with categories names as keys and arrays of fileglobs as values to configure contributions categories.
+Pass a JSON object to `plugin_contributors_categories` with categories names as keys and arrays of file globs as values to configure contributions categories.
 
-Each modified file by a contributor matching a fileglob will add them in said category.
+Each modified file by a contributor matching a file glob will add them in said category.
 
 > 💡 File matching respect keys order
 
