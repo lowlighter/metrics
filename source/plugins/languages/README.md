@@ -326,7 +326,7 @@ It is possible to use custom colors using `plugin_languages_colors` option.
 The following syntaxes are supported:
 - A predefined set from [colorsets.json](colorsets.json) *(support limited to 8 languages max)*
 - `${language}:${color}` to change the color of a language *(case insensitive)*
-- `${n}:${color}` to change the color of the the n-th language
+- `${n}:${color}` to change the color of the n-th language
 
 Both hexadecimal and [named color](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) are supported.
 
