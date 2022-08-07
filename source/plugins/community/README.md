@@ -229,7 +229,7 @@ export default async function(
   {
     login, //GitHub username
     q, //Raw user inputs (dot notation without plugin_ prefix, don't use it directly)
-    imports, //Various utilitaires (axios, puppeteer, fs, etc., see /source/app/metrics/utils.mjs)
+    imports, //Various utilities (axios, puppeteer, fs, etc., see /source/app/metrics/utils.mjs)
     data, //Raw data from core/base plugin
     computed, //Computed data from core/base plugin
     rest, //Rest authenticated GitHub octokit
