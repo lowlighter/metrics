@@ -7,7 +7,7 @@ export default async function({login, q, imports, graphql, queries, data, accoun
       return null
 
     //Load inputs
-    let {featured, pinned, starred, random, order, affiliations:_affiliations} = imports.metadata.plugins.repositories.inputs({data, account, q})
+    let {featured, pinned, starred, random, order, affiliations: _affiliations} = imports.metadata.plugins.repositories.inputs({data, account, q})
     const affiliations = _affiliations?.length ? `ownerAffiliations: [${_affiliations.map(x => x.toLocaleUpperCase()).join(", ")}]` : ""
 
     //Initialization
@@ -18,31 +18,33 @@ export default async function({login, q, imports, graphql, queries, data, accoun
     for (const repo of featured) {
       const {owner = login, name} = repo.match(/^(?:(?<owner>[\s\S]*)[/])?(?<name>[\s\S]+)$/)?.groups ?? {}
       const {repository} = await graphql(queries.repositories.repository({owner, name}))
-      repositories.list.push(format(repository, {sorting:"featured"}))
+      repositories.list.push(format(repository, {sorting: "featured"}))
       processed.add(repository.nameWithOwner)
     }
 
     //Fetch pinned repositories
     if (pinned) {
       const {user: {pinnedItems: {edges}}} = await graphql(queries.repositories.pinned({login, limit: 6}))
-      repositories.list.push(...edges.map(({node}) => {
-        if (processed.has(node.nameWithOwner))
-          return null
-        processed.add(node.nameWithOwner)
-        return format(node, {sorting: "pinned"})
-      }).filter(repository => repository).slice(0, pinned))
+      repositories.list.push(
+        ...edges.map(({node}) => {
+          if (processed.has(node.nameWithOwner))
+            return null
+          processed.add(node.nameWithOwner)
+          return format(node, {sorting: "pinned"})
+        }).filter(repository => repository).slice(0, pinned),
+      )
     }
 
     //Fetch starred repositories
     if (starred) {
-      const {user:{ repositories: {nodes}}} = await graphql(queries.repositories.starred({login, limit: Math.min(starred+10, 100), affiliations}))
+      const {user: {repositories: {nodes}}} = await graphql(queries.repositories.starred({login, limit: Math.min(starred + 10, 100), affiliations}))
       let count = 0
       for (const node of nodes) {
         if (processed.has(node.nameWithOwner))
           continue
         const [owner, name] = node.nameWithOwner.split("/")
         const {repository} = await graphql(queries.repositories.repository({owner, name}))
-        repositories.list.push(format(repository, {sorting:"starred"}))
+        repositories.list.push(format(repository, {sorting: "starred"}))
         processed.add(repository.nameWithOwner)
         if (++count >= starred)
           break
@@ -51,14 +53,14 @@ export default async function({login, q, imports, graphql, queries, data, accoun
 
     //Fetch random repositories
     if (random) {
-      const {user:{ repositories: {nodes}}} = await graphql(queries.repositories.random({login, affiliations}))
+      const {user: {repositories: {nodes}}} = await graphql(queries.repositories.random({login, affiliations}))
       let count = 0
       for (const node of imports.shuffle(nodes)) {
         if (processed.has(node.nameWithOwner))
           continue
         const [owner, name] = node.nameWithOwner.split("/")
         const {repository} = await graphql(queries.repositories.repository({owner, name}))
-        repositories.list.push(format(repository, {sorting:"random"}))
+        repositories.list.push(format(repository, {sorting: "random"}))
         processed.add(repository.nameWithOwner)
         if (++count >= random)
           break

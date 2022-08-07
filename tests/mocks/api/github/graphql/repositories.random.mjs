@@ -6,8 +6,8 @@ export default function({faker, query, login = faker.internet.userName()}) {
       repositories: {
         nodes: [
           {nameWithOwner: "lowlighter/metrics"},
-        ]
-      }
+        ],
+      },
     },
   })
 }
