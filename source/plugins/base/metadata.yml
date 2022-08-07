@@ -127,7 +127,7 @@ inputs:
 
       Specify names, surnames, username, email addresses that has been used in the past that can be used to detect commits ownerships in some plugins
     type: array
-    format: comma-seperated
+    format: comma-separated
     default: .user.login
     example: lowlighter, lowlighter@users.noreply.github.com
     global: yes
