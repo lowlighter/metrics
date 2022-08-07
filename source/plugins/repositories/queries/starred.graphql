@@ -4,6 +4,7 @@ query RepositoriesStarred {
       orderBy: {field: STARGAZERS, direction: DESC}
       first: $limit
       privacy: PUBLIC
+      $affiliations
     ) {
       nodes {
         nameWithOwner

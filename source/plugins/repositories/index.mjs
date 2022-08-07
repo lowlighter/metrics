@@ -7,7 +7,8 @@ export default async function({login, q, imports, graphql, queries, data, accoun
       return null
 
     //Load inputs
-    let {featured, pinned, starred, random, order} = imports.metadata.plugins.repositories.inputs({data, account, q})
+    let {featured, pinned, starred, random, order, affiliations:_affiliations} = imports.metadata.plugins.repositories.inputs({data, account, q})
+    const affiliations = _affiliations?.length ? `ownerAffiliations: [${_affiliations.map(x => x.toLocaleUpperCase()).join(", ")}]` : ""
 
     //Initialization
     const repositories = {list: []}
@@ -34,7 +35,7 @@ export default async function({login, q, imports, graphql, queries, data, accoun
 
     //Fetch starred repositories
     if (starred) {
-      const {user:{ repositories: {nodes}}} = await graphql(queries.repositories.starred({login, limit: Math.min(starred+10, 100)}))
+      const {user:{ repositories: {nodes}}} = await graphql(queries.repositories.starred({login, limit: Math.min(starred+10, 100), affiliations}))
       let count = 0
       for (const node of nodes) {
         if (processed.has(node.nameWithOwner))
@@ -50,7 +51,7 @@ export default async function({login, q, imports, graphql, queries, data, accoun
 
     //Fetch random repositories
     if (random) {
-      const {user:{ repositories: {nodes}}} = await graphql(queries.repositories.random({login}))
+      const {user:{ repositories: {nodes}}} = await graphql(queries.repositories.random({login, affiliations}))
       let count = 0
       for (const node of imports.shuffle(nodes)) {
         if (processed.has(node.nameWithOwner))

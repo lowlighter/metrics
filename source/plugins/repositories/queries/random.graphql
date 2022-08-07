@@ -4,6 +4,7 @@ query RepositoriesRandom {
       orderBy: {field: UPDATED_AT, direction: DESC}
       first: 100
       privacy: PUBLIC
+      $affiliations
     ) {
       nodes {
         nameWithOwner
