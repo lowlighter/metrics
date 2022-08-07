@@ -262,7 +262,7 @@ Extract the source link from the code pasted in your clipboard:
 
 *(Not available)*
 
-> 😥 Unfortunately I wasn't able to find a workaround to avoid paying the $99 fee for the developer program, even using workarounds like *smart playlists*, *shortcuts* and other stuff. However if you really want this feature, you could [sponsor me](github.com/sponsors/lowlighter) and I could eventually invest in a developper account with enough money, implement it and also eventually offer service on the shared instance
+> 😥 Unfortunately I wasn't able to find a workaround to avoid paying the $99 fee for the developer program, even using workarounds like *smart playlists*, *shortcuts* and other stuff. However if you really want this feature, you could [sponsor me](github.com/sponsors/lowlighter) and I could eventually invest in a developer account with enough money, implement it and also eventually offer service on the shared instance
 
 ### 🔗 Get an embed playlist url for `plugin_music_playlist`
 
