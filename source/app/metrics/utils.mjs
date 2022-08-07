@@ -282,7 +282,7 @@ export async function which(command) {
   return false
 }
 
-/**Code hightlighter */
+/**Code highlighter */
 export function highlight(code, lang) {
   return lang in prism.languages ? prism.highlight(code, prism.languages[lang]) : code
 }
