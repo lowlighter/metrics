@@ -269,7 +269,7 @@ export async function spawn(command, args = [], options = {}, {prefixed = true, 
   })
 }
 
-/**Check command existance */
+/**Check command existence */
 export async function which(command) {
   try {
     console.debug(`metrics/command > checking existence of ${command}`)
