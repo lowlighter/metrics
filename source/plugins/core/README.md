@@ -304,7 +304,7 @@ metrics:
 
 ### Manual handling
 
-Use `config_ouput: none` to perform custom processing with outputs.
+Use `config_output: none` to perform custom processing with outputs.
 They will be available under `/metrics_renders/{filename}` in the runner.
 
 *Example: generate outputs and manually push them*
@@ -752,7 +752,7 @@ Size must be a supported icon size (12, 16 or 24).
   <tr>
     <td nowrap="nowrap"><h4><code>config_base64</code></h4></td>
     <td rowspan="2"><p>Base64-encoded images</p>
-<p>Enable this option to make self-contained ouput (i.e. with no external links)</p>
+<p>Enable this option to make self-contained output (i.e. with no external links)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>

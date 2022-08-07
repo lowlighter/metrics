@@ -291,7 +291,7 @@ inputs:
     description: |
       Base64-encoded images
 
-      Enable this option to make self-contained ouput (i.e. with no external links)
+      Enable this option to make self-contained output (i.e. with no external links)
     type: boolean
     default: yes
     global: yes
