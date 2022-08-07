@@ -106,7 +106,7 @@ All product and company names are trademarks™ or registered® trademarks of th
 <li><code>recent</code>: display recently listened tracks</li>
 <li><code>top</code>: display top listened artists/tracks</li>
 </ul>
-<p>If <a href="/source/plugins/music/README.md#plugin_music_playlist"><code>plugin_music_playlist</code></a> is specifed, the default value is <code>playlist</code>, else it is <code>recent</code></p>
+<p>If <a href="/source/plugins/music/README.md#plugin_music_playlist"><code>plugin_music_playlist</code></a> is specified, the default value is <code>playlist</code>, else it is <code>recent</code></p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
