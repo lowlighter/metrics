@@ -525,9 +525,9 @@ When doing so, any settings which defaults on user fetched values will not be te
 <li><code>none</code>: just create file in <code>/metrics_renders</code> directory of action runner</li>
 <li><code>commit</code>: push output to <code>committer_branch</code></li>
 <li><code>pull-request</code>: push output to a new branch and open a pull request to <code>committer_branch</code></li>
-<li><code>pull-request-merge</code>: same as <code>pull-request</code> and additionaly merge pull request</li>
-<li><code>pull-request-squash</code>: same as <code>pull-request</code> and additionaly squash and merge pull request</li>
-<li><code>pull-request-rebase</code>: same as <code>pull-request</code> and additionaly rebase and merge pull request</li>
+<li><code>pull-request-merge</code>: same as <code>pull-request</code> and additionally merge pull request</li>
+<li><code>pull-request-squash</code>: same as <code>pull-request</code> and additionally squash and merge pull request</li>
+<li><code>pull-request-rebase</code>: same as <code>pull-request</code> and additionally rebase and merge pull request</li>
 <li><code>gist</code>: push output to <code>committer_gist</code></li>
 </ul>
 <blockquote>
