@@ -459,7 +459,7 @@ function quit(reason) {
     else {
       //Cache embed svg for markdown outputs
       if (/markdown/.test(convert)) {
-        const regex = /(?<match><img class="metrics-cachable" data-name="(?<name>[\s\S]+?)" src="data:image[/](?<format>(?:svg[+]xml)|jpeg|png);base64,(?<content>[/+=\w]+?)">)/
+        const regex = /(?<match><img class="metrics-cacheable" data-name="(?<name>[\s\S]+?)" src="data:image[/](?<format>(?:svg[+]xml)|jpeg|png);base64,(?<content>[/+=\w]+?)">)/
         let matched = null
         while (matched = regex.exec(rendered)?.groups) { //eslint-disable-line no-cond-assign
           await retry(async () => {
