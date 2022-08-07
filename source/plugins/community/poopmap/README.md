@@ -92,7 +92,7 @@ Tap "Copy to Clipboard"
 
 It should result in something like `Haha, check out the places I've pooped on Poop Map https://api.poopmap.net/map?token=xxxxxxxxxx` copied.
 
-Extract the `token` query paramater from the link and use it in `plugin_poopmap_token`.
+Extract the `token` query parameter from the link and use it in `plugin_poopmap_token`.
 This token will not expire and it will be able to access only public details.
 
 ## ℹ️ Examples workflows
