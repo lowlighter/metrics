@@ -20,7 +20,7 @@ All product and company names are trademarks™ or registered® trademarks of th
   <tr>
     <td colspan="2" align="center">
       <details open><summary>Recent activity charts</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.habits.charts.svg" alt=""></img></details>
-      <details open><summary>Midly interesting facts</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.habits.facts.svg" alt=""></img></details>
+      <details open><summary>Mildly interesting facts</summary><img src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.habits.facts.svg" alt=""></img></details>
       <img width="900" height="1" alt="">
     </td>
   </tr>
@@ -73,7 +73,7 @@ All product and company names are trademarks™ or registered® trademarks of th
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_habits_facts</code></h4></td>
-    <td rowspan="2"><p>Midly interesting facts</p>
+    <td rowspan="2"><p>Mildly interesting facts</p>
 <p>It includes indentation type, average number of characters per line of code, and most active time and day</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -174,7 +174,7 @@ Configure `config_timezone` (see [supported timezone](https://en.wikipedia.org/w
 
 <!--examples-->
 ```yaml
-name: Midly interesting facts
+name: Mildly interesting facts
 uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.habits.facts.svg

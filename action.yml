@@ -436,7 +436,7 @@ inputs:
     default: <default-value>
 
   plugin_habits_facts:
-    description: Midly interesting facts
+    description: Mildly interesting facts
     default: <default-value>
 
   plugin_habits_charts:
