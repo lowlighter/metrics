@@ -53,7 +53,7 @@ Be sure to read [contribution guide](/CONTRIBUTING.md) and [architecture](/ARCHI
 
 Please respect the following guidelines:
 
-- A plugin should be independant and should not rely on other plugins
+- A plugin should be independent and should not rely on other plugins
   - [🧱 core](/source/plugins/core/README.md) and [🗃️ base](/source/plugins/base/README.md) output can be reused though
 - A plugin should never edit its original arguments, as it is shared amongst other plugins and would create unattended side effects
 - Use `imports.metadata.plugins.{plugin-name}.inputs()` to automatically typecheck and default user inputs through defined `metadata.yml`
