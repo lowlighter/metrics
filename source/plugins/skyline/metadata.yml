@@ -64,7 +64,7 @@ inputs:
     description: |
       Advanced settings
 
-      Can be configured to use alternate skyline websites different from [skyline.github.com](https://skyline.github.com), such as [honzaap's GitHub City](https://github.com/honzaap/GitHubCity).
+      Can be configured to use alternate skyline websites different from [skyline.github.com](https://skyline.github.com), such as [honzaap's GitHub City](https://github.com/honzaap/GithubCity).
 
       - `url`: Target URL (mandatory)
       - `ready`: Readiness condition (A JS function that returns a boolean)

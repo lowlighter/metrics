@@ -7,7 +7,7 @@ Plugins provide additional content and lets you customize rendered metrics.
 * **Core plugins**
   * [🗃️ Base content <sub>`base`</sub>](/source/plugins/base/README.md)
   * [🧱 Core <sub>`core`</sub>](/source/plugins/core/README.md)
-* **Github plugins**
+* **GitHub plugins**
   * [🏆 Achievements <sub>`achievements`</sub>](/source/plugins/achievements/README.md)
   * [📰 Recent activity <sub>`activity`</sub>](/source/plugins/activity/README.md)
   * [📆 Commit calendar <sub>`calendar`</sub>](/source/plugins/calendar/README.md)

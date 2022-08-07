@@ -176,11 +176,11 @@ function quit(reason) {
     const api = {}
     const resources = {}
     api.graphql = octokit.graphql.defaults({headers: {authorization: `token ${token}`}})
-    info("Github GraphQL API", "ok")
+    info("GitHub GraphQL API", "ok")
     const octoraw = github.getOctokit(token)
     api.rest = octoraw.rest
     api.rest.request = octoraw.request
-    info("Github REST API", "ok")
+    info("GitHub REST API", "ok")
     //Apply mocking if needed
     if (mocked) {
       Object.assign(api, await mocks(api))
