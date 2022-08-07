@@ -62,7 +62,7 @@ To solve this, metrics now spawns a [puppeteer](https://github.com/puppeteer/pup
 
 ![Metrics marker](/.github/readme/imgs/about_metrics_marker.png)
 
-Additional bonus of using pupeeter is that it can take screenshots, making it easy to convert SVGs to PNG output.
+Additional bonus of using puppeteer is that it can take screenshots, making it easy to convert SVGs to PNG output.
 
 ### 💬 Gathering external data from GitHub APIs and Third-Party services
 
@@ -70,7 +70,7 @@ Additional bonus of using pupeeter is that it can take screenshots, making it ea
 
 As for other external services (Twitter, Spotify, PageSpeed, ...), metrics use their respective APIs, usually making https requests through [axios](https://github.com/axios/axios) and by following their documentation. It would be overkill to install entire SDKs for these since plugins rarely uses more than 2/3 calls.
 
-In last resort, pupeeter is seldom used to scrap websites, though its use tends to make things slow and unstable (as it'll break upon HTML structural changes).
+In last resort, puppeteer is seldom used to scrap websites, though its use tends to make things slow and unstable (as it'll break upon HTML structural changes).
 
 ### 💬 Web instance and GitHub action similarities
 
