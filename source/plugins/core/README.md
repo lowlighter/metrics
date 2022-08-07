@@ -362,7 +362,7 @@ Use `retries_output_action` and `retries_delay_output_action` options to automat
 
 ## 🗜️ Optimize SVG output
 
-To reduce filesize and decrease loading time, *metrics* offers several optimization options, such as purging unused CSS and style minification, XML pretty-pretting (which also reduce diffs between changes) and general SVG optimation (still experimental).
+To reduce filesize and decrease loading time, *metrics* offers several optimization options, such as purging unused CSS and style minification, XML pretty-pretting (which also reduce diffs between changes) and general SVG optimization (still experimental).
 
 > 💡 This option is enabled by default!
 
