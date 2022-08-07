@@ -122,7 +122,7 @@ Additional JavaScript can be injected using `extras_js` option.
 ```
 
 > ℹ️ JavaScript is executed in puppeteer context during the rendering phase, **not** in *metrics* context.
-> It will be possible to access `document` and all other features accessibles like if the SVG was opened in a browser page
+> It will be possible to access `document` and all other features accessible like if the SVG was opened in a browser page
 
 > 💡 If you make an heavy use of this option, creating a [community templates](/source/templates/community/README.md) may be a better alternative
 
