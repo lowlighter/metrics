@@ -10,7 +10,7 @@ const browser = await puppeteer.launch({
 })
 const page = await browser.newPage()
 
-//Select markdown example and take screenshoot
+//Select markdown example and take screenshot
 await page.setViewport({width: 600, height: 600})
 await page.goto("https://github.com/lowlighter/metrics/blob/examples/metrics.markdown.md")
 const clip = await page.evaluate(() => {
