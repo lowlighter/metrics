@@ -74,7 +74,7 @@ Options resolution is done in the following order:
     config_presets: https://raw.githubusercontent.com/lowlighter/metrics/presets/lunar-red/preset.yaml
 ```
 
-Some presets are hosted on this repository on the [`@presets`](https://github.com/lowlighter/metrics/tree/presets) branch and can be used directly by using using their identifier prefixed by an arobase (`@`).
+Some presets are hosted on this repository on the [`@presets`](https://github.com/lowlighter/metrics/tree/presets) branch and can be used directly by using their identifier prefixed by an arobase (`@`).
 
 *Example: using a pre-defined configuration preset*
 ```yaml
