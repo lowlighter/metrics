@@ -502,7 +502,7 @@ export default async function({login, imports, data, q, account}, {enabled = fal
   }
 }
 
-//get all objects that have the given key name with recursivity
+//get all objects that have the given key name with recursively
 function get_all_with_key(obj, key) {
   const result = []
   if (obj instanceof Object) {
