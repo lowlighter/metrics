@@ -146,7 +146,7 @@ export default async function({login, q}, {conf, data, rest, graphql, plugins, q
   }
   if (dflags.includes("--halloween")) {
     console.debug(`metrics/compute/${login} > applying dflag --halloween`)
-    //Haloween color replacer
+    //Halloween color replacer
     const halloween = content =>
       content
         .replace(/--color-calendar-graph/g, "--color-calendar-halloween-graph")
