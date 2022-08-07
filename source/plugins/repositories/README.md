@@ -74,6 +74,66 @@ All product and company names are trademarks™ or registered® trademarks of th
 <br>
 <b>default:</b> 0<br></td>
   </tr>
+  <tr>
+    <td nowrap="nowrap"><h4><code>plugin_repositories_starred</code></h4></td>
+    <td rowspan="2"><p>Featured most starred repositories</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>number</code>
+<i>(0 ≤
+𝑥
+≤ 100)</i>
+<br>
+<b>default:</b> 0<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><h4><code>plugin_repositories_random</code></h4></td>
+    <td rowspan="2"><p>Featured random repositories</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>number</code>
+<i>(0 ≤
+𝑥
+≤ 100)</i>
+<br>
+<b>default:</b> 0<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><h4><code>plugin_repositories_order</code></h4></td>
+    <td rowspan="2"><p>Featured repositories display order</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>array</code>
+<br>
+<b>default:</b> featured, pinned, starred, random<br>
+<b>allowed values:</b><ul><li>featured</li><li>pinned</li><li>starred</li><li>random</li></ul></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><h4><code>plugin_repositories_affiliations</code></h4></td>
+    <td rowspan="2"><p>Repositories affiliations</p>
+<ul>
+<li><code>owner</code>: owned repositories</li>
+<li><code>collaborator</code>: repositories with push access</li>
+<li><code>organization_member</code>: repositories from an organization where user is a member</li>
+</ul>
+<p>Set to <code>&quot;&quot;</code> to disable and fetch all repositories related to given account.</p>
+<p>This option changes which repositories will be fetched by <a href="/source/plugins/projects/README.md#plugin_repositories_starred"><code>plugin_repositories_starred</code></a> and <a href="/source/plugins/projects/README.md#plugin_repositories_random"><code>plugin_repositories_random</code></a> options</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br>
+<b>default:</b> owner<br>
+<b>allowed values:</b><ul><li>owner</li><li>collaborator</li><li>organization_member</li></ul></td>
+  </tr>
 </table>
 <!--/options-->
 

@@ -636,6 +636,22 @@ inputs:
     description: Pinned repositories
     default: <default-value>
 
+  plugin_repositories_starred:
+    description: Featured most starred repositories
+    default: <default-value>
+
+  plugin_repositories_random:
+    description: Featured random repositories
+    default: <default-value>
+
+  plugin_repositories_order:
+    description: Featured repositories display order
+    default: <default-value>
+
+  plugin_repositories_affiliations:
+    description: Repositories affiliations
+    default: <default-value>
+
   # ====================================================================================
   # 💬 Discussions
 
