@@ -41,7 +41,7 @@ The following contributions are accepted:
     <td>❌</td>
     <td>
       <ul>
-        <li>Templates changes are allowed with new features additions (but must remain consistent with current visuals)</li>
+        <li>Template changes are allowed with new features additions (but must remain consistent with current visuals)</li>
         <li>New templates should use <a href="https://github.com/lowlighter/metrics/blob/master/source/templates/community/README.md">📕 Community templates</a> instead</li>
       </ul>
     </td>
