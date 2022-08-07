@@ -41,3 +41,49 @@ inputs:
     default: 0
     min: 0
     max: 6
+
+  plugin_repositories_starred:
+    description: |
+      Featured most starred repositories
+    type: number
+    default: 0
+    min: 0
+    max: 100
+
+  plugin_repositories_random:
+    description: |
+      Featured random repositories
+    type: number
+    default: 0
+    min: 0
+    max: 100
+
+  plugin_repositories_order:
+    description: |
+      Featured repositories display order
+    type: array
+    values:
+      - featured
+      - pinned
+      - starred
+      - random
+    default: featured, pinned, starred, random
+
+  plugin_repositories_affiliations:
+    description: |
+      Repositories affiliations
+
+      - `owner`: owned repositories
+      - `collaborator`: repositories with push access
+      - `organization_member`: repositories from an organization where user is a member
+
+      Set to `""` to disable and fetch all repositories related to given account.
+
+      This option changes which repositories will be fetched by [`plugin_repositories_starred`](/source/plugins/projects/README.md#plugin_repositories_starred) and [`plugin_repositories_random`](/source/plugins/projects/README.md#plugin_repositories_random) options
+    type: array
+    format: comma-separated
+    default: owner
+    values:
+      - owner
+      - collaborator
+      - organization_member

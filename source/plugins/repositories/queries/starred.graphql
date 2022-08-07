@@ -1,0 +1,14 @@
+query RepositoriesStarred {
+  user(login: "$login") {
+    repositories(
+      orderBy: {field: STARGAZERS, direction: DESC}
+      first: $limit
+      privacy: PUBLIC
+      $affiliations
+    ) {
+      nodes {
+        nameWithOwner
+      }
+    }
+  }
+}
