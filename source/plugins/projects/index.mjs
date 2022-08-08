@@ -30,18 +30,21 @@ export default async function({login, data, imports, graphql, q, queries, accoun
         //Try projects beta
         try {
           project = (await graphql(queries.projects.repository({user, repository, id, account})))[account].repository.projectV2
-          break
+          if (project)
+            break
         }
         catch (error) {
-          //Try projects classic
           console.debug(error)
-          try {
-            ;({project} = (await graphql(queries.projects["repository.legacy"]({user, repository, id, account})))[account].repository)
+        }
+        //Try projects classic
+        try {
+          console.debug(`metrics/compute/${login}/plugins > projects > falling back to projects classic for ${identifier}`)
+          ;({project} = (await graphql(queries.projects["repository.legacy"]({user, repository, id, account})))[account].repository)
+          if (project)
             break
-          }
-          catch (error) {
-            console.debug(error)
-          }
+        }
+        catch (error) {
+          console.debug(error)
         }
       }
       if (!project)
