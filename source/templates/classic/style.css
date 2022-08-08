@@ -921,6 +921,14 @@
   .project .items, .project-items {
     padding-left: 11px;
   }
+  .project .items .text, .project-items .text {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 426px;
+  }
+  .large .project .items .text, .large .project-items .text {
+    width: 916px;
+  }
 
 /* Star lists */
   .starlist {
