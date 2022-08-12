@@ -74,6 +74,17 @@ All product and company names are trademarks™ or registered® trademarks of th
 <b>allowed values:</b><ul><li>base</li><li>repositories</li><li>history</li></ul></td>
   </tr>
   <tr>
+    <td nowrap="nowrap"><h4><code>plugin_lines_repositories_include</code></h4></td>
+    <td rowspan="2"><p>Other repositories to include</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br></td>
+  </tr>
+  <tr>
     <td nowrap="nowrap"><h4><code>plugin_lines_repositories_limit</code></h4></td>
     <td rowspan="2"><p>Display limit</p>
 <img width="900" height="1" alt=""></td>

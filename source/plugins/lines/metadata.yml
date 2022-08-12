@@ -45,6 +45,13 @@ inputs:
       - repositories
       - history
 
+  plugin_lines_repositories_include:
+    description: |
+      Other repositories to include
+    type: array
+    format: comma-separated
+    example: lowlighter/metrics, github/docs
+
   plugin_lines_repositories_limit:
     description: |
       Display limit

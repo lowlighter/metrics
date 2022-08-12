@@ -7,23 +7,52 @@ export default async function({login, data, imports, rest, q, account}, {enabled
       return null
 
     //Load inputs
-    let {skipped, sections, "repositories.limit": _repositories_limit, "history.limit": _history_limit} = imports.metadata.plugins.lines.inputs({data, account, q})
+    let {
+      skipped,
+      sections,
+      "repositories.limit":_repositories_limit,
+      "repositories.include":_repositories_include,
+      "history.limit":_history_limit,
+    } = imports.metadata.plugins.lines.inputs({data, account, q})
     skipped.push(...data.shared["repositories.skipped"])
 
     //Context
-    let context = {mode: "user"}
+    let context = {mode:"user"}
     if (q.repo) {
       console.debug(`metrics/compute/${login}/plugins > people > switched to repository mode`)
-      context = {...context, mode: "repository"}
+      context = {...context, mode:"repository"}
     }
 
     //Repositories
-    const repositories = data.user.repositories.nodes.map(({name: repo, owner: {login: owner}}) => ({repo, owner})) ?? []
+    const repositories = data.user.repositories.nodes.map(
+      ({
+        name:repo,
+        owner:{
+          login:owner
+      }}) => ({
+        repo,
+        owner
+      })) ?? []
+
+    if (_repositories_include) {
+      repositories.push(
+        ..._repositories_include.map(
+          repo => {
+            const [owner, name] = repo.split("/")
+            return {
+              owner,
+              repo:name
+            }
+          }
+        )
+      )
+    }
 
     //Get contributors stats from repositories
     console.debug(`metrics/compute/${login}/plugins > lines > querying api`)
+    console.debug(JSON.stringify({repositories}, null, 2))
     const repos = {}, weeks = {}
-    const response = [...await Promise.allSettled(repositories.map(async ({repo, owner}) => (skipped.includes(repo.toLocaleLowerCase())) || (skipped.includes(`${owner}/${repo}`.toLocaleLowerCase())) ? {} : {handle: `${owner}/${repo}`, stats: (await rest.repos.getContributorsStats({owner, repo})).data}))].filter(({status}) => status === "fulfilled").map((
+    const response = [...await Promise.allSettled(repositories.map(async ({repo, owner}) => (skipped.includes(repo.toLocaleLowerCase())) || (skipped.includes(`${owner}/${repo}`.toLocaleLowerCase())) ? {} : {handle:`${owner}/${repo}`, stats:(await rest.repos.getContributorsStats({owner, repo})).data}))].filter(({status}) => status === "fulfilled").map((
       {value},
     ) => value)
 
@@ -34,7 +63,7 @@ export default async function({login, data, imports, rest, q, account}, {enabled
       if (!Array.isArray(stats))
         return
       //Compute editions
-      repos[handle] = {added: 0, deleted: 0, changed: 0}
+      repos[handle] = {added:0, deleted:0, changed:0}
       const contributors = stats.filter(({author}) => context.mode === "repository" ? true : author?.login?.toLocaleLowerCase() === login.toLocaleLowerCase())
       for (const contributor of contributors) {
         let added = 0, changed = 0, deleted = 0
@@ -45,7 +74,7 @@ export default async function({login, data, imports, rest, q, account}, {enabled
           //Compute editions per week
           const date = new Date(w * 1000).toISOString().substring(0, 10)
           if (!weeks[date])
-            weeks[date] = {added: 0, deleted: 0, changed: 0}
+            weeks[date] = {added:0, deleted:0, changed:0}
           weeks[date].added += a
           weeks[date].deleted += d
           weeks[date].changed += c
@@ -60,11 +89,11 @@ export default async function({login, data, imports, rest, q, account}, {enabled
     //Results
     const result = {
       sections,
-      added: Object.entries(repos).map(([_, {added}]) => added).reduce((a, b) => a + b, 0),
-      deleted: Object.entries(repos).map(([_, {deleted}]) => deleted).reduce((a, b) => a + b, 0),
-      changed: Object.entries(repos).map(([_, {changed}]) => changed).reduce((a, b) => a + b, 0),
-      repos: Object.entries(repos).map(([handle, stats]) => ({handle, ...stats})).sort((a, b) => (b.added + b.deleted + b.changed) - (a.added + a.deleted + a.changed)).slice(0, _repositories_limit),
-      weeks: Object.entries(weeks).map(([date, stats]) => ({date, ...stats})).filter(({added, deleted, changed}) => added + deleted + changed).sort((a, b) => new Date(a.date) - new Date(b.date)),
+      added:Object.entries(repos).map(([_, {added}]) => added).reduce((a, b) => a + b, 0),
+      deleted:Object.entries(repos).map(([_, {deleted}]) => deleted).reduce((a, b) => a + b, 0),
+      changed:Object.entries(repos).map(([_, {changed}]) => changed).reduce((a, b) => a + b, 0),
+      repos:Object.entries(repos).map(([handle, stats]) => ({handle, ...stats})).sort((a, b) => (b.added + b.deleted + b.changed) - (a.added + a.deleted + a.changed)).slice(0, _repositories_limit),
+      weeks:Object.entries(weeks).map(([date, stats]) => ({date, ...stats})).filter(({added, deleted, changed}) => added + deleted + changed).sort((a, b) => new Date(a.date) - new Date(b.date)),
     }
 
     //Diff graphs
@@ -104,7 +133,7 @@ export default async function({login, data, imports, rest, q, account}, {enabled
         .style("font-size", 20)
 
       //Generate history
-      for (const {type, sign, fill} of [{type: "added", sign: +1, fill: "rgb(63, 185, 80)"}, {type: "deleted", sign: -1, fill: "rgb(218, 54, 51)"}]) {
+      for (const {type, sign, fill} of [{type:"added", sign:+1, fill:"rgb(63, 185, 80)"}, {type:"deleted", sign:-1, fill:"rgb(218, 54, 51)"}]) {
         svg.append("path")
           .datum(weeks.map(({date, ...diff}) => [new Date(date), sign * (diff[type] + diff.changed)]))
           .attr(
