@@ -56,7 +56,6 @@ export default async function({login, data, imports, rest, q, account}, {enabled
       ...await Promise.allSettled(
         repositories.map(
           async ({repo, owner}) => {
-            console.debug({owner, repo})
             if (
               skipped.includes(repo.toLocaleLowerCase()) ||
               skipped.includes(`${owner}/${repo}`.toLocaleLowerCase())
@@ -65,7 +64,7 @@ export default async function({login, data, imports, rest, q, account}, {enabled
             }
 
             const {data} = await rest.repos.getContributorsStats({owner, repo})
-            console.debug({data})
+            console.debug({owner, repo, data})
 
             return {
               handle:`${owner}/${repo}`,
