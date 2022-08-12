@@ -52,7 +52,29 @@ export default async function({login, data, imports, rest, q, account}, {enabled
     console.debug(`metrics/compute/${login}/plugins > lines > querying api`)
     console.debug(JSON.stringify({repositories}, null, 2))
     const repos = {}, weeks = {}
-    const response = [...await Promise.allSettled(repositories.map(async ({repo, owner}) => (skipped.includes(repo.toLocaleLowerCase())) || (skipped.includes(`${owner}/${repo}`.toLocaleLowerCase())) ? {} : {handle:`${owner}/${repo}`, stats:(await rest.repos.getContributorsStats({owner, repo})).data}))].filter(({status}) => status === "fulfilled").map((
+    const response = [
+      ...await Promise.allSettled(
+        repositories.map(
+          async ({repo, owner}) => {
+            console.debug({owner, repo})
+            if (
+              skipped.includes(repo.toLocaleLowerCase()) ||
+              skipped.includes(`${owner}/${repo}`.toLocaleLowerCase())
+            ) {
+              return {}
+            }
+
+            const {data} = await rest.repos.getContributorsStats({owner, repo})
+            console.debug({data})
+
+            return {
+              handle:`${owner}/${repo}`,
+              stats:data
+            }
+          }
+        )
+      )
+    ].filter(({status}) => status === "fulfilled").map((
       {value},
     ) => value)
 
