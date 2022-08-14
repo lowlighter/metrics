@@ -54,7 +54,7 @@ export default async function({sandbox = false} = {}) {
     console.debug(util.inspect(conf.settings, {depth: Infinity, maxStringLength: 256}))
 
   //Load octokits
-  const api = {graphql: octokit.graphql.defaults({headers: {authorization: `token ${token}`}}), rest: new OctokitRest.Octokit({auth: token})}
+  const api = {graphql: octokit.graphql.defaults({headers: {authorization: `token ${token}`}, baseUrl:conf.settings.api?.graphql ?? undefined}), rest: new OctokitRest.Octokit({auth: token, baseUrl: conf.settings.api?.rest ?? undefined})}
   //Apply mocking if needed
   if (mock)
     Object.assign(api, await mocks(api))
