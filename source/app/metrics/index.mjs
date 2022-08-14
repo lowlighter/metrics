@@ -68,7 +68,7 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
     if (errors.length) {
       console.debug(`metrics/compute/${login} > ${errors.length} errors !`)
       if (die)
-        throw new Error("An error occured during rendering, dying")
+        throw new Error("An error occurred during rendering, dying")
       else
         console.debug(util.inspect(errors, {depth: Infinity, maxStringLength: 256}))
     }
@@ -117,7 +117,7 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
         console.debug(`metrics/compute/${login}/embed > ${name} >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>`)
         if ((!name) || (typeof q !== "object") || (q === null)) {
           if (die)
-            throw new Error("An error occured during embed rendering, dying")
+            throw new Error("An error occurred during embed rendering, dying")
           return "<p>⚠️ Failed to execute embed function: invalid arguments</p>"
         }
         console.debug(`metrics/compute/${login} > embed called with`)
@@ -142,7 +142,7 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
         //Compute rendering
         const {rendered} = await metrics({login, q}, {...arguments[1], convert: ["svg", "png", "jpeg"].includes(q["config.output"]) ? q["config.output"] : null}, arguments[2])
         console.debug(`metrics/compute/${login}/embed > ${name} > success >>>>>>>>>>>>>>>>>>>>>>`)
-        return `<img class="metrics-cachable" data-name="${name}" src="data:image/${{png: "png", jpeg: "jpeg"}[q["config.output"]] ?? "svg+xml"};base64,${Buffer.from(rendered).toString("base64")}">`
+        return `<img class="metrics-cacheable" data-name="${name}" src="data:image/${{png: "png", jpeg: "jpeg"}[q["config.output"]] ?? "svg+xml"};base64,${Buffer.from(rendered).toString("base64")}">`
       }
       //Rendering template source
       let rendered = source.replace(/\{\{ (?<content>[\s\S]*?) \}\}/g, "{%= $<content> %}")

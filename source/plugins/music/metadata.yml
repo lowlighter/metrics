@@ -72,7 +72,7 @@ inputs:
       - `recent`: display recently listened tracks
       - `top`: display top listened artists/tracks
 
-      If [`plugin_music_playlist`](/source/plugins/music/README.md#plugin_music_playlist) is specifed, the default value is `playlist`, else it is `recent`
+      If [`plugin_music_playlist`](/source/plugins/music/README.md#plugin_music_playlist) is specified, the default value is `playlist`, else it is `recent`
     type: string
     default: ""
     values:

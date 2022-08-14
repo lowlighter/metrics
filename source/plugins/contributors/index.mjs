@@ -109,7 +109,7 @@ export default async function({login, q, imports, data, rest, graphql, queries, 
       }
       catch (error) {
         console.debug(error)
-        console.debug(`metrics/compute/${login}/plugins > contributors > an error occured while processing ${repository}`)
+        console.debug(`metrics/compute/${login}/plugins > contributors > an error occurred while processing ${repository}`)
       }
       finally {
         //Cleaning

@@ -38,7 +38,7 @@ export default async function({login, q, imports, data, graphql, queries, accoun
       }
       catch (error) {
         console.debug(error)
-        console.debug(`metrics/compute/${login}/plugins > reactions > an error occured while retrieving ${type}`)
+        console.debug(`metrics/compute/${login}/plugins > reactions > an error occurred while retrieving ${type}`)
       }
     }
     console.debug(`metrics/compute/${login}/plugins > reactions > fetched ${comments.length} comments`)

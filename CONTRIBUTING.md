@@ -20,7 +20,7 @@ The following contributions are accepted:
 <table>
   <tr>
     <th>Section</th>
-    <th>Editions</th>
+    <th>Changes</th>
     <th>Additions</th>
     <th>Notes</th>
   </tr>
@@ -41,7 +41,7 @@ The following contributions are accepted:
     <td>❌</td>
     <td>
       <ul>
-        <li>Templates editions are allowed with new features additions (but must remain consistent with current visuals)</li>
+        <li>Template changes are allowed with new features additions (but must remain consistent with current visuals)</li>
         <li>New templates should use <a href="https://github.com/lowlighter/metrics/blob/master/source/templates/community/README.md">📕 Community templates</a> instead</li>
       </ul>
     </td>
@@ -73,7 +73,7 @@ The following contributions are accepted:
     <td>❌</td>
     <td>
       <ul>
-        <li>Core editions impact all rendering process and should be avoided unless necessary</li>
+        <li>Core changes impact all rendering process and should be avoided unless necessary</li>
         <li>New dependencies should be avoided when possible</li>
       </ul>
     </td>

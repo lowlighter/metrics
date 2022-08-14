@@ -12,7 +12,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
     if (!limit)
       limit = void limit
 
-    const showOnlyGithubPublicRepos = repositoriesVisibility === "public"
+    const showOnlyGitHubPublicRepos = repositoriesVisibility === "public"
 
     const range = {
       "7": "last_7_days",
@@ -26,7 +26,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
     const {data: {data: stats}} = await imports.axios.get(`${url}/api/v1/users/${user}/stats/${range}?api_key=${token}`)
 
     const projectStats = stats.projects?.map(({name, percent, total_seconds: total}) => ({name, percent: percent / 100, total})).sort((a, b) => b.percent - a.percent)
-    const projects = showOnlyGithubPublicRepos ? await pickOnlyGithubPublicRepos({limit, login, axios: imports.axios, projects: projectStats}) : projectStats?.slice(0, limit)
+    const projects = showOnlyGitHubPublicRepos ? await pickOnlyGitHubPublicRepos({limit, login, axios: imports.axios, projects: projectStats}) : projectStats?.slice(0, limit)
 
     const result = {
       sections,
@@ -50,7 +50,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
   }
 }
 
-async function pickOnlyGithubPublicRepos({projects, axios, login, limit}) {
+async function pickOnlyGitHubPublicRepos({projects, axios, login, limit}) {
   const result = []
 
   for await (const project of projects) {

@@ -154,7 +154,7 @@ Update profile `README.md` to include rendered image.
 
 ### 4️.1️ URL parameters syntax
 
-The GitHub action and the web instance uses the same engine behing the hood.
+The GitHub action and the web instance uses the same engine behind the hood.
 
 It is actually possible to generate image directly from url without passing by the web ui by knowing how to pass parameters.
 

@@ -121,7 +121,7 @@ All product and company names are trademarks™ or registered® trademarks of th
 
 <!--examples-->
 ```yaml
-name: Succint report
+name: Succinct report
 uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.pagespeed.svg
@@ -159,7 +159,7 @@ with:
 
 ```
 ```yaml
-name: Succint report with PWA
+name: Succinct report with PWA
 uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.pagespeed.svg

@@ -110,7 +110,7 @@ Using this mode significantly increase file size as each frame is encoded separa
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_skyline_settings</code></h4></td>
     <td rowspan="2"><p>Advanced settings</p>
-<p>Can be configured to use alternate skyline websites different from <a href="https://skyline.github.com">skyline.github.com</a>, such as <a href="https://github.com/honzaap/GitHubCity">honzaap&#39;s GitHub City</a>.</p>
+<p>Can be configured to use alternate skyline websites different from <a href="https://skyline.github.com">skyline.github.com</a>, such as <a href="https://github.com/honzaap/GithubCity">honzaap&#39;s GitHub City</a>.</p>
 <ul>
 <li><code>url</code>: Target URL (mandatory)</li>
 <li><code>ready</code>: Readiness condition (A JS function that returns a boolean)</li>

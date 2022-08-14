@@ -1,4 +1,4 @@
-- name: Midly interesting facts
+- name: Mildly interesting facts
   uses: lowlighter/metrics@latest
   with:
     filename: metrics.plugin.habits.facts.svg

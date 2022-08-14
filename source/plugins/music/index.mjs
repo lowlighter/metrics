@@ -50,7 +50,7 @@ export default async function({login, imports, data, q, account}, {enabled = fal
     let {provider, mode, playlist, limit, user, "played.at": played_at, "time.range": time_range, "top.type": top_type, token: _token} = imports.metadata.plugins.music.inputs({data, account, q})
     if ((sandbox) && (_token)) {
       token = _token
-      console.debug(`metrics/compute/${login}/plugins > music > overriden token value through user inputs as sandbox mode is enabled`)
+      console.debug(`metrics/compute/${login}/plugins > music > overridden token value through user inputs as sandbox mode is enabled`)
     }
     if (!imports.metadata.plugins.music.extras("token", {extras, error: false}))
       token = ""
@@ -502,7 +502,7 @@ export default async function({login, imports, data, q, account}, {enabled = fal
   }
 }
 
-//get all objects that have the given key name with recursivity
+//get all objects that have the given key name with recursively
 function get_all_with_key(obj, key) {
   const result = []
   if (obj instanceof Object) {

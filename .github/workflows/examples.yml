@@ -354,7 +354,7 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      - name: 💡 Coding habits and activity - Midly interesting facts
+      - name: 💡 Coding habits and activity - Mildly interesting facts
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.habits.facts.svg
@@ -806,7 +806,7 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      - name: ⏱️ Google PageSpeed - Succint report
+      - name: ⏱️ Google PageSpeed - Succinct report
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.pagespeed.svg

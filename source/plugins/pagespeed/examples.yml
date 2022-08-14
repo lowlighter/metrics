@@ -1,4 +1,4 @@
-- name: Succint report
+- name: Succinct report
   uses: lowlighter/metrics@latest
   with:
     filename: metrics.plugin.pagespeed.svg
@@ -30,7 +30,7 @@
     plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
     plugin_pagespeed_url: https://lecoq.io
 
-- name: Succint report with PWA
+- name: Succinct report with PWA
   uses: lowlighter/metrics@latest
   with:
     filename: metrics.plugin.pagespeed.svg

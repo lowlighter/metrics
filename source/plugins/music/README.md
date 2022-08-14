@@ -106,7 +106,7 @@ All product and company names are trademarks™ or registered® trademarks of th
 <li><code>recent</code>: display recently listened tracks</li>
 <li><code>top</code>: display top listened artists/tracks</li>
 </ul>
-<p>If <a href="/source/plugins/music/README.md#plugin_music_playlist"><code>plugin_music_playlist</code></a> is specifed, the default value is <code>playlist</code>, else it is <code>recent</code></p>
+<p>If <a href="/source/plugins/music/README.md#plugin_music_playlist"><code>plugin_music_playlist</code></a> is specified, the default value is <code>playlist</code>, else it is <code>recent</code></p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -262,7 +262,7 @@ Extract the source link from the code pasted in your clipboard:
 
 *(Not available)*
 
-> 😥 Unfortunately I wasn't able to find a workaround to avoid paying the $99 fee for the developer program, even using workarounds like *smart playlists*, *shortcuts* and other stuff. However if you really want this feature, you could [sponsor me](github.com/sponsors/lowlighter) and I could eventually invest in a developper account with enough money, implement it and also eventually offer service on the shared instance
+> 😥 Unfortunately I wasn't able to find a workaround to avoid paying the $99 fee for the developer program, even using workarounds like *smart playlists*, *shortcuts* and other stuff. However if you really want this feature, you could [sponsor me](github.com/sponsors/lowlighter) and I could eventually invest in a developer account with enough money, implement it and also eventually offer service on the shared instance
 
 ### 🔗 Get an embed playlist url for `plugin_music_playlist`
 

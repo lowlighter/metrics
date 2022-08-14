@@ -68,7 +68,7 @@ export default async function({login, data, queries, imports, q, account}, {enab
             const {data: {data: {User: {favourites: {[type]: {nodes, pageInfo: cursor}}}}}} = await imports.axios.post("https://graphql.anilist.co", {variables: {name: user, page}, query: queries.anilist.favorites({type})})
             page++
             next = cursor.hasNextPage
-            list.push(...await Promise.all(nodes.map(media => format({media: {progess: null, score: null, media}, imports}))))
+            list.push(...await Promise.all(nodes.map(media => format({media: {progress: null, score: null, media}, imports}))))
           }
           catch (error) {
             if (await retry({login, imports, error}))

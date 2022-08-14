@@ -141,7 +141,7 @@ All product and company names are trademarks™ or registered® trademarks of th
 <li><code>release</code>: Publication of new releases</li>
 <li><code>review</code>: Review of pull requests</li>
 <li><code>comment</code>: Comments on commits, issues and pull requests</li>
-<li><code>wiki</code>: Edition of wiki pages</li>
+<li><code>wiki</code>: Changes of wiki pages</li>
 <li><code>fork</code>: Forking of repositories</li>
 <li><code>star</code>: Starring of repositories</li>
 <li><code>public</code>: Repositories made public</li>

@@ -1,4 +1,4 @@
-# 📊 Metrics [<img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=280144&theme=dark" alt="" align="right" width="190" height="41">](https://www.producthunt.com/posts/github-metrics?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-github-metrics)
+# 📊 Metrics [<img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=280144&theme=dark" alt="" align="right" width="190" height="41">](https://www.producthunt.com/posts/github-metrics?utm_source=badge-featured&utm_medium=badge&utm_source=badge-github-metrics)
 
 [![Continuous integration](https://github.com/lowlighter/metrics/actions/workflows/ci.yml/badge.svg)](https://github.com/lowlighter/metrics/actions/workflows/ci.yml)
 
@@ -84,7 +84,7 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
       </td>
         <td  align="center">
         <details open><summary>Recent activity charts</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.habits.charts.svg" alt=""></img></details>
-        <details open><summary>Midly interesting facts</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.habits.facts.svg" alt=""></img></details>
+        <details open><summary>Mildly interesting facts</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.habits.facts.svg" alt=""></img></details>
         <img width="900" height="1" alt="">
       </td>
   </tr>
@@ -408,7 +408,7 @@ Plugins provide additional content and lets you customize rendered metrics.
 * **Core plugins**
   * [🗃️ Base content <sub>`base`</sub>](/source/plugins/base/README.md)
   * [🧱 Core <sub>`core`</sub>](/source/plugins/core/README.md)
-* **Github plugins**
+* **GitHub plugins**
   * [🏆 Achievements <sub>`achievements`</sub>](/source/plugins/achievements/README.md)
   * [📰 Recent activity <sub>`activity`</sub>](/source/plugins/activity/README.md)
   * [📆 Commit calendar <sub>`calendar`</sub>](/source/plugins/calendar/README.md)

@@ -79,7 +79,7 @@ export default async function({login, data, graphql, rest, q, queries, imports, 
         console.debug(`metrics/compute/${login}/plugins > people > keeping only ${limit} ${type}`)
         result[type].splice(limit)
       }
-      //Hide real avator with identicons if enabled
+      //Hide real avatar with identicons if enabled
       if (identicons) {
         console.debug(`metrics/compute/${login}/plugins > people > using identicons`)
         result[type].map(user => user.avatarUrl = `https://github.com/identicons/${user.login}.png`)

@@ -179,7 +179,7 @@ Broad affiliations will result in less representative metrics.</p>
     <td nowrap="nowrap">⏭️ Global option<br>
 ⏯️ Cannot be preset<br>
 <b>type:</b> <code>array</code>
-<i>(comma-seperated)</i>
+<i>(comma-separated)</i>
 <br>
 <b>default:</b> <code>→ User login</code><br></td>
   </tr>

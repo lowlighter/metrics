@@ -4,7 +4,7 @@ description: |
   This plugin displays coding habits based on recent activity, such as active hours and languages recently used.
 examples:
   +recent activity charts: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.habits.charts.svg
-  +midly interesting facts: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.habits.facts.svg
+  +mildly interesting facts: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.habits.facts.svg
 index: 7
 supports:
   - user
@@ -39,7 +39,7 @@ inputs:
 
   plugin_habits_facts:
     description: |
-      Midly interesting facts
+      Mildly interesting facts
 
       It includes indentation type, average number of characters per line of code, and most active time and day
     type: boolean

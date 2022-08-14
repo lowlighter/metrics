@@ -239,7 +239,7 @@ It will be automatically hidden if empty.</p>
 The default algorithm use the top languages provided of each repository you contributed to.
 When working in collaborative projects with a lot of people, these numbers may be less representative of your actual work.
 
-The `plugin_languages_indepth` option lets you use a more advanced algorithm for more accurates statistics.
+The `plugin_languages_indepth` option lets you use a more advanced algorithm for more accurate statistics.
 Under the hood, it will clone your repositories, run [linguist-js](https://github.com/Nixinova/Linguist) (a JavaScript port of [GitHub linguist](https://github.com/github/linguist)) and iterate over patches matching your `commits_authoring` setting.
 
 Since git lets you use any email and username for commits, *metrics* may not be able to detect a commit ownership if it isn't the same as your GitHub personal data. By default, it will use your GitHub username, but you can configure additional matching usernames and email addresses using `commits_authoring` option.
@@ -326,7 +326,7 @@ It is possible to use custom colors using `plugin_languages_colors` option.
 The following syntaxes are supported:
 - A predefined set from [colorsets.json](colorsets.json) *(support limited to 8 languages max)*
 - `${language}:${color}` to change the color of a language *(case insensitive)*
-- `${n}:${color}` to change the color of the the n-th language
+- `${n}:${color}` to change the color of the n-th language
 
 Both hexadecimal and [named color](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) are supported.
 

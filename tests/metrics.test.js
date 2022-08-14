@@ -8,7 +8,7 @@ const axios = require("axios")
 const faker = require("@faker-js/faker").faker
 const ejs = require("ejs")
 
-//Github action
+//GitHub action
 const action = yaml.load(fs.readFileSync(path.join(__dirname, "../action.yml"), "utf8"))
 action.defaults = Object.fromEntries(Object.entries(action.inputs).map(([key, {default: value}]) => [key, value]))
 action.input = vars => Object.fromEntries([...Object.entries(action.defaults), ...Object.entries(vars)].map(([key, value]) => [`INPUT_${key.toLocaleUpperCase()}`, value]))

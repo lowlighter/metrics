@@ -176,11 +176,11 @@ function quit(reason) {
     const api = {}
     const resources = {}
     api.graphql = octokit.graphql.defaults({headers: {authorization: `token ${token}`}})
-    info("Github GraphQL API", "ok")
+    info("GitHub GraphQL API", "ok")
     const octoraw = github.getOctokit(token)
     api.rest = octoraw.rest
     api.rest.request = octoraw.request
-    info("Github REST API", "ok")
+    info("GitHub REST API", "ok")
     //Apply mocking if needed
     if (mocked) {
       Object.assign(api, await mocks(api))
@@ -397,7 +397,7 @@ function quit(reason) {
     let rendered = await retry(async () => {
       const {rendered, errors} = await metrics({login: user, q}, {graphql, rest, plugins, conf, die, verify, convert}, {Plugins, Templates})
       if (errors.length) {
-        console.warn(`::group::${errors.length} error(s) occured`)
+        console.warn(`::group::${errors.length} error(s) occurred`)
         console.warn(util.inspect(errors, {depth: Infinity, maxStringLength: 256}))
         console.warn("::endgroup::")
       }
@@ -459,7 +459,7 @@ function quit(reason) {
     else {
       //Cache embed svg for markdown outputs
       if (/markdown/.test(convert)) {
-        const regex = /(?<match><img class="metrics-cachable" data-name="(?<name>[\s\S]+?)" src="data:image[/](?<format>(?:svg[+]xml)|jpeg|png);base64,(?<content>[/+=\w]+?)">)/
+        const regex = /(?<match><img class="metrics-cacheable" data-name="(?<name>[\s\S]+?)" src="data:image[/](?<format>(?:svg[+]xml)|jpeg|png);base64,(?<content>[/+=\w]+?)">)/
         let matched = null
         while (matched = regex.exec(rendered)?.groups) { //eslint-disable-line no-cond-assign
           await retry(async () => {
@@ -499,7 +499,7 @@ function quit(reason) {
         }
       }
 
-      //Check editions
+      //Check changes
       if ((committer.commit) || (committer.pr)) {
         const git = sgit()
         const sha = await git.hashObject(paths.join("/renders", filename))
@@ -690,7 +690,7 @@ function quit(reason) {
     console.error(error)
     //Print debug buffer if debug was not enabled (if it is, it's already logged on the fly)
     if (!DEBUG) {
-      for (const log of [info.break(), "An error occured, logging debug message :", ...debugged])
+      for (const log of [info.break(), "An error occurred, logging debug message :", ...debugged])
         console.log(log)
     }
     core.setFailed(error.message)

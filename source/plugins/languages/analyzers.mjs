@@ -32,7 +32,7 @@ export async function indepth({login, data, imports, repositories, gpg}, {skippe
         }
       }
       catch (error) {
-        console.debug(`metrics/compute/${login}/plugins > languages > indepth > an error occured while importing gpg ${id}, skipping...`)
+        console.debug(`metrics/compute/${login}/plugins > languages > indepth > an error occurred while importing gpg ${id}, skipping...`)
       }
       finally {
         //Cleaning
@@ -73,7 +73,7 @@ export async function indepth({login, data, imports, repositories, gpg}, {skippe
         await analyze(arguments[0], {results, path, categories})
       }
       catch (error) {
-        console.debug(`metrics/compute/${login}/plugins > languages > indepth > an error occured while processing ${repo}, skipping...`)
+        console.debug(`metrics/compute/${login}/plugins > languages > indepth > an error occurred while processing ${repo}, skipping...`)
       }
       finally {
         //Cleaning
@@ -184,7 +184,7 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
       }
     }
     catch {
-      console.debug(`metrics/compute/${login}/plugins > languages > an error occured while processing recently used languages`)
+      console.debug(`metrics/compute/${login}/plugins > languages > an error occurred while processing recently used languages`)
     }
     finally {
       //Cleaning
@@ -269,7 +269,7 @@ async function analyze({login, imports, data}, {results, path, categories = ["pr
             }
           }
           catch (error) {
-            console.debug(`metrics/compute/${login}/plugins > languages > indepth > an error occured while processing line (${error.message}), skipping...`)
+            console.debug(`metrics/compute/${login}/plugins > languages > indepth > an error occurred while processing line (${error.message}), skipping...`)
           }
         },
       })
@@ -279,7 +279,7 @@ async function analyze({login, imports, data}, {results, path, categories = ["pr
       }
     }
     catch {
-      console.debug(`metrics/compute/${login}/plugins > languages > indepth > an error occured on page ${page}, skipping...`)
+      console.debug(`metrics/compute/${login}/plugins > languages > indepth > an error occurred on page ${page}, skipping...`)
       results.missed.commits += per_page
     }
   }

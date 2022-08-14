@@ -82,7 +82,7 @@ export default async function({login, data, computed, imports, q, graphql, queri
         }
         catch (error) {
           console.debug(error)
-          console.debug(`metrics/compute/${login}/plugins > followup > an error occured while processing ${owner}/${repo}, skipping...`)
+          console.debug(`metrics/compute/${login}/plugins > followup > an error occurred while processing ${owner}/${repo}, skipping...`)
         }
       }
     }

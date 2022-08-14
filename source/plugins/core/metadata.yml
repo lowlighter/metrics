@@ -100,9 +100,9 @@ inputs:
       - `none`: just create file in `/metrics_renders` directory of action runner
       - `commit`: push output to `committer_branch`
       - `pull-request`: push output to a new branch and open a pull request to `committer_branch`
-      - `pull-request-merge`: same as `pull-request` and additionaly merge pull request
-      - `pull-request-squash`: same as `pull-request` and additionaly squash and merge pull request
-      - `pull-request-rebase`: same as `pull-request` and additionaly rebase and merge pull request
+      - `pull-request-merge`: same as `pull-request` and additionally merge pull request
+      - `pull-request-squash`: same as `pull-request` and additionally squash and merge pull request
+      - `pull-request-rebase`: same as `pull-request` and additionally rebase and merge pull request
       - `gist`: push output to `committer_gist`
 
       > 💡 When using `pull-request`, you will need to set the last job with a `pull-request-*` action instead, else it won't be merged
@@ -291,7 +291,7 @@ inputs:
     description: |
       Base64-encoded images
 
-      Enable this option to make self-contained ouput (i.e. with no external links)
+      Enable this option to make self-contained output (i.e. with no external links)
     type: boolean
     default: yes
     global: yes

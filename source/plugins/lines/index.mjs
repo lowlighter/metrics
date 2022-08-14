@@ -33,7 +33,7 @@ export default async function({login, data, imports, rest, q, account}, {enabled
       //Check if data are available
       if (!Array.isArray(stats))
         return
-      //Compute editions
+      //Compute changes
       repos[handle] = {added: 0, deleted: 0, changed: 0}
       const contributors = stats.filter(({author}) => context.mode === "repository" ? true : author?.login?.toLocaleLowerCase() === login.toLocaleLowerCase())
       for (const contributor of contributors) {
@@ -42,7 +42,7 @@ export default async function({login, data, imports, rest, q, account}, {enabled
           added += a
           deleted += d
           changed += c
-          //Compute editions per week
+          //Compute changes per week
           const date = new Date(w * 1000).toISOString().substring(0, 10)
           if (!weeks[date])
             weeks[date] = {added: 0, deleted: 0, changed: 0}

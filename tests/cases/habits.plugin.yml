@@ -1,4 +1,4 @@
-- name: 💡 Coding habits and activity - Midly interesting facts
+- name: 💡 Coding habits and activity - Mildly interesting facts
   uses: lowlighter/metrics@latest
   with:
     token: MOCKED_TOKEN

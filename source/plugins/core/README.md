@@ -55,7 +55,7 @@ Content can be manually ordered using `config_order` option.
 > 💡 Omitted sections will be appended at the end using default order
 
 > ℹ️ The handles to use for each plugin and sections is based on the [`partials/_.json`](/source/templates/classic/partials/_.json) of the template.
-> It may not necessarly be the plugin id (e.g. `base.header`, `base.activity+community`, `base.repositories`, etc.).
+> It may not necessarily be the plugin id (e.g. `base.header`, `base.activity+community`, `base.repositories`, etc.).
 
 ## 🪛 Using presets
 
@@ -74,7 +74,7 @@ Options resolution is done in the following order:
     config_presets: https://raw.githubusercontent.com/lowlighter/metrics/presets/lunar-red/preset.yaml
 ```
 
-Some presets are hosted on this repository on the [`@presets`](https://github.com/lowlighter/metrics/tree/presets) branch and can be used directly by using using their identifier prefixed by an arobase (`@`).
+Some presets are hosted on this repository on the [`@presets`](https://github.com/lowlighter/metrics/tree/presets) branch and can be used directly by using their identifier prefixed by an arobase (`@`).
 
 *Example: using a pre-defined configuration preset*
 ```yaml
@@ -122,7 +122,7 @@ Additional JavaScript can be injected using `extras_js` option.
 ```
 
 > ℹ️ JavaScript is executed in puppeteer context during the rendering phase, **not** in *metrics* context.
-> It will be possible to access `document` and all other features accessibles like if the SVG was opened in a browser page
+> It will be possible to access `document` and all other features accessible like if the SVG was opened in a browser page
 
 > 💡 If you make an heavy use of this option, creating a [community templates](/source/templates/community/README.md) may be a better alternative
 
@@ -304,7 +304,7 @@ metrics:
 
 ### Manual handling
 
-Use `config_ouput: none` to perform custom processing with outputs.
+Use `config_output: none` to perform custom processing with outputs.
 They will be available under `/metrics_renders/{filename}` in the runner.
 
 *Example: generate outputs and manually push them*
@@ -336,7 +336,7 @@ metrics:
 
 ## ♻️ Retrying automatically failed rendering and output action
 
-Rendering is subject to external factors and can fail ocassionaly.
+Rendering is subject to external factors and can fail occasionally.
 Use `retries` and `retries_delay` options to automatically retry rendering.
 
 *Example: retry render up to 3 times (wait 5 minutes between each fail)*
@@ -347,7 +347,7 @@ Use `retries` and `retries_delay` options to automatically retry rendering.
     retries_delay: 300
 ```
 
-Output action is also subject to GitHub API rate-limiting and overall health status and can fail ocassionaly.
+Output action is also subject to GitHub API rate-limiting and overall health status and can fail occasionally.
 Use `retries_output_action` and `retries_delay_output_action` options to automatically retry output action.
 
 > 💡 As output action is a separate step from rendering, render step won't be called again
@@ -362,7 +362,7 @@ Use `retries_output_action` and `retries_delay_output_action` options to automat
 
 ## 🗜️ Optimize SVG output
 
-To reduce filesize and decrease loading time, *metrics* offers several optimization options, such as purging unused CSS and style minification, XML pretty-pretting (which also reduce diffs between changes) and general SVG optimation (still experimental).
+To reduce filesize and decrease loading time, *metrics* offers several optimization options, such as purging unused CSS and style minification, XML pretty-printing (which also reduce diffs between changes) and general SVG optimization (still experimental).
 
 > 💡 This option is enabled by default!
 
@@ -525,9 +525,9 @@ When doing so, any settings which defaults on user fetched values will not be te
 <li><code>none</code>: just create file in <code>/metrics_renders</code> directory of action runner</li>
 <li><code>commit</code>: push output to <code>committer_branch</code></li>
 <li><code>pull-request</code>: push output to a new branch and open a pull request to <code>committer_branch</code></li>
-<li><code>pull-request-merge</code>: same as <code>pull-request</code> and additionaly merge pull request</li>
-<li><code>pull-request-squash</code>: same as <code>pull-request</code> and additionaly squash and merge pull request</li>
-<li><code>pull-request-rebase</code>: same as <code>pull-request</code> and additionaly rebase and merge pull request</li>
+<li><code>pull-request-merge</code>: same as <code>pull-request</code> and additionally merge pull request</li>
+<li><code>pull-request-squash</code>: same as <code>pull-request</code> and additionally squash and merge pull request</li>
+<li><code>pull-request-rebase</code>: same as <code>pull-request</code> and additionally rebase and merge pull request</li>
 <li><code>gist</code>: push output to <code>committer_gist</code></li>
 </ul>
 <blockquote>
@@ -752,7 +752,7 @@ Size must be a supported icon size (12, 16 or 24).
   <tr>
     <td nowrap="nowrap"><h4><code>config_base64</code></h4></td>
     <td rowspan="2"><p>Base64-encoded images</p>
-<p>Enable this option to make self-contained ouput (i.e. with no external links)</p>
+<p>Enable this option to make self-contained output (i.e. with no external links)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>

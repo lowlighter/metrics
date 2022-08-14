@@ -32,7 +32,7 @@ It is possible to host workflows in the `.github` repository of organizations, a
 ## *️⃣ Organizations memberships for user accounts
 
 By default, GitHub only display public memberships.
-Membership visibility canbe managed in the `People` tab of your organization.
+Membership visibility can be managed in the `People` tab of your organization.
 
 ![Publish organization membership](/.github/readme/imgs/setup_public_membership_org.light.png#gh-light-mode-only)
 ![Publish organization membership](/.github/readme/imgs/setup_public_membership_org.dark.png#gh-dark-mode-only)

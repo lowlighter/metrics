@@ -64,7 +64,7 @@ export default async function({login, data, rest, imports, q, account}, {enabled
         habits.commits.days[day] = (habits.commits.days[day] ?? 0) + 1
       habits.commits.days.max = Math.max(...Object.values(habits.commits.days))
       //Compute day with most commits
-      habits.commits.day = days.length ? ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][Object.entries(habits.commits.days).sort(([_an, a], [_bn, b]) => b - a).map(([day, _occurence]) => day)[0]] ?? NaN : NaN
+      habits.commits.day = days.length ? ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][Object.entries(habits.commits.days).sort(([_an, a], [_bn, b]) => b - a).map(([day, _occurrence]) => day)[0]] ?? NaN : NaN
     }
 
     //Commit hour
@@ -76,7 +76,7 @@ export default async function({login, data, rest, imports, q, account}, {enabled
         habits.commits.hours[hour] = (habits.commits.hours[hour] ?? 0) + 1
       habits.commits.hours.max = Math.max(...Object.values(habits.commits.hours))
       //Compute hour with most commits
-      habits.commits.hour = hours.length ? `${Object.entries(habits.commits.hours).sort(([_an, a], [_bn, b]) => b - a).map(([hour, _occurence]) => hour)[0]}`.padStart(2, "0") : NaN
+      habits.commits.hour = hours.length ? `${Object.entries(habits.commits.hours).sort(([_an, a], [_bn, b]) => b - a).map(([hour, _occurrence]) => hour)[0]}`.padStart(2, "0") : NaN
     }
 
     //Indent style

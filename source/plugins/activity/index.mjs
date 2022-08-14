@@ -73,7 +73,7 @@ export default async function({login, data, rest, q, account, imports}, {enabled
               const {forkee: {full_name: forked}} = payload
               return {type: "fork", actor, timestamp, repo, forked}
             }
-            //Wiki editions
+            //Wiki changes
             case "GollumEvent": {
               const {pages} = payload
               return {type: "wiki", actor, timestamp, repo, pages: pages.map(({title}) => title)}

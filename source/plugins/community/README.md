@@ -53,10 +53,10 @@ Be sure to read [contribution guide](/CONTRIBUTING.md) and [architecture](/ARCHI
 
 Please respect the following guidelines:
 
-- A plugin should be independant and should not rely on other plugins
+- A plugin should be independent and should not rely on other plugins
   - [🧱 core](/source/plugins/core/README.md) and [🗃️ base](/source/plugins/base/README.md) output can be reused though
 - A plugin should never edit its original arguments, as it is shared amongst other plugins and would create unattended side effects
-- Use `imports.metadata.plugins.{plugin-name}.inputs()` to automatically typecheck and default user inputs through defined `metadata.yml`
+- Use `imports.metadata.plugins.{plugin-name}.inputs()` to automatically type check and default user inputs through defined `metadata.yml`
 - Plugin options should respect the "lexical field" of existing option to keep consistency
 - Plugin errors should be handled gracefully by partials with error message
 - New dependencies should be avoided, consider using existing `imports`
@@ -229,7 +229,7 @@ export default async function(
   {
     login, //GitHub username
     q, //Raw user inputs (dot notation without plugin_ prefix, don't use it directly)
-    imports, //Various utilitaires (axios, puppeteer, fs, etc., see /source/app/metrics/utils.mjs)
+    imports, //Various utilities (axios, puppeteer, fs, etc., see /source/app/metrics/utils.mjs)
     data, //Raw data from core/base plugin
     computed, //Computed data from core/base plugin
     rest, //Rest authenticated GitHub octokit
