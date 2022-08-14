@@ -5,7 +5,7 @@ Plugins provide additional content and lets you customize rendered metrics.
 **📦 Maintained by core team**
 <% { let previous = null; for (const [plugin, {name, category, deprecation, authors = []}] of Object.entries(plugins).filter(([key, value]) => (value)&&(value.category !== "community")).sort(([an, a], [bn, b]) => a.category === b.category ? an.localeCompare(bn) : 0)) { %>
 <% if (previous !== category) { previous = category -%>
-* **<%= `${category.charAt(0).toLocaleUpperCase()}${category.substring(1)} plugins` %>**
+* **<%= `${category === "github" ? "GitHub" : `${category.charAt(0).toLocaleUpperCase()}${category.substring(1)}`} plugins` %>**
 <% } -%>
   * [<%- name %> <sub>`<%= plugin %>`</sub>](/source/plugins/<%= plugin %>/README.md)<%# -%><% if (deprecation) { %> <sub>`⚠️ deprecated`</sub><% } %><%# -%>
 <% }} %>
