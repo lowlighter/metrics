@@ -25,6 +25,10 @@
     "secret": null,                     "//": "GitHub OAUTH client secret",
     "url":"https://example.com",        "//": "GitHub OAUTH callback url (must be the same as the web instance host)"
   },
+  "api":{
+    "rest": null,                       "//": "GitHub REST API custom endpoint",
+    "graphql": null,                    "//": "GitHub GraphQL API custom endpoint"
+  },
   "control":{
     "token": null,                      "//": "Control token (can be used by external services to perform actions on instance, such as stopping it for redeploys)"
   },

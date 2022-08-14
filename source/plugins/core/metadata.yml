@@ -201,6 +201,28 @@ inputs:
     extras:
       - metrics.run.puppeteer.user.js
 
+  github_api_rest:
+    description: |
+      GitHub REST API endpoint
+
+      Can be used to support [GitHub enterprises server](https://github.com/enterprise).
+      Leave empty to use default endpoint.
+    type: string
+    default: ""
+    example: https://api.github.com
+    global: yes
+
+  github_api_graphql:
+    description: |
+      GitHub GraphQL API endpoint
+
+      Can be used to support [GitHub enterprises server](https://github.com/enterprise).
+      Leave empty to use default endpoint.
+    type: string
+    default: ""
+    example: https://api.github.com/graphql
+    global: yes
+
   config_timezone:
     description: |
       Timezone for dates

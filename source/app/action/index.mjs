@@ -146,6 +146,8 @@ function quit(reason) {
       "quota.required.search": _quota_required_search,
       "notice.release": _notice_releases,
       "clean.workflows": _clean_workflows,
+      "github.api.rest": _github_api_rest,
+      "github.api.graphql": _github_api_graphql,
       ...config
     } = metadata.plugins.core.inputs.action({core, preset})
     const q = {...query, ...(_repo ? {repo: _repo} : null), template}
@@ -175,12 +177,14 @@ function quit(reason) {
     conf.settings.token = token
     const api = {}
     const resources = {}
-    api.graphql = octokit.graphql.defaults({headers: {authorization: `token ${token}`}})
+    api.graphql = octokit.graphql.defaults({headers: {authorization: `token ${token}`}, baseUrl: _github_api_graphql || undefined})
     info("GitHub GraphQL API", "ok")
-    const octoraw = github.getOctokit(token)
+    info("GitHub GraphQL API endpoint", api.graphql.baseUrl)
+    const octoraw = github.getOctokit(token, {baseUrl: _github_api_rest || undefined})
     api.rest = octoraw.rest
     api.rest.request = octoraw.request
     info("GitHub REST API", "ok")
+    info("GitHub REST API endpoint", api.rest.baseUrl)
     //Apply mocking if needed
     if (mocked) {
       Object.assign(api, await mocks(api))
