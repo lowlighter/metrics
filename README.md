@@ -19,7 +19,7 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
   </tr>
   <tr>
     <th colspan="2" align="center">
-      <h3><a href="/README.md#-plugins">🧩 Customizable with 40 plugins and 280 options!</a></h3>
+      <h3><a href="/README.md#-plugins">🧩 Customizable with 40 plugins and 282 options!</a></h3>
     </th>
   </tr>
   <tr>
@@ -453,6 +453,7 @@ Plugins provide additional content and lets you customize rendered metrics.
   * [💩 PoopMap plugin <sub>`poopmap`</sub>](/source/plugins/community/poopmap/README.md) by [@matievisthekat](https://github.com/matievisthekat)
   * [📸 Website screenshot <sub>`screenshot`</sub>](/source/plugins/community/screenshot/README.md) by [@lowlighter](https://github.com/lowlighter)
   * [💹 Stock prices <sub>`stock`</sub>](/source/plugins/community/stock/README.md) by [@lowlighter](https://github.com/lowlighter)
+
 
 ## 💪 Contributing
 

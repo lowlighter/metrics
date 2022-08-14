@@ -649,6 +649,32 @@ It is run after transformations and optimizations, but just before resizing.</p>
 <br></td>
   </tr>
   <tr>
+    <td nowrap="nowrap"><h4><code>github_api_rest</code></h4></td>
+    <td rowspan="2"><p>GitHub REST API endpoint</p>
+<p>Can be used to support <a href="https://github.com/enterprise">GitHub enterprises server</a>.
+Leave empty to use default endpoint.</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">⏭️ Global option<br>
+✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>string</code>
+<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><h4><code>github_api_graphql</code></h4></td>
+    <td rowspan="2"><p>GitHub GraphQL API endpoint</p>
+<p>Can be used to support <a href="https://github.com/enterprise">GitHub enterprises server</a>.
+Leave empty to use default endpoint.</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">⏭️ Global option<br>
+✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>string</code>
+<br></td>
+  </tr>
+  <tr>
     <td nowrap="nowrap"><h4><code>config_timezone</code></h4></td>
     <td rowspan="2"><p>Timezone for dates</p>
 <p>See <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">list of supported timezone</a></p>

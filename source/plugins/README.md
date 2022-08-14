@@ -52,3 +52,4 @@ Plugins provide additional content and lets you customize rendered metrics.
   * [💩 PoopMap plugin <sub>`poopmap`</sub>](/source/plugins/community/poopmap/README.md) by [@matievisthekat](https://github.com/matievisthekat)
   * [📸 Website screenshot <sub>`screenshot`</sub>](/source/plugins/community/screenshot/README.md) by [@lowlighter](https://github.com/lowlighter)
   * [💹 Stock prices <sub>`stock`</sub>](/source/plugins/community/stock/README.md) by [@lowlighter](https://github.com/lowlighter)
+

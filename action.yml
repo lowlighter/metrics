@@ -121,6 +121,14 @@ inputs:
     description: Extra JavaScript
     default: <default-value>
 
+  github_api_rest:
+    description: GitHub REST API endpoint
+    default: <default-value>
+
+  github_api_graphql:
+    description: GitHub GraphQL API endpoint
+    default: <default-value>
+
   config_timezone:
     description: Timezone for dates
     default: ""
