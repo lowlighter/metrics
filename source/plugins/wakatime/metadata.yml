@@ -73,10 +73,10 @@ inputs:
       Time range
     type: string
     values:
-      - 7
-      - 30
-      - 180
-      - 365
+      - "7"
+      - "30"
+      - "180"
+      - "365"
     default: 7
 
   plugin_wakatime_limit:
