@@ -305,7 +305,7 @@
   }
 
   .oauth-github {
-    color: var(--color-btn-primary-text);
+    color: var(--color-text-primary);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -456,7 +456,7 @@
     margin-bottom: 1rem;
   }
 
-/* */
+/* OAuth */
   .badges-oauth {
     display: flex;
     align-items: center ;
