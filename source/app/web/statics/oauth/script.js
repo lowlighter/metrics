@@ -74,6 +74,21 @@
       scopes: [],
       extras: [],
       session: null,
+      supported:(() => {
+        try {
+          const storage = window.localStorage
+          const test = "__storage_test__"
+          storage.setItem(test, test);
+          if (localStorage.getItem(test) !== test)
+            throw new Error("localStorage value mismatch")
+          storage.removeItem(test)
+          return true
+        }
+        catch (error) {
+          console.error(error)
+          return false
+        }
+      })()
     },
   })
 })()

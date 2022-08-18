@@ -305,7 +305,7 @@
   }
 
   .oauth-github {
-    color: var(--color-text-primary);
+    color: var(--color-text-primary) !important;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -463,7 +463,7 @@
   }
   .badges-oauth .border {
     width: 4rem;
-    border: 3px dashed var(--color-border-secondary);
+    border-top: 3px dashed var(--color-border-secondary);
   }
   .badge-oauth {
     width: 96px;
