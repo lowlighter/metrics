@@ -271,7 +271,7 @@ export default async function({sandbox = false} = {}) {
       if (authenticated.has(session)) {
         const {token} = authenticated.get(session)
         try {
-          console.log(await axios.delete(`https://api.github.com/applications/${conf.settings.oauth.id}/grant`, {auth: {username: conf.settings.oauth.id, password: conf.settings.oauth.secret}, headers: {Accept: "application/vnd.github+json"}, data: {access_token: token}}))
+          await axios.delete(`https://api.github.com/applications/${conf.settings.oauth.id}/grant`, {auth: {username: conf.settings.oauth.id, password: conf.settings.oauth.secret}, headers: {Accept: "application/vnd.github+json"}, data: {access_token: token}})
           authenticated.delete(session)
           console.debug(`metrics/app/oauth > deleted session ${session.substring(0, 6)}`)
           return res.redirect("/.oauth")
