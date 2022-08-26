@@ -1,0 +1,4 @@
+# Apple music
+\bembed\.music\.apple\.com/fr/playlist/usr-share/[-\w.]+
+# Spotify
+\bopen\.spotify\.com/embed/playlist/\w+

@@ -1,0 +1,104 @@
+name: Check Spelling
+
+# Updating pull request branches is managed via comment handling.
+# For details, see: https://github.com/check-spelling/check-spelling/wiki/Feature:-Update-expect-list
+#
+# These elements work together to make it happen:
+#
+# `on.issue_comment`
+#   This event listens to comments by users asking to update the metadata.
+#
+# `jobs.update`
+#   This job runs in response to an issue_comment and will push a new commit
+#   to update the spelling metadata.
+#
+# `with.experimental_apply_changes_via_bot`
+#   Tells the action to support and generate messages that enable it
+#   to make a commit to update the spelling metadata.
+#
+# `with.ssh_key`
+#   In order to trigger workflows when the commit is made, you can provide a
+#   secret (typically, a write-enabled github deploy key).
+#
+#   For background, see: https://github.com/check-spelling/check-spelling/wiki/Feature:-Update-with-deploy-key
+
+on:
+  push:
+    branches: ["**"]
+    tags-ignore: ["**"]
+  pull_request_target:
+  issue_comment:
+    types: [created]
+
+jobs:
+  spelling:
+    name: Check Spelling
+    permissions:
+      contents: read
+      pull-requests: read
+      actions: read
+    outputs:
+      followup: ${{ steps.spelling.outputs.followup }}
+    runs-on: ubuntu-latest
+    if: "contains(github.event_name, 'pull_request') || github.event_name == 'push'"
+    concurrency:
+      group: spelling-${{ github.event.pull_request.number || github.ref }}
+      # note: If you use only_check_changed_files, you do not want cancel-in-progress
+      cancel-in-progress: true
+    steps:
+    - name: check-spelling
+      id: spelling
+      uses: check-spelling/check-spelling@v0.0.20
+      with:
+        experimental_apply_changes_via_bot: ${{ github.repository_owner != 'lowlighter' && 1 || 0 }}
+        suppress_push_for_open_pull_request: 1
+        checkout: true
+        post_comment: 0
+        extra_dictionaries:
+          cspell:html/html.txt
+          cspell:filetypes/filetypes.txt
+          cspell:css/css.txt
+          cspell:fullstack/fullstack.txt
+          cspell:django/django.txt
+          cspell:npm/npm.txt
+          cspell:aws/aws.txt
+        check_extra_dictionaries: ''
+
+  comment:
+    name: Report
+    runs-on: ubuntu-latest
+    needs: spelling
+    permissions:
+      contents: write
+      pull-requests: write
+    if: (success() || failure()) && needs.spelling.outputs.followup
+    steps:
+    - name: comment
+      uses: check-spelling/check-spelling@v0.0.20
+      with:
+        checkout: true
+        task: ${{ needs.spelling.outputs.followup }}
+        experimental_apply_changes_via_bot: ${{ github.repository_owner != 'lowlighter' && 1 || 0 }}
+
+  update:
+    name: Update PR
+    permissions:
+      contents: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    if: ${{
+        github.repository_owner != 'lowlighter' &&
+        github.event_name == 'issue_comment' &&
+        github.event.issue.pull_request &&
+        contains(github.event.comment.body, '@check-spelling-bot apply')
+      }}
+    concurrency:
+      group: spelling-update-${{ github.event.issue.number }}
+      cancel-in-progress: false
+    steps:
+    - name: apply spelling updates
+      uses: check-spelling/check-spelling@v0.0.20
+      with:
+        experimental_apply_changes_via_bot: ${{ github.repository_owner != 'lowlighter' && 1 || 0 }}
+        checkout: true
+        ssh_key: "${{ secrets.CHECK_SPELLING }}"
