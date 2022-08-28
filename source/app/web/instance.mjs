@@ -176,11 +176,20 @@ export default async function({sandbox = false} = {}) {
   app.get("/.version", limiter, (req, res) => res.status(200).send(conf.package.version))
   app.get("/.requests", limiter, async (req, res) => {
     try {
-      const custom = uapi(req.headers["x-metrics-session"])
+      const session = req.headers["x-metrics-session"]
+      const custom = uapi(session)
       if (custom) {
+        try {
         const {data: {resources}} = await custom.rest.rateLimit.get()
         if (resources)
           return res.status(200).json({rest: resources.core, graphql: resources.graphql, search: resources.search, login: custom.login})
+        } catch (error) {
+          if (error.status === 401) {
+            console.debug(`metrics/app/oauth > session ${session.substring(0, 6)} is not valid anymore, removing it from cache`)
+            authenticated.delete(session)
+          }
+          throw error
+        }
       }
     }
     catch {} //eslint-disable-line no-empty

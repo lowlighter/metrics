@@ -22,6 +22,10 @@
         (async () => {
           const {data: requests} = await axios.get("/.requests")
           this.requests = requests
+          if (!requests.login) {
+            localStorage.removeItem("session.metrics")
+            delete axios.defaults.headers.common["x-metrics-session"]
+          }
         })(),
         //Templates
         (async () => {

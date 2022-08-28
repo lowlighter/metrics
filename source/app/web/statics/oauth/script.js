@@ -19,6 +19,10 @@
         (async () => {
           const {data: requests} = await axios.get("/.requests")
           this.requests = requests
+          if (!requests.login) {
+            localStorage.removeItem("session.metrics")
+            delete axios.defaults.headers.common["x-metrics-session"]
+          }
         })(),
         //Version
         (async () => {
@@ -79,7 +83,7 @@
           const storage = window.localStorage
           const test = "__storage_test__"
           storage.setItem(test, test)
-          if (localStorage.getItem(test) !== test)
+          if (storage.getItem(test) !== test)
             throw new Error("localStorage value mismatch")
           storage.removeItem(test)
           return true
