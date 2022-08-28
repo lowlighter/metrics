@@ -3,7 +3,7 @@ export default async function({login, imports, data, q, account}, {enabled = fal
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
-    if ((!enabled) || (!q.pagespeed) || (!imports.metadata.plugins.pagespeed.extras("enabled", {extras})))
+    if ((!q.pagespeed) || (!imports.metadata.plugins.pagespeed.enabled(enabled, {extras})))
       return null
 
     //Load inputs

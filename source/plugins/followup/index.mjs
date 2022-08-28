@@ -3,7 +3,7 @@ export default async function({login, data, computed, imports, q, graphql, queri
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
-    if ((!enabled) || (!q.followup) || (!imports.metadata.plugins.followup.extras("enabled", {extras})))
+    if ((!q.followup) || (!imports.metadata.plugins.followup.enabled(enabled, {extras})))
       return null
 
     //Load inputs

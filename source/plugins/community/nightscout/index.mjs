@@ -3,7 +3,7 @@ export default async function({q, imports, data, account}, {enabled = false, ext
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
-    if ((!enabled) || (!q.nightscout) || (!imports.metadata.plugins.nightscout.extras("enabled", {extras})))
+    if ((!q.nightscout) || (!imports.metadata.plugins.nightscout.enabled(enabled, {extras})))
       return null
 
     //Load inputs

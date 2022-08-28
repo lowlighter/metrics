@@ -3,7 +3,7 @@ export default async function({q, imports, data, account}, {enabled = false, tok
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
-    if ((!enabled) || (!q.poopmap) || (!imports.metadata.plugins.poopmap.extras("enabled", {extras})))
+    if ((!q.poopmap) || (!imports.metadata.plugins.poopmap.enabled(enabled, {extras})))
       return null
 
     if (!token)

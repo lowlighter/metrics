@@ -3,7 +3,7 @@ export default async function({login, data, queries, imports, q, account}, {enab
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
-    if ((!enabled) || (!q.anilist) || (!imports.metadata.plugins.anilist.extras("enabled", {extras})))
+    if ((!q.anilist) || (!imports.metadata.plugins.anilist.enabled(enabled, {extras})))
       return null
 
     //Load inputs

@@ -3,7 +3,7 @@ export default async function({login, graphql, data, imports, q, queries, accoun
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
-    if ((!enabled) || (!q.stargazers) || (!imports.metadata.plugins.stargazers.extras("enabled", {extras})))
+    if ((!q.stargazers) || (!imports.metadata.plugins.stargazers.enabled(enabled, {extras})))
       return null
 
     //Load inputs

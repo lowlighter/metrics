@@ -6,7 +6,7 @@ export default async function({login, data, rest, imports, q, account}, {enabled
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
-    if ((!enabled) || (!q.habits) || (!imports.metadata.plugins.habits.extras("enabled", {extras})))
+    if ((!q.habits) || (!imports.metadata.plugins.habits.enabled(enabled, {extras})))
       return null
 
     //Load inputs

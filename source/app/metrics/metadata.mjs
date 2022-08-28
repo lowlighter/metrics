@@ -217,9 +217,20 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
       Object.assign(meta.inputs, inputs, Object.fromEntries(Object.entries(inputs).map(([key, value]) => [metadata.to.query(key, {name}), value])))
     }
 
+    //Enable state handler
+    {
+      meta.enabled = function(enabled, {extras = {}, error = true} = {}) {
+        if ((process.env.GITHUB_ACTIONS)&&(!enabled))
+          console.warn(`::warning::Plugin "${name}" is currently disabled. Add "plugin_${name}: yes" to your workflow to enable it.`)
+        if ((error)&&(!enabled))
+          throw Object.assign(new Error(`Plugin "${name}" is disabled${process.env.GITHUB_ACTIONS ? "" : " on this server"}`), {enabled: true})
+        return (enabled) && (meta.extras("enabled", {extras, error}))
+      }
+    }
+
     //Extra features parser
     {
-      meta.extras = function(input, {extras = {}, error = true}) {
+      meta.extras = function(input, {extras = {}, error = true} = {}) {
         const key = metadata.to.yaml(input, {name})
         try {
           //Required permissions
@@ -270,7 +281,7 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
             console.debug(`metrics/extras > ${name} > ${key} > skipping (no error mode)`)
             return false
           }
-          throw Object.assign(new Error(`Unsupported option "${key}"`), {extras: true})
+          throw Object.assign(new Error(`Option "${key}" is disabled on this server`), {extras: true})
         }
       }
     }

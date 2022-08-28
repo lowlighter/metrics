@@ -59,7 +59,7 @@ export default async function({login, q}, {conf, data, rest, graphql, plugins, q
 
   //Plugins
   for (const name of Object.keys(imports.plugins)) {
-    if ((!plugins[name]?.enabled) || (!q[name]))
+    if (!q[name])
       continue
     pending.push((async () => {
       try {

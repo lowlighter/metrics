@@ -32,7 +32,7 @@ export default async function({login, imports, data, q, account}, {enabled = fal
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
-    if ((!enabled) || (!q.music) || (!imports.metadata.plugins.music.extras("enabled", {extras})))
+    if ((!q.music) || (!imports.metadata.plugins.music.enabled(enabled, {extras})))
       return null
 
     //Initialization

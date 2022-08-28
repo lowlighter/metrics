@@ -130,8 +130,8 @@ export function formatters({timeZone} = {}) {
   /**Error formatter */
   format.error = function(error, {descriptions = {}, ...attributes} = {}) {
     try {
-      //Extras features error
-      if (error.extras)
+      //Extras features or enable state error
+      if ((error.extras)||(error.enabled))
         throw {error: {message: error.message, instance: error}}
       //Already formatted error
       if (error.error?.message)

@@ -3,7 +3,7 @@ export default async function({login, data, imports, q, account}, {enabled = fal
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
-    if ((!enabled) || (!q.topics) || (!imports.metadata.plugins.topics.extras("enabled", {extras})))
+    if ((!q.topics) || (!imports.metadata.plugins.topics.enabled(enabled, {extras})))
       return null
 
     //Load inputs

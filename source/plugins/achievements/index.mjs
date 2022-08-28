@@ -6,7 +6,7 @@ export default async function({login, q, imports, data, computed, graphql, queri
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
-    if ((!enabled) || (!q.achievements) || (!imports.metadata.plugins.achievements.extras("enabled", {extras})))
+    if ((!q.achievements) || (!imports.metadata.plugins.achievements.enabled(enabled, {extras})))
       return null
 
     //Load inputs

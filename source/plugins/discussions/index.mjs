@@ -3,7 +3,7 @@ export default async function({login, q, imports, graphql, queries, data, accoun
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
-    if ((!enabled) || (!q.discussions) || (!imports.metadata.plugins.discussions.extras("enabled", {extras})))
+    if ((!q.discussions) || (!imports.metadata.plugins.discussions.enabled(enabled, {extras})))
       return null
 
     //Load inputs
