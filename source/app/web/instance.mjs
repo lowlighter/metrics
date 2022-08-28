@@ -180,9 +180,9 @@ export default async function({sandbox = false} = {}) {
       const custom = uapi(session)
       if (custom) {
         try {
-        const {data: {resources}} = await custom.rest.rateLimit.get()
-        if (resources)
-          return res.status(200).json({rest: resources.core, graphql: resources.graphql, search: resources.search, login: custom.login})
+          const {data: {resources}} = await custom.rest.rateLimit.get()
+          if (resources)
+            return res.status(200).json({rest: resources.core, graphql: resources.graphql, search: resources.search, login: custom.login})
         }
         catch (error) {
           if (error.status === 401) {
