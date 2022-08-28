@@ -51,6 +51,7 @@ WARRANTY, to the extent permitted by applicable law.
 
 Last generated: <%= meta.generated %>
 </div><% } -%>
+<% if (warnings.length) { %><div class="warnings"><%- warnings.map(({warning}) => `WARN: ${warning.message}`).join("<br/>") %></div><% } %><%# -%>
 <% for (const partial of [...partials]) { %><%- await include(`partials/${partial}.ejs`) %><% } -%>
 <% if (base.metadata) { -%>
 

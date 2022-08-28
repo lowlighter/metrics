@@ -62,6 +62,10 @@
   .banner, footer {
     color: #AE9DA7;
   }
+  .warnings {
+    color: #D79533;
+    white-space: normal;
+  }
 
 /* Isocalendar */
   .isocalendar svg {

@@ -4,7 +4,7 @@ import util from "util"
 import * as utils from "./utils.mjs"
 
 //Setup
-export default async function metrics({login, q}, {graphql, rest, plugins, conf, die = false, verify = false, convert = null, callbacks = null}, {Plugins, Templates}) {
+export default async function metrics({login, q}, {graphql, rest, plugins, conf, die = false, verify = false, convert = null, callbacks = null, warnings = []}, {Plugins, Templates}) {
   //Compute rendering
   try {
     //Debug
@@ -39,7 +39,7 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
         : null),
     }
     const extras = {css: imports.metadata.plugins.core.extras("extras_css", {...conf.settings, error: false}) ? q["extras.css"] ?? "" : "", js: imports.metadata.plugins.core.extras("extras_js", {...conf.settings, error: false}) ? q["extras.js"] ?? "" : ""}
-    const data = {q, animated: true, large: false, base: {}, config: {}, errors: [], plugins: {}, computed: {}, extras, postscripts: []}
+    const data = {q, animated: true, large: false, base: {}, config: {}, errors: [], warnings, plugins: {}, computed: {}, extras, postscripts: []}
     const experimental = new Set(decodeURIComponent(q["experimental.features"] ?? "").split(" ").map(x => x.trim().toLocaleLowerCase()).filter(x => x))
     if (conf.settings["debug.headless"])
       imports.puppeteer.headless = false
@@ -139,8 +139,14 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
           q.config_animations = false
         }
         q = Object.fromEntries([...Object.entries(q).map(([key, value]) => [key.replace(/^plugin_/, "").replace(/_/g, "."), value]), ["base", false]])
+        //Check users errors
+        const warnings = []
+        if ((!Object.keys(Plugins).filter(key => q[key]).length)&&(!parts.length))
+          warnings.push({warning:{message:"No plugin were selected"}})
+        const ineffective = Object.keys(q).filter(key => (key.includes(".")) && (key.split(".").at(0) !== "base") && (key.split(".").at(0) in Plugins)).filter(key => !q[key.split(".").at(0)])
+        warnings.push(...ineffective.map(key => ({warning:{message:`"${key}" has no effect because "${key.split(".").at(0)}: true" is not set`}})))
         //Compute rendering
-        const {rendered} = await metrics({login, q}, {...arguments[1], convert: ["svg", "png", "jpeg"].includes(q["config.output"]) ? q["config.output"] : null}, arguments[2])
+        const {rendered} = await metrics({login, q}, {...arguments[1], convert: ["svg", "png", "jpeg"].includes(q["config.output"]) ? q["config.output"] : null, warnings}, arguments[2])
         console.debug(`metrics/compute/${login}/embed > ${name} > success >>>>>>>>>>>>>>>>>>>>>>`)
         return `<img class="metrics-cacheable" data-name="${name}" src="data:image/${{png: "png", jpeg: "jpeg"}[q["config.output"]] ?? "svg+xml"};base64,${Buffer.from(rendered).toString("base64")}">`
       }

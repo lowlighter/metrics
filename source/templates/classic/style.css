@@ -103,6 +103,12 @@
   .field.error svg {
     fill: #cb2431;
   }
+  .field.warning {
+    color: #D79533;
+  }
+  .field.warning svg {
+    fill: #D79533;
+  }
 
 /* Displays */
   .row {
