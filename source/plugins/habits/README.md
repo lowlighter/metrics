@@ -59,6 +59,18 @@ All product and company names are trademarks™ or registered® trademarks of th
 <b>default:</b> 200<br></td>
   </tr>
   <tr>
+    <td nowrap="nowrap"><h4><code>plugin_habits_skipped</code></h4></td>
+    <td rowspan="2"><p>Skipped repositories</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">⏩ Inherits <code>repositories_skipped</code><br>
+✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br></td>
+  </tr>
+  <tr>
     <td nowrap="nowrap"><h4><code>plugin_habits_days</code></h4></td>
     <td rowspan="2"><p>Event maximum age</p>
 <img width="900" height="1" alt=""></td>
