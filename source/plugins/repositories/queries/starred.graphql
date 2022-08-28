@@ -5,6 +5,7 @@ query RepositoriesStarred {
       first: $limit
       privacy: PUBLIC
       $affiliations
+      $forks
     ) {
       nodes {
         nameWithOwner

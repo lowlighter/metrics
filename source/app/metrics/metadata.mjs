@@ -139,7 +139,7 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
             //Format value
             (defaulted => {
               //Default value
-              let value = q[metadata.to.query(key)] ?? q[key] ?? defaulted
+              let value = (meta.category !== "core" ? q[`plugin.${metadata.to.query(key)}`] : null) ?? q[metadata.to.query(key)] ?? q[key] ?? defaulted
               //Apply type conversion
               switch (type) {
                 //Booleans

@@ -69,6 +69,12 @@ inputs:
       - random
     default: featured, pinned, starred, random
 
+  plugin_repositories_forks:
+    description: |
+      Include repositories forks
+    type: boolean
+    default: no
+
   plugin_repositories_affiliations:
     description: |
       Repositories affiliations
