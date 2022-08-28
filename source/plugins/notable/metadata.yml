@@ -86,3 +86,9 @@ inputs:
       - commit
       - pull_request
       - issue
+
+  plugin_notable_self:
+    description: |
+      Include own repositories
+    type: boolean
+    default: no

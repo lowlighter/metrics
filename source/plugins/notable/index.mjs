@@ -7,7 +7,7 @@ export default async function({login, q, imports, rest, graphql, data, account, 
       return null
 
     //Load inputs
-    let {filter, skipped, repositories, types, from, indepth} = imports.metadata.plugins.notable.inputs({data, account, q})
+    let {filter, skipped, repositories, types, from, indepth, self} = imports.metadata.plugins.notable.inputs({data, account, q})
     skipped.push(...data.shared["repositories.skipped"])
 
     //Iterate through contributed repositories
@@ -17,7 +17,7 @@ export default async function({login, q, imports, rest, graphql, data, account, 
       let pushed = 0
       do {
         console.debug(`metrics/compute/${login}/plugins > notable > retrieving contributed repositories after ${cursor}`)
-        const {user: {repositoriesContributedTo: {edges}}} = await graphql(queries.notable.contributions({login, types: types.map(x => x.toLocaleUpperCase()).join(", "), after: cursor ? `after: "${cursor}"` : "", repositories: data.shared["repositories.batch"] || 100}))
+        const {user: {repositoriesContributedTo: {edges}}} = await graphql(queries.notable.contributions({login, types: types.map(x => x.toLocaleUpperCase()).join(", "), after: cursor ? `after: "${cursor}"` : "", self, repositories: data.shared["repositories.batch"] || 100}))
         cursor = edges?.[edges?.length - 1]?.cursor
         edges
           .filter(({node}) => !((skipped.includes(node.nameWithOwner.toLocaleLowerCase())) || (skipped.includes(node.nameWithOwner.split("/")[1].toLocaleLowerCase()))))
@@ -80,7 +80,7 @@ export default async function({login, q, imports, rest, graphql, data, account, 
 
           //Count total commits of user
           const {data: contributions = []} = await rest.repos.getContributorsStats({owner, repo})
-          const commits = contributions.filter(({author}) => author.login.toLocaleLowerCase() === login.toLocaleLowerCase()).reduce((a, {total: b}) => a + b, 0)
+          const commits = contributions?.filter(({author}) => author.login.toLocaleLowerCase() === login.toLocaleLowerCase()).reduce((a, {total: b}) => a + b, 0) ?? NaN
 
           //Save user data
           contribution.user = {
