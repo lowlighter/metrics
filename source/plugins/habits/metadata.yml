@@ -29,6 +29,15 @@ inputs:
     min: 1
     max: 1000
 
+  plugin_habits_skipped:
+    description: |
+      Skipped repositories
+    type: array
+    format: comma-separated
+    default: ""
+    example: my-repo-1, my-repo-2, owner/repo-3, ...
+    inherits: repositories_skipped
+
   plugin_habits_days:
     description: |
       Event maximum age

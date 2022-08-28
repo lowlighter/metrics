@@ -10,8 +10,9 @@ export default async function({login, data, rest, imports, q, account}, {enabled
       return null
 
     //Load inputs
-    let {from, days, facts, charts, "charts.type": _charts, trim, "languages.limit": limit, "languages.threshold": threshold} = imports.metadata.plugins.habits.inputs({data, account, q}, defaults)
+    let {from, days, facts, charts, "charts.type": _charts, trim, "languages.limit": limit, "languages.threshold": threshold, skipped = []} = imports.metadata.plugins.habits.inputs({data, account, q}, defaults)
     threshold = (Number(threshold.replace(/%$/, "")) || 0) / 100
+    skipped.push(...data.shared["repositories.skipped"])
 
     //Initialization
     const habits = {facts, charts, trim, lines: {average: {chars: 0}}, commits: {fetched: 0, hour: NaN, hours: {}, day: NaN, days: {}}, indents: {style: "", spaces: 0, tabs: 0}, linguist: {available: false, ordered: [], languages: {}}}
@@ -36,6 +37,7 @@ export default async function({login, data, rest, imports, q, account}, {enabled
     const commits = events
       .filter(({type}) => type === "PushEvent")
       .filter(({actor}) => account === "organization" ? true : actor.login?.toLocaleLowerCase() === login.toLocaleLowerCase())
+      .filter(({repo: {name: repo}}) => !((skipped.includes(repo.split("/").pop())) || (skipped.includes(repo))))
       .filter(({created_at}) => new Date(created_at) > new Date(Date.now() - days * 24 * 60 * 60 * 1000))
     console.debug(`metrics/compute/${login}/plugins > habits > filtered out ${commits.length} push events over last ${days} days`)
     habits.commits.fetched = commits.length
