@@ -42,6 +42,7 @@
       style,
       fonts,
       errors: [],
+      warnings: [],
       partials: new Set([...(set.config.order || "").split(",").map(x => x.trim()).filter(x => partials.includes(x)), ...partials]),
       //Plural helper
       s(value, end = "") {
