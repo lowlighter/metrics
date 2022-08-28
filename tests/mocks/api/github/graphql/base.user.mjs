@@ -4,7 +4,7 @@ export default function({faker, query, login = faker.internet.userName()}) {
   return ({
     user: {
       databaseId: faker.datatype.number(10000000),
-      name: faker.name.findName(),
+      name: faker.name.fullName(),
       login,
       createdAt: `${faker.date.past(10)}`,
       avatarUrl: faker.image.people(),

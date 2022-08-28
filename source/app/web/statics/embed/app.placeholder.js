@@ -520,7 +520,7 @@
                 return this.price - this.previous
               },
               symbol: options["stock.symbol"],
-              company: faker.company.companyName(),
+              company: faker.company.name(),
               interval: options["stock.interval"],
               duration: options["stock.duration"],
             },
@@ -1007,7 +1007,7 @@
                 }
               },
               characters: new Array(11).fill(null).map(_ => ({
-                name: faker.name.findName(),
+                name: faker.name.fullName(),
                 artwork: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
               })),
               sections: options["anilist.sections"].split(",").map(x => x.trim()).filter(x => x),

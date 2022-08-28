@@ -15,8 +15,8 @@ export default function({faker, url, options, login = faker.internet.userName()}
             symbol: "OCTO",
           },
           quoteType: {
-            shortName: faker.company.companyName(),
-            longName: faker.company.companyName(),
+            shortName: faker.company.name(),
+            longName: faker.company.name(),
             exchangeTimezoneName: faker.address.timeZone(),
             symbol: "OCTO",
           },

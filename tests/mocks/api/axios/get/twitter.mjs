@@ -11,7 +11,7 @@ export default function({faker, url, options, login = faker.internet.userName()}
         data: {
           data: {
             profile_image_url: faker.image.people(),
-            name: faker.name.findName(),
+            name: faker.name.fullName(),
             verified: faker.datatype.boolean(),
             id: faker.datatype.number(1000000).toString(),
             username,

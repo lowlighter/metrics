@@ -58,7 +58,7 @@ export default function({faker, url, body, login = faker.internet.userName()}) {
               favourites: {
                 characters: {
                   nodes: new Array(2 + faker.datatype.number(16)).fill(null).map(_ => ({
-                    name: {full: faker.name.findName(), native: faker.name.findName()},
+                    name: {full: faker.name.fullName(), native: faker.name.fullName()},
                     image: {medium: null},
                   })),
                   pageInfo: {currentPage: 1, hasNextPage: false},
