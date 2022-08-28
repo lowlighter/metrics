@@ -346,7 +346,7 @@
             <div class="loading" v-if="!loaded.includes('calendar')">Fetching data</div>
             <template v-else-if="(calendar)&&(calendar.years?.length > 1)">
               <p>
-                Below is the full commit history of <b>{{ user }}</b> between {{ calendar.years[0].year }} and {{ calendar.years[calendar.years.length-1].year }}.
+                Below is the full commit history of <b>{{ user }}</b> between {{ calendar.years[calendar.years.length-1].year }} and {{ calendar.years[0].year }}.
                 <small class="footnote">
                   Note that commits prior <b>{{ user }}</b>'s registration date on GitHub are not displayed.
                 </small>

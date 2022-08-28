@@ -117,6 +117,9 @@
   }
 
 /* Activity */
+  .activity {
+    max-width: 90vw;
+  }
   .activity > ul {
     padding: 0;
     margin: 0;
@@ -317,6 +320,7 @@
   .reactions {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
   }
 
   .reactions > div {
@@ -339,7 +343,7 @@
     flex-direction: column;
     width: 100%;
     margin: .5rem;
-    max-width: 416px;
+    max-width: 90vw;
     border-radius: .25rem;
     border: 1px solid var(--color-border-primary);
     padding: .5rem .5rem 0;
@@ -349,6 +353,9 @@
     display: flex;
     align-items: center;
     margin-bottom: .5rem;
+  }
+  .repository .field.infos {
+    flex-wrap: wrap;
   }
   .repository svg {
     fill: currentColor;
@@ -609,6 +616,9 @@
     }
     .search {
       width: 520px;
+    }
+    .repository {
+      max-width: 416px;
     }
   }
 
