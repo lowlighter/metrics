@@ -5,6 +5,7 @@ query RepositoriesRandom {
       first: 100
       privacy: PUBLIC
       $affiliations
+      $forks
     ) {
       nodes {
         nameWithOwner
