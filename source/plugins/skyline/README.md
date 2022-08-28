@@ -121,8 +121,7 @@ Using this mode significantly increase file size as each frame is encoded separa
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
-    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
-🌐 Web instances must configure <code>settings.json</code>:
+    <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code>:
 <ul>
 <li><i>metrics.run.puppeteer.user.js</i></li>
 </ul>

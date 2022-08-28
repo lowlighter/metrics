@@ -657,7 +657,6 @@ Leave empty to use default endpoint.</p>
   </tr>
   <tr>
     <td nowrap="nowrap">⏭️ Global option<br>
-✨ On <code>master</code>/<code>main</code><br>
 <b>type:</b> <code>string</code>
 <br></td>
   </tr>
@@ -670,7 +669,6 @@ Leave empty to use default endpoint.</p>
   </tr>
   <tr>
     <td nowrap="nowrap">⏭️ Global option<br>
-✨ On <code>master</code>/<code>main</code><br>
 <b>type:</b> <code>string</code>
 <br></td>
   </tr>
