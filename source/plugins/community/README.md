@@ -245,7 +245,7 @@ export default async function(
     //Plugin execution
     try {
       //Check if plugin is enabled and requirements are met
-      if ((!enabled)||(!q.my_plugin))
+      if ((!q.my_plugin)||(imports.metadata.plugins.my_plugin.enabled(enabled, {extras})))
         return null
 
       //Automatically validate user inputs

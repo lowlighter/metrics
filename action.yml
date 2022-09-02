@@ -439,6 +439,10 @@ inputs:
     description: Events to use
     default: <default-value>
 
+  plugin_habits_skipped:
+    description: Skipped repositories
+    default: <default-value>
+
   plugin_habits_days:
     description: Event maximum age
     default: <default-value>
@@ -656,6 +660,10 @@ inputs:
     description: Featured repositories display order
     default: <default-value>
 
+  plugin_repositories_forks:
+    description: Include repositories forks
+    default: <default-value>
+
   plugin_repositories_affiliations:
     description: Repositories affiliations
     default: <default-value>
@@ -781,6 +789,10 @@ inputs:
 
   plugin_notable_types:
     description: Contribution types filter
+    default: <default-value>
+
+  plugin_notable_self:
+    description: Include own repositories
     default: <default-value>
 
   # ====================================================================================
