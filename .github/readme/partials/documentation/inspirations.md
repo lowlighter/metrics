@@ -8,3 +8,4 @@
 * [vvo/sourcekarma](https://github.com/vvo/sourcekarma)
 * [ryo-ma/github-profile-trophy](https://github.com/ryo-ma/github-profile-trophy)
 * [teoxoy/profile-readme-stats](https://github.com/teoxoy/profile-readme-stats)
+* [dyatko/worldstar](https://github.com/dyatko/worldstar)
