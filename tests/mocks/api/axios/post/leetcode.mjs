@@ -57,7 +57,7 @@ export default function({faker, url, body, login = faker.internet.userName()}) {
         data: {
           data: {
             allQuestionsCount:[
-              {difficulty:"Easy", count:2402},
+              {difficulty:"All", count:2402},
               {difficulty:"Easy", count:592},
               {difficulty:"Medium", count:1283},
               {difficulty:"Hard", count:527},
@@ -70,7 +70,7 @@ export default function({faker, url, body, login = faker.internet.userName()}) {
               ],
               submitStatsGlobal:{
                 acSubmissionNum:[
-                  {difficulty:"Easy", count:faker.datatype.number(2402)},
+                  {difficulty:"All", count:faker.datatype.number(2402)},
                   {difficulty:"Easy", count:faker.datatype.number(592)},
                   {difficulty:"Medium", count:faker.datatype.number(1283)},
                   {difficulty:"Hard", count:faker.datatype.number(527)},
