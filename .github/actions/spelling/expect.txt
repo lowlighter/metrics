@@ -165,6 +165,8 @@ lastname
 leaderboard
 lecoq
 legoandmars
+leetcode
+LeetCode
 libgconf
 libssl
 libx
