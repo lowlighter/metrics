@@ -43,6 +43,6 @@ jobs:
         uses: actions/checkout@v2
       - name: Run script
         run: ./delete_workflows.sh lowlighter/metrics
-        working-directory: .github/workflows/maintenance
+        working-directory: .github/actions/ghcr-clean
         env:
           GITHUB_TOKEN: ${{ github.token }}

@@ -16,6 +16,6 @@ jobs:
         uses: actions/checkout@v2
       - name: Run script
         run: ./delete_ghcr_dangling_images.sh lowlighter metrics
-        working-directory: .github/workflows/maintenance
+        working-directory: .github/actions/ghcr-clean
         env:
           GITHUB_TOKEN: ${{ secrets.GHCR_BOT_TOKEN }}
