@@ -51,7 +51,7 @@
     "file-type": "^18.0.0",
     "js-yaml": "^4.1.0",
     "linguist-js": "^2.5.2",
-    "marked": "^4.0.19",
+    "marked": "^4.1.0",
     "memory-cache": "^0.2.0",
     "minimatch": "^5.1.0",
     "node-fetch": "^3.2.10",
