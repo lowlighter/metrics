@@ -12,6 +12,8 @@ on:
         required: true
       METRICS_TOKEN_PERSONAL:
         required: true
+      CHESS_TOKEN:
+        required: true
       PAGESPEED_TOKEN:
         required: true
       GOOGLE_MAP_TOKEN:
