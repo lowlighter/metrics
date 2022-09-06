@@ -12,6 +12,8 @@ on:
         required: true
       METRICS_TOKEN_PERSONAL:
         required: true
+      CHESS_TOKEN:
+        required: true
       PAGESPEED_TOKEN:
         required: true
       GOOGLE_MAP_TOKEN:
@@ -1086,6 +1088,33 @@ jobs:
           plugin_wakatime_sections: time, projects, projects-graphs, languages, languages-graphs, editors, os
           plugin_wakatime_token: MOCKED_TOKEN
           use_mocked_data: yes
+          output_action: none
+          delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
+        if: ${{ success() || failure() }}
+      - name: 🗳️ Leetcode - LeetCode
+        uses: lowlighter/metrics@master
+        with:
+          filename: metrics.plugin.leetcode.svg
+          token: NOT_NEEDED
+          base: ""
+          plugin_leetcode: yes
+          plugin_leetcode_sections: solved, skills, recent
+          output_action: none
+          delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
+        if: ${{ success() || failure() }}
+      - name: ♟️ Chess - Last chess game from lichess.org
+        uses: lowlighter/metrics@master
+        with:
+          filename: metrics.plugin.chess.svg
+          token: NOT_NEEDED
+          base: ""
+          plugin_chess: yes
+          plugin_chess_token: ${{ secrets.CHESS_TOKEN }}
+          plugin_chess_platform: lichess.org
           output_action: none
           delay: 120
           user: lowlighter
