@@ -13,7 +13,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
     const {user, platform, animation} = imports.metadata.plugins.chess.inputs({data, account, q})
     for (const [key, defaulted] of Object.entries({size:40, delay:1, duration:4})) {
       if (Number.isNaN(Number(animation[key])))
-        animation[key] = value
+        animation[key] = defaulted
       if (animation[key] < 0)
         animation[key] = defaulted
     }
@@ -36,7 +36,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
     board.loadPgn(pgn)
     const moves = board.history({verbose: true})
     const meta = board.header()
-    const result = Object.fromEntries(meta["Result"].split("-").map((score, i) => [i ? "black" : "white" , Number(score)]))
+    const result = Object.fromEntries(meta.Result.split("-").map((score, i) => [i ? "black" : "white", Number(score)]))
 
     //Results
     return {platform, meta, moves, animation, result}
