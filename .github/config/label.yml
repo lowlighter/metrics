@@ -44,6 +44,8 @@
   - source/plugins/isocalendar/**
 🈷️ plugin languages:
   - source/plugins/languages/**
+🗳️ plugin leetcode:
+  - source/plugins/leetcode/**
 📜 plugin licenses:
   - source/plugins/licenses/**
 👨‍💻 plugin lines:
