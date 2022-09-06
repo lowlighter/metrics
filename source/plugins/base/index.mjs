@@ -14,7 +14,7 @@ export default async function({login, graphql, rest, data, q, queries, imports, 
   console.debug(`metrics/compute/${login}/base > affiliations constraints ${affiliations}`)
 
   //Skip initial data gathering if not needed
-  if ((conf.settings.notoken)||(skip)) {
+  if ((conf.settings.notoken) || (skip)) {
     await callbacks?.plugin?.(login, "base", true, data).catch(error => console.debug(`metrics/compute/${login}/plugins/callbacks > base > ${error}`))
     return (postprocess.skip({login, data, imports}), {})
   }
