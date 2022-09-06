@@ -1,0 +1,194 @@
+<% if (plugins.chess) { %>
+  <section>
+    <h2 class="field">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M1.5 3.25c0-.966.784-1.75 1.75-1.75h2.5c.966 0 1.75.784 1.75 1.75v2.5A1.75 1.75 0 015.75 7.5h-2.5A1.75 1.75 0 011.5 5.75v-2.5zM3.25 3a.25.25 0 00-.25.25v2.5c0 .138.112.25.25.25h2.5A.25.25 0 006 5.75v-2.5A.25.25 0 005.75 3h-2.5zM1.5 10.25c0-.966.784-1.75 1.75-1.75h2.5c.966 0 1.75.784 1.75 1.75v2.5a1.75 1.75 0 01-1.75 1.75h-2.5a1.75 1.75 0 01-1.75-1.75v-2.5zM3.25 10a.25.25 0 00-.25.25v2.5c0 .138.112.25.25.25h2.5a.25.25 0 00.25-.25v-2.5a.25.25 0 00-.25-.25h-2.5zM8.5 3.25c0-.966.784-1.75 1.75-1.75h2.5c.966 0 1.75.784 1.75 1.75v2.5a1.75 1.75 0 01-1.75 1.75h-2.5A1.75 1.75 0 018.5 5.75v-2.5zM10.25 3a.25.25 0 00-.25.25v2.5c0 .138.112.25.25.25h2.5a.25.25 0 00.25-.25v-2.5a.25.25 0 00-.25-.25h-2.5zM8.5 10.25c0-.966.784-1.75 1.75-1.75h2.5c.966 0 1.75.784 1.75 1.75v2.5a1.75 1.75 0 01-1.75 1.75h-2.5a1.75 1.75 0 01-1.75-1.75v-2.5zm1.75-.25a.25.25 0 00-.25.25v2.5c0 .138.112.25.25.25h2.5a.25.25 0 00.25-.25v-2.5a.25.25 0 00-.25-.25h-2.5z"></path></svg>
+      Last chess game
+    </h2>
+    <% if (plugins.chess.error) { %>
+      <div class="row">
+        <section>
+          <div class="field error">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M2.343 13.657A8 8 0 1113.657 2.343 8 8 0 012.343 13.657zM6.03 4.97a.75.75 0 00-1.06 1.06L6.94 8 4.97 9.97a.75.75 0 101.06 1.06L8 9.06l1.97 1.97a.75.75 0 101.06-1.06L9.06 8l1.97-1.97a.75.75 0 10-1.06-1.06L8 6.94 6.03 4.97z"></path></svg>
+            <%= plugins.chess.error.message %>
+          </div>
+        </section>
+      </div>
+    <% } else { %>
+      <div class="row largeable-align-start">
+        <section class="largeable-column-fields">
+          <div class="field">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M2.002 2.725a.75.75 0 01.797-.699C8.79 2.42 13.58 7.21 13.974 13.201a.75.75 0 11-1.497.098 10.502 10.502 0 00-9.776-9.776.75.75 0 01-.7-.798zM2 13a1 1 0 112 0 1 1 0 01-2 0zm.84-5.95a.75.75 0 00-.179 1.489c2.509.3 4.5 2.291 4.8 4.8a.75.75 0 101.49-.178A7.003 7.003 0 002.838 7.05z"></path></svg>
+            From <%= plugins.chess.platform %>
+          </div>
+          <div class="field">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M10.5 5a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zm.061 3.073a4 4 0 10-5.123 0 6.004 6.004 0 00-3.431 5.142.75.75 0 001.498.07 4.5 4.5 0 018.99 0 .75.75 0 101.498-.07 6.005 6.005 0 00-3.432-5.142z"></path></svg>
+            <%= plugins.chess.meta["White"] %> <% if (plugins.chess.meta["WhiteElo"]) { %>(<%= plugins.chess.meta["WhiteElo"] %> ELO)<% } %>
+          </div>
+          <div class="field">
+            <% if (plugins.chess.result.white > plugins.chess.result.black) { %>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M3.217 6.962A3.75 3.75 0 010 3.25v-.5C0 1.784.784 1 1.75 1h1.356c.228-.585.796-1 1.462-1h6.864a1.57 1.57 0 011.462 1h1.356c.966 0 1.75.784 1.75 1.75v.5a3.75 3.75 0 01-3.217 3.712 5.014 5.014 0 01-2.771 3.117l.144 1.446c.005.05.03.12.114.204.086.087.217.17.373.227.283.103.618.274.89.568.285.31.467.723.467 1.226v.75h1.25a.75.75 0 110 1.5H2.75a.75.75 0 010-1.5H4v-.75c0-.503.182-.916.468-1.226.27-.294.606-.465.889-.568a1.03 1.03 0 00.373-.227c.084-.085.109-.153.114-.204l.144-1.446a5.014 5.014 0 01-2.77-3.117zM3 2.5H1.75a.25.25 0 00-.25.25v.5c0 .98.626 1.813 1.5 2.122V2.5zm4.457 7.97l-.12 1.204c-.093.925-.858 1.47-1.467 1.691a.764.764 0 00-.3.176c-.037.04-.07.093-.07.21v.75h5v-.75c0-.117-.033-.17-.07-.21a.763.763 0 00-.3-.176c-.609-.221-1.374-.766-1.466-1.69l-.12-1.204a5.052 5.052 0 01-1.087 0zM13 5.373V2.5h1.25a.25.25 0 01.25.25v.5A2.25 2.25 0 0113 5.372zM4.5 1.568c0-.037.03-.068.068-.068h6.864c.037 0 .068.03.068.068V5.5a3.5 3.5 0 11-7 0V1.568z"></path></svg>
+            <% } else { %>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M8 5.5a2.5 2.5 0 100 5 2.5 2.5 0 000-5zM4 8a4 4 0 118 0 4 4 0 01-8 0z"></path></svg>
+            <% } %>
+            <%= plugins.chess.result.white %> victor<%= s(plugins.chess.result.white, "y") %>
+          </div>
+        </section>
+        <section class="largeable-column-fields">
+          <div class="field">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M4.75 0a.75.75 0 01.75.75V2h5V.75a.75.75 0 011.5 0V2h1.25c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0113.25 16H2.75A1.75 1.75 0 011 14.25V3.75C1 2.784 1.784 2 2.75 2H4V.75A.75.75 0 014.75 0zm0 3.5h8.5a.25.25 0 01.25.25V6h-11V3.75a.25.25 0 01.25-.25h2zm-2.25 4v6.75c0 .138.112.25.25.25h10.5a.25.25 0 00.25-.25V7.5h-11z"></path></svg>
+            <%= plugins.chess.meta["Date"] %>
+          </div>
+          <div class="field">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M4.243 4.757a3.757 3.757 0 115.851 3.119 6.006 6.006 0 013.9 5.339.75.75 0 01-.715.784H2.721a.75.75 0 01-.714-.784 6.006 6.006 0 013.9-5.34 3.753 3.753 0 01-1.664-3.118z"></path></svg>
+            <%= plugins.chess.meta["Black"] %> <% if (plugins.chess.meta["BlackElo"]) { %>(<%= plugins.chess.meta["BlackElo"] %> ELO)<% } %>
+          </div>
+          <div class="field">
+            <% if (plugins.chess.result.black > plugins.chess.result.white) { %>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M3.217 6.962A3.75 3.75 0 010 3.25v-.5C0 1.784.784 1 1.75 1h1.356c.228-.585.796-1 1.462-1h6.864a1.57 1.57 0 011.462 1h1.356c.966 0 1.75.784 1.75 1.75v.5a3.75 3.75 0 01-3.217 3.712 5.014 5.014 0 01-2.771 3.117l.144 1.446c.005.05.03.12.114.204.086.087.217.17.373.227.283.103.618.274.89.568.285.31.467.723.467 1.226v.75h1.25a.75.75 0 110 1.5H2.75a.75.75 0 010-1.5H4v-.75c0-.503.182-.916.468-1.226.27-.294.606-.465.889-.568a1.03 1.03 0 00.373-.227c.084-.085.109-.153.114-.204l.144-1.446a5.014 5.014 0 01-2.77-3.117zM3 2.5H1.75a.25.25 0 00-.25.25v.5c0 .98.626 1.813 1.5 2.122V2.5zm4.457 7.97l-.12 1.204c-.093.925-.858 1.47-1.467 1.691a.764.764 0 00-.3.176c-.037.04-.07.093-.07.21v.75h5v-.75c0-.117-.033-.17-.07-.21a.763.763 0 00-.3-.176c-.609-.221-1.374-.766-1.466-1.69l-.12-1.204a5.052 5.052 0 01-1.087 0zM13 5.373V2.5h1.25a.25.25 0 01.25.25v.5A2.25 2.25 0 0113 5.372zM4.5 1.568c0-.037.03-.068.068-.068h6.864c.037 0 .068.03.068.068V5.5a3.5 3.5 0 11-7 0V1.568z"></path></svg>
+            <% } else { %>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8z"></path></svg>
+            <% } %>
+            <%= plugins.chess.result.black %> victor<%= s(plugins.chess.result.black, "y") %>
+          </div>
+        </section>
+      </div>
+
+      <div class="chess-board">
+        <% {
+            //Utilities functions
+            const pieces = {
+              w: {p: "♙", r: "♖", n: "♘", b: "♗", q: "♕", k: "♔"},
+              b: {p: "♟&#xFE0E;", r: "♜", n: "♞", b: "♝", q: "♛", k: "♚"},
+            }
+            const init = ["rnbqkbnr", "pppppppp", "", "", "", "", "PPPPPPPP", "RNBQKBNR"]
+            const column = p => ["a", "b", "c", "d", "e", "f", "g", "h"].indexOf(p[0])
+            const row = p => ["8", "7", "6", "5", "4", "3", "2", "1"].indexOf(p[1])
+            const animation = plugins.chess.animation
+            const size = animation.size
+
+            //Empty board
+            for (let i = 0; i < 8; i++) { %>
+              <div class="chess-row">
+                <% for (let j = 0; j < 8; j++) { %>
+                  <div class="chess-square <%= (i + j) % 2 ? 'black' : 'white' %>"></div>
+                <% } %>
+              </div>
+        <%  }
+
+            //Initial board state
+            for (let i = 0; i < init.length; i++) { for (let j = 0; j < init[i].length; j++) {
+              const color = /[A-Z]/.test(init[i][j]) ? "w" : "b", piece = init[i][j].toLocaleLowerCase() %>
+              <div class="chess-move">
+                <div class="init" style="left: <%= j*size %>px; top: <%= i*size %>px;"><%- pieces[color][piece] %></div>
+              </div>
+        <%  }}
+
+            //Draw moves
+            const moves = plugins.chess.moves
+            for (let i = 0; i < moves.length; i++) { const {color, piece, from, to} = moves[i] %>
+              <div class="chess-move chess-move-<%= i %>">
+                <div class="from" style="left: <%= column(from)*size %>px; top: <%= row(from)*size %>px;"><%- pieces[color][piece] %></div>
+                <div class="to" style="left: <%= column(from)*size %>px; top: <%= row(from)*size %>px;"><%- pieces[color][piece] %></div>
+                <style>
+                  @keyframes chess-move-<%= i %>-from {
+                    100% {
+                      opacity: 1;
+                      color: transparent;
+                      background-color: <%= (row(from)+column(from))%2 ? "#C5A076" : "#ECDAB9" %>;
+                    }
+                  }
+                  .chess-move-<%= i %> .from {
+                    animation-name: chess-move-<%= i %>-from;
+                    animation-delay: <%= i * animation.duration + animation.delay %>s;
+                  }
+
+                  @keyframes chess-move-<%= i %>-to {
+                    1% {
+                      opacity: 1;
+                    }
+                    99% {
+                      background-color: transparent;
+                    }
+                    100% {
+                      opacity: 1;
+                      background-color: <%= (row(to)+column(to))%2 ? "#C5A076" : "#ECDAB9" %>;
+                      left: <%= column(to)*size %>px;
+                      top: <%= row(to)*size %>px;
+                    }
+                  }
+                  .chess-move-<%= i %> .to {
+                    animation-name: chess-move-<%= i %>-to;
+                    animation-delay: <%= i * animation.duration + animation.delay %>s;
+                  }
+                </style>
+              </div>
+        <%  } %>
+          <style>
+            .chess-board {
+              width: <%= 8*size %>px;
+              height: <%= 8*size %>px;
+              position: relative;
+              margin: 6px auto 0;
+            }
+            .chess-square, .chess-move .from, .chess-move .to, .chess-move .init {
+              width: <%= size %>px;
+              height: <%= size %>px;
+              float: left;
+            }
+            .chess-square.white {
+              background-color: #ECDAB9;
+            }
+            .chess-square.black {
+              background-color: #C5A076;
+            }
+            .chess-clock {
+              width: <%= 8*size %>px;
+              height: 4px;
+              margin: auto;
+              background-color: #58A6FF40;
+              margin-bottom: 6px;
+            }
+            .chess-clock .chess-time {
+              width: 0%;
+              height: 100%;
+              background-color: #58A6FF;
+              animation-fill-mode: forwards;
+              animation-name: chess-clock;
+              animation-delay: <%= animation.delay %>s;
+              animation-duration: <%= moves.length*animation.duration %>s;
+              animation-timing-function: linear;
+            }
+            @keyframes chess-clock {
+              100% {
+                width: 100%;
+              }
+            }
+            .chess-move {
+              position: absolute;
+              top: 0;
+              left: 0;
+            }
+            .chess-move .from, .chess-move .to, .chess-move .init {
+              position: absolute;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: <%= 0.8*size %>px;
+              animation-fill-mode: forwards;
+              opacity: 0;
+            }
+            .chess-move .init {
+              opacity: 1;
+            }
+            .chess-move .to {
+              animation-duration: <%= animation.duration %>s;
+            }
+          </style>
+        <% } %>
+      </div>
+      <div class="chess-clock">
+        <div class="chess-time"></div>
+      </div>
+    <% } %>
+  </section>
+<% } %>

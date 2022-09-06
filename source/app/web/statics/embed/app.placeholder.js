@@ -1043,6 +1043,30 @@
             },
           })
           : null),
+        //Chess
+          ...(set.plugins.enabled.chess
+          ? ({
+            chess: {
+              platform: options["chess.platform"] || "(chess platform)",
+              meta: {
+                Event: "Casual Correspondence game",
+                Date: faker.date.recent().toISOString().substring(0, 10),
+                White: options["chess.user"],
+                Black: faker.internet.userName(),
+                WhiteElo: faker.datatype.number(3000),
+                BlackElo: faker.datatype.number(3000),
+              },
+              animation: { size: 40, delay: 3, duration: 0.6 },
+              result: { white: faker.datatype.number(3), get black() { return this.white + faker.helpers.arrayElement([-1, +1])  } },
+              moves: [
+                {color: "w", piece: "p", from: "f2", to: "f4", san: "f4", flags: "b"},
+                {color: "b", piece: "p", from: "c7", to: "c5", san: "c5", flags: "b"},
+                {color: "w", piece: "p", from: "e2", to: "e4", san: "e4", flags: "b"},
+                {color: "b", piece: "p", from: "d7", to: "d6", san: "d6", flags: "n"},
+              ]
+            },
+          })
+          : null),
         //Activity
         ...(set.plugins.enabled.activity
           ? ({
