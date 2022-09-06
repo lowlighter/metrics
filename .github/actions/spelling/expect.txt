@@ -164,9 +164,9 @@ lastfm
 lastname
 leaderboard
 lecoq
-legoandmars
-leetcode
 LeetCode
+leetcode
+legoandmars
 libgconf
 libssl
 libx

@@ -94,3 +94,4 @@ place_id: ".*"
 # Chess patterns
 \brnbqkbnr\b
 \bRNBQKBNR\b
+\bpgn\b
