@@ -11,7 +11,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
 
     //Load inputs
     const {user, platform, animation} = imports.metadata.plugins.chess.inputs({data, account, q})
-    for (const [key, defaulted] of Object.entries({size:40, delay:1, duration:4})) {
+    for (const [key, defaulted] of Object.entries({size: 40, delay: 1, duration: 4})) {
       if (Number.isNaN(Number(animation[key])))
         animation[key] = defaulted
       if (animation[key] < 0)
