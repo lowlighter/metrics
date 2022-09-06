@@ -20,10 +20,10 @@ export default async function({login, q, imports, data, account}, {enabled = fal
 
     //Fetch PGN
     console.debug(`metrics/compute/${login}/plugins > chess > fetching last game from ${platform}`)
-    let pgn
+    let PGN
     switch (platform) {
       case "lichess.org":
-        pgn = (await imports.axios.get(`https://lichess.org/api/games/user/${user}?max=1`, {headers: {Authorization: `Bearer ${token}`}})).data
+        PGN = (await imports.axios.get(`https://lichess.org/api/games/user/${user}?max=1`, {headers: {Authorization: `Bearer ${token}`}})).data
         break
       case "":
         throw {error: {message: "Unspecified platform"}}
@@ -33,7 +33,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
 
     //Parse PGN
     const board = new Chess()
-    board.loadPgn(pgn)
+    board.loadPgn(PGN)
     const moves = board.history({verbose: true})
     const meta = board.header()
     const result = Object.fromEntries(meta.Result.split("-").map((score, i) => [i ? "black" : "white", Number(score)]))

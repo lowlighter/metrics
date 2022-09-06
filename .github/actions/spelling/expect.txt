@@ -239,7 +239,6 @@ pdated
 pened
 PGN
 Pgn
-pgn
 PGP
 playcount
 playlists
