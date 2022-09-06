@@ -56,6 +56,15 @@ inputs:
     type: boolean
     default: no
 
+  base_skip:
+    description: |
+      Skip base content
+
+      > ⚠️ Any plugin that relies on base content data may break!
+      > Only use this option when using a plugin that can be configured with `token: NOT_NEEDED`
+    type: boolean
+    default: no
+
   repositories:
     description: |
       Fetched repositories
