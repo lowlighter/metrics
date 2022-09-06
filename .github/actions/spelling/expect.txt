@@ -164,7 +164,6 @@ lastfm
 lastname
 leaderboard
 lecoq
-LeetCode
 leetcode
 legoandmars
 libgconf
@@ -237,7 +236,6 @@ params
 patchnote
 pdated
 pened
-PGN
 Pgn
 PGP
 playcount

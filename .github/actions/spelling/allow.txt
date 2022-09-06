@@ -1,4 +1,6 @@
 github
 https
+leetcode
+pgn
 ssh
 ubuntu
