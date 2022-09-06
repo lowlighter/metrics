@@ -429,6 +429,12 @@
     text-anchor: middle;
     font-weight: 600;
   }
+  .gauge text.secondary {
+    fill: currentColor;
+    font-size: 25px;
+    font-family: monospace;
+    text-anchor: middle;
+  }
   .gauge .title {
     font-size: 18px;
     color: #777777;
@@ -1334,6 +1340,40 @@
     border-radius: 10px;
     background-color: #030D21;
     overflow: hidden;
+  }
+
+/* LeetCode */
+  .leetcode.subsection {
+    padding-left: 28px;
+  }
+  .leetcode .topics {
+    margin-left: 20px;
+  }
+  .leetcode .count {
+    font-size: 10px;
+    color: #666666;
+  }
+  .leetcode .fundamental .dot, .leetcode .easy.gauge .gauge-arc {
+    color: #2CBB5D;
+  }
+  .leetcode .intermediate .dot, .leetcode .medium.gauge .gauge-arc {
+    color: #FFC01E;
+  }
+  .leetcode .advanced .dot, .leetcode .hard.gauge .gauge-arc {
+    color: #EF4743;
+  }
+  .leetcode .all.gauge .gauge-arc {
+    color: rgb(255, 161, 22);
+  }
+  .leetcode {
+    align-items: flex-start;
+  }
+  .leetcode .infos {
+    margin-bottom: 3px;
+  }
+  .leetcode .infos .date {
+    font-size: 10px;
+    color: #666666;
   }
 
 /* Code snippet */

@@ -1015,6 +1015,34 @@
             },
           })
           : null),
+        //LeetCode
+        ...(set.plugins.enabled.leetcode
+          ? ({
+            leetcode: {
+              user: options["leetcode.user"],
+              sections: options["leetcode.sections"].split(",").map(x => x.trim()).filter(x => x),
+              languages: new Array(6).fill(null).map(_ => ({
+                language:faker.hacker.noun(),
+                solved:faker.datatype.number(200)
+              })),
+              skills: new Array(Number(options["leetcode.limit.skills"]) || 10).fill(null).map(_ => ({
+                name:faker.hacker.noun(),
+                category:faker.helpers.arrayElement(["advanced", "intermediate", "fundamental"]),
+                solved:faker.datatype.number(30)
+              })),
+              problems: {
+                All: { count: 2402, solved: faker.datatype.number(2402) },
+                Easy: { count: 592, solved: faker.datatype.number(592) },
+                Medium: { count: 1283, solved: faker.datatype.number(1283) },
+                Hard: { count: 527, solved: faker.datatype.number(527) }
+              },
+              recent: new Array(Number(options["leetcode.limit.recent"]) || 2).fill(null).map(_ => ({
+                title:faker.lorem.sentence(),
+                date:faker.date.recent(),
+              })),
+            },
+          })
+          : null),
         //Activity
         ...(set.plugins.enabled.activity
           ? ({
