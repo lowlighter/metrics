@@ -1,0 +1,59 @@
+name: 🗳️ Leetcode
+category: social
+description: |
+  This plugin displays statistics from a [LeetCode](https://leetcode.com) account.
+disclaimer: |
+  This plugin is not affiliated, associated, authorized, endorsed by, or in any way officially connected with [LeetCode](https://leetcode.com).
+  All product and company names are trademarks™ or registered® trademarks of their respective holders.
+examples:
+  default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.leetcode.svg
+index: 9
+supports:
+  - user
+scopes: []
+inputs:
+
+  plugin_leetcode:
+    description: |
+      Enable leetcode plugin
+    type: boolean
+    default: no
+
+  plugin_leetcode_user:
+    type: string
+    description: |
+      LeetCode login
+    default: .user.login
+    preset: no
+
+  plugin_leetcode_sections:
+    description: |
+      Displayed sections
+
+      - `solved` will display solved problems scores
+      - `skills` will display solved problems tagged skills
+      - `recent` will display recent submissions
+    type: array
+    format: comma-separated
+    default: solved
+    example: solved, skills, recent
+    values:
+      - solved
+      - skills
+      - recent
+
+  plugin_leetcode_limit_skills:
+    description: |
+      Display limit (skills)
+    type: number
+    default: 10
+    min: 0
+    zero: disable
+
+  plugin_leetcode_limit_recent:
+    description: |
+      Display limit (recent)
+    type: number
+    default: 2
+    min: 1
+    max: 15
