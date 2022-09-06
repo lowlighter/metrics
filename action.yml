@@ -18,6 +18,10 @@ inputs:
     description: Show `Available for hire!` in header section
     default: <default-value>
 
+  base_skip:
+    description: Skip base content
+    default: <default-value>
+
   repositories:
     description: Fetched repositories
     default: <default-value>
@@ -1170,6 +1174,52 @@ inputs:
 
   plugin_wakatime_repositories_visibility:
     description: Repositories visibility
+    default: <default-value>
+
+  # ====================================================================================
+  # 🗳️ Leetcode
+
+  plugin_leetcode:
+    description: Enable leetcode plugin
+    default: <default-value>
+
+  plugin_leetcode_user:
+    description: LeetCode login
+    default: <default-value>
+
+  plugin_leetcode_sections:
+    description: Displayed sections
+    default: <default-value>
+
+  plugin_leetcode_limit_skills:
+    description: Display limit (skills)
+    default: <default-value>
+
+  plugin_leetcode_limit_recent:
+    description: Display limit (recent)
+    default: <default-value>
+
+  # ====================================================================================
+  # ♟️ Chess
+
+  plugin_chess:
+    description: Enable chess plugin
+    default: <default-value>
+
+  plugin_chess_token:
+    description: Chess platform token
+    default: <default-value>
+
+  plugin_chess_user:
+    description: AniList login
+    default: <default-value>
+
+  plugin_chess_platform:
+    description: Chess platform
+    default: <default-value>
+
+  plugin_chess_animation:
+    description: Animation settings
     default: <default-value>
 
   # ====================================================================================

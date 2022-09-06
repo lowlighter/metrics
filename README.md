@@ -19,7 +19,7 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
   </tr>
   <tr>
     <th colspan="2" align="center">
-      <h3><a href="/README.md#-plugins">🧩 Customizable with 40 plugins and 285 options!</a></h3>
+      <h3><a href="/README.md#-plugins">🧩 Customizable with 42 plugins and 296 options!</a></h3>
     </th>
   </tr>
   <tr>
@@ -290,6 +290,17 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
       </td>
   </tr>
   <tr>
+    <th><a href="source/plugins/leetcode/README.md">🗳️ Leetcode</a></th>
+    <th></th>
+  </tr>
+  <tr>
+        <td  align="center">
+        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.leetcode.svg" alt=""></img>
+        <img width="900" height="1" alt="">
+      </td>
+    <td align="center"><img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
     <th colspan="2" align="center">
       <a href="/source/plugins/community/README.md">🎲 See also community plugins</a>
     </th>
@@ -438,6 +449,7 @@ Plugins provide additional content and lets you customize rendered metrics.
   * [🧮 Repositories traffic <sub>`traffic`</sub>](/source/plugins/traffic/README.md)
 * **Social plugins**
   * [🌸 Anilist watch list and reading list <sub>`anilist`</sub>](/source/plugins/anilist/README.md)
+  * [🗳️ Leetcode <sub>`leetcode`</sub>](/source/plugins/leetcode/README.md)
   * [🎼 Music activity and suggestions <sub>`music`</sub>](/source/plugins/music/README.md)
   * [⏱️ Google PageSpeed <sub>`pagespeed`</sub>](/source/plugins/pagespeed/README.md)
   * [✒️ Recent posts <sub>`posts`</sub>](/source/plugins/posts/README.md)
@@ -448,6 +460,7 @@ Plugins provide additional content and lets you customize rendered metrics.
 
 **🎲 Maintained by community**
 * **[Community plugins](/source/plugins/community/README.md)**
+  * [♟️ Chess <sub>`chess`</sub>](/source/plugins/community/chess/README.md) by [@lowlighter](https://github.com/lowlighter)
   * [🥠 Fortune <sub>`fortune`</sub>](/source/plugins/community/fortune/README.md) by [@lowlighter](https://github.com/lowlighter)
   * [💉 Nightscout <sub>`nightscout`</sub>](/source/plugins/community/nightscout/README.md) by [@legoandmars](https://github.com/legoandmars)
   * [💩 PoopMap plugin <sub>`poopmap`</sub>](/source/plugins/community/poopmap/README.md) by [@matievisthekat](https://github.com/matievisthekat)

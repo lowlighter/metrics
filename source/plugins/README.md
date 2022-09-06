@@ -37,6 +37,7 @@ Plugins provide additional content and lets you customize rendered metrics.
   * [🧮 Repositories traffic <sub>`traffic`</sub>](/source/plugins/traffic/README.md)
 * **Social plugins**
   * [🌸 Anilist watch list and reading list <sub>`anilist`</sub>](/source/plugins/anilist/README.md)
+  * [🗳️ Leetcode <sub>`leetcode`</sub>](/source/plugins/leetcode/README.md)
   * [🎼 Music activity and suggestions <sub>`music`</sub>](/source/plugins/music/README.md)
   * [⏱️ Google PageSpeed <sub>`pagespeed`</sub>](/source/plugins/pagespeed/README.md)
   * [✒️ Recent posts <sub>`posts`</sub>](/source/plugins/posts/README.md)
@@ -47,6 +48,7 @@ Plugins provide additional content and lets you customize rendered metrics.
 
 **🎲 Maintained by community**
 * **[Community plugins](/source/plugins/community/README.md)**
+  * [♟️ Chess <sub>`chess`</sub>](/source/plugins/community/chess/README.md) by [@lowlighter](https://github.com/lowlighter)
   * [🥠 Fortune <sub>`fortune`</sub>](/source/plugins/community/fortune/README.md) by [@lowlighter](https://github.com/lowlighter)
   * [💉 Nightscout <sub>`nightscout`</sub>](/source/plugins/community/nightscout/README.md) by [@legoandmars](https://github.com/legoandmars)
   * [💩 PoopMap plugin <sub>`poopmap`</sub>](/source/plugins/community/poopmap/README.md) by [@matievisthekat](https://github.com/matievisthekat)

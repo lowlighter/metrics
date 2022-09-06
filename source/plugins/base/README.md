@@ -88,6 +88,21 @@ This currently improves the accuracy of the following statistics:</p>
 <b>default:</b> no<br></td>
   </tr>
   <tr>
+    <td nowrap="nowrap"><h4><code>base_skip</code></h4></td>
+    <td rowspan="2"><p>Skip base content</p>
+<blockquote>
+<p>⚠️ Any plugin that relies on base content data may break!
+Only use this option when using a plugin that can be configured with <code>token: NOT_NEEDED</code></p>
+</blockquote>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
     <td nowrap="nowrap"><h4><code>repositories</code></h4></td>
     <td rowspan="2"><p>Fetched repositories</p>
 <p>A higher value result in more accurate metrics but can hit GitHub API rate-limit more easily (especially with a lot of plugins enabled)</p>
