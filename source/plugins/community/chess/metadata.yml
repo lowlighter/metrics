@@ -1,0 +1,61 @@
+name: ♟️ Chess
+category: community
+description: |
+  This plugin displays the last game you played on a supported chess platform.
+disclaimer: |
+  This plugin is not affiliated, associated, authorized, endorsed by, or in any way officially connected with any of the supported provider.
+  All product and company names are trademarks™ or registered® trademarks of their respective holders.
+examples:
+  default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.chess.svg
+authors:
+  - lowlighter
+supports:
+  - user
+  - organization
+  - repository
+scopes: []
+inputs:
+
+  plugin_chess:
+    description: |
+      Enable chess plugin
+    type: boolean
+    default: no
+
+  plugin_chess_token:
+    description: |
+      Chess platform token
+    type: token
+    default: ""
+    extras:
+      - metrics.api.chess.any
+
+  plugin_chess_user:
+    description: |
+      AniList login
+    type: string
+    default: .user.login
+    preset: no
+
+  plugin_chess_platform:
+    description: |
+      Chess platform
+    type: string
+    default: ""
+    values:
+      - lichess.org
+
+  plugin_chess_animation:
+    description: |
+      Animation settings
+
+      - `size` is the size of a single chessboard square in pixels (board will be 8 times larger)
+      - `delay` is the delay before starting animation (in seconds)
+      - `duration` is the duration of the animation of a move (in seconds)
+    type: json
+    default: |
+      {
+        "size": 40,
+        "delay": 3,
+        "duration": 0.6
+      }

@@ -1,0 +1,10 @@
+- name: Last chess game from lichess.org
+  uses: lowlighter/metrics@latest
+  with:
+    filename: metrics.plugin.chess.svg
+    token: NOT_NEEDED
+    base: ""
+    plugin_chess: yes
+    plugin_chess_token: ${{ secrets.CHESS_TOKEN }}
+    plugin_chess_platform: lichess.org
+
