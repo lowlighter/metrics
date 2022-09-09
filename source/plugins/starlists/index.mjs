@@ -63,7 +63,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
             }))
           ),
         )
-        if (await page.evaluate(() => document.querySelector(".next_page.disabled"))) {
+        if (!(await page.evaluate(() => document.querySelector(".next_page"))) || await page.evaluate(() => document.querySelector(".next_page.disabled"))) {
           console.debug(`metrics/compute/${login}/plugins > starlists > reached last page`)
           break
         }
