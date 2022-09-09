@@ -117,7 +117,6 @@ It will be automatically hidden if empty.</p>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_languages_aliases</code></h4></td>
     <td rowspan="2"><p>Custom languages names</p>
-<p>Example: <code>javascript:JS, typescript:TS</code></p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
