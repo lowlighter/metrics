@@ -77,9 +77,9 @@ export default async function({login, q, imports, data, account}, {enabled = fal
       if (languages) {
         list.languages = {}
         for (const {language: {name, color}} of repositories) {
-          let lang = name;
+          let lang = name
           if (lang && lang.toLocaleLowerCase() in _languages_aliases) {
-            lang = _languages_aliases[name.toLocaleLowerCase()];
+            lang = _languages_aliases[name.toLocaleLowerCase()]
           }
           if (lang)
             list.languages[lang] = (list.languages[lang] ?? 0) + 1
