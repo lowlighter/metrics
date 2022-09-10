@@ -241,7 +241,7 @@ Or more granulary [at job or workflow level](https://docs.github.com/en/actions/
 
 ### Using commits (default)
 
-Use `config_output: commit` to make the action directly push changes to `committer_branch` with a commit.
+Use `output_action: commit` to make the action directly push changes to `committer_branch` with a commit.
 A custom commit message can be used through `committer_message`.
 
 > 💡 *metrics* will automatically ignore push events with a commit message containing `[Skip GitHub Action]` or `Auto-generated metrics for run #` to avoid infinite loops. Note that by default, GitHub already ignore events pushed by `${{ github.token }}` or containing `[skip ci]` in commit message
@@ -261,7 +261,7 @@ metrics:
 
 ### Using pull requests
 
-Use `config_output: pull-request` to make the action open a new pull request and push changes from the same run on it.
+Use `output_action: pull-request` to make the action open a new pull request and push changes from the same run on it.
 
 The last step should use either `pull-request-merge`, `pull-request-squash` or `pull-request-rebase` to merge changes to `committer_branch`.
 
@@ -287,7 +287,7 @@ metrics:
 
 ### Using gists
 
-Use `config_output: gist` to push output to a [GitHub gist](https://gist.github.com) instead.
+Use `output_action: gist` to push output to a [GitHub gist](https://gist.github.com) instead.
 It is required to provide a gist id to `committer_gist` option to make it work.
 
 > 💡 This feature will use `token` instead of `committer_token` to push changes, so `gists` scope must be granted to the original `token` first
@@ -304,7 +304,7 @@ metrics:
 
 ### Manual handling
 
-Use `config_output: none` to perform custom processing with outputs.
+Use `output_action: none` to perform custom processing with outputs.
 They will be available under `/metrics_renders/{filename}` in the runner.
 
 *Example: generate outputs and manually push them*
