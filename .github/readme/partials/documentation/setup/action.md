@@ -22,7 +22,7 @@ From the `Developer settings` of your account settings, select `Personal access 
 
 No scopes are required, but additional one may be required depending on which features will be used. Each plugin documentation enumerates which scopes are required to make it work.
 
-A a general rule, the following scopes may be required:
+As a general rule, the following scopes may be required:
 - `public_repo` for some plugins
 - `read:org` for all organizations related metrics
 - `repo` for all private repositories related metrics
