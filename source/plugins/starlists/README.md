@@ -98,6 +98,27 @@ All product and company names are trademarks™ or registered® trademarks of th
 <b>default:</b> 8<br></td>
   </tr>
   <tr>
+    <td nowrap="nowrap"><h4><code>plugin_starlists_languages_ignored</code></h4></td>
+    <td rowspan="2"><p>Ignored languages in star lists</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><h4><code>plugin_starlists_languages_aliases</code></h4></td>
+    <td rowspan="2"><p>Custom languages names in star lists</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>string</code>
+<br></td>
+  </tr>
+  <tr>
     <td nowrap="nowrap"><h4><code>plugin_starlists_shuffle_repositories</code></h4></td>
     <td rowspan="2"><p>Shuffle data</p>
 <p>Can be used to create varied outputs</p>

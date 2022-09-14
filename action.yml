@@ -710,6 +710,14 @@ inputs:
     description: Display limit (languages per star list)
     default: <default-value>
 
+  plugin_starlists_languages_ignored:
+    description: Ignored languages in star lists
+    default: <default-value>
+
+  plugin_starlists_languages_aliases:
+    description: Custom languages names in star lists
+    default: <default-value>
+
   plugin_starlists_shuffle_repositories:
     description: Shuffle data
     default: <default-value>

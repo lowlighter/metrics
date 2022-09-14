@@ -76,7 +76,7 @@ inputs:
       Custom languages names
     type: string
     default: ""
-    example: javascript:JS typescript:TS
+    example: javascript:JS, typescript:TS
 
   plugin_languages_sections:
     description: |
