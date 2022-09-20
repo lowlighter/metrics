@@ -48,7 +48,7 @@ export default async function({login, data, imports, q, rest, account}, {enabled
     const customColors = {}
     for (const repository of data.user.repositories.nodes) {
       //Skip repository if asked
-      if ((skipped.includes(repository.name.toLocaleLowerCase())) || (skipped.includes(`${repository.owner.login}/${repository.name}`.toLocaleLowerCase()))) {
+      if (imports.repofilter(repository, skipped)) {
         console.debug(`metrics/compute/${login}/plugins > languages > skipped repository ${repository.owner.login}/${repository.name}`)
         continue
       }

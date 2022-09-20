@@ -20,7 +20,7 @@ export default async function({login, q, imports, rest, graphql, data, account, 
         const {user: {repositoriesContributedTo: {edges}}} = await graphql(queries.notable.contributions({login, types: types.map(x => x.toLocaleUpperCase()).join(", "), after: cursor ? `after: "${cursor}"` : "", self, repositories: data.shared["repositories.batch"] || 100}))
         cursor = edges?.[edges?.length - 1]?.cursor
         edges
-          .filter(({node}) => !((skipped.includes(node.nameWithOwner.toLocaleLowerCase())) || (skipped.includes(node.nameWithOwner.split("/")[1].toLocaleLowerCase()))))
+          .filter(({node}) => !imports.repofilter(node, skipped))
           .filter(({node}) => ({all: true, organization: node.isInOrganization, user: !node.isInOrganization}[from]))
           .filter(({node}) => imports.ghfilter(filter, {name: node.nameWithOwner, user: node.owner.login, stars: node.stargazers.totalCount, watchers: node.watchers.totalCount, forks: node.forks.totalCount}))
           .map(({node}) => contributions.push({handle: node.nameWithOwner, stars: node.stargazers.totalCount, issues: node.issues.totalCount, pulls: node.pullRequests.totalCount, organization: node.isInOrganization, avatarUrl: node.owner.avatarUrl}))
