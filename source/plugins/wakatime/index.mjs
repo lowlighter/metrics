@@ -37,7 +37,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
         total: (others ? stats.total_seconds_including_other_language : stats.total_seconds) / (60 * 60),
         daily: (others ? stats.daily_average_including_other_language : stats.daily_average) / (60 * 60),
       },
-      languages: stats.languages?.map(({name, percent, total_seconds: total}) => ({name, percent: percent / 100, total})).filter(({name}) => _ignored.length ? !_ignored.includes(name.toLocaleLowerCase()) : true).sort((a, b) => b.percent - a.percent).slice(0, limit),
+      languages: stats.languages?.map(({name, percent, total_seconds: total}) => ({name, percent: percent / 100, total})).filter(({name}) => imports.filters.text(name, _ignored)).sort((a, b) => b.percent - a.percent).slice(0, limit),
       os: stats.operating_systems?.map(({name, percent, total_seconds: total}) => ({name, percent: percent / 100, total})).sort((a, b) => b.percent - a.percent).slice(0, limit),
       editors: stats.editors?.map(({name, percent, total_seconds: total}) => ({name, percent: percent / 100, total})).sort((a, b) => b.percent - a.percent).slice(0, limit),
     }

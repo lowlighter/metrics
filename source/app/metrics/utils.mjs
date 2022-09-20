@@ -370,22 +370,37 @@ export function ghfilter(text, object) {
   return result
 }
 
-/**Repository filter*/
-export function repofilter(repository, patterns) {
-  //Normalize repository handle
-  let repo, user
-  if (repository.nameWithOwner)
-    repository = repository.nameWithOwner
-  if ((repository.name)&&(repository.owner?.login)) {
-    user = repository.owner.login
-    repo = repository.name
-  }
-  user = (user ?? repository.split("/")[0]).toLocaleLowerCase()
-  repo = (repo ?? repository.split("/")[1]).toLocaleLowerCase()
-  console.debug(`metrics/svg/repofilter > checking ${user}/${repo}`)
+export const filters = {
+  /**Repository filter*/
+  repo(repository, patterns) {
+    //Normalize repository handle
+    let repo, user
+    if (repository.nameWithOwner)
+      repository = repository.nameWithOwner
+    if ((repository.name)&&(repository.owner?.login)) {
+      user = repository.owner.login
+      repo = repository.name
+    }
+    user = (user ?? repository.split("/")[0]).toLocaleLowerCase()
+    repo = (repo ?? repository.split("/")[1]).toLocaleLowerCase()
+    console.debug(`metrics/filters/repo > checking ${user}/${repo}`)
 
-  //Basic pattern matching
-  return patterns.includes(repo) || patterns.includes(`${user}/${repo}`)
+    //Basic pattern matching
+    return patterns.includes(repo) || patterns.includes(`${user}/${repo}`)
+  },
+  /**Text filter*/
+  text(text, patterns) {
+    //
+    if (!patterns.length)
+      return true
+
+    //Normalize user handle
+    text = `${text}`.toLocaleLowerCase()
+    console.debug(`metrics/filters/text > checking ${text}`)
+
+    //Basic pattern matching
+    return !patterns.includes(text)
+  }
 }
 
 /**Image to base64 */
