@@ -381,7 +381,7 @@ export const filters = {
     let repo, user
     if (repository.nameWithOwner)
       repository = repository.nameWithOwner
-    if ((repository.name)&&(repository.owner?.login)) {
+    if ((repository.name) && (repository.owner?.login)) {
       user = repository.owner.login
       repo = repository.name
     }
@@ -406,7 +406,7 @@ export const filters = {
     const include = !patterns.includes(text)
     console.debug(`metrics/filters/text > filter ${text} (${include ? "included" : "excluded"})`)
     return include
-  }
+  },
 }
 
 /**Image to base64 */
