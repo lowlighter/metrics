@@ -37,7 +37,7 @@ export default async function({login, data, rest, imports, q, account}, {enabled
     const commits = events
       .filter(({type}) => type === "PushEvent")
       .filter(({actor}) => account === "organization" ? true : actor.login?.toLocaleLowerCase() === login.toLocaleLowerCase())
-      .filter(({repo: {name: repo}}) => !((skipped.includes(repo.split("/").pop())) || (skipped.includes(repo))))
+      .filter(({repo: {name: repo}}) => imports.filters.repo(repo, skipped))
       .filter(({created_at}) => new Date(created_at) > new Date(Date.now() - days * 24 * 60 * 60 * 1000))
     console.debug(`metrics/compute/${login}/plugins > habits > filtered out ${commits.length} push events over last ${days} days`)
     habits.commits.fetched = commits.length

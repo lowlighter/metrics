@@ -323,51 +323,90 @@ export async function markdown(text, {mode = "inline", codelines = Infinity} = {
   return rendered
 }
 
-/**Check GitHub filter against object */
-export function ghfilter(text, object) {
-  console.debug(`metrics/svg/ghquery > checking ${text} against ${JSON.stringify(object)}`)
-  const result = text.split(/(?<!NOT) /).map(x => x.trim()).filter(x => x).map(criteria => {
-    const [key, filters] = criteria.split(":")
-    const value = object[/^NOT /.test(key) ? key.substring(3).trim() : /^-/.test(key) ? key.substring(1).trim() : key.trim()]
-    console.debug(`metrics/svg/ghquery > checking ${criteria} against ${value}`)
-    if (value === undefined) {
-      console.debug(`metrics/svg/ghquery > value for ${criteria} is undefined, considering it truthy`)
-      return true
-    }
-    return filters?.split(",").map(x => x.trim()).filter(x => x).map(filter => {
-      if (!Number.isFinite(Number(value))) {
-        if (/^NOT /.test(filter))
-          return value !== filter.substring(3).trim()
-        if (/^-/.test(key))
-          return value !== filter
-        return value === filter.trim()
+/**Filters */
+export const filters = {
+  /**GitHub query filter */
+  github(text, object) {
+    console.debug(`metrics/svg/ghquery > checking ${text} against ${JSON.stringify(object)}`)
+    const result = text.split(/(?<!NOT) /).map(x => x.trim()).filter(x => x).map(criteria => {
+      const [key, filters] = criteria.split(":")
+      const value = object[/^NOT /.test(key) ? key.substring(3).trim() : /^-/.test(key) ? key.substring(1).trim() : key.trim()]
+      console.debug(`metrics/svg/ghquery > checking ${criteria} against ${value}`)
+      if (value === undefined) {
+        console.debug(`metrics/svg/ghquery > value for ${criteria} is undefined, considering it truthy`)
+        return true
       }
-      switch (true) {
-        case /^true$/.test(filter):
-          return value === true
-        case /^false$/.test(filter):
-          return value === false
-        case /^>\d+$/.test(filter):
-          return value > Number(filter.substring(1))
-        case /^>=\d+$/.test(filter):
-          return value >= Number(filter.substring(2))
-        case /^<\d+$/.test(filter):
-          return value < Number(filter.substring(1))
-        case /^<=\d+$/.test(filter):
-          return value <= Number(filter.substring(2))
-        case /^\d+$/.test(filter):
-          return value === Number(filter)
-        case /^\d+..\d+$/.test(filter): {
-          const [a, b] = filter.split("..").map(Number)
-          return (value >= a) && (value <= b)
+      return filters?.split(",").map(x => x.trim()).filter(x => x).map(filter => {
+        if (!Number.isFinite(Number(value))) {
+          if (/^NOT /.test(filter))
+            return value !== filter.substring(3).trim()
+          if (/^-/.test(key))
+            return value !== filter
+          return value === filter.trim()
         }
-        default:
-          return false
-      }
-    }).reduce((a, b) => a || b, false) ?? false
-  }).reduce((a, b) => a && b, true)
-  console.debug(`metrics/svg/ghquery > ${result ? "matching" : "not matching"}`)
-  return result
+        switch (true) {
+          case /^true$/.test(filter):
+            return value === true
+          case /^false$/.test(filter):
+            return value === false
+          case /^>\d+$/.test(filter):
+            return value > Number(filter.substring(1))
+          case /^>=\d+$/.test(filter):
+            return value >= Number(filter.substring(2))
+          case /^<\d+$/.test(filter):
+            return value < Number(filter.substring(1))
+          case /^<=\d+$/.test(filter):
+            return value <= Number(filter.substring(2))
+          case /^\d+$/.test(filter):
+            return value === Number(filter)
+          case /^\d+..\d+$/.test(filter): {
+            const [a, b] = filter.split("..").map(Number)
+            return (value >= a) && (value <= b)
+          }
+          default:
+            return false
+        }
+      }).reduce((a, b) => a || b, false) ?? false
+    }).reduce((a, b) => a && b, true)
+    console.debug(`metrics/svg/ghquery > ${result ? "matching" : "not matching"}`)
+    return result
+  },
+  /**Repository filter*/
+  repo(repository, patterns) {
+    //Disable filtering when no pattern is provided
+    if (!patterns.length)
+      return true
+
+    //Normalize repository handle
+    let repo, user
+    if (repository.nameWithOwner)
+      repository = repository.nameWithOwner
+    if ((repository.name)&&(repository.owner?.login)) {
+      user = repository.owner.login
+      repo = repository.name
+    }
+    user = (user ?? repository.split("/")[0]).toLocaleLowerCase()
+    repo = (repo ?? repository.split("/")[1]).toLocaleLowerCase()
+
+    //Basic pattern matching
+    const include = (!patterns.includes(repo)) && (!patterns.includes(`${user}/${repo}`))
+    console.debug(`metrics/filters/repo > filter ${repo} (${include ? "included" : "excluded"})`)
+    return include
+  },
+  /**Text filter*/
+  text(text, patterns) {
+    //Disable filtering when no pattern is provided
+    if (!patterns.length)
+      return true
+
+    //Normalize text
+    text = `${text}`.toLocaleLowerCase()
+
+    //Basic pattern matching
+    const include = !patterns.includes(text)
+    console.debug(`metrics/filters/text > filter ${text} (${include ? "included" : "excluded"})`)
+    return include
+  }
 }
 
 /**Image to base64 */

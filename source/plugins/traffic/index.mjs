@@ -16,7 +16,7 @@ export default async function({login, imports, data, rest, q, account}, {enabled
     //Get views stats from repositories
     console.debug(`metrics/compute/${login}/plugins > traffic > querying api`)
     const views = {count: 0, uniques: 0}
-    const response = [...await Promise.allSettled(repositories.map(({repo, owner}) => (skipped.includes(repo.toLocaleLowerCase())) || (skipped.includes(`${owner}/${repo}`.toLocaleLowerCase())) ? {} : rest.repos.getViews({owner, repo})))].filter(({status}) => status === "fulfilled").map(({value}) => value)
+    const response = [...await Promise.allSettled(repositories.map(({repo, owner}) => imports.filters.repo(`${owner}/${repo}`, skipped) ? rest.repos.getViews({owner, repo}) : {}))].filter(({status}) => status === "fulfilled").map(({value}) => value)
 
     //Compute views
     console.debug(`metrics/compute/${login}/plugins > traffic > computing stats`)

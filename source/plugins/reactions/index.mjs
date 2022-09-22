@@ -23,7 +23,7 @@ export default async function({login, q, imports, data, graphql, queries, accoun
           cursor = edges?.[0]?.cursor
           //Save issue comments
           const filtered = edges
-            .flatMap(({node: {createdAt: created, reactions: {nodes: reactions}}}) => ({created: new Date(created), reactions: reactions.filter(({user = {}}) => !ignored.includes(user.login)).map(({content}) => content)}))
+            .flatMap(({node: {createdAt: created, reactions: {nodes: reactions}}}) => ({created: new Date(created), reactions: reactions.filter(({user = {}}) => imports.filters.text(user.login, ignored)).map(({content}) => content)}))
             .filter(comment => Number.isFinite(days) ? comment.created < new Date(Date.now() - days * 24 * 60 * 60 * 1000) : true)
           pushed = filtered.length
           fetched.push(...filtered)

@@ -23,7 +23,7 @@ export default async function({login, q, imports, data, computed, graphql, queri
     const achievements = list
       .filter(a => (order[a.rank] >= order[threshold]) || ((a.rank === "$") && (secrets)))
       .filter(a => (!only.length) || ((only.length) && (only.includes(a.title.toLocaleLowerCase()))))
-      .filter(a => !ignored.includes(a.title.toLocaleLowerCase()))
+      .filter(a => imports.filters.text(a.title, ignored))
       .sort((a, b) => (order[b.rank] + b.progress * 0.99) - (order[a.rank] + a.progress * 0.99))
       .map(({title, unlock, ...achievement}) => ({
         prefix: ({S: "Master", A: "Super", B: "Great"}[achievement.rank] ?? ""),

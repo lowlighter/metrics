@@ -46,7 +46,7 @@ export default async function({login, data, rest, q, account, imports}, {enabled
         .map(async ({type, payload, actor: {login: actor}, repo: {name: repo}, created_at}) => {
           //See https://docs.github.com/en/free-pro-team@latest/developers/webhooks-and-events/github-event-types
           const timestamp = new Date(created_at)
-          if ((skipped.includes(repo.split("/").pop())) || (skipped.includes(repo)))
+          if (!imports.filters.repo(repo, skipped))
             return null
           switch (type) {
             //Commented on a commit
@@ -54,7 +54,7 @@ export default async function({login, data, rest, q, account, imports}, {enabled
               if (!["created"].includes(payload.action))
                 return null
               const {comment: {user: {login: user}, commit_id: sha, body: content}} = payload
-              if (ignored.includes(user))
+              if (!imports.filters.text(user, ignored))
                 return null
               return {type: "comment", on: "commit", actor, timestamp, repo, content: await imports.markdown(content, {mode: markdown, codelines}), user, mobile: null, number: sha.substring(0, 7), title: ""}
             }
@@ -83,7 +83,7 @@ export default async function({login, data, rest, q, account, imports}, {enabled
               if (!["created"].includes(payload.action))
                 return null
               const {issue: {user: {login: user}, title, number}, comment: {body: content, performed_via_github_app: mobile}} = payload
-              if (ignored.includes(user))
+              if (!imports.filters.text(user, ignored))
                 return null
               return {type: "comment", on: "issue", actor, timestamp, repo, content: await imports.markdown(content, {mode: markdown, codelines}), user, mobile, number, title}
             }
@@ -92,7 +92,7 @@ export default async function({login, data, rest, q, account, imports}, {enabled
               if (!["opened", "closed", "reopened"].includes(payload.action))
                 return null
               const {action, issue: {user: {login: user}, title, number, body: content}} = payload
-              if (ignored.includes(user))
+              if (!imports.filters.text(user, ignored))
                 return null
               return {type: "issue", actor, timestamp, repo, action, user, number, title, content: await imports.markdown(content, {mode: markdown, codelines})}
             }
@@ -101,7 +101,7 @@ export default async function({login, data, rest, q, account, imports}, {enabled
               if (!["added"].includes(payload.action))
                 return null
               const {member: {login: user}} = payload
-              if (ignored.includes(user))
+              if (!imports.filters.text(user, ignored))
                 return null
               return {type: "member", actor, timestamp, repo, user}
             }
@@ -114,14 +114,14 @@ export default async function({login, data, rest, q, account, imports}, {enabled
               if (!["opened", "closed"].includes(payload.action))
                 return null
               const {action, pull_request: {user: {login: user}, title, number, body: content, additions: added, deletions: deleted, changed_files: changed, merged}} = payload
-              if (ignored.includes(user))
+              if (!imports.filters.text(user, ignored))
                 return null
               return {type: "pr", actor, timestamp, repo, action: (action === "closed") && (merged) ? "merged" : action, user, title, number, content: await imports.markdown(content, {mode: markdown, codelines}), lines: {added, deleted}, files: {changed}}
             }
             //Reviewed a pull request
             case "PullRequestReviewEvent": {
               const {review: {state: review}, pull_request: {user: {login: user}, number, title}} = payload
-              if (ignored.includes(user))
+              if (!imports.filters.text(user, ignored))
                 return null
               return {type: "review", actor, timestamp, repo, review, user, number, title}
             }
@@ -130,14 +130,14 @@ export default async function({login, data, rest, q, account, imports}, {enabled
               if (!["created"].includes(payload.action))
                 return null
               const {pull_request: {user: {login: user}, title, number}, comment: {body: content, performed_via_github_app: mobile}} = payload
-              if (ignored.includes(user))
+              if (!imports.filters.text(user, ignored))
                 return null
               return {type: "comment", on: "pr", actor, timestamp, repo, content: await imports.markdown(content, {mode: markdown, codelines}), user, mobile, number, title}
             }
             //Pushed commits
             case "PushEvent": {
               let {size, commits, ref} = payload
-              commits = commits.filter(({author: {email}}) => !ignored.includes(email))
+              commits = commits.filter(({author: {email}}) => imports.filters.text(email, ignored))
               if (!commits.length)
                 return null
               if (commits.slice(-1).pop()?.message.startsWith("Merge branch "))

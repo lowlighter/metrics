@@ -48,10 +48,8 @@ export async function indepth({login, data, imports, repositories, gpg}, {skippe
         break
 
       //Skip repository if asked
-      if ((skipped.includes(repository.name.toLocaleLowerCase())) || (skipped.includes(`${repository.owner.login}/${repository.name}`.toLocaleLowerCase()))) {
-        console.debug(`metrics/compute/${login}/plugins > languages > skipped repository ${repository.owner.login}/${repository.name}`)
+      if (!imports.filters.repo(repository, skipped))
         continue
-      }
 
       //Repository handle
       const repo = `${repository.owner.login}/${repository.name}`
@@ -112,7 +110,7 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
           ...(await rest.activity.listEventsForAuthenticatedUser({username: login, per_page: 100, page})).data
             .filter(({type}) => type === "PushEvent")
             .filter(({actor}) => account === "organization" ? true : actor.login?.toLocaleLowerCase() === login.toLocaleLowerCase())
-            .filter(({repo: {name: repo}}) => (!skipped.includes(repo.toLocaleLowerCase())) && (!skipped.includes(repo.toLocaleLowerCase().split("/").pop())))
+            .filter(({repo: {name: repo}}) => imports.filters.repo(repo, skipped))
             .filter(({created_at}) => new Date(created_at) > new Date(Date.now() - days * 24 * 60 * 60 * 1000)),
         )
       }

@@ -23,7 +23,7 @@ export default async function({login, data, imports, rest, q, account}, {enabled
     //Get contributors stats from repositories
     console.debug(`metrics/compute/${login}/plugins > lines > querying api`)
     const repos = {}, weeks = {}
-    const response = [...await Promise.allSettled(repositories.map(async ({repo, owner}) => (skipped.includes(repo.toLocaleLowerCase())) || (skipped.includes(`${owner}/${repo}`.toLocaleLowerCase())) ? {} : {handle: `${owner}/${repo}`, stats: (await rest.repos.getContributorsStats({owner, repo})).data}))].filter(({status}) => status === "fulfilled").map((
+    const response = [...await Promise.allSettled(repositories.map(async ({repo, owner}) => imports.filters.repo(`${owner}/${repo}`, skipped) ? {handle: `${owner}/${repo}`, stats: (await rest.repos.getContributorsStats({owner, repo})).data} : {}))].filter(({status}) => status === "fulfilled").map((
       {value},
     ) => value)
 
