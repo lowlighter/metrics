@@ -143,7 +143,7 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
         const warnings = []
         if ((!Object.keys(Plugins).filter(key => q[key]).length) && (!parts.length))
           warnings.push({warning: {message: "No plugin were selected"}})
-        const ineffective = Object.keys(q).filter(key => (key.includes(".")) && (key.split(".").at(0) !== "base") && (key.split(".").at(0) in Plugins)).filter(key => !q[key.split(".").at(0)])
+        const ineffective = Object.keys(q).filter(key => (key.includes(".")) && (key.split(".").at(0) !== "base") && (!(key in imports.metadata.plugins.base.inputs)) && (key.split(".").at(0) in Plugins)).filter(key => !q[key.split(".").at(0)])
         warnings.push(...ineffective.map(key => ({warning: {message: `"${key}" has no effect because "${key.split(".").at(0)}: true" is not set`}})))
         //Compute rendering
         const {rendered} = await metrics({login, q}, {...arguments[1], convert: ["svg", "png", "jpeg"].includes(q["config.output"]) ? q["config.output"] : null, warnings}, arguments[2])
