@@ -190,6 +190,9 @@
               <div class="image" :class="{pending:generated.pending}" v-html="generated.content||templates.placeholder.image"></div>
             </div>
             <div v-else-if="tab == 'markdown'">
+              <div>
+                <button class="copy-markdown" data-clipboard-target=".code">Copy Markdown Code</button>
+              </div>
               Add the markdown below to your <i>README.md</i> <template v-if="user">at <a :href="repo">{{ user }}/{{ user }}</a></template>
               <div class="code">
                 <Prism language="markdown" :code="embed"></Prism>
