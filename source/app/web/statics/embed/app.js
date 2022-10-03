@@ -84,7 +84,9 @@
       tab: {
         immediate: true,
         handler(current) {
-          if (current === "action")
+          if (current === "markdown")
+            this.clipboard = new ClipboardJS(".copy-markdown")
+          else if (current === "action")
             this.clipboard = new ClipboardJS(".copy-action")
           else
             this.clipboard?.destroy()
