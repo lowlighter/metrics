@@ -165,3 +165,17 @@ inputs:
     min: 0
     max: 365
     zero: disable
+
+  # plugin_languages_analysis_timeout_repositories
+  #   description: |
+  #     Indepth mode - Analysis timeout (repositories)
+  #   type: array
+  #   format: comma-separated
+  #   default: ""
+
+  # plugin_languages_indepth_custom
+  #   description: |
+  #     Indepth mode - Custom repositories
+  #   type: array
+  #   format: comma-separated
+  #   default: ""

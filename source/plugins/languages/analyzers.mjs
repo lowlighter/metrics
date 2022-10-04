@@ -15,5 +15,8 @@ export async function recent({login, data, imports, rest, account}, {skipped = [
 
 //import.meta.main
 if (/languages.analyzers.mjs$/.test(process.argv[1])) {
-  (async () => console.log(await cli()))()
+  (async () => {
+    console.log(await cli())
+    process.exit(0)
+  })()
 }

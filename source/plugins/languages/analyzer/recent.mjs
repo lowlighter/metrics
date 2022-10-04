@@ -1,46 +1,45 @@
 //Imports
 import { Analyzer } from "./analyzer.mjs"
-import fs from "fs/promises"
-import os from "os"
-import paths from "path"
-//import fetch from "node-fetch"
+import {filters} from "../../../app/metrics/utils.mjs"
+import linguist from "linguist-js"
 
 /**Recent analyzer */
 export class RecentAnalyzer extends Analyzer {
   /**Constructor */
   constructor() {
     super(...arguments)
-    Object.assign(this.results, {days:arguments[1]?.days ?? 0})
+    this.days = arguments[1]?.days ?? 0
+    this.load = arguments[1]?.load ?? 0
+    Object.assign(this.results, {days:this.days})
   }
 
   /**Run analyzer */
-  run({categories, tempdir, load}) {
+  run() {
     return super.run(async () => {
-      tempdir = `${this.uid}-${tempdir || "recent"}`
-      await this.patches({tempdir, load})
-      for (const directory of await fs.readdir(tempdir)) {
-        if (this.results.partial)
-          break
-        await this.analyze(directory, {categories})
-      }
-      await this.clean(tempdir)
+      await this.analyze("/dev/null")
     })
   }
 
+  /**Analyze a repository */
+  async analyze(path) {
+    const patches = await this.patches()
+    return super.analyze(path, {commits:patches})
+  }
+
   /**Fetch patches */
-  async patches({tempdir, load = 0}) {
+  async patches() {
     //Fetch commits from recent activity
-    this.debug("fetching patches")
-    const commits = [], pages = Math.ceil(load / 100)
+    this.debug(`fetching patches from last ${this.days || ""} days up to ${this.load || "∞"} events`)
+    const commits = [], pages = Math.ceil(this.load / 100)
     try {
       for (let page = 1; page <= pages; page++) {
         this.debug(`fetching events page ${page}`)
         commits.push(
           ...(await this.rest.activity.listEventsForAuthenticatedUser({username: this.login, per_page: 100, page})).data
             .filter(({type}) => type === "PushEvent")
-            .filter(({actor}) => this.account === "organization" ? true : actor.login?.toLocaleLowerCase() === this.login?.toLocaleLowerCase())
-            .filter(({repo: {name: repo}}) => !this.ignore({name:repo.split("/").pop(), owner:{login:repo.split("/").shift()}}))
-            .filter(({created_at}) => new Date(created_at) > new Date(Date.now() - this.results.days * 24 * 60 * 60 * 1000)),
+            .filter(({actor}) => this.account === "organization" ? true : !filters.text(actor.login, this.login))
+            .filter(({repo: {name: repo}}) => !this.ignore(repo))
+            .filter(({created_at}) => new Date(created_at) > new Date(Date.now() - this.days * 24 * 60 * 60 * 1000)),
         )
       }
     }
@@ -53,11 +52,11 @@ export class RecentAnalyzer extends Analyzer {
 
     //Retrieve edited files and filter edited lines (those starting with +/-) from patches
     this.debug("fetching patches")
-    let patches = [
+    const patches = [
       ...await Promise.allSettled(
         commits
           .flatMap(({payload}) => payload.commits)
-          .filter(({author}) => this.authoring.filter(authoring => author?.login?.toLocaleLowerCase().includes(authoring) || author?.email?.toLocaleLowerCase().includes(authoring) || author?.name?.toLocaleLowerCase().includes(authoring)).length)
+          .filter(({committer}) => filters.text(committer?.email, this.authoring))
           .map(commit => commit.url)
           .map(async commit => (await this.rest.request(commit)).data),
       ),
@@ -65,42 +64,70 @@ export class RecentAnalyzer extends Analyzer {
       .filter(({status}) => status === "fulfilled")
       .map(({value}) => value)
       .filter(({parents}) => parents.length <= 1)
-      .map(({files}) => files)
-      .flatMap(files => files.map(file => ({name: paths.basename(file.filename), directory: paths.dirname(file.filename), patch: file.patch ?? "", repo: file.raw_url?.match(/(?<=^https:..github.com\/)(?<repo>.*)(?=\/raw)/)?.groups.repo ?? "_"})))
-      .map(({name, directory, patch, repo}) => ({name, directory: `${repo.replace(/[/]/g, "@")}/${directory}`, patch: patch.split("\n").filter(line => /^[+]/.test(line)).map(line => line.substring(1)).join("\n")}))
-
-    //Save patches to directory
-    const path = paths.join(os.tmpdir(), tempdir)
-    this.debug(`saving ${patches.length} files to ${path}`)
-    /*
-    try {
-
-      await fs.rm(path, {recursive: true, force: true})
-      await fs.mkdir(path, {recursive: true})
-      await Promise.all(patches.map(async ({name, directory, patch}) => {
-        await fs.mkdir(paths.join(path, directory), {recursive: true})
-        await fs.writeFile(paths.join(path, directory, name), patch)
+      .map(({sha, commit:{message, committer}, verification, files}) => ({
+        sha,
+        name:`${message} (authored by ${committer.name} on ${committer.date})`,
+        verified:verification?.verified ?? null,
+        editions:files.map(({filename, patch = ""}) => {
+          const edition = {
+            path: filename,
+            added: {lines:0, bytes:0},
+            deleted: {lines:0, bytes:0},
+            patch,
+          }
+          for (const line of patch.split("\n")) {
+            if ((!/^[-+]/.test(line)) || (!line.trim().length))
+              continue
+            if (this.markers.line.test(line)) {
+              const {op = "+", content = ""} = line.match(this.markers.line)?.groups ?? {}
+              const size = Buffer.byteLength(content, "utf-8")
+              edition[{"+":"added", "-":"deleted"}[op]].bytes += size
+              edition[{"+":"added", "-":"deleted"}[op]].lines++
+              continue
+            }
+          }
+          return edition
+        })
       }))
+    return patches
+  }
 
+  /**Run linguist against a commit and compute edited lines and bytes*/
+  async linguist(_, {commit}) {
+    const cache = {files:{}, languages:{}}
+    const result = {total:0, files:0, missed:{lines:0, bytes:0}, lines:{}, stats:{}, languages:{}}
+    const edited = new Set()
+    for (const edition of commit.editions) {
+      edited.add(edition.path)
 
-      for (const directory of await fs.readdir(path)) {
-        for (const branch of ["main", "master"]) {
-          const repo = directory.replace("@", "/")
-          try {
-            await fs.writeFile(paths.join(path, directory, ".gitattributes"), await fetch(`https://raw.githubusercontent.com/${repo}/${branch}/.gitattributes`).then(response => response.text()).catch(() => ""))
-            this.debug(`successfully fetched .gitattributes for ${repo}`)
-            break
-          }
-          catch {
-            this.debug(`could not load .gitattributes on branch ${branch} for ${repo}`)
-          }
-        }
+      //Guess file language with linguist
+      const {files: {results: files}, languages: {results: languages}, unknown} = await linguist(edition.path, {fileContent:edition.patch})
+      Object.assign(cache.files, files)
+      Object.assign(cache.languages, languages)
+      if (!(edition.path in cache.files))
+        cache.files[edition.path] = "<unknown>"
+
+      //Aggregate statistics
+      const language = cache.files[edition.path]
+      edition.language = language
+      const numbers = edition.patch
+        .split("\n")
+        .filter(line => this.markers.line.test(line))
+        .map(line => Buffer.byteLength(line.substring(1).trimStart(), "utf-8"))
+      const added = numbers.reduce((a, b) => a + b, 0)
+      result.total += added
+      if (language === "<unknown>") {
+        result.missed.lines += numbers.length
+        result.missed.bytes += unknown.bytes
+      }
+      else {
+        result.lines[language] = (result.lines[language] ?? 0) + numbers.length
+        result.stats[language] = (result.stats[language] ?? 0) + added
       }
     }
-    catch {
-
-    }*/
-
+    result.files = edited.size
+    result.languages = cache.languages
+    return result
   }
 
 }

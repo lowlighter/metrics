@@ -3,14 +3,13 @@ import fs from "fs/promises"
 import os from "os"
 import paths from "path"
 import git from "simple-git"
-import filters from "../../../app/metrics/utils.mjs"
-//import linguist from "linguist-js"
+import {filters} from "../../../app/metrics/utils.mjs"
 
 /**Analyzer */
 export class Analyzer {
 
   /**Constructor */
-  constructor(login, {account = "bypass", authoring = [], uid = Math.random(), shell, rest = null, skipped = [], timeout = {global:NaN, repository:NaN}}) {
+  constructor(login, {account = "bypass", authoring = [], uid = Math.random(), shell, rest = null, skipped = [], categories = ["programming", "markup"], timeout = {global:NaN, repository:NaN}}) {
     //User informations
     this.login = login
     this.account = account
@@ -21,13 +20,21 @@ export class Analyzer {
     //Utilities
     this.shell = shell
     this.rest = rest
+    this.markers = {
+      hash:/\b[0-9a-f]{40}\b/,
+      file:/^[+]{3}\sb[/](?<file>[\s\S]+)$/,
+      line:/^(?<op>[-+])\s*(?<content>[\s\S]+)$/,
+    }
+    this.parser = /^(?<login>[\s\S]+?)\/(?<name>[\s\S]+?)(?:@(?<branch>[\s\S]+?)(?::(?<ref>[\s\S]+))?)?$/
 
     //Options
     this.skipped = skipped
+    this.categories = categories
     this.timeout = timeout
 
     //Results
     this.results = {partial: false, total: 0, lines: {}, stats: {}, colors: {}, commits: 0, files: 0, missed: {lines: 0, bytes: 0, commits: 0}}
+    this.debug(`instantiated a new ${this.constructor.name}`)
   }
 
   /**Run analyzer */
@@ -48,20 +55,33 @@ export class Analyzer {
 
   /**Parse repository */
   parse(repository) {
+    let branch = null, ref = null
+    if (typeof repository === "string") {
+      if (!this.parser.test(repository))
+        throw new TypeError(`"${repository}" pattern is not supported`)
+      const {login, name, ...groups} = repository.match(this.parser)?.groups ?? {}
+      repository = {owner:{login}, name}
+      branch = branch ?? groups.branch
+      ref = ref ?? groups.ref
+    }
     const repo = `${repository.owner.login}/${repository.name}`
     const path = paths.join(os.tmpdir(), `${this.uid}-${repo.replace(/[^\w]/g, "_")}`)
-    return {repo, path}
+    return {repo, path, branch, ref}
   }
 
   /**Clone a repository */
   async clone(repository) {
-    const {path} = this.parse(repository)
+    const {repo, branch, path} = this.parse(repository)
     try {
       this.debug(`cloning ${repo} to ${path}`)
       await fs.rm(path, {recursive: true, force: true})
       await fs.mkdir(path, {recursive: true})
       await git(path).clone(`https://github.com/${repo}`, ".").status()
       this.debug(`cloned ${repo} to ${path}`)
+      if (branch) {
+        this.debug(`switching to branch ${branch} for ${repo}`)
+        await git(path).branch(branch)
+      }
       return true
     }
     catch (error) {
@@ -70,23 +90,34 @@ export class Analyzer {
     }
   }
 
-  /**Filter commits in repository */
-  async filter(path) {
-    const commits = []
-    try {
-      this.debug(`filtering commits authored by ${this.login} in ${path}`)
-      //TODO, this.authoring, etc.
-      return commits
-    }
-    catch (error) {
-      this.debug(`an error occurred during filtering of commits authored by ${this.login} in ${path} (${error})`)
-      return commits
-    }
-  }
-
   /**Analyze a repository */
-  async analyze(path, {categories}) { //eslint-disable-line no-unused-vars
-    //TODO
+  async analyze(path, {commits = []} = {}) {
+    const cache = {languages:{}}
+    for (const commit of commits) {
+      try {
+        const {total, files, missed, lines, stats, languages} = await this.linguist(path, {commit})
+        this.results.commits++
+        this.results.total += total
+        this.results.files += files
+        this.results.missed.lines += missed.lines
+        this.results.missed.bytes += missed.bytes
+        Object.assign(cache.languages, languages)
+        for (const language in lines) {
+          if (this.categories.includes(cache.languages[language]?.type))
+            this.results.lines[language] = (this.results.lines[language] ?? 0) + lines[language]
+        }
+        for (const language in stats) {
+          if (this.categories.includes(cache.languages[language]?.type))
+            this.results.stats[language] = (this.results.stats[language] ?? 0) + stats[language]
+        }
+      }
+      catch (error) {
+        console.log(error)
+        this.debug(`skipping commit ${commit.sha} (${error})`)
+        this.results.missed.commits++
+      }
+    }
+    this.results.colors = Object.fromEntries(Object.entries(cache.languages).map(([lang, {color}]) => [lang, color]))
   }
 
   /**Clean a path */
@@ -105,11 +136,7 @@ export class Analyzer {
 
   /**Whether to skip a repository or not */
   ignore(repository) {
-    if ((this.skipped.includes(repository.name.toLocaleLowerCase())) || (this.skipped.includes(`${repository.owner.login}/${repository.name}`.toLocaleLowerCase()))) {
-      this.debug(`skipped repository ${repository.owner.login}/${repository.name}`)
-      return true
-    }
-    return false
+    return !filters.repo(repository, this.skipped)
   }
 
   /**Debug log */
@@ -118,96 +145,3 @@ export class Analyzer {
   }
 
 }
-
-/*
-async function analyze({login, imports, data}, {results, path, categories = ["programming", "markup"]}) {
-  //Gather language data
-  console.debug(`metrics/compute/${login}/plugins > languages > indepth > running linguist`)
-  const {files: {results: files}, languages: {results: languageResults}} = await linguist(path)
-  Object.assign(results.colors, Object.fromEntries(Object.entries(languageResults).map(([lang, {color}]) => [lang, color])))
-
-  //Processing diff
-  const per_page = 1
-  const edited = new Set()
-  console.debug(`metrics/compute/${login}/plugins > languages > indepth > checking git log`)
-  try {
-    await imports.run("git log --max-count=1", {cwd: path})
-  }
-  catch {
-    console.debug(`metrics/compute/${login}/plugins > languages > indepth > repo seems empty or impossible to git log, skipping`)
-    return
-  }
-  const pending = []
-  for (let page = 0;; page++) {
-    try {
-      console.debug(`metrics/compute/${login}/plugins > languages > indepth > processing commits ${page * per_page} from ${(page + 1) * per_page}`)
-      let empty = true, file = null, lang = null
-      await imports.spawn("git", ["log", ...data.shared["commits.authoring"].map(authoring => `--author="${authoring}"`), "--regexp-ignore-case", "--format=short", "--no-merges", "--patch", `--max-count=${per_page}`, `--skip=${page * per_page}`], {cwd: path}, {
-        stdout(line) {
-          try {
-            //Unflag empty output
-            if ((empty) && (line.trim().length))
-              empty = false
-            //Commits counter
-            if (/^commit [0-9a-f]{40}$/.test(line)) {
-              if (results.verified) {
-                const sha = line.match(/[0-9a-f]{40}/)?.[0]
-                if (sha) {
-                  pending.push(
-                    imports.run(`git verify-commit ${sha}`, {cwd: path, env: {LANG: "en_GB"}}, {log: false, prefixed: false})
-                      .then(() => results.verified.signature++)
-                      .catch(() => null),
-                  )
-                }
-              }
-              results.commits++
-              return
-            }
-            //Ignore empty lines or unneeded lines
-            if ((!/^[+]/.test(line)) || (!line.length))
-              return
-            //File marker
-            if (/^[+]{3}\sb[/](?<file>[\s\S]+)$/.test(line)) {
-              file = `${path}/${line.match(/^[+]{3}\sb[/](?<file>[\s\S]+)$/)?.groups?.file}`.replace(/\\/g, "/")
-              lang = files[file] ?? "<unknown>"
-              if ((lang) && (lang !== "<unknown>") && (!categories.includes(languageResults[lang].type)))
-                lang = null
-              edited.add(file)
-              return
-            }
-            //Ignore unknown languages
-            if (!lang)
-              return
-            //Added line marker
-            if (/^[+]\s*(?<line>[\s\S]+)$/.test(line)) {
-              const size = Buffer.byteLength(line.match(/^[+]\s*(?<line>[\s\S]+)$/)?.groups?.line ?? "", "utf-8")
-              results.total += size
-              if (lang === "<unknown>") {
-                results.missed.lines++
-                results.missed.bytes += size
-              }
-              else {
-                results.stats[lang] = (results.stats[lang] ?? 0) + size
-                results.lines[lang] = (results.lines[lang] ?? 0) + 1
-              }
-            }
-          }
-          catch (error) {
-            console.debug(`metrics/compute/${login}/plugins > languages > indepth > an error occurred while processing line (${error.message}), skipping...`)
-          }
-        },
-      })
-      if (empty) {
-        console.debug(`metrics/compute/${login}/plugins > languages > indepth > no more commits`)
-        break
-      }
-    }
-    catch {
-      console.debug(`metrics/compute/${login}/plugins > languages > indepth > an error occurred on page ${page}, skipping...`)
-      results.missed.commits += per_page
-    }
-  }
-  await Promise.allSettled(pending)
-  results.files += edited.size
-}
-*/

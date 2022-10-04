@@ -72,7 +72,7 @@ export default async function({login, data, imports, q, rest, account}, {enabled
         console.debug(`metrics/compute/${login}/plugins > languages > ${error}`)
       }
     }
-$
+
     //Indepth mode
     if ((indepth) && (imports.metadata.plugins.languages.extras("indepth", {extras}))) {
       try {
