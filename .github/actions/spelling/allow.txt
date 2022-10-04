@@ -3,5 +3,7 @@ github
 https
 leetcode
 pgn
+shas
 ssh
 ubuntu
+yargsparser
