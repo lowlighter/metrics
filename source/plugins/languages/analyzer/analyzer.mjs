@@ -72,12 +72,13 @@ export class Analyzer {
   /**Clone a repository */
   async clone(repository) {
     const {repo, branch, path} = this.parse(repository)
+    let url = /^https?:\/\//.test(repo) ? repo : `https://github.com/${repo}`
     try {
-      this.debug(`cloning ${repo} to ${path}`)
+      this.debug(`cloning ${url} to ${path}`)
       await fs.rm(path, {recursive: true, force: true})
       await fs.mkdir(path, {recursive: true})
-      await git(path).clone(`https://github.com/${repo}`, ".").status()
-      this.debug(`cloned ${repo} to ${path}`)
+      await git(path).clone(url, ".", ["--single-branch"]).status()
+      this.debug(`cloned ${url} to ${path}`)
       if (branch) {
         this.debug(`switching to branch ${branch} for ${repo}`)
         await git(path).branch(branch)
@@ -85,23 +86,22 @@ export class Analyzer {
       return true
     }
     catch (error) {
-      this.debug(`failed to clone ${repo} (${error})`)
+      this.debug(`failed to clone ${url} (${error})`)
       return false
     }
   }
 
   /**Analyze a repository */
   async analyze(path, {commits = []} = {}) {
-    const cache = {languages:{}}
+    const cache = {files:{}, languages:{}}
     for (const commit of commits) {
       try {
-        const {total, files, missed, lines, stats, languages} = await this.linguist(path, {commit})
+        const {total, files, missed, lines, stats} = await this.linguist(path, {commit, cache})
         this.results.commits++
         this.results.total += total
         this.results.files += files
         this.results.missed.lines += missed.lines
         this.results.missed.bytes += missed.bytes
-        Object.assign(cache.languages, languages)
         for (const language in lines) {
           if (this.categories.includes(cache.languages[language]?.type))
             this.results.lines[language] = (this.results.lines[language] ?? 0) + lines[language]
@@ -136,7 +136,10 @@ export class Analyzer {
 
   /**Whether to skip a repository or not */
   ignore(repository) {
-    return !filters.repo(repository, this.skipped)
+    const ignored = !filters.repo(repository, this.skipped)
+    if (ignored)
+      this.debug(`skipping ${repository} as it matches skipped repositories`)
+    return ignored
   }
 
   /**Debug log */

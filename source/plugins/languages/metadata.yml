@@ -117,6 +117,27 @@ inputs:
       - metrics.run.tempdir
       - metrics.run.git
 
+  plugin_languages_indepth_custom:
+    description: |
+      Indepth mode - Custom repositories
+
+      Specify a list of additional repositories to analyze.
+
+      Below are the supported syntax formats:
+      - `owner/repo` (e.g. `lowlighter/metrics`)
+      - `owner/repo@branch` (e.g. `lowlighter/metrics@main`)
+      - `owner/repo@branch:commits` (e.g. `lowlighter/metrics@main:v1.0..v1.1`)
+        - See [`git rev-list`](https://git-scm.com/docs/git-rev-list#_description) documentation for more information about `commits` syntax
+
+      It is possible to specify repositories that are not hosted on [github.com](https://github.com) by passing a full url instead.
+      In this case the repository must be accessible directly.
+
+      > ℹ️ This option bypass [`plugin_languages_skipped`](/source/plugins/languages/README.md#plugin_languages_skipped)
+    type: array
+    format: comma-separated
+    default: ""
+    example: lowlighter/metrics, lowlighter/metrics@main, lowlighter/metrics@latest:v1.0..v1.1
+
   plugin_languages_analysis_timeout:
     description: |
       Indepth mode - Analysis timeout
@@ -151,7 +172,7 @@ inputs:
 
   plugin_languages_recent_load:
     description: |
-      Events to load (recently-used section)
+      Indepth mode - Events to load (recently-used section)
     type: number
     default: 300
     min: 100
@@ -159,7 +180,7 @@ inputs:
 
   plugin_languages_recent_days:
     description: |
-      Events maximum age (day, recently-used section)
+      Indepth mode - Events maximum age (day, recently-used section)
     type: number
     default: 14
     min: 0
@@ -169,13 +190,6 @@ inputs:
   # plugin_languages_analysis_timeout_repositories
   #   description: |
   #     Indepth mode - Analysis timeout (repositories)
-  #   type: array
-  #   format: comma-separated
-  #   default: ""
-
-  # plugin_languages_indepth_custom
-  #   description: |
-  #     Indepth mode - Custom repositories
   #   type: array
   #   format: comma-separated
   #   default: ""
