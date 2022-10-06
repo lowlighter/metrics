@@ -184,16 +184,18 @@ export class IndepthAnalyzer extends Analyzer {
     const cache = {files:{}, languages:{}}
     const result = {total:0, files:0, missed:{lines:0, bytes:0}, lines:{}, stats:{}, languages:{}}
     const edited = new Set()
+    const seen = new Set()
     for (const edition of commit.editions) {
       edited.add(edition.path)
 
-      //Guess file language with linguist
-      if (!(edition.path in cache.files)) {
+      //Guess file language with linguist (only run it once per sha)
+      if ((!(edition.path in cache.files))&&(!seen.has(commit.sha))) {
         this.debug(`language for file ${edition.path} is not in cache, running linguist at ${commit.sha}`)
         await this.shell.run(`git checkout ${commit.sha}`, {cwd: path, env: {LANG: "en_GB"}}, {log: false, prefixed: false})
         const {files: {results: files}, languages: {results: languages}} = await linguist(path)
         Object.assign(cache.files, files)
         Object.assign(cache.languages, languages)
+        seen.add(commit.sha)
       }
       if (!(edition.path in cache.files))
         cache.files[edition.path] = "<unknown>"
