@@ -13,6 +13,7 @@ export default async function({login, q}, {data, rest, graphql, queries, account
   console.debug(`metrics/compute/${login}/${repo} > retrieving single repository ${repo}`)
   const {[account === "bypass" ? "user" : account]: {repository}} = await graphql(queries.base.repository({login, repo, account}))
   data.user.repositories.nodes = [repository]
+  data.user.repositoriesContributedTo.nodes = []
   data.repo = repository
 
   //Contributors and sponsors
