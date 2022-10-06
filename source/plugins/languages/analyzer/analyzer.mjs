@@ -61,10 +61,8 @@ export class Analyzer {
         throw new TypeError(`"${repository}" pattern is not supported`)
       const {login, name, ...groups} = repository.match(this.parser)?.groups ?? {}
       repository = {owner:{login}, name}
-      if (groups.branch)
-        branch = groups.branch
-      if (groups.ref)
-        ref = groups.ref
+      branch = groups.branch ?? null
+      ref = groups.ref ?? null
     }
     const repo = `${repository.owner.login}/${repository.name}`
     const path = paths.join(os.tmpdir(), `${this.uid}-${repo.replace(/[^\w]/g, "_")}`)
