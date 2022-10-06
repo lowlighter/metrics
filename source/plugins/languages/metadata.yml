@@ -144,7 +144,16 @@ inputs:
     type: number
     default: 15
     min: 1
-    max: 30
+    max: 60
+
+  plugin_languages_analysis_timeout_repositories:
+    description: |
+       Indepth mode - Analysis timeout (repositories)
+    type: number
+    default: 7.5
+    min: 0
+    max: 15
+    zero: disable
 
   plugin_languages_categories:
     description: |
@@ -186,10 +195,3 @@ inputs:
     min: 0
     max: 365
     zero: disable
-
-  # plugin_languages_analysis_timeout_repositories
-  #   description: |
-  #     Indepth mode - Analysis timeout (repositories)
-  #   type: array
-  #   format: comma-separated
-  #   default: ""

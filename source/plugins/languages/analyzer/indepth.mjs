@@ -20,7 +20,7 @@ export class IndepthAnalyzer extends Analyzer {
     return super.run(async () => {
       await this.gpgarmor()
       for (const repository of repositories) {
-        if (this.results.partial)
+        if (this.results.partial.global)
           break
         if (this.ignore(repository))
           continue

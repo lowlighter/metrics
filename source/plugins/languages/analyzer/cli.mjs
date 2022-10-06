@@ -28,11 +28,13 @@ export async function cli() {
   const {
     categories,
     "analysis.timeout":_timeout_global,
+    "analysis.timeout.repositories":_timeout_repositories,
     "recent.load":_recent_load,
     "recent.days":_recent_days,
   } = await metadata.plugins.languages.inputs({q: {
     categories:argv.categories || "",
     "analysis.timeout": argv["timeout-global"] || "",
+    "analysis.timeout.repositories": argv["timeout-repositories"] || "",
     "recent.load": argv["recent-load"] || "",
     "recent.days": argv["recent-days"] || "",
   }, account: "bypass"})
@@ -51,11 +53,11 @@ export async function cli() {
     case "recent":{
       console.log(`events to load            | ${_recent_load}`)
       console.log(`events maximum age        | ${_recent_days}`)
-      return new RecentAnalyzer(login, {rest, shell:imports, authoring, categories, timeout:{global:_timeout_global}, load:_recent_load, days:_recent_days}).run({})
+      return new RecentAnalyzer(login, {rest, shell:imports, authoring, categories, timeout:{global:_timeout_global, repositories:_timeout_repositories}, load:_recent_load, days:_recent_days}).run({})
     }
     case "indepth":{
       console.log(`repositories              | ${repositories}`)
-      return new IndepthAnalyzer(login, {rest, shell:imports, authoring, categories, timeout:{global:_timeout_global}}).run({repositories})
+      return new IndepthAnalyzer(login, {rest, shell:imports, authoring, categories, timeout:{global:_timeout_global, repositories:_timeout_repositories}}).run({repositories})
     }
   }
 }

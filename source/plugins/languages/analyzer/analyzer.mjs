@@ -9,7 +9,7 @@ import {filters} from "../../../app/metrics/utils.mjs"
 export class Analyzer {
 
   /**Constructor */
-  constructor(login, {account = "bypass", authoring = [], uid = Math.random(), shell, rest = null, skipped = [], categories = ["programming", "markup"], timeout = {global:NaN, repository:NaN}}) {
+  constructor(login, {account = "bypass", authoring = [], uid = Math.random(), shell, rest = null, skipped = [], categories = ["programming", "markup"], timeout = {global:NaN, repositories:NaN}}) {
     //User informations
     this.login = login
     this.account = account
@@ -26,6 +26,7 @@ export class Analyzer {
       line:/^(?<op>[-+])\s*(?<content>[\s\S]+)$/,
     }
     this.parser = /^(?<login>[\s\S]+?)\/(?<name>[\s\S]+?)(?:@(?<branch>[\s\S]+?)(?::(?<ref>[\s\S]+))?)?$/
+    this.consumed = false
 
     //Options
     this.skipped = skipped
@@ -33,17 +34,20 @@ export class Analyzer {
     this.timeout = timeout
 
     //Results
-    this.results = {partial: false, total: 0, lines: {}, stats: {}, colors: {}, commits: 0, files: 0, missed: {lines: 0, bytes: 0, commits: 0}}
+    this.results = {partial: {global:false, repositories:false}, total: 0, lines: {}, stats: {}, colors: {}, commits: 0, files: 0, missed: {lines: 0, bytes: 0, commits: 0}, elapsed:0}
     this.debug(`instantiated a new ${this.constructor.name}`)
   }
 
   /**Run analyzer */
   async run(runner) {
-    return new Promise(async solve => {
+    if (this.consumed)
+      throw new Error("This analyzer has already been consumed, another instance needs to be created to perform a new analysis")
+    this.consumed = true
+    const results = await new Promise(async solve => {
       if (Number.isFinite(this.timeout.global)) {
         this.debug(`timeout set to ${this.timeout.global}m`)
         setTimeout(() => {
-          this.results.partial = true
+          this.results.partial.global = true
           this.debug(`reached maximum execution time of ${this.timeout.global}m for analysis`)
           solve(this.results)
         }, this.timeout.global * 60 * 1000)
@@ -51,6 +55,8 @@ export class Analyzer {
       await runner()
       solve(this.results)
     })
+    results.partial = (results.partial.global)||(results.partial.repositories)
+    return results
   }
 
   /**Parse repository */
@@ -95,9 +101,17 @@ export class Analyzer {
   /**Analyze a repository */
   async analyze(path, {commits = []} = {}) {
     const cache = {files:{}, languages:{}}
-    let processed = 0
-    let start = performance.now()
+    const start = Date.now()
+    let elapsed = 0, processed = 0
+    if (this.timeout.repositories)
+      this.debug(`timeout for repository analysis set to ${this.timeout.repositories}m`)
     for (const commit of commits) {
+      elapsed = (Date.now() - start)/1000/60
+      if ((this.timeout.repositories)&&(elapsed > this.timeout.repositories)) {
+        this.results.partial.repositories = true
+        this.debug(`reached maximum execution time of ${this.timeout.repositories}m for repository analysis (${elapsed}m elapsed)`)
+        break
+      }
       try {
         const {total, files, missed, lines, stats} = await this.linguist(path, {commit, cache})
         this.results.commits++
@@ -115,18 +129,17 @@ export class Analyzer {
         }
       }
       catch (error) {
-        console.log(error)
         this.debug(`skipping commit ${commit.sha} (${error})`)
         this.results.missed.commits++
       }
       finally {
+        this.results.elapsed += elapsed
         processed++
         if ((processed%50 === 0)||(processed === commits.length))
-          this.debug(`at commit ${processed}/${commits.length} (${(100*processed/commits.length).toFixed(2)}%)`)
+          this.debug(`at commit ${processed}/${commits.length} (${(100*processed/commits.length).toFixed(2)}%, ${elapsed.toFixed(2)}m elapsed)`)
       }
     }
     this.results.colors = Object.fromEntries(Object.entries(cache.languages).map(([lang, {color}]) => [lang, color]))
-    this.debug(`processed ${processed} commits in ${((performance.now() - start)/1000).toFixed(2)}s`)
   }
 
   /**Clean a path */
@@ -147,7 +160,7 @@ export class Analyzer {
   ignore(repository) {
     const ignored = !filters.repo(repository, this.skipped)
     if (ignored)
-      this.debug(`skipping ${repository} as it matches skipped repositories`)
+      this.debug(`skipping ${typeof repository === "string" ? repository : `${repository?.owner?.login}/${repository?.name}`} as it matches skipped repositories`)
     return ignored
   }
 
