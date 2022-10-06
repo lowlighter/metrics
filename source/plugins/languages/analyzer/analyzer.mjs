@@ -87,6 +87,7 @@ export class Analyzer {
     }
     catch (error) {
       this.debug(`failed to clone ${url} (${error})`)
+      this.clean(path)
       return false
     }
   }
@@ -94,6 +95,8 @@ export class Analyzer {
   /**Analyze a repository */
   async analyze(path, {commits = []} = {}) {
     const cache = {files:{}, languages:{}}
+    let processed = 0
+    let start = performance.now()
     for (const commit of commits) {
       try {
         const {total, files, missed, lines, stats} = await this.linguist(path, {commit, cache})
@@ -116,8 +119,14 @@ export class Analyzer {
         this.debug(`skipping commit ${commit.sha} (${error})`)
         this.results.missed.commits++
       }
+      finally {
+        processed++
+        if ((processed%50 === 0)||(processed === commits.length))
+          this.debug(`at commit ${processed}/${commits.length} (${(100*processed/commits.length).toFixed(2)}%)`)
+      }
     }
     this.results.colors = Object.fromEntries(Object.entries(cache.languages).map(([lang, {color}]) => [lang, color]))
+    this.debug(`processed ${processed} commits in ${((performance.now() - start)/1000).toFixed(2)}s`)
   }
 
   /**Clean a path */

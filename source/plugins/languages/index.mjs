@@ -80,7 +80,7 @@ export default async function({login, data, imports, q, rest, account}, {enabled
         const existingColors = languages.colors
         Object.assign(languages, await indepth_analyzer({login, data, imports, repositories:repositories.concat(_indepth_custom)}, {skipped, categories, timeout}))
         Object.assign(languages.colors, existingColors)
-        console.debug(`metrics/compute/${login}/plugins > languages > indepth analysis missed ${languages.missed.commits} commits`)
+        console.debug(`metrics/compute/${login}/plugins > languages > indepth analysis processed successfully ${languages.commits} and missed ${languages.missed.commits} commits`)
       }
       catch (error) {
         console.debug(`metrics/compute/${login}/plugins > languages > ${error}`)
