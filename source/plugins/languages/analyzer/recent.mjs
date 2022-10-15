@@ -37,7 +37,7 @@ export class RecentAnalyzer extends Analyzer {
         commits.push(
           ...(await (this.context.mode === "repository" ? this.rest.activity.listRepoEvents(this.context) : this.rest.activity.listEventsForAuthenticatedUser({username: this.login, per_page: 100, page}))).data
             .filter(({type}) => type === "PushEvent")
-            .filter(({actor}) => this.account === "organization" ? true : !filters.text(actor.login, this.login))
+            .filter(({actor}) => (this.account === "organization")||(this.context.mode === "repository") ? true : !filters.text(actor.login, this.login))
             .filter(({repo: {name: repo}}) => !this.ignore(repo))
             .filter(({created_at}) => new Date(created_at) > new Date(Date.now() - this.days * 24 * 60 * 60 * 1000)),
         )
