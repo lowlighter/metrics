@@ -41,7 +41,7 @@ export default async function({login, data, imports, q, rest, account}, {enabled
     console.debug(`metrics/compute/${login}/plugins > languages > custom colors ${JSON.stringify(colors)}`)
 
     //Unique languages
-    const repositories = [...data.user.repositories.nodes, ...data.user.repositoriesContributedTo.nodes]
+    const repositories = context.mode === "repository" ? data.user.repositories.nodes : [...data.user.repositories.nodes, ...data.user.repositoriesContributedTo.nodes]
     const unique = new Set(repositories.flatMap(repository => repository.languages.edges.map(({node: {name}}) => name))).size
 
     //Iterate through user's repositories and retrieve languages data
