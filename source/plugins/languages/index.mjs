@@ -64,7 +64,7 @@ export default async function({login, data, imports, q, rest, account}, {enabled
     }
 
     //Recently used languages
-    if ((sections.includes("recently-used")) && (context.mode === "user") && (imports.metadata.plugins.languages.extras("indepth", {extras}))) {
+    if ((sections.includes("recently-used")) && (imports.metadata.plugins.languages.extras("indepth", {extras}))) {
       try {
         console.debug(`metrics/compute/${login}/plugins > languages > using recent analyzer`)
         languages["stats.recent"] = await recent_analyzer({login, data, imports, rest, context, account}, {skipped, categories: _recent_categories ?? categories, days: _recent_days, load: _recent_load, timeout})
