@@ -9,7 +9,7 @@ import {filters} from "../../../app/metrics/utils.mjs"
 export class Analyzer {
 
   /**Constructor */
-  constructor(login, {account = "bypass", authoring = [], uid = Math.random(), shell, rest = null, skipped = [], categories = ["programming", "markup"], timeout = {global:NaN, repositories:NaN}}) {
+  constructor(login, {account = "bypass", authoring = [], uid = Math.random(), shell, rest = null, context = {mode:"user"}, skipped = [], categories = ["programming", "markup"], timeout = {global:NaN, repositories:NaN}}) {
     //User informations
     this.login = login
     this.account = account
@@ -20,6 +20,7 @@ export class Analyzer {
     //Utilities
     this.shell = shell
     this.rest = rest
+    this.context = context
     this.markers = {
       hash:/\b[0-9a-f]{40}\b/,
       file:/^[+]{3}\sb[/](?<file>[\s\S]+)$/,
@@ -44,15 +45,24 @@ export class Analyzer {
       throw new Error("This analyzer has already been consumed, another instance needs to be created to perform a new analysis")
     this.consumed = true
     const results = await new Promise(async solve => {
+      let completed = false
       if (Number.isFinite(this.timeout.global)) {
         this.debug(`timeout set to ${this.timeout.global}m`)
         setTimeout(() => {
-          this.results.partial.global = true
-          this.debug(`reached maximum execution time of ${this.timeout.global}m for analysis`)
-          solve(this.results)
+          if (!completed) {
+            try {
+              this.debug(`reached maximum execution time of ${this.timeout.global}m for analysis`)
+              this.results.partial.global = true
+              solve(this.results)
+            }
+            catch {
+              //Ignore errors
+            }
+          }
         }, this.timeout.global * 60 * 1000)
       }
       await runner()
+      completed = true
       solve(this.results)
     })
     results.partial = (results.partial.global)||(results.partial.repositories)

@@ -35,7 +35,7 @@ export class RecentAnalyzer extends Analyzer {
       for (let page = 1; page <= pages; page++) {
         this.debug(`fetching events page ${page}`)
         commits.push(
-          ...(await this.rest.activity.listEventsForAuthenticatedUser({username: this.login, per_page: 100, page})).data
+          ...(await (this.context.mode === "repository" ? this.rest.activity.listRepoEvents(this.context) : this.rest.activity.listEventsForAuthenticatedUser({username: this.login, per_page: 100, page}))).data
             .filter(({type}) => type === "PushEvent")
             .filter(({actor}) => this.account === "organization" ? true : !filters.text(actor.login, this.login))
             .filter(({repo: {name: repo}}) => !this.ignore(repo))
