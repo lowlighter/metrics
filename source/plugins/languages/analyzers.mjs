@@ -4,8 +4,8 @@ import { RecentAnalyzer } from "./analyzer/recent.mjs"
 import { cli } from "./analyzer/cli.mjs"
 
 /**Indepth analyzer */
-export async function indepth({login, data, imports, repositories}, {skipped, categories, timeout}) {
-  return new IndepthAnalyzer(login, {shell:imports, uid:data.user.databaseId, skipped, authoring:data.shared["commits.authoring"], timeout}).run({repositories, categories})
+export async function indepth({login, data, imports, rest, repositories}, {skipped, categories, timeout}) {
+  return new IndepthAnalyzer(login, {shell:imports, uid:data.user.databaseId, skipped, authoring:data.shared["commits.authoring"], timeout, rest}).run({repositories, categories})
 }
 
 /**Recent languages activity */
