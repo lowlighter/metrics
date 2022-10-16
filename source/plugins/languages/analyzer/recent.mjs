@@ -32,10 +32,15 @@ export class RecentAnalyzer extends Analyzer {
     this.debug(`fetching patches from last ${this.days || ""} days up to ${this.load || "∞"} events`)
     const commits = [], pages = Math.ceil((this.load || Infinity) / 100)
     if (this.context.mode === "repository") {
-      const {data:{default_branch:branch}} = await this.rest.repos.get(this.context)
-      this.context.branch = branch
-      this.results.branch = branch
-      this.debug(`default branch for ${this.context.owner}/${this.context.repo} is ${branch}`)
+      try {
+        const {data:{default_branch:branch}} = await this.rest.repos.get(this.context)
+        this.context.branch = branch
+        this.results.branch = branch
+        this.debug(`default branch for ${this.context.owner}/${this.context.repo} is ${branch}`)
+      }
+      catch (error) {
+        this.debug(`failed to get default branch for ${this.context.owner}/${this.context.repo} (${error})`)
+      }
     }
     try {
       for (let page = 1; page <= pages; page++) {
