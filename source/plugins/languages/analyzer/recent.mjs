@@ -34,6 +34,7 @@ export class RecentAnalyzer extends Analyzer {
     if (this.context.mode === "repository") {
       const {data:{default_branch:branch}} = await this.rest.repos.get(this.context)
       this.context.branch = branch
+      this.results.branch = branch
       this.debug(`default branch for ${this.context.owner}/${this.context.repo} is ${branch}`)
     }
     try {
