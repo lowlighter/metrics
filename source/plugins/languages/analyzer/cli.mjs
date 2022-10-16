@@ -1,8 +1,8 @@
 //Imports
-import { IndepthAnalyzer } from "./indepth.mjs"
-import { RecentAnalyzer } from "./recent.mjs"
 import OctokitRest from "@octokit/rest"
 import yargsparser from "yargs-parser"
+import { IndepthAnalyzer } from "./indepth.mjs"
+import { RecentAnalyzer } from "./recent.mjs"
 
 const help = `
 
@@ -19,25 +19,31 @@ export async function cli() {
   }
   const {default: setup} = await import("../../../app/metrics/setup.mjs")
   const {conf: {metadata}} = await setup({log: false})
-  const {login, _:repositories, mode = "indepth"} = argv
+  const {login, _: repositories, mode = "indepth"} = argv
   const {
     "commits.authoring": authoring,
-  } = await metadata.plugins.base.inputs({q:{
-    "commits.authoring": argv["commits-authoring"] || login,
-  }, account: "bypass"})
+  } = await metadata.plugins.base.inputs({
+    q: {
+      "commits.authoring": argv["commits-authoring"] || login,
+    },
+    account: "bypass",
+  })
   const {
     categories,
-    "analysis.timeout":_timeout_global,
-    "analysis.timeout.repositories":_timeout_repositories,
-    "recent.load":_recent_load,
-    "recent.days":_recent_days,
-  } = await metadata.plugins.languages.inputs({q: {
-    categories:argv.categories || "",
-    "analysis.timeout": argv["timeout-global"] || "",
-    "analysis.timeout.repositories": argv["timeout-repositories"] || "",
-    "recent.load": argv["recent-load"] || "",
-    "recent.days": argv["recent-days"] || "",
-  }, account: "bypass"})
+    "analysis.timeout": _timeout_global,
+    "analysis.timeout.repositories": _timeout_repositories,
+    "recent.load": _recent_load,
+    "recent.days": _recent_days,
+  } = await metadata.plugins.languages.inputs({
+    q: {
+      categories: argv.categories || "",
+      "analysis.timeout": argv["timeout-global"] || "",
+      "analysis.timeout.repositories": argv["timeout-repositories"] || "",
+      "recent.load": argv["recent-load"] || "",
+      "recent.days": argv["recent-days"] || "",
+    },
+    account: "bypass",
+  })
 
   //Prepare call
   const imports = await import("../../../app/metrics/utils.mjs")
@@ -50,14 +56,14 @@ export async function cli() {
   console.log(`commits authoring         | ${authoring}`)
   console.log(`analysis timeout (global) | ${_timeout_global}`)
   switch (mode) {
-    case "recent":{
+    case "recent": {
       console.log(`events to load            | ${_recent_load}`)
       console.log(`events maximum age        | ${_recent_days}`)
-      return new RecentAnalyzer(login, {rest, shell:imports, authoring, categories, timeout:{global:_timeout_global, repositories:_timeout_repositories}, load:_recent_load, days:_recent_days}).run({})
+      return new RecentAnalyzer(login, {rest, shell: imports, authoring, categories, timeout: {global: _timeout_global, repositories: _timeout_repositories}, load: _recent_load, days: _recent_days}).run({})
     }
-    case "indepth":{
+    case "indepth": {
       console.log(`repositories              | ${repositories}`)
-      return new IndepthAnalyzer(login, {rest, shell:imports, authoring, categories, timeout:{global:_timeout_global, repositories:_timeout_repositories}}).run({repositories})
+      return new IndepthAnalyzer(login, {rest, shell: imports, authoring, categories, timeout: {global: _timeout_global, repositories: _timeout_repositories}}).run({repositories})
     }
   }
 }

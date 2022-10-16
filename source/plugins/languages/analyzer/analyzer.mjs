@@ -3,13 +3,12 @@ import fs from "fs/promises"
 import os from "os"
 import paths from "path"
 import git from "simple-git"
-import {filters} from "../../../app/metrics/utils.mjs"
+import { filters } from "../../../app/metrics/utils.mjs"
 
 /**Analyzer */
 export class Analyzer {
-
   /**Constructor */
-  constructor(login, {account = "bypass", authoring = [], uid = Math.random(), shell, rest = null, context = {mode:"user"}, skipped = [], categories = ["programming", "markup"], timeout = {global:NaN, repositories:NaN}}) {
+  constructor(login, {account = "bypass", authoring = [], uid = Math.random(), shell, rest = null, context = {mode: "user"}, skipped = [], categories = ["programming", "markup"], timeout = {global: NaN, repositories: NaN}}) {
     //User informations
     this.login = login
     this.account = account
@@ -22,9 +21,9 @@ export class Analyzer {
     this.rest = rest
     this.context = context
     this.markers = {
-      hash:/\b[0-9a-f]{40}\b/,
-      file:/^[+]{3}\sb[/](?<file>[\s\S]+)$/,
-      line:/^(?<op>[-+])\s*(?<content>[\s\S]+)$/,
+      hash: /\b[0-9a-f]{40}\b/,
+      file: /^[+]{3}\sb[/](?<file>[\s\S]+)$/,
+      line: /^(?<op>[-+])\s*(?<content>[\s\S]+)$/,
     }
     this.parser = /^(?<login>[\s\S]+?)\/(?<name>[\s\S]+?)(?:@(?<branch>[\s\S]+?)(?::(?<ref>[\s\S]+))?)?$/
     this.consumed = false
@@ -35,7 +34,7 @@ export class Analyzer {
     this.timeout = timeout
 
     //Results
-    this.results = {partial: {global:false, repositories:false}, total: 0, lines: {}, stats: {}, colors: {}, commits: 0, files: 0, missed: {lines: 0, bytes: 0, commits: 0}, elapsed:0}
+    this.results = {partial: {global: false, repositories: false}, total: 0, lines: {}, stats: {}, colors: {}, commits: 0, files: 0, missed: {lines: 0, bytes: 0, commits: 0}, elapsed: 0}
     this.debug(`instantiated a new ${this.constructor.name}`)
   }
 
@@ -65,7 +64,7 @@ export class Analyzer {
       completed = true
       solve(this.results)
     })
-    results.partial = (results.partial.global)||(results.partial.repositories)
+    results.partial = (results.partial.global) || (results.partial.repositories)
     return results
   }
 
@@ -76,7 +75,7 @@ export class Analyzer {
       if (!this.parser.test(repository))
         throw new TypeError(`"${repository}" pattern is not supported`)
       const {login, name, ...groups} = repository.match(this.parser)?.groups ?? {}
-      repository = {owner:{login}, name}
+      repository = {owner: {login}, name}
       branch = groups.branch ?? null
       ref = groups.ref ?? null
     }
@@ -110,14 +109,14 @@ export class Analyzer {
 
   /**Analyze a repository */
   async analyze(path, {commits = []} = {}) {
-    const cache = {files:{}, languages:{}}
+    const cache = {files: {}, languages: {}}
     const start = Date.now()
     let elapsed = 0, processed = 0
     if (this.timeout.repositories)
       this.debug(`timeout for repository analysis set to ${this.timeout.repositories}m`)
     for (const commit of commits) {
-      elapsed = (Date.now() - start)/1000/60
-      if ((this.timeout.repositories)&&(elapsed > this.timeout.repositories)) {
+      elapsed = (Date.now() - start) / 1000 / 60
+      if ((this.timeout.repositories) && (elapsed > this.timeout.repositories)) {
         this.results.partial.repositories = true
         this.debug(`reached maximum execution time of ${this.timeout.repositories}m for repository analysis (${elapsed}m elapsed)`)
         break
@@ -145,8 +144,8 @@ export class Analyzer {
       finally {
         this.results.elapsed += elapsed
         processed++
-        if ((processed%50 === 0)||(processed === commits.length))
-          this.debug(`at commit ${processed}/${commits.length} (${(100*processed/commits.length).toFixed(2)}%, ${elapsed.toFixed(2)}m elapsed)`)
+        if ((processed % 50 === 0) || (processed === commits.length))
+          this.debug(`at commit ${processed}/${commits.length} (${(100 * processed / commits.length).toFixed(2)}%, ${elapsed.toFixed(2)}m elapsed)`)
       }
     }
     this.results.colors = Object.fromEntries(Object.entries(cache.languages).map(([lang, {color}]) => [lang, color]))
@@ -178,5 +177,4 @@ export class Analyzer {
   debug(message) {
     return console.debug(`metrics/compute/${this.login}/plugins > languages > ${this.constructor.name.replace(/([a-z])([A-Z])/, (_, a, b) => `${a} ${b.toLocaleLowerCase()}`).toLocaleLowerCase()} > ${message}`)
   }
-
 }

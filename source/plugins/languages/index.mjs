@@ -18,13 +18,14 @@ export default async function({login, data, imports, q, rest, account}, {enabled
     }
 
     //Load inputs
-    let {ignored, skipped, other, colors, aliases, details, threshold, limit, indepth, "indepth.custom":_indepth_custom, "analysis.timeout": _timeout_global, "analysis.timeout.repositories": _timeout_repositories, sections, categories, "recent.categories": _recent_categories, "recent.load": _recent_load, "recent.days": _recent_days} = imports.metadata.plugins.languages
+    let {ignored, skipped, other, colors, aliases, details, threshold, limit, indepth, "indepth.custom": _indepth_custom, "analysis.timeout": _timeout_global, "analysis.timeout.repositories": _timeout_repositories, sections, categories, "recent.categories": _recent_categories, "recent.load": _recent_load, "recent.days": _recent_days} = imports.metadata
+      .plugins.languages
       .inputs({
         data,
         account,
         q,
       })
-    const timeout = {global:_timeout_global, repositories:_timeout_repositories}
+    const timeout = {global: _timeout_global, repositories: _timeout_repositories}
     threshold = (Number(threshold.replace(/%$/, "")) || 0) / 100
     skipped.push(...data.shared["repositories.skipped"])
     if (!limit)
@@ -80,7 +81,7 @@ export default async function({login, data, imports, q, rest, account}, {enabled
       try {
         console.debug(`metrics/compute/${login}/plugins > languages > switching to indepth mode (this may take some time)`)
         const existingColors = languages.colors
-        Object.assign(languages, await indepth_analyzer({login, data, imports, rest, context, repositories:repositories.concat(_indepth_custom)}, {skipped, categories, timeout}))
+        Object.assign(languages, await indepth_analyzer({login, data, imports, rest, context, repositories: repositories.concat(_indepth_custom)}, {skipped, categories, timeout}))
         Object.assign(languages.colors, existingColors)
         console.debug(`metrics/compute/${login}/plugins > languages > indepth analysis processed successfully ${languages.commits} and missed ${languages.missed.commits} commits in ${languages.elapsed.toFixed(2)}m`)
       }

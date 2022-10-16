@@ -1,7 +1,7 @@
 //Imports
-import { Analyzer } from "./analyzer.mjs"
-import {filters} from "../../../app/metrics/utils.mjs"
 import linguist from "linguist-js"
+import { filters } from "../../../app/metrics/utils.mjs"
+import { Analyzer } from "./analyzer.mjs"
 
 /**Recent analyzer */
 export class RecentAnalyzer extends Analyzer {
@@ -10,7 +10,7 @@ export class RecentAnalyzer extends Analyzer {
     super(...arguments)
     this.days = arguments[1]?.days ?? 0
     this.load = arguments[1]?.load ?? 0
-    Object.assign(this.results, {days:this.days})
+    Object.assign(this.results, {days: this.days})
   }
 
   /**Run analyzer */
@@ -23,7 +23,7 @@ export class RecentAnalyzer extends Analyzer {
   /**Analyze a repository */
   async analyze(path) {
     const patches = await this.patches()
-    return super.analyze(path, {commits:patches})
+    return super.analyze(path, {commits: patches})
   }
 
   /**Fetch patches */
@@ -33,7 +33,7 @@ export class RecentAnalyzer extends Analyzer {
     const commits = [], pages = Math.ceil((this.load || Infinity) / 100)
     if (this.context.mode === "repository") {
       try {
-        const {data:{default_branch:branch}} = await this.rest.repos.get(this.context)
+        const {data: {default_branch: branch}} = await this.rest.repos.get(this.context)
         this.context.branch = branch
         this.results.branch = branch
         this.debug(`default branch for ${this.context.owner}/${this.context.repo} is ${branch}`)
@@ -47,10 +47,10 @@ export class RecentAnalyzer extends Analyzer {
         this.debug(`fetching events page ${page}`)
         commits.push(
           ...(await (this.context.mode === "repository" ? this.rest.activity.listRepoEvents(this.context) : this.rest.activity.listEventsForAuthenticatedUser({username: this.login, per_page: 100, page}))).data
-            .filter(({type, payload}) => (type === "PushEvent")&&((this.context.mode !== "repository")||((this.context.mode === "repository")&&(payload?.ref?.includes?.(`refs/heads/${this.context.branch}`)))))
-            .filter(({actor}) => (this.account === "organization")||(this.context.mode === "repository") ? true : !filters.text(actor.login, [this.login], {debug:false}))
+            .filter(({type, payload}) => (type === "PushEvent") && ((this.context.mode !== "repository") || ((this.context.mode === "repository") && (payload?.ref?.includes?.(`refs/heads/${this.context.branch}`)))))
+            .filter(({actor}) => (this.account === "organization") || (this.context.mode === "repository") ? true : !filters.text(actor.login, [this.login], {debug: false}))
             .filter(({repo: {name: repo}}) => !this.ignore(repo))
-            .filter(({created_at}) => ((!this.days)||(new Date(created_at) > new Date(Date.now() - this.days * 24 * 60 * 60 * 1000)))),
+            .filter(({created_at}) => ((!this.days) || (new Date(created_at) > new Date(Date.now() - this.days * 24 * 60 * 60 * 1000)))),
         )
       }
     }
@@ -67,7 +67,7 @@ export class RecentAnalyzer extends Analyzer {
       ...await Promise.allSettled(
         commits
           .flatMap(({payload}) => payload.commits)
-          .filter(({committer}) => filters.text(committer?.email, this.authoring, {debug:false}))
+          .filter(({committer}) => filters.text(committer?.email, this.authoring, {debug: false}))
           .map(commit => commit.url)
           .map(async commit => (await this.rest.request(commit)).data),
       ),
@@ -75,15 +75,15 @@ export class RecentAnalyzer extends Analyzer {
       .filter(({status}) => status === "fulfilled")
       .map(({value}) => value)
       .filter(({parents}) => parents.length <= 1)
-      .map(({sha, commit:{message, committer}, verification, files}) => ({
+      .map(({sha, commit: {message, committer}, verification, files}) => ({
         sha,
-        name:`${message} (authored by ${committer.name} on ${committer.date})`,
-        verified:verification?.verified ?? null,
-        editions:files.map(({filename, patch = ""}) => {
+        name: `${message} (authored by ${committer.name} on ${committer.date})`,
+        verified: verification?.verified ?? null,
+        editions: files.map(({filename, patch = ""}) => {
           const edition = {
             path: filename,
-            added: {lines:0, bytes:0},
-            deleted: {lines:0, bytes:0},
+            added: {lines: 0, bytes: 0},
+            deleted: {lines: 0, bytes: 0},
             patch,
           }
           for (const line of patch.split("\n")) {
@@ -92,27 +92,27 @@ export class RecentAnalyzer extends Analyzer {
             if (this.markers.line.test(line)) {
               const {op = "+", content = ""} = line.match(this.markers.line)?.groups ?? {}
               const size = Buffer.byteLength(content, "utf-8")
-              edition[{"+":"added", "-":"deleted"}[op]].bytes += size
-              edition[{"+":"added", "-":"deleted"}[op]].lines++
+              edition[{"+": "added", "-": "deleted"}[op]].bytes += size
+              edition[{"+": "added", "-": "deleted"}[op]].lines++
               continue
             }
           }
           return edition
-        })
+        }),
       }))
     return patches
   }
 
   /**Run linguist against a commit and compute edited lines and bytes*/
-  async linguist(_, {commit, cache:{languages}}) {
-    const cache = {files:{}, languages}
-    const result = {total:0, files:0, missed:{lines:0, bytes:0}, lines:{}, stats:{}, languages:{}}
+  async linguist(_, {commit, cache: {languages}}) {
+    const cache = {files: {}, languages}
+    const result = {total: 0, files: 0, missed: {lines: 0, bytes: 0}, lines: {}, stats: {}, languages: {}}
     const edited = new Set()
     for (const edition of commit.editions) {
       edited.add(edition.path)
 
       //Guess file language with linguist
-      const {files: {results: files}, languages: {results: languages}, unknown} = await linguist(edition.path, {fileContent:edition.patch})
+      const {files: {results: files}, languages: {results: languages}, unknown} = await linguist(edition.path, {fileContent: edition.patch})
       Object.assign(cache.files, files)
       Object.assign(cache.languages, languages)
       if (!(edition.path in cache.files))
@@ -140,5 +140,4 @@ export class RecentAnalyzer extends Analyzer {
     result.languages = cache.languages
     return result
   }
-
 }
