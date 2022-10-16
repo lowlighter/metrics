@@ -168,6 +168,32 @@ It will be automatically hidden if empty.</p>
 <b>default:</b> false<br></td>
   </tr>
   <tr>
+    <td nowrap="nowrap"><h4><code>plugin_languages_indepth_custom</code></h4></td>
+    <td rowspan="2"><p>Indepth mode - Custom repositories</p>
+<p>Specify a list of additional repositories to analyze.</p>
+<p>Below are the supported syntax formats:</p>
+<ul>
+<li><code>owner/repo</code> (e.g. <code>lowlighter/metrics</code>)</li>
+<li><code>owner/repo@branch</code> (e.g. <code>lowlighter/metrics@main</code>)</li>
+<li><code>owner/repo@branch:commits</code> (e.g. <code>lowlighter/metrics@main:v1.0..v1.1</code>)<ul>
+<li>See <a href="https://git-scm.com/docs/git-rev-list#_description"><code>git rev-list</code></a> documentation for more information about <code>commits</code> syntax</li>
+</ul>
+</li>
+</ul>
+<p>It is possible to specify repositories that are not hosted on <a href="https://github.com">github.com</a> by passing a full url instead.
+In this case the repository must be accessible directly.</p>
+<blockquote>
+<p>ℹ️ This option bypass <a href="/source/plugins/languages/README.md#plugin_languages_skipped"><code>plugin_languages_skipped</code></a></p>
+</blockquote>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>array</code>
+<i>(comma-separated)</i>
+<br></td>
+  </tr>
+  <tr>
     <td nowrap="nowrap"><h4><code>plugin_languages_analysis_timeout</code></h4></td>
     <td rowspan="2"><p>Indepth mode - Analysis timeout</p>
 <img width="900" height="1" alt=""></td>
@@ -176,9 +202,24 @@ It will be automatically hidden if empty.</p>
     <td nowrap="nowrap"><b>type:</b> <code>number</code>
 <i>(1 ≤
 𝑥
-≤ 30)</i>
+≤ 60)</i>
 <br>
 <b>default:</b> 15<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><h4><code>plugin_languages_analysis_timeout_repositories</code></h4></td>
+    <td rowspan="2"><p>Indepth mode - Analysis timeout (repositories)</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>number</code>
+<i>(0 ≤
+𝑥
+≤ 15)</i>
+<br>
+<b>zero behaviour:</b> disable</br>
+<b>default:</b> 7.5<br></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_languages_categories</code></h4></td>
@@ -206,7 +247,7 @@ It will be automatically hidden if empty.</p>
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_languages_recent_load</code></h4></td>
-    <td rowspan="2"><p>Events to load (recently-used section)</p>
+    <td rowspan="2"><p>Indepth mode - Events to load (recently-used section)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -219,7 +260,7 @@ It will be automatically hidden if empty.</p>
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_languages_recent_days</code></h4></td>
-    <td rowspan="2"><p>Events maximum age (day, recently-used section)</p>
+    <td rowspan="2"><p>Indepth mode - Events maximum age (day, recently-used section)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>

@@ -313,8 +313,16 @@ inputs:
     description: Indepth mode
     default: <default-value>
 
+  plugin_languages_indepth_custom:
+    description: Indepth mode - Custom repositories
+    default: <default-value>
+
   plugin_languages_analysis_timeout:
     description: Indepth mode - Analysis timeout
+    default: <default-value>
+
+  plugin_languages_analysis_timeout_repositories:
+    description: Indepth mode - Analysis timeout (repositories)
     default: <default-value>
 
   plugin_languages_categories:
@@ -326,11 +334,11 @@ inputs:
     default: <default-value>
 
   plugin_languages_recent_load:
-    description: Events to load (recently-used section)
+    description: Indepth mode - Events to load (recently-used section)
     default: <default-value>
 
   plugin_languages_recent_days:
-    description: Events maximum age (day, recently-used section)
+    description: Indepth mode - Events maximum age (day, recently-used section)
     default: <default-value>
 
   # ====================================================================================
