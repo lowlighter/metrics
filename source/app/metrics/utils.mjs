@@ -23,7 +23,6 @@ import prism_lang from "prismjs/components/index.js"
 import _puppeteer from "puppeteer"
 import purgecss from "purgecss"
 import readline from "readline"
-import rss from "rss-parser"
 import htmlsanitize from "sanitize-html"
 import sharp from "sharp"
 import git from "simple-git"
@@ -35,7 +34,7 @@ import xmlformat from "xml-formatter"
 prism_lang()
 
 //Exports
-export { axios, d3, D3node, emoji, fetch, fs, git, minimatch, opengraph, os, paths, processes, rss, sharp, url, util }
+export { axios, d3, D3node, emoji, fetch, fs, git, minimatch, opengraph, os, paths, processes, sharp, url, util }
 
 /**Returns module __dirname */
 export function __module(module) {
