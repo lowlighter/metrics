@@ -30,7 +30,7 @@ export class RecentAnalyzer extends Analyzer {
   async patches() {
     //Fetch commits from recent activity
     this.debug(`fetching patches from last ${this.days || ""} days up to ${this.load || "∞"} events`)
-    const commits = [], pages = Math.ceil((this.load || 1000) / 100)
+    const commits = [], pages = Math.ceil((this.load || Infinity) / 100)
     try {
       for (let page = 1; page <= pages; page++) {
         this.debug(`fetching events page ${page}`)
