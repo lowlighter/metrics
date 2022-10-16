@@ -225,17 +225,19 @@ export async function language({filename, patch}) {
 }
 
 /**Run command (use this to execute commands and process whole output at once, may not be suitable for large outputs) */
-export async function run(command, options, {prefixed = true, log = true} = {}) {
+export async function run(command, options, {prefixed = true, log = true, debug = true} = {}) {
   const prefix = {win32: "wsl"}[process.platform] ?? ""
   command = `${prefixed ? prefix : ""} ${command}`.trim()
   return new Promise((solve, reject) => {
-    console.debug(`metrics/command/run > ${command}`)
+    if (debug)
+      console.debug(`metrics/command/run > ${command}`)
     const child = processes.exec(command, options)
     let [stdout, stderr] = ["", ""]
     child.stdout.on("data", data => stdout += data)
     child.stderr.on("data", data => stderr += data)
     child.on("close", code => {
-      console.debug(`metrics/command/run > ${command} > exited with code ${code}`)
+      if (debug)
+        console.debug(`metrics/command/run > ${command} > exited with code ${code}`)
       if (log) {
         console.debug(stdout)
         console.debug(stderr)
@@ -246,7 +248,7 @@ export async function run(command, options, {prefixed = true, log = true} = {}) 
 }
 
 /**Spawn command (use this to execute commands and process output on the fly) */
-export async function spawn(command, args = [], options = {}, {prefixed = true, timeout = 300 * 1000, stdout} = {}) { //eslint-disable-line max-params
+export async function spawn(command, args = [], options = {}, {prefixed = true, timeout = 300 * 1000, stdout, debug = true} = {}) { //eslint-disable-line max-params
   const prefix = {win32: "wsl"}[process.platform] ?? ""
   if ((prefixed) && (prefix)) {
     args.unshift(command)
@@ -255,15 +257,18 @@ export async function spawn(command, args = [], options = {}, {prefixed = true, 
   if (!stdout)
     throw new Error("`stdout` argument was not provided, use run() instead of spawn() if processing output is not needed")
   return new Promise((solve, reject) => {
-    console.debug(`metrics/command/spawn > ${command} with ${args.join(" ")}`)
+    if (debug)
+      console.debug(`metrics/command/spawn > ${command} with ${args.join(" ")}`)
     const child = processes.spawn(command, args, {...options, shell: true, timeout})
     const reader = readline.createInterface({input: child.stdout})
     reader.on("line", stdout)
     const closed = new Promise(close => reader.on("close", close))
     child.on("close", async code => {
-      console.debug(`metrics/command/spawn > ${command} with ${args.join(" ")} > exited with code ${code}`)
+      if (debug)
+        console.debug(`metrics/command/spawn > ${command} with ${args.join(" ")} > exited with code ${code}`)
       await closed
-      console.debug(`metrics/command/spawn > ${command} with ${args.join(" ")} > reader closed`)
+      if (debug)
+        console.debug(`metrics/command/spawn > ${command} with ${args.join(" ")} > reader closed`)
       return code === 0 ? solve() : reject()
     })
   })
@@ -372,7 +377,7 @@ export const filters = {
     return result
   },
   /**Repository filter*/
-  repo(repository, patterns) {
+  repo(repository, patterns, {debug = true} = {}) {
     //Disable filtering when no pattern is provided
     if (!patterns.length)
       return true
@@ -390,11 +395,12 @@ export const filters = {
 
     //Basic pattern matching
     const include = (!patterns.includes(repo)) && (!patterns.includes(`${user}/${repo}`))
-    console.debug(`metrics/filters/repo > filter ${repo} (${include ? "included" : "excluded"})`)
+    if (debug)
+      console.debug(`metrics/filters/repo > filter ${repo} (${include ? "included" : "excluded"})`)
     return include
   },
   /**Text filter*/
-  text(text, patterns) {
+  text(text, patterns, {debug = true} = {}) {
     //Disable filtering when no pattern is provided
     if (!patterns.length)
       return true
@@ -404,7 +410,8 @@ export const filters = {
 
     //Basic pattern matching
     const include = !patterns.includes(text)
-    console.debug(`metrics/filters/text > filter ${text} (${include ? "included" : "excluded"})`)
+    if (debug)
+      console.debug(`metrics/filters/text > filter ${text} (${include ? "included" : "excluded"})`)
     return include
   },
 }

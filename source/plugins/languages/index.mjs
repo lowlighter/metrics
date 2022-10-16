@@ -13,16 +13,18 @@ export default async function({login, data, imports, q, rest, account}, {enabled
     let context = {mode: "user"}
     if (q.repo) {
       console.debug(`metrics/compute/${login}/plugins > languages > switched to repository mode`)
-      context = {...context, mode: "repository"}
+      const {owner, repo} = data.user.repositories.nodes.map(({name: repo, owner: {login: owner}}) => ({repo, owner})).shift()
+      context = {...context, mode: "repository", owner, repo}
     }
 
     //Load inputs
-    let {ignored, skipped, other, colors, aliases, details, threshold, limit, indepth, "analysis.timeout": timeout, sections, categories, "recent.categories": _recent_categories, "recent.load": _recent_load, "recent.days": _recent_days} = imports.metadata.plugins.languages
+    let {ignored, skipped, other, colors, aliases, details, threshold, limit, indepth, "indepth.custom":_indepth_custom, "analysis.timeout": _timeout_global, "analysis.timeout.repositories": _timeout_repositories, sections, categories, "recent.categories": _recent_categories, "recent.load": _recent_load, "recent.days": _recent_days} = imports.metadata.plugins.languages
       .inputs({
         data,
         account,
         q,
       })
+    const timeout = {global:_timeout_global, repositories:_timeout_repositories}
     threshold = (Number(threshold.replace(/%$/, "")) || 0) / 100
     skipped.push(...data.shared["repositories.skipped"])
     if (!limit)
@@ -39,7 +41,7 @@ export default async function({login, data, imports, q, rest, account}, {enabled
     console.debug(`metrics/compute/${login}/plugins > languages > custom colors ${JSON.stringify(colors)}`)
 
     //Unique languages
-    const repositories = [...data.user.repositories.nodes, ...data.user.repositoriesContributedTo.nodes]
+    const repositories = context.mode === "repository" ? data.user.repositories.nodes : [...data.user.repositories.nodes, ...data.user.repositoriesContributedTo.nodes]
     const unique = new Set(repositories.flatMap(repository => repository.languages.edges.map(({node: {name}}) => name))).size
 
     //Iterate through user's repositories and retrieve languages data
@@ -62,47 +64,28 @@ export default async function({login, data, imports, q, rest, account}, {enabled
     }
 
     //Recently used languages
-    if ((sections.includes("recently-used")) && (context.mode === "user") && (imports.metadata.plugins.languages.extras("indepth", {extras}))) {
+    if ((sections.includes("recently-used")) && (imports.metadata.plugins.languages.extras("indepth", {extras}))) {
       try {
         console.debug(`metrics/compute/${login}/plugins > languages > using recent analyzer`)
-        languages["stats.recent"] = await recent_analyzer({login, data, imports, rest, account}, {skipped, categories: _recent_categories ?? categories, days: _recent_days, load: _recent_load, timeout})
+        languages["stats.recent"] = await recent_analyzer({login, data, imports, rest, context, account}, {skipped, categories: _recent_categories ?? categories, days: _recent_days, load: _recent_load, timeout})
         Object.assign(languages.colors, languages["stats.recent"].colors)
       }
       catch (error) {
-        console.debug(`metrics/compute/${login}/plugins > languages > ${error}`)
+        console.debug(`metrics/compute/${login}/plugins > languages > recent analyzer > ${error}`)
       }
     }
 
     //Indepth mode
     if ((indepth) && (imports.metadata.plugins.languages.extras("indepth", {extras}))) {
-      //Fetch gpg keys (web-flow is GitHub's public key when making changes from web ui)
-      const gpg = []
-      try {
-        for (const username of [login, "web-flow"]) {
-          const {data: keys} = await rest.users.listGpgKeysForUser({username})
-          gpg.push(...keys.map(({key_id: id, raw_key: pub, emails}) => ({id, pub, emails})))
-          if (username === login) {
-            for (const {email} of gpg.flatMap(({emails}) => emails)) {
-              console.debug(`metrics/compute/${login}/plugins > languages > auto-adding ${email} to commits_authoring (fetched from gpg)`)
-              data.shared["commits.authoring"].push(email)
-            }
-          }
-        }
-      }
-      catch (error) {
-        console.debug(`metrics/compute/${login}/plugins > languages > ${error}`)
-      }
-
-      //Analyze languages
       try {
         console.debug(`metrics/compute/${login}/plugins > languages > switching to indepth mode (this may take some time)`)
         const existingColors = languages.colors
-        Object.assign(languages, await indepth_analyzer({login, data, imports, repositories, gpg}, {skipped, categories, timeout}))
+        Object.assign(languages, await indepth_analyzer({login, data, imports, rest, context, repositories:repositories.concat(_indepth_custom)}, {skipped, categories, timeout}))
         Object.assign(languages.colors, existingColors)
-        console.debug(`metrics/compute/${login}/plugins > languages > indepth analysis missed ${languages.missed.commits} commits`)
+        console.debug(`metrics/compute/${login}/plugins > languages > indepth analysis processed successfully ${languages.commits} and missed ${languages.missed.commits} commits in ${languages.elapsed.toFixed(2)}m`)
       }
       catch (error) {
-        console.debug(`metrics/compute/${login}/plugins > languages > ${error}`)
+        console.debug(`metrics/compute/${login}/plugins > languages > indepth analyzer > ${error}`)
       }
     }
 
@@ -122,7 +105,7 @@ export default async function({login, data, imports, q, rest, account}, {enabled
 
     //Compute languages stats
     for (const {section, stats = {}, lines = {}, missed = {bytes: 0}, total = 0} of [{section: "favorites", stats: languages.stats, lines: languages.lines, total: languages.total, missed: languages.missed}, {section: "recent", ...languages["stats.recent"]}]) {
-      console.debug(`metrics/compute/${login}/plugins > languages > computing stats ${section}`)
+      console.debug(`metrics/compute/${login}/plugins > languages > formatting stats ${section}`)
       languages[section] = Object.entries(stats).filter(([name]) => imports.filters.text(name, ignored)).sort(([_an, a], [_bn, b]) => b - a).slice(0, limit).map(([name, value]) => ({name, value, size: value, color: languages.colors[name], x: 0})).filter(({value}) => value / total > threshold)
       if (other) {
         let value = indepth ? missed.bytes : Object.entries(stats).filter(([name]) => !Object.values(languages[section]).map(({name}) => name).includes(name)).reduce((a, [_, b]) => a + b, 0)

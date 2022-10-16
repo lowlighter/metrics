@@ -1,6 +1,10 @@
+gpgarmor
 github
 https
 leetcode
 pgn
+scm
+shas
 ssh
 ubuntu
+yargsparser

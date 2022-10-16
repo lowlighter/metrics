@@ -236,8 +236,7 @@ It will be automatically hidden if empty.</p>
 
 ## 🔎 `indepth` mode
 
-The default algorithm use the top languages provided of each repository you contributed to.
-When working in collaborative projects with a lot of people, these numbers may be less representative of your actual work.
+The default algorithm uses the top languages from each repository you contributed to using GitHub GraphQL API (which is similar to the displayed languages bar on github.com). When working in collaborative projects with a lot of people, these numbers may be less representative of your actual work.
 
 The `plugin_languages_indepth` option lets you use a more advanced algorithm for more accurate statistics.
 Under the hood, it will clone your repositories, run [linguist-js](https://github.com/Nixinova/Linguist) (a JavaScript port of [GitHub linguist](https://github.com/github/linguist)) and iterate over patches matching your `commits_authoring` setting.
@@ -257,11 +256,51 @@ Since git lets you use any email and username for commits, *metrics* may not be 
 
 > ⚠️ This feature significantly increase workflow time
 
-> ⚠️ Since this mode iterates over **each commit of each repository**, it is not suited for large code base, especially those with a large amount of commits and the ones containing binaries. While `plugin_languages_analysis_timeout` can be used to increase the default timeout for analysis, please be responsible and keep this feature disabled if it cannot work on your account to save GitHub resources and our planet 🌏
+> ⚠️ Since this mode iterates over **each matching commit of each repository**, it is not suited for large code base, especially those with a large amount of commits and the ones containing binaries. While `plugin_languages_analysis_timeout` and `plugin_languages_analysis_timeout_repositories` can be used to increase the default timeout for analysis, please be responsible and keep this feature disabled if it cannot work on your account to save GitHub resources and our planet 🌏
 
 > ⚠️ Although *metrics* does not send any code to external sources, repositories are temporarily cloned on the GitHub Action runner. It is advised to keep this option disabled when working with sensitive data or company code. Use at your own risk, *metrics* and its authors **cannot** be held responsible for any resulting code leaks. Source code is available for auditing at [analyzers.mjs](/source/plugins/languages/analyzers.mjs).
 
 > 🌐 Web instances must enable this feature in `settings.json`
+
+Below is a summary of the process used to compute indepth statistics:
+
+## Most used mode
+
+1. Fetch GPG keys linked to your GitHub account
+  - automatically add attached emails to `commits_authoring`
+  - *web-flow* (GitHub's public key for changes made through web-ui) is also fetched
+2. Import GPG keys so they can be used to verify commits later
+3. Iterate through repositories
+  - early break if `plugin_languages_analysis_timeout` is reached
+  - skip repository if it matches `plugin_languages_skipped`
+  - include repositories from `plugin_languages_indepth_custom`
+    - a specific branch and commit range can be used
+    - a source other than github.com can be used
+4. Clone repository
+  - target branch is checkout
+5. List of authored commits is computed
+  - using `git log --author` and `commits_authoring` to search in commit headers
+  - using `git log --grep` and `commits_authoring` to search in commit body
+  - ensure these are within the range specified by `plugin_languages_indepth_custom` (if applicable)
+6. Process authored commits
+  - early break if `plugin_languages_analysis_timeout_repositories` is reached
+  - using `git verify-commit` to check authenticity against imported GPG keys
+  - using `git log --patch` to extract added/deleted lines/bytes from each file
+  - using [GitHub linguist](https://github.com/github/linguist) ([linguist-js](https://github.com/Nixinova/LinguistJS)) to detect language for each file
+    - respect `plugin_languages_categories` option
+    - if a file has since been deleted or moved, checkout on the last commit file was present and run linguist again
+7. Aggregate results
+
+## Recently used mode
+
+1. Fetch push events linked to your account (or target repository)
+  - matching `plugin_languages_recent_load` and `plugin_languages_recent_days` options
+  - matching committer emails from `commits_authoring`
+2. Process authored commits
+  - using [GitHub linguist](https://github.com/github/linguist) ([linguist-js](https://github.com/Nixinova/LinguistJS)) to detect language for each file
+    - respect `plugin_languages_recent_categories` option
+    - directly pass file content rather than performing I/O and simulating a git repository
+3. Aggregate results
 
 ## 📅 Recently used languages
 

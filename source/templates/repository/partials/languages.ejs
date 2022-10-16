@@ -21,6 +21,9 @@
         <% if (section === "recently-used") { %>
           <small>
             estimation from <%= plugins.languages["stats.recent"]?.files %> edited file<%= s(plugins.languages["stats.recent"]?.files) %> from <%= plugins.languages["stats.recent"]?.commits %> commit<%= s(plugins.languages["stats.recent"]?.commits) %>
+            <% if (plugins.languages["stats.recent"]?.branch) { %>
+              on branch <%= plugins.languages["stats.recent"].branch %>
+            <% } %>
             <% { const days = plugins.languages["stats.recent"]?.latest ?? plugins.languages["stats.recent"]?.days; if (days) { %>
               over last <%= days %> day<%= s(days) %>
             <% } } %>
