@@ -37,7 +37,7 @@ export class RecentAnalyzer extends Analyzer {
         commits.push(
           ...(await (this.context.mode === "repository" ? this.rest.activity.listRepoEvents(this.context) : this.rest.activity.listEventsForAuthenticatedUser({username: this.login, per_page: 100, page}))).data
             .filter(({type}) => type === "PushEvent")
-            .filter(({actor}) => (this.account === "organization")||(this.context.mode === "repository") ? true : !filters.text(actor.login, [this.login]))
+            .filter(({actor}) => (this.account === "organization")||(this.context.mode === "repository") ? true : !filters.text(actor.login, [this.login], {debug:false}))
             .filter(({repo: {name: repo}}) => !this.ignore(repo))
             .filter(({created_at}) => new Date(created_at) > new Date(Date.now() - this.days * 24 * 60 * 60 * 1000)),
         )
@@ -56,7 +56,7 @@ export class RecentAnalyzer extends Analyzer {
       ...await Promise.allSettled(
         commits
           .flatMap(({payload}) => payload.commits)
-          .filter(({committer}) => filters.text(committer?.email, this.authoring))
+          .filter(({committer}) => filters.text(committer?.email, this.authoring, {debug:false}))
           .map(commit => commit.url)
           .map(async commit => (await this.rest.request(commit)).data),
       ),
@@ -93,8 +93,8 @@ export class RecentAnalyzer extends Analyzer {
   }
 
   /**Run linguist against a commit and compute edited lines and bytes*/
-  async linguist(_, {commit}) {
-    const cache = {files:{}, languages:{}}
+  async linguist(_, {commit, cache:{languages}}) {
+    const cache = {files:{}, languages}
     const result = {total:0, files:0, missed:{lines:0, bytes:0}, lines:{}, stats:{}, languages:{}}
     const edited = new Set()
     for (const edition of commit.editions) {

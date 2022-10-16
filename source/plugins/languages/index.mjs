@@ -105,7 +105,7 @@ export default async function({login, data, imports, q, rest, account}, {enabled
 
     //Compute languages stats
     for (const {section, stats = {}, lines = {}, missed = {bytes: 0}, total = 0} of [{section: "favorites", stats: languages.stats, lines: languages.lines, total: languages.total, missed: languages.missed}, {section: "recent", ...languages["stats.recent"]}]) {
-      console.debug(`metrics/compute/${login}/plugins > languages > computing stats ${section}`)
+      console.debug(`metrics/compute/${login}/plugins > languages > formatting stats ${section}`)
       languages[section] = Object.entries(stats).filter(([name]) => imports.filters.text(name, ignored)).sort(([_an, a], [_bn, b]) => b - a).slice(0, limit).map(([name, value]) => ({name, value, size: value, color: languages.colors[name], x: 0})).filter(({value}) => value / total > threshold)
       if (other) {
         let value = indepth ? missed.bytes : Object.entries(stats).filter(([name]) => !Object.values(languages[section]).map(({name}) => name).includes(name)).reduce((a, [_, b]) => a + b, 0)

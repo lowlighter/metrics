@@ -176,7 +176,7 @@ export class Analyzer {
 
   /**Debug log */
   debug(message) {
-    return console.debug(`metrics/compute/${this.login}/plugins > languages > indepth > ${message}`)
+    return console.debug(`metrics/compute/${this.login}/plugins > languages > ${this.constructor.name.replace(/([a-z])([A-Z])/, (_, a, b) => `${a} ${b.toLocaleLowerCase()}`).toLocaleLowerCase()} > ${message}`)
   }
 
 }
