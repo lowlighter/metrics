@@ -115,7 +115,9 @@ inputs:
     description: |
       Default skipped repositories
     type: array
-    format: comma-separated
+    format: 
+      - newline-separated
+      - comma-separated
     default: ""
     example: my-repo-1, my-repo-2, owner/repo-3, ...
     global: yes

@@ -138,8 +138,7 @@ inputs:
       Some templates may not support all options
     type: array
     default: css, xml
-    format:
-      - comma-separated
+    format: comma-separated
     values:
       - css
       - xml
