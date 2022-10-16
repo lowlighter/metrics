@@ -31,15 +31,20 @@ export class RecentAnalyzer extends Analyzer {
     //Fetch commits from recent activity
     this.debug(`fetching patches from last ${this.days || ""} days up to ${this.load || "∞"} events`)
     const commits = [], pages = Math.ceil((this.load || Infinity) / 100)
+    if (this.context.mode === "repository") {
+      const {data:{default_branch:branch}} = await this.rest.repos.get(this.context)
+      this.context.branch = branch
+      this.debug(`default branch for ${this.context.owner}/${this.context.repo} is ${branch}`)
+    }
     try {
       for (let page = 1; page <= pages; page++) {
         this.debug(`fetching events page ${page}`)
         commits.push(
           ...(await (this.context.mode === "repository" ? this.rest.activity.listRepoEvents(this.context) : this.rest.activity.listEventsForAuthenticatedUser({username: this.login, per_page: 100, page}))).data
-            .filter(({type}) => type === "PushEvent")
+            .filter(({type, payload}) => (type === "PushEvent")&&((this.context.mode !== "repository")||((this.context.mode === "repository")&&(payload?.ref?.includes?.(`refs/heads/${this.context.branch}`)))))
             .filter(({actor}) => (this.account === "organization")||(this.context.mode === "repository") ? true : !filters.text(actor.login, [this.login], {debug:false}))
             .filter(({repo: {name: repo}}) => !this.ignore(repo))
-            .filter(({created_at}) => new Date(created_at) > new Date(Date.now() - this.days * 24 * 60 * 60 * 1000)),
+            .filter(({created_at}) => ((!this.days)||(new Date(created_at) > new Date(Date.now() - this.days * 24 * 60 * 60 * 1000)))),
         )
       }
     }

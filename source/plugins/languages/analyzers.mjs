@@ -9,7 +9,7 @@ export async function indepth({login, data, imports, rest, context, repositories
 }
 
 /**Recent languages activity */
-export async function recent({login, data, imports, rest, context, account}, {skipped = [], categories, days = 0, load = 0, tempdir = "recent", timeout}) {
+export async function recent({login, data, imports, rest, context, account}, {skipped = [], categories, days = 0, load = 0, timeout}) {
   return new RecentAnalyzer(login, {shell:imports, uid:data.user.databaseId, skipped, authoring:data.shared["commits.authoring"], timeout, account, rest, context, days, categories, load}).run()
 }
 
