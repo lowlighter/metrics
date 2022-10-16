@@ -264,9 +264,9 @@ Since git lets you use any email and username for commits, *metrics* may not be 
 
 Below is a summary of the process used to compute indepth statistics:
 
-### Most used mode
+## Most used mode
 
-1. Fetch GPG keys linked to your account
+1. Fetch GPG keys linked to your GitHub account
   - automatically add attached emails to `commits_authoring`
   - *web-flow* (GitHub's public key for changes made through web-ui) is also fetched
 2. Import GPG keys so they can be used to verify commits later
@@ -274,8 +274,8 @@ Below is a summary of the process used to compute indepth statistics:
   - early break if `plugin_languages_analysis_timeout` is reached
   - skip repository if it matches `plugin_languages_skipped`
   - include repositories from `plugin_languages_indepth_custom`
-    - a source other than github.com can be used
     - a specific branch and commit range can be used
+    - a source other than github.com can be used
 4. Clone repository
   - target branch is checkout
 5. List of authored commits is computed
@@ -284,21 +284,22 @@ Below is a summary of the process used to compute indepth statistics:
   - ensure these are within the range specified by `plugin_languages_indepth_custom` (if applicable)
 6. Process authored commits
   - early break if `plugin_languages_analysis_timeout_repositories` is reached
-  - using `git verify-commit` to check authenticity
+  - using `git verify-commit` to check authenticity against imported GPG keys
   - using `git log --patch` to extract added/deleted lines/bytes from each file
-  - using GitHub linguist (linguist-js) to detect language for a given file
+  - using [GitHub linguist](https://github.com/github/linguist) ([linguist-js](https://github.com/Nixinova/LinguistJS)) to detect language for each file
     - respect `plugin_languages_categories` option
     - if a file has since been deleted or moved, checkout on the last commit file was present and run linguist again
 7. Aggregate results
 
-### Recently used mode
+## Recently used mode
 
-1. Fetch push events linked to your account
+1. Fetch push events linked to your account (or target repository)
   - matching `plugin_languages_recent_load` and `plugin_languages_recent_days` options
   - matching committer emails from `commits_authoring`
 2. Process authored commits
-  - using GitHub linguist (linguist-js) to detect language for a given file
+  - using [GitHub linguist](https://github.com/github/linguist) ([linguist-js](https://github.com/Nixinova/LinguistJS)) to detect language for each file
     - respect `plugin_languages_recent_categories` option
+    - directly pass file content rather than performing I/O and simulating a git repository
 3. Aggregate results
 
 ## 📅 Recently used languages
