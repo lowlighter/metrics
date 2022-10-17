@@ -179,6 +179,9 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
                       .map(v => replacer(v).toLocaleLowerCase())
                       .filter(v => Array.isArray(values) ? values.includes(v) : true)
                       .filter(v => v)
+                    //Conditional below serves as auto-detection when multiple formats are provided
+                    //To force a specific format one should use the separator as the first character 
+                    //so that the parsed.length is greater than 1 (empty values are filtered anyways)
                     if (parsed.length > 1) {
                       used = separation
                       break

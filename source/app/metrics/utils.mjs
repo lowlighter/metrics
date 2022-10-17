@@ -401,6 +401,8 @@ export const filters = {
         console.debug(`metrics/filters/repo > ${repo} > using advanced pattern matching`)
       const options = {nocase:true}
       for (let pattern of patterns) {
+        if (pattern.startsWith("#"))
+          continue
         let action = false
         if ((pattern.startsWith("+"))||(pattern.startsWith("-"))) {
           action = pattern.charAt(0) === "+"
