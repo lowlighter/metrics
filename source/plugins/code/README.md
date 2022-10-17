@@ -109,7 +109,7 @@ Use at your own risk, <em>metrics</em> and its authors cannot be held responsibl
   <tr>
     <td nowrap="nowrap">⏩ Inherits <code>repositories_skipped</code><br>
 <b>type:</b> <code>array</code>
-<i>(comma-separated)</i>
+<i>(newline-separated)</i>
 <br></td>
   </tr>
   <tr>

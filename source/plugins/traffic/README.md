@@ -51,7 +51,7 @@ All product and company names are trademarks™ or registered® trademarks of th
   <tr>
     <td nowrap="nowrap">⏩ Inherits <code>repositories_skipped</code><br>
 <b>type:</b> <code>array</code>
-<i>(comma-separated)</i>
+<i>(newline-separated)</i>
 <br></td>
   </tr>
 </table>
