@@ -57,6 +57,60 @@ Content can be manually ordered using `config_order` option.
 > ℹ️ The handles to use for each plugin and sections is based on the [`partials/_.json`](/source/templates/classic/partials/_.json) of the template.
 > It may not necessarily be the plugin id (e.g. `base.header`, `base.activity+community`, `base.repositories`, etc.).
 
+## 🔕 Skipping repositories in plugins
+
+Some plugins support a `plugin_*_skipped` option which is used to skipped repositories from result. It inherits the global option [`repositories_skipped`](/source/plugins/base/README.md#repositories_skipped) which makes it easier to ignore repositories from all plugins at once.
+
+These options support two different syntaxes:
+
+### Basic pattern matching
+
+Skip repositories by:
+- using their full handle (e.g. `user/repo`)
+- using only their name (e.g. `repo`)
+  - *in this case, the owner may be implicitly set to current `user` option* 
+
+*Example: skipping repositories with basic pattern matching*
+```yml
+repositories_skipped: my-repo, user/my-repo
+```
+
+> 💡 Either comma or newlines can be used to separate basic patterns
+
+### Advanced pattern matching
+
+To enable advanced pattern matching to skip repositories, include `@use.patterns` at the beginning of the option value.
+
+Skip repositories by writing file-glob patterns, with any of the supported operation: 
+- `#` to write comments
+- `-` to exclude repositories
+  - *the `-` is implicit and may be omitted from excluding patterns*
+- `+` to include back repositories
+
+> ℹ️ *metrics* use [isaacs/minimatch](https://github.com/isaacs/minimatch) as its file-glob matcher
+
+*Example: skipping repositories with basic advanced matching*
+```yml
+repositories_skipped: |
+  @use.patterns
+  
+  # Skip a specific repository (both patterns are equivalent)
+  user/repo 
+  -user/repo
+
+  # Skip repositories matching a given pattern
+  user/repo-*
+  {user1, user2, user3}/*
+  
+  # Include back a previously skipped repository
+  org/repo
+  +org/include-this-repo
+```
+
+> ℹ️ Unlike basic pattern matching, patterns are always tested against the full repository handle (the user will not be implicitly added)
+
+> ⚠️ As patterns may contain commas, be sure to use newlines rather than commas as separator to ensure patterns are correctly parsed
+
 ## 🪛 Using presets
 
 It is possible to reuse the same configuration across different repositories and workflows using configuration presets.

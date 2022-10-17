@@ -170,9 +170,25 @@ metadata.plugin = async function({__plugins, __templates, name, logger}) {
                     logger(`metrics/inputs > failed to decode uri : ${value}`)
                     value = defaulted
                   }
-                  const separators = {"comma-separated": ",", "space-separated": " "}
-                  const separator = separators[[format].flat().filter(s => s in separators)[0]] ?? ","
-                  return value.split(separator).map(v => replacer(v).toLocaleLowerCase()).filter(v => Array.isArray(values) ? values.includes(v) : true).filter(v => v)
+                  const separators = {"comma-separated": ",", "space-separated": " ", "newline-separated": "\n"}
+                  const formats = [format, "comma-separated"].flat(Infinity).filter(s => s in separators)
+                  let parsed = [], used = "comma-separated"
+                  for (const separation of formats) {
+                    parsed = value
+                      .split(separators[separation])
+                      .map(v => replacer(v).toLocaleLowerCase())
+                      .filter(v => Array.isArray(values) ? values.includes(v) : true)
+                      .filter(v => v)
+                    //Conditional below serves as auto-detection when multiple formats are provided
+                    //To force a specific format one should use the separator as the first character
+                    //so that the parsed.length is greater than 1 (empty values are filtered anyways)
+                    if (parsed.length > 1) {
+                      used = separation
+                      break
+                    }
+                  }
+                  logger(`metrics/inputs > used ${used} format to decode ${value}`)
+                  return parsed
                 }
                 //String
                 case "string": {
@@ -625,7 +641,7 @@ metadata.to = {
   yaml(key, {name = ""} = {}) {
     const parts = []
     if (key !== "enabled")
-      parts.unshift(key.replaceAll(".", "_"))
+      parts.unshift(key.replace(/\./g, "_"))
     if (name)
       parts.unshift((name === "base") ? name : `plugin_${name}`)
     return parts.join("_")

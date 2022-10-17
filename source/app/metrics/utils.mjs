@@ -391,9 +391,36 @@ export const filters = {
     }
     user = (user ?? repository.split("/")[0]).toLocaleLowerCase()
     repo = (repo ?? repository.split("/")[1]).toLocaleLowerCase()
+    const handle = `${user}/${repo}`
 
+    let include = true
+    //Advanced pattern matching
+    if (patterns[0] === "@use.patterns") {
+      if (debug)
+        console.debug(`metrics/filters/repo > ${repo} > using advanced pattern matching`)
+      const options = {nocase:true}
+      for (let pattern of patterns) {
+        if (pattern.startsWith("#"))
+          continue
+        let action = false
+        if ((pattern.startsWith("+"))||(pattern.startsWith("-"))) {
+          action = pattern.charAt(0) === "+"
+          pattern = pattern.substring(1)
+        }
+        if (minimatch(handle, pattern, options)) {
+          if (debug)
+            console.debug(`metrics/filters/repo > ${repo} matches ${action ? "including" : "excluding"} pattern ${pattern}`)
+          include = action
+        }
+      }
+    }
     //Basic pattern matching
-    const include = (!patterns.includes(repo)) && (!patterns.includes(`${user}/${repo}`))
+    else {
+      if (debug)
+        console.debug(`metrics/filters/repo > ${repo} > using basic pattern matching`)
+      include = (!patterns.includes(repo)) && (!patterns.includes(handle))
+    }
+
     if (debug)
       console.debug(`metrics/filters/repo > filter ${repo} (${include ? "included" : "excluded"})`)
     return include
