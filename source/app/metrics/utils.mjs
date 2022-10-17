@@ -398,12 +398,12 @@ export const filters = {
     if (patterns[0] === "@use.patterns") {
       if (debug)
         console.debug(`metrics/filters/repo > ${repo} > using advanced pattern matching`)
-      const options = {nocase:true}
+      const options = {nocase: true}
       for (let pattern of patterns) {
         if (pattern.startsWith("#"))
           continue
         let action = false
-        if ((pattern.startsWith("+"))||(pattern.startsWith("-"))) {
+        if ((pattern.startsWith("+")) || (pattern.startsWith("-"))) {
           action = pattern.charAt(0) === "+"
           pattern = pattern.substring(1)
         }
