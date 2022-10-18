@@ -32,9 +32,12 @@ inputs:
   plugin_licenses_setup:
     description: |
       Setup command
+
+      > ℹ️ Depending on the project, this may not be required.
+      > The example command is intended for NodeJs projects that use `npm` to install their dependencies.
     type: string
     default: ""
-    example: npm ci
+    example: "[[ -f package.json ]] && npm ci || true"
 
   plugin_licenses_ratio:
     description: |

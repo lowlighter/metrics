@@ -6,7 +6,7 @@
     template: repository
     repo: metrics
     plugin_licenses: yes
-    plugin_licenses_setup: npm ci
+    plugin_licenses_setup: "[[ -f package.json ]] && npm ci || true"
   test:
     timeout: 1800000
     modes:
@@ -21,7 +21,7 @@
     template: repository
     repo: metrics
     plugin_licenses: yes
-    plugin_licenses_setup: npm ci
+    plugin_licenses_setup: "[[ -f package.json ]] && npm ci || true"
     plugin_licenses_legal: no
     plugin_licenses_ratio: yes
   test:
