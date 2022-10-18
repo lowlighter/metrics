@@ -37,7 +37,7 @@ inputs:
       > The example command is intended for NodeJs projects that use `npm` to install their dependencies.
     type: string
     default: ""
-    example: "[[ -f package.json ]] && npm ci || true"
+    example: "bash -c '[[ -f package.json ]] && npm ci || true'"
 
   plugin_licenses_ratio:
     description: |
