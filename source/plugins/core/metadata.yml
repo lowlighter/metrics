@@ -217,9 +217,11 @@ inputs:
 
       Can be used to support [GitHub enterprises server](https://github.com/enterprise).
       Leave empty to use default endpoint.
+
+      > ℹ️ GraphQL octokit will automatically append `/graphql` to provided endpoint
     type: string
     default: ""
-    example: https://api.github.com/graphql
+    example: https://api.github.com
     global: yes
 
   config_timezone:
