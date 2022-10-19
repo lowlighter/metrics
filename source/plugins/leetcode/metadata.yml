@@ -57,3 +57,12 @@ inputs:
     default: 2
     min: 1
     max: 15
+
+  plugin_leetcode_url:
+    description: |
+      LeetCode URL
+    type: string
+    default: https://leetcode.com
+    values:
+      - https://leetcode.com
+      - https://leetcode.cn
