@@ -84,6 +84,10 @@ Dependencies will be analyzed by [GitHub licensed](https://github.com/github/lic
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_licenses_setup</code></h4></td>
     <td rowspan="2"><p>Setup command</p>
+<blockquote>
+<p>ℹ️ Depending on the project, this may not be required.
+The example command is intended for NodeJs projects that use <code>npm</code> to install their dependencies.</p>
+</blockquote>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -125,7 +129,7 @@ with:
   template: repository
   repo: metrics
   plugin_licenses: yes
-  plugin_licenses_setup: npm ci
+  plugin_licenses_setup: bash -c '[[ -f package.json ]] && npm ci || true'
 
 ```
 ```yaml
@@ -138,7 +142,7 @@ with:
   template: repository
   repo: metrics
   plugin_licenses: yes
-  plugin_licenses_setup: npm ci
+  plugin_licenses_setup: bash -c '[[ -f package.json ]] && npm ci || true'
   plugin_licenses_legal: no
   plugin_licenses_ratio: yes
 

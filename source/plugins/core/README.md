@@ -719,6 +719,9 @@ Leave empty to use default endpoint.</p>
     <td rowspan="2"><p>GitHub GraphQL API endpoint</p>
 <p>Can be used to support <a href="https://github.com/enterprise">GitHub enterprises server</a>.
 Leave empty to use default endpoint.</p>
+<blockquote>
+<p>ℹ️ GraphQL octokit will automatically append <code>/graphql</code> to provided endpoint</p>
+</blockquote>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>

@@ -64,7 +64,6 @@ export class Analyzer {
       completed = true
       solve(this.results)
     })
-    results.partial = (results.partial.global) || (results.partial.repositories)
     return results
   }
 
