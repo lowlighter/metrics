@@ -66,7 +66,7 @@ for (const path of [[], ["locale"]]) {
   }
 }
 fs.copyFile(paths.join(__node_modules, "axios/dist/axios.min.js"), paths.join(__preview_js, "axios.min.js"))
-fs.copyFile(paths.join(__node_modules, "axios/dist/axios.min.map"), paths.join(__preview_js, "axios.min.map"))
+fs.copyFile(paths.join(__node_modules, "axios/dist/axios.min.js.map"), paths.join(__preview_js, "axios.min.js.map"))
 fs.copyFile(paths.join(__node_modules, "vue/dist/vue.min.js"), paths.join(__preview_js, "vue.min.js"))
 fs.copyFile(paths.join(__node_modules, "vue-prism-component/dist/vue-prism-component.min.js"), paths.join(__preview_js, "vue.prism.min.js"))
 fs.copyFile(paths.join(__node_modules, "vue-prism-component/dist/vue-prism-component.min.js.map"), paths.join(__preview_js, "vue-prism-component.min.js.map"))
