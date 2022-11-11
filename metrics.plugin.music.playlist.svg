@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="142" class="">
+    <defs>
+        <style/>
+    </defs>
+    <style>@keyframes animation-gauge{0%{stroke-dasharray:0 329}}@keyframes animation-rainbow{0%,to{color:#7f00ff;fill:#7f00ff}14%{color:#a933ff;fill:#a933ff}29%{color:#007fff;fill:#007fff}43%{color:#00ff7f;fill:#00ff7f}57%{color:#ff0;fill:#ff0}71%{color:#ff7f00;fill:#ff7f00}86%{color:red;fill:red}}svg{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;font-size:14px;color:#777}h2{margin:8px 0 2px;padding:0;color:#0366d6;font-weight:400;font-size:16px}h2 svg{fill:currentColor}section&gt;.field{margin-left:5px;margin-right:5px}.field{display:flex;align-items:center;margin-bottom:2px;white-space:nowrap}.field svg{margin:0 8px;fill:#959da5;flex-shrink:0}.row{display:flex;flex-wrap:wrap}.row section{flex:1 1 0}#metrics-end,.fill-width{width:100%}.chartist .ct-post{fill:rgba(127,127,127,.8)!important;color:rgba(127,127,127,.8)!important;font-size:9px;text-anchor:middle}.tracklist{display:flex;flex-direction:column;align-items:flex-start;margin-left:28px;margin-top:4px;width:100%}.track{display:flex;align-items:center;justify-content:center;margin-bottom:4px}.track img{margin:0 10px;border-radius:7px;flex-shrink:0}.track .artist,.track .name{width:387px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.track .name{font-size:14px;line-height:14px;height:14px;font-weight:600}.track .artist{font-size:12px;color:#666}.track .infos{flex-grow:1}:root{--color-calendar-graph-day-bg:#ebedf0;--color-calendar-graph-day-border:rgba(27,31,35,0.06);--color-calendar-graph-day-L1-bg:#9be9a8;--color-calendar-graph-day-L2-bg:#40c463;--color-calendar-graph-day-L3-bg:#30a14e;--color-calendar-graph-day-L4-bg:#216e39;--color-calendar-halloween-graph-day-L1-bg:#ffee4a;--color-calendar-halloween-graph-day-L2-bg:#ffc501;--color-calendar-halloween-graph-day-L3-bg:#fe9600;--color-calendar-halloween-graph-day-L4-bg:#03001c;--color-calendar-graph-day-L4-border:rgba(27,31,35,0.06);--color-calendar-graph-day-L3-border:rgba(27,31,35,0.06);--color-calendar-graph-day-L2-border:rgba(27,31,35,0.06);--color-calendar-graph-day-L1-border:rgba(27,31,35,0.06)}</style>
+    <style/>
+    <foreignObject x="0" y="0" width="100%" height="100%">
+        <div xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="items-wrapper">
+            <section>
+                <h2 class="field">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+                        <path fill-rule="evenodd" d="M1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zM8 0a8 8 0 100 16A8 8 0 008 0zM6.379 5.227A.25.25 0 006 5.442v5.117a.25.25 0 00.379.214l4.264-2.559a.25.25 0 000-.428L6.379 5.227z"/>
+                    </svg>
+                    Suggested tracks
+                </h2>
+                <div class="row fill-width">
+                    <section>
+                        <div class="field">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+                                <path fill-rule="evenodd" d="M2.002 2.725a.75.75 0 01.797-.699C8.79 2.42 13.58 7.21 13.974 13.201a.75.75 0 11-1.497.098 10.502 10.502 0 00-9.776-9.776.75.75 0 01-.7-.798zM2 13a1 1 0 112 0 1 1 0 01-2 0zm.84-5.95a.75.75 0 00-.179 1.489c2.509.3 4.5 2.291 4.8 4.8a.75.75 0 101.49-.178A7.003 7.003 0 002.838 7.05z"/>
+                            </svg>
+                            From Apple Music
+                        </div>
+                        <div class="tracklist">
+                            <div class="track">
+                                <img src="data:image/jpg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAoACgDASIAAhEBAxEB/8QAGgAAAgMBAQAAAAAAAAAAAAAAAAQDBQYBB//EAC4QAAIBAwIEBAYCAwAAAAAAAAECAwAEEQUhBhJBURMiMXEUMkKBkaEjYVLh8P/EABYBAQEBAAAAAAAAAAAAAAAAAAABAv/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AEr67vIrkLFAHiQAzlVzgf1j1ONyN9vtWg0OeaO9jOYsOQowc7HsBWfs5buGA+Vx4x8Vts/NuP1gVb8IKUnSJ2BktnXmi3LcvMMEADt3NaZSxa1e2CyCzt2ndshWBA5ce/WlLm4upbC5luLWRbpWUIjSAhwQeY5x02/NctLpZNYu7WBlkmgUyS8oyoBO2T329KYvpA0flB9Nx2oMhDZqNU8TH1ZoplIgt18Xy7MApOfp6H8/qigS0bWhd6aszsyE58rOMj3rvCOojVNdiKwXSXcLSshjkOZ8K2BgdMqtZHSb7TItPKXsZ+IX5cSYzt2Gx/VRaRfRW8F/IVaJjJGyyI2MIObKgjffIGO1FaKXX9S065L+HERMy3Dwh+ZicEAsR179N6Yh4wk1HUY7V44UWX+No4eaWQk43HoAPyaxsdpdcQXFzdLcwQ42CM5B5fYCol0C6jlRrW8t5HVsho2KsrfcD9HNB6/yK0zRlMqRyY+1FU1zrnED8LqkdvZJrDL4byrNHzBf8wOjH329aKI0kHBPDk0CvNplskrqOdACMN1A37/9ilIeDtIvL2e3ns/hdLg80fhHkFwxA3PXAwfcn+qKKKdn4Y0+BI5bK2gh8IYVioBK+m+Pt61Qa1oqK5YlULfUQAf9iiiiKcadelzG1wvg0UUUH//Z" width="32" height="32" alt="" />
+                                <div class="infos">
+                                    <div class="name">Face à la mer (feat. Passi)</div>
+                                    <div class="artist">Calogero</div>
+                                </div>
+                            </div>
+                            <div class="track">
+                                <img src="data:image/jpg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAoACgDASIAAhEBAxEB/8QAGgAAAgMBAQAAAAAAAAAAAAAAAAUEBgcBAv/EADIQAAECBQEFBgQHAAAAAAAAAAECAwAEBQYREgchMVHRCBMUMnGBFUFioSJFgpKxwdL/xAAZAQADAAMAAAAAAAAAAAAAAAACAwUBBAb/xAAgEQACAgICAwEBAAAAAAAAAAABAwACBBEUIRIxUTJB/9oADAMBAAIRAxEAPwCbK9oW43yM0OmD0U51hxJ7bLkmlBLdFp6lHdgKX1jFbXm6ZMOATDwZH1jH3jZ7OkaTOOJalJphbg+SVDMX7pxl12a7nNcnLZfxB1GY2sXUUFXwGTwOPn3b8c+cQZnbTccutSV0WQSobiFFwEfeLxMWsluXypBAI58Yp9bt1pWoqSCT8zCVXxLn8w285Y2LxJM7f7jZ4USmH9TnWCKrX7eDWooEEbXFxT2BEjPyq9WmUUhDmpONMaNZzU941pUmDkHiMwhtdNJllDxDXen6zujR6Re1FpDxEjJIceR5lISAlHqo/wBAmFtbalPEDcKtKuaLE6Al/n6tc0umWbeWlpotatTxwkgc8x2YcqbjIU+mWyRn8Kj0jPqpelRq1zS/iJQuMhtLqms7+61Dhn+DvPKLPUrqYx5wPeJS1sPusrPYunYtuJ7hTM6VZQ17KghBXbpZOQFAn1gihRdwJOtkr3JyezfdCEEIr9J1c9LnSBns5XY0jSm4aSPRLn+YIImHJYf7LIxlfI5a2E3UlaXFV6ml0N93kJc4Zzyjw7sFuh3jXaZ7hzpBBBjMaPRijgJsexID3Z2udz89pX7XOkEEEYOW37CGGoehP//Z" width="32" height="32" alt="" />
+                                <div class="infos">
+                                    <div class="name">誰か、海を。</div>
+                                    <div class="artist">Aimer</div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </section>
+        </div>
+        <div xmlns="http://www.w3.org/1999/xhtml" id="metrics-end"></div>
+    </foreignObject>
+</svg>
