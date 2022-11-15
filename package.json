@@ -52,7 +52,7 @@
     "marked": "^4.2.1",
     "memory-cache": "^0.2.0",
     "minimatch": "^5.1.0",
-    "node-fetch": "^3.2.10",
+    "node-fetch": "^3.3.0",
     "open-graph-scraper": "^4.11.1",
     "png-js": "^1.0.0",
     "prismjs": "^1.29.0",
