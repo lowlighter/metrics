@@ -47,7 +47,7 @@ ignore$
 ^\.github/actions/spelling/
 ^\Q.github/readme/partials/documentation/inspirations.md\E$
 ^\Q.github/workflows/spelling.yml\E$
-^\source/plugins/community/splatoon/
+^source/plugins/community/splatoon/
 ^\Qsource/plugins/sponsors/index.mjs\E$
 ^\Qsource/plugins/stargazers/worldmap/atlas/50m_countries.geojson\E$
 ^\Qsource/templates/classic/partials/splatoon.ejs\E$
