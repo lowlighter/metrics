@@ -2,7 +2,7 @@
 import assets from "./assets.mjs"
 
 //Setup
-export default async function({q, imports, data, account}, {enabled = false, extras = false, token:_token} = {}) {
+export default async function({login, q, imports, data, account}, {enabled = false, extras = false, token} = {}) {
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
@@ -12,13 +12,28 @@ export default async function({q, imports, data, account}, {enabled = false, ext
     //Load inputs
     const {"salmon.limit":_salmon_limit} = imports.metadata.plugins.splatoon.inputs({data, account, q})
 
+    //Save profile
+    {
+      const profile = `${imports.__module(import.meta.url)}/s3si/profile.json`
+      console.debug(`metrics/compute/${login}/plugins > splatoon > saving ${profile}`)
+      const parsed = JSON.parse(token)
+      if ((!parsed?.loginState?.sessionToken)||(!parsed?.loginState?.gToken)||(!parsed?.loginState?.bulletToken))
+        throw new Error("Configuration is missing either sessionToken, gToken or bulletToken")
+
+      await imports.fs.writeFile(profile, token)
+    }
+
     //Fetch data
-    //deno run --allow-read="profile.json,profile.json.swap,export,cache" --allow-write="profile.json,profile.json.swap,export,cache" --allow-net="api.lp1.av5ja.srv.nintendo.net,accounts.nintendo.com,api.accounts.nintendo.com,api.imink.app,api-lp1.znc.srv.nintendo.net" https://raw.githubusercontent.com/spacemeowx2/s3si.ts/main/s3si.ts --exporter file
+    const allowed = {
+      files:["profile.json", "profile.json.swap", "export", "cache"],
+      net:["api.imink.app", "accounts.nintendo.com", "api.accounts.nintendo.com", "api-lp1.znc.srv.nintendo.net", "api.lp1.av5ja.srv.nintendo.net"]
+    }
+    await imports.run(`deno run --cached-only --no-remote --allow-read="${allowed.files}" --allow-write="${allowed.files}" --allow-net="${allowed.net}" index.ts --exporter file`, {cwd: `${imports.__module(import.meta.url)}/s3si`}, {prefixed:false})
 
     //Read fetched data
     const fetched = (await Promise.all(
-      (await imports.fs.readdir(`${imports.__module(import.meta.url)}/export`))
-        .map(async file => JSON.parse(await imports.fs.readFile(`${imports.__module(import.meta.url)}/export/${file}`)))))
+      (await imports.fs.readdir(`${imports.__module(import.meta.url)}/s3si/export`))
+        .map(async file => JSON.parse(await imports.fs.readFile(`${imports.__module(import.meta.url)}/s3si/export/${file}`)))))
         .sort((a, b) => new Date(b.data.detail.playedTime) - new Date(a.data.detail.playedTime))
 
     //Salmon run
