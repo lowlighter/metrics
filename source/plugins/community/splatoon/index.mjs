@@ -16,7 +16,7 @@ export default async function({login, q, imports, data, computed, rest, graphql,
     const fetched = (await Promise.all(
       (await imports.fs.readdir(`${imports.__module(import.meta.url)}/export`))
         .map(async file => JSON.parse(await imports.fs.readFile(`${imports.__module(import.meta.url)}/export/${file}`)))))
-         // .sort((a, b) => new Date(b.data.detail.playedTime) - new Date(a.data.detail.playedTime))
+        .sort((a, b) => new Date(b.data.detail.playedTime) - new Date(a.data.detail.playedTime))
 
     //Salmon run
     const salmon = fetched.filter(({type}) => type === "COOP").slice(0, _salmon_limit || Infinity)
