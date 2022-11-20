@@ -18,7 +18,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
     const page = await browser.newPage()
     await page.setViewport({width: 1280, height: 1280})
     console.debug(`metrics/compute/${login}/plugins > screenshot > loading ${url}`)
-    await page.goto(url)
+    await page.goto(url, {waitUntil:["domcontentloaded", "networkidle2"]})
 
     //Screenshot
     await page.waitForSelector(selector)
