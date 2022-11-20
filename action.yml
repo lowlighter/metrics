@@ -1310,6 +1310,14 @@ inputs:
     description: CSS Selector
     default: <default-value>
 
+  plugin_screenshot_viewport:
+    description: Viewport options
+    default: <default-value>
+
+  plugin_screenshot_wait:
+    description: Wait time before taking screenshot (ms)
+    default: <default-value>
+
   plugin_screenshot_background:
     description: Background
     default: <default-value>
@@ -1342,7 +1350,7 @@ inputs:
 # Action metadata
 name: Metrics embed
 author: lowlighter
-description: An infographics generator with 40+ plugins and 200+ options to display stats about your GitHub account!
+description: An infographics generator with 40+ plugins and 300+ options to display stats about your GitHub account!
 branding:
   icon: user-check
   color: gray-dark
