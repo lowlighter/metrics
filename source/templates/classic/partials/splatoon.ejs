@@ -21,14 +21,14 @@
 
       <div class="player">
         <div class="player-name">
-          <%= plugins.splatoon.player %>
+          <%= plugins.splatoon.salmon.player %>
         </div>
         <div class="player-title">
-          <%= plugins.splatoon.grade %>
+          <%= plugins.splatoon.salmon.grade %>
         </div>
       </div>
 
-      <% for (const {stage, waves, weapons, special, boss, ...match} of plugins.splatoon.matches) { %>
+      <% for (const {stage, waves, weapons, special, boss, ...match} of plugins.splatoon.salmon.matches) { %>
         <div class="match">
           <div class="stage-icon" style="background-image: url('<%= stage.icon %>');">
             <div class="hazard">Hazard level <%= match.hazard %>%</div>
