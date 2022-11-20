@@ -18,7 +18,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
     const page = await browser.newPage()
     await page.setViewport(viewport)
     console.debug(`metrics/compute/${login}/plugins > screenshot > loading ${url}`)
-    await page.goto(url, {waitUntil:["domcontentloaded", "networkidle2"]})
+    await page.goto(url, {waitUntil: ["domcontentloaded", "networkidle2"]})
     if (wait)
       await new Promise(solve => setTimeout(solve, wait))
 
