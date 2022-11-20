@@ -42,6 +42,23 @@ inputs:
     type: string
     default: body
 
+  plugin_screenshot_viewport:
+    description: |
+      Viewport options
+    type: json
+    default: |
+      {
+        "width": 1280,
+        "height": 1280
+      }
+
+  plugin_screenshot_wait:
+    description: |
+      Wait time before taking screenshot (ms)
+    type: number
+    min: 0
+    default: 0
+
   plugin_screenshot_background:
     description: |
       Background

@@ -7,7 +7,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
       return null
 
     //Load inputs
-    let {url, selector, title, background} = imports.metadata.plugins.screenshot.inputs({data, account, q})
+    let {url, selector, title, background, viewport, wait} = imports.metadata.plugins.screenshot.inputs({data, account, q})
     if (!url)
       throw {error: {message: "URL is not set"}}
 
@@ -16,9 +16,11 @@ export default async function({login, q, imports, data, account}, {enabled = fal
     const browser = await imports.puppeteer.launch()
     console.debug(`metrics/compute/${login}/plugins > screenshot > started ${await browser.version()}`)
     const page = await browser.newPage()
-    await page.setViewport({width: 1280, height: 1280})
+    await page.setViewport(viewport)
     console.debug(`metrics/compute/${login}/plugins > screenshot > loading ${url}`)
     await page.goto(url, {waitUntil:["domcontentloaded", "networkidle2"]})
+    if (wait)
+      await new Promise(solve => setTimeout(solve, wait))
 
     //Screenshot
     await page.waitForSelector(selector)
