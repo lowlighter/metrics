@@ -118,6 +118,10 @@ deno run --allow-run=deno --allow-read=profile.json --allow-write=profile.json -
 
 ![Authentication](/.github/readme/imgs/plugin_splatoon_auth.png)
 
+## 👨‍💻 About
+
+Data are fetched using [spacemeowx2/s3si.ts](https://github.com/spacemeowx2/s3si.ts) tool (which is itself based on [frozenpandaman/s3s](https://github.com/frozenpandaman/s3s)).
+
 ## ℹ️ Examples workflows
 
 <!--examples-->
