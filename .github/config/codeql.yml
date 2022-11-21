@@ -4,3 +4,4 @@ queries:
 paths-ignore:
   - copyrighted/**
   - .github/scripts/quickstart/**
+  - source/plugins/community/splatoon/s3si/**
