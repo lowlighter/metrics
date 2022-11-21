@@ -18,14 +18,14 @@ export default {
     "Mahi-Mahi Resort":"https://cdn.wikimg.net/en/splatoonwiki/images/6/6b/S3_Stage_Mahi-Mahi_Resort.png",
     "Inkblot Art Academy":"https://cdn.wikimg.net/en/splatoonwiki/images/4/45/S3_Stage_Inkblot_Art_Academy.png",
     "Sturgeon Shipyard":"https://cdn.wikimg.net/en/splatoonwiki/images/4/45/S3_Stage_Sturgeon_Shipyard.png",
-    "MakoMart":"https://cdn.wikimg.net/en/splatoonwiki/images/4/47/S3_Stage_MakoMart.png",
+    MakoMart:"https://cdn.wikimg.net/en/splatoonwiki/images/4/47/S3_Stage_MakoMart.png",
     "Wahoo World":"https://cdn.wikimg.net/en/splatoonwiki/images/7/71/S3_Stage_Wahoo_World.png",
   },
   //Game modes
   modes:{
     "Splat Zones":"https://cdn.wikimg.net/en/splatoonwiki/images/3/38/S3_icon_Splat_Zones.png",
     "Tower Control":"https://cdn.wikimg.net/en/splatoonwiki/images/b/bc/S3_icon_Tower_Control.png",
-    "Rainmaker":"https://cdn.wikimg.net/en/splatoonwiki/images/1/12/S3_icon_Rainmaker.png",
+    Rainmaker:"https://cdn.wikimg.net/en/splatoonwiki/images/1/12/S3_icon_Rainmaker.png",
     "Clam Blitz":"https://cdn.wikimg.net/en/splatoonwiki/images/e/e3/S3_icon_Clam_Blitz.png",
     "Turf War":"https://cdn.wikimg.net/en/splatoonwiki/images/7/7e/S3_Badge_Turf_War_50.png",
   },
@@ -96,7 +96,7 @@ export default {
   //Subweapons icons
   subweapons:{
     "Angle Shooter":"https://cdn.wikimg.net/en/splatoonwiki/images/3/3a/S3_Weapon_Sub_Angle_Shooter_Flat.png",
-    "Autobomb":"https://cdn.wikimg.net/en/splatoonwiki/images/6/6d/S3_Weapon_Sub_Autobomb_Flat.png",
+    Autobomb:"https://cdn.wikimg.net/en/splatoonwiki/images/6/6d/S3_Weapon_Sub_Autobomb_Flat.png",
     "Burst Bomb":"https://cdn.wikimg.net/en/splatoonwiki/images/3/3a/S3_Weapon_Sub_Burst_Bomb_Flat.png",
     "Curling Bomb":"https://cdn.wikimg.net/en/splatoonwiki/images/1/11/S3_Weapon_Sub_Curling_Bomb_Flat.png",
     "Fizzy Bomb":"https://cdn.wikimg.net/en/splatoonwiki/images/c/c4/S3_Weapon_Sub_Fizzy_Bomb_Flat.png",
@@ -104,10 +104,10 @@ export default {
     "Point Sensor":"https://cdn.wikimg.net/en/splatoonwiki/images/d/dd/S3_Weapon_Sub_Point_Sensor_Flat.png",
     "Splash Wall":"https://cdn.wikimg.net/en/splatoonwiki/images/e/e8/S3_Weapon_Sub_Splash_Wall_Flat.png",
     "Splat Bomb":"https://cdn.wikimg.net/en/splatoonwiki/images/8/81/S3_Weapon_Sub_Splat_Bomb_Flat.png",
-    "Sprinkler":"https://cdn.wikimg.net/en/splatoonwiki/images/d/de/S3_Weapon_Sub_Sprinkler_Flat.png",
+    Sprinkler:"https://cdn.wikimg.net/en/splatoonwiki/images/d/de/S3_Weapon_Sub_Sprinkler_Flat.png",
     "Squid Beakon":"https://cdn.wikimg.net/en/splatoonwiki/images/f/f1/S3_Weapon_Sub_Squid_Beakon_Flat.png",
     "Suction Bomb":"https://cdn.wikimg.net/en/splatoonwiki/images/f/f2/S3_Weapon_Sub_Suction_Bomb_Flat.png",
-    "Torpedo":"https://cdn.wikimg.net/en/splatoonwiki/images/0/06/S3_Weapon_Sub_Torpedo_Flat.png",
+    Torpedo:"https://cdn.wikimg.net/en/splatoonwiki/images/0/06/S3_Weapon_Sub_Torpedo_Flat.png",
     "Toxic Mist":"https://cdn.wikimg.net/en/splatoonwiki/images/6/6f/S3_Weapon_Sub_Toxic_Mist_Flat.png"
   },
   //Specials icons

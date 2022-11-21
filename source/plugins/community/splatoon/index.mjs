@@ -40,7 +40,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
     let vs = null
     if (!((modes.length === 1)&&(modes[0] === "salmon-run"))) {
       vs = {
-        matches:await Promise.all(fetched.filter(({type, data}) => (type === "VS")&&(modes.includes(data.detail.vsRule.name.toLocaleLowerCase().replace(/ /g, "-"))   )).slice(0, _versus_limit).map(async ({data}) =>  ({
+        matches:await Promise.all(fetched.filter(({type, data}) => (type === "VS")&&(modes.includes(data.detail.vsRule.name.toLocaleLowerCase().replace(/ /g, "-")))).slice(0, _versus_limit).map(async ({data}) =>  ({
           mode:{
             name:data.detail.vsRule.name,
             icon:await imports.imgb64(assets.modes[data.detail.vsRule.name]),
