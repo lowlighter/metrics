@@ -445,7 +445,7 @@ export const filters = {
 /**Image to base64 */
 export async function imgb64(image, {width, height, fallback = true} = {}) {
   //Ignore already encoded-base 64
-  if ((typeof image === "string")&&(image.startsWith("data:image/png;base64")))
+  if ((typeof image === "string") && (image.startsWith("data:image/png;base64")))
     return image
   //Undefined image
   if (!image)
