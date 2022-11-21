@@ -7,6 +7,8 @@ disclaimer: |
   All product and company names are trademarks™ or registered® trademarks of their respective holders.
 
   This specific plugin is licensed under GPL-3.0 rather than MIT to comply with [spacemeowx2/s3si.ts](https://github.com/spacemeowx2/s3si.ts) license.
+
+  Note that *Nintendo Switch Online* web tokens usage are not explicitly allowed by *Nintendo*, use at your own risk.
 examples:
   default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.splatoon.svg
 authors:
