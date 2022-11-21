@@ -18,6 +18,8 @@ on:
         required: true
       GOOGLE_MAP_TOKEN:
         required: true
+      SPLATOON_TOKEN:
+        required: true
       SPOTIFY_TOKENS:
         required: true
       STOCK_TOKEN:
@@ -1142,6 +1144,21 @@ jobs:
           plugin_screenshot_title: XKCD of the day
           plugin_screenshot_url: https://xkcd.com
           plugin_screenshot_selector: "#comic img"
+          output_action: none
+          delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
+        if: ${{ success() || failure() }}
+      - name: 🦑 Splatoon - Example
+        uses: lowlighter/metrics@master
+        with:
+          filename: metrics.plugin.splatoon.svg
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          plugin_splatoon: yes
+          plugin_splatoon_token: ${{ secrets.SPLATOON_TOKEN }}
+          extras_css: |
+            h2 { display: none !important; }
           output_action: none
           delay: 120
           user: lowlighter

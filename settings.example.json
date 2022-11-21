@@ -194,6 +194,10 @@
     "screenshot":{
       "enabled": false,                 "//": "Enable screenshot plugin"
     },
+    "splatoon":{
+      "token": "Splatnet token",
+      "enabled": false,                 "//": "Enable splatoon plugin"
+    },
     "stock":{
       "token": "Yahoo Finance token",
       "enabled": false,                 "//": "Enable stock plugin"

@@ -53,5 +53,6 @@ Plugins provide additional content and lets you customize rendered metrics.
   * [💉 Nightscout <sub>`nightscout`</sub>](/source/plugins/community/nightscout/README.md) by [@legoandmars](https://github.com/legoandmars)
   * [💩 PoopMap plugin <sub>`poopmap`</sub>](/source/plugins/community/poopmap/README.md) by [@matievisthekat](https://github.com/matievisthekat)
   * [📸 Website screenshot <sub>`screenshot`</sub>](/source/plugins/community/screenshot/README.md) by [@lowlighter](https://github.com/lowlighter)
+  * [🦑 Splatoon <sub>`splatoon`</sub>](/source/plugins/community/splatoon/README.md) by [@lowlighter](https://github.com/lowlighter)
   * [💹 Stock prices <sub>`stock`</sub>](/source/plugins/community/stock/README.md) by [@lowlighter](https://github.com/lowlighter)
 

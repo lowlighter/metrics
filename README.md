@@ -19,7 +19,7 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
   </tr>
   <tr>
     <th colspan="2" align="center">
-      <h3><a href="/README.md#-plugins">🧩 Customizable with 42 plugins and 302 options!</a></h3>
+      <h3><a href="/README.md#-plugins">🧩 Customizable with 43 plugins and 307 options!</a></h3>
     </th>
   </tr>
   <tr>
@@ -465,6 +465,7 @@ Plugins provide additional content and lets you customize rendered metrics.
   * [💉 Nightscout <sub>`nightscout`</sub>](/source/plugins/community/nightscout/README.md) by [@legoandmars](https://github.com/legoandmars)
   * [💩 PoopMap plugin <sub>`poopmap`</sub>](/source/plugins/community/poopmap/README.md) by [@matievisthekat](https://github.com/matievisthekat)
   * [📸 Website screenshot <sub>`screenshot`</sub>](/source/plugins/community/screenshot/README.md) by [@lowlighter](https://github.com/lowlighter)
+  * [🦑 Splatoon <sub>`splatoon`</sub>](/source/plugins/community/splatoon/README.md) by [@lowlighter](https://github.com/lowlighter)
   * [💹 Stock prices <sub>`stock`</sub>](/source/plugins/community/stock/README.md) by [@lowlighter](https://github.com/lowlighter)
 
 

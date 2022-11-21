@@ -6,7 +6,7 @@
     base: ""
     plugin_splatoon: yes
     plugin_splatoon_token: ${{ secrets.SPLATOON_TOKEN }}
+    extras_css: |
+      h2 { display: none !important; }
   test:
-    skip: true
-  prod:
     skip: true

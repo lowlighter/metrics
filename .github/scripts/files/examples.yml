@@ -18,6 +18,8 @@ on:
         required: true
       GOOGLE_MAP_TOKEN:
         required: true
+      SPLATOON_TOKEN:
+        required: true
       SPOTIFY_TOKENS:
         required: true
       STOCK_TOKEN:

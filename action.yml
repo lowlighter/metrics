@@ -1323,6 +1323,29 @@ inputs:
     default: <default-value>
 
   # ====================================================================================
+  # 🦑 Splatoon
+
+  plugin_splatoon:
+    description: Enable splatoon plugin
+    default: <default-value>
+
+  plugin_splatoon_token:
+    description: Splatnet token
+    default: <default-value>
+
+  plugin_splatoon_modes:
+    description: Displayed modes
+    default: <default-value>
+
+  plugin_splatoon_versus_limit:
+    description: Display limit (Versus)
+    default: <default-value>
+
+  plugin_splatoon_salmon_limit:
+    description: Display limit (Salmon run)
+    default: <default-value>
+
+  # ====================================================================================
   # 💹 Stock prices
 
   plugin_stock:

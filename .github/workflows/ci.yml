@@ -159,6 +159,7 @@ jobs:
       CHESS_TOKEN: ${{ secrets.CHESS_TOKEN }}
       PAGESPEED_TOKEN: ${{ secrets.PAGESPEED_TOKEN }}
       GOOGLE_MAP_TOKEN: ${{ secrets.GOOGLE_MAP_TOKEN }}
+      SPLATOON_TOKEN: ${{ secrets.SPLATOON_TOKEN }}
       SPOTIFY_TOKENS: ${{ secrets.SPOTIFY_TOKENS }}
       STOCK_TOKEN: ${{ secrets.STOCK_TOKEN }}
       TWITTER_TOKEN: ${{ secrets.TWITTER_TOKEN }}
