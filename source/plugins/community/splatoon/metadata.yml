@@ -1,0 +1,64 @@
+name: 🦑 Splatoon
+category: community
+description: |
+  This plugin displays your Splatoon 3 recent matches based on data fetched from Splatnet.
+disclaimer: |
+  This plugin is not affiliated, associated, authorized, endorsed by, or in any way officially connected with [Nintendo](https://www.nintendo.com) or [Splatoon](https://splatoon.nintendo.com).
+  All product and company names are trademarks™ or registered® trademarks of their respective holders.
+
+  This specific plugin is licensed under GPL-3.0 rather than MIT to comply with [spacemeowx2/s3si.ts](https://github.com/spacemeowx2/s3si.ts) license.
+
+  Note that *Nintendo Switch Online* web tokens usage are not explicitly allowed by *Nintendo*, use at your own risk.
+examples:
+  default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.splatoon.svg
+authors:
+  - lowlighter
+supports:
+  - user
+  - organization
+scopes: []
+inputs:
+
+  plugin_splatoon:
+    description: |
+      Enable splatoon plugin
+    type: boolean
+    default: no
+
+  plugin_splatoon_token:
+    description: |
+      Splatnet token
+    type: token
+    default: ""
+    extras:
+      - metrics.api.nintendo.splatnet
+
+  plugin_splatoon_modes:
+    description: |
+      Displayed modes
+    type: array
+    format: comma-separated
+    default: turf-war, splat-zones, tower-control, rainmaker, clam-blitz, salmon-run
+    options:
+      - turf-war
+      - splat-zones
+      - tower-control
+      - rainmaker
+      - clam-blitz
+      - salmon-run
+
+  plugin_splatoon_versus_limit:
+    description: |
+      Display limit (Versus)
+    type: number
+    default: 1
+    min: 0
+    max: 6
+
+  plugin_splatoon_salmon_limit:
+    description: |
+      Display limit (Salmon run)
+    type: number
+    default: 1
+    min: 0
+    max: 6

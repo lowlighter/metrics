@@ -1,3 +1,4 @@
+deno
 gpgarmor
 github
 https
@@ -5,6 +6,7 @@ leetcode
 pgn
 scm
 shas
+splatoon
 ssh
 ubuntu
 yargsparser
