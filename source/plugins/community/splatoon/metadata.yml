@@ -31,10 +31,32 @@ inputs:
     extras:
       - metrics.api.nintendo.splatnet
 
+  plugin_splatoon_modes:
+    description: |
+      Displayed modes
+    type: array
+    format: comma-separated
+    default: turf-war, splat-zones, tower-control, rainmaker, clam-blitz, salmon-run
+    options:
+      - turf-war
+      - splat-zones
+      - tower-control
+      - rainmaker
+      - clam-blitz
+      - salmon-run
+
+  plugin_splatoon_versus_limit:
+    description: |
+      Display limit (Versus)
+    type: number
+    default: 1
+    min: 0
+    max: 6
+
   plugin_splatoon_salmon_limit:
     description: |
       Display limit (Salmon run)
     type: number
-    default: 2
+    default: 1
     min: 0
-    zero: disable
+    max: 6
