@@ -27,13 +27,14 @@ export default async function({login, q, imports, data, account}, {enabled = fal
       files:["profile.json", "profile.json.swap", "export", "cache"],
       net:["api.imink.app", "accounts.nintendo.com", "api.accounts.nintendo.com", "api-lp1.znc.srv.nintendo.net", "api.lp1.av5ja.srv.nintendo.net"]
     }
-    await imports.run(`deno run --no-prompt --cached-only --no-remote --allow-read="${allowed.files}" --allow-write="${allowed.files}" --allow-net="${allowed.net}" index.ts --exporter file`, {cwd: `${imports.__module(import.meta.url)}/s3si`}, {prefixed:false})
+    await imports.run(`deno run --no-prompt --cached-only --no-remote --allow-read="${allowed.files}" --allow-write="${allowed.files}" --allow-net="${allowed.net}" index.ts --exporter file --no-progress`, {cwd: `${imports.__module(import.meta.url)}/s3si`}, {prefixed:false})
 
     //Read fetched data
     const fetched = (await Promise.all(
       (await imports.fs.readdir(`${imports.__module(import.meta.url)}/s3si/export`))
         .map(async file => JSON.parse(await imports.fs.readFile(`${imports.__module(import.meta.url)}/s3si/export/${file}`)))))
         .sort((a, b) => new Date(b.data.detail.playedTime) - new Date(a.data.detail.playedTime))
+    console.debug(`metrics/compute/${login}/plugins > splatoon > fetched ${fetched.length} matches`)
 
     //Versus mode
     let vs = null
