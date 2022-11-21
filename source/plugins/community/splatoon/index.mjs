@@ -17,8 +17,8 @@ export default async function({login, q, imports, data, account}, {enabled = fal
       const profile = `${imports.__module(import.meta.url)}/s3si/profile.json`
       console.debug(`metrics/compute/${login}/plugins > splatoon > saving ${profile}`)
       const parsed = JSON.parse(token)
-      if ((!parsed?.loginState?.sessionToken)||(!parsed?.loginState?.gToken)||(!parsed?.loginState?.bulletToken))
-        throw new Error("Configuration is missing either sessionToken, gToken or bulletToken")
+      if (!parsed?.loginState?.sessionToken)
+        throw new Error("Configuration is missing sessionToken")
       await imports.fs.writeFile(profile, token)
     }
 

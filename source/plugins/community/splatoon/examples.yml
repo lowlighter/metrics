@@ -5,7 +5,7 @@
     token: ${{ secrets.METRICS_TOKEN }}
     base: ""
     plugin_splatoon: yes
-    plugin_splatoon_token: ${{ secrets.METRICS_TOKEN }}
+    plugin_splatoon_token: ${{ secrets.SPLATOON_TOKEN }}
   test:
     skip: true
   prod:
