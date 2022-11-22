@@ -180,7 +180,7 @@
       },
       //Unusable plugins
       unusable() {
-        const plugins = Object.entries(this.plugins.enabled).filter(([key, value]) => (value == true) && (!this.supports(this.plugins.options.descriptions[key]))).map(([key]) => key)
+        const plugins = Object.entries(this.plugins.enabled).filter(([key, value]) => (value == true) && (!this.plugins.list.filter(({name}) => name === key)[0]?.enabled)).map(([key]) => key)
         const options = this.edited.filter(option => !this.supports(this.plugins.options.descriptions[option]))
         return [...plugins, ...options].sort()
       },
