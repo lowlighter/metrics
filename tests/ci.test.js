@@ -15,7 +15,7 @@ describe("Check file changes (checkout your files if needed)", () => {
       "source/templates/README.md",
       "action.yml",
       "settings.example.json",
-      "tests/plugins/*",
+      "tests/cases/*",
       ".github/workflows/examples.yml",
       ".github/readme/partials/documentation/compatibility.md",
     ])("%s", async file => expect((await diff()).includes(file)).toBe(false)))
