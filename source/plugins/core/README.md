@@ -587,6 +587,9 @@ When doing so, any settings which defaults on user fetched values will not be te
 <blockquote>
 <p>💡 When using <code>pull-request</code>, you will need to set the last job with a <code>pull-request-*</code> action instead, else it won&#39;t be merged</p>
 </blockquote>
+<blockquote>
+<p>⚠️ As GitHub gists API does not support binary files upload, <code>gist</code> does not support <a href="/source/plugins/core/README.md#config_output"><code>config_output</code></a> set to either <code>png</code>, <code>jpeg</code> or <code>markdown-pdf</code></p>
+</blockquote>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
