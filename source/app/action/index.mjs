@@ -319,7 +319,7 @@ function quit(reason) {
       }
       info("Previous render sha", committer.sha ?? "(none)")
       //Compatibility check
-      if ((_action === "gist")&&(["png", "jpeg", "markdown-pdf"].includes(_output)))
+      if ((_action === "gist") && (["png", "jpeg", "markdown-pdf"].includes(_output)))
         throw new Error(`"config_output: ${_output}" is not supported with "config_action: ${_action}"`)
     }
     else if (dryrun) {
@@ -416,7 +416,6 @@ function quit(reason) {
     info("MIME type", mime)
     const buffer = typeof rendered === "object" ? rendered instanceof Buffer ? rendered : Buffer.from(JSON.stringify(rendered)) : Buffer.from(`${rendered}`)
 
-
     //Debug print
     if (dprint) {
       info.break()
@@ -451,8 +450,9 @@ function quit(reason) {
           committer.commit = false
       }
     }
-    else
+    else {
       info("Output condition", `Not applicable for ${_output}`)
+    }
 
     //Save output to renders output folder
     if (dryrun)
