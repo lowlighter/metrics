@@ -184,7 +184,7 @@ inputs:
       Custom CSS that will be injected in used template.
       Useful to avoid creating a new template just to tweak some styling
 
-      > 💡 *metrics* tends to avoid using `!important` rules, which means that most styling can be overriden by this option when using `!important`
+      > 💡 *metrics* tends to avoid using `!important` rules, which means that most styling can be overridden by this option when using `!important`
     type: string
     default: ""
     extras:
