@@ -2,7 +2,7 @@
 import assets from "./assets.mjs"
 
 //Setup
-export default async function({login, q, imports, data, account}, {enabled = false, extras = false, token, "statink.token":_statink_token} = {}) {
+export default async function({login, q, imports, data, account}, {enabled = false, extras = false, token, "statink.token": _statink_token} = {}) {
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
@@ -26,7 +26,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
           console.debug(`metrics/compute/${login}/plugins > splatoon > stat.ink api key set`)
         }
         else {
-          data.warnings.push({warning:{message:'"plugin_splatoon_statink" is set without "plugin_splatoon_statink_token"'}})
+          data.warnings.push({warning: {message: '"plugin_splatoon_statink" is set without "plugin_splatoon_statink_token"'}})
           console.debug(`metrics/compute/${login}/plugins > splatoon > stat.ink api key missing`)
         }
       }
