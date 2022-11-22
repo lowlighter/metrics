@@ -1,12 +1,26 @@
 # Auto detect text files and perform LF normalization
 * text=auto
 
-# Linguist
+# Vendored files
+source/templates/** linguist-vendored
 source/app/web/statics/style.vars.css linguist-vendored
-.github/* -linguist-detectable
-source/templates/* -linguist-detectable
-package-lock.json linguist-generated
-settings.example.json linguist-generated
-action.yml linguist-generated
+
+# Hidden files
+.github/** -linguist-detectable
+
+# Documentation
+ARCHITECTURE.md linguist-documentation
+CODE_OF_CONDUCT.md linguist-documentation
 CONTRIBUTING.md linguist-documentation
+LICENSE.md linguist-documentation
 SECURITY.md linguist-documentation
+README.md linguist-documentation
+
+# Generated files
+source/plugins/README.md linguist-generated
+source/plugins/community/README.md linguist-generated
+source/templates/README.md linguist-generated
+action.yml linguist-generated
+settings.example.json linguist-generated
+tests/cases/* linguist-generated
+package-lock.json linguist-generated
