@@ -23,7 +23,7 @@ const allowed = {
 }
 const script = import.meta.resolve("./s3si/index.ts")
 const args = [
-  "run", "--no-prompt", "--cached-only",
+  "run", "--no-prompt",
   `--allow-read="${allowed.files}"`,
   `--allow-write="${allowed.files}"`,
   `--allow-net="${allowed.net}"`,
