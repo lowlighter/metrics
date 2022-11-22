@@ -24,7 +24,7 @@ inputs:
     description: |
       Skipped repositories
     type: array
-    format: 
+    format:
       - newline-separated
       - comma-separated
     default: ""
@@ -38,6 +38,8 @@ inputs:
       - `base` will display the total lines added and removed in `base.repositories` section
       - `repositories` will display repositories with the most lines added and removed
       - `history` will display a graph displaying lines added and removed over time
+
+      > ℹ️ `base` requires at least [`base: repositories`](/source/plugins/base/README.md#base) to be set
     type: array
     format: comma-separated
     default: base

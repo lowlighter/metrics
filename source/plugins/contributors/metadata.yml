@@ -56,7 +56,7 @@ inputs:
       Displayed sections
 
       - `contributors`: all contributors
-      - `categories`: contributors sorted by contributions categories (must be configured with `plugin_contributors_categories`)
+      - `categories`: contributors sorted by contributions categories (must be configured with [`plugin_contributors_categories`](/source/plugins/contributors/README.md#plugin_contributors_categories))
     type: array
     format: comma-separated
     default: contributors

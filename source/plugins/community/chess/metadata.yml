@@ -32,7 +32,7 @@ inputs:
 
   plugin_chess_user:
     description: |
-      AniList login
+      Chess platform login
     type: string
     default: .user.login
     preset: no

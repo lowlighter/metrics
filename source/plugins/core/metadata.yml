@@ -23,7 +23,7 @@ inputs:
     description: |
       GitHub username
 
-      Defaults to `token` owner username.
+      Defaults to [`token`](/source/plugins/core/README.md#token) owner username.
     type: string
     default: ""
     preset: no
@@ -43,7 +43,7 @@ inputs:
 
       Leave this to `${{ github.token }}` or `${{ secrets.GITHUB_TOKEN }}`, which is a special auto-generated token restricted to current repository scope.
 
-      > 💡 When using `output_action: gist`, it will use `token` instead, since gists are outside of scope
+      > 💡 When using [`output_action: gist`](/source/plugins/core/README.md#output_action), it will use [`token`](/source/plugins/core/README.md#token) instead, since gists are outside of scope
     type: token
     default: ${{ github.token }}
 
@@ -67,7 +67,7 @@ inputs:
     description: |
       Gist id
 
-      Specify an existing gist id (can be retrieved from its URL) when using `output_action: gist`.
+      Specify an existing gist id (can be retrieved from its URL) when using [`output_action: gist`](/source/plugins/core/README.md#output_action).
     type: string
     default: ""
     preset: no
@@ -76,7 +76,7 @@ inputs:
     description: |
       Output path
 
-      When using an asterisk (`*`), correct extension will automatically be applied according to `config_output` value
+      When using an asterisk (`*`), correct extension will automatically be applied according to [`config_output`](/source/plugins/core/README.md#config_output) value
     type: string
     default: github-metrics.*
 
@@ -122,6 +122,8 @@ inputs:
       Output condition
       - `always`: always try to push changes
       - `data-changed`: skip changes if no data changed (e.g. like when only metadata changed)
+
+      > ℹ️ This option is only revelant when [`config_output: svg`](/source/plugins/core/README.md#config_output) is set
     type: string
     default: always
     values:
@@ -133,9 +135,9 @@ inputs:
       Optimization features
       - `css`: purge and minify CSS styles
       - `xml`: pretty-print XML (useful to reduce diff)
-      - `svg`: optimization with SVGO (experimental, require `--optimize-svg` experimental flag)
+      - `svg`: optimization with SVGO (experimental, requires [`experimental_features: --optimize-svg`](/source/plugins/core/README.md#experimental_features))
 
-      Some templates may not support all options
+      Templates may not always honour all provided options
     type: array
     default: css, xml
     format: comma-separated
@@ -181,6 +183,8 @@ inputs:
 
       Custom CSS that will be injected in used template.
       Useful to avoid creating a new template just to tweak some styling
+
+      > 💡 *metrics* tends to avoid using `!important` rules, which means that most styling can be overriden by this option when using `!important`
     type: string
     default: ""
     extras:
@@ -193,8 +197,9 @@ inputs:
       Custom JavaScript that will be executed during puppeteer rendering.
       Useful to avoid creating a new template just to tweak some content.
 
-      Note that is it executed within puppeteer context and **not** *metrics* context.
-      It is run after transformations and optimizations, but just before resizing.
+      > ⚠️ Note that is it executed within puppeteer context and **not** within *metrics* context.
+      > No access to fetched data or configuration will be offered through this context.
+      > It is run after transformations and optimizations, but just before resizing.
     type: string
     default: ""
     extras:
@@ -264,7 +269,7 @@ inputs:
       GitHub supports additional emojis which are not registered in Unicode standard (:octocat:, :shipit:, :trollface:, ...)
       See full list at https://api.github.com/emojis.
 
-      This option has no effect when `token: NOT_NEEDED` is set.
+      This option has no effect when [`token: NOT_NEEDED``](/source/plugins/core/README.md#token) is set.
 
       May increase filesize
     type: boolean
@@ -331,9 +336,9 @@ inputs:
       - 2 values for width fist and height second, separated by a comma (`,`)
 
       Each value need to respect the following format:
-      - {number}
-      - {number} + {number}%
-      - {number}%
+      - `{number}`
+      - `{number} + {number}%`
+      - `{number}%`
 
       Percentage are relative to computed dimensions
     type: string
@@ -445,7 +450,7 @@ inputs:
 
       Action will cancel itself without any errors if requirements are not met
 
-      This option has no effect when `token` is set to `NOT_NEEDED`
+      This option has no effect when [`token: NOT_NEEDED`](/source/plugins/core/README.md#token) is set
     type: number
     default: 200
     min: 0
@@ -457,7 +462,7 @@ inputs:
 
       Action will cancel itself without any errors if requirements are not met
 
-      This option has no effect when `token` is set to `NOT_NEEDED`
+      This option has no effect when [`token: NOT_NEEDED`](/source/plugins/core/README.md#token) is set
     type: number
     default: 200
     min: 0
@@ -469,7 +474,7 @@ inputs:
 
       Action will cancel itself without any errors if requirements are not met
 
-      This option has no effect when `token` is set to `NOT_NEEDED`
+      This option has no effect when [`token: NOT_NEEDED`](/source/plugins/core/README.md#token) is set
     type: number
     default: 0
     min: 0
@@ -509,7 +514,7 @@ inputs:
     description: |
       Debug mode
 
-      This setting is automatically enable if a job fail (useful with `plugins_errors_fatal: yes`)
+      This setting is automatically enable if a job fail (useful with [`plugins_errors_fatal: yes`](/source/plugins/core/README.md#plugins_errors_fatal))
     type: boolean
     default: no
     testing: yes
@@ -553,7 +558,7 @@ inputs:
     description: |
       Dry-run
 
-      Contrary to `output_action: none`, output file won't be available in `/metrics_renders` directory
+      > ⚠️ Unlike [`output_action: none`](/source/plugins/core/README.md#output_action), output file won't be available in `/metrics_renders` directory
     type: boolean
     default: no
     testing: yes
@@ -563,7 +568,7 @@ inputs:
     description: |
       Experimental features
 
-      No backward compatibility is guaranteed for these features
+      > ⚠️ No backward compatibility is guaranteed for these features
     type: array
     format: space-separated
     default: ""

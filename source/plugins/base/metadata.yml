@@ -61,7 +61,7 @@ inputs:
       Skip base content
 
       > ⚠️ Any plugin that relies on base content data may break!
-      > Only use this option when using a plugin that can be configured with `token: NOT_NEEDED`
+      > Only use this option when using a plugin that can be configured with [`token: NOT_NEEDED`](/source/plugins/core/README.md#token)
     type: boolean
     default: no
 
@@ -115,7 +115,7 @@ inputs:
     description: |
       Default skipped repositories
     type: array
-    format: 
+    format:
       - newline-separated
       - comma-separated
     default: ""
