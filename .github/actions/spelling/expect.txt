@@ -101,12 +101,10 @@ gettopartists
 gettoptracks
 ghactions
 ghcr
-ghfilter
 ghquery
 gifencoder
 gionkunz
 Gister
-gitattributes
 githubs
 githubusercontent
 gitted
@@ -164,7 +162,6 @@ lastfm
 lastname
 leaderboard
 lecoq
-leetcode
 legoandmars
 libgconf
 libssl
@@ -236,7 +233,6 @@ params
 patchnote
 pdated
 pened
-Pgn
 PGP
 playcount
 playlists

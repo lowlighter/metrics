@@ -9,5 +9,7 @@ shas
 splatoon
 Splatnet
 ssh
+statink
+STATINK
 ubuntu
 yargsparser
