@@ -92,7 +92,7 @@ All product and company names are trademarks™ or registered® trademarks of th
     <td rowspan="2"><p>Displayed sections</p>
 <ul>
 <li><code>contributors</code>: all contributors</li>
-<li><code>categories</code>: contributors sorted by contributions categories (must be configured with <code>plugin_contributors_categories</code>)</li>
+<li><code>categories</code>: contributors sorted by contributions categories (must be configured with <a href="/source/plugins/contributors/README.md#plugin_contributors_categories"><code>plugin_contributors_categories</code></a>)</li>
 </ul>
 <img width="900" height="1" alt=""></td>
   </tr>

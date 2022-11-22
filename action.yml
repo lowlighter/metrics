@@ -1227,7 +1227,7 @@ inputs:
     default: <default-value>
 
   plugin_chess_user:
-    description: AniList login
+    description: Chess platform login
     default: <default-value>
 
   plugin_chess_platform:

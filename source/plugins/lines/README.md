@@ -63,6 +63,9 @@ All product and company names are trademarks™ or registered® trademarks of th
 <li><code>repositories</code> will display repositories with the most lines added and removed</li>
 <li><code>history</code> will display a graph displaying lines added and removed over time</li>
 </ul>
+<blockquote>
+<p>ℹ️ <code>base</code> requires at least <a href="/source/plugins/base/README.md#base"><code>base: repositories</code></a> to be set</p>
+</blockquote>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>

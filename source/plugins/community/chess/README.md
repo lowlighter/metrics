@@ -60,7 +60,7 @@ All product and company names are trademarks™ or registered® trademarks of th
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_chess_user</code></h4></td>
-    <td rowspan="2"><p>AniList login</p>
+    <td rowspan="2"><p>Chess platform login</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>

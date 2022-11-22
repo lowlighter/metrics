@@ -474,7 +474,7 @@ When doing so, any settings which defaults on user fetched values will not be te
   <tr>
     <td nowrap="nowrap"><h4><code>user</code></h4></td>
     <td rowspan="2"><p>GitHub username</p>
-<p>Defaults to <code>token</code> owner username.</p>
+<p>Defaults to <a href="/source/plugins/core/README.md#token"><code>token</code></a> owner username.</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -498,7 +498,7 @@ When doing so, any settings which defaults on user fetched values will not be te
     <td rowspan="2"><p>GitHub Token used to commit metrics</p>
 <p>Leave this to <code>${{ github.token }}</code> or <code>${{ secrets.GITHUB_TOKEN }}</code>, which is a special auto-generated token restricted to current repository scope.</p>
 <blockquote>
-<p>💡 When using <code>output_action: gist</code>, it will use <code>token</code> instead, since gists are outside of scope</p>
+<p>💡 When using <a href="/source/plugins/core/README.md#output_action"><code>output_action: gist</code></a>, it will use <a href="/source/plugins/core/README.md#token"><code>token</code></a> instead, since gists are outside of scope</p>
 </blockquote>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -532,7 +532,7 @@ When doing so, any settings which defaults on user fetched values will not be te
   <tr>
     <td nowrap="nowrap"><h4><code>committer_gist</code></h4></td>
     <td rowspan="2"><p>Gist id</p>
-<p>Specify an existing gist id (can be retrieved from its URL) when using <code>output_action: gist</code>.</p>
+<p>Specify an existing gist id (can be retrieved from its URL) when using <a href="/source/plugins/core/README.md#output_action"><code>output_action: gist</code></a>.</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -543,7 +543,7 @@ When doing so, any settings which defaults on user fetched values will not be te
   <tr>
     <td nowrap="nowrap"><h4><code>filename</code></h4></td>
     <td rowspan="2"><p>Output path</p>
-<p>When using an asterisk (<code>*</code>), correct extension will automatically be applied according to <code>config_output</code> value</p>
+<p>When using an asterisk (<code>*</code>), correct extension will automatically be applied according to <a href="/source/plugins/core/README.md#config_output"><code>config_output</code></a> value</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -602,6 +602,9 @@ When doing so, any settings which defaults on user fetched values will not be te
 <li><code>always</code>: always try to push changes</li>
 <li><code>data-changed</code>: skip changes if no data changed (e.g. like when only metadata changed)</li>
 </ul>
+<blockquote>
+<p>ℹ️ This option is only revelant when <a href="/source/plugins/core/README.md#config_output"><code>config_output: svg</code></a> is set</p>
+</blockquote>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -616,9 +619,9 @@ When doing so, any settings which defaults on user fetched values will not be te
 <ul>
 <li><code>css</code>: purge and minify CSS styles</li>
 <li><code>xml</code>: pretty-print XML (useful to reduce diff)</li>
-<li><code>svg</code>: optimization with SVGO (experimental, require <code>--optimize-svg</code> experimental flag)</li>
+<li><code>svg</code>: optimization with SVGO (experimental, requires <a href="/source/plugins/core/README.md#experimental_features"><code>experimental_features: --optimize-svg</code></a>)</li>
 </ul>
-<p>Some templates may not support all options</p>
+<p>Templates may not always honour all provided options</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -675,6 +678,9 @@ This is mostly useful for custom templates.</p>
     <td rowspan="2"><p>Extra CSS</p>
 <p>Custom CSS that will be injected in used template.
 Useful to avoid creating a new template just to tweak some styling</p>
+<blockquote>
+<p>💡 <em>metrics</em> tends to avoid using <code>!important</code> rules, which means that most styling can be overridden by this option when using <code>!important</code></p>
+</blockquote>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -690,8 +696,11 @@ Useful to avoid creating a new template just to tweak some styling</p>
     <td rowspan="2"><p>Extra JavaScript</p>
 <p>Custom JavaScript that will be executed during puppeteer rendering.
 Useful to avoid creating a new template just to tweak some content.</p>
-<p>Note that is it executed within puppeteer context and <strong>not</strong> <em>metrics</em> context.
+<blockquote>
+<p>⚠️ Note that is it executed within puppeteer context and <strong>not</strong> within <em>metrics</em> context.
+No access to fetched data or configuration will be offered through this context.
 It is run after transformations and optimizations, but just before resizing.</p>
+</blockquote>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -772,7 +781,7 @@ May increase filesize.</p>
     <td rowspan="2"><p>Use GitHub custom emojis</p>
 <p>GitHub supports additional emojis which are not registered in Unicode standard (:octocat:, :shipit:, :trollface:, ...)
 See full list at <a href="https://api.github.com/emojis">https://api.github.com/emojis</a>.</p>
-<p>This option has no effect when <code>token: NOT_NEEDED</code> is set.</p>
+<p>This option has no effect when [`token: NOT_NEEDED``](/source/plugins/core/README.md#token) is set.</p>
 <p>May increase filesize</p>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -854,9 +863,9 @@ It can result in cropped or oversized outputs.</p>
 </ul>
 <p>Each value need to respect the following format:</p>
 <ul>
-<li>{number}</li>
-<li>{number} + {number}%</li>
-<li>{number}%</li>
+<li><code>{number}</code></li>
+<li><code>{number} + {number}%</code></li>
+<li><code>{number}%</code></li>
 </ul>
 <p>Percentage are relative to computed dimensions</p>
 <img width="900" height="1" alt=""></td>
@@ -990,7 +999,7 @@ Be sure to disable this option when asking for help or submitting bug reports.</
     <td nowrap="nowrap"><h4><code>quota_required_rest</code></h4></td>
     <td rowspan="2"><p>Minimum GitHub REST API requests quota required to run</p>
 <p>Action will cancel itself without any errors if requirements are not met</p>
-<p>This option has no effect when <code>token</code> is set to <code>NOT_NEEDED</code></p>
+<p>This option has no effect when <a href="/source/plugins/core/README.md#token"><code>token: NOT_NEEDED</code></a> is set</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -1005,7 +1014,7 @@ Be sure to disable this option when asking for help or submitting bug reports.</
     <td nowrap="nowrap"><h4><code>quota_required_graphql</code></h4></td>
     <td rowspan="2"><p>Minimum GitHub GraphQL API requests quota required to run</p>
 <p>Action will cancel itself without any errors if requirements are not met</p>
-<p>This option has no effect when <code>token</code> is set to <code>NOT_NEEDED</code></p>
+<p>This option has no effect when <a href="/source/plugins/core/README.md#token"><code>token: NOT_NEEDED</code></a> is set</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -1020,7 +1029,7 @@ Be sure to disable this option when asking for help or submitting bug reports.</
     <td nowrap="nowrap"><h4><code>quota_required_search</code></h4></td>
     <td rowspan="2"><p>Minimum GitHub Search API requests quota required to run</p>
 <p>Action will cancel itself without any errors if requirements are not met</p>
-<p>This option has no effect when <code>token</code> is set to <code>NOT_NEEDED</code></p>
+<p>This option has no effect when <a href="/source/plugins/core/README.md#token"><code>token: NOT_NEEDED</code></a> is set</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -1071,7 +1080,7 @@ This option has no effects on forks (images will always be rebuilt from Dockerfi
   <tr>
     <td nowrap="nowrap"><h4><code>debug</code></h4></td>
     <td rowspan="2"><p>Debug mode</p>
-<p>This setting is automatically enable if a job fail (useful with <code>plugins_errors_fatal: yes</code>)</p>
+<p>This setting is automatically enable if a job fail (useful with <a href="/source/plugins/core/README.md#plugins_errors_fatal"><code>plugins_errors_fatal: yes</code></a>)</p>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -1130,7 +1139,9 @@ This option has no effects on forks (images will always be rebuilt from Dockerfi
   <tr>
     <td nowrap="nowrap"><h4><code>dryrun</code></h4></td>
     <td rowspan="2"><p>Dry-run</p>
-<p>Contrary to <code>output_action: none</code>, output file won&#39;t be available in <code>/metrics_renders</code> directory</p>
+<blockquote>
+<p>⚠️ Unlike <a href="/source/plugins/core/README.md#output_action"><code>output_action: none</code></a>, output file won&#39;t be available in <code>/metrics_renders</code> directory</p>
+</blockquote>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -1143,7 +1154,9 @@ This option has no effects on forks (images will always be rebuilt from Dockerfi
   <tr>
     <td nowrap="nowrap"><h4><code>experimental_features</code></h4></td>
     <td rowspan="2"><p>Experimental features</p>
-<p>No backward compatibility is guaranteed for these features</p>
+<blockquote>
+<p>⚠️ No backward compatibility is guaranteed for these features</p>
+</blockquote>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
