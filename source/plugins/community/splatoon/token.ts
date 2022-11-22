@@ -21,9 +21,9 @@ const allowed = {
   files:["profile.json", "profile.json.swap", "cache", "export"],
   net:["api.imink.app", "accounts.nintendo.com", "api.accounts.nintendo.com", "api-lp1.znc.srv.nintendo.net", "api.lp1.av5ja.srv.nintendo.net"]
 }
-const script = "https://raw.githubusercontent.com/lowlighter/metrics/master/source/plugins/community/splatoon/s3si/index.ts"
+const script = import.meta.resolve("./s3si/index.ts")
 const args = [
-  "run", "--no-prompt", "--cached-only", "--no-remote",
+  "run", "--no-prompt", "--cached-only",
   `--allow-read="${allowed.files}"`,
   `--allow-write="${allowed.files}"`,
   `--allow-net="${allowed.net}"`,
