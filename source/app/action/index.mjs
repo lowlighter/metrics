@@ -318,6 +318,9 @@ function quit(reason) {
         console.debug(error)
       }
       info("Previous render sha", committer.sha ?? "(none)")
+      //Compatibility check
+      if ((_action === "gist")&&(["png", "jpeg", "markdown-pdf"].includes(_output)))
+        throw new Error(`"config_output: ${_output}" is not supported with "config_action: ${_action}"`)
     }
     else if (dryrun) {
       info("Dry-run", true)
