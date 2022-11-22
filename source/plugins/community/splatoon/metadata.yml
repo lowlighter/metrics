@@ -62,3 +62,20 @@ inputs:
     default: 1
     min: 0
     max: 6
+
+  plugin_splatoon_statink:
+    description: |
+      stat.ink integration
+
+      If set, fetched data will also be uploaded to stat.ink
+      Requires [`plugin_splatoon_statink_token`](/source/plugins/community/splatoon/README.md#plugin_splatoon_statink_token) to be set
+    type: boolean
+    default: no
+    extras:
+      - metrics.api.statink
+
+  plugin_splatoon_statink_token:
+    description: |
+      stat.ink token
+    type: token
+    default: ""

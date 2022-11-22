@@ -2,7 +2,7 @@
 import assets from "./assets.mjs"
 
 //Setup
-export default async function({login, q, imports, data, account}, {enabled = false, extras = false, token} = {}) {
+export default async function({login, q, imports, data, account}, {enabled = false, extras = false, token, "statink.token":_statink_token} = {}) {
   //Plugin execution
   try {
     //Check if plugin is enabled and requirements are met
@@ -10,7 +10,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
       return null
 
     //Load inputs
-    const {modes, "versus.limit": _versus_limit, "salmon.limit": _salmon_limit} = imports.metadata.plugins.splatoon.inputs({data, account, q})
+    const {modes, "versus.limit": _versus_limit, "salmon.limit": _salmon_limit, statink} = imports.metadata.plugins.splatoon.inputs({data, account, q})
 
     //Save profile
     {
@@ -19,7 +19,18 @@ export default async function({login, q, imports, data, account}, {enabled = fal
       const parsed = JSON.parse(token)
       if (!parsed?.loginState?.sessionToken)
         throw new Error("Configuration is missing sessionToken")
-      await imports.fs.writeFile(profile, token)
+      if (statink) {
+        console.debug(`metrics/compute/${login}/plugins > splatoon > stat.ink integration is enabled`)
+        if (_statink_token) {
+          parsed.statInkApiKey = _statink_token
+          console.debug(`metrics/compute/${login}/plugins > splatoon > stat.ink api key set`)
+        }
+        else {
+          data.warnings.push({warning:{message:'"plugin_splatoon_statink" is set without "plugin_splatoon_statink_token"'}})
+          console.debug(`metrics/compute/${login}/plugins > splatoon > stat.ink api key missing`)
+        }
+      }
+      await imports.fs.writeFile(profile, JSON.stringify(parsed))
     }
 
     //Fetch data
@@ -27,7 +38,12 @@ export default async function({login, q, imports, data, account}, {enabled = fal
       files: ["profile.json", "profile.json.swap", "export", "cache"],
       net: ["api.imink.app", "accounts.nintendo.com", "api.accounts.nintendo.com", "api-lp1.znc.srv.nintendo.net", "api.lp1.av5ja.srv.nintendo.net"],
     }
-    await imports.run(`deno run --no-prompt --cached-only --no-remote --allow-read="${allowed.files}" --allow-write="${allowed.files}" --allow-net="${allowed.net}" index.ts --exporter file --no-progress`, {cwd: `${imports.__module(import.meta.url)}/s3si`}, {prefixed: false})
+    const exporters = ["file"]
+    if (statink) {
+      exporters.push("stat.ink")
+      allowed.net.push("stat.ink")
+    }
+    await imports.run(`deno run --no-prompt --cached-only --no-remote --allow-read="${allowed.files}" --allow-write="${allowed.files}" --allow-net="${allowed.net}" index.ts --exporter="${exporters}" --no-progress`, {cwd: `${imports.__module(import.meta.url)}/s3si`}, {prefixed: false})
 
     //Read fetched data
     const fetched = (await Promise.all(

@@ -118,6 +118,19 @@ deno run --allow-run=deno --allow-read=profile.json --allow-write=profile.json -
 
 ![Authentication](/.github/readme/imgs/plugin_splatoon_auth.png)
 
+## 🐙 [stat.ink](https://stat.ink) integration
+
+It is possible to make this plugin automatically export fetched games to [stat.ink](https://stat.ink) by adding the following:
+
+```yaml
+plugin_splatoon_statink: yes
+plugin_splatoon_statink_token: ${{ secrets.SPLATOON_STATINK_TOKEN }}
+```
+
+[stat.ink](https://stat.ink) API key can be found on user profile:
+
+![stat.ink](/.github/readme/imgs/plugin_splatoon_statink.png)
+
 ## 👨‍💻 About
 
 Data are fetched using [spacemeowx2/s3si.ts](https://github.com/spacemeowx2/s3si.ts) tool (which is itself based on [frozenpandaman/s3s](https://github.com/frozenpandaman/s3s)).

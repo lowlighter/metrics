@@ -1,4 +1,4 @@
-- name: Example
+- name: Splatnet data
   uses: lowlighter/metrics@latest
   with:
     filename: metrics.plugin.splatoon.svg
@@ -6,6 +6,21 @@
     base: ""
     plugin_splatoon: yes
     plugin_splatoon_token: ${{ secrets.SPLATOON_TOKEN }}
+  test:
+    skip: true
+  prod:
+    skip: true
+
+- name: Splatnet data with stat.ink integration
+  uses: lowlighter/metrics@latest
+  with:
+    filename: metrics.plugin.splatoon.svg
+    token: ${{ secrets.METRICS_TOKEN }}
+    base: ""
+    plugin_splatoon: yes
+    plugin_splatoon_token: ${{ secrets.SPLATOON_TOKEN }}
+    plugin_splatoon_statink: yes
+    plugin_splatoon_statink_token: ${{ secrets.SPLATOON_STATINK_TOKEN }}
     extras_css: |
       h2 { display: none !important; }
   test:
