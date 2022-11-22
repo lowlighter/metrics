@@ -106,6 +106,8 @@ inputs:
       - `gist`: push output to `committer_gist`
 
       > 💡 When using `pull-request`, you will need to set the last job with a `pull-request-*` action instead, else it won't be merged
+
+      > ⚠️ As GitHub gists API does not support binary files upload, `gist` does not support [`config_output`](/source/plugins/core/README.md#config_output) set to either `png`, `jpeg` or `markdown-pdf`
     type: string
     default: commit
     values:
