@@ -1345,6 +1345,14 @@ inputs:
     description: Display limit (Salmon run)
     default: <default-value>
 
+  plugin_splatoon_statink:
+    description: stat.ink integration
+    default: <default-value>
+
+  plugin_splatoon_statink_token:
+    description: stat.ink token
+    default: <default-value>
+
   # ====================================================================================
   # 💹 Stock prices
 

@@ -3,8 +3,8 @@
   <tr><th colspan="2"><h3>🎲 Community plugins</h3></th></tr>
   <tr><td colspan="2" align="center">Additional plugins maintained by community for even more features!</td></tr>
   <tr>
-    <th><a href="/source/plugins/community/chess/README.md">♟️ Chess</a></th>
-    <th><a href="/source/plugins/community/fortune/README.md">🥠 Fortune</a></th>
+    <th><a href="/source/plugins/community/chess/README.md">♟️ Chess</a><br><sup>by <a href="https://github.com/lowlighter">@lowlighter</a></sup></th>
+    <th><a href="/source/plugins/community/fortune/README.md">🥠 Fortune</a><br><sup>by <a href="https://github.com/lowlighter">@lowlighter</a></sup></th>
   </tr>
   <tr>
     <td  align="center">
@@ -16,8 +16,8 @@
       <img width="900" height="1" alt="">
     </td>
   </tr>  <tr>
-    <th><a href="/source/plugins/community/nightscout/README.md">💉 Nightscout</a></th>
-    <th><a href="/source/plugins/community/poopmap/README.md">💩 PoopMap plugin</a></th>
+    <th><a href="/source/plugins/community/nightscout/README.md">💉 Nightscout</a><br><sup>by <a href="https://github.com/legoandmars">@legoandmars</a></sup></th>
+    <th><a href="/source/plugins/community/poopmap/README.md">💩 PoopMap plugin</a><br><sup>by <a href="https://github.com/matievisthekat">@matievisthekat</a></sup></th>
   </tr>
   <tr>
     <td  align="center">
@@ -29,8 +29,8 @@
       <img width="900" height="1" alt="">
     </td>
   </tr>  <tr>
-    <th><a href="/source/plugins/community/screenshot/README.md">📸 Website screenshot</a></th>
-    <th><a href="/source/plugins/community/splatoon/README.md">🦑 Splatoon</a></th>
+    <th><a href="/source/plugins/community/screenshot/README.md">📸 Website screenshot</a><br><sup>by <a href="https://github.com/lowlighter">@lowlighter</a></sup></th>
+    <th><a href="/source/plugins/community/splatoon/README.md">🦑 Splatoon</a><br><sup>by <a href="https://github.com/lowlighter">@lowlighter</a></sup></th>
   </tr>
   <tr>
     <td  align="center">
@@ -42,7 +42,7 @@
       <img width="900" height="1" alt="">
     </td>
   </tr>  <tr>
-    <th><a href="/source/plugins/community/stock/README.md">💹 Stock prices</a></th>
+    <th><a href="/source/plugins/community/stock/README.md">💹 Stock prices</a><br><sup>by <a href="https://github.com/lowlighter">@lowlighter</a></sup></th>
     <th></th>
   </tr>
   <tr>

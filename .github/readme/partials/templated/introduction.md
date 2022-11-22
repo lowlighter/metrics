@@ -55,12 +55,11 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
 -%>
   <tr>
 <% } %>    <th><% if (plugin) { %><a href="source/plugins/community/<%= plugin %>/README.md"><%= name -%></a><br><sup>by <%- authors.map(author => `<a href="https://github.com/${author}">@${author}</a>`).join(" ") %></sup>
-<%- readme.demo.replace(/<td.*?>([\s\S]+?)<\/td>/, `<details><summary>Render example</summary>$1</details>`).replace(/<img src=/g, `<img alt="" width="400" src=`)?.split("\n")?.map((x, i) => i ? `  ${x}` : x)?.join("\n") %>
-<% } %>
-</th>
+<%- readme.demo.replace(/<td.*?>([\s\S]+?)<\/td>/, `  <details><summary>Render example</summary>$1</details>`).replace(/<img src=/g, `<img alt="" width="400" src=`)?.split("\n")?.map((x, i) => i ? `  ${x}` : x)?.join("\n") %><% } %>
+    </th>
 <%      if (cell === "odd") {
 -%>  </tr>
-<% }}}} %>
+<% }}}} %><%# -%>
 <% {
   let cell = 0
   const elements = Object.entries(templates).filter(([key, value]) => (value)&&(!["community"].includes(key)))

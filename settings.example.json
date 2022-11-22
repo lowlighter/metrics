@@ -196,6 +196,7 @@
     },
     "splatoon":{
       "token": "Splatnet token",
+      "statink.token": null,            "//": "stat.ink token",
       "enabled": false,                 "//": "Enable splatoon plugin"
     },
     "stock":{

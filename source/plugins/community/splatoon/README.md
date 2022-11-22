@@ -18,7 +18,7 @@ All product and company names are trademarks™ or registered® trademarks of th
     <td><code>👤 Users</code> <code>👥 Organizations</code></td>
   </tr>
   <tr>
-    <td><code>🗝️ plugin_splatoon_token</code></td>
+    <td><code>🗝️ plugin_splatoon_token</code> <code>🗝️ plugin_splatoon_statink_token</code></td>
   </tr>
   <tr>
     <td colspan="2" align="center">
@@ -102,6 +102,34 @@ All product and company names are trademarks™ or registered® trademarks of th
 <br>
 <b>default:</b> 1<br></td>
   </tr>
+  <tr>
+    <td nowrap="nowrap"><h4><code>plugin_splatoon_statink</code></h4></td>
+    <td rowspan="2"><p>stat.ink integration</p>
+<p>If set, fetched data will also be uploaded to stat.ink
+Requires <a href="/source/plugins/community/splatoon/README.md#plugin_splatoon_statink_token"><code>plugin_splatoon_statink_token</code></a> to be set</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
+🌐 Web instances must configure <code>settings.json</code>:
+<ul>
+<li><i>metrics.api.statink</i></li>
+</ul>
+<b>type:</b> <code>boolean</code>
+<br>
+<b>default:</b> no<br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><h4><code>plugin_splatoon_statink_token</code></h4></td>
+    <td rowspan="2"><p>stat.ink token</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">🔐 Token<br>
+✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>token</code>
+<br></td>
+  </tr>
 </table>
 <!--/options-->
 
@@ -139,7 +167,7 @@ Data are fetched using [spacemeowx2/s3si.ts](https://github.com/spacemeowx2/s3si
 
 <!--examples-->
 ```yaml
-name: Example
+name: Splatnet data
 uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.splatoon.svg
@@ -147,6 +175,19 @@ with:
   base: ""
   plugin_splatoon: yes
   plugin_splatoon_token: ${{ secrets.SPLATOON_TOKEN }}
+
+```
+```yaml
+name: Splatnet data with stat.ink integration
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.splatoon.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ""
+  plugin_splatoon: yes
+  plugin_splatoon_token: ${{ secrets.SPLATOON_TOKEN }}
+  plugin_splatoon_statink: yes
+  plugin_splatoon_statink_token: ${{ secrets.SPLATOON_STATINK_TOKEN }}
   extras_css: |
     h2 { display: none !important; }
 

@@ -20,6 +20,8 @@ on:
         required: true
       SPLATOON_TOKEN:
         required: true
+      SPLATOON_STATINK_TOKEN:
+        required: true
       SPOTIFY_TOKENS:
         required: true
       STOCK_TOKEN:
@@ -1149,7 +1151,7 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      - name: 🦑 Splatoon - Example
+      - name: 🦑 Splatoon - Splatnet data with stat.ink integration
         uses: lowlighter/metrics@master
         with:
           filename: metrics.plugin.splatoon.svg
@@ -1157,6 +1159,8 @@ jobs:
           base: ""
           plugin_splatoon: yes
           plugin_splatoon_token: ${{ secrets.SPLATOON_TOKEN }}
+          plugin_splatoon_statink: yes
+          plugin_splatoon_statink_token: ${{ secrets.SPLATOON_STATINK_TOKEN }}
           extras_css: |
             h2 { display: none !important; }
           output_action: none

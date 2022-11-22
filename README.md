@@ -19,7 +19,7 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
   </tr>
   <tr>
     <th colspan="2" align="center">
-      <h3><a href="/README.md#-plugins">🧩 Customizable with 43 plugins and 307 options!</a></h3>
+      <h3><a href="/README.md#-plugins">🧩 Customizable with 43 plugins and 309 options!</a></h3>
     </th>
   </tr>
   <tr>
@@ -305,7 +305,58 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
       <a href="/source/plugins/community/README.md">🎲 See also community plugins</a>
     </th>
   </tr>
-
+  <tr>
+    <th><a href="source/plugins/community/chess/README.md">♟️ Chess</a><br><sup>by <a href="https://github.com/lowlighter">@lowlighter</a></sup>
+      <details><summary>Render example</summary>
+        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.chess.svg" alt=""></img>
+        <img width="900" height="1" alt="">
+      </details>
+    </th>
+    <th><a href="source/plugins/community/fortune/README.md">🥠 Fortune</a><br><sup>by <a href="https://github.com/lowlighter">@lowlighter</a></sup>
+      <details><summary>Render example</summary>
+        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.fortune.svg" alt=""></img>
+        <img width="900" height="1" alt="">
+      </details>
+    </th>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/community/nightscout/README.md">💉 Nightscout</a><br><sup>by <a href="https://github.com/legoandmars">@legoandmars</a></sup>
+      <details><summary>Render example</summary>
+        <img alt="" width="400" src="https://github.com/legoandmars/legoandmars/blob/master/metrics.plugin.nightscout.svg" alt=""></img>
+        <img width="900" height="1" alt="">
+      </details>
+    </th>
+    <th><a href="source/plugins/community/poopmap/README.md">💩 PoopMap plugin</a><br><sup>by <a href="https://github.com/matievisthekat">@matievisthekat</a></sup>
+      <details><summary>Render example</summary>
+        <img alt="" width="400" src="https://github.com/matievisthekat/matievisthekat/blob/master/metrics.plugin.poopmap.svg" alt=""></img>
+        <img width="900" height="1" alt="">
+      </details>
+    </th>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/community/screenshot/README.md">📸 Website screenshot</a><br><sup>by <a href="https://github.com/lowlighter">@lowlighter</a></sup>
+      <details><summary>Render example</summary>
+        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.screenshot.svg" alt=""></img>
+        <img width="900" height="1" alt="">
+      </details>
+    </th>
+    <th><a href="source/plugins/community/splatoon/README.md">🦑 Splatoon</a><br><sup>by <a href="https://github.com/lowlighter">@lowlighter</a></sup>
+      <details><summary>Render example</summary>
+        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.splatoon.svg" alt=""></img>
+        <img width="900" height="1" alt="">
+      </details>
+    </th>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/community/stock/README.md">💹 Stock prices</a><br><sup>by <a href="https://github.com/lowlighter">@lowlighter</a></sup>
+      <details><summary>Render example</summary>
+        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stock.svg" alt=""></img>
+        <img width="900" height="1" alt="">
+      </details>
+    </th>
+    <th>
+    </th>
+  </tr>
   <tr>
     <th colspan="2" align="center">
       <h3><a href="/README.md#%EF%B8%8F-templates">🖼️ And even more with 4+ templates!</a></h3>
@@ -359,6 +410,11 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
       Share your metrics with friends and on social medias!<br>
       No configuration needed!<br>
       <img src="/.github/readme/imgs/features_insights.gif" width="360">
+    </td>
+  </tr>
+  <tr>
+    <td align="center" colspan="2">
+      Test latest features and patches on <code><a href="https://beta-metrics.lecoq.io">🧪 Metrics beta</a></code>!
     </td>
   </tr>
   <tr>
