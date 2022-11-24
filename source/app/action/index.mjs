@@ -414,7 +414,7 @@ function quit(reason) {
       throw new Error("Could not render metrics")
     info("Status", "complete")
     info("MIME type", mime)
-    const buffer = typeof rendered === "object" ? rendered instanceof Buffer ? rendered : Buffer.from(JSON.stringify(rendered)) : Buffer.from(`${rendered}`)
+    const buffer = Buffer.isBuffer(rendered) ? rendered : Buffer.from(typeof rendered === "object" ? JSON.stringify(rendered) : `${rendered}`)
 
     //Debug print
     if (dprint) {
