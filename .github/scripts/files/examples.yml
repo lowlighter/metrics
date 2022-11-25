@@ -138,10 +138,10 @@ jobs:
         if: ${{ success() || failure() }}
         run: |
           set +e
-          sudo mv /metrics_renders/* ./
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git pull
+          sudo cp /metrics_renders/* ./
           git add --all
           git commit -m "chore: update examples"
           git push --force
