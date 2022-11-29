@@ -84,13 +84,16 @@ inputs:
   # ====================================================================================
   # 🚧 Options below are mostly used for testing
 
-  plugin_splatoon_local:
+  plugin_splatoon_source:
     description: |
-      Use local `s3si/export` directory
+      Source
 
-      If set, fetched data will be read from local file system rather than being download from Splatnet.
-      Use this when developping new features for this plugin to save network resources.
-    type: boolean
-    default: no
+      - `splatnet` will fetch data from Splatnet using [spacemeowx2/s3si.ts](https://github.com/spacemeowx2/s3si.ts) tool
+      - `local` will assume `s3si/export` directory already exists and is populated (use this when developping new features for this plugin to save network resources and time)
+    type: string
+    default: splatnet
+    values:
+      - splatnet
+      - local
     testing: yes
     preset: no

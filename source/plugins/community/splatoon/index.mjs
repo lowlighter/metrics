@@ -10,7 +10,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
       return null
 
     //Load inputs
-    const {sections, "versus.limit": _versus_limit, "salmon.limit": _salmon_limit, statink, local} = imports.metadata.plugins.splatoon.inputs({data, account, q})
+    const {sections, "versus.limit": _versus_limit, "salmon.limit": _salmon_limit, statink, source} = imports.metadata.plugins.splatoon.inputs({data, account, q})
 
     //Save profile
     {
@@ -43,16 +43,22 @@ export default async function({login, q, imports, data, account}, {enabled = fal
       exporters.push("stat.ink")
       allowed.net.push("stat.ink")
     }
-    if (local)
-      console.debug(`metrics/compute/${login}/plugins > splatoon > skipping s3si execution`)
-    else
-      await imports.run(`deno run --no-prompt --cached-only --no-remote --allow-read="${allowed.files}" --allow-write="${allowed.files}" --allow-net="${allowed.net}" index.ts --exporter="${exporters}" --no-progress`, {cwd: `${imports.__module(import.meta.url)}/s3si`}, {prefixed: false})
+    switch (source) {
+      case "local":
+        console.debug(`metrics/compute/${login}/plugins > splatoon > skipping s3si execution`)
+        break
+      case "splatnet":
+        await imports.run(`deno run --no-prompt --cached-only --no-remote --allow-read="${allowed.files}" --allow-write="${allowed.files}" --allow-net="${allowed.net}" index.ts --exporter="${exporters}" --with-summary --no-progress`, {cwd: `${imports.__module(import.meta.url)}/s3si`}, {prefixed: false})
+        break
+    }
 
     //Read fetched data
     const exported = await Promise.all(
       (await imports.fs.readdir(`${imports.__module(import.meta.url)}/s3si/export`))
         .map(async file => JSON.parse(await imports.fs.readFile(`${imports.__module(import.meta.url)}/s3si/export/${file}`))))
     const summary = exported.filter(({type}) => type === "SUMMARY").at(0)
+    if (!summary)
+      throw new Error("Failed to fetch player summary!")
     const fetched = exported.filter(({type}) => type !== "SUMMARY").sort((a, b) => new Date(b.data.detail.playedTime) - new Date(a.data.detail.playedTime))
     console.debug(`metrics/compute/${login}/plugins > splatoon > fetched ${fetched.length} matches`)
 
