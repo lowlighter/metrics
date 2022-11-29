@@ -48,7 +48,7 @@ placeholder.init({
   ejs,
   axios: {
     async get(url) {
-      return axios(`http://localhost:3000${url}`)
+      return axios.get(`http://localhost:3000${url}`)
     },
   },
 })
