@@ -33,18 +33,19 @@ inputs:
     extras:
       - metrics.api.nintendo.splatnet
 
-  plugin_splatoon_modes:
+  plugin_splatoon_sections:
     description: |
-      Displayed modes
+      Displayed sections
+
+      - `player` for overall player recap
+      - `versus` for *Turf war* and *Anarchy battle* matches
+      - `salmon-run` for *Salmon run next wave* matches
     type: array
     format: comma-separated
-    default: turf-war, splat-zones, tower-control, rainmaker, clam-blitz, salmon-run
+    default: player, versus, salmon-run
     options:
-      - turf-war
-      - splat-zones
-      - tower-control
-      - rainmaker
-      - clam-blitz
+      - player
+      - versus
       - salmon-run
 
   plugin_splatoon_versus_limit:
@@ -79,3 +80,17 @@ inputs:
       stat.ink token
     type: token
     default: ""
+
+  # ====================================================================================
+  # 🚧 Options below are mostly used for testing
+
+  plugin_splatoon_local:
+    description: |
+      Use local `s3si/export` directory
+
+      If set, fetched data will be read from local file system rather than being download from Splatnet.
+      Use this when developping new features for this plugin to save network resources.
+    type: boolean
+    default: no
+    testing: yes
+    preset: no

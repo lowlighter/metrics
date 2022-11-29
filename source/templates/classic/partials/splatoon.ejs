@@ -16,19 +16,54 @@
     </div>
   <% } else { %>
 
-    <% if (plugins.splatoon.vs) { %>
-      <div class="versus">
-        <img class="versus-logo" src="<%= plugins.splatoon.icons.splatoon %>" alt="" />
-        <% if (plugins.splatoon.vs.player) { %>
-          <div class="player">
-            <div class="player-name">
-              <%= plugins.splatoon.vs.player.name %>
-            </div>
-            <div class="player-title">
-              <%= plugins.splatoon.vs.player.byname %>
+    <% if (plugins.splatoon.sections.includes("player")) { %>
+      <div class="player-plate" style="color:<%= plugins.splatoon.player.plate.color %>; background-image: url('<%= plugins.splatoon.player.plate.icon %>');">
+        <div class="player-head">
+          <div class="player-title">
+            <%= plugins.splatoon.player.byname %>
+            <div class="played-since">
+              Playing since <%= f.date(new Date(plugins.splatoon.player.started), {time:true, date:true, timeZone:config.timezone?.name}) %>
             </div>
           </div>
-        <% } %>
+          <div class="player-badges">
+            <% for (const badge of plugins.splatoon.player.badges) { %>
+              <% if (badge) { %>
+                <img class="badge" src="<%= badge %>" />
+              <% } else { %>
+                <div class="badge"></div>
+              <% } %>
+            <% } %>
+          </div>
+        </div>
+        <div class="player-name">
+          <%= plugins.splatoon.player.name %>
+        </div>
+        <div class="player-equipment">
+          <div class="player-weapons">
+            <img class="weapon-icon" src="<%= plugins.splatoon.player.equipment.weapon.icon %>" alt="" />
+            <img class="weapon-icon sub-icon" src="<%= plugins.splatoon.player.equipment.sub.icon %>" alt="" />
+            <img class="weapon-icon special-icon" src="<%= plugins.splatoon.player.equipment.special.icon %>" alt="" />
+          </div>
+          <% for (const {icon, abilities} of plugins.splatoon.player.equipment.gears) { %>
+            <div class="player-gears">
+              <img class="gear-icon" src="<%= icon %>" alt="" />
+              <% for (const {icon} of abilities) { %>
+                <img class="gear-icon sub-icon" src="<%= icon %>" alt="" />
+              <% } %>
+            </div>
+          <% } %>
+        </div>
+      </div>
+    <% } %>
+
+    <% if (plugins.splatoon.sections.includes("versus")) { %>
+      <div class="versus">
+        <div class="player-stats">
+          <div>Level <%= plugins.splatoon.player.level %></div>
+          <div>Rank <%= plugins.splatoon.player.rank.current %></div>
+          <div><%= plugins.splatoon.player.battles.wins %> victories</div>
+          <div><%= plugins.splatoon.player.painted %>p inked</div>
+        </div>
         <% for (const {stage, mode, teams, awards, result, ...match} of plugins.splatoon.vs.matches) { const player = teams.map(({players}) => players.filter(({self}) => self)).flat(Infinity)[0] %>
           <div class="match">
             <div class="stage-icon" style="background-image: url('<%= stage.icon %>');">
@@ -38,7 +73,7 @@
                 <img class="splatoon-icon" src="<%= mode.icon %>" alt="" />
                 <%= mode.name %>
                 <% if (mode.name !== "Turf War") { %>
-                  <div class="mode-rank"><%= match.player.rank %></div>
+                  <div class="mode-rank"><%= match.rank %></div>
                 <% } %>
               </div>
             </div>
@@ -110,19 +145,16 @@
       </div>
     <% } %>
 
-    <% if (plugins.splatoon.salmon) { %>
+    <% if (plugins.splatoon.sections.includes("salmon-run")) { %>
       <div class="salmon-run">
-        <img class="salmon-logo" src="<%= plugins.splatoon.icons.salmon_run %>" alt="" />
-        <% if (plugins.splatoon.salmon.player) { %>
-          <div class="player">
-            <div class="player-name">
-              <%= plugins.splatoon.salmon.player.name %>
-            </div>
-            <div class="player-title">
-              <%= plugins.splatoon.salmon.player.grade %>
-            </div>
-          </div>
-        <% } %>
+        <div class="player-grade"><%= plugins.splatoon.player.salmon.grade.name %> +<%= plugins.splatoon.player.salmon.grade.points %></div>
+        <div class="player-stats">
+          <div><img class="splatoon-icon" src="<%= plugins.splatoon.icons.eggs %>" alt="" /> <%= plugins.splatoon.player.salmon.eggs.regular %></div>
+          <div><img class="splatoon-icon" src="<%= plugins.splatoon.icons.golden_egg %>" alt="" /> <%= plugins.splatoon.player.salmon.eggs.golden %></div>
+          <div><img class="splatoon-icon" src="<%= plugins.splatoon.icons.rescues %>" alt="" /> <%= plugins.splatoon.player.salmon.rescues %></div>
+          <div><%= plugins.splatoon.player.salmon.played %> shifts</div>
+          <div><%= plugins.splatoon.player.salmon.points %> points</div>
+        </div>
         <% for (const {stage, waves, weapons, special, boss, ...match} of plugins.splatoon.salmon.matches) { %>
           <div class="match">
             <div class="stage-icon" style="background-image: url('<%= stage.icon %>');">
@@ -192,28 +224,48 @@
       height: 18px;
       vertical-align: middle;
     }
-    .salmon-logo, .versus-logo {
-      width: 140px;
-      position: absolute;
-      left: -13px;
-    }
 
     /* Player data */
-    .player {
-      text-align: center;
-      margin-bottom: 8px;
+    .player-head {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 8px;
     }
     .player-name {
+      text-align: center;
       font-size: 20px;
       font-weight: bold;
+    }
+    .player-plate .badge {
+      height: 26px;
+      width: 26px;
+    }
+    .player-badges {
+      display: flex;
+    }
+    .player-equipment {
+      margin-top: 6px;
+      display: flex;
+      justify-content: space-evenly;
+    }
+    .player-equipment .special-icon {
+      height: 20px;
+      width: 20px;
+      border-radius: 4px;
+    }
+    .player-equipment .players-gears .sub-icon:nth-child(2+n) {
+      height: 16px;
+      width: 16px;
     }
 
     /* Match */
     .match {
       display: flex;
       margin: 4px 12px;
-      border-top: 2px dashed rgba(0, 0, 0, .4);
       padding-top: 8px;
+    }
+    .match:not(:last-child) {
+      border-bottom: 2px dashed rgba(0, 0, 0, .4);
     }
     .match-details {
       flex-grow: 1;
@@ -228,7 +280,7 @@
       background-position: center;
       flex-shrink: 0;
     }
-    .stage-played, .personal-stats {
+    .stage-played, .personal-stats, .played-since {
       font-size: 11px;
       opacity: .9;
       line-height: 25%;
@@ -277,7 +329,7 @@
       padding: 0px 4px;
       margin-top: 9px;
     }
-    .versus .stage-stats, .versus .weapon-icon {
+    .versus .stage-stats, .versus .weapon-icon, .versus .player-stats, .player-plate .weapon-icon, .player-plate .gear-icon {
       background-color: #000;
     }
     .stage-awards {
@@ -379,10 +431,10 @@
       background-color: #2D2D13;
       padding: 2px 8px;
     }
-    .stage-weapons {
+    .stage-weapons, .player-weapons, .player-gears {
       display: flex;
     }
-    .weapon-icon {
+    .weapon-icon, .gear-icon {
       background-color: #3C1A11;
       border-radius: 50%;
       width: 26px;
@@ -403,7 +455,7 @@
       border-radius: 8px;
       margin-top: 2px;
     }
-    .stage-stats {
+    .stage-stats, .player-stats, .player-grade {
       display: flex;
       align-items: center;
       justify-content: space-evenly;
@@ -412,13 +464,25 @@
       flex-grow: 1;
       margin-left: 2px;
     }
-    .stage-stats > * {
+    .player-stats, .player-grade {
+      margin: 4px 11px 0;
+    }
+    .stage-stats > *, .player-stats > * {
       white-space: nowrap;
       flex: 1 1 0;
       font-size: 12px;
       justify-content: center;
       display: flex;
       align-items: center;
+    }
+    .salmon-run .player-stats {
+      margin-top: -1px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+    .salmon-run .player-grade {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
     }
     .salmon {
       display: flex;
@@ -435,7 +499,7 @@
     }
 
     /* Mode containers */
-    .salmon-run, .versus {
+    .salmon-run, .versus, .player-plate {
       overflow: hidden;
       font-family: splatoon;
       margin: 8px;
@@ -445,6 +509,12 @@
       text-shadow: 1px 1px 0 #000;
       background-size: 400px;
       background-position: top center;
+    }
+
+    .player-plate {
+      border-radius: 4px;
+      background-size: cover;
+      text-shadow: none;
     }
 
     .versus {
