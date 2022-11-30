@@ -33,18 +33,19 @@ inputs:
     extras:
       - metrics.api.nintendo.splatnet
 
-  plugin_splatoon_modes:
+  plugin_splatoon_sections:
     description: |
-      Displayed modes
+      Displayed sections
+
+      - `player` for overall player recap
+      - `versus` for *Turf war* and *Anarchy battle* matches
+      - `salmon-run` for *Salmon run next wave* matches
     type: array
     format: comma-separated
-    default: turf-war, splat-zones, tower-control, rainmaker, clam-blitz, salmon-run
+    default: player, versus, salmon-run
     options:
-      - turf-war
-      - splat-zones
-      - tower-control
-      - rainmaker
-      - clam-blitz
+      - player
+      - versus
       - salmon-run
 
   plugin_splatoon_versus_limit:
@@ -79,3 +80,20 @@ inputs:
       stat.ink token
     type: token
     default: ""
+
+  # ====================================================================================
+  # 🚧 Options below are mostly used for testing
+
+  plugin_splatoon_source:
+    description: |
+      Source
+
+      - `splatnet` will fetch data from Splatnet using [spacemeowx2/s3si.ts](https://github.com/spacemeowx2/s3si.ts) tool
+      - `local` will assume `s3si/export` directory already exists and is populated (use this when developping new features for this plugin to save network resources and time)
+    type: string
+    default: splatnet
+    values:
+      - splatnet
+      - local
+    testing: yes
+    preset: no

@@ -10,7 +10,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
       return null
 
     //Load inputs
-    const {modes, "versus.limit": _versus_limit, "salmon.limit": _salmon_limit, statink} = imports.metadata.plugins.splatoon.inputs({data, account, q})
+    const {sections, "versus.limit": _versus_limit, "salmon.limit": _salmon_limit, statink, source} = imports.metadata.plugins.splatoon.inputs({data, account, q})
 
     //Save profile
     {
@@ -43,22 +43,95 @@ export default async function({login, q, imports, data, account}, {enabled = fal
       exporters.push("stat.ink")
       allowed.net.push("stat.ink")
     }
-    await imports.run(`deno run --no-prompt --cached-only --no-remote --allow-read="${allowed.files}" --allow-write="${allowed.files}" --allow-net="${allowed.net}" index.ts --exporter="${exporters}" --no-progress`, {cwd: `${imports.__module(import.meta.url)}/s3si`}, {prefixed: false})
+    switch (source) {
+      case "local":
+        console.debug(`metrics/compute/${login}/plugins > splatoon > skipping s3si execution`)
+        break
+      case "splatnet":
+        await imports.run(`deno run --no-prompt --cached-only --no-remote --allow-read="${allowed.files}" --allow-write="${allowed.files}" --allow-net="${allowed.net}" index.ts --exporter="${exporters}" --with-summary --no-progress`, {cwd: `${imports.__module(import.meta.url)}/s3si`}, {prefixed: false})
+        break
+    }
 
     //Read fetched data
-    const fetched = (await Promise.all(
+    const exported = await Promise.all(
       (await imports.fs.readdir(`${imports.__module(import.meta.url)}/s3si/export`))
-        .map(async file => JSON.parse(await imports.fs.readFile(`${imports.__module(import.meta.url)}/s3si/export/${file}`))),
-    ))
-      .sort((a, b) => new Date(b.data.detail.playedTime) - new Date(a.data.detail.playedTime))
+        .map(async file => JSON.parse(await imports.fs.readFile(`${imports.__module(import.meta.url)}/s3si/export/${file}`))))
+    const summary = exported.filter(({type}) => type === "SUMMARY").at(0)
+    if (!summary)
+      throw new Error("Failed to fetch player summary!")
+    const fetched = exported.filter(({type}) => type !== "SUMMARY").sort((a, b) => new Date(b.data.detail.playedTime) - new Date(a.data.detail.playedTime))
     console.debug(`metrics/compute/${login}/plugins > splatoon > fetched ${fetched.length} matches`)
+
+    //Player summary
+    const player = {
+      level:summary.data.HistoryRecordQuery.playHistory.rank,
+      rank:{
+        current:summary.data.HistoryRecordQuery.playHistory.udemae,
+        max:summary.data.HistoryRecordQuery.playHistory.udemaeMax,
+      },
+      painted:summary.data.HistoryRecordQuery.playHistory.paintPointTotal,
+      battles:{
+        wins:summary.data.HistoryRecordQuery.playHistory.winCountTotal,
+        count:summary.data.ConfigureAnalyticsQuery.playHistory.battleNumTotal,
+      },
+      started:new Date(summary.data.HistoryRecordQuery.playHistory.gameStartTime),
+      name:summary.data.HistoryRecordQuery.currentPlayer.name,
+      byname:summary.data.HistoryRecordQuery.currentPlayer.byname,
+      badges:await Promise.all(summary.data.HistoryRecordQuery.currentPlayer.nameplate.badges.map(badge => badge ? imports.imgb64(badge.image.url) : null)),
+      plate:{
+        color:`#${Math.round(255 * summary.data.HistoryRecordQuery.currentPlayer.nameplate.background.textColor.r).toString(16).padStart(2, 0)}${Math.round(255 * summary.data.HistoryRecordQuery.currentPlayer.nameplate.background.textColor.g).toString(16).padStart(2, 0)}${Math.round(255 * summary.data.HistoryRecordQuery.currentPlayer.nameplate.background.textColor.b).toString(16).padStart(2, 0)}`,
+        icon:await imports.imgb64(summary.data.HistoryRecordQuery.currentPlayer.nameplate.background.image.url),
+      },
+      equipment:{
+        weapon:{
+          name:summary.data.HistoryRecordQuery.currentPlayer.weapon.name,
+          icon:await imports.imgb64(summary.data.HistoryRecordQuery.currentPlayer.weapon.image.url),
+        },
+        special:{
+          name:summary.data.HistoryRecordQuery.currentPlayer.weapon.specialWeapon.name,
+          icon:await imports.imgb64(summary.data.HistoryRecordQuery.currentPlayer.weapon.specialWeapon.image.url),
+        },
+        sub:{
+          name:summary.data.HistoryRecordQuery.currentPlayer.weapon.subWeapon.name,
+          icon:await imports.imgb64(summary.data.HistoryRecordQuery.currentPlayer.weapon.subWeapon.image.url),
+        },
+        gears:await Promise.all(["headGear", "clothingGear", "shoesGear"].map(async type => {
+          const gear = summary.data.HistoryRecordQuery.currentPlayer[type]
+          return {
+            name:gear.name,
+            icon:await imports.imgb64(gear.image.url),
+            abilities:await Promise.all([
+              {
+                name:gear.primaryGearPower.name,
+                icon:await imports.imgb64(gear.primaryGearPower.image.url),
+              },
+              ...gear.additionalGearPowers.map(async ability => ({name:ability.name, icon:await imports.imgb64(ability.image.url)}))
+            ])
+          }
+        }))
+      },
+      salmon:{
+        grade:{
+          name:summary.data.CoopHistoryQuery.coopResult.regularGrade.name,
+          points:summary.data.CoopHistoryQuery.coopResult.regularGradePoint,
+        },
+        played:summary.data.CoopHistoryQuery.coopResult.pointCard.playCount,
+        rescues:summary.data.CoopHistoryQuery.coopResult.pointCard.rescueCount,
+        eggs: {
+          golden: summary.data.CoopHistoryQuery.coopResult.pointCard.goldenDeliverCount,
+          regular: summary.data.CoopHistoryQuery.coopResult.pointCard.deliverCount,
+        },
+        points:summary.data.CoopHistoryQuery.coopResult.pointCard.totalPoint,
+        kings:summary.data.CoopHistoryQuery.coopResult.pointCard.defeatBossCount,
+      }
+    }
 
     //Versus mode
     let vs = null
-    if (!((modes.length === 1) && (modes[0] === "salmon-run"))) {
+    if (sections.includes("versus")) {
       vs = {
         matches: await Promise.all(
-          fetched.filter(({type, data}) => (type === "VS") && (modes.includes(data.detail.vsRule.name.toLocaleLowerCase().replace(/ /g, "-")))).slice(0, _versus_limit).map(async ({data}) => ({
+          fetched.filter(({type}) => type === "VS").slice(0, _versus_limit).map(async ({data}) => ({
             mode: {
               name: data.detail.vsRule.name,
               icon: await imports.imgb64(assets.modes[data.detail.vsRule.name]),
@@ -66,7 +139,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
             result: data.detail.judgement,
             knockout: data.detail.knockout ?? null,
             teams: await Promise.all([data.detail.myTeam, ...data.detail.otherTeams].map(async team => ({
-              color: `#${Math.round(255 * team.color.r).toString(16)}${Math.round(255 * team.color.g).toString(16)}${Math.round(255 * team.color.b).toString(16)}`,
+              color: `#${Math.round(255 * team.color.r).toString(16).padStart(2, 0)}${Math.round(255 * team.color.g).toString(16).padStart(2, 0)}${Math.round(255 * team.color.b).toString(16).padStart(2, 0)}`,
               score: ((data.detail.vsRule.name === "Turf War") ? team.result?.paintRatio * 100 : team.result?.score) ?? null,
               players: await Promise.all(team.players.map(async ({name, byname, weapon, paint, result, isMyself: self}) => ({
                 name,
@@ -96,11 +169,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
             awards: data.detail.awards,
             date: data.detail.playedTime,
             duration: data.detail.duration,
-            player: {
-              name: data.detail.player.name,
-              byname: data.detail.player.byname,
-              rank: data.listNode?.udemae ?? null,
-            },
+            rank: data.listNode?.udemae ?? null,
             stage: {
               name: data.detail.vsStage.name,
               icon: await imports.imgb64(assets.stages[data.detail.vsStage.name]),
@@ -108,12 +177,11 @@ export default async function({login, q, imports, data, account}, {enabled = fal
           })),
         ),
       }
-      vs.player = vs.matches.at(-1)?.player ?? null
     }
 
     //Salmon run
     let salmon = null
-    if (modes.includes("salmon-run")) {
+    if (sections.includes("salmon-run")) {
       salmon = {
         matches: await Promise.all(
           fetched.filter(({type}) => type === "COOP").slice(0, _salmon_limit).map(async ({data}) => ({
@@ -145,18 +213,15 @@ export default async function({login, q, imports, data, account}, {enabled = fal
             },
             date: data.detail.playedTime,
             grade: data.detail.afterGrade.name,
-            player: data.detail.myResult.player.name,
           })),
         ),
-      }
-      salmon.player = {
-        name: salmon.matches.at(-1)?.player ?? null,
-        grade: salmon.matches.at(-1)?.grade ?? null,
       }
     }
 
     //Results
     return {
+      sections,
+      player,
       vs,
       salmon,
       icons: Object.fromEntries(await Promise.all(Object.entries(assets.icons).map(async ([k, v]) => [k, await imports.imgb64(v)]))),
