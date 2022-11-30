@@ -55,7 +55,8 @@ export default async function({login, q, imports, data, account}, {enabled = fal
     //Read fetched data
     const exported = await Promise.all(
       (await imports.fs.readdir(`${imports.__module(import.meta.url)}/s3si/export`))
-        .map(async file => JSON.parse(await imports.fs.readFile(`${imports.__module(import.meta.url)}/s3si/export/${file}`))))
+        .map(async file => JSON.parse(await imports.fs.readFile(`${imports.__module(import.meta.url)}/s3si/export/${file}`))),
+    )
     const summary = exported.filter(({type}) => type === "SUMMARY").at(0)
     if (!summary)
       throw new Error("Failed to fetch player summary!")
@@ -64,66 +65,68 @@ export default async function({login, q, imports, data, account}, {enabled = fal
 
     //Player summary
     const player = {
-      level:summary.data.HistoryRecordQuery.playHistory.rank,
-      rank:{
-        current:summary.data.HistoryRecordQuery.playHistory.udemae,
-        max:summary.data.HistoryRecordQuery.playHistory.udemaeMax,
+      level: summary.data.HistoryRecordQuery.playHistory.rank,
+      rank: {
+        current: summary.data.HistoryRecordQuery.playHistory.udemae,
+        max: summary.data.HistoryRecordQuery.playHistory.udemaeMax,
       },
-      painted:summary.data.HistoryRecordQuery.playHistory.paintPointTotal,
-      battles:{
-        wins:summary.data.HistoryRecordQuery.playHistory.winCountTotal,
-        count:summary.data.ConfigureAnalyticsQuery.playHistory.battleNumTotal,
+      painted: summary.data.HistoryRecordQuery.playHistory.paintPointTotal,
+      battles: {
+        wins: summary.data.HistoryRecordQuery.playHistory.winCountTotal,
+        count: summary.data.ConfigureAnalyticsQuery.playHistory.battleNumTotal,
       },
-      started:new Date(summary.data.HistoryRecordQuery.playHistory.gameStartTime),
-      name:summary.data.HistoryRecordQuery.currentPlayer.name,
-      byname:summary.data.HistoryRecordQuery.currentPlayer.byname,
-      badges:await Promise.all(summary.data.HistoryRecordQuery.currentPlayer.nameplate.badges.map(badge => badge ? imports.imgb64(badge.image.url) : null)),
-      plate:{
-        color:`#${Math.round(255 * summary.data.HistoryRecordQuery.currentPlayer.nameplate.background.textColor.r).toString(16).padStart(2, 0)}${Math.round(255 * summary.data.HistoryRecordQuery.currentPlayer.nameplate.background.textColor.g).toString(16).padStart(2, 0)}${Math.round(255 * summary.data.HistoryRecordQuery.currentPlayer.nameplate.background.textColor.b).toString(16).padStart(2, 0)}`,
-        icon:await imports.imgb64(summary.data.HistoryRecordQuery.currentPlayer.nameplate.background.image.url),
+      started: new Date(summary.data.HistoryRecordQuery.playHistory.gameStartTime),
+      name: summary.data.HistoryRecordQuery.currentPlayer.name,
+      byname: summary.data.HistoryRecordQuery.currentPlayer.byname,
+      badges: await Promise.all(summary.data.HistoryRecordQuery.currentPlayer.nameplate.badges.map(badge => badge ? imports.imgb64(badge.image.url) : null)),
+      plate: {
+        color: `#${Math.round(255 * summary.data.HistoryRecordQuery.currentPlayer.nameplate.background.textColor.r).toString(16).padStart(2, 0)}${Math.round(255 * summary.data.HistoryRecordQuery.currentPlayer.nameplate.background.textColor.g).toString(16).padStart(2, 0)}${
+          Math.round(255 * summary.data.HistoryRecordQuery.currentPlayer.nameplate.background.textColor.b).toString(16).padStart(2, 0)
+        }`,
+        icon: await imports.imgb64(summary.data.HistoryRecordQuery.currentPlayer.nameplate.background.image.url),
       },
-      equipment:{
-        weapon:{
-          name:summary.data.HistoryRecordQuery.currentPlayer.weapon.name,
-          icon:await imports.imgb64(summary.data.HistoryRecordQuery.currentPlayer.weapon.image.url),
+      equipment: {
+        weapon: {
+          name: summary.data.HistoryRecordQuery.currentPlayer.weapon.name,
+          icon: await imports.imgb64(summary.data.HistoryRecordQuery.currentPlayer.weapon.image.url),
         },
-        special:{
-          name:summary.data.HistoryRecordQuery.currentPlayer.weapon.specialWeapon.name,
-          icon:await imports.imgb64(summary.data.HistoryRecordQuery.currentPlayer.weapon.specialWeapon.image.url),
+        special: {
+          name: summary.data.HistoryRecordQuery.currentPlayer.weapon.specialWeapon.name,
+          icon: await imports.imgb64(summary.data.HistoryRecordQuery.currentPlayer.weapon.specialWeapon.image.url),
         },
-        sub:{
-          name:summary.data.HistoryRecordQuery.currentPlayer.weapon.subWeapon.name,
-          icon:await imports.imgb64(summary.data.HistoryRecordQuery.currentPlayer.weapon.subWeapon.image.url),
+        sub: {
+          name: summary.data.HistoryRecordQuery.currentPlayer.weapon.subWeapon.name,
+          icon: await imports.imgb64(summary.data.HistoryRecordQuery.currentPlayer.weapon.subWeapon.image.url),
         },
-        gears:await Promise.all(["headGear", "clothingGear", "shoesGear"].map(async type => {
+        gears: await Promise.all(["headGear", "clothingGear", "shoesGear"].map(async type => {
           const gear = summary.data.HistoryRecordQuery.currentPlayer[type]
           return {
-            name:gear.name,
-            icon:await imports.imgb64(gear.image.url),
-            abilities:await Promise.all([
+            name: gear.name,
+            icon: await imports.imgb64(gear.image.url),
+            abilities: await Promise.all([
               {
-                name:gear.primaryGearPower.name,
-                icon:await imports.imgb64(gear.primaryGearPower.image.url),
+                name: gear.primaryGearPower.name,
+                icon: await imports.imgb64(gear.primaryGearPower.image.url),
               },
-              ...gear.additionalGearPowers.map(async ability => ({name:ability.name, icon:await imports.imgb64(ability.image.url)}))
-            ])
+              ...gear.additionalGearPowers.map(async ability => ({name: ability.name, icon: await imports.imgb64(ability.image.url)})),
+            ]),
           }
-        }))
+        })),
       },
-      salmon:{
-        grade:{
-          name:summary.data.CoopHistoryQuery.coopResult.regularGrade.name,
-          points:summary.data.CoopHistoryQuery.coopResult.regularGradePoint,
+      salmon: {
+        grade: {
+          name: summary.data.CoopHistoryQuery.coopResult.regularGrade.name,
+          points: summary.data.CoopHistoryQuery.coopResult.regularGradePoint,
         },
-        played:summary.data.CoopHistoryQuery.coopResult.pointCard.playCount,
-        rescues:summary.data.CoopHistoryQuery.coopResult.pointCard.rescueCount,
+        played: summary.data.CoopHistoryQuery.coopResult.pointCard.playCount,
+        rescues: summary.data.CoopHistoryQuery.coopResult.pointCard.rescueCount,
         eggs: {
           golden: summary.data.CoopHistoryQuery.coopResult.pointCard.goldenDeliverCount,
           regular: summary.data.CoopHistoryQuery.coopResult.pointCard.deliverCount,
         },
-        points:summary.data.CoopHistoryQuery.coopResult.pointCard.totalPoint,
-        kings:summary.data.CoopHistoryQuery.coopResult.pointCard.defeatBossCount,
-      }
+        points: summary.data.CoopHistoryQuery.coopResult.pointCard.totalPoint,
+        kings: summary.data.CoopHistoryQuery.coopResult.pointCard.defeatBossCount,
+      },
     }
 
     //Versus mode
