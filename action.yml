@@ -1333,8 +1333,8 @@ inputs:
     description: Splatnet token
     default: <default-value>
 
-  plugin_splatoon_modes:
-    description: Displayed modes
+  plugin_splatoon_sections:
+    description: Displayed sections
     default: <default-value>
 
   plugin_splatoon_versus_limit:
@@ -1351,6 +1351,10 @@ inputs:
 
   plugin_splatoon_statink_token:
     description: stat.ink token
+    default: <default-value>
+
+  plugin_splatoon_source:
+    description: Source
     default: <default-value>
 
   # ====================================================================================

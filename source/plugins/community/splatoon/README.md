@@ -63,8 +63,13 @@ All product and company names are trademarks™ or registered® trademarks of th
 <br></td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><h4><code>plugin_splatoon_modes</code></h4></td>
-    <td rowspan="2"><p>Displayed modes</p>
+    <td nowrap="nowrap"><h4><code>plugin_splatoon_sections</code></h4></td>
+    <td rowspan="2"><p>Displayed sections</p>
+<ul>
+<li><code>player</code> for overall player recap</li>
+<li><code>versus</code> for <em>Turf war</em> and <em>Anarchy battle</em> matches</li>
+<li><code>salmon-run</code> for <em>Salmon run next wave</em> matches</li>
+</ul>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -72,7 +77,7 @@ All product and company names are trademarks™ or registered® trademarks of th
 <b>type:</b> <code>array</code>
 <i>(comma-separated)</i>
 <br>
-<b>default:</b> turf-war, splat-zones, tower-control, rainmaker, clam-blitz, salmon-run<br></td>
+<b>default:</b> player, versus, salmon-run<br></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>plugin_splatoon_versus_limit</code></h4></td>
@@ -129,6 +134,24 @@ Requires <a href="/source/plugins/community/splatoon/README.md#plugin_splatoon_s
 ✨ On <code>master</code>/<code>main</code><br>
 <b>type:</b> <code>token</code>
 <br></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><h4><code>plugin_splatoon_source</code></h4></td>
+    <td rowspan="2"><p>Source</p>
+<ul>
+<li><code>splatnet</code> will fetch data from Splatnet using <a href="https://github.com/spacemeowx2/s3si.ts">spacemeowx2/s3si.ts</a> tool</li>
+<li><code>local</code> will assume <code>s3si/export</code> directory already exists and is populated (use this when developping new features for this plugin to save network resources and time)</li>
+</ul>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">⏯️ Cannot be preset<br>
+🔧 For development<br>
+✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>string</code>
+<br>
+<b>default:</b> splatnet<br>
+<b>allowed values:</b><ul><li>splatnet</li><li>local</li></ul></td>
   </tr>
 </table>
 <!--/options-->
