@@ -41,7 +41,7 @@ jobs:
     if: "github.repository == 'lowlighter/metrics'"
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - name: Checkout examples
@@ -68,6 +68,15 @@ jobs:
           git commit -m "chore: update examples"
           git push --force
 
+          set +e
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git pull
+          sudo cp /metrics_renders/* ./
+          git add --all
+          git commit -m "chore: update examples"
+          git push --force
+
 # ======================================================================================
 # Special job used to render lowlighter/metrics repository assets
 # ======================================================================================
@@ -78,7 +87,7 @@ jobs:
     if: "github.repository == 'lowlighter/metrics'"
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - name: Checkout examples

@@ -68,7 +68,7 @@ These options support two different syntaxes:
 Skip repositories by:
 - using their full handle (e.g. `user/repo`)
 - using only their name (e.g. `repo`)
-  - *in this case, the owner may be implicitly set to current `user` option* 
+  - *in this case, the owner may be implicitly set to current `user` option*
 
 *Example: skipping repositories with basic pattern matching*
 ```yml
@@ -81,7 +81,7 @@ repositories_skipped: my-repo, user/my-repo
 
 To enable advanced pattern matching to skip repositories, include `@use.patterns` at the beginning of the option value.
 
-Skip repositories by writing file-glob patterns, with any of the supported operation: 
+Skip repositories by writing file-glob patterns, with any of the supported operation:
 - `#` to write comments
 - `-` to exclude repositories
   - *the `-` is implicit and may be omitted from excluding patterns*
@@ -93,15 +93,15 @@ Skip repositories by writing file-glob patterns, with any of the supported opera
 ```yml
 repositories_skipped: |
   @use.patterns
-  
+
   # Skip a specific repository (both patterns are equivalent)
-  user/repo 
+  user/repo
   -user/repo
 
   # Skip repositories matching a given pattern
   user/repo-*
   {user1, user2, user3}/*
-  
+
   # Include back a previously skipped repository
   org/repo
   +org/include-this-repo
@@ -368,7 +368,7 @@ metrics:
     contents: write
   steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
         with:
           fetch-depth: 0
 

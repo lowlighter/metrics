@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Comment on pull request
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         with:
           script: |
             const {issue:{number:issue_number}, repo:{owner, repo}} = context
