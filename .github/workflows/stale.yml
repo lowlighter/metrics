@@ -10,30 +10,28 @@ jobs:
     name: Flag stale issues and pull requests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/stale@v3
+      - uses: actions/stale@v6
         with:
-          repo-token: ${{ github.token }}
           stale-pr-message: This pull request seems to be inactive and will be automatically closed in a few days if it remains without any activity.
           days-before-pr-stale: 21
           days-before-pr-close: 3
           stale-pr-label: ⏹️ stale
           remove-stale-when-updated: yes
-          operations-per-run: 100
   lock:
     name: Lock inactive closed issues and pull requests
     needs:
       - stale
     runs-on: ubuntu-latest
     steps:
-      - uses: dessant/lock-threads@v2
+      - uses: dessant/lock-threads@v4
         with:
           github-token: ${{ github.token }}
-          issue-lock-inactive-days: 14
+          issue-inactive-days: 14
           issue-lock-reason: ""
-          issue-lock-labels: ☑️ archived
-          pr-lock-inactive-days: 14
+          add-issue-labels: ☑️ archived
+          pr-inactive-days: 14
           pr-lock-reason: ""
-          pr-lock-labels: ☑️ archived
+          add-pr-labels: ☑️ archived
   workflows:
     name: Remove expired workflow runs
     runs-on: ubuntu-latest
