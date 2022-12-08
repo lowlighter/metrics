@@ -58,21 +58,12 @@ jobs:
         if: ${{ success() || failure() }}
         run: |
           set +e
-          rm -rf /metrics_renders/metrics.markdown*.{md,pdf}
+          sudo rm -rf /metrics_renders/github-metrics.*
           sudo mv /metrics_renders/* ./
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git pull
           git reset --soft c8d364ee752ad090945b7e104873d24d011b521e
-          git add --all
-          git commit -m "chore: update examples"
-          git push --force
-
-          set +e
-          git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git pull
-          sudo cp /metrics_renders/* ./
           git add --all
           git commit -m "chore: update examples"
           git push --force
