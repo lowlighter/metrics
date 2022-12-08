@@ -1,7 +1,6 @@
 // deno-fmt-ignore-file
 // deno-lint-ignore-file
 // This code was bundled using `deno bundle` and it's not recommended to edit it manually
-// https://raw.githubusercontent.com/spacemeowx2/s3si.ts/main/s3si.ts
 
 class APIError extends Error {
     response;
@@ -13,9 +12,9 @@ class APIError extends Error {
     }
 }
 const AGENT_NAME = "s3si.ts";
-const S3SI_VERSION = "0.1.36";
-const NSOAPP_VERSION = "2.3.1";
-const WEB_VIEW_VERSION = "2.0.0-8a061f6c";
+const S3SI_VERSION = "0.2.1";
+const NSOAPP_VERSION = "2.4.0";
+const WEB_VIEW_VERSION = "2.0.0-18810d39";
 const S3SI_LINK = "https://github.com/spacemeowx2/s3si.ts";
 const USERAGENT = `${AGENT_NAME}/${S3SI_VERSION} (${S3SI_LINK})`;
 const DEFAULT_APP_USER_AGENT = "Mozilla/5.0 (Linux; Android 11; Pixel 5) " + "AppleWebKit/537.36 (KHTML, like Gecko) " + "Chrome/94.0.4606.61 Mobile Safari/537.36";
@@ -5033,6 +5032,11 @@ function s3siGameId(id) {
     const tsUuid = fullId.slice(fullId.length - 52, fullId.length);
     return mod6.v5.generate(S3SI_NAMESPACE, tsUuid);
 }
+function s3sCoopGameId(id) {
+    const fullId = mod.decode(id);
+    const tsUuid = fullId.slice(fullId.length - 52, fullId.length);
+    return mod6.v5.generate(COOP_NAMESPACE, tsUuid);
+}
 function parseHistoryDetailId(id) {
     const plainText = new TextDecoder().decode(mod.decode(id));
     const vsRE = /VsHistoryDetail-([a-z0-9-]+):(\w+):(\d{8}T\d{6})_([0-9a-f-]{36})/;
@@ -5460,6 +5464,7 @@ var Queries;
     Queries["LatestBattleHistoriesQuery"] = "4f5f26e64bca394b45345a65a2f383bd";
     Queries["RegularBattleHistoriesQuery"] = "d5b795d09e67ce153e622a184b7e7dfa";
     Queries["BankaraBattleHistoriesQuery"] = "de4754588109b77dbcb90fbe44b612ee";
+    Queries["XBattleHistoriesQuery"] = "45c74fefb45a49073207229ca65f0a62";
     Queries["PrivateBattleHistoriesQuery"] = "1d6ed57dc8b801863126ad4f351dfb9a";
     Queries["VsHistoryDetailQuery"] = "291295ad311b99a6288fc95a5c4cb2d2";
     Queries["CoopHistoryQuery"] = "6ed02537e4a65bbb5e7f4f23092f6154";
@@ -5612,6 +5617,9 @@ class Splatnet3 {
         const resp = await this.request(Queries.BankaraBattleHistoriesQuery);
         return resp;
     }
+    async getXBattleHistories() {
+        return await this.request(Queries.XBattleHistoriesQuery);
+    }
     async getCoopHistories() {
         const resp = await this.request(Queries.CoopHistoryQuery);
         return resp;
@@ -5709,6 +5717,16 @@ const COOP_POINT_MAP = {
     2: 0,
     3: 20
 };
+async function checkResponse(resp) {
+    if (Math.floor(resp.status / 100) !== 2) {
+        const json = await resp.json().catch(()=>undefined);
+        throw new APIError({
+            response: resp,
+            json,
+            message: "Failed to fetch data from stat.ink"
+        });
+    }
+}
 class StatInkAPI {
     statInk;
     FETCH_LOCK;
@@ -5719,11 +5737,7 @@ class StatInkAPI {
         this.statInk = "https://stat.ink";
         this.FETCH_LOCK = new Mutex();
         this.cache = {};
-        this._specialMap = new Map();
         this._salmonWeaponMap = new Map();
-        this.getSpecial = ()=>{
-            throw new Error("Not implemented");
-        };
         this.getSalmonWeapon = ()=>this._getCached(`${this.statInk}/api/v3/salmon/weapon?full=1`);
         this.getWeapon = ()=>this._getCached(`${this.statInk}/api/v3/weapon?full=1`);
         this.getAbility = ()=>this._getCached(`${this.statInk}/api/v3/ability?full=1`);
@@ -5744,6 +5758,7 @@ class StatInkAPI {
             url: type === "VsInfo" ? `${this.statInk}/api/v3/s3s/uuid-list` : `${this.statInk}/api/v3/salmon/uuid-list`,
             headers: this.requestHeaders()
         });
+        await checkResponse(response);
         const uuidResult = await response.json();
         if (!Array.isArray(uuidResult)) {
             throw new APIError({
@@ -5819,6 +5834,7 @@ class StatInkAPI {
                 url,
                 headers: this.requestHeaders()
             });
+            await checkResponse(resp);
             const json = await resp.json();
             this.cache[url] = json;
             return json;
@@ -5840,25 +5856,6 @@ class StatInkAPI {
             ];
         }
     }
-    _specialMap;
-    async getSpecialMap() {
-        if (this._specialMap.size === 0) {
-            const specials = await this.getSpecial();
-            for (const special of specials){
-                for (const name of Object.values(special.name).flatMap((n)=>this._getAliasName(n))){
-                    const prevKey = this._specialMap.get(name);
-                    if (prevKey !== undefined && prevKey !== special.key) {
-                        console.warn(`Duplicate weapon name: ${name}`);
-                    }
-                    this._specialMap.set(name, special.key);
-                }
-            }
-            if (this._specialMap.size === 0) {
-                throw new Error("Failed to get salmon weapon map");
-            }
-        }
-        return this._specialMap;
-    }
     _salmonWeaponMap;
     async getSalmonWeaponMap() {
         if (this._salmonWeaponMap.size === 0) {
@@ -5878,7 +5875,6 @@ class StatInkAPI {
         }
         return this._salmonWeaponMap;
     }
-    getSpecial;
     getSalmonWeapon;
     getWeapon;
     getAbility;
@@ -5926,7 +5922,8 @@ class StatInkExporter {
         for (const id of list){
             const s3sId = await gameId(id);
             const s3siId = await s3siGameId(id);
-            if (!uuid.includes(s3sId) && !uuid.includes(s3siId)) {
+            const s3sCoopId = await s3sCoopGameId(id);
+            if (!uuid.includes(s3sId) && !uuid.includes(s3siId) && !uuid.includes(s3sCoopId)) {
                 out.push(id);
             }
         }
@@ -5960,6 +5957,8 @@ class StatInkExporter {
             } else if (modeId === 8) {
                 throw new Error("Tri-color battle is not supported");
             }
+        } else if (vsMode === "X_MATCH") {
+            return "xmatch";
         }
         throw new TypeError(`Unknown vsMode ${vsMode}`);
     }
@@ -6021,7 +6020,7 @@ class StatInkExporter {
         }
         return result;
     };
-    async mapBattle({ challengeProgress , bankaraMatchChallenge , listNode , detail: vsDetail , rankBeforeState , rankState  }) {
+    async mapBattle({ groupInfo , challengeProgress , bankaraMatchChallenge , listNode , detail: vsDetail , rankBeforeState , rankState  }) {
         const { knockout , vsRule: { rule  } , myTeam , otherTeams , bankaraMatch , festMatch , playedTime  } = vsDetail;
         const self = vsDetail.myTeam.players.find((i)=>i.isMyself);
         if (!self) {
@@ -6073,7 +6072,7 @@ class StatInkExporter {
         result.our_team_count = myTeam?.result?.score ?? undefined;
         result.their_team_count = otherTeams?.[0]?.result?.score ?? undefined;
         result.rank_exp_change = bankaraMatch?.earnedUdemaePoint ?? undefined;
-        if (listNode) {
+        if (listNode?.udemae) {
             [result.rank_before, result.rank_before_s_plus] = parseUdemae(listNode.udemae);
         }
         if (bankaraMatchChallenge && challengeProgress) {
@@ -6085,8 +6084,16 @@ class StatInkExporter {
                 result.rank_after = result.rank_before;
                 result.rank_after_s_plus = result.rank_before_s_plus;
             }
+        }
+        if (challengeProgress) {
             result.challenge_win = challengeProgress.winCount;
             result.challenge_lose = challengeProgress.loseCount;
+        }
+        if (vsDetail.xMatch) {
+            result.x_power_before = result.x_power_after = vsDetail.xMatch.lastXPower;
+            if (groupInfo?.xMatchMeasurement && groupInfo?.xMatchMeasurement.state === "COMPLETED" && challengeProgress?.index === 0) {
+                result.x_power_after = groupInfo.xMatchMeasurement.xPowerAfter;
+            }
         }
         if (rankBeforeState && rankState) {
             result.rank_before_exp = rankBeforeState.rankPoint;
@@ -6103,22 +6110,22 @@ class StatInkExporter {
         }
         return result;
     }
-    isRandomWeapon(image) {
-        const RANDOM_WEAPON_FILENAME = "473fffb2442075078d8bb7125744905abdeae651b6a5b7453ae295582e45f7d1";
+    isRandom(image) {
+        const RANDOM_FILENAME = "473fffb2442075078d8bb7125744905abdeae651b6a5b7453ae295582e45f7d1";
         const url = image?.url;
         if (typeof url === "string") {
-            return url.includes(RANDOM_WEAPON_FILENAME);
+            return url.includes(RANDOM_FILENAME);
         } else if (url === undefined || url === null) {
             return false;
         } else {
-            return url.pathname.includes(RANDOM_WEAPON_FILENAME);
+            return url.pathname.includes(RANDOM_FILENAME);
         }
     }
     async mapCoopWeapon({ name , image  }) {
         const weaponMap = await this.api.getSalmonWeaponMap();
         const weapon = weaponMap.get(name);
         if (!weapon) {
-            if (this.isRandomWeapon(image)) {
+            if (this.isRandom(image)) {
                 return null;
             }
             throw new Error(`Weapon not found: ${name}`);
@@ -6131,13 +6138,23 @@ class StatInkExporter {
         const hash = /\/(\w+)_0\.\w+/.exec(imageName)?.[1] ?? "";
         const special = SPLATNET3_STATINK_MAP.COOP_SPECIAL_MAP[hash];
         if (!special) {
+            if (this.isRandom(image)) {
+                return Promise.resolve(undefined);
+            }
             throw new Error(`Special not found: ${name} (${imageName})`);
         }
         return Promise.resolve(special);
     }
-    async mapCoopPlayer({ player , weapons , specialWeapon , defeatEnemyCount , deliverCount , goldenAssistCount , goldenDeliverCount , rescueCount , rescuedCount  }) {
+    async mapCoopPlayer(isMyself, { player , weapons , specialWeapon , defeatEnemyCount , deliverCount , goldenAssistCount , goldenDeliverCount , rescueCount , rescuedCount  }) {
+        const disconnected = [
+            goldenDeliverCount,
+            deliverCount,
+            rescueCount,
+            rescuedCount,
+            defeatEnemyCount
+        ].every((v)=>v === 0) || !specialWeapon;
         return {
-            me: player.isMyself ? "yes" : "no",
+            me: isMyself ? "yes" : "no",
             name: player.name,
             number: player.nameId,
             splashtag_title: player.byname,
@@ -6150,7 +6167,7 @@ class StatInkExporter {
             rescue: rescueCount,
             rescued: rescuedCount,
             defeat_boss: defeatEnemyCount,
-            disconnected: specialWeapon ? "no" : "yes"
+            disconnected: disconnected ? "yes" : "no"
         };
     }
     mapKing(id) {
@@ -6162,7 +6179,9 @@ class StatInkExporter {
     }
     async mapWave(wave) {
         const event = wave.eventWave ? SPLATNET3_STATINK_MAP.COOP_EVENT_MAP[b64Number(wave.eventWave.id)] : undefined;
-        const special_uses = (await Promise.all(wave.specialWeapons.map((w)=>this.mapSpecial(w)))).reduce((p, key)=>({
+        const special_uses = (await Promise.all(wave.specialWeapons.map((w)=>this.mapSpecial(w)))).flatMap((key)=>key ? [
+                key
+            ] : []).reduce((p, key)=>({
                 ...p,
                 [key]: (p[key] ?? 0) + 1
             }), {});
@@ -6199,12 +6218,16 @@ class StatInkExporter {
         let title_before = undefined;
         let title_exp_before = undefined;
         const expDiff = COOP_POINT_MAP[clear_waves];
-        if (nonNullable(title_exp_after) && nonNullable(expDiff)) {
+        if (nonNullable(title_after) && nonNullable(title_exp_after) && nonNullable(expDiff)) {
             if (title_exp_after === 40 && expDiff === 20) {} else if (title_exp_after === 40 && expDiff < 0 && title_after !== "8") {} else if (title_exp_after === 999 && expDiff !== 0) {
                 title_before = title_after;
             } else {
-                title_before = title_after;
-                title_exp_before = title_exp_after - expDiff;
+                if (title_exp_after - expDiff >= 0) {
+                    title_before = title_after;
+                    title_exp_before = title_exp_after - expDiff;
+                } else {
+                    title_before = (parseInt(title_after) - 1).toString();
+                }
             }
         }
         let fail_reason = null;
@@ -6240,8 +6263,8 @@ class StatInkExporter {
             job_bonus: detail.jobBonus,
             waves: await Promise.all(detail.waveResults.map((w)=>this.mapWave(w))),
             players: await Promise.all([
-                this.mapCoopPlayer(myResult),
-                ...memberResults.map((p)=>this.mapCoopPlayer(p))
+                this.mapCoopPlayer(true, myResult),
+                ...memberResults.map((p)=>this.mapCoopPlayer(false, p))
             ]),
             bosses,
             agent: AGENT_NAME,
@@ -6387,7 +6410,7 @@ const splusParams = ()=>{
                 300 + level * 350,
                 300 + (level + 1) * 350
             ],
-            charge: 160
+            charge: 180
         };
         if (level === 9) {
             item.promotion = true;
@@ -6400,7 +6423,7 @@ const splusParams = ()=>{
             0,
             9999
         ],
-        charge: 160
+        charge: 180
     });
     return out;
 };
@@ -6461,7 +6484,7 @@ const RANK_PARAMS = [
             200,
             500
         ],
-        charge: 100
+        charge: 110
     },
     {
         rank: "A",
@@ -6469,7 +6492,7 @@ const RANK_PARAMS = [
             500,
             800
         ],
-        charge: 110
+        charge: 120
     },
     {
         rank: "A+",
@@ -6477,7 +6500,7 @@ const RANK_PARAMS = [
             800,
             1100
         ],
-        charge: 120,
+        charge: 130,
         promotion: true
     },
     {
@@ -6486,14 +6509,14 @@ const RANK_PARAMS = [
             300,
             1000
         ],
-        charge: 150,
+        charge: 170,
         promotion: true
     },
     ...splusParams()
 ];
 function addRank(state, delta) {
     const { rank , rankPoint  } = state;
-    const { gameId , rankAfter , isPromotion , isRankUp , isChallengeFirst  } = delta;
+    const { gameId , timestamp , rankAfter , isPromotion , isRankUp , isChallengeFirst  } = delta;
     const rankIndex = RANK_PARAMS.findIndex((r)=>r.rank === rank);
     if (rankIndex === -1) {
         throw new Error(`Rank not found: ${rank}`);
@@ -6502,12 +6525,14 @@ function addRank(state, delta) {
     if (isChallengeFirst) {
         return {
             gameId,
+            timestamp,
             rank,
             rankPoint: rankPoint - rankParam.charge
         };
     }
     if (rankIndex === RANK_PARAMS.length - 1) {
         return {
+            timestamp,
             gameId,
             rank,
             rankPoint: Math.min(rankPoint + delta.rankPoint, rankParam.pointRange[1])
@@ -6517,12 +6542,14 @@ function addRank(state, delta) {
         const nextRankParam = RANK_PARAMS[rankIndex + 1];
         return {
             gameId,
+            timestamp,
             rank: nextRankParam.rank,
             rankPoint: nextRankParam.pointRange[0]
         };
     }
     return {
         gameId,
+        timestamp,
         rank: rankAfter ?? rank,
         rankPoint: rankPoint + delta.rankPoint
     };
@@ -6547,6 +6574,7 @@ function generateDeltaList(state, flatten) {
         let delta = {
             beforeGameId,
             gameId: i.gameId,
+            timestamp: Math.floor(i.time.getTime() / 1000),
             rankPoint: 0,
             isPromotion: false,
             isRankUp: false,
@@ -6582,12 +6610,16 @@ function generateDeltaList(state, flatten) {
 }
 function getRankState(i) {
     const rank = i.detail.udemae;
+    if (!rank) {
+        throw new Error("rank must be defined");
+    }
     const param = RANK_PARAMS.find((i)=>i.rank === rank);
     if (!param) {
         throw new Error(`Rank not found: ${rank}`);
     }
     return {
         gameId: i.gameId,
+        timestamp: Math.floor(i.time.getTime() / 1000),
         rank,
         rankPoint: -1
     };
@@ -6627,6 +6659,7 @@ class RankTracker {
     async updateState(history) {
         const flatten = await Promise.all(history.flatMap(({ historyDetails , bankaraMatchChallenge  })=>{
             return historyDetails.nodes.map((j, index)=>({
+                    id: j.id,
                     time: battleTime(j.id),
                     gameId: gameId(j.id),
                     bankaraMatchChallenge,
@@ -6683,6 +6716,8 @@ class GameFetcher {
     bankaraHistory;
     coopLock = new Mutex();
     coopHistory;
+    xMatchLock = new Mutex();
+    xMatchHistory;
     constructor({ cache =new MemoryCache() , splatnet , state  }){
         this._splatnet = splatnet;
         this.cache = cache;
@@ -6712,7 +6747,23 @@ class GameFetcher {
     getRankStateById(id) {
         return this.rankTracker.getRankStateById(id);
     }
+    getXMatchHistory() {
+        if (!this._splatnet) {
+            return [];
+        }
+        return this.xMatchLock.use(async ()=>{
+            if (this.xMatchHistory) {
+                return this.xMatchHistory;
+            }
+            const { xBattleHistories: { historyGroups  }  } = await this.splatnet.getXBattleHistories();
+            this.xMatchHistory = historyGroups.nodes;
+            return this.xMatchHistory;
+        });
+    }
     getBankaraHistory() {
+        if (!this._splatnet) {
+            return [];
+        }
         return this.bankaraLock.use(async ()=>{
             if (this.bankaraHistory) {
                 return this.bankaraHistory;
@@ -6723,6 +6774,9 @@ class GameFetcher {
         });
     }
     getCoopHistory() {
+        if (!this._splatnet) {
+            return [];
+        }
         return this.coopLock.use(async ()=>{
             if (this.coopHistory) {
                 return this.coopHistory;
@@ -6750,16 +6804,20 @@ class GameFetcher {
             groupInfo
         };
     }
-    async getBattleMetaById(id) {
+    async getBattleMetaById(id, vsMode) {
         const gid = await gameId(id);
-        const bankaraHistory = this._splatnet ? await this.getBankaraHistory() : [];
         const gameIdMap = new Map();
-        for (const i of bankaraHistory){
-            for (const j of i.historyDetails.nodes){
-                gameIdMap.set(j, await gameId(j.id));
+        let group = null;
+        let listNode = null;
+        if (vsMode === "BANKARA" || vsMode === "X_MATCH") {
+            const bankaraHistory = vsMode === "BANKARA" ? await this.getBankaraHistory() : await this.getXMatchHistory();
+            for (const i of bankaraHistory){
+                for (const j of i.historyDetails.nodes){
+                    gameIdMap.set(j, await gameId(j.id));
+                }
             }
+            group = bankaraHistory.find((i)=>i.historyDetails.nodes.some((i)=>gameIdMap.get(i) === gid)) ?? null;
         }
-        const group = bankaraHistory.find((i)=>i.historyDetails.nodes.some((i)=>gameIdMap.get(i) === gid));
         if (!group) {
             return {
                 type: "VsInfo",
@@ -6767,16 +6825,19 @@ class GameFetcher {
                 bankaraMatchChallenge: null,
                 listNode: null,
                 rankState: null,
-                rankBeforeState: null
+                rankBeforeState: null,
+                groupInfo: null
             };
         }
-        const { bankaraMatchChallenge  } = group;
-        const listNode = group.historyDetails.nodes.find((i)=>gameIdMap.get(i) === gid) ?? null;
-        const index = group.historyDetails.nodes.indexOf(listNode);
+        const { bankaraMatchChallenge , xMatchMeasurement  } = group;
+        const { historyDetails , ...groupInfo } = group;
+        listNode = historyDetails.nodes.find((i)=>gameIdMap.get(i) === gid) ?? null;
+        const index = historyDetails.nodes.indexOf(listNode);
         let challengeProgress = null;
-        if (bankaraMatchChallenge) {
-            const pastBattles = group.historyDetails.nodes.slice(0, index);
-            const { winCount , loseCount  } = bankaraMatchChallenge;
+        const challengeOrMeasurement = bankaraMatchChallenge || xMatchMeasurement;
+        if (challengeOrMeasurement) {
+            const pastBattles = historyDetails.nodes.slice(0, index);
+            const { winCount , loseCount  } = challengeOrMeasurement;
             challengeProgress = {
                 index,
                 winCount: winCount - pastBattles.filter((i)=>i.judgement == "WIN").length,
@@ -6793,7 +6854,8 @@ class GameFetcher {
             listNode,
             challengeProgress,
             rankState: after ?? null,
-            rankBeforeState: before ?? null
+            rankBeforeState: before ?? null,
+            groupInfo
         };
     }
     cacheDetail(id, getter) {
@@ -6820,7 +6882,7 @@ class GameFetcher {
     }
     async fetchBattle(id) {
         const detail = await this.cacheDetail(id, ()=>this.splatnet.getBattleDetail(id).then((r)=>r.vsHistoryDetail));
-        const metadata = await this.getBattleMetaById(id);
+        const metadata = await this.getBattleMetaById(id, detail.vsMode.mode);
         const game = {
             ...metadata,
             detail
