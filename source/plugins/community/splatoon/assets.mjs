@@ -21,7 +21,7 @@ export default {
     MakoMart: "https://cdn.wikimg.net/en/splatoonwiki/images/4/47/S3_Stage_MakoMart.png",
     "Wahoo World": "https://cdn.wikimg.net/en/splatoonwiki/images/7/71/S3_Stage_Wahoo_World.png",
     "Brinewater Springs": "https://cdn.wikimg.net/en/splatoonwiki/images/b/bf/S3_Brinewater_Springs.png",
-    "Flounder Heights": "https://cdn.wikimg.net/en/splatoonwiki/images/2/23/S3_Stage_Flounder_Heights.png"
+    "Flounder Heights": "https://cdn.wikimg.net/en/splatoonwiki/images/2/23/S3_Stage_Flounder_Heights.png",
   },
   //Game modes
   modes: {
