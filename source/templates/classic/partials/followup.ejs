@@ -36,7 +36,7 @@
                 {p:(skipped-collaborators.skipped)/count, fill:"#8B949E"},
                 {p:collaborators.skipped/count, fill:"#c9d1d9"},
               ]) { %>
-                <rect mask="url(#issues-bar)" x="<%= x %>" y="0" width="<%= p*width || 0 %>" height="8" fill="<%= fill %>"/>
+                <rect mask="url(#issues-bar)" x="<%= x %>" y="0" width="<%= Math.max(p*width || 0, 0) %>" height="8" fill="<%= fill %>"/>
               <% x += p*width }} %>
             </svg>
             <% if ((plugins.followup.indepth)&&(section.issues.collaborators)) { %>
@@ -105,7 +105,7 @@
                 {p:(merged-collaborators.merged)/count, fill:"#8957e5"},
                 {p:collaborators.merged/count, fill:"#d2a8ff"},
               ]) { %>
-                <rect mask="url(#issues-bar)" x="<%= x %>" y="0" width="<%= p*width || 0 %>" height="8" fill="<%= fill %>"/>
+                <rect mask="url(#issues-bar)" x="<%= x %>" y="0" width="<%= Math.max(p*width || 0, 0) %>" height="8" fill="<%= fill %>"/>
               <% x += p*width }} %>
             </svg>
             <% if ((plugins.followup.indepth)&&(section.pr.collaborators)) { %>
