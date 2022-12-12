@@ -12,9 +12,9 @@ class APIError extends Error {
     }
 }
 const AGENT_NAME = "s3si.ts";
-const S3SI_VERSION = "0.2.1";
+const S3SI_VERSION = "0.2.4";
 const NSOAPP_VERSION = "2.4.0";
-const WEB_VIEW_VERSION = "2.0.0-18810d39";
+const WEB_VIEW_VERSION = "2.0.0-bd36a652";
 const S3SI_LINK = "https://github.com/spacemeowx2/s3si.ts";
 const USERAGENT = `${AGENT_NAME}/${S3SI_VERSION} (${S3SI_LINK})`;
 const DEFAULT_APP_USER_AGENT = "Mozilla/5.0 (Linux; Android 11; Pixel 5) " + "AppleWebKit/537.36 (KHTML, like Gecko) " + "Chrome/94.0.4606.61 Mobile Safari/537.36";
@@ -6194,10 +6194,10 @@ class StatInkExporter {
             special_uses
         };
     }
-    async mapCoop({ groupInfo , detail  }) {
-        const { dangerRate , resultWave , bossResult , myResult , memberResults , scale , playedTime , enemyResults , smellMeter  } = detail;
+    async mapCoop({ gradeBefore , groupInfo , detail  }) {
+        const { dangerRate , resultWave , bossResult , myResult , memberResults , scale , playedTime , enemyResults , smellMeter , waveResults  } = detail;
         const startedAt = Math.floor(new Date(playedTime).getTime() / 1000);
-        const golden_eggs = myResult.goldenDeliverCount + memberResults.reduce((acc, i)=>acc + i.goldenDeliverCount, 0);
+        const golden_eggs = waveResults.reduce((prev, i)=>prev + i.teamDeliverCount, 0);
         const power_eggs = myResult.deliverCount + memberResults.reduce((p, i)=>p + i.deliverCount, 0);
         const bosses = Object.fromEntries(enemyResults.map((i)=>[
                 b64Number(i.enemy.id),
@@ -6210,29 +6210,34 @@ class StatInkExporter {
         const title_after = detail.afterGrade ? b64Number(detail.afterGrade.id).toString() : undefined;
         const title_exp_after = detail.afterGradePoint;
         let clear_waves;
-        if (detail.waveResults.length > 0) {
-            clear_waves = detail.waveResults.filter((i)=>i.waveNumber < 4).length - 1 + (resultWave === 0 ? 1 : 0);
+        if (waveResults.length > 0) {
+            clear_waves = waveResults.filter((i)=>i.waveNumber < 4).length - 1 + (resultWave === 0 ? 1 : 0);
         } else {
             clear_waves = 0;
         }
         let title_before = undefined;
         let title_exp_before = undefined;
-        const expDiff = COOP_POINT_MAP[clear_waves];
-        if (nonNullable(title_after) && nonNullable(title_exp_after) && nonNullable(expDiff)) {
-            if (title_exp_after === 40 && expDiff === 20) {} else if (title_exp_after === 40 && expDiff < 0 && title_after !== "8") {} else if (title_exp_after === 999 && expDiff !== 0) {
-                title_before = title_after;
-            } else {
-                if (title_exp_after - expDiff >= 0) {
+        if (gradeBefore) {
+            title_before = b64Number(gradeBefore.grade.id).toString();
+            title_exp_before = gradeBefore.gradePoint;
+        } else {
+            const expDiff = COOP_POINT_MAP[clear_waves];
+            if (nonNullable(title_after) && nonNullable(title_exp_after) && nonNullable(expDiff)) {
+                if (title_exp_after === 40 && expDiff === 20) {} else if (title_exp_after === 40 && expDiff < 0 && title_after !== "8") {} else if (title_exp_after === 999 && expDiff !== 0) {
                     title_before = title_after;
-                    title_exp_before = title_exp_after - expDiff;
                 } else {
-                    title_before = (parseInt(title_after) - 1).toString();
+                    if (title_exp_after - expDiff >= 0) {
+                        title_before = title_after;
+                        title_exp_before = title_exp_after - expDiff;
+                    } else {
+                        title_before = (parseInt(title_after) - 1).toString();
+                    }
                 }
             }
         }
         let fail_reason = null;
-        if (clear_waves !== 3 && detail.waveResults.length > 0) {
-            const lastWave = detail.waveResults[detail.waveResults.length - 1];
+        if (clear_waves !== 3 && waveResults.length > 0) {
+            const lastWave = waveResults[waveResults.length - 1];
             if (lastWave.teamDeliverCount >= lastWave.deliverNorm) {
                 fail_reason = "wipe_out";
             }
@@ -6240,7 +6245,7 @@ class StatInkExporter {
         const result = {
             uuid: await gameId(detail.id),
             private: groupInfo?.mode === "PRIVATE_CUSTOM" ? "yes" : "no",
-            big_run: "no",
+            big_run: detail.rule === "BIG_RUN" ? "yes" : "no",
             stage: b64Number(detail.coopStage.id).toString(),
             danger_rate: dangerRate * 100,
             clear_waves,
@@ -6261,7 +6266,7 @@ class StatInkExporter {
             job_score: detail.jobScore,
             job_rate: detail.jobRate,
             job_bonus: detail.jobBonus,
-            waves: await Promise.all(detail.waveResults.map((w)=>this.mapWave(w))),
+            waves: await Promise.all(waveResults.map((w)=>this.mapWave(w))),
             players: await Promise.all([
                 this.mapCoopPlayer(true, myResult),
                 ...memberResults.map((p)=>this.mapCoopPlayer(false, p))
@@ -6793,15 +6798,22 @@ class GameFetcher {
             return {
                 type: "CoopInfo",
                 listNode: null,
-                groupInfo: null
+                groupInfo: null,
+                gradeBefore: null
             };
         }
         const { historyDetails , ...groupInfo } = group;
-        const listNode = historyDetails.nodes.find((i)=>i.id === id) ?? null;
+        const listNodeIdx = historyDetails.nodes.findIndex((i)=>i.id === id) ?? null;
+        const listNode = listNodeIdx !== null ? historyDetails.nodes[listNodeIdx] : null;
+        const listNodeBefore = listNodeIdx !== null ? historyDetails.nodes[listNodeIdx + 1] ?? null : null;
         return {
             type: "CoopInfo",
             listNode,
-            groupInfo
+            groupInfo,
+            gradeBefore: listNodeBefore?.afterGrade && listNodeBefore.afterGradePoint ? {
+                grade: listNodeBefore.afterGrade,
+                gradePoint: listNodeBefore.afterGradePoint
+            } : null
         };
     }
     async getBattleMetaById(id, vsMode) {
