@@ -538,6 +538,16 @@ inputs:
       - `--cakeday`: simulate registration anniversary
       - `--halloween`: enable halloween colors
       - `--error`: force render error
+      - `--puppeteer-debug`: enable puppeteer debug mode\*
+      - `--puppeteer-disable-headless`: disable puppeteer headless mode *(requires a graphical environment)*\*
+      - `--puppeteer-wait-load`: override puppeteer wait events\*
+      - `--puppeteer-wait-domcontentloaded`: override puppeteer wait events\*
+      - `--puppeteer-wait-networkidle0`: override puppeteer wait events\*
+      - `--puppeteer-wait-networkidle2`: override puppeteer wait events\*
+
+      > *\* 🌐 Web instances needs to have [`debug`](/source/plugins/core/README.md#debug) set in `settings.json` for these flags to be supported.*
+
+      > ⚠️ No backward compatibility is guaranteed for these features, they are only meant for debugging purposes.
     type: array
     format: space-separated
     default: ""
@@ -545,6 +555,12 @@ inputs:
       - --cakeday
       - --halloween
       - --error
+      - --puppeteer-debug
+      - --puppeteer-disable-headless
+      - --puppeteer-wait-load
+      - --puppeteer-wait-domcontentloaded
+      - --puppeteer-wait-networkidle0
+      - --puppeteer-wait-networkidle2
     testing: yes
     preset: no
 
