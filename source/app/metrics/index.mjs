@@ -43,8 +43,8 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
     const data = {q, animated: true, large: false, base: {}, config: {}, errors: [], warnings, plugins: {}, computed: {}, extras, postscripts: []}
     const experimental = new Set(_experimental)
     if (conf.settings["debug.headless"]) {
-      console.debug(`metrics/compute/${login} > disabled puppeteer headless mode`)
       imports.puppeteer.headless = false
+      console.debug(`metrics/compute/${login} > disabled puppeteer headless mode`)
     }
     if ((conf.settings.debug)||(process.env.GITHUB_ACTIONS)) {
       if (dflags.includes("--puppeteer-disable-headless")) {
@@ -57,7 +57,7 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
       }
       if (dflags.find(flag => flag.startsWith("--puppeteer-wait-"))) {
         imports.puppeteer.events = dflags.filter(flag => flag.startsWith("--puppeteer-wait-")).map(flag => flag.replace("--puppeteer-wait-", ""))
-        console.debug(`metrics/compute/${login} > overriden puppeteer wait events [${imports.puppeteer.events}]`)
+        console.debug(`metrics/compute/${login} > overridden puppeteer wait events [${imports.puppeteer.events}]`)
       }
     }
 
