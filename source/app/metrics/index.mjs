@@ -38,7 +38,7 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
         }
         : null),
     }
-    const {"debug.flags":dflags, "experimental.features":_experimental, "config.order":_partials} = imports.metadata.plugins.core.inputs({account:"bypass", q})
+    const {"debug.flags": dflags, "experimental.features": _experimental, "config.order": _partials} = imports.metadata.plugins.core.inputs({account: "bypass", q})
     const extras = {css: imports.metadata.plugins.core.extras("extras_css", {...conf.settings, error: false}) ? q["extras.css"] ?? "" : "", js: imports.metadata.plugins.core.extras("extras_js", {...conf.settings, error: false}) ? q["extras.js"] ?? "" : ""}
     const data = {q, animated: true, large: false, base: {}, config: {}, errors: [], warnings, plugins: {}, computed: {}, extras, postscripts: []}
     const experimental = new Set(_experimental)
@@ -46,7 +46,7 @@ export default async function metrics({login, q}, {graphql, rest, plugins, conf,
       imports.puppeteer.headless = false
       console.debug(`metrics/compute/${login} > disabled puppeteer headless mode`)
     }
-    if ((conf.settings.debug)||(process.env.GITHUB_ACTIONS)) {
+    if ((conf.settings.debug) || (process.env.GITHUB_ACTIONS)) {
       if (dflags.includes("--puppeteer-disable-headless")) {
         imports.puppeteer.headless = false
         console.debug(`metrics/compute/${login} > disabled puppeteer headless mode`)
