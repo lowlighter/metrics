@@ -52,6 +52,7 @@ export const puppeteer = {
     })
   },
   headless: true,
+  events: ["load", "domcontentloaded", "networkidle2"],
 }
 
 /**Plural formatter */
@@ -492,7 +493,7 @@ export const svg = {
     console.debug("metrics/svg/pdf > loading svg")
     const page = await svg.resize.browser.newPage()
     page.on("console", ({_text: text}) => console.debug(`metrics/svg/pdf > puppeteer > ${text}`))
-    await page.setContent(`<main class="markdown-body">${rendered}</main>`, {waitUntil: ["load", "domcontentloaded", "networkidle2"]})
+    await page.setContent(`<main class="markdown-body">${rendered}</main>`, {waitUntil: puppeteer.events})
     console.debug("metrics/svg/pdf > loaded svg successfully")
     const margins = (Array.isArray(paddings) ? paddings : paddings.split(",")).join(" ")
     console.debug(`metrics/svg/pdf > margins set to ${margins}`)
@@ -537,7 +538,7 @@ export const svg = {
     page
       .on("console", message => console.debug(`metrics/svg/resize > puppeteer > ${message.text()}`))
       .on("pageerror", error => console.debug(`metrics/svg/resize > puppeteer > ${error.message}`))
-    await page.setContent(rendered, {waitUntil: ["load", "domcontentloaded", "networkidle2"]})
+    await page.setContent(rendered, {waitUntil: puppeteer.events})
     console.debug("metrics/svg/resize > loaded svg successfully")
     await page.addStyleTag({content: "body { margin: 0; padding: 0; }"})
     let mime = "image/svg+xml"
@@ -611,7 +612,7 @@ export const svg = {
     }
     //Compute hash
     const page = await svg.resize.browser.newPage()
-    await page.setContent(rendered, {waitUntil: ["load", "domcontentloaded", "networkidle2"]})
+    await page.setContent(rendered, {waitUntil: puppeteer.events})
     const data = await page.evaluate(async () => {
       document.querySelector("footer")?.remove()
       return document.querySelector("svg").outerHTML
