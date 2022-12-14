@@ -1116,7 +1116,19 @@ This option has no effects on forks (images will always be rebuilt from Dockerfi
 <li><code>--cakeday</code>: simulate registration anniversary</li>
 <li><code>--halloween</code>: enable halloween colors</li>
 <li><code>--error</code>: force render error</li>
+<li><code>--puppeteer-debug</code>: enable puppeteer debug mode*</li>
+<li><code>--puppeteer-disable-headless</code>: disable puppeteer headless mode <em>(requires a graphical environment)</em>*</li>
+<li><code>--puppeteer-wait-load</code>: override puppeteer wait events*</li>
+<li><code>--puppeteer-wait-domcontentloaded</code>: override puppeteer wait events*</li>
+<li><code>--puppeteer-wait-networkidle0</code>: override puppeteer wait events*</li>
+<li><code>--puppeteer-wait-networkidle2</code>: override puppeteer wait events*</li>
 </ul>
+<blockquote>
+<p><em>* 🌐 Web instances needs to have <a href="/source/plugins/core/README.md#debug"><code>debug</code></a> set in <code>settings.json</code> for these flags to be supported.</em></p>
+</blockquote>
+<blockquote>
+<p>⚠️ No backward compatibility is guaranteed for these features, they are only meant for debugging purposes.</p>
+</blockquote>
 <img width="900" height="1" alt=""></td>
   </tr>
   <tr>
@@ -1125,7 +1137,7 @@ This option has no effects on forks (images will always be rebuilt from Dockerfi
 <b>type:</b> <code>array</code>
 <i>(space-separated)</i>
 <br>
-<b>allowed values:</b><ul><li>--cakeday</li><li>--halloween</li><li>--error</li></ul></td>
+<b>allowed values:</b><ul><li>--cakeday</li><li>--halloween</li><li>--error</li><li>--puppeteer-debug</li><li>--puppeteer-disable-headless</li><li>--puppeteer-wait-load</li><li>--puppeteer-wait-domcontentloaded</li><li>--puppeteer-wait-networkidle0</li><li>--puppeteer-wait-networkidle2</li></ul></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>debug_print</code></h4></td>
