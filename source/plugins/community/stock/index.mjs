@@ -16,7 +16,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
 
     //Query API for company informations
     console.debug(`metrics/compute/${login}/plugins > stock > querying api for company`)
-    const {data: {quoteType: {shortName: company}}} = await imports.axios.get("https://yh-finance.p.rapidapi.com/stock/v2/get-profile", {
+    const {data: {quoteType: {shortName: company} = {shortName:symbol}}} = await imports.axios.get("https://yh-finance.p.rapidapi.com/stock/v2/get-profile", {
       params: {symbol, region: "US"},
       headers: {"x-rapidapi-key": token},
     })
