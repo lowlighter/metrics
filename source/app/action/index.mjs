@@ -417,13 +417,13 @@ function quit(reason) {
     info("Status", "complete")
     info("MIME type", mime)
     const buffer = {
-      _content:null,
+      _content: null,
       get content() {
         return this._content
       },
       set content(value) {
         this._content = Buffer.isBuffer(value) ? value : Buffer.from(typeof value === "object" ? JSON.stringify(value) : `${value}`)
-      }
+      },
     }
     buffer.content = rendered
 
