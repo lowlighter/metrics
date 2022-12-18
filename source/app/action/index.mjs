@@ -416,7 +416,16 @@ function quit(reason) {
       throw new Error("Could not render metrics")
     info("Status", "complete")
     info("MIME type", mime)
-    const buffer = Buffer.isBuffer(rendered) ? rendered : Buffer.from(typeof rendered === "object" ? JSON.stringify(rendered) : `${rendered}`)
+    const buffer = {
+      _content:null,
+      get content() {
+        return this._content
+      },
+      set content(value) {
+        this._content = Buffer.isBuffer(value) ? value : Buffer.from(typeof value === "object" ? JSON.stringify(value) : `${value}`)
+      }
+    }
+    buffer.content = rendered
 
     //Debug print
     if (dprint) {
@@ -461,7 +470,7 @@ function quit(reason) {
       info("Actions to perform", "(none)")
     else {
       await fs.mkdir(paths.dirname(paths.join("/renders", filename)), {recursive: true})
-      await fs.writeFile(paths.join("/renders", filename), buffer)
+      await fs.writeFile(paths.join("/renders", filename), buffer.content)
       info(`Save to /metrics_renders/${filename}`, "ok")
       info("Output action", _action)
     }
@@ -513,6 +522,7 @@ function quit(reason) {
             }
           }, {retries: retries_output_action, delay: retries_delay_output_action})
         }
+        buffer.content = rendered
       }
 
       //Check changes
@@ -529,7 +539,7 @@ function quit(reason) {
       //Upload to gist (this is done as user since committer_token may not have gist rights)
       if (committer.gist) {
         await retry(async () => {
-          await rest.gists.update({gist_id: committer.gist, files: {[filename]: {content: buffer.toString()}}})
+          await rest.gists.update({gist_id: committer.gist, files: {[filename]: {content: buffer.content.toString()}}})
           info(`Upload to gist ${committer.gist}`, "ok")
           committer.commit = false
         }, {retries: retries_output_action, delay: retries_delay_output_action})
@@ -542,7 +552,7 @@ function quit(reason) {
             ...github.context.repo,
             path: filename,
             message: committer.message,
-            content: buffer.toString("base64"),
+            content: buffer.content.toString("base64"),
             branch: committer.pr ? committer.head : committer.branch,
             ...(committer.sha ? {sha: committer.sha} : {}),
           })
