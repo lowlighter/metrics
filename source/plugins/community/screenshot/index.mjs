@@ -7,7 +7,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
       return null
 
     //Load inputs
-    let {url, selector, title, background, viewport, wait} = imports.metadata.plugins.screenshot.inputs({data, account, q})
+    let {url, selector, title, background, viewport, wait, mode} = imports.metadata.plugins.screenshot.inputs({data, account, q})
     if (!url)
       throw {error: {message: "URL is not set"}}
 
@@ -23,19 +23,35 @@ export default async function({login, q, imports, data, account}, {enabled = fal
       await new Promise(solve => setTimeout(solve, wait))
 
     //Screenshot
+    let content = null
+    let image = null
+    const metadata = {height:null, width:null}
     await page.waitForSelector(selector)
-    const clip = await page.evaluate(selector => {
-      const {x, y, width, height} = document.querySelector(selector).getBoundingClientRect()
-      return {x, y, width, height}
-    }, selector)
-    console.debug(`metrics/compute/${login}/plugins > screenshot > coordinates ${JSON.stringify(clip)}`)
-    const [buffer] = await imports.record({page, ...clip, frames: 1, background})
-    const screenshot = await imports.sharp(Buffer.from(buffer.split(",").pop(), "base64")).resize({width: Math.min(454 * (1 + data.large), clip.width)})
-    const metadata = await screenshot.metadata()
+    switch (mode) {
+      case "image":{
+        const clip = await page.evaluate(selector => {
+          const {x, y, width, height} = document.querySelector(selector).getBoundingClientRect()
+          return {x, y, width, height}
+        }, selector)
+        console.debug(`metrics/compute/${login}/plugins > screenshot > coordinates ${JSON.stringify(clip)}`)
+        const [buffer] = await imports.record({page, ...clip, frames: 1, background})
+        const screenshot = await imports.sharp(Buffer.from(buffer.split(",").pop(), "base64")).resize({width: Math.min(454 * (1 + data.large), clip.width)})
+        image = `data:image/png;base64,${(await screenshot.toBuffer()).toString("base64")}`
+        Object.assign(metadata, await screenshot.metadata())
+        break
+      }
+      case "text":{
+        content = await page.evaluate(selector => document.querySelector(selector)?.innerText ?? "", selector)
+        break
+      }
+      default:
+        throw {error: {message: `Unsupported mode "${mode}"`}}
+    }
+
     await browser.close()
 
     //Results
-    return {image: `data:image/png;base64,${(await screenshot.toBuffer()).toString("base64")}`, title, height: metadata.height, width: metadata.width, url}
+    return {mode, image, content, title, height: metadata.height, width: metadata.width, url}
   }
   //Handle errors
   catch (error) {
