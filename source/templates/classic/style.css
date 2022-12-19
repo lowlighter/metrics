@@ -469,6 +469,9 @@
     margin: 8px 14px 4px;
     border-radius: 5px;
   }
+  .screenshot-content {
+    margin-left: 12px;
+  }
 
   svg.large .audits {
     display: inline-flex;

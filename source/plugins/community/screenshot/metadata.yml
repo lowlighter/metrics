@@ -42,6 +42,19 @@ inputs:
     type: string
     default: body
 
+  plugin_screenshot_mode:
+    description: |
+      Output mode
+
+      - `image`: screenshot of selected element
+      - `text`: keep [`innerText`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/innerText) of selected element
+        - *⚠️ Any CSS style applied to text such as font size, weight or color will be removed*
+    type: string
+    default: image
+    values:
+      - image
+      - text
+
   plugin_screenshot_viewport:
     description: |
       Viewport options
