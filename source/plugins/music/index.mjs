@@ -124,14 +124,14 @@ export default async function({login, imports, data, q, account}, {enabled = fal
           //Spotify
           case "spotify": {
             //Parse tracklist
-            await frame.waitForSelector("table")
+            await frame.waitForSelector("ol")
             tracks = [
               ...await frame.evaluate(() =>
-                [...document.querySelectorAll("table tr")].map(tr => ({
-                  name: tr.querySelector("td:nth-child(2) div div:nth-child(1)").innerText,
-                  artist: tr.querySelector("td:nth-child(2) div div:nth-child(2)").innerText,
+                [...document.querySelectorAll("ol li")].map(tr => ({
+                  name: tr.querySelector("h3").innerText,
+                  artist: tr.querySelector("h4").innerText,
                   //Spotify doesn't provide artworks so we fallback on playlist artwork instead
-                  artwork: window.getComputedStyle(document.querySelector("button[title=Play]")?.parentNode ?? document.querySelector("button").parentNode, null).backgroundImage.match(/^url\("(?<url>https:...+)"\)$/)?.groups?.url ?? null,
+                  artwork: window.getComputedStyle(document.querySelector("div[style^='--image-src:']") ?? null)?.backgroundImage.match(/^url\("(?<url>https:...+)"\)$/)?.groups?.url ?? null,
                 }))
               ),
             ]
