@@ -76,6 +76,25 @@
 <b>default:</b> body<br></td>
   </tr>
   <tr>
+    <td nowrap="nowrap"><h4><code>plugin_screenshot_mode</code></h4></td>
+    <td rowspan="2"><p>Output mode</p>
+<ul>
+<li><code>image</code>: screenshot of selected element</li>
+<li><code>text</code>: keep <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/innerText"><code>innerText</code></a> of selected element<ul>
+<li><em>⚠️ Any CSS style applied to text such as font size, weight or color will be removed</em></li>
+</ul>
+</li>
+</ul>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>string</code>
+<br>
+<b>default:</b> image<br>
+<b>allowed values:</b><ul><li>image</li><li>text</li></ul></td>
+  </tr>
+  <tr>
     <td nowrap="nowrap"><h4><code>plugin_screenshot_viewport</code></h4></td>
     <td rowspan="2"><p>Viewport options</p>
 <img width="900" height="1" alt=""></td>

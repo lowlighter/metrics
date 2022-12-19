@@ -1310,6 +1310,10 @@ inputs:
     description: CSS Selector
     default: <default-value>
 
+  plugin_screenshot_mode:
+    description: Output mode
+    default: <default-value>
+
   plugin_screenshot_viewport:
     description: Viewport options
     default: <default-value>
