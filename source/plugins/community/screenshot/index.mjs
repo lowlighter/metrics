@@ -25,10 +25,10 @@ export default async function({login, q, imports, data, account}, {enabled = fal
     //Screenshot
     let content = null
     let image = null
-    const metadata = {height:null, width:null}
+    const metadata = {height: null, width: null}
     await page.waitForSelector(selector)
     switch (mode) {
-      case "image":{
+      case "image": {
         const clip = await page.evaluate(selector => {
           const {x, y, width, height} = document.querySelector(selector).getBoundingClientRect()
           return {x, y, width, height}
@@ -40,7 +40,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
         Object.assign(metadata, await screenshot.metadata())
         break
       }
-      case "text":{
+      case "text": {
         content = await page.evaluate(selector => document.querySelector(selector)?.innerText ?? "", selector)
         break
       }
