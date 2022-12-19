@@ -523,6 +523,8 @@ function quit(reason) {
           }, {retries: retries_output_action, delay: retries_delay_output_action})
         }
         buffer.content = rendered
+        await fs.writeFile(paths.join("/renders", filename), buffer.content)
+        info(`Update /metrics_renders/${filename}`, "ok")
       }
 
       //Check changes
