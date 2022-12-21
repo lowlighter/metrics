@@ -86,6 +86,12 @@
         <template v-if="metrics">
 
           <section class="container">
+            <div class="warning" v-if="warnings.length">
+              <div v-for="warning in warnings">⚠️ {{ warning.message }}</div>
+            </div>
+          </section>
+
+          <section class="container">
             <a :href="`https://github.com/${user}`" class="user">
               <img :src="account.avatar">
               <div class="info">

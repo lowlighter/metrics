@@ -169,6 +169,9 @@
       params() {
         return new URLSearchParams({from: location.href})
       },
+      warnings() {
+        return Object.entries(this.metrics?.rendered.plugins ?? {}).map(([_, value]) => value?.error).filter(value => value)
+      },
       stats() {
         return this.metrics?.rendered.user ?? null
       },
