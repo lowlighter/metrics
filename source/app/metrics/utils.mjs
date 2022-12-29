@@ -791,23 +791,27 @@ export async function gif({page, width, height, frames, x = 0, y = 0, repeat = t
   return `data:image/gif;base64,${result}`
 }
 
-/* D3 node wrapper (loosely based on https://github.com/d3-node/d3-node) */
+/**D3 node wrapper (loosely based on https://github.com/d3-node/d3-node)*/
 export class D3node {
   constructor() {
     this.jsdom = new JSDOM()
   }
+
   get document() {
     return this.jsdom.window.document
   }
+
   get element() {
     return d3.select(this.document.body)
   }
+
   createSVG(width, height) {
     const svg = this.element.append("svg").attr("xmlns", "http://www.w3.org/2000/svg")
     if ((width)&&(height))
       svg.attr("width", width).attr("height", height)
     return svg
   }
+
   svgString() {
     return this.element.select("svg").node()?.outerHTML || ""
   }
