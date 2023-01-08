@@ -4,7 +4,7 @@ import axios from "axios"
 import processes from "child_process"
 import crypto from "crypto"
 import { minify as csso } from "csso"
-import {jsdom} from "jsdom"
+import jsdom from "jsdom"
 import * as d3 from "d3"
 import emoji from "emoji-name-map"
 import { fileTypeFromBuffer } from "file-type"
@@ -794,7 +794,7 @@ export async function gif({page, width, height, frames, x = 0, y = 0, repeat = t
 /**D3 node wrapper (loosely based on https://github.com/d3-node/d3-node)*/
 export class D3node {
   constructor() {
-    this.document = new jsdom() //eslint-disable-line new-cap
+    this.document = new jsdom.jsdom() //eslint-disable-line new-cap
   }
 
   get element() {
