@@ -18,6 +18,7 @@ jobs:
           days-before-pr-close: 3
           stale-pr-label: ⏹️ stale
           remove-stale-when-updated: yes
+          exempt-issue-labels: 📦 dependencies
   lock:
     name: Lock inactive closed issues and pull requests
     needs:
