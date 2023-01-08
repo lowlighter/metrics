@@ -130,6 +130,13 @@ Update profile `README.md` to include rendered image (filename may differ if `fi
 <img align="center" src="/github-metrics.svg" alt="Metrics" width="400">
 ```
 
+*Example: add rendered image and prevent GitHub from auto linking to the image*
+```html
+<picture>
+  <img src="/github-metrics.svg" alt="Metrics">
+</picture>
+```
+
 *Example: add rendered image when using `config_display: columns`*
 ```html
 <img src="/github-metrics.svg" alt="Metrics" width="100%">
