@@ -42,7 +42,7 @@ export default async function(login, {locations, sample, imports, token}) {
   const svg = d3n.createSVG(480, 315)
   const countries = JSON.parse(await imports.fs.readFile(imports.paths.join(imports.__module(import.meta.url), "atlas/50m_countries.geojson")))
   const geopath = d3.geoPath(d3.geoMercator().fitWidth(svg.attr("width"), countries))
-  const splits = [...new Set(stars.values())].sort((a, b) => a - b)
+  const splits = [...new Set([0, ...stars.values()])].sort((a, b) => a - b)
   svg
     .append("g")
     .selectAll("path")
