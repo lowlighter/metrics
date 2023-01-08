@@ -156,17 +156,17 @@ export default async function({login, q}, {conf, data, rest, graphql, plugins, q
         .replace(/#30a14e/gi, `var(--color-calendar-${color}-graph-day-L3-bg)`)
         .replace(/#216e39/gi, `var(--color-calendar-${color}-graph-day-L4-bg)`)
     //Update contribution calendar colors
-    computed.calendar.map(day => day.color = replace(day.color, color))
+    computed.calendar.map(day => day.color = replace(day.color))
     //Update calendars colors
     const waiting = [...pending]
     pending.push((async () => {
       await Promise.all(waiting)
       if (data.plugins.isocalendar?.svg)
-        data.plugins.isocalendar.svg = replace(data.plugins.isocalendar.svg, color)
+        data.plugins.isocalendar.svg = replace(data.plugins.isocalendar.svg)
       if (data.plugins.calendar?.years) {
         for (const {weeks} of data.plugins.calendar.years) {
           for (const {contributionDays} of weeks)
-            contributionDays.forEach(day => day.color = replace(day.color, color))
+            contributionDays.forEach(day => day.color = replace(day.color))
         }
       }
       return {name: `dflag.${color}`, result: true}
