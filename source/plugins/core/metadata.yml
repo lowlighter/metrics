@@ -536,7 +536,8 @@ inputs:
     description: |
       Debug flags
       - `--cakeday`: simulate registration anniversary
-      - `--halloween`: enable halloween colors
+      - `--halloween`: enable halloween colors *(only first color scheme will be applied if multiple are specified)*
+      - `--winter`: enable winter colors *(only first color scheme will be applied if multiple are specified)*
       - `--error`: force render error
       - `--puppeteer-debug`: enable puppeteer debug mode\*
       - `--puppeteer-disable-headless`: disable puppeteer headless mode *(requires a graphical environment)*\*
@@ -554,6 +555,7 @@ inputs:
     values:
       - --cakeday
       - --halloween
+      - --winter
       - --error
       - --puppeteer-debug
       - --puppeteer-disable-headless
