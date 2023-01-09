@@ -1114,7 +1114,8 @@ This option has no effects on forks (images will always be rebuilt from Dockerfi
     <td rowspan="2"><p>Debug flags</p>
 <ul>
 <li><code>--cakeday</code>: simulate registration anniversary</li>
-<li><code>--halloween</code>: enable halloween colors</li>
+<li><code>--halloween</code>: enable halloween colors <em>(only first color scheme will be applied if multiple are specified)</em></li>
+<li><code>--winter</code>: enable winter colors <em>(only first color scheme will be applied if multiple are specified)</em></li>
 <li><code>--error</code>: force render error</li>
 <li><code>--puppeteer-debug</code>: enable puppeteer debug mode*</li>
 <li><code>--puppeteer-disable-headless</code>: disable puppeteer headless mode <em>(requires a graphical environment)</em>*</li>
@@ -1137,7 +1138,7 @@ This option has no effects on forks (images will always be rebuilt from Dockerfi
 <b>type:</b> <code>array</code>
 <i>(space-separated)</i>
 <br>
-<b>allowed values:</b><ul><li>--cakeday</li><li>--halloween</li><li>--error</li><li>--puppeteer-debug</li><li>--puppeteer-disable-headless</li><li>--puppeteer-wait-load</li><li>--puppeteer-wait-domcontentloaded</li><li>--puppeteer-wait-networkidle0</li><li>--puppeteer-wait-networkidle2</li></ul></td>
+<b>allowed values:</b><ul><li>--cakeday</li><li>--halloween</li><li>--winter</li><li>--error</li><li>--puppeteer-debug</li><li>--puppeteer-disable-headless</li><li>--puppeteer-wait-load</li><li>--puppeteer-wait-domcontentloaded</li><li>--puppeteer-wait-networkidle0</li><li>--puppeteer-wait-networkidle2</li></ul></td>
   </tr>
   <tr>
     <td nowrap="nowrap"><h4><code>debug_print</code></h4></td>
