@@ -144,7 +144,7 @@ export default async function({login, q}, {conf, data, rest, graphql, plugins, q
     console.debug(`metrics/compute/${login} > applying dflag --cakeday`)
     computed.cakeday = true
   }
-  if ((dflags.includes("--halloween"))||(dflags.includes("--winter"))) {
+  if ((dflags.includes("--halloween")) || (dflags.includes("--winter"))) {
     const color = dflags.find(color => ["--halloween", "--winter"].includes(color)).replace("--", "")
     console.debug(`metrics/compute/${login} > applying dflag --halloween`)
     //Color replacer
