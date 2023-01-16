@@ -51,7 +51,7 @@
     "linguist-js": "^2.5.3",
     "marked": "^4.2.5",
     "memory-cache": "^0.2.0",
-    "minimatch": "^5.1.2",
+    "minimatch": "^6.0.4",
     "node-fetch": "^3.3.0",
     "open-graph-scraper": "^5.0.3",
     "png-js": "^1.0.0",
