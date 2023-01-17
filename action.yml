@@ -612,14 +612,18 @@ inputs:
     default: <default-value>
 
   # ====================================================================================
-  # 🙋 Introduction
+  # 💝 GitHub Sponsorships
 
-  plugin_introduction:
-    description: Enable introduction plugin
+  plugin_sponsorships:
+    description: Enable sponsorships plugin
     default: <default-value>
 
-  plugin_introduction_title:
-    description: Section title
+  plugin_sponsorships_sections:
+    description: Displayed sections
+    default: <default-value>
+
+  plugin_sponsorships_size:
+    description: Profile picture display size
     default: <default-value>
 
   # ====================================================================================
@@ -923,6 +927,17 @@ inputs:
     default: <default-value>
 
   # ====================================================================================
+  # 🙋 Introduction
+
+  plugin_introduction:
+    description: Enable introduction plugin
+    default: <default-value>
+
+  plugin_introduction_title:
+    description: Section title
+    default: <default-value>
+
+  # ====================================================================================
   # 🌇 GitHub Skyline
 
   plugin_skyline:
@@ -947,21 +962,6 @@ inputs:
 
   plugin_skyline_settings:
     description: Advanced settings
-    default: <default-value>
-
-  # ====================================================================================
-  # 💝 GitHub Sponsorships
-
-  plugin_sponsorships:
-    description: Enable sponsorships plugin
-    default: <default-value>
-
-  plugin_sponsorships_sections:
-    description: Displayed sections
-    default: <default-value>
-
-  plugin_sponsorships_size:
-    description: Profile picture display size
     default: <default-value>
 
   # ====================================================================================

@@ -7,7 +7,7 @@ notes: |
 examples:
   +GitHub Skyline: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.skyline.svg
   GitHub City: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.skyline.city.svg
-index: 26
+index: 27
 supports:
   - user
 scopes: []

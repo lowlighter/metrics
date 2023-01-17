@@ -82,11 +82,11 @@ All product and company names are trademarks™ or registered® trademarks of th
 
 <!--examples-->
 ```yaml
-name: 💝 GitHub sponsorships
+name: 💝 GitHub Sponsorships
 uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.sponsorships.svg
-  token: ${{ secrets.METRICS_TOKEN }}
+  token: ${{ secrets.METRICS_TOKEN_PERSONAL }}
   base: ""
   plugin_sponsorships: yes
 

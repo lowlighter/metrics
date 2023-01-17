@@ -7,7 +7,7 @@ description: |
 examples:
   +for a user or an organization: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.introduction.svg
   for a repository: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.introduction.repository.svg
-index: 12
+index: 26
 supports:
   - user
   - organization

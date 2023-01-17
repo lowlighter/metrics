@@ -121,13 +121,12 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
       </td>
   </tr>
   <tr>
-    <th><a href="source/plugins/introduction/README.md">🙋 Introduction</a></th>
+    <th><a href="source/plugins/sponsorships/README.md">💝 GitHub Sponsorships</a></th>
     <th><a href="source/plugins/sponsors/README.md">💕 GitHub Sponsors</a></th>
   </tr>
   <tr>
         <td  align="center">
-        <details open><summary>For a user or an organization</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.introduction.svg" alt=""></img></details>
-        <details><summary>For a repository</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.introduction.repository.svg" alt=""></img></details>
+        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.sponsorships.svg" alt=""></img>
         <img width="900" height="1" alt="">
       </td>
         <td  align="center">
@@ -213,7 +212,7 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
   </tr>
   <tr>
     <th><a href="source/plugins/projects/README.md">🗂️ GitHub projects</a></th>
-    <th><a href="source/plugins/skyline/README.md">🌇 GitHub Skyline</a></th>
+    <th><a href="source/plugins/introduction/README.md">🙋 Introduction</a></th>
   </tr>
   <tr>
         <td  align="center">
@@ -221,18 +220,19 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
         <img width="900" height="1" alt="">
       </td>
         <td  align="center">
-        <details open><summary>GitHub Skyline</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.skyline.svg" alt=""></img></details>
-        <details><summary>GitHub City</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.skyline.city.svg" alt=""></img></details>
+        <details open><summary>For a user or an organization</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.introduction.svg" alt=""></img></details>
+        <details><summary>For a repository</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.introduction.repository.svg" alt=""></img></details>
         <img width="900" height="1" alt="">
       </td>
   </tr>
   <tr>
-    <th><a href="source/plugins/sponsorships/README.md">💝 GitHub Sponsorships</a></th>
+    <th><a href="source/plugins/skyline/README.md">🌇 GitHub Skyline</a></th>
     <th><a href="source/plugins/pagespeed/README.md">⏱️ Google PageSpeed</a></th>
   </tr>
   <tr>
         <td  align="center">
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.sponsorships.svg" alt=""></img>
+        <details open><summary>GitHub Skyline</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.skyline.svg" alt=""></img></details>
+        <details><summary>GitHub City</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.skyline.city.svg" alt=""></img></details>
         <img width="900" height="1" alt="">
       </td>
         <td  align="center">

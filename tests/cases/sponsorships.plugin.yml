@@ -1,4 +1,4 @@
-- name: 💝 GitHub Sponsorships - 💝 GitHub sponsorships
+- name: 💝 GitHub Sponsorships - 💝 GitHub Sponsorships
   uses: lowlighter/metrics@latest
   with:
     token: MOCKED_TOKEN

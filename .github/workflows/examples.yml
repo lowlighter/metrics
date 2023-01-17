@@ -506,27 +506,13 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      - name: 🙋 Introduction - Organization introduction
+      - name: 💝 GitHub Sponsorships - 💝 GitHub Sponsorships
         uses: lowlighter/metrics@master
         with:
-          filename: metrics.plugin.introduction.svg
-          token: ${{ secrets.METRICS_TOKEN_WITH_SCOPES }}
-          user: github
-          base: header
-          plugin_introduction: yes
-          output_action: none
-          delay: 120
-          plugins_errors_fatal: yes
-        if: ${{ success() || failure() }}
-      - name: 🙋 Introduction - Repository introduction
-        uses: lowlighter/metrics@master
-        with:
-          filename: metrics.plugin.introduction.repository.svg
-          token: ${{ secrets.METRICS_TOKEN }}
-          template: repository
-          repo: metrics
-          base: header
-          plugin_introduction: yes
+          filename: metrics.plugin.sponsorships.svg
+          token: ${{ secrets.METRICS_TOKEN_PERSONAL }}
+          base: ""
+          plugin_sponsorships: yes
           output_action: none
           delay: 120
           user: lowlighter
@@ -775,6 +761,32 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
+      - name: 🙋 Introduction - Organization introduction
+        uses: lowlighter/metrics@master
+        with:
+          filename: metrics.plugin.introduction.svg
+          token: ${{ secrets.METRICS_TOKEN_WITH_SCOPES }}
+          user: github
+          base: header
+          plugin_introduction: yes
+          output_action: none
+          delay: 120
+          plugins_errors_fatal: yes
+        if: ${{ success() || failure() }}
+      - name: 🙋 Introduction - Repository introduction
+        uses: lowlighter/metrics@master
+        with:
+          filename: metrics.plugin.introduction.repository.svg
+          token: ${{ secrets.METRICS_TOKEN }}
+          template: repository
+          repo: metrics
+          base: header
+          plugin_introduction: yes
+          output_action: none
+          delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
+        if: ${{ success() || failure() }}
       - name: 🌇 GitHub Skyline - GitHub Skyline
         uses: lowlighter/metrics@master
         with:
@@ -807,18 +819,6 @@ jobs:
               "wait": 4,
               "hide": ".github-corner, .footer-link, .buttons-options, .mobile-rotate, .display-info span:first-child"
             }
-          output_action: none
-          delay: 120
-          user: lowlighter
-          plugins_errors_fatal: yes
-        if: ${{ success() || failure() }}
-      - name: 💝 GitHub Sponsorships - 💝 GitHub sponsorships
-        uses: lowlighter/metrics@master
-        with:
-          filename: metrics.plugin.sponsorships.svg
-          token: ${{ secrets.METRICS_TOKEN }}
-          base: ""
-          plugin_sponsorships: yes
           output_action: none
           delay: 120
           user: lowlighter
