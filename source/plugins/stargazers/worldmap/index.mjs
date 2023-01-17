@@ -2,7 +2,7 @@
 import { Client as Gmap } from "@googlemaps/google-maps-services-js"
 import color from "color"
 import * as d3 from "d3"
-import D3Node from "d3-node"
+import {D3node} from "../../../app/metrics/utils.mjs"
 
 /**
  * Worldmap
@@ -38,7 +38,7 @@ export default async function(login, {locations, sample, imports, token}) {
   }
 
   //Generate SVG
-  const d3n = new D3Node()
+  const d3n = new D3node()
   const svg = d3n.createSVG(480, 315)
   const countries = JSON.parse(await imports.fs.readFile(imports.paths.join(imports.__module(import.meta.url), "atlas/50m_countries.geojson")))
   const geopath = d3.geoPath(d3.geoMercator().fitWidth(svg.attr("width"), countries))
