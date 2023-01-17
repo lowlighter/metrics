@@ -30,6 +30,7 @@
     <th nowrap="nowrap" align="center" title="🎫 Gists">🎫</th>
     <th nowrap="nowrap" align="center" title="🗂️ GitHub projects">🗂️</th>
     <th nowrap="nowrap" align="center" title="🌇 GitHub Skyline">🌇</th>
+    <th nowrap="nowrap" align="center" title="💝 GitHub Sponsorships">💝</th>
     <th nowrap="nowrap" align="center" title="💭 GitHub Community Support">💭</th>
     <th nowrap="nowrap" align="center" title="⏱️ Google PageSpeed">⏱️</th>
     <th nowrap="nowrap" align="center" title="🐤 Latest tweets">🐤</th>
@@ -70,6 +71,7 @@
     <td nowrap="nowrap" align="center" data-plugin="gists">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="projects">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="skyline">✔️</td>
+    <td nowrap="nowrap" align="center" data-plugin="sponsorships">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="support">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="tweets">✔️</td>
@@ -110,6 +112,7 @@
     <td nowrap="nowrap" align="center" data-plugin="gists">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="projects">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="skyline">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="sponsorships">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="support">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="tweets">❌</td>
@@ -150,6 +153,7 @@
     <td nowrap="nowrap" align="center" data-plugin="gists">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="projects">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="skyline">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="sponsorships">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="support">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="tweets">❌</td>
@@ -190,6 +194,7 @@
     <td nowrap="nowrap" align="center" data-plugin="gists">✓</td>
     <td nowrap="nowrap" align="center" data-plugin="projects">✓</td>
     <td nowrap="nowrap" align="center" data-plugin="skyline">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="sponsorships">✓</td>
     <td nowrap="nowrap" align="center" data-plugin="support">✓</td>
     <td nowrap="nowrap" align="center" data-plugin="pagespeed">✓</td>
     <td nowrap="nowrap" align="center" data-plugin="tweets">✔️</td>
@@ -202,7 +207,7 @@
     <td nowrap="nowrap" align="center" data-plugin="leetcode">✓</td>
   </tr>
   <tr>
-    <td colspan="37"></td>
+    <td colspan="38"></td>
   </tr>
   <tr>
     <th nowrap="nowrap">Mode/Plugin</th>    
@@ -233,6 +238,7 @@
     <th nowrap="nowrap" align="center" title="🎫 Gists">🎫</th>
     <th nowrap="nowrap" align="center" title="🗂️ GitHub projects">🗂️</th>
     <th nowrap="nowrap" align="center" title="🌇 GitHub Skyline">🌇</th>
+    <th nowrap="nowrap" align="center" title="💝 GitHub Sponsorships">💝</th>
     <th nowrap="nowrap" align="center" title="💭 GitHub Community Support">💭</th>
     <th nowrap="nowrap" align="center" title="⏱️ Google PageSpeed">⏱️</th>
     <th nowrap="nowrap" align="center" title="🐤 Latest tweets">🐤</th>
@@ -273,6 +279,7 @@
     <td nowrap="nowrap" align="center" data-plugin="gists">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="projects">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="skyline">✔️</td>
+    <td nowrap="nowrap" align="center" data-plugin="sponsorships">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="support">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="tweets">✔️</td>
@@ -313,6 +320,7 @@
     <td nowrap="nowrap" align="center" data-plugin="gists">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="projects">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="skyline">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="sponsorships">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="support">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="tweets">✔️</td>
@@ -353,6 +361,7 @@
     <td nowrap="nowrap" align="center" data-plugin="gists">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="projects">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="skyline">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="sponsorships">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="support">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="pagespeed">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="tweets">❌</td>

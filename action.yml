@@ -950,6 +950,21 @@ inputs:
     default: <default-value>
 
   # ====================================================================================
+  # 💝 GitHub Sponsorships
+
+  plugin_sponsorships:
+    description: Enable sponsorships plugin
+    default: <default-value>
+
+  plugin_sponsorships_sections:
+    description: Displayed sections
+    default: <default-value>
+
+  plugin_sponsorships_size:
+    description: Profile picture display size
+    default: <default-value>
+
+  # ====================================================================================
   # 💭 GitHub Community Support
 
   plugin_support:

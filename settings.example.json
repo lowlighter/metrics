@@ -143,6 +143,9 @@
     "skyline":{
       "enabled": false,                 "//": "Enable skyline plugin"
     },
+    "sponsorships":{
+      "enabled": false,                 "//": "Enable sponsorships plugin"
+    },
     "support":{
       "enabled": false,                 "//": "Enable support plugin"
     },
