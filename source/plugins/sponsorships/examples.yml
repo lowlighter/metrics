@@ -1,0 +1,7 @@
+- name: 💝 GitHub sponsorships
+  uses: lowlighter/metrics@latest
+  with:
+    filename: metrics.plugin.sponsorships.svg
+    token: ${{ secrets.METRICS_TOKEN }}
+    base: ""
+    plugin_sponsorships: yes

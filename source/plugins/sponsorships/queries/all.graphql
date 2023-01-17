@@ -1,0 +1,29 @@
+query SponsorshipsAll {
+  $account(login: "$login") {
+    sponsorshipsAsSponsor($after first: 100, activeOnly: false, orderBy: {field: CREATED_AT, direction: DESC}) {
+      edges {
+        cursor
+      }
+      nodes {
+        createdAt
+        isActive
+        isOneTimePayment
+        tier {
+          name
+        }
+        privacyLevel
+        sponsorable {
+          ... on User {
+            avatarUrl(size: $size)
+            login
+          }
+          ... on Organization {
+            login
+            avatarUrl(size: $size)
+            url
+          }
+        }
+      }
+    }
+  }
+}
