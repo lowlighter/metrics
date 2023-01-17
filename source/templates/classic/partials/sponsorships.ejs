@@ -1,0 +1,40 @@
+<% if (plugins.sponsorships) { %>
+  <section>
+    <h2 class="field">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M10.586 1C12.268 1 13.5 2.37 13.5 4.25c0 1.745-.996 3.359-2.622 4.831-.166.15-.336.297-.509.438l1.116 5.584a.75.75 0 0 1-.991.852l-2.409-.876a.25.25 0 0 0-.17 0l-2.409.876a.75.75 0 0 1-.991-.852L5.63 9.519a13.78 13.78 0 0 1-.51-.438C3.497 7.609 2.5 5.995 2.5 4.25 2.5 2.37 3.732 1 5.414 1c.963 0 1.843.403 2.474 1.073L8 2.198l.112-.125a3.385 3.385 0 0 1 2.283-1.068L10.586 1Zm-3.621 9.495-.718 3.594 1.155-.42a1.75 1.75 0 0 1 1.028-.051l.168.051 1.154.42-.718-3.592c-.199.13-.37.235-.505.314l-.169.097a.75.75 0 0 1-.72 0 9.54 9.54 0 0 1-.515-.308l-.16-.105ZM10.586 2.5c-.863 0-1.611.58-1.866 1.459-.209.721-1.231.721-1.44 0C7.025 3.08 6.277 2.5 5.414 2.5 4.598 2.5 4 3.165 4 4.25c0 1.23.786 2.504 2.128 3.719.49.443 1.018.846 1.546 1.198l.325.21.076-.047.251-.163a13.341 13.341 0 0 0 1.546-1.198C11.214 6.754 12 5.479 12 4.25c0-1.085-.598-1.75-1.414-1.75Z"></path></svg>
+      Sponsorships
+    </h2>
+      <% if (plugins.sponsorships.error) { %>
+        <div class="row fill-width">
+          <section>
+            <div class="field error">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M2.343 13.657A8 8 0 1113.657 2.343 8 8 0 012.343 13.657zM6.03 4.97a.75.75 0 00-1.06 1.06L6.94 8 4.97 9.97a.75.75 0 101.06 1.06L8 9.06l1.97 1.97a.75.75 0 101.06-1.06L9.06 8l1.97-1.97a.75.75 0 10-1.06-1.06L8 6.94 6.03 4.97z"></path></svg>
+              <%= plugins.sponsorships.error.message %>
+            </div>
+          </section>
+        </div>
+      <% } else { %>
+        <% for (const section of plugins.sponsorships.sections) { %>
+          <div class="row fill-width">
+            <% if (section === "amount") { %>
+              <section class="sponsorships sponsors goal">
+                <img src="<%= plugins.sponsorships.image %>" alt="" />
+                <div><span class="bold"><%= user.login %></span> has given a total of <span class="bold"><%= new Intl.NumberFormat("en", {style:"currency", currency:"USD"}).format(plugins.sponsorships.amount) %></span> to open source software<% if (plugins.sponsorships.started) { %> since <span class="bold"><%= f.date(plugins.sponsorships.started, { date:true, timeZone:config.timezone?.name}) %></span><% } %>.</div>
+              </section>
+            <% } else if (section === "sponsorships") { %>
+              <section class="sponsors goal">
+                <div class="goal-text">
+                  <span>
+                    <%= user.login %> helped funding the work of <%= plugins.sponsorships.list.length %> users and organizations.
+                  </span>
+                </div>
+                <div class="row">
+                  <% for (const user of plugins.sponsorships.list) { %><img class="avatar <%= user.past ? 'past' : '' %> <%= user.type === "organization" ? "organization" : "" %>" src="<%= user.avatar %>" width="<%= 0.8*plugins.sponsorships.size %>" height="<%= 0.8*plugins.sponsorships.size %>" alt="" /><% } %>
+                </div>
+              </section>
+            <% } %>
+          </div>
+        <% } %>
+      <% } %>
+  </section>
+<% } %>

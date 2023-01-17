@@ -1,0 +1,41 @@
+name: 💝 GitHub Sponsorships
+category: github
+description: |
+  This plugin displays sponsorships funded through [GitHub sponsors](https://github.com/sponsors/).
+examples:
+  default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.sponsorships.svg
+supports:
+  - user
+  - organization
+scopes:
+  - read:user
+  - read:org
+inputs:
+
+  plugin_sponsorships:
+    description: |
+      Enable sponsorships plugin
+    type: boolean
+    default: no
+
+  plugin_sponsorships_sections:
+    description: |
+      Displayed sections
+
+      - `amount`: display total amount sponsored
+      - `sponsorships`: display GitHub sponsorships
+    type: array
+    format: comma-separated
+    default: amount, sponsorships
+    example: amount, sponsorships
+    values:
+      - amount
+      - sponsorships
+
+  plugin_sponsorships_size:
+    description: |
+      Profile picture display size
+    type: number
+    default: 24
+    min: 8
+    max: 64

@@ -1,6 +1,7 @@
 deno
 gpgarmor
 github
+githubassets
 https
 leetcode
 pgn
