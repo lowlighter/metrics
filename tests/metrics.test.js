@@ -29,7 +29,7 @@ action.run = async vars =>
 
 //Web instance
 const web = {}
-web.run = async vars => (await axios(`http://localhost:3000/lowlighter?${new url.URLSearchParams(Object.fromEntries(Object.entries(vars).map(([key, value]) => [key.replace(/^plugin_/, "").replace(/_/g, "."), value])))}`)).status === 200
+web.run = async vars => (await axios.get(`http://localhost:3000/lowlighter?${new url.URLSearchParams(Object.fromEntries(Object.entries(vars).map(([key, value]) => [key.replace(/^plugin_/, "").replace(/_/g, "."), value])))}`)).status === 200
 web.start = async () =>
   new Promise(solve => {
     let stdout = ""
@@ -48,7 +48,7 @@ placeholder.init({
   ejs,
   axios: {
     async get(url) {
-      return axios(`http://localhost:3000${url}`)
+      return axios.get(`http://localhost:3000${url}`)
     },
   },
 })
