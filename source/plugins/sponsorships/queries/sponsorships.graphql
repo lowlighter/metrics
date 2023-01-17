@@ -1,0 +1,10 @@
+query SponsorshipsDefault {
+  $account(login: "$login") {
+    totalSponsorshipAmountAsSponsorInCents
+    sponsorshipsAsSponsor(first: 1, activeOnly: false, orderBy: {field: CREATED_AT, direction: ASC}) {
+      nodes {
+        createdAt
+      }
+    }
+  }
+}

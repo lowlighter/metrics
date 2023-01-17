@@ -101,8 +101,8 @@
     "people":{
       "enabled": false,                 "//": "Enable people plugin"
     },
-    "introduction":{
-      "enabled": false,                 "//": "Enable introduction plugin"
+    "sponsorships":{
+      "enabled": false,                 "//": "Enable sponsorships plugin"
     },
     "sponsors":{
       "enabled": false,                 "//": "Enable sponsors plugin"
@@ -139,6 +139,9 @@
     },
     "projects":{
       "enabled": false,                 "//": "Enable projects plugin"
+    },
+    "introduction":{
+      "enabled": false,                 "//": "Enable introduction plugin"
     },
     "skyline":{
       "enabled": false,                 "//": "Enable skyline plugin"

@@ -1161,6 +1161,17 @@
   .sponsors .avatar {
     margin: 2px;
   }
+  .sponsorships.goal {
+    display: flex;
+    align-items: center;
+  }
+  .sponsorships.goal .bold {
+    font-weight: bold;
+  }
+  .sponsorships.goal img {
+    width: 38px;
+    margin-right: 8px;
+  }
 
 /* Stackoverflow */
   .stackoverflow {
