@@ -12,9 +12,8 @@ export default async function({login, data, imports, rest, q, account}, {enabled
 
     //Context
     let context = {mode: "user"}
-    if (data.account) {
+    if (data.account)
       context = {...context, mode: "organization"}
-    }
     else if (q.repo) {
       console.debug(`metrics/compute/${login}/plugins > people > switched to repository mode`)
       context = {...context, mode: "repository"}
@@ -38,7 +37,7 @@ export default async function({login, data, imports, rest, q, account}, {enabled
         return
       //Compute changes
       repos[handle] = {added: 0, deleted: 0, changed: 0}
-      const contributors = stats.filter(({author}) => (context.mode === "repository")||(context.mode === "organization") ? true : author?.login?.toLocaleLowerCase() === login.toLocaleLowerCase())
+      const contributors = stats.filter(({author}) => (context.mode === "repository") || (context.mode === "organization") ? true : author?.login?.toLocaleLowerCase() === login.toLocaleLowerCase())
       for (const contributor of contributors) {
         let added = 0, changed = 0, deleted = 0
         contributor.weeks.forEach(({a = 0, d = 0, c = 0, w}) => {

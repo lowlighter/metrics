@@ -2,7 +2,7 @@
 import { Client as Gmap } from "@googlemaps/google-maps-services-js"
 import color from "color"
 import * as d3 from "d3"
-import {D3node} from "../../../app/metrics/utils.mjs"
+import { D3node } from "../../../app/metrics/utils.mjs"
 
 /**
  * Worldmap

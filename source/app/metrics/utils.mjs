@@ -1,15 +1,16 @@
 //Imports
 import octicons from "@primer/octicons"
+import twemojis from "@twemoji/parser"
 import axios from "axios"
 import processes from "child_process"
 import crypto from "crypto"
 import { minify as csso } from "csso"
-import { JSDOM } from "jsdom"
 import * as d3 from "d3"
 import emoji from "emoji-name-map"
 import { fileTypeFromBuffer } from "file-type"
 import fss from "fs"
 import fs from "fs/promises"
+import { JSDOM } from "jsdom"
 import linguist from "linguist-js"
 import { marked } from "marked"
 import minimatch from "minimatch"
@@ -27,7 +28,6 @@ import htmlsanitize from "sanitize-html"
 import sharp from "sharp"
 import git from "simple-git"
 import SVGO from "svgo"
-import twemojis from "@twemoji/parser"
 import url from "url"
 import util from "util"
 import xmlformat from "xml-formatter"
@@ -804,7 +804,7 @@ export class D3node {
 
   createSVG(width, height) {
     const svg = this.element.append("svg").attr("xmlns", "http://www.w3.org/2000/svg")
-    if ((width)&&(height))
+    if ((width) && (height))
       svg.attr("width", width).attr("height", height)
     return svg
   }
