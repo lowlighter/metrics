@@ -19,7 +19,7 @@ export default function({faker, query, login = faker.internet.userName()}) {
             isActive: faker.datatype.boolean(),
             isOneTimePayment: faker.datatype.boolean(),
             tier: {
-              name: "$X a month"
+              name: "$X a month",
             },
             privacyLevel: "PUBLIC",
             sponsorable: {

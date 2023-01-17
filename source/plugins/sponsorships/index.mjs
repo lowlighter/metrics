@@ -14,7 +14,7 @@ export default async function({login, q, imports, data, graphql, queries, accoun
     if (sections.includes("amount")) {
       console.debug(`metrics/compute/${login}/plugins > sponsorships > querying total amount spend`)
       const {totalSponsorshipAmountAsSponsorInCents, sponsorshipsAsSponsor} = (await graphql(queries.sponsorships({login, account})))[account]
-      amount = totalSponsorshipAmountAsSponsorInCents/100
+      amount = totalSponsorshipAmountAsSponsorInCents / 100
       image = "https://github.githubassets.com/images/icons/emoji/hearts_around.png"
       started = sponsorshipsAsSponsor.nodes[0]?.createdAt ? new Date(sponsorshipsAsSponsor.nodes[0]?.createdAt) : null
     }
@@ -36,7 +36,7 @@ export default async function({login, q, imports, data, graphql, queries, accoun
           pushed = nodes.length
           console.debug(`metrics/compute/${login}/sponsorships > retrieved ${pushed} sponsorships events after ${cursor}`)
         } while ((pushed) && (cursor))
-        list.push(...fetched.map(({sponsorable: {login, avatarUrl, url: organization = null}, tier:{name:tier}, privacyLevel:privacy, isActive:active}) => ({login, avatarUrl, type: organization ? "organization" : "user", tier, private: privacy !== "PUBLIC", past:!active})))
+        list.push(...fetched.map(({sponsorable: {login, avatarUrl, url: organization = null}, tier: {name: tier}, privacyLevel: privacy, isActive: active}) => ({login, avatarUrl, type: organization ? "organization" : "user", tier, private: privacy !== "PUBLIC", past: !active})))
       }
       await Promise.all(list.map(async user => user.avatar = await imports.imgb64(user.avatarUrl)))
     }

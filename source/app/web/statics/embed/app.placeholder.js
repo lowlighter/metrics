@@ -458,13 +458,13 @@
             },
           })
           : null),
-         //Sponsorships
-         ...(set.plugins.enabled.sponsorships
+        //Sponsorships
+        ...(set.plugins.enabled.sponsorships
           ? ({
             sponsorships: {
               sections: options["sponsorships.sections"].split(",").map(x => x.trim()),
               amount: faker.datatype.number(1000),
-              list: new Array(2+faker.datatype.number(8)).fill(null).map(_ => ({
+              list: new Array(2 + faker.datatype.number(8)).fill(null).map(_ => ({
                 login: faker.internet.userName(),
                 avatar: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
                 type: "user",
