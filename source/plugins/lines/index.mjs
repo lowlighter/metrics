@@ -12,13 +12,16 @@ export default async function({login, data, imports, rest, q, account}, {enabled
 
     //Context
     let context = {mode: "user"}
-    if (q.repo) {
+    if (data.account) {
+      context = {...context, mode: "organization"}
+    }
+    else if (q.repo) {
       console.debug(`metrics/compute/${login}/plugins > people > switched to repository mode`)
       context = {...context, mode: "repository"}
     }
 
     //Repositories
-    const repositories = data.user.repositories.nodes.map(({name: repo, owner: {login: owner}}) => ({repo, owner})) ?? []
+    const repositories = data.user.repositories.nodes.map(({name: repo, owner: {login: owner}}) => ({repo, owner})).sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)) ?? []
 
     //Get contributors stats from repositories
     console.debug(`metrics/compute/${login}/plugins > lines > querying api`)
@@ -35,7 +38,7 @@ export default async function({login, data, imports, rest, q, account}, {enabled
         return
       //Compute changes
       repos[handle] = {added: 0, deleted: 0, changed: 0}
-      const contributors = stats.filter(({author}) => context.mode === "repository" ? true : author?.login?.toLocaleLowerCase() === login.toLocaleLowerCase())
+      const contributors = stats.filter(({author}) => (context.mode === "repository")||(context.mode === "organization") ? true : author?.login?.toLocaleLowerCase() === login.toLocaleLowerCase())
       for (const contributor of contributors) {
         let added = 0, changed = 0, deleted = 0
         contributor.weeks.forEach(({a = 0, d = 0, c = 0, w}) => {

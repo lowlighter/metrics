@@ -5,6 +5,7 @@ query BaseRepositories {
         cursor
       }
       nodes {
+        updatedAt
         name
         owner {
           login
