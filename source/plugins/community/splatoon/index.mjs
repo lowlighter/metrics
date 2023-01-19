@@ -55,8 +55,8 @@ export default async function({login, q, imports, data, account}, {enabled = fal
 
     //Read fetched data
     const exported = await Promise.all(
-      (await imports.fs.readdir(`${imports.__module(import.meta.url)}/s3si/${source == "mocks" ? "mocks" : "export"}`))
-        .map(async file => JSON.parse(await imports.fs.readFile(`${imports.__module(import.meta.url)}/s3si/${source == "mocks" ? "mocks" : "export"}/${file}`))),
+      (await imports.fs.readdir(`${imports.__module(import.meta.url)}/s3si/${source === "mocks" ? "mocks" : "export"}`))
+        .map(async file => JSON.parse(await imports.fs.readFile(`${imports.__module(import.meta.url)}/s3si/${source === "mocks" ? "mocks" : "export"}/${file}`))),
     )
     const summary = exported.filter(({type}) => type === "SUMMARY").at(0)
     if (!summary)
