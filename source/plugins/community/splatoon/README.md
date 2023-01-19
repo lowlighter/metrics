@@ -134,6 +134,7 @@ Requires <a href="/source/plugins/community/splatoon/README.md#plugin_splatoon_s
 <ul>
 <li><code>splatnet</code> will fetch data from Splatnet using <a href="https://github.com/spacemeowx2/s3si.ts">spacemeowx2/s3si.ts</a> tool</li>
 <li><code>local</code> will assume <code>s3si/export</code> directory already exists and is populated (use this when developping new features for this plugin to save network resources and time)</li>
+<li><code>mocks</code> will use <code>s3si/mocks</code> directory (use this when developping new features for this plugin to avoid setting up a NSO token)</li>
 </ul>
 <img width="900" height="1" alt=""></td>
   </tr>
@@ -143,7 +144,7 @@ Requires <a href="/source/plugins/community/splatoon/README.md#plugin_splatoon_s
 <b>type:</b> <code>string</code>
 <br>
 <b>default:</b> splatnet<br>
-<b>allowed values:</b><ul><li>splatnet</li><li>local</li></ul></td>
+<b>allowed values:</b><ul><li>splatnet</li><li>local</li><li>mocks</li></ul></td>
   </tr>
 </table>
 <!--/options-->
@@ -186,7 +187,7 @@ name: Splatnet data
 uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.splatoon.svg
-  token: ${{ secrets.METRICS_TOKEN }}
+  token: NOT_NEEDED
   base: ""
   plugin_splatoon: yes
   plugin_splatoon_token: ${{ secrets.SPLATOON_TOKEN }}
@@ -197,7 +198,7 @@ name: Splatnet data with stat.ink integration
 uses: lowlighter/metrics@latest
 with:
   filename: metrics.plugin.splatoon.svg
-  token: ${{ secrets.METRICS_TOKEN }}
+  token: NOT_NEEDED
   base: ""
   plugin_splatoon: yes
   plugin_splatoon_token: ${{ secrets.SPLATOON_TOKEN }}
