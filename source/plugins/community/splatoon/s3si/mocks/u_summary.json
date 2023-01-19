@@ -1,0 +1,352 @@
+{
+  "type": "SUMMARY",
+  "exportTime": "2023-01-19T00:00:00.000Z",
+  "data": {
+    "ConfigureAnalyticsQuery": {
+      "playHistory": {
+        "udemaeMax": "S+0",
+        "paintPointTotal": 999999,
+        "gameStartTime": "2022-09-09T00:00:00Z",
+        "battleNumTotal": 333,
+        "xMatchMaxAr": {
+          "rank": null
+        },
+        "xMatchMaxCl": {
+          "rank": null
+        },
+        "xMatchMaxGl": {
+          "rank": null
+        },
+        "xMatchMaxLf": {
+          "rank": null
+        }
+      }
+    },
+    "HistoryRecordQuery": {
+      "currentPlayer": {
+        "__isPlayer": "CurrentPlayer",
+        "byname": "The Usual Off the Hook Fan",
+        "name": "Pearl",
+        "nameId": "0000",
+        "nameplate": {
+          "badges": [
+            null,
+            null,
+            {
+              "image": {
+                "url": "https://cdn.wikimg.net/en/splatoonwiki/images/d/d4/S3_Banner_11076.png"
+              }
+            }
+          ],
+          "background": {
+            "textColor": {
+              "a": 1,
+              "b": 1,
+              "g": 1,
+              "r": 1
+            },
+            "image": {
+              "url": "https://cdn.wikimg.net/en/splatoonwiki/images/6/6a/S3_Banner_901.png"
+            }
+          }
+        },
+        "weapon": {
+          "name": "Splat Dualies",
+          "image": {
+            "url": "https://cdn.wikimg.net/en/splatoonwiki/images/e/ec/S3_Weapon_Main_Splat_Dualies_Flat.png"
+          },
+          "subWeapon": {
+            "name": "Suction Bomb",
+            "image": {
+              "url": "https://cdn.wikimg.net/en/splatoonwiki/images/thumb/f/f2/S3_Weapon_Sub_Suction_Bomb_Flat.png/24px-S3_Weapon_Sub_Suction_Bomb_Flat.png"
+            }
+          },
+          "specialWeapon": {
+            "name": "Crab Tank",
+            "image": {
+              "url": "https://cdn.wikimg.net/en/splatoonwiki/images/8/88/S3_Weapon_Special_Crab_Tank.png"
+            }
+          }
+        },
+        "headGear": {
+          "__isGear": "HeadGear",
+          "name": "Pearlescent Crown",
+          "image": {
+            "url": "https://cdn.wikimg.net/en/splatoonwiki/images/3/3c/S3_Gear_Headgear_Pearlescent_Crown_S.png"
+          },
+          "primaryGearPower": {
+            "name": "Last-Ditch Effort",
+            "image": {
+              "url": "https://cdn.wikimg.net/en/splatoonwiki/images/c/c7/S3_Ability_Last-Ditch_Effort.png"
+            }
+          },
+          "additionalGearPowers": [
+            {
+              "name": "Quick Respawn",
+              "image": {
+                "url": "https://cdn.wikimg.net/en/splatoonwiki/images/9/98/S3_Ability_Quick_Respawn.png"
+              }
+            },
+            {
+              "name": "Quick Respawn",
+              "image": {
+                "url": "https://cdn.wikimg.net/en/splatoonwiki/images/9/98/S3_Ability_Quick_Respawn.png"
+              }
+            },
+            {
+              "name": "Quick Respawn",
+              "image": {
+                "url": "https://cdn.wikimg.net/en/splatoonwiki/images/9/98/S3_Ability_Quick_Respawn.png"
+              }
+            }
+          ]
+        },
+        "clothingGear": {
+          "__isGear": "ClothingGear",
+          "name": "Pearlescent Hoodie",
+          "image": {
+            "url": "https://cdn.wikimg.net/en/splatoonwiki/images/4/42/S3_Gear_Clothing_Pearlescent_Hoodie.png"
+          },
+          "primaryGearPower": {
+            "name": "Respawn Punisher",
+            "image": {
+              "url": "https://cdn.wikimg.net/en/splatoonwiki/images/6/68/S3_Ability_Respawn_Punisher.png"
+            }
+          },
+          "additionalGearPowers": [
+            {
+              "name": "Quick Respawn",
+              "image": {
+                "url": "https://cdn.wikimg.net/en/splatoonwiki/images/9/98/S3_Ability_Quick_Respawn.png"
+              }
+            },
+            {
+              "name": "Quick Respawn",
+              "image": {
+                "url": "https://cdn.wikimg.net/en/splatoonwiki/images/9/98/S3_Ability_Quick_Respawn.png"
+              }
+            },
+            {
+              "name": "Quick Respawn",
+              "image": {
+                "url": "https://cdn.wikimg.net/en/splatoonwiki/images/9/98/S3_Ability_Quick_Respawn.png"
+              }
+            }
+          ]
+        },
+        "shoesGear": {
+          "__isGear": "ShoesGear",
+          "name": "Pearlescent Kicks",
+          "image": {
+            "url": "https://cdn.wikimg.net/en/splatoonwiki/images/6/64/S3_Gear_Shoes_Pearlescent_Kicks.png"
+          },
+          "primaryGearPower": {
+            "name": "Stealth Jump",
+            "image": {
+              "url": "https://cdn.wikimg.net/en/splatoonwiki/images/5/5a/S3_Ability_Stealth_Jump.png"
+            }
+          },
+          "additionalGearPowers": [
+            {
+              "name": "Quick Super Jump",
+              "image": {
+                "url": "https://cdn.wikimg.net/en/splatoonwiki/images/d/d5/S3_Ability_Quick_Super_Jump.png"
+              }
+            },
+            {
+              "name": "Ink Resistance Up",
+              "image": {
+                "url": "https://cdn.wikimg.net/en/splatoonwiki/images/6/6d/S3_Ability_Ink_Resistance_Up.png"
+              }
+            },
+            {
+              "name": "Sub Resistance Up",
+              "image": {
+                "url": "https://cdn.wikimg.net/en/splatoonwiki/images/d/d4/S3_Ability_Sub_Resistance_Up.png"
+              }
+            }
+          ]
+        },
+        "userIcon": {
+          "url": "https://cdn-image-e0d67c509fb203858ebcb2fe3f88c2aa.baas.nintendo.com/1/3d2fd3bbdd21df80"
+        }
+      },
+      "playHistory": {
+        "currentTime": "2023-01-01T00:00:00Z",
+        "gameStartTime": "2022-09-09T00:00:00Z",
+        "rank": 50,
+        "udemae": "S+0",
+        "xMatchRankAr": null,
+        "xMatchRankCl": null,
+        "xMatchRankGl": null,
+        "xMatchRankLf": null,
+        "udemaeMax": "S+0",
+        "xMatchMaxAr": {
+          "power": null,
+          "rank": null,
+          "rankUpdateSeasonName": null,
+          "powerUpdateTime": null
+        },
+        "xMatchMaxCl": {
+          "power": null,
+          "rank": null,
+          "rankUpdateSeasonName": null,
+          "powerUpdateTime": null
+        },
+        "xMatchMaxGl": {
+          "power": null,
+          "rank": null,
+          "rankUpdateSeasonName": null,
+          "powerUpdateTime": null
+        },
+        "xMatchMaxLf": {
+          "power": null,
+          "rank": null,
+          "rankUpdateSeasonName": null,
+          "powerUpdateTime": null
+        },
+        "winCountTotal": 333,
+        "frequentlyUsedWeapons": [
+          {
+            "name": "Splat Dualies",
+            "image": {
+              "url": "https://cdn.wikimg.net/en/splatoonwiki/images/e/ec/S3_Weapon_Main_Splat_Dualies_Flat.png"
+            }
+          }
+        ],
+        "paintPointTotal": 999999,
+        "badges": [],
+        "weaponHistory": {
+          "nodes": [
+            {
+              "seasonName": "Chill Season 2022",
+              "isMonthly": true,
+              "startTime": "2022-12-01T00:00:00Z",
+              "endTime": "2022-12-12T01:18:48Z",
+              "weaponCategories": [
+                {
+                  "weaponCategory": {
+                    "name": "Dualies",
+                    "category": "Maneuver"
+                  },
+                  "utilRatio": 1,
+                  "weapons": [
+                    {
+                      "weapon": {
+                        "name": "Splat Dualies",
+                        "image": {
+                          "url": "https://cdn.wikimg.net/en/splatoonwiki/images/e/ec/S3_Weapon_Main_Splat_Dualies_Flat.png"
+                        },
+                        "weaponCategory": {
+                          "category": "Maneuver"
+                        }
+                      },
+                      "utilRatio": 0.846
+                    },
+                    {
+                      "weapon": {
+                        "name": "Dark Tetra Dualies",
+                        "image": {
+                          "url": "https://cdn.wikimg.net/en/splatoonwiki/images/2/2a/S3_Weapon_Main_Dark_Tetra_Dualies_Flat.png"
+                        },
+                        "weaponCategory": {
+                          "category": "Maneuver"
+                        }
+                      },
+                      "utilRatio": 0.154
+                    }
+                  ]
+                }
+              ],
+              "weapons": [
+                {
+                  "weapon": {
+                    "name": "Splat Dualies",
+                    "image": {
+                      "url": "https://cdn.wikimg.net/en/splatoonwiki/images/e/ec/S3_Weapon_Main_Splat_Dualies_Flat.png"
+                    }
+                  },
+                  "utilRatio": 0.846
+                },
+                {
+                  "weapon": {
+                    "name": "Dark Tetra Dualies",
+                    "image": {
+                      "url": "https://cdn.wikimg.net/en/splatoonwiki/images/2/2a/S3_Weapon_Main_Dark_Tetra_Dualies_Flat.png"
+                    }
+                  },
+                  "utilRatio": 0.154
+                }
+              ]
+            }
+          ]
+        },
+        "recentBadges": [
+          {
+            "id": "QmFkZ2UtNTEwMDAwMQ==",
+            "image": {
+              "url": "https://cdn.wikimg.net/en/splatoonwiki/images/2/20/S3_Badge_Grizzco_100K.png"
+            },
+            "description": "100,000 Grizzco Point Club"
+          }
+        ],
+        "allBadges": [
+          {
+            "image": {
+              "url": "https://cdn.wikimg.net/en/splatoonwiki/images/4/4a/S3_Badge_Splat_Dualies_5.png"
+            },
+            "description": "5★ Splat Dualies User"
+          },
+          {
+            "image": {
+              "url": "https://cdn.wikimg.net/en/splatoonwiki/images/4/47/S3_Badge_Rank_S%2B.png"
+            },
+            "description": "S+ Rank Reached!"
+          },
+          {
+            "image": {
+              "url": "https://cdn.wikimg.net/en/splatoonwiki/images/2/20/S3_Badge_Grizzco_100K.png"
+            },
+            "description": "100,000 Grizzco Point Club"
+          }
+        ]
+      }
+    },
+    "CoopHistoryQuery": {
+      "coopResult": {
+        "historyGroupsOnlyFirst": {
+          "nodes": []
+        },
+        "regularAverageClearWave": 2,
+        "regularGrade": {
+          "name": "Eggsecutive VP"
+        },
+        "regularGradePoint": 100,
+        "monthlyGear": {
+          "__typename": "HeadGear",
+          "name": "Bream-Brim Cap",
+          "image": {
+            "url": "https://cdn.wikimg.net/en/splatoonwiki/images/6/6d/S3_Gear_Headgear_Bream-Brim_Cap.png"
+          }
+        },
+        "scale": {
+          "gold": 0,
+          "silver": 0,
+          "bronze": 0
+        },
+        "pointCard": {
+          "defeatBossCount": 199,
+          "deliverCount": 1234567,
+          "goldenDeliverCount": 34567,
+          "playCount": 444,
+          "rescueCount": 1234,
+          "regularPoint": 0,
+          "totalPoint": 100000
+        },
+        "historyGroups": {
+          "nodes": []
+        }
+      }
+    }
+  }
+}

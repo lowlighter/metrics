@@ -1163,23 +1163,6 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      - name: 🦑 Splatoon - Splatnet data with stat.ink integration
-        uses: lowlighter/metrics@master
-        with:
-          filename: metrics.plugin.splatoon.svg
-          token: ${{ secrets.METRICS_TOKEN }}
-          base: ""
-          plugin_splatoon: yes
-          plugin_splatoon_token: ${{ secrets.SPLATOON_TOKEN }}
-          plugin_splatoon_statink: yes
-          plugin_splatoon_statink_token: ${{ secrets.SPLATOON_STATINK_TOKEN }}
-          extras_css: |
-            h2 { display: none !important; }
-          output_action: none
-          delay: 120
-          user: lowlighter
-          plugins_errors_fatal: yes
-        if: ${{ success() || failure() }}
       - name: 💹 Stock prices - Stock prices from Tesla
         uses: lowlighter/metrics@master
         with:

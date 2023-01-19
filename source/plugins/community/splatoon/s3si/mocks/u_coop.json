@@ -1,0 +1,457 @@
+{
+  "type": "COOP",
+  "exportTime": "2023-01-19T00:00:00.000Z",
+  "data": {
+    "type": "CoopInfo",
+    "listNode": {
+      "weapons": [
+        {
+          "name": "Random",
+          "image": {
+            "url": {
+              "pathname": "#"
+            }
+          }
+        },
+        {
+          "name": "Random",
+          "image": {
+            "url": {
+              "pathname": "#"
+            }
+          }
+        },
+        {
+          "name": "Random",
+          "image": {
+            "url": {
+              "pathname": "#"
+            }
+          }
+        },
+        {
+          "name": "Random",
+          "image": {
+            "url": {
+              "pathname": "#"
+            }
+          }
+        }
+      ],
+      "nextHistoryDetail": {},
+      "previousHistoryDetail": {},
+      "resultWave": 3,
+      "coopStage": {
+        "name": "Marooner's Bay"
+      },
+      "afterGrade": {
+        "name": "Eggsecutive VP"
+      },
+      "afterGradePoint": 100,
+      "gradePointDiff": "KEEP",
+      "bossResult": null,
+      "myResult": {
+        "deliverCount": 999,
+        "goldenDeliverCount": 88
+      },
+      "memberResults": [
+        {
+          "deliverCount": 0,
+          "goldenDeliverCount": 0
+        },
+        {
+          "deliverCount": 0,
+          "goldenDeliverCount": 0
+        },
+        {
+          "deliverCount": 0,
+          "goldenDeliverCount": 0
+        }
+      ]
+    },
+    "groupInfo": {
+      "startTime": "2022-12-12T00:00:00Z",
+      "endTime": "2022-12-13T16:00:00Z",
+      "mode": "REGULAR",
+      "rule": "REGULAR",
+      "highestResult": {
+        "grade": {
+          "name": "Eggsecutive VP"
+        },
+        "gradePoint": 150,
+        "jobScore": 120
+      }
+    },
+    "detail": {
+      "__typename": "CoopHistoryDetail",
+      "afterGrade": {
+        "name": "Eggsecutive VP"
+      },
+      "myResult": {
+        "player": {
+          "__isPlayer": "CoopPlayer",
+          "byname": "The Usual Off the Hook Fan",
+          "name": "Pearl",
+          "nameId": "0000",
+          "nameplate": {
+            "badges": [
+              null,
+              null,
+              null
+            ],
+            "background": {
+              "textColor": {
+                "a": 1,
+                "b": 1,
+                "g": 1,
+                "r": 1
+              },
+              "image": {
+                "url": {
+                  "pathname": "#"
+                }
+              }
+            }
+          },
+          "uniform": {
+            "name": "Pink Slopsuit",
+            "image": {
+              "url": {
+                "pathname": "#"
+              }
+            }
+          },
+          "species": "INKLING"
+        },
+        "weapons": [
+          {
+            "name": "Splat Dualies",
+            "image": {
+              "url": {
+                "pathname": "#"
+              }
+            }
+          },
+          {
+            "name": "Dark Tetra Dualies",
+            "image": {
+              "url": {
+                "pathname": "#"
+              }
+            }
+          },
+          {
+            "name": "Dapple Dualies",
+            "image": {
+              "url": {
+                "pathname": "#"
+              }
+            }
+          }
+        ],
+        "specialWeapon": {
+          "name": "Booyah Bomb",
+          "image": {
+            "url": {
+              "pathname": "#"
+            }
+          },
+          "weaponId": 20006
+        },
+        "defeatEnemyCount": 16,
+        "deliverCount": 777,
+        "goldenAssistCount": 0,
+        "goldenDeliverCount": 22,
+        "rescueCount": 3,
+        "rescuedCount": 2
+      },
+      "memberResults": [
+        {
+          "player": {
+            "__isPlayer": "CoopPlayer",
+            "byname": "",
+            "name": "Player",
+            "nameId": "0000",
+            "nameplate": {
+              "badges": [
+                null,
+                null,
+                null
+              ],
+              "background": {
+                "textColor": {
+                  "a": 1,
+                  "b": 1,
+                  "g": 1,
+                  "r": 1
+                },
+                "image": {
+                  "url": {
+                    "pathname": "#"
+                  }
+                }
+              }
+            },
+            "uniform": {
+              "name": "Orange Slopsuit",
+              "image": {
+                "url": {
+                  "pathname": "#"
+                }
+              }
+            },
+            "species": "INKLING"
+          },
+          "weapons": [
+            {
+              "name": "Jet Squelcher",
+              "image": {
+                "url": {
+                  "pathname": "#"
+                }
+              }
+            },
+            {
+              "name": "Explosher",
+              "image": {
+                "url": {
+                  "pathname": "#"
+                }
+              }
+            },
+            {
+              "name": "Dark Tetra Dualies",
+              "image": {
+                "url": {
+                  "pathname": "#"
+                }
+              }
+            }
+          ],
+          "specialWeapon": {
+            "name": "Unknown",
+            "image": {
+              "url": {
+                "pathname": "#"
+              }
+            }
+          },
+          "defeatEnemyCount": 0,
+          "deliverCount": 0,
+          "goldenAssistCount": 0,
+          "goldenDeliverCount": 0,
+          "rescueCount": 0,
+          "rescuedCount": 0
+        }
+      ],
+      "bossResult": null,
+      "enemyResults": [
+        {
+          "defeatCount": 1,
+          "teamDefeatCount": 1,
+          "popCount": 1,
+          "enemy": {
+            "name": "Flyfish",
+            "image": {
+              "url": {
+                "pathname": "#"
+              }
+            }
+          }
+        },
+        {
+          "defeatCount": 2,
+          "teamDefeatCount": 0,
+          "popCount": 2,
+          "enemy": {
+            "name": "Scrapper",
+            "image": {
+              "url": {
+                "pathname": "#"
+              }
+            }
+          }
+        },
+        {
+          "defeatCount": 1,
+          "teamDefeatCount": 0,
+          "popCount": 1,
+          "enemy": {
+            "name": "Steel Eel",
+            "image": {
+              "url": {
+                "pathname": "#"
+              }
+            }
+          }
+        },
+        {
+          "defeatCount": 1,
+          "teamDefeatCount": 0,
+          "popCount": 1,
+          "enemy": {
+            "name": "Stinger",
+            "image": {
+              "url": {
+                "pathname": "#"
+              }
+            }
+          }
+        },
+        {
+          "defeatCount": 3,
+          "teamDefeatCount": 0,
+          "popCount": 3,
+          "enemy": {
+            "name": "Drizzler",
+            "image": {
+              "url": {
+                "pathname": "#"
+              }
+            }
+          }
+        },
+        {
+          "defeatCount": 2,
+          "teamDefeatCount": 1,
+          "popCount": 2,
+          "enemy": {
+            "name": "Slammin' Lid",
+            "image": {
+              "url": {
+                "pathname": "#"
+              }
+            }
+          }
+        },
+        {
+          "defeatCount": 6,
+          "teamDefeatCount": 8,
+          "popCount": 6,
+          "enemy": {
+            "name": "Mudmouth",
+            "image": {
+              "url": {
+                "pathname": "#"
+              }
+            }
+          }
+        }
+      ],
+      "waveResults": [
+        {
+          "waveNumber": 1,
+          "waterLevel": 1,
+          "eventWave": {
+            "name": "Mudmouth Eruptions"
+          },
+          "deliverNorm": 21,
+          "goldenPopCount": 63,
+          "teamDeliverCount": 54,
+          "specialWeapons": []
+        },
+        {
+          "waveNumber": 2,
+          "waterLevel": 1,
+          "eventWave": {
+            "name": "The Mothership"
+          },
+          "deliverNorm": 22,
+          "goldenPopCount": 30,
+          "teamDeliverCount": 26,
+          "specialWeapons": [
+            {
+              "name": "Inkjet",
+              "image": {
+                "url": {
+                  "pathname": "#"
+                }
+              }
+            },
+            {
+              "name": "Inkjet",
+              "image": {
+                "url": {
+                  "pathname": "#"
+                }
+              }
+            },
+            {
+              "name": "Crab Tank",
+              "image": {
+                "url": {
+                  "pathname": "#"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "waveNumber": 3,
+          "waterLevel": 0,
+          "eventWave": null,
+          "deliverNorm": 24,
+          "goldenPopCount": 28,
+          "teamDeliverCount": 17,
+          "specialWeapons": []
+        }
+      ],
+      "resultWave": 3,
+      "playedTime": "2022-12-12T00:00:00Z",
+      "rule": "REGULAR",
+      "coopStage": {
+        "name": "Marooner's Bay",
+        "image": {
+          "url": {
+            "pathname": "#"
+          }
+        }
+      },
+      "dangerRate": 2.22,
+      "scenarioCode": null,
+      "smellMeter": 0,
+      "weapons": [
+        {
+          "name": "Random",
+          "image": {
+            "url": {
+              "pathname": "#"
+            }
+          }
+        },
+        {
+          "name": "Random",
+          "image": {
+            "url": {
+              "pathname": "#"
+            }
+          }
+        },
+        {
+          "name": "Random",
+          "image": {
+            "url": {
+              "pathname": "#"
+            }
+          }
+        },
+        {
+          "name": "Random",
+          "image": {
+            "url": {
+              "pathname": "#"
+            }
+          }
+        }
+      ],
+      "afterGradePoint": 100,
+      "scale": null,
+      "jobPoint": 0,
+      "jobScore": 0,
+      "jobRate": 1,
+      "jobBonus": 0,
+      "nextHistoryDetail": {},
+      "previousHistoryDetail": {}
+    }
+  }
+}

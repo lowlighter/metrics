@@ -90,10 +90,12 @@ inputs:
 
       - `splatnet` will fetch data from Splatnet using [spacemeowx2/s3si.ts](https://github.com/spacemeowx2/s3si.ts) tool
       - `local` will assume `s3si/export` directory already exists and is populated (use this when developping new features for this plugin to save network resources and time)
+      - `mocks` will use `s3si/mocks` directory (use this when developping new features for this plugin to avoid setting up a NSO token)
     type: string
     default: splatnet
     values:
       - splatnet
       - local
+      - mocks
     testing: yes
     preset: no

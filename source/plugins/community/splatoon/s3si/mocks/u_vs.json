@@ -1,0 +1,576 @@
+{
+  "type": "VS",
+  "exportTime": "2023-01-19T00:00:00.000Z",
+  "data": {
+    "type": "VsInfo",
+    "bankaraMatchChallenge": {
+      "winCount": 3,
+      "loseCount": 0,
+      "maxWinCount": 5,
+      "maxLoseCount": 3,
+      "state": "INPROGRESS",
+      "isPromo": false,
+      "isUdemaeUp": null,
+      "udemaeAfter": null,
+      "earnedUdemaePoint": null
+    },
+    "listNode": {
+      "vsMode": {
+        "mode": "BANKARA"
+      },
+      "vsRule": {
+        "name": "Splat Zones"
+      },
+      "vsStage": {
+        "name": "Inkblot Art Academy",
+        "image": {}
+      },
+      "judgement": "WIN",
+      "player": {
+        "weapon": {
+          "name": "Splat Dualies",
+          "image": {}
+        }
+      },
+      "knockout": "WIN",
+      "myTeam": {
+        "result": {
+          "paintPoint": null,
+          "paintRatio": null,
+          "score": 100
+        }
+      },
+      "udemae": "S+0",
+      "bankaraMatch": {
+        "earnedUdemaePoint": null
+      },
+      "nextHistoryDetail": null,
+      "previousHistoryDetail": {}
+    },
+    "challengeProgress": {
+      "index": 0,
+      "winCount": 3,
+      "loseCount": 0
+    },
+    "rankState": null,
+    "rankBeforeState": null,
+    "detail": {
+      "__typename": "VsHistoryDetail",
+      "vsRule": {
+        "name": "Splat Zones",
+        "rule": "AREA"
+      },
+      "vsMode": {
+        "mode": "BANKARA"
+      },
+      "player": {
+        "__isPlayer": "VsPlayer",
+        "byname": "The Usual Off the Hook Fan",
+        "name": "Pearl",
+        "nameId": "0000",
+        "nameplate": {
+          "badges": [
+            null,
+            null,
+            null
+          ],
+          "background": {
+            "textColor": {
+              "a": 1,
+              "b": 1,
+              "g": 1,
+              "r": 1
+            },
+            "image": {}
+          }
+        },
+        "headGear": {
+          "name": "Pearlescent Crown",
+          "image": {},
+          "__isGear": "HeadGear",
+          "primaryGearPower": {
+            "name": "Last-Ditch Effort",
+            "image": {}
+          },
+          "additionalGearPowers": [
+            {
+              "name": "Quick Respawn",
+              "image": {}
+            },
+            {
+              "name": "Quick Respawn",
+              "image": {}
+            },
+            {
+              "name": "Quick Respawn",
+              "image": {}
+            }
+          ],
+          "originalImage": {},
+          "brand": {
+            "name": "amiibo",
+            "image": {},
+            "usualGearPower": {
+              "name": "Unknown",
+              "desc": "Unlock this ability by battling while wearing this gear.",
+              "image": {},
+              "isEmptySlot": true
+            }
+          }
+        },
+        "clothingGear": {
+          "name": "Pearlescent Hoodie",
+          "image": {},
+          "__isGear": "ClothingGear",
+          "primaryGearPower": {
+            "name": "Respawn Punisher",
+            "image": {}
+          },
+          "additionalGearPowers": [
+            {
+              "name": "Quick Respawn",
+              "image": {}
+            },
+            {
+              "name": "Quick Respawn",
+              "image": {}
+            },
+            {
+              "name": "Quick Respawn",
+              "image": {}
+            }
+          ],
+          "originalImage": {},
+          "brand": {
+            "name": "amiibo",
+            "image": {},
+            "usualGearPower": {
+              "name": "Unknown",
+              "desc": "Unlock this ability by battling while wearing this gear.",
+              "image": {},
+              "isEmptySlot": true
+            }
+          }
+        },
+        "shoesGear": {
+          "name": "Pearlescent Kicks",
+          "image": {},
+          "__isGear": "ShoesGear",
+          "primaryGearPower": {
+            "name": "Stealth Jump",
+            "image": {}
+          },
+          "additionalGearPowers": [
+            {
+              "name": "Quick Super Jump",
+              "image": {}
+            },
+            {
+              "name": "Ink Resistance Up",
+              "image": {}
+            },
+            {
+              "name": "Sub Resistance Up",
+              "image": {}
+            }
+          ],
+          "originalImage": {},
+          "brand": {
+            "name": "amiibo",
+            "image": {},
+            "usualGearPower": {
+              "name": "Unknown",
+              "desc": "Unlock this ability by battling while wearing this gear.",
+              "image": {},
+              "isEmptySlot": true
+            }
+          }
+        },
+        "paint": 888
+      },
+      "judgement": "WIN",
+      "myTeam": {
+        "color": {
+          "a": 1,
+          "b": 0.454901993,
+          "g": 0.176470593,
+          "r": 0.756862819
+        },
+        "judgement": "WIN",
+        "result": {
+          "paintRatio": null,
+          "score": 100,
+          "noroshi": null
+        },
+        "tricolorRole": null,
+        "festTeamName": null,
+        "players": [
+          {
+            "nameId": "0000",
+            "name": "Pearl",
+            "isMyself": true,
+            "byname": "The Usual Off the Hook Fan",
+            "weapon": {
+              "name": "Splat Dualies",
+              "image": {},
+              "specialWeapon": {
+                "maskingImage": {
+                  "width": 100,
+                  "height": 100
+                },
+                "name": "Crab Tank",
+                "image": {}
+              },
+              "image3d": {},
+              "image2d": {},
+              "image3dThumbnail": {},
+              "image2dThumbnail": {},
+              "subWeapon": {
+                "name": "Suction Bomb",
+                "image": {}
+              }
+            },
+            "species": "INKLING",
+            "__isPlayer": "VsPlayer",
+            "nameplate": {
+              "badges": [
+                null,
+                null,
+                null
+              ],
+              "background": {
+                "textColor": {
+                  "a": 1,
+                  "b": 1,
+                  "g": 1,
+                  "r": 1
+                },
+                "image": {}
+              }
+            },
+            "headGear": {
+              "name": "Pearlescent Crown",
+              "image": {},
+              "__isGear": "HeadGear",
+              "primaryGearPower": {
+                "name": "Last-Ditch Effort",
+                "image": {}
+              },
+              "additionalGearPowers": [
+                {
+                  "name": "Quick Respawn",
+                  "image": {}
+                },
+                {
+                  "name": "Quick Respawn",
+                  "image": {}
+                },
+                {
+                  "name": "Quick Respawn",
+                  "image": {}
+                }
+              ],
+              "originalImage": {},
+              "brand": {
+                "name": "amiibo",
+                "image": {},
+                "usualGearPower": {
+                  "name": "Unknown",
+                  "desc": "Unlock this ability by battling while wearing this gear.",
+                  "image": {},
+                  "isEmptySlot": true
+                }
+              }
+            },
+            "clothingGear": {
+              "name": "Pearlescent Hoodie",
+              "image": {},
+              "__isGear": "ClothingGear",
+              "primaryGearPower": {
+                "name": "Respawn Punisher",
+                "image": {}
+              },
+              "additionalGearPowers": [
+                {
+                  "name": "Quick Respawn",
+                  "image": {}
+                },
+                {
+                  "name": "Quick Respawn",
+                  "image": {}
+                },
+                {
+                  "name": "Quick Respawn",
+                  "image": {}
+                }
+              ],
+              "originalImage": {},
+              "brand": {
+                "name": "amiibo",
+                "image": {},
+                "usualGearPower": {
+                  "name": "Unknown",
+                  "desc": "Unlock this ability by battling while wearing this gear.",
+                  "image": {},
+                  "isEmptySlot": true
+                }
+              }
+            },
+            "shoesGear": {
+              "name": "Pearlescent Kicks",
+              "image": {},
+              "__isGear": "ShoesGear",
+              "primaryGearPower": {
+                "name": "Stealth Jump",
+                "image": {}
+              },
+              "additionalGearPowers": [
+                {
+                  "name": "Quick Super Jump",
+                  "image": {}
+                },
+                {
+                  "name": "Ink Resistance Up",
+                  "image": {}
+                },
+                {
+                  "name": "Sub Resistance Up",
+                  "image": {}
+                }
+              ],
+              "originalImage": {},
+              "brand": {
+                "name": "amiibo",
+                "image": {},
+                "usualGearPower": {
+                  "name": "Unknown",
+                  "desc": "Unlock this ability by battling while wearing this gear.",
+                  "image": {},
+                  "isEmptySlot": true
+                }
+              }
+            },
+            "paint": 888,
+            "result": {
+              "kill": 8,
+              "death": 3,
+              "assist": 4,
+              "special": 1,
+              "noroshiTry": null
+            },
+            "festDragonCert": "NONE",
+            "__typename": "VsPlayer"
+          }
+        ],
+        "order": 1
+      },
+      "vsStage": {
+        "name": "Inkblot Art Academy",
+        "image": {}
+      },
+      "festMatch": null,
+      "knockout": "WIN",
+      "otherTeams": [
+        {
+          "judgement": "LOSE",
+          "color": {
+            "a": 1,
+            "b": 0.133333296,
+            "g": 0.721568584,
+            "r": 0.172549993
+          },
+          "result": {
+            "paintRatio": null,
+            "score": 0,
+            "noroshi": null
+          },
+          "tricolorRole": null,
+          "players": [
+            {
+              "nameId": "0000",
+              "name": "Marina",
+              "isMyself": false,
+              "byname": "",
+              "weapon": {
+                "name": "Splattershot",
+                "image": {},
+                "specialWeapon": {
+                  "maskingImage": {
+                    "width": 100,
+                    "height": 100
+                  },
+                  "name": "Trizooka",
+                  "image": {}
+                },
+                "image3d": {},
+                "image2d": {},
+                "image3dThumbnail": {},
+                "image2dThumbnail": {},
+                "subWeapon": {
+                  "name": "Suction Bomb",
+                  "image": {}
+                }
+              },
+              "species": "OCTOLING",
+              "__isPlayer": "VsPlayer",
+              "nameplate": {
+                "badges": [
+                  null,
+                  null,
+                  null
+                ],
+                "background": {
+                  "textColor": {
+                    "a": 1,
+                    "b": 1,
+                    "g": 1,
+                    "r": 1
+                  },
+                  "image": {}
+                }
+              },
+              "headGear": {
+                "name": "Unknown",
+                "thumbnailImage": {},
+                "__isGear": "HeadGear",
+                "primaryGearPower": {
+                  "name": "Unknown",
+                  "image": {}
+                },
+                "additionalGearPowers": [
+                  {
+                    "name": "Unknown",
+                    "image": {}
+                  },
+                  {
+                    "name": "Unknown",
+                    "image": {}
+                  },
+                  {
+                    "name": "Unknown",
+                    "image": {}
+                  }
+                ],
+                "originalImage": {},
+                "brand": {
+                  "name": "amiibo",
+                  "image": {},
+                  "usualGearPower": {
+                    "name": "Unknown",
+                    "desc": "Unlock this ability by battling while wearing this gear.",
+                    "image": {},
+                    "isEmptySlot": true
+                  }
+                }
+              },
+              "clothingGear": {
+                "name": "Unknown",
+                "thumbnailImage": {},
+                "__isGear": "ClothingGear",
+                "primaryGearPower": {
+                  "name": "Unknown",
+                  "image": {}
+                },
+                "additionalGearPowers": [
+                  {
+                    "name": "Unknown",
+                    "image": {}
+                  },
+                  {
+                    "name": "Unknown",
+                    "image": {}
+                  },
+                  {
+                    "name": "Unknown",
+                    "image": {}
+                  }
+                ],
+                "originalImage": {},
+                "brand": {
+                  "name": "amiibo",
+                  "image": {},
+                  "usualGearPower": {
+                    "name": "Unknown",
+                    "desc": "Unlock this ability by battling while wearing this gear.",
+                    "image": {},
+                    "isEmptySlot": true
+                  }
+                }
+              },
+              "shoesGear": {
+                "name": "Unknown",
+                "thumbnailImage": {},
+                "__isGear": "ShoesGear",
+                "primaryGearPower": {
+                  "name": "Unknown",
+                  "image": {}
+                },
+                "additionalGearPowers": [
+                  {
+                    "name": "Unknown",
+                    "image": {}
+                  },
+                  {
+                    "name": "Unknown",
+                    "image": {}
+                  },
+                  {
+                    "name": "Unknown",
+                    "image": {}
+                  }
+                ],
+                "originalImage": {},
+                "brand": {
+                  "name": "amiibo",
+                  "image": {},
+                  "usualGearPower": {
+                    "name": "Unknown",
+                    "desc": "Unlock this ability by battling while wearing this gear.",
+                    "image": {},
+                    "isEmptySlot": true
+                  }
+                }
+              },
+              "paint": 0,
+              "result": {
+                "kill": 0,
+                "death": 0,
+                "assist": 0,
+                "special": 0,
+                "noroshiTry": null
+              },
+              "festDragonCert": "NONE",
+              "__typename": "VsPlayer"
+            }
+          ],
+          "order": 2,
+          "festTeamName": null
+        }
+      ],
+      "bankaraMatch": {
+        "earnedUdemaePoint": null,
+        "mode": "CHALLENGE"
+      },
+      "xMatch": null,
+      "duration": 69,
+      "playedTime": "2023-01-19T00:00:00.000Z",
+      "awards": [
+        {
+          "name": "#1 Popular Target",
+          "rank": "GOLD"
+        },
+        {
+          "name": "#1 Score Booster",
+          "rank": "GOLD"
+        },
+        {
+          "name": "#1 Damage Taker",
+          "rank": "SILVER"
+        }
+      ],
+      "leagueMatch": null,
+      "nextHistoryDetail": null,
+      "previousHistoryDetail": {}
+    }
+  }
+}
