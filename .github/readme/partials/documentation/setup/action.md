@@ -25,7 +25,7 @@ No scopes are required, but additional one may be required depending on which fe
 As a general rule, the following scopes may be required:
 - `public_repo` for some plugins
 - `read:org` for all organizations related metrics
-- `repo` for all private repositories related metrics
+- `user` for all private repositories related metrics
   - `read:user` for some private repositories related metrics
 - `read:packages` for some packages related metrics
 - `read:project` for some projects related metrics
