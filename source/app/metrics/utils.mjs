@@ -451,6 +451,9 @@ export async function imgb64(image, {width, height, fallback = true} = {}) {
   //Undefined image
   if (!image)
     return fallback ? "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==" : null
+  //SVG image
+  if ((typeof image === "string") && (image.endsWith(".svg")))
+    return `data:image/svg+xml;base64,${Buffer.from(await fetch(image).then(response => response.arrayBuffer())).toString("base64")}`
   //Load image
   let ext = "png"
   try {
