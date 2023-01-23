@@ -48,7 +48,7 @@
     "express-rate-limit": "^6.7.0",
     "file-type": "^18.2.0",
     "js-yaml": "^4.1.0",
-    "jsdom": "^21.0.0",
+    "jsdom": "^21.1.0",
     "linguist-js": "^2.5.4",
     "marked": "^4.2.12",
     "memory-cache": "^0.2.0",
