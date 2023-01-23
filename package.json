@@ -52,7 +52,7 @@
     "linguist-js": "^2.5.4",
     "marked": "^4.2.12",
     "memory-cache": "^0.2.0",
-    "minimatch": "^6.0.4",
+    "minimatch": "^6.1.6",
     "node-fetch": "^3.3.0",
     "open-graph-scraper": "^5.0.3",
     "png-js": "^1.0.0",
