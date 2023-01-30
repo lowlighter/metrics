@@ -70,7 +70,7 @@
   },
   "devDependencies": {
     "eslint": "^8.32.0",
-    "jest": "^29.3.1",
+    "jest": "^29.4.1",
     "libxmljs2": "^0.31.0"
   },
   "jest": {
