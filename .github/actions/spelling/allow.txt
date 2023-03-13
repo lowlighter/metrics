@@ -4,6 +4,7 @@ github
 githubassets
 https
 leetcode
+npx
 pgn
 scm
 shas
