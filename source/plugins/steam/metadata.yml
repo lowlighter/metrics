@@ -33,7 +33,7 @@ inputs:
       Displayed sections
 
       - `player`: display profile
-      - `most-played`: display most playted games
+      - `most-played`: display most played games
       - `recently-played`: display recently played games
     type: array
     format: comma-separated

@@ -13,7 +13,7 @@ export default async function({login, q, imports, data, account}, {token, enable
       games: {
         owned: `https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${token}&steamid=${user}&format=json&include_appinfo=1`,
         schema: `https://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v0002/?key=${token}&format=json`,
-        details: `https://store.steampowered.com/api/appdetails?`,
+        details: "https://store.steampowered.com/api/appdetails?",
       },
       player: {
         summary: `https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${token}&steamids=${user}&format=json`,
