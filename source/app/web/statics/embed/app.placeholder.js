@@ -1035,6 +1035,104 @@
             },
           })
           : null),
+        //Steam
+        ...(set.plugins.enabled.steam
+          ? ({
+            steam: {
+              sections: options["anilist.sections"].split(",").map(x => x.trim()).filter(x => x),
+              player: {
+                level: faker.datatype.number(100),
+                avatar: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
+                created: 1366386002,
+                name: faker.internet.userName(),
+              },
+              games: {
+                count: 2,
+                playtime: 89.23333333333333,
+                achievements: 0,
+                "most-played": [
+                  {
+                    id: 524220,
+                    name: "NieR:Automata™",
+                    icon:
+                      "data:image/jpg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCABAAEADASIAAhEBAxEB/8QAHAAAAgMBAQEBAAAAAAAAAAAABgcFCAkEAwEA/8QAMBAAAQMDAwEGBQQDAAAAAAAAAQIDBAAFEQYHITESExQiQVEjMkJhcQhSobEVgcH/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8ArPebk9cpIW+U8D0FcJUTj39q+Kxnjp6VN6N0zcdV3xi12lpTjzqgCoDIQPc0EKlZ6YJI6Yrvt1oudwIRAhPPqV+1NXb252F01pmHGfuDHjLoPMtazlGfbsmmoxZbXHwI9uhN4/aykH+qDNa5afvNsBE+3vsgj6k1EqKgeRhXTmtQXbTb3jh6BEcT7LZSo/yKXevNktKaqbkOGGIk5acNuMnsJSfwKCgXbUlWfqrpts12DLS8zgqB5yKJNydDXLQl9ct9xQe7J+G5jhQ9KEU/MMUH5XUZOR9qu1+l7Q8fS+jDfLk0lufLyVLWPlb6giqdaYgpueorfDI8rzoSRWhGpbZKe20MK15D6YiEoSnqSAKCMTuzZv8AMeFUy6Ifb7vx2fhAjqKYTD7chpDzCgttYCkqHQikM3fbEnbB6yqhpevThU34NKfi9vI82cUz9EKfs+lILd+eS24oAISRykY4BoC5RwCSQPzS9uu6tmgXZcRCHJEdo4elIPkb980R3iWLvZp8ayS21TO78uOopC27VtqsGjLzpm/2l1m8rU4UhxIKpBUrjBxQMHfPSkDX+3L8yEEPSmGy9GcQOSeOKoU60piQ404PM2opUPYjitDNl7XPg6Ebau6VBTqlLS2vqlB6CqQbsWtFn3AusZsdlJcLmPyTQRGkZibfqq2ynD5Wngo1ou5Pks6et8yE33iCyhS04z5SkVmecpWCnqORV7/0266Z1ZoliHJfQq5RPI40evYHAoCKdqvR0BwyViCLljPd9gBeag7rutF75pk2N98k+TBHP4rx3F2YiX68qvlqfVGuSQMIUSUEj7UAzdtNwo0pl+LLjPOtqzgNelAwY+58W3zA2rT8lhx35jkDipuJrLRV5mI8aICbik5Sh5sKXn84pSx9ttwrhOW7cJUdBUAAe66Ue6G2WhWq6ovF+f8AG3JGCgtkpQD9x60DMtEp+WHHFoCI2MN4GOKz73lnouW410eRyAstjHuCauzvNrGLonQ81/vEty3GyiMgcEqrPSXJXMmyJLxy68srJ+5OaDxX81EOhNWXHR1/YudsdUlTagVIB4UPYioi4wZEJ/upCCleM1yhJ59KC/8AtzvRpnV8NhLstuFcSACw6rlSvXFM5JT84UCFDg54rLZpx1hxLsdS2lJ6KScEf7ootm4OqbatCmLvJV2eneOFQ/ug0jzzyefzQDr3dfTOjWHRMnNPTUDiM2rzVR27bjaruR7Ui7SEk8ZbWU/9oXlyZEt0uS3nH3T9S1FR/mgLd0df3LXl9cmTVqEYKIaazwkenFBaeo9K+dk56V7w4zsqQGWkFS1dAKD/2Q==",
+                    playtime: 44.88333333333333,
+                    played: 1582407120,
+                    description: "NieR: Automata tells the story of androids 2B, 9S and A2 and their battle to reclaim the machine-driven dystopia overrun by powerful machines.",
+                    genres: [
+                      "Action",
+                      "RPG",
+                    ],
+                    achievements: [
+                      {
+                        icon:
+                          "data:image/jpg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAgACADASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAUGBwP/xAAmEAABAgQDCQAAAAAAAAAAAAABAAIDBAUGBxIUFiMxNVNhc5Gx/8QAFgEBAQEAAAAAAAAAAAAAAAAAAAME/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8A6XVcM5QqlppTK+G4GJvSXEEngOyT7d1TpwPRRiVz5niH0qTWNVWbd1TpwPRTi1bhnK7UtNN5WQ2gRN0S0kg8D2Wdqsw158/xH6EBiVz5niH0qTWiXVb05XalqZTKyG0GHvQWkkHiOyT7CVTqQPZQSarMNefP8R+hGwlU6kD2U4tW3pyhVLUzeV8NwEPdAuIJPE9kH//Z",
+                        achieved: true,
+                        unlocked: 1565976624,
+                        name: "Transcendent Being",
+                        description: "",
+                        id: "ACH_BAD_END",
+                      },
+                      {
+                        icon:
+                          "data:image/jpg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAgACADASIAAhEBAxEB/8QAGAABAQEBAQAAAAAAAAAAAAAABQQDAAL/xAAtEAABAwMCBAQGAwAAAAAAAAABAgMEAAURBiISITFBExQjMlFhcYGRsRXB0f/EABcBAQEBAQAAAAAAAAAAAAAAAAABAwT/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwC3UF7lWeeY8bc2rLnqKJIJPT6VhE1BdpCgAhtORy2qJ/ArxqprxtRIB7IH7pixMJZfZWOQPEB+DXG1FSL/AHhj3soB64IINU6evMm8TvLytqEYX6aikkg9D8vlSmomEPcK8hWEYIznuaE0uz4N/cx3R/dQdqdt3+cDkfgUtLZ2LOAr4DPaqbOiDeZrcW4w5cd2Mkq3HiQVBW4Ajl7eX3OOlb3W2yLjMMiPxJSklO9JByDjP0q+2tzIiAlyO27j4k1QfdotvsD7zjEOa9Hkoy64yBhrh6de2P1U2mXmpN2W8wh5Dakjh8UYKh3OKcuKZUpspbitNkjBOT/tHWu3yLfN8xJClpWQnYkqIyeX2oP/2Q==",
+                        achieved: true,
+                        unlocked: 1565976316,
+                        name: "A Round by the Pond",
+                        description: "20 different kinds of fish caught.",
+                        id: "ACH_FISHING",
+                      },
+                    ],
+                    rate: {
+                      total: 47,
+                      achieved: 47,
+                    },
+                  },
+                ],
+                "recently-played": [
+                  {
+                    id: 1113560,
+                    name: "NieR Replicant ver.1.22474487139...",
+                    icon:
+                      "data:image/jpg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCABAAEADASIAAhEBAxEB/8QAHAAAAgIDAQEAAAAAAAAAAAAABgcDBQEECAIA/8QAMBAAAQMDAgUCBgEFAQAAAAAAAQIDBAAFERIhBhMxQVEHYRQiIzJCcRUIJFJigcH/xAAYAQADAQEAAAAAAAAAAAAAAAABAgMABP/EAB8RAAICAwACAwAAAAAAAAAAAAABAhEDEiEEQSIxYf/aAAwDAQACEQMRAD8A6m228CgT1PmN/DtMDd1s6z+jRfebg3abVJnSN2mEa1fqubeKOOBxNcBYoTwTcpaylxfX6Z+0DwaWT9FsMbezNluY5e3Jdpt0hoMqRh94jIx4HvV9ZbVHs0NMa3r5YTuvmb6vcV9Bsjdkt6GorJ0gfMvuVd81aWpUfWEqBKldSqpHV+lhHZCmNTbqSfyFYdjoQgKdSS0fzHQVOuGIriXUk8rqfet55DcVkTYg5jB+9pW9YWynjKkR5BcjFL7H+o3o1tPEbbiEtyxy1dM0K3S2amhMthUjI1AZ2J8YrUtt6DTyBcGg2UnAKhso0U6BKCmi09dLkm3cEvLdUUtuZSrfqKQ/oPbbchM6+SAVzHCUoKznAB2xTj/qVZMn08faQkqdVnTjzQF6dQmWOD4fKQOcjdxI/VNJ0LiXxDNy5FlvXo5jRPzHskeTUciNFmR0vwZCQ71Tg7ZoUeW6J5nWtZkxSdDzIOdGKEo/FlxmcQqZiwHmilWFJ7Y84qd2X1G1br4/8O7BeSEuDrqGc/qpLZc+RJMaUfpObJBPehlm6KU+0uc1yXBsVEdRUvEENu5RNKlrQtr6jC0Kxk1vsDjQfEKjRgw25g5K0at+teNUG5RXTIbCHEjC09/2KHrRc0XaAwlSyHUfTO++1ef5Q2+4FqajY7ax0Ioi6tBd6o2r+QjxtassqUQR2G1IK4sXPh65MXC3zELjh0pcjAbhI710h6gsvOWlHJISkElRPakTxE6yxqclIPwh+Vah296M+MGDsFZZw1CU4LjDQYsh0AOxldFjyBWxHgMc9UlLaQ6vZeBUMN2JCjMhb6dKkhSD3welbLMqDJePwMlLjgGVpT2qTtnSlqZlRfiHmFLwW0KyoeR4qJUpLbHORlbTSjgf+VsPvKDiUspKlDqmhuXJ+HYfLSgVJJOj/I+KMX6Fkm+klhuTFr4mXHQomPJwUgncKO5ovvqorrzSJK0pc/An8vakxeHC1Li3SM5qTHXrUQe/cVf8cX1f8FAfOdThyhwHocU9E2unQ/EUkXO3PvNqKYUdOvmdnD4pK8ZRFOfGW6WOWmUyChRGwB3FP3iRtL1qctkZCUuSRpAA2T7mgj1UtammLNISxzQkhp9SR9oCetPJeyGGdcOd/TG4G7zXbBc1KE2EsqjLUdl74A99qawZgWNouTHWoh/LVjKjSC9WZbNt4nactWuNNbOoqScZHagGVcrlOK3JEyS7k5IU4SKDx7O0Os+q1as6Ru/FYkkpgILLWcKWo/cPY0u+LuNmYrzTMJfMcZOsqB2UT2pdyOILm+xyVu4RpCfl2OKqMkryrJPcmtHHTthyeTaqKDnh3idtiW9FkkqgSDqyo50LO5/5RFd7wzcOCp0DX/cxAXU7/iemKUmQVbZx4qQOuDOHFZIwd+o8GncVdkFmdas//9k=",
+                    playtime: 44.35,
+                    played: 1625611102,
+                    description: "The upgraded prequel of NieR:Automata. A kind young man sets out with Grimoire Weiss, a strange talking book, to search for the &quot;Sealed verses&quot; in order to save his sister Yonah, who fell terminally ill to the Black Scrawl.",
+                    genres: [
+                      "Action",
+                      "Adventure",
+                      "RPG",
+                    ],
+                    achievements: [
+                      {
+                        icon:
+                          "data:image/jpg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAgACADASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAwUGBAL/xAAsEAACAgEDAwMDAwUAAAAAAAABAgMEBQAGERIhMSJBUQdhkRMUoRVDUnGz/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/xAAYEQEBAQEBAAAAAAAAAAAAAAABACERMf/aAAwDAQACEQMRAD8AsL+R3Jkd+5LEYnIrSr1Yo2QGFGDcqpJLEE88t4+2rbA08hXQDJ5N70jEDkxIgX/XSBzoWMxpr5vK3XPa08ZUD2CoF/PY6lZs7uaDaW9LmTr16NnHGT9nJGvVwvSCOxPq4DDhu3f21fcJ5a89nb8eKwVqKZ68mTtCoqxlAFLu3Qx6lbn0qPHzrNHlM5S3thcdcumercezDIpVCrGOIOGUhVIIblSD8ffSjIY3LZPZGzYzXS3LjpoLd4GRY1SJULBT1Hu3Qy/Y9/GqLH4dpc7jrP8ASWoVcfLI9UGRWLCVGMh4UkKvUV4HnudXCk+x+XisZ3IYz+9VCNz8hlB/jn+dSP1ZuGrs/dNeM8SW3pRIB5P6pCH/AJnXGWo7mxu/psvhKAvU7CKsimRF6V4UMOGYEN6fPfzphujZ1rPSLPDk7UD8wSiKZ+tVkicsvt7Bm4+CffUOCMYONyd/IboyG344QsVXJdVtyhCrVijjWNAf8pGX8Bu3fVVdz9SvuOhhnk5u3EeQIO5CgE8n8HSXBbZtbeny08Vy1dSy5siL9YiWWXjv1sex5+dI8Bh9yZL6hRbg3Jj4aaVYmihCOpBUhgPDE8+s8nto8Zt//9k=",
+                        achieved: true,
+                        unlocked: 1625610706,
+                        name: "e8 a8 98 e6 86 b6 e3 82 b5 e3 83 bc e3 83 90 e3 83 bc",
+                        description: "",
+                        id: "ACHIEVEMENT_0230",
+                      },
+                      {
+                        icon:
+                          "data:image/jpg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAgACADASIAAhEBAxEB/8QAGAABAAMBAAAAAAAAAAAAAAAABgQFBwP/xAAsEAACAQQBAwIFBAMAAAAAAAABAgMEBQYRABIhMSJBBxMUUaEVIzJhUnGC/8QAFgEBAQEAAAAAAAAAAAAAAAAAAQAC/8QAGhEAAwEBAQEAAAAAAAAAAAAAAAERIUExMv/aAAwDAQACEQMRAD8AXZJe7vT5DVJLe1sVvR1hgeeCN4JGIH8pvV0MdghXC/0TxvY6S4UsJ/Urm9fIwBBMSIF/10gb5Gp7LG9wvclZFHPTXAorQyKHR0EYUgg+ffgDNbZk2BWSeuw27O1hh0Xt9SonajUt5iZgT0bIBU9wD7+z9Yi8HGaV60ENKTkMVmknf5MRljV1lc6+4Ovbv4G+/CtFeMnt3xHtljvVfFU09XHI5VIkA0EYqdgAhtr48a4dseE5ZltTb8lya4W2qi6FqKairY2eKRWXYUqmgi999tkHR0eaHHZK2qyS23m809ujq6cMiCjeR+gFWB6mYAMNHQAUd/f244sDWW1vu8VRfbhbN/vUoRt/cMoP43+eTLxQpdLPX2+TulVTyQn/AKUgfnXM9yCgyy3ZrV3fG6GOtiqIgvTI6BV9KgjTMp36B3/vifFbvks88aX/AB40miCZ4qiNl2D/AIhiRzM6hp0+Gc/1Hw7xqQb39BErb9mUdJ/IPJtZfqSmyKgszODW1aNIqDyFAJ2fsPSeVCxX+wYvFQ2e3U1wrIzN8tvniNEBlZkBDaJPSwHkDY88O4xaMpuWd02QZVb4KN6WBoUETp0nYYDQDMd+o8YnWV4f/9k=",
+                        achieved: true,
+                        unlocked: 1625607419,
+                        name: "Daredevil",
+                        description: "",
+                        id: "ACHIEVEMENT_0460",
+                      },
+                    ],
+                    rate: {
+                      total: 47,
+                      achieved: 44,
+                    },
+                  },
+                ],
+              },
+            },
+          })
+          : null),
         //LeetCode
         ...(set.plugins.enabled.leetcode
           ? ({
