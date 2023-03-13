@@ -1,0 +1,72 @@
+<% if (plugins["16personalities"]) { %>
+  <section>
+    <h2 class="field">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M5.5 4.25a2.25 2.25 0 0 1 4.5 0 .75.75 0 0 0 1.5 0 3.75 3.75 0 1 0-6.14 2.889l-2.272 4.258a.75.75 0 0 0 1.324.706L7 7.25a.75.75 0 0 0-.309-1.015A2.25 2.25 0 0 1 5.5 4.25Z"></path><path d="M7.364 3.607a.75.75 0 0 1 1.03.257l2.608 4.349a3.75 3.75 0 1 1-.628 6.785.75.75 0 0 1 .752-1.299 2.25 2.25 0 1 0-.033-3.88.75.75 0 0 1-1.03-.256L7.107 4.636a.75.75 0 0 1 .257-1.03Z"></path><path d="M2.9 8.776A.75.75 0 0 1 2.625 9.8 2.25 2.25 0 1 0 6 11.75a.75.75 0 0 1 .75-.751h5.5a.75.75 0 0 1 0 1.5H7.425a3.751 3.751 0 1 1-5.55-3.998.75.75 0 0 1 1.024.274Z"></path></svg>
+      <%= !plugins["16personalities"].error ? `${plugins["16personalities"].type} personality` : "Personality" %> <sub style="font-style: italic; margin-left: 4px; margin-top: -6px; font-size: 12px;">(results from 16personalities)</sub>
+    </h2>
+    <% if (plugins["16personalities"].error) { %>
+      <div class="row">
+        <section>
+          <div class="field error">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M2.343 13.657A8 8 0 1113.657 2.343 8 8 0 012.343 13.657zM6.03 4.97a.75.75 0 00-1.06 1.06L6.94 8 4.97 9.97a.75.75 0 101.06 1.06L8 9.06l1.97 1.97a.75.75 0 101.06-1.06L9.06 8l1.97-1.97a.75.75 0 10-1.06-1.06L8 6.94 6.03 4.97z"></path></svg>
+            <%= plugins["16personalities"].error.message %>
+          </div>
+        </section>
+      </div>
+    <% } else { %>
+      <% if ((plugins["16personalities"].sections.includes("personality"))||(plugins["16personalities"].sections.includes("profile"))) { %>
+        <div class="row fill-width">
+          <section class="personality-traits categories">
+            <% for (const {category, value, image, text} of plugins["16personalities"].personality) { if (((!plugins["16personalities"].sections.includes("personality"))&&(/personality/i.test(category)))||((!plugins["16personalities"].sections.includes("profile"))&&(!/personality/i.test(category)))) continue %>
+              <div class="category">
+                <img src="<%= image %>" alt="" />
+                <div class="explanation">
+                  <span class="title" style="color: <%= plugins["16personalities"].color %>;"><span class="subtitle"><%= value %></span> <%= category.toLocaleLowerCase() %></span>
+                  <span class="text"><%= text %></span>
+                </div>
+              </div>
+            <% } %>
+          </section>
+        </div>
+      <% } %>
+      <% if (plugins["16personalities"].sections.includes("traits")) { %>
+        <div class="row fill-width">
+          <section class="personality-traits categories">
+            <% for (const {category, value, score, text} of plugins["16personalities"].traits) { %>
+              <div class="category <%= category.toLocaleLowerCase() %>">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="50" height="50" class="gauge">
+                <circle class="gauge-base" r="53" cx="60" cy="60"></circle>
+                <% if (!Number.isNaN(score)) { %>
+                  <circle class="gauge-arc" transform="rotate(-90 60 60)" r="53" cx="60" cy="60" stroke-dasharray="<%= score * 329 %> 329"></circle>
+                  <text x="60" y="60" dominant-baseline="central" ><%= Math.round(score*100) %></text>
+                <% } else { %>
+                  <circle class="gauge-arc" transform="rotate(-90 60 60)" r="53" cx="60" cy="60" stroke-dasharray="329 329"></circle>
+                  <text x="60" y="60" dominant-baseline="central" ><%= (/energy/i.test(category))&&(/intuitive/i.test(value)) ? "N" : value.charAt(0) %></text>
+                <% } %>
+                </svg>
+                <div class="explanation">
+                  <span class="title"><span class="subtitle"><%= value %></span> <%= category.toLocaleLowerCase() %></span>
+                  <span class="text"><%= text %></span>
+                </div>
+              </div>
+            <% } %>
+          </section>
+        </div>
+      <% } %>
+      <style>
+        .personality-traits { flex-direction: column; }
+        .personality-traits .category { flex-direction: row; }
+        .personality-traits .category .gauge, .personality-traits .category img { flex-shrink: 0; margin: 5px 9px; }
+        .personality-traits .category .explanation { display: flex; flex-direction: column; }
+        .personality-traits .category .subtitle { text-transform: uppercase; font-weight: bold; }
+        .personality-traits .category img { width: 50px; }
+        .mind .gauge, .mind .title { color: #4298b4; }
+        .energy .gauge, .energy .title { color: #e4ae3a; }
+        .nature .gauge, .nature .title { color: #33a474; }
+        .tactics .gauge, .tactics .title { color: #88619a; }
+        .identity .gauge, .identity .title { color: #f25e62; }
+        .text { font-size: 12px; color: #777; }
+      </style>
+    <% } %>
+  </section>
+<% } %>

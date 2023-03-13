@@ -1,0 +1,56 @@
+name: 🧠 16personalities
+category: community
+description: |
+  This plugin displays personality profile from a [16personalities profile](https://www.16personalities.com/profile).
+disclaimer: |
+  This plugin is not affiliated, associated, authorized, endorsed by, or in any way officially connected with [16personalities](https://www.16personalities.com).
+  All product and company names are trademarks™ or registered® trademarks of their respective holders.
+examples:
+  default: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.16personalities.svg
+authors:
+  - lowlighter
+supports:
+  - user
+scopes: []
+inputs:
+
+  plugin_16personalities:
+    description: |
+      Enable 16personalities plugin
+    type: boolean
+    default: no
+
+  plugin_16personalities_url:
+    description: |
+      Profile URL
+
+      This can be obtained after doing the [test on 16personalities](https://www.16personalities.com/free-personality-test) and registering an email.
+      Login with the generated password received in your mailbox and copy the link that is displayed when sharing the profile.
+
+      <img src="/.github/readme/imgs/plugin_16personalities_profile.png" width="800" />
+
+    type: string
+    default: ""
+    example: https://www.16personalities.com/profiles/xxxxxxxxxxxxx
+
+  plugin_16personalities_sections:
+    description: |
+      Displayed sections
+
+      - `personality` will display personality type
+      - `profile` will display role and strategy
+      - `traits` will display mind, energy, nature, tactics and identity traits
+    type: array
+    format: comma-separated
+    default: personality
+    example: personality, profile, traits
+    values:
+      - personality
+      - profile
+      - traits
+
+  plugin_16personalities_scores:
+    description: |
+      Display traits scores
+    type: boolean
+    default: yes
