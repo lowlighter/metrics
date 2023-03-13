@@ -23,15 +23,13 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Setup Dprint
-        run: |
-          curl -fsSL https://dprint.dev/install.sh | sh
-          cp /home/runner/.dprint/bin/dprint /usr/local/bin/dprint
       - name: Checkout master
         run: git checkout master
       - name: Format code
         run: |
-          dprint fmt --config .github/config/dprint.json
+          npm install -g dprint
+          mkdir -v -p /home/runner/.cache/dprint/cache
+          npx dprint fmt --config .github/config/dprint.json
       - name: Publish formatted code
         run: |
           set +e

@@ -1,6 +1,4 @@
 {
-  "$schema": "https://dprint.dev/schemas/v0.json",
-  "projectType": "openSource",
   "incremental": true,
   "indentWidth": 2,
   "typescript": {
@@ -21,6 +19,6 @@
     ".github/scripts/quickstart/**/*"
   ],
   "plugins": [
-    "https://plugins.dprint.dev/typescript-0.68.0.wasm"
+    "https://plugins.dprint.dev/typescript-0.83.0.wasm"
   ]
 }
