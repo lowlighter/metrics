@@ -4,6 +4,7 @@ github
 githubassets
 https
 leetcode
+MBTI
 npx
 pgn
 scm
