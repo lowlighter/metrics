@@ -21,7 +21,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
 
     //Fetch raw data
     const raw = await page.evaluate(() => ({
-      color:getComputedStyle(document.querySelector(".card__bg")).backgroundColor,
+      color:getComputedStyle(document.querySelector(".card__bg")).backgroundColor, //eslint-disable-line no-undef
       type:document.querySelector(".type__code").innerText,
       personality:[...document.querySelectorAll(".personality-cards .sp-personality-card")].map(card => ({
         category:card.querySelector(".card__title").innerText,
@@ -38,7 +38,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
     }))
 
     //Format data
-    const color = raw.color
+    const {color} = raw
     const type = raw.type.replace("(", "").replace(")", "").trim()
     const personality = await Promise.all(raw.personality.map(async ({category, value, image, text}) => ({
       category,
