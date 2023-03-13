@@ -12,9 +12,9 @@ class APIError extends Error {
     }
 }
 const AGENT_NAME = "s3si.ts";
-const S3SI_VERSION = "0.2.4";
-const NSOAPP_VERSION = "2.4.0";
-const WEB_VIEW_VERSION = "2.0.0-bd36a652";
+const S3SI_VERSION = "0.3.1";
+const NSOAPP_VERSION = "2.5.0";
+const WEB_VIEW_VERSION = "3.0.0-2857bc50";
 const S3SI_LINK = "https://github.com/spacemeowx2/s3si.ts";
 const USERAGENT = `${AGENT_NAME}/${S3SI_VERSION} (${S3SI_LINK})`;
 const DEFAULT_APP_USER_AGENT = "Mozilla/5.0 (Linux; Android 11; Pixel 5) " + "AppleWebKit/537.36 (KHTML, like Gecko) " + "Chrome/94.0.4606.61 Mobile Safari/537.36";
@@ -29,7 +29,7 @@ const SPLATNET3_STATINK_MAP = {
         LOFT: "yagura",
         GOAL: "hoko",
         CLAM: "asari",
-        TRI_COLOR: "nawabari"
+        TRI_COLOR: "tricolor"
     },
     RESULT: {
         WIN: "win",
@@ -53,15 +53,6 @@ const SPLATNET3_STATINK_MAP = {
         6: "cohock_charge",
         7: "giant_tornado",
         8: "mudmouth_eruption"
-    },
-    COOP_UNIFORM_MAP: {
-        1: "orange",
-        2: "green",
-        3: "yellow",
-        4: "pink",
-        5: "blue",
-        6: "black",
-        7: "white"
     },
     COOP_SPECIAL_MAP: {
         "bd327d1b64372dedefd32adb28bea62a5b6152d93aada5d9fc4f669a1955d6d4": "nicedama",
@@ -748,19 +739,19 @@ function parse(args, { "--": doubleDash = false , alias ={} , boolean: __boolean
     }
     const aliases = {};
     if (alias !== undefined) {
-        for(const key1 in alias){
-            const val = getForce(alias, key1);
+        for(const key in alias){
+            const val = getForce(alias, key);
             if (typeof val === "string") {
-                aliases[key1] = [
+                aliases[key] = [
                     val
                 ];
             } else {
-                aliases[key1] = val;
+                aliases[key] = val;
             }
-            for (const alias1 of getForce(aliases, key1)){
-                aliases[alias1] = [
-                    key1
-                ].concat(aliases[key1].filter((y)=>alias1 !== y));
+            for (const alias of getForce(aliases, key)){
+                aliases[alias] = [
+                    key
+                ].concat(aliases[key].filter((y)=>alias !== y));
             }
         }
     }
@@ -768,11 +759,11 @@ function parse(args, { "--": doubleDash = false , alias ={} , boolean: __boolean
         const stringArgs = typeof string === "string" ? [
             string
         ] : string;
-        for (const key2 of stringArgs.filter(Boolean)){
-            flags.strings[key2] = true;
-            const alias2 = get(aliases, key2);
-            if (alias2) {
-                for (const al of alias2){
+        for (const key of stringArgs.filter(Boolean)){
+            flags.strings[key] = true;
+            const alias = get(aliases, key);
+            if (alias) {
+                for (const al of alias){
                     flags.strings[al] = true;
                 }
             }
@@ -782,12 +773,12 @@ function parse(args, { "--": doubleDash = false , alias ={} , boolean: __boolean
         const collectArgs = typeof collect === "string" ? [
             collect
         ] : collect;
-        for (const key3 of collectArgs.filter(Boolean)){
-            flags.collect[key3] = true;
-            const alias3 = get(aliases, key3);
-            if (alias3) {
-                for (const al1 of alias3){
-                    flags.collect[al1] = true;
+        for (const key of collectArgs.filter(Boolean)){
+            flags.collect[key] = true;
+            const alias = get(aliases, key);
+            if (alias) {
+                for (const al of alias){
+                    flags.collect[al] = true;
                 }
             }
         }
@@ -796,12 +787,12 @@ function parse(args, { "--": doubleDash = false , alias ={} , boolean: __boolean
         const negatableArgs = typeof negatable === "string" ? [
             negatable
         ] : negatable;
-        for (const key4 of negatableArgs.filter(Boolean)){
-            flags.negatable[key4] = true;
-            const alias4 = get(aliases, key4);
-            if (alias4) {
-                for (const al2 of alias4){
-                    flags.negatable[al2] = true;
+        for (const key of negatableArgs.filter(Boolean)){
+            flags.negatable[key] = true;
+            const alias = get(aliases, key);
+            if (alias) {
+                for (const al of alias){
+                    flags.negatable[al] = true;
                 }
             }
         }
@@ -864,47 +855,47 @@ function parse(args, { "--": doubleDash = false , alias ={} , boolean: __boolean
         if (/^--.+=/.test(arg)) {
             const m = arg.match(/^--([^=]+)=(.*)$/s);
             assert(m != null);
-            const [, key5, value] = m;
-            if (flags.bools[key5]) {
+            const [, key, value] = m;
+            if (flags.bools[key]) {
                 const booleanValue = value !== "false";
-                setArg(key5, booleanValue, arg);
+                setArg(key, booleanValue, arg);
             } else {
-                setArg(key5, value, arg);
+                setArg(key, value, arg);
             }
         } else if (/^--no-.+/.test(arg) && get(flags.negatable, arg.replace(/^--no-/, ""))) {
-            const m1 = arg.match(/^--no-(.+)/);
-            assert(m1 != null);
-            setArg(m1[1], false, arg, false);
+            const m = arg.match(/^--no-(.+)/);
+            assert(m != null);
+            setArg(m[1], false, arg, false);
         } else if (/^--.+/.test(arg)) {
-            const m2 = arg.match(/^--(.+)/);
-            assert(m2 != null);
-            const [, key6] = m2;
+            const m = arg.match(/^--(.+)/);
+            assert(m != null);
+            const [, key] = m;
             const next = args[i + 1];
-            if (next !== undefined && !/^-/.test(next) && !get(flags.bools, key6) && !flags.allBools && (get(aliases, key6) ? !aliasIsBoolean(key6) : true)) {
-                setArg(key6, next, arg);
+            if (next !== undefined && !/^-/.test(next) && !get(flags.bools, key) && !flags.allBools && (get(aliases, key) ? !aliasIsBoolean(key) : true)) {
+                setArg(key, next, arg);
                 i++;
             } else if (/^(true|false)$/.test(next)) {
-                setArg(key6, next === "true", arg);
+                setArg(key, next === "true", arg);
                 i++;
             } else {
-                setArg(key6, get(flags.strings, key6) ? "" : true, arg);
+                setArg(key, get(flags.strings, key) ? "" : true, arg);
             }
         } else if (/^-[^-]+/.test(arg)) {
             const letters = arg.slice(1, -1).split("");
             let broken = false;
             for(let j = 0; j < letters.length; j++){
-                const next1 = arg.slice(j + 2);
-                if (next1 === "-") {
-                    setArg(letters[j], next1, arg);
+                const next = arg.slice(j + 2);
+                if (next === "-") {
+                    setArg(letters[j], next, arg);
                     continue;
                 }
-                if (/[A-Za-z]/.test(letters[j]) && /=/.test(next1)) {
-                    setArg(letters[j], next1.split(/=(.+)/)[1], arg);
+                if (/[A-Za-z]/.test(letters[j]) && /=/.test(next)) {
+                    setArg(letters[j], next.split(/=(.+)/)[1], arg);
                     broken = true;
                     break;
                 }
-                if (/[A-Za-z]/.test(letters[j]) && /-?\d+(\.\d*)?(e-?\d+)?$/.test(next1)) {
-                    setArg(letters[j], next1, arg);
+                if (/[A-Za-z]/.test(letters[j]) && /-?\d+(\.\d*)?(e-?\d+)?$/.test(next)) {
+                    setArg(letters[j], next, arg);
                     broken = true;
                     break;
                 }
@@ -916,16 +907,16 @@ function parse(args, { "--": doubleDash = false , alias ={} , boolean: __boolean
                     setArg(letters[j], get(flags.strings, letters[j]) ? "" : true, arg);
                 }
             }
-            const [key7] = arg.slice(-1);
-            if (!broken && key7 !== "-") {
-                if (args[i + 1] && !/^(-|--)[^-]/.test(args[i + 1]) && !get(flags.bools, key7) && (get(aliases, key7) ? !aliasIsBoolean(key7) : true)) {
-                    setArg(key7, args[i + 1], arg);
+            const [key] = arg.slice(-1);
+            if (!broken && key !== "-") {
+                if (args[i + 1] && !/^(-|--)[^-]/.test(args[i + 1]) && !get(flags.bools, key) && (get(aliases, key) ? !aliasIsBoolean(key) : true)) {
+                    setArg(key, args[i + 1], arg);
                     i++;
                 } else if (args[i + 1] && /^(true|false)$/.test(args[i + 1])) {
-                    setArg(key7, args[i + 1] === "true", arg);
+                    setArg(key, args[i + 1] === "true", arg);
                     i++;
                 } else {
-                    setArg(key7, get(flags.strings, key7) ? "" : true, arg);
+                    setArg(key, get(flags.strings, key) ? "" : true, arg);
                 }
             }
         } else {
@@ -938,35 +929,35 @@ function parse(args, { "--": doubleDash = false , alias ={} , boolean: __boolean
             }
         }
     }
-    for (const [key8, value1] of Object.entries(defaults)){
-        if (!hasKey(argv, key8.split("."))) {
-            setKey(argv, key8, value1);
-            if (aliases[key8]) {
-                for (const x of aliases[key8]){
-                    setKey(argv, x, value1);
+    for (const [key, value] of Object.entries(defaults)){
+        if (!hasKey(argv, key.split("."))) {
+            setKey(argv, key, value);
+            if (aliases[key]) {
+                for (const x of aliases[key]){
+                    setKey(argv, x, value);
                 }
             }
         }
     }
-    for (const key9 of Object.keys(flags.bools)){
-        if (!hasKey(argv, key9.split("."))) {
-            const value2 = get(flags.collect, key9) ? [] : false;
-            setKey(argv, key9, value2, false);
+    for (const key of Object.keys(flags.bools)){
+        if (!hasKey(argv, key.split("."))) {
+            const value = get(flags.collect, key) ? [] : false;
+            setKey(argv, key, value, false);
         }
     }
-    for (const key10 of Object.keys(flags.strings)){
-        if (!hasKey(argv, key10.split(".")) && get(flags.collect, key10)) {
-            setKey(argv, key10, [], false);
+    for (const key of Object.keys(flags.strings)){
+        if (!hasKey(argv, key.split(".")) && get(flags.collect, key)) {
+            setKey(argv, key, [], false);
         }
     }
     if (doubleDash) {
         argv["--"] = [];
-        for (const key11 of notFlags){
-            argv["--"].push(key11);
+        for (const key of notFlags){
+            argv["--"].push(key);
         }
     } else {
-        for (const key12 of notFlags){
-            argv._.push(key12);
+        for (const key of notFlags){
+            argv._.push(key);
         }
     }
     return argv;
@@ -1011,9 +1002,9 @@ class BytesList {
             chunk.start += diff;
         }
         let offset = 0;
-        for (const chunk1 of this.#chunks){
-            chunk1.offset = offset;
-            offset += chunk1.end - chunk1.start;
+        for (const chunk of this.#chunks){
+            chunk.offset = offset;
+            offset += chunk.end - chunk.start;
         }
         this.#len = offset;
     }
@@ -1099,9 +1090,9 @@ function concat(...buf) {
     }
     const output = new Uint8Array(length);
     let index = 0;
-    for (const b1 of buf){
-        output.set(b1, index);
-        index += b1.length;
+    for (const b of buf){
+        output.set(b, index);
+        index += b.length;
     }
     return output;
 }
@@ -1324,10 +1315,10 @@ class BufReader {
         if (p.byteLength === 0) return rr;
         if (this.#r === this.#w) {
             if (p.byteLength >= this.#buf.byteLength) {
-                const rr1 = await this.#rd.read(p);
-                const nread = rr1 ?? 0;
+                const rr = await this.#rd.read(p);
+                const nread = rr ?? 0;
                 assert(nread >= 0, "negative read");
-                return rr1;
+                return rr;
             }
             this.#r = 0;
             this.#w = 0;
@@ -2120,14 +2111,14 @@ function utf8DecodeJs(bytes, inputOffset, byteLength) {
             const byte2 = bytes[offset++] & 0x3f;
             units.push((byte1 & 0x1f) << 6 | byte2);
         } else if ((byte1 & 0xf0) === 0xe0) {
-            const byte21 = bytes[offset++] & 0x3f;
+            const byte2 = bytes[offset++] & 0x3f;
             const byte3 = bytes[offset++] & 0x3f;
-            units.push((byte1 & 0x1f) << 12 | byte21 << 6 | byte3);
+            units.push((byte1 & 0x1f) << 12 | byte2 << 6 | byte3);
         } else if ((byte1 & 0xf8) === 0xf0) {
-            const byte22 = bytes[offset++] & 0x3f;
-            const byte31 = bytes[offset++] & 0x3f;
+            const byte2 = bytes[offset++] & 0x3f;
+            const byte3 = bytes[offset++] & 0x3f;
             const byte4 = bytes[offset++] & 0x3f;
-            let unit = (byte1 & 0x07) << 0x12 | byte22 << 0x0c | byte31 << 0x06 | byte4;
+            let unit = (byte1 & 0x07) << 0x12 | byte2 << 0x0c | byte3 << 0x06 | byte4;
             if (unit > 0xffff) {
                 unit -= 0x10000;
                 units.push(unit >>> 10 & 0x3ff | 0xd800);
@@ -2195,18 +2186,18 @@ function encodeTimeSpecToTimestamp({ sec , nsec  }) {
         } else {
             const secHigh = sec / 0x100000000;
             const secLow = sec & 0xffffffff;
-            const rv1 = new Uint8Array(8);
-            const view1 = new DataView(rv1.buffer);
-            view1.setUint32(0, nsec << 2 | secHigh & 0x3);
-            view1.setUint32(4, secLow);
-            return rv1;
+            const rv = new Uint8Array(8);
+            const view = new DataView(rv.buffer);
+            view.setUint32(0, nsec << 2 | secHigh & 0x3);
+            view.setUint32(4, secLow);
+            return rv;
         }
     } else {
-        const rv2 = new Uint8Array(12);
-        const view2 = new DataView(rv2.buffer);
-        view2.setUint32(0, nsec);
-        setInt64(view2, 4, sec);
-        return rv2;
+        const rv = new Uint8Array(12);
+        const view = new DataView(rv.buffer);
+        view.setUint32(0, nsec);
+        setInt64(view, 4, sec);
+        return rv;
     }
 }
 function encodeDateToTimeSpec(date) {
@@ -2242,20 +2233,20 @@ function decodeTimestampToTimeSpec(data) {
             {
                 const nsec30AndSecHigh2 = view.getUint32(0);
                 const secLow32 = view.getUint32(4);
-                const sec1 = (nsec30AndSecHigh2 & 0x3) * 0x100000000 + secLow32;
-                const nsec1 = nsec30AndSecHigh2 >>> 2;
+                const sec = (nsec30AndSecHigh2 & 0x3) * 0x100000000 + secLow32;
+                const nsec = nsec30AndSecHigh2 >>> 2;
                 return {
-                    sec: sec1,
-                    nsec: nsec1
+                    sec,
+                    nsec
                 };
             }
         case 12:
             {
-                const sec2 = getInt64(view, 4);
-                const nsec2 = view.getUint32(0);
+                const sec = getInt64(view, 4);
+                const nsec = view.getUint32(0);
                 return {
-                    sec: sec2,
-                    nsec: nsec2
+                    sec,
+                    nsec
                 };
             }
         default:
@@ -2302,13 +2293,13 @@ class ExtensionCodec {
                 }
             }
         }
-        for(let i1 = 0; i1 < this.encoders.length; i1++){
-            const encoder1 = this.encoders[i1];
-            if (encoder1 != null) {
-                const data1 = encoder1(object, context);
-                if (data1 != null) {
-                    const type1 = i1;
-                    return new ExtData(type1, data1);
+        for(let i = 0; i < this.encoders.length; i++){
+            const encoder = this.encoders[i];
+            if (encoder != null) {
+                const data = encoder(object, context);
+                if (data != null) {
+                    const type = i;
+                    return new ExtData(type, data);
                 }
             }
         }
@@ -2482,11 +2473,11 @@ class Encoder {
             utf8EncodeTE(object, this.bytes, this.pos);
             this.pos += byteLength;
         } else {
-            const byteLength1 = utf8Count(object);
-            this.ensureBufferSizeToWrite(maxHeaderSize + byteLength1);
-            this.writeStringHeader(byteLength1);
+            const byteLength = utf8Count(object);
+            this.ensureBufferSizeToWrite(maxHeaderSize + byteLength);
+            this.writeStringHeader(byteLength);
             utf8EncodeJs(object, this.bytes, this.pos);
-            this.pos += byteLength1;
+            this.pos += byteLength;
         }
     }
     encodeObject(object, depth) {
@@ -2896,9 +2887,9 @@ class Decoder {
                         object = {};
                     }
                 } else if (headByte < 0xa0) {
-                    const size1 = headByte - 0x90;
-                    if (size1 !== 0) {
-                        this.pushArrayState(size1);
+                    const size = headByte - 0x90;
+                    if (size !== 0) {
+                        this.pushArrayState(size);
                         this.complete();
                         continue DECODE;
                     } else {
@@ -2935,59 +2926,59 @@ class Decoder {
             } else if (headByte === 0xd3) {
                 object = this.readI64();
             } else if (headByte === 0xd9) {
-                const byteLength1 = this.lookU8();
-                object = this.decodeUtf8String(byteLength1, 1);
+                const byteLength = this.lookU8();
+                object = this.decodeUtf8String(byteLength, 1);
             } else if (headByte === 0xda) {
-                const byteLength2 = this.lookU16();
-                object = this.decodeUtf8String(byteLength2, 2);
+                const byteLength = this.lookU16();
+                object = this.decodeUtf8String(byteLength, 2);
             } else if (headByte === 0xdb) {
-                const byteLength3 = this.lookU32();
-                object = this.decodeUtf8String(byteLength3, 4);
+                const byteLength = this.lookU32();
+                object = this.decodeUtf8String(byteLength, 4);
             } else if (headByte === 0xdc) {
-                const size2 = this.readU16();
-                if (size2 !== 0) {
-                    this.pushArrayState(size2);
+                const size = this.readU16();
+                if (size !== 0) {
+                    this.pushArrayState(size);
                     this.complete();
                     continue DECODE;
                 } else {
                     object = [];
                 }
             } else if (headByte === 0xdd) {
-                const size3 = this.readU32();
-                if (size3 !== 0) {
-                    this.pushArrayState(size3);
+                const size = this.readU32();
+                if (size !== 0) {
+                    this.pushArrayState(size);
                     this.complete();
                     continue DECODE;
                 } else {
                     object = [];
                 }
             } else if (headByte === 0xde) {
-                const size4 = this.readU16();
-                if (size4 !== 0) {
-                    this.pushMapState(size4);
+                const size = this.readU16();
+                if (size !== 0) {
+                    this.pushMapState(size);
                     this.complete();
                     continue DECODE;
                 } else {
                     object = {};
                 }
             } else if (headByte === 0xdf) {
-                const size5 = this.readU32();
-                if (size5 !== 0) {
-                    this.pushMapState(size5);
+                const size = this.readU32();
+                if (size !== 0) {
+                    this.pushMapState(size);
                     this.complete();
                     continue DECODE;
                 } else {
                     object = {};
                 }
             } else if (headByte === 0xc4) {
-                const size6 = this.lookU8();
-                object = this.decodeBinary(size6, 1);
+                const size = this.lookU8();
+                object = this.decodeBinary(size, 1);
             } else if (headByte === 0xc5) {
-                const size7 = this.lookU16();
-                object = this.decodeBinary(size7, 2);
+                const size = this.lookU16();
+                object = this.decodeBinary(size, 2);
             } else if (headByte === 0xc6) {
-                const size8 = this.lookU32();
-                object = this.decodeBinary(size8, 4);
+                const size = this.lookU32();
+                object = this.decodeBinary(size, 4);
             } else if (headByte === 0xd4) {
                 object = this.decodeExtension(1, 0);
             } else if (headByte === 0xd5) {
@@ -2999,14 +2990,14 @@ class Decoder {
             } else if (headByte === 0xd8) {
                 object = this.decodeExtension(16, 0);
             } else if (headByte === 0xc7) {
-                const size9 = this.lookU8();
-                object = this.decodeExtension(size9, 1);
+                const size = this.lookU8();
+                object = this.decodeExtension(size, 1);
             } else if (headByte === 0xc8) {
-                const size10 = this.lookU16();
-                object = this.decodeExtension(size10, 2);
+                const size = this.lookU16();
+                object = this.decodeExtension(size, 2);
             } else if (headByte === 0xc9) {
-                const size11 = this.lookU32();
-                object = this.decodeExtension(size11, 4);
+                const size = this.lookU32();
+                object = this.decodeExtension(size, 4);
             } else {
                 throw new Error(`Unrecognized type byte: ${prettyByte(headByte)}`);
             }
@@ -4458,7 +4449,7 @@ function globToRegExp(glob, { extended =true , globstar: globstarOption = true ,
                         else if (value == "lower") segment += "a-z";
                         else if (value == "print") segment += "\x20-\x7E";
                         else if (value == "punct") {
-                            segment += "!\"#$%&'()*+,\\-./:;<=>?@[\\\\\\]^_‘{|}~";
+                            segment += "!\"#$%&'()*+,\\-./:;<=>?@[\\\\\\]^_ÔÇÿ{|}~";
                         } else if (value == "space") segment += "\\s\v";
                         else if (value == "upper") segment += "A-Z";
                         else if (value == "word") segment += "\\w";
@@ -5051,12 +5042,12 @@ function parseHistoryDetailId(id) {
             uuid
         };
     } else if (coopRE.test(plainText)) {
-        const [, uid1, timestamp1, uuid1] = plainText.match(coopRE);
+        const [, uid, timestamp, uuid] = plainText.match(coopRE);
         return {
             type: "CoopHistoryDetail",
-            uid: uid1,
-            timestamp: timestamp1,
-            uuid: uuid1
+            uid,
+            timestamp,
+            uuid
         };
     } else {
         throw new Error(`Invalid ID: ${plainText}`);
@@ -5081,55 +5072,75 @@ function urlSimplify(url) {
         return url;
     }
 }
-async function loginManually({ newFetcher , prompts: { promptLogin  }  }) {
+async function loginSteps({ newFetcher  }, step2) {
     const fetch = newFetcher();
-    const state = urlBase64Encode(random(36));
-    const authCodeVerifier = urlBase64Encode(random(32));
-    const authCvHash = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(authCodeVerifier));
-    const authCodeChallenge = urlBase64Encode(authCvHash);
-    const body = {
-        "state": state,
-        "redirect_uri": "npf71b963c1b7b6d119://auth",
-        "client_id": "71b963c1b7b6d119",
-        "scope": "openid user user.birthday user.mii user.screenName",
-        "response_type": "session_token_code",
-        "session_token_code_challenge": authCodeChallenge,
-        "session_token_code_challenge_method": "S256",
-        "theme": "login_form"
-    };
-    const url = "https://accounts.nintendo.com/connect/1.0.0/authorize?" + new URLSearchParams(body);
-    const res = await fetch.get({
-        url,
-        headers: {
-            "Host": "accounts.nintendo.com",
-            "Connection": "keep-alive",
-            "Cache-Control": "max-age=0",
-            "Upgrade-Insecure-Requests": "1",
-            "User-Agent": "Mozilla/5.0 (Linux; Android 11; Pixel 5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.61 Mobile Safari/537.36",
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8n",
-            "DNT": "1",
-            "Accept-Encoding": "gzip,deflate,br"
+    if (!step2) {
+        const state = urlBase64Encode(random(36));
+        const authCodeVerifier = urlBase64Encode(random(32));
+        const authCvHash = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(authCodeVerifier));
+        const authCodeChallenge = urlBase64Encode(authCvHash);
+        const body = {
+            "state": state,
+            "redirect_uri": "npf71b963c1b7b6d119://auth",
+            "client_id": "71b963c1b7b6d119",
+            "scope": "openid user user.birthday user.mii user.screenName",
+            "response_type": "session_token_code",
+            "session_token_code_challenge": authCodeChallenge,
+            "session_token_code_challenge_method": "S256",
+            "theme": "login_form"
+        };
+        const url = "https://accounts.nintendo.com/connect/1.0.0/authorize?" + new URLSearchParams(body);
+        const res = await fetch.get({
+            url,
+            headers: {
+                "Host": "accounts.nintendo.com",
+                "Connection": "keep-alive",
+                "Cache-Control": "max-age=0",
+                "Upgrade-Insecure-Requests": "1",
+                "User-Agent": DEFAULT_APP_USER_AGENT,
+                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8n",
+                "DNT": "1",
+                "Accept-Encoding": "gzip,deflate,br"
+            }
+        });
+        return {
+            authCodeVerifier,
+            url: res.url
+        };
+    } else {
+        const { login , authCodeVerifier  } = step2;
+        const loginURL = new URL(login);
+        const params = new URLSearchParams(loginURL.hash.substring(1));
+        const sessionTokenCode = params.get("session_token_code");
+        if (!sessionTokenCode) {
+            throw new Error("No session token code provided");
         }
-    });
-    const login = (await promptLogin(res.url)).trim();
+        const sessionToken = await getSessionToken({
+            fetch,
+            sessionTokenCode,
+            authCodeVerifier
+        });
+        if (!sessionToken) {
+            throw new Error("No session token found");
+        }
+        return {
+            sessionToken
+        };
+    }
+}
+async function loginManually(env) {
+    const { prompts: { promptLogin  }  } = env;
+    const step1 = await loginSteps(env);
+    const { url , authCodeVerifier  } = step1;
+    const login = (await promptLogin(url)).trim();
     if (!login) {
         throw new Error("No login URL provided");
     }
-    const loginURL = new URL(login);
-    const params = new URLSearchParams(loginURL.hash.substring(1));
-    const sessionTokenCode = params.get("session_token_code");
-    if (!sessionTokenCode) {
-        throw new Error("No session token code provided");
-    }
-    const sessionToken = await getSessionToken({
-        fetch,
-        sessionTokenCode,
-        authCodeVerifier
+    const step2 = await loginSteps(env, {
+        authCodeVerifier,
+        login
     });
-    if (!sessionToken) {
-        throw new Error("No session token found");
-    }
-    return sessionToken;
+    return step2.sessionToken;
 }
 async function getGToken({ fApi , sessionToken , env  }) {
     const fetch = env.newFetcher();
@@ -5460,7 +5471,7 @@ class Profile {
 }
 var Queries;
 (function(Queries) {
-    Queries["HomeQuery"] = "dba47124d5ec3090c97ba17db5d2f4b3";
+    Queries["HomeQuery"] = "22e2fa8294168003c21b00c333c35384";
     Queries["LatestBattleHistoriesQuery"] = "4f5f26e64bca394b45345a65a2f383bd";
     Queries["RegularBattleHistoriesQuery"] = "d5b795d09e67ce153e622a184b7e7dfa";
     Queries["BankaraBattleHistoriesQuery"] = "de4754588109b77dbcb90fbe44b612ee";
@@ -5468,7 +5479,7 @@ var Queries;
     Queries["PrivateBattleHistoriesQuery"] = "1d6ed57dc8b801863126ad4f351dfb9a";
     Queries["VsHistoryDetailQuery"] = "291295ad311b99a6288fc95a5c4cb2d2";
     Queries["CoopHistoryQuery"] = "6ed02537e4a65bbb5e7f4f23092f6154";
-    Queries["CoopHistoryDetailQuery"] = "3cc5f826a6646b85f3ae45db51bd0707";
+    Queries["CoopHistoryDetailQuery"] = "379f0d9b78b531be53044bcac031b34b";
     Queries["myOutfitCommonDataFilteringConditionQuery"] = "d02ab22c9dccc440076055c8baa0fa7a";
     Queries["myOutfitCommonDataEquipmentsQuery"] = "d29cd0c2b5e6bac90dd5b817914832f8";
     Queries["HistoryRecordQuery"] = "32b6771f94083d8f04848109b7300af5";
@@ -5594,7 +5605,7 @@ class Splatnet3 {
             return false;
         }
         try {
-            await this.request(Queries.HomeQuery);
+            await this.request(Queries.ConfigureAnalyticsQuery);
             return true;
         } catch (_e) {
             return false;
@@ -5843,8 +5854,8 @@ class StatInkAPI {
         }
     }
     _getAliasName(name) {
-        const STAT_INK_DOT = "·";
-        const SPLATNET_DOT = "‧";
+        const STAT_INK_DOT = "┬À";
+        const SPLATNET_DOT = "ÔÇº";
         if (name.includes(STAT_INK_DOT)) {
             return [
                 name,
@@ -5894,12 +5905,6 @@ class StatInkExporter {
         return vsMode.mode === "FEST" && b64Number(vsMode.id) === 8;
     }
     async exportGame(game) {
-        if (game.type === "VsInfo" && this.isTriColor(game.detail)) {
-            return {
-                status: "skip",
-                reason: "Tri-color fest is not supported"
-            };
-        }
         if (game.type === "VsInfo") {
             const body = await this.mapBattle(game);
             const { url  } = await this.api.postBattle(body);
@@ -5908,11 +5913,11 @@ class StatInkExporter {
                 url
             };
         } else {
-            const body1 = await this.mapCoop(game);
-            const { url: url1  } = await this.api.postCoop(body1);
+            const body = await this.mapCoop(game);
+            const { url  } = await this.api.postCoop(body);
             return {
                 status: "success",
-                url: url1
+                url
             };
         }
     }
@@ -5955,7 +5960,7 @@ class StatInkExporter {
             } else if (modeId === 7) {
                 return "splatfest_challenge";
             } else if (modeId === 8) {
-                throw new Error("Tri-color battle is not supported");
+                return "splatfest_open";
             }
         } else if (vsMode === "X_MATCH") {
             return "xmatch";
@@ -6009,6 +6014,7 @@ class StatInkExporter {
             weapon: b64Number(player.weapon.id).toString(),
             inked: player.paint,
             gears: await this.mapGears(player),
+            crown: player.crown ? "yes" : "no",
             disconnected: player.result ? "no" : "yes"
         };
         if (player.result) {
@@ -6016,6 +6022,7 @@ class StatInkExporter {
             result.assist = player.result.assist;
             result.kill = result.kill_or_assist - result.assist;
             result.death = player.result.death;
+            result.signal = player.result.noroshiTry ?? undefined;
             result.special = player.result.special;
         }
         return result;
@@ -6027,6 +6034,9 @@ class StatInkExporter {
             throw new Error("Self not found");
         }
         const startedAt = Math.floor(new Date(playedTime).getTime() / 1000);
+        if (otherTeams.length === 0) {
+            throw new Error(`Other teams is empty`);
+        }
         const result = {
             uuid: await gameId(vsDetail.id),
             lobby: this.mapLobby(vsDetail),
@@ -6038,7 +6048,7 @@ class StatInkExporter {
             rank_in_team: vsDetail.myTeam.players.indexOf(self) + 1,
             medals: vsDetail.awards.map((i)=>i.name),
             our_team_players: await Promise.all(myTeam.players.map(this.mapPlayer)),
-            their_team_players: await Promise.all(otherTeams.flatMap((i)=>i.players).map(this.mapPlayer)),
+            their_team_players: await Promise.all(otherTeams[0].players.map(this.mapPlayer)),
             agent: AGENT_NAME,
             agent_version: S3SI_VERSION,
             agent_variables: {
@@ -6053,18 +6063,47 @@ class StatInkExporter {
             result.assist = self.result.assist;
             result.kill = result.kill_or_assist - result.assist;
             result.death = self.result.death;
+            result.signal = self.result.noroshiTry ?? undefined;
             result.special = self.result.special;
+        }
+        result.our_team_color = this.mapColor(myTeam.color);
+        result.their_team_color = this.mapColor(otherTeams[0].color);
+        if (otherTeams.length === 2) {
+            result.third_team_color = this.mapColor(otherTeams[1].color);
         }
         if (festMatch) {
             result.fest_dragon = SPLATNET3_STATINK_MAP.DRAGON[festMatch.dragonMatchType];
             result.clout_change = festMatch.contribution;
             result.fest_power = festMatch.myFestPower ?? undefined;
         }
-        if (rule === "TURF_WAR") {
+        if (rule === "TURF_WAR" || rule === "TRI_COLOR") {
             result.our_team_percent = (myTeam?.result?.paintRatio ?? 0) * 100;
             result.their_team_percent = (otherTeams?.[0]?.result?.paintRatio ?? 0) * 100;
             result.our_team_inked = myTeam.players.reduce((acc, i)=>acc + i.paint, 0);
             result.their_team_inked = otherTeams?.[0].players.reduce((acc, i)=>acc + i.paint, 0);
+            if (myTeam.festTeamName) {
+                result.our_team_theme = myTeam.festTeamName;
+            }
+            if (myTeam.tricolorRole) {
+                result.our_team_role = myTeam.tricolorRole === "DEFENSE" ? "defender" : "attacker";
+            }
+            if (otherTeams[0].festTeamName) {
+                result.their_team_theme = otherTeams[0].festTeamName;
+            }
+            if (otherTeams[0].tricolorRole) {
+                result.their_team_role = otherTeams[0].tricolorRole === "DEFENSE" ? "defender" : "attacker";
+            }
+            if (otherTeams.length === 2) {
+                result.third_team_players = await Promise.all(otherTeams[1].players.map(this.mapPlayer));
+                result.third_team_percent = (otherTeams[1]?.result?.paintRatio ?? 0) * 100;
+                result.third_team_inked = otherTeams[1].players.reduce((acc, i)=>acc + i.paint, 0);
+                if (otherTeams[1].festTeamName) {
+                    result.third_team_theme = otherTeams[1].festTeamName;
+                }
+                if (otherTeams[1].tricolorRole) {
+                    result.third_team_role = otherTeams[1].tricolorRole === "DEFENSE" ? "defender" : "attacker";
+                }
+            }
         }
         if (knockout) {
             result.knockout = knockout === "NEITHER" ? "no" : "yes";
@@ -6100,15 +6139,22 @@ class StatInkExporter {
             result.rank_after_exp = rankState.rankPoint;
             if (!bankaraMatchChallenge?.isUdemaeUp && result.rank_exp_change === undefined) {
                 result.rank_exp_change = result.rank_after_exp - result.rank_before_exp;
-            } else if (bankaraMatchChallenge?.isUdemaeUp && bankaraMatchChallenge.earnedUdemaePoint) {
-                result.rank_before_exp = result.rank_after_exp - bankaraMatchChallenge.earnedUdemaePoint;
-                result.rank_exp_change = undefined;
             }
             if (!result.rank_after) {
                 [result.rank_after, result.rank_after_s_plus] = parseUdemae(rankState.rank);
             }
         }
         return result;
+    }
+    mapColor(color) {
+        const float2hex = (i)=>Math.round(i * 255).toString(16).padStart(2, "0");
+        const nums = [
+            color.r,
+            color.g,
+            color.b,
+            color.a
+        ];
+        return nums.map(float2hex).join("");
     }
     isRandom(image) {
         const RANDOM_FILENAME = "473fffb2442075078d8bb7125744905abdeae651b6a5b7453ae295582e45f7d1";
@@ -6158,7 +6204,7 @@ class StatInkExporter {
             name: player.name,
             number: player.nameId,
             splashtag_title: player.byname,
-            uniform: SPLATNET3_STATINK_MAP.COOP_UNIFORM_MAP[b64Number(player.uniform.id)],
+            uniform: b64Number(player.uniform.id).toString(),
             special: specialWeapon ? await this.mapSpecial(specialWeapon) : undefined,
             weapons: await Promise.all(weapons.map((w)=>this.mapCoopWeapon(w))),
             golden_eggs: goldenDeliverCount,
@@ -6310,7 +6356,7 @@ class FileExporter {
         const { uid , timestamp  } = parseHistoryDetailId(id);
         return `${uid}_${timestamp}Z.json`;
     }
-    async exportedGames({ uid , type  }) {
+    async exportedGames({ uid , type , filter  }) {
         const out = [];
         for await (const entry of Deno.readDir(this.exportPath)){
             const filename = entry.name;
@@ -6325,12 +6371,18 @@ class FileExporter {
                 continue;
             }
             if (body.type === "VS" && type === "VsInfo") {
+                if (filter && !filter(body.data)) {
+                    continue;
+                }
                 out.push({
                     id: body.data.detail.id,
                     filepath,
                     timestamp
                 });
             } else if (body.type === "COOP" && type === "CoopInfo") {
+                if (filter && !filter(body.data)) {
+                    continue;
+                }
                 out.push({
                     id: body.data.detail.id,
                     filepath,
@@ -6405,6 +6457,29 @@ class FileExporter {
     }
     exportPath;
 }
+const SEASONS = [
+    {
+        id: "season202209",
+        name: "Drizzle Season 2022",
+        start: new Date("2022-09-01T00:00:00+00:00"),
+        end: new Date("2022-12-01T00:00:00+00:00")
+    },
+    {
+        id: "season202212",
+        name: "Chill Season 2022",
+        start: new Date("2022-12-01T00:00:00+00:00"),
+        end: new Date("2023-03-01T00:00:00+00:00")
+    },
+    {
+        id: "season202303",
+        name: "Fresh Season 2023",
+        start: new Date("2023-03-01T00:00:00+00:00"),
+        end: new Date("2023-06-01T00:00:00+00:00")
+    }
+];
+const getSeason = (date)=>{
+    return SEASONS.find((s)=>s.start <= date && date < s.end);
+};
 const splusParams = ()=>{
     const out = [];
     for(let i = 0; i < 50; i++){
@@ -6520,8 +6595,27 @@ const RANK_PARAMS = [
     ...splusParams()
 ];
 function addRank(state, delta) {
+    if (!state) {
+        if (delta.isPromotion && delta.isRankUp) {
+            state = getRankStateByDelta(delta);
+        } else {
+            return;
+        }
+    }
+    if (state.gameId !== delta.before.gameId) {
+        throw new Error("Invalid state");
+    }
     const { rank , rankPoint  } = state;
     const { gameId , timestamp , rankAfter , isPromotion , isRankUp , isChallengeFirst  } = delta;
+    if (state.timestamp) {
+        const oldSeason = getSeason(new Date(state.timestamp * 1000));
+        if (oldSeason) {
+            const newSeason = getSeason(new Date(timestamp * 1000));
+            if (newSeason?.id !== oldSeason.id) {
+                return;
+            }
+        }
+    }
     const rankIndex = RANK_PARAMS.findIndex((r)=>r.rank === rank);
     if (rankIndex === -1) {
         throw new Error(`Rank not found: ${rank}`);
@@ -6529,34 +6623,46 @@ function addRank(state, delta) {
     const rankParam = RANK_PARAMS[rankIndex];
     if (isChallengeFirst) {
         return {
-            gameId,
-            timestamp,
-            rank,
-            rankPoint: rankPoint - rankParam.charge
+            before: state,
+            after: {
+                gameId,
+                timestamp,
+                rank,
+                rankPoint: rankPoint - rankParam.charge
+            }
         };
     }
     if (rankIndex === RANK_PARAMS.length - 1) {
         return {
-            timestamp,
-            gameId,
-            rank,
-            rankPoint: Math.min(rankPoint + delta.rankPoint, rankParam.pointRange[1])
+            before: state,
+            after: {
+                timestamp,
+                gameId,
+                rank,
+                rankPoint: Math.min(rankPoint + delta.rankPoint, rankParam.pointRange[1])
+            }
         };
     }
     if (isPromotion && isRankUp) {
         const nextRankParam = RANK_PARAMS[rankIndex + 1];
         return {
-            gameId,
-            timestamp,
-            rank: nextRankParam.rank,
-            rankPoint: nextRankParam.pointRange[0]
+            before: state,
+            after: {
+                gameId,
+                timestamp,
+                rank: nextRankParam.rank,
+                rankPoint: nextRankParam.pointRange[0]
+            }
         };
     }
     return {
-        gameId,
-        timestamp,
-        rank: rankAfter ?? rank,
-        rankPoint: rankPoint + delta.rankPoint
+        before: state,
+        after: {
+            gameId,
+            timestamp,
+            rank: rankAfter ?? rank,
+            rankPoint: rankPoint + delta.rankPoint
+        }
     };
 }
 const battleTime = (id)=>{
@@ -6564,32 +6670,56 @@ const battleTime = (id)=>{
     const dateStr = timestamp.replace(/(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})/, "$1-$2-$3T$4:$5:$6Z");
     return new Date(dateStr);
 };
-function generateDeltaList(state, flatten) {
-    const index = flatten.findIndex((i)=>i.gameId === state.gameId);
-    if (index === -1) {
-        return;
+function beginPoint(state, flatten) {
+    if (state) {
+        const index = flatten.findIndex((i)=>i.gameId === state.gameId);
+        if (index !== -1) {
+            return [
+                flatten[index],
+                flatten.slice(index)
+            ];
+        }
     }
-    const unProcessed = flatten.slice(index);
+    if (flatten.length === 0) {
+        throw new Error("flatten must not be empty");
+    }
+    return [
+        flatten[0],
+        flatten
+    ];
+}
+function getTimestamp(date) {
+    return Math.floor(date.getTime() / 1000);
+}
+function generateDeltaList(state, flatten) {
+    const [firstItem, unProcessed] = beginPoint(state, flatten);
     const deltaList = [];
-    let beforeGameId = state.gameId;
+    let before = {
+        gameId: firstItem.gameId,
+        timestamp: getTimestamp(firstItem.time)
+    };
     for (const i of unProcessed.slice(1)){
         if (!i.detail.bankaraMatch) {
             throw new TypeError("bankaraMatch must be defined");
         }
         let delta = {
-            beforeGameId,
+            before,
             gameId: i.gameId,
-            timestamp: Math.floor(i.time.getTime() / 1000),
+            timestamp: getTimestamp(i.time),
             rankPoint: 0,
             isPromotion: false,
             isRankUp: false,
             isChallengeFirst: false
         };
-        beforeGameId = i.gameId;
+        before = {
+            gameId: i.gameId,
+            timestamp: Math.floor(i.time.getTime() / 1000)
+        };
         if (i.bankaraMatchChallenge) {
             if (i.index === 0 && i.bankaraMatchChallenge.state !== "INPROGRESS") {
                 delta = {
                     ...delta,
+                    rank: i.detail.udemae,
                     rankAfter: i.bankaraMatchChallenge.udemaeAfter ?? undefined,
                     rankPoint: i.bankaraMatchChallenge.earnedUdemaePoint ?? 0,
                     isPromotion: i.bankaraMatchChallenge.isPromo ?? false,
@@ -6611,52 +6741,42 @@ function generateDeltaList(state, flatten) {
         }
         deltaList.push(delta);
     }
-    return deltaList;
+    return {
+        firstItem,
+        deltaList
+    };
 }
-function getRankState(i) {
-    const rank = i.detail.udemae;
-    if (!rank) {
-        throw new Error("rank must be defined");
+function getRankStateByDelta(i) {
+    const rank = i.rank;
+    const nextRank = i.rankAfter;
+    const earnedUdemaePoint = i.rankPoint;
+    if (!rank || !nextRank) {
+        throw new Error("rank and nextRank must be defined");
     }
     const param = RANK_PARAMS.find((i)=>i.rank === rank);
-    if (!param) {
-        throw new Error(`Rank not found: ${rank}`);
+    const nextParam = RANK_PARAMS.find((i)=>i.rank === nextRank);
+    if (!param || !nextParam) {
+        throw new Error(`Rank or nextRank not found: ${rank} ${nextRank}`);
     }
+    const oldRankPoint = nextParam.pointRange[0] - earnedUdemaePoint;
     return {
-        gameId: i.gameId,
-        timestamp: Math.floor(i.time.getTime() / 1000),
+        gameId: i.before.gameId,
+        timestamp: i.before.timestamp,
         rank,
-        rankPoint: -1
+        rankPoint: oldRankPoint
     };
 }
 class RankTracker {
     deltaMap;
+    stateMap;
     constructor(state){
         this.state = state;
         this.deltaMap = new Map();
+        this.stateMap = new Map();
     }
     async getRankStateById(id) {
-        if (!this.state) {
-            return;
-        }
         const gid = await gameId(id);
-        let cur = this.state;
-        let before = cur;
-        if (cur.gameId === gid) {
-            return;
-        }
-        while(cur.gameId !== gid){
-            const delta = this.deltaMap.get(cur.gameId);
-            if (!delta) {
-                return;
-            }
-            before = cur;
-            cur = addRank(cur, delta);
-        }
-        return {
-            before,
-            after: cur
-        };
+        return this.stateMap.get(gid);
     }
     setState(state) {
         this.state = state;
@@ -6676,37 +6796,18 @@ class RankTracker {
                     ...i,
                     gameId
                 }))));
-        const gameIdTime = new Map(flatten.map((i)=>[
-                i.gameId,
-                i.time
-            ]));
-        let curState;
-        const oldestPromotion = flatten.find((i)=>i.bankaraMatchChallenge?.isPromo && i.bankaraMatchChallenge.isUdemaeUp);
-        const thisStateTime = gameIdTime.get(this.state?.gameId);
-        if (!thisStateTime && !oldestPromotion) {
-            return;
-        } else if (thisStateTime && !oldestPromotion) {
-            curState = this.state;
-        } else if (!thisStateTime && oldestPromotion) {
-            curState = getRankState(oldestPromotion);
-        } else if (thisStateTime && oldestPromotion) {
-            if (thisStateTime <= oldestPromotion.time) {
-                curState = this.state;
-            } else {
-                curState = getRankState(oldestPromotion);
-            }
-        }
-        if (!curState) {
-            return;
-        }
-        this.state = curState;
-        const deltaList = generateDeltaList(curState, flatten);
-        if (!deltaList) {
+        let curState = this.state;
+        const { firstItem , deltaList  } = generateDeltaList(curState, flatten);
+        if (curState && firstItem.gameId !== curState.gameId) {
             return;
         }
         for (const delta of deltaList){
-            this.deltaMap.set(delta.beforeGameId, delta);
-            curState = addRank(curState, delta);
+            this.deltaMap.set(delta.before.gameId, delta);
+            const result = addRank(curState, delta);
+            curState = result?.after;
+            if (result) {
+                this.stateMap.set(result.after.gameId, result);
+            }
         }
         return curState;
     }
@@ -7072,26 +7173,26 @@ class App {
         } else {
             this.env.logger.log("Fetching coop battle list...");
             const coopBattleList = await splatnet.getBattleList(BattleListType.Coop);
-            const { redraw: redraw1 , endBar: endBar1  } = this.exporterProgress("Export coop games");
-            const fetcher1 = new GameFetcher({
+            const { redraw , endBar  } = this.exporterProgress("Export coop games");
+            const fetcher = new GameFetcher({
                 cache: this.opts.cache ?? new FileCache(this.profile.state.cacheDir),
                 state: this.profile.state,
                 splatnet
             });
             await Promise.all(exporters.map((e)=>showError(this.env, this.exportGameList({
                     type: "CoopInfo",
-                    fetcher: fetcher1,
+                    fetcher,
                     exporter: e,
                     gameList: coopBattleList,
                     stepProgress: stats[e.name],
                     onStep: ()=>{
-                        redraw1(e.name, progress(stats[e.name]));
+                        redraw(e.name, progress(stats[e.name]));
                     }
                 })).catch((err)=>{
                     errors.push(err);
                     this.env.logger.error(`\nFailed to export to ${e.name}:`, err);
                 })));
-            endBar1();
+            endBar();
             this.printStats(stats);
             if (errors.length > 0) {
                 throw errors[0];
