@@ -1,9 +1,14 @@
+appid
+apikey
 deno
 gpgarmor
 github
 githubassets
 https
+IPlayer
+ISteam
 leetcode
+Nie
 npx
 pgn
 scm
@@ -13,5 +18,8 @@ Splatnet
 ssh
 statink
 STATINK
+steamcommunity
+steamid
+steampowered
 ubuntu
 yargsparser
