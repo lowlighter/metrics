@@ -31,7 +31,8 @@ export default async function({login, q, imports, data, graphql, queries, accoun
         fetched.push(...nodes)
         pushed = nodes.length
         console.debug(`metrics/compute/${login}/sponsors > retrieved ${pushed} sponsors after ${cursor}`)
-      } while ((pushed) && (cursor))
+      }
+      while ((pushed) && (cursor))
       list.push(...fetched.map(({privacyLevel: privacy, sponsorEntity: {login, avatarUrl, url: organization = null}, tier}) => ({login, avatarUrl, type: organization ? "organization" : "user", amount: tier?.monthlyPriceInDollars ?? null, past: false, private: privacy === "PRIVATE"})))
       await Promise.all(list.map(async user => user.avatar = await imports.imgb64(user.avatarUrl)))
       count.active.total = list.length
@@ -55,7 +56,8 @@ export default async function({login, q, imports, data, graphql, queries, accoun
           fetched.push(...nodes)
           pushed = nodes.length
           console.debug(`metrics/compute/${login}/sponsors > retrieved ${pushed} sponsors events after ${cursor}`)
-        } while ((pushed) && (cursor))
+        }
+        while ((pushed) && (cursor))
         users.push(...fetched.map(({sponsor: {login, avatarUrl, url: organization = null}, sponsorsTier}) => ({login, avatarUrl, type: organization ? "organization" : "user", amount: sponsorsTier?.monthlyPriceInDollars ?? null, past: true, private: false})))
       }
       for (const user of users) {

@@ -33,7 +33,8 @@ export default async function({login, q, imports, data, graphql, queries, accoun
             fetched.splice(limit)
             console.debug(`metrics/compute/${login}/plugins > reactions > keeping only ${fetched.length} ${type} comments`)
           }
-        } while ((cursor) && (pushed) && (fetched.length < limit))
+        }
+        while ((cursor) && (pushed) && (fetched.length < limit))
         comments.push(...fetched)
       }
       catch (error) {

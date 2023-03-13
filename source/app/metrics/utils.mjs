@@ -524,7 +524,7 @@ export const svg = {
     const padding = {width: 1, height: 1, absolute: {width: 0, height: 0}}
     paddings = Array.isArray(paddings) ? paddings : `${paddings}`.split(",").map(x => x.trim())
     for (const [i, dimension] of [[0, "width"], [1, "height"]]) {
-      let operands = (paddings?.[i] ?? paddings[0])
+      let operands = paddings?.[i] ?? paddings[0]
       let {relative} = operands.match(/(?<relative>[+-]?[\d.]+)%$/)?.groups ?? {}
       operands = operands.replace(relative, "").trim()
       let {absolute} = operands.match(/^(?<absolute>[+-]?[\d.]+)/)?.groups ?? {}

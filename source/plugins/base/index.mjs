@@ -173,7 +173,8 @@ export default async function({login, graphql, rest, data, q, queries, imports, 
             console.debug(`metrics/compute/${login}/base > retrieved less repositories than expected, probably no more to fetch`)
             break
           }
-        } while ((pushed) && (cursor) && ((data.user.repositories?.nodes?.length ?? 0) + (data.user.repositoriesContributedTo?.nodes?.length ?? 0) < repositories))
+        }
+        while ((pushed) && (cursor) && ((data.user.repositories?.nodes?.length ?? 0) + (data.user.repositoriesContributedTo?.nodes?.length ?? 0) < repositories))
         //Limit repositories
         console.debug(`metrics/compute/${login}/base > keeping only ${repositories} ${type}`)
         data.user[type].nodes.splice(repositories)

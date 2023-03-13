@@ -74,7 +74,8 @@ export default async function({login, data, queries, imports, q, account}, {enab
             if (await retry({login, imports, error}))
               continue
           }
-        } while (next)
+        }
+        while (next)
         //Format and save results
         result.lists[type].favorites = shuffle ? imports.shuffle(list) : list
         //Limit results
@@ -107,7 +108,8 @@ export default async function({login, data, queries, imports, q, account}, {enab
           if (await retry({login, imports, error}))
             continue
         }
-      } while (next)
+      }
+      while (next)
       //Format and save results
       result.characters = shuffle ? imports.shuffle(characters) : characters
       //Limit results

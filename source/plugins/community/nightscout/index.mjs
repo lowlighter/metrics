@@ -28,9 +28,9 @@ export default async function({q, imports, data, account}, {enabled = false, ext
       resp.data[i].arrowHumanReadable = directionArrow(resp.data[i].direction)
       resp.data[i].timeUTCHumanReadable = `${addZero(date.getUTCHours())}:${addZero(date.getUTCMinutes())}`
       /*
-           * Add colors and alert names
-           * TODO: Maybe make colors better themed instead of just the "github style" - red and yellow could fit better than darker shades of green
-           */
+       * Add colors and alert names
+       * TODO: Maybe make colors better themed instead of just the "github style" - red and yellow could fit better than darker shades of green
+       */
       let color = "#40c463"
       let alertName = "Normal"
       if (sgv >= urgenthighalert || sgv <= urgentlowalert) {

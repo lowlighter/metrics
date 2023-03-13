@@ -455,7 +455,7 @@ function quit(reason) {
         info("Previous hash", previous)
         const current = await svg.hash(rendered)
         info("Current hash", current)
-        const changed = (previous !== current)
+        const changed = previous !== current
         info("Content changed", changed)
         if (!changed)
           committer.commit = false
@@ -632,7 +632,8 @@ function quit(reason) {
               info(`Branch ${committer.head}`, "(deleted)")
             }, {retries: retries_output_action, delay: retries_delay_output_action})
             break
-          } while (--attempts)
+          }
+          while (--attempts)
         }
       }
 

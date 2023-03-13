@@ -27,7 +27,8 @@ export default async function({login, graphql, data, imports, q, queries, accoun
         if (_worldmap)
           locations.push(...edges.map(({node: {location}}) => location))
         pushed = edges.length
-      } while ((pushed) && (cursor))
+      }
+      while ((pushed) && (cursor))
       console.debug(`metrics/compute/${login}/plugins > stargazers > loaded ${dates.length} stargazers for ${repository}`)
     }
     console.debug(`metrics/compute/${login}/plugins > stargazers > loaded ${dates.length} stargazers in total`)

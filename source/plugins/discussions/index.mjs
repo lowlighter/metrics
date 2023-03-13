@@ -28,7 +28,8 @@ export default async function({login, q, imports, graphql, queries, data, accoun
         fetched.push(...nodes)
         pushed = nodes.length
         console.debug(`metrics/compute/${login}/discussions > retrieved ${pushed} discussions after ${cursor}`)
-      } while ((pushed) && (cursor))
+      }
+      while ((pushed) && (cursor))
 
       //Compute upvotes
       fetched.map(({upvoteCount}) => discussions.upvotes.discussions += upvoteCount)
@@ -53,7 +54,8 @@ export default async function({login, q, imports, graphql, queries, data, accoun
         fetched.push(...nodes)
         pushed = nodes.length
         console.debug(`metrics/compute/${login}/discussions > retrieved ${pushed} comments after ${cursor}`)
-      } while ((pushed) && (cursor))
+      }
+      while ((pushed) && (cursor))
 
       //Compute upvotes
       fetched.map(({upvoteCount}) => discussions.upvotes.comments += upvoteCount)

@@ -25,7 +25,8 @@ export default async function({login, q, imports, rest, graphql, data, account, 
           .filter(({node}) => imports.filters.github(filter, {name: node.nameWithOwner, user: node.owner.login, stars: node.stargazers.totalCount, watchers: node.watchers.totalCount, forks: node.forks.totalCount}))
           .map(({node}) => contributions.push({handle: node.nameWithOwner, stars: node.stargazers.totalCount, issues: node.issues.totalCount, pulls: node.pullRequests.totalCount, organization: node.isInOrganization, avatarUrl: node.owner.avatarUrl}))
         pushed = edges.length
-      } while ((pushed) && (cursor))
+      }
+      while ((pushed) && (cursor))
     }
 
     //Set contributions
@@ -47,7 +48,8 @@ export default async function({login, q, imports, rest, graphql, data, account, 
           cursor = edges?.[edges?.length - 1]?.cursor
           edges.map(({node: {repository: {nameWithOwner: repository}}}) => issues[repository] = (issues[repositories] ?? 0) + 1)
           pushed = edges.length
-        } while ((pushed) && (cursor))
+        }
+        while ((pushed) && (cursor))
       }
 
       //Fetch pull requests
@@ -61,7 +63,8 @@ export default async function({login, q, imports, rest, graphql, data, account, 
           cursor = edges?.[edges?.length - 1]?.cursor
           edges.map(({node: {repository: {nameWithOwner: repository}}}) => pulls[repository] = (pulls[repositories] ?? 0) + 1)
           pushed = edges.length
-        } while ((pushed) && (cursor))
+        }
+        while ((pushed) && (cursor))
       }
 
       //Fetch commits

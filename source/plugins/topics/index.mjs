@@ -9,7 +9,7 @@ export default async function({login, data, imports, q, account}, {enabled = fal
     //Load inputs
     let {sort, mode, limit} = imports.metadata.plugins.topics.inputs({data, account, q})
     const type = {starred: "labels", labels: "labels", mastered: "icons", icons: "icons"}[mode]
-    const shuffle = (sort === "random")
+    const shuffle = sort === "random"
 
     //Start puppeteer and navigate to topics
     console.debug(`metrics/compute/${login}/plugins > topics > searching starred topics`)

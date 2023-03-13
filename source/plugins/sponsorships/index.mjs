@@ -35,7 +35,8 @@ export default async function({login, q, imports, data, graphql, queries, accoun
           fetched.push(...nodes)
           pushed = nodes.length
           console.debug(`metrics/compute/${login}/sponsorships > retrieved ${pushed} sponsorships events after ${cursor}`)
-        } while ((pushed) && (cursor))
+        }
+        while ((pushed) && (cursor))
         list.push(...fetched.map(({sponsorable: {login, avatarUrl, url: organization = null}, tier: {name: tier}, privacyLevel: privacy, isActive: active}) => ({login, avatarUrl, type: organization ? "organization" : "user", tier, private: privacy !== "PUBLIC", past: !active})))
       }
       await Promise.all(list.map(async user => user.avatar = await imports.imgb64(user.avatarUrl)))

@@ -22,7 +22,8 @@ export default async function({login, data, graphql, q, imports, queries, accoun
         gists.push(...nodes)
         gists.totalCount = totalCount
         pushed = nodes.length
-      } while ((pushed) && (cursor))
+      }
+      while ((pushed) && (cursor))
       console.debug(`metrics/compute/${login}/plugins > gists > loaded ${gists.length} gists`)
     }
 

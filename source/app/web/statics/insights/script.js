@@ -138,7 +138,8 @@
                   console.warn(`${plugin}: no data yet, retrying in ${interval} seconds`)
                   await new Promise(solve => setTimeout(solve, interval * 1000))
                 }
-              } while (--attempts)
+              }
+              while (--attempts)
               completed++
               this.progress = completed / (data.plugins.length + 1)
               this.loaded.push(plugin)
