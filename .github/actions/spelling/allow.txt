@@ -16,6 +16,7 @@ Nie
 npx
 personaname
 pgn
+playerstats
 rtime
 scm
 shas
