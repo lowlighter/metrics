@@ -35,7 +35,7 @@
     "@octokit/graphql": "^5.0.4",
     "@octokit/rest": "^19.0.5",
     "@primer/css": "^20.8.0",
-    "@primer/octicons": "^18.0.0",
+    "@primer/octicons": "^18.2.0",
     "@twemoji/parser": "^14.1.0",
     "axios": "^1.2.2",
     "clipboard": "^2.0.11",
