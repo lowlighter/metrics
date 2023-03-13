@@ -27,8 +27,6 @@ jobs:
         run: |
           curl -fsSL https://dprint.dev/install.sh | sh
           cp /home/runner/.dprint/bin/dprint /usr/local/bin/dprint
-          mkdir -p /home/runner/.cache/dprint/cache
-          npm install -g eslint
       - name: Checkout master
         run: git checkout master
       - name: Format code
