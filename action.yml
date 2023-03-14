@@ -1226,6 +1226,10 @@ inputs:
     description: Display limit (skills)
     default: <default-value>
 
+  plugin_leetcode_ignored_skills:
+    description: Ignored skills
+    default: <default-value>
+
   plugin_leetcode_limit_recent:
     description: Display limit (recent)
     default: <default-value>
