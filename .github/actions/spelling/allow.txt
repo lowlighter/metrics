@@ -12,6 +12,7 @@ https
 IPlayer
 ISteam
 leetcode
+MBTI
 Nie
 npx
 personaname
