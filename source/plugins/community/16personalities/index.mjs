@@ -21,20 +21,20 @@ export default async function({login, q, imports, data, account}, {enabled = fal
 
     //Fetch raw data
     const raw = await page.evaluate(() => ({
-      color:getComputedStyle(document.querySelector(".card__bg")).backgroundColor, //eslint-disable-line no-undef
-      type:document.querySelector(".type__code").innerText,
-      personality:[...document.querySelectorAll(".personality-cards .sp-personality-card")].map(card => ({
-        category:card.querySelector(".card__title").innerText,
-        value:card.querySelector(".card__subtitle").innerText,
-        image:card.querySelector(".card__image").src,
-        text:card.querySelector(".card__text").innerText
+      color: getComputedStyle(document.querySelector(".card__bg")).backgroundColor, //eslint-disable-line no-undef
+      type: document.querySelector(".type__code").innerText,
+      personality: [...document.querySelectorAll(".personality-cards .sp-personality-card")].map(card => ({
+        category: card.querySelector(".card__title").innerText,
+        value: card.querySelector(".card__subtitle").innerText,
+        image: card.querySelector(".card__image").src,
+        text: card.querySelector(".card__text").innerText,
       })),
-      traits:[...document.querySelectorAll("#traits .card__body")].map(card => ({
-        category:card.querySelector(".card__title").innerText,
-        value:card.querySelector(".card__subtitle").innerText,
-        score:card.querySelector(".center__num").innerText,
-        text:card.querySelector("p").innerText
-      }))
+      traits: [...document.querySelectorAll("#traits .card__body")].map(card => ({
+        category: card.querySelector(".card__title").innerText,
+        value: card.querySelector(".card__subtitle").innerText,
+        score: card.querySelector(".center__num").innerText,
+        text: card.querySelector("p").innerText,
+      })),
     }))
 
     //Format data
@@ -42,15 +42,15 @@ export default async function({login, q, imports, data, account}, {enabled = fal
     const type = raw.type.replace("(", "").replace(")", "").trim()
     const personality = await Promise.all(raw.personality.map(async ({category, value, image, text}) => ({
       category,
-      value:value.replace(`(${type})`, "").trim(),
-      image:await imports.imgb64(image),
-      text:text.replace(`${category}\n${value}\n`, "").trim()
+      value: value.replace(`(${type})`, "").trim(),
+      image: await imports.imgb64(image),
+      text: text.replace(`${category}\n${value}\n`, "").trim(),
     })))
     const traits = raw.traits.map(({category, value, score, text}) => ({
       category,
-      value:`${value[0]}${value.substring(1).toLocaleLowerCase()}`,
-      score:scores ? Number(score.replace("%", ""))/100 : NaN,
-      text:text.split(".").slice(1).join("."),
+      value: `${value[0]}${value.substring(1).toLocaleLowerCase()}`,
+      score: scores ? Number(score.replace("%", "")) / 100 : NaN,
+      text: text.split(".").slice(1).join("."),
     }))
 
     //Results
