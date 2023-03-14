@@ -50,6 +50,15 @@ inputs:
     min: 0
     zero: disable
 
+  plugin_leetcode_ignored_skills:
+    description: |
+      Ignored skills
+
+      It is possible to ignore entires categories by passing `fundamental`, `intermediate` or `advanced`
+    type: array
+    default: ""
+    example: hash table, string, divide and conquer, fundamental
+
   plugin_leetcode_limit_recent:
     description: |
       Display limit (recent)

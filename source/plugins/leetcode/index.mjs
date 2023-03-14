@@ -7,7 +7,7 @@ export default async function({login, q, imports, data, queries, account}, {enab
       return null
 
     //Load inputs
-    let {user, sections, "limit.skills": _limit_skills, "limit.recent": _limit_recent} = imports.metadata.plugins.leetcode.inputs({data, account, q})
+    let {user, sections, "limit.skills": _limit_skills, "ignored.skills": _ignored_skills, "limit.recent": _limit_recent} = imports.metadata.plugins.leetcode.inputs({data, account, q})
     const result = {user, sections, languages: [], skills: [], problems: {}, recent: []}
 
     //Languages stats
@@ -24,6 +24,7 @@ export default async function({login, q, imports, data, queries, account}, {enab
       for (const category in skills)
         result.skills.push(...skills[category].map(({tagName: name, problemsSolved: solved}) => ({name, solved, category})))
       result.skills.sort((a, b) => b.solved - a.solved)
+      result.skills = result.skills.filter(({name, category}) => (imports.filters.text(name, _ignored_skills))&&(imports.filters.text(category, _ignored_skills)))
       result.skills = result.skills.slice(0, _limit_skills || Infinity)
     }
 
