@@ -94,7 +94,6 @@ export default async function({login, q, imports, data, account}, {token, enable
     }
 
     //Results
-    console.log(JSON.stringify(result))
     return result
   }
   //Handle errors
