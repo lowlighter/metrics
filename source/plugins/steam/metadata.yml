@@ -1,0 +1,93 @@
+name: 🕹️ Steam
+category: social
+description: |
+  This plugin can display your player profile and played games from your Steam account.
+disclaimer: |
+  This plugin is not affiliated, associated, authorized, endorsed by, or in any way officially connected with [Steam](https://store.steampowered.com).
+  All product and company names are trademarks™ or registered® trademarks of their respective holders.
+examples:
+  +Recently played games: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.steam.svg
+  Profile and detailed game history: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.steam.full.svg
+supports:
+  - user
+  - organization
+scopes: []
+inputs:
+
+  plugin_steam:
+    description: |
+      Enable steam plugin
+    type: boolean
+    default: no
+
+  plugin_steam_token:
+    description: |
+      Steam token
+    type: token
+    default: ""
+    extras:
+      - metrics.api.steam
+
+  plugin_steam_sections:
+    description: |
+      Displayed sections
+
+      - `player`: display profile
+      - `most-played`: display most played games
+      - `recently-played`: display recently played games
+    type: array
+    format: comma-separated
+    default: player, most-played, recently-played
+    options:
+      - player
+      - most-played
+      - recently-played
+
+  plugin_steam_user:
+    description: |
+      Steam user id
+
+      This can be found on your Steam user account details
+    type: string
+    preset: no
+
+  plugin_steam_games_ignored:
+    description: |
+      Ignored games
+
+      Use App id as they are referenced in Steam catalog
+    type: array
+    format: comma-separated
+    default: ""
+    example: 400, 620 
+
+  plugin_steam_games_limit:
+    description: |
+      Display limit (Most played games)
+    type: number
+    min: 0
+    zero: disable
+    default: 1
+
+  plugin_steam_recent_games_limit:
+    description: |
+      Display limit (Recently played games)
+    type: number
+    min: 0
+    zero: disable
+    default: 1
+
+  plugin_steam_achievements_limit:
+    description: |
+      Display limit (Games achievements)
+    type: number
+    min: 0
+    default: 2
+
+  plugin_steam_playtime_threshold:
+    description: |
+      Display threshold (Game playtime in hours)
+    type: number
+    min: 0
+    default: 2
+
