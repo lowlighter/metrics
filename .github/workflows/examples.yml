@@ -1122,6 +1122,53 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
+      - name: 🕹️ Steam - Recently played games
+        uses: lowlighter/metrics@master
+        with:
+          filename: metrics.plugin.steam.svg
+          token: NOT_NEEDED
+          base: ""
+          plugin_steam_token: MOCKED_TOKEN
+          plugin_steam: yes
+          plugin_steam_user: 0
+          plugin_steam_sections: recently-played
+          plugin_steam_achievements_limit: 0
+          use_mocked_data: yes
+          output_action: none
+          delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
+        if: ${{ success() || failure() }}
+      - name: 🕹️ Steam - Profile and detailed game history
+        uses: lowlighter/metrics@master
+        with:
+          filename: metrics.plugin.steam.full.svg
+          token: NOT_NEEDED
+          base: ""
+          plugin_steam_token: MOCKED_TOKEN
+          plugin_steam: yes
+          plugin_steam_user: 0
+          use_mocked_data: yes
+          output_action: none
+          delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
+        if: ${{ success() || failure() }}
+      - name: 🧠 16personalities - MBTI Personality profile
+        uses: lowlighter/metrics@master
+        with:
+          filename: metrics.plugin.16personalities.svg
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          plugin_16personalities: yes
+          plugin_16personalities_url: ${{ secrets.SIXTEEN_PERSONALITIES_URL }}
+          plugin_16personalities_sections: personality, traits
+          plugin_16personalities_scores: no
+          output_action: none
+          delay: 120
+          user: lowlighter
+          plugins_errors_fatal: yes
+        if: ${{ success() || failure() }}
       - name: ♟️ Chess - Last chess game from lichess.org
         uses: lowlighter/metrics@master
         with:

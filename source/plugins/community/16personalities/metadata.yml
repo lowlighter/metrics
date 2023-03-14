@@ -19,6 +19,8 @@ inputs:
       Enable 16personalities plugin
     type: boolean
     default: no
+    extras:
+      - metrics.run.puppeteer.scrapping
 
   plugin_16personalities_url:
     description: |

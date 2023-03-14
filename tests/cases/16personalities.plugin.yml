@@ -1,0 +1,11 @@
+- name: 🧠 16personalities - MBTI Personality profile
+  uses: lowlighter/metrics@latest
+  with:
+    token: MOCKED_TOKEN
+    plugin_16personalities: 'yes'
+    plugin_16personalities_url: https://www.16personalities.com/profiles/xxxxxxxxxxxxx
+    plugin_16personalities_sections: personality, traits
+    plugin_16personalities_scores: 'no'
+    use_mocked_data: 'yes'
+    verify: 'yes'
+  modes: []
