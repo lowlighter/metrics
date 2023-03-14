@@ -16,7 +16,15 @@ export default async function({login, imports, data, rest, q, account}, {enabled
     //Get views stats from repositories
     console.debug(`metrics/compute/${login}/plugins > traffic > querying api`)
     const views = {count: 0, uniques: 0}
-    const response = [...await Promise.allSettled(repositories.map(({repo, owner}) => imports.filters.repo(`${owner}/${repo}`, skipped) ? rest.repos.getViews({owner, repo}) : {}))].filter(({status}) => status === "fulfilled").map(({value}) => value)
+    const promised = [...await Promise.allSettled(repositories.map(({repo, owner}) => imports.filters.repo(`${owner}/${repo}`, skipped) ? rest.repos.getViews({owner, repo}) : {}))]
+    const response = promised.filter(({status}) => status === "fulfilled").map(({value}) => value)
+
+    //Handle error if all promises were rejected
+    if (promised.filter(({status}) => status === "rejected").length === promised.length) {
+      if (promised.map(({reason}) => reason.message).every(error => /must have push access to repository/i.test(error)))
+        throw {error: {message: "Insufficient token scopes"}}
+      throw new Error(promised[0].reason.message)
+    }
 
     //Compute views
     console.debug(`metrics/compute/${login}/plugins > traffic > computing stats`)
