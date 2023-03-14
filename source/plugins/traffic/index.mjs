@@ -20,10 +20,14 @@ export default async function({login, imports, data, rest, q, account}, {enabled
     const response = promised.filter(({status}) => status === "fulfilled").map(({value}) => value)
 
     //Handle error if all promises were rejected
-    if (promised.filter(({status}) => status === "rejected").length === promised.length) {
+    const rejected = promised.filter(({status}) => status === "rejected")
+    if (rejected.length === promised.length) {
       if (promised.map(({reason}) => reason.message).every(error => /must have push access to repository/i.test(error)))
         throw {error: {message: "Insufficient token scopes"}}
       throw new Error(promised[0].reason.message)
+    }
+    else if (rejected.length) {
+      rejected.map(({reason}) => console.debug(`metrics/compute/${login}/plugins > traffic > warn > ${reason.message}`))
     }
 
     //Compute views
