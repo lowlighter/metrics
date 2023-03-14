@@ -31,15 +31,16 @@ const args = [
   '--exporter=none'
 ]
 try {
-  await Deno.spawn("deno", {
+  const command = new Deno.Command("deno", {
     args,
     stdin: "inherit",
     stdout: "inherit",
     stderr: "inherit",
     windowsRawArguments:true
   })
+  await command.output()
 }
-catch {}
+catch (error) { console.log(error) }
 
 //Extract profile.json and print instructions
 try {
