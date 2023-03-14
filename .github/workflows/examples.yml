@@ -22,6 +22,8 @@ on:
         required: true
       SPLATOON_STATINK_TOKEN:
         required: true
+      SIXTEEN_PERSONALITIES_URL:
+        required: true
       SPOTIFY_TOKENS:
         required: true
       STOCK_TOKEN:

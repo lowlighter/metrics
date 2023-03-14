@@ -41,6 +41,7 @@
     <th nowrap="nowrap" align="center" title="🗼 Rss feed">🗼</th>
     <th nowrap="nowrap" align="center" title="⏰ WakaTime">⏰</th>
     <th nowrap="nowrap" align="center" title="🗳️ Leetcode">🗳️</th>
+    <th nowrap="nowrap" align="center" title="🕹️ Steam">🕹️</th>
   </tr>  
   <tr>
     <td nowrap="nowrap">📗 Classic template</td>    
@@ -82,6 +83,7 @@
     <td nowrap="nowrap" align="center" data-plugin="rss">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="wakatime">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="leetcode">✔️</td>
+    <td nowrap="nowrap" align="center" data-plugin="steam">✔️</td>
   </tr>
   <tr>
     <td nowrap="nowrap">📘 Repository template</td>    
@@ -123,6 +125,7 @@
     <td nowrap="nowrap" align="center" data-plugin="rss">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="wakatime">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="leetcode">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="steam">❌</td>
   </tr>
   <tr>
     <td nowrap="nowrap">📙 Terminal template</td>    
@@ -164,6 +167,7 @@
     <td nowrap="nowrap" align="center" data-plugin="rss">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="wakatime">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="leetcode">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="steam">❌</td>
   </tr>
   <tr>
     <td nowrap="nowrap">📒 Markdown template</td>    
@@ -205,9 +209,10 @@
     <td nowrap="nowrap" align="center" data-plugin="rss">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="wakatime">✓</td>
     <td nowrap="nowrap" align="center" data-plugin="leetcode">✓</td>
+    <td nowrap="nowrap" align="center" data-plugin="steam">✓</td>
   </tr>
   <tr>
-    <td colspan="38"></td>
+    <td colspan="39"></td>
   </tr>
   <tr>
     <th nowrap="nowrap">Mode/Plugin</th>    
@@ -249,6 +254,7 @@
     <th nowrap="nowrap" align="center" title="🗼 Rss feed">🗼</th>
     <th nowrap="nowrap" align="center" title="⏰ WakaTime">⏰</th>
     <th nowrap="nowrap" align="center" title="🗳️ Leetcode">🗳️</th>
+    <th nowrap="nowrap" align="center" title="🕹️ Steam">🕹️</th>
   </tr>  
   <tr>
     <td nowrap="nowrap">👤 User</td>    
@@ -290,6 +296,7 @@
     <td nowrap="nowrap" align="center" data-plugin="rss">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="wakatime">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="leetcode">✔️</td>
+    <td nowrap="nowrap" align="center" data-plugin="steam">✔️</td>
   </tr>
   <tr>
     <td nowrap="nowrap">👥 Organization</td>    
@@ -331,6 +338,7 @@
     <td nowrap="nowrap" align="center" data-plugin="rss">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="wakatime">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="leetcode">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="steam">✔️</td>
   </tr>
   <tr>
     <td nowrap="nowrap">📓 Repository</td>    
@@ -372,6 +380,7 @@
     <td nowrap="nowrap" align="center" data-plugin="rss">✔️</td>
     <td nowrap="nowrap" align="center" data-plugin="wakatime">❌</td>
     <td nowrap="nowrap" align="center" data-plugin="leetcode">❌</td>
+    <td nowrap="nowrap" align="center" data-plugin="steam">❌</td>
   </tr>
 </table>
 

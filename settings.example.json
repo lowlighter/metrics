@@ -180,6 +180,13 @@
     "leetcode":{
       "enabled": false,                 "//": "Enable leetcode plugin"
     },
+    "steam":{
+      "token": "Steam token",
+      "enabled": false,                 "//": "Enable steam plugin"
+    },
+    "16personalities":{
+      "enabled": false,                 "//": "Enable 16personalities plugin"
+    },
     "chess":{
       "token": "Chess platform token",
       "enabled": false,                 "//": "Enable chess plugin"
