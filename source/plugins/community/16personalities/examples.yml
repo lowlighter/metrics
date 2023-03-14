@@ -8,5 +8,3 @@
     plugin_16personalities_url: ${{ secrets.SIXTEEN_PERSONALITIES_URL }}
     plugin_16personalities_sections: personality, traits
     plugin_16personalities_scores: no
-  test:
-    modes: []
