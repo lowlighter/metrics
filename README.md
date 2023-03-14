@@ -19,7 +19,7 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
   </tr>
   <tr>
     <th colspan="2" align="center">
-      <h3><a href="/README.md#-plugins">🧩 Customizable with 44 plugins and 314 options!</a></h3>
+      <h3><a href="/README.md#-plugins">🧩 Customizable with 46 plugins and 327 options!</a></h3>
     </th>
   </tr>
   <tr>
@@ -304,60 +304,76 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
       </td>
   </tr>
   <tr>
+    <th><a href="source/plugins/steam/README.md">🕹️ Steam</a></th>
+    <th></th>
+  </tr>
+  <tr>
+        <td  align="center">
+        <details open><summary>Recently played games</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.steam.svg" alt=""></img></details>
+        <details><summary>Profile and detailed game history</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.steam.full.svg" alt=""></img></details>
+        <img width="900" height="1" alt="">
+      </td>
+    <td align="center"><img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
     <th colspan="2" align="center">
       <a href="/source/plugins/community/README.md">🎲 See also community plugins</a>
     </th>
   </tr>
   <tr>
+    <th><a href="source/plugins/community/16personalities/README.md">🧠 16personalities</a><br><sup>by <a href="https://github.com/lowlighter">@lowlighter</a></sup>
+      <details><summary>Render example</summary>
+        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.16personalities.svg" alt=""></img>
+        <img width="900" height="1" alt="">
+      </details>
+    </th>
     <th><a href="source/plugins/community/chess/README.md">♟️ Chess</a><br><sup>by <a href="https://github.com/lowlighter">@lowlighter</a></sup>
       <details><summary>Render example</summary>
         <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.chess.svg" alt=""></img>
         <img width="900" height="1" alt="">
       </details>
     </th>
+  </tr>
+  <tr>
     <th><a href="source/plugins/community/fortune/README.md">🥠 Fortune</a><br><sup>by <a href="https://github.com/lowlighter">@lowlighter</a></sup>
       <details><summary>Render example</summary>
         <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.fortune.svg" alt=""></img>
         <img width="900" height="1" alt="">
       </details>
     </th>
-  </tr>
-  <tr>
     <th><a href="source/plugins/community/nightscout/README.md">💉 Nightscout</a><br><sup>by <a href="https://github.com/legoandmars">@legoandmars</a></sup>
       <details><summary>Render example</summary>
         <img alt="" width="400" src="https://github.com/legoandmars/legoandmars/blob/master/metrics.plugin.nightscout.svg" alt=""></img>
         <img width="900" height="1" alt="">
       </details>
     </th>
+  </tr>
+  <tr>
     <th><a href="source/plugins/community/poopmap/README.md">💩 PoopMap plugin</a><br><sup>by <a href="https://github.com/matievisthekat">@matievisthekat</a></sup>
       <details><summary>Render example</summary>
         <img alt="" width="400" src="https://github.com/matievisthekat/matievisthekat/blob/master/metrics.plugin.poopmap.svg" alt=""></img>
         <img width="900" height="1" alt="">
       </details>
     </th>
-  </tr>
-  <tr>
     <th><a href="source/plugins/community/screenshot/README.md">📸 Website screenshot</a><br><sup>by <a href="https://github.com/lowlighter">@lowlighter</a></sup>
       <details><summary>Render example</summary>
         <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.screenshot.svg" alt=""></img>
         <img width="900" height="1" alt="">
       </details>
     </th>
+  </tr>
+  <tr>
     <th><a href="source/plugins/community/splatoon/README.md">🦑 Splatoon</a><br><sup>by <a href="https://github.com/lowlighter">@lowlighter</a></sup>
       <details><summary>Render example</summary>
         <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.splatoon.svg" alt=""></img>
         <img width="900" height="1" alt="">
       </details>
     </th>
-  </tr>
-  <tr>
     <th><a href="source/plugins/community/stock/README.md">💹 Stock prices</a><br><sup>by <a href="https://github.com/lowlighter">@lowlighter</a></sup>
       <details><summary>Render example</summary>
         <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stock.svg" alt=""></img>
         <img width="900" height="1" alt="">
       </details>
-    </th>
-    <th>
     </th>
   </tr>
   <tr>
@@ -515,11 +531,13 @@ Plugins provide additional content and lets you customize rendered metrics.
   * [✒️ Recent posts <sub>`posts`</sub>](/source/plugins/posts/README.md)
   * [🗼 Rss feed <sub>`rss`</sub>](/source/plugins/rss/README.md)
   * [🗨️ Stack Overflow <sub>`stackoverflow`</sub>](/source/plugins/stackoverflow/README.md)
+  * [🕹️ Steam <sub>`steam`</sub>](/source/plugins/steam/README.md)
   * [🐤 Latest tweets <sub>`tweets`</sub>](/source/plugins/tweets/README.md)
   * [⏰ WakaTime <sub>`wakatime`</sub>](/source/plugins/wakatime/README.md)
 
 **🎲 Maintained by community**
 * **[Community plugins](/source/plugins/community/README.md)**
+  * [🧠 16personalities <sub>`16personalities`</sub>](/source/plugins/community/16personalities/README.md) by [@lowlighter](https://github.com/lowlighter)
   * [♟️ Chess <sub>`chess`</sub>](/source/plugins/community/chess/README.md) by [@lowlighter](https://github.com/lowlighter)
   * [🥠 Fortune <sub>`fortune`</sub>](/source/plugins/community/fortune/README.md) by [@lowlighter](https://github.com/lowlighter)
   * [💉 Nightscout <sub>`nightscout`</sub>](/source/plugins/community/nightscout/README.md) by [@legoandmars](https://github.com/legoandmars)
