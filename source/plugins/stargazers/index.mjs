@@ -7,7 +7,11 @@ export default async function({login, graphql, data, imports, q, queries, accoun
       return null
 
     //Load inputs
-    let {charts: _charts, "charts.type": _charts_type, worldmap: _worldmap, "worldmap.sample": _worldmap_sample} = imports.metadata.plugins.stargazers.inputs({data, account, q})
+    let {days, charts: _charts, "charts.type": _charts_type, worldmap: _worldmap, "worldmap.sample": _worldmap_sample} = imports.metadata.plugins.stargazers.inputs({data, account, q})
+    if (!days) {
+      days = Math.abs(parseInt((new Date() - new Date(data.user.createdAt))/1000/60/60/24))
+      console.debug(`metrics/compute/${login}/plugins > stargazers > set days to ${days}`)
+    }
 
     //Retrieve stargazers from graphql api
     console.debug(`metrics/compute/${login}/plugins > stargazers > querying api`)
@@ -34,7 +38,6 @@ export default async function({login, graphql, data, imports, q, queries, accoun
     console.debug(`metrics/compute/${login}/plugins > stargazers > loaded ${dates.length} stargazers in total`)
 
     //Compute stargazers increments
-    const days = 14 * (1 + data.large / 2)
     const increments = {dates: Object.fromEntries([...new Array(days).fill(null).map((_, i) => [new Date(Date.now() - i * 24 * 60 * 60 * 1000).toISOString().slice(0, 10), 0]).reverse()]), max: NaN, min: NaN}
     dates
       .map(date => date.toISOString().slice(0, 10))
@@ -62,40 +65,13 @@ export default async function({login, graphql, data, imports, q, queries, accoun
 
     //Generating charts
     let charts = _charts ? true : null
-    if ((_charts_type === "chartist") && (imports.metadata.plugins.stargazers.extras("charts.type", {extras}))) {
+    if ((["graph", "chartist"].includes(_charts_type)) && (imports.metadata.plugins.stargazers.extras("charts.type", {extras})))  {
       console.debug(`metrics/compute/${login}/plugins > stargazers > generating charts`)
-      charts = await Promise.all([{data: total, low: total.min, high: total.max}, {data: increments, ref: 0, low: increments.min, high: increments.max, sign: true}].map(({data: {dates: set}, high, low, ref, sign = false}) =>
-        imports.chartist("line", {
-          width: 480 * (1 + data.large),
-          height: 160,
-          showPoint: true,
-          axisX: {showGrid: false},
-          axisY: {showLabel: false, offset: 20, labelInterpolationFnc: value => imports.format(value, {sign}), high, low, referenceValue: ref},
-          showArea: true,
-          fullWidth: true,
-        }, {
-          labels: Object.keys(set).map((date, i, a) => {
-            const day = date.substring(date.length - 2)
-            if ((i === 0) || ((a[i - 1]) && (date.substring(0, 7) !== a[i - 1].substring(0, 7))))
-              return `${day} ${months[Number(date.substring(5, 7))]}`
-            return day
-          }),
-          series: [Object.values(set)],
+      charts = await Promise.all([{data: total, low: total.min, high: total.max}, {data: increments, low: 0, high: increments.max, sign: true}].map(({data: {dates: set}, low, high, sign = false}) => 
+        imports.Graph.timeline(Object.entries(set).map(([x, y]) => ({x:new Date(x), y, text:imports.format(y, {sign})})), {low, high,
+          match:(data, ticks) => data.filter(([x]) => ticks.map(t => t.toISOString().slice(0, 10)).includes(x.toISOString().slice(0, 10))),
         })
       ))
-      data.postscripts.push(`(${function(format) {
-        document.querySelectorAll(".stargazers .chartist").forEach((chart, sign) => {
-          chart.querySelectorAll(".stargazers .chartist .ct-point").forEach(node => {
-            const [x, y, value] = ["x1", "y1", "ct:value"].map(attribute => node.getAttribute(attribute))
-            const text = document.createElementNS("http://www.w3.org/2000/svg", "text")
-            text.setAttributeNS(null, "x", x)
-            text.setAttributeNS(null, "y", y - 5)
-            text.setAttributeNS(null, "class", "ct-post")
-            text.appendChild(document.createTextNode(format(value, {sign})))
-            node.parentNode.append(text)
-          })
-        })
-      }})(${imports.format.toString()})`)
     }
 
     //Generating worldmap
@@ -106,7 +82,7 @@ export default async function({login, graphql, data, imports, q, queries, accoun
     }
 
     //Results
-    return {total, increments, months, charts, worldmap}
+    return {total, increments, months, charts, worldmap, days}
   }
   //Handle errors
   catch (error) {

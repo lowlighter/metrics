@@ -42,7 +42,7 @@
         <div class="column chart largeable">
           <h3>Commit activity per hour of day</h3>
           <% if (Array.isArray(plugins.habits.charts)) { %>
-            <div class="row margin-bottom chartist">
+            <div class="row margin-bottom">
               <%- plugins.habits.charts[0] %>
             </div>
           <% } else { %>
@@ -72,7 +72,7 @@
           <section class="column chart">
             <h3>Commit activity per day of week</h3>
             <% if (Array.isArray(plugins.habits.charts)) { %>
-              <div class="margin-bottom chartist">
+              <div class="margin-bottom">
                 <%- plugins.habits.charts[1] %>
               </div>
             <% } else { %>
@@ -92,7 +92,7 @@
           <section class="column chart">
             <h3>Language activity</h3>
             <% if (Array.isArray(plugins.habits.charts)) { %>
-              <div class="margin-bottom chartist">
+              <div class="margin-bottom">
                 <%- plugins.habits.charts[2] %>
               </div>
             <% } else { %>

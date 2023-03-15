@@ -12,7 +12,7 @@
     <% } else { %>
       <% if (plugins.stargazers.charts) { %>
         <div class="row margin-bottom">
-          <section class="column chart chartist">
+          <section class="column chart">
             <h3>Total stargazers</h3>
             <% if (Array.isArray(plugins.stargazers.charts)) { %>
               <%- plugins.stargazers.charts[0] %>
@@ -31,7 +31,7 @@
               </div>
             <% } %>
           </section>
-          <section class="column chart chartist">
+          <section class="column chart">
             <h3>New stargazers per day</h3>
             <% if (Array.isArray(plugins.stargazers.charts)) { %>
               <%- plugins.stargazers.charts[1] %>

@@ -4,7 +4,7 @@ description: |
   This plugin displays stargazers evolution across affiliated repositories.
 examples:
   +classic charts: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.svg
-  chartist charts: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.chartist.svg
+  graph charts: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.graph.svg
   +worldmap: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.worldmap.svg
 index: 2
 supports:
@@ -21,6 +21,16 @@ inputs:
     type: boolean
     default: no
 
+  plugin_stargazers_days:
+    description: |
+      Time range
+
+      If set to `0` the account registration date will be used.
+    type: number
+    min: 0
+    zero: see description
+    default: 14
+
   plugin_stargazers_charts:
     description: |
       Charts
@@ -34,14 +44,17 @@ inputs:
       Charts display type
 
       - `classic`: `<div>` based charts, simple and lightweight
-      - `chartist`: `<svg>` based charts, smooth
+      - `graph`: `<svg>` based charts, smooth
+
+      > ⚠️ `chartist` option has been deprecated and is now equivalent to `graph`
     type: string
     default: classic
     values:
       - classic
+      - graph
       - chartist
     extras:
-      - metrics.npm.optional.chartist
+      - metrics.npm.optional.d3
 
   plugin_stargazers_worldmap:
     description: |

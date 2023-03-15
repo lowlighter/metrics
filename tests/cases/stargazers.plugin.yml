@@ -5,12 +5,12 @@
     plugin_stargazers: 'yes'
     use_mocked_data: 'yes'
     verify: 'yes'
-- name: ✨ Stargazers - Using chartist charts
+- name: ✨ Stargazers - Using graph charts
   uses: lowlighter/metrics@latest
   with:
     token: MOCKED_TOKEN
     plugin_stargazers: 'yes'
-    plugin_stargazers_charts_type: chartist
+    plugin_stargazers_charts_type: graph
     use_mocked_data: 'yes'
     verify: 'yes'
 - name: ✨ Stargazers - With worldmap
