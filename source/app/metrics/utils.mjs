@@ -925,7 +925,7 @@ export const Graph = {
         .attr("text-anchor", "middle")
         .attr("font-family", "sans-serif")
         .attr("font-size", 10)
-        .attr("stroke", "white")
+        .attr("stroke", "rgba(88, 166, 255, .05)")
         .attr("stroke-linejoin", "round")
         .attr("stroke-width", 4)
         .attr("paint-order", "stroke fill")
