@@ -18,6 +18,7 @@ npx
 personaname
 pgn
 playerstats
+rbga
 rtime
 scm
 shas
@@ -30,9 +31,14 @@ steamcommunity
 steamid
 steamids
 steampowered
+tdatum
 timecreated
+tspan
 ubuntu
 unlocktime
 userid
+xticked
+xticks
 yargsparser
+yticked
 webtoken

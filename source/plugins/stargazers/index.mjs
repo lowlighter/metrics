@@ -67,7 +67,7 @@ export default async function({login, graphql, data, imports, q, queries, accoun
     let charts = _charts ? true : null
     if ((["graph", "chartist"].includes(_charts_type)) && (imports.metadata.plugins.stargazers.extras("charts.type", {extras})))  {
       console.debug(`metrics/compute/${login}/plugins > stargazers > generating charts`)
-      charts = await Promise.all([{data: total, low: total.min, high: total.max}, {data: increments, low: 0, high: increments.max, sign: true}].map(({data: {dates: set}, low, high, sign = false}) => 
+      charts = await Promise.all([{data: total, low: total.min, high: total.max}, {data: increments, low: 0, high: increments.max, sign: true}].map(({data: {dates: set}, low, high, sign = false}) =>
         imports.Graph.timeline(Object.entries(set).map(([x, y]) => ({x:new Date(x), y, text:imports.format(y, {sign})})), {low, high,
           match:(data, ticks) => data.filter(([x]) => ticks.map(t => t.toISOString().slice(0, 10)).includes(x.toISOString().slice(0, 10))),
         })

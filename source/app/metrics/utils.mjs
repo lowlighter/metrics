@@ -809,7 +809,7 @@ export class D3node {
   }
 }
 
-/** Graph utilities */
+/**Graph utilities */
 export const Graph = {
   /**Timeline graph */
   timeline() {
@@ -825,7 +825,7 @@ export const Graph = {
     const margin = {top:10, left:10, right:10, bottom:45}
     const d3n = new D3node()
     const svg = d3n.createSVG(width, height)
-  
+
     //Data
     const X = data.map(({x}) => x)
     const start = X.at(0)
@@ -855,7 +855,7 @@ export const Graph = {
       .style("text-anchor", "end")
       .style("font-size", 20)
       .attr("fill", "rgba(127, 127, 127, .8)")
-  
+
     //Data range
     const y = d3.scaleLinear()
       .domain([high, low])
@@ -869,7 +869,7 @@ export const Graph = {
       .selectAll("text")
       .style("font-size", 20)
       .attr("fill", "rgba(127, 127, 127, .8)")
-  
+
     //Generate graph line
     const datum = Y.map((y, i) => [X.at(i), y])
     const tdatum = Y.map((y, i) => [X.at(i), y, T[i]])
@@ -888,7 +888,7 @@ export const Graph = {
       .attr("fill", "transparent")
       .attr("stroke", "#87ceeb")
       .attr("stroke-width", 2)
-    
+
     //Generate graph area
     if (area) {
       svg.append("path")
@@ -904,7 +904,7 @@ export const Graph = {
       )
       .attr("fill", "rgba(88, 166, 255, .1)")
     }
-  
+
     //Generate graph points
     if (points) {
       svg.append("g")
@@ -917,7 +917,7 @@ export const Graph = {
         .attr("r", 2)
         .attr("fill", "#106cbc")
     }
-  
+
     //Generate graph text
     if (text) {
       svg.append("g")
@@ -938,7 +938,7 @@ export const Graph = {
         .text(d => d[2] ? d[2] : "")
         .attr("fill", "rgba(127, 127, 127, .8)")
     }
-  
+
     return d3n.svgString()
   },
   /**Pie Graph */
@@ -947,7 +947,7 @@ export const Graph = {
     const radius = Math.min(width, height) / 2
     const d3n = new D3node()
     const svg = d3n.createSVG(width, height)
-  
+
     //Data
     const K = Object.keys(data)
     const V = Object.values(data)
@@ -958,7 +958,7 @@ export const Graph = {
     const arcs = d3.pie().padAngle(1/radius).sort(null).value(i => V[i])(I)
     const arc = d3.arc().innerRadius(0).outerRadius(radius)
     const labels = d3.arc().innerRadius(radius/2).outerRadius(radius/2)
-  
+
     svg.append("g")
       .attr("transform", `translate(${width/2},${height/2})`)
       .attr("stroke", "white")

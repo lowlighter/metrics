@@ -126,7 +126,7 @@ export default async function({login, data, rest, imports, q, account}, {enabled
       ].map(({type, data, high, low, ticks, colors = null, labels = null, half = false}) => {
         const width = 480 * (half ? 0.45 : 1)
         const height = 160
-        if (type === "line") 
+        if (type === "line")
           return imports.Graph.line(Object.entries(data).map(([x, y]) => ({x:+x, y})), {low, high, ticks, labels, width, height})
         console.log(data)
         if (type === "pie")
