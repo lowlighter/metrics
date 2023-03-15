@@ -74,14 +74,17 @@ inputs:
       Charts display type
 
       - `classic`: `<div>` based charts, simple and lightweight
-      - `chartist`: `<svg>` based charts, smooth
+      - `graph`: `<svg>` based charts, smooth
+
+      > ⚠️ `chartist` option has been deprecated and is now equivalent to `graph`
     type: string
     default: classic
     values:
       - classic
+      - graph
       - chartist
     extras:
-      - metrics.npm.optional.chartist
+      - metrics.npm.optional.d3
 
   plugin_habits_trim:
     description: |

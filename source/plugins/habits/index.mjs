@@ -106,60 +106,33 @@ export default async function({login, data, rest, imports, q, account}, {enabled
       if (patches.length) {
         //Call language analyzer (note: using content from other plugin is usually disallowed, this is mostly for legacy purposes)
         habits.linguist.available = true
-        const {total, stats} = await recent_analyzer({login, data, imports, rest, account}, {days, load: from || 1000, tempdir: "habits"})
+        const {total, stats, colors} = await recent_analyzer({login, data, imports, rest, account}, {days, load: from || 1000, tempdir: "habits"})
         habits.linguist.languages = Object.fromEntries(Object.entries(stats).map(([language, value]) => [language, value / total]))
         habits.linguist.ordered = Object.entries(habits.linguist.languages).sort(([_an, a], [_bn, b]) => b - a).filter(([_, value]) => value > threshold).slice(0, limit || Infinity)
+        habits.linguist.colors = colors
       }
       else {
         console.debug(`metrics/compute/${login}/plugins > habits > linguist not available`)
       }
     }
 
-    //Generating charts with chartist
-    if ((_charts === "chartist") && (imports.metadata.plugins.habits.extras("charts.type", {extras}))) {
+    //Generating charts
+    if ((["graph", "chartist"].includes(_charts)) && (imports.metadata.plugins.habits.extras("charts.type", {extras}))) {
       console.debug(`metrics/compute/${login}/plugins > habits > generating charts`)
       habits.charts = await Promise.all([
-        {type: "line", data: {...empty(24), ...Object.fromEntries(Object.entries(habits.commits.hours).filter(([k]) => !Number.isNaN(+k)))}, low: 0, high: habits.commits.hours.max},
-        {type: "line", data: {...empty(7), ...Object.fromEntries(Object.entries(habits.commits.days).filter(([k]) => !Number.isNaN(+k)))}, low: 0, high: habits.commits.days.max, labels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], half: true},
-        {type: "pie", data: habits.linguist.languages, half: true},
-      ].map(({type, data, high, low, ref, labels = {}, half = false}) => {
-        const options = {
-          width: 480 * (half ? 0.45 : 1),
-          height: 160,
-          fullWidth: true,
-        }
-        const values = {
-          labels: Object.keys(data).map(key => labels[key] ?? key),
-          series: Object.values(data),
-        }
-        if (type === "line") {
-          Object.assign(options, {
-            showPoint: true,
-            axisX: {showGrid: false},
-            axisY: {showLabel: false, offset: 20, labelInterpolationFnc: value => imports.format(value), high, low, referenceValue: ref},
-            showArea: true,
-          })
-          Object.assign(values, {
-            series: [Object.values(data)],
-          })
-        }
-        return imports.chartist(type, options, values)
+        {type: "line", data: {...empty(24), ...Object.fromEntries(Object.entries(habits.commits.hours).filter(([k]) => !Number.isNaN(+k)))}, ticks:24, low: 0, high: habits.commits.hours.max},
+        {type: "line", data: {...empty(7), ...Object.fromEntries(Object.entries(habits.commits.days).filter(([k]) => !Number.isNaN(+k)))}, ticks:7, low: 0, high: habits.commits.days.max, labels:["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], half: true},
+        {type: "pie", data: Object.fromEntries(Object.entries(habits.linguist.languages).map(([k, v]) => [k, (100*v).toFixed(2)])), colors:habits.linguist.colors, half: true},
+      ].map(({type, data, high, low, ticks, colors = null, labels = null, half = false}) => {
+        const width = 480 * (half ? 0.45 : 1)
+        const height = 160
+        if (type === "line") 
+          return imports.Graph.line(Object.entries(data).map(([x, y]) => ({x:+x, y})), {low, high, ticks, labels, width, height})
+        console.log(data)
+        if (type === "pie")
+          return imports.Graph.pie(data, {colors, width, height})
+        return ""
       }))
-      data.postscripts.push(`(${function(format) {
-        document.querySelectorAll(".habits .chartist").forEach(chart => {
-          chart.querySelectorAll(".habits .chartist .ct-point").forEach(node => {
-            const [x, y, value] = ["x1", "y1", "ct:value"].map(attribute => node.getAttribute(attribute))
-            if (Number(value)) {
-              const text = document.createElementNS("http://www.w3.org/2000/svg", "text")
-              text.setAttributeNS(null, "x", x)
-              text.setAttributeNS(null, "y", y - 5)
-              text.setAttributeNS(null, "class", "ct-post")
-              text.appendChild(document.createTextNode(format(value)))
-              node.parentNode.append(text)
-            }
-          })
-        })
-      }})(${imports.format.toString()})`)
     }
 
     //Results
