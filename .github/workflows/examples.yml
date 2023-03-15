@@ -234,14 +234,14 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      - name: ✨ Stargazers - Using chartist charts
+      - name: ✨ Stargazers - Using graph charts
         uses: lowlighter/metrics@master
         with:
-          filename: metrics.plugin.stargazers.chartist.svg
+          filename: metrics.plugin.stargazers.graph.svg
           token: ${{ secrets.METRICS_TOKEN }}
           base: ""
           plugin_stargazers: yes
-          plugin_stargazers_charts_type: chartist
+          plugin_stargazers_charts_type: graph
           output_action: none
           delay: 120
           user: lowlighter
