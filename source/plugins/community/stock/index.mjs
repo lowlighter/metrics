@@ -31,17 +31,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
 
     //Generating chart
     console.debug(`metrics/compute/${login}/plugins > stock > generating chart`)
-    const chart = await imports.chartist("line", {
-      width: 480 * (1 + data.large),
-      height: 160,
-      showPoint: false,
-      axisX: {showGrid: false, labelInterpolationFnc: (value, index) => index % Math.floor(close.length / 4) === 0 ? value : null},
-      axisY: {scaleMinSpace: 20},
-      showArea: true,
-    }, {
-      labels: timestamp.map(timestamp => new Intl.DateTimeFormat("en-GB", {month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit"}).format(new Date(timestamp * 1000))),
-      series: [close],
-    })
+    const chart = imports.Graph.timeline(close.map((y, i) => ({x:new Date(timestamp[i]*1000), y})), {low:Math.min(...close), high:Math.max(...close), points:false, text:false, width: 480 * (1 + data.large), height:200})
 
     //Results
     return {chart, currency, price, previous, delta: price - previous, symbol, company, interval, duration}
