@@ -19,7 +19,7 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
   </tr>
   <tr>
     <th colspan="2" align="center">
-      <h3><a href="/README.md#-plugins">🧩 Customizable with 46 plugins and 328 options!</a></h3>
+      <h3><a href="/README.md#-plugins">🧩 Customizable with 46 plugins and 329 options!</a></h3>
     </th>
   </tr>
   <tr>
@@ -47,7 +47,7 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
   <tr>
         <td  align="center">
         <details open><summary>Classic charts</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.svg" alt=""></img></details>
-        <details><summary>Chartist charts</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.chartist.svg" alt=""></img></details>
+        <details><summary>Graph charts</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.graph.svg" alt=""></img></details>
         <details open><summary>Worldmap</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.worldmap.svg" alt=""></img></details>
         <img width="900" height="1" alt="">
       </td>

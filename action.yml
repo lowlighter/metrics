@@ -348,6 +348,10 @@ inputs:
     description: Enable stargazers plugin
     default: <default-value>
 
+  plugin_stargazers_days:
+    description: Time range
+    default: <default-value>
+
   plugin_stargazers_charts:
     description: Charts
     default: <default-value>
