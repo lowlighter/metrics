@@ -9,7 +9,7 @@ export default async function({login, graphql, data, imports, q, queries, accoun
     //Load inputs
     let {days, charts: _charts, "charts.type": _charts_type, worldmap: _worldmap, "worldmap.sample": _worldmap_sample} = imports.metadata.plugins.stargazers.inputs({data, account, q})
     if (!days) {
-      days = Math.abs(parseInt((new Date() - new Date(data.user.createdAt))/1000/60/60/24))
+      days = Math.abs(parseInt((new Date() - new Date(data.user.createdAt)) / 1000 / 60 / 60 / 24))
       console.debug(`metrics/compute/${login}/plugins > stargazers > set days to ${days}`)
     }
 
@@ -65,13 +65,13 @@ export default async function({login, graphql, data, imports, q, queries, accoun
 
     //Generating charts
     let charts = _charts ? true : null
-    if ((["graph", "chartist"].includes(_charts_type)) && (imports.metadata.plugins.stargazers.extras("charts.type", {extras})))  {
+    if ((["graph", "chartist"].includes(_charts_type)) && (imports.metadata.plugins.stargazers.extras("charts.type", {extras}))) {
       console.debug(`metrics/compute/${login}/plugins > stargazers > generating charts`)
-      charts = await Promise.all([{data: total, low: total.min, high: total.max}, {data: increments, low: 0, high: increments.max, sign: true}].map(({data: {dates: set}, low, high, sign = false}) =>
-        imports.Graph.timeline(Object.entries(set).map(([x, y]) => ({x:new Date(x), y, text:imports.format(y, {sign})})), {low, high,
-          match:(data, ticks) => data.filter(([x]) => ticks.map(t => t.toISOString().slice(0, 10)).includes(x.toISOString().slice(0, 10))),
-        })
-      ))
+      charts = await Promise.all(
+        [{data: total, low: total.min, high: total.max}, {data: increments, low: 0, high: increments.max, sign: true}].map(({data: {dates: set}, low, high, sign = false}) =>
+          imports.Graph.timeline(Object.entries(set).map(([x, y]) => ({x: new Date(x), y, text: imports.format(y, {sign})})), {low, high, match: (data, ticks) => data.filter(([x]) => ticks.map(t => t.toISOString().slice(0, 10)).includes(x.toISOString().slice(0, 10)))})
+        ),
+      )
     }
 
     //Generating worldmap

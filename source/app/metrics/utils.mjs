@@ -822,7 +822,7 @@ export const Graph = {
   /**Basic Graph */
   graph(type, data, {area = true, points = true, text = true, low = NaN, high = NaN, match = null, labels = null, width = 480, height = 315, ticks = 0} = {}) {
     //Generate SVG
-    const margin = {top:10, left:10, right:10, bottom:45}
+    const margin = {top: 10, left: 10, right: 10, bottom: 45}
     const d3n = new D3node()
     const svg = d3n.createSVG(width, height)
 
@@ -862,7 +862,7 @@ export const Graph = {
       .range([margin.left, height - margin.top - margin.bottom])
     svg.append("g")
       .attr("transform", `translate(${margin.left},${margin.top})`)
-      .call(d3.axisRight(y).ticks(Math.round(height/50)).tickSize(width - margin.left - margin.right))
+      .call(d3.axisRight(y).ticks(Math.round(height / 50)).tickSize(width - margin.left - margin.right))
       .call(g => g.select(".domain").remove())
       .call(g => g.selectAll(".tick line").attr("stroke-opacity", 0.5).attr("stroke-dasharray", "2,2"))
       .call(g => g.selectAll(".tick text").attr("x", 0).attr("dy", -4))
@@ -883,7 +883,7 @@ export const Graph = {
         d3.line()
           .curve(d3.curveLinear)
           .x(d => x(d[0]))
-          .y(d => y(d[1]))
+          .y(d => y(d[1])),
       )
       .attr("fill", "transparent")
       .attr("stroke", "#87ceeb")
@@ -892,24 +892,24 @@ export const Graph = {
     //Generate graph area
     if (area) {
       svg.append("path")
-      .datum(datum)
-      .attr("transform", `translate(${margin.left},${margin.top})`)
-      .attr(
-        "d",
-        d3.area()
-          .curve(d3.curveLinear)
-          .x(d => x(d[0]))
-          .y0(d => y(d[1]))
-          .y1(() => y(low)),
-      )
-      .attr("fill", "rgba(88, 166, 255, .1)")
+        .datum(datum)
+        .attr("transform", `translate(${margin.left},${margin.top})`)
+        .attr(
+          "d",
+          d3.area()
+            .curve(d3.curveLinear)
+            .x(d => x(d[0]))
+            .y0(d => y(d[1]))
+            .y1(() => y(low)),
+        )
+        .attr("fill", "rgba(88, 166, 255, .1)")
     }
 
     //Generate graph points
     if (points) {
       svg.append("g")
-      .selectAll("circle")
-      .data(yticked)
+        .selectAll("circle")
+        .data(yticked)
         .join("circle")
         .attr("transform", `translate(${margin.left},${margin.top})`)
         .attr("cx", d => x(d[0]))
@@ -929,10 +929,10 @@ export const Graph = {
         .attr("stroke-linejoin", "round")
         .attr("stroke-width", 4)
         .attr("paint-order", "stroke fill")
-      .selectAll("text")
-      .data(yticked)
-      .join("text")
-        .attr("transform", `translate(${margin.left},${margin.top-4})`)
+        .selectAll("text")
+        .data(yticked)
+        .join("text")
+        .attr("transform", `translate(${margin.left},${margin.top - 4})`)
         .attr("x", d => x(d[0]))
         .attr("y", d => y(d[1]))
         .text(d => d[2] ? d[2] : "")
@@ -955,46 +955,46 @@ export const Graph = {
 
     //Construct arcs
     const color = d3.scaleOrdinal(K, d3.schemeSpectral[K.length])
-    const arcs = d3.pie().padAngle(1/radius).sort(null).value(i => V[i])(I)
+    const arcs = d3.pie().padAngle(1 / radius).sort(null).value(i => V[i])(I)
     const arc = d3.arc().innerRadius(0).outerRadius(radius)
-    const labels = d3.arc().innerRadius(radius/2).outerRadius(radius/2)
+    const labels = d3.arc().innerRadius(radius / 2).outerRadius(radius / 2)
 
     svg.append("g")
-      .attr("transform", `translate(${width/2},${height/2})`)
+      .attr("transform", `translate(${width / 2},${height / 2})`)
       .attr("stroke", "white")
       .attr("stroke-width", 1)
       .attr("stroke-linejoin", "round")
-    .selectAll("path")
-    .data(arcs)
-    .join("path")
+      .selectAll("path")
+      .data(arcs)
+      .join("path")
       .attr("fill", d => colors?.[K[d.data]] ?? color(K[d.data]))
       .attr("d", arc)
-    .append("title")
+      .append("title")
       .text(d => `${K[d.data]}\n${V[d.data]}`)
 
     svg.append("g")
-      .attr("transform", `translate(${width/2},${height/2})`)
+      .attr("transform", `translate(${width / 2},${height / 2})`)
       .attr("font-family", "sans-serif")
       .attr("font-size", 12)
       .attr("text-anchor", "middle")
       .attr("fill", "white")
       .attr("stroke", "rbga(0,0,0,.9)")
       .attr("paint-order", "stroke fill")
-    .selectAll("text")
-    .data(arcs)
-    .join("text")
+      .selectAll("text")
+      .data(arcs)
+      .join("text")
       .attr("transform", d => `translate(${labels.centroid(d)})`)
-    .selectAll("tspan")
-    .data(d => {
-      const lines = `${K[d.data]}\n${V[d.data]}`.split(/\n/)
-      return (d.endAngle - d.startAngle) > 0.25 ? lines : lines.slice(0, 1)
-    })
-    .join("tspan")
+      .selectAll("tspan")
+      .data(d => {
+        const lines = `${K[d.data]}\n${V[d.data]}`.split(/\n/)
+        return (d.endAngle - d.startAngle) > 0.25 ? lines : lines.slice(0, 1)
+      })
+      .join("tspan")
       .attr("x", 0)
       .attr("y", (_, i) => `${i * 1.1}em`)
       .attr("font-weight", (_, i) => i ? null : "bold")
       .text(d => d)
 
     return d3n.svgString()
-  }
+  },
 }

@@ -120,14 +120,14 @@ export default async function({login, data, rest, imports, q, account}, {enabled
     if ((["graph", "chartist"].includes(_charts)) && (imports.metadata.plugins.habits.extras("charts.type", {extras}))) {
       console.debug(`metrics/compute/${login}/plugins > habits > generating charts`)
       habits.charts = await Promise.all([
-        {type: "line", data: {...empty(24), ...Object.fromEntries(Object.entries(habits.commits.hours).filter(([k]) => !Number.isNaN(+k)))}, ticks:24, low: 0, high: habits.commits.hours.max},
-        {type: "line", data: {...empty(7), ...Object.fromEntries(Object.entries(habits.commits.days).filter(([k]) => !Number.isNaN(+k)))}, ticks:7, low: 0, high: habits.commits.days.max, labels:["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], half: true},
-        {type: "pie", data: Object.fromEntries(Object.entries(habits.linguist.languages).map(([k, v]) => [k, (100*v).toFixed(2)])), colors:habits.linguist.colors, half: true},
+        {type: "line", data: {...empty(24), ...Object.fromEntries(Object.entries(habits.commits.hours).filter(([k]) => !Number.isNaN(+k)))}, ticks: 24, low: 0, high: habits.commits.hours.max},
+        {type: "line", data: {...empty(7), ...Object.fromEntries(Object.entries(habits.commits.days).filter(([k]) => !Number.isNaN(+k)))}, ticks: 7, low: 0, high: habits.commits.days.max, labels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], half: true},
+        {type: "pie", data: Object.fromEntries(Object.entries(habits.linguist.languages).map(([k, v]) => [k, (100 * v).toFixed(2)])), colors: habits.linguist.colors, half: true},
       ].map(({type, data, high, low, ticks, colors = null, labels = null, half = false}) => {
         const width = 480 * (half ? 0.45 : 1)
         const height = 160
         if (type === "line")
-          return imports.Graph.line(Object.entries(data).map(([x, y]) => ({x:+x, y})), {low, high, ticks, labels, width, height})
+          return imports.Graph.line(Object.entries(data).map(([x, y]) => ({x: +x, y})), {low, high, ticks, labels, width, height})
         console.log(data)
         if (type === "pie")
           return imports.Graph.pie(data, {colors, width, height})

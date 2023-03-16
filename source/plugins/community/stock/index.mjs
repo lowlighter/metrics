@@ -31,7 +31,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
 
     //Generating chart
     console.debug(`metrics/compute/${login}/plugins > stock > generating chart`)
-    const chart = imports.Graph.timeline(close.map((y, i) => ({x:new Date(timestamp[i]*1000), y})), {low:Math.min(...close), high:Math.max(...close), points:false, text:false, width: 480 * (1 + data.large), height:200})
+    const chart = imports.Graph.timeline(close.map((y, i) => ({x: new Date(timestamp[i] * 1000), y})), {low: Math.min(...close), high: Math.max(...close), points: false, text: false, width: 480 * (1 + data.large), height: 200})
 
     //Results
     return {chart, currency, price, previous, delta: price - previous, symbol, company, interval, duration}
