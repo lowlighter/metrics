@@ -18,6 +18,5 @@
       @use.patterns
       */*
       +lowlighter/metrics
-      +lowlighter/brain
     use_mocked_data: 'yes'
     verify: 'yes'

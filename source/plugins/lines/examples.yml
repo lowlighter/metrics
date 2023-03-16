@@ -20,4 +20,3 @@
       @use.patterns
       */*
       +lowlighter/metrics
-      +lowlighter/brain

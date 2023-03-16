@@ -289,7 +289,6 @@ jobs:
             @use.patterns
             */*
             +lowlighter/metrics
-            +lowlighter/brain
           output_action: none
           delay: 120
           user: lowlighter
