@@ -348,6 +348,10 @@ inputs:
     description: Enable stargazers plugin
     default: <default-value>
 
+  plugin_stargazers_days:
+    description: Time range
+    default: <default-value>
+
   plugin_stargazers_charts:
     description: Charts
     default: <default-value>
@@ -1224,6 +1228,10 @@ inputs:
 
   plugin_leetcode_limit_skills:
     description: Display limit (skills)
+    default: <default-value>
+
+  plugin_leetcode_ignored_skills:
+    description: Ignored skills
     default: <default-value>
 
   plugin_leetcode_limit_recent:

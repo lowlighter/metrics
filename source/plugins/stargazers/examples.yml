@@ -6,14 +6,14 @@
     base: ""
     plugin_stargazers: yes
 
-- name: Using chartist charts
+- name: Using graph charts
   uses: lowlighter/metrics@latest
   with:
-    filename: metrics.plugin.stargazers.chartist.svg
+    filename: metrics.plugin.stargazers.graph.svg
     token: ${{ secrets.METRICS_TOKEN }}
     base: ""
     plugin_stargazers: yes
-    plugin_stargazers_charts_type: chartist
+    plugin_stargazers_charts_type: graph
 
 - name: With worldmap
   uses: lowlighter/metrics@latest

@@ -356,15 +356,6 @@
     padding-left: 37px;
   }
 
-/* Chartist */
-/* purgecss ignore */
-  .chartist .ct-post {
-    fill: rgba(127, 127, 127, 0.8) !important;
-    color: rgba(127, 127, 127, 0.8) !important;
-    font-size: 9px;
-    text-anchor: middle;
-  }
-
 /* Footer */
   footer {
     margin-top: 8px;

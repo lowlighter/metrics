@@ -39,7 +39,7 @@
   <tr>
     <td nowrap="nowrap">🌐 Web instances must configure <code>settings.json</code>:
 <ul>
-<li><i>metrics.npm.optional.chartist</i></li>
+<li><i>metrics.npm.optional.d3</i></li>
 <li><i>metrics.api.yahoo.finance</i></li>
 </ul>
 <b>type:</b> <code>boolean</code>

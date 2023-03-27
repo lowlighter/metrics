@@ -85,6 +85,17 @@ All product and company names are trademarks™ or registered® trademarks of th
 <b>default:</b> 10<br></td>
   </tr>
   <tr>
+    <td nowrap="nowrap"><h4><code>plugin_leetcode_ignored_skills</code></h4></td>
+    <td rowspan="2"><p>Ignored skills</p>
+<p>It is possible to ignore entires categories by passing <code>fundamental</code>, <code>intermediate</code> or <code>advanced</code></p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">✨ On <code>master</code>/<code>main</code><br>
+<b>type:</b> <code>array</code>
+<br></td>
+  </tr>
+  <tr>
     <td nowrap="nowrap"><h4><code>plugin_leetcode_limit_recent</code></h4></td>
     <td rowspan="2"><p>Display limit (recent)</p>
 <img width="900" height="1" alt=""></td>

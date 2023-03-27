@@ -119,8 +119,6 @@ Below is a list of used packages.
   * To parse and handle emojis/[twemojis](https://github.com/twitter/twemoji)
 * [jshemas/openGraphScraper](https://github.com/jshemas/openGraphScraper)
   * To retrieve open graphs metadata
-* [panosoft/node-chartist](https://github.com/panosoft/node-chartist) and [gionkunz/chartist-js](https://github.com/gionkunz/chartist-js)
-  * To display embed SVG charts
 * [rbren/rss-parser](https://github.com/rbren/rss-parser)
   * To parse RSS streams
 * [Nixinova/Linguist](https://github.com/Nixinova/Linguist)

@@ -19,7 +19,7 @@ inputs:
     type: boolean
     default: no
     extras:
-      - metrics.npm.optional.chartist
+      - metrics.npm.optional.d3
       - metrics.api.yahoo.finance
 
   plugin_stock_token:
