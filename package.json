@@ -61,7 +61,7 @@
     "purgecss": "^5.0.0",
     "rss-parser": "^3.12.0",
     "sanitize-html": "^2.10.0",
-    "sharp": "^0.31.3",
+    "sharp": "^0.32.0",
     "simple-git": "^3.17.0",
     "svgo": "^3.0.2",
     "vue": "^2.7.1",
