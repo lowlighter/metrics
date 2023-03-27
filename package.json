@@ -50,7 +50,7 @@
     "js-yaml": "^4.1.0",
     "jsdom": "^21.1.1",
     "linguist-js": "^2.5.4",
-    "marked": "^4.2.12",
+    "marked": "^4.3.0",
     "memory-cache": "^0.2.0",
     "minimatch": "^7.4.2",
     "node-fetch": "^3.3.1",
