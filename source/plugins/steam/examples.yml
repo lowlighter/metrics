@@ -6,7 +6,7 @@
     base: ""
     plugin_steam_token: ${{ secrets.STEAM_TOKEN }}
     plugin_steam: yes
-    plugin_steam_user: 0
+    plugin_steam_user: "0"
     plugin_steam_sections: recently-played
     plugin_steam_achievements_limit: 0
   prod:
@@ -23,7 +23,7 @@
     base: ""
     plugin_steam_token: ${{ secrets.STEAM_TOKEN }}
     plugin_steam: yes
-    plugin_steam_user: 0
+    plugin_steam_user: "0"
   prod:
     # ⚠️ Using mocked data for privacy reasons
     with:
