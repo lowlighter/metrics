@@ -1136,7 +1136,7 @@ jobs:
           base: ""
           plugin_steam_token: MOCKED_TOKEN
           plugin_steam: yes
-          plugin_steam_user: 0
+          plugin_steam_user: "0"
           plugin_steam_sections: recently-played
           plugin_steam_achievements_limit: 0
           use_mocked_data: yes
@@ -1153,7 +1153,7 @@ jobs:
           base: ""
           plugin_steam_token: MOCKED_TOKEN
           plugin_steam: yes
-          plugin_steam_user: 0
+          plugin_steam_user: "0"
           use_mocked_data: yes
           output_action: none
           delay: 120
