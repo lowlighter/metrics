@@ -24,7 +24,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
         await frame.waitForSelector(".user-profile-names", {timeout: 5000})
       }
       catch {
-        throw {error: {message: "Account does not exists on github.community"}}
+        throw {error: {message: "Account does not exist on github.community"}}
       }
     }
 
