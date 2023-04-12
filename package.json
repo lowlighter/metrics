@@ -59,7 +59,7 @@
     "prismjs": "^1.29.0",
     "puppeteer": "^19.8.2",
     "purgecss": "^5.0.0",
-    "rss-parser": "^3.12.0",
+    "rss-parser": "^3.13.0",
     "sanitize-html": "^2.10.0",
     "sharp": "^0.32.0",
     "simple-git": "^3.17.0",
