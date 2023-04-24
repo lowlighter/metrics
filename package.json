@@ -83,7 +83,7 @@
     "chess.js": "^1.0.0-beta.3",
     "color": "^4.2.3",
     "gifencoder": "^2.0.1",
-    "libxmljs2": "^0.31.0",
+    "libxmljs2": "^0.32.0",
     "rss": "^1.2.2",
     "yargs-parser": "^21.1.1"
   }
