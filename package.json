@@ -62,7 +62,7 @@
     "rss-parser": "^3.13.0",
     "sanitize-html": "^2.10.0",
     "sharp": "^0.32.0",
-    "simple-git": "^3.17.0",
+    "simple-git": "^3.19.0",
     "svgo": "^3.0.2",
     "vue": "^2.7.1",
     "vue-prism-component": "^1.2.0",
