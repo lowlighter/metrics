@@ -82,7 +82,9 @@ async function total({imports}) {
       //Extracting total from github.com/search
       for (let i = 0; (i < 100) && ((!total.users) || (!total.repositories)); i++) {
         const page = await browser.newPage()
-        await page.goto("https://github.com/search")
+        //**https://github.com/lowlighter/metrics/issues/1479 */
+        //await page.goto("https://github.com/search") */
+        await page.goto("https://github.com/search?q=+created%3A%3E2007")
         const result = await page.evaluate(() => [...document.querySelectorAll("h2")].filter(node => /Search more/.test(node.innerText)).shift()?.innerText.trim().match(/(?<count>\d+)M\s+(?<type>repositories|users|issues)$/)?.groups) ?? null
         console.debug(`metrics/compute/plugins > achievements > setup found ${result?.type ?? "(?)"}`)
         if ((result?.type) && (!total[result.type])) {
