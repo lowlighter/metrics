@@ -82,13 +82,16 @@ async function total({imports}) {
       //Extracting total from github.com/search
       for (let i = 0; (i < 100) && ((!total.users) || (!total.repositories)); i++) {
         const page = await browser.newPage()
-        await page.goto("https://github.com/search")
-        const result = await page.evaluate(() => [...document.querySelectorAll("h2")].filter(node => /Search more/.test(node.innerText)).shift()?.innerText.trim().match(/(?<count>\d+)M\s+(?<type>repositories|users|issues)$/)?.groups) ?? null
-        console.debug(`metrics/compute/plugins > achievements > setup found ${result?.type ?? "(?)"}`)
-        if ((result?.type) && (!total[result.type])) {
-          const {count, type} = result
-          total[type] = Number(count) * 10e5
-          console.debug(`metrics/compute/plugins > achievements > set total.${type} to ${total[type]}`)
+        await page.goto("https://github.com/search?q=+created%3A%3E2007")
+        const results = await page.evaluate(() => [...[...document.querySelectorAll("h2")].filter(node => /Filter by/.test(node.innerText)).shift()?.nextSibling?.innerText.trim().matchAll(/(?<type>Repositories|Users|Issues)\n(?<count>.*?)M/g) ?? []]) ?? null
+        for (const result of results) {
+          const type = result[1]?.toLowerCase()
+          console.debug(`metrics/compute/plugins > achievements > setup found ${type ?? "(?)"}`)
+          const count = result[2] ?? ""
+          if ((count !== "") && (!total[type])) {
+            total[type] = Number(count) * 10e5
+            console.debug(`metrics/compute/plugins > achievements > set total.${type} to ${total[type]}`)
+          }
         }
         await page.close()
         await imports.wait(10 * Math.random())
