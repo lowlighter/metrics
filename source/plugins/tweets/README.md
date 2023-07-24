@@ -4,6 +4,8 @@
   <tr><th colspan="2"><h3>🐤 Latest tweets</h3></th></tr>
   <tr><td colspan="2" align="center"><p>This plugin displays the latest tweets from a <a href="https://twitter.com">Twitter</a> account.</p>
 </td></tr>
+  <tr><th>⚠️ Deprecated</th><td><p>As <a href="https://twitter.com">Twitter</a> removed the ability to fetch tweets from their free API as part of their new <a href="https://developer.twitter.com/en/docs/twitter-api/getting-started/about-twitter-api">pricing policy</a>, this plugin is no longer maintained.</p>
+</td></tr>
   <tr><th>⚠️ Disclaimer</th><td><p>This plugin is not affiliated, associated, authorized, endorsed by, or in any way officially connected with <a href="https://twitter.com">Twitter</a>.
 All product and company names are trademarks™ or registered® trademarks of their respective holders.</p>
 </td></tr>

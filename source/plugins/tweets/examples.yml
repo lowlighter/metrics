@@ -7,6 +7,10 @@
     plugin_tweets: yes
     plugin_tweets_token: ${{ secrets.TWITTER_TOKEN }}
     plugin_tweets_user: github
+  prod:
+    skip: true
+  test:
+    skip: true
 
 - name: Latest tweets including attachments
   uses: lowlighter/metrics@latest
@@ -19,3 +23,7 @@
     plugin_tweets_attachments: yes
     plugin_tweets_user: github
     plugin_tweets_limit: 1
+  prod:
+    skip: true
+  test:
+    skip: true

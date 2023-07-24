@@ -5,6 +5,8 @@ description: |
 disclaimer: |
   This plugin is not affiliated, associated, authorized, endorsed by, or in any way officially connected with [Twitter](https://twitter.com).
   All product and company names are trademarks™ or registered® trademarks of their respective holders.
+deprecation: |
+  As [Twitter](https://twitter.com) removed the ability to fetch tweets from their free API as part of their new [pricing policy](https://developer.twitter.com/en/docs/twitter-api/getting-started/about-twitter-api), this plugin is no longer maintained.
 examples:
   +latest tweets with attachments: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.tweets.attachments.svg
   latest tweets: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.tweets.svg

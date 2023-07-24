@@ -45,7 +45,7 @@ Plugins provide additional content and lets you customize rendered metrics.
   * [🗼 Rss feed <sub>`rss`</sub>](/source/plugins/rss/README.md)
   * [🗨️ Stack Overflow <sub>`stackoverflow`</sub>](/source/plugins/stackoverflow/README.md)
   * [🕹️ Steam <sub>`steam`</sub>](/source/plugins/steam/README.md)
-  * [🐤 Latest tweets <sub>`tweets`</sub>](/source/plugins/tweets/README.md)
+  * [🐤 Latest tweets <sub>`tweets`</sub>](/source/plugins/tweets/README.md) <sub>`⚠️ deprecated`</sub>
   * [⏰ WakaTime <sub>`wakatime`</sub>](/source/plugins/wakatime/README.md)
 
 **🎲 Maintained by community**
