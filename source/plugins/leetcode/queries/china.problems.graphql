@@ -1,0 +1,18 @@
+query Problems ($username: String!) {
+  userProfileUserQuestionProgress(userSlug: $username) {
+    numAcceptedQuestions {
+      difficulty
+      count
+    }
+  }
+  problemsSolvedBeatsStats {
+    difficulty
+    percentage
+  }
+    submitStatsGlobal {
+      acSubmissionNum {
+        difficulty
+        count
+      }
+    }
+}

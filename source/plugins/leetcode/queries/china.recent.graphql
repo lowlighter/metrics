@@ -1,0 +1,18 @@
+query Recent ($username: String!, $limit: Int!) {
+  recentAcSubmissionList(username: $username, limit: $limit) {
+    id
+    title
+    titleSlug
+    timestamp
+  }
+}
+
+"\n query recentAcSubmissions($userSlug: String!) {\n
+recentACSubmissions(userSlug: $userSlug) {\n
+submissionId\n
+submitTime\n
+question {\n
+title\n
+translatedTitle\n
+titleSlug\n
+questionFrontendId\n }\n }\n}\n "

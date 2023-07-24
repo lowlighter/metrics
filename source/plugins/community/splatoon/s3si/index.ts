@@ -1243,13 +1243,13 @@ const MIN_BUF_SIZE = 16;
 const CR = "\r".charCodeAt(0);
 const LF = "\n".charCodeAt(0);
 class BufferFullError extends Error {
+    partial;
     name;
     constructor(partial){
         super("Buffer full");
         this.partial = partial;
         this.name = "BufferFullError";
     }
-    partial;
 }
 class PartialReadError extends Error {
     name = "PartialReadError";
@@ -1753,6 +1753,8 @@ class MultiReader {
     }
 }
 class LimitedReader {
+    reader;
+    limit;
     constructor(reader, limit){
         this.reader = reader;
         this.limit = limit;
@@ -1771,8 +1773,6 @@ class LimitedReader {
         this.limit -= n;
         return n;
     }
-    reader;
-    limit;
 }
 const DEFAULT_BUFFER_SIZE = 32 * 1024;
 async function copyN(r, dest, size) {
@@ -1836,6 +1836,7 @@ function sliceLongToBytes(d, dest = Array.from({
 }
 const decoder = new TextDecoder();
 class StringWriter {
+    base;
     #chunks;
     #byteLength;
     #cache;
@@ -1869,7 +1870,6 @@ class StringWriter {
         this.#cache = decoder.decode(buf);
         return this.#cache;
     }
-    base;
 }
 const mod2 = {
     copyN: copyN,
@@ -2144,12 +2144,12 @@ function utf8DecodeTD(bytes, inputOffset, byteLength) {
     return sharedTextDecoder.decode(stringBytes);
 }
 class ExtData {
+    type;
+    data;
     constructor(type, data){
         this.type = type;
         this.data = data;
     }
-    type;
-    data;
 }
 function setUint64(view, offset, value) {
     const high = value / 0x1_0000_0000;
@@ -2336,6 +2336,13 @@ function createDataView(buffer) {
     return new DataView(bufferView.buffer, bufferView.byteOffset, bufferView.byteLength);
 }
 class Encoder {
+    extensionCodec;
+    context;
+    maxDepth;
+    initialBufferSize;
+    sortKeys;
+    forceFloat32;
+    ignoreUndefined;
     pos;
     view;
     bytes;
@@ -2645,13 +2652,6 @@ class Encoder {
         setInt64(this.view, this.pos, value);
         this.pos += 8;
     }
-    extensionCodec;
-    context;
-    maxDepth;
-    initialBufferSize;
-    sortKeys;
-    forceFloat32;
-    ignoreUndefined;
 }
 const defaultEncodeOptions = {};
 function encode1(value, options = defaultEncodeOptions) {
@@ -2662,6 +2662,8 @@ function prettyByte(__byte) {
     return `${__byte < 0 ? "-" : ""}0x${Math.abs(__byte).toString(16).padStart(2, "0")}`;
 }
 class CachedKeyDecoder {
+    maxKeyLength;
+    maxLengthPerKey;
     hit;
     miss;
     caches;
@@ -2717,8 +2719,6 @@ class CachedKeyDecoder {
         this.store(slicedCopyOfBytes, value);
         return value;
     }
-    maxKeyLength;
-    maxLengthPerKey;
 }
 var State;
 (function(State) {
@@ -2744,6 +2744,14 @@ const DataViewIndexOutOfBoundsError = (()=>{
 const MORE_DATA = new DataViewIndexOutOfBoundsError("Insufficient data");
 const sharedCachedKeyDecoder = new CachedKeyDecoder();
 class Decoder {
+    extensionCodec;
+    context;
+    maxStrLength;
+    maxBinLength;
+    maxArrayLength;
+    maxMapLength;
+    maxExtLength;
+    keyDecoder;
     totalPos;
     pos;
     view;
@@ -3191,14 +3199,6 @@ class Decoder {
         this.pos += 8;
         return value;
     }
-    extensionCodec;
-    context;
-    maxStrLength;
-    maxBinLength;
-    maxArrayLength;
-    maxMapLength;
-    maxExtLength;
-    keyDecoder;
 }
 const defaultDecodeOptions = {};
 function decode1(buffer, options = defaultDecodeOptions) {
@@ -4449,7 +4449,7 @@ function globToRegExp(glob, { extended =true , globstar: globstarOption = true ,
                         else if (value == "lower") segment += "a-z";
                         else if (value == "print") segment += "\x20-\x7E";
                         else if (value == "punct") {
-                            segment += "!\"#$%&'()*+,\\-./:;<=>?@[\\\\\\]^_ÔÇÿ{|}~";
+                            segment += "!\"#$%&'()*+,\\-./:;<=>?@[\\\\\\]^_‘{|}~";
                         } else if (value == "space") segment += "\\s\v";
                         else if (value == "upper") segment += "A-Z";
                         else if (value == "word") segment += "\\w";
@@ -5422,6 +5422,7 @@ const DEFAULT_STATE = {
     monitorInterval: 500
 };
 class FileStateBackend {
+    path;
     constructor(path){
         this.path = path;
     }
@@ -5436,7 +5437,6 @@ class FileStateBackend {
         await Deno.writeTextFile(swapPath, data);
         await Deno.rename(swapPath, this.path);
     }
-    path;
 }
 class Profile {
     _state;
@@ -5689,6 +5689,7 @@ class MemoryCache {
     }
 }
 class FileCache {
+    path;
     constructor(path){
         this.path = path;
     }
@@ -5720,7 +5721,6 @@ class FileCache {
         await Deno.writeFile(swapPath, data);
         await Deno.rename(swapPath, path);
     }
-    path;
 }
 const COOP_POINT_MAP = {
     0: -20,
@@ -5739,6 +5739,8 @@ async function checkResponse(resp) {
     }
 }
 class StatInkAPI {
+    statInkApiKey;
+    env;
     statInk;
     FETCH_LOCK;
     cache;
@@ -5854,8 +5856,8 @@ class StatInkAPI {
         }
     }
     _getAliasName(name) {
-        const STAT_INK_DOT = "┬À";
-        const SPLATNET_DOT = "ÔÇº";
+        const STAT_INK_DOT = "·";
+        const SPLATNET_DOT = "‧";
         if (name.includes(STAT_INK_DOT)) {
             return [
                 name,
@@ -5890,8 +5892,6 @@ class StatInkAPI {
     getWeapon;
     getAbility;
     getStage;
-    statInkApiKey;
-    env;
 }
 class StatInkExporter {
     name = "stat.ink";
@@ -6347,6 +6347,7 @@ function replacer(key, value) {
     return typeof value === "string" ? urlSimplify(value) : undefined;
 }
 class FileExporter {
+    exportPath;
     name;
     constructor(exportPath){
         this.exportPath = exportPath;
@@ -6455,7 +6456,6 @@ class FileExporter {
         }
         return out;
     }
-    exportPath;
 }
 const SEASONS = [
     {
@@ -6767,6 +6767,7 @@ function getRankStateByDelta(i) {
     };
 }
 class RankTracker {
+    state;
     deltaMap;
     stateMap;
     constructor(state){
@@ -6811,7 +6812,6 @@ class RankTracker {
         }
         return curState;
     }
-    state;
 }
 class GameFetcher {
     _splatnet;
@@ -7041,6 +7041,7 @@ function progress({ total , currentUrl , done  }) {
     };
 }
 class App {
+    opts;
     profile;
     env;
     constructor(opts){
@@ -7299,7 +7300,6 @@ class App {
             this.env.logger.log(`Skipped ${Object.entries(stats).map(([name, { skipped  }])=>Object.entries(skipped).map(([reason, count])=>`${name}: ${reason} (${count})`).join(", "))}`);
         }
     }
-    opts;
 }
 const parseArgs = (args)=>{
     const parsed = mod1.parse(args, {

@@ -1,0 +1,6 @@
+query Languages ($username: String!) {
+  userLanguageProblemCount(username: $username) {
+    languageName
+    problemsSolved
+  }
+}

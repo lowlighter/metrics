@@ -26,6 +26,15 @@ inputs:
     default: .user.login
     preset: no
 
+  plugin_leetcode_region:
+    type: string
+    description: |
+      LeetCode GraphQL API endpoint
+    default: global
+    values:
+      - global
+      - china
+
   plugin_leetcode_sections:
     description: |
       Displayed sections
