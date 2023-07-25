@@ -64,9 +64,9 @@ export default function({faker, url, body, login = faker.internet.userName()}) {
             ],
             matchedUser: {
               problemsSolvedBeatsStats: [
-                {difficulty: "Easy", percentage: faker.datatype.float({max: 100})},
-                {difficulty: "Medium", percentage: faker.datatype.float({max: 100})},
-                {difficulty: "Hard", percentage: faker.datatype.float({max: 100})},
+                {difficulty: "Easy", percentage: faker.number.float({max: 100})},
+                {difficulty: "Medium", percentage: faker.number.float({max: 100})},
+                {difficulty: "Hard", percentage: faker.number.float({max: 100})},
               ],
               submitStatsGlobal: {
                 acSubmissionNum: [

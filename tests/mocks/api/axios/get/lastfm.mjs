@@ -33,19 +33,19 @@ export default function({faker, url, options, login = faker.internet.userName()}
                 image: [
                   {
                     size: "small",
-                    "#text": faker.image.abstract(),
+                    "#text": faker.image.urlLoremFlickr({ category: 'abstract' }),
                   },
                   {
                     size: "medium",
-                    "#text": faker.image.abstract(),
+                    "#text": faker.image.urlLoremFlickr({ category: 'abstract' }),
                   },
                   {
                     size: "large",
-                    "#text": faker.image.abstract(),
+                    "#text": faker.image.urlLoremFlickr({ category: 'abstract' }),
                   },
                   {
                     size: "extralarge",
-                    "#text": faker.image.abstract(),
+                    "#text": faker.image.urlLoremFlickr({ category: 'abstract' }),
                   },
                 ],
                 streamable: "0",
@@ -86,19 +86,19 @@ export default function({faker, url, options, login = faker.internet.userName()}
                 image: [
                   {
                     size: "small",
-                    "#text": faker.image.abstract(),
+                    "#text": faker.image.urlLoremFlickr({ category: 'abstract' }),
                   },
                   {
                     size: "medium",
-                    "#text": faker.image.abstract(),
+                    "#text": faker.image.urlLoremFlickr({ category: 'abstract' }),
                   },
                   {
                     size: "large",
-                    "#text": faker.image.abstract(),
+                    "#text": faker.image.urlLoremFlickr({ category: 'abstract' }),
                   },
                   {
                     size: "extralarge",
-                    "#text": faker.image.abstract(),
+                    "#text": faker.image.urlLoremFlickr({ category: 'abstract' }),
                   },
                 ],
                 url: faker.internet.url(),
@@ -130,19 +130,19 @@ export default function({faker, url, options, login = faker.internet.userName()}
                 image: [
                   {
                     size: "small",
-                    "#text": faker.image.abstract(),
+                    "#text": faker.image.urlLoremFlickr({ category: 'abstract' }),
                   },
                   {
                     size: "medium",
-                    "#text": faker.image.abstract(),
+                    "#text": faker.image.urlLoremFlickr({ category: 'abstract' }),
                   },
                   {
                     size: "large",
-                    "#text": faker.image.abstract(),
+                    "#text": faker.image.urlLoremFlickr({ category: 'abstract' }),
                   },
                   {
                     size: "extralarge",
-                    "#text": faker.image.abstract(),
+                    "#text": faker.image.urlLoremFlickr({ category: 'abstract' }),
                   },
                 ],
                 streamable: "0",

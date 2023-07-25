@@ -24,17 +24,17 @@ export default function({faker, url, options, login = faker.internet.userName()}
                   images: [
                     {
                       height: 640,
-                      url: faker.image.abstract(),
+                      url: faker.image.urlLoremFlickr({ category: 'abstract' }),
                       width: 640,
                     },
                     {
                       height: 300,
-                      url: faker.image.abstract(),
+                      url: faker.image.urlLoremFlickr({ category: 'abstract' }),
                       width: 300,
                     },
                     {
                       height: 64,
-                      url: faker.image.abstract(),
+                      url: faker.image.urlLoremFlickr({ category: 'abstract' }),
                       width: 64,
                     },
                   ],
@@ -81,17 +81,17 @@ export default function({faker, url, options, login = faker.internet.userName()}
                 images: [
                   {
                     height: 640,
-                    url: faker.image.abstract(),
+                    url: faker.image.urlLoremFlickr({ category: 'abstract' }),
                     width: 640,
                   },
                   {
                     height: 300,
-                    url: faker.image.abstract(),
+                    url: faker.image.urlLoremFlickr({ category: 'abstract' }),
                     width: 300,
                   },
                   {
                     height: 64,
-                    url: faker.image.abstract(),
+                    url: faker.image.urlLoremFlickr({ category: 'abstract' }),
                     width: 64,
                   },
                 ],
@@ -126,17 +126,17 @@ export default function({faker, url, options, login = faker.internet.userName()}
               images: [
                 {
                   height: 640,
-                  url: faker.image.abstract(),
+                  url: faker.image.urlLoremFlickr({ category: 'abstract' }),
                   width: 640,
                 },
                 {
                   height: 300,
-                  url: faker.image.abstract(),
+                  url: faker.image.urlLoremFlickr({ category: 'abstract' }),
                   width: 300,
                 },
                 {
                   height: 64,
-                  url: faker.image.abstract(),
+                  url: faker.image.urlLoremFlickr({ category: 'abstract' }),
                   width: 64,
                 },
               ],
