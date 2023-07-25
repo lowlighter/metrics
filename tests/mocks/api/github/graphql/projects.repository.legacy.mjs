@@ -9,9 +9,9 @@ export default function({faker, query, login = faker.internet.userName()}) {
           updatedAt: `${faker.date.recent()}`,
           body: faker.lorem.paragraph(),
           progress: {
-            doneCount: faker.datatype.number(10),
-            inProgressCount: faker.datatype.number(10),
-            todoCount: faker.datatype.number(10),
+            doneCount: faker.number.int(10),
+            inProgressCount: faker.number.int(10),
+            todoCount: faker.number.int(10),
             enabled: true,
           },
         },

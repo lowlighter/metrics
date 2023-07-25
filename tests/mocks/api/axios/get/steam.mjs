@@ -1537,7 +1537,7 @@ export default function({faker, url, options, login = faker.internet.userName()}
         status: 200,
         data: {
           response: {
-            player_level: faker.datatype.number(500),
+            player_level: faker.number.int(500),
           },
         },
       })

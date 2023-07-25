@@ -76,23 +76,23 @@
       base: set.plugins.enabled.base,
       //Computed elements
       computed: {
-        commits: faker.datatype.number(10000),
-        sponsorships: faker.datatype.number(10),
+        commits: faker.number.int(10000),
+        sponsorships: faker.number.int(10),
         licenses: {favorite: [""], used: {MIT: 1}, about: {}},
         token: {scopes: []},
         repositories: {
-          watchers: faker.datatype.number(1000),
-          stargazers: faker.datatype.number(10000),
-          issues_open: faker.datatype.number(1000),
-          issues_closed: faker.datatype.number(1000),
-          pr_open: faker.datatype.number(1000),
-          pr_closed: {totalCount: faker.datatype.number(100)},
-          pr_merged: faker.datatype.number(1000),
-          forks: faker.datatype.number(1000),
-          releases: faker.datatype.number(1000),
+          watchers: faker.number.int(1000),
+          stargazers: faker.number.int(10000),
+          issues_open: faker.number.int(1000),
+          issues_closed: faker.number.int(1000),
+          pr_open: faker.number.int(1000),
+          pr_closed: {totalCount: faker.number.int(100)},
+          pr_merged: faker.number.int(1000),
+          forks: faker.number.int(1000),
+          releases: faker.number.int(1000),
         },
         diskUsage: `${faker.datatype.float({min: 1, max: 999}).toFixed(1)}MB`,
-        registration: `${faker.datatype.number({min: 2, max: 10})} years ago`,
+        registration: `${faker.number.int({min: 2, max: 10})} years ago`,
         cakeday: false,
         calendar: new Array(14).fill(null).map(_ => ({color: faker.helpers.arrayElement(["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"])})),
         avatar: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
@@ -100,34 +100,34 @@
       //User data
       account: "user",
       user: {
-        databaseId: faker.datatype.number(10000000),
+        databaseId: faker.number.int(10000000),
         name: "(placeholder)",
         login: set.user || "metrics",
-        createdAt: `${faker.date.past(10)}`,
+        createdAt: `${faker.date.past({ years:10})}`,
         avatarUrl: set.avatar,
         websiteUrl: options["pagespeed.url"] || "(attached website)",
         isHireable: options["base.hireable"],
         twitterUsername: options["tweets.user"] || "(attached Twitter account)",
-        repositories: {totalCount: faker.datatype.number(100), totalDiskUsage: faker.datatype.number(100000), nodes: []},
-        packages: {totalCount: faker.datatype.number(10)},
-        starredRepositories: {totalCount: faker.datatype.number(1000)},
-        watching: {totalCount: faker.datatype.number(100)},
-        sponsorshipsAsSponsor: {totalCount: faker.datatype.number(10)},
-        sponsorshipsAsMaintainer: {totalCount: faker.datatype.number(10)},
+        repositories: {totalCount: faker.number.int(100), totalDiskUsage: faker.number.int(100000), nodes: []},
+        packages: {totalCount: faker.number.int(10)},
+        starredRepositories: {totalCount: faker.number.int(1000)},
+        watching: {totalCount: faker.number.int(100)},
+        sponsorshipsAsSponsor: {totalCount: faker.number.int(10)},
+        sponsorshipsAsMaintainer: {totalCount: faker.number.int(10)},
         contributionsCollection: {
-          totalRepositoriesWithContributedCommits: faker.datatype.number(100),
-          totalCommitContributions: faker.datatype.number(10000),
-          restrictedContributionsCount: faker.datatype.number(10000),
-          totalIssueContributions: faker.datatype.number(100),
-          totalPullRequestContributions: faker.datatype.number(1000),
-          totalPullRequestReviewContributions: faker.datatype.number(1000),
+          totalRepositoriesWithContributedCommits: faker.number.int(100),
+          totalCommitContributions: faker.number.int(10000),
+          restrictedContributionsCount: faker.number.int(10000),
+          totalIssueContributions: faker.number.int(100),
+          totalPullRequestContributions: faker.number.int(1000),
+          totalPullRequestReviewContributions: faker.number.int(1000),
         },
         calendar: {contributionCalendar: {weeks: []}},
-        repositoriesContributedTo: {totalCount: faker.datatype.number(100)},
-        followers: {totalCount: faker.datatype.number(1000)},
-        following: {totalCount: faker.datatype.number(1000)},
-        issueComments: {totalCount: faker.datatype.number(1000)},
-        organizations: {totalCount: faker.datatype.number(10)},
+        repositoriesContributedTo: {totalCount: faker.number.int(100)},
+        followers: {totalCount: faker.number.int(1000)},
+        following: {totalCount: faker.number.int(1000)},
+        issueComments: {totalCount: faker.number.int(1000)},
+        organizations: {totalCount: faker.number.int(10)},
       },
       //Plugins
       plugins: {
@@ -137,16 +137,16 @@
             tweets: {
               username: options["tweets.user"] || "(attached Twitter account)",
               profile: {
-                profile_image_url: faker.image.people(),
+                profile_image_url: faker.image.urlLoremFlickr({ category: 'people' }),
                 name: "",
                 verified: false,
-                id: faker.datatype.number(1000000).toString(),
+                id: faker.number.int(1000000).toString(),
                 username: options["tweets.user"] || "(attached Twitter account)",
                 profile_image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
               },
               list: [
                 {
-                  id: faker.datatype.number(100000000000000).toString(),
+                  id: faker.number.int(100000000000000).toString(),
                   created_at: faker.date.recent(),
                   entities: {
                     mentions: [{start: 22, end: 33, username: "lowlighter"}],
@@ -155,7 +155,7 @@
                   mentions: ["lowlighter"],
                 },
                 ...new Array(Number(options["tweets.limit"]) - 1).fill(null).map(_ => ({
-                  id: faker.datatype.number(100000000000000).toString(),
+                  id: faker.number.int(100000000000000).toString(),
                   created_at: faker.date.recent(),
                   text: faker.lorem.paragraph(),
                   mentions: [],
@@ -168,15 +168,15 @@
         ...(set.plugins.enabled.lines
           ? ({
             lines: {
-              added: faker.datatype.number(1000000),
-              deleted: faker.datatype.number(1000000),
-              changed: faker.datatype.number(1000000),
+              added: faker.number.int(1000000),
+              deleted: faker.number.int(1000000),
+              changed: faker.number.int(1000000),
               sections: options["lines.sections"].split(",").map(x => x.trim()),
               repos: new Array(options["lines.repositories.limit"] || 4).fill(null).map(_ => ({
-                handle: `${faker.random.word()}/${faker.random.word()}`,
-                added: faker.datatype.number(10000),
-                deleted: faker.datatype.number(10000),
-                changed: faker.datatype.number(10000),
+                handle: `${faker.lorem.word()}/${faker.lorem.word()}`,
+                added: faker.number.int(10000),
+                deleted: faker.number.int(10000),
+                changed: faker.number.int(10000),
               })),
               history: await staticPlaceholder(set.plugins.enabled.lines, "lines.history.svg"),
             },
@@ -187,8 +187,8 @@
           ? ({
             traffic: {
               views: {
-                count: `${faker.datatype.number({min: 10, max: 100})}.${faker.datatype.number(9)}k`,
-                uniques: `${faker.datatype.number(10)}.${faker.datatype.number(9)}k`,
+                count: `${faker.number.int({min: 10, max: 100})}.${faker.number.int(9)}k`,
+                uniques: `${faker.number.int(10)}.${faker.number.int(9)}k`,
               },
             },
           })
@@ -202,16 +202,16 @@
                 get count() {
                   return this.open + this.closed + this.drafts + this.skipped
                 },
-                open: faker.datatype.number(1000),
-                closed: faker.datatype.number(1000),
-                drafts: faker.datatype.number(100),
-                skipped: faker.datatype.number(100),
+                open: faker.number.int(1000),
+                closed: faker.number.int(1000),
+                drafts: faker.number.int(100),
+                skipped: faker.number.int(100),
                 get collaborators() {
                   return {
-                    open: faker.datatype.number(this.open),
-                    closed: faker.datatype.number(this.closed),
-                    drafts: faker.datatype.number(this.drafts),
-                    skipped: faker.datatype.number(this.skipped),
+                    open: faker.number.int(this.open),
+                    closed: faker.number.int(this.closed),
+                    drafts: faker.number.int(this.drafts),
+                    skipped: faker.number.int(this.skipped),
                   }
                 },
               },
@@ -219,16 +219,16 @@
                 get count() {
                   return this.open + this.closed + this.merged + this.drafts
                 },
-                open: faker.datatype.number(1000),
-                closed: faker.datatype.number(1000),
-                merged: faker.datatype.number(1000),
-                drafts: faker.datatype.number(100),
+                open: faker.number.int(1000),
+                closed: faker.number.int(1000),
+                merged: faker.number.int(1000),
+                drafts: faker.number.int(100),
                 get collaborators() {
                   return {
-                    open: faker.datatype.number(this.open),
-                    closed: faker.datatype.number(this.closed),
-                    merged: faker.datatype.number(this.skipped),
-                    drafts: faker.datatype.number(this.drafts),
+                    open: faker.number.int(this.open),
+                    closed: faker.number.int(this.closed),
+                    merged: faker.number.int(this.skipped),
+                    drafts: faker.number.int(this.drafts),
                   }
                 },
               },
@@ -237,19 +237,19 @@
                   get count() {
                     return this.open + this.closed + this.drafts + this.skipped
                   },
-                  open: faker.datatype.number(1000),
-                  closed: faker.datatype.number(1000),
-                  drafts: faker.datatype.number(100),
-                  skipped: faker.datatype.number(100),
+                  open: faker.number.int(1000),
+                  closed: faker.number.int(1000),
+                  drafts: faker.number.int(100),
+                  skipped: faker.number.int(100),
                 },
                 pr: {
                   get count() {
                     return this.open + this.closed + this.merged + this.drafts
                   },
-                  open: faker.datatype.number(1000),
-                  closed: faker.datatype.number(1000),
-                  merged: faker.datatype.number(1000),
-                  drafts: faker.datatype.number(100),
+                  open: faker.number.int(1000),
+                  closed: faker.number.int(1000),
+                  merged: faker.number.int(1000),
+                  drafts: faker.number.int(100),
                 },
               },
               indepth: options["followup.indepth"] ? {} : null,
@@ -260,23 +260,23 @@
         ...(set.plugins.enabled.notable
           ? ({
             notable: {
-              contributions: new Array(2 + faker.datatype.number(2)).fill(null).map(_ => ({
+              contributions: new Array(2 + faker.number.int(2)).fill(null).map(_ => ({
                 get name() {
                   return options["notable.repositories"] ? this.handle : this.handle.split("/")[0]
                 },
                 handle: `${faker.lorem.slug()}/${faker.lorem.slug()}`,
                 avatar: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
                 organization: faker.datatype.boolean(),
-                stars: faker.datatype.number(1000),
-                aggregated: faker.datatype.number(100),
-                history: faker.datatype.number(1000),
+                stars: faker.number.int(1000),
+                aggregated: faker.number.int(100),
+                history: faker.number.int(1000),
                 ...(options["notable.indepth"]
                   ? {
                     user: {
-                      commits: faker.datatype.number(100),
+                      commits: faker.number.int(100),
                       percentage: faker.datatype.float({max: 1}),
                       maintainer: false,
-                      stars: faker.datatype.number(100),
+                      stars: faker.number.int(100),
                     },
                   }
                   : null),
@@ -288,11 +288,11 @@
         ...(set.plugins.enabled.gists
           ? ({
             gists: {
-              totalCount: faker.datatype.number(100),
-              stargazers: faker.datatype.number(1000),
-              forks: faker.datatype.number(100),
-              files: faker.datatype.number(100),
-              comments: faker.datatype.number(1000),
+              totalCount: faker.number.int(100),
+              stargazers: faker.number.int(1000),
+              forks: faker.number.int(100),
+              files: faker.number.int(100),
+              comments: faker.number.int(1000),
             },
           })
           : null),
@@ -302,60 +302,60 @@
             reactions: {
               list: {
                 HEART: {
-                  value: faker.datatype.number(100),
+                  value: faker.number.int(100),
                   get percentage() {
                     return this.score
                   },
-                  score: faker.datatype.number(100) / 100,
+                  score: faker.number.int(100) / 100,
                 },
                 THUMBS_UP: {
-                  value: faker.datatype.number(100),
+                  value: faker.number.int(100),
                   get percentage() {
                     return this.score
                   },
-                  score: faker.datatype.number(100) / 100,
+                  score: faker.number.int(100) / 100,
                 },
                 THUMBS_DOWN: {
-                  value: faker.datatype.number(100),
+                  value: faker.number.int(100),
                   get percentage() {
                     return this.score
                   },
-                  score: faker.datatype.number(100) / 100,
+                  score: faker.number.int(100) / 100,
                 },
                 LAUGH: {
-                  value: faker.datatype.number(100),
+                  value: faker.number.int(100),
                   get percentage() {
                     return this.score
                   },
-                  score: faker.datatype.number(100) / 100,
+                  score: faker.number.int(100) / 100,
                 },
                 CONFUSED: {
-                  value: faker.datatype.number(100),
+                  value: faker.number.int(100),
                   get percentage() {
                     return this.score
                   },
-                  score: faker.datatype.number(100) / 100,
+                  score: faker.number.int(100) / 100,
                 },
                 EYES: {
-                  value: faker.datatype.number(100),
+                  value: faker.number.int(100),
                   get percentage() {
                     return this.score
                   },
-                  score: faker.datatype.number(100) / 100,
+                  score: faker.number.int(100) / 100,
                 },
                 ROCKET: {
-                  value: faker.datatype.number(100),
+                  value: faker.number.int(100),
                   get percentage() {
                     return this.score
                   },
-                  score: faker.datatype.number(100) / 100,
+                  score: faker.number.int(100) / 100,
                 },
                 HOORAY: {
-                  value: faker.datatype.number(100),
+                  value: faker.number.int(100),
                   get percentage() {
                     return this.score
                   },
-                  score: faker.datatype.number(100) / 100,
+                  score: faker.number.int(100) / 100,
                 },
               },
               comments: options["reactions.limit"],
@@ -381,8 +381,8 @@
                     .replace(/#secondary/g, colors[this.rank][1])
                 },
                 rank: faker.helpers.arrayElement(["A", "B", "C", "X", "$"]),
-                progress: faker.datatype.number(100) / 100,
-                value: faker.datatype.number(1000),
+                progress: faker.number.int(100) / 100,
+                value: faker.number.int(1000),
               }))
                 .filter(({rank}) => options["achievements.secrets"] ? true : rank !== "$")
                 .filter(({rank}) => ({S: 5, A: 4, B: 3, C: 2, $: 1, X: 0}[rank] >= {S: 5, A: 4, B: 3, C: 2, $: 1, X: 0}[options["achievements.threshold"]]))
@@ -410,10 +410,10 @@
                 message: faker.lorem.sentence(),
                 filename: "docs/specifications.html",
                 status: "modified",
-                additions: faker.datatype.number(50),
-                deletions: faker.datatype.number(50),
+                additions: faker.number.int(50),
+                deletions: faker.number.int(50),
                 patch: `<span class="token coord">@@ -0,0 +1,5 @@</span><br>  //Imports<br><span class="token inserted">+  import app from "./src/app.mjs"</span><br><span class="token deleted">-  import app from "./src/app.js"</span><br>  //Start app<br>  await app()<br>\\ No newline at end of file`,
-                repo: `${faker.random.word()}/${faker.random.word()}`,
+                repo: `${faker.lorem.word()}/${faker.lorem.word()}`,
                 created: faker.date.recent(),
               },
             },
@@ -425,9 +425,9 @@
             sponsors: {
               sections: options["sponsors.sections"].split(",").map(x => x.trim()),
               about: "A new way to contribute to open source",
-              list: new Array(Number(faker.datatype.number(40))).fill(null).map(_ => ({
+              list: new Array(Number(faker.number.int(40))).fill(null).map(_ => ({
                 login: faker.internet.userName(),
-                amount: faker.datatype.number(10),
+                amount: faker.number.int(10),
                 avatar: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
                 past: faker.datatype.boolean(),
               })),
@@ -435,24 +435,24 @@
               size: options["sponsors.size"],
               count: {
                 total: {
-                  count: faker.datatype.number(100),
-                  user: faker.datatype.number(100),
-                  organization: faker.datatype.number(100),
+                  count: faker.number.int(100),
+                  user: faker.number.int(100),
+                  organization: faker.number.int(100),
                 },
                 active: {
-                  total: faker.datatype.number(100),
-                  user: faker.datatype.number(100),
-                  organization: faker.datatype.number(100),
+                  total: faker.number.int(100),
+                  user: faker.number.int(100),
+                  organization: faker.number.int(100),
                 },
                 past: {
-                  total: faker.datatype.number(100),
-                  user: faker.datatype.number(100),
-                  organization: faker.datatype.number(100),
+                  total: faker.number.int(100),
+                  user: faker.number.int(100),
+                  organization: faker.number.int(100),
                 },
               },
               goal: {
-                progress: faker.datatype.number(100),
-                title: `$${faker.datatype.number(100) * 10} per month`,
+                progress: faker.number.int(100),
+                title: `$${faker.number.int(100) * 10} per month`,
                 description: "Invest in the software that powers your world",
               },
             },
@@ -463,12 +463,12 @@
           ? ({
             sponsorships: {
               sections: options["sponsorships.sections"].split(",").map(x => x.trim()),
-              amount: faker.datatype.number(1000),
-              list: new Array(2 + faker.datatype.number(8)).fill(null).map(_ => ({
+              amount: faker.number.int(1000),
+              list: new Array(2 + faker.number.int(8)).fill(null).map(_ => ({
                 login: faker.internet.userName(),
                 avatar: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
                 type: "user",
-                tier: `$${faker.datatype.number(100) * 10} per month`,
+                tier: `$${faker.number.int(100) * 10} per month`,
                 private: false,
                 past: faker.datatype.boolean(),
               })),
@@ -482,36 +482,36 @@
         ...(set.plugins.enabled.languages
           ? ({
             languages: {
-              unique: faker.datatype.number(50),
+              unique: faker.number.int(50),
               sections: options["languages.sections"].split(", ").map(x => x.trim()).filter(x => /^(most-used|recently-used)$/.test(x)),
               details: options["languages.details"].split(",").map(x => x.trim()).filter(x => x),
               get colors() {
                 return Object.fromEntries(Object.entries(this.favorites).map(([key, {color}]) => [key, color]))
               },
-              total: faker.datatype.number(10000),
+              total: faker.number.int(10000),
               get stats() {
                 return Object.fromEntries(Object.entries(this.favorites).map(([key, {value}]) => [key, value]))
               },
               ["stats.recent"]: {
-                total: faker.datatype.number(10000),
+                total: faker.number.int(10000),
                 get lines() {
                   return Object.fromEntries(Object.entries(this.recent).map(([key, {value}]) => [key, value]))
                 },
                 get stats() {
                   return Object.fromEntries(Object.entries(this.recent).map(([key, {value}]) => [key, value]))
                 },
-                commits: faker.datatype.number(500),
-                files: faker.datatype.number(1000),
+                commits: faker.number.int(500),
+                files: faker.number.int(1000),
                 days: Number(options["languages.recent.days"]),
               },
-              favorites: distribution(options["languages.limit"] || 8).map((value, index, array) => ({name: (index + 1 === array.length) && (options["languages.other"]) ? "Other" : faker.lorem.word(), color: faker.internet.color(), value, size: faker.datatype.number(1000000), x: array.slice(0, index).reduce((a, b) => a + b, 0)})),
-              recent: distribution(options["languages.limit"] || 8).map((value, index, array) => ({name: (index + 1 === array.length) && (options["languages.other"]) ? "Other" : faker.lorem.word(), color: faker.internet.color(), value, size: faker.datatype.number(1000000), x: array.slice(0, index).reduce((a, b) => a + b, 0)})),
+              favorites: distribution(options["languages.limit"] || 8).map((value, index, array) => ({name: (index + 1 === array.length) && (options["languages.other"]) ? "Other" : faker.lorem.word(), color: faker.internet.color(), value, size: faker.number.int(1000000), x: array.slice(0, index).reduce((a, b) => a + b, 0)})),
+              recent: distribution(options["languages.limit"] || 8).map((value, index, array) => ({name: (index + 1 === array.length) && (options["languages.other"]) ? "Other" : faker.lorem.word(), color: faker.internet.color(), value, size: faker.number.int(1000000), x: array.slice(0, index).reduce((a, b) => a + b, 0)})),
               get verified() {
-                return options["languages.indepth"] ? {signature: faker.datatype.number(this.commits)} : null
+                return options["languages.indepth"] ? {signature: faker.number.int(this.commits)} : null
               },
               indepth: options["languages.indepth"],
-              commits: faker.datatype.number(500),
-              files: faker.datatype.number(1000),
+              commits: faker.number.int(500),
+              files: faker.number.int(1000),
             },
           })
           : null),
@@ -535,8 +535,8 @@
             stock: {
               chart: await staticPlaceholder(set.plugins.enabled.stock, "stock.svg"),
               currency: "USD",
-              price: faker.datatype.number(10000) / 100,
-              previous: faker.datatype.number(10000) / 100,
+              price: faker.number.int(10000) / 100,
+              previous: faker.number.int(10000) / 100,
               get delta() {
                 return this.price - this.previous
               },
@@ -556,7 +556,7 @@
               trim: options["habits.trim"],
               lines: {
                 average: {
-                  chars: faker.datatype.number(1000) / 10,
+                  chars: faker.number.int(1000) / 10,
                 },
               },
               commits: {
@@ -564,13 +564,13 @@
                   return Object.keys(this.hours).filter(key => /^\d+$/.test(key)).map(key => [key, this.hours[key]]).sort((a, b) => b[1] - a[1]).shift()?.[0]
                 },
                 hours: {
-                  [faker.datatype.number(24)]: faker.datatype.number(10),
-                  [faker.datatype.number(24)]: faker.datatype.number(10),
-                  [faker.datatype.number(24)]: faker.datatype.number(10),
-                  [faker.datatype.number(24)]: faker.datatype.number(10),
-                  [faker.datatype.number(24)]: faker.datatype.number(10),
-                  [faker.datatype.number(24)]: faker.datatype.number(10),
-                  [faker.datatype.number(24)]: faker.datatype.number(10),
+                  [faker.number.int(24)]: faker.number.int(10),
+                  [faker.number.int(24)]: faker.number.int(10),
+                  [faker.number.int(24)]: faker.number.int(10),
+                  [faker.number.int(24)]: faker.number.int(10),
+                  [faker.number.int(24)]: faker.number.int(10),
+                  [faker.number.int(24)]: faker.number.int(10),
+                  [faker.number.int(24)]: faker.number.int(10),
                   get max() {
                     return Object.keys(this).filter(key => /^\d+$/.test(key)).map(key => [key, this[key]]).sort((a, b) => b[1] - a[1]).shift()?.[1]
                   },
@@ -579,13 +579,13 @@
                   return ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][Object.keys(this.days).filter(key => /^\d+$/.test(key)).map(key => [key, this.days[key]]).sort((a, b) => b[1] - a[1]).shift()?.[0]]
                 },
                 days: {
-                  "0": faker.datatype.number(10),
-                  "1": faker.datatype.number(10),
-                  "2": faker.datatype.number(10),
-                  "3": faker.datatype.number(10),
-                  "4": faker.datatype.number(10),
-                  "5": faker.datatype.number(10),
-                  "6": faker.datatype.number(10),
+                  "0": faker.number.int(10),
+                  "1": faker.number.int(10),
+                  "2": faker.number.int(10),
+                  "3": faker.number.int(10),
+                  "4": faker.number.int(10),
+                  "5": faker.number.int(10),
+                  "6": faker.number.int(10),
                   get max() {
                     return Object.keys(this).filter(key => /^\d+$/.test(key)).map(key => [key, this[key]]).sort((a, b) => b[1] - a[1]).shift()?.[1]
                   },
@@ -637,8 +637,8 @@
               mode: "Suggested tracks",
               played_at: options["music.played.at"],
               tracks: new Array(Number(options["music.limit"])).fill(null).map(_ => ({
-                name: faker.random.words(5),
-                artist: faker.random.words(),
+                name: faker.lorem.words(5),
+                artist: faker.lorem.words(),
                 artwork: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
                 played_at: options["music.played.at"] ? faker.date.recent() : null,
               })),
@@ -653,8 +653,8 @@
               data: new Array(12).fill(null).map(_ => ({
                 timeUTCHumanReadable: `${new Date().getUTCHours()}:${new Date().getUTCMinutes()}`,
                 color: faker.helpers.arrayElement(["#9be9a8", "#40c463", "#30a14e", "#216e39"]),
-                sgv: faker.datatype.number({min: 40, max: 400}),
-                delta: faker.datatype.number({min: -10, max: 10}),
+                sgv: faker.number.int({min: 40, max: 400}),
+                delta: faker.number.int({min: -10, max: 10}),
                 direction: faker.helpers.arrayElement(["SingleUp", "DoubleUp", "FortyFiveUp", "Flat", "FortyFiveDown", "SingleDown", "DoubleDown"]),
                 alert: faker.helpers.arrayElement(["Normal", "Urgent High", "Urgent Low", "High", "Low"]),
                 arrowHumanReadable: faker.helpers.arrayElement(["↑↑", "↑", "↗", "→", "↘", "↓", "↓↓"]),
@@ -683,43 +683,43 @@
                 {score: faker.datatype.float({max: 1}), title: "Accessibility"},
                 {score: faker.datatype.float({max: 1}), title: "Best Practices"},
                 {score: faker.datatype.float({max: 1}), title: "SEO"},
-                ...options["pagespeed.pwa"] ? [{score: faker.datatype.number({max: 1}), title: "PWA"}] : [],
+                ...options["pagespeed.pwa"] ? [{score: faker.number.int({max: 1}), title: "PWA"}] : [],
               ],
               metrics: {
-                observedFirstContentfulPaint: faker.datatype.number(500),
+                observedFirstContentfulPaint: faker.number.int(500),
                 observedFirstVisualChangeTs: faker.date.recent(),
                 observedFirstContentfulPaintTs: faker.date.recent(),
-                firstContentfulPaint: faker.datatype.number(500),
-                observedDomContentLoaded: faker.datatype.number(500),
-                observedFirstMeaningfulPaint: faker.datatype.number(1000),
-                maxPotentialFID: faker.datatype.number(500),
-                observedLoad: faker.datatype.number(500),
-                firstMeaningfulPaint: faker.datatype.number(500),
+                firstContentfulPaint: faker.number.int(500),
+                observedDomContentLoaded: faker.number.int(500),
+                observedFirstMeaningfulPaint: faker.number.int(1000),
+                maxPotentialFID: faker.number.int(500),
+                observedLoad: faker.number.int(500),
+                firstMeaningfulPaint: faker.number.int(500),
                 observedCumulativeLayoutShift: faker.datatype.float({max: 1}),
-                observedSpeedIndex: faker.datatype.number(1000),
+                observedSpeedIndex: faker.number.int(1000),
                 observedSpeedIndexTs: faker.date.recent(),
                 observedTimeOriginTs: faker.date.recent(),
-                observedLargestContentfulPaint: faker.datatype.number(1000),
+                observedLargestContentfulPaint: faker.number.int(1000),
                 cumulativeLayoutShift: faker.datatype.float({max: 1}),
                 observedFirstPaintTs: faker.date.recent(),
                 observedTraceEndTs: faker.date.recent(),
-                largestContentfulPaint: faker.datatype.number(2000),
-                observedTimeOrigin: faker.datatype.number(10),
-                speedIndex: faker.datatype.number(1000),
-                observedTraceEnd: faker.datatype.number(2000),
+                largestContentfulPaint: faker.number.int(2000),
+                observedTimeOrigin: faker.number.int(10),
+                speedIndex: faker.number.int(1000),
+                observedTraceEnd: faker.number.int(2000),
                 observedDomContentLoadedTs: faker.date.recent(),
-                observedFirstPaint: faker.datatype.number(500),
-                totalBlockingTime: faker.datatype.number(500),
+                observedFirstPaint: faker.number.int(500),
+                totalBlockingTime: faker.number.int(500),
                 observedLastVisualChangeTs: faker.date.recent(),
-                observedFirstVisualChange: faker.datatype.number(500),
+                observedFirstVisualChange: faker.number.int(500),
                 observedLargestContentfulPaintTs: faker.date.recent(),
-                estimatedInputLatency: faker.datatype.number(100),
+                estimatedInputLatency: faker.number.int(100),
                 observedLoadTs: faker.date.recent(),
-                observedLastVisualChange: faker.datatype.number(1000),
-                firstCPUIdle: faker.datatype.number(1000),
-                interactive: faker.datatype.number(1000),
+                observedLastVisualChange: faker.number.int(1000),
+                firstCPUIdle: faker.number.int(1000),
+                interactive: faker.number.int(1000),
                 observedNavigationStartTs: faker.date.recent(),
-                observedNavigationStart: faker.datatype.number(10),
+                observedNavigationStart: faker.number.int(10),
                 observedFirstMeaningfulPaintTs: faker.date.recent(),
               },
               screenshot: options["pagespeed.screenshot"] ? "data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==" : null,
@@ -730,29 +730,29 @@
         ...(set.plugins.enabled.projects
           ? ({
             projects: {
-              totalCount: options["projects.limit"] + faker.datatype.number(10),
+              totalCount: options["projects.limit"] + faker.number.int(10),
               descriptions: options["projects.descriptions"],
               list: new Array(Number(options["projects.limit"])).fill(null).map(_ => ({
                 name: faker.lorem.sentence(),
                 description: faker.lorem.paragraph(),
-                updated: `${2 + faker.datatype.number(8)} days ago`,
+                updated: `${2 + faker.number.int(8)} days ago`,
                 ...(faker.datatype.boolean()
                   ? {
-                    items: new Array(faker.datatype.number(4)).fill(null).map(() => ({type: faker.helpers.arrayElement(["DRAFT_ISSUE", "ISSUE", "PULL_REQUEST", "REDACTED"]), text: faker.lorem.sentence()})),
+                    items: new Array(faker.number.int(4)).fill(null).map(() => ({type: faker.helpers.arrayElement(["DRAFT_ISSUE", "ISSUE", "PULL_REQUEST", "REDACTED"]), text: faker.lorem.sentence()})),
                     progress: {
                       enabled: false,
                       todo: NaN,
                       doing: NaN,
                       done: NaN,
-                      total: faker.datatype.number(100),
+                      total: faker.number.int(100),
                     },
                   }
                   : {
                     progress: {
                       enabled: true,
-                      todo: faker.datatype.number(50),
-                      doing: faker.datatype.number(50),
-                      done: faker.datatype.number(50),
+                      todo: faker.number.int(50),
+                      doing: faker.number.int(50),
+                      done: faker.number.int(50),
                       get total() {
                         return this.todo + this.doing + this.done
                       },
@@ -767,13 +767,13 @@
           ? ({
             discussions: {
               categories: {
-                stats: {"🙏 Q&A": faker.datatype.number(100), "📣 Announcements": faker.datatype.number(100), "💡 Ideas": faker.datatype.number(100), "💬 General": faker.datatype.number(100)},
+                stats: {"🙏 Q&A": faker.number.int(100), "📣 Announcements": faker.number.int(100), "💡 Ideas": faker.number.int(100), "💬 General": faker.number.int(100)},
                 favorite: "📣 Announcements",
               },
-              upvotes: {discussions: faker.datatype.number(1000), comments: faker.datatype.number(1000)},
-              started: faker.datatype.number(1000),
-              comments: faker.datatype.number(1000),
-              answers: faker.datatype.number(1000),
+              upvotes: {discussions: faker.number.int(1000), comments: faker.number.int(1000)},
+              started: faker.number.int(1000),
+              comments: faker.number.int(1000),
+              answers: faker.number.int(1000),
               display: {categories: options["discussions.categories"] ? {limit: options["discussions.categories.limit"] || Infinity} : null},
             },
           })
@@ -817,17 +817,17 @@
                   starredAt: faker.date.recent(),
                   node: {
                     description: "📊 An image generator with 20+ metrics about your GitHub account such as activity, community, repositories, coding habits, website performances, music played, starred topics, etc. that you can put on your profile or elsewhere !",
-                    forkCount: faker.datatype.number(100),
+                    forkCount: faker.number.int(100),
                     isFork: false,
                     issues: {
-                      totalCount: faker.datatype.number(100),
+                      totalCount: faker.number.int(100),
                     },
                     nameWithOwner: "lowlighter/metrics",
                     openGraphImageUrl: "https://repository-images.githubusercontent.com/293860197/7fd72080-496d-11eb-8fe0-238b38a0746a",
                     pullRequests: {
-                      totalCount: faker.datatype.number(100),
+                      totalCount: faker.number.int(100),
                     },
-                    stargazerCount: faker.datatype.number(10000),
+                    stargazerCount: faker.number.int(10000),
                     licenseInfo: {nickname: null, name: "MIT License"},
                     primaryLanguage: {color: "#f1e05a", name: "JavaScript"},
                   },
@@ -837,17 +837,17 @@
                   starredAt: faker.date.recent(),
                   node: {
                     description: faker.lorem.sentence(),
-                    forkCount: faker.datatype.number(100),
+                    forkCount: faker.number.int(100),
                     isFork: faker.datatype.boolean(),
                     issues: {
-                      totalCount: faker.datatype.number(100),
+                      totalCount: faker.number.int(100),
                     },
-                    nameWithOwner: `${faker.random.word()}/${faker.random.word()}`,
+                    nameWithOwner: `${faker.lorem.word()}/${faker.lorem.word()}`,
                     openGraphImageUrl: faker.internet.url(),
                     pullRequests: {
-                      totalCount: faker.datatype.number(100),
+                      totalCount: faker.number.int(100),
                     },
-                    stargazerCount: faker.datatype.number(10000),
+                    stargazerCount: faker.number.int(10000),
                     licenseInfo: {nickname: null, name: "License"},
                     primaryLanguage: {color: faker.internet.color(), name: faker.lorem.word()},
                   },
@@ -865,12 +865,12 @@
                 link: faker.internet.url(),
                 name: `${faker.helpers.arrayElement(["😎", "🥳", "🧐", "😂", "😁"])} ${faker.lorem.word()}`,
                 description: faker.lorem.sentence(),
-                count: faker.datatype.number(100),
+                count: faker.number.int(100),
                 repositories: new Array(Number(options["starlists.limit.repositories"])).fill(null).map((_, i) => ({
                   description: !i
                     ? "📊 An image generator with 20+ metrics about your GitHub account such as activity, community, repositories, coding habits, website performances, music played, starred topics, etc. that you can put on your profile or elsewhere !"
                     : faker.lorem.sentence(),
-                  name: !i ? "lowlighter/metrics" : `${faker.random.word()}/${faker.random.word()}`,
+                  name: !i ? "lowlighter/metrics" : `${faker.lorem.word()}/${faker.lorem.word()}`,
                 })),
               })),
             },
@@ -881,19 +881,19 @@
           ? ({
             repositories: {
               list: new Array(Number(options["repositories.featured"].split(",").map(x => x.trim()).length)).fill(null).map((_, i) => ({
-                created: faker.date.past(),
+                created: (),
                 description: faker.lorem.sentence(),
-                forkCount: faker.datatype.number(100),
+                forkCount: faker.number.int(100),
                 isFork: faker.datatype.boolean(),
                 issues: {
-                  totalCount: faker.datatype.number(100),
+                  totalCount: faker.number.int(100),
                 },
-                nameWithOwner: `${faker.random.word()}/${faker.random.word()}`,
+                nameWithOwner: `${faker.lorem.word()}/${faker.lorem.word()}`,
                 openGraphImageUrl: faker.internet.url(),
                 pullRequests: {
-                  totalCount: faker.datatype.number(100),
+                  totalCount: faker.number.int(100),
                 },
-                stargazerCount: faker.datatype.number(10000),
+                stargazerCount: faker.number.int(10000),
                 licenseInfo: {nickname: null, name: "License"},
                 primaryLanguage: {color: faker.internet.color(), name: faker.lorem.word()},
               })),
@@ -908,7 +908,7 @@
             },
             get stargazers() {
               const dates = []
-              let total = faker.datatype.number(1000)
+              let total = faker.number.int(1000)
               const result = {
                 worldmap: this.__stargazers.worldmap,
                 total: {
@@ -934,7 +934,7 @@
               for (let d = -14; d <= 0; d++) {
                 const date = new Date(Date.now() - d * 24 * 60 * 60 * 1000).toISOString().substring(0, 10)
                 dates.push(date)
-                result.total.dates[date] = total += result.increments.dates[date] = faker.datatype.number(100)
+                result.total.dates[date] = total += result.increments.dates[date] = faker.number.int(100)
               }
               return result
             },
@@ -946,14 +946,14 @@
             get wakatime() {
               const stats = array => {
                 const elements = []
-                let results = new Array(4 + faker.datatype.number(2)).fill(null).map(_ => ({
-                  name: array ? faker.helpers.arrayElement(array) : faker.random.words(2).replace(/ /g, "-").toLocaleLowerCase(),
+                let results = new Array(4 + faker.number.int(2)).fill(null).map(_ => ({
+                  name: array ? faker.helpers.arrayElement(array) : faker.lorem.words(2).replace(/ /g, "-").toLocaleLowerCase(),
                   percent: 0,
-                  total_seconds: faker.datatype.number(1000000),
+                  total_seconds: faker.number.int(1000000),
                 }))
                 let percents = 100
                 for (const result of results) {
-                  result.percent = 1 + faker.datatype.number(percents - 1)
+                  result.percent = 1 + faker.number.int(percents - 1)
                   percents -= result.percent
                   result.percent /= 100
                 }
@@ -963,7 +963,7 @@
               return {
                 sections: options["wakatime.sections"].split(",").map(x => x.trim()).filter(x => x),
                 days: Number(options["wakatime.days"]) || 7,
-                time: {total: faker.datatype.number(100000), daily: faker.datatype.number(24)},
+                time: {total: faker.number.int(100000), daily: faker.number.int(24)},
                 editors: stats(["VS Code", "Chrome", "IntelliJ", "PhpStorm", "WebStorm", "Android Studio", "Visual Studio", "Sublime Text", "PyCharm", "Vim", "Atom", "Xcode"]),
                 languages: stats(["JavaScript", "TypeScript", "PHP", "Java", "Python", "Vue.js", "HTML", "C#", "JSON", "Dart", "SCSS", "Kotlin", "JSX", "Go", "Ruby", "YAML"]),
                 projects: stats(),
@@ -979,15 +979,15 @@
               user: {
                 stats: {
                   anime: {
-                    count: faker.datatype.number(1000),
-                    minutesWatched: faker.datatype.number(100000),
-                    episodesWatched: faker.datatype.number(10000),
+                    count: faker.number.int(1000),
+                    minutesWatched: faker.number.int(100000),
+                    episodesWatched: faker.number.int(10000),
                     genres: new Array(4).fill(null).map(_ => ({genre: faker.lorem.word()})),
                   },
                   manga: {
-                    count: faker.datatype.number(1000),
-                    chaptersRead: faker.datatype.number(100000),
-                    volumesRead: faker.datatype.number(10000),
+                    count: faker.number.int(1000),
+                    chaptersRead: faker.number.int(100000),
+                    volumesRead: faker.number.int(10000),
                     genres: new Array(4).fill(null).map(_ => ({genre: faker.lorem.word()})),
                   },
                 },
@@ -998,12 +998,12 @@
                   name: faker.lorem.words(),
                   type,
                   status: faker.helpers.arrayElement(["FINISHED", "RELEASING", "NOT_YET_RELEASED", "CANCELLED", "HIATUS"]),
-                  release: faker.date.past(20).getFullYear(),
+                  release: faker.date.past({years:20}).getFullYear(),
                   genres: new Array(6).fill(null).map(_ => faker.lorem.word()),
-                  progress: faker.datatype.number(100),
+                  progress: faker.number.int(100),
                   description: faker.lorem.paragraphs(),
-                  scores: {user: faker.datatype.number(100), community: faker.datatype.number(100)},
-                  released: 100 + faker.datatype.number(1000),
+                  scores: {user: faker.number.int(100), community: faker.number.int(100)},
+                  released: 100 + faker.number.int(1000),
                   artwork: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
                 })
                 const sections = options["anilist.sections"].split(",").map(x => x.trim()).filter(x => x)
@@ -1028,7 +1028,7 @@
                 }
               },
               characters: new Array(11).fill(null).map(_ => ({
-                name: faker.name.fullName(),
+                name: faker.person.fullName(),
                 artwork: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
               })),
               sections: options["anilist.sections"].split(",").map(x => x.trim()).filter(x => x),
@@ -1041,14 +1041,14 @@
             steam: {
               sections: options["steam.sections"].split(",").map(x => x.trim()).filter(x => x),
               player: {
-                level: faker.datatype.number(100),
+                level: faker.number.int(100),
                 avatar: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
-                created: faker.date.recent(10).getTime(),
+                created: faker.date.recent({days:10}).getTime(),
                 name: faker.internet.userName(),
               },
               games: {
                 count: 2,
-                playtime: faker.datatype.number(1000),
+                playtime: faker.number.int(1000),
                 achievements: 0,
                 "most-played": [
                   {
@@ -1056,8 +1056,8 @@
                     name: "NieR:Automata™",
                     icon:
                       "data:image/jpg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCABAAEADASIAAhEBAxEB/8QAHAAAAgMBAQEBAAAAAAAAAAAABgcFCAkEAwEA/8QAMBAAAQMDAwEGBQQDAAAAAAAAAQIDBAAFEQYHITESExQiQVEjMkJhcQhSobEVgcH/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8ArPebk9cpIW+U8D0FcJUTj39q+Kxnjp6VN6N0zcdV3xi12lpTjzqgCoDIQPc0EKlZ6YJI6Yrvt1oudwIRAhPPqV+1NXb252F01pmHGfuDHjLoPMtazlGfbsmmoxZbXHwI9uhN4/aykH+qDNa5afvNsBE+3vsgj6k1EqKgeRhXTmtQXbTb3jh6BEcT7LZSo/yKXevNktKaqbkOGGIk5acNuMnsJSfwKCgXbUlWfqrpts12DLS8zgqB5yKJNydDXLQl9ct9xQe7J+G5jhQ9KEU/MMUH5XUZOR9qu1+l7Q8fS+jDfLk0lufLyVLWPlb6giqdaYgpueorfDI8rzoSRWhGpbZKe20MK15D6YiEoSnqSAKCMTuzZv8AMeFUy6Ifb7vx2fhAjqKYTD7chpDzCgttYCkqHQikM3fbEnbB6yqhpevThU34NKfi9vI82cUz9EKfs+lILd+eS24oAISRykY4BoC5RwCSQPzS9uu6tmgXZcRCHJEdo4elIPkb980R3iWLvZp8ayS21TO78uOopC27VtqsGjLzpm/2l1m8rU4UhxIKpBUrjBxQMHfPSkDX+3L8yEEPSmGy9GcQOSeOKoU60piQ404PM2opUPYjitDNl7XPg6Ebau6VBTqlLS2vqlB6CqQbsWtFn3AusZsdlJcLmPyTQRGkZibfqq2ynD5Wngo1ou5Pks6et8yE33iCyhS04z5SkVmecpWCnqORV7/0266Z1ZoliHJfQq5RPI40evYHAoCKdqvR0BwyViCLljPd9gBeag7rutF75pk2N98k+TBHP4rx3F2YiX68qvlqfVGuSQMIUSUEj7UAzdtNwo0pl+LLjPOtqzgNelAwY+58W3zA2rT8lhx35jkDipuJrLRV5mI8aICbik5Sh5sKXn84pSx9ttwrhOW7cJUdBUAAe66Ue6G2WhWq6ovF+f8AG3JGCgtkpQD9x60DMtEp+WHHFoCI2MN4GOKz73lnouW410eRyAstjHuCauzvNrGLonQ81/vEty3GyiMgcEqrPSXJXMmyJLxy68srJ+5OaDxX81EOhNWXHR1/YudsdUlTagVIB4UPYioi4wZEJ/upCCleM1yhJ59KC/8AtzvRpnV8NhLstuFcSACw6rlSvXFM5JT84UCFDg54rLZpx1hxLsdS2lJ6KScEf7ootm4OqbatCmLvJV2eneOFQ/ug0jzzyefzQDr3dfTOjWHRMnNPTUDiM2rzVR27bjaruR7Ui7SEk8ZbWU/9oXlyZEt0uS3nH3T9S1FR/mgLd0df3LXl9cmTVqEYKIaazwkenFBaeo9K+dk56V7w4zsqQGWkFS1dAKD/2Q==",
-                    playtime: faker.datatype.number(100),
-                    played: faker.date.recent(10).getTime(),
+                    playtime: faker.number.int(100),
+                    played: faker.date.recent({days:10}).getTime(),
                     description: "NieR: Automata tells the story of androids 2B, 9S and A2 and their battle to reclaim the machine-driven dystopia overrun by powerful machines.",
                     genres: [
                       "Action",
@@ -1068,7 +1068,7 @@
                         icon:
                           "data:image/jpg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAgACADASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAUGBwP/xAAmEAABAgQDCQAAAAAAAAAAAAABAAIDBAUGBxIUFiMxNVNhc5Gx/8QAFgEBAQEAAAAAAAAAAAAAAAAAAAME/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8A6XVcM5QqlppTK+G4GJvSXEEngOyT7d1TpwPRRiVz5niH0qTWNVWbd1TpwPRTi1bhnK7UtNN5WQ2gRN0S0kg8D2Wdqsw158/xH6EBiVz5niH0qTWiXVb05XalqZTKyG0GHvQWkkHiOyT7CVTqQPZQSarMNefP8R+hGwlU6kD2U4tW3pyhVLUzeV8NwEPdAuIJPE9kH//Z",
                         achieved: true,
-                        unlocked: faker.date.recent(10).getTime(),
+                        unlocked: faker.date.recent({days:10}).getTime(),
                         name: "Transcendent Being",
                         description: "",
                         id: "ACH_BAD_END",
@@ -1077,7 +1077,7 @@
                         icon:
                           "data:image/jpg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAgACADASIAAhEBAxEB/8QAGAABAQEBAQAAAAAAAAAAAAAABQQDAAL/xAAtEAABAwMCBAQGAwAAAAAAAAABAgMEAAURBiISITFBExQjMlFhcYGRsRXB0f/EABcBAQEBAQAAAAAAAAAAAAAAAAABAwT/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwC3UF7lWeeY8bc2rLnqKJIJPT6VhE1BdpCgAhtORy2qJ/ArxqprxtRIB7IH7pixMJZfZWOQPEB+DXG1FSL/AHhj3soB64IINU6evMm8TvLytqEYX6aikkg9D8vlSmomEPcK8hWEYIznuaE0uz4N/cx3R/dQdqdt3+cDkfgUtLZ2LOAr4DPaqbOiDeZrcW4w5cd2Mkq3HiQVBW4Ajl7eX3OOlb3W2yLjMMiPxJSklO9JByDjP0q+2tzIiAlyO27j4k1QfdotvsD7zjEOa9Hkoy64yBhrh6de2P1U2mXmpN2W8wh5Dakjh8UYKh3OKcuKZUpspbitNkjBOT/tHWu3yLfN8xJClpWQnYkqIyeX2oP/2Q==",
                         achieved: true,
-                        unlocked: faker.date.recent(10).getTime(),
+                        unlocked: faker.date.recent({days:10}).getTime(),
                         name: "A Round by the Pond",
                         description: "20 different kinds of fish caught.",
                         id: "ACH_FISHING",
@@ -1085,7 +1085,7 @@
                     ],
                     rate: {
                       total: 47,
-                      achieved: 2 + faker.datatype.number(45),
+                      achieved: 2 + faker.number.int(45),
                     },
                   },
                 ],
@@ -1095,8 +1095,8 @@
                     name: "NieR Replicant ver.1.22474487139...",
                     icon:
                       "data:image/jpg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCABAAEADASIAAhEBAxEB/8QAHAAAAgIDAQEAAAAAAAAAAAAABgcDBQEECAIA/8QAMBAAAQMDAgUCBgEFAQAAAAAAAQIDBAAFERIhBhMxQVEHYRQiIzJCcRUIJFJigcH/xAAYAQADAQEAAAAAAAAAAAAAAAABAgMABP/EAB8RAAICAwACAwAAAAAAAAAAAAABAhEDEiEEQSIxYf/aAAwDAQACEQMRAD8A6m228CgT1PmN/DtMDd1s6z+jRfebg3abVJnSN2mEa1fqubeKOOBxNcBYoTwTcpaylxfX6Z+0DwaWT9FsMbezNluY5e3Jdpt0hoMqRh94jIx4HvV9ZbVHs0NMa3r5YTuvmb6vcV9Bsjdkt6GorJ0gfMvuVd81aWpUfWEqBKldSqpHV+lhHZCmNTbqSfyFYdjoQgKdSS0fzHQVOuGIriXUk8rqfet55DcVkTYg5jB+9pW9YWynjKkR5BcjFL7H+o3o1tPEbbiEtyxy1dM0K3S2amhMthUjI1AZ2J8YrUtt6DTyBcGg2UnAKhso0U6BKCmi09dLkm3cEvLdUUtuZSrfqKQ/oPbbchM6+SAVzHCUoKznAB2xTj/qVZMn08faQkqdVnTjzQF6dQmWOD4fKQOcjdxI/VNJ0LiXxDNy5FlvXo5jRPzHskeTUciNFmR0vwZCQ71Tg7ZoUeW6J5nWtZkxSdDzIOdGKEo/FlxmcQqZiwHmilWFJ7Y84qd2X1G1br4/8O7BeSEuDrqGc/qpLZc+RJMaUfpObJBPehlm6KU+0uc1yXBsVEdRUvEENu5RNKlrQtr6jC0Kxk1vsDjQfEKjRgw25g5K0at+teNUG5RXTIbCHEjC09/2KHrRc0XaAwlSyHUfTO++1ef5Q2+4FqajY7ax0Ioi6tBd6o2r+QjxtassqUQR2G1IK4sXPh65MXC3zELjh0pcjAbhI710h6gsvOWlHJISkElRPakTxE6yxqclIPwh+Vah296M+MGDsFZZw1CU4LjDQYsh0AOxldFjyBWxHgMc9UlLaQ6vZeBUMN2JCjMhb6dKkhSD3welbLMqDJePwMlLjgGVpT2qTtnSlqZlRfiHmFLwW0KyoeR4qJUpLbHORlbTSjgf+VsPvKDiUspKlDqmhuXJ+HYfLSgVJJOj/I+KMX6Fkm+klhuTFr4mXHQomPJwUgncKO5ovvqorrzSJK0pc/An8vakxeHC1Li3SM5qTHXrUQe/cVf8cX1f8FAfOdThyhwHocU9E2unQ/EUkXO3PvNqKYUdOvmdnD4pK8ZRFOfGW6WOWmUyChRGwB3FP3iRtL1qctkZCUuSRpAA2T7mgj1UtammLNISxzQkhp9SR9oCetPJeyGGdcOd/TG4G7zXbBc1KE2EsqjLUdl74A99qawZgWNouTHWoh/LVjKjSC9WZbNt4nactWuNNbOoqScZHagGVcrlOK3JEyS7k5IU4SKDx7O0Os+q1as6Ru/FYkkpgILLWcKWo/cPY0u+LuNmYrzTMJfMcZOsqB2UT2pdyOILm+xyVu4RpCfl2OKqMkryrJPcmtHHTthyeTaqKDnh3idtiW9FkkqgSDqyo50LO5/5RFd7wzcOCp0DX/cxAXU7/iemKUmQVbZx4qQOuDOHFZIwd+o8GncVdkFmdas//9k=",
-                    playtime: faker.datatype.number(100),
-                    played: faker.date.recent(10).getTime(),
+                    playtime: faker.number.int(100),
+                    played: faker.date.recent({days:10}).getTime(),
                     description: "The upgraded prequel of NieR:Automata. A kind young man sets out with Grimoire Weiss, a strange talking book, to search for the &quot;Sealed verses&quot; in order to save his sister Yonah, who fell terminally ill to the Black Scrawl.",
                     genres: [
                       "Action",
@@ -1108,7 +1108,7 @@
                         icon:
                           "data:image/jpg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAgACADASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAwUGBAL/xAAsEAACAgEDAwMDAwUAAAAAAAABAgMEBQAGERIhMSJBUQdhkRMUoRVDUnGz/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/xAAYEQEBAQEBAAAAAAAAAAAAAAABACERMf/aAAwDAQACEQMRAD8AsL+R3Jkd+5LEYnIrSr1Yo2QGFGDcqpJLEE88t4+2rbA08hXQDJ5N70jEDkxIgX/XSBzoWMxpr5vK3XPa08ZUD2CoF/PY6lZs7uaDaW9LmTr16NnHGT9nJGvVwvSCOxPq4DDhu3f21fcJ5a89nb8eKwVqKZ68mTtCoqxlAFLu3Qx6lbn0qPHzrNHlM5S3thcdcumercezDIpVCrGOIOGUhVIIblSD8ffSjIY3LZPZGzYzXS3LjpoLd4GRY1SJULBT1Hu3Qy/Y9/GqLH4dpc7jrP8ASWoVcfLI9UGRWLCVGMh4UkKvUV4HnudXCk+x+XisZ3IYz+9VCNz8hlB/jn+dSP1ZuGrs/dNeM8SW3pRIB5P6pCH/AJnXGWo7mxu/psvhKAvU7CKsimRF6V4UMOGYEN6fPfzphujZ1rPSLPDk7UD8wSiKZ+tVkicsvt7Bm4+CffUOCMYONyd/IboyG344QsVXJdVtyhCrVijjWNAf8pGX8Bu3fVVdz9SvuOhhnk5u3EeQIO5CgE8n8HSXBbZtbeny08Vy1dSy5siL9YiWWXjv1sex5+dI8Bh9yZL6hRbg3Jj4aaVYmihCOpBUhgPDE8+s8nto8Zt//9k=",
                         achieved: true,
-                        unlocked: faker.date.recent(10).getTime(),
+                        unlocked: faker.date.recent({days:10}).getTime(),
                         name: "e8 a8 98 e6 86 b6 e3 82 b5 e3 83 bc e3 83 90 e3 83 bc",
                         description: "",
                         id: "ACHIEVEMENT_0230",
@@ -1117,7 +1117,7 @@
                         icon:
                           "data:image/jpg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAgACADASIAAhEBAxEB/8QAGAABAAMBAAAAAAAAAAAAAAAABgQFBwP/xAAsEAACAQQBAwIFBAMAAAAAAAABAgMEBQYRABIhMSJBBxMUUaEVIzJhUnGC/8QAFgEBAQEAAAAAAAAAAAAAAAAAAQAC/8QAGhEAAwEBAQEAAAAAAAAAAAAAAAERIUExMv/aAAwDAQACEQMRAD8AXZJe7vT5DVJLe1sVvR1hgeeCN4JGIH8pvV0MdghXC/0TxvY6S4UsJ/Urm9fIwBBMSIF/10gb5Gp7LG9wvclZFHPTXAorQyKHR0EYUgg+ffgDNbZk2BWSeuw27O1hh0Xt9SonajUt5iZgT0bIBU9wD7+z9Yi8HGaV60ENKTkMVmknf5MRljV1lc6+4Ovbv4G+/CtFeMnt3xHtljvVfFU09XHI5VIkA0EYqdgAhtr48a4dseE5ZltTb8lya4W2qi6FqKairY2eKRWXYUqmgi999tkHR0eaHHZK2qyS23m809ujq6cMiCjeR+gFWB6mYAMNHQAUd/f244sDWW1vu8VRfbhbN/vUoRt/cMoP43+eTLxQpdLPX2+TulVTyQn/AKUgfnXM9yCgyy3ZrV3fG6GOtiqIgvTI6BV9KgjTMp36B3/vifFbvks88aX/AB40miCZ4qiNl2D/AIhiRzM6hp0+Gc/1Hw7xqQb39BErb9mUdJ/IPJtZfqSmyKgszODW1aNIqDyFAJ2fsPSeVCxX+wYvFQ2e3U1wrIzN8tvniNEBlZkBDaJPSwHkDY88O4xaMpuWd02QZVb4KN6WBoUETp0nYYDQDMd+o8YnWV4f/9k=",
                         achieved: true,
-                        unlocked: faker.date.recent(10).getTime(),
+                        unlocked: faker.date.recent({days:10}).getTime(),
                         name: "Daredevil",
                         description: "",
                         id: "ACHIEVEMENT_0460",
@@ -1125,7 +1125,7 @@
                     ],
                     rate: {
                       total: 47,
-                      achieved: 2 + faker.datatype.number(45),
+                      achieved: 2 + faker.number.int(45),
                     },
                   },
                 ],
@@ -1141,18 +1141,18 @@
               sections: options["leetcode.sections"].split(",").map(x => x.trim()).filter(x => x),
               languages: new Array(6).fill(null).map(_ => ({
                 language: faker.hacker.noun(),
-                solved: faker.datatype.number(200),
+                solved: faker.number.int(200),
               })),
               skills: new Array(Number(options["leetcode.limit.skills"]) || 10).fill(null).map(_ => ({
                 name: faker.hacker.noun(),
                 category: faker.helpers.arrayElement(["advanced", "intermediate", "fundamental"]),
-                solved: faker.datatype.number(30),
+                solved: faker.number.int(30),
               })),
               problems: {
-                All: {count: 2402, solved: faker.datatype.number(2402)},
-                Easy: {count: 592, solved: faker.datatype.number(592)},
-                Medium: {count: 1283, solved: faker.datatype.number(1283)},
-                Hard: {count: 527, solved: faker.datatype.number(527)},
+                All: {count: 2402, solved: faker.number.int(2402)},
+                Easy: {count: 592, solved: faker.number.int(592)},
+                Medium: {count: 1283, solved: faker.number.int(1283)},
+                Hard: {count: 527, solved: faker.number.int(527)},
               },
               recent: new Array(Number(options["leetcode.limit.recent"]) || 2).fill(null).map(_ => ({
                 title: faker.lorem.sentence(),
@@ -1171,12 +1171,12 @@
                 Date: faker.date.recent().toISOString().substring(0, 10),
                 White: options["chess.user"],
                 Black: faker.internet.userName(),
-                WhiteElo: faker.datatype.number(3000),
-                BlackElo: faker.datatype.number(3000),
+                WhiteElo: faker.number.int(3000),
+                BlackElo: faker.number.int(3000),
               },
               animation: {size: 40, delay: 3, duration: 0.6},
               result: {
-                white: faker.datatype.number(3),
+                white: faker.number.int(3),
                 get black() {
                   return this.white + faker.helpers.arrayElement([-1, +1])
                 },
@@ -1199,7 +1199,7 @@
                 [
                   {
                     type: "push",
-                    repo: `${faker.random.word()}/${faker.random.word()}`,
+                    repo: `${faker.lorem.word()}/${faker.lorem.word()}`,
                     size: 1,
                     branch: "master",
                     commits: [{sha: faker.git.shortSha(), message: faker.lorem.sentence()}],
@@ -1208,7 +1208,7 @@
                   {
                     type: "comment",
                     on: "commit",
-                    repo: `${faker.random.word()}/${faker.random.word()}`,
+                    repo: `${faker.lorem.word()}/${faker.lorem.word()}`,
                     content: faker.lorem.paragraph(),
                     user: set.user,
                     mobile: null,
@@ -1219,99 +1219,99 @@
                   {
                     type: "comment",
                     on: "pr",
-                    repo: `${faker.random.word()}/${faker.random.word()}`,
+                    repo: `${faker.lorem.word()}/${faker.lorem.word()}`,
                     content: faker.lorem.sentence(),
                     user: set.user,
                     mobile: null,
-                    number: faker.datatype.number(100),
+                    number: faker.number.int(100),
                     title: faker.lorem.sentence(),
                     timestamp: faker.date.recent(),
                   },
                   {
                     type: "comment",
                     on: "issue",
-                    repo: `${faker.random.word()}/${faker.random.word()}`,
+                    repo: `${faker.lorem.word()}/${faker.lorem.word()}`,
                     content: faker.lorem.sentence(),
                     user: set.user,
                     mobile: null,
-                    number: faker.datatype.number(100),
+                    number: faker.number.int(100),
                     title: faker.lorem.sentence(),
                     timestamp: faker.date.recent(),
                   },
                   {
                     type: "issue",
-                    repo: `${faker.random.word()}/${faker.random.word()}`,
+                    repo: `${faker.lorem.word()}/${faker.lorem.word()}`,
                     action: faker.helpers.arrayElement(["opened", "closed", "reopened"]),
                     user: set.user,
-                    number: faker.datatype.number(100),
+                    number: faker.number.int(100),
                     title: faker.lorem.sentence(),
                     timestamp: faker.date.recent(),
                   },
                   {
                     type: "pr",
-                    repo: `${faker.random.word()}/${faker.random.word()}`,
+                    repo: `${faker.lorem.word()}/${faker.lorem.word()}`,
                     action: faker.helpers.arrayElement(["opened", "closed"]),
                     user: set.user,
-                    number: faker.datatype.number(100),
+                    number: faker.number.int(100),
                     title: faker.lorem.sentence(),
-                    lines: {added: faker.datatype.number(1000), deleted: faker.datatype.number(1000)},
-                    files: {changed: faker.datatype.number(10)},
+                    lines: {added: faker.number.int(1000), deleted: faker.number.int(1000)},
+                    files: {changed: faker.number.int(10)},
                     timestamp: faker.date.recent(),
                   },
                   {
                     type: "wiki",
-                    repo: `${faker.random.word()}/${faker.random.word()}`,
+                    repo: `${faker.lorem.word()}/${faker.lorem.word()}`,
                     pages: [faker.lorem.sentence(), faker.lorem.sentence()],
                     timestamp: faker.date.recent(),
                   },
                   {
                     type: "fork",
-                    repo: `${faker.random.word()}/${faker.random.word()}`,
+                    repo: `${faker.lorem.word()}/${faker.lorem.word()}`,
                     timestamp: faker.date.recent(),
                   },
                   {
                     type: "review",
-                    repo: `${faker.random.word()}/${faker.random.word()}`,
+                    repo: `${faker.lorem.word()}/${faker.lorem.word()}`,
                     user: set.user,
-                    number: faker.datatype.number(100),
+                    number: faker.number.int(100),
                     title: faker.lorem.sentence(),
                     timestamp: faker.date.recent(),
                   },
                   {
                     type: "release",
-                    repo: `${faker.random.word()}/${faker.random.word()}`,
+                    repo: `${faker.lorem.word()}/${faker.lorem.word()}`,
                     action: "published",
-                    name: faker.random.words(4),
+                    name: faker.lorem.words(4),
                     draft: faker.datatype.boolean(),
                     prerelease: faker.datatype.boolean(),
                     timestamp: faker.date.recent(),
                   },
                   {
                     type: "ref/create",
-                    repo: `${faker.random.word()}/${faker.random.word()}`,
+                    repo: `${faker.lorem.word()}/${faker.lorem.word()}`,
                     ref: {name: faker.lorem.slug(), type: faker.helpers.arrayElement(["tag", "branch"])},
                     timestamp: faker.date.recent(),
                   },
                   {
                     type: "ref/delete",
-                    repo: `${faker.random.word()}/${faker.random.word()}`,
+                    repo: `${faker.lorem.word()}/${faker.lorem.word()}`,
                     ref: {name: faker.lorem.slug(), type: faker.helpers.arrayElement(["tag", "branch"])},
                     timestamp: faker.date.recent(),
                   },
                   {
                     type: "member",
-                    repo: `${faker.random.word()}/${faker.random.word()}`,
+                    repo: `${faker.lorem.word()}/${faker.lorem.word()}`,
                     user: set.user,
                     timestamp: faker.date.recent(),
                   },
                   {
                     type: "public",
-                    repo: `${faker.random.word()}/${faker.random.word()}`,
+                    repo: `${faker.lorem.word()}/${faker.lorem.word()}`,
                     timestamp: faker.date.recent(),
                   },
                   {
                     type: "star",
-                    repo: `${faker.random.word()}/${faker.random.word()}`,
+                    repo: `${faker.lorem.word()}/${faker.lorem.word()}`,
                     action: "started",
                     timestamp: faker.date.recent(),
                   },
@@ -1324,8 +1324,8 @@
         ...(set.plugins.enabled.isocalendar
           ? ({
             isocalendar: {
-              streak: {max: 30 + faker.datatype.number(20), current: faker.datatype.number(30)},
-              max: 10 + faker.datatype.number(40),
+              streak: {max: 30 + faker.number.int(20), current: faker.number.int(30)},
+              max: 10 + faker.number.int(40),
               average: faker.datatype.float(10),
               svg: await staticPlaceholder(set.plugins.enabled.isocalendar, `isocalendar.${options["isocalendar.duration"]}.svg`),
               duration: options["isocalendar.duration"],
@@ -1340,9 +1340,9 @@
                 year: new Date().getFullYear() - index,
                 weeks: new Array(53).fill(0).map(() => ({
                   contributionDays: new Array(7).fill(0).map(() => ({
-                    contributionCount: faker.datatype.number(10),
+                    contributionCount: faker.number.int(10),
                     color: faker.helpers.arrayElement(["#ebedf0", "#ebedf0", "#ebedf0", "#ebedf0", "#ebedf0", "#ebedf0", "#9be9a8", "#9be9a8", "#9be9a8", "#40c463", "#40c463", "#30a14e", "#216e39"]),
-                    date: faker.date.past(365),
+                    date: faker.date.past({years:1}),
                   })),
                 })),
               })),
@@ -1353,8 +1353,8 @@
         ...(set.plugins.enabled.support
           ? ({
             support: {
-              stats: {solutions: faker.datatype.number(100), posts: faker.datatype.number(1000), topics: faker.datatype.number(1000), received: faker.datatype.number(1000), hearts: faker.datatype.number(1000)},
-              badges: {uniques: [], multiples: [], count: faker.datatype.number(1000)},
+              stats: {solutions: faker.number.int(100), posts: faker.number.int(1000), topics: faker.number.int(1000), received: faker.number.int(1000), hearts: faker.number.int(1000)},
+              badges: {uniques: [], multiples: [], count: faker.number.int(1000)},
             },
           })
           : null),
@@ -1387,26 +1387,26 @@
               sections: options["stackoverflow.sections"].split(",").map(x => x.trim()).filter(x => x),
               lines: options["stackoverflow.lines"],
               user: {
-                reputation: faker.datatype.number(100000),
-                badges: faker.datatype.number(1000),
-                questions: faker.datatype.number(1000),
-                answers: faker.datatype.number(1000),
-                comments: faker.datatype.number(1000),
-                views: faker.datatype.number(1000),
+                reputation: faker.number.int(100000),
+                badges: faker.number.int(1000),
+                questions: faker.number.int(1000),
+                answers: faker.number.int(1000),
+                comments: faker.number.int(1000),
+                views: faker.number.int(1000),
               },
               "answers-top": new Array(options["stackoverflow.limit"]).fill(null).map(_ => ({
                 type: "answer",
                 body: faker.lorem.paragraphs(),
-                score: faker.datatype.number(1000),
-                upvotes: faker.datatype.number(1000),
-                downvotes: faker.datatype.number(1000),
+                score: faker.number.int(1000),
+                upvotes: faker.number.int(1000),
+                downvotes: faker.number.int(1000),
                 accepted: faker.datatype.boolean(),
-                comments: faker.datatype.number(1000),
+                comments: faker.number.int(1000),
                 author: set.user,
                 created: "01/01/1970",
                 link: null,
-                id: faker.datatype.number(100000),
-                question_id: faker.datatype.number(100000),
+                id: faker.number.int(100000),
+                question_id: faker.number.int(100000),
                 question: {
                   title: faker.lorem.sentence(),
                   tags: [faker.lorem.slug(), faker.lorem.slug()],
@@ -1419,20 +1419,20 @@
                 type: "question",
                 title: faker.lorem.sentence(),
                 body: faker.lorem.paragraphs(),
-                score: faker.datatype.number(1000),
-                upvotes: faker.datatype.number(1000),
-                downvotes: faker.datatype.number(1000),
-                favorites: faker.datatype.number(1000),
+                score: faker.number.int(1000),
+                upvotes: faker.number.int(1000),
+                downvotes: faker.number.int(1000),
+                favorites: faker.number.int(1000),
                 tags: [faker.lorem.slug(), faker.lorem.slug()],
                 answered: faker.datatype.boolean(),
-                answers: faker.datatype.number(1000),
-                comments: faker.datatype.number(1000),
-                views: faker.datatype.number(1000),
+                answers: faker.number.int(1000),
+                comments: faker.number.int(1000),
+                views: faker.number.int(1000),
                 author: set.user,
                 created: "01/01/1970",
                 link: null,
-                id: faker.datatype.number(100000),
-                accepted_answer_id: faker.datatype.number(100000),
+                id: faker.number.int(100000),
+                accepted_answer_id: faker.number.int(100000),
                 answer: null,
               })),
               get ["questions-recent"]() {

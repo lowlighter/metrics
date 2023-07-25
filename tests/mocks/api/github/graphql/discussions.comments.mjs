@@ -14,7 +14,7 @@ export default function({faker, query, login = faker.internet.userName()}) {
       user: {
         repositoryDiscussionsComments: {
           edges: new Array(100).fill(null).map(_ => ({cursor: "MOCKED_CURSOR"})),
-          nodes: new Array(100).fill(null).map(_ => ({upvoteCount: faker.datatype.number(10)})),
+          nodes: new Array(100).fill(null).map(_ => ({upvoteCount: faker.number.int(10)})),
         },
       },
     })

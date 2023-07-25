@@ -12,7 +12,7 @@ export default function({faker, url, body, login = faker.internet.userName()}) {
             matchedUser: {
               languageProblemCount: new Array(6).fill(null).map(_ => ({
                 languageName: faker.hacker.noun(),
-                problemsSolved: faker.datatype.number(200),
+                problemsSolved: faker.number.int(200),
               })),
             },
           },
@@ -31,17 +31,17 @@ export default function({faker, url, body, login = faker.internet.userName()}) {
                 advanced: new Array(6).fill(null).map(_ => ({
                   tagName: faker.hacker.noun(),
                   tagSlug: faker.lorem.slug(),
-                  problemsSolved: faker.datatype.number(200),
+                  problemsSolved: faker.number.int(200),
                 })),
                 intermediate: new Array(6).fill(null).map(_ => ({
                   tagName: faker.hacker.noun(),
                   tagSlug: faker.lorem.slug(),
-                  problemsSolved: faker.datatype.number(200),
+                  problemsSolved: faker.number.int(200),
                 })),
                 fundamental: new Array(6).fill(null).map(_ => ({
                   tagName: faker.hacker.noun(),
                   tagSlug: faker.lorem.slug(),
-                  problemsSolved: faker.datatype.number(200),
+                  problemsSolved: faker.number.int(200),
                 })),
               },
             },
@@ -70,10 +70,10 @@ export default function({faker, url, body, login = faker.internet.userName()}) {
               ],
               submitStatsGlobal: {
                 acSubmissionNum: [
-                  {difficulty: "All", count: faker.datatype.number(2402)},
-                  {difficulty: "Easy", count: faker.datatype.number(592)},
-                  {difficulty: "Medium", count: faker.datatype.number(1283)},
-                  {difficulty: "Hard", count: faker.datatype.number(527)},
+                  {difficulty: "All", count: faker.number.int(2402)},
+                  {difficulty: "Easy", count: faker.number.int(592)},
+                  {difficulty: "Medium", count: faker.number.int(1283)},
+                  {difficulty: "Hard", count: faker.number.int(527)},
                 ],
               },
             },
@@ -89,7 +89,7 @@ export default function({faker, url, body, login = faker.internet.userName()}) {
         data: {
           data: {
             recentAcSubmissionList: new Array(6).fill(null).map(_ => ({
-              id: `${faker.datatype.number(10000)}`,
+              id: `${faker.number.int(10000)}`,
               title: faker.lorem.sentence(),
               titleSlug: faker.lorem.slug(),
               timestamp: `${Math.round(faker.date.recent().getTime() / 1000)}`,

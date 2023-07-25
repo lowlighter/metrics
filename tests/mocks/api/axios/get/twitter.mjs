@@ -10,10 +10,10 @@ export default function({faker, url, options, login = faker.internet.userName()}
         status: 200,
         data: {
           data: {
-            profile_image_url: faker.image.people(),
-            name: faker.name.fullName(),
+            profile_image_url: faker.image.urlLoremFlickr({ category: 'people' }),
+            name: faker.person.fullName(),
             verified: faker.datatype.boolean(),
-            id: faker.datatype.number(1000000).toString(),
+            id: faker.number.int(1000000).toString(),
             username,
           },
         },
@@ -27,7 +27,7 @@ export default function({faker, url, options, login = faker.internet.userName()}
         data: {
           data: [
             {
-              id: faker.datatype.number(100000000000000).toString(),
+              id: faker.number.int(100000000000000).toString(),
               created_at: `${faker.date.recent()}`,
               entities: {
                 mentions: [
@@ -37,7 +37,7 @@ export default function({faker, url, options, login = faker.internet.userName()}
               text: "Checkout metrics from @lowlighter ! #GitHub",
             },
             {
-              id: faker.datatype.number(100000000000000).toString(),
+              id: faker.number.int(100000000000000).toString(),
               created_at: `${faker.date.recent()}`,
               text: faker.lorem.paragraph(),
             },
@@ -45,15 +45,15 @@ export default function({faker, url, options, login = faker.internet.userName()}
           includes: {
             users: [
               {
-                id: faker.datatype.number(100000000000000).toString(),
+                id: faker.number.int(100000000000000).toString(),
                 name: "lowlighter",
                 username: "lowlighter",
               },
             ],
           },
           meta: {
-            newest_id: faker.datatype.number(100000000000000).toString(),
-            oldest_id: faker.datatype.number(100000000000000).toString(),
+            newest_id: faker.number.int(100000000000000).toString(),
+            oldest_id: faker.number.int(100000000000000).toString(),
             result_count: 2,
             next_token: "MOCKED_CURSOR",
           },

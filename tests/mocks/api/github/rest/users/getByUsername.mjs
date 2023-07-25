@@ -12,7 +12,7 @@ export default async function({faker}, target, that, [{username}]) {
     data: {
       login: faker.internet.userName(),
       avatar_url: null,
-      contributions: faker.datatype.number(1000),
+      contributions: faker.number.int(1000),
     },
   })
 }

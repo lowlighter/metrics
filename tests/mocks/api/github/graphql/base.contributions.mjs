@@ -4,12 +4,12 @@ export default function({faker, query, login = faker.internet.userName()}) {
   return ({
     user: {
       contributionsCollection: {
-        totalRepositoriesWithContributedCommits: faker.datatype.number(100),
-        totalCommitContributions: faker.datatype.number(10000),
-        restrictedContributionsCount: faker.datatype.number(10000),
-        totalIssueContributions: faker.datatype.number(100),
-        totalPullRequestContributions: faker.datatype.number(1000),
-        totalPullRequestReviewContributions: faker.datatype.number(1000),
+        totalRepositoriesWithContributedCommits: faker.number.int(100),
+        totalCommitContributions: faker.number.int(10000),
+        restrictedContributionsCount: faker.number.int(10000),
+        totalIssueContributions: faker.number.int(100),
+        totalPullRequestContributions: faker.number.int(1000),
+        totalPullRequestReviewContributions: faker.number.int(1000),
       },
     },
   })

@@ -7,20 +7,20 @@ export default function({faker, url, options, login = faker.internet.userName()}
       console.debug(`metrics/compute/mocks > mocking wakatime api result > ${url}`)
       const stats = array => {
         const elements = []
-        let results = new Array(4 + faker.datatype.number(2)).fill(null).map(_ => ({
+        let results = new Array(4 + faker.number.int(2)).fill(null).map(_ => ({
           get digital() {
             return `${this.hours}:${this.minutes}`
           },
-          hours: faker.datatype.number(1000),
-          minutes: faker.datatype.number(1000),
-          name: array ? faker.helpers.arrayElement(array) : faker.random.words(2).replace(/ /g, "-").toLocaleLowerCase(),
+          hours: faker.number.int(1000),
+          minutes: faker.number.int(1000),
+          name: array ? faker.helpers.arrayElement(array) : faker.lorem.words(2).replace(/ /g, "-").toLocaleLowerCase(),
           percent: 0,
-          total_seconds: faker.datatype.number(1000000),
+          total_seconds: faker.number.int(1000000),
         }))
         results = results.filter(({name}) => elements.includes(name) ? false : (elements.push(name), true))
         let percents = 100
         for (const result of results) {
-          result.percent = 1 + ((percents - 1) <= 0 ? 0 : faker.datatype.number(percents - 1))
+          result.percent = 1 + ((percents - 1) <= 0 ? 0 : faker.number.int(percents - 1))
           percents -= result.percent
         }
         return results
@@ -32,11 +32,11 @@ export default function({faker, url, options, login = faker.internet.userName()}
             best_day: {
               created_at: faker.date.recent(),
               date: `${faker.date.recent()}`.substring(0, 10),
-              total_seconds: faker.datatype.number(1000000),
+              total_seconds: faker.number.int(1000000),
             },
             categories: stats(),
-            daily_average: faker.datatype.number(12 * 60 * 60),
-            daily_average_including_other_language: faker.datatype.number(12 * 60 * 60),
+            daily_average: faker.number.int(12 * 60 * 60),
+            daily_average_including_other_language: faker.number.int(12 * 60 * 60),
             dependencies: stats(),
             editors: stats(["VS Code", "Chrome", "IntelliJ", "PhpStorm", "WebStorm", "Android Studio", "Visual Studio", "Sublime Text", "PyCharm", "Vim", "Atom", "Xcode"]),
             languages: stats(["JavaScript", "TypeScript", "PHP", "Java", "Python", "Vue.js", "HTML", "C#", "JSON", "Dart", "SCSS", "Kotlin", "JSX", "Go", "Ruby", "YAML"]),
@@ -44,8 +44,8 @@ export default function({faker, url, options, login = faker.internet.userName()}
             operating_systems: stats(["Mac", "Windows", "Linux"]),
             project: null,
             projects: /api_key=MOCKED_TOKEN_NO_PROJECTS/.test(url) ? null : stats(),
-            total_seconds: faker.datatype.number(1000000000),
-            total_seconds_including_other_language: faker.datatype.number(1000000000),
+            total_seconds: faker.number.int(1000000000),
+            total_seconds_including_other_language: faker.number.int(1000000000),
           },
         },
       })

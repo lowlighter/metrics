@@ -21,13 +21,13 @@ export default async function({faker}, target, that, [{page, per_page, owner, re
             name: owner,
             login: faker.internet.userName(),
             avatar_url: null,
-            date: `${faker.date.recent(14)}`,
+            date: `${faker.date.recent({days:14})}`,
           },
           committer: {
             name: owner,
             login: faker.internet.userName(),
             avatar_url: null,
-            date: `${faker.date.recent(14)}`,
+            date: `${faker.date.recent({days:14})}`,
           },
         },
       }))
