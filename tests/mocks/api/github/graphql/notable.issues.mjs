@@ -15,7 +15,7 @@ export default function({faker, query, login = faker.internet.userName()}) {
     : ({
       user: {
         issues: {
-          totalCount: faker.datatype.number(1000),
+          totalCount: faker.number.int(1000),
           edges: [
             {
               cursor: "MOCKED_CURSOR",

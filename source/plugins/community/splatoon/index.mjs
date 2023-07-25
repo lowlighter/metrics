@@ -216,7 +216,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
               icon: await imports.imgb64(assets.stages[data.detail.coopStage.name]),
             },
             date: data.detail.playedTime,
-            grade: data.detail.afterGrade.name,
+            grade: data.detail.afterGrade?.name ?? "",
           })),
         ),
       }

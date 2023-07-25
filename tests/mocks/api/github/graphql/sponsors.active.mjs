@@ -21,7 +21,7 @@ export default function({faker, query, login = faker.internet.userName()}) {
               avatarUrl: null,
             },
             tier: {
-              monthlyPriceInDollars: faker.datatype.number(10),
+              monthlyPriceInDollars: faker.number.int(10),
             },
           })),
         },

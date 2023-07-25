@@ -5,6 +5,7 @@ appdetails
 appids
 appinfo
 deno
+Flickr
 gpgarmor
 github
 githubassets

@@ -10,13 +10,13 @@ export default async function({faker}, target, that, [{owner, repo}]) {
       "x-oauth-scopes": "repo",
     },
     data: {
-      id: faker.datatype.number(100000),
+      id: faker.number.int(100000),
       name: repo,
       full_name: `${owner}/${repo}`,
       private: false,
       owner: {
         login: owner,
-        id: faker.datatype.number(100000),
+        id: faker.number.int(100000),
       },
       description: faker.lorem.sentences(),
       created_at: faker.date.past(),

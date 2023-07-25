@@ -17,7 +17,7 @@ export default async function({faker}, target, that, [{username: login, page, pe
           login,
         },
         repo: {
-          name: `${faker.random.word()}/${faker.random.word()}`,
+          name: `${faker.lorem.word()}/${faker.lorem.word()}`,
         },
         payload: {
           comment: {
@@ -29,7 +29,7 @@ export default async function({faker}, target, that, [{username: login, page, pe
             body: faker.lorem.sentence(),
           },
         },
-        created_at: faker.date.recent(7),
+        created_at: faker.date.recent({days:7}),
         public: true,
       },
       {
@@ -39,7 +39,7 @@ export default async function({faker}, target, that, [{username: login, page, pe
           login,
         },
         repo: {
-          name: `${faker.random.word()}/${faker.random.word()}`,
+          name: `${faker.lorem.word()}/${faker.lorem.word()}`,
         },
         payload: {
           action: "created",
@@ -58,7 +58,7 @@ export default async function({faker}, target, that, [{username: login, page, pe
             body: "",
           },
         },
-        created_at: faker.date.recent(7),
+        created_at: faker.date.recent({days:7}),
         public: true,
       },
       {
@@ -68,7 +68,7 @@ export default async function({faker}, target, that, [{username: login, page, pe
           login,
         },
         repo: {
-          name: `${faker.random.word()}/${faker.random.word()}`,
+          name: `${faker.lorem.word()}/${faker.lorem.word()}`,
         },
         payload: {
           action: faker.helpers.arrayElement(["opened", "closed", "reopened"]),
@@ -82,7 +82,7 @@ export default async function({faker}, target, that, [{username: login, page, pe
             performed_via_github_app: null,
           },
         },
-        created_at: faker.date.recent(7),
+        created_at: faker.date.recent({days:7}),
         public: true,
       },
       {
@@ -92,7 +92,7 @@ export default async function({faker}, target, that, [{username: login, page, pe
           login,
         },
         repo: {
-          name: `${faker.random.word()}/${faker.random.word()}`,
+          name: `${faker.lorem.word()}/${faker.lorem.word()}`,
         },
         payload: {
           pages: [
@@ -105,7 +105,7 @@ export default async function({faker}, target, that, [{username: login, page, pe
             },
           ],
         },
-        created_at: faker.date.recent(7),
+        created_at: faker.date.recent({days:7}),
         public: true,
       },
       {
@@ -115,7 +115,7 @@ export default async function({faker}, target, that, [{username: login, page, pe
           login,
         },
         repo: {
-          name: `${faker.random.word()}/${faker.random.word()}`,
+          name: `${faker.lorem.word()}/${faker.lorem.word()}`,
         },
         payload: {
           action: "created",
@@ -138,7 +138,7 @@ export default async function({faker}, target, that, [{username: login, page, pe
             performed_via_github_app: null,
           },
         },
-        created_at: faker.date.recent(7),
+        created_at: faker.date.recent({days:7}),
         public: true,
       },
       {
@@ -148,15 +148,15 @@ export default async function({faker}, target, that, [{username: login, page, pe
           login,
         },
         repo: {
-          name: `${faker.random.word()}/${faker.random.word()}`,
+          name: `${faker.lorem.word()}/${faker.lorem.word()}`,
         },
         payload: {
           forkee: {
-            name: faker.random.word(),
-            full_name: `${faker.random.word()}/${faker.random.word()}`,
+            name: faker.lorem.word(),
+            full_name: `${faker.lorem.word()}/${faker.lorem.word()}`,
           },
         },
-        created_at: faker.date.recent(7),
+        created_at: faker.date.recent({days:7}),
         public: true,
       },
       {
@@ -166,7 +166,7 @@ export default async function({faker}, target, that, [{username: login, page, pe
           login,
         },
         repo: {
-          name: `${faker.random.word()}/${faker.random.word()}`,
+          name: `${faker.lorem.word()}/${faker.lorem.word()}`,
         },
         payload: {
           action: "created",
@@ -186,7 +186,7 @@ export default async function({faker}, target, that, [{username: login, page, pe
             },
           },
         },
-        created_at: faker.date.recent(7),
+        created_at: faker.date.recent({days:7}),
         public: true,
       },
       {
@@ -196,18 +196,18 @@ export default async function({faker}, target, that, [{username: login, page, pe
           login,
         },
         repo: {
-          name: `${faker.random.word()}/${faker.random.word()}`,
+          name: `${faker.lorem.word()}/${faker.lorem.word()}`,
         },
         payload: {
           action: "published",
           release: {
-            tag_name: `v${faker.datatype.number()}.${faker.datatype.number()}`,
-            name: faker.random.words(4),
+            tag_name: `v${faker.number.int()}.${faker.number.int()}`,
+            name: faker.lorem.words(4),
             draft: faker.datatype.boolean(),
             prerelease: faker.datatype.boolean(),
           },
         },
-        created_at: faker.date.recent(7),
+        created_at: faker.date.recent({days:7}),
         public: true,
       },
       {
@@ -217,14 +217,14 @@ export default async function({faker}, target, that, [{username: login, page, pe
           login,
         },
         repo: {
-          name: `${faker.random.word()}/${faker.random.word()}`,
+          name: `${faker.lorem.word()}/${faker.lorem.word()}`,
         },
         payload: {
           ref: faker.lorem.slug(),
           ref_type: faker.helpers.arrayElement(["tag", "branch"]),
           master_branch: "master",
         },
-        created_at: faker.date.recent(7),
+        created_at: faker.date.recent({days:7}),
         public: true,
       },
       {
@@ -237,7 +237,7 @@ export default async function({faker}, target, that, [{username: login, page, pe
           name: "lowlighter/metrics",
         },
         payload: {action: "started"},
-        created_at: faker.date.recent(7),
+        created_at: faker.date.recent({days:7}),
         public: true,
       },
       {
@@ -247,13 +247,13 @@ export default async function({faker}, target, that, [{username: login, page, pe
           login,
         },
         repo: {
-          name: `${faker.random.word()}/${faker.random.word()}`,
+          name: `${faker.lorem.word()}/${faker.lorem.word()}`,
         },
         payload: {
           ref: faker.lorem.slug(),
           ref_type: faker.helpers.arrayElement(["tag", "branch"]),
         },
-        created_at: faker.date.recent(7),
+        created_at: faker.date.recent({days:7}),
         public: true,
       },
       {
@@ -263,7 +263,7 @@ export default async function({faker}, target, that, [{username: login, page, pe
           login,
         },
         repo: {
-          name: `${faker.random.word()}/${faker.random.word()}`,
+          name: `${faker.lorem.word()}/${faker.lorem.word()}`,
         },
         payload: {
           size: 1,
@@ -279,7 +279,7 @@ export default async function({faker}, target, that, [{username: login, page, pe
             },
           ],
         },
-        created_at: faker.date.recent(7),
+        created_at: faker.date.recent({days:7}),
         public: true,
       },
       {
@@ -289,7 +289,7 @@ export default async function({faker}, target, that, [{username: login, page, pe
           login,
         },
         repo: {
-          name: `${faker.random.word()}/${faker.random.word()}`,
+          name: `${faker.lorem.word()}/${faker.lorem.word()}`,
         },
         payload: {
           action: faker.helpers.arrayElement(["opened", "closed"]),
@@ -300,12 +300,12 @@ export default async function({faker}, target, that, [{username: login, page, pe
             },
             state: "open",
             title: faker.lorem.sentence(),
-            additions: faker.datatype.number(1000),
-            deletions: faker.datatype.number(1000),
-            changed_files: faker.datatype.number(10),
+            additions: faker.number.int(1000),
+            deletions: faker.number.int(1000),
+            changed_files: faker.number.int(10),
           },
         },
-        created_at: faker.date.recent(7),
+        created_at: faker.date.recent({days:7}),
         public: true,
       },
       {
@@ -315,7 +315,7 @@ export default async function({faker}, target, that, [{username: login, page, pe
           login,
         },
         repo: {
-          name: `${faker.random.word()}/${faker.random.word()}`,
+          name: `${faker.lorem.word()}/${faker.lorem.word()}`,
         },
         payload: {
           member: {
@@ -323,7 +323,7 @@ export default async function({faker}, target, that, [{username: login, page, pe
           },
           action: "added",
         },
-        created_at: faker.date.recent(7),
+        created_at: faker.date.recent({days:7}),
         public: true,
       },
       {
@@ -333,10 +333,10 @@ export default async function({faker}, target, that, [{username: login, page, pe
           login,
         },
         repo: {
-          name: `${faker.random.word()}/${faker.random.word()}`,
+          name: `${faker.lorem.word()}/${faker.lorem.word()}`,
         },
         payload: {},
-        created_at: faker.date.recent(7),
+        created_at: faker.date.recent({days:7}),
         public: true,
       },
     ],

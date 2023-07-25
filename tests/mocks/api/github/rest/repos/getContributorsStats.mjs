@@ -11,12 +11,12 @@ export default async function({faker}, target, that, [{owner, repo}]) {
     },
     data: [
       {
-        total: faker.datatype.number(10000),
+        total: faker.number.int(10000),
         weeks: [
-          {w: faker.date.recent(), a: faker.datatype.number(10000), d: faker.datatype.number(10000), c: faker.datatype.number(10000)},
-          {w: faker.date.recent(), a: faker.datatype.number(10000), d: faker.datatype.number(10000), c: faker.datatype.number(10000)},
-          {w: faker.date.recent(), a: faker.datatype.number(10000), d: faker.datatype.number(10000), c: faker.datatype.number(10000)},
-          {w: faker.date.recent(), a: faker.datatype.number(10000), d: faker.datatype.number(10000), c: faker.datatype.number(10000)},
+          {w: faker.date.recent(), a: faker.number.int(10000), d: faker.number.int(10000), c: faker.number.int(10000)},
+          {w: faker.date.recent(), a: faker.number.int(10000), d: faker.number.int(10000), c: faker.number.int(10000)},
+          {w: faker.date.recent(), a: faker.number.int(10000), d: faker.number.int(10000), c: faker.number.int(10000)},
+          {w: faker.date.recent(), a: faker.number.int(10000), d: faker.number.int(10000), c: faker.number.int(10000)},
         ].sort((a, b) => new Date(a.w) - new Date(b.w)),
         author: {
           login: owner,

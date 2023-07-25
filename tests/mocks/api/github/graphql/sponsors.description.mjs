@@ -6,7 +6,7 @@ export default function({faker, query, login = faker.internet.userName()}) {
       sponsorsListing: {
         fullDescription: faker.lorem.sentences(),
         activeGoal: {
-          percentComplete: faker.datatype.number(100),
+          percentComplete: faker.number.int(100),
           title: faker.lorem.sentence(),
           description: faker.lorem.sentence(),
         },

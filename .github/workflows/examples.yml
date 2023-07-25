@@ -874,36 +874,6 @@ jobs:
           user: lowlighter
           plugins_errors_fatal: yes
         if: ${{ success() || failure() }}
-      - name: 🐤 Latest tweets - Latest tweets
-        uses: lowlighter/metrics@master
-        with:
-          filename: metrics.plugin.tweets.svg
-          token: NOT_NEEDED
-          base: ""
-          plugin_tweets: yes
-          plugin_tweets_token: ${{ secrets.TWITTER_TOKEN }}
-          plugin_tweets_user: github
-          output_action: none
-          delay: 120
-          user: lowlighter
-          plugins_errors_fatal: yes
-        if: ${{ success() || failure() }}
-      - name: 🐤 Latest tweets - Latest tweets including attachments
-        uses: lowlighter/metrics@master
-        with:
-          filename: metrics.plugin.tweets.attachments.svg
-          token: NOT_NEEDED
-          base: ""
-          plugin_tweets: yes
-          plugin_tweets_token: ${{ secrets.TWITTER_TOKEN }}
-          plugin_tweets_attachments: yes
-          plugin_tweets_user: github
-          plugin_tweets_limit: 1
-          output_action: none
-          delay: 120
-          user: lowlighter
-          plugins_errors_fatal: yes
-        if: ${{ success() || failure() }}
       - name: 🗨️ Stack Overflow - Top answers from stackoverflow
         uses: lowlighter/metrics@master
         with:

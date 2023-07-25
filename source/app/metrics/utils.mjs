@@ -13,7 +13,7 @@ import fs from "fs/promises"
 import { JSDOM } from "jsdom"
 import linguist from "linguist-js"
 import { marked } from "marked"
-import minimatch from "minimatch"
+import { minimatch } from "minimatch"
 import fetch from "node-fetch"
 import opengraph from "open-graph-scraper"
 import os from "os"
@@ -51,7 +51,7 @@ export const puppeteer = {
       ignoreDefaultArgs: ["--disable-extensions"],
     })
   },
-  headless: true,
+  headless: "new",
   events: ["load", "domcontentloaded", "networkidle2"],
 }
 

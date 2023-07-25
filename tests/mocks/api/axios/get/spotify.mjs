@@ -5,8 +5,8 @@ export default function({faker, url, options, login = faker.internet.userName()}
     //Get recently played tracks
     if (/me.player.recently-played/.test(url) && (options?.headers?.Authorization === "Bearer MOCKED_TOKEN_ACCESS")) {
       console.debug(`metrics/compute/mocks > mocking spotify api result > ${url}`)
-      const artist = faker.random.words()
-      const track = faker.random.words(5)
+      const artist = faker.lorem.words()
+      const track = faker.lorem.words(5)
       return ({
         status: 200,
         data: {
@@ -24,17 +24,17 @@ export default function({faker, url, options, login = faker.internet.userName()}
                   images: [
                     {
                       height: 640,
-                      url: faker.image.abstract(),
+                      url: faker.image.urlLoremFlickr({ category: 'abstract' }),
                       width: 640,
                     },
                     {
                       height: 300,
-                      url: faker.image.abstract(),
+                      url: faker.image.urlLoremFlickr({ category: 'abstract' }),
                       width: 300,
                     },
                     {
                       height: 64,
-                      url: faker.image.abstract(),
+                      url: faker.image.urlLoremFlickr({ category: 'abstract' }),
                       width: 64,
                     },
                   ],
@@ -63,8 +63,8 @@ export default function({faker, url, options, login = faker.internet.userName()}
     }
     else if (/me.top.tracks/.test(url) && (options?.headers?.Authorization === "Bearer MOCKED_TOKEN_ACCESS")) {
       console.debug(`metrics/compute/mocks > mocking spotify api result > ${url}`)
-      const artist = faker.random.words()
-      const track = faker.random.words(5)
+      const artist = faker.lorem.words()
+      const track = faker.lorem.words(5)
       return ({
         status: 200,
         data: {
@@ -81,17 +81,17 @@ export default function({faker, url, options, login = faker.internet.userName()}
                 images: [
                   {
                     height: 640,
-                    url: faker.image.abstract(),
+                    url: faker.image.urlLoremFlickr({ category: 'abstract' }),
                     width: 640,
                   },
                   {
                     height: 300,
-                    url: faker.image.abstract(),
+                    url: faker.image.urlLoremFlickr({ category: 'abstract' }),
                     width: 300,
                   },
                   {
                     height: 64,
-                    url: faker.image.abstract(),
+                    url: faker.image.urlLoremFlickr({ category: 'abstract' }),
                     width: 64,
                   },
                 ],
@@ -115,8 +115,8 @@ export default function({faker, url, options, login = faker.internet.userName()}
     }
     else if (/me.top.artists/.test(url) && (options?.headers?.Authorization === "Bearer MOCKED_TOKEN_ACCESS")) {
       console.debug(`metrics/compute/mocks > mocking spotify api result > ${url}`)
-      const genre = faker.random.words()
-      const track = faker.random.words(5)
+      const genre = faker.lorem.words()
+      const track = faker.lorem.words(5)
       return ({
         status: 200,
         data: {
@@ -126,17 +126,17 @@ export default function({faker, url, options, login = faker.internet.userName()}
               images: [
                 {
                   height: 640,
-                  url: faker.image.abstract(),
+                  url: faker.image.urlLoremFlickr({ category: 'abstract' }),
                   width: 640,
                 },
                 {
                   height: 300,
-                  url: faker.image.abstract(),
+                  url: faker.image.urlLoremFlickr({ category: 'abstract' }),
                   width: 300,
                 },
                 {
                   height: 64,
-                  url: faker.image.abstract(),
+                  url: faker.image.urlLoremFlickr({ category: 'abstract' }),
                   width: 64,
                 },
               ],

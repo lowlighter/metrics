@@ -155,10 +155,10 @@ export default async function({graphql, rest}) {
     //Mock geocode API
     Gmap.prototype.geocode = function() {
       console.debug("metrics/compute/mocks > mocking google maps geocode result")
-      const lat = faker.address.latitude()
-      const lng = faker.address.longitude()
-      const city = faker.address.city()
-      const country = faker.address.country()
+      const lat = faker.location.latitude()
+      const lng = faker.location.longitude()
+      const city = faker.location.city()
+      const country = faker.location.country()
       return {
         data: {
           results: [
@@ -171,7 +171,7 @@ export default async function({graphql, rest}) {
                 },
                 {
                   long_name: country,
-                  short_name: faker.address.countryCode(),
+                  short_name: faker.location.countryCode(),
                   types: ["country", "political"],
                 },
               ],

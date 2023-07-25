@@ -13,7 +13,7 @@ export default function({faker, query, login = faker.internet.userName()}) {
       contributionDays = []
     }
     //Random contributions
-    const contributionCount = Math.min(10, Math.max(0, faker.datatype.number(14) - 4))
+    const contributionCount = Math.min(10, Math.max(0, faker.number.int(14) - 4))
     contributionDays.push({
       contributionCount,
       color: ["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"][Math.ceil(contributionCount / 10 / 0.25)],

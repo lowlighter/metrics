@@ -12,11 +12,11 @@ export default function({faker, query, login = faker.internet.userName()}) {
     : ({
       repository: {
         stargazers: {
-          edges: new Array(faker.datatype.number({min: 50, max: 100})).fill(null).map(() => ({
-            starredAt: `${faker.date.recent(30)}`,
+          edges: new Array(faker.number.int({min: 50, max: 100})).fill(null).map(() => ({
+            starredAt: `${faker.date.recent({days:30})}`,
             cursor: "MOCKED_CURSOR",
             node: {
-              location: faker.address.city(),
+              location: faker.location.city(),
             },
           })),
         },

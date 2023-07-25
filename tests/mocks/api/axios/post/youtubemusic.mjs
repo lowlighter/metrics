@@ -4,9 +4,9 @@ export default function({faker, url, options, login = faker.internet.userName()}
     //Get recently played tracks
     if (/browse/.test(url)) {
       console.debug(`metrics/compute/mocks > mocking yt music api result > ${url}`)
-      const artist = faker.random.word()
-      const track = faker.random.words(5)
-      const artwork = faker.image.imageUrl()
+      const artist = faker.lorem.word()
+      const track = faker.lorem.words(5)
+      const artwork = faker.image.url()
       return ({
         contents: {
           singleColumnBrowseResultsRenderer: {

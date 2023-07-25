@@ -20,7 +20,7 @@ export default function({faker, query, login = faker.internet.userName()}) {
               avatarUrl: null,
             },
             sponsorsTier: {
-              monthlyPriceInDollars: faker.datatype.number(10),
+              monthlyPriceInDollars: faker.number.int(10),
             },
           })),
         },

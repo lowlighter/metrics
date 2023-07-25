@@ -12,8 +12,8 @@ export default function({faker, url}) {
         device: "xDrip-DexcomG5",
         date: lastInterval,
         dateString: new Date(lastInterval).toISOString(),
-        sgv: faker.datatype.number({min: 40, max: 400}),
-        delta: faker.datatype.number({min: -10, max: 10}),
+        sgv: faker.number.int({min: 40, max: 400}),
+        delta: faker.number.int({min: -10, max: 10}),
         direction: faker.helpers.arrayElement(["SingleUp", "DoubleUp", "FortyFiveUp", "Flat", "FortyFiveDown", "SingleDown", "DoubleDown"]),
         type: "sgv",
         filtered: 0,
@@ -21,7 +21,7 @@ export default function({faker, url}) {
         rssi: 100,
         noise: 1,
         sysTime: new Date(lastInterval).toISOString(),
-        utcOffset: faker.datatype.number({min: -12, max: 14}) * 60,
+        utcOffset: faker.number.int({min: -12, max: 14}) * 60,
       })),
     })
   }

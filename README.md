@@ -243,77 +243,65 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
       </td>
   </tr>
   <tr>
-    <th><a href="source/plugins/tweets/README.md">🐤 Latest tweets</a></th>
     <th><a href="source/plugins/stackoverflow/README.md">🗨️ Stack Overflow</a></th>
+    <th><a href="source/plugins/anilist/README.md">🌸 Anilist watch list and reading list</a></th>
   </tr>
   <tr>
-        <td  align="center">
-        <details open><summary>Latest tweets with attachments</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.tweets.attachments.svg" alt=""></img></details>
-        <details><summary>Latest tweets</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.tweets.svg" alt=""></img></details>
-        <img width="900" height="1" alt="">
-      </td>
         <td  align="center">
         <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stackoverflow.svg" alt=""></img>
         <img width="900" height="1" alt="">
       </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/anilist/README.md">🌸 Anilist watch list and reading list</a></th>
-    <th><a href="source/plugins/music/README.md">🎼 Music activity and suggestions</a></th>
-  </tr>
-  <tr>
         <td  align="center">
         <details open><summary>For anime watchers</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.anilist.svg" alt=""></img></details>
         <details><summary>For manga readers</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.anilist.manga.svg" alt=""></img></details>
         <details open><summary>For waifus simp</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.anilist.characters.svg" alt=""></img></details>
         <img width="900" height="1" alt="">
       </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/music/README.md">🎼 Music activity and suggestions</a></th>
+    <th><a href="source/plugins/posts/README.md">✒️ Recent posts</a></th>
+  </tr>
+  <tr>
         <td  align="center">
         <details open><summary>Random tracks from a playlist</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.music.playlist.svg" alt=""></img></details>
         <details open><summary>Recently listened</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.music.recent.svg" alt=""></img></details>
         <img width="900" height="1" alt="">
       </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/posts/README.md">✒️ Recent posts</a></th>
-    <th><a href="source/plugins/rss/README.md">🗼 Rss feed</a></th>
-  </tr>
-  <tr>
         <td  align="center">
         <details open><summary>Latest posts width description and cover image</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.posts.full.svg" alt=""></img></details>
         <details><summary>Latest posts</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.posts.svg" alt=""></img></details>
         <img width="900" height="1" alt="">
       </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/rss/README.md">🗼 Rss feed</a></th>
+    <th><a href="source/plugins/wakatime/README.md">⏰ WakaTime</a></th>
+  </tr>
+  <tr>
         <td  align="center">
         <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.rss.svg" alt=""></img>
         <img width="900" height="1" alt="">
       </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/wakatime/README.md">⏰ WakaTime</a></th>
-    <th><a href="source/plugins/leetcode/README.md">🗳️ Leetcode</a></th>
-  </tr>
-  <tr>
         <td  align="center">
         <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.wakatime.svg" alt=""></img>
         <img width="900" height="1" alt="">
       </td>
+  </tr>
+  <tr>
+    <th><a href="source/plugins/leetcode/README.md">🗳️ Leetcode</a></th>
+    <th><a href="source/plugins/steam/README.md">🕹️ Steam</a></th>
+  </tr>
+  <tr>
         <td  align="center">
         <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.leetcode.svg" alt=""></img>
         <img width="900" height="1" alt="">
       </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/steam/README.md">🕹️ Steam</a></th>
-    <th></th>
-  </tr>
-  <tr>
         <td  align="center">
         <details open><summary>Recently played games</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.steam.svg" alt=""></img></details>
         <details><summary>Profile and detailed game history</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.steam.full.svg" alt=""></img></details>
         <img width="900" height="1" alt="">
       </td>
-    <td align="center"><img width="900" height="1" alt=""></td>
   </tr>
   <tr>
     <th colspan="2" align="center">
@@ -532,7 +520,7 @@ Plugins provide additional content and lets you customize rendered metrics.
   * [🗼 Rss feed <sub>`rss`</sub>](/source/plugins/rss/README.md)
   * [🗨️ Stack Overflow <sub>`stackoverflow`</sub>](/source/plugins/stackoverflow/README.md)
   * [🕹️ Steam <sub>`steam`</sub>](/source/plugins/steam/README.md)
-  * [🐤 Latest tweets <sub>`tweets`</sub>](/source/plugins/tweets/README.md)
+  * [🐤 Latest tweets <sub>`tweets`</sub>](/source/plugins/tweets/README.md) <sub>`⚠️ deprecated`</sub>
   * [⏰ WakaTime <sub>`wakatime`</sub>](/source/plugins/wakatime/README.md)
 
 **🎲 Maintained by community**
