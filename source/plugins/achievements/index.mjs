@@ -82,7 +82,7 @@ async function total({imports}) {
       //Extracting total from github.com/search
       for (let i = 0; (i < 100) && ((!total.users) || (!total.repositories)); i++) {
         const page = await browser.newPage()
-        await page.goto("https://github.com/search?q=+created%3A%3E2007")
+        await page.goto("https://github.com/search?q=created%3A%3E%3D1970")
         const results = await page.evaluate(() => [...[...document.querySelectorAll("h2")].filter(node => /Filter by/.test(node.innerText)).shift()?.nextSibling?.innerText.trim().matchAll(/(?<type>Repositories|Users|Issues)\n(?<count>.*?)M/g) ?? []]) ?? null
         for (const result of results) {
           const type = result[1]?.toLowerCase()
