@@ -1,0 +1,48 @@
+name: "🐘 Mastodon posts"
+categorie: community
+description: |
+  This plugin displays the last posts made by an Account on a Mastodon instance.
+authors:
+  - Andre601
+supports:
+  - user
+  - organization
+  - repository
+scopes: []
+inputs:
+  
+    plugin_mastodon:
+      description: |
+        Enable mastodon plugin
+      type: boolean
+      default: no
+    plugin_mastodon_source:
+      description: |
+        The Domain of the mastodon instance to get posts from
+      type: string
+      default: ""
+      example: mastodon.social
+    plugin_mastodon_sensitive:
+      description: |
+        Whether to include posts marked as sensitive
+      type: boolean
+      default: no
+    plugin_mastodon_replies:
+      description: |
+        Whether to include posts that are replies to others
+      type: boolean
+      default: no
+    plugin_mastodon_limit:
+      description: |
+        Maxiumum number of posts to display
+      type: number
+      default: 20 # Mastodon default
+      min: 1
+      max: 20
+    plugin_mastodon_user:
+      description: |
+        User ID to display posts from
+      type: number
+      default: 0
+      example: 13179 # Mastodon Account ID
+      min: 1
