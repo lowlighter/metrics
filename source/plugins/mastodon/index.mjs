@@ -5,29 +5,29 @@ export default async function({login, imports, data, q, account}, {enabled = fal
         //Check if plugin is enabled and requirements are met
         if ((!q.mastodon) || (!imports.metadata.plugins.mastodon.enabled(enabled, {extras})))
             return null
-        
+
         //Load inputs
         let {source, user: username, attachments, sensitive, replies, limit} = imports.metadata.plugins.mastodon.inputs({data, account, q})
-        
+
         //Load user profile
         console.debug(`metrics/compute/${login}/plugins > mastodon > Loading Mastodon profile (@${username}@${source})`)
         const {data: {data: profile = null}} = await imports.axios.get(`https://${source}/api/v1/accounts/lookup?acct=${username}`)
-        
+
         //Load profile image
         console.debug(`metrics/compute/${login}/plugins > mastodon > Loading profile image`)
         profile.profile_image = await imports.imgb64(profile.avatar_static)
-        
+
         //Retrieve posts
         console.debug(`metrics/compute/${login}/plugins > mastodon > processing posts`)
         let link = `${source}/@${username}`
-        
+
         const {data: {data: posts = []}} = await imports.axios.get(`https://${source}/api/v1/accounts/${profile.id}/statuses`)
-        
+
         //Format posts
         await Promise.all(posts.map(async post => {
           //Add important values
           post.mentionedUsers = post.mentions?.map(({username}) => username) ?? []
-          
+
           //Format Text
           console.debug(`metrics/compute/${login}/plugins > mastodon > formatting post ${post.id}`)
           post.createdAt = `${imports.format.date(post.created_at, {time: true})} on ${imports.format.date(post.created_at, {date: true})}`
@@ -43,17 +43,16 @@ export default async function({login, imports, data, q, account}, {enabled = fal
               )
               //Line breaks
               .replace(/\n/g, "<br/>"),
-            {"&": true}
-              
+            {"&": true},
           )
         }))
-        
+
         return {username, profile, list: posts}
     }
     //Handle errors
     catch (error) {
         if (error.error?.message)
             throw error
-        throw {error:{message:"An error occured", instance:error}}
+        throw {error:{message:"An error occurred", instance:error}}
     }
 }

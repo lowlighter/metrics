@@ -1,5 +1,5 @@
 name: "🐘 Mastodon posts"
-categorie: community
+category: community
 description: |
   This plugin displays the last posts made by an Account on a Mastodon instance.
 disclaimer: |
@@ -48,7 +48,7 @@ inputs:
       default: no
     plugin_mastodon_limit:
       description: |
-        Maxiumum number of posts to display
+        Number of posts to display at most
       type: number
       default: 4
       min: 1
