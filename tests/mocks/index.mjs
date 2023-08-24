@@ -70,7 +70,7 @@ export default async function({graphql, rest}) {
       for (const [key, value] of Object.entries(mocks)) {
         console.debug(`metrics/compute/mocks > mocking rest api > mocking ${path}.${key}`)
         if (typeof value === "function") {
-          unmocked[path] = value
+          unmocked[path] = Object.assign(value, mocked[key])
           mocked[key] = new Proxy(unmocked[path], {apply: value.bind(null, {faker})})
         }
         else {
