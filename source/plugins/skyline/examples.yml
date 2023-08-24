@@ -12,6 +12,9 @@
     timeout: 1800000
     modes:
       - action
+    skip: true
+  prod:
+    skip: true # Currently skyline always return 404
 
 - name: GitHub City
   uses: lowlighter/metrics@latest
@@ -34,3 +37,6 @@
     timeout: 1800000
     modes:
       - action
+    skip: true
+  prod:
+    skip: true # Currently skyline always return 404
