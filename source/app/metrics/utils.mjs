@@ -14,7 +14,6 @@ import { JSDOM } from "jsdom"
 import linguist from "linguist-js"
 import { marked } from "marked"
 import { minimatch } from "minimatch"
-import fetch from "node-fetch"
 import opengraph from "open-graph-scraper"
 import os from "os"
 import paths from "path"
@@ -34,7 +33,7 @@ import xmlformat from "xml-formatter"
 prism_lang()
 
 //Exports
-export { axios, d3, emoji, fetch, fs, git, minimatch, opengraph, os, paths, processes, sharp, url, util }
+export { axios, d3, emoji, fs, git, minimatch, opengraph, os, paths, processes, sharp, url, util }
 
 /**Returns module __dirname */
 export function __module(module) {
