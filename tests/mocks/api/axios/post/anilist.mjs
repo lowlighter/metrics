@@ -15,7 +15,7 @@ export default function({faker, url, body, login = faker.internet.userName()}) {
       countryOfOrigin: "JP",
       genres: new Array(6).fill(null).map(_ => faker.lorem.word()),
       coverImage: {medium: null},
-      startDate: {year: faker.date.past({years:20}).getFullYear()},
+      startDate: {year: faker.date.past({years: 20}).getFullYear()},
     })
     //User statistics query
     if (/^query Statistics /.test(query)) {

@@ -73,17 +73,17 @@ export default async function({graphql, rest}) {
           return new Proxy(target[section], {
             get(target, property) {
               if (mocks.github.rest?.[section]?.[property]) {
-                return async function () {
+                return async function() {
                   console.debug(`metrics/mocking > rest.${section}.${property}`)
                   return mocks.github.rest[section][property]({faker}, target, null, arguments)
                 }
               }
               return Reflect.get(target, property)
-            }
+            },
           })
         }
         return Reflect.get(target, section)
-      }
+      },
     })
   }
 

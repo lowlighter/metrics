@@ -6,7 +6,7 @@ export default function({faker, query, login = faker.internet.userName()}) {
       starredRepositories: {
         edges: [
           {
-            starredAt: `${faker.date.recent({days:14})}`,
+            starredAt: `${faker.date.recent({days: 14})}`,
             node: {
               description: "📊 An image generator with 20+ metrics about your GitHub account such as activity, community, repositories, coding habits, website performances, music played, starred topics, etc. that you can put on your profile or elsewhere !",
               forkCount: faker.number.int(100),

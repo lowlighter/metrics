@@ -29,7 +29,7 @@ export default async function({faker}, target, that, [{username: login, page, pe
             body: faker.lorem.sentence(),
           },
         },
-        created_at: faker.date.recent({days:7}),
+        created_at: faker.date.recent({days: 7}),
         public: true,
       },
       {
@@ -58,7 +58,7 @@ export default async function({faker}, target, that, [{username: login, page, pe
             body: "",
           },
         },
-        created_at: faker.date.recent({days:7}),
+        created_at: faker.date.recent({days: 7}),
         public: true,
       },
       {
@@ -82,7 +82,7 @@ export default async function({faker}, target, that, [{username: login, page, pe
             performed_via_github_app: null,
           },
         },
-        created_at: faker.date.recent({days:7}),
+        created_at: faker.date.recent({days: 7}),
         public: true,
       },
       {
@@ -105,7 +105,7 @@ export default async function({faker}, target, that, [{username: login, page, pe
             },
           ],
         },
-        created_at: faker.date.recent({days:7}),
+        created_at: faker.date.recent({days: 7}),
         public: true,
       },
       {
@@ -138,7 +138,7 @@ export default async function({faker}, target, that, [{username: login, page, pe
             performed_via_github_app: null,
           },
         },
-        created_at: faker.date.recent({days:7}),
+        created_at: faker.date.recent({days: 7}),
         public: true,
       },
       {
@@ -156,7 +156,7 @@ export default async function({faker}, target, that, [{username: login, page, pe
             full_name: `${faker.lorem.word()}/${faker.lorem.word()}`,
           },
         },
-        created_at: faker.date.recent({days:7}),
+        created_at: faker.date.recent({days: 7}),
         public: true,
       },
       {
@@ -186,7 +186,7 @@ export default async function({faker}, target, that, [{username: login, page, pe
             },
           },
         },
-        created_at: faker.date.recent({days:7}),
+        created_at: faker.date.recent({days: 7}),
         public: true,
       },
       {
@@ -207,7 +207,7 @@ export default async function({faker}, target, that, [{username: login, page, pe
             prerelease: faker.datatype.boolean(),
           },
         },
-        created_at: faker.date.recent({days:7}),
+        created_at: faker.date.recent({days: 7}),
         public: true,
       },
       {
@@ -224,7 +224,7 @@ export default async function({faker}, target, that, [{username: login, page, pe
           ref_type: faker.helpers.arrayElement(["tag", "branch"]),
           master_branch: "master",
         },
-        created_at: faker.date.recent({days:7}),
+        created_at: faker.date.recent({days: 7}),
         public: true,
       },
       {
@@ -237,7 +237,7 @@ export default async function({faker}, target, that, [{username: login, page, pe
           name: "lowlighter/metrics",
         },
         payload: {action: "started"},
-        created_at: faker.date.recent({days:7}),
+        created_at: faker.date.recent({days: 7}),
         public: true,
       },
       {
@@ -253,7 +253,7 @@ export default async function({faker}, target, that, [{username: login, page, pe
           ref: faker.lorem.slug(),
           ref_type: faker.helpers.arrayElement(["tag", "branch"]),
         },
-        created_at: faker.date.recent({days:7}),
+        created_at: faker.date.recent({days: 7}),
         public: true,
       },
       {
@@ -279,7 +279,7 @@ export default async function({faker}, target, that, [{username: login, page, pe
             },
           ],
         },
-        created_at: faker.date.recent({days:7}),
+        created_at: faker.date.recent({days: 7}),
         public: true,
       },
       {
@@ -305,7 +305,7 @@ export default async function({faker}, target, that, [{username: login, page, pe
             changed_files: faker.number.int(10),
           },
         },
-        created_at: faker.date.recent({days:7}),
+        created_at: faker.date.recent({days: 7}),
         public: true,
       },
       {
@@ -323,7 +323,7 @@ export default async function({faker}, target, that, [{username: login, page, pe
           },
           action: "added",
         },
-        created_at: faker.date.recent({days:7}),
+        created_at: faker.date.recent({days: 7}),
         public: true,
       },
       {
@@ -336,7 +336,7 @@ export default async function({faker}, target, that, [{username: login, page, pe
           name: `${faker.lorem.word()}/${faker.lorem.word()}`,
         },
         payload: {},
-        created_at: faker.date.recent({days:7}),
+        created_at: faker.date.recent({days: 7}),
         public: true,
       },
     ],

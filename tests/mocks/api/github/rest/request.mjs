@@ -28,12 +28,12 @@ export default async function({faker}, target, that, args) {
           author: {
             name: faker.internet.userName(),
             email: faker.internet.email(),
-            date: `${faker.date.recent({days:7})}`,
+            date: `${faker.date.recent({days: 7})}`,
           },
           committer: {
             name: faker.internet.userName(),
             email: faker.internet.email(),
-            date: `${faker.date.recent({days:7})}`,
+            date: `${faker.date.recent({days: 7})}`,
           },
           url: "https://api.github.com/repos/lowlighter/metrics/commits/MOCKED_SHA",
         },
