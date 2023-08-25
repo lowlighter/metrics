@@ -53,7 +53,7 @@ jobs:
       - name: Setup NodeJS
         uses: actions/setup-node@v3
         with:
-          node-version: 17
+          node-version: 20
       - name: Pull changes
         run: |
           git checkout master
@@ -76,7 +76,7 @@ jobs:
       - name: Setup NodeJS
         uses: actions/setup-node@v3
         with:
-          node-version: 17
+          node-version: 20
       - name: Pull
         run: git pull
       - name: Checkout main
@@ -205,7 +205,7 @@ jobs:
       - name: Setup NodeJS
         uses: actions/setup-node@v3
         with:
-          node-version: 17
+          node-version: 20
       - name: Setup metrics
         run: npm ci
       - name: Pull
@@ -256,7 +256,7 @@ jobs:
       - name: Setup NodeJS
         uses: actions/setup-node@v3
         with:
-          node-version: 17
+          node-version: 20
       - name: Setup metrics
         run: npm ci
       - name: Publish release

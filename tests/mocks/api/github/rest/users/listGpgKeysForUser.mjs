@@ -11,7 +11,7 @@ export default async function({faker}, target, that, [{username}]) {
     },
     data: [
       {
-        key_id: faker.datatype.hexaDecimal(16),
+        key_id: faker.datatype.hexadecimal(16),
         raw_key: "-----BEGIN PGP PUBLIC KEY BLOCK-----\n(dummy content)\n-----END PGP PUBLIC KEY BLOCK-----",
         emails: [
           {

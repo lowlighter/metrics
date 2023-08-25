@@ -10,7 +10,7 @@ export default function({faker, url, options, login = faker.internet.userName()}
         status: 200,
         data: {
           data: {
-            profile_image_url: faker.image.urlLoremFlickr({ category: 'people' }),
+            profile_image_url: faker.image.urlLoremFlickr({category: "people"}),
             name: faker.person.fullName(),
             verified: faker.datatype.boolean(),
             id: faker.number.int(1000000).toString(),

@@ -2,7 +2,6 @@
 import fs from "fs"
 import yaml from "js-yaml"
 import { marked } from "marked"
-import fetch from "node-fetch"
 import path from "path"
 import url from "url"
 

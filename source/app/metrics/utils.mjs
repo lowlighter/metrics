@@ -14,7 +14,6 @@ import { JSDOM } from "jsdom"
 import linguist from "linguist-js"
 import { marked } from "marked"
 import { minimatch } from "minimatch"
-import fetch from "node-fetch"
 import opengraph from "open-graph-scraper"
 import os from "os"
 import paths from "path"
@@ -34,7 +33,7 @@ import xmlformat from "xml-formatter"
 prism_lang()
 
 //Exports
-export { axios, d3, emoji, fetch, fs, git, minimatch, opengraph, os, paths, processes, sharp, url, util }
+export { axios, d3, emoji, fs, git, minimatch, opengraph, os, paths, processes, sharp, url, util }
 
 /**Returns module __dirname */
 export function __module(module) {
@@ -451,14 +450,15 @@ export async function imgb64(image, {width, height, fallback = true} = {}) {
   try {
     if (image.startsWith("http://") || image.startsWith("https://")) {
       const buffer = Buffer.from(await fetch(image).then(response => response.arrayBuffer()))
-      ext = (await fileTypeFromBuffer(buffer)).ext ?? ext
+      ext = (await fileTypeFromBuffer(buffer))?.ext ?? ext
       image = sharp(buffer)
     }
     else {
       image = sharp(image)
     }
   }
-  catch {
+  catch (error) {
+    console.debug(`metrics/imgb64 > error > ${error}${fallback ? " (using fallback image instead)" : ""}`)
     return imgb64(null, {fallback})
   }
   //Resize image
@@ -764,26 +764,32 @@ export async function gif({page, width, height, frames, x = 0, y = 0, repeat = t
   if (fss.existsSync(path))
     await fs.unlink(path)
   //Create encoder
-  const GIFEncoder = (await import("gifencoder")).default
-  const encoder = new GIFEncoder(width, height)
-  encoder.createWriteStream().pipe(fss.createWriteStream(path))
-  encoder.start()
-  encoder.setRepeat(repeat ? 0 : -1)
-  encoder.setDelay(delay)
-  encoder.setQuality(quality)
-  //Register frames
-  for (let i = 0; i < frames; i++) {
-    const buffer = new PNG(await page.screenshot({clip: {width, height, x, y}}))
-    encoder.addFrame(await new Promise(solve => buffer.decode(pixels => solve(pixels))))
-    if (frames % 10 === 0)
-      console.debug(`metrics/puppeteergif > processed ${i}/${frames} frames`)
+  try {
+    const GIFEncoder = (await import("gifencoder")).default
+    const encoder = new GIFEncoder(width, height)
+    encoder.createWriteStream().pipe(fss.createWriteStream(path))
+    encoder.start()
+    encoder.setRepeat(repeat ? 0 : -1)
+    encoder.setDelay(delay)
+    encoder.setQuality(quality)
+    //Register frames
+    for (let i = 0; i < frames; i++) {
+      const buffer = new PNG(await page.screenshot({clip: {width, height, x, y}}))
+      encoder.addFrame(await new Promise(solve => buffer.decode(pixels => solve(pixels))))
+      if (frames % 10 === 0)
+        console.debug(`metrics/puppeteergif > processed ${i}/${frames} frames`)
+    }
+    console.debug(`metrics/puppeteergif > processed ${frames}/${frames} frames`)
+    //Close encoder and convert to base64
+    encoder.finish()
+    const result = await fs.readFile(path, "base64")
+    await fs.unlink(path)
+    return `data:image/gif;base64,${result}`
   }
-  console.debug(`metrics/puppeteergif > processed ${frames}/${frames} frames`)
-  //Close encoder and convert to base64
-  encoder.finish()
-  const result = await fs.readFile(path, "base64")
-  await fs.unlink(path)
-  return `data:image/gif;base64,${result}`
+  catch (error) {
+    console.debug(`metrics/puppeteergif > could not create gif: ${error}`)
+    return "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg=="
+  }
 }
 
 /**D3 node wrapper (loosely based on https://github.com/d3-node/d3-node)*/

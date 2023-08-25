@@ -64,21 +64,27 @@ export default async function({graphql, rest}) {
   {
     //Unmocked
     console.debug("metrics/compute/mocks > mocking rest api")
-    const unmocked = {}
+    const unmocked = rest
+
     //Mocked
-    const mocker = ({path = "rest", mocks, mocked}) => {
-      for (const [key, value] of Object.entries(mocks)) {
-        console.debug(`metrics/compute/mocks > mocking rest api > mocking ${path}.${key}`)
-        if (typeof value === "function") {
-          unmocked[path] = value
-          mocked[key] = new Proxy(unmocked[path], {apply: value.bind(null, {faker})})
+    rest = new Proxy(unmocked, {
+      get(target, section) {
+        if (Reflect.has(mocks.github.rest, section)) {
+          return new Proxy(target[section], {
+            get(target, property) {
+              if (mocks.github.rest?.[section]?.[property]) {
+                return async function() {
+                  console.debug(`metrics/mocking > rest.${section}.${property}`)
+                  return mocks.github.rest[section][property]({faker}, target, null, arguments)
+                }
+              }
+              return Reflect.get(target, property)
+            },
+          })
         }
-        else {
-          mocker({path: `${path}.${key}`, mocks: mocks[key], mocked: mocked[key]})
-        }
-      }
-    }
-    mocker({mocks: mocks.github.rest, mocked: rest})
+        return Reflect.get(target, section)
+      },
+    })
   }
 
   //Axios mocking

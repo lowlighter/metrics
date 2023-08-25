@@ -1,5 +1,5 @@
 # Base image
-FROM node:17.3-bullseye-slim
+FROM node:20-bookworm-slim
 
 # Copy repository
 COPY . /metrics

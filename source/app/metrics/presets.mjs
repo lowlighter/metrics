@@ -1,7 +1,6 @@
 //Imports
 import fs from "fs/promises"
 import yaml from "js-yaml"
-import fetch from "node-fetch"
 import metadata from "./metadata.mjs"
 
 /**Presets parser */
