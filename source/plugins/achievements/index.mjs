@@ -46,7 +46,7 @@ function rank(x, [c, b, a, s, m]) {
   if (x >= s)
     return {rank: "S", progress: (x - s) / (m - s)}
   if (x >= a)
-    return {rank: "A", progress: (x - a) / (m - a)}
+    return {rank: "A", progress: (x - a) / (s - a)}
   else if (x >= b)
     return {rank: "B", progress: (x - b) / (a - b)}
   else if (x >= c)
