@@ -450,14 +450,15 @@ export async function imgb64(image, {width, height, fallback = true} = {}) {
   try {
     if (image.startsWith("http://") || image.startsWith("https://")) {
       const buffer = Buffer.from(await fetch(image).then(response => response.arrayBuffer()))
-      ext = (await fileTypeFromBuffer(buffer)).ext ?? ext
+      ext = (await fileTypeFromBuffer(buffer))?.ext ?? ext
       image = sharp(buffer)
     }
     else {
       image = sharp(image)
     }
   }
-  catch {
+  catch (error) {
+    console.debug(`metrics/imgb64 > error > ${error}${fallback ? " (using fallback image instead)" : ""}`)
     return imgb64(null, {fallback})
   }
   //Resize image
