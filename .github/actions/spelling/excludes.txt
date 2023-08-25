@@ -51,6 +51,7 @@ ignore$
 ^\Qsource/plugins/sponsors/index.mjs\E$
 ^\Qsource/plugins/stargazers/worldmap/atlas/50m_countries.geojson\E$
 ^\Qsource/templates/classic/partials/splatoon.ejs\E$
+^\Qsource/templates/markdown/example.md\E$
 ^\Qsource/templates/terminal/fonts.css\E$
 ^\Qsource/templates/terminal/partials/screenshot.ejs\E$
 ^\Qtests/mocks/api/github/rest/emojis/get.mjs\E$
