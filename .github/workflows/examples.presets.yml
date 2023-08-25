@@ -16,7 +16,7 @@ jobs:
       - name: Setup NodeJS
         uses: actions/setup-node@v3
         with:
-          node-version: 17
+          node-version: 20
       - name: Setup metrics
         run: npm ci
       - name: Publish presets examples
