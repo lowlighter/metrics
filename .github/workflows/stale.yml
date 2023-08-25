@@ -14,8 +14,8 @@ jobs:
         with:
           days-before-stale: -1
           stale-pr-message: This pull request seems to be inactive and will be automatically closed in a few days if it remains without any activity.
-          days-before-pr-stale: 21
-          days-before-pr-close: 3
+          days-before-pr-stale: 90
+          days-before-pr-close: 7
           stale-pr-label: ⏹️ stale
           remove-stale-when-updated: yes
           exempt-issue-labels: 📦 dependencies
@@ -28,10 +28,10 @@ jobs:
       - uses: dessant/lock-threads@v4
         with:
           github-token: ${{ github.token }}
-          issue-inactive-days: 14
+          issue-inactive-days: 180
           issue-lock-reason: ""
           add-issue-labels: ☑️ archived
-          pr-inactive-days: 14
+          pr-inactive-days: 180
           pr-lock-reason: ""
           add-pr-labels: ☑️ archived
   workflows:
