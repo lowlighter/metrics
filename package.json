@@ -50,7 +50,7 @@
     "js-yaml": "^4.1.0",
     "jsdom": "^22.1.0",
     "linguist-js": "^2.6.1",
-    "marked": "^7.0.4",
+    "marked": "^9.0.0",
     "memory-cache": "^0.2.0",
     "minimatch": "^9.0.3",
     "open-graph-scraper": "^6.2.2",
