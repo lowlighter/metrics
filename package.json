@@ -45,7 +45,7 @@
     "ejs": "^3.1.9",
     "emoji-name-map": "^1.2.9",
     "express": "^4.18.2",
-    "express-rate-limit": "^6.9.0",
+    "express-rate-limit": "^6.11.1",
     "file-type": "^18.5.0",
     "js-yaml": "^4.1.0",
     "jsdom": "^22.1.0",
