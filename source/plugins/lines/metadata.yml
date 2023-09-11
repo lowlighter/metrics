@@ -73,7 +73,7 @@ inputs:
       The GitHub endpoint used may return inaccurate results on first query (these values seems to be cached on the fly),
       after returning correct results upon performing another query.
 
-      Using this option may mitigate the occurence of weird values.
+      Using this option may mitigate the occurrence of weird values.
     type: number
     default: 0
     min: 0
