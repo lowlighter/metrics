@@ -959,8 +959,14 @@ export const Graph = {
     const V = Object.values(data)
     const I = d3.range(K.length).filter(i => !Number.isNaN(V[i]))
 
+    //Colors
+    const spectral = [...d3.schemeSpectral]
+    spectral[0] = ["#000000"]
+    spectral[1] = spectral[3].slice(0, 1)
+    spectral[2] = spectral[3].slice(0, 2)
+
     //Construct arcs
-    const color = d3.scaleOrdinal(K, d3.schemeSpectral[K.length])
+    const color = d3.scaleOrdinal(K, spectral[K.length])
     const arcs = d3.pie().padAngle(1 / radius).sort(null).value(i => V[i])(I)
     const arc = d3.arc().innerRadius(0).outerRadius(radius)
     const labels = d3.arc().innerRadius(radius / 2).outerRadius(radius / 2)
