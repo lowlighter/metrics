@@ -131,6 +131,7 @@ with:
   token: ${{ secrets.METRICS_TOKEN }}
   base: repositories
   plugin_lines: yes
+  plugin_lines_delay: 30
 
 ```
 ```yaml
@@ -141,6 +142,7 @@ with:
   token: ${{ secrets.METRICS_TOKEN }}
   base: ""
   plugin_lines: yes
+  plugin_lines_delay: 30
   plugin_lines_sections: repositories, history
   plugin_lines_repositories_limit: 2
   plugin_lines_history_limit: 1
