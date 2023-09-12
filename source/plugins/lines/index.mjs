@@ -30,7 +30,7 @@ export default async function({login, data, imports, rest, q, account}, {enabled
       response = [...await Promise.allSettled(repositories.map(async ({repo, owner}) => imports.filters.repo(`${owner}/${repo}`, skipped) ? {handle: `${owner}/${repo}`, stats: (await rest.repos.getContributorsStats({owner, repo})).data} : {}))].filter(({status}) => status === "fulfilled").map((
         {value},
       ) => value)
-      if (delay) {
+      if ((delay)&&(!i)) {
         console.debug(`metrics/compute/${login}/plugins > lines > waiting ${delay}s while waiting for contributor stats to be updated`)
         await new Promise(resolve => setTimeout(resolve, delay * 1000))
       }
