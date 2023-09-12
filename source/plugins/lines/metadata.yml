@@ -64,3 +64,17 @@ inputs:
     type: number
     default: 1
     zero: disable
+
+  plugin_lines_delay:
+    description: |
+      Delay before performing a second query
+
+      When non-zero, will perform a second query after specified delay (in seconds).
+      The GitHub endpoint used may return inaccurate results on first query (these values seems to be cached on the fly),
+      after returning correct results upon performing another query.
+
+      Using this option may mitigate the occurrence of weird values.
+    type: number
+    default: 0
+    min: 0
+    zero: disable
