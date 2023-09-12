@@ -395,6 +395,10 @@ inputs:
     description: Years to display
     default: <default-value>
 
+  plugin_lines_delay:
+    description: Delay before performing a second query
+    default: <default-value>
+
   # ====================================================================================
   # 📌 Starred topics
 
