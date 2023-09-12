@@ -81,7 +81,7 @@ async function total({imports, graphql, queries}) {
           //Setup using GraphQL
           if (method === "graphql") {
             const queried = await graphql(queries.achievements.total())
-            Object.assign(total, Object.fromEntries(Object.entries(queried).map(([key, {count:value}]) => [key, value])))
+            Object.assign(total, Object.fromEntries(Object.entries(queried).map(([key, {count: value}]) => [key, value])))
           }
           //Setup using browser
           if (method === "browser") {
