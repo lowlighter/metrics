@@ -30,11 +30,6 @@
     plugin_rss: yes
     plugin_rss_source: https://news.ycombinator.com/rss
     plugin_rss_limit: 4
-    plugin_tweets: yes
-    plugin_tweets_token: ${{ secrets.TWITTER_TOKEN }}
-    plugin_tweets_user: github
-    plugin_tweets_attachments: yes
-    plugin_tweets_limit: 2
     plugin_topics: yes
     plugin_topics_limit: 24
     plugin_isocalendar: yes
