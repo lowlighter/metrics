@@ -1,0 +1,11 @@
+query AchievementsTotal {
+  issues:search(query: "created:>1970", type: ISSUE) {
+    count:issueCount
+  }
+  repositories:search(query: "created:>1970", type: REPOSITORY) {
+    count:repositoryCount
+  }
+  users:search(query: "created:>1970", type: USER) {
+    count:userCount
+  }
+}
