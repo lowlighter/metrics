@@ -891,7 +891,7 @@
     font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
     font-weight: bold;
     font-size: 12px;
-    white-space: pre;
+    white-space: nowrap;
   }
   .added {
     color: rgb(63, 185, 80);
