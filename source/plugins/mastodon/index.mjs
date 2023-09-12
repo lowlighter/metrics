@@ -14,27 +14,27 @@ export default async function({login, imports, data, q, account}, {enabled = fal
         const profile = await imports.axios.get(`https://${source}/api/v1/accounts/lookup?acct=${username}`).then(_ => _.json())
 
         console.debug(`metrics/compute/${login}/plugins > mastodon > Obtained user data (${data})`)
-        
+
         //Load profile image
         console.debug(`metrics/compute/${login}/plugins > mastodon > Loading profile image`)
         const profile_image = await imports.imgb64(profile.avatar_static)
-        
+
         const profileData = {avatar: profile_image, id: profile.id}
-        
+
         //Retrieve posts
         console.debug(`metrics/compute/${login}/plugins > mastodon > processing posts`)
         let link = `${source}/@${username}`
 
         const posts = await imports.axios.get(`https://${source}/api/v1/accounts/${profile.id}/statuses?limit=${limit}&exclude_replies=${!replies}&exclude_reblogs=${!boosts}`).then(_ => _.json())
-        
+
         const formattedPosts = []
         //Format posts
         posts.forEach((post) => {
           console.debug(`metrics/compute/${login}/plugins > mastodon > formatting post ${post.id}`)
-          
+
           // Formatting mentions
           post.mentionedUsers = post.mentions?.map(({username}) => username) ?? []
-          
+
           //Format Text
           post.createdAt = `${imports.format.date(post.created_at, {time: true})} on ${imports.format.date(post.created_at, {date: true})}`
           post.text = imports.htmlescape(
@@ -51,7 +51,7 @@ export default async function({login, imports, data, q, account}, {enabled = fal
               .replace(/\n/g, "<br/>"),
             {"&": true}
           )
-          
+
           formattedPosts[formattedPosts.length + 1] = post
         })
 
