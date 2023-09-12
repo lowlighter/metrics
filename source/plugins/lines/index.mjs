@@ -32,7 +32,7 @@ export default async function({login, data, imports, rest, q, account}, {enabled
       ) => value)
       if (delay) {
         console.debug(`metrics/compute/${login}/plugins > lines > waiting ${delay}s while waiting for contributor stats to be updated`)
-        await new Promise(resolve => setTimeout(resolve, delay*1000))
+        await new Promise(resolve => setTimeout(resolve, delay * 1000))
       }
     }
 
