@@ -16,4 +16,5 @@
     plugin_mastodon_attachments: no
     plugin_mastodon_sensitive: no
     plugin_mastodon_replies: no
+    plugin_mastodon_boosts: no
     plugin_mastodon_limit: 1

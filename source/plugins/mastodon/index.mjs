@@ -7,32 +7,38 @@ export default async function({login, imports, data, q, account}, {enabled = fal
             return null
 
         //Load inputs
-        let {source, user: username, attachments, sensitive, replies, limit} = imports.metadata.plugins.mastodon.inputs({data, account, q})
+        let {source, user: username, sensitive, replies, boosts, limit} = imports.metadata.plugins.mastodon.inputs({data, account, q})
 
         //Load user profile
         console.debug(`metrics/compute/${login}/plugins > mastodon > Loading Mastodon profile (@${username}@${source})`)
-        const {data: {data: profile = null}} = await imports.axios.get(`https://${source}/api/v1/accounts/lookup?acct=${username}`)
+        const profile = await imports.axios.get(`https://${source}/api/v1/accounts/lookup?acct=${username}`).then(_ => _.json())
 
+        console.debug(`metrics/compute/${login}/plugins > mastodon > Obtained user data (${data})`)
+        
         //Load profile image
         console.debug(`metrics/compute/${login}/plugins > mastodon > Loading profile image`)
-        profile.profile_image = await imports.imgb64(profile.avatar_static)
-
+        const profile_image = await imports.imgb64(profile.avatar_static)
+        
+        const profileData = {avatar: profile_image, id: profile.id}
+        
         //Retrieve posts
         console.debug(`metrics/compute/${login}/plugins > mastodon > processing posts`)
         let link = `${source}/@${username}`
 
-        const {data: {data: posts = []}} = await imports.axios.get(`https://${source}/api/v1/accounts/${profile.id}/statuses`)
-
+        const posts = await imports.axios.get(`https://${source}/api/v1/accounts/${profile.id}/statuses?limit=${limit}&exclude_replies=${!replies}&exclude_reblogs=${!boosts}`).then(_ => _.json())
+        
+        const formattedPosts = []
         //Format posts
-        await Promise.all(posts.map(async post => {
-          //Add important values
-          post.mentionedUsers = post.mentions?.map(({username}) => username) ?? []
-
-          //Format Text
+        posts.forEach((post) => {
           console.debug(`metrics/compute/${login}/plugins > mastodon > formatting post ${post.id}`)
+          
+          // Formatting mentions
+          post.mentionedUsers = post.mentions?.map(({username}) => username) ?? []
+          
+          //Format Text
           post.createdAt = `${imports.format.date(post.created_at, {time: true})} on ${imports.format.date(post.created_at, {date: true})}`
           post.text = imports.htmlescape(
-            //Escape tags
+            //Escape HTML tags
             imports.htmlescape(post.content, {"<": true, ">": true})
               //Mentions
               .replace(new RegExp(`@(${post.mentionedUsers.join("|")})`, "gi"), '<span class="mention">@$1</span>')
@@ -43,11 +49,13 @@ export default async function({login, imports, data, q, account}, {enabled = fal
               )
               //Line breaks
               .replace(/\n/g, "<br/>"),
-            {"&": true},
+            {"&": true}
           )
-        }))
+          
+          formattedPosts[formattedPosts.length + 1] = post
+        })
 
-        return {username, profile, list: posts}
+        return {username, profileData, sensitive, list: formattedPosts}
     }
     //Handle errors
     catch (error) {

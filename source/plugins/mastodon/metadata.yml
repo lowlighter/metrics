@@ -27,10 +27,9 @@ inputs:
     plugin_mastodon_user:
       description: |
         User ID to display posts from
-      type: number
-      default: 0
+      type: string
+      default: ""
       example: Mastodon
-      min: 1
     plugin_mastodon_attachments:
       description: |
         Whether attachments should be included
@@ -44,6 +43,11 @@ inputs:
     plugin_mastodon_replies:
       description: |
         Whether to include posts that are replies to others
+      type: boolean
+      default: no
+    plugin_mastodon_boosts:
+      description: |
+        Whether to include boosted (reblogged) posts
       type: boolean
       default: no
     plugin_mastodon_limit:
