@@ -81,7 +81,7 @@ export default async function({sandbox = false} = {}) {
   //Rate limiter middleware
   if (ratelimiter) {
     app.set("trust proxy", 1)
-    const disabled = (ratelimiter.max === 0)
+    const disabled = ratelimiter.max === 0
     if (disabled)
       delete ratelimiter.max
     middlewares.push(ratelimit({
