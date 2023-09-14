@@ -125,7 +125,7 @@ export default async function({login, q}, {conf, data, rest, graphql, plugins, q
 
   //Token scopes
   try {
-    computed.token.scopes = conf.settings.notoken ? [] : (await rest.request("HEAD /")).headers["x-oauth-scopes"].split(", ")
+    computed.token.scopes = conf.settings.notoken ? [] : (await rest.request("HEAD /")).headers["x-oauth-scopes"]?.split(", ") ?? []
   }
   catch (error) {
     console.debug(error)
