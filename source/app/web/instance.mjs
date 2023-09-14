@@ -81,9 +81,12 @@ export default async function({sandbox = false} = {}) {
   //Rate limiter middleware
   if (ratelimiter) {
     app.set("trust proxy", 1)
+    const disabled = (ratelimiter.max === 0)
+    if (disabled)
+      delete ratelimiter.max
     middlewares.push(ratelimit({
       skip(req, _res) {
-        return !!cache.get(req.params.login)
+        return (disabled) || (!!cache.get(req.params.login))
       },
       message: "Too many requests: retry later",
       headers: true,
