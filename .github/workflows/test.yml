@@ -43,9 +43,13 @@ jobs:
           mkdir -v -p /home/runner/.cache/dprint/cache
           npx dprint fmt --config .github/config/dprint.json
       - name: Build lowlighter/metrics:${{ github.head_ref || 'master' }}
-        run: docker build -t lowlighter/metrics:$(echo ${{ github.head_ref || 'master' }} | sed 's/\//-/g') .
+        env:
+          GIT_REF: ${{ github.head_ref || 'master' }}
+        run: docker build -t lowlighter/metrics:$(echo $GIT_REF | sed 's/[^a-z]/-/g') .
       - name: Run tests
-        run: docker run --rm --entrypoint="" lowlighter/metrics:$(echo ${{ github.head_ref || 'master' }} | sed 's/\//-/g') npm run test-metrics
+        env:
+          GIT_REF: ${{ github.head_ref || 'master' }}
+        run: docker run --rm --entrypoint="" lowlighter/metrics:$(echo $GIT_REF | sed 's/[^a-z]/-/g') npm run test-metrics
 
   # Run CodeQL on branch
   analyze:

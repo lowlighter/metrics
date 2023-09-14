@@ -184,9 +184,13 @@ jobs:
       - name: Pull docker image (master)
         run: docker pull ghcr.io/lowlighter/metrics:master
       - name: Tag docker image (release)
-        run: docker tag ghcr.io/lowlighter/metrics:master ghcr.io/lowlighter/metrics:$(echo '${{ github.event.head_commit.message }}' | grep -Po 'v\d+[.]\d+')
+        env:
+          GITHUB_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+        run: docker tag ghcr.io/lowlighter/metrics:master ghcr.io/lowlighter/metrics:$(echo $GITHUB_COMMIT_MESSAGE | grep -Po 'v\d+[.]\d+')
       - name: Publish release to GitHub registry
-        run: docker push ghcr.io/lowlighter/metrics:$(echo '${{ github.event.head_commit.message }}' | grep -Po 'v\d+[.]\d+')
+        env:
+          GITHUB_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+        run: docker push ghcr.io/lowlighter/metrics:$(echo $GITHUB_COMMIT_MESSAGE | grep -Po 'v\d+[.]\d+')
       - name: Tag docker image (latest)
         run: docker tag ghcr.io/lowlighter/metrics:master ghcr.io/lowlighter/metrics:latest
       - name: Publish latest to GitHub registry
