@@ -1,0 +1,5 @@
+query IntroductionRepository($owner: String!, $name: String!) {
+  entity: repository(owner: $owner, name: $name) {
+    text: description
+  }
+}

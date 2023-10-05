@@ -1,0 +1,32 @@
+- name: user
+  plugins:
+    - id: introduction
+      handle: octocat
+      entity: user
+      processors:
+        - id: assert
+          args:
+            select: .introduction .text
+            match: octocat
+
+- name: organization
+  plugins:
+    - id: introduction
+      handle: github
+      entity: organization
+      processors:
+        - id: assert
+          args:
+            select: .introduction .text
+            match: github
+
+- name: repository
+  plugins:
+    - id: introduction
+      handle: octocat/hello-world
+      entity: repository
+      processors:
+        - id: assert
+          args:
+            select: .introduction .text
+            match: octocat/hello-world

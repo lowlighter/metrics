@@ -1,0 +1,5 @@
+query IntroductionOrganization($login: String!) {
+  entity: organization(login: $login) {
+    text: description
+  }
+}
