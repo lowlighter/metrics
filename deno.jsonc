@@ -21,7 +21,8 @@
     "lint": "deno lint",
     "fmt": "deno fmt",
     "hook": "deno task lint && deno task fmt --check && deno task test",
-    "deploy": "deployctl deploy --project=metrics --include=source,deno.jsonc,LICENSE --prod source/run/server/mod.ts"
+    "deploy": "deployctl deploy --project=metrics --include=source,deno.jsonc,LICENSE --prod source/run/server/mod.ts",
+    "deploy:imports": "$(deno run --allow-env source/run/flags.ts test source/run/server/mod_imports.ts $0)"
   },
   "lint": {
     "rules": {
