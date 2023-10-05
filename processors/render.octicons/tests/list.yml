@@ -1,0 +1,40 @@
+- name: render
+  plugins:
+    - processors:
+        - id: inject.content
+          args:
+            content: ":octicon-copilot:"
+        - id: render.octicons
+        - id: assert
+          args:
+            select: svg.octicon
+            count: 1=
+            match: height="16"
+            html: true
+
+- name: render with size
+  plugins:
+    - processors:
+      - id: inject.content
+        args:
+          content: ":octicon-copilot-24:"
+      - id: render.octicons
+      - id: assert
+        args:
+          select: svg.octicon
+          count: 1=
+          match: height="24"
+          html: true
+
+- name: invalid octicon
+  plugins:
+    - processors:
+      - id: inject.content
+        args:
+          content: ":octicon-__invalid__:"
+      - id: render.octicons
+      - id: assert
+        args:
+          select: svg.octicon
+          count: 0=
+          match: ":octicon-__invalid__:"
