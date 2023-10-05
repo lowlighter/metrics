@@ -1,0 +1,10 @@
+- name: inject
+  plugins:
+    - processors:
+        - id: inject.content
+          args:
+            content: hello world
+        - id: assert
+          args:
+            select: main
+            match: hello world
