@@ -7,7 +7,7 @@ export default async function({login, q, imports, data, account}, {enabled = fal
       return null
 
         //Load inputs
-    let {id, days = 1, vs_currency = "usd", precision = 2 } = imports.metadata.plugins.crypto.inputs({data, account, q})
+    let {id, days, vs_currency, precision } = imports.metadata.plugins.crypto.inputs({data, account, q})
     if (!id)
       throw { error: { message: "Crypto currency id is not set" } }
 
