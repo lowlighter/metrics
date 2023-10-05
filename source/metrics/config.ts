@@ -1,6 +1,8 @@
 // Imports
 import { is } from "@utils/validator.ts"
 import { deepMerge } from "std/collections/deep_merge.ts"
+import { Secret } from "@utils/secret.ts"
+import { env } from "@utils/io.ts"
 
 //TODO(@lowlighter): some cleanup needed here and description to complete
 
@@ -13,6 +15,9 @@ const loglevel = {
   action: "warn",
   server: "trace",
 } as const
+
+/** Secret */
+const secret = is.preprocess((value) => value instanceof Secret ? value : new Secret(value), is.instanceof(Secret))
 
 /** Internal component config */
 export const internal = is.object({
@@ -33,7 +38,7 @@ export const component = internal.extend({
 export const requests = internal.extend({
   mock: is.coerce.boolean(),
   api: is.coerce.string(),
-  token: is.coerce.string(),
+  token: secret,
   timezone: is.coerce.string(),
 })
 
@@ -78,7 +83,7 @@ const _plugin_nop = _plugin.omit({ id: true, retries: true, template: true, rend
 const _preset_plugin = is.object({
   logs: _plugin.shape.logs.default(loglevel.presets),
   api: _plugin.shape.api.default("https://api.github.com"),
-  token: _plugin.shape.token.default(""),
+  token: _plugin.shape.token.default(env.get("METRICS_GITHUB_TOKEN") ?? ""),
   handle: _plugin.shape.handle.default(""),
   entity: _plugin.shape.entity.default("user"),
   template: _plugin.shape.template.default("classic"),
@@ -156,7 +161,7 @@ export const server = internal.extend({
     id: is.coerce.number(),
     private_key_path: is.coerce.string(),
     client_id: is.coerce.string(),
-    client_secret: is.coerce.string(),
+    client_secret: secret.default(env.get("METRICS_GITHUB_APP_SECRET") ?? ""),
   }).nullable().optional(),
 })
 

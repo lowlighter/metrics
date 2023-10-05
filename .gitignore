@@ -1,5 +1,7 @@
 .coverage
 .test
+.kv
+.kv-*
 node_modules
 metrics.config.yml
 

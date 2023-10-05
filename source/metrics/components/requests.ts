@@ -22,11 +22,10 @@ export class Requests extends Internal {
     Object.assign(this, { meta })
     this.octokit = new (Octokit.plugin(paginateGraphql))({
       userAgent: `metrics/${version}`,
-      auth: this.context.token,
+      auth: this.context.token?.read(),
       timeZone: this.context.timezone,
       baseUrl: this.context.api,
     })
-    delete (this.context as { token?: string }).token
   }
 
   /** Octokit SDK */

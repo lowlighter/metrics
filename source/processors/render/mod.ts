@@ -58,7 +58,8 @@ export default class extends Processor {
     })
 
     //Process SVG in browser and convert to image if needed
-    if (wrapper === "svg") {
+    //TODO(@lowlighter): handle no local puppeteer
+    if ((wrapper === "svg") && (!Deno.env.get("DENO_DEPLOYMENT_ID"))) {
       const page = await Browser.newPage()
       try {
         // Compute SVG rendered dimensions
@@ -99,10 +100,10 @@ export default class extends Processor {
         this.log.trace(`template ${template} has no ${path}, using fallback`)
         return await read(template.startsWith("https://") ? new URL(`${template}/${path}`) : new URL(`templates/classic/${path}`, import.meta.url))
       } catch (error) {
-        if (!/no such file or directory/i.test(`${error}`)) {
-          return ""
+        if (!(error instanceof globalThis?.Deno.errors.NotFound)) {
+          this.log.warn(error)
         }
-        throw error
+        return ""
       }
     }
   }

@@ -2,10 +2,10 @@ name: Continuous integration
 on:
   push:
     branches:
-      - v4
+      - v4-dev
   pull_request:
     branches:
-      - v4
+      - v4-dev
 jobs:
   testing:
     runs-on: ubuntu-latest

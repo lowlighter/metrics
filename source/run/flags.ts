@@ -25,6 +25,7 @@ const net = new Set([
   "deno.land/std",
   "deno.land/x",
   "esm.sh",
+  "registry.npmjs.org",
   // Puppeteer
   "127.0.0.1",
   "edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing",
@@ -46,6 +47,8 @@ const write = new Set([
   TMP,
   // Puppeteer
   join(CACHE, "chrome"),
+  // KV store
+  join(PWD, ".kv"),
   // User defined
   ..._write,
 ])
@@ -98,6 +101,7 @@ console.log([
   // Subcommand
   "deno",
   subcommand,
+  "--unstable",
   // Minimal permissions
   "--allow-env",
   "--allow-read",

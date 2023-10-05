@@ -17,8 +17,10 @@ import { deepMerge } from "std/collections/deep_merge.ts"
 import { formats } from "@processors/render/mod.ts"
 import { getCookies, setCookie } from "std/http/cookie.ts"
 import { formatValidationError, throws } from "@utils/errors.ts"
-
-const z = await metadata()
+import { Secret } from "@utils/secret.ts"
+try {
+  await import("./imports.ts")
+} catch { /* Ignore */ }
 
 /** Server */
 class Server extends Internal {
@@ -49,14 +51,12 @@ class Server extends Internal {
     return serveListener(listen({ hostname: this.context.hostname, port: this.context.port }), (request) => this.handle(request))
   }
 
-  /** Active sessions */
-  #sessions = new Map<string, user>()
-
-  /** State tokens */
-  #states = new Set<string>()
+  /** Metadata */
+  #metadata = null as unknown
 
   /** Request handler */
   protected async handle(request: Request) {
+    const kv = Deno.env.get("DENO_DEPLOYMENT_ID") ? await Deno.openKv() : await Deno.openKv(".kv")
     const url = new URL(request.url)
     const cookies = getCookies(request.headers)
     const { metrics_session: session = null } = cookies
@@ -78,17 +78,19 @@ class Server extends Internal {
           case url.pathname.startsWith("/static/"): {
             return serveDir(request, { fsRoot: fromFileUrl(new URL("static", import.meta.url)), urlRoot: "static", quiet: true })
           }
-
+          // Metadata
           case url.pathname === "/metadata": {
-            return new Response(JSON.stringify(z), { status: Status.OK, headers: { "content-type": "application/json" } })
+            if (!this.#metadata) {
+              this.#metadata = await metadata()
+            }
+            return new Response(JSON.stringify(this.#metadata), { status: Status.OK, headers: { "content-type": "application/json" } })
           }
-
           // Authenticated user
           case this.routes.me.test(url.pathname): {
-            if ((!session) || (!this.#sessions.has(session))) {
+            if ((!session) || (!await kv.get(["sessions", session]).then(({ value }) => value))) {
               return new Response("Unauthorized", { status: Status.Unauthorized })
             }
-            const { login, name, avatar } = this.#sessions.get(session)!
+            const { value: { login, name, avatar } } = await kv.get(["sessions", session]) as { value: user }
             return new Response(JSON.stringify({ login, name, avatar }), { status: Status.OK, headers: { "content-type": "application/json" } })
           }
           // OAuth login
@@ -99,12 +101,12 @@ class Server extends Internal {
               // Start OAuth process
               case "":
               case "/": {
-                if (session && (this.#sessions.has(session))) {
+                if (session && (await kv.get(["sessions", session]).then(({ value }) => value))) {
                   return Response.redirect(url.origin, Status.Found)
                 }
                 // Create state
                 const state = crypto.randomUUID()
-                this.#states.add(state)
+                await kv.set(["states", state], true, { expireIn: 15 * 60 * 1000 })
                 log.trace(`oauth process: ${state} started`)
                 // Redirect to GitHub
                 const params = new URLSearchParams({ client_id: app.client_id, state, allow_signup: "false" })
@@ -112,16 +114,16 @@ class Server extends Internal {
               }
               // OAuth authorization process
               case "/authorize": {
-                if (session && (this.#sessions.has(session))) {
+                if (session && (await kv.get(["sessions", session]).then(({ value }) => value))) {
                   return Response.redirect(url.origin, Status.Found)
                 }
                 try {
                   // Validate state
                   const state = url.searchParams.get("state")
-                  if ((!state) || (!this.#states.has(state))) {
+                  if ((!state) || (!await kv.get(["states", state]).then(({ value }) => value))) {
                     throws("Invalid state")
                   }
-                  this.#states.delete(state)
+                  await kv.delete(["states", state])
                   log.trace(`oauth process: ${state} received callback from github app`)
                   // Retrieve token
                   const code = url.searchParams.get("code")
@@ -134,20 +136,20 @@ class Server extends Internal {
                       "content-type": "application/x-www-form-urlencoded",
                       "accept": "application/json",
                     },
-                    body: new URLSearchParams({ client_id: app.client_id, client_secret: app.client_secret, code }),
+                    body: new URLSearchParams({ client_id: app.client_id, client_secret: app.client_secret.read(), code }),
                   }).then((response) => response.json())
                   log.trace(`oauth process: ${state} retrieved access token`)
                   // Validate token
                   const { login, name, avatar_url } = await fetch("https://api.github.com/user", {
                     headers: { "accept": "application/json", "content-type": "application/json", Authorization: `Bearer ${token}` },
                   }).then((response) => response.json())
-                  if ([...this.#sessions.values()].find((session) => session.login === login)) {
+                  if (await kv.get(["sessions", "login", login]).then(({ value }) => value)) {
                     log.trace(`oauth process: ${state} user ${login} was already authenticated`)
                     return Response.redirect(url.origin, Status.Found)
                   }
-                  const user = { login, name, avatar: avatar_url, token, session: crypto.randomUUID() }
-                  this.#sessions.set(user.session, user)
-                  setTimeout(() => this.#sessions.delete(user.session), 1000 * expiration)
+                  const user = { login, name, avatar: avatar_url, token: new Secret(token), session: crypto.randomUUID() }
+                  await kv.set(["sessions", user.session], user, { expireIn: 1000 * expiration })
+                  await kv.set(["sessions", "login", user.login], true, { expireIn: 1000 * expiration })
                   log.message(`oauth process: ${state} user ${login} authenticated`)
                   // Redirect to homepage
                   const headers = new Headers({ Location: url.origin })
@@ -160,7 +162,7 @@ class Server extends Internal {
               }
               // OAuth token revocation
               case "/revoke": {
-                if ((!session) || (!this.#sessions.has(session))) {
+                if ((!session) || (!await kv.get(["sessions", session]).then(({ value }) => value))) {
                   return Response.redirect(url.origin, Status.Found)
                 }
                 //TODO(@lowlighter): is it not possible to revoke oauth token from github app (this always return not found) ?
@@ -208,7 +210,7 @@ class Server extends Internal {
               // Honor single request at a time
               if ((!mock) && (pending.has(handle))) {
                 log.trace("existing request pending, waiting for completion")
-                return pending.get(handle)
+                return pending.get(handle)!
               }
               log.trace("processing request")
               const promise = deferred<Response>()
@@ -230,7 +232,7 @@ class Server extends Internal {
                   log.trace(context)
                 } catch (error) {
                   log.warn(error)
-                  return promise.resolve(new Response(`Bad request: ${formatValidationError(error)}`, { status: Status.BadRequest }))
+                  return promise.resolve(new Response(`Bad request: ${formatValidationError(error)}`, { status: Status.BadRequest }))!
                 }
 
                 // Filter features and apply server configuration
@@ -243,14 +245,14 @@ class Server extends Internal {
                   //TODO(@lowlighter): toggle enabled plugins
                 } catch (error) {
                   log.warn(error)
-                  return promise.resolve(new Response(`Bad request: ${formatValidationError(error)}`, { status: Status.BadRequest }))
+                  return promise.resolve(new Response(`Bad request: ${formatValidationError(error)}`, { status: Status.BadRequest }))!
                 }
 
                 // Apply server configuration
                 try {
                   const extras = {} as Record<PropertyKey, unknown>
-                  if (session && (this.#sessions.has(session))) {
-                    const user = this.#sessions.get(session)!
+                  if (session && (await kv.get(["sessions", session]).then(({ value }) => value))) {
+                    const { value: user } = await kv.get(["sessions", session]) as { value: user }
                     extras.token = user.token
                     log.debug(`using token from user: ${user.login}`)
                   }
@@ -265,7 +267,7 @@ class Server extends Internal {
                 } catch (error) {
                   log.warn(error)
                   // Do not print error to users to avoid data leaks
-                  return promise.resolve(new Response("Internal Server Error: Failed to apply server configuration", { status: Status.InternalServerError }))
+                  return promise.resolve(new Response("Internal Server Error: Failed to apply server configuration", { status: Status.InternalServerError }))!
                 }
 
                 // Process request
@@ -273,13 +275,13 @@ class Server extends Internal {
                   const { content = "", mime = "image/svg+xml", base64 = false } = await process(context) ?? {}
                   const body = base64 ? Base64.decode(content) : content
                   if (!body) {
-                    return promise.resolve(new Response("No content", { status: Status.NoContent }))
+                    return promise.resolve(new Response(null, { status: Status.NoContent }))!
                   }
-                  return promise.resolve(new Response(body, { status: Status.OK, headers: { "content-type": mime } }))
+                  return promise.resolve(new Response(body, { status: Status.OK, headers: { "content-type": mime } }))!
                 } catch (error) {
                   log.warn(error)
                   // Do not print error to users to avoid data leaks
-                  return promise.resolve(new Response("Internal Server Error: Failed to process metrics", { status: Status.InternalServerError }))
+                  return promise.resolve(new Response("Internal Server Error: Failed to process metrics", { status: Status.InternalServerError }))!
                 }
               } finally {
                 log.trace("cleaning request")
@@ -318,10 +320,16 @@ class Server extends Internal {
 }
 
 /** User */
-type user = { login: string; name: string; avatar: string; token: string; session: string }
+type user = { login: string; name: string; avatar: string; token: Secret; session: string }
 
 // Entry point
 if (import.meta.main) {
-  const config = await YAML.parse(await read("metrics.config.yml"))
+  const config = {} as Record<PropertyKey, unknown>
+  try {
+    await YAML.parse(await read("metrics.config.yml"))
+  }
+  catch {
+    console.log("metrics.config.yml not found, using default configuration")
+  }
   await new Server(config).start()
 }

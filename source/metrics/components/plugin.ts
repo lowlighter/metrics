@@ -24,7 +24,6 @@ export abstract class Plugin extends Component {
     for (const log of [this, this.requests] as unknown as Array<{ log: Component["log"] }>) {
       Object.assign(log, { log: this.log.with({ handle: this.context.handle, entity: this.context.entity }) })
     }
-    delete (this.context as { token?: string }).token
     this.log.trace("instantiated")
   }
 
