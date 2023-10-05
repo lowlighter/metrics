@@ -1,0 +1,24 @@
+- name: optimize
+  plugins:
+    - processors:
+        - id: inject.content
+          args:
+            content: <svg><!-- comment --></svg>
+        - id: optimize.svg
+        - id: assert
+          args:
+            select: main
+            match: /<svg><.svg>/i
+            html: true
+
+- name: invalid svg
+  plugins:
+    - processors:
+        - id: inject.content
+          args:
+            content: <!-- comment -->
+        - id: optimize.svg
+          fatal: false
+        - id: assert
+          args:
+            error: true
