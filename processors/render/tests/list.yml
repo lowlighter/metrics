@@ -1,0 +1,93 @@
+- name: render svg
+  plugins:
+    - processors:
+        - id: inject.content
+          args:
+            content: hello world
+        - id: render
+          args:
+            format: svg
+        - id: assert
+          args:
+            match: /<svg.*?>.*hello world.*<.svg>/is
+            html: true
+            mime: image/svg+xml
+
+- name: render png
+  plugins:
+    - processors:
+        - id: inject.content
+          args:
+            content: hello world
+        - id: render
+          args:
+            format: png
+        - id: assert
+          args:
+            mime: image/png
+
+- name: render jpg
+  plugins:
+    - processors:
+        - id: inject.content
+          args:
+            content: hello world
+        - id: render
+          args:
+            format: jpg
+        - id: assert
+          args:
+            mime: image/jpeg
+    - processors:
+        - id: inject.content
+          args:
+            content: hello world
+        - id: render
+          args:
+            format: jpeg
+        - id: assert
+          args:
+            mime: image/jpeg
+
+- name: render webp
+  plugins:
+    - processors:
+        - id: inject.content
+          args:
+            content: hello world
+        - id: render
+          args:
+            format: webp
+        - id: assert
+          args:
+            mime: image/webp
+
+- name: render html
+  plugins:
+    - processors:
+        - id: inject.content
+          args:
+            content: hello world
+        - id: render
+          args:
+            format: html
+        - id: assert
+          args:
+            match: /<title>.*?<.title>/is
+            html: true
+            mime: text/html
+
+- name: render json
+  plugins:
+    - processors:
+        - id: inject.content
+          args:
+            content: hello world
+        - id: render
+          args:
+            format: json
+        - id: assert
+          args:
+            match: /\{"results":.*,"errors":.*\}/is
+            html: true
+            mime: application/json
