@@ -127,7 +127,7 @@ Update profile `README.md` to include rendered image (filename may differ if `fi
 
 *Example: add rendered image with html for more customization*
 ```html
-<img align="center" src="/github-metrics.svg" alt="Metrics" width="400">
+<p align="center"><img src="/github-metrics.svg" alt="Metrics" width="400"></p>
 ```
 
 *Example: add rendered image and prevent GitHub from auto linking to the image*
