@@ -13,6 +13,8 @@
     "@plugins/": "./source/plugins/",
     "@processors/": "./source/processors/"
   },
+  // TODO(@lowlighter): I think SVGO breaks the lock as it depends on OS maybe ?
+  "lock": false,
   "nodeModulesDir": true,
   "tasks": {
     "serve": "$(deno run --allow-env source/run/flags.ts --allow-net=localhost run source/run/server/mod.ts --watch $0)",
