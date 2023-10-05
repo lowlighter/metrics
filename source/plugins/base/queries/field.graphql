@@ -1,7 +1,0 @@
-query BaseField {
-  $account(login: "$login") {
-    $field {
-      totalCount
-    }
-  }
-}

@@ -1,1 +1,0 @@
-See license at [npmjs.com/package/visionscarto-world-atlas](https://www.npmjs.com/package/visionscarto-world-atlas)

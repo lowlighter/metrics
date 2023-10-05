@@ -1,5 +1,0 @@
-query IntroductionUser {
-  user(login: "$login") {
-    bio
-  }
-}

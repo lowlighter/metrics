@@ -1,9 +1,0 @@
-query BaseContributions {
-  user(login: "$login") {
-    contributionsCollection$range {
-      $field
-    }
-  }
-}
-
-

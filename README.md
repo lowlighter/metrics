@@ -1,563 +1,473 @@
-# 📊 Metrics [<img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=280144&theme=dark" alt="" align="right" width="190" height="41">](https://www.producthunt.com/posts/github-metrics?utm_source=badge-featured&utm_medium=badge&utm_source=badge-github-metrics)
+# 🏗️ We're working on it !
 
-[![Continuous integration](https://github.com/lowlighter/metrics/actions/workflows/ci.yml/badge.svg)](https://github.com/lowlighter/metrics/actions/workflows/ci.yml)
+<!-- TODO(@lowlighter): write contributing guide -->
 
-Generate metrics that can be embedded everywhere, including your GitHub profile readme! Supports users, organizations, and even repositories!
+See [#1533](https://github.com/lowlighter/metrics/discussions/1533)
 
-<table>
-  <tr>
-    <th align="center">For user accounts</th>
-    <th align="center">For organization accounts</th>
-  </tr>
-  <tr>
-    <td align="center">
-<img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.classic.svg" alt=""></img>
-</td>
-<td align="center">
-<img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.organization.svg" alt=""></img>
-</td>
-  </tr>
-  <tr>
-    <th colspan="2" align="center">
-      <h3><a href="/README.md#-plugins">🧩 Customizable with 46 plugins and 330 options!</a></h3>
-    </th>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/isocalendar/README.md">📅 Isometric commit calendar</a></th>
-    <th><a href="source/plugins/languages/README.md">🈷️ Languages activity</a></th>
-  </tr>
-  <tr>
-        <td  align="center">
-        <details open><summary>Full year calendar</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.isocalendar.fullyear.svg" alt=""></img></details>
-        <details><summary>Half year calendar</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.isocalendar.svg" alt=""></img></details>
-        <img width="900" height="1" alt="">
-      </td>
-        <td  align="center">
-        <details open><summary>Indepth analysis (clone and analyze repositories)</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.languages.indepth.svg" alt=""></img></details>
-        <details open><summary>Recently used (analyze recent activity events)</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.languages.recent.svg" alt=""></img></details>
-        <details><summary>Default algorithm</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.languages.svg" alt=""></img></details>
-        <details><summary>Default algorithm (with details)</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.languages.details.svg" alt=""></img></details>
-        <img width="900" height="1" alt="">
-      </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/stargazers/README.md">✨ Stargazers</a></th>
-    <th><a href="source/plugins/lines/README.md">👨‍💻 Lines of code changed</a></th>
-  </tr>
-  <tr>
-        <td  align="center">
-        <details open><summary>Classic charts</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.svg" alt=""></img></details>
-        <details><summary>Graph charts</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.graph.svg" alt=""></img></details>
-        <details open><summary>Worldmap</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stargazers.worldmap.svg" alt=""></img></details>
-        <img width="900" height="1" alt="">
-      </td>
-        <td  align="center">
-        <details open><summary>Repositories and diff history</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.lines.history.svg" alt=""></img></details>
-        <details><summary>Compact display in base plugin</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.lines.svg" alt=""></img></details>
-        <img width="900" height="1" alt="">
-      </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/topics/README.md">📌 Starred topics</a></th>
-    <th><a href="source/plugins/stars/README.md">🌟 Recently starred repositories</a></th>
-  </tr>
-  <tr>
-        <td  align="center">
-        <details open><summary>With icons</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.topics.icons.svg" alt=""></img></details>
-        <details open><summary>With labels</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.topics.svg" alt=""></img></details>
-        <img width="900" height="1" alt="">
-      </td>
-        <td  align="center">
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stars.svg" alt=""></img>
-        <img width="900" height="1" alt="">
-      </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/licenses/README.md">📜 Repository licenses</a></th>
-    <th><a href="source/plugins/habits/README.md">💡 Coding habits and activity</a></th>
-  </tr>
-  <tr>
-        <td  align="center">
-        <details open><summary>Permissions, limitations and conditions</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.licenses.svg" alt=""></img></details>
-        <details open><summary>Licenses overview</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.licenses.ratio.svg" alt=""></img></details>
-        <img width="900" height="1" alt="">
-      </td>
-        <td  align="center">
-        <details open><summary>Recent activity charts</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.habits.charts.svg" alt=""></img></details>
-        <details open><summary>Mildly interesting facts</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.habits.facts.svg" alt=""></img></details>
-        <img width="900" height="1" alt="">
-      </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/contributors/README.md">🏅 Repository contributors</a></th>
-    <th><a href="source/plugins/followup/README.md">🎟️ Follow-up of issues and pull requests</a></th>
-  </tr>
-  <tr>
-        <td  align="center">
-        <details open><summary>By contribution types</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.contributors.categories.svg" alt=""></img></details>
-        <details><summary>By number of contributions</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.contributors.contributions.svg" alt=""></img></details>
-        <img width="900" height="1" alt="">
-      </td>
-        <td  align="center">
-        <details open><summary>Indepth analysis</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.followup.indepth.svg" alt=""></img></details>
-        <details><summary>Created on a user's repositories</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.followup.svg" alt=""></img></details>
-        <details><summary>Created by a user</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.followup.user.svg" alt=""></img></details>
-        <img width="900" height="1" alt="">
-      </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/reactions/README.md">🎭 Comment reactions</a></th>
-    <th><a href="source/plugins/people/README.md">🧑‍🤝‍🧑 People</a></th>
-  </tr>
-  <tr>
-        <td  align="center">
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.reactions.svg" alt=""></img>
-        <img width="900" height="1" alt="">
-      </td>
-        <td  align="center">
-        <details open><summary>Related to a user</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.people.followers.svg" alt=""></img></details>
-        <details><summary>Related to a repository</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.people.repository.svg" alt=""></img></details>
-        <img width="900" height="1" alt="">
-      </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/sponsorships/README.md">💝 GitHub Sponsorships</a></th>
-    <th><a href="source/plugins/sponsors/README.md">💕 GitHub Sponsors</a></th>
-  </tr>
-  <tr>
-        <td  align="center">
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.sponsorships.svg" alt=""></img>
-        <img width="900" height="1" alt="">
-      </td>
-        <td  align="center">
-        <details open><summary>GitHub sponsors card</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.sponsors.svg" alt=""></img></details>
-        <details><summary>GitHub sponsors full introduction</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.sponsors.full.svg" alt=""></img></details>
-        <img width="900" height="1" alt="">
-      </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/repositories/README.md">📓 Featured repositories</a></th>
-    <th><a href="source/plugins/discussions/README.md">💬 Discussions</a></th>
-  </tr>
-  <tr>
-        <td  align="center">
-        <details open><summary>Featured</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.repositories.svg" alt=""></img></details>
-        <details><summary>Pinned</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.repositories.pinned.svg" alt=""></img></details>
-        <img width="900" height="1" alt="">
-      </td>
-        <td  align="center">
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.discussions.svg" alt=""></img>
-        <img width="900" height="1" alt="">
-      </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/starlists/README.md">💫 Star lists</a></th>
-    <th><a href="source/plugins/calendar/README.md">📆 Commit calendar</a></th>
-  </tr>
-  <tr>
-        <td  align="center">
-        <details open><summary>Repositories from star lists</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.starlists.svg" alt=""></img></details>
-        <details open><summary>Languages from star lists</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.starlists.languages.svg" alt=""></img></details>
-        <img width="900" height="1" alt="">
-      </td>
-        <td  align="center">
-        <details><summary>Current year</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.calendar.svg" alt=""></img></details>
-        <details open><summary>Full history</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.calendar.full.svg" alt=""></img></details>
-        <img width="900" height="1" alt="">
-      </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/achievements/README.md">🏆 Achievements</a></th>
-    <th><a href="source/plugins/notable/README.md">🎩 Notable contributions</a></th>
-  </tr>
-  <tr>
-        <td  align="center">
-        <details open><summary>Compact display</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.achievements.compact.svg" alt=""></img></details>
-        <details><summary>Detailed display</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.achievements.svg" alt=""></img></details>
-        <img width="900" height="1" alt="">
-      </td>
-        <td  align="center">
-        <details open><summary>Indepth analysis</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.notable.indepth.svg" alt=""></img></details>
-        <details><summary>Contributions in organizations only</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.notable.svg" alt=""></img></details>
-        <img width="900" height="1" alt="">
-      </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/activity/README.md">📰 Recent activity</a></th>
-    <th><a href="source/plugins/traffic/README.md">🧮 Repositories traffic</a></th>
-  </tr>
-  <tr>
-        <td  align="center">
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.activity.svg" alt=""></img>
-        <img width="900" height="1" alt="">
-      </td>
-        <td  align="center">
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.traffic.svg" alt=""></img>
-        <img width="900" height="1" alt="">
-      </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/code/README.md">♐ Random code snippet</a></th>
-    <th><a href="source/plugins/gists/README.md">🎫 Gists</a></th>
-  </tr>
-  <tr>
-        <td  align="center">
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.code.svg" alt=""></img>
-        <img width="900" height="1" alt="">
-      </td>
-        <td  align="center">
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.gists.svg" alt=""></img>
-        <img width="900" height="1" alt="">
-      </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/projects/README.md">🗂️ GitHub projects</a></th>
-    <th><a href="source/plugins/introduction/README.md">🙋 Introduction</a></th>
-  </tr>
-  <tr>
-        <td  align="center">
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.projects.svg" alt=""></img>
-        <img width="900" height="1" alt="">
-      </td>
-        <td  align="center">
-        <details open><summary>For a user or an organization</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.introduction.svg" alt=""></img></details>
-        <details><summary>For a repository</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.introduction.repository.svg" alt=""></img></details>
-        <img width="900" height="1" alt="">
-      </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/skyline/README.md">🌇 GitHub Skyline</a></th>
-    <th><a href="source/plugins/pagespeed/README.md">⏱️ Google PageSpeed</a></th>
-  </tr>
-  <tr>
-        <td  align="center">
-        <details open><summary>GitHub Skyline</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.skyline.svg" alt=""></img></details>
-        <details><summary>GitHub City</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.skyline.city.svg" alt=""></img></details>
-        <img width="900" height="1" alt="">
-      </td>
-        <td  align="center">
-        <details open><summary>PageSpeed scores</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.pagespeed.svg" alt=""></img></details>
-        <details><summary>PageSpeed scores with detailed report</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.pagespeed.detailed.svg" alt=""></img></details>
-        <details><summary>PageSpeed scores with a website screenshot</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.pagespeed.screenshot.svg" alt=""></img></details>
-        <img width="900" height="1" alt="">
-      </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/stackoverflow/README.md">🗨️ Stack Overflow</a></th>
-    <th><a href="source/plugins/anilist/README.md">🌸 Anilist watch list and reading list</a></th>
-  </tr>
-  <tr>
-        <td  align="center">
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stackoverflow.svg" alt=""></img>
-        <img width="900" height="1" alt="">
-      </td>
-        <td  align="center">
-        <details open><summary>For anime watchers</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.anilist.svg" alt=""></img></details>
-        <details><summary>For manga readers</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.anilist.manga.svg" alt=""></img></details>
-        <details open><summary>For waifus simp</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.anilist.characters.svg" alt=""></img></details>
-        <img width="900" height="1" alt="">
-      </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/music/README.md">🎼 Music activity and suggestions</a></th>
-    <th><a href="source/plugins/posts/README.md">✒️ Recent posts</a></th>
-  </tr>
-  <tr>
-        <td  align="center">
-        <details open><summary>Random tracks from a playlist</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.music.playlist.svg" alt=""></img></details>
-        <details open><summary>Recently listened</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.music.recent.svg" alt=""></img></details>
-        <img width="900" height="1" alt="">
-      </td>
-        <td  align="center">
-        <details open><summary>Latest posts width description and cover image</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.posts.full.svg" alt=""></img></details>
-        <details><summary>Latest posts</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.posts.svg" alt=""></img></details>
-        <img width="900" height="1" alt="">
-      </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/rss/README.md">🗼 Rss feed</a></th>
-    <th><a href="source/plugins/wakatime/README.md">⏰ WakaTime</a></th>
-  </tr>
-  <tr>
-        <td  align="center">
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.rss.svg" alt=""></img>
-        <img width="900" height="1" alt="">
-      </td>
-        <td  align="center">
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.wakatime.svg" alt=""></img>
-        <img width="900" height="1" alt="">
-      </td>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/leetcode/README.md">🗳️ Leetcode</a></th>
-    <th><a href="source/plugins/steam/README.md">🕹️ Steam</a></th>
-  </tr>
-  <tr>
-        <td  align="center">
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.leetcode.svg" alt=""></img>
-        <img width="900" height="1" alt="">
-      </td>
-        <td  align="center">
-        <details open><summary>Recently played games</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.steam.svg" alt=""></img></details>
-        <details><summary>Profile and detailed game history</summary><img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.steam.full.svg" alt=""></img></details>
-        <img width="900" height="1" alt="">
-      </td>
-  </tr>
-  <tr>
-    <th colspan="2" align="center">
-      <a href="/source/plugins/community/README.md">🎲 See also community plugins</a>
-    </th>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/community/16personalities/README.md">🧠 16personalities</a><br><sup>by <a href="https://github.com/lowlighter">@lowlighter</a></sup>
-      <details><summary>Render example</summary>
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.16personalities.svg" alt=""></img>
-        <img width="900" height="1" alt="">
-      </details>
-    </th>
-    <th><a href="source/plugins/community/chess/README.md">♟️ Chess</a><br><sup>by <a href="https://github.com/lowlighter">@lowlighter</a></sup>
-      <details><summary>Render example</summary>
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.chess.svg" alt=""></img>
-        <img width="900" height="1" alt="">
-      </details>
-    </th>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/community/fortune/README.md">🥠 Fortune</a><br><sup>by <a href="https://github.com/lowlighter">@lowlighter</a></sup>
-      <details><summary>Render example</summary>
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.fortune.svg" alt=""></img>
-        <img width="900" height="1" alt="">
-      </details>
-    </th>
-    <th><a href="source/plugins/community/nightscout/README.md">💉 Nightscout</a><br><sup>by <a href="https://github.com/legoandmars">@legoandmars</a></sup>
-      <details><summary>Render example</summary>
-        <img alt="" width="400" src="https://github.com/legoandmars/legoandmars/blob/master/metrics.plugin.nightscout.svg" alt=""></img>
-        <img width="900" height="1" alt="">
-      </details>
-    </th>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/community/poopmap/README.md">💩 PoopMap plugin</a><br><sup>by <a href="https://github.com/matievisthekat">@matievisthekat</a></sup>
-      <details><summary>Render example</summary>
-        <img alt="" width="400" src="https://github.com/matievisthekat/matievisthekat/blob/master/metrics.plugin.poopmap.svg" alt=""></img>
-        <img width="900" height="1" alt="">
-      </details>
-    </th>
-    <th><a href="source/plugins/community/screenshot/README.md">📸 Website screenshot</a><br><sup>by <a href="https://github.com/lowlighter">@lowlighter</a></sup>
-      <details><summary>Render example</summary>
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.screenshot.svg" alt=""></img>
-        <img width="900" height="1" alt="">
-      </details>
-    </th>
-  </tr>
-  <tr>
-    <th><a href="source/plugins/community/splatoon/README.md">🦑 Splatoon</a><br><sup>by <a href="https://github.com/lowlighter">@lowlighter</a></sup>
-      <details><summary>Render example</summary>
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.splatoon.svg" alt=""></img>
-        <img width="900" height="1" alt="">
-      </details>
-    </th>
-    <th><a href="source/plugins/community/stock/README.md">💹 Stock prices</a><br><sup>by <a href="https://github.com/lowlighter">@lowlighter</a></sup>
-      <details><summary>Render example</summary>
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.stock.svg" alt=""></img>
-        <img width="900" height="1" alt="">
-      </details>
-    </th>
-  </tr>
-  <tr>
-    <th colspan="2" align="center">
-      <h3><a href="/README.md#%EF%B8%8F-templates">🖼️ And even more with 4+ templates!</a></h3>
-    </th>
-  </tr>
-  <tr>
-    <th><a href="/source/templates/classic/README.md">📗 Classic template</a></th>
-    <th><a href="/source/templates/repository/README.md">📘 Repository template</a></th>
-  </tr>
-  <tr>
-        <td  align="center">
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.classic.svg" alt=""></img>
-        <img width="900" height="1" alt="">
-      </td>
-        <td  align="center">
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.repository.svg" alt=""></img>
-        <img width="900" height="1" alt="">
-      </td>
-  </tr>
-  <tr>
-    <th><a href="/source/templates/terminal/README.md">📙 Terminal template</a></th>
-    <th><a href="/source/templates/markdown/README.md">📒 Markdown template</a></th>
-  </tr>
-  <tr>
-        <td  align="center">
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.terminal.svg" alt=""></img>
-        <img width="900" height="1" alt="">
-      </td>
-        <td  align="center">
-        <img alt="" width="400" src="https://github.com/lowlighter/metrics/blob/examples/metrics.markdown.png" alt=""></img>
-        <img width="900" height="1" alt="">
-      </td>
-  </tr>
-  <tr>
-    <th colspan="2"><a href="/source/templates/community/README.md">📕 See also community templates</a></th>
-  </tr>
-  <tr>
-    <th colspan="2"><h2>🦑 Try it now!</h2></th>
-  </tr>
-  <tr>
-    <th><a href="https://metrics.lecoq.io/embed">📊 Metrics embed</a></th>
-    <th><a href="https://metrics.lecoq.io/insights">✨ Metrics insights</a></th>
-  </tr>
-  <tr>
-    <td align="center">
-      Embed metrics images on your profile or blog!<br>
-      Use <a href="https://github.com/marketplace/actions/metrics-embed">GitHub actions</a> for even more features!<br>
-      <img src="/.github/readme/imgs/features_embed.gif" width="360">
-    </td>
-    <td align="center">
-      Share your metrics with friends and on social medias!<br>
-      No configuration needed!<br>
-      <img src="/.github/readme/imgs/features_insights.gif" width="360">
-    </td>
-  </tr>
-  <tr>
-    <td align="center" colspan="2">
-      Test latest features and patches on <code><a href="https://beta-metrics.lecoq.io">🧪 Metrics beta</a></code>!
-    </td>
-  </tr>
-  <tr>
-    <td align="center" colspan="2">
-      <b>Power user?</b><br>
-      <a href="https://github.com/lowlighter/metrics/fork">Fork this repository</a> and edit HTML, CSS, JS and <a href="https://github.com/mde/ejs">EJS</a> for even more customization!
-    </td>
-  </tr>
-</table>
+## ✈️ Migration guide
 
+> ℹ️ This is still subject to change, see this guide more as a "pre-release note"/"roadmap progress". It may be used later on to create a migration tool from v3 to v4. Plugins not yet listed are not
+> yet migrated. This guide will be updated later on
 
-# 📚 Documentation
+### Migration and progression
 
+- 📝 **Todo-list before pre-release**
+  - [ ] Engine
+    - [x] Rendering
+    - [x] Inputs parsing
+    - [x] Outputs parsing
+    - [x] Plugin framework
+    - [x] Processor framework
+    - [ ] Docs auto-generation
+  - [ ] GitHub Action
+    - [x] Implement `publish.gist`
+    - [x] Implement `publish.file`
+    - [ ] Implement `publish.git` (almost finished, needs to handle the PR merge)
+    - [ ] Docker image
+  - [ ] Web server
+    - [ ] Config crafter (big draft)
+    - [x] OAuth support
+    - [ ] Vercel deployment (next priority)
+  - [ ] Plugins
+    - [x] A simple plugin
+    - [x] A plugin that requires puppeteer
+    - [x] A plugin that requires an external library
+    - [x] A plugin that requires GraphQL API
+      - [x] A plugin that requires paginated GraphQL queries
+    - [x] A plugin that requires REST API
+      - [ ] A plugin that requires paginated REST API
+    - [ ] A plugin that requires executing a raw command <!-- ==> languages -->
+    - [ ] A plugin that requires rendering markdown
+    - [ ] A plugin that requires rendering d3 graphs <!-- ==> languages -->
+    - [ ] A plugin that requires rendering gif <!-- ==> skyline -->
+- 📦 **Interfaces**
+  - 🌐 **Web server**
+    - ☣️ _(Working proof of concept)_
+    - ❗ Syntax was unified with the _GitHub Action_ one
+      - ✨ YAML syntax is "lax" and does not require spaces after each colon (e.g. `plugins:[{id:introduction}]` and `plugins: [{id: introduction}]` are both supported)
+    - ✨ Append `.svg`, `.png`, `.jpg`/`.jpeg`, `.webp`, `.json`, `.html`, `.pdf`, `.txt` or `.text` for implicit conversion (e.g. `metrics.test/octocat.json`)
+    - ❓ _Metrics Insights_ will probably be "removed", and maybe converted to a preset/template instead, which will make it on-par with all plugins, as `.html` format will be directly supported
+      (basically since the SVG is already HTML, it'll just change the MIME type)
+  - ⚙️ **GitHub Action**
+    - ☣️ _(Not yet started)_
+  - ⌨️ **CLI**
+    - ☣️ _(Not yet started)_
+- 🧩 **Plugins**
+  - 📅 **Isometric commit calendar**
+    - ❗ _This plugin was merged with `calendar` plugin_
+      - ➡️ `calendar.args.view: isometric`
+      - ❗ `plugin_isocalendar: yes` ➡️ `plugins: [{id: calendar}]` with `args`
+      - ❗ `plugin_isocalendar_duration: half-year` ➡️ `calendar.args.range: last-180-days`
+      - ❗ `plugin_isocalendar_duration: full-year` ➡️ `calendar.args.range: last-365-days`
+  - 📆 **Commit calendar**
+    - ✨ Merged `isocalendar` and `calendar` plugins, which means that both plugins now have same level of features
+      - ✨ `isocalendar` can now display multiple years and a specific year
+      - ✨ `calendar` can now display additional stats (such as commits per day, streaks, etc.)
+    - ✨ `calendar.args.view` can now be set to `isometric` or `top-down`
+    - ✨ `calendar.args.range` can now be set to `last-180-days`, `last-365-days`, a specific year or a custom range
+      - ✨ `calendar.args.range.from` can now be set to `registration`, `-n` years relative to `calendar.args.range.to` or a specific year
+      - ✨ `calendar.args.range.to` can now be set to `current-year` or a specific year
+    - ✨ `calendar.args.colors` can now be set to `auto`, `halloween` or `winter`
+    - ❗ `plugin_calendar: yes` ➡️ `plugins: [{id: calendar}]` with `args`
+    - ❗ `plugin_calendar_limit: 0` ➡️ `calendar.args.range: {from: registration, to: current-year}`
+    - ❗ `plugin_calendar_limit: (n > 0)` ➡️ `calendar.args.range: {from: (-n), to: current-year}`
+    - ❌ `plugin_calendar_limit: (n < 0)` ➡️ Use `calendar.args.range.from` with a specific year
+  - 🎫 **Gists**
+    - 🐞 Fine-grained tokens always returns `null` data
+    - ❗ `plugin_gists: yes` ➡️ `plugins: [{id: gists}]`
+    - ✨ `gists.args.forks` can now be configured
+    - ✨ `gists.args.visibility` can now be set to `public` or `all`
+  - 🙋 **Introduction**
+    - ❗ `plugin_introduction: yes` ➡️ `plugins: [{id: introduction}]`
+    - ❌ `plugin_introduction_title` ➡️ `processors: [{id: inject.style, args: {style: ".introduction .title { display: none }"}}]`
+  - 🗼 **Rss feed**
+    - ❗ `plugin_rss: yes` ➡️ `plugins: [{id: rss}]` with `args`
+    - ❗ `plugin_rss_source` ➡️ `rss.args.feed`
+    - ❗ `plugin_rss_limit` ➡️ `rss.args.limit`
+      - ❗ `plugin_rss_limit: 0` ➡️ `rss.args.limit: null`
+      - ✨ `rss.args.limit` no longer has an upper limit (lower limit was changed to `1`)
+  - 📸 **Website screenshot**
+    - ❗ _This plugin was renamed `webscrap` and is now part of official plugins_
+      - ➡️ Use `webscrap` plugin
+      - ❗ `plugin_screenshot: yes` ➡️ `plugins: [{id: webscrap}]` with `args`
+      - ❗ `plugin_screenshot_url` ➡️ `webscrap.args.url`
+      - ❗ `plugin_screenshot_selector` ➡️ `webscrap.args.select`
+      - ❗ `plugin_screenshot_mode` ➡️ `webscrap.args.mode`
+      - ❗ `plugin_screenshot_viewport` ➡️ `webscrap.args.viewport.width` and `webscrap.args.viewport.height`
+      - ❗ `plugin_screenshot_wait` ➡️ `webscrap.args.wait`
+      - ❗ `plugin_screenshot_background` ➡️ `webscrap.args.background`
+  - 📸 **Webscrap**
+    - ✨ Added `screenshot` as part of official plugins
+  - 💭 **GitHub Community Support**
+    - ❌ Removed as it was already deprecated
+  - 🧱 **Core**
+    - ☣️ _(Will be more detailed once API is finalized)_
+    - ✨ Context
+      - ❗ `token` ➡️ `plugins[].token`
+      - ❗ `user` ➡️ `plugins[].handle` with `plugins[].entity: user` or `plugins[].entity: organization`
+      - ❗ `repo` ➡️ `plugins[].handle` with `plugins[].entity: repository`
+      - ❗ `template` ➡️ `plugins[].template`
+      - ❗ `retries` ➡️ `plugins[].retries.attempts`
+      - ❗ `retries_delay` ➡️ `plugins[].retries.delay`
+      - ❗ `github_api_rest` ➡️ `plugins[].api`
+      - ❗ `github_api_graphql` ➡️ `plugins[].api`
+      - ❗ `plugins_errors_fatal` ➡️ `plugins[].fatal`
+      - ❗ `config_timezone` ➡️ `plugins[].timezone`
+      - ❗ `debug` ➡️ `plugins[].logs`
+        - ✨ Configure verbosity with `none`, `error`, `warn`, `info`, `message`, `debug`, `trace`
+    - ❗ `committer_gist` ➡️ `processors: [{id: publish.gist}}]` with `args.gist` and `args.filename`
+    - ❌ `committer_token` ➡️ `plugins[].token` (publish transforms inherits the plugin context)
+    - ❗ `committer_branch` ➡️ `processors: [{id: publish.git}}]` with `args.commit.branch`, `args.commit.base`, `args.pullrequest.branch` and `args.pullrequest.base`
+    - ❗ `committer_message` ➡️ `processors: [{id: publish.git}}]` with `args.commit.message` or `args.pullrequest.message`
+    - ❗ `filename` ➡️ `processors[]` with `args.filepath`
+    - ❗ `config_twemoji` ➡️ `processors: [{id: render.twemojis}]`
+    - ❗ `config_gemoji` ➡️ `processors: [{id: render.gemojis}]`
+    - ❗ `config_octicon` ➡️ `processors: [{id: render.octicons}]`
+    - ❗ `extras_js` ➡️ `processors: [{id: inject.script}]` with `args.script`
+    - ❗ `extras_css` ➡️ `processors: [{id: inject.style}]` with `args.style`
+    - ❗ `optimize` ➡️ `processors: [{id: optimize.svg}]`, `processors: [{id: optimize.xml}]`, `processors: [{id: optimize.css}]`
+    - ❗ `config_output` ➡️ `processors: [{id: render}]` with `args.format`
+    - ❗ `config_order` ➡️ Plugins order is honored from `plugins[]`
+    - ❌ `config_display` ➡️ `processors: [{id: inject.style}]` with `args.style`, or a custom template
+    - ❌ `config_animations` ➡️ `processors: [{id: inject.style}]` with `args.style`, or a custom template
+    - ❌ `config_padding` ➡️
+    - ❗ `debug_print` ➡️ `processors: [{id: publish.console}]`
+    - ❌ `debug_flags`
+      - ❗ `debug_flags: --halloween` ➡️ `calendar.args.colors: halloween`
+      - ❗ `debug_flags: --winter` ➡️ `calendar.args.colors: winter`
+    - ❌ `setup_community_templates` ➡️ `plugins[].template: https://...`
+    - ❌ `query` ➡️ `plugins[].template: https://...?params`
+    - ❌ `dryrun` ➡️ Don't put any publisher processor
+    - ❌ `experimental_features`
+    - ❌ `verify`
+- 🪄 **Processors**
+  - 🧪 **Assertions**
+    - ✨ Added processor to test assertions
+  - 🔩 **Inject raw content**
+    - ✨ Added processor to inject raw HTML content
+  - 🔩 **Inject JavaScript**
+    - ✨ Added processor to inject and execute JS
+  - 🔩 **Inject CSS**
+    - ✨ Added processor to inject CSS
+  - 🧹 **Optimize CSS**
+    - ✨ Added processor to optimize CSS
+  - 🧹 **Optimize SVG**
+    - ✨ Added processor to optimize SVG
+  - 🧹 **Optimize XML**
+    - ✨ Added processor to optimize XML
+  - 📮 **Publish to console**
+    - ✨ Added processor to publish content to console
+  - 📮 **Publish to local file**
+    - ✨ Added processor to publish content to local file
+  - 📮 **Publish to GitHub Gist**
+    - ✨ Added processor to publish content to GitHub Gist
+  - 📮 **Publish to GitHub repository**
+    - ✨ Added processor to publish content to GitHub repositories
+    - ✨ `args.commit.branch`, `args.commit.base`, `args.pullrequest.base`, `args.pullrequest.base` can now be configured with more granularity
+    - ✨ `args.pullrequest.title` and `args.pullrequest.message` can now be configured
+  - 🎨 **Render image**
+    - ✨ Added processor to render image
+    - ✨ Can output to `svg`, `png`, `jpeg`, `webp`, `json`, `html`, `markdown` or `pdf`
+  - 🖌️ **Render Twemojis**
+    - ✨ Added processor to render [Twemojis](https://twemoji.twitter.com)
+  - 🖌️ **Render GitHub emojis**
+    - ✨ Added processor to render GitHub emojis
+  - 🖌️ **Render GitHub octicons**
+    - ✨ Added processor to render [GitHub Octicons](https://primer.style/design/foundations/icons)
+- 💻 **Repository and maintenance**
+  - ➕ Migration to [deno](https://deno.com) and TypeScript
+    - ➕ Unified linting and formatting
+    - ➕ Minimal execution flags for more security and data leaking prevention
+  - ➕ Extended unit testing with coverage
+    - ➕ Improved data mocking which does not requiring directly editing prototypes
+    - ➕ Testing EYOF using the engine itself
 
-> <sup>*⚠️ This is the documentation of **v3.35-beta** (`@master`/`@main` branches) which includes [unreleased features](https://github.com/lowlighter/metrics/compare/latest...master) planned for next release. See documentation for current released version [**v3.34** (`@latest` branch) here](https://github.com/lowlighter/metrics/blob/latest/README.md).* </sup>
+### Legend
 
+- ☣️ Experimental feature
+- ✨ New feature
+- ❌ Removed feature
+- ❗ Edited feature
+- ❓ Unsure feature
+- ➡️ Migration path
+- 🐞 Known issue that will be fixed before release
 
+<!--
 
-## 🦮 Setup
-
-There are several ways to setup metrics, each having its advantages and disadvantages:
-
-* [⚙️ Using GitHub Action on a profile repository *(~10 min)*](/.github/readme/partials/documentation/setup/action.md)
-  * ✔️ All features
-  * ✔️ High availability (no downtimes)
-  * ➖ Configuration can be a bit time-consuming
-* [💕 Using the shared instance *(~1 min)*](/.github/readme/partials/documentation/setup/shared.md)
-  * ✔️ Easily configurable and previewable
-  * ➖ Limited features *(compute-intensive features are disabled)*
-* [🏗️ Deploying a web instance *(~20 min)*](/.github/readme/partials/documentation/setup/web.md)
-  * ✔️ Create another shared instance
-  * ➖ Requires some sysadmin knowledge
-* [🐳 Using command line with docker *(~2 min)*](/.github/readme/partials/documentation/setup/docker.md)
-  * ✔️ Suited for one-time rendering
-* [🔧 Local setup for development *(~20 min)*](/.github/readme/partials/documentation/setup/local.md)
-
-Additional resources for setup:
-* [🏦 Configure metrics for organizations](/.github/readme/partials/documentation/organizations.md)
-* [🏠 Run metrics on self-hosted runners](/.github/readme/partials/documentation/selfhosted.md)
-* [🧰 Template/Plugin compatibility matrix](/.github/readme/partials/documentation/compatibility.md)
-## 🖼️ Templates
-
-Templates lets you change general appearance of rendered metrics.
-
-
-* [📗 Classic template <sub>`classic`</sub>](/source/templates/classic/README.md)
-* [📘 Repository template <sub>`repository`</sub>](/source/templates/repository/README.md)
-* [📙 Terminal template <sub>`terminal`</sub>](/source/templates/terminal/README.md)
-* [📒 Markdown template <sub>`markdown`</sub>](/source/templates/markdown/README.md)
-* [📕 Community templates <sub>`community`</sub>](/source/templates/community/README.md)
-
-## 🧩 Plugins
-
-Plugins provide additional content and lets you customize rendered metrics.
-
-**📦 Maintained by core team**
-
-* **Core plugins**
-  * [🗃️ Base content <sub>`base`</sub>](/source/plugins/base/README.md)
-  * [🧱 Core <sub>`core`</sub>](/source/plugins/core/README.md)
-* **GitHub plugins**
-  * [🏆 Achievements <sub>`achievements`</sub>](/source/plugins/achievements/README.md)
-  * [📰 Recent activity <sub>`activity`</sub>](/source/plugins/activity/README.md)
-  * [📆 Commit calendar <sub>`calendar`</sub>](/source/plugins/calendar/README.md)
-  * [♐ Random code snippet <sub>`code`</sub>](/source/plugins/code/README.md)
-  * [🏅 Repository contributors <sub>`contributors`</sub>](/source/plugins/contributors/README.md)
-  * [💬 Discussions <sub>`discussions`</sub>](/source/plugins/discussions/README.md)
-  * [🎟️ Follow-up of issues and pull requests <sub>`followup`</sub>](/source/plugins/followup/README.md)
-  * [🎫 Gists <sub>`gists`</sub>](/source/plugins/gists/README.md)
-  * [💡 Coding habits and activity <sub>`habits`</sub>](/source/plugins/habits/README.md)
-  * [🙋 Introduction <sub>`introduction`</sub>](/source/plugins/introduction/README.md)
-  * [📅 Isometric commit calendar <sub>`isocalendar`</sub>](/source/plugins/isocalendar/README.md)
-  * [🈷️ Languages activity <sub>`languages`</sub>](/source/plugins/languages/README.md)
-  * [📜 Repository licenses <sub>`licenses`</sub>](/source/plugins/licenses/README.md)
-  * [👨‍💻 Lines of code changed <sub>`lines`</sub>](/source/plugins/lines/README.md)
-  * [🎩 Notable contributions <sub>`notable`</sub>](/source/plugins/notable/README.md)
-  * [🧑‍🤝‍🧑 People <sub>`people`</sub>](/source/plugins/people/README.md)
-  * [🗂️ GitHub projects <sub>`projects`</sub>](/source/plugins/projects/README.md)
-  * [🎭 Comment reactions <sub>`reactions`</sub>](/source/plugins/reactions/README.md)
-  * [📓 Featured repositories <sub>`repositories`</sub>](/source/plugins/repositories/README.md)
-  * [🌇 GitHub Skyline <sub>`skyline`</sub>](/source/plugins/skyline/README.md)
-  * [💕 GitHub Sponsors <sub>`sponsors`</sub>](/source/plugins/sponsors/README.md)
-  * [💝 GitHub Sponsorships <sub>`sponsorships`</sub>](/source/plugins/sponsorships/README.md)
-  * [✨ Stargazers <sub>`stargazers`</sub>](/source/plugins/stargazers/README.md)
-  * [💫 Star lists <sub>`starlists`</sub>](/source/plugins/starlists/README.md)
-  * [🌟 Recently starred repositories <sub>`stars`</sub>](/source/plugins/stars/README.md)
-  * [💭 GitHub Community Support <sub>`support`</sub>](/source/plugins/support/README.md) <sub>`⚠️ deprecated`</sub>
-  * [📌 Starred topics <sub>`topics`</sub>](/source/plugins/topics/README.md)
-  * [🧮 Repositories traffic <sub>`traffic`</sub>](/source/plugins/traffic/README.md)
-* **Social plugins**
-  * [🌸 Anilist watch list and reading list <sub>`anilist`</sub>](/source/plugins/anilist/README.md)
-  * [🗳️ Leetcode <sub>`leetcode`</sub>](/source/plugins/leetcode/README.md)
-  * [🎼 Music activity and suggestions <sub>`music`</sub>](/source/plugins/music/README.md)
-  * [⏱️ Google PageSpeed <sub>`pagespeed`</sub>](/source/plugins/pagespeed/README.md)
-  * [✒️ Recent posts <sub>`posts`</sub>](/source/plugins/posts/README.md)
-  * [🗼 Rss feed <sub>`rss`</sub>](/source/plugins/rss/README.md)
-  * [🗨️ Stack Overflow <sub>`stackoverflow`</sub>](/source/plugins/stackoverflow/README.md)
-  * [🕹️ Steam <sub>`steam`</sub>](/source/plugins/steam/README.md)
-  * [🐤 Latest tweets <sub>`tweets`</sub>](/source/plugins/tweets/README.md) <sub>`⚠️ deprecated`</sub>
-  * [⏰ WakaTime <sub>`wakatime`</sub>](/source/plugins/wakatime/README.md)
-
-**🎲 Maintained by community**
-* **[Community plugins](/source/plugins/community/README.md)**
-  * [🧠 16personalities <sub>`16personalities`</sub>](/source/plugins/community/16personalities/README.md) by [@lowlighter](https://github.com/lowlighter)
-  * [♟️ Chess <sub>`chess`</sub>](/source/plugins/community/chess/README.md) by [@lowlighter](https://github.com/lowlighter)
-  * [🥠 Fortune <sub>`fortune`</sub>](/source/plugins/community/fortune/README.md) by [@lowlighter](https://github.com/lowlighter)
-  * [💉 Nightscout <sub>`nightscout`</sub>](/source/plugins/community/nightscout/README.md) by [@legoandmars](https://github.com/legoandmars)
-  * [💩 PoopMap plugin <sub>`poopmap`</sub>](/source/plugins/community/poopmap/README.md) by [@matievisthekat](https://github.com/matievisthekat)
-  * [📸 Website screenshot <sub>`screenshot`</sub>](/source/plugins/community/screenshot/README.md) by [@lowlighter](https://github.com/lowlighter)
-  * [🦑 Splatoon <sub>`splatoon`</sub>](/source/plugins/community/splatoon/README.md) by [@lowlighter](https://github.com/lowlighter)
-  * [💹 Stock prices <sub>`stock`</sub>](/source/plugins/community/stock/README.md) by [@lowlighter](https://github.com/lowlighter)
-
-
-## 💪 Contributing
-
-If you are interested in contributing, the following resources may interest you:
-
-* [💪 Contribution guide](/CONTRIBUTING.md)
-* [🧬 Architecture](/ARCHITECTURE.md)
-* [📜 License](/LICENSE)
-* **:octocat: GitHub resources**
-  * [📖 GitHub GraphQL API](https://docs.github.com/en/graphql)
-  * [📖 GitHub GraphQL Explorer](https://docs.github.com/en/free-pro-team@latest/graphql/overview/explorer)
-  * [📖 GitHub Rest API](https://docs.github.com/en/rest)
-  * [📖 GitHub Octicons](https://github.com/primer/octicons)
-
-Use [`💬 discussions`](https://github.com/lowlighter/metrics/discussions) for feedback, new features suggestions, bugs reports or to request help for installation.
-
-
-## 📜 License
-
-```
-MIT License
-Copyright (c) 2020-present lowlighter
-```
-
-![Sponsors](https://github.com/lowlighter/metrics/blob/examples/metrics.sponsors.svg)
-
-
+  markdown: Markdown template path
+  markdown_cache: Markdown file cache
+  output_action: Output action
+  output_condition: Output condition
+  config_base64: Base64-encoded images
+  config_padding: Output padding
+  config_presets: Configuration presets
+  retries_output_action: Retries in case of failures (for output action)
+  retries_delay_output_action: Delay between each retry (in seconds, for output action)
+  clean_workflows: Clean previous workflows jobs
+  delay: Job delay
+  quota_required_rest: Minimum GitHub REST API requests quota required to run
+  quota_required_graphql: Minimum GitHub GraphQL API requests quota required to run
+  quota_required_search: Minimum GitHub Search API requests quota required to run
+  notice_releases: Notice about new releases of metrics
+  repositories: Fetched repositories
+  repositories_batch: Fetched repositories per query
+  repositories_forks: Include forks
+  repositories_affiliations: Repositories affiliations
+  repositories_skipped: Default skipped repositories
+  users_ignored: Default ignored users
+  commits_authoring: Identifiers that has been used for authoring commits
+  base: Base content
+  base_indepth: Indepth mode
+  base_hireable: Show `Available for hire!` in header section
+  base_skip: Skip base content
+  plugin_languages: Enable languages plugin
+  plugin_languages_ignored: Ignored languages
+  plugin_languages_skipped: Skipped repositories
+  plugin_languages_limit: Display limit
+  plugin_languages_threshold: Display threshold (percentage)
+  plugin_languages_other: Group unknown, ignored and over-limit languages into "Other" category
+  plugin_languages_colors: Custom languages colors
+  plugin_languages_aliases: Custom languages names
+  plugin_languages_sections: Displayed sections
+  plugin_languages_details: Additional details
+  plugin_languages_indepth: Indepth mode
+  plugin_languages_indepth_custom: Indepth mode - Custom repositories
+  plugin_languages_analysis_timeout: Indepth mode - Analysis timeout
+  plugin_languages_analysis_timeout_repositories: Indepth mode - Analysis timeout (repositories)
+  plugin_languages_categories: Indepth mode - Displayed categories (most-used section)
+  plugin_languages_recent_categories: Indepth mode - Displayed categories (recently-used section)
+  plugin_languages_recent_load: Indepth mode - Events to load (recently-used section)
+  plugin_languages_recent_days: Indepth mode - Events maximum age (day, recently-used section)
+  plugin_stargazers: Enable stargazers plugin
+  plugin_stargazers_days: Time range
+  plugin_stargazers_charts: Charts
+  plugin_stargazers_charts_type: Charts display type
+  plugin_stargazers_worldmap: Stargazers worldmap
+  plugin_stargazers_worldmap_token: Stargazers worldmap token
+  plugin_stargazers_worldmap_sample: Stargazers worldmap sample
+  plugin_lines: Enable lines plugin
+  plugin_lines_skipped: Skipped repositories
+  plugin_lines_sections: Displayed sections
+  plugin_lines_repositories_limit: Display limit
+  plugin_lines_history_limit: Years to display
+  plugin_lines_delay: Delay before performing a second query
+  plugin_topics: Enable topics plugin
+  plugin_topics_mode: Display mode
+  plugin_topics_sort: Sorting method
+  plugin_topics_limit: Display limit
+  plugin_stars: Enable stars plugin
+  plugin_stars_limit: Display limit
+  plugin_licenses: Enable licenses plugin
+  plugin_licenses_setup: Setup command
+  plugin_licenses_ratio: Used licenses ratio
+  plugin_licenses_legal: Permissions, limitations and conditions about used licenses
+  plugin_habits: Enable habits plugin
+  plugin_habits_from: Events to use
+  plugin_habits_skipped: Skipped repositories
+  plugin_habits_days: Event maximum age
+  plugin_habits_facts: Mildly interesting facts
+  plugin_habits_charts: Charts
+  plugin_habits_charts_type: Charts display type
+  plugin_habits_trim: Trim unused hours on charts
+  plugin_habits_languages_limit: Display limit (languages)
+  plugin_habits_languages_threshold: Display threshold (percentage)
+  plugin_contributors: Enable contributors plugin
+  plugin_contributors_base: Base reference
+  plugin_contributors_head: Head reference
+  plugin_contributors_ignored: Ignored users
+  plugin_contributors_contributions: Contributions count
+  plugin_contributors_sections: Displayed sections
+  plugin_contributors_categories: Contribution categories
+  plugin_followup: Enable followup plugin
+  plugin_followup_sections: Displayed sections
+  plugin_followup_indepth: Indepth analysis
+  plugin_followup_archived: Include archived repositories
+  plugin_reactions: Enable reactions plugin
+  plugin_reactions_limit: Display limit (issues and pull requests comments)
+  plugin_reactions_limit_issues: Display limit (issues and pull requests, first comment)
+  plugin_reactions_limit_discussions: Display limit (discussions, first comment)
+  plugin_reactions_limit_discussions_comments: Display limit (discussions comments)
+  plugin_reactions_days: Comments maximum age
+  plugin_reactions_display: Display mode
+  plugin_reactions_details: Additional details
+  plugin_reactions_ignored: Ignored users
+  plugin_people: Enable people plugin
+  plugin_people_limit: Display limit
+  plugin_people_identicons: Force identicons pictures
+  plugin_people_identicons_hide: Hide identicons pictures
+  plugin_people_size: Profile picture display size
+  plugin_people_types: Displayed sections
+  plugin_people_thanks: Special thanks
+  plugin_people_sponsors_custom: Custom sponsors
+  plugin_people_shuffle: Shuffle data
+  plugin_sponsorships: Enable sponsorships plugin
+  plugin_sponsorships_sections: Displayed sections
+  plugin_sponsorships_size: Profile picture display size
+  plugin_sponsors: Enable sponsors plugin
+  plugin_sponsors_sections: Displayed sections
+  plugin_sponsors_past: Past sponsorships
+  plugin_sponsors_size: Profile picture display size
+  plugin_sponsors_title: Title caption
+  plugin_repositories: Enable repositories plugin
+  plugin_repositories_featured: Featured repositories
+  plugin_repositories_pinned: Pinned repositories
+  plugin_repositories_starred: Featured most starred repositories
+  plugin_repositories_random: Featured random repositories
+  plugin_repositories_order: Featured repositories display order
+  plugin_repositories_forks: Include repositories forks
+  plugin_repositories_affiliations: Repositories affiliations
+  plugin_discussions: Enable discussions plugin
+  plugin_discussions_categories: Discussion categories
+  plugin_discussions_categories_limit: Display limit (categories)
+  plugin_starlists: Enable starlists plugin
+  plugin_starlists_limit: Display limit (star lists)
+  plugin_starlists_limit_repositories: Display limit (repositories per star list)
+  plugin_starlists_languages: Star lists languages statistics
+  plugin_starlists_limit_languages: Display limit (languages per star list)
+  plugin_starlists_languages_ignored: Ignored languages in star lists
+  plugin_starlists_languages_aliases: Custom languages names in star lists
+  plugin_starlists_shuffle_repositories: Shuffle data
+  plugin_starlists_ignored: Skipped star lists
+  plugin_starlists_only: Showcased star lists
+  plugin_achievements: Enable achievements plugin
+  plugin_achievements_threshold: Rank threshold filter
+  plugin_achievements_secrets: Secrets achievements
+  plugin_achievements_display: Display style
+  plugin_achievements_limit: Display limit
+  plugin_achievements_ignored: Ignored achievements
+  plugin_achievements_only: Showcased achievements
+  plugin_notable: Enable notable plugin
+  plugin_notable_filter: Query filter
+  plugin_notable_skipped: Skipped repositories
+  plugin_notable_from: Repository owner account type filter
+  plugin_notable_repositories: Repository name
+  plugin_notable_indepth: Indepth mode
+  plugin_notable_types: Contribution types filter
+  plugin_notable_self: Include own repositories
+  plugin_activity: Enable activity plugin
+  plugin_activity_limit: Display limit
+  plugin_activity_load: Events to load
+  plugin_activity_days: Events maximum age
+  plugin_activity_visibility: Events visibility
+  plugin_activity_timestamps: Events timestamps
+  plugin_activity_skipped: Skipped repositories
+  plugin_activity_ignored: Ignored users
+  plugin_activity_filter: Events types
+  plugin_traffic: Enable traffic plugin
+  plugin_traffic_skipped: Skipped repositories
+  plugin_code: Enable code plugin
+  plugin_code_lines: Display limit (lines per code snippets)
+  plugin_code_load: Events to load
+  plugin_code_days: Events maximum age
+  plugin_code_visibility: Events visibility
+  plugin_code_skipped: Skipped repositories
+  plugin_code_languages: Showcased languages
+  plugin_projects: Enable projects plugin
+  plugin_projects_limit: Display limit
+  plugin_projects_repositories: Featured repositories projects
+  plugin_projects_descriptions: Projects descriptions
+  plugin_skyline: Enable skyline plugin
+  plugin_skyline_year: Displayed year
+  plugin_skyline_frames: Frames count
+  plugin_skyline_quality: Image quality
+  plugin_skyline_compatibility: Compatibility mode
+  plugin_skyline_settings: Advanced settings
+  plugin_pagespeed: Enable pagespeed plugin
+  plugin_pagespeed_token: PageSpeed token
+  plugin_pagespeed_url: Audited website
+  plugin_pagespeed_detailed: Detailed results
+  plugin_pagespeed_screenshot: Website screenshot
+  plugin_pagespeed_pwa: PWA Status
+  plugin_tweets: Enable tweets plugin
+  plugin_tweets_token: Twitter API token
+  plugin_tweets_user: Twitter username
+  plugin_tweets_attachments: Tweets attachments
+  plugin_tweets_limit: Display limit
+  plugin_stackoverflow: Enable stackoverflow plugin
+  plugin_stackoverflow_user: Stackoverflow user id
+  plugin_stackoverflow_sections: Displayed sections
+  plugin_stackoverflow_limit: Display limit (entries per section)
+  plugin_stackoverflow_lines: Display limit (lines per questions and answers)
+  plugin_stackoverflow_lines_snippet: Display limit (lines per code snippets)
+  plugin_anilist: Enable aniList plugin
+  plugin_anilist_user: AniList login
+  plugin_anilist_medias: Medias types
+  plugin_anilist_sections: Displayed sections
+  plugin_anilist_limit: Display limit (medias)
+  plugin_anilist_limit_characters: Display limit (characters)
+  plugin_anilist_shuffle: Shuffle data
+  plugin_music: Enable music plugin
+  plugin_music_provider: Music provider
+  plugin_music_token: Music provider token
+  plugin_music_user: Music provider username
+  plugin_music_mode: Display mode
+  plugin_music_playlist: Playlist URL
+  plugin_music_limit: Display limit
+  plugin_music_played_at: Recently played - Last played timestamp
+  plugin_music_time_range: Top tracks - Time range
+  plugin_music_top_type: Top tracks - Display type
+  plugin_posts: Enable posts plugin
+  plugin_posts_source: External source
+  plugin_posts_user: External source username
+  plugin_posts_descriptions: Posts descriptions
+  plugin_posts_covers: Posts cover images
+  plugin_posts_limit: Display limit
+  plugin_wakatime: Enable wakatime plugin
+  plugin_wakatime_token: WakaTime API token
+  plugin_wakatime_url: WakaTime URL
+  plugin_wakatime_user: WakaTime username
+  plugin_wakatime_sections: Displayed sections
+  plugin_wakatime_days: Time range
+  plugin_wakatime_limit: Display limit (entries per graph)
+  plugin_wakatime_languages_other: Other languages
+  plugin_wakatime_languages_ignored: Ignored languages
+  plugin_wakatime_repositories_visibility: Repositories visibility
+  plugin_leetcode: Enable leetcode plug
+  plugin_leetcode_user: LeetCode logi
+  plugin_leetcode_sections: Displayed sections
+  plugin_leetcode_limit_skills: Display limit (skills)
+  plugin_leetcode_ignored_skills: Ignored skills
+  plugin_leetcode_limit_recent: Display limit (recent)
+  plugin_steam: Enable steam plugin
+  plugin_steam_token: Steam token
+  plugin_steam_sections: Displayed sections
+  plugin_steam_user: Steam user id
+  plugin_steam_games_ignored: Ignored games
+  plugin_steam_games_limit: Display limit (Most played games)
+  plugin_steam_recent_games_limit: Display limit (Recently played games)
+  plugin_steam_achievements_limit: Display limit (Games achievements)
+  plugin_steam_playtime_threshold: Display threshold (Game playtime in hours)
+  plugin_16personalities: Enable 16personalities plugin
+  plugin_16personalities_url: Profile URL
+  plugin_16personalities_sections: Displayed sections
+  plugin_16personalities_scores: Display traits scores
+  plugin_chess: Enable chess plugin
+  plugin_chess_token: Chess platform token
+  plugin_chess_user: Chess platform login
+  plugin_chess_platform: Chess platform
+  plugin_chess_animation: Animation settings
+  plugin_fortune: Enable fortune plugin
+  plugin_nightscout: Enable nightscout plugin
+  plugin_nightscout_url: Nightscout URL
+  plugin_nightscout_datapoints: Number of datapoints shown the graph
+  plugin_nightscout_lowalert: Threshold for low blood sugar
+  plugin_nightscout_highalert: Threshold for high blood sugar
+  plugin_nightscout_urgentlowalert: Threshold for urgently low blood sugar
+  plugin_nightscout_urgenthighalert: Threshold for urgently high blood sugar
+  plugin_poopmap: Enable poopmap plugin
+  plugin_poopmap_token: PoopMap API token
+  plugin_poopmap_days: Time range
+  plugin_splatoon: Enable splatoon plugin
+  plugin_splatoon_token: Splatnet token
+  plugin_splatoon_sections: Displayed sections
+  plugin_splatoon_versus_limit: Display limit (Versus)
+  plugin_splatoon_salmon_limit: Display limit (Salmon run)
+  plugin_splatoon_statink: stat.ink integration
+  plugin_splatoon_statink_token: stat.ink token
+  plugin_splatoon_source: Source
+  plugin_stock: Enable stock plugin
+  plugin_stock_token: Yahoo Finance token
+  plugin_stock_symbol: Company stock symbol
+  plugin_stock_duration: Time range
+  plugin_stock_interval: Time interval between points
+-->
