@@ -1,0 +1,9 @@
+query CalendarColors($login: String!) {
+  entity: user(login: $login) {
+    contributions: contributionsCollection {
+      calendar: contributionCalendar {
+        colors
+      }
+    }
+  }
+}

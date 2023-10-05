@@ -1,0 +1,5 @@
+query CalendarUser($login: String!) {
+  entity: user(login: $login) {
+    registration: createdAt
+  }
+}

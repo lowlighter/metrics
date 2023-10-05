@@ -1,0 +1,179 @@
+- name: range last-180-days
+  plugins:
+    - id: calendar
+      args:
+        view: isometric
+        range: last-180-days
+      processors:
+        - id: assert
+          args:
+            select: .calendar .year
+            count: 1=
+        - id: assert
+          args:
+            select: .calendar .year .day
+            count: 180~1
+    - id: calendar
+      args:
+        view: top-down
+        range: last-180-days
+      processors:
+        - id: assert
+          args:
+            select: .calendar .year
+            count: 1=
+        - id: assert
+          args:
+            select: .calendar .year .day
+            count: 180~1
+
+- name: range last-365-days
+  plugins:
+    - id: calendar
+      args:
+        view: isometric
+        range: last-365-days
+      processors:
+        - id: assert
+          args:
+            select: .calendar .year
+            count: 1=
+        - id: assert
+          args:
+            select: .calendar .year .day
+            count: 365~1
+    - id: calendar
+      args:
+        view: top-down
+        range: last-365-days
+      processors:
+        - id: assert
+          args:
+            select: .calendar .year
+            count: 1=
+        - id: assert
+          args:
+            select: .calendar .year .day
+            count: 365~1
+
+- name: range current-year
+  plugins:
+    - id: calendar
+      args:
+        range: current-year
+      processors:
+        - id: assert
+          args:
+            select: .calendar .year
+            count: 1=
+        - id: assert
+          args:
+            select: .calendar .title sub
+            match: /1 jan (\d+) to \d+ \w+ \1/i
+
+- name: range specific year
+  plugins:
+    - id: calendar
+      args:
+        range: 2020
+      processors:
+        - id: assert
+          args:
+            select: .calendar .year
+            count: 1=
+        - id: assert
+          args:
+            select: .calendar .title sub
+            match: /1 jan 2020 to 31 dec 2020/i
+    - id: calendar
+      args:
+        range: 1970
+      processors:
+        - id: assert
+          args:
+            select: .calendar .year
+            count: 1=
+        - id: assert
+          args:
+            select: .calendar .title sub
+            match: /1 jan 1970 to 31 dec 1970/i
+
+- name: range specific years
+  plugins:
+    - id: calendar
+      args:
+        range:
+          from: 2019
+          to: 2020
+      processors:
+        - id: assert
+          args:
+            select: .calendar .year
+            count: 2=
+        - id: assert
+          args:
+            select: .calendar .title sub
+            match: /1 jan 2019 to 31 dec 2020/i
+
+- name: range relative years
+  plugins:
+    - id: calendar
+      args:
+        range:
+          from: -1
+          to: current-year
+      processors:
+        - id: assert
+          args:
+            select: .calendar .year
+            count: 2=
+    - id: calendar
+      args:
+        range:
+          from: -1
+          to: 2020
+      processors:
+        - id: assert
+          args:
+            select: .calendar .year
+            count: 2=
+        - id: assert
+          args:
+            select: .calendar .title sub
+            match: /1 jan 2019 to 31 dec 2020/i
+
+- name: range from registration
+  plugins:
+    - id: calendar
+      args:
+        range:
+          from: registration
+          to: current-year
+      processors:
+        - id: assert
+          args:
+            select: .calendar .year
+            count: 1>=
+
+- name: color schemes
+  plugins:
+    - id: calendar
+      args:
+        view: top-down
+        colors: halloween
+      processors:
+        - id: assert
+          args:
+            select: .calendar svg.render [fill^="var"]
+            match: /fill="var\(--calendar-halloween-L\d\)"/
+            html: true
+    - id: calendar
+      args:
+        view: isometric
+        colors: winter
+      processors:
+        - id: assert
+          args:
+            select: .calendar svg.render [fill^="var"]
+            match: /fill="var\(--calendar-winter-L\d\)"/
+            html: true

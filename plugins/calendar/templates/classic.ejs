@@ -1,0 +1,109 @@
+<section class="calendar">
+  <div class="title">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M4.75 0a.75.75 0 01.75.75V2h5V.75a.75.75 0 011.5 0V2h1.25c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0113.25 16H2.75A1.75 1.75 0 011 14.25V3.75C1 2.784 1.784 2 2.75 2H4V.75A.75.75 0 014.75 0zm0 3.5h8.5a.25.25 0 01.25.25V6h-11V3.75a.25.25 0 01.25-.25h2zm-2.25 4v6.75c0 .138.112.25.25.25h10.5a.25.25 0 00.25-.25V7.5h-11z"></path></svg>
+    Contributions calendar
+    <% if (!(result instanceof Error)) { %>
+      <sub>(<%= format.date(result.range.start) %> to <%= format.date(result.range.end) %>)</sub>
+    <% } %>
+  </div>
+  <div class="body">
+    <% if (result instanceof Error) { %>
+      <div class="error">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M2.343 13.657A8 8 0 1113.657 2.343 8 8 0 012.343 13.657zM6.03 4.97a.75.75 0 00-1.06 1.06L6.94 8 4.97 9.97a.75.75 0 101.06 1.06L8 9.06l1.97 1.97a.75.75 0 101.06-1.06L9.06 8l1.97-1.97a.75.75 0 10-1.06-1.06L8 6.94 6.03 4.97z"></path></svg>
+        <span><%= result.message %></span>
+      </div>
+    <% } else { %>
+      <div class="rows">
+        <% for (const {year, weeks, average, max, streak} of result.calendar.years.reverse()) { %>
+          <div class="<%= {isometric:"columns", "top-down":"rows reverse"}[args.view] ?? "" %> year year-<%= year %>">
+            <aside>
+              <div class="padding"></div>
+                <% if (args.view === "isometric") { const size = 6, height = (weeks.length > 30) ? 290 : 190; let i = 0, j = 0 %>
+                  <svg class="render" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0,0 480,<%= height %>">
+                    <% for (const k of [1, 2]) { %>
+                      <filter id="brightness<%= k %>">
+                        <feComponentTransfer>
+                          <% for (const c of ["R", "G", "B"]) { %>
+                            <feFunc<%= c %> type="linear" slope="<%= 1 - k * 0.4 %>" />
+                          <% } %>
+                        </feComponentTransfer>
+                      </filter>
+                    <% } %>
+                    <g transform="scale(4) translate(12, 0)">
+                      <% for (const {days} of weeks) { j = 0 %>
+                        <g transform="translate(<%= i * 1.7 %>, <%= i %>)">
+                          <% for (const day of days) { if (day) { const ratio = (day.count / max) || 0 %>
+                            <g class="day" transform="translate(<%= j * -1.7 %>, <%= j + (1 - ratio) * size %>)">
+                              <path fill="var(--calendar-<%= result.calendar.colors %>-L<%= day.level %>)" d="M1.7,2 0,1 1.7,0 3.4,1 z" />
+                              <path fill="var(--calendar-<%= result.calendar.colors %>-L<%= day.level %>)" filter="url(#brightness1)" d="M0,1 1.7,2 1.7,<%= 2 + ratio * size %> 0,<%= 1 + ratio * size %> z" />
+                              <path fill="var(--calendar-<%= result.calendar.colors %>-L<%= day.level %>)" filter="url(#brightness2)" d="M1.7,2 3.4,1 3.4,<%= 1 + ratio * size %> 1.7,<%= 2 + ratio * size %> z" />
+                            </g>
+                          <% } j++ } i++ %>
+                        </g>
+                      <% } %>
+                    </g>
+                  </svg>
+                  <%- `<style>.calendar .year-${year} aside:first-child .padding { padding-top: ${height}px; }</style>` %>
+                <% } else if (args.view === "top-down") { %>
+                  <svg class="render" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0,0 795,110">
+                      <% for (const [x, {days}] of Object.entries(weeks)) { %>
+                        <g transform="translate(<%= x*15 %>, 0)">
+                          <% for (const [y, day] of Object.entries(days)) { if (day) { %>
+                            <rect class="day" x="0" y="<%= 4 + (x == 0)*(7-days.length)*15 + y*15 %>" width="11" height="11" fill="var(--calendar-<%= result.calendar.colors %>-L<%= day.level %>)" rx="2" ry="2" />
+                          <% } } %>
+                        </g>
+                      <% } %>
+                  </svg>
+                <% } %>
+            </aside>
+            <aside>
+              <div class="sub title">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M5.75 4h4.5c.966 0 1.75.784 1.75 1.75v4.5A1.75 1.75 0 0 1 10.25 12h-4.5A1.75 1.75 0 0 1 4 10.25v-4.5C4 4.784 4.784 4 5.75 4Z"></path></svg>
+                <%= year %>
+              </div>
+              <div class="<%= {"top-down":"columns reverse"}[args.view] ?? "" %>">
+                <aside class="<%= {"top-down":"rows reverse"}[args.view] ?? "" %>">
+                  <% if (year === new Date().getFullYear()) { %>
+                    <div class="field">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M9.533.753V.752c.217 2.385 1.463 3.626 2.653 4.81C13.37 6.74 14.498 7.863 14.498 10c0 3.5-3 6-6.5 6S1.5 13.512 1.5 10c0-1.298.536-2.56 1.425-3.286.376-.308.862 0 1.035.454C4.46 8.487 5.581 8.419 6 8c.282-.282.341-.811-.003-1.5C4.34 3.187 7.035.75 8.77.146c.39-.137.726.194.763.607ZM7.998 14.5c2.832 0 5-1.98 5-4.5 0-1.463-.68-2.19-1.879-3.383l-.036-.037c-1.013-1.008-2.3-2.29-2.834-4.434-.322.256-.63.579-.864.953-.432.696-.621 1.58-.046 2.73.473.947.67 2.284-.278 3.232-.61.61-1.545.84-2.403.633a2.79 2.79 0 0 1-1.436-.874A3.198 3.198 0 0 0 3 10c0 2.53 2.164 4.5 4.998 4.5Z"></path></svg>
+                      Current streak <%= format.number("day", result.range.streak.current) %>
+                    </div>
+                  <% } %>
+                  <div class="field">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M10.5 7.75a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zm1.43.75a4.002 4.002 0 01-7.86 0H.75a.75.75 0 110-1.5h3.32a4.001 4.001 0 017.86 0h3.32a.75.75 0 110 1.5h-3.32z"></path></svg>
+                    Best streak <%= format.number("day", streak.max) %>
+                  </div>
+                </aside>
+                <aside>
+                  <div class="field">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M3 2.25a.75.75 0 0 1 .75-.75h8.5a.75.75 0 0 1 0 1.5h-8.5A.75.75 0 0 1 3 2.25Zm5.53 2.97 3.75 3.75a.749.749 0 1 1-1.06 1.06L8.75 7.561v6.689a.75.75 0 0 1-1.5 0V7.561L4.78 10.03a.749.749 0 1 1-1.06-1.06l3.75-3.75a.749.749 0 0 1 1.06 0Z"></path></svg>
+                    Highest is <%= format.number(max) %> in a day
+                  </div>
+                  <div class="field">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="m8.177.677 2.896 2.896a.25.25 0 0 1-.177.427H8.75v1.25a.75.75 0 0 1-1.5 0V4H5.104a.25.25 0 0 1-.177-.427L7.823.677a.25.25 0 0 1 .354 0ZM7.25 10.75a.75.75 0 0 1 1.5 0V12h2.146a.25.25 0 0 1 .177.427l-2.896 2.896a.25.25 0 0 1-.354 0l-2.896-2.896A.25.25 0 0 1 5.104 12H7.25v-1.25Zm-5-2a.75.75 0 0 0 0-1.5h-.5a.75.75 0 0 0 0 1.5h.5ZM6 8a.75.75 0 0 1-.75.75h-.5a.75.75 0 0 1 0-1.5h.5A.75.75 0 0 1 6 8Zm2.25.75a.75.75 0 0 0 0-1.5h-.5a.75.75 0 0 0 0 1.5h.5ZM12 8a.75.75 0 0 1-.75.75h-.5a.75.75 0 0 1 0-1.5h.5A.75.75 0 0 1 12 8Zm2.25.75a.75.75 0 0 0 0-1.5h-.5a.75.75 0 0 0 0 1.5h.5Z"></path></svg>
+                    Average at ~<%= format.number(average) %> / day
+                  </div>
+                </aside>
+              </div>
+            </aside>
+          </div>
+        <% } %>
+      </div>
+    <% } %>
+  </div>
+  <% if (args.view === "isometric") { %>
+    <style>
+      .calendar .year > aside:first-child {
+        position: relative;
+      }
+      .calendar .year > aside:first-child svg {
+        position: absolute;
+        top: 0;
+        width: 200%;
+      }
+    </style>
+  <% } %>
+</section>
+
+
+

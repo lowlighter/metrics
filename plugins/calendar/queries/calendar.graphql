@@ -1,0 +1,15 @@
+query Calendar($login: String!, $from: DateTime!, $to: DateTime!) {
+  entity: user(login: $login) {
+    contributions: contributionsCollection(from: $from, to: $to) {
+      calendar: contributionCalendar {
+        weeks {
+          days: contributionDays {
+            count: contributionCount
+            level: contributionLevel
+            date
+          }
+        }
+      }
+    }
+  }
+}
