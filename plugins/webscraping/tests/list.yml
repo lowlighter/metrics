@@ -1,0 +1,47 @@
+- name: scrap image
+  plugins:
+    - id: webscraping
+      args:
+        url: https://metrics.test
+        select: img
+        mode: image
+      processors:
+        - id: assert
+          args:
+            select: .webscraping .title
+            match: example
+        - id: assert
+          args:
+            select: .webscraping img
+            count: 1=
+
+- name: scrap text
+  plugins:
+    - id: webscraping
+      args:
+        url: https://metrics.test
+        select: blockquote
+        mode: text
+        wait: 0.001
+      processors:
+        - id: assert
+          args:
+            select: .webscraping .title
+            match: example
+        - id: assert
+          args:
+            select: .webscraping
+            match: hello world
+
+- name: error
+  plugins:
+    - id: webscraping
+      fatal: false
+      args:
+        url: https://metrics.test
+        select: ">>>"
+      processors:
+        - id: assert
+          args:
+            select: .webscraping
+            error: true
