@@ -1,0 +1,24 @@
+- name: render
+  plugins:
+    - processors:
+        - id: inject.content
+          args:
+            content: ":octocat:"
+        - id: render.gemojis
+        - id: assert
+          args:
+            select: img.gemoji
+            count: 1=
+
+- name: invalid emoji
+  plugins:
+    - processors:
+      - id: inject.content
+        args:
+          content: ":__invalid__:"
+      - id: render.gemojis
+      - id: assert
+        args:
+          select: img.gemoji
+          count: 0=
+          match: ":__invalid__:"
