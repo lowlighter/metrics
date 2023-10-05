@@ -1,0 +1,46 @@
+- name: gists visibility
+  plugins:
+    - id: gists
+      handle: octocat
+      entity: user
+      args:
+        visibility: public
+      processors:
+        - id: assert
+          args:
+            select: .gists .title
+            match: /10 gists/i
+    - id: gists
+      handle: octocat
+      entity: user
+      args:
+        visibility: all
+      processors:
+        - id: assert
+          args:
+            select: .gists .title
+            match: /20 gists/i
+
+- name: gists forks
+  plugins:
+    - id: gists
+      handle: octocat
+      entity: user
+      args:
+        forks: true
+      processors:
+        - id: assert
+          args:
+            select: .gists .title
+            match: /including \d+ forks?/i
+    - id: gists
+      handle: octocat
+      entity: user
+      args:
+        forks: false
+      processors:
+        - id: assert
+          args:
+            select: .gists .title
+            match: /!/including \d+ forks?/i
+

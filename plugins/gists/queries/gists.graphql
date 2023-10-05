@@ -1,0 +1,24 @@
+query Gists($login: String!, $privacy: GistPrivacy!, $cursor: String) {
+  entity: user(login: $login) {
+    gists(after: $cursor, first: 50, orderBy: {field: UPDATED_AT, direction: DESC}, privacy: $privacy) {
+      count: totalCount
+      nodes {
+        stargazers: stargazerCount
+        forked: isFork
+        forks {
+          count: totalCount
+        }
+        files {
+          name
+        }
+        comments {
+          count: totalCount
+        }
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+    }
+  }
+}
