@@ -1,0 +1,61 @@
+- name: match text
+  plugins:
+    - processors:
+        - id: inject.content
+          args:
+            content: <span class="test">hello world</span>
+        - id: assert
+          args:
+            select: .test
+            match: hello world
+        - id: assert
+          args:
+            select: .test
+            match: /hello world/
+        - id: assert
+          args:
+            select: .test
+            match: /!/foo bar/
+
+- name: match html
+  plugins:
+    - processors:
+        - id: inject.content
+          args:
+            content: <span class="test" data-test="true"></span>
+        - id: assert
+          args:
+            select: .test
+            match: /data-test="true"/
+            html: true
+
+- name: count elements
+  plugins:
+    - processors:
+        - id: inject.content
+          args:
+            content: <span class="a"></span>
+        - id: assert
+          args:
+            select: .a
+            count: 1=
+        - id: assert
+          args:
+            select: .a
+            count: 0~1
+        - id: assert
+          args:
+            select: .a
+            count: 1>=
+        - id: assert
+          args:
+            select: .a
+            count: 0>
+        - id: assert
+          args:
+            select: .a
+            count: 1<=
+        - id: assert
+          args:
+            select: .a
+            count: 2<
