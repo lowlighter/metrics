@@ -1,7 +1,7 @@
 <!-- Header -->
 <table>
   <tr><td colspan="2"><a href="/README.md#-plugins">← Back to plugins index</a></td></tr>
-  <tr><th colspan="2"><h3>🧩 Crypto</h3></th></tr>
+  <tr><th colspan="2"><h3>🪙 Crypto</h3></th></tr>
   <tr><td colspan="2" align="center">
     <p>This plugin generates an SVG image containing crypto metrics from a given address. It uses the CoinGecko API to fetch crypto prices.</p>
     <p>For more information, check the <a href="https://www.coingecko.com/vi/api/documentation">CoinGecko API documentation</a>.</p>
