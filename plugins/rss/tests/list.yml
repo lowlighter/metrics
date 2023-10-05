@@ -1,0 +1,23 @@
+- name: feed
+  plugins:
+    - id: rss
+      args:
+        feed: https://metrics.test/rss
+        limit: 1
+      processors:
+        - id: assert
+          args:
+            select: .rss .entry
+            count: 1=
+
+- name: feed with limit disabled
+  plugins:
+    - id: rss
+      args:
+        feed: https://metrics.test/rss
+        limit: null
+      processors:
+        - id: assert
+          args:
+            select: .rss .entry
+            count: 1>=
