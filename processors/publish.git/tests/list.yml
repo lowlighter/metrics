@@ -1,0 +1,16 @@
+[]
+#- name: publish svg
+#  plugins:
+#    - mock: false
+#      processors:
+#        - id: inject.content
+#          args:
+#            content: hello world
+#        - id: render
+#          args:
+#            format: svg
+#        - id: publish.git
+#          args:
+#            commit: null
+#            pullrequest: {}
+#            filename: test.*

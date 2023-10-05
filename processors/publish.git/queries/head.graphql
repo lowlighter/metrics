@@ -1,0 +1,18 @@
+query GitHead($owner: String!, $repo: String!, $branch: String!, $file: String!) {
+  repository(owner: $owner, name: $repo) {
+    branch: object(expression: $branch) {
+    	... on Commit {
+        history(first: 1) {
+          commits: nodes {
+            oid
+          }
+        }
+      }
+    }
+    revision: object(expression: $file) {
+      ... on Blob {
+        oid
+      }
+    }
+  }
+}

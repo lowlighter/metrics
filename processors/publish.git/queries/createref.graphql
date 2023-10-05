@@ -1,0 +1,13 @@
+mutation GitCreateRef($branch: String!, $base: GitObjectID!, $repository: ID!) {
+  mutation: createRef(
+    input: {
+      name: $branch
+      oid: $base
+      repositoryId: $repository
+    }
+  ) {
+    ref {
+      name
+    }
+  }
+}

@@ -1,0 +1,11 @@
+mutation GitCommit($repository: String!, $branch: String!, $message: String!, $path: String!, $contents: Base64String!, $head: GitObjectID!) {
+  mutation: createCommitOnBranch(
+    input: {branch: {repositoryNameWithOwner: $repository, branchName: $branch}, message: {headline: $message}, expectedHeadOid: $head, fileChanges: {additions: [{path: $path, contents: $contents}]}}
+  ) {
+    commit {
+      oid
+    }
+  }
+}
+
+

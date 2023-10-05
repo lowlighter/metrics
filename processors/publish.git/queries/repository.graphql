@@ -1,0 +1,5 @@
+query GitRepository($owner: String!, $repo: String!){
+  repository(owner:$owner, name:$repo) {
+    id
+  }
+}

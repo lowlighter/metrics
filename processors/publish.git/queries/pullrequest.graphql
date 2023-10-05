@@ -1,0 +1,16 @@
+mutation GitPullRequest($title: String!, $message: String!, $base: String!, $head: String!, $repository: ID!) {
+  mutation: createPullRequest(
+    input: {
+      title: $title
+      body: $message
+      maintainerCanModify: true
+      baseRefName: $base
+      headRefName: $head
+      repositoryId: $repository
+    }
+  ) {
+    pullRequest {
+      number
+    }
+  }
+}
