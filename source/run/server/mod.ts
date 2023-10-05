@@ -327,8 +327,7 @@ if (import.meta.main) {
   const config = {} as Record<PropertyKey, unknown>
   try {
     await YAML.parse(await read("metrics.config.yml"))
-  }
-  catch {
+  } catch {
     console.log("metrics.config.yml not found, using default configuration")
   }
   await new Server(config).start()

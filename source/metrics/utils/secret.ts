@@ -12,5 +12,4 @@ export class Secret {
   read() {
     return this.#value
   }
-
 }
