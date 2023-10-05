@@ -1,0 +1,53 @@
+// TODO(@lowlighter): remove legacy when migrated
+{
+  "version": "4.0.0",
+  "imports": {
+    "std/": "https://deno.land/std@0.201.0/",
+    "x/": "https://deno.land/x/",
+    "y/": "https://esm.sh/",
+    "@metrics/": "./metrics/",
+    "@utils/": "./metrics/utils/",
+    "@testing": "./metrics/utils/testing.ts",
+    "@plugin": "./metrics/components/plugin.ts",
+    "@processor": "./metrics/components/processor.ts",
+    "@plugins/": "./plugins/",
+    "@processors/": "./processors/"
+  },
+  "nodeModulesDir": true,
+  "tasks": {
+    "serve": "$(deno run --allow-env run/flags.ts --allow-net=localhost run run/server/mod.ts --watch $0)",
+    "test": "$(deno run --allow-env run/flags.ts test run/mod_test.ts $0)",
+    "coverage": "rm .coverage -rf && deno task test $0 && deno coverage .coverage",
+    "lint": "deno lint",
+    "fmt": "deno fmt",
+    "hook": "deno task lint && deno task fmt --check && deno task test"
+  },
+  "lint": {
+    "rules": {
+      "include": [
+        "ban-untagged-todo",
+        "default-param-last",
+        "eqeqeq",
+        "no-const-assign",
+        "no-eval",
+        "no-sparse-arrays",
+        "no-sync-fn-in-async-fn",
+        "no-throw-literal"
+      ]
+    },
+    "exclude": ["node_modules", ".legacy"]
+  },
+  "fmt": {
+    "lineWidth": 200,
+    "semiColons": false,
+    "exclude": ["node_modules", "CODE_OF_CONDUCT.md", ".legacy", ".coverage", ".test"]
+  },
+  "compilerOptions": {
+    "lib": [
+      "deno.ns",
+      "dom",
+      "dom.asynciterable",
+      "dom.iterable"
+    ]
+  }
+}
