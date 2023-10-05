@@ -1,0 +1,11 @@
+- name: render
+  plugins:
+    - processors:
+        - id: inject.content
+          args:
+            content: 🦕
+        - id: render.twemojis
+        - id: assert
+          args:
+            select: svg.twemoji
+            count: 1=
