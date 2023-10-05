@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Metrics</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="An image generator with 20+ metrics about your GitHub account such as activity, community, repositories, coding habits, website performances, music played, starred topics, etc. that you can put on your profile or elsewhere !">
+    <meta name="author" content="lowlighter">
+    <meta property="og:image" content="/static/opengraph.png">
+    <link rel="icon" href="/static/favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
+  </head>
+  <body x-data="data" class="bg-gray-900 dark:text-white">
+    <header class="bg-white dark:bg-gray-950">
+      <div class="flex h-16 items-center gap-8 px-4 sm:px-6 lg:px-8">
+        <a class="block text-teal-600 dark:text-teal-300" href="/">
+          <span>Metrics <span x-text="version"></span></span>
+        </a>
+        <div class="flex flex-1 items-center justify-end md:justify-between">
+          <div class="hidden md:block"></div>
+          <div class="flex items-center gap-4">
+            <div class="sm:flex sm:gap-4">
+              <template x-if="user.login">
+                <a href="/login/review" class="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 dark:bg-gray-800 dark:text-white dark:hover:text-white/75 sm:flex items-center">
+                  <svg class="mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M10.5 0a5.499 5.499 0 1 1-1.288 10.848l-.932.932a.749.749 0 0 1-.53.22H7v.75a.749.749 0 0 1-.22.53l-.5.5a.749.749 0 0 1-.53.22H5v.75a.749.749 0 0 1-.22.53l-.5.5a.749.749 0 0 1-.53.22h-2A1.75 1.75 0 0 1 0 14.25v-2c0-.199.079-.389.22-.53l4.932-4.932A5.5 5.5 0 0 1 10.5 0Zm-4 5.5c-.001.431.069.86.205 1.269a.75.75 0 0 1-.181.768L1.5 12.56v1.69c0 .138.112.25.25.25h1.69l.06-.06v-1.19a.75.75 0 0 1 .75-.75h1.19l.06-.06v-1.19a.75.75 0 0 1 .75-.75h1.19l1.023-1.025a.75.75 0 0 1 .768-.18A4 4 0 1 0 6.5 5.5ZM11 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>
+                  Review permissions
+                </a>
+              </template>
+              <template x-if="(user.login)&&(false)">
+                <a href="/login/revoke" class="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 dark:bg-gray-800 dark:text-white dark:hover:text-white/75 sm:flex items-center">
+                  <svg class="mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M2 2.75C2 1.784 2.784 1 3.75 1h2.5a.75.75 0 0 1 0 1.5h-2.5a.25.25 0 0 0-.25.25v10.5c0 .138.112.25.25.25h2.5a.75.75 0 0 1 0 1.5h-2.5A1.75 1.75 0 0 1 2 13.25Zm10.44 4.5-1.97-1.97a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215l3.25 3.25a.75.75 0 0 1 0 1.06l-3.25 3.25a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734l1.97-1.97H6.75a.75.75 0 0 1 0-1.5Z"></path></svg>
+                  Sign-out
+                </a>
+              </template>
+              <template x-if="user.login">
+                <li class="text-gray-500 flex items-center transition dark:text-white">
+                  <img :src="user.avatar" class="h-8 w-8 rounded-full object-cover mr-2">
+                  <span x-text="user.login"></span>
+                </li>
+              </template>
+              <template x-if="!user.login">
+                <a href="/login" class="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 dark:bg-gray-800 dark:text-white dark:hover:text-white/75 sm:flex items-center">
+                  <svg class="mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path></svg>
+                  Sign-in with GitHub
+                </a>
+              </template>
+            </div>
+            <button class="block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 dark:bg-gray-800 dark:text-white dark:hover:text-white/75 md:hidden">
+              <span class="sr-only">Toggle menu</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main>
+      <div class="container max-w-screen-xl mx-auto">
+        <section class="text-white">
+          <div class="mx-auto px-4 lg:flex pt-16 pb-2 lg:items-center">
+            <div class="mx-auto text-center">
+              <h1 class="bg-gradient-to-r from-green-300 via-cyan-500 to-purple-600 bg-clip-text text-3xl font-extrabold text-transparent sm:text-5xl" style="line-height: 1.4;">
+                Infographics on demand<br>
+                Designed by you
+              </h1>
+              <p class="mx-auto mt-4 max-w-xl sm:text-xl/relaxed">
+                Craft your own infographics with a large choice of plugins and options, tweak them and share them anywhere!
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="my-8">
+          <fieldset class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <legend class="sr-only">Target</legend>
+            <div class="pointer-events-none opacity-25">
+              <input type="radio" name="target-config" id="target-action" value="action" class="peer hidden"/>
+              <label for="target-action" class="block cursor-pointer rounded-lg border border-gray-100 bg-white dark:bg-black p-4 text-sm font-medium shadow-sm hover:border-gray-200 peer-checked:border-cyan-500 peer-checked:ring-1 peer-checked:ring-cyan-500">
+              <div class="text-gray-700 dark:text-cyan-500 flex items-center">
+                <svg class="mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Zm4.879-2.773 4.264 2.559a.25.25 0 0 1 0 .428l-4.264 2.559A.25.25 0 0 1 6 10.559V5.442a.25.25 0 0 1 .379-.215Z"></path></svg>
+                GitHub Actions
+                <span class="ml-1 rounded-full bg-cyan-100 px-2.5 py-0.5 text-sm text-cyan-700">Soon!</span>
+              </div>
+              <p class="mt-1 text-sm">Generate a <a href="https://github.com/features/actions">GitHub Actions</a> workflow for your repository</p>
+              </label>
+            </div>
+            <div>
+              <input type="radio" name="target-config" id="target-url" value="url" class="peer hidden" checked/>
+              <label for="target-url" class="block cursor-pointer rounded-lg border border-gray-100 bg-white dark:bg-black p-4 text-sm font-medium shadow-sm hover:border-gray-200 peer-checked:border-cyan-500 peer-checked:ring-1 peer-checked:ring-cyan-500">
+              <div class="text-gray-700 dark:text-cyan-500 flex items-center">
+                <svg class="mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+                Web URL
+                <span class="ml-1 rounded-full bg-pink-100 px-2.5 py-0.5 text-sm text-pink-700">Beta</span>
+              </div>
+              <p class="mt-1 text-sm">Create a shareable link that you can embed anywhere</p>
+              </label>
+            </div>
+            <div class="pointer-events-none opacity-25">
+              <input type="radio" name="target-config" id="target-deploy" value="deploy" class="peer hidden"/>
+              <label for="target-deploy" class="block cursor-pointer rounded-lg border border-gray-100 bg-white dark:bg-black p-4 text-sm font-medium shadow-sm hover:border-gray-200 peer-checked:border-cyan-500 peer-checked:ring-1 peer-checked:ring-cyan-500">
+              <div class="text-gray-700 dark:text-cyan-500 flex items-center">
+                <svg class="mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M2 7.25A5.225 5.225 0 0 1 7.25 2a5.222 5.222 0 0 1 4.767 3.029A4.472 4.472 0 0 1 16 9.5c0 2.505-1.995 4.5-4.5 4.5h-8A3.474 3.474 0 0 1 0 10.5c0-1.41.809-2.614 2.001-3.17Zm1.54.482a.75.75 0 0 1-.556.832c-.86.22-1.484.987-1.484 1.936 0 1.124.876 2 2 2h8c1.676 0 3-1.324 3-3s-1.324-3-3-3a.75.75 0 0 1-.709-.504A3.72 3.72 0 0 0 7.25 3.5C5.16 3.5 3.5 5.16 3.5 7.25c.002.146.014.292.035.436l.004.036.001.008Z"></path></svg>
+                Deploy
+                <span class="ml-1 rounded-full bg-cyan-100 px-2.5 py-0.5 text-sm text-cyan-700">Soon!</span>
+              </div>
+              <p class="mt-1 text-sm">Create a configuration file for self-hosted solutions</p>
+              </label>
+            </div>
+          </fieldset>
+        </section>
+
+        <section>
+          <div class="container max-w-screen-sm mx-auto relative">
+            <span class="pointer-events-none absolute inset-y-0 start-0 ml-2 grid w-10 place-content-center text-white">
+              <svg class="h-8 w-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path></svg>
+            </span>
+            <input type="text" name="handle" id="handle" placeholder="GitHub username or repository" x-model="$store.craft.handle" class="text-2xl px-6 pl-14 py-4 my-1.5 w-full rounded-lg border-gray-300 text-gray-700 bg-gray-100 dark:bg-gray-800 dark:text-white"/>
+          </div>
+        </section>
+
+        <section>
+          <template x-for="(plugin, i) of $store.craft.plugins">
+            <article :data-plugin="i" class="mt-4 rounded-3xl grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
+              <div class="rounded-lg border-2 dark:bg-gray-950">
+                <div class="p-4 sm:p-6 sm:pt-2">
+                  <nav class="flex gap-6 mb-2" aria-label="Tabs">
+                    <template x-if="plugin.edit === 'ui'">
+                      <div @click="$store.craft.setEditMode('code', i)" class="flex cursor-pointer items-center rounded-lg p-2 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-cyan-500">
+                        <svg class="mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M0 2.75C0 1.784.784 1 1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0 1 14.25 15H1.75A1.75 1.75 0 0 1 0 13.25Zm1.75-.25a.25.25 0 0 0-.25.25v10.5c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25V2.75a.25.25 0 0 0-.25-.25ZM7.25 8a.749.749 0 0 1-.22.53l-2.25 2.25a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L5.44 8 3.72 6.28a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215l2.25 2.25c.141.14.22.331.22.53Zm1.5 1.5h3a.75.75 0 0 1 0 1.5h-3a.75.75 0 0 1 0-1.5Z"></path></svg>
+                        Edit as code
+                      </div>
+                    </template>
+                    <template x-if="plugin.edit === 'code'">
+                      <div @click="$store.craft.setEditMode('ui', i)" class="flex cursor-pointer items-center rounded-lg p-2 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-cyan-500">
+                        <svg class="mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M0 2.75C0 1.784.784 1 1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0 1 14.25 15H1.75A1.75 1.75 0 0 1 0 13.25ZM14.5 6h-13v7.25c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25Zm-6-3.5v2h6V2.75a.25.25 0 0 0-.25-.25ZM5 2.5v2h2v-2Zm-3.25 0a.25.25 0 0 0-.25.25V4.5h2v-2Z"></path></svg>
+                        Edit with UI
+                      </div>
+                    </template>
+                    <div @click="$store.craft.removePlugin(i)" class="flex cursor-pointer items-center rounded-lg p-2 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-cyan-500">
+                      <svg class="mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M11 1.75V3h2.25a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1 0-1.5H5V1.75C5 .784 5.784 0 6.75 0h2.5C10.216 0 11 .784 11 1.75ZM4.496 6.675l.66 6.6a.25.25 0 0 0 .249.225h5.19a.25.25 0 0 0 .249-.225l.66-6.6a.75.75 0 0 1 1.492.149l-.66 6.6A1.748 1.748 0 0 1 10.595 15h-5.19a1.75 1.75 0 0 1-1.741-1.575l-.66-6.6a.75.75 0 1 1 1.492-.15ZM6.5 1.75V3h3V1.75a.25.25 0 0 0-.25-.25h-2.5a.25.25 0 0 0-.25.25Z"></path></svg>
+                      Remove
+                    </div>
+                    <div @click="$store.craft.craftConfig(i)" class="flex cursor-pointer items-center rounded-lg p-2 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-cyan-500">
+                      <svg class="mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Zm4.879-2.773 4.264 2.559a.25.25 0 0 1 0 .428l-4.264 2.559A.25.25 0 0 1 6 10.559V5.442a.25.25 0 0 1 .379-.215Z"></path></svg>
+                      Render
+                    </div>
+                  </nav>
+                  <h3 x-text="plugin.name" class="sm:text-lg"></h3>
+                  <h4 x-text="plugin.description" class="mb-3 opacity-75"></h4>
+                  <form>
+                    <x-schema-inputs x-data="{inputs:plugin.inputs, path:[i, 'args']}"></x-schema-inputs>
+                  </form>
+                  <template x-for="(processor, j) of plugin.processors">
+                    <div class="rounded-lg border-2 mb-2">
+                      <div class="p-4 sm:p-6 sm:pt-2">
+                        <nav class="flex gap-6 mb-2" aria-label="Tabs">
+                          <div @click="$store.craft.removeProcessor(i, j)" class="flex cursor-pointer items-center rounded-lg p-2 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-cyan-500">
+                            <svg class="mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M11 1.75V3h2.25a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1 0-1.5H5V1.75C5 .784 5.784 0 6.75 0h2.5C10.216 0 11 .784 11 1.75ZM4.496 6.675l.66 6.6a.25.25 0 0 0 .249.225h5.19a.25.25 0 0 0 .249-.225l.66-6.6a.75.75 0 0 1 1.492.149l-.66 6.6A1.748 1.748 0 0 1 10.595 15h-5.19a1.75 1.75 0 0 1-1.741-1.575l-.66-6.6a.75.75 0 1 1 1.492-.15ZM6.5 1.75V3h3V1.75a.25.25 0 0 0-.25-.25h-2.5a.25.25 0 0 0-.25.25Z"></path></svg>
+                            Remove
+                          </div>
+                        </nav>
+                        <h3 x-text="processor.name" class="sm:text-lg"></h3>
+                        <h4 x-text="processor.description" class="mb-3 opacity-75"></h4>
+                        <form>
+                          <x-schema-inputs x-data="{inputs:processor.inputs, path:[`processors[${j}]`, 'args']}"></x-schema-inputs>
+                        </form>
+                      </div>
+                    </div>
+                  </template>
+                  <div class="rounded-lg border-2 border-dashed mt-4">
+                    <div class="p-4 sm:p-6">
+                      <h3 class="sm:text-lg">Add a processor</h3>
+                      <ul class="p-2">
+                        <template x-for="processor of processors">
+                          <li>
+                            <div class="block rounded-lg px-4 py-2 text-sm font-medium text-cyan-600 cursor-pointer hover:bg-gray-100 hover:text-cyan-500" @click="$store.craft.addProcessor(processor, i)">
+                              <div x-text="processor.name"></div>
+                            </div>
+                          </li>
+                        </template>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="preview relative rounded-lg bg-gray-50 dark:bg-slate-950 overflow-hidden">
+                <div class="absolute">
+                  <img src="" alt="" class="m-2" x-init="$store.craft.craftConfig(i)">
+                </div>
+              </div>
+            </article>
+          </template>
+          <article class="mt-4 rounded-3xl grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
+            <div class="rounded-lg border-2 border-dashed dark:bg-gray-950">
+              <div class="p-4 sm:p-6">
+                <h3 class="sm:text-lg">Add a plugin</h3>
+                <ul class="p-2">
+                  <template x-for="plugin of plugins">
+                    <li>
+                      <div class="block rounded-lg px-4 py-2 text-sm font-medium text-cyan-600 hover:bg-gray-100 cursor-pointer hover:text-cyan-500" @click="$store.craft.addPlugin(plugin)">
+                        <div x-text="plugin.name"></div>
+                      </div>
+                    </li>
+                  </template>
+                </ul>
+              </div>
+            </div>
+            <div class="preview rounded-lg bg-gray-50 dark:bg-slate-950 overflow-hidden"></div>
+          </article>
+        </section>
+
+
+        <section>
+          <div class="preview rounded-lg bg-gray-50 dark:bg-slate-950 mt-8 p-4">
+            <pre><code class="language-yaml" x-html="$store.craft.getUrl()"></code></pre>
+          </div>
+        </section>
+
+        <section>
+          <div class="preview rounded-lg bg-gray-50 dark:bg-slate-950 mt-8 p-4">
+            <pre><code class="language-yaml" x-html="$store.craft.getConfig()"></code></pre>
+          </div>
+        </section>
+    </main>
+
+
+    <footer class="mt-16 bg-gray-100 dark:bg-gray-950">
+      <div class="mx-auto max-w-5xl px-4 pt-16 py-8 sm:px-6 lg:px-8">
+        <ul class="mt-4 flex flex-wrap justify-center gap-6 md:gap-8 lg:gap-12">
+          <li>
+            <a class="text-cyan-500 transition hover:text-cyan-500/75" href="https://github.com/lowlighter/metrics">
+              Repository
+            </a>
+          </li>
+          <li>
+            <a class="text-cyan-500 transition hover:text-cyan-500/75" href="https://github.com/lowlighter/metrics/blob/main/LICENSE">
+              License
+            </a>
+          </li>
+          <li>
+            <a class="text-cyan-500 transition hover:text-cyan-500/75" href="https://github.com/marketplace/actions/metrics-embed">
+              GitHub Action
+            </a>
+          </li>
+          <li>
+            <a class="text-cyan-500 transition hover:text-cyan-500/75" href="https://github.com/sponsors/lowlighter">
+              Sponsor
+            </a>
+          </li>
+        </ul>
+      </div>
+    </footer>
+
+
+
+
+
+
+
+    <template x-component="schema-inputs">
+      <div>
+        <template x-for="(input, name) in inputs.properties">
+          <template x-if="name !== '_'">
+            <div>
+              <label :for="[...path, name].join('.')" class="mt-2">
+                <div class="font-bold">
+                  <span x-text="[...path, name].slice(1).join('.')"></span>
+                  <template x-if="'format' in input">
+                    <span class="rounded-full bg-purple-100 px-2.5 py-0.5 text-sm text-purple-700"><span x-text="{uri:'url'}[input.format]"></span></span>
+                  </template>
+                  <template x-if="'const' in input">
+                    <span class="rounded-full bg-purple-100 px-2.5 py-0.5 text-sm text-purple-700">const</span>
+                  </template>
+                  <template x-if="'integer' in input">
+                    <span class="rounded-full bg-purple-100 px-2.5 py-0.5 text-sm text-purple-700">integer</span>
+                  </template>
+                  <template x-if="'exclusiveMinimum' in input">
+                    <span class="rounded-full bg-purple-100 px-2.5 py-0.5 text-sm text-purple-700">&gt; <span x-text="input.exclusiveMinimum"></span></span>
+                  </template>
+                  <template x-if="'minimum' in input">
+                    <span class="rounded-full bg-purple-100 px-2.5 py-0.5 text-sm text-purple-700">≥ <span x-text="input.minimum"></span></span>
+                  </template>
+                  <template x-if="'exclusiveMaximum' in input">
+                    <span class="rounded-full bg-purple-100 px-2.5 py-0.5 text-sm text-purple-700">&lt; <span x-text="input.exclusiveMaximum"></span></span>
+                  </template>
+                  <template x-if="'maximum' in input">
+                    <span class="rounded-full bg-purple-100 px-2.5 py-0.5 text-sm text-purple-700">≤ <span x-text="input.maximum"></span></span>
+                  </template>
+                  <template x-if="(input.type === 'null')">
+                    <span class="whitespace-nowrap rounded-full bg-gray-100 px-2.5 py-0.5 text-sm text-gray-700">null</span>
+                  </template>
+                </div>
+                <div class="italic opacity-75 mb-1" x-text="input.description"></div>
+              </label>
+              <template x-if="(input.type === 'string')&&(input.enum)">
+                <select :name="[...path, name].join('.')" :id="[...path, name].join('.')" :value="input.default" class="px-2.5 py-1.5 my-1.5 w-full rounded-lg border-gray-300 text-gray-700 bg-gray-100 dark:bg-gray-800 dark:text-white">
+                  <template x-for="value in input.enum">
+                    <option :value="value" x-text="value"></option>
+                  </template>
+                </select>
+              </template>
+              <template x-if="(input.type === 'string')&&(!input.enum)&&(!input.const)">
+                <input :type="{uri:'url'}[input.format] ?? 'text'" :name="[...path, name].join('.')" :id="[...path, name].join('.')" :value="input.default" class="px-2.5 py-1.5 my-1.5 w-full rounded-lg border-gray-300 text-gray-700 bg-gray-100 dark:bg-gray-800 dark:text-white"/>
+              </template>
+              <template x-if="(input.type === 'string')&&(!input.enum)&&(input.const)">
+                <input type="text" :name="[...path, name].join('.')" :id="[...path, name].join('.')" :value="input.const" disabled class="px-2.5 py-1.5 my-1.5 w-full rounded-lg border-gray-300 text-gray-700 bg-gray-100 dark:bg-gray-800 dark:text-white"/>
+              </template>
+              <template x-if="(input.type === 'number')||(input.type === 'integer')">
+                <input type="number" :name="[...path, name].join('.')" :id="[...path, name].join('.')" :value="input.default ?? input.minimum ?? input.maximum ?? ('exclusiveMinimum' in input ? input.exclusiveMinimum + 1 : null) ?? ('exclusiveMaximum' in input ? input.exclusiveMaximum - 1 : null) ?? 0" :min="'exclusiveMinimum' in input ? input.exclusiveMinimum + 1 : input.minimum" :max="'exclusiveMaximum' in input ? input.exclusiveMaximum - 1 : input.maximum" class="px-2.5 py-1.5 mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 bg-gray-100 dark:bg-gray-800 dark:text-white"/>
+              </template>
+              <template x-if="(input.type === 'object')">
+                <div class="p-4 w-full rounded-md border-gray-100">
+                  <x-schema-inputs class="w-full" x-data="{inputs:input, path:[...path, name]}"></x-schema-inputs>
+                </div>
+              </template>
+              <template x-if="(input.type === 'boolean')">
+                <label :for="[...path, name].join('.')" class="inline-block relative h-6 w-12 cursor-pointer">
+                  <input type="checkbox" :name="[...path, name].join('.')" :id="[...path, name].join('.')" :checked="input.default" class="peer sr-only" />
+                  <span class="absolute inset-0 rounded-full bg-gray-100 dark:bg-gray-800 transition peer-checked:bg-green-500"></span>
+                  <span class="absolute inset-y-0 start-0 m-1 h-4 w-4 rounded-full bg-white transition-all peer-checked:start-6"></span>
+                </label>
+              </template>
+              <template x-if="(input.type === 'null')">
+                <input type="hidden" :name="[...path, name].join('.')" :id="[...path, name].join('.')" value="null" />
+              </template>
+              <template x-if="input.anyOf">
+                <fieldset>
+                  <legend class="sr-only" x-text="[...path, name, '$'].join('.')"></legend>
+                  <template x-for="(value, i) of input.anyOf">
+                    <div>
+                      <input type="radio" :name="[...path, name, '$'].join('.')" :id="[...path, name, `$${i}`].join('.')" :value="i" :checked="!i" class="peer hidden"/>
+                      <label :for="[...path, name, `$${i}`].join('.')" class="flex cursor-pointer items-center justify-between rounded-lg mb-2 border-2 border-gray-100 bg-white dark:bg-black p-4 text-sm font-medium border-2 hover:border-gray-200 peer-checked:border-cyan-500 peer-checked:ring-1 peer-checked:ring-cyan-500">
+                        <x-schema-inputs class="w-full" x-data="{inputs:{properties:{[name]:value}}, path}"></x-schema-inputs>
+                      </label>
+                    </div>
+                  </template>
+                </fieldset>
+              </template>
+            </div>
+          </template>
+        </template>
+        <!-- <pre x-text="JSON.stringify(inputs.properties, null, 2)"></pre> -->
+      </div>
+    </template>
+
+
+    <script type="module">
+      import Alpine from 'https://esm.sh/alpinejs@3.13.0'
+      import * as YAML from "https://esm.sh/js-yaml@4.1.0";
+      import hljs from "https://esm.sh/highlight.js@11.8.0/lib/core";
+      import hlyaml from "https://esm.sh/highlight.js@11.8.0/lib/languages/yaml";
+      hljs.registerLanguage('yaml', hlyaml);
+
+      document.querySelectorAll('[x-component]').forEach(component => {
+        customElements.define(`x-${component.getAttribute("x-component")}`, class extends HTMLElement {
+          connectedCallback() {
+            this.append(component.content.cloneNode(true))
+          }
+          data() {
+            return Object.fromEntries(this.getAttributeNames().map(attribute => [attribute, this.getAttribute(attribute)]))
+          }
+        })
+      })
+
+      /*
+   timezone: true,
+    handle: true,
+    entity: true,
+    template: true,
+    preset: true,
+    fatal: true,
+      */
+
+      const data = await fetch('/metadata').then(response => response.json())
+      data.user = await fetch('/me').then(response => response.json()).catch(() => ({login:null}))
+      console.log(data)
+      Alpine.data('data', () => data)
+
+      Alpine.store("craft", {
+        handle:"",
+        plugins:[],
+        addPlugin(plugin) {
+          this.plugins.push({...plugin, processors:[], edit:"ui"})
+        },
+        removePlugin(i) {
+          this.plugins.splice(i, 1)
+        },
+        addProcessor(processor, i) {
+          this.plugins[i].processors.push(processor)
+        },
+        removeProcessor(i, j) {
+          this.plugins[i].processors.splice(j, 1)
+        },
+        setEditMode(mode, i) {
+          this.plugins[i].edit = mode
+        },
+
+        async craftConfig(index) {
+          const config = {handle:this.handle, plugins:[]}
+
+          for (let i = 0; i < this.plugins.length; i++) {
+            const plugin = {id:this.plugins[i].id, args:{}, processors:[]}
+            const inputs = document.querySelectorAll(`[data-plugin="${i}"] input, [data-plugin="${i}"] select`)
+            let skip = ""
+            for (const input of inputs) {
+              console.log(input.name, input.value, skip)
+              const [_, ...parts] = input.name.split(".")
+              let at = plugin
+              if (/^processors\[(\d+)\]$/.test(_)) {
+                const j = Number(_.match(/^processors\[(\d+)\]$/)[1])
+                plugin.processors[j] ??= {id:this.plugins[i].processors[j].id, args:{}}
+                at = plugin.processors[j]
+              }
+              const last = parts.pop()
+              if (last === "$") {
+                skip = (!input.checked) ? [_, ...parts].join(".") : ""
+                continue
+              }
+              if ((skip)&&(input.name.startsWith(skip)))
+                continue
+              skip = ""
+              console.log(">>>>> setting", input.name, "to", input.value)
+              for (const part of parts) {
+                at[part] ??= {}
+                at = at[part]
+              }
+              switch (input.type) {
+                case "number":
+                  at[last] = Number(input.value)
+                  break
+                case "checkbox":
+                  at[last] = input.checked
+                  break
+                case "hidden":
+                  at[last] = JSON.parse(input.value)
+                  break
+                default:
+                  at[last] = input.value
+              }
+            }
+            config.plugins[i] = plugin
+            console.log(YAML.dump(config))
+          }
+          if (typeof index === "number")
+            return config.plugins[index]
+//              document.querySelector(`[data-plugin="${i}"] .preview img`).src = `/preview?plugins=${JSON.stringify(config.plugins)}&t=${Date.now()}`
+
+          return config
+        },
+        async getUrl({preview = false, time = false} = {}) {
+          const {plugins} = await this.craftConfig()
+          const handle = preview ? "preview" : this.handle || "preview"
+          const params = new URLSearchParams({plugins:JSON.stringify(plugins)})
+          if (time)
+            params.set("t", Date.now())
+          return `${window.origin}/${handle}?${params}`
+        },
+        async getConfig() {
+          return hljs.highlight(YAML.dump(await this.craftConfig()), { language: 'yaml' }).value
+        },
+
+      })
+
+
+      Alpine.start()
+
+
+
+    </script>
+
+  </body>
+</html>
