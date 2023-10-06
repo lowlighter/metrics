@@ -1,5 +1,6 @@
 // TODO(@lowlighter): remove legacy when migrated
 {
+  "deno.enable": true,
   "version": "4.0.0",
   "imports": {
     "std/": "https://deno.land/std@0.201.0/",
@@ -17,14 +18,15 @@
   "lock": false,
   "nodeModulesDir": true,
   "tasks": {
-    "serve": "$(deno run --allow-env source/run/flags.ts --allow-net=localhost run source/run/server/mod.ts --watch $0)",
-    "test": "$(deno run --allow-env source/run/flags.ts test source/run/mod_test.ts $0)",
+    "serve": "$(deno run --allow-env --allow-read source/run/flags.ts --allow-net=localhost run source/run/server/mod.ts --watch $0)",
+    "test": "$(deno run --allow-env --allow-read source/run/flags.ts test source/run/mod_test.ts $0)",
     "coverage": "rm .coverage -rf && deno task test $0 && deno coverage .coverage",
     "lint": "deno lint",
     "fmt": "deno fmt",
     "hook": "deno task lint && deno task fmt --check && deno task test",
+    "browser": "$(deno run --allow-env --allow-read source/run/flags.ts run source/metrics/utils/browser.ts $0)",
     "deploy": "deployctl deploy --project=metrics --include=source,deno.jsonc,LICENSE --prod source/run/server/mod.ts",
-    "deploy:imports": "$(deno run --allow-env source/run/flags.ts test source/run/server/mod_imports.ts $0)"
+    "deploy:imports": "$(deno run --allow-env --allow-read source/run/flags.ts test source/run/server/mod_imports.ts $0)"
   },
   "lint": {
     "rules": {

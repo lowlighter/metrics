@@ -21,39 +21,39 @@ const secret = is.preprocess((value) => value instanceof Secret ? value : new Se
 
 /** Internal component config */
 export const internal = is.object({
-  logs: is.enum(["none", "error", "warn", "info", "message", "debug", "trace"]),
+  logs: is.enum(["none", "error", "warn", "info", "message", "debug", "trace"]).describe("Log level"),
 })
 
 /** General component config */
 export const component = internal.extend({
-  id: is.string(),
+  id: is.string().describe("Component identifier"),
   retries: is.object({
-    attempts: is.coerce.number().min(1).max(100),
-    delay: is.coerce.number().min(0).max(3600),
-  }),
-  fatal: is.coerce.boolean(),
+    attempts: is.number().int().positive().describe("Number of attempts"),
+    delay: is.number().positive().describe("Delay between attempts (in seconds)"),
+  }).describe("Retry policy"),
+  fatal: is.boolean().describe("Whether to stop on error"),
 })
 
 /** Requests component config */
 export const requests = internal.extend({
-  mock: is.coerce.boolean(),
-  api: is.coerce.string(),
-  token: secret,
-  timezone: is.coerce.string(),
+  mock: is.boolean().describe("Whether to use mocked data"),
+  api: is.string().url().describe("GitHub API endpoint"),
+  token: secret.describe("GitHub token"),
+  timezone: is.string().describe("Timezone"),
 })
 
 /** Plugin component internal config (without processors, for recursive typing) */
 const __plugin = component.merge(requests).extend({
-  handle: is.coerce.string(),
-  entity: is.enum(entities),
-  template: is.coerce.string(),
-  render: is.coerce.boolean(),
-  args: is.record(is.coerce.string(), is.unknown()),
+  handle: is.coerce.string().describe("Entity handle"),
+  entity: is.enum(entities).describe("Entity type"),
+  template: is.coerce.string().describe("Template name"),
+  render: is.boolean().describe("Whether to render template"),
+  args: is.record(is.string(), is.unknown()).describe("Plugin arguments"),
 })
 
 /** Processor component internal config */
 const _processor = component.extend({
-  args: is.record(is.coerce.string(), is.unknown()),
+  args: is.record(is.string(), is.unknown()).describe("Processor arguments"),
   parent: __plugin,
 })
 
@@ -65,7 +65,7 @@ const _preset_processor = is.object({
     attempts: _processor.shape.retries.shape.attempts.default(1),
     delay: _processor.shape.retries.shape.delay.default(120),
   }).default(() => ({})),
-  args: is.record(is.coerce.string(), is.unknown()).default(() => ({})),
+  args: _processor.shape.args.default(() => ({})),
 })
 
 /** Processor component config */
@@ -73,7 +73,7 @@ export const processor = is.preprocess((value) => _preset_processor.passthrough(
 
 /** Plugin component internal config */
 const _plugin = __plugin.extend({
-  processors: is.array(processor),
+  processors: is.array(processor).describe("Processors"),
 })
 
 /** Plugin NOP internal config */
@@ -96,7 +96,7 @@ const _preset_plugin = is.object({
     attempts: _plugin.shape.retries.shape.attempts.default(3),
     delay: _plugin.shape.retries.shape.delay.default(120),
   }).default(() => ({})),
-  args: is.record(is.coerce.string(), is.unknown()).default(() => ({})),
+  args: _plugin.shape.args.default(() => ({})),
 })
 
 /** Plugin component config */
@@ -107,14 +107,14 @@ export const plugin_nop = is.preprocess((value) => _preset_plugin.passthrough().
 
 /** Preset component config */
 const preset = is.object({
-  plugins: _preset_plugin.default(() => _preset_plugin.parse({})),
-  processors: _preset_processor.default(() => _preset_processor.parse({})),
+  plugins: _preset_plugin.default(() => _preset_plugin.parse({})).describe("Default settings for plugins using this preset"),
+  processors: _preset_processor.default(() => _preset_processor.parse({})).describe("Default settings for processors using this preset"),
 })
 
 /** Internal config */
 const _config = is.object({
-  plugins: is.array(is.union([plugin, plugin_nop])),
-  presets: is.record(is.coerce.string(), preset),
+  plugins: is.array(is.union([plugin, plugin_nop])).describe("Plugins"),
+  presets: is.record(is.string(), preset).describe("Presets settings"),
 })
 
 /** Config */
@@ -144,29 +144,47 @@ export const config = is.preprocess((_value) => {
 /** Action config */
 export const action = internal.merge(requests).extend({
   logs: internal.shape.logs.default(loglevel.action),
-  check_updates: is.boolean().default(false),
-  config: config.default(() => ({})),
+  check_updates: is.boolean().default(false).describe("Whether to check for updates"),
+  config: config.default(() => ({})).describe("Configuration"),
 })
 
 /** Server config */
 export const server = internal.extend({
   logs: internal.shape.logs.default(loglevel.server),
-  hostname: is.coerce.string().default("localhost"),
-  port: is.coerce.number().min(1).max(65535).default(8080),
-  config: config.default(() => ({})),
-  users: is.object({
-    allowed: is.union([is.literal("all"), is.array(is.coerce.string())]).default("all"),
+  hostname: is.string().default("localhost").describe("Server hostname"),
+  port: is.number().int().min(1).max(65535).default(8080).describe("Server port"),
+  config: config.default(() => ({})).describe("Configuration"),
+  limit: is.object({
+    guests: is.object({
+      max: is.number().int().min(0).optional().describe("Maximum number of guests"),
+      requests: is.object({
+        limit: is.number().int().positive().default(60).describe("Maximum number of requests per window duration per guest"),
+        duration: is.number().positive().default(60).describe("Window duration (in seconds)"),
+        ignore_mocked: is.boolean().default(true).describe("Whether to ignore mocked requests from rate limit"),
+      }).optional().describe("Rate limit for guests"),
+    }).optional().describe("Guests limitations"),
+    users: is.object({
+      max: is.number().int().min(0).optional().describe("Maximum number of logged users"),
+      requests: is.object({
+        limit: is.number().int().positive().default(60).describe("Maximum number of requests per window duration per logged user"),
+        duration: is.number().positive().default(60).describe("Window duration (in seconds)"),
+        ignore_mocked: is.boolean().default(true).describe("Whether to ignore mocked requests from rate limit"),
+      }).optional().describe("Rate limit for logged users"),
+    }).optional().describe("Logged users limitations"),
   }).default(() => ({})),
+  cache: is.number().int().positive().optional().describe("Cache duration for processed requests (in seconds)"),
   github_app: is.object({
-    id: is.coerce.number(),
-    private_key_path: is.coerce.string(),
-    client_id: is.coerce.string(),
-    client_secret: secret.default(env.get("METRICS_GITHUB_APP_SECRET") ?? ""),
-  }).nullable().optional(),
+    id: is.number().int().positive().describe("GitHub app identifier"),
+    private_key_path: is.string().describe("Path to GitHub app private key file (must be in PKCS#8 format)"),
+    client_id: is.string().describe("GitHub app client identifier"),
+    client_secret: secret.default(env.get("METRICS_GITHUB_APP_SECRET") ?? "").describe("GitHub app client secret"),
+  }).optional().describe("GitHub app settings"),
+  control: is.record(is.string(), is.array(is.enum(["stop"]))).default(() => ({})).describe("Control profiles. Each profile is designed by a token bearer and a list of allowed routes"),
 })
 
 /** Web request config */
 export const webrequest = is.object({
+  mock: is.boolean().default(false).describe("Whether to use mocked data"),
   plugins: is.array(
     _plugin.pick({
       id: true,
@@ -181,5 +199,5 @@ export const webrequest = is.object({
       .extend({
         processors: is.array(_processor.pick({ id: true, fatal: true, args: true }).partial().extend({ id: _plugin.shape.id })),
       }).partial(),
-  ).default(() => []),
+  ).default(() => []).describe("Plugins"),
 })

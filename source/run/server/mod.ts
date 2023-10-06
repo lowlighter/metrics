@@ -3,7 +3,7 @@ import { serveListener } from "std/http/server.ts"
 import { server as schema, webrequest } from "@metrics/config.ts"
 import { process } from "@metrics/process.ts"
 import { is } from "@utils/validator.ts"
-import { listen, read } from "@utils/io.ts"
+import { KV, listen, read } from "@utils/io.ts"
 import { Internal } from "@metrics/components/internal.ts"
 import * as YAML from "std/yaml/mod.ts"
 import { parseHandle } from "@utils/parse.ts"
@@ -14,10 +14,12 @@ import { Status } from "std/http/http_status.ts"
 import { metadata } from "@metrics/metadata.ts"
 import { deferred } from "std/async/deferred.ts"
 import { deepMerge } from "std/collections/deep_merge.ts"
-import { formats } from "@processors/render/mod.ts"
 import { getCookies, setCookie } from "std/http/cookie.ts"
-import { formatValidationError, throws } from "@utils/errors.ts"
+import { formatValidationError } from "@utils/errors.ts"
 import { Secret } from "@utils/secret.ts"
+import { Requests } from "@metrics/components/requests.ts"
+import { App } from "y/@octokit/app@14.0.0"
+import { bundle } from "x/emit@0.24.0/mod.ts"
 try {
   await import("./imports.ts")
 } catch { /* Ignore */ }
@@ -33,36 +35,56 @@ class Server extends Internal {
   /** Constructor */
   constructor(context = {} as Record<PropertyKey, unknown>) {
     super(schema.parse(context))
+    if (this.context.github_app) {
+      this.log.info(`loaded github app: ${this.context.github_app.id}`)
+      this.#app = new App({
+        appId: this.context.github_app.id,
+        privateKey: read(this.context.github_app.private_key_path, { sync: true }),
+        oauth: {
+          clientId: this.context.github_app.client_id,
+          clientSecret: this.context.github_app.client_secret.read(),
+        },
+      })
+    }
+    this.#kv = new KV()
+    console.log(this.context)
   }
+
+  /** KV */
+  readonly #kv
+
+  /** GitHub app */
+  readonly #app = null as App | null
 
   /** Routes */
   protected readonly routes = {
     index: /^\/(?:index\.html)?$/,
     favicon: /^\/favicon\.(?:ico|png)$/,
     metrics: /^\/(?<handle>[-\w]+(?:\/[-\w]+)?)(?:\.(?<ext>svg|png|jpg|jpeg|webp|json|html))?$/,
-    control: /^\/metrics\/$/,
-    login: /^\/login(?<action>\/(?:authorize|review)?)?$/,
+    control: /^\/metrics\/(?<action>\w+)$/,
+    login: /^\/login(?<action>\/(?:authorize|review|revoke)?)?$/,
     me: /^\/me$/,
+    ratelimit: /^\/ratelimit$/,
   }
 
   /** Start server */
   start() {
     this.log.info(`listening on ${this.context.hostname}:${this.context.port}`)
-    return serveListener(listen({ hostname: this.context.hostname, port: this.context.port }), (request) => this.handle(request))
+    return serveListener(listen({ hostname: this.context.hostname, port: this.context.port }), (request, connection) => this.handle(request, connection))
   }
 
   /** Metadata */
   #metadata = null as unknown
 
   /** Request handler */
-  protected async handle(request: Request) {
-    const kv = Deno.env.get("DENO_DEPLOYMENT_ID") ? await Deno.openKv() : await Deno.openKv(".kv")
+  protected async handle(request: Request, { remoteAddr: { hostname: from } } = { remoteAddr: { hostname: "unknown" } }) {
     const url = new URL(request.url)
     const cookies = getCookies(request.headers)
     const { metrics_session: session = null } = cookies
-    const log = session ? this.log.with({ session }) : this.log
+    const log = this.log.with({ from, ...(session ? { session } : null) })
     log.io(`${request.method} ${url.pathname}`)
     const pending = new Map<string, Promise<Response>>()
+    await this.#kv.ready
     routing: switch (request.method) {
       case "GET": {
         switch (true) {
@@ -73,6 +95,12 @@ class Server extends Internal {
           // Serve favicon
           case this.routes.favicon.test(url.pathname): {
             return serveFile(request, fromFileUrl(new URL("static/favicon.png", import.meta.url)))
+          }
+          //
+          case url.pathname === "/static/app.js": {
+            const result = await bundle(new URL("./mod_client.ts", import.meta.url), { type: "module" })
+            const { code } = result
+            return new Response(code, { status: Status.OK, headers: { "content-type": "application/javascript" } })
           }
           // Serve static files
           case url.pathname.startsWith("/static/"): {
@@ -85,73 +113,52 @@ class Server extends Internal {
             }
             return new Response(JSON.stringify(this.#metadata), { status: Status.OK, headers: { "content-type": "application/json" } })
           }
-          // Authenticated user
+          // User profile
           case this.routes.me.test(url.pathname): {
-            if ((!session) || (!await kv.get(["sessions", session]).then(({ value }) => value))) {
-              return new Response("Unauthorized", { status: Status.Unauthorized })
+            if (!this.context.github_app) {
+              return new Response(JSON.stringify(null), { status: Status.OK, headers: { "content-type": "application/json" } })
             }
-            const { value: { login, name, avatar } } = await kv.get(["sessions", session]) as { value: user }
-            return new Response(JSON.stringify({ login, name, avatar }), { status: Status.OK, headers: { "content-type": "application/json" } })
+            if ((!session) || (!await this.#kv.has(`sessions.${session}`))) {
+              return new Response(JSON.stringify({ login: null }), { status: Status.OK, headers: { "content-type": "application/json" } })
+            }
+            const { login, avatar } = await this.#kv.get<user>(`sessions.${session}`)
+            return new Response(JSON.stringify({ login, avatar }), { status: Status.OK, headers: { "content-type": "application/json" } })
           }
           // OAuth login
-          case (this.context.github_app) && (this.routes.login.test(url.pathname)): {
-            const app = this.context.github_app!
+          case this.routes.login.test(url.pathname): {
+            if (!this.context.github_app) {
+              return Response.redirect(url.origin, Status.Found)
+            }
+            const app = this.context.github_app
             const { action = "/" } = url.pathname.match(this.routes.login)?.groups ?? {}
             switch (action) {
               // Start OAuth process
               case "":
               case "/": {
-                if (session && (await kv.get(["sessions", session]).then(({ value }) => value))) {
+                if (session && (await this.#kv.has(`sessions.${session}`))) {
                   return Response.redirect(url.origin, Status.Found)
                 }
-                // Create state
-                const state = crypto.randomUUID()
-                await kv.set(["states", state], true, { expireIn: 15 * 60 * 1000 })
-                log.trace(`oauth process: ${state} started`)
-                // Redirect to GitHub
-                const params = new URLSearchParams({ client_id: app.client_id, state, allow_signup: "false" })
-                return Response.redirect(`https://github.com/login/oauth/authorize?${params}`, Status.Found)
+                return Response.redirect(this.#app.oauth.getWebFlowAuthorizationUrl({ allowSignup: false }).url, Status.Found)
               }
               // OAuth authorization process
               case "/authorize": {
-                if (session && (await kv.get(["sessions", session]).then(({ value }) => value))) {
+                if (session && (await this.#kv.has(`sessions.${session}`))) {
                   return Response.redirect(url.origin, Status.Found)
                 }
                 try {
-                  // Validate state
                   const state = url.searchParams.get("state")
-                  if ((!state) || (!await kv.get(["states", state]).then(({ value }) => value))) {
-                    throws("Invalid state")
-                  }
-                  await kv.delete(["states", state])
-                  log.trace(`oauth process: ${state} received callback from github app`)
-                  // Retrieve token
                   const code = url.searchParams.get("code")
-                  if (!code) {
-                    throws("Invalid code")
-                  }
-                  const { access_token: token, expires_in: expiration } = await fetch("https://github.com/login/oauth/access_token", {
-                    method: "POST",
-                    headers: {
-                      "content-type": "application/x-www-form-urlencoded",
-                      "accept": "application/json",
-                    },
-                    body: new URLSearchParams({ client_id: app.client_id, client_secret: app.client_secret.read(), code }),
-                  }).then((response) => response.json())
-                  log.trace(`oauth process: ${state} retrieved access token`)
-                  // Validate token
-                  const { login, name, avatar_url } = await fetch("https://api.github.com/user", {
-                    headers: { "accept": "application/json", "content-type": "application/json", Authorization: `Bearer ${token}` },
-                  }).then((response) => response.json())
-                  if (await kv.get(["sessions", "login", login]).then(({ value }) => value)) {
-                    log.trace(`oauth process: ${state} user ${login} was already authenticated`)
+                  const { authentication: { token, expiresAt: expiration } } = await this.#app.oauth.createToken({ state, code })
+                  const ttl = new Date(expiration).getTime() - Date.now()
+                  const { data: { user: { login, avatar_url: avatar } } } = await this.#app.oauth.checkToken({ token })
+                  if (await this.#kv.has(`sessions.login.${login}`)) {
+                    log.trace(`oauth process: user ${login} was already authenticated`)
                     return Response.redirect(url.origin, Status.Found)
                   }
-                  const user = { login, name, avatar: avatar_url, token: new Secret(token), session: crypto.randomUUID() }
-                  await kv.set(["sessions", user.session], user, { expireIn: 1000 * expiration })
-                  await kv.set(["sessions", "login", user.login], true, { expireIn: 1000 * expiration })
-                  log.message(`oauth process: ${state} user ${login} authenticated`)
-                  // Redirect to homepage
+                  const user = { login, avatar, token, session: crypto.randomUUID() }
+                  await this.#kv.set(`sessions.${user.session}`, user, { ttl })
+                  await this.#kv.set(`sessions.login.${user.login}`, true, { ttl })
+                  log.message(`oauth process: user ${login} authenticated`)
                   const headers = new Headers({ Location: url.origin })
                   setCookie(headers, { name: "metrics_session", value: user.session, path: "/", sameSite: "None", httpOnly: true, secure: true, expires: new Date(Date.now() + 1000 * expiration) })
                   return new Response(null, { status: Status.SeeOther, headers })
@@ -162,17 +169,20 @@ class Server extends Internal {
               }
               // OAuth token revocation
               case "/revoke": {
-                if ((!session) || (!await kv.get(["sessions", session]).then(({ value }) => value))) {
+                if ((!session) || (!await this.#kv.has(`sessions.${session}`))) {
                   return Response.redirect(url.origin, Status.Found)
                 }
-                //TODO(@lowlighter): is it not possible to revoke oauth token from github app (this always return not found) ?
-                /*const user = this.#sessions.get(session)!
-                  console.log(await fetch(`https://api.github.com/applications/${app.client_id}/token`, {method:"DELETE", headers:{
-                    "accept": "application/json",
-                    Authorization:`Bearer ${app.client_secret}`,
-                    "content-type": 'application/json',
-                }, body: JSON.stringify({access_token:user.token})}))*/
-                return Response.redirect(url.origin, Status.Found)
+                try {
+                  const { login, token } = await this.#kv.get<user>(`sessions.${session}`)
+                  await this.#app.oauth.deleteToken({ token })
+                  await this.#kv.delete(`sessions.${session}`)
+                  await this.#kv.delete(`sessions.login.${login}`)
+                  log.trace(`oauth process: user ${login} revoked their token`)
+                  return Response.redirect(url.origin, Status.Found)
+                } catch (error) {
+                  log.warn(error)
+                  return new Response("Bad request: Revocation process failed", { status: Status.BadRequest })
+                }
               }
               // OAuth permissions review
               case "/review": {
@@ -181,40 +191,38 @@ class Server extends Internal {
             }
             break routing
           }
-
+          // Ratelimit
+          case this.routes.ratelimit.test(url.pathname): {
+            const context = { login: null as string | null, ...this.context.config.presets.default.plugins }
+            if (session && (await this.#kv.has(`sessions.${session}`))) {
+              const { login, token } = await this.#kv.get<user>(`sessions.${session}`)
+              context.token = new Secret(token)
+              context.login = login
+            }
+            const requests = new Requests(this.meta, context)
+            return new Response(JSON.stringify({ login: context.login, ...await requests.ratelimit() }), { status: Status.OK, headers: { "content-type": "application/json" } })
+          }
           // Serve renders
           case this.routes.metrics.test(url.pathname): {
             const { handle: _handle, ext = "svg" } = url.pathname.match(this.routes.metrics)?.groups ?? {}
-            const { handle, login: user } = parseHandle(_handle)
-            const mock = user === "preview" // ?????
+            const { handle, login } = parseHandle(_handle)
             const _log = log
+            let user = null as user | null
             if (!handle) {
               return new Response("Not found", { status: Status.NotFound })
             }
             {
               const log = _log.with({ handle })
               log.trace(url.href)
-              //TODO(@lowlighter): cached system
-              //TODO(@lowlighter): max users / single requests
-
-              // Verify requestion extension
-              if (!(formats as readonly string[]).includes(ext)) {
-                log.trace(`rejected request: "${ext}" is not supported`)
-                return new Response(`Unsupported Media Type: ${ext} is not supported`, { status: Status.UnsupportedMediaType })
-              }
-              // Honor allowed users list
-              if ((!mock) && (Array.isArray(this.context.users.allowed)) && (!this.context.users.allowed.includes(user))) {
-                log.trace(`rejected request: "${user}" is not allowed`)
-                return new Response(`Forbidden: ${user} is not allowed`, { status: Status.Forbidden })
-              }
               // Honor single request at a time
-              if ((!mock) && (pending.has(handle))) {
+              const requested = url.href.replace(url.origin, "")
+              if (pending.has(requested)) {
                 log.trace("existing request pending, waiting for completion")
-                return pending.get(handle)!
+                return pending.get(requested)!
               }
-              log.trace("processing request")
               const promise = deferred<Response>()
-              pending.set(handle, promise)
+              pending.set(requested, promise)
+              log.trace("processing request")
               try {
                 // Parse inputs (lax-YAML)
                 let context = {} as unknown as is.infer<typeof webrequest>
@@ -242,24 +250,64 @@ class Server extends Internal {
                   context = await webrequest.parseAsync(context)
                   log.trace("parsed request")
                   log.trace(context)
-                  //TODO(@lowlighter): toggle enabled plugins
+                  //TODO(@lowlighter): filter enabled plugins and params
                 } catch (error) {
                   log.warn(error)
                   return promise.resolve(new Response(`Bad request: ${formatValidationError(error)}`, { status: Status.BadRequest }))!
                 }
 
+                // Load user session if available
+                if (session && (await this.#kv.has(`sessions.${session}`))) {
+                  user = await this.#kv.get<user>(`sessions.${session}`)
+                  log.debug(`logged as: ${user.login}`)
+                }
+
+                // Honor server limits
+                if (this.context.limit) {
+                  const section = user ? "users" : "guests"
+                  // Users limits
+                  if (typeof this.context.limit[section]?.max === "number") {
+                    //TODO(@lowlighter): max users
+                    if (0 > this.context.limit[section]?.max!) {
+                      return new Response("Service unavailable: server capacity is full", { status: Status.ServiceUnavailable })
+                    }
+                  }
+
+                  // Requests limit
+                  if (this.context.limit[section]?.requests) {
+                    if ((context.mock) && (this.context.limit[section]?.requests?.ignore_mocked)) {
+                      log.trace("requests ratelimit: bypassed as request is mocked")
+                    } else {
+                      const { limit, duration } = this.context.limit[section]?.requests!
+                      const { current = 0, reset = Date.now() + 1000 * duration, init = false } =
+                        await this.#kv.get<{ current: number; reset: number; init?: boolean }>(`requests.ratelimit.${user}`) ?? { init: true }
+                      log.trace(`requests ratelimit: ${current + 1} / ${limit} until ${new Date(reset).toISOString()}`)
+                      if (current + 1 > limit) {
+                        log.trace(`requests ratelimit: preventing further requests for "${login}" until ${new Date(reset).toISOString()}`)
+                        return new Response(`Too Many Requests: Rate limit exceeded (wait ~${Math.ceil(Math.max((reset - Date.now()) / 1000, 1))}s)`, { status: Status.TooManyRequests })
+                      }
+                      if (init) {
+                        await this.#kv.set(`requests.ratelimit.${login}`, { current: current + 1, reset }, { ttl: 1000 * duration })
+                      } else {
+                        await this.#kv.set(`requests.ratelimit.${login}`, { current: current + 1, reset })
+                      }
+                    }
+                  }
+                }
+
                 // Apply server configuration
                 try {
                   const extras = {} as Record<PropertyKey, unknown>
-                  if (session && (await kv.get(["sessions", session]).then(({ value }) => value))) {
-                    const { value: user } = await kv.get(["sessions", session]) as { value: user }
-                    extras.token = user.token
+                  if (user?.token) {
+                    extras.token = new Secret(user.token)
                     log.debug(`using token from user: ${user.login}`)
                   }
                   context = deepMerge(
                     context,
                     deepMerge(this.context.config, {
-                      presets: Object.fromEntries(Object.entries(this.context.config.presets).map(([preset, { plugins }]) => [preset, { plugins: { ...plugins, ...extras, handle, mock } }])),
+                      presets: Object.fromEntries(
+                        Object.entries(this.context.config.presets).map(([preset, { plugins }]) => [preset, { plugins: { ...plugins, ...extras, handle, mock: context.mock } }]),
+                      ),
                     }),
                   )
                   log.trace("applied server configuration")
@@ -274,10 +322,12 @@ class Server extends Internal {
                 try {
                   const { content = "", mime = "image/svg+xml", base64 = false } = await process(context) ?? {}
                   const body = base64 ? Base64.decode(content) : content
+                  const headers = new Headers({ "cache-control": typeof this.context.cache === "number" ? `max-age=${this.context.cache}` : "no-store" })
                   if (!body) {
-                    return promise.resolve(new Response(null, { status: Status.NoContent }))!
+                    return promise.resolve(new Response(null, { status: Status.NoContent, headers }))!
                   }
-                  return promise.resolve(new Response(body, { status: Status.OK, headers: { "content-type": mime } }))!
+                  headers.set("content-type", mime)
+                  return promise.resolve(new Response(body, { status: Status.OK, headers }))!
                 } catch (error) {
                   log.warn(error)
                   // Do not print error to users to avoid data leaks
@@ -296,20 +346,28 @@ class Server extends Internal {
         break
       }
       case "POST": {
-        /*const middleware = (req, res, next) => {
-          console.debug(`metrics/app/control > ${req.url.replace(/[\n\r]/g, "")}`)
-          if (req.headers.authorization === conf.settings.control.token) {
-            next()
-            return
+        // Control API
+        switch (true) {
+          case this.routes.control.test(url.pathname): {
+            const authorization = request.headers.get("authorization")
+            if (!authorization) {
+              return new Response("Unauthorized", { status: Status.Unauthorized })
+            }
+            const token = authorization.replace(/^Bearer\s+/, "")
+            const { action } = url.pathname.match(this.routes.control)?.groups ?? {}
+            switch (action) {
+              // Stop instance
+              case "stop": {
+                if (!this.context.control[token]?.includes(action)) {
+                  return new Response("Forbidden", { status: Status.Forbidden })
+                }
+                this.log.info("received stop request, server will shutdown in a few seconds")
+                setTimeout(() => Deno.exit(0), 5000)
+                return new Response("Accepted", { status: Status.Accepted })
+              }
+            }
           }
-          return res.status(401).send("Unauthorized: invalid token")
         }
-        app.post("/.control/stop", limiter, middleware, async (req, res) => {
-          console.debug("metrics/app/control > instance will be stopped in a few seconds")
-          res.status(202).send("Accepted: instance will be stopped in a few seconds")
-          await new Promise(resolve => setTimeout(resolve, 5000))
-          process.exit(1)
-        })*/
         break
       }
       default:
@@ -320,15 +378,16 @@ class Server extends Internal {
 }
 
 /** User */
-type user = { login: string; name: string; avatar: string; token: Secret; session: string }
+type user = { login: string; avatar: string; token: string; session: string }
 
 // Entry point
 if (import.meta.main) {
+  const path = "metrics.config.yml"
   const config = {} as Record<PropertyKey, unknown>
   try {
-    await YAML.parse(await read("metrics.config.yml"))
+    Object.assign(config, await YAML.parse(await read(path)))
   } catch {
-    console.log("metrics.config.yml not found, using default configuration")
+    console.log(`${path} not found, using default configuration`)
   }
   await new Server(config).start()
 }

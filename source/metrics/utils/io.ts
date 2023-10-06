@@ -2,10 +2,13 @@
 import { ensureDir, expandGlob } from "std/fs/mod.ts"
 import { throws } from "@utils/errors.ts"
 import { dirname } from "std/path/dirname.ts"
+import { deferred } from "std/async/deferred.ts"
 
 /** Read file */
-export function read(path: string | URL) {
-  return globalThis.Deno?.readTextFile(path)
+export function read(path: string | URL, options: { sync: true }): string
+export function read(path: string | URL, options?: { sync?: false }): Promise<string>
+export function read(path: string | URL, { sync = false } = {}) {
+  return sync ? globalThis.Deno?.readTextFileSync(path) : globalThis.Deno?.readTextFile(path)
 }
 
 /** Write file */
@@ -57,3 +60,56 @@ export function cwd() {
 
 /** Operating system */
 export const os = globalThis.Deno?.build.os ?? "unknown"
+
+/** KV storage */
+export class KV {
+  /** Constructor */
+  constructor(path = ".kv") {
+    if (globalThis.Deno) {
+      ;(async () => {
+        this.#kv = env.get("DENO_DEPLOYMENT_ID") ? await globalThis.Deno?.openKv() : await globalThis.Deno?.openKv(path)
+        this.ready.resolve(this)
+      })()
+    }
+  }
+
+  /** Is ready ? */
+  readonly ready = deferred<this>()
+
+  /** KV storage */
+  #kv = null as null | Deno.Kv
+
+  /** Get key value */
+  async get<T = unknown>(path: string) {
+    if (!this.#kv) {
+      throws("KV storage is not ready")
+    }
+    const { value } = await this.#kv.get(path.split("."))
+    return (value ?? null) as T
+  }
+
+  /** Has key */
+  async has(path: string) {
+    const value = await this.get(path)
+    return (value !== null) && (value !== undefined)
+  }
+
+  /** Delete key */
+  async delete(path: string) {
+    if (!this.#kv) {
+      throws("KV storage is not ready")
+    }
+    await this.#kv.delete(path.split("."))
+  }
+
+  /** Set key value */
+  async set(path: string, value: unknown, { ttl = NaN } = {}) {
+    if (!this.#kv) {
+      throws("KV storage is not ready")
+    }
+    await this.#kv.set(path.split("."), value, { ...(Number.isFinite(ttl) ? { expireIn: ttl } : null) })
+    if (Number.isFinite(ttl)) {
+      setTimeout(() => this.delete(path), ttl + 1)
+    }
+  }
+}

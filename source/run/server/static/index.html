@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
   </head>
   <body x-data="data" class="bg-gray-900 dark:text-white">
+    <!-- Header -->
     <header class="bg-white dark:bg-gray-950">
       <div class="flex h-16 items-center gap-8 px-4 sm:px-6 lg:px-8">
         <a class="block text-teal-600 dark:text-teal-300" href="/">
@@ -21,29 +22,44 @@
           <div class="hidden md:block"></div>
           <div class="flex items-center gap-4">
             <div class="sm:flex sm:gap-4">
-              <template x-if="user.login">
-                <a href="/login/review" class="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 dark:bg-gray-800 dark:text-white dark:hover:text-white/75 sm:flex items-center">
-                  <svg class="mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M10.5 0a5.499 5.499 0 1 1-1.288 10.848l-.932.932a.749.749 0 0 1-.53.22H7v.75a.749.749 0 0 1-.22.53l-.5.5a.749.749 0 0 1-.53.22H5v.75a.749.749 0 0 1-.22.53l-.5.5a.749.749 0 0 1-.53.22h-2A1.75 1.75 0 0 1 0 14.25v-2c0-.199.079-.389.22-.53l4.932-4.932A5.5 5.5 0 0 1 10.5 0Zm-4 5.5c-.001.431.069.86.205 1.269a.75.75 0 0 1-.181.768L1.5 12.56v1.69c0 .138.112.25.25.25h1.69l.06-.06v-1.19a.75.75 0 0 1 .75-.75h1.19l.06-.06v-1.19a.75.75 0 0 1 .75-.75h1.19l1.023-1.025a.75.75 0 0 1 .768-.18A4 4 0 1 0 6.5 5.5ZM11 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>
-                  Review permissions
-                </a>
+              <template x-if="user?.login">
+                <div class="relative">
+                  <!-- User profile -->
+                  <div class="text-gray-500 flex items-center h-full transition dark:text-white" @click="$store.menu.dropdown = !$store.menu.dropdown">
+                    <img :src="user.avatar" class="h-8 w-8 rounded-full object-cover mr-2">
+                    <span x-text="user.login"></span>
+                  </div>
+                  <!-- Dropdown menu actions -->
+                  <template x-if="$store.menu.dropdown">
+                    <div class="absolute end-0 z-10 mt-2 w-56 rounded-md border border-gray-100 bg-gray-100 shadow-lg" role="menu">
+                      <div class="p-2">
+                        <a href="/login/review" class="rounded-md px-5 py-2.5 text-sm font-medium text-gray-500 transition hover:bg-gray-200 hover:text-teal-900/75 flex items-center">
+                          <svg class="mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M10.5 0a5.499 5.499 0 1 1-1.288 10.848l-.932.932a.749.749 0 0 1-.53.22H7v.75a.749.749 0 0 1-.22.53l-.5.5a.749.749 0 0 1-.53.22H5v.75a.749.749 0 0 1-.22.53l-.5.5a.749.749 0 0 1-.53.22h-2A1.75 1.75 0 0 1 0 14.25v-2c0-.199.079-.389.22-.53l4.932-4.932A5.5 5.5 0 0 1 10.5 0Zm-4 5.5c-.001.431.069.86.205 1.269a.75.75 0 0 1-.181.768L1.5 12.56v1.69c0 .138.112.25.25.25h1.69l.06-.06v-1.19a.75.75 0 0 1 .75-.75h1.19l.06-.06v-1.19a.75.75 0 0 1 .75-.75h1.19l1.023-1.025a.75.75 0 0 1 .768-.18A4 4 0 1 0 6.5 5.5ZM11 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>
+                          Review permissions
+                        </a>
+                        <a href="/login/revoke" class="rounded-md px-5 py-2.5 text-sm font-medium text-gray-500 transition hover:bg-gray-200 hover:text-teal-900/75 flex items-center">
+                          <svg class="mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M2 2.75C2 1.784 2.784 1 3.75 1h2.5a.75.75 0 0 1 0 1.5h-2.5a.25.25 0 0 0-.25.25v10.5c0 .138.112.25.25.25h2.5a.75.75 0 0 1 0 1.5h-2.5A1.75 1.75 0 0 1 2 13.25Zm10.44 4.5-1.97-1.97a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215l3.25 3.25a.75.75 0 0 1 0 1.06l-3.25 3.25a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734l1.97-1.97H6.75a.75.75 0 0 1 0-1.5Z"></path></svg>
+                          Sign-out
+                        </a>
+                      </div>
+                    </div>
+                  </template>
+                </div>
               </template>
-              <template x-if="(user.login)&&(false)">
-                <a href="/login/revoke" class="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 dark:bg-gray-800 dark:text-white dark:hover:text-white/75 sm:flex items-center">
-                  <svg class="mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M2 2.75C2 1.784 2.784 1 3.75 1h2.5a.75.75 0 0 1 0 1.5h-2.5a.25.25 0 0 0-.25.25v10.5c0 .138.112.25.25.25h2.5a.75.75 0 0 1 0 1.5h-2.5A1.75 1.75 0 0 1 2 13.25Zm10.44 4.5-1.97-1.97a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215l3.25 3.25a.75.75 0 0 1 0 1.06l-3.25 3.25a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734l1.97-1.97H6.75a.75.75 0 0 1 0-1.5Z"></path></svg>
-                  Sign-out
-                </a>
-              </template>
-              <template x-if="user.login">
-                <li class="text-gray-500 flex items-center transition dark:text-white">
-                  <img :src="user.avatar" class="h-8 w-8 rounded-full object-cover mr-2">
-                  <span x-text="user.login"></span>
-                </li>
-              </template>
-              <template x-if="!user.login">
+              <!-- Login -->
+              <template x-if="(user)&&(!user.login)">
                 <a href="/login" class="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 dark:bg-gray-800 dark:text-white dark:hover:text-white/75 sm:flex items-center">
                   <svg class="mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path></svg>
                   Sign-in with GitHub
                 </a>
+              </template>
+              <!-- Ratelimit -->
+              <template x-if="ratelimit">
+                <div class="text-gray-500 flex flex-col items-center transition dark:text-white text-xs">
+                  <div class="flex justify-between w-full"><b class="mr-4">REST</b><span x-text="ratelimit.core"></span></div>
+                  <div class="flex justify-between w-full"><b class="mr-4">GraphQL</b><span x-text="ratelimit.graphql"></span></div>
+                  <div class="flex justify-between w-full"><b class="mr-4">Search</b><span x-text="ratelimit.search"></span></div>
+                </div>
               </template>
             </div>
             <button class="block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 dark:bg-gray-800 dark:text-white dark:hover:text-white/75 md:hidden">
@@ -58,6 +74,7 @@
     </header>
     <main>
       <div class="container max-w-screen-xl mx-auto">
+        <!-- About -->
         <section class="text-white">
           <div class="mx-auto px-4 lg:flex pt-16 pb-2 lg:items-center">
             <div class="mx-auto text-center">
@@ -72,6 +89,7 @@
           </div>
         </section>
 
+        <!-- Craft mode -->
         <section class="my-8">
           <fieldset class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <legend class="sr-only">Target</legend>
@@ -111,15 +129,17 @@
           </fieldset>
         </section>
 
+        <!-- Handle -->
         <section>
           <div class="container max-w-screen-sm mx-auto relative">
             <span class="pointer-events-none absolute inset-y-0 start-0 ml-2 grid w-10 place-content-center text-white">
               <svg class="h-8 w-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path></svg>
             </span>
-            <input type="text" name="handle" id="handle" placeholder="GitHub username or repository" x-model="$store.craft.handle" class="text-2xl px-6 pl-14 py-4 my-1.5 w-full rounded-lg border-gray-300 text-gray-700 bg-gray-100 dark:bg-gray-800 dark:text-white"/>
+            <input type="text" name="handle" id="handle" placeholder="Your GitHub username, organization or repository" x-model="$store.craft.handle" class="text-2xl px-6 pl-14 py-4 my-1.5 w-full rounded-lg border-gray-300 text-gray-700 bg-gray-100 dark:bg-gray-800 dark:text-white"/>
           </div>
         </section>
 
+        <!-- Config builder -->
         <section>
           <template x-for="(plugin, i) of $store.craft.plugins">
             <article :data-plugin="i" class="mt-4 rounded-3xl grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
@@ -211,13 +231,14 @@
           </article>
         </section>
 
-
+        <!-- Crafted link -->
         <section>
           <div class="preview rounded-lg bg-gray-50 dark:bg-slate-950 mt-8 p-4">
-            <pre><code class="language-yaml" x-html="$store.craft.getUrl()"></code></pre>
+            <pre><code x-html="$store.craft.getUrl()"></code></pre>
           </div>
         </section>
 
+        <!-- YAML configuration -->
         <section>
           <div class="preview rounded-lg bg-gray-50 dark:bg-slate-950 mt-8 p-4">
             <pre><code class="language-yaml" x-html="$store.craft.getConfig()"></code></pre>
@@ -225,7 +246,7 @@
         </section>
     </main>
 
-
+    <!-- Footer -->
     <footer class="mt-16 bg-gray-100 dark:bg-gray-950">
       <div class="mx-auto max-w-5xl px-4 pt-16 py-8 sm:px-6 lg:px-8">
         <ul class="mt-4 flex flex-wrap justify-center gap-6 md:gap-8 lg:gap-12">
@@ -253,12 +274,7 @@
       </div>
     </footer>
 
-
-
-
-
-
-
+    <!-- Alpine component: schema inputs-->
     <template x-component="schema-inputs">
       <div>
         <template x-for="(input, name) in inputs.properties">
@@ -345,130 +361,6 @@
       </div>
     </template>
 
-
-    <script type="module">
-      import Alpine from 'https://esm.sh/alpinejs@3.13.0'
-      import * as YAML from "https://esm.sh/js-yaml@4.1.0";
-      import hljs from "https://esm.sh/highlight.js@11.8.0/lib/core";
-      import hlyaml from "https://esm.sh/highlight.js@11.8.0/lib/languages/yaml";
-      hljs.registerLanguage('yaml', hlyaml);
-
-      document.querySelectorAll('[x-component]').forEach(component => {
-        customElements.define(`x-${component.getAttribute("x-component")}`, class extends HTMLElement {
-          connectedCallback() {
-            this.append(component.content.cloneNode(true))
-          }
-          data() {
-            return Object.fromEntries(this.getAttributeNames().map(attribute => [attribute, this.getAttribute(attribute)]))
-          }
-        })
-      })
-
-      /*
-   timezone: true,
-    handle: true,
-    entity: true,
-    template: true,
-    preset: true,
-    fatal: true,
-      */
-
-      const data = await fetch('/metadata').then(response => response.json())
-      data.user = await fetch('/me').then(response => response.json()).catch(() => ({login:null}))
-      console.log(data)
-      Alpine.data('data', () => data)
-
-      Alpine.store("craft", {
-        handle:"",
-        plugins:[],
-        addPlugin(plugin) {
-          this.plugins.push({...plugin, processors:[], edit:"ui"})
-        },
-        removePlugin(i) {
-          this.plugins.splice(i, 1)
-        },
-        addProcessor(processor, i) {
-          this.plugins[i].processors.push(processor)
-        },
-        removeProcessor(i, j) {
-          this.plugins[i].processors.splice(j, 1)
-        },
-        setEditMode(mode, i) {
-          this.plugins[i].edit = mode
-        },
-
-        async craftConfig(index) {
-          const config = {handle:this.handle, plugins:[]}
-
-          for (let i = 0; i < this.plugins.length; i++) {
-            const plugin = {id:this.plugins[i].id, args:{}, processors:[]}
-            const inputs = document.querySelectorAll(`[data-plugin="${i}"] input, [data-plugin="${i}"] select`)
-            let skip = ""
-            for (const input of inputs) {
-              console.log(input.name, input.value, skip)
-              const [_, ...parts] = input.name.split(".")
-              let at = plugin
-              if (/^processors\[(\d+)\]$/.test(_)) {
-                const j = Number(_.match(/^processors\[(\d+)\]$/)[1])
-                plugin.processors[j] ??= {id:this.plugins[i].processors[j].id, args:{}}
-                at = plugin.processors[j]
-              }
-              const last = parts.pop()
-              if (last === "$") {
-                skip = (!input.checked) ? [_, ...parts].join(".") : ""
-                continue
-              }
-              if ((skip)&&(input.name.startsWith(skip)))
-                continue
-              skip = ""
-              console.log(">>>>> setting", input.name, "to", input.value)
-              for (const part of parts) {
-                at[part] ??= {}
-                at = at[part]
-              }
-              switch (input.type) {
-                case "number":
-                  at[last] = Number(input.value)
-                  break
-                case "checkbox":
-                  at[last] = input.checked
-                  break
-                case "hidden":
-                  at[last] = JSON.parse(input.value)
-                  break
-                default:
-                  at[last] = input.value
-              }
-            }
-            config.plugins[i] = plugin
-            console.log(YAML.dump(config))
-          }
-          if (typeof index === "number")
-            return config.plugins[index]
-//              document.querySelector(`[data-plugin="${i}"] .preview img`).src = `/preview?plugins=${JSON.stringify(config.plugins)}&t=${Date.now()}`
-
-          return config
-        },
-        async getUrl({preview = false, time = false} = {}) {
-          const {plugins} = await this.craftConfig()
-          const handle = preview ? "preview" : this.handle || "preview"
-          const params = new URLSearchParams({plugins:JSON.stringify(plugins)})
-          if (time)
-            params.set("t", Date.now())
-          return `${window.origin}/${handle}?${params}`
-        },
-        async getConfig() {
-          return hljs.highlight(YAML.dump(await this.craftConfig()), { language: 'yaml' }).value
-        },
-
-      })
-
-
-      Alpine.start()
-
-
-
-    </script>
-
+    <script src="/static/app.js" type="module"></script>
   </body>
 </html>

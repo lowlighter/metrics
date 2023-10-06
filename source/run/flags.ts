@@ -2,6 +2,7 @@
 import { join } from "std/path/join.ts"
 import { parse } from "std/flags/mod.ts"
 import { cwd, env } from "@utils/io.ts"
+import { expandGlobSync } from "std/fs/expand_glob.ts"
 
 // Flags
 const { "allow-net": _net = [], "allow-sys": _sys = [], "allow-write": _write = [], "allow-run": _run = [], _: [subcommand, ...args], ..._flags } = parse(Deno.args, {
@@ -14,6 +15,7 @@ if (!subcommand) {
 // Paths
 const PWD = env.get("PWD") ?? cwd()
 const TMP = env.get("TMP") ?? join(PWD, "/.tmp")
+const TEST = join(PWD, "/.test")
 const CACHE = join(PWD, "/node_modules/.cache")
 if ((!PWD) || (!TMP)) {
   console.log("echo 'missing PWD or TMP environment variables'")
@@ -28,7 +30,7 @@ const net = new Set([
   "registry.npmjs.org",
   // Puppeteer
   "127.0.0.1",
-  "edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing",
+  "storage.googleapis.com",
   // User defined
   ..._net,
 ])
@@ -46,7 +48,7 @@ const write = new Set([
   // Dependencies
   TMP,
   // Puppeteer
-  join(CACHE, "chrome"),
+  join(CACHE, "chromium"),
   // KV store
   join(PWD, ".kv"),
   // User defined
@@ -56,7 +58,7 @@ const write = new Set([
 // Process
 const run = new Set([
   // Puppeteer
-  join(CACHE, "chrome/win64-116.0.5845.96/chrome-win64/chrome.exe"),
+  ...[...expandGlobSync(join(CACHE, "chromium/**/*.exe"))].map(({ path }) => path),
   // User defined
   ..._run,
 ])
@@ -71,20 +73,27 @@ switch (subcommand) {
     net.add("api.github.com/emojis")
     // processors/render.twemojis
     net.add("cdn.jsdelivr.net")
-    //
-    write.add(PWD)
+    // Temporary test files
+    write.add(TEST)
+    // Subprocess
+    run.add("deno")
     // Arguments
     args.unshift(
       "--seed=0",
       "--trace-ops",
-      "--parallel",
+      // "--parallel",
       "--coverage=.coverage",
       "--doc",
-      "--shuffle",
+      //  "--shuffle",
     )
     dflags.push("--fail-fast", "--filter")
     break
   case "run":
+    // Temporary test files
+    if (args.includes("source/metrics/utils/browser.ts")) {
+      write.add(TEST)
+    }
+
     // GitHub API
     net.add("api.github.com")
     // Github OAuth
