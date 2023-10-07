@@ -1,0 +1,52 @@
+name: 🪙 Crypto
+category: community
+description: |
+  Generates a SVG image containing crypto metrics from a given address.
+  This plugin using coingecko API to fetch crypto prices.
+  check https://www.coingecko.com/vi/api/documentation for more information.
+examples:
+  default: https://via.placeholder.com/468x60?text=No%20preview%20available
+authors:
+  - dajneem23
+supports:
+  - user
+  - organization
+  - repository
+scopes: []
+inputs:
+
+  plugin_crypto:
+    description: |
+      Enable crypto plugin
+    type: boolean
+    default: no
+  
+  plugin_crypto_id:
+    description: |
+      Crypto id
+    type: string
+    default: ""
+    example: bitcoin
+
+  plugin_crypto_vs_currency:
+    description: |
+      The target currency of market data (usd, eur, jpy, etc.)
+    type: string
+    default: "usd"
+    example: "usd"
+
+  plugin_crypto_days:
+    description: |
+      Data up to number of days ago (eg. 1,14,30,max)
+    type: string
+    default: "1"
+    example: 1
+
+  plugin_crypto_precision:
+    description: |
+      The number of decimal places to use
+    type: number
+    default: 2
+    example: 2
+
+
