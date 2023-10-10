@@ -18,6 +18,7 @@
     "btr": "deno run --allow-env --allow-read --allow-write=.btr.json --allow-run=deno --no-lock tasks.ts $0"
   },
   "btr-tasks": {
+    // Server mode ========================================================================
     "serve": {
       "task": "deno run source/run/server/mod.ts",
       "description": "🌐 Run server",
@@ -68,6 +69,7 @@
         ]
       }
     },
+    // Testing ==============================================================================
     "test": {
       "task": [
         "rm .coverage -rf",
@@ -137,6 +139,20 @@
         ]
       }
     },
+    "test:cache": {
+      "task": "deno test source",
+      "description": "🧪 Cache tests",
+      "lock": false,
+      "reload": true,
+      "run": false
+    },
+    // Miscelleanous tasks ================================================================
+    "cache": {
+      "task": [
+        "deno task btr test:cache"
+      ],
+      "description": "📦 Cache dependencies"
+    },
     "check": {
       "task": [
         "deno lint",
@@ -148,6 +164,7 @@
       "task": "deno coverage .coverage",
       "description": "🔬 Print coverage report (require `test` task to be run first)"
     },
+    // Continuous integration tasks =======================================================
     "ci:check": {
       "task": [
         "deno lint",
@@ -164,6 +181,7 @@
       "description": "🤖 Build container and run tests and coverage inside the image (CI)",
       "lock": false
     },
+    // Deployment tasks ===================================================================
     "deploy:deno": {
       "task": [
         "deno run source/run/server/mod_imports.ts",
@@ -199,12 +217,14 @@
         ]
       }
     },
+    // Docker tasks =======================================================================
     "docker:build": {
       "task": "docker build --tag metrics:dev .",
       "description": "🐋 Build docker image",
       "lock": false
     }
   },
+  // Linting options
   "lint": {
     "rules": {
       "include": [
@@ -220,11 +240,13 @@
     },
     "exclude": ["source/run/server/static/app.js", ".legacy"]
   },
+  // Formatting options
   "fmt": {
     "lineWidth": 200,
     "semiColons": false,
     "exclude": ["CODE_OF_CONDUCT.md", ".coverage", ".btr.json", "source/run/server/static/app.js", ".legacy"]
   },
+  // TypeScript options
   "compilerOptions": {
     "lib": [
       "deno.ns",

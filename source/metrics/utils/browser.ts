@@ -3,23 +3,6 @@ import { Logger } from "@utils/log.ts"
 import * as astral from "x/astral@0.2.6/mod.ts"
 import { env } from "@utils/io.ts"
 
-const flags = [
-  //"--no-sandbox",
-  "--disable-dev-shm-usage",
-  "--disable-software-rasterizer",
-  "--disable-extensions",
-  "--disable-gpu",
-  "--disable-audio-input",
-  "--disable-audio-output",
-  "--disable-auto-reload",
-  "--disable-file-system",
-  "--disable-local-storage",
-  "--disable-dinosaur-easter-egg",
-  "--hide-scrollbars",
-  "--incognito",
-  "--window-size=1000,1000",
-]
-
 /** Browser */
 export class Browser {
   /** Logger */
@@ -58,7 +41,8 @@ export class Browser {
       //TODO(@lowlighter): this.instance = await puppeteer.connect({ browserWSEndpoint: this.endpoint })
       log.io("connected to browser")
     } else {
-      instance = await astral.launch({ headless: true, args: flags, path: env.get("CHROME_BIN") || undefined })
+      const path = env.get("CHROME_BIN") || undefined
+      instance = await astral.launch({ headless: true, args: this.flags(), path })
       log.io("started browser")
     }
     if ((this.shared) && (!this.instance)) {
@@ -89,5 +73,51 @@ export class Browser {
     }
     log.io("opened browser page")
     return page
+  }
+
+  /** Browser flags */
+  private static flags() {
+    const flags = [
+      "--disable-audio-input",
+      "--disable-audio-output",
+      "--disable-auto-reload",
+      "--disable-breakpad",
+      "--disable-component-extensions-with-background-pages",
+      "--disable-component-update",
+      "--disable-default-apps",
+      "--disable-dinosaur-easter-egg",
+      "--disable-extensions",
+      "--disable-file-system",
+      "--disable-gpu",
+      "--disable-input-event-activation-protection",
+      "--disable-ios-password-suggestions",
+      "--disable-lazy-loading",
+      "--disable-local-storage",
+      "--disable-notifications",
+      "--disable-pdf-tagging",
+      "--disable-permissions-api",
+      "--disable-plugins",
+      "--disable-plugins-discovery",
+      "--disable-presentation-api",
+      "--disable-prompt-on-repost",
+      "--disable-shared-workers",
+      "--disable-software-rasterizer",
+      "--disable-speech-api",
+      "--disable-speech-synthesis-api",
+      "--disable-stack-profiler",
+      "--disable-sync",
+      "--disable-touch-drag-drop",
+      "--disable-translate",
+      "--hide-scrollbars",
+      "--incognito",
+      "--no-experiments",
+      "--no-pings",
+      "--no-referrers",
+      "--window-size=1000,1000",
+    ]
+    if (env.get("IS_DOCKER")) {
+      flags.push("--no-sandbox", "--disable-setuid-sandbox", "--disable-dev-shm-usage")
+    }
+    return flags
   }
 }

@@ -1,5 +1,6 @@
 # Metrics docker image
 FROM alpine:3.18
+ENV IS_DOCKER true
 RUN apk upgrade --no-cache --available
 
 # Install licensed
@@ -52,3 +53,4 @@ COPY deno.jsonc /metrics/deno.jsonc
 COPY deno.lock /metrics/deno.lock
 COPY LICENSE /metrics/LICENSE
 COPY tasks.ts /metrics/tasks.ts
+RUN deno task btr cache

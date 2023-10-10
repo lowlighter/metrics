@@ -41,13 +41,21 @@ export const env = {
     if ((!globalThis.Deno) || (globalThis.Deno.permissions.querySync?.({ name: "env", variable: key }).state === "denied")) {
       return ""
     }
-    return globalThis.Deno.env.get(key) ?? ""
+    try {
+      return globalThis.Deno.env.get(key) ?? ""
+    } catch {
+      return ""
+    }
   },
   set(key: string, value: string) {
     if ((!globalThis.Deno) || (globalThis.Deno.permissions.querySync?.({ name: "env" }).state === "denied")) {
       return
     }
-    return globalThis.Deno.env.set(key, value)
+    try {
+      return globalThis.Deno.env.set(key, value)
+    } catch {
+      /* Ignore */
+    }
   },
   get deployment() {
     return !!env.get("DENO_DEPLOYMENT_ID")
