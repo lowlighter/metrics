@@ -42,6 +42,8 @@ jobs:
         category: "/language:${{matrix.language}}"
   build:
     runs-on: ubuntu-latest
+    needs:
+      - analyze
     steps:
       - uses: actions/checkout@v3
       - uses: denoland/setup-deno@v1

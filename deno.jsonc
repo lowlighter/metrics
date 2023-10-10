@@ -15,12 +15,12 @@
     "@processors/": "./source/processors/"
   },
   "tasks": {
-    "btr": "deno run --allow-env --allow-read --allow-write=.btr.json --allow-run=deno tasks.ts $0"
+    "btr": "deno run --allow-env --allow-read --allow-write=.btr.json --allow-run=deno --no-lock tasks.ts $0"
   },
   "btr-tasks": {
     "serve": {
       "task": "deno run source/run/server/mod.ts",
-      "description": "Run server",
+      "description": "🌐 Run server",
       "unstable": true,
       "permissions": {
         "env": [
@@ -73,7 +73,7 @@
         "rm .coverage -rf",
         "deno test source"
       ],
-      "description": "Run tests and collect coverage",
+      "description": "🧪 Run tests and collect coverage",
       "seed": 0,
       "doc": true,
       "traceOps": true,
@@ -132,18 +132,18 @@
         "deno lint",
         "deno fmt"
       ],
-      "description": "Lint and format code"
+      "description": "🔎 Lint and format code"
     },
     "coverage": {
       "task": "deno coverage .coverage",
-      "description": "Print coverage report (require `test` task to be run first)"
+      "description": "🔬 Print coverage report (require `test` task to be run first)"
     },
     "ci:check": {
       "task": [
         "deno lint",
         "deno fmt --check"
       ],
-      "description": "Lint and format code (CI)",
+      "description": "🤖 Lint and format code (CI)",
       "lock": false
     },
     "ci:test": {
@@ -151,7 +151,7 @@
         "deno task btr test",
         "deno task btr coverage"
       ],
-      "description": "Lint and format code (CI)",
+      "description": "🤖 Run tests, collect coverage and print coverage (CI)",
       "lock": false
     },
     "deploy:deno": {
@@ -159,7 +159,7 @@
         "deno run source/run/server/mod_imports.ts",
         "deployctl deploy --project=metrics --include=source,deno.jsonc --prod source/run/server/mod.ts"
       ],
-      "description": "Deploy metrics on https://deno.com/deploy",
+      "description": "🦕 Deploy metrics on https://deno.com/deploy",
       "env": {
         "DENO_DEPLOY_TOKEN": true
       },
@@ -190,7 +190,9 @@
       }
     },
     "docker:build": {
-      "task": "docker build --tag lowlighter/metrics:4.0.0 ."
+      "task": "docker build --tag lowlighter/metrics:4.0.0 .",
+      "description": "🐋 Build docker image",
+      "lock": false
     }
   },
   "lint": {
