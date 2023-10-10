@@ -47,5 +47,8 @@ RUN apk add --no-cache git \
 # Metrics
 USER metrics
 WORKDIR /metrics
-COPY source /metrics
-CMD [ "deno", "run", "/metrics/run/cli/mod.ts" ]
+COPY source /metrics/source
+COPY deno.jsonc /metrics/deno.jsonc
+COPY deno.lock /metrics/deno.lock
+COPY LICENSE /metrics/LICENSE
+COPY tasks.ts /metrics/tasks.ts

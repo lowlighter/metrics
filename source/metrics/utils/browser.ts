@@ -1,6 +1,7 @@
 //Imports
 import { Logger } from "@utils/log.ts"
 import * as astral from "x/astral@0.2.6/mod.ts"
+import { env } from "@utils/io.ts"
 
 const flags = [
   //"--no-sandbox",
@@ -57,7 +58,7 @@ export class Browser {
       //TODO(@lowlighter): this.instance = await puppeteer.connect({ browserWSEndpoint: this.endpoint })
       log.io("connected to browser")
     } else {
-      instance = await astral.launch({ headless: true, args: flags })
+      instance = await astral.launch({ headless: true, args: flags, path: env.get("CHROME_BIN") || undefined })
       log.io("started browser")
     }
     if ((this.shared) && (!this.instance)) {

@@ -123,7 +123,7 @@ const meta = is.object({
 function expandGlob(pattern: string) {
   pattern = pattern.replaceAll(/\$(\w+)/g, (match, name) => Deno.env.get(name) ?? (name === "CWD" ? Deno.cwd() : match))
   const expanded = [...expandGlobSync(pattern, { includeDirs: false, caseInsensitive: true })]
-  return expanded.length ? expanded.map(({ path }) => path) : [pattern]
+  return expanded.length ? expanded.map(({ path }) => path) : !pattern.includes("*") ? [pattern] : []
 }
 
 /** Tasks ========================================================================================================= */
@@ -148,24 +148,29 @@ class Task {
 
   /** Command */
   get command() {
-    const argv = stringArgv(this.meta.task.join(" && "))
     const args = []
-    let isDeno = false
-    for (let i = 0; i < argv.length; i++) {
-      const arg = argv[i]
-      args.push(arg)
-      if (arg === "deno") {
-        isDeno = true
-        continue
-      }
-      if (isDeno && (["test", "run"].includes(arg))) {
-        args.push(...this.flags)
+    for (const task of this.meta.task) {
+      const argv = stringArgv(task)
+      const argc = []
+      let isDeno = false
+      for (let i = 0; i < argv.length; i++) {
+        const arg = argv[i]
+        argc.push(arg)
+        if (arg === "deno") {
+          isDeno = true
+          continue
+        }
+        if (isDeno && (["test", "run"].includes(arg))) {
+          argc.push(...this.flags)
+          isDeno = false
+          continue
+        }
         isDeno = false
-        continue
       }
-      isDeno = false
+      //TODO(@lowlighter): is bad
+      args.push(argc.map((a) => a.includes(" ") ? `'${a}'` : a).join(" "))
     }
-    return args.join(" ")
+    return args.join(" && ")
   }
 
   /** Run task */

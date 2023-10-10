@@ -81,6 +81,7 @@
       "shuffle": true,
       "coverage": ".coverage",
       "failFast": 1,
+      "lock": false,
       "permissions": {
         "env": [
           // Metrics
@@ -88,27 +89,36 @@
           "METRICS_GITHUB_APP_SECRET",
           // Environment
           "DENO_DEPLOYMENT_ID",
+          "CHROME_BIN",
           // Cache
           "CWD",
           "USERPROFILE",
-          "CACHE_DIR"
+          "CACHE_DIR",
+          "HOME"
         ],
         "read": [
           // Environment
           "deno.jsonc",
           "$CWD",
           // Cache
-          "$USERPROFILE/.astral"
+          "$USERPROFILE/.astral",
+          "$HOME/.astral"
         ],
         "write": [
           // Cache
           "$USERPROFILE/.astral",
+          "$HOME/.astral",
           // Tests
-          "$CWD/.test"
+          "$CWD/.test",
+          // Puppeteer
+          "$HOME/.config/chromium/SingletonLock"
         ],
         "run": [
           // Cache
-          "$USERPROFILE/.astral/**/chrome.exe"
+          "$USERPROFILE/.astral/**/chrome.exe",
+          "$HOME/.astral/**/chrome",
+          // Puppeteer
+          "/usr/bin/chromium-browser"
         ],
         "net": [
           // Server bindings
@@ -148,10 +158,10 @@
     },
     "ci:test": {
       "task": [
-        "deno task btr test",
-        "deno task btr coverage"
+        "deno task btr docker:build",
+        "docker run metrics:dev sh -c 'deno task btr test && deno task btr coverage'"
       ],
-      "description": "🤖 Run tests, collect coverage and print coverage (CI)",
+      "description": "🤖 Build container and run tests and coverage inside the image (CI)",
       "lock": false
     },
     "deploy:deno": {
@@ -190,7 +200,7 @@
       }
     },
     "docker:build": {
-      "task": "docker build --tag lowlighter/metrics:4.0.0 .",
+      "task": "docker build --tag metrics:dev .",
       "description": "🐋 Build docker image",
       "lock": false
     }
