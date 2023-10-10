@@ -78,6 +78,7 @@ const config = is.object({
   reload: isStringArray("reload", { boolean: true, glob: true }),
   watch: isStringArray("watch", { boolean: true, glob: true }),
   location: isString("location"),
+  lock: isFalsy("lock"),
   seed: isNumber("seed"),
   permissions: is.object({
     all: isTruthy("all", { validate: "allow" }),

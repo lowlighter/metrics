@@ -18,41 +18,6 @@
     "btr": "deno run --allow-env --allow-read --allow-write=.btr.json --allow-run=deno tasks.ts $0"
   },
   "btr-tasks": {
-    "deploy:deno": {
-      "task": [
-        "deno run source/run/server/mod_imports.ts",
-        "deployctl deploy --project=metrics --include=source,deno.jsonc --prod source/run/server/mod.ts"
-      ],
-      "description": "Deploy metrics on https://deno.com/deploy",
-      "env": {
-        "DENO_DEPLOY_TOKEN": true
-      },
-      "permissions": {
-        "env": [
-          // Environment
-          "DENO_DIR",
-          "DENO_AUTH_TOKENS",
-          // Cache
-          "LOCALAPPDATA"
-        ],
-        "read": [
-          // Environment
-          "$CWD",
-          // Cache
-          "$LOCALAPPDATA/deno-wasmbuild",
-          "$LOCALAPPDATA/deno/deps"
-        ],
-        "write": [
-          // Write imports
-          "source/run/server",
-          "source/run/server/imports.ts"
-        ],
-        "net": [
-          // Packages
-          "esm.sh"
-        ]
-      }
-    },
     "serve": {
       "task": "deno run source/run/server/mod.ts",
       "description": "Run server",
@@ -172,6 +137,60 @@
     "coverage": {
       "task": "deno coverage .coverage",
       "description": "Print coverage report (require `test` task to be run first)"
+    },
+    "ci:check": {
+      "task": [
+        "deno lint",
+        "deno fmt --check"
+      ],
+      "description": "Lint and format code (CI)",
+      "lock": false
+    },
+    "ci:test": {
+      "task": [
+        "deno task btr test",
+        "deno task btr coverage"
+      ],
+      "description": "Lint and format code (CI)",
+      "lock": false
+    },
+    "deploy:deno": {
+      "task": [
+        "deno run source/run/server/mod_imports.ts",
+        "deployctl deploy --project=metrics --include=source,deno.jsonc --prod source/run/server/mod.ts"
+      ],
+      "description": "Deploy metrics on https://deno.com/deploy",
+      "env": {
+        "DENO_DEPLOY_TOKEN": true
+      },
+      "permissions": {
+        "env": [
+          // Environment
+          "DENO_DIR",
+          "DENO_AUTH_TOKENS",
+          // Cache
+          "LOCALAPPDATA"
+        ],
+        "read": [
+          // Environment
+          "$CWD",
+          // Cache
+          "$LOCALAPPDATA/deno-wasmbuild",
+          "$LOCALAPPDATA/deno/deps"
+        ],
+        "write": [
+          // Write imports
+          "source/run/server",
+          "source/run/server/imports.ts"
+        ],
+        "net": [
+          // Packages
+          "esm.sh"
+        ]
+      }
+    },
+    "docker:build": {
+      "task": "docker build --tag lowlighter/metrics:4.0.0 ."
     }
   },
   "lint": {
@@ -192,7 +211,7 @@
   "fmt": {
     "lineWidth": 200,
     "semiColons": false,
-    "exclude": ["CODE_OF_CONDUCT.md", ".coverage", "source/run/server/static/app.js", ".legacy"]
+    "exclude": ["CODE_OF_CONDUCT.md", ".coverage", ".btr.json", "source/run/server/static/app.js", ".legacy"]
   },
   "compilerOptions": {
     "lib": [
