@@ -1,6 +1,6 @@
-// TODO(@lowlighter): remove legacy when migrated
+// TODO(@lowlighter): remove .legacy when migrated
+// TODO(@lowlighter): I think SVGO breaks the lock as it depends on OS maybe ?
 {
-  "deno.enable": true,
   "version": "4.0.0",
   "imports": {
     "std/": "https://deno.land/std@0.201.0/",
@@ -14,19 +14,165 @@
     "@plugins/": "./source/plugins/",
     "@processors/": "./source/processors/"
   },
-  // TODO(@lowlighter): I think SVGO breaks the lock as it depends on OS maybe ?
-  "lock": false,
-  "nodeModulesDir": true,
   "tasks": {
-    "serve": "$(deno run --allow-env --allow-read source/run/flags.ts --allow-net=localhost run source/run/server/mod.ts --watch $0)",
-    "test": "$(deno run --allow-env --allow-read source/run/flags.ts test source/run/mod_test.ts $0)",
-    "coverage": "rm .coverage -rf && deno task test $0 && deno coverage .coverage",
-    "lint": "deno lint",
-    "fmt": "deno fmt",
-    "hook": "deno task lint && deno task fmt --check && deno task test",
-    "browser": "$(deno run --allow-env --allow-read source/run/flags.ts run source/metrics/utils/browser.ts $0)",
-    "deploy": "deployctl deploy --project=metrics --include=source,deno.jsonc,LICENSE --prod source/run/server/mod.ts",
-    "deploy:imports": "$(deno run --allow-env --allow-read source/run/flags.ts test source/run/server/mod_imports.ts $0)"
+    "btr": "deno run --allow-env --allow-read --allow-write=.btr.json --allow-run=deno tasks.ts $0"
+  },
+  "btr-tasks": {
+    "deploy:deno": {
+      "task": [
+        "deno run source/run/server/mod_imports.ts",
+        "deployctl deploy --project=metrics --include=source,deno.jsonc --prod source/run/server/mod.ts"
+      ],
+      "description": "Deploy metrics on https://deno.com/deploy",
+      "env": {
+        "DENO_DEPLOY_TOKEN": true
+      },
+      "permissions": {
+        "env": [
+          // Environment
+          "DENO_DIR",
+          "DENO_AUTH_TOKENS",
+          // Cache
+          "LOCALAPPDATA"
+        ],
+        "read": [
+          // Environment
+          "$CWD",
+          // Cache
+          "$LOCALAPPDATA/deno-wasmbuild",
+          "$LOCALAPPDATA/deno/deps"
+        ],
+        "write": [
+          // Write imports
+          "source/run/server",
+          "source/run/server/imports.ts"
+        ],
+        "net": [
+          // Packages
+          "esm.sh"
+        ]
+      }
+    },
+    "serve": {
+      "task": "deno run source/run/server/mod.ts",
+      "description": "Run server",
+      "unstable": true,
+      "permissions": {
+        "env": [
+          // Metrics
+          "METRICS_GITHUB_TOKEN",
+          "METRICS_GITHUB_APP_SECRET",
+          // Environment
+          "DENO_DEPLOYMENT_ID",
+          "DENO_AUTH_TOKENS",
+          "DENO_DIR",
+          // Cache
+          "USERPROFILE",
+          "LOCALAPPDATA"
+        ],
+        "read": [
+          // Metrics
+          "metrics.config.yml",
+          // Environment
+          "deno.jsonc",
+          "$CWD",
+          // KV store
+          ".kv",
+          ".kv-shm",
+          ".kv-wal",
+          // Cache
+          "$LOCALAPPDATA/deno-wasmbuild",
+          "$USERPROFILE/.astral"
+        ],
+        "run": true,
+        "write": [
+          // KV store
+          ".kv",
+          ".kv-shm",
+          ".kv-wal"
+        ],
+        "net": [
+          // Server bindings
+          "localhost",
+          // GitHub API
+          "api.github.com",
+          // Github OAuth
+          "github.com/login/oauth",
+          // plugins/rss
+          "news.ycombinator.com/rss"
+        ]
+      }
+    },
+    "test": {
+      "task": [
+        "rm .coverage -rf",
+        "deno test source"
+      ],
+      "description": "Run tests and collect coverage",
+      "seed": 0,
+      "doc": true,
+      "traceOps": true,
+      //"parallel": true,
+      "shuffle": true,
+      "coverage": ".coverage",
+      "failFast": 1,
+      "permissions": {
+        "env": [
+          // Metrics
+          "METRICS_GITHUB_TOKEN",
+          "METRICS_GITHUB_APP_SECRET",
+          // Environment
+          "DENO_DEPLOYMENT_ID",
+          // Cache
+          "CWD",
+          "USERPROFILE",
+          "CACHE_DIR"
+        ],
+        "read": [
+          // Environment
+          "deno.jsonc",
+          "$CWD",
+          // Cache
+          "$USERPROFILE/.astral"
+        ],
+        "write": [
+          // Cache
+          "$USERPROFILE/.astral",
+          // Tests
+          "$CWD/.test"
+        ],
+        "run": [
+          // Cache
+          "$USERPROFILE/.astral/**/chrome.exe"
+        ],
+        "net": [
+          // Server bindings
+          "localhost",
+          // Packages
+          "esm.sh",
+          "deno.land/x",
+          "deno.land/std",
+          // Browser downloads
+          "googlechromelabs.github.io/chrome-for-testing",
+          "edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing",
+          // processors/render.gemojis
+          "api.github.com/emojis",
+          // processors/render.twemojis
+          "cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets"
+        ]
+      }
+    },
+    "check": {
+      "task": [
+        "deno lint",
+        "deno fmt"
+      ],
+      "description": "Lint and format code"
+    },
+    "coverage": {
+      "task": "deno coverage .coverage",
+      "description": "Print coverage report (require `test` task to be run first)"
+    }
   },
   "lint": {
     "rules": {
@@ -41,12 +187,12 @@
         "no-throw-literal"
       ]
     },
-    "exclude": ["node_modules", ".legacy"]
+    "exclude": ["source/run/server/static/app.js", ".legacy"]
   },
   "fmt": {
     "lineWidth": 200,
     "semiColons": false,
-    "exclude": ["node_modules", "CODE_OF_CONDUCT.md", ".legacy", ".coverage", ".test"]
+    "exclude": ["CODE_OF_CONDUCT.md", ".coverage", "source/run/server/static/app.js", ".legacy"]
   },
   "compilerOptions": {
     "lib": [
@@ -56,5 +202,6 @@
       "dom.asynciterable",
       "dom.iterable"
     ]
-  }
+  },
+  "deno.enable": true
 }

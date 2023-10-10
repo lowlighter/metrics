@@ -1,9 +1,11 @@
+.btr.json
 .coverage
+.env
 .test
 .kv
 .kv-*
-node_modules
 metrics.config.yml
+source/run/server/static/app.js
 
 # TODO(@lowlighter): remove after migration
 .legacy

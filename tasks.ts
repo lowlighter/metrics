@@ -3,11 +3,11 @@ import * as JSONC from "https://deno.land/std@0.203.0/jsonc/mod.ts"
 import { z as is } from "https://deno.land/x/zod@v3.21.4/mod.ts"
 import { assertEquals, assertMatch, assertThrows } from "https://deno.land/std@0.203.0/assert/mod.ts"
 import { expandGlobSync } from "https://deno.land/std@0.203.0/fs/expand_glob.ts"
-import { parse } from "https://deno.land/std@0.203.0/flags/mod.ts";
-import { gray, bgBrightBlue } from "https://deno.land/std@0.203.0/fmt/colors.ts";
+import { parse } from "https://deno.land/std@0.203.0/flags/mod.ts"
+import { bgBrightBlue, gray } from "https://deno.land/std@0.203.0/fmt/colors.ts"
 import { italic } from "https://deno.land/std@0.203.0/fmt/colors.ts"
 import { load } from "https://deno.land/std@0.203.0/dotenv/mod.ts"
-import stringArgv   from "https://esm.sh/string-argv@0.3.2"
+import stringArgv from "https://esm.sh/string-argv@0.3.2"
 
 /** Parsing ========================================================================================================= */
 
@@ -27,11 +27,11 @@ const isFalsy = (key: string, { negate = "no" } = {}) => is.boolean().transform(
 const isNumber = (key: string, { boolean = false } = {}) =>
   is.union([boolean ? is.boolean() : is.never(), is.number().int().min(0)]).transform((v) => typeof v === "number" ? `--${key}=${v}` : v === true ? `--${key}` : "")
 const isString = (key: string, { boolean = false, validate = "", negate = "no", values = enums.empty as readonly unknown[] } = {}) =>
-  is.union([boolean ? is.boolean() : is.never(), values.filter(x => x).length ? is.enum(values as Enum) : is.string().min(1)]).transform((v) =>
+  is.union([boolean ? is.boolean() : is.never(), values.filter((x) => x).length ? is.enum(values as Enum) : is.string().min(1)]).transform((v) =>
     typeof v === "string" ? `--${key}=${v}` : v === true ? `--${validate ? `${validate}-` : ""}${key}` : (v === false) && negate ? `--${negate}-${key}` : ""
   )
 const isStringArray = (key: string, { boolean = false, glob = false, values = enums.empty as readonly unknown[] } = {}) =>
-  is.union([boolean ? is.boolean() : is.never(), is.preprocess((v) => [v].flat(Infinity), is.array(values.filter(x => x).length ? is.enum(values as Enum) : is.string().min(1)).min(1))]).transform((
+  is.union([boolean ? is.boolean() : is.never(), is.preprocess((v) => [v].flat(Infinity), is.array(values.filter((x) => x).length ? is.enum(values as Enum) : is.string().min(1)).min(1))]).transform((
     v,
   ) => Array.isArray(v) ? `--${key}=${v.flatMap((p) => glob ? expandGlob(p) : p).join(",")}` : v === true ? `--${key}` : "")
 const isPermissions = (key: string, { glob = false } = {}) =>
@@ -40,16 +40,25 @@ const isPermissions = (key: string, { glob = false } = {}) =>
     is.preprocess(
       (v) => [v].flat(Infinity),
       is.array(
-        is.union([is.string().min(1), is.object({ allow: is.string().min(1) }).strict(), is.object({ deny: is.string().min(1) }).strict()]).transform((v) => {
+        is.union([is.string().min(1), is.object({ allow: is.string().min(1) }).strict(), is.object({ deny: is.string().min(1) }).strict()]).transform<Array<{ allow: string; deny: string }>>((v) => {
           const normalized = (typeof v === "object") ? { allow: "", deny: "", ...v } : { allow: v, deny: "" }
-          const expanded = Object.entries(normalized).flatMap(([k, v]) => (glob && v) ? expandGlob(v).map(w => [k, w]) : [[k, v]])
-          return Object.fromEntries(expanded)
+          const expanded = [] as Array<typeof normalized>
+          if (glob) {
+            for (const key of ["allow", "deny"] as const) {
+              if (normalized[key]) {
+                expanded.push(...expandGlob(normalized[key]).map((w) => ({ [key]: w, [{ allow: "deny", deny: "allow" }[key]]: "" } as typeof normalized)))
+              }
+            }
+          } else {
+            expanded.push(normalized)
+          }
+          return expanded
         }),
-      ).min(1),
+      ).min(1).transform((v) => [v].flat(Infinity) as Array<{ allow: string; deny: string }>),
     ),
   ]).transform((v) =>
     Array.isArray(v)
-      ? [`--allow-${key}=${v.map(({ allow }) => allow).filter(x => x).join(",")}`, `--deny-${key}=${v.map(({ deny }) => deny).filter(x => x).join(",")}`].filter((x) => !x.endsWith("=")).join(" ")
+      ? [`--allow-${key}=${v.map(({ allow }) => allow).filter((x) => x).join(",")}`, `--deny-${key}=${v.map(({ deny }) => deny).filter((x) => x).join(",")}`].filter((x) => !x.endsWith("=")).join(" ")
         .trim()
       : v === true
       ? `--allow-${key}`
@@ -101,16 +110,18 @@ const config = is.object({
 
 /** Meta parser */
 const meta = is.object({
-  task: is.string(),
+  task: is.preprocess((v) => [v].flat(Infinity), is.array(is.string())),
   description: is.string().default(""),
   cwd: is.string().default(Deno.cwd()),
-  env: is.record(is.string(), is.union([is.boolean(), is.string()])).transform(v => Object.fromEntries(Object.entries(v).map(([k, v]) => [k, v === true ? Deno.env.get(k) ?? "" : v === false ? "" : v]))).default(() => ({})),
+  env: is.record(is.string(), is.union([is.boolean(), is.string()])).transform((v) =>
+    Object.fromEntries(Object.entries(v).map(([k, v]) => [k, v === true ? Deno.env.get(k) ?? "" : v === false ? "" : v]))
+  ).default(() => ({})),
 })
 
 /** Expand glob */
 function expandGlob(pattern: string) {
   pattern = pattern.replaceAll(/\$(\w+)/g, (match, name) => Deno.env.get(name) ?? (name === "CWD" ? Deno.cwd() : match))
-  const expanded = [...expandGlobSync(pattern)]
+  const expanded = [...expandGlobSync(pattern, { includeDirs: false, caseInsensitive: true })]
   return expanded.length ? expanded.map(({ path }) => path) : [pattern]
 }
 
@@ -128,15 +139,15 @@ class Task {
   readonly flags
 
   /** Constructor */
-  constructor(name:string, content:unknown) {
+  constructor(name: string, content: unknown) {
     this.name = name
     this.meta = meta.parse(content)
     this.flags = config.parse(content)
   }
 
-  /** Run task */
-  async run() {
-    const argv = stringArgv(this.meta.task)
+  /** Command */
+  get command() {
+    const argv = stringArgv(this.meta.task.join(" && "))
     const args = []
     let isDeno = false
     for (let i = 0; i < argv.length; i++) {
@@ -146,30 +157,43 @@ class Task {
         isDeno = true
         continue
       }
-      if ((isDeno)&&(["test", "run"].includes(arg))) {
+      if (isDeno && (["test", "run"].includes(arg))) {
         args.push(...this.flags)
         isDeno = false
         continue
       }
       isDeno = false
     }
-    console.log(gray(`$ ${args.join(" ")}`))
-    const [a, ...b] = args
-    const command = new Deno.Command(a, {args:b, stdout:"inherit", stderr:"inherit", stdin:"inherit", cwd:this.meta.cwd, env:this.meta.env, windowsRawArguments:true})
+    return args.join(" ")
+  }
+
+  /** Run task */
+  async run() {
+    console.log(gray(`$ ${this.command}`))
+    await Deno.writeTextFile(".btr.json", JSON.stringify({ tasks: { btr: this.command } }))
+    const command = new Deno.Command("deno", {
+      args: ["task", "--config", ".btr.json", "btr"],
+      stdout: "inherit",
+      stderr: "inherit",
+      stdin: "inherit",
+      cwd: this.meta.cwd,
+      env: this.meta.env,
+      windowsRawArguments: true,
+    })
     const { code } = await command.output()
     Deno.exit(code)
   }
 
   /** Print tasks list */
   about() {
-    const {columns} = Deno.consoleSize()
-    const split = (text:string) => {
+    const { columns } = Deno.consoleSize()
+    const split = (text: string) => {
       return [...text.matchAll(new RegExp(`.{1,${columns - 4}}`, "g"))].map(([line]) => line.padEnd(columns - 4, " "))
     }
     console.log(`╔═${bgBrightBlue(` ${this.name} `)}${"═".repeat(columns - this.name.length - 5)}╗`)
-    split(this.meta.description).forEach(line => console.log(`║ ${line} ║`))
-    split(" ").forEach(line => console.log(`║ ${line} ║`))
-    split(`${this.meta.task} ${this.flags.join(" ")}`).forEach(line => console.log(`║ ${italic(gray(line))} ║`))
+    split(this.meta.description).forEach((line) => console.log(`║ ${line} ║`))
+    split(" ").forEach((line) => console.log(`║ ${line} ║`))
+    split(`${this.command}`).forEach((line) => console.log(`║ ${italic(gray(line))} ║`))
     console.log(`╚${"═".repeat(columns - 2)}╝`)
     console.log(" ")
   }
@@ -178,13 +202,12 @@ class Task {
 /** Main ========================================================================================================= */
 
 async function main() {
-  await load({export:true})
-  const {_:[task], ..._args} = parse(Deno.args)
-  const {"btr-tasks":tasks} = JSONC.parse(await Deno.readTextFile("deno.jsonc"))
+  await load({ export: true })
+  const { _: [task], ..._args } = parse(Deno.args)
+  const { "btr-tasks": tasks } = JSONC.parse(await Deno.readTextFile("deno.jsonc"))
   if (task) {
     await new Task(`${task}`, tasks[task]).run()
-  }
-  else {
+  } else {
     for (const [k, v] of Object.entries(tasks)) {
       new Task(k, v).about()
     }

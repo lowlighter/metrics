@@ -131,6 +131,16 @@ See [#1533](https://github.com/lowlighter/metrics/discussions/1533)
     - ❌ `config_display` ➡️ `processors: [{id: inject.style}]` with `args.style`, or a custom template
     - ❌ `config_animations` ➡️ `processors: [{id: inject.style}]` with `args.style`, or a custom template
     - ❌ `config_padding` ➡️
+    - ❗ `delay` ➡️ `processors: [{id: control.delay}]`
+    - ❗ `output_action`
+      - ❗ `output_action: commit` ➡️ `processors: [{id: publish.git, args:{commit: {}}]`
+      - ❗ `output_action: pull-request` ➡️ `processors: [{id: publish.git, args:{pullrequest: {}}]`
+      - ❗ `output_action: pull-request-squash` ➡️ `processors: [{id: publish.git, args:{pullrequest: {merge: "squash"}}}]`
+      - ❗ `output_action: pull-request-commit` ➡️ `processors: [{id: publish.git, args:{pullrequest: {merge: "commit"}}}]`
+      - ❗ `output_action: pull-request-rebase` ➡️ `processors: [{id: publish.git, args:{pullrequest: {merge: "rebase"}}}]`
+      - ❗ `output_action: gist` ➡️ `processors: [{id: publish.gist}]`
+      - ❌ Files are not stored automatically in `/metrics_renders`, it is required to call manually the `publish.file` processor
+        - ❗ `output_action: none` ➡️ `processors: [{id: publish.file}]`
     - ❗ `debug_print` ➡️ `processors: [{id: publish.console}]`
     - ❌ `debug_flags`
       - ❗ `debug_flags: --halloween` ➡️ `calendar.args.colors: halloween`
@@ -143,6 +153,8 @@ See [#1533](https://github.com/lowlighter/metrics/discussions/1533)
 - 🪄 **Processors**
   - 🧪 **Assertions**
     - ✨ Added processor to test assertions
+  - ⏱️ **Delay**
+    - ✨ Added processor to delay execution
   - 🔩 **Inject raw content**
     - ✨ Added processor to inject raw HTML content
   - 🔩 **Inject JavaScript**
@@ -194,20 +206,21 @@ See [#1533](https://github.com/lowlighter/metrics/discussions/1533)
 
 <!--
 
-  markdown: Markdown template path
-  markdown_cache: Markdown file cache
-  output_action: Output action
+  quota_required_rest: Minimum GitHub REST API requests quota required to run
+  quota_required_graphql: Minimum GitHub GraphQL API requests quota required to run
+  quota_required_search: Minimum GitHub Search API requests quota required to run
+
   output_condition: Output condition
   config_base64: Base64-encoded images
+
+  markdown: Markdown template path
+  markdown_cache: Markdown file cache
+
   config_padding: Output padding
   config_presets: Configuration presets
   retries_output_action: Retries in case of failures (for output action)
   retries_delay_output_action: Delay between each retry (in seconds, for output action)
   clean_workflows: Clean previous workflows jobs
-  delay: Job delay
-  quota_required_rest: Minimum GitHub REST API requests quota required to run
-  quota_required_graphql: Minimum GitHub GraphQL API requests quota required to run
-  quota_required_search: Minimum GitHub Search API requests quota required to run
   notice_releases: Notice about new releases of metrics
   repositories: Fetched repositories
   repositories_batch: Fetched repositories per query
