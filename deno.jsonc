@@ -92,6 +92,7 @@
           // Environment
           "DENO_DEPLOYMENT_ID",
           "CHROME_BIN",
+          "IS_DOCKER",
           // Cache
           "CWD",
           "USERPROFILE",

@@ -116,6 +116,7 @@ export class Browser {
       "--window-size=1000,1000",
     ]
     if (env.get("IS_DOCKER")) {
+      this.log.probe("running in docker, disabling sandbox")
       flags.push("--no-sandbox", "--disable-setuid-sandbox", "--disable-dev-shm-usage")
     }
     return flags
