@@ -3,7 +3,7 @@ import { serveListener } from "std/http/server.ts"
 import { server as schema, webrequest } from "@metrics/config.ts"
 import { process } from "@metrics/process.ts"
 import { is } from "@utils/validator.ts"
-import { KV, listen, read } from "@utils/io.ts"
+import { env, KV, listen, read } from "@utils/io.ts"
 import { Internal } from "@metrics/components/internal.ts"
 import * as YAML from "std/yaml/mod.ts"
 import { parseHandle } from "@utils/parse.ts"
@@ -19,10 +19,12 @@ import { formatValidationError } from "@utils/errors.ts"
 import { Secret } from "@utils/secret.ts"
 import { Requests } from "@metrics/components/requests.ts"
 import { App } from "y/@octokit/app@14.0.0"
-import { bundle } from "x/emit@0.24.0/mod.ts"
+import { client } from "./mod_imports.ts"
 try {
   await import("./imports.ts")
 } catch { /* Ignore */ }
+
+//TODO(@lowlighter): support tokenless mode with mocked data as default for preview
 
 /** Server */
 class Server extends Internal {
@@ -96,11 +98,9 @@ class Server extends Internal {
           case this.routes.favicon.test(url.pathname): {
             return serveFile(request, fromFileUrl(new URL("static/favicon.png", import.meta.url)))
           }
-          //
-          case url.pathname === "/static/app.js": {
-            const result = await bundle(new URL("./mod_client.ts", import.meta.url), { type: "module" })
-            const { code } = result
-            return new Response(code, { status: Status.OK, headers: { "content-type": "application/javascript" } })
+          // Rebundle app in development mode
+          case (url.pathname === "/static/app.js") && (!env.deployment): {
+            return new Response(await client(), { status: Status.OK, headers: { "content-type": "application/javascript" } })
           }
           // Serve static files
           case url.pathname.startsWith("/static/"): {

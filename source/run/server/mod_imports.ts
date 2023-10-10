@@ -4,15 +4,21 @@ import { relative } from "std/path/relative.ts"
 import { fromFileUrl } from "std/path/from_file_url.ts"
 import { write } from "@utils/io.ts"
 import { dirname } from "std/path/dirname.ts"
+import { Logger } from "@utils/log.ts"
+import { bundle } from "x/emit@0.24.0/mod.ts"
 
 if (import.meta.main) {
+  const log = new Logger(import.meta, { level: "trace" })
+
+  // Register dynamic imports
   const base = dirname(fromFileUrl(import.meta.url))
   const imports = []
-  for await (const { path } of expandGlob("source/{plugins,processors}/**/mod.ts")) {
-    imports.push(relative(base, path))
-  }
-  for await (const { path } of expandGlob("source/{plugins,processors}/**/tests/*.ts")) {
-    imports.push(relative(base, path))
+  for (const glob of ["source/{plugins,processors}/**/mod.ts", "source/{plugins,processors}/**/tests/*.ts"]) {
+    for await (const { path } of expandGlob(glob)) {
+      const mod = relative(base, path)
+      imports.push(mod)
+      log.trace(`found: ${mod}`)
+    }
   }
   await write(
     "source/run/server/imports.ts",
@@ -24,4 +30,16 @@ if (import.meta.main) {
       imports.map((imported) => `(async () => await import("${imported.replaceAll("\\", "/")}"))`).sort().join(";\n"),
     ].join("\n"),
   )
+  log.success("generated: source/run/server/imports.ts")
+
+  // Create client
+  await write("source/run/server/static/app.js", await client())
+  log.success("generated: source/run/server/static/app.js")
+}
+
+/** Bundle client */
+export async function client() {
+  const result = await bundle(new URL("./mod_client.ts", import.meta.url), { type: "module" })
+  const { code } = result
+  return code
 }
