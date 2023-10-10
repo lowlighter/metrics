@@ -3,8 +3,9 @@ import { is, Processor, state } from "@processor"
 import { Browser } from "@utils/browser.ts"
 import { Format } from "@utils/format.ts"
 import { Plugin } from "@plugin"
-import { read } from "@utils/io.ts"
+import { env, read } from "@utils/io.ts"
 import { contentType } from "std/media_types/content_type.ts"
+import * as Base64 from "std/encoding/base64.ts"
 
 /** Formats */
 export const formats = ["svg", "png", "jpg", "jpeg", "webp", "json", "html", "pdf", "txt", "text"] as const
@@ -59,12 +60,13 @@ export default class extends Processor {
 
     //Process SVG in browser and convert to image if needed
     //TODO(@lowlighter): handle no local puppeteer
-    if ((wrapper === "svg") && (!Deno.env.get("DENO_DEPLOYMENT_ID"))) {
+    if ((wrapper === "svg") && (!env.deployment)) {
       const page = await Browser.newPage()
       try {
         // Compute SVG rendered dimensions
         this.log.trace("processing content in browser")
-        await page.setContent(Format.html(render), { waitUntil: ["load", "domcontentloaded"] })
+        await page.setContent(Format.html(render))
+        await page.waitForNavigation({ waitUntil: "load" })
         const { processed, width, height } = await page.evaluate(() => {
           const svg = document.querySelector("main svg")!
           const { y: height, width } = svg.querySelector("#metrics-end")!.getBoundingClientRect()
@@ -76,7 +78,8 @@ export default class extends Processor {
         // Convert to image
         if (["png", "jpeg", "webp"].includes(format)) {
           this.log.debug(`converting SVG to ${format}`)
-          render = await page.screenshot({ type: format as "png" | "jpeg" | "webp", clip: { x: 0, y: 0, width, height }, encoding: "base64", omitBackground: true })
+          //TODO(@lowlighter): omitBackground
+          render = Base64.encode(await page.screenshot({ format: format as "png" | "jpeg" | "webp", clip: { x: 0, y: 0, width, height, scale: 1 } }))
           result.base64 = true
         }
         await page.close()

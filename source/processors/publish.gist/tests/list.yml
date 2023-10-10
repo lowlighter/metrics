@@ -1,27 +1,27 @@
 - name: publish svg
   plugins:
     - processors:
-        - id: inject.content
-          args:
-            content: hello world
-        - id: render
-          args:
-            format: svg
-        - id: publish.gist
-          args:
-            gist: 1234
-            filename: test.*
+      - id: inject.content
+        args:
+          content: hello world
+      - id: render
+        args:
+          format: svg
+      - id: publish.gist
+        args:
+          gist: 1234
+          filename: test.*
 
 - name: publish png
   plugins:
     - processors:
-        - id: inject.content
-          args:
-            content: hello world
-        - id: render
-          args:
-            format: png
-        - id: publish.gist
-          args:
-            gist: 1234
-            filename: test.*
+      - id: inject.content
+        args:
+          content: hello world
+      - id: render
+        args:
+          format: png
+      - id: publish.gist
+        args:
+          gist: 1234
+          filename: test.*

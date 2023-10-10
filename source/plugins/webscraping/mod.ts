@@ -24,7 +24,7 @@ export default class extends Plugin {
 
   /** Inputs */
   readonly inputs = is.object({
-    url: is.string().url().describe("Website URL (e.g. `https://github.com`)"),
+    url: is.string().url().default("https://example.com").describe("Website URL (e.g. `https://example.com`)"),
     select: is.string().default("body").describe("Query selector"),
     viewport: is.object({
       width: is.number().positive().default(1280).describe("Viewport width"),
@@ -46,23 +46,24 @@ export default class extends Plugin {
     if (this.context.mock) {
       this.context.args.url = new URL("tests/example.html", import.meta.url).href
     }
-    const { url, select: selector, mode, viewport, wait, background } = await this.inputs.parseAsync(this.context.args)
+    const { url, select: selector, mode, viewport: _, wait, background: __ } = await this.inputs.parseAsync(this.context.args)
     const page = await Browser.newPage()
     try {
-      await page.setViewport(viewport)
-      await page.goto(url, { waitUntil: ["domcontentloaded", "networkidle2"] })
+      //TODO(@lowlighter): await page.setViewport(viewport)
+      await page.goto(url, { waitUntil: "networkidle2" })
       if (wait) {
         await delay(wait * 1000)
       }
       await page.waitForSelector(selector)
-      const result = { content: "", title: await page.title() }
+      const result = { content: "", title: await page.evaluate(`document.title`) }
       switch (mode) {
         case "image": {
           const { x, y, width, height } = await page.evaluate([
             `const {x, y, width, height} = document.querySelector('${selector}').getBoundingClientRect()`,
             `;({x, y, width, height})`,
           ].join("\n")) as { [key: PropertyKey]: number }
-          const buffer = await page.screenshot({ type: "png", clip: { width, height, x, y }, omitBackground: !background }) as Uint8Array
+          //TODO(@lowlighter):, omitBackground: !background
+          const buffer = await page.screenshot({ format: "png", clip: { width, height, x, y, scale: 1 } }) as Uint8Array
           const img = await resize(buffer, { height: 400 })
           result.content = `data:image/png;base64,${Base64.encode(img)}`
           break

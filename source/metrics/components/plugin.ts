@@ -8,6 +8,7 @@ import { Formatter } from "@utils/format.ts"
 import { basename } from "std/path/basename.ts"
 import { Processor } from "@processor"
 import { throws } from "@utils/errors.ts"
+import { RequestInterface } from "y/@octokit/types@11.1.0"
 
 /** Plugin */
 export abstract class Plugin extends Component {
@@ -36,8 +37,8 @@ export abstract class Plugin extends Component {
   }
 
   /** Perform a REST query */
-  protected rest(...args: Parameters<Requests["rest"]>) {
-    return this.requests.rest(...args)
+  protected rest<T extends RequestInterface>(endpoint: T, vars = {} as Parameters<T>[0], options = {} as Parameters<Requests["rest"]>[2]) {
+    return this.requests.rest(endpoint, vars, options)
   }
 
   /** Perform a GraphQL query */

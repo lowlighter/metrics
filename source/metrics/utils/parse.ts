@@ -1,8 +1,13 @@
 //Imports
 import { throws } from "@utils/errors.ts"
+import { globToRegExp } from "std/path/glob.ts"
 
 /** Parse handle */
-export function parseHandle(_handle: string, { entity = "unknown" as "user" | "organization" | "repository" | "unknown" } = {}) {
+export function parseHandle(handle: string, options: { entity: "user" }): { login: string }
+export function parseHandle(handle: string, options: { entity: "organization" }): { login: string }
+export function parseHandle(handle: string, options: { entity: "repository" }): { owner: string; name: string }
+export function parseHandle(handle: string, options?: { entity: string }): { handle: string; login: string }
+export function parseHandle(_handle: string, { entity = "unknown" } = {}) {
   const handle = _handle.replace(/[\n\r]/g, "")
   switch (entity) {
     case "repository": {
@@ -21,4 +26,8 @@ export function parseHandle(_handle: string, { entity = "unknown" as "user" | "o
       return { handle, login }
     }
   }
+}
+
+export function matchPattern(pattern: string, value: unknown) {
+  return globToRegExp(pattern, { extended: true, globstar: true, caseInsensitive: true }).test(`${value}`)
 }

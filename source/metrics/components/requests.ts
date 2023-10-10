@@ -49,7 +49,8 @@ export class Requests extends Internal {
         }
       } catch (error) {
         console.log(error)
-        this.log.warn(`rest query ${method} ${url} could not be mocked: ${error}`)
+        this.log.warn(`rest query ${method} ${url} could not be mocked`)
+        this.log.warn(error)
       }
     }
     if (paginate) {
@@ -70,7 +71,8 @@ export class Requests extends Internal {
         this.log.debug(`mocking graphql query: ${name}`)
         return mock(vars)
       } catch (error) {
-        this.log.warn(`graphql query ${name} could not be mocked: ${error}`)
+        this.log.warn(`graphql query ${name} could not be mocked`)
+        this.log.warn(error)
       }
     }
     if (paginate) {
@@ -92,7 +94,8 @@ export class Requests extends Internal {
         this.log.debug(`mocking http query: ${name}`)
         return mock(options)
       } catch (error) {
-        this.log.warn(`http query ${url} could not be mocked: ${error}`)
+        this.log.warn(`http query ${url} could not be mocked`)
+        this.log.warn(error)
       }
     }
     const response = await fetch(url, options)

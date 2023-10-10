@@ -21,6 +21,10 @@
   --calendar-winter-L2: #0969da;
   --calendar-winter-L3: #54aeff;
   --calendar-winter-L4: #b6e3ff;
+  --diff-addition: #3fb950;
+  --diff-deletion: #ff6a69;
+  --diff-neutral: rgba(158, 167, 179, 0.4);
+  --diff-neutral-border: rgba(158, 167, 179, 0.1);
 }
 
 svg {
@@ -124,6 +128,17 @@ section {
 .rows > aside {
   width: 100%;
   flex: 1 1 0;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.avatar {
+  height: 1.5em;
+  width: 1.5em;
+  border-radius: 50%;
+  margin: 0 4px;
 }
 
 /** Field */

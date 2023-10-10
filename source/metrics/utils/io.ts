@@ -36,7 +36,23 @@ export async function list(glob: string) {
 }
 
 /** Environment */
-export const env = globalThis.Deno?.env ?? { set(_k: string, _v: string) {}, get(_: string) {} }
+export const env = {
+  get(key: string) {
+    if ((!globalThis.Deno) || (globalThis.Deno.permissions.querySync?.({ name: "env", variable: key }).state === "denied")) {
+      return ""
+    }
+    return globalThis.Deno.env.get(key) ?? ""
+  },
+  set(key: string, value: string) {
+    if ((!globalThis.Deno) || (globalThis.Deno.permissions.querySync?.({ name: "env" }).state === "denied")) {
+      return
+    }
+    return globalThis.Deno.env.set(key, value)
+  },
+  get deployment() {
+    return !!env.get("DENO_DEPLOYMENT_ID")
+  },
+}
 
 /** Port listener */
 export const listen = globalThis.Deno?.listen ?? (() => throws("Deno.listen is not available in this environment"))
@@ -67,7 +83,7 @@ export class KV {
   constructor(path = ".kv") {
     if (globalThis.Deno) {
       ;(async () => {
-        this.#kv = env.get("DENO_DEPLOYMENT_ID") ? await globalThis.Deno?.openKv() : await globalThis.Deno?.openKv(path)
+        this.#kv = env.deployment ? await globalThis.Deno?.openKv() : await globalThis.Deno?.openKv(path)
         this.ready.resolve(this)
       })()
     }

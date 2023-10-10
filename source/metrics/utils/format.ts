@@ -13,8 +13,13 @@ export class Formatter {
   readonly timezone
 
   /** Format date */
-  date(date: string) {
-    const intl = new Intl.DateTimeFormat("en-GB", { timeZone: this.timezone, day: "numeric", month: "short", year: "numeric" })
+  date(date: string, options = {} as Intl.DateTimeFormatOptions) {
+    const intl = new Intl.DateTimeFormat("en-GB", {
+      timeZone: this.timezone,
+      day: "day" in options ? options.day : "numeric",
+      month: "month" in options ? options.month : "short",
+      year: "year" in options ? options.year : "numeric",
+    })
     return intl.format(new Date(date))
   }
 
@@ -38,7 +43,7 @@ export class Formatter {
     if (options.format === "bytes") {
       options = { scale: "binary", unit: "B", ...options }
     }
-    return `${humanformat(number, options)} ${pluralize(text, number)}`.trim()
+    return `${humanformat(number, options).replace(/(\d)\s/, "$1")} ${pluralize(text, number)}`.trim()
   }
 
   /** Format content in HTML */

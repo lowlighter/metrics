@@ -29,7 +29,7 @@ export const component = internal.extend({
   id: is.string().describe("Component identifier"),
   retries: is.object({
     attempts: is.number().int().positive().describe("Number of attempts"),
-    delay: is.number().positive().describe("Delay between attempts (in seconds)"),
+    delay: is.number().min(0).describe("Delay between attempts (in seconds)"),
   }).describe("Retry policy"),
   fatal: is.boolean().describe("Whether to stop on error"),
 })

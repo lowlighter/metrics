@@ -32,7 +32,8 @@ export default class extends Processor {
     const page = await Browser.newPage()
     try {
       this.log.trace("processing content in browser")
-      await page.setContent(Format.html(result.content), { waitUntil: ["load", "domcontentloaded"] })
+      await page.setContent(Format.html(result.content))
+      await page.waitForNavigation({ waitUntil: "load" })
       const scope = `inject-style-${crypto.randomUUID().slice(-12)}`
       this.log.trace(`injecting style: ${style}`)
       result.content = await page.evaluate(
@@ -53,8 +54,7 @@ export default class extends Processor {
           document.querySelectorAll("main > *:not(style)").forEach((element) => element.setAttribute(scope, "true"))
           return main.innerHTML
         },
-        scope,
-        style,
+        { args: [scope, style] },
       )
       await page.close()
     } catch (error) {

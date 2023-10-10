@@ -1,21 +1,23 @@
 - name: publish svg
   plugins:
     - processors:
-        - id: inject.content
-          args:
-            content: hello world
-        - id: render
-          args:
-            format: svg
-        - id: publish.console
+      - id: inject.content
+        args:
+          content: hello world
+      - id: optimize.css
+      - id: render
+        args:
+          format: svg
+      - id: publish.console
 
 - name: publish image
   plugins:
     - processors:
-        - id: inject.content
-          args:
-            content: hello world
-        - id: render
-          args:
-            format: png
-        - id: publish.console
+      - id: inject.content
+        args:
+          content: hello world
+      - id: optimize.css
+      - id: render
+        args:
+          format: png
+      - id: publish.console

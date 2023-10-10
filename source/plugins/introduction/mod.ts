@@ -14,7 +14,7 @@ export default class extends Plugin {
   readonly category = "github"
 
   /** Description */
-  readonly description = "Displays user, organization or repository description".trim()
+  readonly description = "Displays user, organization or repository description"
 
   /** Supports */
   readonly supports = ["user", "organization", "repository"]

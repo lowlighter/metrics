@@ -32,12 +32,13 @@ export default class extends Processor {
     const page = await Browser.newPage()
     try {
       this.log.trace("processing content in browser")
-      await page.setContent(Format.html(result.content), { waitUntil: ["load", "domcontentloaded"] })
+      await page.setContent(Format.html(result.content))
+      await page.waitForNavigation({ waitUntil: "load" })
       this.log.trace(`injecting script: ${script}`)
       result.content = await page.evaluate(async (script: string) => {
         await new Function("document", `return (async () => { ${script} })()`)(document)
         return document.querySelector("main")!.innerHTML
-      }, script)
+      }, { args: [script] })
       await page.close()
     } catch (error) {
       await page.close()

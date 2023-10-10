@@ -1,52 +1,51 @@
 - name: optimize
   plugins:
     - processors:
-        - id: inject.content
-          args:
-            content: |
-              <svg>
-                <foreignObject>
-                  <span class="a">Hello</span>
-                  <span>World</span>
-                  <style data-optimizable="true">
-                    .a { color: red; }
-                    .b { color: blue; }
-                  </style>
-                </foreignObject>
-              </svg>
-        - id: optimize.css
-        - id: assert
-          args:
-            select: svg style
-            match: /\.a\{.*\}/i
-        - id: assert
-          args:
-            select: svg style
-            match: /!/\.b\{.*\}/i
+      - id: inject.content
+        args:
+          content: |
+            <svg>
+              <foreignObject>
+                <span class="a">Hello</span>
+                <span>World</span>
+                <style data-optimizable="true">
+                  .a { color: red; }
+                  .b { color: blue; }
+                </style>
+              </foreignObject>
+            </svg>
+      - id: optimize.css
+      - id: assert
+        args:
+          select: svg style
+          match: /\.a\{.*\}/i
+      - id: assert
+        args:
+          select: svg style
+          match: /!/\.b\{.*\}/i
 
 - name: optimize does not remove non-optimizable styles
   plugins:
     - processors:
-        - id: inject.content
-          args:
-            content: |
-              <svg>
-                <foreignObject>
-                  <span class="a">Hello</span>
-                  <span>World</span>
-                  <style>
-                    .a { color: red; }
-                    .b { color: blue; }
-                  </style>
-                </foreignObject>
-              </svg>
-        - id: optimize.css
-        - id: assert
-          args:
-            select: svg style
-            match: /\.a { color:\ red; \}/i
-        - id: assert
-          args:
-            select: svg style
-            match: /\.b \{ color:\ blue; \}/i
-
+      - id: inject.content
+        args:
+          content: |
+            <svg>
+              <foreignObject>
+                <span class="a">Hello</span>
+                <span>World</span>
+                <style>
+                  .a { color: red; }
+                  .b { color: blue; }
+                </style>
+              </foreignObject>
+            </svg>
+      - id: optimize.css
+      - id: assert
+        args:
+          select: svg style
+          match: /\.a { color:\ red; \}/i
+      - id: assert
+        args:
+          select: svg style
+          match: /\.b \{ color:\ blue; \}/i

@@ -40,7 +40,7 @@ export abstract class Component extends Internal {
 
   /** Icon */
   get icon() {
-    return this.name.match(/(\p{Emoji_Presentation})/gu)?.[0] ?? "⏹️"
+    return this.name.match(/(\p{Emoji_Presentation}+)/gu)?.[0] ?? "⏹️"
   }
 
   /** Action */
@@ -79,7 +79,8 @@ export abstract class Component extends Internal {
       }
       // Handle general errors
       if (error) {
-        this.log.warn(`attempt ${attempt} failed: ${error}`)
+        this.log.warn(`attempt ${attempt} failed`)
+        this.log.warn(error)
         // Retry on recoverable errors
         if (recoverable && (this.context.retries.delay) && (attempt < this.context.retries.attempts)) {
           this.log.warn(`next attempt in ${this.context.retries.delay}s`)
@@ -91,10 +92,11 @@ export abstract class Component extends Internal {
           this.log.error(`error is not recoverable`)
         }
         if (this.context.fatal) {
-          this.log.error(`execution failed: ${error}`)
+          this.log.error("execution failed")
+          this.log.error(error)
           throw error
         }
-        this.log.warn(`execution failed: ${error}`)
+        this.log.warn("execution failed")
       }
       this.log.success("execution completed")
       break

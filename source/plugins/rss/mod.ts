@@ -21,7 +21,7 @@ export default class extends Plugin {
 
   /** Inputs */
   readonly inputs = is.object({
-    feed: is.string().url().describe("RSS feed (e.g. `https://news.ycombinator.com/rss`)"),
+    feed: is.string().url().default("https://news.ycombinator.com/rss").describe("RSS feed (e.g. `https://news.ycombinator.com/rss`)"),
     limit: is.number().int().min(1).nullable().default(4).describe("Display limit (use `null` to disable)"),
   })
 

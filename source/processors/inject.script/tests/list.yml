@@ -1,29 +1,29 @@
 - name: inject
   plugins:
     - processors:
-        - id: inject.content
-          args:
-            content: <span class="test"></span>
-        - id: inject.script
-          args:
-            script: |
-              document.querySelector(".test").textContent = "hello world";
-        - id: assert
-          args:
-            select: .test
-            match: hello world
+      - id: inject.content
+        args:
+          content: <span class="test"></span>
+      - id: inject.script
+        args:
+          script: |
+            document.querySelector(".test").textContent = "hello world";
+      - id: assert
+        args:
+          select: .test
+          match: hello world
 
 - name: inject error
   plugins:
     - processors:
-        - id: inject.content
-          args:
-            content: <span class="test"></span>
-        - id: inject.script
-          fatal: false
-          args:
-            script: |
-              throw new Error("expected error")
-        - id: assert
-          args:
-            error: true
+      - id: inject.content
+        args:
+          content: <span class="test"></span>
+      - id: inject.script
+        fatal: false
+        args:
+          script: |
+            throw new Error("expected error")
+      - id: assert
+        args:
+          error: true
