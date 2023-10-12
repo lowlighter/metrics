@@ -18,6 +18,23 @@
     "btr": "deno run --allow-env --allow-read --allow-write=.btr.json --allow-run=deno --no-lock tasks.ts $0"
   },
   "btr-tasks": {
+    "cli": {
+      "task": "deno run source/run/cli/mod.ts",
+      "lock": false,
+      "permissions": {
+        "xenv": [
+          // Metrics
+          //"METRICS_GITHUB_TOKEN",
+          //"METRICS_GITHUB_APP_SECRET",
+        ],
+        "read": [
+          // Metrics
+          "metrics.config.yml",
+          "deno.jsonc",
+          "source"
+        ]
+      }
+    },
     // Server mode ========================================================================
     "serve": {
       "task": "deno run source/run/server/mod.ts",
@@ -189,6 +206,7 @@
         "deployctl deploy --project=metrics --include=source,deno.jsonc --prod source/run/server/mod.ts"
       ],
       "description": "🦕 Deploy metrics on https://deno.com/deploy",
+      "lock": false,
       "env": {
         "DENO_DEPLOY_TOKEN": true
       },

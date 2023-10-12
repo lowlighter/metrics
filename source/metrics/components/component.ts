@@ -4,9 +4,9 @@ import { delay } from "std/async/delay.ts"
 import { is, toSchema, Validator } from "@utils/validator.ts"
 import { Internal } from "@metrics/components/internal.ts"
 import { toFileUrl } from "std/path/to_file_url.ts"
-import { formatValidationError, throws } from "@utils/errors.ts"
+import { formatValidationError, MetricsError, throws } from "@utils/errors.ts"
 import { exists } from "std/fs/exists.ts"
-import * as YAML from "std/yaml/mod.ts"
+import * as YAML from "std/yaml/parse.ts"
 import { read } from "@utils/io.ts"
 
 /** Component */
@@ -75,6 +75,10 @@ export abstract class Component extends Internal {
         if (error instanceof is.ZodError) {
           recoverable = false
           error = formatValidationError(error)
+        }
+        // Handle unrecoverable errors
+        if ((error instanceof MetricsError) && (error.unrecoverable)) {
+          recoverable = false
         }
       }
       // Handle general errors

@@ -85,7 +85,7 @@ export abstract class Plugin extends Component {
     state.results.push(result)
 
     // Render content
-    if ((this.context.template) && (this.context.render)) {
+    if (this.context.template) {
       result.content = await this.render({ state })
     }
 

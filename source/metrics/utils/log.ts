@@ -1,5 +1,6 @@
 //Imports
 import { inspect } from "@utils/io.ts"
+import { loglevel } from "@metrics/config.ts"
 
 /** Logger */
 export class Logger {
@@ -10,7 +11,7 @@ export class Logger {
   level
 
   /** Constructor */
-  constructor(meta: { url: string }, { level = "message" as channel | "none", tags = {} as Record<string, unknown> } = {}) {
+  constructor(meta: { url: string }, { level = loglevel.default as channel | "none", tags = {} as Record<string, unknown> } = {}) {
     this.id = meta.url.replace(Logger.root, "").replace(".ts", "").replace("/mod", "")
     this.level = level === "none" ? -Infinity : Logger.channels[level]
     this.tags = tags

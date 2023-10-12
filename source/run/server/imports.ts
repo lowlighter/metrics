@@ -19,7 +19,7 @@
 ;(async () => await import("../../plugins/rss/tests/rss.http.ts"))
 ;(async () => await import("../../plugins/webscraping/mod.ts"))
 ;(async () => await import("../../processors/assert/mod.ts"))
-;(async () => await import("../../processors/delay/mod.ts"))
+;(async () => await import("../../processors/control.delay/mod.ts"))
 ;(async () => await import("../../processors/inject.content/mod.ts"))
 ;(async () => await import("../../processors/inject.script/mod.ts"))
 ;(async () => await import("../../processors/inject.style/mod.ts"))

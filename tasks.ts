@@ -3,7 +3,6 @@ import * as JSONC from "https://deno.land/std@0.203.0/jsonc/mod.ts"
 import { z as is } from "https://deno.land/x/zod@v3.21.4/mod.ts"
 import { assertEquals, assertMatch, assertThrows } from "https://deno.land/std@0.203.0/assert/mod.ts"
 import { expandGlobSync } from "https://deno.land/std@0.203.0/fs/expand_glob.ts"
-import { parse } from "https://deno.land/std@0.203.0/flags/mod.ts"
 import { bgBrightBlue, gray } from "https://deno.land/std@0.203.0/fmt/colors.ts"
 import { italic } from "https://deno.land/std@0.203.0/fmt/colors.ts"
 import { load } from "https://deno.land/std@0.203.0/dotenv/mod.ts"
@@ -174,9 +173,13 @@ class Task {
   }
 
   /** Run task */
-  async run() {
-    console.log(gray(`$ ${this.command}`))
-    await Deno.writeTextFile(".btr.json", JSON.stringify({ tasks: { btr: this.command } }))
+  async run(args = [] as unknown[]) {
+    let cmd = this.command
+    if (args.length) {
+      cmd = `${cmd} ${args.join(" ")}`
+    }
+    console.log(gray(`$ ${cmd}`))
+    await Deno.writeTextFile(".btr.json", JSON.stringify({ tasks: { btr: cmd } }))
     const command = new Deno.Command("deno", {
       args: ["task", "--config", ".btr.json", "btr"],
       stdout: "inherit",
@@ -192,7 +195,12 @@ class Task {
 
   /** Print tasks list */
   about() {
-    const { columns } = Deno.consoleSize()
+    let columns = 80
+    try {
+      columns = Deno.consoleSize().columns
+    } catch {
+      // Ignore
+    }
     const split = (text: string) => {
       return [...text.matchAll(new RegExp(`.{1,${columns - 4}}`, "g"))].map(([line]) => line.padEnd(columns - 4, " "))
     }
@@ -209,10 +217,10 @@ class Task {
 
 async function main() {
   await load({ export: true })
-  const { _: [task], ..._args } = parse(Deno.args)
+  const [task, ...args] = Deno.args
   const { "btr-tasks": tasks } = JSONC.parse(await Deno.readTextFile("deno.jsonc"))
   if (task) {
-    await new Task(`${task}`, tasks[task]).run()
+    await new Task(`${task}`, tasks[task]).run(args)
   } else {
     for (const [k, v] of Object.entries(tasks)) {
       new Task(k, v).about()

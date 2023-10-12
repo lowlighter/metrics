@@ -48,9 +48,11 @@ RUN apk add --no-cache git \
 # Metrics
 USER metrics
 WORKDIR /metrics
+ENV TZ Europe/Paris
 COPY source /metrics/source
 COPY deno.jsonc /metrics/deno.jsonc
 COPY deno.lock /metrics/deno.lock
 COPY LICENSE /metrics/LICENSE
 COPY tasks.ts /metrics/tasks.ts
 RUN deno task btr cache
+ENTRYPOINT [ "deno", "task", "btr", "cli" ]

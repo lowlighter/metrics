@@ -7,7 +7,10 @@ export function parseHandle(handle: string, options: { entity: "user" }): { logi
 export function parseHandle(handle: string, options: { entity: "organization" }): { login: string }
 export function parseHandle(handle: string, options: { entity: "repository" }): { owner: string; name: string }
 export function parseHandle(handle: string, options?: { entity: string }): { handle: string; login: string }
-export function parseHandle(_handle: string, { entity = "unknown" } = {}) {
+export function parseHandle(_handle: string | null, { entity = "unknown" } = {}) {
+  if (_handle === null) {
+    throws("No handle provided", { unrecoverable: true })
+  }
   const handle = _handle.replace(/[\n\r]/g, "")
   switch (entity) {
     case "repository": {

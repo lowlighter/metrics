@@ -3,7 +3,11 @@ export class Secret {
   /** Constructor */
   constructor(value: unknown) {
     this.#value = `${value}`
+    this.empty = !this.#value.length
   }
+
+  /** Is empty */
+  readonly empty
 
   /** Value */
   readonly #value

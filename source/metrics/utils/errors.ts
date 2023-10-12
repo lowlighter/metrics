@@ -1,9 +1,15 @@
 //Imports
 import { is } from "@utils/validator.ts"
 
+/** Metrics error */
+export class MetricsError extends Error {
+  /** Is unrecoverable error */
+  readonly unrecoverable = false
+}
+
 /** Throws an error */
-export function throws(message?: string): never {
-  throw Object.assign(new Error(message), { stack: "" })
+export function throws(message?: string, { unrecoverable = false } = {}): never {
+  throw Object.assign(new MetricsError(message), { stack: "", unrecoverable })
 }
 
 /** Format Validation error */

@@ -1,8 +1,24 @@
 //Imports
-import { ensureDir, expandGlob } from "std/fs/mod.ts"
+import { ensureDir } from "std/fs/ensure_dir.ts"
+import { expandGlob } from "std/fs/expand_glob.ts"
 import { throws } from "@utils/errors.ts"
 import { dirname } from "std/path/dirname.ts"
 import { deferred } from "std/async/deferred.ts"
+
+/** Inspect */
+export function inspect(message: unknown) {
+  if (typeof globalThis.Deno?.inspect === "function") {
+    return globalThis.Deno.inspect(message, { colors: true, depth: Infinity, iterableLimit: 16, strAbbreviateSize: 120 })
+  }
+  try {
+    return JSON.stringify(message, null, 2)
+  } catch {
+    return message
+  }
+}
+
+/** Port listener */
+export const listen = globalThis.Deno?.listen ?? (() => throws("Deno.listen is not available in this environment"))
 
 /** Read file */
 export function read(path: string | URL, options: { sync: true }): string
@@ -35,65 +51,62 @@ export async function list(glob: string) {
   return files
 }
 
-/** Environment */
-export const env = {
-  get(key: string) {
-    if ((!globalThis.Deno) || (globalThis.Deno.permissions.querySync?.({ name: "env", variable: key }).state === "denied")) {
-      return ""
+/** Get environment value */
+function getEnv(key: string, options: { boolean: true }): boolean
+function getEnv(key: string, options?: { boolean: false }): string
+function getEnv(key: string, { boolean = false } = {}) {
+  if (boolean) {
+    const value = env.get(key, { boolean: false })
+    if (!value.length) {
+      return false
     }
-    try {
-      return globalThis.Deno.env.get(key) ?? ""
-    } catch {
-      return ""
-    }
-  },
-  set(key: string, value: string) {
-    if ((!globalThis.Deno) || (globalThis.Deno.permissions.querySync?.({ name: "env" }).state === "denied")) {
-      return
-    }
-    try {
-      return globalThis.Deno.env.set(key, value)
-    } catch {
-      /* Ignore */
-    }
-  },
-  get deployment() {
-    return !!env.get("DENO_DEPLOYMENT_ID")
-  },
-}
-
-/** Port listener */
-export const listen = globalThis.Deno?.listen ?? (() => throws("Deno.listen is not available in this environment"))
-
-/** Inspect */
-export function inspect(message: unknown) {
-  if (globalThis.Deno?.inspect) {
-    return globalThis.Deno.inspect(message, { colors: true, depth: Infinity, iterableLimit: 16, strAbbreviateSize: 120 })
+    return !/^(0|[Nn]o?|NO|[Oo]ff|OFF|[Ff]alse|FALSE)$/.test(value)
+  }
+  if ((!globalThis.Deno) || (globalThis.Deno.permissions.querySync?.({ name: "env", variable: key }).state === "denied")) {
+    return ""
   }
   try {
-    return JSON.stringify(message, null, 2)
+    return globalThis.Deno.env.get(key) ?? ""
   } catch {
-    return message
+    return ""
   }
 }
 
-/** Current working directory */
-export function cwd() {
-  return globalThis.Deno?.cwd() ?? ""
+/** Set environment value */
+function setEnv(key: string, value: string) {
+  if ((!globalThis.Deno) || (globalThis.Deno.permissions.querySync?.({ name: "env" }).state === "denied")) {
+    return
+  }
+  try {
+    return globalThis.Deno.env.set(key, value)
+  } catch {
+    return
+  }
 }
 
-/** Operating system */
-export const os = globalThis.Deno?.build.os ?? "unknown"
+/** Environment */
+export const env = {
+  get: getEnv,
+  set: setEnv,
+  get deployment() {
+    return env.get("DENO_DEPLOYMENT_ID", { boolean: true })
+  },
+  get docker() {
+    return env.get("IS_DOCKER", { boolean: true })
+  },
+}
 
 /** KV storage */
 export class KV {
   /** Constructor */
   constructor(path = ".kv") {
-    if (globalThis.Deno) {
+    if (typeof globalThis.Deno?.openKv === "function") {
       ;(async () => {
-        this.#kv = env.deployment ? await globalThis.Deno?.openKv() : await globalThis.Deno?.openKv(path)
+        this.#kv = env.deployment ? await globalThis.Deno.openKv() : await globalThis.Deno.openKv(path)
         this.ready.resolve(this)
       })()
+    } else {
+      throws("Deno.openKv is not available in this environment")
     }
   }
 
