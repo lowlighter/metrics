@@ -8,6 +8,7 @@ import { process } from "@metrics/process.ts"
 import { parse } from "std/flags/mod.ts"
 import { cyan, gray } from "std/fmt/colors.ts"
 import { expandGlobSync } from "std/fs/expand_glob.ts"
+import { env } from "@utils/io.ts"
 
 /** CLI */
 class CLI extends Internal {
@@ -20,6 +21,18 @@ class CLI extends Internal {
   /** Constructor */
   constructor(context = {} as Record<PropertyKey, unknown>) {
     super(schema.parse(context))
+    this.setup()
+  }
+
+  /** General setup */
+  private setup() {
+    // GitHub action setup
+    if ((env.actions) && (env.get("INPUTS"))) {
+      const inputs = JSON.parse(env.get("INPUTS")!) as Record<PropertyKey, unknown>
+      for (const [key, value] of Object.entries(inputs)) {
+        env.set(`INPUT_${key.replace(/ /g, "_").toUpperCase()}`, `${value}`)
+      }
+    }
   }
 
   /** Run metrics */
@@ -28,7 +41,7 @@ class CLI extends Internal {
     this.log.probe(github.context)
     this.log.probe(Deno.env.toObject())
     try {
-      this.log.probe([...expandGlobSync("**/*", { root: "/workspace" })].filter(({ isDirectory }) => isDirectory).map(({ path }) => path))
+      this.log.probe([...expandGlobSync("**/*.md", { root: "/workspace" })].filter(({ isDirectory }) => isDirectory).map(({ path }) => path))
     } catch (error) {
       console.log(error)
     }

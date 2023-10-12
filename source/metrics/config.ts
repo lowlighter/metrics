@@ -6,6 +6,7 @@ import { env, read } from "@utils/io.ts"
 import * as YAML from "std/yaml/parse.ts"
 import { Logger } from "@utils/log.ts"
 import { throws } from "@utils/errors.ts"
+import { filterKeys } from "std/collections/filter_keys.ts"
 
 /** Entities */
 const entities = ["user", "organization", "repository"] as const
@@ -67,8 +68,11 @@ const _preset_processor = is.object({
   }).default(() => ({})),
 })
 
+/** List of processor keys */
+const _processor_keys = [...Object.keys(_preset_processor.parse({}))]
+
 /** Processor component config */
-export const processor = is.preprocess((value) => _preset_processor.passthrough().parse(value), _processor.omit({ parent: true }))
+export const processor = is.preprocess((value) => _preset_processor.passthrough().parse(sugar(value, _processor_keys)), _processor.omit({ parent: true }))
 
 /** Plugin component internal config */
 const _plugin = __plugin.extend({
@@ -97,8 +101,11 @@ const _preset_plugin = is.object({
   }).default(() => ({})),
 })
 
+/** List of plugin keys */
+const _plugin_keys = [...Object.keys(_preset_plugin.parse({}))]
+
 /** Plugin component config */
-export const plugin = is.preprocess((value) => _preset_plugin.passthrough().parse(value), _plugin)
+export const plugin = is.preprocess((value) => _preset_plugin.passthrough().parse(sugar(value, _plugin_keys)), _plugin)
 
 /** Plugin NOP config */
 export const plugin_nop = is.preprocess((value) => _preset_plugin.passthrough().parse(value), _plugin_nop)
@@ -203,6 +210,23 @@ export const webrequest = is.object({
       }).partial(),
   ).default(() => []).describe("Plugins"),
 })
+
+/** Syntaxic sugar for components that allows the use of one extra dictionnary as identifier and args */
+function sugar(value: unknown, keys: string[]) {
+  if ((!value) || (typeof value !== "object") || ("id" in value)) {
+    return value
+  }
+  const record = { ...value } as Record<PropertyKey, unknown>
+  if ((record.args) && (typeof record.args === "object") && (Object.keys(record.args).length)) {
+    return value
+  }
+  const [id, ...extras] = Object.keys(filterKeys(record, (key) => !keys.includes(key)))
+  if (extras.length) {
+    return value
+  }
+  delete record[id]
+  return Object.assign(record, { id, args: record[id] ?? {} })
+}
 
 /** Load config */
 export async function load(path = "metrics.config.yml") {

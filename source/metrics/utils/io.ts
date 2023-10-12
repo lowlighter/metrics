@@ -94,6 +94,9 @@ export const env = {
   get docker() {
     return env.get("IS_DOCKER", { boolean: true })
   },
+  get actions() {
+    return env.get("GITHUB_ACTIONS", { boolean: true })
+  },
 }
 
 /** KV storage */
