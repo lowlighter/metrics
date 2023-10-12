@@ -22,7 +22,10 @@ outputs:
 runs:
   using: composite
   steps:
+    - uses: denoland/setup-deno@v1
     - shell: bash
       run: |
         set -x
-        docker run --tty --env-file <(env | grep -E 'GITHUB|ACTIONS|CI|TZ|INPUT') --rm ${{ inputs.docker_image }} --volume ${{ github.workspace }}:/workspace run
+        # ${{ inputs.docker_image }}
+        deno task btr docker:build
+        docker run --tty --env-file <(env | grep -E 'GITHUB|ACTIONS|CI|TZ|INPUT') --rm --volume ${{ github.workspace }}:/workspace metrics:dev run
