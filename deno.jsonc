@@ -22,16 +22,15 @@
       "task": "deno run source/run/cli/mod.ts",
       "lock": false,
       "permissions": {
-        "xenv": [
-          // Metrics
-          //"METRICS_GITHUB_TOKEN",
-          //"METRICS_GITHUB_APP_SECRET",
-        ],
-        "read": [
+        "env": true,
+        "read": true, /*[
           // Metrics
           "metrics.config.yml",
           "deno.jsonc",
           "source"
+        ]*/
+        "net": [
+          "api.github.com"
         ]
       }
     },

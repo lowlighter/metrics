@@ -1,0 +1,27 @@
+name: Metrics embed
+author: lowlighter
+description: An infographics generator with 40+ plugins and 300+ options to display stats about your GitHub account!
+branding:
+  icon: user-check
+  color: gray-dark
+
+inputs:
+  docker_image:
+    description: Docker image to use
+    default: Dockerfile # TODO(@lowlighter): change to remote published image
+    required: true
+  config:
+    description: Configuration file
+    default: metrics.config.yml
+    required: true
+
+outputs:
+  result:
+    description: Result of the action
+
+runs:
+  using: docker
+  image: ${{ inputs.docker_image }}
+  args:
+    - run --config ${{ inputs.config }}
+  env: ${{ inputs }}
