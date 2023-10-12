@@ -20,8 +20,9 @@ outputs:
     description: Result of the action
 
 runs:
-  using: docker
-  image: ${{ inputs.docker_image }}
-  args:
-    - run --config ${{ inputs.config }}
-  env: ${{ inputs }}
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        set -x
+        docker run --tty --env-file <(env | grep -E 'GITHUB|ACTIONS|CI|TZ|INPUT') --rm ${{ inputs.docker_image }} --volume ${{ github.workspace }}:/workspace run
