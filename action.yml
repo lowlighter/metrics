@@ -22,6 +22,7 @@ outputs:
 runs:
   using: composite
   steps:
+    - uses: actions/checkout@v3
     - uses: denoland/setup-deno@v1
     - shell: bash
       env:
@@ -36,6 +37,4 @@ runs:
         deno task btr docker:build
         echo "::endgroup::"
 
-        echo $INPUTS
-
-        docker run --tty --env-file <(env | grep -E 'GITHUB|ACTIONS|CI|TZ|INPUT') --rm --volume ${{ github.workspace }}:/workspace metrics:dev run
+        docker run --tty --env-file <(env | grep -E 'GITHUB|CI|TZ') --env INPUTS --rm --volume ${{ github.workspace }}:/workspace metrics:dev run
