@@ -24,6 +24,8 @@ runs:
   steps:
     - uses: denoland/setup-deno@v1
     - shell: bash
+      env:
+        INPUTS: ${{ toJson(inputs) }}
       run: |
         set -x
         echo "::group::Metrics docker image setup"
@@ -33,5 +35,7 @@ runs:
         # ${{ inputs.docker_image }}
         deno task btr docker:build
         echo "::endgroup::"
+
+        echo $INPUTS
 
         docker run --tty --env-file <(env | grep -E 'GITHUB|ACTIONS|CI|TZ|INPUT') --rm --volume ${{ github.workspace }}:/workspace metrics:dev run

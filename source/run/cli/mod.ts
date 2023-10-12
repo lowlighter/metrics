@@ -28,7 +28,7 @@ class CLI extends Internal {
     this.log.probe(github.context)
     this.log.probe(Deno.env.toObject())
     try {
-      this.log.probe([...expandGlobSync("**/*", { root: "/" })].filter(({ isDirectory }) => isDirectory).map(({ path }) => path))
+      this.log.probe([...expandGlobSync("**/*", { root: "/workspace" })].filter(({ isDirectory }) => isDirectory).map(({ path }) => path))
     } catch (error) {
       console.log(error)
     }
