@@ -68,5 +68,5 @@ jobs:
       - uses: docker/build-push-action@v5
         with:
           context: .
-          tags: ${{ github.repository }}:v4
+          tags: ghcr.io/${{ github.repository }}:v4
           push: ${{ github.event_name == 'push' }}
