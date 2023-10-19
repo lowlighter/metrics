@@ -18,13 +18,12 @@ jobs:
           - ci:check
           - ci:test
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: denoland/setup-deno@v1
       - run: deno task btr ${{ matrix.task }}
 
   # GitHub CodeQL analysis
   analyze:
-    name:
     runs-on: ubuntu-latest
     needs:
       - testing
@@ -38,7 +37,7 @@ jobs:
         language:
           - typescript
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - uses: github/codeql-action/init@v2
       with:
         languages: ${{ matrix.language }}
@@ -48,3 +47,22 @@ jobs:
           paths-ignore:
             - source/run/server/imports.ts
     - uses: github/codeql-action/analyze@v2
+
+  # Build and push Docker image
+  docker:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/v4-dev'
+    runs-on: ubuntu-latest
+    needs:
+      - analyze
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
+      - uses: docker/build-push-action@v5
+        with:
+          tags: v4
+          file: ./Dockerfile
+          push: true
