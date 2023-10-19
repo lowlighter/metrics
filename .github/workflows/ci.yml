@@ -66,6 +66,5 @@ jobs:
           password: ${{ github.token }}
       - uses: docker/build-push-action@v5
         with:
-          tags: v4
-          file: ./Dockerfile
+          tags: ${{ github.repository }}:v4
           push: true

@@ -91,7 +91,6 @@ async function getPermissions(test: Awaited<ReturnType<typeof Component["prototy
       components.add(`processors/${id}`)
     }
   }
-  Logger.raw
   await Promise.all([...components].map((id) => Component.load({ id }).then((component) => component.permissions.forEach((permission) => requested.add(permission)))))
 
   // Compute permissions
