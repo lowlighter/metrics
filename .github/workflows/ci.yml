@@ -50,7 +50,7 @@ jobs:
 
   # Build and push Docker image
   docker:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/v4-dev'
+    if: github.ref == 'refs/heads/v4-dev'
     runs-on: ubuntu-latest
     needs:
       - analyze
@@ -60,11 +60,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: docker/login-action@v3
+        if: github.event_name == 'push'
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ github.token }}
       - uses: docker/build-push-action@v5
         with:
+          context: .
           tags: ${{ github.repository }}:v4
-          push: true
+          push: ${{ github.event_name == 'push' }}

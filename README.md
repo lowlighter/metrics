@@ -6,8 +6,7 @@ See [#1533](https://github.com/lowlighter/metrics/discussions/1533)
 
 ## ✈️ Migration guide
 
-> ℹ️ This is still subject to change, see this guide more as a "pre-release note"/"roadmap progress". It may be used later on to create a migration tool from v3 to v4. Plugins not yet listed are not
-> yet migrated. This guide will be updated later on
+For convenience, _metrics_ offers a [v3 to v4 migration script](/source/run/cli/compat.ts).
 
 ### Migration and progression
 
@@ -19,16 +18,18 @@ See [#1533](https://github.com/lowlighter/metrics/discussions/1533)
     - [x] Plugin framework
     - [x] Processor framework
     - [ ] Docs auto-generation
+    - [ ] Code coverage and unit test (not too bad currently !)
   - [ ] GitHub Action
     - [x] Implement `publish.gist`
     - [x] Implement `publish.file`
     - [ ] Implement `publish.git` (almost finished, needs to handle the PR merge)
     - [x] Docker image
   - [ ] Web server
-    - [ ] Config crafter (big draft)
+    - [ ] Config crafter (kind of ok, needs some polishing)
     - [x] OAuth support
+    - [ ] Deno deployment (partial support)
     - [ ] Vercel deployment (next priority)
-  - [ ] Plugins
+  - [ ] Plugins (will add lines, languages and activity as part of pre-release)
     - [x] A simple plugin
     - [x] A plugin that requires puppeteer
     - [x] A plugin that requires an external library
@@ -55,40 +56,20 @@ See [#1533](https://github.com/lowlighter/metrics/discussions/1533)
 - 🧩 **Plugins**
   - 📆 **Commit calendar**
     - ✨ Merged `isocalendar` and `calendar` plugins, which means that both plugins now have same level of features
-      - ✨ `isocalendar` can now display multiple years and a specific year
+      - ✨ `isocalendar` can now display multiple years or a specific year rather than just last 180 or 365 days
       - ✨ `calendar` can now display additional stats (such as commits per day, streaks, etc.)
     - ✨ `calendar.args.view` can now be set to `isometric` or `top-down`
     - ✨ `calendar.args.range` can now be set to `last-180-days`, `last-365-days`, a specific year or a custom range
       - ✨ `calendar.args.range.from` can now be set to `registration`, `-n` years relative to `calendar.args.range.to` or a specific year
       - ✨ `calendar.args.range.to` can now be set to `current-year` or a specific year
     - ✨ `calendar.args.colors` can now be set to `auto`, `halloween` or `winter`
-    - ❗ `plugin_calendar: yes` ➡️ `plugins: [{id: calendar}]` with `args`
-    - ❗ `plugin_calendar_limit: 0` ➡️ `calendar.args.range: {from: registration, to: current-year}`
-    - ❗ `plugin_calendar_limit: (n > 0)` ➡️ `calendar.args.range: {from: (-n), to: current-year}`
-    - ❌ `plugin_calendar_limit: (n < 0)` ➡️ Use `calendar.args.range.from` with a specific year
   - 🎫 **Gists**
     - 🐞 Fine-grained tokens always returns `null` data
-    - ❗ `plugin_gists: yes` ➡️ `plugins: [{id: gists}]`
     - ✨ `gists.args.forks` can now be configured
     - ✨ `gists.args.visibility` can now be set to `public` or `all`
-
   - 🗼 **Rss feed**
-    - ❗ `plugin_rss: yes` ➡️ `plugins: [{id: rss}]` with `args`
-    - ❗ `plugin_rss_source` ➡️ `rss.args.feed`
-    - ❗ `plugin_rss_limit` ➡️ `rss.args.limit`
-      - ❗ `plugin_rss_limit: 0` ➡️ `rss.args.limit: null`
-      - ✨ `rss.args.limit` no longer has an upper limit (lower limit was changed to `1`)
-  - 📸 **Website screenshot**
-    - ❗ _This plugin was renamed `webscrap` and is now part of official plugins_
-      - ➡️ Use `webscrap` plugin
-      - ❗ `plugin_screenshot: yes` ➡️ `plugins: [{id: webscrap}]` with `args`
-      - ❗ `plugin_screenshot_url` ➡️ `webscrap.args.url`
-      - ❗ `plugin_screenshot_selector` ➡️ `webscrap.args.select`
-      - ❗ `plugin_screenshot_mode` ➡️ `webscrap.args.mode`
-      - ❗ `plugin_screenshot_viewport` ➡️ `webscrap.args.viewport.width` and `webscrap.args.viewport.height`
-      - ❗ `plugin_screenshot_wait` ➡️ `webscrap.args.wait`
-      - ❗ `plugin_screenshot_background` ➡️ `webscrap.args.background`
-  - 📸 **Webscrap**
+    - ✨ `rss.args.limit` no longer has an upper limit (lower limit was changed to `1`)
+  - 📸 **Webscraping**
     - ✨ Added `screenshot` as part of official plugins
   - 💭 **GitHub Community Support**
     - ❌ Removed as it was already deprecated
@@ -134,13 +115,8 @@ See [#1533](https://github.com/lowlighter/metrics/discussions/1533)
       - ❌ Files are not stored automatically in `/metrics_renders`, it is required to call manually the `publish.file` processor
         - ❗ `output_action: none` ➡️ `processors: [{id: publish.file}]`
     - ❗ `debug_print` ➡️ `processors: [{id: publish.console}]`
-    - ❌ `debug_flags`
-      - ❗ `debug_flags: --halloween` ➡️ `calendar.args.colors: halloween`
-      - ❗ `debug_flags: --winter` ➡️ `calendar.args.colors: winter`
     - ❌ `setup_community_templates` ➡️ `plugins[].template: https://...`
     - ❌ `query` ➡️ `plugins[].template: https://...?params`
-    - ❌ `dryrun` ➡️ Don't put any publisher processor
-    - ❌ `experimental_features`
     - ❌ `verify`
 - 🪄 **Processors**
   - 🧪 **Assertions**
