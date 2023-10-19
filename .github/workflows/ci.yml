@@ -54,6 +54,9 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - analyze
+    permissions:
+      contents: read
+      packages: write
     steps:
       - uses: actions/checkout@v4
       - uses: docker/login-action@v3
