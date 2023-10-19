@@ -1,5 +1,5 @@
 // Imports
-import { is, Plugin } from "@plugin"
+import { is, Plugin } from "@engine/components/plugin.ts"
 import RSS from "y/rss-parser@3.13.0"
 
 /** Plugin */
@@ -15,6 +15,9 @@ export default class extends Plugin {
 
   /** Supports */
   readonly supports = ["user", "organization", "repository"]
+
+  /** Permissions */
+  readonly permissions = ["net"]
 
   /** Description */
   readonly description = "Displays entries from a RSS feed"

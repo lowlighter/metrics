@@ -23,7 +23,7 @@ See [#1533](https://github.com/lowlighter/metrics/discussions/1533)
     - [x] Implement `publish.gist`
     - [x] Implement `publish.file`
     - [ ] Implement `publish.git` (almost finished, needs to handle the PR merge)
-    - [ ] Docker image
+    - [x] Docker image
   - [ ] Web server
     - [ ] Config crafter (big draft)
     - [x] OAuth support
@@ -53,12 +53,6 @@ See [#1533](https://github.com/lowlighter/metrics/discussions/1533)
   - ⌨️ **CLI**
     - ☣️ _(Not yet started)_
 - 🧩 **Plugins**
-  - 📅 **Isometric commit calendar**
-    - ❗ _This plugin was merged with `calendar` plugin_
-      - ➡️ `calendar.args.view: isometric`
-      - ❗ `plugin_isocalendar: yes` ➡️ `plugins: [{id: calendar}]` with `args`
-      - ❗ `plugin_isocalendar_duration: half-year` ➡️ `calendar.args.range: last-180-days`
-      - ❗ `plugin_isocalendar_duration: full-year` ➡️ `calendar.args.range: last-365-days`
   - 📆 **Commit calendar**
     - ✨ Merged `isocalendar` and `calendar` plugins, which means that both plugins now have same level of features
       - ✨ `isocalendar` can now display multiple years and a specific year
@@ -77,9 +71,7 @@ See [#1533](https://github.com/lowlighter/metrics/discussions/1533)
     - ❗ `plugin_gists: yes` ➡️ `plugins: [{id: gists}]`
     - ✨ `gists.args.forks` can now be configured
     - ✨ `gists.args.visibility` can now be set to `public` or `all`
-  - 🙋 **Introduction**
-    - ❗ `plugin_introduction: yes` ➡️ `plugins: [{id: introduction}]`
-    - ❌ `plugin_introduction_title` ➡️ `processors: [{id: inject.style, args: {style: ".introduction .title { display: none }"}}]`
+
   - 🗼 **Rss feed**
     - ❗ `plugin_rss: yes` ➡️ `plugins: [{id: rss}]` with `args`
     - ❗ `plugin_rss_source` ➡️ `rss.args.feed`

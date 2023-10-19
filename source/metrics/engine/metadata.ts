@@ -1,7 +1,7 @@
 //Imports
-import { is, Plugin } from "@plugin"
-import { Processor } from "@processor"
-import { action, server, webrequest } from "@metrics/config.ts"
+import { is, Plugin } from "@engine/components/plugin.ts"
+import { Processor } from "@engine/components/processor.ts"
+import { cli, server, webrequest } from "@metrics/config.ts"
 import { version } from "@metrics/version.ts"
 
 /** Metadata */
@@ -10,7 +10,7 @@ export async function metadata() {
     version,
     plugins: [] as Record<PropertyKey, unknown>[],
     processors: [] as Record<PropertyKey, unknown>[],
-    action: action.omit({ config: true }),
+    cli: cli.omit({ config: true }),
     server: server.omit({ config: true }),
     webrequest: webrequest.extend({
       plugins: is.array(

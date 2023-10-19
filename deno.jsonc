@@ -6,15 +6,15 @@
     "std/": "https://deno.land/std@0.201.0/",
     "x/": "https://deno.land/x/",
     "y/": "https://esm.sh/",
-    "@metrics/": "./source/metrics/",
+    "gh/": "https://esm.sh/gh/",
+    "@engine/": "./source/metrics/engine/",
     "@utils/": "./source/metrics/utils/",
-    "@testing": "./source/metrics/utils/testing.ts",
-    "@plugin": "./source/metrics/components/plugin.ts",
-    "@processor": "./source/metrics/components/processor.ts",
     "@plugins/": "./source/plugins/",
     "@processors/": "./source/processors/"
   },
   "tasks": {
+    "qq": "rm -rf .coverage && deno test --coverage=.coverage --unstable --trace-ops --allow-all source/metrics/engine/config_test.ts && deno coverage .coverage --exclude='(secret|log|io|errors|testing|validation).ts'",
+    "q": "rm -rf .coverage && deno test --coverage=.coverage --unstable --no-check --trace-ops --fail-fast --allow-all source/metrics && deno coverage .coverage",
     "btr": "deno run --allow-env --allow-read --allow-write=.btr.json --allow-run=deno --no-lock tasks.ts $0"
   },
   "btr-tasks": {
@@ -88,8 +88,8 @@
     // Testing ==============================================================================
     "test": {
       "task": [
-        "rm .coverage -rf",
-        "deno test source"
+        //"rm .coverage -rf",
+        "deno test source/metrics"
       ],
       "description": "🧪 Run tests and collect coverage",
       "seed": 0,
@@ -97,7 +97,7 @@
       "traceOps": true,
       //"parallel": true,
       "shuffle": true,
-      "coverage": ".coverage",
+      //"coverage": ".coverage",
       "failFast": 1,
       "lock": false,
       "permissions": {

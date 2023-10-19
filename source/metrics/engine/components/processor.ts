@@ -1,9 +1,9 @@
 // Imports
-import { Component, is, state } from "@metrics/components/component.ts"
-import { processor as schema } from "@metrics/config.ts"
+import { Component, is, state } from "@engine/components/component.ts"
+import { processor as schema } from "@engine/config.ts"
 import { list } from "@utils/io.ts"
-import type { Plugin } from "@plugin"
-import { Requests } from "@metrics/components/requests.ts"
+import type { Plugin } from "@engine/components/plugin.ts"
+import { Requests } from "@engine/components/requests.ts"
 
 /** Processor */
 export abstract class Processor extends Component {
@@ -71,7 +71,7 @@ export abstract class Processor extends Component {
 
   /** Load component statically */
   static async load(context: Record<PropertyKey, unknown> & { id: string }) {
-    const processor = await super.load(context)
+    const processor = await super.load(context) as Processor
     if ((context[Processor.plugin]) && (processor.requesting)) {
       const parent = context[Processor.plugin] as { requests: { octokit: unknown }; context: Requests["context"] }
       const requests = Object.assign(new Requests(processor.meta, parent.context), { octokit: parent.requests.octokit })

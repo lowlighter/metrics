@@ -1,5 +1,5 @@
 // Imports
-import { Processor, state } from "@processor"
+import { Processor, state } from "@engine/components/processor.ts"
 import { parse } from "y/@twemoji/parser@14.1.0"
 
 /** Processor */
@@ -18,6 +18,9 @@ export default class extends Processor {
 
   /** Supports */
   readonly supports = ["application/xml", "image/svg+xml"]
+
+  /** Permissions */
+  readonly permissions = ["net:cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets"]
 
   /** Action */
   protected async action(state: state) {

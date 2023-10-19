@@ -1,5 +1,5 @@
 // Imports
-import { is, Processor, state } from "@processor"
+import { is, Processor, state } from "@engine/components/processor.ts"
 import { extension } from "std/media_types/extension.ts"
 import * as Base64 from "std/encoding/base64.ts"
 import { write } from "@utils/io.ts"
@@ -25,6 +25,9 @@ export default class extends Processor {
 
   /** Supports */
   readonly supports = ["application/xml", "image/svg+xml", "image/png", "image/jpeg", "image/webp", "application/json", "text/html", "application/pdf", "text/plain"]
+
+  /** Permissions */
+  readonly permissions = ["write"]
 
   /** Action */
   protected async action(state: state) {

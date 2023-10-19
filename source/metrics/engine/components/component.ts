@@ -1,10 +1,10 @@
 // Imports
-import { component as schema } from "@metrics/config.ts"
+import { component as schema, config } from "@engine/config.ts"
 import { delay } from "std/async/delay.ts"
-import { is, toSchema, Validator } from "@utils/validator.ts"
-import { Internal } from "@metrics/components/internal.ts"
+import { is, toSchema, Validator } from "@utils/validation.ts"
+import { Internal } from "@engine/components/internal.ts"
 import { toFileUrl } from "std/path/to_file_url.ts"
-import { formatValidationError, MetricsError, throws } from "@utils/errors.ts"
+import { MetricsError, throws } from "@utils/errors.ts"
 import { exists } from "std/fs/exists.ts"
 import * as YAML from "std/yaml/parse.ts"
 import { read } from "@utils/io.ts"
@@ -37,6 +37,9 @@ export abstract class Component extends Internal {
 
   /** Supports */
   readonly supports = [] as string[]
+
+  /** Permissions */
+  readonly permissions = [] as string[]
 
   /** Icon */
   get icon() {
@@ -71,11 +74,6 @@ export abstract class Component extends Internal {
         result = await this.outputs.parseAsync(await this.action(state) ?? {})
       } catch (caught) {
         error = caught
-        // Handle validation errors
-        if (error instanceof is.ZodError) {
-          recoverable = false
-          error = formatValidationError(error)
-        }
         // Handle unrecoverable errors
         if ((error instanceof MetricsError) && (error.unrecoverable)) {
           recoverable = false
@@ -114,7 +112,7 @@ export abstract class Component extends Internal {
       return []
     }
     const content = await read(path)
-    return YAML.parse(content) as Array<is.infer<typeof schema>>
+    return YAML.parse(content) as Array<is.infer<typeof config> & {name:string}>
   }
 
   /** Load component statically */
@@ -124,7 +122,7 @@ export abstract class Component extends Internal {
     if (!Module) {
       throws(`${this.name} ${context.id} could not be loaded`)
     }
-    return new Module(context)
+    return new Module(context) as Component
   }
 
   /** Run component statically */

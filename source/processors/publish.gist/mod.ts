@@ -1,5 +1,5 @@
 // Imports
-import { is, Processor, state } from "@processor"
+import { is, Processor, state } from "@engine/components/processor.ts"
 import { extension } from "std/media_types/extension.ts"
 import * as Base64 from "std/encoding/base64.ts"
 

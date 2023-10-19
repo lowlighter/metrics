@@ -4,40 +4,78 @@ import { expandGlob } from "std/fs/expand_glob.ts"
 import { throws } from "@utils/errors.ts"
 import { dirname } from "std/path/dirname.ts"
 import { deferred } from "std/async/deferred.ts"
+import { toFileUrl } from "std/path/to_file_url.ts"
+import { resolve } from "std/path/resolve.ts"
+import { th } from "y/@faker-js/faker@8.0.2"
 
-/** Inspect */
-export function inspect(message: unknown) {
-  if (typeof globalThis.Deno?.inspect === "function") {
-    return globalThis.Deno.inspect(message, { colors: true, depth: Infinity, iterableLimit: 16, strAbbreviateSize: 120 })
-  }
-  try {
-    return JSON.stringify(message, null, 2)
-  } catch {
-    return message
+/** Runtime (internal, exported for testing purposes only) */
+export const testing = {
+  deno: !!globalThis.Deno,
+}
+
+/** Runtime */
+const runtime = {
+  get deno() {
+    return testing.deno
   }
 }
 
+/** Inspect */
+export function inspect(message: unknown) {
+  if (!runtime.deno) {
+    try {
+      return JSON.stringify(message, null, 2)
+    } catch {
+      return `${message}`
+    }
+  }
+  return Deno.inspect(message, { colors: true, depth: Infinity, iterableLimit: 16, strAbbreviateSize: 120 })
+}
+
 /** Port listener */
-export const listen = globalThis.Deno?.listen ?? (() => throws("Deno.listen is not available in this environment"))
+export function listen(options: Deno.ListenOptions) {
+  if (!runtime.deno) {
+    throws("Unsupported action: listen")
+  }
+  return Deno.listen(options)
+}
 
 /** Read file */
 export function read(path: string | URL, options: { sync: true }): string
 export function read(path: string | URL, options?: { sync?: false }): Promise<string>
 export function read(path: string | URL, { sync = false } = {}) {
-  return sync ? globalThis.Deno?.readTextFileSync(path) : globalThis.Deno?.readTextFile(path)
+  if (!runtime.deno) {
+    if (sync) {
+      throws("Unsupported action: synchronous read")
+    }
+    return fetch(toFileUrl(resolve(path as string))).then((response) => response.text())
+  }
+  if ((typeof path === "string")&&(path.startsWith("data:"))) {
+    if (sync) {
+      throws("Unsupported action: synchronous read")
+    }
+    return fetch(path).then((response) => response.text())
+  }
+  return sync ? Deno.readTextFileSync(path) : Deno.readTextFile(path)
 }
 
 /** Write file */
 export async function write(path: string, data: string | Uint8Array | ReadableStream<Uint8Array>) {
+  if (!runtime.deno) {
+    return
+  }
   await ensureDir(dirname(path))
   if (typeof data === "string") {
-    return globalThis.Deno?.writeTextFile(path, data)
+    return Deno.writeTextFile(path, data)
   }
-  return globalThis.Deno?.writeFile(path, data)
+  return Deno.writeFile(path, data)
 }
 
 /** List files in globpath */
 export async function list(glob: string) {
+  if (!runtime.deno) {
+    throws("Unsupported action: list")
+  }
   const files = []
   const base = glob.match(/(?<base>.*\/)\*/)?.groups?.base
   const prefix = base ? new RegExp(`.*?${base}`) : null
@@ -62,11 +100,11 @@ function getEnv(key: string, { boolean = false } = {}) {
     }
     return !/^(0|[Nn]o?|NO|[Oo]ff|OFF|[Ff]alse|FALSE)$/.test(value)
   }
-  if ((!globalThis.Deno) || (globalThis.Deno.permissions.querySync?.({ name: "env", variable: key }).state === "denied")) {
+  if (!runtime.deno) {
     return ""
   }
   try {
-    return globalThis.Deno.env.get(key) ?? ""
+    return Deno.env.get(key) ?? ""
   } catch {
     return ""
   }
@@ -74,11 +112,8 @@ function getEnv(key: string, { boolean = false } = {}) {
 
 /** Set environment value */
 function setEnv(key: string, value: string) {
-  if ((!globalThis.Deno) || (globalThis.Deno.permissions.querySync?.({ name: "env" }).state === "denied")) {
-    return
-  }
   try {
-    return globalThis.Deno.env.set(key, value)
+    return Deno.env.set(key, value)
   } catch {
     return
   }
@@ -91,9 +126,6 @@ export const env = {
   get deployment() {
     return env.get("DENO_DEPLOYMENT_ID", { boolean: true })
   },
-  get docker() {
-    return env.get("IS_DOCKER", { boolean: true })
-  },
   get actions() {
     return env.get("GITHUB_ACTIONS", { boolean: true })
   },
@@ -102,19 +134,18 @@ export const env = {
 /** KV storage */
 export class KV {
   /** Constructor */
-  constructor(path = ".kv") {
-    if (typeof globalThis.Deno?.openKv === "function") {
-      ;(async () => {
-        this.#kv = env.deployment ? await globalThis.Deno.openKv() : await globalThis.Deno.openKv(path)
-        this.ready.resolve(this)
-      })()
-    } else {
-      throws("Deno.openKv is not available in this environment")
+  constructor(path?: string) {
+    if (!runtime.deno) {
+      throws("Unsupported action: openKV (if you're using deno, try with `--unstable` flag)")
     }
+    this.ready = Deno.openKv(path).then((kv) => {
+      this.#kv = kv
+      return this}
+    )
   }
 
   /** Is ready ? */
-  readonly ready = deferred<this>()
+  readonly ready
 
   /** KV storage */
   #kv = null as null | Deno.Kv
@@ -151,5 +182,13 @@ export class KV {
     if (Number.isFinite(ttl)) {
       setTimeout(() => this.delete(path), ttl + 1)
     }
+  }
+
+  /** Close KV storage */
+  close() {
+    if (!this.#kv) {
+      throws("KV storage is not ready")
+    }
+    this.#kv.close()
   }
 }

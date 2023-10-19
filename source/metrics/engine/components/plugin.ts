@@ -1,12 +1,12 @@
 // Imports
-import { Component, is, state } from "@metrics/components/component.ts"
+import { Component, is, state } from "@engine/components/component.ts"
 import { list, read } from "@utils/io.ts"
-import { plugin as schema, plugin_nop as schema_nop } from "@metrics/config.ts"
+import { plugin as schema, plugin_nop as schema_nop } from "@engine/config.ts"
 import * as ejs from "y/ejs@3.1.9"
-import { Requests } from "@metrics/components/requests.ts"
+import { Requests } from "@engine/components/requests.ts"
 import { Formatter } from "@utils/format.ts"
 import { basename } from "std/path/basename.ts"
-import { Processor } from "@processor"
+import { Processor } from "@engine/components/processor.ts"
 import { throws } from "@utils/errors.ts"
 import { RequestInterface } from "y/@octokit/types@11.1.0"
 
@@ -129,6 +129,11 @@ export abstract class Plugin extends Component {
       return new Plugin.NOP(context).run(state)
     }
     return super.run({ state, context: context as typeof context & { id: string } })
+  }
+
+  /** Load component statically */
+  static async load(context: Record<PropertyKey, unknown> & { id: string }) {
+    return await super.load(context) as Plugin
   }
 
   /** Plugins root path */

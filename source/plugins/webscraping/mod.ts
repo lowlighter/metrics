@@ -1,5 +1,5 @@
 // Imports
-import { is, Plugin } from "@plugin"
+import { is, Plugin } from "@engine/components/plugin.ts"
 import { Browser } from "@utils/browser.ts"
 import { delay } from "std/async/delay.ts"
 import { resize } from "x/deno_image@0.0.4/mod.ts"
@@ -18,6 +18,9 @@ export default class extends Plugin {
 
   /** Supports */
   readonly supports = ["user", "organization", "repository"]
+
+  /** Permissions */
+  readonly permissions = ["run:chrome", "net"]
 
   /** Description */
   readonly description = "Screenshot or extract content from a website"
@@ -47,7 +50,7 @@ export default class extends Plugin {
       this.context.args.url = new URL("tests/example.html", import.meta.url).href
     }
     const { url, select: selector, mode, viewport: _, wait, background: __ } = await this.inputs.parseAsync(this.context.args)
-    const page = await Browser.newPage()
+    const page = await Browser.page({log:this.log})
     try {
       //TODO(@lowlighter): await page.setViewport(viewport)
       await page.goto(url, { waitUntil: "networkidle2" })

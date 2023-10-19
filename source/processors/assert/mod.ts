@@ -1,8 +1,8 @@
 // Imports
 import { DOMParser } from "x/deno_dom@v0.1.38/deno-dom-wasm.ts"
 import { Format } from "@utils/format.ts"
-import { is, Processor, state } from "@processor"
-import { assert, assertMatch, assertNotMatch, assertStrictEquals, assertStringIncludes } from "@testing"
+import { is, Processor, state } from "@engine/components/processor.ts"
+import { expect } from "@utils/testing.ts"
 
 /** Regexs */
 const regexs = {
@@ -45,10 +45,10 @@ export default class extends Processor {
       if (error) {
         return
       }
-      assert(false, `expected previous content to be successful`)
+      expect(result.content).to.be.a("string", "expected previous content to be successful")
     }
-    if (mime && (!result.mime.includes(mime))) {
-      assert(false, `expected previous content to be ${mime} (got ${result.mime})`)
+    if (mime) {
+      expect(result.mime).to.include(mime)
     }
     const document = new DOMParser().parseFromString(Format.html(result.content), "text/html")
     const selected = [...document?.querySelectorAll(select) ?? []]
@@ -59,31 +59,29 @@ export default class extends Processor {
       const op = captured.op || "="
       switch (op) {
         case "<":
-          assert(selected.length < n, `expected less than ${n} elements (got ${selected.length})`)
+          expect(selected.length).to.be.below(n)
           break
         case "<=":
-          assert(selected.length <= n, `expected less than ${n} elements (got ${selected.length})`)
+          expect(selected.length).to.be.at.most(n)
           break
         case ">":
-          assert(selected.length > n, `expected more than ${n} elements (got ${selected.length})`)
+          expect(selected.length).to.be.above(n)
           break
         case ">=":
-          assert(selected.length >= n, `expected more than ${n} elements (got ${selected.length})`)
+          expect(selected.length).to.be.at.least(n)
           break
         case "=":
-          assertStrictEquals(selected.length, n, `expected ${n} elements (got ${selected.length})`)
+          expect(selected.length).to.be.equal(n)
           break
         case "~":
-          assert(Math.abs(selected.length - n) <= m, `expected ${n}±${m} elements (got ${selected.length})`)
+          expect(selected.length).to.be.within(n - m, n + m)
           break
       }
       if ((op === "=") && (n === 0)) {
         return
       }
     }
-    if (!selected.length) {
-      assert(false, `expected at least one element to be present`)
-    }
+    expect(selected.length).to.be.at.least(1, "expected at least one element to be present")
 
     for (const element of selected) {
       if (typeof match === "string") {
@@ -92,12 +90,12 @@ export default class extends Processor {
           const { negate = "", pattern = "", flags = "" } = match.match(regexs.match)!.groups ?? {}
           const regex = new RegExp(pattern, flags)
           if (negate) {
-            assertNotMatch(content, regex, `${content.trim()} match ${regex} but should not`)
+            expect(content).to.not.match(regex)
           } else {
-            assertMatch(content, regex, `${content.trim()} does not match ${regex}`)
+            expect(content).to.match(regex)
           }
         } else {
-          assertStringIncludes(content, match, `${content.trim()} does not include ${match}`)
+          expect(content).to.include(match)
         }
       }
     }

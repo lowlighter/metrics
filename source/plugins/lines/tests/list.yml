@@ -1,0 +1,228 @@
+- name: repository affiliations
+  plugins:
+    - id: lines
+      handle: octocat
+      entity: user
+      args:
+        repositories:
+          affiliations: owner
+      processors:
+        - id: assert
+          args:
+            select: .lines .entry .repo
+            match: octocat/public-repo
+        - id: assert
+          args:
+            select: .lines .entry .repo
+            match: /!/(user|org)\//
+    - id: lines
+      handle: octocat
+      entity: user
+      args:
+        repositories:
+          affiliations: collaborator
+      processors:
+        - id: assert
+          args:
+            select: .lines .entry .repo
+            match: user/public-repo
+        - id: assert
+          args:
+            select: .lines .entry .repo
+            match: /!/(octocat|org)\//
+    - id: lines
+      handle: octocat
+      entity: user
+      args:
+        repositories:
+          affiliations: organization_member
+      processors:
+        - id: assert
+          args:
+            select: .lines .entry .repo
+            match: org/public-repo
+        - id: assert
+          args:
+            select: .lines .entry .repo
+            match: /!/(octocat|user)\//
+    - id: lines
+      handle: octocat
+      entity: user
+      args:
+        repositories:
+          affiliations: [owner, collaborator, organization_member]
+      processors:
+        - id: assert
+          args:
+            select: .lines .entry .repo
+            match: /(octocat|user|org)\/public-repo/
+
+- name: repository visibility
+  plugins:
+    - id: lines
+      handle: octocat
+      entity: user
+      args:
+        repositories:
+          visibility: all
+      processors:
+        - id: assert
+          args:
+            select: .lines .entry .repo
+            match: /(public|private)-repo/
+    - id: lines
+      handle: octocat
+      entity: user
+      args:
+        repositories:
+          visibility: public
+      processors:
+        - id: assert
+          args:
+            select: .lines .entry .repo
+            match: /!/private-repo/
+
+- name: repository archived
+  plugins:
+    - id: lines
+      handle: octocat
+      entity: user
+      args:
+        repositories:
+          archived: true
+      processors:
+        - id: assert
+          args:
+            select: .lines .entry .repo
+            match: /(?:archived-repo)?/
+    - id: lines
+      handle: octocat
+      entity: user
+      args:
+        repositories:
+          archived: false
+      processors:
+        - id: assert
+          args:
+            select: .lines .entry .repo
+            match: /!/archived-repo/
+
+- name: repository forked
+  plugins:
+    - id: lines
+      handle: octocat
+      entity: user
+      args:
+        repositories:
+          forked: true
+      processors:
+        - id: assert
+          args:
+            select: .lines .entry .repo
+            match: /(?:forked-repo)?/
+    - id: lines
+      handle: octocat
+      entity: user
+      args:
+        repositories:
+          forked: false
+      processors:
+        - id: assert
+          args:
+            select: .lines .entry .repo
+            match: /!/forked-repo/
+
+- name: repository matching
+  plugins:
+    - id: lines
+      handle: octocat
+      entity: user
+      args:
+        repositories:
+          matching: octocat/*
+          affiliations: [owner, collaborator, organization_member]
+      processors:
+        - id: assert
+          args:
+            select: .lines .entry .repo
+            match: /octocat\//
+        - id: assert
+          args:
+            select: .lines .entry .repo
+            match: /!/(user|org)\//
+
+- name: history limit
+  plugins:
+    - id: lines
+      handle: octocat
+      entity: user
+      args:
+        history:
+          limit: null
+      processors:
+        - id: assert
+          args:
+            select: .lines .entry .week
+            match: /(2023|2022)/
+    - id: lines
+      handle: octocat
+      entity: user
+      args:
+        history:
+          limit: 1
+      processors:
+        - id: assert
+          args:
+            select: .lines .entry .week
+            match: /2023/
+
+- name: empty repository
+  plugins:
+    - id: lines
+      handle: empty
+      entity: user
+      processors:
+        - id: assert
+          args:
+            select: .lines .entry
+            count: 1=
+
+- name: fetching retry
+  plugins:
+    - id: lines
+      handle: retry
+      entity: user
+      args:
+        fetch:
+          attempts: 2
+          delay: 0.05
+      processors:
+        - id: assert
+          args:
+            select: .lines .entry
+            count: 1=
+    - processors:
+      - id: control.delay
+        args:
+          duration: 0.15
+    - id: lines
+      handle: retry
+      entity: user
+      args:
+        fetch:
+          attempts: 1
+          delay: 0
+      processors:
+        - id: assert
+          args:
+            select: .lines .entry
+            count: 0=
+    - processors:
+      - id: control.delay
+        args:
+          duration: 0.15
+
+ #   contributors:is.object({
+ #     matching: is.preprocess(value => [value].flat(), is.array(is.coerce.string())).default("*").describe("Include contributors matching at least one of these patterns (note: if `entity` is set to `user`, the default value will be set to the user `handle` instead of `*`)"),
+ #     limit: is.number().min(0).nullable().default(4).describe("Number of contributors to display (use `null` to display all contributors)"),
+ #   }).default(() => ({})).describe("Contributors options"),

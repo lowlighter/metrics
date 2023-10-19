@@ -1,6 +1,6 @@
 // Imports
-import { Plugin } from "@plugin"
-import { config as schema } from "@metrics/config.ts"
+import { Plugin } from "@engine/components/plugin.ts"
+import { config as schema } from "@engine/config.ts"
 
 /** Process metrics */
 export async function process(_config: Record<PropertyKey, unknown>) {
@@ -17,7 +17,7 @@ export async function process(_config: Record<PropertyKey, unknown>) {
     }
     await Promise.all([...pending])
     const { result: _result } = await Plugin.run({ tracker, context: plugin, state })
-    result = _result
+    result = _result as any //TODO
     pending.clear()
   }
   const results = await Promise.all([...pending]) as Array<{ result: typeof state.result }>

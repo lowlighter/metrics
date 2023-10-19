@@ -2,7 +2,7 @@
 import { serveListener } from "std/http/server.ts"
 import { server as schema, webrequest } from "@metrics/config.ts"
 import { process } from "@metrics/process.ts"
-import { is } from "@utils/validator.ts"
+import { is } from "@utils/validation.ts"
 import { env, KV, listen, read } from "@utils/io.ts"
 import { Internal } from "@metrics/components/internal.ts"
 import * as YAML from "std/yaml/mod.ts"
@@ -358,7 +358,7 @@ class Server extends Internal {
             switch (action) {
               // Stop instance
               case "stop": {
-                if (!this.context.control[token]?.includes(action)) {
+                if (!this.context.control[token]?.[action]) {
                   return new Response("Forbidden", { status: Status.Forbidden })
                 }
                 this.log.info("received stop request, server will shutdown in a few seconds")

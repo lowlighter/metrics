@@ -1,6 +1,6 @@
 // Imports
-import { is, Plugin } from "@plugin"
-import { parseHandle } from "@utils/parse.ts"
+import { is, Plugin } from "@engine/components/plugin.ts"
+import { parseHandle } from "@utils/github.ts"
 
 /** Plugin */
 export default class extends Plugin {

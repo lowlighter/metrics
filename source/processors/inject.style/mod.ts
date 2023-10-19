@@ -1,5 +1,5 @@
 // Imports
-import { is, Processor, state } from "@processor"
+import { is, Processor, state } from "@engine/components/processor.ts"
 import { Browser } from "@utils/browser.ts"
 import { Format } from "@utils/format.ts"
 
@@ -20,6 +20,9 @@ export default class extends Processor {
   /** Supports */
   readonly supports = ["application/xml"]
 
+  /** Permissions */
+  readonly permissions = ["run:chrome"]
+
   /** Inputs */
   readonly inputs = is.object({
     style: is.string().describe("CSS to inject"),
@@ -29,7 +32,7 @@ export default class extends Processor {
   protected async action(state: state) {
     const result = await this.piped(state)
     const { style } = await this.inputs.parseAsync(this.context.args)
-    const page = await Browser.newPage()
+    const page = await Browser.page({log:this.log})
     try {
       this.log.trace("processing content in browser")
       await page.setContent(Format.html(result.content))

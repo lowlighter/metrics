@@ -1,5 +1,5 @@
 // Imports
-import { Processor, state } from "@processor"
+import { Processor, state } from "@engine/components/processor.ts"
 import { default as octicons, IconName } from "y/@primer/octicons@19.7.0"
 
 /** Processor */

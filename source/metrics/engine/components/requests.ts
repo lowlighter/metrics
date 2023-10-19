@@ -2,10 +2,10 @@
 import { Octokit } from "y/@octokit/rest@20.0.1"
 import { paginateGraphql } from "y/@octokit/plugin-paginate-graphql@4.0.0"
 import { RequestInterface } from "y/@octokit/types@11.1.0"
-import { Internal, is } from "@metrics/components/internal.ts"
+import { Internal, is } from "@engine/components/internal.ts"
 import { read } from "@utils/io.ts"
-import { requests as schema } from "@metrics/config.ts"
-import { version } from "@metrics/version.ts"
+import { requests as schema } from "@engine/config.ts"
+import { version } from "@engine/version.ts"
 import { throws } from "@utils/errors.ts"
 
 /** Plugin */
@@ -48,7 +48,6 @@ export class Requests extends Internal {
           return mock[url!](vars)
         }
       } catch (error) {
-        console.log(error)
         this.log.warn(`rest query ${method} ${url} could not be mocked`)
         this.log.warn(error)
       }
@@ -56,7 +55,6 @@ export class Requests extends Internal {
     if (paginate) {
       return this.octokit.paginate(endpoint, vars)
     }
-    console.log(await endpoint(vars))
     return endpoint(vars)
   }
 

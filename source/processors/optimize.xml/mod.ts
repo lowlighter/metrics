@@ -1,5 +1,5 @@
 // Imports
-import { Processor, state } from "@processor"
+import { Processor, state } from "@engine/components/processor.ts"
 import xmlFormat from "y/xml-formatter@3.5.0"
 
 /** Processor */

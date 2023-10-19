@@ -1,5 +1,5 @@
 // Imports
-import { is, Processor } from "@processor"
+import { is, Processor } from "@engine/components/processor.ts"
 import { delay } from "std/async/delay.ts"
 
 /** Processor */

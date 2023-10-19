@@ -1,4 +1,4 @@
-import { faker, is, mock } from "@testing"
+import { faker, is, mock } from "@utils/testing.ts"
 
 export default mock({ login: is.string(), from: is.coerce.date(), to: is.coerce.date() }, ({ from, to }) => {
   let days = []

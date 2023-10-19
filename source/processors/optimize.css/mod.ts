@@ -1,5 +1,5 @@
 // Imports
-import { Processor, state } from "@processor"
+import { Processor, state } from "@engine/components/processor.ts"
 import { PurgeCSS } from "y/purgecss@5.0.0"
 import { DOMParser } from "x/deno_dom@v0.1.38/deno-dom-wasm.ts"
 import { Format } from "@utils/format.ts"

@@ -2,7 +2,7 @@
 export class Secret {
   /** Constructor */
   constructor(value: unknown) {
-    this.#value = `${value}`
+    this.#value = `${value ?? ""}`
     this.empty = !this.#value.length
   }
 

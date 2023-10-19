@@ -1,5 +1,5 @@
 // Imports
-import { Processor, state } from "@processor"
+import { Processor, state } from "@engine/components/processor.ts"
 // @ts-ignore: json import
 import imported from "https://api.github.com/emojis" assert { type: "json" }
 const gemojis = imported as Record<string, string>
@@ -20,6 +20,9 @@ export default class extends Processor {
 
   /** Supports */
   readonly supports = ["application/xml", "image/svg+xml"]
+
+  /** Permissions */
+  readonly permissions = ["net:api.github.com/emojis"]
 
   /** Action */
   protected async action(state: state) {

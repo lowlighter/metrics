@@ -1,5 +1,5 @@
 // Imports
-import { is, Processor, state } from "@processor"
+import { is, Processor, state } from "@engine/components/processor.ts"
 
 /** Processor */
 export default class extends Processor {

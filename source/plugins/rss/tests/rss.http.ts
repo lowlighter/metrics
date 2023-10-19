@@ -1,4 +1,4 @@
-import { faker, mock } from "@testing"
+import { faker, mock } from "@utils/testing.ts"
 
 export default mock({}, () => {
   return `

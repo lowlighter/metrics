@@ -1,8 +1,8 @@
 // Imports
-import { is, Processor, state } from "@processor"
+import { is, Processor, state } from "@engine/components/processor.ts"
 import { Browser } from "@utils/browser.ts"
 import { Format } from "@utils/format.ts"
-import { Plugin } from "@plugin"
+import { Plugin } from "@engine/components/plugin.ts"
 import { env, read } from "@utils/io.ts"
 import { contentType } from "std/media_types/content_type.ts"
 import * as Base64 from "std/encoding/base64.ts"
@@ -35,6 +35,9 @@ export default class extends Processor {
   /** Supports */
   readonly supports = ["application/xml"]
 
+  /** Permissions */
+  readonly permissions = ["run:chrome"]
+
   /** Action */
   protected async action(state: state) {
     const result = await this.piped(state)
@@ -61,7 +64,7 @@ export default class extends Processor {
     //Process SVG in browser and convert to image if needed
     //TODO(@lowlighter): handle no local puppeteer
     if ((wrapper === "svg") && (!env.deployment)) {
-      const page = await Browser.newPage()
+      const page = await Browser.page({log:this.log})
       try {
         // Compute SVG rendered dimensions
         this.log.trace("processing content in browser")

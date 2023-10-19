@@ -1,5 +1,5 @@
 // Imports
-import { Processor, state } from "@processor"
+import { Processor, state } from "@engine/components/processor.ts"
 
 /** Processor */
 export default class extends Processor {
@@ -22,10 +22,10 @@ export default class extends Processor {
   protected async action(state: state) {
     const result = await this.piped(state)
     const { mime, base64 } = result
-    console.log(`Content-Type: ${mime}`)
+    this.log.raw(`Content-Type: ${mime}`)
     if (base64) {
-      console.log("%cNote: content is currently base64 encoded as it is binary data", "color:yellow")
+      this.log.raw("%cNote: content is currently base64 encoded as it is binary data", "color:yellow")
     }
-    console.log(result.content)
+    this.log.raw(result.content)
   }
 }

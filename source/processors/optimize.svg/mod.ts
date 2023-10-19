@@ -1,5 +1,5 @@
 // Imports
-import { Processor, state } from "@processor"
+import { Processor, state } from "@engine/components/processor.ts"
 import { optimize } from "y/svgo@3.0.2"
 
 /** Processor */

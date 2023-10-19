@@ -1,5 +1,5 @@
 // Imports
-import { is } from "@utils/validator.ts"
+import { is } from "@utils/validation.ts"
 import { deepMerge } from "std/collections/deep_merge.ts"
 import { Secret } from "@utils/secret.ts"
 import { env, read } from "@utils/io.ts"
@@ -15,13 +15,10 @@ const entities = ["user", "organization", "repository"] as const
 const timezones = Intl.supportedValuesOf("timeZone")
 
 /** Default log levels */
-export const loglevel = {
-  default: "trace",
-  presets: "trace",
-} as const
+const loglevel = "trace"
 
 /** Secret */
-const secret = is.preprocess((value) => value instanceof Secret ? value : new Secret(value), is.instanceof(Secret))
+const secret = is.union([is.unknown(), is.instanceof(Secret)]).transform(value => value instanceof Secret ? value : new Secret(value))
 
 /** Internal component config */
 export const internal = is.object({
@@ -47,20 +44,23 @@ export const requests = internal.extend({
   timezone: is.string().min(1).refine((value) => timezones.includes(value)).describe("Timezone for dates"),
 })
 
-/** Plugin component internal config (without processors, for recursive typing) */
-const __plugin = component.merge(requests).extend({
+/** Plugin component internal config (without processors, to allow recursive typing within processor typing) */
+const _plugin_without_processors = component.merge(requests).extend({
   handle: is.coerce.string().min(1).nullable().describe("GitHub handle"),
   entity: is.enum(entities).describe("GitHub entity type"),
   template: is.union([is.literal(null), is.coerce.string().url(), is.coerce.string().min(1)]).describe("Template name or url (use `null` to disable)"),
 })
 
 /** Processor component internal config */
-const _processor = component.extend({ parent: __plugin })
+const _processor = component.extend({ parent: _plugin_without_processors })
+
+/** Processor component internal config (without parent) */
+const _processor_without_parent = _processor.omit({ parent: true })
 
 /** Processor component preset config */
 const _preset_processor = is.object({
   args: _processor.shape.args.default(() => ({})),
-  logs: _processor.shape.logs.default(loglevel.presets),
+  logs: _processor.shape.logs.default(loglevel),
   fatal: _processor.shape.fatal.default(false),
   retries: is.object({
     attempts: _processor.shape.retries.shape.attempts.default(1),
@@ -68,24 +68,27 @@ const _preset_processor = is.object({
   }).default(() => ({})),
 })
 
-/** List of processor keys */
+/** List of processor allowed keys */
 const _processor_keys = [...Object.keys(_preset_processor.parse({}))]
 
 /** Processor component config */
-export const processor = is.preprocess((value) => _preset_processor.passthrough().parse(sugar(value, _processor_keys)), _processor.omit({ parent: true }))
+export const processor = is.preprocess((value) => _preset_processor.passthrough().parse(sugar(value, _processor_keys)), _processor_without_parent.strict()) as unknown as is.ZodObject<typeof _processor_without_parent["shape"]>
 
 /** Plugin component internal config */
-const _plugin = __plugin.extend({
+const _plugin = _plugin_without_processors.extend({
   processors: is.array(processor).describe("Post-processors"),
 })
 
+/** Plugin NOP removed keys */
+const _plugin_nop_removed_keys = { id: true, args: true, retries: true, template: true } as const
+
 /** Plugin NOP internal config */
-const _plugin_nop = _plugin.omit({ id: true, args: true, retries: true, template: true }).transform((value) => ({ ...value, template: null }))
+const _plugin_nop = _plugin.omit(_plugin_nop_removed_keys).strict().transform((value) => ({...value, template: null })) as unknown as is.ZodObject<Omit<typeof _plugin["shape"], "id"|"args"|"retries">>
 
 /** Plugin component preset config */
 const _preset_plugin = is.object({
   args: _plugin.shape.args.default(() => ({})),
-  logs: _plugin.shape.logs.default(loglevel.presets),
+  logs: _plugin.shape.logs.default(loglevel),
   api: _plugin.shape.api.default("https://api.github.com"),
   token: _plugin.shape.token.default(() => env.get("METRICS_GITHUB_TOKEN")),
   handle: _plugin.shape.handle.default(null),
@@ -93,7 +96,7 @@ const _preset_plugin = is.object({
   template: _plugin.shape.template.default("classic"),
   timezone: _plugin.shape.timezone.default(() => Intl.DateTimeFormat().resolvedOptions().timeZone),
   mock: _plugin.shape.mock.default(false),
-  processors: _plugin.shape.processors.default(() => []),
+  processors: is.array(_processor_without_parent.deepPartial()).default(() => []), // _plugin.shape shouldn't be used here to avoid populating default values
   fatal: _plugin.shape.fatal.default(false),
   retries: is.object({
     attempts: _plugin.shape.retries.shape.attempts.default(3),
@@ -101,14 +104,29 @@ const _preset_plugin = is.object({
   }).default(() => ({})),
 })
 
-/** List of plugin keys */
+/** List of plugin allowed keys */
 const _plugin_keys = [...Object.keys(_preset_plugin.parse({}))]
 
 /** Plugin component config */
-export const plugin = is.preprocess((value) => _preset_plugin.passthrough().parse(sugar(value, _plugin_keys)), _plugin)
+export const plugin = is.preprocess((value) => {
+  const result = _preset_plugin.extend({id:_plugin.shape.id, preset:is.string().optional()}).strict().safeParse(sugar(value, _plugin_keys))
+  if (!result.success)
+    return value
+  delete result.data.preset
+  return result.data
+}, _plugin) as unknown as is.ZodObject<typeof _plugin["shape"]>
 
 /** Plugin NOP config */
-export const plugin_nop = is.preprocess((value) => _preset_plugin.passthrough().parse(value), _plugin_nop)
+export const plugin_nop = is.preprocess((value) => {
+  const result = _preset_plugin.extend({preset:is.string().optional()}).strict().safeParse(value)
+  if (!result.success)
+    return value
+  for (const [key, remove] of Object.entries(_plugin_nop_removed_keys)) {
+    if (remove)
+      delete (result.data as Record<PropertyKey, unknown>)[key]
+  }
+  return result.data
+}, _plugin_nop) as unknown as is.ZodObject<typeof _plugin_nop["shape"]>
 
 /** Preset component config */
 const preset = is.object({
@@ -132,25 +150,28 @@ export const config = is.preprocess((_value) => {
           is.object({
             preset: is.string().optional(),
           }).passthrough(),
-        ).default(() => []),
+        ).optional(),
       }).passthrough(),
     ).default(() => []),
-    presets: _config.shape.presets.default(() => ({ default: preset.parse({}) })),
+    presets: is.record(is.string(), is.record(is.string(), is.unknown())).default(() => ({})),
   }).passthrough().parse(_value)
+  if (!value.presets.default)
+    value.presets.default = preset.parse({})
   for (const plugin of value.plugins) {
-    Object.assign(plugin, deepMerge(value.presets[plugin.preset ?? "default"]?.plugins ?? {}, plugin, { arrays: "replace" }))
+    Object.assign(plugin, merge(value.presets.default.plugins, value.presets[plugin.preset!]?.plugins, plugin))
+    plugin.processors ??= []
     for (const processor of plugin.processors) {
-      Object.assign(processor, deepMerge(value.presets[processor.preset ?? plugin.preset ?? "default"]?.processors ?? {}, processor, { arrays: "replace" }))
+      Object.assign(processor, merge(value.presets.default.processors, value.presets[plugin.preset!]?.processors, value.presets[processor.preset!]?.processors, processor))
     }
   }
   return value
-}, _config)
+}, _config) as unknown as is.ZodObject<typeof _config["shape"]>
 
 /** CLI config */
 export const cli = internal.extend({
-  logs: internal.shape.logs.default(loglevel.default),
+  logs: internal.shape.logs.default(loglevel),
   check_updates: is.boolean().default(false).describe("Whether to check for updates on startup"),
-  config: config.default(() => ({})).describe("Metrics configuration"),
+  config: config.default(() => ({} as is.infer<typeof config>)).describe("Metrics configuration"),
 })
 
 /** Server config */
@@ -161,9 +182,8 @@ export const server = cli.extend({
     is.string(),
     is.object({
       stop: is.boolean().default(false).describe("Permission to stop the server via `POST /metrics/stop`"),
-    }).default(() => ({})),
-  ).describe("Control profiles (each profile is designed by a token bearer and dictionary of allowed routes)"),
-
+    }),
+  ).nullable().default(null).describe("Control profiles (each profile is designed by a token bearer and dictionary of allowed routes)"),
   cache: is.number().int().positive().optional().describe("Cache duration for processed requests (in seconds)"),
   limit: is.object({
     guests: is.object({
@@ -187,7 +207,7 @@ export const server = cli.extend({
     id: is.number().int().positive().describe("GitHub app identifier"),
     private_key_path: is.string().describe("Path to GitHub app private key file (must be in PKCS#8 format)"),
     client_id: is.string().describe("GitHub app client identifier"),
-    client_secret: secret.default(() => env.get("METRICS_GITHUB_APP_SECRET") ?? "").describe("GitHub app client secret"),
+    client_secret: secret.default(() => env.get("METRICS_GITHUB_APP_SECRET")).describe("GitHub app client secret"),
   }).optional().describe("GitHub app settings"),
 })
 
@@ -211,6 +231,15 @@ export const webrequest = is.object({
   ).default(() => []).describe("Plugins"),
 })
 
+/** Merge deeply objects */
+function merge(...objects: unknown[]) {
+  let result = {} as Record<PropertyKey, unknown>
+  for (const object of objects) {
+    result = deepMerge(result, (object ?? {}) as Record<PropertyKey, unknown>, { arrays: "replace" })
+  }
+  return result
+}
+
 /** Syntaxic sugar for components that allows the use of one extra dictionnary as identifier and args */
 function sugar(value: unknown, keys: string[]) {
   if ((!value) || (typeof value !== "object") || ("id" in value)) {
@@ -222,10 +251,11 @@ function sugar(value: unknown, keys: string[]) {
   }
   const [id, ...extras] = Object.keys(filterKeys(record, (key) => !keys.includes(key)))
   if (extras.length) {
-    return value
+    return {id:"", ...value}
   }
+  const args = record[id]
   delete record[id]
-  return Object.assign(record, { id, args: record[id] ?? {} })
+  return Object.assign(record, { id, args })
 }
 
 /** Load config */
