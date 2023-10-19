@@ -32,7 +32,7 @@ export default class extends Processor {
   protected async action(state: state) {
     const result = await this.piped(state)
     const { style } = await this.inputs.parseAsync(this.context.args)
-    const page = await Browser.page({log:this.log})
+    const page = await Browser.page({ log: this.log })
     try {
       this.log.trace("processing content in browser")
       await page.setContent(Format.html(result.content))

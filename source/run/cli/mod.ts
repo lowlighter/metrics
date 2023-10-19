@@ -9,7 +9,7 @@ import { parse } from "std/flags/mod.ts"
 import { cyan, gray } from "std/fmt/colors.ts"
 import { expandGlobSync } from "std/fs/expand_glob.ts"
 import { env } from "@utils/io.ts"
-import {compat} from "./compat.ts"
+import { compat } from "./compat.ts"
 
 /** CLI */
 class CLI extends Internal {

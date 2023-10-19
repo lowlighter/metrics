@@ -64,7 +64,7 @@ export default class extends Processor {
     //Process SVG in browser and convert to image if needed
     //TODO(@lowlighter): handle no local puppeteer
     if ((wrapper === "svg") && (!env.deployment)) {
-      const page = await Browser.page({log:this.log})
+      const page = await Browser.page({ log: this.log })
       try {
         // Compute SVG rendered dimensions
         this.log.trace("processing content in browser")

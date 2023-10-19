@@ -13,19 +13,18 @@ export const testing = {
       const parsed = JSONC.parse(await read(config)) as { version: string }
       parse(parsed.version)
       return parsed.version
-    }
-    catch {
+    } catch {
       // Ignore
     }
     return testing.number
-  }
+  },
 }
 
 /** Version */
 export const version = {
   get number() {
     return testing.number
-  }
+  },
 }
 testing.number = await testing.parse()
 
@@ -35,10 +34,10 @@ export async function latest(url = "https://github.com/lowlighter/metrics/releas
     let latest = basename(await fetch(url).then((response) => (response.body?.cancel(), response.url)))
     try {
       parse(latest)
-    }
-    catch (error) {
-      if (error instanceof TypeError)
-      latest = `${latest}.0`
+    } catch (error) {
+      if (error instanceof TypeError) {
+        latest = `${latest}.0`
+      }
     }
     if (cmp(parse(latest), ">", parse(version.number))) {
       return latest
@@ -48,4 +47,3 @@ export async function latest(url = "https://github.com/lowlighter/metrics/releas
   }
   return version.number
 }
-

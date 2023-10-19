@@ -82,8 +82,9 @@ export class Logger {
 
   /** Raw message (bypass log level) */
   raw(...message: Parameters<typeof this.stdio.log>) {
-    if (Logger.raw)
+    if (Logger.raw) {
       this.stdio.log(...message)
+    }
   }
 
   /** Create a new logger with tags */

@@ -32,7 +32,7 @@ Deno.test("Logger()", { permissions: "none" }, async (t) => {
     expect(log.tags).to.deep.equal({ foo: "bar" })
   })
 
-  await t.step("setLevel() changes log level",  () => {
+  await t.step("setLevel() changes log level", () => {
     for (const level of Object.entries(Logger.channels).flat() as Array<"none" | channel | number>) {
       log.setLevel(level)
       expect(log.level).to.equal((Logger.channels as test)[level] ?? level)
@@ -64,14 +64,14 @@ Deno.test("Logger()", { permissions: "none" }, async (t) => {
     })
   }
 
-  await t.step("raw() prints log directly",  () => {
+  await t.step("raw() prints log directly", () => {
     stdio.flush()
     log.raw("foo")
     expect(stdio.messages).to.have.lengthOf(1)
     expect(stdio.messages[0]).and.to.include("foo")
   })
 
-  await t.step("with() returns a new logger with inherited properties", async (t) => {
+  await t.step("with() returns a new logger with inherited properties", () => {
     stdio.flush()
     log.probe(null)
     expect(stdio.messages).to.have.lengthOf(1)

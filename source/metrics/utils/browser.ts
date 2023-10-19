@@ -1,16 +1,14 @@
 //Imports
 import { Logger } from "@utils/log.ts"
-import { launch, getBinary } from "gh/lowlighter/astral@fix-dont-require-env-perms-with-cache/mod.ts" // TODO(@lowlighter): use astral@main when available
+import { getBinary, launch } from "gh/lowlighter/astral@fix-dont-require-env-perms-with-cache/mod.ts" // TODO(@lowlighter): use astral@main when available
 import { env } from "@utils/io.ts"
 import { cache } from "@engine/paths.ts"
-import { deferred } from "std/async/deferred.ts"
 import { throws } from "@utils/errors.ts"
 
 /** Browser */
 export class Browser {
-
   /** Constructor */
-  constructor({log, endpoint = null, bin = env.get("CHROME_BIN") || undefined}:{log: Logger, endpoint?:null|string, bin?:string}) {
+  constructor({ log, endpoint = null, bin = env.get("CHROME_BIN") || undefined }: { log: Logger; endpoint?: null | string; bin?: string }) {
     this.endpoint = endpoint
     this.log = log
     this.bin = bin
@@ -38,8 +36,8 @@ export class Browser {
       this.#instance = await launch({ wsEndpoint: this.endpoint })
       this.log.io(`using remote browser: ${this.endpoint}`)
     } else {
-      this.#instance = await launch({ args: Browser.flags, path:this.bin, cache })
-      Object.assign(this, {endpoint:this.#instance.wsEndpoint()})
+      this.#instance = await launch({ args: Browser.flags, path: this.bin, cache })
+      Object.assign(this, { endpoint: this.#instance.wsEndpoint() })
       this.log.io(`using local browser: ${this.endpoint}${this.bin ? ` (from ${this.bin})` : ""}}`)
     }
     return this
@@ -57,8 +55,9 @@ export class Browser {
   /** Spawn a new page */
   async page({ url }: { width?: number; height?: number; url?: string } = {}) {
     await this.ready
-    if (!this.#instance)
+    if (!this.#instance) {
       throws("Browser has no instance attached")
+    }
     const page = await this.#instance.newPage(url)
     //TODO(@lowlighter): page.setViewport({ width, height })
     //page
@@ -83,18 +82,18 @@ export class Browser {
   static shareable = true
 
   /** Instantiates or reuse  */
-  static async page({log, bin}:{log:Logger, bin?:string}) {
-    if ((Browser.shareable)&&(!Browser.shared)) {
-      Object.assign(Browser, {shared:await new Browser({log:new Logger(import.meta,{level:"none"}), bin}).ready})
+  static async page({ log, bin }: { log: Logger; bin?: string }) {
+    if ((Browser.shareable) && (!Browser.shared)) {
+      Object.assign(Browser, { shared: await new Browser({ log: new Logger(import.meta, { level: "none" }), bin }).ready })
       const close = Browser.shared!.close.bind(Browser.shared)
       Browser.shared!.close = async () => {
         await close()
-        Object.assign(Browser, {shared:null})
+        Object.assign(Browser, { shared: null })
         log.io("closed shared browser instance")
       }
       log.io("opened shared browser instance")
     }
-    const browser = await new Browser({log, bin, endpoint:Browser.shared?.endpoint}).ready
+    const browser = await new Browser({ log, bin, endpoint: Browser.shared?.endpoint }).ready
     return browser.page()
   }
 

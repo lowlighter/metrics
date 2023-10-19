@@ -112,7 +112,7 @@ export abstract class Component extends Internal {
       return []
     }
     const content = await read(path)
-    return YAML.parse(content) as Array<is.infer<typeof config> & {name:string}>
+    return YAML.parse(content) as Array<is.infer<typeof config> & { name: string }>
   }
 
   /** Load component statically */

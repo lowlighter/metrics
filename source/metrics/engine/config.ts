@@ -18,7 +18,7 @@ const timezones = Intl.supportedValuesOf("timeZone")
 const loglevel = "trace"
 
 /** Secret */
-const secret = is.union([is.unknown(), is.instanceof(Secret)]).transform(value => value instanceof Secret ? value : new Secret(value))
+const secret = is.union([is.unknown(), is.instanceof(Secret)]).transform((value) => value instanceof Secret ? value : new Secret(value))
 
 /** Internal component config */
 export const internal = is.object({
@@ -72,7 +72,9 @@ const _preset_processor = is.object({
 const _processor_keys = [...Object.keys(_preset_processor.parse({}))]
 
 /** Processor component config */
-export const processor = is.preprocess((value) => _preset_processor.passthrough().parse(sugar(value, _processor_keys)), _processor_without_parent.strict()) as unknown as is.ZodObject<typeof _processor_without_parent["shape"]>
+export const processor = is.preprocess((value) => _preset_processor.passthrough().parse(sugar(value, _processor_keys)), _processor_without_parent.strict()) as unknown as is.ZodObject<
+  typeof _processor_without_parent["shape"]
+>
 
 /** Plugin component internal config */
 const _plugin = _plugin_without_processors.extend({
@@ -83,7 +85,9 @@ const _plugin = _plugin_without_processors.extend({
 const _plugin_nop_removed_keys = { id: true, args: true, retries: true, template: true } as const
 
 /** Plugin NOP internal config */
-const _plugin_nop = _plugin.omit(_plugin_nop_removed_keys).strict().transform((value) => ({...value, template: null })) as unknown as is.ZodObject<Omit<typeof _plugin["shape"], "id"|"args"|"retries">>
+const _plugin_nop = _plugin.omit(_plugin_nop_removed_keys).strict().transform((value) => ({ ...value, template: null })) as unknown as is.ZodObject<
+  Omit<typeof _plugin["shape"], "id" | "args" | "retries">
+>
 
 /** Plugin component preset config */
 const _preset_plugin = is.object({
@@ -109,21 +113,24 @@ const _plugin_keys = [...Object.keys(_preset_plugin.parse({}))]
 
 /** Plugin component config */
 export const plugin = is.preprocess((value) => {
-  const result = _preset_plugin.extend({id:_plugin.shape.id, preset:is.string().optional()}).strict().safeParse(sugar(value, _plugin_keys))
-  if (!result.success)
+  const result = _preset_plugin.extend({ id: _plugin.shape.id, preset: is.string().optional() }).strict().safeParse(sugar(value, _plugin_keys))
+  if (!result.success) {
     return value
+  }
   delete result.data.preset
   return result.data
 }, _plugin) as unknown as is.ZodObject<typeof _plugin["shape"]>
 
 /** Plugin NOP config */
 export const plugin_nop = is.preprocess((value) => {
-  const result = _preset_plugin.extend({preset:is.string().optional()}).strict().safeParse(value)
-  if (!result.success)
+  const result = _preset_plugin.extend({ preset: is.string().optional() }).strict().safeParse(value)
+  if (!result.success) {
     return value
+  }
   for (const [key, remove] of Object.entries(_plugin_nop_removed_keys)) {
-    if (remove)
+    if (remove) {
       delete (result.data as Record<PropertyKey, unknown>)[key]
+    }
   }
   return result.data
 }, _plugin_nop) as unknown as is.ZodObject<typeof _plugin_nop["shape"]>
@@ -155,8 +162,9 @@ export const config = is.preprocess((_value) => {
     ).default(() => []),
     presets: is.record(is.string(), is.record(is.string(), is.unknown())).default(() => ({})),
   }).passthrough().parse(_value)
-  if (!value.presets.default)
+  if (!value.presets.default) {
     value.presets.default = preset.parse({})
+  }
   for (const plugin of value.plugins) {
     Object.assign(plugin, merge(value.presets.default.plugins, value.presets[plugin.preset!]?.plugins, plugin))
     plugin.processors ??= []
@@ -251,7 +259,7 @@ function sugar(value: unknown, keys: string[]) {
   }
   const [id, ...extras] = Object.keys(filterKeys(record, (key) => !keys.includes(key)))
   if (extras.length) {
-    return {id:"", ...value}
+    return { id: "", ...value }
   }
   const args = record[id]
   delete record[id]

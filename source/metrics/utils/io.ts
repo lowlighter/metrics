@@ -3,10 +3,8 @@ import { ensureDir } from "std/fs/ensure_dir.ts"
 import { expandGlob } from "std/fs/expand_glob.ts"
 import { throws } from "@utils/errors.ts"
 import { dirname } from "std/path/dirname.ts"
-import { deferred } from "std/async/deferred.ts"
 import { toFileUrl } from "std/path/to_file_url.ts"
 import { resolve } from "std/path/resolve.ts"
-import { th } from "y/@faker-js/faker@8.0.2"
 
 /** Runtime (internal, exported for testing purposes only) */
 export const testing = {
@@ -17,7 +15,7 @@ export const testing = {
 const runtime = {
   get deno() {
     return testing.deno
-  }
+  },
 }
 
 /** Inspect */
@@ -50,7 +48,7 @@ export function read(path: string | URL, { sync = false } = {}) {
     }
     return fetch(toFileUrl(resolve(path as string))).then((response) => response.text())
   }
-  if ((typeof path === "string")&&(path.startsWith("data:"))) {
+  if ((typeof path === "string") && (path.startsWith("data:"))) {
     if (sync) {
       throws("Unsupported action: synchronous read")
     }
@@ -140,8 +138,8 @@ export class KV {
     }
     this.ready = Deno.openKv(path).then((kv) => {
       this.#kv = kv
-      return this}
-    )
+      return this
+    })
   }
 
   /** Is ready ? */

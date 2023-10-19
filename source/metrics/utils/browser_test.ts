@@ -1,5 +1,5 @@
 import { Browser } from "@utils/browser.ts"
-import { MetricsError, expect } from "@utils/testing.ts"
+import { expect, MetricsError } from "@utils/testing.ts"
 import * as dir from "@engine/paths.ts"
 import { Logger } from "@utils/log.ts"
 import { Format } from "@utils/format.ts"
@@ -24,11 +24,11 @@ Deno.test("Browser()", { permissions }, async (t) => {
           await browser.close()
           await remote?.close()
         }
-        return {browser, teardown}
+        return { browser, teardown }
       }
       await t.step(".page()", async (t) => {
         await t.step("returns a new page", async () => {
-          const {browser, teardown} = await setup()
+          const { browser, teardown } = await setup()
           for (let i = 0; i < 2; i++) {
             const page = await browser.page()
             await page.goto(`data:text/html,${Format.html("")}`)
@@ -38,7 +38,7 @@ Deno.test("Browser()", { permissions }, async (t) => {
           await teardown()
         })
         await t.step("throws when browser is already closed", async () => {
-          const {browser, teardown} = await setup()
+          const { browser, teardown } = await setup()
           await browser.close()
           await expect(browser.page()).to.be.rejectedWith(MetricsError, /browser has no instance/i)
           await teardown()
@@ -48,12 +48,12 @@ Deno.test("Browser()", { permissions }, async (t) => {
   }
 
   await t.step("shared instance", async (t) => {
-    const {shareable} = Browser
+    const { shareable } = Browser
     Browser.shareable = true
     await t.step(".page()", async (t) => {
       await t.step("returns a new page", async () => {
         for (let i = 0; i < 2; i++) {
-          const page = await Browser.page({log, bin})
+          const page = await Browser.page({ log, bin })
           await page.goto(`data:text/html,${Format.html("")}`)
           await expect(page.evaluate("document.title")).to.eventually.equal("Metrics")
           await page.close()
@@ -64,7 +64,7 @@ Deno.test("Browser()", { permissions }, async (t) => {
       await t.step("returns a new page even after browser was already closed", async () => {
         await Browser.shared?.close()
         expect(Browser.shared).to.be.null
-        const page = await Browser.page({log, bin})
+        const page = await Browser.page({ log, bin })
         await page.close()
         await Browser.shared?.close()
         expect(Browser.shared).to.be.null
@@ -72,5 +72,4 @@ Deno.test("Browser()", { permissions }, async (t) => {
     })
     Browser.shareable = shareable
   })
-
 })

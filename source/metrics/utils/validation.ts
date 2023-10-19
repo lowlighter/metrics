@@ -8,7 +8,7 @@ import { MetricsError } from "@utils/errors.ts"
 export type Validator<T extends is.ZodRawShape = is.ZodRawShape> = is.ZodObject<T>
 
 /** Deep partial */
-export type DeepPartial<T> = T extends object ? {[P in keyof T]?: DeepPartial<T[P]>} : T;
+export type DeepPartial<T> = T extends object ? { [P in keyof T]?: DeepPartial<T[P]> } : T
 
 /** Validation error */
 export class MetricsValidationError extends MetricsError {

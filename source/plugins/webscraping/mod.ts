@@ -50,7 +50,7 @@ export default class extends Plugin {
       this.context.args.url = new URL("tests/example.html", import.meta.url).href
     }
     const { url, select: selector, mode, viewport: _, wait, background: __ } = await this.inputs.parseAsync(this.context.args)
-    const page = await Browser.page({log:this.log})
+    const page = await Browser.page({ log: this.log })
     try {
       //TODO(@lowlighter): await page.setViewport(viewport)
       await page.goto(url, { waitUntil: "networkidle2" })

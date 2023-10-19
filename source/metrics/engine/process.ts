@@ -17,7 +17,7 @@ export async function process(_config: Record<PropertyKey, unknown>) {
     }
     await Promise.all([...pending])
     const { result: _result } = await Plugin.run({ tracker, context: plugin, state })
-    result = _result as any //TODO
+    result = _result as typeof result //TODO(@lowlighter): Fix type
     pending.clear()
   }
   const results = await Promise.all([...pending]) as Array<{ result: typeof state.result }>

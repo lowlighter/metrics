@@ -3,11 +3,11 @@ on:
   push:
     branches:
       - v4-dev
-  pull_request:
-    branches:
-      - v4-dev
-    paths-ignore:
-      - "**/*.md"
+  #pull_request:
+  #  branches:
+  #    - v4-dev
+  #  paths-ignore:
+  #    - "**/*.md"
 jobs:
   # Lint, format, build and test
   testing:
