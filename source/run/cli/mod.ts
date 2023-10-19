@@ -1,10 +1,10 @@
 //Imports
-import { Internal, is, toSchema } from "@metrics/components/internal.ts"
-import { cli as schema, load } from "@metrics/config.ts"
+import { Internal, is, toSchema } from "@engine/components/internal.ts"
+import { cli as schema, load } from "@engine/config.ts"
 import github from "y/@actions/github@5.1.1"
-import { latest, version } from "@metrics/version.ts"
+import { latest, version } from "@engine/version.ts"
 import core from "y/@actions/core@1.10.1"
-import { process } from "@metrics/process.ts"
+import { process } from "@engine/process.ts"
 import { parse } from "std/flags/mod.ts"
 import { cyan, gray } from "std/fmt/colors.ts"
 import { expandGlobSync } from "std/fs/expand_glob.ts"
@@ -33,8 +33,8 @@ class CLI extends Internal {
       for (const [key, value] of Object.entries(inputs)) {
         env.set(`INPUT_${key.replace(/ /g, "_").toUpperCase()}`, `${value}`)
       }
+      console.log(compat(inputs))
     }
-    console.log(compat())
   }
 
   /** Run metrics */
@@ -49,7 +49,7 @@ class CLI extends Internal {
     }
     if (this.context.check_updates) {
       const upstream = await latest()
-      if (version !== upstream) {
+      if (version.number !== upstream) {
         core.info(`Version ${upstream} is available!`)
       }
     }

@@ -2,6 +2,8 @@
 import { env } from "@utils/io.ts"
 import core from "y/@actions/core@1.10.1"
 
+type compat = any
+
 function deprecated(message: string) {
   console.warn()
 }
@@ -12,8 +14,8 @@ const to = {
   },
 }
 
-export function compat(inputs: any) {
-  const config = { plugins: [] } as any
+export function compat(inputs: compat) {
+  const config = { plugins: [] } as compat
 
   /*-
     - ❗ `plugin_introduction: yes` ➡️ `plugins: [{id: introduction}]`
@@ -21,8 +23,8 @@ export function compat(inputs: any) {
   */
   // 🙋 Introduction
   if (to.boolean(inputs.plugin_introduction)) {
-    const plugin = { introduction: {} } as any
-    deprecated(`<plugin_introduction> is deprecated, use <introduction> plugin`)
+    const plugin = { introduction: {} } as compat
+    deprecated(`"plugin_introduction" is deprecated, use <introduction> plugin`)
 
     deprecated(`<plugin_introduction_title> is deprecated, use <calendar> plugin with <calendar.range: ${duration}>`)
     const title = to.boolean(inputs.plugin_introduction_title)

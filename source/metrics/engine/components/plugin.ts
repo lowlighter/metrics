@@ -121,14 +121,14 @@ export abstract class Plugin extends Component {
   }
 
   /** Run component statically */
-  static run({ tracker, state, context }: { tracker?: string; state: state; context: Record<PropertyKey, unknown> }) {
+  static async run({ tracker, state, context }: { tracker?: string; state: state; context: Record<PropertyKey, unknown> }) {
     if (tracker) {
       Object.defineProperties(context, { [Component.tracker]: { enumerable: false, value: tracker } })
     }
     if (!context.id) {
       return new Plugin.NOP(context).run(state)
     }
-    return super.run({ state, context: context as typeof context & { id: string } })
+    return await super.run({ state, context: context as typeof context & { id: string } }) as unknown as ReturnType<Plugin["run"]>
   }
 
   /** Load component statically */

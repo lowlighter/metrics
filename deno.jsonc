@@ -13,8 +13,8 @@
     "@processors/": "./source/processors/"
   },
   "tasks": {
-    "qq": "rm -rf .coverage && deno test --coverage=.coverage --unstable --trace-ops --allow-all source/metrics/engine/config_test.ts && deno coverage .coverage --exclude='(secret|log|io|errors|testing|validation).ts'",
-    "q": "rm -rf .coverage && deno test --coverage=.coverage --unstable --no-check --trace-ops --fail-fast --allow-all source/metrics && deno coverage .coverage",
+    "qq": "rm -rf .coverage && deno test --coverage=.coverage --no-check --unstable --trace-ops --allow-all source/metrics/engine/metadata_test.ts && deno coverage .coverage --exclude='(secret|log|io|errors|testing|validation|format|version|config|requests|processor|plugin|internal|component).ts'",
+    "q": "rm -rf .coverage && deno test --coverage=.coverage --unstable --trace-ops --fail-fast --allow-all source/metrics && deno coverage .coverage",
     "btr": "deno run --allow-env --allow-read --allow-write=.btr.json --allow-run=deno --no-lock tasks.ts $0"
   },
   "btr-tasks": {
@@ -88,7 +88,7 @@
     // Testing ==============================================================================
     "test": {
       "task": [
-        //"rm .coverage -rf",
+        "rm .coverage -rf",
         "deno test source/metrics"
       ],
       "description": "🧪 Run tests and collect coverage",
@@ -97,11 +97,13 @@
       "traceOps": true,
       //"parallel": true,
       "shuffle": true,
-      //"coverage": ".coverage",
+      "coverage": ".coverage",
       "failFast": 1,
       "lock": false,
+      "unstable": true,
       "permissions": {
-        "env": [
+        "all": true
+        /* "env": [
           // Metrics
           "METRICS_GITHUB_TOKEN",
           "METRICS_GITHUB_APP_SECRET",
@@ -134,8 +136,8 @@
         ],
         "run": [
           // Cache
-          "$USERPROFILE/.astral/**/chrome.exe",
-          "$HOME/.astral/**/chrome",
+          "$USERPROFILE/.astral/**\/chrome.exe",
+          "$HOME/.astral/**\/chrome",
           // Puppeteer
           "/usr/bin/chromium-browser"
         ],
@@ -153,7 +155,7 @@
           "api.github.com/emojis",
           // processors/render.twemojis
           "cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets"
-        ]
+        ]*/
       }
     },
     "test:cache": {

@@ -1,8 +1,8 @@
 //Imports
 import { is, Plugin } from "@engine/components/plugin.ts"
 import { Processor } from "@engine/components/processor.ts"
-import { cli, server, webrequest } from "@metrics/config.ts"
-import { version } from "@metrics/version.ts"
+import { cli, server, webrequest } from "@engine/config.ts"
+import { version } from "@engine/version.ts"
 
 /** Metadata */
 export async function metadata() {

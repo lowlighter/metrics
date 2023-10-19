@@ -1,23 +1,22 @@
 //Imports
 import { serveListener } from "std/http/server.ts"
-import { server as schema, webrequest } from "@metrics/config.ts"
-import { process } from "@metrics/process.ts"
+import { server as schema, webrequest } from "@engine/config.ts"
+import { process } from "@engine/process.ts"
 import { is } from "@utils/validation.ts"
 import { env, KV, listen, read } from "@utils/io.ts"
-import { Internal } from "@metrics/components/internal.ts"
+import { Internal } from "@engine/components/internal.ts"
 import * as YAML from "std/yaml/mod.ts"
-import { parseHandle } from "@utils/parse.ts"
+import { parseHandle } from "@utils/github.ts"
 import * as Base64 from "std/encoding/base64.ts"
 import { serveDir, serveFile } from "std/http/file_server.ts"
 import { fromFileUrl } from "std/path/from_file_url.ts"
 import { Status } from "std/http/http_status.ts"
-import { metadata } from "@metrics/metadata.ts"
+import { metadata } from "@engine/metadata.ts"
 import { deferred } from "std/async/deferred.ts"
 import { deepMerge } from "std/collections/deep_merge.ts"
 import { getCookies, setCookie } from "std/http/cookie.ts"
-import { formatValidationError } from "@utils/errors.ts"
 import { Secret } from "@utils/secret.ts"
-import { Requests } from "@metrics/components/requests.ts"
+import { Requests } from "@engine/components/requests.ts"
 import { App } from "y/@octokit/app@14.0.0"
 import { client } from "./mod_imports.ts"
 try {
@@ -72,7 +71,7 @@ class Server extends Internal {
   /** Start server */
   start() {
     this.log.info(`listening on ${this.context.hostname}:${this.context.port}`)
-    return serveListener(listen({ hostname: this.context.hostname, port: this.context.port }), (request, connection) => this.handle(request, connection))
+    return serveListener(listen({ hostname: this.context.hostname, port: this.context.port }), (request, connection) => this.handle(request, connection as { remoteAddr: { hostname: string } }))
   }
 
   /** Metadata */
@@ -138,7 +137,7 @@ class Server extends Internal {
                 if (session && (await this.#kv.has(`sessions.${session}`))) {
                   return Response.redirect(url.origin, Status.Found)
                 }
-                return Response.redirect(this.#app.oauth.getWebFlowAuthorizationUrl({ allowSignup: false }).url, Status.Found)
+                return Response.redirect(this.#app!.oauth.getWebFlowAuthorizationUrl({ allowSignup: false }).url, Status.Found)
               }
               // OAuth authorization process
               case "/authorize": {
@@ -148,9 +147,9 @@ class Server extends Internal {
                 try {
                   const state = url.searchParams.get("state")
                   const code = url.searchParams.get("code")
-                  const { authentication: { token, expiresAt: expiration } } = await this.#app.oauth.createToken({ state, code })
+                  const { authentication: { token, expiresAt: expiration } } = await this.#app!.oauth.createToken({ state, code })
                   const ttl = new Date(expiration).getTime() - Date.now()
-                  const { data: { user: { login, avatar_url: avatar } } } = await this.#app.oauth.checkToken({ token })
+                  const { data: { user: { login, avatar_url: avatar } } } = await this.#app!.oauth.checkToken({ token })
                   if (await this.#kv.has(`sessions.login.${login}`)) {
                     log.trace(`oauth process: user ${login} was already authenticated`)
                     return Response.redirect(url.origin, Status.Found)
@@ -174,7 +173,7 @@ class Server extends Internal {
                 }
                 try {
                   const { login, token } = await this.#kv.get<user>(`sessions.${session}`)
-                  await this.#app.oauth.deleteToken({ token })
+                  await this.#app!.oauth.deleteToken({ token })
                   await this.#kv.delete(`sessions.${session}`)
                   await this.#kv.delete(`sessions.login.${login}`)
                   log.trace(`oauth process: user ${login} revoked their token`)
@@ -205,7 +204,7 @@ class Server extends Internal {
           // Serve renders
           case this.routes.metrics.test(url.pathname): {
             const { handle: _handle, ext = "svg" } = url.pathname.match(this.routes.metrics)?.groups ?? {}
-            const { handle, login } = parseHandle(_handle)
+            const { login: handle } = parseHandle(_handle, { entity: "user" })
             const _log = log
             let user = null as user | null
             if (!handle) {
@@ -240,7 +239,7 @@ class Server extends Internal {
                   log.trace(context)
                 } catch (error) {
                   log.warn(error)
-                  return promise.resolve(new Response(`Bad request: ${formatValidationError(error)}`, { status: Status.BadRequest }))!
+                  return promise.resolve(new Response(`Bad request: ${error}`, { status: Status.BadRequest }))!
                 }
 
                 // Filter features and apply server configuration
@@ -253,7 +252,7 @@ class Server extends Internal {
                   //TODO(@lowlighter): filter enabled plugins and params
                 } catch (error) {
                   log.warn(error)
-                  return promise.resolve(new Response(`Bad request: ${formatValidationError(error)}`, { status: Status.BadRequest }))!
+                  return promise.resolve(new Response(`Bad request: ${error}`, { status: Status.BadRequest }))!
                 }
 
                 // Load user session if available
@@ -283,13 +282,13 @@ class Server extends Internal {
                         await this.#kv.get<{ current: number; reset: number; init?: boolean }>(`requests.ratelimit.${user}`) ?? { init: true }
                       log.trace(`requests ratelimit: ${current + 1} / ${limit} until ${new Date(reset).toISOString()}`)
                       if (current + 1 > limit) {
-                        log.trace(`requests ratelimit: preventing further requests for "${login}" until ${new Date(reset).toISOString()}`)
+                        log.trace(`requests ratelimit: preventing further requests for "${from}" until ${new Date(reset).toISOString()}`)
                         return new Response(`Too Many Requests: Rate limit exceeded (wait ~${Math.ceil(Math.max((reset - Date.now()) / 1000, 1))}s)`, { status: Status.TooManyRequests })
                       }
                       if (init) {
-                        await this.#kv.set(`requests.ratelimit.${login}`, { current: current + 1, reset }, { ttl: 1000 * duration })
+                        await this.#kv.set(`requests.ratelimit.${from}`, { current: current + 1, reset }, { ttl: 1000 * duration })
                       } else {
-                        await this.#kv.set(`requests.ratelimit.${login}`, { current: current + 1, reset })
+                        await this.#kv.set(`requests.ratelimit.${from}`, { current: current + 1, reset })
                       }
                     }
                   }
@@ -358,7 +357,7 @@ class Server extends Internal {
             switch (action) {
               // Stop instance
               case "stop": {
-                if (!this.context.control[token]?.[action]) {
+                if (!this.context.control?.[token]?.[action]) {
                   return new Response("Forbidden", { status: Status.Forbidden })
                 }
                 this.log.info("received stop request, server will shutdown in a few seconds")

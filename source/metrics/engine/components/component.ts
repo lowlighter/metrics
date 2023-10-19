@@ -57,7 +57,7 @@ export abstract class Component extends Internal {
     this.log.info("execution started")
     await Component.state.parseAsync(state)
     this.log.trace(this.context)
-    let result = null, error = null, recoverable = true
+    let result = undefined, error = null, recoverable = true
     for (let attempt = 1; attempt <= (this.context.retries?.attempts ?? 1); attempt++) {
       if (attempt > 1) {
         this.log.message(`attempt ${attempt} of ${this.context.retries.attempts}`)
@@ -118,7 +118,7 @@ export abstract class Component extends Internal {
   /** Load component statically */
   static async load(context: Record<PropertyKey, unknown> & { id: string }) {
     const url = context.id.startsWith("https://") ? new URL(context.id) : toFileUrl(`${this.path}/${context.id}/mod.ts`)
-    const { default: Module } = await import(url.href)
+    const { default: Module } = await import(url.href).catch(() => ({}))
     if (!Module) {
       throws(`${this.name} ${context.id} could not be loaded`)
     }
