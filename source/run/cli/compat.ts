@@ -1,26 +1,8 @@
-// deno-lint-ignore-file no-explicit-any no-unused-vars
+// deno-lint-ignore-file no-explicit-any
 //import { env } from "@utils/io.ts"
 import core from "y/@actions/core@1.10.1"
 import * as YAML from "std/yaml/mod.ts"
-import {
-  bgBrightMagenta,
-  blue,
-  brightBlue,
-  brightCyan,
-  brightGreen,
-  brightGreen as g,
-  brightMagenta,
-  brightRed as r,
-  brightYellow,
-  cyan,
-  cyan as b,
-  gray,
-  green,
-  magenta,
-  white,
-  yellow,
-  yellow as y,
-} from "std/fmt/colors.ts"
+import { brightRed as r, cyan, gray, white, yellow } from "std/fmt/colors.ts"
 type compat = any
 
 function deprecated(input: string, replacement: Record<string, unknown> | null) {
@@ -29,10 +11,6 @@ function deprecated(input: string, replacement: Record<string, unknown> | null) 
   } else {
     core.warn(`${r(input)} is deprecated, use the following configuration snippet instead:\n\n${yaml({ config: replacement })}`)
   }
-}
-
-function notice(plugin: string) {
-  console.info()
 }
 
 function yaml(content: Record<string, unknown>) {

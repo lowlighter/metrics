@@ -39,6 +39,7 @@ runs:
           # TODO(@lowlighter): pass the docker file as input
         else
           echo "Pulling remote docker image: $DOCKER_IMAGE"
+          docker pull $DOCKER_IMAGE
         fi
         echo "::endgroup::"
         docker run --tty --env-file <(env | grep -E 'GITHUB|CI|TZ') --env INPUTS --rm --volume ${{ github.workspace }}:/workspace $DOCKER_IMAGE run

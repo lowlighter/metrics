@@ -36,7 +36,7 @@ class CLI extends Internal {
       }
       console.log("config", core.getInput("config"))
       console.log("deprecated_test", core.getInput("deprecated_test"))
-      core.warning("test **markdown**\n```yaml\nfoo: true\n```", { title: "test"})
+      core.warning("test **markdown**\n```yaml\nfoo: true\n```", { title: "test" })
       console.log("compat >>>>>>>>>>", compat(inputs))
     }
     // Check for updates
