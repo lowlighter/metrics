@@ -28,13 +28,17 @@ runs:
       env:
         INPUTS: ${{ toJson(inputs) }}
       run: |
-        set -x
         echo "::group::Metrics docker image setup"
-        echo "GitHub action: ${{ github.action }}"
+        echo "GitHub action: $(echo '${{ github.action }}' | tr '_' '/')"
         cd ${{ github.action_path }}
-
-        # ${{ inputs.docker_image }}
-        deno task btr docker:build
+        DOCKER_IMAGE="${{ inputs.docker_image }}"
+        if [ -f "$DOCKER_IMAGE" ]; then
+          echo "Using local docker image: $DOCKER_IMAGE"
+          deno task btr docker:build
+          DOCKER_IMAGE=metrics:dev
+          # TODO(@lowlighter): pass the docker file as input
+        else
+          echo "Pulling remote docker image: $DOCKER_IMAGE"
+        fi
         echo "::endgroup::"
-
-        docker run --tty --env-file <(env | grep -E 'GITHUB|CI|TZ') --env INPUTS --rm --volume ${{ github.workspace }}:/workspace metrics:dev run
+        docker run --tty --env-file <(env | grep -E 'GITHUB|CI|TZ') --env INPUTS --rm --volume ${{ github.workspace }}:/workspace $DOCKER_IMAGE run

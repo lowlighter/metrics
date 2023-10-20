@@ -25,7 +25,7 @@ class CLI extends Internal {
 
   /** Run metrics */
   async run() {
-    this.log.info(`Metrics ${version}`)
+    this.log.info(`Metrics ${version.number}`)
     this.log.probe(github.context)
     this.log.probe(Deno.env.toObject())
     // GitHub action setup
@@ -34,7 +34,10 @@ class CLI extends Internal {
       for (const [key, value] of Object.entries(inputs)) {
         env.set(`INPUT_${key.replace(/ /g, "_").toUpperCase()}`, `${value}`)
       }
-      console.log(compat(inputs))
+      console.log("config", core.getInput("config"))
+      console.log("deprecated_test", core.getInput("deprecated_test"))
+      core.warning("test **markdown**\n```yaml\nfoo: true\n```", { title: "test"})
+      console.log("compat >>>>>>>>>>", compat(inputs))
     }
     // Check for updates
     if (this.context.check_updates) {
