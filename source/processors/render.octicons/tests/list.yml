@@ -7,10 +7,11 @@
         - id: render.octicons
         - id: assert
           args:
-            select: svg.octicon
-            count: 1=
-            match: height="16"
-            html: true
+            html:
+              select: svg.octicon
+              count: 1=
+              match: height="16"
+              raw: true
 
 - name: render with size
   plugins:
@@ -21,10 +22,11 @@
       - id: render.octicons
       - id: assert
         args:
-          select: svg.octicon
-          count: 1=
-          match: height="24"
-          html: true
+          html:
+            select: svg.octicon
+            count: 1=
+            match: height="24"
+            raw: true
 
 - name: invalid octicon
   plugins:
@@ -35,6 +37,7 @@
       - id: render.octicons
       - id: assert
         args:
-          select: svg.octicon
-          count: 0=
-          match: ":octicon-__invalid__:"
+          html:
+            select: svg.octicon
+            count: 0=
+            match: ":octicon-__invalid__:"

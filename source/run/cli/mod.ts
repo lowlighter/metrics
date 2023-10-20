@@ -7,7 +7,6 @@ import core from "y/@actions/core@1.10.1"
 import { process } from "@engine/process.ts"
 import { parse } from "std/flags/mod.ts"
 import { cyan, gray } from "std/fmt/colors.ts"
-import { expandGlobSync } from "std/fs/expand_glob.ts"
 import { env } from "@utils/io.ts"
 import { compat } from "./compat.ts"
 
@@ -22,11 +21,13 @@ class CLI extends Internal {
   /** Constructor */
   constructor(context = {} as Record<PropertyKey, unknown>) {
     super(schema.parse(context))
-    this.setup()
   }
 
-  /** General setup */
-  private setup() {
+  /** Run metrics */
+  async run() {
+    this.log.info(`Metrics ${version}`)
+    this.log.probe(github.context)
+    this.log.probe(Deno.env.toObject())
     // GitHub action setup
     if ((env.actions) && (env.get("INPUTS"))) {
       const inputs = JSON.parse(env.get("INPUTS")!) as Record<PropertyKey, unknown>
@@ -35,24 +36,14 @@ class CLI extends Internal {
       }
       console.log(compat(inputs))
     }
-  }
-
-  /** Run metrics */
-  async run() {
-    this.log.info(`Metrics ${version}`)
-    this.log.probe(github.context)
-    this.log.probe(Deno.env.toObject())
-    try {
-      this.log.probe([...expandGlobSync("**/*.md", { root: "/workspace" })].filter(({ isDirectory }) => isDirectory).map(({ path }) => path))
-    } catch (error) {
-      console.log(error)
-    }
+    // Check for updates
     if (this.context.check_updates) {
       const upstream = await latest()
       if (version.number !== upstream) {
         core.info(`Version ${upstream} is available!`)
       }
     }
+    //
     await process(this.context.config)
   }
 

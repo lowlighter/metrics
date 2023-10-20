@@ -109,7 +109,7 @@ export class Requests extends Internal {
 
   /** Ratelimit */
   async ratelimit() {
-    const { data: { resources: { core, search, graphql = { remaining: 0, limit: 0 }, ...others } } } = await this.octokit.rest.rateLimit.get()
+    const { data: { resources: { core, search, graphql = { remaining: 0, limit: 0 }, ...others } } } = await this.rest(this.api.rateLimit.get)
     const { code_search: code } = others as { code_search: { remaining: number; limit: number } }
     this.log.io({
       core: `${core.remaining}/${core.limit}`,

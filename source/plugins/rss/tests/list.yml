@@ -7,8 +7,9 @@
       processors:
         - id: assert
           args:
-            select: .rss .entry
-            count: 1=
+            html:
+              select: .rss .entry
+              count: 1=
 
 - name: feed with limit disabled
   plugins:
@@ -19,5 +20,6 @@
       processors:
         - id: assert
           args:
-            select: .rss .entry
-            count: 1>=
+            html:
+              select: .rss .entry
+              count: 1>=

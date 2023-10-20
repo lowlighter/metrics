@@ -21,12 +21,16 @@ export default class extends Processor {
   /** Inputs */
   readonly inputs = is.object({
     content: is.string().describe("Content to inject"),
+    mime: is.string().optional().describe("Resulting mime type"),
   })
 
   /** Action */
   protected async action(state: state) {
     const result = await this.piped(state)
-    const { content } = await this.inputs.parseAsync(this.context.args)
+    const { content, mime } = await this.inputs.parseAsync(this.context.args)
+    if (mime) {
+      result.mime = mime
+    }
     result.content = `${result.content}${content}`
   }
 }

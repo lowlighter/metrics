@@ -43,14 +43,14 @@ export abstract class Component extends Internal {
 
   /** Icon */
   get icon() {
-    return this.name.match(/(\p{Emoji_Presentation}+)/gu)?.[0] ?? "⏹️"
+    return this.name.match(/([\p{Emoji}\u200d]+)/gu)?.[0] ?? "⏹️"
   }
 
   /** Action */
   protected abstract action(state: state): Promise<unknown>
 
   /** Is supported ? */
-  protected abstract supported(): void
+  protected abstract supported(state: state): Promise<void> | void
 
   /** Run component */
   protected async run(state: state) {
@@ -65,7 +65,7 @@ export abstract class Component extends Internal {
       try {
         // Ensure component is supported for current context
         try {
-          this.supported()
+          await this.supported(state)
         } catch (error) {
           recoverable = false
           throw error

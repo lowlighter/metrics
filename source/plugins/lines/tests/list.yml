@@ -9,12 +9,14 @@
       processors:
         - id: assert
           args:
-            select: .lines .entry .repo
-            match: octocat/public-repo
+            html:
+              select: .lines .entry .repo
+              match: octocat/public-repo
         - id: assert
           args:
-            select: .lines .entry .repo
-            match: /!/(user|org)\//
+            html:
+              select: .lines .entry .repo
+              match: /!/(user|org)\//
     - id: lines
       handle: octocat
       entity: user
@@ -24,12 +26,14 @@
       processors:
         - id: assert
           args:
-            select: .lines .entry .repo
-            match: user/public-repo
+            html:
+              select: .lines .entry .repo
+              match: user/public-repo
         - id: assert
           args:
-            select: .lines .entry .repo
-            match: /!/(octocat|org)\//
+            html:
+              select: .lines .entry .repo
+              match: /!/(octocat|org)\//
     - id: lines
       handle: octocat
       entity: user
@@ -39,12 +43,14 @@
       processors:
         - id: assert
           args:
-            select: .lines .entry .repo
-            match: org/public-repo
+            html:
+              select: .lines .entry .repo
+              match: org/public-repo
         - id: assert
           args:
-            select: .lines .entry .repo
-            match: /!/(octocat|user)\//
+            html:
+              select: .lines .entry .repo
+              match: /!/(octocat|user)\//
     - id: lines
       handle: octocat
       entity: user
@@ -54,8 +60,9 @@
       processors:
         - id: assert
           args:
-            select: .lines .entry .repo
-            match: /(octocat|user|org)\/public-repo/
+            html:
+              select: .lines .entry .repo
+              match: /(octocat|user|org)\/public-repo/
 
 - name: repository visibility
   plugins:
@@ -68,8 +75,9 @@
       processors:
         - id: assert
           args:
-            select: .lines .entry .repo
-            match: /(public|private)-repo/
+            html:
+              select: .lines .entry .repo
+              match: /(public|private)-repo/
     - id: lines
       handle: octocat
       entity: user
@@ -79,8 +87,9 @@
       processors:
         - id: assert
           args:
-            select: .lines .entry .repo
-            match: /!/private-repo/
+            html:
+              select: .lines .entry .repo
+              match: /!/private-repo/
 
 - name: repository archived
   plugins:
@@ -93,8 +102,9 @@
       processors:
         - id: assert
           args:
-            select: .lines .entry .repo
-            match: /(?:archived-repo)?/
+            html:
+              select: .lines .entry .repo
+              match: /(?:archived-repo)?/
     - id: lines
       handle: octocat
       entity: user
@@ -104,8 +114,9 @@
       processors:
         - id: assert
           args:
-            select: .lines .entry .repo
-            match: /!/archived-repo/
+            html:
+              select: .lines .entry .repo
+              match: /!/archived-repo/
 
 - name: repository forked
   plugins:
@@ -118,8 +129,9 @@
       processors:
         - id: assert
           args:
-            select: .lines .entry .repo
-            match: /(?:forked-repo)?/
+            html:
+              select: .lines .entry .repo
+              match: /(?:forked-repo)?/
     - id: lines
       handle: octocat
       entity: user
@@ -129,8 +141,9 @@
       processors:
         - id: assert
           args:
-            select: .lines .entry .repo
-            match: /!/forked-repo/
+            html:
+              select: .lines .entry .repo
+              match: /!/forked-repo/
 
 - name: repository matching
   plugins:
@@ -144,12 +157,14 @@
       processors:
         - id: assert
           args:
-            select: .lines .entry .repo
-            match: /octocat\//
+            html:
+              select: .lines .entry .repo
+              match: /octocat\//
         - id: assert
           args:
-            select: .lines .entry .repo
-            match: /!/(user|org)\//
+            html:
+              select: .lines .entry .repo
+              match: /!/(user|org)\//
 
 - name: history limit
   plugins:
@@ -162,8 +177,9 @@
       processors:
         - id: assert
           args:
-            select: .lines .entry .week
-            match: /(2023|2022)/
+            html:
+              select: .lines .entry .week
+              match: /(2023|2022)/
     - id: lines
       handle: octocat
       entity: user
@@ -173,8 +189,9 @@
       processors:
         - id: assert
           args:
-            select: .lines .entry .week
-            match: /2023/
+            html:
+              select: .lines .entry .week
+              match: /2023/
 
 - name: empty repository
   plugins:
@@ -184,8 +201,9 @@
       processors:
         - id: assert
           args:
-            select: .lines .entry
-            count: 1=
+            html:
+              select: .lines .entry
+              count: 1=
 
 - name: fetching retry
   plugins:
@@ -199,8 +217,9 @@
       processors:
         - id: assert
           args:
-            select: .lines .entry
-            count: 1=
+            html:
+              select: .lines .entry
+              count: 1=
     - processors:
       - id: control.delay
         args:
@@ -215,8 +234,9 @@
       processors:
         - id: assert
           args:
-            select: .lines .entry
-            count: 0=
+            html:
+              select: .lines .entry
+              count: 0=
     - processors:
       - id: control.delay
         args:

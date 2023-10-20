@@ -8,7 +8,7 @@ branding:
 inputs:
   docker_image:
     description: Docker image to use
-    default: Dockerfile # TODO(@lowlighter): change to remote published image
+    default: ghcr.io/lowlighter/metrics:v4
     required: true
   config:
     description: Configuration file

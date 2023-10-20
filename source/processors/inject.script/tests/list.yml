@@ -10,8 +10,9 @@
             document.querySelector(".test").textContent = "hello world";
       - id: assert
         args:
-          select: .test
-          match: hello world
+          html:
+            select: .test
+            match: hello world
 
 - name: inject error
   plugins:

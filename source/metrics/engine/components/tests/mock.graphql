@@ -1,0 +1,3 @@
+query Test($foo: Boolean!) {
+  bar
+}

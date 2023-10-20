@@ -7,8 +7,9 @@
         - id: render.gemojis
         - id: assert
           args:
-            select: img.gemoji
-            count: 1=
+            html:
+              select: img.gemoji
+              count: 1=
 
 - name: invalid emoji
   plugins:
@@ -19,6 +20,7 @@
       - id: render.gemojis
       - id: assert
         args:
-          select: img.gemoji
-          count: 0=
-          match: ":__invalid__:"
+          html:
+            select: img.gemoji
+            count: 0=
+            match: ":__invalid__:"

@@ -10,11 +10,13 @@
             .test { color: blue; }
       - id: assert
         args:
-          select: .test
-          match: /<span.*inject-style-.*?="true">/i
-          html: true
+          html:
+            select: .test
+            match: /<span.*inject-style-.*?="true">/i
+            raw: true
       - id: assert
         args:
-          select: .test
-          match: /\[inject-style-.*?\]\s+.test.*color:\s+blue/i
-          html: true
+          html:
+            select: .test
+            match: /\[inject-style-.*?\]\s+.test.*color:\s+blue/i
+            raw: true

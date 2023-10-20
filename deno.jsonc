@@ -13,7 +13,7 @@
     "@processors/": "./source/processors/"
   },
   "tasks": {
-    "qq": "rm -rf .coverage && deno test --coverage=.coverage --no-check --unstable --trace-ops --allow-all source/metrics/engine/metadata_test.ts && deno coverage .coverage --exclude='(secret|log|io|errors|testing|validation|format|version|config|requests|processor|plugin|internal|component).ts'",
+    "qq": "rm -rf .coverage && deno test --coverage=.coverage --no-check --unstable --trace-ops --allow-all source/metrics/engine/components/processor_test.ts && deno coverage .coverage --exclude='(secret|log|io|errors|testing|validation|format|version|config|processor|internal|requests|component).ts'",
     "q": "rm -rf .coverage && deno test --coverage=.coverage --unstable --trace-ops --fail-fast --allow-all source/metrics && deno coverage .coverage",
     "btr": "deno run --allow-env --allow-read --allow-write=.btr.json --allow-run=deno --no-lock tasks.ts $0"
   },
@@ -96,7 +96,6 @@
       "doc": true,
       "traceOps": true,
       //"parallel": true,
-      "shuffle": true,
       "coverage": ".coverage",
       "failFast": 1,
       "lock": false,

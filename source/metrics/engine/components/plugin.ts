@@ -51,11 +51,6 @@ export abstract class Plugin extends Component {
     return this.requests.fetch(...args)
   }
 
-  /** Ratelimit */
-  protected ratelimit() {
-    return this.requests.ratelimit()
-  }
-
   /** Render an EJS template */
   protected async render({ state }: { state: state }) {
     const name = this.context.template
@@ -72,8 +67,8 @@ export abstract class Plugin extends Component {
 
   /** Is supported ? */
   protected supported() {
-    if (!this.supports.includes(this.context.entity)) {
-      throws(`Not supported for ${this.context.entity}`)
+    if ((this.supports.length) && (!this.supports.includes(this.context.entity))) {
+      throws(`${this.id} not supported for ${this.context.entity}`)
     }
   }
 

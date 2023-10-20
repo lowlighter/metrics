@@ -7,9 +7,10 @@
       - id: optimize.xml
       - id: assert
         args:
-          select: main
-          match: /<span><.span>/i
-          html: true
+          html:
+            select: main
+            match: /<span><.span>/i
+            raw: true
 
 - name: invalid svg
   plugins:

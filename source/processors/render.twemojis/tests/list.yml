@@ -7,5 +7,6 @@
         - id: render.twemojis
         - id: assert
           args:
-            select: svg.twemoji
-            count: 1=
+            html:
+              select: svg.twemoji
+              count: 1=

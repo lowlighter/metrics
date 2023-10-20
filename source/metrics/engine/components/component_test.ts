@@ -1,14 +1,12 @@
-import { expect, test } from "@utils/testing.ts"
-import { Plugin } from "@engine/components/plugin.ts"
-import { Processor } from "@engine/components/processor.ts"
-import { process } from "@engine/process.ts"
+import { test } from "@utils/testing.ts"
 import { deepMerge } from "std/collections/deep_merge.ts"
 import { Browser } from "@utils/browser.ts"
 import * as dir from "@engine/paths.ts"
 import { Logger } from "@utils/log.ts"
 import { Component } from "@engine/components/component.ts"
 
-const config = {
+/** Config */
+export const config = {
   presets: {
     default: {
       plugins: {
@@ -22,51 +20,10 @@ const config = {
       },
     },
   },
-}
-
-// Plugins
-for (const id of await Plugin.list()) {
-  const plugin = await Plugin.load({ id })
-  const tests = await plugin.tests()
-  const templates = await plugin.templates()
-  const name = `${plugin.icon} plugins/${plugin.id}`
-  if (!tests.length) {
-    Deno.test.ignore(name, () => void null)
-    continue
-  }
-  for (const test of tests) {
-    Deno.test(`${name} | ${test.name}`, await getPermissions(test), async (t) => {
-      const { teardown } = setup()
-      for (const template of templates) {
-        await t.step(template, async () => {
-          await expect(process(deepMerge({ presets: { default: { plugins: { template } } } }, deepMerge(config, test, { arrays: "replace" })))).to.be.fulfilled.and.eventually.be.ok
-        })
-      }
-      teardown()
-    })
-  }
-}
-
-// Processors
-for (const id of await Processor.list()) {
-  const processor = await Processor.load({ id })
-  const tests = await processor.tests()
-  const name = `${processor.icon} processors/${processor.id}`
-  if (!tests.length) {
-    Deno.test.ignore(name, () => void null)
-    continue
-  }
-  for (const test of tests) {
-    Deno.test(`${name} | ${test.name}`, await getPermissions(test), async () => {
-      const { teardown } = setup()
-      await expect(process(deepMerge(config, test, { arrays: "replace" }))).to.be.fulfilled.and.eventually.be.ok
-      teardown()
-    })
-  }
-}
+} as const
 
 /** Setup for components tests */
-function setup() {
+export function setup() {
   const { raw } = Logger
   const { shareable } = Browser
   Logger.raw = false
@@ -79,7 +36,7 @@ function setup() {
 }
 
 /** Compute required permissions */
-async function getPermissions(test: Awaited<ReturnType<typeof Component["prototype"]["tests"]>>[0]) {
+export async function getPermissions(test: Awaited<ReturnType<typeof Component["prototype"]["tests"]>>[0]) {
   // Aggregate permissions from all plugins and processors
   const requested = new Set<string>()
   const components = new Set<string>()

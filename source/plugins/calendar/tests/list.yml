@@ -8,12 +8,14 @@
       processors:
         - id: assert
           args:
-            select: .calendar .year
-            count: 1=
+            html:
+              select: .calendar .year
+              count: 1=
         - id: assert
           args:
-            select: .calendar .year .day
-            count: 180~1
+            html:
+              select: .calendar .year .day
+              count: 180~1
     - id: calendar
       handle: octocat
       args:
@@ -22,12 +24,14 @@
       processors:
         - id: assert
           args:
-            select: .calendar .year
-            count: 1=
+            html:
+              select: .calendar .year
+              count: 1=
         - id: assert
           args:
-            select: .calendar .year .day
-            count: 180~1
+            html:
+              select: .calendar .year .day
+              count: 180~1
 
 - name: range last-365-days
   plugins:
@@ -39,12 +43,14 @@
       processors:
         - id: assert
           args:
-            select: .calendar .year
-            count: 1=
+            html:
+              select: .calendar .year
+              count: 1=
         - id: assert
           args:
-            select: .calendar .year .day
-            count: 365~1
+            html:
+              select: .calendar .year .day
+              count: 365~1
     - id: calendar
       handle: octocat
       args:
@@ -53,12 +59,14 @@
       processors:
         - id: assert
           args:
-            select: .calendar .year
-            count: 1=
+            html:
+              select: .calendar .year
+              count: 1=
         - id: assert
           args:
-            select: .calendar .year .day
-            count: 365~1
+            html:
+              select: .calendar .year .day
+              count: 365~1
 
 - name: range current-year
   plugins:
@@ -69,12 +77,14 @@
       processors:
         - id: assert
           args:
-            select: .calendar .year
-            count: 1=
+            html:
+              select: .calendar .year
+              count: 1=
         - id: assert
           args:
-            select: .calendar .title sub
-            match: /1 jan (\d+) to \d+ \w+ \1/i
+            html:
+              select: .calendar .title sub
+              match: /1 jan (\d+) to \d+ \w+ \1/i
 
 - name: range specific year
   plugins:
@@ -85,12 +95,14 @@
       processors:
         - id: assert
           args:
-            select: .calendar .year
-            count: 1=
+            html:
+              select: .calendar .year
+              count: 1=
         - id: assert
           args:
-            select: .calendar .title sub
-            match: /1 jan 2020 to 31 dec 2020/i
+            html:
+              select: .calendar .title sub
+              match: /1 jan 2020 to 31 dec 2020/i
     - id: calendar
       handle: octocat
       args:
@@ -98,12 +110,14 @@
       processors:
         - id: assert
           args:
-            select: .calendar .year
-            count: 1=
+            html:
+              select: .calendar .year
+              count: 1=
         - id: assert
           args:
-            select: .calendar .title sub
-            match: /1 jan 1970 to 31 dec 1970/i
+            html:
+              select: .calendar .title sub
+              match: /1 jan 1970 to 31 dec 1970/i
 
 - name: range specific years
   plugins:
@@ -116,12 +130,14 @@
       processors:
         - id: assert
           args:
-            select: .calendar .year
-            count: 2=
+            html:
+              select: .calendar .year
+              count: 2=
         - id: assert
           args:
-            select: .calendar .title sub
-            match: /1 jan 2019 to 31 dec 2020/i
+            html:
+              select: .calendar .title sub
+              match: /1 jan 2019 to 31 dec 2020/i
 
 - name: range relative years
   plugins:
@@ -134,8 +150,9 @@
       processors:
         - id: assert
           args:
-            select: .calendar .year
-            count: 2=
+            html:
+              select: .calendar .year
+              count: 2=
     - id: calendar
       handle: octocat
       args:
@@ -145,12 +162,14 @@
       processors:
         - id: assert
           args:
-            select: .calendar .year
-            count: 2=
+            html:
+              select: .calendar .year
+              count: 2=
         - id: assert
           args:
-            select: .calendar .title sub
-            match: /1 jan 2019 to 31 dec 2020/i
+            html:
+              select: .calendar .title sub
+              match: /1 jan 2019 to 31 dec 2020/i
 
 - name: range from registration
   plugins:
@@ -163,8 +182,9 @@
       processors:
         - id: assert
           args:
-            select: .calendar .year
-            count: 1>=
+            html:
+              select: .calendar .year
+              count: 1>=
 
 - name: color schemes
   plugins:
@@ -176,9 +196,10 @@
       processors:
         - id: assert
           args:
-            select: .calendar svg.render [fill^="var"]
-            match: /fill="var\(--calendar-halloween-L\d\)"/
-            html: true
+            html:
+              select: .calendar svg.render [fill^="var"]
+              match: /fill="var\(--calendar-halloween-L\d\)"/
+              raw: true
     - id: calendar
       handle: octocat
       args:
@@ -187,6 +208,7 @@
       processors:
         - id: assert
           args:
-            select: .calendar svg.render [fill^="var"]
-            match: /fill="var\(--calendar-winter-L\d\)"/
-            html: true
+            html:
+              select: .calendar svg.render [fill^="var"]
+              match: /fill="var\(--calendar-winter-L\d\)"/
+              raw: true

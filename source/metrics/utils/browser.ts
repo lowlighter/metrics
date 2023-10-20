@@ -1,6 +1,6 @@
 //Imports
 import { Logger } from "@utils/log.ts"
-import { getBinary, launch } from "gh/lowlighter/astral@fix-dont-require-env-perms-with-cache/mod.ts" // TODO(@lowlighter): use astral@main when available
+import { getBinary, launch } from "gh/lino-levan/astral@main/mod.ts" // TODO(@lowlighter): use x/astral when available
 import { env } from "@utils/io.ts"
 import { cache } from "@engine/paths.ts"
 import { throws } from "@utils/errors.ts"

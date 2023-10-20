@@ -3,6 +3,7 @@ import { DOMParser } from "x/deno_dom@v0.1.38/deno-dom-wasm.ts"
 import { Format } from "@utils/format.ts"
 import { is, Processor, state } from "@engine/components/processor.ts"
 import { expect } from "@utils/testing.ts"
+import { throws } from "@utils/errors.ts"
 
 /** Regexs */
 const regexs = {
@@ -25,22 +26,24 @@ export default class extends Processor {
   readonly description = "Assert selection matches specified criteria"
 
   /** Supports */
-  readonly supports = ["application/xml", "image/svg+xml"]
+  readonly supports = []
 
   /** Inputs */
   readonly inputs = is.object({
-    select: is.string().default("main").describe("Query selector"),
-    match: is.coerce.string().optional().describe("Assert element content match pattern (will be treated as regex if matching `/pattern/flags`, prefix with `/!` to negate regex matching)"),
-    html: is.boolean().default(false).describe("Use raw HTML instead of text content"),
-    count: is.coerce.string().regex(regexs.count).optional().describe("Assert number of elements"),
     error: is.boolean().default(false).describe("Assert previous content returned an error"),
     mime: is.string().optional(),
+    html: is.object({
+      select: is.string().default("main").describe("Query selector"),
+      match: is.coerce.string().optional().describe("Assert element content match pattern (will be treated as regex if matching `/pattern/flags`, prefix with `/!` to negate regex matching)"),
+      raw: is.boolean().default(false).describe("Use raw HTML instead of text content"),
+      count: is.coerce.string().regex(regexs.count).optional().describe("Assert number of elements"),
+    }).nullable().default(null).describe("HTML selection (mime must be either `application/xml`, `image/svg+xml` or `text/html`)"),
   })
 
   /** Action */
   protected async action(state: state) {
     const result = await this.piped(state)
-    const { count, select, match, error, html, mime } = await this.inputs.parseAsync(this.context.args)
+    const { error, html, mime } = await this.inputs.parseAsync(this.context.args)
     if (typeof result.content !== "string") {
       if (error) {
         return
@@ -50,6 +53,16 @@ export default class extends Processor {
     if (mime) {
       expect(result.mime).to.include(mime)
     }
+    if (!/(application\/xml)|(image\/svg\+xml)|(text\/html)/.test(result.mime)) {
+      if (html) {
+        throws(`html selection is only supported for mime type "application/xml", "image/svg+xml" or "text/html" (got "${result.mime}")`)
+      }
+      return
+    }
+    if (!html) {
+      return
+    }
+    const { select, match, raw, count } = html
     const document = new DOMParser().parseFromString(Format.html(result.content), "text/html")
     const selected = [...document?.querySelectorAll(select) ?? []]
     if (typeof count === "string") {
@@ -85,7 +98,7 @@ export default class extends Processor {
 
     for (const element of selected) {
       if (typeof match === "string") {
-        const content = html ? ((element.parentElement ?? element) as unknown as { innerHTML?: string }).innerHTML ?? "" : element.textContent
+        const content = raw ? ((element.parentElement ?? element) as unknown as { innerHTML?: string }).innerHTML ?? "" : element.textContent
         if (regexs.match.test(match)) {
           const { negate = "", pattern = "", flags = "" } = match.match(regexs.match)!.groups ?? {}
           const regex = new RegExp(pattern, flags)

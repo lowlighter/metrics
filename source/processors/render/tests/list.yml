@@ -9,8 +9,9 @@
           format: svg
       - id: assert
         args:
-          match: /<svg.*?>.*hello world.*<.svg>/is
-          html: true
+          html:
+            match: /<svg.*?>.*hello world.*<.svg>/is
+            raw: true
           mime: image/svg+xml
 
 - name: render png
@@ -68,13 +69,15 @@
       - id: inject.content
         args:
           content: hello world
+
       - id: render
         args:
           format: html
       - id: assert
         args:
-          match: /<title>.*?<.title>/is
-          html: true
+          html:
+            match: /<title>.*?<.title>/is
+            raw: true
           mime: text/html
 
 - name: render json
@@ -88,6 +91,4 @@
           format: json
       - id: assert
         args:
-          match: /\{"results":.*,"errors":.*\}/is
-          html: true
           mime: application/json

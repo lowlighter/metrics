@@ -6,8 +6,9 @@
       processors:
         - id: assert
           args:
-            select: .introduction .text
-            match: octocat
+            html:
+              select: .introduction .text
+              match: octocat
 
 - name: organization
   plugins:
@@ -17,8 +18,9 @@
       processors:
         - id: assert
           args:
-            select: .introduction .text
-            match: github
+            html:
+              select: .introduction .text
+              match: github
 
 - name: repository
   plugins:
@@ -28,5 +30,6 @@
       processors:
         - id: assert
           args:
-            select: .introduction .text
-            match: octocat/hello-world
+            html:
+              select: .introduction .text
+              match: octocat/hello-world

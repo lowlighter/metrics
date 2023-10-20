@@ -8,8 +8,9 @@
       processors:
         - id: assert
           args:
-            select: .gists .title
-            match: /10 gists/i
+            html:
+              select: .gists .title
+              match: /10 gists/i
     - id: gists
       handle: octocat
       entity: user
@@ -18,8 +19,9 @@
       processors:
         - id: assert
           args:
-            select: .gists .title
-            match: /20 gists/i
+            html:
+              select: .gists .title
+              match: /20 gists/i
 
 - name: gists forks
   plugins:
@@ -31,8 +33,9 @@
       processors:
         - id: assert
           args:
-            select: .gists .title
-            match: /including \d+ forks?/i
+            html:
+              select: .gists .title
+              match: /including \d+ forks?/i
     - id: gists
       handle: octocat
       entity: user
@@ -41,6 +44,7 @@
       processors:
         - id: assert
           args:
-            select: .gists .title
-            match: /!/including \d+ forks?/i
+            html:
+              select: .gists .title
+              match: /!/including \d+ forks?/i
 

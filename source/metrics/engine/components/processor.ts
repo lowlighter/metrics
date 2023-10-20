@@ -4,6 +4,7 @@ import { processor as schema } from "@engine/config.ts"
 import { list } from "@utils/io.ts"
 import type { Plugin } from "@engine/components/plugin.ts"
 import { Requests } from "@engine/components/requests.ts"
+import { throws } from "@utils/errors.ts"
 
 /** Processor */
 export abstract class Processor extends Component {
@@ -29,8 +30,11 @@ export abstract class Processor extends Component {
   readonly outputs = is.object({})
 
   /** Is supported ? */
-  protected supported() {
-    //TODO(@lowlighter): Implement
+  protected async supported(state: state) {
+    const { mime } = await this.piped(state)
+    if ((this.supports.length) && (!this.supports.includes(mime))) {
+      throws(`${this.id} not supported for ${mime}`)
+    }
   }
 
   /** Retrieve piped result */

@@ -17,12 +17,14 @@
       - id: optimize.css
       - id: assert
         args:
-          select: svg style
-          match: /\.a\{.*\}/i
+          html:
+            select: svg style
+            match: /\.a\{.*\}/i
       - id: assert
         args:
-          select: svg style
-          match: /!/\.b\{.*\}/i
+          html:
+            select: svg style
+            match: /!/\.b\{.*\}/i
 
 - name: optimize does not remove non-optimizable styles
   plugins:
@@ -43,9 +45,11 @@
       - id: optimize.css
       - id: assert
         args:
-          select: svg style
-          match: /\.a { color:\ red; \}/i
+          html:
+            select: svg style
+            match: /\.a { color:\ red; \}/i
       - id: assert
         args:
-          select: svg style
-          match: /\.b \{ color:\ blue; \}/i
+          html:
+            select: svg style
+            match: /\.b \{ color:\ blue; \}/i

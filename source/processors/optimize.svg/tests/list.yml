@@ -4,12 +4,14 @@
       - id: inject.content
         args:
           content: <svg><!-- comment --></svg>
+          mime: image/svg+xml
       - id: optimize.svg
       - id: assert
         args:
-          select: main
-          match: /<svg><.svg>/i
-          html: true
+          html:
+            select: main
+            match: /<svg><.svg>/i
+            raw: true
 
 - name: invalid svg
   plugins:
@@ -17,6 +19,7 @@
       - id: inject.content
         args:
           content: <!-- comment -->
+          mime: image/svg+xml
       - id: optimize.svg
         fatal: false
       - id: assert

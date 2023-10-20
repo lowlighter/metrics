@@ -8,12 +8,14 @@
       processors:
         - id: assert
           args:
-            select: .webscraping .title
-            match: example
+            html:
+              select: .webscraping .title
+              match: example
         - id: assert
           args:
-            select: .webscraping img
-            count: 1=
+            html:
+              select: .webscraping img
+              count: 1=
 
 - name: scrap text
   plugins:
@@ -26,12 +28,14 @@
       processors:
         - id: assert
           args:
-            select: .webscraping .title
-            match: example
+            html:
+              select: .webscraping .title
+              match: example
         - id: assert
           args:
-            select: .webscraping
-            match: hello world
+            html:
+              select: .webscraping
+              match: hello world
 
 - name: error
   plugins:
@@ -43,5 +47,4 @@
       processors:
         - id: assert
           args:
-            select: .webscraping
             error: true

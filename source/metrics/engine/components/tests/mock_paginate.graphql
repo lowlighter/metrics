@@ -1,0 +1,11 @@
+query Test($foo: Boolean!, $cursor: String) {
+  bar(after: $cursor) {
+    nodes {
+      value
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}

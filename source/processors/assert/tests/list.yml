@@ -6,16 +6,19 @@
           content: <span class="test">hello world</span>
       - id: assert
         args:
-          select: .test
-          match: hello world
+          html:
+            select: .test
+            match: hello world
       - id: assert
         args:
-          select: .test
-          match: /hello world/
+          html:
+            select: .test
+            match: /hello world/
       - id: assert
         args:
-          select: .test
-          match: /!/foo bar/
+          html:
+            select: .test
+            match: /!/foo bar/
 
 - name: match html
   plugins:
@@ -25,9 +28,10 @@
           content: <span class="test" data-test="true"></span>
       - id: assert
         args:
-          select: .test
-          match: /data-test="true"/
-          html: true
+          html:
+            select: .test
+            match: /data-test="true"/
+            raw: true
 
 - name: count elements
   plugins:
@@ -37,25 +41,31 @@
           content: <span class="a"></span>
       - id: assert
         args:
-          select: .a
-          count: 1=
+          html:
+            select: .a
+            count: 1=
       - id: assert
         args:
-          select: .a
-          count: 0~1
+          html:
+            select: .a
+            count: 0~1
       - id: assert
         args:
-          select: .a
-          count: 1>=
+          html:
+            select: .a
+            count: 1>=
       - id: assert
         args:
-          select: .a
-          count: 0>
+          html:
+            select: .a
+            count: 0>
       - id: assert
         args:
-          select: .a
-          count: 1<=
+          html:
+            select: .a
+            count: 1<=
       - id: assert
         args:
-          select: .a
-          count: 2<
+          html:
+            select: .a
+            count: 2<
