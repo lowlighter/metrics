@@ -1,9 +1,9 @@
 // Imports
 import { DOMParser } from "x/deno_dom@v0.1.38/deno-dom-wasm.ts"
-import { Format } from "@utils/format.ts"
+import { Format } from "@engine/utils/format.ts"
 import { is, Processor, state } from "@engine/components/processor.ts"
-import { expect } from "@utils/testing.ts"
-import { throws } from "@utils/errors.ts"
+import { expect } from "@engine/utils/testing.ts"
+import { throws } from "@engine/utils/errors.ts"
 
 /** Regexs */
 const regexs = {

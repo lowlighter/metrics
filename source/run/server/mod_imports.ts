@@ -2,9 +2,9 @@
 import { expandGlob } from "std/fs/expand_glob.ts"
 import { relative } from "std/path/relative.ts"
 import { fromFileUrl } from "std/path/from_file_url.ts"
-import { write } from "@utils/io.ts"
+import { write } from "@engine/utils/io.ts"
 import { dirname } from "std/path/dirname.ts"
-import { Logger } from "@utils/log.ts"
+import { Logger } from "@engine/utils/log.ts"
 import { bundle } from "x/emit@0.24.0/mod.ts"
 
 if (import.meta.main) {

@@ -8,7 +8,7 @@ export default class extends Processor {
   static readonly meta = import.meta
 
   /** Name */
-  readonly name = "⏱️ Delay"
+  readonly name = "⏰ Delay"
 
   /** Category */
   readonly category = "control"

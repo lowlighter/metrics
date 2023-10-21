@@ -1,4 +1,4 @@
-import { faker, is, log, mock, Status } from "@utils/testing.ts"
+import { faker, is, log, mock, Status } from "@engine/utils/testing.ts"
 
 let available = false
 let timeout = NaN

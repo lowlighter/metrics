@@ -10,7 +10,7 @@ export default class extends Processor {
   static readonly meta = import.meta
 
   /** Name */
-  readonly name = "🖌️ Render GitHub emojis"
+  readonly name = "🖋️ Render GitHub emojis"
 
   /** Category */
   readonly category = "renderer"

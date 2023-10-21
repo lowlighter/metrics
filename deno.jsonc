@@ -7,13 +7,12 @@
     "x/": "https://deno.land/x/",
     "y/": "https://esm.sh/",
     "gh/": "https://esm.sh/gh/",
-    "@engine/": "./source/metrics/engine/",
-    "@utils/": "./source/metrics/utils/",
+    "@engine/": "./source/engine/",
     "@plugins/": "./source/plugins/",
     "@processors/": "./source/processors/"
   },
   "tasks": {
-    "qq": "rm -rf .coverage && deno test --coverage=.coverage --no-check --unstable --trace-ops --allow-all source/metrics/engine/components/processor_test.ts && deno coverage .coverage --exclude='(secret|log|io|errors|testing|validation|format|version|config|processor|internal|requests|component).ts'",
+    "qq": "rm -rf .coverage && deno test --coverage=.coverage --no-check --unstable --trace-ops --allow-all source/engine/components && deno coverage .coverage --exclude='(secret|log|io|errors|testing|validation|format|version|config|browser).ts'",
     "q": "rm -rf .coverage && deno test --coverage=.coverage --unstable --trace-ops --fail-fast --allow-all source/metrics && deno coverage .coverage",
     "btr": "deno run --allow-env --allow-read --allow-write=.btr.json --allow-run=deno --no-lock tasks.ts $0"
   },

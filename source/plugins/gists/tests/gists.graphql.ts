@@ -1,4 +1,4 @@
-import { faker, is, mock } from "@utils/testing.ts"
+import { faker, is, mock } from "@engine/utils/testing.ts"
 
 export default mock({ login: is.string(), privacy: is.enum(["PUBLIC", "ALL"]) }, ({ privacy }) => {
   const count = { PUBLIC: 10, ALL: 20 }[privacy]

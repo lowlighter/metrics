@@ -1,6 +1,6 @@
 // Imports
 import { is, Plugin } from "@engine/components/plugin.ts"
-import { Browser } from "@utils/browser.ts"
+import { Browser } from "@engine/utils/browser.ts"
 import { delay } from "std/async/delay.ts"
 import { resize } from "x/deno_image@0.0.4/mod.ts"
 import * as Base64 from "std/encoding/base64.ts"

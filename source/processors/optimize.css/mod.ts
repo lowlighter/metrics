@@ -2,7 +2,7 @@
 import { Processor, state } from "@engine/components/processor.ts"
 import { PurgeCSS } from "y/purgecss@5.0.0"
 import { DOMParser } from "x/deno_dom@v0.1.38/deno-dom-wasm.ts"
-import { Format } from "@utils/format.ts"
+import { Format } from "@engine/utils/format.ts"
 import { minify } from "y/csso@5.0.5"
 import { unescape } from "y/html-escaper@3.0.3"
 

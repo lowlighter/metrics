@@ -8,7 +8,7 @@ export default class extends Processor {
   static readonly meta = import.meta
 
   /** Name */
-  readonly name = "🖌️ Render Twemojis"
+  readonly name = "🖋️ Render Twemojis"
 
   /** Category */
   readonly category = "renderer"

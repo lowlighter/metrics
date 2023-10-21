@@ -1,9 +1,9 @@
 // Imports
 import { is, Processor, state } from "@engine/components/processor.ts"
-import { Browser } from "@utils/browser.ts"
-import { Format } from "@utils/format.ts"
+import { Browser } from "@engine/utils/browser.ts"
+import { Format } from "@engine/utils/format.ts"
 import { Plugin } from "@engine/components/plugin.ts"
-import { env, read } from "@utils/io.ts"
+import { env, read } from "@engine/utils/io.ts"
 import { contentType } from "std/media_types/content_type.ts"
 import * as Base64 from "std/encoding/base64.ts"
 

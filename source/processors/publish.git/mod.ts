@@ -2,7 +2,7 @@
 import { is, Processor, state } from "@engine/components/processor.ts"
 import { extension } from "std/media_types/extension.ts"
 import * as Base64 from "std/encoding/base64.ts"
-import { parseHandle } from "@utils/github.ts"
+import { parseHandle } from "@engine/utils/github.ts"
 import github from "y/@actions/github@5.1.1"
 
 /** Processor */

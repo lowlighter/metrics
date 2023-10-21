@@ -1,6 +1,6 @@
 // Imports
 import { is, Plugin } from "@engine/components/plugin.ts"
-import { matchPatterns, parseHandle } from "@utils/github.ts"
+import { matchPatterns, parseHandle } from "@engine/utils/github.ts"
 import { delay } from "std/async/delay.ts"
 import { Status } from "std/http/http_status.ts"
 
@@ -10,7 +10,7 @@ export default class extends Plugin {
   static readonly meta = import.meta
 
   /** Name */
-  readonly name = "👨‍💻 Lines of code changed"
+  readonly name = "💻 Lines of code changed"
 
   /** Category */
   readonly category = "github"
