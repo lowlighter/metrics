@@ -1,94 +1,72 @@
-- name: render svg
+- name: can render svg
   plugins:
     - processors:
-      - id: inject.content
-        args:
+      - inject.content:
           content: hello world
-      - id: render
-        args:
+      - render:
           format: svg
-      - id: assert
-        args:
+      - assert:
+          mime: image/svg+xml
           html:
             match: /<svg.*?>.*hello world.*<.svg>/is
             raw: true
-          mime: image/svg+xml
 
-- name: render png
+- name: can render png
   plugins:
     - processors:
-      - id: inject.content
-        args:
+      - inject.content:
           content: hello world
-      - id: render
-        args:
+      - render:
           format: png
-      - id: assert
-        args:
+      - assert:
           mime: image/png
 
-- name: render jpg
+- name: can render jpg
   plugins:
     - processors:
-      - id: inject.content
-        args:
+      - inject.content:
           content: hello world
-      - id: render
-        args:
+      - render:
           format: jpg
-      - id: assert
-        args:
+      - assert:
           mime: image/jpeg
     - processors:
-      - id: inject.content
-        args:
+      - inject.content:
           content: hello world
-      - id: render
-        args:
+      - render:
           format: jpeg
-      - id: assert
-        args:
+      - assert:
           mime: image/jpeg
 
-- name: render webp
+- name: can render webp
   plugins:
     - processors:
-      - id: inject.content
-        args:
+      - inject.content:
           content: hello world
-      - id: render
-        args:
+      - render:
           format: webp
-      - id: assert
-        args:
+      - assert:
           mime: image/webp
 
-- name: render html
+- name: can render html
   plugins:
     - processors:
-      - id: inject.content
-        args:
+      - inject.content:
           content: hello world
-
-      - id: render
-        args:
+      - render:
           format: html
-      - id: assert
-        args:
+      - assert:
+          mime: text/html
           html:
             match: /<title>.*?<.title>/is
             raw: true
-          mime: text/html
 
-- name: render json
+- name: can render json
   plugins:
     - processors:
-      - id: inject.content
-        args:
+      - inject.content:
           content: hello world
-      - id: render
-        args:
+      - render:
           format: json
-      - id: assert
-        args:
+      - assert:
           mime: application/json

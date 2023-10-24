@@ -13,6 +13,7 @@
   },
   "redirects": {
     "https://esm.sh/gh/lino-levan/astral@main/mod.ts": "https://esm.sh/gh/lino-levan/astral@2e82aeb3a8/mod.ts",
+    "https://esm.sh/gh/lino-levan/astral@main/mod.ts?r=1": "https://esm.sh/gh/lino-levan/astral@8fa6c8915a/mod.ts?r=1",
     "https://esm.sh/gh/lowlighter/astral@feat-support-existing-ws-endpoint/mod.ts": "https://esm.sh/gh/lowlighter/astral@42f070c029/mod.ts",
     "https://esm.sh/gh/lowlighter/astral@fix-dont-require-env-perms-with-cache/mod.ts": "https://esm.sh/gh/lowlighter/astral@de2021a416/mod.ts",
     "https://esm.sh/gh/lowlighter/astral@fork/mod.ts": "https://esm.sh/gh/lowlighter/astral@8932dabbb2/mod.ts",
@@ -411,6 +412,7 @@
     "https://esm.sh/csso@5.0.5": "337688fa652a52757a5562702a9047bde37af888e61031de951ca39f389e56c0",
     "https://esm.sh/ejs@3.1.9": "11987a85eed88dc3354455d74cb5fb4caf09cab6eb692721813e00ec4ddb9678",
     "https://esm.sh/gh/lino-levan/astral@2e82aeb3a8/mod.ts": "8de05358d8a63993961525f28f944e3d7868dabb1c6a80a7eff69c4ec4eb35ae",
+    "https://esm.sh/gh/lino-levan/astral@8fa6c8915a/mod.ts?r=1": "d035f122a48d8b9a2aa28d0a256ebca821e63643f4751f9b7280e04506330936",
     "https://esm.sh/gh/lowlighter/astral@3f30872dd3/mod.ts": "007b17bdf37ba61f77caa86c1c425a9c2a727cdb2fb5bf6b5c49f3bc0e3c890c",
     "https://esm.sh/gh/lowlighter/astral@42f070c029/mod.ts": "e0dcada31b0d0fb7452e0ffebf8c182a4e5704ca6f6d394993b11b976f801b1e",
     "https://esm.sh/gh/lowlighter/astral@51c296e2bf/mod.ts": "26c67ff3b8e2141a76d92797e0aa9e6ff7e2cc40811bceded112348f1fd7a236",
@@ -545,6 +547,7 @@
     "https://esm.sh/v133/deprecation@2.3.1/denonext/deprecation.mjs": "0bf7139d1068345709e59dddb4daea315691d290a8c896a6e076dea02dd66eaf",
     "https://esm.sh/v133/ejs@3.1.9/denonext/ejs.mjs": "30fabad57b39bf90ea47cf5df77b683f4cca4622a438b47c2a1e73a077608127",
     "https://esm.sh/v133/gh/lino-levan/astral@2e82aeb3a8/denonext/mod.ts.js": "a684c1ed0ab4e3bb0fa417619c2b974a4a3b17b9ea60e1ee10ec71e68ba48f1c",
+    "https://esm.sh/v133/gh/lino-levan/astral@8fa6c8915a/denonext/mod.ts.js": "d15dee297a46f2a1e95239d99b57637fab849ead52014389326416d0b4e61f83",
     "https://esm.sh/v133/gh/lowlighter/astral@3f30872dd3/denonext/mod.ts.js": "c8cb92820668c019200c50ffd5a0effdaab478bf8c16f6c7cb2adb42b180c51d",
     "https://esm.sh/v133/gh/lowlighter/astral@42f070c029/denonext/mod.ts.js": "ee18be3485eb199922e0797fbad31d961414437274d7f393629328426b477e92",
     "https://esm.sh/v133/gh/lowlighter/astral@51c296e2bf/denonext/mod.ts.js": "46cce1bc0bdff4be2fc274c3b86df84b56d00e60d96e80bc6dc893603cf0ade9",

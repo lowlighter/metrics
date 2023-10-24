@@ -1,74 +1,34 @@
-import { dir, test } from "@engine/utils/testing.ts"
-import { deepMerge } from "std/collections/deep_merge.ts"
-import { Browser } from "@engine/utils/browser.ts"
-import { Logger } from "@engine/utils/log.ts"
+import { dir, expect, is, t } from "@engine/utils/testing.ts"
 import { Component } from "@engine/components/component.ts"
 import { Plugin } from "@engine/components/plugin.ts"
-import { Processor } from "@engine/components/processor.ts"
 
-/** Default config for components testing */
-export const config = {
-  presets: {
-    default: {
-      plugins: {
-        logs: "none",
-        mock: true,
-        fatal: true,
-        retries: { attempts: 1, delay: 0 },
-      },
-      get processors() {
-        return this.plugins
-      },
-    },
-  },
-} as const
-
-/** Setup and teardown for components testing */
-export function setup() {
-  const { raw } = Logger
-  const { shareable } = Browser
-  Logger.raw = false
-  Browser.shareable = false
-  const teardown = () => {
-    Logger.raw = raw
-    Browser.shareable = shareable
+export default class TestComponent extends Component {
+  static readonly meta = import.meta
+  readonly name = "Test plugin"
+  readonly category = "testing"
+  readonly description = "Test plugin"
+  readonly inputs = is.object({})
+  readonly outputs = is.object({})
+  protected async action() {}
+  protected async supported() {}
+  static get path() {
+    return `${dir.source}/engine/components`
   }
-  return { teardown }
 }
 
-/** Compute required permissions for components testing */
-export async function getPermissions(test: Awaited<ReturnType<typeof Component["prototype"]["tests"]>>[0]) {
-  // Aggregate permissions from all plugins and processors
-  const requested = new Set<string>()
-  const plugins = new Set<string>()
-  const processors = new Set<string>()
-  for (const plugin of test.plugins) {
-    if ((plugin as test).id) {
-      plugins.add((plugin as test).id)
-    }
-    for (const { id } of plugin.processors) {
-      processors.add(id)
-    }
-  }
-  await Promise.all([...plugins].map((id) => Plugin.load({ id }).then((plugin) => plugin.permissions.forEach((permission) => requested.add(permission)))))
-  await Promise.all([...processors].map((id) => Processor.load({ id }).then((processor) => processor.permissions.forEach((permission) => requested.add(permission)))))
+Deno.test(t(import.meta, "`.icon` returns an emoji"), { permissions: "none" }, async () => {
+  const plugin = await Plugin.load({ id: import.meta.url })
+  expect(plugin.icon).to.equal("⏹️")
+})
 
-  // Compute permissions
-  const permissions = {
-    read: [dir.source, dir.cache],
-    env: [...requested].filter((permission) => permission.startsWith("env:")).map((permission) => permission.replace("env:", "")),
-    net: [...requested].filter((permission) => permission.startsWith("net:")).map((permission) => permission.replace("net:", "")),
-  } as test
-  if (requested.has("run:chrome")) {
-    const bin = await Browser.getBinary("chrome", { cache: dir.cache })
-    Object.assign(permissions, deepMerge(permissions, { read: [dir.cache], net: ["127.0.0.1", "localhost"], env: ["CHROME_EXTRA_FLAGS"], run: [bin] }))
-  }
-  if (requested.has("write")) {
-    Object.assign(permissions, deepMerge(permissions, { write: [dir.test] }))
-  }
+// TODO(@lowlighter): change to `[dir.source]` after https://github.com/denoland/deno_std/pull/3692
+Deno.test(t(import.meta, "`.tests()` returns a list of tests"), { permissions: { read: true } }, async () => {
+  const plugin = await Plugin.load({ id: import.meta.url })
+  await expect(plugin.tests()).to.be.eventually.be.an("array")
+})
 
-  return { permissions }
-}
-
-/** Exports */
-export { Plugin, Processor }
+Deno.test(t(import.meta, "`.tests()` returns an empty array if no tests are defined"), { permissions: { read: true } }, async () => {
+  const plugin = await Plugin.load({ id: import.meta.url })
+  Object.assign(plugin, { id: "__test__" })
+  await expect(plugin.tests()).to.be.eventually.be.an("array")
+})

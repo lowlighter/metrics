@@ -1,8 +1,7 @@
-- name: optimize
+- name: can optimize css
   plugins:
     - processors:
-      - id: inject.content
-        args:
+      - inject.content:
           content: |
             <svg>
               <foreignObject>
@@ -14,23 +13,20 @@
                 </style>
               </foreignObject>
             </svg>
-      - id: optimize.css
-      - id: assert
-        args:
+      - optimize.css:
+      - assert:
           html:
             select: svg style
             match: /\.a\{.*\}/i
-      - id: assert
-        args:
+      - assert:
           html:
             select: svg style
             match: /!/\.b\{.*\}/i
 
-- name: optimize does not remove non-optimizable styles
+- name: does not edit non-optimizable styles
   plugins:
     - processors:
-      - id: inject.content
-        args:
+      - inject.content:
           content: |
             <svg>
               <foreignObject>
@@ -42,14 +38,12 @@
                 </style>
               </foreignObject>
             </svg>
-      - id: optimize.css
-      - id: assert
-        args:
+      - optimize.css:
+      - assert:
           html:
             select: svg style
             match: /\.a { color:\ red; \}/i
-      - id: assert
-        args:
+      - assert:
           html:
             select: svg style
             match: /\.b \{ color:\ blue; \}/i

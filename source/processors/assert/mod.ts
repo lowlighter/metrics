@@ -1,13 +1,13 @@
 // Imports
 import { DOMParser } from "x/deno_dom@v0.1.38/deno-dom-wasm.ts"
 import { Format } from "@engine/utils/format.ts"
-import { is, Processor, state } from "@engine/components/processor.ts"
+import { is, parse, Processor, state } from "@engine/components/processor.ts"
 import { expect } from "@engine/utils/testing.ts"
 import { throws } from "@engine/utils/errors.ts"
 
 /** Regexs */
 const regexs = {
-  count: /^(?<n>\d+)(?<op><|<=|=|>=|>|~)(?:(?<=~)(?<m>\d+))?$/,
+  count: /^(?<n>\d+)(?<op><|<=|=?|>=|>|~)(?:(?<=~)(?<m>\d+))?$/,
   match: /^\/(?<negate>!\/)?(?<pattern>[\s\S]+)\/(?<flags>\w*)$/,
 }
 
@@ -43,7 +43,7 @@ export default class extends Processor {
   /** Action */
   protected async action(state: state) {
     const result = await this.piped(state)
-    const { error, html, mime } = await this.inputs.parseAsync(this.context.args)
+    const { error, html, mime } = await parse(this.inputs, this.context.args)
     if (typeof result.content !== "string") {
       if (error) {
         return
@@ -53,20 +53,17 @@ export default class extends Processor {
     if (mime) {
       expect(result.mime).to.include(mime)
     }
-    if (!/(application\/xml)|(image\/svg\+xml)|(text\/html)/.test(result.mime)) {
+    if ((!html) || (!/(application\/xml)|(image\/svg\+xml)|(text\/html)/.test(result.mime))) {
       if (html) {
         throws(`html selection is only supported for mime type "application/xml", "image/svg+xml" or "text/html" (got "${result.mime}")`)
       }
-      return
-    }
-    if (!html) {
       return
     }
     const { select, match, raw, count } = html
     const document = new DOMParser().parseFromString(Format.html(result.content), "text/html")
     const selected = [...document?.querySelectorAll(select) ?? []]
     if (typeof count === "string") {
-      const captured = count.match(regexs.count)!.groups ?? {}
+      const captured = count.match(regexs.count)!.groups!
       const n = Number(captured.n)
       const m = Number(captured.m)
       const op = captured.op || "="
@@ -98,9 +95,9 @@ export default class extends Processor {
 
     for (const element of selected) {
       if (typeof match === "string") {
-        const content = raw ? ((element.parentElement ?? element) as unknown as { innerHTML?: string }).innerHTML ?? "" : element.textContent
+        const content = raw ? ((element.parentElement ?? element) as unknown as { innerHTML: string }).innerHTML : element.textContent
         if (regexs.match.test(match)) {
-          const { negate = "", pattern = "", flags = "" } = match.match(regexs.match)!.groups ?? {}
+          const { negate, pattern, flags } = match.match(regexs.match)!.groups!
           const regex = new RegExp(pattern, flags)
           if (negate) {
             expect(content).to.not.match(regex)

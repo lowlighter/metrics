@@ -1,5 +1,5 @@
 import { dir, expect, MetricsError, t } from "@engine/utils/testing.ts"
-import { config, getPermissions, Processor, setup } from "@engine/components/component_test.ts"
+import { config, getPermissions, Processor, setup } from "@engine/components/tests/context.ts"
 import { deepMerge } from "std/collections/deep_merge.ts"
 import { process } from "@engine/process.ts"
 

@@ -158,7 +158,7 @@ export abstract class Plugin extends Component {
 
     /** Constructor */
     constructor(context = {} as Record<PropertyKey, unknown>, { meta = Plugin.NOP.meta } = {}) {
-      super(schema_nop.parse(context) as Plugin["context"])
+      super(parse(schema_nop, context, { sync: true }) as Plugin["context"])
       Object.assign(this, { meta, id: "@nop" })
     }
 
@@ -177,5 +177,5 @@ export abstract class Plugin extends Component {
 }
 
 // Exports
-export { is }
+export { is, parse }
 export type { state }

@@ -197,6 +197,7 @@ For convenience, _metrics_ offers a [v3 to v4 migration script](/source/run/cli/
   repositories_skipped: Default skipped repositories
   users_ignored: Default ignored users
   commits_authoring: Identifiers that has been used for authoring commits
+
   base: Base content
   base_indepth: Indepth mode
   base_hireable: Show `Available for hire!` in header section

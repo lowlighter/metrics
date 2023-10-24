@@ -1,6 +1,6 @@
 // Imports
 import { is, parse, Processor } from "@engine/components/processor.ts"
-import { delay } from "std/async/delay.ts"
+import { throws } from "@engine/utils/errors.ts"
 
 /** Processor */
 export default class extends Processor {
@@ -8,24 +8,22 @@ export default class extends Processor {
   static readonly meta = import.meta
 
   /** Name */
-  readonly name = "⏰ Delay"
+  readonly name = "🚩 Throw an error"
 
   /** Category */
   readonly category = "control"
 
   /** Description */
-  readonly description = "Delay execution"
+  readonly description = "Throw an error"
 
   /** Inputs */
   readonly inputs = is.object({
-    duration: is.number().min(0).describe("Time to wait (in seconds)"),
+    message: is.string().default('Error thrown by "control.error"').describe("Error message"),
   })
 
   /** Action */
   protected async action() {
-    const { duration } = await parse(this.inputs, this.context.args)
-    this.log.info(`waiting ${duration} seconds`)
-    await delay(duration * 1000)
-    this.log.info("resuming")
+    const { message } = await parse(this.inputs, this.context.args)
+    throws(message, { unrecoverable: true })
   }
 }

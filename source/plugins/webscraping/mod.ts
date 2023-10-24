@@ -1,5 +1,5 @@
 // Imports
-import { is, Plugin } from "@engine/components/plugin.ts"
+import { is, parse, Plugin } from "@engine/components/plugin.ts"
 import { Browser } from "@engine/utils/browser.ts"
 import { delay } from "std/async/delay.ts"
 import { resize } from "x/deno_image@0.0.4/mod.ts"
@@ -49,10 +49,10 @@ export default class extends Plugin {
     if (this.context.mock) {
       this.context.args.url = new URL("tests/example.html", import.meta.url).href
     }
-    const { url, select: selector, mode, viewport: _, wait, background: __ } = await this.inputs.parseAsync(this.context.args)
+    const { url, select: selector, mode, viewport: _, wait, background: __ } = await parse(this.inputs, this.context.args)
     const page = await Browser.page({ log: this.log })
     try {
-      //TODO(@lowlighter): await page.setViewport(viewport)
+      await page.setViewport(viewport)
       await page.goto(url, { waitUntil: "networkidle2" })
       if (wait) {
         await delay(wait * 1000)

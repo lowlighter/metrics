@@ -1,5 +1,5 @@
 // Imports
-import { is, Processor, state } from "@engine/components/processor.ts"
+import { is, parse, Processor, state } from "@engine/components/processor.ts"
 import { Browser } from "@engine/utils/browser.ts"
 import { Format } from "@engine/utils/format.ts"
 import { Plugin } from "@engine/components/plugin.ts"
@@ -41,9 +41,9 @@ export default class extends Processor {
   /** Action */
   protected async action(state: state) {
     const result = await this.piped(state)
-    const { format: _format } = await this.inputs.parseAsync(this.context.args)
+    const { format: _format } = await parse(this.inputs, this.context.args)
     const format = { jpg: "jpeg", txt: "text" }[_format as string] ?? _format
-    result.mime = contentType(format) ?? "application/octet-stream"
+    result.mime = contentType(format)!
 
     //Render image
     const wrapper = ["html", "json"].includes(format) ? format : "svg"
@@ -81,7 +81,7 @@ export default class extends Processor {
         // Convert to image
         if (["png", "jpeg", "webp"].includes(format)) {
           this.log.debug(`converting SVG to ${format}`)
-          //TODO(@lowlighter): omitBackground
+          await page.setTransparentBackground()
           render = Base64.encode(await page.screenshot({ format: format as "png" | "jpeg" | "webp", clip: { x: 0, y: 0, width, height, scale: 1 } }))
           result.base64 = true
         }
@@ -100,11 +100,11 @@ export default class extends Processor {
   private async load(template: string, path: string) {
     try {
       this.log.trace(`loading template: ${template}`)
-      return await read(template.startsWith("https://") ? new URL(`${template}/${path}`) : new URL(`templates/${template}/${path}`, import.meta.url))
+      return await read(/^(https?|file):/.test(template) ? new URL(`${template}/${path}`) : new URL(`templates/${template}/${path}`, import.meta.url))
     } catch {
       try {
         this.log.trace(`template ${template} has no ${path}, using fallback`)
-        return await read(template.startsWith("https://") ? new URL(`${template}/${path}`) : new URL(`templates/classic/${path}`, import.meta.url))
+        return await read(new URL(`templates/classic/${path}`, import.meta.url))
       } catch (error) {
         if (!(error instanceof globalThis?.Deno.errors.NotFound)) {
           this.log.warn(error)

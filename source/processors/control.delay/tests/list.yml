@@ -1,9 +1,7 @@
 - name: delay
   plugins:
     - processors:
-      - id: control.delay
-        args:
+      - control.delay:
           duration: 0.1
-      - id: inject.content
-        args:
+      - inject.content:
           content: ok

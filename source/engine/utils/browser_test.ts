@@ -1,5 +1,5 @@
 import { Browser } from "@engine/utils/browser.ts"
-import { dir, expect, MetricsError } from "@engine/utils/testing.ts"
+import { dir, expect, MetricsError, t } from "@engine/utils/testing.ts"
 import { Logger } from "@engine/utils/log.ts"
 import { Format } from "@engine/utils/format.ts"
 
@@ -13,62 +13,71 @@ const permissions = {
   run: [bin],
 }
 
-Deno.test("Browser()", { permissions }, async (t) => {
-  for (const mode of ["local", "remote"]) {
-    await t.step(`${mode} connection`, async (t) => {
-      const setup = async () => {
-        const remote = (mode === "remote") ? await new Browser({ log, bin }).ready : null
-        const browser = await new Browser({ log, endpoint: remote?.endpoint, bin }).ready
-        const teardown = async () => {
-          await browser.close()
-          await remote?.close()
-        }
-        return { browser, teardown }
-      }
-      await t.step(".page()", async (t) => {
-        await t.step("returns a new page", async () => {
-          const { browser, teardown } = await setup()
-          for (let i = 0; i < 2; i++) {
-            const page = await browser.page()
-            await page.goto(`data:text/html,${Format.html("")}`)
-            await expect(page.evaluate("document.title")).to.eventually.equal("Metrics")
-            await page.close()
-          }
-          await teardown()
-        })
-        await t.step("throws when browser is already closed", async () => {
-          const { browser, teardown } = await setup()
-          await browser.close()
-          await expect(browser.page()).to.be.rejectedWith(MetricsError, /browser has no instance/i)
-          await teardown()
-        })
-      })
-    })
+for (const mode of ["local", "remote"]) {
+  const setup = async () => {
+    const remote = (mode === "remote") ? await new Browser({ log, bin }).ready : null
+    const browser = await new Browser({ log, endpoint: remote?.endpoint, bin }).ready
+    const teardown = async () => {
+      await browser.close()
+      await remote?.close()
+    }
+    return { browser, teardown }
   }
 
-  await t.step("shared instance", async (t) => {
-    const { shareable } = Browser
-    Browser.shareable = true
-    await t.step(".page()", async (t) => {
-      await t.step("returns a new page", async () => {
-        for (let i = 0; i < 2; i++) {
-          const page = await Browser.page({ log, bin })
-          await page.goto(`data:text/html,${Format.html("")}`)
-          await expect(page.evaluate("document.title")).to.eventually.equal("Metrics")
-          await page.close()
-        }
-        await Browser.shared?.close()
-        expect(Browser.shared).to.be.null
-      })
-      await t.step("returns a new page even after browser was already closed", async () => {
-        await Browser.shared?.close()
-        expect(Browser.shared).to.be.null
-        const page = await Browser.page({ log, bin })
-        await page.close()
-        await Browser.shared?.close()
-        expect(Browser.shared).to.be.null
-      })
-    })
-    Browser.shareable = shareable
+  Deno.test(t(import.meta, `\`${mode} .page()\` returns a new page`), { permissions }, async () => {
+    const { browser, teardown } = await setup()
+    for (let i = 0; i < 2; i++) {
+      const page = await browser.page()
+      await page.goto(`data:text/html,${Format.html("")}`)
+      await expect(page.evaluate("document.title")).to.eventually.equal("Metrics")
+      await page.close()
+    }
+    await teardown()
   })
+
+  Deno.test(t(import.meta, `\`${mode} .page()\` throws when browser is already closed`), { permissions }, async () => {
+    const { browser, teardown } = await setup()
+    await browser.close()
+    await expect(browser.page()).to.be.rejectedWith(MetricsError, /browser has no instance/i)
+    await teardown()
+  })
+}
+
+Deno.test(t(import.meta, "`shared .page()` returns a new page"), { permissions }, async () => {
+  const { shareable } = Browser
+  Browser.shareable = true
+  for (let i = 0; i < 2; i++) {
+    const page = await Browser.page({ log, bin })
+    await page.goto(`data:text/html,${Format.html("")}`)
+    await expect(page.evaluate("document.title")).to.eventually.equal("Metrics")
+    await page.close()
+  }
+  await Browser.shared?.close()
+  expect(Browser.shared).to.be.null
+  Browser.shareable = shareable
+})
+
+Deno.test(t(import.meta, "`shared .page()` returns a new page even after browser was already closed"), { permissions }, async () => {
+  const { shareable } = Browser
+  Browser.shareable = true
+  await Browser.shared?.close()
+  expect(Browser.shared).to.be.null
+  const page = await Browser.page({ log, bin })
+  await page.close()
+  await Browser.shared?.close()
+  expect(Browser.shared).to.be.null
+  Browser.shareable = shareable
+})
+
+Deno.test(t(import.meta, "`page.setTransparentBackground()` sets a transparent background"), { permissions }, async () => {
+  const { shareable } = Browser
+  Browser.shareable = true
+  await Browser.shared?.close()
+  expect(Browser.shared).to.be.null
+  const page = await Browser.page({ log, bin })
+  await page.setTransparentBackground()
+  await page.close()
+  await Browser.shared?.close()
+  expect(Browser.shared).to.be.null
+  Browser.shareable = shareable
 })

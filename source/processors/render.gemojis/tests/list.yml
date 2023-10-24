@@ -1,25 +1,21 @@
-- name: render
+- name: can render github emojis
   plugins:
     - processors:
-        - id: inject.content
-          args:
+        - inject.content:
             content: ":octocat:"
-        - id: render.gemojis
-        - id: assert
-          args:
+        - render.gemojis:
+        - assert:
             html:
               select: img.gemoji
               count: 1=
 
-- name: invalid emoji
+- name: does not render invalid emojis
   plugins:
     - processors:
-      - id: inject.content
-        args:
+      - inject.content:
           content: ":__invalid__:"
-      - id: render.gemojis
-      - id: assert
-        args:
+      - render.gemojis:
+      - assert:
           html:
             select: img.gemoji
             count: 0=

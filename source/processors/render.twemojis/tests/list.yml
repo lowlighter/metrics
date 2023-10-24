@@ -1,12 +1,10 @@
-- name: render
+- name: transforms emoji to twemojis
   plugins:
     - processors:
-        - id: inject.content
-          args:
+        - inject.content:
             content: 🦕
-        - id: render.twemojis
-        - id: assert
-          args:
+        - render.twemojis:
+        - assert:
             html:
               select: svg.twemoji
               count: 1=

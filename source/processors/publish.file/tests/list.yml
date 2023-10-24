@@ -1,25 +1,19 @@
-- name: publish svg
+- name: can write text files
   plugins:
     - processors:
-      - id: inject.content
-        args:
+      - inject.content:
           content: hello world
-      - id: render
-        args:
+      - render:
           format: svg
-      - id: publish.file
-        args:
+      - publish.file:
           filepath: .test/publish.file.*
 
-- name: publish image
+- name: can write image files
   plugins:
     - processors:
-      - id: inject.content
-        args:
+      - inject.content:
           content: hello world
-      - id: render
-        args:
+      - render:
           format: png
-      - id: publish.file
-        args:
+      - publish.file:
           filepath: .test/publish.file.*

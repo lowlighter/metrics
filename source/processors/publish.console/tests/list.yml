@@ -1,23 +1,19 @@
-- name: publish svg
+- name: can log text
   plugins:
     - processors:
-      - id: inject.content
-        args:
+      - inject.content:
           content: hello world
-      - id: optimize.css
-      - id: render
-        args:
+      - optimize.css:
+      - render:
           format: svg
-      - id: publish.console
+      - publish.console:
 
-- name: publish image
+- name: can log images (in base64)
   plugins:
     - processors:
-      - id: inject.content
-        args:
+      - inject.content:
           content: hello world
-      - id: optimize.css
-      - id: render
-        args:
+      - optimize.css:
+      - render:
           format: png
-      - id: publish.console
+      - publish.console:

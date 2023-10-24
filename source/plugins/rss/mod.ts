@@ -1,5 +1,5 @@
 // Imports
-import { is, Plugin } from "@engine/components/plugin.ts"
+import { is, parse, Plugin } from "@engine/components/plugin.ts"
 import RSS from "y/rss-parser@3.13.0"
 
 /** Plugin */
@@ -41,7 +41,7 @@ export default class extends Plugin {
 
   /** Action */
   protected async action() {
-    const { feed, limit } = await this.inputs.parseAsync(this.context.args)
+    const { feed, limit } = await parse(this.inputs, this.context.args)
     const content = await this.fetch(feed, { type: "text" })
     const { title: name, description, items } = await (new RSS()).parseString(content)
     let entries = items.map(({ title, link, isoDate: date }) => ({ title, link, date: date ? new Date(date) : null }))

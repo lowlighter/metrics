@@ -1,27 +1,21 @@
-- name: publish svg
+- name: can publish text files
   plugins:
     - processors:
-      - id: inject.content
-        args:
+      - inject.content:
           content: hello world
-      - id: render
-        args:
+      - render:
           format: svg
-      - id: publish.gist
-        args:
+      - publish.gist:
           gist: 1234
           filename: test.*
 
-- name: publish png
+- name: can publish image files
   plugins:
     - processors:
-      - id: inject.content
-        args:
+      - inject.content:
           content: hello world
-      - id: render
-        args:
+      - render:
           format: png
-      - id: publish.gist
-        args:
+      - publish.gist:
           gist: 1234
           filename: test.*

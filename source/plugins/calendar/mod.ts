@@ -1,5 +1,5 @@
 // Imports
-import { is, Plugin } from "@engine/components/plugin.ts"
+import { is, parse, Plugin } from "@engine/components/plugin.ts"
 
 /** Plugin */
 export default class extends Plugin {
@@ -73,7 +73,7 @@ export default class extends Plugin {
   /** Action */
   protected async action() {
     const { handle } = this.context
-    const { range, ...inputs } = await this.inputs.parseAsync(this.context.args)
+    const { range, ...inputs } = await parse(this.inputs, this.context.args)
 
     //Color scheme
     const { entity: { contributions: { calendar: { colors: [color] } } } } = await this.graphql("colors", { login: handle })

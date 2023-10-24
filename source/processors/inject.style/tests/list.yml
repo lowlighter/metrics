@@ -1,21 +1,17 @@
-- name: inject
+- name: can inject style
   plugins:
     - processors:
-      - id: inject.content
-        args:
+      - inject.content:
           content: <span class="test"></span>
-      - id: inject.style
-        args:
+      - inject.style:
           style: |
             .test { color: blue; }
-      - id: assert
-        args:
+      - assert:
           html:
             select: .test
             match: /<span.*inject-style-.*?="true">/i
             raw: true
-      - id: assert
-        args:
+      - assert:
           html:
             select: .test
             match: /\[inject-style-.*?\]\s+.test.*color:\s+blue/i

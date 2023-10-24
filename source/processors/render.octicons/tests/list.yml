@@ -1,42 +1,36 @@
-- name: render
+- name: can render github octicons
   plugins:
     - processors:
-        - id: inject.content
-          args:
+        - inject.content:
             content: ":octicon-copilot:"
-        - id: render.octicons
-        - id: assert
-          args:
+        - render.octicons:
+        - assert:
             html:
               select: svg.octicon
               count: 1=
               match: height="16"
               raw: true
 
-- name: render with size
+- name: can render github octicons with size
   plugins:
     - processors:
-      - id: inject.content
-        args:
+      - inject.content:
           content: ":octicon-copilot-24:"
-      - id: render.octicons
-      - id: assert
-        args:
+      - render.octicons:
+      - assert:
           html:
             select: svg.octicon
             count: 1=
             match: height="24"
             raw: true
 
-- name: invalid octicon
+- name: does not render invalid octicons
   plugins:
     - processors:
-      - id: inject.content
-        args:
+      - inject.content:
           content: ":octicon-__invalid__:"
-      - id: render.octicons
-      - id: assert
-        args:
+      - render.octicons:
+      - assert:
           html:
             select: svg.octicon
             count: 0=

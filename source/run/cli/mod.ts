@@ -5,10 +5,11 @@ import github from "y/@actions/github@5.1.1"
 import { latest, version } from "@engine/version.ts"
 import core from "y/@actions/core@1.10.1"
 import { process } from "@engine/process.ts"
-import { parse } from "std/flags/mod.ts"
+import { parse as parseFlags } from "std/flags/mod.ts"
 import { cyan, gray } from "std/fmt/colors.ts"
 import { env } from "@engine/utils/io.ts"
 import { compat } from "./compat.ts"
+import { parse } from "@engine/utils/validation.ts"
 
 /** CLI */
 class CLI extends Internal {
@@ -20,7 +21,7 @@ class CLI extends Internal {
 
   /** Constructor */
   constructor(context = {} as Record<PropertyKey, unknown>) {
-    super(schema.parse(context))
+    super(parse(schema, context, { sync: true }))
   }
 
   /** Run metrics */
@@ -60,7 +61,7 @@ class CLI extends Internal {
 
 // Entry point
 if (import.meta.main) {
-  const { _: [action = "help"], config } = parse(Deno.args)
+  const { _: [action = "help"], config } = parseFlags(Deno.args)
   switch (action) {
     case "run": {
       await new CLI(await load(config)).run()

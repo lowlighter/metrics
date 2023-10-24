@@ -72,9 +72,14 @@ const _preset_processor = is.object({
 const _processor_keys = [...Object.keys(_preset_processor.parse({}))]
 
 /** Processor component config */
-export const processor = is.preprocess((value) => _preset_processor.passthrough().parse(sugar(value, _processor_keys)), _processor_without_parent.strict()) as unknown as is.ZodObject<
-  typeof _processor_without_parent["shape"]
->
+export const processor = is.preprocess((value) => {
+  const result = _preset_processor.extend({ id: _processor.shape.id, preset: is.string().optional() }).strict().safeParse(sugar(value, _processor_keys))
+  if (!result.success) {
+    return value
+  }
+  delete result.data.preset
+  return result.data
+}, _processor_without_parent.strict()) as unknown as is.ZodObject<typeof _processor_without_parent["shape"]>
 
 /** Plugin component internal config */
 const _plugin = _plugin_without_processors.extend({
@@ -113,7 +118,9 @@ const _plugin_keys = [...Object.keys(_preset_plugin.parse({}))]
 
 /** Plugin component config */
 export const plugin = is.preprocess((value) => {
-  const result = _preset_plugin.extend({ id: _plugin.shape.id, preset: is.string().optional() }).strict().safeParse(sugar(value, _plugin_keys))
+  const result = _preset_plugin.omit({ processors: true }).extend({ id: _plugin.shape.id, processors: is.array(is.unknown()).default(() => []), preset: is.string().optional() }).strict().safeParse(
+    sugar(value, _plugin_keys),
+  )
   if (!result.success) {
     return value
   }
@@ -123,7 +130,7 @@ export const plugin = is.preprocess((value) => {
 
 /** Plugin NOP config */
 export const plugin_nop = is.preprocess((value) => {
-  const result = _preset_plugin.extend({ preset: is.string().optional() }).strict().safeParse(value)
+  const result = _preset_plugin.omit({ processors: true }).extend({ processors: is.array(is.unknown()).default(() => []), preset: is.string().optional() }).strict().safeParse(value)
   if (!result.success) {
     return value
   }
@@ -132,6 +139,7 @@ export const plugin_nop = is.preprocess((value) => {
       delete (result.data as Record<PropertyKey, unknown>)[key]
     }
   }
+  delete result.data.preset
   return result.data
 }, _plugin_nop) as unknown as is.ZodObject<typeof _plugin_nop["shape"]>
 
@@ -249,7 +257,8 @@ function merge(...objects: unknown[]) {
 }
 
 /** Syntaxic sugar for components that allows the use of one extra dictionnary as identifier and args */
-function sugar(value: unknown, keys: string[]) {
+export function sugar(value: unknown, _keys: string[] | "processor" | "plugin") {
+  const keys = Array.isArray(_keys) ? _keys : { processor: _processor_keys, plugin: _plugin_keys }[_keys]
   if ((!value) || (typeof value !== "object") || ("id" in value)) {
     return value
   }
@@ -261,7 +270,10 @@ function sugar(value: unknown, keys: string[]) {
   if (extras.length) {
     return { id: "", ...value }
   }
-  const args = record[id]
+  if (id === undefined) {
+    return value
+  }
+  const args = record[id] ?? {}
   delete record[id]
   return Object.assign(record, { id, args })
 }

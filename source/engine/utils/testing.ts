@@ -3,7 +3,7 @@ import { is, parse } from "@engine/utils/validation.ts"
 import { Logger } from "@engine/utils/log.ts"
 import * as dir from "@engine/paths.ts"
 import { toFileUrl } from "std/path/to_file_url.ts"
-import { bgBrightBlack, bgYellow, black, cyan, italic } from "std/fmt/colors.ts"
+import { bgBrightBlack, bgYellow, black, brightCyan, cyan } from "std/fmt/colors.ts"
 import chai from "y/chai@4.3.10"
 import chaiSubset from "y/chai-subset@1.6.0"
 import chaiAsPromised from "y/chai-as-promised@7.1.1"
@@ -28,7 +28,7 @@ export function t(meta: { url: string } | string, test: string | null) {
       icon = "⚙️"
       break
   }
-  const f = (text: string) => text.replace(/`([\s\S]+?)`/g, (_, text) => cyan(text)).replace(/\*([\s\S]+?)\*/g, (_, text) => italic(text))
+  const f = (text: string) => text.replace(/`([\s\S]+?)`/g, (_, text) => cyan(text)).replace(/\*([\s\S]+?)\*/g, (_, text) => brightCyan(text))
   return `${bgBrightBlack(`${icon.trim()} ${mod.padEnd(38)}`)} ${test !== null ? f(test) : bgYellow(black(" NO TESTS FOUND ! "))}`
 }
 

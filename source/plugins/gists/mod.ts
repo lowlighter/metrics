@@ -1,5 +1,5 @@
 // Imports
-import { is, Plugin, state } from "@engine/components/plugin.ts"
+import { is, parse, Plugin, state } from "@engine/components/plugin.ts"
 
 /** Plugin */
 export default class extends Plugin {
@@ -37,7 +37,7 @@ export default class extends Plugin {
   /** Action */
   protected async action({ errors }: state) {
     const { handle } = this.context
-    const { forks, visibility } = await this.inputs.parseAsync(this.context.args)
+    const { forks, visibility } = await parse(this.inputs, this.context.args)
     const { entity: { gists: { count, nodes: gists } } } = await this.graphql("gists", { login: handle, privacy: visibility.toLocaleUpperCase() }, { paginate: true })
     const result = { count, forked: 0, comments: 0, files: 0, forks: 0, stargazers: 0 }
     let missing = 0

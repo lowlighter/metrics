@@ -2,7 +2,7 @@
 import { serveListener } from "std/http/server.ts"
 import { server as schema, webrequest } from "@engine/config.ts"
 import { process } from "@engine/process.ts"
-import { is } from "@engine/utils/validation.ts"
+import { is, parse } from "@engine/utils/validation.ts"
 import { env, KV, listen, read } from "@engine/utils/io.ts"
 import { Internal } from "@engine/components/internal.ts"
 import * as YAML from "std/yaml/mod.ts"
@@ -35,7 +35,7 @@ class Server extends Internal {
 
   /** Constructor */
   constructor(context = {} as Record<PropertyKey, unknown>) {
-    super(schema.parse(context))
+    super(parse(schema, context, { sync: true }))
     if (this.context.github_app) {
       this.log.info(`loaded github app: ${this.context.github_app.id}`)
       this.#app = new App({
@@ -244,9 +244,9 @@ class Server extends Internal {
 
                 // Filter features and apply server configuration
                 try {
-                  const { plugins } = await webrequest.pick({ plugins: true }).parseAsync(context)
+                  const { plugins } = await parse(webrequest.pick({ plugins: true }), context)
                   context.plugins = plugins.filter(({ id }) => id).concat([{ processors: [{ id: "render", args: { format: { jpg: "jpeg" }[ext] ?? ext } }] }])
-                  context = await webrequest.parseAsync(context)
+                  context = await parse(webrequest, context)
                   log.trace("parsed request")
                   log.trace(context)
                   //TODO(@lowlighter): filter enabled plugins and params

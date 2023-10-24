@@ -90,5 +90,5 @@ export abstract class Processor extends Component {
 }
 
 // Exports
-export { is }
+export { is, parse }
 export type { state }

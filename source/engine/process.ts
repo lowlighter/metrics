@@ -1,12 +1,13 @@
 // Imports
 import { Plugin } from "@engine/components/plugin.ts"
 import { config as schema } from "@engine/config.ts"
+import { parse } from "@engine/utils/validation.ts"
 
 /** Process metrics */
 export async function process(_config: Record<PropertyKey, unknown>) {
-  const config = await schema.parseAsync(_config)
+  const config = await parse(schema, _config)
   const pending = new Set<Promise<unknown>>()
-  const state = await Plugin.state.parseAsync({ results: [], errors: [] })
+  const state = await parse(Plugin.state, { results: [], errors: [] })
   let result = undefined as typeof state.result
 
   // Process config

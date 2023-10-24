@@ -1,5 +1,5 @@
 // Imports
-import { is, Plugin } from "@engine/components/plugin.ts"
+import { is, parse, Plugin } from "@engine/components/plugin.ts"
 import { matchPatterns, parseHandle } from "@engine/utils/github.ts"
 import { delay } from "std/async/delay.ts"
 import { Status } from "std/http/http_status.ts"
@@ -94,7 +94,7 @@ export default class extends Plugin {
     const { handle } = this.context
     const __contributors = this.inputs.shape.contributors.removeDefault()
     const _contributors = __contributors.merge(is.object({ matching: __contributors.shape.matching.default(this.context.entity === "user" ? handle : "*") })).default(() => ({}))
-    const { repositories, fetch: fetching, history, contributors } = await this.inputs.merge(is.object({ contributors: _contributors })).parseAsync(this.context.args)
+    const { repositories, fetch: fetching, history, contributors } = await parse(this.inputs.merge(is.object({ contributors: _contributors })), this.context.args)
 
     //Fetch repositories
     const { entity: { repositories: { nodes } } } = await this.graphql("repositories", {

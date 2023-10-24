@@ -1,27 +1,23 @@
-- name: optimize
+- name: can optimize svg
   plugins:
     - processors:
-      - id: inject.content
-        args:
+      - inject.content:
           content: <svg><!-- comment --></svg>
           mime: image/svg+xml
-      - id: optimize.svg
-      - id: assert
-        args:
+      - optimize.svg:
+      - assert:
           html:
             select: main
             match: /<svg><.svg>/i
             raw: true
 
-- name: invalid svg
+- name: throws on invalid svg
   plugins:
     - processors:
-      - id: inject.content
-        args:
+      - inject.content:
           content: <!-- comment -->
           mime: image/svg+xml
-      - id: optimize.svg
+      - optimize.svg:
         fatal: false
-      - id: assert
-        args:
+      - assert:
           error: true

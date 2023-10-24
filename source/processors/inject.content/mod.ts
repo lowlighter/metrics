@@ -1,5 +1,5 @@
 // Imports
-import { is, Processor, state } from "@engine/components/processor.ts"
+import { is, parse, Processor, state } from "@engine/components/processor.ts"
 
 /** Processor */
 export default class extends Processor {
@@ -27,7 +27,7 @@ export default class extends Processor {
   /** Action */
   protected async action(state: state) {
     const result = await this.piped(state)
-    const { content, mime } = await this.inputs.parseAsync(this.context.args)
+    const { content, mime } = await parse(this.inputs, this.context.args)
     if (mime) {
       result.mime = mime
     }

@@ -1,5 +1,5 @@
 // Imports
-import { is, Processor, state } from "@engine/components/processor.ts"
+import { is, parse, Processor, state } from "@engine/components/processor.ts"
 import { extension } from "std/media_types/extension.ts"
 import * as Base64 from "std/encoding/base64.ts"
 
@@ -33,11 +33,11 @@ export default class extends Processor {
   protected async action(state: state) {
     const result = await this.piped(state)
     const { mime, base64 } = result
-    const { gist, filepath } = await this.inputs.parseAsync(this.context.args)
+    const { gist, filepath } = await parse(this.inputs, this.context.args)
     let file = filepath
     let content = result.content
     if (mime) {
-      const ext = extension(mime) ?? ""
+      const ext = extension(mime)!
       this.log.trace(`using extension: ${ext} for ${mime}`)
       file = file.replaceAll("*", ext)
     }

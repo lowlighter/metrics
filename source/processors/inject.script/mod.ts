@@ -1,5 +1,5 @@
 // Imports
-import { is, Processor, state } from "@engine/components/processor.ts"
+import { is, parse, Processor, state } from "@engine/components/processor.ts"
 import { Browser } from "@engine/utils/browser.ts"
 import { Format } from "@engine/utils/format.ts"
 
@@ -31,7 +31,7 @@ export default class extends Processor {
   /** Action */
   protected async action(state: state) {
     const result = await this.piped(state)
-    const { script } = await this.inputs.parseAsync(this.context.args)
+    const { script } = await parse(this.inputs, this.context.args)
     const page = await Browser.page({ log: this.log })
     try {
       this.log.trace("processing content in browser")

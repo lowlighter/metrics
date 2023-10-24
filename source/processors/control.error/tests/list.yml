@@ -1,0 +1,8 @@
+- name: throws error
+  plugins:
+    - processors:
+      - control.error:
+          message: expected error
+        fatal: false
+      - assert:
+          error: true

@@ -1,25 +1,21 @@
-- name: optimize
+- name: can optimize xml
   plugins:
     - processors:
-      - id: inject.content
-        args:
+      - inject.content:
           content: <span></span>
-      - id: optimize.xml
-      - id: assert
-        args:
+      - optimize.xml:
+      - assert:
           html:
             select: main
             match: /<span><.span>/i
             raw: true
 
-- name: invalid svg
+- name: throws on invalid xml
   plugins:
     - processors:
-      - id: inject.content
-        args:
+      - inject.content:
           content: <!-- comment
-      - id: optimize.xml
+      - optimize.xml:
         fatal: false
-      - id: assert
-        args:
+      - assert:
           error: true

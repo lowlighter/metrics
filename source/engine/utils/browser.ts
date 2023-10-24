@@ -1,6 +1,6 @@
 //Imports
 import { Logger } from "@engine/utils/log.ts"
-import { getBinary, launch } from "gh/lino-levan/astral@main/mod.ts" // TODO(@lowlighter): use x/astral when available
+import { getBinary, launch } from "gh/lino-levan/astral@main/mod.ts?r=1" // TODO(@lowlighter): use x/astral when available
 import { env } from "@engine/utils/io.ts"
 import * as dir from "@engine/paths.ts"
 import { throws } from "@engine/utils/errors.ts"
@@ -53,13 +53,13 @@ export class Browser {
   }
 
   /** Spawn a new page */
-  async page({ url }: { width?: number; height?: number; url?: string } = {}) {
+  async page({ width, height, url }: { width?: number; height?: number; url?: string } = {}) {
     await this.ready
     if (!this.#instance) {
       throws("Browser has no instance attached")
     }
     const page = await this.#instance.newPage(url)
-    //TODO(@lowlighter): page.setViewport({ width, height })
+    page.setViewportSize({ width, height })
     //page
     //  .on("console", (message: { text: () => string }) => log.debug(`puppeteer: ${message.text()}`))
     //  .on("pageerror", (error: { message: string }) => log.warn(`puppeteer: ${error.message}`))
@@ -71,8 +71,14 @@ export class Browser {
         await this.close()
       }
     }
+    Object.assign(page, {
+      setTransparentBackground: async () => {
+        const celestial = page.unsafelyGetCelestialBindings()
+        await celestial.Emulation.setDefaultBackgroundColorOverride({ r: 0, b: 0, g: 0, a: 0 })
+      },
+    })
     this.log.io("opened new browser page")
-    return page
+    return page as typeof page & { setTransparentBackground: () => Promise<void> }
   }
 
   /** Shared browser instance */

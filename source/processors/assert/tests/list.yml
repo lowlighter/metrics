@@ -1,71 +1,98 @@
-- name: match text
+- name: assert preview result is error
   plugins:
     - processors:
-      - id: inject.content
-        args:
+      - control.error:
+          message: expected error
+        fatal: false
+      - assert:
+          error: true
+
+- name: assert mime type match
+  plugins:
+    - processors:
+      - inject.content:
+          content: foo
+          mime: application/octet-stream
+      - assert:
+          mime: application/octet-stream
+
+- name: assert selected inner html match content
+  plugins:
+    - processors:
+      - inject.content:
           content: <span class="test">hello world</span>
-      - id: assert
-        args:
+      - assert:
           html:
             select: .test
             match: hello world
-      - id: assert
-        args:
+      - assert:
           html:
             select: .test
             match: /hello world/
-      - id: assert
-        args:
+      - assert:
           html:
             select: .test
             match: /!/foo bar/
 
-- name: match html
+- name: assert selected raw html match content
   plugins:
     - processors:
-      - id: inject.content
-        args:
+      - inject.content:
           content: <span class="test" data-test="true"></span>
-      - id: assert
-        args:
+      - assert:
           html:
             select: .test
             match: /data-test="true"/
             raw: true
+      - assert:
+          html:
+            select: html
+            match: /<body>/
+            raw: true
 
-- name: count elements
+- name: assert selected html elements match count
   plugins:
     - processors:
-      - id: inject.content
-        args:
+      - inject.content:
           content: <span class="a"></span>
-      - id: assert
-        args:
+      - assert:
           html:
             select: .a
             count: 1=
-      - id: assert
-        args:
+      - assert:
           html:
             select: .a
             count: 0~1
-      - id: assert
-        args:
+      - assert:
           html:
             select: .a
             count: 1>=
-      - id: assert
-        args:
+      - assert:
           html:
             select: .a
             count: 0>
-      - id: assert
-        args:
+      - assert:
           html:
             select: .a
             count: 1<=
-      - id: assert
-        args:
+      - assert:
           html:
             select: .a
             count: 2<
+      - assert:
+          html:
+            select: .b
+            count: 0
+
+- name: html selection cannot be used with non html-like mime type
+  plugins:
+    - processors:
+      - inject.content:
+          content: foo
+          mime: application/octet-stream
+      - assert:
+          html:
+            select: .foo
+        fatal: false
+      - assert:
+          error: true
