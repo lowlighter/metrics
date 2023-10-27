@@ -3,7 +3,7 @@
 {
   "version": "4.0.0",
   "imports": {
-    "std/": "https://deno.land/std@0.201.0/",
+    "std/": "https://deno.land/std@0.204.0/",
     "x/": "https://deno.land/x/",
     "y/": "https://esm.sh/",
     "gh/": "https://esm.sh/gh/",

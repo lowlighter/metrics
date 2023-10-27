@@ -1,24 +1,21 @@
 //Imports
-import { is, Plugin } from "@engine/components/plugin.ts"
+import { Plugin } from "@engine/components/plugin.ts"
 import { Processor } from "@engine/components/processor.ts"
 import { cli, server, webrequest } from "@engine/config.ts"
+import { toSchema } from "@engine/utils/validation.ts"
 import { version } from "@engine/version.ts"
 
 /** Metadata */
 export async function metadata() {
   const metadata = {
-    version,
+    version: version.number,
     plugins: [] as Record<PropertyKey, unknown>[],
     processors: [] as Record<PropertyKey, unknown>[],
-    cli: cli.omit({ config: true }),
-    server: server.omit({ config: true }),
-    webrequest: webrequest.extend({
-      plugins: is.array(
-        webrequest.shape.plugins._def.innerType._def.type.omit({ id: true, args: true }).extend({
-          processors: is.array(webrequest.shape.plugins._def.innerType._def.type.shape.processors._def.innerType._def.type.omit({ id: true, args: true })),
-        }),
-      ),
-    }),
+    modes: {
+      web: toSchema(webrequest.omit({ plugins: true })),
+      actions: toSchema(cli.omit({ config: true })),
+      server: toSchema(server.omit({ config: true })),
+    },
   }
 
   // Populate plugins

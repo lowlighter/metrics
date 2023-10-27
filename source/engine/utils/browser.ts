@@ -4,6 +4,7 @@ import { getBinary, launch } from "gh/lino-levan/astral@main/mod.ts?r=1" // TODO
 import { env } from "@engine/utils/io.ts"
 import * as dir from "@engine/paths.ts"
 import { throws } from "@engine/utils/errors.ts"
+import { delay } from "std/async/delay.ts"
 
 /** Browser */
 export class Browser {
@@ -74,7 +75,8 @@ export class Browser {
     Object.assign(page, {
       setTransparentBackground: async () => {
         const celestial = page.unsafelyGetCelestialBindings()
-        await celestial.Emulation.setDefaultBackgroundColorOverride({ r: 0, b: 0, g: 0, a: 0 })
+        await celestial.Emulation.setDefaultBackgroundColorOverride({ color: { r: 0, b: 0, g: 0, a: 0 } })
+        await delay(100)
       },
     })
     this.log.io("opened new browser page")

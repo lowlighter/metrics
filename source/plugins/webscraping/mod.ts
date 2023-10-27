@@ -49,30 +49,34 @@ export default class extends Plugin {
     if (this.context.mock) {
       this.context.args.url = new URL("tests/example.html", import.meta.url).href
     }
-    const { url, select: selector, mode, viewport: _, wait, background: __ } = await parse(this.inputs, this.context.args)
+    const { url, select: selector, mode, viewport, wait, background } = await parse(this.inputs, this.context.args)
     const page = await Browser.page({ log: this.log })
     try {
-      await page.setViewport(viewport)
+      await page.setViewportSize(viewport)
       await page.goto(url, { waitUntil: "networkidle2" })
       if (wait) {
         await delay(wait * 1000)
       }
       await page.waitForSelector(selector)
-      const result = { content: "", title: await page.evaluate(`document.title`) }
+      const result = { content: "", title: await page.evaluate(() => document.title) }
       switch (mode) {
         case "image": {
-          const { x, y, width, height } = await page.evaluate([
-            `const {x, y, width, height} = document.querySelector('${selector}').getBoundingClientRect()`,
-            `;({x, y, width, height})`,
-          ].join("\n")) as { [key: PropertyKey]: number }
-          //TODO(@lowlighter):, omitBackground: !background
+          const { x, y, width, height } = await page.evaluate((selector: string) => {
+            const { x, y, width, height } = document.querySelector(selector)!.getBoundingClientRect()
+            return { x, y, width, height }
+          }, { args: [selector] })
+          if (!background) {
+            await page.setTransparentBackground()
+          }
           const buffer = await page.screenshot({ format: "png", clip: { width, height, x, y, scale: 1 } }) as Uint8Array
           const img = await resize(buffer, { height: 400 })
           result.content = `data:image/png;base64,${Base64.encode(img)}`
           break
         }
         case "text": {
-          result.content = await page.evaluate(`document.querySelector('${selector}')?.innerText ?? ""`) as string
+          result.content = await page.evaluate((selector: string) => {
+            return (document.querySelector(selector) as unknown as { innerText: string }).innerText
+          }, { args: [selector] })
           break
         }
       }

@@ -11,33 +11,34 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
   </head>
-  <body x-data="data" class="bg-gray-900 dark:text-white">
+  <body x-data="data" class="bg-neutral-950 text-white">
     <!-- Header -->
-    <header class="bg-white dark:bg-gray-950">
-      <div class="flex h-16 items-center gap-8 px-4 sm:px-6 lg:px-8">
-        <a class="block text-teal-600 dark:text-teal-300" href="/">
+    <header class="bg-neutral-900">
+      <div class="h-16 flex items-center px-4 lg:px-8">
+        <!-- Metrics version -->
+        <a class="text-xl" href="/">
           <span>Metrics <span x-text="version"></span></span>
         </a>
         <div class="flex flex-1 items-center justify-end md:justify-between">
           <div class="hidden md:block"></div>
           <div class="flex items-center gap-4">
-            <div class="sm:flex sm:gap-4">
+            <div class="hidden flex md:flex gap-4">
               <template x-if="user?.login">
                 <div class="relative">
                   <!-- User profile -->
-                  <div class="text-gray-500 flex items-center h-full transition dark:text-white" @click="$store.menu.dropdown = !$store.menu.dropdown">
+                  <div class="h-full px-2 flex items-center rounded-md cursor-pointer transition hover:bg-neutral-950" :class="{'bg-neutral-950':$store.menu.header.user}" @click="$store.menu.header.user = !$store.menu.header.user">
                     <img :src="user.avatar" class="h-8 w-8 rounded-full object-cover mr-2">
-                    <span x-text="user.login"></span>
+                    <span class="font-bold" x-text="user.login"></span>
                   </div>
-                  <!-- Dropdown menu actions -->
-                  <template x-if="$store.menu.dropdown">
-                    <div class="absolute end-0 z-10 mt-2 w-56 rounded-md border border-gray-100 bg-gray-100 shadow-lg" role="menu">
+                  <!-- User menu actions -->
+                  <template x-if="$store.menu.header.user">
+                    <div class="w-56 absolute end-0 mt-1 rounded-md border border-neutral-800 bg-neutral-900 shadow-lg">
                       <div class="p-2">
-                        <a href="/login/review" class="rounded-md px-5 py-2.5 text-sm font-medium text-gray-500 transition hover:bg-gray-200 hover:text-teal-900/75 flex items-center">
+                        <a href="/login/review" class="flex items-center rounded-md px-5 py-2.5 transition hover:bg-neutral-950">
                           <svg class="mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M10.5 0a5.499 5.499 0 1 1-1.288 10.848l-.932.932a.749.749 0 0 1-.53.22H7v.75a.749.749 0 0 1-.22.53l-.5.5a.749.749 0 0 1-.53.22H5v.75a.749.749 0 0 1-.22.53l-.5.5a.749.749 0 0 1-.53.22h-2A1.75 1.75 0 0 1 0 14.25v-2c0-.199.079-.389.22-.53l4.932-4.932A5.5 5.5 0 0 1 10.5 0Zm-4 5.5c-.001.431.069.86.205 1.269a.75.75 0 0 1-.181.768L1.5 12.56v1.69c0 .138.112.25.25.25h1.69l.06-.06v-1.19a.75.75 0 0 1 .75-.75h1.19l.06-.06v-1.19a.75.75 0 0 1 .75-.75h1.19l1.023-1.025a.75.75 0 0 1 .768-.18A4 4 0 1 0 6.5 5.5ZM11 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>
                           Review permissions
                         </a>
-                        <a href="/login/revoke" class="rounded-md px-5 py-2.5 text-sm font-medium text-gray-500 transition hover:bg-gray-200 hover:text-teal-900/75 flex items-center">
+                        <a href="/login/revoke" class="flex items-center rounded-md px-5 py-2.5 transition hover:bg-neutral-950">
                           <svg class="mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M2 2.75C2 1.784 2.784 1 3.75 1h2.5a.75.75 0 0 1 0 1.5h-2.5a.25.25 0 0 0-.25.25v10.5c0 .138.112.25.25.25h2.5a.75.75 0 0 1 0 1.5h-2.5A1.75 1.75 0 0 1 2 13.25Zm10.44 4.5-1.97-1.97a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215l3.25 3.25a.75.75 0 0 1 0 1.06l-3.25 3.25a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734l1.97-1.97H6.75a.75.75 0 0 1 0-1.5Z"></path></svg>
                           Sign-out
                         </a>
@@ -46,24 +47,25 @@
                   </template>
                 </div>
               </template>
-              <!-- Login -->
+              <!-- Sign-in with GitHub -->
               <template x-if="(user)&&(!user.login)">
-                <a href="/login" class="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 dark:bg-gray-800 dark:text-white dark:hover:text-white/75 sm:flex items-center">
+                <a href="/login" class="bg-neutral-950 flex items-center rounded-md px-5 py-2.5 transition hover:bg-neutral-800 hover:text-sky-500">
                   <svg class="mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path></svg>
                   Sign-in with GitHub
                 </a>
               </template>
-              <!-- Ratelimit -->
+              <!-- Remaining requests -->
               <template x-if="ratelimit">
-                <div class="text-gray-500 flex flex-col items-center transition dark:text-white text-xs">
+                <div class="flex flex-col items-center text-xs">
                   <div class="flex justify-between w-full"><b class="mr-4">REST</b><span x-text="ratelimit.core"></span></div>
                   <div class="flex justify-between w-full"><b class="mr-4">GraphQL</b><span x-text="ratelimit.graphql"></span></div>
                   <div class="flex justify-between w-full"><b class="mr-4">Search</b><span x-text="ratelimit.search"></span></div>
                 </div>
               </template>
             </div>
-            <button class="block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 dark:bg-gray-800 dark:text-white dark:hover:text-white/75 md:hidden">
-              <span class="sr-only">Toggle menu</span>
+            <!-- Mobile menu -->
+            <!-- TODO(@lowlighter): to implement -->
+            <button class="opacity-0 md:hidden bg-neutral-950 block rounded-md p-2.5 transition hover:bg-neutral-800" @click="$store.menu.header.collapse = !$store.menu.header.collapse">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
               </svg>
@@ -72,201 +74,228 @@
         </div>
       </div>
     </header>
+
     <main>
-      <div class="container max-w-screen-xl mx-auto">
+      <div class="max-w-screen-xl container mx-auto">
         <!-- About -->
-        <section class="text-white">
-          <div class="mx-auto px-4 lg:flex pt-16 pb-2 lg:items-center">
-            <div class="mx-auto text-center">
-              <h1 class="bg-gradient-to-r from-green-300 via-cyan-500 to-purple-600 bg-clip-text text-3xl font-extrabold text-transparent sm:text-5xl" style="line-height: 1.4;">
-                Infographics on demand<br>
-                Designed by you
-              </h1>
-              <p class="mx-auto mt-4 max-w-xl sm:text-xl/relaxed">
-                Craft your own infographics with a large choice of plugins and options, tweak them and share them anywhere!
-              </p>
-            </div>
-          </div>
+        <section class="container mx-auto px-2 pt-16 pb-8">
+          <h1 class="text-4xl">Craft your profile infographic</h1>
+          <p class="mt-2 text-zinc-400 md:whitespace-pre-line">
+            With a large choice of plugins, processors and options.
+            Share them anywhere!
+          </p>
         </section>
 
         <!-- Craft mode -->
-        <section class="my-8">
+        <section class="container mx-auto px-2 my-8">
+          <h2 class="text-2xl mb-4">1️⃣ Choose a way to generate infographics</h2>
           <fieldset class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <legend class="sr-only">Target</legend>
-            <div class="pointer-events-none opacity-25">
-              <input type="radio" name="target-config" id="target-action" value="action" class="peer hidden"/>
-              <label for="target-action" class="block cursor-pointer rounded-lg border border-gray-100 bg-white dark:bg-black p-4 text-sm font-medium shadow-sm hover:border-gray-200 peer-checked:border-cyan-500 peer-checked:ring-1 peer-checked:ring-cyan-500">
-              <div class="text-gray-700 dark:text-cyan-500 flex items-center">
-                <svg class="mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Zm4.879-2.773 4.264 2.559a.25.25 0 0 1 0 .428l-4.264 2.559A.25.25 0 0 1 6 10.559V5.442a.25.25 0 0 1 .379-.215Z"></path></svg>
-                GitHub Actions
-                <span class="ml-1 rounded-full bg-cyan-100 px-2.5 py-0.5 text-sm text-cyan-700">Soon!</span>
+            <template x-data="{modes:[
+              {value:'web', name:'Web URL', description:'Create a shareable link that you can embed anywhere'},
+              {value:'actions', name:'GitHub Actions', description:'Generate a GitHub Actions workflow for your repository'},
+              {value:'server', name:'Deploy', description:'Create a configuration file for self-hosted solutions'},
+            ]}" x-for="{value, name, description} in modes">
+              <div :key="value">
+                <input type="radio" name="state.mode" :id="`state.mode@${value}`" :value="value" class="peer hidden" @input="$store.craft.setMode($event)"/>
+                <label :for="`state.mode@${value}`" class="block bg-neutral-900 border border-neutral-800 rounded-md px-5 py-2.5 cursor-pointer transition hover:bg-neutral-800 peer-checked:border-sky-500">
+                  <div class="flex items-center text-sky-500">
+                    <template x-if="value === 'web'" >
+                      <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+                    </template>
+                    <template x-if="value === 'actions'">
+                      <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Zm4.879-2.773 4.264 2.559a.25.25 0 0 1 0 .428l-4.264 2.559A.25.25 0 0 1 6 10.559V5.442a.25.25 0 0 1 .379-.215Z"></path></svg>
+                    </template>
+                    <template x-if="value === 'server'">
+                      <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M2 7.25A5.225 5.225 0 0 1 7.25 2a5.222 5.222 0 0 1 4.767 3.029A4.472 4.472 0 0 1 16 9.5c0 2.505-1.995 4.5-4.5 4.5h-8A3.474 3.474 0 0 1 0 10.5c0-1.41.809-2.614 2.001-3.17Zm1.54.482a.75.75 0 0 1-.556.832c-.86.22-1.484.987-1.484 1.936 0 1.124.876 2 2 2h8c1.676 0 3-1.324 3-3s-1.324-3-3-3a.75.75 0 0 1-.709-.504A3.72 3.72 0 0 0 7.25 3.5C5.16 3.5 3.5 5.16 3.5 7.25c.002.146.014.292.035.436l.004.036.001.008Z"></path></svg>
+                    </template>
+                    <span class="ml-1" x-text="name"></span>
+                  </div>
+                  <p class="mt-1 text-zinc-400" x-text="description"></p>
+                </label>
               </div>
-              <p class="mt-1 text-sm">Generate a <a href="https://github.com/features/actions">GitHub Actions</a> workflow for your repository</p>
-              </label>
-            </div>
-            <div>
-              <input type="radio" name="target-config" id="target-url" value="url" class="peer hidden" checked/>
-              <label for="target-url" class="block cursor-pointer rounded-lg border border-gray-100 bg-white dark:bg-black p-4 text-sm font-medium shadow-sm hover:border-gray-200 peer-checked:border-cyan-500 peer-checked:ring-1 peer-checked:ring-cyan-500">
-              <div class="text-gray-700 dark:text-cyan-500 flex items-center">
-                <svg class="mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-                Web URL
-                <span class="ml-1 rounded-full bg-pink-100 px-2.5 py-0.5 text-sm text-pink-700">Beta</span>
-              </div>
-              <p class="mt-1 text-sm">Create a shareable link that you can embed anywhere</p>
-              </label>
-            </div>
-            <div class="pointer-events-none opacity-25">
-              <input type="radio" name="target-config" id="target-deploy" value="deploy" class="peer hidden"/>
-              <label for="target-deploy" class="block cursor-pointer rounded-lg border border-gray-100 bg-white dark:bg-black p-4 text-sm font-medium shadow-sm hover:border-gray-200 peer-checked:border-cyan-500 peer-checked:ring-1 peer-checked:ring-cyan-500">
-              <div class="text-gray-700 dark:text-cyan-500 flex items-center">
-                <svg class="mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M2 7.25A5.225 5.225 0 0 1 7.25 2a5.222 5.222 0 0 1 4.767 3.029A4.472 4.472 0 0 1 16 9.5c0 2.505-1.995 4.5-4.5 4.5h-8A3.474 3.474 0 0 1 0 10.5c0-1.41.809-2.614 2.001-3.17Zm1.54.482a.75.75 0 0 1-.556.832c-.86.22-1.484.987-1.484 1.936 0 1.124.876 2 2 2h8c1.676 0 3-1.324 3-3s-1.324-3-3-3a.75.75 0 0 1-.709-.504A3.72 3.72 0 0 0 7.25 3.5C5.16 3.5 3.5 5.16 3.5 7.25c.002.146.014.292.035.436l.004.036.001.008Z"></path></svg>
-                Deploy
-                <span class="ml-1 rounded-full bg-cyan-100 px-2.5 py-0.5 text-sm text-cyan-700">Soon!</span>
-              </div>
-              <p class="mt-1 text-sm">Create a configuration file for self-hosted solutions</p>
-              </label>
-            </div>
+            </template>
           </fieldset>
         </section>
 
-        <!-- Handle -->
-        <section>
-          <div class="container max-w-screen-sm mx-auto relative">
-            <span class="pointer-events-none absolute inset-y-0 start-0 ml-2 grid w-10 place-content-center text-white">
-              <svg class="h-8 w-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path></svg>
-            </span>
-            <input type="text" name="handle" id="handle" placeholder="Your GitHub username, organization or repository" x-model="$store.craft.handle" class="text-2xl px-6 pl-14 py-4 my-1.5 w-full rounded-lg border-gray-300 text-gray-700 bg-gray-100 dark:bg-gray-800 dark:text-white"/>
-          </div>
+        <!-- Config builder [$store.craft.mode] -->
+        <section class="container mx-auto px-2 my-8">
+          <h2 class="text-2xl mb-4">2️⃣ Configure global settings</h2>
+          <article :key="$store.craft.state.mode">
+            <div class="bg-neutral-900 border border-neutral-800 rounded-md">
+              <div class="bg-neutral-950 p-2 border-b border-neutral-800 rounded-t-md">
+                <h3 class="text-lg flex justify-between">
+                  <span>⚙️ Global configuration</span>
+                  <span class="text-zinc-400" x-text="`@${$store.craft.state.mode}`"></span>
+                </h3>
+              </div>
+              <div class="bg-black p-2">
+                <pre><code class="language-yaml" x-html="$store.craft.getGlobalConfig()"></code></pre>
+              </div>
+              <div class="p-2 border-b border-neutral-800">
+                <form x-html="$store.craft.state.edit.global">
+                </form>
+              </div>
+            </div>
+          </article>
         </section>
 
-        <!-- Config builder -->
-        <section>
-          <template x-for="(plugin, i) of $store.craft.plugins">
-            <article :data-plugin="i" class="mt-4 rounded-3xl grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
-              <div class="rounded-lg border-2 dark:bg-gray-950">
-                <div class="p-4 sm:p-6 sm:pt-2">
-                  <nav class="flex gap-6 mb-2" aria-label="Tabs">
-                    <template x-if="plugin.edit === 'ui'">
-                      <div @click="$store.craft.setEditMode('code', i)" class="flex cursor-pointer items-center rounded-lg p-2 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-cyan-500">
-                        <svg class="mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M0 2.75C0 1.784.784 1 1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0 1 14.25 15H1.75A1.75 1.75 0 0 1 0 13.25Zm1.75-.25a.25.25 0 0 0-.25.25v10.5c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25V2.75a.25.25 0 0 0-.25-.25ZM7.25 8a.749.749 0 0 1-.22.53l-2.25 2.25a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L5.44 8 3.72 6.28a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215l2.25 2.25c.141.14.22.331.22.53Zm1.5 1.5h3a.75.75 0 0 1 0 1.5h-3a.75.75 0 0 1 0-1.5Z"></path></svg>
-                        Edit as code
-                      </div>
-                    </template>
-                    <template x-if="plugin.edit === 'code'">
-                      <div @click="$store.craft.setEditMode('ui', i)" class="flex cursor-pointer items-center rounded-lg p-2 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-cyan-500">
-                        <svg class="mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M0 2.75C0 1.784.784 1 1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0 1 14.25 15H1.75A1.75 1.75 0 0 1 0 13.25ZM14.5 6h-13v7.25c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25Zm-6-3.5v2h6V2.75a.25.25 0 0 0-.25-.25ZM5 2.5v2h2v-2Zm-3.25 0a.25.25 0 0 0-.25.25V4.5h2v-2Z"></path></svg>
-                        Edit with UI
-                      </div>
-                    </template>
-                    <div @click="$store.craft.removePlugin(i)" class="flex cursor-pointer items-center rounded-lg p-2 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-cyan-500">
-                      <svg class="mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M11 1.75V3h2.25a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1 0-1.5H5V1.75C5 .784 5.784 0 6.75 0h2.5C10.216 0 11 .784 11 1.75ZM4.496 6.675l.66 6.6a.25.25 0 0 0 .249.225h5.19a.25.25 0 0 0 .249-.225l.66-6.6a.75.75 0 0 1 1.492.149l-.66 6.6A1.748 1.748 0 0 1 10.595 15h-5.19a1.75 1.75 0 0 1-1.741-1.575l-.66-6.6a.75.75 0 1 1 1.492-.15ZM6.5 1.75V3h3V1.75a.25.25 0 0 0-.25-.25h-2.5a.25.25 0 0 0-.25.25Z"></path></svg>
-                      Remove
+        <section class="container mx-auto px-2 my-8">
+          <h2 class="text-2xl mb-4">3️⃣ Configure plugins and processors</h2>
+          <template x-for="(plugin, i) of $store.craft.config.plugins">
+            <article :data-plugin="i" :key="i" class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 mb-4 lg:mb-8">
+              <div class="bg-neutral-900 border border-neutral-800 rounded-md">
+                <div class="bg-neutral-950 p-2 border-b border-neutral-800 rounded-t-md">
+                  <h3 class="text-lg flex justify-between">
+                    <span x-text="plugin.name"></span>
+                    <div class="text-zinc-400 flex items-center">
+                      <template x-for="icon in (plugin.supports.length ? plugin.supports : ['user', 'organization', 'repository'])">
+                        <x-octicon class="mr-1" x-data="{icon}" :key="icon"></x-octicon>
+                      </template>
+                      <span x-text="`#${i}`"></span>
                     </div>
-                    <div @click="$store.craft.craftConfig(i)" class="flex cursor-pointer items-center rounded-lg p-2 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-cyan-500">
-                      <svg class="mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Zm4.879-2.773 4.264 2.559a.25.25 0 0 1 0 .428l-4.264 2.559A.25.25 0 0 1 6 10.559V5.442a.25.25 0 0 1 .379-.215Z"></path></svg>
-                      Render
-                    </div>
-                  </nav>
-                  <h3 x-text="plugin.name" class="sm:text-lg"></h3>
-                  <h4 x-text="plugin.description" class="mb-3 opacity-75"></h4>
-                  <form>
-                    <x-schema-inputs x-data="{inputs:plugin.inputs, path:[i, 'args']}"></x-schema-inputs>
-                  </form>
-                  <template x-for="(processor, j) of plugin.processors">
-                    <div class="rounded-lg border-2 mb-2">
-                      <div class="p-4 sm:p-6 sm:pt-2">
-                        <nav class="flex gap-6 mb-2" aria-label="Tabs">
-                          <div @click="$store.craft.removeProcessor(i, j)" class="flex cursor-pointer items-center rounded-lg p-2 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-cyan-500">
-                            <svg class="mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M11 1.75V3h2.25a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1 0-1.5H5V1.75C5 .784 5.784 0 6.75 0h2.5C10.216 0 11 .784 11 1.75ZM4.496 6.675l.66 6.6a.25.25 0 0 0 .249.225h5.19a.25.25 0 0 0 .249-.225l.66-6.6a.75.75 0 0 1 1.492.149l-.66 6.6A1.748 1.748 0 0 1 10.595 15h-5.19a1.75 1.75 0 0 1-1.741-1.575l-.66-6.6a.75.75 0 1 1 1.492-.15ZM6.5 1.75V3h3V1.75a.25.25 0 0 0-.25-.25h-2.5a.25.25 0 0 0-.25.25Z"></path></svg>
-                            Remove
-                          </div>
-                        </nav>
-                        <h3 x-text="processor.name" class="sm:text-lg"></h3>
-                        <h4 x-text="processor.description" class="mb-3 opacity-75"></h4>
-                        <form>
-                          <x-schema-inputs x-data="{inputs:processor.inputs, path:[`processors[${j}]`, 'args']}"></x-schema-inputs>
-                        </form>
-                      </div>
-                    </div>
+                  </h3>
+                  <h4 x-html="await $store.craft.markdown(plugin.description)" class="text-zinc-400"></h4>
+                </div>
+                <nav class="flex gap-2 p-2 border-b border-neutral-800">
+                  <div @click="$store.craft.renderPlugin({plugin:i})" class="bg-neutral-950 flex items-center rounded-md p-2 text-sm cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500">
+                    <svg class="mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Zm4.879-2.773 4.264 2.559a.25.25 0 0 1 0 .428l-4.264 2.559A.25.25 0 0 1 6 10.559V5.442a.25.25 0 0 1 .379-.215Z"></path></svg>
+                    Render
+                  </div>
+                  <div @click="$store.craft.removePlugin({plugin:i})" class="bg-neutral-950 flex items-center rounded-md p-2 text-sm cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500">
+                    <svg class="mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M11 1.75V3h2.25a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1 0-1.5H5V1.75C5 .784 5.784 0 6.75 0h2.5C10.216 0 11 .784 11 1.75ZM4.496 6.675l.66 6.6a.25.25 0 0 0 .249.225h5.19a.25.25 0 0 0 .249-.225l.66-6.6a.75.75 0 0 1 1.492.149l-.66 6.6A1.748 1.748 0 0 1 10.595 15h-5.19a1.75 1.75 0 0 1-1.741-1.575l-.66-6.6a.75.75 0 1 1 1.492-.15ZM6.5 1.75V3h3V1.75a.25.25 0 0 0-.25-.25h-2.5a.25.25 0 0 0-.25.25Z"></path></svg>
+                    Remove
+                  </div>
+                </nav>
+                <div class="bg-black p-2">
+                  <pre><code class="language-yaml" x-html="$store.craft.getPluginConfig({plugin:i})"></code></pre>
+                </div>
+                <div class="p-2 border-b border-neutral-800">
+                  <div class="font-bold">Arguments</div>
+                  <template x-if="Object.keys(plugin.inputs.properties).length">
+                    <form>
+                      <x-schema-inputs x-data="{inputs:plugin.inputs, path:['plugins', i, 'args']}"></x-schema-inputs>
+                    </form>
                   </template>
-                  <div class="rounded-lg border-2 border-dashed mt-4">
-                    <div class="p-4 sm:p-6">
-                      <h3 class="sm:text-lg">Add a processor</h3>
-                      <ul class="p-2">
-                        <template x-for="processor of processors">
-                          <li>
-                            <div class="block rounded-lg px-4 py-2 text-sm font-medium text-cyan-600 cursor-pointer hover:bg-gray-100 hover:text-cyan-500" @click="$store.craft.addProcessor(processor, i)">
-                              <div x-text="processor.name"></div>
-                            </div>
-                          </li>
-                        </template>
-                      </ul>
+                  <template x-if="!Object.keys(plugin.inputs.properties).length">
+                    <span class="text-zinc-400 italic">This plugin does not accept any arguments</span>
+                  </template>
+                </div>
+                <template x-for="(processor, j) of plugin.processors">
+                  <div class="bg-neutral-950 border border-neutral-800 rounded-md m-2" :key="j">
+                    <div class="p-2 border-b border-neutral-800 rounded-t-md">
+                      <h3 class="text-lg flex justify-between">
+                        <span x-text="processor.name"></span>
+                        <span class="text-zinc-400">
+                          <span x-text="`#${i}`"></span>
+                        </span>
+                      </h3>
+                      <h4 x-html="await $store.craft.markdown(processor.description)" class="text-zinc-400"></h4>
+                    </div>
+                    <nav class="flex gap-2 p-2 border-b border-neutral-800">
+                      <div @click="$store.craft.removeProcessor({plugin:i, processor:j})" class="bg-neutral-900 flex items-center rounded-md p-2 text-sm cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500">
+                        <svg class="mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M11 1.75V3h2.25a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1 0-1.5H5V1.75C5 .784 5.784 0 6.75 0h2.5C10.216 0 11 .784 11 1.75ZM4.496 6.675l.66 6.6a.25.25 0 0 0 .249.225h5.19a.25.25 0 0 0 .249-.225l.66-6.6a.75.75 0 0 1 1.492.149l-.66 6.6A1.748 1.748 0 0 1 10.595 15h-5.19a1.75 1.75 0 0 1-1.741-1.575l-.66-6.6a.75.75 0 1 1 1.492-.15ZM6.5 1.75V3h3V1.75a.25.25 0 0 0-.25-.25h-2.5a.25.25 0 0 0-.25.25Z"></path></svg>
+                        Remove
+                      </div>
+                    </nav>
+                    <div class="p-2 border-b border-neutral-800">
+                      <div class="font-bold">Arguments</div>
+                      <template x-if="Object.keys(processor.inputs.properties).length">
+                        <form>
+                          <x-schema-inputs x-data="{inputs:processor.inputs, path:['plugins', i, 'processors', j, 'args']}"></x-schema-inputs>
+                        </form>
+                      </template>
+                      <template x-if="!Object.keys(processor.inputs.properties).length">
+                        <span class="text-zinc-400 italic">This processor does not accept any arguments</span>
+                      </template>
                     </div>
                   </div>
+                </template>
+                <div class="bg-neutral-950 border border-dashed rounded-md m-2 overflow-hidden">
+                  <h3 class="pl-4 py-2 text-lg cursor-pointer rounded-t-md transition hover:bg-neutral-800" @click="$store.craft.state.expand.processors = $store.craft.state.expand.processors === i ? NaN : i">Add a processor</h3>
+                  <ul class="px-2 mb-2" :class="{hidden:$store.craft.state.expand.processors !== i}">
+                    <template x-for="processor of processors">
+                      <li :key="processor.id">
+                        <div class="rounded-md text-zinc-400 px-2 py-1 cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500" @click="$store.craft.addProcessor({plugin:i, processor})">
+                          <div x-text="processor.name"></div>
+                        </div>
+                      </li>
+                    </template>
+                  </ul>
                 </div>
               </div>
-              <div class="preview relative rounded-lg bg-gray-50 dark:bg-slate-950 overflow-hidden">
+              <div class="preview relative border border-neutral-800 rounded-md overflow-hidden">
                 <div class="absolute">
-                  <img src="" alt="" class="m-2" x-init="$store.craft.craftConfig(i)">
+                  <img src="" alt="" class="m-2">
                 </div>
               </div>
             </article>
           </template>
-          <article class="mt-4 rounded-3xl grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
-            <div class="rounded-lg border-2 border-dashed dark:bg-gray-950">
-              <div class="p-4 sm:p-6">
-                <h3 class="sm:text-lg">Add a plugin</h3>
-                <ul class="p-2">
+          <article class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8">
+            <div class="bg-neutral-900 border border-neutral-800 rounded-md">
+              <div class="bg-neutral-950 border border-dashed rounded-md m-2">
+                <h3 class="pl-4 py-2 text-lg cursor-pointer rounded-t-md transition hover:bg-neutral-800" @click="$store.craft.state.expand.plugins = !$store.craft.state.expand.plugins">Add a plugin</h3>
+                <ul class="px-2 mb-2" :class="{hidden:!$store.craft.state.expand.plugins}">
                   <template x-for="plugin of plugins">
-                    <li>
-                      <div class="block rounded-lg px-4 py-2 text-sm font-medium text-cyan-600 hover:bg-gray-100 cursor-pointer hover:text-cyan-500" @click="$store.craft.addPlugin(plugin)">
-                        <div x-text="plugin.name"></div>
+                    <li :key="plugin.id">
+                      <div class="rounded-md text-zinc-400 px-2 py-1 cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500" @click="$store.craft.addPlugin({plugin})">
+                        <div class="flex items-center justify-between">
+                          <div x-text="plugin.name"></div>
+                          <div class="flex">
+                            <template x-for="icon in (plugin.supports.length ? plugin.supports : ['user', 'organization', 'repository'])">
+                              <x-octicon class="mr-1" x-data="{icon}" :key="icon"></x-octicon>
+                            </template>
+                          </div>
+                        </div>
                       </div>
                     </li>
                   </template>
                 </ul>
               </div>
             </div>
-            <div class="preview rounded-lg bg-gray-50 dark:bg-slate-950 overflow-hidden"></div>
+            <div class="preview border border-neutral-800 rounded-md overflow-hidden"></div>
           </article>
         </section>
 
-        <!-- Crafted link -->
-        <section>
-          <div class="preview rounded-lg bg-gray-50 dark:bg-slate-950 mt-8 p-4">
-            <pre><code class="whitespace-break-spaces" x-html="$store.craft.getUrl()"></code></pre>
-          </div>
+
+        <section class="container mx-auto px-2 my-8">
+          <h2 class="text-2xl mb-4">4️⃣ You're all set!</h2>
+          <template x-if="$store.craft.state.mode === 'web'">
+            <div>
+              <pre class="bg-neutral-900 rounded-md p-2"><code class="language-html whitespace-break-spaces" x-html="$store.craft.getFullConfig()"></code></pre>
+              <!-- <img :src="$store.craft.getFullConfig()" alt=""/> -->
+            </div>
+          </template>
+          <template x-if="$store.craft.state.mode !== 'web'">
+            <div>
+              <pre class="bg-neutral-900 rounded-md p-2"><code class="language-yaml" x-html="$store.craft.getFullConfig()"></code></pre>
+            </div>
+          </template>
+
         </section>
 
-        <!-- YAML configuration -->
-        <section>
-          <div class="preview rounded-lg bg-gray-50 dark:bg-slate-950 mt-8 p-4">
-            <pre><code class="language-yaml" x-html="$store.craft.getConfig()"></code></pre>
-          </div>
-        </section>
     </main>
 
     <!-- Footer -->
-    <footer class="mt-16 bg-gray-100 dark:bg-gray-950">
-      <div class="mx-auto max-w-5xl px-4 pt-16 py-8 sm:px-6 lg:px-8">
-        <ul class="mt-4 flex flex-wrap justify-center gap-6 md:gap-8 lg:gap-12">
+    <footer class="bg-neutral-900 mt-16">
+      <div class="max-w-screen-xl container mx-auto p-4">
+        <ul class="flex flex-wrap justify-center gap-8">
           <li>
-            <a class="text-cyan-500 transition hover:text-cyan-500/75" href="https://github.com/lowlighter/metrics">
-              Repository
+            <a class="text-zinc-400 transition hover:text-sky-500" href="https://github.com/lowlighter/metrics">
+              Source code
             </a>
           </li>
           <li>
-            <a class="text-cyan-500 transition hover:text-cyan-500/75" href="https://github.com/lowlighter/metrics/blob/main/LICENSE">
+            <a class="text-zinc-400 transition hover:text-sky-500" href="https://github.com/lowlighter/metrics/blob/main/LICENSE">
               License
             </a>
           </li>
           <li>
-            <a class="text-cyan-500 transition hover:text-cyan-500/75" href="https://github.com/marketplace/actions/metrics-embed">
+            <a class="text-zinc-400 transition hover:text-sky-500" href="https://github.com/marketplace/actions/metrics-embed">
               GitHub Action
             </a>
           </li>
           <li>
-            <a class="text-cyan-500 transition hover:text-cyan-500/75" href="https://github.com/sponsors/lowlighter">
+            <a class="text-zinc-400 transition hover:text-sky-500" href="https://github.com/sponsors/lowlighter">
               Sponsor
             </a>
           </li>
@@ -274,90 +303,119 @@
       </div>
     </footer>
 
+    <template x-component="octicon">
+      <div>
+        <template x-if="icon === 'user'">
+          <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M10.561 8.073a6.005 6.005 0 0 1 3.432 5.142.75.75 0 1 1-1.498.07 4.5 4.5 0 0 0-8.99 0 .75.75 0 0 1-1.498-.07 6.004 6.004 0 0 1 3.431-5.142 3.999 3.999 0 1 1 5.123 0ZM10.5 5a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0Z"></path></svg>
+        </template>
+        <template x-if="icon === 'repository'">
+          <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.714 1.7.75.75 0 1 1-1.072 1.05A2.495 2.495 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.708A2.486 2.486 0 0 1 4.5 9h8ZM5 12.25a.25.25 0 0 1 .25-.25h3.5a.25.25 0 0 1 .25.25v3.25a.25.25 0 0 1-.4.2l-1.45-1.087a.249.249 0 0 0-.3 0L5.4 15.7a.25.25 0 0 1-.4-.2Z"></path></svg>
+        </template>
+        <template x-if="icon === 'organization'">
+          <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M1.75 16A1.75 1.75 0 0 1 0 14.25V1.75C0 .784.784 0 1.75 0h8.5C11.216 0 12 .784 12 1.75v12.5c0 .085-.006.168-.018.25h2.268a.25.25 0 0 0 .25-.25V8.285a.25.25 0 0 0-.111-.208l-1.055-.703a.749.749 0 1 1 .832-1.248l1.055.703c.487.325.779.871.779 1.456v5.965A1.75 1.75 0 0 1 14.25 16h-3.5a.766.766 0 0 1-.197-.026c-.099.017-.2.026-.303.026h-3a.75.75 0 0 1-.75-.75V14h-1v1.25a.75.75 0 0 1-.75.75Zm-.25-1.75c0 .138.112.25.25.25H4v-1.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 .75.75v1.25h2.25a.25.25 0 0 0 .25-.25V1.75a.25.25 0 0 0-.25-.25h-8.5a.25.25 0 0 0-.25.25ZM3.75 6h.5a.75.75 0 0 1 0 1.5h-.5a.75.75 0 0 1 0-1.5ZM3 3.75A.75.75 0 0 1 3.75 3h.5a.75.75 0 0 1 0 1.5h-.5A.75.75 0 0 1 3 3.75Zm4 3A.75.75 0 0 1 7.75 6h.5a.75.75 0 0 1 0 1.5h-.5A.75.75 0 0 1 7 6.75ZM7.75 3h.5a.75.75 0 0 1 0 1.5h-.5a.75.75 0 0 1 0-1.5ZM3 9.75A.75.75 0 0 1 3.75 9h.5a.75.75 0 0 1 0 1.5h-.5A.75.75 0 0 1 3 9.75ZM7.75 9h.5a.75.75 0 0 1 0 1.5h-.5a.75.75 0 0 1 0-1.5Z"></path></svg>
+        </template>
+        <template x-if="icon === 'image'">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M16 13.25A1.75 1.75 0 0 1 14.25 15H1.75A1.75 1.75 0 0 1 0 13.25V2.75C0 1.784.784 1 1.75 1h12.5c.966 0 1.75.784 1.75 1.75ZM1.75 2.5a.25.25 0 0 0-.25.25v10.5c0 .138.112.25.25.25h.94l.03-.03 6.077-6.078a1.75 1.75 0 0 1 2.412-.06L14.5 10.31V2.75a.25.25 0 0 0-.25-.25Zm12.5 11a.25.25 0 0 0 .25-.25v-.917l-4.298-3.889a.25.25 0 0 0-.344.009L4.81 13.5ZM7 6a2 2 0 1 1-3.999.001A2 2 0 0 1 7 6ZM5.5 6a.5.5 0 1 0-1 0 .5.5 0 0 0 1 0Z"></path></svg>
+        </template>
+        <template x-if="icon === 'xml'">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v12.5A1.75 1.75 0 0 1 14.25 16H1.75A1.75 1.75 0 0 1 0 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25V1.75a.25.25 0 0 0-.25-.25Zm7.47 3.97a.75.75 0 0 1 1.06 0l2 2a.75.75 0 0 1 0 1.06l-2 2a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L10.69 8 9.22 6.53a.75.75 0 0 1 0-1.06ZM6.78 6.53 5.31 8l1.47 1.47a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215l-2-2a.75.75 0 0 1 0-1.06l2-2a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042Z"></path></svg>
+        </template>
+        <template x-if="icon === 'svg+xml'">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M4 1.75C4 .784 4.784 0 5.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v8.586A1.75 1.75 0 0 1 14.25 15h-9a.75.75 0 0 1 0-1.5h9a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 10 4.25V1.5H5.75a.25.25 0 0 0-.25.25v2.5a.75.75 0 0 1-1.5 0Zm1.72 4.97a.75.75 0 0 1 1.06 0l2 2a.75.75 0 0 1 0 1.06l-2 2a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734l1.47-1.47-1.47-1.47a.75.75 0 0 1 0-1.06ZM3.28 7.78 1.81 9.25l1.47 1.47a.751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018l-2-2a.75.75 0 0 1 0-1.06l2-2a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042Zm8.22-6.218V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"></path></svg>
+        </template>
+        <template x-if="icon === 'binary'">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M4 1.75C4 .784 4.784 0 5.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v8.586A1.75 1.75 0 0 1 14.25 15h-9a.75.75 0 0 1 0-1.5h9a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 10 4.25V1.5H5.75a.25.25 0 0 0-.25.25v2a.75.75 0 0 1-1.5 0Zm-4 6C0 6.784.784 6 1.75 6h1.5C4.216 6 5 6.784 5 7.75v2.5A1.75 1.75 0 0 1 3.25 12h-1.5A1.75 1.75 0 0 1 0 10.25ZM6.75 6h1.5a.75.75 0 0 1 .75.75v3.75h.75a.75.75 0 0 1 0 1.5h-3a.75.75 0 0 1 0-1.5h.75v-3h-.75a.75.75 0 0 1 0-1.5Zm-5 1.5a.25.25 0 0 0-.25.25v2.5c0 .138.112.25.25.25h1.5a.25.25 0 0 0 .25-.25v-2.5a.25.25 0 0 0-.25-.25Zm9.75-5.938V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"></path></svg>
+        </template>
+      </div>
+    </template>
+
     <!-- Alpine component: schema inputs-->
     <template x-component="schema-inputs">
       <div>
         <template x-for="(input, name) in inputs.properties">
-          <template x-if="name !== '_'">
-            <div>
-              <label :for="[...path, name].join('.')" class="mt-2">
-                <div class="font-bold">
-                  <span x-text="[...path, name].slice(1).join('.')"></span>
-                  <template x-if="'format' in input">
-                    <span class="rounded-full bg-purple-100 px-2.5 py-0.5 text-sm text-purple-700"><span x-text="{uri:'url'}[input.format]"></span></span>
-                  </template>
-                  <template x-if="'const' in input">
-                    <span class="rounded-full bg-purple-100 px-2.5 py-0.5 text-sm text-purple-700">const</span>
-                  </template>
-                  <template x-if="'integer' in input">
-                    <span class="rounded-full bg-purple-100 px-2.5 py-0.5 text-sm text-purple-700">integer</span>
-                  </template>
-                  <template x-if="'exclusiveMinimum' in input">
-                    <span class="rounded-full bg-purple-100 px-2.5 py-0.5 text-sm text-purple-700">&gt; <span x-text="input.exclusiveMinimum"></span></span>
-                  </template>
-                  <template x-if="'minimum' in input">
-                    <span class="rounded-full bg-purple-100 px-2.5 py-0.5 text-sm text-purple-700">≥ <span x-text="input.minimum"></span></span>
-                  </template>
-                  <template x-if="'exclusiveMaximum' in input">
-                    <span class="rounded-full bg-purple-100 px-2.5 py-0.5 text-sm text-purple-700">&lt; <span x-text="input.exclusiveMaximum"></span></span>
-                  </template>
-                  <template x-if="'maximum' in input">
-                    <span class="rounded-full bg-purple-100 px-2.5 py-0.5 text-sm text-purple-700">≤ <span x-text="input.maximum"></span></span>
-                  </template>
-                  <template x-if="(input.type === 'null')">
-                    <span class="whitespace-nowrap rounded-full bg-gray-100 px-2.5 py-0.5 text-sm text-gray-700">null</span>
-                  </template>
-                </div>
-                <div class="italic opacity-75 mb-1" x-text="input.description"></div>
+          <div x-data="{subpath:[...path, name], id:[...path, name].join('.'), store:$store.craft}" :key="name" x-init="store.setDefaultValue(subpath, input)">
+            <label class="block mb-2" :for="id">
+              <div class="font-bold">
+                <span x-text="store.formatKeyPath(subpath)"></span>
+                <template x-data="{labels:[
+                  {key:'format', text:{uri:'url'}[input.format]},
+                  {key:'enum', text:'enum'},
+                  {key:'const', text:'const'},
+                  {key:'integer', text:'integer'},
+                  {key:'exclusiveMinimum', text:`&gt; ${input.exclusiveMinimum}`},
+                  {key:'minimum', text:`≥ ${input.minimum}`},
+                  {key:'exclusiveMaximum', text:`&lt; ${input.exclusiveMaximum}`},
+                  {key:'maximum', text:`≤ ${input.maximum}`},
+                ].filter(({key}) => key in input)}" x-for="{key, text} in labels">
+                  <span class="rounded-full bg-cyan-100 text-indigo-700 px-1.5 text-sm mr-1 whitespace-nowrap" :key="key"><span x-text="text"></span></span>
+                </template>
+                <template x-if="(input.type === 'null')">
+                  <span class="rounded-full bg-gray-100 text-gray-700 px-1.5 text-sm mr-1 whitespace-nowrap">null</span>
+                </template>
+              </div>
+              <div class="text-zinc-400 italic" x-html="await $store.craft.markdown(input.description)"></div>
+            </label>
+            <template x-if="(input.type === 'string')&&(input.enum)">
+              <fieldset>
+                <template x-for="value in input.enum">
+                  <div class="mb-1" :key="value">
+                    <input type="radio" :name="id" :id="`${id}@${value}`" :value="value" class="peer hidden" @input="store.setValue(subpath, $event)"/>
+                    <label :for="`${id}@${value}`" class="block border border-neutral-800 rounded-md px-3 py-1.5 cursor-pointer text-zinc-400 transition hover:bg-neutral-800 peer-checked:border-sky-500 peer-checked:text-sky-500">
+                      <div x-text="value"></div>
+                    </label>
+                  </div>
+                </template>
+              </fieldset>
+            </template>
+            <template x-if="(input.type === 'string')&&(!input.enum)&&(!input.const)">
+              <input :type="{uri:'url'}[input.format] ?? 'text'" :name="id" :id="id" :value="input.default" class="w-full bg-neutral-950 rounded-md px-3 py-1.5 border border-neutral-800 outline-none focus:border-sky-500" @input="store.setValue(subpath, $event)"/>
+            </template>
+            <template x-if="(input.type === 'string')&&(!input.enum)&&(input.const)">
+              <input type="text" :name="id" :id="id" :value="input.const" disabled class="w-full bg-transparent rounded-md px-3 py-1.5 border border-neutral-800 text-zinc-400 pointer-events-none" @input="store.setValue(subpath, $event)"/>
+            </template>
+            <template x-if="(input.type === 'number')||(input.type === 'integer')">
+              <input type="number" :name="id" :id="id" :value="input.default ?? input.minimum ?? input.maximum ?? ('exclusiveMinimum' in input ? input.exclusiveMinimum + 1 : null) ?? ('exclusiveMaximum' in input ? input.exclusiveMaximum - 1 : null) ?? 0" :min="'exclusiveMinimum' in input ? input.exclusiveMinimum + 1 : input.minimum" :max="'exclusiveMaximum' in input ? input.exclusiveMaximum - 1 : input.maximum" class="w-full bg-neutral-950 rounded-md px-3 py-1.5 border border-neutral-800 outline-none focus:border-sky-500" @input="store.setValue(subpath, $event)"/>
+            </template>
+            <template x-if="(input.type === 'boolean')">
+              <label :for="id" class="inline-block relative h-6 w-12 cursor-pointer">
+                <input type="checkbox" :name="id" :id="id" class="peer hidden" @input="store.setValue(subpath, $event)"/>
+                <span class="absolute inset-0 rounded-full bg-neutral-700 transition peer-checked:bg-sky-500"></span>
+                <span class="absolute inset-y-0 start-0 m-1 h-4 w-4 rounded-full bg-white transition-all peer-checked:start-6"></span>
               </label>
-              <template x-if="(input.type === 'string')&&(input.enum)">
-                <select :name="[...path, name].join('.')" :id="[...path, name].join('.')" :value="input.default" class="px-2.5 py-1.5 my-1.5 w-full rounded-lg border-gray-300 text-gray-700 bg-gray-100 dark:bg-gray-800 dark:text-white">
-                  <template x-for="value in input.enum">
-                    <option :value="value" x-text="value"></option>
-                  </template>
-                </select>
-              </template>
-              <template x-if="(input.type === 'string')&&(!input.enum)&&(!input.const)">
-                <input :type="{uri:'url'}[input.format] ?? 'text'" :name="[...path, name].join('.')" :id="[...path, name].join('.')" :value="input.default" class="px-2.5 py-1.5 my-1.5 w-full rounded-lg border-gray-300 text-gray-700 bg-gray-100 dark:bg-gray-800 dark:text-white"/>
-              </template>
-              <template x-if="(input.type === 'string')&&(!input.enum)&&(input.const)">
-                <input type="text" :name="[...path, name].join('.')" :id="[...path, name].join('.')" :value="input.const" disabled class="px-2.5 py-1.5 my-1.5 w-full rounded-lg border-gray-300 text-gray-700 bg-gray-100 dark:bg-gray-800 dark:text-white"/>
-              </template>
-              <template x-if="(input.type === 'number')||(input.type === 'integer')">
-                <input type="number" :name="[...path, name].join('.')" :id="[...path, name].join('.')" :value="input.default ?? input.minimum ?? input.maximum ?? ('exclusiveMinimum' in input ? input.exclusiveMinimum + 1 : null) ?? ('exclusiveMaximum' in input ? input.exclusiveMaximum - 1 : null) ?? 0" :min="'exclusiveMinimum' in input ? input.exclusiveMinimum + 1 : input.minimum" :max="'exclusiveMaximum' in input ? input.exclusiveMaximum - 1 : input.maximum" class="px-2.5 py-1.5 mt-1.5 w-full rounded-lg border-gray-300 text-gray-700 bg-gray-100 dark:bg-gray-800 dark:text-white"/>
-              </template>
-              <template x-if="(input.type === 'object')">
-                <div class="p-4 w-full rounded-md border-gray-100">
-                  <x-schema-inputs class="w-full" x-data="{inputs:input, path:[...path, name]}"></x-schema-inputs>
-                </div>
-              </template>
-              <template x-if="(input.type === 'boolean')">
-                <label :for="[...path, name].join('.')" class="inline-block relative h-6 w-12 cursor-pointer">
-                  <input type="checkbox" :name="[...path, name].join('.')" :id="[...path, name].join('.')" :checked="input.default" class="peer sr-only" />
-                  <span class="absolute inset-0 rounded-full bg-gray-100 dark:bg-gray-800 transition peer-checked:bg-green-500"></span>
-                  <span class="absolute inset-y-0 start-0 m-1 h-4 w-4 rounded-full bg-white transition-all peer-checked:start-6"></span>
-                </label>
-              </template>
-              <template x-if="(input.type === 'null')">
-                <input type="hidden" :name="[...path, name].join('.')" :id="[...path, name].join('.')" value="null" />
-              </template>
-              <template x-if="input.anyOf">
-                <fieldset>
-                  <legend class="sr-only" x-text="[...path, name, '$'].join('.')"></legend>
-                  <template x-for="(value, i) of input.anyOf">
-                    <div>
-                      <input type="radio" :name="[...path, name, '$'].join('.')" :id="[...path, name, `$${i}`].join('.')" :value="i" :checked="!i" class="peer hidden"/>
-                      <label :for="[...path, name, `$${i}`].join('.')" class="flex cursor-pointer items-center justify-between rounded-lg mb-2 border-2 border-gray-100 bg-white dark:bg-black p-4 text-sm font-medium border-2 hover:border-gray-200 peer-checked:border-cyan-500 peer-checked:ring-1 peer-checked:ring-cyan-500">
-                        <x-schema-inputs class="w-full" x-data="{inputs:{properties:{[name]:value}}, path}"></x-schema-inputs>
-                      </label>
-                    </div>
-                  </template>
-                </fieldset>
-              </template>
-            </div>
-          </template>
+            </template>
+            <template x-if="(input.type === 'object')">
+              <div class="w-full p-2 rounded-md border border-neutral-800">
+                <x-schema-inputs class="w-full" x-data="{inputs:input, path:subpath}"></x-schema-inputs>
+                <template x-if="input.additionalProperties">
+                  <!-- TODO -->
+                  <span x-text="JSON.stringify(input.additionalProperties, null, 2)"></span>
+                </template>
+              </div>
+            </template>
+            <template x-if="(input.type === 'null')">
+              <input type="hidden" :name="id" :id="id" value="null" @input="store.setValue(subpath, {target:{value:null}})"/>
+            </template>
+            <template x-if="(input.type === 'array')">
+              <div class="w-full p-2 rounded-md border border-neutral-800">
+                <!-- TODO -->
+                <span x-text="JSON.stringify(input.items, null, 2)"></span>
+                <span x-text="JSON.stringify(input.default, null, 2)"></span>
+              </div>
+            </template>
+            <template x-if="input.anyOf">
+              <fieldset>
+                <template x-for="(value, i) of input.anyOf">
+                  <div class="mb-1" :key="i" @click="store.setValue([...path, `${name}@${i}`], {target:document.getElementById(`${id}@${i}`)}, {anyof:true})">
+                    <input type="radio" :name="id" :id="`${id}@${i}`" :value="i" class="anyof peer hidden"/>
+                    <label :for="`${id}@${i}`" class="block border border-dashed rounded-md px-3 py-1.5 cursor-pointer transition hover:border-sky-500 peer-checked:border-sky-500 peer-checked:border-solid">
+                      <x-schema-inputs class="w-full" x-data="{inputs:{properties:{[name]:value}}, path:[...path, `${name}@${i}`]}"></x-schema-inputs>
+                    </label>
+                  </div>
+                </template>
+              </fieldset>
+            </template>
+          </div>
         </template>
-        <!-- <pre x-text="JSON.stringify(inputs.properties, null, 2)"></pre> -->
       </div>
     </template>
 

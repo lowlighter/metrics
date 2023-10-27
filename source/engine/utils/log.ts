@@ -1,5 +1,5 @@
 //Imports
-import { inspect } from "@engine/utils/io.ts"
+import { inspect } from "@engine/utils/inspect.ts"
 
 /** Logger */
 export class Logger {

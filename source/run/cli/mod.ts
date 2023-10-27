@@ -1,5 +1,5 @@
 //Imports
-import { Internal, is, toSchema } from "@engine/components/internal.ts"
+import { Internal, is } from "@engine/components/internal.ts"
 import { cli as schema, load } from "@engine/config.ts"
 import github from "y/@actions/github@5.1.1"
 import { latest, version } from "@engine/version.ts"
@@ -49,13 +49,6 @@ class CLI extends Internal {
     }
     //
     await process(this.context.config)
-  }
-
-  /** Metadata */
-  protected get metadata() {
-    return {
-      inputs: toSchema(schema.omit({ config: true })),
-    }
   }
 }
 

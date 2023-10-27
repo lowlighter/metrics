@@ -73,7 +73,7 @@ const _processor_keys = [...Object.keys(_preset_processor.parse({}))]
 
 /** Processor component config */
 export const processor = is.preprocess((value) => {
-  const result = _preset_processor.extend({ id: _processor.shape.id, preset: is.string().optional() }).strict().safeParse(sugar(value, _processor_keys))
+  const result = _preset_processor.extend({ id: _processor.shape.id, preset: is.string().optional() }).strict().safeParse(sugar(value, "processor"))
   if (!result.success) {
     return value
   }
@@ -119,7 +119,7 @@ const _plugin_keys = [...Object.keys(_preset_plugin.parse({}))]
 /** Plugin component config */
 export const plugin = is.preprocess((value) => {
   const result = _preset_plugin.omit({ processors: true }).extend({ id: _plugin.shape.id, processors: is.array(is.unknown()).default(() => []), preset: is.string().optional() }).strict().safeParse(
-    sugar(value, _plugin_keys),
+    sugar(value, "plugin"),
   )
   if (!result.success) {
     return value
@@ -231,19 +231,30 @@ export const server = cli.extend({
 export const webrequest = is.object({
   mock: is.boolean().default(false).describe("Whether to use mocked data"),
   plugins: is.array(
-    _plugin.pick({
-      id: true,
-      timezone: true,
-      handle: true,
-      fatal: true,
-      entity: true,
-      template: true,
-      args: true,
-      preset: true,
-    })
-      .extend({
-        processors: is.array(_processor.pick({ id: true, fatal: true, args: true }).partial().extend({ id: _plugin.shape.id })),
+    is.preprocess(
+      (value) => sugar(value, "plugin"),
+      _plugin.pick({
+        id: true,
+        timezone: true,
+        handle: true,
+        fatal: true,
+        entity: true,
+        template: true,
+        args: true,
+      }).extend({
+        preset: is.string().optional(),
+        processors: is.array(
+          is.preprocess(
+            (value) => sugar(value, "processor"),
+            _processor.pick({
+              id: true,
+              fatal: true,
+              args: true,
+            }).extend({ preset: is.string().optional() }).partial(),
+          ),
+        ).default(() => []).describe("Post-processors"),
       }).partial(),
+    ),
   ).default(() => []).describe("Plugins"),
 })
 
@@ -257,7 +268,7 @@ function merge(...objects: unknown[]) {
 }
 
 /** Syntaxic sugar for components that allows the use of one extra dictionnary as identifier and args */
-export function sugar(value: unknown, _keys: string[] | "processor" | "plugin") {
+export function sugar(value: unknown, _keys: "processor" | "plugin") {
   const keys = Array.isArray(_keys) ? _keys : { processor: _processor_keys, plugin: _plugin_keys }[_keys]
   if ((!value) || (typeof value !== "object") || ("id" in value)) {
     return value

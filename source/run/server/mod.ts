@@ -19,6 +19,7 @@ import { Secret } from "@engine/utils/secret.ts"
 import { Requests } from "@engine/components/requests.ts"
 import { App } from "y/@octokit/app@14.0.0"
 import { client } from "./mod_imports.ts"
+import { Browser } from "@engine/utils/browser.ts"
 try {
   await import("./imports.ts")
 } catch { /* Ignore */ }
@@ -48,7 +49,11 @@ class Server extends Internal {
       })
     }
     this.#kv = new KV()
-    console.log(this.context)
+    Deno.addSignalListener("SIGINT", async () => {
+      this.log.info("received SIGINT, closing server")
+      await Browser.shared?.close()
+      Deno.exit(0)
+    })
   }
 
   /** KV */
@@ -245,7 +250,7 @@ class Server extends Internal {
                 // Filter features and apply server configuration
                 try {
                   const { plugins } = await parse(webrequest.pick({ plugins: true }), context)
-                  context.plugins = plugins.filter(({ id }) => id).concat([{ processors: [{ id: "render", args: { format: { jpg: "jpeg" }[ext] ?? ext } }] }])
+                  context.plugins = plugins.concat([{ processors: [{ id: "render", args: { format: { jpg: "jpeg" }[ext] ?? ext } }] }])
                   context = await parse(webrequest, context)
                   log.trace("parsed request")
                   log.trace(context)

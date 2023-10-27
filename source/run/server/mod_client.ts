@@ -1,20 +1,25 @@
 // Imports
 /// <reference lib="dom" />
-import Alpine from "https://esm.sh/alpinejs@3.13.0"
-import * as YAML from "https://esm.sh/js-yaml@4.1.0"
-import hljs from "https://esm.sh/highlight.js@11.8.0/lib/core"
-import hlyaml from "https://esm.sh/highlight.js@11.8.0/lib/languages/yaml"
+import Alpine from "y/alpinejs@3.13.0"
+import * as YAML from "y/js-yaml@4.1.0"
+import hljs from "y/highlight.js@11.8.0/lib/core"
+import hlyaml from "y/highlight.js@11.8.0/lib/languages/yaml"
+import type { webrequest } from "@engine/config.ts"
+import { is } from "@engine/utils/validation.ts"
+import { Logger } from "@engine/utils/log.ts"
+import { debounce, DebouncedFunction } from "std/async/debounce.ts"
+import rehypeStringify from "y/rehype-stringify@10.0.0"
+import remarkParse from "y/remark-parse@11.0.0"
+import remarkRehype from "y/remark-rehype@11.0.0"
+import { unified } from "y/unified@11.0.4"
 hljs.registerLanguage("yaml", hlyaml)
+const log = new Logger(import.meta, { level: "trace" })
 
 //TODO(@lowlighter): correct default value
-//TODO(@lowlighter): edit as yaml
-//TODO(@lowlighter): render mocked plugins
-//TODO(@lowlighter): expandable add processor
-//TODO(@lowlighter): fix overflow url
 //TODO(@lowlighter): notice for plugins that are disabled/limited
-//TODO(@lowlighter): meta config in url
 //TODO(@lowlighter): change header color for preview or print message
-//TODO(@lowlighter): better styling and dark mode
+//Drag and drop for reorganize
+//Clone
 
 /*
 timezone: true,
@@ -40,120 +45,249 @@ document.querySelectorAll("[x-component]").forEach((component) => {
   )
 })
 
+const menu = {
+  header: {
+    user: false,
+    collapse: true,
+  },
+}
+
 const data = await fetch("/metadata").then((response) => response.json())
 data.user = await fetch("/me").then((response) => response.json())
 data.ratelimit = await fetch("/ratelimit").then((response) => response.json())
 console.log(data)
-Alpine.data("data", () => data)
 
-Alpine.store("menu", {
-  dropdown: false,
-})
+// deno-lint-ignore no-explicit-any
+type Any = any
 
-type plugin = {
-  id: string
-  args: Record<string, unknown>
-  processors: Array<processor>
-  edit: "code" | "ui"
-}
-type processor = {
-  id: string
-  args: Record<string, unknown>
-}
-type config = {
-  handle: string
-  plugins: Array<plugin>
-}
+/** Web request */
+type request = is.infer<webrequest>
 
-interface CraftStore {
-  handle: string
-  plugins: plugin[]
-  craftConfig(index?: number): Promise<config>
-}
+/** Plugin */
+type plugin = request["plugins"][0]
 
-Alpine.store("craft", {
-  handle: "",
-  plugins: [] as Array<plugin>,
-  addPlugin(this: CraftStore, plugin: plugin) {
-    this.plugins.push({ ...plugin, processors: [], edit: "ui" })
-  },
-  removePlugin(this: CraftStore, i: number) {
-    this.plugins.splice(i, 1)
-  },
-  addProcessor(this: CraftStore, processor: processor, i: number) {
-    this.plugins[i].processors.push(processor)
-  },
-  removeProcessor(this: CraftStore, i: number, j: number) {
-    this.plugins[i].processors.splice(j, 1)
-  },
-  setEditMode(this: CraftStore, mode: "code" | "ui", i: number) {
-    this.plugins[i].edit = mode
-  },
-  // deno-lint-ignore require-await
-  async craftConfig(this: CraftStore, index: number) {
-    const config = { handle: this.handle, plugins: [] } as config
-    for (let i = 0; i < this.plugins.length; i++) {
-      const plugin = { id: this.plugins[i].id, args: {}, processors: [], edit: "ui" } as plugin
-      const inputs = document.querySelectorAll(`[data-plugin="${i}"] input, [data-plugin="${i}"] select`)
-      let skip = ""
-      for (const input of inputs as unknown as Array<HTMLInputElement>) {
-        console.log(input.name, input.value, skip)
-        const [_, ...parts] = input.name.split(".")
-        let at = plugin as Record<PropertyKey, unknown>
-        if (/^processors\[(\d+)\]$/.test(_)) {
-          const j = Number(_.match(/^processors\[(\d+)\]$/)?.[1])
-          plugin.processors[j] ??= { id: this.plugins[i].processors[j].id, args: {} }
-          at = plugin.processors[j]
-        }
-        const last = parts.pop()!
-        if (last === "$") {
-          skip = (!input.checked) ? [_, ...parts].join(".") : ""
-          continue
-        }
-        if (skip && (input.name.startsWith(skip))) {
-          continue
-        }
-        skip = ""
-        console.log(">>>>> setting", input.name, "to", input.value)
-        for (const part of parts) {
-          at[part] ??= {}
-          at = at[part] as typeof at
-        }
-        switch (input.type) {
-          case "number":
-            at[last] = Number(input.value)
-            break
-          case "checkbox":
-            at[last] = input.checked
-            break
-          case "hidden":
-            at[last] = JSON.parse(input.value)
-            break
-          default:
-            at[last] = input.value
-        }
-      }
-      config.plugins[i] = plugin
-      console.log(YAML.dump(config))
-    }
-    if (typeof index === "number") {
-      return config.plugins[index]
-    }
-    //              document.querySelector(`[data-plugin="${i}"] .preview img`).src = `/preview?plugins=${JSON.stringify(config.plugins)}&t=${Date.now()}`
+/** Processor */
+type processor = NonNullable<plugin["processors"]>[0]
 
-    return config
-  },
-  async getUrl(this: CraftStore, { preview = false, time = false } = {}) {
-    const { plugins } = await this.craftConfig()
-    const handle = preview ? "preview" : this.handle || "preview"
-    const params = new URLSearchParams({ plugins: JSON.stringify(plugins) })
-    if (time) {
+class Crafter {
+  readonly state = {
+    mode: "web",
+    edit: {
+      global: "",
+    },
+    expand: {
+      plugins: true,
+      processors: NaN,
+    },
+  }
+
+  /** Global config */
+  readonly global = {
+    inputs: {},
+  }
+
+  /** Config */
+  readonly config = {
+    plugins: data.plugins.map((x: any) => Alpine.reactive({ ...x, args: {}, processors: [], debounce: null as null | DebouncedFunction<[]> })) as plugin[],
+    presets: {
+      default: {
+        plugins: {
+          handle: "",
+        },
+        processors: {
+          handle: "",
+        },
+      },
+    },
+  }
+
+  /** Markdown renderer (internal) */
+  private readonly remark = unified()
+    .use(remarkParse as Any)
+    .use(remarkRehype as Any)
+    .use(rehypeStringify as Any)
+
+  /** Render markdown */
+  markdown(text: string) {
+    return this.remark.process(text)
+  }
+
+  /** Format key path into human-readable format */
+  formatKeyPath(path: Array<string | number>) {
+    return path.filter((key) => !`${key}`.includes("@")).map((key) => typeof key === "number" ? `[${key}]` : `.${key}`).join("").replace(/^\./, "")
+  }
+
+  /** Add new plugin */
+  addPlugin({ plugin }: { plugin: plugin }) {
+    log.debug(`plugins: add "${plugin.id}"`)
+    this.config.plugins.push({ ...plugin, args: {}, processors: [], debounce: null as null | DebouncedFunction<[]> })
+    this.state.expand.plugins = false
+  }
+
+  /** Remove plugin */
+  removePlugin({ plugin }: { plugin: number }) {
+    log.debug(`plugins: remove "${this.config.plugins[plugin].id}" (at index ${plugin})`)
+    this.config.plugins.splice(plugin, 1)
+    this.state.expand.plugins = this.config.plugins.length === 0
+  }
+
+  /** Render plugin */
+  renderPlugin({ plugin: i, mock = false, force = false }: { plugin: number; mock?: boolean; force?: boolean }) {
+    const handle = this.config.presets.default.plugins.handle || (mock = true, "octocat")
+    const params = new URLSearchParams({ mock: `${mock}`, plugins: this.getPluginConfig({ plugin: i, output: "json" }) })
+    if (force) {
       params.set("t", `${Date.now()}`)
     }
-    return `${globalThis.origin}/${handle}?${params}`
-  },
-  async getConfig(this: CraftStore) {
-    return hljs.highlight(YAML.dump(await this.craftConfig()), { language: "yaml" }).value
-  },
-})
+    const url = `${globalThis.origin}/${handle}?${params}`
+    const img = document.querySelector(`[data-plugin="${i}"] .preview img`)
+    if (img) {
+      ;(img as HTMLImageElement).src = url
+      log.trace(`plugins: render "${this.config.plugins[i].id}" (at index ${i}${mock ? ", mocked" : ""})`)
+    }
+    return url
+  }
+
+  /** Add new processor to a plugin  */
+  addProcessor({ plugin: i, processor }: { plugin: number; processor: processor }) {
+    log.debug(`processors: add "${processor.id}" to "${this.config.plugins[i].id}" (at index ${i})`)
+    this.config.plugins[i]?.processors?.push({ ...processor, args: {} })
+    this.state.expand.processors = NaN
+  }
+
+  /** Remove processor from a plugin */
+  removeProcessor({ plugin: i, processor: j }: { plugin: number; processor: number }) {
+    log.debug(`processors: remove "${this.config.plugins[i].processors[j].id}" from "${this.config.plugins[i].id}" (at index ${i},${j})`)
+    this.config.plugins[i]?.processors?.splice(j, 1)
+    this.state.expand.processors = NaN
+  }
+
+  /** Get global mode config */
+  getGlobalConfig(options: { output?: "yaml" | "json" }): string
+  getGlobalConfig(options: { output: "object" }): plugin
+  getGlobalConfig({ output = "yaml" }: { output?: "yaml" | "json" | "object" } = {}) {
+    const { inputs: _, ...global } = this.global
+    switch (output) {
+      case "yaml":
+        return hljs.highlight(YAML.dump(global), { language: "yaml" }).value
+      case "json":
+        return JSON.stringify(global)
+    }
+  }
+
+  /** Get plugin config */
+  getPluginConfig(options: { plugin: number; output?: "yaml" | "json" }): string
+  getPluginConfig(options: { plugin: number; output: "object" }): plugin
+  getPluginConfig({ plugin: i, output = "yaml" }: { plugin: number; output?: "yaml" | "json" | "object" }) {
+    const { id, args, ...plugin } = this.config.plugins[i]
+    const processors = (plugin.processors as processor[]).map(({ id, args }) => ({ [id]: args }))
+    const local = { [id]: args, ...(processors.length ? { processors } : {}) }
+    switch (output) {
+      case "yaml":
+        return hljs.highlight(YAML.dump([local]), { language: "yaml" }).value
+      case "json":
+        return JSON.stringify([local])
+      case "object":
+        return local
+    }
+  }
+
+  /** Get full configuration */
+  getFullConfig() {
+    switch (this.state.mode) {
+      case "web": {
+        const handle = this.config.presets.default.plugins.handle || "octocat"
+        const params = new URLSearchParams({
+          ...this.getGlobalConfig({ output: "object" }),
+          plugins: JSON.stringify(this.config.plugins.map((_, plugin) => this.getPluginConfig({ plugin, output: "object" }))),
+        })
+        return `${globalThis.origin}/${handle}?${params}`
+      }
+      default: {
+        const { presets } = this.config
+        const plugins = this.config.plugins.map((_, plugin) => this.getPluginConfig({ plugin, output: "object" }))
+        return hljs.highlight(YAML.dump({ ...this.getGlobalConfig({ output: "object" }), config: { plugins, presets } }), { language: "yaml" }).value
+      }
+    }
+  }
+
+  /** Set crafter mode */
+  setMode(event: Event) {
+    const target = event.target as HTMLInputElement
+    this.state.mode = target.value
+    this.global.inputs = data.modes[this.state.mode]
+    this.state.edit.global = `<x-schema-inputs x-data="{inputs:$store.craft.global.inputs, path:['@global']}"></x-schema-inputs>`
+    log.debug(`mode set to: ${this.state.mode}`)
+  }
+
+  /** Set default value */
+  setDefaultValue(path: Array<string | number>, input: any) {
+    /*console.log([...path], {...input})
+    const keys = path.filter(key => !`${key}`.includes("@"))
+    if ("default" in input) {
+      const value = input.default
+      this.setValue(path, {target:{value}})
+      log.debug(`set default for config.${this.formatKeyPath(keys)}: ${value}`)
+    }*/
+  }
+
+  /** Update config value */
+  setValue(path: Array<string | number>, event: Event, { anyof = false } = {}) {
+    // Handle anyof inputs by cleaning up siblings and dispatching input event to active children
+    const target = event.target as HTMLInputElement
+    if (anyof) {
+      const subpath = path.join(".")
+      log.trace(`refreshing [name^="${subpath.replace(/@\d+$/, "")}"]`)
+      target.checked = true
+      document.querySelectorAll(`[name^="${subpath.replace(/@\d+$/, "")}"].anyof:checked`).forEach((input) => {
+        if (!input.id.startsWith(subpath)) {
+          Object.assign(input, { checked: false })
+          return
+        }
+        input.nextElementSibling?.querySelector("input")?.dispatchEvent(new Event("input"))
+      })
+      return
+    }
+
+    // Retrieve value from event target
+    let value = null
+    switch (target.type) {
+      case "checkbox":
+        value = target.checked
+        break
+      case "number":
+        value = Number(target.value)
+        break
+      default:
+        value = target.value
+    }
+
+    // Update config value
+    let object = ({ "@global": this.global }[path[0]] ?? this.config) as Record<PropertyKey, unknown>
+    const keys = path.filter((key) => !`${key}`.includes("@"))
+    for (let i = 0; i < keys.length - 1; i++) {
+      const key = keys[i]
+      log.trace(`accessing config.${this.formatKeyPath(keys.slice(0, i + 1))}`)
+      if (typeof key === "number") {
+        object[key] ??= []
+      } else {
+        object[key] ??= {}
+      }
+      object = object[key] as Record<PropertyKey, unknown>
+    }
+    object[keys.at(-1)!] = value
+    log.debug(`set ${{ "@global": "global" }[path[0]] ?? "config"}.${this.formatKeyPath(keys)}: ${value}`)
+
+    // Refresh plugins preview
+    if (path[0] === "plugins") {
+      const i = Number(path[1])
+      const plugin = this.config.plugins[i]
+      plugin.debounce ??= debounce(() => this.renderPlugin({ plugin: i }), 1000)
+      plugin.debounce()
+    }
+  }
+}
+
+Alpine.data("data", () => data)
+Alpine.store("menu", menu)
+Alpine.store("craft", new Crafter())
 Alpine.start()

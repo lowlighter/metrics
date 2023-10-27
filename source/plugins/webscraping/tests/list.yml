@@ -31,6 +31,23 @@
               select: .webscraping
               match: hello world
 
+- name: supports `background:false`
+  plugins:
+    - webscraping:
+        url: https://metrics.test
+        select: blockquote
+        mode: image
+        background: false
+      processors:
+        - assert:
+            html:
+              select: .webscraping .title
+              match: example
+        - assert:
+            html:
+              select: .webscraping img
+              count: 1=
+
 - name: cleans resources on error
   plugins:
     - webscraping:

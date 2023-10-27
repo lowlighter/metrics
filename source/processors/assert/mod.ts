@@ -44,11 +44,11 @@ export default class extends Processor {
   protected async action(state: state) {
     const result = await this.piped(state)
     const { error, html, mime } = await parse(this.inputs, this.context.args)
-    if (typeof result.content !== "string") {
+    if (result instanceof Error) {
       if (error) {
         return
       }
-      expect(result.content).to.be.a("string", "expected previous content to be successful")
+      throws(`expected previous result to be successful (got "${result}")`)
     }
     if (mime) {
       expect(result.mime).to.include(mime)
