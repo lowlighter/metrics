@@ -4,6 +4,7 @@
       - control.error:
           message: expected error
         fatal: false
+        logs: none
       - assert:
           error: true
 
@@ -94,5 +95,6 @@
           html:
             select: .foo
         fatal: false
+        logs: none
       - assert:
           error: true

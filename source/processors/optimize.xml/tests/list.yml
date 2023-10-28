@@ -17,5 +17,6 @@
           content: <!-- comment
       - optimize.xml:
         fatal: false
+        logs: none
       - assert:
           error: true

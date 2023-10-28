@@ -12,13 +12,13 @@ export const config = {
   presets: {
     default: {
       plugins: {
-        logs: "none",
+        logs: "warn",
         mock: true,
         fatal: true,
         retries: { attempts: 1, delay: 0 },
       },
       processors: {
-        logs: "none",
+        logs: "warn",
         fatal: true,
         retries: { attempts: 1, delay: 0 },
       },
@@ -27,7 +27,7 @@ export const config = {
 } as const
 
 /** Setup and teardown for components testing */
-export function setup() {
+export function setup(_: unknown) {
   const { raw } = Logger
   const { shareable } = Browser
   Logger.raw = false

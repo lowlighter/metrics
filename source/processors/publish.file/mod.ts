@@ -1,7 +1,7 @@
 // Imports
 import { is, parse, Processor, state } from "@engine/components/processor.ts"
 import { extension } from "std/media_types/extension.ts"
-import * as Base64 from "std/encoding/base64.ts"
+import { decodeBase64 } from "std/encoding/base64.ts"
 import { write } from "@engine/utils/io.ts"
 
 /** Processor */
@@ -41,6 +41,6 @@ export default class extends Processor {
       file = file.replaceAll("*", ext)
     }
     this.log.io(`writing file: ${file}`)
-    await write(file, base64 ? Base64.decode(result.content) : result.content)
+    await write(file, base64 ? decodeBase64(result.content) : result.content)
   }
 }

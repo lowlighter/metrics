@@ -1,6 +1,7 @@
 import { dir, expect, MetricsError, t } from "@engine/utils/testing.ts"
-import { env, inspect, KV, list, listen, read, testing, write } from "@engine/utils/io.ts"
+import { env, KV, list, listen, read, testing, write } from "@engine/utils/io.ts"
 import { delay } from "std/async/delay.ts"
+import { fromFileUrl } from "std/path/from_file_url.ts"
 
 const uuid = crypto.randomUUID().slice(-12).toUpperCase()
 const test = {
@@ -9,20 +10,6 @@ const test = {
   env: `UNIT_TEST_${uuid}`,
   port: 9000,
 }
-
-Deno.test(t(import.meta, "`inspect()` returns a representation of the value"), { permissions: "none" }, () => {
-  const object = { foo: "bar" }
-  expect(inspect(object)).to.be.a("string").and.not.equal(`${object}`)
-})
-
-Deno.test(t(import.meta, "`inspect()` is polyfilled in non-deno environments"), { permissions: "none" }, () => {
-  testing.deno = false
-  const object = { foo: "bar" }
-  expect(inspect(object)).to.include("foo").and.to.include("bar")
-  expect(inspect(object)).to.not.equal(`${object}`)
-  expect(inspect(0n)).to.equal("0")
-  testing.deno = true
-})
 
 Deno.test(t(import.meta, "`listen()` returns a listener to a local address"), { permissions: { net: [`0.0.0.0:${test.port}`] } }, () => {
   expect(() => listen({ port: test.port }).close()).not.to.throw()
@@ -57,6 +44,14 @@ Deno.test(t(import.meta, "`read()` can read a data url"), { permissions: "none" 
   const data = `data:text/plain;base64,${btoa("hello")}`
   await expect(read(data)).to.be.a("promise").and.to.be.fulfilled.and.to.eventually.be.a("string")
   expect(() => read(data, { sync: true })).to.throw(MetricsError, /unsupported action/i)
+})
+
+Deno.test(t(import.meta, "`read()` converts `metrics://` scheme to `/source`"), { permissions: { read: [dir.source] } }, async () => {
+  const url = fromFileUrl(import.meta.url).replaceAll("\\", "/")
+  const expected = await read(url)
+  const test = url.replace(dir.source, "metrics:/")
+  await expect(read(test)).to.eventually.equal(expected)
+  await expect(read(new URL(test))).to.eventually.equal(expected)
 })
 
 Deno.test(t(import.meta, "`read()` is polyfilled for asynchronous read in non-deno environments"), { permissions: { read: [test.file] } }, async () => {

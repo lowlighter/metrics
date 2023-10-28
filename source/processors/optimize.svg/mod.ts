@@ -1,6 +1,7 @@
 // Imports
 import { Processor, state } from "@engine/components/processor.ts"
 import { optimize } from "y/svgo@3.0.2"
+import { throws } from "@engine/utils/errors.ts"
 
 /** Processor */
 export default class extends Processor {
@@ -41,6 +42,9 @@ export default class extends Processor {
       ],
       multipass: true,
     })
+    if (!optimized) {
+      throws("Failed to optimize SVG (no data returned)")
+    }
     result.content = optimized
   }
 }

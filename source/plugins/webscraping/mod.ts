@@ -3,7 +3,7 @@ import { is, parse, Plugin } from "@engine/components/plugin.ts"
 import { Browser } from "@engine/utils/browser.ts"
 import { delay } from "std/async/delay.ts"
 import { resize } from "x/deno_image@0.0.4/mod.ts"
-import * as Base64 from "std/encoding/base64.ts"
+import { encodeBase64 } from "std/encoding/base64.ts"
 
 /** Plugin */
 export default class extends Plugin {
@@ -28,20 +28,23 @@ export default class extends Plugin {
   /** Inputs */
   readonly inputs = is.object({
     url: is.string().url().default("https://example.com").describe("Website URL (e.g. `https://example.com`)"),
-    select: is.string().default("body").describe("Query selector"),
+    select: is.string().default("body").describe("HTML query selector"),
     viewport: is.object({
       width: is.number().positive().default(1280).describe("Viewport width"),
       height: is.number().positive().default(1280).describe("Viewport height"),
     }).default(() => ({})),
-    mode: is.enum(["text", "image"]).default("image").describe("Output"),
-    wait: is.number().default(0).describe("Wait time before screenshot (in seconds)"),
-    background: is.boolean().default(true).describe("Background"),
+    mode: is.union([
+      is.literal("text").describe("Extract text from selected content"),
+      is.literal("image").describe("Screenshot selected content"),
+    ]).default("image").describe("Output format"),
+    wait: is.number().default(0).describe("Wait time before performing action (in seconds)"),
+    background: is.boolean().default(true).describe("Display background (n.b. only applies to `image` mode)"),
   })
 
   /** Outputs */
   readonly outputs = is.object({
-    title: is.string(),
-    content: is.string(),
+    title: is.string().describe("Website title"),
+    content: is.string().describe("Extracted content (either raw text or base64 encoded image depending on `mode`)"),
   })
 
   /** Action */
@@ -70,7 +73,7 @@ export default class extends Plugin {
           }
           const buffer = await page.screenshot({ format: "png", clip: { width, height, x, y, scale: 1 } }) as Uint8Array
           const img = await resize(buffer, { height: 400 })
-          result.content = `data:image/png;base64,${Base64.encode(img)}`
+          result.content = `data:image/png;base64,${encodeBase64(img)}`
           break
         }
         case "text": {
@@ -80,11 +83,9 @@ export default class extends Plugin {
           break
         }
       }
-      await page.close()
       return result
-    } catch (error) {
+    } finally {
       await page.close()
-      throw error
     }
   }
 }

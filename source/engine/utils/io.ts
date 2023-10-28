@@ -5,6 +5,7 @@ import { throws } from "@engine/utils/errors.ts"
 import { dirname } from "std/path/dirname.ts"
 import { toFileUrl } from "std/path/to_file_url.ts"
 import { resolve } from "std/path/resolve.ts"
+import * as dir from "@engine/paths.ts"
 
 /** Runtime (internal, exported for testing purposes only) */
 export const testing = {
@@ -16,18 +17,6 @@ const runtime = {
   get deno() {
     return testing.deno
   },
-}
-
-/** Inspect */
-export function inspect(message: unknown) {
-  if (!runtime.deno) {
-    try {
-      return JSON.stringify(message, null, 2)
-    } catch {
-      return `${message}`
-    }
-  }
-  return Deno.inspect(message, { colors: true, depth: Infinity, iterableLimit: 16, strAbbreviateSize: 120 })
 }
 
 /** Port listener */
@@ -42,6 +31,11 @@ export function listen(options: Deno.ListenOptions) {
 export function read(path: string | URL, options: { sync: true }): string
 export function read(path: string | URL, options?: { sync?: false }): Promise<string>
 export function read(path: string | URL, { sync = false } = {}) {
+  if ((typeof path === "string") && (path.startsWith("metrics://"))) {
+    path = path.replace("metrics:/", dir.source)
+  } else if ((path instanceof URL) && (path.protocol === "metrics:")) {
+    path = path.href.replace("metrics:/", dir.source)
+  }
   if (!runtime.deno) {
     if (sync) {
       throws("Unsupported action: synchronous read")

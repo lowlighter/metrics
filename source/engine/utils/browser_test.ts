@@ -81,3 +81,19 @@ Deno.test(t(import.meta, "`page.setTransparentBackground()` sets a transparent b
   expect(Browser.shared).to.be.null
   Browser.shareable = shareable
 })
+
+Deno.test(t(import.meta, "`page.evaluate()` runs scripts"), { permissions }, async () => {
+  const { shareable } = Browser
+  Browser.shareable = true
+  await Browser.shared?.close()
+  expect(Browser.shared).to.be.null
+  const page = await Browser.page({ log, bin, width: 800, height: 600 })
+  await expect(page.evaluate(() => {
+    throw new Error("Expected error")
+  })).to.be.rejected
+  await expect(page.evaluate(() => ({ width: window.innerWidth, height: window.innerHeight }))).to.eventually.deep.equal({ width: 800, height: 600 })
+  await page.close()
+  await Browser.shared?.close()
+  expect(Browser.shared).to.be.null
+  Browser.shareable = shareable
+})

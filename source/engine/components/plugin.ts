@@ -1,7 +1,7 @@
 // Imports
 import { Component, is, parse, state } from "@engine/components/component.ts"
 import { list, read } from "@engine/utils/io.ts"
-import { plugin as schema, plugin_nop as schema_nop } from "@engine/config.ts"
+import { _plugin_nop_removed_keys as schema_nop_removed_keys, plugin as schema, plugin_nop as schema_nop } from "@engine/config.ts"
 import * as ejs from "y/ejs@3.1.9"
 import { Requests } from "@engine/components/requests.ts"
 import { Formatter } from "@engine/utils/format.ts"
@@ -53,8 +53,8 @@ export abstract class Plugin extends Component {
 
   /** Render an EJS template */
   protected async render({ state }: { state: state }) {
-    const name = this.context.template
-    const path = new URL(`templates/${name}.ejs`, this.meta.url)
+    const name = this.context.template!
+    const path = name.startsWith("metrics://") ? new URL(name) : new URL(`templates/${name}.ejs`, this.meta.url)
     const template = await read(path)
     const { data: args = {} } = await this.inputs.safeParseAsync(this.context.args) as { data?: Record<PropertyKey, unknown> }
     this.log.debug(`rendering template: ${name}`)
@@ -94,6 +94,7 @@ export abstract class Plugin extends Component {
         Object.assign(result.result, processed.result)
       }
       if (processed.error) {
+        state.result!.result = processed.error
         state.errors.push({ severity: "error", source: tracker, message: `${processed.error}` })
       }
     }
@@ -158,7 +159,7 @@ export abstract class Plugin extends Component {
 
     /** Constructor */
     constructor(context = {} as Record<PropertyKey, unknown>, { meta = Plugin.NOP.meta } = {}) {
-      super(parse(schema_nop, context, { sync: true }) as Plugin["context"])
+      super(parse(schema_nop, Object.fromEntries(Object.entries(context).filter(([key]) => !{ ...schema_nop_removed_keys }[key])), { sync: true }) as Plugin["context"])
       Object.assign(this, { meta, id: "@nop" })
     }
 

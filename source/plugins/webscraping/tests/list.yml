@@ -54,6 +54,7 @@
         url: https://metrics.test
         select: ">>>"
       fatal: false
+      logs: "none"
       processors:
         - assert:
             error: true

@@ -24,22 +24,30 @@ export default class extends Plugin {
   /** Inputs */
   readonly inputs = is.object({
     repositories: is.object({
-      affiliations: is.preprocess((value) => [value].flat(), is.array(is.enum(["owner", "collaborator", "organization_member"]))).default(["owner", "collaborator"]).describe(
-        "Repository affiliations",
-      ),
-      visibility: is.enum(["public", "all"]).default("public").describe("Repository visibility"),
+      affiliations: is.preprocess(
+        (value) => [value].flat(),
+        is.array(is.union([
+          is.literal("owner").describe("Include repositories owned by user"),
+          is.literal("collaborator").describe("Include repositories user has been added to as a collaborator"),
+          is.literal("organization_member").describe("Include repositories owned by organizations user is a member of"),
+        ])),
+      ).default(["owner", "collaborator"]).describe("Repository affiliations"),
+      visibility: is.union([
+        is.literal("public").describe("Includes public repositories only"),
+        is.literal("all").describe("Includes public and private repositories (n.b. still subject to token permissions)"),
+      ]).default("public").describe("Repository visibility"),
       archived: is.boolean().default(false).describe("Include archived repositories"),
       forked: is.boolean().default(false).describe("Include forked repositories"),
-      matching: is.preprocess((value) => [value].flat(), is.array(is.coerce.string())).default("*/*").describe("Include repositories matching at least one of these patterns"),
+      matching: is.preprocess((value) => [value].flat(), is.array(is.coerce.string())).default(() => ["*/*"]).describe("Include repositories matching at least one of these patterns"),
     }).default(() => ({})).describe("Repositories options"),
     history: is.object({
-      limit: is.number().min(0).nullable().default(1).describe("Years to keep in history (use `null` to keep all history)"),
+      limit: is.number().min(0).nullable().default(1).describe("Years to keep in history. Set to `null` to keep all history"),
     }).default(() => ({})).describe("History options"),
     contributors: is.object({
-      matching: is.preprocess((value) => [value].flat(), is.array(is.coerce.string())).default("*").describe(
-        "Include contributors matching at least one of these patterns (note: if `entity` is set to `user`, the default value will be set to the user `handle` instead of `*`)",
+      matching: is.preprocess((value) => [value].flat(), is.array(is.coerce.string())).default(() => ["*"]).describe(
+        "Include contributors matching at least one of these patterns (n.b. if `entity: user`, the default value will be set to `handle` instead)",
       ),
-      limit: is.number().min(0).nullable().default(4).describe("Number of contributors to display (use `null` to display all contributors)"),
+      limit: is.number().min(0).nullable().default(4).describe("Number of contributors to display. Set to `null` to display all contributors"),
     }).default(() => ({})).describe("Contributors options"),
     fetch: is.object({
       attempts: is.number().min(0).default(30).describe("Number of retries"),
@@ -50,22 +58,22 @@ export default class extends Plugin {
   /** Outputs */
   readonly outputs = is.object({
     repositories: is.record(
-      is.string(),
+      is.string().describe("Repository handle"),
       is.object({
         total: is.number().min(0).describe("Total number of lines added, deleted and changed"),
         added: is.number().min(0).describe("Total number of lines added"),
         deleted: is.number().min(0).describe("Total number of lines deleted"),
         changed: is.number().min(0).describe("Total number of lines changed"),
         contributors: is.record(
-          is.string(),
+          is.string().describe("Contributor handle"),
           is.object({
             avatar: is.string().nullable().describe("User avatar"),
-            total: is.number().min(0).describe("Total number of lines added, deleted and changed"),
-            added: is.number().min(0).describe("Total number of lines added"),
-            deleted: is.number().min(0).describe("Total number of lines deleted"),
-            changed: is.number().min(0).describe("Total number of lines changed"),
+            total: is.number().min(0).describe("Total number of lines added, deleted and changed by user"),
+            added: is.number().min(0).describe("Total number of lines added by user"),
+            deleted: is.number().min(0).describe("Total number of lines deleted by user"),
+            changed: is.number().min(0).describe("Total number of lines changed by user"),
           }),
-        ).describe("Contributors statistics (contributors are ordered by the total number of lines added, deleted and changed in a descending order)"),
+        ).describe("Contributors statistics (n.b. contributors are ordered by the total number of edited lines in descending order)"),
         weeks: is.record(
           is.string(),
           is.object({
@@ -74,17 +82,17 @@ export default class extends Plugin {
             deleted: is.number().min(0).describe("Total number of lines deleted"),
             changed: is.number().min(0).describe("Total number of lines changed"),
             contributors: is.record(
-              is.string(),
+              is.string().describe("Contributor handle"),
               is.object({
                 avatar: is.string().nullable().describe("User avatar"),
-                total: is.number().min(0).describe("Number of lines added, deleted and changed"),
-                added: is.number().min(0).describe("Number of lines added"),
-                deleted: is.number().min(0).describe("Number of lines deleted"),
-                changed: is.number().min(0).describe("Number of lines changed"),
+                total: is.number().min(0).describe("Number of lines added, deleted and changed by user"),
+                added: is.number().min(0).describe("Number of lines added by user"),
+                deleted: is.number().min(0).describe("Number of lines deleted by user"),
+                changed: is.number().min(0).describe("Number of lines changed by user"),
               }),
-            ).describe("Weekly contributors statistics (contributors are ordered by the total number of lines added, deleted and changed in a descending order)"),
+            ).describe("Weekly contributors statistics (n.b. contributors are ordered by the total number of edited lines in descending order)"),
           }),
-        ).describe("Weekly statistics (weeks are ordered by date in an ascending order)"),
+        ).describe("Weekly statistics (n.b. weeks are ordered by date in ascending order)"),
       }),
     ).describe("Repositories statistics"),
   })

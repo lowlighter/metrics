@@ -8,9 +8,6 @@ import { Logger } from "@engine/utils/log.ts"
 import { throws } from "@engine/utils/errors.ts"
 import { filterKeys } from "std/collections/filter_keys.ts"
 
-/** Entities */
-const entities = ["user", "organization", "repository"] as const
-
 /** Timezones */
 const timezones = Intl.supportedValuesOf("timeZone")
 
@@ -22,7 +19,15 @@ const secret = is.union([is.unknown(), is.instanceof(Secret)]).transform((value)
 
 /** Internal component config */
 export const internal = is.object({
-  logs: is.enum(["none", "error", "warn", "info", "message", "debug", "trace"]).describe("Log level"),
+  logs: is.union([
+    is.literal("none").describe("Disable logs"),
+    is.literal("error").describe("Display error logs"),
+    is.literal("warn").describe("Display warning logs and higher"),
+    is.literal("info").describe("Display information logs and higher"),
+    is.literal("message").describe("Display message logs and higher"),
+    is.literal("debug").describe("Display debug logs and higher"),
+    is.literal("trace").describe("Display trace logs and higher"),
+  ]).describe("Log level"),
 })
 
 /** General component config */
@@ -47,8 +52,12 @@ export const requests = internal.extend({
 /** Plugin component internal config (without processors, to allow recursive typing within processor typing) */
 const _plugin_without_processors = component.merge(requests).extend({
   handle: is.coerce.string().min(1).nullable().describe("GitHub handle"),
-  entity: is.enum(entities).describe("GitHub entity type"),
-  template: is.union([is.literal(null), is.coerce.string().url(), is.coerce.string().min(1)]).describe("Template name or url (use `null` to disable)"),
+  entity: is.union([
+    is.literal("user").describe("GitHub user"),
+    is.literal("organization").describe("GitHub organization"),
+    is.literal("repository").describe("GitHub repository"),
+  ]).describe("GitHub entity type"),
+  template: is.union([is.literal(null), is.coerce.string().url(), is.coerce.string().min(1)]).describe("Template name or url. Set to `null` to skip rendering"),
 })
 
 /** Processor component internal config */
@@ -87,7 +96,7 @@ const _plugin = _plugin_without_processors.extend({
 })
 
 /** Plugin NOP removed keys */
-const _plugin_nop_removed_keys = { id: true, args: true, retries: true, template: true } as const
+export const _plugin_nop_removed_keys = { id: true, args: true, retries: true, template: true } as const
 
 /** Plugin NOP internal config */
 const _plugin_nop = _plugin.omit(_plugin_nop_removed_keys).strict().transform((value) => ({ ...value, template: null })) as unknown as is.ZodObject<

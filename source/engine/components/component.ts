@@ -8,6 +8,7 @@ import { MetricsError, throws } from "@engine/utils/errors.ts"
 import { exists } from "std/fs/exists.ts"
 import * as YAML from "std/yaml/parse.ts"
 import { read } from "@engine/utils/io.ts"
+import * as dir from "@engine/paths.ts"
 
 /** Component */
 export abstract class Component extends Internal {
@@ -113,7 +114,11 @@ export abstract class Component extends Internal {
   /** Load component statically */
   static async load(context: Record<PropertyKey, unknown> & { id: string }) {
     let error = null
-    const url = /^(https?|file):/.test(context.id) ? new URL(context.id) : toFileUrl(`${this.path}/${context.id}${context.id.endsWith("_test.ts") ? "" : "/mod.ts"}`)
+    const url = /^(https?|file):/.test(context.id)
+      ? new URL(context.id)
+      : context.id.startsWith("metrics://")
+      ? toFileUrl(context.id.replace("metrics:/", dir.source))
+      : toFileUrl(`${this.path}/${context.id}${context.id.endsWith("_test.ts") ? "" : "/mod.ts"}`)
     const { default: Module } = await import(url.href).catch((reason) => (error = reason, {}))
     if (!Module) {
       throws(`${this.name} ${context.id} could not be loaded (${error})`)

@@ -19,5 +19,6 @@
           mime: image/svg+xml
       - optimize.svg:
         fatal: false
+        logs: none
       - assert:
           error: true

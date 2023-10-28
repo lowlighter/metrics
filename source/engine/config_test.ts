@@ -139,6 +139,9 @@ Deno.test(t(import.meta, "`parse(server)` is parseable and has defaults"), { per
 
 Deno.test(t(import.meta, "`parse(webrequest)` is parseable and has defaults"), { permissions: "none" }, async () => {
   await expect(parse(webrequest, {})).to.be.fulfilled
+  await expect(parse(webrequest, { plugins: [{}] })).to.be.fulfilled.and.eventually.containSubset({ plugins: [{}] })
+  await expect(parse(webrequest, { plugins: [{ foo: {} }] })).to.be.fulfilled.and.eventually.containSubset({ plugins: [{ id: "foo" }] })
+  await expect(parse(webrequest, { plugins: [{ foo: {}, processors: [{ bar: {} }] }] })).to.be.fulfilled.and.eventually.containSubset({ plugins: [{ id: "foo", processors: [{ id: "bar" }] }] })
 })
 
 Deno.test(t(import.meta, "`load()` reads file and returns parsed config"), { permissions: "none" }, async () => {

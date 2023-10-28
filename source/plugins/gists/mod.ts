@@ -20,8 +20,11 @@ export default class extends Plugin {
 
   /** Inputs */
   readonly inputs = is.object({
-    forks: is.boolean().default(false).describe("Whether to include forks"),
-    visibility: is.enum(["public", "all"]).default("public").describe("Gists visibility"),
+    forks: is.boolean().default(false).describe("Include forked gists"),
+    visibility: is.union([
+      is.literal("public").describe("Includes public gists only"),
+      is.literal("all").describe("Includes public and private gists (n.b. still subject to token permissions)"),
+    ]).default("public").describe("Gists visibility"),
   })
 
   /** Outputs */

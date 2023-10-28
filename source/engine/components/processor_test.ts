@@ -37,6 +37,10 @@ Deno.test(t(import.meta, "`static .load()` can instantiate from url scheme"), { 
   await expect(Processor.load({ id: import.meta.url })).to.eventually.be.instanceOf(TestProcessor)
 })
 
+Deno.test(t(import.meta, "`static .load()` can instantiate from `metrics://` scheme"), { permissions: "none" }, async () => {
+  await expect(Processor.load({ id: "metrics://engine/components/processor_test.ts" })).to.eventually.be.instanceOf(TestProcessor)
+})
+
 // TODO(@lowlighter): change to `[dir.source]` after https://github.com/denoland/deno_std/pull/3692
 Deno.test(t(import.meta, "`static .list()` returns a list of available plugins"), { permissions: { read: true } }, async () => {
   await expect(Processor.list()).to.be.eventually.be.an("array")
@@ -52,7 +56,7 @@ for (const id of await Processor.list()) {
   }
   for (const test of tests) {
     Deno.test(t(name, test.name), await getPermissions(test), async () => {
-      const { teardown } = setup()
+      const { teardown } = setup(test)
       await expect(process(deepMerge(config, test, { arrays: "replace" }))).to.be.fulfilled.and.eventually.be.ok
       teardown()
     })

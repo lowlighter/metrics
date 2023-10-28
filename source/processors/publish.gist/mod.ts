@@ -1,7 +1,7 @@
 // Imports
 import { is, parse, Processor, state } from "@engine/components/processor.ts"
 import { extension } from "std/media_types/extension.ts"
-import * as Base64 from "std/encoding/base64.ts"
+import { decodeBase64 } from "std/encoding/base64.ts"
 
 /** Processor */
 export default class extends Processor {
@@ -19,7 +19,7 @@ export default class extends Processor {
 
   /** Inputs */
   readonly inputs = is.object({
-    gist: is.coerce.string().describe("Target gist id (gist must be created beforehand, id can be found in the url after the username)"),
+    gist: is.coerce.string().describe("Target gist id (n.b. gist must be created beforehand, its id can be found in the url)"),
     filepath: is.string().default("metrics.*").describe("Target filename (use `*` to automatically match detected filetype extension)"),
   })
 
@@ -43,7 +43,7 @@ export default class extends Processor {
     }
     if (base64) {
       this.log.trace("decoding base64 content")
-      content = new TextDecoder().decode(Base64.decode(content))
+      content = new TextDecoder().decode(decodeBase64(content))
     }
     this.log.io(`uploading gist ${gist}: ${file}`)
     await this.requests.rest(this.requests.api.gists.update, { gist_id: gist, files: { [file]: { content } } })

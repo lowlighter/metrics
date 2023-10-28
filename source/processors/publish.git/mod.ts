@@ -1,7 +1,7 @@
 // Imports
 import { is, parse, Processor, state } from "@engine/components/processor.ts"
 import { extension } from "std/media_types/extension.ts"
-import * as Base64 from "std/encoding/base64.ts"
+import { decodeBase64, encodeBase64 } from "std/encoding/base64.ts"
 import { parseHandle } from "@engine/utils/github.ts"
 import github from "y/@actions/github@5.1.1"
 
@@ -79,7 +79,7 @@ export default class extends Processor {
       // Compute object hash
       this.log.probe(`committing ${file} to ${commit.branch}`)
       const header = new TextEncoder().encode(`blob ${result.content.length}\0`)
-      const blob = base64 ? Base64.decode(result.content) : new TextEncoder().encode(result.content)
+      const blob = base64 ? decodeBase64(result.content) : new TextEncoder().encode(result.content)
       const object = new Uint8Array(header.length + blob.length)
       object.set(header)
       object.set(blob, header.length)
@@ -88,7 +88,7 @@ export default class extends Processor {
       this.log.probe(`${file}@${commit.branch}: ${revision?.oid ?? "(not created yet)"}`)
       if ((!revision) || (oid !== revision.oid)) {
         this.log.probe(`uploading new revision of ${file}@${commit.branch}`)
-        const contents = base64 ? result.content : Base64.encode(result.content)
+        const contents = base64 ? result.content : encodeBase64(result.content)
         const { mutation: { commit: { oid } } } = await this.requests.graphql("commit", {
           repository,
           branch: commit.branch,

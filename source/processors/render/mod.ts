@@ -3,14 +3,13 @@ import { is, parse, Processor, state } from "@engine/components/processor.ts"
 import { Browser } from "@engine/utils/browser.ts"
 import { Format } from "@engine/utils/format.ts"
 import { Plugin } from "@engine/components/plugin.ts"
-import { env, read } from "@engine/utils/io.ts"
+import { read } from "@engine/utils/io.ts"
 import { contentType } from "std/media_types/content_type.ts"
-import * as Base64 from "std/encoding/base64.ts"
+import { encodeBase64 } from "std/encoding/base64.ts"
 
 /** Formats */
 export const formats = ["svg", "png", "jpg", "jpeg", "webp", "json", "html", "pdf", "txt", "text"] as const
 
-//TODO(@lowlighter): test remote template
 //TODO(@lowlighter): template scripts
 
 /** Processor */
@@ -29,7 +28,19 @@ export default class extends Processor {
 
   /** Inputs */
   readonly inputs = is.object({
-    format: is.enum(formats).default("svg").describe("Output format"),
+    format: is.union([
+      is.literal("svg").describe("SVG"),
+      is.literal("png").describe("PNG"),
+      is.literal("jpg").describe("Alias for JPEG"),
+      is.literal("jpeg").describe("JPEG"),
+      is.literal("webp").describe("WebP"),
+      is.literal("json").describe("JSON"),
+      is.literal("html").describe("HTML"),
+      is.literal("pdf").describe("PDF"),
+      is.literal("txt").describe("Alias for text"),
+      is.literal("text").describe("Text"),
+    ]).default("svg").describe("Output format"),
+    template: is.string().nullable().default(null).describe("Template name or url. Set to `null` to use same template as parent plugin"),
   })
 
   /** Supports */
@@ -41,13 +52,13 @@ export default class extends Processor {
   /** Action */
   protected async action(state: state) {
     const result = await this.piped(state)
-    const { format: _format } = await parse(this.inputs, this.context.args)
+    const { format: _format, template: _template } = await parse(this.inputs, this.context.args)
     const format = { jpg: "jpeg", txt: "text" }[_format as string] ?? _format
     result.mime = contentType(format)!
 
     //Render image
     const wrapper = ["html", "json"].includes(format) ? format : "svg"
-    const template = this.context.parent?.template as string ?? "classic"
+    const template = _template ?? this.context.parent?.template as string ?? "classic"
     //TODO(@lowlighter): add warnings to state
     //if (!state.results.length)
     //  state.warnings.push({message:"No plugins to render"})
@@ -62,14 +73,13 @@ export default class extends Processor {
     })
 
     //Process SVG in browser and convert to image if needed
-    //TODO(@lowlighter): handle no local puppeteer
-    if ((wrapper === "svg") && (!env.deployment)) {
+    if (wrapper === "svg") {
       const page = await Browser.page({ log: this.log })
       try {
         // Compute SVG rendered dimensions
         this.log.trace("processing content in browser")
         await page.setContent(Format.html(render))
-        await page.waitForNavigation({ waitUntil: "load" })
+        //await page.waitForNavigation({ waitUntil: "load" })
         const { processed, width, height } = await page.evaluate(() => {
           const svg = document.querySelector("main svg")!
           const { y: height, width } = svg.querySelector("#metrics-end")!.getBoundingClientRect()
@@ -82,13 +92,11 @@ export default class extends Processor {
         if (["png", "jpeg", "webp"].includes(format)) {
           this.log.debug(`converting SVG to ${format}`)
           await page.setTransparentBackground()
-          render = Base64.encode(await page.screenshot({ format: format as "png" | "jpeg" | "webp", clip: { x: 0, y: 0, width, height, scale: 1 } }))
+          render = encodeBase64(await page.screenshot({ format: format as "png" | "jpeg" | "webp", clip: { x: 0, y: 0, width, height, scale: 1 } }))
           result.base64 = true
         }
+      } finally {
         await page.close()
-      } catch (error) {
-        await page.close()
-        throw error
       }
     }
 
@@ -100,7 +108,7 @@ export default class extends Processor {
   private async load(template: string, path: string) {
     try {
       this.log.trace(`loading template: ${template}`)
-      return await read(/^(https?|file):/.test(template) ? new URL(`${template}/${path}`) : new URL(`templates/${template}/${path}`, import.meta.url))
+      return await read(/^(https?|file|metrics):/.test(template) ? new URL(`${template}/${path}`) : new URL(`templates/${template}/${path}`, import.meta.url))
     } catch {
       try {
         this.log.trace(`template ${template} has no ${path}, using fallback`)

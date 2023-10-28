@@ -42,10 +42,8 @@ export default class extends Processor {
         await new Function("document", `return (async () => { ${script} })()`)(document)
         return document.querySelector("main")!.innerHTML
       }, { args: [script] })
+    } finally {
       await page.close()
-    } catch (error) {
-      await page.close()
-      throw error
     }
   }
 }

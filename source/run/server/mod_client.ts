@@ -15,20 +15,19 @@ import { unified } from "y/unified@11.0.4"
 hljs.registerLanguage("yaml", hlyaml)
 const log = new Logger(import.meta, { level: "trace" })
 
-//TODO(@lowlighter): correct default value
-//TODO(@lowlighter): notice for plugins that are disabled/limited
-//TODO(@lowlighter): change header color for preview or print message
-//Drag and drop for reorganize
-//Clone
-
 /*
-timezone: true,
-handle: true,
-entity: true,
-template: true,
-preset: true,
-fatal: true,
- */
+TODO(@lowlighter):
+- Implement mobile menu
+- Drag and drop for reorganize
+- Clone plugins/processors
+- Notice for disabled options/plugins/processors
+- Display permissions and scopes
+- A way to create presets
+- Improve nullable interface
+- Editable records
+- Toggle edition for arguments
+- Edit plugins/processors contexts
+*/
 
 // Alpine components
 document.querySelectorAll("[x-component]").forEach((component) => {
@@ -45,6 +44,7 @@ document.querySelectorAll("[x-component]").forEach((component) => {
   )
 })
 
+/** Menu */
 const menu = {
   header: {
     user: false,
@@ -55,13 +55,13 @@ const menu = {
 const data = await fetch("/metadata").then((response) => response.json())
 data.user = await fetch("/me").then((response) => response.json())
 data.ratelimit = await fetch("/ratelimit").then((response) => response.json())
-console.log(data)
+data.dev = true
 
 // deno-lint-ignore no-explicit-any
 type Any = any
 
 /** Web request */
-type request = is.infer<webrequest>
+type request = is.infer<typeof webrequest>
 
 /** Plugin */
 type plugin = request["plugins"][0]
@@ -69,15 +69,20 @@ type plugin = request["plugins"][0]
 /** Processor */
 type processor = NonNullable<plugin["processors"]>[0]
 
+/** Configuration crafter */
 class Crafter {
+  /** State */
   readonly state = {
-    mode: "web",
+    mode: "",
     edit: {
       global: "",
     },
     expand: {
       plugins: true,
       processors: NaN,
+    },
+    cached: {
+      inputs: {} as Record<string, unknown>,
     },
   }
 
@@ -88,7 +93,8 @@ class Crafter {
 
   /** Config */
   readonly config = {
-    plugins: data.plugins.map((x: any) => Alpine.reactive({ ...x, args: {}, processors: [], debounce: null as null | DebouncedFunction<[]> })) as plugin[],
+    // TODO(@lowlighter): Remove debugging below
+    plugins: data.plugins.map((x: Any) => Alpine.reactive({ ...x, args: {}, processors: [], debounce: null })) as Array<plugin & { processors: processor[]; debounce: null | DebouncedFunction<[]> }>,
     presets: {
       default: {
         plugins: {
@@ -113,8 +119,34 @@ class Crafter {
   }
 
   /** Format key path into human-readable format */
-  formatKeyPath(path: Array<string | number>) {
-    return path.filter((key) => !`${key}`.includes("@")).map((key) => typeof key === "number" ? `[${key}]` : `.${key}`).join("").replace(/^\./, "")
+  formatKeyPath(path: Array<string | number>, { trim = /^$/ } = {}) {
+    return path.filter((key) => !`${key}`.includes("@")).map((key) => typeof key === "number" ? `[${key}]` : `.${key}`).join("").replace(/^\./, "").replace(trim, "")
+  }
+
+  /** Copy to clipboard */
+  async copyToClipboard(event: MouseEvent) {
+    // Print message
+    const { clientX: x, clientY: y } = event
+    const tip = document.createElement("div")
+    tip.classList.add("fixed", "z-50", "px-2", "py-1", "text-white", "bg-black", "rounded-lg", "shadow", "transition-opacity", "-translate-y-2/4", "-translate-x-2/4", "pointer-events-none")
+    tip.style.left = `${x}px`
+    tip.style.top = `${y}px`
+    tip.innerText = "Copied to clipboard!"
+    document.body.append(tip)
+    setTimeout(() => {
+      tip.classList.add("opacity-0")
+      setTimeout(() => tip.remove(), 1000)
+    }, 1000)
+    // Select and copy
+    const target = event.target as HTMLElement
+    const selection = getSelection()
+    if (selection) {
+      selection.removeAllRanges()
+      const range = document.createRange()
+      range.selectNode(target)
+      selection.addRange(range)
+    }
+    await navigator.clipboard.writeText(target.innerText)
   }
 
   /** Add new plugin */
@@ -138,7 +170,7 @@ class Crafter {
     if (force) {
       params.set("t", `${Date.now()}`)
     }
-    const url = `${globalThis.origin}/${handle}?${params}`
+    const url = `${origin}/${handle}?${params}`
     const img = document.querySelector(`[data-plugin="${i}"] .preview img`)
     if (img) {
       ;(img as HTMLImageElement).src = url
@@ -150,37 +182,39 @@ class Crafter {
   /** Add new processor to a plugin  */
   addProcessor({ plugin: i, processor }: { plugin: number; processor: processor }) {
     log.debug(`processors: add "${processor.id}" to "${this.config.plugins[i].id}" (at index ${i})`)
-    this.config.plugins[i]?.processors?.push({ ...processor, args: {} })
+    this.config.plugins[i].processors.push({ ...processor, args: {} })
     this.state.expand.processors = NaN
   }
 
   /** Remove processor from a plugin */
   removeProcessor({ plugin: i, processor: j }: { plugin: number; processor: number }) {
     log.debug(`processors: remove "${this.config.plugins[i].processors[j].id}" from "${this.config.plugins[i].id}" (at index ${i},${j})`)
-    this.config.plugins[i]?.processors?.splice(j, 1)
+    this.config.plugins[i].processors.splice(j, 1)
     this.state.expand.processors = NaN
   }
 
   /** Get global mode config */
   getGlobalConfig(options: { output?: "yaml" | "json" }): string
-  getGlobalConfig(options: { output: "object" }): plugin
-  getGlobalConfig({ output = "yaml" }: { output?: "yaml" | "json" | "object" } = {}) {
+  getGlobalConfig(options: { output: "object" }): Record<PropertyKey, unknown>
+  getGlobalConfig({ output = "yaml" }: { output?: "yaml" | "json" | "object" } = {}): string | Record<PropertyKey, unknown> {
     const { inputs: _, ...global } = this.global
     switch (output) {
       case "yaml":
         return hljs.highlight(YAML.dump(global), { language: "yaml" }).value
       case "json":
         return JSON.stringify(global)
+      case "object":
+        return global
     }
   }
 
   /** Get plugin config */
   getPluginConfig(options: { plugin: number; output?: "yaml" | "json" }): string
   getPluginConfig(options: { plugin: number; output: "object" }): plugin
-  getPluginConfig({ plugin: i, output = "yaml" }: { plugin: number; output?: "yaml" | "json" | "object" }) {
+  getPluginConfig({ plugin: i, output = "yaml" }: { plugin: number; output?: "yaml" | "json" | "object" }): string | plugin {
     const { id, args, ...plugin } = this.config.plugins[i]
-    const processors = (plugin.processors as processor[]).map(({ id, args }) => ({ [id]: args }))
-    const local = { [id]: args, ...(processors.length ? { processors } : {}) }
+    const processors = (plugin.processors as processor[]).map(({ id, args }) => ({ [id!]: args }))
+    const local = { ...(id ? { [id]: args } : {}), ...(processors.length ? { processors } : {}) }
     switch (output) {
       case "yaml":
         return hljs.highlight(YAML.dump([local]), { language: "yaml" }).value
@@ -200,7 +234,7 @@ class Crafter {
           ...this.getGlobalConfig({ output: "object" }),
           plugins: JSON.stringify(this.config.plugins.map((_, plugin) => this.getPluginConfig({ plugin, output: "object" }))),
         })
-        return `${globalThis.origin}/${handle}?${params}`
+        return `${origin}/${handle}?${params}`
       }
       default: {
         const { presets } = this.config
@@ -215,14 +249,30 @@ class Crafter {
     const target = event.target as HTMLInputElement
     this.state.mode = target.value
     this.global.inputs = data.modes[this.state.mode]
-    this.state.edit.global = `<x-schema-inputs x-data="{inputs:$store.craft.global.inputs, path:['@global']}"></x-schema-inputs>`
+    this.state.edit.global = `<x-schema-inputs x-data="{inputs:$store.craft.global.inputs, path:['@global'], trim:undefined}"></x-schema-inputs>`
     log.debug(`mode set to: ${this.state.mode}`)
   }
 
   /** Set default value */
-  setDefaultValue(path: Array<string | number>, input: any) {
-    /*console.log([...path], {...input})
-    const keys = path.filter(key => !`${key}`.includes("@"))
+  syncValue(path: Array<string | number>, input: Any) {
+    console.log([...path], { ...input }, `[name^="${path.join(".")}"]`)
+
+    setTimeout(() => {
+      if (input.anyOf) {
+        ;(document.querySelectorAll(`[name^="${path.join(".")}"]`) as unknown as HTMLInputElement[]).forEach((element) => {
+          console.log("@@@@@", element.value, input.default)
+          if ((element.value === input.default) || ((element.type === "hidden") && (`${element.value}` === `${input.default}`))) {
+            //element.click()
+          }
+        })
+      } else {
+        console.log(input.type, document.querySelectorAll(`[name^="${path.join(".")}"]`))
+      }
+    }, 1000)
+
+    //[...document.querySelectorAll("[name^='plugins.0.args.view']")].filter(x => x.value === "isometric")[0].click()
+
+    /*const keys = path.filter(key => !`${key}`.includes("@"))
     if ("default" in input) {
       const value = input.default
       this.setValue(path, {target:{value}})
@@ -230,8 +280,16 @@ class Crafter {
     }*/
   }
 
+  /** Set cached value */
+  setCachedValue(path: Array<string | number>, event: Event) {
+    const target = event.target as HTMLInputElement
+    const value = target.value
+    this.state.cached.inputs[path.join(".")] = value
+    log.debug(`set cached for config.${this.formatKeyPath(path)}: ${value}`)
+  }
+
   /** Update config value */
-  setValue(path: Array<string | number>, event: Event, { anyof = false } = {}) {
+  setValue(path: Array<string | number>, event: Event, { anyof = false, cached = false } = {}) {
     // Handle anyof inputs by cleaning up siblings and dispatching input event to active children
     const target = event.target as HTMLInputElement
     if (anyof) {
@@ -248,7 +306,7 @@ class Crafter {
       return
     }
 
-    // Retrieve value from event target
+    // Retrieve value from event target or from cache
     let value = null
     switch (target.type) {
       case "checkbox":
@@ -259,6 +317,10 @@ class Crafter {
         break
       default:
         value = target.value
+    }
+    if (cached) {
+      value = this.state.cached.inputs[path.join(".")]
+      log.trace(`read value from cache for ${this.formatKeyPath(path)}: ${value}`)
     }
 
     // Update config value

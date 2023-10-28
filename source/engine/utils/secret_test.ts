@@ -1,5 +1,5 @@
 import { expect, t } from "@engine/utils/testing.ts"
-import { inspect } from "@engine/utils/io.ts"
+import { inspect } from "@engine/utils/inspect.ts"
 import { Secret } from "@engine/utils/secret.ts"
 
 const value = "SECRET_VALUE"

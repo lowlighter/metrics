@@ -7,7 +7,7 @@ import { env, KV, listen, read } from "@engine/utils/io.ts"
 import { Internal } from "@engine/components/internal.ts"
 import * as YAML from "std/yaml/mod.ts"
 import { parseHandle } from "@engine/utils/github.ts"
-import * as Base64 from "std/encoding/base64.ts"
+import { decodeBase64 } from "std/encoding/base64.ts"
 import { serveDir, serveFile } from "std/http/file_server.ts"
 import { fromFileUrl } from "std/path/from_file_url.ts"
 import { Status } from "std/http/http_status.ts"
@@ -325,7 +325,7 @@ class Server extends Internal {
                 // Process request
                 try {
                   const { content = "", mime = "image/svg+xml", base64 = false } = await process(context) ?? {}
-                  const body = base64 ? Base64.decode(content) : content
+                  const body = base64 ? decodeBase64(content) : content
                   const headers = new Headers({ "cache-control": typeof this.context.cache === "number" ? `max-age=${this.context.cache}` : "no-store" })
                   if (!body) {
                     return promise.resolve(new Response(null, { status: Status.NoContent, headers }))!

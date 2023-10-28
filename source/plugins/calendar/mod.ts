@@ -20,51 +20,73 @@ export default class extends Plugin {
 
   /** Inputs */
   readonly inputs = is.object({
-    view: is.enum(["isometric", "top-down"]).default("isometric").describe("Calendar view"),
+    view: is.union([
+      is.literal("isometric").describe("Isometric view"),
+      is.literal("top-down").describe("Top-down view"),
+    ]).default("isometric").describe("Calendar view"),
     range: is.union([
+      is.union([
+        is.literal("last-180-days").describe("Display last 180 days"),
+        is.literal("last-365-days").describe("Display last 365 days"),
+        is.literal("current-year").describe("Display current year (starting from january 1st)"),
+      ]).describe("Predefined range"),
+      is.coerce.number().min(1970).describe(`Set to specific year (e.g. ${new Date().getFullYear()})`),
       is.object({
-        from: is.union([is.literal("registration"), is.coerce.number().min(1970), is.coerce.number().negative()]).default("registration").describe(
-          "Start date (use `registration` to set it to user registration year, and a negative value to set it to `range.to` minus specified value)",
-        ),
-        to: is.union([is.literal("current-year"), is.coerce.number().min(1970)]).default("current-year").describe("End date (use `current-year` to set it to current year)"),
-      }),
-      is.literal("last-180-days"),
-      is.literal("last-365-days"),
-      is.literal("current-year"),
-      is.coerce.number().min(1970),
-    ]).default("last-365-days").describe("Date range"),
-    colors: is.enum(["auto", "halloween", "winter"]).default("auto").describe("Color scheme"),
+        from: is.union([
+          is.literal("registration").describe("Set to user's registration year"),
+          is.coerce.number().min(1970).describe(`Set to specific year (e.g. ${new Date().getFullYear()})`),
+          is.coerce.number().negative().describe("Set year relative to `range.to` value"),
+        ]).default("registration").describe("Starting year"),
+        to: is.union([
+          is.literal("current-year").describe("Set to current year"),
+          is.coerce.number().min(1970).describe(`Set to specific year (e.g. ${new Date().getFullYear()})`),
+        ]).default("current-year").describe("Ending year"),
+      }).describe("Custom range"),
+    ]).default("last-365-days").describe("Year range"),
+    colors: is.union([
+      is.union([
+        is.literal("auto").describe("Use current GitHub theme"),
+        is.literal("halloween").describe("Force Halloween theme"),
+        is.literal("winter").describe("Force Winter theme"),
+      ]).describe("Predefined color scheme"),
+      is.array(is.string()).length(5).default(["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"]).describe("Use a custom color scheme. Each color represents a commit quartile level"),
+    ]).default("auto").describe("Color scheme"),
+    isometric: is.object({
+      max_cap: is.number().int().min(1).nullable().default(null).describe(
+        "Cap the value used to compute the height of each day to mitigate graphs distorted by distant values. Set to `null` to disable",
+      ),
+    }).nullable().default(null).describe("Isometric view options (n.b. only applies to `isometric` view)"),
   })
 
   /** Outputs */
   readonly outputs = is.object({
     range: is.object({
-      start: is.coerce.date().describe("Start date"),
-      end: is.coerce.date().describe("End date"),
+      start: is.coerce.date().describe("Starting year"),
+      end: is.coerce.date().describe("Ending date"),
       average: is.number().min(0).describe("Average number of commits per day"),
       max: is.number().int().min(0).describe("Highest number of commits in a single day"),
       streak: is.object({
         max: is.number().int().min(0).describe("Highest number of consecutive days with commits"),
         current: is.number().int().min(0).describe("Current number of consecutive days with commits"),
       }).describe("Streak statistics"),
-    }).describe("Date range"),
+    }).describe("Year range"),
     calendar: is.object({
-      colors: is.enum(["default", "halloween", "winter"]).describe("Color scheme"),
+      colors: is.enum(["default", "halloween", "winter", "custom"]).describe("Color scheme"),
       years: is.array(is.object({
         year: is.union([is.string(), is.coerce.number().int().positive()]).describe("Year"),
         weeks: is.array(is.object({
           days: is.array(
             is.object({
               date: is.coerce.date().describe("Date"),
-              count: is.number().int().min(0).describe("Number of commits"),
-              level: is.number().min(0).max(4).describe("Commit quartile level"),
+              count: is.number().int().min(0).describe("Number of commits this day"),
+              level: is.number().min(0).max(4).describe("Commit quartile level this day"),
             }).nullable(),
-          ).describe("Days statistics (`null` if fetched day is outside current year)"),
+          ).describe("Days statistics. Set to `null` if day is outside of current year"),
         })).describe("Weeks statistics"),
-        average: is.number().min(0).describe("Average number of commits per day for the year "),
-        max: is.number().int().min(0).describe("Highest number of commits in a single day for the year"),
+        average: is.number().min(0).describe("Average number of commits per day for this year"),
+        max: is.number().int().min(0).describe("Highest number of commits in a single day for this year"),
         streak: is.object({
-          max: is.number().int().min(0).describe("Highest number of consecutive days with commits for the year"),
+          max: is.number().int().min(0).describe("Highest number of consecutive days with commits for this year"),
         }).describe("Streak statistics"),
       })),
     }).describe("Calendar statistics"),
@@ -77,7 +99,7 @@ export default class extends Plugin {
 
     //Color scheme
     const { entity: { contributions: { calendar: { colors: [color] } } } } = await this.graphql("colors", { login: handle })
-    const colors = inputs.colors !== "auto" ? inputs.colors : { "#ffee4a": "halloween", "#0a3069": "winter" }[color as string] ?? "default"
+    const colors = Array.isArray(inputs.colors) ? "custom" : inputs.colors !== "auto" ? inputs.colors : { "#ffee4a": "halloween", "#0a3069": "winter" }[color as string] ?? "default"
 
     //Compute date range
     const lastXdays = /^last-(?<n>\d+)-days$/

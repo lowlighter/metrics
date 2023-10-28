@@ -20,5 +20,6 @@
           script: |
             throw new Error("expected error")
         fatal: false
+        logs: none
       - assert:
           error: true

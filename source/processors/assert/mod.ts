@@ -31,25 +31,24 @@ export default class extends Processor {
   /** Inputs */
   readonly inputs = is.object({
     error: is.boolean().default(false).describe("Assert previous content returned an error"),
-    mime: is.string().optional(),
+    mime: is.string().optional().describe("Assert mime type"),
     html: is.object({
-      select: is.string().default("main").describe("Query selector"),
-      match: is.coerce.string().optional().describe("Assert element content match pattern (will be treated as regex if matching `/pattern/flags`, prefix with `/!` to negate regex matching)"),
+      select: is.string().default("main").describe("HTML query selector"),
+      match: is.coerce.string().optional().describe("Assert selected content match pattern. If formatted as `/pattern/flags`, will be treated as regex (prefix with `/!` to negate match instead)"),
       raw: is.boolean().default(false).describe("Use raw HTML instead of text content"),
-      count: is.coerce.string().regex(regexs.count).optional().describe("Assert number of elements"),
-    }).nullable().default(null).describe("HTML selection (mime must be either `application/xml`, `image/svg+xml` or `text/html`)"),
+      count: is.coerce.string().regex(regexs.count).optional().describe("Assert number of elements. Supported operations are `<`, `<=`, `>`, `>=`, `=` and `~`"),
+    }).nullable().default(null).describe("HTML operations (only applies when mime is either `application/xml`, `image/svg+xml` or `text/html`)"),
   })
 
   /** Action */
   protected async action(state: state) {
     const result = await this.piped(state)
     const { error, html, mime } = await parse(this.inputs, this.context.args)
-    if (result instanceof Error) {
-      if (error) {
-        return
-      }
-      throws(`expected previous result to be successful (got "${result}")`)
+    if (error) {
+      expect(result.result).to.be.instanceOf(Error)
+      return
     }
+    expect(result.result).to.not.be.instanceOf(Error)
     if (mime) {
       expect(result.mime).to.include(mime)
     }

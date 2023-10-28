@@ -6,7 +6,7 @@ export class MetricsError extends Error {
   /** Constructor */
   constructor(message?: string, { unrecoverable = false } = {}) {
     super(message)
-    this.stack = ""
+    //this.stack = ""
     this.unrecoverable = unrecoverable
   }
 }

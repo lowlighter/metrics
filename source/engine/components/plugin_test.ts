@@ -30,8 +30,11 @@ Deno.test(t(import.meta, "`.supported()` throws when unsupported"), { permission
   await expect(Plugin.run({ context: { id: import.meta.url, entity: "organization", fatal: true } })).to.be.rejectedWith(MetricsError, /not supported for organization/i)
 })
 
-Deno.test(t(import.meta, "`.render()` returns a list of available plugins"), { permissions: { read: [dir.source] } }, async () => {
+Deno.test(t(import.meta, "`.render()` renders template content"), { permissions: { read: [dir.source] } }, async () => {
   await expect(Plugin.run({ context: { id: import.meta.url, entity: "user", template: "../tests/template", fatal: true } })).to.be.eventually.containSubset({ result: { content: "foo" } })
+  await expect(Plugin.run({ context: { id: import.meta.url, entity: "user", template: "metrics://engine/components/tests/template.ejs", fatal: true } })).to.be.eventually.containSubset({
+    result: { content: "foo" },
+  })
 })
 
 // TODO(@lowlighter): change to `[dir.source]` after https://github.com/denoland/deno_std/pull/3692
@@ -46,6 +49,10 @@ Deno.test(t(import.meta, "`static .load()` can instantiate from string id"), { p
 
 Deno.test(t(import.meta, "`static .load()` can instantiate from url scheme"), { permissions: "none" }, async () => {
   await expect(Plugin.load({ id: import.meta.url })).to.eventually.be.instanceOf(TestPlugin)
+})
+
+Deno.test(t(import.meta, "`static .load()` can instantiate from `metrics://` scheme"), { permissions: "none" }, async () => {
+  await expect(Plugin.load({ id: "metrics://engine/components/plugin_test.ts" })).to.eventually.be.instanceOf(TestPlugin)
 })
 
 Deno.test(t(import.meta, "`static .load()` without identifier returns `Plugin.NOP`"), { permissions: "none" }, async () => {
@@ -69,7 +76,7 @@ for (const id of await Plugin.list()) {
   for (const test of tests) {
     for (const template of templates) {
       Deno.test(t(name, `*${template}* ${test.name}`), await getPermissions(test), async () => {
-        const { teardown } = setup()
+        const { teardown } = setup(test)
         await expect(process(deepMerge({ presets: { default: { plugins: { template } } } }, deepMerge(config, test, { arrays: "replace" })))).to.be.fulfilled.and.eventually.be.ok
         teardown()
       })

@@ -59,10 +59,8 @@ export default class extends Processor {
         },
         { args: [scope, style] },
       )
+    } finally {
       await page.close()
-    } catch (error) {
-      await page.close()
-      throw error
     }
   }
 }

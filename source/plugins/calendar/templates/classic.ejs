@@ -12,10 +12,10 @@
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M2.343 13.657A8 8 0 1113.657 2.343 8 8 0 012.343 13.657zM6.03 4.97a.75.75 0 00-1.06 1.06L6.94 8 4.97 9.97a.75.75 0 101.06 1.06L8 9.06l1.97 1.97a.75.75 0 101.06-1.06L9.06 8l1.97-1.97a.75.75 0 10-1.06-1.06L8 6.94 6.03 4.97z"></path></svg>
         <span><%= result.message %></span>
       </div>
-    <% } else { %>
-      <div class="rows">
+    <% } else { const scope = crypto.randomUUID(), cap = Math.min(Math.max(...result.calendar.years.map(({max}) => max)), args.isometric?.max_cap || Infinity)  %>
+      <div class="rows calendar-<%= scope %>">
         <% for (const {year, weeks, average, max, streak} of result.calendar.years.reverse()) { %>
-          <div class="<%= {isometric:"columns", "top-down":"rows reverse"}[args.view] ?? "" %> year year-<%= year %>">
+          <div class="<%= {isometric:"columns", "top-down":"rows reverse"}[args.view] ?? "" %> year year-<%= `${year}`.replace(/[^\w]/g, "_") %>">
             <aside>
               <div class="padding"></div>
                 <% if (args.view === "isometric") { const size = 6, height = (weeks.length > 30) ? 290 : 190; let i = 0, j = 0 %>
@@ -32,7 +32,7 @@
                     <g transform="scale(4) translate(12, 0)">
                       <% for (const {days} of weeks) { j = 0 %>
                         <g transform="translate(<%= i * 1.7 %>, <%= i %>)">
-                          <% for (const day of days) { if (day) { const ratio = (day.count / max) || 0 %>
+                          <% for (const day of days) { if (day) { const ratio = Math.min(1, day.count / cap || 0) %>
                             <g class="day" transform="translate(<%= j * -1.7 %>, <%= j + (1 - ratio) * size %>)">
                               <path fill="var(--calendar-<%= result.calendar.colors %>-L<%= day.level %>)" d="M1.7,2 0,1 1.7,0 3.4,1 z" />
                               <path fill="var(--calendar-<%= result.calendar.colors %>-L<%= day.level %>)" filter="url(#brightness1)" d="M0,1 1.7,2 1.7,<%= 2 + ratio * size %> 0,<%= 1 + ratio * size %> z" />
@@ -43,7 +43,7 @@
                       <% } %>
                     </g>
                   </svg>
-                  <%- `<style>.calendar .year-${year} aside:first-child .padding { padding-top: ${height}px; }</style>` %>
+                  <%- `<style>.calendar-${scope} .year-${`${year}`.replace(/[^\w]/g, "_")} aside:first-child .padding { padding-top: ${height}px; }</style>` %>
                 <% } else if (args.view === "top-down") { %>
                   <svg class="render" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0,0 795,110">
                       <% for (const [x, {days}] of Object.entries(weeks)) { %>
@@ -89,20 +89,23 @@
           </div>
         <% } %>
       </div>
+      <% if (Array.isArray(args.colors)) { %>
+        <%- `<style>.calendar-${scope} { ${args.colors.map((color, i) => `--calendar-custom-L${i}: ${color};`).join("\n")} }</style>` %>
+      <% } %>
+      <% if (args.view === "isometric") { %>
+        <style>
+          .calendar .year > aside:first-child {
+            position: relative;
+          }
+          .calendar .year > aside:first-child svg {
+            position: absolute;
+            top: 0;
+            width: 200%;
+          }
+        </style>
+      <% } %>
     <% } %>
   </div>
-  <% if (args.view === "isometric") { %>
-    <style>
-      .calendar .year > aside:first-child {
-        position: relative;
-      }
-      .calendar .year > aside:first-child svg {
-        position: absolute;
-        top: 0;
-        width: 200%;
-      }
-    </style>
-  <% } %>
 </section>
 
 

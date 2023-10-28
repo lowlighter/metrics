@@ -70,3 +70,15 @@
           format: json
       - assert:
           mime: application/json
+
+- name: can render remote templates
+  plugins:
+    - processors:
+      - render:
+          format: svg
+          template: metrics://processors/render/templates/classic
+      - assert:
+          mime: image/svg+xml
+          html:
+            match: /<svg.*?>.*Classic template.*<.svg>/is
+            raw: true

@@ -1,6 +1,6 @@
 //Imports
 import { Logger } from "@engine/utils/log.ts"
-import { getBinary, launch } from "gh/lino-levan/astral@main/mod.ts?r=1" // TODO(@lowlighter): use x/astral when available
+import { getBinary, launch } from "x/astral@0.3.0/mod.ts"
 import { env } from "@engine/utils/io.ts"
 import * as dir from "@engine/paths.ts"
 import { throws } from "@engine/utils/errors.ts"
@@ -60,19 +60,36 @@ export class Browser {
       throws("Browser has no instance attached")
     }
     const page = await this.#instance.newPage(url)
-    page.setViewportSize({ width, height })
-    //page
-    //  .on("console", (message: { text: () => string }) => log.debug(`puppeteer: ${message.text()}`))
-    //  .on("pageerror", (error: { message: string }) => log.warn(`puppeteer: ${error.message}`))
-    const close = page.close.bind(page)
-    page.close = async () => {
-      await close()
-      this.log.io("closed browser page")
-      if (!Browser.shareable) {
-        await this.close()
-      }
+    if ((typeof width === "number") && (typeof height === "number")) {
+      page.setViewportSize({ width, height })
     }
+    const close = page.close.bind(page)
+    const evaluate = page.evaluate.bind(page)
     Object.assign(page, {
+      // Close page (and eventually browser)
+      close: async () => {
+        await close()
+        this.log.io("closed browser page")
+        if (!Browser.shareable) {
+          await this.close()
+        }
+      },
+      // Evaluate function (and launch func for coverage)
+      evaluate: (async (func: Parameters<typeof evaluate>[0], options?: Parameters<typeof evaluate>[1]) => {
+        if ((!Browser.shareable) && (typeof func === "function")) {
+          try {
+            await func()
+          } catch {
+            // Ignore
+          }
+        }
+        try {
+          return await evaluate(func, options)
+        } catch (error) {
+          throws(error.text)
+        }
+      }) as typeof evaluate,
+      // Set transparent background
       setTransparentBackground: async () => {
         const celestial = page.unsafelyGetCelestialBindings()
         await celestial.Emulation.setDefaultBackgroundColorOverride({ color: { r: 0, b: 0, g: 0, a: 0 } })
@@ -90,7 +107,7 @@ export class Browser {
   static shareable = true
 
   /** Instantiates or reuse  */
-  static async page({ log, bin }: { log: Logger; bin?: string }) {
+  static async page({ log, bin, width, height }: { log: Logger; bin?: string; width?: number; height?: number }) {
     if ((Browser.shareable) && (!Browser.shared)) {
       Object.assign(Browser, { shared: await new Browser({ log: new Logger(import.meta, { level: "none" }), bin }).ready })
       const close = Browser.shared!.close.bind(Browser.shared)
@@ -102,7 +119,7 @@ export class Browser {
       log.io("opened shared browser instance")
     }
     const browser = await new Browser({ log, bin, endpoint: Browser.shared?.endpoint }).ready
-    return browser.page()
+    return browser.page({ width, height })
   }
 
   /** Get binary path */

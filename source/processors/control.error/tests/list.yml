@@ -4,5 +4,6 @@
       - control.error:
           message: expected error
         fatal: false
+        logs: none
       - assert:
           error: true
