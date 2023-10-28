@@ -93,8 +93,7 @@ class Crafter {
 
   /** Config */
   readonly config = {
-    // TODO(@lowlighter): Remove debugging below
-    plugins: data.plugins.map((x: Any) => Alpine.reactive({ ...x, args: {}, processors: [], debounce: null })) as Array<plugin & { processors: processor[]; debounce: null | DebouncedFunction<[]> }>,
+    plugins: [] as Array<plugin & { processors: processor[]; debounce: null | DebouncedFunction<[]> }>,
     presets: {
       default: {
         plugins: {
@@ -249,35 +248,58 @@ class Crafter {
     const target = event.target as HTMLInputElement
     this.state.mode = target.value
     this.global.inputs = data.modes[this.state.mode]
-    this.state.edit.global = `<x-schema-inputs x-data="{inputs:$store.craft.global.inputs, path:['@global'], trim:undefined}"></x-schema-inputs>`
+    this.state.edit.global =
+      `<x-schema-inputs x-data="{inputs:$store.craft.global.inputs, path:['@global'], trim:undefined}" x-init="$nextTick(() => $store.craft.syncValue(path, inputs))"></x-schema-inputs>`
     log.debug(`mode set to: ${this.state.mode}`)
   }
 
   /** Set default value */
-  syncValue(path: Array<string | number>, input: Any) {
-    console.log([...path], { ...input }, `[name^="${path.join(".")}"]`)
-
-    setTimeout(() => {
-      if (input.anyOf) {
-        ;(document.querySelectorAll(`[name^="${path.join(".")}"]`) as unknown as HTMLInputElement[]).forEach((element) => {
-          console.log("@@@@@", element.value, input.default)
-          if ((element.value === input.default) || ((element.type === "hidden") && (`${element.value}` === `${input.default}`))) {
-            //element.click()
-          }
-        })
-      } else {
-        console.log(input.type, document.querySelectorAll(`[name^="${path.join(".")}"]`))
+  syncValue(path: Array<string | number>, inputs: Any) {
+    log.probe("syncinc", this.formatKeyPath(path))
+    const subpath = path.join(".")
+    switch (true) {
+      case inputs.type === "object": {
+        for (const [key, input] of Object.entries(inputs.properties)) {
+          this.syncValue([...path, key], input)
+        }
+        break
       }
-    }, 1000)
-
-    //[...document.querySelectorAll("[name^='plugins.0.args.view']")].filter(x => x.value === "isometric")[0].click()
-
-    /*const keys = path.filter(key => !`${key}`.includes("@"))
-    if ("default" in input) {
-      const value = input.default
-      this.setValue(path, {target:{value}})
-      log.debug(`set default for config.${this.formatKeyPath(keys)}: ${value}`)
-    }*/
+      case inputs.type === "boolean": {
+        const input = document.querySelector(`[name="${subpath}"]`) as HTMLInputElement
+        if (!input) {
+          break
+        }
+        input.checked = inputs.default
+        this.setValue(path, { target: input } as Any)
+        break
+      }
+      case inputs.type === "integer":
+      case inputs.type === "number":
+      case inputs.type === "string": {
+        const input = document.querySelector(`[name="${subpath}"]`) as HTMLInputElement
+        if (!input) {
+          break
+        }
+        input.value = inputs.default ?? ""
+        this.setValue(path, { target: input } as Any)
+        break
+      }
+      case ("anyOf" in inputs) && (inputs.anyOf.every((item) => item.const)): {
+        const input = document.querySelector(`[id="${subpath}@${inputs.default}"]`) as HTMLInputElement
+        if (!input) {
+          break
+        }
+        input.checked = true
+        this.setValue(path, { target: input } as Any)
+        break
+      }
+      case ("anyOf" in inputs): {
+        console.log("Need to search here")
+        break
+      }
+      default:
+        console.log(inputs)
+    }
   }
 
   /** Set cached value */
