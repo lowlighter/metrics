@@ -1,0 +1,13 @@
+mutation GitPullRequestMerge($method: PullRequestMergeMethod, $pr: ID!) {
+  mutation: mergePullRequest(
+    input: {
+      mergeMethod: $method
+      pullRequestId: $pr
+    }
+  ) {
+    pullrequest: pullRequest {
+      id
+      number
+    }
+  }
+}

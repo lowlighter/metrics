@@ -23,10 +23,12 @@ TODO(@lowlighter):
 - Notice for disabled options/plugins/processors
 - Display permissions and scopes
 - A way to create presets
-- Improve nullable interface
-- Editable records
+- Improve nullable interface ++
+- Editable records ++
 - Toggle edition for arguments
-- Edit plugins/processors contexts
+- Edit plugins/processors contexts ++
+- Sync values ++
+- Edit raw YAML
 */
 
 // Alpine components
@@ -55,7 +57,7 @@ const menu = {
 const data = await fetch("/metadata").then((response) => response.json())
 data.user = await fetch("/me").then((response) => response.json())
 data.ratelimit = await fetch("/ratelimit").then((response) => response.json())
-data.dev = true
+data.dev = false//true
 
 // deno-lint-ignore no-explicit-any
 type Any = any

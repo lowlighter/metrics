@@ -9,7 +9,7 @@ import { throws } from "@engine/utils/errors.ts"
 import { filterKeys } from "std/collections/filter_keys.ts"
 
 /** Timezones */
-const timezones = Intl.supportedValuesOf("timeZone")
+const timezones = [...Intl.supportedValuesOf("timeZone"), "UTC"]
 
 /** Default log levels */
 const loglevel = "trace"

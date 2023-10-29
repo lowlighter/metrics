@@ -9,7 +9,8 @@ mutation GitPullRequest($title: String!, $message: String!, $base: String!, $hea
       repositoryId: $repository
     }
   ) {
-    pullRequest {
+    pullrequest: pullRequest {
+      id
       number
     }
   }

@@ -1,0 +1,11 @@
+mutation GitDeleteRef($ref: ID!) {
+  mutation: deleteRef(
+    input: {
+      refId: $ref
+    }
+  ) {
+    clientMutationId
+  }
+}
+
+

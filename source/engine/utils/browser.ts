@@ -109,7 +109,7 @@ export class Browser {
   /** Instantiates or reuse  */
   static async page({ log, bin, width, height }: { log: Logger; bin?: string; width?: number; height?: number }) {
     if ((Browser.shareable) && (!Browser.shared)) {
-      Object.assign(Browser, { shared: await new Browser({ log: new Logger(import.meta, { level: "none" }), bin }).ready })
+      Object.assign(Browser, { shared: await new Browser({ log: new Logger(import.meta, { level: "none" }), bin, endpoint:env.get("BROWSER_ENDPOINT") }).ready })
       const close = Browser.shared!.close.bind(Browser.shared)
       Browser.shared!.close = async () => {
         await close()

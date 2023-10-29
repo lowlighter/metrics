@@ -1,0 +1,15 @@
+query GitPullRequestNumber($search: String!){
+  search(first:2, type: ISSUE, query: $search) {
+    pullrequests: nodes {
+      ... on PullRequest {
+        number
+        title
+        id
+        ref: headRef {
+          id
+          name
+        }
+      }
+    }
+  }
+}

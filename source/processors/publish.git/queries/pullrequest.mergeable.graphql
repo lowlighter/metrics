@@ -1,0 +1,7 @@
+query GitPullRequestMergeable($owner: String!, $repo: String!, $pr: Int!){
+  repository(owner: $owner, name: $repo) {
+    pullrequest: pullRequest(number: $pr) {
+      mergeable
+    }
+  }
+}
