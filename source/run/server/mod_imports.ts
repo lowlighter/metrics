@@ -2,7 +2,7 @@
 import { expandGlob } from "std/fs/expand_glob.ts"
 import { relative } from "std/path/relative.ts"
 import { fromFileUrl } from "std/path/from_file_url.ts"
-import { read, write } from "@engine/utils/io.ts"
+import { read, write } from "@engine/utils/deno/io.ts"
 import { dirname } from "std/path/dirname.ts"
 import { Logger } from "@engine/utils/log.ts"
 import { bundle } from "x/emit@0.31.1/mod.ts"
@@ -40,7 +40,7 @@ if (import.meta.main) {
 
 /** Bundle client */
 export async function client() {
-  const { imports } = JSONC.parse(await read("deno.jsonc"))
+  const { imports } = JSONC.parse(await read("deno.jsonc")) as { imports: Record<string, string> }
   const result = await bundle(new URL("./mod_client.ts", import.meta.url), { type: "module", importMap: { imports } })
   const { code } = result
   return code

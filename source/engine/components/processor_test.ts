@@ -50,7 +50,7 @@ for (const id of await Processor.list()) {
   const processor = await Processor.load({ id })
   const tests = await processor.tests()
   const name = `${processor.icon} processors/${processor.id}`
-  if (!tests.length) {
+  if (!tests?.length) {
     Deno.test.ignore(t(name, null), () => void null)
     continue
   }

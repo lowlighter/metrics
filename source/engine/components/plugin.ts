@@ -1,6 +1,6 @@
 // Imports
 import { Component, is, parse, state } from "@engine/components/component.ts"
-import { list, read } from "@engine/utils/io.ts"
+import { list, read } from "@engine/utils/deno/io.ts"
 import { _plugin_nop_removed_keys as schema_nop_removed_keys, plugin as schema, plugin_nop as schema_nop } from "@engine/config.ts"
 import * as ejs from "y/ejs@3.1.9"
 import { Requests } from "@engine/components/requests.ts"

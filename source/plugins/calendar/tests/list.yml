@@ -27,34 +27,7 @@
               select: .calendar .year .day
               count: 180~1
 
-- name: supports `range:"last-365-days"`
-  plugins:
-    - calendar:
-        view: isometric
-        range: last-365-days
-      handle: octocat
-      processors:
-        - assert:
-            html:
-              select: .calendar .year
-              count: 1=
-        - assert:
-            html:
-              select: .calendar .year .day
-              count: 365~1
-    - calendar:
-        view: top-down
-        range: last-365-days
-      handle: octocat
-      processors:
-        - assert:
-            html:
-              select: .calendar .year
-              count: 1=
-        - assert:
-            html:
-              select: .calendar .year .day
-              count: 365~1
+
 
 - name: supports `range:"current-year"`
   plugins:

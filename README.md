@@ -2,6 +2,8 @@
 
 <!-- TODO(@lowlighter): write contributing guide -->
 
+logs: none => false
+
 See [#1533](https://github.com/lowlighter/metrics/discussions/1533)
 
 ## ✈️ Migration guide
@@ -22,7 +24,7 @@ For convenience, _metrics_ offers a [v3 to v4 migration script](/source/run/cli/
   - [ ] GitHub Action
     - [x] Implement `publish.gist`
     - [x] Implement `publish.file`
-    - [ ] Implement `publish.git` (almost finished, needs to handle the PR merge)
+    - [x] Implement `publish.git`
     - [x] Docker image
   - [ ] Web server
     - [ ] Config crafter (kind of ok, needs some polishing)

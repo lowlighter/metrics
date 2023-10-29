@@ -135,7 +135,7 @@ export class Logger {
       styles.push("")
     } else {
       styles[0] += `%c ${message}%c`
-      styles.push(`color: ${{ black: "white" }[color] ?? color}`, "")
+      styles.push(`color: ${{ black: "gray" }[color] ?? color}`, "")
     }
     return styles
   }

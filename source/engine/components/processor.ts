@@ -1,7 +1,7 @@
 // Imports
 import { Component, is, parse, state } from "@engine/components/component.ts"
 import type { processor as schema } from "@engine/config.ts"
-import { list } from "@engine/utils/io.ts"
+import { list } from "@engine/utils/deno/io.ts"
 import type { Plugin } from "@engine/components/plugin.ts"
 import { Requests } from "@engine/components/requests.ts"
 import { throws } from "@engine/utils/errors.ts"

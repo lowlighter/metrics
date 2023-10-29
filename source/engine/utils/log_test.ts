@@ -1,7 +1,7 @@
 import { expect, t, test } from "@engine/utils/testing.ts"
 import { channel, Logger } from "@engine/utils/log.ts"
 
-class DevNull {
+export class DevNull {
   readonly messages = [] as unknown[]
   flush() {
     this.messages.splice(0)

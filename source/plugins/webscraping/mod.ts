@@ -1,4 +1,5 @@
 // Imports
+/// <reference lib="dom" />
 import { is, parse, Plugin } from "@engine/components/plugin.ts"
 import { Browser } from "@engine/utils/browser.ts"
 import { delay } from "std/async/delay.ts"

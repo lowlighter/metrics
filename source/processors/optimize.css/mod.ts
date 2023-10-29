@@ -35,7 +35,7 @@ export default class extends Processor {
       this.log.trace("optimizing css")
       const optimized = minify(purged.map(({ css }) => css).join("\n")).css
       style.textContent = optimized
-      ;(style as unknown as Element).removeAttribute("data-optimizable")
+      ;(style as unknown as { removeAttribute(attr: string): void }).removeAttribute("data-optimizable")
     }
     result.content = document.querySelector("main")!.innerHTML
   }

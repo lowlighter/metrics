@@ -1,5 +1,5 @@
 // Imports
-import { read } from "@engine/utils/io.ts"
+import { read } from "@engine/utils/deno/io.ts"
 import * as JSONC from "std/jsonc/parse.ts"
 import { basename } from "std/path/basename.ts"
 import { cmp } from "std/semver/cmp.ts"

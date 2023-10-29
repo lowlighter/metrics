@@ -7,7 +7,7 @@ import { toFileUrl } from "std/path/to_file_url.ts"
 import { MetricsError, throws } from "@engine/utils/errors.ts"
 import { exists } from "std/fs/exists.ts"
 import * as YAML from "std/yaml/parse.ts"
-import { read } from "@engine/utils/io.ts"
+import { read } from "@engine/utils/deno/io.ts"
 import * as dir from "@engine/paths.ts"
 
 /** Component */

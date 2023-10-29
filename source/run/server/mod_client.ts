@@ -57,7 +57,7 @@ const menu = {
 const data = await fetch("/metadata").then((response) => response.json())
 data.user = await fetch("/me").then((response) => response.json())
 data.ratelimit = await fetch("/ratelimit").then((response) => response.json())
-data.dev = false//true
+data.dev = false //true
 
 // deno-lint-ignore no-explicit-any
 type Any = any
@@ -120,7 +120,7 @@ class Crafter {
   }
 
   /** Format key path into human-readable format */
-  formatKeyPath(path: Array<string | number>, { trim = /^$/ } = {}) {
+  formatKeyPath(path: Array<string | number>, { trim = /^ $/ } = {}) {
     return path.filter((key) => !`${key}`.includes("@")).map((key) => typeof key === "number" ? `[${key}]` : `.${key}`).join("").replace(/^\./, "").replace(trim, "")
   }
 

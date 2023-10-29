@@ -1,16 +1,26 @@
-[]
 #- name: publish svg
 #  plugins:
-#    - mock: false
-#      processors:
-#        - id: inject.content
-#          args:
+#    - processors:
+#        - inject.content:
 #            content: hello world
-#        - id: render
-#          args:
-#            format: svg
-#        - id: publish.git
-#          args:
-#            commit: null
-#            pullrequest: {}
-#            filename: test.*
+#        - publish.git:
+#            repository: octocat/test
+#            commit:
+#              message: "test"
+#            pullrequest: false
+
+# commit.base does not exist
+# commit.head does not exist
+# result is binary (like image)
+# is update and oid is the same
+# is update and oid is different
+
+# pr base does not exist
+# no diff
+# already exists
+
+# merge no pr found
+# merge too many prs found
+
+# mergeable wait
+# mergeable conflict

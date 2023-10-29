@@ -8,7 +8,7 @@ import { throws } from "@engine/utils/errors.ts"
 import { delay } from "std/async/delay.ts"
 
 /** Processor */
-export default class extends Processor {
+export default class _ extends Processor {
   /** Import meta */
   static readonly meta = import.meta
 
@@ -29,14 +29,18 @@ export default class extends Processor {
       is.object({
         message: is.string().default("chore: update ${file} (${run})").describe("Commit message. `${file}` and `${run}` will respectively be replaced by target filename and current run id"),
         to: is.string().default("metrics").describe("Branch where content will be committed"),
-        base: is.string().default("main").describe("Base branch to create automatically `commit.branch` if it does not exist yet (e.g. `main`). Empty repositories and orphan branches must be setup manually as it is currently not possible to automate this process through GitHub API yet"),
+        base: is.string().default("main").describe(
+          "Base branch to create automatically `commit.branch` if it does not exist yet (e.g. `main`). Empty repositories and orphan branches must be setup manually as it is currently not possible to automate this process through GitHub API yet",
+        ),
       }).describe("Commit changes to repository"),
     ]).default(() => ({})),
     pullrequest: is.union([
       is.literal(false).describe("Disable pull request"),
       is.object({
         title: is.string().default("chore: update metrics (${run})").describe("Pull request title. `${file}` and `${run}` will respectively be replaced by target filename and current run id"),
-        message: is.string().default("This pull request has been automatically opened by [metrics](https://github.com/lowlighter/metrics) to update generated renders on this repository").describe("Pull request message. `${file}` and `${run}` will respectively be replaced by target filename and current run id"),
+        message: is.string().default("This pull request has been automatically opened by [metrics](https://github.com/lowlighter/metrics) to update generated renders on this repository").describe(
+          "Pull request message. `${file}` and `${run}` will respectively be replaced by target filename and current run id",
+        ),
         merge: is.union([
           is.literal(false).describe("Disable merge"),
           is.literal("commit").describe("Merge pull request with a merge commit"),
@@ -71,25 +75,32 @@ export default class extends Processor {
     const { repository: { id } } = await this.requests.graphql("repository", { owner, repo })
     this.log.debug(`repository id for ${repository}: ${id}`)
     if (commit) {
-      await this.commit({commit, base64, content, repository, owner, repo, file, id})
+      await this.commit({ commit, base64, content, repository, owner, repo, file, id })
     }
     if (pullrequest) {
-      await this.pullrequest({pullrequest, repository, owner, repo, file, id})
+      await this.pullrequest({ pullrequest, repository, owner, repo, file, id })
     }
   }
 
-    /** Manage commits */
-  private async commit({commit, content, base64, repository, owner, repo, file, id}:{commit, base64:boolean, content:string, repository:string, owner:string, repo:string, file:string, id:string}) {
+  /** Manage commits */
+  private async commit(
+    { commit, content, base64, repository, owner, repo, file, id }: {
+      commit: Exclude<is.infer<typeof _.prototype.inputs>["commit"], false>
+      base64: boolean
+      content: string
+      repository: string
+      owner: string
+      repo: string
+      file: string
+      id: string
+    },
+  ) {
     // Fetch base head from either base branch or empty tree
-    let base = null
-    if (commit.base) {
-      const { head } = await this.peak({ owner, repo, branch: commit.base, file })
-      if (!head) {
-        throws(`Base branch ${repository}@${commit.base} does not exist (it must be created manually prior execution)`)
-      }
-      base = head
-      this.log.trace(`${repository}@${commit.base} at: ${base}`)
+    const { head: base } = await this.peak({ owner, repo, branch: commit.base, file })
+    if (!base) {
+      throws(`Base branch ${repository}@${commit.base} does not exist (it must be created manually prior execution)`)
     }
+    this.log.trace(`${repository}@${commit.base} at: ${base}`)
     // Fetch last commit from target branch
     let { head, revision } = await this.peak({ owner, repo, branch: commit.to, file })
     if (!head) {
@@ -117,7 +128,7 @@ export default class extends Processor {
       const { mutation: { commit: { oid } } } = await this.requests.graphql("commit", {
         repository,
         branch: commit.to,
-        message: this.format(commit.message, {file}),
+        message: this.format(commit.message, { file }),
         path: file,
         contents,
         head,
@@ -127,17 +138,28 @@ export default class extends Processor {
   }
 
   /** Manage pull requests */
-  private async pullrequest({pullrequest, repository, owner, repo, file, id}:{pullrequest, repository:string, owner:string, repo:string, file:string, id:string}) {
+  private async pullrequest(
+    { pullrequest, repository, owner, repo, file, id }: {
+      pullrequest: Exclude<is.infer<typeof _.prototype.inputs>["pullrequest"], false>
+      repository: string
+      owner: string
+      repo: string
+      file: string
+      id: string
+    },
+  ) {
     // Create pull request
-    const pr = {number:NaN, id:null}
+    const pr = { number: NaN, id: null }
     this.log.debug(`creating pull request from ${pullrequest.from} to ${pullrequest.to}`)
     try {
-      for (const branch of [pullrequest.from, pullrequest.to])
-      if (!(await this.peak({ owner, repo, branch, file })).branch)
-        this.log.warn(`branch ${branch} does not seem to exist yet, pull request creation may fail`)
+      for (const branch of [pullrequest.from, pullrequest.to]) {
+        if (!(await this.peak({ owner, repo, branch, file })).branch) {
+          this.log.warn(`branch ${branch} does not seem to exist yet, pull request creation may fail`)
+        }
+      }
       const { mutation: { pullrequest: opened } } = await this.requests.graphql("pullrequest", {
-        title: this.format(pullrequest.title, {file}),
-        message: this.format(pullrequest.message, {file}),
+        title: this.format(pullrequest.title, { file }),
+        message: this.format(pullrequest.message, { file }),
         head: pullrequest.from,
         base: pullrequest.to,
         repository: id,
@@ -160,27 +182,26 @@ export default class extends Processor {
     // Merge pull request
     if (pullrequest.merge) {
       // Fetch pull request id if needed
-      let ref = null
       if (!pr.id) {
         const search = `type:pr state:open repo:${repository} head:${pullrequest.from} base:${pullrequest.to}`
         this.log.debug(`searching pull request using query: ${search}`)
-        const {search:{pullrequests}} = await this.requests.graphql("pullrequest.number", {search})
-        if (pullrequests.length < 1)
+        const { search: { pullrequests } } = await this.requests.graphql("pullrequest.number", { search })
+        if (pullrequests.length < 1) {
           throws(`Could not find back pull request (used query: ${search})`)
-        if (pullrequests.length > 1)
+        }
+        if (pullrequests.length > 1) {
           throws(`Found more than one matching pull request, refusing to merge (used query: ${search})`)
+        }
         const [opened] = pullrequests
         Object.assign(pr, opened)
         this.log.trace(`found pull request #${pr.number}: ${opened.title}`)
         this.log.trace(`pull request #${pr.number} id: ${pr.id}`)
-        this.log.trace(`pull request #${pr.number} ref id: ${opened.ref.id} (branch: ${opened.ref.name})`)
-        ref = opened.ref.id
       }
       this.log.debug(`merging pull request #${pr.number} with merge ${pullrequest.merge}`)
 
       // Merge pull request once state is mergeable
       mergeable: for (let i = 0; i < 10; ++i) {
-        const { repository: { pullrequest: { mergeable:state } } } = await this.requests.graphql("pullrequest.mergeable", {owner, repo, pr:pr.number})
+        const { repository: { pullrequest: { mergeable: state } } } = await this.requests.graphql("pullrequest.mergeable", { owner, repo, pr: pr.number })
         switch (state) {
           // deno-lint-ignore no-fallthrough
           case "CONFLICTING":
@@ -194,18 +215,12 @@ export default class extends Processor {
         }
       }
       this.log.debug(`Pull request #${pr.number} state is MERGEABLE, merging`)
-      //console.log(await this.requests.graphql("pullrequest.merge", {pr:pr.id, mergeMethod:{commit:"MERGE", rebase:"REBASE", squash:"SQUASH"}[pullrequest.merge]}))
-
-      if (ref) {
-        this.log.debug(`Pull request #${pr.number} `)
-        await this.requests.graphql("deleteref", {ref})
-      }
-
+      await this.requests.graphql("pullrequest.merge", { pr: pr.id, mergeMethod: { commit: "MERGE", rebase: "REBASE", squash: "SQUASH" }[pullrequest.merge] })
     }
   }
 
   /** Format commit message */
-  private format(template:string, {file}:{file:string}) {
+  private format(template: string, { file }: { file: string }) {
     return template
       .replaceAll("${file}", file)
       .replaceAll("${run}", `${github.context.runId || ""}`)
@@ -219,25 +234,3 @@ export default class extends Processor {
     return { branch: ref, revision, head }
   }
 }
-
-/*
-
-
-      //Delete head branch
-      await retry(async () => {
-        try {
-          await wait(15)
-          await committer.rest.git.deleteRef({...github.context.repo, ref: `heads/${committer.head}`})
-        }
-        catch (error) {
-          console.debug(error)
-          if (!/reference does not exist/i.test(`${error}`))
-            throw error
-        }
-        info(`Branch ${committer.head}`, "(deleted)")
-      }, {retries: retries_output_action, delay: retries_delay_output_action})
-      break
-    }
-    while (--attempts)
-  }
-}*/

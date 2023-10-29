@@ -1,9 +1,10 @@
 // Imports
+/// <reference lib="dom" />
 import { is, parse, Processor, state } from "@engine/components/processor.ts"
 import { Browser } from "@engine/utils/browser.ts"
 import { Format } from "@engine/utils/format.ts"
 import { Plugin } from "@engine/components/plugin.ts"
-import { read } from "@engine/utils/io.ts"
+import { read } from "@engine/utils/deno/io.ts"
 import { contentType } from "std/media_types/content_type.ts"
 import { encodeBase64 } from "std/encoding/base64.ts"
 

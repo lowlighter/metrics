@@ -1,7 +1,7 @@
 //Imports
 import { Logger } from "@engine/utils/log.ts"
 import { getBinary, launch } from "x/astral@0.3.0/mod.ts"
-import { env } from "@engine/utils/io.ts"
+import { env } from "@engine/utils/deno/env.ts"
 import * as dir from "@engine/paths.ts"
 import { throws } from "@engine/utils/errors.ts"
 import { delay } from "std/async/delay.ts"
@@ -74,15 +74,8 @@ export class Browser {
           await this.close()
         }
       },
-      // Evaluate function (and launch func for coverage)
+      // Evaluate function
       evaluate: (async (func: Parameters<typeof evaluate>[0], options?: Parameters<typeof evaluate>[1]) => {
-        if ((!Browser.shareable) && (typeof func === "function")) {
-          try {
-            await func()
-          } catch {
-            // Ignore
-          }
-        }
         try {
           return await evaluate(func, options)
         } catch (error) {
@@ -109,7 +102,7 @@ export class Browser {
   /** Instantiates or reuse  */
   static async page({ log, bin, width, height }: { log: Logger; bin?: string; width?: number; height?: number }) {
     if ((Browser.shareable) && (!Browser.shared)) {
-      Object.assign(Browser, { shared: await new Browser({ log: new Logger(import.meta, { level: "none" }), bin, endpoint:env.get("BROWSER_ENDPOINT") }).ready })
+      Object.assign(Browser, { shared: await new Browser({ log: new Logger(import.meta, { level: "none" }), bin, endpoint: env.get("BROWSER_ENDPOINT") }).ready })
       const close = Browser.shared!.close.bind(Browser.shared)
       Browser.shared!.close = async () => {
         await close()

@@ -1,3 +1,4 @@
+/// <reference lib="dom" />
 import { Browser } from "@engine/utils/browser.ts"
 import { dir, expect, MetricsError, t } from "@engine/utils/testing.ts"
 import { Logger } from "@engine/utils/log.ts"

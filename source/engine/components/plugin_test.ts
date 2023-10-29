@@ -69,7 +69,7 @@ for (const id of await Plugin.list()) {
   const tests = await plugin.tests()
   const templates = await plugin.templates()
   const name = `${plugin.icon} plugins/${plugin.id}`
-  if (!tests.length) {
+  if (!tests?.length) {
     Deno.test.ignore(t(name, null), () => void null)
     continue
   }

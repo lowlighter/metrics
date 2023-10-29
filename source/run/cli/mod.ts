@@ -7,7 +7,7 @@ import core from "y/@actions/core@1.10.1"
 import { process } from "@engine/process.ts"
 import { parse as parseFlags } from "std/flags/mod.ts"
 import { cyan, gray } from "std/fmt/colors.ts"
-import { env } from "@engine/utils/io.ts"
+import { env } from "@engine/utils/deno/io.ts"
 import { compat } from "./compat.ts"
 import { parse } from "@engine/utils/validation.ts"
 
