@@ -30,7 +30,10 @@ export default class extends Processor {
 
   /** Inputs */
   readonly inputs = is.object({
-    error: is.boolean().default(false).describe("Assert previous content returned an error"),
+    error: is.union([
+      is.boolean().describe("Assert error"),
+      is.coerce.string().optional().describe("Assert error match pattern. If formatted as `/pattern/flags`, will be treated as regex (prefix with `/!` to negate match instead)"),
+    ]).default(false).describe("Assert previous content returned an error"),
     mime: is.string().optional().describe("Assert mime type"),
     html: is.object({
       select: is.string().default("main").describe("HTML query selector"),
@@ -46,6 +49,20 @@ export default class extends Processor {
     const { error, html, mime } = await parse(this.inputs, this.context.args)
     if (error) {
       expect(result.result).to.be.instanceOf(Error)
+      if (typeof error === "string") {
+        const content = `${result.result}`
+        if (regexs.match.test(error)) {
+          const { negate, pattern, flags } = error.match(regexs.match)!.groups!
+          const regex = new RegExp(pattern, flags)
+          if (negate) {
+            expect(content).to.not.match(regex)
+          } else {
+            expect(content).to.match(regex)
+          }
+        } else {
+          expect(content).to.include(error)
+        }
+      }
       return
     }
     expect(result.result).to.not.be.instanceOf(Error)

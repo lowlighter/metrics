@@ -1,5 +1,4 @@
 // Imports
-/// <reference lib="dom" />
 import { is, parse, Processor, state } from "@engine/components/processor.ts"
 import { Browser } from "@engine/utils/browser.ts"
 import { Format } from "@engine/utils/format.ts"
@@ -39,10 +38,7 @@ export default class extends Processor {
       await page.setContent(Format.html(result.content))
       await page.waitForNavigation({ waitUntil: "load" })
       this.log.trace(`injecting script: ${script}`)
-      result.content = await page.evaluate(async (script: string) => {
-        await new Function("document", `return (async () => { ${script} })()`)(document)
-        return document.querySelector("main")!.innerHTML
-      }, { args: [script] })
+      result.content = await page.evaluate("dom://script.ts", { args: [script] })
     } finally {
       await page.close()
     }

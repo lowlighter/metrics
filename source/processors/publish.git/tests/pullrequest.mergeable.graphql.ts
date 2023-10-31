@@ -1,9 +1,23 @@
-import { faker, is, mock } from "@engine/utils/testing.ts"
+import { is, log, mock } from "@engine/utils/testing.ts"
 
-export default mock({ search: is.string() }, () => ({
-  repository: {
-    pullrequest: {
-      mergeable: faker.helpers.arrayElement(["CONFLICTING", "MERGEABLE", "UNKNOWN"]),
+let mergeable = false
+let timeout = NaN
+
+export default mock({ pr: is.number() }, ({ pr }) => {
+  const state = mergeable ? "MERGEABLE" : "UNKNOWN"
+  if (pr === 1) {
+    mergeable = true
+    clearTimeout(timeout)
+    timeout = setTimeout(() => {
+      log.io(`pullrequest.mergeable: state reset`)
+      mergeable = false
+    }, 100)
+  }
+  return {
+    repository: {
+      pullrequest: {
+        mergeable: ["UNKNOWN", state, "CONFLICTING"][pr],
+      },
     },
-  },
-}))
+  }
+})

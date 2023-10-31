@@ -19,4 +19,4 @@
         fatal: false
         logs: none
       - assert:
-          error: true
+          error: /failed to parse XML/i

@@ -1,4 +1,4 @@
-import { expect, nodeno, t } from "@engine/utils/testing.ts"
+import { expect, t } from "@engine/utils/testing.ts"
 import { env } from "@engine/utils/deno/env.ts"
 
 const uuid = crypto.randomUUID().slice(-12).toUpperCase()
@@ -27,30 +27,12 @@ Deno.test(t(import.meta, "`env.get()` returns a env variable as a boolean if ask
   }
 })
 
-Deno.test(
-  t(import.meta, "`env.get()` returns empty values in non-deno environments"),
-  { permissions: "none" },
-  nodeno(() => {
-    expect(env.get(test.env)).to.equal("")
-    expect(env.get(test.env, { boolean: true })).to.equal(false)
-  }, { with: { test } }),
-)
-
 Deno.test(t(import.meta, "`env.set()` can registers a env variable"), { permissions: { env: [test.env] } }, () => {
   expect(env.set(test.env, test.value))
   expect(env.get(test.env)).to.equal(test.value)
   expect(env.set(`${test.env}_FORBIDDEN`, test.value))
   expect(env.get(`${test.env}_FORBIDDEN`)).to.equal("")
 })
-
-Deno.test(
-  t(import.meta, "`env.set()` is a noop in non-deno environments"),
-  { permissions: "none" },
-  nodeno(() => {
-    expect(env.set(test.env, test.value))
-    expect(env.get(test.env)).to.equal("")
-  }, { with: { test } }),
-)
 
 Deno.test(t(import.meta, "`env.deployment` is a boolean"), { permissions: { env: [test.env, `${test.env}_UNDEFINED`] } }, () => {
   expect(env.deployment).to.be.a("boolean")

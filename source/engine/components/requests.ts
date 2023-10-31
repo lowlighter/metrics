@@ -41,15 +41,20 @@ export class Requests extends Internal {
     const { endpoint: { DEFAULTS: { method, url } } } = endpoint
     this.log.io(`calling rest query: ${method} ${url}`)
     if (this.context.mock) {
+      let mock = null
       try {
-        const { default: mock } = await import(new URL("tests/rest.ts", this.meta.url).href)
-        if (url! in mock) {
-          this.log.debug(`mocking rest query: ${method} ${url}}`)
-          return mock[url!](vars)
+        const { default: mod } = await import(new URL("tests/rest.ts", this.meta.url).href)
+        mock = mod
+        if ((typeof mock !== "object") || (!mock)) {
+          throws("Imported mock module is not a record of functions")
         }
       } catch (error) {
         this.log.warn(`rest query ${method} ${url} could not be mocked`)
         this.log.warn(error)
+      }
+      if (mock && (url! in mock)) {
+        this.log.debug(`mocking rest query: ${method} ${url}}`)
+        return mock[url!](vars)
       }
     }
     if (paginate) {
@@ -64,13 +69,20 @@ export class Requests extends Internal {
     const query = await read(path).catch(() => "")
     this.log.io(`calling graphql query: ${name}`)
     if (this.context.mock) {
+      let mock = null
       try {
-        const { default: mock } = await import(new URL(`tests/${name}.graphql.ts`, this.meta.url).href)
-        this.log.debug(`mocking graphql query: ${name}`)
-        return mock(vars)
+        const { default: mod } = await import(new URL(`tests/${name}.graphql.ts`, this.meta.url).href)
+        mock = mod
+        if (typeof mock !== "function") {
+          throws("Imported mock module is not a function")
+        }
       } catch (error) {
         this.log.warn(`graphql query ${name} could not be mocked`)
         this.log.warn(error)
+      }
+      if (mock) {
+        this.log.debug(`mocking graphql query: ${name}`)
+        return mock(vars)
       }
     }
     if (paginate) {
@@ -86,14 +98,21 @@ export class Requests extends Internal {
   async fetch(url: string | URL, { type = "text" as string, options = {} as Parameters<typeof fetch>[1] } = {}) {
     this.log.io(`calling http query: ${url}`)
     if ((this.context.mock) && (new URL(url).host.endsWith(".test"))) {
+      let mock = null
       try {
         const name = new URL(url).pathname.slice(1)
-        const { default: mock } = await import(new URL(`tests/${name}.http.ts`, this.meta.url).href)
-        this.log.debug(`mocking http query: ${name}`)
-        return mock(options)
+        const { default: mod } = await import(new URL(`tests/${name}.http.ts`, this.meta.url).href)
+        mock = mod
+        if (typeof mock !== "function") {
+          throws("Imported mock module is not a function")
+        }
       } catch (error) {
         this.log.warn(`http query ${url} could not be mocked`)
         this.log.warn(error)
+      }
+      if (mock) {
+        this.log.debug(`mocking http query: ${name}`)
+        return mock(options)
       }
     }
     const response = await fetch(url, options)

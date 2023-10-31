@@ -8,8 +8,6 @@ import { bgBrightBlack, bgYellow, black, brightCyan, cyan } from "std/fmt/colors
 import chai from "y/chai@4.3.10"
 import chaiSubset from "y/chai-subset@1.6.0"
 import chaiAsPromised from "y/chai-as-promised@7.1.1"
-import { deferred } from "std/async/deferred.ts"
-import { fromFileUrl } from "std/path/from_file_url.ts"
 
 /** Logger */
 export const log = new Logger(import.meta)
@@ -34,64 +32,6 @@ export function t(meta: { url: string } | string, test: string | null) {
   }
   const f = (text: string) => text.replace(/`([\s\S]+?)`/g, (_, text) => cyan(text)).replace(/\*([\s\S]+?)\*/g, (_, text) => brightCyan(text))
   return `${bgBrightBlack(`${icon.trim()} ${mod.padEnd(38)}`)} ${test !== null ? f(test) : bgYellow(black(" NO TESTS FOUND ! "))}`
-}
-
-/** Execute code in environment without Deno */
-export function nodeno(func: () => void | Promise<void>, options?: { return?: false; permissions?: Deno.PermissionOptions; with?: Record<PropertyKey, unknown> }): () => Promise<void>
-export function nodeno(
-  func: () => unknown | Promise<unknown>,
-  options: { return: true; permissions?: Deno.PermissionOptions; with?: Record<PropertyKey, unknown> },
-): () => Promise<ReturnType<typeof func>>
-export function nodeno(
-  func: () => unknown | Promise<unknown>,
-  { return: returned = false, permissions = "inherit", with: context = {} }: { return?: boolean; permissions?: Deno.PermissionOptions; with?: Record<PropertyKey, unknown> } = {},
-) {
-  // Retrieve caller file
-  let file = ""
-  const { prepareStackTrace } = Error
-  try {
-    const error = new Error()
-    Error.prepareStackTrace = (_, stack) => stack
-    const stack = error.stack as unknown as Array<{ getFileName(): string }>
-    file = stack.map((callsite) => callsite.getFileName()).filter((file) => (file !== import.meta.url))[0]!
-  } finally {
-    Object.assign(Error, { prepareStackTrace })
-  }
-
-  // Load imports from caller file
-  const imports = []
-  if (file) {
-    imports.push(...Deno.readTextFileSync(fromFileUrl(file)).match(/^import.*from.*$/gm) ?? [])
-  }
-
-  // Execute code in worker without deno
-  const script = `
-    ${imports.join("\n")}
-    self.addEventListener("message", async ({data}) => {
-      Object.assign(self, data)
-      self.postMessage(await (async () => {
-        try {
-          delete self.Deno
-          const result = await (${func.toString()})()
-          return ${returned ? "result" : "null"}
-        }
-        catch (error) {
-          return { error }
-        }
-      })())
-      self.close()
-    })
-  `
-  return () => {
-    const promise = deferred()
-    const worker = new Worker(`data:text/javascript;base64,${btoa(script)}`, { type: "module", deno: { permissions } })
-    worker.postMessage(context)
-    worker.addEventListener("message", ({ data }) => {
-      worker.terminate()
-      return !data?.error ? promise.resolve(data) : promise.reject(data.error)
-    })
-    return promise as unknown as Promise<ReturnType<typeof func>>
-  }
 }
 
 /** Chai assertions */

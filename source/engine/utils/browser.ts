@@ -77,6 +77,27 @@ export class Browser {
       // Evaluate function
       evaluate: (async (func: Parameters<typeof evaluate>[0], options?: Parameters<typeof evaluate>[1]) => {
         try {
+          if ((typeof func === "string") && (func.startsWith("dom://"))) {
+            let caller = ""
+            const { prepareStackTrace } = Error
+            try {
+              const error = new Error()
+              Error.prepareStackTrace = (_, stack) => stack
+              const stack = (error.stack as unknown as Array<{ getFileName(): string }>)
+                .map((callsite) => callsite.getFileName())
+                .filter((file) => file)
+                .filter((file) => file !== import.meta.url)
+                .filter((file) => !file.startsWith("ext:"))
+              caller = stack[0]
+            } finally {
+              Object.assign(Error, { prepareStackTrace })
+            }
+            this.log.trace(`${func} was invoked from ${caller}`)
+            const url = new URL(`dom/${func.replace("dom://", "")}`, caller).href
+            this.log.trace(`importing: ${url}`)
+            const { default: script } = await import(url)
+            func = script
+          }
           return await evaluate(func, options)
         } catch (error) {
           throws(error.text)

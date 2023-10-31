@@ -6,7 +6,21 @@
         fatal: false
         logs: none
       - assert:
-          error: true
+          error: /expected error/
+    - processors:
+      - control.error:
+          message: expected error
+        fatal: false
+        logs: none
+      - assert:
+          error: /!/unexpected error/
+    - processors:
+      - control.error:
+          message: expected error
+        fatal: false
+        logs: none
+      - assert:
+          error: expected error
 
 - name: assert mime type match
   plugins:
@@ -97,4 +111,4 @@
         fatal: false
         logs: none
       - assert:
-          error: true
+          error: /is only supported for mime type/

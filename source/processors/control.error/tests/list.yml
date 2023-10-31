@@ -6,4 +6,4 @@
         fatal: false
         logs: none
       - assert:
-          error: true
+          error: /expected error/i

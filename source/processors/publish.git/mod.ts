@@ -33,7 +33,7 @@ export default class _ extends Processor {
           "Base branch to create automatically `commit.branch` if it does not exist yet (e.g. `main`). Empty repositories and orphan branches must be setup manually as it is currently not possible to automate this process through GitHub API yet",
         ),
       }).describe("Commit changes to repository"),
-    ]).default(() => ({})),
+    ]).default(false),
     pullrequest: is.union([
       is.literal(false).describe("Disable pull request"),
       is.object({
@@ -47,6 +47,10 @@ export default class _ extends Processor {
           is.literal("squash").describe("Merge pull request with a squash commit"),
           is.literal("rebase").describe("Merge pull request with a rebase commit"),
         ]).describe("Merge pull request").default(false),
+        checks: is.object({
+          attempts: is.number().min(0).default(30).describe("Number of retries"),
+          delay: is.number().min(0).default(3).describe("Delay (in seconds) before trying to check state again"),
+        }).default(() => ({})).describe("Meargeability state check"),
         from: is.string().default("metrics").describe("Branch where pull request will be opened"),
         to: is.string().default("main").describe("Branch where pull request changes should be merged to"),
       }).describe("Open pull request on repository"),
@@ -67,7 +71,7 @@ export default class _ extends Processor {
     const { commit, filepath, repository, pullrequest } = await parse(this.inputs, this.context.args)
     let file = filepath
     if (mime) {
-      const ext = extension(mime) ?? ""
+      const ext = extension(mime)!
       this.log.trace(`using extension: ${ext} for ${mime}`)
       file = file.replaceAll("*", ext)
     }
@@ -168,7 +172,7 @@ export default class _ extends Processor {
       this.log.debug(`opened #${pr.number}`)
     } catch (error) {
       switch (true) {
-        case /no commits between/i.test(error):
+        case (/no commits between/i.test(error)) && (!/(must be a branch)|(sha can't be blank)/i.test(error)):
           this.log.debug(`no changes between ${pullrequest.from} and ${pullrequest.to}`)
           break
         case /a pull request already exists/i.test(error):
@@ -187,7 +191,7 @@ export default class _ extends Processor {
         this.log.debug(`searching pull request using query: ${search}`)
         const { search: { pullrequests } } = await this.requests.graphql("pullrequest.number", { search })
         if (pullrequests.length < 1) {
-          throws(`Could not find back pull request (used query: ${search})`)
+          throws(`Could not find back pull request, cannot merge (used query: ${search})`)
         }
         if (pullrequests.length > 1) {
           throws(`Found more than one matching pull request, refusing to merge (used query: ${search})`)
@@ -200,7 +204,7 @@ export default class _ extends Processor {
       this.log.debug(`merging pull request #${pr.number} with merge ${pullrequest.merge}`)
 
       // Merge pull request once state is mergeable
-      mergeable: for (let i = 0; i < 10; ++i) {
+      mergeable: for (let i = 0; i < pullrequest.checks.attempts; ++i) {
         const { repository: { pullrequest: { mergeable: state } } } = await this.requests.graphql("pullrequest.mergeable", { owner, repo, pr: pr.number })
         switch (state) {
           // deno-lint-ignore no-fallthrough
@@ -210,12 +214,15 @@ export default class _ extends Processor {
             break mergeable
           default:
             this.log.trace(`Pull request #${pr.number} state is ${state}, waiting for mergeable state`)
-            await delay(1000)
+            if (pullrequest.checks.delay) {
+              this.log.trace(`Pull request #${pr.number}: retrying in ${pullrequest.checks.delay}s...`)
+              await delay(pullrequest.checks.delay * 1000)
+            }
             continue
         }
       }
       this.log.debug(`Pull request #${pr.number} state is MERGEABLE, merging`)
-      await this.requests.graphql("pullrequest.merge", { pr: pr.id, mergeMethod: { commit: "MERGE", rebase: "REBASE", squash: "SQUASH" }[pullrequest.merge] })
+      await this.requests.graphql("pullrequest.merge", { pr: pr.id, method: { commit: "MERGE", rebase: "REBASE", squash: "SQUASH" }[pullrequest.merge] })
     }
   }
 
@@ -230,7 +237,7 @@ export default class _ extends Processor {
   private async peak({ owner, repo, branch, file }: { owner: string; repo: string; branch: string; file: string }) {
     const { repository: { branch: ref, revision } } = await this.requests.graphql("head", { owner, repo, branch, file: `${branch}:${file}` })
     const head = ref?.history.commits[0].oid
-    this.log.probe(`${file}@${branch}: ${head ? `at ${head}` : "(not created yet)"}`)
+    this.log.debug(`${file}@${branch}: ${head ? `at ${head}` : "(not created yet)"}`)
     return { branch: ref, revision, head }
   }
 }

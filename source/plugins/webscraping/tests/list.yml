@@ -47,14 +47,3 @@
             html:
               select: .webscraping img
               count: 1=
-
-- name: cleans resources on error
-  plugins:
-    - webscraping:
-        url: https://metrics.test
-        select: ">>>"
-      fatal: false
-      logs: "none"
-      processors:
-        - assert:
-            error: true

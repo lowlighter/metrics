@@ -262,7 +262,7 @@ export const webrequest = is.object({
               args: true,
             }).extend({ preset: is.string().optional() }).partial(),
           ),
-        ).default(() => []).describe("Post-processors"),
+        ).describe("Post-processors"),
       }).partial(),
     ),
   ).default(() => []).describe("Plugins"),

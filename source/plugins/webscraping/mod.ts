@@ -62,13 +62,10 @@ export default class extends Plugin {
         await delay(wait * 1000)
       }
       await page.waitForSelector(selector)
-      const result = { content: "", title: await page.evaluate(() => document.title) }
+      const result = { content: "", title: await page.evaluate("dom://title.ts") }
       switch (mode) {
         case "image": {
-          const { x, y, width, height } = await page.evaluate((selector: string) => {
-            const { x, y, width, height } = document.querySelector(selector)!.getBoundingClientRect()
-            return { x, y, width, height }
-          }, { args: [selector] })
+          const { x, y, width, height } = await page.evaluate("dom://image.ts", { args: [selector] })
           if (!background) {
             await page.setTransparentBackground()
           }
@@ -78,9 +75,7 @@ export default class extends Plugin {
           break
         }
         case "text": {
-          result.content = await page.evaluate((selector: string) => {
-            return (document.querySelector(selector) as unknown as { innerText: string }).innerText
-          }, { args: [selector] })
+          result.content = await page.evaluate("dom://text.ts", { args: [selector] })
           break
         }
       }

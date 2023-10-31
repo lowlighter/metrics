@@ -81,12 +81,7 @@ export default class extends Processor {
         this.log.trace("processing content in browser")
         await page.setContent(Format.html(render))
         //await page.waitForNavigation({ waitUntil: "load" })
-        const { processed, width, height } = await page.evaluate(() => {
-          const svg = document.querySelector("main svg")!
-          const { y: height, width } = svg.querySelector("#metrics-end")!.getBoundingClientRect()
-          svg.setAttribute("height", `${height}`)
-          return { processed: new XMLSerializer().serializeToString(svg), height, width }
-        })
+        const { processed, width, height } = await page.evaluate("dom://svg.ts")
         render = processed
 
         // Convert to image

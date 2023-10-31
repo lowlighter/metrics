@@ -1,4 +1,4 @@
-import { mock, Status, throws } from "@engine/utils/testing.ts"
+import { mock, Status } from "@engine/utils/testing.ts"
 
 export default {
   "/octocat": mock({}, () => ({
@@ -26,7 +26,6 @@ export default {
     ~~~~~~==~==~==~==~~~~~~
         :~==~==~==~==~~`),
   })),
-  "/zen": () => throws("Expected error"),
   "/rate_limit": mock({}, () => ({
     status: Status.OK,
     data: {
