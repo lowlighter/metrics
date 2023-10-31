@@ -11,6 +11,7 @@ RUN apk add --no-cache ruby \
 
 # Install chromium
 ENV CHROME_BIN /usr/bin/chromium-browser
+ENV CHROME_PATH /usr/lib/chromium/
 ENV CHROME_EXTRA_FLAGS "--no-sandbox --disable-setuid-sandbox --disable-dev-shm-usage"
 RUN apk add --no-cache chromium ttf-freefont font-noto-emoji \
   && apk add --no-cache --repository=https://dl-cdn.alpinelinux.org/alpine/edge/testing font-wqy-zenhei \

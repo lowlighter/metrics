@@ -9,10 +9,10 @@ import { delay } from "std/async/delay.ts"
 /** Browser */
 export class Browser {
   /** Constructor */
-  constructor({ log, endpoint = null, bin = env.get("CHROME_BIN") || undefined }: { log: Logger; endpoint?: null | string; bin?: string }) {
+  constructor({ log, endpoint = null, bin }: { log: Logger; endpoint?: null | string; bin?: string }) {
     this.endpoint = endpoint
     this.log = log
-    this.bin = bin
+    this.bin = bin || env.get("CHROME_BIN") || undefined
     this.ready = this.open()
   }
 

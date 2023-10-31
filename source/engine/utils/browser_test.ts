@@ -3,15 +3,17 @@ import { Browser } from "@engine/utils/browser.ts"
 import { dir, expect, MetricsError, t } from "@engine/utils/testing.ts"
 import { Logger } from "@engine/utils/log.ts"
 import { Format } from "@engine/utils/format.ts"
+import { env } from "@engine/utils/deno/env.ts"
 
 const log = new Logger(import.meta)
 const cache = `${dir.cache}/browser.test`
-const bin = await Browser.getBinary("chrome", { cache })
+const bin = env.get("CHROME_BIN") || await Browser.getBinary("chrome", { cache: dir.cache })
 const permissions = {
   read: [cache],
   net: ["127.0.0.1", "localhost"],
-  env: ["CHROME_EXTRA_FLAGS"],
+  env: ["CHROME_BIN", "CHROME_PATH", "CHROME_EXTRA_FLAGS"],
   run: [bin],
+  write: [`${env.get("HOME")}/.config/chromium/SingletonLock`],
 }
 
 for (const mode of ["local", "remote"]) {

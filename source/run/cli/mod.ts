@@ -6,7 +6,7 @@ import { latest, version } from "@engine/version.ts"
 import core from "y/@actions/core@1.10.1"
 import { process } from "@engine/process.ts"
 import { parse as parseFlags } from "std/flags/mod.ts"
-import { cyan, gray } from "std/fmt/colors.ts"
+import { brightRed, cyan, gray } from "std/fmt/colors.ts"
 import { env } from "@engine/utils/deno/env.ts"
 import { compat } from "./compat.ts"
 import { parse } from "@engine/utils/validation.ts"
@@ -65,11 +65,11 @@ if (import.meta.main) {
       break
     }
     default:
-      console.log(`Unknown action: ${action}`)
+      console.log(brightRed(`Unknown action: ${action}`))
       /* falls through */
     case "help": {
       console.log([
-        cyan(`Metrics ${version}`),
+        cyan(`Metrics ${version.number}`),
         "",
         "Usage is:",
         "  help               Show this help message",

@@ -6,6 +6,7 @@ import { Component } from "@engine/components/component.ts"
 import { Plugin } from "@engine/components/plugin.ts"
 import { Processor } from "@engine/components/processor.ts"
 import { sugar } from "@engine/config.ts"
+import { env } from "@engine/utils/deno/env.ts"
 
 /** Default config for components testing */
 export const config = {
@@ -67,8 +68,16 @@ export async function getPermissions(test: Awaited<ReturnType<typeof Component["
     net: [...requested].filter((permission) => permission.startsWith("net:")).map((permission) => permission.replace("net:", "")),
   } as test
   if (requested.has("run:chrome")) {
-    const bin = await Browser.getBinary("chrome", { cache: dir.cache })
-    Object.assign(permissions, deepMerge(permissions, { read: [dir.cache], net: ["127.0.0.1", "localhost"], env: ["CHROME_EXTRA_FLAGS"], run: [bin] }))
+    Object.assign(
+      permissions,
+      deepMerge(permissions, {
+        read: [dir.cache],
+        net: ["127.0.0.1", "localhost"],
+        env: ["CHROME_BIN", "CHROME_PATH", "CHROME_EXTRA_FLAGS"],
+        run: [env.get("CHROME_BIN") || await Browser.getBinary("chrome", { cache: dir.cache })],
+        write: [`${env.get("HOME")}/.config/chromium/SingletonLock`],
+      }),
+    )
   }
   if (requested.has("write")) {
     Object.assign(permissions, deepMerge(permissions, { write: [dir.test] }))

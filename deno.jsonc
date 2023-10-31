@@ -89,7 +89,7 @@
     "test": {
       "task": [
         "rm .coverage -rf",
-        "deno test source/metrics"
+        "deno test source"
       ],
       "description": "🧪 Run tests and collect coverage",
       "seed": 0,
@@ -179,7 +179,7 @@
       "description": "🔎 Lint and format code"
     },
     "coverage": {
-      "task": "deno coverage .coverage",
+      "task": "deno coverage .coverage --exclude='/dom/'",
       "description": "🔬 Print coverage report (require `test` task to be run first)"
     },
     // Continuous integration tasks =======================================================
@@ -194,7 +194,7 @@
     "ci:test": {
       "task": [
         "deno task btr docker:build",
-        "docker run metrics:dev sh -c 'deno task btr test && deno task btr coverage'"
+        "docker run --entrypoint='' metrics:dev sh -c 'deno task btr test && deno task btr coverage'"
       ],
       "description": "🤖 Build container and run tests and coverage inside the image (CI)",
       "lock": false
