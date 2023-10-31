@@ -18,13 +18,14 @@ export default {
         available = false
       }, 100)
     }
+    const year = `${new Date().getFullYear()}`
     return {
       status,
       data: [
         {
           weeks: [
             {
-              w: new Date("2023").getTime() / 1000,
+              w: new Date(year).getTime() / 1000,
               a: faker.number.int({ min: 0, max: 10000 }),
               d: faker.number.int({ min: 0, max: 10000 }),
               c: faker.number.int({ min: 0, max: 10000 }),
@@ -38,7 +39,19 @@ export default {
         {
           weeks: [
             {
-              w: new Date("2022").getTime() / 1000,
+              w: new Date(year).getTime() / 1000,
+              a: faker.number.int({ min: 0, max: 10000 }),
+              d: faker.number.int({ min: 0, max: 10000 }),
+              c: faker.number.int({ min: 0, max: 10000 }),
+            },
+            {
+              w: (new Date(year).getTime() - 7 * 24 * 60 * 60 * 1000) / 1000,
+              a: faker.number.int({ min: 0, max: 10000 }),
+              d: faker.number.int({ min: 0, max: 10000 }),
+              c: faker.number.int({ min: 0, max: 10000 }),
+            },
+            {
+              w: new Date(`${+year - 1}`).getTime() / 1000,
               a: faker.number.int({ min: 0, max: 10000 }),
               d: faker.number.int({ min: 0, max: 10000 }),
               c: faker.number.int({ min: 0, max: 10000 }),
@@ -48,6 +61,17 @@ export default {
             login: "octodog",
             avartar_url: faker.image.avatarGitHub(),
           },
+        },
+        {
+          weeks: [
+            {
+              w: NaN,
+              a: faker.number.int({ min: 0, max: 10000 }),
+              d: faker.number.int({ min: 0, max: 10000 }),
+              c: faker.number.int({ min: 0, max: 10000 }),
+            },
+          ],
+          author: null,
         },
       ],
     }

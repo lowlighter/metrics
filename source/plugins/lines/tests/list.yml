@@ -163,6 +163,31 @@
               select: .lines .entry .week
               match: /2023/
 
+- name: supports `contributors.matching`
+  plugins:
+    - lines:
+        contributors:
+          matching: octocat
+      handle: octocat/public-repo
+      entity: repository
+      processors:
+        - assert:
+            html:
+              select: .lines .entry .user
+              count: 1=
+              match: octocat
+    - lines:
+        contributors:
+          matching: "*"
+          limit: null
+      handle: octocat/public-repo
+      entity: repository
+      processors:
+        - assert:
+            html:
+              select: .lines .entry .user
+              count: 1>
+
 - name: supports empty repositories
   plugins:
     - lines:
@@ -204,8 +229,3 @@
     - processors:
       - control.delay:
           duration: 0.15
-
- #   contributors:is.object({
- #     matching: is.preprocess(value => [value].flat(), is.array(is.coerce.string())).default("*").describe("Include contributors matching at least one of these patterns (note: if `entity` is set to `user`, the default value will be set to the user `handle` instead of `*`)"),
- #     limit: is.number().min(0).nullable().default(4).describe("Number of contributors to display (use `null` to display all contributors)"),
- #   }).default(() => ({})).describe("Contributors options"),

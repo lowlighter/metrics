@@ -199,7 +199,6 @@ export default class extends Plugin {
 }
 
 /*
-
   plugin_lines_sections:
     description: |
       Displayed sections
@@ -217,11 +216,6 @@ export default class extends Plugin {
       - base
       - repositories
       - history
-
-
-
-
-
 
 //Setup
 export default async function({login, data, imports, rest, q, account}, {enabled = false, extras = false} = {}) {

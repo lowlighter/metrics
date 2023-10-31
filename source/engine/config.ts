@@ -251,7 +251,7 @@ export const webrequest = is.object({
         entity: true,
         template: true,
         args: true,
-      }).extend({
+      }).partial().extend({
         preset: is.string().optional(),
         processors: is.array(
           is.preprocess(
@@ -260,10 +260,10 @@ export const webrequest = is.object({
               id: true,
               fatal: true,
               args: true,
-            }).extend({ preset: is.string().optional() }).partial(),
+            }).partial().extend({ preset: is.string().optional() }),
           ),
-        ).describe("Post-processors"),
-      }).partial(),
+        ).default(() => []).describe("Post-processors"),
+      }),
     ),
   ).default(() => []).describe("Plugins"),
 })

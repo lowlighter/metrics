@@ -13,8 +13,8 @@
   },
   "tasks": {
     //  '
-    "qq": "rm -rf .coverage && deno test --coverage=.coverage --no-check --unstable --trace-ops --allow-all source --filter='requests' && deno coverage .coverage --include='^file:.*/requests.ts'",
-    "q": "rm -rf .coverage && deno test --coverage=.coverage --unstable --trace-ops --fail-fast --allow-all source && deno coverage .coverage --exclude='/(dom|tests)/'",
+    "qq": "rm -rf .coverage && deno test --coverage=.coverage --no-check --unstable --trace-ops --allow-all source --filter='lines' && deno coverage .coverage --include='^file:.*/lines/mod.ts'",
+    "q": "rm -rf .coverage && deno test --coverage=.coverage --unstable --trace-ops --fail-fast --allow-all source && deno coverage .coverage --exclude='/dom/'",
     "btr": "deno run --allow-env --allow-read --allow-write=.btr.json --allow-run=deno --no-lock tasks.ts $0"
   },
   "btr-tasks": {

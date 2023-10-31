@@ -50,9 +50,11 @@ export async function getPermissions(test: Awaited<ReturnType<typeof Component["
     if (id) {
       plugins.add(id)
     }
-    for (const processor of plugin.processors) {
-      const { id } = sugar(processor, "processor") as { id: string }
-      processors.add(id)
+    if (plugin.processors) {
+      for (const processor of plugin.processors) {
+        const { id } = sugar(processor, "processor") as { id: string }
+        processors.add(id)
+      }
     }
   }
   await Promise.all([...plugins].map((id) => Plugin.load({ id }).then((plugin) => plugin.permissions.forEach((permission) => requested.add(permission)))))

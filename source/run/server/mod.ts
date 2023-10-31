@@ -210,10 +210,15 @@ class Server extends Internal {
           }
           // Serve renders
           case this.routes.metrics.test(url.pathname): {
-            const { handle: _handle, ext = "svg" } = url.pathname.match(this.routes.metrics)?.groups ?? {}
-            const { login: handle } = parseHandle(_handle, { entity: "user" })
+            const { handle, ext = "svg" } = url.pathname.match(this.routes.metrics)?.groups ?? {}
+            const entity = handle.includes("/") ? "repository" : "user"
             const _log = log
             let user = null as user | null
+            try {
+              parseHandle(handle, { entity })
+            } catch {
+              return new Response(`Bad request: invalid handle "${handle}"`, { status: Status.BadRequest })
+            }
             if (!handle) {
               return new Response("Not found", { status: Status.NotFound })
             }
@@ -312,7 +317,7 @@ class Server extends Internal {
                     context,
                     deepMerge(this.context.config, {
                       presets: Object.fromEntries(
-                        Object.entries(this.context.config.presets).map(([preset, { plugins }]) => [preset, { plugins: { ...plugins, ...extras, handle, mock: context.mock } }]),
+                        Object.entries(this.context.config.presets).map(([preset, { plugins }]) => [preset, { plugins: { ...plugins, ...extras, handle, entity, mock: context.mock } }]),
                       ),
                     }),
                   )

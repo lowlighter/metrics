@@ -11,7 +11,7 @@ const regex = {
 /** Parse handle */
 export function parseHandle(handle: string, options: { entity: "user" | "organization" }): { login: string }
 export function parseHandle(handle: string, options: { entity: "repository" }): { owner: string; name: string }
-export function parseHandle(handle: string | null | void, options: { entity: string }): { handle: string; login: string }
+export function parseHandle(handle: string | null | void, options: { entity: string }): { login: string }
 export function parseHandle(handle: string | null | void, { entity }: { entity: string }) {
   if (typeof handle !== "string") {
     throws("No handle provided", { unrecoverable: true })
