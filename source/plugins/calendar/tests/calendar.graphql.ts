@@ -6,8 +6,8 @@ export default mock({ login: is.string(), from: is.coerce.date(), to: is.coerce.
   const distribution = [[0, 50], [1, 15], [2, 15], [3, 5], [4, 5], [5, 3], [6, 1], [7, 1], [8, 1], [9, 1], [10, 1], [11, 1], [12, 1]].flatMap(([n, r]) => new Array(r).fill(n))
   const max = Math.max(...distribution)
   if (from.getFullYear() > 1970) {
-    for (const date = new Date(from); date <= to; date.setDate(date.getDate() + 1)) {
-      if ((!date.getDay()) && (date.getTime() !== from.getTime())) {
+    for (const date = new Date(from); date <= to; date.setUTCDate(date.getUTCDate() + 1)) {
+      if ((!date.getUTCDay()) && (date.getTime() !== from.getTime())) {
         weeks.push({ days })
         days = []
       }

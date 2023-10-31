@@ -143,15 +143,15 @@ export default class extends Plugin {
       const n = Number((range as string).match(lastXdays)!.groups!.n)
       end = this.date(today, { time: "keep" })
       start = this.date(end, { time: "keep" })
-      start.setHours((-n + 1) * 24 + start.getTimezoneOffset() / 60)
+      start.setDate(start.getDate() - n)
     }
-    this.log.trace(`start date set from year "${typeof range === "object" ? range.from : range}" → ${start.toISOString()}`)
-    this.log.trace(`end date set from "${typeof range === "object" ? range.to : range}" → ${end.toISOString()}`)
+    this.log.trace(`start date set from year "${typeof range === "object" ? range.from : range}" → ${this.format(start)}`)
+    this.log.trace(`end date set from "${typeof range === "object" ? range.to : range}" → ${this.format(end)}`)
 
     //Fetch data
     const calendar = { colors, years: [] } as is.infer<typeof this["outputs"]["shape"]["calendar"]>
     const result = { range: { start, end, average: 0, max: 0, streak: { max: 0, current: 0 } }, calendar }
-    this.log.debug(`fetching data from ${start.toISOString()} to ${end.toISOString()}`)
+    this.log.debug(`fetching data from ${this.format(start)} to ${this.format(end)}`)
     for (let year = start.getFullYear(); year <= end.getFullYear(); year++) {
       this.log.trace(`processing ${lastXdays.test(`${range}`) ? `"${range}"` : `year ${year}`}`)
       calendar.years.push({ year, weeks: [], average: 0, max: 0, streak: { max: 0 } })
@@ -159,7 +159,7 @@ export default class extends Plugin {
       //Ensure starting date is on a sunday (to avoid incomplete week arrays that would offset results later on)
       const A = lastXdays.test(`${range}`) ? this.date(start, { time: "keep" }) : this.date(year, { day: "1st jan", time: "00:00" })
       const O = this.date(A, { time: "keep" })
-      A.setHours(-A.getDay() * 24)
+      A.setDate(A.getDate() - A.getDay())
 
       //Ensure ending date is either on today or a 31st of december
       const B = lastXdays.test(`${range}`) ? this.date(end, { time: "keep" }) : (year >= today.getFullYear()) ? this.date(today, { time: "keep" }) : this.date(year, { day: "31st dec", time: "23:59" })
@@ -168,14 +168,16 @@ export default class extends Plugin {
       for (let a = this.date(A, { time: "keep" }), first = true; a < B; first = false) {
         //Compute next date range
         let b = this.date(a, { time: "23:59" })
-        b.setHours(27 * 24)
+        b.setDate(b.getDate() + 27)
         if (b > B) {
           b = this.date(B, { time: "keep" })
         }
 
         //Fetch data from api and clean padded days on first iteration
-        this.log.trace(`querying data from ${a.toISOString()} to ${b.toISOString()}`)
-        const { entity: { contributions: { calendar: { weeks } } } } = await this.graphql("calendar", { login: handle, from: a.toISOString(), to: b.toISOString() })
+        this.log.trace(`querying data from ${this.format(a)} to ${this.format(b)}`)
+        const from = this.date(a, { time: "keep", utc: true }).toISOString()
+        const to = this.date(b, { time: "keep", utc: true }).toISOString()
+        const { entity: { contributions: { calendar: { weeks } } } } = await this.graphql("calendar", { login: handle, from, to })
         if (first) {
           for (let i = 0; i < weeks[0].days.length; i++) {
             const { date } = weeks[0].days[i]
@@ -203,7 +205,7 @@ export default class extends Plugin {
     //Compute streaks and average
     const global = [] as number[]
     for (const year of calendar.years) {
-      this.log.trace(`computing additional data for ${lastXdays.test(`${range}`) ? `"${range}"` : `year ${year}`}`)
+      this.log.trace(`computing additional data for ${lastXdays.test(`${range}`) ? `"${range}"` : `year ${year.year}`}`)
       const local = [] as number[]
       let streak = 0
       for (const { days } of year.weeks) {
@@ -229,10 +231,18 @@ export default class extends Plugin {
     return result
   }
 
+  /** Format date for debug */
+  private format(date: Date) {
+    const day = new Intl.DateTimeFormat("en-GB", { timeZone: this.context.timezone, weekday: "short" }).format(date)
+    const fdate = new Intl.DateTimeFormat("en-GB", { timeZone: this.context.timezone, year: "numeric", month: "2-digit", day: "2-digit" }).format(date)
+    const time = new Intl.DateTimeFormat("en-GB", { timeZone: this.context.timezone, hour: "2-digit", minute: "2-digit", second: "2-digit", fractionalSecondDigits: 3 }).format(date)
+    return `${day} ${fdate} ${time}`
+  }
+
   /** Create a date from a reference, and optionally clean time */
-  private date(date: Date, options: { time: "00:00" | "23:59" | "keep" }): Date
-  private date(year: number, options: { day: "1st jan" | "31st dec"; time: "00:00" | "23:59" }): Date
-  private date(ref: number | Date, { day, time }: { day?: "1st jan" | "31st dec"; time: "00:00" | "23:59" | "keep" }) {
+  private date(date: Date, options: { time: "00:00" | "23:59" | "keep"; utc?: boolean }): Date
+  private date(year: number, options: { day: "1st jan" | "31st dec"; time: "00:00" | "23:59"; utc?: boolean }): Date
+  private date(ref: number | Date, { day, time, utc }: { day?: "1st jan" | "31st dec"; time: "00:00" | "23:59" | "keep"; utc?: boolean }) {
     const date = new Date(new Date().toLocaleString("en", { timeZone: this.context.timezone }))
     switch (typeof ref) {
       case "number":
@@ -243,13 +253,7 @@ export default class extends Plugin {
         }
         break
       case "object":
-        date.setFullYear(ref.getFullYear())
-        date.setMonth(ref.getMonth())
-        date.setDate(ref.getDate())
-        date.setHours(ref.getHours())
-        date.setMinutes(ref.getMinutes())
-        date.setSeconds(ref.getSeconds())
-        date.setMilliseconds(ref.getMilliseconds())
+        date.setTime(ref.getTime())
         break
     }
     switch (time) {
@@ -265,6 +269,9 @@ export default class extends Plugin {
         date.setSeconds(59)
         date.setMilliseconds(999)
         break
+    }
+    if (utc) {
+      date.setMinutes(date.getMinutes() - date.getTimezoneOffset())
     }
     return date
   }
