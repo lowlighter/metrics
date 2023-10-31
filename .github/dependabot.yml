@@ -1,6 +1,7 @@
 version: 2
 updates:
   - package-ecosystem: npm
+    open-pull-requests-limit: 0 # Will not be managed by npm anymore in v4
     labels:
       - 📦 dependencies
     directory: /
