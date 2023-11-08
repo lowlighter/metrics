@@ -2,7 +2,7 @@
 import { is, parse, Plugin } from "@engine/components/plugin.ts"
 import { matchPatterns, parseHandle } from "@engine/utils/github.ts"
 import { delay } from "std/async/delay.ts"
-import { Status } from "std/http/http_status.ts"
+import { Status } from "std/http/status.ts"
 
 /** Plugin */
 export default class extends Plugin {

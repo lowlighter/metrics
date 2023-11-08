@@ -1,12 +1,10 @@
-.btr.json
+.deno-make.json
 .cache
 .coverage
 .env
+.secrets
 .test
 .kv
 .kv-*
 metrics.config.yml
-source/run/server/static/app.js
-
-# TODO(@lowlighter): remove after migration
-.legacy
+source/run/serve/static/app.js

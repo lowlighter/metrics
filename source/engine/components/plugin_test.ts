@@ -37,8 +37,7 @@ Deno.test(t(import.meta, "`.render()` renders template content"), { permissions:
   })
 })
 
-// TODO(@lowlighter): change to `[dir.source]` after https://github.com/denoland/deno_std/pull/3692
-Deno.test(t(import.meta, "`.templates()` returns a list of available templates"), { permissions: { read: true } }, async () => {
+Deno.test(t(import.meta, "`.templates()` returns a list of available templates"), { permissions: { read: [dir.source] } }, async () => {
   const plugin = await Plugin.load({ id: import.meta.url })
   await expect(plugin.templates()).to.be.eventually.be.an("array")
 })
@@ -59,8 +58,7 @@ Deno.test(t(import.meta, "`static .load()` without identifier returns `Plugin.NO
   await expect(Plugin.load({ logs: "none" } as test)).to.eventually.be.instanceOf(Plugin.NOP)
 })
 
-// TODO(@lowlighter): change to `[dir.source]` after https://github.com/denoland/deno_std/pull/3692
-Deno.test(t(import.meta, "`static .list()` returns a list of available plugins"), { permissions: { read: true } }, async () => {
+Deno.test(t(import.meta, "`static .list()` returns a list of available plugins"), { permissions: { read: [dir.source] } }, async () => {
   await expect(Plugin.list()).to.be.eventually.be.an("array")
 })
 

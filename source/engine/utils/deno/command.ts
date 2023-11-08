@@ -1,5 +1,5 @@
 // Imports
-import argv from "y/string-argv@0.3.1"
+import argv from "y/string-argv@0.3.1?pin=v133"
 import { Logger } from "@engine/utils/log.ts"
 import { TextDelimiterStream } from "std/streams/text_delimiter_stream.ts"
 

@@ -1,5 +1,4 @@
 //Imports
-import { serveListener } from "std/http/server.ts"
 import { server as schema, webrequest } from "@engine/config.ts"
 import { process } from "@engine/process.ts"
 import { is, parse } from "@engine/utils/validation.ts"
@@ -12,24 +11,24 @@ import { parseHandle } from "@engine/utils/github.ts"
 import { decodeBase64 } from "std/encoding/base64.ts"
 import { serveDir, serveFile } from "std/http/file_server.ts"
 import { fromFileUrl } from "std/path/from_file_url.ts"
-import { Status } from "std/http/http_status.ts"
+import { Status } from "std/http/status.ts"
 import { metadata } from "@engine/metadata.ts"
 import { deferred } from "std/async/deferred.ts"
 import { deepMerge } from "std/collections/deep_merge.ts"
 import { getCookies, setCookie } from "std/http/cookie.ts"
 import { Secret } from "@engine/utils/secret.ts"
 import { Requests } from "@engine/components/requests.ts"
-import { App } from "y/@octokit/app@14.0.0"
-import { client } from "./mod_imports.ts"
+import { App } from "y/@octokit/app@14.0.0?pin=v133"
+import { client } from "@run/serve/imports.ts"
 import { Browser } from "@engine/utils/browser.ts"
 try {
-  await import("./imports.ts")
+  await import("@run/serve/imported.ts")
 } catch { /* Ignore */ }
 
 //TODO(@lowlighter): support tokenless mode with mocked data as default for preview
 
 /** Server */
-class Server extends Internal {
+export class Server extends Internal {
   /** Import meta */
   static readonly meta = import.meta
 
@@ -78,7 +77,7 @@ class Server extends Internal {
   /** Start server */
   start() {
     this.log.info(`listening on ${this.context.hostname}:${this.context.port}`)
-    return serveListener(listen({ hostname: this.context.hostname, port: this.context.port }), (request, connection) => this.handle(request, connection as { remoteAddr: { hostname: string } }))
+    return listen({ hostname: this.context.hostname, port: this.context.port }, (request, connection) => this.handle(request, connection as { remoteAddr: { hostname: string } }))
   }
 
   /** Metadata */
@@ -154,8 +153,10 @@ class Server extends Internal {
                 try {
                   const state = url.searchParams.get("state")
                   const code = url.searchParams.get("code")
+                  // @ts-ignore: upstream types are incorrects
                   const { authentication: { token, expiresAt: expiration } } = await this.#app!.oauth.createToken({ state, code })
                   const ttl = new Date(expiration).getTime() - Date.now()
+                  // @ts-ignore: upstream types are incorrects
                   const { data: { user: { login, avatar_url: avatar } } } = await this.#app!.oauth.checkToken({ token })
                   if (await this.#kv.has(`sessions.login.${login}`)) {
                     log.trace(`oauth process: user ${login} was already authenticated`)
@@ -390,15 +391,3 @@ class Server extends Internal {
 
 /** User */
 type user = { login: string; avatar: string; token: string; session: string }
-
-// Entry point
-if (import.meta.main) {
-  const path = "metrics.config.yml"
-  const config = {} as Record<PropertyKey, unknown>
-  try {
-    Object.assign(config, await YAML.parse(await read(path)))
-  } catch {
-    console.log(`${path} not found, using default configuration`)
-  }
-  await new Server(config).start()
-}

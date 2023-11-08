@@ -2,13 +2,13 @@
 import { Component, is, parse, state } from "@engine/components/component.ts"
 import { list, read } from "@engine/utils/deno/io.ts"
 import { _plugin_nop_removed_keys as schema_nop_removed_keys, plugin as schema, plugin_nop as schema_nop } from "@engine/config.ts"
-import * as ejs from "y/ejs@3.1.9"
+import * as ejs from "y/ejs@3.1.9?pin=v133"
 import { Requests } from "@engine/components/requests.ts"
 import { Formatter } from "@engine/utils/format.ts"
 import { basename } from "std/path/basename.ts"
 import { Processor } from "@engine/components/processor.ts"
 import { throws } from "@engine/utils/errors.ts"
-import { RequestInterface } from "y/@octokit/types@11.1.0"
+import { RequestInterface } from "y/@octokit/types@11.1.0?pin=v133"
 
 /** Plugin */
 export abstract class Plugin extends Component {

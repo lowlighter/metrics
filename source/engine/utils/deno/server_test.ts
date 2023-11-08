@@ -77,6 +77,7 @@ Deno.test(t(import.meta, "`KV.*()` throws if kv is not ready"), { permissions: "
   await expect(() => kv.close()).to.throw(MetricsError, /not ready/i)
 })
 
-Deno.test(t(import.meta, "`listen()` returns a listener to a local address"), { permissions: { net: [`0.0.0.0:${test.port}`] } }, () => {
-  expect(() => listen({ port: test.port }).close()).not.to.throw()
+Deno.test(t(import.meta, "`listen()` returns a listener to a local address"), { permissions: { net: [`0.0.0.0:${test.port}`] } }, async () => {
+  const server = listen({ port: test.port }, () => new Response(null))
+  await expect(server.shutdown()).to.be.fulfilled
 })

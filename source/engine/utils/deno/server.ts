@@ -3,8 +3,8 @@
 import { throws } from "@engine/utils/errors.ts"
 
 /** Port listener */
-export function listen(options: Deno.ListenOptions) {
-  return Deno.listen(options)
+export function listen(options: Deno.ServeOptions, handler: Deno.ServeHandler) {
+  return Deno.serve(options, handler)
 }
 
 /** KV storage */

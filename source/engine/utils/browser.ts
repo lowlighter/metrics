@@ -137,7 +137,9 @@ export class Browser {
   }
 
   /** Get binary path */
-  static readonly getBinary = getBinary
+  static getBinary(product: Parameters<typeof getBinary>[0]) {
+    return getBinary(product, { cache: dir.cache })
+  }
 
   /** Browser flags */
   private static get flags() {

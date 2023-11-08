@@ -22,7 +22,7 @@ if (import.meta.main) {
     }
   }
   await write(
-    "source/run/server/imports.ts",
+    "source/run/serve/imported.ts",
     [
       "/*",
       " * Statically analyzable dynamic imports for deno deploy",
@@ -31,17 +31,17 @@ if (import.meta.main) {
       imports.map((imported) => `(async () => await import("${imported.replaceAll("\\", "/")}"))`).sort().join(";\n"),
     ].join("\n"),
   )
-  log.success("generated: source/run/server/imports.ts")
+  log.success("generated: source/run/serve/imported.ts")
 
   // Create client
-  await write("source/run/server/static/app.js", await client())
-  log.success("generated: source/run/server/static/app.js")
+  await write("source/run/serve/static/app.js", await client())
+  log.success("generated: source/run/serve/static/app.js")
 }
 
 /** Bundle client */
 export async function client() {
   const { imports } = JSONC.parse(await read("deno.jsonc")) as { imports: Record<string, string> }
-  const result = await bundle(new URL("./mod_client.ts", import.meta.url), { type: "module", importMap: { imports } })
+  const result = await bundle(new URL("./client.ts", import.meta.url), { type: "module", importMap: { imports } })
   const { code } = result
   return code
 }

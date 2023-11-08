@@ -222,7 +222,7 @@ class Crafter {
       case "json":
         return JSON.stringify([local])
       case "object":
-        return local
+        return local as plugin
     }
   }
 
@@ -257,7 +257,7 @@ class Crafter {
 
   /** Set default value */
   syncValue(path: Array<string | number>, inputs: Any) {
-    log.probe("syncinc", this.formatKeyPath(path))
+    log.probe(`syncing: ${this.formatKeyPath(path)}`)
     const subpath = path.join(".")
     switch (true) {
       case inputs.type === "object": {
@@ -286,7 +286,7 @@ class Crafter {
         this.setValue(path, { target: input } as Any)
         break
       }
-      case ("anyOf" in inputs) && (inputs.anyOf.every((item) => item.const)): {
+      case ("anyOf" in inputs) && (inputs.anyOf.every((item: Record<PropertyKey, unknown>) => item.const)): {
         const input = document.querySelector(`[id="${subpath}@${inputs.default}"]`) as HTMLInputElement
         if (!input) {
           break

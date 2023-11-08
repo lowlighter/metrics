@@ -45,7 +45,7 @@ jobs:
           queries:
             - uses: security-and-quality
           paths-ignore:
-            - source/run/server/imports.ts
+            - source/run/serve/imported.ts
     - uses: github/codeql-action/analyze@v2
 
   # Build and push Docker image

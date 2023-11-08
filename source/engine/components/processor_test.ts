@@ -41,8 +41,7 @@ Deno.test(t(import.meta, "`static .load()` can instantiate from `metrics://` sch
   await expect(Processor.load({ id: "metrics://engine/components/processor_test.ts" })).to.eventually.be.instanceOf(TestProcessor)
 })
 
-// TODO(@lowlighter): change to `[dir.source]` after https://github.com/denoland/deno_std/pull/3692
-Deno.test(t(import.meta, "`static .list()` returns a list of available plugins"), { permissions: { read: true } }, async () => {
+Deno.test(t(import.meta, "`static .list()` returns a list of available plugins"), { permissions: { read: [dir.source] } }, async () => {
   await expect(Processor.list()).to.be.eventually.be.an("array")
 })
 

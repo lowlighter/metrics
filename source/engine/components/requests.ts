@@ -1,7 +1,7 @@
 // Imports
-import { Octokit } from "y/@octokit/rest@20.0.1"
-import { paginateGraphql } from "y/@octokit/plugin-paginate-graphql@4.0.0"
-import type { RequestInterface } from "y/@octokit/types@11.1.0"
+import { Octokit } from "y/@octokit/rest@20.0.1?pin=v133"
+import { paginateGraphql } from "y/@octokit/plugin-paginate-graphql@4.0.0?pin=v133"
+import type { RequestInterface } from "y/@octokit/types@11.1.0?pin=v133"
 import { Internal, is } from "@engine/components/internal.ts"
 import { read } from "@engine/utils/deno/io.ts"
 import type { requests as schema } from "@engine/config.ts"

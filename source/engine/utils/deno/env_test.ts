@@ -3,7 +3,7 @@ import { env } from "@engine/utils/deno/env.ts"
 
 const uuid = crypto.randomUUID().slice(-12).toUpperCase()
 const test = {
-  env: `UNIT_TEST_${uuid}`,
+  env: "METRIC_ENV_TEST",
   value: uuid,
 }
 

@@ -1,15 +1,15 @@
 // deno-lint-ignore-file no-explicit-any
 //import { env } from "@engine/utils/io.ts"
-import core from "y/@actions/core@1.10.1"
+import core from "y/@actions/core@1.10.1?pin=v133"
 import * as YAML from "std/yaml/mod.ts"
 import { brightRed as r, cyan, gray, white, yellow } from "std/fmt/colors.ts"
 type compat = any
 
 function deprecated(input: string, replacement: Record<string, unknown> | null) {
   if (replacement === null) {
-    core.warn(`${r(input)} is not supported anymore`)
+    core.warning(`${r(input)} is not supported anymore`)
   } else {
-    core.warn(`${r(input)} is deprecated, use the following configuration snippet instead:\n\n${yaml({ config: replacement })}`)
+    core.warning(`${r(input)} is deprecated, use the following configuration snippet instead:\n\n${yaml({ config: replacement })}`)
   }
 }
 

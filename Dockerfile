@@ -54,6 +54,5 @@ COPY source /metrics/source
 COPY deno.jsonc /metrics/deno.jsonc
 COPY deno.lock /metrics/deno.lock
 COPY LICENSE /metrics/LICENSE
-COPY tasks.ts /metrics/tasks.ts
-RUN deno task btr cache
-ENTRYPOINT [ "deno", "task", "btr", "cli" ]
+RUN deno task make cache
+ENTRYPOINT [ "deno", "task", "make", "run" ]

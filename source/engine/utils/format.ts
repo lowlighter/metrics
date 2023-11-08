@@ -1,6 +1,6 @@
 // Imports
-import humanformat from "y/human-format@1.2.0"
-import pluralize from "y/pluralize@8.0.0"
+import humanformat from "y/human-format@1.2.0?pin=v133"
+import pluralize from "y/pluralize@8.0.0?pin=v133"
 
 /** Formatter */
 export class Formatter {

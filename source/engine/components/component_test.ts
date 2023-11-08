@@ -39,13 +39,12 @@ Deno.test(t(import.meta, "`.icon` returns an emoji"), { permissions: "none" }, a
   expect(component.icon).to.equal("⏹️")
 })
 
-// TODO(@lowlighter): change to `[dir.source]` after https://github.com/denoland/deno_std/pull/3692
-Deno.test(t(import.meta, "`.tests()` returns a list of tests"), { permissions: { read: true } }, async () => {
+Deno.test(t(import.meta, "`.tests()` returns a list of tests"), { permissions: { read: [dir.source] } }, async () => {
   const component = await Component.load({ id: import.meta.url })
   await expect(component.tests()).to.be.eventually.be.an("array")
 })
 
-Deno.test(t(import.meta, "`.tests()` returns an empty array if no tests are defined"), { permissions: { read: true } }, async () => {
+Deno.test(t(import.meta, "`.tests()` returns an empty array if no tests are defined"), { permissions: { read: [dir.source] } }, async () => {
   const component = await Component.load({ id: import.meta.url })
   Object.assign(component, { id: "__test__" })
   await expect(component.tests()).to.be.eventually.be.an("array")

@@ -7,7 +7,7 @@ import { env } from "@engine/utils/deno/env.ts"
 
 const log = new Logger(import.meta)
 const cache = `${dir.cache}/browser.test`
-const bin = env.get("CHROME_BIN") || await Browser.getBinary("chrome", { cache: dir.cache })
+const bin = env.get("CHROME_BIN")
 const permissions = {
   read: [cache],
   net: ["127.0.0.1", "localhost"],

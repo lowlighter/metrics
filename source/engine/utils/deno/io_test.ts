@@ -37,8 +37,7 @@ Deno.test(t(import.meta, "`read()` converts `metrics://` scheme to `/source`"), 
   await expect(read(new URL(test))).to.eventually.equal(expected)
 })
 
-// TODO(@lowlighter): change to `[dir.source]` after https://github.com/denoland/deno_std/pull/3692
-Deno.test(t(import.meta, "`list()` can list files in a directory"), { permissions: { read: true } }, async () => {
+Deno.test(t(import.meta, "`list()` can list files in a directory"), { permissions: { read: [dir.source] } }, async () => {
   expect(await list(`${dir.source}/engine/utils/deno/*.ts`)).to.include.members(["io.ts", "io_test.ts"])
-  expect(await list("*.ts")).to.not.include.members(["io.ts", "io_test.ts"])
+  expect(await list(`${dir.source}/*.ts`)).to.not.include.members(["io.ts", "io_test.ts"])
 })
