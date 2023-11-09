@@ -36,13 +36,9 @@ export async function write(path: string, data: string | Uint8Array | ReadableSt
 export async function list(glob: string) {
   const files = []
   const base = glob.match(/(?<base>.*\/)\*/)?.groups?.base
-  const prefix = base ? new RegExp(`.*?${base}`) : null
+  const prefix = new RegExp(`.*?${base}`)
   for await (const { path } of expandGlob(glob, { extended: true, globstar: true })) {
-    let file = path.replaceAll("\\", "/")
-    if (prefix) {
-      file = file.replace(prefix, "")
-    }
-    files.push(file)
+    files.push(path.replaceAll("\\", "/").replace(prefix, ""))
   }
   return files
 }

@@ -33,10 +33,10 @@ runs:
         cd ${{ github.action_path }}
         DOCKER_IMAGE="${{ inputs.docker_image }}"
         if [ -f "$DOCKER_IMAGE" ]; then
+          DOCKER_LOCAL=metrics:local
           echo "Using local docker image: $DOCKER_IMAGE"
-          deno task btr docker:build
-          DOCKER_IMAGE=metrics:dev
-          # TODO(@lowlighter): pass the docker file as input
+          deno task make docker --tag $DOCKER_LOCAL --file $DOCKER_IMAGE
+          DOCKER_IMAGE=$DOCKER_LOCAL
         else
           echo "Pulling remote docker image: $DOCKER_IMAGE"
           docker pull $DOCKER_IMAGE

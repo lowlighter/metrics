@@ -16,6 +16,19 @@ const permissions = {
   write: [`${env.get("HOME")}/.config/chromium/SingletonLock`],
 }
 
+Deno.test(t(import.meta, "`static .getBinary()` returns a path"), {
+  permissions: {
+    net: [
+      "googlechromelabs.github.io/chrome-for-testing",
+      "edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing",
+    ],
+    read: [dir.cache],
+    write: [dir.cache],
+  },
+}, async () => {
+  await expect(Browser.getBinary("chrome")).to.eventually.be.a("string")
+})
+
 for (const mode of ["local", "remote"]) {
   const setup = async () => {
     const remote = (mode === "remote") ? await new Browser({ log, bin }).ready : null

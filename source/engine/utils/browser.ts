@@ -9,10 +9,10 @@ import { delay } from "std/async/delay.ts"
 /** Browser */
 export class Browser {
   /** Constructor */
-  constructor({ log, endpoint = null, bin }: { log: Logger; endpoint?: null | string; bin?: string }) {
+  constructor({ log, endpoint = null, bin = env.get("CHROME_BIN") }: { log: Logger; endpoint?: null | string; bin?: string }) {
     this.endpoint = endpoint
     this.log = log
-    this.bin = bin || env.get("CHROME_BIN") || undefined
+    this.bin = bin
     this.ready = this.open()
   }
 
@@ -39,7 +39,7 @@ export class Browser {
     } else {
       this.#instance = await launch({ args: Browser.flags, path: this.bin, cache: dir.cache })
       Object.assign(this, { endpoint: this.#instance.wsEndpoint() })
-      this.log.io(`using local browser: ${this.endpoint}${this.bin ? ` (from ${this.bin})` : ""}}`)
+      this.log.io(`using local browser: ${this.endpoint} (from ${this.bin})`)
     }
     return this
   }

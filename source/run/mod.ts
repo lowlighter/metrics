@@ -41,9 +41,7 @@ class CLI extends Internal {
         env.set(`INPUT_${key.replace(/ /g, "_").toUpperCase()}`, `${value}`)
       }
       console.log("config", core.getInput("config"))
-      console.log("deprecated_test", core.getInput("deprecated_test"))
-      core.warning("test **markdown**\n```yaml\nfoo: true\n```", { title: "test" })
-      console.log("compat >>>>>>>>>>", compat(inputs))
+      await compat(inputs)
     }
     // Check for updates
     if (this.context.check_updates) {
@@ -52,7 +50,7 @@ class CLI extends Internal {
         core.info(`Version ${upstream} is available!`)
       }
     }
-    //
+    // Run metrics
     await process(this.context.config)
   }
 

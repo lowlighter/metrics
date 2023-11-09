@@ -20,8 +20,9 @@ RUN apk add --no-cache chromium ttf-freefont font-noto-emoji \
 # Install deno
 ENV DENO_INSTALL /
 ENV DENO_NO_UPDATE_CHECK true
+ENV DENO_VERSION 1.38.0
 ENV GLIBC_VERSION 2.34-r0
-RUN apk add --no-cache --virtual .deno curl wget \
+RUN apk add --no-cache --virtual .deno curl wget unzip \
   && wget --no-hsts --quiet --output-document /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub \
   && wget --no-hsts --quiet https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${GLIBC_VERSION}/glibc-${GLIBC_VERSION}.apk \
   && wget --no-hsts --quiet https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${GLIBC_VERSION}/glibc-bin-${GLIBC_VERSION}.apk \
@@ -35,6 +36,7 @@ RUN apk add --no-cache --virtual .deno curl wget \
   && apk del glibc-i18n \
   && (curl -fsSL https://deno.land/x/install/install.sh | sh) \
   && apk del .deno \
+  && deno upgrade --version ${DENO_VERSION} \
   && deno --version
 
 # Install lighthouse

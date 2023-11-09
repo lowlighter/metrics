@@ -1,6 +1,6 @@
 // Imports
 import { is, parse, Plugin } from "@engine/components/plugin.ts"
-import RSS from "y/rss-parser@3.13.0"
+import RSS from "y/rss-parser@3.13.0?pin=v133"
 
 /** Plugin */
 export default class extends Plugin {

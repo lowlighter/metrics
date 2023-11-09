@@ -74,7 +74,7 @@ export async function getPermissions(test: Awaited<ReturnType<typeof Component["
         read: [dir.cache],
         net: ["127.0.0.1", "localhost"],
         env: ["CHROME_BIN", "CHROME_PATH", "CHROME_EXTRA_FLAGS"],
-        run: [env.get("CHROME_BIN") || await Browser.getBinary("chrome")],
+        run: [env.get("CHROME_BIN")],
         write: [`${env.get("HOME")}/.config/chromium/SingletonLock`],
       }),
     )

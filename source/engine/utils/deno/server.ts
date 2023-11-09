@@ -4,7 +4,7 @@ import { throws } from "@engine/utils/errors.ts"
 
 /** Port listener */
 export function listen(options: Deno.ServeOptions, handler: Deno.ServeHandler) {
-  return Deno.serve(options, handler)
+  return Deno.serve({ ...options, onListen: () => void null }, handler)
 }
 
 /** KV storage */

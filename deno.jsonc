@@ -120,7 +120,10 @@
               // processors/render.twemojis
               "cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets",
               // Testing
-              "example.com"
+              "example.com",
+              // Browser downloads
+              "googlechromelabs.github.io/chrome-for-testing",
+              "edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing"
             ],
             "run": [
               "deno",
@@ -132,6 +135,7 @@
             ],
             "write": [
               ".test",
+              ".cache",
               "$HOME/.config/chromium/SingletonLock"
             ],
             "env": [
@@ -200,7 +204,7 @@
       "task": [
         "deno task make docker &&",
         "docker run --entrypoint='' metrics:dev sh -c 'deno task make test && deno task make coverage'"
-      ],
+      ]
     },
     "deploy:deno": {
       "description": "🦕 Deploy metrics on https://deno.com/deploy",
@@ -242,7 +246,7 @@
         "deno eval \"console.log($ASTRAL_INSTALL)\""
       ],
       "env": {
-        "ASTRAL_INSTALL": "await import('@engine/utils/browser.ts').then(({Browser}) => Browser.getBinary('chrome'))"
+        "ASTRAL_INSTALL": "(Deno.stdout = Deno.stderr, await import('@engine/utils/browser.ts').then(({Browser}) => Browser.getBinary('chrome')))"
       },
       "deno": {
         "eval": {
@@ -253,13 +257,13 @@
             ],
             "write": [
               ".cache"
+            ],
+            "env": [
+              "CHROME_BIN"
             ]
           }
         }
       }
-    },
-    "xx": {
-      "task": "export TEST=$(deno task make get:cache) && echo $TEST"
     },
     "get:cache": {
       "description": "🏗️ Get cache path",
