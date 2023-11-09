@@ -199,6 +199,10 @@
         }
       }
     },
+    "ci:lint": {
+      "description": "🤖 Lint code (CI)",
+      "task": "deno task make lint" // --check
+    },
     "ci:test": {
       "description": "🤖 Build container and run tests and coverage inside the image (CI)",
       "task": [

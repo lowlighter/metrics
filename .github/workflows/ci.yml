@@ -15,12 +15,12 @@ jobs:
     strategy:
       matrix:
         task:
-          - ci:check
+          - ci:lint
           - ci:test
     steps:
       - uses: actions/checkout@v4
       - uses: denoland/setup-deno@v1
-      - run: deno task btr ${{ matrix.task }}
+      - run: deno task make ${{ matrix.task }}
 
   # GitHub CodeQL analysis
   analyze:
