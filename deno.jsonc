@@ -49,6 +49,7 @@
     "run": {
       "description": "🚀 Run metrics",
       "task": [
+        "deno task make get:browser &&",
         "export CHROME_BIN=$(deno task make get:browser) &&",
         "export CACHE_DIRECTORY=$(deno task make get:cache) &&",
         "deno run source/run/mod.ts $<*>"
@@ -90,6 +91,7 @@
     "test": {
       "description": "🧪 Run tests and collect coverage",
       "task": [
+        "deno task make get:browser &&",
         "export CHROME_BIN=$(deno task make get:browser) &&",
         "rm .coverage -rf &&",
         "deno test source"
@@ -138,13 +140,7 @@
               ".cache",
               "$HOME/.config/chromium/SingletonLock"
             ],
-            "env": [
-              "CHROME_BIN",
-              "CHROME_PATH",
-              "CHROME_EXTRA_FLAGS",
-              "METRIC_ENV_TEST",
-              "METRIC_ENV_TEST_UNDEFINED"
-            ]
+            "env": true
           }
         }
       }
@@ -207,7 +203,7 @@
       "description": "🤖 Build container and run tests and coverage inside the image (CI)",
       "task": [
         "deno task make docker &&",
-        "docker run --entrypoint='' metrics:dev sh -c 'deno task make test && deno task make coverage'"
+        "docker run --rm --entrypoint='' metrics:dev sh -c 'deno task make test && deno task make coverage'"
       ]
     },
     "deploy:deno": {
@@ -246,14 +242,16 @@
     "get:browser": {
       "description": "🏗️ Get browser path (and install it if necessary)",
       "task": [
-        "deno eval \"$ASTRAL_INSTALL\" &&",
-        "deno eval \"console.log($ASTRAL_INSTALL)\""
+        "deno eval \"$ASTRAL_DOWNLOAD\" &&",
+        "deno eval \"$ASTRAL_BINARY\""
       ],
       "env": {
-        "ASTRAL_INSTALL": "(Deno.stdout = Deno.stderr, await import('@engine/utils/browser.ts').then(({Browser}) => Browser.getBinary('chrome')))"
+        "ASTRAL_DOWNLOAD": "await import('@engine/utils/browser.ts').then(({Browser}) => Browser.getBinary('chrome'))",
+        "ASTRAL_BINARY": "await import('@engine/utils/browser.ts').then(async ({Browser}) => console.log(Deno.env.get('CHROME_BIN') || await Browser.getBinary('chrome')))"
       },
       "deno": {
         "eval": {
+          "quiet": true,
           "permissions": {
             "net": [
               "googlechromelabs.github.io/chrome-for-testing",
@@ -279,6 +277,7 @@
       },
       "deno": {
         "eval": {
+          "quiet": true,
           "permissions": {
             "env": true
           }

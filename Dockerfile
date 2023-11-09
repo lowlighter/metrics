@@ -57,4 +57,5 @@ COPY deno.jsonc /metrics/deno.jsonc
 COPY deno.lock /metrics/deno.lock
 COPY LICENSE /metrics/LICENSE
 RUN deno task make cache
+RUN deno task make get:browser
 ENTRYPOINT [ "deno", "task", "make", "run" ]
