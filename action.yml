@@ -42,4 +42,4 @@ runs:
           docker pull $DOCKER_IMAGE
         fi
         echo "::endgroup::"
-        docker run --tty --env-file <(env | grep -E 'GITHUB|CI|TZ') --env INPUTS --rm --volume ${{ github.workspace }}:/workspace $DOCKER_IMAGE run
+        docker run --tty --env-file <(env | grep -E 'GITHUB|CI|TZ') --env INPUTS --rm --volume ${{ github.workspace }}:/workspace --volume /metrics_renders:/metrics_renders $DOCKER_IMAGE run

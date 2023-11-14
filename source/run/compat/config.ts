@@ -10,6 +10,9 @@ export class Config {
   /** Report */
   readonly report = new Report()
 
+  /** Is patched ? */
+  patched = false
+
   /** Patch config */
   patch(inputs: string | string[], snippet: Record<PropertyKey, unknown> | null) {
     if (snippet) {
@@ -22,6 +25,7 @@ export class Config {
     } else {
       this.report.error(`${Array.isArray(inputs) ? `\`${[inputs.slice(0, -1).join(", "), inputs.slice(-1)].join(" and ")}\` have` : `\`${inputs}\` has`} been removed`)
     }
+    this.patched = true
   }
 
 }

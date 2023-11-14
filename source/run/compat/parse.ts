@@ -101,15 +101,15 @@ async function parser(inputs:Record<PropertyKey, unknown>, report?:Report) {
   }
 
   // Parse inputs
-  const parsed = {} as Record<PropertyKey, unknown>
+  const parsed = {} as Record<PropertyKey, compat>
   const kv = /^(?<key>[\s\S]+?):(?<value>[\s\S]+)$/
   for (const [key, {type, ...options}] of Object.entries(metadata.inputs) as Array<[string, Record<PropertyKey, unknown>]>) {
     const value = inputs[key]
     parsed[key] = parse[type as keyof typeof parse]?.(`${value ?? options.default}`, options as compat) ?? value
     {
-      const k = yaml({[key]:null}).match(kv)?.groups?.key.trim()
-      const a = typeof value === "undefined" ? `${value}` : yaml({[key]:value}).match(kv)?.groups?.value.trim()
-      const b = yaml({[key]:parsed[key]}).match(kv)?.groups?.value.trim()
+      const k = yaml({[key]:null}, {inline:true}).match(kv)?.groups?.key.trim()
+      const a = typeof value === "undefined" ? `${value}` : yaml({[key]:value}, {inline:true}).match(kv)?.groups?.value.trim()
+      const b = yaml({[key]:parsed[key]}, {inline:true}).match(kv)?.groups?.value.trim()
       if (a !== b)
         report?.debug(`${k}: ${a} → ${b}`)
     }
