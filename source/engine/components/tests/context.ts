@@ -67,6 +67,9 @@ export async function getPermissions(test: Awaited<ReturnType<typeof Component["
     env: [...requested].filter((permission) => permission.startsWith("env:")).map((permission) => permission.replace("env:", "")),
     net: [...requested].filter((permission) => permission.startsWith("net:")).map((permission) => permission.replace("net:", "")),
   } as test
+  if (requested.has("net:all")) {
+    delete permissions.net
+  }
   if (requested.has("run:chrome")) {
     Object.assign(
       permissions,
