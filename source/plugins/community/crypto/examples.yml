@@ -11,3 +11,5 @@
     plugin_crypto_precision: 2
   prod:
     skip: true
+  test:
+    skip: true

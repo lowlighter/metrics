@@ -83,7 +83,6 @@
 <!-- /Options -->
 
 <!--examples-->
-
 ```yaml
 name: Crypto Metrics
 uses: lowlighter/metrics@latest
@@ -96,5 +95,6 @@ with:
   plugin_crypto_vs_currency: usd
   plugin_crypto_days: 1
   plugin_crypto_precision: 2
+
 ```
 <!--/examples-->

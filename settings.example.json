@@ -191,6 +191,9 @@
       "token": "Chess platform token",
       "enabled": false,                 "//": "Enable chess plugin"
     },
+    "crypto":{
+      "enabled": false,                 "//": "Enable crypto plugin"
+    },
     "fortune":{
       "enabled": false,                 "//": "Enable fortune plugin"
     },

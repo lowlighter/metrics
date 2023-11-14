@@ -1323,6 +1323,29 @@ inputs:
     default: <default-value>
 
   # ====================================================================================
+  # 🪙 Crypto
+
+  plugin_crypto:
+    description: Enable crypto plugin
+    default: <default-value>
+
+  plugin_crypto_id:
+    description: Crypto id
+    default: <default-value>
+
+  plugin_crypto_vs_currency:
+    description: The target currency of market data (usd, eur, jpy, etc.)
+    default: <default-value>
+
+  plugin_crypto_days:
+    description: Data up to number of days ago (eg. 1,14,30,max)
+    default: <default-value>
+
+  plugin_crypto_precision:
+    description: The number of decimal places to use
+    default: <default-value>
+
+  # ====================================================================================
   # 🥠 Fortune
 
   plugin_fortune:
