@@ -6,5 +6,7 @@
 .test
 .kv
 .kv-*
+node_modules
 metrics.config.yml
+settings.json
 source/run/serve/static/app.js
