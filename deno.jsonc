@@ -63,12 +63,20 @@
               "0.0.0.0",
               "127.0.0.1",
               "localhost",
+              // Packages
+              "esm.sh",
+              "deno.land/x",
+              "deno.land/std",
               // GitHub API
               "api.github.com",
               // Github OAuth
               "github.com/login/oauth",
               // plugins/rss
-              "news.ycombinator.com/rss"
+              "news.ycombinator.com/rss",
+              // processors/render.gemojis
+              "api.github.com/emojis",
+              // processors/render.twemojis
+              "cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets"
             ],
             "run": [
               "$CHROME_BIN"

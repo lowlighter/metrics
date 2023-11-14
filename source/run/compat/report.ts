@@ -1,5 +1,5 @@
 // Imports
-import { bgWhite, black, brightGreen, brightRed, brightYellow, gray, cyan, white, yellow } from "std/fmt/colors.ts"
+import { bgWhite, black, brightGreen, brightRed, brightYellow, cyan, gray, white, yellow } from "std/fmt/colors.ts"
 import * as YAML from "std/yaml/stringify.ts"
 
 /** Compatibility report */
@@ -33,14 +33,14 @@ export class Report {
   }
 
   /** Print messages to console */
-  console({ flush = false} = {}) {
+  console({ flush = false } = {}) {
     for (const { type, message } of this.messages) {
-      const icon = { error: "❌", warning: "⚠️", info: "💡", debug:"📟", unimplemented:"🏗️" }[type]
+      const icon = { error: "❌", warning: "⚠️", info: "💡", debug: "📟", unimplemented: "🏗️" }[type]
       const text = `${icon} ${message}`
         .replaceAll(/^```\w*([\s\S]+?)```/gm, (_, text: string) => text.split("\n").map((line) => `   ${line}`).join("\n"))
         .replaceAll(/`([\s\S]+?)`/g, (_, text) => bgWhite(` ${black(text)} `))
         .split("\n").map((line) => `▓ ${line}`).join("\n")
-      const color = { error: brightRed, warning: brightYellow, info: brightGreen, debug:gray, unimplemented:yellow }[type]!
+      const color = { error: brightRed, warning: brightYellow, info: brightGreen, debug: gray, unimplemented: yellow }[type]!
       console.log(color(text))
     }
     if (flush) {
@@ -56,12 +56,12 @@ export class Report {
 }
 
 /** YAML formatter for console */
-export function yaml(content: Record<PropertyKey, unknown>, {inline = false} = {}) {
+export function yaml(content: Record<PropertyKey, unknown>, { inline = false } = {}) {
   const regex = {
     kv: /^(?<indent>\s*)(?<array>\-\s+)?'?(?<key>\w[.\w-]*)'?(?:(?<kv>:)(?<value>\s.+)?)?$/,
   }
   const lines = []
-  for (const line of YAML.stringify(content, {skipInvalid:true, flowLevel:inline ? 1 : -1}).split("\n")) {
+  for (const line of YAML.stringify(content, { skipInvalid: true, flowLevel: inline ? 1 : -1 }).split("\n")) {
     if (regex.kv.test(line)) {
       let { indent, array = "", kv, key, value } = line.match(regex.kv)!.groups!
       let color = white

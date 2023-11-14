@@ -27,5 +27,4 @@ export class Config {
     }
     this.patched = true
   }
-
 }

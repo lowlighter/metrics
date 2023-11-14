@@ -12,7 +12,7 @@ type compat = any
 export async function compat(_inputs: Record<PropertyKey, unknown>) {
   const config = new Config()
   const inputs = await parse(_inputs, config.report)
-  config.report.console({flush:true})
+  config.report.console({ flush: true })
 
   const { Requests } = await import("@engine/components/requests.ts")
   const requests = new Requests(import.meta, { logs: "none", mock: false, api: "https://api.github.com", timezone: "Europe/Paris", token: inputs.token } as compat)
@@ -83,9 +83,9 @@ export async function compat(_inputs: Record<PropertyKey, unknown>) {
   }
 
   // Retries
-  if ((inputs.retries)||(inputs.retries_delay)) {
-    const retries = {attempts:inputs.retries, delay:inputs.retries_delay}
-    const snippet = { config: { presets: { default: { plugins: { retries}, procesors:{retries} } } } }
+  if ((inputs.retries) || (inputs.retries_delay)) {
+    const retries = { attempts: inputs.retries, delay: inputs.retries_delay }
+    const snippet = { config: { presets: { default: { plugins: { retries }, procesors: { retries } } } } }
     config.patch(["retries", "retries_delay"], snippet)
     config.report.info("Retry configuration can now be set at preset, plugin or processor level")
   }
@@ -99,7 +99,7 @@ export async function compat(_inputs: Record<PropertyKey, unknown>) {
 
   // Fatal errors
   if (inputs.plugins_errors_fatal) {
-    const snippet = { config: { presets: { default: { plugins: { fatal: true }, procesors:{fatal:true} } } } }
+    const snippet = { config: { presets: { default: { plugins: { fatal: true }, procesors: { fatal: true } } } } }
     config.patch("plugins_errors_fatal", snippet)
     config.report.info("Errors status can now be set at preset, plugin or processor level")
   }
@@ -130,7 +130,7 @@ export async function compat(_inputs: Record<PropertyKey, unknown>) {
   }
 
   // Removed options
-  if ((inputs.verify)|| (inputs.debug_flags) || (inputs.experimental_features) || (inputs.clean_workflows)) {
+  if ((inputs.verify) || (inputs.debug_flags) || (inputs.experimental_features) || (inputs.clean_workflows)) {
     const options = []
     for (const key of ["verify", "debug_flags", "experimental_features"]) {
       if (inputs[key]) {
@@ -147,9 +147,9 @@ export async function compat(_inputs: Record<PropertyKey, unknown>) {
     config.patch("setup_community_templates", null)
     config.report.info("Community templates are now directly fetched remotely upon usage")
   }
-  if ((typeof inputs.query === "object")&&(Object.keys(inputs.query).length)) {
+  if ((typeof inputs.query === "object") && (Object.keys(inputs.query).length)) {
     config.patch("query", null)
-    config.report.info(`Query parameters for templates should now be handled through url parameters:\n${yaml({template: "https://example.test/template?param1=value1&param2=value2&..."})}`)
+    config.report.info(`Query parameters for templates should now be handled through url parameters:\n${yaml({ template: "https://example.test/template?param1=value1&param2=value2&..." })}`)
   }
 
   // Templates
@@ -250,7 +250,6 @@ export async function compat(_inputs: Record<PropertyKey, unknown>) {
   }
 
   // 👨‍💻 Lines of code changed lines
-
 
   // 🗼 Rss feed
   if (inputs.plugin_rss) {
@@ -816,14 +815,14 @@ export async function compat(_inputs: Record<PropertyKey, unknown>) {
 
   // Base64 images
   if (inputs.config_base64) {
-    const snippet = { config: { plugins: [{ processors: [{ "transform.base64": { } }] }] } }
+    const snippet = { config: { plugins: [{ processors: [{ "transform.base64": {} }] }] } }
     config.patch("config_base64", snippet)
   }
 
   // Optimizations
   if (inputs.optimize?.length) {
     const snippet = { config: { plugins: [{ processors: [] }] } } as compat
-    for (const type of ["css", "svg", 'xml']) {
+    for (const type of ["css", "svg", "xml"]) {
       if (inputs.optimize.includes(type)) {
         snippet.config.plugins[0].processors.push({ [`optimize.${type}`]: {} })
       }
@@ -835,7 +834,7 @@ export async function compat(_inputs: Record<PropertyKey, unknown>) {
 
   // Output format
   if (inputs.config_output) {
-    const snippet =  {config:{plugins:[{processors:[{render:{format:inputs.config_output}}]}]}}
+    const snippet = { config: { plugins: [{ processors: [{ render: { format: inputs.config_output } }] }] } }
     if (inputs.config_output === "auto") {
       snippet.config.plugins[0].processors[0].render.format = "svg"
       config.report.warning("Output format `auto` has been removed. Render format has been set to `svg` for compatibility")
@@ -854,8 +853,8 @@ export async function compat(_inputs: Record<PropertyKey, unknown>) {
     const filepath = inputs.filename
     switch (true) {
       // Commit
-      case inputs.output_action === "commit":{
-        snippet = { config: { plugins: [{ processors: [{ "publish.git": { commit:{filepath} } }] }] } }
+      case inputs.output_action === "commit": {
+        snippet = { config: { plugins: [{ processors: [{ "publish.git": { commit: { filepath } } }] }] } }
         if (inputs.committer_message) {
           let message = inputs.committer_message
           if (message.includes("${filename}")) {
@@ -872,38 +871,48 @@ export async function compat(_inputs: Record<PropertyKey, unknown>) {
         break
       }
       // Gist
-      case inputs.output_action === "gist":{
-        snippet = { config: { plugins: [{ processors: [{ "publish.gist": {gist: inputs.committer_gist, filepath} }] }] } }
+      case inputs.output_action === "gist": {
+        snippet = { config: { plugins: [{ processors: [{ "publish.gist": { gist: inputs.committer_gist, filepath } }] }] } }
         options.push("committer_gist")
         break
       }
       // Pull request
-      case inputs.output_action.startsWith("pull-request"):{
+      case inputs.output_action.startsWith("pull-request"): {
         let github = {} as compat
-        await import("y/@actions/github@6.0.0?pin=v133").then(imported => github = imported.default).catch(() => null)
-        snippet = { config: { plugins: [{ processors: [{ "publish.git": { pullrequest: {
-          title :"Auto-generated metrics for run #${run}" ,
-          message: " ",
-          checks :{attempts:240, delay:15},
-          from:`metrics-run-${github.context?.runId}`,
-          filepath} } }] }] } }
+        await import("y/@actions/github@6.0.0?pin=v133").then((imported) => github = imported.default).catch(() => null)
+        snippet = {
+          config: {
+            plugins: [{
+              processors: [{
+                "publish.git": {
+                  pullrequest: {
+                    title: "Auto-generated metrics for run #${run}",
+                    message: " ",
+                    checks: { attempts: 240, delay: 15 },
+                    from: `metrics-run-${github.context?.runId}`,
+                    filepath,
+                  },
+                },
+              }],
+            }],
+          },
+        }
         if (inputs.committer_branch) {
           snippet.config.plugins[0].processors[0]["publish.git"].pullrequest.to = inputs.committer_branch
           options.push("committer_branch")
-        }
-        else {
+        } else {
           snippet.config.plugins[0].processors[0]["publish.git"].pullrequest.to = github.context?.ref.replace(/^refs[/]heads[/]/, "")
           config.report.warning("Pull request target branch is not inferred anymore and should now be set manually")
         }
         const merge = inputs.output_action.replace("pull-request-", "")
         if (merge) {
-          snippet.config.plugins[0].processors[0]["publish.git"].pullrequest.merge = {merge:"commit"}[merge as string] ?? merge
+          snippet.config.plugins[0].processors[0]["publish.git"].pullrequest.merge = { merge: "commit" }[merge as string] ?? merge
         }
         break
       }
       // None
-      case inputs.output_action === "none":{
-        snippet = {config:{plugins:[{processors:[{"publish.file":{filepath:`/metrics_renders/${filepath}`}}]}]}}
+      case inputs.output_action === "none": {
+        snippet = { config: { plugins: [{ processors: [{ "publish.file": { filepath: `/metrics_renders/${filepath}` } }] }] } }
         config.report.warning("Generated renders are not saved to `/metrics_renders` by default anymore (use `processors/publish.file` instead)")
         break
       }
@@ -916,8 +925,8 @@ export async function compat(_inputs: Record<PropertyKey, unknown>) {
     }
 
     // Retries configuration
-    if ((inputs.retries_output_action)||(inputs.retries_delay_output_action)) {
-      snippet.config.plugins[0].retries = {attempts:inputs.retries_output_action, delay:inputs.retries_delay_output_action}
+    if ((inputs.retries_output_action) || (inputs.retries_delay_output_action)) {
+      snippet.config.plugins[0].retries = { attempts: inputs.retries_output_action, delay: inputs.retries_delay_output_action }
       options.push("retries_output_action", "retries_delay_output_action")
     }
 
@@ -927,7 +936,7 @@ export async function compat(_inputs: Record<PropertyKey, unknown>) {
 
   // Print to console
   if (inputs.debug_print) {
-    const snippet = { config: { plugins: [{ processors: [{ "publish.console": { } }] }] } }
+    const snippet = { config: { plugins: [{ processors: [{ "publish.console": {} }] }] } }
     config.patch("debug_print", snippet)
   }
 
@@ -954,7 +963,7 @@ export async function compat(_inputs: Record<PropertyKey, unknown>) {
 
   // Updates
   if (inputs.notice_releases) {
-    config.patch("notice_releases", {check_updates:true})
+    config.patch("notice_releases", { check_updates: true })
   }
 
   // Docker image
@@ -1013,7 +1022,7 @@ if (import.meta.main) {
     config_animations: "yes",
     config_padding: "5%, 10%",
     delay: "5",
-    plugin_languages_ignored:""
+    plugin_languages_ignored: "",
   })
 }
 
@@ -1029,5 +1038,3 @@ if (import.meta.main) {
   plugin_lines_delay:
 
 */
-
-
