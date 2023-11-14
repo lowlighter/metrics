@@ -40,7 +40,7 @@ if (import.meta.main) {
 
 /** Bundle client */
 export async function client() {
-  const { imports } = JSONC.parse(await read("deno.jsonc")) as { imports: Record<string, string> }
+  const { imports } = JSONC.parse(await read("deno.jsonc")) as { imports: Record<PropertyKey, string> }
   const result = await bundle(new URL("./client.ts", import.meta.url), { type: "module", importMap: { imports } })
   const { code } = result
   return code

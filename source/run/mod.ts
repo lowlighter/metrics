@@ -8,7 +8,7 @@ import { process } from "@engine/process.ts"
 import { parse as parseFlags } from "std/flags/mod.ts"
 import { brightRed, cyan, gray } from "std/fmt/colors.ts"
 import { env } from "@engine/utils/deno/env.ts"
-import { compat } from "@run/compat.ts"
+import { compat } from "@run/compat/mod.ts"
 import { parse } from "@engine/utils/validation.ts"
 import { Server } from "@run/serve/server.ts"
 

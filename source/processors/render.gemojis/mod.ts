@@ -2,7 +2,7 @@
 import { Processor, state } from "@engine/components/processor.ts"
 // @ts-ignore: json import
 import imported from "https://api.github.com/emojis" assert { type: "json" }
-const gemojis = imported as Record<string, string>
+const gemojis = imported as Record<PropertyKey, string>
 
 /** Processor */
 export default class extends Processor {

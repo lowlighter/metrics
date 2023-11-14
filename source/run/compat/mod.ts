@@ -1,96 +1,42 @@
 // Imports
 //import { env } from "@engine/utils/io.ts"
-import * as YAML from "std/yaml/mod.ts"
-import { bgWhite, black, brightGreen, brightRed, brightYellow, cyan, gray, white, yellow } from "std/fmt/colors.ts"
-import { deepMerge } from "std/collections/deep_merge.ts"
+import { Logger } from "@engine/utils/log.ts"
+import { Config } from "@run/compat/config.ts"
+import { yaml } from "@run/compat/report.ts"
+import { parse } from "@run/compat/parse.ts"
+
+const log = new Logger(import.meta, { level: "debug" })
 
 /** Compatibility type */
 // deno-lint-ignore no-explicit-any
 type compat = any
 
-/** Compatibility report */
-class Report {
-  /** Messages */
-  readonly messages = [] as Array<{ type: string; message: string }>
-
-  /** Register error message */
-  error(message: string) {
-    this.messages.push({ type: "error", message })
-  }
-
-  /** Register warning message */
-  warning(message: string) {
-    this.messages.push({ type: "warning", message })
-  }
-
-  /** Register info message */
-  info(message: string) {
-    this.messages.push({ type: "info", message })
-  }
-
-  /** Print messages to console */
-  console() {
-    for (const { type, message } of this.messages) {
-      const icon = { error: "❌", warning: "⚠️", info: "💡" }[type]
-      const text = `${icon} ${message}`
-        .replaceAll(/^```\w*([\s\S]+?)```/gm, (_, text: string) => text.split("\n").map((line) => `   ${line}`).join("\n"))
-        .replaceAll(/`([\s\S]+?)`/g, (_, text) => bgWhite(` ${black(text)} `))
-        .split("\n").map((line) => `▓ ${line}`).join("\n")
-      const color = { error: brightRed, warning: brightYellow, info: brightGreen }[type]!
-      console.log(color(text))
-    }
-  }
-
-  /** Print messages to markdown */
-  markdown() {
-    return ""
-  }
-}
-
-/** Compatibility config */
-class Config {
-  /** Config content */
-  readonly content = {} as Record<PropertyKey, unknown>
-
-  /** Report */
-  readonly report = new Report()
-
-  /** Patch config */
-  patch(inputs: string | string[], snippet: Record<PropertyKey, unknown> | null) {
-    if (snippet) {
-      this.report.warning(
-        `${
-          Array.isArray(inputs) ? `\`${[inputs.slice(0, -1).join(", "), inputs.slice(-1)].join(" and ")}\` are` : `\`${inputs}\` is`
-        } deprecated, use the following configuration snippet instead:\n\`\`\`yaml\n${yaml(snippet)}\`\`\``,
-      )
-      Object.assign(this.content, deepMerge(this.content, snippet, { arrays: "merge" }))
-    } else {
-      this.report.error(`${Array.isArray(inputs) ? `\`${[inputs.slice(0, -1).join(", "), inputs.slice(-1)].join(" and ")}\` have` : `\`${inputs}\` has`} been removed`)
-    }
-  }
-
-  /** Print config */
-  print() {
-    console.log(yaml(this.content))
-  }
-}
-
 /** Compatibility layer */
-export async function compat(inputs: compat) {
+export async function compat(_inputs: Record<PropertyKey, unknown>) {
   const config = new Config()
+  const inputs = await parse(_inputs, config.report)
+  config.report.console()
 
   const { Requests } = await import("@engine/components/requests.ts")
-  const requests = new Requests(import.meta, { logs: "none", mock: false, api: "https://api.github.com", timezone: "Europe/Paris", token: { read: () => inputs.token } } as compat)
+  const requests = new Requests(import.meta, { logs: "none", mock: false, api: "https://api.github.com", timezone: "Europe/Paris", token: inputs.token } as compat)
   //api
+
+/*
+    switch (value) {
+      case ".user.login":
+      case ".user.twitter":
+      case ".user.website":
+    }
+*/
 
   // 🗝️ Token
   if (inputs.token) {
     const snippet = { config: { presets: { default: { plugins: { token: inputs.token } } } } }
     config.patch("token", snippet)
     config.report.info("Token should now be set at preset or plugin level")
-    if (!inputs.token.startsWith("github_pat_")) {
+    /*if (!inputs.token.startsWith("github_pat_")) {
       config.report.info("Metrics now supports supports fine-grained personal access tokens and recommends to use them")
-    }
+    }*/
   }
 
   if (inputs.user) {
@@ -274,9 +220,6 @@ export async function compat(inputs: compat) {
     config.report.warning("")
   }
 
-  //config_output
-  //config_base64
-
   // 🎁 Extras ==========================================================================================
 
   if ((inputs.extras_css) || (inputs.extras_js)) {
@@ -341,10 +284,12 @@ export async function compat(inputs: compat) {
   plugins_errors_fatal:
   debug_print:
   use_mocked_data:
+    //config_output
+  //config_base64
   */
 
   config.report.console()
-  config.print()
+  console.log(yaml(config.content))
 
   return config
 }
@@ -355,41 +300,42 @@ if (import.meta.main) {
     user: "lowlighter",
     repo: "metrics",
     github_api_rest: "https://api.github.com",
-    plugin_introduction: true,
-    plugin_introduction_title: false,
-    plugin_isocalendar: true,
+    plugin_introduction: "yes",
+    plugin_introduction_title: "no",
+    plugin_isocalendar: "yes",
     plugin_isocalendar_duration: "full-year",
-    debug_flags: ["--halloween"],
-    plugin_calendar: true,
-    plugin_calendar_limit: -1,
-    plugin_gists: true,
-    plugin_rss: true,
+    debug_flags: "--halloween",
+    plugin_calendar: "yes",
+    plugin_calendar_limit: "-1",
+    plugin_gists: "yes",
+    plugin_rss: "yes",
     plugin_rss_source: "https://news.ycombinator.com/rss",
-    plugin_rss_limit: 0,
-    plugin_screenshot: true,
+    plugin_rss_limit: "0",
+    plugin_screenshot: "yes",
     plugin_screenshot_url: "https://example.com",
     plugin_screenshot_selector: "body",
     plugin_screenshot_mode: "image",
-    plugin_screenshot_viewport: { width: 1280, height: 1280 },
-    plugin_screenshot_wait: 100,
-    plugin_screenshot_background: false,
-    plugin_support: true,
+    plugin_screenshot_viewport: '{ "width": 1280, "height": 1280 }',
+    plugin_screenshot_wait: "100",
+    plugin_screenshot_background: "no",
+    plugin_support: "yes",
     extras_css: "body { background: red }",
     extras_js: "console.log('hello world')",
-    debug: true,
-    verify: true,
-    dryrun: true,
-    experimental_features: ["test"],
+    debug: "yes",
+    verify: "yes",
+    dryrun: "yes",
+    experimental_features: "test",
     config_timezone: "Europe/Paris",
-    config_twemoji: true,
-    config_gemoji: true,
-    config_octicon: true,
+    config_twemoji: "yes",
+    config_gemoji: "yes",
+    config_octicon: "yes",
     config_presets: "@lunar-red",
-    config_order: ["introduction", "isocalendar", "calendar", "gists", "rss", "webscraping", "support"],
+    config_order: "introduction, isocalendar, calendar, gists, rss, webscraping, support",
     config_display: "large",
-    config_animations: true,
-    config_padding: ["5%", "10%"],
-    delay: 5,
+    config_animations: "yes",
+    config_padding: "5%, 10%",
+    delay: "5",
+    plugin_languages_ignored:""
   })
 }
 
@@ -676,39 +622,4 @@ if (import.meta.main) {
   plugin_stock_interval:
 */
 
-/** YAML formatter for console */
-function yaml(content: Record<string, unknown>) {
-  const regex = {
-    kv: /^(?<indent>\s*)(?<array>\-\s+)?'?(?<key>\w[.\w-]*)'?(?:(?<kv>:)(?<value>\s.+)?)?$/,
-  }
-  const lines = []
-  for (const line of YAML.stringify(content).split("\n")) {
-    if (regex.kv.test(line)) {
-      let { indent, array = "", kv, key, value } = line.match(regex.kv)!.groups!
-      let color = white
-      if (!kv) {
-        value = key
-      }
-      value = value?.trim()
-      switch (true) {
-        case ["null"].includes(value):
-          color = gray
-          break
-        case ["{}", "[]", "true", "false"].includes(value):
-          color = yellow
-          break
-        case !Number.isNaN(Number(value)):
-          color = yellow
-          break
-        case /^'.+'$/.test(value):
-          value = value.replace(/^'|'$/g, "")
-          color = yellow
-          break
-      }
-      lines.push(`${indent}${array}${kv ? `${cyan(key)}: ${color(value ?? "")}` : color(value ?? "")}`)
-      continue
-    }
-    lines.push(line)
-  }
-  return lines.join("\n")
-}
+

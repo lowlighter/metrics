@@ -4,9 +4,9 @@ import { Logger } from "@engine/utils/log.ts"
 import { TextDelimiterStream } from "std/streams/text_delimiter_stream.ts"
 
 /** Execute command */
-export async function command(input: string, options: { return: "stdout" | "stderr"; cwd?: string; env?: Record<string, string>; log?: Logger }): Promise<string>
-export async function command(input: string, options?: { cwd?: string; env?: Record<string, string>; log?: Logger }): Promise<{ success: boolean; code: number; stdout: string; stderr: string }>
-export async function command(input: string, { return: returned, cwd, log, env }: { return?: "stdout" | "stderr"; cwd?: string; env?: Record<string, string>; log?: Logger } = {}) {
+export async function command(input: string, options: { return: "stdout" | "stderr"; cwd?: string; env?: Record<PropertyKey, string>; log?: Logger }): Promise<string>
+export async function command(input: string, options?: { cwd?: string; env?: Record<PropertyKey, string>; log?: Logger }): Promise<{ success: boolean; code: number; stdout: string; stderr: string }>
+export async function command(input: string, { return: returned, cwd, log, env }: { return?: "stdout" | "stderr"; cwd?: string; env?: Record<PropertyKey, string>; log?: Logger } = {}) {
   const stdio = { stdout: "", stderr: "" }
   const [bin, ...args] = argv(input)
   log = log?.with({ bin })

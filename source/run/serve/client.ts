@@ -84,7 +84,7 @@ class Crafter {
       processors: NaN,
     },
     cached: {
-      inputs: {} as Record<string, unknown>,
+      inputs: {} as Record<PropertyKey, unknown>,
     },
   }
 

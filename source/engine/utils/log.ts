@@ -13,7 +13,7 @@ export class Logger {
   private readonly stdio
 
   /** Constructor */
-  constructor(meta: { url: string }, { level = "none" as "none" | channel | number, tags = {} as Record<string, unknown>, stdio = console as stdio } = {}) {
+  constructor(meta: { url: string }, { level = "none" as "none" | channel | number, tags = {} as Record<PropertyKey, unknown>, stdio = console as stdio } = {}) {
     this.id = meta.url.replace(Logger.root, "").replace(".ts", "").replace("/mod", "")
     this.tags = tags
     this.stdio = stdio
@@ -88,7 +88,7 @@ export class Logger {
   }
 
   /** Create a new logger with tags */
-  with(tags: Record<string, unknown>) {
+  with(tags: Record<PropertyKey, unknown>) {
     const logger = new Logger({ url: "" })
     Object.assign(logger, { id: this.id, level: this.level, tags: { ...this.tags, ...tags }, stdio: this.stdio })
     return logger
