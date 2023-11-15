@@ -35,6 +35,9 @@ export default class extends Processor {
     select: is.string().default("img").describe("HTML query selector"),
   })
 
+  /** Does this processor needs to perform requests ? */
+  protected requesting = true
+
   /** Action */
   protected async action(state: state) {
     const result = await this.piped(state)
@@ -64,8 +67,8 @@ export default class extends Processor {
       return url
     }
     try {
-      const response = await fetch(url)
-      const type = response.headers.get("content-type") || contentType(extname(url)) || "png"
+      const response = await this.requests.fetch(url, { type: "response" })
+      const type = response.headers.get("content-type") || contentType(extname(url)) || "image/png"
       this.log.trace(`${url}: detected ${type}`)
       let buffer = new Uint8Array(await response.arrayBuffer())
       if ((["image/jpeg", "image/png"].includes(type)) && (width || height)) {

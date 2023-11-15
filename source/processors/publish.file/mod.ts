@@ -27,7 +27,7 @@ export default class extends Processor {
   readonly supports = ["application/xml", "image/svg+xml", "image/png", "image/jpeg", "image/webp", "application/json", "text/html", "application/pdf", "text/plain"]
 
   /** Permissions */
-  readonly permissions = ["write"]
+  readonly permissions = ["write:all"]
 
   /** Action */
   protected async action(state: state) {

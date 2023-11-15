@@ -40,7 +40,7 @@
   },
   "tasks": {
     //  '
-    "qq": "rm -rf .coverage && deno test --coverage=.coverage --no-check --unstable --trace-ops --allow-all source --filter='calendar' && deno coverage .coverage --include='^file:.*/calendar/mod.ts'",
+    "qq": "rm -rf .coverage && deno test --coverage=.coverage --no-check --unstable --trace-ops --allow-all source --filter='base64' && deno coverage .coverage --include='^file:.*/transform.base64/mod.ts'",
     "q": "rm -rf .coverage && deno test --coverage=.coverage --unstable --trace-ops --fail-fast --allow-all source && deno coverage .coverage --exclude='/dom/'",
 
     "make": "deno run --allow-env --allow-read --allow-write=.deno-make.json --allow-run=deno https://deno.land/x/make@1.2.0/mod.ts $0"
@@ -79,6 +79,7 @@
               "cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets"
             ],
             "run": [
+              "docker",
               "$CHROME_BIN"
             ],
             "read": [
@@ -89,6 +90,7 @@
               "metrics.config.yml"
             ],
             "write": [
+              "$TMP",
               "$HOME/.config/chromium/SingletonLock"
             ],
             "env": true
@@ -131,12 +133,14 @@
               "cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets",
               // Testing
               "example.com",
+              "loremflickr.com",
               // Browser downloads
               "googlechromelabs.github.io/chrome-for-testing",
               "edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing"
             ],
             "run": [
               "deno",
+              "docker",
               "$CHROME_BIN"
             ],
             "read": [
@@ -146,6 +150,7 @@
             "write": [
               ".test",
               ".cache",
+              "$TMP",
               "$HOME/.config/chromium/SingletonLock"
             ],
             "env": true

@@ -51,6 +51,7 @@ export default class extends Plugin {
   /** Action */
   protected async action() {
     if (this.context.mock) {
+      this.log.trace("replacing url as mock mode is enabled")
       this.context.args.url = new URL("tests/example.html", import.meta.url).href
     }
     const { url, select: selector, mode, viewport, wait, background } = await parse(this.inputs, this.context.args)

@@ -1,3 +1,4 @@
+//Imports
 import { dir, test } from "@engine/utils/testing.ts"
 import { deepMerge } from "std/collections/deep_merge.ts"
 import { Browser } from "@engine/utils/browser.ts"
@@ -66,11 +67,15 @@ export async function getPermissions(test: Awaited<ReturnType<typeof Component["
     read: [dir.source, dir.cache],
     env: [...requested].filter((permission) => permission.startsWith("env:")).map((permission) => permission.replace("env:", "")),
     net: [...requested].filter((permission) => permission.startsWith("net:")).map((permission) => permission.replace("net:", "")),
+    run: [...requested].filter((permission) => permission.startsWith("run:")).map((permission) => permission.replace("run:", "")).filter((bin) => !["chrome"].includes(bin)),
   } as test
   if (requested.has("net:all")) {
-    delete permissions.net
+    permissions.net = "inherit"
   }
-  if (requested.has("run:chrome")) {
+  // TODO(@lowlighter): To remove when https://github.com/denoland/deno/issues/21123 fixed
+  if (permissions.run.length) {
+    permissions.run = "inherit"
+  } else if (requested.has("run:chrome")) {
     Object.assign(
       permissions,
       deepMerge(permissions, {
@@ -82,7 +87,10 @@ export async function getPermissions(test: Awaited<ReturnType<typeof Component["
       }),
     )
   }
-  if (requested.has("write")) {
+  if (requested.has("write:tmp")) {
+    Object.assign(permissions, deepMerge(permissions, { write: [env.get("TMP")] }))
+  }
+  if (requested.has("write:all")) {
     Object.assign(permissions, deepMerge(permissions, { write: [dir.test] }))
   }
 

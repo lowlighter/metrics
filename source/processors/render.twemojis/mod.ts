@@ -22,12 +22,15 @@ export default class extends Processor {
   /** Permissions */
   readonly permissions = ["net:cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets"]
 
+  /** Does this processor needs to perform requests ? */
+  protected requesting = true
+
   /** Action */
   protected async action(state: state) {
     const result = await this.piped(state)
     const twemojis = new Map<string, string>(parse(result.content).map(({ text: emoji, url }: { text: string; url: string }) => [emoji, url]))
     for (const [emoji, url] of twemojis) {
-      const svg = await fetch(url).then((response) => response.text())
+      const svg = await this.requests.fetch(url, { type: "text" })
       twemojis.set(emoji, svg.replace(/^<svg /, '<svg class="twemoji" '))
     }
     for (const [emoji, svg] of twemojis) {

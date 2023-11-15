@@ -1,0 +1,85 @@
+- name: transforms image to base64
+  plugins:
+    - processors:
+        - inject.content:
+            content: <img src="https://metrics.test/img" />
+        - transform.base64:
+        - assert:
+            html:
+              select: img
+              count: 1=
+              match: data:image/jpeg;base64,
+              raw: true
+
+- name: transforms and resize image to base64
+  plugins:
+    - processors:
+        - inject.content:
+            content: <img src="https://metrics.test/img" width="200" />
+        - transform.base64:
+        - assert:
+            html:
+              select: img
+              count: 1=
+              match: data:image/jpeg;base64,
+              raw: true
+    - processors:
+        - inject.content:
+            content: <img src="https://metrics.test/img" height="200" />
+        - transform.base64:
+        - assert:
+            html:
+              select: img
+              count: 1=
+              match: data:image/jpeg;base64,
+              raw: true
+
+- name: ignores data urls
+  plugins:
+    - processors:
+        - inject.content:
+            content: <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==" />
+        - transform.base64:
+        - assert:
+            html:
+              select: img
+              count: 1=
+              match: src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg=="
+              raw: true
+
+- name: ignores non `<img/>` tags
+  plugins:
+    - processors:
+        - inject.content:
+            content: <span class="img">not actually an image</span>
+        - transform.base64:
+            select: .img
+        - assert:
+            html:
+              select: .img
+              count: 1=
+              match: /not actually an image/i
+
+- name: fallbacks on invalid urls
+  plugins:
+    - processors:
+        - inject.content:
+            content: <img src="" />
+        - transform.base64:
+        - assert:
+            html:
+              select: img
+              count: 1=
+              match: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==
+              raw: true
+    - processors:
+        - inject.content:
+            content: <img src="https://metrics.test/img_invalid" width="1" height="1" />
+          logs: none
+        - transform.base64:
+        - assert:
+            html:
+              select: img
+              count: 1=
+              match: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==
+              raw: true

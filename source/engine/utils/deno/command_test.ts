@@ -6,17 +6,18 @@ import { DevNull } from "@engine/utils/log_test.ts"
 const stdio = new DevNull()
 const log = new Logger(import.meta, { level: Logger.channels.trace, tags: { foo: "bar" }, stdio })
 
-// TODO(@lowlighter): Use `{ permissions: { run: ["deno"] } }` when https://github.com/denoland/deno/issues/21123 fixed
+// TODO(@lowlighter): Use `["deno"]` when https://github.com/denoland/deno/issues/21123 fixed
+const permissions = { run: "inherit" } as const
 
-Deno.test(t(import.meta, "`command()` can execute commands"), async () => {
+Deno.test(t(import.meta, "`command()` can execute commands"), { permissions }, async () => {
   await expect(command("deno --version")).to.be.eventually.containSubset({ success: true, code: 0 })
 })
 
-Deno.test(t(import.meta, "`command()` returns stdio content instead if asked"), async () => {
+Deno.test(t(import.meta, "`command()` returns stdio content instead if asked"), { permissions }, async () => {
   await expect(command("deno --version", { return: "stdout" })).to.eventually.include("deno")
 })
 
-Deno.test(t(import.meta, "`command()` returns stdio content instead if asked"), async () => {
+Deno.test(t(import.meta, "`command()` returns stdio content instead if asked"), { permissions }, async () => {
   stdio.flush()
   await expect(command("deno --version", { log })).to.be.fulfilled
   expect(stdio.messages).to.not.be.empty
