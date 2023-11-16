@@ -27,6 +27,11 @@ Deno.test(t(import.meta, "`.number()` pluralize text correctly"), { permissions:
   expect(format.number("canary", 1000)).to.equal("1k canaries")
 })
 
+Deno.test(t(import.meta, "`.emojiless()` strips emojis from text"), { permissions: "none" }, () => {
+  expect(format.emojiless("hello world !")).to.equal("hello world !")
+  expect(format.emojiless("hello 👋 world 🌍 !")).to.equal("hello world !")
+})
+
 Deno.test(t(import.meta, "`.html()` wraps content in a valid html document"), { permissions: "none" }, () => {
   const content = "<h1>Hello world</h1>"
   const result = format.html(content)

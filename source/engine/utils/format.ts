@@ -46,6 +46,11 @@ export class Formatter {
     return `${humanformat(number, options).replace(/(\d)\s/, "$1")} ${pluralize(text, number)}`.trim()
   }
 
+  /** Strip emojis from text */
+  emojiless(text:string) {
+    return text.replaceAll(/([\p{Emoji}\u200d]+)/gu, "")
+  }
+
   /** Format content in HTML */
   html(content: string) {
     return `
