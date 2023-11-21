@@ -3,6 +3,7 @@ import { is, parse, Plugin } from "@engine/components/plugin.ts"
 import { matchPatterns, parseHandle } from "@engine/utils/github.ts"
 import { delay } from "std/async/delay.ts"
 import { Status } from "std/http/status.ts"
+import { Graph } from "@engine/utils/graph.ts"
 
 /** Plugin */
 export default class extends Plugin {
@@ -23,15 +24,36 @@ export default class extends Plugin {
 
   /** Inputs */
   readonly inputs = is.object({
+    display: is.object({
+      sections: is.preprocess(
+        (value) => [...new Set([value].flat())],
+        is.array(is.union([
+          is.literal("graph").describe("Diff history graph"),
+          is.literal("repositories").describe("Diff history per repository"),
+        ])),
+      ).default(() => ["graph" as const, "repositories" as const]).describe("Displayed sections"),
+      repositories: is.object({
+        limit: is.number().min(0).nullable().default(4).describe("Maximum number of repositories to display. Set to `null` to display all repositories"),
+        details: is.boolean().default(false).describe("Detailed repositories diff history"),
+        sort: is.union([
+          is.literal("created_at").describe("Order repositories by creation date"),
+          is.literal("updated_at").describe("Order repositories by updated date"),
+          is.literal("pushed_at").describe("Order repositories by pushed date"),
+          is.literal("name").describe("Order repositories by name"),
+          is.literal("stargazers").describe("Order repositories by number of stargazers"),
+          is.literal("diff").describe("Order repositories by number of lines changed"),
+        ]).default("diff").describe("Repositories sorting method"),
+      }).default(() => ({})),
+    }).default(() => ({})).describe("Displayed content"),
     repositories: is.object({
       affiliations: is.preprocess(
-        (value) => [value].flat(),
+        (value) => [...new Set([value].flat())],
         is.array(is.union([
           is.literal("owner").describe("Include repositories owned by user"),
           is.literal("collaborator").describe("Include repositories user has been added to as a collaborator"),
           is.literal("organization_member").describe("Include repositories owned by organizations user is a member of"),
         ])),
-      ).default(["owner", "collaborator"]).describe("Repository affiliations"),
+      ).default(() => ["owner", "collaborator"]).describe("Repository affiliations"),
       visibility: is.union([
         is.literal("public").describe("Includes public repositories only"),
         is.literal("all").describe("Includes public and private repositories (n.b. still subject to token permissions)"),
@@ -41,7 +63,6 @@ export default class extends Plugin {
       matching: is.preprocess((value) => [value].flat(), is.array(is.coerce.string())).default(() => ["*/*"]).describe("Include repositories matching at least one of these patterns"),
     }).default(() => ({})).describe("Repositories options"),
     history: is.object({
-      graph: is.boolean().default(false).describe("Display history graph"),
       limit: is.number().min(0).nullable().default(1).describe("Years to keep in history. Set to `null` to keep all history"),
     }).default(() => ({})).describe("History options"),
     contributors: is.object({
@@ -98,12 +119,15 @@ export default class extends Plugin {
     ).describe("Repositories statistics"),
   })
 
+  /** EJS template additional rendering context */
+  protected _renderctx = { Graph }
+
   /** Action */
   protected async action() {
     const { handle } = this.context
     const __contributors = this.inputs.shape.contributors.removeDefault()
     const _contributors = __contributors.merge(is.object({ matching: __contributors.shape.matching.default(this.context.entity === "user" ? handle : "*") })).default(() => ({}))
-    const { repositories, fetch: fetching, history, contributors } = await parse(this.inputs.merge(is.object({ contributors: _contributors })), this.context.args)
+    const { repositories, fetch: fetching, history, contributors, ...args } = await parse(this.inputs.merge(is.object({ contributors: _contributors })), this.context.args)
 
     //Fetch repositories
     const { entity: { repositories: { nodes } } } = await this.graphql("repositories", {
@@ -112,6 +136,7 @@ export default class extends Plugin {
       archived: repositories.archived ? null : false,
       forked: repositories.forked ? null : false,
       affiliations: repositories.affiliations.map((affiliation) => affiliation.toLocaleUpperCase()),
+      sort: ({ diff: "CREATED_AT" }[args.display.repositories.sort as string] ?? args.display.repositories.sort).toLocaleUpperCase(),
     }, { paginate: true })
 
     //Fetch contributors stats
@@ -193,6 +218,9 @@ export default class extends Plugin {
         contributors: Object.fromEntries(Object.entries(stats.contributors).sort(([_a, a], [_b, b]) => b.total - a.total).slice(0, contributors.limit ?? Infinity)),
         weeks: Object.fromEntries(Object.entries(stats.weeks).sort(([a], [b]) => new Date(a).getTime() - new Date(b).getTime())),
       }
+    }
+    if (args.display.repositories.sort === "diff") {
+      result.repositories = Object.fromEntries(Object.entries(result.repositories).sort(([_, a], [__, b]) => b.total - a.total))
     }
 
     return result

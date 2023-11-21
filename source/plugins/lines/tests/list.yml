@@ -1,3 +1,54 @@
+- name: supports `display.sections`
+  plugins:
+    - lines:
+        display:
+          sections: graph
+      handle: octocat
+      entity: user
+      processors:
+        - assert:
+            html:
+              select: .lines .graph
+              count: 1=
+        - assert:
+            html:
+              select: .lines .entry
+              count: 0=
+    - lines:
+        display:
+          sections: repositories
+      handle: octocat
+      entity: user
+      processors:
+        - assert:
+            html:
+              select: .lines .graph
+              count: 0=
+        - assert:
+            html:
+              select: .lines .entry
+              count: 1>=
+
+- name: supports `display.repositories`
+  plugins:
+    - lines:
+        display:
+          repositories:
+            limit: 1
+            details: true
+            sort: stargazers
+      handle: octocat
+      entity: user
+      processors:
+        - assert:
+            html:
+              select: .lines .entry .repo
+              count: 1=
+        - assert:
+            html:
+              select: .lines .entry .week
+              count: 1>=
+
 - name: supports `repositories.affiliations`
   plugins:
     - lines:
@@ -145,6 +196,9 @@
     - lines:
         history:
           limit: null
+        display:
+          repositories:
+            details: true
       handle: octocat
       entity: user
       processors:
@@ -155,6 +209,9 @@
     - lines:
         history:
           limit: 1
+        display:
+          repositories:
+            details: true
       handle: octocat
       entity: user
       processors:
@@ -168,6 +225,9 @@
     - lines:
         contributors:
           matching: octocat
+        display:
+          repositories:
+            details: true
       handle: octocat/public-repo
       entity: repository
       processors:
@@ -180,6 +240,9 @@
         contributors:
           matching: "*"
           limit: null
+        display:
+          repositories:
+            details: true
       handle: octocat/public-repo
       entity: repository
       processors:

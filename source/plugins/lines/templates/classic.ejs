@@ -3,52 +3,77 @@
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M2.75 1.5a.25.25 0 00-.25.25v12.5c0 .138.112.25.25.25h10.5a.25.25 0 00.25-.25V4.664a.25.25 0 00-.073-.177l-2.914-2.914a.25.25 0 00-.177-.073H2.75zM1 1.75C1 .784 1.784 0 2.75 0h7.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0113.25 16H2.75A1.75 1.75 0 011 14.25V1.75zm7 1.5a.75.75 0 01.75.75v1.5h1.5a.75.75 0 010 1.5h-1.5v1.5a.75.75 0 01-1.5 0V7h-1.5a.75.75 0 010-1.5h1.5V4A.75.75 0 018 3.25zm-3 8a.75.75 0 01.75-.75h4.5a.75.75 0 010 1.5h-4.5a.75.75 0 01-.75-.75z"></path></svg>
     Lines of code changed
   </div>
-  <div class="body">
+  <div class="body rows">
     <% if (result instanceof Error) { %>
       <div class="error">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M2.343 13.657A8 8 0 1113.657 2.343 8 8 0 012.343 13.657zM6.03 4.97a.75.75 0 00-1.06 1.06L6.94 8 4.97 9.97a.75.75 0 101.06 1.06L8 9.06l1.97 1.97a.75.75 0 101.06-1.06L9.06 8l1.97-1.97a.75.75 0 10-1.06-1.06L8 6.94 6.03 4.97z"></path></svg>
         <span><%= result.message %></span>
       </div>
     <% } else { %>
-      <div class="rows">
-        <% for (const [repo, {weeks, ...stats}] of Object.entries(result.repositories)) { %>
-          <% const entries = [{repo, ...stats}, ...Object.entries(weeks).reverse().flatMap(([week, {contributors, ...stats}]) => [{week, ...stats}, ...Object.entries(contributors).map(([login, stats]) => ({login, ...stats}))])] %>
-          <% for (const {total, added, deleted, changed, ...entry} of entries) { if ((total)||(entry.repo)) { %>
-            <div class="columns diff entry">
-              <% if (entry.repo) { %>
-                <div class="field repo">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M4 5.75C4 4.784 4.784 4 5.75 4h4.5c.966 0 1.75.784 1.75 1.75v4.5A1.75 1.75 0 0 1 10.25 12h-4.5A1.75 1.75 0 0 1 4 10.25Zm1.75-.25a.25.25 0 0 0-.25.25v4.5c0 .138.112.25.25.25h4.5a.25.25 0 0 0 .25-.25v-4.5a.25.25 0 0 0-.25-.25Z"></path></svg>
-                  <%= repo %>
-                </div>
-              <% } else if (entry.week) { %>
-                <div class="field week">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="m6.427 4.427 3.396 3.396a.25.25 0 0 1 0 .354l-3.396 3.396A.25.25 0 0 1 6 11.396V4.604a.25.25 0 0 1 .427-.177Z"></path></svg>
-                  <%= format.date(entry.week, {year:undefined}) %> to <%= format.date(new Date(new Date(entry.week).getTime() + 7 * 24 * 60 * 60 * 1000 - 1)) %>
-                </div>
-              <% } else if (entry.login) { %>
-                <div class="field user">
-                  <img class="avatar" src="<%= entry.avatar %>" alt="">
-                  <%= entry.login %>
-                </div>
-              <% } %>
-              <div class="rows">
-                <div class="columns align-center stats field">
-                  <span>&nbsp;</span>
-                  <div class="columns">
-                    <% for (let i = 1; i <= 5; i++) { %>
-                      <div class="box <%= total ? (added+changed)/(added+deleted+2*changed) >= (i === 3 ? 0.5 : i*0.2) ? 'added' : 'deleted' : '' %>"></div>
-                    <% } %>
+      <% for (const section of args.display.sections) { %>
+        <% if (section === "repositories") { %>
+          <div class="rows">
+            <% for (const [repo, {weeks, ...stats}] of Object.entries(result.repositories).slice(0, args.display.repositories.limit ?? Infinity)) { %>
+              <% const entries = [{repo, ...stats}, ...Object.entries(weeks).reverse().flatMap(([week, {contributors, ...stats}]) => [{week, ...stats}, ...Object.entries(contributors).map(([login, stats]) => ({login, ...stats}))])] %>
+              <% for (const {total, added, deleted, changed, ...entry} of entries) { if ((entry.repo)||((total)&&(args.display.repositories.details))) { %>
+                <div class="columns diff entry">
+                  <% if (entry.repo) { %>
+                    <div class="field repo">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M4 5.75C4 4.784 4.784 4 5.75 4h4.5c.966 0 1.75.784 1.75 1.75v4.5A1.75 1.75 0 0 1 10.25 12h-4.5A1.75 1.75 0 0 1 4 10.25Zm1.75-.25a.25.25 0 0 0-.25.25v4.5c0 .138.112.25.25.25h4.5a.25.25 0 0 0 .25-.25v-4.5a.25.25 0 0 0-.25-.25Z"></path></svg>
+                      <%= repo %>
+                    </div>
+                  <% } else if (entry.week) { %>
+                    <div class="field week">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="m6.427 4.427 3.396 3.396a.25.25 0 0 1 0 .354l-3.396 3.396A.25.25 0 0 1 6 11.396V4.604a.25.25 0 0 1 .427-.177Z"></path></svg>
+                      <%= format.date(entry.week, {year:undefined}) %> to <%= format.date(new Date(new Date(entry.week).getTime() + 7 * 24 * 60 * 60 * 1000 - 1)) %>
+                    </div>
+                  <% } else if (entry.login) { %>
+                    <div class="field user">
+                      <img class="avatar" src="<%= entry.avatar %>" alt="">
+                      <%= entry.login %>
+                    </div>
+                  <% } %>
+                  <div class="rows">
+                    <div class="columns align-center stats field">
+                      <span>&nbsp;</span>
+                      <div class="columns">
+                        <% for (let i = 1; i <= 5; i++) { %>
+                          <div class="box <%= total ? (added+changed)/(added+deleted+2*changed) >= (i === 3 ? 0.5 : i*0.2) ? 'added' : 'deleted' : '' %>"></div>
+                        <% } %>
+                      </div>
+                      <div class="values">
+                        <span class="added"><%= `+${format.number(added+changed)}`.padStart(7) %></span>
+                        <span class="deleted"><%= `-${format.number(deleted+changed)}`.padStart(7) %></span>
+                      </div>
+                    </div>
                   </div>
-                  <div class="values">
-                    <span class="added"><%= `+${format.number(added+changed)}`.padStart(7) %></span>
-                    <span class="deleted"><%= `-${format.number(deleted+changed)}`.padStart(7) %></span>
-                  </div>
                 </div>
-              </div>
-            </div>
-          <% } } %>
+              <% } } %>
+            <% } %>
+          </div>
+        <% } else if (section === "graph") { %>
+          <%
+            const data = {}
+            for (const [repo, {weeks}] of Object.entries(result.repositories)) {
+              for (const [week, {contributors}] of Object.entries(weeks)) {
+                for (const [contributor, {added, deleted, changed}] of Object.entries(contributors)) {
+                  data[contributor] ??= {data:[]}
+                  const date = new Date(week)
+                  const point = data[contributor].data.find(entry => entry.date.getTime() === date.getTime())
+                  if (point) {
+                    point.added += added
+                    point.deleted += deleted
+                    point.changed += changed
+                  }
+                  else
+                    data[contributor].data.push({date, added, deleted, changed})
+                }
+              }
+            }
+          %>
+          <%- Graph.diff(data, {title:`Diff history for ${handle}`, ...(entity !== "repository" ? {opacity:1} : {})}) %>
         <% } %>
-      </div>
+      <% } %>
     <% } %>
   </div>
   <style>

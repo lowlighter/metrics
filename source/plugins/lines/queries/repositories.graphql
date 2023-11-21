@@ -1,6 +1,6 @@
-query Repositories($login: String!, $privacy: RepositoryPrivacy, $archived:Boolean, $forked:Boolean, $affiliations:[RepositoryAffiliation], $cursor:String) {
+query Repositories($login: String!, $privacy: RepositoryPrivacy, $archived:Boolean, $forked:Boolean, $affiliations:[RepositoryAffiliation], $sort:RepositoryOrderField!, $cursor:String) {
   entity:user(login: $login) {
-    repositories(after:$cursor, first:20, orderBy:{field:CREATED_AT, direction:DESC} privacy: $privacy, isArchived: $archived, isFork: $forked, ownerAffiliations: $affiliations) {
+    repositories(after:$cursor, first:20, orderBy:{field:$sort, direction:DESC} privacy: $privacy, isArchived: $archived, isFork: $forked, ownerAffiliations: $affiliations) {
       nodes {
       	name:nameWithOwner
       }

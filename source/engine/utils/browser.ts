@@ -1,6 +1,6 @@
 //Imports
 import { Logger } from "@engine/utils/log.ts"
-import { getBinary, launch } from "x/astral@0.3.0/mod.ts"
+import { getBinary, launch } from "x/astral@0.3.2/mod.ts"
 import { env } from "@engine/utils/deno/env.ts"
 import * as dir from "@engine/paths.ts"
 import { throws } from "@engine/utils/errors.ts"
@@ -66,7 +66,7 @@ export class Browser {
     const close = page.close.bind(page)
     const evaluate = page.evaluate.bind(page)
     Object.assign(page, {
-      // Close page (and eventually browser)
+      // Close page (and possibly browser)
       close: async () => {
         await close()
         this.log.io("closed browser page")

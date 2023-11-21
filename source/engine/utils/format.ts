@@ -47,7 +47,7 @@ export class Formatter {
   }
 
   /** Strip emojis from text */
-  emojiless(text:string) {
+  emojiless(text: string) {
     return text.replaceAll(/([\p{Emoji}\u200d]+)/gu, "")
   }
 

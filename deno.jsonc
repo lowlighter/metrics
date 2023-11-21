@@ -42,7 +42,7 @@
     //  '
     "qq": "rm -rf .coverage && deno test --coverage=.coverage --no-check --unstable --trace-ops --allow-all source --filter='base64' && deno coverage .coverage --include='^file:.*/transform.base64/mod.ts'",
     "q": "rm -rf .coverage && deno test --coverage=.coverage --unstable --trace-ops --fail-fast --allow-all source && deno coverage .coverage --exclude='/dom/'",
-
+    "z": " export CHROME_BIN=$(deno task make get:browser) && deno test --unstable -A source/engine/utils/browser_test.ts",
     "make": "deno run --allow-env --allow-read --allow-write=.deno-make.json --allow-run=deno https://deno.land/x/make@1.2.0/mod.ts $0"
   },
   "+tasks": {
@@ -84,6 +84,7 @@
             ],
             "read": [
               "$PWD",
+              "$TMP",
               "$CACHE_DIRECTORY",
               ".cache",
               "deno.jsonc",
@@ -145,6 +146,7 @@
             ],
             "read": [
               "$PWD",
+              "$TMP",
               ".cache"
             ],
             "write": [

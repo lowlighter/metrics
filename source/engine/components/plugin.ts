@@ -51,6 +51,9 @@ export abstract class Plugin extends Component {
     return this.requests.fetch(...args)
   }
 
+  /** EJS template additional rendering context */
+  protected _renderctx = {} as Record<PropertyKey, unknown>
+
   /** Render an EJS template */
   protected async render({ state }: { state: state }) {
     const name = this.context.template!
@@ -58,11 +61,21 @@ export abstract class Plugin extends Component {
     const template = await read(path)
     const { data: args = {} } = await this.inputs.safeParseAsync(this.context.args) as { data?: Record<PropertyKey, unknown> }
     this.log.debug(`rendering template: ${name}`)
-    return ejs.render(template, Object.assign(structuredClone(this.context), { args, result: state.result?.result ?? null, state, format: new Formatter(this.context) }), {
-      async: true,
-      _with: true,
-      context: null,
-    })
+    return ejs.render(
+      template,
+      Object.assign(structuredClone(this.context), {
+        args,
+        result: state.result?.result ?? null,
+        state,
+        format: new Formatter(this.context),
+        ...this._renderctx,
+      }),
+      {
+        async: true,
+        _with: true,
+        context: null,
+      },
+    )
   }
 
   /** Is supported ? */

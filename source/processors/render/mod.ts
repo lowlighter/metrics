@@ -48,7 +48,7 @@ export default class extends Processor {
   readonly supports = ["application/xml"]
 
   /** Permissions */
-  readonly permissions = ["run:chrome"]
+  readonly permissions = ["run:chrome", "write:tmp"]
 
   /** Action */
   protected async action(state: state) {

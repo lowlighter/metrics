@@ -49,7 +49,7 @@ export default class extends Plugin {
         is.literal("halloween").describe("Force Halloween theme"),
         is.literal("winter").describe("Force Winter theme"),
       ]).describe("Predefined color scheme"),
-      is.array(is.string()).length(5).default(["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"]).describe("Use a custom color scheme. Each color represents a commit quartile level"),
+      is.array(is.string()).length(5).default(() => ["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"]).describe("Use a custom color scheme. Each color represents a commit quartile level"),
     ]).default("auto").describe("Color scheme"),
     isometric: is.object({
       max_cap: is.number().int().min(1).nullable().default(null).describe(

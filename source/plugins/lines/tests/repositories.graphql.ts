@@ -6,6 +6,7 @@ export default mock({
   archived: is.boolean().nullable(),
   forked: is.boolean().nullable(),
   affiliations: is.array(is.enum(["OWNER", "COLLABORATOR", "ORGANIZATION_MEMBER"])).nullable(),
+  sort: is.enum(["CREATED_AT", "UPDATED_AT", "PUSHED_AT", "NAME", "STARGAZERS"]),
 }, ({ login, ...filter }) => {
   const nodes = []
   if (["empty", "retry"].includes(login)) {

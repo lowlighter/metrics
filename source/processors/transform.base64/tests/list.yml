@@ -75,8 +75,8 @@
     - processors:
         - inject.content:
             content: <img src="https://metrics.test/img_invalid" width="1" height="1" />
-          logs: none
         - transform.base64:
+          logs: none
         - assert:
             html:
               select: img

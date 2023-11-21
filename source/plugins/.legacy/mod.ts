@@ -35,7 +35,7 @@ export default class extends Plugin {
   })
 
   /** Permissions */
-  readonly permissions = ["run:docker", "write:tmp"]
+  readonly permissions = ["run:docker", "write:tmp", "read:tmp"]
 
   /** Action */
   protected async action() {
@@ -57,7 +57,7 @@ export default class extends Plugin {
         token: this.context.token.read(),
         user: handle?.split("/")[0],
         repo: handle?.split("/")[1],
-        template: this.context.template,
+        template: { legacy: "classic" }[this.context.template!] ?? this.context.template,
         config_timezone: this.context.timezone,
         retries: this.context.retries.attempts,
         retries_delay: this.context.retries.delay,
@@ -115,7 +115,7 @@ export default class extends Plugin {
       if (!success) {
         throws("Failed to execute metrics")
       }
-      this.context.template = "legacy"
+      // this.context.template = "legacy"
       return { content: encodeBase64(await read(`${tmp}/metrics.legacy`)) }
     } finally {
       await Deno.remove(tmp, { recursive: true })

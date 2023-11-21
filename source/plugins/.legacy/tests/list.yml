@@ -1,13 +1,15 @@
 - name: supports `version`
   plugins:
-#    - .legacy:
-#        version: v3.34
-#      handle: octocat
-#      processors:
-#        - assert:
-#            html:
-#              select: .legacy img
-#              count: 1=
+    - .legacy:
+        version: v3.34
+      token: MOCKED_TOKEN
+      handle: octocat
+      logs: none
+      processors:
+        - assert:
+            html:
+              select: .legacy img
+              count: 1=
     - .legacy:
         version: v3.99
       handle: octocat
@@ -17,16 +19,18 @@
         - assert:
             error: /failed to execute metrics/i
 
-#- name: supports `inputs`
-#  plugins:
-#    - .legacy:
-#        inputs:
-#          use_prebuilt_image: false
-#          dryrun: true
-#          base: header
-#      handle: octocat
-#      processors:
-#        - assert:
-#            html:
-#              select: .legacy img
-#              count: 1=
+- name: supports `inputs`
+  plugins:
+    - .legacy:
+        inputs:
+          use_prebuilt_image: false
+          dryrun: true
+          base: header
+      token: MOCKED_TOKEN
+      handle: octocat
+      logs: none
+      processors:
+        - assert:
+            html:
+              select: .legacy img
+              count: 1=

@@ -47,7 +47,7 @@ export default class extends Processor {
       if (!/^img$/i.test((element as unknown as { tagName: string }).tagName)) {
         continue
       }
-      const image = element as unknown as HTMLImageElement
+      const image = element as unknown as { getAttribute(key: string): string | null; setAttribute(key: string, value: string): void }
       const url = image.getAttribute("src")
       const height = Number(image.getAttribute("height")) || 0
       const width = Number(image.getAttribute("width")) || 0

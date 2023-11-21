@@ -90,6 +90,9 @@ export async function getPermissions(test: Awaited<ReturnType<typeof Component["
   if (requested.has("write:tmp")) {
     Object.assign(permissions, deepMerge(permissions, { write: [env.get("TMP")] }))
   }
+  if (requested.has("read:tmp")) {
+    Object.assign(permissions, deepMerge(permissions, { read: [env.get("TMP")] }))
+  }
   if (requested.has("write:all")) {
     Object.assign(permissions, deepMerge(permissions, { write: [dir.test] }))
   }

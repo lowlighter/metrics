@@ -21,7 +21,7 @@ export default class extends Processor {
   readonly supports = ["application/xml"]
 
   /** Permissions */
-  readonly permissions = ["run:chrome"]
+  readonly permissions = ["run:chrome", "write:tmp"]
 
   /** Inputs */
   readonly inputs = is.object({

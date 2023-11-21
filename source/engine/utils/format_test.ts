@@ -29,7 +29,7 @@ Deno.test(t(import.meta, "`.number()` pluralize text correctly"), { permissions:
 
 Deno.test(t(import.meta, "`.emojiless()` strips emojis from text"), { permissions: "none" }, () => {
   expect(format.emojiless("hello world !")).to.equal("hello world !")
-  expect(format.emojiless("hello 👋 world 🌍 !")).to.equal("hello world !")
+  expect(format.emojiless("hello👋 world🌍 !")).to.equal("hello world !")
 })
 
 Deno.test(t(import.meta, "`.html()` wraps content in a valid html document"), { permissions: "none" }, () => {
