@@ -1,0 +1,5 @@
+query Example($login: String!) {
+  entity: user(login: $login) {
+    name
+  }
+}

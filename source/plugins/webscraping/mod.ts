@@ -21,7 +21,7 @@ export default class extends Plugin {
   readonly supports = ["user", "organization", "repository"]
 
   /** Permissions */
-  readonly permissions = ["run:chrome", "write:tmp", "net"]
+  readonly permissions = ["run:chrome", "write:tmp", "net:all"]
 
   /** Description */
   readonly description = "Screenshot or extract content from a website"

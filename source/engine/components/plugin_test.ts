@@ -54,8 +54,9 @@ Deno.test(t(import.meta, "`static .load()` can instantiate from `metrics://` sch
   await expect(Plugin.load({ id: "metrics://engine/components/plugin_test.ts" })).to.eventually.be.instanceOf(TestPlugin)
 })
 
-Deno.test(t(import.meta, "`static .load()` without identifier returns `Plugin.NOP`"), { permissions: "none" }, async () => {
-  await expect(Plugin.load({ logs: "none" } as test)).to.eventually.be.instanceOf(Plugin.NOP)
+Deno.test(t(import.meta, "`static .load()` without identifier returns the one defined by `Plugin.nameless`"), { permissions: "none" }, async () => {
+  await expect(Plugin.load({ logs: "none" } as test)).to.eventually.be.instanceOf(Plugin).and.to.have.property("id", Plugin.nameless)
+  await expect(Plugin.run({ context: { entity: "user" } })).to.be.fulfilled
 })
 
 Deno.test(t(import.meta, "`static .list()` returns a list of available plugins"), { permissions: { read: [dir.source] } }, async () => {

@@ -15,7 +15,7 @@ export default class extends Plugin {
   readonly name = "🏛️ Legacy plugins execution"
 
   /** Category */
-  readonly category = "metrics"
+  readonly category = "legacy"
 
   /** Description */
   readonly description = "Executes plugins using metrics v3 docker image"

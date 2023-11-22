@@ -25,6 +25,9 @@ export function read(path: string | URL, { sync = false } = {}) {
 
 /** Write file */
 export async function write(path: string, data: string | Uint8Array | ReadableStream<Uint8Array>) {
+  if (path === "/dev/null") {
+    return
+  }
   await ensureDir(dirname(path))
   if (typeof data === "string") {
     return Deno.writeTextFile(path, data)

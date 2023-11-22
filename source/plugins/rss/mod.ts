@@ -17,7 +17,7 @@ export default class extends Plugin {
   readonly supports = ["user", "organization", "repository"]
 
   /** Permissions */
-  readonly permissions = ["net"]
+  readonly permissions = ["net:all"]
 
   /** Description */
   readonly description = "Displays entries from a RSS feed"

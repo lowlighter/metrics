@@ -63,7 +63,7 @@ export default class extends Processor {
     //TODO(@lowlighter): add warnings to state
     //if (!state.results.length)
     //  state.warnings.push({message:"No plugins to render"})
-    const renderer = new (Plugin.NOP)(this.context.parent ?? {}, { meta: this.meta })
+    const renderer = new Renderer(this.context.parent as Plugin["context"])
     let render = await renderer.render({
       template: wrapper,
       state,
@@ -116,5 +116,25 @@ export default class extends Processor {
         return ""
       }
     }
+  }
+}
+
+class Renderer extends Plugin {
+  static readonly meta = import.meta
+  readonly name = "🎨 Render image"
+  readonly category = "renderer"
+  readonly description = "Render image to desired output format"
+  readonly inputs = is.object({})
+  readonly outputs = is.object({})
+  protected action() {
+    return Promise.resolve({})
+  }
+  constructor(context: Plugin["context"]) {
+    super(context)
+  }
+  render({ template, result, state }: { template: string; result: Record<PropertyKey, unknown>; state: state }) {
+    this.context.template = template
+    this.context.args = {}
+    return super.render({ state: { ...state, result: { result } as unknown as typeof state["result"] } })
   }
 }

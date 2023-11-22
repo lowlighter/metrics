@@ -1,0 +1,7 @@
+- name: example test
+  plugins:
+    - processors:
+        - <%= id %>:
+            foo: bar
+        - assert:
+            error: false

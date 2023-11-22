@@ -5,12 +5,12 @@ import github from "y/@actions/github@5.1.1?pin=v133"
 import { latest, version } from "@engine/version.ts"
 import core from "y/@actions/core@1.10.1?pin=v133"
 import { process } from "@engine/process.ts"
-import { parse as parseFlags } from "std/flags/mod.ts"
-import { brightRed, cyan, gray } from "std/fmt/colors.ts"
 import { env } from "@engine/utils/deno/env.ts"
 import { compat } from "@run/compat/mod.ts"
 import { parse } from "@engine/utils/validation.ts"
 import { Server } from "@run/serve/server.ts"
+import { Command, EnumType } from "x/cliffy@v1.0.0-rc.3/command/mod.ts"
+import { create } from "@run/create/mod.ts"
 
 /** CLI */
 class CLI extends Internal {
@@ -62,38 +62,46 @@ class CLI extends Internal {
 
 // Entry point
 if (import.meta.main) {
-  let { _: [action = "help"], config } = parseFlags(Deno.args)
-  if (env.deployment) {
+  await new Command()
+    .name("metrics")
+    .description("A simple reverse proxy example cli.")
+    .version(version.number)
+    .helpOption("-h, --help", "Show this help", function (this: Command) {
+      console.log(this.getHelp())
+    })
+    .versionOption("-v, --version", "Show version number", function (this: Command) {
+      console.log(this.getVersion())
+    })
+    //
+    .command("run")
+    .description("Run metrics")
+    .option("-c, --config <file:string>", "Metrics configuration file", { default: "metrics.config.yml" })
+    .action(async ({ config }) => new CLI(await load(config)).run())
+    //
+    .command("serve")
+    .description("Start metrics server")
+    .option("-c, --config <file:string>", "Metrics configuration file", { default: "metrics.config.yml" })
+    .action(async ({ config }) => new CLI(await load(config)).serve())
+    //
+    .command("create")
+    .type("component", new EnumType(["plugin", "processor"]))
+    .description("Create a new plugin or processor")
+    .option("-i, --icon <icon:string>", "Component icon")
+    .option("-n, --name <name:string>", "Component name")
+    .option("-d, --description <description:string>", "Component description")
+    .option("-c, --category <category:string>", "Component category")
+    .option("-s, --supports <scopes:string>", "Component supported targets", { collect: true })
+    .option("-u.g, --use.graphql", "Component uses GitHub GraphQL API")
+    .option("-u.r, --use.rest", "Component uses GitHub REST API")
+    .option("-u.f, --use.fetch", "Component uses fetch API")
+    .option("-u.w, --use.webscraping", "Component uses web scraping")
+    .option("-y, --yes", "Skip confirmation")
+    .option("--dryrun", "Dryrun")
+    .arguments("<type:component> [id:string]")
+    .action(({ dryrun, yes, ...options }, type, id) => create({ type, id, ...options }, { dryrun, confirm: !yes }))
+    //
+    .parse(Deno.args)
+  /*if (env.deployment) {
     action = "serve"
-  }
-  switch (action) {
-    case "run": {
-      await new CLI(await load(config)).run()
-      break
-    }
-    case "version": {
-      console.log(version.number)
-      break
-    }
-    case "serve": {
-      new CLI(await load(config)).serve()
-      break
-    }
-    default:
-      console.log(brightRed(`Unknown action: ${action}`))
-      /* falls through */
-    case "help": {
-      console.log([
-        cyan(`Metrics ${version.number}`),
-        "",
-        "Usage is:",
-        "  help               Show this help message",
-        "  version            Show version number",
-        "  run                Run metrics",
-        "  serve              Start metrics server",
-        gray("    --config <path>  Path to configuration file"),
-        "",
-      ].join("\n"))
-    }
-  }
+  }*/
 }

@@ -70,7 +70,7 @@ export abstract class Component extends Internal {
       } catch (caught) {
         error = caught
         // Handle unrecoverable errors
-        if ((error instanceof MetricsError) && (error[MetricsError.unrecoverable])) {
+        if ((error instanceof MetricsError) && (error[MetricsError.unrecoverable as keyof MetricsError])) {
           recoverable = false
         }
       }

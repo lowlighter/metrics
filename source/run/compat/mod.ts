@@ -250,6 +250,45 @@ export async function compat(_inputs: Record<PropertyKey, unknown>) {
   }
 
   // 👨‍💻 Lines of code changed lines
+  if (inputs.plugin_lines) {
+    const options = ["plugin_lines", "plugin_lines_sections"]
+    const snippet = { config: { plugins: [{ lines: {} }] } } as compat
+    snippet.config.plugins[0].lines.display = { sections: inputs.plugin_lines_sections.map((section: string) => ({ repositories: "repositories", history: "graph" }[section])) }
+    if (inputs.plugin_lines_sections.includes("base")) {
+      config.report.error("Using `base` in displayed sections for `lines` plugin is not supported anymore")
+    }
+    if (inputs.plugin_lines_skipped?.length) {
+      snippet.config.plugins[0].lines.repositories = { matching: inputs.plugin_lines_skipped.map((pattern: string) => `!${pattern}`) }
+      if (inputs.plugin_lines_skipped[0] === "@use.patterns") {
+        snippet.config.plugins[0].lines.repositories.matching = []
+        for (const pattern of inputs.plugin_lines_skipped.slice(1)) {
+          if (pattern.startsWith("#")) {
+            continue
+          }
+          if (pattern.startsWith("+")) {
+            snippet.config.plugins[0].lines.repositories.matching.push(pattern.slice(1))
+            continue
+          }
+          snippet.config.plugins[0].lines.repositories.matching.push(`!${pattern.replace(/^-/, "")}`)
+        }
+        config.report.warning("It seems that `plugin_lines_skipped` was configured with `@use.patterns`, automatic conversion has been performed but may need to be adjusted manually")
+      }
+      options.push("plugin_lines_skipped")
+    }
+    if (inputs.plugin_lines_repositories_limit) {
+      snippet.config.plugins[0].lines.display.repositories = { limit: inputs.plugin_lines_repositories_limit }
+      options.push("plugin_lines_repositories_limit")
+    }
+    if (inputs.plugin_lines_history_limit) {
+      snippet.config.plugins[0].lines.history = { limit: inputs.plugin_lines_history_limit }
+      options.push("plugin_lines_history_limit")
+    }
+    if (inputs.plugin_lines_delay) {
+      snippet.config.plugins[0].lines.fetch = { delay: inputs.plugin_lines_delay }
+      options.push("plugin_lines_delay")
+    }
+    config.patch(options, snippet)
+  }
 
   // 🗼 Rss feed
   if (inputs.plugin_rss) {

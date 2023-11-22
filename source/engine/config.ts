@@ -96,14 +96,6 @@ const _plugin = _plugin_without_processors.extend({
   processors: is.array(processor).describe("Post-processors"),
 })
 
-/** Plugin NOP removed keys */
-export const _plugin_nop_removed_keys = { id: true, args: true, retries: true, template: true } as const
-
-/** Plugin NOP internal config */
-const _plugin_nop = _plugin.omit(_plugin_nop_removed_keys).strict().transform((value) => ({ ...value, template: null })) as unknown as is.ZodObject<
-  Omit<typeof _plugin["shape"], "id" | "args" | "retries">
->
-
 /** Plugin component preset config */
 const _preset_plugin = is.object({
   args: _plugin.shape.args.default(() => ({})),
@@ -126,9 +118,16 @@ const _preset_plugin = is.object({
 /** List of plugin allowed keys */
 const _plugin_keys = [...Object.keys(_preset_plugin.parse({}))]
 
+/** Nameless plugin */
+export const plugin_nameless = ".await"
+
 /** Plugin component config */
 export const plugin = is.preprocess((value) => {
-  const result = _preset_plugin.omit({ processors: true }).extend({ id: _plugin.shape.id, processors: is.array(is.unknown()).default(() => []), preset: is.string().optional() }).strict().safeParse(
+  const result = _preset_plugin.omit({ processors: true }).extend({
+    id: _plugin.shape.id.default(plugin_nameless),
+    processors: is.array(is.unknown()).default(() => []),
+    preset: is.string().optional(),
+  }).strict().safeParse(
     sugar(value, "plugin"),
   )
   if (!result.success) {
@@ -138,21 +137,6 @@ export const plugin = is.preprocess((value) => {
   return result.data
 }, _plugin) as unknown as is.ZodObject<typeof _plugin["shape"]>
 
-/** Plugin NOP config */
-export const plugin_nop = is.preprocess((value) => {
-  const result = _preset_plugin.omit({ processors: true }).extend({ processors: is.array(is.unknown()).default(() => []), preset: is.string().optional() }).strict().safeParse(value)
-  if (!result.success) {
-    return value
-  }
-  for (const [key, remove] of Object.entries(_plugin_nop_removed_keys)) {
-    if (remove) {
-      delete (result.data as Record<PropertyKey, unknown>)[key]
-    }
-  }
-  delete result.data.preset
-  return result.data
-}, _plugin_nop) as unknown as is.ZodObject<typeof _plugin_nop["shape"]>
-
 /** Preset component config */
 const preset = is.object({
   plugins: _preset_plugin.default(() => _preset_plugin.parse({})).describe("Default settings for plugins"),
@@ -161,7 +145,7 @@ const preset = is.object({
 
 /** Internal config */
 const _config = is.object({
-  plugins: is.array(is.union([plugin, plugin_nop])).describe("Plugins"),
+  plugins: is.array(plugin).describe("Plugins"),
   presets: is.record(is.string(), preset).describe("Preset settings"),
 })
 

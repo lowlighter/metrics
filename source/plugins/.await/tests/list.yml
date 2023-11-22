@@ -1,0 +1,3 @@
+- name: is supported
+  plugins:
+    - .await:

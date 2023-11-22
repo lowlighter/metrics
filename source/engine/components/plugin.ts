@@ -1,7 +1,7 @@
 // Imports
 import { Component, is, parse, state } from "@engine/components/component.ts"
 import { list, read } from "@engine/utils/deno/io.ts"
-import { _plugin_nop_removed_keys as schema_nop_removed_keys, plugin as schema, plugin_nop as schema_nop } from "@engine/config.ts"
+import { plugin as schema, plugin_nameless } from "@engine/config.ts"
 import * as ejs from "y/ejs@3.1.9?pin=v133"
 import { Requests } from "@engine/components/requests.ts"
 import { Formatter } from "@engine/utils/format.ts"
@@ -132,7 +132,7 @@ export abstract class Plugin extends Component {
       Object.defineProperties(context, { [Component.tracker]: { enumerable: false, value: tracker } })
     }
     if (!context.id) {
-      return new Plugin.NOP(context).run(state)
+      context.id = Plugin.nameless
     }
     return await super.run({ state, context: context as typeof context & { id: string } }) as unknown as ReturnType<Plugin["run"]>
   }
@@ -140,7 +140,7 @@ export abstract class Plugin extends Component {
   /** Load component statically */
   static async load(context: Record<PropertyKey, unknown> & { id: string }) {
     if (!context.id) {
-      return new Plugin.NOP(context)
+      context.id = Plugin.nameless
     }
     return await super.load(context) as Plugin
   }
@@ -150,44 +150,8 @@ export abstract class Plugin extends Component {
     return `${super.path}/plugins`
   }
 
-  /** NOP plugin */
-  static readonly NOP = class extends Plugin {
-    /** Import meta */
-    protected static readonly meta = { ...import.meta, url: import.meta.url.replace(/\.ts$/, "@nop") }
-
-    /** Name */
-    readonly name = "🔳 NOP"
-
-    /** Category */
-    readonly category = "core"
-
-    /** Description */
-    readonly description = "No operation"
-
-    /** Inputs */
-    readonly inputs = is.object({})
-
-    /** Outputs */
-    readonly outputs = is.object({})
-
-    /** Constructor */
-    constructor(context = {} as Record<PropertyKey, unknown>, { meta = Plugin.NOP.meta } = {}) {
-      super(parse(schema_nop, Object.fromEntries(Object.entries(context).filter(([key]) => !{ ...schema_nop_removed_keys }[key])), { sync: true }) as Plugin["context"])
-      Object.assign(this, { meta, id: "@nop" })
-    }
-
-    /** Action */
-    protected action() {
-      return Promise.resolve({})
-    }
-
-    /** Render an EJS template */
-    render({ template, result, state }: { template: string; result: Record<PropertyKey, unknown>; state: state }) {
-      this.context.template = template
-      this.context.args = {}
-      return super.render({ state: { ...state, result: { result } as unknown as typeof state["result"] } })
-    }
-  }
+  /** Plugin that can be used without explicit naming */
+  static readonly nameless = plugin_nameless
 }
 
 // Exports

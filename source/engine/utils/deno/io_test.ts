@@ -10,12 +10,16 @@ const test = {
   port: 9000,
 }
 
-Deno.test(t(import.meta, "`writes()` can write a text file"), { permissions: { read: [dir.test], write: [dir.test] } }, async () => {
+Deno.test(t(import.meta, "`write()` can write a text file"), { permissions: { read: [dir.test], write: [dir.test] } }, async () => {
   await expect(write(test.file, uuid)).to.be.a("promise").and.to.be.fulfilled
 })
 
-Deno.test(t(import.meta, "`writes()` can write a raw file"), { permissions: { read: [dir.test], write: [dir.test] } }, async () => {
+Deno.test(t(import.meta, "`write()` can write a raw file"), { permissions: { read: [dir.test], write: [dir.test] } }, async () => {
   await expect(write(test.file, new TextEncoder().encode(uuid))).to.be.a("promise").and.to.be.fulfilled
+})
+
+Deno.test(t(import.meta, "`write()` ignores writing to `/dev/null`"), { permissions: "none" }, async () => {
+  await expect(write("/dev/null", new TextEncoder().encode(uuid))).to.be.a("promise").and.to.be.fulfilled
 })
 
 Deno.test(t(import.meta, "`read()` can read a raw file"), { permissions: { read: [dir.test] } }, async () => {

@@ -12,14 +12,20 @@ export async function process(_config: Record<PropertyKey, unknown>) {
 
   // Process config
   for (const [tracker, plugin] of Object.entries(config.plugins)) {
-    if ((plugin as { id?: string }).id) {
-      pending.add(Plugin.run({ tracker, context: plugin, state }))
-      continue
+    switch (plugin.id) {
+      case Plugin.nameless: {
+        console.log(state)
+        await Promise.all([...pending])
+        const { result: _result } = await Plugin.run({ tracker, context: plugin, state })
+        result = _result
+        pending.clear()
+        continue
+      }
+      default: {
+        pending.add(Plugin.run({ tracker, context: plugin, state }))
+        continue
+      }
     }
-    await Promise.all([...pending])
-    const { result: _result } = await Plugin.run({ tracker, context: plugin, state })
-    result = _result
-    pending.clear()
   }
   const results = await Promise.all([...pending]) as Array<{ result: typeof state.result }>
   if (!result) {
