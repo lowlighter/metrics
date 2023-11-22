@@ -119,7 +119,7 @@ export default class extends Processor {
   }
 }
 
-class Renderer extends Plugin {
+export class Renderer extends Plugin {
   static readonly meta = import.meta
   readonly name = "🎨 Render image"
   readonly category = "renderer"

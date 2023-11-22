@@ -5,7 +5,7 @@ import { process } from "@engine/process.ts"
 
 export default class TestProcessor extends Processor {
   static readonly meta = import.meta
-  readonly name = "🧑🏻‍🔬 Test plugin"
+  readonly name = "🧑🏻‍🔬 Test processor"
   readonly category = "testing"
   readonly supports = ["image/svg+xml"]
   readonly description = "Test processor"

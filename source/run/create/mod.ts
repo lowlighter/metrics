@@ -4,26 +4,26 @@ import { read, write } from "@engine/utils/deno/io.ts"
 import * as dir from "@engine/paths.ts"
 import { createStreaming } from "x/dprint@0.2.0/mod.ts"
 import * as JSONC from "std/jsonc/parse.ts"
-import { Checkbox, Confirm, Input, Select, Toggle } from "x/cliffy@v1.0.0-rc.3/prompt/mod.ts"
+import { Checkbox, Confirm, Input, Select } from "x/cliffy@v1.0.0-rc.3/prompt/mod.ts"
 import { existsSync } from "std/fs/exists.ts"
-import emojis from "y/emoji-name-map@1.2.9?pin=v133"
 import { yaml } from "@run/compat/report.ts"
 import { Logger } from "@engine/utils/log.ts"
+import emojis from "https://unpkg.com/emoji.json@15.1.0/emoji.json" assert { type: "json" }
 
 /** Base path for component templates */
 const base = `${dir.source}/run/create/templates`
 
 /** Logger */
-const log = new Logger(import.meta, { level: "io" })
+const log = new Logger(import.meta)
 
 /** Create component command */
-export async function create(context: Partial<context> & Pick<context, "type">, { confirm = true, dryrun = false } = {}) {
+export async function create(context: Partial<context> & Pick<context, "type">, { confirm = true, dryrun = false, writer = Deno.stdout } = {}) {
   const Type = `${context.type.charAt(0).toLocaleUpperCase()}${context.type.slice(1)}`
 
   // Dryrun
   if (dryrun) {
     Confirm.inject("y")
-    await Confirm.prompt({ message: "Dryrun" })
+    await Confirm.prompt({ writer, message: "Dryrun" })
   }
 
   // Identifier
@@ -31,6 +31,7 @@ export async function create(context: Partial<context> & Pick<context, "type">, 
     Input.inject(context.id)
   }
   context.id = await Input.prompt({
+    writer,
     message: `${Type} identifier`,
     hint: `This will be used to reference the ${context.type} in configurations`,
     validate(value: string) {
@@ -49,12 +50,13 @@ export async function create(context: Partial<context> & Pick<context, "type">, 
     Select.inject(context.icon)
   }
   context.icon = await Select.prompt<string>({
+    writer,
     message: `${Type} icon`,
     hint: `This will be used to represent the ${context.type} in UI and documentations`,
     default: { plugin: "🧩", processor: "🪄" }[context.type],
     hideDefault: true,
     search: true,
-    options: Object.entries(emojis.emoji).map(([key, value]) => ({ name: `${value} — (${key})`, value })),
+    options: emojis.map(({char:value, name}:{char:string, name:string}) => ({ name: `${value} — ${name}`, value })),
   })
 
   // Name
@@ -62,6 +64,7 @@ export async function create(context: Partial<context> & Pick<context, "type">, 
     Input.inject(context.name)
   }
   context.name = await Input.prompt({
+    writer,
     message: `${Type} name`,
     hint: `A human-friendly name for this ${context.type}`,
     default: `${context.id.charAt(0).toLocaleUpperCase()}${context.id.slice(1)}`,
@@ -72,6 +75,7 @@ export async function create(context: Partial<context> & Pick<context, "type">, 
     Input.inject(context.description)
   }
   context.description = await Input.prompt({
+    writer,
     message: `${Type} description`,
     hint: `A human-friendly description for this ${context.type}`,
     default: `${context.name}`,
@@ -82,6 +86,7 @@ export async function create(context: Partial<context> & Pick<context, "type">, 
     Select.inject(context.category)
   }
   context.category = await Select.prompt({
+    writer,
     message: `${Type} category`,
     hint: `This will be used to represent the ${context.type} in UI and documentations`,
     search: true,
@@ -115,6 +120,7 @@ export async function create(context: Partial<context> & Pick<context, "type">, 
     Checkbox.inject(context.supports)
   }
   context.supports = await Checkbox.prompt({
+    writer,
     message: { plugin: "Supported entities", processor: "Supported formats" }[context.type],
     hint: `This will be used to determine if the ${context.type} can be used on a given ${{ plugin: "entity", processor: "format" }[context.type]} (leave empty to support anything)`,
     options: [
@@ -148,6 +154,7 @@ export async function create(context: Partial<context> & Pick<context, "type">, 
     Checkbox.inject(Object.entries(context.use).filter(([, value]) => value).map(([key]) => key))
   }
   const use = await Checkbox.prompt({
+    writer,
     message: { plugin: "Supported entities", processor: "Supported formats" }[context.type],
     hint: `This will be used to determine if the ${context.type} can be used on a given ${{ plugin: "entity", processor: "format" }[context.type]} (leave empty to support anything)`,
     options: [
@@ -162,11 +169,11 @@ export async function create(context: Partial<context> & Pick<context, "type">, 
   context.use = Object.fromEntries(use.map((key: string) => [key, true]))
 
   // Review
-  console.log(`\n${yaml(context)}`)
+  log.info(`\n${yaml(context)}`)
   if (!confirm) {
     Confirm.inject("y")
   }
-  if (await Confirm.prompt(`Create ${context.type} ?`)) {
+  if (await Confirm.prompt({writer, message:`Create ${context.type} ?`})) {
     await skeleton(context as context, { dryrun })
   }
 }

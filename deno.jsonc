@@ -68,6 +68,7 @@
               "deno.land/x",
               "deno.land/std",
               "plugins.dprint.dev/typescript-0.88.4.wasm",
+              "raw.githubusercontent.com/github-linguist/linguist/master/lib/linguist/languages.yml",
               // GitHub API
               "api.github.com",
               // Github OAuth
@@ -130,6 +131,7 @@
               "deno.land/x",
               "deno.land/std",
               "plugins.dprint.dev/typescript-0.88.4.wasm",
+              "raw.githubusercontent.com/github-linguist/linguist/master/lib/linguist/languages.yml",
               // processors/render.gemojis
               "api.github.com/emojis",
               // processors/render.twemojis

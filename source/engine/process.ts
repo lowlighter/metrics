@@ -14,7 +14,6 @@ export async function process(_config: Record<PropertyKey, unknown>) {
   for (const [tracker, plugin] of Object.entries(config.plugins)) {
     switch (plugin.id) {
       case Plugin.nameless: {
-        console.log(state)
         await Promise.all([...pending])
         const { result: _result } = await Plugin.run({ tracker, context: plugin, state })
         result = _result

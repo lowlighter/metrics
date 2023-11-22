@@ -37,7 +37,7 @@ for (const mode of ["local", "remote"]) {
     return { browser, teardown }
   }
 
-  /*Deno.test(t(import.meta, `\`${mode} .page()\` returns a new page`), { permissions }, async () => {
+  Deno.test.ignore(t(import.meta, `\`${mode} .page()\` returns a new page`), { permissions }, async () => {
     const { browser, teardown } = await setup()
     for (let i = 0; i < 2; i++) {
       const page = await browser.page()
@@ -48,12 +48,12 @@ for (const mode of ["local", "remote"]) {
     await teardown()
   })
 
-  Deno.test(t(import.meta, `\`${mode} .page()\` throws when browser is already closed`), { permissions }, async () => {
+  Deno.test.ignore(t(import.meta, `\`${mode} .page()\` throws when browser is already closed`), { permissions }, async () => {
     const { browser, teardown } = await setup()
     await browser.close()
     await expect(browser.page()).to.be.rejectedWith(MetricsError, /browser has no instance/i)
     await teardown()
-  })*/
+  })
 }
 
 Deno.test(t(import.meta, "`shared .page()` returns a new page"), { permissions }, async () => {
