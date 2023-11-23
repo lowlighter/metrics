@@ -20,7 +20,7 @@ export default class extends Processor {
   readonly description = "<%= description %>"
 
   /** Supports */
-  readonly supports = [/***<%- supports %>*/]
+  readonly supports = [/***<%- supports.map(format => `"${format}"`).join(", ") %>*/]
 
   // <% if ((use.webscraping)||(use.fetch)) { %>
   /** Permissions */

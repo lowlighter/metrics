@@ -1,6 +1,6 @@
 // Imports
 import { is, parse, Plugin } from "@engine/components/plugin.ts"
-import { matchPatterns, parseHandle } from "@engine/utils/github.ts"
+import { matchPatterns, parseHandle, ignored } from "@engine/utils/github.ts"
 import { delay } from "std/async/delay.ts"
 import { Status } from "std/http/status.ts"
 import { Graph } from "@engine/utils/graph.ts"
@@ -60,13 +60,13 @@ export default class extends Plugin {
       ]).default("public").describe("Repository visibility"),
       archived: is.boolean().default(false).describe("Include archived repositories"),
       forked: is.boolean().default(false).describe("Include forked repositories"),
-      matching: is.preprocess((value) => [value].flat(), is.array(is.coerce.string())).default(() => ["*/*"]).describe("Include repositories matching at least one of these patterns"),
+      matching: is.preprocess((value) => [value].flat(), is.array(is.coerce.string())).default(() => ["*/*", ...ignored.repositories]).describe("Include repositories matching at least one of these patterns"),
     }).default(() => ({})).describe("Repositories options"),
     history: is.object({
       limit: is.number().min(0).nullable().default(1).describe("Years to keep in history. Set to `null` to keep all history"),
     }).default(() => ({})).describe("History options"),
     contributors: is.object({
-      matching: is.preprocess((value) => [value].flat(), is.array(is.coerce.string())).default(() => ["*"]).describe(
+      matching: is.preprocess((value) => [value].flat(), is.array(is.coerce.string())).default(() => ["*", ...ignored.users]).describe(
         "Include contributors matching at least one of these patterns (n.b. if `entity: user`, the default value will be set to `handle` instead)",
       ),
       limit: is.number().min(0).nullable().default(4).describe("Number of contributors to display. Set to `null` to display all contributors"),
@@ -126,7 +126,7 @@ export default class extends Plugin {
   protected async action() {
     const { handle } = this.context
     const __contributors = this.inputs.shape.contributors.removeDefault()
-    const _contributors = __contributors.merge(is.object({ matching: __contributors.shape.matching.default(this.context.entity === "user" ? handle : "*") })).default(() => ({}))
+    const _contributors = __contributors.merge(is.object({ matching: __contributors.shape.matching.default(this.context.entity === "user" ? handle : ["*", ...ignored.users]) })).default(() => ({}))
     const { repositories, fetch: fetching, history, contributors, ...args } = await parse(this.inputs.merge(is.object({ contributors: _contributors })), this.context.args)
 
     //Fetch repositories

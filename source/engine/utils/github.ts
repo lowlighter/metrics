@@ -8,6 +8,30 @@ const regex = {
   repository: /^(?<owner>[^/]+)\/(?<name>[^/]+)$/,
 } as const
 
+/** Common ignored patterns */
+export const ignored = {
+  users:[
+    "!*\\[bot\\]",
+    "!actions-user",
+    "!action@github.com",
+  ],
+  repositories:[]
+}
+
+/** Reactions */
+export const reactions = {
+  rest:{
+    heart:"❤️",
+    "+1":"👍",
+    "-1":"👎",
+    laugh:"😄",
+    confused:"😕",
+    eyes:"👀",
+    rocket:"🚀",
+    hooray:"🎉",
+  }
+}
+
 /** Parse handle */
 export function parseHandle(handle: string, options: { entity: "user" | "organization" }): { login: string }
 export function parseHandle(handle: string, options: { entity: "repository" }): { owner: string; name: string }
@@ -38,7 +62,7 @@ export function matchPatterns(patterns: string | string[], value: unknown) {
   let match = false
   for (const pattern of [patterns].flat(Infinity) as string[]) {
     const negate = pattern.startsWith("!")
-    const regex = globToRegExp(pattern.replace(/^!/, ""), { extended: true, globstar: true, caseInsensitive: true })
+    const regex = globToRegExp(pattern.replace(/^!/, ""), { extended: true, globstar: true, caseInsensitive: true, os:"linux" })
     if (regex.test(`${value}`)) {
       match = !negate
     }

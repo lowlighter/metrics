@@ -20,7 +20,7 @@ export default class extends Plugin {
   readonly description = "<%= description %>"
 
   /** Supports */
-  readonly supports = [/***<%- supports %>*/]
+  readonly supports = [/***<%- supports.map(entity => `"${entity}"`).join(", ") %>*/]
 
   // <% if ((use.webscraping)||(use.fetch)) { %>
   /** Permissions */
