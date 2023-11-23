@@ -2,9 +2,12 @@
 :root {
   --color-primary: #777777;
   --color-title: #0366d6;
+  --color-link: #54aeff;
   --color-error: #d32f39;
   --color-warning: #c25d19;
   --color-svg: #959da5;
+  --color-svg-alpha-background: #959da515;
+  --color-label-alpha-background: #54aeff20;
   --color-error-background: #ffebe9;
   --color-warning-background: #fff8c5;
   --calendar-default-L0: #ebedf0;
@@ -26,6 +29,9 @@
   --diff-deletion: #ff6a69;
   --diff-neutral: rgba(158, 167, 179, 0.4);
   --diff-neutral-border: rgba(158, 167, 179, 0.1);
+
+  --code-background: #0d1117;
+  --code-color: #c9d1d9;
 }
 
 svg {
@@ -153,6 +159,56 @@ section {
   flex-shrink: 0;
 }
 
+
+/** Markdown */
+.markdown .link {
+  color: var(--color-link);
+}
+.markdown code {
+  background-color: var(--color-svg-alpha-background);
+  padding: 0 4px;
+  border-radius: 4px;
+}
+.markdown pre {
+  background-color: var(--code-background);
+  color: var(--code-color);
+  padding: 8px;
+  border-radius: 8px;
+  white-space: pre-wrap;
+  font-size: 12px;
+}
+.markdown pre code {
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+}
+.markdown p, .markdown pre {
+  margin: 0;
+  margin-bottom: 8px;
+}
+.markdown code .hljs-comment {
+  color: #8b949e;
+}
+.markdown code .hljs-keyword {
+  color: #ff7b72;
+}
+.markdown code .hljs-string {
+  color: #a5d6ff;
+}
+.markdown code .hljs-attr {
+  color: #79c0ff;
+}
+.markdown code .hljs-title {
+  color: #d2a8ff;
+}
+.markdown code .hljs-addition {
+  color: #aff5b4;
+  background-color: #033a16;
+}
+.markdown code .hljs-deletion {
+  color: #ffdcd7;
+  background-color: #67060c;
+}
 
 .twemoji, .gemoji, .octicon {
   height: 1em;

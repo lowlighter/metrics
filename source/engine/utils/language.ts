@@ -3,42 +3,39 @@ import hljs from "y/highlight.js@11.8.0/lib/core?pin=v133"
 import * as YAML from "std/yaml/parse.ts"
 
 /** Language cache */
-const cache = {empty:true} as unknown as Record<string, {ace_mode:string, extensions?:string[], interpreters?:string[]}>
-
-//ignore/only language
-//gitattributes
-//gitignore
-//filter file if needed
+export const cache = await load("languages.yml") as Record<string, {ace_mode:string, extensions?:string[], interpreters?:string[]}>
 
 /** Language guesser */
-export async function language(filename:string, content:string, {gitattributes = ""} = {}) {
-
+// TODO(@lowlighter): to implement
+// deno-lint-ignore require-await
+export async function language(_filename:string, content:string, {gitattributes = ""} = {}) {
   /*
-load("vendor.yml")
-load("documentation.yml")
+    load("vendor.yml")
+    load("documentation.yml")
   */
-
+  // deno-lint-ignore no-explicit-any
   const result = {} as any
 
+  // Process gitattributes override
   if (gitattributes) {
     result.from = "gitattributes"
   }
 
-  //gitattributes override
+  // Process interpreter
   if (content.startsWith("#!/")) {
-    const line = content.split("\n", 1)[0]
-    // search for single interpreter
+    const _line = content.split("\n", 1)[0]
     result.from = "shebang"
   }
 
-  //
-  if (true) {
-    // search from .filenames
+  // Search for specific filename
+  // deno-lint-ignore no-constant-condition
+  if (false) {
     result.from = "filename"
   }
 
-  if (true) {
-    // search from .extension
+  // Search for specific extension
+  // deno-lint-ignore no-constant-condition
+  if (false) {
     result.from = "extension"
   }
 
@@ -50,14 +47,9 @@ load("documentation.yml")
   }
 }
 
-
 /** Highlight code */
 export async function highlight(language:string, code:string) {
   // Resolve language name
-  if (cache.empty) {
-    Object.assign(cache, await load("languages.yml"))
-    delete cache.empty
-  }
   for (const [key, {ace_mode:mode, extensions = []}] of Object.entries(cache)) {
     const name = key.toLocaleLowerCase()
     if ((name === language.toLocaleLowerCase())||(extensions.find(extension => extension === `.${language}`))) {
@@ -66,7 +58,7 @@ export async function highlight(language:string, code:string) {
     }
   }
 
-  // Load language
+  // Load language highlighting syntax
   if (!hljs.listLanguages().includes(language)) {
     try {
       const module = await import(`y/highlight.js@11.8.0/lib/languages/${language}?pin=v133`)
