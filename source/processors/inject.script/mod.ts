@@ -18,7 +18,7 @@ export default class extends Processor {
   readonly description = "Inject and execute custom JavaScript"
 
   /** Supports */
-  readonly supports = ["application/xml"]
+  readonly supports = ["application/xml", "image/svg+xml", "text/html"]
 
   /** Permissions */
   readonly permissions = ["run:chrome", "write:tmp"]

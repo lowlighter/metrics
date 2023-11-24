@@ -28,6 +28,7 @@ export default class extends Plugin {
 
   /** Inputs */
   readonly inputs = is.object({
+    title: is.string().nullable().default(null).describe("Section title. Set to `null` to use Website title"),
     url: is.string().url().default("https://example.com").describe("Website URL (e.g. `https://example.com`)"),
     select: is.string().default("body").describe("HTML query selector"),
     viewport: is.object({
