@@ -17,7 +17,7 @@ export default class extends Processor {
   readonly description = "Render [GitHub Octicons](https://primer.style/design/foundations/icons)"
 
   /** Supports */
-  readonly supports = ["application/xml", "image/svg+xml"]
+  readonly supports = ["application/xml", "image/svg+xml", "text/html"]
 
   /** Action */
   protected async action(state: state) {

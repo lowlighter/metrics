@@ -3,7 +3,7 @@
     - processors:
       - inject.content:
           content: hello world
-      - render:
+      - render.content:
           format: svg
       - publish.gist:
           gist: 1234
@@ -14,7 +14,7 @@
     - processors:
       - inject.content:
           content: hello world
-      - render:
+      - render.content:
           format: png
       - publish.gist:
           gist: 1234

@@ -37,6 +37,7 @@ for (const mode of ["local", "remote"]) {
     return { browser, teardown }
   }
 
+  // TODO(@lowlighter): renable these tests
   Deno.test.ignore(t(import.meta, `\`${mode} .page()\` returns a new page`), { permissions }, async () => {
     const { browser, teardown } = await setup()
     for (let i = 0; i < 2; i++) {

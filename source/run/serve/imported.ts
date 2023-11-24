@@ -44,5 +44,5 @@
 ;(async () => await import("../../processors/render.gemojis/mod.ts"))
 ;(async () => await import("../../processors/render.octicons/mod.ts"))
 ;(async () => await import("../../processors/render.twemojis/mod.ts"))
-;(async () => await import("../../processors/render/mod.ts"))
-;(async () => await import("../../processors/render/tests/extras_test.ts"))
+;(async () => await import("../../processors/render.content/mod.ts"))
+;(async () => await import("../../processors/render.content/tests/extras_test.ts"))

@@ -166,6 +166,25 @@
                 </div>
               </div>
             </article>
+
+            <article>
+              <div class="bg-neutral-900 border border-neutral-800 rounded-md">
+                <div class="bg-neutral-950 p-2 border-b border-neutral-800 rounded-t-md">
+                  <h3 class="text-lg flex justify-between">
+                    <span>⚙️ </span>
+                  </h3>
+                </div>
+                <div class="bg-black p-2">
+                  <pre><code class="language-yaml" x-html="$store.craft.getGlobalConfig()"></code></pre>
+                </div>
+                <div class="p-2 border-b border-neutral-800">
+                  <form>
+                    <x-schema-inputs x-data="{inputs:presets.schema, path:['presets', 'default'], trim:/^presets\./}"></x-schema-inputs>
+                  </form>
+                </div>
+              </div>
+            </article>
+
           </section>
         </template>
 

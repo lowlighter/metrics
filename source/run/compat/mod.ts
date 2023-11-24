@@ -9,21 +9,18 @@ import { parse } from "@run/compat/parse.ts"
 type compat = any
 
 /** Compatibility layer */
-export async function compat(_inputs: Record<PropertyKey, unknown>) {
+export async function compat(_inputs: Record<PropertyKey, unknown>, { log = console.log, mock = false, use }:{log?:((_:string) => void)|null, mock?:boolean, use?:{requests?:boolean}} = {}) {
   const config = new Config()
   const inputs = await parse(_inputs, config.report)
-  config.report.console({ flush: true })
+  const defaults = await parse({}, config.report)
+  log?.(config.report.console({ flush: true }))
 
-  const { Requests } = await import("@engine/components/requests.ts")
-  const requests = new Requests(import.meta, { logs: "none", mock: false, api: "https://api.github.com", timezone: "Europe/Paris", token: inputs.token } as compat)
-  /*
-    TODO(@lowlighter): use api endpoint, handle dynamic values:
-    switch (value) {
-      case ".user.login":
-      case ".user.twitter":
-      case ".user.website":
-    }
-  */
+  // Instantiate requests handler if needed
+  let requests = null
+  if ((use?.requests)||(true)) {
+    const { Requests } = await import("@engine/components/requests.ts")
+    requests = new Requests(import.meta, { logs: "none", mock, api: inputs.github_api_rest, timezone: inputs.config_timezone, token: inputs.token } as compat)
+  }
 
   // 🗝️ Token ===========================================================================================
   if (inputs.token) {
@@ -46,6 +43,7 @@ export async function compat(_inputs: Record<PropertyKey, unknown>) {
       snippet.config.presets.default.plugins.entity = "repository"
       options.push("repo")
     } else {
+      if (requests)
       try {
         const { data: { type: entity } } = await requests.rest(requests.api.users.getByUsername, { username: inputs.user })
         snippet.config.presets.default.plugins.entity = entity.toLocaleLowerCase()
@@ -69,10 +67,9 @@ export async function compat(_inputs: Record<PropertyKey, unknown>) {
   }
 
   // Presets
-  if (inputs.config_presets) {
+  if (inputs.config_presets.length) {
     config.patch("config_presets", null)
     config.report.info("Presets are now handled directly at configuration level")
-    // TODO(@lowlighter): Should it be backwards compatible?
   }
 
   // Timezone
@@ -83,9 +80,9 @@ export async function compat(_inputs: Record<PropertyKey, unknown>) {
   }
 
   // Retries
-  if ((inputs.retries) || (inputs.retries_delay)) {
+  if (("retries" in _inputs) || ("retries_delay" in _inputs)) {
     const retries = { attempts: inputs.retries, delay: inputs.retries_delay }
-    const snippet = { config: { presets: { default: { plugins: { retries }, procesors: { retries } } } } }
+    const snippet = { config: { presets: { default: { plugins: { retries }, processors: { retries } } } } }
     config.patch(["retries", "retries_delay"], snippet)
     config.report.info("Retry configuration can now be set at preset, plugin or processor level")
   }
@@ -99,7 +96,7 @@ export async function compat(_inputs: Record<PropertyKey, unknown>) {
 
   // Fatal errors
   if (inputs.plugins_errors_fatal) {
-    const snippet = { config: { presets: { default: { plugins: { fatal: true }, procesors: { fatal: true } } } } }
+    const snippet = { config: { presets: { default: { plugins: { fatal: true }, processors: { fatal: true } } } } }
     config.patch("plugins_errors_fatal", snippet)
     config.report.info("Errors status can now be set at preset, plugin or processor level")
   }
@@ -114,26 +111,50 @@ export async function compat(_inputs: Record<PropertyKey, unknown>) {
   // Dry-run
   if (inputs.dryrun) {
     config.patch("dryrun", null)
-    config.report.warning("While dryrun mode has been removed, the same behavior can be achieved by not using the `render` processor")
+    config.report.warning("While dryrun mode has been removed, the same behavior can be achieved by not using the `render.content` processor")
   }
 
   // Display options
-  if ((inputs.config_display) || (inputs.config_animations === false) || (inputs.config_padding)) {
-    const options = []
-    for (const key of ["config_display", "config_animations", "config_padding"]) {
-      if (inputs[key]) {
-        options.push(key)
+  if (inputs.config_display !== defaults.config_display) {
+    switch (inputs.config_display) {
+      case "large":{
+        const snippet = { config: { plugins: [{processors:[{"transform.resize":{width:960}}, {"inject.script":{script:`document.querySelector("svg").classList.add("large")`}}]}] } } as compat
+        config.patch("config_display", snippet)
+        break
+      }
+      default: {
+        config.patch(`config_display: ${inputs.config_display}`, null)
       }
     }
-    config.patch(options, null)
-    config.report.info(`Display, animations and padding should now be handled manually using \`processors/inject.style\``)
+  }
+
+  // Animations options
+  if (inputs.config_animations === false) {
+    config.patch("config_animations", null)
+    config.report.info("Toggling animations is now expected to be handled manually using processors")
+  }
+
+  // Padding options
+  if ("config_padding" in _inputs) {
+    let padding = ""
+    const [horizontal, vertical = horizontal] = inputs.config_padding.split(",")
+    for (const direction of [vertical, horizontal]) {
+      const [flat, percentage = "0%"] = direction.split("+").map((value:string) => value.trim())
+      padding += ` calc(${percentage} + ${flat}px)`
+    }
+    const snippet = { config: { plugins: [{processors:[{"inject.style":{style:`.metrics { padding: ${padding} }`}}]}] } } as compat
+    config.patch("config_padding", snippet)
+    config.report.warning("It seems that `config_padding` has been set with a custom value. Note that this option is now expected to be handled manually using processors, and that the automatic conversion that has been performed may yield unexpected results")
   }
 
   // Removed options
-  if ((inputs.verify) || (inputs.debug_flags) || (inputs.experimental_features) || (inputs.clean_workflows)) {
+  if (inputs.verify) {
+    config.patch("verify", null)
+  }
+  if ((inputs.clean_workflows.length) || (inputs.debug_flags.length) || (inputs.experimental_features.length)) {
     const options = []
-    for (const key of ["verify", "debug_flags", "experimental_features"]) {
-      if (inputs[key]) {
+    for (const key of ["clean_workflows", "debug_flags", "experimental_features"] as const) {
+      if (inputs[key].length) {
         options.push(key)
       }
     }
@@ -143,11 +164,12 @@ export async function compat(_inputs: Record<PropertyKey, unknown>) {
   // 📕 Templates =======================================================================================
 
   // Community templates
-  if (inputs.setup_community_templates) {
+  if (inputs.setup_community_templates.length) {
     config.patch("setup_community_templates", null)
+    config.report.warning("Note that community templates from v3.x are not compatible with v4.x and should be migrated manually")
     config.report.info("Community templates are now directly fetched remotely upon usage")
   }
-  if ((typeof inputs.query === "object") && (Object.keys(inputs.query).length)) {
+  if (Object.keys(inputs.query).length) {
     config.patch("query", null)
     config.report.info(`Query parameters for templates should now be handled through url parameters:\n${yaml({ template: "https://example.test/template?param1=value1&param2=value2&..." })}`)
   }
@@ -160,29 +182,23 @@ export async function compat(_inputs: Record<PropertyKey, unknown>) {
 
   // Markdown
   if (inputs.markdown) {
+    //TODO(@lowlighter): implement
     //markdown
     //markdown_cache
-    //TODO(@lowlighter): implement
     config.report.unimplemented("`markdown` render has not been migrated to v4 yet")
   }
 
   // 🧩 Plugins =========================================================================================
 
   // 🗃️ Base content
-  if (inputs.base) {
-    //base
-    //base_indepth
-    //base_hireable
-    //base_skip
-    //repositories
-    //repositories_batch
-    //repositories_forks
-    //repositories_affiliations
-    //repositories_skipped
-    //users_ignored
-    //commits_authoring
-    //TODO(@lowlighter): implement
+  if (inputs.base.length) {
     config.report.unimplemented("`base` plugin has not been migrated to v4 yet")
+    config.compat(_inputs, [
+      "base",
+      "base_indepth",
+      "base_hireable",
+      "base_skip",
+    ])
   }
 
   // 🙋 Introduction
@@ -198,12 +214,9 @@ export async function compat(_inputs: Record<PropertyKey, unknown>) {
 
   // 📅 Isometric commit calendar
   if (inputs.plugin_isocalendar) {
-    const options = ["plugin_isocalendar"]
+    const options = ["plugin_isocalendar", "plugin_isocalendar_duration"]
     const snippet = { config: { plugins: [{ calendar: { view: "isometric", range: "last-180-days" } }] } } as compat
-    if (inputs.plugin_isocalendar_duration) {
-      snippet.config.plugins[0].calendar.range = { "half-year": "last-180-days", "full-year": "last-365-days" }[inputs.plugin_isocalendar_duration as string]
-      options.push("plugin_isocalendar_duration")
-    }
+    snippet.config.plugins[0].calendar.range = { "half-year": "last-180-days", "full-year": "last-365-days" }[inputs.plugin_isocalendar_duration as string]
     if (inputs.debug_flags.find((f: string) => ["--halloween", "--winter"].includes(f))) {
       snippet.config.plugins[0].calendar.colors = inputs.debug_flags.find((f: string) => ["--halloween", "--winter"].includes(f)).replace("--", "")
       options.push("debug_flags")
@@ -224,6 +237,7 @@ export async function compat(_inputs: Record<PropertyKey, unknown>) {
         break
       case inputs.plugin_calendar_limit < 0: {
         let from = -inputs.plugin_calendar_limit
+        if (requests)
         try {
           const { data: { created_at: timestamp } } = await requests.rest(requests.api.users.getByUsername, { username: inputs.user })
           from = new Date(timestamp).getFullYear() - inputs.plugin_calendar_limit
@@ -275,15 +289,15 @@ export async function compat(_inputs: Record<PropertyKey, unknown>) {
       }
       options.push("plugin_lines_skipped")
     }
-    if (inputs.plugin_lines_repositories_limit) {
+    if ("plugin_lines_repositories_limit" in inputs) {
       snippet.config.plugins[0].lines.display.repositories = { limit: inputs.plugin_lines_repositories_limit }
       options.push("plugin_lines_repositories_limit")
     }
-    if (inputs.plugin_lines_history_limit) {
-      snippet.config.plugins[0].lines.history = { limit: inputs.plugin_lines_history_limit }
+    if ("plugin_lines_history_limit" in _inputs) {
+      snippet.config.plugins[0].lines.history = { limit: inputs.plugin_lines_history_limit > 0 ? inputs.plugin_lines_history_limit : null}
       options.push("plugin_lines_history_limit")
     }
-    if (inputs.plugin_lines_delay) {
+    if ("plugin_lines_delay" in _inputs) {
       snippet.config.plugins[0].lines.fetch = { delay: inputs.plugin_lines_delay }
       options.push("plugin_lines_delay")
     }
@@ -295,7 +309,7 @@ export async function compat(_inputs: Record<PropertyKey, unknown>) {
     const options = ["plugin_rss", "plugin_rss_source"]
     const snippet = { config: { plugins: [{ rss: {} }] } } as compat
     snippet.config.plugins[0].rss.feed = inputs.plugin_rss_source
-    if (typeof inputs.plugin_rss_limit === "number") {
+    if ("plugin_rss_limit" in _inputs) {
       snippet.config.plugins[0].rss.limit = (inputs.plugin_rss_limit > 0) ? inputs.plugin_rss_limit : null
       options.push("plugin_rss_limit")
     }
@@ -307,20 +321,24 @@ export async function compat(_inputs: Record<PropertyKey, unknown>) {
     const options = ["plugin_screenshot", "plugin_screenshot_url"]
     const snippet = { config: { plugins: [{ webscraping: {} }] } } as compat
     snippet.config.plugins[0].webscraping.url = inputs.plugin_screenshot_url
+    if (inputs.plugin_screenshot_title) {
+      snippet.config.plugins[0].webscraping.title = inputs.plugin_screenshot_title
+      options.push("plugin_screenshot_title")
+    }
     if (inputs.plugin_screenshot_selector) {
       snippet.config.plugins[0].webscraping.select = inputs.plugin_screenshot_selector
       options.push("plugin_screenshot_selector")
     }
-    if (inputs.plugin_screenshot_mode) {
+    if ("plugin_screenshot_mode" in _inputs) {
       snippet.config.plugins[0].webscraping.mode = inputs.plugin_screenshot_mode
       options.push("plugin_screenshot_mode")
     }
-    if (inputs.plugin_screenshot_viewport) {
+    if ("plugin_screenshot_viewport" in _inputs) {
       snippet.config.plugins[0].webscraping.viewport = inputs.plugin_screenshot_viewport
       options.push("plugin_screenshot_viewport_width", "plugin_screenshot_viewport_height")
     }
-    if (inputs.plugin_screenshot_wait) {
-      snippet.config.plugins[0].webscraping.wait = inputs.plugin_screenshot_wait
+    if ("plugin_screenshot_wait" in _inputs) {
+      snippet.config.plugins[0].webscraping.wait = inputs.plugin_screenshot_wait/1000
       options.push("plugin_screenshot_wait")
     }
     if (inputs.plugin_screenshot_background === false) {
@@ -334,482 +352,449 @@ export async function compat(_inputs: Record<PropertyKey, unknown>) {
 
   // 🈷️ Languages activity
   if (inputs.plugin_languages) {
-    config.report.unimplemented("`languages` plugin has not been migrated to v4 yet")
-    /*
-      plugin_languages:
-      plugin_languages_ignored:
-      plugin_languages_skipped:
-      plugin_languages_limit:
-      plugin_languages_threshold:
-      plugin_languages_other:
-      plugin_languages_colors:
-      plugin_languages_aliases:
-      plugin_languages_sections:
-      plugin_languages_details:
-      plugin_languages_indepth:
-      plugin_languages_indepth_custom:
-      plugin_languages_analysis_timeout:
-      plugin_languages_analysis_timeout_repositories:
-      plugin_languages_categories:
-      plugin_languages_recent_categories:
-      plugin_languages_recent_load:
-      plugin_languages_recent_days:
-    */
+    config.compat(_inputs, [
+      "plugin_languages",
+      "plugin_languages_ignored",
+      "plugin_languages_skipped",
+      "plugin_languages_limit",
+      "plugin_languages_threshold",
+      "plugin_languages_other",
+      "plugin_languages_colors",
+      "plugin_languages_aliases",
+      "plugin_languages_sections",
+      "plugin_languages_details",
+      "plugin_languages_indepth",
+      "plugin_languages_indepth_custom",
+      "plugin_languages_analysis_timeout",
+      "plugin_languages_analysis_timeout_repositories",
+      "plugin_languages_categories",
+      "plugin_languages_recent_categories",
+      "plugin_languages_recent_load",
+      "plugin_languages_recent_days",
+    ])
   }
 
   // ✨ Stargazers
   if (inputs.plugin_stargazers) {
-    config.report.unimplemented("`stargazers` plugin has not been migrated to v4 yet")
-    /*
-      plugin_stargazers:
-      plugin_stargazers_days:
-      plugin_stargazers_charts:
-      plugin_stargazers_charts_type:
-      plugin_stargazers_worldmap:
-      plugin_stargazers_worldmap_token:
-      plugin_stargazers_worldmap_sample:
-    */
+    config.compat(_inputs, [
+      "plugin_stargazers",
+      "plugin_stargazers_days",
+      "plugin_stargazers_charts",
+      "plugin_stargazers_charts_type",
+      "plugin_stargazers_worldmap",
+      "plugin_stargazers_worldmap_token",
+      "plugin_stargazers_worldmap_sample",
+    ])
   }
 
   // 📌 Starred topics
   if (inputs.plugin_topics) {
-    config.report.unimplemented("`topics` plugin has not been migrated to v4 yet")
-    /*
-      plugin_topics:
-      plugin_topics_mode:
-      plugin_topics_sort:
-      plugin_topics_limit:
-    */
+    config.compat(_inputs, [
+      "plugin_topics",
+      "plugin_topics_mode",
+      "plugin_topics_sort",
+      "plugin_topics_limit",
+    ])
   }
 
   // 🌟 Recently starred repositories
   if (inputs.plugin_stars) {
-    config.report.unimplemented("`stars` plugin has not been migrated to v4 yet")
-    /*
-      plugin_stars:
-      plugin_stars_limit:
-    */
+    config.compat(_inputs, [
+      "plugin_stars",
+      "plugin_stars_limit",
+    ])
   }
 
   // 📜 Repository licenses
   if (inputs.plugin_licenses) {
-    config.report.unimplemented("`licenses` plugin has not been migrated to v4 yet")
-    /*
-      plugin_licenses:
-      plugin_licenses_setup:
-      plugin_licenses_ratio:
-      plugin_licenses_legal:
-    */
+    config.compat(_inputs, [
+      "plugin_licenses",
+      "plugin_licenses_setup",
+      "plugin_licenses_ratio",
+      "plugin_licenses_legal",
+    ])
   }
 
   // 💡 Coding habits and activity
   if (inputs.plugin_habits) {
-    config.report.unimplemented("`habits` plugin has not been migrated to v4 yet")
-    /*
-      plugin_habits:
-      plugin_habits_from:
-      plugin_habits_skipped:
-      plugin_habits_days:
-      plugin_habits_facts:
-      plugin_habits_charts:
-      plugin_habits_charts_type:
-      plugin_habits_trim:
-      plugin_habits_languages_limit:
-      plugin_habits_languages_threshold:
-    */
+    config.compat(_inputs, [
+      "plugin_habits",
+      "plugin_habits_from",
+      "plugin_habits_skipped",
+      "plugin_habits_days",
+      "plugin_habits_facts",
+      "plugin_habits_charts",
+      "plugin_habits_charts_type",
+      "plugin_habits_trim",
+      "plugin_habits_languages_limit",
+      "plugin_habits_languages_threshold",
+    ])
   }
 
   // 🏅 Repository contributors
   if (inputs.plugin_contributors) {
-    config.report.unimplemented("`contributors` plugin has not been migrated to v4 yet")
-    /*
-      plugin_contributors:
-      plugin_contributors_base:
-      plugin_contributors_head:
-      plugin_contributors_ignored:
-      plugin_contributors_contributions:
-      plugin_contributors_sections:
-      plugin_contributors_categories:
-    */
+    config.compat(_inputs, [
+      "plugin_contributors",
+      "plugin_contributors_base",
+      "plugin_contributors_head",
+      "plugin_contributors_ignored",
+      "plugin_contributors_contributions",
+      "plugin_contributors_sections",
+      "plugin_contributors_categories",
+    ])
   }
 
   // 🎟️ Follow-up of issues and pull requests
   if (inputs.plugin_followup) {
-    config.report.unimplemented("`followup` plugin has not been migrated to v4 yet")
-    /*
-      plugin_followup:
-      plugin_followup_sections:
-      plugin_followup_indepth:
-      plugin_followup_archived:
-    */
+    config.compat(_inputs, [
+      "plugin_followup",
+      "plugin_followup_sections",
+      "plugin_followup_indepth",
+      "plugin_followup_archived",
+    ])
   }
 
   // 🎭 Comment reactions
   if (inputs.plugin_reactions) {
-    config.report.unimplemented("`reactions` plugin has not been migrated to v4 yet")
-    /*
-      plugin_reactions:
-      plugin_reactions_limit:
-      plugin_reactions_limit_issues:
-      plugin_reactions_limit_discussions:
-      plugin_reactions_limit_discussions_comments:
-      plugin_reactions_days:
-      plugin_reactions_display:
-      plugin_reactions_details:
-      plugin_reactions_ignored:
-    */
+    config.compat(_inputs, [
+      "plugin_reactions",
+      "plugin_reactions_limit",
+      "plugin_reactions_limit_issues",
+      "plugin_reactions_limit_discussions",
+      "plugin_reactions_limit_discussions_comments",
+      "plugin_reactions_days",
+      "plugin_reactions_display",
+      "plugin_reactions_details",
+      "plugin_reactions_ignored",
+    ])
   }
 
   // 🧑‍🤝‍🧑 People
   if (inputs.plugin_people) {
-    config.report.unimplemented("`people` plugin has not been migrated to v4 yet")
-    /*
-      plugin_people:
-      plugin_people_limit:
-      plugin_people_identicons:
-      plugin_people_identicons_hide:
-      plugin_people_size:
-      plugin_people_types:
-      plugin_people_thanks:
-      plugin_people_sponsors_custom:
-      plugin_people_shuffle:
-    */
+    config.compat(_inputs, [
+      "plugin_people",
+      "plugin_people_limit",
+      "plugin_people_identicons",
+      "plugin_people_identicons_hide",
+      "plugin_people_size",
+      "plugin_people_types",
+      "plugin_people_thanks",
+      "plugin_people_sponsors_custom",
+      "plugin_people_shuffle",
+    ])
   }
 
   // 💝 GitHub Sponsorships
   if (inputs.plugin_sponsorships) {
-    config.report.unimplemented("`sponsorships` plugin has not been migrated to v4 yet")
-    /*
-      plugin_sponsorships:
-      plugin_sponsorships_sections:
-      plugin_sponsorships_size:
-    */
+    config.compat(_inputs, [
+      "plugin_sponsorships",
+      "plugin_sponsorships_sections",
+      "plugin_sponsorships_size",
+    ])
   }
 
   // 💕 GitHub Sponsors
   if (inputs.plugin_sponsors) {
-    config.report.unimplemented("`sponsors` plugin has not been migrated to v4 yet")
-    /*
-      plugin_sponsors:
-      plugin_sponsors_sections:
-      plugin_sponsors_past:
-      plugin_sponsors_size:
-      plugin_sponsors_title:
-    */
+    config.compat(_inputs, [
+      "plugin_sponsors",
+      "plugin_sponsors_sections",
+      "plugin_sponsors_past",
+      "plugin_sponsors_size",
+      "plugin_sponsors_title",
+    ])
   }
 
   // 📓 Featured repositories
   if (inputs.plugin_repositories) {
-    config.report.unimplemented("`repositories` plugin has not been migrated to v4 yet")
-    /*
-      plugin_repositories:
-      plugin_repositories_featured:
-      plugin_repositories_pinned:
-      plugin_repositories_starred:
-      plugin_repositories_random:
-      plugin_repositories_order:
-      plugin_repositories_forks:
-      plugin_repositories_affiliations:
-    */
+    config.compat(_inputs, [
+      "plugin_repositories",
+      "plugin_repositories_featured",
+      "plugin_repositories_pinned",
+      "plugin_repositories_starred",
+      "plugin_repositories_random",
+      "plugin_repositories_order",
+      "plugin_repositories_forks",
+      "plugin_repositories_affiliations",
+    ])
   }
 
   // 💬 Discussions
   if (inputs.plugin_discussions) {
-    config.report.unimplemented("`discussions` plugin has not been migrated to v4 yet")
-    /*
-      plugin_discussions:
-      plugin_discussions_categories:
-      plugin_discussions_categories_limit:
-    */
+    config.compat(_inputs, [
+      "plugin_discussions",
+      "plugin_discussions_categories",
+      "plugin_discussions_categories_limit",
+    ])
   }
 
   // 💫 Star lists
   if (inputs.plugin_starlists) {
-    config.report.unimplemented("`starlists` plugin has not been migrated to v4 yet")
-    /*
-      plugin_starlists:
-      plugin_starlists_limit:
-      plugin_starlists_limit_repositories:
-      plugin_starlists_languages:
-      plugin_starlists_limit_languages:
-      plugin_starlists_languages_ignored:
-      plugin_starlists_languages_aliases:
-      plugin_starlists_shuffle_repositories:
-      plugin_starlists_ignored:
-      plugin_starlists_only:
-    */
+    config.compat(_inputs, [
+      "plugin_starlists",
+      "plugin_starlists_limit",
+      "plugin_starlists_limit_repositories",
+      "plugin_starlists_languages",
+      "plugin_starlists_limit_languages",
+      "plugin_starlists_languages_ignored",
+      "plugin_starlists_languages_aliases",
+      "plugin_starlists_shuffle_repositories",
+      "plugin_starlists_ignored",
+      "plugin_starlists_only",
+    ])
   }
 
   // 🏆 Achievements achievements
   if (inputs.plugin_achievements) {
-    config.report.unimplemented("`achievements` plugin has not been migrated to v4 yet")
-    /*
-      plugin_achievements:
-      plugin_achievements_threshold:
-      plugin_achievements_secrets:
-      plugin_achievements_display:
-      plugin_achievements_limit:
-      plugin_achievements_ignored:
-      plugin_achievements_only:
-    */
+    config.compat(_inputs, [
+      "plugin_achievements",
+      "plugin_achievements_threshold",
+      "plugin_achievements_secrets",
+      "plugin_achievements_display",
+      "plugin_achievements_limit",
+      "plugin_achievements_ignored",
+      "plugin_achievements_only",
+    ])
   }
 
   // 🎩 Notable contributions notable
   if (inputs.plugin_notable) {
-    config.report.unimplemented("`notable` plugin has not been migrated to v4 yet")
-    /*
-      plugin_notable:
-      plugin_notable_filter:
-      plugin_notable_skipped:
-      plugin_notable_from:
-      plugin_notable_repositories:
-      plugin_notable_indepth:
-      plugin_notable_types:
-      plugin_notable_self:
-    */
+    config.compat(_inputs, [
+      "plugin_notable",
+      "plugin_notable_filter",
+      "plugin_notable_skipped",
+      "plugin_notable_from",
+      "plugin_notable_repositories",
+      "plugin_notable_indepth",
+      "plugin_notable_types",
+      "plugin_notable_self",
+    ])
   }
 
   // 📰 Recent activity
   if (inputs.plugin_activity) {
-    config.report.unimplemented("`activity` plugin has not been migrated to v4 yet")
-    /*
-      plugin_activity:
-      plugin_activity_limit:
-      plugin_activity_load:
-      plugin_activity_days:
-      plugin_activity_visibility:
-      plugin_activity_timestamps:
-      plugin_activity_skipped:
-      plugin_activity_ignored:
-      plugin_activity_filter:
-    */
+    config.compat(_inputs, [
+      "plugin_activity",
+      "plugin_activity_limit",
+      "plugin_activity_load",
+      "plugin_activity_days",
+      "plugin_activity_visibility",
+      "plugin_activity_timestamps",
+      "plugin_activity_skipped",
+      "plugin_activity_ignored",
+      "plugin_activity_filter",
+    ])
   }
 
   // 🧮 Repositories traffic
   if (inputs.plugin_traffic) {
-    config.report.unimplemented("`traffic` plugin has not been migrated to v4 yet")
-    /*
-      plugin_traffic:
-      plugin_traffic_skipped:
-    */
+    config.compat(_inputs, [
+      "plugin_traffic",
+      "plugin_traffic_skipped",
+    ])
   }
 
   // ♐ Random code snippet
   if (inputs.plugin_code) {
-    config.report.unimplemented("`code` plugin has not been migrated to v4 yet")
-    /*
-      plugin_code:
-      plugin_code_lines:
-      plugin_code_load:
-      plugin_code_days:
-      plugin_code_visibility:
-      plugin_code_skipped:
-      plugin_code_languages:
-    */
+    config.compat(_inputs, [
+      "plugin_code",
+      "plugin_code_lines",
+      "plugin_code_load",
+      "plugin_code_days",
+      "plugin_code_visibility",
+      "plugin_code_skipped",
+      "plugin_code_languages",
+    ])
   }
 
   // 🗂️ GitHub projects
   if (inputs.plugin_projects) {
-    config.report.unimplemented("`projects` plugin has not been migrated to v4 yet")
-    /*
-      plugin_projects:
-      plugin_projects_limit:
-      plugin_projects_repositories:
-      plugin_projects_descriptions:
-    */
+    config.compat(_inputs, [
+      "plugin_projects",
+      "plugin_projects_limit",
+      "plugin_projects_repositories",
+      "plugin_projects_descriptions",
+    ])
   }
 
   // 🌇 GitHub Skyline
   if (inputs.plugin_skyline) {
-    config.report.unimplemented("`skyline` plugin has not been migrated to v4 yet")
-    /*
-      plugin_skyline:
-      plugin_skyline_year:
-      plugin_skyline_frames:
-      plugin_skyline_quality:
-      plugin_skyline_compatibility:
-      plugin_skyline_settings:
-    */
+    config.compat(_inputs, [
+      "plugin_skyline",
+      "plugin_skyline_year",
+      "plugin_skyline_frames",
+      "plugin_skyline_quality",
+      "plugin_skyline_compatibility",
+      "plugin_skyline_settings",
+    ])
   }
 
   // ⏱️ Google PageSpeed
   if (inputs.plugin_pagespeed) {
-    config.report.unimplemented("`pagespeed` plugin has not been migrated to v4 yet")
-    /*
-      plugin_pagespeed:
-      plugin_pagespeed_token:
-      plugin_pagespeed_url:
-      plugin_pagespeed_detailed:
-      plugin_pagespeed_screenshot:
-      plugin_pagespeed_pwa:
-    */
+    config.compat(_inputs, [
+      "plugin_pagespeed",
+      "plugin_pagespeed_token",
+      "plugin_pagespeed_url",
+      "plugin_pagespeed_detailed",
+      "plugin_pagespeed_screenshot",
+      "plugin_pagespeed_pwa",
+    ])
   }
 
   // 🌸 Anilist watch list and reading list
   if (inputs.plugin_anilist) {
-    config.report.unimplemented("`anilist` plugin has not been migrated to v4 yet")
-    /*
-      plugin_anilist:
-      plugin_anilist_user:
-      plugin_anilist_medias:
-      plugin_anilist_sections:
-      plugin_anilist_limit:
-      plugin_anilist_limit_characters:
-      plugin_anilist_shuffle:
-    */
+    config.compat(_inputs, [
+      "plugin_anilist",
+      "plugin_anilist_user",
+      "plugin_anilist_medias",
+      "plugin_anilist_sections",
+      "plugin_anilist_limit",
+      "plugin_anilist_limit_characters",
+      "plugin_anilist_shuffle",
+    ])
   }
 
   // 🗨️ Stack Overflow
   if (inputs.plugin_stackoverflow) {
-    config.report.unimplemented("`stackoverflow` plugin has not been migrated to v4 yet")
-    /*
-      plugin_stackoverflow:
-      plugin_stackoverflow_user:
-      plugin_stackoverflow_sections:
-      plugin_stackoverflow_limit:
-      plugin_stackoverflow_lines:
-      plugin_stackoverflow_lines_snippet:
-    */
+    config.compat(_inputs, [
+      "plugin_stackoverflow",
+      "plugin_stackoverflow_user",
+      "plugin_stackoverflow_sections",
+      "plugin_stackoverflow_limit",
+      "plugin_stackoverflow_lines",
+      "plugin_stackoverflow_lines_snippet",
+    ])
   }
 
   // 🎼 Music activity and suggestions
   if (inputs.plugin_music) {
-    config.report.unimplemented("`music` plugin has not been migrated to v4 yet")
-    /*
-      plugin_music:
-      plugin_music_provider:
-      plugin_music_token:
-      plugin_music_user:
-      plugin_music_mode:
-      plugin_music_playlist:
-      plugin_music_limit:
-      plugin_music_played_at:
-      plugin_music_time_range:
-      plugin_music_top_type:
-    */
+    config.compat(_inputs, [
+      "plugin_music",
+      "plugin_music_provider",
+      "plugin_music_token",
+      "plugin_music_user",
+      "plugin_music_mode",
+      "plugin_music_playlist",
+      "plugin_music_limit",
+      "plugin_music_played_at",
+      "plugin_music_time_range",
+      "plugin_music_top_type",
+    ])
   }
 
   // ✒️ Recent posts
   if (inputs.plugin_posts) {
-    config.report.unimplemented("`posts` plugin has not been migrated to v4 yet")
-    /*
-      plugin_posts:
-      plugin_posts_source:
-      plugin_posts_user:
-      plugin_posts_descriptions:
-      plugin_posts_covers:
-      plugin_posts_limit:
-    */
+    config.compat(_inputs, [
+      "plugin_posts",
+      "plugin_posts_source",
+      "plugin_posts_user",
+      "plugin_posts_descriptions",
+      "plugin_posts_covers",
+      "plugin_posts_limit",
+    ])
   }
 
   // ⏰ WakaTime
   if (inputs.plugin_wakatime) {
-    config.report.unimplemented("`wakatime` plugin has not been migrated to v4 yet")
-    /*
-      plugin_wakatime:
-      plugin_wakatime_token:
-      plugin_wakatime_url:
-      plugin_wakatime_user:
-      plugin_wakatime_sections:
-      plugin_wakatime_days:
-      plugin_wakatime_limit:
-      plugin_wakatime_languages_other:
-      plugin_wakatime_languages_ignored:
-      plugin_wakatime_repositories_visibility:
-    */
+    config.compat(_inputs, [
+      "plugin_wakatime",
+      "plugin_wakatime_token",
+      "plugin_wakatime_url",
+      "plugin_wakatime_user",
+      "plugin_wakatime_sections",
+      "plugin_wakatime_days",
+      "plugin_wakatime_limit",
+      "plugin_wakatime_languages_other",
+      "plugin_wakatime_languages_ignored",
+      "plugin_wakatime_repositories_visibility",
+    ])
   }
 
   // 🗳️ Leetcode
   if (inputs.plugin_leetcode) {
-    config.report.unimplemented("`leetcode` plugin has not been migrated to v4 yet")
-    /*
-      plugin_leetcode:
-      plugin_leetcode_user:
-      plugin_leetcode_sections:
-      plugin_leetcode_limit_skills:
-      plugin_leetcode_ignored_skills:
-      plugin_leetcode_limit_recent:
-    */
+    config.compat(_inputs, [
+      "plugin_leetcode",
+      "plugin_leetcode_user",
+      "plugin_leetcode_sections",
+      "plugin_leetcode_limit_skills",
+      "plugin_leetcode_ignored_skills",
+      "plugin_leetcode_limit_recent",
+    ])
   }
 
   // 🕹️ Steam
   if (inputs.plugin_steam) {
-    config.report.unimplemented("`steam` plugin has not been migrated to v4 yet")
-    /*
-      plugin_steam:
-      plugin_steam_token:
-      plugin_steam_sections:
-      plugin_steam_user:
-      plugin_steam_games_ignored:
-      plugin_steam_games_limit:
-      plugin_steam_recent_games_limit:
-      plugin_steam_achievements_limit:
-      plugin_steam_playtime_threshold:
-    */
+    config.compat(_inputs, [
+      "plugin_steam",
+      "plugin_steam_token",
+      "plugin_steam_sections",
+      "plugin_steam_user",
+      "plugin_steam_games_ignored",
+      "plugin_steam_games_limit",
+      "plugin_steam_recent_games_limit",
+      "plugin_steam_achievements_limit",
+      "plugin_steam_playtime_threshold",
+    ])
   }
 
   // 🧠 16personalities
   if (inputs.plugin_16personalities) {
-    config.report.unimplemented("`16personalities` plugin has not been migrated to v4 yet")
-    /*
-      plugin_16personalities:
-      plugin_16personalities_url:
-      plugin_16personalities_sections:
-      plugin_16personalities_scores:
-    */
+    config.compat(_inputs, [
+      "plugin_16personalities",
+      "plugin_16personalities_url",
+      "plugin_16personalities_sections",
+      "plugin_16personalities_scores",
+    ])
   }
 
   // ♟️ Chess
   if (inputs.plugin_chess) {
-    config.report.unimplemented("`chess` plugin has not been migrated to v4 yet")
-    /*
-      plugin_chess:
-      plugin_chess_token:
-      plugin_chess_user:
-      plugin_chess_platform:
-      plugin_chess_animation:
-    */
+    config.compat(_inputs, [
+      "plugin_chess",
+      "plugin_chess_token",
+      "plugin_chess_user",
+      "plugin_chess_platform",
+      "plugin_chess_animation",
+    ])
   }
 
   // 🥠 Fortune
   if (inputs.plugin_fortune) {
-    config.report.unimplemented("`fortune` plugin has not been migrated to v4 yet")
-    /*
-      plugin_fortune:
-      plugin_fortune_url:
-      plugin_fortune_sections:
-    */
+    config.compat(_inputs, [
+      "plugin_fortune",
+      "plugin_fortune_url",
+      "plugin_fortune_sections",
+    ])
   }
 
   // 🦑 Splatoon splatoon
   if (inputs.plugin_splatoon) {
-    config.report.unimplemented("`splatoon` plugin has not been migrated to v4 yet")
-    /*
-      plugin_splatoon:
-      plugin_splatoon_token:
-      plugin_splatoon_sections:
-      plugin_splatoon_versus_limit:
-      plugin_splatoon_salmon_limit:
-      plugin_splatoon_statink:
-      plugin_splatoon_statink_token:
-      plugin_splatoon_source:
-    */
+    config.compat(_inputs, [
+      "plugin_splatoon",
+      "plugin_splatoon_token",
+      "plugin_splatoon_sections",
+      "plugin_splatoon_versus_limit",
+      "plugin_splatoon_salmon_limit",
+      "plugin_splatoon_statink",
+      "plugin_splatoon_statink_token",
+      "plugin_splatoon_source",
+    ])
   }
 
   // 💹 Stock prices stock
   if (inputs.plugin_stock) {
-    config.report.unimplemented("`stock` plugin has not been migrated to v4 yet")
-    /*
-      plugin_stock:
-      plugin_stock_token:
-      plugin_stock_symbol:
-      plugin_stock_duration:
-      plugin_stock_interval:
-    */
+    config.compat(_inputs, [
+      "plugin_stock",
+      "plugin_stock_token",
+      "plugin_stock_symbol",
+      "plugin_stock_duration",
+      "plugin_stock_interval",
+    ])
   }
 
   // 🎲 Community plugins
-  // TODO(@lowlighter): use @legacy for community plugins
+  //if () {
+  //  config.compat(_inputs, )
+  //}
 
   // 🐤 Latest tweets
   if (inputs.plugin_tweets) {
@@ -861,6 +846,7 @@ export async function compat(_inputs: Record<PropertyKey, unknown>) {
   // Optimizations
   if (inputs.optimize?.length) {
     const snippet = { config: { plugins: [{ processors: [] }] } } as compat
+    //experimental_features --optimize-svg
     for (const type of ["css", "svg", "xml"]) {
       if (inputs.optimize.includes(type)) {
         snippet.config.plugins[0].processors.push({ [`optimize.${type}`]: {} })
@@ -873,13 +859,13 @@ export async function compat(_inputs: Record<PropertyKey, unknown>) {
 
   // Output format
   if (inputs.config_output) {
-    const snippet = { config: { plugins: [{ processors: [{ render: { format: inputs.config_output } }] }] } }
+    const snippet = { config: { plugins: [{ processors: [{ "render.content": { format: inputs.config_output } }] }] } }
     if (inputs.config_output === "auto") {
-      snippet.config.plugins[0].processors[0].render.format = "svg"
+      snippet.config.plugins[0].processors[0]["render.content"].format = "svg"
       config.report.warning("Output format `auto` has been removed. Render format has been set to `svg` for compatibility")
     }
     if (["markdown", "markdown-pdf", "insights"].includes(inputs.config_output)) {
-      //TODO(@lowlighter): implement
+      //TODO(@lowlighter): to implement
       config.report.unimplemented(`Rendering to \`${inputs.config_output}\` has not been migrated to v4 yet`)
     }
     config.patch("config_output", snippet)
@@ -994,7 +980,6 @@ export async function compat(_inputs: Record<PropertyKey, unknown>) {
 
   // Output condition
   if (inputs.output_condition) {
-    //output_condition
     config.report.unimplemented("`output_condition` has not been migrated to v4 yet")
   }
 
@@ -1015,8 +1000,8 @@ export async function compat(_inputs: Record<PropertyKey, unknown>) {
   if (config.patched) {
     config.report.warning("Your configuration has been patched to be compatible with v4. Note however that the final result may differ from previous versions, please review the following changes:")
   }
-  config.report.console()
-  console.log(yaml(config.content))
+  log?.(config.report.console())
+  log?.(yaml(config.content))
   return config
 }
 
@@ -1064,16 +1049,3 @@ if (import.meta.main) {
     plugin_languages_ignored: "",
   })
 }
-
-/*
-  TO MIGRATE:
-
-
-  plugin_lines:
-  plugin_lines_skipped:
-  plugin_lines_sections:
-  plugin_lines_repositories_limit:
-  plugin_lines_history_limit:
-  plugin_lines_delay:
-
-*/

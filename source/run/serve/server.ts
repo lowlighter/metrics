@@ -67,7 +67,7 @@ export class Server extends Internal {
   protected readonly routes = {
     index: /^\/(?:index\.html)?$/,
     favicon: /^\/favicon\.(?:ico|png)$/,
-    metrics: /^\/(?<handle>[-\w]+(?:\/[-\w]+)?)(?:\.(?<ext>svg|png|jpg|jpeg|webp|json|html))?$/,
+    metrics: /^\/(?<handle>[-\w]+(?:\/[-\w]+)?)(?:\.(?<ext>svg|png|jpg|jpeg|webp|json|html|txt|text|yml|yaml|pdf))?$/,
     control: /^\/metrics\/(?<action>\w+)$/,
     login: /^\/login(?<action>\/(?:authorize|review|revoke)?)?$/,
     me: /^\/me$/,
@@ -258,7 +258,7 @@ export class Server extends Internal {
                 // Filter features and apply server configuration
                 try {
                   const { plugins } = await parse(webrequest.pick({ plugins: true }), context)
-                  context.plugins = plugins.concat([{ processors: [{ id: "render", args: { format: { jpg: "jpeg" }[ext] ?? ext } }] }])
+                  context.plugins = plugins.concat([{ processors: [{ id: "render.content", args: { format: { jpg: "jpeg", txt: "text", yml:"yaml" }[ext] ?? ext } }] }])
                   context = await parse(webrequest, context)
                   log.trace("parsed request")
                   log.trace(context)

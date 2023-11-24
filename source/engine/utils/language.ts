@@ -3,12 +3,12 @@ import hljs from "y/highlight.js@11.8.0/lib/core?pin=v133"
 import * as YAML from "std/yaml/parse.ts"
 
 /** Language cache */
-export const cache = await load("languages.yml") as Record<string, {ace_mode:string, extensions?:string[], interpreters?:string[]}>
+export const cache = await load("languages.yml") as Record<string, { ace_mode: string; extensions?: string[]; interpreters?: string[] }>
 
 /** Language guesser */
 // TODO(@lowlighter): to implement
 // deno-lint-ignore require-await
-export async function language(_filename:string, content:string, {gitattributes = ""} = {}) {
+export async function language(_filename: string, content: string, { gitattributes = "" } = {}) {
   /*
     load("vendor.yml")
     load("documentation.yml")
@@ -48,11 +48,11 @@ export async function language(_filename:string, content:string, {gitattributes 
 }
 
 /** Highlight code */
-export async function highlight(language:string, code:string) {
+export async function highlight(language: string, code: string) {
   // Resolve language name
-  for (const [key, {ace_mode:mode, extensions = []}] of Object.entries(cache)) {
+  for (const [key, { ace_mode: mode, extensions = [] }] of Object.entries(cache)) {
     const name = key.toLocaleLowerCase()
-    if ((name === language.toLocaleLowerCase())||(extensions.find(extension => extension === `.${language}`))) {
+    if ((name === language.toLocaleLowerCase()) || (extensions.find((extension) => extension === `.${language}`))) {
       language = mode
       break
     }
@@ -63,19 +63,19 @@ export async function highlight(language:string, code:string) {
     try {
       const module = await import(`y/highlight.js@11.8.0/lib/languages/${language}?pin=v133`)
       hljs.registerLanguage(language, module.default)
-    }
-    catch {
+    } catch {
       // Ignore
     }
   }
 
   // Highlight code
-  if (hljs.getLanguage(language))
-    code = hljs.highlight(code, {language, ignoreIllegals: true}).value
-  return {language, code}
+  if (hljs.getLanguage(language)) {
+    code = hljs.highlight(code, { language, ignoreIllegals: true }).value
+  }
+  return { language, code }
 }
 
 /** Load file from GitHub linguist */
-async function load(file:string) {
-  return YAML.parse(await fetch(`https://raw.githubusercontent.com/github-linguist/linguist/master/lib/linguist/${file}`).then(response => response.text()))
+async function load(file: string) {
+  return YAML.parse(await fetch(`https://raw.githubusercontent.com/github-linguist/linguist/master/lib/linguist/${file}`).then((response) => response.text()))
 }

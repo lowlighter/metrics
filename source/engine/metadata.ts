@@ -1,7 +1,7 @@
 //Imports
 import { Plugin } from "@engine/components/plugin.ts"
 import { Processor } from "@engine/components/processor.ts"
-import { cli, server, webrequest } from "@engine/config.ts"
+import { cli, preset, server, webrequest } from "@engine/config.ts"
 import { toSchema } from "@engine/utils/validation.ts"
 import { version } from "@engine/version.ts"
 
@@ -15,6 +15,9 @@ export async function metadata() {
       web: toSchema(webrequest.omit({ plugins: true })),
       actions: toSchema(cli.omit({ config: true })),
       server: toSchema(server.omit({ config: true })),
+    },
+    presets: {
+      schema: toSchema(preset),
     },
   }
 

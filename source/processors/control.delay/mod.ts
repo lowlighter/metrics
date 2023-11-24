@@ -24,7 +24,7 @@ export default class extends Processor {
   /** Action */
   protected async action() {
     const { duration } = await parse(this.inputs, this.context.args)
-    this.log.info(`waiting ${duration} seconds`)
+    this.log.info(`waiting ${duration} seconds as requested`)
     await delay(duration * 1000)
     this.log.info("resuming")
   }

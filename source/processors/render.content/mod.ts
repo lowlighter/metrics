@@ -4,14 +4,10 @@ import { is, parse, Processor, state } from "@engine/components/processor.ts"
 import { Browser } from "@engine/utils/browser.ts"
 import { Format } from "@engine/utils/format.ts"
 import { Plugin } from "@engine/components/plugin.ts"
-import { read } from "@engine/utils/deno/io.ts"
+import { read, list } from "@engine/utils/deno/io.ts"
 import { contentType } from "std/media_types/content_type.ts"
 import { encodeBase64 } from "std/encoding/base64.ts"
-
-/** Formats */
-export const formats = ["svg", "png", "jpg", "jpeg", "webp", "json", "html", "pdf", "txt", "text"] as const
-
-//TODO(@lowlighter): template scripts
+import * as YAML from "std/yaml/stringify.ts"
 
 /** Processor */
 export default class extends Processor {
@@ -32,14 +28,13 @@ export default class extends Processor {
     format: is.union([
       is.literal("svg").describe("SVG"),
       is.literal("png").describe("PNG"),
-      is.literal("jpg").describe("Alias for JPEG"),
       is.literal("jpeg").describe("JPEG"),
       is.literal("webp").describe("WebP"),
-      is.literal("json").describe("JSON"),
-      is.literal("html").describe("HTML"),
-      is.literal("pdf").describe("PDF"),
-      is.literal("txt").describe("Alias for text"),
       is.literal("text").describe("Text"),
+      is.literal("html").describe("HTML"),
+      is.literal("yaml").describe("YAML"),
+      is.literal("json").describe("JSON"),
+      is.literal("pdf").describe("PDF"),
     ]).default("svg").describe("Output format"),
     template: is.string().nullable().default(null).describe("Template name or url. Set to `null` to use same template as parent plugin"),
   })
@@ -54,15 +49,14 @@ export default class extends Processor {
   protected async action(state: state) {
     const result = await this.piped(state)
     const { format: _format, template: _template } = await parse(this.inputs, this.context.args)
-    const format = { jpg: "jpeg", txt: "text" }[_format as string] ?? _format
+    const format = { jpg: "jpeg", txt: "text", yml:"yaml", md:"markdown", pdf:"html" }[_format as string] ?? _format
     result.mime = contentType(format)!
 
     //Render image
-    const wrapper = ["html", "json"].includes(format) ? format : "svg"
+    const wrapper = [...await list(`${Processor.path}/${this.id}/templates/*.ejs`)].map(template => template.replace(/\.ejs$/, "")).includes(format) ? format : "svg"
     const template = _template ?? this.context.parent?.template as string ?? "classic"
-    //TODO(@lowlighter): add warnings to state
-    //if (!state.results.length)
-    //  state.warnings.push({message:"No plugins to render"})
+    if (!result.content)
+      state.errors.push({severity:"warning", source:this.id, message:"Nothing to render"})
     const renderer = new Renderer(this.context.parent as Plugin["context"])
     let render = await renderer.render({
       template: wrapper,
@@ -73,14 +67,13 @@ export default class extends Processor {
       },
     })
 
-    //Process SVG in browser and convert to image if needed
+    // Process SVG in browser and convert to image if needed
     if (wrapper === "svg") {
       const page = await Browser.page({ log: this.log })
       try {
         // Compute SVG rendered dimensions
-        this.log.trace("processing content in browser")
+        this.log.trace("processing svg content in browser")
         await page.setContent(Format.html(render))
-        //await page.waitForNavigation({ waitUntil: "load" })
         const { processed, width, height } = await page.evaluate("dom://svg.ts")
         render = processed
 
@@ -96,7 +89,22 @@ export default class extends Processor {
       }
     }
 
-    //TODO(@lowlighter): markdown and pdf formats
+    // Process HTML in browser and convert it to PDF if needed
+    if (_format === "pdf") {
+      const page = await Browser.page({ log: this.log })
+      try {
+        this.log.trace("converting html content to pdf in browser")
+        await page.setContent(render)
+        render = encodeBase64(await page.pdf())
+        result.base64 = true
+        result.mime = contentType(_format)!
+        console.log(result)
+      } finally {
+        await page.close()
+      }
+    }
+
+    // Final result
     result.content = render
   }
 
@@ -119,6 +127,7 @@ export default class extends Processor {
   }
 }
 
+/** Renderer */
 export class Renderer extends Plugin {
   static readonly meta = import.meta
   readonly name = "🎨 Render image"
@@ -132,6 +141,7 @@ export class Renderer extends Plugin {
   constructor(context: Plugin["context"]) {
     super(context)
   }
+  protected _renderctx = { YAML }
   render({ template, result, state }: { template: string; result: Record<PropertyKey, unknown>; state: state }) {
     this.context.template = template
     this.context.args = {}

@@ -23,9 +23,6 @@ export default class extends Processor {
     filepath: is.string().default("metrics.*").describe("Target filename (use `*` to automatically match detected filetype extension)"),
   })
 
-  /** Supports */
-  readonly supports = ["application/xml", "image/svg+xml", "image/png", "image/jpeg", "image/webp", "application/json", "text/html", "application/pdf", "text/plain"]
-
   /** Permissions */
   readonly permissions = ["write:all"]
 

@@ -12,7 +12,7 @@
     - processors:
         - inject.content:
             content: <span>foo</span>
-        - render:
+        - render.content:
             format: png
         - publish.git:
             repository: octocat/test

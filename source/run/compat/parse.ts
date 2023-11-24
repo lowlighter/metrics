@@ -50,11 +50,7 @@ function json(input: string, { default: defaulted }: Record<PropertyKey, string>
   try {
     return JSON.parse(input)
   } catch {
-    try {
-      return JSON.parse(decodeURIComponent(input))
-    } catch {
-      // Ignore
-    }
+    // Ignore
   }
   return JSON.parse(defaulted)
 }
@@ -65,13 +61,8 @@ function token(input: string) {
 }
 
 /** Parse array input */
-function array(input: string, { default: defaulted, format, values }: { default: string; format: string | string[]; values?: string[] }) {
-  let value = defaulted
-  try {
-    value = decodeURIComponent(input)
-  } catch {
-    // Ignore
-  }
+function array(input: string | void, { default: defaulted, format, values }: { default: string; format: string | string[]; values?: string[] }) {
+  const value = input ?? defaulted
   const separators = { "comma-separated": ",", "space-separated": " ", "newline-separated": "\n" }
   const formats = [format, "comma-separated"].flat(1).filter((s) => s in separators) as Array<keyof typeof separators>
   let parsed = [] as string[]
@@ -101,6 +92,8 @@ async function parser(inputs: Record<PropertyKey, unknown>, report?: Report) {
       if (response.status === 200) {
         const { inputs } = YAML.parse(await response.text()) as compat
         Object.assign(metadata.inputs, inputs)
+      } else {
+        response.body?.cancel()
       }
     }
   }
@@ -110,7 +103,8 @@ async function parser(inputs: Record<PropertyKey, unknown>, report?: Report) {
   const kv = /^(?<key>[\s\S]+?):(?<value>[\s\S]+)$/
   for (const [key, { type, ...options }] of Object.entries(metadata.inputs) as Array<[string, Record<PropertyKey, unknown>]>) {
     const value = inputs[key]
-    parsed[key] = parse[type as keyof typeof parse]?.(`${value ?? options.default}`, options as compat) ?? value
+    parsed[key] = parse[type as keyof typeof parse]?.(`${value ?? options.default}`, options as compat)
+    parsed[key] ??= value
     {
       const k = yaml({ [key]: null }, { inline: true }).match(kv)?.groups?.key.trim()
       const a = typeof value === "undefined" ? `${value}` : yaml({ [key]: value }, { inline: true }).match(kv)?.groups?.value.trim()

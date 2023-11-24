@@ -17,7 +17,7 @@ export default class extends Processor {
   readonly description = "Render emojis as [Twemojis](https://twemoji.twitter.com)"
 
   /** Supports */
-  readonly supports = ["application/xml", "image/svg+xml"]
+  readonly supports = ["application/xml", "image/svg+xml", "text/html"]
 
   /** Permissions */
   readonly permissions = ["net:cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets"]

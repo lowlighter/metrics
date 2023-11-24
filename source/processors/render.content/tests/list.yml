@@ -3,7 +3,7 @@
     - processors:
       - inject.content:
           content: hello world
-      - render:
+      - render.content:
           format: svg
       - assert:
           mime: image/svg+xml
@@ -16,7 +16,7 @@
     - processors:
       - inject.content:
           content: hello world
-      - render:
+      - render.content:
           format: png
       - assert:
           mime: image/png
@@ -26,14 +26,7 @@
     - processors:
       - inject.content:
           content: hello world
-      - render:
-          format: jpg
-      - assert:
-          mime: image/jpeg
-    - processors:
-      - inject.content:
-          content: hello world
-      - render:
+      - render.content:
           format: jpeg
       - assert:
           mime: image/jpeg
@@ -43,17 +36,27 @@
     - processors:
       - inject.content:
           content: hello world
-      - render:
+      - render.content:
           format: webp
       - assert:
           mime: image/webp
+
+- name: can render text
+  plugins:
+    - processors:
+      - inject.content:
+          content: hello world
+      - render.content:
+          format: text
+      - assert:
+          mime: text/plain
 
 - name: can render html
   plugins:
     - processors:
       - inject.content:
           content: hello world
-      - render:
+      - render.content:
           format: html
       - assert:
           mime: text/html
@@ -61,22 +64,42 @@
             match: /<title>.*?<.title>/is
             raw: true
 
+- name: can render yaml
+  plugins:
+    - processors:
+      - inject.content:
+          content: hello world
+      - render.content:
+          format: yaml
+      - assert:
+          mime: text/yaml
+
 - name: can render json
   plugins:
     - processors:
       - inject.content:
           content: hello world
-      - render:
+      - render.content:
           format: json
       - assert:
           mime: application/json
 
+- name: can render pdf
+  plugins:
+    - processors:
+      - inject.content:
+          content: hello world
+      - render.content:
+          format: pdf
+      - assert:
+          mime: application/pdf
+
 - name: can render remote templates
   plugins:
     - processors:
-      - render:
+      - render.content:
           format: svg
-          template: metrics://processors/render/templates/classic
+          template: metrics://processors/render.content/templates/classic
       - assert:
           mime: image/svg+xml
           html:

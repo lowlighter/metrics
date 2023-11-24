@@ -3,7 +3,7 @@
     - processors:
       - inject.content:
           content: hello world
-      - render:
+      - render.content:
           format: svg
       - publish.file:
           filepath: .test/publish.file.*
@@ -13,7 +13,7 @@
     - processors:
       - inject.content:
           content: hello world
-      - render:
+      - render.content:
           format: png
       - publish.file:
           filepath: .test/publish.file.*

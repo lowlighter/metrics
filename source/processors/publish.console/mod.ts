@@ -15,9 +15,6 @@ export default class extends Processor {
   /** Description */
   readonly description = "Write content to console"
 
-  /** Supports */
-  readonly supports = ["application/xml", "image/svg+xml", "image/png", "image/jpeg", "image/webp", "application/json", "text/html", "application/pdf", "text/plain"]
-
   /** Action */
   protected async action(state: state) {
     const result = await this.piped(state)

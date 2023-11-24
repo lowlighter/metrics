@@ -1,21 +1,13 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Metrics</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  </head>
-  <body>
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="9999" class="">
+  <% if (result.fonts) { %>
+    <defs>
+      <%- `<style>${result.fonts}</style>` %>
+    </defs>
+  <% } %>
+  <foreignObject x="0" y="0" width="100%" height="100%">
     <div xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="metrics">
-      <% if (result.fonts) { %>
-        <style>
-          <%= result.fonts %>
-        </style>
-      <% } %>
       <% if (result.styles) { %>
-        <style data-optimizable="true">
-          <%- result.styles %>
-        </style>
+        <%- `<style data-optimizable="true">${result.styles}</style>` %>
       <% } %>
       <% if (state.errors.length) { %>
         <section class="errors">
@@ -31,5 +23,6 @@
         <%- content %>
       <% } %>
     </div>
-  </body>
-</html>
+    <div id="metrics-end"></div>
+  </foreignObject>
+</svg>

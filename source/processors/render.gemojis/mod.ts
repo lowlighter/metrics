@@ -19,7 +19,7 @@ export default class extends Processor {
   readonly description = "Render emojis supported by GitHub"
 
   /** Supports */
-  readonly supports = ["application/xml", "image/svg+xml"]
+  readonly supports = ["application/xml", "image/svg+xml", "text/html"]
 
   /** Permissions */
   readonly permissions = ["net:api.github.com/emojis"]

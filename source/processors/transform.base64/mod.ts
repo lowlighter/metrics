@@ -25,7 +25,7 @@ export default class extends Processor {
   readonly description = "Transform images to base64 encoded images"
 
   /** Supports */
-  readonly supports = ["application/xml", "image/svg+xml"]
+  readonly supports = ["application/xml", "image/svg+xml", "text/html"]
 
   /** Permissions */
   readonly permissions = ["net:all"]

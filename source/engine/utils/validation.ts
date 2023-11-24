@@ -43,7 +43,7 @@ export function parse<T extends Validator>(input: T, vars: unknown, { sync = fal
 
 /** Schema */
 export function toSchema(validator: Validator) {
-  return zodToJsonSchema(validator as unknown as Parameters<typeof zodToJsonSchema>[0])
+  return zodToJsonSchema(validator as unknown as Parameters<typeof zodToJsonSchema>[0], { $refStrategy: "none" })
 }
 
 // Exports

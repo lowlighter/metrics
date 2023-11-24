@@ -134,6 +134,10 @@ export abstract class Component extends Internal {
 
   /** Result */
   static readonly result = is.object({
+    source: is.object({
+      id: is.string().nullable(),
+      index: is.number(),
+    }),
     content: is.string(),
     mime: is.string(),
     base64: is.boolean(),

@@ -10,26 +10,26 @@ const regex = {
 
 /** Common ignored patterns */
 export const ignored = {
-  users:[
+  users: [
     "!*\\[bot\\]",
     "!actions-user",
     "!action@github.com",
   ],
-  repositories:[]
+  repositories: [],
 }
 
 /** Reactions */
 export const reactions = {
-  rest:{
-    heart:"❤️",
-    "+1":"👍",
-    "-1":"👎",
-    laugh:"😄",
-    confused:"😕",
-    eyes:"👀",
-    rocket:"🚀",
-    hooray:"🎉",
-  }
+  rest: {
+    heart: "❤️",
+    "+1": "👍",
+    "-1": "👎",
+    laugh: "😄",
+    confused: "😕",
+    eyes: "👀",
+    rocket: "🚀",
+    hooray: "🎉",
+  },
 }
 
 /** Parse handle */
@@ -62,7 +62,7 @@ export function matchPatterns(patterns: string | string[], value: unknown) {
   let match = false
   for (const pattern of [patterns].flat(Infinity) as string[]) {
     const negate = pattern.startsWith("!")
-    const regex = globToRegExp(pattern.replace(/^!/, ""), { extended: true, globstar: true, caseInsensitive: true, os:"linux" })
+    const regex = globToRegExp(pattern.replace(/^!/, ""), { extended: true, globstar: true, caseInsensitive: true, os: "linux" })
     if (regex.test(`${value}`)) {
       match = !negate
     }

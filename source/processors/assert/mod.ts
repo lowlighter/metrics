@@ -25,9 +25,6 @@ export default class extends Processor {
   /** Description */
   readonly description = "Assert selection matches specified criteria"
 
-  /** Supports */
-  readonly supports = []
-
   /** Inputs */
   readonly inputs = is.object({
     error: is.union([
@@ -47,6 +44,8 @@ export default class extends Processor {
   protected async action(state: state) {
     const result = await this.piped(state)
     const { error, html, mime } = await parse(this.inputs, this.context.args)
+
+    // Error assertions
     if (error) {
       expect(result.result).to.be.instanceOf(Error)
       if (typeof error === "string") {
@@ -66,9 +65,13 @@ export default class extends Processor {
       return
     }
     expect(result.result).to.not.be.instanceOf(Error)
+
+    // Mime assertions
     if (mime) {
       expect(result.mime).to.include(mime)
     }
+
+    // HTML assertions
     if ((!html) || (!/(application\/xml)|(image\/svg\+xml)|(text\/html)/.test(result.mime))) {
       if (html) {
         throws(`html selection is only supported for mime type "application/xml", "image/svg+xml" or "text/html" (got "${result.mime}")`)
@@ -78,6 +81,8 @@ export default class extends Processor {
     const { select, match, raw, count } = html
     const document = new DOMParser().parseFromString(Format.html(result.content), "text/html")
     const selected = [...document?.querySelectorAll(select) ?? []]
+
+    // HTML content count assertions
     if (typeof count === "string") {
       const captured = count.match(regexs.count)!.groups!
       const n = Number(captured.n)
@@ -109,6 +114,7 @@ export default class extends Processor {
     }
     expect(selected.length).to.be.at.least(1, "expected at least one element to be present")
 
+    // HTML content matching assertions
     for (const element of selected) {
       if (typeof match === "string") {
         const content = raw ? ((element.parentElement ?? element) as unknown as { innerHTML: string }).innerHTML : element.textContent

@@ -1,4 +1,4 @@
-import mod, { Renderer } from "@processors/render/mod.ts"
+import mod, { Renderer } from "@processors/render.content/mod.ts"
 import { expect, t, test } from "@engine/utils/testing.ts"
 
 class Processor extends mod {

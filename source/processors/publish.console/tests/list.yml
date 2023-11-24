@@ -4,7 +4,7 @@
       - inject.content:
           content: hello world
       - optimize.css:
-      - render:
+      - render.content:
           format: svg
       - publish.console:
 
@@ -14,6 +14,6 @@
       - inject.content:
           content: hello world
       - optimize.css:
-      - render:
+      - render.content:
           format: png
       - publish.console:

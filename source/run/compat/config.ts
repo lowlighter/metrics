@@ -27,4 +27,13 @@ export class Config {
     }
     this.patched = true
   }
+
+  /** Patch config with legacy plugin support */
+  compat(inputs: Record<PropertyKey, unknown>, keys: string[]) {
+    const plugin = keys.find((key) => /^plugin_[a-z0-9]+$/.test(key))?.replace(/^plugin_/, "")
+    if (plugin)
+      this.report.unimplemented(`\`${plugin}\` plugin has not been migrated to v4 yet`)
+    this.patch(keys, { config: { plugins: [{ ".legacy": { inputs: Object.fromEntries(Object.entries(inputs).filter(([key]) => /^(?:(?:repositories(?:_(?:batch|forks|affiliations|skipped))?)|users_ignored|commits_authoring)$/.test(key) || keys.includes(key))) } }] } })
+  }
+
 }

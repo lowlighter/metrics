@@ -138,7 +138,7 @@ export const plugin = is.preprocess((value) => {
 }, _plugin) as unknown as is.ZodObject<typeof _plugin["shape"]>
 
 /** Preset component config */
-const preset = is.object({
+export const preset = is.object({
   plugins: _preset_plugin.default(() => _preset_plugin.parse({})).describe("Default settings for plugins"),
   processors: _preset_processor.default(() => _preset_processor.parse({})).describe("Default settings for processors"),
 })

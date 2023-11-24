@@ -1,7 +1,7 @@
 // Imports
 import { is, parse, Plugin } from "@engine/components/plugin.ts"
-import { matchPatterns, parseHandle, ignored, reactions } from "@engine/utils/github.ts"
-import {markdown} from "@engine/utils/markdown.ts"
+import { ignored, matchPatterns, reactions } from "@engine/utils/github.ts"
+import { markdown } from "@engine/utils/markdown.ts"
 
 const user = is.object({
   login: is.string().describe("User login"),
@@ -34,7 +34,7 @@ const issue = is.object({
   number: is.number().int().min(0).describe("Issue number"),
   title: is.string().describe("Issue title"),
   content: is.string().nullable().describe("Issue content"),
-  labels: is.array(is.object({name: is.string(), color: is.string()})).describe("Issue labels"),
+  labels: is.array(is.object({ name: is.string(), color: is.string() })).describe("Issue labels"),
   assignees: is.array(user).describe("Issue assignees"),
   milestone: is.string().nullable().describe("Issue milestone"),
   comments: is.number().int().min(0).describe("Issue number of comments"),
@@ -42,17 +42,15 @@ const issue = is.object({
 })
 
 const event = {
-  common:is.object({
+  common: is.object({
     timestamp: is.number().int().min(0).describe("Event timestamp"),
     actor: user.describe("Event actor"),
-    repository: repository.pick(({name:true})).describe("Event repository"),
+    repository: repository.pick({ name: true }).describe("Event repository"),
   }),
   user,
   repository,
   issue,
 }
-
-
 
 /** Plugin */
 export default class extends Plugin {
@@ -81,7 +79,9 @@ export default class extends Plugin {
       matching: is.preprocess((value) => [value].flat(), is.array(is.coerce.string())).default(() => ["*", ...ignored.users]).describe("Include users matching at least one of these patterns"),
     }).default(() => ({})).describe("Users options"),
     repositories: is.object({
-      matching: is.preprocess((value) => [value].flat(), is.array(is.coerce.string())).default(() => ["*/*", ...ignored.repositories]).describe("Include repositories matching at least one of these patterns"),
+      matching: is.preprocess((value) => [value].flat(), is.array(is.coerce.string())).default(() => ["*/*", ...ignored.repositories]).describe(
+        "Include repositories matching at least one of these patterns",
+      ),
     }).default(() => ({})).describe("Repositories options"),
     activity: is.object({
       timestamps: is.boolean().default(false).describe("Include activity events timestamps"),
@@ -157,97 +157,109 @@ export default class extends Plugin {
     const { handle, entity } = this.context
     const { visibility, users, repositories, activity, limit } = await parse(this.inputs, this.context.args)
 
-    let events = await this.rest(this.api.activity.listPublicEventsForUser, {username:handle!}, {paginate: true})
+    let events = await this.rest(this.api.activity.listPublicEventsForUser, { username: handle! }, { paginate: true })
 
-    events = [...await Promise.all(events.map(async ({type, created_at, payload, actor, repo}:{type:string, created_at:string, payload:Record<PropertyKey, any>, actor:{login:string, avatar_url:string}, repo:{name:string}}) => {
-      const event = {timestamp:new Date(created_at).getTime(), actor: { login: actor.login, avatar: actor.avatar_url, type: "user" }, repository: {name: repo.name} }
-      switch (type) {
-        case "CommitCommentEvent":{
-          return null
-        }
-        case "CreateEvent":{
-          return null
-        }
-        case "DeleteEvent":{
-          return null
-        }
-        case "ForkEvent":{
-          return null
-        }
-        case "GollumEvent":{
-          return null
-        }
-        case "IssueCommentEvent":{
-          return null
-        }
-        // Issue created
-        case "IssuesEvent": {
-          if (!["opened", "edited", "closed", "reopened", "assigned", "unassigned"].includes(payload.action))
-            return null
-          if (!matchPatterns(users.matching, payload.issue.user.login))
-            return null
-          return Object.assign(event, {type:"issue", action:payload.action, issue:this.issue(payload.issue)})
-        }
-        case "MemberEvent":{
-          return null
-        }
-        case "PublicEvent":{
-          return null
-        }
-        // Pull request created
-        case "PullRequestEvent":{
-          return null
-          if (!["opened", "edited", "closed", "reopened", "assigned", "unassigned"].includes(payload.action))
-            return null
-          if (!matchPatterns(users.matching, payload.pull_request.user.login))
-            return null
-          return Object.assign(event, {type:"pullrequest", action:payload.action, ...this.pullrequest(payload.pull_request)})
-        }
-        case "PullRequestReviewEvent":{
-          return null
-        }
-        case "PullRequestReviewCommentEvent":{
-          //console.log(payload)
-          return null
-        }
-        case "PullRequestReviewThreadEvent":{
-          return null
-        }
-        case "PushEvent": {
-          //TODO
-          return null //Object.assign(event, {type:"push", ...this.push(payload)})
-        }
-        // Release published
-        case "ReleaseEvent": {
-          return null
-          if (payload.action !== "published")
-            return null
-          return Object.assign(event, {type:"release", ...this.release(payload.release)})
-        }
-        //
-        case "SponsorshipEvent": { //created
-          return null
-        }
-        //Repository starred
-        case "WatchEvent": {
-          if (payload.action !== "started")
-            return null
-          const {data} = await this.rest(this.api.repos.get, {owner:repo.name.split("/")[0], repo:repo.name.split("/")[1]})
-          return Object.assign(event, {type:"star", repository:this.repository(data)})
-        }
-        default: {
-          //console.log(type, payload)
-        }
-      }
-    }))].filter(event => event)
-
-
+    events = [
+      ...await Promise.all(
+        events.map(
+          async (
+            { type, created_at, payload, actor, repo }: { type: string; created_at: string; payload: Record<PropertyKey, any>; actor: { login: string; avatar_url: string }; repo: { name: string } },
+          ) => {
+            const event = { timestamp: new Date(created_at).getTime(), actor: { login: actor.login, avatar: actor.avatar_url, type: "user" }, repository: { name: repo.name } }
+            switch (type) {
+              case "CommitCommentEvent": {
+                return null
+              }
+              case "CreateEvent": {
+                return null
+              }
+              case "DeleteEvent": {
+                return null
+              }
+              case "ForkEvent": {
+                return null
+              }
+              case "GollumEvent": {
+                return null
+              }
+              case "IssueCommentEvent": {
+                return null
+              }
+              // Issue created
+              case "IssuesEvent": {
+                if (!["opened", "edited", "closed", "reopened", "assigned", "unassigned"].includes(payload.action)) {
+                  return null
+                }
+                if (!matchPatterns(users.matching, payload.issue.user.login)) {
+                  return null
+                }
+                return Object.assign(event, { type: "issue", action: payload.action, issue: this.issue(payload.issue) })
+              }
+              case "MemberEvent": {
+                return null
+              }
+              case "PublicEvent": {
+                return null
+              }
+              // Pull request created
+              case "PullRequestEvent": {
+                return null
+                if (!["opened", "edited", "closed", "reopened", "assigned", "unassigned"].includes(payload.action)) {
+                  return null
+                }
+                if (!matchPatterns(users.matching, payload.pull_request.user.login)) {
+                  return null
+                }
+                return Object.assign(event, { type: "pullrequest", action: payload.action, ...this.pullrequest(payload.pull_request) })
+              }
+              case "PullRequestReviewEvent": {
+                return null
+              }
+              case "PullRequestReviewCommentEvent": {
+                //console.log(payload)
+                return null
+              }
+              case "PullRequestReviewThreadEvent": {
+                return null
+              }
+              case "PushEvent": {
+                //TODO
+                return null //Object.assign(event, {type:"push", ...this.push(payload)})
+              }
+              // Release published
+              case "ReleaseEvent": {
+                return null
+                if (payload.action !== "published") {
+                  return null
+                }
+                return Object.assign(event, { type: "release", ...this.release(payload.release) })
+              }
+              //
+              case "SponsorshipEvent": { //created
+                return null
+              }
+              //Repository starred
+              case "WatchEvent": {
+                if (payload.action !== "started") {
+                  return null
+                }
+                const { data } = await this.rest(this.api.repos.get, { owner: repo.name.split("/")[0], repo: repo.name.split("/")[1] })
+                return Object.assign(event, { type: "star", repository: this.repository(data) })
+              }
+              default: {
+                //console.log(type, payload)
+              }
+            }
+          },
+        ),
+      ),
+    ].filter((event) => event)
 
     console.log(events)
-    return {events}
+    return { events }
   }
 
-  private repository(repository:any) {
+  private repository(repository: any) {
     return {
       name: repository.full_name,
       owner: {
@@ -265,7 +277,7 @@ export default class extends Plugin {
       forks: repository.forks_count,
       language: {
         name: repository.language,
-        color: "#959da5" //TODO(@lowlighter)
+        color: "#959da5", //TODO(@lowlighter)
       },
       issues: repository.open_issues_count,
       license: repository.license?.name ?? null,
@@ -273,21 +285,19 @@ export default class extends Plugin {
     }
   }
 
-  private comment(comment:any) {
-    return {
-
-    }
+  private comment(comment: any) {
+    return {}
   }
 
-  private push(push:any) {
+  private push(push: any) {
     return {
       branch: push.ref.replace(/^refs\/heads\//, ""),
-      commits: push.commits.map(({sha, message}:Record<PropertyKey, string>) => ({sha, message})).reverse()
+      commits: push.commits.map(({ sha, message }: Record<PropertyKey, string>) => ({ sha, message })).reverse(),
     }
   }
 
   /** Format release content */
-  private release(release:any) {
+  private release(release: any) {
     return {
       user: {
         login: release.author.login,
@@ -298,12 +308,12 @@ export default class extends Plugin {
       content: release.body,
       draft: release.draft,
       prerelease: release.prerelease,
-      mentions: release.mentions?.map(({login, avatar_url}:Record<PropertyKey, string>) => ({login, avatar: avatar_url})) ?? [],
+      mentions: release.mentions?.map(({ login, avatar_url }: Record<PropertyKey, string>) => ({ login, avatar: avatar_url })) ?? [],
     }
   }
 
   /** Format issue content */
-  private issue(issue:any) {
+  private issue(issue: any) {
     return {
       author: {
         login: issue.user.login,
@@ -313,15 +323,15 @@ export default class extends Plugin {
       number: issue.number,
       title: issue.title,
       content: issue.body,
-      labels: issue.labels.map(({name, color}:Record<PropertyKey, string>) => ({name, color})),
-      assignees: issue.assignees.map(({login, avatar_url, type}:Record<PropertyKey, string>) => ({login, avatar: avatar_url, type: issue.user.type.toLocaleLowerCase() })),
+      labels: issue.labels.map(({ name, color }: Record<PropertyKey, string>) => ({ name, color })),
+      assignees: issue.assignees.map(({ login, avatar_url, type }: Record<PropertyKey, string>) => ({ login, avatar: avatar_url, type: issue.user.type.toLocaleLowerCase() })),
       milestone: issue.milestone?.title ?? null,
       comments: issue.comments,
       reactions: Object.fromEntries(Object.entries(issue.reactions ?? {}).filter(([key]) => key in reactions.rest).map(([key, value]) => [reactions.rest[key as keyof typeof reactions.rest], value])),
     }
   }
 
-  private pullrequest(pullrequest:any) {
+  private pullrequest(pullrequest: any) {
     //merged
     return {
       ...this.issue(pullrequest),
@@ -339,7 +349,7 @@ export default class extends Plugin {
         additions: pullrequest.additions,
         deletions: pullrequest.deletions,
         files: pullrequest.changed_files,
-      }
+      },
       //merged_by user ?
     }
   }

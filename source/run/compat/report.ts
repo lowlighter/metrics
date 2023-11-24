@@ -34,25 +34,32 @@ export class Report {
 
   /** Print messages to console */
   console({ flush = false } = {}) {
-    for (const { type, message } of this.messages) {
-      const icon = { error: "❌", warning: "⚠️", info: "💡", debug: "📟", unimplemented: "🏗️" }[type]
-      const text = `${icon} ${message}`
-        .replaceAll(/^```\w*([\s\S]+?)```/gm, (_, text: string) => text.split("\n").map((line) => `   ${line}`).join("\n"))
-        .replaceAll(/`([\s\S]+?)`/g, (_, text) => bgWhite(` ${black(text)} `))
-        .split("\n").map((line) => `▓ ${line}`).join("\n")
-      const color = { error: brightRed, warning: brightYellow, info: brightGreen, debug: gray, unimplemented: yellow }[type]!
-      console.log(color(text))
+    try {
+      let content = ""
+      for (const { type, message } of this.messages) {
+        const icon = { error: "❌", warning: "⚠️", info: "💡", debug: "📟", unimplemented: "🏗️" }[type]
+        const text = `${icon} ${message}`
+          .replaceAll(/^```\w*([\s\S]+?)```/gm, (_, text: string) => text.split("\n").map((line) => `   ${line}`).join("\n"))
+          .replaceAll(/`([\s\S]+?)`/g, (_, text) => bgWhite(` ${black(text)} `))
+          .split("\n").map((line) => `▓ ${line}`).join("\n")
+        const color = { error: brightRed, warning: brightYellow, info: brightGreen, debug: gray, unimplemented: yellow }[type]!
+        content += `${color(text)}\n`
+      }
+      return content
     }
-    if (flush) {
-      this.messages.splice(0)
+    finally {
+      if (flush) {
+        this.messages.splice(0)
+      }
     }
   }
 
-  /** Print messages to markdown */
+  /** Print messages to markdown
+  // TODO(@lowlighter): Implement markdown report
   markdown() {
-    // TODO(@lowlighter): Implement markdown report
     return ""
   }
+  */
 }
 
 /** YAML formatter for console */
@@ -88,7 +95,7 @@ export function yaml(content: Record<PropertyKey, unknown>, { inline = false } =
           color = yellow
           break
       }
-      lines.push(`${indent}${array}${kv ? `${cyan(key)}: ${color(value ?? "")}` : color(value ?? "")}`)
+      lines.push(`${indent}${array}${kv ? `${cyan(key)}: ${color(value ?? "")}` : color(value)}`)
       continue
     }
     lines.push(line)

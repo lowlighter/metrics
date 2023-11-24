@@ -56,7 +56,7 @@ export async function create(context: Partial<context> & Pick<context, "type">, 
     default: { plugin: "🧩", processor: "🪄" }[context.type],
     hideDefault: true,
     search: true,
-    options: emojis.map(({char:value, name}:{char:string, name:string}) => ({ name: `${value} — ${name}`, value })),
+    options: emojis.map(({ char: value, name }: { char: string; name: string }) => ({ name: `${value} — ${name}`, value })),
   })
 
   // Name
@@ -173,7 +173,7 @@ export async function create(context: Partial<context> & Pick<context, "type">, 
   if (!confirm) {
     Confirm.inject("y")
   }
-  if (await Confirm.prompt({writer, message:`Create ${context.type} ?`})) {
+  if (await Confirm.prompt({ writer, message: `Create ${context.type} ?` })) {
     await skeleton(context as context, { dryrun })
   }
 }
