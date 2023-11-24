@@ -205,11 +205,10 @@ export class Server extends Internal {
               context.login = login
             }
             const requests = new Requests(this.meta, context)
-            const ratelimit = {core: 0, graphql: 0, search:0, error:null}
+            const ratelimit = { core: 0, graphql: 0, search: 0, error: null }
             try {
               Object.assign(ratelimit, await requests.ratelimit())
-            }
-            catch (error) {
+            } catch (error) {
               ratelimit.error = error.status ?? Status.InternalServerError
             }
             return new Response(JSON.stringify({ login: context.login, ...ratelimit }), { status: Status.OK, headers: { "content-type": "application/json" } })
@@ -263,7 +262,7 @@ export class Server extends Internal {
                 // Filter features and apply server configuration
                 try {
                   const { plugins } = await parse(webrequest.pick({ plugins: true }), context)
-                  context.plugins = plugins.concat([{ processors: [{ id: "render.content", args: { format: { jpg: "jpeg", txt: "text", yml:"yaml" }[ext] ?? ext } }] }])
+                  context.plugins = plugins.concat([{ processors: [{ id: "render.content", args: { format: { jpg: "jpeg", txt: "text", yml: "yaml" }[ext] ?? ext } }] }])
                   context = await parse(webrequest, context)
                   log.trace("parsed request")
                   log.trace(context)

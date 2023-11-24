@@ -88,7 +88,7 @@ export abstract class Plugin extends Component {
   /** Run component */
   protected async run(state: state) {
     const { result: raw, error } = await super.run(state)
-    const result = { source:{id:this.id, index:0}, content: "", mime: "application/xml", base64: false, result: raw ?? error }
+    const result = { source: { id: this.id, index: 0 }, content: "", mime: "application/xml", base64: false, result: raw ?? error }
     state = { result, ...state }
     state.results.push(result)
 

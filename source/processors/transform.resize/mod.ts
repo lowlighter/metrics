@@ -7,7 +7,6 @@ import { contentType } from "std/media_types/mod.ts"
 import { extname } from "std/path/extname.ts"
 import { encodeBase64 } from "std/encoding/base64.ts"
 
-
 /** Processor */
 export default class extends Processor {
   /** Import meta */
@@ -37,10 +36,12 @@ export default class extends Processor {
     const { height, width } = await parse(this.inputs, this.context.args)
     const document = new DOMParser().parseFromString(Format.html(result.content), "text/html")!
     const svg = document.querySelector("svg")!
-    if (width)
+    if (width) {
       svg.setAttribute("width", `${height}`)
-    if (height)
+    }
+    if (height) {
       svg.setAttribute("height", `${width}`)
+    }
     result.content = document.querySelector("main")!.innerHTML
   }
 }

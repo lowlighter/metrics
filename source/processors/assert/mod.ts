@@ -30,11 +30,15 @@ export default class extends Processor {
     error: is.union([
       is.boolean(),
       is.string(),
-    ]).default(false).describe("Assert previous content returned an error. If formatted as `/pattern/flags`, will be treated as regex (prefix with `/!` to negate match instead) (placeholder: `/foobar/i`)"),
+    ]).default(false).describe(
+      "Assert previous content returned an error. If formatted as `/pattern/flags`, will be treated as regex (prefix with `/!` to negate match instead) (placeholder: `/foobar/i`)",
+    ),
     mime: is.string().optional().describe("Assert mime type (e.g. `application/xml`)"),
     html: is.object({
       select: is.string().default("main").describe("HTML query selector"),
-      match: is.string().optional().describe("Assert selected content match pattern. If formatted as `/pattern/flags`, will be treated as regex (prefix with `/!` to negate match instead) (placeholder: `/foobar/i`)"),
+      match: is.string().optional().describe(
+        "Assert selected content match pattern. If formatted as `/pattern/flags`, will be treated as regex (prefix with `/!` to negate match instead) (placeholder: `/foobar/i`)",
+      ),
       raw: is.boolean().default(false).describe("Use raw HTML instead of text content"),
       count: is.string().regex(regexs.count).optional().describe("Assert number of elements. Supported operations are `<`, `<=`, `>`, `>=`, `=` and `~` (placeholder: `1>=`)"),
     }).nullable().default(null).describe("HTML operations (only applicable when mime type is either `application/xml`, `image/svg+xml` or `text/html`)"),

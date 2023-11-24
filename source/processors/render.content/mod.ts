@@ -4,7 +4,7 @@ import { is, parse, Processor, state } from "@engine/components/processor.ts"
 import { Browser } from "@engine/utils/browser.ts"
 import { Format } from "@engine/utils/format.ts"
 import { Plugin } from "@engine/components/plugin.ts"
-import { read, list } from "@engine/utils/deno/io.ts"
+import { list, read } from "@engine/utils/deno/io.ts"
 import { contentType } from "std/media_types/content_type.ts"
 import { encodeBase64 } from "std/encoding/base64.ts"
 import * as YAML from "std/yaml/stringify.ts"
@@ -49,14 +49,15 @@ export default class extends Processor {
   protected async action(state: state) {
     const result = await this.piped(state)
     const { format: _format, template: _template } = await parse(this.inputs, this.context.args)
-    const format = { jpg: "jpeg", txt: "text", yml:"yaml", md:"markdown", pdf:"html" }[_format as string] ?? _format
+    const format = { jpg: "jpeg", txt: "text", yml: "yaml", md: "markdown", pdf: "html" }[_format as string] ?? _format
     result.mime = contentType(format)!
 
     //Render image
-    const wrapper = [...await list(`${Processor.path}/${this.id}/templates/*.ejs`)].map(template => template.replace(/\.ejs$/, "")).includes(format) ? format : "svg"
+    const wrapper = [...await list(`${Processor.path}/${this.id}/templates/*.ejs`)].map((template) => template.replace(/\.ejs$/, "")).includes(format) ? format : "svg"
     const template = _template ?? this.context.parent?.template as string ?? "classic"
-    if (!result.content)
-      state.errors.push({severity:"warning", source:this.id, message:"Nothing to render"})
+    if (!result.content) {
+      state.errors.push({ severity: "warning", source: this.id, message: "Nothing to render" })
+    }
     const renderer = new Renderer(this.context.parent as Plugin["context"])
     let render = await renderer.render({
       template: wrapper,

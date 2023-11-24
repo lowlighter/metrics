@@ -7,9 +7,9 @@ import { toFileUrl } from "std/path/to_file_url.ts"
 import { MetricsError, throws } from "@engine/utils/errors.ts"
 import { exists } from "std/fs/exists.ts"
 import * as YAML from "std/yaml/parse.ts"
-import { read, list } from "@engine/utils/deno/io.ts"
+import { list, read } from "@engine/utils/deno/io.ts"
 import * as dir from "@engine/paths.ts"
-import { test as hasfm, extract} from "std/front_matter/yaml.ts"
+import { extract, test as hasfm } from "std/front_matter/yaml.ts"
 
 /** Component */
 export abstract class Component extends Internal {
@@ -115,13 +115,13 @@ export abstract class Component extends Internal {
   /** List documentations */
   docs() {
     const path = `${(this.constructor as typeof Component).path}/${this.id}/docs`
-    return list(`${path}/*.md`, {sync:true}).map(file => {
-      const raw = read(`${path}/${file}`, {sync:true})
+    return list(`${path}/*.md`, { sync: true }).map((file) => {
+      const raw = read(`${path}/${file}`, { sync: true })
       if (hasfm(raw)) {
-        const {attrs:{title = file}, body:content} = extract(raw)
-        return {title, content}
+        const { attrs: { title = file }, body: content } = extract(raw)
+        return { title, content }
       }
-      return {title:file, content:raw}
+      return { title: file, content: raw }
     })
   }
 

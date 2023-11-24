@@ -56,7 +56,7 @@ export abstract class Processor extends Component {
 
   /** Run component statically */
   static async run({ tracker, state, context, plugin }: { tracker?: string; state?: state; context: Record<PropertyKey, unknown> & { id: string }; plugin?: Plugin }) {
-    state ??= await parse(this.state, { result: { source:{id:null, index:0}, content: "", mime: "application/octet-stream", base64: false, result: {} }, results: [], errors: [] })
+    state ??= await parse(this.state, { result: { source: { id: null, index: 0 }, content: "", mime: "application/octet-stream", base64: false, result: {} }, results: [], errors: [] })
     if (tracker) {
       Object.defineProperties(context, { [Component.tracker]: { enumerable: false, value: tracker } })
     }

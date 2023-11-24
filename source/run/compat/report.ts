@@ -46,8 +46,7 @@ export class Report {
         content += `${color(text)}\n`
       }
       return content
-    }
-    finally {
+    } finally {
       if (flush) {
         this.messages.splice(0)
       }

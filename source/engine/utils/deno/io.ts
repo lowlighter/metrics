@@ -36,9 +36,9 @@ export async function write(path: string, data: string | Uint8Array | ReadableSt
 }
 
 /** List files in globpath */
-export function list(glob: string, options:{sync:true}): string[]
-export function list(glob: string, options?:{sync?:false}): Promise<string[]>
-export function list(glob: string, {sync = false} = {}) {
+export function list(glob: string, options: { sync: true }): string[]
+export function list(glob: string, options?: { sync?: false }): Promise<string[]>
+export function list(glob: string, { sync = false } = {}) {
   const files = []
   const base = glob.match(/(?<base>.*\/)\*/)?.groups?.base
   const prefix = new RegExp(`.*?${base}`)

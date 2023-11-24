@@ -9,7 +9,10 @@ import { parse } from "@run/compat/parse.ts"
 type compat = any
 
 /** Compatibility layer */
-export async function compat(_inputs: Record<PropertyKey, unknown>, { log = console.log, mock = false, use }:{log?:((_:string) => void)|null, mock?:boolean, use?:{requests?:boolean}} = {}) {
+export async function compat(
+  _inputs: Record<PropertyKey, unknown>,
+  { log = console.log, mock = false, use }: { log?: ((_: string) => void) | null; mock?: boolean; use?: { requests?: boolean } } = {},
+) {
   const config = new Config()
   const inputs = await parse(_inputs, config.report)
   const defaults = await parse({}, config.report)
@@ -17,7 +20,7 @@ export async function compat(_inputs: Record<PropertyKey, unknown>, { log = cons
 
   // Instantiate requests handler if needed
   let requests = null
-  if ((use?.requests)||(true)) {
+  if ((use?.requests) || (true)) {
     const { Requests } = await import("@engine/components/requests.ts")
     requests = new Requests(import.meta, { logs: "none", mock, api: inputs.github_api_rest, timezone: inputs.config_timezone, token: inputs.token } as compat)
   }
@@ -43,12 +46,13 @@ export async function compat(_inputs: Record<PropertyKey, unknown>, { log = cons
       snippet.config.presets.default.plugins.entity = "repository"
       options.push("repo")
     } else {
-      if (requests)
-      try {
-        const { data: { type: entity } } = await requests.rest(requests.api.users.getByUsername, { username: inputs.user })
-        snippet.config.presets.default.plugins.entity = entity.toLocaleLowerCase()
-      } catch {
-        // Ignore
+      if (requests) {
+        try {
+          const { data: { type: entity } } = await requests.rest(requests.api.users.getByUsername, { username: inputs.user })
+          snippet.config.presets.default.plugins.entity = entity.toLocaleLowerCase()
+        } catch {
+          // Ignore
+        }
       }
     }
     config.patch(options, snippet)
@@ -117,8 +121,10 @@ export async function compat(_inputs: Record<PropertyKey, unknown>, { log = cons
   // Display options
   if (inputs.config_display !== defaults.config_display) {
     switch (inputs.config_display) {
-      case "large":{
-        const snippet = { config: { plugins: [{processors:[{"transform.resize":{width:960}}, {"inject.script":{script:`document.querySelector("svg").classList.add("large")`}}]}] } } as compat
+      case "large": {
+        const snippet = {
+          config: { plugins: [{ processors: [{ "transform.resize": { width: 960 } }, { "inject.script": { script: `document.querySelector("svg").classList.add("large")` } }] }] },
+        } as compat
         config.patch("config_display", snippet)
         break
       }
@@ -139,12 +145,14 @@ export async function compat(_inputs: Record<PropertyKey, unknown>, { log = cons
     let padding = ""
     const [horizontal, vertical = horizontal] = inputs.config_padding.split(",")
     for (const direction of [vertical, horizontal]) {
-      const [flat, percentage = "0%"] = direction.split("+").map((value:string) => value.trim())
+      const [flat, percentage = "0%"] = direction.split("+").map((value: string) => value.trim())
       padding += ` calc(${percentage} + ${flat}px)`
     }
-    const snippet = { config: { plugins: [{processors:[{"inject.style":{style:`.metrics { padding: ${padding} }`}}]}] } } as compat
+    const snippet = { config: { plugins: [{ processors: [{ "inject.style": { style: `.metrics { padding: ${padding} }` } }] }] } } as compat
     config.patch("config_padding", snippet)
-    config.report.warning("It seems that `config_padding` has been set with a custom value. Note that this option is now expected to be handled manually using processors, and that the automatic conversion that has been performed may yield unexpected results")
+    config.report.warning(
+      "It seems that `config_padding` has been set with a custom value. Note that this option is now expected to be handled manually using processors, and that the automatic conversion that has been performed may yield unexpected results",
+    )
   }
 
   // Removed options
@@ -237,12 +245,13 @@ export async function compat(_inputs: Record<PropertyKey, unknown>, { log = cons
         break
       case inputs.plugin_calendar_limit < 0: {
         let from = -inputs.plugin_calendar_limit
-        if (requests)
-        try {
-          const { data: { created_at: timestamp } } = await requests.rest(requests.api.users.getByUsername, { username: inputs.user })
-          from = new Date(timestamp).getFullYear() - inputs.plugin_calendar_limit
-        } catch {
-          // Ignore
+        if (requests) {
+          try {
+            const { data: { created_at: timestamp } } = await requests.rest(requests.api.users.getByUsername, { username: inputs.user })
+            from = new Date(timestamp).getFullYear() - inputs.plugin_calendar_limit
+          } catch {
+            // Ignore
+          }
         }
         snippet.config.plugins[0].calendar.range = { from, to: "current-year" }
         config.report.warning("`plugin_calendar_limit` for negative values behavior has changed and may need to be adjusted manually")
@@ -294,7 +303,7 @@ export async function compat(_inputs: Record<PropertyKey, unknown>, { log = cons
       options.push("plugin_lines_repositories_limit")
     }
     if ("plugin_lines_history_limit" in _inputs) {
-      snippet.config.plugins[0].lines.history = { limit: inputs.plugin_lines_history_limit > 0 ? inputs.plugin_lines_history_limit : null}
+      snippet.config.plugins[0].lines.history = { limit: inputs.plugin_lines_history_limit > 0 ? inputs.plugin_lines_history_limit : null }
       options.push("plugin_lines_history_limit")
     }
     if ("plugin_lines_delay" in _inputs) {
@@ -338,7 +347,7 @@ export async function compat(_inputs: Record<PropertyKey, unknown>, { log = cons
       options.push("plugin_screenshot_viewport_width", "plugin_screenshot_viewport_height")
     }
     if ("plugin_screenshot_wait" in _inputs) {
-      snippet.config.plugins[0].webscraping.wait = inputs.plugin_screenshot_wait/1000
+      snippet.config.plugins[0].webscraping.wait = inputs.plugin_screenshot_wait / 1000
       options.push("plugin_screenshot_wait")
     }
     if (inputs.plugin_screenshot_background === false) {
