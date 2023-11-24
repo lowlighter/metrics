@@ -26,7 +26,7 @@ export default class extends Processor {
 
   /** Inputs */
   readonly inputs = is.object({
-    style: is.string().describe("CSS to inject"),
+    style: is.string().describe("CSS to inject (placeholder: `.foo { color: skyblue; }`) (textarea)"),
   })
 
   /** Action */

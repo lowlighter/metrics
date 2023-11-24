@@ -27,8 +27,8 @@ export default class extends Processor {
 
   /** Inputs */
   readonly inputs = is.object({
-    width: is.number().nullable().default(null).describe("Width (in pixels). Set to `null` to leave unchanged"),
-    height: is.number().nullable().default(null).describe("Height (in pixels). Set to `null` to leave unchanged"),
+    width: is.number().positive().nullable().default(null).describe("Width (in pixels). Set to `null` to leave unchanged"),
+    height: is.number().positive().nullable().default(null).describe("Height (in pixels). Set to `null` to leave unchanged"),
   })
 
   /** Action */

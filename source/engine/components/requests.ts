@@ -128,14 +128,12 @@ export class Requests extends Internal {
 
   /** Ratelimit */
   async ratelimit() {
-    const { data: { resources: { core, search, graphql = { remaining: 0, limit: 0 }, ...others } } } = await this.rest(this.api.rateLimit.get)
-    const { code_search: code } = others as { code_search: { remaining: number; limit: number } }
+    const { data: { resources: { core, search, graphql = { remaining: 0, limit: 0 } } } } = await this.rest(this.api.rateLimit.get)
     this.log.io({
       core: `${core.remaining}/${core.limit}`,
       graphql: `${graphql.remaining}/${graphql.limit}`,
       search: `${search.remaining}/${search.limit}`,
-      code: `${code.remaining}/${code.limit}`,
     })
-    return { core: core.remaining, graphql: graphql.remaining, search: search.remaining, code: code.remaining }
+    return { core: core.remaining, graphql: graphql.remaining, search: search.remaining }
   }
 }

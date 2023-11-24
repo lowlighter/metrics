@@ -18,7 +18,7 @@ export default class extends Processor {
 
   /** Inputs */
   readonly inputs = is.object({
-    duration: is.number().min(0).describe("Time to wait (in seconds)"),
+    duration: is.number().min(0).default(0).describe("Time to wait (in seconds)"),
   })
 
   /** Action */

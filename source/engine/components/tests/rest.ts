@@ -33,7 +33,6 @@ export default {
         core: { remaining: 0, limit: 0 },
         search: { remaining: 0, limit: 0 },
         graphql: { remaining: 0, limit: 0 },
-        code_search: { remaining: 0, limit: 0 },
       },
     },
   })),

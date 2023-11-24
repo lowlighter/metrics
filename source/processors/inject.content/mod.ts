@@ -20,8 +20,8 @@ export default class extends Processor {
 
   /** Inputs */
   readonly inputs = is.object({
-    content: is.string().describe("Content to inject"),
-    mime: is.string().optional().describe("Resulting mime type"),
+    content: is.string().describe("Content to inject (placeholder: `<div>foo</div>`) (textarea)"),
+    mime: is.string().optional().describe("Resulting mime type (e.g. `application/xml`). Leave empty to reuse previous mime type"),
   })
 
   /** Action */

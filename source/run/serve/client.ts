@@ -17,18 +17,10 @@ const log = new Logger(import.meta, { level: "trace" })
 
 /*
 TODO(@lowlighter):
-- Implement mobile menu
-- Drag and drop for reorganize
-- Clone plugins/processors
-- Notice for disabled options/plugins/processors
 - Display permissions and scopes
-- A way to create presets
-- Improve nullable interface ++
 - Editable records ++
-- Toggle edition for arguments
 - Edit plugins/processors contexts ++
 - Sync values ++
-- Edit raw YAML
 */
 
 // Alpine components
@@ -78,6 +70,8 @@ class Crafter {
     mode: "",
     edit: {
       global: "",
+      plugins: NaN,
+      processors: NaN,
     },
     expand: {
       plugins: true,
@@ -155,6 +149,7 @@ class Crafter {
     log.debug(`plugins: add "${plugin.id}"`)
     this.config.plugins.push({ ...plugin, args: {}, processors: [], debounce: null as null | DebouncedFunction<[]> })
     this.state.expand.plugins = false
+    this.state.edit.plugins = this.config.plugins.length - 1
   }
 
   /** Remove plugin */
@@ -162,6 +157,7 @@ class Crafter {
     log.debug(`plugins: remove "${this.config.plugins[plugin].id}" (at index ${plugin})`)
     this.config.plugins.splice(plugin, 1)
     this.state.expand.plugins = this.config.plugins.length === 0
+    this.state.edit.plugins = NaN
   }
 
   /** Render plugin */
@@ -185,6 +181,7 @@ class Crafter {
     log.debug(`processors: add "${processor.id}" to "${this.config.plugins[i].id}" (at index ${i})`)
     this.config.plugins[i].processors.push({ ...processor, args: {} })
     this.state.expand.processors = NaN
+    this.state.edit.processors = this.config.plugins[i].processors.length - 1
   }
 
   /** Remove processor from a plugin */
@@ -192,6 +189,7 @@ class Crafter {
     log.debug(`processors: remove "${this.config.plugins[i].processors[j].id}" from "${this.config.plugins[i].id}" (at index ${i},${j})`)
     this.config.plugins[i].processors.splice(j, 1)
     this.state.expand.processors = NaN
+    this.state.edit.processors = NaN
   }
 
   /** Get global mode config */

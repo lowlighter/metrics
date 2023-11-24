@@ -76,26 +76,14 @@ export default class extends Plugin {
       is.literal("all").describe("Includes public and private events (n.b. still subject to token permissions)"),
     ]).default("public").describe("Activity events visibility"),
     users: is.object({
-      matching: is.preprocess((value) => [value].flat(), is.array(is.coerce.string())).default(() => ["*", ...ignored.users]).describe("Include users matching at least one of these patterns"),
+      matching: is.preprocess((value) => [value].flat(), is.array(is.string())).default(() => ["*", ...ignored.users]).describe("Include users matching at least one of these patterns"),
     }).default(() => ({})).describe("Users options"),
     repositories: is.object({
-      matching: is.preprocess((value) => [value].flat(), is.array(is.coerce.string())).default(() => ["*/*", ...ignored.repositories]).describe(
+      matching: is.preprocess((value) => [value].flat(), is.array(is.string())).default(() => ["*/*", ...ignored.repositories]).describe(
         "Include repositories matching at least one of these patterns",
       ),
     }).default(() => ({})).describe("Repositories options"),
-    activity: is.object({
-      timestamps: is.boolean().default(false).describe("Include activity events timestamps"),
-      //days
-      filter: is.object({
-        issues: is.object({
-          action: is.array(is.string()).default(() => []).describe("Include issues matching at least one of these actions"),
-        }).default(() => ({})).describe("Issues filtering options"),
 
-        watch: is.object({
-          // started
-        }).default(() => ({})).describe("Watch filtering options"),
-      }).default(() => ({})).describe("Filtering options"),
-    }).default(() => ({})).describe("Activity options"),
     limit: is.number().int().min(1).nullable().default(5).describe("Display limit. Set to `null` to disable"),
   })
 
@@ -154,8 +142,8 @@ export default class extends Plugin {
 
   /** Action */
   protected async action() {
-    const { handle, entity } = this.context
-    const { visibility, users, repositories, activity, limit } = await parse(this.inputs, this.context.args)
+    const { handle } = this.context
+    const { users } = await parse(this.inputs, this.context.args)
 
     let events = await this.rest(this.api.activity.listPublicEventsForUser, { username: handle! }, { paginate: true })
 

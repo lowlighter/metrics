@@ -1,6 +1,6 @@
 //Imports
 import { ensureDir } from "std/fs/ensure_dir.ts"
-import { expandGlob } from "std/fs/expand_glob.ts"
+import { expandGlob, expandGlobSync } from "std/fs/expand_glob.ts"
 import { throws } from "@engine/utils/errors.ts"
 import { dirname } from "std/path/dirname.ts"
 import * as dir from "@engine/paths.ts"
@@ -36,12 +36,22 @@ export async function write(path: string, data: string | Uint8Array | ReadableSt
 }
 
 /** List files in globpath */
-export async function list(glob: string) {
+export function list(glob: string, options:{sync:true}): string[]
+export function list(glob: string, options?:{sync?:false}): Promise<string[]>
+export function list(glob: string, {sync = false} = {}) {
   const files = []
   const base = glob.match(/(?<base>.*\/)\*/)?.groups?.base
   const prefix = new RegExp(`.*?${base}`)
-  for await (const { path } of expandGlob(glob, { extended: true, globstar: true })) {
-    files.push(path.replaceAll("\\", "/").replace(prefix, ""))
+  if (sync) {
+    for (const { path } of expandGlobSync(glob, { extended: true, globstar: true })) {
+      files.push(path.replaceAll("\\", "/").replace(prefix, ""))
+    }
+    return files
   }
-  return files
+  return (async () => {
+    for await (const { path } of expandGlob(glob, { extended: true, globstar: true })) {
+      files.push(path.replaceAll("\\", "/").replace(prefix, ""))
+    }
+    return files
+  })()
 }

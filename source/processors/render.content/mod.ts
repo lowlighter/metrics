@@ -36,7 +36,7 @@ export default class extends Processor {
       is.literal("json").describe("JSON"),
       is.literal("pdf").describe("PDF"),
     ]).default("svg").describe("Output format"),
-    template: is.string().nullable().default(null).describe("Template name or url. Set to `null` to use same template as parent plugin"),
+    template: is.string().nullable().default(null).describe("Template name or url. Set to `null` to use same template as parent plugin (placeholder: `classic`)"),
   })
 
   /** Supports */

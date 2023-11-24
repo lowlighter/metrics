@@ -19,7 +19,7 @@ export default class extends Processor {
 
   /** Inputs */
   readonly inputs = is.object({
-    gist: is.coerce.string().describe("Target gist id (n.b. gist must be created beforehand, its id can be found in the url)"),
+    gist: is.string().describe("Target gist id (n.b. gist must be created beforehand, its id can be found in the url) (placeholder: `3c6eaedf50273adfb7a510822672f570`)"),
     filepath: is.string().default("metrics.*").describe("Target filename (use `*` to automatically match detected filetype extension)"),
   })
 

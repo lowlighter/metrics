@@ -25,8 +25,6 @@ try {
   await import("@run/serve/imported.ts")
 } catch { /* Ignore */ }
 
-//TODO(@lowlighter): support tokenless mode with mocked data as default for preview
-
 /** Server */
 export class Server extends Internal {
   /** Import meta */
@@ -207,7 +205,14 @@ export class Server extends Internal {
               context.login = login
             }
             const requests = new Requests(this.meta, context)
-            return new Response(JSON.stringify({ login: context.login, ...await requests.ratelimit() }), { status: Status.OK, headers: { "content-type": "application/json" } })
+            const ratelimit = {core: 0, graphql: 0, search:0, error:null}
+            try {
+              Object.assign(ratelimit, await requests.ratelimit())
+            }
+            catch (error) {
+              ratelimit.error = error.status ?? Status.InternalServerError
+            }
+            return new Response(JSON.stringify({ login: context.login, ...ratelimit }), { status: Status.OK, headers: { "content-type": "application/json" } })
           }
           // Serve renders
           case this.routes.metrics.test(url.pathname): {

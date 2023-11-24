@@ -60,7 +60,7 @@
                 </a>
               </template>
               <!-- Remaining requests -->
-              <template x-if="ratelimit">
+              <template x-if="ratelimit?.error === null">
                 <div class="flex flex-col items-center text-xs">
                   <div class="flex justify-between w-full"><b class="mr-4">REST</b><span x-text="ratelimit.core"></span></div>
                   <div class="flex justify-between w-full"><b class="mr-4">GraphQL</b><span x-text="ratelimit.graphql"></span></div>
@@ -121,6 +121,15 @@
           </section>
         </template>
 
+        <!-- Invalid token -->
+        <template x-if="ratelimit?.error === 401">
+          <section class="container mx-auto my-8 px-2">
+            <div class="rounded-md bg-amber-300 border border-amber-900 text-amber-700 p-2">
+              <h2 class="text-xl">⚠️ GitHub API token is invalid</h2>
+            </div>
+          </section>
+        </template>
+
         <!-- Craft mode -->
         <template x-if="true">
           <section class="container mx-auto px-2 my-8">
@@ -167,7 +176,7 @@
               </div>
             </article>
 
-            <article>
+            <article x-if="false">
               <div class="bg-neutral-900 border border-neutral-800 rounded-md">
                 <div class="bg-neutral-950 p-2 border-b border-neutral-800 rounded-t-md">
                   <h3 class="text-lg flex justify-between">
@@ -195,25 +204,39 @@
             <!-- Plugins -->
             <template x-for="(plugin, i) of $store.craft.config.plugins">
               <article :data-plugin="i" :key="i" class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 mb-4 lg:mb-8">
-                <div class="bg-neutral-900 border border-neutral-800 rounded-md">
+                <div class="bg-neutral-900 border border-neutral-800 rounded-md overflow-hidden">
                   <div class="bg-neutral-950 p-2 border-b border-neutral-800 rounded-t-md">
                     <h3 class="text-lg flex justify-between">
                       <span x-text="plugin.name"></span>
                       <div class="text-zinc-400 flex items-center">
-                        <template x-for="icon in (plugin.supports.length ? plugin.supports : ['user', 'organization', 'repository'])">
-                          <x-octicon class="mr-1" x-data="{icon}" :key="icon"></x-octicon>
-                        </template>
                         <span x-text="`#${i}`"></span>
                       </div>
                     </h3>
                     <h4 x-html="await $store.craft.markdown(plugin.description)" class="text-zinc-400"></h4>
+                    <h4>
+                      <template x-for="{type, value} of [...(plugin.supports.length ? plugin.supports : ['user', 'organization', 'repository']).map(type => ({type})), ...plugin.scopes.map(scope => ({type:'scope', value:scope})), ...plugin.permissions.map(permission => ({type:'permission', value:permission}))]">
+                        <div class="inline-flex items-center rounded-full overflow-hidden bg-zinc-600 text-sm mt-1 mr-1" :key="value">
+                          <div class="flex items-center bg-zinc-800 px-1.5" >
+                            <x-octicon class="mr-1" x-data="{icon:type}"></x-octicon>
+                            <span x-text="type"></span>
+                          </div>
+                          <template x-if="value">
+                            <span class="px-1.5" x-text="value"></span>
+                          </template>
+                        </div>
+                      </template>
+                    </h4>
                   </div>
                   <nav class="flex gap-2 p-2 border-b border-neutral-800">
-                    <div @click="$store.craft.renderPlugin({plugin:i})" class="bg-neutral-950 flex items-center rounded-md p-2 text-sm cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500">
+                    <div @click="$store.craft.state.edit.plugins = $store.craft.state.edit.plugins === i ? ($store.craft.state.edit.processors = NaN) : i" class="bg-neutral-950 flex items-center rounded-md p-2 text-sm border cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500" :class="{'border-sky-500':($store.craft.state.edit.plugins === i), 'border-transparent':!($store.craft.state.edit.plugins === i)}">
+                      <x-octicon class="mr-1" x-data="{icon:'edit'}"></x-octicon>
+                      Edit
+                    </div>
+                    <div @click="$store.craft.renderPlugin({plugin:i})" class="bg-neutral-950 flex items-center rounded-md p-2 text-sm border border-transparent cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500">
                       <x-octicon class="mr-1" x-data="{icon:'render'}"></x-octicon>
                       Render
                     </div>
-                    <div @click="$store.craft.removePlugin({plugin:i})" class="bg-neutral-950 flex items-center rounded-md p-2 text-sm cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500">
+                    <div @click="$store.craft.removePlugin({plugin:i})" class="bg-neutral-950 flex items-center rounded-md p-2 text-sm border border-transparent cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500">
                       <x-octicon class="mr-1" x-data="{icon:'remove'}"></x-octicon>
                       Remove
                     </div>
@@ -221,7 +244,21 @@
                   <div class="bg-black p-2">
                     <pre><code class="language-yaml" x-html="$store.craft.getPluginConfig({plugin:i})"></code></pre>
                   </div>
-                  <div class="p-2 border-b border-neutral-800">
+                  <template x-if="plugin.docs.length">
+                    <div class="p-2 border-b border-neutral-800">
+                      <div class="font-bold">Documentations</div>
+                      <template x-for="{title, content} in plugin.docs">
+                        <details class="bg-neutral-950 rounded-md overflow-hidden">
+                          <summary class="flex items-center p-2 font-bold open:rounded-t-md cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500">
+                            <x-octicon class="mr-1.5" x-data="{icon:'docs'}"></x-octicon>
+                            <span x-text="title"></span>
+                          </summary>
+                          <div class="markdown bg-black p-2" x-html="await $store.craft.markdown(content)"></div>
+                        </details>
+                      </template>
+                    </div>
+                  </template>
+                  <div class="p-2 border-b border-neutral-800" :class="{hidden:!($store.craft.state.edit.plugins === i)}">
                     <div class="font-bold">Arguments</div>
                     <template x-if="Object.keys(plugin.inputs.properties).length">
                       <form>
@@ -239,18 +276,49 @@
                         <h3 class="text-lg flex justify-between">
                           <span x-text="processor.name"></span>
                           <span class="text-zinc-400">
-                            <span x-text="`#${i}`"></span>
+                            <span x-text="`#${j}`"></span>
                           </span>
                         </h3>
                         <h4 x-html="await $store.craft.markdown(processor.description)" class="text-zinc-400"></h4>
+                        <h4 :class="{hidden:!($store.craft.state.edit.plugins === i)}">
+                          <template x-for="{type, value} of [...processor.supports.map(type => ({type:'mime', value:type})), ...processor.scopes.map(scope => ({type:'scope', value:scope})), ...processor.permissions.map(permission => ({type:'permission', value:permission}))]">
+                            <div class="inline-flex items-center rounded-full overflow-hidden bg-zinc-600 text-sm mt-1 mr-1" :key="value">
+                              <div class="flex items-center bg-zinc-800 px-1.5" >
+                                <x-octicon class="mr-1" x-data="{icon:type}"></x-octicon>
+                                <span x-text="type"></span>
+                              </div>
+                              <template x-if="value">
+                                <span class="px-1.5" x-text="value"></span>
+                              </template>
+                            </div>
+                          </template>
+                        </h4>
                       </div>
-                      <nav class="flex gap-2 p-2 border-b border-neutral-800">
-                        <div @click="$store.craft.removeProcessor({plugin:i, processor:j})" class="bg-neutral-900 flex items-center rounded-md p-2 text-sm cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500">
+                      <nav class="flex gap-2 p-2 border-b border-neutral-800" :class="{hidden:!($store.craft.state.edit.plugins === i)}">
+                        <div @click="$store.craft.state.edit.processors = $store.craft.state.edit.processors === j ? NaN : j" class="bg-neutral-950 flex items-center rounded-md p-2 text-sm border cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500" :class="{'border-sky-500':($store.craft.state.edit.plugins === i)&&($store.craft.state.edit.processors === j), 'border-transparent':!(($store.craft.state.edit.plugins === i)&&($store.craft.state.edit.processors === j))}">
+                          <x-octicon class="mr-1" x-data="{icon:'edit'}"></x-octicon>
+                          Edit
+                        </div>
+                        <div @click="$store.craft.removeProcessor({plugin:i, processor:j})" class="bg-neutral-900 flex items-center rounded-md p-2 text-sm border border-transparent cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500">
                           <x-octicon class="mr-1" x-data="{icon:'remove'}"></x-octicon>
                           Remove
                         </div>
                       </nav>
-                      <div class="p-2 border-b border-neutral-800">
+                      <template x-if="processor.docs.length">
+                        <div class="p-2 border-b border-neutral-800">
+                          <div class="font-bold">Documentations</div>
+                          <template x-for="{title, content} in processor.docs">
+                            <details class="bg-neutral-950 rounded-md overflow-hidden">
+                              <summary class="flex items-center p-2 font-bold open:rounded-t-md cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500">
+                                <x-octicon class="mr-1.5" x-data="{icon:'docs'}"></x-octicon>
+                                <span x-text="title"></span>
+                              </summary>
+                              <div class="markdown bg-black p-2" x-html="await $store.craft.markdown(content)"></div>
+                            </details>
+                          </template>
+                        </div>
+                      </template>
+                      <div class="p-2 border-b border-neutral-800" :class="{hidden:!(($store.craft.state.edit.plugins === i)&&($store.craft.state.edit.processors === j))}">
                         <div class="font-bold">Arguments</div>
                         <template x-if="Object.keys(processor.inputs.properties).length">
                           <form>
@@ -264,18 +332,13 @@
                     </div>
                   </template>
                   <!-- Add new processor -->
-                  <div class="bg-neutral-950 border border-dashed rounded-md m-2 overflow-hidden">
+                  <div class="bg-neutral-950 border border-dashed rounded-md m-2 overflow-hidden" :class="{hidden:!($store.craft.state.edit.plugins === i)}">
                     <h3 class="pl-4 py-2 text-lg cursor-pointer rounded-t-md transition hover:bg-neutral-800" @click="$store.craft.state.expand.processors = $store.craft.state.expand.processors === i ? NaN : i">Add a processor</h3>
                     <ul class="px-2 mb-2" :class="{hidden:$store.craft.state.expand.processors !== i}">
                       <template x-for="processor of processors">
                         <li :key="processor.id">
                           <div class="flex items-center justify-between rounded-md text-zinc-400 px-2 py-1 cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500" @click="$store.craft.addProcessor({plugin:i, processor})">
                             <div x-text="processor.name"></div>
-                            <div class="flex" x-data="{supported:[...new Set(processor.supports.map(t => ({'image/png':'file-processed', 'image/jpeg':'file-processed', 'image/webp':'file-processed', 'application/pdf':'file-processed', 'text/html':'file-code', 'application/json':'file-code', 'text/plain':'file-code', 'application/xml':'xml', 'image/svg+xml':'svg'})[t]))]}">
-                              <template x-for="icon in (supported.length ? supported : ['any'])">
-                                <x-octicon class="mr-1" x-data="{icon}" :key="icon"></x-octicon>
-                              </template>
-                            </div>
                           </div>
                         </li>
                       </template>
@@ -395,6 +458,18 @@
         <template x-if="icon === 'remove'">
           <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M11 1.75V3h2.25a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1 0-1.5H5V1.75C5 .784 5.784 0 6.75 0h2.5C10.216 0 11 .784 11 1.75ZM4.496 6.675l.66 6.6a.25.25 0 0 0 .249.225h5.19a.25.25 0 0 0 .249-.225l.66-6.6a.75.75 0 0 1 1.492.149l-.66 6.6A1.748 1.748 0 0 1 10.595 15h-5.19a1.75 1.75 0 0 1-1.741-1.575l-.66-6.6a.75.75 0 1 1 1.492-.15ZM6.5 1.75V3h3V1.75a.25.25 0 0 0-.25-.25h-2.5a.25.25 0 0 0-.25.25Z"></path></svg>
         </template>
+        <template x-if="icon === 'edit'">
+          <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M11.013 1.427a1.75 1.75 0 0 1 2.474 0l1.086 1.086a1.75 1.75 0 0 1 0 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 0 1-.927-.928l.929-3.25c.081-.286.235-.547.445-.758l8.61-8.61Zm.176 4.823L9.75 4.81l-6.286 6.287a.253.253 0 0 0-.064.108l-.558 1.953 1.953-.558a.253.253 0 0 0 .108-.064Zm1.238-3.763a.25.25 0 0 0-.354 0L10.811 3.75l1.439 1.44 1.263-1.263a.25.25 0 0 0 0-.354Z"></path></svg>
+        </template>
+        <template x-if="icon === 'scope'">
+          <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="m8.533.133 5.25 1.68A1.75 1.75 0 0 1 15 3.48V7c0 1.566-.32 3.182-1.303 4.682-.983 1.498-2.585 2.813-5.032 3.855a1.697 1.697 0 0 1-1.33 0c-2.447-1.042-4.049-2.357-5.032-3.855C1.32 10.182 1 8.566 1 7V3.48a1.75 1.75 0 0 1 1.217-1.667l5.25-1.68a1.748 1.748 0 0 1 1.066 0Zm-.61 1.429.001.001-5.25 1.68a.251.251 0 0 0-.174.237V7c0 1.36.275 2.666 1.057 3.859.784 1.194 2.121 2.342 4.366 3.298a.196.196 0 0 0 .154 0c2.245-.957 3.582-2.103 4.366-3.297C13.225 9.666 13.5 8.358 13.5 7V3.48a.25.25 0 0 0-.174-.238l-5.25-1.68a.25.25 0 0 0-.153 0ZM9.5 6.5c0 .536-.286 1.032-.75 1.3v2.45a.75.75 0 0 1-1.5 0V7.8A1.5 1.5 0 1 1 9.5 6.5Z"></path></svg>
+        </template>
+        <template x-if="icon === 'permission'">
+          <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M7.467.133a1.748 1.748 0 0 1 1.066 0l5.25 1.68A1.75 1.75 0 0 1 15 3.48V7c0 1.566-.32 3.182-1.303 4.682-.983 1.498-2.585 2.813-5.032 3.855a1.697 1.697 0 0 1-1.33 0c-2.447-1.042-4.049-2.357-5.032-3.855C1.32 10.182 1 8.566 1 7V3.48a1.75 1.75 0 0 1 1.217-1.667Zm.61 1.429a.25.25 0 0 0-.153 0l-5.25 1.68a.25.25 0 0 0-.174.238V7c0 1.358.275 2.666 1.057 3.86.784 1.194 2.121 2.34 4.366 3.297a.196.196 0 0 0 .154 0c2.245-.956 3.582-2.104 4.366-3.298C13.225 9.666 13.5 8.36 13.5 7V3.48a.251.251 0 0 0-.174-.237l-5.25-1.68ZM8.75 4.75v3a.75.75 0 0 1-1.5 0v-3a.75.75 0 0 1 1.5 0ZM9 10.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>
+        </template>
+        <template x-if="icon === 'docs'">
+          <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M0 1.75A.75.75 0 0 1 .75 1h4.253c1.227 0 2.317.59 3 1.501A3.743 3.743 0 0 1 11.006 1h4.245a.75.75 0 0 1 .75.75v10.5a.75.75 0 0 1-.75.75h-4.507a2.25 2.25 0 0 0-1.591.659l-.622.621a.75.75 0 0 1-1.06 0l-.622-.621A2.25 2.25 0 0 0 5.258 13H.75a.75.75 0 0 1-.75-.75Zm7.251 10.324.004-5.073-.002-2.253A2.25 2.25 0 0 0 5.003 2.5H1.5v9h3.757a3.75 3.75 0 0 1 1.994.574ZM8.755 4.75l-.004 7.322a3.752 3.752 0 0 1 1.992-.572H14.5v-9h-3.495a2.25 2.25 0 0 0-2.25 2.25Z"></path></svg>
+        </template>
         <template x-if="icon === 'plus'">
           <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M7.75 2a.75.75 0 0 1 .75.75V7h4.25a.75.75 0 0 1 0 1.5H8.5v4.25a.75.75 0 0 1-1.5 0V8.5H2.75a.75.75 0 0 1 0-1.5H7V2.75A.75.75 0 0 1 7.75 2Z"></path></svg>
         </template>
@@ -410,17 +485,8 @@
         <template x-if="icon === 'organization'">
           <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M1.75 16A1.75 1.75 0 0 1 0 14.25V1.75C0 .784.784 0 1.75 0h8.5C11.216 0 12 .784 12 1.75v12.5c0 .085-.006.168-.018.25h2.268a.25.25 0 0 0 .25-.25V8.285a.25.25 0 0 0-.111-.208l-1.055-.703a.749.749 0 1 1 .832-1.248l1.055.703c.487.325.779.871.779 1.456v5.965A1.75 1.75 0 0 1 14.25 16h-3.5a.766.766 0 0 1-.197-.026c-.099.017-.2.026-.303.026h-3a.75.75 0 0 1-.75-.75V14h-1v1.25a.75.75 0 0 1-.75.75Zm-.25-1.75c0 .138.112.25.25.25H4v-1.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 .75.75v1.25h2.25a.25.25 0 0 0 .25-.25V1.75a.25.25 0 0 0-.25-.25h-8.5a.25.25 0 0 0-.25.25ZM3.75 6h.5a.75.75 0 0 1 0 1.5h-.5a.75.75 0 0 1 0-1.5ZM3 3.75A.75.75 0 0 1 3.75 3h.5a.75.75 0 0 1 0 1.5h-.5A.75.75 0 0 1 3 3.75Zm4 3A.75.75 0 0 1 7.75 6h.5a.75.75 0 0 1 0 1.5h-.5A.75.75 0 0 1 7 6.75ZM7.75 3h.5a.75.75 0 0 1 0 1.5h-.5a.75.75 0 0 1 0-1.5ZM3 9.75A.75.75 0 0 1 3.75 9h.5a.75.75 0 0 1 0 1.5h-.5A.75.75 0 0 1 3 9.75ZM7.75 9h.5a.75.75 0 0 1 0 1.5h-.5a.75.75 0 0 1 0-1.5Z"></path></svg>
         </template>
-        <template x-if="icon === 'xml'">
-          <svg title="XML or partial SVG" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073Zm4.48 3.758a.75.75 0 0 1 .755.745l.01 1.497h1.497a.75.75 0 0 1 0 1.5H9v1.507a.75.75 0 0 1-1.5 0V9.005l-1.502.01a.75.75 0 0 1-.01-1.5l1.507-.01-.01-1.492a.75.75 0 0 1 .745-.755Z"></path></svg>
-        </template>
-        <template x-if="icon === 'svg'">
-          <svg title="SVG" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M1 1.75C1 .784 1.784 0 2.75 0h7.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16H2.75A1.75 1.75 0 0 1 1 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073ZM8 3.25a.75.75 0 0 1 .75.75v1.5h1.5a.75.75 0 0 1 0 1.5h-1.5v1.5a.75.75 0 0 1-1.5 0V7h-1.5a.75.75 0 0 1 0-1.5h1.5V4A.75.75 0 0 1 8 3.25Zm-3 8a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1-.75-.75Z"></path></svg>
-        </template>
-        <template x-if="icon === 'file-code'">
+        <template x-if="icon === 'mime'">
           <svg title="Processed text" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M4 1.75C4 .784 4.784 0 5.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v8.586A1.75 1.75 0 0 1 14.25 15h-9a.75.75 0 0 1 0-1.5h9a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 10 4.25V1.5H5.75a.25.25 0 0 0-.25.25v2.5a.75.75 0 0 1-1.5 0Zm1.72 4.97a.75.75 0 0 1 1.06 0l2 2a.75.75 0 0 1 0 1.06l-2 2a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734l1.47-1.47-1.47-1.47a.75.75 0 0 1 0-1.06ZM3.28 7.78 1.81 9.25l1.47 1.47a.751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018l-2-2a.75.75 0 0 1 0-1.06l2-2a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042Zm8.22-6.218V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"></path></svg>
-        </template>
-        <template x-if="icon === 'file-processed'">
-          <svg title="Processed binary" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M2.75 1.5a.25.25 0 0 0-.25.25v11.5c0 .138.112.25.25.25h3.5a.75.75 0 0 1 0 1.5h-3.5A1.75 1.75 0 0 1 1 13.25V1.75C1 .784 1.784 0 2.75 0h8a1.75 1.75 0 0 1 1.508.862.75.75 0 1 1-1.289.768.25.25 0 0 0-.219-.13h-8Z"></path><path d="M8 7a3.999 3.999 0 0 1 7.605-1.733 4 4 0 0 1-1.115 4.863l.995 4.973a.75.75 0 0 1-.991.852l-2.409-.876a.248.248 0 0 0-.17 0l-2.409.876a.75.75 0 0 1-.991-.852l.994-4.973A3.994 3.994 0 0 1 8 7Zm4-2.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Zm0 6.5c-.373 0-.745-.051-1.104-.154l-.649 3.243 1.155-.42c.386-.14.81-.14 1.196 0l1.155.42-.649-3.243A4.004 4.004 0 0 1 12 11Z"></path></svg>
         </template>
         <template x-if="icon === 'any'">
           <svg title="Any" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M8.5.75a.75.75 0 0 0-1.5 0v5.19L4.391 3.33a.75.75 0 1 0-1.06 1.061L5.939 7H.75a.75.75 0 0 0 0 1.5h5.19l-2.61 2.609a.75.75 0 1 0 1.061 1.06L7 9.561v5.189a.75.75 0 0 0 1.5 0V9.56l2.609 2.61a.75.75 0 1 0 1.06-1.061L9.561 8.5h5.189a.75.75 0 0 0 0-1.5H9.56l2.61-2.609a.75.75 0 0 0-1.061-1.06L8.5 5.939V.75Z"></path></svg>
@@ -452,15 +518,24 @@
                   <span class="rounded-full bg-gray-100 text-gray-700 px-1.5 text-sm mr-1 whitespace-nowrap">null</span>
                 </template>
               </div>
-              <div class="text-zinc-400 italic" x-html="await $store.craft.markdown(input.description)"></div>
+              <template x-if="(!input.subtype)&&(input.description)">
+                <div class="text-zinc-400 italic" x-html="await $store.craft.markdown(input.description.replace('(textarea)', '').replace(/\(placeholder: `[\s\S]+`\)/, ''))"></div>
+              </template>
             </label>
             <!-- String input -->
             <template x-if="(input.type === 'string')&&(!input.enum)&&(!input.const)">
-              <input :type="{uri:'url'}[input.format] ?? 'text'" :name="id" :id="id" :value="input.default" :placeholder="input.description?.match(/\(e\.g\. `([\s\S]+)`\)/)?.[1] ?? ''" class="w-full bg-neutral-950 rounded-md px-3 py-1.5 border border-neutral-800 outline-none focus:border-sky-500" @input="store.setValue(subpath, $event)"/>
+              <div>
+                <template x-if="input.description?.includes('(textarea)')">
+                  <textarea :name="id" :id="id" :value="input.default" :placeholder="input.description?.match(/\((?:(?:e\.g\.)|(?:placeholder:)) `([\s\S]+)`\)/)?.[1] ?? input.default ?? ''" class="w-full bg-neutral-950 rounded-md px-3 py-1.5 border border-neutral-800 outline-none focus:border-sky-500 min-h-[4em]" @input="store.setValue(subpath, $event)"></textarea>
+                </template>
+                <template x-if="!input.description?.includes('(textarea)')">
+                  <input :type="{uri:'url'}[input.format] ?? 'text'" :name="id" :id="id" :value="input.default" :pattern="input.pattern || '[\\s\\S]+'" :placeholder="input.description?.match(/\((?:(?:e\.g\.)|(?:placeholder:)) `([\s\S]+)`\)/)?.[1] ?? input.default ?? ''" class="w-full bg-neutral-950 rounded-md px-3 py-1.5 border border-neutral-800 outline-none focus:border-sky-500" @input="store.setValue(subpath, $event)"/>
+                </template>
+              </div>
             </template>
             <!-- Number input -->
             <template x-if="(input.type === 'number')||(input.type === 'integer')">
-              <input type="number" :name="id" :id="id" :value="input.default ?? input.description?.match(/\(e\.g\. ([\s\S]+)\)/)?.[1] ?? input.minimum ?? input.maximum ?? ('exclusiveMinimum' in input ? input.exclusiveMinimum + 1 : null) ?? ('exclusiveMaximum' in input ? input.exclusiveMaximum - 1 : null) ?? 0" :min="'exclusiveMinimum' in input ? input.exclusiveMinimum + 1 : input.minimum" :max="'exclusiveMaximum' in input ? input.exclusiveMaximum - 1 : input.maximum" class="w-full bg-neutral-950 rounded-md px-3 py-1.5 border border-neutral-800 outline-none focus:border-sky-500" @input="store.setValue(subpath, $event)"/>
+              <input type="number" :name="id" :id="id" :value="input.default ?? input.description?.match(/\(e\.g\. ([\s\S]+)\)/)?.[1] ?? input.minimum ?? input.maximum ?? ('exclusiveMinimum' in input ? input.exclusiveMinimum + 1 : null) ?? ('exclusiveMaximum' in input ? input.exclusiveMaximum - 1 : null) ?? 0" :placeholder="input.default ?? ''" :min="'exclusiveMinimum' in input ? input.exclusiveMinimum + 1 : input.minimum" :max="'exclusiveMaximum' in input ? input.exclusiveMaximum - 1 : input.maximum" class="w-full bg-neutral-950 rounded-md px-3 py-1.5 border border-neutral-800 outline-none focus:border-sky-500" @input="store.setValue(subpath, $event)"/>
             </template>
             <!-- Boolean input -->
             <template x-if="(input.type === 'boolean')&&(!('const' in input))">
@@ -547,7 +622,7 @@
             <template x-if="(input.type === 'null')">
               <input type="hidden" :name="id" :id="id" value="null" @input="store.setValue(subpath, {target:{value:null}})"/>
             </template>
-            <!-- Multi-type inputs -->
+            <!-- Multi-type inputs (anyOf) -->
             <template x-if="(input.anyOf)&&(!input.anyOf.every(item => item.const))">
               <fieldset>
                 <template x-for="(value, i) of input.anyOf">
@@ -555,6 +630,19 @@
                     <input type="radio" :name="id" :id="`${id}@${i}`" :value="i" class="anyof peer hidden"/>
                     <label :for="`${id}@${i}`" class="block border border-dashed rounded-md px-3 py-1.5 cursor-pointer transition hover:border-sky-500 peer-checked:border-sky-500 peer-checked:border-solid">
                       <x-schema-inputs class="w-full" x-data="{inputs:{properties:{[name]:value}}, path:[...path, `${name}@${i}`], trim}"></x-schema-inputs>
+                    </label>
+                  </div>
+                </template>
+              </fieldset>
+            </template>
+            <!-- Multi-type inputs (primitive array) -->
+            <template x-if="(Array.isArray(input.type))">
+              <fieldset>
+                <template x-for="(type, i) of input.type">
+                  <div class="mb-1" :key="i" @click="store.setValue([...path, `${name}@${i}`], {target:document.getElementById(`${id}@${i}`)}, {anyof:true})">
+                    <input type="radio" :name="id" :id="`${id}@${i}`" :value="i" class="anyof peer hidden"/>
+                    <label :for="`${id}@${i}`" class="block border border-dashed rounded-md px-3 py-1.5 cursor-pointer transition hover:border-sky-500 peer-checked:border-sky-500 peer-checked:border-solid">
+                      <x-schema-inputs class="w-full" x-data="{inputs:{properties:{[name]:{...input, type, subtype:true, default:typeof input.default === type ? input.default : null}}}, path:[...path, `${name}@${i}`], trim}"></x-schema-inputs>
                     </label>
                   </div>
                 </template>

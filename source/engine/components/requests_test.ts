@@ -68,5 +68,5 @@ Deno.test(t(import.meta, "`.fetch()` fallbacks on net when mock is invalid"), { 
 })
 
 Deno.test(t(import.meta, "`.ratelimit()` returns remaining requests"), { permissions: "none" }, async () => {
-  await expect(requests.ratelimit()).to.eventually.include.keys("core", "graphql", "search", "code")
+  await expect(requests.ratelimit()).to.eventually.include.keys("core", "graphql", "search")
 })

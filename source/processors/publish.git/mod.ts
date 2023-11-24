@@ -39,7 +39,7 @@ export default class _ extends Processor {
       is.object({
         title: is.string().default("chore: update metrics (${run})").describe("Pull request title. `${file}` and `${run}` will respectively be replaced by target filename and current run id"),
         message: is.string().default("This pull request has been automatically opened by [metrics](https://github.com/lowlighter/metrics) to update generated renders on this repository").describe(
-          "Pull request message. `${file}` and `${run}` will respectively be replaced by target filename and current run id",
+          "Pull request message. `${file}` and `${run}` will respectively be replaced by target filename and current run id (textarea)",
         ),
         merge: is.union([
           is.literal(false).describe("Disable merge"),

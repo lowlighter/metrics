@@ -25,7 +25,7 @@ export default class extends Processor {
 
   /** Inputs */
   readonly inputs = is.object({
-    script: is.string().describe("JavaScript to inject and execute"),
+    script: is.string().describe("JavaScript to inject and execute (placeholder: `document.querySelector(\"svg\")`) (textarea)"),
   })
 
   /** Action */

@@ -52,13 +52,13 @@ export const requests = internal.extend({
 
 /** Plugin component internal config (without processors, to allow recursive typing within processor typing) */
 const _plugin_without_processors = component.merge(requests).extend({
-  handle: is.coerce.string().min(1).nullable().describe("GitHub handle"),
+  handle: is.string().min(1).nullable().describe("GitHub handle (e.g. `octocat`)"),
   entity: is.union([
     is.literal("user").describe("GitHub user"),
     is.literal("organization").describe("GitHub organization"),
     is.literal("repository").describe("GitHub repository"),
   ]).describe("GitHub entity type"),
-  template: is.union([is.literal(null), is.coerce.string().url(), is.coerce.string().min(1)]).describe("Template name or url. Set to `null` to skip rendering"),
+  template: is.string().min(1).nullable().describe("Template name or url. Set to `null` to skip rendering (placeholder: `classic`)"),
 })
 
 /** Processor component internal config */
@@ -194,31 +194,31 @@ export const server = cli.extend({
       stop: is.boolean().default(false).describe("Permission to stop the server via `POST /metrics/stop`"),
     }),
   ).nullable().default(null).describe("Control profiles (each profile is designed by a token bearer and dictionary of allowed routes)"),
-  cache: is.number().int().positive().optional().describe("Cache duration for processed requests (in seconds)"),
+  cache: is.number().int().positive().nullable().default(null).describe("Cache duration for processed requests (in seconds)"),
   limit: is.object({
     guests: is.object({
-      max: is.number().int().min(0).optional().describe("Maximum number of guests"),
+      max: is.number().int().min(0).nullable().default(null).describe("Maximum number of guests"),
       requests: is.object({
         limit: is.number().int().positive().default(60).describe("Maximum number of requests per window duration per guest"),
         duration: is.number().positive().default(60).describe("Window duration (in seconds)"),
         ignore_mocked: is.boolean().default(true).describe("Whether to ignore mocked requests from rate limit"),
-      }).optional().describe("Rate limit for guests"),
-    }).optional().describe("Guests limitations"),
+      }).nullable().default(null).describe("Rate limit for guests"),
+    }).nullable().default(null).describe("Guests limitations"),
     users: is.object({
-      max: is.number().int().min(0).optional().describe("Maximum number of logged users"),
+      max: is.number().int().min(0).nullable().default(null).describe("Maximum number of logged users"),
       requests: is.object({
         limit: is.number().int().positive().default(60).describe("Maximum number of requests per window duration per logged user"),
         duration: is.number().positive().default(60).describe("Window duration (in seconds)"),
         ignore_mocked: is.boolean().default(true).describe("Whether to ignore mocked requests from rate limit"),
-      }).optional().describe("Rate limit for logged users"),
-    }).optional().describe("Logged users limitations"),
+      }).nullable().default(null).describe("Rate limit for logged users"),
+    }).nullable().default(null).describe("Logged users limitations"),
   }).default(() => ({})),
   github_app: is.object({
     id: is.number().int().positive().describe("GitHub app identifier"),
-    private_key_path: is.string().describe("Path to GitHub app private key file (must be in PKCS#8 format)"),
-    client_id: is.string().describe("GitHub app client identifier"),
+    private_key_path: is.string().describe("Path to GitHub app private key file (must be in PKCS#8 format) (placeholder: `.secrets/github-app-private-key-pk8s.pem`)"),
+    client_id: is.string().describe("GitHub app client identifier (placeholder: `Iv1.c533685fd0d2d002`)"),
     client_secret: secret.default(() => env.get("METRICS_GITHUB_APP_SECRET")).describe("GitHub app client secret"),
-  }).optional().describe("GitHub app settings"),
+  }).nullable().default(null).describe("GitHub app settings"),
 })
 
 /** Web request config */

@@ -60,7 +60,7 @@ export default class extends Plugin {
       ]).default("public").describe("Repository visibility"),
       archived: is.boolean().default(false).describe("Include archived repositories"),
       forked: is.boolean().default(false).describe("Include forked repositories"),
-      matching: is.preprocess((value) => [value].flat(), is.array(is.coerce.string())).default(() => ["*/*", ...ignored.repositories]).describe(
+      matching: is.preprocess((value) => [value].flat(), is.array(is.string())).default(() => ["*/*", ...ignored.repositories]).describe(
         "Include repositories matching at least one of these patterns",
       ),
     }).default(() => ({})).describe("Repositories options"),
@@ -68,7 +68,7 @@ export default class extends Plugin {
       limit: is.number().min(0).nullable().default(1).describe("Years to keep in history. Set to `null` to keep all history"),
     }).default(() => ({})).describe("History options"),
     contributors: is.object({
-      matching: is.preprocess((value) => [value].flat(), is.array(is.coerce.string())).default(() => ["*", ...ignored.users]).describe(
+      matching: is.preprocess((value) => [value].flat(), is.array(is.string())).default(() => ["*", ...ignored.users]).describe(
         "Include contributors matching at least one of these patterns (n.b. if `entity: user`, the default value will be set to `handle` instead)",
       ),
       limit: is.number().min(0).nullable().default(4).describe("Number of contributors to display. Set to `null` to display all contributors"),

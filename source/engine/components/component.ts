@@ -7,8 +7,9 @@ import { toFileUrl } from "std/path/to_file_url.ts"
 import { MetricsError, throws } from "@engine/utils/errors.ts"
 import { exists } from "std/fs/exists.ts"
 import * as YAML from "std/yaml/parse.ts"
-import { read } from "@engine/utils/deno/io.ts"
+import { read, list } from "@engine/utils/deno/io.ts"
 import * as dir from "@engine/paths.ts"
+import { test as hasfm, extract} from "std/front_matter/yaml.ts"
 
 /** Component */
 export abstract class Component extends Internal {
@@ -111,6 +112,19 @@ export abstract class Component extends Internal {
     return YAML.parse(content) as Array<is.infer<typeof config> & { name: string }>
   }
 
+  /** List documentations */
+  docs() {
+    const path = `${(this.constructor as typeof Component).path}/${this.id}/docs`
+    return list(`${path}/*.md`, {sync:true}).map(file => {
+      const raw = read(`${path}/${file}`, {sync:true})
+      if (hasfm(raw)) {
+        const {attrs:{title = file}, body:content} = extract(raw)
+        return {title, content}
+      }
+      return {title:file, content:raw}
+    })
+  }
+
   /** Load component statically */
   static async load(context: Record<PropertyKey, unknown> & { id: string }) {
     let error = null
@@ -165,8 +179,10 @@ export abstract class Component extends Internal {
       description: this.description,
       scopes: this.scopes,
       supports: this.supports,
+      permissions: this.permissions,
       inputs: toSchema(this.inputs),
       outputs: toSchema(this.outputs),
+      docs: this.docs(),
     }
   }
 }

@@ -28,7 +28,7 @@ export default class extends Plugin {
 
   /** Inputs */
   readonly inputs = is.object({
-    title: is.string().nullable().default(null).describe("Section title. Set to `null` to use Website title"),
+    title: is.string().nullable().default(null).describe("Section title. Set to `null` to use Website title (placeholder: `Web scraping`)"),
     url: is.string().url().default("https://example.com").describe("Website URL (e.g. `https://example.com`)"),
     select: is.string().default("body").describe("HTML query selector"),
     viewport: is.object({
@@ -39,7 +39,7 @@ export default class extends Plugin {
       is.literal("text").describe("Extract text from selected content"),
       is.literal("image").describe("Screenshot selected content"),
     ]).default("image").describe("Output format"),
-    wait: is.number().default(0).describe("Wait time before performing action (in seconds)"),
+    wait: is.number().min(0).default(0).describe("Wait time before performing action (in seconds)"),
     background: is.boolean().default(true).describe("Display background (n.b. only applies to `image` mode)"),
   })
 
