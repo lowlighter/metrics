@@ -344,7 +344,7 @@ export async function compat(
     }
     if ("plugin_screenshot_viewport" in _inputs) {
       snippet.config.plugins[0].webscraping.viewport = inputs.plugin_screenshot_viewport
-      options.push("plugin_screenshot_viewport_width", "plugin_screenshot_viewport_height")
+      options.push("plugin_screenshot_viewport")
     }
     if ("plugin_screenshot_wait" in _inputs) {
       snippet.config.plugins[0].webscraping.wait = inputs.plugin_screenshot_wait / 1000

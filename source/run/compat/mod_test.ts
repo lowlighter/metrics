@@ -220,9 +220,9 @@ Deno.test(t(import.meta, "`compat()` transpiles *calendar*"), { permissions }, a
   for (
     const tested of [
       { inputs: {}, expected: { [name]: {} } },
-      { inputs: { calendar_limit: 0 }, expected: { [name]: { range: { from: "registration", to: "current-year" } } } },
-      { inputs: { calendar_limit: 1 }, expected: { [name]: { range: { from: -1, to: "current-year" } } } },
-      { inputs: { calendar_limit: -1 }, expected: { [name]: { range: { from: 2019, to: "current-year" } } } },
+      { inputs: { limit: 0 }, expected: { [name]: { range: { from: "registration", to: "current-year" } } } },
+      { inputs: { limit: 1 }, expected: { [name]: { range: { from: -1, to: "current-year" } } } },
+      { inputs: { limit: -1 }, expected: { [name]: { range: { from: 2020, to: "current-year" } } } },
       { inputs: { _debug_flags: ["--winter"] }, expected: { [name]: { colors: "winter" } } },
       { inputs: { _debug_flags: ["--halloween"] }, expected: { [name]: { colors: "halloween" } } },
     ] as const
@@ -284,7 +284,7 @@ Deno.test(t(import.meta, "`compat()` transpiles *screenshot*"), { permissions },
       { inputs: { selector: "main" }, expected: { [name]: { select: "main" } } },
       { inputs: { mode: "image" }, expected: { [name]: { mode: "image" } } },
       { inputs: { mode: "text" }, expected: { [name]: { mode: "text" } } },
-      { inputs: { viewport: { width: 100, height: 100 } }, expected: { [name]: { viewport: { width: 100, height: 100 } } } },
+      { inputs: { viewport: JSON.stringify({ width: 100, height: 100 }) }, expected: { [name]: { viewport: { width: 100, height: 100 } } } },
       { inputs: { mode: "text" }, expected: { [name]: { mode: "text" } } },
       { inputs: { wait: 1000 }, expected: { [name]: { wait: 1 } } },
       { inputs: { background: false }, expected: { [name]: { background: false } } },

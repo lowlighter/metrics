@@ -21,7 +21,7 @@ Deno.test(t(import.meta, "`.icon` returns an emoji"), { permissions: "none" }, a
 })
 
 Deno.test(t(import.meta, "`.supported()` is a noop when supported"), { permissions: "none" }, async () => {
-  const state = { result: { content: "", mime: "image/svg+xml", base64: false, result: {} }, results: [], errors: [] }
+  const state = { result: { source: { id: null, index: 0 }, content: "", mime: "image/svg+xml", base64: false, result: {} }, results: [], errors: [] }
   await expect(Processor.run({ state, context: { id: import.meta.url, fatal: true } })).to.be.eventually.be.ok
 })
 

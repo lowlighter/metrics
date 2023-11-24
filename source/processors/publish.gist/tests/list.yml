@@ -6,7 +6,7 @@
       - render.content:
           format: svg
       - publish.gist:
-          gist: 1234
+          gist: 1234567890abcdef
           filename: test.*
 
 - name: can publish image files
@@ -17,5 +17,5 @@
       - render.content:
           format: png
       - publish.gist:
-          gist: 1234
+          gist: 1234567890abcdef
           filename: test.*

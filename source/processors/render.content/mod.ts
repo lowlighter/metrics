@@ -99,7 +99,6 @@ export default class extends Processor {
         render = encodeBase64(await page.pdf())
         result.base64 = true
         result.mime = contentType(_format)!
-        console.log(result)
       } finally {
         await page.close()
       }
