@@ -68,7 +68,8 @@
                 </div>
               </template>
             </div>
-            <!-- Mobile menu /TODO/ -->
+            <!-- TODO(#1572) -->
+            <!-- Mobile menu -->
             <button class="opacity-0 md:hidden bg-neutral-950 block rounded-md p-2.5 transition hover:bg-neutral-800" @click="$store.menu.header.collapse = !$store.menu.header.collapse">
               <x-octicon class="h-5 w-5" x-data="{icon:'menu'}"></x-octicon>
             </button>
@@ -111,7 +112,7 @@
         <!-- Dev environment -->
         <template x-if="dev">
           <section class="container mx-auto my-8 px-2">
-            <div class="rounded-md bg-amber-300 border border-amber-900 text-amber-700 p-2">
+            <div class="rounded-md bg-yellow-200 border border-amber-900 text-amber-700 p-2">
               <h2 class="text-2xl mb-4">🚧 Development environment</h2>
               <p class="px-2 md:whitespace-pre-line"><!--
               -->Metrics is currently in running in a development environment.
@@ -124,11 +125,18 @@
         <!-- Invalid token -->
         <template x-if="ratelimit?.error === 401">
           <section class="container mx-auto my-8 px-2">
-            <div class="rounded-md bg-amber-300 border border-amber-900 text-amber-700 p-2">
+            <div class="rounded-md bg-yellow-200 border border-amber-900 text-amber-700 p-2">
               <h2 class="text-xl">⚠️ GitHub API token is invalid</h2>
             </div>
           </section>
         </template>
+
+        <!-- Still in development -->
+        <section class="container mx-auto my-8 px-2">
+          <div class="rounded-md bg-yellow-200 border border-amber-900 text-amber-700 p-2">
+            <h2 class="text-xl">🏗️ Metrics v4 is still in development and some features may not be available yet. Please refer to <a class="text-sky-500" href="https://github.com/lowlighter/metrics/issues/1573">#1573</a> for more informations</h2>
+          </div>
+        </section>
 
         <!-- Craft mode -->
         <template x-if="true">
@@ -155,10 +163,37 @@
           </section>
         </template>
 
-        <!-- Global settings -->
+        <!-- Compatibility migration helper -->
+        <template x-if="$store.craft.state.mode === 'actions'" x-data="{current:{status:'empty', messages:'', code:''}}" x-init="$store.craft.setCompatConfig(current)">
+          <section class="container mx-auto px-2 my-8">
+            <h2 class="text-xl mb-4">*️⃣ Optionally convert an existing v3.x configuration to v4.x</h2>
+            <textarea name="config.compat" :placeholder="$store.craft.state.compat.placeholder" class="w-full bg-neutral-950 rounded-md px-3 py-1.5 border border-neutral-800 outline-none focus:border-sky-500 min-h-[8em]" @input="$store.craft.setCompatConfig(current); current.status = 'processing'"></textarea>
+            <div class="flex items-center mt-1 mb-4" :class="{[`text-${{valid:'green', invalid:'red', processing:'blue', empty:'zinc'}[current.status]}-600`]:true}">
+              <template x-for="icon in [current.status]">
+                <x-octicon :class="{'animate-spin':current.status === 'processing'}" :key="icon"></x-octicon>
+              </template>
+              <span class="ml-1">Configuration is <span x-text="{processing:'being processed'}[current.status] ?? current.status"></span></span>
+            </div>
+            <article class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 mb-4">
+              <div class="compat-config border border-neutral-800 rounded-md overflow-hidden bg-black p-2">
+                <pre><code class="language-yaml" x-html="current.code"></code></pre>
+              </div>
+              <div class="compat-messages border border-neutral-800 rounded-md overflow-hidden p-2" x-html="current.messages || 'Everything looks good !'"></div>
+            </article>
+            <nav class="flex gap-2 lg:mb-8">
+              <div class="opacity-50 cursor-not-allowed bg-red-950 flex items-center rounded-md p-2 text-sm border border-transparent transition hover:bg-red-800 hover:text-sky-100">
+                <x-octicon class="mr-1" x-data="{icon:'import'}"></x-octicon>
+                Import configuration
+              </div>
+            </nav>
+          </section>
+        </template>
+
+        <!-- Global settings and presets -->
         <template x-if="$store.craft.state.mode">
           <section class="container mx-auto px-2 my-8">
             <h2 class="text-2xl mb-4">2️⃣ Configure global settings</h2>
+            <!-- Global settings -->
             <article :key="$store.craft.state.mode">
               <div class="bg-neutral-900 border border-neutral-800 rounded-md">
                 <div class="bg-neutral-950 p-2 border-b border-neutral-800 rounded-t-md">
@@ -175,22 +210,54 @@
                 </div>
               </div>
             </article>
-
-            <article x-if="false">
+            <!-- Presets -->
+            <article class="mt-4">
               <div class="bg-neutral-900 border border-neutral-800 rounded-md">
                 <div class="bg-neutral-950 p-2 border-b border-neutral-800 rounded-t-md">
                   <h3 class="text-lg flex justify-between">
-                    <span>⚙️ </span>
+                    <span>🍱 Configure presets</span>
                   </h3>
                 </div>
-                <div class="bg-black p-2">
-                  <pre><code class="language-yaml" x-html="$store.craft.getGlobalConfig()"></code></pre>
-                </div>
-                <div class="p-2 border-b border-neutral-800">
-                  <form>
-                    <x-schema-inputs x-data="{inputs:presets.schema, path:['presets', 'default'], trim:/^presets\./}"></x-schema-inputs>
-                  </form>
-                </div>
+                <nav class="flex gap-2 p-2 border-b border-neutral-800">
+                  <template x-for="(_, preset) in $store.craft.config.presets">
+                    <div @click="$store.craft.state.expand.preset = $store.craft.state.expand.preset === preset ? ($store.craft.state.edit.preset = '') : preset" class="bg-neutral-950 flex items-center rounded-md p-2 text-sm border cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500" :class="{'border-sky-500':($store.craft.state.expand.preset === preset), 'border-transparent':!($store.craft.state.expand.preset === preset)}">
+                      <x-octicon class="mr-1" x-data="{icon:'preset'}"></x-octicon>
+                      <span x-text="`${preset.charAt(0).toLocaleUpperCase()}${preset.slice(1)}`"></span>
+                    </div>
+                  </template>
+                  <div class="opacity-50 cursor-not-allowed bg-neutral-950 flex items-center rounded-md p-2 text-sm border border-transparent transition hover:bg-neutral-800 hover:text-sky-500">
+                    <x-octicon class="mr-1" x-data="{icon:'plus'}"></x-octicon>
+                    Create a new preset
+                  </div>
+                </nav>
+                <template x-if="$store.craft.state.expand.preset">
+                  <nav class="flex gap-2 p-2 border-b border-neutral-800">
+                    <div @click="$store.craft.state.edit.preset = $store.craft.state.edit.preset === $store.craft.state.expand.preset ? '' : $store.craft.state.expand.preset" class="bg-neutral-950 flex items-center rounded-md p-2 text-sm border cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500" :class="{'border-sky-500':($store.craft.state.edit.preset === $store.craft.state.expand.preset), 'border-transparent':!($store.craft.state.edit.preset === $store.craft.state.expand.preset)}">
+                      <x-octicon class="mr-1" x-data="{icon:'edit'}"></x-octicon>
+                      Edit
+                    </div>
+                      <div class="opacity-50 cursor-not-allowed bg-neutral-950 flex items-center rounded-md p-2 text-sm border border-transparent transition hover:bg-neutral-800 hover:text-sky-500">
+                      <x-octicon class="mr-1" x-data="{icon:'clone'}"></x-octicon>
+                      Duplicate
+                    </div>
+                    <div class="opacity-50 cursor-not-allowed bg-red-950 flex items-center rounded-md p-2 text-sm border border-transparent transition hover:bg-red-800 hover:text-sky-100">
+                      <x-octicon class="mr-1" x-data="{icon:'remove'}"></x-octicon>
+                      Remove
+                    </div>
+                  </nav>
+                </template>
+                <template x-if="$store.craft.state.expand.preset">
+                  <div class="bg-black p-2">
+                    <pre><code class="language-yaml" x-html="$store.craft.getPresetConfig($store.craft.state.expand.preset)"></code></pre>
+                  </div>
+                </template>
+                <template x-if="$store.craft.state.edit.preset">
+                  <div class="p-2 border-b border-neutral-800">
+                    <form>
+                      <x-schema-inputs x-data="{inputs:presets.schema, path:['presets', $store.craft.state.edit.preset], trim:/^presets\./}" x-init="$nextTick(() => $store.craft.syncValue(path, inputs))"></x-schema-inputs>
+                    </form>
+                  </div>
+                </template>
               </div>
             </article>
 
@@ -210,6 +277,7 @@
                       <span x-text="plugin.name"></span>
                       <div class="text-zinc-400 flex items-center">
                         <span x-text="`#${i}`"></span>
+                        <x-octicon class="ml-1.5 cursor-not-allowed opacity-50" x-data="{icon:'drag'}"></x-octicon>
                       </div>
                     </h3>
                     <h4 x-html="await $store.craft.markdown(plugin.description)" class="text-zinc-400"></h4>
@@ -236,7 +304,11 @@
                       <x-octicon class="mr-1" x-data="{icon:'render'}"></x-octicon>
                       Render
                     </div>
-                    <div @click="$store.craft.removePlugin({plugin:i})" class="bg-neutral-950 flex items-center rounded-md p-2 text-sm border border-transparent cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500">
+                    <div class="opacity-50 cursor-not-allowed bg-neutral-950 flex items-center rounded-md p-2 text-sm border border-transparent transition hover:bg-neutral-800 hover:text-sky-500">
+                      <x-octicon class="mr-1" x-data="{icon:'clone'}"></x-octicon>
+                      Duplicate
+                    </div>
+                    <div @click="$store.craft.removePlugin({plugin:i})" class="bg-red-950 flex items-center rounded-md p-2 text-sm border border-transparent cursor-pointer transition hover:bg-red-800 hover:text-sky-100">
                       <x-octicon class="mr-1" x-data="{icon:'remove'}"></x-octicon>
                       Remove
                     </div>
@@ -245,13 +317,13 @@
                     <pre><code class="language-yaml" x-html="$store.craft.getPluginConfig({plugin:i})"></code></pre>
                   </div>
                   <template x-if="plugin.docs.length">
-                    <div class="p-2 border-b border-neutral-800">
+                    <div class="p-2 border-b border-neutral-800" :class="{hidden:!($store.craft.state.edit.plugins === i)}">
                       <div class="font-bold">Documentations</div>
-                      <template x-for="{title, content} in plugin.docs">
-                        <details class="bg-neutral-950 rounded-md overflow-hidden">
-                          <summary class="flex items-center p-2 font-bold open:rounded-t-md cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500">
+                      <template x-for="{title, type, content} in plugin.docs">
+                        <details class="group rounded-md mt-1 overflow-hidden" :class="{[{warning:'bg-yellow-950'}[type] ?? 'bg-neutral-950']:true}">
+                          <summary class="flex items-center p-2 cursor-pointer rounded-t-md border border-transparent transition hover:bg-neutral-800 hover:text-sky-500 group-open:border-sky-500">
                             <x-octicon class="mr-1.5" x-data="{icon:'docs'}"></x-octicon>
-                            <span x-text="title"></span>
+                            <span x-html="await $store.craft.markdown(title)"></span>
                           </summary>
                           <div class="markdown bg-black p-2" x-html="await $store.craft.markdown(content)"></div>
                         </details>
@@ -275,8 +347,9 @@
                       <div class="p-2 border-b border-neutral-800 rounded-t-md">
                         <h3 class="text-lg flex justify-between">
                           <span x-text="processor.name"></span>
-                          <span class="text-zinc-400">
+                          <span class="text-zinc-400 flex items-center">
                             <span x-text="`#${j}`"></span>
+                            <x-octicon class="ml-1.5 cursor-not-allowed opacity-50" x-data="{icon:'drag'}"></x-octicon>
                           </span>
                         </h3>
                         <h4 x-html="await $store.craft.markdown(processor.description)" class="text-zinc-400"></h4>
@@ -299,19 +372,23 @@
                           <x-octicon class="mr-1" x-data="{icon:'edit'}"></x-octicon>
                           Edit
                         </div>
-                        <div @click="$store.craft.removeProcessor({plugin:i, processor:j})" class="bg-neutral-900 flex items-center rounded-md p-2 text-sm border border-transparent cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500">
+                        <div class="opacity-50 cursor-not-allowed bg-neutral-950 flex items-center rounded-md p-2 text-sm border border-transparent transition hover:bg-neutral-800 hover:text-sky-500">
+                          <x-octicon class="mr-1" x-data="{icon:'clone'}"></x-octicon>
+                          Duplicate
+                        </div>
+                        <div @click="$store.craft.removeProcessor({plugin:i, processor:j})" class="bg-red-900 flex items-center rounded-md p-2 text-sm border border-transparent cursor-pointer transition hover:bg-red-800 hover:text-sky-100">
                           <x-octicon class="mr-1" x-data="{icon:'remove'}"></x-octicon>
                           Remove
                         </div>
                       </nav>
                       <template x-if="processor.docs.length">
-                        <div class="p-2 border-b border-neutral-800">
+                        <div class="p-2 border-b border-neutral-800" :class="{hidden:!(($store.craft.state.edit.plugins === i)&&($store.craft.state.edit.processors === j))}">
                           <div class="font-bold">Documentations</div>
-                          <template x-for="{title, content} in processor.docs">
-                            <details class="bg-neutral-950 rounded-md overflow-hidden">
-                              <summary class="flex items-center p-2 font-bold open:rounded-t-md cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500">
+                          <template x-for="{title, type, content} in processor.docs">
+                            <details class="group rounded-md mt-1 overflow-hidden" :class="{[{warning:'bg-yellow-950'}[type] ?? 'bg-neutral-950']:true}">
+                              <summary class="flex items-center p-2 cursor-pointer rounded-t-md border border-transparent transition hover:bg-neutral-800 hover:text-sky-500 group-open:border-sky-500">
                                 <x-octicon class="mr-1.5" x-data="{icon:'docs'}"></x-octicon>
-                                <span x-text="title"></span>
+                                <span x-html="await $store.craft.markdown(title)"></span>
                               </summary>
                               <div class="markdown bg-black p-2" x-html="await $store.craft.markdown(content)"></div>
                             </details>
@@ -387,8 +464,7 @@
             <h2 class="text-2xl mb-4">4️⃣ You're all set!</h2>
             <template x-if="$store.craft.state.mode === 'web'">
               <div>
-                <pre class="bg-neutral-900 rounded-md p-2" @click="$store.craft.copyToClipboard($event)"><code class="language-html whitespace-break-spaces" x-html="$store.craft.getFullConfig()"></code></pre>
-                <!-- <img :src="$store.craft.getFullConfig()" alt=""/> -->
+                <pre class="bg-neutral-900 rounded-md p-2 cursor-pointer transition hover:bg-neutral-800" @click="$store.craft.copyToClipboard($event)"><code class="language-html whitespace-break-spaces" x-html="$store.craft.getFullConfig()"></code></pre>
               </div>
             </template>
             <template x-if="$store.craft.state.mode !== 'web'">
@@ -443,6 +519,15 @@
         <template x-if="icon === 'menu'">
           <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M1 2.75A.75.75 0 0 1 1.75 2h12.5a.75.75 0 0 1 0 1.5H1.75A.75.75 0 0 1 1 2.75Zm0 5A.75.75 0 0 1 1.75 7h12.5a.75.75 0 0 1 0 1.5H1.75A.75.75 0 0 1 1 7.75ZM1.75 12h12.5a.75.75 0 0 1 0 1.5H1.75a.75.75 0 0 1 0-1.5Z"></path></svg>
         </template>
+        <template x-if="icon === 'preset'">
+          <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M15 2.75a.75.75 0 0 1-.75.75h-4a.75.75 0 0 1 0-1.5h4a.75.75 0 0 1 .75.75Zm-8.5.75v1.25a.75.75 0 0 0 1.5 0v-4a.75.75 0 0 0-1.5 0V2H1.75a.75.75 0 0 0 0 1.5H6.5Zm1.25 5.25a.75.75 0 0 0 0-1.5h-6a.75.75 0 0 0 0 1.5h6ZM15 8a.75.75 0 0 1-.75.75H11.5V10a.75.75 0 1 1-1.5 0V6a.75.75 0 0 1 1.5 0v1.25h2.75A.75.75 0 0 1 15 8Zm-9 5.25v-2a.75.75 0 0 0-1.5 0v1.25H1.75a.75.75 0 0 0 0 1.5H4.5v1.25a.75.75 0 0 0 1.5 0v-2Zm9 0a.75.75 0 0 1-.75.75h-6a.75.75 0 0 1 0-1.5h6a.75.75 0 0 1 .75.75Z"></path></svg>
+        </template>
+        <template x-if="icon === 'clone'">
+          <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M10.5 3a.75.75 0 0 1 .75.75v1h1a.75.75 0 0 1 0 1.5h-1v1a.75.75 0 0 1-1.5 0v-1h-1a.75.75 0 0 1 0-1.5h1v-1A.75.75 0 0 1 10.5 3Z"></path><path d="M6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25v-7.5C5 .784 5.784 0 6.75 0ZM6.5 1.75v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25h-7.5a.25.25 0 0 0-.25.25Z"></path><path d="M1.75 5A1.75 1.75 0 0 0 0 6.75v7.5C0 15.216.784 16 1.75 16h7.5A1.75 1.75 0 0 0 11 14.25v-1.5a.75.75 0 0 0-1.5 0v1.5a.25.25 0 0 1-.25.25h-7.5a.25.25 0 0 1-.25-.25v-7.5a.25.25 0 0 1 .25-.25h1.5a.75.75 0 0 0 0-1.5h-1.5Z"></path></svg>
+        </template>
+        <template x-if="icon === 'drag'">
+          <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M10 13a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm0-4a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm-4 4a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm5-9a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM6 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>
+        </template>
         <template x-if="icon === 'web'">
           <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
         </template>
@@ -486,10 +571,25 @@
           <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M1.75 16A1.75 1.75 0 0 1 0 14.25V1.75C0 .784.784 0 1.75 0h8.5C11.216 0 12 .784 12 1.75v12.5c0 .085-.006.168-.018.25h2.268a.25.25 0 0 0 .25-.25V8.285a.25.25 0 0 0-.111-.208l-1.055-.703a.749.749 0 1 1 .832-1.248l1.055.703c.487.325.779.871.779 1.456v5.965A1.75 1.75 0 0 1 14.25 16h-3.5a.766.766 0 0 1-.197-.026c-.099.017-.2.026-.303.026h-3a.75.75 0 0 1-.75-.75V14h-1v1.25a.75.75 0 0 1-.75.75Zm-.25-1.75c0 .138.112.25.25.25H4v-1.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 .75.75v1.25h2.25a.25.25 0 0 0 .25-.25V1.75a.25.25 0 0 0-.25-.25h-8.5a.25.25 0 0 0-.25.25ZM3.75 6h.5a.75.75 0 0 1 0 1.5h-.5a.75.75 0 0 1 0-1.5ZM3 3.75A.75.75 0 0 1 3.75 3h.5a.75.75 0 0 1 0 1.5h-.5A.75.75 0 0 1 3 3.75Zm4 3A.75.75 0 0 1 7.75 6h.5a.75.75 0 0 1 0 1.5h-.5A.75.75 0 0 1 7 6.75ZM7.75 3h.5a.75.75 0 0 1 0 1.5h-.5a.75.75 0 0 1 0-1.5ZM3 9.75A.75.75 0 0 1 3.75 9h.5a.75.75 0 0 1 0 1.5h-.5A.75.75 0 0 1 3 9.75ZM7.75 9h.5a.75.75 0 0 1 0 1.5h-.5a.75.75 0 0 1 0-1.5Z"></path></svg>
         </template>
         <template x-if="icon === 'mime'">
-          <svg title="Processed text" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M4 1.75C4 .784 4.784 0 5.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v8.586A1.75 1.75 0 0 1 14.25 15h-9a.75.75 0 0 1 0-1.5h9a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 10 4.25V1.5H5.75a.25.25 0 0 0-.25.25v2.5a.75.75 0 0 1-1.5 0Zm1.72 4.97a.75.75 0 0 1 1.06 0l2 2a.75.75 0 0 1 0 1.06l-2 2a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734l1.47-1.47-1.47-1.47a.75.75 0 0 1 0-1.06ZM3.28 7.78 1.81 9.25l1.47 1.47a.751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018l-2-2a.75.75 0 0 1 0-1.06l2-2a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042Zm8.22-6.218V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"></path></svg>
+          <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M4 1.75C4 .784 4.784 0 5.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v8.586A1.75 1.75 0 0 1 14.25 15h-9a.75.75 0 0 1 0-1.5h9a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 10 4.25V1.5H5.75a.25.25 0 0 0-.25.25v2.5a.75.75 0 0 1-1.5 0Zm1.72 4.97a.75.75 0 0 1 1.06 0l2 2a.75.75 0 0 1 0 1.06l-2 2a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734l1.47-1.47-1.47-1.47a.75.75 0 0 1 0-1.06ZM3.28 7.78 1.81 9.25l1.47 1.47a.751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018l-2-2a.75.75 0 0 1 0-1.06l2-2a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042Zm8.22-6.218V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"></path></svg>
         </template>
         <template x-if="icon === 'any'">
-          <svg title="Any" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M8.5.75a.75.75 0 0 0-1.5 0v5.19L4.391 3.33a.75.75 0 1 0-1.06 1.061L5.939 7H.75a.75.75 0 0 0 0 1.5h5.19l-2.61 2.609a.75.75 0 1 0 1.061 1.06L7 9.561v5.189a.75.75 0 0 0 1.5 0V9.56l2.609 2.61a.75.75 0 1 0 1.06-1.061L9.561 8.5h5.189a.75.75 0 0 0 0-1.5H9.56l2.61-2.609a.75.75 0 0 0-1.061-1.06L8.5 5.939V.75Z"></path></svg>
+          <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M8.5.75a.75.75 0 0 0-1.5 0v5.19L4.391 3.33a.75.75 0 1 0-1.06 1.061L5.939 7H.75a.75.75 0 0 0 0 1.5h5.19l-2.61 2.609a.75.75 0 1 0 1.061 1.06L7 9.561v5.189a.75.75 0 0 0 1.5 0V9.56l2.609 2.61a.75.75 0 1 0 1.06-1.061L9.561 8.5h5.189a.75.75 0 0 0 0-1.5H9.56l2.61-2.609a.75.75 0 0 0-1.061-1.06L8.5 5.939V.75Z"></path></svg>
+        </template>
+        <template x-if="icon === 'valid'">
+          <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0Zm3.457 6.957a.999.999 0 1 0-1.414-1.414L7.25 8.336 5.957 7.043a.999.999 0 1 0-1.414 1.414l2 2a.999.999 0 0 0 1.414 0Z"></path></svg>
+        </template>
+        <template x-if="icon === 'invalid'">
+          <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M2.343 13.657A8 8 0 1 1 13.658 2.343 8 8 0 0 1 2.343 13.657ZM6.03 4.97a.751.751 0 0 0-1.042.018.751.751 0 0 0-.018 1.042L6.94 8 4.97 9.97a.749.749 0 0 0 .326 1.275.749.749 0 0 0 .734-.215L8 9.06l1.97 1.97a.749.749 0 0 0 1.275-.326.749.749 0 0 0-.215-.734L9.06 8l1.97-1.97a.749.749 0 0 0-.326-1.275.749.749 0 0 0-.734.215L8 6.94Z"></path></svg>
+        </template>
+        <template x-if="icon === 'processing'">
+          <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 16" width="17" height="16"><path d="M.5 8a8 8 0 1 1 16 0 8 8 0 0 1-16 0Zm3.427-4.323a.25.25 0 0 0-.427.177V6c0 .138.112.25.25.25h2.146a.25.25 0 0 0 .177-.427l-.524-.524a4.003 4.003 0 0 1 6.862 1.858.75.75 0 0 0 1.467-.314 5.502 5.502 0 0 0-9.39-2.605Zm9.573 8.469V10a.25.25 0 0 0-.25-.25h-2.146a.25.25 0 0 0-.177.427l.524.524a4.002 4.002 0 0 1-6.862-1.858.75.75 0 0 0-1.467.314 5.502 5.502 0 0 0 9.39 2.605l.561.561a.25.25 0 0 0 .427-.177ZM10 8a1.5 1.5 0 1 0-3.001.001A1.5 1.5 0 0 0 10 8Z"></path></svg>
+        </template>
+        <template x-if="icon === 'empty'">
+          <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm11.333-2.167a.825.825 0 0 0-1.166-1.166l-5.5 5.5a.825.825 0 0 0 1.166 1.166Z"></path></svg>
+        </template>
+        <template x-if="icon === 'import'">
+          <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M2 1.75C2 .784 2.784 0 3.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v8.586A1.75 1.75 0 0 1 12.25 15h-7a.75.75 0 0 1 0-1.5h7a.25.25 0 0 0 .25-.25V6H9.75A1.75 1.75 0 0 1 8 4.25V1.5H3.75a.25.25 0 0 0-.25.25V4.5a.75.75 0 0 1-1.5 0Zm-.5 10.487v1.013a.75.75 0 0 1-1.5 0v-1.012a3.748 3.748 0 0 1 3.77-3.749L4 8.49V6.573a.25.25 0 0 1 .42-.183l2.883 2.678a.25.25 0 0 1 0 .366L4.42 12.111a.25.25 0 0 1-.42-.183V9.99l-.238-.003a2.25 2.25 0 0 0-2.262 2.25Zm8-10.675V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"></path></svg>
         </template>
       </div>
     </template>
@@ -549,7 +649,8 @@
             <template x-if="(input.type === 'object')">
               <div class="w-full p-2 rounded-md border border-neutral-800">
                 <x-schema-inputs class="w-full" x-data="{inputs:input, path:subpath, trim}"></x-schema-inputs>
-                <!-- Record inputs /TODO/ -->
+                <!-- TODO(#1542) -->
+                <!-- Record inputs -->
                 <template x-if="input.additionalProperties">
                   <div>
                     🚧 Not supported yet
@@ -652,6 +753,72 @@
         </template>
       </div>
     </template>
+
+    <style>
+      .markdown p, .markdown blockquote, .markdown pre {
+        margin-bottom: 8px;
+      }
+      .markdown blockquote {
+        border-left: 4px solid #52525b;
+        color: #a1a1aa;
+        padding-left: 8px;
+      }
+      .markdown code .hljs-comment {
+        color: #8b949e;
+      }
+      .markdown code .hljs-keyword {
+        color: #ff7b72;
+      }
+      .markdown code .hljs-string {
+        color: #a5d6ff;
+      }
+      .markdown code .hljs-attr {
+        color: #79c0ff;
+      }
+      .markdown code .hljs-title {
+        color: #d2a8ff;
+      }
+      .markdown code .hljs-addition {
+        color: #aff5b4;
+        background-color: #033a16;
+      }
+      .markdown code .hljs-deletion {
+        color: #ffdcd7;
+        background-color: #67060c;
+      }
+      .compat-messages > div {
+        margin-bottom: 8px;
+        padding: 8px;
+        border-radius: 4px;
+        border: 1px solid #52525b;
+      }
+      .compat-messages > .info {
+        border-color: #0fa5ea;
+        background-color: #0fa5ea10;
+      }
+      .compat-messages > .warning {
+        border-color: #78350f;
+        background-color: #78350f10;
+      }
+      .compat-messages > .error {
+        border-color: #430c11;
+        background-color: #430c1110;
+      }
+      .compat-messages > .unimplemented {
+        border-color: #f8bf27;
+        background-color: #f8bf2710;
+      }
+      .compat-messages code:not([class^="language-"]) {
+        background-color: #00000090;
+        border-radius: 4px;
+        padding: 0px 4px;
+      }
+      .compat-messages pre {
+        background-color: #00000090;
+        border-radius: 4px;
+        padding: 4px 8px;
+      }
+    </style>
 
     <script src="/static/app.js" type="module"></script>
   </body>

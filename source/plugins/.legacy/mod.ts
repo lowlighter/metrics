@@ -6,6 +6,9 @@ import { throws } from "@engine/utils/errors.ts"
 import { read } from "@engine/utils/deno/io.ts"
 import { encodeBase64 } from "std/encoding/base64.ts"
 
+/** v3.x official templates */
+export const templates = ["classic", "repository", "terminal", "markdown"]
+
 /** Plugin */
 export default class extends Plugin {
   /** Import meta */
@@ -50,8 +53,6 @@ export default class extends Plugin {
         output_action: "none",
         filename: "metrics.legacy",
         config_output: "svg",
-        // TODO(@lowlighter): set mime type according to config_output
-        // auto / svg / png / jpeg / json / markdown / markdown-pdf / insights
       },
       inherited: {
         token: this.context.token.read(),
@@ -102,6 +103,9 @@ export default class extends Plugin {
       }
       this.log.warn(`ignoring ${key}: not supported in this context`)
     }
+    if (context.inputs.template === "markdown") {
+      context.inputs.config_output = "markdown"
+    }
 
     // Execute docker image
     const tmp = await Deno.makeTempDir({ prefix: "metrics_legacy_" })
@@ -115,8 +119,14 @@ export default class extends Plugin {
       if (!success) {
         throws("Failed to execute metrics")
       }
-      // this.context.template = "legacy"
-      return { content: encodeBase64(await read(`${tmp}/metrics.legacy`)) }
+      let content = ""
+      try {
+        content = await read(`${tmp}/metrics.legacy`)
+      } // TODO(@lowlighter): fix this ??
+      catch (error) {
+        console.error(error)
+      }
+      return { content: encodeBase64(content) }
     } finally {
       await Deno.remove(tmp, { recursive: true })
     }

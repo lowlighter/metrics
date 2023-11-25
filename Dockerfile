@@ -2,6 +2,10 @@
 FROM alpine:3.18
 RUN apk upgrade --no-cache --available
 
+# Install sudo
+RUN apk add --update --no-cache sudo \
+  && echo 'metrics ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/metrics
+
 # Install licensed
 RUN apk add --no-cache ruby \
   && apk add --no-cache --virtual .licensed ruby-dev make cmake g++ heimdal-dev \
@@ -17,10 +21,15 @@ RUN apk add --no-cache chromium ttf-freefont font-noto-emoji \
   && apk add --no-cache --repository=https://dl-cdn.alpinelinux.org/alpine/edge/community font-wqy-zenhei \
   && chromium --version
 
+# Install docker
+RUN apk add --update --no-cache docker-cli \
+  && addgroup docker \
+  && docker --version
+
 # Install deno
 ENV DENO_INSTALL /
 ENV DENO_NO_UPDATE_CHECK true
-ENV DENO_VERSION 1.38.0
+ENV DENO_VERSION 1.38.3
 ENV GLIBC_VERSION 2.34-r0
 RUN apk add --no-cache --virtual .deno curl wget unzip \
   && wget --no-hsts --quiet --output-document /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub \
@@ -46,16 +55,17 @@ RUN apk add --no-cache npm \
 
 # General configuration
 RUN apk add --no-cache git \
-  && adduser --system metrics
+  && adduser --system metrics \
+  && addgroup metrics docker
 
 # Metrics
 USER metrics
 WORKDIR /metrics
 ENV TZ Europe/Paris
+ENV TMP /tmp
 COPY source /metrics/source
 COPY deno.jsonc /metrics/deno.jsonc
-COPY deno.lock /metrics/deno.lock
 COPY LICENSE /metrics/LICENSE
 RUN deno task make cache
 RUN deno task make get:browser
-ENTRYPOINT [ "deno", "task", "make", "run" ]
+ENTRYPOINT [ "deno", "task", "make", "run", "github-action" ]

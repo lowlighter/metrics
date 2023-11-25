@@ -11,16 +11,17 @@ type compat = any
 /** Compatibility layer */
 export async function compat(
   _inputs: Record<PropertyKey, unknown>,
-  { log = console.log, mock = false, use }: { log?: ((_: string) => void) | null; mock?: boolean; use?: { requests?: boolean } } = {},
+  { log = console.log, mock = false, use = { requests: true } }: { log?: ((_: string) => void) | null; mock?: boolean; use?: { requests?: boolean } } = {},
 ) {
   const config = new Config()
   const inputs = await parse(_inputs, config.report)
   const defaults = await parse({}, config.report)
-  log?.(config.report.console({ flush: true }))
+  log?.(config.report.console())
+  config.report.flush()
 
   // Instantiate requests handler if needed
   let requests = null
-  if ((use?.requests) || (true)) {
+  if ((use?.requests)) {
     const { Requests } = await import("@engine/components/requests.ts")
     requests = new Requests(import.meta, { logs: "none", mock, api: inputs.github_api_rest, timezone: inputs.config_timezone, token: inputs.token } as compat)
   }
@@ -190,9 +191,9 @@ export async function compat(
 
   // Markdown
   if (inputs.markdown) {
-    //TODO(@lowlighter): implement
-    //markdown
-    //markdown_cache
+    // TODO(#1574)
+    // markdown
+    // markdown_cache
     config.report.unimplemented("`markdown` render has not been migrated to v4 yet")
   }
 
@@ -248,7 +249,7 @@ export async function compat(
         if (requests) {
           try {
             const { data: { created_at: timestamp } } = await requests.rest(requests.api.users.getByUsername, { username: inputs.user })
-            from = new Date(timestamp).getFullYear() - inputs.plugin_calendar_limit
+            from = new Date(timestamp).getFullYear() + inputs.plugin_calendar_limit
           } catch {
             // Ignore
           }
@@ -819,7 +820,7 @@ export async function compat(
 
   // Plugins order
   if (inputs.config_order) {
-    // TODO(@lowlighter): fetch order from partial
+    // TODO(#1542): fetch plugins order from v3.x files and sort plugins accordingly, and also patch the v4 ordering issue
     config.patch("config_order", null)
     config.report.info("Plugins order are now handled directly at configuration level")
   }
@@ -874,7 +875,7 @@ export async function compat(
       config.report.warning("Output format `auto` has been removed. Render format has been set to `svg` for compatibility")
     }
     if (["markdown", "markdown-pdf", "insights"].includes(inputs.config_output)) {
-      //TODO(@lowlighter): to implement
+      //TODO(#1574)
       config.report.unimplemented(`Rendering to \`${inputs.config_output}\` has not been migrated to v4 yet`)
     }
     config.patch("config_output", snippet)

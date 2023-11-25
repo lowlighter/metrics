@@ -72,7 +72,7 @@ export async function getPermissions(test: Awaited<ReturnType<typeof Component["
   if (requested.has("net:all")) {
     permissions.net = "inherit"
   }
-  // TODO(@lowlighter): To remove when https://github.com/denoland/deno/issues/21123 fixed
+  // TODO(#1571)
   if (permissions.run.length) {
     permissions.run = "inherit"
   } else if (requested.has("run:chrome")) {

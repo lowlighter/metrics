@@ -1,3 +1,5 @@
+// deno-lint-ignore-file no-explicit-any no-unused-vars no-unreachable
+//TODO(@lowlighter): finish implementation, use the correct language color from cache
 // Imports
 import { is, parse, Plugin } from "@engine/components/plugin.ts"
 import { ignored, matchPatterns, reactions } from "@engine/utils/github.ts"
@@ -211,7 +213,6 @@ export default class extends Plugin {
                 return null
               }
               case "PushEvent": {
-                //TODO
                 return null //Object.assign(event, {type:"push", ...this.push(payload)})
               }
               // Release published
@@ -265,7 +266,7 @@ export default class extends Plugin {
       forks: repository.forks_count,
       language: {
         name: repository.language,
-        color: "#959da5", //TODO(@lowlighter)
+        color: "#959da5",
       },
       issues: repository.open_issues_count,
       license: repository.license?.name ?? null,

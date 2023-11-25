@@ -8,7 +8,7 @@ export default {
       type: { github: "Organization" }[login] ?? "User",
       blog: "https://github.blog",
       twitter_username: "github",
-      created_at: "2020-01-01T00:00:00Z",
+      created_at: "2020-12-12T00:00:00Z",
     },
   })),
 }

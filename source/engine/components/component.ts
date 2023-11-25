@@ -118,8 +118,8 @@ export abstract class Component extends Internal {
     return list(`${path}/*.md`, { sync: true }).map((file) => {
       const raw = read(`${path}/${file}`, { sync: true })
       if (hasfm(raw)) {
-        const { attrs: { title = file }, body: content } = extract(raw)
-        return { title, content }
+        const { attrs: { title = file, type }, body: content } = extract(raw)
+        return { title, content, ...(type ? { type } : {}) }
       }
       return { title: file, content: raw }
     })

@@ -39,10 +39,6 @@
     ]
   },
   "tasks": {
-    //  '
-    "qq": "rm -rf .coverage && deno test --coverage=.coverage --no-check --unstable --trace-ops --allow-all source --filter='base64' && deno coverage .coverage --include='^file:.*/transform.base64/mod.ts'",
-    "q": "rm -rf .coverage && deno test --coverage=.coverage --unstable --trace-ops --fail-fast --allow-all source && deno coverage .coverage --exclude='/dom/'",
-    "z": " export CHROME_BIN=$(deno task make get:browser) && deno test --unstable -A source/engine/components/plugin_test.ts", //utils/browser_test.ts
     "make": "deno run --allow-env --allow-read --allow-write=.deno-make.json --allow-run=deno https://deno.land/x/make@1.2.0/mod.ts $0"
   },
   "+tasks": {
@@ -116,7 +112,6 @@
           "coverage": ".coverage",
           "traceOps": true,
           "unstable": ["kv", "http"],
-          //"parallel": true //TODO(@lowlighter): check if it's possible to run tests in parallel
           "modules": {
             "check": false
           },
@@ -191,12 +186,12 @@
       "description": "🔎 Format and lint code",
       "task": [
         "deno fmt &&",
-        "deno check **/*.ts &&",
-        "deno lint"
+        "deno lint &&",
+        "deno check **/*.ts"
       ],
       "flags": {
         "check": {
-          "description": "Check only" //TODO(@lowlighter): need to patch deno_make upstream
+          "description": "Check only"
         }
       }
     },
@@ -214,22 +209,42 @@
         }
       }
     },
+    "docker:run": {
+      "description": "🐋 Run docker image interactively",
+      "task": [
+        "docker run --rm --interactive --tty --entrypoint='' --volume //var/run/docker.sock:/var/run/docker.sock --volume $PWD/source:/metrics/source --volume $PWD/deno.jsonc:/metrics/deno.jsonc --user $<user> $<tag> $<command>"
+      ],
+      "flags": {
+        "tag": {
+          "default": "metrics:dev",
+          "description": "Docker image tag"
+        },
+        "user": {
+          "default": "metrics",
+          "description": "User to run command as"
+        },
+        "command": {
+          "default": "sh -c 'sudo chgrp docker /var/run/docker.sock && sudo rm /etc/sudoers.d/metrics && sh'",
+          "description": "Command to execute"
+        }
+      }
+    },
     "ci:lint": {
       "description": "🤖 Lint code (CI)",
-      "task": "deno task make lint" // --check
+      "task": "deno task make lint --check"
     },
     "ci:test": {
       "description": "🤖 Build container and run tests and coverage inside the image (CI)",
       "task": [
         "deno task make docker &&",
-        "docker run --rm --entrypoint='' metrics:dev sh -c 'deno task make test && deno task make coverage'"
+        "docker run --rm --entrypoint='' --volume //var/run/docker.sock:/var/run/docker.sock metrics:dev sh -c 'sudo chgrp docker /var/run/docker.sock && sudo rm /etc/sudoers.d/metrics && deno task make test && deno task make coverage'"
       ]
     },
     "deploy:deno": {
       "description": "🦕 Deploy metrics on https://deno.com/deploy",
       "task": [
         "export CACHE_DIRECTORY=$(deno task make get:cache) &&",
-        "export DENO_DEPLOY_TOKEN=$(deno eval \"console.log(Deno.env.get('DENO_DEPLOY_TOKEN'))\") &&",
+        "export DENO_DEPLOY_TOKEN=$(deno eval --env \"console.log(Deno.env.get('DENO_DEPLOY_TOKEN'))\") &&",
         "deno run source/run/serve/imports.ts &&",
         "deployctl deploy --project=$<project> --include=source,deno.jsonc --prod source/run/mod.ts"
       ],

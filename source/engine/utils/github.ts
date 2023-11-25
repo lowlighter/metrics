@@ -56,7 +56,6 @@ export function parseHandle(handle: string | null | void, { entity }: { entity: 
   }
 }
 
-// TODO(@lowlighter): Implement decorators like @{stars:>10}
 /** Match patterns */
 export function matchPatterns(patterns: string | string[], value: unknown) {
   let match = false

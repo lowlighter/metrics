@@ -183,7 +183,7 @@ Deno.test(t(import.meta, "`compat()` transpiles `template`"), { permissions }, a
 })
 
 Deno.test.ignore(t(import.meta, "`compat()` transpiles `markdown` and `markdown_cache`"), { permissions }, async () => {
-  //TODO(@lowlighter): implement
+  //TODO(#1574)
 })
 
 Deno.test.ignore(t(import.meta, "`compat()` transpiles *base*"), { permissions }, async () => {})
@@ -222,7 +222,7 @@ Deno.test(t(import.meta, "`compat()` transpiles *calendar*"), { permissions }, a
       { inputs: {}, expected: { [name]: {} } },
       { inputs: { limit: 0 }, expected: { [name]: { range: { from: "registration", to: "current-year" } } } },
       { inputs: { limit: 1 }, expected: { [name]: { range: { from: -1, to: "current-year" } } } },
-      { inputs: { limit: -1 }, expected: { [name]: { range: { from: 2020, to: "current-year" } } } },
+      { inputs: { limit: -1 }, expected: { [name]: { range: { from: 2020 - 1, to: "current-year" } } } },
       { inputs: { _debug_flags: ["--winter"] }, expected: { [name]: { colors: "winter" } } },
       { inputs: { _debug_flags: ["--halloween"] }, expected: { [name]: { colors: "halloween" } } },
     ] as const

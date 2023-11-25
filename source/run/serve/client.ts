@@ -1,27 +1,15 @@
 // Imports
 /// <reference lib="dom" />
-import Alpine from "y/alpinejs@3.13.0"
-import * as YAML from "y/js-yaml@4.1.0"
-import hljs from "y/highlight.js@11.8.0/lib/core"
-import hlyaml from "y/highlight.js@11.8.0/lib/languages/yaml"
+import Alpine from "y/alpinejs@3.13.0?pin=v133"
+import * as YAML from "std/yaml/mod.ts"
 import type { webrequest } from "@engine/config.ts"
 import { is } from "@engine/utils/validation.ts"
 import { Logger } from "@engine/utils/log.ts"
 import { debounce, DebouncedFunction } from "std/async/debounce.ts"
-import rehypeStringify from "y/rehype-stringify@10.0.0"
-import remarkParse from "y/remark-parse@11.0.0"
-import remarkRehype from "y/remark-rehype@11.0.0"
-import { unified } from "y/unified@11.0.4"
-hljs.registerLanguage("yaml", hlyaml)
+import { markdown } from "@engine/utils/markdown.ts"
+import { highlight } from "@engine/utils/language.ts"
+import { compat } from "@run/compat/mod.ts"
 const log = new Logger(import.meta, { level: "trace" })
-
-/*
-TODO(@lowlighter):
-- Display permissions and scopes
-- Editable records ++
-- Edit plugins/processors contexts ++
-- Sync values ++
-*/
 
 // Alpine components
 document.querySelectorAll("[x-component]").forEach((component) => {
@@ -46,10 +34,11 @@ const menu = {
   },
 }
 
+// Fetch data
 const data = await fetch("/metadata").then((response) => response.json())
 data.user = await fetch("/me").then((response) => response.json())
 data.ratelimit = await fetch("/ratelimit").then((response) => response.json())
-data.dev = false //true
+data.dev = false // TODO(#1575)
 
 // deno-lint-ignore no-explicit-any
 type Any = any
@@ -70,15 +59,26 @@ class Crafter {
     mode: "",
     edit: {
       global: "",
+      preset: "",
       plugins: NaN,
       processors: NaN,
     },
     expand: {
+      preset: "",
       plugins: true,
       processors: NaN,
     },
     cached: {
       inputs: {} as Record<PropertyKey, unknown>,
+    },
+    compat: {
+      placeholder: [
+        "token: ${{ github.token }}",
+        "config_timezone: Europe/Paris",
+        "plugin_isocalendar: yes",
+        "plugin_isocalendar_duration: full-year",
+      ].join("\n"),
+      status: "empty",
     },
   }
 
@@ -102,15 +102,12 @@ class Crafter {
     },
   }
 
-  /** Markdown renderer (internal) */
-  private readonly remark = unified()
-    .use(remarkParse as Any)
-    .use(remarkRehype as Any)
-    .use(rehypeStringify as Any)
+  /** Compat config */
+  readonly compat = {} as Any
 
   /** Render markdown */
   markdown(text: string) {
-    return this.remark.process(text)
+    return markdown(text, { sanitize: false })
   }
 
   /** Format key path into human-readable format */
@@ -192,6 +189,32 @@ class Crafter {
     this.state.edit.processors = NaN
   }
 
+  /** Set compat config (internal) */
+  private async _setCompatConfig(state: { status: string; messages: string; code: string }) {
+    const textarea = document.querySelector('[name="config.compat"]') as HTMLTextAreaElement
+    if (!textarea?.value) {
+      state.status = "empty"
+      state.code = highlight("yaml", "# Transpiled configuration will appear here").code
+    } else {
+      try {
+        const value = YAML.parse(textarea.value)
+        if ((!value) || (typeof value !== "object") || (!Object.keys(value).length)) {
+          throw new Error("Invalid configuration")
+        }
+        state.status = "valid"
+        const config = await compat(value as Record<PropertyKey, unknown>, { log: null, use: { requests: false } })
+        Object.assign(this.compat, config.content)
+        state.messages = await config.report.html()
+        state.code = highlight("yaml", YAML.stringify(this.compat)).code
+      } catch {
+        state.status = "invalid"
+      }
+    }
+  }
+
+  /** Set compat config */
+  readonly setCompatConfig = debounce((options: Parameters<typeof this._setCompatConfig>[0]) => this._setCompatConfig(options), 5000)
+
   /** Get global mode config */
   getGlobalConfig(options: { output?: "yaml" | "json" }): string
   getGlobalConfig(options: { output: "object" }): Record<PropertyKey, unknown>
@@ -199,11 +222,26 @@ class Crafter {
     const { inputs: _, ...global } = this.global
     switch (output) {
       case "yaml":
-        return hljs.highlight(YAML.dump(global), { language: "yaml" }).value
+        return highlight("yaml", YAML.stringify(global)).code
       case "json":
         return JSON.stringify(global)
       case "object":
         return global
+    }
+  }
+
+  /** Get preset config */
+  getPresetConfig(name: string, options: { output?: "yaml" | "json" }): string
+  getPresetConfig(name: string, options: { output: "object" }): Record<PropertyKey, unknown>
+  getPresetConfig(name: string, { output = "yaml" }: { output?: "yaml" | "json" | "object" } = {}): string | Record<PropertyKey, unknown> {
+    const preset = this.config.presets[name as keyof typeof this.config.presets] ?? {}
+    switch (output) {
+      case "yaml":
+        return highlight("yaml", YAML.stringify(preset)).code
+      case "json":
+        return JSON.stringify(preset)
+      case "object":
+        return preset
     }
   }
 
@@ -216,7 +254,7 @@ class Crafter {
     const local = { ...(id ? { [id]: args } : {}), ...(processors.length ? { processors } : {}) }
     switch (output) {
       case "yaml":
-        return hljs.highlight(YAML.dump([local]), { language: "yaml" }).value
+        return highlight("yaml", YAML.stringify([local] as unknown as Record<PropertyKey, unknown>)).code
       case "json":
         return JSON.stringify([local])
       case "object":
@@ -238,7 +276,7 @@ class Crafter {
       default: {
         const { presets } = this.config
         const plugins = this.config.plugins.map((_, plugin) => this.getPluginConfig({ plugin, output: "object" }))
-        return hljs.highlight(YAML.dump({ ...this.getGlobalConfig({ output: "object" }), config: { plugins, presets } }), { language: "yaml" }).value
+        return highlight("yaml", YAML.stringify({ ...this.getGlobalConfig({ output: "object" }), config: { plugins, presets } })).code
       }
     }
   }
@@ -259,7 +297,7 @@ class Crafter {
     const subpath = path.join(".")
     switch (true) {
       case inputs.type === "object": {
-        for (const [key, input] of Object.entries(inputs.properties)) {
+        for (const [key, input] of Object.entries(inputs.properties ?? {})) {
           this.syncValue([...path, key], input)
         }
         break
@@ -294,11 +332,11 @@ class Crafter {
         break
       }
       case ("anyOf" in inputs): {
-        console.log("Need to search here")
+        console.log("If you see this message, please implement me !", subpath, inputs)
         break
       }
       default:
-        console.log(inputs)
+        console.log("If you see this message, please implement me !", subpath, inputs)
     }
   }
 

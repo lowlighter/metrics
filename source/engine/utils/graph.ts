@@ -1,6 +1,6 @@
 // Imports
 import * as d3 from "y/d3@7.8.5?pin=v133"
-import { DOMParser } from "y/linkedom@0.16.4"
+import { DOMParser } from "y/linkedom@0.16.4?pin=v133"
 
 /** Graph */
 export class Graph {

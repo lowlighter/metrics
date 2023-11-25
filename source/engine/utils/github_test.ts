@@ -31,10 +31,10 @@ Deno.test(t(import.meta, "`matchPatterns()` returns a matching result for accoun
   expect(matchPatterns("*/*", "octocat")).to.equal(false)
   expect(matchPatterns("octo*", "octocat")).to.equal(true)
   expect(matchPatterns("github", "octocat")).to.equal(false)
-  expect(matchPatterns(["octo*", "!*dog"], "octocat")).to.equal(true)
-  expect(matchPatterns(["octo*", "!*dog"], "octodog")).to.equal(false)
+  expect(matchPatterns(["octo*", "!*squid"], "octocat")).to.equal(true)
+  expect(matchPatterns(["octo*", "!*squid"], "octosquid")).to.equal(false)
   expect(matchPatterns(["!octo*", "octocat"], "octocat")).to.equal(true)
-  expect(matchPatterns(["!octo*", "octocat"], "octodog")).to.equal(false)
+  expect(matchPatterns(["!octo*", "octocat"], "octosquid")).to.equal(false)
 })
 
 Deno.test(t(import.meta, "`matchPatterns()` returns a matching result for repositories handles"), { permissions: "none" }, () => {

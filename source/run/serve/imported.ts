@@ -2,6 +2,10 @@
  * Statically analyzable dynamic imports for deno deploy
  * Auto-generated, do not edit manually
  */
+;(async () => await import("../../plugins/.await/mod.ts"))
+;(async () => await import("../../plugins/.legacy/mod.ts"))
+;(async () => await import("../../plugins/activity/mod.ts"))
+;(async () => await import("../../plugins/activity/tests/rest.ts"))
 ;(async () => await import("../../plugins/calendar/mod.ts"))
 ;(async () => await import("../../plugins/calendar/tests/calendar.graphql.ts"))
 ;(async () => await import("../../plugins/calendar/tests/colors.graphql.ts"))
@@ -41,8 +45,12 @@
 ;(async () => await import("../../processors/publish.git/tests/pullrequest.mergeable.graphql.ts"))
 ;(async () => await import("../../processors/publish.git/tests/pullrequest.number.graphql.ts"))
 ;(async () => await import("../../processors/publish.git/tests/repository.graphql.ts"))
+;(async () => await import("../../processors/render.content/mod.ts"))
+;(async () => await import("../../processors/render.content/tests/extras_test.ts"))
 ;(async () => await import("../../processors/render.gemojis/mod.ts"))
 ;(async () => await import("../../processors/render.octicons/mod.ts"))
 ;(async () => await import("../../processors/render.twemojis/mod.ts"))
-;(async () => await import("../../processors/render.content/mod.ts"))
-;(async () => await import("../../processors/render.content/tests/extras_test.ts"))
+;(async () => await import("../../processors/transform.base64/mod.ts"))
+;(async () => await import("../../processors/transform.base64/tests/img.http.ts"))
+;(async () => await import("../../processors/transform.base64/tests/img_invalid.http.ts"))
+;(async () => await import("../../processors/transform.resize/mod.ts"))

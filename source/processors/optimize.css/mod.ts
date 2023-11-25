@@ -1,10 +1,10 @@
 // Imports
 import { Processor, state } from "@engine/components/processor.ts"
-import { PurgeCSS } from "y/purgecss@5.0.0"
+import { PurgeCSS } from "y/purgecss@5.0.0?pin=v133"
 import { DOMParser } from "x/deno_dom@v0.1.38/deno-dom-wasm.ts"
 import { Format } from "@engine/utils/format.ts"
-import { minify } from "y/csso@5.0.5"
-import { unescape } from "y/html-escaper@3.0.3"
+import { minify } from "y/csso@5.0.5?pin=v133"
+import { unescape } from "y/html-escaper@3.0.3?pin=v133"
 
 /** Processor */
 export default class extends Processor {

@@ -1,6 +1,6 @@
 // Imports
 import { Processor, state } from "@engine/components/processor.ts"
-import { default as octicons, IconName } from "y/@primer/octicons@19.7.0"
+import { default as octicons, IconName } from "y/@primer/octicons@19.7.0?pin=v133"
 
 /** Processor */
 export default class extends Processor {

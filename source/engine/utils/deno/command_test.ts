@@ -6,7 +6,7 @@ import { DevNull } from "@engine/utils/log_test.ts"
 const stdio = new DevNull()
 const log = new Logger(import.meta, { level: Logger.channels.trace, tags: { foo: "bar" }, stdio })
 
-// TODO(@lowlighter): Use `["deno"]` when https://github.com/denoland/deno/issues/21123 fixed
+// TODO(#1571)
 const permissions = { run: "inherit" } as const
 
 Deno.test(t(import.meta, "`command()` can execute commands"), { permissions }, async () => {

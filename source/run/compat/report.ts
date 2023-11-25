@@ -1,6 +1,7 @@
 // Imports
-import { bgWhite, black, brightGreen, brightRed, brightYellow, cyan, gray, white, yellow } from "std/fmt/colors.ts"
+import { bgWhite, black, brightGreen, brightRed, brightYellow, cyan, gray, stripAnsiCode, white, yellow } from "std/fmt/colors.ts"
 import * as YAML from "std/yaml/stringify.ts"
+import { markdown } from "@engine/utils/markdown.ts"
 
 /** Compatibility report */
 export class Report {
@@ -32,33 +33,34 @@ export class Report {
     this.messages.push({ type: "unimplemented", message })
   }
 
-  /** Print messages to console */
-  console({ flush = false } = {}) {
-    try {
-      let content = ""
-      for (const { type, message } of this.messages) {
-        const icon = { error: "❌", warning: "⚠️", info: "💡", debug: "📟", unimplemented: "🏗️" }[type]
-        const text = `${icon} ${message}`
-          .replaceAll(/^```\w*([\s\S]+?)```/gm, (_, text: string) => text.split("\n").map((line) => `   ${line}`).join("\n"))
-          .replaceAll(/`([\s\S]+?)`/g, (_, text) => bgWhite(` ${black(text)} `))
-          .split("\n").map((line) => `▓ ${line}`).join("\n")
-        const color = { error: brightRed, warning: brightYellow, info: brightGreen, debug: gray, unimplemented: yellow }[type]!
-        content += `${color(text)}\n`
-      }
-      return content
-    } finally {
-      if (flush) {
-        this.messages.splice(0)
-      }
-    }
+  /** Flush messages */
+  flush() {
+    this.messages.splice(0)
   }
 
-  /** Print messages to markdown
-  // TODO(@lowlighter): Implement markdown report
-  markdown() {
-    return ""
+  /** Print messages to console */
+  console() {
+    let content = ""
+    for (const { type, message } of this.messages) {
+      const icon = { error: "❌", warning: "⚠️", info: "💡", debug: "📟", unimplemented: "🏗️" }[type]
+      const text = `${icon} ${message}`
+        .replaceAll(/^```\w*([\s\S]+?)```/gm, (_, text: string) => text.split("\n").map((line) => `   ${line}`).join("\n"))
+        .replaceAll(/`([\s\S]+?)`/g, (_, text) => bgWhite(` ${black(text)} `))
+        .split("\n").map((line) => `▓ ${line}`).join("\n")
+      const color = { error: brightRed, warning: brightYellow, info: brightGreen, debug: gray, unimplemented: yellow }[type]!
+      content += `${color(text)}\n`
+    }
+    return content
   }
-  */
+
+  /** Print messages to html */
+  async html() {
+    let content = ""
+    for (const { type, message } of this.messages) {
+      content += `<div class="${type}">${await markdown(stripAnsiCode(message), { sanitize: false })}</div>`
+    }
+    return content
+  }
 }
 
 /** YAML formatter for console */

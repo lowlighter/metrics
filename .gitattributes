@@ -1,4 +1,15 @@
 # Auto detect text files and perform LF normalization
 * text=auto
 
-# TODO(@lowlighter): linguist-attributes
+# Hidden files
+.github/** -linguist-detectable
+
+# Documentation
+CODE_OF_CONDUCT.md linguist-documentation
+CONTRIBUTING.md linguist-documentation
+SECURITY.md linguist-documentation
+README.md linguist-documentation
+LICENSE linguist-documentation
+
+# Generated files
+deno.lock linguist-generated

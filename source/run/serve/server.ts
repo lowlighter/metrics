@@ -266,7 +266,7 @@ export class Server extends Internal {
                   context = await parse(webrequest, context)
                   log.trace("parsed request")
                   log.trace(context)
-                  //TODO(@lowlighter): filter enabled plugins and params
+                  //TODO(#1576)
                 } catch (error) {
                   log.warn(error)
                   return promise.resolve(new Response(`Bad request: ${error}`, { status: Status.BadRequest }))!
@@ -283,7 +283,7 @@ export class Server extends Internal {
                   const section = user ? "users" : "guests"
                   // Users limits
                   if (typeof this.context.limit[section]?.max === "number") {
-                    //TODO(@lowlighter): max users
+                    //TODO(#1542)
                     if (0 > this.context.limit[section]?.max!) {
                       return new Response("Service unavailable: server capacity is full", { status: Status.ServiceUnavailable })
                     }

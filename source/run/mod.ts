@@ -62,46 +62,61 @@ class CLI extends Internal {
 
 // Entry point
 if (import.meta.main) {
-  await new Command()
-    .name("metrics")
-    .description("A simple reverse proxy example cli.")
-    .version(version.number)
-    .helpOption("-h, --help", "Show this help", function (this: Command) {
-      console.log(this.getHelp())
-    })
-    .versionOption("-v, --version", "Show version number", function (this: Command) {
-      console.log(this.getVersion())
-    })
-    //
-    .command("run")
-    .description("Run metrics")
-    .option("-c, --config <file:string>", "Metrics configuration file", { default: "metrics.config.yml" })
-    .action(async ({ config }) => new CLI(await load(config)).run())
-    //
-    .command("serve")
-    .description("Start metrics server")
-    .option("-c, --config <file:string>", "Metrics configuration file", { default: "metrics.config.yml" })
-    .action(async ({ config }) => new CLI(await load(config)).serve())
-    //
-    .command("create")
-    .type("component", new EnumType(["plugin", "processor"]))
-    .description("Create a new plugin or processor")
-    .option("-i, --icon <icon:string>", "Component icon")
-    .option("-n, --name <name:string>", "Component name")
-    .option("-d, --description <description:string>", "Component description")
-    .option("-c, --category <category:string>", "Component category")
-    .option("-s, --supports <scopes:string>", "Component supported targets", { collect: true })
-    .option("-u.g, --use.graphql", "Component uses GitHub GraphQL API")
-    .option("-u.r, --use.rest", "Component uses GitHub REST API")
-    .option("-u.f, --use.fetch", "Component uses fetch API")
-    .option("-u.w, --use.webscraping", "Component uses web scraping")
-    .option("-y, --yes", "Skip confirmation")
-    .option("--dryrun", "Dryrun")
-    .arguments("<type:component> [id:string]")
-    .action(({ dryrun, yes, ...options }, type, id) => create({ type, id, ...options }, { dryrun, confirm: !yes }))
-    //
-    .parse(Deno.args)
-  /*if (env.deployment) {
-    action = "serve"
-  }*/
+  switch (true) {
+    // Deployment
+    case env.deployment: {
+      new CLI().serve()
+      break
+    }
+    // CLI usage
+    default: {
+      await new Command()
+        .name("metrics")
+        .description("A simple reverse proxy example cli.")
+        .version(version.number)
+        .helpOption("-h, --help", "Show this help", function (this: Command) {
+          console.log(this.getHelp())
+        })
+        .versionOption("-v, --version", "Show version number", function (this: Command) {
+          console.log(this.getVersion())
+        })
+        .action(function (this: Command) {
+          console.log(this.getHelp())
+        })
+        // GitHub actions
+        .command("github-action")
+        .hidden()
+        .description("Run metrics as a GitHub action")
+        .action(() => new CLI().run())
+        // Run metrics engine
+        .command("run")
+        .description("Run metrics")
+        .option("-c, --config <file:string>", "Metrics configuration file", { default: "metrics.config.yml" })
+        .action(async ({ config }) => new CLI(await load(config)).run())
+        // Start metrics server
+        .command("serve")
+        .description("Start metrics server")
+        .option("-c, --config <file:string>", "Metrics configuration file", { default: "metrics.config.yml" })
+        .action(async ({ config }) => new CLI(await load(config)).serve())
+        // Create a new component
+        .command("create")
+        .type("component", new EnumType(["plugin", "processor"]))
+        .description("Create a new plugin or processor")
+        .option("-i, --icon <icon:string>", "Component icon")
+        .option("-n, --name <name:string>", "Component name")
+        .option("-d, --description <description:string>", "Component description")
+        .option("-c, --category <category:string>", "Component category")
+        .option("-s, --supports <scopes:string>", "Component supported targets", { collect: true })
+        .option("-u.g, --use.graphql", "Component uses GitHub GraphQL API")
+        .option("-u.r, --use.rest", "Component uses GitHub REST API")
+        .option("-u.f, --use.fetch", "Component uses fetch API")
+        .option("-u.w, --use.webscraping", "Component uses web scraping")
+        .option("-y, --yes", "Skip confirmation")
+        .option("--dryrun", "Dryrun")
+        .arguments("<type:component> [id:string]")
+        .action(({ dryrun, yes, ...options }, type, id) => create({ type, id, ...options }, { dryrun, confirm: !yes }))
+        // Parse arguments
+        .parse(Deno.args)
+    }
+  }
 }

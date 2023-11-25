@@ -1,6 +1,6 @@
 // Imports
 import { Processor, state } from "@engine/components/processor.ts"
-import xmlFormat from "y/xml-formatter@3.5.0"
+import xmlFormat from "y/xml-formatter@3.5.0?pin=v133"
 
 /** Processor */
 export default class extends Processor {

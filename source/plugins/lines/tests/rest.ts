@@ -58,7 +58,7 @@ export default {
             },
           ],
           author: {
-            login: "octodog",
+            login: "octosquid",
             avartar_url: faker.image.avatarGitHub(),
           },
         },
