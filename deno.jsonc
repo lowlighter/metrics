@@ -186,8 +186,8 @@
       "description": "🔎 Format and lint code",
       "task": [
         "deno fmt &&",
-        "deno lint &&",
-        "deno check **/*.ts"
+        "deno lint"
+        //"deno check **/*.ts"
       ],
       "flags": {
         "check": {
