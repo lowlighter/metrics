@@ -170,7 +170,7 @@ export async function create(context: Partial<context> & Pick<context, "type">, 
   context.use = Object.fromEntries(use.map((key: string) => [key, true]))
 
   // Review
-  log.info(`\n${yaml(context)}`)
+  await writer.write(new TextEncoder().encode(`\n${yaml(context)}\n`))
   if (!confirm) {
     Confirm.inject("y")
   }
