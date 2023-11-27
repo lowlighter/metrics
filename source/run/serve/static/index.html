@@ -167,25 +167,37 @@
         <template x-if="$store.craft.state.mode === 'actions'" x-data="{current:{status:'empty', messages:'', code:''}}" x-init="$store.craft.setCompatConfig(current)">
           <section class="container mx-auto px-2 my-8">
             <h2 class="text-xl mb-4">*️⃣ Optionally convert an existing v3.x configuration to v4.x</h2>
-            <textarea name="config.compat" :placeholder="$store.craft.state.compat.placeholder" class="w-full bg-neutral-950 rounded-md px-3 py-1.5 border border-neutral-800 outline-none focus:border-sky-500 min-h-[8em]" @input="$store.craft.setCompatConfig(current); current.status = 'processing'"></textarea>
-            <div class="flex items-center mt-1 mb-4" :class="{[`text-${{valid:'green', invalid:'red', processing:'blue', empty:'zinc'}[current.status]}-600`]:true}">
-              <template x-for="icon in [current.status]">
-                <x-octicon :class="{'animate-spin':current.status === 'processing'}" :key="icon"></x-octicon>
-              </template>
-              <span class="ml-1">Configuration is <span x-text="{processing:'being processed'}[current.status] ?? current.status"></span></span>
-            </div>
-            <article class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 mb-4">
-              <div class="compat-config border border-neutral-800 rounded-md overflow-hidden bg-black p-2">
-                <pre><code class="language-yaml" x-html="current.code"></code></pre>
+            <label for="config.compat.enable" class="inline-block relative h-6 w-12 cursor-pointer mb-2">
+              <input type="checkbox" name="config.compat.enable" id="config.compat.enable" class="peer hidden" x-model="$store.craft.state.edit.compat"/>
+              <span class="absolute inset-0 rounded-full bg-neutral-700 transition peer-checked:bg-sky-500"></span>
+              <span class="absolute inset-y-0 start-0 m-1 h-4 w-4 rounded-full bg-white transition-all peer-checked:start-6"></span>
+            </label>
+            <template x-if="$store.craft.state.edit.compat">
+              <div>
+                <div class="my-2">
+                  Paste v3.x configuration <code>inputs</code> below:
+                </div>
+                <textarea name="config.compat" :placeholder="$store.craft.state.compat.placeholder" class="w-full bg-neutral-950 rounded-md px-3 py-1.5 border border-neutral-800 outline-none focus:border-sky-500 min-h-[8em]" @input="$store.craft.setCompatConfig(current); current.status = 'processing'"></textarea>
+                <div class="flex items-center mt-1 mb-6" :class="{[`text-${{valid:'green', invalid:'red', processing:'blue', empty:'zinc'}[current.status]}-600`]:true}">
+                  <template x-for="icon in [current.status]">
+                    <x-octicon :class="{'animate-spin':current.status === 'processing'}" :key="icon"></x-octicon>
+                  </template>
+                  <span class="ml-1">Configuration is <span x-text="{processing:'being processed'}[current.status] ?? current.status"></span></span>
+                </div>
+                <article class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 mb-4">
+                  <div class="compat-config border border-neutral-800 rounded-md overflow-hidden bg-black p-2">
+                    <pre><code class="language-yaml" x-html="current.code"></code></pre>
+                  </div>
+                  <div class="compat-messages border border-neutral-800 rounded-md overflow-hidden p-2" x-html="current.messages || 'Everything looks good !'"></div>
+                </article>
+                <nav class="flex gap-2 lg:mb-8">
+                  <div class="opacity-50 cursor-not-allowed bg-red-950 flex items-center rounded-md p-2 text-sm border border-transparent transition hover:bg-red-800 hover:text-sky-100">
+                    <x-octicon class="mr-1" x-data="{icon:'import'}"></x-octicon>
+                    Import configuration
+                  </div>
+                </nav>
               </div>
-              <div class="compat-messages border border-neutral-800 rounded-md overflow-hidden p-2" x-html="current.messages || 'Everything looks good !'"></div>
-            </article>
-            <nav class="flex gap-2 lg:mb-8">
-              <div class="opacity-50 cursor-not-allowed bg-red-950 flex items-center rounded-md p-2 text-sm border border-transparent transition hover:bg-red-800 hover:text-sky-100">
-                <x-octicon class="mr-1" x-data="{icon:'import'}"></x-octicon>
-                Import configuration
-              </div>
-            </nav>
+            </template>
           </section>
         </template>
 
@@ -202,12 +214,20 @@
                     <span class="text-zinc-400" x-text="`@${$store.craft.state.mode}`"></span>
                   </h3>
                 </div>
+                <nav class="flex gap-2 p-2 border-b border-neutral-800">
+                  <div @click="$store.craft.state.edit.global = !$store.craft.state.edit.global" class="bg-neutral-950 flex items-center rounded-md p-2 text-sm border cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500" :class="{'border-sky-500':$store.craft.state.edit.global, 'border-transparent':!$store.craft.state.edit.global}">
+                    <x-octicon class="mr-1" x-data="{icon:'edit'}"></x-octicon>
+                    Edit
+                  </div>
+                </nav>
                 <div class="bg-black p-2">
                   <pre><code class="language-yaml" x-html="$store.craft.getGlobalConfig()"></code></pre>
                 </div>
-                <div class="p-2 border-b border-neutral-800">
-                  <form x-html="$store.craft.state.edit.global"></form>
-                </div>
+                <template x-if="$store.craft.state.edit.global">
+                  <div class="p-2 border-b border-neutral-800">
+                    <form x-html="$store.craft.state.global.xhtml"></form>
+                  </div>
+                </template>
               </div>
             </article>
             <!-- Presets -->
@@ -236,7 +256,7 @@
                       <x-octicon class="mr-1" x-data="{icon:'edit'}"></x-octicon>
                       Edit
                     </div>
-                      <div class="opacity-50 cursor-not-allowed bg-neutral-950 flex items-center rounded-md p-2 text-sm border border-transparent transition hover:bg-neutral-800 hover:text-sky-500">
+                    <div class="opacity-50 cursor-not-allowed bg-neutral-950 flex items-center rounded-md p-2 text-sm border border-transparent transition hover:bg-neutral-800 hover:text-sky-500">
                       <x-octicon class="mr-1" x-data="{icon:'clone'}"></x-octicon>
                       Duplicate
                     </div>
@@ -611,6 +631,7 @@
                   {key:'minimum', text:`≥ ${input.minimum}`},
                   {key:'exclusiveMaximum', text:`&lt; ${input.exclusiveMaximum}`},
                   {key:'maximum', text:`≤ ${input.maximum}`},
+                  {key:'writeOnly', text:'secret'},
                 ].filter(({key}) => key in input)}" x-for="{key, text} in labels">
                   <span class="rounded-full bg-cyan-100 text-indigo-700 px-1.5 text-sm mr-1 whitespace-nowrap" :key="key"><span x-text="text"></span></span>
                 </template>

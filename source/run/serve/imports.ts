@@ -9,7 +9,7 @@ import { bundle } from "x/emit@0.31.1/mod.ts"
 import * as JSONC from "std/jsonc/parse.ts"
 
 if (import.meta.main) {
-  const log = new Logger(import.meta, { level: "trace" })
+  const log = new Logger(import.meta)
 
   // Register dynamic imports
   const base = dirname(fromFileUrl(import.meta.url))

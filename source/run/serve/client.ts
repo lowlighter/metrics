@@ -58,7 +58,8 @@ class Crafter {
   readonly state = {
     mode: "",
     edit: {
-      global: "",
+      global: false,
+      compat: false,
       preset: "",
       plugins: NaN,
       processors: NaN,
@@ -80,6 +81,9 @@ class Crafter {
       ].join("\n"),
       status: "empty",
     },
+    global: {
+      xhtml:""
+    }
   }
 
   /** Global config */
@@ -286,7 +290,7 @@ class Crafter {
     const target = event.target as HTMLInputElement
     this.state.mode = target.value
     this.global.inputs = data.modes[this.state.mode]
-    this.state.edit.global =
+    this.state.global.xhtml =
       `<x-schema-inputs x-data="{inputs:$store.craft.global.inputs, path:['@global'], trim:undefined}" x-init="$nextTick(() => $store.craft.syncValue(path, inputs))"></x-schema-inputs>`
     log.debug(`mode set to: ${this.state.mode}`)
   }

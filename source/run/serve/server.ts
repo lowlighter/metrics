@@ -36,6 +36,8 @@ export class Server extends Internal {
   /** Constructor */
   constructor(context = {} as Record<PropertyKey, unknown>) {
     super(parse(schema, context, { sync: true }))
+    if (!this.context.config.presets.default.plugins.token.read())
+      this.context.config.presets.default.plugins.token = new Secret("NO_TOKEN")
     if (this.context.github_app) {
       this.log.info(`loaded github app: ${this.context.github_app.id}`)
       this.#app = new App({

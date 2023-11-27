@@ -155,15 +155,16 @@ export async function create(context: Partial<context> & Pick<context, "type">, 
   }
   const use = await Checkbox.prompt({
     writer,
-    message: { plugin: "Supported entities", processor: "Supported formats" }[context.type],
-    hint: `This will be used to determine if the ${context.type} can be used on a given ${{ plugin: "entity", processor: "format" }[context.type]} (leave empty to support anything)`,
+    message: "Engine features",
+    hint: `Toggle engine features to enable in this ${context.type}`,
     options: [
-      Checkbox.separator("──── GitHub API ────".padEnd(36, "─")),
+      Checkbox.separator("──── Requests and web scraping APIs ────".padEnd(36, "─")),
       { name: "Use GitHub GraphQL API", value: "graphql" },
       { name: "Use GitHub REST API", value: "rest" },
-      Checkbox.separator("──── Generic API ────".padEnd(36, "─")),
       { name: "Use fetch API", value: "fetch" },
       { name: "Use web scraping", value: "webscraping" },
+      Checkbox.separator("──── Other features ────".padEnd(36, "─")),
+      { name: "Add additional documentation directory", value: "docs"}
     ],
   })
   context.use = Object.fromEntries(use.map((key: string) => [key, true]))
@@ -219,6 +220,11 @@ async function skeleton(context: context, { dryrun = false } = {}) {
       await copy(file, `${destination}/${file}`, { dryrun })
     }
   }
+  if (use.docs) {
+    for (const file of ["docs/example.md"]) {
+      await copy(file, `${destination}/${file}`, { dryrun })
+    }
+  }
 }
 
 /** Copy template from source to destination */
@@ -266,5 +272,6 @@ type context = {
     rest?: boolean
     fetch?: boolean
     webscraping?: boolean
+    docs?:boolean
   }
 }

@@ -16,7 +16,7 @@ const timezones = [...Intl.supportedValuesOf("timeZone"), "UTC"]
 const loglevel = "trace"
 
 /** Secret */
-const secret = is.union([is.unknown(), is.instanceof(Secret)]).transform((value) => value instanceof Secret ? value : new Secret(value))
+export const secret = is.union([is.unknown(), is.instanceof(Secret)]).transform((value) => value instanceof Secret ? value : new Secret(value))
 
 /** Internal component config */
 export const internal = is.object({
@@ -101,7 +101,7 @@ const _preset_plugin = is.object({
   args: _plugin.shape.args.default(() => ({})),
   logs: _plugin.shape.logs.default(loglevel),
   api: _plugin.shape.api.default("https://api.github.com"),
-  token: _plugin.shape.token.default(() => env.get("METRICS_GITHUB_TOKEN")),
+  token: _plugin.shape.token.default(() => env.get("METRICS_GITHUB_TOKEN")).describe("GitHub token (placeholder: `METRICS_GITHUB_TOKEN`)"),
   handle: _plugin.shape.handle.default(null),
   entity: _plugin.shape.entity.default("user"),
   template: _plugin.shape.template.default("classic"),
@@ -217,7 +217,7 @@ export const server = cli.extend({
     id: is.number().int().positive().describe("GitHub app identifier"),
     private_key_path: is.string().describe("Path to GitHub app private key file (must be in PKCS#8 format) (placeholder: `.secrets/github-app-private-key-pk8s.pem`)"),
     client_id: is.string().describe("GitHub app client identifier (placeholder: `Iv1.c533685fd0d2d002`)"),
-    client_secret: secret.default(() => env.get("METRICS_GITHUB_APP_SECRET")).describe("GitHub app client secret"),
+    client_secret: secret.default(() => env.get("METRICS_GITHUB_APP_SECRET")).describe("GitHub app client secret (placeholder: `METRICS_GITHUB_APP_SECRET`)"),
   }).nullable().default(null).describe("GitHub app settings"),
 })
 
