@@ -1,7 +1,7 @@
 // Imports
 /// <reference lib="dom" />
 import Alpine from "y/alpinejs@3.13.0?pin=v133"
-import * as YAML from "std/yaml/mod.ts"
+import * as YAML from "std/yaml/parse.ts"
 import type { webrequest } from "@engine/config.ts"
 import { is } from "@engine/utils/validation.ts"
 import { Logger } from "@engine/utils/log.ts"
@@ -9,12 +9,17 @@ import { debounce, DebouncedFunction } from "std/async/debounce.ts"
 import { markdown } from "@engine/utils/markdown.ts"
 import { highlight } from "@engine/utils/language.ts"
 import { compat } from "@run/compat/mod.ts"
-const log = new Logger(import.meta, { level: "trace" })
+import { yaml } from "@run/compat/report.ts"
+const dev = false // TODO(#1575)
+const log = new Logger(import.meta, { level: dev ? "trace" : "warn" })
 
 // Alpine components
+log.info("registering alpine components")
 document.querySelectorAll("[x-component]").forEach((component) => {
+  const name = `x-${component.getAttribute("x-component")}`
+  log.trace(`registering component: ${name}`)
   customElements.define(
-    `x-${component.getAttribute("x-component")}`,
+    name,
     class extends HTMLElement {
       connectedCallback() {
         this.append((component as unknown as { content: { cloneNode(deep?: boolean): Node } }).content.cloneNode(true))
@@ -26,70 +31,104 @@ document.querySelectorAll("[x-component]").forEach((component) => {
   )
 })
 
-/** Menu */
-const menu = {
-  header: {
-    user: false,
-    collapse: true,
-  },
-}
-
-// Fetch data
-const data = await fetch("/metadata").then((response) => response.json())
-data.user = await fetch("/me").then((response) => response.json())
-data.ratelimit = await fetch("/ratelimit").then((response) => response.json())
-data.dev = false // TODO(#1575)
-
-// deno-lint-ignore no-explicit-any
-type Any = any
-
-/** Web request */
-type request = is.infer<typeof webrequest>
-
-/** Plugin */
-type plugin = request["plugins"][0]
-
-/** Processor */
-type processor = NonNullable<plugin["processors"]>[0]
-
 /** Configuration crafter */
-class Crafter {
+class App {
+  /** Constructor */
+  constructor() {
+    this.init()
+  }
+
+  /** Initialize app */
+  private async init() {
+    log.info("fetching data")
+    Object.assign(this.data, await fetch("/metadata").then((response) => response.json()))
+    await Promise.all([
+      fetch("/me").then((response) => this.data.user = response.json()),
+      fetch("/ratelimit").then((response) => this.data.ratelimit = response.json()),
+    ])
+    this.data.dev = dev
+    const partial = structuredClone(this.data.presets.schema) as any
+    delete partial.properties.plugins.properties.args
+    delete partial.properties.plugins.properties.processors
+    delete partial.properties.processors.properties.args
+    this.data.presets.plugins = partial.properties.plugins
+    this.data.presets.processors = partial.properties.processors
+    log.info("starting alpine")
+    Alpine.data("data", () => this.data)
+    Alpine.store("app", this)
+    Alpine.start()
+  }
+
+  /** Data */
+  readonly data = {} as Record<string, unknown>
+
   /** State */
   readonly state = {
+    // Mode: "web", "actions" or "server"
     mode: "",
+    // Edit status
     edit: {
+      // Is editing global config ?
       global: false,
+      // Is editing compat config ?
       compat: false,
+      // Currently edited preset
       preset: "",
+      // Currently edited plugin index
       plugins: NaN,
+      // Currently edited processor index
       processors: NaN,
     },
+    // Expand status
     expand: {
+      // Plugins expansion
+      plugins: {
+        // Expand plugins list
+        list: true
+      },
+      // Currently expanded preset
       preset: "",
-      plugins: true,
+      // Currently expanded plugin index
       processors: NaN,
     },
+    // Cached status
     cached: {
+      // Cached inputs (these are mapped to inputs but not yet stored in config)
       inputs: {} as Record<PropertyKey, unknown>,
     },
+    // Compat status
     compat: {
+      // Compat config textarea placeholder
       placeholder: [
         "token: ${{ github.token }}",
         "config_timezone: Europe/Paris",
         "plugin_isocalendar: yes",
         "plugin_isocalendar_duration: full-year",
       ].join("\n"),
+      // Compat config status
       status: "empty",
     },
+    // Global status
     global: {
+      // Inputs for current mode
+      inputs: {},
+      // Generated html
       xhtml:""
+    },
+    // Menu status
+    menu: {
+      // Header menu
+      header: {
+        // Is user menu open ?
+        user: false,
+        // Is mobile menu collapsed ?
+        collapse: true,
+      },
     }
   }
 
-  /** Global config */
-  readonly global = {
-    inputs: {},
-  }
+  /** Compat config */
+  readonly compat = {}
 
   /** Config */
   readonly config = {
@@ -106,9 +145,6 @@ class Crafter {
     },
   }
 
-  /** Compat config */
-  readonly compat = {} as Any
-
   /** Render markdown */
   markdown(text: string) {
     return markdown(text, { sanitize: false })
@@ -119,7 +155,17 @@ class Crafter {
     return path.filter((key) => !`${key}`.includes("@")).map((key) => typeof key === "number" ? `[${key}]` : `.${key}`).join("").replace(/^\./, "").replace(trim, "")
   }
 
-  /** Copy to clipboard */
+  /** Set mode */
+  setMode(event: Event) {
+    const target = event.target as HTMLInputElement
+    this.state.mode = target.value
+    this.state.global.inputs = (this.data.modes as Record<string, Record<string, unknown>>)[this.state.mode]
+    this.state.global.xhtml =
+      `<x-schema-inputs x-data="{inputs:$store.app.state.global.inputs, path:['@global'], trim:undefined}" x-init="$nextTick(() => $store.app.syncValue(path, inputs))"></x-schema-inputs>`
+    log.debug(`mode set to: ${this.state.mode}`)
+  }
+
+  /** Copy content inner text to clipboard */
   async copyToClipboard(event: MouseEvent) {
     // Print message
     const { clientX: x, clientY: y } = event
@@ -149,7 +195,7 @@ class Crafter {
   addPlugin({ plugin }: { plugin: plugin }) {
     log.debug(`plugins: add "${plugin.id}"`)
     this.config.plugins.push({ ...plugin, args: {}, processors: [], debounce: null as null | DebouncedFunction<[]> })
-    this.state.expand.plugins = false
+    this.state.expand.plugins.list = false
     this.state.edit.plugins = this.config.plugins.length - 1
   }
 
@@ -157,7 +203,7 @@ class Crafter {
   removePlugin({ plugin }: { plugin: number }) {
     log.debug(`plugins: remove "${this.config.plugins[plugin].id}" (at index ${plugin})`)
     this.config.plugins.splice(plugin, 1)
-    this.state.expand.plugins = this.config.plugins.length === 0
+    this.state.expand.plugins.list = this.config.plugins.length === 0
     this.state.edit.plugins = NaN
   }
 
@@ -199,6 +245,7 @@ class Crafter {
     if (!textarea?.value) {
       state.status = "empty"
       state.code = highlight("yaml", "# Transpiled configuration will appear here").code
+      state.messages = ""
     } else {
       try {
         const value = YAML.parse(textarea.value)
@@ -209,24 +256,30 @@ class Crafter {
         const config = await compat(value as Record<PropertyKey, unknown>, { log: null, use: { requests: false } })
         Object.assign(this.compat, config.content)
         state.messages = await config.report.html()
-        state.code = highlight("yaml", YAML.stringify(this.compat)).code
-      } catch {
+        state.code = highlight("yaml", yaml(this.compat, {colors:false})).code
+      } catch (error) {
+        log.warn(`${error}`)
         state.status = "invalid"
       }
     }
   }
 
   /** Set compat config */
-  readonly setCompatConfig = debounce((options: Parameters<typeof this._setCompatConfig>[0]) => this._setCompatConfig(options), 5000)
+  readonly setCompatConfig = debounce((options: Parameters<typeof this._setCompatConfig>[0]) => this._setCompatConfig(options), 1500)
 
-  /** Get global mode config */
+  /** Import an existing compat config */
+  importCompatConfig() {
+    console.log(this.compat)
+  }
+
+  /** Get global config */
   getGlobalConfig(options: { output?: "yaml" | "json" }): string
   getGlobalConfig(options: { output: "object" }): Record<PropertyKey, unknown>
   getGlobalConfig({ output = "yaml" }: { output?: "yaml" | "json" | "object" } = {}): string | Record<PropertyKey, unknown> {
-    const { inputs: _, ...global } = this.global
+    const { inputs: _, xhtml:__, ...global } = this.state.global
     switch (output) {
       case "yaml":
-        return highlight("yaml", YAML.stringify(global)).code
+        return highlight("yaml", yaml(global, {colors:false})).code
       case "json":
         return JSON.stringify(global)
       case "object":
@@ -241,7 +294,7 @@ class Crafter {
     const preset = this.config.presets[name as keyof typeof this.config.presets] ?? {}
     switch (output) {
       case "yaml":
-        return highlight("yaml", YAML.stringify(preset)).code
+        return highlight("yaml", yaml(preset, {colors:false})).code
       case "json":
         return JSON.stringify(preset)
       case "object":
@@ -253,12 +306,12 @@ class Crafter {
   getPluginConfig(options: { plugin: number; output?: "yaml" | "json" }): string
   getPluginConfig(options: { plugin: number; output: "object" }): plugin
   getPluginConfig({ plugin: i, output = "yaml" }: { plugin: number; output?: "yaml" | "json" | "object" }): string | plugin {
-    const { id, args, ...plugin } = this.config.plugins[i]
+    const { id, args, ...plugin } = this.config.plugins[i] ?? {}
     const processors = (plugin.processors as processor[]).map(({ id, args }) => ({ [id!]: args }))
     const local = { ...(id ? { [id]: args } : {}), ...(processors.length ? { processors } : {}) }
     switch (output) {
       case "yaml":
-        return highlight("yaml", YAML.stringify([local] as unknown as Record<PropertyKey, unknown>)).code
+        return highlight("yaml", yaml([local] as unknown as Record<PropertyKey, unknown>, {colors:false})).code
       case "json":
         return JSON.stringify([local])
       case "object":
@@ -266,7 +319,7 @@ class Crafter {
     }
   }
 
-  /** Get full configuration */
+  /** Get full config */
   getFullConfig() {
     switch (this.state.mode) {
       case "web": {
@@ -280,23 +333,13 @@ class Crafter {
       default: {
         const { presets } = this.config
         const plugins = this.config.plugins.map((_, plugin) => this.getPluginConfig({ plugin, output: "object" }))
-        return highlight("yaml", YAML.stringify({ ...this.getGlobalConfig({ output: "object" }), config: { plugins, presets } })).code
+        return highlight("yaml", yaml({ ...this.getGlobalConfig({ output: "object" }), config: { plugins, presets } }, {colors:false})).code
       }
     }
   }
 
-  /** Set crafter mode */
-  setMode(event: Event) {
-    const target = event.target as HTMLInputElement
-    this.state.mode = target.value
-    this.global.inputs = data.modes[this.state.mode]
-    this.state.global.xhtml =
-      `<x-schema-inputs x-data="{inputs:$store.craft.global.inputs, path:['@global'], trim:undefined}" x-init="$nextTick(() => $store.craft.syncValue(path, inputs))"></x-schema-inputs>`
-    log.debug(`mode set to: ${this.state.mode}`)
-  }
-
   /** Set default value */
-  syncValue(path: Array<string | number>, inputs: Any) {
+  syncValue(path: Array<string | number>, inputs: any) {
     log.probe(`syncing: ${this.formatKeyPath(path)}`)
     const subpath = path.join(".")
     switch (true) {
@@ -312,7 +355,7 @@ class Crafter {
           break
         }
         input.checked = inputs.default
-        this.setValue(path, { target: input } as Any)
+        this.setValue(path, { target: input } as unknown as Event)
         break
       }
       case inputs.type === "integer":
@@ -323,7 +366,7 @@ class Crafter {
           break
         }
         input.value = inputs.default ?? ""
-        this.setValue(path, { target: input } as Any)
+        this.setValue(path, { target: input } as unknown as Event)
         break
       }
       case ("anyOf" in inputs) && (inputs.anyOf.every((item: Record<PropertyKey, unknown>) => item.const)): {
@@ -332,15 +375,12 @@ class Crafter {
           break
         }
         input.checked = true
-        this.setValue(path, { target: input } as Any)
-        break
-      }
-      case ("anyOf" in inputs): {
-        console.log("If you see this message, please implement me !", subpath, inputs)
+        this.setValue(path, { target: input } as unknown as Event)
         break
       }
       default:
-        console.log("If you see this message, please implement me !", subpath, inputs)
+        log.error(`If you see this message, please implement me: ${subpath}`)
+        log.error(inputs)
     }
   }
 
@@ -388,7 +428,7 @@ class Crafter {
     }
 
     // Update config value
-    let object = ({ "@global": this.global }[path[0]] ?? this.config) as Record<PropertyKey, unknown>
+    let object = ({ "@global": this.state.global }[path[0]] ?? this.config) as Record<PropertyKey, unknown>
     const keys = path.filter((key) => !`${key}`.includes("@"))
     for (let i = 0; i < keys.length - 1; i++) {
       const key = keys[i]
@@ -413,7 +453,14 @@ class Crafter {
   }
 }
 
-Alpine.data("data", () => data)
-Alpine.store("menu", menu)
-Alpine.store("craft", new Crafter())
-Alpine.start()
+// Initialize app
+new App()
+
+/** Web request */
+type request = is.infer<typeof webrequest>
+
+/** Plugin */
+type plugin = request["plugins"][0]
+
+/** Processor */
+type processor = NonNullable<plugin["processors"]>[0]

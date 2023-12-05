@@ -29,7 +29,7 @@ export default class extends Plugin {
   /** Inputs */
   readonly inputs = is.object({
     version: is.string().regex(/^v3\.[0-9]{1,2}$/).default("v3.34").describe("Metrics version (v3.x)"),
-    inputs: is.record(is.unknown()).default(() => ({})).describe("Plugin inputs (as described from respective `action.yml`). Some core options are not supported and will have no effect"),
+    inputs: is.record(is.string(), is.unknown()).default(() => ({})).describe("Plugin inputs (as described from respective `action.yml`). Some core options are not supported and will have no effect"),
   })
 
   /** Outputs */

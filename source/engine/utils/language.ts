@@ -14,7 +14,7 @@ hljs.registerAliases(["html", "ejs"], { languageName: "xml" })
 hljs.registerLanguage("yaml", hljsYAML)
 
 /** Language cache */
-export const cache = await load("languages.yml") as Record<string, { ace_mode: string; extensions?: string[]; interpreters?: string[] }>
+export const cache = await load("languages.yml").catch(() => ({})) as Record<string, { ace_mode: string; extensions?: string[]; interpreters?: string[] }>
 
 /** Language guesser */
 // TODO(@lowlighter): to implement

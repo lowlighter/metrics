@@ -2,6 +2,7 @@
 import { bgWhite, black, brightGreen, brightRed, brightYellow, cyan, gray, stripAnsiCode, white, yellow } from "std/fmt/colors.ts"
 import * as YAML from "std/yaml/stringify.ts"
 import { markdown } from "@engine/utils/markdown.ts"
+import { Secret } from "@engine/utils/secret.ts"
 
 /** Compatibility report */
 export class Report {
@@ -64,12 +65,12 @@ export class Report {
 }
 
 /** YAML formatter for console */
-export function yaml(content: Record<PropertyKey, unknown>, { inline = false } = {}) {
+export function yaml(content: Record<PropertyKey, unknown>, { inline = false, colors = true } = {}) {
   const regex = {
     kv: /^(?<indent>\s*)(?<array>\-\s+)?'?(?<key>\w[.\w-]*)'?(?:(?<kv>:)(?<value>\s.+)?)?$/,
   }
   const lines = []
-  for (const line of YAML.stringify(content, { skipInvalid: true, flowLevel: inline ? 1 : -1 }).split("\n")) {
+  for (const line of YAML.stringify(copy(content) as Record<PropertyKey, unknown>, { skipInvalid: true, flowLevel: inline ? 1 : -1 }).split("\n")) {
     if (regex.kv.test(line)) {
       let { indent, array = "", kv, key, value } = line.match(regex.kv)!.groups!
       let color = white
@@ -101,5 +102,19 @@ export function yaml(content: Record<PropertyKey, unknown>, { inline = false } =
     }
     lines.push(line)
   }
-  return lines.join("\n")
+  const result = lines.join("\n")
+  if (!colors)
+    return stripAnsiCode(result)
+  return result
+}
+
+/** Copy record while cleaning out secrets */
+function copy(value:unknown):unknown {
+  if (value instanceof Secret)
+    return "${{ github.token }}"
+  if (Array.isArray(value))
+    return value.map(copy)
+  if ((value)&&(typeof value === "object"))
+    return Object.fromEntries(Object.entries(value).map(([key, value]) => [key, copy(value)]))
+  return value
 }

@@ -190,7 +190,7 @@ export async function compat(
   }
 
   // Markdown
-  if (inputs.markdown) {
+  if ((inputs.markdown)&&(inputs.config_output.includes("markdown"))) {
     // TODO(#1574)
     // markdown
     // markdown_cache
@@ -1009,6 +1009,7 @@ export async function compat(
   // Print report and config
   if (config.patched) {
     config.report.warning("Your configuration has been patched to be compatible with v4. Note however that the final result may differ from previous versions, please review the following changes:")
+    config.report.messages.unshift(config.report.messages.pop()!)
   }
   log?.(config.report.console())
   log?.(yaml(config.content))

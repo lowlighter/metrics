@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Metrics</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="An image generator with 20+ metrics about your GitHub account such as activity, community, repositories, coding habits, website performances, music played, starred topics, etc. that you can put on your profile or elsewhere !">
+    <meta name="description" content="An infographics generator with 30+ plugins and 300+ options to display stats about your GitHub account and render them as SVG, Markdown, PDF or JSON!">
     <meta name="author" content="lowlighter">
     <meta property="og:image" content="/static/opengraph.png">
     <link rel="icon" href="/static/favicon.png">
@@ -31,12 +31,12 @@
               <template x-if="user?.login">
                 <div class="relative">
                   <!-- User profile -->
-                  <div class="h-full px-2 flex items-center rounded-md cursor-pointer transition hover:bg-neutral-950" :class="{'bg-neutral-950':$store.menu.header.user}" @click="$store.menu.header.user = !$store.menu.header.user">
+                  <div class="h-full px-2 flex items-center rounded-md cursor-pointer transition hover:bg-neutral-950" :class="{'bg-neutral-950':$store.app.state.menu.header.user}" @click="$store.app.state.menu.header.user = !$store.app.state.menu.header.user">
                     <img :src="user.avatar" class="h-8 w-8 rounded-full object-cover mr-2">
                     <span class="font-bold" x-text="user.login"></span>
                   </div>
                   <!-- User menu actions -->
-                  <template x-if="$store.menu.header.user">
+                  <template x-if="$store.app.state.menu.header.user">
                     <div class="w-56 absolute end-0 mt-1 rounded-md border border-neutral-800 bg-neutral-900 shadow-lg">
                       <div class="p-2">
                         <a href="/login/review" class="flex items-center rounded-md px-5 py-2.5 transition hover:bg-neutral-950">
@@ -70,7 +70,7 @@
             </div>
             <!-- TODO(#1572) -->
             <!-- Mobile menu -->
-            <button class="opacity-0 md:hidden bg-neutral-950 block rounded-md p-2.5 transition hover:bg-neutral-800" @click="$store.menu.header.collapse = !$store.menu.header.collapse">
+            <button class="opacity-0 md:hidden bg-neutral-950 block rounded-md p-2.5 transition hover:bg-neutral-800" @click="$store.app.state.menu.header.collapse = !$store.app.state.menu.header.collapse">
               <x-octicon class="h-5 w-5" x-data="{icon:'menu'}"></x-octicon>
             </button>
           </div>
@@ -88,7 +88,7 @@
               Share them anywhere!
             </p>
           </div>
-          <template x-if="!dev">
+          <template x-if="false">
             <div class="absolute top-0 right-0 w-2/4 flex gap-2 origin-center -z-10 opacity-75" style="transform: rotateX(50deg) rotateZ(40deg) translate(-25%, -25%); transform-style: preserve-3d;" x-data="{imgs:[
               '/octocat?mock=true&plugins=[{calendar:{view:isometric}}]',
               '/octocat?mock=true&plugins=[{rss:{feed:https://news.ycombinator.com/rss}}]',
@@ -149,7 +149,7 @@
                 {value:'server', name:'Deploy', description:'Create a configuration file for self-hosted solutions'},
               ]}" x-for="{value, name, description} in modes">
                 <div :key="value">
-                  <input type="radio" name="state.mode" :id="`state.mode@${value}`" :value="value" class="peer hidden" @input="$store.craft.setMode($event)"/>
+                  <input type="radio" name="state.mode" :id="`state.mode@${value}`" :value="value" class="peer hidden" @input="$store.app.setMode($event)"/>
                   <label :for="`state.mode@${value}`" class="block bg-neutral-900 border border-neutral-800 rounded-md px-5 py-2.5 cursor-pointer transition hover:bg-neutral-800 peer-checked:border-sky-500">
                     <div class="flex items-center text-sky-500">
                       <x-octicon x-data="{icon:value}"></x-octicon>
@@ -164,20 +164,20 @@
         </template>
 
         <!-- Compatibility migration helper -->
-        <template x-if="$store.craft.state.mode === 'actions'" x-data="{current:{status:'empty', messages:'', code:''}}" x-init="$store.craft.setCompatConfig(current)">
+        <template x-if="$store.app.state.mode === 'actions'" x-data="{current:{status:'empty', messages:'', code:''}}" x-init="$store.app.setCompatConfig(current)">
           <section class="container mx-auto px-2 my-8">
             <h2 class="text-xl mb-4">*️⃣ Optionally convert an existing v3.x configuration to v4.x</h2>
             <label for="config.compat.enable" class="inline-block relative h-6 w-12 cursor-pointer mb-2">
-              <input type="checkbox" name="config.compat.enable" id="config.compat.enable" class="peer hidden" x-model="$store.craft.state.edit.compat"/>
+              <input type="checkbox" name="config.compat.enable" id="config.compat.enable" class="peer hidden" x-model="$store.app.state.edit.compat"/>
               <span class="absolute inset-0 rounded-full bg-neutral-700 transition peer-checked:bg-sky-500"></span>
               <span class="absolute inset-y-0 start-0 m-1 h-4 w-4 rounded-full bg-white transition-all peer-checked:start-6"></span>
             </label>
-            <template x-if="$store.craft.state.edit.compat">
+            <template x-if="$store.app.state.edit.compat">
               <div>
                 <div class="my-2">
                   Paste v3.x configuration <code>inputs</code> below:
                 </div>
-                <textarea name="config.compat" :placeholder="$store.craft.state.compat.placeholder" class="w-full bg-neutral-950 rounded-md px-3 py-1.5 border border-neutral-800 outline-none focus:border-sky-500 min-h-[8em]" @input="$store.craft.setCompatConfig(current); current.status = 'processing'"></textarea>
+                <textarea name="config.compat" :placeholder="$store.app.state.compat.placeholder" class="w-full bg-neutral-950 rounded-md px-3 py-1.5 border border-neutral-800 outline-none focus:border-sky-500 min-h-[8em]" @input="$store.app.setCompatConfig(current); current.status = 'processing'"></textarea>
                 <div class="flex items-center mt-1 mb-6" :class="{[`text-${{valid:'green', invalid:'red', processing:'blue', empty:'zinc'}[current.status]}-600`]:true}">
                   <template x-for="icon in [current.status]">
                     <x-octicon :class="{'animate-spin':current.status === 'processing'}" :key="icon"></x-octicon>
@@ -186,12 +186,12 @@
                 </div>
                 <article class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 mb-4">
                   <div class="compat-config border border-neutral-800 rounded-md overflow-hidden bg-black p-2">
-                    <pre><code class="language-yaml" x-html="current.code"></code></pre>
+                    <pre class="h-full overflow-auto"><code class="language-yaml" x-html="current.code"></code></pre>
                   </div>
                   <div class="compat-messages border border-neutral-800 rounded-md overflow-hidden p-2" x-html="current.messages || 'Everything looks good !'"></div>
                 </article>
                 <nav class="flex gap-2 lg:mb-8">
-                  <div class="opacity-50 cursor-not-allowed bg-red-950 flex items-center rounded-md p-2 text-sm border border-transparent transition hover:bg-red-800 hover:text-sky-100">
+                  <div class="bg-red-950 flex items-center rounded-md p-2 text-sm border border-transparent transition hover:bg-red-800 hover:text-sky-100" :class="{'cursor-not-allowed opacity-50':current.status !== 'valid', 'cursor-pointer':current.status === 'valid'}" @click="$store.app.importCompatConfig()">
                     <x-octicon class="mr-1" x-data="{icon:'import'}"></x-octicon>
                     Import configuration
                   </div>
@@ -202,30 +202,30 @@
         </template>
 
         <!-- Global settings and presets -->
-        <template x-if="$store.craft.state.mode">
+        <template x-if="$store.app.state.mode">
           <section class="container mx-auto px-2 my-8">
             <h2 class="text-2xl mb-4">2️⃣ Configure global settings</h2>
             <!-- Global settings -->
-            <article :key="$store.craft.state.mode">
+            <article :key="$store.app.state.mode">
               <div class="bg-neutral-900 border border-neutral-800 rounded-md">
                 <div class="bg-neutral-950 p-2 border-b border-neutral-800 rounded-t-md">
                   <h3 class="text-lg flex justify-between">
                     <span>⚙️ Global configuration</span>
-                    <span class="text-zinc-400" x-text="`@${$store.craft.state.mode}`"></span>
+                    <span class="text-zinc-400" x-text="`@${$store.app.state.mode}`"></span>
                   </h3>
                 </div>
                 <nav class="flex gap-2 p-2 border-b border-neutral-800">
-                  <div @click="$store.craft.state.edit.global = !$store.craft.state.edit.global" class="bg-neutral-950 flex items-center rounded-md p-2 text-sm border cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500" :class="{'border-sky-500':$store.craft.state.edit.global, 'border-transparent':!$store.craft.state.edit.global}">
+                  <div @click="$store.app.state.edit.global = !$store.app.state.edit.global" class="bg-neutral-950 flex items-center rounded-md p-2 text-sm border cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500" :class="{'border-sky-500':$store.app.state.edit.global, 'border-transparent':!$store.app.state.edit.global}">
                     <x-octicon class="mr-1" x-data="{icon:'edit'}"></x-octicon>
                     Edit
                   </div>
                 </nav>
                 <div class="bg-black p-2">
-                  <pre><code class="language-yaml" x-html="$store.craft.getGlobalConfig()"></code></pre>
+                  <pre><code class="language-yaml" x-html="$store.app.getGlobalConfig()"></code></pre>
                 </div>
-                <template x-if="$store.craft.state.edit.global">
+                <template x-if="$store.app.state.edit.global">
                   <div class="p-2 border-b border-neutral-800">
-                    <form x-html="$store.craft.state.global.xhtml"></form>
+                    <form x-html="$store.app.state.global.xhtml"></form>
                   </div>
                 </template>
               </div>
@@ -239,8 +239,8 @@
                   </h3>
                 </div>
                 <nav class="flex gap-2 p-2 border-b border-neutral-800">
-                  <template x-for="(_, preset) in $store.craft.config.presets">
-                    <div @click="$store.craft.state.expand.preset = $store.craft.state.expand.preset === preset ? ($store.craft.state.edit.preset = '') : preset" class="bg-neutral-950 flex items-center rounded-md p-2 text-sm border cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500" :class="{'border-sky-500':($store.craft.state.expand.preset === preset), 'border-transparent':!($store.craft.state.expand.preset === preset)}">
+                  <template x-for="(_, preset) in $store.app.config.presets">
+                    <div @click="$store.app.state.expand.preset = $store.app.state.expand.preset === preset ? ($store.app.state.edit.preset = '') : preset" class="bg-neutral-950 flex items-center rounded-md p-2 text-sm border cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500" :class="{'border-sky-500':($store.app.state.expand.preset === preset), 'border-transparent':!($store.app.state.expand.preset === preset)}">
                       <x-octicon class="mr-1" x-data="{icon:'preset'}"></x-octicon>
                       <span x-text="`${preset.charAt(0).toLocaleUpperCase()}${preset.slice(1)}`"></span>
                     </div>
@@ -250,9 +250,9 @@
                     Create a new preset
                   </div>
                 </nav>
-                <template x-if="$store.craft.state.expand.preset">
+                <template x-if="$store.app.state.expand.preset">
                   <nav class="flex gap-2 p-2 border-b border-neutral-800">
-                    <div @click="$store.craft.state.edit.preset = $store.craft.state.edit.preset === $store.craft.state.expand.preset ? '' : $store.craft.state.expand.preset" class="bg-neutral-950 flex items-center rounded-md p-2 text-sm border cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500" :class="{'border-sky-500':($store.craft.state.edit.preset === $store.craft.state.expand.preset), 'border-transparent':!($store.craft.state.edit.preset === $store.craft.state.expand.preset)}">
+                    <div @click="$store.app.state.edit.preset = $store.app.state.edit.preset === $store.app.state.expand.preset ? '' : $store.app.state.expand.preset" class="bg-neutral-950 flex items-center rounded-md p-2 text-sm border cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500" :class="{'border-sky-500':($store.app.state.edit.preset === $store.app.state.expand.preset), 'border-transparent':!($store.app.state.edit.preset === $store.app.state.expand.preset)}">
                       <x-octicon class="mr-1" x-data="{icon:'edit'}"></x-octicon>
                       Edit
                     </div>
@@ -266,30 +266,29 @@
                     </div>
                   </nav>
                 </template>
-                <template x-if="$store.craft.state.expand.preset">
+                <template x-if="$store.app.state.expand.preset">
                   <div class="bg-black p-2">
-                    <pre><code class="language-yaml" x-html="$store.craft.getPresetConfig($store.craft.state.expand.preset)"></code></pre>
+                    <pre><code class="language-yaml" x-html="$store.app.getPresetConfig($store.app.state.expand.preset)"></code></pre>
                   </div>
                 </template>
-                <template x-if="$store.craft.state.edit.preset">
+                <template x-if="$store.app.state.edit.preset">
                   <div class="p-2 border-b border-neutral-800">
                     <form>
-                      <x-schema-inputs x-data="{inputs:presets.schema, path:['presets', $store.craft.state.edit.preset], trim:/^presets\./}" x-init="$nextTick(() => $store.craft.syncValue(path, inputs))"></x-schema-inputs>
+                      <x-schema-inputs x-data="{inputs:presets.schema, path:['presets', $store.app.state.edit.preset], trim:/^presets\./}" x-init="$nextTick(() => $store.app.syncValue(path, inputs))"></x-schema-inputs>
                     </form>
                   </div>
                 </template>
               </div>
             </article>
-
           </section>
         </template>
 
         <!-- Plugins and processors settings -->
-        <template x-if="$store.craft.state.mode">
+        <template x-if="$store.app.state.mode">
           <section class="container mx-auto px-2 my-8">
             <h2 class="text-2xl mb-4">3️⃣ Configure plugins and processors</h2>
             <!-- Plugins -->
-            <template x-for="(plugin, i) of $store.craft.config.plugins">
+            <template x-for="(plugin, i) of $store.app.config.plugins">
               <article :data-plugin="i" :key="i" class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 mb-4 lg:mb-8">
                 <div class="bg-neutral-900 border border-neutral-800 rounded-md overflow-hidden">
                   <div class="bg-neutral-950 p-2 border-b border-neutral-800 rounded-t-md">
@@ -300,7 +299,7 @@
                         <x-octicon class="ml-1.5 cursor-not-allowed opacity-50" x-data="{icon:'drag'}"></x-octicon>
                       </div>
                     </h3>
-                    <h4 x-html="await $store.craft.markdown(plugin.description)" class="text-zinc-400"></h4>
+                    <h4 x-html="await $store.app.markdown(plugin.description)" class="text-zinc-400"></h4>
                     <h4>
                       <template x-for="{type, value} of [...(plugin.supports.length ? plugin.supports : ['user', 'organization', 'repository']).map(type => ({type})), ...plugin.scopes.map(scope => ({type:'scope', value:scope})), ...plugin.permissions.map(permission => ({type:'permission', value:permission}))]">
                         <div class="inline-flex items-center rounded-full overflow-hidden bg-zinc-600 text-sm mt-1 mr-1" :key="value">
@@ -316,11 +315,11 @@
                     </h4>
                   </div>
                   <nav class="flex gap-2 p-2 border-b border-neutral-800">
-                    <div @click="$store.craft.state.edit.plugins = $store.craft.state.edit.plugins === i ? ($store.craft.state.edit.processors = NaN) : i" class="bg-neutral-950 flex items-center rounded-md p-2 text-sm border cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500" :class="{'border-sky-500':($store.craft.state.edit.plugins === i), 'border-transparent':!($store.craft.state.edit.plugins === i)}">
+                    <div @click="$store.app.state.edit.plugins = $store.app.state.edit.plugins === i ? ($store.app.state.edit.processors = NaN) : i" class="bg-neutral-950 flex items-center rounded-md p-2 text-sm border cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500" :class="{'border-sky-500':($store.app.state.edit.plugins === i), 'border-transparent':!($store.app.state.edit.plugins === i)}">
                       <x-octicon class="mr-1" x-data="{icon:'edit'}"></x-octicon>
                       Edit
                     </div>
-                    <div @click="$store.craft.renderPlugin({plugin:i})" class="bg-neutral-950 flex items-center rounded-md p-2 text-sm border border-transparent cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500">
+                    <div @click="$store.app.renderPlugin({plugin:i})" class="bg-neutral-950 flex items-center rounded-md p-2 text-sm border border-transparent cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500">
                       <x-octicon class="mr-1" x-data="{icon:'render'}"></x-octicon>
                       Render
                     </div>
@@ -328,38 +327,64 @@
                       <x-octicon class="mr-1" x-data="{icon:'clone'}"></x-octicon>
                       Duplicate
                     </div>
-                    <div @click="$store.craft.removePlugin({plugin:i})" class="bg-red-950 flex items-center rounded-md p-2 text-sm border border-transparent cursor-pointer transition hover:bg-red-800 hover:text-sky-100">
+                    <div @click="$store.app.removePlugin({plugin:i})" class="bg-red-950 flex items-center rounded-md p-2 text-sm border border-transparent cursor-pointer transition hover:bg-red-800 hover:text-sky-100">
                       <x-octicon class="mr-1" x-data="{icon:'remove'}"></x-octicon>
                       Remove
                     </div>
                   </nav>
                   <div class="bg-black p-2">
-                    <pre><code class="language-yaml" x-html="$store.craft.getPluginConfig({plugin:i})"></code></pre>
+                    <pre><code class="language-yaml" x-html="$store.app.getPluginConfig({plugin:i})"></code></pre>
                   </div>
                   <template x-if="plugin.docs.length">
-                    <div class="p-2 border-b border-neutral-800" :class="{hidden:!($store.craft.state.edit.plugins === i)}">
+                    <div class="p-2 border-b border-neutral-800" :class="{hidden:!($store.app.state.edit.plugins === i)}">
                       <div class="font-bold">Documentations</div>
                       <template x-for="{title, type, content} in plugin.docs">
                         <details class="group rounded-md mt-1 overflow-hidden" :class="{[{warning:'bg-yellow-950'}[type] ?? 'bg-neutral-950']:true}">
                           <summary class="flex items-center p-2 cursor-pointer rounded-t-md border border-transparent transition hover:bg-neutral-800 hover:text-sky-500 group-open:border-sky-500">
                             <x-octicon class="mr-1.5" x-data="{icon:'docs'}"></x-octicon>
-                            <span x-html="await $store.craft.markdown(title)"></span>
+                            <span x-html="await $store.app.markdown(title)"></span>
                           </summary>
-                          <div class="markdown bg-black p-2" x-html="await $store.craft.markdown(content)"></div>
+                          <div class="markdown bg-black p-2" x-html="await $store.app.markdown(content)"></div>
                         </details>
                       </template>
                     </div>
                   </template>
-                  <div class="p-2 border-b border-neutral-800" :class="{hidden:!($store.craft.state.edit.plugins === i)}">
+                  <div class="p-2 border-b border-neutral-800" :class="{hidden:!($store.app.state.edit.plugins === i)}">
                     <div class="font-bold">Arguments</div>
                     <template x-if="Object.keys(plugin.inputs.properties).length">
                       <form>
-                        <x-schema-inputs x-data="{inputs:plugin.inputs, path:['plugins', i, 'args'], trim:/^plugins\[\d+\]\.args/}" x-init="$nextTick(() => $store.craft.syncValue(path, inputs))"></x-schema-inputs>
+                        <x-schema-inputs x-data="{inputs:plugin.inputs, path:['plugins', i, 'args'], trim:/^plugins\[\d+\]\.args/}" x-init="$nextTick(() => $store.app.syncValue(path, inputs))"></x-schema-inputs>
                       </form>
                     </template>
                     <template x-if="!Object.keys(plugin.inputs.properties).length">
                       <span class="text-zinc-400 italic">This plugin does not accept any arguments</span>
                     </template>
+                  </div>
+                  <div class="p-2 border-b border-neutral-800" :class="{hidden:!($store.app.state.edit.plugins === i)}">
+                    <div class="font-bold">Context</div>
+                    <label class="block mb-2" :for="`plugins.${i}.preset`">
+                      <div class="font-bold">.preset</div>
+                    </label>
+                    <select :name="`plugins.${i}.preset`" :id="`plugins.${i}.preset`" class="w-full bg-neutral-950 rounded-md px-3 py-1.5 border border-neutral-800 outline-none focus:border-sky-500">
+                      <template x-for="(_, preset) in $store.app.config.presets">
+                        <option :value="preset" x-text="`${preset.charAt(0).toLocaleUpperCase()}${preset.slice(1)}`"></option>
+                      </template>
+                    </select>
+                    <div x-data="{override:false}">
+                      <div>
+                        <div class="font-bold mb-2">Override preset values</div>
+                        <label :for="`plugins.${i}.preset.override`" class="inline-block relative h-6 w-12 cursor-pointer mb-2">
+                          <input type="checkbox" :name="`plugins.${i}.preset.override`" :id="`plugins.${i}.preset.override`" class="peer hidden" x-model="override"/>
+                          <span class="absolute inset-0 rounded-full bg-neutral-700 transition peer-checked:bg-sky-500"></span>
+                          <span class="absolute inset-y-0 start-0 m-1 h-4 w-4 rounded-full bg-white transition-all peer-checked:start-6"></span>
+                        </label>
+                      </div>
+                      <template x-if="override">
+                        <form>
+                          <x-schema-inputs x-data="{inputs:presets.plugins, path:['plugins', i], trim:/^plugins\[\d+\]/}" x-init="$nextTick(() => $store.app.syncValue(path, presets.plugins))"></x-schema-inputs>
+                        </form>
+                      </template>
+                    </div>
                   </div>
                   <!-- Processors -->
                   <template x-for="(processor, j) of plugin.processors">
@@ -372,8 +397,8 @@
                             <x-octicon class="ml-1.5 cursor-not-allowed opacity-50" x-data="{icon:'drag'}"></x-octicon>
                           </span>
                         </h3>
-                        <h4 x-html="await $store.craft.markdown(processor.description)" class="text-zinc-400"></h4>
-                        <h4 :class="{hidden:!($store.craft.state.edit.plugins === i)}">
+                        <h4 x-html="await $store.app.markdown(processor.description)" class="text-zinc-400"></h4>
+                        <h4 :class="{hidden:!($store.app.state.edit.plugins === i)}">
                           <template x-for="{type, value} of [...processor.supports.map(type => ({type:'mime', value:type})), ...processor.scopes.map(scope => ({type:'scope', value:scope})), ...processor.permissions.map(permission => ({type:'permission', value:permission}))]">
                             <div class="inline-flex items-center rounded-full overflow-hidden bg-zinc-600 text-sm mt-1 mr-1" :key="value">
                               <div class="flex items-center bg-zinc-800 px-1.5" >
@@ -387,8 +412,8 @@
                           </template>
                         </h4>
                       </div>
-                      <nav class="flex gap-2 p-2 border-b border-neutral-800" :class="{hidden:!($store.craft.state.edit.plugins === i)}">
-                        <div @click="$store.craft.state.edit.processors = $store.craft.state.edit.processors === j ? NaN : j" class="bg-neutral-950 flex items-center rounded-md p-2 text-sm border cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500" :class="{'border-sky-500':($store.craft.state.edit.plugins === i)&&($store.craft.state.edit.processors === j), 'border-transparent':!(($store.craft.state.edit.plugins === i)&&($store.craft.state.edit.processors === j))}">
+                      <nav class="flex gap-2 p-2 border-b border-neutral-800" :class="{hidden:!($store.app.state.edit.plugins === i)}">
+                        <div @click="$store.app.state.edit.processors = $store.app.state.edit.processors === j ? NaN : j" class="bg-neutral-950 flex items-center rounded-md p-2 text-sm border cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500" :class="{'border-sky-500':($store.app.state.edit.plugins === i)&&($store.app.state.edit.processors === j), 'border-transparent':!(($store.app.state.edit.plugins === i)&&($store.app.state.edit.processors === j))}">
                           <x-octicon class="mr-1" x-data="{icon:'edit'}"></x-octicon>
                           Edit
                         </div>
@@ -396,45 +421,71 @@
                           <x-octicon class="mr-1" x-data="{icon:'clone'}"></x-octicon>
                           Duplicate
                         </div>
-                        <div @click="$store.craft.removeProcessor({plugin:i, processor:j})" class="bg-red-900 flex items-center rounded-md p-2 text-sm border border-transparent cursor-pointer transition hover:bg-red-800 hover:text-sky-100">
+                        <div @click="$store.app.removeProcessor({plugin:i, processor:j})" class="bg-red-900 flex items-center rounded-md p-2 text-sm border border-transparent cursor-pointer transition hover:bg-red-800 hover:text-sky-100">
                           <x-octicon class="mr-1" x-data="{icon:'remove'}"></x-octicon>
                           Remove
                         </div>
                       </nav>
                       <template x-if="processor.docs.length">
-                        <div class="p-2 border-b border-neutral-800" :class="{hidden:!(($store.craft.state.edit.plugins === i)&&($store.craft.state.edit.processors === j))}">
+                        <div class="p-2 border-b border-neutral-800" :class="{hidden:!(($store.app.state.edit.plugins === i)&&($store.app.state.edit.processors === j))}">
                           <div class="font-bold">Documentations</div>
                           <template x-for="{title, type, content} in processor.docs">
                             <details class="group rounded-md mt-1 overflow-hidden" :class="{[{warning:'bg-yellow-950'}[type] ?? 'bg-neutral-950']:true}">
                               <summary class="flex items-center p-2 cursor-pointer rounded-t-md border border-transparent transition hover:bg-neutral-800 hover:text-sky-500 group-open:border-sky-500">
                                 <x-octicon class="mr-1.5" x-data="{icon:'docs'}"></x-octicon>
-                                <span x-html="await $store.craft.markdown(title)"></span>
+                                <span x-html="await $store.app.markdown(title)"></span>
                               </summary>
-                              <div class="markdown bg-black p-2" x-html="await $store.craft.markdown(content)"></div>
+                              <div class="markdown bg-black p-2" x-html="await $store.app.markdown(content)"></div>
                             </details>
                           </template>
                         </div>
                       </template>
-                      <div class="p-2 border-b border-neutral-800" :class="{hidden:!(($store.craft.state.edit.plugins === i)&&($store.craft.state.edit.processors === j))}">
+                      <div class="p-2 border-b border-neutral-800" :class="{hidden:!(($store.app.state.edit.plugins === i)&&($store.app.state.edit.processors === j))}">
                         <div class="font-bold">Arguments</div>
                         <template x-if="Object.keys(processor.inputs.properties).length">
                           <form>
-                            <x-schema-inputs x-data="{inputs:processor.inputs, path:['plugins', i, 'processors', j, 'args'], trim:/^plugins\[\d+\]\.processors\[\d+\]\.args/}" x-init="$nextTick(() => $store.craft.syncValue(path, inputs))"></x-schema-inputs>
+                            <x-schema-inputs x-data="{inputs:processor.inputs, path:['plugins', i, 'processors', j, 'args'], trim:/^plugins\[\d+\]\.processors\[\d+\]\.args/}" x-init="$nextTick(() => $store.app.syncValue(path, inputs))"></x-schema-inputs>
                           </form>
                         </template>
                         <template x-if="!Object.keys(processor.inputs.properties).length">
                           <span class="text-zinc-400 italic">This processor does not accept any arguments</span>
                         </template>
                       </div>
+                      <div class="p-2 border-b border-neutral-800" :class="{hidden:!($store.app.state.edit.plugins === i)}">
+                        <div class="font-bold">Context</div>
+                        <label class="block mb-2" :for="`plugins.${i}.processors.${j}.preset`">
+                          <div class="font-bold">.preset</div>
+                        </label>
+                        <select :name="`plugins.${i}.processors.${j}.preset`" :id="`plugins.${i}.processors.${j}.preset`" class="w-full bg-neutral-950 rounded-md px-3 py-1.5 border border-neutral-800 outline-none focus:border-sky-500">
+                          <template x-for="(_, preset) in $store.app.config.presets">
+                            <option :value="preset" x-text="`${preset.charAt(0).toLocaleUpperCase()}${preset.slice(1)}`"></option>
+                          </template>
+                        </select>
+                        <div x-data="{override:false}">
+                          <div>
+                            <div class="font-bold mb-2">Override preset values</div>
+                            <label :for="`plugins.${i}.processors.${j}.preset.override`" class="inline-block relative h-6 w-12 cursor-pointer mb-2">
+                              <input type="checkbox" :name="`plugins.${i}.processors.${j}.preset.override`" :id="`plugins.${i}.processors.${j}.preset.override`" class="peer hidden" x-model="override"/>
+                              <span class="absolute inset-0 rounded-full bg-neutral-700 transition peer-checked:bg-sky-500"></span>
+                              <span class="absolute inset-y-0 start-0 m-1 h-4 w-4 rounded-full bg-white transition-all peer-checked:start-6"></span>
+                            </label>
+                          </div>
+                          <template x-if="override">
+                            <form>
+                              <x-schema-inputs x-data="{inputs:presets.processors, path:['plugins', i, 'processors', j], trim:/^plugins\[\d+\]\.processors\[\d+\]/}" x-init="$nextTick(() => $store.app.syncValue(path, presets.processors))"></x-schema-inputs>
+                            </form>
+                          </template>
+                        </div>
+                      </div>
                     </div>
                   </template>
                   <!-- Add new processor -->
-                  <div class="bg-neutral-950 border border-dashed rounded-md m-2 overflow-hidden" :class="{hidden:!($store.craft.state.edit.plugins === i)}">
-                    <h3 class="pl-4 py-2 text-lg cursor-pointer rounded-t-md transition hover:bg-neutral-800" @click="$store.craft.state.expand.processors = $store.craft.state.expand.processors === i ? NaN : i">Add a processor</h3>
-                    <ul class="px-2 mb-2" :class="{hidden:$store.craft.state.expand.processors !== i}">
+                  <div class="bg-neutral-950 border border-dashed rounded-md m-2 overflow-hidden" :class="{hidden:!($store.app.state.edit.plugins === i)}">
+                    <h3 class="pl-4 py-2 text-lg cursor-pointer rounded-t-md transition hover:bg-neutral-800" @click="$store.app.state.expand.processors = $store.app.state.expand.processors === i ? NaN : i">Add a processor</h3>
+                    <ul class="px-2 mb-2" :class="{hidden:$store.app.state.expand.processors !== i}">
                       <template x-for="processor of processors">
                         <li :key="processor.id">
-                          <div class="flex items-center justify-between rounded-md text-zinc-400 px-2 py-1 cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500" @click="$store.craft.addProcessor({plugin:i, processor})">
+                          <div class="flex items-center justify-between rounded-md text-zinc-400 px-2 py-1 cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500" @click="$store.app.addProcessor({plugin:i, processor})">
                             <div x-text="processor.name"></div>
                           </div>
                         </li>
@@ -454,11 +505,11 @@
             <article class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8">
               <div class="bg-neutral-900 border border-neutral-800 rounded-md">
                 <div class="bg-neutral-950 border border-dashed rounded-md m-2">
-                  <h3 class="pl-4 py-2 text-lg cursor-pointer rounded-t-md transition hover:bg-neutral-800" @click="$store.craft.state.expand.plugins = !$store.craft.state.expand.plugins">Add a plugin</h3>
-                  <ul class="px-2 mb-2" :class="{hidden:!$store.craft.state.expand.plugins}">
+                  <h3 class="pl-4 py-2 text-lg cursor-pointer rounded-t-md transition hover:bg-neutral-800" @click="$store.app.state.expand.plugins.list = !$store.app.state.expand.plugins.list">Add a plugin</h3>
+                  <ul class="px-2 mb-2" :class="{hidden:!$store.app.state.expand.plugins.list}">
                     <template x-for="plugin of plugins">
                       <li :key="plugin.id">
-                        <div class="rounded-md text-zinc-400 px-2 py-1 cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500" @click="$store.craft.addPlugin({plugin})">
+                        <div class="rounded-md text-zinc-400 px-2 py-1 cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500" @click="$store.app.addPlugin({plugin})">
                           <div class="flex items-center justify-between">
                             <div x-text="plugin.name"></div>
                             <div class="flex">
@@ -479,17 +530,17 @@
         </template>
 
         <!-- Result -->
-        <template x-if="$store.craft.state.mode">
+        <template x-if="$store.app.state.mode">
           <section class="container mx-auto px-2 my-8">
             <h2 class="text-2xl mb-4">4️⃣ You're all set!</h2>
-            <template x-if="$store.craft.state.mode === 'web'">
+            <template x-if="$store.app.state.mode === 'web'">
               <div>
-                <pre class="bg-neutral-900 rounded-md p-2 cursor-pointer transition hover:bg-neutral-800" @click="$store.craft.copyToClipboard($event)"><code class="language-html whitespace-break-spaces" x-html="$store.craft.getFullConfig()"></code></pre>
+                <pre class="bg-neutral-900 rounded-md p-2 cursor-pointer transition hover:bg-neutral-800" @click="$store.app.copyToClipboard($event)"><code class="language-html whitespace-break-spaces" x-html="$store.app.getFullConfig()"></code></pre>
               </div>
             </template>
-            <template x-if="$store.craft.state.mode !== 'web'">
+            <template x-if="$store.app.state.mode !== 'web'">
               <div>
-                <pre class="bg-neutral-900 rounded-md p-2"><code class="language-yaml" x-html="$store.craft.getFullConfig()"></code></pre>
+                <pre class="bg-neutral-900 rounded-md p-2"><code class="language-yaml" x-html="$store.app.getFullConfig()"></code></pre>
               </div>
             </template>
           </section>
@@ -618,8 +669,8 @@
     <template x-component="schema-inputs">
       <div>
         <template x-for="(input, name) in inputs.properties">
-          <div x-data="{subpath:[...path, name], id:[...path, name].join('.'), store:$store.craft}" :key="name">
-            <label class="block mb-2" :for="id">
+          <div :key="name" x-data="{subpath:[...path, name], id:[...path, name].join('.'), store:$store.app}">
+            <label :for="id" class="block mb-2">
               <div class="font-bold">
                 <span x-text="store.formatKeyPath(subpath, {trim})"></span>
                 <template x-data="{labels:[
@@ -633,88 +684,104 @@
                   {key:'maximum', text:`≤ ${input.maximum}`},
                   {key:'writeOnly', text:'secret'},
                 ].filter(({key}) => key in input)}" x-for="{key, text} in labels">
-                  <span class="rounded-full bg-cyan-100 text-indigo-700 px-1.5 text-sm mr-1 whitespace-nowrap" :key="key"><span x-text="text"></span></span>
+                  <span :key="key" class="rounded-full bg-cyan-100 text-indigo-700 px-1.5 text-sm mr-1 whitespace-nowrap"><span x-text="text"></span></span>
                 </template>
                 <template x-if="(input.type === 'null')">
                   <span class="rounded-full bg-gray-100 text-gray-700 px-1.5 text-sm mr-1 whitespace-nowrap">null</span>
                 </template>
               </div>
               <template x-if="(!input.subtype)&&(input.description)">
-                <div class="text-zinc-400 italic" x-html="await $store.craft.markdown(input.description.replace('(textarea)', '').replace(/\(placeholder: `[\s\S]+`\)/, ''))"></div>
+                <div x-html="await $store.app.markdown(input.description.replace('(textarea)', '').replace(/\(placeholder: `[\s\S]+`\)/, ''))" class="text-zinc-400 italic"></div>
               </template>
             </label>
-            <!-- String input -->
-            <template x-if="(input.type === 'string')&&(!input.enum)&&(!input.const)">
-              <div>
-                <template x-if="input.description?.includes('(textarea)')">
-                  <textarea :name="id" :id="id" :value="input.default" :placeholder="input.description?.match(/\((?:(?:e\.g\.)|(?:placeholder:)) `([\s\S]+)`\)/)?.[1] ?? input.default ?? ''" class="w-full bg-neutral-950 rounded-md px-3 py-1.5 border border-neutral-800 outline-none focus:border-sky-500 min-h-[4em]" @input="store.setValue(subpath, $event)"></textarea>
-                </template>
-                <template x-if="!input.description?.includes('(textarea)')">
-                  <input :type="{uri:'url'}[input.format] ?? 'text'" :name="id" :id="id" :value="input.default" :pattern="input.pattern || '[\\s\\S]+'" :placeholder="input.description?.match(/\((?:(?:e\.g\.)|(?:placeholder:)) `([\s\S]+)`\)/)?.[1] ?? input.default ?? ''" class="w-full bg-neutral-950 rounded-md px-3 py-1.5 border border-neutral-800 outline-none focus:border-sky-500" @input="store.setValue(subpath, $event)"/>
-                </template>
-              </div>
-            </template>
-            <!-- Number input -->
-            <template x-if="(input.type === 'number')||(input.type === 'integer')">
-              <input type="number" :name="id" :id="id" :value="input.default ?? input.description?.match(/\(e\.g\. ([\s\S]+)\)/)?.[1] ?? input.minimum ?? input.maximum ?? ('exclusiveMinimum' in input ? input.exclusiveMinimum + 1 : null) ?? ('exclusiveMaximum' in input ? input.exclusiveMaximum - 1 : null) ?? 0" :placeholder="input.default ?? ''" :min="'exclusiveMinimum' in input ? input.exclusiveMinimum + 1 : input.minimum" :max="'exclusiveMaximum' in input ? input.exclusiveMaximum - 1 : input.maximum" class="w-full bg-neutral-950 rounded-md px-3 py-1.5 border border-neutral-800 outline-none focus:border-sky-500" @input="store.setValue(subpath, $event)"/>
-            </template>
-            <!-- Boolean input -->
-            <template x-if="(input.type === 'boolean')&&(!('const' in input))">
-              <label :for="id" class="inline-block relative h-6 w-12 cursor-pointer">
-                <input type="checkbox" :name="id" :id="id" class="peer hidden" @input="store.setValue(subpath, $event)"/>
-                <span class="absolute inset-0 rounded-full bg-neutral-700 transition peer-checked:bg-sky-500"></span>
-                <span class="absolute inset-y-0 start-0 m-1 h-4 w-4 rounded-full bg-white transition-all peer-checked:start-6"></span>
-              </label>
-            </template>
             <!-- Object input -->
-            <template x-if="(input.type === 'object')">
+            <template x-if="input.type === 'object'">
               <div class="w-full p-2 rounded-md border border-neutral-800">
-                <x-schema-inputs class="w-full" x-data="{inputs:input, path:subpath, trim}"></x-schema-inputs>
-                <!-- TODO(#1542) -->
+                <x-schema-inputs x-data="{inputs:input, path:subpath, trim}" class="w-full"></x-schema-inputs>
                 <!-- Record inputs -->
                 <template x-if="input.additionalProperties">
-                  <div>
-                    🚧 Not supported yet
-                    <span x-text="JSON.stringify(input.additionalProperties, null, 2)"></span>
-                  </div>
-                </template>
-              </div>
-            </template>
-            <!-- Array input -->
-            <template x-if="(input.type === 'array')">
-              <div class="w-full p-2 rounded-md border border-neutral-800" x-init="store.setCachedValue(subpath, {target:{value:input.default}})">
-                <!-- String array input -->
-                <template x-if="input.items.type === 'string'">
-                  <div x-data="{min:input.minItems ?? 0, max:input.maxItems ?? Infinity, editable:!(('minItems' in input)&&('maxItems' in input)&&(input.minItems === input.maxItems))}">
-                    <template x-for="(value, k) in store.state.cached.inputs[id]">
-                      <div class="flex">
-                        <input type="text" :key="k" :name="id" :id="`${id}@${k}`" x-model="store.state.cached.inputs[id][k]" class="grow bg-neutral-950 rounded-md px-3 py-1.5 border border-neutral-800 outline-none focus:border-sky-500" @input="store.setValue(subpath, $event, {cached:true})">
-                        <template x-if="editable">
-                          <div class="bg-red-950 flex items-center rounded-md p-2 border border-neutral-800 cursor-pointer transition hover:bg-red-800" :class="{'opacity-50':(min > store.state.cached.inputs[id].length-1)}" @click="store.state.cached.inputs[id].splice(k, 1)">
-                            <x-octicon class="text-white" x-data="{icon:'minus'}"></x-octicon>
+                  <div x-data="{editable:true, value:{}}">
+                    <template x-for="(_, k) in value">
+                      <div :key="k" class="p-2 bg-neutral-950 mb-2">
+                        <div class="flex">
+                          <input :value="k" disabled type="text" class="grow bg-neutral-950 rounded-md px-3 py-1.5 outline-none disabled">
+                          <template x-if="editable">
+                            <div @click="delete value[k]" class="bg-red-950 flex items-center rounded-md p-2 border border-neutral-800 cursor-pointer transition hover:bg-red-800">
+                              <x-octicon x-data="{icon:'minus'}" class="text-white"></x-octicon>
+                            </div>
+                          </template>
+                        </div>
+                        <template x-if="input.additionalProperties.properties">
+                          <div class="m-1 mb-0">
+                            <x-schema-inputs x-data="{inputs:input.additionalProperties, path:[...subpath, k], trim}"></x-schema-inputs>
+                          </div>
+                        </template>
+                        <template x-if="!input.additionalProperties.properties">
+                          <div class="flex">
+                            <input x-model="value[k]" type="text" placeholder="Add a new value" class="opacity-50 grow bg-neutral-950 rounded-md px-3 py-1.5 border border-neutral-800 outline-none focus:border-sky-500">
                           </div>
                         </template>
                       </div>
                     </template>
                     <template x-if="editable">
-                      <div class="flex">
-                        <input type="text" placeholder="Add a new value" disabled class="opacity-50 grow bg-neutral-950 rounded-md px-3 py-1.5 border border-neutral-800 outline-none focus:border-sky-500" @input="store.setValue(subpath, $event, {cached:true})">
-                        <div class="bg-green-950 flex items-center rounded-md p-2 border border-neutral-800 cursor-pointer transition hover:bg-green-800" :class="{'opacity-50':(store.state.cached.inputs[id].length+1 > max)}" @click="store.state.cached.inputs[id].push('')">
-                          <x-octicon class="text-white" x-data="{icon:'plus'}"></x-octicon>
+                      <div x-data="{key:'', buffer:''}" class="p-2 rounded-md border bg-neutral-950">
+                        <div class="flex">
+                          <input x-model="key" @keyup.enter="key ? (value[key] = buffer, key = '', buffer = '') : null" type="text" placeholder="Add a new key" class="opacity-50 grow bg-neutral-800 rounded-md px-3 py-1.5 border border-neutral-800 outline-none focus:border-sky-500">
+                          <div :class="{'opacity-50 cursor-not-allowed':!key, 'cursor-pointer':key}" @click="key ? (value[key] = buffer, key = '', buffer = '') : null" class="bg-green-950 flex items-center rounded-md p-2 border border-neutral-800 transition hover:bg-green-800">
+                            <x-octicon x-data="{icon:'plus'}" class="text-white"></x-octicon>
+                          </div>
+                        </div>
+                        <template x-if="input.additionalProperties.properties">
+                          <div class="m-1 mb-0">
+                            <x-schema-inputs x-data="{inputs:input.additionalProperties, path:[...subpath, `*`], trim}"></x-schema-inputs>
+                          </div>
+                        </template>
+                        <template x-if="!input.additionalProperties.properties">
+                          <div class="flex">
+                            <input x-model="buffer" @keyup.enter="key ? (value[key] = buffer, key = '', buffer = '', $el.parentElement.parentElement.querySelector('[x-model=key]').focus()) : null" type="text" placeholder="Add a new value" class="opacity-50 grow bg-neutral-950 rounded-md px-3 py-1.5 border border-neutral-800 outline-none focus:border-sky-500">
+                          </div>
+                        </template>
+                      </div>
+                    </template>
+                  </div>
+                </template>
+              </div>
+            </template>
+            <!-- Array input -->
+            <template x-if="input.type === 'array'">
+              <div x-data="{value:[...input.default]}" class="w-full p-2 border border-neutral-800 rounded-md">
+                <!-- String array input -->
+                <template x-if="input.items.type === 'string'">
+                  <div x-data="{min:input.minItems ?? 0, max:input.maxItems ?? Infinity, editable:!(('minItems' in input)&&('maxItems' in input)&&(input.minItems === input.maxItems))}">
+                    <template x-for="(_, k) in value">
+                      <div :key="k" class="flex">
+                        <input :id="`${id}@${k}`" :name="id" x-model="value[k]" @input="store.setValue(subpath, {target:{value}})" type="text" class="grow bg-neutral-950 rounded-md px-3 py-1.5 border border-neutral-800 outline-none focus:border-sky-500">
+                        <template x-if="editable">
+                          <div :class="{'opacity-50':(min > value.length-1)}" @click="value.splice(k, 1)" class="bg-red-950 flex items-center rounded-md p-2 border border-neutral-800 cursor-pointer transition hover:bg-red-800">
+                            <x-octicon x-data="{icon:'minus'}" class="text-white"></x-octicon>
+                          </div>
+                        </template>
+                      </div>
+                    </template>
+                    <template x-if="editable">
+                      <div x-data="{buffer:'', limited:(value.length+1 > max)}" class="flex">
+                        <input x-model="buffer" @keyup.enter="(!limited)&&(buffer) ? (value.push(buffer), buffer='') : null" type="text" placeholder="Add a new value" class="opacity-50 grow bg-neutral-950 rounded-md px-3 py-1.5 border border-neutral-800 outline-none focus:border-sky-500">
+                        <div :class="{'opacity-50 cursor-not-allowed':(limited)||(!buffer), 'cursor-pointer':(!limited)&&(buffer)}" @click="(!limited)&&(buffer) ? (value.push(buffer), buffer='') : null" class="bg-green-950 flex items-center rounded-md p-2 border border-neutral-800 transition hover:bg-green-800">
+                          <x-octicon x-data="{icon:'plus'}" class="text-white"></x-octicon>
                         </div>
                       </div>
                     </template>
                   </div>
                 </template>
                 <!-- Enum array input -->
-                <template x-if="(input.items.anyOf)&&(input.items.anyOf.every(item => item.const))">
+                <template x-if="input.items.anyOf && input.items.anyOf.every(item => item.const)">
                   <fieldset>
                     <template x-for="(item, k) in input.items.anyOf">
-                      <div class="mb-1" :key="item.const">
-                        <input type="checkbox" :name="id" :id="`${id}@${item.const}`" :value="item.const" class="peer hidden" @input="store.setValue(subpath, $event, {cached:true})"/>
+                      <div :key="item.const" class="mb-1">
+                        <input :id="`${id}@${item.const}`" :name="id" :value="item.const" @input="store.setValue(subpath, {target:{value}})" type="checkbox" class="peer hidden">
                         <label :for="`${id}@${item.const}`" class="block border border-neutral-800 rounded-md px-3 py-1.5 cursor-pointer text-zinc-400 transition hover:bg-neutral-800 peer-checked:border-sky-500 peer-checked:text-sky-500">
-                          <div class="text-white" x-text="item.const"></div>
-                          <div class="text-zinc-400 italic" x-html="await $store.craft.markdown(item.description)"></div>
+                          <div x-text="item.const" class="text-white"></div>
+                          <div x-html="await $store.app.markdown(item.description)" class="text-zinc-400 italic"></div>
                         </label>
                       </div>
                     </template>
@@ -722,49 +789,72 @@
                 </template>
               </div>
             </template>
+            <!-- String input -->
+            <template x-if="input.type === 'string' && !input.enum && !input.const">
+              <div>
+                <template x-if="input.description?.includes('(textarea)')">
+                  <textarea :id="id" :name="id" :value="input.default" :placeholder="input.description?.match(/\((?:(?:e\.g\.)|(?:placeholder:)) `([\s\S]+)`\)/)?.[1] ?? input.default ?? ''" @input="store.setValue(subpath, $event)" class="w-full bg-neutral-950 rounded-md px-3 py-1.5 border border-neutral-800 outline-none focus:border-sky-500 min-h-[4em]"></textarea>
+                </template>
+                <template x-if="!input.description?.includes('(textarea)')">
+                  <input :id="id" :name="id" :value="input.default" :type="{uri:'url'}[input.format] ?? 'text'" :pattern="input.pattern || '[\\s\\S]+'" :placeholder="input.description?.match(/\((?:(?:e\.g\.)|(?:placeholder:)) `([\s\S]+)`\)/)?.[1] ?? input.default ?? ''" @input="store.setValue(subpath, $event)" class="w-full bg-neutral-950 rounded-md px-3 py-1.5 border border-neutral-800 outline-none focus:border-sky-500">
+                </template>
+              </div>
+            </template>
+            <!-- Number input -->
+            <template x-if="input.type === 'number' || input.type === 'integer'">
+              <input :id="id" :name="id" :value="input.default ?? input.description?.match(/\(e\.g\. ([\s\S]+)\)/)?.[1] ?? input.minimum ?? input.maximum ?? ('exclusiveMinimum' in input ? input.exclusiveMinimum + 1 : null) ?? ('exclusiveMaximum' in input ? input.exclusiveMaximum - 1 : null) ?? 0" :placeholder="input.default ?? ''" :min="'exclusiveMinimum' in input ? input.exclusiveMinimum + 1 : input.minimum" :max="'exclusiveMaximum' in input ? input.exclusiveMaximum - 1 : input.maximum" @input="store.setValue(subpath, $event)" type="number" class="w-full bg-neutral-950 px-3 py-1.5 border border-neutral-800 rounded-md outline-none focus:border-sky-500">
+            </template>
+            <!-- Boolean input -->
+            <template x-if="input.type === 'boolean' && (!('const' in input))">
+              <label :for="id" class="inline-block relative h-6 w-12 cursor-pointer">
+                <input :id="id" :name="id" @input="store.setValue(subpath, $event)" type="checkbox" class="peer hidden">
+                <span class="absolute inset-0 rounded-full bg-neutral-700 transition peer-checked:bg-sky-500"></span>
+                <span class="absolute inset-y-0 start-0 m-1 h-4 w-4 rounded-full bg-white transition-all peer-checked:start-6"></span>
+              </label>
+            </template>
+            <!-- Const input -->
+            <template x-if="input.type === 'string' && input.const && !input.enum">
+              <input :id="id" :name="id" :value="input.const" @input="store.setValue(subpath, $event)" type="hidden">
+            </template>
+            <!-- Null input -->
+            <template x-if="input.type === 'null'">
+              <input :id="id" :name="id" @input="store.setValue(subpath, {target:{value:null}})" type="hidden" value="null">
+            </template>
             <!-- Enum input -->
-            <template x-if="(input.anyOf)&&(input.anyOf.every(item => item.const))">
+            <template x-if="input.anyOf && input.anyOf.every(item => item.const)">
               <fieldset>
                 <template x-for="(item, k) in input.anyOf">
-                  <div class="mb-1" :key="item.const">
-                    <input type="radio" :name="id" :id="`${id}@${item.const}`" :value="item.const" class="peer hidden" @input="store.setValue(subpath, $event)"/>
-                    <label :for="`${id}@${item.const}`" class="block border border-neutral-800 rounded-md px-3 py-1.5 cursor-pointer text-zinc-400 transition hover:bg-neutral-800 peer-checked:border-sky-500 peer-checked:text-sky-500">
-                      <div class="text-white" x-text="item.const"></div>
-                      <div class="text-zinc-400 italic" x-html="await $store.craft.markdown(item.description)"></div>
+                  <div :key="item.const" class="mb-1">
+                    <input :id="`${id}@${item.const}`" :name="id" :value="item.const" @input="store.setValue(subpath, $event)" type="radio" class="peer hidden">
+                    <label :for="`${id}@${item.const}`" class="block px-3 py-1.5 border border-neutral-800 rounded-md cursor-pointer text-zinc-400 transition hover:bg-neutral-800 peer-checked:border-sky-500 peer-checked:text-sky-500">
+                      <div x-text="item.const" class="text-white"></div>
+                      <div x-html="await $store.app.markdown(item.description)" class="text-zinc-400 italic"></div>
                     </label>
                   </div>
                 </template>
               </fieldset>
             </template>
-            <!-- Const input -->
-            <template x-if="(input.type === 'string')&&(!input.enum)&&(input.const)">
-              <input type="hidden" :name="id" :id="id" :value="input.const" @input="store.setValue(subpath, $event)"/>
-            </template>
-            <!-- Null input -->
-            <template x-if="(input.type === 'null')">
-              <input type="hidden" :name="id" :id="id" value="null" @input="store.setValue(subpath, {target:{value:null}})"/>
-            </template>
             <!-- Multi-type inputs (anyOf) -->
-            <template x-if="(input.anyOf)&&(!input.anyOf.every(item => item.const))">
+            <template x-if="input.anyOf && !input.anyOf.every(item => item.const)">
               <fieldset>
                 <template x-for="(value, i) of input.anyOf">
-                  <div class="mb-1" :key="i" @click="store.setValue([...path, `${name}@${i}`], {target:document.getElementById(`${id}@${i}`)}, {anyof:true})">
-                    <input type="radio" :name="id" :id="`${id}@${i}`" :value="i" class="anyof peer hidden"/>
-                    <label :for="`${id}@${i}`" class="block border border-dashed rounded-md px-3 py-1.5 cursor-pointer transition hover:border-sky-500 peer-checked:border-sky-500 peer-checked:border-solid">
-                      <x-schema-inputs class="w-full" x-data="{inputs:{properties:{[name]:value}}, path:[...path, `${name}@${i}`], trim}"></x-schema-inputs>
+                  <div :key="i" @click="store.setValue([...path, `${name}@${i}`], {target:document.getElementById(`${id}@${i}`)}, {anyof:true})" class="mb-1">
+                    <input :id="`${id}@${i}`" :name="id" :value="i" type="radio" class="anyof peer hidden">
+                    <label :for="`${id}@${i}`" class="block px-3 py-1.5 border border-dashed rounded-md cursor-pointer transition hover:border-sky-500 peer-checked:border-sky-500 peer-checked:border-solid">
+                      <x-schema-inputs x-data="{inputs:{properties:{[name]:value}}, path:[...path, `${name}@${i}`], trim}" class="w-full"></x-schema-inputs>
                     </label>
                   </div>
                 </template>
               </fieldset>
             </template>
             <!-- Multi-type inputs (primitive array) -->
-            <template x-if="(Array.isArray(input.type))">
+            <template x-if="Array.isArray(input.type)">
               <fieldset>
                 <template x-for="(type, i) of input.type">
-                  <div class="mb-1" :key="i" @click="store.setValue([...path, `${name}@${i}`], {target:document.getElementById(`${id}@${i}`)}, {anyof:true})">
-                    <input type="radio" :name="id" :id="`${id}@${i}`" :value="i" class="anyof peer hidden"/>
-                    <label :for="`${id}@${i}`" class="block border border-dashed rounded-md px-3 py-1.5 cursor-pointer transition hover:border-sky-500 peer-checked:border-sky-500 peer-checked:border-solid">
-                      <x-schema-inputs class="w-full" x-data="{inputs:{properties:{[name]:{...input, type, subtype:true, default:typeof input.default === type ? input.default : null}}}, path:[...path, `${name}@${i}`], trim}"></x-schema-inputs>
+                  <div :key="i" @click="store.setValue([...path, `${name}@${i}`], {target:document.getElementById(`${id}@${i}`)}, {anyof:true})" class="mb-1">
+                    <input :id="`${id}@${i}`" :name="id" :value="i" type="radio" class="anyof peer hidden">
+                    <label :for="`${id}@${i}`" class="block px-3 py-1.5 border border-dashed rounded-md cursor-pointer transition hover:border-sky-500 peer-checked:border-sky-500 peer-checked:border-solid">
+                      <x-schema-inputs x-data="{inputs:{properties:{[name]:{...input, type, subtype:true, default:typeof input.default === type ? input.default : null}}}, path:[...path, `${name}@${i}`], trim}" class="w-full"></x-schema-inputs>
                     </label>
                   </div>
                 </template>
