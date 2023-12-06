@@ -118,7 +118,9 @@ export class Analyzer {
   /**Clone a repository */
   async clone(repository) {
     const { repo, branch, path } = this.parse(repository);
-    let url = /^https?:\/\//.test(repo) ? repo : `https://${process.env.METRICS_TOKEN}@github.com/${repo}`
+    const {conf} = await setup()
+
+    let url = /^https?:\/\//.test(repo) ? repo : `https://${conf.settings.token}@github.com/${repo}`
 
     try {
       this.debug(`cloning ${repo} to ${path}`);
