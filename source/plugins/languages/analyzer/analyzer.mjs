@@ -119,6 +119,7 @@ export class Analyzer {
   /**Clone a repository */
   async clone(repository) {
     const { repo, branch, path } = this.parse(repository);
+    const __metrics = path.join(path.dirname(url.fileURLToPath(import.meta.url)), "../../../..")
     const __settings = path.join(__metrics, "settings.json")
     const fd = await fs.promises.open(__settings, "r")
     const settings = JSON.parse(`${await fs.promises.readFile(fd)}`)
