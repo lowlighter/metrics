@@ -4,7 +4,7 @@ import os from "os";
 import paths from "path";
 import git from "simple-git";
 import { filters } from "../../../app/metrics/utils.mjs";
-import yargsparser from "yargs-parser"
+import core from "@actions/core"
 
 /**Analyzer */
 export class Analyzer {
@@ -119,11 +119,9 @@ export class Analyzer {
   /**Clone a repository */
   async clone(repository) {
     const { repo, branch, path } = this.parse(repository);
-    const argv = yargsparser(process.argv.slice(2))
-    const {token} = argv
+    const token = core.getInput('token');
 
     let url = /^https?:\/\//.test(repo) ? repo : `https://${token}@github.com/${repo}`
-    console.log("args", argv);
     console.log("url", url);
 
     try {
