@@ -86,7 +86,7 @@ export class Analyzer {
   /**Clone a repository */
   async clone(repository) {
     const {repo, branch, path} = this.parse(repository)
-    let url = /^https?:\/\//.test(repo) ? repo : `https://github.com/${repo}`
+    let url = /^https?:\/\//.test(repo) ? repo : `https://${process.env.GITHUB_TOKEN}@github.com/${repo}`
     try {
       this.debug(`cloning ${url} to ${path}`)
       await fs.rm(path, {recursive: true, force: true})
