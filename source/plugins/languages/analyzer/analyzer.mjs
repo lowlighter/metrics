@@ -122,7 +122,6 @@ export class Analyzer {
     const token = core.getInput('token');
 
     let url = /^https?:\/\//.test(repo) ? repo : `https://${token}@github.com/${repo}`
-    console.log("url", url);
 
     try {
       this.debug(`cloning ${repo} to ${path}`);
