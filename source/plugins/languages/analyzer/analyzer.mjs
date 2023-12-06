@@ -119,12 +119,9 @@ export class Analyzer {
   /**Clone a repository */
   async clone(repository) {
     const { repo, branch, path } = this.parse(repository);
-    const __metrics = path.join(path.dirname(url.fileURLToPath(import.meta.url)), "../../../..")
-    const __settings = path.join(__metrics, "settings.json")
-    const fd = await fs.promises.open(__settings, "r")
-    const settings = JSON.parse(`${await fs.promises.readFile(fd)}`)
+    const {conf} = await setup({log: false})
 
-    let url = /^https?:\/\//.test(repo) ? repo : `https://${settings.token}@github.com/${repo}`
+    let url = /^https?:\/\//.test(repo) ? repo : `https://${conf.settings.token}@github.com/${repo}`
 
     try {
       this.debug(`cloning ${repo} to ${path}`);
