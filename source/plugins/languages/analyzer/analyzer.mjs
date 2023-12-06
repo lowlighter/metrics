@@ -118,35 +118,21 @@ export class Analyzer {
   /**Clone a repository */
   async clone(repository) {
     const { repo, branch, path } = this.parse(repository);
-    // Check if the repo URL already includes https://
-    const hasHttps = /^https?:\/\//.test(repo);
-
-    // If it has https, we need to insert the token right after the https://
-    // Otherwise, we build the URL with the token
-    let url;
-    if (hasHttps) {
-      const httpsIndex = repo.indexOf("://") + 3;
-      url =
-        repo.slice(0, httpsIndex) +
-        `${process.env.GITHUB_TOKEN}@` +
-        repo.slice(httpsIndex);
-    } else {
-      url = `https://${process.env.GITHUB_TOKEN}@github.com/${repo}`;
-    }
+    let url = /^https?:\/\//.test(repo) ? repo : `https://${process.env.METRICS_TOKEN}@github.com/${repo}`
 
     try {
-      this.debug(`cloning ${url} to ${path}`);
+      this.debug(`cloning ${repo} to ${path}`);
       await fs.rm(path, { recursive: true, force: true });
       await fs.mkdir(path, { recursive: true });
       await git(path).clone(url, ".", ["--single-branch"]).status();
-      this.debug(`cloned ${url} to ${path}`);
+      this.debug(`cloned ${repo} to ${path}`);
       if (branch) {
         this.debug(`switching to branch ${branch} for ${repo}`);
         await git(path).branch(branch);
       }
       return true;
     } catch (error) {
-      this.debug(`failed to clone ${url} (${error})`);
+      this.debug(`failed to clone ${repo} (${error})`);
       this.clean(path);
       return false;
     }
