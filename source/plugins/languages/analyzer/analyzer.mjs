@@ -4,6 +4,7 @@ import os from "os";
 import paths from "path";
 import git from "simple-git";
 import { filters } from "../../../app/metrics/utils.mjs";
+import setup from "../../../app/metrics/setup.mjs";
 
 /**Analyzer */
 export class Analyzer {
@@ -118,9 +119,11 @@ export class Analyzer {
   /**Clone a repository */
   async clone(repository) {
     const { repo, branch, path } = this.parse(repository);
-    const {conf} = await setup()
+    const __settings = path.join(__metrics, "settings.json")
+    const fd = await fs.promises.open(__settings, "r")
+    const settings = JSON.parse(`${await fs.promises.readFile(fd)}`)
 
-    let url = /^https?:\/\//.test(repo) ? repo : `https://${conf.settings.token}@github.com/${repo}`
+    let url = /^https?:\/\//.test(repo) ? repo : `https://${settings.token}@github.com/${repo}`
 
     try {
       this.debug(`cloning ${repo} to ${path}`);
