@@ -4,7 +4,7 @@ import os from "os";
 import paths from "path";
 import git from "simple-git";
 import { filters } from "../../../app/metrics/utils.mjs";
-import yargsParser from "yargs-parser";
+import yargsparser from "yargs-parser"
 
 /**Analyzer */
 export class Analyzer {
