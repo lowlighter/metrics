@@ -48,25 +48,22 @@ export async function cli() {
   //Prepare call
   const imports = await import("../../../app/metrics/utils.mjs")
   const rest = argv.token ? new OctokitRest.Octokit({auth: argv.token, baseUrl: argv["api-url"]}) : null
-  const {token} = argv
 
   //Language analysis
   console.log(`analysis mode             | ${mode}`)
   console.log(`login                     | ${login}`)
   console.log(`rest token                | ${rest ? "(provided)" : "(none)"}`)
-  console.log(`metrics token               | ${token}`)
-  console.log(`argv               | ${argv}`)
   console.log(`commits authoring         | ${authoring}`)
   console.log(`analysis timeout (global) | ${_timeout_global}`)
   switch (mode) {
     case "recent": {
       console.log(`events to load            | ${_recent_load}`)
       console.log(`events maximum age        | ${_recent_days}`)
-      return new RecentAnalyzer(login, {token, rest, shell: imports, authoring, categories, timeout: {global: _timeout_global, repositories: _timeout_repositories}, load: _recent_load, days: _recent_days}).run({})
+      return new RecentAnalyzer(login, {rest, shell: imports, authoring, categories, timeout: {global: _timeout_global, repositories: _timeout_repositories}, load: _recent_load, days: _recent_days}).run({})
     }
     case "indepth": {
       console.log(`repositories              | ${repositories}`)
-      return new IndepthAnalyzer(login, {token, rest, shell: imports, authoring, categories, timeout: {global: _timeout_global, repositories: _timeout_repositories}}).run({repositories})
+      return new IndepthAnalyzer(login, {rest, shell: imports, authoring, categories, timeout: {global: _timeout_global, repositories: _timeout_repositories}}).run({repositories})
     }
   }
 }
