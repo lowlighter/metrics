@@ -43,8 +43,8 @@ class App {
     log.info("fetching data")
     Object.assign(this.data, await fetch("/metadata").then((response) => response.json()))
     await Promise.all([
-      fetch("/me").then((response) => this.data.user = response.json()),
-      fetch("/ratelimit").then((response) => this.data.ratelimit = response.json()),
+      fetch("/me").then(async response => this.data.user = await response.json()),
+      fetch("/ratelimit").then(async response => this.data.ratelimit = await response.json()),
     ])
     this.data.dev = dev
     const partial = structuredClone(this.data.presets.schema) as any
@@ -155,6 +155,53 @@ class App {
     return path.filter((key) => !`${key}`.includes("@")).map((key) => typeof key === "number" ? `[${key}]` : `.${key}`).join("").replace(/^\./, "").replace(trim, "")
   }
 
+  getPlaceholder(input:any) {
+    const override = /\((?:(?:e\.g\.)|(?:placeholder:)) `([\s\S]+)`\)/
+    if (override.test(input.description))
+      return input.description.match(override)?.[1] ?? ""
+    return `${this.getDefaultValue(input)}`
+  }
+
+  getDefaultValue(input:any) {
+    if (input.type === "null")
+      return null
+    if ((input.type === "string")&&(input.const))
+      return input.const
+    if ("default" in input)
+      return input.default
+    if ((input.type === "number")||(input.type === "integer")) {
+      if ("minimum" in input)
+        return input.minimum
+      if ("exclusiveMinimum" in input)
+        return input.exclusiveMinimum + 1
+      if ("maximum" in input)
+        return input.maximum
+      if ("exclusiveMaximum" in input)
+        return input.exclusiveMaximum - 1
+      return input.minimum ?? input.maximum ?? 0
+    }
+    if (input.type === "boolean")
+      return false
+    if (input.type === "string")
+      return ""
+    if (input.type === "object")
+      return {}
+  }
+
+  findDefaultValue(inputs:any) {
+    const value = this.getDefaultValue(inputs)
+    for (const input of inputs.anyOf) {
+      if (value === null) {
+        if (input.type === "null")
+          return inputs.anyOf.indexOf(input)
+        continue
+      }
+      if (input.type === typeof value)
+        return inputs.anyOf.indexOf(input)
+    }
+    return -1
+  }
+
   /** Set mode */
   setMode(event: Event) {
     const target = event.target as HTMLInputElement
@@ -239,38 +286,55 @@ class App {
     this.state.edit.processors = NaN
   }
 
-  /** Set compat config (internal) */
-  private async _setCompatConfig(state: { status: string; messages: string; code: string }) {
-    const textarea = document.querySelector('[name="config.compat"]') as HTMLTextAreaElement
-    if (!textarea?.value) {
-      state.status = "empty"
-      state.code = highlight("yaml", "# Transpiled configuration will appear here").code
-      state.messages = ""
-    } else {
-      try {
-        const value = YAML.parse(textarea.value)
-        if ((!value) || (typeof value !== "object") || (!Object.keys(value).length)) {
-          throw new Error("Invalid configuration")
-        }
-        state.status = "valid"
-        const config = await compat(value as Record<PropertyKey, unknown>, { log: null, use: { requests: false } })
-        Object.assign(this.compat, config.content)
-        state.messages = await config.report.html()
-        state.code = highlight("yaml", yaml(this.compat, {colors:false})).code
-      } catch (error) {
-        log.warn(`${error}`)
-        state.status = "invalid"
-      }
+
+
+
+
+  /** Update compat config (internal) */
+  private async _updateCompatConfig(current: { status: string; input:string; config: Record<PropertyKey, unknown>|null; messages: string; }) {
+    if (!current.input) {
+      current.status = "empty"
+      current.messages = ""
+      current.config = null
+      return
     }
+    let value = {} as Record<PropertyKey, unknown>
+    try {
+      value = YAML.parse(current.input) as typeof value
+      if ((!value) || (typeof value !== "object") || (!Object.keys(value).length)) {
+        throw new Error("Invalid configuration")
+      }
+    } catch (error) {
+      log.warn(`${error}`)
+      current.status = "invalid"
+      return
+    }
+    const {content, report} = await compat(value, { log: null, use: { requests: false } })
+    current.status = "valid"
+    current.messages = await report.html()
+    current.config = content
   }
 
-  /** Set compat config */
-  readonly setCompatConfig = debounce((options: Parameters<typeof this._setCompatConfig>[0]) => this._setCompatConfig(options), 1500)
+  /** Update compat config */
+  readonly updateCompatConfig = debounce((options: Parameters<typeof this._updateCompatConfig>[0]) => this._updateCompatConfig(options), 1500)
 
-  /** Import an existing compat config */
-  importCompatConfig() {
-    console.log(this.compat)
+
+  yaml(content:string|Record<PropertyKey, unknown>) {
+    return highlight("yaml", typeof content === "string" ? content : yaml(content, {colors:false})).code
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   /** Get global config */
   getGlobalConfig(options: { output?: "yaml" | "json" }): string

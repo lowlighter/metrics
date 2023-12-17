@@ -10,278 +10,292 @@
     <link rel="icon" href="/static/favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
+    <link rel="stylesheet" href="/static/styles.css">
   </head>
-  <body x-data="data" class="bg-neutral-950 text-white">
+  <body x-data="data" class="bg-slate-950 text-white">
     <!-- Header -->
-    <header class="bg-neutral-900 sticky top-0 z-50" :class="{'bg-amber-700':dev}">
-      <div class="h-16 flex items-center px-4 lg:px-8">
+    <header class="sticky top-0 z-50 bg-gray-900" :class="{'bg-yellow-700':dev}">
+      <div class="flex items-center h-16 px-4 lg:px-8">
         <!-- Metrics version -->
         <a class="text-xl" href="/">
           <span>
             Metrics <span x-text="version"></span>
             <template x-if="dev">
-              <sub class="bg-amber-900 rounded-full px-1.5 py-0.5 text-sm">dev</sub>
+              <sub class="text-sm">dev</sub>
             </template>
           </span>
         </a>
-        <div class="flex flex-1 items-center justify-end md:justify-between">
+        <!-- Menu -->
+        <div x-data="{expand:{menu:false, actions:false}}" class="flex flex-1 items-center justify-end md:justify-between">
           <div class="hidden md:block"></div>
           <div class="flex items-center gap-4">
-            <div class="hidden flex md:flex gap-4">
+            <div :class="{flex:expand.menu, hidden:!expand.menu}" class="absolute left-0 top-full flex-col items-end gap-4 w-full bg-gray-900 md:flex-row md:static md:flex md:items-center md:w-auto md:bg-transparent">
+              <!-- User menu -->
               <template x-if="user?.login">
-                <div class="relative">
+                <div class="relative w-full md:w-auto">
                   <!-- User profile -->
-                  <div class="h-full px-2 flex items-center rounded-md cursor-pointer transition hover:bg-neutral-950" :class="{'bg-neutral-950':$store.app.state.menu.header.user}" @click="$store.app.state.menu.header.user = !$store.app.state.menu.header.user">
-                    <img :src="user.avatar" class="h-8 w-8 rounded-full object-cover mr-2">
-                    <span class="font-bold" x-text="user.login"></span>
+                  <div @click="expand.actions = !expand.actions" :class="{'md:bg-gray-700':expand.actions}" class="flex items-center h-full p-2 rounded-md transition md:cursor-pointer md:hover:bg-gray-800">
+                    <img :src="user.avatar" class="mr-2 h-8 w-8 rounded-full object-cover">
+                    <span x-text="user.login" class="font-bold"></span>
                   </div>
                   <!-- User menu actions -->
-                  <template x-if="$store.app.state.menu.header.user">
-                    <div class="w-56 absolute end-0 mt-1 rounded-md border border-neutral-800 bg-neutral-900 shadow-lg">
-                      <div class="p-2">
-                        <a href="/login/review" class="flex items-center rounded-md px-5 py-2.5 transition hover:bg-neutral-950">
-                          <x-octicon class="mr-2" x-data="{icon:'key'}"></x-octicon>
-                          Review permissions
-                        </a>
-                        <a href="/login/revoke" class="flex items-center rounded-md px-5 py-2.5 transition hover:bg-neutral-950">
-                          <x-octicon class="mr-2" x-data="{icon:'sign-out'}"></x-octicon>
-                          Sign-out
-                        </a>
-                      </div>
+                  <div :class="{'md:hidden':!expand.actions}" class="md:absolute md:end-0 md:w-56 md:mt-1 md:border md:border-gray-700 md:rounded-md md:bg-gray-800 md:shadow-lg">
+                    <div class="p-2">
+                      <a href="/login/review" class="flex items-center p-2.5 rounded-md transition hover:bg-gray-800 md:hover:bg-gray-900">
+                        <x-octicon x-data="{icon:'key'}" class="mr-2"></x-octicon>
+                        Review permissions
+                      </a>
+                      <a href="/login/revoke" class="flex items-center p-2.5 rounded-md transition hover:bg-gray-800 md:hover:bg-gray-900">
+                        <x-octicon x-data="{icon:'sign-out'}" class="mr-2"></x-octicon>
+                        Sign-out
+                      </a>
                     </div>
-                  </template>
+                  </div>
                 </div>
               </template>
               <!-- Sign-in with GitHub -->
-              <template x-if="(user)&&(!user.login)">
-                <a href="/login" class="bg-neutral-950 flex items-center rounded-md px-5 py-2.5 transition hover:bg-neutral-800 hover:text-sky-500">
-                  <x-octicon class="mr-1" x-data="{icon:'github'}"></x-octicon>
+              <template x-if="user && !user.login">
+                <a href="/login" class="p-2.5 rounded-md bg-gray-950 transition hover:bg-gray-800">
+                  <x-octicon x-data="{icon:'github'}" class="inline-block"></x-octicon>
                   Sign-in with GitHub
                 </a>
               </template>
               <!-- Remaining requests -->
               <template x-if="ratelimit?.error === null">
-                <div class="flex flex-col items-center text-xs">
+                <div class="w-fit p-2.5 text-xs md:flex md:flex-col md:items-center md:p-0">
                   <div class="flex justify-between w-full"><b class="mr-4">REST</b><span x-text="ratelimit.core"></span></div>
                   <div class="flex justify-between w-full"><b class="mr-4">GraphQL</b><span x-text="ratelimit.graphql"></span></div>
                   <div class="flex justify-between w-full"><b class="mr-4">Search</b><span x-text="ratelimit.search"></span></div>
                 </div>
               </template>
             </div>
-            <!-- TODO(#1572) -->
             <!-- Mobile menu -->
-            <button class="opacity-0 md:hidden bg-neutral-950 block rounded-md p-2.5 transition hover:bg-neutral-800" @click="$store.app.state.menu.header.collapse = !$store.app.state.menu.header.collapse">
-              <x-octicon class="h-5 w-5" x-data="{icon:'menu'}"></x-octicon>
+            <button @click="expand.menu = !expand.menu" :class="{'bg-gray-700':expand.menu}" class="block p-2.5 rounded-md bg-gray-950 transition hover:bg-gray-800 md:hidden">
+              <x-octicon x-data="{icon:'menu'}" class="h-5 w-5"></x-octicon>
             </button>
           </div>
         </div>
       </div>
     </header>
-
-    <main>
-        <!-- About -->
-        <section class="relative overflow-hidden">
-          <div class="container mx-auto px-2 pt-32 pb-32 ">
-            <h1 class="text-4xl">Craft your profile infographic</h1>
-            <p class="mt-2 text-zinc-400 md:whitespace-pre-line">
-              With a large choice of plugins, processors and options.
-              Share them anywhere!
-            </p>
+    <main x-data="{app:$store.app, selected:{mode:''}, config:{presets:{default:{}}}}">
+      <!-- About -->
+      <section class="relative overflow-hidden">
+        <div class="container mx-auto px-2 py-32">
+          <h1 class="text-4xl">Craft your profile infographics</h1>
+          <h1 class="text-4xl mb-4">the way you want</h1>
+          <div>
+            <x-octicon x-data="{icon:'valid'}" class="inline-block"></x-octicon>
+            Customize them with a large choice options
           </div>
-          <template x-if="false">
-            <div class="absolute top-0 right-0 w-2/4 flex gap-2 origin-center -z-10 opacity-75" style="transform: rotateX(50deg) rotateZ(40deg) translate(-25%, -25%); transform-style: preserve-3d;" x-data="{imgs:[
-              '/octocat?mock=true&plugins=[{calendar:{view:isometric}}]',
-              '/octocat?mock=true&plugins=[{rss:{feed:https://news.ycombinator.com/rss}}]',
-              '/octocat?mock=true&plugins=[{lines:{}}]',
-              '/octocat?mock=true&plugins=[{calendar:{view:top-down,colors:winter}}]',
-            ]}">
-              <template x-for="i in [0, 1]">
-                <div class="w-2/4" :key="i">
-                  <template x-for="(img, j) in imgs.filter((_, j) => (j%2) === i)">
-                    <div class="bg-white rounded-lg shadow p-4 mb-2" :key="j">
-                      <img :src="img" alt="">
-                    </div>
-                  </template>
-                </div>
-              </template>
-            </div>
-          </template>
-          <div class="absolute bottom-0 w-full h-40 bg-gradient-to-t from-neutral-950 to-transparent z-40"></div>
-        </section>
-
-        <!-- Dev environment -->
-        <template x-if="dev">
-          <section class="container mx-auto my-8 px-2">
-            <div class="rounded-md bg-yellow-200 border border-amber-900 text-amber-700 p-2">
-              <h2 class="text-2xl mb-4">🚧 Development environment</h2>
-              <p class="px-2 md:whitespace-pre-line"><!--
-              -->Metrics is currently in running in a development environment.
-                Some features may not be available.
-              </p>
-            </div>
-          </section>
-        </template>
-
-        <!-- Invalid token -->
-        <template x-if="ratelimit?.error === 401">
-          <section class="container mx-auto my-8 px-2">
-            <div class="rounded-md bg-yellow-200 border border-amber-900 text-amber-700 p-2">
-              <h2 class="text-xl">⚠️ GitHub API token is invalid</h2>
-            </div>
-          </section>
-        </template>
-
-        <!-- Still in development -->
-        <section class="container mx-auto my-8 px-2">
-          <div class="rounded-md bg-yellow-200 border border-amber-900 text-amber-700 p-2">
-            <h2 class="text-xl">🏗️ Metrics v4 is still in development and some features may not be available yet. Please refer to <a class="text-sky-500" href="https://github.com/lowlighter/metrics/issues/1573">#1573</a> for more informations</h2>
+          <div>
+            <x-octicon x-data="{icon:'valid'}" class="inline-block"></x-octicon>
+            Export and share them anywhere
           </div>
-        </section>
-
-        <!-- Craft mode -->
-        <template x-if="true">
-          <section class="container mx-auto px-2 my-8">
-            <h2 class="text-2xl mb-4">1️⃣ Choose a way to generate infographics</h2>
-            <fieldset class="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <template x-data="{modes:[
-                {value:'web', name:'Web URL', description:'Create a shareable link that you can embed anywhere'},
-                {value:'actions', name:'GitHub Actions', description:'Generate a GitHub Actions workflow for your repository'},
-                {value:'server', name:'Deploy', description:'Create a configuration file for self-hosted solutions'},
-              ]}" x-for="{value, name, description} in modes">
-                <div :key="value">
-                  <input type="radio" name="state.mode" :id="`state.mode@${value}`" :value="value" class="peer hidden" @input="$store.app.setMode($event)"/>
-                  <label :for="`state.mode@${value}`" class="block bg-neutral-900 border border-neutral-800 rounded-md px-5 py-2.5 cursor-pointer transition hover:bg-neutral-800 peer-checked:border-sky-500">
-                    <div class="flex items-center text-sky-500">
-                      <x-octicon x-data="{icon:value}"></x-octicon>
-                      <span class="ml-1" x-text="name"></span>
-                    </div>
-                    <p class="mt-1 text-zinc-400" x-text="description"></p>
-                  </label>
-                </div>
-              </template>
-            </fieldset>
-          </section>
-        </template>
-
-        <!-- Compatibility migration helper -->
-        <template x-if="$store.app.state.mode === 'actions'" x-data="{current:{status:'empty', messages:'', code:''}}" x-init="$store.app.setCompatConfig(current)">
-          <section class="container mx-auto px-2 my-8">
-            <h2 class="text-xl mb-4">*️⃣ Optionally convert an existing v3.x configuration to v4.x</h2>
-            <label for="config.compat.enable" class="inline-block relative h-6 w-12 cursor-pointer mb-2">
-              <input type="checkbox" name="config.compat.enable" id="config.compat.enable" class="peer hidden" x-model="$store.app.state.edit.compat"/>
-              <span class="absolute inset-0 rounded-full bg-neutral-700 transition peer-checked:bg-sky-500"></span>
-              <span class="absolute inset-y-0 start-0 m-1 h-4 w-4 rounded-full bg-white transition-all peer-checked:start-6"></span>
-            </label>
-            <template x-if="$store.app.state.edit.compat">
-              <div>
-                <div class="my-2">
-                  Paste v3.x configuration <code>inputs</code> below:
-                </div>
-                <textarea name="config.compat" :placeholder="$store.app.state.compat.placeholder" class="w-full bg-neutral-950 rounded-md px-3 py-1.5 border border-neutral-800 outline-none focus:border-sky-500 min-h-[8em]" @input="$store.app.setCompatConfig(current); current.status = 'processing'"></textarea>
-                <div class="flex items-center mt-1 mb-6" :class="{[`text-${{valid:'green', invalid:'red', processing:'blue', empty:'zinc'}[current.status]}-600`]:true}">
-                  <template x-for="icon in [current.status]">
-                    <x-octicon :class="{'animate-spin':current.status === 'processing'}" :key="icon"></x-octicon>
-                  </template>
-                  <span class="ml-1">Configuration is <span x-text="{processing:'being processed'}[current.status] ?? current.status"></span></span>
-                </div>
-                <article class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 mb-4">
-                  <div class="compat-config border border-neutral-800 rounded-md overflow-hidden bg-black p-2">
-                    <pre class="h-full overflow-auto"><code class="language-yaml" x-html="current.code"></code></pre>
+          <div>
+            <x-octicon x-data="{icon:'valid'}" class="inline-block"></x-octicon>
+            Using free and open-sourced code
+          </div>
+        </div>
+        <template x-if="false">
+          <div class="absolute top-0 right-0 w-2/4 flex gap-2 origin-center -z-10 opacity-75" style="transform: rotateX(50deg) rotateZ(40deg) translate(-25%, -25%); transform-style: preserve-3d;" x-data="{imgs:[
+            '/octocat?mock=true&plugins=[{calendar:{view:isometric}}]',
+            '/octocat?mock=true&plugins=[{rss:{feed:https://news.ycombinator.com/rss}}]',
+            '/octocat?mock=true&plugins=[{lines:{}}]',
+            '/octocat?mock=true&plugins=[{calendar:{view:top-down,colors:winter}}]',
+          ]}">
+            <template x-for="i in [0, 1]">
+              <div class="w-2/4" :key="i">
+                <template x-for="(img, j) in imgs.filter((_, j) => (j%2) === i)">
+                  <div class="bg-white rounded-lg shadow p-4 mb-2" :key="j">
+                    <img :src="img" alt="">
                   </div>
-                  <div class="compat-messages border border-neutral-800 rounded-md overflow-hidden p-2" x-html="current.messages || 'Everything looks good !'"></div>
-                </article>
-                <nav class="flex gap-2 lg:mb-8">
-                  <div class="bg-red-950 flex items-center rounded-md p-2 text-sm border border-transparent transition hover:bg-red-800 hover:text-sky-100" :class="{'cursor-not-allowed opacity-50':current.status !== 'valid', 'cursor-pointer':current.status === 'valid'}" @click="$store.app.importCompatConfig()">
-                    <x-octicon class="mr-1" x-data="{icon:'import'}"></x-octicon>
-                    Import configuration
-                  </div>
-                </nav>
+                </template>
               </div>
             </template>
-          </section>
+          </div>
         </template>
+        <div class="absolute bottom-0 w-full h-40 bg-gradient-to-t from-slate-950 to-transparent z-40"></div>
+      </section>
 
-        <!-- Global settings and presets -->
-        <template x-if="$store.app.state.mode">
-          <section class="container mx-auto px-2 my-8">
-            <h2 class="text-2xl mb-4">2️⃣ Configure global settings</h2>
-            <!-- Global settings -->
-            <article :key="$store.app.state.mode">
-              <div class="bg-neutral-900 border border-neutral-800 rounded-md">
-                <div class="bg-neutral-950 p-2 border-b border-neutral-800 rounded-t-md">
-                  <h3 class="text-lg flex justify-between">
-                    <span>⚙️ Global configuration</span>
-                    <span class="text-zinc-400" x-text="`@${$store.app.state.mode}`"></span>
-                  </h3>
+      <!-- v4 notice -->
+      <section class="container mx-auto my-1 p-2">
+        <div class="p-2 rounded-md bg-yellow-200 border border-yellow-700 text-yellow-700">
+          <x-octicon x-data="{icon:'rocket'}" class="inline-block"></x-octicon>
+          Metrics v4 is still in development and some features may not be available yet.
+          Please refer to <a class="font-bold text-sky-300" href="https://github.com/lowlighter/metrics/issues/1573">#1573</a> for more informations
+        </div>
+      </section>
+
+      <!-- Development notice -->
+      <template x-if="dev">
+        <section class="container mx-auto my-1 p-2">
+          <div class="p-2 rounded-md bg-yellow-200 border border-yellow-700 text-yellow-700">
+            <x-octicon x-data="{icon:'experimental'}" class="inline-block"></x-octicon>
+            Metrics is currently in running in a development environment.
+          </div>
+        </section>
+      </template>
+
+      <!-- Invalid token notice -->
+      <template x-if="ratelimit?.error === 401">
+        <section class="container mx-auto my-1 p-2">
+          <div class="p-2 rounded-md bg-red-200 border border-red-700 text-red-700">
+            <x-octicon x-data="{icon:'invalid'}" class="inline-block"></x-octicon>
+            Configured GitHub API token may be invalid
+          </div>
+        </section>
+      </template>
+
+      <!-- Craft mode -->
+      <template x-if="true">
+        <section class="container mx-auto px-2 my-8">
+          <h2 class="text-2xl mb-4">1️⃣ Choose a way to generate infographics</h2>
+          <fieldset class="grid grid-cols-1 gap-8 md:grid-cols-3">
+            <template x-data="{modes:[
+              {value:'web', name:'Web URL', description:'Create a shareable link that you can embed anywhere'},
+              {value:'actions', name:'GitHub Actions', description:'Generate a GitHub Actions workflow for your repository'},
+              {value:'server', name:'Deploy', description:'Create a configuration file for self-hosted solutions'},
+            ]}" x-for="{value, name, description} in modes">
+              <div :key="value">
+                <input x-model="selected.mode" :id="`app.mode.${value}`" :value="value" name="app.mode" type="radio" class="peer hidden">
+                <label :for="`app.mode.${value}`" class="block bg-gray-950 h-full p-2.5 border border-gray-800 rounded-md cursor-pointer transition hover:bg-gray-800 peer-checked:bg-gray-900 peer-checked:border-sky-500">
+                  <div class="text-sky-500">
+                    <x-octicon x-data="{icon:value}" class="inline-block"></x-octicon>
+                    <span class="ml-1" x-text="name"></span>
+                  </div>
+                  <p class="mt-1 text-zinc-400" x-text="description"></p>
+                </label>
+              </div>
+            </template>
+          </fieldset>
+        </section>
+      </template>
+
+      <!-- Compatibility migration helper -->
+      <template x-if="selected.mode === 'actions'" x-data="{compat:{enable:false, status:'empty', input:'', config:null, messages:''}}">
+        <section class="container mx-auto px-2 my-8">
+          <h2 class="text-xl mb-4">*️⃣ Optionally convert an existing v3.x configuration to v4.x</h2>
+          <label class="inline-block relative mb-2 h-6 w-12 cursor-pointer">
+            <input x-model="compat.enable" type="checkbox" class="peer hidden">
+            <span class="absolute inset-0 rounded-full bg-neutral-700 transition peer-checked:bg-sky-500"></span>
+            <span class="absolute inset-y-0 start-0 m-1 h-4 w-4 rounded-full bg-white transition-all peer-checked:start-6"></span>
+          </label>
+          <template x-if="compat.enable">
+            <div>
+              <div class="my-2">
+                Paste v3.x configuration <code>inputs</code> below:
+              </div>
+              <textarea x-model="compat.input" @input="compat.status = 'processing'; app.updateCompatConfig(compat)" placeholder="token: ${{ github.token }}&#10;config_timezone: Europe/Paris&#10;plugin_isocalendar: yes&#10;plugin_isocalendar_duration: full-year" class="w-full bg-gray-950 px-3 py-1.5 border border-gray-800 rounded-md outline-none focus:border-sky-500 min-h-[8em]"></textarea>
+              <div class="flex items-center mt-1 mb-6" :class="{[`text-${{valid:'green', invalid:'red', processing:'blue', empty:'zinc'}[compat.status]}-700`]:true}">
+                <template x-for="icon in [compat.status]">
+                  <x-octicon :class="{'animate-spin':compat.status === 'processing'}"></x-octicon>
+                </template>
+                <span class="ml-1">Configuration is <span x-text="{processing:'being processed'}[compat.status] ?? compat.status"></span></span>
+              </div>
+              <article class="grid grid-cols-1 gap-4 mb-4 lg:grid-cols-2 lg:gap-8">
+                <div class="bg-black p-2 border border-gray-800 rounded-md overflow-hidden">
+                  <template x-if="compat.config">
+                    <pre class="h-full overflow-auto"><code x-html="app.yaml(compat.config)" class="language-yaml"></code></pre>
+                  </template>
+                  <template x-if="!compat.config">
+                    <pre class="h-full overflow-auto"><code class="language-yaml"><span class="hljs-comment"># Transpiled configuration will appear here</span></code></pre>
+                  </template>
                 </div>
-                <nav class="flex gap-2 p-2 border-b border-neutral-800">
-                  <div @click="$store.app.state.edit.global = !$store.app.state.edit.global" class="bg-neutral-950 flex items-center rounded-md p-2 text-sm border cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500" :class="{'border-sky-500':$store.app.state.edit.global, 'border-transparent':!$store.app.state.edit.global}">
-                    <x-octicon class="mr-1" x-data="{icon:'edit'}"></x-octicon>
+                <div x-html="compat.messages || 'Everything looks good !'" class="p-2 border border-gray-800 rounded-md overflow-hidden"></div>
+              </article>
+              <nav class="flex gap-2 lg:mb-8">
+                <div @click="config = compat.config" :class="{'cursor-not-allowed opacity-50':compat.status !== 'valid', 'cursor-pointer':compat.status === 'valid'}" class="flex items-center p-2 bg-red-950 rounded-md border border-transparent text-sm transition hover:bg-red-800 hover:text-sky-100">
+                  <x-octicon x-data="{icon:'import'}" class="mr-1"></x-octicon>
+                  Import configuration
+                </div>
+              </nav>
+            </div>
+          </template>
+        </section>
+      </template>
+
+      <!-- Global settings and presets -->
+      <template x-if="selected.mode">
+        <section class="container mx-auto px-2 my-8">
+          <h2 class="text-2xl mb-4">2️⃣ Configure global settings</h2>
+          <!-- Global settings -->
+          <article x-data="{edit:false}">
+            <div class="bg-gray-900 border border-gray-800 rounded-md">
+              <div class="bg-gray-950 p-2 border-b border-gray-800 rounded-t-md">
+                <h3 class="text-lg flex justify-between">
+                  <span>⚙️ Global configuration</span>
+                  <span class="text-zinc-400" x-text="selected.mode"></span>
+                </h3>
+              </div>
+              <nav class="flex gap-2 p-2 border-b border-gray-800">
+                <div @click="edit = !edit" :class="{'bg-gray-900 border-sky-500':edit}" class="bg-gray-950 flex items-center border border-transparent rounded-md p-2 text-sm cursor-pointer transition hover:bg-gray-800 hover:text-sky-500">
+                  <x-octicon x-data="{icon:'edit'}" class="mr-1"></x-octicon>
+                  Edit
+                </div>
+              </nav>
+              <div class="bg-black p-2">
+                <pre><code class="language-yaml" x-html="app.yaml(config)"></code></pre>
+              </div>
+              <template x-if="edit">
+                <div class="p-2 border-b border-gray-800">
+                  <x-schema-inputs x-data="{inputs:modes[selected.mode], path:[], trim:undefined, model:config}"></x-schema-inputs>
+                </div>
+              </template>
+            </div>
+          </article>
+          <!-- Presets -->
+          <article class="mt-4" x-data="{edit:'', expand:''}">
+            <div class="bg-gray-900 border border-gray-800 rounded-md">
+              <div class="bg-gray-950 p-2 border-b border-gray-800 rounded-t-md">
+                <h3 class="text-lg flex justify-between">
+                  <span>🍱 Configure presets</span>
+                </h3>
+              </div>
+              <nav class="flex gap-2 p-2 border-b border-gray-800">
+                <template x-for="(_, preset) in config.presets">
+                  <div @click="expand = expand === preset ? (edit = '') : preset" :class="{'border-sky-500':expand === preset, 'border-transparent':expand !== preset}" class="bg-gray-950 flex items-center rounded-md p-2 text-sm border cursor-pointer transition hover:bg-gray-800 hover:text-sky-500">
+                    <x-octicon x-data="{icon:'preset'}" class="mr-1"></x-octicon>
+                    <span x-text="`${preset.charAt(0).toLocaleUpperCase()}${preset.slice(1)}`"></span>
+                  </div>
+                </template>
+                <div x-data="{preset:''}" class="flex">
+                  <input x-model="preset" @click="expand = ''" @keyup.enter="config.presets[preset] = {}; expand = edit = preset; preset = ''; $el.blur()" type="text" placeholder="Create a new preset" class="grow bg-gray-950 rounded-l-md px-3 py-1.5 outline-none">
+                  <div @click="config.presets[preset] = {}; expand = edit = preset; preset = ''" class="bg-green-950 flex items-center rounded-r-md p-2 border border-gray-800 cursor-pointer transition hover:bg-green-800">
+                    <x-octicon x-data="{icon:'plus'}" class="text-white"></x-octicon>
+                  </div>
+                </div>
+              </nav>
+              <template x-if="expand">
+                <nav class="flex gap-2 p-2 border-b border-gray-800">
+                  <div @click="edit = edit === expand ? '' : expand" :class="{'border-sky-500':edit === expand, 'border-transparent':edit !== expand}" class="bg-gray-950 flex items-center rounded-md p-2 text-sm border cursor-pointer transition hover:bg-gray-800 hover:text-sky-500">
+                    <x-octicon x-data="{icon:'edit'}" class="mr-1"></x-octicon>
                     Edit
                   </div>
-                </nav>
-                <div class="bg-black p-2">
-                  <pre><code class="language-yaml" x-html="$store.app.getGlobalConfig()"></code></pre>
-                </div>
-                <template x-if="$store.app.state.edit.global">
-                  <div class="p-2 border-b border-neutral-800">
-                    <form x-html="$store.app.state.global.xhtml"></form>
-                  </div>
-                </template>
-              </div>
-            </article>
-            <!-- Presets -->
-            <article class="mt-4">
-              <div class="bg-neutral-900 border border-neutral-800 rounded-md">
-                <div class="bg-neutral-950 p-2 border-b border-neutral-800 rounded-t-md">
-                  <h3 class="text-lg flex justify-between">
-                    <span>🍱 Configure presets</span>
-                  </h3>
-                </div>
-                <nav class="flex gap-2 p-2 border-b border-neutral-800">
-                  <template x-for="(_, preset) in $store.app.config.presets">
-                    <div @click="$store.app.state.expand.preset = $store.app.state.expand.preset === preset ? ($store.app.state.edit.preset = '') : preset" class="bg-neutral-950 flex items-center rounded-md p-2 text-sm border cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500" :class="{'border-sky-500':($store.app.state.expand.preset === preset), 'border-transparent':!($store.app.state.expand.preset === preset)}">
-                      <x-octicon class="mr-1" x-data="{icon:'preset'}"></x-octicon>
-                      <span x-text="`${preset.charAt(0).toLocaleUpperCase()}${preset.slice(1)}`"></span>
-                    </div>
-                  </template>
-                  <div class="opacity-50 cursor-not-allowed bg-neutral-950 flex items-center rounded-md p-2 text-sm border border-transparent transition hover:bg-neutral-800 hover:text-sky-500">
-                    <x-octicon class="mr-1" x-data="{icon:'plus'}"></x-octicon>
-                    Create a new preset
-                  </div>
-                </nav>
-                <template x-if="$store.app.state.expand.preset">
-                  <nav class="flex gap-2 p-2 border-b border-neutral-800">
-                    <div @click="$store.app.state.edit.preset = $store.app.state.edit.preset === $store.app.state.expand.preset ? '' : $store.app.state.expand.preset" class="bg-neutral-950 flex items-center rounded-md p-2 text-sm border cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500" :class="{'border-sky-500':($store.app.state.edit.preset === $store.app.state.expand.preset), 'border-transparent':!($store.app.state.edit.preset === $store.app.state.expand.preset)}">
-                      <x-octicon class="mr-1" x-data="{icon:'edit'}"></x-octicon>
-                      Edit
-                    </div>
-                    <div class="opacity-50 cursor-not-allowed bg-neutral-950 flex items-center rounded-md p-2 text-sm border border-transparent transition hover:bg-neutral-800 hover:text-sky-500">
-                      <x-octicon class="mr-1" x-data="{icon:'clone'}"></x-octicon>
-                      Duplicate
-                    </div>
-                    <div class="opacity-50 cursor-not-allowed bg-red-950 flex items-center rounded-md p-2 text-sm border border-transparent transition hover:bg-red-800 hover:text-sky-100">
-                      <x-octicon class="mr-1" x-data="{icon:'remove'}"></x-octicon>
+                  <template x-if="expand !== 'default'">
+                    <div @click="delete config.presets[expand]; expand = edit = ''" class="cursor-not-allowed bg-red-950 flex items-center rounded-md p-2 text-sm border border-transparent transition hover:bg-red-800 hover:text-sky-100">
+                      <x-octicon x-data="{icon:'remove'}" class="mr-1"></x-octicon>
                       Remove
                     </div>
-                  </nav>
-                </template>
-                <template x-if="$store.app.state.expand.preset">
-                  <div class="bg-black p-2">
-                    <pre><code class="language-yaml" x-html="$store.app.getPresetConfig($store.app.state.expand.preset)"></code></pre>
-                  </div>
-                </template>
-                <template x-if="$store.app.state.edit.preset">
-                  <div class="p-2 border-b border-neutral-800">
-                    <form>
-                      <x-schema-inputs x-data="{inputs:presets.schema, path:['presets', $store.app.state.edit.preset], trim:/^presets\./}" x-init="$nextTick(() => $store.app.syncValue(path, inputs))"></x-schema-inputs>
-                    </form>
-                  </div>
-                </template>
-              </div>
-            </article>
-          </section>
-        </template>
+                  </template>
+                </nav>
+              </template>
+              <template x-if="expand">
+                <div class="bg-black p-2">
+                  <pre><code class="language-yaml" x-html="app.yaml(config.presets[expand])"></code></pre>
+                </div>
+              </template>
+              <template x-if="edit">
+                <div class="p-2 border-b border-gray-800">
+                  <form>
+                    <x-schema-inputs x-data="{inputs:presets.schema, path:['presets', edit], trim:/^presets\./, model:config.presets[edit]}" ></x-schema-inputs>
+                  </form>
+                </div>
+              </template>
+            </div>
+          </article>
+        </section>
+      </template>
+
 
         <!-- Plugins and processors settings -->
         <template x-if="$store.app.state.mode">
@@ -529,26 +543,26 @@
           </section>
         </template>
 
-        <!-- Result -->
-        <template x-if="$store.app.state.mode">
-          <section class="container mx-auto px-2 my-8">
-            <h2 class="text-2xl mb-4">4️⃣ You're all set!</h2>
-            <template x-if="$store.app.state.mode === 'web'">
-              <div>
-                <pre class="bg-neutral-900 rounded-md p-2 cursor-pointer transition hover:bg-neutral-800" @click="$store.app.copyToClipboard($event)"><code class="language-html whitespace-break-spaces" x-html="$store.app.getFullConfig()"></code></pre>
-              </div>
-            </template>
-            <template x-if="$store.app.state.mode !== 'web'">
-              <div>
-                <pre class="bg-neutral-900 rounded-md p-2"><code class="language-yaml" x-html="$store.app.getFullConfig()"></code></pre>
-              </div>
-            </template>
-          </section>
-        </template>
+      <!-- Result -->
+      <template x-if="true">
+        <section class="container mx-auto px-2 my-8">
+          <h2 class="text-2xl mb-4">4️⃣ You're all set!</h2>
+          <template x-if="selected.mode === 'web'">
+            <div>
+              <pre class="bg-gray-900 rounded-md p-2 cursor-pointer transition hover:bg-gray-800" @click="app.copyToClipboard($event)"><code class="language-html whitespace-break-spaces" x-html="$store.app.getFullConfig()"></code></pre>
+            </div>
+          </template>
+          <template x-if="selected.mode !== 'web'">
+            <div>
+              <pre class="bg-gray-900 rounded-md p-2"><code class="language-yaml" x-html="app.yaml(config)"></code></pre>
+            </div>
+          </template>
+        </section>
+      </template>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-neutral-900 mt-16">
+    <footer class="bg-gray-900 mt-16">
       <div class="max-w-screen-xl container mx-auto p-4">
         <ul class="flex flex-wrap justify-center gap-8">
           <li>
@@ -575,9 +589,9 @@
       </div>
     </footer>
 
-    <!-- Alpine component: octicon -->
+    <!-- Alpine component: octicon (icon: string) -->
     <template x-component="octicon">
-      <div>
+      <div style="margin-bottom: -2px;">
         <template x-if="icon === 'github'">
           <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path></svg>
         </template>
@@ -662,20 +676,26 @@
         <template x-if="icon === 'import'">
           <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M2 1.75C2 .784 2.784 0 3.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v8.586A1.75 1.75 0 0 1 12.25 15h-7a.75.75 0 0 1 0-1.5h7a.25.25 0 0 0 .25-.25V6H9.75A1.75 1.75 0 0 1 8 4.25V1.5H3.75a.25.25 0 0 0-.25.25V4.5a.75.75 0 0 1-1.5 0Zm-.5 10.487v1.013a.75.75 0 0 1-1.5 0v-1.012a3.748 3.748 0 0 1 3.77-3.749L4 8.49V6.573a.25.25 0 0 1 .42-.183l2.883 2.678a.25.25 0 0 1 0 .366L4.42 12.111a.25.25 0 0 1-.42-.183V9.99l-.238-.003a2.25 2.25 0 0 0-2.262 2.25Zm8-10.675V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"></path></svg>
         </template>
+        <template x-if="icon === 'rocket'">
+          <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M14.064 0h.186C15.216 0 16 .784 16 1.75v.186a8.752 8.752 0 0 1-2.564 6.186l-.458.459c-.314.314-.641.616-.979.904v3.207c0 .608-.315 1.172-.833 1.49l-2.774 1.707a.749.749 0 0 1-1.11-.418l-.954-3.102a1.214 1.214 0 0 1-.145-.125L3.754 9.816a1.218 1.218 0 0 1-.124-.145L.528 8.717a.749.749 0 0 1-.418-1.11l1.71-2.774A1.748 1.748 0 0 1 3.31 4h3.204c.288-.338.59-.665.904-.979l.459-.458A8.749 8.749 0 0 1 14.064 0ZM8.938 3.623h-.002l-.458.458c-.76.76-1.437 1.598-2.02 2.5l-1.5 2.317 2.143 2.143 2.317-1.5c.902-.583 1.74-1.26 2.499-2.02l.459-.458a7.25 7.25 0 0 0 2.123-5.127V1.75a.25.25 0 0 0-.25-.25h-.186a7.249 7.249 0 0 0-5.125 2.123ZM3.56 14.56c-.732.732-2.334 1.045-3.005 1.148a.234.234 0 0 1-.201-.064.234.234 0 0 1-.064-.201c.103-.671.416-2.273 1.15-3.003a1.502 1.502 0 1 1 2.12 2.12Zm6.94-3.935c-.088.06-.177.118-.266.175l-2.35 1.521.548 1.783 1.949-1.2a.25.25 0 0 0 .119-.213ZM3.678 8.116 5.2 5.766c.058-.09.117-.178.176-.266H3.309a.25.25 0 0 0-.213.119l-1.2 1.95ZM12 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>
+        </template>
+        <template x-if="icon === 'experimental'">
+          <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M5 5.782V2.5h-.25a.75.75 0 0 1 0-1.5h6.5a.75.75 0 0 1 0 1.5H11v3.282l3.666 5.76C15.619 13.04 14.543 15 12.767 15H3.233c-1.776 0-2.852-1.96-1.899-3.458Zm-2.4 6.565a.75.75 0 0 0 .633 1.153h9.534a.75.75 0 0 0 .633-1.153L12.225 10.5h-8.45ZM9.5 2.5h-3V6c0 .143-.04.283-.117.403L4.73 9h6.54L9.617 6.403A.746.746 0 0 1 9.5 6Z"></path></svg>
+        </template>
       </div>
     </template>
 
-    <!-- Alpine component: schema inputs -->
+    <!-- Alpine component: schema inputs (inputs:Record<PropertyKey, unknown>, path:string[], trim:RegExp|undefined, model:Record<PropertyKey, unknown>) -->
     <template x-component="schema-inputs">
       <div>
         <template x-for="(input, name) in inputs.properties">
-          <div :key="name" x-data="{subpath:[...path, name], id:[...path, name].join('.'), store:$store.app}">
-            <label :for="id" class="block mb-2">
+          <div :key="name" x-data="{subpath:[...path, name]}">
+            <!-- Input name -->
+            <div class="block mb-2" x-init="model[name] = app.getDefaultValue(input)">
               <div class="font-bold">
-                <span x-text="store.formatKeyPath(subpath, {trim})"></span>
+                <span x-text="app.formatKeyPath(subpath, {trim})"></span>
                 <template x-data="{labels:[
                   {key:'format', text:{uri:'url'}[input.format]},
-                  {key:'enum', text:'enum'},
                   {key:'const', text:`const: ${input.type === 'string' ? '&quot;' : ''}${input.const}${input.type === 'string' ? '&quot;' : ''}`},
                   {key:'integer', text:'integer'},
                   {key:'exclusiveMinimum', text:`&gt; ${input.exclusiveMinimum}`},
@@ -683,178 +703,119 @@
                   {key:'exclusiveMaximum', text:`&lt; ${input.exclusiveMaximum}`},
                   {key:'maximum', text:`≤ ${input.maximum}`},
                   {key:'writeOnly', text:'secret'},
+                  ...(input.type === 'null' ? [{key:'type', text:'null'}] : []),
                 ].filter(({key}) => key in input)}" x-for="{key, text} in labels">
-                  <span :key="key" class="rounded-full bg-cyan-100 text-indigo-700 px-1.5 text-sm mr-1 whitespace-nowrap"><span x-text="text"></span></span>
-                </template>
-                <template x-if="(input.type === 'null')">
-                  <span class="rounded-full bg-gray-100 text-gray-700 px-1.5 text-sm mr-1 whitespace-nowrap">null</span>
+                  <span :key="key" class="bg-cyan-100 text-indigo-700 px-1.5 text-sm mr-1 rounded-full whitespace-nowrap"><span x-text="text"></span></span>
                 </template>
               </div>
-              <template x-if="(!input.subtype)&&(input.description)">
-                <div x-html="await $store.app.markdown(input.description.replace('(textarea)', '').replace(/\(placeholder: `[\s\S]+`\)/, ''))" class="text-zinc-400 italic"></div>
-              </template>
-            </label>
-            <!-- Object input -->
-            <template x-if="input.type === 'object'">
-              <div class="w-full p-2 rounded-md border border-neutral-800">
-                <x-schema-inputs x-data="{inputs:input, path:subpath, trim}" class="w-full"></x-schema-inputs>
-                <!-- Record inputs -->
-                <template x-if="input.additionalProperties">
-                  <div x-data="{editable:true, value:{}}">
-                    <template x-for="(_, k) in value">
-                      <div :key="k" class="p-2 bg-neutral-950 mb-2">
-                        <div class="flex">
-                          <input :value="k" disabled type="text" class="grow bg-neutral-950 rounded-md px-3 py-1.5 outline-none disabled">
-                          <template x-if="editable">
-                            <div @click="delete value[k]" class="bg-red-950 flex items-center rounded-md p-2 border border-neutral-800 cursor-pointer transition hover:bg-red-800">
-                              <x-octicon x-data="{icon:'minus'}" class="text-white"></x-octicon>
-                            </div>
-                          </template>
-                        </div>
-                        <template x-if="input.additionalProperties.properties">
-                          <div class="m-1 mb-0">
-                            <x-schema-inputs x-data="{inputs:input.additionalProperties, path:[...subpath, k], trim}"></x-schema-inputs>
-                          </div>
-                        </template>
-                        <template x-if="!input.additionalProperties.properties">
-                          <div class="flex">
-                            <input x-model="value[k]" type="text" placeholder="Add a new value" class="opacity-50 grow bg-neutral-950 rounded-md px-3 py-1.5 border border-neutral-800 outline-none focus:border-sky-500">
-                          </div>
-                        </template>
-                      </div>
-                    </template>
-                    <template x-if="editable">
-                      <div x-data="{key:'', buffer:''}" class="p-2 rounded-md border bg-neutral-950">
-                        <div class="flex">
-                          <input x-model="key" @keyup.enter="key ? (value[key] = buffer, key = '', buffer = '') : null" type="text" placeholder="Add a new key" class="opacity-50 grow bg-neutral-800 rounded-md px-3 py-1.5 border border-neutral-800 outline-none focus:border-sky-500">
-                          <div :class="{'opacity-50 cursor-not-allowed':!key, 'cursor-pointer':key}" @click="key ? (value[key] = buffer, key = '', buffer = '') : null" class="bg-green-950 flex items-center rounded-md p-2 border border-neutral-800 transition hover:bg-green-800">
-                            <x-octicon x-data="{icon:'plus'}" class="text-white"></x-octicon>
-                          </div>
-                        </div>
-                        <template x-if="input.additionalProperties.properties">
-                          <div class="m-1 mb-0">
-                            <x-schema-inputs x-data="{inputs:input.additionalProperties, path:[...subpath, `*`], trim}"></x-schema-inputs>
-                          </div>
-                        </template>
-                        <template x-if="!input.additionalProperties.properties">
-                          <div class="flex">
-                            <input x-model="buffer" @keyup.enter="key ? (value[key] = buffer, key = '', buffer = '', $el.parentElement.parentElement.querySelector('[x-model=key]').focus()) : null" type="text" placeholder="Add a new value" class="opacity-50 grow bg-neutral-950 rounded-md px-3 py-1.5 border border-neutral-800 outline-none focus:border-sky-500">
-                          </div>
-                        </template>
-                      </div>
-                    </template>
-                  </div>
-                </template>
-              </div>
-            </template>
-            <!-- Array input -->
-            <template x-if="input.type === 'array'">
-              <div x-data="{value:[...input.default]}" class="w-full p-2 border border-neutral-800 rounded-md">
-                <!-- String array input -->
-                <template x-if="input.items.type === 'string'">
-                  <div x-data="{min:input.minItems ?? 0, max:input.maxItems ?? Infinity, editable:!(('minItems' in input)&&('maxItems' in input)&&(input.minItems === input.maxItems))}">
-                    <template x-for="(_, k) in value">
-                      <div :key="k" class="flex">
-                        <input :id="`${id}@${k}`" :name="id" x-model="value[k]" @input="store.setValue(subpath, {target:{value}})" type="text" class="grow bg-neutral-950 rounded-md px-3 py-1.5 border border-neutral-800 outline-none focus:border-sky-500">
-                        <template x-if="editable">
-                          <div :class="{'opacity-50':(min > value.length-1)}" @click="value.splice(k, 1)" class="bg-red-950 flex items-center rounded-md p-2 border border-neutral-800 cursor-pointer transition hover:bg-red-800">
-                            <x-octicon x-data="{icon:'minus'}" class="text-white"></x-octicon>
-                          </div>
-                        </template>
-                      </div>
-                    </template>
-                    <template x-if="editable">
-                      <div x-data="{buffer:'', limited:(value.length+1 > max)}" class="flex">
-                        <input x-model="buffer" @keyup.enter="(!limited)&&(buffer) ? (value.push(buffer), buffer='') : null" type="text" placeholder="Add a new value" class="opacity-50 grow bg-neutral-950 rounded-md px-3 py-1.5 border border-neutral-800 outline-none focus:border-sky-500">
-                        <div :class="{'opacity-50 cursor-not-allowed':(limited)||(!buffer), 'cursor-pointer':(!limited)&&(buffer)}" @click="(!limited)&&(buffer) ? (value.push(buffer), buffer='') : null" class="bg-green-950 flex items-center rounded-md p-2 border border-neutral-800 transition hover:bg-green-800">
-                          <x-octicon x-data="{icon:'plus'}" class="text-white"></x-octicon>
-                        </div>
-                      </div>
-                    </template>
-                  </div>
-                </template>
-                <!-- Enum array input -->
-                <template x-if="input.items.anyOf && input.items.anyOf.every(item => item.const)">
-                  <fieldset>
-                    <template x-for="(item, k) in input.items.anyOf">
-                      <div :key="item.const" class="mb-1">
-                        <input :id="`${id}@${item.const}`" :name="id" :value="item.const" @input="store.setValue(subpath, {target:{value}})" type="checkbox" class="peer hidden">
-                        <label :for="`${id}@${item.const}`" class="block border border-neutral-800 rounded-md px-3 py-1.5 cursor-pointer text-zinc-400 transition hover:bg-neutral-800 peer-checked:border-sky-500 peer-checked:text-sky-500">
-                          <div x-text="item.const" class="text-white"></div>
-                          <div x-html="await $store.app.markdown(item.description)" class="text-zinc-400 italic"></div>
-                        </label>
-                      </div>
-                    </template>
-                  </fieldset>
-                </template>
-              </div>
-            </template>
-            <!-- String input -->
-            <template x-if="input.type === 'string' && !input.enum && !input.const">
-              <div>
-                <template x-if="input.description?.includes('(textarea)')">
-                  <textarea :id="id" :name="id" :value="input.default" :placeholder="input.description?.match(/\((?:(?:e\.g\.)|(?:placeholder:)) `([\s\S]+)`\)/)?.[1] ?? input.default ?? ''" @input="store.setValue(subpath, $event)" class="w-full bg-neutral-950 rounded-md px-3 py-1.5 border border-neutral-800 outline-none focus:border-sky-500 min-h-[4em]"></textarea>
-                </template>
-                <template x-if="!input.description?.includes('(textarea)')">
-                  <input :id="id" :name="id" :value="input.default" :type="{uri:'url'}[input.format] ?? 'text'" :pattern="input.pattern || '[\\s\\S]+'" :placeholder="input.description?.match(/\((?:(?:e\.g\.)|(?:placeholder:)) `([\s\S]+)`\)/)?.[1] ?? input.default ?? ''" @input="store.setValue(subpath, $event)" class="w-full bg-neutral-950 rounded-md px-3 py-1.5 border border-neutral-800 outline-none focus:border-sky-500">
-                </template>
-              </div>
-            </template>
-            <!-- Number input -->
-            <template x-if="input.type === 'number' || input.type === 'integer'">
-              <input :id="id" :name="id" :value="input.default ?? input.description?.match(/\(e\.g\. ([\s\S]+)\)/)?.[1] ?? input.minimum ?? input.maximum ?? ('exclusiveMinimum' in input ? input.exclusiveMinimum + 1 : null) ?? ('exclusiveMaximum' in input ? input.exclusiveMaximum - 1 : null) ?? 0" :placeholder="input.default ?? ''" :min="'exclusiveMinimum' in input ? input.exclusiveMinimum + 1 : input.minimum" :max="'exclusiveMaximum' in input ? input.exclusiveMaximum - 1 : input.maximum" @input="store.setValue(subpath, $event)" type="number" class="w-full bg-neutral-950 px-3 py-1.5 border border-neutral-800 rounded-md outline-none focus:border-sky-500">
-            </template>
+            </div>
             <!-- Boolean input -->
             <template x-if="input.type === 'boolean' && (!('const' in input))">
-              <label :for="id" class="inline-block relative h-6 w-12 cursor-pointer">
-                <input :id="id" :name="id" @input="store.setValue(subpath, $event)" type="checkbox" class="peer hidden">
-                <span class="absolute inset-0 rounded-full bg-neutral-700 transition peer-checked:bg-sky-500"></span>
+              <label class="inline-block relative h-6 w-12 cursor-pointer">
+                <input x-model="model[name]" type="checkbox" class="peer hidden">
+                <span class="absolute inset-0 rounded-full bg-gray-700 transition peer-checked:bg-sky-500"></span>
                 <span class="absolute inset-y-0 start-0 m-1 h-4 w-4 rounded-full bg-white transition-all peer-checked:start-6"></span>
               </label>
             </template>
-            <!-- Const input -->
-            <template x-if="input.type === 'string' && input.const && !input.enum">
-              <input :id="id" :name="id" :value="input.const" @input="store.setValue(subpath, $event)" type="hidden">
+            <!-- Number input -->
+            <template x-if="input.type === 'number' || input.type === 'integer'">
+              <label>
+                <input x-model="model[name]" :placeholder="app.getPlaceholder(input)" :min="input.minimum ?? (input.exclusiveMinimum + 1)" :max="input.maximum ?? (input.exclusiveMaximum - 1)" type="number" class="w-full bg-gray-950 px-3 py-1.5 border border-gray-800 rounded-md outline-none focus:border-sky-500">
+              </label>
             </template>
-            <!-- Null input -->
-            <template x-if="input.type === 'null'">
-              <input :id="id" :name="id" @input="store.setValue(subpath, {target:{value:null}})" type="hidden" value="null">
+            <!-- String input -->
+            <template x-if="input.type === 'string' && !input.const">
+              <label>
+                <template x-if="input.description?.includes('(textarea)')">
+                  <textarea x-model="model[name]" :placeholder="app.getPlaceholder(input)" class="w-full bg-gray-950 rounded-md px-3 py-1.5 border border-gray-800 outline-none focus:border-sky-500 min-h-[4em]"></textarea>
+                </template>
+                <template x-if="!input.description?.includes('(textarea)')">
+                  <input x-model="model[name]" :type="{uri:'url'}[input.format] ?? 'text'" :pattern="input.pattern || '[\\s\\S]+'" :placeholder="app.getPlaceholder(input)" class="w-full bg-gray-950 rounded-md px-3 py-1.5 border border-gray-800 outline-none focus:border-sky-500">
+                </template>
+              </label>
             </template>
             <!-- Enum input -->
             <template x-if="input.anyOf && input.anyOf.every(item => item.const)">
               <fieldset>
                 <template x-for="(item, k) in input.anyOf">
                   <div :key="item.const" class="mb-1">
-                    <input :id="`${id}@${item.const}`" :name="id" :value="item.const" @input="store.setValue(subpath, $event)" type="radio" class="peer hidden">
-                    <label :for="`${id}@${item.const}`" class="block px-3 py-1.5 border border-neutral-800 rounded-md cursor-pointer text-zinc-400 transition hover:bg-neutral-800 peer-checked:border-sky-500 peer-checked:text-sky-500">
+                    <input x-model="model[name]" :id="`${subpath.join('.')}@${item.const}`" :name="subpath.join('.')" :value="item.const" type="radio" class="peer hidden">
+                    <label :for="`${subpath.join('.')}@${item.const}`" class="block px-3 py-1.5 border border-gray-800 rounded-md cursor-pointer text-zinc-400 transition hover:bg-gray-800 peer-checked:border-sky-500 peer-checked:text-sky-500">
                       <div x-text="item.const" class="text-white"></div>
-                      <div x-html="await $store.app.markdown(item.description)" class="text-zinc-400 italic"></div>
+                      <div x-html="await app.markdown(item.description)" class="text-zinc-400 italic"></div>
                     </label>
                   </div>
                 </template>
               </fieldset>
+            </template>
+            <!-- Object input -->
+            <template x-if="input.type === 'object'">
+              <div class="w-full p-2 rounded-md border border-gray-800">
+                <x-schema-inputs x-data="{inputs:input, path:subpath, trim, model:model[name]}" class="w-full"></x-schema-inputs>
+
+
+
+                <!-- Record inputs -->
+                <template x-if="input.additionalProperties">
+                  <div>
+                    <template x-for="(_, key) in model[name]">
+                      <div :key="key" class="p-2 bg-gray-950 border border-gray-800 rounded-md mb-2">
+                        <div class="flex">
+                          <input :value="key" type="text" disabled class="grow bg-gray-950 rounded-md px-3 py-1.5 outline-none">
+                          <div @click="delete model[name][key]" class="bg-red-950 flex items-center rounded-md p-2 border border-gray-800 cursor-pointer transition hover:bg-red-800">
+                            <x-octicon x-data="{icon:'minus'}" class="text-white"></x-octicon>
+                          </div>
+                        </div>
+                        <template x-if="input.additionalProperties.properties">
+                          <div class="m-1 mb-0">
+                            <x-schema-inputs x-data="{inputs:input.additionalProperties, path:[...subpath, key], trim, model:model[name][key]}"></x-schema-inputs>
+                          </div>
+                        </template>
+                        <template x-if="!input.additionalProperties.properties">
+                          <div class="flex">
+                            <input x-model="model[name][key]" type="text" placeholder="Add a new value" class="opacity-50 grow bg-gray-950 rounded-md px-3 py-1.5 border border-gray-800 outline-none focus:border-sky-500">
+                          </div>
+                        </template>
+                      </div>
+                    </template>
+                    <template x-if="input.additionalProperties.properties">
+                      <div x-data="{key:'', buffer:{}}">
+                        <div class="flex">
+                          <input x-model="key" @keyup.enter="key ? (model[name][key] = buffer, key = '', buffer = {}) : null" type="text" placeholder="Add a new key" class="opacity-50 grow bg-gray-800 rounded-md px-3 py-1.5 border border-gray-800 outline-none focus:border-sky-500">
+                          <div :class="{'opacity-50 cursor-not-allowed':!key, 'cursor-pointer':key}" @click="key ? (model[name][key] = buffer, key = '', buffer = {}) : null" class="bg-green-950 flex items-center rounded-md p-2 border border-gray-800 transition hover:bg-green-800">
+                            <x-octicon x-data="{icon:'plus'}" class="text-white"></x-octicon>
+                          </div>
+                        </div>
+                        <div class="m-1 mb-0">
+                          <x-schema-inputs x-data="{inputs:input.additionalProperties, path:[...subpath, '*'], trim, model:buffer}"></x-schema-inputs>
+                        </div>
+                      </div>
+                    </template>
+                    <template x-if="!input.additionalProperties.properties">
+                      <div x-data="{key:'', buffer:''}" class="p-2 rounded-md border border-gray-800 bg-gray-950">
+                        <div class="flex">
+                          <input x-model="key" @keyup.enter="key ? (model[name][key] = buffer, key = '', buffer = '') : null" type="text" placeholder="Add a new key" class="opacity-50 grow bg-gray-800 rounded-md px-3 py-1.5 border border-gray-800 outline-none focus:border-sky-500">
+                          <div :class="{'opacity-50 cursor-not-allowed':!key, 'cursor-pointer':key}" @click="key ? (model[name][key] = buffer, key = '', buffer = '') : null" class="bg-green-950 flex items-center rounded-md p-2 border border-gray-800 transition hover:bg-green-800">
+                            <x-octicon x-data="{icon:'plus'}" class="text-white"></x-octicon>
+                          </div>
+                        </div>
+                        <div class="flex">
+                          <input x-model="buffer" @keyup.enter="key ? (model[name][key] = buffer, key = '', buffer = '', $el.parentElement.parentElement.querySelector('[x-model=key]').focus()) : null" type="text" placeholder="Add a new value" class="opacity-50 grow bg-gray-950 rounded-md px-3 py-1.5 border border-gray-800 outline-none focus:border-sky-500">
+                        </div>
+                      </div>
+                    </template>
+                  </div>
+                </template>
+              </div>
             </template>
             <!-- Multi-type inputs (anyOf) -->
-            <template x-if="input.anyOf && !input.anyOf.every(item => item.const)">
-              <fieldset>
+            <template x-if="input.anyOf && input.anyOf.some(item => !item.const)">
+              <fieldset x-data="{choice:app.findDefaultValue(input)}">
                 <template x-for="(value, i) of input.anyOf">
-                  <div :key="i" @click="store.setValue([...path, `${name}@${i}`], {target:document.getElementById(`${id}@${i}`)}, {anyof:true})" class="mb-1">
-                    <input :id="`${id}@${i}`" :name="id" :value="i" type="radio" class="anyof peer hidden">
-                    <label :for="`${id}@${i}`" class="block px-3 py-1.5 border border-dashed rounded-md cursor-pointer transition hover:border-sky-500 peer-checked:border-sky-500 peer-checked:border-solid">
-                      <x-schema-inputs x-data="{inputs:{properties:{[name]:value}}, path:[...path, `${name}@${i}`], trim}" class="w-full"></x-schema-inputs>
-                    </label>
-                  </div>
-                </template>
-              </fieldset>
-            </template>
-            <!-- Multi-type inputs (primitive array) -->
-            <template x-if="Array.isArray(input.type)">
-              <fieldset>
-                <template x-for="(type, i) of input.type">
-                  <div :key="i" @click="store.setValue([...path, `${name}@${i}`], {target:document.getElementById(`${id}@${i}`)}, {anyof:true})" class="mb-1">
-                    <input :id="`${id}@${i}`" :name="id" :value="i" type="radio" class="anyof peer hidden">
-                    <label :for="`${id}@${i}`" class="block px-3 py-1.5 border border-dashed rounded-md cursor-pointer transition hover:border-sky-500 peer-checked:border-sky-500 peer-checked:border-solid">
-                      <x-schema-inputs x-data="{inputs:{properties:{[name]:{...input, type, subtype:true, default:typeof input.default === type ? input.default : null}}}, path:[...path, `${name}@${i}`], trim}" class="w-full"></x-schema-inputs>
+                  <div :key="i" x-data="{modeled:{[name]:null}}" class="mb-1">
+                    <input @change="model[name] = modeled[name]" x-model="choice" :id="`${subpath.join('.')}@${i}`" :name="`${subpath.join('.')}@`" :value="i" type="radio" class="anyof peer hidden">
+                    <label :for="`${subpath.join('.')}@${i}`" class="block px-3 py-1.5 border border-dashed border-gray-500 rounded-md cursor-pointer transition hover:border-sky-500 peer-checked:border-sky-500 peer-checked:border-solid">
+                      <x-schema-inputs x-data="{inputs:{properties:{[name]:value}}, path:[...path, `${name}@${i}`], trim, model:modeled}" class="w-full"></x-schema-inputs>
                     </label>
                   </div>
                 </template>
@@ -864,73 +825,6 @@
         </template>
       </div>
     </template>
-
-    <style>
-      .markdown p, .markdown blockquote, .markdown pre {
-        margin-bottom: 8px;
-      }
-      .markdown blockquote {
-        border-left: 4px solid #52525b;
-        color: #a1a1aa;
-        padding-left: 8px;
-      }
-      .markdown code .hljs-comment {
-        color: #8b949e;
-      }
-      .markdown code .hljs-keyword {
-        color: #ff7b72;
-      }
-      .markdown code .hljs-string {
-        color: #a5d6ff;
-      }
-      .markdown code .hljs-attr {
-        color: #79c0ff;
-      }
-      .markdown code .hljs-title {
-        color: #d2a8ff;
-      }
-      .markdown code .hljs-addition {
-        color: #aff5b4;
-        background-color: #033a16;
-      }
-      .markdown code .hljs-deletion {
-        color: #ffdcd7;
-        background-color: #67060c;
-      }
-      .compat-messages > div {
-        margin-bottom: 8px;
-        padding: 8px;
-        border-radius: 4px;
-        border: 1px solid #52525b;
-      }
-      .compat-messages > .info {
-        border-color: #0fa5ea;
-        background-color: #0fa5ea10;
-      }
-      .compat-messages > .warning {
-        border-color: #78350f;
-        background-color: #78350f10;
-      }
-      .compat-messages > .error {
-        border-color: #430c11;
-        background-color: #430c1110;
-      }
-      .compat-messages > .unimplemented {
-        border-color: #f8bf27;
-        background-color: #f8bf2710;
-      }
-      .compat-messages code:not([class^="language-"]) {
-        background-color: #00000090;
-        border-radius: 4px;
-        padding: 0px 4px;
-      }
-      .compat-messages pre {
-        background-color: #00000090;
-        border-radius: 4px;
-        padding: 4px 8px;
-      }
-    </style>
-
     <script src="/static/app.js" type="module"></script>
   </body>
 </html>

@@ -30,16 +30,16 @@ export default class extends Plugin {
         is.literal("last-365-days").describe("Display last 365 days"),
         is.literal("current-year").describe("Display current year (starting from january 1st)"),
       ]).describe("Predefined range"),
-      is.number().min(1970).describe(`Set to specific year (e.g. ${new Date().getFullYear()})`),
+      is.number().min(1970).describe(`Set to specific year (e.g. \`${new Date().getFullYear()}\`)`),
       is.object({
         from: is.union([
           is.literal("registration").describe("Set to user's registration year"),
-          is.number().min(1970).describe(`Set to specific year (e.g. ${new Date().getFullYear()})`),
+          is.number().min(1970).describe(`Set to specific year (e.g. \`${new Date().getFullYear()}\`)`),
           is.number().negative().describe("Set year relative to `range.to` value"),
         ]).default("registration").describe("Starting year"),
         to: is.union([
           is.literal("current-year").describe("Set to current year"),
-          is.number().min(1970).describe(`Set to specific year (e.g. ${new Date().getFullYear()})`),
+          is.number().min(1970).describe(`Set to specific year (e.g. \`${new Date().getFullYear()}\`)`),
         ]).default("current-year").describe("Ending year"),
       }).describe("Custom range"),
     ]).default("last-365-days").describe("Year range"),

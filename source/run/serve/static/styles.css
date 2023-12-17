@@ -1,0 +1,63 @@
+.markdown p, .markdown blockquote, .markdown pre {
+  margin-bottom: 8px;
+}
+.markdown blockquote {
+  border-left: 4px solid #52525b;
+  color: #a1a1aa;
+  padding-left: 8px;
+}
+.markdown code .hljs-comment {
+  color: #8b949e;
+}
+.markdown code .hljs-keyword {
+  color: #ff7b72;
+}
+.markdown code .hljs-string {
+  color: #a5d6ff;
+}
+.markdown code .hljs-attr {
+  color: #79c0ff;
+}
+.markdown code .hljs-title {
+  color: #d2a8ff;
+}
+.markdown code .hljs-addition {
+  color: #aff5b4;
+  background-color: #033a16;
+}
+.markdown code .hljs-deletion {
+  color: #ffdcd7;
+  background-color: #67060c;
+}
+.compat-messages > div {
+  margin-bottom: 8px;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #52525b;
+}
+.compat-messages > .info {
+  border-color: #0fa5ea;
+  background-color: #0fa5ea10;
+}
+.compat-messages > .warning {
+  border-color: #78350f;
+  background-color: #78350f10;
+}
+.compat-messages > .error {
+  border-color: #430c11;
+  background-color: #430c1110;
+}
+.compat-messages > .unimplemented {
+  border-color: #f8bf27;
+  background-color: #f8bf2710;
+}
+.compat-messages code:not([class^="language-"]) {
+  background-color: #00000090;
+  border-radius: 4px;
+  padding: 0px 4px;
+}
+.compat-messages pre {
+  background-color: #00000090;
+  border-radius: 4px;
+  padding: 4px 8px;
+}
