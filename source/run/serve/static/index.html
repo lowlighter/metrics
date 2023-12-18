@@ -77,7 +77,7 @@
         </div>
       </div>
     </header>
-    <main x-data="{app:$store.app, selected:{mode:''}, config:{presets:{default:{}}}}">
+    <main x-data="{app:$store.app, selected:{mode:''}, metrics:{config:{plugins:[], presets:{default:{}}}}}">
       <!-- About -->
       <section class="relative overflow-hidden">
         <div class="container mx-auto px-2 py-32">
@@ -177,11 +177,12 @@
           <h2 class="text-xl mb-4">*️⃣ Optionally convert an existing v3.x configuration to v4.x</h2>
           <label class="inline-block relative mb-2 h-6 w-12 cursor-pointer">
             <input x-model="compat.enable" type="checkbox" class="peer hidden">
-            <span class="absolute inset-0 rounded-full bg-neutral-700 transition peer-checked:bg-sky-500"></span>
+            <span class="absolute inset-0 rounded-full bg-gray-700 transition peer-checked:bg-sky-500"></span>
             <span class="absolute inset-y-0 start-0 m-1 h-4 w-4 rounded-full bg-white transition-all peer-checked:start-6"></span>
           </label>
           <template x-if="compat.enable">
             <div>
+              <!-- User input -->
               <div class="my-2">
                 Paste v3.x configuration <code>inputs</code> below:
               </div>
@@ -192,6 +193,7 @@
                 </template>
                 <span class="ml-1">Configuration is <span x-text="{processing:'being processed'}[compat.status] ?? compat.status"></span></span>
               </div>
+              <!-- Transpiled configuration and migration messages -->
               <article class="grid grid-cols-1 gap-4 mb-4 lg:grid-cols-2 lg:gap-8">
                 <div class="bg-black p-2 border border-gray-800 rounded-md overflow-hidden">
                   <template x-if="compat.config">
@@ -203,8 +205,9 @@
                 </div>
                 <div x-html="compat.messages || 'Everything looks good !'" class="p-2 border border-gray-800 rounded-md overflow-hidden"></div>
               </article>
+              <!-- User actions -->
               <nav class="flex gap-2 lg:mb-8">
-                <div @click="config = compat.config" :class="{'cursor-not-allowed opacity-50':compat.status !== 'valid', 'cursor-pointer':compat.status === 'valid'}" class="flex items-center p-2 bg-red-950 rounded-md border border-transparent text-sm transition hover:bg-red-800 hover:text-sky-100">
+                <div @click="metrics = compat.config" :class="{'cursor-not-allowed opacity-50':compat.status !== 'valid', 'cursor-pointer':compat.status === 'valid'}" class="flex items-center p-2 bg-red-950 rounded-md border border-transparent text-sm transition hover:bg-red-800 hover:text-sky-100">
                   <x-octicon x-data="{icon:'import'}" class="mr-1"></x-octicon>
                   Import configuration
                 </div>
@@ -234,11 +237,11 @@
                 </div>
               </nav>
               <div class="bg-black p-2">
-                <pre><code class="language-yaml" x-html="app.yaml(config)"></code></pre>
+                <pre><code class="language-yaml" x-html="app.yaml(metrics)"></code></pre>
               </div>
               <template x-if="edit">
                 <div class="p-2 border-b border-gray-800">
-                  <x-schema-inputs x-data="{inputs:modes[selected.mode], path:[], trim:undefined, model:config}"></x-schema-inputs>
+                  <x-schema-inputs x-data="{inputs:modes[selected.mode], path:[], trim:undefined, model:metrics}"></x-schema-inputs>
                 </div>
               </template>
             </div>
@@ -252,15 +255,15 @@
                 </h3>
               </div>
               <nav class="flex gap-2 p-2 border-b border-gray-800">
-                <template x-for="(_, preset) in config.presets">
+                <template x-for="(_, preset) in metrics.config.presets">
                   <div @click="expand = expand === preset ? (edit = '') : preset" :class="{'border-sky-500':expand === preset, 'border-transparent':expand !== preset}" class="bg-gray-950 flex items-center rounded-md p-2 text-sm border cursor-pointer transition hover:bg-gray-800 hover:text-sky-500">
                     <x-octicon x-data="{icon:'preset'}" class="mr-1"></x-octicon>
                     <span x-text="`${preset.charAt(0).toLocaleUpperCase()}${preset.slice(1)}`"></span>
                   </div>
                 </template>
                 <div x-data="{preset:''}" class="flex">
-                  <input x-model="preset" @click="expand = ''" @keyup.enter="config.presets[preset] = {}; expand = edit = preset; preset = ''; $el.blur()" type="text" placeholder="Create a new preset" class="grow bg-gray-950 rounded-l-md px-3 py-1.5 outline-none">
-                  <div @click="config.presets[preset] = {}; expand = edit = preset; preset = ''" class="bg-green-950 flex items-center rounded-r-md p-2 border border-gray-800 cursor-pointer transition hover:bg-green-800">
+                  <input x-model="preset" @click="expand = ''" @keyup.enter="metrics.config.presets[preset] = {}; expand = edit = preset; preset = ''; $el.blur()" type="text" placeholder="Create a new preset" class="grow bg-gray-950 rounded-l-md px-3 py-1.5 outline-none">
+                  <div @click="metrics.config.presets[preset] = {}; expand = edit = preset; preset = ''" class="bg-green-950 flex items-center rounded-r-md p-2 border border-gray-800 cursor-pointer transition hover:bg-green-800">
                     <x-octicon x-data="{icon:'plus'}" class="text-white"></x-octicon>
                   </div>
                 </div>
@@ -272,7 +275,7 @@
                     Edit
                   </div>
                   <template x-if="expand !== 'default'">
-                    <div @click="delete config.presets[expand]; expand = edit = ''" class="cursor-not-allowed bg-red-950 flex items-center rounded-md p-2 text-sm border border-transparent transition hover:bg-red-800 hover:text-sky-100">
+                    <div @click="delete metrics.config.presets[expand]; expand = edit = ''" class="cursor-not-allowed bg-red-950 flex items-center rounded-md p-2 text-sm border border-transparent transition hover:bg-red-800 hover:text-sky-100">
                       <x-octicon x-data="{icon:'remove'}" class="mr-1"></x-octicon>
                       Remove
                     </div>
@@ -281,13 +284,13 @@
               </template>
               <template x-if="expand">
                 <div class="bg-black p-2">
-                  <pre><code class="language-yaml" x-html="app.yaml(config.presets[expand])"></code></pre>
+                  <pre><code class="language-yaml" x-html="app.yaml(metrics.config.presets[expand])"></code></pre>
                 </div>
               </template>
               <template x-if="edit">
                 <div class="p-2 border-b border-gray-800">
                   <form>
-                    <x-schema-inputs x-data="{inputs:presets.schema, path:['presets', edit], trim:/^presets\./, model:config.presets[edit]}" ></x-schema-inputs>
+                    <x-schema-inputs x-data="{inputs:presets.schema, path:['presets', edit], trim:/^presets\./, model:metrics.config.presets[edit]}" ></x-schema-inputs>
                   </form>
                 </div>
               </template>
@@ -296,252 +299,262 @@
         </section>
       </template>
 
-
-        <!-- Plugins and processors settings -->
-        <template x-if="$store.app.state.mode">
-          <section class="container mx-auto px-2 my-8">
-            <h2 class="text-2xl mb-4">3️⃣ Configure plugins and processors</h2>
-            <!-- Plugins -->
-            <template x-for="(plugin, i) of $store.app.config.plugins">
-              <article :data-plugin="i" :key="i" class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 mb-4 lg:mb-8">
-                <div class="bg-neutral-900 border border-neutral-800 rounded-md overflow-hidden">
-                  <div class="bg-neutral-950 p-2 border-b border-neutral-800 rounded-t-md">
-                    <h3 class="text-lg flex justify-between">
-                      <span x-text="plugin.name"></span>
-                      <div class="text-zinc-400 flex items-center">
-                        <span x-text="`#${i}`"></span>
-                        <x-octicon class="ml-1.5 cursor-not-allowed opacity-50" x-data="{icon:'drag'}"></x-octicon>
-                      </div>
-                    </h3>
-                    <h4 x-html="await $store.app.markdown(plugin.description)" class="text-zinc-400"></h4>
-                    <h4>
-                      <template x-for="{type, value} of [...(plugin.supports.length ? plugin.supports : ['user', 'organization', 'repository']).map(type => ({type})), ...plugin.scopes.map(scope => ({type:'scope', value:scope})), ...plugin.permissions.map(permission => ({type:'permission', value:permission}))]">
-                        <div class="inline-flex items-center rounded-full overflow-hidden bg-zinc-600 text-sm mt-1 mr-1" :key="value">
-                          <div class="flex items-center bg-zinc-800 px-1.5" >
-                            <x-octicon class="mr-1" x-data="{icon:type}"></x-octicon>
-                            <span x-text="type"></span>
-                          </div>
-                          <template x-if="value">
-                            <span class="px-1.5" x-text="value"></span>
-                          </template>
+      <!-- Plugins and processors settings -->
+      <template x-if="true || selected.mode">
+        <section class="container mx-auto px-2 my-8" x-data="{edited:{plugin:NaN, processor:NaN}, expand:{plugins:!metrics.config.plugins.length, processors:NaN}}">
+          <h2 class="text-2xl mb-4">3️⃣ Configure plugins and processors</h2>
+          <!-- Plugins -->
+          <template x-for="(plugin, i) of metrics.config.plugins">
+            <article :key="i" class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 mb-4 lg:mb-8" x-data="{about:plugins.find(({id}) => plugin.id === id)}">
+              <div class="bg-gray-900 border border-gray-800 rounded-md overflow-hidden">
+                <!-- Plugin header -->
+                <div class="bg-gray-950 p-2 border-b border-gray-800 rounded-t-md">
+                  <h3 class="text-lg flex justify-between">
+                    <span x-text="about.name"></span>
+                    <div class="text-zinc-400 flex items-center">
+                      <span x-text="`#${i}`"></span>
+                      <x-octicon x-data="{icon:'drag'}" class="ml-1.5 opacity-0"></x-octicon>
+                    </div>
+                  </h3>
+                  <h4 x-html="await app.markdown(about.description)" class="text-zinc-400"></h4>
+                  <h4>
+                    <template x-for="{type, value} of [...(about.supports.length ? about.supports : ['user', 'organization', 'repository']).map(type => ({type})), ...about.scopes.map(scope => ({type:'scope', value:scope})), ...about.permissions.map(permission => ({type:'permission', value:permission}))]">
+                      <div :key="value" class="inline-flex items-center rounded-full overflow-hidden bg-zinc-600 text-sm mt-1 mr-1">
+                        <div class="flex items-center bg-zinc-800 px-1.5" >
+                          <x-octicon x-data="{icon:type}" class="mr-1"></x-octicon>
+                          <span x-text="type"></span>
                         </div>
-                      </template>
-                    </h4>
+                        <template x-if="value">
+                          <span x-text="value" class="px-1.5"></span>
+                        </template>
+                      </div>
+                    </template>
+                  </h4>
+                </div>
+                <!-- User actions -->
+                <nav class="flex gap-2 p-2 border-b border-gray-800">
+                  <div @click="edited.plugin = edited.plugin === i ? (edited.processor = NaN) : i" class="bg-gray-950 flex items-center rounded-md p-2 text-sm border cursor-pointer transition hover:bg-gray-800 hover:text-sky-500" :class="{'border-sky-500':edited.plugin === i, 'border-transparent':edited.plugin !== i}">
+                    <x-octicon x-data="{icon:'edit'}" class="mr-1"></x-octicon>
+                    Edit
                   </div>
-                  <nav class="flex gap-2 p-2 border-b border-neutral-800">
-                    <div @click="$store.app.state.edit.plugins = $store.app.state.edit.plugins === i ? ($store.app.state.edit.processors = NaN) : i" class="bg-neutral-950 flex items-center rounded-md p-2 text-sm border cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500" :class="{'border-sky-500':($store.app.state.edit.plugins === i), 'border-transparent':!($store.app.state.edit.plugins === i)}">
-                      <x-octicon class="mr-1" x-data="{icon:'edit'}"></x-octicon>
-                      Edit
-                    </div>
-                    <div @click="$store.app.renderPlugin({plugin:i})" class="bg-neutral-950 flex items-center rounded-md p-2 text-sm border border-transparent cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500">
-                      <x-octicon class="mr-1" x-data="{icon:'render'}"></x-octicon>
-                      Render
-                    </div>
-                    <div class="opacity-50 cursor-not-allowed bg-neutral-950 flex items-center rounded-md p-2 text-sm border border-transparent transition hover:bg-neutral-800 hover:text-sky-500">
-                      <x-octicon class="mr-1" x-data="{icon:'clone'}"></x-octicon>
-                      Duplicate
-                    </div>
-                    <div @click="$store.app.removePlugin({plugin:i})" class="bg-red-950 flex items-center rounded-md p-2 text-sm border border-transparent cursor-pointer transition hover:bg-red-800 hover:text-sky-100">
-                      <x-octicon class="mr-1" x-data="{icon:'remove'}"></x-octicon>
-                      Remove
-                    </div>
-                  </nav>
-                  <div class="bg-black p-2">
-                    <pre><code class="language-yaml" x-html="$store.app.getPluginConfig({plugin:i})"></code></pre>
+                  <div @click="app.renderPlugin({plugin:i})" class="bg-gray-950 flex items-center rounded-md p-2 text-sm border border-transparent cursor-pointer transition hover:bg-gray-800 hover:text-sky-500">
+                    <x-octicon x-data="{icon:'render'}" class="mr-1"></x-octicon>
+                    Render
                   </div>
-                  <template x-if="plugin.docs.length">
-                    <div class="p-2 border-b border-neutral-800" :class="{hidden:!($store.app.state.edit.plugins === i)}">
-                      <div class="font-bold">Documentations</div>
-                      <template x-for="{title, type, content} in plugin.docs">
-                        <details class="group rounded-md mt-1 overflow-hidden" :class="{[{warning:'bg-yellow-950'}[type] ?? 'bg-neutral-950']:true}">
-                          <summary class="flex items-center p-2 cursor-pointer rounded-t-md border border-transparent transition hover:bg-neutral-800 hover:text-sky-500 group-open:border-sky-500">
-                            <x-octicon class="mr-1.5" x-data="{icon:'docs'}"></x-octicon>
-                            <span x-html="await $store.app.markdown(title)"></span>
-                          </summary>
-                          <div class="markdown bg-black p-2" x-html="await $store.app.markdown(content)"></div>
-                        </details>
-                      </template>
-                    </div>
+                  <div @click="edited.plugin = metrics.config.plugins.push(JSON.parse(JSON.stringify(metrics.config.plugins[i]))) - 1; expand.plugins = false; expand.processors = NaN" class="bg-gray-950 flex items-center rounded-md p-2 text-sm border border-transparent transition hover:bg-gray-800 hover:text-sky-500">
+                    <x-octicon x-data="{icon:'clone'}" class="mr-1"></x-octicon>
+                    Duplicate
+                  </div>
+                  <div @click="metrics.config.plugins.splice(i, 1); edited.plugin = NaN; expand.plugins = !metrics.config.plugins.length" class="bg-red-950 flex items-center rounded-md p-2 text-sm border border-transparent cursor-pointer transition hover:bg-red-800 hover:text-sky-100">
+                    <x-octicon x-data="{icon:'remove'}" class="mr-1"></x-octicon>
+                    Remove
+                  </div>
+                </nav>
+                <!-- Plugin YAML -->
+                <div class="bg-black p-2">
+                  <pre><code x-html="app.yaml(metrics.config.plugins[i])" class="language-yaml"></code></pre>
+                </div>
+                <!-- Plugin documentation -->
+                <template x-if="about.docs.length">
+                  <div :class="{hidden:edited.plugin !== i}" class="p-2 border-b border-gray-800">
+                    <div class="font-bold">Documentations</div>
+                    <template x-for="{title, type, content} in about.docs">
+                      <details class="group rounded-md mt-1 overflow-hidden" :class="{[{warning:'bg-yellow-950'}[type] ?? 'bg-gray-950']:true}">
+                        <summary class="flex items-center p-2 cursor-pointer rounded-t-md border border-transparent transition hover:bg-gray-800 hover:text-sky-500 group-open:border-sky-500">
+                          <x-octicon x-data="{icon:'docs'}" class="mr-1.5"></x-octicon>
+                          <span x-html="await app.markdown(title)"></span>
+                        </summary>
+                        <div x-html="await app.markdown(content)" class="markdown bg-black p-2"></div>
+                      </details>
+                    </template>
+                  </div>
+                </template>
+                <!-- Plugin arguments -->
+                <div :class="{hidden:edited.plugin !== i}" class="p-2 border-b border-gray-800">
+                  <div class="font-bold">Arguments</div>
+                  <template x-if="Object.keys(about.inputs.properties).length">
+                    <form>
+                      <x-schema-inputs x-data="{inputs:about.inputs, path:['plugins', i, 'args'], trim:/^plugins\[\d+\]\.args/, model:metrics.config.plugins[i].args}"></x-schema-inputs>
+                    </form>
                   </template>
-                  <div class="p-2 border-b border-neutral-800" :class="{hidden:!($store.app.state.edit.plugins === i)}">
-                    <div class="font-bold">Arguments</div>
-                    <template x-if="Object.keys(plugin.inputs.properties).length">
+                  <template x-if="!Object.keys(about.inputs.properties).length">
+                    <span class="text-zinc-400 italic">This plugin does not accept any arguments</span>
+                  </template>
+                </div>
+                <!-- Plugin context -->
+                <div :class="{hidden:edited.plugin !== i}" class="p-2 border-b border-gray-800">
+                  <div class="font-bold">Context</div>
+                  <div class="block mb-2">
+                    <div class="font-bold">.preset</div>
+                  </div>
+                  <select x-model="metrics.config.plugins[i].preset" class="w-full bg-gray-950 rounded-md px-3 py-1.5 border border-gray-800 outline-none focus:border-sky-500">
+                    <template x-for="(_, preset) in metrics.config.presets">
+                      <option :value="preset" x-text="`${preset.charAt(0).toLocaleUpperCase()}${preset.slice(1)}`"></option>
+                    </template>
+                  </select>
+                  <div x-data="{override:false}">
+                    <div class="block mt-2">
+                      <div class="font-bold mb-2">Override preset values</div>
+                      <label class="inline-block relative h-6 w-12 cursor-pointer mb-2">
+                        <input type="checkbox" class="peer hidden" x-model="override"/>
+                        <span class="absolute inset-0 rounded-full bg-gray-700 transition peer-checked:bg-sky-500"></span>
+                        <span class="absolute inset-y-0 start-0 m-1 h-4 w-4 rounded-full bg-white transition-all peer-checked:start-6"></span>
+                      </label>
+                    </div>
+                    <template x-if="override">
                       <form>
-                        <x-schema-inputs x-data="{inputs:plugin.inputs, path:['plugins', i, 'args'], trim:/^plugins\[\d+\]\.args/}" x-init="$nextTick(() => $store.app.syncValue(path, inputs))"></x-schema-inputs>
+                        <x-schema-inputs x-data="{inputs:presets.plugins, path:['plugins', i], trim:/^plugins\[\d+\]/, model:metrics.config.plugins[i]}"></x-schema-inputs>
                       </form>
                     </template>
-                    <template x-if="!Object.keys(plugin.inputs.properties).length">
-                      <span class="text-zinc-400 italic">This plugin does not accept any arguments</span>
-                    </template>
                   </div>
-                  <div class="p-2 border-b border-neutral-800" :class="{hidden:!($store.app.state.edit.plugins === i)}">
-                    <div class="font-bold">Context</div>
-                    <label class="block mb-2" :for="`plugins.${i}.preset`">
-                      <div class="font-bold">.preset</div>
-                    </label>
-                    <select :name="`plugins.${i}.preset`" :id="`plugins.${i}.preset`" class="w-full bg-neutral-950 rounded-md px-3 py-1.5 border border-neutral-800 outline-none focus:border-sky-500">
-                      <template x-for="(_, preset) in $store.app.config.presets">
-                        <option :value="preset" x-text="`${preset.charAt(0).toLocaleUpperCase()}${preset.slice(1)}`"></option>
-                      </template>
-                    </select>
-                    <div x-data="{override:false}">
-                      <div>
-                        <div class="font-bold mb-2">Override preset values</div>
-                        <label :for="`plugins.${i}.preset.override`" class="inline-block relative h-6 w-12 cursor-pointer mb-2">
-                          <input type="checkbox" :name="`plugins.${i}.preset.override`" :id="`plugins.${i}.preset.override`" class="peer hidden" x-model="override"/>
-                          <span class="absolute inset-0 rounded-full bg-neutral-700 transition peer-checked:bg-sky-500"></span>
-                          <span class="absolute inset-y-0 start-0 m-1 h-4 w-4 rounded-full bg-white transition-all peer-checked:start-6"></span>
-                        </label>
+                </div>
+                <!-- Plugin processors -->
+                <template x-for="(processor, j) of plugin.processors">
+                  <div class="bg-gray-950 border border-gray-800 rounded-md m-2" :key="j" x-data="{about:processors.find(({id}) => processor.id === id), override:false}">
+                    <!-- Processor header -->
+                    <div class="p-2 border-b border-gray-800 rounded-t-md">
+                      <h3 class="text-lg flex justify-between">
+                        <span x-text="about.name"></span>
+                        <span class="text-zinc-400 flex items-center">
+                          <span x-text="`#${j}`"></span>
+                          <x-octicon class="ml-1.5 opacity-0" x-data="{icon:'drag'}"></x-octicon>
+                        </span>
+                      </h3>
+                      <h4 x-html="await app.markdown(about.description)" class="text-zinc-400"></h4>
+                      <h4 :class="{hidden:edited.plugin !== i}">
+                        <template x-for="{type, value} of [...about.supports.map(type => ({type:'mime', value:type})), ...about.scopes.map(scope => ({type:'scope', value:scope})), ...about.permissions.map(permission => ({type:'permission', value:permission}))]">
+                          <div class="inline-flex items-center rounded-full overflow-hidden bg-zinc-600 text-sm mt-1 mr-1" :key="value">
+                            <div class="flex items-center bg-zinc-800 px-1.5" >
+                              <x-octicon class="mr-1" x-data="{icon:type}"></x-octicon>
+                              <span x-text="type"></span>
+                            </div>
+                            <template x-if="value">
+                              <span class="px-1.5" x-text="value"></span>
+                            </template>
+                          </div>
+                        </template>
+                      </h4>
+                    </div>
+                    <!-- User actions -->
+                    <nav class="flex gap-2 p-2 border-b border-gray-800" :class="{hidden:edited.plugin !== i}">
+                      <div @click="edited.processor = edited.processor === j ? NaN : j" class="bg-gray-800 flex items-center rounded-md p-2 text-sm border cursor-pointer transition hover:bg-gray-700 hover:text-sky-500" :class="{'border-sky-500':(edited.plugin === i)&&(edited.processor === j), 'border-transparent':!((edited.plugin === i)&&(edited.processor === j))}">
+                        <x-octicon class="mr-1" x-data="{icon:'edit'}"></x-octicon>
+                        Edit
                       </div>
-                      <template x-if="override">
+                      <div @click="edited.processor = metrics.config.plugins[i].processors.push(JSON.parse(JSON.stringify(metrics.config.plugins[i].processors[j]))) - 1; expand.plugins = false; expand.processors = NaN" class="bg-gray-800 flex items-center rounded-md p-2 text-sm border border-transparent transition hover:bg-gray-700 hover:text-sky-500">
+                        <x-octicon class="mr-1" x-data="{icon:'clone'}"></x-octicon>
+                        Duplicate
+                      </div>
+                      <div @click="metrics.config.plugins[i].processors.splice(j, 1); edited.processor = NaN; expand.processors = NaN" class="bg-red-900 flex items-center rounded-md p-2 text-sm border border-transparent cursor-pointer transition hover:bg-red-800 hover:text-sky-100">
+                        <x-octicon class="mr-1" x-data="{icon:'remove'}"></x-octicon>
+                        Remove
+                      </div>
+                    </nav>
+                    <!-- Processor documentation -->
+                    <template x-if="about.docs.length">
+                      <div class="p-2 border-b border-gray-800" :class="{hidden:!((edited.plugin === i)&&(edited.processor === j))}">
+                        <div class="font-bold">Documentations</div>
+                        <template x-for="{title, type, content} in about.docs">
+                          <details class="group rounded-md mt-1 overflow-hidden" :class="{[{warning:'bg-yellow-950'}[type] ?? 'bg-gray-950']:true}">
+                            <summary class="flex items-center p-2 cursor-pointer rounded-t-md border border-transparent transition hover:bg-gray-800 hover:text-sky-500 group-open:border-sky-500">
+                              <x-octicon class="mr-1.5" x-data="{icon:'docs'}"></x-octicon>
+                              <span x-html="await app.markdown(title)"></span>
+                            </summary>
+                            <div class="markdown bg-black p-2" x-html="await app.markdown(content)"></div>
+                          </details>
+                        </template>
+                      </div>
+                    </template>
+                    <!-- Processor arguments -->
+                    <div class="p-2 border-b border-gray-800" :class="{hidden:!((edited.plugin === i)&&(edited.processor === j))}">
+                      <div class="font-bold">Arguments</div>
+                      <template x-if="Object.keys(about.inputs.properties).length">
                         <form>
-                          <x-schema-inputs x-data="{inputs:presets.plugins, path:['plugins', i], trim:/^plugins\[\d+\]/}" x-init="$nextTick(() => $store.app.syncValue(path, presets.plugins))"></x-schema-inputs>
+                          <x-schema-inputs x-data="{inputs:about.inputs, path:['plugins', i, 'processors', j, 'args'], trim:/^plugins\[\d+\]\.processors\[\d+\]\.args/, model:metrics.config.plugins[i].processors[j].args}"></x-schema-inputs>
                         </form>
                       </template>
-                    </div>
-                  </div>
-                  <!-- Processors -->
-                  <template x-for="(processor, j) of plugin.processors">
-                    <div class="bg-neutral-950 border border-neutral-800 rounded-md m-2" :key="j">
-                      <div class="p-2 border-b border-neutral-800 rounded-t-md">
-                        <h3 class="text-lg flex justify-between">
-                          <span x-text="processor.name"></span>
-                          <span class="text-zinc-400 flex items-center">
-                            <span x-text="`#${j}`"></span>
-                            <x-octicon class="ml-1.5 cursor-not-allowed opacity-50" x-data="{icon:'drag'}"></x-octicon>
-                          </span>
-                        </h3>
-                        <h4 x-html="await $store.app.markdown(processor.description)" class="text-zinc-400"></h4>
-                        <h4 :class="{hidden:!($store.app.state.edit.plugins === i)}">
-                          <template x-for="{type, value} of [...processor.supports.map(type => ({type:'mime', value:type})), ...processor.scopes.map(scope => ({type:'scope', value:scope})), ...processor.permissions.map(permission => ({type:'permission', value:permission}))]">
-                            <div class="inline-flex items-center rounded-full overflow-hidden bg-zinc-600 text-sm mt-1 mr-1" :key="value">
-                              <div class="flex items-center bg-zinc-800 px-1.5" >
-                                <x-octicon class="mr-1" x-data="{icon:type}"></x-octicon>
-                                <span x-text="type"></span>
-                              </div>
-                              <template x-if="value">
-                                <span class="px-1.5" x-text="value"></span>
-                              </template>
-                            </div>
-                          </template>
-                        </h4>
-                      </div>
-                      <nav class="flex gap-2 p-2 border-b border-neutral-800" :class="{hidden:!($store.app.state.edit.plugins === i)}">
-                        <div @click="$store.app.state.edit.processors = $store.app.state.edit.processors === j ? NaN : j" class="bg-neutral-950 flex items-center rounded-md p-2 text-sm border cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500" :class="{'border-sky-500':($store.app.state.edit.plugins === i)&&($store.app.state.edit.processors === j), 'border-transparent':!(($store.app.state.edit.plugins === i)&&($store.app.state.edit.processors === j))}">
-                          <x-octicon class="mr-1" x-data="{icon:'edit'}"></x-octicon>
-                          Edit
-                        </div>
-                        <div class="opacity-50 cursor-not-allowed bg-neutral-950 flex items-center rounded-md p-2 text-sm border border-transparent transition hover:bg-neutral-800 hover:text-sky-500">
-                          <x-octicon class="mr-1" x-data="{icon:'clone'}"></x-octicon>
-                          Duplicate
-                        </div>
-                        <div @click="$store.app.removeProcessor({plugin:i, processor:j})" class="bg-red-900 flex items-center rounded-md p-2 text-sm border border-transparent cursor-pointer transition hover:bg-red-800 hover:text-sky-100">
-                          <x-octicon class="mr-1" x-data="{icon:'remove'}"></x-octicon>
-                          Remove
-                        </div>
-                      </nav>
-                      <template x-if="processor.docs.length">
-                        <div class="p-2 border-b border-neutral-800" :class="{hidden:!(($store.app.state.edit.plugins === i)&&($store.app.state.edit.processors === j))}">
-                          <div class="font-bold">Documentations</div>
-                          <template x-for="{title, type, content} in processor.docs">
-                            <details class="group rounded-md mt-1 overflow-hidden" :class="{[{warning:'bg-yellow-950'}[type] ?? 'bg-neutral-950']:true}">
-                              <summary class="flex items-center p-2 cursor-pointer rounded-t-md border border-transparent transition hover:bg-neutral-800 hover:text-sky-500 group-open:border-sky-500">
-                                <x-octicon class="mr-1.5" x-data="{icon:'docs'}"></x-octicon>
-                                <span x-html="await $store.app.markdown(title)"></span>
-                              </summary>
-                              <div class="markdown bg-black p-2" x-html="await $store.app.markdown(content)"></div>
-                            </details>
-                          </template>
-                        </div>
+                      <template x-if="!Object.keys(about.inputs.properties).length">
+                        <span class="text-zinc-400 italic">This processor does not accept any arguments</span>
                       </template>
-                      <div class="p-2 border-b border-neutral-800" :class="{hidden:!(($store.app.state.edit.plugins === i)&&($store.app.state.edit.processors === j))}">
-                        <div class="font-bold">Arguments</div>
-                        <template x-if="Object.keys(processor.inputs.properties).length">
+                    </div>
+                    <!-- Processor context -->
+                    <div class="p-2 border-b border-gray-800" :class="{hidden:!((edited.plugin === i)&&(edited.processor === j))}">
+                      <div class="font-bold">Context</div>
+                      <div class="block mb-2">
+                        <div class="font-bold">.preset</div>
+                      </div>
+                      <select x-model="metrics.config.plugins[i].processors[j].preset" class="w-full bg-gray-950 rounded-md px-3 py-1.5 border border-gray-800 outline-none focus:border-sky-500">
+                        <template x-for="(_, preset) in metrics.config.presets">
+                          <option :value="preset" x-text="`${preset.charAt(0).toLocaleUpperCase()}${preset.slice(1)}`"></option>
+                        </template>
+                      </select>
+                      <div>
+                        <div>
+                          <div class="font-bold mb-2">Override preset values</div>
+                          <label class="inline-block relative h-6 w-12 cursor-pointer mb-2">
+                            <input type="checkbox" class="peer hidden" x-model="override"/>
+                            <span class="absolute inset-0 rounded-full bg-gray-700 transition peer-checked:bg-sky-500"></span>
+                            <span class="absolute inset-y-0 start-0 m-1 h-4 w-4 rounded-full bg-white transition-all peer-checked:start-6"></span>
+                          </div>
+                        </div>
+                        <template x-if="override">
                           <form>
-                            <x-schema-inputs x-data="{inputs:processor.inputs, path:['plugins', i, 'processors', j, 'args'], trim:/^plugins\[\d+\]\.processors\[\d+\]\.args/}" x-init="$nextTick(() => $store.app.syncValue(path, inputs))"></x-schema-inputs>
+                            <x-schema-inputs x-data="{inputs:presets.processors, path:['plugins', i, 'processors', j], trim:/^plugins\[\d+\]\.processors\[\d+\]/, model:metrics.config.plugins[i].processors[j]}"></x-schema-inputs>
                           </form>
                         </template>
-                        <template x-if="!Object.keys(processor.inputs.properties).length">
-                          <span class="text-zinc-400 italic">This processor does not accept any arguments</span>
-                        </template>
-                      </div>
-                      <div class="p-2 border-b border-neutral-800" :class="{hidden:!($store.app.state.edit.plugins === i)}">
-                        <div class="font-bold">Context</div>
-                        <label class="block mb-2" :for="`plugins.${i}.processors.${j}.preset`">
-                          <div class="font-bold">.preset</div>
-                        </label>
-                        <select :name="`plugins.${i}.processors.${j}.preset`" :id="`plugins.${i}.processors.${j}.preset`" class="w-full bg-neutral-950 rounded-md px-3 py-1.5 border border-neutral-800 outline-none focus:border-sky-500">
-                          <template x-for="(_, preset) in $store.app.config.presets">
-                            <option :value="preset" x-text="`${preset.charAt(0).toLocaleUpperCase()}${preset.slice(1)}`"></option>
-                          </template>
-                        </select>
-                        <div x-data="{override:false}">
-                          <div>
-                            <div class="font-bold mb-2">Override preset values</div>
-                            <label :for="`plugins.${i}.processors.${j}.preset.override`" class="inline-block relative h-6 w-12 cursor-pointer mb-2">
-                              <input type="checkbox" :name="`plugins.${i}.processors.${j}.preset.override`" :id="`plugins.${i}.processors.${j}.preset.override`" class="peer hidden" x-model="override"/>
-                              <span class="absolute inset-0 rounded-full bg-neutral-700 transition peer-checked:bg-sky-500"></span>
-                              <span class="absolute inset-y-0 start-0 m-1 h-4 w-4 rounded-full bg-white transition-all peer-checked:start-6"></span>
-                            </label>
-                          </div>
-                          <template x-if="override">
-                            <form>
-                              <x-schema-inputs x-data="{inputs:presets.processors, path:['plugins', i, 'processors', j], trim:/^plugins\[\d+\]\.processors\[\d+\]/}" x-init="$nextTick(() => $store.app.syncValue(path, presets.processors))"></x-schema-inputs>
-                            </form>
-                          </template>
-                        </div>
                       </div>
                     </div>
-                  </template>
-                  <!-- Add new processor -->
-                  <div class="bg-neutral-950 border border-dashed rounded-md m-2 overflow-hidden" :class="{hidden:!($store.app.state.edit.plugins === i)}">
-                    <h3 class="pl-4 py-2 text-lg cursor-pointer rounded-t-md transition hover:bg-neutral-800" @click="$store.app.state.expand.processors = $store.app.state.expand.processors === i ? NaN : i">Add a processor</h3>
-                    <ul class="px-2 mb-2" :class="{hidden:$store.app.state.expand.processors !== i}">
-                      <template x-for="processor of processors">
-                        <li :key="processor.id">
-                          <div class="flex items-center justify-between rounded-md text-zinc-400 px-2 py-1 cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500" @click="$store.app.addProcessor({plugin:i, processor})">
-                            <div x-text="processor.name"></div>
-                          </div>
-                        </li>
-                      </template>
-                    </ul>
                   </div>
-                </div>
-                <!-- Preview -->
-                <div class="preview relative border border-neutral-800 rounded-md overflow-hidden">
-                  <div class="absolute">
-                    <img src="" alt="" class="m-2">
-                  </div>
-                </div>
-              </article>
-            </template>
-            <!-- Add new plugin -->
-            <article class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8">
-              <div class="bg-neutral-900 border border-neutral-800 rounded-md">
-                <div class="bg-neutral-950 border border-dashed rounded-md m-2">
-                  <h3 class="pl-4 py-2 text-lg cursor-pointer rounded-t-md transition hover:bg-neutral-800" @click="$store.app.state.expand.plugins.list = !$store.app.state.expand.plugins.list">Add a plugin</h3>
-                  <ul class="px-2 mb-2" :class="{hidden:!$store.app.state.expand.plugins.list}">
-                    <template x-for="plugin of plugins">
-                      <li :key="plugin.id">
-                        <div class="rounded-md text-zinc-400 px-2 py-1 cursor-pointer transition hover:bg-neutral-800 hover:text-sky-500" @click="$store.app.addPlugin({plugin})">
-                          <div class="flex items-center justify-between">
-                            <div x-text="plugin.name"></div>
-                            <div class="flex">
-                              <template x-for="icon in (plugin.supports.length ? plugin.supports : ['user', 'organization', 'repository'])">
-                                <x-octicon class="mr-1" x-data="{icon}" :key="icon"></x-octicon>
-                              </template>
-                            </div>
-                          </div>
+                </template>
+                <!-- Add new processor -->
+                <div class="bg-gray-950 border border-dashed rounded-md m-2 overflow-hidden" :class="{hidden:edited.plugin !== i}">
+                  <h3 class="pl-4 py-2 text-lg cursor-pointer rounded-t-md transition hover:bg-gray-800" @click="expand.processors = expand.processors === i ? NaN : i">Add a processor</h3>
+                  <ul class="px-2 mb-2" :class="{hidden:expand.processors !== i}">
+                    <template x-for="processor of processors">
+                      <li :key="processor.id">
+                        <div @click="edited.processor = metrics.config.plugins[i].processors.push({id:processor.id, args:{}}) - 1; expand.plugins = false; expand.processors = NaN" class="flex items-center justify-between rounded-md text-zinc-400 px-2 py-1 cursor-pointer transition hover:bg-gray-800 hover:text-sky-500">
+                          <div x-text="processor.name"></div>
                         </div>
                       </li>
                     </template>
                   </ul>
                 </div>
               </div>
-              <div class="preview border border-neutral-800 rounded-md overflow-hidden"></div>
+              <!-- Preview -->
+              <div class="preview relative border border-gray-800 rounded-md overflow-hidden">
+                <div class="absolute">
+                  <img src="" alt="" class="m-2">
+                </div>
+              </div>
             </article>
-          </section>
-        </template>
+          </template>
+          <!-- Add new plugin -->
+          <article class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8">
+            <div class="bg-gray-900 border border-gray-800 rounded-md">
+              <div class="bg-gray-950 border border-dashed rounded-md m-2">
+                <h3 @click="expand.plugins = !expand.plugins" class="pl-4 py-2 text-lg cursor-pointer rounded-t-md transition hover:bg-gray-800">Add a plugin</h3>
+                <ul :class="{hidden:!expand.plugins}" class="px-2 mb-2">
+                  <template x-for="plugin of plugins">
+                    <li :key="plugin.id">
+                      <div @click="edited.plugin = metrics.config.plugins.push({id:plugin.id, args:{}, processors:[]}) - 1; expand.plugins = false; expand.processors = NaN" class="rounded-md text-zinc-400 px-2 py-1 cursor-pointer transition hover:bg-gray-800 hover:text-sky-500">
+                        <div class="flex items-center justify-between">
+                          <div x-text="plugin.name"></div>
+                          <div class="flex">
+                            <template x-for="icon in (plugin.supports.length ? plugin.supports : ['user', 'organization', 'repository'])">
+                              <x-octicon x-data="{icon}" :key="icon" class="mr-1"></x-octicon>
+                            </template>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </template>
+                </ul>
+              </div>
+            </div>
+            <div class="preview border border-gray-800 rounded-md overflow-hidden"></div>
+          </article>
+        </section>
+      </template>
 
       <!-- Result -->
       <template x-if="true">
@@ -549,12 +562,12 @@
           <h2 class="text-2xl mb-4">4️⃣ You're all set!</h2>
           <template x-if="selected.mode === 'web'">
             <div>
-              <pre class="bg-gray-900 rounded-md p-2 cursor-pointer transition hover:bg-gray-800" @click="app.copyToClipboard($event)"><code class="language-html whitespace-break-spaces" x-html="$store.app.getFullConfig()"></code></pre>
+              <pre @click="app.copyToClipboard($event)" class="bg-gray-900 rounded-md p-2 cursor-pointer transition hover:bg-gray-800"><code class="language-html whitespace-break-spaces" x-html="app.yaml(metrics)"></code></pre>
             </div>
           </template>
           <template x-if="selected.mode !== 'web'">
             <div>
-              <pre class="bg-gray-900 rounded-md p-2"><code class="language-yaml" x-html="app.yaml(config)"></code></pre>
+              <pre @click="app.copyToClipboard($event)" class="bg-gray-900 rounded-md p-2"><code class="language-yaml" x-html="app.yaml(metrics)"></code></pre>
             </div>
           </template>
         </section>
@@ -690,7 +703,7 @@
       <div>
         <template x-for="(input, name) in inputs.properties">
           <div :key="name" x-data="{subpath:[...path, name]}">
-            <!-- Input name -->
+            <!-- Input name and description -->
             <div class="block mb-2" x-init="model[name] = app.getDefaultValue(input)">
               <div class="font-bold">
                 <span x-text="app.formatKeyPath(subpath, {trim})"></span>
@@ -708,6 +721,9 @@
                   <span :key="key" class="bg-cyan-100 text-indigo-700 px-1.5 text-sm mr-1 rounded-full whitespace-nowrap"><span x-text="text"></span></span>
                 </template>
               </div>
+              <template x-if="input.description && !input.subtype">
+                <div x-html="await app.markdown(input.description.replace('(textarea)', '').replace(/\(placeholder: `[\s\S]+`\)/, ''))" class="text-zinc-400 italic"></div>
+              </template>
             </div>
             <!-- Boolean input -->
             <template x-if="input.type === 'boolean' && (!('const' in input))">
@@ -752,9 +768,6 @@
             <template x-if="input.type === 'object'">
               <div class="w-full p-2 rounded-md border border-gray-800">
                 <x-schema-inputs x-data="{inputs:input, path:subpath, trim, model:model[name]}" class="w-full"></x-schema-inputs>
-
-
-
                 <!-- Record inputs -->
                 <template x-if="input.additionalProperties">
                   <div>
@@ -781,8 +794,8 @@
                     <template x-if="input.additionalProperties.properties">
                       <div x-data="{key:'', buffer:{}}">
                         <div class="flex">
-                          <input x-model="key" @keyup.enter="key ? (model[name][key] = buffer, key = '', buffer = {}) : null" type="text" placeholder="Add a new key" class="opacity-50 grow bg-gray-800 rounded-md px-3 py-1.5 border border-gray-800 outline-none focus:border-sky-500">
-                          <div :class="{'opacity-50 cursor-not-allowed':!key, 'cursor-pointer':key}" @click="key ? (model[name][key] = buffer, key = '', buffer = {}) : null" class="bg-green-950 flex items-center rounded-md p-2 border border-gray-800 transition hover:bg-green-800">
+                          <input x-model="key" @keyup.enter="key ? (model[name][key] = buffer, key = '', buffer = {}) : null" type="text" placeholder="Add a new key" class="opacity-50 grow bg-gray-800 rounded-l-md px-3 py-1.5 border border-gray-800 outline-none focus:border-sky-500">
+                          <div :class="{'opacity-50 cursor-not-allowed':!key, 'cursor-pointer':key}" @click="key ? (model[name][key] = buffer, key = '', buffer = {}) : null" class="bg-green-950 flex items-center rounded-r-md p-2 border border-gray-800 transition hover:bg-green-800">
                             <x-octicon x-data="{icon:'plus'}" class="text-white"></x-octicon>
                           </div>
                         </div>
@@ -794,8 +807,8 @@
                     <template x-if="!input.additionalProperties.properties">
                       <div x-data="{key:'', buffer:''}" class="p-2 rounded-md border border-gray-800 bg-gray-950">
                         <div class="flex">
-                          <input x-model="key" @keyup.enter="key ? (model[name][key] = buffer, key = '', buffer = '') : null" type="text" placeholder="Add a new key" class="opacity-50 grow bg-gray-800 rounded-md px-3 py-1.5 border border-gray-800 outline-none focus:border-sky-500">
-                          <div :class="{'opacity-50 cursor-not-allowed':!key, 'cursor-pointer':key}" @click="key ? (model[name][key] = buffer, key = '', buffer = '') : null" class="bg-green-950 flex items-center rounded-md p-2 border border-gray-800 transition hover:bg-green-800">
+                          <input x-model="key" @keyup.enter="key ? (model[name][key] = buffer, key = '', buffer = '') : null" type="text" placeholder="Add a new key" class="opacity-50 grow bg-gray-800 rounded-l-md px-3 py-1.5 border border-gray-800 outline-none focus:border-sky-500">
+                          <div :class="{'opacity-50 cursor-not-allowed':!key, 'cursor-pointer':key}" @click="key ? (model[name][key] = buffer, key = '', buffer = '') : null" class="bg-green-950 flex items-center rounded-r-md p-2 border border-gray-800 transition hover:bg-green-800">
                             <x-octicon x-data="{icon:'plus'}" class="text-white"></x-octicon>
                           </div>
                         </div>
