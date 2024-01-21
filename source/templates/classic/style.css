@@ -667,7 +667,7 @@
   }
 
   .chart-bars .entry .value {
-    font-size: 6px;
+    font-size: 10px;
   }
 
   .chart-bars .entry .empty {
@@ -1303,7 +1303,7 @@
     color: #666666;
   }
   .achievement .unlock {
-    font-size: 9px;
+    font-size: 10px;
     color: #666666;
   }
   .achievement .title {
