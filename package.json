@@ -59,7 +59,7 @@
     "puppeteer": "^21.2.1",
     "purgecss": "^5.0.0",
     "rss-parser": "^3.13.0",
-    "sanitize-html": "^2.11.0",
+    "sanitize-html": "^2.12.1",
     "sharp": "^0.32.3",
     "simple-git": "^3.19.1",
     "svgo": "^3.0.2",
