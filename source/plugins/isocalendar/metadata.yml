@@ -12,13 +12,13 @@ scopes:
   - public_access
 inputs:
 
-  plugin_isocalendar:
+  plugin_isocalendar: 'yes'
     description: |
       Enable isocalendar plugin
     type: boolean
     default: no
 
-  plugin_isocalendar_duration:
+  plugin_isocalendar_duration: `half-year`
     description: |
       Time range
 
