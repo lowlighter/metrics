@@ -5,6 +5,6 @@
     token: NOT_NEEDED
     base: ""
     plugin_chess: yes
-    plugin_chess_token: ${{ secrets.CHESS_TOKEN }}
     plugin_chess_platform: lichess.org
+    plugin_chess_user: your_username
 
