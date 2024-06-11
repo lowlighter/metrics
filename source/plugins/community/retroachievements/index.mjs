@@ -1,5 +1,3 @@
-// https://retroachievements.org/UserPic/TheROG.png
-
 export default async function (
   { q, imports, data, account },
   { enabled = false, extras = false } = {}

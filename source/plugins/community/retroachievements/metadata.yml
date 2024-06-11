@@ -1,7 +1,7 @@
-name: 🎮 Retroachievements
+name: 🎮 RetroAchievements
 category: community
 description: |
-  Shows your profile, last played game and achievements from Retroachievements.
+  Shows your profile, last played game and achievements from RetroAchievements.
 examples:
   default: https://via.placeholder.com/468x60?text=No%20preview%20available
 authors:
@@ -15,19 +15,19 @@ inputs:
 
   plugin_retroachievements:
     description: |
-      Enable Retroachievements plugin
-    type: token
+      Enable RetroAchievements plugin
+    type: boolean
     default: no
 
   plugin_retroachievements_token:
     description: |
-      Retroachievements's API Token
-    type: string
+      RetroAchievements's API Token
+    type: token
     default: ""
     
   plugin_retroachievements_username:
     description: |
-      Retroachievements's Username
+      RetroAchievements's Username
     type: string
     default: ""
 
