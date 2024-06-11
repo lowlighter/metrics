@@ -1667,3 +1667,68 @@
     animation-play-state: paused !important;
     caret-color: transparent !important;
   }
+
+/* Retroachievements */
+.retro .games {
+  margin-left: 28px;
+}
+.retro .media {
+  display: flex;
+  margin-bottom: 4px;
+  width: 450px;
+}
+.retro .media img {
+  margin: 0 10px;
+  border-radius: 7px;
+}
+.retro .media > img {
+  height: 32px;
+  width: 32px;
+}
+.retro .media .about {
+  flex-grow: 1;
+}
+.retro .media .name {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  line-height: 14px;
+  color: #58a6ff;
+}
+.retro .media .infos {
+  font-size: 12px;
+  color: #666666;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.retro .media .infos > div {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 16px;
+}
+.retro .media .infos svg {
+  fill: currentColor;
+  height: 12px;
+  width: 12px;
+  margin: 0;
+  margin-right: 4px;
+}
+.retro .media .achievement .name {
+  display: flex;
+  justify-content: space-between;
+}
+.retro .media .achievement .description {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  width: 344px;
+  max-height: 38px;
+  font-size: 12px;
+  white-space: normal;
+  /* May not work in all browsers */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
