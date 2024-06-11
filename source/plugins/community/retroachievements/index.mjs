@@ -14,7 +14,7 @@ export default async function (
       return null;
 
     //Load input data
-    const { token, username, target, showachievements, lastsin } =
+    const { token, username, target, showachievements, lastsin, latsgameslimit } =
       imports.metadata.plugins.retroachievements.inputs({ data, account, q });
     const retroachievementsUrl = "https://retroachievements.org";
 
@@ -40,6 +40,7 @@ export default async function (
         Title: title,
         ImageIcon,
         Genre: genre,
+        ConsoleName: consoleName,
         NumAchievements: totalAchievements,
         NumAwardedToUser: awardedAchievements,
         UserCompletion: progress,
@@ -57,8 +58,8 @@ export default async function (
       lastGameAchievements = lastUnlocked.data.map(achievement => ({
         title: achievement.Title,
         description: achievement.Description,
-        badgeUrl: `${retroachievementsUrl}${achievement.BadgeName}`,
-      }))
+        badgeUrl: `${retroachievementsUrl}${achievement.BadgeURL}`,
+      })).slice(0, latsgameslimit)
     }
 
     return {
@@ -72,6 +73,7 @@ export default async function (
         title,
         gameIcon,
         genre,
+        consoleName,
         totalAchievements,
         awardedAchievements,
         progress,

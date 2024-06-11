@@ -48,3 +48,9 @@ inputs:
       Number of days to look back for last achievements unlocked
     type: number
     default: 7
+
+  plugin_retroachievements_latsgameslimit:
+    description: |
+      Number of games to show in the last games list
+    type: number
+    default: 3
