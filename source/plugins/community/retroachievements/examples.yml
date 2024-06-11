@@ -1,0 +1,9 @@
+- name: Example
+  uses: lowlighter/metrics@latest
+  with:
+    filename: metrics.plugin.retroachievements.svg
+    token: ${{ secrets.METRICS_TOKEN }}
+    base: ""
+    plugin_retroachievements: yes
+  prod:
+    skip: true
