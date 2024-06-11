@@ -1,9 +1,12 @@
-- name: Example
+- name: Generate RetroAchievements metrics
   uses: lowlighter/metrics@latest
   with:
     filename: metrics.plugin.retroachievements.svg
-    token: ${{ secrets.METRICS_TOKEN }}
-    base: ""
+    token: NOT_NEEDED
     plugin_retroachievements: yes
-  prod:
-    skip: true
+    plugin_retroachievements_token: ${{ secrets.RETROACHIEVEMENTS_TOKEN }}
+    plugin_retroachievements_username: TheROG
+    plugin_retroachievements_target: TheROG
+    plugin_retroachievements_showachievements: yes
+    plugin_retroachievements_lastsin: 2
+    plugin_retroachievements_achievementslimit: 5

@@ -27,7 +27,7 @@ inputs:
     
   plugin_retroachievements_username:
     description: |
-      RetroAchievements's Username
+      RetroAchievements's Username realted to the API Token
     type: string
     default: ""
 
@@ -49,8 +49,8 @@ inputs:
     type: number
     default: 7
 
-  plugin_retroachievements_latsgameslimit:
+  plugin_retroachievements_achievementslimit:
     description: |
-      Number of games to show in the last games list
+      Number of achievements to show
     type: number
     default: 3
