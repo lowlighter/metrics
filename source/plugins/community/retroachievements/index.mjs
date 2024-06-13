@@ -1,6 +1,6 @@
 export default async function (
   { q, imports, data, account },
-  { enabled = false, extras = false } = {}
+  { token = "", enabled = false, extras = false } = {}
 ) {
   //Plugin execution
   try {
@@ -12,7 +12,7 @@ export default async function (
       return null;
 
     //Load input data
-    const { token, username, target, showachievements, lastsin, achievementslimit } =
+    const { username, target, showachievements, lastsin, achievementslimit } =
       imports.metadata.plugins.retroachievements.inputs({ data, account, q });
     const retroachievementsUrl = "https://retroachievements.org";
 
