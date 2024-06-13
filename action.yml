@@ -1399,6 +1399,37 @@ inputs:
     default: <default-value>
 
   # ====================================================================================
+  # 🎮 RetroAchievements
+
+  plugin_retroachievements:
+    description: Enable RetroAchievements plugin
+    default: <default-value>
+
+  plugin_retroachievements_token:
+    description: RetroAchievements's API Token
+    default: <default-value>
+
+  plugin_retroachievements_username:
+    description: RetroAchievements's Username realted to the API Token
+    default: <default-value>
+
+  plugin_retroachievements_target:
+    description: The terget user to show the profile
+    default: <default-value>
+
+  plugin_retroachievements_showachievements:
+    description: Show last achievements unlocked
+    default: <default-value>
+
+  plugin_retroachievements_lastsin:
+    description: Number of days to look back for last achievements unlocked
+    default: <default-value>
+
+  plugin_retroachievements_achievementslimit:
+    description: Number of achievements to show
+    default: <default-value>
+
+  # ====================================================================================
   # 📸 Website screenshot
 
   plugin_screenshot:

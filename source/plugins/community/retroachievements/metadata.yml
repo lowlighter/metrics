@@ -8,8 +8,6 @@ authors:
   - LuanRoger
 supports:
   - user
-  - organization
-  - repository
 scopes: []
 inputs:
 
