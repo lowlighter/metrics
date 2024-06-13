@@ -109,6 +109,15 @@
 </table>
 <!--/options-->
 
+## 🗝️ Obtaining the Web API Key
+
+You must to have a [RetroAchievements](https://retroachievements.org) account to get the API Key.
+You can get it by following the steps below:
+
+1. Enter with your RetroAchievement account.
+2. Go to the Keys section on the [Control Panel page](https://retroachievements.org/controlpanel.php) (Settings).
+3. Generate a new key and copy it.
+
 ## ℹ️ Examples workflows
 
 <!--examples-->
