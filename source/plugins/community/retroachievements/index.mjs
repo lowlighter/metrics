@@ -28,7 +28,7 @@ export default async function (
         LastGameID: lastGameId,
       },
     } = profile;
-    const profilePic = `${retroachievementsUrl}${UserPic}`;
+    const profilePic = imports.imgb64(`${retroachievementsUrl}${UserPic}`, {width: 64, height: 64})
 
     const lastPlayedGame = await imports.axios.get(
       `https://retroachievements.org/API/API_GetGameInfoAndUserProgress.php?z=${username}&u=${target}&g=${lastGameId}&y=${token}`
@@ -44,7 +44,7 @@ export default async function (
         UserCompletion: progress,
       },
     } = lastPlayedGame;
-    const gameIcon = `${retroachievementsUrl}${ImageIcon}`;
+    const gameIcon = imports.imgb64(`${retroachievementsUrl}${ImageIcon}`, {width: 64, height: 64})
 
     let lastGameAchievements = null
     if (showachievements) {
@@ -56,7 +56,7 @@ export default async function (
       lastGameAchievements = lastUnlocked.data.map(achievement => ({
         title: achievement.Title,
         description: achievement.Description,
-        badgeUrl: `${retroachievementsUrl}${achievement.BadgeURL}`,
+        badgeUrl: imports.imgb64(`${retroachievementsUrl}${achievement.BadgeURL}`, {width: 64, height: 64}),
       })).slice(0, achievementslimit)
     }
 
