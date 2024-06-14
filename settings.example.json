@@ -204,6 +204,10 @@
       "token": "PoopMap API token",
       "enabled": false,                 "//": "Enable poopmap plugin"
     },
+    "retroachievements":{
+      "token": "RetroAchievements's API Token",
+      "enabled": false,                 "//": "Enable RetroAchievements plugin"
+    },
     "screenshot":{
       "enabled": false,                 "//": "Enable screenshot plugin"
     },

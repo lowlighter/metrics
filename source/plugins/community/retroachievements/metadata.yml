@@ -1,0 +1,54 @@
+name: 🎮 RetroAchievements
+category: community
+description: |
+  Shows your profile, last played game and achievements from RetroAchievements.
+examples:
+  default: https://raw.githubusercontent.com/LuanRoger/LuanRoger/main/retroachievements.svg
+authors:
+  - LuanRoger
+supports:
+  - user
+scopes: []
+inputs:
+
+  plugin_retroachievements:
+    description: |
+      Enable RetroAchievements plugin
+    type: boolean
+    default: no
+
+  plugin_retroachievements_token:
+    description: |
+      RetroAchievements's API Token
+    type: token
+    default: ""
+    
+  plugin_retroachievements_username:
+    description: |
+      RetroAchievements's Username realted to the API Token
+    type: string
+    default: ""
+
+  plugin_retroachievements_target:
+    description: |
+      The terget user to show the profile
+    type: string
+    default: ""
+
+  plugin_retroachievements_showachievements:
+    description: |
+      Show last achievements unlocked
+    type: boolean
+    default: yes
+
+  plugin_retroachievements_lastsin:
+    description: |
+      Number of days to look back for last achievements unlocked
+    type: number
+    default: 7
+
+  plugin_retroachievements_achievementslimit:
+    description: |
+      Number of achievements to show
+    type: number
+    default: 3
