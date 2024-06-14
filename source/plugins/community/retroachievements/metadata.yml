@@ -3,7 +3,7 @@ category: community
 description: |
   Shows your profile, last played game and achievements from RetroAchievements.
 examples:
-  default: https://via.placeholder.com/468x60?text=No%20preview%20available
+  default: https://raw.githubusercontent.com/LuanRoger/LuanRoger/main/retroachievements.svg
 authors:
   - LuanRoger
 supports:
