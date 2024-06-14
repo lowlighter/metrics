@@ -28,7 +28,7 @@ export default async function (
         LastGameID: lastGameId,
       },
     } = profile;
-    const profilePic = imports.imgb64(`${retroachievementsUrl}${UserPic}`, {width: 64, height: 64})
+    const profilePic = await imports.imgb64(`${retroachievementsUrl}${UserPic}`, {width: 64, height: 64})
 
     const lastPlayedGame = await imports.axios.get(
       `https://retroachievements.org/API/API_GetGameInfoAndUserProgress.php?z=${username}&u=${target}&g=${lastGameId}&y=${token}`
@@ -44,7 +44,7 @@ export default async function (
         UserCompletion: progress,
       },
     } = lastPlayedGame;
-    const gameIcon = imports.imgb64(`${retroachievementsUrl}${ImageIcon}`, {width: 64, height: 64})
+    const gameIcon = await imports.imgb64(`${retroachievementsUrl}${ImageIcon}`, {width: 64, height: 64})
 
     let lastGameAchievements = null
     if (showachievements) {
@@ -53,11 +53,12 @@ export default async function (
         `https://retroachievements.org/API/API_GetUserRecentAchievements.php?z=${username}&y=${token}&u=${target}&m=${minutesToLookBack}`
       );
 
-      lastGameAchievements = lastUnlocked.data.map(achievement => ({
+      let achievementsData = await Promise.all(lastUnlocked.data.map(async achievement => ({
         title: achievement.Title,
         description: achievement.Description,
-        badgeUrl: imports.imgb64(`${retroachievementsUrl}${achievement.BadgeURL}`, {width: 64, height: 64}),
-      })).slice(0, achievementslimit)
+        badgeUrl: await imports.imgb64(`${retroachievementsUrl}${achievement.BadgeURL}`, {width: 64, height: 64}),
+      })))
+      lastGameAchievements = achievementsData.slice(0, achievementslimit);
     }
 
     return {
