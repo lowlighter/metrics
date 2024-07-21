@@ -45,9 +45,7 @@
 <pre><%# -%>
 <% if (base.metadata) { %>
 <div class="banner"><%# -%>
-Metrics generator <%= meta.version %>
-These generated metrics comes with ABSOLUTELY NO
-WARRANTY, to the extent permitted by applicable law.
+setting up by.... <%= meta.version %>
 
 Last generated: <%= meta.generated %>
 </div><% } -%>
