@@ -267,6 +267,13 @@ inputs:
     default: <default-value>
 
   # ====================================================================================
+  # loss
+
+  plugin_loss:
+    description: Enable isocalendar plugin
+    default: <default-value>
+
+  # ====================================================================================
   # 🈷️ Languages activity
 
   plugin_languages:
