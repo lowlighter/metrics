@@ -1,4 +1,4 @@
-<% if (plugins.loss) { %>
+<!-- <% if (plugins.loss) { %>
 <div class="stdin"><%- meta.$ %> argmin f(x)</div><%# -%>
 Searching for Global Minima....
 <div style="white-space: pre; font-family: monospace;">
@@ -27,4 +27,13 @@ Searching for Global Minima....
 </div>
 
 </div>
-<% } %>
+<% } %> -->
+
+<% if (plugins.loss) { %>
+    <div class="stdin"><%- meta.$ %> ncal -MB<%= {"half-year":5, "full-year":11}[plugins.isocalendar.duration] %></div><%# -%>
+    <div class="stdout"><%# -%><div class="isocalendar"><%- plugins.isocalendar.svg %></div>
+    <b><%= `${plugins.isocalendar.streak.current}`.padStart(5) %></b> consecutive day<%= s(plugins.isocalendar.streak.current) %> with commits
+    <b><%= `~${plugins.isocalendar.average}`.padStart(5) %></b> commits per day in average
+    </div>
+    <% } %>
+    
