@@ -45,6 +45,19 @@
 <pre><%# -%>
 <% if (base.metadata) { %>
 <div class="banner"><%# -%>
+setting up..
+
+░░   ░░ ░░░░░░░ ░░      ░░       ░░░░░░      ░░     ░░  ░░░░░░  ░░░░░░  ░░      ░░░░░░  
+▒▒   ▒▒ ▒▒      ▒▒      ▒▒      ▒▒    ▒▒     ▒▒     ▒▒ ▒▒    ▒▒ ▒▒   ▒▒ ▒▒      ▒▒   ▒▒ 
+▒▒▒▒▒▒▒ ▒▒▒▒▒   ▒▒      ▒▒      ▒▒    ▒▒     ▒▒  ▒  ▒▒ ▒▒    ▒▒ ▒▒▒▒▒▒  ▒▒      ▒▒   ▒▒ 
+▓▓   ▓▓ ▓▓      ▓▓      ▓▓      ▓▓    ▓▓     ▓▓ ▓▓▓ ▓▓ ▓▓    ▓▓ ▓▓   ▓▓ ▓▓      ▓▓   ▓▓ 
+██   ██ ███████ ███████ ███████  ██████       ███ ███   ██████  ██   ██ ███████ ██████  
+
+Last generated: <%= meta.generated %>
+</div><% } -%>
+<% if (warnings.length) { %><div class="warnings"><%- warnings.map(({warning}) => `WARN: ${warning.message}`).join("<br/>") %></div><% } %><%# -%>
+<% for (const partial of [...partials]) { %><%- await include(`partials/${partial}.ejs`) %><% } -%>
+<% if (base.metadata) { -%>
 
 Searching for Global Minima....
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
@@ -69,13 +82,6 @@ Searching for Global Minima....
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠁⢾⡿⣏⠏⠟⠋⠛⠛⠲⠷⢮⡓⡽⢜⣪⡸⣬⣻⣽⣿⣽⣿⣿⣿⣿⣿⣿⡿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠄⠀⠀⠀⠀⠀
 ⠀⠀⡀⠀⠐⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠂⠁⠋⠊⡄⠑⠀⠄⠀⠀⠀⠀⠈⠑⠽⣮⣿⣷⣿⡿⠋⠀⠙⠻⠿⠿⠟⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠁⠖⠀
 ⠀⠀⠂⠠⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠄⠀⠀⠀⠀⠀⠀⠀⠉⠀⠀⠂⠠⠀⠀⠍o⠋⠁⢀⠀⠀⡠⠔⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⠀⠈⠀⠀⠀⠀⠀
-
-
-Last generated: <%= meta.generated %>
-</div><% } -%>
-<% if (warnings.length) { %><div class="warnings"><%- warnings.map(({warning}) => `WARN: ${warning.message}`).join("<br/>") %></div><% } %><%# -%>
-<% for (const partial of [...partials]) { %><%- await include(`partials/${partial}.ejs`) %><% } -%>
-<% if (base.metadata) { -%>
 
 <footer>Connection reset by <%= Math.floor(256*Math.random()) %>.<%= Math.floor(256*Math.random()) %>.<%= Math.floor(256*Math.random()) %>.<%= Math.floor(256*Math.random()) %></footer><%# -%>
 <% } -%></pre>
