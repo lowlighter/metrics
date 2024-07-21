@@ -45,7 +45,7 @@
 <pre><%# -%>
 <% if (base.metadata) { %>
 <div class="banner"><%# -%>
-setting up by.... <%= meta.version %>
+setting up the <%= meta.version %>
 
 Last generated: <%= meta.generated %>
 </div><% } -%>
