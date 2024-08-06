@@ -7,11 +7,11 @@ export default async function({login, q, imports, data, account}, {token, enable
       return null
 
     //Load inputs
-    let {user, sections, "games.ignored": _games_ignored, "games.limit": _games_limit, "recent.games.limit": _recent_games_limit, "achievements.limit": _achievements_limit, "playtime.threshold": _playtime_threshold} = imports.metadata.plugins.steam.inputs({data, account, q})
+    let {user, sections, "games.ignored": _games_ignored, "games.limit": _games_limit, "recent.games.limit": _recent_games_limit, "achievements.limit": _achievements_limit, "playtime.threshold": _playtime_threshold, freegames} = imports.metadata.plugins.steam.inputs({data, account, q})
 
     const urls = {
       games: {
-        owned: `https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${token}&steamid=${user}&format=json&include_appinfo=1`,
+        owned: `https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${token}&steamid=${user}&format=json&include_appinfo=1&include_played_free_games=${freegames ? '1' : '0'}`,
         schema: `https://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v0002/?key=${token}&format=json`,
         details: "https://store.steampowered.com/api/appdetails?",
       },
