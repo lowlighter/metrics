@@ -1280,6 +1280,10 @@ inputs:
     description: Display threshold (Game playtime in hours)
     default: <default-value>
 
+  plugin_steam_freegames:
+    description: Include free games
+    default: <default-value>
+
   # ====================================================================================
   # 🧠 16personalities
 

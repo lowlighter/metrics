@@ -91,3 +91,8 @@ inputs:
     min: 0
     default: 2
 
+  plugin_steam_freegames:
+    description: |
+      Include free games
+    type: boolean
+    default: no
