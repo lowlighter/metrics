@@ -37,7 +37,7 @@
     "@primer/css": "^21.0.9",
     "@primer/octicons": "^19.7.0",
     "@twemoji/parser": "^14.1.0",
-    "axios": "^1.5.0",
+    "axios": "^1.7.3",
     "clipboard": "^2.0.11",
     "compression": "^1.7.4",
     "csso": "^5.0.5",
@@ -78,7 +78,7 @@
     "transform": {}
   },
   "optionalDependencies": {
-    "@googlemaps/google-maps-services-js": "^3.3.38",
+    "@googlemaps/google-maps-services-js": "^3.4.0",
     "chess.js": "^1.0.0-beta.6",
     "color": "^4.2.3",
     "gifencoder": "^2.0.1",
