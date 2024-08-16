@@ -18,18 +18,18 @@ Its `README.md` will be displayed on your user profile:
 
 > 💡 A GitHub personal token is required since this action will fetch data that cannot be accessed through repository-scoped tokens (like [`${{ secrets.GITHUB_TOKEN }}` or `${{ github.token }}`](https://docs.github.com/en/actions/security-guides/automatic-token-authentication#about-the-github_token-secret)) such as users, organizations, issues, pull requests, comments, commits, activity, etc.
 
-From the `Developer settings` of your account settings, select `Personal access tokens` to create a new token.
+From the `Developer settings` of your account settings, select [Personal access tokens](https://github.com/settings/tokens) to create a new token.
 
-No scopes are required, but additional one may be required depending on which features will be used. Each plugin documentation enumerates which scopes are required to make it work.
+No scopes are required, but an additional one may be required depending on which features will be used. Each plugin documentation enumerates which scopes are required to make it work.
 
 As a general rule, the following scopes may be required:
-- `public_repo` for some plugins
-- `read:org` for all organizations related metrics
 - `repo` for all private repositories related metrics
-  - `read:user` for some private repositories related metrics
+  - `public_repo` for some plugins
 - `read:packages` for some packages related metrics
-- `read:project` for some projects related metrics
+- `read:org` for all organizations related metrics
 - `gist` for publishing renders to gists instead of a repository
+- `read:user` for some private repositories related metrics
+- `read:project` for some projects related metrics
 
 > 💡 For security reasons, it is advised to always use the least amount of scopes. It is possible to prevent security issues by [forking this repository](https://github.com/lowlighter/metrics/fork) and using it in your workflow instead (more information available in step 3)
 
