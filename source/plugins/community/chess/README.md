@@ -127,6 +127,7 @@ with:
   token: NOT_NEEDED
   base: ""
   plugin_chess: yes
+  plugin_chess_user: ${{ secrets.CHESS_USER }}
   plugin_chess_token: ${{ secrets.CHESS_TOKEN }}
   plugin_chess_platform: lichess.org
 
