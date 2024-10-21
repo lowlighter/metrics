@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="142" class="">
+    <defs>
+        <style/>
+    </defs>
+    <style>@keyframes animation-gauge{0%{stroke-dasharray:0 329}}@keyframes animation-rainbow{0%,to{color:#7f00ff;fill:#7f00ff}14%{color:#a933ff;fill:#a933ff}29%{color:#007fff;fill:#007fff}43%{color:#00ff7f;fill:#00ff7f}57%{color:#ff0;fill:#ff0}71%{color:#ff7f00;fill:#ff7f00}86%{color:red;fill:red}}svg{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;font-size:14px;color:#777}h2{margin:8px 0 2px;padding:0;color:#0366d6;font-weight:400;font-size:16px}h2 svg{fill:currentColor}section&gt;.field{margin-left:5px;margin-right:5px}.field{display:flex;align-items:center;margin-bottom:2px;white-space:nowrap}.field svg{margin:0 8px;fill:#959da5;flex-shrink:0}.row{display:flex;flex-wrap:wrap}.row section{flex:1 1 0}#metrics-end,.fill-width{width:100%}.tracklist{display:flex;flex-direction:column;align-items:flex-start;margin-left:28px;margin-top:4px;width:100%}.track{display:flex;align-items:center;justify-content:center;margin-bottom:4px}.track img{margin:0 10px;border-radius:7px;flex-shrink:0}.track .artist,.track .name{width:387px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.track .name{font-size:14px;line-height:14px;height:14px;font-weight:600}.track .artist{font-size:12px;color:#666}.track .infos{flex-grow:1}:root{--color-calendar-graph-day-bg:#ebedf0;--color-calendar-graph-day-border:rgba(27,31,35,0.06);--color-calendar-graph-day-L1-bg:#9be9a8;--color-calendar-graph-day-L2-bg:#40c463;--color-calendar-graph-day-L3-bg:#30a14e;--color-calendar-graph-day-L4-bg:#216e39;--color-calendar-halloween-graph-day-L1-bg:#ffee4a;--color-calendar-halloween-graph-day-L2-bg:#ffc501;--color-calendar-halloween-graph-day-L3-bg:#fe9600;--color-calendar-halloween-graph-day-L4-bg:#03001c;--color-calendar-winter-graph-day-L1-bg:#0a3069;--color-calendar-winter-graph-day-L2-bg:#0969da;--color-calendar-winter-graph-day-L3-bg:#54aeff;--color-calendar-winter-graph-day-L4-bg:#b6e3ff;--color-calendar-graph-day-L4-border:rgba(27,31,35,0.06);--color-calendar-graph-day-L3-border:rgba(27,31,35,0.06);--color-calendar-graph-day-L2-border:rgba(27,31,35,0.06);--color-calendar-graph-day-L1-border:rgba(27,31,35,0.06)}</style>
+    <style/>
+    <foreignObject x="0" y="0" width="100%" height="100%">
+        <div xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="items-wrapper">
+            <section>
+                <h2 class="field">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+                        <path fill-rule="evenodd" d="M1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zM8 0a8 8 0 100 16A8 8 0 008 0zM6.379 5.227A.25.25 0 006 5.442v5.117a.25.25 0 00.379.214l4.264-2.559a.25.25 0 000-.428L6.379 5.227z"/>
+                    </svg>
+                    Suggested tracks
+                </h2>
+                <div class="row fill-width">
+                    <section>
+                        <div class="field">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+                                <path fill-rule="evenodd" d="M2.002 2.725a.75.75 0 01.797-.699C8.79 2.42 13.58 7.21 13.974 13.201a.75.75 0 11-1.497.098 10.502 10.502 0 00-9.776-9.776.75.75 0 01-.7-.798zM2 13a1 1 0 112 0 1 1 0 01-2 0zm.84-5.95a.75.75 0 00-.179 1.489c2.509.3 4.5 2.291 4.8 4.8a.75.75 0 101.49-.178A7.003 7.003 0 002.838 7.05z"/>
+                            </svg>
+                            From Apple Music
+                        </div>
+                        <div class="tracklist">
+                            <div class="track">
+                                <img src="data:image/jpg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAoACgDASIAAhEBAxEB/8QAGwAAAgIDAQAAAAAAAAAAAAAAAAYDCAEEBwX/xAAwEAACAgECBQIEBAcAAAAAAAABAgMEEQAFBhITITEHIhRBUWEVFiMyJDRCcoGhsf/EABUBAQEAAAAAAAAAAAAAAAAAAAAB/8QAFREBAQAAAAAAAAAAAAAAAAAAAAH/2gAMAwEAAhEDEQA/ALTV/wCXi/tH/NQbnBVs7fYi3BEkqMh6qv4K4751mnYiliRY3ViFGca4hvNnjuK1atWr4hmaSdnqdT9OrGmOk6coPN3xkNjOe/2BhkI22/yQWJp+HCBcimgi6hjRSoMXOM9iwA74OM58Z1t7Fv8ABvVi3HGRHbhw0kfOH9jd1YEdiD/o6Rdh2vduM/T2n+aZWW65nhkwuOmpk6iv00ZQJGRgFTlzjuTjsXbhTaK+08PSNVyHSMuWmQJLIoJC8w84HjQM9K3fkkEa2AFUDA5ATj76NasJsKkcqgq3Yg576NAw0uVa8axKYnVQWDDHMCO+q4er/rQ208Ujb+FbHUrxw/xQeEMGJxgKrD9wxnmz8/GrEzy17NeKOWQIntUPnBLfQarL62cEvsPqM3E9a5MjXQ0lcxoHIlUYZcnsDg5Hz+njsDpuk9X8A4SNaG3HFdZbrhSecI0ahpHRfeZAWXuCeUKSSB30m+mnH1BPUK9W3w23nOdtrXbDYEUYk/bKD3yWA9xJI+fknUlDjzijiSvFtu2bEnwMG3z/ABl2dRPLO7QMCxK4VMtjP9X1IydIK1JbO8QbvxFYpQT25onmo1F6phSNQqM6liSWKgYY5Ocnzoti7Fmoi1CvKDj7aNT05HsbbBI6ckkkSsyfQkAkaNELcAP6gAPKoypYeD51s2aE0tIvHELBZfdHIez9+4P+NGjQeZZ2SzLsV3bINthqxWYXgDQ8qMisrKSO2PBHy86VeEfSmrwvxx+Zo9zkMTVxD+HdIOSeUAl5CSWbPuJIzn540aNB01N1E0h6YKqpwQVOSfpo0aNB/9k=" width="32" height="32" alt="" />
+                                <div class="infos">
+                                    <div class="name">Yellow River</div>
+                                    <div class="artist">Black Kirin</div>
+                                </div>
+                            </div>
+                            <div class="track">
+                                <img src="data:image/jpg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAoACgDASIAAhEBAxEB/8QAHAAAAQUAAwAAAAAAAAAAAAAAAAIDBAUGAQcI/8QALBAAAQMDAwIGAQUBAAAAAAAAAQIDEQAEBRIhMRNBBhQiUWGBMiMkcZGxwf/EABkBAAIDAQAAAAAAAAAAAAAAAAIDAQQFAP/EAB0RAAIDAQEBAQEAAAAAAAAAAAECAAMREiExBUH/2gAMAwEAAhEDEQA/APM2OYtHETdLcB1p/FM+md/uP8+asLXDsXd7b29sXVquFqQ22E+smDoA7GTApeDtW12aXXSAidzV95NDdsb+3cQh22SHEes6lEkRpAHO87mNjzSGc9YJdFQCBjK698N22NDwyBfQ4l1IbSE/m2oEpVPfYciR81XjH49Lidany3KphG8T6e/tXYLeFVc3vXu3mi1pShtCUBsBUbDSNiSAT/gqivMRbPZh1ld8LMt+lCSn1K3G5HOmDPB4oVYt5slkVRuTKZXH2jFuhdm6tapVqBQRAB9J39x/VFW2aeti2/bsuB1baSCpKSPvcCimIT/Yu2pd1TNL4f8ACjV/4Ws7tq7TbOaC4tbn4jnkTH3SG2G8bZpv+k2pt9zpFzQFFKtiZnuAZg7RWe8P+KHmMaMcvqdAfn0zupPtPb6qfcuW6X27m3U6uxKdT/XgjVPHIkmO29VeX7IaaLPUagyZ89kq6yrTV8C6LvzSHEOtqSQG1IiTI5/rbmtCbw5trrpxK9JaVDmxSrSIOlcSRPtxNZFOUs/L2rtwB+3UuemPWrWlIKZPOmJ32E/NSMFnLlT6MZbm7Xj0khtltetSUnc9oInmIqbEPOgfINFqrZyT4YxlbJqz8Opc0EPPp1q7kyOSf+UU54wfcasnG75t5pRH6bbidP2O1FMo6K60L9I1JYFrIwCYWzdDToJgD3invNphwqlwqEAEQB80UVZI9mMGOZJDl0w44ysrEODS4jSR0+Bq+TG9c4vJIxrzi0JLizslUxG/aiihKgjDCWxkOiO5vOKyrDSHkStsmFlRUYP80UUUSoFGCdZY1jdNP//Z" width="32" height="32" alt="" />
+                                <div class="infos">
+                                    <div class="name">Bloodstained Cross</div>
+                                    <div class="artist">Arch Enemy</div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </section>
+        </div>
+        <div xmlns="http://www.w3.org/1999/xhtml" id="metrics-end"></div>
+    </foreignObject>
+</svg>
