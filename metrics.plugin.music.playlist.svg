@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="142" class="">
+    <defs>
+        <style/>
+    </defs>
+    <style>@keyframes animation-gauge{0%{stroke-dasharray:0 329}}@keyframes animation-rainbow{0%,to{color:#7f00ff;fill:#7f00ff}14%{color:#a933ff;fill:#a933ff}29%{color:#007fff;fill:#007fff}43%{color:#00ff7f;fill:#00ff7f}57%{color:#ff0;fill:#ff0}71%{color:#ff7f00;fill:#ff7f00}86%{color:red;fill:red}}svg{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;font-size:14px;color:#777}h2{margin:8px 0 2px;padding:0;color:#0366d6;font-weight:400;font-size:16px}h2 svg{fill:currentColor}section&gt;.field{margin-left:5px;margin-right:5px}.field{display:flex;align-items:center;margin-bottom:2px;white-space:nowrap}.field svg{margin:0 8px;fill:#959da5;flex-shrink:0}.row{display:flex;flex-wrap:wrap}.row section{flex:1 1 0}#metrics-end,.fill-width{width:100%}.tracklist{display:flex;flex-direction:column;align-items:flex-start;margin-left:28px;margin-top:4px;width:100%}.track{display:flex;align-items:center;justify-content:center;margin-bottom:4px}.track img{margin:0 10px;border-radius:7px;flex-shrink:0}.track .artist,.track .name{width:387px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.track .name{font-size:14px;line-height:14px;height:14px;font-weight:600}.track .artist{font-size:12px;color:#666}.track .infos{flex-grow:1}:root{--color-calendar-graph-day-bg:#ebedf0;--color-calendar-graph-day-border:rgba(27,31,35,0.06);--color-calendar-graph-day-L1-bg:#9be9a8;--color-calendar-graph-day-L2-bg:#40c463;--color-calendar-graph-day-L3-bg:#30a14e;--color-calendar-graph-day-L4-bg:#216e39;--color-calendar-halloween-graph-day-L1-bg:#ffee4a;--color-calendar-halloween-graph-day-L2-bg:#ffc501;--color-calendar-halloween-graph-day-L3-bg:#fe9600;--color-calendar-halloween-graph-day-L4-bg:#03001c;--color-calendar-winter-graph-day-L1-bg:#0a3069;--color-calendar-winter-graph-day-L2-bg:#0969da;--color-calendar-winter-graph-day-L3-bg:#54aeff;--color-calendar-winter-graph-day-L4-bg:#b6e3ff;--color-calendar-graph-day-L4-border:rgba(27,31,35,0.06);--color-calendar-graph-day-L3-border:rgba(27,31,35,0.06);--color-calendar-graph-day-L2-border:rgba(27,31,35,0.06);--color-calendar-graph-day-L1-border:rgba(27,31,35,0.06)}</style>
+    <style/>
+    <foreignObject x="0" y="0" width="100%" height="100%">
+        <div xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" class="items-wrapper">
+            <section>
+                <h2 class="field">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+                        <path fill-rule="evenodd" d="M1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zM8 0a8 8 0 100 16A8 8 0 008 0zM6.379 5.227A.25.25 0 006 5.442v5.117a.25.25 0 00.379.214l4.264-2.559a.25.25 0 000-.428L6.379 5.227z"/>
+                    </svg>
+                    Suggested tracks
+                </h2>
+                <div class="row fill-width">
+                    <section>
+                        <div class="field">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+                                <path fill-rule="evenodd" d="M2.002 2.725a.75.75 0 01.797-.699C8.79 2.42 13.58 7.21 13.974 13.201a.75.75 0 11-1.497.098 10.502 10.502 0 00-9.776-9.776.75.75 0 01-.7-.798zM2 13a1 1 0 112 0 1 1 0 01-2 0zm.84-5.95a.75.75 0 00-.179 1.489c2.509.3 4.5 2.291 4.8 4.8a.75.75 0 101.49-.178A7.003 7.003 0 002.838 7.05z"/>
+                            </svg>
+                            From Apple Music
+                        </div>
+                        <div class="tracklist">
+                            <div class="track">
+                                <img src="data:image/jpg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAoACgDASIAAhEBAxEB/8QAGwAAAgIDAQAAAAAAAAAAAAAAAAUEBgIHCAP/xAAuEAABAwMDAgUDBAMAAAAAAAABAgMEBRESAAYhBzETIkFhcRRRoQgjMoEzkaL/xAAYAQEBAQEBAAAAAAAAAAAAAAABAgQDBf/EABwRAAMAAgMBAAAAAAAAAAAAAAABAgMRBDFBYf/aAAwDAQACEQMRAD8AZdYuom6qDvyrQqVV3I8COGyltLSFY/tpJ5Kb9zrUVf6gbo3LFEetVp+RCv8A43ClDZN+5SAMv7vbVh/U1MknqvMpsZsZSUNcjjMltIA/H50ko1Ip6GmIVZioZqUJ0F5ZVldCr+YAfyTzew9R6amt+GrC4lbpbJ1L3xu+lxG40Dck5EVAAbbKwsJHoAVA8e3YaYK6lb8LaSdxTQknEK8NAF/nHSOZRKazXI7VGqS5NMRGD77iiMUK5HHz3HpqG9UXJW5YMRbCUU/zoYKTwFEd7enA/OplvqjRnjFcqsCf02Z0z31u+p7+oUKo12W/DdkBDjasQFpsTY2F/TRrPpdTA31BoaynhL5P/KtGuujz2UHq9vSLXeplUbcSyYrTnhxZrJ8QIXYALFuCCOFDntccjUFe7tw0tSmUrZMWUkjxFYuFCuASlfccFJFu45F9ItrRYUt+M5UYilw3yQnF0JyUL2CiOQOD9vc21Yq1TaNt6rxZGEp+Cq0hMVPBbUDdIyPdGQ5T/rvqWwT0zwq06WmqsUuY0uO2mMlS0WBXiBdGVj5fWyeTc831H2zMiSK3TzLfQ20y7kpxZtzcpT+TpRDlOSZMipVdyxnOJb+oyIwXceZIsb8HjtYc+2rcuhQqTGnqUIMpSFJMt4vqbW2rPJQCCPMm1iFWsbgg6KnbRswch4ZtJ9+G5dhGEredPbaksGQy+QpsODIWuDcXv30aQ9HPo1b8hKMOMnB8NtOMEHNa23XMuTkpJSnJJtbk83GjVmPZz9BlN0qVg2yl0ISk5+JibX5/o+99TZNYdrExthLaMfKhICsQlI5Ay7/f3OjRoXYCSXPbixX4IQUOtqVi4hZIGd8kn78WHyNdVbV8DqjtNyTt6FS1NEMxpsWQk5t4IsAVdlHHEhVjY/GjRpYIuG3emjDG4486fRaVGbjtKS27FKg7e544PAspfbmxsdGjRoE//9k=" width="32" height="32" alt="" />
+                                <div class="infos">
+                                    <div class="name">Black Tears</div>
+                                    <div class="artist">Heaven Shall Burn</div>
+                                </div>
+                            </div>
+                            <div class="track">
+                                <img src="data:image/jpg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAoACgDASIAAhEBAxEB/8QAHAAAAwACAwEAAAAAAAAAAAAAAAUGAwcBAgQI/8QALxAAAQMDAwQBAgQHAAAAAAAAAQIDBAARIQUSMQYTIkFhcYEHFCMyCBVCUaGxwf/EABcBAQEBAQAAAAAAAAAAAAAAAAMBBAD/xAAdEQACAgIDAQAAAAAAAAAAAAAAAQIRAxIhMWFR/9oADAMBAAIRAxEAPwDQaoK1MeZSC0kKVnJvwPrWNWmHsNrbUVqIuoWFkj63/wCD1TmEw9KVHhxULK1qwCqwOSQcZHJNVWpfh9I0yGJMuQlttpoKcSQTvNs2PHOM1keXUTW+iL0HQVas+WkFKTYnyNv81e6X+FbEhLJkT2WkrBv5A2PqppotQVr7EtCVg7dpFv8AfunbfUDzcILfU8rtpS2QhQsScAWte/3oJZJuXgkdV2iH636fb0TUnI7DweSn+se6K515cmTJcceTtUokhBNyB8mitmKb15YU0m+EW3RcJ6R1ElzS0qXvYuxcBZwPLH2I4tni1W2oPagqRFiyIj61X2FbqM59ECwtTn+HmR0zF0VEhxttrUmlBl4rUBuV5EKFze5CrYxirjrrWtHmIfhoEb8wpkjf+4t3B8iAb1jy401diRlTPlTVFlUhz89pzyZsZZUshv8AS2X8bWvYfOeK80uAjZGl6fNdVIIStxtTZSEq45sb+8mtgSE6b06IOnwWW5AkMvWkPJ2lbmbeJ4ST75JGLCp7q+FHjSlR1WcfLaFtjACkKveyh85F8j2SKTY6hZNe04pQEtO91WCpS73PxjiikLS3YzoQ8Qh5OUqvlPyRzwaKqxfCX4d9H1btqabL6kNgFOzJB5tuFsj6A09g6203LQI7y+48kDtbVbfHkA/utcezgYoop8mONO0SMmLv5nHcUxIkylPOpXuN0EHxClIt6AN7WN+eMVl1/VYWuKbeelpjyIjG1JbbJCwVXtnNwSTi/wBqKKqguGc2IdUmtSJKCr9QNgDuFJBWLAWI59f3ooopVBUE5M//2Q==" width="32" height="32" alt="" />
+                                <div class="infos">
+                                    <div class="name">Roundtrip to Hell and Back
+Explicit content</div>
+                                    <div class="artist">Children of Bodom</div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </section>
+        </div>
+        <div xmlns="http://www.w3.org/1999/xhtml" id="metrics-end"></div>
+    </foreignObject>
+</svg>
