@@ -20,7 +20,8 @@ RUN chmod +x /metrics/source/app/action/index.mjs \
   && curl -fsSL https://deno.land/x/install/install.sh | DENO_INSTALL=/usr/local sh \
   # Install ruby to support github licensed gem
   && apt-get install -y ruby-full git g++ cmake pkg-config libssl-dev \
-  && gem install licensed \
+  && gem install nokogiri -v 1.17.2 \
+  && gem install licensed -v 5.0.1 \
   # Install python for node-gyp
   && apt-get install -y python3 \
   # Clean apt/lists
