@@ -1,4 +1,5 @@
 # Create a Docker image for development and publish it to GitHub registry.
+name: Create Development Image 
 
 on:
   pull_request:
@@ -10,8 +11,6 @@ jobs:
   format:
     name: Format code
     runs-on: ubuntu-latest
-    # needs: [ build-test-analyze ]
-    # if: always() && (needs.build-test-analyze.result == 'success' || needs.build-test-analyze.result == 'skipped')
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -68,12 +67,7 @@ jobs:
         run: echo ${{ github.token }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
     
       - name: Build docker image
-        run: docker build -t ghcr.io/erancihan/lowlighter-github-metrics:devel .
+        run: docker build -t ghcr.io/${{ github.actor }}/lowlighter-github-metrics:devel .
     
       - name: Publish to GitHub registry
-        run: docker push ghcr.io/erancihan/lowlighter-github-metrics:devel
-    
-      - name: Tag docker image (beta) and publish to GitHub registry
-        run: |
-          docker tag  ghcr.io/erancihan/lowlighter-github-metrics:devel
-          docker push ghcr.io/erancihan/lowlighter-github-metrics:devel-beta
+        run: docker push     ghcr.io/${{ github.actor }}/lowlighter-github-metrics:devel

@@ -109,14 +109,14 @@ export default async function ({ login, data, graphql, q, imports, queries, acco
     let i = 0;
     let j = 0;
     let svg = `
-            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" style="margin-top: -130px;" viewBox="0,0 480,${duration === "full-year" ? 270 : 170}">
-              ${[1, 2].map(k => `
-                <filter id="brightness${k}">
-                  <feComponentTransfer>
-                    ${[..."RGB"].map(channel => `<feFunc${channel} type="linear" slope="${1 - k * 0.4}" />`).join("")}
-                  </feComponentTransfer>
-                </filter>`).join("")}
-              <g transform="scale(4) translate(12, 0)">`;
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" style="margin-top: -130px;" viewBox="0,0 480,${duration === "full-year" ? 270 : 170}">
+        ${[1, 2].map(k => `
+          <filter id="brightness${k}">
+            <feComponentTransfer>
+              ${[..."RGB"].map(channel => `<feFunc${channel} type="linear" slope="${1 - k * 0.4}" />`).join("")}
+            </feComponentTransfer>
+          </filter>`).join("")}
+        <g transform="scale(4) translate(12, 0)">`;
 
     //Iterate through weeks
     for (const week of calendar.weeks) {
