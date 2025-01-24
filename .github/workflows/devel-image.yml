@@ -1,0 +1,79 @@
+# Create a Docker image for development and publish it to GitHub registry.
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  # Format code
+  format:
+    name: Format code
+    runs-on: ubuntu-latest
+    # needs: [ build-test-analyze ]
+    # if: always() && (needs.build-test-analyze.result == 'success' || needs.build-test-analyze.result == 'skipped')
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Checkout master
+        run: git checkout master
+      - name: Format code
+        run: |
+          npm install -g dprint
+          mkdir -v -p /home/runner/.cache/dprint/cache
+          npx dprint fmt --config .github/config/dprint.json
+      - name: Publish formatted code
+        run: |
+          set +e
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add --all
+          git commit -m "chore: code formatting"
+          git push
+          set -e  
+
+  update-indexes:
+    name: Publish rebuilt metrics indexes
+    runs-on: ubuntu-latest
+    needs: [ format ]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Setup NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - name: Pull changes
+        run: |
+          git checkout master
+          git pull
+      - name: Setup metrics
+        run: npm ci
+      - name: Publish rebuild metrics indexes
+        run: npm run build -- publish
+
+  docker-devel:
+    name: Publish devel to GitHub registry
+    runs-on: ubuntu-latest
+    needs: [ update-indexes ]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+    
+      - name: Login to GitHub registry
+        run: echo ${{ github.token }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+    
+      - name: Build docker image
+        run: docker build -t ghcr.io/erancihan/lowlighter-github-metrics:devel .
+    
+      - name: Publish to GitHub registry
+        run: docker push ghcr.io/erancihan/lowlighter-github-metrics:devel
+    
+      - name: Tag docker image (beta) and publish to GitHub registry
+        run: |
+          docker tag  ghcr.io/erancihan/lowlighter-github-metrics:devel
+          docker push ghcr.io/erancihan/lowlighter-github-metrics:devel-beta
