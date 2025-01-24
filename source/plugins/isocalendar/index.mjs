@@ -44,6 +44,23 @@ async function loadNonGitHubContributionsFromSourceFile(options) {
   }
 }
 
+function findTopColorForDay(day, count) {
+  return Object.keys(day).reduce((acc, key, idx) => {
+    const { color, contributionCount } = day[key]
+    if (count === 0 && idx === 0) {
+      return color
+    }
+    if (count !== 0 && contributionCount === 0) {
+      return acc
+    }
+    if (acc === "") {
+      return color
+    }
+
+    return acc
+  }, "")
+}
+
 //Setup
 export default async function ({ login, data, graphql, q, imports, queries, account }, { enabled = false, extras = false } = {}) {
   //Plugin execution
@@ -88,8 +105,9 @@ export default async function ({ login, data, graphql, q, imports, queries, acco
 
     //Compute SVG
     console.debug(`metrics/compute/${login}/plugins > isocalendar > computing svg render`)
-    const size = 6
-    let i = 0, j = 0
+    const size = 6;
+    let i = 0;
+    let j = 0;
     let svg = `
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" style="margin-top: -130px;" viewBox="0,0 480,${duration === "full-year" ? 270 : 170}">
               ${[1, 2].map(k => `
@@ -97,64 +115,47 @@ export default async function ({ login, data, graphql, q, imports, queries, acco
                   <feComponentTransfer>
                     ${[..."RGB"].map(channel => `<feFunc${channel} type="linear" slope="${1 - k * 0.4}" />`).join("")}
                   </feComponentTransfer>
-                </filter>`)
-        .join("")
-      }
-              <g transform="scale(4) translate(12, 0)">`
+                </filter>`).join("")}
+              <g transform="scale(4) translate(12, 0)">`;
+
     //Iterate through weeks
     for (const week of calendar.weeks) {
-      svg += `<g transform="translate(${i * 1.7}, ${i})">`
-      j = 0
+      svg += `<g transform="translate(${i * 1.7}, ${i})">`;
+      j = 0;
 
       //Iterate through days
       for (const day of week.contributionDays) {
-        const count = Object.keys(day).reduce((acc, key) => acc + day[key].contributionCount, 0)
-        const ratio = (count / reference) || 0
+        const count = Object.keys(day).reduce((acc, key) => acc + day[key].contributionCount, 0);
+        const ratio = (count / reference) || 0;
 
-        svg += `<g transform="translate(${j * -1.7}, ${j + (1 - ratio) * size})">`
+        svg += `<g transform="translate(${j * -1.7}, ${j + (1 - ratio) * size})">`;
 
-        const topColor = Object.keys(day).reduce((acc, key, idx) => {
-          const { color, contributionCount } = day[key]
-          if (count === 0 && idx === 0) {
-            return color
-          }
-          if (count !== 0 && contributionCount === 0) {
-            return acc
-          }
-          if (acc === "") {
-            return color
-          }
+        const topColor = findTopColorForDay(day, count);
+        svg += `<path fill="${topColor}" d="M1.7,2 0,1 1.7,0 3.4,1 z" />`;
 
-          return acc
-        }, "")
-        svg += `<path fill="${topColor}" d="M1.7,2 0,1 1.7,0 3.4,1 z" />`
-
-        let offset = 0
+        let offset = 0;
         Object.keys(day).forEach((key, idx) => {
-          const { color, contributionCount } = day[key]
+          const { color, contributionCount } = day[key];
 
           //Find ratio of key
-          const r = contributionCount / reference || 0
-          const shiftBy = r * size
-
-          console.log("key::", key, contributionCount, reference, r, ratio)
+          const r = contributionCount / reference || 0;
+          const shiftBy = r * size;
 
           svg += `
             <path fill="${color}" filter="url(#brightness1)" d=" M   0,${1 + offset} 1.7,${2 + offset} 1.7,${2 + offset + shiftBy}   0,${1 + offset + shiftBy} z" />
             <path fill="${color}" filter="url(#brightness2)" d=" M 1.7,${2 + offset} 3.4,${1 + offset} 3.4,${1 + offset + shiftBy} 1.7,${2 + offset + shiftBy} z" />
-          `
+          `;
 
-          offset += shiftBy
-        })
+          offset += shiftBy;
+        });
 
-        svg += "</g>"
-
-        j++
+        svg += "</g>";
+        j++;
       }
-      svg += "</g>"
-      i++
+      svg += "</g>";
+      i++;
     }
-    svg += "</g></svg>"
+    svg += "</g></svg>";
 
     //Results
     return { streak, max, average, svg, duration }
@@ -165,75 +166,84 @@ export default async function ({ login, data, graphql, q, imports, queries, acco
   }
 }
 
-/**Compute max and current streaks */
+/**
+ * Compute max and current streaks
+ * */
 async function statistics({ login, graphql, queries, start, end, calendar }) {
   let average = 0, max = 0, streak = { max: 0, current: 0 }, values = []
 
-  const extracontribs = await loadNonGitHubContributionsFromSourceFile({ login })
+  const extracontribs = await loadNonGitHubContributionsFromSourceFile({ login });
 
   //Load contribution calendar
   for (let from = new Date(start); from < end;) {
     //Set date range
-    let to = new Date(from)
-    to.setUTCHours(+4 * 7 * 24)
-    if (to > end)
-      to = end
-    //Ensure that date ranges are not overlapping by setting it to previous day at 23:59:59.999
-    const dto = new Date(to)
-    dto.setUTCHours(-1)
-    dto.setUTCMinutes(59)
-    dto.setUTCSeconds(59)
-    dto.setUTCMilliseconds(999)
-    //Fetch data from api
-    console.debug(`metrics/compute/${login}/plugins > isocalendar > loading calendar from "${from.toISOString()}" to "${dto.toISOString()}"`)
-    const { user: { calendar: { contributionCalendar: { weeks } } } } = await graphql(queries.isocalendar.calendar({ login, from: from.toISOString(), to: dto.toISOString() }))
+    let to = new Date(from);
+    to.setUTCHours(+4 * 7 * 24);
+    if (to > end) {
+      to = end;
+    }
 
-    const extra = extracontribs.getRange(from, to)
+    //Ensure that date ranges are not overlapping by setting it to previous day at 23:59:59.999
+    const dto = new Date(to);
+    dto.setUTCHours(-1);
+    dto.setUTCMinutes(59);
+    dto.setUTCSeconds(59);
+    dto.setUTCMilliseconds(999);
+
+    //Fetch data from api
+    console.debug(`metrics/compute/${login}/plugins > isocalendar > loading calendar from "${from.toISOString()}" to "${dto.toISOString()}"`);
+    const { user: { calendar: { contributionCalendar: { weeks } } } } = await graphql(queries.isocalendar.calendar({ login, from: from.toISOString(), to: dto.toISOString() }));
+
+    const extra = extracontribs.getRange(from, to);
 
     //Merge contributions
     const entries = weeks.reduce((weekAcc, week, i) => {
-      const extraWeek = extra[i]
-      if (extraWeek) {
-        weekAcc.push({
-          contributionDays: [
-            ...week.contributionDays.reduce((dayAcc, day, i) => {
-              const extraDay = extraWeek.contributionDays[i]
-              if (extraDay) {
-                dayAcc.push({ github: day, gitlab: extraDay })
-              }
-              else {
-                dayAcc.push({ github: day })
-              }
-
-              return dayAcc
-            }, [])
-          ]
-        })
-      }
-      else {
-        weekAcc.push({ contributionDays: week.contributionDays.map(day => ({ github: day })) })
+      const extraWeek = extra[i];
+      if (!extraWeek) {
+        weekAcc.push({ contributionDays: week.contributionDays.map(day => ({ github: day })) });
+        return weekAcc;
       }
 
-      return weekAcc
+      weekAcc.push({
+        contributionDays: [
+          ...week.contributionDays.reduce((dayAcc, day, i) => {
+            const extraDay = extraWeek.contributionDays[i];
+
+            if (extraDay) {
+              dayAcc.push({ github: day, gitlab: extraDay });
+            }
+            else {
+              dayAcc.push({ github: day });
+            }
+
+            return dayAcc;
+          }, [])
+        ]
+      });
+
+      return weekAcc;
     }, [])
 
-    calendar.weeks.push(...entries)
+    calendar.weeks.push(...entries);
 
     //Set next date range start
-    from = new Date(to)
+    from = new Date(to);
   }
+
   //Compute streaks
   for (const week of calendar.weeks) {
     for (const day of week.contributionDays) {
       Object.keys(day).forEach(key => {
-        values.push(day[key].contributionCount)
-        max = Math.max(max, day[key].contributionCount)
-        streak.current = day[key].contributionCount ? streak.current + 1 : 0
-        streak.max = Math.max(streak.max, streak.current)
-      })
+        values.push(day[key].contributionCount);
+        max = Math.max(max, day[key].contributionCount);
+        streak.current = day[key].contributionCount ? streak.current + 1 : 0;
+        streak.max = Math.max(streak.max, streak.current);
+      });
     }
   }
+
   //Compute average
-  average = (values.reduce((a, b) => a + b, 0) / values.length).toFixed(2).replace(/[.]0+$/, "")
-  return { streak, max, average }
+  average = (values.reduce((a, b) => a + b, 0) / values.length).toFixed(2).replace(/[.]0+$/, "");
+
+  return { streak, max, average };
 }
