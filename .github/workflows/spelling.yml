@@ -68,6 +68,11 @@ jobs:
           cspell:npm/npm.txt
           cspell:aws/aws.txt
           cspell:software-terms/software-terms.txt
+          cspell:software-terms/dict/softwareTerms.txt
+          cspell:php/dict/php.txt
+          cspell:python/src/common/extra.txt
+          cspell:node/dict/node.txt
+          cspell:python/src/python/python-lib.txt
         extra_dictionary_limit: 50
 
   comment:
