@@ -408,7 +408,7 @@ Generate metrics that can be embedded everywhere, including your GitHub profile 
       </td>
   </tr>
   <tr>
-    <th colspan="2"><a href="/source/templates/community/README.md">📕 See also community templates</a></th>
+    <th colspan="2"><a href="/source/templates/community/README.md">📕 See also community templates</a></th> <br>
   </tr>
   <tr>
     <th colspan="2"><h2>🦑 Try it now!</h2></th>
