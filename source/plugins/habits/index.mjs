@@ -48,8 +48,11 @@ export default async function({login, data, rest, imports, q, account}, {enabled
       ...await Promise.allSettled(
         commits
           .flatMap(({payload}) => payload.commits)
-          .filter(({author}) => data.shared["commits.authoring"].filter(authoring => author?.login?.toLocaleLowerCase().includes(authoring) || author?.email?.toLocaleLowerCase().includes(authoring) || author?.name?.toLocaleLowerCase().includes(authoring)).length)
-          .map(async commit => (await rest.request(commit)).data.files),
+          .filter(commit => commit?.author && data.shared["commits.authoring"].some(authoring =>
+            commit.author.login?.toLocaleLowerCase().includes(authoring) ||
+            commit.author.email?.toLocaleLowerCase().includes(authoring)
+          ))
+        .map(async commit => (await rest.request(commit)).data.files),
       ),
     ]
       .filter(({status}) => status === "fulfilled")
