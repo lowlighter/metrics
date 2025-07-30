@@ -1,0 +1,19 @@
+name: Metrics
+
+on:
+  schedule:
+    - cron: "* * * * *"  # Runs every minute
+  workflow_dispatch:
+
+jobs:
+  github-metrics:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: lowlighter/metrics@latest
+        with:
+          filename: metrics.svg
+          token: ${{ secrets.METRICS_TOKEN }}
+          user: Aline-CROIRE
+          base: header, repositories
+          plugin_activity: yes
+          plugin_languages: yes
