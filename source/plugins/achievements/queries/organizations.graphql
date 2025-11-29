@@ -21,8 +21,12 @@ query AchievementsOrganizations {
         }
       }
     }
-    projects(first: 1, orderBy: {field: CREATED_AT, direction: ASC}) {
+    projectsV2(first: 1, orderBy: {field: CREATED_AT, direction: ASC}) {
       totalCount
+      nodes {
+        createdAt
+        title
+      }
     }
     packages(first: 1, orderBy: {direction: ASC, field: CREATED_AT}) {
       totalCount

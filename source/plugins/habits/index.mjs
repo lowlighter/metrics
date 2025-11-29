@@ -47,8 +47,14 @@ export default async function({login, data, rest, imports, q, account}, {enabled
     const patches = [
       ...await Promise.allSettled(
         commits
-          .flatMap(({payload}) => payload.commits)
-          .filter(({author}) => data.shared["commits.authoring"].filter(authoring => author?.login?.toLocaleLowerCase().includes(authoring) || author?.email?.toLocaleLowerCase().includes(authoring) || author?.name?.toLocaleLowerCase().includes(authoring)).length)
+          .flatMap(({payload}) => payload?.commits ?? [])
+          .filter(commit => commit != null && typeof commit === 'object') // Filter out null/undefined commits and ensure it's an object
+          .filter(commit => {
+            // Safely check author property
+            const author = commit?.author
+            if (!author) return false
+            return data.shared["commits.authoring"].filter(authoring => author?.login?.toLocaleLowerCase().includes(authoring) || author?.email?.toLocaleLowerCase().includes(authoring) || author?.name?.toLocaleLowerCase().includes(authoring)).length
+          })
           .map(async commit => (await rest.request(commit)).data.files),
       ),
     ]
@@ -139,7 +145,21 @@ export default async function({login, data, rest, imports, q, account}, {enabled
   }
   //Handle errors
   catch (error) {
-    throw imports.format.error(error)
+    // Log the actual error for debugging
+    console.debug(`metrics/compute/${login}/plugins > habits > error:`, error)
+    console.debug(`metrics/compute/${login}/plugins > habits > error message:`, error.message)
+    console.debug(`metrics/compute/${login}/plugins > habits > error stack:`, error.stack)
+    throw imports.format.error(error, {
+      descriptions: {
+        custom(error) {
+          // Provide more specific error messages
+          if (error.message) return error.message
+          if (error.response?.data?.message) return error.response.data.message
+          if (error.response?.data?.errors?.[0]?.message) return error.response.data.errors[0].message
+          return null
+        }
+      }
+    })
   }
 }
 

@@ -1578,7 +1578,20 @@ runs:
         # Forked action
         else
           echo "Using a forked version"
+          # For forks, we use the original pre-built image as base (via Dockerfile)
+          # This avoids rebuilding Chrome, Node modules, etc. - much faster!
           METRICS_IMAGE=metrics:forked-$METRICS_VERSION
+          # Pull base image first so Dockerfile can use it
+          # Check if version is beta
+          set +e
+          METRICS_IS_RELEASED=$(expr $(expr match $METRICS_VERSION .*-beta) == 0)
+          set -e
+          BASE_IMAGE_TAG=$METRICS_TAG
+          if [[ "$METRICS_IS_RELEASED" -eq "0" ]]; then
+            BASE_IMAGE_TAG="$BASE_IMAGE_TAG-beta"
+          fi
+          echo "Pulling base image ghcr.io/lowlighter/metrics:$BASE_IMAGE_TAG for faster builds"
+          docker image pull ghcr.io/lowlighter/metrics:$BASE_IMAGE_TAG || echo "Base image pull failed, will build from scratch"
         fi
         echo "Image name: $METRICS_IMAGE"
 
@@ -1589,7 +1602,12 @@ runs:
         set -e
         if [[ "$METRICS_IMAGE_NEEDS_BUILD" -gt "0" ]]; then
           echo "Image $METRICS_IMAGE is not present locally, rebuilding it from Dockerfile"
-          docker build -t $METRICS_IMAGE .
+          # For forks, pass base image arg to use pre-built image
+          if [[ $METRICS_SOURCE != "lowlighter" ]]; then
+            docker build --build-arg BASE_IMAGE=ghcr.io/lowlighter/metrics:$BASE_IMAGE_TAG -t $METRICS_IMAGE .
+          else
+            docker build -t $METRICS_IMAGE .
+          fi
         else
           echo "Image $METRICS_IMAGE is present locally"
         fi
