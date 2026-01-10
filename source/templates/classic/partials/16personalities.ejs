@@ -14,10 +14,10 @@
         </section>
       </div>
     <% } else { %>
-      <% if ((plugins["16personalities"].sections.includes("personality"))||(plugins["16personalities"].sections.includes("profile"))) { %>
+      <% if ((plugins["16personalities"].sections?.includes("personality"))||(plugins["16personalities"].sections?.includes("profile"))) { %>
         <div class="row fill-width">
           <section class="personality-traits categories">
-            <% for (const {category, value, image, text} of plugins["16personalities"].personality) { if (((!plugins["16personalities"].sections.includes("personality"))&&(/personality/i.test(category)))||((!plugins["16personalities"].sections.includes("profile"))&&(!/personality/i.test(category)))) continue %>
+            <% for (const {category, value, image, text} of plugins["16personalities"].personality) { if (((!plugins["16personalities"].sections?.includes("personality"))&&(/personality/i.test(category)))||((!plugins["16personalities"].sections?.includes("profile"))&&(!/personality/i.test(category)))) continue %>
               <div class="category">
                 <img src="<%= image %>" alt="" />
                 <div class="explanation">
@@ -29,7 +29,7 @@
           </section>
         </div>
       <% } %>
-      <% if (plugins["16personalities"].sections.includes("traits")) { %>
+      <% if (plugins["16personalities"].sections?.includes("traits")) { %>
         <div class="row fill-width">
           <section class="personality-traits categories">
             <% for (const {category, value, score, text} of plugins["16personalities"].traits) { %>

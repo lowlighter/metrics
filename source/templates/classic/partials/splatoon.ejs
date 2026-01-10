@@ -16,7 +16,7 @@
     </div>
   <% } else { %>
 
-    <% if (plugins.splatoon.sections.includes("player")) { %>
+    <% if (plugins.splatoon.sections?.includes("player")) { %>
       <div class="player-plate" style="color:<%= plugins.splatoon.player.plate.color %>; background-image: url('<%= plugins.splatoon.player.plate.icon %>');">
         <div class="player-head">
           <div class="player-title">
@@ -56,7 +56,7 @@
       </div>
     <% } %>
 
-    <% if (plugins.splatoon.sections.includes("versus")) { %>
+    <% if (plugins.splatoon.sections?.includes("versus")) { %>
       <div class="versus">
         <div class="player-stats">
           <div>Level <%= plugins.splatoon.player.level %></div>
@@ -145,7 +145,7 @@
       </div>
     <% } %>
 
-    <% if (plugins.splatoon.sections.includes("salmon-run")) { %>
+    <% if (plugins.splatoon.sections?.includes("salmon-run")) { %>
       <div class="salmon-run">
         <div class="player-grade"><%= plugins.splatoon.player.salmon.grade.name %> +<%= plugins.splatoon.player.salmon.grade.points %></div>
         <div class="player-stats">

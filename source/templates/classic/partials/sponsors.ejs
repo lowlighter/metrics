@@ -14,7 +14,7 @@
           </section>
         </div>
       <% } else { %>
-        <% for (const section of plugins.sponsors.sections) { if ((plugins.sponsors.sections.includes("goal"))&&(plugins.sponsors.sections.includes("list"))&&(section === "list")) continue%>
+        <% for (const section of plugins.sponsors.sections) { if ((plugins.sponsors.sections?.includes("goal"))&&(plugins.sponsors.sections?.includes("list"))&&(section === "list")) continue%>
           <% if ((section === "goal")||(section === "list")) { %>
             <div class="fill-width">
               <section class="sponsors goal">
@@ -44,7 +44,7 @@
                     <span><%= plugins.sponsors.goal.title %></span>
                   <% } %>
                 </div>
-                <% if ((section === "list")||(plugins.sponsors.sections.includes("list"))) { %>
+                <% if ((section === "list")||(plugins.sponsors.sections?.includes("list"))) { %>
                   <div class="row">
                     <% for (const user of plugins.sponsors.list.filter(({past}) => !past)) { %><img class="avatar <%= user.type === "organization" ? "organization" : "" %>" src="<%= user.avatar %>" width="<%= plugins.sponsors.size %>" height="<%= plugins.sponsors.size %>" alt="" /><% } %>
                   </div>
