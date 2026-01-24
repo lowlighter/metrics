@@ -807,6 +807,10 @@ inputs:
     description: Skipped repositories
     default: <default-value>
 
+  plugin_notable_organizations_skipped:
+    description: Skipped organizations
+    default: <default-value>
+
   plugin_notable_from:
     description: Repository owner account type filter
     default: <default-value>

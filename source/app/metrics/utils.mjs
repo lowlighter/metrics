@@ -417,6 +417,43 @@ export const filters = {
       console.debug(`metrics/filters/repo > filter ${repo} (${include ? "included" : "excluded"})`)
     return include
   },
+  /**Organization filter (exclusion list, same semantics as repo) */
+  organization(organizationLogin, patterns, {debug = true} = {}) {
+    if (!patterns.length)
+      return true
+
+    const org = `${organizationLogin}`.toLocaleLowerCase()
+
+    let include = true
+    if (patterns[0] === "@use.patterns") {
+      if (debug)
+        console.debug(`metrics/filters/organization > ${org} > using advanced pattern matching`)
+      const options = {nocase: true}
+      for (let pattern of patterns) {
+        if (pattern.startsWith("#"))
+          continue
+        let action = false
+        if ((pattern.startsWith("+")) || (pattern.startsWith("-"))) {
+          action = pattern.charAt(0) === "+"
+          pattern = pattern.substring(1)
+        }
+        if (minimatch(org, pattern, options)) {
+          if (debug)
+            console.debug(`metrics/filters/organization > ${org} matches ${action ? "including" : "excluding"} pattern ${pattern}`)
+          include = action
+        }
+      }
+    }
+    else {
+      if (debug)
+        console.debug(`metrics/filters/organization > ${org} > using basic pattern matching`)
+      include = !patterns.includes(org)
+    }
+
+    if (debug)
+      console.debug(`metrics/filters/organization > filter ${org} (${include ? "included" : "excluded"})`)
+    return include
+  },
   /**Text filter*/
   text(text, patterns, {debug = true} = {}) {
     //Disable filtering when no pattern is provided

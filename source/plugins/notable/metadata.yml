@@ -42,6 +42,19 @@ inputs:
     example: my-repo-1, my-repo-2, owner/repo-3, ...
     inherits: repositories_skipped
 
+  plugin_notable_organizations_skipped:
+    description: |
+      Skipped organizations
+
+      Exclude contributions from these organizations in both badges and repository lists.
+      Supports the same pattern syntax as [`plugin_notable_skipped`](/source/plugins/notable/README.md#plugin_notable_skipped) (basic and `@use.patterns` with minimatch for wildcards, e.g. `org-*`).
+    type: array
+    format:
+      - newline-separated
+      - comma-separated
+    default: ""
+    example: my-org, other-org, ...
+
   plugin_notable_from:
     description: |
       Repository owner account type filter

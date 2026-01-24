@@ -7,7 +7,7 @@ export default async function({login, q, imports, rest, graphql, data, account, 
       return null
 
     //Load inputs
-    let {filter, skipped, repositories, types, from, indepth, self} = imports.metadata.plugins.notable.inputs({data, account, q})
+    let {filter, skipped, "organizations.skipped": organizationsSkipped = [], repositories, types, from, indepth, self} = imports.metadata.plugins.notable.inputs({data, account, q})
     skipped.push(...data.shared["repositories.skipped"])
 
     //Iterate through contributed repositories
@@ -21,6 +21,7 @@ export default async function({login, q, imports, rest, graphql, data, account, 
         cursor = edges?.[edges?.length - 1]?.cursor
         edges
           .filter(({node}) => imports.filters.repo(node, skipped))
+          .filter(({node}) => !node.isInOrganization || imports.filters.organization(node.owner.login, organizationsSkipped))
           .filter(({node}) => ({all: true, organization: node.isInOrganization, user: !node.isInOrganization}[from]))
           .filter(({node}) => imports.filters.github(filter, {name: node.nameWithOwner, user: node.owner.login, stars: node.stargazers.totalCount, watchers: node.watchers.totalCount, forks: node.forks.totalCount}))
           .map(({node}) => contributions.push({handle: node.nameWithOwner, stars: node.stargazers.totalCount, issues: node.issues.totalCount, pulls: node.pullRequests.totalCount, organization: node.isInOrganization, avatarUrl: node.owner.avatarUrl}))

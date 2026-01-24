@@ -69,6 +69,17 @@ Some repositories may not be able to reported advanced stats and in the case the
 <br></td>
   </tr>
   <tr>
+    <td nowrap="nowrap"><h4><code>plugin_notable_organizations_skipped</code></h4></td>
+    <td rowspan="2"><p>Skipped organizations. Exclude contributions from these organizations in both badges and repository lists. Supports the same pattern syntax as <code>plugin_notable_skipped</code> (basic and <code>@use.patterns</code> with minimatch for wildcards, e.g. <code>org-*</code>).</p>
+<img width="900" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><b>type:</b> <code>array</code>
+<i>(newline-separated)</i>
+<br>
+<b>default:</b> ""<br></td>
+  </tr>
+  <tr>
     <td nowrap="nowrap"><h4><code>plugin_notable_from</code></h4></td>
     <td rowspan="2"><p>Repository owner account type filter</p>
 <ul>
@@ -158,6 +169,19 @@ with:
   token: ${{ secrets.METRICS_TOKEN }}
   base: ""
   plugin_notable: yes
+
+```
+```yaml
+name: Contributions (excluding organizations)
+uses: lowlighter/metrics@latest
+with:
+  filename: metrics.plugin.notable.svg
+  token: ${{ secrets.METRICS_TOKEN }}
+  base: ""
+  plugin_notable: yes
+  plugin_notable_organizations_skipped: |
+    my-org
+    other-org
 
 ```
 ```yaml
