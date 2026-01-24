@@ -32,12 +32,14 @@ ENV PUPPETEER_EXECUTABLE_PATH="/usr/bin/google-chrome-stable"
 WORKDIR /metrics
 COPY . .
 
+ARG INCLUDE_DEV_DEPS="false"
+
 # Install node modules and rebuild indexes
 RUN set -x \
   && which "${PUPPETEER_EXECUTABLE_PATH}" \
   && npm ci \
   && npm run build \
-  && npm prune --omit=dev
+  && if [ "${INCLUDE_DEV_DEPS}" = "false" ]; then npm prune --omit=dev; fi
 
 # Execute GitHub action
 ENTRYPOINT ["node", "/metrics/source/app/action/index.mjs"]

@@ -45,11 +45,11 @@ jobs:
       - name: Build lowlighter/metrics:${{ github.head_ref || 'master' }}
         env:
           GIT_REF: ${{ github.head_ref || 'master' }}
-        run: docker build -t lowlighter/metrics:$(echo $GIT_REF | sed 's/[^a-z]/-/g') .
+        run: docker build --build-arg INCLUDE_DEV_DEPS=true -t lowlighter/metrics:$(echo $GIT_REF | sed 's/[^a-z]/-/g') .
       - name: Run tests
         env:
           GIT_REF: ${{ github.head_ref || 'master' }}
-        run: docker run --rm --entrypoint="" lowlighter/metrics:$(echo $GIT_REF | sed 's/[^a-z]/-/g') sh -xc 'npm install --no-save && exec npm run test-metrics'
+        run: docker run --rm --entrypoint="" lowlighter/metrics:$(echo $GIT_REF | sed 's/[^a-z]/-/g') npm run test-metrics
 
   # Run CodeQL on branch
   analyze:
