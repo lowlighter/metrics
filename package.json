@@ -62,7 +62,7 @@
     "sanitize-html": "^2.11.0",
     "sharp": "^0.32.3",
     "simple-git": "^3.19.1",
-    "svgo": "^3.0.2",
+    "svgo": "^3.3.3",
     "vue": "^2.7.1",
     "vue-prism-component": "^1.2.0",
     "xml-formatter": "^3.5.0"
