@@ -68,6 +68,8 @@ on:
 jobs:
   github-metrics:
     runs-on: ubuntu-latest
+    environment: 
+      name: production
     permissions:
       contents: write
     steps:
