@@ -48,7 +48,7 @@ jobs:
     steps:
     - name: check-spelling
       id: spelling
-      uses: check-spelling/check-spelling@v0.0.20
+      uses: check-spelling/check-spelling@v0.0.22
       with:
         experimental_apply_changes_via_bot: ${{ github.repository_owner != 'lowlighter' && 1 || 0 }}
         suppress_push_for_open_pull_request: 1
@@ -74,7 +74,7 @@ jobs:
     if: (success() || failure()) && needs.spelling.outputs.followup
     steps:
     - name: comment
-      uses: check-spelling/check-spelling@v0.0.20
+      uses: check-spelling/check-spelling@v0.0.22
       with:
         checkout: true
         task: ${{ needs.spelling.outputs.followup }}
@@ -97,7 +97,7 @@ jobs:
       cancel-in-progress: false
     steps:
     - name: apply spelling updates
-      uses: check-spelling/check-spelling@v0.0.20
+      uses: check-spelling/check-spelling@v0.0.22
       with:
         experimental_apply_changes_via_bot: ${{ github.repository_owner != 'lowlighter' && 1 || 0 }}
         checkout: true
