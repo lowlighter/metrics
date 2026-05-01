@@ -19,27 +19,76 @@ export default async function({login, data, rest, imports, q, account}, {enabled
     const pages = Math.ceil(from / 100)
     const offset = data.config.timezone?.offset ?? 0
 
-    //Get user recent activity
-    console.debug(`metrics/compute/${login}/plugins > habits > querying api`)
-    const events = []
-    try {
-      for (let page = 1; page <= pages; page++) {
-        console.debug(`metrics/compute/${login}/plugins > habits > loading page ${page}`)
-        events.push(...(await rest.activity.listEventsForAuthenticatedUser({username: login, per_page: 100, page})).data)
+    //Get user recent commits (Events API for from≤300, Commit Search API for from>300)
+    //GitHub's Events API caps at ~300 total events across all types, covering only 2-3 days for
+    //heavy committers. The Commit Search API lifts this to 1000 commits over configurable days.
+    let commits
+    if (from <= 300) {
+      //Events API path: fast but limited to ~300 total events from GitHub
+      console.debug(`metrics/compute/${login}/plugins > habits > querying events api`)
+      const events = []
+      try {
+        for (let page = 1; page <= pages; page++) {
+          console.debug(`metrics/compute/${login}/plugins > habits > loading page ${page}`)
+          events.push(...(await rest.activity.listEventsForAuthenticatedUser({username: login, per_page: 100, page})).data)
+        }
       }
+      catch {
+        console.debug(`metrics/compute/${login}/plugins > habits > no more page to load`)
+      }
+      console.debug(`metrics/compute/${login}/plugins > habits > ${events.length} events loaded`)
+      commits = events
+        .filter(({type}) => type === "PushEvent")
+        .filter(({actor}) => account === "organization" ? true : actor.login?.toLocaleLowerCase() === login.toLocaleLowerCase())
+        .filter(({repo: {name: repo}}) => imports.filters.repo(repo, skipped))
+        .filter(({created_at}) => new Date(created_at) > new Date(Date.now() - days * 24 * 60 * 60 * 1000))
     }
-    catch {
-      console.debug(`metrics/compute/${login}/plugins > habits > no more page to load`)
+    else {
+      //Commit Search API path: up to 1000 commits with exact timestamps, covering weeks/months
+      console.debug(`metrics/compute/${login}/plugins > habits > querying commit search api (from=${from})`)
+      const since = new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString().split("T")[0]
+      const searchPages = Math.min(Math.ceil(from / 100), 10)
+      const rawCommits = []
+      try {
+        for (let page = 1; page <= searchPages; page++) {
+          console.debug(`metrics/compute/${login}/plugins > habits > search page ${page}`)
+          const {data} = await rest.search.commits({
+            q: `author:${login} committer-date:>=${since}`,
+            sort: "committer-date",
+            order: "desc",
+            per_page: 100,
+            page,
+          })
+          rawCommits.push(...data.items)
+          if (data.items.length < 100)
+            break
+        }
+      }
+      catch (e) {
+        console.debug(`metrics/compute/${login}/plugins > habits > search error: ${e}`)
+      }
+      console.debug(`metrics/compute/${login}/plugins > habits > ${rawCommits.length} commits from search api`)
+      //Normalize search results to the Events-like structure used by the rest of the plugin
+      commits = rawCommits
+        .filter(({author}) => author?.login?.toLocaleLowerCase() === login.toLocaleLowerCase())
+        .filter(({repository}) => imports.filters.repo(repository?.full_name ?? "", skipped))
+        .map(item => ({
+          created_at: item.commit.committer.date,
+          actor: {login: item.author?.login ?? login},
+          repo: {name: item.repository?.full_name ?? ""},
+          payload: {
+            commits: [{
+              url: item.url,
+              author: {
+                login: item.author?.login ?? "",
+                email: item.commit.author?.email ?? "",
+                name: item.commit.author?.name ?? "",
+              },
+            }],
+          },
+        }))
     }
-    console.debug(`metrics/compute/${login}/plugins > habits > ${events.length} events loaded`)
-
-    //Get user recent commits
-    const commits = events
-      .filter(({type}) => type === "PushEvent")
-      .filter(({actor}) => account === "organization" ? true : actor.login?.toLocaleLowerCase() === login.toLocaleLowerCase())
-      .filter(({repo: {name: repo}}) => imports.filters.repo(repo, skipped))
-      .filter(({created_at}) => new Date(created_at) > new Date(Date.now() - days * 24 * 60 * 60 * 1000))
-    console.debug(`metrics/compute/${login}/plugins > habits > filtered out ${commits.length} push events over last ${days} days`)
+    console.debug(`metrics/compute/${login}/plugins > habits > filtered out ${commits.length} commits over last ${days} days`)
     habits.commits.fetched = commits.length
 
     //Retrieve edited files and filter edited lines (those starting with +/-) from patches
