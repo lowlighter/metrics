@@ -46,7 +46,7 @@
     "emoji-name-map": "^1.2.9",
     "express": "^4.18.2",
     "express-rate-limit": "^7.0.0",
-    "file-type": "^18.5.0",
+    "file-type": "^21.3.2",
     "js-yaml": "^4.1.0",
     "jsdom": "^22.1.0",
     "linguist-js": "^2.6.1",
