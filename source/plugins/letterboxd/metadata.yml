@@ -1,0 +1,22 @@
+name: 🎬 Letterboxd
+category: media
+description: |
+  Displays recent movies watched on Letterboxd
+examples:
+  default: https://github.com/lowlighter/metrics
+supports:
+  - user
+inputs:
+  plugin_letterboxd:
+    description: Enable letterboxd plugin
+    type: boolean
+    default: no
+  plugin_letterboxd_user:
+    description: Letterboxd login
+    type: string
+  plugin_letterboxd_limit:
+    description: Display limit
+    type: number
+    default: 4
+    min: 0
+    max: 10

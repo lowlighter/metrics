@@ -1,0 +1,108 @@
+name: Metrics
+on:
+  # Schedule daily updates
+  schedule: [{cron: "0 0 * * *"}]
+  # (optional) Run workflow manually
+  workflow_dispatch:
+  # (optional) Run workflow when pushing on master/main
+  push: {branches: ["master", "main"]}
+
+jobs:
+  github-metrics:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: 1. Introduction
+        uses: lowlighter/metrics@latest
+        with:
+          filename: metrics.introduction.svg
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: header, activity, community, repositories, metadata
+          plugin_introduction: yes
+
+      - name: 2. Isometric Commit Calendar
+        uses: lowlighter/metrics@latest
+        with:
+          filename: metrics.isocalendar.svg
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          plugin_isocalendar: yes
+          plugin_isocalendar_duration: half-year
+
+      - name: 3. Language Activity
+        uses: lowlighter/metrics@latest
+        with:
+          filename: metrics.languages.svg
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          plugin_languages: yes
+          plugin_languages_colors: github
+          plugin_languages_limit: 8
+          plugin_languages_recent_categories: markup, programming
+          plugin_languages_recent_days: 14
+          plugin_languages_recent_load: 300
+          plugin_languages_sections: most-used
+
+      - name: 4. People (Followers/Following)
+        uses: lowlighter/metrics@latest
+        with:
+          filename: metrics.people.svg
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          plugin_people: yes
+          plugin_people_limit: 24
+          plugin_people_size: 48
+          plugin_people_types: followers, following
+
+      - name: 5. AniList (Favorite Characters)
+        uses: lowlighter/metrics@latest
+        with:
+          filename: metrics.anilist.svg
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          plugin_anilist: yes
+          plugin_anilist_medias: anime
+          plugin_anilist_limit: 6
+          # REPLACE WITH YOUR ANILIST USERNAME
+          plugin_anilist_user: zephyr4772
+
+      - name: 6. Music Playlist
+        uses: lowlighter/metrics@latest
+        with:
+          filename: metrics.music.svg
+          token: NOT_NEEDED
+          base: ""
+          plugin_music: yes
+          plugin_music_playlist: https://embed.music.apple.com/fr/playlist/usr-share/pl.u-V9D7m8Etjmjd0D
+          plugin_music_limit: 4
+
+      - name: 7. Starred Topics
+        uses: lowlighter/metrics@latest
+        with:
+          filename: metrics.topics.svg
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          plugin_topics: yes
+          plugin_topics_limit: 15
+          plugin_topics_mode: mastered
+          plugin_topics_sort: stars
+
+      - name: 8. Full History Calendar
+        uses: lowlighter/metrics@latest
+        with:
+          filename: metrics.calendar.svg
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          plugin_calendar: yes
+          plugin_calendar_limit: 0
+
+      - name: 9. Letterboxd
+        uses: ./
+        with:
+          filename: metrics.letterboxd.svg
+          token: NOT_NEEDED
+          base: ""
+          plugin_letterboxd: yes
+          plugin_letterboxd_user: zephyr4772
+          plugin_letterboxd_limit: 4
