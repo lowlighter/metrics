@@ -1,0 +1,9 @@
+- name: Recent movies from Letterboxd
+  uses: lowlighter/metrics@latest
+  with:
+    filename: metrics.plugin.letterboxd.svg
+    token: NOT_NEEDED
+    base: ""
+    plugin_letterboxd: yes
+    plugin_letterboxd_user: zephyr4772
+    plugin_letterboxd_limit: 4
