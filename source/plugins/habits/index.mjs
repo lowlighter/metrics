@@ -47,7 +47,7 @@ export default async function({login, data, rest, imports, q, account}, {enabled
     const patches = [
       ...await Promise.allSettled(
         commits
-          .flatMap(({payload}) => payload.commits)
+          .flatMap(({payload}) => payload.commits ?? [])
           .filter(({author}) => data.shared["commits.authoring"].filter(authoring => author?.login?.toLocaleLowerCase().includes(authoring) || author?.email?.toLocaleLowerCase().includes(authoring) || author?.name?.toLocaleLowerCase().includes(authoring)).length)
           .map(async commit => (await rest.request(commit)).data.files),
       ),
