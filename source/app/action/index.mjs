@@ -1,7 +1,7 @@
 //Imports
 import core from "@actions/core"
 import github from "@actions/github"
-import octokit from "@octokit/graphql"
+import * as octokit from "@octokit/graphql"
 import processes from "child_process"
 import fs from "fs/promises"
 import paths from "path"

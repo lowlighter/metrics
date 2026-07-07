@@ -1,5 +1,5 @@
 //Imports
-import OctokitRest from "@octokit/rest"
+import * as OctokitRest from "@octokit/rest"
 import yargsparser from "yargs-parser"
 import { IndepthAnalyzer } from "./indepth.mjs"
 import { RecentAnalyzer } from "./recent.mjs"

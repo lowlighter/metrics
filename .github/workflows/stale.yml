@@ -10,7 +10,7 @@ jobs:
     name: Flag stale issues and pull requests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/stale@v6
+      - uses: actions/stale@v10
         with:
           days-before-stale: -1
           stale-pr-message: This pull request seems to be inactive and will be automatically closed in a few days if it remains without any activity.
@@ -25,7 +25,7 @@ jobs:
       - stale
     runs-on: ubuntu-latest
     steps:
-      - uses: dessant/lock-threads@v4
+      - uses: dessant/lock-threads@v6
         with:
           github-token: ${{ github.token }}
           issue-inactive-days: 180
@@ -40,7 +40,7 @@ jobs:
     continue-on-error: true
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
       - name: Run script
         run: ./delete_workflows.sh lowlighter/metrics
         working-directory: .github/actions/ghcr-clean

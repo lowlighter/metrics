@@ -1,5 +1,5 @@
 //Imports
-import OctokitRest from "@octokit/rest"
+import * as OctokitRest from "@octokit/rest"
 import processes from "child_process"
 import fs from "fs"
 import yaml from "js-yaml"

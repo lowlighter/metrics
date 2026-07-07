@@ -1,6 +1,6 @@
 //Imports
-import octokit from "@octokit/graphql"
-import OctokitRest from "@octokit/rest"
+import * as octokit from "@octokit/graphql"
+import * as OctokitRest from "@octokit/rest"
 import axios from "axios"
 import compression from "compression"
 import crypto from "crypto"

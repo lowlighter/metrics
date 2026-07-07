@@ -1,5 +1,5 @@
 # Base image
-FROM node:20-bookworm-slim
+FROM node:24-bookworm-slim
 
 # Copy repository
 COPY . /metrics
@@ -19,7 +19,7 @@ RUN chmod +x /metrics/source/app/action/index.mjs \
   && apt-get install -y curl unzip \
   && curl -fsSL https://deno.land/x/install/install.sh | DENO_INSTALL=/usr/local sh \
   # Install ruby to support github licensed gem
-  && apt-get install -y ruby-full git g++ cmake pkg-config libssl-dev \
+  && apt-get install -y ruby-full git g++ cmake pkg-config libssl-dev libxml2-dev libxslt1-dev xz-utils \
   && gem install licensed \
   # Install python for node-gyp
   && apt-get install -y python3 \
@@ -31,7 +31,7 @@ RUN chmod +x /metrics/source/app/action/index.mjs \
 
 # Environment variables
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
-ENV PUPPETEER_BROWSER_PATH "google-chrome-stable"
+ENV PUPPETEER_BROWSER_PATH "/usr/bin/google-chrome-stable"
 
 # Execute GitHub action
 ENTRYPOINT node /metrics/source/app/action/index.mjs
