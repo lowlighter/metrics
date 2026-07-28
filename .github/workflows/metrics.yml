@@ -16,4 +16,4 @@ jobs:
     steps:
       - uses: lowlighter/metrics@latest
         with:
-          token: ${{ secrets.Metrics }}
+          token: ${{ secrets.METRICS_TOKEN }}
