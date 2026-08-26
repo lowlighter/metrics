@@ -9,7 +9,5 @@
     plugin_crypto_vs_currency: usd
     plugin_crypto_days: 1
     plugin_crypto_precision: 2
-  prod:
-    skip: true
   test:
     skip: true
