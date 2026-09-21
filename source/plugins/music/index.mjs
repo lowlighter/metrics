@@ -111,10 +111,11 @@ export default async function({login, imports, data, q, account}, {enabled = fal
             await new Promise(solve => setTimeout(solve, 10 * 1000))
             tracks = [
               ...await frame.evaluate(() => {
+                const clean = text => (text || "").replace(/[\s\n\r]*(Explicit\s*Content|Explicit)[\s\n\r]*$/i, "").trim()
                 const tracklist = document.querySelector("embed-root").shadowRoot.querySelector(".audio-tracklist")
                 return [...tracklist.querySelectorAll("embed-audio-tracklist-item")].map(item => ({
-                  name: item.querySelector(".audio-tracklist-item__metadata h3").innerText,
-                  artist: item.querySelector(".audio-tracklist-item__metadata h4").innerText,
+                  name: clean(item.querySelector(".audio-tracklist-item__metadata h3")?.innerText ?? ""),
+                  artist: clean(item.querySelector(".audio-tracklist-item__metadata h4")?.innerText ?? ""),
                   artwork: item.querySelector("apple-music-artwork")?.shadowRoot?.querySelector("picture source")?.srcset?.split(",")?.[0]?.replace(/\s+\d+x$/, ""),
                 }))
               }),
@@ -126,14 +127,15 @@ export default async function({login, imports, data, q, account}, {enabled = fal
             //Parse tracklist
             await frame.waitForSelector("ol")
             tracks = [
-              ...await frame.evaluate(() =>
-                [...document.querySelectorAll("ol li")].map(tr => ({
-                  name: tr.querySelector("h3").innerText,
-                  artist: tr.querySelector("h4").innerText,
+              ...await frame.evaluate(() => {
+                const clean = text => (text || "").replace(/[\s\n\r]*(Explicit\s*Content|Explicit)[\s\n\r]*$/i, "").trim()
+                return [...document.querySelectorAll("ol li")].map(tr => ({
+                  name: clean(tr.querySelector("h3")?.innerText ?? ""),
+                  artist: clean(tr.querySelector("h4")?.innerText ?? ""),
                   //Spotify doesn't provide artworks so we fallback on playlist artwork instead
                   artwork: window.getComputedStyle(document.querySelector("div[style^='--image-src:']") ?? null)?.backgroundImage.match(/^url\("(?<url>https:...+)"\)$/)?.groups?.url ?? null,
                 }))
-              ),
+              }),
             ]
             break
           }
