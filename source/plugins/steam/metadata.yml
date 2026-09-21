@@ -91,3 +91,19 @@ inputs:
     min: 0
     default: 2
 
+  plugin_steam_recent_days:
+    description: |
+      Time range for recently played games (in days)
+
+      Games with last played timestamp older than this threshold will not be displayed under recently-played.
+      Default is 14 (matching Steam's 2-week recent activity window). Use 0 to disable time limit.
+    type: number
+    min: 0
+    default: 14
+
+  plugin_steam_freegames:
+    description: |
+      Include free-to-play games in owned games query
+    type: boolean
+    default: yes
+

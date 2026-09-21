@@ -7,11 +7,12 @@ export default async function({login, q, imports, data, account}, {token, enable
       return null
 
     //Load inputs
-    let {user, sections, "games.ignored": _games_ignored, "games.limit": _games_limit, "recent.games.limit": _recent_games_limit, "achievements.limit": _achievements_limit, "playtime.threshold": _playtime_threshold} = imports.metadata.plugins.steam.inputs({data, account, q})
+    let {user, sections, "games.ignored": _games_ignored, "games.limit": _games_limit, "recent.games.limit": _recent_games_limit, "achievements.limit": _achievements_limit, "playtime.threshold": _playtime_threshold, "recent.days": _recent_days = 14, freegames = true} = imports.metadata.plugins.steam.inputs({data, account, q})
 
     const urls = {
       games: {
-        owned: `https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${token}&steamid=${user}&format=json&include_appinfo=1`,
+        owned: `https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${token}&steamid=${user}&format=json&include_appinfo=1${freegames ? "&include_played_free_games=1" : ""}`,
+        recent: `https://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=${token}&steamid=${user}&format=json`,
         schema: `https://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v0002/?key=${token}&format=json`,
         details: "https://store.steampowered.com/api/appdetails?",
       },
@@ -25,18 +26,47 @@ export default async function({login, q, imports, data, account}, {token, enable
 
     //Fetch owned games
     console.debug(`metrics/compute/${login}/plugins > steam > fetching owned games`)
-    let {data: {response: {game_count: count, games}}} = await imports.axios.get(urls.games.owned)
+    let {data: {response: {game_count: count = 0, games = []} = {}}} = await imports.axios.get(urls.games.owned)
     result.games.count = count
-    result.games.playtime = games.reduce((total, {playtime_forever: playtime}) => (total += playtime), 0) / 60
+    result.games.playtime = games.reduce((total, {playtime_forever: playtime = 0}) => (total += playtime), 0) / 60
+
+    //Fetch recently played games from dedicated endpoint if recently-played section is requested
+    let recentGames = null
+    if (sections.includes("recently-played")) {
+      try {
+        console.debug(`metrics/compute/${login}/plugins > steam > fetching recently played games`)
+        const {data: {response: {games: recent = []} = {}}} = await imports.axios.get(urls.games.recent)
+        recentGames = recent
+      }
+      catch (error) {
+        console.debug(`metrics/compute/${login}/plugins > steam > failed to fetch recently played games > ${error}`)
+      }
+    }
+
+    const now = Math.floor(Date.now() / 1000)
+    const recentCutoff = Number(_recent_days) > 0 ? (now - Number(_recent_days) * 86400) : 0
 
     //Fetch game achievements and order games by section
     for (const section of ["most-played", "recently-played"]) {
       if (!sections.includes(section))
         continue
+
+      let candidateGames = games
+      if (section === "recently-played" && Array.isArray(recentGames) && recentGames.length) {
+        candidateGames = recentGames
+      }
+
       result.games[section] = await Promise.all(
-        games
-          .map(({appid: id, name, img_icon_url: icon, playtime_forever: playtime, rtime_last_played: played}) => ({id, name, icon: `http://media.steampowered.com/steamcommunity/public/images/apps/${id}/${icon}.jpg`, playtime: playtime / 60, played}))
-          .filter(({playtime}) => (playtime >= _playtime_threshold))
+        candidateGames
+          .map(({appid: id, name, img_icon_url: icon, playtime_forever: playtime = 0, rtime_last_played: played = 0}) => ({
+            id,
+            name,
+            icon: `http://media.steampowered.com/steamcommunity/public/images/apps/${id}/${icon}.jpg`,
+            playtime: playtime / 60,
+            played: Number(played) || 0,
+          }))
+          .filter(({playtime}) => (section === "most-played" ? playtime >= _playtime_threshold : true))
+          .filter(({played}) => (section === "recently-played" && recentCutoff > 0 ? played >= recentCutoff : true))
           .filter(({id}) => (!_games_ignored.includes(`${id}`)))
           .sort((a, b) => ({"most-played": (b.playtime - a.playtime), "recently-played": (b.played - a.played)}[section]))
           .slice(0, ({"most-played": _games_limit, "recently-played": _recent_games_limit}[section]) || Infinity)

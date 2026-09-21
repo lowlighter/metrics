@@ -1280,6 +1280,14 @@ inputs:
     description: Display threshold (Game playtime in hours)
     default: <default-value>
 
+  plugin_steam_recent_days:
+    description: Time range for recently played games (in days)
+    default: <default-value>
+
+  plugin_steam_freegames:
+    description: Include free-to-play games in owned games query
+    default: <default-value>
+
   # ====================================================================================
   # 🧠 16personalities
 
