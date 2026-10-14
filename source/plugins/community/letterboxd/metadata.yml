@@ -1,0 +1,34 @@
+name: 🎬 Letterboxd
+category: community
+description: |
+  This plugin displays recent movies watched or logged on [Letterboxd](https://letterboxd.com), with poster, year, director and community rating.
+examples:
+  default: https://github.com/Zephyr4772/Zephyr4772/blob/main/metrics.letterboxd.svg
+authors:
+  - Zephyr4772
+supports:
+  - user
+scopes: []
+inputs:
+
+  plugin_letterboxd:
+    description: |
+      Enable letterboxd plugin
+    type: boolean
+    default: no
+
+  plugin_letterboxd_user:
+    description: |
+      Letterboxd username
+
+      Defaults to the GitHub login when left empty.
+    type: string
+    default: ""
+
+  plugin_letterboxd_limit:
+    description: |
+      Display limit
+    type: number
+    default: 4
+    min: 0
+    max: 10
