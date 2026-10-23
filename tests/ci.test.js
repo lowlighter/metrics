@@ -19,7 +19,8 @@ describe("Check file changes (checkout your files if needed)", () => {
       ".github/workflows/examples.yml",
       ".github/readme/partials/documentation/compatibility.md",
     ])("%s", async file => expect((await diff()).includes(file)).toBe(false)))
-  if (!["lowlighter"].includes(process.env.PR_AUTHOR)) {
+  // Allow the fork owner to maintain fork-specific repository controls.
+  if (!["lowlighter", "buluma"].includes(process.env.PR_AUTHOR)) {
     describe("Repository level files were not modified", () =>
       void test.each([
         ".github/config/*",

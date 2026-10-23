@@ -149,3 +149,19 @@ describe("Web instance (placeholder)", () =>
         test(name, async () => expect(await placeholder.run({template, base: 0, ...query, ...input})).toBe(true), timeout)
     }
   }))
+
+describe("Utilities", () =>
+  test("Image to base64 falls back when remote image is not decodable", () => {
+    const {stdout} = processes.spawnSync("node", [
+      "--input-type",
+      "module",
+      "--eval",
+      [
+        'import http from "http";import {imgb64} from "./source/app/metrics/utils.mjs"',
+        'const server = http.createServer((_, res) => res.writeHead(401, {"content-type": "text/html"}).end("<!DOCTYPE html>\\n<html><head><title>Bot check</title>")).listen(0)',
+        "try { console.log(JSON.stringify({result: await imgb64(`http://localhost:${server.address().port}/avatar`)})) } finally { server.close() }",
+      ].join(";"),
+    ])
+    const {result} = JSON.parse(`${stdout}`.trim().split("\n").pop())
+    expect(result).toBe("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==")
+  }))
