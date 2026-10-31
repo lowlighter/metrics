@@ -57,14 +57,20 @@ placeholder.run = async vars => {
   const enabled = Object.fromEntries(Object.entries(vars).filter(([key]) => /^plugin_[a-z]+$/.test(key)))
   const config = Object.fromEntries(Object.entries(options).filter(([key]) => /^config[.]/.test(key)))
   const base = Object.fromEntries(Object.entries(options).filter(([key]) => /^base[.]/.test(key)))
-  return typeof await placeholder({
+  const rendered = await placeholder({
     templates: {selected: vars.template},
     plugins: {enabled: {...enabled, base}, options},
     config,
     version: "TEST",
     user: "lowlighter",
     avatar: "https://github.com/lowlighter.png",
-  }) === "string"
+  })
+  if (typeof rendered !== "string")
+    return false
+  //A Shikimori placeholder must contain the plugin, not just an otherwise-valid empty SVG.
+  if ((vars.template === "classic") && (/^(yes|true|on|1)$/i.test(`${vars.plugin_shikimori}`)))
+    return [...rendered.matchAll(/<h2\b[^>]*>([\s\S]*?)<\/h2>/g)].some(([, heading]) => heading.replace(/<[^>]*>/g, "").trim() === "Shikimori")
+  return true
 }
 
 //Setup

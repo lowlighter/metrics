@@ -1,0 +1,277 @@
+name: 🎴 Shikimori watch list and reading list
+category: social
+description: |
+  This plugin displays favorites animes, mangas, characters and lists from a [Shikimori](https://shikimori.io) account.
+disclaimer: |
+  This plugin is not affiliated, associated, authorized, endorsed by, or in any way officially connected with [Shikimori](https://shikimori.io).
+  All product and company names are trademarks™ or registered® trademarks of their respective holders.
+examples:
+  +Favorites and watching: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.shikimori.svg
+  Favorites manga and ranobe: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.shikimori.manga.svg
+  +Achievements and stats: https://github.com/lowlighter/metrics/blob/examples/metrics.plugin.shikimori.achievements.svg
+supports:
+  - user
+  - organization
+scopes: []
+inputs:
+
+  plugin_shikimori:
+    description: |
+      Enable Shikimori plugin
+    type: boolean
+    default: no
+    extras:
+      - metrics.run.puppeteer.scrapping
+
+  plugin_shikimori_user:
+    type: string
+    description: |
+      Shikimori login
+    default: .user.login
+    preset: no
+
+  plugin_shikimori_medias:
+    description: |
+      Medias types
+    type: array
+    format: comma-separated
+    default: anime, manga
+    values:
+      - anime
+      - manga
+      - ranobe
+
+  plugin_shikimori_sections:
+    description: |
+      Displayed sections
+
+      - `favorites` will display favorites from `plugin_shikimori_medias`
+      - `characters` will display liked characters
+      - `people` will display liked people (see `plugin_shikimori_people`)
+      - `lists` will display medias lists (see `plugin_shikimori_statuses`)
+      - `stats` will display statistics about watched/read medias
+      - `achievements` will display earned achievements
+      - `genres` will display most enjoyed genres
+    type: array
+    format: comma-separated
+    default: favorites
+    example: favorites, characters, lists
+    values:
+      - favorites
+      - characters
+      - people
+      - lists
+      - stats
+      - achievements
+      - genres
+
+  plugin_shikimori_statuses:
+    description: |
+      Medias lists statuses to display (requires `lists` section)
+    type: array
+    format: comma-separated
+    default: watching
+    example: watching, completed
+    values:
+      - planned
+      - watching
+      - rewatching
+      - completed
+      - on_hold
+      - dropped
+
+  plugin_shikimori_people:
+    description: |
+      Liked people strips to display (requires `people` section)
+
+      Display order follows the order of this input
+    type: array
+    format: comma-separated
+    default: people, seyu
+    example: seyu, mangakas, producers
+    values:
+      - people
+      - seyu
+      - mangakas
+      - producers
+
+  plugin_shikimori_achievements_filter:
+    description: |
+      Achievements filter (requires `achievements` section)
+
+      - `earned` will only display earned achievements
+      - `all` will display all achievements, including unearned ones
+    type: string
+    default: earned
+    values:
+      - earned
+      - all
+
+  plugin_shikimori_sort:
+    description: |
+      Sorting method for medias and favorites
+
+      - `site` will use Shikimori website ordering
+      - `score` will sort by score
+      - `release` will sort by release year
+      - `updated` will sort by last update (favorites fall back to website ordering)
+    type: string
+    default: site
+    values:
+      - site
+      - score
+      - release
+      - updated
+
+  plugin_shikimori_title_language:
+    description: |
+      Title language used for medias and achievement names
+
+      - `english`
+      - `russian`
+      - `japanese`
+
+      Falls back to the default name when no title is available in the selected language
+      Achievements use English titles unless Russian is selected, falling back to their identifier
+    type: string
+    default: english
+    values:
+      - english
+      - russian
+      - japanese
+
+  plugin_shikimori_score:
+    description: |
+      Displayed scores on medias cards
+
+      - `community` will display Shikimori community score
+      - `user` will display user score (only available in lists)
+      - `both` will display both scores
+      - `off` will hide scores
+    type: string
+    default: community
+    values:
+      - community
+      - user
+      - both
+      - off
+
+  plugin_shikimori_limit:
+    description: |
+      Display limit (medias)
+    type: number
+    default: 2
+    min: 0
+    zero: disable
+
+  plugin_shikimori_limit_characters:
+    description: |
+      Display limit (characters)
+    type: number
+    default: 22
+    min: 0
+    zero: disable
+
+  plugin_shikimori_limit_people:
+    description: |
+      Display limit (people, per strip)
+    type: number
+    default: 22
+    min: 0
+    zero: disable
+
+  plugin_shikimori_limit_achievements:
+    description: |
+      Display limit (achievements)
+    type: number
+    default: 22
+    min: 0
+    zero: disable
+
+  plugin_shikimori_shuffle:
+    description: |
+      Shuffle data
+
+      Can be used to create varied outputs
+    type: boolean
+    default: yes
+
+  plugin_shikimori_display_characters:
+    description: |
+      Displayed fields on characters strip (requires `characters` section)
+    type: array
+    format: comma-separated
+    default: name, artwork
+    values:
+      - name
+      - artwork
+
+  plugin_shikimori_display_people:
+    description: |
+      Displayed fields on people strips (requires `people` section)
+    type: array
+    format: comma-separated
+    default: name, artwork
+    values:
+      - name
+      - artwork
+
+  plugin_shikimori_display_favorites:
+    description: |
+      Displayed fields on favorites medias cards
+    type: array
+    format: comma-separated
+    default: cover, title, description, score, year, status, genres, type
+    values:
+      - cover
+      - title
+      - description
+      - score
+      - progress
+      - user_score
+      - year
+      - status
+      - genres
+      - studio
+      - type
+
+  plugin_shikimori_display_lists:
+    description: |
+      Displayed fields on lists medias cards
+    type: array
+    format: comma-separated
+    default: cover, title, description, score, user_score, progress, year, status, genres, type
+    values:
+      - cover
+      - title
+      - description
+      - score
+      - progress
+      - user_score
+      - year
+      - status
+      - genres
+      - studio
+      - type
+
+  plugin_shikimori_display_stats:
+    description: |
+      Displayed fields on statistics block (requires `stats` section)
+    type: array
+    format: comma-separated
+    default: summary, statuses, distribution, activity
+    values:
+      - summary
+      - statuses
+      - distribution
+      - activity
+
+  plugin_shikimori_display_achievements:
+    description: |
+      Displayed fields on achievements block (requires `achievements` section)
+    type: array
+    format: comma-separated
+    default: icons, chips
+    values:
+      - icons
+      - chips

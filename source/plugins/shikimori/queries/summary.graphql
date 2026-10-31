@@ -1,0 +1,6 @@
+query Summary ($page: PositiveInt, $limit: PositiveInt, $userId: ID, $targetType: UserRateTargetTypeEnum, $order: UserRateOrderInputType) {
+  userRates(page: $page, limit: $limit, userId: $userId, targetType: $targetType, order: $order) {
+    episodes
+    chapters
+  }
+}

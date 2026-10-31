@@ -1,0 +1,28 @@
+query FavoritesMedias ($variables) {
+  $medias
+}
+
+fragment FavoriteMedia on $type {
+  id
+  name
+  russian
+  english
+  japanese
+  kind
+  status
+  airedOn {
+    year
+  }
+  releasedOn {
+    year
+  }
+  $details
+  score
+  description
+  genres {
+    name
+  }
+  poster {
+    originalUrl
+  }
+}

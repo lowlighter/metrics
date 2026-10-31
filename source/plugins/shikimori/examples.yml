@@ -1,0 +1,35 @@
+- name: Favorites anime and currently watching
+  uses: lowlighter/metrics@latest
+  with:
+    filename: metrics.plugin.shikimori.svg
+    token: NOT_NEEDED
+    base: ""
+    plugin_shikimori: yes
+    plugin_shikimori_user: whynothacked
+    plugin_shikimori_medias: anime
+    plugin_shikimori_sections: favorites, lists
+    plugin_shikimori_statuses: watching
+    plugin_shikimori_limit: 2
+
+- name: Favorites manga and ranobe
+  uses: lowlighter/metrics@latest
+  with:
+    filename: metrics.plugin.shikimori.manga.svg
+    token: NOT_NEEDED
+    base: ""
+    plugin_shikimori: yes
+    plugin_shikimori_user: whynothacked
+    plugin_shikimori_medias: manga, ranobe
+    plugin_shikimori_sections: favorites
+    plugin_shikimori_limit: 2
+
+- name: Achievements and stats
+  uses: lowlighter/metrics@latest
+  with:
+    filename: metrics.plugin.shikimori.achievements.svg
+    token: NOT_NEEDED
+    base: ""
+    plugin_shikimori: yes
+    plugin_shikimori_user: whynothacked
+    plugin_shikimori_sections: achievements, stats
+    plugin_shikimori_limit_achievements: 16

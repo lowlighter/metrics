@@ -1040,6 +1040,228 @@
     border-radius: 7px;
   }
 
+/* Shikimori */
+/* Shikimori: box model for the new pill rules (template is content-box) */
+.shikimori .statuses .chip,
+.shikimori .achievements .badge.chip-only {
+  box-sizing: border-box;
+}
+
+/* Shikimori: plugin container owns the indent (mirrors .anilist, style.css 972–978) */
+.shikimori {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 28px;
+  margin-top: 4px;
+}
+
+/* Shikimori: explicit header -> content gap (uniform 8px, no flex margin collapse) */
+.shikimori h2.field {
+  margin-bottom: 8px;
+}
+
+/* Shikimori: card rules re-declared from .anilist (style.css 972–1041) — NOT shared */
+.shikimori .media {
+  display: flex;
+  margin-bottom: 4px;
+  width: 450px;
+}
+.shikimori .media img {
+  margin: 0 10px;
+  border-radius: 7px;
+}
+.shikimori .media .about {
+  flex-grow: 1;
+}
+.shikimori .media .name {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  line-height: 14px;
+  color: #58a6ff;
+}
+.shikimori .media .infos {
+  font-size: 12px;
+  color: #666666;
+}
+.shikimori .media .infos > div {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 16px;
+}
+.shikimori .media .infos svg {
+  fill: currentColor;
+  height: 12px;
+  width: 12px;
+  margin: 0;
+  margin-right: 4px;
+}
+.shikimori .media .description {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  width: 380px;
+  max-height: 38px;
+  font-size: 12px;
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.shikimori .characters {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 8px;
+  row-gap: 4px;
+}
+.shikimori .characters img {
+  margin: 2px;
+  border-radius: 7px;
+}
+.shikimori .characters .name {
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  line-height: 16px;
+  color: #666666;
+  white-space: nowrap;
+}
+
+/* Shikimori: status chips */
+.shikimori .statuses {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  max-width: 450px;
+  column-gap: 6px;
+  row-gap: 6px;
+}
+.shikimori .statuses .chip {
+  display: inline-flex;
+  align-items: center;
+  column-gap: 4px;
+  height: 22px;
+  padding: 2px 8px;
+  border: 1px solid #959da533; /* #959da5 @ 20% */
+  background-color: #959da51a; /* #959da5 @ 10% */
+  border-radius: 7px;
+  font-size: 12px;
+  line-height: 16px;
+  white-space: nowrap;
+}
+.shikimori .statuses .chip .name {
+  color: #666666;
+}
+.shikimori .statuses .chip .value {
+  color: #58a6ff;
+}
+
+/* Shikimori: achievements strip */
+.shikimori .achievements {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  max-width: 450px;
+  column-gap: 0; /* gutters come from the badge margin, chars-strip vocabulary */
+  row-gap: 4px;
+}
+.shikimori .achievements .badge {
+  width: 26px;
+  height: 26px;
+  margin: 2px; /* mirrors .anilist .characters img -> 4px gutters */
+  border-radius: 7px;
+}
+.shikimori .achievements .badge.chip-only {
+  display: inline-flex;
+  align-items: center;
+  column-gap: 4px;
+  width: auto; /* the icon variant is the ONLY fixed-size badge */
+  max-width: none;
+  margin: 2px;
+  height: 22px;
+  padding: 2px 8px;
+  border: 1px solid #959da533;
+  background-color: #959da51a;
+  border-radius: 7px;
+  font-size: 12px;
+  line-height: 16px;
+  color: #666666;
+  white-space: nowrap;
+}
+.shikimori .achievements .badge.chip-only .level {
+  color: #58a6ff;
+}
+
+/* Shikimori: stats mini-block */
+.shikimori .stats-block {
+  max-width: 450px;
+}
+.shikimori .stats-block .histograms {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 24px;
+  row-gap: 8px;
+  margin-bottom: 16px;
+}
+.shikimori .stats-block .histogram {
+  width: 98px;
+} /* 10 bars x 8px + 9 gaps x 2px */
+.shikimori .stats-block .series-label {
+  display: inline-flex;
+  align-items: center;
+  column-gap: 5px;
+  margin-bottom: 6px;
+  font-size: 12px;
+  line-height: 12px;
+  color: #666666;
+}
+.shikimori .stats-block .series-label svg {
+  /* inline svg, no .field margins */
+  height: 12px;
+  width: 12px;
+  margin: 0;
+  fill: #959da5;
+}
+.shikimori .stats-block .bars {
+  display: flex;
+  align-items: flex-end;
+  column-gap: 2px;
+  height: 24px;
+  margin-bottom: 3px;
+}
+.shikimori .stats-block .bars .bar {
+  width: 8px;
+  border-radius: 1px;
+  background-color: #58a6ff;
+}
+.shikimori .stats-block .bucket-labels {
+  display: flex;
+  column-gap: 2px;
+}
+.shikimori .stats-block .bucket-labels span {
+  width: 8px;
+  text-align: center;
+  font-size: 10px;
+  line-height: 10px;
+  color: #959da5;
+  font-variant-numeric: tabular-nums;
+}
+.shikimori .stats-block .activity .bars {
+  display: flex;
+  align-items: flex-end;
+  column-gap: 2px;
+  height: 16px;
+  overflow-x: auto;
+}
+.shikimori .stats-block .activity .bars .bar {
+  width: 6px;
+  flex-shrink: 0;
+  border-radius: 1px;
+  background-color: #959da5;
+}
+
 /* Steam */
   .steam .games {
     margin-left: 28px;

@@ -70,6 +70,8 @@
       columns: set.config.display === "columns",
       //Config
       config: set.config,
+      //Query options
+      q: options,
       //Extras
       extras: {css: options["extras.css"] ?? ""},
       //Base elements
@@ -1032,6 +1034,153 @@
                 artwork: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
               })),
               sections: options["anilist.sections"].split(",").map(x => x.trim()).filter(x => x),
+            },
+          })
+          : null),
+        //Shikimori
+        ...((set.plugins.enabled.shikimori || set.plugins.enabled.plugin_shikimori)
+          ? ({
+            shikimori: {
+              user: {
+                id: faker.number.int(1000000),
+                nickname: options["shikimori.user"] || set.user || "whynothacked",
+              },
+              sections: (options["shikimori.sections"] ?? "favorites").split(",").map(x => x.trim()).filter(x => x),
+              get lists() {
+                const media = (name, type) => ({
+                  name,
+                  type,
+                  status: faker.helpers.arrayElement(["anons", "ongoing", "released"]),
+                  release: faker.date.past({years: 20}).getFullYear(),
+                  genres: new Array(4).fill(null).map(_ => faker.lorem.word()),
+                  studio: type === "ANIME" ? faker.company.name() : null,
+                  progress: faker.number.int(100),
+                  volumes: type === "MANGA" ? faker.number.int(20) : null,
+                  description: faker.lorem.paragraph(),
+                  scores: {
+                    user: ["user", "both"].includes(options["shikimori.score"] ?? "community") ? faker.number.int(10) : null,
+                    community: ["community", "both"].includes(options["shikimori.score"] ?? "community") ? faker.number.float({min: 1, max: 10, fractionDigits: 2}) : null,
+                  },
+                  released: 100 + faker.number.int(1000),
+                  artwork: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
+                })
+                const sections = (options["shikimori.sections"] ?? "favorites").split(",").map(x => x.trim()).filter(x => x)
+                const medias = (options["shikimori.medias"] ?? "anime, manga").split(",").map(x => x.trim()).filter(x => x)
+                const statuses = (options["shikimori.statuses"] ?? "watching").split(",").map(x => x.trim()).filter(x => x)
+                const limit = options["shikimori.limit"] !== undefined && !Number.isNaN(Number(options["shikimori.limit"]))
+                  ? (Number(options["shikimori.limit"]) === 0 ? 6 : Number(options["shikimori.limit"]))
+                  : 2
+                const allStatuses = ["planned", "watching", "rewatching", "completed", "on_hold", "dropped"]
+                const populate = (type, mediaName) =>
+                  Object.fromEntries(allStatuses.map(status => [
+                    status,
+                    sections.includes("lists") && statuses.includes(status)
+                      ? new Array(limit).fill(null).map(_ => media(faker.lorem.words(), type))
+                      : [],
+                  ]))
+                return {
+                  anime: medias.includes("anime") ? populate("ANIME", "Anime") : Object.fromEntries(allStatuses.map(status => [status, []])),
+                  manga: medias.includes("manga") ? populate("MANGA", "Manga") : Object.fromEntries(allStatuses.map(status => [status, []])),
+                  ranobe: medias.includes("ranobe") ? populate("MANGA", "Ranobe") : Object.fromEntries(allStatuses.map(status => [status, []])),
+                }
+              },
+              get favorites() {
+                const media = (name, type) => ({
+                  name,
+                  type,
+                  status: faker.helpers.arrayElement(["anons", "ongoing", "released"]),
+                  release: faker.date.past({years: 20}).getFullYear(),
+                  genres: new Array(4).fill(null).map(_ => faker.lorem.word()),
+                  studio: type === "ANIME" ? faker.company.name() : null,
+                  progress: null,
+                  volumes: null,
+                  description: faker.lorem.paragraph(),
+                  scores: {
+                    user: null,
+                    community: ["community", "both"].includes(options["shikimori.score"] ?? "community") ? faker.number.float({min: 1, max: 10, fractionDigits: 2}) : null,
+                  },
+                  released: 100 + faker.number.int(1000),
+                  artwork: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
+                })
+                const sections = (options["shikimori.sections"] ?? "favorites").split(",").map(x => x.trim()).filter(x => x)
+                const medias = (options["shikimori.medias"] ?? "anime, manga").split(",").map(x => x.trim()).filter(x => x)
+                const limit = options["shikimori.limit"] !== undefined && !Number.isNaN(Number(options["shikimori.limit"]))
+                  ? (Number(options["shikimori.limit"]) === 0 ? 6 : Number(options["shikimori.limit"]))
+                  : 2
+                return {
+                  anime: sections.includes("favorites") && medias.includes("anime") ? new Array(limit).fill(null).map(_ => media(faker.lorem.words(), "ANIME")) : [],
+                  manga: sections.includes("favorites") && medias.includes("manga") ? new Array(limit).fill(null).map(_ => media(faker.lorem.words(), "MANGA")) : [],
+                  ranobe: sections.includes("favorites") && medias.includes("ranobe") ? new Array(limit).fill(null).map(_ => media(faker.lorem.words(), "MANGA")) : [],
+                }
+              },
+              get characters() {
+                const limit = options["shikimori.limit.characters"] !== undefined && !Number.isNaN(Number(options["shikimori.limit.characters"]))
+                  ? (Number(options["shikimori.limit.characters"]) === 0 ? 30 : Number(options["shikimori.limit.characters"]))
+                  : 22
+                const sections = (options["shikimori.sections"] ?? "favorites").split(",").map(x => x.trim()).filter(x => x)
+                return sections.includes("characters")
+                  ? new Array(limit).fill(null).map(_ => ({
+                    name: faker.person.fullName(),
+                    artwork: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
+                  }))
+                  : []
+              },
+              get people() {
+                const limit = options["shikimori.limit.people"] !== undefined && !Number.isNaN(Number(options["shikimori.limit.people"]))
+                  ? (Number(options["shikimori.limit.people"]) === 0 ? 30 : Number(options["shikimori.limit.people"]))
+                  : 22
+                const sections = (options["shikimori.sections"] ?? "favorites").split(",").map(x => x.trim()).filter(x => x)
+                const peopleKinds = (options["shikimori.people"] ?? "people, seyu").split(",").map(x => x.trim()).filter(x => x)
+                if (!sections.includes("people"))
+                  return {}
+                return Object.fromEntries(peopleKinds.map(kind => [
+                  kind,
+                  new Array(limit).fill(null).map(_ => ({
+                    name: faker.person.fullName(),
+                    artwork: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
+                  })),
+                ]))
+              },
+              stats: {
+                summary: {
+                  episodes: faker.number.int(5000),
+                  chapters: faker.number.int(10000),
+                },
+                statuses: [
+                  {name: "Watching", value: faker.number.int(50)},
+                  {name: "Rewatching", value: faker.number.int(20)},
+                  {name: "Completed", value: faker.number.int(500)},
+                  {name: "On hold", value: faker.number.int(30)},
+                  {name: "Dropped", value: faker.number.int(15)},
+                  {name: "Planned", value: faker.number.int(100)},
+                ],
+                scores: {
+                  anime: Array.from({length: 10}, (_, i) => ({name: `${i + 1}`, value: faker.number.int(50)})),
+                  manga: Array.from({length: 10}, (_, i) => ({name: `${i + 1}`, value: faker.number.int(50)})),
+                },
+                activity: Array.from({length: 8}, (_, i) => ({
+                  from: `202${i}-01-01`,
+                  to: `202${i}-06-30`,
+                  value: faker.number.int(100),
+                })),
+              },
+              get achievements() {
+                const limit = options["shikimori.limit.achievements"] !== undefined && !Number.isNaN(Number(options["shikimori.limit.achievements"]))
+                  ? (Number(options["shikimori.limit.achievements"]) === 0 ? 30 : Number(options["shikimori.limit.achievements"]))
+                  : 22
+                const sections = (options["shikimori.sections"] ?? "favorites").split(",").map(x => x.trim()).filter(x => x)
+                if (!sections.includes("achievements"))
+                  return []
+                const filter = options["shikimori.achievements.filter"] ?? "earned"
+                return new Array(limit).fill(null).map((_, i) => ({
+                  neko_id: `neko_${i + 1}`,
+                  name: faker.lorem.words(2),
+                  level: filter === "all" && i % 4 === 0 ? 0 : faker.number.int({min: 1, max: 5}),
+                  progress: faker.number.int(100),
+                  icon: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==",
+                }))
+              },
+              genres: new Array(6).fill(null).map(_ => faker.lorem.word()),
             },
           })
           : null),

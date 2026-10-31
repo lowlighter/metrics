@@ -1,0 +1,34 @@
+query Lists ($page: PositiveInt, $limit: PositiveInt, $userId: ID, $targetType: UserRateTargetTypeEnum, $status: UserRateStatusEnum, $order: UserRateOrderInputType) {
+  userRates(page: $page, limit: $limit, userId: $userId, targetType: $targetType, status: $status, order: $order) {
+    id
+    score
+    status
+    episodes
+    chapters
+    volumes
+    $media {
+      id
+      name
+      russian
+      english
+      japanese
+      kind
+      status
+      airedOn {
+        year
+      }
+      releasedOn {
+        year
+      }
+      $details
+      score
+      description
+      genres {
+        name
+      }
+      poster {
+        originalUrl
+      }
+    }
+  }
+}

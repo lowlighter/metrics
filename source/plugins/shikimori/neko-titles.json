@@ -1,0 +1,3876 @@
+{
+  "a_mortal_s_journey": {
+    "0": {
+      "title_en": "Fanren Xiu Xian Chuan",
+      "title_ru": "Путешествие к бессмертию"
+    },
+    "1": {
+      "title_en": "Fanren Xiu Xian Chuan",
+      "title_ru": "Путешествие к бессмертию"
+    }
+  },
+  "aa_megami_sama": {
+    "0": {
+      "title_en": "Aa! Megami-sama!",
+      "title_ru": "Моя богиня!"
+    },
+    "1": {
+      "title_en": "Aa! Megami-sama!",
+      "title_ru": "Моя богиня!"
+    }
+  },
+  "ad_police": {
+    "0": {
+      "title_en": "Bubblegum Crisis",
+      "title_ru": "Кризис каждый день"
+    },
+    "1": {
+      "title_en": "Bubblegum Crisis",
+      "title_ru": "Кризис каждый день"
+    }
+  },
+  "aggressive_retsuko": {
+    "0": {
+      "title_en": "Aggressive Retsuko",
+      "title_ru": "Агрессивная Рэцуко"
+    },
+    "1": {
+      "title_en": "Aggressive Retsuko",
+      "title_ru": "Агрессивная Рэцуко"
+    }
+  },
+  "aikatsu": {
+    "0": {
+      "title_en": "Aikatsu!",
+      "title_ru": "Айкацу!"
+    },
+    "1": {
+      "title_en": "Aikatsu!",
+      "title_ru": "Айкацу!"
+    }
+  },
+  "akiyuki_shinbou": {
+    "0": {
+      "title_en": "Akiyuki Shinbou",
+      "title_ru": "Акиюки Симбо"
+    },
+    "1": {
+      "title_en": "Akiyuki Shinbou",
+      "title_ru": "Акиюки Симбо"
+    }
+  },
+  "amagami_ss": {
+    "0": {
+      "title_en": "Amagami SS",
+      "title_ru": "Нежный укус"
+    },
+    "1": {
+      "title_en": "Amagami SS",
+      "title_ru": "Нежный укус"
+    }
+  },
+  "angelique": {
+    "0": {
+      "title_en": "Angelique",
+      "title_ru": "Анжелика"
+    },
+    "1": {
+      "title_en": "Angelique",
+      "title_ru": "Анжелика"
+    }
+  },
+  "animelist": {
+    "1": {
+      "title_en": "Welcome to the world!",
+      "title_ru": "Добро пожаловать!"
+    },
+    "2": {
+      "title_en": "This is only the beginning",
+      "title_ru": "Это всего лишь начало"
+    },
+    "3": {
+      "title_en": "My powers are growing!",
+      "title_ru": "Мои силы растут!"
+    },
+    "4": {
+      "title_en": "Carefree viewer",
+      "title_ru": "Беззаботный зритель"
+    },
+    "5": {
+      "title_en": "A cakewalk",
+      "title_ru": "Легкая прогулка"
+    },
+    "6": {
+      "title_en": "Aesthete",
+      "title_ru": "Эстет"
+    },
+    "7": {
+      "title_en": "Something to brag about",
+      "title_ru": "Есть чем похвастаться"
+    },
+    "8": {
+      "title_en": "Lots of free time?",
+      "title_ru": "Много свободного времени?"
+    },
+    "9": {
+      "title_en": "Satan's limit?",
+      "title_ru": "Сатанинский предел?"
+    },
+    "10": {
+      "title_en": "It's not even the final form",
+      "title_ru": "Это даже не финальная форма"
+    },
+    "11": {
+      "title_en": "Endless Journey",
+      "title_ru": "Бесконечное путешествие"
+    },
+    "12": {
+      "title_en": "Point of no return",
+      "title_ru": "Точка невозврата"
+    },
+    "13": {
+      "title_en": "One, two, three, four",
+      "title_ru": "Раз, два, три, четыре"
+    },
+    "14": {
+      "title_en": "Gourmet",
+      "title_ru": "Гурман"
+    },
+    "15": {
+      "title_en": "Maniac",
+      "title_ru": "Маньяк"
+    },
+    "16": {
+      "title_en": "Hero",
+      "title_ru": "Герой"
+    },
+    "17": {
+      "title_en": "Blue Blood",
+      "title_ru": "Голубая кровь"
+    },
+    "18": {
+      "title_en": "Enlightened",
+      "title_ru": "Просветленный"
+    },
+    "19": {
+      "title_en": "The Legend",
+      "title_ru": "Легенда"
+    },
+    "20": {
+      "title_en": "SlotAchieveName_0020: NULL",
+      "title_ru": "SlotAchieveName_0020: NULL"
+    }
+  },
+  "ansatsu_kyoushitsu": {
+    "0": {
+      "title_en": "Ansatsu Kyoushitsu",
+      "title_ru": "Класс убийц"
+    },
+    "1": {
+      "title_en": "Ansatsu Kyoushitsu",
+      "title_ru": "Класс убийц"
+    }
+  },
+  "ao_no_exorcist": {
+    "0": {
+      "title_en": "Ao no Exorcist",
+      "title_ru": "Синий экзорцист"
+    },
+    "1": {
+      "title_en": "Ao no Exorcist",
+      "title_ru": "Синий экзорцист"
+    }
+  },
+  "aquarion": {
+    "0": {
+      "title_en": "Sousei no Aquarion",
+      "title_ru": "Акварион"
+    },
+    "1": {
+      "title_en": "Sousei no Aquarion",
+      "title_ru": "Акварион"
+    }
+  },
+  "aria": {
+    "0": {
+      "title_en": "Aria",
+      "title_ru": "Ария"
+    },
+    "1": {
+      "title_en": "Aria",
+      "title_ru": "Ария"
+    }
+  },
+  "arslan_senki": {
+    "0": {
+      "title_en": "Arslan Senki",
+      "title_ru": "Сказание об Арслане"
+    },
+    "1": {
+      "title_en": "Arslan Senki",
+      "title_ru": "Сказание об Арслане"
+    }
+  },
+  "ashita_no_joe": {
+    "0": {
+      "title_en": "Ashita no Joe",
+      "title_ru": "Завтрашний Джо"
+    },
+    "1": {
+      "title_en": "Ashita no Joe",
+      "title_ru": "Завтрашний Джо"
+    }
+  },
+  "atom": {
+    "0": {
+      "title_en": "Tetsuwan Atom",
+      "title_ru": "Могучий Атом"
+    },
+    "1": {
+      "title_en": "Tetsuwan Atom",
+      "title_ru": "Могучий Атом"
+    }
+  },
+  "bai_yao_pu": {
+    "0": {
+      "title_en": "Bai Yao Pu",
+      "title_ru": "Руководство сотен демонов"
+    },
+    "1": {
+      "title_en": "Bai Yao Pu",
+      "title_ru": "Руководство сотен демонов"
+    }
+  },
+  "baka_to_test_to_shoukanjuu": {
+    "0": {
+      "title_en": "Baka to Test to Shoukanjuu",
+      "title_ru": "Дурни, тесты, аватары"
+    },
+    "1": {
+      "title_en": "Baka to Test to Shoukanjuu",
+      "title_ru": "Дурни, тесты, аватары"
+    }
+  },
+  "bakemonogatari": {
+    "0": {
+      "title_en": "Monogatari Series",
+      "title_ru": "Цикл историй"
+    },
+    "1": {
+      "title_en": "Monogatari Series",
+      "title_ru": "Цикл историй"
+    }
+  },
+  "baki": {
+    "0": {
+      "title_en": "Grappler Baki",
+      "title_ru": "Боец Баки"
+    },
+    "1": {
+      "title_en": "Grappler Baki",
+      "title_ru": "Боец Баки"
+    }
+  },
+  "baku_tech_bakugan": {
+    "0": {
+      "title_en": "Bakugan",
+      "title_ru": "Бакуган"
+    },
+    "1": {
+      "title_en": "Bakugan",
+      "title_ru": "Бакуган"
+    }
+  },
+  "bakuman": {
+    "0": {
+      "title_en": "Bakuman",
+      "title_ru": "Бакуман"
+    },
+    "1": {
+      "title_en": "Bakuman",
+      "title_ru": "Бакуман"
+    }
+  },
+  "bang_dream": {
+    "0": {
+      "title_en": "BanG Dream!",
+      "title_ru": "Ура мечте!"
+    },
+    "1": {
+      "title_en": "BanG Dream!",
+      "title_ru": "Ура мечте!"
+    }
+  },
+  "bastard": {
+    "0": {
+      "title_en": "Bastard!!",
+      "title_ru": "Ублюдок!!"
+    },
+    "1": {
+      "title_en": "Bastard!!",
+      "title_ru": "Ублюдок!!"
+    }
+  },
+  "berserk": {
+    "0": {
+      "title_en": "Berserk",
+      "title_ru": "Берсерк"
+    },
+    "1": {
+      "title_en": "Berserk",
+      "title_ru": "Берсерк"
+    }
+  },
+  "beryl_and_sapphire": {
+    "0": {
+      "title_en": "Xiao Lu He Xiao Lan",
+      "title_ru": "Берилл и Сапфир"
+    },
+    "1": {
+      "title_en": "Xiao Lu He Xiao Lan",
+      "title_ru": "Берилл и Сапфир"
+    }
+  },
+  "betterman": {
+    "0": {
+      "title_en": "Yuusha Exkaiser",
+      "title_ru": "Храбрый Экскайзер"
+    },
+    "1": {
+      "title_en": "Yuusha Exkaiser",
+      "title_ru": "Храбрый Экскайзер"
+    }
+  },
+  "beyblade": {
+    "0": {
+      "title_en": "Beyblade",
+      "title_ru": "Бейблэйд"
+    },
+    "1": {
+      "title_en": "Beyblade",
+      "title_ru": "Бейблэйд"
+    }
+  },
+  "binan_koukou_chikyuu_boueibu_love": {
+    "0": {
+      "title_en": "Binan Koukou Chikyuu Boueibu",
+      "title_ru": "Красавцы из клуба защитников Земли"
+    },
+    "1": {
+      "title_en": "Binan Koukou Chikyuu Boueibu",
+      "title_ru": "Красавцы из клуба защитников Земли"
+    }
+  },
+  "black_clover": {
+    "0": {
+      "title_en": "Black Clover",
+      "title_ru": "Чёрный клевер"
+    },
+    "1": {
+      "title_en": "Black Clover",
+      "title_ru": "Чёрный клевер"
+    }
+  },
+  "black_jack": {
+    "0": {
+      "title_en": "Black Jack",
+      "title_ru": "Черный Джек"
+    },
+    "1": {
+      "title_en": "Black Jack",
+      "title_ru": "Черный Джек"
+    }
+  },
+  "black_lagoon": {
+    "0": {
+      "title_en": "Black Lagoon",
+      "title_ru": "Пираты «Чёрной лагуны»"
+    },
+    "1": {
+      "title_en": "Black Lagoon",
+      "title_ru": "Пираты «Чёрной лагуны»"
+    }
+  },
+  "bleach": {
+    "0": {
+      "title_en": "Bleach",
+      "title_ru": "Блич"
+    },
+    "1": {
+      "title_en": "Bleach",
+      "title_ru": "Блич"
+    }
+  },
+  "blood": {
+    "0": {
+      "title_en": "Blood",
+      "title_ru": "Кровь"
+    },
+    "1": {
+      "title_en": "Blood",
+      "title_ru": "Кровь"
+    }
+  },
+  "boku_no_hero_academia": {
+    "0": {
+      "title_en": "Boku no Hero Academia",
+      "title_ru": "Моя геройская академия"
+    },
+    "1": {
+      "title_en": "Boku no Hero Academia",
+      "title_ru": "Моя геройская академия"
+    }
+  },
+  "brave_witches": {
+    "0": {
+      "title_en": "Strike Witches",
+      "title_ru": "Штурмовые ведьмы"
+    },
+    "1": {
+      "title_en": "Strike Witches",
+      "title_ru": "Штурмовые ведьмы"
+    }
+  },
+  "bungou_stray_dogs": {
+    "0": {
+      "title_en": "Bungou Stray Dogs",
+      "title_ru": "Великий из бродячих псов"
+    },
+    "1": {
+      "title_en": "Bungou Stray Dogs",
+      "title_ru": "Великий из бродячих псов"
+    }
+  },
+  "captain_tsubasa": {
+    "0": {
+      "title_en": "Captain Tsubasa",
+      "title_ru": "Капитан Цубаса"
+    },
+    "1": {
+      "title_en": "Captain Tsubasa",
+      "title_ru": "Капитан Цубаса"
+    }
+  },
+  "cardcaptor_sakura": {
+    "0": {
+      "title_en": "Cardcaptor Sakura",
+      "title_ru": "Сакура — собирательница карт"
+    },
+    "1": {
+      "title_en": "Cardcaptor Sakura",
+      "title_ru": "Сакура — собирательница карт"
+    }
+  },
+  "cardfight_vanguard": {
+    "0": {
+      "title_en": "Cardfight!! Vanguard",
+      "title_ru": "Карточные бои Авангарда"
+    },
+    "1": {
+      "title_en": "Cardfight!! Vanguard",
+      "title_ru": "Карточные бои Авангарда"
+    }
+  },
+  "chiaki_kon": {
+    "0": {
+      "title_en": "Chiaki Kon",
+      "title_ru": "Тиаки Кон"
+    },
+    "1": {
+      "title_en": "Chiaki Kon",
+      "title_ru": "Тиаки Кон"
+    }
+  },
+  "chihayafuru": {
+    "0": {
+      "title_en": "Chihayafuru",
+      "title_ru": "Яркая Тихая"
+    },
+    "1": {
+      "title_en": "Chihayafuru",
+      "title_ru": "Яркая Тихая"
+    }
+  },
+  "chuunibyou_demo_koi_ga_shitai": {
+    "0": {
+      "title_en": "Chuunibyou demo Koi ga Shitai!",
+      "title_ru": "Чудачества любви не помеха!"
+    },
+    "1": {
+      "title_en": "Chuunibyou demo Koi ga Shitai!",
+      "title_ru": "Чудачества любви не помеха!"
+    }
+  },
+  "city_hunter": {
+    "0": {
+      "title_en": "City Hunter",
+      "title_ru": "Городской охотник"
+    },
+    "1": {
+      "title_en": "City Hunter",
+      "title_ru": "Городской охотник"
+    }
+  },
+  "clamp": {
+    "0": {
+      "title_en": "CLAMP",
+      "title_ru": "CLAMP"
+    },
+    "1": {
+      "title_en": "CLAMP",
+      "title_ru": "CLAMP"
+    }
+  },
+  "clannad": {
+    "0": {
+      "title_en": "Clannad",
+      "title_ru": "Кланнад"
+    },
+    "1": {
+      "title_en": "Clannad",
+      "title_ru": "Кланнад"
+    }
+  },
+  "code_geass": {
+    "0": {
+      "title_en": "Code Geass",
+      "title_ru": "Код Гиас"
+    },
+    "1": {
+      "title_en": "Code Geass",
+      "title_ru": "Код Гиас"
+    }
+  },
+  "comedy": {
+    "1": {
+      "title_en": "But then I lol'd",
+      "title_ru": "But then I lol'd"
+    },
+    "2": {
+      "title_en": "Comedian",
+      "title_ru": "Комедиант"
+    },
+    "3": {
+      "title_en": "Till the stomach cramps",
+      "title_ru": "До колик в животе!"
+    },
+    "4": {
+      "title_en": "A celebration without end",
+      "title_ru": "Праздник без конца"
+    }
+  },
+  "cutey_honey": {
+    "0": {
+      "title_en": "Cutey Honey",
+      "title_ru": "Милашка Хани"
+    },
+    "1": {
+      "title_en": "Cutey Honey",
+      "title_ru": "Милашка Хани"
+    }
+  },
+  "cyborg": {
+    "0": {
+      "title_en": "Cyborg 009",
+      "title_ru": "Киборг 009"
+    },
+    "1": {
+      "title_en": "Cyborg 009",
+      "title_ru": "Киборг 009"
+    }
+  },
+  "d_c": {
+    "0": {
+      "title_en": "Da Capo",
+      "title_ru": "С начала"
+    },
+    "1": {
+      "title_en": "Da Capo",
+      "title_ru": "С начала"
+    }
+  },
+  "danball_senki": {
+    "0": {
+      "title_en": "Danball Senki",
+      "title_ru": "Хроники карточных битв"
+    },
+    "1": {
+      "title_en": "Danball Senki",
+      "title_ru": "Хроники карточных битв"
+    }
+  },
+  "danganronpa": {
+    "0": {
+      "title_en": "Danganronpa",
+      "title_ru": "Данганронпа"
+    },
+    "1": {
+      "title_en": "Danganronpa",
+      "title_ru": "Данганронпа"
+    }
+  },
+  "danmachi": {
+    "0": {
+      "title_en": "DanMachi",
+      "title_ru": "Разве плохо искать себе пару в подземелье?"
+    },
+    "1": {
+      "title_en": "DanMachi",
+      "title_ru": "Разве плохо искать себе пару в подземелье?"
+    }
+  },
+  "darker_than_black": {
+    "0": {
+      "title_en": "Darker than Black",
+      "title_ru": "Темнее чёрного"
+    },
+    "1": {
+      "title_en": "Darker than Black",
+      "title_ru": "Темнее чёрного"
+    }
+  },
+  "date_a_live": {
+    "0": {
+      "title_en": "Date A Live",
+      "title_ru": "Рандеву с жизнью"
+    },
+    "1": {
+      "title_en": "Date A Live",
+      "title_ru": "Рандеву с жизнью"
+    }
+  },
+  "dementia_psychological": {
+    "1": {
+      "title_en": "It does exist",
+      "title_ru": "Оно существует"
+    },
+    "2": {
+      "title_en": "Is it even real?",
+      "title_ru": "Это вообще реально?"
+    },
+    "3": {
+      "title_en": "Blew my mind.",
+      "title_ru": "Вынос мозга"
+    },
+    "4": {
+      "title_en": "You have seen too much",
+      "title_ru": "Вы видели слишком много"
+    }
+  },
+  "demon_slayer": {
+    "0": {
+      "title_en": "Kimetsu no Yaiba",
+      "title_ru": "Клинок, рассекающий демонов"
+    },
+    "1": {
+      "title_en": "Kimetsu no Yaiba",
+      "title_ru": "Клинок, рассекающий демонов"
+    }
+  },
+  "detective_conan": {
+    "0": {
+      "title_en": "Detective Conan",
+      "title_ru": "Детектив Конан"
+    },
+    "1": {
+      "title_en": "Detective Conan",
+      "title_ru": "Детектив Конан"
+    }
+  },
+  "detektiv": {
+    "1": {
+      "title_en": "People's vigilant",
+      "title_ru": "Народный дружинник"
+    },
+    "2": {
+      "title_en": "First case",
+      "title_ru": "Первое дело"
+    },
+    "3": {
+      "title_en": "Behind the Seven Seals",
+      "title_ru": "За семью печатями"
+    },
+    "4": {
+      "title_en": "The Grand Detective",
+      "title_ru": "Великий детектив"
+    }
+  },
+  "devilman": {
+    "0": {
+      "title_en": "Devilman",
+      "title_ru": "Человек-дьявол"
+    },
+    "1": {
+      "title_en": "Devilman",
+      "title_ru": "Человек-дьявол"
+    }
+  },
+  "di_gi_charat": {
+    "0": {
+      "title_en": "Di Gi Charat",
+      "title_ru": "Ди-Ги Карат"
+    },
+    "1": {
+      "title_en": "Di Gi Charat",
+      "title_ru": "Ди-Ги Карат"
+    }
+  },
+  "diamond_no_ace": {
+    "0": {
+      "title_en": "Diamond no Ace",
+      "title_ru": "Путь аса"
+    },
+    "1": {
+      "title_en": "Diamond no Ace",
+      "title_ru": "Путь аса"
+    }
+  },
+  "digimon": {
+    "0": {
+      "title_en": "Digimon Adventure",
+      "title_ru": "Приключения Дигимонов"
+    },
+    "1": {
+      "title_en": "Digimon Adventure",
+      "title_ru": "Приключения Дигимонов"
+    }
+  },
+  "dirty_pair": {
+    "0": {
+      "title_en": "Dirty Pair",
+      "title_ru": "Грязная парочка"
+    },
+    "1": {
+      "title_en": "Dirty Pair",
+      "title_ru": "Грязная парочка"
+    }
+  },
+  "dog_days": {
+    "0": {
+      "title_en": "Dog Days",
+      "title_ru": "Собачьи дни"
+    },
+    "1": {
+      "title_en": "Dog Days",
+      "title_ru": "Собачьи дни"
+    }
+  },
+  "doupo_cangqiong": {
+    "0": {
+      "title_en": "Doupo Cangqiong",
+      "title_ru": "Расколотая битвой синева небес"
+    },
+    "1": {
+      "title_en": "Doupo Cangqiong",
+      "title_ru": "Расколотая битвой синева небес"
+    }
+  },
+  "dr_stone": {
+    "0": {
+      "title_en": "Dr. Stone",
+      "title_ru": "Доктор Стоун"
+    },
+    "1": {
+      "title_en": "Dr. Stone",
+      "title_ru": "Доктор Стоун"
+    }
+  },
+  "dragon_ball": {
+    "0": {
+      "title_en": "Dragon Ball",
+      "title_ru": "Драконий жемчуг"
+    },
+    "1": {
+      "title_en": "Dragon Ball",
+      "title_ru": "Драконий жемчуг"
+    }
+  },
+  "dragon_quest": {
+    "0": {
+      "title_en": "Dragon Quest",
+      "title_ru": "Драгон Квест"
+    },
+    "1": {
+      "title_en": "Dragon Quest",
+      "title_ru": "Драгон Квест"
+    }
+  },
+  "drama": {
+    "1": {
+      "title_en": "A stingy tear",
+      "title_ru": "Скупая слеза"
+    },
+    "2": {
+      "title_en": "Mid-level empathy",
+      "title_ru": "Эмпатия среднего уровня"
+    },
+    "3": {
+      "title_en": "Perfect blue",
+      "title_ru": "Идеальная грусть"
+    },
+    "4": {
+      "title_en": "Maximum emotional responsiveness",
+      "title_ru": "Максимальная эмоциональная отзывчивость"
+    }
+  },
+  "durarara": {
+    "0": {
+      "title_en": "Durarara!!",
+      "title_ru": "Дюрарара!!"
+    },
+    "1": {
+      "title_en": "Durarara!!",
+      "title_ru": "Дюрарара!!"
+    }
+  },
+  "el_hazard": {
+    "0": {
+      "title_en": "El Hazard",
+      "title_ru": "Эль-Хазард"
+    },
+    "1": {
+      "title_en": "El Hazard",
+      "title_ru": "Эль-Хазард"
+    }
+  },
+  "eureka_seven": {
+    "0": {
+      "title_en": "Eureka Seven",
+      "title_ru": "Эврика 7"
+    },
+    "1": {
+      "title_en": "Eureka Seven",
+      "title_ru": "Эврика 7"
+    }
+  },
+  "evangelion": {
+    "0": {
+      "title_en": "Evangelion",
+      "title_ru": "Евангелион"
+    },
+    "1": {
+      "title_en": "Evangelion",
+      "title_ru": "Евангелион"
+    }
+  },
+  "fairy_tail": {
+    "0": {
+      "title_en": "Fairy Tail",
+      "title_ru": "Хвост Феи"
+    },
+    "1": {
+      "title_en": "Fairy Tail",
+      "title_ru": "Хвост Феи"
+    }
+  },
+  "fantastica": {
+    "0": {
+      "title_en": "Xiong Chumo",
+      "title_ru": "Медведи-соседи"
+    },
+    "1": {
+      "title_en": "Xiong Chumo",
+      "title_ru": "Медведи-соседи"
+    }
+  },
+  "fantasy": {
+    "1": {
+      "title_en": "Where am I?",
+      "title_ru": "Попаданец"
+    },
+    "2": {
+      "title_en": "Adventurer",
+      "title_ru": "Искатель приключений"
+    },
+    "3": {
+      "title_en": "The Hero",
+      "title_ru": "Герой"
+    },
+    "4": {
+      "title_en": "Hooded Justice",
+      "title_ru": "Вершитель"
+    }
+  },
+  "fate": {
+    "0": {
+      "title_en": "Fate",
+      "title_ru": "Судьба"
+    },
+    "1": {
+      "title_en": "Fate",
+      "title_ru": "Судьба"
+    }
+  },
+  "free": {
+    "0": {
+      "title_en": "Free!",
+      "title_ru": "Вольный стиль!"
+    },
+    "1": {
+      "title_en": "Free!",
+      "title_ru": "Вольный стиль!"
+    }
+  },
+  "fruits_basket": {
+    "0": {
+      "title_en": "Fruits Basket",
+      "title_ru": "Корзинка фруктов"
+    },
+    "1": {
+      "title_en": "Fruits Basket",
+      "title_ru": "Корзинка фруктов"
+    }
+  },
+  "full_metal_panic": {
+    "0": {
+      "title_en": "Full Metal Panic!",
+      "title_ru": "Стальная тревога"
+    },
+    "1": {
+      "title_en": "Full Metal Panic!",
+      "title_ru": "Стальная тревога"
+    }
+  },
+  "fullmetal_alchemist": {
+    "0": {
+      "title_en": "Fullmetal Alchemist",
+      "title_ru": "Стальной алхимик"
+    },
+    "1": {
+      "title_en": "Fullmetal Alchemist",
+      "title_ru": "Стальной алхимик"
+    }
+  },
+  "fushigi_yuugi": {
+    "0": {
+      "title_en": "Fushigi Yuugi",
+      "title_ru": "Таинственная игра"
+    },
+    "1": {
+      "title_en": "Fushigi Yuugi",
+      "title_ru": "Таинственная игра"
+    }
+  },
+  "futari_wa_milky_holmes": {
+    "0": {
+      "title_en": "Tantei Opera Milky Holmes",
+      "title_ru": "Детективное агентство Милки Холмс"
+    },
+    "1": {
+      "title_en": "Tantei Opera Milky Holmes",
+      "title_ru": "Детективное агентство Милки Холмс"
+    }
+  },
+  "galaxy_angel": {
+    "0": {
+      "title_en": "Galaxy Angel",
+      "title_ru": "Галактический ангел"
+    },
+    "1": {
+      "title_en": "Galaxy Angel",
+      "title_ru": "Галактический ангел"
+    }
+  },
+  "gar": {
+    "1": {
+      "title_en": "So courageous that you can't breathe",
+      "title_ru": "Так мужественно, что не вздохнуть"
+    },
+    "2": {
+      "title_en": "Testosterone storm",
+      "title_ru": "Тестостероновый шторм"
+    },
+    "3": {
+      "title_en": "Alpha male",
+      "title_ru": "Альфа-самец"
+    }
+  },
+  "garo": {
+    "0": {
+      "title_en": "Garo",
+      "title_ru": "Гаро"
+    },
+    "1": {
+      "title_en": "Garo",
+      "title_ru": "Гаро"
+    }
+  },
+  "gatchaman": {
+    "0": {
+      "title_en": "Gatchaman",
+      "title_ru": "Гатчамен"
+    },
+    "1": {
+      "title_en": "Gatchaman",
+      "title_ru": "Гатчамен"
+    }
+  },
+  "gegege_no_kitarou": {
+    "0": {
+      "title_en": "Gegege no Kitarou",
+      "title_ru": "Щелкунчик Китаро"
+    },
+    "1": {
+      "title_en": "Gegege no Kitarou",
+      "title_ru": "Щелкунчик Китаро"
+    }
+  },
+  "gen_urobuchi": {
+    "0": {
+      "title_en": "Gen Urobuchi",
+      "title_ru": "Гэн Уробути"
+    },
+    "1": {
+      "title_en": "Gen Urobuchi",
+      "title_ru": "Гэн Уробути"
+    }
+  },
+  "genki": {
+    "1": {
+      "title_en": "Soul of the company",
+      "title_ru": "Душа компании"
+    },
+    "2": {
+      "title_en": "Firestarter",
+      "title_ru": "Заводила"
+    },
+    "3": {
+      "title_en": "The Holiday Man",
+      "title_ru": "Человек-праздник"
+    }
+  },
+  "genshiken": {
+    "0": {
+      "title_en": "Genshiken",
+      "title_ru": "Гэнсикэн"
+    },
+    "1": {
+      "title_en": "Genshiken",
+      "title_ru": "Гэнсикэн"
+    }
+  },
+  "getter_robo": {
+    "0": {
+      "title_en": "Getter Robo",
+      "title_ru": "Робот Геттер"
+    },
+    "1": {
+      "title_en": "Getter Robo",
+      "title_ru": "Робот Геттер"
+    }
+  },
+  "ghost_in_the_shell": {
+    "0": {
+      "title_en": "Ghost in the Shell",
+      "title_ru": "Призрак в доспехах"
+    },
+    "1": {
+      "title_en": "Ghost in the Shell",
+      "title_ru": "Призрак в доспехах"
+    }
+  },
+  "ginga_eiyuu_densetsu": {
+    "0": {
+      "title_en": "Ginga Eiyuu Densetsu",
+      "title_ru": "Легенда о героях Галактики"
+    },
+    "1": {
+      "title_en": "Ginga Eiyuu Densetsu",
+      "title_ru": "Легенда о героях Галактики"
+    }
+  },
+  "ginga_tetsudou": {
+    "0": {
+      "title_en": "Ginga Tetsudou 999",
+      "title_ru": "Галактический экспресс 999"
+    },
+    "1": {
+      "title_en": "Ginga Tetsudou 999",
+      "title_ru": "Галактический экспресс 999"
+    }
+  },
+  "gintama": {
+    "0": {
+      "title_en": "Gintama",
+      "title_ru": "Гинтама"
+    },
+    "1": {
+      "title_en": "Gintama",
+      "title_ru": "Гинтама"
+    }
+  },
+  "glass_no_kamen": {
+    "0": {
+      "title_en": "Glass no Kamen",
+      "title_ru": "Стеклянная маска"
+    },
+    "1": {
+      "title_en": "Glass no Kamen",
+      "title_ru": "Стеклянная маска"
+    }
+  },
+  "go_nagai": {
+    "0": {
+      "title_en": "Go Nagai",
+      "title_ru": "Го Нагай"
+    },
+    "1": {
+      "title_en": "Go Nagai",
+      "title_ru": "Го Нагай"
+    }
+  },
+  "gochuumon_wa_usagi_desu_ka": {
+    "0": {
+      "title_en": "Gochuumon wa Usagi Desu ka?",
+      "title_ru": "Заказывали кролика?"
+    },
+    "1": {
+      "title_en": "Gochuumon wa Usagi Desu ka?",
+      "title_ru": "Заказывали кролика?"
+    }
+  },
+  "golden_kamuy": {
+    "0": {
+      "title_en": "Golden Kamuy",
+      "title_ru": "Золотое божество"
+    },
+    "1": {
+      "title_en": "Golden Kamuy",
+      "title_ru": "Золотое божество"
+    }
+  },
+  "grisaia": {
+    "0": {
+      "title_en": "Grisaia no Kajitsu",
+      "title_ru": "Плод Грисайи"
+    },
+    "1": {
+      "title_en": "Grisaia no Kajitsu",
+      "title_ru": "Плод Грисайи"
+    }
+  },
+  "gundam": {
+    "0": {
+      "title_en": "Mobile Suit Gundam",
+      "title_ru": "Мобильный воин Гандам"
+    },
+    "1": {
+      "title_en": "Mobile Suit Gundam",
+      "title_ru": "Мобильный воин Гандам"
+    }
+  },
+  "guyver": {
+    "0": {
+      "title_en": "Guyver",
+      "title_ru": "Гайвер"
+    },
+    "1": {
+      "title_en": "Guyver",
+      "title_ru": "Гайвер"
+    }
+  },
+  "hack": {
+    "0": {
+      "title_en": ".hack//",
+      "title_ru": ".хак//"
+    },
+    "1": {
+      "title_en": ".hack//",
+      "title_ru": ".хак//"
+    }
+  },
+  "haikyuu": {
+    "0": {
+      "title_en": "Haikyuu!!",
+      "title_ru": "Волейбол!!"
+    },
+    "1": {
+      "title_en": "Haikyuu!!",
+      "title_ru": "Волейбол!!"
+    }
+  },
+  "hajime_no_ippo": {
+    "0": {
+      "title_en": "Hajime no Ippo",
+      "title_ru": "Первый шаг"
+    },
+    "1": {
+      "title_en": "Hajime no Ippo",
+      "title_ru": "Первый шаг"
+    }
+  },
+  "hakuouki": {
+    "0": {
+      "title_en": "Hakuouki",
+      "title_ru": "Сказание о демонах сакуры"
+    },
+    "1": {
+      "title_en": "Hakuouki",
+      "title_ru": "Сказание о демонах сакуры"
+    }
+  },
+  "haou_daikei_ryuu_knight": {
+    "0": {
+      "title_en": "Haou Daikei Ryuu Knight",
+      "title_ru": "Властелин властелинов Рыцарь Рю"
+    },
+    "1": {
+      "title_en": "Haou Daikei Ryuu Knight",
+      "title_ru": "Властелин властелинов Рыцарь Рю"
+    }
+  },
+  "harukanaru_toki_no_naka_de": {
+    "0": {
+      "title_en": "Harukanaru Toki no Naka de",
+      "title_ru": "В далёкие времена"
+    },
+    "1": {
+      "title_en": "Harukanaru Toki no Naka de",
+      "title_ru": "В далёкие времена"
+    }
+  },
+  "hayao_miyazaki": {
+    "0": {
+      "title_en": "Hayao Miyazaki",
+      "title_ru": "Хаяо Миядзаки"
+    },
+    "1": {
+      "title_en": "Hayao Miyazaki",
+      "title_ru": "Хаяо Миядзаки"
+    }
+  },
+  "hayate_no_gotoku": {
+    "0": {
+      "title_en": "Hayate no Gotoku!",
+      "title_ru": "Боевой дворецкий Хаятэ!"
+    },
+    "1": {
+      "title_en": "Hayate no Gotoku!",
+      "title_ru": "Боевой дворецкий Хаятэ!"
+    }
+  },
+  "hello_kitty": {
+    "0": {
+      "title_en": "Hello Kitty",
+      "title_ru": "Привет, Китти"
+    },
+    "1": {
+      "title_en": "Hello Kitty",
+      "title_ru": "Привет, Китти"
+    }
+  },
+  "hellsing": {
+    "0": {
+      "title_en": "Hellsing",
+      "title_ru": "Хеллсинг"
+    },
+    "1": {
+      "title_en": "Hellsing",
+      "title_ru": "Хеллсинг"
+    }
+  },
+  "hetalia": {
+    "0": {
+      "title_en": "Hetalia",
+      "title_ru": "Хеталия"
+    },
+    "1": {
+      "title_en": "Hetalia",
+      "title_ru": "Хеталия"
+    }
+  },
+  "hibike_euphonium": {
+    "0": {
+      "title_en": "Hibike! Euphonium",
+      "title_ru": "Звучи, эуфониум!"
+    },
+    "1": {
+      "title_en": "Hibike! Euphonium",
+      "title_ru": "Звучи, эуфониум!"
+    }
+  },
+  "hidamari_sketch": {
+    "0": {
+      "title_en": "Hidamari Sketch",
+      "title_ru": "Наброски Хидамари"
+    },
+    "1": {
+      "title_en": "Hidamari Sketch",
+      "title_ru": "Наброски Хидамари"
+    }
+  },
+  "hideaki_anno": {
+    "0": {
+      "title_en": "Hideaki Anno",
+      "title_ru": "Хидэаки Анно"
+    },
+    "1": {
+      "title_en": "Hideaki Anno",
+      "title_ru": "Хидэаки Анно"
+    }
+  },
+  "high_school_dxd": {
+    "0": {
+      "title_en": "High School DxD",
+      "title_ru": "Старшая школа DxD"
+    },
+    "1": {
+      "title_en": "High School DxD",
+      "title_ru": "Старшая школа DxD"
+    }
+  },
+  "hiroshi_hamasaki": {
+    "0": {
+      "title_en": "Hiroshi Hamasaki",
+      "title_ru": "Хироси Хамасаки"
+    },
+    "1": {
+      "title_en": "Hiroshi Hamasaki",
+      "title_ru": "Хироси Хамасаки"
+    }
+  },
+  "hiroyuki_imaishi": {
+    "0": {
+      "title_en": "Hiroyuki Imaishi",
+      "title_ru": "Хироюки Имаиси"
+    },
+    "1": {
+      "title_en": "Hiroyuki Imaishi",
+      "title_ru": "Хироюки Имаиси"
+    }
+  },
+  "historical": {
+    "1": {
+      "title_en": "History Lessons",
+      "title_ru": "Уроки истории"
+    },
+    "2": {
+      "title_en": "In hindsight",
+      "title_ru": "Оглянувшись назад"
+    },
+    "3": {
+      "title_en": "Archaeologist",
+      "title_ru": "Археолог"
+    },
+    "4": {
+      "title_en": "Time Traveler",
+      "title_ru": "Путешественник во времени"
+    }
+  },
+  "hokuto_no_ken": {
+    "0": {
+      "title_en": "Hokuto no Ken",
+      "title_ru": "Кулак Северной звезды"
+    },
+    "1": {
+      "title_en": "Hokuto no Ken",
+      "title_ru": "Кулак Северной звезды"
+    }
+  },
+  "honzuki_no_gekokujou": {
+    "0": {
+      "title_en": "Honzuki no Gekokujou",
+      "title_ru": "Власть книжного червя"
+    },
+    "1": {
+      "title_en": "Honzuki no Gekokujou",
+      "title_ru": "Власть книжного червя"
+    }
+  },
+  "hoozuki_no_reitetsu": {
+    "0": {
+      "title_en": "Hoozuki no Reitetsu",
+      "title_ru": "Хладнокровный Хозуки"
+    },
+    "1": {
+      "title_en": "Hoozuki no Reitetsu",
+      "title_ru": "Хладнокровный Хозуки"
+    }
+  },
+  "horror_thriller": {
+    "1": {
+      "title_en": "Death breathes in the back",
+      "title_ru": "Смерть дышит в спину"
+    },
+    "2": {
+      "title_en": "Nightmare",
+      "title_ru": "Ночной кошмар"
+    },
+    "3": {
+      "title_en": "All monsters are humans",
+      "title_ru": "Страшнее человека зверя нет"
+    },
+    "4": {
+      "title_en": "The Seventh Circle",
+      "title_ru": "Hell"
+    }
+  },
+  "hunter_x_hunter": {
+    "0": {
+      "title_en": "Hunter x Hunter",
+      "title_ru": "Охотник х Охотник"
+    },
+    "1": {
+      "title_en": "Hunter x Hunter",
+      "title_ru": "Охотник х Охотник"
+    }
+  },
+  "huyao_xiao_hongniang": {
+    "0": {
+      "title_en": "Huyao Xiao Hongniang",
+      "title_ru": "Сводники духов: Лисьи свахи"
+    },
+    "1": {
+      "title_en": "Huyao Xiao Hongniang",
+      "title_ru": "Сводники духов: Лисьи свахи"
+    }
+  },
+  "idolish7": {
+    "0": {
+      "title_en": "IDOLiSH7",
+      "title_ru": "Семёрка идолов"
+    },
+    "1": {
+      "title_en": "IDOLiSH7",
+      "title_ru": "Семёрка идолов"
+    }
+  },
+  "idolmaster": {
+    "0": {
+      "title_en": "The iDOLM@STER",
+      "title_ru": "Идолмастер"
+    },
+    "1": {
+      "title_en": "The iDOLM@STER",
+      "title_ru": "Идолмастер"
+    }
+  },
+  "ikkitousen": {
+    "0": {
+      "title_en": "Ikkitousen",
+      "title_ru": "Сила тысячи"
+    },
+    "1": {
+      "title_en": "Ikkitousen",
+      "title_ru": "Сила тысячи"
+    }
+  },
+  "inazuma_eleven": {
+    "0": {
+      "title_en": "Inazuma Eleven",
+      "title_ru": "Инадзума 11"
+    },
+    "1": {
+      "title_en": "Inazuma Eleven",
+      "title_ru": "Инадзума 11"
+    }
+  },
+  "initial_d": {
+    "0": {
+      "title_en": "Initial D",
+      "title_ru": "Инициал Ди"
+    },
+    "1": {
+      "title_en": "Initial D",
+      "title_ru": "Инициал Ди"
+    }
+  },
+  "inuyasha": {
+    "0": {
+      "title_en": "InuYasha",
+      "title_ru": "Инуяся"
+    },
+    "1": {
+      "title_en": "InuYasha",
+      "title_ru": "Инуяся"
+    }
+  },
+  "isao_takahata": {
+    "0": {
+      "title_en": "Isao Takahata",
+      "title_ru": "Исао Такахата"
+    },
+    "1": {
+      "title_en": "Isao Takahata",
+      "title_ru": "Исао Такахата"
+    }
+  },
+  "jashin_chan_dropkick": {
+    "0": {
+      "title_en": "Jashin-chan Dropkick",
+      "title_ru": "Дропкик злого духа"
+    },
+    "1": {
+      "title_en": "Jashin-chan Dropkick",
+      "title_ru": "Дропкик злого духа"
+    }
+  },
+  "jewelpet": {
+    "0": {
+      "title_en": "Jewelpet",
+      "title_ru": "Свет драгоценных зверушек"
+    },
+    "1": {
+      "title_en": "Jewelpet",
+      "title_ru": "Свет драгоценных зверушек"
+    }
+  },
+  "jigoku_sensei_nube": {
+    "0": {
+      "title_en": "Jigoku Sensei Nube",
+      "title_ru": "Адский учитель Нубэ"
+    },
+    "1": {
+      "title_en": "Jigoku Sensei Nube",
+      "title_ru": "Адский учитель Нубэ"
+    }
+  },
+  "jigoku_shoujo": {
+    "0": {
+      "title_en": "Jigoku Shoujo",
+      "title_ru": "Адская девочка"
+    },
+    "1": {
+      "title_en": "Jigoku Shoujo",
+      "title_ru": "Адская девочка"
+    }
+  },
+  "jiu_tian_xuan_di_jue": {
+    "0": {
+      "title_en": "Jiu Tian Xuan Di Jue",
+      "title_ru": "Тайна императора девяти небес"
+    },
+    "1": {
+      "title_en": "Jiu Tian Xuan Di Jue",
+      "title_ru": "Тайна императора девяти небес"
+    }
+  },
+  "jojo_no_kimyou_na_bouken": {
+    "0": {
+      "title_en": "JoJo no Kimyou na Bouken",
+      "title_ru": "Невероятное приключение ДжоДжо"
+    },
+    "1": {
+      "title_en": "JoJo no Kimyou na Bouken",
+      "title_ru": "Невероятное приключение ДжоДжо"
+    }
+  },
+  "josei": {
+    "1": {
+      "title_en": "Youth That Can Bloom",
+      "title_ru": "Цветущая юность"
+    },
+    "2": {
+      "title_en": "I do what I like to do!",
+      "title_ru": "Я делаю то, что мне нравится!"
+    },
+    "3": {
+      "title_en": "We are our actions",
+      "title_ru": "Мы — это наши поступки"
+    },
+    "4": {
+      "title_en": "Memoirs of a Geisha",
+      "title_ru": "Мемуары гейши"
+    }
+  },
+  "jungle_taitei": {
+    "0": {
+      "title_en": "Jungle Taitei",
+      "title_ru": "Император джунглей"
+    },
+    "1": {
+      "title_en": "Jungle Taitei",
+      "title_ru": "Император джунглей"
+    }
+  },
+  "junichi_satou": {
+    "0": {
+      "title_en": "Junichi Satou",
+      "title_ru": "Дзюнъити Сато"
+    },
+    "1": {
+      "title_en": "Junichi Satou",
+      "title_ru": "Дзюнъити Сато"
+    }
+  },
+  "junjou_romantica": {
+    "0": {
+      "title_en": "Junjou Romantica",
+      "title_ru": "Чистая романтика"
+    },
+    "1": {
+      "title_en": "Junjou Romantica",
+      "title_ru": "Чистая романтика"
+    }
+  },
+  "k": {
+    "0": {
+      "title_en": "K",
+      "title_ru": "Проект Кей"
+    },
+    "1": {
+      "title_en": "K",
+      "title_ru": "Проект Кей"
+    }
+  },
+  "k_on": {
+    "0": {
+      "title_en": "K-On!",
+      "title_ru": "Кэйон!"
+    },
+    "1": {
+      "title_en": "K-On!",
+      "title_ru": "Кэйон!"
+    }
+  },
+  "kaguya_sama": {
+    "0": {
+      "title_en": "Kaguya-sama wa Kokurasetai: Tensai-tachi no Renai Zunousen",
+      "title_ru": "Госпожа Кагуя: в любви как на войне"
+    },
+    "1": {
+      "title_en": "Kaguya-sama wa Kokurasetai: Tensai-tachi no Renai Zunousen",
+      "title_ru": "Госпожа Кагуя: в любви как на войне"
+    }
+  },
+  "kaleido_star": {
+    "0": {
+      "title_en": "Kaleido Star",
+      "title_ru": "Огни Пёстрой арены"
+    },
+    "1": {
+      "title_en": "Kaleido Star",
+      "title_ru": "Огни Пёстрой арены"
+    }
+  },
+  "kami_nomi_zo_shiru_sekai": {
+    "0": {
+      "title_en": "Kami nomi zo Shiru Sekai",
+      "title_ru": "Одному лишь Богу ведомый мир"
+    },
+    "1": {
+      "title_en": "Kami nomi zo Shiru Sekai",
+      "title_ru": "Одному лишь Богу ведомый мир"
+    }
+  },
+  "kamisama_hajimemashita": {
+    "0": {
+      "title_en": "Kamisama Hajimemashita",
+      "title_ru": "Приятно познакомиться, Бог"
+    },
+    "1": {
+      "title_en": "Kamisama Hajimemashita",
+      "title_ru": "Приятно познакомиться, Бог"
+    }
+  },
+  "kara_no_kyoukai": {
+    "0": {
+      "title_en": "Kara no Kyoukai",
+      "title_ru": "Граница пустоты"
+    },
+    "1": {
+      "title_en": "Kara no Kyoukai",
+      "title_ru": "Граница пустоты"
+    }
+  },
+  "karakai_jouzu_no_takagi_san": {
+    "0": {
+      "title_en": "Karakai Jouzu no Takagi-san",
+      "title_ru": "Озорная Такаги"
+    },
+    "1": {
+      "title_en": "Karakai Jouzu no Takagi-san",
+      "title_ru": "Озорная Такаги"
+    }
+  },
+  "katsuhiro_otomo": {
+    "0": {
+      "title_en": "Katsuhiro Otomo",
+      "title_ru": "Кацухиро Отомо"
+    },
+    "1": {
+      "title_en": "Katsuhiro Otomo",
+      "title_ru": "Кацухиро Отомо"
+    }
+  },
+  "kengan_ashura": {
+    "0": {
+      "title_en": "Kengan Ashura",
+      "title_ru": "Кэнган Асура"
+    },
+    "1": {
+      "title_en": "Kengan Ashura",
+      "title_ru": "Кэнган Асура"
+    }
+  },
+  "kenji_kamiyama": {
+    "0": {
+      "title_en": "Kenji Kamiyama",
+      "title_ru": "Кэндзи Камияма"
+    },
+    "1": {
+      "title_en": "Kenji Kamiyama",
+      "title_ru": "Кэндзи Камияма"
+    }
+  },
+  "kenji_nakamura": {
+    "0": {
+      "title_en": "Kenji Nakamura",
+      "title_ru": "Кэндзи Накамура"
+    },
+    "1": {
+      "title_en": "Kenji Nakamura",
+      "title_ru": "Кэндзи Накамура"
+    }
+  },
+  "key": {
+    "0": {
+      "title_en": "Key",
+      "title_ru": "Key"
+    },
+    "1": {
+      "title_en": "Key",
+      "title_ru": "Key"
+    }
+  },
+  "kids": {
+    "1": {
+      "title_en": "From childhood",
+      "title_ru": "Родом из детства"
+    }
+  },
+  "kimagure_orange_road": {
+    "0": {
+      "title_en": "Kimagure Orange☆Road",
+      "title_ru": "Капризы Апельсиновой улицы"
+    },
+    "1": {
+      "title_en": "Kimagure Orange☆Road",
+      "title_ru": "Капризы Апельсиновой улицы"
+    }
+  },
+  "kimi_ni_todoke": {
+    "0": {
+      "title_en": "Kimi ni Todoke",
+      "title_ru": "Достучаться до тебя"
+    },
+    "1": {
+      "title_en": "Kimi ni Todoke",
+      "title_ru": "Достучаться до тебя"
+    }
+  },
+  "kindaichi_shounen_no_jikenbo": {
+    "0": {
+      "title_en": "Kindaichi Shounen no Jikenbo",
+      "title_ru": "Дело ведет юный детектив Киндаити"
+    },
+    "1": {
+      "title_en": "Kindaichi Shounen no Jikenbo",
+      "title_ru": "Дело ведет юный детектив Киндаити"
+    }
+  },
+  "kingdom": {
+    "0": {
+      "title_en": "Kingdom",
+      "title_ru": "Царство"
+    },
+    "1": {
+      "title_en": "Kingdom",
+      "title_ru": "Царство"
+    }
+  },
+  "kiniro_no_corda": {
+    "0": {
+      "title_en": "Kiniro no Corda",
+      "title_ru": "Золотая струна"
+    },
+    "1": {
+      "title_en": "Kiniro no Corda",
+      "title_ru": "Золотая струна"
+    }
+  },
+  "koihime_musou": {
+    "0": {
+      "title_en": "Koihime†Musou",
+      "title_ru": "Несравненная принцесса любви"
+    },
+    "1": {
+      "title_en": "Koihime†Musou",
+      "title_ru": "Несравненная принцесса любви"
+    }
+  },
+  "koneko_no_chi": {
+    "0": {
+      "title_en": "Chi's Sweet Home",
+      "title_ru": "Милый дом Чи"
+    },
+    "1": {
+      "title_en": "Chi's Sweet Home",
+      "title_ru": "Милый дом Чи"
+    }
+  },
+  "konjiki_no_gash_bell": {
+    "0": {
+      "title_en": "Konjiki no Gash Bell",
+      "title_ru": "Златовласый Гаш Белл"
+    },
+    "1": {
+      "title_en": "Konjiki no Gash Bell",
+      "title_ru": "Златовласый Гаш Белл"
+    }
+  },
+  "konosuba": {
+    "0": {
+      "title_en": "KonoSuba",
+      "title_ru": "Этот замечательный мир!"
+    },
+    "1": {
+      "title_en": "KonoSuba",
+      "title_ru": "Этот замечательный мир!"
+    }
+  },
+  "kouichi_mashimo": {
+    "0": {
+      "title_en": "Kouichi Mashimo",
+      "title_ru": "Коити Масимо"
+    },
+    "1": {
+      "title_en": "Kouichi Mashimo",
+      "title_ru": "Коити Масимо"
+    }
+  },
+  "kouji_morimoto": {
+    "0": {
+      "title_en": "Kouji Morimoto",
+      "title_ru": "Кодзи Моримото"
+    },
+    "1": {
+      "title_en": "Kouji Morimoto",
+      "title_ru": "Кодзи Моримото"
+    }
+  },
+  "kunihiko_ikuhara": {
+    "0": {
+      "title_en": "Kunihiko Ikuhara",
+      "title_ru": "Кунихико Икухара"
+    },
+    "1": {
+      "title_en": "Kunihiko Ikuhara",
+      "title_ru": "Кунихико Икухара"
+    }
+  },
+  "kuroko_no_basket": {
+    "0": {
+      "title_en": "Kuroko no Basket",
+      "title_ru": "Баскетбол Куроко"
+    },
+    "1": {
+      "title_en": "Kuroko no Basket",
+      "title_ru": "Баскетбол Куроко"
+    }
+  },
+  "kuroshitsuji": {
+    "0": {
+      "title_en": "Kuroshitsuji",
+      "title_ru": "Тёмный дворецкий"
+    },
+    "1": {
+      "title_en": "Kuroshitsuji",
+      "title_ru": "Тёмный дворецкий"
+    }
+  },
+  "kuudere": {
+    "1": {
+      "title_en": "Silence",
+      "title_ru": "Тишина"
+    },
+    "2": {
+      "title_en": "Wisdom",
+      "title_ru": "Мудрость"
+    },
+    "3": {
+      "title_en": "Coolness",
+      "title_ru": "Хладнокровие"
+    }
+  },
+  "leiji_matsumoto": {
+    "0": {
+      "title_en": "Leiji Matsumoto",
+      "title_ru": "Лэйдзи Мацумото"
+    },
+    "1": {
+      "title_en": "Leiji Matsumoto",
+      "title_ru": "Лэйдзи Мацумото"
+    }
+  },
+  "ling_yu": {
+    "0": {
+      "title_en": "Ling Yu",
+      "title_ru": "Край основателей"
+    },
+    "1": {
+      "title_en": "Ling Yu",
+      "title_ru": "Край основателей"
+    }
+  },
+  "little_busters": {
+    "0": {
+      "title_en": "Little Busters!",
+      "title_ru": "Маленькие проказники!"
+    },
+    "1": {
+      "title_en": "Little Busters!",
+      "title_ru": "Маленькие проказники!"
+    }
+  },
+  "lodoss_tou_senki": {
+    "0": {
+      "title_en": "Lodoss-tou Senki",
+      "title_ru": "Летопись войн острова Лодосс"
+    },
+    "1": {
+      "title_en": "Lodoss-tou Senki",
+      "title_ru": "Летопись войн острова Лодосс"
+    }
+  },
+  "longshounen": {
+    "1": {
+      "title_en": "Marathoner",
+      "title_ru": "Марафонец"
+    },
+    "2": {
+      "title_en": "Colossus Collector",
+      "title_ru": "Собиратель Колоссов"
+    }
+  },
+  "love_live": {
+    "0": {
+      "title_en": "Love Live!",
+      "title_ru": "Живая любовь!"
+    },
+    "1": {
+      "title_en": "Love Live!",
+      "title_ru": "Живая любовь!"
+    }
+  },
+  "lupin_iii": {
+    "0": {
+      "title_en": "Lupin III",
+      "title_ru": "Люпен III"
+    },
+    "1": {
+      "title_en": "Lupin III",
+      "title_ru": "Люпен III"
+    }
+  },
+  "macross": {
+    "0": {
+      "title_en": "Macross",
+      "title_ru": "Макросс"
+    },
+    "1": {
+      "title_en": "Macross",
+      "title_ru": "Макросс"
+    }
+  },
+  "magi": {
+    "0": {
+      "title_en": "Magi",
+      "title_ru": "Маги"
+    },
+    "1": {
+      "title_en": "Magi",
+      "title_ru": "Маги"
+    }
+  },
+  "mahou_shoujo": {
+    "1": {
+      "title_en": "The contract is signed",
+      "title_ru": "Контракт заключён"
+    },
+    "2": {
+      "title_en": "Magic is a Second Name",
+      "title_ru": "Магия — второе имя"
+    },
+    "3": {
+      "title_en": "All enemies defeated",
+      "title_ru": "Все враги побеждены"
+    },
+    "4": {
+      "title_en": "Real magic?",
+      "title_ru": "Настоящее волшебство?"
+    }
+  },
+  "mahou_shoujo_lyrical_nanoha": {
+    "0": {
+      "title_en": "Mahou Shoujo Lyrical Nanoha",
+      "title_ru": "Лиричная волшебница Наноха"
+    },
+    "1": {
+      "title_en": "Mahou Shoujo Lyrical Nanoha",
+      "title_ru": "Лиричная волшебница Наноха"
+    }
+  },
+  "mahouka_koukou_no_rettousei": {
+    "0": {
+      "title_en": "Mahouka Koukou no Rettousei",
+      "title_ru": "Непутёвый ученик в школе магии"
+    },
+    "1": {
+      "title_en": "Mahouka Koukou no Rettousei",
+      "title_ru": "Непутёвый ученик в школе магии"
+    }
+  },
+  "mahoyome": {
+    "0": {
+      "title_en": "Mahoutsukai no Yome",
+      "title_ru": "Невеста чародея"
+    },
+    "1": {
+      "title_en": "Mahoutsukai no Yome",
+      "title_ru": "Невеста чародея"
+    }
+  },
+  "mai_hime": {
+    "0": {
+      "title_en": "Mai-HiME",
+      "title_ru": "Май-Химэ"
+    },
+    "1": {
+      "title_en": "Mai-HiME",
+      "title_ru": "Май-Химэ"
+    }
+  },
+  "major": {
+    "0": {
+      "title_en": "Major",
+      "title_ru": "Мэйджор"
+    },
+    "1": {
+      "title_en": "Major",
+      "title_ru": "Мэйджор"
+    }
+  },
+  "majutsushi_orphen": {
+    "0": {
+      "title_en": "Majutsushi Orphen",
+      "title_ru": "Волшебник-воин Орфен"
+    },
+    "1": {
+      "title_en": "Majutsushi Orphen",
+      "title_ru": "Волшебник-воин Орфен"
+    }
+  },
+  "makoto_shinkai": {
+    "0": {
+      "title_en": "Makoto Shinkai",
+      "title_ru": "Макото Синкай"
+    },
+    "1": {
+      "title_en": "Makoto Shinkai",
+      "title_ru": "Макото Синкай"
+    }
+  },
+  "mamoru_hosoda": {
+    "0": {
+      "title_en": "Mamoru Hosoda",
+      "title_ru": "Мамору Хосода"
+    },
+    "1": {
+      "title_en": "Mamoru Hosoda",
+      "title_ru": "Мамору Хосода"
+    }
+  },
+  "mamoru_oshii": {
+    "0": {
+      "title_en": "Mamoru Oshii",
+      "title_ru": "Мамору Осии"
+    },
+    "1": {
+      "title_en": "Mamoru Oshii",
+      "title_ru": "Мамору Осии"
+    }
+  },
+  "mari_okada": {
+    "0": {
+      "title_en": "Mari Okada",
+      "title_ru": "Мари Окада"
+    },
+    "1": {
+      "title_en": "Mari Okada",
+      "title_ru": "Мари Окада"
+    }
+  },
+  "maria_sama": {
+    "0": {
+      "title_en": "Maria-sama ga Miteru",
+      "title_ru": "Дева Мария смотрит за вами"
+    },
+    "1": {
+      "title_en": "Maria-sama ga Miteru",
+      "title_ru": "Дева Мария смотрит за вами"
+    }
+  },
+  "marvel": {
+    "0": {
+      "title_en": "Marvel",
+      "title_ru": "Марвел"
+    },
+    "1": {
+      "title_en": "Marvel",
+      "title_ru": "Марвел"
+    }
+  },
+  "masaaki_yuasa": {
+    "0": {
+      "title_en": "Masaaki Yuasa",
+      "title_ru": "Масааки Юаса"
+    },
+    "1": {
+      "title_en": "Masaaki Yuasa",
+      "title_ru": "Масааки Юаса"
+    }
+  },
+  "masamune_shirow": {
+    "0": {
+      "title_en": "Masamune Shirow",
+      "title_ru": "Масамунэ Сиро"
+    },
+    "1": {
+      "title_en": "Masamune Shirow",
+      "title_ru": "Масамунэ Сиро"
+    }
+  },
+  "mazinkaiser": {
+    "0": {
+      "title_en": "Mazinkaiser",
+      "title_ru": "Мазинкайзер"
+    },
+    "1": {
+      "title_en": "Mazinkaiser",
+      "title_ru": "Мазинкайзер"
+    }
+  },
+  "mecha": {
+    "1": {
+      "title_en": "Evangelion Unit Pilot",
+      "title_ru": "Пилот Evangelion Unit"
+    },
+    "2": {
+      "title_en": "Hasshin!",
+      "title_ru": "Hasshin!"
+    },
+    "3": {
+      "title_en": "Man of Steel",
+      "title_ru": "Man of Steel"
+    },
+    "4": {
+      "title_en": "Newtype",
+      "title_ru": "Ньютайп"
+    }
+  },
+  "military": {
+    "1": {
+      "title_en": "The Rookie",
+      "title_ru": "Новобранец"
+    },
+    "2": {
+      "title_en": "Sergeant",
+      "title_ru": "Сержант"
+    },
+    "3": {
+      "title_en": "Major",
+      "title_ru": "Майор"
+    },
+    "4": {
+      "title_en": "General",
+      "title_ru": "Генерал"
+    }
+  },
+  "minami_ke": {
+    "0": {
+      "title_en": "Minami-ke",
+      "title_ru": "Сёстры Минами"
+    },
+    "1": {
+      "title_en": "Minami-ke",
+      "title_ru": "Сёстры Минами"
+    }
+  },
+  "mo_dao_zu_shi": {
+    "0": {
+      "title_en": "Mo Dao Zu Shi",
+      "title_ru": "Магистр дьявольского культа"
+    },
+    "1": {
+      "title_en": "Mo Dao Zu Shi",
+      "title_ru": "Магистр дьявольского культа"
+    }
+  },
+  "mob_psycho": {
+    "0": {
+      "title_en": "Mob Psycho 100",
+      "title_ru": "Моб Психо 100"
+    },
+    "1": {
+      "title_en": "Mob Psycho 100",
+      "title_ru": "Моб Психо 100"
+    }
+  },
+  "mobile_police_patlabor": {
+    "0": {
+      "title_en": "Kidou Keisatsu Patlabor",
+      "title_ru": "Полиция будущего"
+    },
+    "1": {
+      "title_en": "Kidou Keisatsu Patlabor",
+      "title_ru": "Полиция будущего"
+    }
+  },
+  "moe": {
+    "1": {
+      "title_en": "Beginning moe-fan",
+      "title_ru": "Начинающий моэфаг"
+    },
+    "2": {
+      "title_en": "Kawaii Rays",
+      "title_ru": "Лучи кавая"
+    },
+    "3": {
+      "title_en": "A first-rate moe",
+      "title_ru": "Первоклассная моэта"
+    }
+  },
+  "morio_asaka": {
+    "0": {
+      "title_en": "Morio Asaka",
+      "title_ru": "Морио Асака"
+    },
+    "1": {
+      "title_en": "Morio Asaka",
+      "title_ru": "Морио Асака"
+    }
+  },
+  "mushishi": {
+    "0": {
+      "title_en": "Mushishi",
+      "title_ru": "Мастер муси"
+    },
+    "1": {
+      "title_en": "Mushishi",
+      "title_ru": "Мастер муси"
+    }
+  },
+  "mushoku_tensei": {
+    "0": {
+      "title_en": "Mushoku Tensei",
+      "title_ru": "Реинкарнация безработного"
+    },
+    "1": {
+      "title_en": "Mushoku Tensei",
+      "title_ru": "Реинкарнация безработного"
+    }
+  },
+  "music": {
+    "1": {
+      "title_en": "Sounds of music",
+      "title_ru": "Звуки музыки"
+    },
+    "2": {
+      "title_en": "Where words are powerless",
+      "title_ru": "Там, где слова бессильны"
+    },
+    "3": {
+      "title_en": "New Tune",
+      "title_ru": "Новая мелодия"
+    },
+    "4": {
+      "title_en": "Playing on the soul's strings",
+      "title_ru": "Играя на струнах души"
+    }
+  },
+  "muumin": {
+    "0": {
+      "title_en": "Tanoshii Muumin Ikka",
+      "title_ru": "Муми-тролли"
+    },
+    "1": {
+      "title_en": "Tanoshii Muumin Ikka",
+      "title_ru": "Муми-тролли"
+    }
+  },
+  "nanatsu_no_taizai": {
+    "0": {
+      "title_en": "Nanatsu no Taizai",
+      "title_ru": "Семь смертных грехов"
+    },
+    "1": {
+      "title_en": "Nanatsu no Taizai",
+      "title_ru": "Семь смертных грехов"
+    }
+  },
+  "naruto": {
+    "0": {
+      "title_en": "Naruto",
+      "title_ru": "Наруто"
+    },
+    "1": {
+      "title_en": "Naruto",
+      "title_ru": "Наруто"
+    }
+  },
+  "natsume_yuujinchou": {
+    "0": {
+      "title_en": "Natsume Yuujinchou",
+      "title_ru": "Тетрадь дружбы Нацумэ"
+    },
+    "1": {
+      "title_en": "Natsume Yuujinchou",
+      "title_ru": "Тетрадь дружбы Нацумэ"
+    }
+  },
+  "negima": {
+    "0": {
+      "title_en": "Mahou Sensei Negima!",
+      "title_ru": "Волшебный учитель Нэгима!"
+    },
+    "1": {
+      "title_en": "Mahou Sensei Negima!",
+      "title_ru": "Волшебный учитель Нэгима!"
+    }
+  },
+  "nisekoi": {
+    "0": {
+      "title_en": "Nisekoi",
+      "title_ru": "Притворная любовь"
+    },
+    "1": {
+      "title_en": "Nisekoi",
+      "title_ru": "Притворная любовь"
+    }
+  },
+  "nodame_cantabile": {
+    "0": {
+      "title_en": "Nodame Cantabile",
+      "title_ru": "Нодамэ Кантабиле"
+    },
+    "1": {
+      "title_en": "Nodame Cantabile",
+      "title_ru": "Нодамэ Кантабиле"
+    }
+  },
+  "non_non_biyori": {
+    "0": {
+      "title_en": "Non Non Biyori",
+      "title_ru": "Деревенская глубинка"
+    },
+    "1": {
+      "title_en": "Non Non Biyori",
+      "title_ru": "Деревенская глубинка"
+    }
+  },
+  "ojamajo_doremi": {
+    "0": {
+      "title_en": "Ojamajo Doremi",
+      "title_ru": "Невезучая ведьма Дореми"
+    },
+    "1": {
+      "title_en": "Ojamajo Doremi",
+      "title_ru": "Невезучая ведьма Дореми"
+    }
+  },
+  "oldfag": {
+    "1": {
+      "title_en": "A connoisseur of classics",
+      "title_ru": "Ценитель классики"
+    },
+    "2": {
+      "title_en": "Golden Collection",
+      "title_ru": "Золотая коллекция"
+    },
+    "3": {
+      "title_en": "The Wind of Nostalgia",
+      "title_ru": "Ветер ностальгии"
+    },
+    "4": {
+      "title_en": "A part of a bygone era",
+      "title_ru": "Часть минувшей эпохи"
+    }
+  },
+  "one_piece": {
+    "0": {
+      "title_en": "One Piece",
+      "title_ru": "Ван-Пис"
+    },
+    "1": {
+      "title_en": "One Piece",
+      "title_ru": "Ван-Пис"
+    }
+  },
+  "one_punch_man": {
+    "0": {
+      "title_en": "One Punch Man",
+      "title_ru": "Ванпанчмен"
+    },
+    "1": {
+      "title_en": "One Punch Man",
+      "title_ru": "Ванпанчмен"
+    }
+  },
+  "oniichan": {
+    "1": {
+      "title_en": "Onii-chan~~",
+      "title_ru": "Братик"
+    }
+  },
+  "ookami_to_koushinryou": {
+    "0": {
+      "title_en": "Ookami to Koushinryou",
+      "title_ru": "Волчица и пряности"
+    },
+    "1": {
+      "title_en": "Ookami to Koushinryou",
+      "title_ru": "Волчица и пряности"
+    }
+  },
+  "ookiku_furikabutte": {
+    "0": {
+      "title_en": "Ookiku Furikabutte",
+      "title_ru": "Замахнись сильнее"
+    },
+    "1": {
+      "title_en": "Ookiku Furikabutte",
+      "title_ru": "Замахнись сильнее"
+    }
+  },
+  "ore_no_imouto": {
+    "0": {
+      "title_en": "OreImo",
+      "title_ru": "Ну не может моя сестрёнка быть такой милой"
+    },
+    "1": {
+      "title_en": "OreImo",
+      "title_ru": "Ну не может моя сестрёнка быть такой милой"
+    }
+  },
+  "osamu_dezaki": {
+    "0": {
+      "title_en": "Osamu Dezaki",
+      "title_ru": "Осаму Дэдзаки"
+    },
+    "1": {
+      "title_en": "Osamu Dezaki",
+      "title_ru": "Осаму Дэдзаки"
+    }
+  },
+  "osamu_tezuka": {
+    "0": {
+      "title_en": "Osamu Tezuka",
+      "title_ru": "Осаму Тэдзука"
+    },
+    "1": {
+      "title_en": "Osamu Tezuka",
+      "title_ru": "Осаму Тэдзука"
+    }
+  },
+  "osomatsu_san": {
+    "0": {
+      "title_en": "Osomatsu",
+      "title_ru": "Осомацу"
+    },
+    "1": {
+      "title_en": "Osomatsu",
+      "title_ru": "Осомацу"
+    }
+  },
+  "otaku": {
+    "1": {
+      "title_en": "Escapism",
+      "title_ru": "Эскапизм"
+    },
+    "2": {
+      "title_en": "Fetishism",
+      "title_ru": "Фетишизм"
+    },
+    "3": {
+      "title_en": "NEET",
+      "title_ru": "NEET"
+    },
+    "4": {
+      "title_en": "Hikikomori",
+      "title_ru": "Хикикомори"
+    }
+  },
+  "overlord": {
+    "0": {
+      "title_en": "Overlord",
+      "title_ru": "Повелитель"
+    },
+    "1": {
+      "title_en": "Overlord",
+      "title_ru": "Повелитель"
+    }
+  },
+  "persona": {
+    "0": {
+      "title_en": "Persona",
+      "title_ru": "Персона"
+    },
+    "1": {
+      "title_en": "Persona",
+      "title_ru": "Персона"
+    }
+  },
+  "pokemon": {
+    "0": {
+      "title_en": "Pokemon",
+      "title_ru": "Покемон"
+    },
+    "1": {
+      "title_en": "Pokemon",
+      "title_ru": "Покемон"
+    }
+  },
+  "pretty_cure": {
+    "0": {
+      "title_en": "Futari wa Precure",
+      "title_ru": "Хорошенькое лекарство"
+    },
+    "1": {
+      "title_en": "Futari wa Precure",
+      "title_ru": "Хорошенькое лекарство"
+    }
+  },
+  "pripara": {
+    "0": {
+      "title_en": "PriPara",
+      "title_ru": "При Пара"
+    },
+    "1": {
+      "title_en": "PriPara",
+      "title_ru": "При Пара"
+    }
+  },
+  "psycho_pass": {
+    "0": {
+      "title_en": "Psycho-Pass",
+      "title_ru": "Психопаспорт"
+    },
+    "1": {
+      "title_en": "Psycho-Pass",
+      "title_ru": "Психопаспорт"
+    }
+  },
+  "puella_magi_sonico_magica": {
+    "0": {
+      "title_en": "Mahou Shoujo Madoka★Magica",
+      "title_ru": "Девочка-волшебница Мадока★Волшебство"
+    },
+    "1": {
+      "title_en": "Mahou Shoujo Madoka★Magica",
+      "title_ru": "Девочка-волшебница Мадока★Волшебство"
+    }
+  },
+  "puso_ni_comi": {
+    "0": {
+      "title_en": "Phantasy Star Online",
+      "title_ru": "Фантастическая Звезда Онлайн"
+    },
+    "1": {
+      "title_en": "Phantasy Star Online",
+      "title_ru": "Фантастическая Звезда Онлайн"
+    }
+  },
+  "quanzhi_fashi": {
+    "0": {
+      "title_en": "Quanzhi Fashi",
+      "title_ru": "Маг на полную ставку"
+    },
+    "1": {
+      "title_en": "Quanzhi Fashi",
+      "title_ru": "Маг на полную ставку"
+    }
+  },
+  "quanzhi_gaoshou": {
+    "0": {
+      "title_en": "Quanzhi Gaoshou",
+      "title_ru": "Аватар короля"
+    },
+    "1": {
+      "title_en": "Quanzhi Gaoshou",
+      "title_ru": "Аватар короля"
+    }
+  },
+  "queen_s_blade": {
+    "0": {
+      "title_en": "Queen's Blade",
+      "title_ru": "Клинок королевы"
+    },
+    "1": {
+      "title_en": "Queen's Blade",
+      "title_ru": "Клинок королевы"
+    }
+  },
+  "ranma": {
+    "0": {
+      "title_en": "Ranma ½",
+      "title_ru": "Ранма ½"
+    },
+    "1": {
+      "title_en": "Ranma ½",
+      "title_ru": "Ранма ½"
+    }
+  },
+  "re_zero": {
+    "0": {
+      "title_en": "Re:Zero kara Hajimeru Isekai Seikatsu",
+      "title_ru": "Re:Zero. Жизнь с нуля в альтернативном мире"
+    },
+    "1": {
+      "title_en": "Re:Zero kara Hajimeru Isekai Seikatsu",
+      "title_ru": "Re:Zero. Жизнь с нуля в альтернативном мире"
+    }
+  },
+  "rintaro": {
+    "0": {
+      "title_en": "Rintaro",
+      "title_ru": "Ринтаро"
+    },
+    "1": {
+      "title_en": "Rintaro",
+      "title_ru": "Ринтаро"
+    }
+  },
+  "romance": {
+    "1": {
+      "title_en": "Stalker",
+      "title_ru": "Сталкер"
+    },
+    "2": {
+      "title_en": "First confession of love",
+      "title_ru": "Первое признание в любви"
+    },
+    "3": {
+      "title_en": "Confetti and Bouquet Period",
+      "title_ru": "Конфетно-букетный период"
+    },
+    "4": {
+      "title_en": "Relationship expert",
+      "title_ru": "Эксперт в отношениях"
+    }
+  },
+  "rozen_maiden": {
+    "0": {
+      "title_en": "Rozen Maiden",
+      "title_ru": "Девы Розена"
+    },
+    "1": {
+      "title_en": "Rozen Maiden",
+      "title_ru": "Девы Розена"
+    }
+  },
+  "rumiko_takahashi": {
+    "0": {
+      "title_en": "Rumiko Takahashi",
+      "title_ru": "Румико Такахаси"
+    },
+    "1": {
+      "title_en": "Rumiko Takahashi",
+      "title_ru": "Румико Такахаси"
+    }
+  },
+  "rurouni_kenshin": {
+    "0": {
+      "title_en": "Rurouni Kenshin",
+      "title_ru": "Бродяга Кэнсин"
+    },
+    "1": {
+      "title_en": "Rurouni Kenshin",
+      "title_ru": "Бродяга Кэнсин"
+    }
+  },
+  "ryousuke_takahashi": {
+    "0": {
+      "title_en": "Ryousuke Takahashi",
+      "title_ru": "Рёсукэ Такахаси"
+    },
+    "1": {
+      "title_en": "Ryousuke Takahashi",
+      "title_ru": "Рёсукэ Такахаси"
+    }
+  },
+  "saber_marionette_j": {
+    "0": {
+      "title_en": "Saber Marionette J",
+      "title_ru": "Воины-марионетки Джей"
+    },
+    "1": {
+      "title_en": "Saber Marionette J",
+      "title_ru": "Воины-марионетки Джей"
+    }
+  },
+  "saiki_kusuo_no_nan": {
+    "0": {
+      "title_en": "Saiki Kusuo no Ψ-nan",
+      "title_ru": "Ох уж этот экстрасенс Сайки Кусуо!"
+    },
+    "1": {
+      "title_en": "Saiki Kusuo no Ψ-nan",
+      "title_ru": "Ох уж этот экстрасенс Сайки Кусуо!"
+    }
+  },
+  "sailor_moon": {
+    "0": {
+      "title_en": "Bishoujo Senshi Sailor Moon",
+      "title_ru": "Красавица-воин Сейлор Мун"
+    },
+    "1": {
+      "title_en": "Bishoujo Senshi Sailor Moon",
+      "title_ru": "Красавица-воин Сейлор Мун"
+    }
+  },
+  "saint_seiya": {
+    "0": {
+      "title_en": "Saint Seiya",
+      "title_ru": "Рыцари Зодиака"
+    },
+    "1": {
+      "title_en": "Saint Seiya",
+      "title_ru": "Рыцари Зодиака"
+    }
+  },
+  "saiyuki": {
+    "0": {
+      "title_en": "Saiyuuki",
+      "title_ru": "Саюки"
+    },
+    "1": {
+      "title_en": "Saiyuuki",
+      "title_ru": "Саюки"
+    }
+  },
+  "saki": {
+    "0": {
+      "title_en": "Saki",
+      "title_ru": "Саки"
+    },
+    "1": {
+      "title_en": "Saki",
+      "title_ru": "Саки"
+    }
+  },
+  "sakura_taisen": {
+    "0": {
+      "title_en": "Sakura Taisen",
+      "title_ru": "Сакура: Война миров"
+    },
+    "1": {
+      "title_en": "Sakura Taisen",
+      "title_ru": "Сакура: Война миров"
+    }
+  },
+  "satoshi_kon": {
+    "0": {
+      "title_en": "Satoshi Kon",
+      "title_ru": "Сатоси Кон"
+    },
+    "1": {
+      "title_en": "Satoshi Kon",
+      "title_ru": "Сатоси Кон"
+    }
+  },
+  "sayonara_zetsubou_sensei": {
+    "0": {
+      "title_en": "Sayonara Zetsubou Sensei",
+      "title_ru": "Прощай, унылый учитель"
+    },
+    "1": {
+      "title_en": "Sayonara Zetsubou Sensei",
+      "title_ru": "Прощай, унылый учитель"
+    }
+  },
+  "school_rumble": {
+    "0": {
+      "title_en": "School Rumble",
+      "title_ru": "Школьный переполох"
+    },
+    "1": {
+      "title_en": "School Rumble",
+      "title_ru": "Школьный переполох"
+    }
+  },
+  "schwarzesmarken": {
+    "0": {
+      "title_en": "Muv-Luv Alternative",
+      "title_ru": "Мув-Лув: Альтернатива"
+    },
+    "1": {
+      "title_en": "Muv-Luv Alternative",
+      "title_ru": "Мув-Лув: Альтернатива"
+    }
+  },
+  "science_adventure": {
+    "0": {
+      "title_en": "Science Adventure",
+      "title_ru": "Научные приключения"
+    },
+    "1": {
+      "title_en": "Science Adventure",
+      "title_ru": "Научные приключения"
+    }
+  },
+  "scifi": {
+    "1": {
+      "title_en": "Once upon a time, in a galaxy far, far away...",
+      "title_ru": "Давным-давно, в далекой-далекой галактике..."
+    },
+    "2": {
+      "title_en": "Inventor",
+      "title_ru": "Изобретатель"
+    },
+    "3": {
+      "title_en": "Mad Scientist",
+      "title_ru": "Безумный ученый"
+    },
+    "4": {
+      "title_en": "Great Intelligence",
+      "title_ru": "Великий Разум"
+    }
+  },
+  "seikai_no_senki": {
+    "0": {
+      "title_en": "Seikai no Monshou",
+      "title_ru": "Звёздный герб"
+    },
+    "1": {
+      "title_en": "Seikai no Monshou",
+      "title_ru": "Звёздный герб"
+    }
+  },
+  "seitokai_yakuindomo": {
+    "0": {
+      "title_en": "Seitokai Yakuindomo",
+      "title_ru": "Члены школьного совета"
+    },
+    "1": {
+      "title_en": "Seitokai Yakuindomo",
+      "title_ru": "Члены школьного совета"
+    }
+  },
+  "selector_spread_wixoss": {
+    "0": {
+      "title_en": "WIXOSS",
+      "title_ru": "WIXOSS"
+    },
+    "1": {
+      "title_en": "WIXOSS",
+      "title_ru": "WIXOSS"
+    }
+  },
+  "sengoku_basara": {
+    "0": {
+      "title_en": "Sengoku Basara",
+      "title_ru": "Эпоха смут"
+    },
+    "1": {
+      "title_en": "Sengoku Basara",
+      "title_ru": "Эпоха смут"
+    }
+  },
+  "senki_zesshou_symphogear": {
+    "0": {
+      "title_en": "Senki Zesshou Symphogear",
+      "title_ru": "Песня боевых принцесс"
+    },
+    "1": {
+      "title_en": "Senki Zesshou Symphogear",
+      "title_ru": "Песня боевых принцесс"
+    }
+  },
+  "shakugan_no_shana": {
+    "0": {
+      "title_en": "Shakugan no Shana",
+      "title_ru": "Пламенный взор Шаны"
+    },
+    "1": {
+      "title_en": "Shakugan no Shana",
+      "title_ru": "Пламенный взор Шаны"
+    }
+  },
+  "shaonian_ge_xing": {
+    "0": {
+      "title_en": "Shaonian Ge Xing",
+      "title_ru": "Ювенильная песня"
+    },
+    "1": {
+      "title_en": "Shaonian Ge Xing",
+      "title_ru": "Ювенильная песня"
+    }
+  },
+  "shingeki_no_bahamut": {
+    "0": {
+      "title_en": "Shingeki no Bahamut",
+      "title_ru": "Ярость Бахамута"
+    },
+    "1": {
+      "title_en": "Shingeki no Bahamut",
+      "title_ru": "Ярость Бахамута"
+    }
+  },
+  "shingeki_no_kyojin": {
+    "0": {
+      "title_en": "Shingeki no Kyojin",
+      "title_ru": "Атака титанов"
+    },
+    "1": {
+      "title_en": "Shingeki no Kyojin",
+      "title_ru": "Атака титанов"
+    }
+  },
+  "shinichiro_watanabe": {
+    "0": {
+      "title_en": "Shinichiro Watanabe",
+      "title_ru": "Синъитиро Ватанабэ"
+    },
+    "1": {
+      "title_en": "Shinichiro Watanabe",
+      "title_ru": "Синъитиро Ватанабэ"
+    }
+  },
+  "shinji_aramaki": {
+    "0": {
+      "title_en": "Shinji Aramaki",
+      "title_ru": "Синдзи Арамаки"
+    },
+    "1": {
+      "title_en": "Shinji Aramaki",
+      "title_ru": "Синдзи Арамаки"
+    }
+  },
+  "shoji_kawamori": {
+    "0": {
+      "title_en": "Shoji Kawamori",
+      "title_ru": "Сёдзи Кавамори"
+    },
+    "1": {
+      "title_en": "Shoji Kawamori",
+      "title_ru": "Сёдзи Кавамори"
+    }
+  },
+  "shokugeki_no_souma": {
+    "0": {
+      "title_en": "Shokugeki no Souma",
+      "title_ru": "Повар-боец Сома"
+    },
+    "1": {
+      "title_en": "Shokugeki no Souma",
+      "title_ru": "Повар-боец Сома"
+    }
+  },
+  "shortie": {
+    "1": {
+      "title_en": "A moment, and you lost it",
+      "title_ru": "Миг, и ты ее потерял"
+    },
+    "2": {
+      "title_en": "Dependence",
+      "title_ru": "Зависимость"
+    },
+    "3": {
+      "title_en": "Block by block",
+      "title_ru": "Блок за блоком"
+    },
+    "4": {
+      "title_en": "The Greatness in Smallness",
+      "title_ru": "Великое в малом"
+    }
+  },
+  "show_by_rock": {
+    "0": {
+      "title_en": "Show By Rock!!",
+      "title_ru": "Рок-шоу!"
+    },
+    "1": {
+      "title_en": "Show By Rock!!",
+      "title_ru": "Рок-шоу!"
+    }
+  },
+  "slam_dunk": {
+    "0": {
+      "title_en": "Slam Dunk",
+      "title_ru": "Слэм-данк"
+    },
+    "1": {
+      "title_en": "Slam Dunk",
+      "title_ru": "Слэм-данк"
+    }
+  },
+  "slayers": {
+    "0": {
+      "title_en": "Slayers",
+      "title_ru": "Рубаки"
+    },
+    "1": {
+      "title_en": "Slayers",
+      "title_ru": "Рубаки"
+    }
+  },
+  "slice_of_life": {
+    "1": {
+      "title_en": "The average Japanese student.",
+      "title_ru": "Обычный японский школьник"
+    },
+    "2": {
+      "title_en": "The little things of life",
+      "title_ru": "Житейские мелочи"
+    },
+    "3": {
+      "title_en": "Zen",
+      "title_ru": "Дзэн"
+    },
+    "4": {
+      "title_en": "Prima undine",
+      "title_ru": "Прима ундина"
+    }
+  },
+  "sonic": {
+    "0": {
+      "title_en": "Sonic",
+      "title_ru": "Соник"
+    },
+    "1": {
+      "title_en": "Sonic",
+      "title_ru": "Соник"
+    }
+  },
+  "sora_no_otoshimono": {
+    "0": {
+      "title_en": "Sora no Otoshimono",
+      "title_ru": "Утраченное небесами"
+    },
+    "1": {
+      "title_en": "Sora no Otoshimono",
+      "title_ru": "Утраченное небесами"
+    }
+  },
+  "soukyuu_no_fafner": {
+    "0": {
+      "title_en": "Soukyuu no Fafner",
+      "title_ru": "Небесный Фафнир"
+    },
+    "1": {
+      "title_en": "Soukyuu no Fafner",
+      "title_ru": "Небесный Фафнир"
+    }
+  },
+  "soul_land": {
+    "0": {
+      "title_en": "Douluo Dalu",
+      "title_ru": "Боевой континент"
+    },
+    "1": {
+      "title_en": "Douluo Dalu",
+      "title_ru": "Боевой континент"
+    }
+  },
+  "sovietanime": {
+    "1": {
+      "title_en": "MIWKA, VODKA, BALALAIKA",
+      "title_ru": "MIWKA, VODKA, BALALAIKA"
+    }
+  },
+  "space": {
+    "1": {
+      "title_en": "3-2-1... Poyekhali!",
+      "title_ru": "3–2–1... Поехали!"
+    },
+    "2": {
+      "title_en": "The earth is tiny from here",
+      "title_ru": "Земля отсюда совсем крошечная"
+    },
+    "3": {
+      "title_en": "Interstellar Wanderer",
+      "title_ru": "Межзвездный скиталец"
+    },
+    "4": {
+      "title_en": "Emperor of the Galaxy",
+      "title_ru": "Император галактики"
+    }
+  },
+  "space_cobra": {
+    "0": {
+      "title_en": "Cobra",
+      "title_ru": "Космические приключения Кобры"
+    },
+    "1": {
+      "title_en": "Cobra",
+      "title_ru": "Космические приключения Кобры"
+    }
+  },
+  "sports": {
+    "1": {
+      "title_en": "First race",
+      "title_ru": "Первый заезд"
+    },
+    "2": {
+      "title_en": "Got into the game",
+      "title_ru": "С головой ушел в игру"
+    },
+    "3": {
+      "title_en": "Welcome to the Major League",
+      "title_ru": "Добро пожаловать в Высшую лигу"
+    },
+    "4": {
+      "title_en": "Olympic champion",
+      "title_ru": "Олимпийский чемпион"
+    }
+  },
+  "starmyu": {
+    "0": {
+      "title_en": "Starmyu",
+      "title_ru": "Музыкальная школа звёзд"
+    },
+    "1": {
+      "title_en": "Starmyu",
+      "title_ru": "Музыкальная школа звёзд"
+    }
+  },
+  "stitch": {
+    "0": {
+      "title_en": "Stitch",
+      "title_ru": "Стич"
+    },
+    "1": {
+      "title_en": "Stitch",
+      "title_ru": "Стич"
+    }
+  },
+  "stop_motion": {
+    "1": {
+      "title_en": "Fine workmanship!",
+      "title_ru": "Тонкая, однако, работа!"
+    }
+  },
+  "street_fighter_ii": {
+    "0": {
+      "title_en": "Street Fighter",
+      "title_ru": "Уличный боец"
+    },
+    "1": {
+      "title_en": "Street Fighter",
+      "title_ru": "Уличный боец"
+    }
+  },
+  "strike_the_blood": {
+    "0": {
+      "title_en": "Strike the Blood",
+      "title_ru": "Удар крови"
+    },
+    "1": {
+      "title_en": "Strike the Blood",
+      "title_ru": "Удар крови"
+    }
+  },
+  "supernatural": {
+    "1": {
+      "title_en": "First encounter with spirits",
+      "title_ru": "Первая встреча с духами"
+    },
+    "2": {
+      "title_en": "Have you found strange powers?",
+      "title_ru": "Обнаружили у себя странные силы?"
+    },
+    "3": {
+      "title_en": "In Search of the Yokai",
+      "title_ru": "В поисках Ёкаев"
+    },
+    "4": {
+      "title_en": "Gone with the Ghosts",
+      "title_ru": "Унесённые призраками"
+    }
+  },
+  "suzumiya_haruhi_no_yuuutsu": {
+    "0": {
+      "title_en": "Suzumiya Haruhi no Yuuutsu",
+      "title_ru": "Меланхолия Харухи Судзумии"
+    },
+    "1": {
+      "title_en": "Suzumiya Haruhi no Yuuutsu",
+      "title_ru": "Меланхолия Харухи Судзумии"
+    }
+  },
+  "swallowed_star": {
+    "0": {
+      "title_en": "Tunshi Xingkong",
+      "title_ru": "Пожиратель звёзд"
+    },
+    "1": {
+      "title_en": "Tunshi Xingkong",
+      "title_ru": "Пожиратель звёзд"
+    }
+  },
+  "sword_art_online": {
+    "0": {
+      "title_en": "Sword Art Online",
+      "title_ru": "Мастера Меча Онлайн"
+    },
+    "1": {
+      "title_en": "Sword Art Online",
+      "title_ru": "Мастера Меча Онлайн"
+    }
+  },
+  "taiho_shichau_zo": {
+    "0": {
+      "title_en": "Taiho Shichau zo",
+      "title_ru": "Вы арестованы!"
+    },
+    "1": {
+      "title_en": "Taiho Shichau zo",
+      "title_ru": "Вы арестованы!"
+    }
+  },
+  "takahiro_oomori": {
+    "0": {
+      "title_en": "Takahiro Oomori",
+      "title_ru": "Такахиро Омори"
+    },
+    "1": {
+      "title_en": "Takahiro Oomori",
+      "title_ru": "Такахиро Омори"
+    }
+  },
+  "tales_of": {
+    "0": {
+      "title_en": "Tales of",
+      "title_ru": "Сказания"
+    },
+    "1": {
+      "title_en": "Tales of",
+      "title_ru": "Сказания"
+    }
+  },
+  "tamayura": {
+    "0": {
+      "title_en": "Tamayura",
+      "title_ru": "Тамаюра"
+    },
+    "1": {
+      "title_en": "Tamayura",
+      "title_ru": "Тамаюра"
+    }
+  },
+  "teekyuu": {
+    "0": {
+      "title_en": "Teekyuu",
+      "title_ru": "Теннис"
+    },
+    "1": {
+      "title_en": "Teekyuu",
+      "title_ru": "Теннис"
+    }
+  },
+  "tenchi_muyou": {
+    "0": {
+      "title_en": "Tenchi Muyou!",
+      "title_ru": "Тэнти — лишний!"
+    },
+    "1": {
+      "title_en": "Tenchi Muyou!",
+      "title_ru": "Тэнти — лишний!"
+    }
+  },
+  "tennis_no_ouji_sama": {
+    "0": {
+      "title_en": "Tennis no Ouji-sama",
+      "title_ru": "Принц тенниса"
+    },
+    "1": {
+      "title_en": "Tennis no Ouji-sama",
+      "title_ru": "Принц тенниса"
+    }
+  },
+  "tensai_okamura": {
+    "0": {
+      "title_en": "Tensai Okamura",
+      "title_ru": "Тэнсай Окамура"
+    },
+    "1": {
+      "title_en": "Tensai Okamura",
+      "title_ru": "Тэнсай Окамура"
+    }
+  },
+  "tensei_shitara_slime_datta_ken": {
+    "0": {
+      "title_en": "Tensei shitara Slime Datta Ken",
+      "title_ru": "О моём перерождении в слизь"
+    },
+    "1": {
+      "title_en": "Tensei shitara Slime Datta Ken",
+      "title_ru": "О моём перерождении в слизь"
+    }
+  },
+  "terra_formars": {
+    "0": {
+      "title_en": "Terra Formars",
+      "title_ru": "Терраформирование"
+    },
+    "1": {
+      "title_en": "Terra Formars",
+      "title_ru": "Терраформирование"
+    }
+  },
+  "tetsurou_araki": {
+    "0": {
+      "title_en": "Tetsurou Araki",
+      "title_ru": "Тэцуро Араки"
+    },
+    "1": {
+      "title_en": "Tetsurou Araki",
+      "title_ru": "Тэцуро Араки"
+    }
+  },
+  "tiger_bunny": {
+    "0": {
+      "title_en": "Tiger & Bunny",
+      "title_ru": "Тигр и кролик"
+    },
+    "1": {
+      "title_en": "Tiger & Bunny",
+      "title_ru": "Тигр и кролик"
+    }
+  },
+  "time_bokan": {
+    "0": {
+      "title_en": "Time Bokan",
+      "title_ru": "Приключения во времени"
+    },
+    "1": {
+      "title_en": "Time Bokan",
+      "title_ru": "Приключения во времени"
+    }
+  },
+  "to_heart": {
+    "0": {
+      "title_en": "To Heart",
+      "title_ru": "Для сердца"
+    },
+    "1": {
+      "title_en": "To Heart",
+      "title_ru": "Для сердца"
+    }
+  },
+  "to_love_ru": {
+    "0": {
+      "title_en": "To LOVE-Ru",
+      "title_ru": "Любовные неприятности"
+    },
+    "1": {
+      "title_en": "To LOVE-Ru",
+      "title_ru": "Любовные неприятности"
+    }
+  },
+  "toaru_majutsu_no_index": {
+    "0": {
+      "title_en": "Toaru Majutsu no Index",
+      "title_ru": "Индекс волшебства"
+    },
+    "1": {
+      "title_en": "Toaru Majutsu no Index",
+      "title_ru": "Индекс волшебства"
+    }
+  },
+  "tokyo_ghoul": {
+    "0": {
+      "title_en": "Tokyo Ghoul",
+      "title_ru": "Токийский гуль"
+    },
+    "1": {
+      "title_en": "Tokyo Ghoul",
+      "title_ru": "Токийский гуль"
+    }
+  },
+  "toriko": {
+    "0": {
+      "title_en": "Toriko",
+      "title_ru": "Торико"
+    },
+    "1": {
+      "title_en": "Toriko",
+      "title_ru": "Торико"
+    }
+  },
+  "toshio_maeda": {
+    "0": {
+      "title_en": "Toshio Maeda",
+      "title_ru": "Тосио Маэда"
+    },
+    "1": {
+      "title_en": "Toshio Maeda",
+      "title_ru": "Тосио Маэда"
+    }
+  },
+  "touch": {
+    "0": {
+      "title_en": "Touch",
+      "title_ru": "Касание"
+    },
+    "1": {
+      "title_en": "Touch",
+      "title_ru": "Касание"
+    }
+  },
+  "touken_ranbu": {
+    "0": {
+      "title_en": "Touken Ranbu",
+      "title_ru": "Танец мечей"
+    },
+    "1": {
+      "title_en": "Touken Ranbu",
+      "title_ru": "Танец мечей"
+    }
+  },
+  "transformers": {
+    "0": {
+      "title_en": "Transformers",
+      "title_ru": "Трансформеры"
+    },
+    "1": {
+      "title_en": "Transformers",
+      "title_ru": "Трансформеры"
+    }
+  },
+  "tsubasa": {
+    "0": {
+      "title_en": "Tsubasa Chronicle",
+      "title_ru": "Хроника крыльев"
+    },
+    "1": {
+      "title_en": "Tsubasa Chronicle",
+      "title_ru": "Хроника крыльев"
+    }
+  },
+  "tsukipro_the_animation": {
+    "0": {
+      "title_en": "Tsukiuta",
+      "title_ru": "Лунная песнь"
+    },
+    "1": {
+      "title_en": "Tsukiuta",
+      "title_ru": "Лунная песнь"
+    }
+  },
+  "tsundere": {
+    "1": {
+      "title_en": "It's not what you think",
+      "title_ru": "Это не то, о чем ты подумал"
+    },
+    "2": {
+      "title_en": "Baka!",
+      "title_ru": "Дурак!"
+    },
+    "3": {
+      "title_en": "I'm not interested in tsundere at all!",
+      "title_ru": "Цундере мне вовсе не интересны!"
+    }
+  },
+  "type_moon": {
+    "0": {
+      "title_en": "Type-Moon",
+      "title_ru": "Type-Moon"
+    },
+    "1": {
+      "title_en": "Type-Moon",
+      "title_ru": "Type-Moon"
+    }
+  },
+  "uchuu_kyoudai": {
+    "0": {
+      "title_en": "Uchuu Kyoudai",
+      "title_ru": "Космические братья"
+    },
+    "1": {
+      "title_en": "Uchuu Kyoudai",
+      "title_ru": "Космические братья"
+    }
+  },
+  "uchuu_senkan_yamato": {
+    "0": {
+      "title_en": "Uchuu Senkan Yamato",
+      "title_ru": "Космический линкор Ямато"
+    },
+    "1": {
+      "title_en": "Uchuu Senkan Yamato",
+      "title_ru": "Космический линкор Ямато"
+    }
+  },
+  "ultraman": {
+    "0": {
+      "title_en": "Ultraman",
+      "title_ru": "Ультрамен"
+    },
+    "1": {
+      "title_en": "Ultraman",
+      "title_ru": "Ультрамен"
+    }
+  },
+  "uma_musume": {
+    "0": {
+      "title_en": "Uma Musume",
+      "title_ru": "Девушки-пони"
+    },
+    "1": {
+      "title_en": "Uma Musume",
+      "title_ru": "Девушки-пони"
+    }
+  },
+  "urusei_yatsura": {
+    "0": {
+      "title_en": "Urusei Yatsura",
+      "title_ru": "Несносные пришельцы"
+    },
+    "1": {
+      "title_en": "Urusei Yatsura",
+      "title_ru": "Несносные пришельцы"
+    }
+  },
+  "ushio_to_tora": {
+    "0": {
+      "title_en": "Ushio to Tora",
+      "title_ru": "Усио и Тора"
+    },
+    "1": {
+      "title_en": "Ushio to Tora",
+      "title_ru": "Усио и Тора"
+    }
+  },
+  "uta_no_prince_sama": {
+    "0": {
+      "title_en": "Uta no☆Prince-sama♪",
+      "title_ru": "Поющий принц"
+    },
+    "1": {
+      "title_en": "Uta no☆Prince-sama♪",
+      "title_ru": "Поющий принц"
+    }
+  },
+  "utawarerumono": {
+    "0": {
+      "title_en": "Utawarerumono",
+      "title_ru": "Прославленный"
+    },
+    "1": {
+      "title_en": "Utawarerumono",
+      "title_ru": "Прославленный"
+    }
+  },
+  "votoms_finder": {
+    "0": {
+      "title_en": "Soukou Kihei Votoms",
+      "title_ru": "Бронированные воины Вотомы"
+    },
+    "1": {
+      "title_en": "Soukou Kihei Votoms",
+      "title_ru": "Бронированные воины Вотомы"
+    }
+  },
+  "wan_jie_xian_zong": {
+    "0": {
+      "title_en": "Wan Jie Xian Zong",
+      "title_ru": "Страна десяти тысяч чудес"
+    },
+    "1": {
+      "title_en": "Wan Jie Xian Zong",
+      "title_ru": "Страна десяти тысяч чудес"
+    }
+  },
+  "when_they_cry": {
+    "0": {
+      "title_en": "Higurashi no Naku Koro ni",
+      "title_ru": "Когда плачут цикады"
+    },
+    "1": {
+      "title_en": "Higurashi no Naku Koro ni",
+      "title_ru": "Когда плачут цикады"
+    }
+  },
+  "working": {
+    "0": {
+      "title_en": "Working!!",
+      "title_ru": "Работа!!"
+    },
+    "1": {
+      "title_en": "Working!!",
+      "title_ru": "Работа!!"
+    }
+  },
+  "world_masterpiece_theater": {
+    "1": {
+      "title_en": "World Masterpiece Theater",
+      "title_ru": "Театр Мировых Шедевров"
+    }
+  },
+  "wu_geng_ji": {
+    "0": {
+      "title_en": "Wu Geng Ji",
+      "title_ru": "Легенды и герои"
+    },
+    "1": {
+      "title_en": "Wu Geng Ji",
+      "title_ru": "Легенды и герои"
+    }
+  },
+  "xi_xing_ji": {
+    "0": {
+      "title_en": "Xi Xing Ji",
+      "title_ru": "Путешествие на Запад"
+    },
+    "1": {
+      "title_en": "Xi Xing Ji",
+      "title_ru": "Путешествие на Запад"
+    }
+  },
+  "xia_lan": {
+    "0": {
+      "title_en": "Hua Jianghu",
+      "title_ru": "Портрет Цзянху"
+    },
+    "1": {
+      "title_en": "Hua Jianghu",
+      "title_ru": "Портрет Цзянху"
+    }
+  },
+  "xian_wang_de_richang_shenghuo": {
+    "0": {
+      "title_en": "Xian Wang de Richang Shenghuo",
+      "title_ru": "Повседневная жизнь бессмертного короля"
+    },
+    "1": {
+      "title_en": "Xian Wang de Richang Shenghuo",
+      "title_ru": "Повседневная жизнь бессмертного короля"
+    }
+  },
+  "xingchen_bian": {
+    "0": {
+      "title_en": "Xingchen Bian",
+      "title_ru": "Дорогой звёзд"
+    },
+    "1": {
+      "title_en": "Xingchen Bian",
+      "title_ru": "Дорогой звёзд"
+    }
+  },
+  "xue_ying_ling_zhu": {
+    "0": {
+      "title_en": "Xue Ying Ling Zhu",
+      "title_ru": "Лорд Сюэ Ин"
+    },
+    "1": {
+      "title_en": "Xue Ying Ling Zhu",
+      "title_ru": "Лорд Сюэ Ин"
+    }
+  },
+  "xxxholic": {
+    "0": {
+      "title_en": "xxxHOLiC",
+      "title_ru": "Триплексоголик"
+    },
+    "1": {
+      "title_en": "xxxHOLiC",
+      "title_ru": "Триплексоголик"
+    }
+  },
+  "yahari_ore_no_seishun_love_comedy_wa_machigatteiru": {
+    "0": {
+      "title_en": "Oregairu",
+      "title_ru": "Как и ожидалось, моя школьная романтическая жизнь не удалась"
+    },
+    "1": {
+      "title_en": "Oregairu",
+      "title_ru": "Как и ожидалось, моя школьная романтическая жизнь не удалась"
+    }
+  },
+  "yama_no_susume": {
+    "0": {
+      "title_en": "Yama no Susume",
+      "title_ru": "Манящие горы"
+    },
+    "1": {
+      "title_en": "Yama no Susume",
+      "title_ru": "Манящие горы"
+    }
+  },
+  "yandere": {
+    "1": {
+      "title_en": "Abyss",
+      "title_ru": "Бездна"
+    },
+    "2": {
+      "title_en": "Hurricane",
+      "title_ru": "Ураган"
+    },
+    "3": {
+      "title_en": "Insanity",
+      "title_ru": "Безумие"
+    }
+  },
+  "yao_shen_ji": {
+    "0": {
+      "title_en": "Yao Shen Ji",
+      "title_ru": "Сказания о демонах и богах"
+    },
+    "1": {
+      "title_en": "Yao Shen Ji",
+      "title_ru": "Сказания о демонах и богах"
+    }
+  },
+  "yasuhiro_takemoto": {
+    "0": {
+      "title_en": "Yasuhiro Takemoto",
+      "title_ru": "Ясухиро Такэмото"
+    },
+    "1": {
+      "title_en": "Yasuhiro Takemoto",
+      "title_ru": "Ясухиро Такэмото"
+    }
+  },
+  "yi_ren_zhi_xia": {
+    "0": {
+      "title_en": "Hitori no Shita: The Outcast",
+      "title_ru": "Один из отвергнутых: Изгой"
+    },
+    "1": {
+      "title_en": "Hitori no Shita: The Outcast",
+      "title_ru": "Один из отвергнутых: Изгой"
+    }
+  },
+  "yoligongju_loopy": {
+    "0": {
+      "title_en": "Porong Porong Pororo",
+      "title_ru": "Пингвинёнок Пороро"
+    },
+    "1": {
+      "title_en": "Porong Porong Pororo",
+      "title_ru": "Пингвинёнок Пороро"
+    }
+  },
+  "yoshiaki_kawajiri": {
+    "0": {
+      "title_en": "Yoshiaki Kawajiri",
+      "title_ru": "Ёсиаки Кавадзири"
+    },
+    "1": {
+      "title_en": "Yoshiaki Kawajiri",
+      "title_ru": "Ёсиаки Кавадзири"
+    }
+  },
+  "yoshitaka_amano": {
+    "0": {
+      "title_en": "Yoshitaka Amano",
+      "title_ru": "Ёситака Амано "
+    },
+    "1": {
+      "title_en": "Yoshitaka Amano",
+      "title_ru": "Ёситака Амано "
+    }
+  },
+  "yoshiyuki_tomino": {
+    "0": {
+      "title_en": "Yoshiyuki Tomino",
+      "title_ru": "Ёсиюки Томино"
+    },
+    "1": {
+      "title_en": "Yoshiyuki Tomino",
+      "title_ru": "Ёсиюки Томино"
+    }
+  },
+  "yowamushi_pedal": {
+    "0": {
+      "title_en": "Yowamushi Pedal",
+      "title_ru": "Трусливый велосипедист"
+    },
+    "1": {
+      "title_en": "Yowamushi Pedal",
+      "title_ru": "Трусливый велосипедист"
+    }
+  },
+  "yozakura_quartet": {
+    "0": {
+      "title_en": "Yozakura Quartet",
+      "title_ru": "Вишнёвый квартет"
+    },
+    "1": {
+      "title_en": "Yozakura Quartet",
+      "title_ru": "Вишнёвый квартет"
+    }
+  },
+  "yu_gi_oh": {
+    "0": {
+      "title_en": "Yu☆Gi☆Oh!",
+      "title_ru": "Югио!"
+    },
+    "1": {
+      "title_en": "Yu☆Gi☆Oh!",
+      "title_ru": "Югио!"
+    }
+  },
+  "yuki_yuna_is_a_hero": {
+    "0": {
+      "title_en": "Yuuki Yuuna wa Yuusha de Aru",
+      "title_ru": "Герой Юки Юна"
+    },
+    "1": {
+      "title_en": "Yuuki Yuuna wa Yuusha de Aru",
+      "title_ru": "Герой Юки Юна"
+    }
+  },
+  "yuru_yuri": {
+    "0": {
+      "title_en": "Yuru Yuri",
+      "title_ru": "Лилии на ветру"
+    },
+    "1": {
+      "title_en": "Yuru Yuri",
+      "title_ru": "Лилии на ветру"
+    }
+  },
+  "yuu_yuu_hakusho": {
+    "0": {
+      "title_en": "Yuu☆Yuu☆Hakusho",
+      "title_ru": "Отчёт о буйстве духов"
+    },
+    "1": {
+      "title_en": "Yuu☆Yuu☆Hakusho",
+      "title_ru": "Отчёт о буйстве духов"
+    }
+  },
+  "ze_tian_ji": {
+    "0": {
+      "title_en": "Ze Tian Ji",
+      "title_ru": "Путь выбора"
+    },
+    "1": {
+      "title_en": "Ze Tian Ji",
+      "title_ru": "Путь выбора"
+    }
+  },
+  "zero_no_tsukaima": {
+    "0": {
+      "title_en": "Zero no Tsukaima",
+      "title_ru": "Подручный Луизы-Нулизы"
+    },
+    "1": {
+      "title_en": "Zero no Tsukaima",
+      "title_ru": "Подручный Луизы-Нулизы"
+    }
+  },
+  "zhen_hun_jie": {
+    "0": {
+      "title_en": "Zhen Hun Jie",
+      "title_ru": "Улица демонов"
+    },
+    "1": {
+      "title_en": "Zhen Hun Jie",
+      "title_ru": "Улица демонов"
+    }
+  }
+}
