@@ -1552,6 +1552,14 @@ runs:
             echo "Using an unreleased version ($METRICS_VERSION)"
             METRICS_IMAGE=metrics:$METRICS_VERSION
           fi
+        # tronicum fork (pre-built image per branch, see .github/workflows/image.yml)
+        elif [[ $METRICS_SOURCE == "tronicum" ]]; then
+          METRICS_IMAGE=ghcr.io/tronicum/metrics:${METRICS_ACTION_REF:-modern}
+          echo "Using tronicum fork, will pull docker image $METRICS_IMAGE"
+          if ! docker image pull $METRICS_IMAGE; then
+            echo "Failed to fetch docker image from GitHub registry, will rebuild it locally"
+            METRICS_IMAGE=metrics:forked-$METRICS_VERSION
+          fi
         # Forked action
         else
           echo "Using a forked version"
@@ -1579,6 +1587,7 @@ runs:
       env:
         METRICS_ACTION: ${{ github.action }}
         METRICS_ACTION_PATH: ${{ github.action_path }}
+        METRICS_ACTION_REF: ${{ github.action_ref }}
         METRICS_USE_PREBUILT_IMAGE: ${{ inputs.use_prebuilt_image }}
         INPUTS: ${{ toJson(inputs) }}
         TZ: ${{ inputs.config_timezone }}

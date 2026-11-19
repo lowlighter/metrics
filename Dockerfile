@@ -1,4 +1,37 @@
-# Upstream's full image build no longer works (outdated Chrome/Ruby/gem toolchain),
-# so reuse the official prebuilt v3.34 image and overlay the patched sources
-FROM ghcr.io/lowlighter/metrics:v3.34
-COPY source /metrics/source
+# Base image
+FROM node:24-trixie-slim
+
+# Environment variables
+ENV PUPPETEER_SKIP_DOWNLOAD=true
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+ENV PUPPETEER_BROWSER_PATH=google-chrome-stable
+
+# Copy repository
+COPY . /metrics
+WORKDIR /metrics
+
+# Setup
+RUN chmod +x /metrics/source/app/action/index.mjs \
+  && apt-get update \
+  # Install latest chrome stable package (signed keyring, apt-key is gone) and fonts to support major charsets
+  && apt-get install -y --no-install-recommends wget gnupg ca-certificates \
+  && wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor -o /usr/share/keyrings/google-chrome.gpg \
+  && echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list \
+  && apt-get update \
+  && apt-get install -y --no-install-recommends google-chrome-stable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst fonts-freefont-ttf libxss1 libx11-xcb1 libxtst6 lsb-release \
+  # Install deno for miscellaneous scripts
+  && apt-get install -y --no-install-recommends curl unzip \
+  && curl -fsSL https://deno.land/install.sh | DENO_INSTALL=/usr/local sh -s -- -y \
+  # Install ruby to support github licensed gem
+  && apt-get install -y --no-install-recommends ruby-full git g++ make cmake pkg-config libssl-dev \
+  && gem install licensed \
+  # Install python for node-gyp
+  && apt-get install -y --no-install-recommends python3 \
+  # Clean apt/lists
+  && rm -rf /var/lib/apt/lists/* \
+  # Install node modules and rebuild indexes
+  && npm ci \
+  && npm run build
+
+# Execute GitHub action
+ENTRYPOINT ["node", "/metrics/source/app/action/index.mjs"]
