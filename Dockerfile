@@ -22,9 +22,8 @@ RUN chmod +x /metrics/source/app/action/index.mjs \
   # Install deno for miscellaneous scripts
   && apt-get install -y --no-install-recommends curl unzip \
   && curl -fsSL https://deno.land/install.sh | DENO_INSTALL=/usr/local sh -s -- -y \
-  # Install ruby to support github licensed gem
-  && apt-get install -y --no-install-recommends ruby-full git g++ make cmake pkg-config libssl-dev \
-  && gem install licensed \
+  # Build tools for native node modules (ruby/licensed dropped: rugged no longer builds, only used by optional licenses plugin)
+  && apt-get install -y --no-install-recommends git g++ make \
   # Install python for node-gyp
   && apt-get install -y --no-install-recommends python3 \
   # Clean apt/lists
